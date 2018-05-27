@@ -15,19 +15,16 @@
             <div v-for="({name, games}, index) in lists" :key="name" class="list" >
                 <div class="list-header">
                     <strong>{{name}}</strong>
-                    {{draggingId}}
-                    <at-button
-                        icon="icon-plus"
-                        @click="addGame(index)"
-                        size="small">
-                        Add Game
+                    <!-- {{draggingId}} -->
+                    <at-button @click="addGame(index)" size="small">
+                        <i class="fas fa-plus" />
                     </at-button>
 
                     <at-button
-                        icon="icon-minus"
                         @click="deleteList(index)"
                         size="small"
                     >
+                        <i class="fas fa-minus" />
                         Delete List
                     </at-button>
                 </div>

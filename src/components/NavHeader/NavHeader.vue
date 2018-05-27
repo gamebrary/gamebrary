@@ -6,8 +6,8 @@
 
         <div class="menu">
             <router-link :to="{ name: 'profile' }"  v-if="auth">
-                <at-button type="primary" hollow circle icon="icon-user">
-                    settings
+                <at-button type="primary" hollow circle>
+                    <i class="fas fa-cog" />
                 </at-button>
             </router-link>
 
@@ -17,7 +17,8 @@
                 </at-button>
             </router-link>
 
-            <at-button type="primary" hollow circle icon="icon-log-in" v-if="auth" @click="logout">
+            <at-button type="primary" hollow v-if="auth" @click="logout">
+                <i class="fas fa-sign-out-alt" />
                 Log out
             </at-button>
 
