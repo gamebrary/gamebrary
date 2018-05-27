@@ -11,7 +11,6 @@
         "test": "npm run unit",
         "lint": "eslint --ext .js,.vue src test/unit",
         "build": "node build/build.js",
-        "postbuild": "mv dist docs",
         "deploy": "node ./node_modules/vue-gh-pages/index.js"
     },
     "dependencies": {
