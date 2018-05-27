@@ -10,7 +10,9 @@
         "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
         "test": "npm run unit",
         "lint": "eslint --ext .js,.vue src test/unit",
-        "build": "node build/build.js"
+        "build": "node build/build.js",
+        "postbuild": "mv dist docs",
+        "deploy": "node ./node_modules/vue-gh-pages/index.js"
     },
     "dependencies": {
         "EventEmitter": "^1.0.0",
@@ -19,7 +21,6 @@
         "axios": "^0.18.0",
         "chart.js": "^2.7.2",
         "eventemitter3": "^3.1.0",
-        "firebase": "^4.13.1",
         "moment": "^2.22.1",
         "node-sass": "^4.8.3",
         "sass-loader": "^7.0.1",
@@ -33,7 +34,6 @@
         "vue-google-signin-button": "^1.0.2",
         "vue-router": "^3.0.1",
         "vuedraggable": "^2.16.0",
-        "vuefire": "^1.4.5",
         "vuex": "^3.0.1",
         "vuex-persist": "^1.2.2"
     },
