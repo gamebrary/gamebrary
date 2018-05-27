@@ -12,7 +12,8 @@
             </router-link>
 
             <router-link :to="{ name: 'login' }"  v-if="!auth">
-                <at-button type="primary" hollow circle icon="icon-log-in">
+                <at-button type="primary" hollow circle>
+                    <i class="fas fa-sign-in-alt" />
                     Login
                 </at-button>
             </router-link>
@@ -23,7 +24,8 @@
             </at-button>
 
             <router-link :to="{ name: 'register' }"  v-if="!auth">
-                <at-button type="primary" hollow circle icon="icon-user-plus">
+                <at-button type="primary" hollow circle>
+                    <i class="fas fa-user-plus" />
                     Register
                 </at-button>
             </router-link>
