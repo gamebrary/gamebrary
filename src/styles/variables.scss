@@ -1,0 +1,47 @@
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+
+$nin-black: #0d0c0c;
+$nin-gray: #a5a2a2;
+$nin-dk-gray: #555555;
+$nin-lt-gray: #e5e5e5;
+$nin-white: #ffffff;
+$nin-red: #dd2020;
+
+$border-radius: 4px;
+
+$gp: 16px;
+
+@mixin container-xs {
+    width: 300px;
+    margin: 100px auto;
+}
+
+@mixin container {
+    width: 1200px;
+    max-width: 100%;
+    margin: 100px auto;
+}
+
+// .at-modal__close {
+//     background: $nin-red;
+//     font-size: 24px;
+//     color: $nin-white;
+//     padding: $gp / 2;
+//     border-bottom-left-radius: $gp;
+//     border-top-right-radius: 4px;
+//     top: 0;
+//     right: 0;
+// }
+//
+// .at-modal {
+//     overflow: hidden;
+// }
+//
+// .at-modal__body {
+//     padding: 0;
+// }
+
+.at-input { margin-bottom: $gp; }
+.page-title { margin-bottom: $gp; }
+.at-alert { margin: $gp 0; }
