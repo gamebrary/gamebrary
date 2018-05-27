@@ -36,8 +36,8 @@
 export default {
     data() {
         return {
-            email: 'romancm@gmail.com',
-            password: 'Motorol4',
+            email: '',
+            password: '',
             error: false,
             loading: false,
         };
