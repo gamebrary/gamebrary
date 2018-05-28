@@ -2,8 +2,20 @@
 <!-- TODO: edit list name -->
 
 <template lang="html">
-    <div class="lists">
-        <empty-state v-if="isEmpty" />
+    <div class="lists" :class="{ empty: isEmpty }">
+        <md-empty-state
+            v-if="isEmpty"
+            md-icon="library_add"
+            md-label="Welcome"
+            md-description="Click the button below to add your first game!"
+        >
+            <md-button
+                class="md-dense md-raised md-accent"
+                @click="addGame(0)"
+            >
+                Add Game
+            </md-button>
+        </md-empty-state>
 
         <draggable
             v-else
@@ -16,9 +28,10 @@
                 <div class="list-header">
                     <strong>{{name}}</strong>
                     <!-- {{draggingId}} -->
-                    <at-button @click="addGame(index)" size="small">
-                        <i class="fas fa-plus" />
-                    </at-button>
+
+                    <md-button @click="addGame(index)" class="md-dense md-icon-button">
+                        <md-icon>add</md-icon>
+                    </md-button>
 
                     <at-button
                         @click="deleteList(index)"
@@ -67,7 +80,6 @@
 <script>
 import GameCard from '@/components/GameCard/GameCard';
 import GameCollection from '@/components/Lists/GameCollection';
-import EmptyState from '@/components/Lists/EmptyState';
 import draggable from 'vuedraggable';
 
 export default {
@@ -75,7 +87,6 @@ export default {
         draggable,
         GameCollection,
         GameCard,
-        EmptyState,
     },
 
     data() {
@@ -175,6 +186,10 @@ export default {
         padding: $gp;
         background: $nin-gray;
         overflow-x: auto;
+
+        &.empty {
+            background: $nin-white;
+        }
     }
 
     .columns {

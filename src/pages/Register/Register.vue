@@ -1,33 +1,35 @@
 <template lang="html">
     <div class="login">
-        <h2 class="page-title">Register</h2>
-
-        <at-alert
-            :message="error.statusText"
-            type="error"
-            v-if="error"
+        <md-dialog-alert
+            :md-active.sync="error"
+            :md-content="error.statusText"
+            md-confirm-text="ok"
         />
 
         <form @submit.prevent="register">
-            <at-input
-                v-model="email"
-                placeholder="Email"
-            />
+            <md-card>
+                <md-card-header>
+                    <div class="md-title">Register</div>
+                </md-card-header>
 
-            <at-input
-                type="password"
-                v-model="password"
-                placeholder="Password"
-            />
+                <md-card-content>
+                    <md-field>
+                        <label>Email</label>
+                        <md-input type="email" v-model="email"></md-input>
+                    </md-field>
 
-            <at-button
-                hollow
-                native-type="submit"
-                :loading="loading"
-                :disabled="loading"
-            >
-                Login
-            </at-button>
+                    <md-field>
+                        <label>Password</label>
+                        <md-input type="password" v-model="password"></md-input>
+                    </md-field>
+                </md-card-content>
+
+                <md-card-actions>
+                    <md-button type="submit" class="md-primary" :disabled="loading">
+                        Create account
+                    </md-button>
+                </md-card-actions>
+            </md-card>
         </form>
     </div>
 </template>

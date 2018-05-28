@@ -1,5 +1,7 @@
 import 'at-ui-style/src/index.scss';
+import 'vue-material/dist/vue-material.min.css';
 import AtComponents from 'at-ui';
+import VueMaterial from 'vue-material';
 import VueDragscroll from 'vue-dragscroll';
 import VueContentPlaceholders from 'vue-content-placeholders';
 import axios from 'axios';
@@ -21,6 +23,7 @@ Object.defineProperties(Vue.prototype, {
     },
 });
 
+Vue.use(VueMaterial);
 Vue.use(VueContentPlaceholders);
 Vue.use(VueDragscroll);
 Vue.use(AtComponents);
