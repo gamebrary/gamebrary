@@ -28,18 +28,26 @@
                 <div class="list-header">
                     <strong>{{name}}</strong>
                     <!-- {{draggingId}} -->
+                    <md-menu>
+                        <md-button class="md-icon-button" md-menu-trigger>
+                            <md-icon>more_vert</md-icon>
+                        </md-button>
 
-                    <md-button @click="addGame(index)" class="md-dense md-icon-button">
-                        <md-icon>add</md-icon>
-                    </md-button>
+                        <md-menu-content>
+                            <md-menu-item>
+                                <md-button class="md-dense md-primary">
+                                    Rename
+                                </md-button>
+                            </md-menu-item>
+                            <md-divider></md-divider>
 
-                    <at-button
-                        @click="deleteList(index)"
-                        size="small"
-                    >
-                        <i class="fas fa-minus" />
-                        Delete List
-                    </at-button>
+                            <md-menu-item>
+                                <md-button class="md-dense md-primary" @click="deleteList(index)">
+                                    Delete List
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
                 </div>
 
                 <draggable
@@ -57,10 +65,34 @@
                         :listId="index"
                     />
                 </draggable>
+
+                <md-button @click="addGame(index)" class="md-icon-button" slot="footer">
+                    <md-icon>add</md-icon>
+                </md-button>
             </div>
 
             <div class="add-list">
-                <form @submit.prevent="addList">
+                <md-dialog-prompt
+                      :md-active.sync="showAddListModal"
+                      v-model="listName"
+                      md-title="Add new list"
+                      md-input-maxlength="30"
+                      md-input-placeholder="Type list name"
+                      md-confirm-text="Add list"
+                      @md-confirm="addList"
+                      @md-cancel="clearList"
+                  />
+
+                  <md-button class="md-icon-button md-raised" @click="showAddListModal = true">
+                      <md-icon>add</md-icon>
+                  </md-button>
+
+                <!-- <form @submit.prevent="addList">
+                    <md-field>
+                      <label>Enter list name</label>
+                      <md-input v-model="listName"></md-input>
+                    </md-field>
+
                     <at-input v-model="listName" placeholder="Please input"></at-input>
                     <at-button
                         type="primary"
@@ -70,7 +102,7 @@
                     >
                         Add list
                     </at-button>
-                </form>
+                </form> -->
             </div>
         </draggable>
 
@@ -96,6 +128,7 @@ export default {
             gameData: null,
             loading: false,
             listName: '',
+            showAddListModal: false,
         };
     },
 
@@ -126,6 +159,10 @@ export default {
     methods: {
         addGame(list) {
             this.$bus.$emit('OPEN_SEARCH_MODAL', list);
+        },
+
+        clearList() {
+            this.listName = '';
         },
 
         deleteList(index) {
@@ -192,6 +229,10 @@ export default {
         }
     }
 
+    .md-button {
+        margin: 0;
+    }
+
     .columns {
         display: flex;
         align-items: flex-start;
@@ -235,12 +276,12 @@ export default {
         height: 100%;
         overflow: hidden;
         min-height: 100px;
-        max-height: calc(100vh - 136px);
+        max-height: calc(100vh - 188px);
         overflow-y: auto;
         overflow-y: overlay;
         column-gap: $gp;
         background: $nin-lt-gray;
-        margin-top: 44px;
+        margin-top: 56px;
         padding: $gp / 2;
         width: 100%;
 
@@ -255,11 +296,14 @@ export default {
 
     .add-list {
         flex-shrink: 0;
-        width: 300px;
         overflow: hidden;
         margin-right: $gp;
         padding-right: $gp;
         max-height: calc(100vh - 92px);
+
+        .md-icon-button {
+            margin: 0;
+        }
 
         form {
             background: $nin-dk-gray;
