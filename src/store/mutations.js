@@ -16,6 +16,10 @@ export default {
         state.user.lists = lists;
     },
 
+    UPDATE_LIST_NAME(state, { listId, newName }) {
+        state.user.lists[listId].name = newName;
+    },
+
     REMOVE_LIST(state, index) {
         state.user.lists.splice(index, 1);
     },

@@ -12,9 +12,20 @@
             :options="{group:{ name:'lists'}}"
             @end="end"
         >
-            <div v-for="({name, games}, index) in lists" :key="name" class="list" >
+            <div v-for="({name, games}, index) in lists" :key="name" class="list">
                 <div class="list-header">
-                    <strong>{{name}}</strong>
+                    <strong
+                        v-show="!editing || editingIndex != index"
+                        @click="startTitleEdit(index)"
+                    >
+                        {{name}}
+                    </strong>
+                    <input
+                        v-if="editing && editingIndex == index"
+                        v-on:blur="endTitleEdit(name, index)"
+                        @keyup.enter="endTitleEdit(name, index)"
+                        :value="name"
+                    >
                     <!-- {{draggingId}} -->
                     <at-button @click="addGame(index)" size="small">
                         <i class="fas fa-plus" />
@@ -82,6 +93,8 @@ export default {
         return {
             dragging: false,
             draggingId: null,
+            editing: false,
+            editingIndex: null,
             gameData: null,
             loading: false,
             listName: '',
@@ -163,6 +176,25 @@ export default {
 
             this.$store.dispatch('LOAD_GAMES', gameList);
         },
+
+        startTitleEdit(index) {
+            this.editing = true;
+            this.editingIndex = index;
+        },
+
+        endTitleEdit(newName, listId) {
+            if (this.editing) {
+                const newListData = {
+                    listId,
+                    newName,
+                };
+                this.editing = false;
+                this.editingIndex = null;
+                this.$store.commit('UPDATE_LIST_NAME', newListData);
+                this.updateLists();
+            }
+        },
+
     },
 };
 </script>
@@ -251,5 +283,9 @@ export default {
             padding: $gp;
             border-radius: $border-radius;
         }
+    }
+
+    input {
+        color: $nin-black;
     }
 </style>
