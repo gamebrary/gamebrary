@@ -35,7 +35,6 @@
                         @keyup.enter="endTitleEdit(index)"
                         v-model="editingListName"
                     >
-                    <!-- {{draggingId}} -->
 
                     <md-menu>
                         <md-button class="md-dense md-icon-button" md-menu-trigger>
@@ -73,7 +72,7 @@
                     class="games"
                     @end="end"
                     @start="start"
-                    :options="{ group: { name:'games' }}"
+                    :options="{ group: { name:'games', put: !games.includes(Number(draggingId))}}"
                 >
                     <game-card
                         v-for="game in games"
