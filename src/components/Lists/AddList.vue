@@ -56,6 +56,7 @@ export default {
 
             this.$store.commit('ADD_LIST', this.newListName);
             this.$emit('update');
+            this.$emit('scroll');
             this.newListName = '';
         },
 
