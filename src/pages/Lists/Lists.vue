@@ -24,9 +24,20 @@
             :options="{group:{ name:'lists'}}"
             @end="end"
         >
-            <div v-for="({name, games}, index) in lists" :key="name" class="list" >
+            <div v-for="({name, games}, index) in lists" :key="name" class="list">
                 <div class="list-header">
-                    <strong>{{name}}</strong>
+                    <strong
+                        v-if="!editing || editingIndex !== index"
+                        @click="startTitleEdit(index, name)"
+                    >
+                        {{name}}
+                    </strong>
+                    <input
+                        v-else
+                        @blur="endTitleEdit(index)"
+                        @keyup.enter="endTitleEdit(index)"
+                        v-model="editingListName"
+                    >
                     <!-- {{draggingId}} -->
                     <md-menu>
                         <md-button class="md-icon-button" md-menu-trigger>
@@ -34,13 +45,6 @@
                         </md-button>
 
                         <md-menu-content>
-                            <md-menu-item>
-                                <md-button class="md-dense md-primary">
-                                    Rename
-                                </md-button>
-                            </md-menu-item>
-                            <md-divider></md-divider>
-
                             <md-menu-item>
                                 <md-button class="md-dense md-primary" @click="deleteList(index)">
                                     Delete List
@@ -125,6 +129,9 @@ export default {
         return {
             dragging: false,
             draggingId: null,
+            editing: false,
+            editingIndex: null,
+            editingListName: '',
             gameData: null,
             loading: false,
             listName: '',
@@ -211,6 +218,24 @@ export default {
 
             this.$store.dispatch('LOAD_GAMES', gameList);
         },
+
+        startTitleEdit(index, listName) {
+            this.editing = true;
+            this.editingIndex = index;
+            this.editingListName = listName;
+        },
+
+        endTitleEdit(listId) {
+            if (this.editing) {
+                const newName = this.editingListName;
+                this.editing = false;
+                this.editingIndex = null;
+                this.editingListName = '';
+                this.$store.commit('UPDATE_LIST_NAME', { listId, newName });
+                this.updateLists();
+            }
+        },
+
     },
 };
 </script>
@@ -310,5 +335,9 @@ export default {
             padding: $gp;
             border-radius: $border-radius;
         }
+    }
+
+    input {
+        color: $nin-black;
     }
 </style>
