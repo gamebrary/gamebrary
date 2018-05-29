@@ -46,13 +46,6 @@
 
                         <md-menu-content>
                             <md-menu-item>
-                                <md-button class="md-dense md-primary">
-                                    Rename
-                                </md-button>
-                            </md-menu-item>
-                            <md-divider></md-divider>
-
-                            <md-menu-item>
                                 <md-button class="md-dense md-primary" @click="deleteList(index)">
                                     Delete List
                                 </md-button>
