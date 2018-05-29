@@ -1,6 +1,3 @@
-<!-- TODO: handle duplicates -->
-<!-- TODO: edit list name -->
-
 <template lang="html">
     <div class="lists" :class="{ empty: isEmpty }">
         <md-empty-state
@@ -97,53 +94,20 @@
                 </draggable>
             </div>
 
-            <div class="add-list">
-                <md-dialog-prompt
-                      :md-active.sync="showAddListModal"
-                      v-model="listName"
-                      md-title="Add new list"
-                      md-input-maxlength="30"
-                      md-input-placeholder="Type list name"
-                      md-confirm-text="Add list"
-                      @md-confirm="addList"
-                      @md-cancel="clearList"
-                  />
-
-                  <md-button class="md-icon-button md-raised" @click="showAddListModal = true">
-                      <md-icon>add</md-icon>
-                  </md-button>
-
-                <!-- <form @submit.prevent="addList">
-                    <md-field>
-                      <label>Enter list name</label>
-                      <md-input v-model="listName"></md-input>
-                    </md-field>
-
-                    <at-input v-model="listName" placeholder="Please input"></at-input>
-                    <at-button
-                        type="primary"
-                        size="small"
-                        native-type="submit"
-                        :disabled="!listName"
-                    >
-                        Add list
-                    </at-button>
-                </form> -->
-            </div>
+            <add-list @update="updateLists" />
         </draggable>
-
     </div>
 </template>
 
 <script>
 import GameCard from '@/components/GameCard/GameCard';
-import GameCollection from '@/components/Lists/GameCollection';
+import AddList from '@/components/Lists/AddList';
 import draggable from 'vuedraggable';
 
 export default {
     components: {
         draggable,
-        GameCollection,
+        AddList,
         GameCard,
     },
 
@@ -156,10 +120,8 @@ export default {
             editingListName: '',
             gameData: null,
             loading: false,
-            listName: '',
             activeList: null,
             showDeleteConfirm: false,
-            showAddListModal: false,
         };
     },
 
@@ -192,10 +154,6 @@ export default {
             this.$bus.$emit('OPEN_SEARCH_MODAL', list);
         },
 
-        clearList() {
-            this.listName = '';
-        },
-
         tryDelete(index) {
             const hasGames = this.lists[index].games.length > 0;
 
@@ -210,12 +168,6 @@ export default {
         deleteList(index) {
             this.$store.commit('REMOVE_LIST', index);
             this.updateLists();
-        },
-
-        addList() {
-            this.$store.commit('ADD_LIST', this.listName);
-            this.updateLists();
-            this.listName = '';
         },
 
         start({ item }) {
@@ -347,14 +299,6 @@ export default {
 
         &:last-child {
             margin-bottom: 0;
-        }
-    }
-
-    .add-list {
-        padding-right: $gp;
-
-        .md-icon-button {
-            margin: 0;
         }
     }
 
