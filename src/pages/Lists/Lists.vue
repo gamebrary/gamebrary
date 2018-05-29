@@ -27,14 +27,14 @@
             <div v-for="({name, games}, index) in lists" :key="name" class="list">
                 <div class="list-header">
                     <strong
-                        v-show="!editing || editingIndex != index"
+                        v-if="!editing || editingIndex !== index"
                         @click="startTitleEdit(index, name)"
                     >
                         {{name}}
                     </strong>
                     <input
-                        v-if="editing && editingIndex == index"
-                        v-on:blur="endTitleEdit(index)"
+                        v-else
+                        @blur="endTitleEdit(index)"
                         @keyup.enter="endTitleEdit(index)"
                         v-model="editingListName"
                     >
