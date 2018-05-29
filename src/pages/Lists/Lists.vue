@@ -28,15 +28,15 @@
                 <div class="list-header">
                     <strong
                         v-show="!editing || editingIndex != index"
-                        @click="startTitleEdit(index)"
+                        @click="startTitleEdit(index, name)"
                     >
                         {{name}}
                     </strong>
                     <input
                         v-if="editing && editingIndex == index"
-                        v-on:blur="endTitleEdit(name, index)"
-                        @keyup.enter="endTitleEdit(name, index)"
-                        :value="name"
+                        v-on:blur="endTitleEdit(index)"
+                        @keyup.enter="endTitleEdit(index)"
+                        v-model="editingListName"
                     >
                     <!-- {{draggingId}} -->
                     <md-menu>
@@ -138,6 +138,7 @@ export default {
             draggingId: null,
             editing: false,
             editingIndex: null,
+            editingListName: '',
             gameData: null,
             loading: false,
             listName: '',
@@ -225,20 +226,19 @@ export default {
             this.$store.dispatch('LOAD_GAMES', gameList);
         },
 
-        startTitleEdit(index) {
+        startTitleEdit(index, listName) {
             this.editing = true;
             this.editingIndex = index;
+            this.editingListName = listName;
         },
 
-        endTitleEdit(newName, listId) {
+        endTitleEdit(listId) {
             if (this.editing) {
-                const newListData = {
-                    listId,
-                    newName,
-                };
+                const newName = this.editingListName;
                 this.editing = false;
                 this.editingIndex = null;
-                this.$store.commit('UPDATE_LIST_NAME', newListData);
+                this.editingListName = '';
+                this.$store.commit('UPDATE_LIST_NAME', { listId, newName });
                 this.updateLists();
             }
         },
