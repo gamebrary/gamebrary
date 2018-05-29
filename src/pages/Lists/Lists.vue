@@ -21,7 +21,7 @@
             v-else
             :list="lists"
             class="columns"
-            :options="{group:{ name:'lists'}}"
+            :options="{ group:{ name:'lists'} }"
             @end="end"
         >
             <div v-for="({name, games}, index) in lists" :key="name" class="list">
@@ -39,19 +39,36 @@
                         v-model="editingListName"
                     >
                     <!-- {{draggingId}} -->
+
                     <md-menu>
-                        <md-button class="md-icon-button" md-menu-trigger>
+                        <md-button class="md-dense md-icon-button" md-menu-trigger>
                             <md-icon>more_vert</md-icon>
                         </md-button>
 
                         <md-menu-content>
                             <md-menu-item>
-                                <md-button class="md-dense md-primary" @click="deleteList(index)">
+                                <md-button class="md-dense md-primary" @click="addGame(index)">
+                                    Add game
+                                </md-button>
+                            </md-menu-item>
+
+                            <md-divider></md-divider>
+
+                            <md-menu-item>
+                                <md-button class="md-dense md-primary" @click="tryDelete(index)">
                                     Delete List
                                 </md-button>
                             </md-menu-item>
                         </md-menu-content>
                     </md-menu>
+
+                    <md-dialog-confirm
+                        :md-active.sync="showDeleteConfirm"
+                        md-title="Are you sure?"
+                        md-content="This lists contains games, all games will be deleted as well."
+                        md-confirm-text="Delete"
+                        @md-confirm="deleteList(activeList)"
+                    />
                 </div>
 
                 <draggable
@@ -68,11 +85,16 @@
                         :game-id="game"
                         :listId="index"
                     />
-                </draggable>
 
-                <md-button @click="addGame(index)" class="md-icon-button" slot="footer">
-                    <md-icon>add</md-icon>
-                </md-button>
+                    <md-empty-state
+                        v-if="!games.length"
+                        md-icon="face"
+                        md-label="List empty"
+                        md-description="Click the button below to add a game to this list"
+                    >
+                        <md-button class="md-raised" @click="addGame(index)">Add game</md-button>
+                    </md-empty-state>
+                </draggable>
             </div>
 
             <div class="add-list">
@@ -135,6 +157,8 @@ export default {
             gameData: null,
             loading: false,
             listName: '',
+            activeList: null,
+            showDeleteConfirm: false,
             showAddListModal: false,
         };
     },
@@ -172,12 +196,18 @@ export default {
             this.listName = '';
         },
 
-        deleteList(index) {
-            if (this.lists.length === 1) {
-                // TODO: Handle deletion of last list
-                return;
-            }
+        tryDelete(index) {
+            const hasGames = this.lists[index].games.length > 0;
 
+            if (hasGames) {
+                this.showDeleteConfirm = true;
+                this.activeList = index;
+            } else {
+                this.deleteList(index);
+            }
+        },
+
+        deleteList(index) {
             this.$store.commit('REMOVE_LIST', index);
             this.updateLists();
         },
@@ -272,16 +302,11 @@ export default {
         overflow: hidden;
         margin-right: $gp;
         max-height: calc(100vh - 92px);
-
-        &:last-of-type {
-            // margin-left: $gp / 3;
-            margin-right: $gp * 2;
-        }
     }
 
     .list-header {
         background: $nin-dk-gray;
-        padding: $gp / 2;
+        padding: $gp / 4 $gp / 4 $gp / 4 $gp;
         display: flex;
         align-items: center;
         position: absolute;
@@ -290,10 +315,8 @@ export default {
         box-shadow: 0 0 5px 5px $nin-lt-gray;
         color: $nin-white;
 
-        .at-btn {
+        .md-button .md-icon {
             color: $nin-white;
-            border-color: $nin-white;
-            background: transparent;
         }
     }
 
@@ -301,12 +324,12 @@ export default {
         height: 100%;
         overflow: hidden;
         min-height: 100px;
-        max-height: calc(100vh - 188px);
+        max-height: calc(100vh - 132px);
         overflow-y: auto;
         overflow-y: overlay;
         column-gap: $gp;
         background: $nin-lt-gray;
-        margin-top: 56px;
+        margin-top: 40px;
         padding: $gp / 2;
         width: 100%;
 
@@ -319,21 +342,19 @@ export default {
         color: $nin-white;
     }
 
+    .md-card {
+        margin-bottom: $gp / 2;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
     .add-list {
-        flex-shrink: 0;
-        overflow: hidden;
-        margin-right: $gp;
         padding-right: $gp;
-        max-height: calc(100vh - 92px);
 
         .md-icon-button {
             margin: 0;
-        }
-
-        form {
-            background: $nin-dk-gray;
-            padding: $gp;
-            border-radius: $border-radius;
         }
     }
 

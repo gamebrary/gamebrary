@@ -1,18 +1,34 @@
 <template lang="html">
-    <div class="game" v-if="gameId && gameData">
-        <img
-            width="80"
-            :src="coverUrl"
-            @click="openGame"
-        />
+    <md-card>
+        <md-card-header>
+            <md-card-media @click.native="openGame">
+                <img
+                    width="80"
+                    :src="coverUrl"
+                />
+            </md-card-media>
 
-        <div>
-            <h2>{{ game.name }}</h2>
+            <md-card-header-text @click="openGame">
+                <h4>{{ game.name }}</h4>
+            </md-card-header-text>
 
-            <at-button v-if="list.games.includes(gameId)" @click="removeGame">Remove</at-button>
-            <at-button v-else @click="addGame">Add</at-button>
-        </div>
-    </div>
+            <md-button
+                v-if="list.games.includes(gameId)"
+                class="md-dense md-icon-button md-primary trash"
+                @click="removeGame"
+            >
+                <md-icon>delete</md-icon>
+            </md-button>
+
+            <md-button
+                v-else
+                class="md-dense md-icon-button md-primary trash"
+                @click="addGame"
+            >
+                <md-icon>add</md-icon>
+            </md-button>
+        </md-card-header>
+    </md-card>
 </template>
 
 <script>
@@ -74,29 +90,32 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/variables.scss";
 
-    .game {
-        color: $nin-black;
-        width: 100%;
-        // height: 80px;
-        // margin: 10px;
-        // overflow: auto;
-        display: grid;
-        grid-template-columns: 100px auto;
-        grid-gap: 10px;
-
-        cursor: grab;
-        background: $nin-white;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-        border-radius: $border-radius;
+    .md-card-media, .md-card-header-text h2 {
+        cursor: pointer;
     }
 
-    h2 {
-        font-size: 14px;
-    }
-
-    .game img {
-        width: 100px;
+    .md-card-header {
         height: auto;
-        margin-bottom: 5px;
+        padding: $gp / 2;
+        margin: 0;
+
+        .trash {
+            position: absolute;
+            bottom: 10px;
+            right: 14px;
+        }
     }
+
+    .md-card-media {
+        height: auto;
+        margin: 0 $gp 0 0;
+    }
+
+    .md-card-header-text {
+        .md-title {
+            margin-top: 0;
+        }
+
+    }
+
 </style>
