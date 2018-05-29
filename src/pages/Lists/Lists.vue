@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="lists" :class="{ empty: isEmpty }">
+    <div class="lists" :class="{ empty: isEmpty }" ref="lists">
         <md-empty-state
             v-if="isEmpty"
             md-icon="library_add"
@@ -93,7 +93,7 @@
                 </draggable>
             </div>
 
-            <add-list @update="updateLists" />
+            <add-list @update="updateLists" @scroll="scroll" />
         </draggable>
     </div>
 </template>
@@ -149,6 +149,13 @@ export default {
     },
 
     methods: {
+        scroll() {
+            this.$nextTick(() => {
+                const lists = this.$refs.lists;
+                lists.scrollLeft = lists.scrollWidth;
+            });
+        },
+
         addGame(list) {
             this.$bus.$emit('OPEN_SEARCH_MODAL', list);
         },
