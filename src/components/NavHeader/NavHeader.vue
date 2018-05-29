@@ -5,30 +5,43 @@
         </router-link>
 
         <div class="menu">
-            <router-link :to="{ name: 'profile' }"  v-if="auth">
-                <at-button type="primary" hollow circle>
-                    <i class="fas fa-cog" />
-                </at-button>
-            </router-link>
+            <template v-if="!auth">
+                <router-link :to="{ name: 'register' }">
+                    <md-button class="md-dense md-raised">Register</md-button>
+                </router-link>
 
-            <router-link :to="{ name: 'login' }"  v-if="!auth">
-                <at-button type="primary" hollow circle>
-                    <i class="fas fa-sign-in-alt" />
-                    Login
-                </at-button>
-            </router-link>
+                <router-link :to="{ name: 'login' }">
+                    <md-button class="md-dense md-raised">Login</md-button>
+                </router-link>
+            </template>
 
-            <at-button type="primary" hollow v-if="auth" @click="logout">
-                <i class="fas fa-sign-out-alt" />
-                Log out
-            </at-button>
+            <template v-else>
+                <md-menu>
+                    <md-button class="md-icon-button" md-menu-trigger>
+                        <md-icon>menu</md-icon>
+                    </md-button>
 
-            <router-link :to="{ name: 'register' }"  v-if="!auth">
-                <at-button type="primary" hollow circle>
-                    <i class="fas fa-user-plus" />
-                    Register
-                </at-button>
-            </router-link>
+                    <md-menu-content>
+                        <md-menu-item>
+                            <router-link :to="{ name: 'profile' }"  v-if="auth">
+                                <md-button class="md-dense md-primary">
+                                    Settings
+                                </md-button>
+                            </router-link>
+                        </md-menu-item>
+                        <md-divider></md-divider>
+
+                        <md-menu-item>
+                            <md-button
+                                class="md-dense md-raised md-accent"
+                                @click="logout"
+                            >
+                                Log out
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+            </template>
         </div>
     </header>
 </template>
@@ -80,15 +93,6 @@ export default {
         height: 30px;
         width: auto;
         flex: 1;
-    }
-
-    .menu {
-    }
-
-    .at-btn {
-        margin-left: $gp;
-        color: $nin-white;
-        border-color: $nin-white;
     }
 </style>
 

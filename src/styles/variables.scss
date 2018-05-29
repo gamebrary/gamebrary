@@ -45,3 +45,12 @@ $gp: 16px;
 .at-input { margin-bottom: $gp; }
 .page-title { margin-bottom: $gp; }
 .at-alert { margin: $gp 0; }
+
+@import "~vue-material/dist/theme/engine"; // Import the theme engine
+
+@include md-register-theme("default", (
+  primary: $nin-gray,
+  accent: $nin-red,
+));
+
+@import "~vue-material/dist/theme/all"; // Apply the theme

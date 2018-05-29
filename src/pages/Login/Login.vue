@@ -1,16 +1,30 @@
 <template lang="html">
     <div class="login">
-        <h2 class="page-title">Login</h2>
-
-        <at-alert :message="error" type="error" v-if="error" />
+        <md-dialog-alert :md-active.sync="error" :md-content="error" md-confirm-text="ok" />
 
         <form @submit.prevent="login">
-            <at-input v-model="email" placeholder="Email" />
-            <at-input type="password" v-model="password" placeholder="Password" />
+            <md-card>
+                <md-card-header>
+                    <div class="md-title">Login</div>
+                </md-card-header>
+                <md-card-content>
+                    <md-field>
+                        <label>Email</label>
+                        <md-input type="email" v-model="email"></md-input>
+                    </md-field>
 
-            <at-button hollow native-type="submit" :loading="loading" :disabled="disabled">
-                Login
-            </at-button>
+                    <md-field>
+                        <label>Password</label>
+                        <md-input type="password" v-model="password"></md-input>
+                    </md-field>
+                </md-card-content>
+
+                <md-card-actions>
+                    <md-button type="submit" class="md-primary" :disabled="disabled">
+                        Login
+                    </md-button>
+                </md-card-actions>
+            </md-card>
         </form>
     </div>
 </template>
@@ -68,5 +82,11 @@ export default {
     .login {
         @include container-xs;
     }
+
+    // .md-content {
+    //     padding: $gp;
+    //     margin-bottom: $gp;
+    //     border-radius: $border-radius;
+    // }
 
 </style>
