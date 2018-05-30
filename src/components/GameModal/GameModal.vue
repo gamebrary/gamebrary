@@ -19,6 +19,7 @@
                                     class="cover"
                                     width="80"
                                 >
+
                                 <span class="md-title">
                                     {{ game.name }}
                                 </span>
