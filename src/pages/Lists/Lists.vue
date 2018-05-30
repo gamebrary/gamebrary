@@ -149,8 +149,6 @@ export default {
         }
 
         this.checkDataAge();
-
-        this.addGame(0);
     },
 
     methods: {

@@ -1,5 +1,5 @@
 <template lang="html">
-    <md-card v-if="gameId">
+    <md-card v-if="gameId && gameData">
         <md-card-header>
             <md-card-media @click.native="openGame">
                 <img
