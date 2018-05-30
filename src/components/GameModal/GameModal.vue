@@ -1,36 +1,65 @@
 <template lang="html">
-    <at-modal v-model="showGameModal" :styles="modalStyles" show-close :show-footer="false">
+    <md-dialog :md-active.sync="showGameModal">
         <div class="game-modal" v-if="game">
-            <div class="hero">
-                <img :src="getImageUrl(game.screenshots[0].cloudinary_id)" alt="">
-            </div>
+            <md-card class="md-card-example">
+                <md-card-media-cover md-text-scrim>
+                    <md-button class="md-icon-button close md-dense" @click="showGameModal = false">
+                      <md-icon>close</md-icon>
+                    </md-button>
+                    <md-card-media md-ratio="16:9">
+                        <img :src="getImageUrl(game.screenshots[0].cloudinary_id)" alt="">
+                    </md-card-media>
 
-            <div class="content">
-                <div class="header">
-                    <img :src="coverUrl(game.cover.cloudinary_id)" alt="" class="cover">
-                    <div class="description">
-                        <span class="title">
-                            {{game.name}}
-                            <at-tag color="success">{{Math.round(game.aggregated_rating)}}</at-tag>
-                        </span>
-                        <p class="summary">{{game.summary}}</p>
-                    </div>
-                </div>
+                    <md-card-area>
+                        <md-card-header>
+                            <div class="md-subhead">
+                                <img
+                                    :src="coverUrl(game.cover.cloudinary_id)"
+                                    :alt="game.name"
+                                    class="cover"
+                                    width="80"
+                                >
+                                <span class="md-title">
+                                    {{ game.name }}
+                                </span>
+                            </div>
+                        </md-card-header>
+                    </md-card-area>
+                </md-card-media-cover>
 
-                <img
-                    :src="getImageUrl(img.cloudinary_id)"
-                    :key="img"
-                    v-for="img in game.screenshots"
-                    class="image"
-                >
-            </div>
-            <img
-              :src="image"
-              :key="image"
-              v-for="image in game.screenshots"
-            >
+                <md-card-content>
+                    <md-tabs md-dynamic-height>
+                        <md-tab md-label="About">
+                            {{game.summary}}
+                        </md-tab>
+
+                        <md-tab
+                            v-if="game.screenshots"
+                            :md-label="`Screenshots (${game.screenshots.length})`"
+                        >
+                            <img
+                                :src="getImageUrl(img.cloudinary_id)"
+                                :key="index"
+                                v-for="(img, index) in game.screenshots"
+                                class="image"
+                            >
+                        </md-tab>
+
+                        <md-tab :md-label="`Videos (${game.videos.length})`" v-if="game.videos">
+                            <iframe
+                                v-for="{ video_id } in game.videos"
+                                :key="video_id"
+                                :src="`https://www.youtube.com/embed/${video_id}?rel=0&autohide=1`"
+                                frameborder="0"
+                                allow="autoplay; encrypted-media"
+                                allowfullscreen
+                            />
+                        </md-tab>
+                    </md-tabs>
+                </md-card-content>
+            </md-card>
         </div>
-    </at-modal>
+    </md-dialog>
 </template>
 
 <script>
@@ -65,6 +94,10 @@ export default {
     },
 
     methods: {
+        getVideoUrl(id) {
+            return `https://www.youtube.com/embed/${id}?rel=0&autohide=1`;
+        },
+
         getImageUrl(cloudinaryId) {
             return `https://images.igdb.com/igdb/image/upload/t_720p/${cloudinaryId}.jpg`;
         },
@@ -79,62 +112,35 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/variables.scss";
 
-    .at-modal {
-        background: #cfc;
-        top: $gp !important;
+    .close {
+        margin: 0;
+        position: absolute;
+        top: $gp / 2;
+        right: $gp / 2;
+
+        .md-icon.md-theme-default {
+            color: $nin-white;
+        }
+    }
+
+    .md-dialog {
+        max-width: 768px;
     }
 
     .game-modal {
-        height: calc(100vh - 100px);
         overflow: auto;
-
     }
 
-    .hero {
-        height: 240px;
-        overflow: hidden;
-        background: $nin-red;
-
-        img {
-            width: 100%;
-        }
+    .md-dialog-container .md-tabs-navigation {
+        padding: 0;
     }
 
-    .content {
-        margin-top: -240px;
-        width: 100%;
-        height: 100%;
+    .md-card-media-cover .md-subhead {
+        bottom: -$gp;
+        position: absolute;
+    }
 
-        .title {
-            font-size: 24px;
-            font-weight: bold;
-
-        }
-
-        .header {
-            display: flex;
-            align-items: flex-start;
-            height: 200px;
-            margin: 140px $gp * 2 $gp * 2;
-
-            .cover {
-                height: 200px;
-                width: auto;
-                display: block;
-                padding: $gp;
-                background: $nin-lt-gray;
-            }
-        }
-
-        .description {
-            padding: $gp;
-            min-height: 100px;
-            margin-top: 100px;
-        }
-
-        img {
-            width: calc(100% / 3);
-            height: auto;
-        }
+    .cover {
+        padding-right: $gp;
     }
 </style>
