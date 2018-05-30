@@ -1,31 +1,27 @@
 <template lang="html">
     <md-dialog :md-active.sync="showGameModal">
         <div class="game-modal" v-if="game">
-            <md-card class="md-card-example">
+            <md-card>
                 <md-card-media-cover md-text-scrim>
                     <md-button class="md-icon-button close md-dense" @click="showGameModal = false">
                       <md-icon>close</md-icon>
                     </md-button>
+
+
+                    <div class="game-title">
+                        <img
+                            :src="coverUrl(game.cover.cloudinary_id)"
+                            :alt="game.name"
+                            class="game-cover"
+                            width="80"
+                        >
+
+                        <h1>{{ game.name }}</h1>
+                    </div>
+
                     <md-card-media md-ratio="16:9">
                         <img :src="getImageUrl(game.screenshots[0].cloudinary_id)" alt="">
                     </md-card-media>
-
-                    <md-card-area>
-                        <md-card-header>
-                            <div class="md-subhead">
-                                <img
-                                    :src="coverUrl(game.cover.cloudinary_id)"
-                                    :alt="game.name"
-                                    class="cover"
-                                    width="80"
-                                >
-
-                                <span class="md-title">
-                                    {{ game.name }}
-                                </span>
-                            </div>
-                        </md-card-header>
-                    </md-card-area>
                 </md-card-media-cover>
 
                 <md-card-content>
@@ -47,14 +43,18 @@
                         </md-tab>
 
                         <md-tab :md-label="`Videos (${game.videos.length})`" v-if="game.videos">
-                            <iframe
+                            <div
+                                class="video"
                                 v-for="{ video_id } in game.videos"
                                 :key="video_id"
-                                :src="`https://www.youtube.com/embed/${video_id}?rel=0&autohide=1`"
-                                frameborder="0"
-                                allow="autoplay; encrypted-media"
-                                allowfullscreen
-                            />
+                            >
+                                <iframe
+                                    :src="`https://www.youtube.com/embed/${video_id}?rel=0&autohide=1`"
+                                    frameborder="0"
+                                    allow="autoplay; encrypted-media"
+                                    allowfullscreen
+                                />
+                            </div>
                         </md-tab>
                     </md-tabs>
                 </md-card-content>
@@ -136,12 +136,39 @@ export default {
         padding: 0;
     }
 
-    .md-card-media-cover .md-subhead {
-        bottom: -$gp;
+    .game-title {
+        display: grid;
+        grid-template-columns: 100px auto;
+        grid-gap: $gp;
         position: absolute;
+        bottom: -$gp;
+        z-index: 99999;
+        width: 100%;
+        align-items: center;
+
+        .game-cover {
+            margin: 0 $gp;
+            border: 5px solid $nin-white;
+            box-shadow: 0 0 5px 0 $nin-gray;
+        }
+
+        h1 {
+            color: $nin-white;
+            text-shadow: 0 0 5px $nin-black;
+        }
     }
 
-    .cover {
-        padding-right: $gp;
+    .video {
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 */
+        padding-top: 25px;
+        height: 0;
+    }
+    .video iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
     }
 </style>
