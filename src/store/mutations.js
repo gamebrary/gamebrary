@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export default {
     SET_SESSION(state, { user, token }) {
         state.token = token;
@@ -18,6 +20,10 @@ export default {
 
     UPDATE_LIST_NAME(state, { listId, newName }) {
         state.user.lists[listId].name = newName;
+    },
+
+    SET_UPDATED_TIMESTAMP(state) {
+        state.dataUpdatedTimestamp = moment().format();
     },
 
     REMOVE_LIST(state, index) {

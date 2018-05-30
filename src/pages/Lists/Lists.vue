@@ -102,6 +102,7 @@
 import GameCard from '@/components/GameCard/GameCard';
 import AddList from '@/components/Lists/AddList';
 import draggable from 'vuedraggable';
+import moment from 'moment';
 
 export default {
     components: {
@@ -146,9 +147,20 @@ export default {
         if (!this.isEmpty) {
             this.loadGameData();
         }
+
+        this.checkDataAge();
     },
 
     methods: {
+        checkDataAge() {
+            const lastUpdated = this.$store.state.dataUpdatedTimestamp;
+            const diff = moment.duration(moment().diff(lastUpdated));
+
+            if (diff.asMinutes() > 15) {
+                this.$store.dispatch('LOAD_LISTS');
+            }
+        },
+
         scroll() {
             this.$nextTick(() => {
                 const lists = this.$refs.lists;
