@@ -19,12 +19,13 @@ export default {
             axios.post(`${ENDPOINT}/auth/login`, payload)
                 .then(({ data }) => {
                     commit('SET_SESSION', data);
+                    commit('SET_UPDATED_TIMESTAMP');
                     resolve(data);
                 }).catch(reject);
         });
     },
 
-    UPDATE_LISTS({ state: { user, token } }) {
+    UPDATE_LISTS({ commit, state: { user, token } }) {
         return new Promise((resolve, reject) => {
             const options = { headers: { token } };
 
@@ -34,6 +35,20 @@ export default {
 
             axios.put(`${ENDPOINT}/lists`, payload, options)
                 .then(() => {
+                    commit('SET_UPDATED_TIMESTAMP');
+                    resolve();
+                }).catch(reject);
+        });
+    },
+
+    LOAD_LISTS({ commit, state: { token } }) {
+        return new Promise((resolve, reject) => {
+            const options = { headers: { token } };
+
+            axios.get(`${ENDPOINT}/lists`, options)
+                .then(({ data: { lists } }) => {
+                    commit('UPDATE_LIST', lists);
+                    commit('SET_UPDATED_TIMESTAMP');
                     resolve();
                 }).catch(reject);
         });
