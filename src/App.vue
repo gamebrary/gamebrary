@@ -30,8 +30,4 @@ export default {
     body {
         font-family: 'Roboto', sans-serif;
     }
-
-    .at-loading-bar__inner {
-        background-color: $nin-white !important;
-    }
 </style>

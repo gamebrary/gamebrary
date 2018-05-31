@@ -15,8 +15,6 @@
     },
     "dependencies": {
         "EventEmitter": "^1.0.0",
-        "at-ui": "^1.3.3",
-        "at-ui-style": "^1.5.1",
         "axios": "^0.18.0",
         "chart.js": "^2.7.2",
         "eventemitter3": "^3.1.0",

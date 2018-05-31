@@ -1,18 +1,13 @@
 <template lang="html">
-    <at-modal
-        v-model="show"
-        show-close
-        :show-footer="false"
-        title="Add games"
-        :styles="styles"
-        v-if="auth"
-    >
-        <form @submit.prevent="search">
-            <at-input v-model="searchText" placeholder="Type here" append-button size="large">
-                <template slot="append">
-                    <i class="icon icon-search" />
-                </template>
-            </at-input>
+    <md-dialog :md-active.sync="show" class="game-modal">
+        <h1>Add game</h1>
+
+        <form @submit.prevent="search" class="search-form">
+            <md-field>
+                <md-icon>search</md-icon>
+                <label>Type here</label>
+                <md-input v-model="searchText"></md-input>
+            </md-field>
         </form>
 
         <div class="game-card-placeholder" v-if="loading">
@@ -27,7 +22,8 @@
                 :listId="listId"
             />
         </div>
-    </at-modal>
+    </md-dialog>
+
 </template>
 
 <script>
@@ -98,19 +94,31 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/variables.scss";
 
-    .results {
-        display: grid;
-        grid-template-columns: repeat(5, auto);
-        grid-gap: 16px;
+    .game-modal {
+        padding: $gp;
     }
 
-    .game-card-placeholder {
-        display: grid;
-        grid-template-columns: auto auto auto;
-        grid-gap: 16px;
+    .results {
+        overflow: auto;
+    }
 
-        .vue-content-placeholders-img {
-            margin-top: 0;
+    .results, .game-card-placeholder {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: $gp;
+
+        @media($medium) {
+            grid-template-columns: repeat(3, 1fr);
         }
+
+        @media($small) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    .vue-content-placeholders-img {
+        width: 180px;
+        height: 120px;
+        margin-top: 0;
     }
 </style>
