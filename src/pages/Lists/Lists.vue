@@ -60,9 +60,9 @@
                                     </md-button>
                                 </md-menu-item>
 
-                                <md-divider></md-divider>
+                                <md-divider v-if="lists.length > 1" />
 
-                                <md-menu-item>
+                                <md-menu-item v-if="lists.length > 1">
                                     <md-button
                                         class="md-dense md-primary"
                                         @click="tryDelete(index)"
