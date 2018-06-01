@@ -21,6 +21,7 @@
         "moment": "^2.22.1",
         "node-sass": "^4.8.3",
         "sass-loader": "^7.0.1",
+        "sw-precache-webpack-plugin": "^0.11.5",
         "vue": "^2.5.2",
         "vue-axios": "^2.1.1",
         "vue-chartjs": "^3.3.1",
