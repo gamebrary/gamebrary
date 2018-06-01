@@ -18,7 +18,10 @@
             v-else
             :list="lists"
             class="columns"
-            :options="{ group:{ name:'lists'} }"
+            :options="{
+                handle: isTouchDevice ? '.list-drag-handle' : null,
+                group:{ name:'lists'}
+            }"
             @end="end"
         >
             <div v-for="({name, games}, index) in lists" :key="name" class="list">
@@ -29,34 +32,47 @@
                     >
                         {{name}}
                     </strong>
+
                     <input
                         v-else
+                        v-model="editingListName"
                         @blur="endTitleEdit(index)"
                         @keyup.enter="endTitleEdit(index)"
-                        v-model="editingListName"
                     >
 
-                    <md-menu>
-                        <md-button class="md-dense md-icon-button" md-menu-trigger>
-                            <md-icon>more_vert</md-icon>
+                    <div class="list-actions">
+                        <md-button
+                            v-if="isTouchDevice"
+                            class="md-dense md-icon-button list-drag-handle"
+                        >
+                            <md-icon>reorder</md-icon>
                         </md-button>
 
-                        <md-menu-content>
-                            <md-menu-item>
-                                <md-button class="md-dense md-primary" @click="addGame(index)">
-                                    Add game
-                                </md-button>
-                            </md-menu-item>
+                        <md-menu>
+                            <md-button class="md-dense md-icon-button" md-menu-trigger>
+                                <md-icon>more_vert</md-icon>
+                            </md-button>
 
-                            <md-divider></md-divider>
+                            <md-menu-content>
+                                <md-menu-item>
+                                    <md-button class="md-dense md-primary" @click="addGame(index)">
+                                        Add game
+                                    </md-button>
+                                </md-menu-item>
 
-                            <md-menu-item>
-                                <md-button class="md-dense md-primary" @click="tryDelete(index)">
-                                    Delete List
-                                </md-button>
-                            </md-menu-item>
-                        </md-menu-content>
-                    </md-menu>
+                                <md-divider></md-divider>
+
+                                <md-menu-item>
+                                    <md-button
+                                        class="md-dense md-primary"
+                                        @click="tryDelete(index)"
+                                    >
+                                        Delete List
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+                    </div>
 
                     <md-dialog-confirm
                         :md-active.sync="showDeleteConfirm"
@@ -70,9 +86,16 @@
                 <draggable
                     :list="games"
                     class="games"
+                    :id="index"
                     @end="end"
                     @start="start"
-                    :options="{ group: { name:'games', put: !games.includes(Number(draggingId))}}"
+                    :move="validateMove"
+                    :options="{
+                        handle: isTouchDevice ? '.game-drag-handle' : null,
+                        group: {
+                            name:'games',
+                        }
+                    }"
                 >
                     <game-card
                         v-for="game in games"
@@ -141,6 +164,10 @@ export default {
         isEmpty() {
             return !this.lists.filter(list => list.games.length).length;
         },
+
+        isTouchDevice() {
+            return (typeof window.orientation !== 'undefined') || (navigator.userAgent.indexOf('IEMobile') !== -1);
+        },
     },
 
     mounted() {
@@ -149,11 +176,16 @@ export default {
         }
 
         this.checkDataAge();
-
-        this.addGame(0);
     },
 
     methods: {
+        validateMove({ from, to }) {
+            const isDifferentList = from.id !== to.id;
+            const isDuplicate = this.lists[to.id].games.includes(Number(this.draggingId));
+            const validMove = isDifferentList && isDuplicate;
+            return !validMove;
+        },
+
         checkDataAge() {
             const lastUpdated = this.$store.state.dataUpdatedTimestamp;
             const diff = moment.duration(moment().diff(lastUpdated));

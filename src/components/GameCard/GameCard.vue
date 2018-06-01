@@ -13,6 +13,13 @@
             </md-card-header-text>
 
             <md-button
+                v-if="isTouchDevice"
+                class="md-dense md-icon-button md-primary game-drag-handle"
+            >
+                <md-icon>reorder</md-icon>
+            </md-button>
+
+            <md-button
                 v-if="list.games.includes(gameId)"
                 class="md-dense md-icon-button md-primary trash"
                 @click="removeGame"
@@ -52,10 +59,14 @@ export default {
         },
 
         coverUrl() {
-            const url = 'https://images.igdb.com/igdb/image/upload/t_720p/';
+            const url = 'https://images.igdb.com/igdb/image/upload/t_cover_small/';
             return this.gameData && this.gameData[this.gameId].cover
                 ? `${url}${this.gameData[this.gameId].cover.cloudinary_id}.jpg`
                 : null;
+        },
+
+        isTouchDevice() {
+            return (typeof window.orientation !== 'undefined') || (navigator.userAgent.indexOf('IEMobile') !== -1);
         },
     },
 
@@ -103,6 +114,12 @@ export default {
             position: absolute;
             bottom: 10px;
             right: 14px;
+        }
+
+        .game-drag-handle {
+            position: absolute;
+            top: 10px;
+            right: 8px;
         }
     }
 
