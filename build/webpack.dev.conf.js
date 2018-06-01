@@ -1,4 +1,5 @@
 'use strict'
+const fs = require('fs')
 const utils = require('./utils')
 const webpack = require('webpack')
 const config = require('../config')
