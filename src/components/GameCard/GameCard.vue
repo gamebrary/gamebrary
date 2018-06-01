@@ -129,10 +129,7 @@ export default {
     }
 
     .md-card-header-text {
-        .md-title {
-            margin-top: 0;
-        }
-
+        margin-right: $gp * 2;
     }
 
 </style>
