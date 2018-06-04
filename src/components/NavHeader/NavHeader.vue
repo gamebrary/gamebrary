@@ -66,7 +66,7 @@ export default {
         },
 
         nightMode() {
-            return this.$store.state.user.settings.nightMode;
+            return this.user ? this.$store.state.user.settings.nightMode : false;
         },
     },
 
