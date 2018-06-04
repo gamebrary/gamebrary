@@ -1,5 +1,5 @@
 <template lang="html">
-    <md-card v-if="gameId && gameData">
+    <md-card v-if="gameId && gameData" :class="{ nightMode }">
         <md-card-header>
             <md-card-media @click.native="openGame">
                 <img
@@ -9,7 +9,11 @@
             </md-card-media>
 
             <md-card-header-text @click="openGame">
-                <h4>{{ game.name }}</h4>
+                <h4 class="game-title">{{ game.name }}</h4>
+
+                <div v-if="showGameRating" class="game-rating">
+                    {{ parseInt(game.aggregated_rating) }}
+                </div>
             </md-card-header-text>
 
             <md-button
@@ -50,6 +54,10 @@ export default {
             return this.$store.state.user.lists[this.listId];
         },
 
+        settings() {
+            return this.$store.state.user.settings;
+        },
+
         game() {
             return this.gameData[this.gameId];
         },
@@ -67,6 +75,14 @@ export default {
 
         isTouchDevice() {
             return (typeof window.orientation !== 'undefined') || (navigator.userAgent.indexOf('IEMobile') !== -1);
+        },
+
+        nightMode() {
+            return this.$store.state.user.settings.nightMode;
+        },
+
+        showGameRating() {
+            return this.settings.showGameRatings && Boolean(parseInt(this.game.aggregated_rating));
         },
     },
 
@@ -130,6 +146,29 @@ export default {
 
     .md-card-header-text {
         margin-right: $gp * 2;
+
+        .game-title {
+            margin: 0;
+        }
+    }
+
+    .game-rating {
+        padding: 4px 6px;
+        border-radius: 2px;
+        font-size: 11px;
+        line-height: 11px;
+        background: $zelda-green;
+        color: $nin-white;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .nightMode {
+        background: $nin-dk-gray;
+
+        h4 {
+            color: $nin-gray;
+        }
     }
 
 </style>

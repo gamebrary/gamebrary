@@ -19,7 +19,7 @@
         />
 
         <md-button
-            class="md-icon-button md-raised"
+            :class="['md-icon-button md-raised', { nightMode }]"
             @click="showAddListModal = true"
         >
             <md-icon>add</md-icon>
@@ -44,6 +44,10 @@ export default {
 
         lists() {
             return this.$store.state.user.lists;
+        },
+
+        nightMode() {
+            return this.$store.state.user.settings.nightMode;
         },
     },
 
@@ -81,5 +85,9 @@ export default {
         .md-icon-button {
             margin: 0;
         }
+    }
+
+    .nightMode {
+        background: $nin-gray !important;
     }
 </style>

@@ -1,5 +1,5 @@
 <template lang="html">
-    <header>
+    <header :class="{ nightMode }">
         <router-link :to="{ name: 'home' }">
             <img src="@/assets/logo.png" class="logo">
         </router-link>
@@ -64,6 +64,10 @@ export default {
         user() {
             return this.$store.state.user;
         },
+
+        nightMode() {
+            return this.$store.state.user.settings.nightMode;
+        },
     },
 
     methods: {
@@ -93,6 +97,18 @@ export default {
         height: 30px;
         width: auto;
         flex: 1;
+    }
+
+    .nightMode {
+        background: $nin-black;
+
+        .logo {
+            opacity: 0.3;
+        }
+
+        .md-button {
+            background: $nin-dk-gray !important;
+        }
     }
 </style>
 

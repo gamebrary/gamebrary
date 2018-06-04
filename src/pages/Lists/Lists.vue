@@ -1,5 +1,10 @@
 <template lang="html">
-    <div class="lists" :class="{ empty: isEmpty }" ref="lists">
+    <div
+        class="lists"
+        ref="lists"
+        :class="{ empty: isEmpty, nightMode }"
+        :style="{ background: settings.backgroundColor }"
+    >
         <md-empty-state
             v-if="isEmpty"
             md-icon="library_add"
@@ -24,7 +29,11 @@
             }"
             @end="end"
         >
-            <div v-for="({name, games}, index) in lists" :key="name" class="list">
+            <div
+                v-for="({name, games}, index) in lists"
+                :key="name"
+                class="list"
+            >
                 <div class="list-header">
                     <strong
                         v-if="!editing || editingIndex !== index"
@@ -157,6 +166,10 @@ export default {
             return this.$store.state.user;
         },
 
+        settings() {
+            return this.$store.state.user.settings;
+        },
+
         cacheData() {
             return this.$store.state.games;
         },
@@ -167,6 +180,10 @@ export default {
 
         isTouchDevice() {
             return (typeof window.orientation !== 'undefined') || (navigator.userAgent.indexOf('IEMobile') !== -1);
+        },
+
+        nightMode() {
+            return this.$store.state.user.settings.nightMode;
         },
     },
 
@@ -356,5 +373,17 @@ export default {
 
     input {
         color: $nin-black;
+    }
+
+    .nightMode {
+        background: #333 !important;
+
+        .games {
+            background: $nin-dk-gray;
+        }
+
+        .list-header {
+            box-shadow: 0 0 5px 5px $nin-dk-gray;
+        }
     }
 </style>

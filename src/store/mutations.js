@@ -26,6 +26,10 @@ export default {
         state.dataUpdatedTimestamp = moment().format();
     },
 
+    SET_SETTINGS(state, settings) {
+        state.user.settings = settings;
+    },
+
     REMOVE_LIST(state, index) {
         state.user.lists.splice(index, 1);
     },

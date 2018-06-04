@@ -25,6 +25,18 @@ export default {
         });
     },
 
+    UPDATE_SETTINGS({ commit, state: { token } }, payload) {
+        return new Promise((resolve, reject) => {
+            const options = { headers: { token } };
+
+            axios.put(`${ENDPOINT}/settings`, payload, options)
+                .then(({ data: { settings } }) => {
+                    commit('SET_SETTINGS', settings);
+                    resolve();
+                }).catch(reject);
+        });
+    },
+
     UPDATE_LISTS({ commit, state: { user, token } }) {
         return new Promise((resolve, reject) => {
             const options = { headers: { token } };
