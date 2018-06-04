@@ -82,7 +82,7 @@ export default {
         },
 
         showGameRating() {
-            return this.settings.showGameRatings && Boolean(parseInt(this.game.aggregated_rating));
+            return this.settings.showGameRatings && Boolean(Number(this.game.aggregated_rating));
         },
     },
 
