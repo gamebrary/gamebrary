@@ -31,6 +31,13 @@ $gp: 16px;
     margin: 100px auto;
 }
 
+@mixin floating-close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: $gp / 2;
+}
+
 // Misc
 .page-title { margin-bottom: $gp; }
 
