@@ -1,5 +1,9 @@
 <template lang="html">
     <md-dialog :md-active.sync="show" class="game-modal">
+        <md-button class="md-icon-button close md-dense" @click="show = false">
+            <md-icon>close</md-icon>
+        </md-button>
+
         <h1>Add game</h1>
 
         <form @submit.prevent="search" class="search-form">
@@ -120,5 +124,9 @@ export default {
         width: 180px;
         height: 120px;
         margin-top: 0;
+    }
+
+    .close {
+        @include floating-close-button;
     }
 </style>

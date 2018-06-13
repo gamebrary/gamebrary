@@ -114,10 +114,7 @@ export default {
     @import "~styles/variables.scss";
 
     .close {
-        margin: 0;
-        position: absolute;
-        top: $gp / 2;
-        right: $gp / 2;
+        @include floating-close-button;
 
         .md-icon.md-theme-default {
             color: $nin-white;
