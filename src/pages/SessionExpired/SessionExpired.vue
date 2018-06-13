@@ -7,7 +7,7 @@
 <script>
 export default {
     mounted() {
-        // Handle session expired
+        this.$store.commit('CLEAR_SESSION');
     },
 };
 </script>
