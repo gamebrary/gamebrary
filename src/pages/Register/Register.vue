@@ -1,10 +1,8 @@
 <template lang="html">
     <div class="login">
-        <md-dialog-alert
-            :md-active.sync="error"
-            :md-content="error.statusText"
-            md-confirm-text="ok"
-        />
+        <md-snackbar :md-active.sync="error">
+            <span>There was an error creating the account</span>
+        </md-snackbar>
 
         <form @submit.prevent="register">
             <md-card>
@@ -15,20 +13,22 @@
                 <md-card-content>
                     <md-field>
                         <label>Email</label>
-                        <md-input type="email" v-model="email"></md-input>
+                        <md-input type="email" v-model="formModel.email" />
                     </md-field>
 
                     <md-field>
                         <label>Password</label>
-                        <md-input type="password" v-model="password"></md-input>
+                        <md-input type="password" v-model="formModel.password" />
                     </md-field>
                 </md-card-content>
 
-                <md-card-actions>
-                    <md-button type="submit" class="md-primary" :disabled="loading">
-                        Create account
-                    </md-button>
-                </md-card-actions>
+                <md-bottom-bar class="md-accent">
+                    <md-bottom-bar-item />
+
+                    <md-bottom-bar-item md-label="Save" md-icon="save_alt" @click="register">
+                        Create Account
+                    </md-bottom-bar-item>
+                </md-bottom-bar>
             </md-card>
         </form>
     </div>
@@ -38,8 +38,10 @@
 export default {
     data() {
         return {
-            email: '',
-            password: '',
+            formModel: {
+                email: '',
+                password: '',
+            },
             error: false,
             loading: false,
         };
@@ -53,18 +55,13 @@ export default {
 
     methods: {
         register() {
-            const payload = {
-                email: this.email,
-                password: this.password,
-            };
-
-            this.$store.dispatch('REGISTER', payload)
+            this.$store.dispatch('REGISTER', this.formModel)
                 .then(() => {
                     this.error = false;
                     this.$router.push({ name: 'home' });
                 })
-                .catch((error) => {
-                    this.error = error;
+                .catch(() => {
+                    this.error = true;
                 });
         },
     },
