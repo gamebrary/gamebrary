@@ -15,6 +15,13 @@ export default new Router({
             path: '/',
             name: 'home',
             component: Home,
+            children: [
+                {
+                    name: 'game',
+                    path: '/game/:id',
+                    component: Home,
+                },
+            ],
         },
         {
             path: '/session-expired',
@@ -24,14 +31,6 @@ export default new Router({
         {
             path: '/settings',
             name: 'settings',
-            component: Settings,
-            meta: {
-                requiresAuth: true,
-            },
-        },
-        {
-            path: '/profile',
-            name: 'profile',
             component: Settings,
             meta: {
                 requiresAuth: true,
