@@ -2,7 +2,6 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/pages/Home/Home';
 import SessionExpired from '@/pages/SessionExpired/SessionExpired';
-import Settings from '@/pages/Settings/Settings';
 import Login from '@/pages/Login/Login';
 import Register from '@/pages/Register/Register';
 
@@ -27,14 +26,6 @@ export default new Router({
             path: '/session-expired',
             name: 'sessionExpired',
             component: SessionExpired,
-        },
-        {
-            path: '/settings',
-            name: 'settings',
-            component: Settings,
-            meta: {
-                requiresAuth: true,
-            },
         },
         {
             path: '/login',
