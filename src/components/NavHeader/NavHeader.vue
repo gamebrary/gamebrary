@@ -55,7 +55,6 @@ export default {
         justify-content: space-between;
         background: $nin-red;
         padding: 0 12px;
-        font-size: 12px;
 
         a, .md-icon {
             color: $nin-white !important;
