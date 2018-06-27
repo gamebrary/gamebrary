@@ -1,10 +1,5 @@
 <template lang="html">
-    <div
-        class="lists"
-        ref="lists"
-        :class="{ empty: isEmpty, nightMode }"
-        :style="{ background: settings.backgroundColor }"
-    >
+    <div>
         <md-empty-state
             v-if="isEmpty"
             md-icon="library_add"
@@ -22,14 +17,22 @@
         <draggable
             v-else
             :list="lists"
-            class="columns"
+            class="lists"
+            ref="lists"
+            :class="{ empty: isEmpty, nightMode, 'drag-scroll-active': dragScrollActive }"
+            :style="{ background: settings.backgroundColor }"
+            v-dragscroll:nochilddrag
+            @dragscrollstart="dragScrollActive = true"
+            @dragscrollend="dragScrollActive = false"
             :options="{
-                handle: isTouchDevice ? '.list-drag-handle' : null,
-                group:{ name:'lists'}
+                handle: '.drag-handle',
+                group: { name: 'lists' },
+                draggable: '.list',
             }"
             @end="end"
         >
             <div
+                v-if="lists"
                 v-for="({name, games}, index) in lists"
                 :key="name"
                 class="list"
@@ -51,36 +54,11 @@
 
                     <div class="list-actions">
                         <md-button
-                            v-if="isTouchDevice"
-                            class="md-dense md-icon-button list-drag-handle"
+                            :md-ripple="false"
+                            class="md-dense md-icon-button drag-handle"
                         >
-                            <md-icon>reorder</md-icon>
+                            <md-icon>drag_handle</md-icon>
                         </md-button>
-
-                        <md-menu>
-                            <md-button class="md-dense md-icon-button" md-menu-trigger>
-                                <md-icon>more_vert</md-icon>
-                            </md-button>
-
-                            <md-menu-content>
-                                <md-menu-item>
-                                    <md-button class="md-dense md-primary" @click="addGame(index)">
-                                        Add game
-                                    </md-button>
-                                </md-menu-item>
-
-                                <md-divider v-if="lists.length > 1" />
-
-                                <md-menu-item v-if="lists.length > 1">
-                                    <md-button
-                                        class="md-dense md-primary"
-                                        @click="tryDelete(index)"
-                                    >
-                                        Delete List
-                                    </md-button>
-                                </md-menu-item>
-                            </md-menu-content>
-                        </md-menu>
                     </div>
 
                     <md-dialog-confirm
@@ -100,7 +78,7 @@
                     @start="start"
                     :move="validateMove"
                     :options="{
-                        handle: isTouchDevice ? '.game-drag-handle' : null,
+                        handle: '.game-drag-handle',
                         group: {
                             name:'games',
                         }
@@ -123,14 +101,33 @@
                         <md-button class="md-raised" @click="addGame(index)">Add game</md-button>
                     </md-empty-state>
                 </draggable>
+
+                <md-bottom-bar>
+                    <md-bottom-bar-item
+                        md-label="Add Game"
+                        md-icon="playlist_add"
+                        @click="addGame(index)"
+                    />
+
+                    <md-bottom-bar-item
+                        md-label="Delete list"
+                        md-icon="delete_sweep"
+                        @click="tryDelete(index)"
+                    />
+                </md-bottom-bar>
             </div>
 
-            <add-list @update="updateLists" @scroll="scroll" />
+            <add-list
+                @update="updateLists"
+                @scroll="scroll"
+            />
         </draggable>
+
     </div>
 </template>
 
 <script>
+import { dragscroll } from 'vue-dragscroll';
 import GameCard from '@/components/GameCard/GameCard';
 import AddList from '@/components/Lists/AddList';
 import draggable from 'vuedraggable';
@@ -141,6 +138,10 @@ export default {
         draggable,
         AddList,
         GameCard,
+    },
+
+    directives: {
+        dragscroll,
     },
 
     data() {
@@ -154,6 +155,7 @@ export default {
             loading: false,
             activeList: null,
             showDeleteConfirm: false,
+            dragScrollActive: false,
         };
     },
 
@@ -176,10 +178,6 @@ export default {
 
         isEmpty() {
             return !this.lists.filter(list => list.games.length).length;
-        },
-
-        isTouchDevice() {
-            return (typeof window.orientation !== 'undefined') || (navigator.userAgent.indexOf('IEMobile') !== -1);
         },
 
         nightMode() {
@@ -294,47 +292,59 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/variables.scss";
 
-    .lists {
-        height: calc(100vh - 60px);
-        padding: $gp;
-        background: $nin-gray;
-        overflow-x: auto;
-
-        &.empty {
-            background: $nin-white;
-        }
+    .md-bottom-bar {
+        --md-theme-default-background: #{$nin-lt-gray};
     }
 
     .md-button {
         margin: 0;
     }
 
-    .columns {
+    .lists {
         display: flex;
         align-items: flex-start;
+        height: calc(100vh - 48px);
+        padding: $gp;
+        background: $nin-gray;
+        overflow-x: auto;
+        overflow-x: overlay;
+        display: flex;
+        @include drag-cursor;
+
+        &.drag-scroll-active {
+            @include dragging-cursor;
+        }
+
+
+        &.empty {
+            background: $nin-white;
+        }
     }
 
     .list {
         flex-shrink: 0;
+        cursor: default;
         background: $nin-white;
         position: relative;
         width: 300px;
         border-radius: $border-radius;
         overflow: hidden;
         margin-right: $gp;
-        max-height: calc(100vh - 92px);
+        max-height: calc(100vh - 81px);
     }
 
     .list-header {
-        background: $nin-dk-gray;
-        padding: $gp / 4 $gp / 4 $gp / 4 $gp;
-        display: flex;
         align-items: center;
-        position: absolute;
-        width: 100%;
-        justify-content: space-between;
+        background: $nin-dk-gray;
         box-shadow: 0 0 5px 5px $nin-lt-gray;
         color: $nin-white;
+        display: flex;
+        height: 30px;
+        justify-content: space-between;
+        padding: 0 $gp / 2;
+        position: absolute;
+        width: 100%;
+        @include drag-cursor;
 
         .md-button .md-icon {
             color: $nin-white;
@@ -345,13 +355,13 @@ export default {
         height: 100%;
         overflow: hidden;
         min-height: 100px;
-        max-height: calc(100vh - 132px);
+        max-height: calc(100vh - 182px);
         overflow-y: auto;
         overflow-y: overlay;
         column-gap: $gp;
         background: $nin-lt-gray;
-        margin-top: 40px;
-        padding: $gp / 2;
+        margin-top: 30px;
+        padding: $gp / 2 $gp / 2 $gp / 3;
         width: 100%;
 
         .game:not(:last-child) {
