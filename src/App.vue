@@ -29,5 +29,6 @@ export default {
 
     body {
         font-family: 'Roboto', sans-serif;
+        // background: url('/static/switch-pattern-sm.png');
     }
 </style>
