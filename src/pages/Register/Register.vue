@@ -23,7 +23,14 @@
                 </md-card-content>
 
                 <md-bottom-bar class="md-accent">
-                    <md-bottom-bar-item />
+                    <md-bottom-bar-item>
+                        <md-progress-spinner
+                            :md-diameter="30"
+                            :md-stroke="3"
+                            md-mode="indeterminate"
+                            v-show="loading"
+                        />
+                    </md-bottom-bar-item>
 
                     <md-bottom-bar-item md-label="Save" md-icon="save_alt" @click="register">
                         Create Account
@@ -55,13 +62,21 @@ export default {
 
     methods: {
         register() {
+            if (this.loading) {
+                return;
+            }
+
+            this.loading = true;
+
             this.$store.dispatch('REGISTER', this.formModel)
                 .then(() => {
                     this.error = false;
+                    this.loading = false;
                     this.$router.push({ name: 'home' });
                 })
                 .catch(() => {
                     this.error = true;
+                    this.loading = false;
                 });
         },
     },
