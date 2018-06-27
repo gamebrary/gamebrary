@@ -136,9 +136,9 @@ export default {
         padding-top: 30px;
     }
 
-    h3 {
-        margin: $gp;
-    }
+    // h3 {
+    //     margin: $gp;
+    // }
 
     .close {
         @include floating-close-button;
