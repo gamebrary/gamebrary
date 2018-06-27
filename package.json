@@ -27,7 +27,7 @@
         "vue-chartjs": "^3.3.1",
         "vue-color": "^2.4.6",
         "vue-content-placeholders": "^0.2.1",
-        "vue-dragscroll": "^1.4.0",
+        "vue-dragscroll": "^1.5.0",
         "vue-google-auth": "^1.0.5",
         "vue-google-signin-button": "^1.0.2",
         "vue-material": "^1.0.0-beta-10.2",
