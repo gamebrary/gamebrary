@@ -17,10 +17,10 @@
             </md-card-header-text>
 
             <md-button
-                v-if="isTouchDevice"
+                v-if="!searchResult"
                 class="md-dense md-icon-button md-primary game-drag-handle"
             >
-                <md-icon>reorder</md-icon>
+                <md-icon>drag_handle</md-icon>
             </md-button>
 
             <md-button
@@ -47,6 +47,7 @@ export default {
     props: {
         gameId: Number,
         listId: Number,
+        searchResult: Boolean,
     },
 
     computed: {
@@ -71,10 +72,6 @@ export default {
             return this.gameData && this.gameData[this.gameId].cover
                 ? `${url}${this.gameData[this.gameId].cover.cloudinary_id}.jpg`
                 : null;
-        },
-
-        isTouchDevice() {
-            return (typeof window.orientation !== 'undefined') || (navigator.userAgent.indexOf('IEMobile') !== -1);
         },
 
         nightMode() {
@@ -108,7 +105,10 @@ export default {
         },
 
         openGame() {
-            this.$bus.$emit('OPEN_GAME_MODAL', this.gameId);
+            if (!this.searchResult) {
+                this.$router.push({ name: 'game', params: { id: this.game.slug } });
+                this.$bus.$emit('OPEN_GAME_MODAL', this.gameId);
+            }
         },
     },
 };
@@ -116,6 +116,10 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/variables.scss";
+
+    .md-card {
+        min-height: 100px;
+    }
 
     .md-card-media, .md-card-header-text h2 {
         cursor: pointer;
