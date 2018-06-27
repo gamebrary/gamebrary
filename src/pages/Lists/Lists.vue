@@ -61,14 +61,6 @@
                             <md-icon>drag_handle</md-icon>
                         </md-button>
                     </div>
-
-                    <md-dialog-confirm
-                        :md-active.sync="showDeleteConfirm"
-                        md-title="Are you sure?"
-                        md-content="This lists contains games, all games will be deleted as well."
-                        md-confirm-text="Delete"
-                        @md-confirm="deleteList(activeList)"
-                    />
                 </div>
 
                 <draggable
@@ -117,6 +109,14 @@
                     />
                 </md-bottom-bar>
             </div>
+
+            <md-dialog-confirm
+                :md-active.sync="showDeleteConfirm"
+                md-title="Are you sure?"
+                md-content="This lists contains games, all games will be deleted as well."
+                md-confirm-text="Delete"
+                @md-confirm="deleteList(activeList)"
+            />
 
             <add-list
                 @update="updateLists"
