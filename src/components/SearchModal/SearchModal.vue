@@ -24,6 +24,7 @@
                 :key="id"
                 :game-id="id"
                 :listId="listId"
+                search-result
             />
         </div>
     </md-dialog>
