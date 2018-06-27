@@ -1,63 +1,67 @@
 <template lang="html">
-    <md-dialog :md-active.sync="showGameModal">
+    <md-dialog
+        :md-active.sync="showGameModal"
+        @md-closed="close"
+    >
         <div class="game-modal" v-if="game">
             <md-card>
-                <md-card-media-cover md-text-scrim>
-                    <md-button class="md-icon-button close md-dense" @click="showGameModal = false">
-                      <md-icon>close</md-icon>
-                    </md-button>
+                <div class="game-header">
+                    <div class="game-background" :style="style">
+                        <md-button
+                            class="md-icon-button close md-dense"
+                            @click="close"
+                        >
+                            <md-icon>close</md-icon>
+                        </md-button>
 
-
-                    <div class="game-title">
                         <img
                             :src="coverUrl(game.cover.cloudinary_id)"
                             :alt="game.name"
                             class="game-cover"
                             width="80"
                         >
-
-                        <h1>{{ game.name }}</h1>
                     </div>
 
-                    <md-card-media md-ratio="16:9">
-                        <img :src="getImageUrl(game.screenshots[0].cloudinary_id)" alt="">
-                    </md-card-media>
-                </md-card-media-cover>
+                    <h2
+                        class="game-title"
+                        :class="{ small: game.name.length > 28 }"
+                    >{{ game.name }}</h2>
 
-                <md-card-content>
-                    <md-tabs md-dynamic-height>
-                        <md-tab md-label="About">
-                            {{game.summary}}
-                        </md-tab>
+                    <md-divider></md-divider>
+                </div>
 
-                        <md-tab
-                            v-if="game.screenshots"
-                            :md-label="`Screenshots (${game.screenshots.length})`"
-                        >
-                            <img
-                                :src="getImageUrl(img.cloudinary_id)"
-                                :key="index"
-                                v-for="(img, index) in game.screenshots"
-                                class="image"
-                            >
-                        </md-tab>
+                <p class="game-description">{{ game.summary }}</p>
 
-                        <md-tab :md-label="`Videos (${game.videos.length})`" v-if="game.videos">
-                            <div
-                                class="video"
-                                v-for="{ video_id } in game.videos"
-                                :key="video_id"
-                            >
-                                <iframe
-                                    :src="`https://www.youtube.com/embed/${video_id}?rel=0&autohide=1`"
-                                    frameborder="0"
-                                    allow="autoplay; encrypted-media"
-                                    allowfullscreen
-                                />
-                            </div>
-                        </md-tab>
-                    </md-tabs>
-                </md-card-content>
+                <h3>Screenshots ({{ game.screenshots.length }})</h3>
+
+                <div class="game-screenshots no-wrap">
+                    <img
+                        v-if="game.screenshots"
+                        :src="getImageUrl(img.cloudinary_id)"
+                        :key="index"
+                        v-for="(img, index) in game.screenshots"
+                        class="image"
+                    >
+                </div>
+
+                <h3>Videos ({{ game.videos.length }})</h3>
+
+                <div class="game-videos no-wrap">
+                    <div
+                        class="game-video"
+                        v-for="{ video_id } in game.videos"
+                        :key="video_id"
+                    >
+                        <iframe
+                            :src="`https://www.youtube.com/embed/${video_id}?rel=0&autohide=1`"
+                            frameborder="0"
+                            width="426"
+                            height="240"
+                            allow="autoplay; encrypted-media"
+                            allowfullscreen
+                        />
+                    </div>
+                </div>
             </md-card>
         </div>
     </md-dialog>
@@ -85,6 +89,14 @@ export default {
         game() {
             return this.gameData[this.id];
         },
+
+        style() {
+            const imageUrl = this.game && this.game.screenshots
+                ? `background-image: url(${this.getImageUrl(this.game.screenshots[0].cloudinary_id)})`
+                : null;
+
+            return imageUrl || '';
+        },
     },
 
     mounted() {
@@ -95,6 +107,11 @@ export default {
     },
 
     methods: {
+        close() {
+            this.showGameModal = false;
+            this.$router.push({ name: 'home' });
+        },
+
         getVideoUrl(id) {
             return `https://www.youtube.com/embed/${id}?rel=0&autohide=1`;
         },
@@ -113,33 +130,41 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/variables.scss";
 
+    .game-modal {
+        overflow: auto;
+        margin-top: 20vh;
+        padding-top: 30px;
+    }
+
+    h3 {
+        margin: $gp;
+    }
+
     .close {
         @include floating-close-button;
+        z-index: 999999;
 
         .md-icon.md-theme-default {
             color: $nin-white;
         }
     }
 
-    .md-dialog {
-        max-width: 768px;
-    }
-
-    .game-modal {
-        overflow: auto;
-    }
-
     .md-dialog-container .md-tabs-navigation {
         padding: 0;
     }
 
-    .game-title {
-        display: grid;
-        grid-template-columns: 100px auto;
-        grid-gap: $gp;
-        position: absolute;
-        bottom: -$gp;
-        z-index: 99999;
+    .game-header {
+        position: fixed;
+        width: 100%;
+        height: 20vh;
+        top: 0;
+        z-index: 1;
+    }
+
+    .game-background {
+        display: flex;
+        background-size: cover;
+        min-height: 20vh;
         width: 100%;
         align-items: center;
 
@@ -148,24 +173,58 @@ export default {
             border: 5px solid $nin-white;
             box-shadow: 0 0 5px 0 $nin-gray;
         }
+    }
 
-        h1 {
-            color: $nin-white;
-            text-shadow: 0 0 5px $nin-black;
+    .game-title {
+        padding: $gp / 2 $gp;
+        margin: 0;
+        line-height: 1.5rem;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.9);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &.small {
+            @media($medium) {
+                font-size: 18px;
+            }
+
+            @media($small) {
+                font-size: 16px;
+            }
         }
     }
 
-    .video {
+    .game-description {
+        padding: 0 $gp;
+        font-size: .8rem;
+    }
+
+    .no-wrap {
+        overflow: auto;
+        white-space: nowrap;
+    }
+
+    .game-screenshots {
+        img {
+            height: 100px;
+            width: auto;
+        }
+    }
+
+    .game-video {
+        margin-top: $gp;
         position: relative;
         padding-bottom: 56.25%; /* 16:9 */
         padding-top: 25px;
-        height: 0;
-    }
-    .video iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100% !important;
+        }
     }
 </style>
