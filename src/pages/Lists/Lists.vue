@@ -28,6 +28,7 @@
                 handle: '.drag-handle',
                 group: { name: 'lists' },
                 draggable: '.list',
+                dragClass: 'dragging',
             }"
             @end="end"
         >
@@ -344,9 +345,9 @@ export default {
         padding: 0 $gp / 2;
         position: absolute;
         width: 100%;
-        @include drag-cursor;
 
         .md-button .md-icon {
+            @include drag-cursor;
             color: $nin-white;
         }
     }
