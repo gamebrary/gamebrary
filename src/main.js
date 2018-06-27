@@ -11,13 +11,11 @@ import router from './router';
 
 const EventBus = new Vue();
 
-axios.interceptors.response.use(response => response, (error) => {
-    if (error.response.status === 401) {
-        window.location.href = '/#/session-expired';
-    }
-
-    Promise.reject(error.response);
-});
+// axios.interceptors.response.use(response => response, (error) => {
+//     if (error && error.response && error.response.status === 401) {
+//         window.location.href = '/#/session-expired';
+//     }
+// });
 
 Object.defineProperties(Vue.prototype, {
     $bus: {
