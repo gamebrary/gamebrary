@@ -1,47 +1,21 @@
 <template lang="html">
-    <header :class="{ nightMode }">
-        <router-link :to="{ name: 'home' }">
-            <img src="@/assets/logo.png" class="logo">
+    <header :class="{ dark }">
+        <router-link :to="{ name: 'home' }" class="logo">
+            <img src="@/assets/logo.png">
         </router-link>
 
-        <div class="menu">
-            <template v-if="!auth">
-                <router-link :to="{ name: 'register' }">
-                    <md-button class="md-dense md-raised">Register</md-button>
-                </router-link>
+        <router-link :to="{ name: 'settings' }" v-if="auth">
+            <md-icon>settings</md-icon>
+        </router-link>
 
-                <router-link :to="{ name: 'login' }">
-                    <md-button class="md-dense md-raised">Login</md-button>
-                </router-link>
-            </template>
+        <div v-else>
+            <router-link :to="{ name: 'register' }">
+                Register
+            </router-link>
 
-            <template v-else>
-                <md-menu>
-                    <md-button class="md-icon-button" md-menu-trigger>
-                        <md-icon>menu</md-icon>
-                    </md-button>
-
-                    <md-menu-content>
-                        <md-menu-item>
-                            <router-link :to="{ name: 'profile' }"  v-if="auth">
-                                <md-button class="md-dense md-primary">
-                                    Settings
-                                </md-button>
-                            </router-link>
-                        </md-menu-item>
-                        <md-divider></md-divider>
-
-                        <md-menu-item>
-                            <md-button
-                                class="md-dense md-raised md-accent"
-                                @click="logout"
-                            >
-                                Log out
-                            </md-button>
-                        </md-menu-item>
-                    </md-menu-content>
-                </md-menu>
-            </template>
+            <router-link :to="{ name: 'login' }">
+                Login
+            </router-link>
         </div>
     </header>
 </template>
@@ -50,7 +24,6 @@
 export default {
     data() {
         return {
-            searchText: '',
             show: false,
             profile: null,
         };
@@ -61,19 +34,8 @@ export default {
             return this.$store.getters.auth;
         },
 
-        user() {
-            return this.$store.state.user;
-        },
-
-        nightMode() {
+        dark() {
             return this.user ? this.$store.state.user.settings.nightMode : false;
-        },
-    },
-
-    methods: {
-        logout() {
-            this.$store.commit('CLEAR_SESSION');
-            this.$router.push({ name: 'home' });
         },
     },
 };
@@ -83,32 +45,36 @@ export default {
     @import "~styles/variables.scss";
 
     header {
-        height: 60px;
+        height: 48px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         background: $nin-red;
-        color: $nin-gray;
-        padding: $gp;
-    }
+        padding: 0 12px;
+        font-size: 12px;
 
-    .logo {
-        display: inherit;
-        height: 30px;
-        width: auto;
-        flex: 1;
-    }
-
-    .nightMode {
-        background: $nin-black;
-
-        .logo {
-            opacity: 0.3;
+        a, .md-icon {
+            color: $nin-white !important;
         }
 
-        .md-button {
-            background: $nin-dk-gray !important;
+        a {
+            margin-left: $gp / 2;
+
+            &.logo {
+                margin: 0;
+
+                img {
+                    height: 24px;
+                }
+            }
+        }
+
+        &.dark {
+            background: $nin-black;
+
+            .logo {
+                opacity: 0.3;
+            }
         }
     }
 </style>
-
