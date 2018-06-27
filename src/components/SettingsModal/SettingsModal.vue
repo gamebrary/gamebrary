@@ -72,7 +72,12 @@
                             <sketch v-model="backgroundColor" />
 
                             <md-dialog-actions>
-                                <md-button class="md-primary" @click="showDialog = false">OK</md-button>
+                                <md-button
+                                    class="md-primary"
+                                    @click="showDialog = false"
+                                >
+                                    OK
+                                </md-button>
                             </md-dialog-actions>
                         </md-dialog>
                     </md-card-content>
