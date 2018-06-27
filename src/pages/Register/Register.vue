@@ -20,6 +20,8 @@
                         <label>Password</label>
                         <md-input type="password" v-model="formModel.password" />
                     </md-field>
+
+                    <md-button type="submit" style="display: none;" />
                 </md-card-content>
 
                 <md-bottom-bar class="md-accent">

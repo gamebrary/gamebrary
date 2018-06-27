@@ -35,6 +35,8 @@
                     >
                         Keep me logged in
                     </md-checkbox>
+
+                    <md-button type="submit" style="display: none;" />
                 </md-card-content>
 
                 <md-bottom-bar class="md-accent">
