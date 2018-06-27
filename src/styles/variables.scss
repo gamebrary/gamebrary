@@ -31,6 +31,20 @@ $gp: 16px;
     margin: 100px auto;
 }
 
+@mixin drag-cursor {
+    cursor : -webkit-grab;
+    cursor : -moz-grab;
+    cursor : -o-grab;
+    cursor : grab;
+}
+
+@mixin dragging-cursor {
+    cursor : -webkit-grabbing;
+    cursor : -moz-grabbing;
+    cursor : -o-grabbing;
+    cursor : grabbing;
+}
+
 @mixin floating-close-button {
     position: absolute;
     top: 0;
@@ -41,6 +55,15 @@ $gp: 16px;
 // Misc
 .page-title { margin-bottom: $gp; }
 
+a:hover {
+    text-decoration: none;
+}
+
 @import "~vue-material/dist/theme/engine";
 @include md-register-theme("default", (primary: $nin-gray, accent: $nin-red));
 @import "~vue-material/dist/theme/all";
+
+
+.md-bottom-bar {
+    box-shadow: none;
+}
