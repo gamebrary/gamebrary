@@ -66,18 +66,24 @@
                         </md-dialog-actions>
                     </md-dialog>
 
+                    <md-bottom-bar>
+                        <md-bottom-bar-item
+                            md-label="Log out"
+                            md-icon="exit_to_app"
+                            @click="logout"
+                        />
+
+                        <md-bottom-bar-item
+                            md-label="Save"
+                            md-icon="save_alt"
+                            @click="save"
+                        />
+
+                        <md-snackbar md-position="left" :md-active.sync="showSuccess" md-persistent>
+                            <span>Settings saved</span>
+                        </md-snackbar>
+                    </md-bottom-bar>
                 </md-card-content>
-
-                <md-card-actions>
-                    <md-button type="submit" class="md-primary">
-                        Save
-                    </md-button>
-
-                    <md-snackbar md-position="left" :md-active.sync="showSuccess" md-persistent>
-                        <span>Settings saved</span>
-                    </md-snackbar>
-
-                </md-card-actions>
             </md-card>
         </form>
     </div>
@@ -131,6 +137,11 @@ export default {
     },
 
     methods: {
+        logout() {
+            this.$store.commit('CLEAR_SESSION');
+            this.$router.push({ name: 'home' });
+        },
+
         save() {
             const payload = {
                 lockColumns: this.lockColumns,
