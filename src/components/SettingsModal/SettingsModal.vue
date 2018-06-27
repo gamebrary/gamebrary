@@ -18,32 +18,32 @@
 
                     <md-card-content>
                         <!-- <section>
-                            <md-switch v-model="lockColumns" />
+                            <md-switch v-model="lockColumns" @change="save" />
                             <span>Lock Columns</span>
                         </section> -->
 
                         <section>
-                            <md-switch v-model="nightMode" />
+                            <md-switch v-model="nightMode" @change="save" />
                             <span>Night mode</span>
                         </section>
 
                         <section>
-                            <md-switch v-model="showGameRatings" />
+                            <md-switch v-model="showGameRatings" @change="save" />
                             <span>Show game score</span>
                         </section>
 
                         <!-- <section>
-                            <md-switch v-model="showGameGenre" />
+                            <md-switch v-model="showGameGenre" @change="save" />
                             <span>Show Game Genre</span>
                         </section> -->
 
                         <!-- <section>
-                            <md-switch v-model="showPlayerModes" />
+                            <md-switch v-model="showPlayerModes" @change="save" />
                             <span>Show player modes</span>
                         </section> -->
 
                         <!-- <section>
-                            <md-switch v-model="showReleaseDate" />
+                            <md-switch v-model="showReleaseDate" @change="save" />
                             <span>Show Release date</span>
                         </section> -->
 
@@ -69,7 +69,11 @@
 
                         <md-dialog :md-active.sync="showDialog">
                             <md-dialog-title>Choose background color</md-dialog-title>
-                            <sketch v-model="backgroundColor" />
+
+                            <sketch
+                                v-model="backgroundColor"
+                                @input="save"
+                            />
 
                             <md-dialog-actions>
                                 <md-button
@@ -90,9 +94,9 @@
                         />
 
                         <md-bottom-bar-item
-                            md-label="Save"
-                            md-icon="save_alt"
-                            @click="save"
+                            md-label="Close"
+                            md-icon="close"
+                            @click="modalActive = false"
                         />
 
                         <md-snackbar md-position="left" :md-active.sync="showSuccess" md-persistent>
