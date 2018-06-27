@@ -1,0 +1,11 @@
+coverage:
+  status:
+    project:
+      default:
+        target: 75
+        if_no_uploads: error
+        if_not_found: success
+        if_ci_failed: error
+        only_pulls: true
+    patch:
+        enabled: false
