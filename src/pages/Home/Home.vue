@@ -1,18 +1,18 @@
 <template lang="html">
     <div>
-        <lists v-if="auth" />
+        <game-board v-if="auth" />
         <marketing v-else />
     </div>
 </template>
 
 <script>
 import Marketing from '@/pages/Marketing/Marketing';
-import Lists from '@/pages/Lists/Lists';
+import GameBoard from '@/pages/GameBoard/GameBoard';
 
 export default {
     components: {
         Marketing,
-        Lists,
+        GameBoard,
     },
 
     computed: {
