@@ -25,10 +25,11 @@
             @dragscrollstart="dragScrollActive = true"
             @dragscrollend="dragScrollActive = false"
             :options="{
+                animation: 500,
                 handle: '.drag-handle',
                 group: { name: 'lists' },
                 draggable: '.list',
-                dragClass: 'dragging',
+                ghostClass: 'list-placeholder',
             }"
             @end="end"
         >
@@ -72,6 +73,8 @@
                     :move="validateMove"
                     :options="{
                         handle: '.game-drag-handle',
+                        ghostClass: 'card-placeholder',
+                        animation: 500,
                         group: {
                             name:'games',
                         }
@@ -332,6 +335,10 @@ export default {
         overflow: hidden;
         margin-right: $gp;
         max-height: calc(100vh - 81px);
+    }
+
+    .list-placeholder {
+        opacity: 0.25;
     }
 
     .list-header {

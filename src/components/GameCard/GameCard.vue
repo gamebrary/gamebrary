@@ -125,6 +125,10 @@ export default {
         cursor: pointer;
     }
 
+    .card-placeholder {
+        opacity: 0.25;
+    }
+
     .md-card-header {
         height: auto;
         padding: $gp / 2;
