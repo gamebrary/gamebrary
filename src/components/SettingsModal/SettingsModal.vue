@@ -1,6 +1,6 @@
 <template lang="html">
     <div class="settings-modal">
-        <span @click="modalActive = true">
+        <span @click="modalActive = true" class="settings-link">
             <md-icon>settings</md-icon>
         </span>
 
@@ -194,6 +194,10 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/variables.scss";
+    .settings-link {
+        display: flex;
+        cursor: pointer;
+    }
 
     .close {
         @include floating-close-button;
