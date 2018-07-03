@@ -4,7 +4,7 @@
             <md-icon>settings</md-icon>
         </span>
 
-        <md-dialog :md-active.sync="modalActive" class="game-modal">
+        <md-dialog :md-active.sync="modalActive" class="game-modal" :md-backdrop="!showDialog">
             <md-button
                 class="md-icon-button close md-dense"
                 @click="modalActive = false"
@@ -67,7 +67,7 @@
                             <span>Background color</span>
                         </section>
 
-                        <md-dialog :md-active.sync="showDialog">
+                        <md-dialog :md-active.sync="showDialog" :md-backdrop="false">
                             <md-dialog-title>Choose background color</md-dialog-title>
 
                             <sketch
