@@ -5,9 +5,11 @@ import VueContentPlaceholders from 'vue-content-placeholders';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import Vue from 'vue';
+import VueI18n from 'vue-i18n';
 import store from './store/';
 import App from './App';
 import router from './router';
+import messages from './i18n';
 
 const EventBus = new Vue();
 
@@ -25,6 +27,7 @@ Object.defineProperties(Vue.prototype, {
     },
 });
 
+Vue.use(VueI18n);
 Vue.use(VueMaterial);
 Vue.use(VueContentPlaceholders);
 Vue.use(VueDragscroll);
@@ -40,10 +43,17 @@ router.beforeEach((to, from, next) => {
     }
 });
 
+const i18n = new VueI18n({
+    // TODO: get locale from user settings store
+    locale: 'en',
+    messages,
+});
+
 /* eslint-disable no-new */
 new Vue({
     el: '#app',
     router,
+    i18n,
     store,
     components: { App },
     template: '<App/>',
