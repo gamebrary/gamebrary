@@ -106,7 +106,14 @@ export default {
 
         openGame() {
             if (!this.searchResult) {
-                this.$router.push({ name: 'game', params: { id: this.game.slug } });
+                this.$router.push({
+                    name: 'game',
+                    params: {
+                        id: this.game.id,
+                        slug: this.game.slug,
+                    },
+                });
+
                 this.$bus.$emit('OPEN_GAME_MODAL', this.gameId);
             }
         },

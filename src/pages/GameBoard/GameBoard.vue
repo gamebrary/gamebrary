@@ -194,10 +194,24 @@ export default {
             this.loadGameData();
         }
 
+        if (this.$route.params) {
+            this.openGame(this.$route.params);
+        }
+
         this.checkDataAge();
     },
 
     methods: {
+        openGame({ id }) {
+            if (id) {
+                this.$nextTick(() => {
+                    this.$bus.$emit('OPEN_GAME_MODAL', id);
+                });
+            } else {
+                this.$router.push({ name: 'home' });
+            }
+        },
+
         validateMove({ from, to }) {
             const isDifferentList = from.id !== to.id;
             const isDuplicate = this.lists[to.id].games.includes(Number(this.draggingId));

@@ -17,7 +17,7 @@ export default new Router({
             children: [
                 {
                     name: 'game',
-                    path: '/game/:id',
+                    path: ':id/:slug',
                     component: Home,
                 },
             ],
