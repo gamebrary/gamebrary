@@ -18,8 +18,8 @@ export default {
         state.user.lists = lists;
     },
 
-    UPDATE_LIST_NAME(state, { listId, newName }) {
-        state.user.lists[listId].name = newName;
+    UPDATE_LIST_NAME(state, { listIndex, listName }) {
+        state.user.lists[listIndex].name = listName;
     },
 
     SET_UPDATED_TIMESTAMP(state) {
