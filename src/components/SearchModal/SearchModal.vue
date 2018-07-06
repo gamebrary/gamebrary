@@ -109,16 +109,7 @@ export default {
 
     .results, .game-card-placeholder {
         display: grid;
-        grid-template-columns: repeat(4, calc(25% - 12px));
         grid-gap: $gp;
-
-        @media($medium) {
-            grid-template-columns: repeat(3, calc(33% - 12px));
-        }
-
-        @media($small) {
-            grid-template-columns: 1fr;
-        }
     }
 
     .vue-content-placeholders-img {
