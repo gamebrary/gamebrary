@@ -84,6 +84,10 @@
                                 </md-button>
                             </md-dialog-actions>
                         </md-dialog>
+
+                        <a href="https://goo.gl/forms/r0juBCsZaUtJ03qb2" target="_blank">
+                            Submit feedback
+                        </a>
                     </md-card-content>
 
                     <md-bottom-bar>
