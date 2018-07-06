@@ -4,7 +4,7 @@
             <img src="@/assets/logo.png">
         </router-link>
 
-        <settings-modal v-if="auth" />
+        <settings-panel v-if="auth" />
 
         <div v-else>
             <router-link :to="{ name: 'register' }">
@@ -19,11 +19,11 @@
 </template>
 
 <script>
-import SettingsModal from '@/components/SettingsModal/SettingsModal';
+import SettingsPanel from '@/components/SettingsPanel/SettingsPanel';
 
 export default {
     components: {
-        SettingsModal,
+        SettingsPanel,
     },
 
     data() {
