@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import moment from 'moment';
+// import moment from 'moment';
 import { Sketch } from 'vue-color';
 
 export default {
