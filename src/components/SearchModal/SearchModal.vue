@@ -1,43 +1,54 @@
 <template lang="html">
-    <md-dialog :md-active.sync="show" class="game-modal">
-        <md-button class="md-icon-button close md-dense" @click="show = false">
-            <md-icon>close</md-icon>
-        </md-button>
+    <md-drawer
+        v-if="show"
+        class="md-right"
+        :md-active.sync="show"
+    >
+        <md-subheader>
+            Add game to {{ listName }}
+        </md-subheader>
 
-        <h1>Add game</h1>
+        <input
+            ref="searchBox"
+            class="searchBox"
+            type="text"
+            placeholder="Search"
+            v-debounce="500"
+            v-model.lazy="searchText"
+        />
 
-        <form @submit.prevent="search" class="search-form">
-            <md-field>
-                <md-icon>search</md-icon>
-                <label>Type here</label>
-                <md-input v-model="searchText"></md-input>
-            </md-field>
-        </form>
+        <small v-if="results.length && searchText && !loading" class="search-result-text">
+            {{results.length}} Results found
+            <span v-if="searchText">
+                 for {{ searchText }}
+            </span>
+        </small>
 
-        <div class="game-card-placeholder" v-if="loading">
-            <content-placeholders-img v-for="n in 6" :key="n" />
-        </div>
+        <content-placeholders v-for="n in 10" :key="n" v-if="loading">
+            <content-placeholders-heading :img="true" />
+        </content-placeholders>
 
-        <div class="results" v-else>
+        <div class="search-results" v-if="results.length && !loading">
             <game-card
-                v-for="{ id } in results"
-                :key="id"
+                v-for="{ id } in results" :key="id"
                 :game-id="id"
                 :listId="listId"
                 search-result
             />
         </div>
-    </md-dialog>
-
+    </md-drawer>
 </template>
 
 <script>
+import debounce from 'v-debounce';
 import GameCard from '@/components/GameCard/GameCard';
 
 export default {
     components: {
         GameCard,
     },
+
+    directives: { debounce },
 
     data() {
         return {
@@ -60,6 +71,16 @@ export default {
         auth() {
             return this.$store.getters.auth;
         },
+
+        listName() {
+            return this.$store.state.user.lists[this.listId].name;
+        },
+    },
+
+    watch: {
+        searchText() {
+            this.search();
+        },
     },
 
     mounted() {
@@ -73,6 +94,12 @@ export default {
             this.show = true;
             this.listId = list || 0;
             this.$store.dispatch('SEARCH', this.searchText);
+
+            this.$nextTick(() => {
+                if (this.$refs.searchBox) {
+                    this.$refs.searchBox.focus();
+                }
+            });
         },
 
         search() {
@@ -99,26 +126,24 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/variables.scss";
 
-    .game-modal {
+    .vue-content-placeholders {
         padding: $gp;
     }
 
-    .results {
-        overflow: auto;
+    .searchBox {
+        margin: 0 $gp;
+        text-indent: $gp / 4;
+        height: 32px;
+        width: calc(100% - 32px);
+        border-radius: $border-radius;
+        border: 1px solid $nin-gray;
     }
 
-    .results, .game-card-placeholder {
-        display: grid;
-        grid-gap: $gp;
+    .search-result-text {
+        padding: $gp;
     }
 
-    .vue-content-placeholders-img {
-        width: 180px;
-        height: 120px;
-        margin-top: 0;
-    }
-
-    .close {
-        @include floating-close-button;
+    .search-results {
+        padding: $gp;
     }
 </style>

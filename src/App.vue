@@ -46,7 +46,7 @@ export default {
 };
 </script>
 
-<style lang="scss" rel="stylesheet/scss">
+<style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/variables.scss";
     @import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
 
@@ -58,6 +58,11 @@ export default {
     .md-toolbar {
         --md-theme-default-toolbarvariant: #{$nin-red};
         min-height: 36px;
+        height: 48px;
+
+        .md-toolbar-row {
+            min-height: 48px;
+        }
     }
 
     .md-content {

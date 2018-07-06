@@ -80,7 +80,7 @@ export default {
     SEARCH({ commit, state: { token } }, searchText) {
         return new Promise((resolve, reject) => {
             const options = { headers: { token } };
-            axios.get(`${ENDPOINT}/search?searchText=${searchText}`, options)
+            axios.get(`${ENDPOINT}/search?searchText=${searchText}&order=popularity:desc`, options)
                 .then(({ data }) => {
                     commit('SET_SEARCH_RESULTS', data);
                     commit('CACHE_GAME_DATA', data);

@@ -29,4 +29,12 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
+    @import "~styles/variables.scss";
+
+    .md-bottom-bar {
+        color: red;
+
+    }
+    .md-icon {
+    }
 </style>

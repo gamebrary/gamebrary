@@ -126,6 +126,7 @@ export default {
 
     .md-card {
         min-height: 100px;
+        width: 100%;
         margin: 0 0 $gp / 2;
 
         &:last-child {
@@ -168,6 +169,7 @@ export default {
         margin-right: $gp * 2;
 
         .game-title {
+            white-space: normal;
             margin: 0;
         }
     }
