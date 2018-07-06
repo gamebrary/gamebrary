@@ -4,6 +4,7 @@
             <list-name-edit
                 :list-name="name"
                 :list-index="listIndex"
+                :game-count="games.length"
                 @update="updateLists"
             />
 

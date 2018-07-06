@@ -10,7 +10,7 @@
         >
 
         <span v-else @click="edit">
-            {{ listName }}
+            {{ listName }} ({{ gameCount }})
         </span>
     </div>
 </template>
@@ -20,6 +20,7 @@ export default {
     props: {
         listName: String,
         listIndex: [String, Number],
+        gameCount: Number,
     },
 
     data() {
