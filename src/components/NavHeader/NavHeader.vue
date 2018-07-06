@@ -1,38 +1,31 @@
 <template lang="html">
-    <header :class="{ dark }">
-        <router-link :to="{ name: 'home' }" class="logo">
-            <img src="@/assets/logo.png">
-        </router-link>
-
-        <settings-panel v-if="auth" />
-
-        <div v-else>
-            <router-link :to="{ name: 'register' }">
-                Register
-            </router-link>
-
-            <router-link :to="{ name: 'login' }">
-                Login
-            </router-link>
+    <div class="md-toolbar-row">
+        <div class="md-toolbar-section-start">
+            <md-button class="md-icon-button" @click="goHome">
+                <md-icon>home</md-icon>
+            </md-button>
         </div>
-    </header>
+
+        <div class="md-toolbar-section-end">
+            <md-button class="md-icon-button" @click="showDrawer" v-if="auth">
+                <md-icon>settings</md-icon>
+            </md-button>
+
+            <template v-else>
+                <md-button v-if="showRegister" @click="goRegister">
+                    Register
+                </md-button>
+
+                <md-button v-if="showLogin" @click="goLogin">
+                    Login
+                </md-button>
+            </template>
+        </div>
+    </div>
 </template>
 
 <script>
-import SettingsPanel from '@/components/SettingsPanel/SettingsPanel';
-
 export default {
-    components: {
-        SettingsPanel,
-    },
-
-    data() {
-        return {
-            show: false,
-            profile: null,
-        };
-    },
-
     computed: {
         auth() {
             return this.$store.getters.auth;
@@ -41,6 +34,32 @@ export default {
         dark() {
             return this.user ? this.$store.state.user.settings.nightMode : false;
         },
+
+        showRegister() {
+            return this.$route.name !== 'register';
+        },
+
+        showLogin() {
+            return this.$route.name !== 'login';
+        },
+    },
+
+    methods: {
+        showDrawer() {
+            this.$bus.$emit('TOGGLE_DRAWER');
+        },
+
+        goHome() {
+            this.$router.push({ name: 'home' });
+        },
+
+        goRegister() {
+            this.$router.push({ name: 'register' });
+        },
+
+        goLogin() {
+            this.$router.push({ name: 'login' });
+        },
     },
 };
 </script>
@@ -48,36 +67,9 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/variables.scss";
 
-    header {
-        height: 48px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: $nin-red;
-        padding: 0 12px;
+    a, .md-icon, .md-button {
 
-        a, .md-icon {
-            color: $nin-white !important;
-        }
-
-        a {
-            margin-left: $gp / 2;
-
-            &.logo {
-                margin: 0;
-
-                img {
-                    height: 24px;
-                }
-            }
-        }
-
-        &.dark {
-            background: $nin-black;
-
-            .logo {
-                opacity: 0.3;
-            }
-        }
+        color: $nin-white !important;
     }
+
 </style>

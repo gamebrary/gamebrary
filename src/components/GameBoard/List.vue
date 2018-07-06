@@ -166,7 +166,7 @@ export default {
         height: 100%;
         overflow: hidden;
         min-height: 100px;
-        max-height: calc(100vh - 182px);
+        max-height: calc(100vh - 174px);
         overflow-y: auto;
         overflow-y: overlay;
         column-gap: $gp;

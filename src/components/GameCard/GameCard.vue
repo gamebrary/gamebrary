@@ -126,7 +126,7 @@ export default {
 
     .md-card {
         min-height: 100px;
-        margin-bottom: $gp / 2;
+        margin: 0 0 $gp / 2;
 
         &:last-child {
             margin-bottom: 0;

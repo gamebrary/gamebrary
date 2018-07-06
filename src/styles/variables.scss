@@ -21,8 +21,13 @@ $gp: 16px;
 
 // Mixins
 @mixin container-xs {
-    width: 300px;
+    width: 320px;
+    max-height: 100%;
     margin: 100px auto;
+}
+
+.auth-form {
+    @include container-xs;
 }
 
 @mixin container {

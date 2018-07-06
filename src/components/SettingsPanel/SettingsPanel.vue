@@ -1,87 +1,81 @@
 <template lang="html">
     <div>
-        <span @click="openPanel" class="settings-link">
-            <md-icon>settings</md-icon>
-        </span>
+        <md-list>
+            <md-subheader>Settings</md-subheader>
 
-        <md-drawer class="md-right" :md-active.sync="showPanel">
-            <md-list>
-                <md-subheader>Settings</md-subheader>
+            <md-list-item>
+                <md-icon>brightness_4</md-icon>
+                <span class="md-list-item-text">Night mode</span>
+                <md-switch v-model="nightMode" @change="save" />
+            </md-list-item>
 
-                <md-list-item>
-                    <md-icon>brightness_4</md-icon>
-                    <span class="md-list-item-text">Night mode</span>
-                    <md-switch v-model="nightMode" @change="save" />
-                </md-list-item>
+            <md-list-item>
+                <md-icon>grade</md-icon>
+                <span class="md-list-item-text">Show game score</span>
+                <md-switch v-model="showGameRatings" @change="save" />
+            </md-list-item>
 
-                <md-list-item>
-                    <md-icon>grade</md-icon>
-                    <span class="md-list-item-text">Show game score</span>
-                    <md-switch v-model="showGameRatings" @change="save" />
-                </md-list-item>
+            <!-- <md-list-item>
+                <md-icon>lock</md-icon>
+                <span class="md-list-item-text">Lock Columns</span>
+                <md-switch v-model="lockColumns" @change="save" />
+            </md-list-item> -->
 
-                <!-- <md-list-item>
-                    <md-icon>lock</md-icon>
-                    <span class="md-list-item-text">Lock Columns</span>
-                    <md-switch v-model="lockColumns" @change="save" />
-                </md-list-item> -->
+            <!-- <md-list-item>
+                <md-icon>category</md-icon>
+                <span class="md-list-item-text">Show Game Genre</span>
+                <md-switch v-model="showGameGenre" @change="save" />
+            </md-list-item> -->
 
-                <!-- <md-list-item>
-                    <md-icon>category</md-icon>
-                    <span class="md-list-item-text">Show Game Genre</span>
-                    <md-switch v-model="showGameGenre" @change="save" />
-                </md-list-item> -->
+            <!-- <md-list-item>
+                <md-icon>games</md-icon>
+                <span class="md-list-item-text">Show player modes</span>
+                <md-switch v-model="showPlayerModes" @change="save" />
+            </md-list-item> -->
 
-                <!-- <md-list-item>
-                    <md-icon>games</md-icon>
-                    <span class="md-list-item-text">Show player modes</span>
-                    <md-switch v-model="showPlayerModes" @change="save" />
-                </md-list-item> -->
+            <!-- <md-list-item>
+                <md-icon>date_range</md-icon>
+                <span class="md-list-item-text">Show Release date</span>
+                <md-switch v-model="showReleaseDate" @change="save" />
+            </md-list-item> -->
 
-                <!-- <md-list-item>
-                    <md-icon>date_range</md-icon>
-                    <span class="md-list-item-text">Show Release date</span>
-                    <md-switch v-model="showReleaseDate" @change="save" />
-                </md-list-item> -->
+            <!-- <md-list-item>
+                <md-icon>vertical_split</md-icon>
+                <span class="md-list-item-text">List layout</span>
+                <span>
+                    <md-radio v-model="cardView" value="cover">Cover and text</md-radio>
+                    <md-radio v-model="cardView" value="text">Text only</md-radio>
+                </span>
+            </md-list-item> -->
 
-                <!-- <md-list-item>
-                    <md-icon>vertical_split</md-icon>
-                    <span class="md-list-item-text">List layout</span>
-                    <span>
-                        <md-radio v-model="cardView" value="cover">Cover and text</md-radio>
-                        <md-radio v-model="cardView" value="text">Text only</md-radio>
-                    </span>
-                </md-list-item> -->
+            <md-list-item md-expand>
+                <md-icon>format_color_fill</md-icon>
+                <span class="md-list-item-text">Background color</span>
 
-                <md-list-item md-expand>
-                    <md-icon>format_color_fill</md-icon>
-                    <span class="md-list-item-text">Background color</span>
+                <md-list slot="md-expand">
+                    <md-list-item>
+                        <sketch
+                            v-model="backgroundColor"
+                            @input="save"
+                        />
+                    </md-list-item>
+                </md-list>
+            </md-list-item>
 
-                    <md-list slot="md-expand">
-                        <md-list-item>
-                            <sketch
-                                v-model="backgroundColor"
-                                @input="save"
-                            />
-                        </md-list-item>
-                    </md-list>
-                </md-list-item>
+            <md-divider />
 
-                <md-divider />
+            <md-list-item>
+                <a href="https://goo.gl/forms/r0juBCsZaUtJ03qb2" target="_blank">
+                    <md-icon>feedback</md-icon>
+                    Submit feedback
+                </a>
+            </md-list-item>
+        </md-list>
 
-                <md-list-item>
-                    <a href="https://goo.gl/forms/r0juBCsZaUtJ03qb2" target="_blank">
-                        <md-icon>feedback</md-icon>
-                        Submit feedback
-                    </a>
-                </md-list-item>
-            </md-list>
-
-            <md-bottom-bar>
-                <md-bottom-bar-item md-label="Log out" md-icon="exit_to_app" @click="logout" />
-                <md-bottom-bar-item md-label="Close" md-icon="close" @click="closePanel" />
-            </md-bottom-bar>
-        </md-drawer>
+        <md-bottom-bar>
+            <md-bottom-bar-item md-label="Log out" md-icon="exit_to_app" @click="logout" />
+            <md-bottom-bar-item md-label="Close" md-icon="close" @click="toggleDrawer" />
+        </md-bottom-bar>
 
         <md-snackbar md-position="left" :md-active.sync="showSuccess" md-persistent>
             <span>Settings saved</span>
@@ -100,7 +94,6 @@ export default {
 
     data() {
         return {
-            showPanel: false,
             lockColumns: false,
             nightMode: false,
             cardView: null,
@@ -138,15 +131,12 @@ export default {
     },
 
     methods: {
-        openPanel() {
-            this.showPanel = true;
-        },
-
-        closePanel() {
-            this.showPanel = false;
+        toggleDrawer() {
+            this.$bus.$emit('TOGGLE_DRAWER');
         },
 
         logout() {
+            this.$bus.$emit('TOGGLE_DRAWER');
             this.$store.commit('CLEAR_SESSION');
             this.$router.push({ name: 'home' });
         },
@@ -181,13 +171,6 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    @import "~styles/variables.scss";
-    .settings-link {
-        display: flex;
-        cursor: pointer;
-        --md-theme-default-icon-on-background: #{$nin-white};
-    }
-
     .md-bottom-bar {
         position: absolute;
         bottom: 0;
