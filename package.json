@@ -5,8 +5,8 @@
     "author": "Roman Cervantes",
     "private": true,
     "scripts": {
-        "dev": "webpack-dev-server --inline --progress --config build/webpack.prod.conf.js",
-        "dev:local": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+        "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+        "dev:local": "webpack-dev-server --inline --progress --config build/webpack.dev.local.conf.js",
         "start": "npm run dev",
         "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
         "test": "npm run unit",

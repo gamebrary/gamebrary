@@ -21,10 +21,10 @@ yarn / node / npm
 # install dependencies
 yarn
 
-# serve with hot reload at localhost:8080 (Pointing to production backend)
+# serve with hot reload at localhost:3000 (production backend)
 yarn dev
 
-# serve with hot reload at localhost:3000 (pointing to local backend)
+# serve with hot reload at localhost:3000 (local backend)
 yarn dev:local
 
 # build for production with minification
