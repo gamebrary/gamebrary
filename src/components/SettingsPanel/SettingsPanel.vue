@@ -1,5 +1,5 @@
 <template lang="html">
-    <div>
+    <div v-if="user && settings">
         <md-list>
             <md-subheader>Settings</md-subheader>
 
@@ -70,6 +70,19 @@
                     Submit feedback
                 </a>
             </md-list-item>
+
+            <md-divider />
+
+            <md-button class="md-accent"  @click="promptDelete">Delete Account</md-button>
+
+            <md-dialog-confirm
+                :md-active.sync="showDeleteDialog"
+                md-title="Are you sure?"
+                md-content="All your data will be deleted FOREVER"
+                md-confirm-text="Delete account"
+                @md-confirm="deleteAccount"
+            />
+
         </md-list>
 
         <md-bottom-bar>
@@ -104,6 +117,7 @@ export default {
             backgroundColor: '#a5a2a2',
             showDialog: false,
             showSuccess: false,
+            showDeleteDialog: false,
         };
     },
 
@@ -113,7 +127,7 @@ export default {
         },
 
         settings() {
-            return this.$store.state.user.settings;
+            return this.$store.state.user ? this.$store.state.user.settings : null;
         },
 
         // dateJoined() {
@@ -131,6 +145,10 @@ export default {
     },
 
     methods: {
+        promptDelete() {
+            this.showDeleteDialog = true;
+        },
+
         toggleDrawer() {
             this.$bus.$emit('TOGGLE_DRAWER');
         },
@@ -139,6 +157,14 @@ export default {
             this.$bus.$emit('TOGGLE_DRAWER');
             this.$store.commit('CLEAR_SESSION');
             this.$router.push({ name: 'home' });
+        },
+
+        deleteAccount() {
+            // TODO: add account deleted view
+            this.$store.dispatch('DELETE_USER')
+                .then(() => {
+                    this.logout();
+                });
         },
 
         save() {
@@ -160,11 +186,13 @@ export default {
         },
 
         setLocalSettings() {
-            Object.keys(this.settings).forEach((setting) => {
-                if (this[setting] !== undefined) {
-                    this[setting] = this.settings[setting];
-                }
-            });
+            if (this.settings) {
+                Object.keys(this.settings).forEach((setting) => {
+                    if (this[setting] !== undefined) {
+                        this[setting] = this.settings[setting];
+                    }
+                });
+            }
         },
     },
 };

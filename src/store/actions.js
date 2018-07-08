@@ -88,4 +88,13 @@ export default {
                 }).catch(reject);
         });
     },
+
+    DELETE_USER({ state: { token } }) {
+        return new Promise((resolve, reject) => {
+            axios.delete(`${ENDPOINT}/user?token=${token}`)
+                .then(() => {
+                    resolve();
+                }).catch(reject);
+        });
+    },
 };
