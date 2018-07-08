@@ -28,8 +28,9 @@
                     />
                 </md-field>
 
-                <input type="checkbox" v-model="formModel.persist">
-                Keep me logged in
+                <md-checkbox v-model="formModel.persist">
+                    Keep me logged in
+                </md-checkbox>
 
                 <md-button type="submit" style="display: none;" />
             </md-card-content>
