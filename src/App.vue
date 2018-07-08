@@ -49,7 +49,7 @@ export default {
 <style lang="scss" rel="stylesheet/scss">
     @import "~styles/variables.scss";
     @import "~vue-material/dist/theme/engine";
-    @include md-register-theme("default", (primary: $nin-gray, accent: $nin-red));
+    @include md-register-theme("default", (primary: $nin-blue, accent: $nin-red));
     @import "~vue-material/dist/theme/all";
 
     @import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
