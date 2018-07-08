@@ -11,6 +11,11 @@
         @dragscrollend="dragScrollActive = false"
         @end="dragEnd"
     >
+        <md-snackbar :md-active.sync="errorLoading">
+            <span>There was an error loading your game data</span>
+            <md-button class="md-primary" @click="loadGameData">Retry</md-button>
+        </md-snackbar>
+
         <empty-board v-if="isEmpty" />
 
         <list
@@ -67,6 +72,7 @@ export default {
             loading: false,
             activeList: null,
             showDeleteConfirm: false,
+            errorLoading: false,
             dragScrollActive: false,
             listDraggableOptions: {
                 animation: 500,
@@ -178,7 +184,10 @@ export default {
                 }
             });
 
-            this.$store.dispatch('LOAD_GAMES', gameList);
+            this.$store.dispatch('LOAD_GAMES', gameList)
+                .catch(() => {
+                    this.errorLoading = true;
+                });
         },
     },
 };
