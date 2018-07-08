@@ -73,6 +73,18 @@
 
             <md-divider />
 
+            <md-list-item>
+                <a href="https://github.com/romancmx/switchlist/issues" target="_blank">
+                    <md-icon>bug_report</md-icon>
+                    Report issue
+                </a>
+                <span class="md-caption">
+                    <strong>APP ID:</strong> {{ user._id }}
+                </span>
+            </md-list-item>
+
+            <md-divider />
+
             <md-button class="md-accent"  @click="promptDelete">Delete Account</md-button>
 
             <md-dialog-confirm
