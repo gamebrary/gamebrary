@@ -64,11 +64,6 @@ a:hover {
     text-decoration: none;
 }
 
-@import "~vue-material/dist/theme/engine";
-@include md-register-theme("default", (primary: $nin-gray, accent: $nin-red));
-@import "~vue-material/dist/theme/all";
-
-
 .md-bottom-bar {
     box-shadow: none;
 }
