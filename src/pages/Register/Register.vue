@@ -4,6 +4,10 @@
             <span>There was an error creating the account</span>
         </md-snackbar>
 
+        <md-snackbar :md-active.sync="validationError">
+            <span>Please enter a valid password</span>
+        </md-snackbar>
+
         <md-card>
             <md-card-header>
                 <div class="md-title">Register</div>
@@ -20,6 +24,11 @@
                     <md-input type="password" v-model="formModel.password" />
                 </md-field>
 
+                <password-strength-indicator
+                    v-model="formModel.password"
+                    ref="passwordStrengthIndicator"
+                />
+
                 <md-button type="submit" style="display: none;" />
             </md-card-content>
 
@@ -33,7 +42,11 @@
                     />
                 </md-bottom-bar-item>
 
-                <md-bottom-bar-item md-label="Save" md-icon="save_alt" @click="register">
+                <md-bottom-bar-item
+                    md-label="Save"
+                    md-icon="save_alt"
+                    @click="register"
+                >
                     Create Account
                 </md-bottom-bar-item>
             </md-bottom-bar>
@@ -42,7 +55,13 @@
 </template>
 
 <script>
+import PasswordStrengthIndicator from '@/components/Register/PasswordStrengthIndicator';
+
 export default {
+    components: {
+        PasswordStrengthIndicator,
+    },
+
     data() {
         return {
             formModel: {
@@ -50,6 +69,7 @@ export default {
                 password: '',
             },
             error: false,
+            validationError: false,
             loading: false,
         };
     },
@@ -62,7 +82,8 @@ export default {
 
     methods: {
         register() {
-            if (this.loading) {
+            if (this.loading || !this.$refs.passwordStrengthIndicator.isValid) {
+                this.validationError = true;
                 return;
             }
 
@@ -82,7 +103,3 @@ export default {
     },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-    @import "~styles/variables.scss";
-</style>
