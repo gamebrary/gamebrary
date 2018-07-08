@@ -1,12 +1,11 @@
 import axios from 'axios';
 
-// const ENDPOINT = 'http://localhost:3333';
-const ENDPOINT = 'https://switchlist-api.herokuapp.com';
+const API_URL = process.env.API_URL;
 
 export default {
     REGISTER({ commit }, payload) {
         return new Promise((resolve, reject) => {
-            axios.post(`${ENDPOINT}/auth/register`, payload)
+            axios.post(`${API_URL}/auth/register`, payload)
                 .then(({ data }) => {
                     commit('SET_SESSION', data);
                     resolve(data);
@@ -16,7 +15,7 @@ export default {
 
     LOGIN({ commit }, payload) {
         return new Promise((resolve, reject) => {
-            axios.post(`${ENDPOINT}/auth/login`, payload)
+            axios.post(`${API_URL}/auth/login`, payload)
                 .then(({ data }) => {
                     commit('SET_SESSION', data);
                     commit('SET_UPDATED_TIMESTAMP');
@@ -29,7 +28,7 @@ export default {
         return new Promise((resolve, reject) => {
             const options = { headers: { token } };
 
-            axios.put(`${ENDPOINT}/settings`, payload, options)
+            axios.put(`${API_URL}/settings`, payload, options)
                 .then(({ data: { settings } }) => {
                     commit('SET_SETTINGS', settings);
                     resolve();
@@ -45,7 +44,7 @@ export default {
                 lists: user.lists,
             };
 
-            axios.put(`${ENDPOINT}/lists`, payload, options)
+            axios.put(`${API_URL}/lists`, payload, options)
                 .then(() => {
                     commit('SET_UPDATED_TIMESTAMP');
                     resolve();
@@ -57,7 +56,7 @@ export default {
         return new Promise((resolve, reject) => {
             const options = { headers: { token } };
 
-            axios.get(`${ENDPOINT}/lists`, options)
+            axios.get(`${API_URL}/lists`, options)
                 .then(({ data: { lists } }) => {
                     commit('UPDATE_LIST', lists);
                     commit('SET_UPDATED_TIMESTAMP');
@@ -69,7 +68,7 @@ export default {
     LOAD_GAMES({ commit, state: { token } }, gameList) {
         return new Promise((resolve, reject) => {
             const options = { headers: { token } };
-            axios.get(`${ENDPOINT}/games?games=${gameList.join(',')}`, options)
+            axios.get(`${API_URL}/games?games=${gameList.join(',')}`, options)
                 .then(({ data }) => {
                     commit('CACHE_GAME_DATA', data);
                     resolve();
@@ -80,7 +79,7 @@ export default {
     SEARCH({ commit, state: { token } }, searchText) {
         return new Promise((resolve, reject) => {
             const options = { headers: { token } };
-            axios.get(`${ENDPOINT}/search?searchText=${searchText}&order=popularity:desc`, options)
+            axios.get(`${API_URL}/search?searchText=${searchText}&order=popularity:desc`, options)
                 .then(({ data }) => {
                     commit('SET_SEARCH_RESULTS', data);
                     commit('CACHE_GAME_DATA', data);
@@ -91,7 +90,7 @@ export default {
 
     DELETE_USER({ state: { token } }) {
         return new Promise((resolve, reject) => {
-            axios.delete(`${ENDPOINT}/user?token=${token}`)
+            axios.delete(`${API_URL}/user?token=${token}`)
                 .then(() => {
                     resolve();
                 }).catch(reject);
