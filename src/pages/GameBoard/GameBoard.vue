@@ -169,7 +169,12 @@ export default {
         },
 
         updateLists() {
-            this.$store.dispatch('UPDATE_LISTS');
+            this.$store.dispatch('UPDATE_LISTS')
+                .then(() => {
+                    if (this.lists.length === 1) {
+                        location.reload();
+                    }
+                });
         },
 
         loadGameData() {
