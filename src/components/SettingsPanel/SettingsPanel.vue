@@ -78,9 +78,14 @@
                     <md-icon>bug_report</md-icon>
                     Report issue
                 </a>
-                <span class="md-caption">
-                    <strong>APP ID:</strong> {{ user._id }}
+            </md-list-item>
+
+            <md-list-item>
+                <span>
+                    <md-icon>fingerprint</md-icon>
+                    App ID
                 </span>
+                {{ user._id }}
             </md-list-item>
 
             <md-divider />
