@@ -38,7 +38,7 @@
         />
 
         <add-list
-            @update="updateLists"
+            @update="updateLists(true)"
             @scroll="scroll"
         />
     </draggable>
@@ -168,10 +168,10 @@ export default {
             this.updateLists();
         },
 
-        updateLists() {
+        updateLists(forceReload) {
             this.$store.dispatch('UPDATE_LISTS')
                 .then(() => {
-                    if (this.lists.length === 1) {
+                    if (this.lists.length === 1 && forceReload) {
                         location.reload();
                     }
                 });
