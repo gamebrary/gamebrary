@@ -122,11 +122,16 @@ export default {
         openGame({ id }) {
             if (id) {
                 this.$nextTick(() => {
-                    this.$bus.$emit('OPEN_GAME_MODAL', id);
+                    this.$bus.$emit('TOGGLE_DRAWER', {
+                        panelName: 'game-modal',
+                        gameId: id,
+                    });
                 });
-            } else {
-                this.$router.push({ name: 'home' });
+
+                return;
             }
+
+            this.$router.push({ name: 'home' });
         },
 
         checkDataAge() {

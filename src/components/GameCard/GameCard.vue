@@ -18,14 +18,14 @@
 
             <md-button
                 v-if="!searchResult"
-                class="md-dense md-icon-button md-primary game-drag-handle"
+                class="md-dense md-icon-button game-drag-handle"
             >
                 <md-icon>drag_handle</md-icon>
             </md-button>
 
             <md-button
                 v-if="list.games.includes(gameId)"
-                class="md-dense md-icon-button md-primary trash"
+                class="md-dense md-icon-button trash"
                 @click="removeGame"
             >
                 <md-icon>delete</md-icon>
@@ -33,7 +33,7 @@
 
             <md-button
                 v-else
-                class="md-dense md-icon-button md-primary trash"
+                class="md-dense md-icon-button md-default trash"
                 @click="addGame"
             >
                 <md-icon>add</md-icon>
@@ -106,6 +106,11 @@ export default {
 
         openGame() {
             if (!this.searchResult) {
+                this.$bus.$emit('TOGGLE_DRAWER', {
+                    panelName: 'game-modal',
+                    gameId: this.game.id,
+                });
+
                 this.$router.push({
                     name: 'game',
                     params: {
@@ -113,8 +118,6 @@ export default {
                         slug: this.game.slug,
                     },
                 });
-
-                this.$bus.$emit('OPEN_GAME_MODAL', this.gameId);
             }
         },
     },

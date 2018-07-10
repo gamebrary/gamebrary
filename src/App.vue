@@ -4,14 +4,14 @@
             <nav-header />
         </md-app-toolbar>
 
-        <md-app-drawer  class="md-right" :md-active.sync="showDrawer">
-            <settings-panel />
+        <md-app-drawer class="md-right" :md-active.sync="drawerActive" @md-closed="close">
+            <settings-panel v-if="showSettings" />
+            <game-modal v-if="showGameModal" :game-id="gameId" />
+            <search-modal v-if="showSearchModal" :list-id="listIndex" />
         </md-app-drawer>
 
         <md-app-content>
             <router-view />
-            <game-modal />
-            <search-modal />
         </md-app-content>
     </md-app>
 </template>
@@ -34,14 +34,43 @@ export default {
 
     data() {
         return {
-            showDrawer: false,
+            drawerActive: false,
+            panelActive: null,
+            gameId: null,
+            listIndex: null,
         };
     },
 
+    computed: {
+        showSettings() {
+            return this.panelActive === 'settings';
+        },
+
+        showGameModal() {
+            return this.panelActive === 'game-modal';
+        },
+
+        showSearchModal() {
+            return this.panelActive === 'search-modal';
+        },
+    },
+
     mounted() {
-        this.$bus.$on('TOGGLE_DRAWER', () => {
-            this.showDrawer = !this.showDrawer;
+        this.$bus.$on('TOGGLE_DRAWER', ({ panelName, gameId, listIndex }) => {
+            this.panelActive = panelName;
+            this.gameId = gameId;
+            this.listIndex = listIndex;
+            this.drawerActive = !this.drawerActive;
         });
+    },
+
+    methods: {
+        close() {
+            if (this.panelActive === 'game-modal') {
+                this.gameId = null;
+                this.$router.push({ name: 'home' });
+            }
+        },
     },
 };
 </script>
@@ -49,14 +78,18 @@ export default {
 <style lang="scss" rel="stylesheet/scss">
     @import "~styles/variables.scss";
     @import "~vue-material/dist/theme/engine";
-    @include md-register-theme("default", (primary: $nin-blue, accent: $nin-red));
+    @include md-register-theme("default", (
+        primary: $nin-blue,
+        accent: $nin-red,
+        // theme: dark
+    ));
     @import "~vue-material/dist/theme/all";
 
     @import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
 
     body {
         font-family: 'Roboto', sans-serif;
-        // background: url('/static/switch-pattern-sm.png');
+        background: url('/static/background-pattern.png');
     }
 
     .md-toolbar {
@@ -72,13 +105,14 @@ export default {
     .md-content {
         padding: 0;
         height: calc(100vh - 48px);
+        --md-theme-default-background: transparent;
     }
 
-    .logo {
-        margin: 0;
+    .md-card {
+        --md-theme-default-background: #{$nin-white};
+    }
 
-        img {
-            height: 24px;
-        }
+    .md-app {
+        background: url('/static/background-pattern.png');
     }
 </style>

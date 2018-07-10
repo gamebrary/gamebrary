@@ -3,7 +3,7 @@
         <h2>Hello!</h2>
         <p>We've created a few lists for you, feel free to rename them by clicking on the title</p>
         <md-button
-            class="md-dense md-raised md-accent"
+            class="md-dense md-raised md-primary"
             @click="addGame"
         >
             Add your first game!
@@ -14,8 +14,8 @@
 <script>
 export default {
     methods: {
-        addGame(list) {
-            this.$bus.$emit('OPEN_SEARCH_MODAL', list || 0);
+        addGame() {
+            this.$bus.$emit('TOGGLE_DRAWER', { panelName: 'search-modal' });
         },
     },
 };

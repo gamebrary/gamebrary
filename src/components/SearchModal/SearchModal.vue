@@ -1,59 +1,53 @@
 <template lang="html">
-    <md-drawer
-        v-if="show"
-        class="md-right"
-        :md-active.sync="show"
-    >
-        <md-subheader>
-            Add game to {{ listName }}
-        </md-subheader>
+    <div class="search-modal">
+        <h4>Add game to {{ listName }}</h4>
 
-        <input
-            ref="searchBox"
-            class="searchBox"
-            type="text"
-            placeholder="Search"
-            v-debounce="500"
-            v-model.lazy="searchText"
-        />
+        <md-field>
+            <label>Type here</label>
 
-        <small v-if="results.length && searchText && !loading" class="search-result-text">
-            {{results.length}} Results found
-            <span v-if="searchText">
-                 for {{ searchText }}
+            <md-input
+                v-model="searchText"
+                @input="search"
+                ref="searchBox"
+            />
+
+            <span v-if="results.length && searchText && !loading" class="md-helper-text">
+                {{results.length}} Results found
+                <span v-if="searchText">
+                     for {{ searchText }}
+                </span>
             </span>
-        </small>
+        </md-field>
 
         <content-placeholders v-for="n in 10" :key="n" v-if="loading">
             <content-placeholders-heading :img="true" />
         </content-placeholders>
 
-        <div class="search-results" v-if="results.length && !loading">
-            <game-card
-                v-for="{ id } in results" :key="id"
-                :game-id="id"
-                :listId="listId"
-                search-result
-            />
-        </div>
-    </md-drawer>
+        <game-card
+            v-if="results.length && !loading"
+            v-for="{ id } in results" :key="id"
+            :game-id="id"
+            :listId="listId"
+            search-result
+        />
+    </div>
 </template>
 
 <script>
-import debounce from 'v-debounce';
 import GameCard from '@/components/GameCard/GameCard';
+import { debounce } from 'lodash';
 
 export default {
     components: {
         GameCard,
     },
 
-    directives: { debounce },
+    props: {
+        listId: [Number, String],
+    },
 
     data() {
         return {
-            listId: 0,
-            show: false,
             searchText: '',
             loading: false,
             styles: {
@@ -73,52 +67,27 @@ export default {
         },
 
         listName() {
-            return this.$store.state.user.lists[this.listId].name;
+            const listId = this.listId || 0;
+            return this.$store.state.user.lists[listId].name;
         },
-    },
-
-    watch: {
-        searchText() {
-            this.search();
-        },
-    },
-
-    mounted() {
-        this.$bus.$on('OPEN_SEARCH_MODAL', (list) => {
-            this.open(list);
-        });
     },
 
     methods: {
-        open(list) {
-            this.show = true;
-            this.listId = list || 0;
-            this.$store.dispatch('SEARCH', this.searchText);
+        search: debounce(
+            // eslint-disable-next-line
+            function() {
+                this.loading = true;
 
-            this.$nextTick(() => {
-                if (this.$refs.searchBox) {
-                    this.$refs.searchBox.focus();
-                }
-            });
-        },
-
-        search() {
-            this.loading = true;
-            this.$store.dispatch('SEARCH', this.searchText)
-                .then(() => {
-                    this.error = null;
-                    this.loading = false;
-                })
-                .catch(({ data }) => {
-                    this.loading = false;
-                    this.error = data;
-                });
-        },
-
-        close() {
-            this.searchText = '';
-            this.results = null;
-        },
+                this.$store.dispatch('SEARCH', this.searchText)
+                    .then(() => {
+                        this.error = null;
+                        this.loading = false;
+                    })
+                    .catch(({ data }) => {
+                        this.loading = false;
+                        this.error = data;
+                    });
+            }, 300),
     },
 };
 </script>
@@ -126,24 +95,15 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/variables.scss";
 
+    .search-modal {
+        padding: 0 $gp;
+    }
+
+    h4 {
+        margin-bottom: 0;
+    }
+
     .vue-content-placeholders {
-        padding: $gp;
-    }
-
-    .searchBox {
-        margin: 0 $gp;
-        text-indent: $gp / 4;
-        height: 32px;
-        width: calc(100% - 32px);
-        border-radius: $border-radius;
-        border: 1px solid $nin-gray;
-    }
-
-    .search-result-text {
-        padding: $gp;
-    }
-
-    .search-results {
         padding: $gp;
     }
 </style>

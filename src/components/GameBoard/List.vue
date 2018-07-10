@@ -117,7 +117,10 @@ export default {
         },
 
         addGame() {
-            this.$bus.$emit('OPEN_SEARCH_MODAL', this.listIndex);
+            this.$bus.$emit('TOGGLE_DRAWER', {
+                panelName: 'search-modal',
+                listIndex: this.listIndex,
+            });
         },
     },
 };

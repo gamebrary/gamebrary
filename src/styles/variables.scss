@@ -16,6 +16,12 @@ $nin-red: #dd2020;
 $nin-blue: #00a8f0;
 $zelda-green: #568233;
 
+.md-button.md-raised {
+    --md-theme-default-background: #{$nin-dk-gray};
+    --md-theme-default-text-primary-on-background: #{$nin-white};
+    --md-theme-default-text-primary-on-primary: #{$nin-white};
+}
+
 // Measurements
 $border-radius: 4px;
 $gp: 16px;
@@ -67,4 +73,11 @@ a:hover {
 
 .md-bottom-bar {
     box-shadow: none;
+}
+
+.button-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: $gp;
+    padding: $gp / 2;
 }

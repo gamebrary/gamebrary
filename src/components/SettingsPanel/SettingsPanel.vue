@@ -1,42 +1,50 @@
 <template lang="html">
-    <div v-if="user && settings">
-        <md-list>
+    <md-card v-if="user && settings">
+        <md-list class="settings-panel">
             <md-subheader>Settings</md-subheader>
 
             <md-list-item>
-                <md-icon>brightness_4</md-icon>
-                <span class="md-list-item-text">Night mode</span>
-                <md-switch v-model="nightMode" @change="save" />
+                <span>
+                    <md-icon>fingerprint</md-icon>
+                    App ID
+                </span>
+                {{ user._id }}
             </md-list-item>
 
             <md-list-item>
-                <md-icon>grade</md-icon>
+                <md-icon :class="{'md-primary': nightMode }">brightness_4</md-icon>
+                <span class="md-list-item-text">Night mode</span>
+                <md-switch class="md-primary" v-model="nightMode" @change="save" />
+            </md-list-item>
+
+            <md-list-item>
+                <md-icon :class="{'md-primary': showGameRatings }">grade</md-icon>
                 <span class="md-list-item-text">Show game score</span>
-                <md-switch v-model="showGameRatings" @change="save" />
+                <md-switch class="md-primary" v-model="showGameRatings" @change="save" />
             </md-list-item>
 
             <!-- <md-list-item>
                 <md-icon>lock</md-icon>
                 <span class="md-list-item-text">Lock Columns</span>
-                <md-switch v-model="lockColumns" @change="save" />
+                <md-switch class="md-primary" v-model="lockColumns" @change="save" />
             </md-list-item> -->
 
             <!-- <md-list-item>
                 <md-icon>category</md-icon>
                 <span class="md-list-item-text">Show Game Genre</span>
-                <md-switch v-model="showGameGenre" @change="save" />
+                <md-switch class="md-primary" v-model="showGameGenre" @change="save" />
             </md-list-item> -->
 
             <!-- <md-list-item>
                 <md-icon>games</md-icon>
                 <span class="md-list-item-text">Show player modes</span>
-                <md-switch v-model="showPlayerModes" @change="save" />
+                <md-switch class="md-primary" v-model="showPlayerModes" @change="save" />
             </md-list-item> -->
 
             <!-- <md-list-item>
                 <md-icon>date_range</md-icon>
                 <span class="md-list-item-text">Show Release date</span>
-                <md-switch v-model="showReleaseDate" @change="save" />
+                <md-switch class="md-primary" v-model="showReleaseDate" @change="save" />
             </md-list-item> -->
 
             <!-- <md-list-item>
@@ -64,57 +72,61 @@
 
             <md-divider />
 
+            <md-list-item md-expand>
+                <md-icon>settings</md-icon>
+                <span class="md-list-item-text">Advanced Settings</span>
+
+                <md-list slot="md-expand">
+                    <div class="button-row">
+                        <md-button class="md-accent md-raised" @click="promptDelete">Delete Account</md-button>
+                    </div>
+                </md-list>
+
+                <md-dialog-confirm
+                    :md-active.sync="showDeleteDialog"
+                    md-title="Are you sure?"
+                    md-content="All your data will be deleted FOREVER"
+                    md-confirm-text="Delete account"
+                    @md-confirm="deleteAccount"
+                />
+            </md-list-item>
+
+
+            <md-divider />
+
             <md-list-item>
-                <a href="https://goo.gl/forms/r0juBCsZaUtJ03qb2" target="_blank">
+                <md-button href="https://goo.gl/forms/r0juBCsZaUtJ03qb2" class="md-primary md-dense">
                     <md-icon>feedback</md-icon>
                     Submit feedback
-                </a>
-            </md-list-item>
+                </md-button>
 
-            <md-divider />
-
-            <md-list-item>
-                <a href="https://github.com/romancmx/switchlist/issues" target="_blank">
+                <md-button href="https://github.com/romancmx/switchlist/issues" class="md-accent md-dense">
                     <md-icon>bug_report</md-icon>
                     Report issue
-                </a>
-            </md-list-item>
-
-            <md-list-item>
-                <span>
-                    <md-icon>fingerprint</md-icon>
-                    App ID
-                </span>
-                {{ user._id }}
+                </md-button>
             </md-list-item>
 
             <md-divider />
 
-            <md-button class="md-accent"  @click="promptDelete">Delete Account</md-button>
-
-            <md-dialog-confirm
-                :md-active.sync="showDeleteDialog"
-                md-title="Are you sure?"
-                md-content="All your data will be deleted FOREVER"
-                md-confirm-text="Delete account"
-                @md-confirm="deleteAccount"
-            />
-
+            <div class="button-row">
+                <md-button
+                    class="md-primary md-raised"
+                    @click="logout"
+                >
+                    Log out
+                </md-button>
+            </div>
         </md-list>
-
-        <md-bottom-bar>
-            <md-bottom-bar-item md-label="Log out" md-icon="exit_to_app" @click="logout" />
-            <md-bottom-bar-item md-label="Close" md-icon="close" @click="toggleDrawer" />
-        </md-bottom-bar>
 
         <md-snackbar md-position="left" :md-active.sync="showSuccess" md-persistent>
             <span>Settings saved</span>
         </md-snackbar>
-    </div>
+    </md-card>
 </template>
 
 <script>
 // import moment from 'moment';
+import { debounce } from 'lodash';
 import { Sketch } from 'vue-color';
 
 export default {
@@ -167,11 +179,11 @@ export default {
         },
 
         toggleDrawer() {
-            this.$bus.$emit('TOGGLE_DRAWER');
+            this.$bus.$emit('TOGGLE_DRAWER', { panelName: null });
         },
 
         logout() {
-            this.$bus.$emit('TOGGLE_DRAWER');
+            this.toggleDrawer();
             this.$store.commit('CLEAR_SESSION');
             this.$router.push({ name: 'home' });
         },
@@ -184,23 +196,25 @@ export default {
                 });
         },
 
-        save() {
-            const payload = {
-                lockColumns: this.lockColumns,
-                showGameRatings: this.showGameRatings,
-                // showGameGenre: this.showGameGenre,
-                // showPlayerModes: this.showPlayerModes,
-                // showReleaseDate: this.showReleaseDate,
-                nightMode: this.nightMode,
-                // cardView: this.cardView,
-                backgroundColor: this.backgroundColor.hex || this.backgroundColor,
-            };
+        save: debounce(
+            // eslint-disable-next-line
+            function() {
+                const payload = {
+                    lockColumns: this.lockColumns,
+                    showGameRatings: this.showGameRatings,
+                    // showGameGenre: this.showGameGenre,
+                    // showPlayerModes: this.showPlayerModes,
+                    // showReleaseDate: this.showReleaseDate,
+                    nightMode: this.nightMode,
+                    // cardView: this.cardView,
+                    backgroundColor: this.backgroundColor.hex || this.backgroundColor,
+                };
 
-            this.$store.dispatch('UPDATE_SETTINGS', payload)
-                .then(() => {
-                    this.showSuccess = true;
-                });
-        },
+                this.$store.dispatch('UPDATE_SETTINGS', payload)
+                    .then(() => {
+                        this.showSuccess = true;
+                    });
+            }, 300),
 
         setLocalSettings() {
             if (this.settings) {
@@ -216,8 +230,15 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    .md-bottom-bar {
-        position: absolute;
-        bottom: 0;
+    @import "~styles/variables.scss";
+
+    .settings-panel {
+        min-height: 100vh
+    }
+
+    .vc-sketch {
+        width: calc(100% - 18px);
+        margin: 8px 0 12px;
+        overflow-x: hidden;
     }
 </style>

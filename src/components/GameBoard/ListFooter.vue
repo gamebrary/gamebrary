@@ -31,10 +31,8 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/variables.scss";
 
-    .md-bottom-bar {
-        color: red;
-
-    }
-    .md-icon {
+    .md-raised {
+        box-shadow: none;
     }
 </style>
+
