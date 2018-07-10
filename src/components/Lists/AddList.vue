@@ -19,7 +19,7 @@
         />
 
         <md-button
-            :class="['md-icon-button md-raised', { nightMode }]"
+            :class="['md-icon-button md-raised md-default', { nightMode }]"
             @click="showAddListModal = true"
         >
             <md-icon>add</md-icon>
