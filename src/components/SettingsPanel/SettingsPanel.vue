@@ -1,14 +1,16 @@
 <template lang="html">
     <md-card v-if="user && settings">
         <md-list class="settings-panel">
-            <md-subheader>Settings</md-subheader>
-
             <md-list-item>
-                <span>
-                    <md-icon>fingerprint</md-icon>
-                    App ID
+                <md-avatar>
+                    <gravatar :email="user.email" />
+                </md-avatar>
+
+                <span class="user-info">
+                    <strong>{{ user.email }}</strong>
+                    <br />
+                    <strong>App ID</strong> {{ user._id }}
                 </span>
-                {{ user._id }}
             </md-list-item>
 
             <md-list-item>
@@ -130,12 +132,14 @@
 
 <script>
 // import moment from 'moment';
+import Gravatar from 'vue-gravatar';
 import { debounce } from 'lodash';
 import { Sketch } from 'vue-color';
 
 export default {
     components: {
         Sketch,
+        Gravatar,
     },
 
     data() {
@@ -244,5 +248,9 @@ export default {
         width: calc(100% - 18px);
         margin: 8px 0 12px;
         overflow-x: hidden;
+    }
+
+    .user-info {
+        flex: 1;
     }
 </style>
