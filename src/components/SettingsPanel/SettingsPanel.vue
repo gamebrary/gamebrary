@@ -78,7 +78,11 @@
 
                 <md-list slot="md-expand">
                     <div class="button-row">
-                        <md-button class="md-accent md-raised" @click="promptDelete">Delete Account</md-button>
+                        <md-button
+                            class="md-accent md-raised"
+                            @click="promptDelete">
+                            Delete Account
+                        </md-button>
                     </div>
                 </md-list>
 
