@@ -1,22 +1,22 @@
 <template lang="html">
     <div class="md-toolbar-row">
         <div class="md-toolbar-section-start">
-            <md-button class="md-icon-button" @click="goHome">
+            <md-button class="md-icon-button md-accent md-raised" @click="goHome">
                 <md-icon>home</md-icon>
             </md-button>
         </div>
 
         <div class="md-toolbar-section-end">
-            <md-button class="md-icon-button" @click="showDrawer" v-if="auth">
+            <md-button class="md-icon-button md-accent md-raised" @click="showDrawer" v-if="auth">
                 <md-icon>settings</md-icon>
             </md-button>
 
             <template v-else>
-                <md-button v-if="showRegister" @click="goRegister">
+                <md-button class="md-accent md-raised" v-if="showRegister" @click="goRegister">
                     Register
                 </md-button>
 
-                <md-button v-if="showLogin" @click="goLogin">
+                <md-button class="md-accent md-raised" v-if="showLogin" @click="goLogin">
                     Login
                 </md-button>
             </template>
@@ -46,7 +46,7 @@ export default {
 
     methods: {
         showDrawer() {
-            this.$bus.$emit('TOGGLE_DRAWER');
+            this.$bus.$emit('TOGGLE_DRAWER', { panelName: 'settings' });
         },
 
         goHome() {
@@ -67,9 +67,7 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/variables.scss";
 
-    a, .md-icon, .md-button {
-
-        color: $nin-white !important;
+    .md-button.md-raised:not([disabled]) {
+        box-shadow: none;
     }
-
 </style>
