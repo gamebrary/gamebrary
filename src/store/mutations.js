@@ -18,6 +18,21 @@ export default {
         state.user.lists = lists;
     },
 
+    SORT_LIST(state, listIndex) {
+        const games = state.user.lists[listIndex].games;
+
+        games.sort((a, b) => {
+            const gameA = state.games[a].name.toUpperCase();
+            const gameB = state.games[b].name.toUpperCase();
+
+            if (gameA < gameB) {
+                return -1;
+            }
+
+            return gameA > gameB ? 1 : 0;
+        });
+    },
+
     UPDATE_LIST_NAME(state, { listIndex, listName }) {
         state.user.lists[listIndex].name = listName;
     },

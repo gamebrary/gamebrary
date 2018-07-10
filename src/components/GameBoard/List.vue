@@ -8,9 +8,21 @@
                 @update="updateLists"
             />
 
-            <span class="list-drag-handle">
-                <md-icon>drag_handle</md-icon>
-            </span>
+            <div class="list-actions">
+                <md-button
+                    class="md-icon-button md-dense md-default"
+                    @click="sortList(listIndex)"
+                >
+                    <md-icon>sort_by_alpha</md-icon>
+                </md-button>
+
+                <md-button
+                    class="md-icon-button md-dense md-default list-drag-handle"
+                    :md-ripple="false"
+                >
+                    <md-icon>drag_handle</md-icon>
+                </md-button>
+            </div>
         </div>
 
         <draggable
@@ -96,6 +108,11 @@ export default {
             this.$store.dispatch('UPDATE_LISTS');
         },
 
+        sortList(listIndex) {
+            this.$store.commit('SORT_LIST', listIndex);
+            this.updateLists();
+        },
+
         validateMove({ from, to }) {
             const isDifferentList = from.id !== to.id;
             const isDuplicate = this.lists[to.id].games.includes(Number(this.draggingId));
@@ -144,7 +161,6 @@ export default {
     .list-header {
         align-items: center;
         background: $nin-dk-gray;
-        box-shadow: 0 0 5px 5px $nin-lt-gray;
         color: $nin-white;
         display: flex;
         height: 30px;
@@ -153,10 +169,17 @@ export default {
         position: absolute;
         width: 100%;
 
-        .list-drag-handle {
+        .list-actions {
             .md-icon {
-                @include drag-cursor;
                 color: $nin-white;
+            }
+
+            .md-icon-button {
+                margin: $gp / 2 0;
+            }
+
+            .list-drag-handle {
+                @include drag-cursor;
             }
         }
     }
