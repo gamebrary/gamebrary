@@ -32,24 +32,25 @@
                 <md-button type="submit" style="display: none;" />
             </md-card-content>
 
-            <md-bottom-bar class="md-accent">
-                <md-bottom-bar-item>
+            <div class="button-row">
+                <md-button class="md-button md-primary" disabled>
                     <md-progress-spinner
                         :md-diameter="30"
                         :md-stroke="3"
+                        class="md-primary"
                         md-mode="indeterminate"
                         v-show="loading"
                     />
-                </md-bottom-bar-item>
+                </md-button>
 
-                <md-bottom-bar-item
-                    md-label="Save"
-                    md-icon="save_alt"
+                <md-button
+                    class="md-primary md-raised"
                     @click="register"
+                    :disabled="loading"
                 >
-                    Create Account
-                </md-bottom-bar-item>
-            </md-bottom-bar>
+                    Register
+                </md-button>
+            </div>
         </md-card>
     </form>
 </template>

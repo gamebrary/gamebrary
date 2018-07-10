@@ -28,27 +28,32 @@
                     />
                 </md-field>
 
-                <md-checkbox v-model="formModel.persist">
+                <md-checkbox v-model="formModel.persist" class="md-primary">
                     Keep me logged in
                 </md-checkbox>
 
                 <md-button type="submit" style="display: none;" />
             </md-card-content>
 
-            <md-bottom-bar class="md-accent">
-                <md-bottom-bar-item>
+            <div class="button-row">
+                <md-button class="md-button md-primary" disabled>
                     <md-progress-spinner
                         :md-diameter="30"
                         :md-stroke="3"
+                        class="md-primary"
                         md-mode="indeterminate"
                         v-show="loading"
                     />
-                </md-bottom-bar-item>
+                </md-button>
 
-                <md-bottom-bar-item md-label="Save" md-icon="save_alt" @click="login">
+                <md-button
+                    class="md-primary md-raised"
+                    @click="login"
+                    :disabled="loading"
+                >
                     Login
-                </md-bottom-bar-item>
-            </md-bottom-bar>
+                </md-button>
+            </div>
         </md-card>
     </form>
 </template>
@@ -99,7 +104,3 @@ export default {
     },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-    @import "~styles/variables.scss";
-</style>
