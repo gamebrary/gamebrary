@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="search-modal" v-if="listId">
+    <div class="search-modal" v-if="listId !== null">
         <h4>Add game to {{ listName }}</h4>
 
         <md-field>
