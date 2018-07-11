@@ -71,7 +71,7 @@ export default {
             const url = 'https://images.igdb.com/igdb/image/upload/t_cover_small/';
             return this.gameData && this.gameData[this.gameId].cover
                 ? `${url}${this.gameData[this.gameId].cover.cloudinary_id}.jpg`
-                : null;
+                : '/static/no-image.jpg';
         },
 
         nightMode() {
