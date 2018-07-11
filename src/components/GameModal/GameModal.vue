@@ -4,7 +4,7 @@
             <div class="game-header">
                 <div class="game-background" :style="style">
                     <img
-                        :src="coverUrl(game.cover.cloudinary_id)"
+                        :src="coverUrl"
                         :alt="game.name"
                         class="game-cover"
                         width="80"
@@ -21,16 +21,18 @@
 
             <p class="game-description">{{ game.summary }}</p>
 
-            <h3>Screenshots ({{ game.screenshots.length }})</h3>
+            <div v-if="game.screenshots">
+                <h3>Screenshots ({{ game.screenshots.length }})</h3>
 
-            <div class="game-screenshots no-wrap">
-                <img
-                    v-if="game.screenshots"
-                    :src="getImageUrl(img.cloudinary_id)"
-                    :key="index"
-                    v-for="(img, index) in game.screenshots"
-                    class="image"
-                >
+                <div class="game-screenshots no-wrap">
+                    <img
+                        v-if="game.screenshots"
+                        :src="getImageUrl(img.cloudinary_id)"
+                        :key="index"
+                        v-for="(img, index) in game.screenshots"
+                        class="image"
+                    >
+                </div>
             </div>
 
             <h3>Videos ({{ game.videos.length }})</h3>
@@ -87,6 +89,13 @@ export default {
 
             return imageUrl || '';
         },
+
+        coverUrl() {
+            const url = 'https://images.igdb.com/igdb/image/upload/t_cover_small/';
+            return this.gameData && this.gameData[this.gameId].cover
+                ? `${url}${this.gameData[this.gameId].cover.cloudinary_id}.jpg`
+                : '/static/no-image.jpg';
+        },
     },
 
     methods: {
@@ -95,11 +104,9 @@ export default {
         },
 
         getImageUrl(cloudinaryId) {
-            return `https://images.igdb.com/igdb/image/upload/t_720p/${cloudinaryId}.jpg`;
-        },
-
-        coverUrl(cloudinaryId) {
-            return `https://images.igdb.com/igdb/image/upload/t_720p/${cloudinaryId}.jpg`;
+            return cloudinaryId
+                ? `https://images.igdb.com/igdb/image/upload/t_720p/${cloudinaryId}.jpg`
+                : null;
         },
     },
 };
@@ -122,6 +129,7 @@ export default {
         min-height: 20vh;
         width: 100%;
         align-items: center;
+        background: $nin-lt-gray;
 
         .game-cover {
             margin: 0 $gp;
