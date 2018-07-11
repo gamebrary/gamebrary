@@ -66,8 +66,10 @@ export default {
 
     methods: {
         close() {
-            if (this.panelActive === 'game-modal') {
-                this.gameId = null;
+            this.listIndex = null;
+            this.gameId = null;
+
+            if (this.$route.name !== 'home') {
                 this.$router.push({ name: 'home' });
             }
         },
