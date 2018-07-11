@@ -1,15 +1,12 @@
 <template lang="html">
-    <draggable
-        v-dragscroll:nochilddrag
+    <div
         class="lists"
         ref="lists"
-        :list="lists"
-        :class="{ nightMode, 'drag-scroll-active': dragScrollActive }"
-        :style="{ background: settings.backgroundColor }"
-        :options="listDraggableOptions"
         @dragscrollstart="dragScrollActive = true"
         @dragscrollend="dragScrollActive = false"
-        @end="dragEnd"
+        :class="{ nightMode, 'drag-scroll-active': dragScrollActive }"
+        :style="{ background: settings.backgroundColor }"
+        v-dragscroll:nochilddrag
     >
         <md-snackbar :md-active.sync="errorLoading">
             <span>There was an error loading your game data</span>
@@ -19,12 +16,12 @@
         <empty-board v-if="isEmpty" />
 
         <list
-            :name="name"
-            :games="games"
+            :name="list.name"
+            :games="list.games"
             :listIndex="listIndex"
-            :key="name"
-            v-if="lists"
-            v-for="({name, games}, listIndex) in lists"
+            :key="list.name"
+            v-if="list"
+            v-for="(list, listIndex) in lists"
             @end="dragEnd"
             @remove="tryDelete(listIndex)"
         />
@@ -41,7 +38,7 @@
             @update="updateLists(true)"
             @scroll="scroll"
         />
-    </draggable>
+    </div>
 </template>
 
 <script>
@@ -98,7 +95,7 @@ export default {
         },
 
         isEmpty() {
-            return !this.lists.filter(list => list.games.length).length;
+            return !this.lists.filter(list => list && list.games && list.games.length).length;
         },
 
         nightMode() {
@@ -184,9 +181,9 @@ export default {
 
         loadGameData() {
             const gameList = [];
-            this.user.lists.forEach(({ games }) => {
-                if (games.length) {
-                    games.forEach((id) => {
+            this.user.lists.forEach((list) => {
+                if (list && list.games.length) {
+                    list.games.forEach((id) => {
                         if (!gameList.includes(id)) {
                             gameList.push(id);
                         }

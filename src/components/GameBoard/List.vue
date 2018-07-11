@@ -15,13 +15,6 @@
                 >
                     <md-icon>sort_by_alpha</md-icon>
                 </md-button>
-
-                <md-button
-                    class="md-icon-button md-dense md-default list-drag-handle"
-                    :md-ripple="false"
-                >
-                    <md-icon>drag_handle</md-icon>
-                </md-button>
             </div>
         </div>
 
