@@ -120,7 +120,7 @@ export default {
             if (id) {
                 this.$nextTick(() => {
                     this.$bus.$emit('TOGGLE_DRAWER', {
-                        panelName: 'game-modal',
+                        panelName: 'game',
                         gameId: id,
                     });
                 });

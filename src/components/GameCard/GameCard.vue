@@ -107,7 +107,7 @@ export default {
         openGame() {
             if (!this.searchResult) {
                 this.$bus.$emit('TOGGLE_DRAWER', {
-                    panelName: 'game-modal',
+                    panelName: 'game',
                     gameId: this.game.id,
                 });
 

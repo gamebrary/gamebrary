@@ -12,11 +12,11 @@
                 </div>
 
                 <h2
-                    class="game-title"
-                    :class="{ small: game.name.length > 28 }"
-                >{{ game.name }}</h2>
+                    :class="['game-title', { small: game.name.length > 28 }]"
+                    v-html="game.name"
+                />
 
-                <md-divider></md-divider>
+                <md-divider />
             </div>
 
             <p class="game-description">{{ game.summary }}</p>

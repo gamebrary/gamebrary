@@ -5,9 +5,9 @@
         </md-app-toolbar>
 
         <md-app-drawer class="md-right" :md-active.sync="drawerActive" @md-closed="close">
-            <settings-panel v-if="showSettings" />
-            <game-modal v-if="showGameModal" :game-id="gameId" />
-            <search-modal v-if="showSearchModal" :list-id="listIndex" />
+            <settings-panel v-if="panelActive === 'settings'" />
+            <game-panel v-if="panelActive === 'game'" :game-id="gameId" />
+            <search-panel v-if="panelActive === 'search'" :list-id="listIndex" />
         </md-app-drawer>
 
         <md-app-content>
@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import GameModal from '@/components/GameModal/GameModal';
-import SearchModal from '@/components/SearchModal/SearchModal';
+import GamePanel from '@/components/GamePanel/GamePanel';
+import SearchPanel from '@/components/SearchPanel/SearchPanel';
 import NavHeader from '@/components/NavHeader/NavHeader';
 import SettingsPanel from '@/components/SettingsPanel/SettingsPanel';
 
@@ -27,8 +27,8 @@ export default {
 
     components: {
         NavHeader,
-        GameModal,
-        SearchModal,
+        GamePanel,
+        SearchPanel,
         SettingsPanel,
     },
 
@@ -39,20 +39,6 @@ export default {
             gameId: null,
             listIndex: null,
         };
-    },
-
-    computed: {
-        showSettings() {
-            return this.panelActive === 'settings';
-        },
-
-        showGameModal() {
-            return this.panelActive === 'game-modal';
-        },
-
-        showSearchModal() {
-            return this.panelActive === 'search-modal';
-        },
     },
 
     mounted() {

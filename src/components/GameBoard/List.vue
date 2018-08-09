@@ -128,7 +128,7 @@ export default {
 
         addGame() {
             this.$bus.$emit('TOGGLE_DRAWER', {
-                panelName: 'search-modal',
+                panelName: 'search',
                 listIndex: this.listIndex,
             });
         },
