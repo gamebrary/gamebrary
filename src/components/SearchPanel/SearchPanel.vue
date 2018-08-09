@@ -11,7 +11,7 @@
                 ref="searchBox"
             />
 
-            <span v-if="results.length && searchText && !loading" class="md-helper-text">
+            <span v-if="results && results.length && searchText && !loading" class="md-helper-text">
                 {{results.length}} Results found
                 <span v-if="searchText">
                      for {{ searchText }}
@@ -24,7 +24,7 @@
         </content-placeholders>
 
         <game-card
-            v-if="results.length && !loading"
+            v-if="results && results.length && !loading"
             v-for="{ id } in results" :key="id"
             :game-id="id"
             :listId="listId"
