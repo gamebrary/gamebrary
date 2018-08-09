@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="search-modal" v-if="listId !== null">
+    <div class="search-panel">
         <h4>Add game to {{ listName }}</h4>
 
         <md-field>
@@ -43,7 +43,11 @@ export default {
     },
 
     props: {
-        listId: [Number, String, Boolean],
+        listId: {
+            type: [Number, String, Boolean],
+            required: true,
+            default: 0,
+        },
     },
 
     data() {
@@ -67,8 +71,7 @@ export default {
         },
 
         listName() {
-            const listId = this.listId || 0;
-            return this.$store.state.user.lists[listId].name;
+            return this.$store.state.user.lists[this.listId].name;
         },
     },
 

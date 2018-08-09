@@ -66,7 +66,8 @@ export default {
 
     methods: {
         close() {
-            this.listIndex = null;
+            this.panelActive = null;
+            this.listIndex = 0;
             this.gameId = null;
 
             if (this.$route.name !== 'home') {
