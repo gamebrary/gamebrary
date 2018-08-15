@@ -10,6 +10,14 @@ export default {
         state.results = results;
     },
 
+    SET_ACTIVE_GAME(state, game) {
+        state.activeGame = state.games[game];
+    },
+
+    CLEAR_ACTIVE_GAME(state) {
+        state.activeGame = null;
+    },
+
     UPDATE_USER(state, user) {
         state.user = user;
     },
@@ -68,9 +76,7 @@ export default {
 
     CACHE_GAME_DATA(state, data) {
         data.forEach((game) => {
-            if (!state.games[game.id]) {
-                state.games = { ...state.games, [game.id]: game };
-            }
+            state.games[game.id] = { ...game };
         });
     },
 

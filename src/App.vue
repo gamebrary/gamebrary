@@ -6,7 +6,7 @@
 
         <md-app-drawer class="md-right" :md-active.sync="drawerActive" @md-closed="close">
             <settings-panel v-if="panelActive === 'settings'" />
-            <game-panel v-if="panelActive === 'game'" :game-id="gameId" />
+            <game-panel v-if="panelActive === 'game'" />
             <search-panel v-if="panelActive === 'search'" :list-id="listIndex" />
         </md-app-drawer>
 
@@ -36,7 +36,6 @@ export default {
         return {
             drawerActive: false,
             panelActive: null,
-            gameId: null,
             listIndex: null,
         };
     },
@@ -44,7 +43,11 @@ export default {
     mounted() {
         this.$bus.$on('TOGGLE_DRAWER', ({ panelName, gameId, listIndex }) => {
             this.panelActive = panelName;
-            this.gameId = gameId;
+
+            if (gameId) {
+                this.$store.commit('SET_ACTIVE_GAME', gameId);
+            }
+
             this.listIndex = listIndex;
             this.drawerActive = !this.drawerActive;
         });
@@ -54,7 +57,7 @@ export default {
         close() {
             this.panelActive = null;
             this.listIndex = 0;
-            this.gameId = null;
+            this.$store.commit('CLEAR_ACTIVE_GAME');
 
             if (this.$route.name !== 'home') {
                 this.$router.push({ name: 'home' });
