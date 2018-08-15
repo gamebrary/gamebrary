@@ -12,7 +12,7 @@
                 <h4 class="game-title">{{ game.name }}</h4>
 
                 <div v-if="showGameRating" class="game-rating">
-                    {{ parseInt(game.aggregated_rating) }}
+                    {{ parseInt(game.rating) }}
                 </div>
             </md-card-header-text>
 
@@ -79,7 +79,7 @@ export default {
         },
 
         showGameRating() {
-            return this.settings.showGameRatings && Boolean(Number(this.game.aggregated_rating));
+            return this.settings.showGameRatings && Boolean(Number(this.game.rating));
         },
     },
 
