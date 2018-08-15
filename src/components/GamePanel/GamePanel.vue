@@ -5,7 +5,7 @@
         <section class="game-details">
             <h2 v-html="game.name" />
             <p class="game-description">{{ game.summary }}</p>
-            <game-review-box />
+            <!-- <game-review-box /> -->
             <game-links />
             <game-screenshots />
             <game-videos />
