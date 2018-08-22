@@ -5,8 +5,7 @@
         <section class="game-details">
             <h2 v-html="game.name" />
             <p class="game-description">{{ game.summary }}</p>
-            <!-- <game-review-box /> -->
-            <game-links />
+            <game-review-box />
             <game-screenshots />
             <game-videos />
             <div class="source">
@@ -17,8 +16,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import GameHeader from '@/components/Game/GameHeader';
-import GameLinks from '@/components/Game/GameLinks';
 import GameScreenshots from '@/components/Game/GameScreenshots';
 import GameVideos from '@/components/Game/GameVideos';
 import GameReviewBox from '@/components/Game/GameReviewBox';
@@ -26,16 +25,13 @@ import GameReviewBox from '@/components/Game/GameReviewBox';
 export default {
     components: {
         GameHeader,
-        GameLinks,
         GameScreenshots,
         GameVideos,
         GameReviewBox,
     },
 
     computed: {
-        game() {
-            return this.$store.state.activeGame;
-        },
+        ...mapState(['game']),
     },
 };
 </script>
