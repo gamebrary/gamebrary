@@ -15,7 +15,7 @@
 export default {
     computed: {
         screenshots() {
-            return this.$store.state.activeGame.screenshots;
+            return this.$store.state.game.screenshots;
         },
     },
 };

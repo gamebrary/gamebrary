@@ -7,20 +7,35 @@
                 class="game-cover"
                 width="80"
             >
+
+            <div class="game-rating" v-if="game.esrb || game.pegi">
+                <img
+                    v-if="game.esrb"
+                    :src='`/static/img/esrb/${esrb[game.esrb.rating]}.png`'
+                    :alt="esrb.synopsis"
+                >
+
+                <img
+                    v-if="game.pegi"
+                    :src='`/static/img/pegi/${pegi[game.pegi.rating]}.png`'
+                    :alt="game.pegi.synopsis"
+                >
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
+
     props: {
         gameId: [Number, String],
     },
 
     computed: {
-        game() {
-            return this.$store.state.activeGame;
-        },
+        ...mapState(['game', 'pegi', 'esrb']),
 
         coverUrl() {
             const url = 'https://images.igdb.com/igdb/image/upload/t_cover_small/';
@@ -63,6 +78,15 @@ export default {
             border: 5px solid $nin-white;
             background-size: contain;
             box-shadow: 0 0 5px 0 $nin-gray;
+        }
+
+        .game-rating {
+            position: absolute;
+            top: $gp;
+            right: $gp;
+            img {
+                height: 50px;
+            }
         }
     }
 </style>

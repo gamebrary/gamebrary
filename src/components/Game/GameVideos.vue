@@ -23,7 +23,7 @@
 export default {
     computed: {
         videos() {
-            return this.$store.state.activeGame.videos;
+            return this.$store.state.game.videos;
         },
     },
 };

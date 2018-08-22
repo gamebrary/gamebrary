@@ -11,11 +11,11 @@ export default {
     },
 
     SET_ACTIVE_GAME(state, game) {
-        state.activeGame = state.games[game];
+        state.game = state.games[game];
     },
 
     CLEAR_ACTIVE_GAME(state) {
-        state.activeGame = null;
+        state.game = null;
     },
 
     UPDATE_USER(state, user) {
