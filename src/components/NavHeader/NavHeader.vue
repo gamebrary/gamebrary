@@ -25,11 +25,11 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
     computed: {
-        auth() {
-            return this.$store.getters.auth;
-        },
+        ...mapGetters(['auth']),
 
         dark() {
             return this.user ? this.$store.state.user.settings.nightMode : false;

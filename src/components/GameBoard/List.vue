@@ -62,6 +62,7 @@ import draggable from 'vuedraggable';
 import ListNameEdit from '@/components/GameBoard/ListNameEdit';
 import ListFooter from '@/components/GameBoard/ListFooter';
 import GameCard from '@/components/GameCard/GameCard';
+import { mapState } from 'vuex';
 
 export default {
     components: {
@@ -91,9 +92,7 @@ export default {
     },
 
     computed: {
-        lists() {
-            return this.$store.state.user.lists;
-        },
+        ...mapState(['user']),
     },
 
     methods: {
@@ -108,7 +107,7 @@ export default {
 
         validateMove({ from, to }) {
             const isDifferentList = from.id !== to.id;
-            const isDuplicate = this.lists[to.id].games.includes(Number(this.draggingId));
+            const isDuplicate = this.user.lists[to.id].games.includes(Number(this.draggingId));
             const validMove = isDifferentList && isDuplicate;
             return !validMove;
         },

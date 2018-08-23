@@ -1,5 +1,5 @@
 <template lang="html">
-    <md-card v-if="gameId && gameData" :class="{ nightMode }">
+    <md-card v-if="gameId && games" :class="{ nightMode }">
         <md-card-header>
             <md-card-media @click.native="openGame">
                 <img
@@ -43,6 +43,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
     props: {
         gameId: Number,
@@ -51,35 +53,29 @@ export default {
     },
 
     computed: {
-        list() {
-            return this.$store.state.user.lists[this.listId];
-        },
+        ...mapState(['user', 'games']),
 
-        settings() {
-            return this.$store.state.user.settings;
+        list() {
+            return this.user.lists[this.listId];
         },
 
         game() {
-            return this.gameData[this.gameId];
-        },
-
-        gameData() {
-            return this.$store.state.games;
+            return this.games[this.gameId];
         },
 
         coverUrl() {
             const url = 'https://images.igdb.com/igdb/image/upload/t_cover_small/';
-            return this.gameData && this.gameData[this.gameId].cover
-                ? `${url}${this.gameData[this.gameId].cover.cloudinary_id}.jpg`
+            return this.games && this.games[this.gameId].cover
+                ? `${url}${this.games[this.gameId].cover.cloudinary_id}.jpg`
                 : '/static/no-image.jpg';
         },
 
         nightMode() {
-            return this.$store.state.user.settings.nightMode;
+            return this.user.settings.nightMode;
         },
 
         showGameRating() {
-            return this.settings.showGameRatings && Boolean(Number(this.game.rating));
+            return this.user.settings.showGameRatings && Boolean(Number(this.game.rating));
         },
     },
 

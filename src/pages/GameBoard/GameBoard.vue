@@ -5,7 +5,7 @@
         @dragscrollstart="dragScrollActive = true"
         @dragscrollend="dragScrollActive = false"
         :class="{ nightMode, 'drag-scroll-active': dragScrollActive }"
-        :style="{ background: settings.backgroundColor }"
+        :style="{ background: user.settings.backgroundColor }"
         v-dragscroll:nochilddrag
     >
         <md-snackbar :md-active.sync="errorLoading">
@@ -21,7 +21,7 @@
             :listIndex="listIndex"
             :key="list.name"
             v-if="list"
-            v-for="(list, listIndex) in lists"
+            v-for="(list, listIndex) in user.lists"
             @end="dragEnd"
             @remove="tryDelete(listIndex)"
         />
@@ -48,6 +48,7 @@ import List from '@/components/GameBoard/List';
 import EmptyBoard from '@/components/GameBoard/EmptyBoard';
 import draggable from 'vuedraggable';
 import moment from 'moment';
+import { mapState } from 'vuex';
 
 export default {
     components: {
@@ -82,24 +83,14 @@ export default {
     },
 
     computed: {
-        lists() {
-            return this.$store.state.user.lists;
-        },
-
-        user() {
-            return this.$store.state.user;
-        },
-
-        settings() {
-            return this.$store.state.user.settings;
-        },
+        ...mapState(['user']),
 
         isEmpty() {
-            return !this.lists.filter(list => list && list.games && list.games.length).length;
+            return !this.user.lists.filter(list => list && list.games && list.games.length).length;
         },
 
         nightMode() {
-            return this.$store.state.user.settings.nightMode;
+            return this.user.settings.nightMode;
         },
     },
 

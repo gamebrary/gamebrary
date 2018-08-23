@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
     data() {
         return {
@@ -38,16 +40,14 @@ export default {
     },
 
     computed: {
+        ...mapState(['user']),
+
         errorMessage() {
             return `You already have a list named <strong>${this.newListName}</strong>. Please use a different name.`;
         },
 
-        lists() {
-            return this.$store.state.user.lists;
-        },
-
         nightMode() {
-            return this.$store.state.user.settings.nightMode;
+            return this.user.settings.nightMode;
         },
     },
 
@@ -66,7 +66,7 @@ export default {
 
         isDuplicateListName() {
             const newListName = this.newListName.toLowerCase();
-            return this.lists.filter(list => list.name.toLowerCase() === newListName).length;
+            return this.user.lists.filter(list => list.name.toLowerCase() === newListName).length;
         },
 
         clearList() {

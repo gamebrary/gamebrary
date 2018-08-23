@@ -8,6 +8,7 @@
 <script>
 import Marketing from '@/pages/Marketing/Marketing';
 import GameBoard from '@/pages/GameBoard/GameBoard';
+import { mapGetters } from 'vuex';
 
 export default {
     components: {
@@ -16,9 +17,7 @@ export default {
     },
 
     computed: {
-        auth() {
-            return this.$store.getters.auth;
-        },
+        ...mapGetters(['auth']),
     },
 };
 </script>

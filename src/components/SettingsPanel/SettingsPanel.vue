@@ -1,5 +1,5 @@
 <template lang="html">
-    <md-card v-if="user && settings">
+    <md-card v-if="user && user.settings">
         <md-list class="settings-panel">
             <md-list-item>
                 <md-avatar>
@@ -135,6 +135,7 @@
 import Gravatar from 'vue-gravatar';
 import { debounce } from 'lodash';
 import { Sketch } from 'vue-color';
+import { mapState } from 'vuex';
 
 export default {
     components: {
@@ -159,13 +160,7 @@ export default {
     },
 
     computed: {
-        user() {
-            return this.$store.state.user;
-        },
-
-        settings() {
-            return this.$store.state.user ? this.$store.state.user.settings : null;
-        },
+        ...mapState(['user']),
 
         // dateJoined() {
         //     return moment(this.user.dateJoined).fromNow();
@@ -225,10 +220,10 @@ export default {
             }, 300),
 
         setLocalSettings() {
-            if (this.settings) {
-                Object.keys(this.settings).forEach((setting) => {
+            if (this.user.settings) {
+                Object.keys(this.user.settings).forEach((setting) => {
                     if (this[setting] !== undefined) {
-                        this[setting] = this.settings[setting];
+                        this[setting] = this.user.settings[setting];
                     }
                 });
             }

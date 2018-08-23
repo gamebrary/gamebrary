@@ -1,10 +1,10 @@
 <template lang="html">
-    <div class="game-videos no-wrap" v-if="videos">
-        <h3>Videos ({{ videos.length }})</h3>
+    <div class="game-videos no-wrap" v-if="game.videos">
+        <h3>Videos ({{ game.videos.length }})</h3>
 
         <div
             class="game-video"
-            v-for="{ video_id } in videos"
+            v-for="{ video_id } in game.videos"
             :key="video_id"
         >
             <iframe
@@ -20,11 +20,11 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
     computed: {
-        videos() {
-            return this.$store.state.game.videos;
-        },
+        ...mapState(['game']),
     },
 };
 </script>
