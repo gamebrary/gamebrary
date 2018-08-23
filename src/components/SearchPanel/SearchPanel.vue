@@ -63,7 +63,7 @@ export default {
     },
 
     computed: {
-        ...mapState(['results']),
+        ...mapState(['results', 'user']),
         ...mapGetters(['auth']),
 
         listName() {

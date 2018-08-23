@@ -9,12 +9,26 @@
             />
 
             <div class="list-actions">
-                <md-button
-                    class="md-icon-button md-dense md-default"
-                    @click="sortList(listIndex)"
-                >
-                    <md-icon>sort_by_alpha</md-icon>
-                </md-button>
+                <md-menu md-direction="bottom-start">
+                    <md-button class="md-icon-button" md-menu-trigger>
+                        <i class="fas fa-caret-down"></i>
+                    </md-button>
+
+                    <md-menu-content>
+                        <md-button
+                            class="md-dense md-default"
+                            @click="sortList(listIndex)"
+                        >
+                            <i class="fas fa-sort-alpha-down" />
+                            Sort games
+                        </md-button>
+
+                        <md-button @click="remove">
+                            <i class="far fa-trash-alt" />
+                            Delete list
+                        </md-button>
+                    </md-menu-content>
+                </md-menu>
             </div>
         </div>
 
@@ -50,10 +64,12 @@
             </md-empty-state>
         </draggable>
 
-        <list-footer
-            @add="addGame"
-            @remove="remove"
-        />
+        <md-bottom-bar v-if="games.length">
+            <md-button @click="addGame">
+                <i class="fas fa-plus" />
+                Add game
+            </md-button>
+        </md-bottom-bar>
     </div>
 </template>
 
@@ -162,7 +178,7 @@ export default {
         width: 100%;
 
         .list-actions {
-            .md-icon {
+            .md-button {
                 color: $nin-white;
             }
 
@@ -200,5 +216,13 @@ export default {
 
     .md-bottom-bar {
         --md-theme-default-background: #{$nin-lt-gray};
+
+        .md-button {
+            width: 100%;
+        }
+    }
+
+    .md-button {
+        margin: 0;
     }
 </style>

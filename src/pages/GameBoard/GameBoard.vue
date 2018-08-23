@@ -139,7 +139,7 @@ export default {
         },
 
         tryDelete(index) {
-            const hasGames = this.lists[index].games.length > 0;
+            const hasGames = this.user.lists[index].games.length > 0;
 
             if (hasGames) {
                 this.showDeleteConfirm = true;
@@ -157,14 +157,14 @@ export default {
         dragEnd() {
             this.dragging = false;
             this.draggingId = null;
-            this.$store.commit('UPDATE_LIST', this.lists);
+            this.$store.commit('UPDATE_LIST', this.user.lists);
             this.updateLists();
         },
 
         updateLists(forceReload) {
             this.$store.dispatch('UPDATE_LISTS')
                 .then(() => {
-                    if (this.lists.length === 1 && forceReload) {
+                    if (this.user.lists.length === 1 && forceReload) {
                         location.reload();
                     }
                 });

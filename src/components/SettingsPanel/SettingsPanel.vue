@@ -19,11 +19,11 @@
                 <md-switch class="md-primary" v-model="nightMode" @change="save" />
             </md-list-item>
 
-            <md-list-item>
+            <!-- <md-list-item>
                 <md-icon :class="{'md-primary': showGameRatings }">grade</md-icon>
                 <span class="md-list-item-text">Show game score</span>
                 <md-switch class="md-primary" v-model="showGameRatings" @change="save" />
-            </md-list-item>
+            </md-list-item> -->
 
             <!-- <md-list-item>
                 <md-icon>lock</md-icon>

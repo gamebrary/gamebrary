@@ -1,16 +1,16 @@
+<!-- deprecated -->
 <template lang="html">
     <md-bottom-bar>
-        <md-bottom-bar-item
-            md-label="Add Game"
-            md-icon="playlist_add"
-            @click="addGame"
-        />
+        <md-button @click="addGame">
+            <i class="fas fa-plus" />
+            Add game
+        </md-button>
 
-        <md-bottom-bar-item
+        <!-- <md-bottom-bar-item
             md-label="Delete list"
             md-icon="delete_sweep"
             @click="remove"
-        />
+        /> -->
     </md-bottom-bar>
 </template>
 
