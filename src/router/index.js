@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/pages/Home/Home';
+import ShareList from '@/pages/ShareList/ShareList';
 import SessionExpired from '@/pages/SessionExpired/SessionExpired';
 import Login from '@/pages/Login/Login';
 import Register from '@/pages/Register/Register';
@@ -8,8 +9,12 @@ import Register from '@/pages/Register/Register';
 Vue.use(Router);
 
 export default new Router({
-    // mode: 'history',
     routes: [
+        {
+            path: '/share/:id',
+            name: 'share',
+            component: ShareList,
+        },
         {
             path: '/',
             name: 'home',
@@ -37,6 +42,6 @@ export default new Router({
             name: 'register',
             component: Register,
         },
+        { path: '*', component: Home },
     ],
 });
-

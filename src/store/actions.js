@@ -65,6 +65,24 @@ export default {
         });
     },
 
+    LOAD_SHARE_LIST(context, listId) {
+        return new Promise((resolve, reject) => {
+            axios.get(`${API_URL}/share/${listId}`)
+                .then(({ data: { lists } }) => {
+                    resolve(lists);
+                }).catch(reject);
+        });
+    },
+
+    LOAD_SHARE_GAMES(context, gameList) {
+        return new Promise((resolve, reject) => {
+            axios.get(`${API_URL}/games?games=${gameList.join(',')}`)
+                .then(({ data }) => {
+                    resolve(data);
+                }).catch(reject);
+        });
+    },
+
     LOAD_GAMES({ commit, state: { token } }, gameList) {
         return new Promise((resolve, reject) => {
             const options = { headers: { token } };
