@@ -90,7 +90,7 @@ export default {
         },
 
         nightMode() {
-            return this.user && this.user.settings ? this.user.settings.nightMode: false;
+            return this.user && this.user.settings ? this.user.settings.nightMode : false;
         },
 
         isGameRoute() {
