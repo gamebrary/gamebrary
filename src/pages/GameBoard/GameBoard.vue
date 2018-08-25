@@ -90,7 +90,11 @@ export default {
         },
 
         nightMode() {
-            return this.user.settings.nightMode;
+            return this.user && this.user.settings ? this.user.settings.nightMode: false;
+        },
+
+        isGameRoute() {
+            return this.$route.params && this.$route.params.id && this.$route.name === 'game';
         },
     },
 
@@ -99,20 +103,22 @@ export default {
             this.loadGameData();
         }
 
-        if (this.$route.params) {
-            this.openGame(this.$route.params);
+        if (this.isGameRoute) {
+            this.openGame();
         }
 
         this.checkDataAge();
     },
 
     methods: {
-        openGame({ id }) {
-            if (id) {
+        openGame() {
+            const gameId = this.$route.params.id;
+
+            if (gameId) {
                 this.$nextTick(() => {
                     this.$bus.$emit('TOGGLE_DRAWER', {
                         panelName: 'game',
-                        gameId: id,
+                        gameId,
                     });
                 });
 
