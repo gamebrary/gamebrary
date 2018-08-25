@@ -71,11 +71,11 @@ export default {
         },
 
         nightMode() {
-            return this.user.settings.nightMode;
+            return this.user && this.user.settings ? this.user.settings.nightMode : null;
         },
 
         showGameRating() {
-            return this.user.settings.showGameRatings && Boolean(Number(this.game.rating));
+            return this.user && this.user.settings.showGameRatings && Boolean(Number(this.game.rating));
         },
     },
 
