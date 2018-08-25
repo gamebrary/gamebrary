@@ -97,6 +97,17 @@
                 />
             </md-list-item>
 
+            <md-divider />
+
+            <md-list-item>
+                <md-icon>share</md-icon>
+                <span class="md-list-item-text">
+                    Shareable link
+                    <span class="shareable-link">
+                        https://myswitchlist.com/#/share/{{user._id}}
+                    </span>
+                </span>
+            </md-list-item>
 
             <md-divider />
 
@@ -131,7 +142,6 @@
 </template>
 
 <script>
-// import moment from 'moment';
 import Gravatar from 'vue-gravatar';
 import { debounce } from 'lodash';
 import { Sketch } from 'vue-color';
@@ -247,5 +257,9 @@ export default {
 
     .user-info {
         flex: 1;
+    }
+
+    .shareable-link {
+        font-size: 10px;
     }
 </style>
