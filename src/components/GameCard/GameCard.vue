@@ -65,6 +65,7 @@ export default {
 
         coverUrl() {
             const url = 'https://images.igdb.com/igdb/image/upload/t_cover_small/';
+
             return this.games && this.games[this.gameId].cover
                 ? `${url}${this.games[this.gameId].cover.cloudinary_id}.jpg`
                 : '/static/no-image.jpg';
@@ -75,7 +76,9 @@ export default {
         },
 
         showGameRating() {
-            return this.user && this.user.settings.showGameRatings && Boolean(Number(this.game.rating));
+            return this.user
+                && this.user.settings.showGameRatings
+                && Boolean(Number(this.game.rating));
         },
     },
 
@@ -122,67 +125,7 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/variables.scss";
-
-    .md-card {
-        min-height: 100px;
-        width: 100%;
-        margin: 0 0 $gp / 2;
-
-        &:last-child {
-            margin-bottom: 0;
-        }
-    }
-
-    .md-card-media, .md-card-header-text h2 {
-        cursor: pointer;
-    }
-
-    .card-placeholder {
-        opacity: 0.25;
-    }
-
-    .md-card-header {
-        height: auto;
-        padding: $gp / 2;
-        margin: 0;
-
-        .trash {
-            position: absolute;
-            bottom: 10px;
-            right: 14px;
-        }
-
-        .game-drag-handle {
-            position: absolute;
-            top: 10px;
-            right: 8px;
-        }
-    }
-
-    .md-card-media {
-        height: auto;
-        margin: 0 $gp 0 0;
-    }
-
-    .md-card-header-text {
-        margin-right: $gp * 2;
-
-        .game-title {
-            white-space: normal;
-            margin: 0;
-        }
-    }
-
-    .game-rating {
-        padding: 4px 6px;
-        border-radius: 2px;
-        font-size: 11px;
-        line-height: 11px;
-        background: $zelda-green;
-        color: $nin-white;
-        display: inline-flex;
-        align-items: center;
-    }
+    @import "~styles/game-board.scss";
 
     .nightMode {
         background: $nin-dk-gray;

@@ -199,27 +199,7 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/variables.scss";
-
-    .lists {
-        display: flex;
-        align-items: flex-start;
-        height: calc(100vh - 48px);
-        padding: $gp;
-        background: $nin-gray;
-        overflow-x: auto;
-        overflow-x: overlay;
-        display: flex;
-        @include drag-cursor;
-
-        &.drag-scroll-active {
-            @include dragging-cursor;
-        }
-
-
-        &.empty {
-            background: $nin-white;
-        }
-    }
+    @import "~styles/game-board.scss";
 
     .draggable * {
         color: $nin-white;

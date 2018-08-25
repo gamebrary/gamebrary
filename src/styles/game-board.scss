@@ -1,0 +1,155 @@
+.lists {
+    display: flex;
+    align-items: flex-start;
+    height: calc(100vh - 48px);
+    padding: $gp;
+    background: $nin-gray;
+    overflow-x: auto;
+    overflow-x: overlay;
+    display: flex;
+    @include drag-cursor;
+
+    &.drag-scroll-active {
+        @include dragging-cursor;
+    }
+
+
+    &.empty {
+        background: $nin-white;
+    }
+}
+
+.list {
+    flex-shrink: 0;
+    cursor: default;
+    background: $nin-white;
+    position: relative;
+    width: 300px;
+    border-radius: $border-radius;
+    overflow: hidden;
+    margin-right: $gp;
+    max-height: calc(100vh - 81px);
+}
+
+.list-header {
+    align-items: center;
+    background: $nin-dk-gray;
+    color: $nin-white;
+    display: flex;
+    height: 30px;
+    justify-content: space-between;
+    padding: 0 $gp / 2;
+    position: absolute;
+    width: 100%;
+
+    .list-actions {
+        .md-button {
+            color: $nin-white;
+        }
+
+        .md-icon-button {
+            margin: $gp / 2 0;
+        }
+
+        .list-drag-handle {
+            @include drag-cursor;
+        }
+    }
+}
+
+.list-placeholder {
+    opacity: 0.25;
+}
+
+.games {
+    height: 100%;
+    overflow: hidden;
+    min-height: 100px;
+    max-height: calc(100vh - 174px);
+    overflow-y: auto;
+    overflow-y: overlay;
+    column-gap: $gp;
+    background: $nin-lt-gray;
+    margin-top: 30px;
+    padding: $gp / 2 $gp / 2 $gp / 3;
+    width: 100%;
+
+    .game:not(:last-child) {
+        margin-bottom: $gp / 2;
+    }
+}
+
+.md-bottom-bar {
+    --md-theme-default-background: #{$nin-lt-gray};
+
+    .md-button {
+        width: 100%;
+    }
+}
+
+.md-button {
+    margin: 0;
+}
+
+// Game card
+
+    .md-card {
+        min-height: 100px;
+        width: 100%;
+        margin: 0 0 $gp / 2;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .md-card-media, .md-card-header-text h2 {
+        cursor: pointer;
+    }
+
+    .card-placeholder {
+        opacity: 0.25;
+    }
+
+    .md-card-header {
+        height: auto;
+        padding: $gp / 2;
+        margin: 0;
+
+        .trash {
+            position: absolute;
+            bottom: 10px;
+            right: 14px;
+        }
+
+        .game-drag-handle {
+            position: absolute;
+            top: 10px;
+            right: 8px;
+        }
+    }
+
+    .md-card-media {
+        height: auto;
+        margin: 0 $gp 0 0;
+    }
+
+    .md-card-header-text {
+        margin-right: $gp * 2;
+
+        .game-title {
+            white-space: normal;
+            margin: 0;
+        }
+    }
+
+    .game-rating {
+        padding: 4px 6px;
+        border-radius: 2px;
+        font-size: 11px;
+        line-height: 11px;
+        background: $zelda-green;
+        color: $nin-white;
+        display: inline-flex;
+        align-items: center;
+    }
