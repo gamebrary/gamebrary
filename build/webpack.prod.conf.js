@@ -38,7 +38,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         }),
         // service worker caching
         new SWPrecacheWebpackPlugin({
-            cacheId: 'SwitchList',
+            cacheId: 'Gamebrary',
             filename: 'service-worker.js',
             staticFileGlobs: ['dist/**/*.{js,html,css}'],
             minify: true,

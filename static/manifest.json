@@ -1,6 +1,6 @@
 {
-    "name": "Switch List",
-    "short_name": "SwitchList",
+    "name": "Gamebrary",
+    "short_name": "Gamebrary",
     "theme_color": "#dd2020",
     "background_color": "#a5a2a2",
     "display": "standalone",

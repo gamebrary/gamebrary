@@ -90,7 +90,7 @@
                     Found a bug?
                 </p>
 
-                <a class="link accent small" href="https://github.com/romancmx/switchlist/issues">
+                <a class="link accent small" href="https://github.com/romancmx/gamebrary/issues">
                     Report it in GitHub
                 </a>
             </panel>
@@ -130,7 +130,7 @@ export default {
         shareUrl() {
             const url = process.env.NODE_ENV === 'development'
                 ? 'http://localhost:3000'
-                : 'https://myswitchlist.com';
+                : 'https://gamebrary.com';
 
             // eslint-disable-next-line
             return `${url}/#/share/${this.user._id}`;
