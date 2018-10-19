@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const API_URL = process.env.API_URL;
+const FIREBASE_URL = 'https://us-central1-gamebrary-8c736.cloudfunctions.net';
 
 export default {
     REGISTER({ commit }, payload) {
@@ -97,10 +98,9 @@ export default {
         });
     },
 
-    LOAD_GAMES({ commit, state: { token } }, gameList) {
+    LOAD_GAMES({ commit }, gameList) {
         return new Promise((resolve, reject) => {
-            const options = { headers: { token } };
-            axios.get(`${API_URL}/games?games=${gameList.join(',')}`, options)
+            axios.get(`${FIREBASE_URL}/games?games=${gameList.join(',')}`)
                 .then(({ data }) => {
                     commit('CACHE_GAME_DATA', data);
                     resolve();
@@ -110,7 +110,7 @@ export default {
 
     SEARCH({ commit }, searchText) {
         return new Promise((resolve, reject) => {
-            axios.get(`https://us-central1-gamebrary-8c736.cloudfunctions.net/search?searchText=${searchText}&platformId=130`)
+            axios.get(`${FIREBASE_URL}/search?searchText=${searchText}&platformId=130`)
                 .then(({ data }) => {
                     commit('SET_SEARCH_RESULTS', data);
                     commit('CACHE_GAME_DATA', data);
