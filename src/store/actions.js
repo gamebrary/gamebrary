@@ -112,7 +112,6 @@ export default {
         return new Promise((resolve, reject) => {
             axios.get(`https://us-central1-gamebrary-8c736.cloudfunctions.net/search?searchText=${searchText}&platformId=130`)
                 .then(({ data }) => {
-                    console.log(data);
                     commit('SET_SEARCH_RESULTS', data);
                     commit('CACHE_GAME_DATA', data);
                     resolve();
