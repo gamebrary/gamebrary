@@ -126,11 +126,7 @@ export default {
         margin: $gp $gp 0;
     }
 
-    .games {
-        column-count: 3;
-
-        img {
-            padding: $gp / 4;
-        }
+    img {
+        padding: $gp / 4;
     }
 </style>
