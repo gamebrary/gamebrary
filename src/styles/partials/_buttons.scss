@@ -1,0 +1,105 @@
+$iconSmallSize: 30px;
+
+a.link {
+    display: inline-block;
+    line-height: 30px;
+    text-decoration: none;
+
+    &.small {
+        line-height: $iconSmallSize;
+    }
+}
+
+button, a.link {
+    border: none;
+    margin: 0;
+    padding: 0 $gp;
+    width: auto;
+    overflow: visible;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    border-radius: $border-radius;
+    line-height: normal;
+    -webkit-font-smoothing: inherit;
+    -moz-osx-font-smoothing: inherit;
+    -webkit-appearance: none;
+    height: 40px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 300ms ease;
+
+    &.small {
+        height: $iconSmallSize;
+        min-width: $iconSmallSize;
+        padding: 0 $gp / 2;
+    }
+
+    &.primary {
+        background: $color-blue;
+        color: $color-white;
+
+        &:hover { background-color: lighten($color-blue, 10%); }
+        &:active { background-color: darken($color-blue, 10%); }
+    }
+
+    &.accent {
+        background: $color-light-gray;
+        color: $color-dark-gray;
+
+        &:hover { background-color: lighten($color-light-gray, 10%); }
+        &:active { background-color: darken($color-light-gray, 10%); }
+    }
+
+    &.info {
+        background: $color-dark-gray;
+        color: $color-white;
+
+        &:hover { background-color: lighten($color-dark-gray, 10%); }
+        &:active { background-color: darken($color-dark-gray, 10%); }
+    }
+
+    &.error {
+        background: $color-red;
+        color: $color-white;
+
+        &:hover { background-color: lighten($color-red, 10%); }
+        &:active { background-color: darken($color-red, 10%); }
+    }
+
+    &.warning {
+        background: $color-orange;
+        color: $color-white;
+
+        &:hover { background-color: lighten($color-orange, 10%); }
+        &:active { background-color: darken($color-orange, 10%); }
+    }
+
+    &.hollow {
+        &.primary {
+            color: $color-blue;
+            background: $color-white;
+        }
+
+        &.accent {
+            color: $color-gray;
+            background: transparent;
+        }
+
+        &.info {
+            color: $color-dark-gray;
+            background: $color-white;
+        }
+
+        &.error {
+            color: $color-red;
+            background: $color-white;
+        }
+
+        &.warning {
+            color: $color-orange;
+            background: $color-white;
+        }
+    }
+}

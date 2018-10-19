@@ -1,0 +1,19 @@
+{
+    "name": "functions",
+    "description": "Cloud Functions for Firebase",
+    "scripts": {
+        "serve": "firebase serve --only functions",
+        "shell": "firebase functions:shell",
+        "start": "npm run shell",
+        "deploy": "firebase deploy --only functions",
+        "logs": "firebase functions:log"
+    },
+    "dependencies": {
+        "axios": "^0.18.0",
+        "circular-json": "^0.5.7",
+        "express": "^4.16.4",
+        "firebase-admin": "~6.0.0",
+        "firebase-functions": "^2.0.3"
+    },
+    "private": true
+}
