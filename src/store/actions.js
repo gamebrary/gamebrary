@@ -108,11 +108,11 @@ export default {
         });
     },
 
-    SEARCH({ commit, state: { token } }, searchText) {
+    SEARCH({ commit }, searchText) {
         return new Promise((resolve, reject) => {
-            const options = { headers: { token } };
-            axios.get(`${API_URL}/search?searchText=${searchText}&order=popularity:desc`, options)
+            axios.get(`https://us-central1-gamebrary-8c736.cloudfunctions.net/search?searchText=${searchText}&platformId=130`)
                 .then(({ data }) => {
+                    console.log(data);
                     commit('SET_SEARCH_RESULTS', data);
                     commit('CACHE_GAME_DATA', data);
                     resolve();

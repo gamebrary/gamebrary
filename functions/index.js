@@ -1,6 +1,6 @@
 const functions = require('firebase-functions');
 const axios = require('axios');
-const circular = require('circular-json');
+const cors = require('cors')({origin: true});
 
 axios.defaults.headers.common['user-key'] = functions.config().igdb.key;
 
