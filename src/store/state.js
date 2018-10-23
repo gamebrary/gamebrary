@@ -1,7 +1,9 @@
 export default {
-    token: null,
     user: null,
+    authorizing: false,
     activeList: null,
+    gameLists: null,
+    settings: null,
     platform: null,
     adminData: null,
     dataUpdatedTimestamp: null,

@@ -1,7 +1,6 @@
 import moment from 'moment';
 
 export default {
-    auth: state => Boolean(state.token && state.user),
     developers: (state) => {
         const developers = state.game.developers;
 

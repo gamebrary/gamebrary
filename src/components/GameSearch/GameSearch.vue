@@ -27,7 +27,7 @@
 <script>
 import GameCard from '@/components/GameCard/GameCard';
 import { debounce } from 'lodash';
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
     components: {
@@ -55,7 +55,6 @@ export default {
 
     computed: {
         ...mapState(['results', 'user']),
-        ...mapGetters(['auth']),
 
         list() {
             return this.user.lists[this.listId];

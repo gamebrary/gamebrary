@@ -1,19 +1,19 @@
 <template lang="html">
-    <div class="settings">
+    <div class="settings" v-if="user">
         <aside>
             <gravatar :email="user.email" />
 
             <div>
-                <p><strong>App ID:</strong> {{ user._id }}</p>
+                <p><strong>App ID:</strong> {{ user.uid }}</p>
                 <p><strong>Email:</strong> {{ user.email }}</p>
                 <p><strong>Joined:</strong> {{ dateJoined }}</p>
             </div>
 
             <div>
-                <button @click="promptDelete" class="small error">
+                <!-- <button @click="promptDelete" class="small error">
                     <i class="fas fa-exclamation-triangle" />
                     Delete Account
-                </button>
+                </button> -->
 
                 <button class="small info" @click="logout">
                     <i class="fas fa-sign-out-alt" />
@@ -22,7 +22,7 @@
             </div>
         </aside>
 
-        <main class="settings-grid">
+        <main class="settings-grid" v-if="loaded">
             <section>
                 <i class="fas fa-share-alt" />
                 <h3>Share link</h3>
@@ -101,10 +101,17 @@
 <script>
 import { debounce } from 'lodash';
 import { mapState } from 'vuex';
+import firebase from 'firebase';
 import Gravatar from 'vue-gravatar';
 import Panel from '@/components/Panel/Panel';
 import toasts from '@/mixins/toasts';
 import moment from 'moment';
+
+const db = firebase.firestore();
+
+db.settings({
+    timestampsInSnapshots: true,
+});
 
 export default {
     components: {
@@ -117,6 +124,7 @@ export default {
     data() {
         return {
             settings: {},
+            loaded: false,
         };
     },
 
@@ -133,7 +141,7 @@ export default {
                 : 'https://gamebrary.com';
 
             // eslint-disable-next-line
-            return `${url}/#/share/${this.user._id}`;
+            return `${url}/#/share/${this.user.uid}`;
         },
     },
 
@@ -149,12 +157,34 @@ export default {
     },
 
     mounted() {
-        this.settings = this.user.settings
-            ? JSON.parse(JSON.stringify(this.user.settings))
-            : {};
+        this.loadSettings();
     },
 
     methods: {
+        /* eslint-disable */
+        loadSettings() {
+            const docRef = db.collection('settings').doc(this.user.uid);
+
+            docRef.get().then((doc) => {
+                if (doc.exists) {
+                    this.settings = doc.data();
+                    this.$store.commit('SET_SETTINGS', doc.data());
+                    this.loaded = true;
+                }
+            }).catch(() => {
+                this.$error('Authentication error');
+            });
+        },
+
+        deleteSettings() {
+            db.collection('settings').doc(this.user.uid).delete().then(() => {
+                console.log("Document successfully deleted!");
+            }).catch(() => {
+                this.$error('Authentication error');
+            });
+        },
+
+        /* eslint-disable */
         setGameView(view) {
             this.settings.gameView = view;
             this.save();
@@ -178,11 +208,27 @@ export default {
         },
 
         logout() {
-            this.$store.commit('CLEAR_SESSION');
-            this.$router.push({ name: 'home' });
+            firebase.auth().signOut()
+                .then(() => {
+                    this.$store.commit('CLEAR_SESSION');
+                    this.$router.push({ name: 'home' });
+                })
+                .catch((error) => {
+                    this.$error(error);
+                });
         },
 
         deleteAccount() {
+            // TODO: delete settings document
+            // TODO: delete lists document
+            // admin.auth().deleteUser(uid)
+            // .then(function() {
+            //     console.log("Successfully deleted user");
+            // })
+            // .catch(function(error) {
+            //     console.log("Error deleting user:", error);
+            // });
+
             this.$store.dispatch('DELETE_USER')
                 .then(() => {
                     this.$swal({
@@ -201,7 +247,7 @@ export default {
         save: debounce(
             // eslint-disable-next-line
             function() {
-                this.$store.dispatch('UPDATE_SETTINGS', this.settings)
+                db.collection('settings').doc(this.user.uid).set(this.settings, { merge: true })
                     .then(() => {
                         this.$success('Settings saved');
                     })

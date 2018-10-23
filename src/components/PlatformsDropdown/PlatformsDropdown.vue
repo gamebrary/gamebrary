@@ -1,11 +1,10 @@
 <template lang="html">
     <div class="platform-switcher">
-        <router-link :to="{ name: 'home' }" v-if="!platform">
-            <i class="fas fa-home" />
+        <router-link :to="{ name: 'home' }" v-if="platform">
+            {{ platform.name }}
         </router-link>
 
-        <v-popover v-else>
-            <span>{{ platform.name }}</span>
+        <v-popover>
             <i class="fas fa-caret-down dropdown" />
 
             <template slot="popover">
@@ -37,7 +36,7 @@ export default {
     },
 
     computed: {
-        ...mapState(['platform']),
+        ...mapState(['platform', 'user']),
     },
 
     methods: {
@@ -57,8 +56,9 @@ export default {
         margin: 0 $gp;
         color: $color-white;
 
-        a {
+        > a {
             color: $color-white;
+            text-decoration: none;
         }
     }
 

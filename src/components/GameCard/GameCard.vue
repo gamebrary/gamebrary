@@ -16,7 +16,7 @@
             <h4 class="game-title">{{ game.name }}</h4>
 
             <game-rating
-                v-if="user.settings && user.settings.showGameRatings && !searchResult"
+                v-if="showGameRating && !searchResult"
                 small
                 :rating="game.rating"
             />
@@ -68,10 +68,14 @@ export default {
     },
 
     computed: {
-        ...mapState(['user', 'games']),
+        ...mapState(['settings', 'games', 'gameLists', 'platform']),
+
+        activePlatform() {
+            return this.gameLists[this.platform.code];
+        },
 
         list() {
-            return this.user.lists[this.listId];
+            return this.activePlatform[this.listId];
         },
 
         game() {
@@ -87,12 +91,12 @@ export default {
         },
 
         nightMode() {
-            return this.user && this.user.settings ? this.user.settings.nightMode : null;
+            return this.settings ? this.settings.nightMode : null;
         },
 
         showGameRating() {
-            return this.user
-                && this.user.settings.showGameRatings
+            return this.settings
+                && this.settings.showGameRatings
                 && Boolean(Number(this.game.rating));
         },
     },

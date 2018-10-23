@@ -4,26 +4,26 @@ const API_URL = process.env.API_URL;
 const FIREBASE_URL = 'https://us-central1-gamebrary-8c736.cloudfunctions.net';
 
 export default {
-    REGISTER({ commit }, payload) {
-        return new Promise((resolve, reject) => {
-            axios.post(`${API_URL}/auth/register`, payload)
-                .then(({ data }) => {
-                    commit('SET_SESSION', data);
-                    resolve(data);
-                }).catch(reject);
-        });
-    },
+    // REGISTER({ commit }, payload) {
+    //     return new Promise((resolve, reject) => {
+    //         axios.post(`${API_URL}/auth/register`, payload)
+    //             .then(({ data }) => {
+    //                 commit('SET_SESSION', data);
+    //                 resolve(data);
+    //             }).catch(reject);
+    //     });
+    // },
 
-    LOGIN({ commit }, payload) {
-        return new Promise((resolve, reject) => {
-            axios.post(`${API_URL}/auth/login`, payload)
-                .then(({ data }) => {
-                    commit('SET_SESSION', data);
-                    commit('SET_UPDATED_TIMESTAMP');
-                    resolve(data);
-                }).catch(reject);
-        });
-    },
+    // LOGIN({ commit }, payload) {
+    //     return new Promise((resolve, reject) => {
+    //         axios.post(`${API_URL}/auth/login`, payload)
+    //             .then(({ data }) => {
+    //                 commit('SET_SESSION', data);
+    //                 commit('SET_UPDATED_TIMESTAMP');
+    //                 resolve(data);
+    //             }).catch(reject);
+    //     });
+    // },
 
     UPDATE_SETTINGS({ commit, state: { token } }, payload) {
         return new Promise((resolve, reject) => {
@@ -66,19 +66,19 @@ export default {
         });
     },
 
-    LOAD_USERS({ commit, state: { token } }) {
-        commit('CLEAR_ADMIN_DATA');
-
-        return new Promise((resolve, reject) => {
-            const options = { headers: { token } };
-
-            axios.get(`${API_URL}/users`, options)
-                .then(({ data }) => {
-                    commit('SET_ADMIN_DATA', data.reverse());
-                    resolve();
-                }).catch(reject);
-        });
-    },
+    // LOAD_USERS({ commit, state: { token } }) {
+    //     commit('CLEAR_ADMIN_DATA');
+    //
+    //     return new Promise((resolve, reject) => {
+    //         const options = { headers: { token } };
+    //
+    //         axios.get(`${API_URL}/users`, options)
+    //             .then(({ data }) => {
+    //                 commit('SET_ADMIN_DATA', data.reverse());
+    //                 resolve();
+    //             }).catch(reject);
+    //     });
+    // },
 
     LOAD_SHARE_LIST(context, listId) {
         return new Promise((resolve, reject) => {
@@ -119,12 +119,12 @@ export default {
         });
     },
 
-    DELETE_USER({ state: { token } }) {
-        return new Promise((resolve, reject) => {
-            axios.delete(`${API_URL}/user?token=${token}`)
-                .then(() => {
-                    resolve();
-                }).catch(reject);
-        });
-    },
+    // DELETE_USER({ state: { token } }) {
+    //     return new Promise((resolve, reject) => {
+    //         axios.delete(`${API_URL}/user?token=${token}`)
+    //             .then(() => {
+    //                 resolve();
+    //             }).catch(reject);
+    //     });
+    // },
 };

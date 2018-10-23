@@ -1,29 +1,52 @@
 <template lang="html">
     <div class="home">
-        <h1>GAMEBRARY</h1>
+        <div class="loading" v-if="authorizing">
+            <i class="fas fa-circle-notch fast-spin fa-3x" />
+            <h3>Authorizing</h3>
+        </div>
 
-        <strong>500+ users! Thank you!</strong>
+        <div v-else>
+            <h1>GAMEBRARY</h1>
 
-        <p>A simple and user friendly way to manage your video game collection.</p>
+            <strong>500+ users! Thank you!</strong>
 
-        <div class="actions">
-            <router-link tag="button" class="primary" :to="{ name: 'register' }">
-                Create an account
-            </router-link>
+            <p>A simple and user friendly way to manage your video game collection.</p>
 
-            <router-link tag="button" class="info" :to="{ name: 'login' }">
-                Login
-            </router-link>
+            <img
+                @click="login"
+                src="/static/img/google-signin.png"
+                alt="Sign in with Google"
+                height="40"
+            >
         </div>
     </div>
 </template>
 
 <script>
+import firebase from 'firebase';
+import { GoogleAuth } from '@/firebase';
+import { mapState } from 'vuex';
 import Panel from '@/components/Panel/Panel';
 
 export default {
     components: {
         Panel,
+    },
+
+    computed: {
+        ...mapState(['authorizing']),
+    },
+
+    methods: {
+        login() {
+            this.$store.commit('SET_AUTHORIZING_STATUS', true);
+
+            firebase.auth().signInWithRedirect(GoogleAuth)
+                .catch((error) => {
+                    /* eslint-disable */
+                    console.log(error);
+                });
+        },
     },
 };
 </script>
@@ -33,6 +56,17 @@ export default {
 
     .home {
         @include container-xs;
+    }
+
+    .loading {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding: $gp * 3 0;
+
+        h3 {
+            margin: $gp / 2 0;
+        }
     }
 
     .actions {

@@ -1,13 +1,32 @@
 import moment from 'moment';
 
 export default {
-    SET_SESSION(state, { user, token }) {
-        state.token = token;
-        state.user = user;
+    SET_USER(state, data) {
+        state.user = {
+            uid: data.uid,
+            displayName: data.displayName,
+            email: data.email,
+            emailVerified: data.emailVerified,
+            dateJoined: data.metadata.creationTime,
+            photoURL: data.photoURL,
+        };
+    },
+
+    SET_GAME_LISTS(state, lists) {
+        state.gameLists = lists;
+    },
+
+    CLEAR_SESSION(state) {
+        state.user = null;
+        state.platform = null;
     },
 
     SET_SEARCH_RESULTS(state, results) {
         state.results = results;
+    },
+
+    SET_AUTHORIZING_STATUS(state, status) {
+        state.authorizing = status;
     },
 
     CLEAR_SEARCH_RESULTS(state) {
@@ -75,7 +94,7 @@ export default {
     },
 
     SET_SETTINGS(state, settings) {
-        state.user.settings = settings;
+        state.settings = settings;
     },
 
     REMOVE_LIST(state, index) {
@@ -103,11 +122,5 @@ export default {
         data.forEach((game) => {
             state.games[game.id] = { ...game };
         });
-    },
-
-    CLEAR_SESSION(state) {
-        state.token = null;
-        state.user = null;
-        state.platform = null;
     },
 };

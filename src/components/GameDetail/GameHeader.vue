@@ -1,26 +1,19 @@
 <template lang="html">
-    <div class="game-header">
-        <div class="game-background" :style="style">
+    <div class="game-header" :style="style">
+        <img :src="coverUrl" :alt="game.name" class="game-cover" />
+
+        <div class="game-rating" v-if="hasRatings">
             <img
-                :src="coverUrl"
-                :alt="game.name"
-                class="game-cover"
-                width="80"
+                v-if="game.esrb"
+                :src='`/static/img/esrb/${esrb[game.esrb.rating]}.png`'
+                :alt="game.esrb.synopsis"
             >
 
-            <div class="game-rating" v-if="game.esrb || game.pegi">
-                <img
-                    v-if="game.esrb"
-                    :src='`/static/img/esrb/${esrb[game.esrb.rating]}.png`'
-                    :alt="esrb.synopsis"
-                >
-
-                <img
-                    v-if="game.pegi"
-                    :src='`/static/img/pegi/${pegi[game.pegi.rating]}.png`'
-                    :alt="game.pegi.synopsis"
-                >
-            </div>
+            <img
+                v-if="game.pegi"
+                :src='`/static/img/pegi/${pegi[game.pegi.rating]}.png`'
+                :alt="game.pegi.synopsis"
+            >
         </div>
     </div>
 </template>
@@ -38,7 +31,7 @@ export default {
         ...mapState(['game', 'pegi', 'esrb']),
 
         coverUrl() {
-            const url = 'https://images.igdb.com/igdb/image/upload/t_cover_small/';
+            const url = 'https://images.igdb.com/igdb/image/upload/t_cover_big/';
             return this.game && this.game.cover
                 ? `${url}${this.game.cover.cloudinary_id}.jpg`
                 : '/static/no-image.jpg';
@@ -46,15 +39,19 @@ export default {
 
         style() {
             return this.game && this.game.screenshots
-                ? `background: url(${this.getImageUrl(this.game.screenshots[0].cloudinary_id)}); background-size: cover;`
+                ? `background-image: url(${this.getImageUrl(this.game.screenshots[0].cloudinary_id)});`
                 : '';
+        },
+
+        hasRatings() {
+            return this.game.esrb || this.game.pegi;
         },
     },
 
     methods: {
         getImageUrl(cloudinaryId) {
             return cloudinaryId
-                ? `https://images.igdb.com/igdb/image/upload/t_screenshot_med/${cloudinaryId}.jpg`
+                ? `https://images.igdb.com/igdb/image/upload/t_screenshot_huge_2x/${cloudinaryId}.jpg`
                 : null;
         },
     },
@@ -64,29 +61,47 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles.scss";
 
-    .game-background {
+    .game-header {
         display: flex;
         min-height: 20vh;
         width: 100%;
         position: relative;
         align-items: center;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-position: 50%;
         background-color: $color-red;
-        background-size: cover;
-        background-position: center;
+
+        @media($small) {
+            background-size: cover;
+            background-position: center;
+        }
 
         .game-cover {
-            margin: 0 $gp;
+            margin: $gp;
             border: 5px solid $color-white;
             background-size: contain;
-            box-shadow: 0 0 5px 0 $color-gray;
+            height: 200px;
+
+            @media($small) {
+                border: 3px solid $color-white;
+                height: 140px;
+            }
         }
 
         .game-rating {
             position: absolute;
             top: $gp;
             right: $gp;
+
             img {
-                height: 50px;
+                height: 60px;
+                margin-left: $gp;
+
+                @media($small) {
+                    margin-left: 0;
+                    height: 50px;
+                }
             }
         }
     }

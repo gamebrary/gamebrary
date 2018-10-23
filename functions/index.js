@@ -24,3 +24,13 @@ exports.games = functions.https.onRequest((req, res) => {
         .then(({ data }) => { res.status(200).send(data) })
         .catch(() => { res.send(400) });
 });
+
+exports.platform = functions.https.onRequest((req, res) => {
+    res.set('Access-Control-Allow-Origin', "*")
+
+    const { platformId } = req.query;
+
+    axios.get(`${igdbUrl}/platforms/${platformId}`)
+        .then(({ data }) => { res.status(200).send(data) })
+        .catch(() => { res.send(400) });
+});

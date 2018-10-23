@@ -13,13 +13,13 @@
             :listIndex="listIndex"
             :key="list.name"
             v-if="list"
-            v-for="(list, listIndex) in user.lists"
+            v-for="(list, listIndex) in activePlatform"
             @end="dragEnd"
             @remove="tryDelete(listIndex)"
         />
 
         <add-list
-            @update="updateLists(true)"
+            @update="updateLists()"
             @scroll="scroll"
         />
     </div>
@@ -32,7 +32,14 @@ import toasts from '@/mixins/toasts';
 import List from '@/components/GameBoard/List';
 import draggable from 'vuedraggable';
 import moment from 'moment';
+import firebase from 'firebase';
 import { mapState } from 'vuex';
+
+const db = firebase.firestore();
+
+db.settings({
+    timestampsInSnapshots: true,
+});
 
 export default {
     components: {
@@ -67,10 +74,14 @@ export default {
     },
 
     computed: {
-        ...mapState(['user']),
+        ...mapState(['user', 'gameLists', 'platform']),
+
+        activePlatform() {
+            return this.gameLists[this.platform.code];
+        },
 
         isEmpty() {
-            return !this.user.lists.filter(list => list && list.games && list.games.length).length;
+            return !this.activePlatform.filter(list => list && list.games && list.games.length).length;
         },
 
         nightMode() {
@@ -82,20 +93,9 @@ export default {
         if (!this.isEmpty) {
             this.loadGameData();
         }
-
-        this.checkDataAge();
     },
 
     methods: {
-        checkDataAge() {
-            const lastUpdated = this.$store.state.dataUpdatedTimestamp;
-            const diff = moment.duration(moment().diff(lastUpdated));
-
-            if (diff.asMinutes() > 15) {
-                this.$store.dispatch('LOAD_LISTS');
-            }
-        },
-
         scroll() {
             this.$nextTick(() => {
                 const lists = this.$refs.lists;
@@ -137,24 +137,30 @@ export default {
         dragEnd() {
             this.dragging = false;
             this.draggingId = null;
-            this.$store.commit('UPDATE_LIST', this.user.lists);
+            // this.$store.commit('UPDATE_LIST', this.user.lists);
             this.updateLists();
         },
 
-        updateLists(forceReload) {
-            this.$store.dispatch('UPDATE_LISTS')
-                .then(() => {
-                    if (this.user.lists.length === 1 && forceReload) {
-                        location.reload();
-                    }
+        updateLists() {
+            const settings = {
+                merge: true
+            }
+
+            db.collection('lists').doc(this.user.uid).set(this.gameLists, settings)
+                .then((data) => {
+                    this.$success('List saved');
+                })
+                .catch(() => {
+                    this.$error('Authentication error');
                 });
         },
 
         loadGameData() {
             const gameList = [];
-            this.user.lists.forEach((list) => {
+            this.activePlatform.forEach((list) => {
                 if (list && list.games.length) {
                     list.games.forEach((id) => {
+                        console.log(id);
                         if (!gameList.includes(id)) {
                             gameList.push(id);
                         }

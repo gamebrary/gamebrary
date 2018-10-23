@@ -111,7 +111,11 @@ export default {
     },
 
     computed: {
-        ...mapState(['user', 'activeList']),
+        ...mapState(['gameLists', 'platform', 'activeList']),
+
+        activePlatform() {
+            return this.gameLists[this.platform.code];
+        },
 
         showSearch() {
             return this.showAddGame && this.activeList === this.listIndex && this.listOptionsActive;
@@ -156,7 +160,7 @@ export default {
 
         validateMove({ from, to }) {
             const isDifferentList = from.id !== to.id;
-            const isDuplicate = this.user.lists[to.id].games.includes(Number(this.draggingId));
+            const isDuplicate = this.activePlatform[to.id].games.includes(Number(this.draggingId));
             const validMove = isDifferentList && isDuplicate;
             return !validMove;
         },
@@ -180,6 +184,10 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles.scss";
     @import "~styles/game-board.scss";
+
+    .list {
+        overflow-x: hidden;
+    }
 
     .list-actions {
         display: flex;

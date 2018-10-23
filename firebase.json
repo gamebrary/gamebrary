@@ -1,26 +1,26 @@
 {
-  "database": {
-    "rules": "config/firebase/database.rules.json"
-  },
-  "firestore": {
-    "rules": "config/firebase/firestore.rules",
-    "indexes": "config/firebase/firestore.indexes.json"
-  },
-  "hosting": {
-    "public": "dist",
-    "ignore": [
-      "config/firebase/firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
-  },
-  "storage": {
-    "rules": "config/firebase/storage.rules"
-  }
+    "database": {
+        "rules": "config/firebase/database.rules.json"
+    },
+    "firestore": {
+        "rules": "config/firebase/firestore.rules",
+        "indexes": "config/firebase/firestore.indexes.json"
+    },
+    "hosting": {
+        "public": "dist",
+        "ignore": [
+            "config/firebase/firebase.json",
+            "**/.*",
+            "**/node_modules/**"
+        ],
+        "rewrites": [
+            {
+                "source": "**",
+                "destination": "/index.html"
+            }
+        ]
+    },
+    "storage": {
+        "rules": "config/firebase/storage.rules"
+    }
 }

@@ -1,3 +1,6 @@
+<!-- # TODO: load settings and lists on login -->
+<!-- # TODO: Improve platform dropdown -->
+<!-- # TODO: Finish wiring everything up -->
 <template>
     <div id="app">
         <nav-header />
@@ -10,12 +13,40 @@
 
 <script>
 import NavHeader from '@/components/NavHeader/NavHeader';
+import firebase from 'firebase';
+
+const db = firebase.firestore();
+
+db.settings({
+    timestampsInSnapshots: true,
+});
+
 
 export default {
+    /* eslint-disable */
     name: 'App',
 
     components: {
         NavHeader,
+    },
+
+    mounted() {
+        firebase.auth().getRedirectResult().then(({ user }) => {
+            if (user) {
+                this.$store.commit('SET_AUTHORIZING_STATUS', false);
+                this.$store.commit('SET_USER', user);
+            }
+        });
+
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                console.log('you are logged in', user);
+            } else {
+                // if loggedin in state, it means session expired, logout
+                console.log('user in store?');
+                console.log('no user!');
+            }
+        });
     },
 };
 </script>
@@ -45,6 +76,5 @@ export default {
 
     body {
         font-family: 'Roboto', sans-serif;
-        // background: url('/static/background-pattern.png');
     }
 </style>

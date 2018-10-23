@@ -1,15 +1,18 @@
-import VueDragscroll from 'vue-dragscroll';
-import VueContentPlaceholders from 'vue-content-placeholders';
-import axios from 'axios';
-import VueSweetalert2 from 'vue-sweetalert2';
 import VTooltip from 'v-tooltip';
-import VueAxios from 'vue-axios';
 import Vue from 'vue';
+import VueAxios from 'vue-axios';
+import VueContentPlaceholders from 'vue-content-placeholders';
+import VueDragscroll from 'vue-dragscroll';
+import VueFire from 'vuefire';
 import VueI18n from 'vue-i18n';
-import store from './store/';
+import VueSweetalert2 from 'vue-sweetalert2';
+import axios from 'axios';
+
+import './firebase';
 import App from './App';
-import router from './router';
 import messages from './i18n';
+import router from './router';
+import store from './store/';
 
 const EventBus = new Vue();
 
@@ -27,12 +30,13 @@ Object.defineProperties(Vue.prototype, {
     },
 });
 
-Vue.use(VueI18n);
 Vue.use(VTooltip);
-Vue.use(VueSweetalert2);
+Vue.use(VueAxios, axios);
 Vue.use(VueContentPlaceholders);
 Vue.use(VueDragscroll);
-Vue.use(VueAxios, axios);
+Vue.use(VueFire);
+Vue.use(VueI18n);
+Vue.use(VueSweetalert2);
 
 Vue.config.productionTip = false;
 
