@@ -1,6 +1,6 @@
+<!-- TODO: make this look half way decent -->
 <template lang="html">
     <div class="platforms">
-        <pre>{{ gameLists }}</pre>
         <a
             v-close-popover
             v-for="platform in platforms"
@@ -8,7 +8,6 @@
             @click="changePlatform(platform)"
         >
             {{ platform.name }}
-            <br>
         </a>
     </div>
 </template>
@@ -26,21 +25,19 @@ export default {
     },
 
     computed: {
-        ...mapState(['gameLists']),
+        ...mapState(['gameLists', 'platform']),
     },
 
     mounted() {
-        if (Object.keys(this.gameLists).length === 1) {
-            console.log('auto select');
+        if (this.gameLists && Object.keys(this.gameLists).length === 1) {
             this.changePlatform(this.platforms[Object.keys(this.gameLists)[0]]);
         }
-        // console.log(this.gameLists);
-        // console.log(this.platforms);
     },
 
     methods: {
         changePlatform(platform) {
             this.$store.commit('SET_PLATFORM', platform);
+            this.$router.push({ name: 'home' });
         },
     },
 };
@@ -51,9 +48,15 @@ export default {
 
     .platforms {
         display: grid;
-        display: grid;
         grid-template-columns: 100px 100px 100px;
         grid-gap: 10px;
+        text-align: center;
+
+        a {
+            height: 100px;
+            display: flex;
+            align-items: center;
+        }
 
     }
 </style>
