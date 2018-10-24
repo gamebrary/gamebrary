@@ -1,4 +1,5 @@
 import moment from 'moment';
+import Vue from 'vue';
 
 export default {
     SET_USER(state, data) {
@@ -19,6 +20,7 @@ export default {
     CLEAR_SESSION(state) {
         state.user = null;
         state.platform = null;
+        state.gameLists = null;
     },
 
     SET_SEARCH_RESULTS(state, results) {
@@ -62,16 +64,8 @@ export default {
         state.game = null;
     },
 
-    UPDATE_USER(state, user) {
-        state.user = user;
-    },
-
-    UPDATE_LIST(state, lists) {
-        state.user.lists = lists;
-    },
-
     SORT_LIST(state, listIndex) {
-        const games = state.user.lists[listIndex].games;
+        const games = state.gameLists[state.platform.code][listIndex].games;
 
         games.sort((a, b) => {
             const gameA = state.games[a].name.toUpperCase();
@@ -87,10 +81,6 @@ export default {
 
     UPDATE_LIST_NAME(state, { listIndex, listName }) {
         state.gameLists[state.platform.code][listIndex].name = listName;
-    },
-
-    SET_UPDATED_TIMESTAMP(state) {
-        state.dataUpdatedTimestamp = moment().format();
     },
 
     SET_SETTINGS(state, settings) {
@@ -114,7 +104,7 @@ export default {
         };
 
         if (!state.gameLists[state.platform.code]) {
-            state.gameLists[state.platform.code] = [];
+            Vue.set(state.gameLists, state.platform.code, []);
         }
 
         state.gameLists[state.platform.code].push(newList);
