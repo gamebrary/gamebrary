@@ -7,6 +7,7 @@
         :class="{ nightMode, 'drag-scroll-active': dragScrollActive }"
         v-dragscroll:nochilddrag
     >
+        <!-- TODO: add empty state -->
         <list
             :name="list.name"
             :games="list.games"
