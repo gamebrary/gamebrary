@@ -10,6 +10,9 @@ const firebaseApp = firebase.initializeApp({
     messagingSenderId: '324529217902',
 });
 
+// TODO: use this file for DB
+// TODO: obfuscate keys
+
 // const firestore = firebase.firestore();
 // const settings = {
 //     /* your settings... */
