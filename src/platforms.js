@@ -1,3 +1,4 @@
+// TODO: refactor
 export default {
     'xbox-one': {
         name: 'Xbox One',
@@ -13,5 +14,10 @@ export default {
         name: 'PlayStation 4',
         code: 'playstation-4',
         id: 48,
+    },
+    'nintendo-64': {
+        name: 'Nintendo 64',
+        code: 'nintendo-64',
+        id: 4,
     },
 };
