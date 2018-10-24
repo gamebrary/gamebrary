@@ -1,3 +1,5 @@
+// TODO: move static data to shared file
+// TODO: audit store and remove deprecated stuff
 export default {
     user: null,
     authorizing: false,
