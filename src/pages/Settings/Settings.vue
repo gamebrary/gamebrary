@@ -22,7 +22,7 @@
             </div>
         </aside>
 
-        <main class="settings-grid" v-if="loaded">
+        <main class="settings-grid">
             <section>
                 <i class="fas fa-share-alt" />
                 <h3>Share link</h3>
@@ -124,7 +124,6 @@ export default {
     data() {
         return {
             settings: {},
-            loaded: false,
         };
     },
 
@@ -156,35 +155,18 @@ export default {
         },
     },
 
-    mounted() {
-        this.loadSettings();
-    },
-
     methods: {
         /* eslint-disable */
-        loadSettings() {
-            const docRef = db.collection('settings').doc(this.user.uid);
-
-            docRef.get().then((doc) => {
-                if (doc.exists) {
-                    this.settings = doc.data();
-                    this.$store.commit('SET_SETTINGS', doc.data());
-                    this.loaded = true;
-                }
-            }).catch(() => {
-                this.$error('Authentication error');
-            });
-        },
-
         deleteSettings() {
-            db.collection('settings').doc(this.user.uid).delete().then(() => {
-                console.log("Document successfully deleted!");
-            }).catch(() => {
-                this.$error('Authentication error');
-            });
+            db.collection('settings').doc(this.user.uid).delete()
+                .then(() => {
+                    console.log("Document successfully deleted!");
+                })
+                .catch(() => {
+                    this.$error('Authentication error');
+                });
         },
 
-        /* eslint-disable */
         setGameView(view) {
             this.settings.gameView = view;
             this.save();
