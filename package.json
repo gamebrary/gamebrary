@@ -1,7 +1,7 @@
 {
-    "name": "switch-list",
+    "name": "GAMEBRARY",
     "version": "1.0.0",
-    "description": "Keep track of your switch collection",
+    "description": "Keep track of your video game collection",
     "author": "Roman Cervantes",
     "private": true,
     "scripts": {
