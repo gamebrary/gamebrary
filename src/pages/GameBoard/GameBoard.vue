@@ -13,7 +13,7 @@
             :listIndex="listIndex"
             :key="list.name"
             v-if="list"
-            v-for="(list, listIndex) in activePlatform"
+            v-for="(list, listIndex) in gameLists[platform.code]"
             @end="dragEnd"
             @remove="tryDelete(listIndex)"
         />
@@ -31,7 +31,6 @@ import AddList from '@/components/Lists/AddList';
 import toasts from '@/mixins/toasts';
 import List from '@/components/GameBoard/List';
 import draggable from 'vuedraggable';
-import moment from 'moment';
 import firebase from 'firebase';
 import { mapState } from 'vuex';
 
@@ -76,12 +75,8 @@ export default {
     computed: {
         ...mapState(['user', 'gameLists', 'platform']),
 
-        activePlatform() {
+        list() {
             return this.gameLists[this.platform.code];
-        },
-
-        isEmpty() {
-            return !this.activePlatform.filter(list => list && list.games && list.games.length).length;
         },
 
         nightMode() {
@@ -90,7 +85,7 @@ export default {
     },
 
     mounted() {
-        if (!this.isEmpty) {
+        if (!this.list) {
             this.loadGameData();
         }
     },
@@ -104,7 +99,7 @@ export default {
         },
 
         tryDelete(index) {
-            const hasGames = this.user.lists[index].games.length > 0;
+            const hasGames = this.list[index].games.length > 0;
 
             if (hasGames) {
                 this.showDeleteConfirm = true;
@@ -142,12 +137,8 @@ export default {
         },
 
         updateLists() {
-            const settings = {
-                merge: true
-            }
-
-            db.collection('lists').doc(this.user.uid).set(this.gameLists, settings)
-                .then((data) => {
+            db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
+                .then(() => {
                     this.$success('List saved');
                 })
                 .catch(() => {
@@ -157,32 +148,34 @@ export default {
 
         loadGameData() {
             const gameList = [];
-            this.activePlatform.forEach((list) => {
-                if (list && list.games.length) {
-                    list.games.forEach((id) => {
-                        console.log(id);
-                        if (!gameList.includes(id)) {
-                            gameList.push(id);
-                        }
-                    });
-                }
-            });
 
-            this.$store.dispatch('LOAD_GAMES', gameList)
-                .catch(() => {
-                    this.$swal({
-                        title: 'Uh no!',
-                        text: 'There was an error loading your game data',
-                        type: 'error',
-                        showCancelButton: true,
-                        confirmButtonClass: 'primary',
-                        confirmButtonText: 'Retry',
-                    }).then(({ value }) => {
-                        if (value) {
-                            this.loadGameData();
-                        }
-                    });
+            if (this.activePlatform) {
+                this.activePlatform.forEach((list) => {
+                    if (list && list.games.length) {
+                        list.games.forEach((id) => {
+                            if (!gameList.includes(id)) {
+                                gameList.push(id);
+                            }
+                        });
+                    }
                 });
+
+                this.$store.dispatch('LOAD_GAMES', gameList)
+                    .catch(() => {
+                        this.$swal({
+                            title: 'Uh no!',
+                            text: 'There was an error loading your game data',
+                            type: 'error',
+                            showCancelButton: true,
+                            confirmButtonClass: 'primary',
+                            confirmButtonText: 'Retry',
+                        }).then(({ value }) => {
+                            if (value) {
+                                this.loadGameData();
+                            }
+                        });
+                    });
+            }
         },
     },
 };
