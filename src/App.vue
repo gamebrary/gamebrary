@@ -1,6 +1,3 @@
-<!-- # TODO: load settings and lists on login -->
-<!-- # TODO: Improve platform dropdown -->
-<!-- # TODO: Finish wiring everything up -->
 <template>
     <div id="app">
         <nav-header />
@@ -14,6 +11,7 @@
 <script>
 import NavHeader from '@/components/NavHeader/NavHeader';
 import firebase from 'firebase';
+import { mapState } from 'vuex';
 
 const db = firebase.firestore();
 
@@ -21,32 +19,74 @@ db.settings({
     timestampsInSnapshots: true,
 });
 
-
 export default {
-    /* eslint-disable */
     name: 'App',
 
     components: {
         NavHeader,
     },
 
+    computed: {
+        ...mapState(['user']),
+    },
+
     mounted() {
         firebase.auth().getRedirectResult().then(({ user }) => {
             if (user) {
-                this.$store.commit('SET_AUTHORIZING_STATUS', false);
-                this.$store.commit('SET_USER', user);
+                this.init(user);
             }
         });
+    },
 
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                console.log('you are logged in', user);
-            } else {
-                // if loggedin in state, it means session expired, logout
-                console.log('user in store?');
-                console.log('no user!');
-            }
-        });
+    methods: {
+        init(user) {
+            this.$store.commit('SET_AUTHORIZING_STATUS', false);
+            this.$store.commit('SET_USER', user);
+            this.loadSettings();
+            this.loadLists();
+        },
+
+        loadSettings() {
+            const docRef = db.collection('settings').doc(this.user.uid);
+
+            docRef.get().then((doc) => {
+                if (doc.exists) {
+                    this.$store.commit('SET_SETTINGS', doc.data());
+                } else {
+                    this.initSettings();
+                }
+            }).catch(() => {
+                this.$error('Authentication error');
+            });
+        },
+
+        loadLists() {
+            db.collection('lists').doc(this.user.uid).get()
+                .then((doc) => {
+                    if (doc.exists) {
+                        this.$store.commit('SET_GAME_LISTS', doc.data());
+                    } else {
+                        this.initList();
+                    }
+                })
+                .catch(() => {
+                    this.$error('Authentication error');
+                });
+        },
+
+        initList() {
+            db.collection('lists').doc(this.user.uid).set({}, { merge: true })
+                .then(() => {
+                    this.loadLists();
+                });
+        },
+
+        initSettings() {
+            db.collection('settings').doc(this.user.uid).set({}, { merge: true })
+                .then(() => {
+                    this.loadSettings();
+                });
+        },
     },
 };
 </script>
