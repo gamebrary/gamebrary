@@ -1,17 +1,28 @@
 <template lang="html">
     <nav :class="{ 'logged-in': user}">
-        <router-link :to="{ name: 'home' }" v-if="!platform">
-            GAMEBRARY
-        </router-link>
+        <div>
+            <router-link :to="{ name: 'home' }" class="logo">
+                GAMEBRARY
+            </router-link>
+        </div>
 
-        <div class="settings">
-            <platforms-dropdown />
+        <div class="settings" v-if="user">
+            <span class="platform-name">
+                {{ platform.name }}
+            </span>
+
+            <router-link
+                tag="button"
+                class="info"
+                :to="{ name: 'platforms' }"
+            >
+                <i class="fas fa-exchange-alt" />
+            </router-link>
 
             <router-link
                 tag="button"
                 class="info"
                 :to="{ name: 'settings' }"
-                v-if="user"
             >
                 <i class="fas fa-cog" />
             </router-link>
@@ -20,16 +31,15 @@
 </template>
 
 <script>
-import PlatformsDropdown from '@/components/PlatformsDropdown/PlatformsDropdown';
 import { mapState } from 'vuex';
 
 export default {
-    components: {
-        PlatformsDropdown,
-    },
-
     computed: {
-        ...mapState(['user']),
+        ...mapState(['user', 'platform']),
+
+        isHome() {
+            return this.$route.name === 'home';
+        },
     },
 };
 </script>
@@ -45,22 +55,32 @@ export default {
         display: flex;
         align-items: center;
         justify-content: space-around;
+        color: $color-white;
 
         &.logged-in {
             justify-content: space-between;
         }
 
+        .platform-name {
+            color: $color-light-gray;
+            cursor: default;
+        }
+
         a {
             color: $color-white;
-            font-size: 18px;
-            font-weight: bold;
-            text-transform: uppercase;
-            padding: 0 $gp;
             text-decoration: none;
+
+            &.logo {
+                padding: 0 0 0 $gp;
+                text-transform: uppercase;
+                font-size: 18px;
+                font-weight: bold;
+            }
         }
 
         .settings {
             display: flex;
+            align-items: center;
         }
     }
 </style>
