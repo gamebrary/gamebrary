@@ -55,11 +55,21 @@
 <script>
 import GameRating from '@/components/GameDetail/GameRating';
 import { mapState } from 'vuex';
+import firebase from 'firebase';
+import toasts from '@/mixins/toasts';
+
+const db = firebase.firestore();
+
+db.settings({
+    timestampsInSnapshots: true,
+});
 
 export default {
     components: {
         GameRating,
     },
+
+    mixins: [toasts],
 
     props: {
         gameId: Number,
@@ -68,7 +78,7 @@ export default {
     },
 
     computed: {
-        ...mapState(['settings', 'games', 'gameLists', 'platform']),
+        ...mapState(['settings', 'games', 'gameLists', 'platform', 'user']),
 
         activePlatform() {
             return this.gameLists[this.platform.code];
@@ -110,7 +120,14 @@ export default {
 
             this.$emit('added');
             this.$store.commit('ADD_GAME', data);
-            this.$store.dispatch('UPDATE_LISTS');
+
+            db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
+                .then(() => {
+                    this.$success('List saved');
+                })
+                .catch(() => {
+                    this.$error('Authentication error');
+                });
         },
 
         removeGame() {
@@ -120,7 +137,14 @@ export default {
             };
 
             this.$store.commit('REMOVE_GAME', data);
-            this.$store.dispatch('UPDATE_LISTS');
+
+            db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
+                .then(() => {
+                    this.$success('List saved');
+                })
+                .catch(() => {
+                    this.$error('Authentication error');
+                });
         },
     },
 };
