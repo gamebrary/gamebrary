@@ -132,7 +132,6 @@ export default {
         dragEnd() {
             this.dragging = false;
             this.draggingId = null;
-            // this.$store.commit('UPDATE_LIST', this.user.lists);
             this.updateLists();
         },
 
