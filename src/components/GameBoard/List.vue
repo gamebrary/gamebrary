@@ -80,6 +80,14 @@ import ListNameEdit from '@/components/GameBoard/ListNameEdit';
 import GameCard from '@/components/GameCard/GameCard';
 import GameSearch from '@/components/GameSearch/GameSearch';
 import { mapState } from 'vuex';
+import firebase from 'firebase';
+import toasts from '@/mixins/toasts';
+
+const db = firebase.firestore();
+
+db.settings({
+    timestampsInSnapshots: true,
+});
 
 export default {
     components: {
@@ -88,6 +96,8 @@ export default {
         ListNameEdit,
         draggable,
     },
+
+    mixins: [toasts],
 
     props: {
         name: String,
@@ -111,9 +121,9 @@ export default {
     },
 
     computed: {
-        ...mapState(['gameLists', 'platform', 'activeList']),
+        ...mapState(['user', 'gameLists', 'platform', 'activeList']),
 
-        activePlatform() {
+        list() {
             return this.gameLists[this.platform.code];
         },
 
@@ -150,7 +160,13 @@ export default {
         },
 
         updateLists() {
-            this.$store.dispatch('UPDATE_LISTS');
+            db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
+                .then(() => {
+                    this.$success('List saved');
+                })
+                .catch(() => {
+                    this.$error('Authentication error');
+                });
         },
 
         sortList() {
@@ -160,7 +176,7 @@ export default {
 
         validateMove({ from, to }) {
             const isDifferentList = from.id !== to.id;
-            const isDuplicate = this.activePlatform[to.id].games.includes(Number(this.draggingId));
+            const isDuplicate = this.list[to.id].games.includes(Number(this.draggingId));
             const validMove = isDifferentList && isDuplicate;
             return !validMove;
         },
