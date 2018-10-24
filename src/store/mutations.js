@@ -86,7 +86,7 @@ export default {
     },
 
     UPDATE_LIST_NAME(state, { listIndex, listName }) {
-        state.user.lists[listIndex].name = listName;
+        state.gameLists[state.platform.code][listIndex].name = listName;
     },
 
     SET_UPDATED_TIMESTAMP(state) {
@@ -98,11 +98,13 @@ export default {
     },
 
     REMOVE_LIST(state, index) {
-        state.user.lists.splice(index, 1);
+        state.gameLists[state.platform.code].splice(index, 1);
     },
 
     ADD_GAME(state, { gameId, listId }) {
-        state.user.lists[listId].games.push(gameId);
+        const currentList = state.gameLists[state.platform.code][listId];
+
+        currentList.games.push(gameId);
     },
 
     ADD_LIST(state, listName) {
@@ -111,11 +113,17 @@ export default {
             name: listName,
         };
 
-        state.user.lists.push(newList);
+        if (!state.gameLists[state.platform.code]) {
+            state.gameLists[state.platform.code] = [];
+        }
+
+        state.gameLists[state.platform.code].push(newList);
     },
 
     REMOVE_GAME(state, { gameId, listId }) {
-        state.user.lists[listId].games.splice(state.user.lists[listId].games.indexOf(gameId), 1);
+        const currentList = state.gameLists[state.platform.code][listId];
+
+        currentList.games.splice(currentList.games.indexOf(gameId), 1);
     },
 
     CACHE_GAME_DATA(state, data) {
