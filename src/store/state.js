@@ -12,9 +12,6 @@ export default {
     results: null,
     games: {},
     game: null,
-    platforms: {
-        nsw: 130,
-    },
     gameCategories: {
         0: 'Main game',
         1: 'DLC / Addon',
