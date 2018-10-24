@@ -13,9 +13,9 @@ export default {
         });
     },
 
-    SEARCH({ commit }, searchText) {
+    SEARCH({ commit, state }, searchText) {
         return new Promise((resolve, reject) => {
-            axios.get(`${FIREBASE_URL}/search?searchText=${searchText}&platformId=130`)
+            axios.get(`${FIREBASE_URL}/search?searchText=${searchText}&platformId=${state.platform.id}`)
                 .then(({ data }) => {
                     commit('SET_SEARCH_RESULTS', data);
                     commit('CACHE_GAME_DATA', data);
