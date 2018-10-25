@@ -47,14 +47,6 @@ export default {
         state.activeList = listIndex;
     },
 
-    SET_ADMIN_DATA(state, data) {
-        state.adminData = data;
-    },
-
-    CLEAR_ADMIN_DATA(state) {
-        state.adminData = null;
-    },
-
     SET_PLATFORM(state, platform) {
         state.platform = platform;
     },
