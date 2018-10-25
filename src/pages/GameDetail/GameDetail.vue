@@ -11,12 +11,7 @@
             </div>
 
             <game-screenshots />
-
-            <!-- TODO: create video gallery, simple ui -->
-            <!-- TODO: if more than one video, show sidebar -->
-            <!-- TODO: use youtube max res image -->
-            <!-- TODO: keep it simple -->
-            <game-videos />
+            <!-- <game-videos /> -->
 
             <div class="igdb-credit">
                 <small>Powered by:</small>
@@ -78,14 +73,24 @@ export default {
         display: flex;
     }
 
+    .game-info {
+        margin: 0 $gp;
+
+        .game-description {
+            line-height: 1.3rem;
+        }
+    }
+
     main {
         background-color: $color-white;
+        min-width: 900px;
         max-width: 900px;
         margin: $gp auto;
         border-radius: $border-radius;
         overflow: hidden;
 
         @media($small) {
+            min-width: 100%;
             border-radius: 0;
             margin: 0;
             width: 100%;
