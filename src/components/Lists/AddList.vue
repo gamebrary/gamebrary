@@ -11,22 +11,24 @@
 
             <panel class="warning" v-if="isDuplicate" v-html="errorMessage" />
 
-            <button
-                type="submit"
-                class="small primary"
-                v-if="!isDuplicate"
-                :disabled="!newListName.length"
-            >
-                Create
-            </button>
+            <div>
+                <button
+                    type="submit"
+                    class="small primary"
+                    v-if="!isDuplicate"
+                    :disabled="!newListName.length"
+                >
+                    Create
+                </button>
 
-            <button
-                class="small accent"
-                type="button"
-                @click="reset"
-            >
-                Cancel
-            </button>
+                <button
+                    class="small accent"
+                    type="button"
+                    @click="reset"
+                >
+                    Cancel
+                </button>
+            </div>
         </form>
 
         <button class="add small info hollow" @click="toggleAddList" v-else>
@@ -132,6 +134,8 @@ export default {
         background: $color-light-gray;
         padding: $gp / 2;
         margin-right: $gp;
+        display: flex;
+        flex-direction: column;
     }
 
     .panel.warning {
