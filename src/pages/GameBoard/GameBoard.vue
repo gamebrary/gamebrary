@@ -7,7 +7,7 @@
         :class="{ nightMode, 'drag-scroll-active': dragScrollActive }"
         v-dragscroll:nochilddrag
     >
-        <!-- TODO: add empty state -->
+
         <list
             :name="list.name"
             :games="list.games"
@@ -86,9 +86,7 @@ export default {
     },
 
     mounted() {
-        if (!this.list) {
-            this.loadGameData();
-        }
+        this.loadGameData();
     },
 
     methods: {
@@ -149,8 +147,8 @@ export default {
         loadGameData() {
             const gameList = [];
 
-            if (this.activePlatform) {
-                this.activePlatform.forEach((list) => {
+            if (this.list) {
+                this.list.forEach((list) => {
                     if (list && list.games.length) {
                         list.games.forEach((id) => {
                             if (!gameList.includes(id)) {
@@ -160,21 +158,23 @@ export default {
                     }
                 });
 
-                this.$store.dispatch('LOAD_GAMES', gameList)
-                    .catch(() => {
-                        this.$swal({
-                            title: 'Uh no!',
-                            text: 'There was an error loading your game data',
-                            type: 'error',
-                            showCancelButton: true,
-                            confirmButtonClass: 'primary',
-                            confirmButtonText: 'Retry',
-                        }).then(({ value }) => {
-                            if (value) {
-                                this.loadGameData();
-                            }
+                if (gameList.length > 0) {
+                    this.$store.dispatch('LOAD_GAMES', gameList)
+                        .catch(() => {
+                            this.$swal({
+                                title: 'Uh no!',
+                                text: 'There was an error loading your game data',
+                                type: 'error',
+                                showCancelButton: true,
+                                confirmButtonClass: 'primary',
+                                confirmButtonText: 'Retry',
+                            }).then(({ value }) => {
+                                if (value) {
+                                    this.loadGameData();
+                                }
+                            });
                         });
-                    });
+                }
             }
         },
     },
