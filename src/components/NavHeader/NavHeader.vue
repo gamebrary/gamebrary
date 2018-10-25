@@ -7,17 +7,19 @@
         </div>
 
         <div class="settings" v-if="user">
-            <span class="platform-name">
-                {{ platform.name }}
-            </span>
+            <div v-if="platform">
+                <span class="platform-name">
+                    {{ platform.name }}
+                </span>
 
-            <router-link
-                tag="button"
-                class="info"
-                :to="{ name: 'platforms' }"
-            >
-                <i class="fas fa-exchange-alt" />
-            </router-link>
+                <router-link
+                    tag="button"
+                    class="info"
+                    :to="{ name: 'platforms' }"
+                >
+                    <i class="fas fa-exchange-alt" />
+                </router-link>
+            </div>
 
             <router-link
                 tag="button"
