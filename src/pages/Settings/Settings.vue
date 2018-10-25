@@ -1,10 +1,10 @@
 <template lang="html">
-    <div class="settings">
+    <div class="settings" v-if="user">
         <aside>
             <gravatar :email="user.email" />
 
             <div>
-                <p><strong>App ID:</strong> {{ user._id }}</p>
+                <p><strong>App ID:</strong> {{ user.uid }}</p>
                 <p><strong>Email:</strong> {{ user.email }}</p>
                 <p><strong>Joined:</strong> {{ dateJoined }}</p>
             </div>
@@ -101,10 +101,17 @@
 <script>
 import { debounce } from 'lodash';
 import { mapState } from 'vuex';
+import firebase from 'firebase';
 import Gravatar from 'vue-gravatar';
 import Panel from '@/components/Panel/Panel';
 import toasts from '@/mixins/toasts';
 import moment from 'moment';
+
+const db = firebase.firestore();
+
+db.settings({
+    timestampsInSnapshots: true,
+});
 
 export default {
     components: {
@@ -133,7 +140,7 @@ export default {
                 : 'https://gamebrary.com';
 
             // eslint-disable-next-line
-            return `${url}/#/share/${this.user._id}`;
+            return `${url}/#/share/${this.user.uid}`;
         },
     },
 
@@ -148,12 +155,6 @@ export default {
         },
     },
 
-    mounted() {
-        this.settings = this.user.settings
-            ? JSON.parse(JSON.stringify(this.user.settings))
-            : {};
-    },
-
     methods: {
         setGameView(view) {
             this.settings.gameView = view;
@@ -164,7 +165,7 @@ export default {
             this.$swal({
                 title: 'Are you sure?',
                 text: 'Your account data will be deleted forever.',
-                // type: 'warning',
+                type: 'warning',
                 showCancelButton: true,
                 confirmButtonClass: 'error',
                 cancelButtonClass: 'accent',
@@ -178,30 +179,41 @@ export default {
         },
 
         logout() {
-            this.$store.commit('CLEAR_SESSION');
-            this.$router.push({ name: 'home' });
+            firebase.auth().signOut()
+                .then(() => {
+                    this.$store.commit('CLEAR_SESSION');
+                    this.$router.push({ name: 'home' });
+                })
+                .catch((error) => {
+                    this.$error(error);
+                });
         },
 
         deleteAccount() {
-            this.$store.dispatch('DELETE_USER')
+            // TODO: use async/await
+            db.collection('settings').doc(this.user.uid).delete()
                 .then(() => {
-                    this.$swal({
-                        position: 'bottom-end',
-                        title: 'Account deleted',
-                        type: 'success',
-                        toast: true,
-                        showConfirmButton: false,
-                        timer: 1500,
-                    });
+                    this.$success('Settings deleted');
 
-                    this.logout();
+                    db.collection('lists').doc(this.user.uid).delete()
+                        .then(() => {
+                            this.$success('Game lists deleted');
+                            this.$success('Account deleted');
+                            this.logout();
+                        })
+                        .catch(() => {
+                            this.$error('Authentication error');
+                        });
+                })
+                .catch(() => {
+                    this.$error('Authentication error');
                 });
         },
 
         save: debounce(
             // eslint-disable-next-line
             function() {
-                this.$store.dispatch('UPDATE_SETTINGS', this.settings)
+                db.collection('settings').doc(this.user.uid).set(this.settings, { merge: true })
                     .then(() => {
                         this.$success('Settings saved');
                     })

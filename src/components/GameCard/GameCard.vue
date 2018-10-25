@@ -16,7 +16,7 @@
             <h4 class="game-title">{{ game.name }}</h4>
 
             <game-rating
-                v-if="user.settings && user.settings.showGameRatings && !searchResult"
+                v-if="showGameRating && !searchResult"
                 small
                 :rating="game.rating"
             />
@@ -55,11 +55,21 @@
 <script>
 import GameRating from '@/components/GameDetail/GameRating';
 import { mapState } from 'vuex';
+import firebase from 'firebase';
+import toasts from '@/mixins/toasts';
+
+const db = firebase.firestore();
+
+db.settings({
+    timestampsInSnapshots: true,
+});
 
 export default {
     components: {
         GameRating,
     },
+
+    mixins: [toasts],
 
     props: {
         gameId: Number,
@@ -68,10 +78,14 @@ export default {
     },
 
     computed: {
-        ...mapState(['user', 'games']),
+        ...mapState(['settings', 'games', 'gameLists', 'platform', 'user']),
+
+        activePlatform() {
+            return this.gameLists[this.platform.code];
+        },
 
         list() {
-            return this.user.lists[this.listId];
+            return this.activePlatform[this.listId];
         },
 
         game() {
@@ -87,12 +101,12 @@ export default {
         },
 
         nightMode() {
-            return this.user && this.user.settings ? this.user.settings.nightMode : null;
+            return this.settings ? this.settings.nightMode : null;
         },
 
         showGameRating() {
-            return this.user
-                && this.user.settings.showGameRatings
+            return this.settings
+                && this.settings.showGameRatings
                 && Boolean(Number(this.game.rating));
         },
     },
@@ -106,7 +120,14 @@ export default {
 
             this.$emit('added');
             this.$store.commit('ADD_GAME', data);
-            this.$store.dispatch('UPDATE_LISTS');
+
+            db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
+                .then(() => {
+                    this.$success('List saved');
+                })
+                .catch(() => {
+                    this.$error('Authentication error');
+                });
         },
 
         removeGame() {
@@ -116,7 +137,14 @@ export default {
             };
 
             this.$store.commit('REMOVE_GAME', data);
-            this.$store.dispatch('UPDATE_LISTS');
+
+            db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
+                .then(() => {
+                    this.$success('List saved');
+                })
+                .catch(() => {
+                    this.$error('Authentication error');
+                });
         },
     },
 };

@@ -2,10 +2,9 @@
     <form @submit.prevent="search" class="game-search">
         <input ref="searchInput" type="text" v-model="searchText" placeholder="Type here">
 
-        <div class="search-results" v-if="!loading && filteredResults.length > 0">
+        <div class="search-results" v-if="filteredResults.length > 0">
             <game-card
                 v-for="{ id } in filteredResults"
-                v-if="!list.games.includes(id)"
                 :key="id"
                 :game-id="id"
                 :listId="listId"
@@ -14,20 +13,16 @@
             />
         </div>
 
-        <div v-if="!loading && filteredResults.length === 0">
+        <div v-if="loaded && filteredResults.length === 0">
             No results
         </div>
-
-        <content-placeholders v-for="n in 3" :key="n" v-if="loading">
-            <content-placeholders-heading :img="true" />
-        </content-placeholders>
     </form>
 </template>
 
 <script>
 import GameCard from '@/components/GameCard/GameCard';
 import { debounce } from 'lodash';
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
     components: {
@@ -45,7 +40,7 @@ export default {
     data() {
         return {
             searchText: '',
-            loading: false,
+            loaded: false,
             styles: {
                 width: '95%',
                 'max-width': '800px',
@@ -54,15 +49,14 @@ export default {
     },
 
     computed: {
-        ...mapState(['results', 'user']),
-        ...mapGetters(['auth']),
+        ...mapState(['results', 'gameLists', 'platform']),
 
         list() {
-            return this.user.lists[this.listId];
+            return this.gameLists[this.platform.code];
         },
 
         filteredResults() {
-            return this.results.filter(({ id }) => !this.list.games.includes(id));
+            return this.results.filter(({ id }) => !this.list[this.listId].games.includes(id));
         },
     },
 
@@ -86,15 +80,15 @@ export default {
         search: debounce(
             // eslint-disable-next-line
             function() {
-                this.loading = true;
+                this.loaded = false;
 
                 this.$store.dispatch('SEARCH', this.searchText)
                     .then(() => {
                         this.error = null;
-                        this.loading = false;
+                        this.loaded = true;
                     })
                     .catch(({ data }) => {
-                        this.loading = false;
+                        this.loaded = true;
                         this.error = data;
                     });
             }, 300),

@@ -1,7 +1,4 @@
-import moment from 'moment';
-
 export default {
-    auth: state => Boolean(state.token && state.user),
     developers: (state) => {
         const developers = state.game.developers;
 
@@ -49,6 +46,4 @@ export default {
             ? gamePlatforms.map(gamePlatform => gamePlatform.name).join(', ')
             : null;
     },
-
-    releaseDate: state => moment(new Date(state.game.release_dates.find(r => r.platform === state.platforms.nsw)).human).format('LL'),
 };

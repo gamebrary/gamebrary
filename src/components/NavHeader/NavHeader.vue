@@ -1,51 +1,47 @@
 <template lang="html">
-    <nav>
-        <platforms-dropdown />
+    <nav :class="{ 'logged-in': user}">
+        <div>
+            <router-link :to="{ name: 'home' }" class="logo">
+                GAMEBRARY
+            </router-link>
+        </div>
 
-        <strong>gamebrary</strong>
+        <div class="settings" v-if="user">
+            <div v-if="platform">
+                <span class="platform-name">
+                    {{ platform.name }}
+                </span>
 
-        <div class="links">
-            <template v-if="auth">
-                <router-link tag="button" class="info" :to="{ name: 'admin' }" v-if="user.admin">
-                    <i class="fas fa-screwdriver" />
+                <router-link
+                    tag="button"
+                    class="info"
+                    :to="{ name: 'platforms' }"
+                >
+                    <i class="fas fa-exchange-alt" />
                 </router-link>
+            </div>
 
-                <router-link tag="button" class="info" :to="{ name: 'settings' }">
-                    <i class="fas fa-cog" />
-                </router-link>
-            </template>
-
-            <template v-else>
-                <router-link tag="button" class="info" :to="{ name: 'login' }">
-                    Login
-                </router-link>
-
-                <router-link tag="button" class="primary" :to="{ name: 'register' }">
-                    Register
-                </router-link>
-            </template>
+            <router-link
+                tag="button"
+                class="info"
+                :to="{ name: 'settings' }"
+            >
+                <i class="fas fa-cog" />
+            </router-link>
         </div>
     </nav>
 </template>
 
 <script>
-import PlatformsDropdown from '@/components/PlatformsDropdown/PlatformsDropdown';
-import { mapGetters, mapState } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
-    components: {
-        PlatformsDropdown,
-    },
-
-    data() {
-        return {
-            msg: 'test',
-        };
-    },
-
     computed: {
-        ...mapState(['user']),
-        ...mapGetters(['auth']),
+        ...mapState(['user', 'platform']),
+
+        isHome() {
+            return this.$route.name === 'home';
+        },
     },
 };
 </script>
@@ -60,16 +56,33 @@ export default {
         padding-right: 4px;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: space-around;
+        color: $color-white;
+
+        &.logged-in {
+            justify-content: space-between;
+        }
+
+        .platform-name {
+            color: $color-light-gray;
+            cursor: default;
+        }
 
         a {
             color: $color-white;
+            text-decoration: none;
+
+            &.logo {
+                padding: 0 0 0 $gp;
+                text-transform: uppercase;
+                font-size: 18px;
+                font-weight: bold;
+            }
         }
 
-        strong {
-            color: $color-white;
-            text-transform: uppercase;
-            font-size: 18px;
+        .settings {
+            display: flex;
+            align-items: center;
         }
     }
 </style>

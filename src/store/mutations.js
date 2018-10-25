@@ -1,13 +1,33 @@
-import moment from 'moment';
+import Vue from 'vue';
 
 export default {
-    SET_SESSION(state, { user, token }) {
-        state.token = token;
-        state.user = user;
+    SET_USER(state, data) {
+        state.user = {
+            uid: data.uid,
+            displayName: data.displayName,
+            email: data.email,
+            emailVerified: data.emailVerified,
+            dateJoined: data.metadata.creationTime,
+            photoURL: data.photoURL,
+        };
+    },
+
+    SET_GAME_LISTS(state, lists) {
+        state.gameLists = lists;
+    },
+
+    CLEAR_SESSION(state) {
+        state.user = null;
+        state.platform = null;
+        state.gameLists = null;
     },
 
     SET_SEARCH_RESULTS(state, results) {
         state.results = results;
+    },
+
+    SET_AUTHORIZING_STATUS(state, status) {
+        state.authorizing = status;
     },
 
     CLEAR_SEARCH_RESULTS(state) {
@@ -27,14 +47,6 @@ export default {
         state.activeList = listIndex;
     },
 
-    SET_ADMIN_DATA(state, data) {
-        state.adminData = data;
-    },
-
-    CLEAR_ADMIN_DATA(state) {
-        state.adminData = null;
-    },
-
     SET_PLATFORM(state, platform) {
         state.platform = platform;
     },
@@ -43,16 +55,8 @@ export default {
         state.game = null;
     },
 
-    UPDATE_USER(state, user) {
-        state.user = user;
-    },
-
-    UPDATE_LIST(state, lists) {
-        state.user.lists = lists;
-    },
-
     SORT_LIST(state, listIndex) {
-        const games = state.user.lists[listIndex].games;
+        const games = state.gameLists[state.platform.code][listIndex].games;
 
         games.sort((a, b) => {
             const gameA = state.games[a].name.toUpperCase();
@@ -67,23 +71,21 @@ export default {
     },
 
     UPDATE_LIST_NAME(state, { listIndex, listName }) {
-        state.user.lists[listIndex].name = listName;
-    },
-
-    SET_UPDATED_TIMESTAMP(state) {
-        state.dataUpdatedTimestamp = moment().format();
+        state.gameLists[state.platform.code][listIndex].name = listName;
     },
 
     SET_SETTINGS(state, settings) {
-        state.user.settings = settings;
+        state.settings = settings;
     },
 
     REMOVE_LIST(state, index) {
-        state.user.lists.splice(index, 1);
+        state.gameLists[state.platform.code].splice(index, 1);
     },
 
     ADD_GAME(state, { gameId, listId }) {
-        state.user.lists[listId].games.push(gameId);
+        const currentList = state.gameLists[state.platform.code][listId];
+
+        currentList.games.push(gameId);
     },
 
     ADD_LIST(state, listName) {
@@ -92,22 +94,22 @@ export default {
             name: listName,
         };
 
-        state.user.lists.push(newList);
+        if (!state.gameLists[state.platform.code]) {
+            Vue.set(state.gameLists, state.platform.code, []);
+        }
+
+        state.gameLists[state.platform.code].push(newList);
     },
 
     REMOVE_GAME(state, { gameId, listId }) {
-        state.user.lists[listId].games.splice(state.user.lists[listId].games.indexOf(gameId), 1);
+        const currentList = state.gameLists[state.platform.code][listId];
+
+        currentList.games.splice(currentList.games.indexOf(gameId), 1);
     },
 
     CACHE_GAME_DATA(state, data) {
         data.forEach((game) => {
             state.games[game.id] = { ...game };
         });
-    },
-
-    CLEAR_SESSION(state) {
-        state.token = null;
-        state.user = null;
-        state.platform = null;
     },
 };

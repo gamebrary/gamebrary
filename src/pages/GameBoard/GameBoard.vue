@@ -7,19 +7,20 @@
         :class="{ nightMode, 'drag-scroll-active': dragScrollActive }"
         v-dragscroll:nochilddrag
     >
+
         <list
             :name="list.name"
             :games="list.games"
             :listIndex="listIndex"
             :key="list.name"
             v-if="list"
-            v-for="(list, listIndex) in user.lists"
+            v-for="(list, listIndex) in gameLists[platform.code]"
             @end="dragEnd"
             @remove="tryDelete(listIndex)"
         />
 
         <add-list
-            @update="updateLists(true)"
+            @update="updateLists()"
             @scroll="scroll"
         />
     </div>
@@ -31,8 +32,14 @@ import AddList from '@/components/Lists/AddList';
 import toasts from '@/mixins/toasts';
 import List from '@/components/GameBoard/List';
 import draggable from 'vuedraggable';
-import moment from 'moment';
+import firebase from 'firebase';
 import { mapState } from 'vuex';
+
+const db = firebase.firestore();
+
+db.settings({
+    timestampsInSnapshots: true,
+});
 
 export default {
     components: {
@@ -67,10 +74,10 @@ export default {
     },
 
     computed: {
-        ...mapState(['user']),
+        ...mapState(['user', 'gameLists', 'platform']),
 
-        isEmpty() {
-            return !this.user.lists.filter(list => list && list.games && list.games.length).length;
+        list() {
+            return this.gameLists[this.platform.code];
         },
 
         nightMode() {
@@ -79,23 +86,10 @@ export default {
     },
 
     mounted() {
-        if (!this.isEmpty) {
-            this.loadGameData();
-        }
-
-        this.checkDataAge();
+        this.loadGameData();
     },
 
     methods: {
-        checkDataAge() {
-            const lastUpdated = this.$store.state.dataUpdatedTimestamp;
-            const diff = moment.duration(moment().diff(lastUpdated));
-
-            if (diff.asMinutes() > 15) {
-                this.$store.dispatch('LOAD_LISTS');
-            }
-        },
-
         scroll() {
             this.$nextTick(() => {
                 const lists = this.$refs.lists;
@@ -104,7 +98,7 @@ export default {
         },
 
         tryDelete(index) {
-            const hasGames = this.user.lists[index].games.length > 0;
+            const hasGames = this.list[index].games.length > 0;
 
             if (hasGames) {
                 this.showDeleteConfirm = true;
@@ -137,46 +131,51 @@ export default {
         dragEnd() {
             this.dragging = false;
             this.draggingId = null;
-            this.$store.commit('UPDATE_LIST', this.user.lists);
             this.updateLists();
         },
 
-        updateLists(forceReload) {
-            this.$store.dispatch('UPDATE_LISTS')
+        updateLists() {
+            db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
                 .then(() => {
-                    if (this.user.lists.length === 1 && forceReload) {
-                        location.reload();
-                    }
+                    this.$success('List saved');
+                })
+                .catch(() => {
+                    this.$error('Authentication error');
                 });
         },
 
         loadGameData() {
             const gameList = [];
-            this.user.lists.forEach((list) => {
-                if (list && list.games.length) {
-                    list.games.forEach((id) => {
-                        if (!gameList.includes(id)) {
-                            gameList.push(id);
-                        }
-                    });
-                }
-            });
 
-            this.$store.dispatch('LOAD_GAMES', gameList)
-                .catch(() => {
-                    this.$swal({
-                        title: 'Uh no!',
-                        text: 'There was an error loading your game data',
-                        type: 'error',
-                        showCancelButton: true,
-                        confirmButtonClass: 'primary',
-                        confirmButtonText: 'Retry',
-                    }).then(({ value }) => {
-                        if (value) {
-                            this.loadGameData();
-                        }
-                    });
+            if (this.list) {
+                this.list.forEach((list) => {
+                    if (list && list.games.length) {
+                        list.games.forEach((id) => {
+                            if (!gameList.includes(id)) {
+                                gameList.push(id);
+                            }
+                        });
+                    }
                 });
+
+                if (gameList.length > 0) {
+                    this.$store.dispatch('LOAD_GAMES', gameList)
+                        .catch(() => {
+                            this.$swal({
+                                title: 'Uh no!',
+                                text: 'There was an error loading your game data',
+                                type: 'error',
+                                showCancelButton: true,
+                                confirmButtonClass: 'primary',
+                                confirmButtonText: 'Retry',
+                            }).then(({ value }) => {
+                                if (value) {
+                                    this.loadGameData();
+                                }
+                            });
+                        });
+                }
+            }
         },
     },
 };

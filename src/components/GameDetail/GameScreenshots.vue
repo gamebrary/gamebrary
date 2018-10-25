@@ -1,24 +1,66 @@
 <template lang="html">
-    <section v-if="game.screenshots">
-        <h3>Screenshots ({{ game.screenshots.length }})</h3>
+    <section class="game-screenshots" v-if="game.screenshots">
+        <h3>Screenshots</h3>
 
-        <div class="gallery">
-            <img
-                v-for="({ cloudinary_id }, index) in game.screenshots"
-                :key="cloudinary_id"
-                :src="`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${cloudinary_id}.jpg`"
-                :alt="`Screenshot ${index + 1} of ${game.screenshots.length}`"
-            >
-        </div>
+        <vue-gallery
+            :images="screenshots"
+            :index="index"
+            @close="close"
+        />
+
+        <img
+            v-for="(image, index) in thumbnails"
+            :src="image"
+            :key="image"
+            @click="openGallery(index)"
+        />
     </section>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import VueGallery from 'vue-gallery';
 
 export default {
+    components: {
+        VueGallery,
+    },
+
+    data() {
+        return {
+            index: null,
+        };
+    },
+
     computed: {
         ...mapState(['game']),
+
+        screenshots() {
+            // eslint-disable-next-line
+            return this.game.screenshots ? this.game.screenshots.map((image, index) => {
+                return {
+                    href: `https://images.igdb.com/igdb/image/upload/t_screenshot_huge/${image.cloudinary_id}.jpg`,
+                    title: `${this.game.name} - Screenshot ${index + 1} of ${this.game.screenshots.length}`,
+                };
+            }) : null;
+        },
+
+        thumbnails() {
+            // eslint-disable-next-line
+            return this.game.screenshots ? this.game.screenshots.map((image) => {
+                return `https://images.igdb.com/igdb/image/upload/t_thumb/${image.cloudinary_id}.jpg`;
+            }) : null;
+        },
+    },
+
+    methods: {
+        close() {
+            this.index = null;
+        },
+
+        openGallery(index) {
+            this.index = index;
+        },
     },
 };
 </script>
@@ -26,18 +68,19 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles.scss";
 
-    .gallery {
-        display: grid;
-        grid-template-columns: 50% 50%;
+    .game-screenshots {
+        padding: $gp / 2 $gp;
+        text-align: center;
+        margin: $gp 0;
+        background-color: $color-light-gray;
 
-        @media($small) {
-            grid-template-columns: 100%;
+        h3 {
+            margin: 0 0 $gp / 2;
         }
 
         img {
-            padding: $gp / 4;
-            width: 100%;
-            height: auto;
+            margin: 0 $gp / 4;
+            cursor: pointer;
         }
     }
 </style>

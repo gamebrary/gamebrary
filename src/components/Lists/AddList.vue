@@ -9,25 +9,26 @@
                 placeholder="List name"
             />
 
-            <!-- TODO: replace with toast -->
-            <small v-if="isDuplicate" v-html="errorMessage" />
+            <panel class="warning" v-if="isDuplicate" v-html="errorMessage" />
 
-            <button
-                type="submit"
-                class="small primary"
-                v-if="!isDuplicate"
-                :disabled="!newListName.length"
-            >
-                Create
-            </button>
+            <div>
+                <button
+                    type="submit"
+                    class="small primary"
+                    v-if="!isDuplicate"
+                    :disabled="!newListName.length"
+                >
+                    Create
+                </button>
 
-            <button
-                class="small accent"
-                type="button"
-                @click="reset"
-            >
-                Cancel
-            </button>
+                <button
+                    class="small accent"
+                    type="button"
+                    @click="reset"
+                >
+                    Cancel
+                </button>
+            </div>
         </form>
 
         <button class="add small info hollow" @click="toggleAddList" v-else>
@@ -38,8 +39,13 @@
 
 <script>
 import { mapState } from 'vuex';
+import Panel from '@/components/Panel/Panel';
 
 export default {
+    components: {
+        Panel,
+    },
+
     data() {
         return {
             show: false,
@@ -48,20 +54,26 @@ export default {
     },
 
     computed: {
-        ...mapState(['user']),
+        ...mapState(['settings', 'gameLists', 'platform']),
 
         errorMessage() {
             return `You already have a list named <strong>${this.newListName}</strong>. Please use a different name.`;
         },
 
         nightMode() {
-            return this.user.settings.nightMode;
+            return this.settings.nightMode;
+        },
+
+        list() {
+            return this.gameLists[this.platform.code];
         },
 
         isDuplicate() {
             const newListName = this.newListName.toLowerCase();
             // eslint-disable-next-line
-            return this.user.lists.filter(({ name }) => name.toLowerCase() === newListName).length > 0;
+            return this.list ?
+                this.list.filter(({ name }) => name.toLowerCase() === newListName).length > 0
+                : false;
         },
     },
 
@@ -122,6 +134,12 @@ export default {
         background: $color-light-gray;
         padding: $gp / 2;
         margin-right: $gp;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .panel.warning {
+        margin: 0 0 $gp;
     }
 
     small {
