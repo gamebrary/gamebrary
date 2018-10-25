@@ -92,6 +92,7 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
+    @import url(https://fonts.googleapis.com/css?family=Fira+Sans:700|Roboto:400,400italic,700);
     @import "~styles/styles.scss";
 
     body {
@@ -111,10 +112,13 @@ export default {
         }
     }
 
+    h1, h2, h3, h4, h5, h6 {
+        font-family: "Fira Sans", sans-serif;
+        font-weight: 700;
+    }
 
-    @import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
-
-    body {
-        font-family: 'Roboto', sans-serif;
+    body, p, a, li, blockquote {
+        font-family: "Roboto", sans-serif;
+        font-weight: 400;
     }
 </style>
