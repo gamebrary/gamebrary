@@ -2,7 +2,13 @@
     <div class="game-videos no-wrap" v-if="game.videos">
         <h3>Videos ({{ game.videos.length }})</h3>
 
-        <!-- TODO: create gallery with thumbs -->
+        <!-- TODO:
+            - create gallery with thumbs
+            - create video gallery, simple ui
+            - if more than one video, show sidebar
+            - use youtube max res image
+            - keep it simple
+        -->
 
         <div
             class="game-video"
