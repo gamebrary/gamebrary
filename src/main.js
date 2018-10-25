@@ -49,7 +49,6 @@ router.beforeEach((to, from, next) => {
 });
 
 const i18n = new VueI18n({
-    // TODO: get locale from user settings store
     locale: 'en',
     messages,
 });
