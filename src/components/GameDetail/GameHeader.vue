@@ -5,13 +5,13 @@
         <div class="game-rating" v-if="hasRatings">
             <img
                 v-if="game.esrb"
-                :src='`/static/img/esrb/${esrb[game.esrb.rating]}.png`'
+                :src='`/static/img/esrb/${igdb.esrb[game.esrb.rating]}.png`'
                 :alt="game.esrb.synopsis"
             >
 
             <img
                 v-if="game.pegi"
-                :src='`/static/img/pegi/${pegi[game.pegi.rating]}.png`'
+                :src='`/static/img/pegi/${igdb.pegi[game.pegi.rating]}.png`'
                 :alt="game.pegi.synopsis"
             >
         </div>
@@ -19,16 +19,22 @@
 </template>
 
 <script>
+import igdb from '@/igdb';
 import { mapState } from 'vuex';
 
 export default {
-
     props: {
         gameId: [Number, String],
     },
 
+    data() {
+        return {
+            igdb,
+        };
+    },
+
     computed: {
-        ...mapState(['game', 'pegi', 'esrb']),
+        ...mapState(['game']),
 
         coverUrl() {
             const url = 'https://images.igdb.com/igdb/image/upload/t_cover_big/';
