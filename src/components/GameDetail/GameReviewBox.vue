@@ -27,9 +27,9 @@
                 <strong>Publishers</strong> {{ publishers }}
             </section>
 
-            <section v-if="releaseDate">
+            <!-- <section v-if="releaseDate">
                 <strong>Release date</strong> {{ releaseDate }}
-            </section>
+            </section> -->
             <game-links />
         </div>
     </div>
@@ -59,7 +59,6 @@ export default {
             'gamePlatforms',
             'genres',
             'publishers',
-            'releaseDate',
         ]),
     },
 };
