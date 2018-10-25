@@ -1,4 +1,3 @@
-<!-- TODO: make this look half way decent -->
 <template lang="html">
     <div class="platforms">
         <a
@@ -13,7 +12,6 @@
 </template>
 
 <script>
-// eslint-disable-next-line
 import platforms from '@/platforms';
 import { mapState } from 'vuex';
 
@@ -26,12 +24,6 @@ export default {
 
     computed: {
         ...mapState(['gameLists', 'platform']),
-    },
-
-    mounted() {
-        if (this.gameLists && Object.keys(this.gameLists).length === 1) {
-            this.changePlatform(this.platforms[Object.keys(this.gameLists)[0]]);
-        }
     },
 
     methods: {
