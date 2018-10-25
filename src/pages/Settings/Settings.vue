@@ -10,10 +10,10 @@
             </div>
 
             <div>
-                <!-- <button @click="promptDelete" class="small error">
+                <button @click="promptDelete" class="small error">
                     <i class="fas fa-exclamation-triangle" />
                     Delete Account
-                </button> -->
+                </button>
 
                 <button class="small info" @click="logout">
                     <i class="fas fa-sign-out-alt" />
@@ -156,17 +156,6 @@ export default {
     },
 
     methods: {
-        /* eslint-disable */
-        deleteSettings() {
-            db.collection('settings').doc(this.user.uid).delete()
-                .then(() => {
-                    console.log("Document successfully deleted!");
-                })
-                .catch(() => {
-                    this.$error('Authentication error');
-                });
-        },
-
         setGameView(view) {
             this.settings.gameView = view;
             this.save();
@@ -176,7 +165,7 @@ export default {
             this.$swal({
                 title: 'Are you sure?',
                 text: 'Your account data will be deleted forever.',
-                // type: 'warning',
+                type: 'warning',
                 showCancelButton: true,
                 confirmButtonClass: 'error',
                 cancelButtonClass: 'accent',
@@ -201,28 +190,23 @@ export default {
         },
 
         deleteAccount() {
-            // TODO: delete settings document
-            // TODO: delete lists document
-            // admin.auth().deleteUser(uid)
-            // .then(function() {
-            //     console.log("Successfully deleted user");
-            // })
-            // .catch(function(error) {
-            //     console.log("Error deleting user:", error);
-            // });
-
-            this.$store.dispatch('DELETE_USER')
+            // TODO: use async/await
+            db.collection('settings').doc(this.user.uid).delete()
                 .then(() => {
-                    this.$swal({
-                        position: 'bottom-end',
-                        title: 'Account deleted',
-                        type: 'success',
-                        toast: true,
-                        showConfirmButton: false,
-                        timer: 1500,
-                    });
+                    this.$success('Settings deleted');
 
-                    this.logout();
+                    db.collection('lists').doc(this.user.uid).delete()
+                        .then(() => {
+                            this.$success('Game lists deleted');
+                            this.$success('Account deleted');
+                            this.logout();
+                        })
+                        .catch(() => {
+                            this.$error('Authentication error');
+                        });
+                })
+                .catch(() => {
+                    this.$error('Authentication error');
                 });
         },
 
