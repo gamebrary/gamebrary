@@ -5,13 +5,16 @@
             <game-header />
 
             <div class="game-info">
-                <h2>{{ game.name }}</h2>
-                <p class="game-description" v-html="game.summary" />
+                <div>
+                    <h2>{{ game.name }}</h2>
+                    <p class="game-description" v-html="game.summary" />
+                </div>
+
                 <game-review-box />
             </div>
 
             <game-screenshots />
-            <!-- <game-videos /> -->
+            <game-videos />
 
             <div class="igdb-credit">
                 <small>Powered by:</small>
@@ -71,29 +74,40 @@ export default {
 
     .game-detail {
         display: flex;
+        margin: 0 $gp;
+
+        @media($small) {
+            margin: 0;
+        }
     }
 
     .game-info {
+        display: grid;
+        grid-template-columns: 3fr 2fr;
+        grid-gap: $gp * 2;
         margin: 0 $gp;
 
+        @media($small) {
+            grid-gap: $gp;
+            grid-template-columns: 1fr;
+        }
+
         .game-description {
-            line-height: 1.3rem;
+            line-height: 1.4rem;
         }
     }
 
     main {
         background-color: $color-white;
-        min-width: 900px;
-        max-width: 900px;
+        width: 900px;
+        max-width: 100%;
         margin: $gp auto;
         border-radius: $border-radius;
         overflow: hidden;
 
         @media($small) {
-            min-width: 100%;
-            border-radius: 0;
             margin: 0;
-            width: 100%;
+            border-radius: 0;
         }
     }
 

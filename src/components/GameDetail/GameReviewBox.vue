@@ -71,9 +71,19 @@ export default {
     display: grid;
     grid-template-columns: 100px auto;
     grid-gap: $gp;
+    padding: $gp 0;
+    align-items: center;
+
+    @media($small) {
+        padding: 0;
+    }
 
     strong {
         color: $color-red;
+    }
+
+    section {
+        margin-bottom: $gp / 3;
     }
 }
 </style>
