@@ -109,7 +109,7 @@ export default {
 
     CACHE_GAME_DATA(state, data) {
         data.forEach((game) => {
-            state.games[game.id] = { ...game };
+            Vue.set(state.games, game.id, { ...game });
         });
     },
 };
