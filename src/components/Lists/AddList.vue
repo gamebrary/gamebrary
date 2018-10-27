@@ -22,7 +22,7 @@
                 </button>
 
                 <button
-                    class="small accent"
+                    class="small info"
                     type="button"
                     @click="reset"
                 >
