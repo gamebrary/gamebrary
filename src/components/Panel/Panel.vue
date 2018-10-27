@@ -15,7 +15,6 @@ export default {
 .panel {
     padding: $gp / 2;
     border-radius: $border-radius;
-    margin: $gp;
 
     p {
         margin: $gp / 2 0;
