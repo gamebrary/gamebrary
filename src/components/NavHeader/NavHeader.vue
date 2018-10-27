@@ -1,34 +1,25 @@
 <template lang="html">
-    <nav :class="{ 'logged-in': user}">
-        <div>
-            <router-link :to="{ name: 'home' }" class="logo">
-                GAMEBRARY
+    <nav :style="navStyle">
+        <span v-if="platform">
+            <router-link :to="{ name: 'home' }" tag="button">
+                <i class="fas fa-home" />
             </router-link>
-        </div>
 
-        <div class="settings" v-if="user">
-            <div v-if="platform">
-                <span class="platform-name">
-                    {{ platform.name }}
-                </span>
-
-                <router-link
-                    tag="button"
-                    class="info"
-                    :to="{ name: 'platforms' }"
-                >
-                    <i class="fas fa-exchange-alt" />
-                </router-link>
-            </div>
-
-            <router-link
-                tag="button"
-                class="info"
-                :to="{ name: 'settings' }"
-            >
-                <i class="fas fa-cog" />
+            <router-link :to="{ name: 'platforms' }" tag="button" class="small">
+                {{ platform.name }}
             </router-link>
-        </div>
+        </span>
+
+        <router-link :to="{ name: 'home' }" v-else tag="button">
+            GAMEBRARY
+        </router-link>
+
+        <router-link
+            v-if="user"
+            :to="{ name: 'settings' }" tag="button"
+        >
+            <i class="fas fa-cog" />
+        </router-link>
     </nav>
 </template>
 
@@ -38,6 +29,13 @@ import { mapState } from 'vuex';
 export default {
     computed: {
         ...mapState(['user', 'platform']),
+
+        navStyle() {
+            return this.platform ? {
+                'background-color': this.platform.hex || '#555',
+                color: this.platform.textHex || '#fff',
+            } : '';
+        },
 
         isHome() {
             return this.$route.name === 'home';
@@ -53,36 +51,19 @@ export default {
         height: $navHeight;
         width: 100%;
         background: $color-dark-gray;
-        padding-right: 4px;
         display: flex;
         align-items: center;
-        justify-content: space-around;
+        justify-content: space-between;
         color: $color-white;
+        transition: all 300ms ease;
 
-        &.logged-in {
-            justify-content: space-between;
+        .logo {
+            font-size: 18px;
+            font-weight: bold;
         }
 
-        .platform-name {
-            color: $color-light-gray;
-            cursor: default;
-        }
-
-        a {
-            color: $color-white;
-            text-decoration: none;
-
-            &.logo {
-                padding: 0 0 0 $gp;
-                text-transform: uppercase;
-                font-size: 18px;
-                font-weight: bold;
-            }
-        }
-
-        .settings {
-            display: flex;
-            align-items: center;
+        .small {
+            padding: 0;
         }
     }
 </style>
