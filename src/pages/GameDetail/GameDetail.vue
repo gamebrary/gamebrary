@@ -66,6 +66,10 @@ export default {
     mounted() {
         this.$store.commit('SET_ACTIVE_GAME', this.$route.params.id);
     },
+
+    destroyed() {
+        this.$store.commit('SET_ACTIVE_GAME', null);
+    },
 };
 </script>
 
