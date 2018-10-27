@@ -1,6 +1,6 @@
 <template lang="html">
     <div
-        v-if="gameId && games"
+        v-if="gameId && games[gameId]"
         :class="['game-card', { nightMode, 'search-result': searchResult }]"
     >
         <img :src="coverUrl" v-if="searchResult" width="50" />
