@@ -61,14 +61,9 @@
                 :list-id="listIndex"
             />
 
-            <div class="empty-list" v-if="!games.length">
-                <img src="/static/img/empty-collection.png" />
-                <h3>This list is empty</h3>
-
-                <button class="primary" @click="addGame">
-                    <i class="fas fa-plus" />
-                    Add game
-                </button>
+            <div class="add-game-card" v-if="!games.length" @click="addGame">
+                <!-- <i class="fas fa-plus" /> -->
+                Add game
             </div>
         </draggable>
     </div>
@@ -199,10 +194,48 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles.scss";
-    @import "~styles/game-board.scss";
 
     .list {
-        overflow-x: hidden;
+        flex-shrink: 0;
+        cursor: default;
+        position: relative;
+        width: 300px;
+        border-radius: $border-radius;
+        overflow: hidden;
+        margin-right: $gp;
+        max-height: calc(100vh - 81px);
+
+        .list-header {
+            align-items: center;
+            background: $color-dark-gray;
+            color: $color-white;
+            display: flex;
+            height: 30px;
+            justify-content: space-between;
+            padding: 0 $gp / 2;
+            position: absolute;
+            width: 100%;
+
+            .list-actions {
+                .list-drag-handle {
+                    @include drag-cursor;
+                }
+            }
+        }
+
+        .games {
+            height: 100%;
+            overflow: hidden;
+            min-height: 60px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            overflow-y: overlay;
+            column-gap: $gp;
+            background: $color-light-gray;
+            margin-top: 30px;
+            padding: $gp / 2 $gp / 2 0;
+            width: 100%;
+        }
     }
 
     .list-actions {
@@ -221,6 +254,22 @@ export default {
         &.show {
             transition: max-width 300ms ease;
             max-width: $iconSmallSize * 4;
+        }
+    }
+
+    .add-game-card {
+        height: 42px;
+        cursor: pointer;
+        border: 1px dashed $color-gray;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: bold;
+        text-transform: uppercase;
+
+        &:hover {
+            background: $color-white;
         }
     }
 </style>
