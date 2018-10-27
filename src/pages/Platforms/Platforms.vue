@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import platforms from '@/platforms';
+import platforms from '@/shared/platforms';
 import { mapState } from 'vuex';
 
 export default {

@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import igdb from '@/igdb';
+import igdb from '@/shared/igdb';
 import { mapState } from 'vuex';
 
 export default {

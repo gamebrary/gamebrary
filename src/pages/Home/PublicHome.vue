@@ -24,7 +24,7 @@
 
 <script>
 import firebase from 'firebase';
-import { GoogleAuth } from '@/firebase';
+import { GoogleAuth } from '@/shared/firebase';
 import { mapState } from 'vuex';
 import Panel from '@/components/Panel/Panel';
 
