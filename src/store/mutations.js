@@ -18,8 +18,13 @@ export default {
 
     CLEAR_SESSION(state) {
         state.user = null;
+        state.games = {};
         state.platform = null;
         state.gameLists = null;
+        state.authorizing = false;
+        state.settings = null;
+        state.results = null;
+        state.game = null;
     },
 
     SET_SEARCH_RESULTS(state, results) {
