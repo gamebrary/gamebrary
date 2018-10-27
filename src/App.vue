@@ -96,6 +96,7 @@ export default {
     @import "~styles/styles.scss";
 
     body {
+        background: $color-dark-gray;
         margin: 0;
         font-size: 14px;
     }
