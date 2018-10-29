@@ -83,9 +83,9 @@ export default {
             height: 200px;
 
             @media($small) {
-                min-width: auto;
                 border: 3px solid $color-white;
                 height: 140px;
+                min-width: auto;
             }
         }
 
