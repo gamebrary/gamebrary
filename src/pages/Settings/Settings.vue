@@ -20,6 +20,53 @@
                     Logout
                 </button>
             </div>
+
+            <div class="messages">
+                <div class="mobile">
+                    <!-- eslint-disable-next-line -->
+                    <p>Gamebrary is an open source project developed during spare time. Consider donating to help pay for hosting, domain, coffee, etc. Anything helps!</p>
+                    <a class="link primary small" href="https://www.paypal.me/RomanCervantes/5">
+                        <i class="fas fa-donate" />
+                        Donate
+                    </a>
+
+                    <a class="link warning small" href="https://github.com/romancmx/gamebrary/issues">
+                        <i class="fas fa-bug" />
+                        Report bugs
+                    </a>
+
+                    <a class="link info hollow small" href="https://goo.gl/forms/r0juBCsZaUtJ03qb2">
+                        <i class="fas fa-comments" />
+                        Submit feedback
+                    </a>
+                </div>
+
+                <panel class="warning">
+                    <h3>Found a bug? Report it!</h3>
+                    <p>You can also use GitHub issues to request new features.</p>
+
+                    <a class="link accent small" href="https://github.com/romancmx/gamebrary/issues">
+                        <i class="fas fa-bug" />
+                        Report it in GitHub
+                    </a>
+
+                    <a class="link accent small" href="https://goo.gl/forms/r0juBCsZaUtJ03qb2">
+                        <i class="fas fa-comments" />
+                        Submit feedback
+                    </a>
+                </panel>
+
+                <panel class="positive">
+                    <h3>Enjoying Gamebrary?</h3>
+                    <!-- eslint-disable-next-line -->
+                    <p>Gamebrary is an open source project developed during spare time. Consider donating to help pay for hosting, domain, coffee, etc. Anything helps!</p>
+
+                    <a class="link primary hollow small" href="https://www.paypal.me/RomanCervantes/5">
+                        <i class="fas fa-donate" />
+                        Donate
+                    </a>
+                </panel>
+            </div>
         </aside>
 
         <main class="settings-grid">
@@ -35,7 +82,12 @@
                 <h3>Night mode</h3>
 
                 <span class="toggle-switch value">
-                    <input type="checkbox" id="nightMode" v-model="settings.nightMode" />
+                    <input
+                        type="checkbox"
+                        id="nightMode"
+                        v-model="localSettings.nightMode"
+                    />
+
                     <label for="nightMode" />
                 </span>
             </section>
@@ -45,55 +97,15 @@
                 <h3>Show Game Ratings</h3>
 
                 <span class="toggle-switch value">
-                    <input type="checkbox" id="gameRatings" v-model="settings.showGameRatings" />
+                    <input
+                        type="checkbox"
+                        id="gameRatings"
+                        v-model="localSettings.showGameRatings"
+                    />
+
                     <label for="gameRatings" />
                 </span>
             </section>
-
-            <!-- <section>
-                <i class="fas fa-th-large" />
-                <h3>Game Card Layout</h3>
-
-                <div class="value">
-                    <button
-                        :class="{ primary: settings.gameView === 'cover'}"
-                        @click="setGameView('cover')"
-                    >
-                        <i class="fas fa-portrait" />
-                        Game cover only
-                    </button>
-
-                    <button
-                        :class="{ primary: settings.gameView === 'detailed' || !settings.gameView}"
-                        @click="setGameView('detailed')"
-                    >
-                        <i class="far fa-id-card" />
-                        Detailed view
-                    </button>
-                </div>
-            </section> -->
-
-            <panel class="positive">
-                <p>
-                    <i class="fas fa-comments" />
-                    Have ideas, requests, feedback?
-                </p>
-
-                <a class="link accent small" href="https://goo.gl/forms/r0juBCsZaUtJ03qb2">
-                    Submit feedback
-                </a>
-            </panel>
-
-            <panel class="info">
-                <p>
-                    <i class="fas fa-bug" />
-                    Found a bug?
-                </p>
-
-                <a class="link accent small" href="https://github.com/romancmx/gamebrary/issues">
-                    Report it in GitHub
-                </a>
-            </panel>
         </main>
     </div>
 </template>
@@ -123,12 +135,12 @@ export default {
 
     data() {
         return {
-            settings: {},
+            localSettings: {},
         };
     },
 
     computed: {
-        ...mapState(['user']),
+        ...mapState(['user', 'settings']),
 
         dateJoined() {
             return moment(this.user.dateJoined).format('LL');
@@ -145,7 +157,7 @@ export default {
     },
 
     watch: {
-        settings: {
+        localSettings: {
             handler(oldValue, newValue) {
                 if (Object.keys(newValue).length) {
                     this.save();
@@ -155,9 +167,13 @@ export default {
         },
     },
 
+    mounted() {
+        this.localSettings = JSON.parse(JSON.stringify(this.settings));
+    },
+
     methods: {
         setGameView(view) {
-            this.settings.gameView = view;
+            this.localSettings.gameView = view;
             this.save();
         },
 
@@ -213,7 +229,7 @@ export default {
         save: debounce(
             // eslint-disable-next-line
             function() {
-                db.collection('settings').doc(this.user.uid).set(this.settings, { merge: true })
+                db.collection('settings').doc(this.user.uid).set(this.localSettings, { merge: true })
                     .then(() => {
                         this.$success('Settings saved');
                     })
@@ -235,12 +251,34 @@ export default {
         min-height: calc(100vh - #{$navHeight});
 
         @media($small) {
-            grid-template-columns: auto;
+            grid-template-columns: none;
         }
 
         aside {
             padding: $gp;
             background: $color-light-gray;
+
+            .messages {
+                border-top: 1px solid $color-gray;
+                padding-top: $gp;
+                margin: $gp 0 0;
+
+                .mobile {
+                    display: none;
+
+                    @media($small) {
+                        display: inline;
+                    }
+                }
+
+                .panel {
+                    margin-bottom: $gp;
+
+                    @media($small) {
+                        display: none;
+                    }
+                }
+            }
         }
 
         main {
@@ -270,13 +308,8 @@ export default {
             }
         }
 
-        .panel {
-            width: 46%;
-            float: left;
-
-            @media ($small) {
-                width: 90%;
-            }
+        h3 {
+            margin: 0;
         }
 
         .share-link {

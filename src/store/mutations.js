@@ -18,8 +18,13 @@ export default {
 
     CLEAR_SESSION(state) {
         state.user = null;
+        state.games = {};
         state.platform = null;
         state.gameLists = null;
+        state.authorizing = false;
+        state.settings = null;
+        state.results = null;
+        state.game = null;
     },
 
     SET_SEARCH_RESULTS(state, results) {
@@ -109,7 +114,8 @@ export default {
 
     CACHE_GAME_DATA(state, data) {
         data.forEach((game) => {
-            state.games[game.id] = { ...game };
+            Vue.set(state.games, game.id, { ...game });
+            // state.games[game.id] = { ...game };
         });
     },
 };

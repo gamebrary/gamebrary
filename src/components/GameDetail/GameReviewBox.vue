@@ -30,7 +30,7 @@
             <!-- <section v-if="releaseDate">
                 <strong>Release date</strong> {{ releaseDate }}
             </section> -->
-            <game-links />
+            <!-- <game-links /> -->
         </div>
     </div>
 </template>

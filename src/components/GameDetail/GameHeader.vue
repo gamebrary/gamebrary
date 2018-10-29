@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import igdb from '@/igdb';
+import igdb from '@/shared/igdb';
 import { mapState } from 'vuex';
 
 export default {
@@ -34,7 +34,7 @@ export default {
     },
 
     computed: {
-        ...mapState(['game']),
+        ...mapState(['game', 'platform']),
 
         coverUrl() {
             const url = 'https://images.igdb.com/igdb/image/upload/t_cover_big/';
@@ -45,7 +45,7 @@ export default {
 
         style() {
             return this.game && this.game.screenshots
-                ? `background-image: url(${this.getImageUrl(this.game.screenshots[0].cloudinary_id)});`
+                ? `background: url(${this.getImageUrl(this.game.screenshots[0].cloudinary_id)}) ${this.platform.hex} center center no-repeat; background-size: cover;`
                 : '';
         },
 
@@ -73,23 +73,17 @@ export default {
         width: 100%;
         position: relative;
         align-items: center;
-        background-size: 100%;
-        background-repeat: no-repeat;
-        background-position: 50%;
-        background-color: $color-red;
-
-        @media($small) {
-            background-size: cover;
-            background-position: center;
-        }
 
         .game-cover {
             margin: $gp;
             border: 5px solid $color-white;
             background-size: contain;
+            min-width: 150px;
+            width: auto;
             height: 200px;
 
             @media($small) {
+                min-width: auto;
                 border: 3px solid $color-white;
                 height: 140px;
             }

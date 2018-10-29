@@ -14,7 +14,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import igdb from '@/igdb';
+import igdb from '@/shared/igdb';
 
 export default {
     data() {

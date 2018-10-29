@@ -7,7 +7,6 @@
         :class="{ nightMode, 'drag-scroll-active': dragScrollActive }"
         v-dragscroll:nochilddrag
     >
-
         <list
             :name="list.name"
             :games="list.games"
@@ -183,21 +182,37 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles.scss";
-    @import "~styles/game-board.scss";
 
     .draggable * {
         color: $color-white;
     }
 
-    .nightMode {
-        background: #333 !important;
+    .lists {
+        display: flex;
+        align-items: flex-start;
+        height: calc(100vh - 48px);
+        padding: $gp;
+        box-sizing: border-box;
+        background: $color-gray;
+        overflow-x: auto;
+        overflow-x: overlay;
+        display: flex;
+        @include drag-cursor;
 
-        .games {
-            background: $color-dark-gray;
+        &.drag-scroll-active {
+            @include dragging-cursor;
         }
 
-        .list-header {
-            box-shadow: 0 0 5px 5px $color-dark-gray;
+        &.empty {
+            background: $color-white;
         }
+    }
+
+    .list-placeholder {
+        opacity: 0.25;
+    }
+
+    .card-placeholder {
+        opacity: 0.25;
     }
 </style>

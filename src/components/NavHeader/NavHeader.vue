@@ -1,34 +1,27 @@
 <template lang="html">
-    <nav :class="{ 'logged-in': user}">
-        <div>
-            <router-link :to="{ name: 'home' }" class="logo">
-                GAMEBRARY
-            </router-link>
-        </div>
+    <nav :style="navStyle" v-if="user">
+        <router-link
+            :to="{ name: 'platforms' }"
+            tag="button"
+            v-if="platform && routeName === 'home'"
+        >
+            {{ platform.name }}
+        </router-link>
 
-        <div class="settings" v-if="user">
-            <div v-if="platform">
-                <span class="platform-name">
-                    {{ platform.name }}
-                </span>
+        <router-link
+            :to="{ name: 'home' }"
+            tag="button"
+            v-else-if="routeName === 'game-detail' || routeName === 'settings'"
+        >
+            <i class="fas fa-chevron-left" />
+        </router-link>
 
-                <router-link
-                    tag="button"
-                    class="info"
-                    :to="{ name: 'platforms' }"
-                >
-                    <i class="fas fa-exchange-alt" />
-                </router-link>
-            </div>
-
-            <router-link
-                tag="button"
-                class="info"
-                :to="{ name: 'settings' }"
-            >
-                <i class="fas fa-cog" />
-            </router-link>
-        </div>
+        <router-link
+            v-if="routeName !== 'settings'"
+            :to="{ name: 'settings' }" tag="button"
+        >
+            <i class="fas fa-cog" />
+        </router-link>
     </nav>
 </template>
 
@@ -39,8 +32,15 @@ export default {
     computed: {
         ...mapState(['user', 'platform']),
 
-        isHome() {
-            return this.$route.name === 'home';
+        navStyle() {
+            return this.platform ? {
+                'background-color': this.platform.hex || '#555',
+                color: this.platform.textHex || '#fff',
+            } : '';
+        },
+
+        routeName() {
+            return this.$route.name;
         },
     },
 };
@@ -53,36 +53,19 @@ export default {
         height: $navHeight;
         width: 100%;
         background: $color-dark-gray;
-        padding-right: 4px;
         display: flex;
         align-items: center;
-        justify-content: space-around;
+        justify-content: space-between;
         color: $color-white;
+        transition: all 300ms ease;
 
-        &.logged-in {
-            justify-content: space-between;
+        .logo {
+            font-size: 18px;
+            font-weight: bold;
         }
 
-        .platform-name {
-            color: $color-light-gray;
-            cursor: default;
-        }
-
-        a {
-            color: $color-white;
-            text-decoration: none;
-
-            &.logo {
-                padding: 0 0 0 $gp;
-                text-transform: uppercase;
-                font-size: 18px;
-                font-weight: bold;
-            }
-        }
-
-        .settings {
-            display: flex;
-            align-items: center;
+        .small {
+            padding: 0;
         }
     }
 </style>

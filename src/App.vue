@@ -2,7 +2,7 @@
     <div id="app">
         <nav-header />
 
-        <main>
+        <main :class="{ 'logged-in': user}">
             <router-view />
         </main>
     </div>
@@ -96,6 +96,7 @@ export default {
     @import "~styles/styles.scss";
 
     body {
+        background: $color-dark-gray;
         margin: 0;
         font-size: 14px;
     }
@@ -106,9 +107,13 @@ export default {
         overflow: hidden;
 
         > main {
-            height: calc(100vh - #{$navHeight});
+            height: 100vh;
             overflow: auto;
             background: $color-gray;
+
+            &.logged-in {
+                height: calc(100vh - #{$navHeight});
+            }
         }
     }
 

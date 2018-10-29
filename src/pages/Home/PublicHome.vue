@@ -1,30 +1,34 @@
 <template lang="html">
     <div class="home">
-        <div class="loading" v-if="authorizing">
+        <template class="loading" v-if="authorizing">
             <i class="fas fa-circle-notch fast-spin fa-3x" />
             <h3>Authorizing</h3>
-        </div>
+        </template>
 
-        <div v-else>
-            <h1>GAMEBRARY</h1>
+        <div class="splash" v-else>
+            <img src="/static/img/iphone.png" class="iphone" />
 
-            <strong>500+ users! Thank you!</strong>
+            <div class="content">
+                <h1>GAMEBRARY</h1>
 
-            <p>A simple and user friendly way to manage your video game collection.</p>
+                <p>A simple and user friendly way to <br> manage your video game collection.</p>
 
-            <img
-                @click="login"
-                src="/static/img/google-signin.png"
-                alt="Sign in with Google"
-                height="40"
-            >
+                <img
+                    @click="login"
+                    src="/static/img/google-signin.png"
+                    alt="Sign in with Google"
+                    height="40"
+                >
+
+                <strong>500+ users! Thank you!</strong>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 import firebase from 'firebase';
-import { GoogleAuth } from '@/firebase';
+import { GoogleAuth } from '@/shared/firebase';
 import { mapState } from 'vuex';
 import Panel from '@/components/Panel/Panel';
 
@@ -55,7 +59,14 @@ export default {
     @import "~styles/styles.scss";
 
     .home {
-        @include container-xs;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        height: 100vh;
+        padding: 0 $gp * 2;
     }
 
     .loading {
@@ -63,25 +74,46 @@ export default {
         align-items: center;
         flex-direction: column;
         padding: $gp * 3 0;
-
-        h3 {
-            margin: $gp / 2 0;
-        }
     }
 
-    .actions {
+    .splash {
+        justify-content: center;
         display: flex;
         align-items: center;
-        margin-bottom: $gp;
-        border-bottom: 1px solid $color-light-gray;
-        padding-bottom: $gp;
+        text-align: center;
 
-        .info {
-            margin-left: $gp;
+        @media($small) {
+            flex-direction: column;
+        }
+
+        .iphone {
+            height: 90vh;
+
+            @media($small) {
+                height: 50vh;
+            }
+        }
+
+        .content {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        p {
+            color: $color-gray;
+        }
+
+        strong {
+            color: $color-green;
         }
     }
 
-    strong {
-        color: $color-green;
+    h1 {
+        margin: 0;
+    }
+
+    img {
+        margin-bottom: $gp;
     }
 </style>

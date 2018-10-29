@@ -8,7 +8,7 @@ import VueI18n from 'vue-i18n';
 import VueSweetalert2 from 'vue-sweetalert2';
 import axios from 'axios';
 
-import './firebase';
+import '@/shared/firebase';
 import App from './App';
 import messages from './i18n';
 import router from './router';

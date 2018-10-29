@@ -22,7 +22,7 @@
                 </button>
 
                 <button
-                    class="small accent"
+                    class="small info"
                     type="button"
                     @click="reset"
                 >
@@ -125,8 +125,8 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles.scss";
 
-    .add {
-        margin-right: $gp;
+    .add-list {
+        width: 300px;
     }
 
     form {
@@ -136,6 +136,10 @@ export default {
         margin-right: $gp;
         display: flex;
         flex-direction: column;
+
+        button.add {
+            margin-right: $gp;
+        }
     }
 
     .panel.warning {
@@ -148,9 +152,5 @@ export default {
         display: block;
         padding: $gp / 2;
         border-radius: $border-radius;
-    }
-
-    input {
-        width: 240px;
     }
 </style>

@@ -66,6 +66,10 @@ export default {
     mounted() {
         this.$store.commit('SET_ACTIVE_GAME', this.$route.params.id);
     },
+
+    destroyed() {
+        this.$store.commit('SET_ACTIVE_GAME', null);
+    },
 };
 </script>
 
@@ -99,7 +103,7 @@ export default {
 
     main {
         background-color: $color-white;
-        width: 900px;
+        width: $container-width;
         max-width: 100%;
         margin: $gp auto;
         border-radius: $border-radius;

@@ -30,18 +30,18 @@
 import { mapState } from 'vuex';
 
 export default {
+    data() {
+        return {
+            selectedVideo: null,
+        };
+    },
+
     computed: {
         ...mapState(['game']),
 
         youtubeVideoId() {
             return this.selectedVideo || this.game.videos[0].video_id;
-        }
-    },
-
-    data() {
-        return {
-            selectedVideo: null,
-        };
+        },
     },
 };
 </script>
