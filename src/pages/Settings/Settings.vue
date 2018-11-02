@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="settings" v-if="user">
+    <div class="settings" v-if="user" :class="{ dark: settings.nightMode }">
         <aside>
             <gravatar :email="user.email" />
 
@@ -89,6 +89,21 @@
                     />
 
                     <label for="nightMode" />
+                </span>
+            </section>
+
+            <section>
+                <i class="far fa-envelope"></i>
+                <h3>Receive update emails</h3>
+
+                <span class="toggle-switch value">
+                    <input
+                        type="checkbox"
+                        id="newsletter"
+                        v-model="localSettings.newsletter"
+                    />
+
+                    <label for="newsletter" />
                 </span>
             </section>
 
@@ -231,6 +246,7 @@ export default {
             function() {
                 db.collection('settings').doc(this.user.uid).set(this.localSettings, { merge: true })
                     .then(() => {
+                        this.$store.commit('SET_SETTINGS', this.localSettings);
                         this.$success('Settings saved');
                     })
                     .catch(() => {
@@ -315,6 +331,19 @@ export default {
         .share-link {
             max-width: 340px;
             margin: 0;
+        }
+
+        &.dark {
+            background: $color-dark-gray;
+
+            aside {
+                background: #444;
+                color: $color-gray;
+            }
+
+            main section {
+                color: $color-gray;
+            }
         }
     }
 </style>
