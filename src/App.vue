@@ -2,7 +2,7 @@
     <div id="app">
         <nav-header />
 
-        <main :class="{ 'logged-in': user}">
+        <main :class="{ 'logged-in': user }">
             <router-view />
         </main>
     </div>
