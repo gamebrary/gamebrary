@@ -1,18 +1,9 @@
 <template lang="html">
     <div class="public-game-board">
-        <span v-if="loading">Loading...</span>
+        Under construction
+        <!-- <span v-if="loading">Loading...</span> -->
 
-        <router-link
-            tag="button"
-            class="small primary back"
-            :to="{ name: 'admin' }"
-            v-if="user && user.admin && !loading"
-        >
-            <i class="fas fa-chevron-left" />
-            Back
-        </router-link>
-
-        <div class="lists" v-if="!loading && games">
+        <!-- <div class="lists" v-if="!loading && games">
             <div class="list" v-for="list in lists" :key="list">
                 <div class="list-header">
                     {{ list.name }} ({{ list.games.length }})
@@ -30,14 +21,14 @@
                     />
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 
 <script>
 import Panel from '@/components/Panel/Panel';
 import toasts from '@/mixins/toasts';
-import { mapState } from 'vuex';
+// import { mapState } from 'vuex';
 
 export default {
     components: {
@@ -54,29 +45,37 @@ export default {
         };
     },
 
-    computed: {
-        ...mapState(['user']),
-    },
-
     mounted() {
         this.load();
     },
 
     methods: {
         load() {
-            const listId = this.$route.params.id;
+            // const listId = this.$route.params.id;
 
-            if (listId) {
-                this.$store.dispatch('LOAD_SHARE_LIST', listId)
-                    .then((lists) => {
-                        this.lists = lists;
-                        this.loadGameData();
-                    })
-                    .catch(() => {
-                        this.loading = false;
-                        this.$error('Error loading list');
-                    });
-            }
+            // db.collection('lists').doc(this.user.uid).get()
+            //     .then((doc) => {
+            //         if (doc.exists) {
+            //             this.$store.commit('SET_GAME_LISTS', doc.data());
+            //         } else {
+            //             this.initList();
+            //         }
+            //     })
+            //     .catch(() => {
+            //         this.$error('Authentication error');
+            //     });
+
+            // if (listId) {
+            //     this.$store.dispatch('LOAD_SHARE_LIST', listId)
+            //         .then((lists) => {
+            //             this.lists = lists;
+            //             this.loadGameData();
+            //         })
+            //         .catch(() => {
+            //             this.loading = false;
+            //             this.$error('Error loading list');
+            //         });
+            // }
         },
 
         getGameCover(id) {
