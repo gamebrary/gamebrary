@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="list">
+    <div class="list" :class="{ dark: settings.nightMode }">
         <div class="list-header">
             <list-name-edit
                 :list-name="name"
@@ -61,8 +61,11 @@
                 :list-id="listIndex"
             />
 
-            <div class="add-game-card" v-if="!games.length" @click="addGame">
-                <!-- <i class="fas fa-plus" /> -->
+            <div
+                class="add-game-card"
+                v-if="!games.length"
+                @click="addGame"
+            >
                 Add game
             </div>
         </draggable>
@@ -116,7 +119,7 @@ export default {
     },
 
     computed: {
-        ...mapState(['user', 'gameLists', 'platform', 'activeList']),
+        ...mapState(['user', 'gameLists', 'platform', 'activeList', 'settings']),
 
         list() {
             return this.gameLists[this.platform.code];
@@ -235,6 +238,12 @@ export default {
             margin-top: 30px;
             padding: $gp / 2 $gp / 2 0;
             width: 100%;
+        }
+
+        &.dark {
+            .games {
+                background: #444 !important;
+            }
         }
     }
 

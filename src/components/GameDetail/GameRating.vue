@@ -1,6 +1,6 @@
 <!-- eslint-disable -->
 <template lang="html">
-    <div :class="['game-rating', ratingClass, { 'small': small}]">
+    <div :class="['game-rating', ratingClass, { 'small': small, dark: settings.nightMode }]">
         <span class="rating">
             {{ formattedRating }}
         </span>
@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
     props: {
         rating: Number,
@@ -19,6 +21,10 @@ export default {
     },
 
     computed: {
+        ...mapState([
+            'settings',
+        ]),
+
         ratingClass() {
             const gameRating = Number(this.rating);
             if (gameRating === 100) { return 'master'; }
@@ -61,6 +67,11 @@ export default {
     &.good { fill: #f68e1e; color: #f68e1e; }
     &.okay { fill: #ee4723; color: #ee4723; }
     &.bad { fill: #bc2025; color: #bc2025; }
+
+    &.dark {
+        fill: $color-dark-gray !important;
+        color: $color-dark-gray !important;
+    }
 
     .rating {
         position: absolute;

@@ -4,14 +4,14 @@
         ref="lists"
         @dragscrollstart="dragScrollActive = true"
         @dragscrollend="dragScrollActive = false"
-        :class="{ nightMode, 'drag-scroll-active': dragScrollActive }"
+        :class="{ dark: settings.nightMode, 'drag-scroll-active': dragScrollActive }"
         v-dragscroll:nochilddrag
     >
         <list
             :name="list.name"
             :games="list.games"
             :listIndex="listIndex"
-            :key="list.name"
+            :key="`${list.name}-${listIndex}`"
             v-if="list"
             v-for="(list, listIndex) in gameLists[platform.code]"
             @end="dragEnd"
@@ -58,7 +58,6 @@ export default {
             dragging: false,
             draggingId: null,
             gameData: null,
-            loading: false,
             activeList: null,
             showDeleteConfirm: false,
             dragScrollActive: false,
@@ -73,7 +72,7 @@ export default {
     },
 
     computed: {
-        ...mapState(['user', 'gameLists', 'platform']),
+        ...mapState(['user', 'gameLists', 'platform', 'settings']),
 
         list() {
             return this.gameLists[this.platform.code];
@@ -198,6 +197,10 @@ export default {
         overflow-x: overlay;
         display: flex;
         @include drag-cursor;
+
+        &.dark {
+            background: #222 !important;
+        }
 
         &.drag-scroll-active {
             @include dragging-cursor;

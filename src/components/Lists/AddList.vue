@@ -54,14 +54,10 @@ export default {
     },
 
     computed: {
-        ...mapState(['settings', 'gameLists', 'platform']),
+        ...mapState(['gameLists', 'platform']),
 
         errorMessage() {
             return `You already have a list named <strong>${this.newListName}</strong>. Please use a different name.`;
-        },
-
-        nightMode() {
-            return this.settings.nightMode;
         },
 
         list() {
@@ -126,16 +122,19 @@ export default {
     @import "~styles/styles.scss";
 
     .add-list {
-        width: 300px;
+        padding-right: $gp;
     }
 
     form {
         border-radius: $border-radius;
         background: $color-light-gray;
         padding: $gp / 2;
-        margin-right: $gp;
         display: flex;
         flex-direction: column;
+
+        input {
+            width: 284px;
+        }
 
         button.add {
             margin-right: $gp;

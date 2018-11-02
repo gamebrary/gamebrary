@@ -1,5 +1,5 @@
 <template lang="html">
-    <nav :style="navStyle" v-if="user">
+    <nav :style="navStyle" :class="{ dark: settings.nightMode }" v-if="user">
         <router-link
             :to="{ name: 'platforms' }"
             tag="button"
@@ -17,6 +17,14 @@
         </router-link>
 
         <router-link
+            :to="{ name: 'home' }"
+            tag="button"
+            v-else
+        >
+            <i class="fas fa-chevron-left" v-if="platform" />
+        </router-link>
+
+        <router-link
             v-if="routeName !== 'settings'"
             :to="{ name: 'settings' }" tag="button"
         >
@@ -30,7 +38,7 @@ import { mapState } from 'vuex';
 
 export default {
     computed: {
-        ...mapState(['user', 'platform']),
+        ...mapState(['user', 'platform', 'settings']),
 
         navStyle() {
             return this.platform ? {
@@ -58,6 +66,11 @@ export default {
         justify-content: space-between;
         color: $color-white;
         transition: all 300ms ease;
+
+        &.dark {
+            background: #333 !important;
+            color: $color-gray !important;
+        }
 
         .logo {
             font-size: 18px;

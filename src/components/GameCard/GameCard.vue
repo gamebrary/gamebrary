@@ -1,7 +1,7 @@
 <template lang="html">
     <div
         v-if="gameId && games[gameId]"
-        :class="['game-card', { nightMode, 'search-result': searchResult }]"
+        :class="['game-card', { 'search-result': searchResult, dark: settings.nightMode }]"
     >
         <img :src="coverUrl" v-if="searchResult" width="50" />
 
@@ -16,7 +16,7 @@
             <h4 class="game-title">{{ game.name }}</h4>
 
             <game-rating
-                v-if="showGameRating && !searchResult"
+                v-if="settings && settings.showGameRatings && !searchResult"
                 small
                 :rating="game.rating"
             />
@@ -99,16 +99,6 @@ export default {
                 ? `${url}${this.games[this.gameId].cover.cloudinary_id}.jpg`
                 : '/static/no-image.jpg';
         },
-
-        nightMode() {
-            return this.settings ? this.settings.nightMode : null;
-        },
-
-        showGameRating() {
-            return this.settings
-                && this.settings.showGameRatings
-                && Boolean(Number(this.game.rating));
-        },
     },
 
     methods: {
@@ -160,6 +150,14 @@ export default {
         position: relative;
         display: grid;
         grid-template-columns: 80px auto 40px;
+
+        &.dark {
+            background: $color-gray;
+
+            img {
+                opacity: 0.9;
+            }
+        }
 
         &.search-result {
             grid-template-columns: 50px auto 0;

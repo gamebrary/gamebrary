@@ -1,5 +1,5 @@
 <template lang="html">
-    <section class="game-screenshots" v-if="game.screenshots">
+    <section class="game-screenshots" v-if="game.screenshots" :class="{ dark: settings.nightMode }">
         <h3>Screenshots</h3>
 
         <vue-gallery
@@ -33,7 +33,7 @@ export default {
     },
 
     computed: {
-        ...mapState(['game']),
+        ...mapState(['game', 'settings']),
 
         screenshots() {
             // eslint-disable-next-line
@@ -73,6 +73,10 @@ export default {
         text-align: center;
         margin: $gp 0;
         background-color: $color-light-gray;
+
+        &.dark {
+            background-color: $color-dark-gray;
+        }
 
         h3 {
             margin: 0 0 $gp / 2;

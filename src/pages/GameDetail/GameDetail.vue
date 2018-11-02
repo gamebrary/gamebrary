@@ -1,6 +1,6 @@
 <template lang="html">
     <!-- eslint-disable -->
-    <div class="game-detail" v-if="game">
+    <div class="game-detail" v-if="game" :class="{ dark: settings.nightMode }">
         <main>
             <game-header />
 
@@ -60,7 +60,7 @@ export default {
     },
 
     computed: {
-        ...mapState(['game']),
+        ...mapState(['game', 'settings']),
     },
 
     mounted() {
@@ -82,6 +82,13 @@ export default {
 
         @media($small) {
             margin: 0;
+        }
+
+        &.dark {
+            main {
+                background: #333;
+                color: $color-gray;
+            }
         }
     }
 
