@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import firebase from 'firebase';
-import { GoogleAuth } from '@/shared/firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import { mapState } from 'vuex';
 import Panel from '@/components/Panel/Panel';
 
@@ -44,6 +44,8 @@ export default {
     methods: {
         login() {
             this.$store.commit('SET_AUTHORIZING_STATUS', true);
+
+            const GoogleAuth = new firebase.auth.GoogleAuthProvider();
 
             firebase.auth().signInWithRedirect(GoogleAuth)
                 .catch((error) => {

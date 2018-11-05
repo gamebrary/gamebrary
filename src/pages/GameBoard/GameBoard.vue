@@ -31,8 +31,9 @@ import AddList from '@/components/Lists/AddList';
 import toasts from '@/mixins/toasts';
 import List from '@/components/GameBoard/List';
 import draggable from 'vuedraggable';
-import firebase from 'firebase';
 import { mapState } from 'vuex';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
 const db = firebase.firestore();
 

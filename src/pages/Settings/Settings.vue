@@ -128,7 +128,9 @@
 <script>
 import { debounce } from 'lodash';
 import { mapState } from 'vuex';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/auth';
 import Gravatar from 'vue-gravatar';
 import Panel from '@/components/Panel/Panel';
 import toasts from '@/mixins/toasts';
