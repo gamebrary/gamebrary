@@ -60,11 +60,12 @@ export default {
     },
 
     computed: {
-        ...mapState(['game', 'settings']),
+        ...mapState(['game', 'settings', 'platform']),
     },
 
     mounted() {
         this.$store.commit('SET_ACTIVE_GAME', this.$route.params.id);
+        document.title = `${this.platform.name} - ${this.game.name} - Gamebrary`;
     },
 
     destroyed() {

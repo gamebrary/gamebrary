@@ -86,6 +86,8 @@ export default {
 
     mounted() {
         this.loadGameData();
+
+        document.title = `${this.platform.name} - Gamebrary`;
     },
 
     methods: {

@@ -15,6 +15,9 @@ export default new Router({
             path: '/share/:id',
             name: 'share',
             component: ShareList,
+            meta: {
+                title: 'Public list',
+            },
         },
         {
             name: 'game-detail',
@@ -25,16 +28,25 @@ export default new Router({
             name: 'platforms',
             path: '/platforms',
             component: Platforms,
+            meta: {
+                title: 'Platforms',
+            },
         },
         {
             name: 'settings',
             path: '/settings',
             component: Settings,
+            meta: {
+                title: 'Settings',
+            },
         },
         {
             path: '/session-expired',
             name: 'sessionExpired',
             component: SessionExpired,
+            meta: {
+                title: 'Session expired',
+            },
         },
         {
             path: '/',
