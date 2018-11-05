@@ -78,7 +78,8 @@ import ListNameEdit from '@/components/GameBoard/ListNameEdit';
 import GameCard from '@/components/GameCard/GameCard';
 import GameSearch from '@/components/GameSearch/GameSearch';
 import { mapState } from 'vuex';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 import toasts from '@/mixins/toasts';
 
 const db = firebase.firestore();

@@ -66,6 +66,13 @@ export default {
     mounted() {
         this.$store.commit('SET_ACTIVE_GAME', this.$route.params.id);
         document.title = `${this.platform.name} - ${this.game.name} - Gamebrary`;
+
+        this.$ga.event({
+            eventCategory: 'game',
+            eventAction: 'view',
+            eventLabel: 'gameViewed',
+            eventValue: `${this.platform.name} - ${this.game.name}`,
+        });
     },
 
     destroyed() {

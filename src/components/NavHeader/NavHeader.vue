@@ -1,5 +1,5 @@
 <template lang="html">
-    <nav :style="navStyle" :class="{ dark: settings.nightMode }" v-if="user">
+    <nav :style="navStyle" :class="{ dark: settings && settings.nightMode }" v-if="user">
         <router-link
             :to="{ name: 'platforms' }"
             tag="button"

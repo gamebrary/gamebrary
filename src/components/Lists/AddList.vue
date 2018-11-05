@@ -96,6 +96,14 @@ export default {
 
         addList() {
             this.$store.commit('ADD_LIST', this.newListName);
+
+            this.$ga.event({
+                eventCategory: 'list',
+                eventAction: 'add',
+                eventLabel: 'listAdded',
+                eventValue: this.newListName,
+            });
+
             this.$emit('update');
             this.$emit('scroll');
             this.reset();

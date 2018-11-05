@@ -55,8 +55,9 @@
 <script>
 import GameRating from '@/components/GameDetail/GameRating';
 import { mapState } from 'vuex';
-import firebase from 'firebase';
 import toasts from '@/mixins/toasts';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
 const db = firebase.firestore();
 
@@ -110,6 +111,13 @@ export default {
 
             this.$emit('added');
             this.$store.commit('ADD_GAME', data);
+
+            this.$ga.event({
+                eventCategory: 'game',
+                eventAction: 'add',
+                eventLabel: 'addGame',
+                eventValue: data,
+            });
 
             db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
                 .then(() => {

@@ -10,8 +10,19 @@
 
 <script>
 import NavHeader from '@/components/NavHeader/NavHeader';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
 import { mapState } from 'vuex';
+
+firebase.initializeApp({
+    apiKey: 'AIzaSyA6MsmnLtqT4b11r-j15wwreRypO3AodcA',
+    authDomain: 'gamebrary.com',
+    databaseURL: 'https://gamebrary-8c736.firebaseio.com',
+    projectId: 'gamebrary-8c736',
+    storageBucket: 'gamebrary-8c736.appspot.com',
+    messagingSenderId: '324529217902',
+});
 
 const db = firebase.firestore();
 

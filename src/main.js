@@ -7,8 +7,7 @@ import VueFire from 'vuefire';
 import VueI18n from 'vue-i18n';
 import VueSweetalert2 from 'vue-sweetalert2';
 import axios from 'axios';
-
-import '@/shared/firebase';
+import VueAnalytics from 'vue-analytics';
 import App from './App';
 import messages from './i18n';
 import router from './router';
@@ -28,6 +27,11 @@ Object.defineProperties(Vue.prototype, {
             return EventBus;
         },
     },
+});
+
+Vue.use(VueAnalytics, {
+    id: 'UA-120053966-1',
+    router,
 });
 
 Vue.use(VTooltip);
