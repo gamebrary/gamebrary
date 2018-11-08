@@ -2,37 +2,40 @@
     <div class="platforms-page">
         <h2>Choose a platform</h2>
 
-        Sort: <select v-model="sortBy">
-            <option value="generations">Console Generation</option>
-            <option value="alphabetically">Alphabetically</option>
-        </select>
+        <div class="tools">
+            <div class="sorting">
+                <select v-model="showBy">
+                    <option value="generation">Console Generation</option>
+                    <option value="">Alphabetically</option>
+                </select>
 
-        <div class="platforms">
-            <a
-                v-close-popover
-                v-for="platform in sorted"
-                v-if="sortBy === 'alphabetically'"
-                :key="platform.name"
-                :style="`background-color: ${platform.hex}`"
-                @click="changePlatform(platform)"
-            >
-                <img
-                    :src='`/static/img/platforms/${platform.code}.svg`'
-                    :alt="platform.name"
-                />
-            </a>
+                <button @click="asc = !asc">
+                    <i :class="`fas fa-sort-amount-${ asc ? 'down' : 'up'}`" />
+                </button>
+
+            </div>
+
+            <input
+                type="text"
+                placeholder="Filter"
+                autofocus
+                v-model="filterText"
+            />
         </div>
 
-        <div class="generations" v-if="sortBy === 'generations'">
-            <div v-for="(group, generation) in groupedByGenerations" :key="generation">
-                <h2>{{ ordinalSuffix(generation) }} generation</h2>
+        <div class="groups" :class="{ asc }">
+            <div v-for="(group, label) in filteredPlatforms" :key="label">
+                <h2 v-if="showBy">
+                    <span v-if="!isNaN(label)">{{ ordinalSuffix(label) }} generation</span>
+                    <span v-else>{{ label }}</span>
+                </h2>
 
-                <div class="platforms">
+                <div class="platforms" :class="{ asc: asc && !showBy }">
                     <a
                         v-close-popover
                         v-for="platform in group"
                         :key="platform.name"
-                        :style="`background-color: ${platform.hex}`"
+                        :style="`background-color: ${platform.tileHex || platform.hex || '#fff'}`"
                         @click="changePlatform(platform)"
                     >
                         <img
@@ -48,26 +51,31 @@
 
 <script>
 import platforms from '@/shared/platforms';
-import _ from 'lodash';
+import { groupBy, sortBy } from 'lodash';
 import { mapState } from 'vuex';
 
 export default {
     data() {
         return {
             platforms,
-            sortBy: 'alphabetically',
+            filterText: '',
+            showBy: 'generation',
+            asc: true,
         };
     },
 
     computed: {
         ...mapState(['gameLists', 'platform']),
 
-        groupedByGenerations() {
-            return _.groupBy(this.platforms, 'generation');
-        },
+        filteredPlatforms() {
+            if (this.filterText.length > 0) {
+                // eslint-disable-next-line
+                return groupBy(this.platforms.filter(({ name }) => name.toLowerCase().includes(this.filterText.toLowerCase())), this.showBy);
+            }
 
-        sorted() {
-            return _.sortBy(this.platforms, 'name');
+            return this.showBy
+                ? groupBy(this.platforms, this.showBy)
+                : groupBy(sortBy(this.platforms, 'name'), '');
         },
     },
 
@@ -104,39 +112,85 @@ export default {
     .platforms-page {
         width: $container-width;
         max-width: 100%;
-        margin: $gp auto;
+        margin: 0 auto;
+        padding: $gp;
         color: $color-dark-gray;
 
         @media($small) {
-            margin: $gp;
+            margin: 0;
         }
-    }
 
-    .platforms {
-        margin-top: $gp;
-        display: grid;
-        grid-template-columns: repeat(auto-fill, 140px);
-        grid-gap: $gp;
-
-        a {
-            cursor: pointer;
-            border-radius: $border-radius;
-            width: 140px;
-            height: 140px;
-            padding: $gp;
+        .tools {
             display: flex;
-            align-items: center;
+            justify-content: space-between;
 
-            img {
-                width: 100%;
+            .sorting {
+                display: flex;
+                align-items: center;
 
+                select {
+                    margin-left: $gp / 2;
+                    margin-bottom: 0;
+                }
+            }
+
+            input {
+                width: 200px;
+                margin: 0;
             }
         }
 
-    }
+        .groups {
+            display: flex;
+            flex-direction: column;
 
-    .generations {
-        display: flex;
-        flex-direction: column-reverse;
+            &.asc {
+                flex-direction: column-reverse;
+            }
+        }
+
+        .platforms {
+            margin-top: $gp;
+            display: flex;
+            flex-direction: column;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: $gp;
+
+            @media($small) {
+                grid-template-columns: 1fr;
+            }
+
+            a {
+                cursor: pointer;
+                border-radius: $border-radius;
+                width: auto;
+                height: 140px;
+                padding: $gp;
+                display: flex;
+                align-items: center;
+
+                @media($small) {
+                    height: 100px;
+                }
+
+                img {
+                    margin: 0 auto;
+                    max-width: 100%;
+                    width: auto;
+                    height: auto;
+                    max-height: 100%;
+
+                    @media($small) {
+                        max-width: 70%;
+                    }
+                }
+            }
+
+            &.asc {
+                background: #fc0;
+            }
+
+        }
     }
 </style>

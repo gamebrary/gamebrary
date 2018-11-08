@@ -1,127 +1,63 @@
 <template lang="html">
     <div class="settings" v-if="user" :class="{ dark: settings.nightMode }">
-        <aside>
-            <gravatar :email="user.email" />
+        <section>
+            <i class="fas fa-share-alt" />
+            <h4>Share link</h4>
 
-            <div>
-                <p><strong>App ID:</strong> {{ user.uid }}</p>
-                <p><strong>Email:</strong> {{ user.email }}</p>
-                <p><strong>Joined:</strong> {{ dateJoined }}</p>
-            </div>
+            <input class="share-link value" type="text" v-model="shareUrl" readonly />
+        </section>
 
-            <div>
-                <button @click="promptDelete" class="small error">
-                    <i class="fas fa-exclamation-triangle" />
-                    Delete Account
-                </button>
+        <section>
+            <i class="fas fa-moon" />
+            <h4>Dark theme</h4>
 
-                <button class="small info" @click="logout">
-                    <i class="fas fa-sign-out-alt" />
-                    Logout
-                </button>
-            </div>
+            <span class="toggle-switch value">
+                <input
+                    type="checkbox"
+                    id="nightMode"
+                    v-model="localSettings.nightMode"
+                />
 
-            <div class="messages">
-                <div class="mobile">
-                    <!-- eslint-disable-next-line -->
-                    <p>Gamebrary is an open source project developed during spare time. Consider donating to help pay for hosting, domain, coffee, etc. Anything helps!</p>
-                    <a class="link primary small" href="https://www.paypal.me/RomanCervantes/5">
-                        <i class="fas fa-donate" />
-                        Donate
-                    </a>
+                <label for="nightMode" />
+            </span>
+        </section>
 
-                    <a class="link warning small" href="https://github.com/romancmx/gamebrary/issues">
-                        <i class="fas fa-bug" />
-                        Report bugs
-                    </a>
+        <section>
+            <i class="far fa-envelope"></i>
+            <h4>Receive update emails</h4>
 
-                    <a class="link info hollow small" href="https://goo.gl/forms/r0juBCsZaUtJ03qb2">
-                        <i class="fas fa-comments" />
-                        Submit feedback
-                    </a>
-                </div>
+            <span class="toggle-switch value">
+                <input
+                    type="checkbox"
+                    id="newsletter"
+                    v-model="localSettings.newsletter"
+                />
 
-                <panel class="warning">
-                    <h3>Found a bug? Report it!</h3>
-                    <p>You can also use GitHub issues to request new features.</p>
+                <label for="newsletter" />
+            </span>
+        </section>
 
-                    <a class="link accent small" href="https://github.com/romancmx/gamebrary/issues">
-                        <i class="fas fa-bug" />
-                        Report it in GitHub
-                    </a>
+        <section>
+            <i class="fas fa-star-half-alt" />
+            <h4>Show Game Ratings</h4>
 
-                    <a class="link accent small" href="https://goo.gl/forms/r0juBCsZaUtJ03qb2">
-                        <i class="fas fa-comments" />
-                        Submit feedback
-                    </a>
-                </panel>
+            <span class="toggle-switch value">
+                <input
+                    type="checkbox"
+                    id="gameRatings"
+                    v-model="localSettings.showGameRatings"
+                />
 
-                <panel class="positive">
-                    <h3>Enjoying Gamebrary?</h3>
-                    <!-- eslint-disable-next-line -->
-                    <p>Gamebrary is an open source project developed during spare time. Consider donating to help pay for hosting, domain, coffee, etc. Anything helps!</p>
+                <label for="gameRatings" />
+            </span>
+        </section>
 
-                    <a class="link primary hollow small" href="https://www.paypal.me/RomanCervantes/5">
-                        <i class="fas fa-donate" />
-                        Donate
-                    </a>
-                </panel>
-            </div>
-        </aside>
-
-        <main class="settings-grid">
-            <section>
-                <i class="fas fa-share-alt" />
-                <h3>Share link</h3>
-
-                <input class="share-link value" type="text" v-model="shareUrl" readonly />
-            </section>
-
-            <section>
-                <i class="fas fa-moon" />
-                <h3>Night mode</h3>
-
-                <span class="toggle-switch value">
-                    <input
-                        type="checkbox"
-                        id="nightMode"
-                        v-model="localSettings.nightMode"
-                    />
-
-                    <label for="nightMode" />
-                </span>
-            </section>
-
-            <section>
-                <i class="far fa-envelope"></i>
-                <h3>Receive update emails</h3>
-
-                <span class="toggle-switch value">
-                    <input
-                        type="checkbox"
-                        id="newsletter"
-                        v-model="localSettings.newsletter"
-                    />
-
-                    <label for="newsletter" />
-                </span>
-            </section>
-
-            <section>
-                <i class="fas fa-star-half-alt" />
-                <h3>Show Game Ratings</h3>
-
-                <span class="toggle-switch value">
-                    <input
-                        type="checkbox"
-                        id="gameRatings"
-                        v-model="localSettings.showGameRatings"
-                    />
-
-                    <label for="gameRatings" />
-                </span>
-            </section>
-        </main>
+        <section>
+            <button @click="promptDelete" :class="['small hollow', { error: !settings.nightMode }]">
+                <i class="fas fa-exclamation-triangle" />
+                Delete Account
+            </button>
+        </section>
     </div>
 </template>
 
@@ -211,17 +147,6 @@ export default {
             });
         },
 
-        logout() {
-            firebase.auth().signOut()
-                .then(() => {
-                    this.$store.commit('CLEAR_SESSION');
-                    this.$router.push({ name: 'home' });
-                })
-                .catch((error) => {
-                    this.$error(error);
-                });
-        },
-
         deleteAccount() {
             // TODO: use async/await
             db.collection('settings').doc(this.user.uid).delete()
@@ -264,69 +189,34 @@ export default {
 
     .settings {
         background: $color-white;
-        display: grid;
-        grid-template-columns: 1fr 3fr;
         min-height: calc(100vh - #{$navHeight});
 
-        @media($small) {
-            grid-template-columns: none;
-        }
+        section {
+            color: $color-dark-gray;
+            border-bottom: 1px solid $color-light-gray;
+            padding: $gp * 2 $gp;
+            display: flex;
+            align-items: center;
 
-        aside {
-            padding: $gp;
-            background: $color-light-gray;
-
-            .messages {
-                border-top: 1px solid $color-gray;
-                padding-top: $gp;
-                margin: $gp 0 0;
-
-                .mobile {
-                    display: none;
-
-                    @media($small) {
-                        display: inline;
-                    }
-                }
-
-                .panel {
-                    margin-bottom: $gp;
-
-                    @media($small) {
-                        display: none;
-                    }
-                }
+            @media($small) {
+                padding: $gp;
             }
-        }
 
-        main {
-            section {
-                color: $color-dark-gray;
-                border-bottom: 1px solid $color-light-gray;
-                padding: $gp * 2 $gp;
+            &.active {
+                color: $color-green;
+            }
+
+            h4 {
+                margin: 0 $gp;
+            }
+
+            .value {
                 display: flex;
-                align-items: center;
-
-                @media($small) {
-                    padding: $gp;
-                }
-
-                &.active {
-                    color: $color-green;
-                }
-
-                h3 {
-                    margin: 0 $gp;
-                }
-
-                .value {
-                    display: flex;
-                    margin-left: auto;
-                }
+                margin-left: auto;
             }
         }
 
-        h3 {
+        h4 {
             margin: 0;
         }
 
@@ -336,14 +226,10 @@ export default {
         }
 
         &.dark {
-            background: $color-dark-gray;
+            background: $color-darkest-gray;
 
-            aside {
-                background: #444;
-                color: $color-gray;
-            }
-
-            main section {
+            section {
+                border-bottom: 1px solid $color-gray;
                 color: $color-gray;
             }
         }

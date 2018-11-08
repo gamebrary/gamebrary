@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <nav-header />
+        <nav-header v-if="user" />
 
         <main :class="{ 'logged-in': user }">
             <router-view />
@@ -123,6 +123,7 @@ export default {
             background: $color-gray;
 
             &.logged-in {
+                margin-top: $navHeight;
                 height: calc(100vh - #{$navHeight});
             }
         }
