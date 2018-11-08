@@ -8,6 +8,8 @@ import VueI18n from 'vue-i18n';
 import VueSweetalert2 from 'vue-sweetalert2';
 import axios from 'axios';
 import VueAnalytics from 'vue-analytics';
+import Raven from 'raven-js';
+import RavenVue from 'raven-js/plugins/vue';
 import App from './App';
 import messages from './i18n';
 import router from './router';
@@ -41,6 +43,13 @@ Vue.use(VueDragscroll);
 Vue.use(VueFire);
 Vue.use(VueI18n);
 Vue.use(VueSweetalert2);
+
+if (process.env.NODE_ENV !== 'development') {
+    Raven
+        .config('https://15928bc58e7b45ac93878da6d8146064@sentry.io/1315568')
+        .addPlugin(RavenVue, Vue)
+        .install();
+}
 
 Vue.config.productionTip = false;
 

@@ -7479,6 +7479,10 @@ range-parser@^1.0.3, range-parser@^1.2.0, range-parser@~1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.0.tgz#f49be6b487894ddc40dcc94a322f611092e00d5e"
 
+raven-js@^3.22.3, raven-js@^3.27.0:
+  version "3.27.0"
+  resolved "https://registry.yarnpkg.com/raven-js/-/raven-js-3.27.0.tgz#9f47c03e17933ce756e189f3669d49c441c1ba6e"
+
 raw-body@2.3.3:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/raw-body/-/raw-body-2.3.3.tgz#1b324ece6b5706e153855bc1148c65bb7f6ea0c3"
@@ -9222,6 +9226,12 @@ vue-loader@^13.3.0:
     vue-hot-reload-api "^2.2.0"
     vue-style-loader "^3.0.0"
     vue-template-es2015-compiler "^1.6.0"
+
+vue-raven@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/vue-raven/-/vue-raven-1.0.0.tgz#d05e332a25a96fb3662fbc4979d93aa7c3fa6550"
+  dependencies:
+    raven-js "^3.22.3"
 
 vue-resize@^0.4.3:
   version "0.4.4"
