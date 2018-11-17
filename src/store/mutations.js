@@ -39,8 +39,12 @@ export default {
         state.results = [];
     },
 
-    SET_ACTIVE_GAME(state, game) {
-        state.game = state.games[game];
+    SET_ACTIVE_GAME(state, [game]) {
+        state.game = game;
+    },
+
+    CLEAR_ACTIVE_GAME(state) {
+        state.game = null;
     },
 
     SET_EDIT_GAME(state, { listId, gameId }) {
@@ -54,10 +58,6 @@ export default {
 
     SET_PLATFORM(state, platform) {
         state.platform = platform;
-    },
-
-    CLEAR_ACTIVE_GAME(state) {
-        state.game = null;
     },
 
     SORT_LIST(state, listIndex) {
