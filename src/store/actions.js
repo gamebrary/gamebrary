@@ -13,6 +13,16 @@ export default {
         });
     },
 
+    LOAD_GAME({ commit }, gameId) {
+        return new Promise((resolve, reject) => {
+            axios.get(`${FIREBASE_URL}/game?gameId=${gameId}`)
+                .then(({ data }) => {
+                    commit('SET_ACTIVE_GAME', data);
+                    resolve();
+                }).catch(reject);
+        });
+    },
+
     SEARCH({ commit, state }, searchText) {
         return new Promise((resolve, reject) => {
             axios.get(`${FIREBASE_URL}/search?searchText=${searchText}&platformId=${state.platform.id}`)

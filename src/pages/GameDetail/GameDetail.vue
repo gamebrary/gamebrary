@@ -64,19 +64,50 @@ export default {
     },
 
     mounted() {
-        this.$store.commit('SET_ACTIVE_GAME', this.$route.params.id);
-        document.title = `${this.platform.name} - ${this.game.name} - Gamebrary`;
-
-        this.$ga.event({
-            eventCategory: 'game',
-            eventAction: 'view',
-            eventLabel: 'gameViewed',
-            eventValue: `${this.platform.name} - ${this.game.name}`,
-        });
+        if (this.$route.params.id) {
+            document.title = `${this.$route.params.name} (${this.platform.name}) - Gamebrary`;
+            this.loadGame(this.$route.params.id);
+        } else {
+            this.goHome();
+        }
     },
 
     destroyed() {
-        this.$store.commit('SET_ACTIVE_GAME', null);
+        this.$store.commit('CLEAR_ACTIVE_GAME');
+    },
+
+    methods: {
+        goHome() {
+            this.$router.push({ name: 'home' });
+        },
+
+        loadGame(gameId) {
+            this.$store.dispatch('LOAD_GAME', gameId)
+                .then(() => {
+                    this.$ga.event({
+                        eventCategory: 'game',
+                        eventAction: 'view',
+                        eventLabel: 'gameViewed',
+                        eventValue: `${this.platform.name} - ${this.game.name}`,
+                    });
+                })
+                .catch(() => {
+                    this.$swal({
+                        title: 'Uh no!',
+                        text: 'There was an error loading game details',
+                        type: 'error',
+                        showCancelButton: true,
+                        confirmButtonClass: 'primary',
+                        confirmButtonText: 'Retry',
+                    }).then(({ value }) => {
+                        if (value) {
+                            this.loadGame();
+                        } else {
+                            this.goHome();
+                        }
+                    });
+                });
+        },
     },
 };
 </script>
