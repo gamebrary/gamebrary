@@ -72,7 +72,7 @@ export default [
         code: 'win',
         textHex: '#0076d6',
         id: 6,
-        generation: 8,
+        generation: '0',
     },
     {
         name: 'Super Nintendo',
@@ -104,26 +104,26 @@ export default [
         name: 'PC Dos',
         code: 'msdos',
         id: 13,
-        generation: 'computer',
+        generation: '0',
     },
     {
         name: 'Mac',
         code: 'mac',
         id: 14,
-        generation: 'computer',
+        generation: '0',
     },
     {
         name: 'Commodore C64/128',
         code: 'commodore-64',
         id: 15,
-        generation: 'computer',
+        generation: '0',
     },
     {
         name: 'Amiga',
         code: 'amiga',
         navHex: '#fff',
         id: 16,
-        generation: 'computer',
+        generation: '0',
     },
     {
         name: 'Nintendo DS',
@@ -217,7 +217,7 @@ export default [
         name: 'Atari 8-bit',
         code: 'atari-800',
         id: 65,
-        generation: 'computer',
+        generation: '0',
     },
     {
         name: 'Atari 2600',
@@ -247,7 +247,7 @@ export default [
         name: 'Atari ST',
         code: 'atari-st',
         id: 63,
-        generation: 'computer',
+        generation: '0',
     },
     {
         name: 'Sega Master System',
@@ -283,14 +283,14 @@ export default [
         name: 'Commodore VIC-20',
         code: 'vic-20',
         id: 71,
-        generation: 'computer',
+        generation: '0',
     },
     {
         name: 'Apple II',
-        code: 'apple2',
+        code: 'apple-2',
         hex: '#fff',
         id: 75,
-        generation: 'computer',
+        generation: '0',
     },
     {
         name: 'Sega CD',
@@ -303,7 +303,7 @@ export default [
         name: 'Neo Geo MVS',
         code: 'neo-geo',
         id: 79,
-        generation: 'arcade',
+        generation: '0',
         // TODO: combine
         // id: 80,
     },
@@ -336,7 +336,7 @@ export default [
         name: 'Commodore 16',
         code: 'commodore',
         id: 93,
-        generation: 'computer',
+        generation: '0',
     },
     // {
     //     name: 'Philips CD-i',
