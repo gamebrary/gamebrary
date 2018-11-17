@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="game-header" :style="style">
+    <div :class="['game-header', { dark: settings.nightMode}]" :style="style" >
         <img :src="coverUrl" :alt="game.name" class="game-cover" />
 
         <div class="game-rating" v-if="hasRatings">
@@ -34,7 +34,7 @@ export default {
     },
 
     computed: {
-        ...mapState(['game', 'platform']),
+        ...mapState(['game', 'platform', 'settings']),
 
         coverUrl() {
             const url = 'https://images.igdb.com/igdb/image/upload/t_cover_big/';
@@ -45,7 +45,7 @@ export default {
 
         style() {
             return this.game && this.game.screenshots
-                ? `background: url(${this.getImageUrl(this.game.screenshots[0].cloudinary_id)}) ${this.platform.hex} center center no-repeat; background-size: cover;`
+                ? `background: url(${this.getImageUrl(this.game.screenshots[0].cloudinary_id)}) center center no-repeat; background-size: cover;`
                 : '';
         },
 
@@ -70,9 +70,14 @@ export default {
     .game-header {
         display: flex;
         min-height: 20vh;
+        background-color: $color-light-gray;
         width: 100%;
         position: relative;
         align-items: center;
+
+        &.dark {
+            background-color: $color-dark-gray;
+        }
 
         .game-cover {
             margin: $gp;
