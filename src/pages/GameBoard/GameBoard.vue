@@ -7,21 +7,27 @@
         :class="{ dark: settings.nightMode, 'drag-scroll-active': dragScrollActive }"
         v-dragscroll:nochilddrag
     >
-        <list
-            :name="list.name"
-            :games="list.games"
-            :listIndex="listIndex"
-            :key="`${list.name}-${listIndex}`"
-            v-if="list"
-            v-for="(list, listIndex) in gameLists[platform.code]"
-            @end="dragEnd"
-            @remove="tryDelete(listIndex)"
-        />
+        <template v-if="loading">
+            Loading...
+        </template>
 
-        <add-list
-            @update="updateLists()"
-            @scroll="scroll"
-        />
+        <template v-else>
+            <list
+                :name="list.name"
+                :games="list.games"
+                :listIndex="listIndex"
+                :key="`${list.name}-${listIndex}`"
+                v-if="list"
+                v-for="(list, listIndex) in gameLists[platform.code]"
+                @end="dragEnd"
+                @remove="tryDelete(listIndex)"
+            />
+
+            <add-list
+                @update="updateLists()"
+                @scroll="scroll"
+            />
+        </template>
     </div>
 </template>
 
@@ -58,6 +64,7 @@ export default {
         return {
             dragging: false,
             draggingId: null,
+            loading: false,
             gameData: null,
             activeList: null,
             showDeleteConfirm: false,
@@ -160,6 +167,8 @@ export default {
                 });
 
                 if (gameList.length > 0) {
+                    this.loading = true;
+
                     this.$store.dispatch('LOAD_GAMES', gameList)
                         .catch(() => {
                             this.$swal({
@@ -174,6 +183,9 @@ export default {
                                     this.loadGameData();
                                 }
                             });
+                        })
+                        .finally(() => {
+                            this.loading = false;
                         });
                 }
             }
@@ -190,6 +202,7 @@ export default {
     }
 
     .lists {
+        user-select: none;
         display: flex;
         align-items: flex-start;
         height: calc(100vh - 48px);
