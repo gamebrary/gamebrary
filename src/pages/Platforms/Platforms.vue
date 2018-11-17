@@ -8,11 +8,6 @@
                     <option value="generation">Console Generation</option>
                     <option value="">Alphabetically</option>
                 </select>
-
-                <button @click="asc = !asc">
-                    <i :class="`fas fa-sort-amount-${ asc ? 'down' : 'up'}`" />
-                </button>
-
             </div>
 
             <input
@@ -23,14 +18,17 @@
             />
         </div>
 
-        <div class="groups" :class="{ asc }">
-            <div v-for="(group, label) in filteredPlatforms" :key="label">
-                <h2 v-if="showBy">
-                    <span v-if="!isNaN(label)">{{ ordinalSuffix(label) }} generation</span>
-                    <span v-else>{{ label }}</span>
-                </h2>
+        <div class="groups">
+            <div
+                v-for="(group, label) in filteredPlatforms"
+                :key="label"
+            >
+                <div v-if="showBy === 'generation'">
+                    <h2 v-if="label == 0">Computers and Arcade</h2>
+                    <h2 v-else>{{ ordinalSuffix(label) }} generation</h2>
+                </div>
 
-                <div class="platforms" :class="{ asc: asc && !showBy }">
+                <div class="platforms">
                     <a
                         v-close-popover
                         v-for="platform in group"
@@ -60,7 +58,6 @@ export default {
             platforms,
             filterText: '',
             showBy: 'generation',
-            asc: true,
         };
     },
 
@@ -129,7 +126,6 @@ export default {
                 align-items: center;
 
                 select {
-                    margin-left: $gp / 2;
                     margin-bottom: 0;
                 }
             }
@@ -143,22 +139,16 @@ export default {
         .groups {
             display: flex;
             flex-direction: column;
-
-            &.asc {
-                flex-direction: column-reverse;
-            }
         }
 
         .platforms {
             margin-top: $gp;
-            display: flex;
-            flex-direction: column;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             grid-gap: $gp;
 
             @media($small) {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
             }
 
             a {
@@ -186,11 +176,6 @@ export default {
                     }
                 }
             }
-
-            &.asc {
-                background: #fc0;
-            }
-
         }
     }
 </style>
