@@ -136,8 +136,16 @@ export default {
                 }
 
                 i, img {
-                    background: $color-dark-gray;
-                    border: 2px solid $color-gray;
+                    // background: $color-dark-gray;
+                    // border: 2px solid $color-gray;
+                }
+            }
+
+            .profile {
+                background: $color-darkest-gray;
+
+                .info {
+                    color: $color-gray;
                 }
             }
         }
@@ -156,8 +164,8 @@ export default {
         }
 
         img {
-            width: 60px;
-            height: 60px;
+            width: 40px;
+            height: 40px;
             border-radius: 100%;
             border: 2px solid $color-white;
             box-shadow: 0 0 2px 0px $color-dark-gray;
@@ -181,38 +189,20 @@ export default {
 
         a {
             color: $color-dark-gray;
-            grid-template-columns: 50px auto;
-            grid-gap: $gp;
-            margin-bottom: $gp;
+            grid-template-columns: 40px auto;
+            margin-bottom: $gp / 2;
             display: grid;
             align-items: center;
             text-decoration: none;
-            font-weight: bold;
-
-            @media($small) {
-                margin-bottom: $gp / 2;
-            }
         }
 
         i, img {
-            width: 50px;
-            height: 50px;
-            padding: $gp / 2;
-            border-radius: 100%;
+            width: 40px;
+            height: 40px;
             text-align: center;
             justify-content: center;
             align-items: center;
             display: flex;
-            align-items: center;
-            background: $color-gray;
-            border: 2px solid $color-white;
-            box-shadow: 0 0 2px 0px $color-dark-gray;
-            color: $color-white;
-
-            @media($small) {
-                width: 40px;
-                height: 40px;
-            }
         }
     }
 </style>

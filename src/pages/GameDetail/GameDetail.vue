@@ -65,7 +65,6 @@ export default {
 
     mounted() {
         if (this.$route.params.id) {
-            document.title = `${this.$route.params.name} (${this.platform.name}) - Gamebrary`;
             this.loadGame(this.$route.params.id);
         } else {
             this.goHome();
@@ -90,6 +89,8 @@ export default {
                         eventLabel: 'gameViewed',
                         eventValue: `${this.platform.name} - ${this.game.name}`,
                     });
+
+                    document.title = `${this.game.name} (${this.platform.name}) - Gamebrary`;
                 })
                 .catch(() => {
                     this.$swal({

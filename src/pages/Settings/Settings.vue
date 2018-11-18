@@ -1,15 +1,19 @@
 <template lang="html">
     <div class="settings" v-if="user" :class="{ dark: settings.nightMode }">
         <section>
+            <h4>Settings</h4>
+        </section>
+
+        <section>
             <i class="fas fa-share-alt" />
-            <h4>Share link</h4>
+            <h5>Share link</h5>
 
             <input class="share-link value" type="text" v-model="shareUrl" readonly />
         </section>
 
         <section>
             <i class="fas fa-moon" />
-            <h4>Dark theme</h4>
+            <h5>Dark theme</h5>
 
             <span class="toggle-switch value">
                 <input
@@ -23,8 +27,8 @@
         </section>
 
         <section>
-            <i class="far fa-envelope"></i>
-            <h4>Receive update emails</h4>
+            <i class="far fa-envelope" />
+            <h5>Receive update emails</h5>
 
             <span class="toggle-switch value">
                 <input
@@ -39,7 +43,7 @@
 
         <section>
             <i class="fas fa-star-half-alt" />
-            <h4>Show Game Ratings</h4>
+            <h5>Show Game Ratings</h5>
 
             <span class="toggle-switch value">
                 <input
@@ -53,7 +57,7 @@
         </section>
 
         <section>
-            <button @click="promptDelete" :class="['small hollow', { error: !settings.nightMode }]">
+            <button @click="promptDelete" class="error small">
                 <i class="fas fa-exclamation-triangle" />
                 Delete Account
             </button>
@@ -192,9 +196,12 @@ export default {
         min-height: calc(100vh - #{$navHeight});
 
         section {
+            width: 600px;
+            margin: 0 auto;
+            max-width: 100%;
             color: $color-dark-gray;
-            border-bottom: 1px solid $color-light-gray;
-            padding: $gp * 2 $gp;
+            border-bottom: 1px solid #f0f0f0;
+            padding: $gp;
             display: flex;
             align-items: center;
 
@@ -206,7 +213,7 @@ export default {
                 color: $color-green;
             }
 
-            h4 {
+            h5 {
                 margin: 0 $gp;
             }
 
@@ -214,10 +221,6 @@ export default {
                 display: flex;
                 margin-left: auto;
             }
-        }
-
-        h4 {
-            margin: 0;
         }
 
         .share-link {

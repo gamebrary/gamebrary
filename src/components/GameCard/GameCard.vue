@@ -21,7 +21,12 @@
                 :rating="game.rating"
             />
 
-            <button class="primary hollow small" @click="addGame" v-if="searchResult">
+            <button
+                v-if="searchResult"
+                class="primary small hollow"
+                :class="{ accent: !settings.nightMode }"
+                @click="addGame"
+            >
                 <i class="fas fa-plus" />
                 Add to list
             </button>
@@ -30,7 +35,8 @@
         <div class="options" v-if="!searchResult">
             <button
                 v-if="!searchResult"
-                class="game-drag-handle accent small hollow"
+                class="game-drag-handle small hollow"
+                :class="{ accent: !settings.nightMode }"
                 title="Drag game"
             >
                 <i class="fas fa-hand-rock" />
@@ -40,7 +46,8 @@
                 v-if="list.games.includes(gameId)"
                 @click="removeGame"
                 title="Delete game"
-                class="accent small hollow"
+                class="small"
+                :class="{ accent: !settings.nightMode }"
             >
                 <i class="fas fa-trash" />
             </button>
