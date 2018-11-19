@@ -74,10 +74,6 @@ export default {
     computed: {
         ...mapState(['user', 'platform', 'settings']),
 
-        routeName() {
-            return this.$route.name;
-        },
-
         platformLogo() {
             return this.platform.useAlt
                 ? `/static/img/platforms/${this.platform.code}-alt.svg`
@@ -185,6 +181,15 @@ export default {
             justify-content: center;
             align-items: center;
             display: flex;
+        }
+    }
+
+    .bm-overlay {
+        nav > div {
+            background: #0008;
+            position: fixed;
+            width: 100%;
+            height: 100%;
         }
     }
 </style>

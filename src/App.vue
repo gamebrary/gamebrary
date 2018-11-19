@@ -110,12 +110,6 @@ export default {
         background: $color-dark-gray;
         margin: 0;
         font-size: 14px;
-
-        &.bm-overlay {
-            main {
-                opacity: 0.6;
-            }
-        }
     }
 
     #app {
