@@ -1,17 +1,17 @@
 <template lang="html">
     <nav :class="{ dark: settings && settings.nightMode }">
         <slide width="300">
-            <div class="profile">
-                <gravatar :email="user.email" />
+            <main>
+                <section class="profile">
+                    <gravatar :email="user.email" />
 
-                <div class="info">
-                    <strong>{{ user.displayName }}</strong>
-                    {{ user.email }}
-                </div>
-            </div>
+                    <div class="info">
+                        <strong>{{ user.displayName }}</strong>
+                        {{ user.email }}
+                    </div>
+                </section>
 
-            <div class="actions">
-                <section>
+                <section class="actions">
                     <router-link :to="{ name: 'home' }">
                         <i class="fas fa-home" />
                         Home
@@ -26,9 +26,7 @@
                         <i class="fas fa-cog" />
                         Settings
                     </router-link>
-                </section>
 
-                <section>
                     <a href="https://www.paypal.me/RomanCervantes/5" target="_blank">
                         <i class="fas fa-donate" />
                         Donate
@@ -43,17 +41,15 @@
                         <i class="fas fa-comments" />
                         Submit feedback
                     </a>
-                </section>
 
-                <section>
                     <a @click="signOut">
                         <i class="fas fa-sign-out-alt" />
                         Sign out
                     </a>
-                </section>
-            </div>
 
-            <p>&copy; 2018 Gamebrary</p>
+                    <p>&copy; 2018 Gamebrary</p>
+                </section>
+            </main>
         </slide>
 
         <router-link tag="button" class="logo" :to="{ name: 'home' }">
@@ -127,17 +123,8 @@ export default {
             color: $color-gray !important;
 
             .actions {
-                section {
-                    border-bottom: 1px solid $color-dark-gray;
-                }
-
                 a {
                     color: $color-gray;
-                }
-
-                i, img {
-                    // background: $color-dark-gray;
-                    // border: 2px solid $color-gray;
                 }
             }
 
@@ -154,7 +141,6 @@ export default {
     .profile {
         display: flex;
         align-items: center;
-        background: $color-white;
 
         .info {
             display: flex;
@@ -177,15 +163,11 @@ export default {
         }
     }
 
-    .actions {
+    main {
+        height: 100vh;
+        border-right: 2px solid $color-light-gray;
         display: flex;
         flex-direction: column;
-
-        section {
-            width: 100%;
-            border-bottom: 1px solid $color-light-gray;
-            margin-bottom: $gp;
-        }
 
         a {
             color: $color-dark-gray;
