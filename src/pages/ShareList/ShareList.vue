@@ -110,7 +110,7 @@ export default {
                 confirmButtonText: 'Retry',
             }).then(({ value }) => {
                 if (value) {
-                    this.loadGame();
+                    this.load();
                 } else {
                     this.$router.push({ name: 'home' });
                 }
