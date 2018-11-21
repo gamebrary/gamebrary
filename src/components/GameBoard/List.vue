@@ -80,7 +80,7 @@ import GameSearch from '@/components/GameSearch/GameSearch';
 import { mapState } from 'vuex';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
-import toasts from '@/mixins/toasts';
+import { $success, $error } from '@/shared/modals';
 
 const db = firebase.firestore();
 
@@ -95,8 +95,6 @@ export default {
         ListNameEdit,
         draggable,
     },
-
-    mixins: [toasts],
 
     props: {
         name: String,
@@ -161,10 +159,10 @@ export default {
         updateLists() {
             db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
                 .then(() => {
-                    this.$success('List saved');
+                    $success('List saved');
                 })
                 .catch(() => {
-                    this.$error('Authentication error');
+                    $error('Authentication error');
                 });
         },
 

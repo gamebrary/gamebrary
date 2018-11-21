@@ -62,6 +62,7 @@
 import Gravatar from 'vue-gravatar';
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import { swal, $error } from '@/shared/modals';
 import { Slide } from 'vue-burger-menu';
 import { mapState } from 'vuex';
 
@@ -89,8 +90,18 @@ export default {
                     this.$router.push({ name: 'home' });
                 })
                 .catch((error) => {
-                    this.$error(error);
+                    $error(error);
                 });
+        },
+
+        showShareModal() {
+            swal({
+                titleText: 'Share your list',
+                html: 'Use the following URL to share this list.',
+                input: 'url',
+                inputValue: this.shareUrl,
+                showConfirmButton: false,
+            });
         },
     },
 };
@@ -191,5 +202,11 @@ export default {
             width: 100%;
             height: 100%;
         }
+    }
+</style>
+
+<style lang="scss" rel="stylesheet/scss">
+    .swal2-input {
+        font-size: 10px !important;
     }
 </style>

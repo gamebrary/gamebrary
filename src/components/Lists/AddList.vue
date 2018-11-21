@@ -39,6 +39,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import { swal } from '@/shared/modals';
 import Panel from '@/components/Panel/Panel';
 
 export default {
@@ -108,7 +109,7 @@ export default {
             this.$emit('scroll');
             this.reset();
 
-            this.$swal({
+            swal({
                 position: 'bottom-end',
                 title: 'List added',
                 type: 'success',

@@ -73,7 +73,7 @@ import 'firebase/firestore';
 import 'firebase/auth';
 import Gravatar from 'vue-gravatar';
 import Panel from '@/components/Panel/Panel';
-import toasts from '@/mixins/toasts';
+import { $success, $error, swal } from '@/shared/modals';
 import moment from 'moment';
 
 const db = firebase.firestore();
@@ -87,8 +87,6 @@ export default {
         Panel,
         Gravatar,
     },
-
-    mixins: [toasts],
 
     data() {
         return {
@@ -135,7 +133,7 @@ export default {
         },
 
         promptDelete() {
-            this.$swal({
+            swal({
                 title: 'Are you sure?',
                 text: 'Your account data will be deleted forever.',
                 type: 'warning',
@@ -155,20 +153,20 @@ export default {
             // TODO: use async/await
             db.collection('settings').doc(this.user.uid).delete()
                 .then(() => {
-                    this.$success('Settings deleted');
+                    $success('Settings deleted');
 
                     db.collection('lists').doc(this.user.uid).delete()
                         .then(() => {
-                            this.$success('Game lists deleted');
-                            this.$success('Account deleted');
+                            $success('Game lists deleted');
+                            $success('Account deleted');
                             this.logout();
                         })
                         .catch(() => {
-                            this.$error('Authentication error');
+                            $error('Authentication error');
                         });
                 })
                 .catch(() => {
-                    this.$error('Authentication error');
+                    $error('Authentication error');
                 });
         },
 
@@ -178,10 +176,10 @@ export default {
                 db.collection('settings').doc(this.user.uid).set(this.localSettings, { merge: true })
                     .then(() => {
                         this.$store.commit('SET_SETTINGS', this.localSettings);
-                        this.$success('Settings saved');
+                        $success('Settings saved');
                     })
                     .catch(() => {
-                        this.$error('There was an error saving your settings');
+                        $error('There was an error saving your settings');
                     });
             }, 500),
     },

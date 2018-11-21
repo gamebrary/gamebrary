@@ -8616,9 +8616,9 @@ sw-toolbox@^3.4.0:
     path-to-regexp "^1.0.1"
     serviceworker-cache-polyfill "^4.0.0"
 
-sweetalert2@7.x:
-  version "7.28.5"
-  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-7.28.5.tgz#74a32385d635aa98ba0e475b32df8bd2ba80d622"
+sweetalert2@^7.29.1:
+  version "7.29.1"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-7.29.1.tgz#506d2d5c4a862c8469f67384d374432a03c49005"
 
 table@4.0.2:
   version "4.0.2"
@@ -9253,12 +9253,6 @@ vue-style-loader@^3.0.0, vue-style-loader@^3.0.1:
   dependencies:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
-
-vue-sweetalert2@^1.5.3:
-  version "1.5.5"
-  resolved "https://registry.yarnpkg.com/vue-sweetalert2/-/vue-sweetalert2-1.5.5.tgz#7a13263a01fc0ba6b42a906057001e817755837b"
-  dependencies:
-    sweetalert2 "7.x"
 
 vue-template-compiler@^2.5.2:
   version "2.5.17"

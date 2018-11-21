@@ -4,7 +4,7 @@
         ref="lists"
         @dragscrollstart="dragScrollActive = true"
         @dragscrollend="dragScrollActive = false"
-        :class="{ dark: settings.nightMode, 'drag-scroll-active': dragScrollActive }"
+        :class="{ dark: settings && settings.nightMode, 'drag-scroll-active': dragScrollActive }"
         v-dragscroll:nochilddrag
     >
         <template v-if="loading">
@@ -34,7 +34,7 @@
 <script>
 import { dragscroll } from 'vue-dragscroll';
 import AddList from '@/components/Lists/AddList';
-import toasts from '@/mixins/toasts';
+import { $success, $error, swal } from '@/shared/modals';
 import List from '@/components/GameBoard/List';
 import draggable from 'vuedraggable';
 import { mapState } from 'vuex';
@@ -57,8 +57,6 @@ export default {
     directives: {
         dragscroll,
     },
-
-    mixins: [toasts],
 
     data() {
         return {
@@ -112,7 +110,7 @@ export default {
                 this.showDeleteConfirm = true;
                 this.activeList = index;
 
-                this.$swal({
+                swal({
                     title: 'Are you sure?',
                     text: 'This lists contains games, all games will be deleted as well.',
                     showCancelButton: true,
@@ -133,7 +131,7 @@ export default {
         deleteList(index) {
             this.$store.commit('REMOVE_LIST', index);
             this.updateLists();
-            this.$success('List deleted');
+            $success('List deleted');
         },
 
         dragEnd() {
@@ -145,33 +143,23 @@ export default {
         updateLists() {
             db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
                 .then(() => {
-                    this.$success('List saved');
+                    $success('List saved');
                 })
                 .catch(() => {
-                    this.$error('Authentication error');
+                    $error('Authentication error');
                 });
         },
 
         loadGameData() {
-            const gameList = [];
-
             if (this.list) {
-                this.list.forEach((list) => {
-                    if (list && list.games.length) {
-                        list.games.forEach((id) => {
-                            if (!gameList.includes(id)) {
-                                gameList.push(id);
-                            }
-                        });
-                    }
-                });
+                const gameList = this.list.map(({ games }) => games).join().replace(/(^,)|(,$)/g, '');
 
                 if (gameList.length > 0) {
                     this.loading = true;
 
                     this.$store.dispatch('LOAD_GAMES', gameList)
                         .catch(() => {
-                            this.$swal({
+                            swal({
                                 title: 'Uh no!',
                                 text: 'There was an error loading your game data',
                                 type: 'error',

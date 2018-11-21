@@ -62,7 +62,7 @@
 <script>
 import GameRating from '@/components/GameDetail/GameRating';
 import { mapState } from 'vuex';
-import toasts from '@/mixins/toasts';
+import { $success, $error } from '@/shared/modals';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
@@ -76,8 +76,6 @@ export default {
     components: {
         GameRating,
     },
-
-    mixins: [toasts],
 
     props: {
         gameId: Number,
@@ -128,10 +126,10 @@ export default {
 
             db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
                 .then(() => {
-                    this.$success('List saved');
+                    $success('List saved');
                 })
                 .catch(() => {
-                    this.$error('Authentication error');
+                    $error('Authentication error');
                 });
         },
 
@@ -145,10 +143,10 @@ export default {
 
             db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
                 .then(() => {
-                    this.$success('List saved');
+                    $success('List saved');
                 })
                 .catch(() => {
-                    this.$error('Authentication error');
+                    $error('Authentication error');
                 });
         },
     },
@@ -157,7 +155,6 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles.scss";
-    @import "~styles/game-board.scss";
 
     .game-card {
         background-color: $color-white;

@@ -46,6 +46,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import { swal } from '@/shared/modals';
 import GameHeader from '@/components/GameDetail/GameHeader';
 import GameScreenshots from '@/components/GameDetail/GameScreenshots';
 import GameVideos from '@/components/GameDetail/GameVideos';
@@ -93,7 +94,7 @@ export default {
                     document.title = `${this.game.name} (${this.platform.name}) - Gamebrary`;
                 })
                 .catch(() => {
-                    this.$swal({
+                    swal({
                         title: 'Uh no!',
                         text: 'There was an error loading game details',
                         type: 'error',

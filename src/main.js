@@ -5,7 +5,6 @@ import VueContentPlaceholders from 'vue-content-placeholders';
 import VueDragscroll from 'vue-dragscroll';
 import VueFire from 'vuefire';
 import VueI18n from 'vue-i18n';
-import VueSweetalert2 from 'vue-sweetalert2';
 import axios from 'axios';
 import VueAnalytics from 'vue-analytics';
 import Raven from 'raven-js';
@@ -42,7 +41,6 @@ Vue.use(VueContentPlaceholders);
 Vue.use(VueDragscroll);
 Vue.use(VueFire);
 Vue.use(VueI18n);
-Vue.use(VueSweetalert2);
 
 if (process.env.NODE_ENV !== 'development') {
     Raven
