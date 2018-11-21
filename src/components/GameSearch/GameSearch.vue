@@ -1,6 +1,13 @@
 <template lang="html">
     <form @submit.prevent="search" class="game-search">
-        <input ref="searchInput" type="text" v-model="searchText" placeholder="Type here">
+        <h4><i class="fas fa-search" /> Add game</h4>
+
+        <input
+            ref="searchInput"
+            type="text"
+            v-model="searchText"
+            placeholder="Type here"
+        />
 
         <div class="search-results" v-if="filteredResults.length > 0">
             <game-card
@@ -98,6 +105,10 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles.scss";
+
+    h4 {
+        margin: 0 0 $gp / 2;
+    }
 
     .game-search {
         background: $color-light-gray;
