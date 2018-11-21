@@ -21,6 +21,7 @@
                     :key="game"
                 >
                     <img
+                        v-if="publicGameData[game].cover && publicGameData[game].cover.cloudinary_id"
                         height="30"
                         :src="`https://images.igdb.com/igdb/image/upload/t_cover_small/${publicGameData[game].cover.cloudinary_id}.jpg`"
                     />
