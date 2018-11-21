@@ -12,12 +12,9 @@ Vue.use(Router);
 export default new Router({
     routes: [
         {
-            path: '/share/:id',
-            name: 'share',
+            path: '/s/:userId/:listName',
+            name: 'shareList',
             component: ShareList,
-            meta: {
-                title: 'Public list',
-            },
         },
         {
             name: 'game-detail',

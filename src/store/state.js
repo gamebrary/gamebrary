@@ -7,5 +7,6 @@ export default {
     platform: null,
     results: null,
     games: {},
+    publicGameData: {},
     game: null,
 };

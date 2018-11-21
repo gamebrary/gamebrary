@@ -117,4 +117,10 @@ export default {
             Vue.set(state.games, game.id, { ...game });
         });
     },
+
+    SET_PUBLIC_GAME_DATA(state, data) {
+        data.forEach((game) => {
+            Vue.set(state.publicGameData, game.id, { ...game });
+        });
+    },
 };

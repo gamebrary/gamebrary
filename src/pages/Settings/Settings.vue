@@ -1,14 +1,7 @@
 <template lang="html">
-    <div class="settings" v-if="user" :class="{ dark: settings.nightMode }">
+    <div class="settings" v-if="user" :class="{ dark: settings && settings.nightMode }">
         <section>
             <h4>Settings</h4>
-        </section>
-
-        <section>
-            <i class="fas fa-share-alt" />
-            <h5>Share link</h5>
-
-            <input class="share-link value" type="text" v-model="shareUrl" readonly />
         </section>
 
         <section>
@@ -99,15 +92,6 @@ export default {
 
         dateJoined() {
             return moment(this.user.dateJoined).format('LL');
-        },
-
-        shareUrl() {
-            const url = process.env.NODE_ENV === 'development'
-                ? 'http://localhost:3000'
-                : 'https://gamebrary.com';
-
-            // eslint-disable-next-line
-            return `${url}/#/share/${this.user.uid}`;
         },
     },
 

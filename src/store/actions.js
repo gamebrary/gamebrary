@@ -5,9 +5,19 @@ const FIREBASE_URL = 'https://us-central1-gamebrary-8c736.cloudfunctions.net';
 export default {
     LOAD_GAMES({ commit }, gameList) {
         return new Promise((resolve, reject) => {
-            axios.get(`${FIREBASE_URL}/games?games=${gameList.join(',')}`)
+            axios.get(`${FIREBASE_URL}/games?games=${gameList}`)
                 .then(({ data }) => {
                     commit('CACHE_GAME_DATA', data);
+                    resolve();
+                }).catch(reject);
+        });
+    },
+
+    LOAD_PUBLIC_GAMES({ commit }, gameList) {
+        return new Promise((resolve, reject) => {
+            axios.get(`${FIREBASE_URL}/games?games=${gameList}`)
+                .then(({ data }) => {
+                    commit('SET_PUBLIC_GAME_DATA', data);
                     resolve();
                 }).catch(reject);
         });

@@ -1,5 +1,22 @@
 <template lang="html">
     <nav :class="{ dark: settings && settings.nightMode }">
+        <router-link
+            tag="button"
+            class="logo"
+            :to="{ name: isHome ? 'platforms' : 'home' }"
+        >
+            GAMEBRARY
+        </router-link>
+
+        <button
+            @click="showShareModal"
+            v-if="showShareUrl"
+            class="small share accent"
+        >
+            <i class="fas fa-share-alt" />
+            Share
+        </button>
+
         <slide width="300">
             <main>
                 <section class="profile">
@@ -51,10 +68,6 @@
                 </section>
             </main>
         </slide>
-
-        <router-link tag="button" class="logo" :to="{ name: 'home' }">
-            GAMEBRARY
-        </router-link>
     </nav>
 </template>
 
@@ -79,6 +92,23 @@ export default {
             return this.platform.useAlt
                 ? `/static/img/platforms/${this.platform.code}-alt.svg`
                 : `/static/img/platforms/${this.platform.code}.svg`;
+        },
+
+        isHome() {
+            return this.$route.name === 'home';
+        },
+
+        showShareUrl() {
+            return this.$route.name === 'home' && this.platform;
+        },
+
+        shareUrl() {
+            const url = process.env.NODE_ENV === 'development'
+                ? 'http://localhost:3000'
+                : 'https://gamebrary.com';
+
+            // eslint-disable-next-line
+            return `${url}/#/s/${this.user.uid}/${this.platform.code}`;
         },
     },
 
@@ -123,6 +153,12 @@ export default {
         .logo {
             height: $navHeight;
             font-weight: bold;
+        }
+
+        .share {
+            position: fixed;
+            top: $gp / 2;
+            right: $gp / 2;
         }
 
         &.dark {

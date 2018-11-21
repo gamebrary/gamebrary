@@ -1,8 +1,8 @@
 <template>
     <div id="app">
-        <nav-header v-if="user" />
+        <nav-header v-if="user && !isPublic" />
 
-        <main :class="{ 'logged-in': user }">
+        <main :class="{ 'logged-in': user && !isPublic }">
             <router-view />
         </main>
     </div>
@@ -11,6 +11,7 @@
 <script>
 import NavHeader from '@/components/NavHeader/NavHeader';
 import firebase from 'firebase/app';
+import { $error } from '@/shared/modals';
 import 'firebase/auth';
 import 'firebase/firestore';
 import { mapState } from 'vuex';
@@ -39,6 +40,10 @@ export default {
 
     computed: {
         ...mapState(['user']),
+
+        isPublic() {
+            return this.$route.name === 'shareList';
+        },
     },
 
     mounted() {
@@ -67,7 +72,7 @@ export default {
                     this.initSettings();
                 }
             }).catch(() => {
-                this.$error('Authentication error');
+                $error('Authentication error');
             });
         },
 
@@ -75,13 +80,14 @@ export default {
             db.collection('lists').doc(this.user.uid).get()
                 .then((doc) => {
                     if (doc.exists) {
-                        this.$store.commit('SET_GAME_LISTS', doc.data());
+                        const data = doc.data();
+                        this.$store.commit('SET_GAME_LISTS', data);
                     } else {
                         this.initList();
                     }
                 })
                 .catch(() => {
-                    this.$error('Authentication error');
+                    $error('Authentication error');
                 });
         },
 
