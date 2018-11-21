@@ -9,7 +9,7 @@
             v-else
             :to="{ name: 'game-detail', params: { id: this.game.id, slug: this.game.slug } }"
         >
-            <img :src="coverUrl" width="80" />
+            <img :src="coverUrl" />
         </router-link>
 
         <div class="game-info">
@@ -23,8 +23,7 @@
 
             <button
                 v-if="searchResult"
-                class="primary small hollow"
-                :class="{ accent: !settings.nightMode }"
+                class="primary small"
                 @click="addGame"
             >
                 <i class="fas fa-plus" />
@@ -160,8 +159,14 @@ export default {
         background-color: $color-white;
         margin-bottom: $gp / 2;
         position: relative;
-        display: grid;
-        grid-template-columns: 80px auto 40px;
+        display: flex;
+        align-items: center;
+
+        img {
+            width: 80px;
+            height: auto;
+            display: flex;
+        }
 
         &.dark {
             background: $color-gray;
@@ -178,7 +183,10 @@ export default {
             .game-info { padding: $gp / 2; }
         }
 
-        .game-info { padding: $gp / 2 $gp; }
+        .game-info {
+            padding: $gp / 2 $gp;
+            width: calc(100% - 120px);
+        }
         .game-title { margin: 0; }
 
         &:hover {
@@ -192,9 +200,10 @@ export default {
         .options {
             opacity: 0;
             transition: all 300ms ease;
-            max-height: 0;
             overflow: hidden;
+            margin-left: auto;
             display: inline-flex;
+            align-self: flex-start;
             align-items: center;
             flex-direction: column;
             transition: all 300ms ease;
