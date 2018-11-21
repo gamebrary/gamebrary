@@ -164,9 +164,9 @@ export default {
 
         .games {
             height: 100%;
-            overflow: hidden;
+            overflow-x: hidden;
             min-height: 60px;
-            max-height: 100%;
+            max-height: calc(100vh - 78px);
             overflow-y: auto;
             overflow-y: overlay;
             column-gap: $gp;
