@@ -50,7 +50,7 @@
         </section>
 
         <section>
-            <button @click="promptDelete" class="error small">
+            <button @click="promptDelete" class="error hollow small">
                 <i class="fas fa-exclamation-triangle" />
                 Delete Account
             </button>

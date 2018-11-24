@@ -22,7 +22,7 @@
                 </button>
 
                 <button
-                    class="small info"
+                    class="small info hollow"
                     type="button"
                     @click="reset"
                 >
@@ -31,7 +31,7 @@
             </div>
         </form>
 
-        <button class="add small info hollow" @click="toggleAddList" v-else>
+        <button class="add small info" @click="toggleAddList" v-else>
             <i class="fas fa-plus" />
         </button>
     </div>
