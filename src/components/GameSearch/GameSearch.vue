@@ -29,7 +29,7 @@
                 back
             </button>
 
-            <button class="small info hollow back" @click="back">
+            <button class="small info hollow back" @click="clear" v-if="filteredResults.length > 0">
                 <i class="fas fa-broom" />
                 clear
             </button>
@@ -78,7 +78,9 @@ export default {
         },
 
         filteredResults() {
-            return this.results.filter(({ id }) => !this.list[this.listId].games.includes(id));
+            return this.results
+                ? this.results.filter(({ id }) => !this.list[this.listId].games.includes(id))
+                : [];
         },
     },
 
@@ -91,10 +93,17 @@ export default {
     },
 
     mounted() {
-        this.$refs.searchInput.focus();
+        if (this.$refs.searchInput) {
+            this.$refs.searchInput.focus();
+        }
     },
 
     methods: {
+        clear() {
+            this.searchText = null;
+            this.$store.commit('CLEAR_SEARCH_RESULTS');
+        },
+
         back() {
             this.$store.commit('SET_ACTIVE_LIST', null);
         },
