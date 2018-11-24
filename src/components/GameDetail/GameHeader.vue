@@ -1,5 +1,5 @@
 <template lang="html">
-    <div :class="['game-header', { dark: settings.nightMode}]" :style="style" >
+    <div :class="['game-header', { dark: settings && settings.nightMode}]">
         <img :src="coverUrl" :alt="game.name" class="game-cover" />
 
         <div class="game-rating" v-if="hasRatings">
@@ -70,42 +70,41 @@ export default {
     .game-header {
         display: flex;
         min-height: 20vh;
-        background-color: $color-light-gray;
         width: 100%;
         position: relative;
         align-items: center;
+        display: flex;
+        flex-direction: column;
+        margin-top: $gp;
 
         &.dark {
             background-color: $color-dark-gray;
         }
 
         .game-cover {
-            margin: $gp;
             border: 5px solid $color-white;
             background-size: contain;
-            min-width: 150px;
-            width: auto;
-            height: 200px;
+            width: 100%;
+            height: auto;
 
             @media($small) {
                 border: 3px solid $color-white;
-                height: 140px;
+                height: auto;
+                width: auto;
                 min-width: auto;
+                max-width: 100%;
             }
         }
 
         .game-rating {
-            position: absolute;
-            top: $gp;
-            right: $gp;
+            margin-top: $gp;
 
             img {
                 height: 60px;
                 margin-left: $gp;
 
                 @media($small) {
-                    margin-left: 0;
-                    height: 50px;
+                    display: none;
                 }
             }
         }

@@ -1,6 +1,6 @@
 <!-- eslint-disable -->
 <template lang="html">
-    <div :class="['game-rating', ratingClass, { 'small': small, dark: settings.nightMode }]">
+    <div :class="['game-rating', ratingClass, { 'small': small, dark: settings && settings.nightMode }]">
         <span class="rating">
             {{ formattedRating }}
         </span>
@@ -53,6 +53,7 @@ export default {
     position: relative;
 
     &.small {
+        margin-top: $gp / 2;
         width: 34px;
         height: 39px;
 
