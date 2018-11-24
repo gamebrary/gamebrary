@@ -218,8 +218,4 @@ export default {
     .list-placeholder {
         opacity: 0.25;
     }
-
-    .card-placeholder {
-        opacity: 0.25;
-    }
 </style>

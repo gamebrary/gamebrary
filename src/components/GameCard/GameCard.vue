@@ -1,25 +1,10 @@
 <template lang="html">
-    <div
-        v-if="gameId && games[gameId]"
-        :class="['game-card', { 'search-result': searchResult, dark: settings.nightMode }]"
-    >
-        <img :src="coverUrl" v-if="searchResult" width="50" />
-
-        <router-link
-            v-else
-            :to="{ name: 'game-detail', params: { id: this.game.id, slug: this.game.slug } }"
-        >
-            <img :src="coverUrl" />
-        </router-link>
+    <div v-if="gameId && games[gameId]" :class="gameCardClass">
+        <router-link tag="img" :to="gameRoute" :src="coverUrl" />
 
         <div class="game-info">
-            <h4 class="game-title">{{ game.name }}</h4>
-
-            <game-rating
-                v-if="settings && settings.showGameRatings && !searchResult"
-                small
-                :rating="game.rating"
-            />
+            <h4 v-text="game.name" />
+            <game-rating v-if="showGameRating" small :rating="game.rating" />
 
             <button
                 v-if="searchResult"
@@ -27,15 +12,13 @@
                 @click="addGame"
             >
                 <i class="fas fa-plus" />
-                Add to list
             </button>
         </div>
 
-        <div class="options" v-if="!searchResult">
+        <div class="game-card-options" v-if="!searchResult">
             <button
                 v-if="!searchResult"
-                class="game-drag-handle small hollow"
-                :class="{ accent: !settings.nightMode }"
+                class="game-drag-handle info small hollow"
                 title="Drag game"
             >
                 <i class="fas fa-hand-rock" />
@@ -45,7 +28,7 @@
                 v-if="list.games.includes(gameId)"
                 @click="removeGame"
                 title="Delete game"
-                class="small"
+                class="small error hollow"
                 :class="{ accent: !settings.nightMode }"
             >
                 <i class="fas fa-trash" />
@@ -85,6 +68,20 @@ export default {
     computed: {
         ...mapState(['settings', 'games', 'gameLists', 'platform', 'user']),
 
+        showGameRating() {
+            return this.settings && this.settings.showGameRatings && !this.searchResult;
+        },
+
+        gameCardClass() {
+            return [
+                'game-card',
+                {
+                    'search-result': this.searchResult,
+                    dark: this.settings && this.settings.nightMode,
+                },
+            ];
+        },
+
         activePlatform() {
             return this.gameLists[this.platform.code];
         },
@@ -103,6 +100,15 @@ export default {
             return this.games && this.games[this.gameId].cover
                 ? `${url}${this.games[this.gameId].cover.cloudinary_id}.jpg`
                 : '/static/no-image.jpg';
+        },
+
+        gameRoute() {
+            const { id, slug } = this.game;
+
+            return {
+                name: 'game-detail',
+                params: { id, slug },
+            };
         },
     },
 
@@ -155,17 +161,23 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles.scss";
 
+    $gameCoverWidth: 80px;
+
     .game-card {
         background-color: $color-white;
-        margin-bottom: $gp / 2;
+        margin-top: $gp / 2;
         position: relative;
         display: flex;
         align-items: center;
 
-        img {
-            width: 80px;
-            height: auto;
-            display: flex;
+        &.card-placeholder {
+            background: $color-light-gray;
+            outline: 1px dashed $color-gray;
+            opacity: 0.6;
+
+            .game-card-options {
+                display: none;
+            }
         }
 
         &.dark {
@@ -176,37 +188,40 @@ export default {
             }
         }
 
-        &.search-result {
-            grid-template-columns: 50px auto 0;
-
-            .game-title { margin-bottom: $gp / 2; }
-            .game-info { padding: $gp / 2; }
-        }
-
-        .game-info {
-            padding: $gp / 2 $gp;
-            width: calc(100% - 120px);
-        }
-        .game-title { margin: 0; }
-
         &:hover {
-            .options {
-                transition: all 300ms ease;
-                max-height: 100px;
+            .game-card-options {
+                transition: opacity 300ms ease;
                 opacity: 1;
             }
         }
 
-        .options {
+        img {
+            width: $gameCoverWidth;
+            height: auto;
+            display: flex;
+            cursor: pointer;
+        }
+
+        .game-info {
+            padding: $gp / 2 $gp;
+            width: calc(100% - 116px);
+
+            h4 {
+                margin: 0;
+            }
+        }
+
+        .game-card-options {
+            position: absolute;
             opacity: 0;
-            transition: all 300ms ease;
-            overflow: hidden;
-            margin-left: auto;
-            display: inline-flex;
-            align-self: flex-start;
-            align-items: center;
-            flex-direction: column;
-            transition: all 300ms ease;
+            top: 0;
+            right: 0;
+            transition: opacity 300ms ease;
+            width: $iconSmallSize + $gp / 4;
+
+            button {
+                margin-top: $gp / 4;
+            }
 
             .game-drag-handle {
                 @include drag-cursor;

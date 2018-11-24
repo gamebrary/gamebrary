@@ -1,17 +1,19 @@
 <template lang="html">
     <!-- eslint-disable -->
-    <div class="game-detail" v-if="game" :class="{ dark: settings.nightMode }">
-        <main>
-            <game-header />
+    <div class="game-detail" v-if="game" :class="{ dark: settings && settings.nightMode }">
+        <div class="game-hero" :style="style" />
 
+        <main>
             <div class="game-info">
+                <game-header />
+
                 <div>
                     <h2>{{ game.name }}</h2>
                     <p class="game-description" v-html="game.summary" />
                 </div>
 
-                <game-review-box />
             </div>
+            <game-review-box />
 
             <game-screenshots />
             <game-videos />
@@ -62,6 +64,12 @@ export default {
 
     computed: {
         ...mapState(['game', 'settings', 'platform']),
+
+        style() {
+            return this.game && this.game.screenshots
+                ? `background: url(${this.getImageUrl(this.game.screenshots[0].cloudinary_id)}) center center no-repeat; background-size: cover;`
+                : '';
+        },
     },
 
     mounted() {
@@ -77,6 +85,12 @@ export default {
     },
 
     methods: {
+        getImageUrl(cloudinaryId) {
+            return cloudinaryId
+                ? `https://images.igdb.com/igdb/image/upload/t_screenshot_huge/${cloudinaryId}.jpg`
+                : null;
+        },
+
         goHome() {
             this.$router.push({ name: 'home' });
         },
@@ -119,11 +133,8 @@ export default {
 
     .game-detail {
         display: flex;
-        margin: 0 $gp;
-
-        @media($small) {
-            margin: 0;
-        }
+        background: $color-light-gray;
+        min-height: calc(100vh - #{$navHeight});
 
         &.dark {
             main {
@@ -133,15 +144,29 @@ export default {
         }
     }
 
+    .game-hero {
+        background-color: $color-dark-gray;
+        position: absolute;
+        width: 100%;
+        left: 0;
+        height: 400px;
+        z-index: 1;
+    }
+
     .game-info {
         display: grid;
-        grid-template-columns: 3fr 2fr;
+        grid-template-columns: 180px auto;
         grid-gap: $gp * 2;
         margin: 0 $gp;
 
         @media($small) {
-            grid-gap: $gp;
+            grid-gap: 0;
             grid-template-columns: 1fr;
+            text-align: center;
+
+            .game-description {
+                text-align: justify;
+            }
         }
 
         .game-description {
@@ -150,10 +175,13 @@ export default {
     }
 
     main {
-        background-color: $color-white;
+        background-color: rgba(255, 255, 255, 0.95);
+        -webkit-box-shadow: 0 0 2px 0 $color-gray;
+        box-shadow: 0 0 2px 0 $color-gray;
         width: $container-width;
         max-width: 100%;
-        margin: $gp auto;
+        z-index: 1;
+        margin: 100px auto $gp;
         border-radius: $border-radius;
         overflow: hidden;
 

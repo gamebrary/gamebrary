@@ -10,8 +10,9 @@
             @keyup.esc="save"
         >
 
-        <span v-else @click="edit">
-            {{ listName }} ({{ gameCount }})
+        <span class="not-editing" v-else @click="edit">
+            <span>{{ listName }} ({{ gameCount }})</span>
+            <i class="fas fa-pen" />
         </span>
     </div>
 </template>
@@ -78,5 +79,12 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     .list-name {
         cursor: pointer;
+        width: 100%;
+
+        .not-editing {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
     }
 </style>

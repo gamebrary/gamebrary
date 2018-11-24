@@ -1,12 +1,11 @@
 <template lang="html">
-    <section class="game-screenshots" v-if="game.screenshots" :class="{ dark: settings.nightMode }">
+    <section
+        v-if="game.screenshots"
+        :class="['game-screenshots', { dark: settings && settings.nightMode }]"
+    >
         <h3>Screenshots</h3>
 
-        <vue-gallery
-            :images="screenshots"
-            :index="index"
-            @close="close"
-        />
+        <vue-gallery :images="screenshots" :index="index" @close="close" />
 
         <img
             v-for="(image, index) in thumbnails"
@@ -37,12 +36,16 @@ export default {
 
         screenshots() {
             // eslint-disable-next-line
-            return this.game.screenshots ? this.game.screenshots.map((image, index) => {
-                return {
-                    href: `https://images.igdb.com/igdb/image/upload/t_screenshot_huge/${image.cloudinary_id}.jpg`,
-                    title: `${this.game.name} - Screenshot ${index + 1} of ${this.game.screenshots.length}`,
-                };
-            }) : null;
+            return this.game.screenshots
+                ? this.game.screenshots.map((image, index) => {
+                    const url = 'https://images.igdb.com/igdb/image/upload/t_screenshot_huge/';
+
+                    return {
+                        href: `${url}${image.cloudinary_id}.jpg`,
+                        title: `${this.game.name} - Screenshot ${index + 1} of ${this.game.screenshots.length}`,
+                    };
+                })
+                : null;
         },
 
         thumbnails() {

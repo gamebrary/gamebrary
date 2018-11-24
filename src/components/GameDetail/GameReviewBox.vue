@@ -69,14 +69,13 @@ export default {
 
 .review-box {
     display: grid;
+    width: 500px;
+    max-width: 100%;
+    margin: 0 auto;
     grid-template-columns: 100px auto;
     grid-gap: $gp;
-    padding: $gp 0;
+    padding: $gp;
     align-items: center;
-
-    @media($small) {
-        padding: 0;
-    }
 
     strong {
         color: $color-red;

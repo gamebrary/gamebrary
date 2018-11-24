@@ -1,6 +1,9 @@
 <template lang="html">
     <form @submit.prevent="search" class="game-search">
-        <h4><i class="fas fa-search" /> Add game</h4>
+        <h4>
+            <i class="fas fa-search" />
+            Add game
+        </h4>
 
         <input
             ref="searchInput"
@@ -18,6 +21,18 @@
                 @added="added"
                 search-result
             />
+        </div>
+
+        <div class="search-actions">
+            <button class="small info back" @click="back">
+                <i class="fas fa-caret-left" />
+                back
+            </button>
+
+            <button class="small info hollow back" @click="back">
+                <i class="fas fa-broom" />
+                clear
+            </button>
         </div>
 
         <div v-if="loaded && filteredResults.length === 0">
@@ -80,6 +95,10 @@ export default {
     },
 
     methods: {
+        back() {
+            this.$store.commit('SET_ACTIVE_LIST', null);
+        },
+
         added() {
             this.$emit('added');
         },
@@ -107,19 +126,28 @@ export default {
     @import "~styles/styles.scss";
 
     h4 {
-        margin: 0 0 $gp / 2;
+        margin: $gp / 2 0;
     }
 
     .game-search {
-        background: $color-light-gray;
-        margin-top: 30px;
+        background: #ccc;
+        margin-top: $list-header-height;
         padding: $gp / 2;
     }
 
+    .search-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
     .search-results {
-        // min-height: 120px;
         overflow: auto;
-        max-height: calc(100vh - 160px);
+        max-height: calc(100vh - 300px);
+    }
+
+    .back {
+        margin-top: $gp / 2;
     }
 
     input {

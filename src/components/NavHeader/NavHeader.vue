@@ -142,7 +142,7 @@ export default {
     nav {
         user-select: none;
         position: fixed;
-        z-index: 1;
+        z-index: 2;
         width: 100vw;
         height: $navHeight;
         display: flex;

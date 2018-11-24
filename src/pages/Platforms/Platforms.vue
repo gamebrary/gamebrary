@@ -18,7 +18,7 @@
             />
         </div>
 
-        <div class="groups">
+        <div :class="['groups', { reverse: showBy === 'generation'}]">
             <div
                 v-for="(group, label) in filteredPlatforms"
                 :key="label"
@@ -139,6 +139,10 @@ export default {
         .groups {
             display: flex;
             flex-direction: column;
+
+            &.reverse {
+                flex-direction: column-reverse;
+            }
         }
 
         .platforms {
