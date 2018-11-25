@@ -31,6 +31,11 @@ button, a.link {
     font-weight: bold;
     transition: background-color 300ms ease;
 
+    &[disabled] {
+        opacity: 0.5;
+        cursor: default;
+    }
+
     &.small {
         height: $iconSmallSize;
         min-width: $iconSmallSize;

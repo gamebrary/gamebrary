@@ -31,24 +31,47 @@
         </draggable>
 
         <footer v-if="!showSearch">
-            <button @click="addGame" class="small info hollow">
-                <i class="fas fa-plus" />
+            <button
+                class="small accent"
+                title="Move list left"
+                :disabled="listIndex === 0"
+                @click="moveList(listIndex, listIndex - 1)"
+            >
+                <i class="fas fa-caret-left" />
+            </button>
 
-                add game
+            <button
+                @click="addGame"
+                class="small info hollow"
+                title="Add game"
+            >
+                <i class="fas fa-plus" />
             </button>
 
             <button
                 v-if="hasGames"
                 class="small info hollow"
+                title="Sort List"
                 @click="sortList"
             >
                 <i class="fas fa-sort-alpha-down" />
-                sort list
             </button>
 
-            <button @click="remove" class="small error hollow">
+            <button
+                class="small error hollow"
+                title="Delete List"
+                @click="remove"
+            >
                 <i class="far fa-trash-alt" />
-                delete
+            </button>
+
+            <button
+                class="small accent"
+                title="Move list right"
+                :disabled="listIndex === (Object.keys(list).length - 1)"
+                @click="moveList(listIndex, listIndex + 1)"
+            >
+                <i class="fas fa-caret-right" />
             </button>
         </footer>
     </div>
@@ -114,6 +137,11 @@ export default {
     },
 
     methods: {
+        moveList(from, to) {
+            this.$store.commit('MOVE_LIST', { from, to });
+            this.updateLists();
+        },
+
         addGame() {
             this.$store.commit('CLEAR_SEARCH_RESULTS');
             this.$store.commit('SET_ACTIVE_LIST', this.listIndex);

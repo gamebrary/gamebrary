@@ -18,12 +18,14 @@ export default {
 
     CLEAR_SESSION(state) {
         state.user = null;
-        state.games = {};
-        state.platform = null;
-        state.gameLists = null;
         state.authorizing = false;
+        state.activeList = null;
+        state.gameLists = null;
         state.settings = null;
+        state.platform = null;
         state.results = null;
+        state.games = {};
+        state.publicGameData = {};
         state.game = null;
     },
 
@@ -81,6 +83,11 @@ export default {
 
     SET_SETTINGS(state, settings) {
         state.settings = settings;
+    },
+
+    MOVE_LIST(state, { from, to }) {
+        const cutOut = state.gameLists[state.platform.code].splice(from, 1)[0];
+        state.gameLists[state.platform.code].splice(to, 0, cutOut);
     },
 
     REMOVE_LIST(state, index) {
