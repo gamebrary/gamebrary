@@ -141,8 +141,6 @@ export default {
     @import "~styles/styles.scss";
     nav {
         user-select: none;
-        position: fixed;
-        z-index: 2;
         width: 100vw;
         height: $navHeight;
         display: flex;
@@ -237,6 +235,7 @@ export default {
             position: fixed;
             width: 100%;
             height: 100%;
+            z-index: 3;
         }
     }
 </style>
