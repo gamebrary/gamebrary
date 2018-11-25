@@ -1,5 +1,7 @@
 <template lang="html">
     <span class="toggle-switch">
+        <p v-if="label">{{ label }}</p>
+
         <input
             type="checkbox"
             :id="id"
@@ -15,6 +17,7 @@ export default {
     props: {
         value: Boolean,
         id: String,
+        label: String,
     },
 
     data() {
@@ -42,6 +45,14 @@ export default {
 
 .toggle-switch {
     display: inline-flex;
+
+    p {
+        margin: 0;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+    }
 
     input[type=checkbox]{
         height: 0;
