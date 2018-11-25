@@ -69,12 +69,10 @@ export default {
 
 .review-box {
     display: grid;
-    width: 500px;
-    max-width: 100%;
     margin: 0 auto;
     grid-template-columns: 100px auto;
     grid-gap: $gp;
-    padding: $gp;
+    padding: $gp 0;
     align-items: center;
 
     strong {

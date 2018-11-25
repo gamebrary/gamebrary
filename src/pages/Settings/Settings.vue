@@ -51,6 +51,7 @@ import 'firebase/firestore';
 import 'firebase/auth';
 import Gravatar from 'vue-gravatar';
 import Panel from '@/components/Panel/Panel';
+import ToggleSwitch from '@/components/ToggleSwitch/ToggleSwitch';
 import { $success, $error, swal } from '@/shared/modals';
 import moment from 'moment';
 
@@ -63,6 +64,7 @@ db.settings({
 export default {
     components: {
         Panel,
+        ToggleSwitch,
         Gravatar,
     },
 
@@ -184,7 +186,7 @@ export default {
                 margin: 0 $gp;
             }
 
-            .value {
+            .toggle-switch {
                 display: flex;
                 margin-left: auto;
             }

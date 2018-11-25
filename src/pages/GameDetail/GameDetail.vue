@@ -3,17 +3,17 @@
     <div class="game-detail" v-if="game" :class="{ dark: settings && settings.nightMode }">
         <div class="game-hero" :style="style" />
 
-        <main>
+        <div class="game-detail-container">
             <div class="game-info">
                 <game-header />
 
                 <div>
                     <h2>{{ game.name }}</h2>
                     <p class="game-description" v-html="game.summary" />
+                    <game-review-box />
                 </div>
 
             </div>
-            <game-review-box />
 
             <game-screenshots />
             <game-videos />
@@ -42,7 +42,7 @@
                         c-2.7,0-5.1,0.8-7,2.3c-2,1.6-3.4,3.9-4.3,6.9v26.8h-4.3V19L317.2,19.1L317.2,19.1z" fill="#01DF6B"></path></g></svg>
                     </a>
             </div>
-        </main>
+        </div>
     </div>
 </template>
 
@@ -133,11 +133,16 @@ export default {
 
     .game-detail {
         display: flex;
+        justify-content: center;
         background: $color-light-gray;
         min-height: calc(100vh - #{$navHeight});
 
+        @media($small) {
+            margin: 0;
+        }
+
         &.dark {
-            main {
+            .game-detail-container {
                 background: #333;
                 color: $color-gray;
             }
@@ -151,6 +156,10 @@ export default {
         left: 0;
         height: 400px;
         z-index: 1;
+
+        @media($small) {
+            background: none !important;
+        }
     }
 
     .game-info {
@@ -174,16 +183,15 @@ export default {
         }
     }
 
-    main {
+    .game-detail-container {
         background-color: rgba(255, 255, 255, 0.95);
         -webkit-box-shadow: 0 0 2px 0 $color-gray;
         box-shadow: 0 0 2px 0 $color-gray;
         width: $container-width;
         max-width: 100%;
         z-index: 1;
-        margin: 100px auto $gp;
+        margin: 100px;
         border-radius: $border-radius;
-        overflow: hidden;
 
         @media($small) {
             margin: 0;
