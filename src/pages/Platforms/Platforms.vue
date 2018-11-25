@@ -3,6 +3,12 @@
         <h2>Choose a platform</h2>
 
         <div class="tools">
+            <toggle-switch
+                id="ownedOnly"
+                label="Show my lists only"
+                v-model="ownedListsOnly"
+            />
+
             <div class="sorting">
                 <select v-model="showBy">
                     <option value="generation">Console Generation</option>
@@ -12,6 +18,7 @@
 
             <input
                 type="text"
+                class="platform-filter"
                 placeholder="Filter"
                 autofocus
                 v-model="filterText"
@@ -49,15 +56,21 @@
 
 <script>
 import platforms from '@/shared/platforms';
+import ToggleSwitch from '@/components/ToggleSwitch/ToggleSwitch';
 import { groupBy, sortBy } from 'lodash';
 import { mapState } from 'vuex';
 
 export default {
+    components: {
+        ToggleSwitch,
+    },
+
     data() {
         return {
             platforms,
             filterText: '',
             showBy: 'generation',
+            ownedListsOnly: false,
         };
     },
 
@@ -65,15 +78,23 @@ export default {
         ...mapState(['gameLists', 'platform']),
 
         filteredPlatforms() {
+            const availableLists = this.ownedListsOnly
+                ? this.platforms.filter(({ code }) => this.gameLists[code])
+                : this.platforms;
+
             if (this.filterText.length > 0) {
                 // eslint-disable-next-line
-                return groupBy(this.platforms.filter(({ name }) => name.toLowerCase().includes(this.filterText.toLowerCase())), this.showBy);
+                return groupBy(availableLists.filter(({ name }) => name.toLowerCase().includes(this.filterText.toLowerCase())), this.showBy);
             }
 
             return this.showBy
-                ? groupBy(this.platforms, this.showBy)
-                : groupBy(sortBy(this.platforms, 'name'), '');
+                ? groupBy(availableLists, this.showBy)
+                : groupBy(sortBy(availableLists, 'name'), '');
         },
+    },
+
+    mounted() {
+        this.ownedListsOnly = Object.keys(this.gameLists).length > 0;
     },
 
     methods: {
@@ -119,9 +140,10 @@ export default {
 
         .tools {
             display: flex;
-            justify-content: space-between;
+            align-items: center;
 
             .sorting {
+                margin-left: $gp;
                 display: flex;
                 align-items: center;
 
@@ -130,9 +152,10 @@ export default {
                 }
             }
 
-            input {
+            .platform-filter {
                 width: 200px;
                 margin: 0;
+                margin-left: auto;
             }
         }
 
