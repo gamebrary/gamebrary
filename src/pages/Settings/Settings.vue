@@ -8,45 +8,30 @@
             <i class="fas fa-moon" />
             <h5>Dark theme</h5>
 
-            <span class="toggle-switch value">
-                <input
-                    type="checkbox"
-                    id="nightMode"
-                    v-model="localSettings.nightMode"
-                />
-
-                <label for="nightMode" />
-            </span>
+            <toggle-switch
+                id="nightMode"
+                v-model="localSettings.nightMode"
+            />
         </section>
 
         <section>
             <i class="far fa-envelope" />
             <h5>Receive update emails</h5>
 
-            <span class="toggle-switch value">
-                <input
-                    type="checkbox"
-                    id="newsletter"
-                    v-model="localSettings.newsletter"
-                />
-
-                <label for="newsletter" />
-            </span>
+            <toggle-switch
+                id="newsletter"
+                v-model="localSettings.newsletter"
+            />
         </section>
 
         <section>
             <i class="fas fa-star-half-alt" />
             <h5>Show Game Ratings</h5>
 
-            <span class="toggle-switch value">
-                <input
-                    type="checkbox"
-                    id="gameRatings"
-                    v-model="localSettings.showGameRatings"
-                />
-
-                <label for="gameRatings" />
-            </span>
+            <toggle-switch
+                id="gameRatings"
+                v-model="localSettings.showGameRatings"
+            />
         </section>
 
         <section>
