@@ -11,7 +11,7 @@
 <script>
 import NavHeader from '@/components/NavHeader/NavHeader';
 import firebase from 'firebase/app';
-import { $error } from '@/shared/modals';
+import { $error, $success } from '@/shared/modals';
 import 'firebase/auth';
 import 'firebase/firestore';
 import { mapState } from 'vuex';
@@ -52,6 +52,25 @@ export default {
                 this.init(user);
             }
         });
+
+        db.collection('lists').doc(this.user.uid)
+            .onSnapshot((doc) => {
+                if (doc.exists) {
+                    const gameLists = doc.data();
+                    this.$store.commit('SET_GAME_LISTS', gameLists);
+                    $success('List updated');
+                }
+            });
+
+
+        db.collection('settings').doc(this.user.uid)
+            .onSnapshot((doc) => {
+                if (doc.exists) {
+                    const settings = doc.data();
+                    this.$store.commit('SET_SETTINGS', settings);
+                    $success('List updated');
+                }
+            });
     },
 
     methods: {
