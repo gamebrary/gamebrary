@@ -30,9 +30,10 @@
             />
         </draggable>
 
-        <footer v-if="!showSearch">
+        <footer v-if="!showSearch" :class="{ dark: settings && settings.nightMode }">
             <button
                 class="small accent"
+                :class="{ hollow: settings && settings.nightMode }"
                 title="Move list left"
                 :disabled="listIndex === 0"
                 @click="moveList(listIndex, listIndex - 1)"
@@ -67,6 +68,7 @@
 
             <button
                 class="small accent"
+                :class="{ hollow: settings && settings.nightMode }"
                 title="Move list right"
                 :disabled="listIndex === (Object.keys(list).length - 1)"
                 @click="moveList(listIndex, listIndex + 1)"
@@ -239,5 +241,9 @@ export default {
         display: flex;
         align-items: center;
         justify-content: space-between;
+
+        &.dark {
+            background: #444;
+        }
     }
 </style>
