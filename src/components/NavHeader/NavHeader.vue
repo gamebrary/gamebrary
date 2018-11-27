@@ -11,10 +11,10 @@
         <button
             @click="showShareModal"
             v-if="showShareUrl"
-            class="small share accent"
+            title="Share"
+            class="small share"
         >
             <i class="fas fa-share-alt" />
-            Share
         </button>
 
         <slide width="300">
