@@ -152,7 +152,17 @@ export default {
 
         loadGameData() {
             if (this.list) {
-                const gameList = this.list.map(({ games }) => games).filter(Boolean).join().replace(/(^,)|(,$)/g, '');
+                const gameList = [];
+
+                this.list.forEach((list) => {
+                    if (list && list.games.length) {
+                        list.games.forEach((id) => {
+                            if (!gameList.includes(id)) {
+                                gameList.push(id);
+                            }
+                        });
+                    }
+                });
 
                 if (gameList.length > 0) {
                     this.loading = true;

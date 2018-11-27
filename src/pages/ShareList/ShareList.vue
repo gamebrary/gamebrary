@@ -86,7 +86,17 @@ export default {
         },
 
         loadGameData() {
-            const gameList = this.listData.map(({ games }) => games).filter(Boolean).join().replace(/(^,)|(,$)/g, '');
+            const gameList = [];
+
+            this.listData.forEach((list) => {
+                if (list && list.games.length) {
+                    list.games.forEach((id) => {
+                        if (!gameList.includes(id)) {
+                            gameList.push(id);
+                        }
+                    });
+                }
+            });
 
             if (gameList.length > 0) {
                 this.$store.dispatch('LOAD_PUBLIC_GAMES', gameList)
