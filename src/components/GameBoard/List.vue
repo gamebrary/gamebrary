@@ -28,6 +28,11 @@
                 :game-id="game"
                 :list-id="listIndex"
             />
+
+            <div class="empty" v-if="games.length === 0">
+                [ Empty ]
+            </div>
+
         </draggable>
 
         <footer v-if="!showSearch" :class="{ dark: settings && settings.nightMode }">
@@ -43,7 +48,8 @@
 
             <button
                 @click="addGame"
-                class="small info hollow"
+                class="small accent"
+                :class="{ hollow: settings && settings.nightMode }"
                 title="Add game"
             >
                 <i class="fas fa-plus" />
@@ -51,7 +57,8 @@
 
             <button
                 v-if="hasGames"
-                class="small info hollow"
+                class="small accent"
+                :class="{ hollow: settings && settings.nightMode }"
                 title="Sort List"
                 @click="sortList"
             >
@@ -59,7 +66,8 @@
             </button>
 
             <button
-                class="small error hollow"
+                class="small accent"
+                :class="{ hollow: settings && settings.nightMode }"
                 title="Delete List"
                 @click="remove"
             >
@@ -231,6 +239,16 @@ export default {
                 background: #444 !important;
             }
         }
+    }
+
+    .empty {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 60px;
     }
 
     footer {

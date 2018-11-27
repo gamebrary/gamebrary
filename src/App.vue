@@ -138,14 +138,8 @@ export default {
         font-size: 14px;
     }
 
-    #app {
-        // height: 100%;
-        // width: 100%;
-        // overflow: hidden;
-
-        > main {
-            background: $color-gray;
-        }
+    #app > main {
+        background: $color-gray;
     }
 
     h1, h2, h3, h4, h5, h6 {
