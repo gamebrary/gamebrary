@@ -20,7 +20,7 @@ export default {
         state.user = null;
         state.authorizing = false;
         state.activeList = null;
-        state.gameLists = null;
+        state.gameLists = {};
         state.settings = null;
         state.platform = null;
         state.results = null;

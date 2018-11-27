@@ -50,31 +50,38 @@ export default {
         firebase.auth().getRedirectResult().then(({ user }) => {
             if (user) {
                 this.init(user);
+                this.syncData();
             }
         });
 
-        db.collection('lists').doc(this.user.uid)
-            .onSnapshot((doc) => {
-                if (doc.exists) {
-                    const gameLists = doc.data();
-                    this.$store.commit('SET_GAME_LISTS', gameLists);
-                    $success('Data synced');
-                }
-            });
-
-
-        db.collection('settings').doc(this.user.uid)
-            .onSnapshot((doc) => {
-                if (doc.exists) {
-                    const settings = doc.data();
-
-                    this.$store.commit('SET_SETTINGS', settings);
-                    $success('Data synced');
-                }
-            });
+        if (this.user) {
+            this.syncData();
+        }
     },
 
     methods: {
+        syncData() {
+            db.collection('lists').doc(this.user.uid)
+                .onSnapshot((doc) => {
+                    if (doc.exists) {
+                        const gameLists = doc.data();
+                        this.$store.commit('SET_GAME_LISTS', gameLists);
+                        $success('Data synced');
+                    }
+                });
+
+
+            db.collection('settings').doc(this.user.uid)
+                .onSnapshot((doc) => {
+                    if (doc.exists) {
+                        const settings = doc.data();
+
+                        this.$store.commit('SET_SETTINGS', settings);
+                        $success('Data synced');
+                    }
+                });
+        },
+
         init(user) {
             this.$store.commit('SET_AUTHORIZING_STATUS', false);
             this.$store.commit('SET_USER', user);
