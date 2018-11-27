@@ -43,4 +43,13 @@ export default {
                 }).catch(reject);
         });
     },
+
+    LOAD_PLATFORM({ state }) {
+        return new Promise((resolve, reject) => {
+            axios.get(`${FIREBASE_URL}/platform?&platformId=${state.platform.id}`)
+                .then(({ data }) => {
+                    resolve(data);
+                }).catch(reject);
+        });
+    },
 };
