@@ -11,6 +11,11 @@
             Loading...
         </template>
 
+        <!-- <div v-else-if="!gameLists[platform.code]">
+            // TODO: SHOW FTU
+            Boom
+        </div> -->
+
         <template v-else>
             <list
                 :name="list.name"
@@ -186,6 +191,9 @@ export default {
                             this.loading = false;
                         });
                 }
+            } else {
+                // TODO: load platform FTU data
+                // this.$store.dispatch('LOAD_PLATFORM');
             }
         },
     },
