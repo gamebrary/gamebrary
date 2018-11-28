@@ -16,7 +16,7 @@
             Boom
         </div> -->
 
-        <template v-else>
+        <template v-else-if="gameLists && gameLists[platform.code]">
             <list
                 :name="list.name"
                 :games="list.games"
