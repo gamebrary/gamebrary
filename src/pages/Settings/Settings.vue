@@ -1,7 +1,18 @@
 <template lang="html">
     <div class="settings" v-if="user" :class="{ dark: settings && settings.nightMode }">
         <section>
-            <h4>Settings</h4>
+            <h3>Settings</h3>
+        </section>
+
+        <section>
+            <div class="profile">
+                <gravatar :email="user.email" />
+
+                <div class="info">
+                    <strong>{{ user.displayName }}</strong>
+                    {{ user.email }}
+                </div>
+            </div>
         </section>
 
         <section>
@@ -35,11 +46,40 @@
         </section>
 
         <section>
+            <button class="hollow small info logout" @click="signOut">
+                <i class="fas fa-sign-out-alt" />
+                Sign out
+            </button>
+
             <button @click="promptDelete" class="error hollow small">
                 <i class="fas fa-exclamation-triangle" />
                 Delete Account
             </button>
         </section>
+
+        <section>
+            <a href="https://www.paypal.me/RomanCervantes/5" class="link small" target="_blank">
+                <i class="fas fa-donate" />
+                Donate
+            </a>
+
+            <a href="https://github.com/romancmx/gamebrary/issues" class="link small" target="_blank">
+                <i class="fas fa-bug" />
+                Report bugs
+            </a>
+
+            <a href="https://goo.gl/forms/r0juBCsZaUtJ03qb2" class="link small" target="_blank">
+                <i class="fas fa-comments" />
+                Submit feedback
+            </a>
+        </section>
+
+        <div class="copyright">
+            <p>
+                <i class="far fa-copyright" /> 2018 Gamebrary.
+                <i class="fas fa-code" /> with <i class="fas fa-heart" /> by
+            <a href="https://twitter.com/romancm" target="_blank">@romancm</a></p>
+        </div>
     </div>
 </template>
 
@@ -141,6 +181,17 @@ export default {
                 });
         },
 
+        signOut() {
+            firebase.auth().signOut()
+                .then(() => {
+                    this.$store.commit('CLEAR_SESSION');
+                    this.$router.push({ name: 'home' });
+                })
+                .catch((error) => {
+                    $error(error);
+                });
+        },
+
         save: debounce(
             // eslint-disable-next-line
             function() {
@@ -162,13 +213,41 @@ export default {
 
     .settings {
         background: $color-white;
+        color: $color-dark-gray;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
         min-height: calc(100vh - #{$navHeight});
+
+        .profile {
+            display: flex;
+            align-items: center;
+
+            .info {
+                display: flex;
+                flex-direction: column;
+                margin-left: $gp;
+                color: $color-dark-gray;
+            }
+
+            img {
+                width: 40px;
+                height: 40px;
+                border-radius: 100%;
+                border: 2px solid $color-white;
+                box-shadow: 0 0 2px 0px $color-dark-gray;
+
+                @media($small) {
+                    width: 40px;
+                    height: 40px;
+                }
+            }
+        }
 
         section {
             width: 600px;
             margin: 0 auto;
             max-width: 100%;
-            color: $color-dark-gray;
             border-bottom: 1px solid #f0f0f0;
             padding: $gp;
             display: flex;
@@ -192,6 +271,10 @@ export default {
             }
         }
 
+        .logout {
+            margin-right: $gp;
+        }
+
         .share-link {
             max-width: 340px;
             margin: 0;
@@ -204,6 +287,22 @@ export default {
                 border-bottom: 1px solid $color-gray;
                 color: $color-gray;
             }
+        }
+    }
+
+    .copyright {
+        text-align: center;
+        margin-top: auto;
+        padding: $gp;
+
+        p {
+            margin: $gp / 3 0;
+        }
+
+        a {
+            color: $color-dark-gray;
+            text-decoration: none;
+            font-weight: bold;
         }
     }
 </style>

@@ -32,7 +32,6 @@
         "vue": "^2.5.2",
         "vue-analytics": "^5.16.0",
         "vue-axios": "^2.1.1",
-        "vue-burger-menu": "^1.0.9",
         "vue-content-placeholders": "^0.2.1",
         "vue-dragscroll": "^1.5.0",
         "vue-gallery": "^1.5.0",

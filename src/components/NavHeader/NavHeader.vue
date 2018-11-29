@@ -8,94 +8,42 @@
             GAMEBRARY
         </router-link>
 
-        <button
-            @click="showShareModal"
-            v-if="showShareUrl"
-            title="Share"
-            class="small share"
-        >
-            <i class="fas fa-share-alt" />
-        </button>
+        <div class="share">
+            <button
+                @click="showShareModal"
+                v-if="showShareUrl"
+                title="Share"
+            >
+                <i class="fas fa-share-alt" />
+            </button>
 
-        <slide width="300">
-            <main>
-                <section class="profile">
-                    <gravatar :email="user.email" />
-
-                    <div class="info">
-                        <strong>{{ user.displayName }}</strong>
-                        {{ user.email }}
-                    </div>
-                </section>
-
-                <section class="actions">
-                    <router-link :to="{ name: 'home' }">
-                        <i class="fas fa-home" />
-                        Home
-                    </router-link>
-
-                    <router-link :to="{ name: 'platforms' }" v-if="platform">
-                        <i class="fas fa-exchange-alt" />
-                        Change platform
-                    </router-link>
-
-                    <router-link :to="{ name: 'settings' }">
-                        <i class="fas fa-cog" />
-                        Settings
-                    </router-link>
-
-                    <a href="https://www.paypal.me/RomanCervantes/5" target="_blank">
-                        <i class="fas fa-donate" />
-                        Donate
-                    </a>
-
-                    <a href="https://github.com/romancmx/gamebrary/issues" target="_blank">
-                        <i class="fas fa-bug" />
-                        Report bugs
-                    </a>
-
-                    <a href="https://goo.gl/forms/r0juBCsZaUtJ03qb2" target="_blank">
-                        <i class="fas fa-comments" />
-                        Submit feedback
-                    </a>
-
-                    <a @click="signOut">
-                        <i class="fas fa-sign-out-alt" />
-                        Sign out
-                    </a>
-
-                    <p>&copy; 2018 Gamebrary</p>
-                </section>
-            </main>
-        </slide>
+            <router-link
+                v-if="showSettings"
+                tag="button"
+                :to="{ name: 'settings' }"
+            >
+                <i class="fas fa-cog" />
+            </router-link>
+        </div>
     </nav>
 </template>
 
 <script>
-import Gravatar from 'vue-gravatar';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { swal, $error } from '@/shared/modals';
-import { Slide } from 'vue-burger-menu';
 import { mapState } from 'vuex';
 
 export default {
-    components: {
-        Gravatar,
-        Slide,
-    },
-
     computed: {
         ...mapState(['user', 'platform', 'settings']),
 
-        platformLogo() {
-            return this.platform.useAlt
-                ? `/static/img/platforms/${this.platform.code}-alt.svg`
-                : `/static/img/platforms/${this.platform.code}.svg`;
-        },
-
         isHome() {
             return this.$route.name === 'home';
+        },
+
+        showSettings() {
+            return this.$route.name !== 'settings';
         },
 
         showShareUrl() {
@@ -107,23 +55,11 @@ export default {
                 ? 'http://localhost:3000'
                 : 'https://gamebrary.com';
 
-            // eslint-disable-next-line
             return `${url}/#/s/${this.user.uid}/${this.platform.code}`;
         },
     },
 
     methods: {
-        signOut() {
-            firebase.auth().signOut()
-                .then(() => {
-                    this.$store.commit('CLEAR_SESSION');
-                    this.$router.push({ name: 'home' });
-                })
-                .catch((error) => {
-                    $error(error);
-                });
-        },
-
         showShareModal() {
             swal({
                 titleText: 'Share your list',
@@ -155,8 +91,12 @@ export default {
 
         .share {
             position: fixed;
-            top: $gp / 2;
-            right: $gp / 2;
+            top: 0;
+            right: 0;
+
+            button {
+                height: $navHeight;
+            }
         }
 
         &.dark {
@@ -175,31 +115,6 @@ export default {
                 .info {
                     color: $color-gray;
                 }
-            }
-        }
-    }
-
-    .profile {
-        display: flex;
-        align-items: center;
-
-        .info {
-            display: flex;
-            flex-direction: column;
-            margin-left: $gp;
-            color: $color-dark-gray;
-        }
-
-        img {
-            width: 40px;
-            height: 40px;
-            border-radius: 100%;
-            border: 2px solid $color-white;
-            box-shadow: 0 0 2px 0px $color-dark-gray;
-
-            @media($small) {
-                width: 40px;
-                height: 40px;
             }
         }
     }
@@ -226,16 +141,6 @@ export default {
             justify-content: center;
             align-items: center;
             display: flex;
-        }
-    }
-
-    .bm-overlay {
-        nav > div {
-            background: #0008;
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: 3;
         }
     }
 </style>
