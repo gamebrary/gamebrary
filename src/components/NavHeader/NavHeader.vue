@@ -29,9 +29,7 @@
 </template>
 
 <script>
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import { swal, $error } from '@/shared/modals';
+import { swal } from '@/shared/modals';
 import { mapState } from 'vuex';
 
 export default {
@@ -90,7 +88,7 @@ export default {
         }
 
         .share {
-            position: fixed;
+            position: absolute;
             top: 0;
             right: 0;
 
