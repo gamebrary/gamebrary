@@ -40,7 +40,7 @@
             </button>
         </div>
 
-        <div v-if="loading && filteredResults.length === 0">
+        <div v-if="noResults">
             No results
         </div>
     </form>
@@ -68,6 +68,7 @@ export default {
         return {
             searchText: '',
             loading: false,
+            noResults: false,
             styles: {
                 width: '95%',
                 'max-width': '800px',
@@ -121,11 +122,13 @@ export default {
             // eslint-disable-next-line
             function() {
                 this.loading = true;
+                this.noResults = false;
 
                 this.$store.dispatch('SEARCH', this.searchText)
                     .then(() => {
                         this.error = null;
                         this.loading = false;
+                        this.noResults = this.filteredResults.length === 0;
                     })
                     .catch(({ data }) => {
                         this.loading = false;
