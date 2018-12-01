@@ -1,25 +1,30 @@
 <template lang="html">
     <form @submit.prevent="search" class="game-search">
         <h4>
-            <i class="fas fa-search" />
-            Add game
+            Add games to {{ list[0].name }}
         </h4>
 
-        <input
-            ref="searchInput"
-            type="text"
-            v-model="searchText"
-            placeholder="Type here"
-        />
+        <div class="search-box">
+            <input
+                ref="searchInput"
+                type="text"
+                v-model="searchText"
+                placeholder="Search here"
+            />
+            <button class="primary small" @click="search">
+                <i class="fas fa-circle-notch fast-spin hollow" v-if="loading" />
+                <i class="fas fa-search" v-else />
+            </button>
+        </div>
 
         <div class="search-results" v-if="filteredResults.length > 0">
             <game-card
                 v-for="{ id } in filteredResults"
+                search-result
                 :key="id"
                 :game-id="id"
                 :listId="listId"
                 @added="added"
-                search-result
             />
         </div>
 
@@ -35,7 +40,7 @@
             </button>
         </div>
 
-        <div v-if="loaded && filteredResults.length === 0">
+        <div v-if="loading && filteredResults.length === 0">
             No results
         </div>
     </form>
@@ -62,7 +67,7 @@ export default {
     data() {
         return {
             searchText: '',
-            loaded: false,
+            loading: false,
             styles: {
                 width: '95%',
                 'max-width': '800px',
@@ -115,15 +120,15 @@ export default {
         search: debounce(
             // eslint-disable-next-line
             function() {
-                this.loaded = false;
+                this.loading = true;
 
                 this.$store.dispatch('SEARCH', this.searchText)
                     .then(() => {
                         this.error = null;
-                        this.loaded = true;
+                        this.loading = false;
                     })
                     .catch(({ data }) => {
-                        this.loaded = true;
+                        this.loading = false;
                         this.error = data;
                     });
             }, 300),
@@ -142,6 +147,15 @@ export default {
         background: #ccc;
         margin-top: $list-header-height;
         padding: $gp / 2;
+    }
+
+    .search-box {
+        display: flex;
+        align-items: center;
+
+        input {
+            margin: 0 $gp 0 0;
+        }
     }
 
     .search-actions {
