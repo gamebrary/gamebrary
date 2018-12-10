@@ -1,9 +1,5 @@
 <template lang="html">
     <form @submit.prevent="search" class="game-search">
-        <h4>
-            Add games to {{ list[0].name }}
-        </h4>
-
         <div class="search-box">
             <input
                 ref="searchInput"
@@ -29,9 +25,8 @@
         </div>
 
         <div class="search-actions">
-            <button class="small info back" @click="back">
-                <i class="fas fa-caret-left" />
-                back
+            <button class="small info back" @click="back" title="back">
+                <i class="fas fa-chevron-left" />
             </button>
 
             <button class="small info hollow back" @click="clear" v-if="filteredResults.length > 0">

@@ -1,7 +1,12 @@
 <template lang="html">
     <div :class="['list', { dark: settings && settings.nightMode }]">
         <div class="list-header">
+            <div v-if="showSearch">
+                Add games
+            </div>
+
             <list-name-edit
+                v-else
                 :list-name="name"
                 :list-index="listIndex"
                 :game-count="games.length"
@@ -9,7 +14,10 @@
             />
         </div>
 
-        <game-search v-if="showSearch" :list-id="listIndex" />
+        <game-search
+            v-if="showSearch"
+            :list-id="listIndex"
+        />
 
         <draggable
             v-else
