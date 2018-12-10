@@ -53,7 +53,7 @@ export default {
                 ? 'http://localhost:3000'
                 : 'https://gamebrary.com';
 
-            return `${url}/#/s/${this.user.uid}/${this.platform.code}`;
+            return `${url}/s/${this.user.uid}/${this.platform.code}`;
         },
     },
 
