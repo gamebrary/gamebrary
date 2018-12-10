@@ -68,6 +68,7 @@ export default {
 @import "~styles/styles.scss";
 
 .review-box {
+    text-align: left;
     display: grid;
     margin: 0 auto;
     grid-template-columns: 100px auto;
