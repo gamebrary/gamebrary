@@ -3,12 +3,6 @@
         <h2>Choose a platform</h2>
 
         <div class="tools">
-            <toggle-switch
-                id="ownedOnly"
-                label="Show my lists only"
-                v-model="ownedListsOnly"
-            />
-
             <div class="sorting">
                 <select v-model="showBy">
                     <option value="generation">Console Generation</option>
@@ -22,6 +16,12 @@
                 placeholder="Filter"
                 autofocus
                 v-model="filterText"
+            />
+
+            <toggle-switch
+                id="ownedOnly"
+                label="My lists only"
+                v-model="ownedListsOnly"
             />
         </div>
 
@@ -139,12 +139,12 @@ export default {
         }
 
         .tools {
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-gap: $gp;
             align-items: center;
 
             .sorting {
-                margin-left: $gp;
-                display: flex;
                 align-items: center;
 
                 select {
@@ -153,9 +153,7 @@ export default {
             }
 
             .platform-filter {
-                width: 200px;
                 margin: 0;
-                margin-left: auto;
             }
         }
 
