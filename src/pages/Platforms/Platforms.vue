@@ -169,7 +169,7 @@ export default {
         .platforms {
             margin-top: $gp;
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             grid-gap: $gp;
 
             @media($small) {
@@ -180,7 +180,7 @@ export default {
                 cursor: pointer;
                 border-radius: $border-radius;
                 width: auto;
-                height: 140px;
+                height: 100px;
                 padding: $gp;
                 display: flex;
                 align-items: center;
