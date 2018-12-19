@@ -29,7 +29,7 @@
                 @click="removeGame"
                 title="Delete game"
                 class="small error hollow"
-                :class="{ accent: !settings.nightMode }"
+                :class="{ accent: settings && !settings.nightMode }"
             >
                 <i class="fas fa-trash" />
             </button>

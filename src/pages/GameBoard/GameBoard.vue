@@ -16,7 +16,7 @@
             Boom
         </div> -->
 
-        <template v-else-if="gameLists && gameLists[platform.code]">
+        <template>
             <list
                 :name="list.name"
                 :games="list.games"
@@ -39,6 +39,7 @@
 <script>
 import { dragscroll } from 'vue-dragscroll';
 import AddList from '@/components/Lists/AddList';
+import Panel from '@/components/Panel/Panel';
 import { $success, $error, swal } from '@/shared/modals';
 import List from '@/components/GameBoard/List';
 import draggable from 'vuedraggable';
@@ -57,6 +58,7 @@ export default {
         draggable,
         List,
         AddList,
+        Panel,
     },
 
     directives: {
@@ -86,7 +88,9 @@ export default {
         ...mapState(['user', 'gameLists', 'platform', 'settings']),
 
         list() {
-            return this.gameLists[this.platform.code];
+            return this.gameLists && this.gameLists[this.platform.code]
+                ? this.gameLists[this.platform.code]
+                : null;
         },
 
         nightMode() {
@@ -205,6 +209,11 @@ export default {
 
     .draggable * {
         color: $color-white;
+    }
+
+    .panel {
+        margin-right: $gp;
+        width: 300px;
     }
 
     .lists {
