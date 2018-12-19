@@ -1,7 +1,10 @@
 <template lang="html">
-    <div class="settings" v-if="user" :class="{ dark: settings && settings.nightMode }">
+    <div
+        class="settings"
+        v-if="user && localSettings" :class="{ dark: settings && settings.nightMode }"
+    >
         <section>
-            <h3>Settings</h3>
+            <h3>{{ $t('settings.title') }}</h3>
         </section>
 
         <section>
@@ -15,9 +18,19 @@
             </div>
         </section>
 
+        <!-- <section>
+            <i class="fas fa-language" />
+            <h5>Language</h5>
+
+            <div class="value">
+                <button class="primary">🇬🇧</button>
+                <button class="primary hollow">🇪🇸</button>
+            </div>
+        </section> -->
+
         <section>
             <i class="fas fa-moon" />
-            <h5>Dark theme</h5>
+            <h5>{{ $t('settings.darkTheme') }}</h5>
 
             <toggle-switch
                 id="nightMode"
@@ -27,7 +40,7 @@
 
         <section>
             <i class="far fa-envelope" />
-            <h5>Receive update emails</h5>
+            <h5>{{ $t('settings.newsletter') }}</h5>
 
             <toggle-switch
                 id="newsletter"
@@ -37,7 +50,7 @@
 
         <section>
             <i class="fas fa-star-half-alt" />
-            <h5>Show Game Ratings</h5>
+            <h5>{{ $t('settings.ratings') }}</h5>
 
             <toggle-switch
                 id="gameRatings"
@@ -48,36 +61,38 @@
         <section>
             <button class="hollow small info logout" @click="signOut">
                 <i class="fas fa-sign-out-alt" />
-                Sign out
+                {{ $t('settings.signOut') }}
             </button>
 
             <button @click="promptDelete" class="error hollow small">
                 <i class="fas fa-exclamation-triangle" />
-                Delete Account
+                {{ $t('settings.deleteAccount') }}
             </button>
         </section>
 
         <section>
             <a href="https://www.paypal.me/RomanCervantes/5" class="link small" target="_blank">
                 <i class="fas fa-donate" />
-                Donate
+                {{ $t('settings.donate') }}
             </a>
 
             <a href="https://github.com/romancmx/gamebrary/issues" class="link small" target="_blank">
                 <i class="fas fa-bug" />
-                Report bugs
+                {{ $t('settings.reportBugs') }}
             </a>
 
             <a href="https://goo.gl/forms/r0juBCsZaUtJ03qb2" class="link small" target="_blank">
                 <i class="fas fa-comments" />
-                Submit feedback
+                {{ $t('settings.submitFeedback') }}
             </a>
         </section>
 
         <div class="copyright">
             <p>
                 <i class="far fa-copyright" /> 2018 Gamebrary.
-                <i class="fas fa-code" /> with <i class="fas fa-heart" /> by
+                <i class="fas fa-code" />
+                {{ $t('global.with') }}
+                <i class="fas fa-heart" /> {{ $t('global.by') }}
             <a href="https://twitter.com/romancm" target="_blank">@romancm</a></p>
         </div>
     </div>
@@ -170,7 +185,8 @@ export default {
                         .then(() => {
                             $success('Game lists deleted');
                             $success('Account deleted');
-                            this.logout();
+                            this.$store.commit('CLEAR_SESSION');
+                            this.$router.push({ name: 'home' });
                         })
                         .catch(() => {
                             $error('Authentication error');
@@ -265,7 +281,7 @@ export default {
                 margin: 0 $gp;
             }
 
-            .toggle-switch {
+            .toggle-switch, .value {
                 display: flex;
                 margin-left: auto;
             }

@@ -29,9 +29,13 @@
                 <i class="fas fa-chevron-left" />
             </button>
 
-            <button class="small info hollow back" @click="clear" v-if="filteredResults.length > 0">
+            <button
+                v-if="filteredResults.length > 0"
+                class="small info hollow back"
+                @click="clear"
+            >
                 <i class="fas fa-broom" />
-                clear
+                {{ $t('clearResults') }}
             </button>
         </div>
 

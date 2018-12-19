@@ -2,7 +2,7 @@
     <div :class="['list', { dark: settings && settings.nightMode }]">
         <div class="list-header">
             <div v-if="showSearch">
-                Add games
+                {{ $t('game.addPlural') }}
             </div>
 
             <list-name-edit
@@ -38,7 +38,7 @@
             />
 
             <div class="empty" v-if="games.length === 0">
-                [ Empty ]
+                [ {{ $t('empty') }} ]
             </div>
 
         </draggable>
@@ -47,7 +47,7 @@
             <button
                 class="small accent"
                 :class="{ hollow: settings && settings.nightMode }"
-                title="Move list left"
+                :title="$t('list.moveLeft')"
                 :disabled="listIndex === 0"
                 @click="moveList(listIndex, listIndex - 1)"
             >
@@ -58,7 +58,7 @@
                 @click="addGame"
                 class="small accent"
                 :class="{ hollow: settings && settings.nightMode }"
-                title="Add game"
+                :title="$t('game.add')"
             >
                 <i class="fas fa-plus" />
             </button>
@@ -67,7 +67,7 @@
                 v-if="hasGames"
                 class="small accent"
                 :class="{ hollow: settings && settings.nightMode }"
-                title="Sort List"
+                :title="$t('list.sort')"
                 @click="sortList"
             >
                 <i class="fas fa-sort-alpha-down" />
@@ -76,7 +76,7 @@
             <button
                 class="small accent"
                 :class="{ hollow: settings && settings.nightMode }"
-                title="Delete List"
+                :title="$t('list.delete')"
                 @click="remove"
             >
                 <i class="far fa-trash-alt" />
@@ -85,7 +85,7 @@
             <button
                 class="small accent"
                 :class="{ hollow: settings && settings.nightMode }"
-                title="Move list right"
+                :title="$t('list.moveRight')"
                 :disabled="listIndex === (Object.keys(list).length - 1)"
                 @click="moveList(listIndex, listIndex + 1)"
             >

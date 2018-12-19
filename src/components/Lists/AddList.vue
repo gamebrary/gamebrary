@@ -6,10 +6,14 @@
                 type="text"
                 ref="newListName"
                 required
-                placeholder="List name"
+                :placeholder="$t('list.name')"
             />
 
-            <panel class="warning" v-if="isDuplicate" v-html="errorMessage" />
+            <panel
+                class="warning"
+                v-if="isDuplicate"
+                v-html="errorMessage"
+            />
 
             <div>
                 <button
@@ -18,7 +22,7 @@
                     v-if="!isDuplicate"
                     :disabled="!newListName.length"
                 >
-                    Create
+                    {{ $t('global.create') }}
                 </button>
 
                 <button
@@ -26,12 +30,17 @@
                     type="button"
                     @click="reset"
                 >
-                    Cancel
+                    {{ $t('global.cancel') }}
                 </button>
             </div>
         </form>
 
-        <button class="add small info" @click="toggleAddList" v-else>
+        <button
+            v-else
+            class="add small info"
+            :title="$t('list.add')"
+            @click="toggleAddList"
+        >
             <i class="fas fa-plus" />
         </button>
     </div>

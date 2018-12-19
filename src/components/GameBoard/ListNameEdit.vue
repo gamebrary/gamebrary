@@ -10,7 +10,12 @@
             @keyup.esc="save"
         >
 
-        <span class="not-editing" v-else @click="edit">
+        <span
+            v-else
+            class="not-editing"
+            :title="$t('list.edit')"
+            @click="edit"
+        >
             <span>{{ listName }} ({{ gameCount }})</span>
             <i class="fas fa-pen" />
         </span>

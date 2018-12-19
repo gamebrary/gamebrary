@@ -10,7 +10,7 @@ import VueAnalytics from 'vue-analytics';
 import Raven from 'raven-js';
 import RavenVue from 'raven-js/plugins/vue';
 import App from './App';
-import messages from './i18n';
+import messages from './i18n/';
 import router from './router';
 import store from './store/';
 
