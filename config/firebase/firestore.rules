@@ -3,9 +3,10 @@ service cloud.firestore {
     match /lists/{userId} {
       allow read;
     }
-    
+
     match /{document=**} {
       allow read, write: if request.auth.uid != null;
+      allow delete: if request.auth.uid != null;
     }
   }
 }
