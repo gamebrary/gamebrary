@@ -4,12 +4,12 @@ module.exports = {
     empty: 'empty',
     clearResults: 'Clear results',
     back: 'Back',
-    with: 'with',
-    by: 'by',
     global: {
         cancel: 'Cancel',
         create: 'Create',
         filter: 'Filter',
+        with: 'with',
+        by: 'by',
     },
     platforms: {
         pageTitle: 'Platforms',
