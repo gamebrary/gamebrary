@@ -1,5 +1,5 @@
 <template lang="html">
-    <div :class="['list', { dark: settings && settings.nightMode }]">
+    <div :class="['list', { dark: darkModeEnabled }]">
         <div class="list-header">
             <div v-if="showSearch">
                 {{ $t('game.addPlural') }}
@@ -43,10 +43,10 @@
 
         </draggable>
 
-        <footer v-if="!showSearch" :class="{ dark: settings && settings.nightMode }">
+        <footer v-if="!showSearch" :class="{ dark: darkModeEnabled }">
             <button
                 class="small accent"
-                :class="{ hollow: settings && settings.nightMode }"
+                :class="{ hollow: darkModeEnabled }"
                 :title="$t('list.moveLeft')"
                 :disabled="listIndex === 0"
                 @click="moveList(listIndex, listIndex - 1)"
@@ -57,7 +57,7 @@
             <button
                 @click="addGame"
                 class="small accent"
-                :class="{ hollow: settings && settings.nightMode }"
+                :class="{ hollow: darkModeEnabled }"
                 :title="$t('game.add')"
             >
                 <i class="fas fa-plus" />
@@ -65,8 +65,7 @@
 
             <button
                 v-if="hasGames"
-                class="small accent"
-                :class="{ hollow: settings && settings.nightMode }"
+                :class="['small accent', { hollow: darkModeEnabled }]"
                 :title="$t('list.sort')"
                 @click="sortList"
             >
@@ -74,8 +73,7 @@
             </button>
 
             <button
-                class="small accent"
-                :class="{ hollow: settings && settings.nightMode }"
+                :class="['small accent', { hollow: darkModeEnabled }]"
                 :title="$t('list.delete')"
                 @click="remove"
             >
@@ -83,8 +81,7 @@
             </button>
 
             <button
-                class="small accent"
-                :class="{ hollow: settings && settings.nightMode }"
+                :class="['small accent', { hollow: darkModeEnabled }]"
                 :title="$t('list.moveRight')"
                 :disabled="listIndex === (Object.keys(list).length - 1)"
                 @click="moveList(listIndex, listIndex + 1)"
@@ -100,7 +97,7 @@ import draggable from 'vuedraggable';
 import ListNameEdit from '@/components/GameBoard/ListNameEdit';
 import GameCard from '@/components/GameCard/GameCard';
 import GameSearch from '@/components/GameSearch/GameSearch';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { $success, $error } from '@/shared/modals';
@@ -140,6 +137,8 @@ export default {
 
     computed: {
         ...mapState(['user', 'gameLists', 'platform', 'activeList', 'settings']),
+
+        ...mapGetters(['darkModeEnabled']),
 
         list() {
             return this.gameLists[this.platform.code];

@@ -1,6 +1,6 @@
 <template lang="html">
     <!-- eslint-disable -->
-    <div class="game-detail" v-if="game" :class="{ dark: settings && settings.nightMode }">
+    <div class="game-detail" v-if="game" :class="{ dark: darkModeEnabled }">
         <div class="game-hero" :style="style" />
 
         <div class="game-detail-container">
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import { swal } from '@/shared/modals';
 import GameHeader from '@/components/GameDetail/GameHeader';
 import GameScreenshots from '@/components/GameDetail/GameScreenshots';
@@ -63,7 +63,8 @@ export default {
     },
 
     computed: {
-        ...mapState(['game', 'settings', 'platform']),
+        ...mapState(['game', 'platform']),
+        ...mapGetters(['darkModeEnabled']),
 
         style() {
             return this.game && this.game.screenshots

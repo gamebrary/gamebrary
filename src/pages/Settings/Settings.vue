@@ -1,7 +1,7 @@
 <template lang="html">
     <div
         class="settings"
-        v-if="user && localSettings" :class="{ dark: settings && settings.nightMode }"
+        v-if="user && localSettings" :class="{ dark: darkModeEnabled }"
     >
         <section>
             <h3>{{ $t('settings.title') }}</h3>
@@ -100,7 +100,7 @@
 
 <script>
 import { debounce } from 'lodash';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
@@ -131,6 +131,7 @@ export default {
 
     computed: {
         ...mapState(['user', 'settings']),
+        ...mapGetters(['darkModeEnabled']),
 
         dateJoined() {
             return moment(this.user.dateJoined).format('LL');

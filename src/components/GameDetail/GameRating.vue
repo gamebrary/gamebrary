@@ -1,6 +1,6 @@
 <!-- eslint-disable -->
 <template lang="html">
-    <div :class="['game-rating', ratingClass, { 'small': small, dark: settings && settings.nightMode }]">
+    <div :class="['game-rating', ratingClass, { 'small': small, dark: darkModeEnabled }]">
         <span class="rating">
             {{ formattedRating }}
         </span>
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
     props: {
@@ -21,9 +21,7 @@ export default {
     },
 
     computed: {
-        ...mapState([
-            'settings',
-        ]),
+        ...mapGetters(['darkModeEnabled']),
 
         ratingClass() {
             const gameRating = Number(this.rating);

@@ -1,5 +1,5 @@
 <template lang="html">
-    <nav :class="{ dark: settings && settings.nightMode }">
+    <nav :class="{ dark: darkModeEnabled }">
         <router-link
             tag="button"
             class="logo"
@@ -30,11 +30,12 @@
 
 <script>
 import { swal } from '@/shared/modals';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
     computed: {
-        ...mapState(['user', 'platform', 'settings']),
+        ...mapState(['user', 'platform']),
+        ...mapGetters(['darkModeEnabled']),
 
         isHome() {
             return this.$route.name === 'home';

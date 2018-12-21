@@ -46,4 +46,6 @@ export default {
             ? gamePlatforms.map(gamePlatform => gamePlatform.name).join(', ')
             : null;
     },
+
+    darkModeEnabled: state => state.settings && state.settings.nightMode,
 };

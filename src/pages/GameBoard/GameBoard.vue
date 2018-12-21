@@ -4,7 +4,7 @@
         ref="lists"
         @dragscrollstart="dragScrollActive = true"
         @dragscrollend="dragScrollActive = false"
-        :class="{ dark: settings && settings.nightMode, 'drag-scroll-active': dragScrollActive }"
+        :class="{ dark: darkModeEnabled, 'drag-scroll-active': dragScrollActive }"
         v-dragscroll:nochilddrag
     >
         <template v-if="loading">
@@ -43,7 +43,7 @@ import Panel from '@/components/Panel/Panel';
 import { $success, $error, swal } from '@/shared/modals';
 import List from '@/components/GameBoard/List';
 import draggable from 'vuedraggable';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
@@ -85,16 +85,13 @@ export default {
     },
 
     computed: {
-        ...mapState(['user', 'gameLists', 'platform', 'settings']),
+        ...mapState(['user', 'gameLists', 'platform']),
+        ...mapGetters(['darkModeEnabled']),
 
         list() {
             return this.gameLists && this.gameLists[this.platform.code]
                 ? this.gameLists[this.platform.code]
                 : null;
-        },
-
-        nightMode() {
-            return this.user && this.user.settings ? this.user.settings.nightMode : false;
         },
     },
 

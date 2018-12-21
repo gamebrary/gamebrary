@@ -1,5 +1,5 @@
 <template lang="html">
-    <div :class="['game-header', { dark: settings && settings.nightMode}]">
+    <div :class="['game-header', { dark: darkModeEnabled}]">
         <img :src="coverUrl" :alt="game.name" class="game-cover" />
 
         <div class="game-rating" v-if="hasRatings">
@@ -20,7 +20,8 @@
 
 <script>
 import igdb from '@/shared/igdb';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
+
 
 export default {
     props: {
@@ -34,7 +35,8 @@ export default {
     },
 
     computed: {
-        ...mapState(['game', 'platform', 'settings']),
+        ...mapState(['game', 'platform']),
+        ...mapGetters(['darkModeEnabled']),
 
         coverUrl() {
             const url = 'https://images.igdb.com/igdb/image/upload/t_cover_big/';

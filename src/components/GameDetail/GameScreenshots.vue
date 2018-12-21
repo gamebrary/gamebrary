@@ -1,7 +1,7 @@
 <template lang="html">
     <section
         v-if="game.screenshots"
-        :class="['game-screenshots', { dark: settings && settings.nightMode }]"
+        :class="['game-screenshots', { dark: darkModeEnabled }]"
     >
         <h3>Screenshots</h3>
 
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import VueGallery from 'vue-gallery';
 
 export default {
@@ -32,7 +32,8 @@ export default {
     },
 
     computed: {
-        ...mapState(['game', 'settings']),
+        ...mapState(['game']),
+        ...mapGetters(['darkModeEnabled']),
 
         screenshots() {
             // eslint-disable-next-line
