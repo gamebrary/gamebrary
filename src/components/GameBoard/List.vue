@@ -67,9 +67,18 @@
                 v-if="hasGames"
                 :class="['small accent', { hollow: darkModeEnabled }]"
                 :title="$t('list.sort')"
-                @click="sortList"
+                @click="sortListAlphabetically"
             >
                 <i class="fas fa-sort-alpha-down" />
+            </button>
+
+            <button
+                v-if="hasGames"
+                :class="['small accent', { hollow: darkModeEnabled }]"
+                :title="$t('list.sort')"
+                @click="sortListByRating"
+            >
+                <i class="fas fa-sort-numeric-up" />
             </button>
 
             <button
@@ -174,8 +183,13 @@ export default {
                 });
         },
 
-        sortList() {
-            this.$store.commit('SORT_LIST', this.listIndex);
+        sortListAlphabetically() {
+            this.$store.commit('SORT_LIST_ALPHABETICALLY', this.listIndex);
+            this.updateLists();
+        },
+
+        sortListByRating() {
+            this.$store.commit('SORT_LIST_BY_RATING', this.listIndex);
             this.updateLists();
         },
 

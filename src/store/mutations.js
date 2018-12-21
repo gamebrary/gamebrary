@@ -64,7 +64,7 @@ export default {
         state.platform = platform;
     },
 
-    SORT_LIST(state, listIndex) {
+    SORT_LIST_ALPHABETICALLY(state, listIndex) {
         const games = state.gameLists[state.platform.code][listIndex].games;
 
         games.sort((a, b) => {
@@ -76,6 +76,21 @@ export default {
             }
 
             return gameA > gameB ? 1 : 0;
+        });
+    },
+
+    SORT_LIST_BY_RATING(state, listIndex) {
+        const games = state.gameLists[state.platform.code][listIndex].games;
+
+        games.sort((a, b) => {
+            const gameA = state.games[a].rating || 0;
+            const gameB = state.games[b].rating || 0;
+
+            if (gameA > gameB) {
+                return -1;
+            }
+
+            return gameA < gameB ? 1 : 0;
         });
     },
 
