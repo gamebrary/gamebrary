@@ -66,7 +66,7 @@
             <button
                 v-if="hasGames"
                 :class="['small accent', { hollow: darkModeEnabled }]"
-                :title="$t('list.sort')"
+                :title="$t('list.sortByName')"
                 @click="sortListAlphabetically"
             >
                 <i class="fas fa-sort-alpha-down" />
@@ -75,7 +75,7 @@
             <button
                 v-if="hasGames"
                 :class="['small accent', { hollow: darkModeEnabled }]"
-                :title="$t('list.sort')"
+                :title="$t('list.sortByRating')"
                 @click="sortListByRating"
             >
                 <i class="fas fa-sort-numeric-up" />
