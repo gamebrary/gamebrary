@@ -11,7 +11,7 @@
 <script>
 import NavHeader from '@/components/NavHeader/NavHeader';
 import firebase from 'firebase/app';
-import { $error, $success } from '@/shared/modals';
+import { $error } from '@/shared/modals';
 import 'firebase/auth';
 import 'firebase/firestore';
 import { mapState } from 'vuex';

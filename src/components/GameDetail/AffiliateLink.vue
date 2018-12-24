@@ -7,17 +7,16 @@
     >
         <img src='/static/img/amazon-logo-clear.png' height="60">
         <p>
-            Buy {{ game.name }} at Amazon using this affiliate link to support the ongoing development of <strong>Gamebrary</strong>.</p>
+            Buy {{ game.name }} at Amazon using this affiliate
+            link to support the ongoing development of <strong>Gamebrary</strong>.
+        </p>
     </a>
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
-    computed: {
-        ...mapState(['game']),
-    },
     data() {
         return {
             affiliateLinks: {
@@ -35,6 +34,10 @@ export default {
                 14363: 'https://www.amazon.com/gp/product/B01FT72NOO/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=gamebrary-20&creative=9325&linkCode=as2&creativeASIN=B01FT72NOO&linkId=cb8d066db8b56467c7832364fabe9695',
             },
         };
+    },
+
+    computed: {
+        ...mapState(['game']),
     },
 };
 </script>
