@@ -66,7 +66,6 @@ export default {
                     if (doc.exists) {
                         const gameLists = doc.data();
                         this.$store.commit('SET_GAME_LISTS', gameLists);
-                        $success('Data synced');
                     }
                 });
 
@@ -77,7 +76,6 @@ export default {
                         const settings = doc.data();
 
                         this.$store.commit('SET_SETTINGS', settings);
-                        $success('Data synced');
                     }
                 });
         },
