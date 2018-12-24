@@ -10,6 +10,7 @@
                 <div>
                     <h2>{{ game.name }}</h2>
                     <p class="game-description" v-html="game.summary" />
+                    <affiliate-link />
                     <game-review-box />
                 </div>
 
@@ -53,6 +54,7 @@ import GameHeader from '@/components/GameDetail/GameHeader';
 import GameScreenshots from '@/components/GameDetail/GameScreenshots';
 import GameVideos from '@/components/GameDetail/GameVideos';
 import GameReviewBox from '@/components/GameDetail/GameReviewBox';
+import AffiliateLink from '@/components/GameDetail/AffiliateLink';
 
 export default {
     components: {
@@ -60,6 +62,7 @@ export default {
         GameScreenshots,
         GameVideos,
         GameReviewBox,
+        AffiliateLink,
     },
 
     computed: {
