@@ -5,6 +5,7 @@
             class="logo"
             :to="{ name: isHome ? 'platforms' : 'home' }"
         >
+            <img src='/static/gamebrary-logo.png' />
             GAMEBRARY
         </router-link>
 
@@ -79,13 +80,19 @@ export default {
         width: 100vw;
         height: $navHeight;
         display: flex;
-        justify-content: center;
         background: $color-white;
-        color: $color-dark-gray;
+        color: $color-darkest-gray;
 
         .logo {
             height: $navHeight;
             font-weight: bold;
+            display: flex;
+            align-items: center;
+
+            img {
+                height: 24px;
+                margin-right: $gp / 4;
+            }
         }
 
         .share {
