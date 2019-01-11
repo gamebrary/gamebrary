@@ -7,14 +7,7 @@
         :class="{ dark: darkModeEnabled, 'drag-scroll-active': dragScrollActive }"
         v-dragscroll:nochilddrag
     >
-        <template v-if="loading">
-            Loading...
-        </template>
-
-        <!-- <div v-else-if="!gameLists[platform.code]">
-            // TODO: SHOW FTU
-            Boom
-        </div> -->
+        <game-board-placeholder v-if="loading" />
 
         <template>
             <list
@@ -22,7 +15,7 @@
                 :games="list.games"
                 :listIndex="listIndex"
                 :key="`${list.name}-${listIndex}`"
-                v-if="list"
+                v-if="list && !loading"
                 v-for="(list, listIndex) in gameLists[platform.code]"
                 @end="dragEnd"
                 @remove="tryDelete(listIndex)"
@@ -39,6 +32,7 @@
 <script>
 import { dragscroll } from 'vue-dragscroll';
 import AddList from '@/components/Lists/AddList';
+import GameBoardPlaceholder from '@/components/GameBoard/GameBoardPlaceholder';
 import Panel from '@/components/Panel/Panel';
 import { $success, $error, swal } from '@/shared/modals';
 import List from '@/components/GameBoard/List';
@@ -58,6 +52,7 @@ export default {
         draggable,
         List,
         AddList,
+        GameBoardPlaceholder,
         Panel,
     },
 
@@ -210,7 +205,7 @@ export default {
 
     .panel {
         margin-right: $gp;
-        width: 300px;
+        width: $list-width;
     }
 
     .lists {

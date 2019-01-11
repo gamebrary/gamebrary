@@ -1,6 +1,6 @@
 <template lang="html">
     <main v-dragscroll:nochilddrag>
-        <span v-if="loading">Loading...</span>
+        <game-board-placeholder v-if="loading" />
 
         <section
             v-if="!loading && listData && publicGameData"
@@ -9,11 +9,9 @@
         >
             <header>{{ list.name }} ({{ list.games.length }})</header>
 
-            <div class="empty-list" v-if="!list.games.length">
-                <h3>This collection is empty</h3>
-            </div>
+            <div class="games">
+                <p v-if="!list.games.length">This list is empty</p>
 
-            <div class="games" v-else>
                 <div
                     v-if="publicGameData[game]"
                     class="game-card"
@@ -35,6 +33,7 @@
 
 <script>
 import firebase from 'firebase/app';
+import GameBoardPlaceholder from '@/components/GameBoard/GameBoardPlaceholder';
 import { swal } from '@/shared/modals';
 import { dragscroll } from 'vue-dragscroll';
 import { mapState } from 'vuex';
@@ -48,6 +47,10 @@ db.settings({
 });
 
 export default {
+    components: {
+        GameBoardPlaceholder,
+    },
+
     directives: {
         dragscroll,
     },
