@@ -142,7 +142,7 @@ export default {
         background: $color-gray;
         box-sizing: border-box;
         display: flex;
-        height: 100vh;
+        height: calc(100vh - #{$navHeight});
         overflow-x: auto;
         overflow-x: overlay;
         padding: $gp;
@@ -162,7 +162,7 @@ export default {
         border-radius: $border-radius;
         overflow: hidden;
         margin-right: $gp;
-        max-height: calc(100vh - 48px);
+        max-height: calc(100vh - #{$navHeight + $gp * 2});
 
         header {
             align-items: center;
@@ -180,7 +180,7 @@ export default {
             height: 100%;
             overflow-x: hidden;
             min-height: 60px;
-            max-height: calc(100vh - 78px);
+            max-height: calc(100vh - #{$navHeight + $gp * 4});
             overflow-y: auto;
             overflow-y: overlay;
             column-gap: $gp;

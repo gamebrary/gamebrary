@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <nav-header v-if="user && !isPublic" />
+        <nav-header />
 
         <main :class="{ 'logged-in': user && !isPublic }">
             <router-view />

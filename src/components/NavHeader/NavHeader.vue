@@ -3,7 +3,7 @@
         <router-link
             tag="button"
             class="logo"
-            :to="{ name: isHome ? 'platforms' : 'home' }"
+            :to="{ name: logoRoute }"
         >
             <img src='/static/gamebrary-logo.png' />
             GAMEBRARY
@@ -43,11 +43,21 @@ export default {
         },
 
         showSettings() {
-            return this.$route.name !== 'settings';
+            return this.$route.name !== 'settings' && this.user;
         },
 
         showShareUrl() {
             return this.$route.name === 'home' && this.platform;
+        },
+
+        logoRoute() {
+            if (!this.user) {
+                return 'home';
+            }
+
+            return this.isHome
+                ? 'platforms'
+                : 'home';
         },
 
         shareUrl() {
