@@ -27,7 +27,7 @@ module.exports = {
     },
     list: {
         edit: 'Edit list name',
-        name: 'List name',
+        name: 'List name (e.g. Owned, Wishlist, Completed, etc...)',
         add: 'Add list',
         sortByName: 'Sort list by game name',
         sortByRating: 'Sort list by game rating',

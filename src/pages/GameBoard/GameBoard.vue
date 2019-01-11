@@ -21,6 +21,8 @@
                 @remove="tryDelete(listIndex)"
             />
 
+            <onboard v-if="!list" />
+
             <add-list
                 @update="updateLists()"
                 @scroll="scroll"
@@ -33,6 +35,7 @@
 import { dragscroll } from 'vue-dragscroll';
 import AddList from '@/components/Lists/AddList';
 import GameBoardPlaceholder from '@/components/GameBoard/GameBoardPlaceholder';
+import Onboard from '@/components/GameBoard/Onboard';
 import Panel from '@/components/Panel/Panel';
 import { $success, $error, swal } from '@/shared/modals';
 import List from '@/components/GameBoard/List';
@@ -53,6 +56,7 @@ export default {
         List,
         AddList,
         GameBoardPlaceholder,
+        Onboard,
         Panel,
     },
 
@@ -187,9 +191,6 @@ export default {
                             this.loading = false;
                         });
                 }
-            } else {
-                // TODO: load platform FTU data
-                // this.$store.dispatch('LOAD_PLATFORM');
             }
         },
     },

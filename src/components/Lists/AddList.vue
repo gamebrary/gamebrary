@@ -93,6 +93,12 @@ export default {
         },
     },
 
+    mounted() {
+        if (!this.list) {
+            this.toggleAddList();
+        }
+    },
+
     methods: {
         toggleAddList() {
             if (!this.show) {
