@@ -2,10 +2,7 @@
     <div
         class="lists"
         ref="lists"
-        @dragscrollstart="dragScrollActive = true"
-        @dragscrollend="dragScrollActive = false"
-        :class="{ dark: darkModeEnabled, 'drag-scroll-active': dragScrollActive }"
-        v-dragscroll:nochilddrag
+        :class="{ dark: darkModeEnabled }"
     >
         <game-board-placeholder v-if="loading" />
 
@@ -32,7 +29,6 @@
 </template>
 
 <script>
-import { dragscroll } from 'vue-dragscroll';
 import AddList from '@/components/Lists/AddList';
 import GameBoardPlaceholder from '@/components/GameBoard/GameBoardPlaceholder';
 import Onboard from '@/components/GameBoard/Onboard';
@@ -60,10 +56,6 @@ export default {
         Panel,
     },
 
-    directives: {
-        dragscroll,
-    },
-
     data() {
         return {
             dragging: false,
@@ -72,7 +64,6 @@ export default {
             gameData: null,
             activeList: null,
             showDeleteConfirm: false,
-            dragScrollActive: false,
             listDraggableOptions: {
                 animation: 500,
                 handle: '.list-drag-handle',
@@ -220,14 +211,9 @@ export default {
         overflow-x: auto;
         overflow-x: overlay;
         display: flex;
-        @include drag-cursor;
 
         &.dark {
             background: #222 !important;
-        }
-
-        &.drag-scroll-active {
-            @include dragging-cursor;
         }
 
         &.empty {

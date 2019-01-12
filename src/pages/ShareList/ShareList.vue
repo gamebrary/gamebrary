@@ -1,5 +1,5 @@
 <template lang="html">
-    <main v-dragscroll:nochilddrag>
+    <main>
         <game-board-placeholder v-if="loading" />
 
         <section
@@ -35,7 +35,6 @@
 import firebase from 'firebase/app';
 import GameBoardPlaceholder from '@/components/GameBoard/GameBoardPlaceholder';
 import { swal } from '@/shared/modals';
-import { dragscroll } from 'vue-dragscroll';
 import { mapState } from 'vuex';
 
 import 'firebase/firestore';
@@ -49,10 +48,6 @@ db.settings({
 export default {
     components: {
         GameBoardPlaceholder,
-    },
-
-    directives: {
-        dragscroll,
     },
 
     data() {
@@ -148,10 +143,6 @@ export default {
         padding: $gp;
         user-select: none;
         @include drag-cursor;
-
-        &.drag-scroll-active {
-            @include dragging-cursor;
-        }
     }
 
     section {
