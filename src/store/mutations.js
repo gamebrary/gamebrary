@@ -111,6 +111,10 @@ export default {
         state.gameLists[state.platform.code].splice(index, 1);
     },
 
+    REMOVE_PLATFORM(state) {
+        Vue.delete(state.gameLists, state.platform.code);
+    },
+
     ADD_GAME(state, { gameId, listId }) {
         const currentList = state.gameLists[state.platform.code][listId];
 
