@@ -55,6 +55,27 @@
                 </div>
             </div>
         </div>
+
+        <div class="consoles-book">
+            <a target="_blank"  href="https://www.amazon.com/gp/product/1593277431/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1593277431&linkCode=as2&tag=gamebrary-20&linkId=a253bbe3bfebd787ead2adc20dbb272b">
+                <img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=US&ASIN=1593277431&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL160_&tag=gamebrary-20">
+            </a>
+
+            <div class="description">
+                <h3>Book recommendation</h3>
+                <p>
+                    <strong>
+                        <a href="https://www.amazon.com/gp/product/1593277431/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1593277431&linkCode=as2&tag=gamebrary-20&linkId=a253bbe3bfebd787ead2adc20dbb272b" target="_blank">The Game Console: A Photographic History from Atari to Xbox</a>
+                    </strong>
+                </p>
+
+                <p>
+                    <small>
+                        <strong>GAMEBRARY</strong> gets a small referral commission when you use our affiliate link to purchase this book. the earnings will go towards supporting the ongoing development of Gamebrary.
+                    </small>
+                </p>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -140,6 +161,27 @@ export default {
 
         @media($small) {
             margin: 0;
+        }
+
+        .consoles-book {
+            max-width: 100%;
+            background: $color-white;
+            display: grid;
+            grid-gap: $gp;
+            width: 400px;
+            margin-top: $gp * 2;
+            grid-template-columns: 180px auto;
+            border-radius: $border-radius;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+                display: block;
+            }
+
+            .description {
+                padding-right: $gp;
+            }
         }
 
         .tools {
