@@ -43,6 +43,10 @@
                         :style="`background-color: ${platform.tileHex || platform.hex || '#fff'}`"
                         @click="changePlatform(platform)"
                     >
+                        <div v-if="!ownedListsOnly && ownedPlatform(platform.code)" class="owned-platform">
+                            <i class="fas fa-check" />
+                        </div>
+
                         <img
                             :src='`/static/img/platforms/${platform.code}.svg`'
                             :alt="platform.name"
@@ -93,11 +97,11 @@ export default {
         },
     },
 
-    mounted() {
-        this.ownedListsOnly = Object.keys(this.gameLists).length > 0;
-    },
-
     methods: {
+        ownedPlatform(platformCode) {
+            return this.gameLists && this.gameLists[platformCode];
+        },
+
         changePlatform(platform) {
             this.$store.commit('SET_PLATFORM', platform);
             this.$router.push({ name: 'home' });
@@ -177,6 +181,7 @@ export default {
             }
 
             a {
+                position: relative;
                 cursor: pointer;
                 border-radius: $border-radius;
                 width: auto;
@@ -198,6 +203,29 @@ export default {
 
                     @media($small) {
                         max-width: 70%;
+                    }
+                }
+
+                .owned-platform {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: flex-end;
+                    box-shadow:inset 0 0 0 2px $color-green;
+
+                    i {
+                        background: $color-green;
+                        width: 16px;
+                        font-size: 9px;
+                        height: 16px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: $border-radius;
+                        color: $color-white;
                     }
                 }
             }
