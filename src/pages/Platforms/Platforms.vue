@@ -43,7 +43,10 @@
                         :style="`background-color: ${platform.tileHex || platform.hex || '#fff'}`"
                         @click="changePlatform(platform)"
                     >
-                        <div v-if="!ownedListsOnly && ownedPlatform(platform.code)" class="owned-platform">
+                        <div
+                            v-if="!ownedListsOnly && ownedPlatform(platform.code)"
+                            class="owned-platform"
+                        >
                             <i class="fas fa-check" />
                         </div>
 
@@ -57,8 +60,10 @@
         </div>
 
         <div class="consoles-book">
-            <a target="_blank"  href="https://www.amazon.com/gp/product/1593277431/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1593277431&linkCode=as2&tag=gamebrary-20&linkId=a253bbe3bfebd787ead2adc20dbb272b">
-                <img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=US&ASIN=1593277431&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL160_&tag=gamebrary-20">
+            <!-- eslint-disable-next-line -->
+            <a target="_blank" href="https://www.amazon.com/gp/product/1593277431/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1593277431&linkCode=as2&tag=gamebrary-20&linkId=a253bbe3bfebd787ead2adc20dbb272b">
+                <!-- eslint-disable-next-line -->
+                <img src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=US&ASIN=1593277431&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL160_&tag=gamebrary-20">
             </a>
 
             <div class="description">
@@ -71,7 +76,9 @@
 
                 <p>
                     <small>
-                        <strong>GAMEBRARY</strong> gets a small referral commission when you use our affiliate link to purchase this book. the earnings will go towards supporting the ongoing development of Gamebrary.
+                        <strong>GAMEBRARY</strong> gets a small referral commission when
+                        you use our affiliate link to purchase this book. the earnings will go
+                        towards supporting the ongoing development of Gamebrary.
                     </small>
                 </p>
             </div>
