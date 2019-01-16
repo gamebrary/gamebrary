@@ -20,8 +20,8 @@
 
             <onboard v-if="!list" />
 
-            <add-list
-                @update="updateLists()"
+            <list-options
+                @update="updateLists"
                 @scroll="scroll"
             />
         </template>
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import AddList from '@/components/Lists/AddList';
+import ListOptions from '@/components/Lists/ListOptions';
 import GameBoardPlaceholder from '@/components/GameBoard/GameBoardPlaceholder';
 import Onboard from '@/components/GameBoard/Onboard';
 import Panel from '@/components/Panel/Panel';
@@ -50,7 +50,7 @@ export default {
     components: {
         draggable,
         List,
-        AddList,
+        ListOptions,
         GameBoardPlaceholder,
         Onboard,
         Panel,
@@ -136,8 +136,8 @@ export default {
             this.updateLists();
         },
 
-        updateLists() {
-            db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
+        updateLists(force) {
+            db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: !force })
                 .then(() => {
                     $success('List saved');
                 })
