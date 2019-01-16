@@ -20,8 +20,8 @@
 
             <onboard v-if="!list" />
 
-            <add-list
-                @update="updateLists()"
+            <list-options
+                @update="updateLists"
                 @scroll="scroll"
             />
         </template>
