@@ -38,7 +38,7 @@
 
         <div class="actions" v-else>
             <button
-                class="add small info"
+                class="small info"
                 :title="$t('list.add')"
                 @click="toggleAddList"
             >
@@ -46,11 +46,19 @@
             </button>
 
             <button
-                class="add small info"
+                class="small info"
                 :title="$t('list.add')"
                 @click="promptDeletePlatform"
             >
                 <i class="far fa-trash-alt" />
+            </button>
+
+            <button
+                class="small info"
+                @click="showShareModal"
+                title="Share"
+            >
+                <i class="fas fa-share-alt" />
             </button>
         </div>
     </div>
@@ -74,7 +82,7 @@ export default {
     },
 
     computed: {
-        ...mapState(['gameLists', 'platform']),
+        ...mapState(['user', 'gameLists', 'platform']),
 
         errorMessage() {
             return `You already have a list named <strong>${this.newListName}</strong>. Please use a different name.`;
@@ -90,6 +98,14 @@ export default {
             return this.list ?
                 this.list.filter(({ name }) => name.toLowerCase() === newListName).length > 0
                 : false;
+        },
+
+        shareUrl() {
+            const url = process.env.NODE_ENV === 'development'
+                ? 'http://localhost:3000'
+                : 'https://gamebrary.com';
+
+            return `${url}/#/s/${this.user.uid}/${this.platform.code}`;
         },
     },
 
@@ -118,6 +134,16 @@ export default {
             }
 
             this.show = !this.show;
+        },
+
+        showShareModal() {
+            swal({
+                titleText: 'Share your list',
+                html: 'Use the following URL to share this list.',
+                input: 'url',
+                inputValue: this.shareUrl,
+                showConfirmButton: false,
+            });
         },
 
         promptDeletePlatform() {
@@ -187,10 +213,10 @@ export default {
 
         input {
             width: 284px;
-        }
 
-        button.add {
-            margin-right: $gp;
+            @media($small) {
+                width: 200px;
+            }
         }
     }
 
@@ -211,5 +237,11 @@ export default {
         display: block;
         padding: $gp / 2;
         border-radius: $border-radius;
+    }
+</style>
+
+<style lang="scss" rel="stylesheet/scss">
+    .swal2-input {
+        font-size: 10px !important;
     }
 </style>
