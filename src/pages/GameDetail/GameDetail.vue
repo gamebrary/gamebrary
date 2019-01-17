@@ -152,8 +152,10 @@ export default {
         }
 
         &.dark {
+            background: $color-darkest-gray;
+
             .game-detail-container {
-                background: #333;
+                background: $color-darkest-gray;
                 color: $color-gray;
             }
         }
