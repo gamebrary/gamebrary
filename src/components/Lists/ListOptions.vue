@@ -28,6 +28,7 @@
                 <button
                     class="small info hollow"
                     type="button"
+                    v-if="list"
                     @click="reset"
                 >
                     {{ $t('global.cancel') }}
