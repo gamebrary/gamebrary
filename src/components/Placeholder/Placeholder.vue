@@ -1,5 +1,8 @@
 <template lang="html">
-    <div class="placeholder" :class="{ 'has-image': image, large }" v-if="image || lines">
+    <div
+        :class="['placeholder', { dark: darkModeEnabled, 'has-image': image }]"
+        v-if="image || lines"
+    >
         <div class="image" v-if="image" />
 
         <div class="text" v-if="lines">
@@ -13,11 +16,17 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
     props: {
         image: Boolean,
         large: Boolean,
         lines: Number,
+    },
+
+    computed: {
+        ...mapGetters(['darkModeEnabled']),
     },
 };
 </script>
@@ -32,6 +41,10 @@ export default {
             display: grid;
             grid-template-columns: 80px auto;
             grid-gap: $gp;
+        }
+
+        &.dark {
+            opacity: 0.5;
         }
     }
 
@@ -54,33 +67,22 @@ export default {
         background: $color-light-gray;
         background: linear-gradient(to right,
             $color-light-gray 8%,
-            #F0F0F0 18%, $color-light-gray 33%);
+            $color-white 18%, $color-light-gray 33%);
         background-size: 800px 104px;
         height: 96px;
         position: relative;
     }
 
     .image {
-        height: 120px;
-        width: 80px;
+        width: var(--placeholder-image-width, 80px);
+        height: var(--placeholder-image-height, 120px);
         @extend .animated-background;
     }
 
     .text-line {
-        height: 12px;
-        width: 100%;
+        width: var(--placeholder-text-width, 100%);
+        height: var(--placeholder-text-height, 12px);
         margin-bottom: $gp / 2;
         @extend .animated-background;
-    }
-
-    .large {
-        .text-line {
-            height: 30px;
-        }
-
-        .image {
-            height: 220px;
-            width: 175px;
-        }
     }
 </style>

@@ -1,29 +1,32 @@
 <template lang="html">
-    <div>
-        <div class="game-detail">
-            <div class="game-hero" />
+    <div :class="['game-detail-placeholder', { dark: darkModeEnabled }]">
+        <div class="game-hero" />
 
-            <div class="game-detail-container">
-                <div class="game-info">
-                    <placeholder image large />
+        <div class="game-detail-container">
+            <div class="game-detail">
+                <placeholder image class="game-cover" />
 
-                    <div>
-                        <placeholder :lines="1" large class="title" />
-                        <placeholder :lines="5" class="description" />
-                    </div>
-
+                <div>
+                    <placeholder :lines="1" class="game-title" />
+                    <placeholder :lines="5" />
                 </div>
+
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Placeholder from '@/components/Placeholder/Placeholder';
 
 export default {
     components: {
         Placeholder,
+    },
+
+    computed: {
+        ...mapGetters(['darkModeEnabled']),
     },
 };
 </script>
@@ -31,20 +34,17 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
 @import "~styles/styles.scss";
 
-.game-detail {
+.game-detail-placeholder {
     display: flex;
     justify-content: center;
     background: $color-light-gray;
     min-height: calc(100vh - #{$navHeight});
 
-    @media($small) {
-        margin: 0;
-    }
-
     &.dark {
+        background: $color-darkest-gray;
+
         .game-detail-container {
-            background: #333;
-            color: $color-gray;
+            background-color: $color-dark-gray;
         }
     }
 }
@@ -58,33 +58,12 @@ export default {
     z-index: 1;
 
     @media($small) {
-        background: none !important;
-    }
-}
-
-.game-info {
-    display: grid;
-    grid-template-columns: 180px auto;
-    grid-gap: $gp * 2;
-    margin: 0 $gp;
-
-    @media($small) {
-        grid-gap: 0;
-        grid-template-columns: 1fr;
-        text-align: center;
-
-        .game-description {
-            text-align: justify;
-        }
-    }
-
-    .game-description {
-        line-height: 1.4rem;
+        display: none;
     }
 }
 
 .game-detail-container {
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: $color-white;
     -webkit-box-shadow: 0 0 2px 0 $color-gray;
     box-shadow: 0 0 2px 0 $color-gray;
     width: $container-width;
@@ -94,17 +73,43 @@ export default {
     padding: $gp 0;
     border-radius: $border-radius;
 
-    .title {
-        width: 50%;
-    }
-
-    .description {
-        width: 75%;
-    }
-
     @media($small) {
         margin: 0;
         border-radius: 0;
+    }
+}
+
+.game-detail {
+    display: grid;
+    grid-template-columns: 180px auto;
+    grid-gap: $gp * 2;
+    margin: 0 $gp;
+
+    @media($small) {
+        grid-template-columns: auto;
+    }
+}
+
+.game-cover {
+    --placeholder-image-width: 175px;
+    --placeholder-image-height: 220px;
+
+    @media($small) {
+        --placeholder-image-width: 240px;
+        --placeholder-image-height: 300px;
+        width: 240px;
+        margin: 0 auto;
+    }
+}
+
+.game-title {
+    --placeholder-text-height: 30px;
+    margin-bottom: $gp;
+    width: 50%;
+
+    @media($small) {
+        width: 50%;
+        margin: 0 auto;
     }
 }
 </style>

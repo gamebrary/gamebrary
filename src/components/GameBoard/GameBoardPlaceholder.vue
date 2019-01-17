@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="gameboard-placeholder">
+    <div :class="['gameboard-placeholder', { dark: darkModeEnabled }]">
         <div class="list" v-for="list in lists" :key="list.name">
             <div class="list-header" />
 
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import Placeholder from '@/components/Placeholder/Placeholder';
 
 export default {
@@ -28,6 +28,7 @@ export default {
 
     computed: {
         ...mapState(['gameLists', 'platform']),
+        ...mapGetters(['darkModeEnabled']),
 
         lists() {
             return this.gameLists && this.gameLists[this.platform.code]
@@ -63,26 +64,27 @@ export default {
         width: $list-width;
         margin-right: $gp;
         max-height: calc(100vh - 81px);
+    }
 
-        .list-header {
-            background: $color-dark-gray;
-            height: $list-header-height;
-            position: absolute;
-            width: 100%;
-        }
+    .dark .list {
+        background: $color-dark-gray;
+    }
 
-        .games {
-            margin-top: $list-header-height;
-            width: 100%;
-            padding: $gp / 2;
+    .list-header {
+        background: $color-dark-gray;
+        height: $list-header-height;
+        position: absolute;
+        width: 100%;
+    }
 
-            .game {
-                .placeholder {
-                    padding-right: $gp;
-                    background: $color-white;
-                    margin-bottom: $gp / 2;
-                }
-            }
-        }
+    .games {
+        margin-top: $list-header-height;
+        width: 100%;
+        padding: $gp / 2;
+    }
+
+    .placeholder {
+        padding-right: $gp;
+        margin-bottom: $gp / 2;
     }
 </style>
