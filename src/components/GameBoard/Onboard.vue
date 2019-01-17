@@ -20,11 +20,27 @@ export default {
     @import "~styles/styles.scss";
 
     .onboard {
-        padding: 0 $gp * 3;
-        margin: 0 $gp;
+        flex-shrink: 0;
+        margin-right: $gp;
+        padding-right: 60px;
         text-align: center;
         background: url('/static/img/arrow-black.png') no-repeat center right;
         background-size: 50px;
+
+        @media($small) {
+            background-size: 30px;
+            padding-right: 40px;
+            margin-right: $gp / 2;
+
+            h2 {
+                font-size: 13px;
+                text-align: left;
+            }
+
+            h3 {
+                font-size: 12px;
+            }
+        }
 
         &.dark {
             background: url('/static/img/arrow-white.png') no-repeat center right;
