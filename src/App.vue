@@ -99,7 +99,7 @@ export default {
                 } else {
                     this.initSettings();
                 }
-            this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
+                this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
             }).catch(() => {
                 this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
             });
