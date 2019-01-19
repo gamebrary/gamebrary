@@ -33,7 +33,7 @@ import ListOptions from '@/components/Lists/ListOptions';
 import GameBoardPlaceholder from '@/components/GameBoard/GameBoardPlaceholder';
 import Onboard from '@/components/GameBoard/Onboard';
 import Panel from '@/components/Panel/Panel';
-import { $error, swal } from '@/shared/modals';
+import { swal } from '@/shared/modals';
 import List from '@/components/GameBoard/List';
 import draggable from 'vuedraggable';
 import { mapState, mapGetters } from 'vuex';
@@ -140,7 +140,7 @@ export default {
         updateLists(force) {
             db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: !force })
                 .catch(() => {
-                    $error('Authentication error');
+                    this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
                 });
         },
 

@@ -14,7 +14,6 @@
 import NavHeader from '@/components/NavHeader/NavHeader';
 import Toast from '@/components/Toast/Toast';
 import firebase from 'firebase/app';
-import { $error } from '@/shared/modals';
 import 'firebase/auth';
 import 'firebase/firestore';
 import { mapState } from 'vuex';
@@ -100,8 +99,9 @@ export default {
                 } else {
                     this.initSettings();
                 }
+            this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
             }).catch(() => {
-                $error('Authentication error');
+                this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
             });
         },
 
@@ -116,7 +116,7 @@ export default {
                     }
                 })
                 .catch(() => {
-                    $error('Authentication error');
+                    this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
                 });
         },
 

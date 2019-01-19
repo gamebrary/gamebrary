@@ -109,7 +109,6 @@ import GameSearch from '@/components/GameSearch/GameSearch';
 import { mapState, mapGetters } from 'vuex';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
-import { $error } from '@/shared/modals';
 
 const db = firebase.firestore();
 
@@ -179,7 +178,7 @@ export default {
                     this.$bus.$emit('TOAST', { message: 'List saved' });
                 })
                 .catch(() => {
-                    $error('Authentication error');
+                    this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
                 });
         },
 

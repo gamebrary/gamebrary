@@ -44,7 +44,6 @@
 <script>
 import GameRating from '@/components/GameDetail/GameRating';
 import { mapState } from 'vuex';
-import { $error } from '@/shared/modals';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
@@ -134,7 +133,7 @@ export default {
                     this.$bus.$emit('TOAST', { message: 'Game added to list' });
                 })
                 .catch(() => {
-                    $error('Authentication error');
+                    this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
                 });
         },
 
@@ -151,7 +150,7 @@ export default {
                     this.$bus.$emit('TOAST', { message: 'Game removed' });
                 })
                 .catch(() => {
-                    $error('Authentication error');
+                    this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
                 });
         },
     },

@@ -107,7 +107,7 @@ import 'firebase/auth';
 import Gravatar from 'vue-gravatar';
 import Panel from '@/components/Panel/Panel';
 import ToggleSwitch from '@/components/ToggleSwitch/ToggleSwitch';
-import { $error, swal } from '@/shared/modals';
+import { swal } from '@/shared/modals';
 import moment from 'moment';
 
 const db = firebase.firestore();
@@ -187,11 +187,11 @@ export default {
                             this.$router.push({ name: 'home' });
                         })
                         .catch(() => {
-                            $error('Authentication error');
+                            this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
                         });
                 })
                 .catch(() => {
-                    $error('Authentication error');
+                    this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
                 });
         },
 
@@ -202,7 +202,7 @@ export default {
                     this.$router.push({ name: 'home' });
                 })
                 .catch((error) => {
-                    $error(error);
+                    this.$bus.$emit('TOAST', { message: error, type: 'error' });
                 });
         },
 
@@ -215,7 +215,7 @@ export default {
                         this.$bus.$emit('TOAST', { message: 'Settings saved' });
                     })
                     .catch(() => {
-                        $error('There was an error saving your settings');
+                        this.$bus.$emit('TOAST', { message: 'There was an error saving your settings', type: 'error' });
                     });
             }, 500),
     },
