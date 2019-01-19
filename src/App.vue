@@ -5,11 +5,14 @@
         <main :class="{ 'logged-in': user && !isPublic }">
             <router-view />
         </main>
+
+        <toast />
     </div>
 </template>
 
 <script>
 import NavHeader from '@/components/NavHeader/NavHeader';
+import Toast from '@/components/Toast/Toast';
 import firebase from 'firebase/app';
 import { $error } from '@/shared/modals';
 import 'firebase/auth';
@@ -36,6 +39,7 @@ export default {
 
     components: {
         NavHeader,
+        Toast,
     },
 
     computed: {
