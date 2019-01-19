@@ -92,7 +92,6 @@ export default {
 
     h4 {
         margin: 0;
-        text-transform: capitalize;
     }
 
     i {
