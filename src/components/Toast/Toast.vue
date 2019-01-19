@@ -21,8 +21,14 @@ export default {
                 success: 'fas fa-check',
                 warning: 'fas fa-exclamation',
                 error: 'fas fa-times',
-            }
+            },
         };
+    },
+
+    computed: {
+        iconName() {
+            return this.toastTypes[this.type];
+        },
     },
 
     watch: {
@@ -44,12 +50,6 @@ export default {
         this.$bus.$off('TOAST');
     },
 
-    computed: {
-        iconName() {
-            return this.toastTypes[this.type];
-        },
-    },
-
     methods: {
         toast({ message, type }) {
             this.timer = type === 'error' || type === 'warning'
@@ -67,7 +67,7 @@ export default {
 
         close() {
             this.show = false;
-        }
+        },
     },
 };
 </script>
