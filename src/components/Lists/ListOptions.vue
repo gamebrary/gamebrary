@@ -179,14 +179,7 @@ export default {
             this.$emit('scroll');
             this.reset();
 
-            swal({
-                position: 'bottom-end',
-                title: 'List added',
-                type: 'success',
-                toast: true,
-                showConfirmButton: false,
-                timer: 1500,
-            });
+            this.$bus.$emit('TOAST', { message: 'List added' });
         },
 
         reset() {

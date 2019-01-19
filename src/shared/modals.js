@@ -12,15 +12,4 @@ export function $error(title) {
     });
 }
 
-export function $success(title) {
-    swal({
-        position: 'bottom-end',
-        title,
-        type: 'success',
-        toast: true,
-        showConfirmButton: false,
-        timer: 1500,
-    });
-}
-
 export { swal };

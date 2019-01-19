@@ -33,7 +33,7 @@ import ListOptions from '@/components/Lists/ListOptions';
 import GameBoardPlaceholder from '@/components/GameBoard/GameBoardPlaceholder';
 import Onboard from '@/components/GameBoard/Onboard';
 import Panel from '@/components/Panel/Panel';
-import { $success, $error, swal } from '@/shared/modals';
+import { $error, swal } from '@/shared/modals';
 import List from '@/components/GameBoard/List';
 import draggable from 'vuedraggable';
 import { mapState, mapGetters } from 'vuex';
@@ -127,20 +127,18 @@ export default {
         deleteList(index) {
             this.$store.commit('REMOVE_LIST', index);
             this.updateLists();
-            $success('List deleted');
+            this.$bus.$emit('TOAST', { message: 'List deleted' });
         },
 
         dragEnd() {
             this.dragging = false;
             this.draggingId = null;
+            this.$bus.$emit('TOAST', { message: 'Collection updated' });
             this.updateLists();
         },
 
         updateLists(force) {
             db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: !force })
-                .then(() => {
-                    $success('List saved');
-                })
                 .catch(() => {
                     $error('Authentication error');
                 });

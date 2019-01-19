@@ -109,7 +109,7 @@ import GameSearch from '@/components/GameSearch/GameSearch';
 import { mapState, mapGetters } from 'vuex';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
-import { $success, $error } from '@/shared/modals';
+import { $error } from '@/shared/modals';
 
 const db = firebase.firestore();
 
@@ -176,7 +176,7 @@ export default {
         updateLists() {
             db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
                 .then(() => {
-                    $success('List saved');
+                    this.$bus.$emit('TOAST', { message: 'List saved' });
                 })
                 .catch(() => {
                     $error('Authentication error');
