@@ -83,6 +83,7 @@ export default {
     bottom: -80px;
     right: $gp;
     cursor: pointer;
+    max-width: 300px;
     opacity: 0;
 
     border-radius: $border-radius;
