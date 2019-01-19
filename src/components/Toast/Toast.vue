@@ -43,7 +43,6 @@ export default {
 
     mounted() {
         this.$bus.$on('TOAST', this.toast);
-        this.$bus.$emit('TOAST', { message: 'List saved' });
     },
 
     beforeDestroy() {
