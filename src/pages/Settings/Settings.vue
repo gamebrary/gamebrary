@@ -199,7 +199,11 @@ export default {
             firebase.auth().signOut()
                 .then(() => {
                     this.$store.commit('CLEAR_SESSION');
-                    this.$router.push({ name: 'home' });
+                    const exitUrl = process.env.NODE_ENV === 'development'
+                        ? 'http://localhost:3000'
+                        : 'https://gamebrary.com';
+
+                    window.location.href = exitUrl;
                 })
                 .catch((error) => {
                     this.$bus.$emit('TOAST', { message: error, type: 'error' });
