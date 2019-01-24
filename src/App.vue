@@ -50,15 +50,25 @@ export default {
     },
 
     mounted() {
-        firebase.auth().getRedirectResult().then(({ user }) => {
-            if (user) {
-                this.init(user);
-                this.syncData();
-            }
-        });
-
         if (this.user) {
             this.syncData();
+            this.$router.push({ name: 'platforms' });
+        } else {
+            firebase.auth().getRedirectResult().then(({ user }) => {
+                if (user) {
+                    this.init(user);
+                    this.syncData();
+                    this.$router.push({ name: 'platforms' });
+                } else {
+                    const GoogleAuth = new firebase.auth.GoogleAuthProvider();
+
+                    firebase.auth().signInWithRedirect(GoogleAuth)
+                        .catch((error) => {
+                            /* eslint-disable */
+                            console.log(error);
+                        });
+                }
+            });
         }
     },
 
