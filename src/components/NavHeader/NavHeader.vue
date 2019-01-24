@@ -3,7 +3,8 @@
         <router-link
             tag="button"
             class="logo"
-            :to="{ name: logoRoute }"
+            :to="{ name: homeRoute }"
+            v-if="!isAuthRoute"
         >
             <img src='/static/gamebrary-logo.png' />
             GAMEBRARY
@@ -31,10 +32,14 @@ export default {
             return this.$route.name !== 'settings' && this.user;
         },
 
-        logoRoute() {
-            return this.$route.name === 'home' && this.user
-                ? 'platforms'
-                : 'home';
+        isAuthRoute() {
+            return this.$route.name === 'auth';
+        },
+
+        homeRoute() {
+            return this.$route.name === 'settings' && this.platform
+                ? 'game-board'
+                : 'platforms';
         },
     },
 };

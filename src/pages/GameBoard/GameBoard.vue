@@ -2,6 +2,7 @@
     <div
         class="lists"
         ref="lists"
+        v-if="user && platform"
         :class="{ dark: darkModeEnabled }"
     >
         <game-board-placeholder v-if="loading" />
@@ -79,16 +80,27 @@ export default {
         ...mapGetters(['darkModeEnabled']),
 
         list() {
-            return this.gameLists && this.gameLists[this.platform.code]
+            return this.gameLists && this.platform && this.gameLists[this.platform.code]
                 ? this.gameLists[this.platform.code]
                 : null;
         },
     },
 
     mounted() {
-        this.loadGameData();
+        if (this.platform) {
+            this.loadGameData();
 
-        document.title = `${this.platform.name} - Gamebrary`;
+            document.title = this.platform
+                ? `${this.platform.name} - Gamebrary`
+                : 'Gamebrary';
+        } else {
+            // eslint-disable-next-line
+            if (this.user) {
+                this.$router.push({ name: 'platforms' });
+            } else {
+                this.$router.push({ name: 'auth' });
+            }
+        }
     },
 
     methods: {

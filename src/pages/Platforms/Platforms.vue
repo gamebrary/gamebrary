@@ -132,7 +132,7 @@ export default {
 
         changePlatform(platform) {
             this.$store.commit('SET_PLATFORM', platform);
-            this.$router.push({ name: 'home' });
+            this.$router.push({ name: 'game-board' });
         },
 
         ordinalSuffix(value) {
