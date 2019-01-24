@@ -1,9 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from '@/pages/Home/Home';
 import ShareList from '@/pages/ShareList/ShareList';
 import SessionExpired from '@/pages/SessionExpired/SessionExpired';
 import GameDetail from '@/pages/GameDetail/GameDetail';
+import GameBoard from '@/pages/GameBoard/GameBoard';
+import Auth from '@/pages/Auth/Auth';
 import Settings from '@/pages/Settings/Settings';
 import Platforms from '@/pages/Platforms/Platforms';
 
@@ -46,10 +47,15 @@ export default new Router({
             },
         },
         {
-            path: '/',
-            name: 'home',
-            component: Home,
+            path: '/auth',
+            name: 'auth',
+            component: Auth,
         },
-        { path: '*', component: Home },
+        {
+            path: '/',
+            name: 'game-board',
+            component: GameBoard,
+        },
+        { path: '*', component: Auth },
     ],
 });
