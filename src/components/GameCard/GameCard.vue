@@ -3,7 +3,10 @@
         <router-link tag="img" :to="gameRoute" :src="coverUrl" />
 
         <div class="game-info">
-            <h4 v-text="game.name" />
+            <router-link :to="gameRoute">
+                <h4 v-text="game.name" />
+            </router-link>
+
             <game-rating v-if="showGameRating" small :rating="game.rating" />
 
             <button
@@ -204,6 +207,11 @@ export default {
         .game-info {
             padding: $gp / 2 $gp;
             width: calc(100% - 116px);
+
+            a {
+                text-decoration: none;
+                color: $color-dark-gray;
+            }
 
             h4 {
                 margin: 0;
