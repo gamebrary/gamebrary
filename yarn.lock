@@ -5304,7 +5304,7 @@ lodash.memoize@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
 
-lodash.merge@^4.6.0, lodash.merge@^4.6.1:
+lodash.merge@^4.6.1:
   version "4.6.1"
   resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.1.tgz#adc25d9cb99b9391c59624f379fbba60d7111d54"
 
@@ -6416,10 +6416,6 @@ pkg-dir@^2.0.0:
 pluralize@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-7.0.0.tgz#298b89df8b93b0221dbf421ad2b1b1ea23fc6777"
-
-popper.js@^1.12.9:
-  version "1.14.6"
-  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.14.6.tgz#ab20dd4edf9288b8b3b6531c47c361107b60b4b0"
 
 portfinder@^1.0.13, portfinder@^1.0.9:
   version "1.0.20"
@@ -8421,14 +8417,6 @@ uuid@^3.0.1, uuid@^3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
 
-v-tooltip@^2.0.0-rc.33:
-  version "2.0.0-rc.33"
-  resolved "https://registry.yarnpkg.com/v-tooltip/-/v-tooltip-2.0.0-rc.33.tgz#78f7d8e9c34265622be65ba9dc78c67f1dc02b73"
-  dependencies:
-    lodash.merge "^4.6.0"
-    popper.js "^1.12.9"
-    vue-resize "^0.4.3"
-
 validate-npm-package-license@^3.0.1:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/validate-npm-package-license/-/validate-npm-package-license-3.0.4.tgz#fc91f6b9c7ba15c857f4cb2c5defeec39d4f410a"
@@ -8469,10 +8457,6 @@ vue-analytics@^5.16.0:
 vue-axios@^2.1.1:
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/vue-axios/-/vue-axios-2.1.4.tgz#a9d298f7e876f9a87feb336b37adcbce34ff9f9f"
-
-vue-content-placeholders@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/vue-content-placeholders/-/vue-content-placeholders-0.2.1.tgz#5876bda4577c80ff6d396fb33b2dbbf8b8cc140f"
 
 vue-eslint-parser@^2.0.3:
   version "2.0.3"
@@ -8528,10 +8512,6 @@ vue-raven@^1.0.0:
   resolved "https://registry.yarnpkg.com/vue-raven/-/vue-raven-1.0.3.tgz#cce941a9255e9694a5793c384fd8ab2e576ce764"
   dependencies:
     raven-js "^3.22.3"
-
-vue-resize@^0.4.3:
-  version "0.4.5"
-  resolved "https://registry.yarnpkg.com/vue-resize/-/vue-resize-0.4.5.tgz#4777a23042e3c05620d9cbda01c0b3cc5e32dcea"
 
 vue-router@^3.0.1:
   version "3.0.2"

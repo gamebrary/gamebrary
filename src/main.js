@@ -1,7 +1,5 @@
-import VTooltip from 'v-tooltip';
 import Vue from 'vue';
 import VueAxios from 'vue-axios';
-import VueContentPlaceholders from 'vue-content-placeholders';
 import VueFire from 'vuefire';
 import VueI18n from 'vue-i18n';
 import axios from 'axios';
@@ -34,9 +32,7 @@ Vue.use(VueAnalytics, {
     router,
 });
 
-Vue.use(VTooltip);
 Vue.use(VueAxios, axios);
-Vue.use(VueContentPlaceholders);
 Vue.use(VueFire);
 Vue.use(VueI18n);
 
