@@ -60,6 +60,10 @@ export default {
         state.activeList = listIndex;
     },
 
+    CLEAR_ACTIVE_LIST(state) {
+        state.activeList = null;
+    },
+
     SET_PLATFORM(state, platform) {
         state.platform = platform;
     },
