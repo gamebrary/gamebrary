@@ -37,7 +37,6 @@
 
                 <div class="platforms">
                     <a
-                        v-close-popover
                         v-for="platform in group"
                         :key="platform.name"
                         :style="`background-color: ${platform.tileHex || platform.hex || '#fff'}`"
