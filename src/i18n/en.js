@@ -20,6 +20,10 @@ module.exports = {
             generation: 'Console generations',
             alphabetically: 'Alphabetically',
         },
+        st: 'st',
+        nd: 'nd',
+        rd: 'rd',
+        th: 'th',
     },
     game: {
         add: 'Add game',
@@ -27,7 +31,7 @@ module.exports = {
     },
     list: {
         edit: 'Edit list name',
-        name: 'List name (e.g. Owned, Wishlist, Completed, etc...)',
+        input: 'Enter your own',
         add: 'Add list',
         sortByName: 'Sort list by game name',
         sortByRating: 'Sort list by game rating',

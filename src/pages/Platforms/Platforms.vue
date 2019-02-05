@@ -140,17 +140,17 @@ export default {
             const k = value % 100;
 
             if (j === 1 && k !== 11) {
-                return `${value}${this.$t('st')}`;
+                return `${value}${this.$t('platforms.st')}`;
             }
 
             if (j === 2 && k !== 12) {
-                return `${value}${this.$t('nd')}`;
+                return `${value}${this.$t('platforms.nd')}`;
             }
             if (j === 3 && k !== 13) {
-                return `${value}${this.$t('rd')}`;
+                return `${value}${this.$t('platforms.rd')}`;
             }
 
-            return `${value}${this.$t('th')}`;
+            return `${value}${this.$t('platforms.th')}`;
         },
     },
 };
