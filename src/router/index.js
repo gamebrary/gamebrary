@@ -5,7 +5,6 @@ import SessionExpired from '@/pages/SessionExpired/SessionExpired';
 import GameDetail from '@/pages/GameDetail/GameDetail';
 import GameBoard from '@/pages/GameBoard/GameBoard';
 import Auth from '@/pages/Auth/Auth';
-import Settings from '@/pages/Settings/Settings';
 import Platforms from '@/pages/Platforms/Platforms';
 
 Vue.use(Router);
@@ -28,14 +27,6 @@ export default new Router({
             component: Platforms,
             meta: {
                 title: 'Platforms',
-            },
-        },
-        {
-            name: 'settings',
-            path: '/settings',
-            component: Settings,
-            meta: {
-                title: 'Settings',
             },
         },
         {

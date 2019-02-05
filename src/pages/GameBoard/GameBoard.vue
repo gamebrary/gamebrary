@@ -16,7 +16,6 @@
                 v-if="list && !loading"
                 v-for="(list, listIndex) in gameLists[platform.code]"
                 @end="dragEnd"
-                @remove="tryDelete(listIndex)"
             />
 
             <onboard v-if="!list" />
@@ -34,7 +33,6 @@ import ListOptions from '@/components/Lists/ListOptions';
 import GameBoardPlaceholder from '@/components/GameBoard/GameBoardPlaceholder';
 import Onboard from '@/components/GameBoard/Onboard';
 import Panel from '@/components/Panel/Panel';
-import { swal } from '@/shared/modals';
 import List from '@/components/GameBoard/List';
 import draggable from 'vuedraggable';
 import { mapState, mapGetters } from 'vuex';
@@ -63,8 +61,6 @@ export default {
             draggingId: null,
             loading: false,
             gameData: null,
-            activeList: null,
-            showDeleteConfirm: false,
             listDraggableOptions: {
                 animation: 500,
                 handle: '.list-drag-handle',
@@ -87,6 +83,8 @@ export default {
     },
 
     mounted() {
+        this.$store.commit('CLEAR_ACTIVE_LIST');
+
         if (this.platform) {
             this.loadGameData();
 
@@ -95,9 +93,7 @@ export default {
                 : 'Gamebrary';
         } else {
             // eslint-disable-next-line
-            if (this.user) {
-                this.$router.push({ name: 'platforms' });
-            } else {
+            if (!this.user) {
                 this.$router.push({ name: 'auth' });
             }
         }
@@ -109,37 +105,6 @@ export default {
                 const lists = this.$refs.lists;
                 lists.scrollLeft = lists.scrollWidth;
             });
-        },
-
-        tryDelete(index) {
-            const hasGames = this.list[index].games.length > 0;
-
-            if (hasGames) {
-                this.showDeleteConfirm = true;
-                this.activeList = index;
-
-                swal({
-                    title: 'Are you sure?',
-                    text: 'This lists contains games, all games will be deleted as well.',
-                    showCancelButton: true,
-                    buttonsStyling: false,
-                    confirmButtonClass: 'primary small',
-                    cancelButtonClass: 'small',
-                    confirmButtonText: 'Delete',
-                }).then(({ value }) => {
-                    if (value) {
-                        this.deleteList(this.activeList);
-                    }
-                });
-            } else {
-                this.deleteList(index);
-            }
-        },
-
-        deleteList(index) {
-            this.$store.commit('REMOVE_LIST', index);
-            this.updateLists();
-            this.$bus.$emit('TOAST', { message: 'List deleted' });
         },
 
         dragEnd() {
@@ -174,22 +139,11 @@ export default {
                     this.loading = true;
 
                     this.$store.dispatch('LOAD_GAMES', gameList)
-                        .catch(() => {
-                            swal({
-                                title: 'Uh no!',
-                                text: 'There was an error loading your game data',
-                                type: 'error',
-                                showCancelButton: true,
-                                confirmButtonClass: 'primary',
-                                confirmButtonText: 'Retry',
-                            }).then(({ value }) => {
-                                if (value) {
-                                    this.loadGameData();
-                                }
-                            });
-                        })
-                        .finally(() => {
+                        .then(() => {
                             this.loading = false;
+                        })
+                        .catch(() => {
+                            this.$bus.$emit('TOAST', { message: 'Error loading game', type: 'error' });
                         });
                 }
             }

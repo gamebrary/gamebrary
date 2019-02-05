@@ -1,3 +1,4 @@
+<!-- eslint-disable max-len -->
 <template lang="html">
     <div :class="['list', { dark: darkModeEnabled }]">
         <div class="list-header">
@@ -81,10 +82,27 @@
                 <i class="fas fa-sort-numeric-up" />
             </button>
 
+            <modal
+                v-if="games && games.length"
+                ref="addList"
+                :message="`This list contains ${games.length} games, all games will be deleted as well.`"
+                title="Are you sure?"
+                :action-text="$t('list.delete')"
+                @action="deleteList"
+            >
+                <button
+                    :class="['small accent', { hollow: darkModeEnabled }]"
+                    :title="$t('list.delete')"
+                >
+                    <i class="far fa-trash-alt" />
+                </button>
+            </modal>
+
             <button
+                v-else
                 :class="['small accent', { hollow: darkModeEnabled }]"
                 :title="$t('list.delete')"
-                @click="remove"
+                @click="deleteList"
             >
                 <i class="far fa-trash-alt" />
             </button>
@@ -104,6 +122,7 @@
 <script>
 import draggable from 'vuedraggable';
 import ListNameEdit from '@/components/GameBoard/ListNameEdit';
+import Modal from '@/components/Modal/Modal';
 import GameCard from '@/components/GameCard/GameCard';
 import GameSearch from '@/components/GameSearch/GameSearch';
 import { mapState, mapGetters } from 'vuex';
@@ -118,6 +137,7 @@ db.settings({
 
 export default {
     components: {
+        Modal,
         GameCard,
         GameSearch,
         ListNameEdit,
@@ -162,6 +182,18 @@ export default {
     },
 
     methods: {
+        deleteList() {
+            this.$store.commit('REMOVE_LIST', this.listIndex);
+
+            db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
+                .then(() => {
+                    this.$bus.$emit('TOAST', { message: 'List deleted' });
+                })
+                .catch(() => {
+                    this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
+                });
+        },
+
         moveList(from, to) {
             this.$store.commit('MOVE_LIST', { from, to });
             this.updateLists();
@@ -206,10 +238,6 @@ export default {
 
         end() {
             this.$emit('end');
-        },
-
-        remove() {
-            this.$emit('remove');
         },
     },
 };

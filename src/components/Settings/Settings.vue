@@ -1,12 +1,8 @@
 <template lang="html">
     <div
         class="settings"
-        v-if="user && localSettings" :class="{ dark: darkModeEnabled }"
+        :class="{ dark: darkModeEnabled }"
     >
-        <section>
-            <h3>{{ $t('settings.title') }}</h3>
-        </section>
-
         <section>
             <div class="profile">
                 <gravatar :email="user.email" />
@@ -64,13 +60,21 @@
                 {{ $t('settings.signOut') }}
             </button>
 
-            <button @click="promptDelete" class="error hollow small">
-                <i class="fas fa-exclamation-triangle" />
-                {{ $t('settings.deleteAccount') }}
-            </button>
+            <modal
+                message="Your account data will be deleted forever."
+                title="Are you sure?"
+                :action-text="$t('settings.deleteAccount')"
+                @action="deleteAccount"
+            >
+                <button class="error hollow small">
+                    <i class="fas fa-exclamation-triangle" />
+                    {{ $t('settings.deleteAccount') }}
+                </button>
+            </modal>
+
         </section>
 
-        <section>
+        <section class="support">
             <a href="https://www.paypal.me/RomanCervantes/5" class="link small" target="_blank">
                 <i class="fas fa-donate" />
                 {{ $t('settings.donate') }}
@@ -90,6 +94,7 @@
         <div class="copyright">
             <p>
                 <i class="far fa-copyright" /> 2018 Gamebrary.
+                <br>
                 <i class="fas fa-code" />
                 {{ $t('global.with') }}
                 <i class="fas fa-heart" /> {{ $t('global.by') }}
@@ -99,7 +104,6 @@
 </template>
 
 <script>
-import { debounce } from 'lodash';
 import { mapState, mapGetters } from 'vuex';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -107,19 +111,14 @@ import 'firebase/auth';
 import Gravatar from 'vue-gravatar';
 import Panel from '@/components/Panel/Panel';
 import ToggleSwitch from '@/components/ToggleSwitch/ToggleSwitch';
-import { swal } from '@/shared/modals';
+import Modal from '@/components/Modal/Modal';
 import moment from 'moment';
-
-const db = firebase.firestore();
-
-db.settings({
-    timestampsInSnapshots: true,
-});
 
 export default {
     components: {
         Panel,
         ToggleSwitch,
+        Modal,
         Gravatar,
     },
 
@@ -135,6 +134,12 @@ export default {
 
         dateJoined() {
             return moment(this.user.dateJoined).format('LL');
+        },
+
+        exitUrl() {
+            return process.env.NODE_ENV === 'development'
+                ? 'http://localhost:3000'
+                : 'https://gamebrary.com';
         },
     },
 
@@ -159,32 +164,19 @@ export default {
             this.save();
         },
 
-        promptDelete() {
-            swal({
-                title: 'Are you sure?',
-                text: 'Your account data will be deleted forever.',
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonClass: 'error',
-                cancelButtonClass: 'accent',
-                buttonsStyling: false,
-                confirmButtonText: 'Yes, delete forever!',
-            }).then(({ value }) => {
-                if (value) {
-                    this.deleteAccount();
-                }
-            });
-        },
-
         deleteAccount() {
-            // TODO: use async/await
+            const db = firebase.firestore();
+
+            db.settings({
+                timestampsInSnapshots: true,
+            });
+
             db.collection('settings').doc(this.user.uid).delete()
                 .then(() => {
                     db.collection('lists').doc(this.user.uid).delete()
                         .then(() => {
                             this.$bus.$emit('TOAST', { message: 'Account deleted' });
-                            this.$store.commit('CLEAR_SESSION');
-                            this.$router.push({ name: 'home' });
+                            this.exit();
                         })
                         .catch(() => {
                             this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
@@ -195,33 +187,24 @@ export default {
                 });
         },
 
+        exit() {
+            this.$store.commit('CLEAR_SESSION');
+            window.location.href = this.exitUrl;
+        },
+
         signOut() {
             firebase.auth().signOut()
                 .then(() => {
-                    this.$store.commit('CLEAR_SESSION');
-                    const exitUrl = process.env.NODE_ENV === 'development'
-                        ? 'http://localhost:3000'
-                        : 'https://gamebrary.com';
-
-                    window.location.href = exitUrl;
+                    this.exit();
                 })
                 .catch((error) => {
                     this.$bus.$emit('TOAST', { message: error, type: 'error' });
                 });
         },
 
-        save: debounce(
-            // eslint-disable-next-line
-            function() {
-                db.collection('settings').doc(this.user.uid).set(this.localSettings, { merge: true })
-                    .then(() => {
-                        this.$store.commit('SET_SETTINGS', this.localSettings);
-                        this.$bus.$emit('TOAST', { message: 'Settings saved' });
-                    })
-                    .catch(() => {
-                        this.$bus.$emit('TOAST', { message: 'There was an error saving your settings', type: 'error' });
-                    });
-            }, 500),
+        save() {
+            this.$bus.$emit('SAVE_SETTINGS', this.localSettings);
+        },
     },
 };
 </script>
@@ -230,12 +213,10 @@ export default {
     @import "~styles/styles.scss";
 
     .settings {
-        background: $color-white;
         color: $color-dark-gray;
         display: flex;
         align-items: center;
         flex-direction: column;
-        min-height: calc(100vh - #{$navHeight});
 
         .profile {
             display: flex;
@@ -271,6 +252,12 @@ export default {
             display: flex;
             align-items: center;
 
+            &.support {
+                flex-direction: column;
+                font-size: 12px;
+                padding: 0;
+            }
+
             @media($small) {
                 padding: $gp;
             }
@@ -299,11 +286,9 @@ export default {
         }
 
         &.dark {
-            background: $color-darkest-gray;
-
             section {
-                border-bottom: 1px solid $color-gray;
-                color: $color-gray;
+                // border-bottom: 1px solid $color-gray;
+                // color: $color-gray;
             }
         }
     }

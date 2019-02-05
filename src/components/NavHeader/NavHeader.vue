@@ -4,33 +4,39 @@
             tag="button"
             class="logo"
             :to="{ name: homeRoute }"
-            v-if="!isAuthRoute"
         >
             <img src='/static/gamebrary-logo.png' />
             GAMEBRARY
         </router-link>
 
-        <router-link
-            v-if="showSettings"
-            tag="button"
-            :to="{ name: 'settings' }"
+        <modal
+            title="Settings"
+            :show-close="false"
+            v-if="user"
         >
-            <i class="fas fa-cog" />
-        </router-link>
+            <button>
+                <i class="fas fa-cog" />
+            </button>
+
+            <settings slot="content" v-if="settings" />
+        </modal>
     </nav>
 </template>
 
 <script>
+import Settings from '@/components/Settings/Settings';
+import Modal from '@/components/Modal/Modal';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
-    computed: {
-        ...mapState(['user', 'platform']),
-        ...mapGetters(['darkModeEnabled']),
+    components: {
+        Settings,
+        Modal,
+    },
 
-        showSettings() {
-            return this.$route.name !== 'settings' && this.user;
-        },
+    computed: {
+        ...mapState(['user', 'platform', 'settings']),
+        ...mapGetters(['darkModeEnabled']),
 
         isAuthRoute() {
             return this.$route.name === 'auth';

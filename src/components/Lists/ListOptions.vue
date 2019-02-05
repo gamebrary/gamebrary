@@ -1,83 +1,107 @@
 <template lang="html">
-    <div class="edit-list">
-        <form @submit.prevent="addList" v-if="show">
-            <input
-                v-model="newListName"
-                type="text"
-                ref="newListName"
-                required
-                :placeholder="$t('list.name')"
-            />
-
-            <panel
-                class="warning"
-                v-if="isDuplicate"
-                v-html="errorMessage"
-            />
-
-            <div>
+    <div class="list-options">
+        <div class="actions">
+            <modal
+                ref="addList"
+                :action-text="$t('global.create')"
+                message="Pick an option below"
+                :title="$t('list.add')"
+                :action-disabled="isDuplicate || !newListName"
+                @action="addList"
+                @close="reset"
+                @open="focusField"
+            >
                 <button
-                    type="submit"
-                    class="small primary"
-                    v-if="!isDuplicate"
-                    :disabled="!newListName.length"
+                    class="small info"
+                    :title="$t('list.add')"
                 >
-                    {{ $t('global.create') }}
+                    <i class="fas fa-plus" />
                 </button>
 
+                <form slot="content">
+                    <div class="suggestions">
+                        <button
+                            class="small primary hollow"
+                            v-for="suggestion in listNameSuggestions"
+                            :key="suggestion"
+                            type="button"
+                            :disabled="listNames.includes(suggestion.toLowerCase())"
+                            @click="addList(suggestion)"
+                        >
+                            {{ suggestion }}
+                        </button>
+                    </div>
+
+                    <p>Or enter your own list name</p>
+
+                    <input
+                        v-model="newListName"
+                        type="text"
+                        ref="newListName"
+                        autofocus
+                        required
+                        :placeholder="$t('list.input')"
+                    />
+
+                    <panel
+                        class="warning"
+                        v-if="isDuplicate"
+                        v-html="errorMessage"
+                    />
+                </form>
+            </modal>
+
+            <modal
+                :action-text="`Delete forever`"
+                :message="`Your ${platform.name} collection will be deleted forever.`"
+                title="Are you sure?"
+                @action="deletePlatform"
+            >
                 <button
-                    class="small info hollow"
-                    type="button"
-                    v-if="list"
-                    @click="reset"
+                    class="small info"
+                    :title="$t('list.delete')"
                 >
-                    {{ $t('global.cancel') }}
+                    <i class="far fa-trash-alt" />
                 </button>
-            </div>
-        </form>
+            </modal>
 
-        <div class="actions" v-else>
-            <button
-                class="small info"
-                :title="$t('list.add')"
-                @click="toggleAddList"
+            <modal
+                title="Share your list"
+                message="Use the following URL to share this list."
+                close-text="OK"
             >
-                <i class="fas fa-plus" />
-            </button>
+                <button class="small info" title="Share">
+                    <i class="fas fa-share-alt" />
+                </button>
 
-            <button
-                class="small info"
-                :title="$t('list.add')"
-                @click="promptDeletePlatform"
-            >
-                <i class="far fa-trash-alt" />
-            </button>
-
-            <button
-                class="small info"
-                @click="showShareModal"
-                title="Share"
-            >
-                <i class="fas fa-share-alt" />
-            </button>
+                <div slot="content">
+                    <input type="text" :value="shareUrl">
+                </div>
+            </modal>
         </div>
     </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import { swal } from '@/shared/modals';
 import Panel from '@/components/Panel/Panel';
+import Modal from '@/components/Modal/Modal';
 
 export default {
     components: {
+        Modal,
         Panel,
     },
 
     data() {
         return {
-            show: false,
             newListName: '',
+            listNameSuggestions: [
+                'Owned',
+                'Wishlist',
+                'Currently Playing',
+                'Completed',
+            ],
         };
     },
 
@@ -94,10 +118,16 @@ export default {
 
         isDuplicate() {
             const newListName = this.newListName.toLowerCase();
-            // eslint-disable-next-line
+
             return this.list ?
                 this.list.filter(({ name }) => name.toLowerCase() === newListName).length > 0
                 : false;
+        },
+
+        listNames() {
+            return this.list ?
+                this.list.map(({ name }) => name.toLowerCase())
+                : [];
         },
 
         shareUrl() {
@@ -109,70 +139,36 @@ export default {
         },
     },
 
-    watch: {
-        show() {
+    mounted() {
+        if (!this.list) {
+            this.$refs.addList.open();
+        }
+    },
+
+    methods: {
+        focusField() {
             this.$nextTick(() => {
                 if (this.$refs.newListName) {
                     this.$refs.newListName.focus();
                 }
             });
         },
-    },
 
-    mounted() {
-        if (!this.list) {
-            this.toggleAddList();
-        }
-    },
-
-    methods: {
-        toggleAddList() {
-            if (!this.show) {
-                this.$nextTick(() => {
-                    this.$emit('scroll');
-                });
-            }
-
-            this.show = !this.show;
+        deletePlatform() {
+            this.$store.commit('REMOVE_PLATFORM');
+            this.$router.push({ name: 'platforms' });
+            this.$emit('update', true);
         },
 
-        showShareModal() {
-            swal({
-                titleText: 'Share your list',
-                html: 'Use the following URL to share this list.',
-                input: 'url',
-                inputValue: this.shareUrl,
-                showConfirmButton: false,
-            });
-        },
-
-        promptDeletePlatform() {
-            swal({
-                title: 'Are you sure?',
-                text: `Your ${this.platform.name} collection will be deleted forever.`,
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonClass: 'error',
-                cancelButtonClass: 'accent',
-                buttonsStyling: false,
-                confirmButtonText: `Yes, delete ${this.platform.name} collection`,
-            }).then(({ value }) => {
-                if (value) {
-                    this.$store.commit('REMOVE_PLATFORM');
-                    this.$router.push({ name: 'platforms' });
-                    this.$emit('update', true);
-                }
-            });
-        },
-
-        addList() {
-            this.$store.commit('ADD_LIST', this.newListName);
+        addList(suggestion) {
+            const listName = suggestion || this.newListName;
+            this.$store.commit('ADD_LIST', listName);
 
             this.$ga.event({
                 eventCategory: 'list',
                 eventAction: 'add',
                 eventLabel: 'listAdded',
-                eventValue: this.newListName,
+                eventValue: listName,
             });
 
             this.$emit('update');
@@ -180,10 +176,17 @@ export default {
             this.reset();
 
             this.$bus.$emit('TOAST', { message: 'List added' });
+
+            this.$nextTick(() => {
+                this.$emit('scroll');
+            });
+
+            if (suggestion) {
+                this.$refs.addList.close();
+            }
         },
 
         reset() {
-            this.show = false;
             this.newListName = '';
         },
     },
@@ -193,24 +196,8 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles.scss";
 
-    .edit-list {
+    .list-options {
         padding-right: $gp;
-    }
-
-    form {
-        border-radius: $border-radius;
-        background: $color-light-gray;
-        padding: $gp / 2;
-        display: flex;
-        flex-direction: column;
-
-        input {
-            width: 284px;
-
-            @media($small) {
-                width: 200px;
-            }
-        }
     }
 
     .actions {
@@ -231,10 +218,9 @@ export default {
         padding: $gp / 2;
         border-radius: $border-radius;
     }
-</style>
 
-<style lang="scss" rel="stylesheet/scss">
-    .swal2-input {
-        font-size: 10px !important;
+    .suggestions {
+        display: grid;
+        grid-gap: $gp;
     }
 </style>

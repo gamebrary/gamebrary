@@ -53,7 +53,6 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import { swal } from '@/shared/modals';
 import GameHeader from '@/components/GameDetail/GameHeader';
 import GameScreenshots from '@/components/GameDetail/GameScreenshots';
 import GameVideos from '@/components/GameDetail/GameVideos';
@@ -83,15 +82,13 @@ export default {
     },
 
     mounted() {
+        this.$store.commit('CLEAR_ACTIVE_GAME');
+
         if (this.$route.params.id) {
             this.loadGame(this.$route.params.id);
         } else {
             this.goHome();
         }
-    },
-
-    destroyed() {
-        this.$store.commit('CLEAR_ACTIVE_GAME');
     },
 
     methods: {
@@ -102,7 +99,7 @@ export default {
         },
 
         goHome() {
-            this.$router.push({ name: 'home' });
+            this.$router.push({ name: 'game-board' });
         },
 
         loadGame(gameId) {
@@ -118,20 +115,8 @@ export default {
                     document.title = `${this.game.name} (${this.platform.name}) - Gamebrary`;
                 })
                 .catch(() => {
-                    swal({
-                        title: 'Uh no!',
-                        text: 'There was an error loading game details',
-                        type: 'error',
-                        showCancelButton: true,
-                        confirmButtonClass: 'primary',
-                        confirmButtonText: 'Retry',
-                    }).then(({ value }) => {
-                        if (value) {
-                            this.loadGame();
-                        } else {
-                            this.goHome();
-                        }
-                    });
+                    this.$bus.$emit('TOAST', { message: 'Error loading game', type: 'error' });
+                    this.goHome();
                 });
         },
     },

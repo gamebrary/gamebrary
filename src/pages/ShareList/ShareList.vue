@@ -34,7 +34,6 @@
 <script>
 import firebase from 'firebase/app';
 import GameBoardPlaceholder from '@/components/GameBoard/GameBoardPlaceholder';
-import { swal } from '@/shared/modals';
 import { mapState } from 'vuex';
 
 import 'firebase/firestore';
@@ -79,7 +78,7 @@ export default {
                 })
                 .catch(() => {
                     this.loading = false;
-                    this.handleError();
+                    this.$bus.$emit('TOAST', { message: 'Error loading data', type: 'error' });
                 });
         },
 
@@ -107,23 +106,6 @@ export default {
             } else {
                 this.loading = false;
             }
-        },
-
-        handleError() {
-            swal({
-                title: 'Uh no!',
-                text: 'There was an error loading game data',
-                type: 'error',
-                showCancelButton: true,
-                confirmButtonClass: 'primary',
-                confirmButtonText: 'Retry',
-            }).then(({ value }) => {
-                if (value) {
-                    this.load();
-                } else {
-                    this.$router.push({ name: 'home' });
-                }
-            });
         },
     },
 };
