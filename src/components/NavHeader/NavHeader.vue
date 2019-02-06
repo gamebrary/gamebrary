@@ -43,9 +43,15 @@ export default {
         },
 
         homeRoute() {
-            return this.$route.name === 'settings' && this.platform
-                ? 'game-board'
-                : 'platforms';
+            if (this.$route.name === 'game-detail' && this.platform) {
+                return 'game-board';
+            }
+
+            if (this.$route.name === 'game-board') {
+                return 'platforms';
+            }
+
+            return null;
         },
     },
 };
