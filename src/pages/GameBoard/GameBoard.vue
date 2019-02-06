@@ -4,8 +4,13 @@
         ref="lists"
         v-if="user && platform"
         :class="{ dark: darkModeEnabled }"
+        @click.self="loseFocus"
     >
         <game-board-placeholder v-if="loading" />
+
+        <modal ref="game" large :show-close="false" @close="gameDetailId = null">
+            <game-detail slot="content" :id="gameDetailId" v-if="gameDetailId" />
+        </modal>
 
         <template>
             <list
@@ -33,6 +38,8 @@ import ListOptions from '@/components/Lists/ListOptions';
 import GameBoardPlaceholder from '@/components/GameBoard/GameBoardPlaceholder';
 import Onboard from '@/components/GameBoard/Onboard';
 import Panel from '@/components/Panel/Panel';
+import GameDetail from '@/pages/GameDetail/GameDetail';
+import Modal from '@/components/Modal/Modal';
 import List from '@/components/GameBoard/List';
 import draggable from 'vuedraggable';
 import { mapState, mapGetters } from 'vuex';
@@ -53,6 +60,8 @@ export default {
         GameBoardPlaceholder,
         Onboard,
         Panel,
+        GameDetail,
+        Modal,
     },
 
     data() {
@@ -61,6 +70,7 @@ export default {
             draggingId: null,
             loading: false,
             gameData: null,
+            gameDetailId: null,
             listDraggableOptions: {
                 animation: 500,
                 handle: '.list-drag-handle',
@@ -97,9 +107,24 @@ export default {
                 this.$router.push({ name: 'auth' });
             }
         }
+
+        this.$bus.$on('OPEN_GAME', this.openGame);
+    },
+
+    beforeDestroy() {
+        this.$bus.$off('OPEN_GAME');
     },
 
     methods: {
+        openGame(id) {
+            this.gameDetailId = id;
+            this.$refs.game.open();
+        },
+
+        loseFocus() {
+            this.$store.commit('CLEAR_ACTIVE_LIST');
+        },
+
         scroll() {
             this.$nextTick(() => {
                 const lists = this.$refs.lists;
@@ -171,7 +196,7 @@ export default {
         height: calc(100vh - 48px);
         padding: $gp;
         box-sizing: border-box;
-        background: $color-gray;
+        background-color: $color-gray;
         overflow-x: auto;
         overflow-x: overlay;
         display: flex;

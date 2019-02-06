@@ -5,7 +5,7 @@
         </div>
 
         <div :class="['modal', { show }]" @click="close">
-            <div class="content" @click.stop>
+            <div :class="['content', { large }]" @click.stop>
                 <i class="close fas fa-times" @click="close" />
                 <h2 v-if="title">{{ title }}</h2>
                 <p v-if="message">{{ message }}</p>
@@ -49,6 +49,7 @@ export default {
             type: Boolean,
             default: false,
         },
+        large: Boolean,
     },
 
     data() {
@@ -105,11 +106,25 @@ export default {
 .content {
     position: relative;
     background: $color-white;
-    width: 300px;
+    width: 320px;
     height: auto;
+    max-height: 80vh;
+    margin: $gp 0;
+    overflow: auto;
     padding: $gp;
     border-radius: $border-radius;
     cursor: default;
+
+    &.large {
+        padding: 0;
+        width: 700px;
+        max-width: 100%;
+
+        @media($small) {
+            margin: 0 $gp;
+            border-radius: $border-radius;
+        }
+    }
 }
 
 .close {
@@ -120,6 +135,7 @@ export default {
     right: 0;
     cursor: pointer;
     transition: color 100ms linear;
+    z-index: 2;
 
     &:hover {
         transition: color 100ms linear;
@@ -135,5 +151,6 @@ export default {
 
 h2 {
     margin: 0;
+    color: $color-dark-gray;
 }
 </style>
