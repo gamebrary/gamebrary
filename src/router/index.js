@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import ShareList from '@/pages/ShareList/ShareList';
-import SessionExpired from '@/pages/SessionExpired/SessionExpired';
 import GameDetail from '@/pages/GameDetail/GameDetail';
 import GameBoard from '@/pages/GameBoard/GameBoard';
 import Auth from '@/pages/Auth/Auth';
@@ -27,14 +26,6 @@ export default new Router({
             component: Platforms,
             meta: {
                 title: 'Platforms',
-            },
-        },
-        {
-            path: '/session-expired',
-            name: 'sessionExpired',
-            component: SessionExpired,
-            meta: {
-                title: 'Session expired',
             },
         },
         {
