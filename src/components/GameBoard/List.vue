@@ -1,9 +1,10 @@
 <!-- eslint-disable max-len -->
 <template lang="html">
     <div :class="['list', { dark: darkModeEnabled }]">
-        <div class="list-header">
+        <div class="list-header" :class="{ searching: showSearch }">
             <div v-if="showSearch">
                 {{ $t('game.addPlural') }}
+                <strong>{{ list[listIndex].name }}</strong>
             </div>
 
             <list-name-edit
@@ -46,7 +47,7 @@
 
         <footer v-if="!showSearch" :class="{ dark: darkModeEnabled }">
             <button
-                class="small accent"
+                class="small filled info"
                 :class="{ hollow: darkModeEnabled }"
                 :title="$t('list.moveLeft')"
                 :disabled="listIndex === 0"
@@ -57,7 +58,7 @@
 
             <button
                 @click="addGame"
-                class="small accent"
+                class="small filled info"
                 :class="{ hollow: darkModeEnabled }"
                 :title="$t('game.add')"
             >
@@ -66,7 +67,7 @@
 
             <button
                 v-if="hasGames"
-                :class="['small accent', { hollow: darkModeEnabled }]"
+                :class="['small filled info', { hollow: darkModeEnabled }]"
                 :title="$t('list.sortByName')"
                 @click="sortListAlphabetically"
             >
@@ -75,7 +76,7 @@
 
             <button
                 v-if="hasGames"
-                :class="['small accent', { hollow: darkModeEnabled }]"
+                :class="['small filled info', { hollow: darkModeEnabled }]"
                 :title="$t('list.sortByRating')"
                 @click="sortListByRating"
             >
@@ -91,7 +92,7 @@
                 @action="deleteList"
             >
                 <button
-                    :class="['small accent', { hollow: darkModeEnabled }]"
+                    :class="['small filled info', { hollow: darkModeEnabled }]"
                     :title="$t('list.delete')"
                 >
                     <i class="far fa-trash-alt" />
@@ -100,7 +101,7 @@
 
             <button
                 v-else
-                :class="['small accent', { hollow: darkModeEnabled }]"
+                :class="['small filled info', { hollow: darkModeEnabled }]"
                 :title="$t('list.delete')"
                 @click="deleteList"
             >
@@ -108,7 +109,7 @@
             </button>
 
             <button
-                :class="['small accent', { hollow: darkModeEnabled }]"
+                :class="['small filled info', { hollow: darkModeEnabled }]"
                 :title="$t('list.moveRight')"
                 :disabled="listIndex === (Object.keys(list).length - 1)"
                 @click="moveList(listIndex, listIndex + 1)"
@@ -266,6 +267,10 @@ export default {
             padding: 0 $gp / 2;
             position: absolute;
             width: 100%;
+
+            &.searching {
+                background: $color-green;
+            }
         }
 
         .games {
