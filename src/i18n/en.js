@@ -27,7 +27,7 @@ module.exports = {
     },
     game: {
         add: 'Add game',
-        addPlural: 'Add games',
+        addPlural: 'Add games to',
     },
     list: {
         edit: 'Edit list name',
@@ -46,8 +46,8 @@ module.exports = {
         ratings: 'Show game ratings',
         signOut: 'Sign out',
         deleteAccount: 'Delete account',
-        donate: 'Donate',
-        reportBugs: 'Report bugs',
-        submitFeedback: 'Submit feedback',
+        donate: 'donating',
+        reportBugs: 'reporting bugs',
+        submitFeedback: 'submitting feedback',
     },
 };
