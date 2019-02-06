@@ -51,6 +51,10 @@ export default {
     },
 
     mounted() {
+        if (this.isPublic) {
+            return;
+        }
+
         this.$bus.$on('SAVE_SETTINGS', this.saveSettings);
 
         if (this.user) {
