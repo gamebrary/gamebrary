@@ -24,35 +24,41 @@
             />
         </div>
 
+        <panel class="warning" v-if="noResults">
+            <h4>No results found for "{{searchText}}"</h4>
+            <p>Missing a game? Help out the community and <a href="https://www.igdb.com/games/new" target="_blank">Add it to IGDB</a></p>
+        </panel>
+
         <div class="search-actions">
-            <button class="small info back" @click="back" title="back">
+            <button class="small filled info" @click="back" title="back">
                 <i class="fas fa-chevron-left" />
             </button>
 
+            <igdb-credit />
+
             <button
-                v-if="filteredResults.length > 0"
-                class="small info hollow back"
+                class="small filled info"
                 @click="clear"
+                :title="$t('clearResults')"
             >
                 <i class="fas fa-broom" />
-                {{ $t('clearResults') }}
             </button>
-        </div>
-
-        <div v-if="noResults">
-            No results
         </div>
     </form>
 </template>
 
 <script>
 import GameCard from '@/components/GameCard/GameCard';
+import IgdbCredit from '@/components/IgdbCredit/IgdbCredit';
+import Panel from '@/components/Panel/Panel';
 import { debounce } from 'lodash';
 import { mapState } from 'vuex';
 
 export default {
     components: {
         GameCard,
+        IgdbCredit,
+        Panel,
     },
 
     props: {
@@ -141,29 +147,23 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles.scss";
 
-    h4 {
-        margin: $gp / 2 0;
-    }
-
     .game-search {
-        background: #ccc;
+        background: $color-light-gray;
         margin-top: $list-header-height;
         padding: $gp / 2;
     }
 
     .search-box {
-        display: flex;
-        align-items: center;
-
-        input {
-            margin: 0 $gp 0 0;
-        }
+        display: grid;
+        grid-gap: $gp;
+        grid-template-columns: 236px 32px;
     }
 
     .search-actions {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        margin-top: $gp / 2;
     }
 
     .search-results {
@@ -171,15 +171,11 @@ export default {
         max-height: calc(100vh - 300px);
     }
 
-    .back {
-        margin-top: $gp / 2;
-    }
-
     input {
         margin: 0 0 $gp / 2;
     }
 
-    .vue-content-placeholders {
-        margin-bottom: $gp / 2;
+    h4 {
+        margin: 0;
     }
 </style>
