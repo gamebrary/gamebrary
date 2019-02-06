@@ -13,12 +13,6 @@ import store from './store/';
 
 const EventBus = new Vue();
 
-axios.interceptors.response.use(response => response, (error) => {
-    if (error && error.response && error.response.status === 401) {
-        window.location.href = '/#/session-expired';
-    }
-});
-
 Object.defineProperties(Vue.prototype, {
     $bus: {
         get() {
