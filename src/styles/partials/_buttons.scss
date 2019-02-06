@@ -1,5 +1,9 @@
 $iconSmallSize: 32px;
 
+a {
+    color: $color-blue;
+}
+
 a.link {
     display: inline-block;
     line-height: 30px;
@@ -130,6 +134,58 @@ button, a.link {
         &.warning {
             color: $color-orange;
             border: 1px solid $color-orange;
+            background: transparent;
+
+            &:hover {
+                background: $color-orange;
+                color: $color-white;
+            }
+        }
+    }
+
+    &.filled {
+        &.primary {
+            color: $color-blue;
+            background: transparent;
+
+            &:hover {
+                background: $color-blue;
+                color: $color-white;
+            }
+        }
+
+        &.accent {
+            color: $color-gray;
+            background: transparent;
+
+            &:hover {
+                background: $color-gray;
+                color: $color-white;
+            }
+        }
+
+        &.info {
+            color: $color-dark-gray;
+            background: transparent;
+
+            &:hover {
+                background: $color-dark-gray;
+                color: $color-white;
+            }
+        }
+
+        &.error {
+            color: $color-red;
+            background: transparent;
+
+            &:hover {
+                background: $color-red;
+                color: $color-white;
+            }
+        }
+
+        &.warning {
+            color: $color-orange;
             background: transparent;
 
             &:hover {
