@@ -1,11 +1,9 @@
 <template lang="html">
     <div v-if="gameId && games[gameId]" :class="gameCardClass">
-        <router-link tag="img" :to="gameRoute" :src="coverUrl" />
+        <img :src="coverUrl" @click="openDetails" :alt="game.name">
 
         <div class="game-info">
-            <router-link :to="gameRoute">
-                <h4 v-text="game.name" />
-            </router-link>
+            <h4 v-text="game.name" @click="openDetails" />
 
             <game-rating v-if="showGameRating" small :rating="game.rating" />
 
@@ -21,20 +19,20 @@
         <div class="game-card-options" v-if="!searchResult">
             <button
                 v-if="!searchResult"
-                class="game-drag-handle info small hollow"
+                class="game-drag-handle accent small"
                 title="Drag game"
             >
-                <i class="fas fa-hand-rock" />
+                <i class="far fa-hand-paper" />
             </button>
 
             <button
                 v-if="list.games.includes(gameId)"
                 @click="removeGame"
                 title="Delete game"
-                class="small error hollow"
+                class="small error"
                 :class="{ accent: settings && !settings.nightMode }"
             >
-                <i class="fas fa-trash" />
+                <i class="far fa-trash-alt" />
             </button>
 
             <button v-else @click="addGame" title="Add game">
@@ -103,18 +101,13 @@ export default {
                 ? `${url}${this.games[this.gameId].cover.cloudinary_id}.jpg`
                 : '/static/no-image.jpg';
         },
-
-        gameRoute() {
-            const { id, slug } = this.game;
-
-            return {
-                name: 'game-detail',
-                params: { id, slug },
-            };
-        },
     },
 
     methods: {
+        openDetails() {
+            this.$bus.$emit('OPEN_GAME', this.game.id);
+        },
+
         addGame() {
             const data = {
                 listId: this.listId,
@@ -194,6 +187,7 @@ export default {
             .game-card-options {
                 transition: opacity 300ms ease;
                 opacity: 1;
+                pointer-events: all;
             }
         }
 
@@ -221,6 +215,7 @@ export default {
         .game-card-options {
             position: absolute;
             opacity: 0;
+            pointer-events: none;
             top: 0;
             right: 0;
             transition: opacity 300ms ease;
