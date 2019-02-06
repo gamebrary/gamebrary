@@ -20,6 +20,11 @@ export default {
         margin: $gp / 2 0;
     }
 
+    a {
+        color: unset;
+        font-weight: bold;
+    }
+
     &.warning {
         background: $color-orange;
         color: darken($color-orange, 40);
