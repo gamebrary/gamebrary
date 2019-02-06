@@ -54,8 +54,8 @@
             />
         </section>
 
-        <section>
-            <button class="hollow small info logout" @click="signOut">
+        <section class="actions">
+            <button class="small info hollow" @click="signOut">
                 <i class="fas fa-sign-out-alt" />
                 {{ $t('settings.signOut') }}
             </button>
@@ -66,40 +66,43 @@
                 :action-text="$t('settings.deleteAccount')"
                 @action="deleteAccount"
             >
-                <button class="error hollow small">
+                <button class="small error">
                     <i class="fas fa-exclamation-triangle" />
                     {{ $t('settings.deleteAccount') }}
                 </button>
             </modal>
-
         </section>
 
-        <section class="support">
-            <a href="https://www.paypal.me/RomanCervantes/5" class="link small" target="_blank">
-                <i class="fas fa-donate" />
-                {{ $t('settings.donate') }}
-            </a>
-
-            <a href="https://github.com/romancmx/gamebrary/issues" class="link small" target="_blank">
-                <i class="fas fa-bug" />
-                {{ $t('settings.reportBugs') }}
-            </a>
-
-            <a href="https://goo.gl/forms/r0juBCsZaUtJ03qb2" class="link small" target="_blank">
-                <i class="fas fa-comments" />
-                {{ $t('settings.submitFeedback') }}
-            </a>
+        <section>
+            <small>
+                Gamebrary is free and open source, consider helping its development by
+                <a href="https://www.paypal.me/RomanCervantes/5" target="_blank">
+                    {{ $t('settings.donate') }}
+                </a>
+                ,
+                <a href="https://github.com/romancmx/gamebrary/issues" target="_blank">
+                    {{ $t('settings.reportBugs') }}
+                </a>
+                or
+                <a href="https://goo.gl/forms/r0juBCsZaUtJ03qb2" target="_blank">
+                    {{ $t('settings.submitFeedback') }}
+                </a>
+                .
+            </small>
         </section>
 
-        <div class="copyright">
-            <p>
+
+        <footer>
+            <small>
                 <i class="far fa-copyright" /> 2018 Gamebrary.
-                <br>
                 <i class="fas fa-code" />
                 {{ $t('global.with') }}
                 <i class="fas fa-heart" /> {{ $t('global.by') }}
-            <a href="https://twitter.com/romancm" target="_blank">@romancm</a></p>
-        </div>
+                <a href="https://twitter.com/romancm" target="_blank">@romancm</a>
+            </small>
+
+            <igdb-credit />
+        </footer>
     </div>
 </template>
 
@@ -111,6 +114,7 @@ import 'firebase/auth';
 import Gravatar from 'vue-gravatar';
 import Panel from '@/components/Panel/Panel';
 import ToggleSwitch from '@/components/ToggleSwitch/ToggleSwitch';
+import IgdbCredit from '@/components/IgdbCredit/IgdbCredit';
 import Modal from '@/components/Modal/Modal';
 import moment from 'moment';
 
@@ -118,6 +122,7 @@ export default {
     components: {
         Panel,
         ToggleSwitch,
+        IgdbCredit,
         Modal,
         Gravatar,
     },
@@ -217,6 +222,7 @@ export default {
         display: flex;
         align-items: center;
         flex-direction: column;
+        margin: $gp -$gp 0 -$gp;
 
         .profile {
             display: flex;
@@ -247,19 +253,15 @@ export default {
             width: 600px;
             margin: 0 auto;
             max-width: 100%;
-            border-bottom: 1px solid #f0f0f0;
+            border-bottom: 1px solid $color-light-gray;
             padding: $gp;
             display: flex;
             align-items: center;
 
-            &.support {
-                flex-direction: column;
-                font-size: 12px;
-                padding: 0;
-            }
-
-            @media($small) {
-                padding: $gp;
+            &.actions {
+                display: grid;
+                grid-gap: $gp;
+                grid-template-columns: 1fr 1fr;
             }
 
             &.active {
@@ -276,10 +278,6 @@ export default {
             }
         }
 
-        .logout {
-            margin-right: $gp;
-        }
-
         .share-link {
             max-width: 340px;
             margin: 0;
@@ -293,19 +291,13 @@ export default {
         }
     }
 
-    .copyright {
-        text-align: center;
-        margin-top: auto;
-        padding: $gp;
+    footer {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
 
-        p {
-            margin: $gp / 3 0;
-        }
-
-        a {
-            color: $color-dark-gray;
-            text-decoration: none;
-            font-weight: bold;
+        small {
+            margin-top: $gp / 2;
         }
     }
 </style>
