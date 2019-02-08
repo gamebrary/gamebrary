@@ -183,7 +183,7 @@ export default {
                 ? 'tiny'
                 : '';
 
-            const defaultClass = `small filled ${empty}`
+            const defaultClass = `small filled ${empty}`;
 
             return this.darkModeEnabled
                 ? `${defaultClass} accent`
@@ -204,7 +204,7 @@ export default {
 
         isEmpty() {
             return this.games.length === 0;
-        }
+        },
     },
 
     methods: {
