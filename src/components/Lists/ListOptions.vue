@@ -203,6 +203,9 @@ export default {
             if (suggestion) {
                 this.$refs.addList.close();
             }
+
+            this.$store.commit('CLEAR_SEARCH_RESULTS');
+            this.$store.commit('SET_ACTIVE_LIST', this.list.length - 1);
         },
 
         reset() {
