@@ -66,6 +66,7 @@ export default {
         firebase.auth().getRedirectResult().then(({ user }) => {
             if (user) {
                 this.init(user);
+                this.syncData();
             } else {
                 const GoogleAuth = new firebase.auth.GoogleAuthProvider();
 
