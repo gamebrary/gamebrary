@@ -12,6 +12,7 @@
 
                     <div>
                         <h2>{{ game.name }}</h2>
+                        <game-rating :rating="game.rating" />
                         <p class="game-description" v-html="game.summary" />
                         <affiliate-link />
                         <game-review-box />
@@ -31,6 +32,7 @@
 import { mapState, mapGetters } from 'vuex';
 import GameHeader from '@/components/GameDetail/GameHeader';
 import GameScreenshots from '@/components/GameDetail/GameScreenshots';
+import GameRating from '@/components/GameDetail/GameRating';
 import GameVideos from '@/components/GameDetail/GameVideos';
 import GameReviewBox from '@/components/GameDetail/GameReviewBox';
 import AffiliateLink from '@/components/GameDetail/AffiliateLink';
@@ -41,6 +43,7 @@ export default {
     components: {
         IgdbCredit,
         GameHeader,
+        GameRating,
         GameScreenshots,
         GameVideos,
         GameReviewBox,
@@ -128,6 +131,10 @@ export default {
         @media($small) {
             background: none !important;
         }
+    }
+
+    h2 {
+        margin-bottom: 0;
     }
 
     .game-info {

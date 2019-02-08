@@ -1,7 +1,5 @@
 <template lang="html">
     <div v-if="game" class="review-box">
-        <game-rating :rating="game.rating" />
-
         <div class="info">
             <section v-if="playerPerspectives">
                 <strong>Perspective</strong> {{ playerPerspectives }}
@@ -37,12 +35,10 @@
 
 <script>
 import GameLinks from '@/components/GameDetail/GameLinks';
-import GameRating from '@/components/GameDetail/GameRating';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
     components: {
-        GameRating,
         GameLinks,
     },
 
@@ -71,7 +67,7 @@ export default {
     text-align: left;
     display: grid;
     margin: 0 auto;
-    grid-template-columns: 100px auto;
+    // grid-template-columns: 100px auto;
     grid-gap: $gp;
     padding: $gp 0;
     align-items: center;

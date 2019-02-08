@@ -8,7 +8,13 @@
     >
         <game-board-placeholder v-if="loading" />
 
-        <modal ref="game" large :show-close="false" @close="gameDetailId = null">
+        <modal
+            ref="game"
+            large
+            no-padding
+            :show-close="false"
+            @close="closeGame"
+        >
             <game-detail slot="content" :id="gameDetailId" v-if="gameDetailId" />
         </modal>
 
@@ -97,15 +103,9 @@ export default {
 
         if (this.platform) {
             this.loadGameData();
-
-            document.title = this.platform
-                ? `${this.platform.name} - Gamebrary`
-                : 'Gamebrary';
+            this.setPageTitle();
         } else {
-            // eslint-disable-next-line
-            if (!this.user) {
-                this.$router.push({ name: 'auth' });
-            }
+            this.$router.push({ name: 'platforms' });
         }
 
         this.$bus.$on('OPEN_GAME', this.openGame);
@@ -116,6 +116,18 @@ export default {
     },
 
     methods: {
+
+        closeGame() {
+            this.setPageTitle();
+            this.gameDetailId = null;
+        },
+
+        setPageTitle() {
+            document.title = this.platform
+                ? `${this.platform.name} - Gamebrary`
+                : 'Gamebrary';
+        },
+
         openGame(id) {
             this.gameDetailId = id;
             this.$refs.game.open();

@@ -5,7 +5,11 @@
         <div class="game-info">
             <h4 v-text="game.name" @click="openDetails" />
 
-            <game-rating v-if="showGameRating" small :rating="game.rating" />
+            <game-rating
+                v-if="showGameRating"
+                :rating="game.rating"
+                small
+            />
 
             <button
                 v-if="searchResult"

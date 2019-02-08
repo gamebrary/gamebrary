@@ -8,6 +8,7 @@
 
                 <div>
                     <placeholder :lines="1" class="game-title" />
+                    <game-rating :rating="100" placeholder />
                     <placeholder :lines="5" />
                 </div>
 
@@ -18,10 +19,12 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import GameRating from '@/components/GameDetail/GameRating';
 import Placeholder from '@/components/Placeholder/Placeholder';
 
 export default {
     components: {
+        GameRating,
         Placeholder,
     },
 
@@ -69,7 +72,7 @@ export default {
     width: $container-width;
     max-width: 100%;
     z-index: 1;
-    margin: 100px;
+    margin: $gp * 3;
     padding: $gp 0;
     border-radius: $border-radius;
 
@@ -104,12 +107,15 @@ export default {
 
 .game-title {
     --placeholder-text-height: 30px;
-    margin-bottom: $gp;
     width: 50%;
 
     @media($small) {
         width: 50%;
         margin: 0 auto;
     }
+}
+
+.game-rating {
+    margin-bottom: $gp;
 }
 </style>

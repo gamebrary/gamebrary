@@ -2,9 +2,14 @@
     <div id="app">
         <nav-header />
 
-        <main :class="{ 'logged-in': user && !isPublic }">
+        <main :class="{ 'logged-in': user && !isPublic }" v-if="user && !isPublic">
             <router-view />
         </main>
+
+        <div class="auth" v-else>
+            <i class="fas fa-circle-notch fast-spin fa-3x" />
+            <h3>Authorizing</h3>
+        </div>
 
         <toast />
     </div>
