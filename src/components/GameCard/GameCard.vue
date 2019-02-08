@@ -11,6 +11,7 @@
                 v-if="showGameRatings"
                 :rating="game.rating"
                 small
+                @click.native="openDetails"
             />
 
             <div class="tags" v-if="!searchResult && tags">
@@ -196,7 +197,6 @@ export default {
         margin-top: $gp / 2;
         position: relative;
         display: flex;
-        align-items: center;
 
         &.card-placeholder {
             background: $color-light-gray;
@@ -224,11 +224,12 @@ export default {
         }
 
         .game-info {
-            display: grid;
-            grid-gap: $gp / 4;
             padding: $gp / 2 $gp;
             width: 100%;
-            height: 100%;
+
+            .game-rating {
+                margin: $gp / 2 0;
+            }
 
             &:hover {
                 a {

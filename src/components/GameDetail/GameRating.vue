@@ -1,6 +1,5 @@
 <template lang="html">
-    <div
-        :class="['game-rating', { small, dark }]">
+    <div :class="['game-rating', { small, dark }]">
 
         <span v-for="n in 5" :key="`star-${n}`">
             <i class="fas fa-star" v-if="(roundedRating - n) + 1 >= 1" />
