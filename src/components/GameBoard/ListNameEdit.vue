@@ -5,9 +5,9 @@
             class="small"
             v-model="localListName"
             ref="input"
-            :id="`list-${listIndex}`"
             @keyup.enter="save"
             @keyup.esc="save"
+            @blur="exit"
         >
 
         <span
@@ -38,19 +38,6 @@ export default {
     },
 
     methods: {
-        handleClick(e) {
-            const outsideClickEvent = e.target.id !== `list-${this.listIndex}`;
-            const hasChanged = this.listName !== this.localListName;
-
-            if (outsideClickEvent) {
-                this.exit();
-            }
-
-            if (outsideClickEvent && hasChanged) {
-                this.save();
-            }
-        },
-
         save() {
             this.$store.commit('UPDATE_LIST_NAME', {
                 listIndex: this.listIndex,
@@ -65,17 +52,16 @@ export default {
             this.localListName = this.listName;
 
             this.$nextTick(() => {
-                document.addEventListener('click', this.handleClick);
                 this.$refs.input.focus();
             });
         },
 
         exit() {
-            this.editing = false;
+            if (this.listName !== this.localListName) {
+                this.save();
+            }
 
-            this.$nextTick(() => {
-                document.removeEventListener('click', this.handleClick);
-            });
+            this.editing = false;
         },
     },
 };
