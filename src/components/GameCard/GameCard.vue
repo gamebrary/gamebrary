@@ -196,7 +196,8 @@ export default {
         background-color: $color-white;
         margin-top: $gp / 2;
         position: relative;
-        display: flex;
+        display: grid;
+        grid-template-columns: $gameCoverWidth auto;
 
         &.card-placeholder {
             background: $color-light-gray;
@@ -220,6 +221,7 @@ export default {
             width: $gameCoverWidth;
             height: auto;
             display: flex;
+            align-self: center;
             cursor: pointer;
         }
 
