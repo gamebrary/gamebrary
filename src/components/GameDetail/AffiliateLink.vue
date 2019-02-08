@@ -1,16 +1,20 @@
 <template lang="html">
-    <a
-        :href="affiliateLinks[game.id]"
-        target="_blank"
-        class="amzn-link"
-        v-if="affiliateLinks[game.id]"
-    >
-        <img src='/static/img/amazon-logo-clear.png' height="60">
-        <p>
-            Buy {{ game.name }} at Amazon using this affiliate
+    <div class="amazon">
+        <a
+            v-if="affiliateLinks[game.id]"
+            :href="affiliateLinks[game.id]"
+            target="_blank"
+            class="link warning small"
+        >
+            <i class="fab fa-amazon"></i>
+            Buy on Amazon
+        </a>
+
+        <small>
+            Buy <strong>{{ game.name }}</strong> using this affiliate
             link to support the ongoing development of <strong>Gamebrary</strong>.
-        </p>
-    </a>
+        </small>
+    </div>
 </template>
 
 <script>
@@ -45,14 +49,18 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
 @import "~styles/styles.scss";
 
-.amzn-link {
-    max-width: 400px;
-    padding: $gp / 2 $gp $gp / 2 0;
-    background: $color-light-gray;
-    border-radius: $border-radius;
-    display: flex;
-    align-items: center;
-    color: $color-dark-gray;
-    text-decoration: none;
+.amazon {
+    display: grid;
+    grid-template-columns: auto auto;
+    margin-top: $gp;
+    grid-gap: $gp;
+
+    a.link {
+        color: $color-darkest-gray;
+        align-items: center;
+        display: grid;
+        grid-template-columns: 10px auto;
+        grid-gap: $gp / 2;
+    }
 }
 </style>
