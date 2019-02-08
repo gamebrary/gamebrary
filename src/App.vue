@@ -52,13 +52,14 @@ export default {
     },
 
     mounted() {
+        this.$bus.$on('SAVE_SETTINGS', this.saveSettings);
+        this.$bus.$on('SAVE_TAGS', this.saveTags);
+
         if (this.isPublic) {
             return;
         }
 
         if (this.user) {
-            this.$bus.$on('SAVE_SETTINGS', this.saveSettings);
-            this.$bus.$on('SAVE_TAGS', this.saveTags);
             this.syncData();
             return;
         }
@@ -66,7 +67,6 @@ export default {
         firebase.auth().getRedirectResult().then(({ user }) => {
             if (user) {
                 this.init(user);
-                this.syncData();
             } else {
                 const GoogleAuth = new firebase.auth.GoogleAuthProvider();
 
