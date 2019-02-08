@@ -50,7 +50,7 @@
 
             <toggle-switch
                 id="gameRatings"
-                v-model="localSettings.showGameRatings"
+                v-model="localSettings.hideGameRatings"
             />
         </section>
 

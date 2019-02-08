@@ -43,7 +43,7 @@ module.exports = {
         title: 'Settings',
         darkTheme: 'Dark theme',
         newsletter: 'Receive update emails',
-        ratings: 'Show game ratings',
+        ratings: 'Hide game ratings',
         signOut: 'Sign out',
         deleteAccount: 'Delete account',
         donate: 'donating',

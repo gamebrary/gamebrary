@@ -6,7 +6,7 @@
             <h4 v-text="game.name" @click="openDetails" />
 
             <game-rating
-                v-if="showGameRating"
+                v-if="showGameRatings"
                 :rating="game.rating"
                 small
             />
@@ -87,8 +87,8 @@ export default {
     computed: {
         ...mapState(['settings', 'games', 'gameLists', 'platform', 'user', 'tags']),
 
-        showGameRating() {
-            return this.settings && this.settings.showGameRatings && !this.searchResult;
+        showGameRatings() {
+            return this.settings && !this.settings.hideGameRatings;
         },
 
         gameCardClass() {
