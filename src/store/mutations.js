@@ -22,6 +22,18 @@ export default {
         state.releases = releases;
     },
 
+    SET_TAGS(state, tags) {
+        state.tags = tags;
+    },
+
+    ADD_GAME_TAG(state, { tagName, gameId }) {
+        state.tags[tagName].games.push(gameId);
+    },
+
+    REMOVE_GAME_TAG(state, { tagName, gameId }) {
+        state.tags[tagName].games.splice(state.tags[tagName].games.indexOf(gameId), 1);
+    },
+
     CLEAR_SESSION(state) {
         state.user = null;
         state.activeList = null;

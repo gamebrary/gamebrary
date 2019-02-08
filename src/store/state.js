@@ -1,6 +1,7 @@
 export default {
     user: null,
     releases: null,
+    tags: {},
     activeList: null,
     gameLists: {},
     settings: null,

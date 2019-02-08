@@ -18,6 +18,43 @@
             <game-detail slot="content" :id="gameDetailId" v-if="gameDetailId" />
         </modal>
 
+        <modal
+            ref="tag"
+            title="Apply tag"
+            message="Use tags to better organize your games"
+            :show-close="false"
+        >
+            <div slot="content">
+                <div class="tags" v-for="(tag, name) in tags" :key="name">
+                    <button
+                        v-if="tag.games.includes(gameTagsId)"
+                        class="small tag error"
+                        :title="$t('list.delete')"
+                        @click="removeTag(name)"
+                    >
+                        <i class="far fa-trash-alt" />
+                    </button>
+
+                    <button
+                        v-else
+                        class="small tag info"
+                        :title="$t('list.delete')"
+                        @click="addTag(name)"
+                    >
+                        <i class="fas fa-plus"></i>
+                    </button>
+
+                    <button
+                        :key="name"
+                        :style="`background-color: ${tag.hex}`"
+                        class="tag small color"
+                    >
+                        {{ name }}
+                    </button>
+                </div>
+            </div>
+        </modal>
+
         <template>
             <list
                 :name="list.name"
@@ -77,6 +114,7 @@ export default {
             loading: false,
             gameData: null,
             gameDetailId: null,
+            gameTagsId: null,
             listDraggableOptions: {
                 animation: 500,
                 handle: '.list-drag-handle',
@@ -88,7 +126,7 @@ export default {
     },
 
     computed: {
-        ...mapState(['user', 'gameLists', 'platform']),
+        ...mapState(['user', 'gameLists', 'platform', 'tags', 'games']),
         ...mapGetters(['darkModeEnabled']),
 
         list() {
@@ -109,13 +147,24 @@ export default {
         }
 
         this.$bus.$on('OPEN_GAME', this.openGame);
+        this.$bus.$on('OPEN_TAGS', this.openTags);
     },
 
     beforeDestroy() {
         this.$bus.$off('OPEN_GAME');
+        this.$bus.$off('OPEN_TAGS');
     },
 
     methods: {
+        addTag(tagName) {
+            this.$store.commit('ADD_GAME_TAG', { tagName, gameId: this.gameTagsId });
+            this.$bus.$emit('SAVE_TAGS', this.tags);
+        },
+
+        removeTag(tagName) {
+            this.$store.commit('REMOVE_GAME_TAG', { tagName, gameId: this.gameTagsId });
+            this.$bus.$emit('SAVE_TAGS', this.tags);
+        },
 
         closeGame() {
             this.setPageTitle();
@@ -131,6 +180,11 @@ export default {
         openGame(id) {
             this.gameDetailId = id;
             this.$refs.game.open();
+        },
+
+        openTags(id) {
+            this.gameTagsId = id;
+            this.$refs.tag.open(id);
         },
 
         loseFocus() {

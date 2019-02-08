@@ -60,35 +60,33 @@ export default {
             return;
         }
 
-        this.$bus.$on('SAVE_SETTINGS', this.saveSettings);
-
         if (this.user) {
+            this.$bus.$on('SAVE_SETTINGS', this.saveSettings);
+            this.$bus.$on('SAVE_TAGS', this.saveTags);
             this.syncData();
-
-            if (!this.platform) {
-                this.$router.push({ name: 'platforms' });
-            }
-        } else {
-            firebase.auth().getRedirectResult().then(({ user }) => {
-                if (user) {
-                    this.init(user);
-                    this.syncData();
-                    this.$router.push({ name: 'platforms' });
-                } else {
-                    const GoogleAuth = new firebase.auth.GoogleAuthProvider();
-
-                    firebase.auth().signInWithRedirect(GoogleAuth)
-                        .catch((error) => {
-                            /* eslint-disable */
-                            console.log(error);
-                        });
-                }
-            });
+            return;
         }
+
+        firebase.auth().getRedirectResult().then(({ user }) => {
+            if (user) {
+                this.init(user);
+            } else {
+                const GoogleAuth = new firebase.auth.GoogleAuthProvider();
+
+                firebase.auth().signInWithRedirect(GoogleAuth)
+                    .catch((message) => {
+                        this.$bus.$emit('TOAST', {
+                            message,
+                            type: 'error',
+                        });
+                    });
+            }
+        });
     },
 
     beforeDestroy() {
         this.$bus.$off('SAVE_SETTINGS');
+        this.$bus.$off('SAVE_TAGS');
     },
 
     methods: {
@@ -104,6 +102,21 @@ export default {
                         this.$bus.$emit('TOAST', { message: 'There was an error saving your settings', type: 'error' });
                     });
             }, 500),
+
+        saveTags(tags, force) {
+            if (tags) {
+                db.collection('tags').doc(this.user.uid).set(tags, { merge: !force })
+                    .then(() => {
+                        this.$bus.$emit('TOAST', { message: 'Tags updated' });
+                    })
+                    .catch(() => {
+                        this.$bus.$emit('TOAST', {
+                            message: 'There was an error saving your tag',
+                            type: 'error',
+                        });
+                    });
+            }
+        },
 
         syncData() {
             db.collection('lists').doc(this.user.uid)
@@ -123,12 +136,23 @@ export default {
                         this.$store.commit('SET_SETTINGS', settings);
                     }
                 });
+
+            db.collection('tags').doc(this.user.uid)
+                .onSnapshot((doc) => {
+                    if (doc.exists) {
+                        const tags = doc.data();
+
+                        this.$store.commit('SET_TAGS', tags);
+                    }
+                });
         },
 
         init(user) {
             this.$store.commit('SET_USER', user);
             this.loadSettings();
+            this.loadTags();
             this.loadLists();
+            this.syncData();
         },
 
         loadSettings() {
@@ -153,6 +177,19 @@ export default {
                         this.$store.commit('SET_GAME_LISTS', data);
                     } else {
                         this.initList();
+                    }
+                })
+                .catch(() => {
+                    this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
+                });
+        },
+
+        loadTags() {
+            db.collection('tags').doc(this.user.uid).get()
+                .then((doc) => {
+                    if (doc.exists) {
+                        const data = doc.data();
+                        this.$store.commit('SET_TAGS', data);
                     }
                 })
                 .catch(() => {

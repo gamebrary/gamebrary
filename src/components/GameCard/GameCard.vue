@@ -11,6 +11,18 @@
                 small
             />
 
+            <div class="tags" v-if="tags">
+                <div v-for="({ games, hex }, name) in tags" :key="name">
+                    <button
+                        class="tag small"
+                        :style="`background-color: ${hex}`"
+                        v-if="games.includes(game.id)"
+                    >
+                        {{ name }}
+                    </button>
+                </div>
+            </div>
+
             <button
                 v-if="searchResult"
                 class="primary small"
@@ -23,17 +35,24 @@
         <div class="game-card-options" v-if="!searchResult">
             <button
                 v-if="!searchResult"
-                class="game-drag-handle accent small"
+                class="game-drag-handle accent small filled"
                 title="Drag game"
             >
                 <i class="far fa-hand-paper" />
             </button>
 
             <button
+                class="accent small filled"
+                @click="openTags"
+            >
+                <i class="fas fa-tag" />
+            </button>
+
+            <button
                 v-if="list.games.includes(gameId)"
                 @click="removeGame"
                 title="Delete game"
-                class="small error"
+                class="small error filled"
                 :class="{ accent: settings && !settings.nightMode }"
             >
                 <i class="far fa-trash-alt" />
@@ -70,7 +89,7 @@ export default {
     },
 
     computed: {
-        ...mapState(['settings', 'games', 'gameLists', 'platform', 'user']),
+        ...mapState(['settings', 'games', 'gameLists', 'platform', 'user', 'tags']),
 
         showGameRating() {
             return this.settings && this.settings.showGameRatings && !this.searchResult;
@@ -110,6 +129,10 @@ export default {
     methods: {
         openDetails() {
             this.$bus.$emit('OPEN_GAME', this.game.id);
+        },
+
+        openTags() {
+            this.$bus.$emit('OPEN_TAGS', this.game.id);
         },
 
         addGame() {

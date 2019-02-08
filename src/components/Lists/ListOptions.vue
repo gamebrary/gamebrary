@@ -52,6 +52,23 @@
             </modal>
 
             <modal
+                title="Game tags"
+                ref="tags"
+                message="Use tags to better organize your games"
+                large
+                :show-close="false"
+            >
+                <button
+                    class="small info"
+                    :title="$t('list.delete')"
+                >
+                    <i class="fas fa-tags" />
+                </button>
+
+                <tags slot="content" />
+            </modal>
+
+            <modal
                 :action-text="`Delete forever`"
                 :message="`Your ${platform.name} collection will be deleted forever.`"
                 title="Are you sure?"
@@ -86,10 +103,12 @@
 import { mapState } from 'vuex';
 import Panel from '@/components/Panel/Panel';
 import Modal from '@/components/Modal/Modal';
+import Tags from '@/components/Tags/Tags';
 
 export default {
     components: {
         Modal,
+        Tags,
         Panel,
     },
 
