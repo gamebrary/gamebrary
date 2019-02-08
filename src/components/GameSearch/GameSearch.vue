@@ -121,6 +121,11 @@ export default {
 
         added() {
             this.$emit('added');
+
+            if (this.filteredResults.length === 1) {
+                this.clear();
+                this.back();
+            }
         },
 
         search: debounce(
