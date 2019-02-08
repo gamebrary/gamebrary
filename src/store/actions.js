@@ -13,6 +13,16 @@ export default {
         });
     },
 
+    LOAD_RELEASES({ commit }) {
+        return new Promise((resolve, reject) => {
+            axios.get('https://api.github.com/repos/romancmx/gamebrary/releases')
+                .then(({ data }) => {
+                    commit('SET_RELEASES', data);
+                    resolve();
+                }).catch(reject);
+        });
+    },
+
     LOAD_PUBLIC_GAMES({ commit }, gameList) {
         return new Promise((resolve, reject) => {
             axios.get(`${FIREBASE_URL}/games?games=${gameList}`)

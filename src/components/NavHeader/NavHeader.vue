@@ -9,28 +9,39 @@
             GAMEBRARY
         </router-link>
 
-        <modal
-            title="Settings"
-            :show-close="false"
-            v-if="user"
-        >
-            <button>
-                <i class="fas fa-cog" />
-            </button>
+        <div class="links" v-if="user">
+            <modal title="Releases" large :show-close="false">
+                <button class="info filled small">
+                    <i class="fas fa-bullhorn" />
+                </button>
 
-            <settings slot="content" v-if="settings" />
-        </modal>
+                <releases slot="content" />
+            </modal>
+
+            <modal
+                title="Settings"
+                :show-close="false"
+            >
+                <button class="info filled small">
+                    <i class="fas fa-cog" />
+                </button>
+
+                <settings slot="content" v-if="settings" />
+            </modal>
+        </div>
     </nav>
 </template>
 
 <script>
 import Settings from '@/components/Settings/Settings';
+import Releases from '@/components/Releases/Releases';
 import Modal from '@/components/Modal/Modal';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
     components: {
         Settings,
+        Releases,
         Modal,
     },
 
@@ -67,12 +78,14 @@ export default {
         justify-content: space-between;
         align-items: center;
         background: $color-white;
+        padding: 0 $gp;
 
         .logo {
             height: $navHeight;
             font-weight: bold;
             display: flex;
             align-items: center;
+            margin-left: -$gp;
 
             img {
                 height: 24px;
@@ -83,6 +96,11 @@ export default {
         &.dark {
             background: $color-darkest-gray;
             color: $color-gray !important;
+        }
+
+        .links {
+            display: flex;
+            align-items: center;
         }
     }
 </style>

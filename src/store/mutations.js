@@ -18,6 +18,10 @@ export default {
         state.gameLists = lists;
     },
 
+    SET_RELEASES(state, releases) {
+        state.releases = releases;
+    },
+
     CLEAR_SESSION(state) {
         state.user = null;
         state.authorizing = false;
