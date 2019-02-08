@@ -2,10 +2,10 @@
     <div
         :class="['game-rating', { small, dark }]">
 
-        <template v-for="n in 5">
+        <span v-for="n in 5" :key="`star-${n}`">
             <i class="fas fa-star" v-if="(roundedRating - n) + 1 >= 1" />
             <i class="fas fa-star-half" v-if="(roundedRating - n) + 1 === .5" />
-        </template>
+        </span>
     </div>
 </template>
 
@@ -28,7 +28,7 @@ export default {
 
         dark() {
             return this.darkModeEnabled || this.placeholder;
-        }
+        },
     },
 };
 </script>
