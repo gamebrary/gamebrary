@@ -3,7 +3,6 @@ import Router from 'vue-router';
 import ShareList from '@/pages/ShareList/ShareList';
 import GameDetail from '@/pages/GameDetail/GameDetail';
 import GameBoard from '@/pages/GameBoard/GameBoard';
-import Auth from '@/pages/Auth/Auth';
 import Platforms from '@/pages/Platforms/Platforms';
 
 Vue.use(Router);
@@ -30,15 +29,10 @@ export default new Router({
             },
         },
         {
-            path: '/auth',
-            name: 'auth',
-            component: Auth,
-        },
-        {
             path: '/',
             name: 'game-board',
             component: GameBoard,
         },
-        { path: '*', component: Auth },
+        { path: '*', component: GameBoard },
     ],
 });

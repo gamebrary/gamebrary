@@ -121,7 +121,6 @@ export default {
         },
 
         init(user) {
-            this.$store.commit('SET_AUTHORIZING_STATUS', false);
             this.$store.commit('SET_USER', user);
             this.loadSettings();
             this.loadLists();
