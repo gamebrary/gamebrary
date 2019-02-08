@@ -5,12 +5,12 @@
         </div>
 
         <div :class="['modal', { show }]" @click="close">
-            <div :class="['content', { large }]" @click.stop>
+            <div :class="['content', { large, 'no-padding': noPadding }]" @click.stop>
                 <i class="close fas fa-times" @click="close" />
                 <h2 v-if="title">{{ title }}</h2>
                 <p v-if="message">{{ message }}</p>
 
-                <slot name="content" />
+                <slot name="content" v-if="show" />
 
                 <div :class="{ actions: actionText }">
                     <button class="small info" @click="close" v-if="showClose">
@@ -50,6 +50,7 @@ export default {
             default: false,
         },
         large: Boolean,
+        noPadding: Boolean,
     },
 
     data() {
@@ -106,40 +107,53 @@ export default {
 .content {
     position: relative;
     background: $color-white;
-    width: 320px;
     height: auto;
-    max-height: 80vh;
-    margin: $gp 0;
+    width: 320px;
     overflow: auto;
     padding: $gp;
     border-radius: $border-radius;
     cursor: default;
+    max-height: calc(100vh - 32px);
+
+    &.no-padding {
+        padding: 0;
+    }
 
     &.large {
-        padding: 0;
         width: 700px;
         max-width: 100%;
+    }
 
-        @media($small) {
-            margin: 0 $gp;
-            border-radius: $border-radius;
-        }
+    @media($small) {
+        height: 100vh;
+        max-height: 100vh;
+        border-radius: 0;
     }
 }
 
 .close {
-    padding: $gp $gp $gp / 2;
-    color: $color-gray;
-    position: absolute;
-    top: 0;
-    right: 0;
-    cursor: pointer;
-    transition: color 100ms linear;
-    z-index: 2;
+    opacity: 0;
+    position: fixed;
 
-    &:hover {
+    @media($small) {
+        opacity: 1;
+        top: 0;
+        right: 0;
+        background: $color-white;
+
+        padding: $gp;
+        color: $color-gray;
+        position: fixed;
+        top: 0;
+        right: 0;
+        cursor: pointer;
         transition: color 100ms linear;
-        color: $color-dark-gray;
+        z-index: 2;
+
+        &:hover {
+            transition: color 100ms linear;
+            color: $color-dark-gray;
+        }
     }
 }
 
