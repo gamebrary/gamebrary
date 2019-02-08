@@ -12,7 +12,7 @@
                 :list-name="name"
                 :list-index="listIndex"
                 :game-count="games.length"
-                @update="updateLists"
+                @update="updateLists('List name saved')"
             />
         </div>
 
@@ -222,7 +222,7 @@ export default {
 
         moveList(from, to) {
             this.$store.commit('MOVE_LIST', { from, to });
-            this.updateLists();
+            this.updateLists('List moved');
         },
 
         addGame() {
@@ -230,10 +230,12 @@ export default {
             this.$store.commit('SET_ACTIVE_LIST', this.listIndex);
         },
 
-        updateLists() {
+        updateLists(toastMessage) {
+            const message = toastMessage || 'List saved';
+
             db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
                 .then(() => {
-                    this.$bus.$emit('TOAST', { message: 'List saved' });
+                    this.$bus.$emit('TOAST', { message });
                 })
                 .catch(() => {
                     this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
@@ -242,12 +244,12 @@ export default {
 
         sortListAlphabetically() {
             this.$store.commit('SORT_LIST_ALPHABETICALLY', this.listIndex);
-            this.updateLists();
+            this.updateLists('List sorted alphabetically');
         },
 
         sortListByRating() {
             this.$store.commit('SORT_LIST_BY_RATING', this.listIndex);
-            this.updateLists();
+            this.updateLists('List sorted by game rating');
         },
 
         validateMove({ from, to }) {
