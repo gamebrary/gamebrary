@@ -82,6 +82,7 @@ export default {
 @import "~styles/styles.scss";
 
 .modal {
+    color: $color-dark-gray;
     width: 100%;
     position: fixed;
     background: rgba(0, 0, 0, 0.5);
@@ -161,10 +162,5 @@ export default {
     display: grid;
     grid-gap: $gp;
     grid-template-columns: auto auto;
-}
-
-h2 {
-    margin: 0;
-    color: $color-dark-gray;
 }
 </style>

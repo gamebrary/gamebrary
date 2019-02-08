@@ -174,8 +174,4 @@ export default {
     input {
         margin: 0 0 $gp / 2;
     }
-
-    h4 {
-        margin: 0;
-    }
 </style>

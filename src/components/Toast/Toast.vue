@@ -90,10 +90,6 @@ export default {
     padding: $gp;
     transition: all 200ms linear;
 
-    h4 {
-        margin: 0;
-    }
-
     i {
         margin-right: $gp / 2;
         font-size: 20px;

@@ -229,10 +229,6 @@ export default {
                 text-decoration: none;
                 color: $color-dark-gray;
             }
-
-            h4 {
-                margin: 0;
-            }
         }
 
         .game-card-options {

@@ -93,10 +93,6 @@ export default {
                 justify-content: center;
             }
         }
-
-        h3 {
-            margin: 0;
-        }
     }
 </style>
 

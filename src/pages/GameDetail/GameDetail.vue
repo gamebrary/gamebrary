@@ -10,7 +10,7 @@
                 <div class="game-info">
                     <game-header />
 
-                    <div>
+                    <div class="game-details">
                         <h2>{{ game.name }}</h2>
                         <game-rating :rating="game.rating" />
                         <p class="game-description" v-html="game.summary" />
@@ -133,8 +133,8 @@ export default {
         }
     }
 
-    h2 {
-        margin-bottom: 0;
+    .game-details {
+        margin-top: $gp;
     }
 
     .game-info {
