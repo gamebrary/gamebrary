@@ -3,7 +3,9 @@
         <img :src="coverUrl" @click="openDetails" :alt="game.name">
 
         <div class="game-info">
-            <h4 v-text="game.name" @click="openDetails" />
+            <a @click="openDetails">
+                <h4 v-text="game.name" />
+            </a>
 
             <game-rating
                 v-if="showGameRatings"
@@ -11,12 +13,13 @@
                 small
             />
 
-            <div class="tags" v-if="tags">
+            <div class="tags" v-if="!searchResult && tags">
                 <div v-for="({ games, hex }, name) in tags" :key="name">
                     <button
                         class="tag small"
                         :style="`background-color: ${hex}`"
                         v-if="games.includes(game.id)"
+                        @click="openTags"
                     >
                         {{ name }}
                     </button>
@@ -25,42 +28,43 @@
 
             <button
                 v-if="searchResult"
-                class="primary small"
+                class="primary small tiny"
                 @click="addGame"
             >
                 <i class="fas fa-plus" />
-            </button>
-        </div>
-
-        <div class="game-card-options" v-if="!searchResult">
-            <button
-                v-if="!searchResult"
-                class="game-drag-handle accent small filled"
-                title="Drag game"
-            >
-                <i class="far fa-hand-paper" />
+                Add to {{ addToLabel }}
             </button>
 
-            <button
-                class="accent small filled"
-                @click="openTags"
-            >
-                <i class="fas fa-tag" />
-            </button>
+            <div class="game-card-options" v-else>
+                <button
+                    v-if="!searchResult"
+                    class="game-drag-handle accent small tiny filled"
+                    title="Drag game"
+                >
+                    <i class="far fa-hand-paper" />
+                </button>
 
-            <button
-                v-if="list.games.includes(gameId)"
-                @click="removeGame"
-                title="Delete game"
-                class="small error filled"
-                :class="{ accent: settings && !settings.nightMode }"
-            >
-                <i class="far fa-trash-alt" />
-            </button>
+                <button
+                    class="accent small tiny filled"
+                    @click="openTags"
+                >
+                    <i class="fas fa-tag" />
+                </button>
 
-            <button v-else @click="addGame" title="Add game">
-                <i class="fas fa-plus" />
-            </button>
+                <button
+                    v-if="list.games.includes(gameId)"
+                    @click="removeGame"
+                    title="Delete game"
+                    class="small tiny error filled"
+                    :class="{ accent: settings && !settings.nightMode }"
+                >
+                    <i class="far fa-trash-alt" />
+                </button>
+
+                <button v-else @click="addGame" title="Add game">
+                    <i class="fas fa-plus" />
+                </button>
+            </div>
         </div>
     </div>
 </template>
@@ -119,6 +123,12 @@ export default {
             return this.games && this.games[this.gameId].cover
                 ? `${url}${this.games[this.gameId].cover.cloudinary_id}.jpg`
                 : '/static/no-image.jpg';
+        },
+
+        addToLabel() {
+            return this.list.name.length >= 8
+                ? 'list'
+                : this.list.name;
         },
     },
 
@@ -206,14 +216,6 @@ export default {
             }
         }
 
-        &:hover {
-            .game-card-options {
-                transition: opacity 300ms ease;
-                opacity: 1;
-                pointer-events: all;
-            }
-        }
-
         img {
             width: $gameCoverWidth;
             height: auto;
@@ -222,27 +224,35 @@ export default {
         }
 
         .game-info {
+            display: grid;
+            grid-gap: $gp / 4;
             padding: $gp / 2 $gp;
-            width: calc(100% - 116px);
+            width: 100%;
+            height: 100%;
+
+            &:hover {
+                a {
+                    text-decoration: underline;
+                    color: $color-blue;
+                }
+            }
 
             a {
-                text-decoration: none;
-                color: $color-dark-gray;
+                color: $color-darkest-gray;
+                cursor: pointer;
+            }
+        }
+
+        &:hover {
+            .game-card-options {
+                opacity: 1;
             }
         }
 
         .game-card-options {
-            position: absolute;
             opacity: 0;
-            pointer-events: none;
-            top: 0;
-            right: 0;
-            transition: opacity 300ms ease;
-            width: $iconSmallSize + $gp / 4;
-
-            button {
-                margin-top: $gp / 4;
-            }
+            width: auto;
+            transition: all 200ms linear;
 
             .game-drag-handle {
                 @include drag-cursor;

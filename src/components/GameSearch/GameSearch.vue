@@ -34,7 +34,7 @@
                 <i class="fas fa-chevron-left" />
             </button>
 
-            <igdb-credit />
+            <igdb-credit linkable />
 
             <button
                 class="small filled info"

@@ -36,8 +36,8 @@ module.exports = {
         sortByName: 'Sort list by game name',
         sortByRating: 'Sort list by game rating',
         delete: 'Delete list',
-        moveLeft: 'Move list left',
-        moveRight: 'Move list right',
+        moveLeft: 'Move left',
+        moveRight: 'Move right',
     },
     settings: {
         title: 'Settings',

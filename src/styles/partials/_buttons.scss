@@ -46,8 +46,11 @@ button, a.link {
         padding: 0 $gp / 2;
     }
 
+    &.tag, &.tiny {
+        font-size: 12px;
+    }
+
     &.tag {
-        font-size: 10px;
         height: 20px;
         color: $color-white;
     }

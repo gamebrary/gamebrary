@@ -23,7 +23,7 @@
 
         <draggable
             v-else
-            class="games"
+            :class="['games', { 'empty': isEmpty }]"
             :list="games"
             :id="listIndex"
             :move="validateMove"
@@ -38,36 +38,39 @@
                 :game-id="game"
                 :list-id="listIndex"
             />
-
-            <div class="empty" v-if="games.length === 0">
-                [ {{ $t('empty') }} ]
-            </div>
-
         </draggable>
 
-        <footer v-if="!showSearch" :class="{ dark: darkModeEnabled }">
+        <footer v-if="!showSearch">
             <button
-                class="small filled info"
-                :class="{ hollow: darkModeEnabled }"
+                :class="listButtonClass"
                 :title="$t('list.moveLeft')"
                 :disabled="listIndex === 0"
                 @click="moveList(listIndex, listIndex - 1)"
             >
                 <i class="fas fa-caret-left" />
+
+                <template v-if="isEmpty">
+                    <br>
+                    <small>{{ $t('list.moveLeft') }}</small>
+                </template>
             </button>
 
             <button
                 @click="addGame"
-                class="small filled info"
-                :class="{ hollow: darkModeEnabled }"
+                :class="listButtonClass"
                 :title="$t('game.add')"
             >
                 <i class="fas fa-plus" />
+
+                <template v-if="isEmpty">
+                    <br>
+                    <small>{{ $t('game.add') }}</small>
+                </template>
             </button>
 
             <button
-                v-if="hasGames"
-                :class="['small filled info', { hollow: darkModeEnabled }]"
+                v-if="hasMultipleGames"
+                :class="listButtonClass"
                 :title="$t('list.sortByName')"
                 @click="sortListAlphabetically"
             >
@@ -75,8 +78,8 @@
             </button>
 
             <button
-                v-if="hasGames"
-                :class="['small filled info', { hollow: darkModeEnabled }]"
+                v-if="hasMultipleGames"
+                :class="listButtonClass"
                 :title="$t('list.sortByRating')"
                 @click="sortListByRating"
             >
@@ -92,7 +95,7 @@
                 @action="deleteList"
             >
                 <button
-                    :class="['small filled info', { hollow: darkModeEnabled }]"
+                    :class="listButtonClass"
                     :title="$t('list.delete')"
                 >
                     <i class="far fa-trash-alt" />
@@ -101,20 +104,30 @@
 
             <button
                 v-else
-                :class="['small filled info', { hollow: darkModeEnabled }]"
+                :class="listButtonClass"
                 :title="$t('list.delete')"
                 @click="deleteList"
             >
                 <i class="far fa-trash-alt" />
+
+                <template v-if="isEmpty">
+                    <br>
+                    <small>{{ $t('list.delete') }}</small>
+                </template>
             </button>
 
             <button
-                :class="['small filled info', { hollow: darkModeEnabled }]"
+                :class="listButtonClass"
                 :title="$t('list.moveRight')"
                 :disabled="listIndex === (Object.keys(list).length - 1)"
                 @click="moveList(listIndex, listIndex + 1)"
             >
                 <i class="fas fa-caret-right" />
+
+                <template v-if="isEmpty">
+                    <br>
+                    <small>{{ $t('list.moveRight') }}</small>
+                </template>
             </button>
         </footer>
     </div>
@@ -165,6 +178,18 @@ export default {
 
         ...mapGetters(['darkModeEnabled']),
 
+        listButtonClass() {
+            const empty = this.isEmpty
+                ? 'tiny'
+                : '';
+
+            const defaultClass = `small filled ${empty}`
+
+            return this.darkModeEnabled
+                ? `${defaultClass} accent`
+                : `${defaultClass} info'`;
+        },
+
         list() {
             return this.gameLists[this.platform.code];
         },
@@ -173,9 +198,13 @@ export default {
             return this.activeList === this.listIndex;
         },
 
-        hasGames() {
+        hasMultipleGames() {
             return this.games.length > 1;
         },
+
+        isEmpty() {
+            return this.games.length === 0;
+        }
     },
 
     methods: {
@@ -248,10 +277,15 @@ export default {
         cursor: default;
         position: relative;
         width: 300px;
+        background: $color-light-gray;
         border-radius: $border-radius;
         overflow: hidden;
         margin-right: $gp;
         max-height: calc(100vh - 81px);
+
+        &.dark {
+            background: $color-darkest-gray;
+        }
 
         .list-header {
             align-items: center;
@@ -272,36 +306,27 @@ export default {
         .games {
             height: 100%;
             overflow: hidden;
-            min-height: 60px;
             max-height: calc(100vh - 154px);
+            min-height: 80px;
             overflow-y: auto;
             overflow-y: overlay;
-            column-gap: $gp;
-            background: $color-light-gray;
             margin-top: $list-header-height;
             padding: 0 $gp / 2;
             width: 100%;
-        }
 
-        &.dark {
-            .games {
-                background: #444 !important;
+            &.empty {
+                margin: ($list-header-height + $gp / 2) $gp / 2 $gp / 2;
+                padding: $gp;
+                width: auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: 1px dashed $color-gray;
             }
         }
     }
 
-    .empty {
-        position: absolute;
-        width: 100%;
-        left: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 60px;
-    }
-
     footer {
-        background-color: $color-light-gray;
         height: 42px;
         padding: 0 $gp / 2;
         cursor: pointer;
@@ -309,8 +334,9 @@ export default {
         align-items: center;
         justify-content: space-between;
 
-        &.dark {
-            background: #444;
+        .empty {
+            font-size: 12px;
+            border: 0 !important;
         }
     }
 </style>
