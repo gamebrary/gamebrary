@@ -125,7 +125,7 @@ export default {
     }
 
     @media($small) {
-        height: 100vh;
+        height: auto;
         max-height: 100vh;
         border-radius: 0;
     }
