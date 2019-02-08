@@ -24,7 +24,6 @@ export default {
 
     CLEAR_SESSION(state) {
         state.user = null;
-        state.authorizing = false;
         state.activeList = null;
         state.gameLists = {};
         state.settings = null;
@@ -37,10 +36,6 @@ export default {
 
     SET_SEARCH_RESULTS(state, results) {
         state.results = results;
-    },
-
-    SET_AUTHORIZING_STATUS(state, status) {
-        state.authorizing = status;
     },
 
     CLEAR_SEARCH_RESULTS(state) {

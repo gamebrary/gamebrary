@@ -1,6 +1,5 @@
 export default {
     user: null,
-    authorizing: false,
     activeList: null,
     gameLists: {},
     settings: null,
