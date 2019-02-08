@@ -1,5 +1,4 @@
 <template lang="html">
-    <!-- eslint-disable -->
     <div>
         <game-detail-placeholder v-if="!game" />
 
