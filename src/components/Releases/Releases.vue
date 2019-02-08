@@ -1,6 +1,11 @@
 <template lang="html">
     <div class="releases">
-        <div class="release" v-for="notification in releases" :key="notification.id">
+        <div
+            class="release"
+            v-if="loaded"
+            v-for="notification in releases"
+            :key="notification.id"
+        >
             <div class="release-info">
                 <a class="link primary small hollow">
                     {{ notification.tag_name }}
@@ -8,28 +13,32 @@
 
                 <div>
                     <h3>{{ notification.name }}</h3>
-                    <small>Published {{ moment(notification.published_at).fromNow() }}</small>
+                    <small>Published {{ formattedDate(notification.published_at) }}</small>
                 </div>
             </div>
 
             <vue-markdown :source="notification.body" />
         </div>
+
+        <releases-placeholder v-else />
     </div>
 </template>
 
 <script>
 import moment from 'moment';
 import VueMarkdown from 'vue-markdown';
+import ReleasesPlaceholder from '@/components/Releases/ReleasesPlaceholder';
 import { mapState } from 'vuex';
 
 export default {
     components: {
         VueMarkdown,
+        ReleasesPlaceholder,
     },
 
     data() {
         return {
-            moment,
+            loaded: false,
         };
     },
 
@@ -38,10 +47,28 @@ export default {
     },
 
     mounted() {
-        this.$store.dispatch('LOAD_RELEASES')
-            .catch(() => {
-                this.$bus.$emit('TOAST', { message: 'Error loading releases', type: 'error' });
-            });
+        this.loadReleases();
+    },
+
+    methods: {
+        loadReleases() {
+            this.loaded = false;
+
+            this.$store.dispatch('LOAD_RELEASES')
+                .then(() => {
+                    this.loaded = true;
+                })
+                .catch(() => {
+                    this.$bus.$emit('TOAST', {
+                        message: 'Error loading releases',
+                        type: 'error',
+                    });
+                });
+        },
+
+        formattedDate(date) {
+            return moment(date).fromNow();
+        },
     },
 };
 </script>
