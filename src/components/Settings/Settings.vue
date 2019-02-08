@@ -172,10 +172,6 @@ export default {
         deleteAccount() {
             const db = firebase.firestore();
 
-            db.settings({
-                timestampsInSnapshots: true,
-            });
-
             db.collection('settings').doc(this.user.uid).delete()
                 .then(() => {
                     db.collection('lists').doc(this.user.uid).delete()
