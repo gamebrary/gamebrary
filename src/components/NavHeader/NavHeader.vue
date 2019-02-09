@@ -11,42 +11,30 @@
 
         <div class="links" v-if="user">
             <modal title="Releases" large :show-close="false">
-                <button class="info filled small">
+                <button class="primary filled small">
                     <i class="fas fa-bullhorn" />
+                    What's new
                 </button>
 
                 <releases slot="content" />
-            </modal>
-
-            <modal
-                title="Settings"
-                :show-close="false"
-            >
-                <button class="info filled small">
-                    <i class="fas fa-cog" />
-                </button>
-
-                <settings slot="content" v-if="settings" />
             </modal>
         </div>
     </nav>
 </template>
 
 <script>
-import Settings from '@/components/Settings/Settings';
 import Releases from '@/components/Releases/Releases';
 import Modal from '@/components/Modal/Modal';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
     components: {
-        Settings,
         Releases,
         Modal,
     },
 
     computed: {
-        ...mapState(['user', 'platform', 'settings']),
+        ...mapState(['user', 'platform']),
         ...mapGetters(['darkModeEnabled']),
 
         isAuthRoute() {

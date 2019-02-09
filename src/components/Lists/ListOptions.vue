@@ -95,6 +95,17 @@
                     <input type="text" :value="shareUrl">
                 </div>
             </modal>
+
+            <modal
+                title="Settings"
+                :show-close="false"
+            >
+                <button class="accent small">
+                    <i class="fas fa-cog" />
+                </button>
+
+                <settings slot="content" v-if="settings" />
+            </modal>
         </div>
     </div>
 </template>
@@ -104,12 +115,14 @@ import { mapState } from 'vuex';
 import Panel from '@/components/Panel/Panel';
 import Modal from '@/components/Modal/Modal';
 import Tags from '@/components/Tags/Tags';
+import Settings from '@/components/Settings/Settings';
 
 export default {
     components: {
         Modal,
         Tags,
         Panel,
+        Settings,
     },
 
     data() {
@@ -125,7 +138,7 @@ export default {
     },
 
     computed: {
-        ...mapState(['user', 'gameLists', 'platform']),
+        ...mapState(['user', 'gameLists', 'platform', 'settings']),
 
         errorMessage() {
             return `You already have a list named <strong>${this.newListName}</strong>. Please use a different name.`;
