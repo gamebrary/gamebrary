@@ -2,13 +2,14 @@
     <div id="app">
         <nav-header />
 
-        <main :class="{ 'logged-in': user && !isPublic }" v-if="user && !isPublic">
+        <main :class="{ 'logged-in': user && !isPublic }" v-if="!user && isPublic">
             <router-view />
         </main>
 
         <div class="auth" v-else>
+            <img src='/static/gamebrary-logo.png' />
             <i class="fas fa-circle-notch fast-spin fa-3x" />
-            <h3>Authorizing</h3>
+            <h3>Authorizing with Google</h3>
         </div>
 
         <toast />
@@ -233,5 +234,24 @@ export default {
     body, p, a, li, blockquote {
         font-family: "Roboto", sans-serif;
         font-weight: 400;
+    }
+</style>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+    @import "~styles/styles.scss";
+
+    .auth {
+        background: $color-white;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        i {
+            margin: $gp;
+        }
     }
 </style>
