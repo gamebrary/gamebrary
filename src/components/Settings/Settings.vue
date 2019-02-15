@@ -214,6 +214,7 @@ export default {
     @import "~styles/styles.scss";
 
     .settings {
+        padding: $gp;
         color: $color-dark-gray;
         display: flex;
         align-items: center;

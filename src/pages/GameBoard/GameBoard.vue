@@ -6,7 +6,7 @@
         :class="{ dark: darkModeEnabled }"
         @click.self="loseFocus"
     >
-        <game-board-placeholder v-if="loading" />
+        <game-board-placeholder :id="gameDetailId" v-if="loading" />
 
         <modal
             ref="game"
@@ -135,7 +135,7 @@ export default {
     mounted() {
         this.$store.commit('CLEAR_ACTIVE_LIST');
 
-        if (this.platform) {
+        if (this.platform || this.$route.name === 'shareList') {
             this.loadGameData();
             this.setPageTitle();
         } else {

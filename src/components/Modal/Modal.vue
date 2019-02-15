@@ -5,9 +5,12 @@
         </div>
 
         <div :class="['modal', { show }]" @click="close">
-            <div :class="['content', { large, 'no-padding': noPadding }]" @click.stop>
-                <i class="close fas fa-times" @click="close" />
-                <h2 v-if="title">{{ title }}</h2>
+            <i class="close fas fa-times" @click="close" />
+
+            <div :class="['content', { large, padded }]" @click.stop>
+                <header>
+                    <h2 v-if="title">{{ title }}</h2>
+                </header>
                 <p v-if="message">{{ message }}</p>
 
                 <slot name="content" v-if="show" />
@@ -50,7 +53,7 @@ export default {
             default: false,
         },
         large: Boolean,
-        noPadding: Boolean,
+        padded: Boolean,
     },
 
     data() {
@@ -85,7 +88,7 @@ export default {
     color: $color-dark-gray;
     width: 100%;
     position: fixed;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.8);
     z-index: 1;
     top: 0;
     left: 0;
@@ -107,55 +110,36 @@ export default {
 
 .content {
     position: relative;
-    background: $color-white;
+    background-color: $color-white;
     height: auto;
     width: 320px;
+    max-height: calc(85vh);
+    max-width: 100%;
     overflow: auto;
-    padding: $gp;
+    margin: 0 $gp;
+    padding: 0;
     border-radius: $border-radius;
     cursor: default;
-    max-height: calc(100vh - 32px);
-
-    &.no-padding {
-        padding: 0;
-    }
 
     &.large {
-        width: 700px;
-        max-width: 100%;
+        width: 780px;
+    }
+
+    &.padded {
+        padding: $gp;
     }
 
     @media($small) {
         height: auto;
+        margin: 0;
         max-height: 100vh;
+        height: 100vh;
         border-radius: 0;
     }
 }
 
-.close {
-    opacity: 0;
-    position: fixed;
-
-    @media($small) {
-        opacity: 1;
-        top: 0;
-        right: 0;
-        background: $color-white;
-
-        padding: $gp;
-        color: $color-gray;
-        position: fixed;
-        top: 0;
-        right: 0;
-        cursor: pointer;
-        transition: color 100ms linear;
-        z-index: 2;
-
-        &:hover {
-            transition: color 100ms linear;
-            color: $color-dark-gray;
-        }
-    }
+header {
+    position: sticky;
 }
 
 .actions {

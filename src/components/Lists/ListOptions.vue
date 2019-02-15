@@ -3,8 +3,9 @@
         <div class="actions">
             <modal
                 ref="addList"
-                :action-text="$t('global.create')"
                 message="Pick an option below"
+                padded
+                :action-text="$t('global.create')"
                 :title="$t('list.add')"
                 :action-disabled="isDuplicate || !newListName"
                 @action="addList"
@@ -56,6 +57,7 @@
                 ref="tags"
                 message="Use tags to better organize your games"
                 large
+                padded
                 :show-close="false"
             >
                 <button
@@ -72,6 +74,7 @@
                 :action-text="`Delete forever`"
                 :message="`Your ${platform.name} collection will be deleted forever.`"
                 title="Are you sure?"
+                padded
                 @action="deletePlatform"
             >
                 <button
@@ -86,6 +89,7 @@
                 title="Share your list"
                 message="Use the following URL to share this list."
                 close-text="OK"
+                padded
             >
                 <button class="small info" title="Share">
                     <i class="fas fa-share-alt" />
