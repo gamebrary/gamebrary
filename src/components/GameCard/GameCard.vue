@@ -41,14 +41,20 @@
             <div :class="['game-card-options', { dark: darkModeEnabled}]" v-else>
                 <button
                     v-if="!searchResult"
-                    :class="['small tiny', { 'accent filled': !darkModeEnabled, info: darkModeEnabled }]"
+                    :class="['small tiny', {
+                        'accent filled': !darkModeEnabled,
+                        info: darkModeEnabled
+                    }]"
                     title="Drag game"
                 >
                     <i class="far fa-hand-paper" />
                 </button>
 
                 <button
-                    :class="['small tiny', { 'accent filled': !darkModeEnabled, info: darkModeEnabled }]"
+                    :class="['small tiny', {
+                        'accent filled': !darkModeEnabled,
+                        info: darkModeEnabled
+                    }]"
                     @click="openTags"
                 >
                     <i class="fas fa-tag" />
@@ -58,7 +64,10 @@
                     v-if="list.games.includes(gameId)"
                     @click="removeGame"
                     title="Delete game"
-                    :class="['small tiny error', { filled: !darkModeEnabled, info: darkModeEnabled }]"
+                    :class="['small tiny error', {
+                        filled: !darkModeEnabled,
+                        info: darkModeEnabled
+                    }]"
                 >
                     <i class="far fa-trash-alt" />
                 </button>
