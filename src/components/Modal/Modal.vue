@@ -149,13 +149,13 @@ header {
     max-width: 100%;
     margin: 0 auto;
     position: fixed;
-    top: $gp * 3;
+    top: 7.5vh;
     display: flex;
     justify-content: flex-end;
     z-index: 99999999;
 
     &.large {
-        width: 840px;
+        width: 810px;
     }
 
     @media($small) {
@@ -166,8 +166,6 @@ header {
     .close {
         padding: $gp;
         color: $color-white;
-        background: $color-white;
-        border-radius: $border-radius;
         color: $color-gray;
         cursor: pointer;
     }
