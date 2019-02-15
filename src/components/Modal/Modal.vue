@@ -5,7 +5,9 @@
         </div>
 
         <div :class="['modal', { show }]" @click="close">
-            <i class="close fas fa-times" @click="close" />
+            <button class="close-wrapper" :class="{ large }">
+                <i class="close fas fa-times" @click="close" />
+            </button>
 
             <div :class="['content', { large, padded }]" @click.stop>
                 <header>
@@ -140,6 +142,35 @@ export default {
 
 header {
     position: sticky;
+}
+
+.close-wrapper {
+    width: 320px;
+    max-width: 100%;
+    margin: 0 auto;
+    position: fixed;
+    top: $gp * 3;
+    display: flex;
+    justify-content: flex-end;
+    z-index: 99999999;
+
+    &.large {
+        width: 840px;
+    }
+
+    @media($small) {
+        width: 100%;
+        top: $gp;
+    }
+
+    .close {
+        padding: $gp;
+        color: $color-white;
+        background: $color-white;
+        border-radius: $border-radius;
+        color: $color-gray;
+        cursor: pointer;
+    }
 }
 
 .actions {
