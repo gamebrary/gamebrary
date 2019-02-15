@@ -36,17 +36,17 @@
                 Add to {{ addToLabel }}
             </button>
 
-            <div class="game-card-options" v-else>
+            <div :class="['game-card-options', { dark: darkModeEnabled}]" v-else>
                 <button
                     v-if="!searchResult"
-                    class="game-drag-handle accent small tiny filled"
+                    :class="['small tiny', { 'accent filled': !darkModeEnabled, info: darkModeEnabled }]"
                     title="Drag game"
                 >
                     <i class="far fa-hand-paper" />
                 </button>
 
                 <button
-                    class="accent small tiny filled"
+                    :class="['small tiny', { 'accent filled': !darkModeEnabled, info: darkModeEnabled }]"
                     @click="openTags"
                 >
                     <i class="fas fa-tag" />
@@ -56,8 +56,7 @@
                     v-if="list.games.includes(gameId)"
                     @click="removeGame"
                     title="Delete game"
-                    class="small tiny error filled"
-                    :class="{ accent: settings && !settings.nightMode }"
+                    :class="['small tiny error', { filled: !darkModeEnabled, info: darkModeEnabled }]"
                 >
                     <i class="far fa-trash-alt" />
                 </button>
@@ -72,7 +71,7 @@
 
 <script>
 import GameRating from '@/components/GameDetail/GameRating';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
@@ -92,6 +91,8 @@ export default {
     computed: {
         ...mapState(['settings', 'games', 'gameLists', 'platform', 'user', 'tags']),
 
+        ...mapGetters(['darkModeEnabled']),
+
         showGameRatings() {
             return this.settings && !this.settings.hideGameRatings;
         },
@@ -101,7 +102,7 @@ export default {
                 'game-card',
                 {
                     'search-result': this.searchResult,
-                    dark: this.settings && this.settings.nightMode,
+                    dark: this.darkModeEnabled,
                 },
             ];
         },
@@ -217,6 +218,11 @@ export default {
             }
         }
 
+        .game-cover {
+            display: flex;
+            align-items: center;
+        }
+
         img {
             width: $gameCoverWidth;
             height: auto;
@@ -236,7 +242,6 @@ export default {
             &:hover {
                 a {
                     text-decoration: underline;
-                    color: $color-blue;
                 }
             }
 
@@ -261,5 +266,9 @@ export default {
                 @include drag-cursor;
             }
         }
+    }
+
+    .tags {
+        margin: $gp / 2 0;
     }
 </style>
