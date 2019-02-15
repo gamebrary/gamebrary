@@ -7,6 +7,8 @@
                 <h4 v-text="game.name" />
             </a>
 
+            <br>
+
             <game-rating
                 v-if="showGameRatings"
                 :rating="game.rating"
@@ -235,8 +237,8 @@ export default {
             padding: $gp / 2 $gp;
             width: 100%;
 
-            .game-rating {
-                margin: $gp / 2 0;
+            .game-rating, a {
+                display: inline-flex;
             }
 
             &:hover {
