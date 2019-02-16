@@ -96,6 +96,11 @@
                 </button>
 
                 <div slot="content">
+                    <a class="primary filled" :href="tweetUrl" target="_blank">
+                        <i class="fab fa-twitter" />
+                        TWEEET
+                    </a>
+
                     <input type="text" :value="shareUrl">
                 </div>
             </modal>
@@ -146,6 +151,14 @@ export default {
 
         errorMessage() {
             return `You already have a list named <strong>${this.newListName}</strong>. Please use a different name.`;
+        },
+
+        shareText() {
+            return `Check out my ${this.platform.name} collection at GAMEBRARY`;
+        },
+
+        tweetUrl() {
+            return `https://twitter.com/intent/tweet?text=${this.shareText}&url=${encodeURIComponent(this.shareUrl)}`;
         },
 
         list() {
