@@ -10,8 +10,8 @@ export default new Router({
     mode: 'history',
     routes: [
         {
-            path: '/s/:userId/:listName',
-            name: 'shareList',
+            path: '/s',
+            name: 'share-list',
             component: ShareList,
         },
         {

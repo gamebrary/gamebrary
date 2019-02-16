@@ -125,6 +125,10 @@ export default {
 
     &.large {
         width: 780px;
+
+        @media($small) {
+            width: 100vw;
+        }
     }
 
     &.padded {
@@ -137,6 +141,7 @@ export default {
         max-height: 100vh;
         height: 100vh;
         border-radius: 0;
+        width: 100vw;
     }
 }
 
@@ -156,6 +161,10 @@ header {
 
     &.large {
         width: 810px;
+
+        @media($small) {
+            top: $gp;
+        }
     }
 
     @media($small) {

@@ -101,8 +101,8 @@
             </modal>
 
             <modal
+                padded
                 title="Settings"
-                :show-close="false"
             >
                 <button class="accent small">
                     <i class="fas fa-cog" />
@@ -171,7 +171,7 @@ export default {
                 ? 'http://localhost:5000'
                 : 'https://app.gamebrary.com';
 
-            return `${url}/#/s/${this.user.uid}/${this.platform.code}`;
+            return `${url}/s?id=${this.user.uid}&list=${this.platform.code}`;
         },
     },
 

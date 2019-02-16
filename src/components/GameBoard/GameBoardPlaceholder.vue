@@ -31,9 +31,9 @@ export default {
         ...mapGetters(['darkModeEnabled']),
 
         lists() {
-            return this.gameLists && this.gameLists[this.platform.code]
+            return this.gameLists && this.platform && this.gameLists[this.platform.code]
                 ? this.gameLists[this.platform.code]
-                : null;
+                : [];
         },
     },
 

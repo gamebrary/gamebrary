@@ -2,7 +2,7 @@
     <div id="app">
         <nav-header />
 
-        <main :class="{ 'logged-in': user && !isPublic }" v-if="user && !isPublic">
+        <main :class="{ 'logged-in': user && !isPublic }" v-if="user || isPublic">
             <router-view />
         </main>
 
@@ -48,7 +48,7 @@ export default {
         ...mapState(['user', 'platform']),
 
         isPublic() {
-            return this.$route.name === 'shareList';
+            return this.$route.name === 'share-list';
         },
     },
 

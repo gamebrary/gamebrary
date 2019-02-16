@@ -1,6 +1,12 @@
 <template lang="html">
     <nav :class="{ dark: darkModeEnabled }">
+        <button class="logo" v-if="isShareList">
+            <img src='/static/gamebrary-logo.png' />
+            GAMEBRARY
+        </button>
+
         <router-link
+            v-else
             tag="button"
             class="logo"
             :to="{ name: homeRoute }"
@@ -39,6 +45,10 @@ export default {
 
         isAuthRoute() {
             return this.$route.name === 'auth';
+        },
+
+        isShareList() {
+            return this.$route.name === 'share-list';
         },
 
         homeRoute() {

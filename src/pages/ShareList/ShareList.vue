@@ -62,13 +62,13 @@ export default {
 
     methods: {
         load() {
-            const { userId, listName } = this.$route.params;
+            const { id, list } = this.$route.query;
 
-            db.collection('lists').doc(userId).get()
+            db.collection('lists').doc(id).get()
                 .then((doc) => {
                     if (doc.exists) {
                         const data = doc.data();
-                        this.listData = data[listName];
+                        this.listData = data[list];
                         this.loadGameData();
                     }
                 })

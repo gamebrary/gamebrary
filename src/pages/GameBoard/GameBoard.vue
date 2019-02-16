@@ -135,7 +135,7 @@ export default {
     mounted() {
         this.$store.commit('CLEAR_ACTIVE_LIST');
 
-        if (this.platform || this.$route.name === 'shareList') {
+        if (this.platform || this.$route.name === 'share-list') {
             this.loadGameData();
             this.setPageTitle();
         } else {
