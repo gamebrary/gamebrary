@@ -41,7 +41,7 @@
             <div :class="['game-card-options', { dark: darkModeEnabled}]" v-else>
                 <button
                     v-if="!searchResult"
-                    :class="['small tiny', {
+                    :class="['small tiny game-drag-handle', {
                         'accent filled': !darkModeEnabled,
                         info: darkModeEnabled
                     }]"
