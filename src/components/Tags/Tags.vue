@@ -142,7 +142,7 @@ export default {
 
     methods: {
         createTag() {
-            this.$set(this.localTags, this.tagName.toLowerCase(), this.newTag);
+            this.$set(this.localTags, this.tagName, this.newTag);
             this.$bus.$emit('SAVE_TAGS', this.localTags);
             this.reset();
         },
