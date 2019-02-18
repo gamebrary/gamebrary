@@ -51,6 +51,7 @@
                 </button>
 
                 <button
+                    v-if="hasTags"
                     :class="['small tiny', {
                         'accent filled': !darkModeEnabled,
                         info: darkModeEnabled
@@ -128,6 +129,10 @@ export default {
 
         game() {
             return this.games[this.gameId];
+        },
+
+        hasTags() {
+            return Object.keys(this.tags) && Object.keys(this.tags).length > 0;
         },
 
         coverUrl() {
