@@ -1,5 +1,5 @@
 <template lang="html">
-    <div>
+    <div class="game-detail-wrapper">
         <game-detail-placeholder v-if="!game" />
 
         <div class="game-detail" v-else :class="{ dark: darkModeEnabled }">
@@ -100,6 +100,10 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles.scss";
+
+    .game-detail-wrapper {
+        margin-top: -50px;
+    }
 
     .game-detail {
         display: flex;

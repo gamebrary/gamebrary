@@ -5,32 +5,32 @@
         </div>
 
         <div :class="['modal', { show }]" @click="close">
-            <button class="close-wrapper" :class="{ large }">
-                <i class="close fas fa-times" @click="close" />
-            </button>
-
             <div :class="['content', { large, padded }]" @click.stop>
                 <header>
                     <h2 v-if="title">{{ title }}</h2>
+                    <i class="close fas fa-times" @click="close" />
                 </header>
-                <p v-if="message">{{ message }}</p>
 
-                <slot name="content" v-if="show" />
+                <section>
+                    <p v-if="message">{{ message }}</p>
 
-                <div :class="{ actions: actionText }">
-                    <button class="small info" @click="close" v-if="showClose">
-                        {{ closeText }}
-                    </button>
+                    <slot name="content" v-if="show" />
 
-                    <button
-                        v-if="actionText"
-                        class="small primary action"
-                        :disabled="actionDisabled"
-                        @click="handleAction"
-                    >
-                        {{ actionText }}
-                    </button>
-                </div>
+                    <div :class="{ actions: actionText }">
+                        <button class="small info" @click="close" v-if="showClose">
+                            {{ closeText }}
+                        </button>
+
+                        <button
+                            v-if="actionText"
+                            class="small primary action"
+                            :disabled="actionDisabled"
+                            @click="handleAction"
+                        >
+                            {{ actionText }}
+                        </button>
+                    </div>
+                </section>
             </div>
         </div>
     </div>
@@ -147,37 +147,20 @@ export default {
 
 header {
     position: sticky;
+    display: flex;
+    top: 0;
+    z-index: 2;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 30px;
 }
 
-.close-wrapper {
-    width: 320px;
-    max-width: 100%;
-    margin: 0 auto;
-    position: fixed;
-    top: 7.5vh;
-    display: flex;
-    justify-content: flex-end;
-    z-index: 99999999;
-
-    &.large {
-        width: 810px;
-
-        @media($small) {
-            top: $gp;
-        }
-    }
-
-    @media($small) {
-        width: 100%;
-        top: $gp;
-    }
-
-    .close {
-        padding: $gp;
-        color: $color-white;
-        color: $color-gray;
-        cursor: pointer;
-    }
+.close {
+    padding: $gp;
+    color: $color-white;
+    margin-left: auto;
+    color: $color-gray;
+    cursor: pointer;
 }
 
 .actions {
