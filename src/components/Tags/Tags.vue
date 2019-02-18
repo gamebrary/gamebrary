@@ -4,8 +4,6 @@
             <div class="my-tags">
                 <h3>My tags</h3>
 
-                <pre>{{ isDuplicate }}</pre>
-
                 <div class="tags" v-for="(tag, name) in localTags" :key="name">
                     <button
                         class="small tag filled error"
