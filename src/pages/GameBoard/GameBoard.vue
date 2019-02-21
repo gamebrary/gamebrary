@@ -12,7 +12,6 @@
             ref="game"
             large
             no-padding
-            :show-close="false"
             @close="closeGame"
         >
             <game-detail slot="content" :id="gameDetailId" v-if="gameDetailId" />
@@ -22,7 +21,6 @@
             ref="tag"
             title="Apply tag"
             message="Use tags to better organize your games"
-            :show-close="false"
         >
             <div slot="content">
                 <div class="tags" v-for="(tag, name) in tags" :key="name">

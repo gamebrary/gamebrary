@@ -44,7 +44,7 @@ export default {
         message: String,
         showClose: {
             type: Boolean,
-            default: true,
+            default: false,
         },
         closeText: {
             type: String,

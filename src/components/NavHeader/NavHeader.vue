@@ -16,7 +16,7 @@
         </router-link>
 
         <div class="links" v-if="user">
-            <modal title="Releases" large :show-close="false" padded>
+            <modal title="Releases" large padded>
                 <button class="primary filled small">
                     <i class="fas fa-bullhorn" />
                     What's new

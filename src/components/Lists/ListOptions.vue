@@ -5,6 +5,7 @@
                 ref="addList"
                 message="Pick an option below"
                 padded
+                show-close
                 :action-text="$t('global.create')"
                 :title="$t('list.add')"
                 :action-disabled="isDuplicate || !newListName"
@@ -58,7 +59,6 @@
                 message="Use tags to better organize your games"
                 large
                 padded
-                :show-close="false"
             >
                 <button
                     class="small info"
@@ -75,6 +75,7 @@
                 :message="`Your ${platform.name} collection will be deleted forever.`"
                 title="Are you sure?"
                 padded
+                show-close
                 @action="deletePlatform"
             >
                 <button
@@ -107,6 +108,7 @@
 
             <modal
                 padded
+                :hide-close="true"
                 title="Settings"
             >
                 <button class="accent small">
