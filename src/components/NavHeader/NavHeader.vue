@@ -29,7 +29,7 @@
                 padded
                 title="Settings"
             >
-                <button class="settings hollow small">
+                <button class="hollow small">
                     <i class="fas fa-cog" />
                 </button>
 
@@ -117,10 +117,6 @@ export default {
         .links {
             display: flex;
             align-items: center;
-        }
-
-        .settings {
-            margin-left: $gp;
         }
     }
 </style>
