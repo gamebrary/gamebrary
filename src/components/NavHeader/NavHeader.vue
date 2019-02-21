@@ -24,6 +24,17 @@
 
                 <releases slot="content" />
             </modal>
+
+            <modal
+                padded
+                title="Settings"
+            >
+                <button class="hollow small">
+                    <i class="fas fa-cog" />
+                </button>
+
+                <settings slot="content" v-if="settings" />
+            </modal>
         </div>
     </nav>
 </template>
@@ -32,15 +43,17 @@
 import Releases from '@/components/Releases/Releases';
 import Modal from '@/components/Modal/Modal';
 import { mapState, mapGetters } from 'vuex';
+import Settings from '@/components/Settings/Settings';
 
 export default {
     components: {
         Releases,
+        Settings,
         Modal,
     },
 
     computed: {
-        ...mapState(['user', 'platform']),
+        ...mapState(['user', 'platform', 'settings']),
         ...mapGetters(['darkModeEnabled']),
 
         isAuthRoute() {

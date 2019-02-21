@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="platforms-page">
+    <div :class="['platforms-page', { dark: darkModeEnabled }]">
         <h2>{{ $t('platforms.pageTitle') }}</h2>
 
         <div class="tools">
@@ -89,7 +89,7 @@
 import platforms from '@/shared/platforms';
 import ToggleSwitch from '@/components/ToggleSwitch/ToggleSwitch';
 import { groupBy, sortBy } from 'lodash';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
     components: {
@@ -107,6 +107,7 @@ export default {
 
     computed: {
         ...mapState(['gameLists', 'platform']),
+        ...mapGetters(['darkModeEnabled']),
 
         filteredPlatforms() {
             const availableLists = this.ownedListsOnly
@@ -162,44 +163,9 @@ export default {
         padding: $gp;
         color: $color-dark-gray;
 
-        .consoles-book {
-            max-width: 100%;
-            background: $color-white;
-            display: grid;
-            grid-gap: $gp;
-            width: 400px;
-            margin-top: $gp * 2;
-            grid-template-columns: 180px auto;
-            border-radius: $border-radius;
-            overflow: hidden;
-
-            img {
-                width: 100%;
-                display: block;
-            }
-
-            .description {
-                padding-right: $gp;
-            }
-        }
-
-        .tools {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            grid-gap: $gp;
-            align-items: center;
-
-            .sorting {
-                align-items: center;
-
-                select {
-                    margin-bottom: 0;
-                }
-            }
-
-            .platform-filter {
-                margin: 0;
-            }
+        &.dark {
+            background: $color-dark-gray;
+            color: $color-gray;
         }
 
         .groups {
@@ -211,66 +177,110 @@ export default {
             }
         }
 
-        .platforms {
-            margin-top: $gp;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        h2 {
+            margin: $gp 0;
+        }
+    }
 
-            grid-gap: $gp;
+    .tools {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        grid-gap: $gp;
+        align-items: center;
 
-            a {
-                position: relative;
-                cursor: pointer;
-                border-radius: $border-radius;
-                width: auto;
-                height: 100px;
-                padding: $gp;
-                display: flex;
-                align-items: center;
+        .sorting {
+            align-items: center;
 
-                @media($small) {
-                    height: 100px;
-                }
-
-                img {
-                    margin: 0 auto;
-                    max-width: 100%;
-                    width: auto;
-                    height: auto;
-                    max-height: 100%;
-
-                    @media($small) {
-                        max-width: 70%;
-                    }
-                }
-
-                .owned-platform {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    display: flex;
-                    justify-content: flex-end;
-                    box-shadow:inset 0 0 0 2px $color-green;
-
-                    i {
-                        background: $color-green;
-                        width: 16px;
-                        font-size: 9px;
-                        height: 16px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        border-radius: $border-radius;
-                        color: $color-white;
-                    }
-                }
+            select {
+                margin-bottom: 0;
             }
         }
 
-        h2 {
-            margin: $gp 0;
+        .platform-filter {
+            margin: 0;
+        }
+    }
+
+    .platforms {
+        margin-top: $gp;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+
+        grid-gap: $gp;
+
+        a {
+            position: relative;
+            cursor: pointer;
+            border-radius: $border-radius;
+            width: auto;
+            height: 100px;
+            padding: $gp;
+            display: flex;
+            align-items: center;
+
+            @media($small) {
+                height: 100px;
+            }
+
+            img {
+                margin: 0 auto;
+                max-width: 100%;
+                width: auto;
+                height: auto;
+                max-height: 100%;
+
+                @media($small) {
+                    max-width: 70%;
+                }
+            }
+
+            .owned-platform {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: flex-end;
+                box-shadow:inset 0 0 0 2px $color-green;
+
+                i {
+                    background: $color-green;
+                    width: 16px;
+                    font-size: 9px;
+                    height: 16px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: $border-radius;
+                    color: $color-white;
+                }
+            }
+        }
+    }
+
+    .consoles-book {
+        max-width: 100%;
+        background: $color-white;
+        display: grid;
+        grid-gap: $gp;
+        width: 400px;
+        margin-top: $gp * 2;
+        grid-template-columns: 180px auto;
+        border-radius: $border-radius;
+        overflow: hidden;
+
+        h3 {
+            margin-top: $gp;
+        }
+
+        img {
+            width: 100%;
+            display: block;
+        }
+
+        .description {
+            padding-right: $gp;
         }
     }
 </style>
