@@ -55,7 +55,6 @@ export default {
             return this.$route.name === 'game-board' && this.platform
                 ? this.platform.name
                 : 'GAMEBRARY';
-
         },
 
         homeRoute() {
