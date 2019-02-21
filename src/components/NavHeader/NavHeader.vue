@@ -17,7 +17,7 @@
 
         <div class="links" v-if="user">
             <modal title="Releases" large padded>
-                <button class="info hollow small">
+                <button class="info filled small">
                     <i class="fas fa-bullhorn" />
                     What's new
                 </button>
