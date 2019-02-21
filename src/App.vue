@@ -2,7 +2,7 @@
     <div id="app">
         <nav-header />
 
-        <main :class="{ 'logged-in': user && !isPublic }" v-if="user || isPublic">
+        <main class="content" v-if="user || isPublic">
             <router-view />
         </main>
 
@@ -222,7 +222,7 @@ export default {
         font-size: 14px;
     }
 
-    #app > main {
+    main.content {
         background: $color-gray;
     }
 </style>
