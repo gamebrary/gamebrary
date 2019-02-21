@@ -254,7 +254,7 @@ export default {
         display: flex;
         align-items: flex-start;
         height: calc(100vh - 48px);
-        padding: $gp;
+        padding: 0 $gp;
         box-sizing: border-box;
         background-color: $color-gray;
         overflow-x: auto;

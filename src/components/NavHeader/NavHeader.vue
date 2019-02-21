@@ -17,7 +17,7 @@
 
         <div class="links" v-if="user">
             <modal title="Releases" large padded>
-                <button class="primary filled small">
+                <button class="info hollow small">
                     <i class="fas fa-bullhorn" />
                     What's new
                 </button>
@@ -29,7 +29,7 @@
                 padded
                 title="Settings"
             >
-                <button class="hollow small">
+                <button class="settings hollow small">
                     <i class="fas fa-cog" />
                 </button>
 
@@ -94,7 +94,6 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: $color-white;
         padding: 0 $gp;
 
         .logo {
@@ -118,6 +117,10 @@ export default {
         .links {
             display: flex;
             align-items: center;
+        }
+
+        .settings {
+            margin-left: $gp;
         }
     }
 </style>

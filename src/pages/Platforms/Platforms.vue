@@ -1,7 +1,5 @@
 <template lang="html">
     <div :class="['platforms-page', { dark: darkModeEnabled }]">
-        <h2>{{ $t('platforms.pageTitle') }}</h2>
-
         <div class="tools">
             <div class="sorting">
                 <select v-model="showBy">
@@ -31,15 +29,15 @@
                 :key="label"
             >
                 <div v-if="showBy === 'generation'">
-                    <h2 v-if="label == 0">{{ $t('platforms.computersArcade') }}</h2>
-                    <h2 v-else>{{ ordinalSuffix(label) }} {{ $t('platforms.generation') }}</h2>
+                    <h3 v-if="label == 0">{{ $t('platforms.computersArcade') }}</h3>
+                    <h3 v-else>{{ ordinalSuffix(label) }} {{ $t('platforms.generation') }}</h3>
                 </div>
 
                 <div class="platforms">
                     <a
                         v-for="platform in group"
                         :key="platform.name"
-                        :style="`background-color: ${platform.tileHex || platform.hex || '#fff'}`"
+                        :style="`background-color: ${platform.hex || '#fff'}`"
                         @click="changePlatform(platform)"
                     >
                         <div
@@ -160,7 +158,7 @@ export default {
     @import "~styles/styles.scss";
 
     .platforms-page {
-        padding: $gp;
+        padding: 0 $gp $gp;
         color: $color-dark-gray;
 
         &.dark {
@@ -177,12 +175,13 @@ export default {
             }
         }
 
-        h2 {
+        h3 {
             margin: $gp 0;
         }
     }
 
     .tools {
+        margin-top: $gp;
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
         grid-gap: $gp;

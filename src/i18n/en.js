@@ -12,7 +12,6 @@ module.exports = {
         by: 'by',
     },
     platforms: {
-        pageTitle: 'Platforms',
         ownLists: 'My lists only',
         computersArcade: 'Computers and Arcade',
         generation: 'Generation',
