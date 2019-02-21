@@ -215,16 +215,6 @@ export default {
 <style lang="scss" rel="stylesheet/scss">
     @import url(https://fonts.googleapis.com/css?family=Fira+Sans:700|Roboto:400,400italic,700);
     @import "~styles/styles.scss";
-
-    body {
-        background: $color-dark-gray;
-        margin: 0;
-        font-size: 14px;
-    }
-
-    main.content {
-        background: $color-gray;
-    }
 </style>
 
 <style lang="scss" rel="stylesheet/scss" scoped>

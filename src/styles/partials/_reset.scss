@@ -16,3 +16,14 @@ body, p, a, li, blockquote {
     font-family: "Roboto", sans-serif;
     font-weight: 400;
 }
+
+body {
+    background: $color-dark-gray;
+    margin: 0;
+    font-size: 14px;
+}
+
+main.content {
+    background: $color-gray;
+}
+
