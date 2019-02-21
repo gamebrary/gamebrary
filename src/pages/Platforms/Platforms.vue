@@ -162,7 +162,6 @@ export default {
         color: $color-dark-gray;
 
         &.dark {
-            background: $color-dark-gray;
             color: $color-gray;
         }
 

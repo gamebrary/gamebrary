@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="app" :class="{ dark: darkModeEnabled }">
         <nav-header />
 
         <main class="content" v-if="user || isPublic">
@@ -23,7 +23,7 @@ import firebase from 'firebase/app';
 import { debounce } from 'lodash';
 import 'firebase/auth';
 import 'firebase/firestore';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 firebase.initializeApp({
     apiKey: 'AIzaSyA6MsmnLtqT4b11r-j15wwreRypO3AodcA',
@@ -46,6 +46,7 @@ export default {
 
     computed: {
         ...mapState(['user', 'platform']),
+        ...mapGetters(['darkModeEnabled']),
 
         isPublic() {
             return this.$route.name === 'share-list';
@@ -220,8 +221,16 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles.scss";
 
+    #app {
+        background-color: $color-gray;
+
+        &.dark {
+            background-color: $color-dark-gray;
+        }
+    }
+
     .auth {
-        background: $color-white;
+        background-color: $color-white;
         height: 100vh;
         position: fixed;
         top: 0;
