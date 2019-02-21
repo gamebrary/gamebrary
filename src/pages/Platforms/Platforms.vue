@@ -159,15 +159,8 @@ export default {
     @import "~styles/styles.scss";
 
     .platforms-page {
-        width: $container-width;
-        max-width: 100%;
-        margin: 0 auto;
         padding: $gp;
         color: $color-dark-gray;
-
-        @media($small) {
-            margin: 0;
-        }
 
         .consoles-book {
             max-width: 100%;
@@ -192,7 +185,7 @@ export default {
 
         .tools {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             grid-gap: $gp;
             align-items: center;
 
@@ -221,12 +214,9 @@ export default {
         .platforms {
             margin-top: $gp;
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            grid-gap: $gp;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
 
-            @media($small) {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            grid-gap: $gp;
 
             a {
                 position: relative;
@@ -277,6 +267,10 @@ export default {
                     }
                 }
             }
+        }
+
+        h2 {
+            margin: $gp 0;
         }
     }
 </style>
