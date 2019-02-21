@@ -114,7 +114,7 @@ export default {
     position: relative;
     background-color: $color-white;
     height: auto;
-    width: 320px;
+    width: 380px;
     max-height: calc(85vh);
     max-width: 100%;
     overflow: auto;
@@ -156,11 +156,15 @@ header {
 }
 
 .close {
+    display: none;
     padding: $gp;
-    color: $color-white;
     margin-left: auto;
     color: $color-gray;
     cursor: pointer;
+
+    @media($small) {
+        display: block;
+    }
 }
 
 .actions {
