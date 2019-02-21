@@ -12,7 +12,7 @@
             :to="{ name: homeRoute }"
         >
             <img src='/static/gamebrary-logo.png' />
-            GAMEBRARY
+            {{ logoText }}
         </router-link>
 
         <div class="links" v-if="user">
@@ -49,6 +49,13 @@ export default {
 
         isShareList() {
             return this.$route.name === 'share-list';
+        },
+
+        logoText() {
+            return this.$route.name === 'game-board' && this.platform
+                ? this.platform.name
+                : 'GAMEBRARY';
+
         },
 
         homeRoute() {
