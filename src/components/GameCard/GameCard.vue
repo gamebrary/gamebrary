@@ -27,11 +27,14 @@
                         {{ name }}
                     </button>
                 </div>
+
             </div>
+
+            <br>
 
             <button
                 v-if="searchResult"
-                class="primary small tiny"
+                class="add-game primary small tiny"
                 @click="addGame"
             >
                 <i class="fas fa-plus" />
@@ -282,6 +285,10 @@ export default {
                 @include drag-cursor;
             }
         }
+    }
+
+    .add-game {
+        margin-top: $gp / 2;
     }
 
     .tags {
