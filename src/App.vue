@@ -225,16 +225,6 @@ export default {
     #app > main {
         background: $color-gray;
     }
-
-    h1, h2, h3, h4, h5, h6 {
-        font-family: "Fira Sans", sans-serif;
-        font-weight: 700;
-    }
-
-    body, p, a, li, blockquote {
-        font-family: "Roboto", sans-serif;
-        font-weight: 400;
-    }
 </style>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
