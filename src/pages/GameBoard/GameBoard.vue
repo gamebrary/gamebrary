@@ -21,6 +21,7 @@
             ref="tag"
             title="Apply tag"
             message="Use tags to better organize your games"
+            padded
         >
             <div slot="content">
                 <div class="tags" v-for="(tag, name) in tags" :key="name">
