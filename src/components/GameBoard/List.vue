@@ -286,7 +286,7 @@ export default {
         max-height: calc(100vh - 81px);
 
         &.dark {
-            background: $color-darkest-gray;
+            background: $color-dark-gray;
         }
 
         .list-header {

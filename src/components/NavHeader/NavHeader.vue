@@ -95,6 +95,7 @@ export default {
         justify-content: space-between;
         align-items: center;
         padding: 0 $gp;
+        color: $color-dark-gray;
 
         .logo {
             height: $navHeight;
@@ -110,7 +111,6 @@ export default {
         }
 
         &.dark {
-            background: $color-darkest-gray;
             color: $color-gray !important;
         }
 

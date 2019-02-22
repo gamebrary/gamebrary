@@ -225,7 +225,7 @@ export default {
         background-color: $color-gray;
 
         &.dark {
-            background-color: $color-dark-gray;
+            background-color: $color-darkest-gray;
         }
     }
 

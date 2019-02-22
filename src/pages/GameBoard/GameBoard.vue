@@ -256,14 +256,9 @@ export default {
         height: calc(100vh - 48px);
         padding: 0 $gp;
         box-sizing: border-box;
-        background-color: $color-gray;
         overflow-x: auto;
         overflow-x: overlay;
         display: flex;
-
-        &.dark {
-            background: #222 !important;
-        }
 
         &.empty {
             background: $color-white;

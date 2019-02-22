@@ -5,7 +5,7 @@
         </div>
 
         <div :class="['modal', { show }]" @click="close">
-            <div :class="['content', { large, padded }]" @click.stop>
+            <div :class="['content', { large, padded, dark: darkModeEnabled }]" @click.stop>
                 <header>
                     <h2 v-if="title">{{ title }}</h2>
                     <i class="close fas fa-times" @click="close" />
@@ -37,6 +37,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
     props: {
         actionText: String,
@@ -62,6 +64,10 @@ export default {
         return {
             show: false,
         };
+    },
+
+    computed: {
+        ...mapGetters(['darkModeEnabled']),
     },
 
     methods: {
@@ -123,6 +129,11 @@ export default {
     border-radius: $border-radius;
     cursor: default;
 
+    &.dark {
+        background-color: $color-darkest-gray;
+        color: $color-gray;
+    }
+
     &.large {
         width: 780px;
 
@@ -132,7 +143,9 @@ export default {
     }
 
     &.padded {
-        padding: $gp;
+        > section {
+            padding: 0 $gp $gp;
+        }
     }
 
     @media($small) {
@@ -149,6 +162,7 @@ header {
     position: sticky;
     display: flex;
     top: 0;
+    padding: $gp;
     z-index: 2;
     align-items: center;
     justify-content: space-between;
@@ -157,7 +171,7 @@ header {
 
 .close {
     display: none;
-    padding: $gp;
+    padding: $gp 0;
     margin-left: auto;
     color: $color-gray;
     cursor: pointer;

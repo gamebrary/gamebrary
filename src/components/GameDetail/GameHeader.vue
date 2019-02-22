@@ -79,10 +79,6 @@ export default {
         flex-direction: column;
         margin-top: $gp;
 
-        &.dark {
-            background-color: $color-dark-gray;
-        }
-
         .game-cover {
             border: 5px solid $color-white;
             background-size: contain;

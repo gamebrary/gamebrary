@@ -214,7 +214,6 @@ export default {
     @import "~styles/styles.scss";
 
     .settings {
-        padding: $gp;
         color: $color-dark-gray;
         display: flex;
         align-items: center;
@@ -229,7 +228,6 @@ export default {
                 display: flex;
                 flex-direction: column;
                 margin-left: $gp;
-                color: $color-dark-gray;
             }
 
             img {
@@ -281,9 +279,12 @@ export default {
         }
 
         &.dark {
+            section, footer {
+                color: $color-gray;
+            }
+
             section {
-                // border-bottom: 1px solid $color-gray;
-                // color: $color-gray;
+                border-bottom: 1px solid $color-dark-gray;
             }
         }
     }
