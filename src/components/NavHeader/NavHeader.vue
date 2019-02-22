@@ -17,7 +17,7 @@
 
         <div class="links" v-if="user">
             <modal title="Releases" large padded>
-                <button class="info filled small">
+                <button :class="['filled small', { accent: darkModeEnabled, info: !darkModeEnabled }]">
                     <i class="fas fa-bullhorn" />
                     What's new
                 </button>
