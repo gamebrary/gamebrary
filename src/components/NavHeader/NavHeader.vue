@@ -17,7 +17,7 @@
 
         <div class="links" v-if="user">
             <modal title="Releases" large padded>
-                <button :class="['filled small', { accent: darkModeEnabled, info: !darkModeEnabled }]">
+                <button :class="whatsNewClass">
                     <i class="fas fa-bullhorn" />
                     What's new
                 </button>
@@ -68,6 +68,14 @@ export default {
             return this.$route.name === 'game-board' && this.platform
                 ? this.platform.name
                 : 'GAMEBRARY';
+        },
+
+        whatsNewClass() {
+            const buttonStyle = this.darkModeEnabled
+                ? 'accent'
+                : 'info';
+
+            return `filled small ${buttonStyle}`;
         },
 
         homeRoute() {
