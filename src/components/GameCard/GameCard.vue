@@ -7,8 +7,6 @@
                 <h4 v-text="game.name" />
             </a>
 
-            <br>
-
             <game-rating
                 v-if="showGameRatings"
                 :rating="game.rating"
@@ -29,8 +27,6 @@
                 </div>
 
             </div>
-
-            <br>
 
             <button
                 v-if="searchResult"
@@ -253,6 +249,8 @@ export default {
         .game-info {
             padding: $gp / 2 $gp;
             width: 100%;
+            display: grid;
+            grid-gap: 4px;
 
             .game-rating, a {
                 display: inline-flex;
@@ -285,13 +283,5 @@ export default {
                 @include drag-cursor;
             }
         }
-    }
-
-    .add-game {
-        margin-top: $gp / 2;
-    }
-
-    .tags {
-        margin: $gp / 2 0;
     }
 </style>
