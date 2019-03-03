@@ -1,6 +1,8 @@
 <template lang="html">
     <div :class="['platforms-page', { dark: darkModeEnabled }]">
-        <div class="tools">
+        <aside>
+            <i class="fas fa-filter" /> Filter
+
             <div class="sorting">
                 <select v-model="showBy">
                     <option value="generation">{{ $t('platforms.options.generation') }}</option>
@@ -21,9 +23,33 @@
                 v-model="ownedListsOnly"
                 :label="$t('platforms.ownLists')"
             />
-        </div>
 
-        <div :class="['groups', { reverse: showBy === 'generation'}]">
+            <div class="recommendations">
+                <!-- eslint-disable-next-line -->
+                <a target="_blank" href="https://www.amazon.com/gp/product/1593277431/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1593277431&linkCode=as2&tag=gamebrary-20&linkId=a253bbe3bfebd787ead2adc20dbb272b">
+                    <!-- eslint-disable-next-line -->
+                    <img src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=US&ASIN=1593277431&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL160_&tag=gamebrary-20">
+                </a>
+
+                <div class="description">
+                    <p>
+                        <strong>
+                            <a href="https://www.amazon.com/gp/product/1593277431/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1593277431&linkCode=as2&tag=gamebrary-20&linkId=a253bbe3bfebd787ead2adc20dbb272b" target="_blank">The Game Console: A Photographic History from Atari to Xbox</a>
+                        </strong>
+                    </p>
+
+                    <p>
+                        <small>
+                            <strong>GAMEBRARY</strong> gets a small referral commission when
+                            you use our affiliate link to purchase this book. the earnings will go
+                            towards supporting the ongoing development of Gamebrary.
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </aside>
+
+        <main :class="{ reverse: showBy === 'generation'}">
             <div
                 v-for="(group, label) in filteredPlatforms"
                 :key="label"
@@ -54,32 +80,7 @@
                     </a>
                 </div>
             </div>
-        </div>
-
-        <div class="consoles-book">
-            <!-- eslint-disable-next-line -->
-            <a target="_blank" href="https://www.amazon.com/gp/product/1593277431/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1593277431&linkCode=as2&tag=gamebrary-20&linkId=a253bbe3bfebd787ead2adc20dbb272b">
-                <!-- eslint-disable-next-line -->
-                <img src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=US&ASIN=1593277431&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL160_&tag=gamebrary-20">
-            </a>
-
-            <div class="description">
-                <h3>Book recommendation</h3>
-                <p>
-                    <strong>
-                        <a href="https://www.amazon.com/gp/product/1593277431/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1593277431&linkCode=as2&tag=gamebrary-20&linkId=a253bbe3bfebd787ead2adc20dbb272b" target="_blank">The Game Console: A Photographic History from Atari to Xbox</a>
-                    </strong>
-                </p>
-
-                <p>
-                    <small>
-                        <strong>GAMEBRARY</strong> gets a small referral commission when
-                        you use our affiliate link to purchase this book. the earnings will go
-                        towards supporting the ongoing development of Gamebrary.
-                    </small>
-                </p>
-            </div>
-        </div>
+        </main>
     </div>
 </template>
 
@@ -160,18 +161,13 @@ export default {
     .platforms-page {
         padding: 0 $gp $gp;
         color: $color-dark-gray;
+        display: grid;
+        grid-template-columns: 180px auto;
+        grid-gap: $gp * 2;
+        min-height: calc(100vh - #{$navHeight});
 
         &.dark {
             color: $color-gray;
-        }
-
-        .groups {
-            display: flex;
-            flex-direction: column;
-
-            &.reverse {
-                flex-direction: column-reverse;
-            }
         }
 
         h3 {
@@ -179,13 +175,7 @@ export default {
         }
     }
 
-    .tools {
-        margin-top: $gp;
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-        grid-gap: $gp;
-        align-items: center;
-
+    aside {
         .sorting {
             align-items: center;
 
@@ -199,10 +189,33 @@ export default {
         }
     }
 
+    .recommendations {
+        background: $color-white;
+        border-radius: $border-radius;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+        }
+
+        .description {
+            padding: 0 $gp / 2 $gp / 2;
+        }
+    }
+
+    main {
+        display: flex;
+        flex-direction: column;
+
+        &.reverse {
+            flex-direction: column-reverse;
+        }
+    }
+
     .platforms {
         margin-top: $gp;
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
 
         grid-gap: $gp;
 
@@ -211,7 +224,7 @@ export default {
             cursor: pointer;
             border-radius: $border-radius;
             width: auto;
-            height: 100px;
+            height: 80px;
             padding: $gp;
             display: flex;
             align-items: center;
@@ -254,31 +267,6 @@ export default {
                     color: $color-white;
                 }
             }
-        }
-    }
-
-    .consoles-book {
-        max-width: 100%;
-        background: $color-white;
-        display: grid;
-        grid-gap: $gp;
-        width: 400px;
-        margin-top: $gp * 2;
-        grid-template-columns: 180px auto;
-        border-radius: $border-radius;
-        overflow: hidden;
-
-        h3 {
-            margin-top: $gp;
-        }
-
-        img {
-            width: 100%;
-            display: block;
-        }
-
-        .description {
-            padding-right: $gp;
         }
     }
 </style>
