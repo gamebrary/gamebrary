@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="links" v-if="game && game.websites">
+    <div class="links" v-if="hasWebsites">
         <a
             v-for="{ category, url } in game.websites"
             :key="category"
@@ -38,6 +38,10 @@ export default {
     },
     computed: {
         ...mapState(['game']),
+
+        hasWebsites() {
+            return this.game && this.game.websites;
+        },
     },
 
     methods: {

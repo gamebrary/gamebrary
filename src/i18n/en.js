@@ -2,7 +2,6 @@ module.exports = {
     searchPlaceholder: 'Search here',
     share: 'Share',
     empty: 'empty',
-    clearResults: 'Clear results',
     back: 'Back',
     global: {
         cancel: 'Cancel',

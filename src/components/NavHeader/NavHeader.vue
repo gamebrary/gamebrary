@@ -1,53 +1,32 @@
 <template lang="html">
     <nav :class="{ dark: darkModeEnabled }">
-        <button class="logo" v-if="isShareList">
-            <img src='/static/gamebrary-logo.png' />
-            GAMEBRARY
-        </button>
-
         <router-link
-            v-else
             tag="button"
             class="logo"
             :to="{ name: homeRoute }"
         >
             <img src='/static/gamebrary-logo.png' />
-            {{ logoText }}
+
+            {{ title }}
         </router-link>
 
-        <div class="links" v-if="user">
-            <modal title="Releases" large padded>
-                <button :class="whatsNewClass">
-                    <i class="fas fa-bullhorn" />
-                    What's new
-                </button>
+        <modal padded popover>
+            <gravatar :email="user.email" class="avatar" />
 
-                <releases slot="content" />
-            </modal>
-
-            <modal
-                padded
-                title="Settings"
-            >
-                <button class="hollow small">
-                    <i class="fas fa-cog" />
-                </button>
-
-                <settings slot="content" v-if="settings" />
-            </modal>
-        </div>
+            <settings slot="content" v-if="settings && user" />
+        </modal>
     </nav>
 </template>
 
 <script>
-import Releases from '@/components/Releases/Releases';
-import Modal from '@/components/Modal/Modal';
 import { mapState, mapGetters } from 'vuex';
+import Modal from '@/components/Modal/Modal';
 import Settings from '@/components/Settings/Settings';
+import Gravatar from 'vue-gravatar';
 
 export default {
     components: {
-        Releases,
+        Gravatar,
         Settings,
         Modal,
     },
@@ -56,29 +35,23 @@ export default {
         ...mapState(['user', 'platform', 'settings']),
         ...mapGetters(['darkModeEnabled']),
 
-        isAuthRoute() {
-            return this.$route.name === 'auth';
-        },
+        title() {
+            if (this.$route.name === 'share-list') {
+                return this.$route.query && this.$route.query.list
+                    ? this.$route.query.list.split('-').join(' ')
+                    : 'GAMEBRARY';
+            }
 
-        isShareList() {
-            return this.$route.name === 'share-list';
-        },
-
-        logoText() {
             return this.$route.name === 'game-board' && this.platform
                 ? this.platform.name
                 : 'GAMEBRARY';
         },
 
-        whatsNewClass() {
-            const buttonStyle = this.darkModeEnabled
-                ? 'accent'
-                : 'info';
-
-            return `filled small ${buttonStyle}`;
-        },
-
         homeRoute() {
+            if (this.$route.name === 'share-list') {
+                return null;
+            }
+
             if (this.$route.name === 'game-detail' && this.platform) {
                 return 'game-board';
             }
@@ -103,7 +76,7 @@ export default {
         justify-content: space-between;
         align-items: center;
         padding: 0 $gp;
-        color: $color-dark-gray;
+        color: $color-darkest-gray;
 
         .logo {
             height: $navHeight;
@@ -111,6 +84,7 @@ export default {
             display: flex;
             align-items: center;
             margin-left: -$gp;
+            text-transform: capitalize;
 
             img {
                 height: 24px;
@@ -121,10 +95,17 @@ export default {
         &.dark {
             color: $color-gray !important;
         }
+    }
 
-        .links {
-            display: flex;
-            align-items: center;
+    img.avatar {
+        width: 30px;
+        height: 30px;
+        border-radius: 100%;
+        border: 1px solid $color-darkest-gray;
+
+        @media($small) {
+            width: 30px;
+            height: 30px;
         }
     }
 </style>

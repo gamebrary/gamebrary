@@ -66,6 +66,9 @@
                     >
                         <i class="fas fa-fill-drip" />
                     </button>
+
+                    <input type="color" :value="tagHex" @change="updateColor">
+                    <pre>{{ tagHex }}</pre>
                 </section>
 
                 <section>
@@ -109,11 +112,11 @@ export default {
                 '#073b4c',
             ],
             suggestions: [
-                'completed',
-                'digital',
-                'physical',
-                'playing',
-                'abandoned',
+                'Completed',
+                'Digital',
+                'Physical',
+                'Playing',
+                'Abandoned',
             ],
         };
     },
@@ -141,6 +144,10 @@ export default {
     },
 
     methods: {
+        updateColor(e) {
+            this.tagHex = e.srcElement.value;
+        },
+
         createTag() {
             this.$set(this.localTags, this.tagName, this.newTag);
             this.$bus.$emit('SAVE_TAGS', this.localTags);

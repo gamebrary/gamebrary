@@ -13,12 +13,15 @@
         </div>
 
         <toast />
+
+        <copyright-footer />
     </div>
 </template>
 
 <script>
 import NavHeader from '@/components/NavHeader/NavHeader';
 import Toast from '@/components/Toast/Toast';
+import CopyrightFooter from '@/components/CopyrightFooter/CopyrightFooter';
 import firebase from 'firebase/app';
 import { debounce } from 'lodash';
 import 'firebase/auth';
@@ -42,6 +45,7 @@ export default {
     components: {
         NavHeader,
         Toast,
+        CopyrightFooter,
     },
 
     computed: {

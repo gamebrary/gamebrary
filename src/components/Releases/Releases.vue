@@ -1,8 +1,12 @@
 <template lang="html">
     <div class="releases">
+        <github-button href="https://github.com/romancmx/gamebrary/subscription" data-show-count="true" aria-label="Watch romancmx/gamebrary on GitHub">Watch</github-button>
+        <github-button href="https://github.com/romancmx/gamebrary" data-show-count="true" aria-label="Star romancmx/gamebrary on GitHub">Star</github-button>
+        <github-button href="https://github.com/romancmx/gamebrary/fork" data-show-count="true" aria-label="Fork romancmx/gamebrary on GitHub">Fork</github-button>
+        <github-button href="https://github.com/romancmx/gamebrary/issues" data-show-count="true" aria-label="Issue romancmx/gamebrary on GitHub">Issue</github-button>
+
         <div
             class="release"
-            v-if="loaded"
             v-for="notification in releases"
             :key="notification.id"
         >
@@ -19,8 +23,6 @@
 
             <vue-markdown :source="notification.body" />
         </div>
-
-        <releases-placeholder v-else />
     </div>
 </template>
 
@@ -29,43 +31,20 @@ import moment from 'moment';
 import VueMarkdown from 'vue-markdown';
 import ReleasesPlaceholder from '@/components/Releases/ReleasesPlaceholder';
 import { mapState } from 'vuex';
+import GithubButton from 'vue-github-button';
 
 export default {
     components: {
         VueMarkdown,
+        GithubButton,
         ReleasesPlaceholder,
-    },
-
-    data() {
-        return {
-            loaded: false,
-        };
     },
 
     computed: {
         ...mapState(['releases']),
     },
 
-    mounted() {
-        this.loadReleases();
-    },
-
     methods: {
-        loadReleases() {
-            this.loaded = false;
-
-            this.$store.dispatch('LOAD_RELEASES')
-                .then(() => {
-                    this.loaded = true;
-                })
-                .catch(() => {
-                    this.$bus.$emit('TOAST', {
-                        message: 'Error loading releases',
-                        type: 'error',
-                    });
-                });
-        },
-
         formattedDate(date) {
             return moment(date).fromNow();
         },

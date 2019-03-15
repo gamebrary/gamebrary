@@ -93,11 +93,12 @@ export default {
 
             if (gameList.length > 0) {
                 this.$store.dispatch('LOAD_PUBLIC_GAMES', gameList)
-                    .catch(() => {
-                        this.handleError();
-                    })
-                    .finally(() => {
+                    .then(() => {
                         this.loading = false;
+                    })
+                    .catch(() => {
+                        this.loading = false;
+                        this.$bus.$emit('TOAST', { message: 'Error loading data', type: 'error' });
                     });
             } else {
                 this.loading = false;
@@ -118,9 +119,8 @@ export default {
         height: calc(100vh - #{$navHeight});
         overflow-x: auto;
         overflow-x: overlay;
-        padding: $gp;
+        padding: 0 $gp;
         user-select: none;
-        @include drag-cursor;
     }
 
     section {

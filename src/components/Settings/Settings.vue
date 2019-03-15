@@ -3,7 +3,13 @@
         class="settings"
         :class="{ dark: darkModeEnabled }"
     >
-        <section>
+
+        <list-options
+            @update="updateLists"
+            @scroll="scroll"
+            v-if="isGameBoard"
+        />
+        <!-- <section>
             <div class="profile">
                 <gravatar :email="user.email" />
 
@@ -12,7 +18,7 @@
                     {{ user.email }}
                 </div>
             </div>
-        </section>
+        </section> -->
 
         <!-- <section>
             <i class="fas fa-language" />
@@ -91,18 +97,7 @@
             </small>
         </section>
 
-
-        <footer>
-            <small>
-                <i class="far fa-copyright" /> 2018 Gamebrary.
-                <i class="fas fa-code" />
-                {{ $t('global.with') }}
-                <i class="fas fa-heart" /> {{ $t('global.by') }}
-                <a href="https://twitter.com/romancm" target="_blank">@romancm</a>
-            </small>
-
-            <igdb-credit />
-        </footer>
+        <!-- <igdb-credit /> -->
     </div>
 </template>
 
@@ -117,9 +112,11 @@ import ToggleSwitch from '@/components/ToggleSwitch/ToggleSwitch';
 import IgdbCredit from '@/components/IgdbCredit/IgdbCredit';
 import Modal from '@/components/Modal/Modal';
 import moment from 'moment';
+import ListOptions from '@/components/Lists/ListOptions';
 
 export default {
     components: {
+        ListOptions,
         Panel,
         ToggleSwitch,
         IgdbCredit,
@@ -139,6 +136,10 @@ export default {
 
         dateJoined() {
             return moment(this.user.dateJoined).format('LL');
+        },
+
+        isGameBoard() {
+            return this.$route.name === 'game-board'
         },
 
         exitUrl() {
@@ -248,16 +249,10 @@ export default {
             width: 600px;
             margin: 0 auto;
             max-width: 100%;
-            border-bottom: 1px solid $color-light-gray;
+            // border-bottom: 1px solid $color-lightest-gray;
             padding: $gp;
             display: flex;
             align-items: center;
-
-            &.actions {
-                display: grid;
-                grid-gap: $gp;
-                grid-template-columns: 1fr 1fr;
-            }
 
             &.active {
                 color: $color-green;
@@ -286,16 +281,6 @@ export default {
             section {
                 border-bottom: 1px solid $color-dark-gray;
             }
-        }
-    }
-
-    footer {
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-
-        small {
-            margin-top: $gp / 2;
         }
     }
 </style>
