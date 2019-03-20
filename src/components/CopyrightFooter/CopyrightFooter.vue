@@ -6,8 +6,7 @@
 
         <section>
             <i class="fas fa-code" />
-            {{ $t('global.with') }}
-            <i class="fas fa-heart" /> {{ $t('global.by') }}
+            {{ $t('global.by') }}
             <a href="https://twitter.com/romancm" target="_blank">@romancm</a>
         </section>
 
