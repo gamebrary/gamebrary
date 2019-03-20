@@ -5,7 +5,10 @@
         </div>
 
         <div :class="['modal', { show, popover }]" @click="close">
-            <i class="fas fa-caret-up popover-arrow" v-if="popover" />
+            <i
+                v-if="popover"
+                :class="['fas fa-caret-up popover-arrow', { dark: darkModeEnabled }]"
+            />
 
             <div :class="['content', { large, padded, dark: darkModeEnabled }]" @click.stop>
                 <header v-if="!popover">
@@ -140,6 +143,7 @@ export default {
         &.dark {
             background-color: $color-darkest-gray;
             color: $color-gray;
+            border: 1px solid $color-gray;
         }
 
         &.large {
@@ -207,5 +211,9 @@ header {
     position: absolute;
     top: $gp * 2;
     right: $gp * 1.5;
+
+    &.dark {
+        color: $color-gray;
+    }
 }
 </style>
