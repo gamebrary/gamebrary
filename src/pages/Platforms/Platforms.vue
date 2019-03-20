@@ -170,6 +170,10 @@ export default {
             color: $color-gray;
         }
 
+        @media($small) {
+            grid-template-columns: auto;
+        }
+
         h3 {
             margin: $gp 0;
         }

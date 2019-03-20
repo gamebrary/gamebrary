@@ -37,6 +37,7 @@ export default {
 .game-rating {
     color: $color-orange;
     font-size: 20px;
+    margin: $gp / 4 0;
 
     &.small {
         font-size: 12px;

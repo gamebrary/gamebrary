@@ -1,6 +1,5 @@
 <template lang="html">
     <div class="list-options">
-        List options
         <div class="actions">
             <modal
                 ref="addList"
@@ -14,8 +13,6 @@
                 @close="reset"
                 @open="focusField"
             >
-
-                Add list
                 <button
                     class="small info"
                     :title="$t('list.add')"
