@@ -3,12 +3,6 @@
         class="settings"
         :class="{ dark: darkModeEnabled }"
     >
-
-        <list-options
-            @update="updateLists"
-            @scroll="scroll"
-            v-if="isGameBoard"
-        />
         <!-- <section>
             <div class="profile">
                 <gravatar :email="user.email" />

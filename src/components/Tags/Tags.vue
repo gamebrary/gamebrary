@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="tags">
+    <div class="tags-modal">
         <div class="content">
             <div class="my-tags">
                 <h3>My tags</h3>
