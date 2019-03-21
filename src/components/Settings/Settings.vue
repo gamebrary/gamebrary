@@ -55,7 +55,7 @@
         </section>
 
         <section class="actions">
-            <button class="small info hollow" @click="signOut">
+            <button class="small tiny accent hollow" @click="signOut">
                 <i class="fas fa-sign-out-alt" />
                 {{ $t('settings.signOut') }}
             </button>
@@ -66,32 +66,12 @@
                 :action-text="$t('settings.deleteAccount')"
                 @action="deleteAccount"
             >
-                <button class="small error">
+                <button class="small tiny error hollow">
                     <i class="fas fa-exclamation-triangle" />
                     {{ $t('settings.deleteAccount') }}
                 </button>
             </modal>
         </section>
-
-        <section>
-            <small>
-                Gamebrary is free and open source, consider helping its development by
-                <a href="https://www.paypal.me/RomanCervantes/5" target="_blank">
-                    {{ $t('settings.donate') }}
-                </a>
-                ,
-                <a href="https://github.com/romancmx/gamebrary/issues" target="_blank">
-                    {{ $t('settings.reportBugs') }}
-                </a>
-                or
-                <a href="https://goo.gl/forms/r0juBCsZaUtJ03qb2" target="_blank">
-                    {{ $t('settings.submitFeedback') }}
-                </a>
-                .
-            </small>
-        </section>
-
-        <!-- <igdb-credit /> -->
     </div>
 </template>
 
@@ -243,7 +223,6 @@ export default {
             width: 600px;
             margin: 0 auto;
             max-width: 100%;
-            // border-bottom: 1px solid $color-lightest-gray;
             padding: $gp;
             display: flex;
             align-items: center;
@@ -262,6 +241,14 @@ export default {
             }
         }
 
+        .actions {
+            border-top: 1px solid $color-light-gray;
+            display: grid;
+            grid-gap: $gp / 2;
+            padding-bottom: 0;
+            grid-template-columns: 1fr 1fr;
+        }
+
         .share-link {
             max-width: 340px;
             margin: 0;
@@ -272,8 +259,8 @@ export default {
                 color: $color-gray;
             }
 
-            section {
-                border-bottom: 1px solid $color-dark-gray;
+            .actions {
+                border-top: 1px solid $color-gray;
             }
         }
     }
