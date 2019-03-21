@@ -11,7 +11,6 @@ module.exports = {
         by: 'by',
     },
     platforms: {
-        ownLists: 'My lists only',
         computersArcade: 'Computers and Arcade',
         generation: 'Generation',
         options: {

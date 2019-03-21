@@ -1,28 +1,90 @@
 <template lang="html">
     <div :class="['platforms-page', { dark: darkModeEnabled }]">
         <aside>
-            <i class="fas fa-filter" /> Filter
+            <panel class="positive">
+                <small>
+                    Gamebrary is free and open source, consider helping its development by
+                    <a href="https://www.paypal.me/RomanCervantes/5" target="_blank">
+                        {{ $t('settings.donate') }}
+                    </a>
+                    ,
+                    <a href="https://github.com/romancmx/gamebrary/issues" target="_blank">
+                        {{ $t('settings.reportBugs') }}
+                    </a>
+                    or
+                    <a href="https://goo.gl/forms/r0juBCsZaUtJ03qb2" target="_blank">
+                        {{ $t('settings.submitFeedback') }}
+                    </a>
+                    .
+                </small>
+            </panel>
 
-            <div class="sorting">
-                <select v-model="showBy">
-                    <option value="generation">{{ $t('platforms.options.generation') }}</option>
-                    <option value="">{{ $t('platforms.options.alphabetically') }}</option>
-                </select>
+            <igdb-credit gray />
+        </aside>
+
+        <main>
+            <div>
+                <small>Show:</small>
+
+                <div class="button-group">
+                    <button class="small info" @click="mineOnly = true" :class="{ hollow: !mineOnly }">
+                        <i class="fas fa-user-check"></i>
+                        Mine
+                    </button>
+
+                    <button class="small info" @click="mineOnly = false" :class="{ hollow: mineOnly }">
+                        <i class="fas fa-th"></i>
+                        All
+                    </button>
+                </div>
+
+                <small>Sort:</small>
+
+                <div class="button-group">
+                    <button class="small info" @click="sortBy = 'generation'" :class="{ hollow: sortBy !== 'generation' }">
+                        <i class="fas fa-history"></i>
+                        Chronologically
+                    </button>
+
+                    <button class="small info" @click="sortBy = 'chronological'" :class="{ hollow: sortBy !== 'chronological' }">
+                        <i class="fas fa-sort-alpha-down"></i>
+                        Alphabetically
+                    </button>
+                </div>
             </div>
 
-            <input
-                type="text"
-                class="platform-filter"
-                autofocus
-                v-model="filterText"
-                :placeholder="$t('global.filter')"
-            />
+            <div class="platform-list" :class="{ reverse: sortBy === 'generation'}">
+                <div
+                    v-for="(group, label) in filteredPlatforms"
+                    :key="label"
+                >
+                    <div v-if="sortBy === 'generation'">
+                        <h3 v-if="label == 0">{{ $t('platforms.computersArcade') }}</h3>
+                        <h3 v-else>{{ ordinalSuffix(label) }} {{ $t('platforms.generation') }}</h3>
+                    </div>
 
-            <toggle-switch
-                id="ownedOnly"
-                v-model="ownedListsOnly"
-                :label="$t('platforms.ownLists')"
-            />
+                    <div class="platforms">
+                        <a
+                            v-for="platform in group"
+                            :key="platform.name"
+                            :style="`background-color: ${platform.hex || '#fff'}`"
+                            @click="changePlatform(platform)"
+                        >
+                            <div
+                                v-if="ownedPlatform(platform.code)"
+                                class="owned-platform"
+                            >
+                                <i class="fas fa-check" />
+                            </div>
+
+                            <img
+                                :src='`/static/img/platforms/${platform.code}.svg`'
+                                :alt="platform.name"
+                            />
+                        </a>
+                    </div>
+                </div>
+            </div>
 
             <div class="recommendations">
                 <!-- eslint-disable-next-line -->
@@ -47,39 +109,6 @@
                     </p>
                 </div>
             </div>
-        </aside>
-
-        <main :class="{ reverse: showBy === 'generation'}">
-            <div
-                v-for="(group, label) in filteredPlatforms"
-                :key="label"
-            >
-                <div v-if="showBy === 'generation'">
-                    <h3 v-if="label == 0">{{ $t('platforms.computersArcade') }}</h3>
-                    <h3 v-else>{{ ordinalSuffix(label) }} {{ $t('platforms.generation') }}</h3>
-                </div>
-
-                <div class="platforms">
-                    <a
-                        v-for="platform in group"
-                        :key="platform.name"
-                        :style="`background-color: ${platform.hex || '#fff'}`"
-                        @click="changePlatform(platform)"
-                    >
-                        <div
-                            v-if="!ownedListsOnly && ownedPlatform(platform.code)"
-                            class="owned-platform"
-                        >
-                            <i class="fas fa-check" />
-                        </div>
-
-                        <img
-                            :src='`/static/img/platforms/${platform.code}.svg`'
-                            :alt="platform.name"
-                        />
-                    </a>
-                </div>
-            </div>
         </main>
     </div>
 </template>
@@ -87,20 +116,23 @@
 <script>
 import platforms from '@/shared/platforms';
 import ToggleSwitch from '@/components/ToggleSwitch/ToggleSwitch';
+import IgdbCredit from '@/components/IgdbCredit/IgdbCredit';
+import Panel from '@/components/Panel/Panel';
 import { groupBy, sortBy } from 'lodash';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
     components: {
         ToggleSwitch,
+        IgdbCredit,
+        Panel,
     },
 
     data() {
         return {
             platforms,
-            filterText: '',
-            showBy: 'generation',
-            ownedListsOnly: false,
+            sortBy: 'generation',
+            mineOnly: false,
         };
     },
 
@@ -109,18 +141,19 @@ export default {
         ...mapGetters(['darkModeEnabled']),
 
         filteredPlatforms() {
-            const availableLists = this.ownedListsOnly
+            const availableLists = this.mineOnly
                 ? this.platforms.filter(({ code }) => this.gameLists[code])
                 : this.platforms;
 
-            if (this.filterText.length > 0) {
-                // eslint-disable-next-line
-                return groupBy(availableLists.filter(({ name }) => name.toLowerCase().includes(this.filterText.toLowerCase())), this.showBy);
+            if (this.sortBy === 'generation') {
+                return groupBy(availableLists, 'generation');
             }
 
-            return this.showBy
-                ? groupBy(availableLists, this.showBy)
-                : groupBy(sortBy(availableLists, 'name'), '');
+            if (this.sortBy === 'chronological') {
+                return groupBy(sortBy(availableLists, 'name'), '');
+            }
+
+            return groupBy(sortBy(availableLists, 'name'), '');
         },
     },
 
@@ -179,27 +212,19 @@ export default {
         }
     }
 
-    aside {
-        .sorting {
-            align-items: center;
-
-            select {
-                margin-bottom: 0;
-            }
-        }
-
-        .platform-filter {
-            margin: 0;
-        }
-    }
-
     .recommendations {
         background: $color-white;
         border-radius: $border-radius;
         overflow: hidden;
+        max-width: 100%;
+        width: 400px;
+        display: grid;
+        grid-template-columns: 120px auto;
+        margin-top: $gp;
 
         img {
-            width: 100%;
+            max-width: 120px;
+            display: block;
         }
 
         .description {
@@ -207,7 +232,7 @@ export default {
         }
     }
 
-    main {
+    .platform-list {
         display: flex;
         flex-direction: column;
 
