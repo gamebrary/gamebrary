@@ -133,7 +133,7 @@ export default {
         },
 
         isGameBoard() {
-            return this.$route.name === 'game-board'
+            return this.$route.name === 'game-board';
         },
 
         exitUrl() {
