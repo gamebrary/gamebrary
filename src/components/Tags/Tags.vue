@@ -67,7 +67,7 @@
                         <i class="fas fa-fill-drip" />
                     </button>
 
-                    <input type="color" :value="tagHex" @change="updateColor">
+                    <input type="color" :value="tagHex" @change="updateColor" class="color-picker">
                     <pre>{{ tagHex }}</pre>
                 </section>
 
@@ -207,5 +207,9 @@ export default {
 
     .my-tags {
         // display: grid;
+    }
+
+    .color-picker {
+        width: 50px;
     }
 </style>
