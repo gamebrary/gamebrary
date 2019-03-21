@@ -1,5 +1,5 @@
 <template lang="html">
-    <footer>
+    <footer :class="{ fixed }">
         <section>
             <i class="far fa-copyright" /> {{ moment().format('YYYY') }} Gamebrary.
         </section>
@@ -44,6 +44,10 @@ export default {
     computed: {
         ...mapState(['releases']),
 
+        fixed() {
+            return this.$route.name === 'game-board';
+        },
+
         latestRelease() {
             return this.releases && this.releases.length
                 ? this.releases[0].tag_name
@@ -61,7 +65,6 @@ export default {
 @import "~styles/styles.scss";
 
 footer {
-    position: fixed;
     bottom: 0;
     width: 100%;
     display: grid;
@@ -71,6 +74,10 @@ footer {
     padding: $gp / 2 0;
     color: $color-dark-gray;
     font-size: 10px;
+
+    &.fixed {
+        position: fixed;
+    }
 
     a {
         color: $color-dark-gray;
