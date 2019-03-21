@@ -18,7 +18,11 @@
             />
 
             <template class="tags" v-if="!searchResult && tags">
-                <div v-for="({ games, hex }, name) in tags" :key="name" v-if="games.includes(game.id)">
+                <div
+                    v-for="({ games, hex }, name) in tags"
+                    :key="name"
+                    v-if="games.includes(game.id)"
+                >
                     <button
                         class="tag small"
                         :style="`background-color: ${hex}`"
@@ -281,10 +285,7 @@ export default {
         }
 
         .tags {
-            position: absolute;
             color: $color-light-gray;
-            bottom: $gp / 3 + 24px;
-            right: $gp / 3;
 
             &:hover {
                 color: $color-blue;
