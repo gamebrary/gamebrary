@@ -1,105 +1,124 @@
 <template lang="html">
     <div :class="['platforms-page', { dark: darkModeEnabled }]">
-        <div class="tools">
-            <div class="sorting">
-                <select v-model="showBy">
-                    <option value="generation">{{ $t('platforms.options.generation') }}</option>
-                    <option value="">{{ $t('platforms.options.alphabetically') }}</option>
-                </select>
+        <aside>
+            <div class="button-group">
+                <button
+                    class="small tiny info"
+                    @click="mineOnly = true"
+                    :class="{ hollow: !mineOnly }"
+                >
+                    Mine
+                </button>
+
+                <button
+                    class="small tiny info"
+                    @click="mineOnly = false"
+                    :class="{ hollow: mineOnly }"
+                >
+                    All
+                </button>
             </div>
 
-            <input
-                type="text"
-                class="platform-filter"
-                autofocus
-                v-model="filterText"
-                :placeholder="$t('global.filter')"
-            />
+            <br>
+            <br>
 
-            <toggle-switch
-                id="ownedOnly"
-                v-model="ownedListsOnly"
-                :label="$t('platforms.ownLists')"
-            />
-        </div>
+            <div class="button-group">
+                <button
+                    class="small tiny info"
+                    @click="sortBy = 'generation'"
+                    :class="{ hollow: sortBy !== 'generation' }"
+                >
+                    Chronologically
+                </button>
 
-        <div :class="['groups', { reverse: showBy === 'generation'}]">
-            <div
-                v-for="(group, label) in filteredPlatforms"
-                :key="label"
-            >
-                <div v-if="showBy === 'generation'">
-                    <h3 v-if="label == 0">{{ $t('platforms.computersArcade') }}</h3>
-                    <h3 v-else>{{ ordinalSuffix(label) }} {{ $t('platforms.generation') }}</h3>
-                </div>
+                <button
+                    class="small tiny info"
+                    @click="sortBy = 'chronological'"
+                    :class="{ hollow: sortBy !== 'chronological' }"
+                >
+                    Alphabetically
+                </button>
+            </div>
+        </aside>
 
-                <div class="platforms">
-                    <a
-                        v-for="platform in group"
-                        :key="platform.name"
-                        :style="`background-color: ${platform.hex || '#fff'}`"
-                        @click="changePlatform(platform)"
-                    >
-                        <div
-                            v-if="!ownedListsOnly && ownedPlatform(platform.code)"
-                            class="owned-platform"
+        <main>
+            <div class="platform-list" :class="{ reverse: sortBy === 'generation'}">
+                <div
+                    v-for="(group, label) in filteredPlatforms"
+                    :key="label"
+                >
+                    <div v-if="sortBy === 'generation'">
+                        <h3 v-if="label == 0">{{ $t('platforms.computersArcade') }}</h3>
+                        <h3 v-else>{{ ordinalSuffix(label) }} {{ $t('platforms.generation') }}</h3>
+                    </div>
+
+                    <div class="platforms">
+                        <a
+                            v-for="platform in group"
+                            :key="platform.name"
+                            :style="`background-color: ${platform.hex || '#fff'}`"
+                            @click="changePlatform(platform)"
                         >
-                            <i class="fas fa-check" />
-                        </div>
+                            <div
+                                v-if="ownedPlatform(platform.code)"
+                                class="owned-platform"
+                            >
+                                <i class="fas fa-check" />
+                            </div>
 
-                        <img
-                            :src='`/static/img/platforms/${platform.code}.svg`'
-                            :alt="platform.name"
-                        />
-                    </a>
+                            <img
+                                :src='`/static/img/platforms/${platform.code}.svg`'
+                                :alt="platform.name"
+                            />
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="consoles-book">
-            <!-- eslint-disable-next-line -->
-            <a target="_blank" href="https://www.amazon.com/gp/product/1593277431/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1593277431&linkCode=as2&tag=gamebrary-20&linkId=a253bbe3bfebd787ead2adc20dbb272b">
-                <!-- eslint-disable-next-line -->
-                <img src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=US&ASIN=1593277431&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL160_&tag=gamebrary-20">
-            </a>
+            <div class="open-source-message">
+                <small>
+                    Gamebrary is free and open source, consider helping its development by
+                    <a href="https://www.paypal.me/RomanCervantes/5" target="_blank">
+                        {{ $t('settings.donate') }}
+                    </a>
+                    ,
+                    <a href="https://github.com/romancmx/gamebrary/issues" target="_blank">
+                        {{ $t('settings.reportBugs') }}
+                    </a>
+                    or
+                    <a href="https://goo.gl/forms/r0juBCsZaUtJ03qb2" target="_blank">
+                        {{ $t('settings.submitFeedback') }}
+                    </a>
+                    .
+                </small>
 
-            <div class="description">
-                <h3>Book recommendation</h3>
-                <p>
-                    <strong>
-                        <a href="https://www.amazon.com/gp/product/1593277431/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1593277431&linkCode=as2&tag=gamebrary-20&linkId=a253bbe3bfebd787ead2adc20dbb272b" target="_blank">The Game Console: A Photographic History from Atari to Xbox</a>
-                    </strong>
-                </p>
+                <igdb-credit gray />
 
-                <p>
-                    <small>
-                        <strong>GAMEBRARY</strong> gets a small referral commission when
-                        you use our affiliate link to purchase this book. the earnings will go
-                        towards supporting the ongoing development of Gamebrary.
-                    </small>
-                </p>
             </div>
-        </div>
+        </main>
     </div>
 </template>
 
 <script>
 import platforms from '@/shared/platforms';
 import ToggleSwitch from '@/components/ToggleSwitch/ToggleSwitch';
+import IgdbCredit from '@/components/IgdbCredit/IgdbCredit';
+import Panel from '@/components/Panel/Panel';
 import { groupBy, sortBy } from 'lodash';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
     components: {
         ToggleSwitch,
+        IgdbCredit,
+        Panel,
     },
 
     data() {
         return {
             platforms,
-            filterText: '',
-            showBy: 'generation',
-            ownedListsOnly: false,
+            sortBy: 'generation',
+            mineOnly: false,
         };
     },
 
@@ -108,18 +127,19 @@ export default {
         ...mapGetters(['darkModeEnabled']),
 
         filteredPlatforms() {
-            const availableLists = this.ownedListsOnly
+            const availableLists = this.mineOnly
                 ? this.platforms.filter(({ code }) => this.gameLists[code])
                 : this.platforms;
 
-            if (this.filterText.length > 0) {
-                // eslint-disable-next-line
-                return groupBy(availableLists.filter(({ name }) => name.toLowerCase().includes(this.filterText.toLowerCase())), this.showBy);
+            if (this.sortBy === 'generation') {
+                return groupBy(availableLists, 'generation');
             }
 
-            return this.showBy
-                ? groupBy(availableLists, this.showBy)
-                : groupBy(sortBy(availableLists, 'name'), '');
+            if (this.sortBy === 'chronological') {
+                return groupBy(sortBy(availableLists, 'name'), '');
+            }
+
+            return groupBy(sortBy(availableLists, 'name'), '');
         },
     },
 
@@ -160,18 +180,17 @@ export default {
     .platforms-page {
         padding: 0 $gp $gp;
         color: $color-dark-gray;
+        display: grid;
+        grid-template-columns: 200px auto;
+        grid-gap: $gp * 2;
+        min-height: calc(100vh - #{$navHeight});
 
         &.dark {
             color: $color-gray;
         }
 
-        .groups {
-            display: flex;
-            flex-direction: column;
-
-            &.reverse {
-                flex-direction: column-reverse;
-            }
+        @media($small) {
+            grid-template-columns: auto;
         }
 
         h3 {
@@ -179,30 +198,46 @@ export default {
         }
     }
 
-    .tools {
-        margin-top: $gp;
+    aside {
+        position: sticky;
+        top: $gp;
+        height: 200px;
+        margin-top: $gp * 2;
+    }
+
+    .recommendations {
+        background: $color-white;
+        border-radius: $border-radius;
+        overflow: hidden;
+        max-width: 100%;
+        width: 400px;
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-        grid-gap: $gp;
-        align-items: center;
+        grid-template-columns: 120px auto;
+        margin-top: $gp;
 
-        .sorting {
-            align-items: center;
-
-            select {
-                margin-bottom: 0;
-            }
+        img {
+            max-width: 120px;
+            display: block;
         }
 
-        .platform-filter {
-            margin: 0;
+        .description {
+            padding: 0 $gp / 2 $gp / 2;
+        }
+    }
+
+    .platform-list {
+        display: flex;
+        flex-direction: column;
+
+        &.reverse {
+            flex-direction: column-reverse;
         }
     }
 
     .platforms {
         margin-top: $gp;
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
 
         grid-gap: $gp;
 
@@ -211,7 +246,7 @@ export default {
             cursor: pointer;
             border-radius: $border-radius;
             width: auto;
-            height: 100px;
+            height: 80px;
             padding: $gp;
             display: flex;
             align-items: center;
@@ -257,28 +292,14 @@ export default {
         }
     }
 
-    .consoles-book {
-        max-width: 100%;
-        background: $color-white;
-        display: grid;
-        grid-gap: $gp;
-        width: 400px;
-        margin-top: $gp * 2;
-        grid-template-columns: 180px auto;
-        border-radius: $border-radius;
-        overflow: hidden;
+    .open-source-message {
+        margin-top: $gp;
+        justify-content: center;
+        display: flex;
+        align-items: center;
 
-        h3 {
-            margin-top: $gp;
-        }
-
-        img {
-            width: 100%;
-            display: block;
-        }
-
-        .description {
-            padding-right: $gp;
+        a {
+            color: $color-dark-gray;
         }
     }
 </style>

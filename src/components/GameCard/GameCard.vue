@@ -3,9 +3,12 @@
         <img :src="coverUrl" @click="openDetails" :alt="game.name">
 
         <div class="game-info">
-            <a @click="openDetails">
-                <h4 v-text="game.name" />
-            </a>
+            <a v-text="game.name" @click="openDetails" />
+
+            <i
+                v-if="!searchResult"
+                class="fas fa-grip-vertical game-drag-handle"
+            />
 
             <game-rating
                 v-if="showGameRatings"
@@ -14,10 +17,14 @@
                 @click.native="openDetails"
             />
 
-            <div class="tags" v-if="!searchResult && tags">
-                <div v-for="({ games, hex }, name) in tags" :key="name">
+            <div class="tags game-tag" v-if="!searchResult && tags">
+                <div
+                    v-for="({ games, hex }, name) in tags"
+                    :key="name"
+                    v-if="games.includes(game.id)"
+                >
                     <button
-                        class="tag small"
+                        class="tag small game-tag"
                         :style="`background-color: ${hex}`"
                         v-if="games.includes(game.id)"
                         @click="openTags"
@@ -25,7 +32,6 @@
                         {{ name }}
                     </button>
                 </div>
-
             </div>
 
             <button
@@ -37,42 +43,21 @@
                 Add to {{ addToLabel }}
             </button>
 
-            <div :class="['game-card-options', { dark: darkModeEnabled}]" v-else>
-                <button
-                    v-if="!searchResult"
-                    :class="['small tiny game-drag-handle', {
-                        'accent filled': !darkModeEnabled,
-                        info: darkModeEnabled
-                    }]"
-                    title="Drag game"
-                >
-                    <i class="far fa-hand-paper" />
-                </button>
-
-                <button
+            <div v-else>
+                <i
                     v-if="hasTags"
-                    :class="['small tiny', {
-                        'accent filled': !darkModeEnabled,
-                        info: darkModeEnabled
-                    }]"
+                    class="fas fa-tag tags"
                     @click="openTags"
-                >
-                    <i class="fas fa-tag" />
-                </button>
+                />
 
-                <button
+                <i
+                    class="far fa-trash-alt delete-game"
                     v-if="list.games.includes(gameId)"
-                    @click="removeGame"
                     title="Delete game"
-                    :class="['small tiny error', {
-                        filled: !darkModeEnabled,
-                        info: darkModeEnabled
-                    }]"
-                >
-                    <i class="far fa-trash-alt" />
-                </button>
+                    @click="removeGame"
+                />
 
-                <button v-else @click="addGame" title="Add game">
+                <button v-if="!list.games.includes(gameId)" @click="addGame" title="Add game">
                     <i class="fas fa-plus" />
                 </button>
             </div>
@@ -99,8 +84,14 @@ export default {
         searchResult: Boolean,
     },
 
+    data() {
+        return {
+            showEditOptions: false,
+        };
+    },
+
     computed: {
-        ...mapState(['settings', 'games', 'gameLists', 'platform', 'user', 'tags']),
+        ...mapState(['settings', 'games', 'gameLists', 'platform', 'user', 'tags', 'activeList']),
 
         ...mapGetters(['darkModeEnabled']),
 
@@ -249,11 +240,12 @@ export default {
         .game-info {
             padding: $gp / 2 $gp;
             width: 100%;
-            display: grid;
-            grid-gap: 4px;
+            display: flex;
+            flex-direction: column;
 
             .game-rating, a {
                 display: inline-flex;
+                font-weight: bold;
             }
 
             &:hover {
@@ -265,23 +257,43 @@ export default {
             a {
                 color: $color-darkest-gray;
                 cursor: pointer;
+                margin-right: $gp / 2;
             }
         }
 
-        &:hover {
-            .game-card-options {
-                opacity: 1;
+        .game-drag-handle {
+            @include drag-cursor;
+            position: absolute;
+            color: $color-light-gray;
+            right: $gp / 3;
+            top: $gp / 3;
+
+            &:hover {
+                color: $color-gray;
             }
         }
 
-        .game-card-options {
-            opacity: 0;
-            width: auto;
-            transition: all 200ms linear;
+        .delete-game {
+            position: absolute;
+            color: $color-light-gray;
+            bottom: $gp / 3;
+            right: $gp / 3;
 
-            .game-drag-handle {
-                @include drag-cursor;
+            &:hover {
+                color: $color-red;
             }
+        }
+
+        .tags {
+            color: $color-light-gray;
+
+            &:hover {
+                color: $color-blue;
+            }
+        }
+
+        .game-tag {
+            margin-bottom: $gp / 3;
         }
     }
 </style>

@@ -2,7 +2,6 @@ module.exports = {
     searchPlaceholder: 'Search here',
     share: 'Share',
     empty: 'empty',
-    clearResults: 'Clear results',
     back: 'Back',
     global: {
         cancel: 'Cancel',
@@ -12,7 +11,6 @@ module.exports = {
         by: 'by',
     },
     platforms: {
-        ownLists: 'My lists only',
         computersArcade: 'Computers and Arcade',
         generation: 'Generation',
         options: {

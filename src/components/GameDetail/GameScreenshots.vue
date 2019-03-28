@@ -5,7 +5,12 @@
     >
         <h3>Screenshots</h3>
 
-        <vue-gallery :images="screenshots" :index="index" @close="close" />
+        <vue-gallery
+            :images="screenshots"
+            :index="index"
+            :options="options"
+            @close="close"
+        />
 
         <img
             v-for="(image, index) in thumbnails"
@@ -28,6 +33,9 @@ export default {
     data() {
         return {
             index: null,
+            options: {
+                // TODO: customize look and feel
+            },
         };
     },
 

@@ -73,7 +73,7 @@
             <modal
                 :action-text="`Delete forever`"
                 :message="`Your ${platform.name} collection will be deleted forever.`"
-                title="Are you sure?"
+                :title="`Delete ${platform.name} collection`"
                 padded
                 show-close
                 @action="deletePlatform"

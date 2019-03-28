@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="tags">
+    <div class="tags-modal">
         <div class="content">
             <div class="my-tags">
                 <h3>My tags</h3>
@@ -66,6 +66,9 @@
                     >
                         <i class="fas fa-fill-drip" />
                     </button>
+
+                    <input type="color" :value="tagHex" @change="updateColor" class="color-picker">
+                    <pre>{{ tagHex }}</pre>
                 </section>
 
                 <section>
@@ -109,11 +112,11 @@ export default {
                 '#073b4c',
             ],
             suggestions: [
-                'completed',
-                'digital',
-                'physical',
-                'playing',
-                'abandoned',
+                'Completed',
+                'Digital',
+                'Physical',
+                'Playing',
+                'Abandoned',
             ],
         };
     },
@@ -141,6 +144,10 @@ export default {
     },
 
     methods: {
+        updateColor(e) {
+            this.tagHex = e.srcElement.value;
+        },
+
         createTag() {
             this.$set(this.localTags, this.tagName, this.newTag);
             this.$bus.$emit('SAVE_TAGS', this.localTags);
@@ -200,5 +207,9 @@ export default {
 
     .my-tags {
         // display: grid;
+    }
+
+    .color-picker {
+        width: 50px;
     }
 </style>

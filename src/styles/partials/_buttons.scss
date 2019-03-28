@@ -14,6 +14,21 @@ a.link {
     }
 }
 
+.button-group {
+    border-radius: $border-radius;
+    overflow: hidden;
+    margin: 0 $gp / 2;
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid $color-dark-gray;
+
+    button {
+        float: left;
+        border-radius: 0;
+        border: 0 !important;
+    }
+}
+
 button, a.link {
     outline: none;
     border: none;
@@ -174,7 +189,7 @@ button, a.link {
         }
 
         &.info {
-            color: $color-dark-gray;
+            color: $color-darkest-gray;
             background: transparent;
 
             &:hover {

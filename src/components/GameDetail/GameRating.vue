@@ -1,6 +1,5 @@
 <template lang="html">
     <div :class="['game-rating', { small, dark }]">
-
         <span v-for="n in 5" :key="`star-${n}`">
             <i class="fas fa-star" v-if="(roundedRating - n) + 1 >= 1" />
             <i class="fas fa-star-half" v-if="(roundedRating - n) + 1 === .5" />
@@ -38,6 +37,7 @@ export default {
 .game-rating {
     color: $color-orange;
     font-size: 20px;
+    margin: $gp / 4 0;
 
     &.small {
         font-size: 12px;

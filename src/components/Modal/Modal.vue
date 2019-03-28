@@ -4,9 +4,14 @@
             <slot />
         </div>
 
-        <div :class="['modal', { show }]" @click="close">
+        <div :class="['modal', { show, popover }]" @click="close">
+            <i
+                v-if="popover"
+                :class="['fas fa-caret-up popover-arrow', { dark: darkModeEnabled }]"
+            />
+
             <div :class="['content', { large, padded, dark: darkModeEnabled }]" @click.stop>
-                <header>
+                <header v-if="!popover">
                     <h2 v-if="title">{{ title }}</h2>
                     <i class="close fas fa-times" @click="close" />
                 </header>
@@ -56,6 +61,7 @@ export default {
             type: Boolean,
             default: false,
         },
+        popover: Boolean,
         large: Boolean,
         padded: Boolean,
     },
@@ -109,52 +115,64 @@ export default {
     visibility: hidden;
     cursor: pointer;
 
+    &.popover {
+        background: none;
+        justify-content: flex-end;
+        align-items: baseline;
+    }
+
     &.show {
         visibility: visible;
         transition: all 100ms linear;
         opacity: 1;
     }
-}
 
-.content {
-    position: relative;
-    background-color: $color-white;
-    height: auto;
-    width: 380px;
-    max-height: calc(85vh);
-    max-width: 100%;
-    overflow: auto;
-    margin: 0 $gp;
-    padding: 0;
-    border-radius: $border-radius;
-    cursor: default;
+    .content {
+        position: relative;
+        background-color: $color-white;
+        height: auto;
+        width: 380px;
+        max-height: calc(85vh);
+        max-width: 100%;
+        overflow: auto;
+        margin: 0 $gp;
+        padding: 0;
+        border-radius: $border-radius;
+        cursor: default;
 
-    &.dark {
-        background-color: $color-darkest-gray;
-        color: $color-gray;
-    }
+        &.dark {
+            background-color: $color-darkest-gray;
+            color: $color-gray;
+            border: 1px solid $color-gray;
+        }
 
-    &.large {
-        width: 780px;
+        &.large {
+            width: 780px;
+
+            @media($small) {
+                width: 100vw;
+            }
+        }
+
+        &.padded {
+            > section {
+                padding: 0 $gp $gp;
+            }
+        }
 
         @media($small) {
+            height: auto;
+            margin: 0;
+            max-height: 100vh;
+            height: 100vh;
+            border-radius: 0;
             width: 100vw;
         }
     }
 
-    &.padded {
-        > section {
-            padding: 0 $gp $gp;
-        }
-    }
-
-    @media($small) {
-        height: auto;
-        margin: 0;
-        max-height: 100vh;
-        height: 100vh;
-        border-radius: 0;
-        width: 100vw;
+    &.popover .content {
+        max-width: 280px;
+        margin: $gp * 3 $gp 0;
     }
 }
 
@@ -185,5 +203,17 @@ header {
     display: grid;
     grid-gap: $gp;
     grid-template-columns: auto auto;
+}
+
+.popover-arrow {
+    color: $color-white;
+    font-size: 25px;
+    position: absolute;
+    top: $gp * 2;
+    right: $gp * 1.5;
+
+    &.dark {
+        color: $color-gray;
+    }
 }
 </style>

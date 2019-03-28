@@ -32,17 +32,10 @@
         <div class="search-actions">
             <button class="small filled info" @click="back" title="back">
                 <i class="fas fa-chevron-left" />
+                Back
             </button>
 
             <igdb-credit linkable />
-
-            <button
-                class="small filled info"
-                @click="clear"
-                :title="$t('clearResults')"
-            >
-                <i class="fas fa-broom" />
-            </button>
         </div>
     </form>
 </template>

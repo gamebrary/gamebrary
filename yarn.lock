@@ -3802,6 +3802,10 @@ getpass@^0.1.1:
   dependencies:
     assert-plus "^1.0.0"
 
+github-buttons@^2.1.0:
+  version "2.2.5"
+  resolved "https://infusionsoft.jfrog.io/infusionsoft/api/npm/npm/github-buttons/-/github-buttons-2.2.5.tgz#976aa347920cd41c88353d617cdf52ce7641d2e9"
+
 glob-base@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/glob-base/-/glob-base-0.3.0.tgz#dbb164f6221b1c0b1ccf82aea328b497df0ea3c4"
@@ -8556,6 +8560,12 @@ vue-gallery@^1.5.0:
   resolved "https://registry.yarnpkg.com/vue-gallery/-/vue-gallery-1.5.0.tgz#0ddd4cf12e69bbe516d1e952f75fd422005744cd"
   dependencies:
     blueimp-gallery "^2.33.0"
+
+vue-github-button@^1.0.5:
+  version "1.0.5"
+  resolved "https://infusionsoft.jfrog.io/infusionsoft/api/npm/npm/vue-github-button/-/vue-github-button-1.0.5.tgz#fd1d5f9cf7ab3d4faa5a767219a47af9af9a7f0a"
+  dependencies:
+    github-buttons "^2.1.0"
 
 vue-gravatar@^1.2.1:
   version "1.3.0"

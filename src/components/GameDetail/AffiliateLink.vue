@@ -1,7 +1,6 @@
 <template lang="html">
-    <div class="amazon">
+    <div class="amazon" v-if="affiliateLinks[game.id]">
         <a
-            v-if="affiliateLinks[game.id]"
             :href="affiliateLinks[game.id]"
             target="_blank"
             class="link warning small"
