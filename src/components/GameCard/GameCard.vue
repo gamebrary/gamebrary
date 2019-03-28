@@ -17,14 +17,14 @@
                 @click.native="openDetails"
             />
 
-            <template class="tags" v-if="!searchResult && tags">
+            <div class="tags game-tag" v-if="!searchResult && tags">
                 <div
                     v-for="({ games, hex }, name) in tags"
                     :key="name"
                     v-if="games.includes(game.id)"
                 >
                     <button
-                        class="tag small"
+                        class="tag small game-tag"
                         :style="`background-color: ${hex}`"
                         v-if="games.includes(game.id)"
                         @click="openTags"
@@ -32,7 +32,7 @@
                         {{ name }}
                     </button>
                 </div>
-            </template>
+            </div>
 
             <button
                 v-if="searchResult"
@@ -290,6 +290,10 @@ export default {
             &:hover {
                 color: $color-blue;
             }
+        }
+
+        .game-tag {
+            margin-bottom: $gp / 3;
         }
     }
 </style>
