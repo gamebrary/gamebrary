@@ -1,58 +1,47 @@
 <template lang="html">
     <div :class="['platforms-page', { dark: darkModeEnabled }]">
         <aside>
-            <panel class="positive">
-                <small>
-                    Gamebrary is free and open source, consider helping its development by
-                    <a href="https://www.paypal.me/RomanCervantes/5" target="_blank">
-                        {{ $t('settings.donate') }}
-                    </a>
-                    ,
-                    <a href="https://github.com/romancmx/gamebrary/issues" target="_blank">
-                        {{ $t('settings.reportBugs') }}
-                    </a>
-                    or
-                    <a href="https://goo.gl/forms/r0juBCsZaUtJ03qb2" target="_blank">
-                        {{ $t('settings.submitFeedback') }}
-                    </a>
-                    .
-                </small>
-            </panel>
+            <div class="button-group">
+                <button
+                    class="small tiny info"
+                    @click="mineOnly = true"
+                    :class="{ hollow: !mineOnly }"
+                >
+                    Mine
+                </button>
 
-            <igdb-credit gray />
+                <button
+                    class="small tiny info"
+                    @click="mineOnly = false"
+                    :class="{ hollow: mineOnly }"
+                >
+                    All
+                </button>
+            </div>
+
+            <br>
+            <br>
+
+            <div class="button-group">
+                <button
+                    class="small tiny info"
+                    @click="sortBy = 'generation'"
+                    :class="{ hollow: sortBy !== 'generation' }"
+                >
+                    Chronologically
+                </button>
+
+                <button
+                    class="small tiny info"
+                    @click="sortBy = 'chronological'"
+                    :class="{ hollow: sortBy !== 'chronological' }"
+                >
+                    Alphabetically
+                </button>
+            </div>
         </aside>
 
         <main>
-            <div>
-                <small>Show:</small>
-
-                <div class="button-group">
-                    <button class="small info" @click="mineOnly = true" :class="{ hollow: !mineOnly }">
-                        <i class="fas fa-user-check"></i>
-                        Mine
-                    </button>
-
-                    <button class="small info" @click="mineOnly = false" :class="{ hollow: mineOnly }">
-                        <i class="fas fa-th"></i>
-                        All
-                    </button>
-                </div>
-
-                <small>Sort:</small>
-
-                <div class="button-group">
-                    <button class="small info" @click="sortBy = 'generation'" :class="{ hollow: sortBy !== 'generation' }">
-                        <i class="fas fa-history"></i>
-                        Chronologically
-                    </button>
-
-                    <button class="small info" @click="sortBy = 'chronological'" :class="{ hollow: sortBy !== 'chronological' }">
-                        <i class="fas fa-sort-alpha-down"></i>
-                        Alphabetically
-                    </button>
-                </div>
-            </div>
-
             <div class="platform-list" :class="{ reverse: sortBy === 'generation'}">
                 <div
                     v-for="(group, label) in filteredPlatforms"
@@ -86,28 +75,25 @@
                 </div>
             </div>
 
-            <div class="recommendations">
-                <!-- eslint-disable-next-line -->
-                <a target="_blank" href="https://www.amazon.com/gp/product/1593277431/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1593277431&linkCode=as2&tag=gamebrary-20&linkId=a253bbe3bfebd787ead2adc20dbb272b">
-                    <!-- eslint-disable-next-line -->
-                    <img src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=US&ASIN=1593277431&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL160_&tag=gamebrary-20">
-                </a>
+            <div class="open-source-message">
+                <small>
+                    Gamebrary is free and open source, consider helping its development by
+                    <a href="https://www.paypal.me/RomanCervantes/5" target="_blank">
+                        {{ $t('settings.donate') }}
+                    </a>
+                    ,
+                    <a href="https://github.com/romancmx/gamebrary/issues" target="_blank">
+                        {{ $t('settings.reportBugs') }}
+                    </a>
+                    or
+                    <a href="https://goo.gl/forms/r0juBCsZaUtJ03qb2" target="_blank">
+                        {{ $t('settings.submitFeedback') }}
+                    </a>
+                    .
+                </small>
 
-                <div class="description">
-                    <p>
-                        <strong>
-                            <a href="https://www.amazon.com/gp/product/1593277431/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1593277431&linkCode=as2&tag=gamebrary-20&linkId=a253bbe3bfebd787ead2adc20dbb272b" target="_blank">The Game Console: A Photographic History from Atari to Xbox</a>
-                        </strong>
-                    </p>
+                <igdb-credit gray />
 
-                    <p>
-                        <small>
-                            <strong>GAMEBRARY</strong> gets a small referral commission when
-                            you use our affiliate link to purchase this book. the earnings will go
-                            towards supporting the ongoing development of Gamebrary.
-                        </small>
-                    </p>
-                </div>
             </div>
         </main>
     </div>
@@ -195,7 +181,7 @@ export default {
         padding: 0 $gp $gp;
         color: $color-dark-gray;
         display: grid;
-        grid-template-columns: 180px auto;
+        grid-template-columns: 200px auto;
         grid-gap: $gp * 2;
         min-height: calc(100vh - #{$navHeight});
 
@@ -210,6 +196,13 @@ export default {
         h3 {
             margin: $gp 0;
         }
+    }
+
+    aside {
+        position: sticky;
+        top: $gp;
+        height: 200px;
+        margin-top: $gp * 2;
     }
 
     .recommendations {
@@ -296,6 +289,17 @@ export default {
                     color: $color-white;
                 }
             }
+        }
+    }
+
+    .open-source-message {
+        margin-top: $gp;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+
+        a {
+            color: $color-dark-gray;
         }
     }
 </style>
