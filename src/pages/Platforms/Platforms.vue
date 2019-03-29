@@ -1,13 +1,13 @@
 <template lang="html">
     <div :class="['platforms-page', { dark: darkModeEnabled }]">
         <aside>
-            <div class="button-group">
+            <div class="button-group" v-if="hasLists">
                 <button
                     class="small tiny info"
                     @click="mineOnly = true"
                     :class="{ hollow: !mineOnly }"
                 >
-                    Mine
+                    Mine ({{ ownedListCount }})
                 </button>
 
                 <button
@@ -18,9 +18,6 @@
                     All
                 </button>
             </div>
-
-            <br>
-            <br>
 
             <div class="button-group">
                 <button
@@ -126,6 +123,14 @@ export default {
         ...mapState(['gameLists', 'platform']),
         ...mapGetters(['darkModeEnabled']),
 
+        ownedListCount() {
+            return Object.keys(this.gameLists).length;
+        },
+
+        hasLists() {
+            return Object.keys(this.gameLists).length > 0;
+        },
+
         filteredPlatforms() {
             const availableLists = this.mineOnly
                 ? this.platforms.filter(({ code }) => this.gameLists[code])
@@ -191,6 +196,7 @@ export default {
 
         @media($small) {
             grid-template-columns: auto;
+            grid-gap: 0;
         }
 
         h3 {
@@ -201,27 +207,21 @@ export default {
     aside {
         position: sticky;
         top: $gp;
-        height: 200px;
         margin-top: $gp * 2;
-    }
 
-    .recommendations {
-        background: $color-white;
-        border-radius: $border-radius;
-        overflow: hidden;
-        max-width: 100%;
-        width: 400px;
-        display: grid;
-        grid-template-columns: 120px auto;
-        margin-top: $gp;
-
-        img {
-            max-width: 120px;
-            display: block;
+        .button-group {
+            margin-bottom: $gp;
         }
 
-        .description {
-            padding: 0 $gp / 2 $gp / 2;
+        @media($small) {
+            position: static;
+            margin-top: $gp;
+            display: flex;
+            align-items: center;
+
+            .button-group {
+                margin: 0 $gp 0 0;
+            }
         }
     }
 
@@ -238,7 +238,6 @@ export default {
         margin-top: $gp;
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-
         grid-gap: $gp;
 
         a {
