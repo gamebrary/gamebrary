@@ -11,7 +11,7 @@
         </router-link>
 
         <modal padded popover>
-            <gravatar :email="user.email" class="avatar" />
+            <gravatar :email="user.email" class="avatar" v-if="user && user.email" />
 
             <settings slot="content" v-if="settings && user" />
         </modal>
