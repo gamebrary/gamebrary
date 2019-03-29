@@ -83,8 +83,13 @@ export default {
         const games = state.gameLists[state.platform.code][listIndex].games;
 
         games.sort((a, b) => {
-            const gameA = state.games[a].name.toUpperCase();
-            const gameB = state.games[b].name.toUpperCase();
+            const gameA = state.games[a] && state.games[a].name
+                ? state.games[a].name.toUpperCase()
+                : '';
+
+            const gameB = state.games[b] && state.games[b].name
+                ? state.games[b].name.toUpperCase()
+                : '';
 
             if (gameA < gameB) {
                 return -1;
