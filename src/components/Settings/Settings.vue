@@ -86,11 +86,9 @@ import ToggleSwitch from '@/components/ToggleSwitch/ToggleSwitch';
 import IgdbCredit from '@/components/IgdbCredit/IgdbCredit';
 import Modal from '@/components/Modal/Modal';
 import moment from 'moment';
-import ListOptions from '@/components/Lists/ListOptions';
 
 export default {
     components: {
-        ListOptions,
         Panel,
         ToggleSwitch,
         IgdbCredit,

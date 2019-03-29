@@ -67,7 +67,7 @@
 
             <onboard v-if="!list" />
 
-            <list-options
+            <list-actions
                 @update="updateLists"
                 @scroll="scroll"
             />
@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import ListOptions from '@/components/Lists/ListOptions';
+import ListActions from '@/components/Lists/ListActions';
 import GameBoardPlaceholder from '@/components/GameBoard/GameBoardPlaceholder';
 import Onboard from '@/components/GameBoard/Onboard';
 import Panel from '@/components/Panel/Panel';
@@ -94,7 +94,7 @@ export default {
     components: {
         draggable,
         List,
-        ListOptions,
+        ListActions,
         GameBoardPlaceholder,
         Onboard,
         Panel,

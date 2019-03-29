@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="list-options">
+    <div class="list-actions">
         <div class="actions">
             <modal
                 ref="addList"
@@ -64,7 +64,7 @@
                     class="small info"
                     :title="$t('list.delete')"
                 >
-                    <i class="fas fa-tags" />
+                    <i class="fas fa-tag" />
                 </button>
 
                 <tags slot="content" />
@@ -86,25 +86,7 @@
                 </button>
             </modal>
 
-            <modal
-                title="Share your list"
-                message="Use the following URL to share this list."
-                close-text="OK"
-                padded
-            >
-                <button class="small info" title="Share">
-                    <i class="fas fa-share-alt" />
-                </button>
-
-                <div slot="content">
-                    <a class="primary filled" :href="tweetUrl" target="_blank">
-                        <i class="fab fa-twitter" />
-                        TWEEET
-                    </a>
-
-                    <input type="text" :value="shareUrl">
-                </div>
-            </modal>
+            <share-list />
         </div>
     </div>
 </template>
@@ -114,11 +96,13 @@ import { mapState } from 'vuex';
 import Panel from '@/components/Panel/Panel';
 import Modal from '@/components/Modal/Modal';
 import Tags from '@/components/Tags/Tags';
+import ShareList from '@/components/ShareList/ShareList';
 
 export default {
     components: {
         Modal,
         Tags,
+        ShareList,
         Panel,
     },
 
@@ -141,14 +125,6 @@ export default {
             return `You already have a list named <strong>${this.newListName}</strong>. Please use a different name.`;
         },
 
-        shareText() {
-            return `Check out my ${this.platform.name} collection at GAMEBRARY`;
-        },
-
-        tweetUrl() {
-            return `https://twitter.com/intent/tweet?text=${this.shareText}&url=${encodeURIComponent(this.shareUrl)}`;
-        },
-
         list() {
             return this.gameLists[this.platform.code];
         },
@@ -165,14 +141,6 @@ export default {
             return this.list ?
                 this.list.map(({ name }) => name.toLowerCase())
                 : [];
-        },
-
-        shareUrl() {
-            const url = process.env.NODE_ENV === 'development'
-                ? 'http://localhost:5000'
-                : 'https://app.gamebrary.com';
-
-            return `${url}/s?id=${this.user.uid}&list=${this.platform.code}`;
         },
     },
 
@@ -236,7 +204,7 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles.scss";
 
-    .list-options {
+    .list-actions {
         padding-right: $gp;
     }
 

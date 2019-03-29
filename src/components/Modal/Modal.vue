@@ -186,7 +186,7 @@ header {
     position: sticky;
     display: flex;
     top: 0;
-    padding: $gp;
+    padding: $gp $gp 0;
     z-index: 2;
     align-items: center;
     justify-content: space-between;
