@@ -11,7 +11,7 @@
         </section>
 
         <section>
-            <modal title="Releases" large padded v-if="latestRelease">
+            <modal large padded v-if="latestRelease">
                 <strong>
                     <i class="fab fa-github" />
                     {{ latestRelease }}
