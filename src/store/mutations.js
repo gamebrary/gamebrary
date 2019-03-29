@@ -98,8 +98,13 @@ export default {
         const games = state.gameLists[state.platform.code][listIndex].games;
 
         games.sort((a, b) => {
-            const gameA = state.games[a].rating || 0;
-            const gameB = state.games[b].rating || 0;
+            const gameA = state.games[a] && state.games[a].rating
+                ? state.games[a].rating
+                : 0;
+
+            const gameB = state.games[b] && state.games[b].rating
+                ? state.games[b].rating
+                : 0;
 
             if (gameA > gameB) {
                 return -1;
