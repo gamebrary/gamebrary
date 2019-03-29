@@ -119,6 +119,12 @@ export default {
         background: none;
         justify-content: flex-end;
         align-items: baseline;
+
+        .content {
+            @media($small) {
+                height: auto;
+            }
+        }
     }
 
     &.show {
