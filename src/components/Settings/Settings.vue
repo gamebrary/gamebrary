@@ -116,11 +116,6 @@ export default {
     },
 
     methods: {
-        setGameView(view) {
-            this.localSettings.gameView = view;
-            this.save();
-        },
-
         deleteAccount() {
             const db = firebase.firestore();
 
