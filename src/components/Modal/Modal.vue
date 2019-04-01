@@ -147,9 +147,9 @@ export default {
         cursor: default;
 
         &.dark {
-            background-color: $color-darkest-gray;
+            background-color: $color-darker-gray;
             color: $color-gray;
-            border: 1px solid $color-gray;
+            border: 1px solid $color-darker-gray;
         }
 
         &.large {
@@ -219,7 +219,7 @@ header {
     right: $gp * 1.5;
 
     &.dark {
-        color: $color-gray;
+        color: $color-darker-gray;
     }
 }
 </style>
