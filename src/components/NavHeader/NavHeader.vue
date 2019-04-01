@@ -10,7 +10,7 @@
             {{ title }}
         </router-link>
 
-        <modal padded popover>
+        <modal popover>
             <gravatar :email="user.email" class="avatar" v-if="user && user.email" />
 
             <settings slot="content" v-if="settings && user" />
