@@ -3,27 +3,6 @@
         class="settings"
         :class="{ dark: darkModeEnabled }"
     >
-        <!-- <section>
-            <div class="profile">
-                <gravatar :email="user.email" />
-
-                <div class="info">
-                    <strong>{{ user.displayName }}</strong>
-                    {{ user.email }}
-                </div>
-            </div>
-        </section> -->
-
-        <!-- <section>
-            <i class="fas fa-language" />
-            <h5>Language</h5>
-
-            <div class="value">
-                <button class="primary">🇬🇧</button>
-                <button class="primary hollow">🇪🇸</button>
-            </div>
-        </section> -->
-
         <section>
             <i class="fas fa-moon" />
             <h5>{{ $t('settings.darkTheme') }}</h5>
