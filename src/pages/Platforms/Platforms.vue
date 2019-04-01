@@ -1,53 +1,15 @@
 <template lang="html">
     <div :class="['platforms-page', { dark: darkModeEnabled }]">
-        <aside>
-            <div class="button-group" v-if="hasLists">
-                <button
-                    class="small tiny info"
-                    @click="localSettings.showOwnedListsOnly = true"
-                    :class="{ hollow: !localSettings.showOwnedListsOnly }"
-                >
-                    Mine ({{ ownedListCount }})
-                </button>
-
-                <button
-                    class="small tiny info"
-                    @click="localSettings.showOwnedListsOnly = false"
-                    :class="{ hollow: localSettings.showOwnedListsOnly }"
-                >
-                    All
-                </button>
-            </div>
-
-            <div class="button-group">
-                <button
-                    class="small tiny info"
-                    @click="localSettings.sortPlatformsBy = 'generation'"
-                    :class="{ hollow: localSettings.sortPlatformsBy !== 'generation' }"
-                >
-                    Chronologically
-                </button>
-
-                <button
-                    class="small tiny info"
-                    @click="localSettings.sortPlatformsBy = 'chronological'"
-                    :class="{ hollow: localSettings.sortPlatformsBy !== 'chronological' }"
-                >
-                    Alphabetically
-                </button>
-            </div>
-        </aside>
-
         <main>
             <div
                 class="platform-list"
-                :class="{ reverse: localSettings.sortPlatformsBy === 'generation'}"
+                :class="{ reverse: !settings.sortListsAlphabetically }"
             >
                 <div
                     v-for="(group, label) in filteredPlatforms"
                     :key="label"
                 >
-                    <div v-if="localSettings.sortPlatformsBy === 'generation'">
+                    <div v-if="!settings.sortListsAlphabetically">
                         <h3 v-if="label == 0">{{ $t('platforms.computersArcade') }}</h3>
                         <h3 v-else>{{ ordinalSuffix(label) }} {{ $t('platforms.generation') }}</h3>
                     </div>
@@ -116,7 +78,6 @@ export default {
 
     data() {
         return {
-            localSettings: {},
             platforms,
         };
     },
@@ -133,42 +94,19 @@ export default {
             return Object.keys(this.gameLists).length > 0;
         },
 
+        ownedListsOnly() {
+            return this.settings && this.settings.ownedListsOnly;
+        },
+
         filteredPlatforms() {
-            const availableLists = this.localSettings.showOwnedListsOnly
+            const availableLists = this.ownedListsOnly
                 ? this.platforms.filter(({ code }) => this.gameLists[code])
                 : this.platforms;
 
-            if (this.localSettings.sortPlatformsBy === 'generation') {
-                return groupBy(availableLists, 'generation');
-            }
-
-            if (this.localSettings.sortPlatformsBy === 'chronological') {
-                return groupBy(sortBy(availableLists, 'name'), '');
-            }
-
-            return groupBy(sortBy(availableLists, 'name'), '');
+            return this.settings.sortListsAlphabetically
+                ? groupBy(sortBy(availableLists, 'name'), '')
+                : groupBy(availableLists, 'generation');
         },
-    },
-
-    watch: {
-        localSettings: {
-            handler(oldValue, newValue) {
-                if (Object.keys(newValue).length) {
-                    this.$bus.$emit('SAVE_SETTINGS', this.localSettings);
-                }
-            },
-            deep: true,
-        },
-    },
-
-    mounted() {
-        const showOwnedListsOnly = this.localSettings.showOwnedListsOnly || false;
-        const sortPlatformsBy = this.localSettings.sortPlatformsBy || 'generation';
-        this.localSettings = {
-            ...JSON.parse(JSON.stringify(this.settings)),
-            showOwnedListsOnly,
-            sortPlatformsBy,
-        };
     },
 
     methods: {
@@ -208,9 +146,6 @@ export default {
     .platforms-page {
         padding: 0 $gp $gp;
         color: $color-dark-gray;
-        display: grid;
-        grid-template-columns: 200px auto;
-        grid-gap: $gp * 2;
         min-height: calc(100vh - #{$navHeight});
 
         &.dark {
@@ -224,27 +159,6 @@ export default {
 
         h3 {
             margin: $gp 0;
-        }
-    }
-
-    aside {
-        position: sticky;
-        top: $gp;
-        margin-top: $gp * 2;
-
-        .button-group {
-            margin-bottom: $gp;
-        }
-
-        @media($small) {
-            position: static;
-            margin-top: $gp;
-            display: flex;
-            align-items: center;
-
-            .button-group {
-                margin: 0 $gp 0 0;
-            }
         }
     }
 
