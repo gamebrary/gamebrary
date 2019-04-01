@@ -4,16 +4,16 @@
             <div class="button-group" v-if="hasLists">
                 <button
                     class="small tiny info"
-                    @click="mineOnly = true"
-                    :class="{ hollow: !mineOnly }"
+                    @click="localSettings.showOwnedListsOnly = true"
+                    :class="{ hollow: !localSettings.showOwnedListsOnly }"
                 >
                     Mine ({{ ownedListCount }})
                 </button>
 
                 <button
                     class="small tiny info"
-                    @click="mineOnly = false"
-                    :class="{ hollow: mineOnly }"
+                    @click="localSettings.showOwnedListsOnly = false"
+                    :class="{ hollow: localSettings.showOwnedListsOnly }"
                 >
                     All
                 </button>
@@ -22,16 +22,16 @@
             <div class="button-group">
                 <button
                     class="small tiny info"
-                    @click="sortBy = 'generation'"
-                    :class="{ hollow: sortBy !== 'generation' }"
+                    @click="localSettings.sortPlatformsBy = 'generation'"
+                    :class="{ hollow: localSettings.sortPlatformsBy !== 'generation' }"
                 >
                     Chronologically
                 </button>
 
                 <button
                     class="small tiny info"
-                    @click="sortBy = 'chronological'"
-                    :class="{ hollow: sortBy !== 'chronological' }"
+                    @click="localSettings.sortPlatformsBy = 'chronological'"
+                    :class="{ hollow: localSettings.sortPlatformsBy !== 'chronological' }"
                 >
                     Alphabetically
                 </button>
@@ -39,12 +39,15 @@
         </aside>
 
         <main>
-            <div class="platform-list" :class="{ reverse: sortBy === 'generation'}">
+            <div
+                class="platform-list"
+                :class="{ reverse: localSettings.sortPlatformsBy === 'generation'}"
+            >
                 <div
                     v-for="(group, label) in filteredPlatforms"
                     :key="label"
                 >
-                    <div v-if="sortBy === 'generation'">
+                    <div v-if="localSettings.sortPlatformsBy === 'generation'">
                         <h3 v-if="label == 0">{{ $t('platforms.computersArcade') }}</h3>
                         <h3 v-else>{{ ordinalSuffix(label) }} {{ $t('platforms.generation') }}</h3>
                     </div>
@@ -113,14 +116,13 @@ export default {
 
     data() {
         return {
+            localSettings: {},
             platforms,
-            sortBy: 'generation',
-            mineOnly: false,
         };
     },
 
     computed: {
-        ...mapState(['gameLists', 'platform']),
+        ...mapState(['gameLists', 'platform', 'settings']),
         ...mapGetters(['darkModeEnabled']),
 
         ownedListCount() {
@@ -132,20 +134,41 @@ export default {
         },
 
         filteredPlatforms() {
-            const availableLists = this.mineOnly
+            const availableLists = this.localSettings.showOwnedListsOnly
                 ? this.platforms.filter(({ code }) => this.gameLists[code])
                 : this.platforms;
 
-            if (this.sortBy === 'generation') {
+            if (this.localSettings.sortPlatformsBy === 'generation') {
                 return groupBy(availableLists, 'generation');
             }
 
-            if (this.sortBy === 'chronological') {
+            if (this.localSettings.sortPlatformsBy === 'chronological') {
                 return groupBy(sortBy(availableLists, 'name'), '');
             }
 
             return groupBy(sortBy(availableLists, 'name'), '');
         },
+    },
+
+    watch: {
+        localSettings: {
+            handler(oldValue, newValue) {
+                if (Object.keys(newValue).length) {
+                    this.$bus.$emit('SAVE_SETTINGS', this.localSettings);
+                }
+            },
+            deep: true,
+        },
+    },
+
+    mounted() {
+        const showOwnedListsOnly = this.localSettings.showOwnedListsOnly || false;
+        const sortPlatformsBy = this.localSettings.sortPlatformsBy || 'generation';
+        this.localSettings = {
+            ...JSON.parse(JSON.stringify(this.settings)),
+            showOwnedListsOnly,
+            sortPlatformsBy,
+        };
     },
 
     methods: {
