@@ -11,9 +11,10 @@
             />
 
             <div :class="['content', { large, padded, dark: darkModeEnabled }]" @click.stop>
-                <header v-if="!popover">
-                    <h2 v-if="title">{{ title }}</h2>
-                    <i class="close fas fa-times" @click="close" />
+                <i class="close fas fa-times" @click="close" v-if="!popover" />
+
+                <header v-if="!popover && title">
+                    <h2>{{ title }}</h2>
                 </header>
 
                 <section>
@@ -195,8 +196,11 @@ header {
 
 .close {
     display: none;
-    padding: $gp 0;
-    margin-left: auto;
+    padding: $gp;
+    position: absolute;
+    top: $gp / 4;
+    right: $gp / 4;
+    z-index: 99999;
     color: $color-gray;
     cursor: pointer;
 

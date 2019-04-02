@@ -101,10 +101,6 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles.scss";
 
-    .game-detail-wrapper {
-        margin-top: -50px;
-    }
-
     .game-detail {
         display: flex;
         justify-content: center;
@@ -173,6 +169,7 @@ export default {
 
         @media($small) {
             margin: 0;
+            border-radius: 0;
         }
     }
 
