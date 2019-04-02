@@ -3,13 +3,13 @@
         <main>
             <div
                 class="platform-list"
-                :class="{ reverse: !settings.sortListsAlphabetically }"
+                :class="{ reverse: settings && !settings.sortListsAlphabetically }"
             >
                 <div
                     v-for="(group, label) in filteredPlatforms"
                     :key="label"
                 >
-                    <div v-if="!settings.sortListsAlphabetically">
+                    <div v-if="settings && !settings.sortListsAlphabetically">
                         <h3 v-if="label == 0">{{ $t('platforms.computersArcade') }}</h3>
                         <h3 v-else>{{ ordinalSuffix(label) }} {{ $t('platforms.generation') }}</h3>
                     </div>
@@ -103,7 +103,7 @@ export default {
                 ? this.platforms.filter(({ code }) => this.gameLists[code])
                 : this.platforms;
 
-            return this.settings.sortListsAlphabetically
+            return this.settings && this.settings.sortListsAlphabetically
                 ? groupBy(sortBy(availableLists, 'name'), '')
                 : groupBy(availableLists, 'generation');
         },
