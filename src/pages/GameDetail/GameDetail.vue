@@ -12,6 +12,22 @@
                     <div class="game-details">
                         <h2>{{ game.name }}</h2>
                         <game-rating :rating="game.rating" />
+
+                        <div class="tags" v-if="tags">
+                            <div
+                                v-for="({ games, hex }, name) in tags"
+                                :key="name"
+                            >
+                                <button
+                                    v-if="games.includes(game.id)"
+                                    class="tag small game-tag"
+                                    :style="`background-color: ${hex}`"
+                                >
+                                    {{ name }}
+                                </button>
+                            </div>
+                        </div>
+
                         <p class="game-description" v-html="game.summary" />
                         <affiliate-link />
                         <game-review-box />
@@ -55,7 +71,7 @@ export default {
     },
 
     computed: {
-        ...mapState(['game', 'platform']),
+        ...mapState(['game', 'platform', 'tags']),
         ...mapGetters(['darkModeEnabled']),
 
         style() {
