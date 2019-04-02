@@ -70,7 +70,11 @@ export default {
             return;
         }
 
-        firebase.auth().getRedirectResult().then(({ user }) => {
+        firebase.auth().getRedirectResult().then(({ additionalUserInfo, user }) => {
+            if (additionalUserInfo && additionalUserInfo.isNewUser) {
+                this.$store.dispatch('SEND_WELCOME_EMAIL', additionalUserInfo);
+            }
+
             if (user) {
                 this.init(user);
             } else {

@@ -62,4 +62,18 @@ export default {
                 }).catch(reject);
         });
     },
+
+    SEND_WELCOME_EMAIL() {
+        return new Promise((resolve, reject) => {
+            const payload = {
+                address: 'urbanbooth@gmail.com',
+                template_id: 'welcome',
+            };
+
+            axios.post(`${FIREBASE_URL}/email`, payload)
+                .then(({ data }) => {
+                    resolve(data);
+                }).catch(reject);
+        });
+    },
 };
