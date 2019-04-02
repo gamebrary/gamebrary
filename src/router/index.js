@@ -27,6 +27,9 @@ export default new Router({
             name: 'game-board',
             component: GameBoard,
         },
-        { path: '*', component: GameBoard },
+        {
+            path: '*',
+            component: GameBoard,
+        },
     ],
 });
