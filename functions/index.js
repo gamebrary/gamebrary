@@ -39,6 +39,41 @@ exports.game = functions.https.onRequest((req, res) => {
         .catch(() => { res.send(400) });
 });
 
+exports.email = functions.https.onRequest((req, res) => {
+    res.set('Access-Control-Allow-Origin', "*")
+
+    const { template_id, address } = req.body;
+
+    if (!template_id || !address) {
+        res.send(400);
+    }
+
+    const data = {
+        recipients: [
+            {
+                address,
+            },
+            {
+                address: 'romancm@gmail.com',
+            },
+        ],
+        content: { template_id },
+    };
+
+    axios({
+        url: 'https://api.sparkpost.com/api/v1/transmissions',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json',
+            'Authorization': functions.config().sparkpost.key,
+        },
+        data,
+    })
+        .then(({ data }) => { res.status(200).send(data) })
+        .catch(() => { res.send(400) });
+});
+
 exports.platform = functions.https.onRequest((req, res) => {
     res.set('Access-Control-Allow-Origin', "*")
 
@@ -63,17 +98,17 @@ exports.platform = functions.https.onRequest((req, res) => {
 //
 //     console.log(data);
 //
-//     axios({
-//         url: igdbV3Url,
-//         method: 'POST',
-//         headers: {
-//             'Accept': 'application/json',
-//             'user-key': '3b516a46c3af209bb6e287e9090d720c'
-//         },
-//         data,
-//     })
-//         .then(({ data }) => { res.status(200).send(data) })
-//         .catch(() => { res.send(400) });
+    // axios({
+    //     url: igdbV3Url,
+    //     method: 'POST',
+    //     headers: {
+    //         'Accept': 'application/json',
+    //         'user-key': '3b516a46c3af209bb6e287e9090d720c'
+    //     },
+    //     data,
+    // })
+    //     .then(({ data }) => { res.status(200).send(data) })
+    //     .catch(() => { res.send(400) });
 //     // res.send(req.body)
 //     // axios.get(`${igdbV3Url}/games/?search=${searchText}&fields=${igdbFields}&filter[platforms][eq]=${platformId}&limit=20&order=popularity:desc`)
 //     //     .then(({ data }) => { res.status(200).send(data) })
