@@ -63,17 +63,14 @@ export default {
         });
     },
 
-    SEND_WELCOME_EMAIL() {
+    SEND_WELCOME_EMAIL(context, additionalUserInfo) {
         return new Promise((resolve, reject) => {
-            const payload = {
-                address: 'urbanbooth@gmail.com',
-                template_id: 'welcome',
-            };
-
-            axios.post(`${FIREBASE_URL}/email`, payload)
-                .then(({ data }) => {
-                    resolve(data);
-                }).catch(reject);
+            if (additionalUserInfo && additionalUserInfo.profile) {
+                axios.get(`${FIREBASE_URL}/email?address=${additionalUserInfo.profile.email}&template_id=welcome`)
+                    .catch(reject);
+            } else {
+                reject();
+            }
         });
     },
 };

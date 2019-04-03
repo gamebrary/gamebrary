@@ -42,7 +42,7 @@ exports.game = functions.https.onRequest((req, res) => {
 exports.email = functions.https.onRequest((req, res) => {
     res.set('Access-Control-Allow-Origin', "*")
 
-    const { template_id, address } = req.body;
+    const { template_id, address } = req.query;
 
     if (!template_id || !address) {
         res.send(400);
