@@ -36,7 +36,7 @@ export default {
 
     CLEAR_SESSION(state) {
         state.user = null;
-        state.activeList = null;
+        state.activeListIndex = null;
         state.gameLists = {};
         state.settings = null;
         state.platform = null;
@@ -64,15 +64,20 @@ export default {
 
     SET_EDIT_GAME(state, { listId, gameId }) {
         state.editGame = gameId;
-        state.activeList = listId;
+        state.activeListIndex = listId;
     },
 
-    SET_ACTIVE_LIST(state, listIndex) {
-        state.activeList = listIndex;
+    SET_SEARCH_ACTIVE(state, status) {
+        state.searchActive = status;
     },
 
-    CLEAR_ACTIVE_LIST(state) {
-        state.activeList = null;
+    SET_ACTIVE_LIST_INDEX(state, listIndex) {
+        state.activeListIndex = listIndex;
+    },
+
+    CLEAR_ACTIVE_LIST_INDEX(state) {
+        state.activeListIndex = null;
+        state.searchActive = null;
     },
 
     SET_PLATFORM(state, platform) {
@@ -121,6 +126,10 @@ export default {
 
     UPDATE_LIST_NAME(state, { listIndex, listName }) {
         state.gameLists[state.platform.code][listIndex].name = listName;
+    },
+
+    UPDATE_LIST_VIEW(state, { listIndex, view }) {
+        state.gameLists[state.platform.code][listIndex].view = view;
     },
 
     SET_SETTINGS(state, settings) {

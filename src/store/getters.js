@@ -47,5 +47,7 @@ export default {
             : null;
     },
 
+    activeList: ({ gameLists, platform, activeListIndex }) => gameLists[platform.code][activeListIndex],
+
     darkModeEnabled: state => state.settings && state.settings.nightMode,
 };

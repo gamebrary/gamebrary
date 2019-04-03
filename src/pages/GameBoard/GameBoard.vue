@@ -132,7 +132,7 @@ export default {
     },
 
     mounted() {
-        this.$store.commit('CLEAR_ACTIVE_LIST');
+        this.$store.commit('CLEAR_ACTIVE_LIST_INDEX');
 
         if (this.platform || this.$route.name === 'share-list') {
             this.loadGameData();
@@ -183,7 +183,7 @@ export default {
         },
 
         loseFocus() {
-            this.$store.commit('CLEAR_ACTIVE_LIST');
+            this.$store.commit('CLEAR_ACTIVE_LIST_INDEX');
         },
 
         scroll() {

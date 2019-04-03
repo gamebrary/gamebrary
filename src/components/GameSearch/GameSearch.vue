@@ -109,7 +109,8 @@ export default {
         },
 
         back() {
-            this.$store.commit('SET_ACTIVE_LIST', null);
+            this.$store.commit('SET_ACTIVE_LIST_INDEX', null);
+            this.$store.commit('SET_SEARCH_ACTIVE', false);
         },
 
         added() {
@@ -154,7 +155,7 @@ export default {
     .search-box {
         display: grid;
         grid-gap: $gp;
-        grid-template-columns: 236px 32px;
+        grid-template-columns: auto 32px;
     }
 
     .search-actions {
