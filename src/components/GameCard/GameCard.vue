@@ -17,7 +17,9 @@
                 @click.native="openDetails"
             />
 
-            <div class="tags game-tag" v-if="!searchResult && tags">
+            <div class="tags game-tag" v-if="!searchResult && hasTags">
+                <i class="fas fa-tag" @click="openTags" />
+
                 <div
                     v-for="({ games, hex }, name) in tags"
                     :key="name"
@@ -44,12 +46,6 @@
             </button>
 
             <div v-else>
-                <i
-                    v-if="hasTags"
-                    class="fas fa-tag tags"
-                    @click="openTags"
-                />
-
                 <i
                     class="far fa-trash-alt delete-game"
                     v-if="list.games.includes(gameId)"
@@ -102,6 +98,7 @@ export default {
         gameCardClass() {
             return [
                 'game-card',
+                this.list.view,
                 {
                     'search-result': this.searchResult,
                     dark: this.darkModeEnabled,
@@ -206,6 +203,28 @@ export default {
         display: grid;
         grid-template-columns: $gameCoverWidth auto;
 
+        &.wide {
+            grid-template-columns: $gameCoverWidth * .75 auto;
+
+            img {
+                width: $gameCoverWidth * .75;
+            }
+        }
+
+        &.covers {
+            background-color: transparent;
+            grid-template-columns: $gameCoverWidth;
+
+            img {
+                align-self: flex-start;
+                border-radius: $border-radius / 2;
+            }
+
+            .game-info {
+                display: none;
+            }
+        }
+
         &.card-placeholder {
             background: $color-light-gray;
             outline: 1px dashed $color-gray;
@@ -242,6 +261,15 @@ export default {
             width: 100%;
             display: flex;
             flex-direction: column;
+
+            .tags {
+                display: flex;
+                align-items: center;
+
+                i {
+                    margin-right: $gp / 2;
+                }
+            }
 
             .game-rating, a {
                 display: inline-flex;

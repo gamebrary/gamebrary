@@ -12,12 +12,11 @@
 
         <span
             v-else
-            class="not-editing"
             :title="$t('list.edit')"
             @click="edit"
         >
             <span>{{ listName }} ({{ gameCount }})</span>
-            <i class="fas fa-pen" />
+            <i class="edit fas fa-pen" />
         </span>
     </div>
 </template>
@@ -68,14 +67,14 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
+    @import "~styles/styles.scss";
+
     .list-name {
         cursor: pointer;
         width: 100%;
 
-        .not-editing {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        .edit {
+            margin: 0 $gp / 2;
         }
     }
 </style>
