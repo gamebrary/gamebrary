@@ -47,6 +47,7 @@ export default {
             : null;
     },
 
+    // eslint-disable-next-line
     activeList: ({ gameLists, platform, activeListIndex }) => gameLists[platform.code][activeListIndex],
 
     darkModeEnabled: state => state.settings && state.settings.nightMode,

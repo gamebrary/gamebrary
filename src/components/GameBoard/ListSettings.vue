@@ -29,6 +29,7 @@
 
             <button
                 v-for="(icon, view) in views"
+                :key="view"
                 class="small primary hollow"
                 @click="setListView(view)"
             >
@@ -62,7 +63,7 @@
         <modal
             v-if="activeList.games && activeList.games.length"
             ref="addList"
-            :message="`This list contains ${activeList.games.length} games, all games will be deleted as well.`"
+            :message="warningMessage"
             title="Are you sure?"
             :action-text="$t('list.delete')"
             @action="deleteList"
@@ -128,8 +129,14 @@ export default {
         },
 
         disableSave() {
-            return this.localList.name === this.activeList.name
-        }
+            return this.localList.name === this.activeList.name;
+        },
+
+        warningMessage() {
+            const gameCount = this.activeList.games.length;
+
+            return `This list contains ${gameCount} games, all games will be deleted as well.`;
+        },
     },
 
     mounted() {
