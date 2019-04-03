@@ -1,10 +1,14 @@
 <!-- eslint-disable max-len -->
 <template lang="html">
-    <div :class="['list', { dark: darkModeEnabled }]">
-        <div class="list-header" :class="{ searching: showSearch }">
-            <div v-if="showSearch">
+    <div :class="['list', viewClass, { dark: darkModeEnabled }]">
+        <div class="list-header" :class="{ searching, editing }">
+            <div v-if="searching">
                 {{ $t('game.addPlural') }}
                 <strong>{{ list[listIndex].name }}</strong>
+            </div>
+
+            <div v-else-if="editing">
+                <strong>{{ list[listIndex].name }}</strong> settings
             </div>
 
             <list-name-edit
@@ -14,11 +18,20 @@
                 :game-count="games.length"
                 @update="updateLists('List name saved')"
             />
+
+            <button class="small" @click="editList" v-if="!editing && !searching">
+                <i class="fas fa-cog" />
+            </button>
         </div>
 
         <game-search
-            v-if="showSearch"
+            v-if="searching"
             :list-id="listIndex"
+        />
+
+        <list-settings
+            v-else-if="editing"
+            @update="updateLists"
         />
 
         <draggable
@@ -40,103 +53,22 @@
             />
         </draggable>
 
-        <footer v-if="!showSearch">
-            <button
-                :class="listButtonClass"
-                :title="$t('list.moveLeft')"
-                :disabled="listIndex === 0"
-                @click="moveList(listIndex, listIndex - 1)"
-            >
-                <i class="fas fa-caret-left" />
+        <button
+            v-if="!searching && !editing"
+            @click="addGame"
+            :title="$t('game.add')"
+        >
+            <i class="fas fa-plus" />
 
-                <template v-if="isEmpty">
-                    <br>
-                    <small>{{ $t('list.moveLeft') }}</small>
-                </template>
-            </button>
-
-            <button
-                @click="addGame"
-                :class="listButtonClass"
-                :title="$t('game.add')"
-            >
-                <i class="fas fa-plus" />
-
-                <template v-if="isEmpty">
-                    <br>
-                    <small>{{ $t('game.add') }}</small>
-                </template>
-            </button>
-
-            <button
-                v-if="hasMultipleGames"
-                :class="listButtonClass"
-                :title="$t('list.sortByName')"
-                @click="sortListAlphabetically"
-            >
-                <i class="fas fa-sort-alpha-down" />
-            </button>
-
-            <button
-                v-if="hasMultipleGames"
-                :class="listButtonClass"
-                :title="$t('list.sortByRating')"
-                @click="sortListByRating"
-            >
-                <i class="fas fa-sort-numeric-up" />
-            </button>
-
-            <modal
-                v-if="games && games.length"
-                ref="addList"
-                :message="`This list contains ${games.length} games, all games will be deleted as well.`"
-                title="Are you sure?"
-                :action-text="$t('list.delete')"
-                @action="deleteList"
-            >
-                <button
-                    :class="listButtonClass"
-                    :title="$t('list.delete')"
-                >
-                    <i class="far fa-trash-alt" />
-                </button>
-            </modal>
-
-            <button
-                v-else
-                :class="listButtonClass"
-                :title="$t('list.delete')"
-                @click="deleteList"
-            >
-                <i class="far fa-trash-alt" />
-
-                <template v-if="isEmpty">
-                    <br>
-                    <small>{{ $t('list.delete') }}</small>
-                </template>
-            </button>
-
-            <button
-                :class="listButtonClass"
-                :title="$t('list.moveRight')"
-                :disabled="listIndex === (Object.keys(list).length - 1)"
-                @click="moveList(listIndex, listIndex + 1)"
-            >
-                <i class="fas fa-caret-right" />
-
-                <template v-if="isEmpty">
-                    <br>
-                    <small>{{ $t('list.moveRight') }}</small>
-                </template>
-            </button>
-        </footer>
+            <small>{{ $t('game.add') }}</small>
+        </button>
     </div>
 </template>
 
 <script>
 import draggable from 'vuedraggable';
 import ListNameEdit from '@/components/GameBoard/ListNameEdit';
-import Modal from '@/components/Modal/Modal';
+import ListSettings from '@/components/GameBoard/ListSettings';
 import GameCard from '@/components/GameCard/GameCard';
 import GameSearch from '@/components/GameSearch/GameSearch';
 import { mapState, mapGetters } from 'vuex';
@@ -147,10 +79,10 @@ const db = firebase.firestore();
 
 export default {
     components: {
-        Modal,
         GameCard,
         GameSearch,
         ListNameEdit,
+        ListSettings,
         draggable,
     },
 
@@ -174,63 +106,35 @@ export default {
     },
 
     computed: {
-        ...mapState(['user', 'gameLists', 'platform', 'activeList', 'settings']),
+        ...mapState(['user', 'gameLists', 'platform', 'activeListIndex', 'settings', 'searchActive']),
 
         ...mapGetters(['darkModeEnabled']),
-
-        listButtonClass() {
-            const empty = this.isEmpty
-                ? 'tiny'
-                : '';
-
-            const defaultClass = `small filled ${empty}`;
-
-            return this.darkModeEnabled
-                ? `${defaultClass} accent`
-                : `${defaultClass} info'`;
-        },
 
         list() {
             return this.gameLists[this.platform.code];
         },
 
-        showSearch() {
-            return this.activeList === this.listIndex;
+        searching() {
+            return this.activeListIndex === this.listIndex && this.searchActive;
         },
 
-        hasMultipleGames() {
-            return this.games.length > 1;
+        editing() {
+            return this.activeListIndex === this.listIndex && !this.searchActive;
         },
 
         isEmpty() {
             return this.games.length === 0;
         },
+
+        viewClass() {
+            return this.list[this.listIndex].view || 'single';
+        },
     },
 
     methods: {
-        deleteList() {
-            this.$store.commit('REMOVE_LIST', this.listIndex);
-
-            db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
-                .then(() => {
-                    this.$bus.$emit('TOAST', { message: 'List deleted' });
-                })
-                .catch(() => {
-                    this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
-                });
-        },
-
-        moveList(from, to) {
-            this.$store.commit('MOVE_LIST', { from, to });
-            this.updateLists('List moved');
-        },
-
-        addGame() {
-            this.$store.commit('CLEAR_SEARCH_RESULTS');
-            this.$store.commit('SET_ACTIVE_LIST', this.listIndex);
-        },
-
         updateLists(toastMessage) {
+            this.$store.commit('CLEAR_ACTIVE_LIST_INDEX');
+
             const message = toastMessage || 'List saved';
 
             db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
@@ -242,14 +146,18 @@ export default {
                 });
         },
 
-        sortListAlphabetically() {
-            this.$store.commit('SORT_LIST_ALPHABETICALLY', this.listIndex);
-            this.updateLists('List sorted alphabetically');
+        editList() {
+            if (this.editing) {
+                this.$store.commit('CLEAR_ACTIVE_LIST_INDEX');
+            } else {
+                this.$store.commit('SET_ACTIVE_LIST_INDEX', this.listIndex);
+            }
         },
 
-        sortListByRating() {
-            this.$store.commit('SORT_LIST_BY_RATING', this.listIndex);
-            this.updateLists('List sorted by game rating');
+        addGame() {
+            this.$store.commit('CLEAR_SEARCH_RESULTS');
+            this.$store.commit('SET_ACTIVE_LIST_INDEX', this.listIndex);
+            this.$store.commit('SET_SEARCH_ACTIVE', true);
         },
 
         validateMove({ from, to }) {
@@ -285,6 +193,19 @@ export default {
         margin-right: $gp;
         max-height: calc(100vh - 81px);
 
+        &.wide {
+            width: 400px;
+        }
+
+        &.covers {
+            width: 300px;
+
+            .games {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+
         &.dark {
             background: $color-dark-gray;
         }
@@ -296,12 +217,16 @@ export default {
             display: flex;
             height: $list-header-height;
             justify-content: space-between;
-            padding: 0 $gp / 2;
+            padding-left: $gp / 2;
             position: absolute;
             width: 100%;
 
             &.searching {
                 background: $color-green;
+            }
+
+            &.editing {
+                background: $color-blue;
             }
         }
 
@@ -328,6 +253,10 @@ export default {
         }
     }
 
+    .list-settings {
+        padding: $gp;
+    }
+
     footer {
         height: 42px;
         padding: 0 $gp / 2;
@@ -335,10 +264,5 @@ export default {
         display: flex;
         align-items: center;
         justify-content: space-between;
-
-        .empty {
-            font-size: 12px;
-            border: 0 !important;
-        }
     }
 </style>

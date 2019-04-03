@@ -35,7 +35,7 @@
 
         <section>
             <i class="fas fa-sort-alpha-down" />
-            <h5>Sort lists alphabetically</h5>
+            <h5>Sort platforms alphabetically</h5>
 
             <toggle-switch
                 id="sortListsAlphabetically"
