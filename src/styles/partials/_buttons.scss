@@ -68,7 +68,8 @@ button, a.link {
         min-height: 20px;
         font-size: 10px;
         color: $color-white;
-        margin-right: $gp / 2;
+        margin-right: 2px;
+        margin-bottom: 2px;
     }
 
     &.primary {

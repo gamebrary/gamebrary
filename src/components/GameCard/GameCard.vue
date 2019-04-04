@@ -17,7 +17,7 @@
                 @click.native="openDetails"
             />
 
-            <i class="fas fa-tag tags" @click="openTags" />
+            <i class="fas fa-tag tags" @click="openTags" v-if="!searchResult && hasTags" />
 
             <div class="game-tags" v-if="!searchResult && hasTags && list.view !== 'covers'">
                 <div
@@ -38,7 +38,7 @@
 
             <button
                 v-if="searchResult"
-                class="add-game primary small tiny"
+                class="primary small tiny add-to-list"
                 @click="addGame"
             >
                 <i class="fas fa-plus" />
@@ -280,7 +280,6 @@ export default {
         .game-info {
             padding: $gp / 2 $gp;
             width: 100%;
-            display: flex;
             flex-direction: column;
 
             .game-tags {
@@ -348,5 +347,10 @@ export default {
         .game-tag {
             margin-bottom: $gp / 3;
         }
+    }
+
+    .add-to-list {
+        background: #cf0;
+        margin-top: $gp / 2;
     }
 </style>
