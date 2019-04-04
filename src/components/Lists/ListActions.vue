@@ -62,7 +62,7 @@
             >
                 <button
                     class="small info"
-                    :title="$t('list.delete')"
+                    title="Game tags"
                 >
                     <i class="fas fa-tag" />
                 </button>
