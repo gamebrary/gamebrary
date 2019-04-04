@@ -17,16 +17,16 @@
                 @click.native="openDetails"
             />
 
-            <div class="tags game-tag" v-if="!searchResult && hasTags">
-                <i class="fas fa-tag" @click="openTags" />
+            <i class="fas fa-tag tags" @click="openTags" />
 
+            <div class="game-tags" v-if="!searchResult && hasTags && list.view !== 'covers'">
                 <div
                     v-for="({ games, hex }, name) in tags"
                     :key="name"
                     v-if="games.includes(game.id)"
                 >
                     <button
-                        class="tag small game-tag"
+                        class="tag small"
                         :style="`background-color: ${hex}`"
                         v-if="games.includes(game.id)"
                         @click="openTags"
@@ -212,16 +212,21 @@ export default {
         }
 
         &.covers {
-            background-color: transparent;
-            grid-template-columns: $gameCoverWidth;
+            display: flex;
+            flex-direction: column;
 
             img {
-                align-self: flex-start;
+                width: 100%;
                 border-radius: $border-radius / 2;
             }
 
             .game-info {
-                display: none;
+                padding: $gp / 3;
+                font-size: 10px;
+
+                .tag {
+                    font-size: 10px;
+                }
             }
         }
 
@@ -262,14 +267,17 @@ export default {
             display: flex;
             flex-direction: column;
 
-            .tags {
+            .game-tags {
                 display: flex;
                 flex-wrap: wrap;
                 align-items: center;
+                margin-top: $gp / 4;
+            }
 
-                i {
-                    margin-right: $gp / 2;
-                }
+            i.tags {
+                position: absolute;
+                bottom: $gp * 1.5;
+                right: $gp / 4;
             }
 
             .game-rating, a {

@@ -43,7 +43,7 @@ button, a.link {
     -webkit-font-smoothing: inherit;
     -moz-osx-font-smoothing: inherit;
     -webkit-appearance: none;
-    height: 40px;
+    min-height: 40px;
     border: none;
     cursor: pointer;
     font-weight: bold;
@@ -55,7 +55,7 @@ button, a.link {
     }
 
     &.small {
-        height: $iconSmallSize;
+        min-height: $iconSmallSize;
         min-width: $iconSmallSize;
         padding: 0 $gp / 2;
     }
@@ -65,8 +65,10 @@ button, a.link {
     }
 
     &.tag {
-        height: 20px;
+        min-height: 20px;
+        font-size: 10px;
         color: $color-white;
+        margin-right: $gp / 2;
     }
 
     &.primary {

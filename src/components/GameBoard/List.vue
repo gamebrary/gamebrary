@@ -198,11 +198,10 @@ export default {
         }
 
         &.covers {
-            width: 300px;
-
             .games {
                 display: grid;
                 grid-template-columns: 1fr 1fr 1fr;
+                grid-gap: $gp / 2;
             }
         }
 
