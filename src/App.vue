@@ -8,12 +8,11 @@
 
         <div class="auth" v-else>
             <img src='/static/gamebrary-logo.png' />
-            <i class="fas fa-circle-notch fast-spin fa-3x" />
-            <h3>Authorizing with Google</h3>
+            <i class="fas fa-sync-alt fa-2x fast-spin" />
+            <h3>Authorizing</h3>
         </div>
 
         <toast />
-
         <copyright-footer />
     </div>
 </template>
@@ -238,14 +237,19 @@ export default {
     }
 
     .auth {
-        background-color: $color-white;
+        background: $color-white;
         height: 100vh;
         position: fixed;
         top: 0;
         width: 100vw;
         display: flex;
         align-items: center;
-        justify-content: center;
+        flex-direction: column;
+
+        img {
+            width: 100px;
+            margin-top: 100px;
+        }
 
         i {
             margin: $gp;
