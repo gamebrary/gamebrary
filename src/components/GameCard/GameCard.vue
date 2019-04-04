@@ -264,6 +264,7 @@ export default {
 
             .tags {
                 display: flex;
+                flex-wrap: wrap;
                 align-items: center;
 
                 i {
