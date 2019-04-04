@@ -150,6 +150,7 @@ export default {
             db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
                 .then(() => {
                     this.$bus.$emit('TOAST', { message: 'List deleted' });
+                    this.$store.commit('CLEAR_ACTIVE_LIST_INDEX');
                 })
                 .catch(() => {
                     this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
