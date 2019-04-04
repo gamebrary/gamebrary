@@ -266,6 +266,7 @@ export default [
         name: 'ColecoVision',
         code: 'colecovision',
         id: 68,
+        hex: '#000',
         generation: 2,
     },
     {
