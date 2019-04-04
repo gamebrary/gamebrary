@@ -6,6 +6,13 @@ export default [
         generation: 8,
     },
     {
+        name: 'Steam',
+        code: 'steam',
+        id: 92,
+        generation: 8,
+        hex: '#171a21',
+    },
+    {
         name: 'Nintendo Switch',
         code: 'nintendo-switch',
         hex: '#e60012',
