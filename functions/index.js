@@ -50,12 +50,7 @@ exports.email = functions.https.onRequest((req, res) => {
 
     const data = {
         recipients: [
-            {
-                address,
-            },
-            {
-                address: 'romancm@gmail.com',
-            },
+            { address },
         ],
         content: { template_id },
     };
