@@ -20,7 +20,7 @@
              from search results already in your list
         </small>
 
-        <div class="search-results" v-if="filteredResults.length > 0">
+        <div class="search-results" ref="searchResults" v-if="filteredResults.length > 0">
             <game-card
                 v-for="{ id } in filteredResults"
                 search-result
@@ -146,6 +146,7 @@ export default {
                         this.error = null;
                         this.loading = false;
                         this.noResults = this.filteredResults.length === 0;
+                        this.$refs.searchResults.scrollTop = 0;
                     })
                     .catch(({ data }) => {
                         this.loading = false;
