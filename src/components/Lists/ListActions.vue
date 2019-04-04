@@ -191,7 +191,8 @@ export default {
             }
 
             this.$store.commit('CLEAR_SEARCH_RESULTS');
-            // this.$store.commit('SET_ACTIVE_LIST_INDEX', this.list.length - 1);
+            this.$store.commit('SET_ACTIVE_LIST_INDEX', this.list.length - 1);
+            this.$store.commit('SET_SEARCH_ACTIVE', true);
         },
 
         reset() {
