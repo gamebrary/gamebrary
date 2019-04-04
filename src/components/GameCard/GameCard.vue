@@ -214,15 +214,31 @@ export default {
         &.covers {
             display: flex;
             flex-direction: column;
+            background: #000;
 
             img {
                 width: 100%;
                 border-radius: $border-radius / 2;
             }
 
+            .game-drag-handle {
+                top: auto;
+                bottom: $gp * 2.75;
+            }
+
             .game-info {
+                position: absolute;
                 padding: $gp / 3;
                 font-size: 10px;
+                min-height: 40px;
+                bottom: 0;
+                background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+
+
+                a {
+                    color: $color-white;
+                    margin-right: $gp / 1.5;
+                }
 
                 .tag {
                     font-size: 10px;
