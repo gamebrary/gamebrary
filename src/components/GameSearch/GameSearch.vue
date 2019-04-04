@@ -7,11 +7,18 @@
                 v-model="searchText"
                 placeholder="Search here"
             />
-            <button class="primary small" @click="search">
+
+            <button class="primary small search-button" @click="search">
                 <i class="fas fa-circle-notch fast-spin hollow" v-if="loading" />
                 <i class="fas fa-search" v-else />
             </button>
         </div>
+
+        <!-- TODO: move logic out of template -->
+        <small v-if="gamesInList.length" :title="gamesInList.map(({ name }) => name).join(', ')">
+            <strong>{{ gamesInList.length }} game{{ gamesInList.length === 1 ? '' : 's' }}</strong>
+             from search results already in your list
+        </small>
 
         <div class="search-results" v-if="filteredResults.length > 0">
             <game-card
@@ -86,6 +93,12 @@ export default {
                 ? this.results.filter(({ id }) => !this.list[this.listId].games.includes(id))
                 : [];
         },
+
+        gamesInList() {
+            return this.results
+                ? this.results.filter(({ id }) => this.list[this.listId].games.includes(id))
+                : [];
+        },
     },
 
     watch: {
@@ -154,7 +167,7 @@ export default {
 
     .search-box {
         display: grid;
-        grid-gap: $gp;
+        grid-gap: $gp / 2;
         grid-template-columns: auto 32px;
     }
 
@@ -172,5 +185,9 @@ export default {
 
     input {
         margin: 0 0 $gp / 2;
+    }
+
+    .search-button {
+        height: 20px;
     }
 </style>
