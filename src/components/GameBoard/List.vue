@@ -194,7 +194,7 @@ export default {
         max-height: calc(100vh - 81px);
 
         &.wide {
-            width: 400px;
+            width: 340px;
         }
 
         &.covers {
