@@ -8,6 +8,7 @@ export default [
     {
         name: 'Steam',
         code: 'steam',
+        new: true,
         id: 92,
         generation: 8,
         hex: '#171a21',
@@ -623,18 +624,6 @@ export default [
 //     id: 72,
 // },
 // {
-//     name: 'BlackBerry OS',
-//     id: 73,
-// },
-// {
-//     name: 'Windows Phone',
-//     id: 74,
-// },
-// {
-//     name: 'Apple II',
-//     id: 75,
-// },
-// {
 //     name: 'Sharp X1',
 //     id: 77,
 // },
@@ -649,10 +638,6 @@ export default [
 // {
 //     name: 'Neo Geo AES',
 //     id: 80,
-// },
-// {
-//     name: 'Web browser',
-//     id: 82,
 // },
 // {
 //     name: 'SG-1000',
@@ -671,10 +656,6 @@ export default [
 //     id: 87,
 // },
 // {
-//     name: 'Odyssey',
-//     id: 88,
-// },
-// {
 //     name: 'Microvision',
 //     id: 89,
 // },
@@ -687,9 +668,6 @@ export default [
 //     id: 91,
 // },
 // {
-//     name: 'SteamOS',
-//     id: 92,
-// },
 // {
 //     name: 'Commodore 16',
 //     id: 93,

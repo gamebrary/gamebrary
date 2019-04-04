@@ -22,10 +22,14 @@
                             @click="changePlatform(platform)"
                         >
                             <div
-                                v-if="ownedPlatform(platform.code)"
+                                v-if="ownedPlatform(platform.code) || platform.new"
                                 class="owned-platform"
                             >
-                                <i class="fas fa-check" />
+                                <span class="new-platform" v-if="platform.new">
+                                    New!
+                                </span>
+
+                                <i v-else class="fas fa-check" />
                             </div>
 
                             <img
@@ -237,5 +241,15 @@ export default {
         a {
             color: $color-dark-gray;
         }
+    }
+
+    .new-platform {
+        background: $color-green;
+        height: 14px;
+        padding: 0 $gp / 2;
+        border-bottom-left-radius: $border-radius;
+        font-size: 12px;
+        align-items: center;
+        color: $color-white;
     }
 </style>
