@@ -3,6 +3,8 @@
         class="settings"
         :class="{ dark: darkModeEnabled }"
     >
+        <h4>Global</h4>
+
         <section>
             <i class="fas fa-moon" />
             <h5>{{ $t('settings.darkTheme') }}</h5>
@@ -23,9 +25,11 @@
             />
         </section>
 
+        <h4>Platforms</h4>
+
         <section v-if="hasLists">
             <i class="fas fa-user-check" />
-            <h5>Show only my lists</h5>
+            <h5>Only show my platforms</h5>
 
             <toggle-switch
                 id="ownedListsOnly"
@@ -42,6 +46,8 @@
                 v-model="localSettings.sortListsAlphabetically"
             />
         </section>
+
+        <h4>Game board</h4>
 
         <section>
             <i class="fas fa-star-half-alt" />
@@ -205,6 +211,13 @@ export default {
 
         &.active {
             color: $color-green;
+        }
+
+        h4 {
+            margin: $gp / 2 $gp 0;
+            color: $color-gray;
+            padding-bottom: $gp / 2;
+            border-bottom: 1px dashed $color-light-gray;
         }
 
         h5 {
