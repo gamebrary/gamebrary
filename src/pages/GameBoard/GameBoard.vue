@@ -65,9 +65,14 @@
                 @end="dragEnd"
             />
 
-            <onboard v-if="!list" />
+            <list-add
+                v-if="addingList || !list"
+                @scroll="scroll"
+                @update="updateLists"
+            />
 
             <list-actions
+                v-else
                 @update="updateLists"
                 @scroll="scroll"
             />
@@ -78,7 +83,7 @@
 <script>
 import ListActions from '@/components/Lists/ListActions';
 import GameBoardPlaceholder from '@/components/GameBoard/GameBoardPlaceholder';
-import Onboard from '@/components/GameBoard/Onboard';
+import ListAdd from '@/components/Lists/ListAdd';
 import Panel from '@/components/Panel/Panel';
 import GameDetail from '@/pages/GameDetail/GameDetail';
 import Modal from '@/components/Modal/Modal';
@@ -96,7 +101,7 @@ export default {
         List,
         ListActions,
         GameBoardPlaceholder,
-        Onboard,
+        ListAdd,
         Panel,
         GameDetail,
         Modal,
@@ -121,7 +126,7 @@ export default {
     },
 
     computed: {
-        ...mapState(['user', 'gameLists', 'platform', 'tags', 'games']),
+        ...mapState(['user', 'gameLists', 'addingList', 'platform', 'tags', 'games']),
         ...mapGetters(['darkModeEnabled']),
 
         list() {

@@ -4,6 +4,7 @@ export default {
     tags: {},
     activeListIndex: null,
     searchActive: false,
+    addingList: false,
     gameLists: {},
     settings: null,
     platform: null,

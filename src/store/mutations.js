@@ -71,6 +71,10 @@ export default {
         state.searchActive = status;
     },
 
+    SET_ADDING_LIST_STATUS(state, status) {
+        state.addingList = status;
+    },
+
     SET_ACTIVE_LIST_INDEX(state, listIndex) {
         state.activeListIndex = listIndex;
     },
