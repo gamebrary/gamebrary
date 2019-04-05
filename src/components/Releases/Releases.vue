@@ -55,7 +55,7 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    @import "~styles/styles.scss";
+    @import "src/styles/styles.scss";
 
     .release {
         margin-bottom: $gp;

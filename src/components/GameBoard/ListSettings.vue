@@ -189,7 +189,7 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    @import "~styles/styles.scss";
+    @import "src/styles/styles.scss";
 
     .list-settings {
         margin-top: $list-header-height;
