@@ -32,7 +32,7 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-@import "src/styles/styles.scss";
+@import "~styles/styles.scss";
 
 .game-rating {
     color: $color-orange;

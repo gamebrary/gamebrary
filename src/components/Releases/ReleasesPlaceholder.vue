@@ -28,7 +28,7 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    @import "src/styles/styles.scss";
+    @import "~styles/styles.scss";
 
     .release {
         border-bottom: 1px solid $color-light-gray;

@@ -222,11 +222,11 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss">
     @import url(https://fonts.googleapis.com/css?family=Fira+Sans:700|Roboto:400,400italic,700);
-    @import "src/styles/styles.scss";
+    @import "~styles/styles.scss";
 </style>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    @import "src/styles/styles.scss";
+    @import "~styles/styles.scss";
 
     #app {
         background-color: $color-gray;
