@@ -280,6 +280,7 @@ export default {
         .game-info {
             padding: $gp / 2 $gp;
             width: 100%;
+            display: flex;
             flex-direction: column;
 
             .game-tags {
