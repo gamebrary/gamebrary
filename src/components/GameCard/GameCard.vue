@@ -164,7 +164,10 @@ export default {
 
             db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
                 .then(() => {
-                    this.$bus.$emit('TOAST', { message: 'Game added to list' });
+                    this.$bus.$emit('TOAST', {
+                        message: `Added ${this.game.name} added to ${this.list.name}`,
+                        imageUrl: this.coverUrl,
+                    });
                 })
                 .catch(() => {
                     this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
@@ -229,7 +232,7 @@ export default {
             .game-info {
                 position: absolute;
                 padding: $gp / 3;
-                font-size: 10px;
+                font-size: 12px;
                 min-height: 40px;
                 bottom: 0;
                 background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
