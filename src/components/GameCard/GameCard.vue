@@ -203,7 +203,7 @@ export default {
         display: grid;
         grid-template-columns: $gameCoverWidth auto;
 
-        &.wide {
+        &.wide, &.search-result {
             grid-template-columns: $gameCoverWidth * .75 auto;
 
             img {
@@ -211,7 +211,7 @@ export default {
             }
         }
 
-        &.covers {
+        &.covers:not(.search-result) {
             display: flex;
             flex-direction: column;
             background: #000;
@@ -233,7 +233,6 @@ export default {
                 min-height: 40px;
                 bottom: 0;
                 background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
-
 
                 a {
                     color: $color-white;
