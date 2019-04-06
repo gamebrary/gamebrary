@@ -1,8 +1,9 @@
 <template lang="html">
     <div
-        :class="['toast', { show }]"
+        :class="['toast', { show, 'has-image': imageUrl }]"
         @click="close"
     >
+        <img :src="imageUrl" />
         <i :class="[iconName, type]" />
         <h4>{{ message }}</h4>
     </div>
@@ -13,6 +14,7 @@ export default {
     data() {
         return {
             message: '',
+            imageUrl: null,
             type: 'success',
             timer: 2000,
             show: false,
@@ -50,12 +52,13 @@ export default {
     },
 
     methods: {
-        toast({ message, type }) {
+        toast({ message, type, imageUrl }) {
             this.timer = type === 'error' || type === 'warning'
                 ? 5000
                 : 2000;
 
             this.message = message || null;
+            this.imageUrl = imageUrl || null;
 
             this.type = Object.keys(this.toastTypes).includes(type)
                 ? type
@@ -88,6 +91,21 @@ export default {
     border-radius: $border-radius;
     padding: $gp;
     transition: all 200ms linear;
+
+    &.has-image {
+        padding: $gp / 3;
+        max-width: 240px;
+
+        h4 {
+            font-size: 12px;
+        }
+
+        img {
+            margin-right: $gp / 2;
+            max-width: 50px;
+            max-height: 50px;
+        }
+    }
 
     i {
         margin-right: $gp / 2;
