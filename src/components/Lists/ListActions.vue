@@ -49,7 +49,6 @@
 
 <script>
 import { mapState } from 'vuex';
-import Panel from '@/components/Panel/Panel';
 import Modal from '@/components/Modal/Modal';
 import Tags from '@/components/Tags/Tags';
 import ShareList from '@/components/ShareList/ShareList';
@@ -61,7 +60,6 @@ export default {
         Tags,
         ShareList,
         ListAdd,
-        Panel,
     },
 
     computed: {
@@ -106,10 +104,6 @@ export default {
         grid-gap: $gp;
         align-items: center;
         flex-direction: column;
-    }
-
-    .panel.warning {
-        margin: 0 0 $gp;
     }
 
     small {

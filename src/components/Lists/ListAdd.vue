@@ -28,7 +28,7 @@
                         :key="suggestion"
                         type="button"
                         :disabled="listNames.includes(suggestion.toLowerCase())"
-                        @click="addList(suggestion)"
+                        @click="addSuggestion(suggestion)"
                     >
                         {{ suggestion }}
                     </button>
@@ -57,8 +57,13 @@
 
 <script>
 import { mapState } from 'vuex';
+import Panel from '@/components/Panel/Panel';
 
 export default {
+    components: {
+        Panel,
+    },
+
     data() {
         return {
             newListName: '',
@@ -102,6 +107,11 @@ export default {
     },
 
     methods: {
+        addSuggestion(suggestion) {
+            this.newListName = suggestion;
+            this.addList();
+        },
+
         focusField() {
             this.$nextTick(() => {
                 this.$emit('scroll');
@@ -113,15 +123,14 @@ export default {
             this.$store.commit('SET_ADDING_LIST_STATUS', false);
         },
 
-        addList(e, suggestion) {
-            const listName = suggestion || this.newListName;
-            this.$store.commit('ADD_LIST', listName);
+        addList() {
+            this.$store.commit('ADD_LIST', this.newListName);
 
             this.$ga.event({
                 eventCategory: 'list',
                 eventAction: 'add',
                 eventLabel: 'listAdded',
-                eventValue: listName,
+                eventValue: this.newListName,
             });
 
             this.$emit('update');
@@ -133,10 +142,6 @@ export default {
             this.$nextTick(() => {
                 this.$emit('scroll');
             });
-
-            if (suggestion) {
-                this.$refs.addList.close();
-            }
 
             this.$store.commit('CLEAR_SEARCH_RESULTS');
             this.$store.commit('SET_ACTIVE_LIST_INDEX', this.list.length - 1);
@@ -181,6 +186,10 @@ export default {
         input {
             margin-bottom: $gp / 2;
         }
+    }
+
+    .panel.warning {
+        margin-bottom: $gp / 2;
     }
 
     footer {
