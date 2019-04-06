@@ -165,7 +165,7 @@ export default {
             db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
                 .then(() => {
                     this.$bus.$emit('TOAST', {
-                        message: `Added ${this.game.name} added to ${this.list.name}`,
+                        message: `Added ${this.game.name} to list ${this.list.name}`,
                         imageUrl: this.coverUrl,
                     });
                 })
@@ -184,7 +184,10 @@ export default {
 
             db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
                 .then(() => {
-                    this.$bus.$emit('TOAST', { message: 'Game removed' });
+                    this.$bus.$emit('TOAST', {
+                        message: `Removed ${this.game.name} from list ${this.list.name}`,
+                        imageUrl: this.coverUrl,
+                    });
                 })
                 .catch(() => {
                     this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
