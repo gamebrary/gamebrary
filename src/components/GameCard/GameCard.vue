@@ -11,7 +11,7 @@
             />
 
             <game-rating
-                v-if="showGameRatings"
+                v-if="showGameRatings && list.view !== 'covers'"
                 :rating="game.rating"
                 small
                 @click.native="openDetails"
