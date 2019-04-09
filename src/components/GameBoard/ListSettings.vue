@@ -1,10 +1,12 @@
 <template lang="html">
     <div class="list-settings">
-        <section class="actions">
+        <section>
+            <h4>Move list</h4>
+
             <button
                 class="small primary hollow"
                 :title="$t('list.moveLeft')"
-                :disabled="activeListIndex === 0"
+                :disabled="isFirst"
                 @click="moveList(activeListIndex, activeListIndex - 1)"
             >
                 <i class="fas fa-caret-left" />
@@ -15,22 +17,23 @@
             <button
                 class="small primary hollow"
                 :title="$t('list.moveRight')"
-                :disabled="activeListIndex === (Object.keys(gameLists[platform.code]).length - 1)"
+                :disabled="isLast"
                 @click="moveList(activeListIndex, activeListIndex + 1)"
             >
-                <i class="fas fa-caret-right" />
-
                 {{ $t('list.moveRight') }}
+
+                <i class="fas fa-caret-right" />
             </button>
         </section>
 
         <section>
-            <h4>List view</h4>
+            <h4>Change view</h4>
 
             <button
                 v-for="(icon, view) in views"
                 :key="view"
-                class="small primary hollow"
+                class="small primary"
+                :class="{ hollow: activeList.view !== view}"
                 @click="setListView(view)"
             >
                 <i :class="icon" />
@@ -42,7 +45,8 @@
             <h4>Sort List</h4>
 
             <button
-                class="small info hollow"
+                class="small accent"
+                :class="{ 'info hollow': !darkModeEnabled }"
                 :title="$t('list.sortByName')"
                 @click="sortListAlphabetically"
             >
@@ -51,7 +55,8 @@
             </button>
 
             <button
-                class="small info hollow"
+                class="small accent"
+                :class="{ 'info hollow': !darkModeEnabled }"
                 :title="$t('list.sortByRating')"
                 @click="sortListByRating"
             >
@@ -60,37 +65,38 @@
             </button>
         </section>
 
-        <modal
-            v-if="activeList.games && activeList.games.length"
-            ref="addList"
-            :message="warningMessage"
-            title="Are you sure?"
-            :action-text="$t('list.delete')"
-            @action="deleteList"
-        >
+        <footer>
+            <button class="filled small tiny info hollow" @click="cancel" title="back">
+                <i class="fas fa-chevron-left" />
+                Back
+            </button>
+
+            <modal
+                v-if="activeList.games && activeList.games.length"
+                ref="addList"
+                :message="warningMessage"
+                title="Are you sure?"
+                :action-text="$t('list.delete')"
+                padded
+                @action="deleteList"
+            >
+                <button
+                    class="error hollow tiny small"
+                    :title="$t('list.delete')"
+                >
+                    <i class="far fa-trash-alt" />
+                    {{ $t('list.delete') }}
+                </button>
+            </modal>
+
             <button
+                v-else
                 class="error hollow tiny small"
                 :title="$t('list.delete')"
+                @click="deleteList"
             >
                 <i class="far fa-trash-alt" />
                 {{ $t('list.delete') }}
-            </button>
-        </modal>
-
-        <button
-            v-else
-            class="error hollow tiny small"
-            :title="$t('list.delete')"
-            @click="deleteList"
-        >
-            <i class="far fa-trash-alt" />
-            {{ $t('list.delete') }}
-        </button>
-
-        <footer>
-            <button class="small filled info" @click="cancel" title="back">
-                <i class="fas fa-chevron-left" />
-                Back
             </button>
         </footer>
     </div>
@@ -122,7 +128,15 @@ export default {
 
     computed: {
         ...mapState(['user', 'activeListIndex', 'gameLists', 'platform']),
-        ...mapGetters(['activeList']),
+        ...mapGetters(['activeList', 'darkModeEnabled']),
+
+        isFirst() {
+            return this.activeListIndex === 0;
+        },
+
+        isLast() {
+            return this.activeListIndex === (Object.keys(this.gameLists[this.platform.code]).length - 1);
+        },
 
         hasMultipleGames() {
             return this.activeList.games.length > 1;
@@ -207,6 +221,6 @@ export default {
     footer {
         border-top: 1px solid $color-gray;
         padding-top: $gp / 2;
-        margin-top: $gp / 2;
+        margin-top: $gp;
     }
 </style>
