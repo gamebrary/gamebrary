@@ -135,7 +135,9 @@ export default {
         },
 
         isLast() {
-            return this.activeListIndex === (Object.keys(this.gameLists[this.platform.code]).length - 1);
+            const lastListIndex = Object.keys(this.gameLists[this.platform.code]).length - 1;
+
+            return this.activeListIndex === lastListIndex;
         },
 
         hasMultipleGames() {
