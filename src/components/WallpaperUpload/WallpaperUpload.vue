@@ -22,7 +22,7 @@
                     alt="Uploaded wallpaper"
                 />
 
-                <button class="error small" @click="clearWallpaper">
+                <button class="error small" @click="removeWallpaper">
                     <i class="fas fa-trash" />
                     Remove wallpaper
                 </button>
@@ -35,6 +35,8 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { mapState } from 'vuex';
+
+const db = firebase.firestore();
 
 export default {
     data() {
@@ -58,13 +60,28 @@ export default {
     },
 
     methods: {
-        clearWallpaper() {
+        removeWallpaper() {
             delete this.wallpapers[this.platform.code];
 
-            this.$bus.$emit('SAVE_SETTINGS', {
+            const settings = {
                 ...this.settings,
                 wallpapers: this.wallpapers,
-            });
+            }
+
+            this.saveSettings(settings);
+        },
+
+        saveSettings(settings) {
+            db.collection('settings').doc(this.user.uid).set(settings)
+                .then(() => {
+                    this.$store.commit('SET_SETTINGS', settings);
+                    this.$bus.$emit('TOAST', { message: 'Settings saved' });
+                    this.loading = false;
+                })
+                .catch(() => {
+                    this.$bus.$emit('TOAST', { message: 'There was an error saving your settings', type: 'error' });
+                    this.loading = false;
+                });
         },
 
         handleUpload(e) {
@@ -81,12 +98,10 @@ export default {
 
                         this.wallpapers[this.platform.code].url = metadata.fullPath;
 
-                        this.$bus.$emit('SAVE_SETTINGS', {
+                        this.saveSettings({
                             ...this.settings,
                             wallpapers: this.wallpapers,
                         });
-
-                        this.loading = false;
                     }
                 });
         },
