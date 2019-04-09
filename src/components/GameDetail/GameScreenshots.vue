@@ -8,7 +8,6 @@
         <vue-gallery
             :images="screenshots"
             :index="index"
-            :options="options"
             @close="close"
         />
 
@@ -33,9 +32,6 @@ export default {
     data() {
         return {
             index: null,
-            options: {
-                // TODO: customize look and feel
-            },
         };
     },
 
@@ -97,6 +93,53 @@ export default {
         img {
             margin: 0 $gp / 4;
             cursor: pointer;
+        }
+    }
+</style>
+
+<style lang="scss" rel="stylesheet/scss">
+    @import "~styles/styles.scss";
+
+    .blueimp-gallery {
+
+        .title {
+            font-size: 14px;
+        }
+
+        .prev, .next {
+            font-size: 0;
+            background: none;
+            border: 0;
+
+            &:before {
+                font-family: "Font Awesome 5 Free";
+                font-size: 30px;
+                font-weight: 900;
+            }
+        }
+
+        .prev:before {
+            content: "\f359";
+        }
+
+        .next:before {
+            content: "\f35a";
+        }
+
+        .close {
+            line-height: normal;
+            opacity: 1;
+            padding: $gp;
+            position: absolute;
+            text-decoration: none;
+            font-size: 0;
+
+            &:before {
+                font-family: "Font Awesome 5 Free";
+                font-size: 14px;
+                font-weight: 900;
+                content: "\f00d";
+            }
         }
     }
 </style>
