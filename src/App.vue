@@ -68,6 +68,7 @@ export default {
         },
 
         customWallpaper() {
+            // eslint-disable-next-line
             return this.settings && this.settings.wallpapers && this.platform && this.settings.wallpapers[this.platform.code]
                 ? this.settings.wallpapers[this.platform.code].url
                 : '';
