@@ -80,6 +80,14 @@ button, a.link {
         &:active { background-color: darken($color-blue, 10%); }
     }
 
+    &.success {
+        background: $color-green;
+        color: $color-white;
+
+        &:hover { background-color: lighten($color-green, 10%); }
+        &:active { background-color: darken($color-green, 10%); }
+    }
+
     &.accent {
         background: $color-light-gray;
         color: $color-dark-gray;
@@ -120,6 +128,17 @@ button, a.link {
 
             &:hover {
                 background: $color-blue;
+                color: $color-white;
+            }
+        }
+
+        &.success {
+            color: $color-green;
+            border: 1px solid $color-green;
+            background: transparent;
+
+            &:hover {
+                background: $color-green;
                 color: $color-white;
             }
         }
