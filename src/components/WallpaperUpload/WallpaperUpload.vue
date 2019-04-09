@@ -66,7 +66,7 @@ export default {
             const settings = {
                 ...this.settings,
                 wallpapers: this.wallpapers,
-            }
+            };
 
             this.saveSettings(settings);
         },
