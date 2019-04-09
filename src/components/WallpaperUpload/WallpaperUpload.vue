@@ -5,12 +5,15 @@
         </div>
 
         <div v-else>
-            Upload wallpaper
-            <input
-                type="file"
-                accept='image/*'
-                @change="handleUpload"
-            />
+            <div v-show="!wallpaperUrl">
+                Upload wallpaper
+
+                <input
+                    type="file"
+                    accept='image/*'
+                    @change="handleUpload"
+                />
+            </div>
 
             <div v-if="wallpaperUrl">
                 Current wallpaper
