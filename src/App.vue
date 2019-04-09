@@ -68,7 +68,7 @@ export default {
         },
 
         customWallpaper() {
-            return this.settings && this.settings.wallpapers && this.settings.wallpapers[this.platform.code]
+            return this.settings && this.settings.wallpapers && this.platform && this.settings.wallpapers[this.platform.code]
                 ? this.settings.wallpapers[this.platform.code].url
                 : '';
         },
@@ -77,7 +77,9 @@ export default {
     watch: {
         customWallpaper(value) {
             if (value) {
-                this.loadWallpaper();
+                if (this.platform) {
+                    this.loadWallpaper();
+                }
             } else {
                 this.$store.commit('SET_WALLPAPER_URL', '');
             }
