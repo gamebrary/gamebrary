@@ -8,7 +8,6 @@ export default [
     {
         name: 'Steam',
         code: 'steam',
-        new: true,
         id: 92,
         generation: 8,
         hex: '#171a21',
