@@ -27,6 +27,22 @@
             </modal>
 
             <modal
+                title="Custom wallpaper"
+                ref="wallpapers"
+                message="Upload your own wallpaper to customize your game board!"
+                padded
+            >
+                <button
+                    class="small info"
+                    title="Upload wallpaper"
+                >
+                    <i class="far fa-image" />
+                </button>
+
+                <wallpaper-upload slot="content" />
+            </modal>
+
+            <modal
                 :action-text="`Delete forever`"
                 :message="`Your ${platform.name} collection will be deleted forever.`"
                 :title="`Delete ${platform.name} collection`"
@@ -53,11 +69,13 @@ import Modal from '@/components/Modal/Modal';
 import Tags from '@/components/Tags/Tags';
 import ShareList from '@/components/ShareList/ShareList';
 import ListAdd from '@/components/Lists/ListAdd';
+import WallpaperUpload from '@/components/WallpaperUpload/WallpaperUpload';
 
 export default {
     components: {
         Modal,
         Tags,
+        WallpaperUpload,
         ShareList,
         ListAdd,
     },

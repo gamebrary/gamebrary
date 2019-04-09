@@ -1,5 +1,9 @@
 <template>
-    <div id="app" :class="{ dark: darkModeEnabled }">
+    <div
+        id="app"
+        :class="{ dark: darkModeEnabled }"
+        :style="style"
+    >
         <nav-header />
 
         <main class="content" v-if="user || isPublic">
@@ -22,10 +26,11 @@ import NavHeader from '@/components/NavHeader/NavHeader';
 import Toast from '@/components/Toast/Toast';
 import CopyrightFooter from '@/components/CopyrightFooter/CopyrightFooter';
 import firebase from 'firebase/app';
+import { mapState, mapGetters } from 'vuex';
 import { debounce } from 'lodash';
 import 'firebase/auth';
 import 'firebase/firestore';
-import { mapState, mapGetters } from 'vuex';
+import 'firebase/storage';
 
 firebase.initializeApp({
     apiKey: 'AIzaSyA6MsmnLtqT4b11r-j15wwreRypO3AodcA',
@@ -36,6 +41,7 @@ firebase.initializeApp({
     messagingSenderId: '324529217902',
 });
 
+const storage = firebase.storage().ref();
 const db = firebase.firestore();
 
 export default {
@@ -48,11 +54,33 @@ export default {
     },
 
     computed: {
-        ...mapState(['user', 'platform']),
+        ...mapState(['user', 'platform', 'wallpaperUrl', 'settings']),
         ...mapGetters(['darkModeEnabled']),
 
         isPublic() {
             return this.$route.name === 'share-list';
+        },
+
+        style() {
+            return this.$route.name === 'game-board' && this.wallpaperUrl
+                ? `background-image: url('${this.wallpaperUrl}')`
+                : null;
+        },
+
+        customWallpaper() {
+            return this.settings.wallpapers && this.settings.wallpapers[this.platform.code]
+                ? this.settings.wallpapers[this.platform.code].url
+                : '';
+        },
+    },
+
+    watch: {
+        customWallpaper(value) {
+            if (value) {
+                this.loadWallpaper();
+            } else {
+                this.$store.commit('SET_WALLPAPER_URL', '');
+            }
         },
     },
 
@@ -67,6 +95,10 @@ export default {
         if (this.user) {
             this.syncData();
             return;
+        }
+
+        if (this.customWallpaper) {
+            this.loadWallpaper();
         }
 
         firebase.auth().getRedirectResult().then(({ additionalUserInfo, user }) => {
@@ -96,6 +128,15 @@ export default {
     },
 
     methods: {
+        loadWallpaper() {
+            const wallpaperRef = this.customWallpaper;
+            this.$store.commit('SET_WALLPAPER_URL', '');
+
+            storage.child(wallpaperRef).getDownloadURL().then((url) => {
+                this.$store.commit('SET_WALLPAPER_URL', url);
+            });
+        },
+
         saveSettings: debounce(
             // eslint-disable-next-line
             function(settings) {
@@ -230,6 +271,7 @@ export default {
 
     #app {
         background-color: $color-gray;
+        background-size: cover;
 
         &.dark {
             background-color: $color-darkest-gray;

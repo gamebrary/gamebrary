@@ -18,6 +18,10 @@ export default {
         state.gameLists = lists;
     },
 
+    SET_WALLPAPER_URL(state, url) {
+        state.wallpaperUrl = url;
+    },
+
     SET_RELEASES(state, releases) {
         state.releases = releases;
     },

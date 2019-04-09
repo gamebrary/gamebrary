@@ -13,4 +13,5 @@ export default {
     publicGameData: {},
     game: null,
     isTouchDevice: false,
+    wallpaperUrl: null,
 };
