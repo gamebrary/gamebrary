@@ -68,7 +68,7 @@ export default {
         },
 
         customWallpaper() {
-            return this.settings.wallpapers && this.settings.wallpapers[this.platform.code]
+            return this.settings && this.settings.wallpapers && this.settings.wallpapers[this.platform.code]
                 ? this.settings.wallpapers[this.platform.code].url
                 : '';
         },
