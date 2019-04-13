@@ -97,7 +97,7 @@ export default {
         },
 
         removeWallpaper() {
-            delete this.wallpapers[this.platform.code];
+            delete this.wallpapers[this.platform.code].url;
 
             this.saveSettings();
         },
