@@ -33,7 +33,7 @@
                 padded
             >
                 <button
-                    class="small success"
+                    class="small info"
                     title="Upload wallpaper"
                 >
                     <i class="far fa-image" />
