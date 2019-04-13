@@ -1,6 +1,6 @@
 <!-- eslint-disable max-len -->
 <template lang="html">
-    <div :class="['list', viewClass, { dark: darkModeEnabled }]">
+    <div :class="['list', viewClass, { dark: darkModeEnabled }, transparent]">
         <div class="list-header" :class="{ searching, editing }">
             <div v-if="searching">
                 {{ $t('game.addPlural') }}
@@ -129,6 +129,15 @@ export default {
         viewClass() {
             return this.list[this.listIndex].view || 'single';
         },
+
+        transparent() {
+            return this.settings
+                && this.settings.wallpapers
+                && this.settings.wallpapers[this.platform.code]
+                && this.settings.wallpapers[this.platform.code].transparent
+                ? 'transparent'
+                : '';
+        }
     },
 
     methods: {
@@ -187,11 +196,15 @@ export default {
         cursor: default;
         position: relative;
         width: 300px;
-        background: $color-light-gray;
+        background-color: $color-light-gray;
         border-radius: $border-radius;
         overflow: hidden;
         margin-right: $gp;
         max-height: calc(100vh - 81px);
+
+        &.transparent {
+            background-color: $color-light-gray-transparent;
+        }
 
         &.wide {
             width: 340px;
@@ -206,7 +219,11 @@ export default {
         }
 
         &.dark {
-            background: $color-dark-gray;
+            background-color: $color-dark-gray;
+
+            &.transparent {
+                background-color: $color-dark-gray-transparent;
+            }
         }
 
         .list-header {

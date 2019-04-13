@@ -82,11 +82,13 @@
             <span>
                 <i class="far fa-copyright" /> {{ moment().format('YYYY') }} Gamebrary.
             </span>
+
             <span>
                 <i class="fas fa-code" />
                 {{ $t('global.by') }}
                 <a href="https://twitter.com/romancm" target="_blank">@romancm</a>
             </span>
+
             <span>
                 <modal large padded v-if="latestRelease">
                     <strong>

@@ -16,13 +16,37 @@
             </div>
 
             <div v-if="wallpaperUrl">
-                Current wallpaper
+                <h5>Semi transparent lists</h5>
+
+                <div class="button-group">
+                    <button
+                        class="small tiny"
+                        :class="{ primary: !transparent }"
+                        @click="setTransparent(false)"
+                    >
+                        No
+                    </button>
+
+                    <button
+                        class="small tiny"
+                        :class="{ primary: transparent }"
+                        @click="setTransparent(true)"
+                    >
+                        Yes
+                    </button>
+                </div>
+
+                <br>
+                <br>
+
+                <h5>Current wallpaper</h5>
+
                 <img
                     :src="wallpaperUrl"
                     alt="Uploaded wallpaper"
                 />
 
-                <button class="error small" @click="removeWallpaper">
+                <button class="error small tiny" @click="removeWallpaper">
                     <i class="fas fa-trash" />
                     Remove wallpaper
                 </button>
@@ -45,6 +69,7 @@ export default {
             file: File,
             uploadTask: '',
             wallpapers: {},
+            transparent: false,
             loading: false,
         };
     },
@@ -57,21 +82,34 @@ export default {
         this.wallpapers = this.settings && this.settings.wallpapers
             ? JSON.parse(JSON.stringify(this.settings.wallpapers))
             : {};
+
+        if (!this.wallpapers[this.platform.code]) {
+            this.wallpapers[this.platform.code] = {};
+        }
+
+        this.transparent = this.wallpapers[this.platform.code].transparent || false;
     },
 
     methods: {
+        setTransparent(value) {
+            this.transparent = value;
+            this.saveSettings();
+        },
+
         removeWallpaper() {
             delete this.wallpapers[this.platform.code];
+
+            this.saveSettings();
+        },
+
+        saveSettings() {
+            this.wallpapers[this.platform.code].transparent = this.transparent;
 
             const settings = {
                 ...this.settings,
                 wallpapers: this.wallpapers,
             };
 
-            this.saveSettings(settings);
-        },
-
-        saveSettings(settings) {
             db.collection('settings').doc(this.user.uid).set(settings)
                 .then(() => {
                     this.$store.commit('SET_SETTINGS', settings);
@@ -114,13 +152,11 @@ export default {
 
     .wallpaper-upload {
         display: flex;
-        align-items: center;
         flex-direction: column;
     }
 
     img {
         width: 100%;
-        max-height: 300px;
         height: auto;
         border: 1px solid $color-gray;
         padding: $gp / 2;
