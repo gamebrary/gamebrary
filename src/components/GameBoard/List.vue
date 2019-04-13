@@ -134,6 +134,7 @@ export default {
             return this.settings
                 && this.settings.wallpapers
                 && this.settings.wallpapers[this.platform.code]
+                && this.settings.wallpapers[this.platform.code].url
                 && this.settings.wallpapers[this.platform.code].transparent
                 ? 'transparent'
                 : '';
