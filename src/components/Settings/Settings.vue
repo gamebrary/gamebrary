@@ -77,6 +77,27 @@
                 </button>
             </modal>
         </footer>
+
+        <small class="copyright">
+            <span>
+                <i class="far fa-copyright" /> {{ moment().format('YYYY') }} Gamebrary.
+            </span>
+            <span>
+                <i class="fas fa-code" />
+                {{ $t('global.by') }}
+                <a href="https://twitter.com/romancm" target="_blank">@romancm</a>
+            </span>
+            <span>
+                <modal large padded v-if="latestRelease">
+                    <strong>
+                        <i class="fab fa-github" />
+                        {{ latestRelease }}
+                    </strong>
+
+                    <releases slot="content" />
+                </modal>
+            </span>
+        </small>
     </div>
 </template>
 
@@ -88,15 +109,15 @@ import 'firebase/auth';
 import Gravatar from 'vue-gravatar';
 import Panel from '@/components/Panel/Panel';
 import ToggleSwitch from '@/components/ToggleSwitch/ToggleSwitch';
-import IgdbCredit from '@/components/IgdbCredit/IgdbCredit';
 import Modal from '@/components/Modal/Modal';
 import moment from 'moment';
+import Releases from '@/components/Releases/Releases';
 
 export default {
     components: {
+        Releases,
         Panel,
         ToggleSwitch,
-        IgdbCredit,
         Modal,
         Gravatar,
     },
@@ -104,12 +125,19 @@ export default {
     data() {
         return {
             localSettings: {},
+            moment,
         };
     },
 
     computed: {
-        ...mapState(['user', 'gameLists', 'settings']),
+        ...mapState(['user', 'gameLists', 'settings', 'releases']),
         ...mapGetters(['darkModeEnabled']),
+
+        latestRelease() {
+            return this.releases && this.releases.length
+                ? this.releases[0].tag_name
+                : null;
+        },
 
         hasLists() {
             return Object.keys(this.gameLists).length > 0;
@@ -143,6 +171,7 @@ export default {
 
     mounted() {
         this.localSettings = JSON.parse(JSON.stringify(this.settings));
+        this.$store.dispatch('LOAD_RELEASES');
     },
 
     methods: {
@@ -236,5 +265,14 @@ export default {
         grid-gap: $gp / 2;
         padding: $gp;
         grid-template-columns: 1fr 1fr;
+    }
+
+    .copyright {
+        font-size: 10px;
+        display: flex;
+        padding: 0 $gp $gp;
+        color: $color-dark-gray;
+        align-items: center;
+        justify-content: space-around;
     }
 </style>

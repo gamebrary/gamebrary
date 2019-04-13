@@ -17,14 +17,12 @@
         </div>
 
         <toast />
-        <copyright-footer />
     </div>
 </template>
 
 <script>
 import NavHeader from '@/components/NavHeader/NavHeader';
 import Toast from '@/components/Toast/Toast';
-import CopyrightFooter from '@/components/CopyrightFooter/CopyrightFooter';
 import firebase from 'firebase/app';
 import { mapState, mapGetters } from 'vuex';
 import { debounce } from 'lodash';
@@ -50,7 +48,6 @@ export default {
     components: {
         NavHeader,
         Toast,
-        CopyrightFooter,
     },
 
     computed: {
