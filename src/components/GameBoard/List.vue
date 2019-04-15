@@ -138,7 +138,7 @@ export default {
                 && this.settings.wallpapers[this.platform.code].transparent
                 ? 'transparent'
                 : '';
-        }
+        },
     },
 
     methods: {
