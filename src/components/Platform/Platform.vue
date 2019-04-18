@@ -46,7 +46,7 @@ export default {
 
         getGameCount(platform) {
             return this.gameLists[platform]
-                .map((list) => list.games.length)
+                .map(({ games }) => games.length)
                 .reduce((totalCount, listCount) => totalCount + listCount);
         },
     },
