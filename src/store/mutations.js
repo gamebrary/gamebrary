@@ -86,6 +86,7 @@ export default {
     CLEAR_ACTIVE_LIST_INDEX(state) {
         state.activeListIndex = null;
         state.searchActive = null;
+        state.addingList = false;
     },
 
     SET_PLATFORM(state, platform) {
