@@ -85,7 +85,7 @@ import ListActions from '@/components/Lists/ListActions';
 import GameBoardPlaceholder from '@/components/GameBoard/GameBoardPlaceholder';
 import ListAdd from '@/components/Lists/ListAdd';
 import Panel from '@/components/Panel/Panel';
-import GameDetail from '@/pages/GameDetail/GameDetail';
+import GameDetail from '@/pages/GameDetail';
 import Modal from '@/components/Modal/Modal';
 import List from '@/components/GameBoard/List';
 import draggable from 'vuedraggable';

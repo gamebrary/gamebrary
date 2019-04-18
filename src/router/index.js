@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import ShareList from '@/pages/ShareList/ShareList';
-import GameBoard from '@/pages/GameBoard/GameBoard';
-import Platforms from '@/pages/Platforms/Platforms';
+import ShareList from '@/pages/ShareList';
+import GameBoard from '@/pages/GameBoard';
+import Platforms from '@/pages/Platforms';
 
 Vue.use(Router);
 
