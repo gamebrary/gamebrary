@@ -1,6 +1,6 @@
 <template lang="html">
     <div :class="['platforms-page', { dark: darkModeEnabled }]">
-        <div :class="['platform-list', { reverse: sortedByGeneration }]">
+        <div :class="['platforms', { reverse: sortedByGeneration }]">
             <div v-for="(group, label) in filteredPlatforms" :key="label">
                 <h4 v-if="sortedByGeneration">{{ groupLabel(label) }}</h4>
 
@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <div class="open-source-message">
+        <footer>
             <small>
                 Gamebrary is free and open source, consider helping its development by
                 <a href="https://www.paypal.me/RomanCervantes/5" target="_blank">
@@ -30,7 +30,7 @@
             </small>
 
             <igdb-credit gray />
-        </div>
+        </footer>
     </div>
 </template>
 
@@ -126,15 +126,14 @@ export default {
 
         &.dark {
             color: $color-gray;
+
+            h4 {
+                background-color: $color-darkest-gray;
+            }
         }
     }
 
-    h4 {
-        position: sticky;
-        top: $gp;
-    }
-
-    .platform-list {
+    .platforms {
         display: flex;
         flex-direction: column;
 
@@ -143,20 +142,15 @@ export default {
         }
     }
 
-    .platforms {
-        // margin-top: $gp;
-        // display: grid;
-        // grid-template-columns: auto;
-        // grid-gap: $gp;
-        // grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-        margin: 0;
-
-        @media($small) {
-        }
+    h4 {
+        position: sticky;
+        top: 0;
+        padding: $gp / 3 0;
+        background-color: $color-gray;
     }
 
-    .open-source-message {
-        margin-top: $gp;
+    footer {
+        padding: $gp / 2 0;
         justify-content: center;
         display: flex;
         align-items: center;

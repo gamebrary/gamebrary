@@ -1,5 +1,19 @@
 export default [
     {
+        name: 'Nintendo Switch',
+        code: 'nintendo-switch',
+        hex: '#e60012',
+        id: 130,
+        generation: 8,
+    },
+    {
+        name: 'PlayStation 4',
+        code: 'ps4',
+        hex: '#2E6DB4',
+        id: 48,
+        generation: 8,
+    },
+    {
         name: 'Xbox One',
         code: 'xbox-one',
         id: 49,
@@ -11,13 +25,6 @@ export default [
         id: 92,
         generation: 8,
         hex: '#171a21',
-    },
-    {
-        name: 'Nintendo Switch',
-        code: 'nintendo-switch',
-        hex: '#e60012',
-        id: 130,
-        generation: 8,
     },
     {
         name: 'NES',
@@ -61,17 +68,10 @@ export default [
         generation: 7,
     },
     {
-        name: 'PlayStation 4',
-        code: 'ps4',
-        hex: '#2E6DB4',
-        id: 48,
-        generation: 8,
-    },
-    {
         name: 'PC - Windows',
         code: 'win',
         id: 6,
-        generation: 0,
+        generation: 8,
     },
     {
         name: 'Super Nintendo',
