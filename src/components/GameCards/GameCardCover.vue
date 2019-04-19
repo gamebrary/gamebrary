@@ -43,6 +43,12 @@ export default {
             background: $color-light-gray;
             outline: 1px dashed $color-gray;
             opacity: 0.6;
+            flex-direction: row;
+
+            img {
+                max-height: 100px;
+                width: auto;
+            }
         }
     }
 
