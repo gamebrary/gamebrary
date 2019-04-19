@@ -19,7 +19,7 @@
                                 Remove from list
                             </button>
 
-                            <div class="tags" v-if="tags">
+                            <div class="tags" v-if="hasTags">
                                 <button class="primary small tag" @click="openTags">
                                     <i class="fas fa-tag tags" />
                                     Add tag
@@ -92,6 +92,10 @@ export default {
     computed: {
         ...mapState(['game', 'user', 'platform', 'tags', 'gameLists']),
         ...mapGetters(['darkModeEnabled']),
+
+        hasTags() {
+            return Object.keys(this.tags) && Object.keys(this.tags).length > 0;
+        },
 
         style() {
             return this.game && this.game.screenshots
