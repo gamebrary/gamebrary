@@ -1,6 +1,6 @@
 <template lang="html">
     <main>
-        <form class="list-add">
+        <form class="list-add" @submit.prevent="addList">
             <header>Add list</header>
 
             <section>
@@ -38,6 +38,7 @@
             <footer>
                 <button
                     class="small info"
+                    type="button"
                     @click="reset"
                 >
                     Cancel
@@ -45,6 +46,7 @@
 
                 <button
                     class="small primary action"
+                    type="submit"
                     :disabled="isDuplicate || !newListName"
                     @click="addList"
                 >
@@ -124,6 +126,10 @@ export default {
         },
 
         addList() {
+            if (this.isDuplicate || !this.newListName) {
+                return;
+            }
+
             this.$store.commit('ADD_LIST', this.newListName);
 
             this.$ga.event({
