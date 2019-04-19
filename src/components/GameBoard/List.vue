@@ -44,9 +44,10 @@
             @end="end"
             @start="start"
         >
-            <game-card
+            <component
                 v-for="game in games"
-                :key="game"
+                :is="gameCardComponent"
+                :key="`covers-${game}`"
                 :id="game"
                 :game-id="game"
                 :list-id="listIndex"
@@ -56,11 +57,10 @@
         <button
             v-if="!searching && !editing"
             @click="addGame"
+            class="add-game-button small"
             :title="$t('game.add')"
         >
             <i class="fas fa-plus" />
-
-            <small>{{ $t('game.add') }}</small>
         </button>
     </div>
 </template>
@@ -69,7 +69,9 @@
 import draggable from 'vuedraggable';
 import ListNameEdit from '@/components/GameBoard/ListNameEdit';
 import ListSettings from '@/components/GameBoard/ListSettings';
-import GameCard from '@/components/GameCard/GameCard';
+import GameCardDefault from '@/components/GameCards/GameCardDefault';
+import GameCardCover from '@/components/GameCards/GameCardCover';
+import GameCardWide from '@/components/GameCards/GameCardWide';
 import GameSearch from '@/components/GameSearch/GameSearch';
 import { mapState, mapGetters } from 'vuex';
 import firebase from 'firebase/app';
@@ -78,8 +80,12 @@ import 'firebase/firestore';
 const db = firebase.firestore();
 
 export default {
+    name: 'List',
+
     components: {
-        GameCard,
+        GameCardDefault,
+        GameCardCover,
+        GameCardWide,
         GameSearch,
         ListNameEdit,
         ListSettings,
@@ -101,6 +107,11 @@ export default {
                 group: {
                     name: 'games',
                 },
+            },
+            gameCardComponents: {
+                single: 'GameCardDefault',
+                covers: 'GameCardCover',
+                wide: 'GameCardWide',
             },
         };
     },
@@ -124,6 +135,14 @@ export default {
 
         isEmpty() {
             return this.games.length === 0;
+        },
+
+        view() {
+            return this.list[this.listIndex].view;
+        },
+
+        gameCardComponent() {
+            return this.gameCardComponents[this.view];
         },
 
         viewClass() {
@@ -213,9 +232,10 @@ export default {
 
         &.covers {
             .games {
+                padding-top: $gp / 2;
                 display: grid;
                 grid-template-columns: 1fr 1fr 1fr;
-                grid-gap: $gp / 2;
+                grid-gap: $gp / 4;
             }
         }
 
@@ -224,6 +244,14 @@ export default {
 
             &.transparent {
                 background-color: $color-dark-gray-transparent;
+            }
+
+            .list-header {
+                background-color: $color-darker-gray;
+            }
+
+            .add-game-button {
+                color: $color-white;
             }
         }
 
@@ -274,12 +302,7 @@ export default {
         padding: $gp;
     }
 
-    footer {
-        height: 42px;
-        padding: 0 $gp / 2;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+    .add-game-button {
+        width: 100%;
     }
 </style>

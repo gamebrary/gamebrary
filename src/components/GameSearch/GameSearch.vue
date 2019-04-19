@@ -21,7 +21,7 @@
         </small>
 
         <div class="search-results" ref="searchResults" v-if="filteredResults.length > 0">
-            <game-card
+            <game-card-search
                 v-for="{ id } in filteredResults"
                 search-result
                 :key="id"
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import GameCard from '@/components/GameCard/GameCard';
+import GameCardSearch from '@/components/GameCards/GameCardSearch';
 import IgdbCredit from '@/components/IgdbCredit/IgdbCredit';
 import Panel from '@/components/Panel/Panel';
 import { debounce } from 'lodash';
@@ -56,7 +56,7 @@ import { mapState } from 'vuex';
 
 export default {
     components: {
-        GameCard,
+        GameCardSearch,
         IgdbCredit,
         Panel,
     },
