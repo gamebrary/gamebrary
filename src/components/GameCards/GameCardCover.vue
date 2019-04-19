@@ -6,12 +6,7 @@
             @click="openDetails"
         >
 
-        <!-- TODO: put all these actions in game modal -->
-        <div class="actions">
-            <i class="fas fa-grip-vertical game-drag-handle" />
-            <i class="fas fa-tag tags" @click="openTags" v-if="hasTags" />
-            <i class="far fa-trash-alt delete-game" @click="removeGame" />
-        </div>
+        <i class="fas fa-grip-vertical game-drag-handle" />
     </div>
 </template>
 
@@ -61,18 +56,11 @@ export default {
 
     .game-drag-handle {
         @include drag-cursor;
-    }
-
-    .actions {
-        background-color: $color-dark-gray-transparent;
-        color: $color-white;
         position: absolute;
-        bottom: 0;
-        width: 100%;
-        display: flex;
-        justify-content: space-around;
-        padding: $gp / 4 0;
-
+        color: $color-white;
+        top: $gp / 4;
+        right: $gp / 4;
+        padding: $gp / 4;
         font-size: 12px;
     }
 </style>
