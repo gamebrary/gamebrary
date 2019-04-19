@@ -71,7 +71,10 @@ export default {
 
     methods: {
         openDetails() {
-            this.$bus.$emit('OPEN_GAME', this.game.id);
+            this.$bus.$emit('OPEN_GAME', {
+                id: this.game.id,
+                listId: this.listId,
+            });
         },
 
         openTags() {

@@ -14,7 +14,12 @@
             no-padding
             @close="closeGame"
         >
-            <game-detail slot="content" :id="gameDetailId" v-if="gameDetailId" />
+            <game-detail
+                slot="content"
+                v-if="gameDetailId"
+                :id="gameDetailId"
+                :list-id="gameDetailListIndex"
+            />
         </modal>
 
         <modal
@@ -113,6 +118,7 @@ export default {
             draggingId: null,
             loading: false,
             gameData: null,
+            gameDetailListIndex: null,
             gameDetailId: null,
             gameTagsId: null,
             listDraggableOptions: {
@@ -177,8 +183,9 @@ export default {
                 : 'Gamebrary';
         },
 
-        openGame(id) {
+        openGame({ id, listId }) {
             this.gameDetailId = id;
+            this.gameDetailListIndex = listId;
             this.$refs.game.open();
         },
 

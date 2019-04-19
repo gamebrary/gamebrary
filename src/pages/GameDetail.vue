@@ -13,12 +13,20 @@
                         <h2>{{ game.name }}</h2>
                         <game-rating :rating="game.rating" />
 
-                        <div class="tags" v-if="tags">
-                            <div
-                                v-for="({ games, hex }, name) in tags"
-                                :key="name"
-                            >
+                        <div class="actions" v-if="list.games.includes(game.id)">
+                            <button class="error tag" @click="removeGame">
+                                <i class="far fa-trash-alt delete-game" />
+                                Remove from list
+                            </button>
+
+                            <div class="tags" v-if="tags">
+                                <button class="primary small tag" @click="openTags">
+                                    <i class="fas fa-tag tags" />
+                                </button>
+
                                 <button
+                                    v-for="({ games, hex }, name) in tags"
+                                    :key="name"
                                     v-if="games.includes(game.id)"
                                     class="tag small game-tag"
                                     :style="`background-color: ${hex}`"
@@ -53,6 +61,10 @@ import GameReviewBox from '@/components/GameDetail/GameReviewBox';
 import AffiliateLink from '@/components/GameDetail/AffiliateLink';
 import IgdbCredit from '@/components/IgdbCredit/IgdbCredit';
 import GameDetailPlaceholder from '@/components/GameDetail/GameDetailPlaceholder';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+
+const db = firebase.firestore();
 
 export default {
     components: {
@@ -68,16 +80,33 @@ export default {
 
     props: {
         id: [Number, String],
+        listId: [Number, String],
     },
 
     computed: {
-        ...mapState(['game', 'platform', 'tags']),
+        ...mapState(['game', 'user', 'platform', 'tags', 'gameLists']),
         ...mapGetters(['darkModeEnabled']),
 
         style() {
             return this.game && this.game.screenshots
                 ? `background: url(${this.getImageUrl(this.game.screenshots[0].cloudinary_id)}) center center no-repeat; background-size: cover;`
                 : '';
+        },
+
+        activePlatform() {
+            return this.gameLists[this.platform.code];
+        },
+
+        list() {
+            return this.activePlatform[this.listId];
+        },
+
+        coverUrl() {
+            const url = 'https://images.igdb.com/igdb/image/upload/t_cover_small_2x/';
+
+            return this.game && this.game.cover
+                ? `${url}${this.game.cover.cloudinary_id}.jpg`
+                : '/static/no-image.jpg';
         },
     },
 
@@ -90,6 +119,10 @@ export default {
             return cloudinaryId
                 ? `https://images.igdb.com/igdb/image/upload/t_screenshot_huge/${cloudinaryId}.jpg`
                 : null;
+        },
+
+        openTags() {
+            this.$bus.$emit('OPEN_TAGS', this.id);
         },
 
         loadGame(gameId) {
@@ -108,6 +141,26 @@ export default {
                 })
                 .catch(() => {
                     this.$bus.$emit('TOAST', { message: 'Error loading game', type: 'error' });
+                });
+        },
+
+        removeGame() {
+            const data = {
+                listId: this.listId,
+                gameId: this.gameId,
+            };
+
+            this.$store.commit('REMOVE_GAME', data);
+
+            db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
+                .then(() => {
+                    this.$bus.$emit('TOAST', {
+                        message: `Removed ${this.game.name} from list ${this.list.name}`,
+                        imageUrl: this.coverUrl,
+                    });
+                })
+                .catch(() => {
+                    this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
                 });
         },
     },
