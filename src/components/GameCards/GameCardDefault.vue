@@ -14,8 +14,6 @@
                 @click.native="openDetails"
             />
 
-            <i class="fas fa-tag tags" @click="openTags" v-if="hasTags" />
-
             <div class="game-tags" v-if="hasTags">
                 <div
                     v-for="({ games, hex }, name) in tags"
@@ -32,13 +30,6 @@
                     </button>
                 </div>
             </div>
-
-            <i
-                class="far fa-trash-alt delete-game"
-                v-if="list.games.includes(gameId)"
-                title="Delete game"
-                @click="removeGame"
-            />
         </div>
     </div>
 </template>
