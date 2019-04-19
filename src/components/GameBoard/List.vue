@@ -229,7 +229,7 @@ export default {
         }
 
         &.wide {
-            width: 340px;
+            width: $list-width-wide;
         }
 
         &.covers {
