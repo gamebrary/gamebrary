@@ -127,7 +127,7 @@ export default {
         &.dark {
             color: $color-gray;
 
-            h4 {
+            .group-label {
                 background-color: $color-darkest-gray;
             }
         }
