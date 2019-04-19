@@ -30,6 +30,10 @@ export default {
         state.tags = tags;
     },
 
+    SET_NOTES(state, notes) {
+        state.notes = notes;
+    },
+
     ADD_GAME_TAG(state, { tagName, gameId }) {
         state.tags[tagName].games.push(gameId);
     },

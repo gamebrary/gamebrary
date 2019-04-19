@@ -14,6 +14,13 @@
                 @click.native="openDetails"
             />
 
+            <i
+                v-if="note"
+                :title="note"
+                class="fas fa-sticky-note note"
+                @click="openDetails"
+            />
+
             <div class="game-tags" v-if="hasTags">
                 <div
                     v-for="({ games, hex }, name) in tags"
@@ -158,5 +165,9 @@ export default {
 
     .add-to-list {
         margin-top: $gp / 2;
+    }
+
+    .note {
+        color: $color-orange;
     }
 </style>

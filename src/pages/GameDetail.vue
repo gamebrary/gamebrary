@@ -22,6 +22,7 @@
                             <div class="tags" v-if="tags">
                                 <button class="primary small tag" @click="openTags">
                                     <i class="fas fa-tag tags" />
+                                    Add tag
                                 </button>
 
                                 <button
@@ -37,6 +38,9 @@
                         </div>
 
                         <p class="game-description" v-html="game.summary" />
+
+                        <game-notes />
+
                         <affiliate-link />
                         <game-review-box />
                     </div>
@@ -55,6 +59,7 @@
 import { mapState, mapGetters } from 'vuex';
 import GameHeader from '@/components/GameDetail/GameHeader';
 import GameScreenshots from '@/components/GameDetail/GameScreenshots';
+import GameNotes from '@/components/GameNotes/GameNotes';
 import GameRating from '@/components/GameDetail/GameRating';
 import GameVideos from '@/components/GameDetail/GameVideos';
 import GameReviewBox from '@/components/GameDetail/GameReviewBox';
@@ -72,6 +77,7 @@ export default {
         GameHeader,
         GameRating,
         GameScreenshots,
+        GameNotes,
         GameVideos,
         GameReviewBox,
         AffiliateLink,
@@ -247,5 +253,10 @@ export default {
         align-items: center;
         flex-direction: column;
         padding: $gp;
+    }
+
+    .actions {
+        display: flex;
+        align-items: center;
     }
 </style>

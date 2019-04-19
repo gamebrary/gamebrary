@@ -19,7 +19,7 @@ export default {
     },
 
     computed: {
-        ...mapState(['settings', 'games', 'gameLists', 'platform', 'user', 'tags', 'activeList']),
+        ...mapState(['settings', 'games', 'gameLists', 'platform', 'user', 'tags', 'activeList', 'notes']),
 
         ...mapGetters(['darkModeEnabled']),
 
@@ -40,6 +40,10 @@ export default {
 
         activePlatform() {
             return this.gameLists[this.platform.code];
+        },
+
+        note() {
+            return this.notes && this.notes[this.gameId] && this.notes[this.gameId].text;
         },
 
         list() {

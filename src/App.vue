@@ -87,6 +87,7 @@ export default {
     mounted() {
         this.$bus.$on('SAVE_SETTINGS', this.saveSettings);
         this.$bus.$on('SAVE_TAGS', this.saveTags);
+        this.$bus.$on('SAVE_NOTES', this.saveNotes);
 
         if (this.isPublic) {
             return;
@@ -125,6 +126,7 @@ export default {
     beforeDestroy() {
         this.$bus.$off('SAVE_SETTINGS');
         this.$bus.$off('SAVE_TAGS');
+        this.$bus.$off('SAVE_NOTES');
     },
 
     methods: {
@@ -165,6 +167,21 @@ export default {
             }
         },
 
+        saveNotes(notes, force) {
+            if (notes) {
+                db.collection('notes').doc(this.user.uid).set(notes, { merge: !force })
+                    .then(() => {
+                        this.$bus.$emit('TOAST', { message: 'Notes updated' });
+                    })
+                    .catch(() => {
+                        this.$bus.$emit('TOAST', {
+                            message: 'There was an error saving your note',
+                            type: 'error',
+                        });
+                    });
+            }
+        },
+
         syncData() {
             db.collection('lists').doc(this.user.uid)
                 .onSnapshot((doc) => {
@@ -190,6 +207,15 @@ export default {
                         const tags = doc.data();
 
                         this.$store.commit('SET_TAGS', tags);
+                    }
+                });
+
+            db.collection('notes').doc(this.user.uid)
+                .onSnapshot((doc) => {
+                    if (doc.exists) {
+                        const notes = doc.data();
+
+                        this.$store.commit('SET_NOTES', notes);
                     }
                 });
         },

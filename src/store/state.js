@@ -2,6 +2,7 @@ export default {
     user: null,
     releases: null,
     tags: {},
+    notes: {},
     activeListIndex: null,
     searchActive: false,
     addingList: false,
