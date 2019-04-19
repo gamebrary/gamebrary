@@ -208,6 +208,7 @@ export default {
     @import "~styles/styles.scss";
 
     .list-settings {
+        background: $color-light-gray;
         margin-top: $list-header-height;
     }
 
