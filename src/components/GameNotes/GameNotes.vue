@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="game-note">
+    <div class="game-notes" :class="{ dark: darkModeEnabled }">
         <div
             class="note"
             v-if="hasNote && !editingNote"
@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
     data() {
@@ -63,6 +63,7 @@ export default {
 
     computed: {
         ...mapState(['game', 'notes']),
+        ...mapGetters(['darkModeEnabled']),
 
         hasNote() {
             return this.localNote && this.localNote.text;
@@ -128,6 +129,19 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles.scss";
+
+    .dark .note {
+        border-color: $color-gray;
+
+        p {
+            color: $color-gray;
+        }
+
+        .corner-icon {
+            color: $color-white;
+            background: $color-gray;
+        }
+    }
 
     .note {
         cursor: pointer;
