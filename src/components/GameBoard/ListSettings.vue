@@ -33,7 +33,7 @@
                 v-for="(icon, view) in views"
                 :key="view"
                 class="small primary"
-                :class="{ hollow: activeList.view !== view}"
+                :class="{ hollow: activeList.view !== view }"
                 @click="setListView(view)"
             >
                 <i :class="icon" />
