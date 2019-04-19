@@ -153,7 +153,7 @@ export default {
         removeGame() {
             const data = {
                 listId: this.listId,
-                gameId: this.gameId,
+                gameId: this.game.id,
             };
 
             this.$store.commit('REMOVE_GAME', data);
