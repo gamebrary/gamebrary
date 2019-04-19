@@ -2,7 +2,7 @@
     <div :class="['platforms-page', { dark: darkModeEnabled }]">
         <div :class="['platforms', { reverse: sortedByGeneration }]">
             <div v-for="(group, label) in filteredPlatforms" :key="label">
-                <h4 v-if="sortedByGeneration">{{ groupLabel(label) }}</h4>
+                <div class="group-label" v-if="sortedByGeneration">{{ groupLabel(label) }}</div>
 
                 <platform
                     v-for="platform in group"
@@ -142,7 +142,7 @@ export default {
         }
     }
 
-    h4 {
+    .group-label {
         position: sticky;
         top: 0;
         padding: $gp / 3 0;
