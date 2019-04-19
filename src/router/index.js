@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import ShareList from '@/pages/ShareList';
 import GameBoard from '@/pages/GameBoard';
 import Platforms from '@/pages/Platforms';
+import NotFound from '@/pages/NotFound';
 
 Vue.use(Router);
 
@@ -29,7 +30,8 @@ export default new Router({
         },
         {
             path: '*',
-            component: GameBoard,
+            name: 'not-found',
+            component: NotFound,
         },
     ],
 });
