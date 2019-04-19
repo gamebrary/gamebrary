@@ -144,7 +144,7 @@ export default {
         gameCardComponent() {
             return this.view
                 ? this.gameCardComponents[this.view]
-                : 'GameCardDefault'
+                : 'GameCardDefault';
         },
 
         viewClass() {
