@@ -53,7 +53,7 @@ export default {
 
         shareUrl() {
             const url = process.env.NODE_ENV === 'development'
-                ? 'http://localhost:5000'
+                ? 'http://localhost:4000'
                 : 'https://app.gamebrary.com';
 
             return `${url}/s?id=${this.user.uid}&list=${this.platform.code}`;
