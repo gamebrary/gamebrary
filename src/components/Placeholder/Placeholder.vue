@@ -1,6 +1,6 @@
 <template lang="html">
     <div
-        :class="['placeholder', { dark: darkModeEnabled, 'has-image': image }]"
+        :class="['placeholder', { dark: darkModeEnabled, 'has-image': image && lines > 0 }]"
         v-if="image || lines"
     >
         <div class="image" v-if="image" />

@@ -1,17 +1,15 @@
 <template lang="html">
     <div :class="['gameboard-placeholder', { dark: darkModeEnabled }]">
-        <div class="list" v-for="list in lists" :key="list.name">
+        <div :class="`list ${list.view || 'single'}`" v-for="list in lists" :key="list.name">
             <div class="list-header" />
 
             <div class="games">
-                <div class="game">
-                    <placeholder
-                        image
-                        v-for="n in list.games.length"
-                        :lines="2"
-                        :key="n"
-                    />
-                </div>
+                <placeholder
+                    image
+                    v-for="n in list.games.length"
+                    :lines="list && list.view === 'covers' ? 0 : 2"
+                    :key="n"
+                />
             </div>
         </div>
     </div>
@@ -64,6 +62,28 @@ export default {
         width: $list-width;
         margin-right: $gp;
         max-height: calc(100vh - 81px);
+
+        &.wide {
+            width: $list-width-wide;
+            --placeholder-image-width: 80px;
+            --placeholder-image-height: 80px;
+        }
+
+        &.covers {
+            --placeholder-image-width: 90px;
+        }
+
+        &.covers .games {
+            padding-top: $gp / 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-gap: $gp / 4;
+
+            .placeholder {
+                margin: 0;
+                padding: 0;
+            }
+        }
     }
 
     .dark .list {
@@ -79,12 +99,9 @@ export default {
 
     .games {
         margin-top: $list-header-height;
+        display: grid;
+        grid-gap: $gp / 2 ;
         width: 100%;
         padding: $gp / 2;
-    }
-
-    .placeholder {
-        padding-right: $gp;
-        margin-bottom: $gp / 2;
     }
 </style>
