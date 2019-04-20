@@ -103,6 +103,19 @@ export default {
 
             db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
                 .then(() => {
+                    if (this.game.name.toLowerCase().includes('mortal kombat')) {
+                        const toastySound = new Audio('http://localhost:4000/static/sounds/toasty.mp3');
+                        toastySound.play();
+
+                        this.$bus.$emit('TOAST', {
+                            message: 'Dan Forden',
+                            type: 'warning',
+                            imageUrl: '/static/img/toasty.png',
+                        });
+
+                        return;
+                    }
+
                     this.$bus.$emit('TOAST', {
                         message: `Added ${this.game.name} to list ${this.list.name}`,
                         imageUrl: this.coverUrl,
