@@ -53,7 +53,7 @@ export default {
 
     methods: {
         toast({ message, type, imageUrl }) {
-            this.timer = type === 'error' || type === 'warning'
+            this.timer = type === 'error'
                 ? 5000
                 : 2000;
 
