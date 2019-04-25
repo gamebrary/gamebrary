@@ -10,7 +10,6 @@
                     <game-header />
 
                     <div class="game-details">
-                        <i class="close fas fa-times" @click="close" />
                         <h2>{{ game.name }}</h2>
                         <game-rating :rating="game.rating" />
 
@@ -155,10 +154,6 @@ export default {
                 });
         },
 
-        close() {
-            this.$bus.$emit('CLOSE_MODAL');
-        },
-
         removeGame() {
             const data = {
                 listId: this.listId,
@@ -275,22 +270,5 @@ export default {
     .actions {
         display: flex;
         align-items: center;
-    }
-
-    .close {
-        display: none;
-        position: fixed;
-        top: 0;
-        align-items: center;
-        color: $color-white;
-        text-shadow: 0 0 3px $color-black;
-        right: 0;
-        font-size: 30px;
-        z-index: 99999;
-        padding: $gp;
-
-        @media($small) {
-            display: flex;
-        }
     }
 </style>
