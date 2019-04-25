@@ -11,6 +11,8 @@
             />
 
             <div :class="['content', { large, padded, dark: darkModeEnabled }]" @click.stop>
+                <i class="close fas fa-times" @click="close" />
+
                 <header v-if="!popover && title">
                     <h2>{{ title }}</h2>
                 </header>
@@ -73,14 +75,6 @@ export default {
 
     computed: {
         ...mapGetters(['darkModeEnabled']),
-    },
-
-    mounted() {
-        this.$bus.$on('CLOSE_MODAL', this.close);
-    },
-
-    beforeDestroy() {
-        this.$bus.$off('CLOSE_MODAL');
     },
 
     methods: {
@@ -202,16 +196,18 @@ header {
 
 .close {
     display: none;
-    padding: $gp;
-    position: absolute;
-    top: $gp / 4;
-    right: $gp / 4;
+    position: fixed;
+    top: 0;
+    align-items: center;
+    color: $color-white;
+    text-shadow: 0 0 3px $color-black;
+    right: 0;
+    font-size: 30px;
     z-index: 99999;
-    color: $color-gray;
-    cursor: pointer;
+    padding: $gp;
 
     @media($small) {
-        display: block;
+        display: flex;
     }
 }
 
