@@ -54,15 +54,6 @@ export default {
         });
     },
 
-    LOAD_PLATFORM({ state }) {
-        return new Promise((resolve, reject) => {
-            axios.get(`${FIREBASE_URL}/platform?&platformId=${state.platform.id}`)
-                .then(({ data }) => {
-                    resolve(data);
-                }).catch(reject);
-        });
-    },
-
     SEND_WELCOME_EMAIL(context, additionalUserInfo) {
         return new Promise((resolve, reject) => {
             if (additionalUserInfo && additionalUserInfo.profile) {
