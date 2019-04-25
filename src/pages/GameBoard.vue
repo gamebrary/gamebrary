@@ -82,6 +82,8 @@
                 @scroll="scroll"
             />
         </template>
+
+        <!-- <dev-debug /> -->
     </div>
 </template>
 
@@ -92,6 +94,7 @@ import ListAdd from '@/components/Lists/ListAdd';
 import Panel from '@/components/Panel/Panel';
 import GameDetail from '@/pages/GameDetail';
 import Modal from '@/components/Modal/Modal';
+// import DevDebug from '@/components/DevDebug/DevDebug';
 import List from '@/components/GameBoard/List';
 import draggable from 'vuedraggable';
 import { mapState, mapGetters } from 'vuex';
@@ -104,6 +107,7 @@ export default {
     components: {
         draggable,
         List,
+        // DevDebug,
         ListActions,
         GameBoardPlaceholder,
         ListAdd,
