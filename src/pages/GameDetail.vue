@@ -10,6 +10,7 @@
                     <game-header />
 
                     <div class="game-details">
+                        <i class="close fas fa-times" @click="close" />
                         <h2>{{ game.name }}</h2>
                         <game-rating :rating="game.rating" />
 
@@ -154,6 +155,10 @@ export default {
                 });
         },
 
+        close() {
+            this.$bus.$emit('CLOSE_MODAL');
+        },
+
         removeGame() {
             const data = {
                 listId: this.listId,
@@ -183,8 +188,11 @@ export default {
     .game-detail {
         display: flex;
         justify-content: center;
-        background: $color-light-gray;
         min-height: calc(100vh - #{$navHeight});
+
+        @media($small) {
+            padding-top: $gp * 2;
+        }
 
         &.dark {
             background: $color-darkest-gray;
@@ -207,7 +215,9 @@ export default {
         z-index: 1;
 
         @media($small) {
-            background: none !important;
+            top: 0;
+            border-radius: 0;
+            padding-top: $gp;
         }
     }
 
@@ -224,7 +234,6 @@ export default {
         @media($small) {
             grid-gap: 0;
             grid-template-columns: 1fr;
-            text-align: center;
 
             .game-description {
                 text-align: justify;
@@ -238,7 +247,6 @@ export default {
 
     .game-detail-container {
         background-color: rgba(255, 255, 255, 0.95);
-        -webkit-box-shadow: 0 0 2px 0 $color-gray;
         box-shadow: 0 0 2px 0 $color-gray;
         width: $container-width;
         max-width: 100%;
@@ -249,6 +257,11 @@ export default {
         @media($small) {
             margin: 0;
             border-radius: 0;
+            box-shadow: none;
+            margin-top: 0;
+            box-shadow: none;
+            background-color: rgba(255, 255, 255, .5);
+            background: none;
         }
     }
 
@@ -262,5 +275,22 @@ export default {
     .actions {
         display: flex;
         align-items: center;
+    }
+
+    .close {
+        display: none;
+        position: fixed;
+        top: 0;
+        align-items: center;
+        color: $color-white;
+        text-shadow: 0 0 3px $color-black;
+        right: 0;
+        font-size: 30px;
+        z-index: 99999;
+        padding: $gp;
+
+        @media($small) {
+            display: flex;
+        }
     }
 </style>
