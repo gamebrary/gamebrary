@@ -126,6 +126,11 @@ export default {
                 });
         },
 
+        removeTag(tagName) {
+            this.$store.commit('REMOVE_GAME_TAG', { tagName, gameId: this.gameId });
+            this.$bus.$emit('SAVE_TAGS', this.tags);
+        },
+
         removeGame() {
             const data = {
                 listId: this.listId,
