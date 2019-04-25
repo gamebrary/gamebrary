@@ -77,6 +77,14 @@ export default {
         ...mapGetters(['darkModeEnabled']),
     },
 
+    mounted() {
+        this.$bus.$on('CLOSE_MODAL', this.close);
+    },
+
+    beforeDestroy() {
+        this.$bus.$off('CLOSE_MODAL');
+    },
+
     methods: {
         open() {
             this.show = true;
