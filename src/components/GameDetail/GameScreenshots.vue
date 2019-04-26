@@ -140,13 +140,17 @@ export default {
             opacity: 1;
             padding: $gp;
             position: absolute;
+            top: $gp / 2;
+            right: $gp * 2;
             text-decoration: none;
 
             &:before {
-                font-family: "Font Awesome 5 Free";
                 font-size: 14px;
                 font-weight: 900;
-                content: "\f00d";
+                content: "Back to game";
+                border: 1px solid $color-gray;
+                border-radius: $border-radius;
+                padding: $gp / 2;
             }
         }
     }
