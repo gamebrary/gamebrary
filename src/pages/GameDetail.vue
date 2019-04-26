@@ -201,12 +201,19 @@ export default {
 
         &.dark {
             color: $color-gray;
+
+            .game-details {
+                @media($small) {
+                    background-color: $color-darker-gray;
+                }
+            }
         }
     }
 
     .game-hero {
         background-color: $color-dark-gray;
         position: absolute;
+        background-position: bottom;
         width: 100%;
         left: 0;
         border-top-left-radius: $border-radius;
@@ -223,6 +230,13 @@ export default {
 
     .game-details {
         margin-top: $gp;
+
+        @media($small) {
+            margin: -$gp;
+            margin-top: $gp;
+            padding: $gp;
+            background-color: $color-white;
+        }
     }
 
     .game-info {
