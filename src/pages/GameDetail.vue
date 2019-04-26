@@ -29,8 +29,6 @@
 
                         <br>
 
-                        <pre>{{ games }}</pre>
-
                         <tag
                             v-if="games.includes(game.id)"
                             v-for="({ games, hex }, name) in tags"
