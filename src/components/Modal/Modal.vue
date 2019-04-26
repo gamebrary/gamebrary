@@ -11,7 +11,7 @@
             />
 
             <div :class="['content', { large, padded, dark: darkModeEnabled }]" @click.stop>
-                <i class="close fas fa-times" @click="close" />
+                <i class="close fas fa-times" @click="close" v-if="!popover" />
 
                 <header v-if="!popover && title">
                     <h2>{{ title }}</h2>
