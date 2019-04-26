@@ -161,12 +161,6 @@ export default {
             this.$bus.$emit('SAVE_TAGS', this.tags);
         },
 
-        removeTag(tagName) {
-            console.log(this.gameTagsId);
-            this.$store.commit('REMOVE_GAME_TAG', { tagName, gameId: this.gameTagsId });
-            this.$bus.$emit('SAVE_TAGS', this.tags);
-        },
-
         closeGame() {
             this.setPageTitle();
             this.gameDetailId = null;
@@ -176,6 +170,11 @@ export default {
             document.title = this.platform
                 ? `${this.platform.name} - Gamebrary`
                 : 'Gamebrary';
+        },
+
+        removeTag(tagName) {
+            this.$store.commit('REMOVE_GAME_TAG', { tagName, gameId: this.gameTagsId });
+            this.$bus.$emit('SAVE_TAGS', this.tags);
         },
 
         openGame({ id, listId }) {
