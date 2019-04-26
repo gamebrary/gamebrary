@@ -30,7 +30,12 @@
 
             <tag
                 label="my tag"
-                size="xsmall"
+                hex="#ff00cc"
+            />
+
+            <tag
+                label="my tag"
+                hex="#333333"
             />
         </section>
     </div>

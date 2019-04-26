@@ -30,31 +30,13 @@
         >
             <div slot="content">
                 <div class="tags" v-for="(tag, name) in tags" :key="name">
-                    <button
-                        v-if="tag.games.includes(gameTagsId)"
-                        class="small tag error"
-                        :title="$t('list.delete')"
-                        @click="removeTag(name)"
-                    >
-                        <i class="far fa-trash-alt" />
-                    </button>
-
-                    <button
-                        v-else
-                        class="small tag info"
-                        :title="$t('list.delete')"
-                        @click="addTag(name)"
-                    >
-                        <i class="fas fa-plus"></i>
-                    </button>
-
-                    <button
-                        :key="name"
-                        :style="`background-color: ${tag.hex}`"
-                        class="tag small color"
-                    >
-                        {{ name }}
-                    </button>
+                    <tag
+                        :label="name"
+                        :hex="tag.hex"
+                        :readonly="!tag.games.includes(gameTagsId)"
+                        @action="tryAdd(tag.games, name)"
+                        @close="removeTag(name)"
+                    />
                 </div>
             </div>
         </modal>
@@ -90,6 +72,7 @@
 <script>
 import ListActions from '@/components/Lists/ListActions';
 import GameBoardPlaceholder from '@/components/GameBoard/GameBoardPlaceholder';
+import Tag from '@/components/Tag/Tag';
 import ListAdd from '@/components/Lists/ListAdd';
 import Panel from '@/components/Panel/Panel';
 import GameDetail from '@/pages/GameDetail';
@@ -111,6 +94,7 @@ export default {
         ListActions,
         GameBoardPlaceholder,
         ListAdd,
+        Tag,
         Panel,
         GameDetail,
         Modal,
@@ -166,12 +150,19 @@ export default {
     },
 
     methods: {
+        tryAdd(games, tagName) {
+            if (!games.includes(this.gameTagsId)) {
+                this.addTag(tagName);
+            }
+        },
+
         addTag(tagName) {
             this.$store.commit('ADD_GAME_TAG', { tagName, gameId: this.gameTagsId });
             this.$bus.$emit('SAVE_TAGS', this.tags);
         },
 
         removeTag(tagName) {
+            console.log(this.gameTagsId);
             this.$store.commit('REMOVE_GAME_TAG', { tagName, gameId: this.gameTagsId });
             this.$bus.$emit('SAVE_TAGS', this.tags);
         },

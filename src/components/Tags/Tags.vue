@@ -5,21 +5,12 @@
                 <h3>My tags</h3>
 
                 <div class="tags" v-for="(tag, name) in localTags" :key="name">
-                    <button
-                        class="small tag filled error"
-                        :title="$t('list.delete')"
-                        @click="removeTag(name)"
-                    >
-                        <i class="far fa-trash-alt" />
-                    </button>
-
-                    <button
-                        :key="name"
-                        :style="`background-color: ${tag.hex}`"
-                        class="tag small color"
-                    >
-                        {{ name }}
-                    </button>
+                    <tag
+                        v-if="localTags.includes(game.id)"
+                        :label="name"
+                        :hex="tag.hex"
+                        @close="deleteTag(name)"
+                    />
                 </div>
             </div>
 
@@ -92,10 +83,12 @@
 
 <script>
 import Panel from '@/components/Panel/Panel';
+import Tag from '@/components/Tag/Tag';
 import { mapState } from 'vuex';
 
 export default {
     components: {
+        Tag,
         Panel,
     },
 
@@ -154,9 +147,9 @@ export default {
             this.reset();
         },
 
-        removeTag(tagName) {
-            this.$delete(this.localTags, tagName);
-            this.$bus.$emit('SAVE_TAGS', this.localTags, true);
+        deleteTag(tagName) {
+            this.$store.commit('REMOVE_GAME_TAG', { tagName, gameId: this.game.id });
+            this.$bus.$emit('SAVE_TAGS', this.tags);q
         },
 
         reset() {

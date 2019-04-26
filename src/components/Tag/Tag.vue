@@ -1,12 +1,15 @@
 <template lang="html">
     <span
         v-if="label && hex"
-        class="tag"
         :style="`background-color: ${hex}`"
-        :class="textColor"
+        :class="['tag', textColor, { readonly }]"
         @click="action"
     >
-        <i class="fas fa-times close" @click="close" />
+        <i
+            v-if="!readonly"
+            class="fas fa-times close"
+            @click="close"
+        />
 
         {{ label }}
     </span>
@@ -21,6 +24,7 @@ export default {
     },
 
     props: {
+        readonly: Boolean,
         label: String,
         hex: String,
     },
@@ -57,20 +61,27 @@ export default {
 
     .tag {
         border-radius: 100px;
-        padding: 2px;
+        padding: 0 $gp / 2 0 2px;
+        min-height: 18px;
         font-size: $font-size-xsmall;
-        display: flex;
+        display: inline-flex;
         align-items: center;
+        justify-content: center;
         color: $color-dark-gray;
         cursor: pointer;
+        margin: 0 2px 2px 0;
+
+        &.readonly {
+            padding: 0 $gp / 2;
+        }
 
         &.light { color: $color-white; }
         &.dark { color: $color-darkest-gray; }
     }
 
     .close {
-        height: 15px;
-        width: 15px;
+        height: 14px;
+        width: 14px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -78,13 +89,16 @@ export default {
         margin-right: 4px;
     }
 
+    .light .close,
+    .dark .close {
+        &:hover {
+            color: $color-white;
+            background-color: $color-red;
+        }
+    }
+
     .light .close {
         background-color: $color-dark-gray-transparent;
-
-        &:hover {
-            color: $color-red;
-            background-color: $color-light-gray-transparent;
-        }
     }
 
     .dark .close {

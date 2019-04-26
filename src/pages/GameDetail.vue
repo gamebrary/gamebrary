@@ -24,18 +24,21 @@
                                     <i class="fas fa-tag tags" />
                                     Add tag
                                 </button>
-
-                                <button
-                                    v-for="({ games, hex }, name) in tags"
-                                    :key="name"
-                                    v-if="games.includes(game.id)"
-                                    class="tag small game-tag"
-                                    :style="`background-color: ${hex}`"
-                                >
-                                    {{ name }}
-                                </button>
                             </div>
                         </div>
+
+                        <br>
+
+                        <pre>{{ games }}</pre>
+
+                        <tag
+                            v-if="games.includes(game.id)"
+                            v-for="({ games, hex }, name) in tags"
+                            :label="name"
+                            :hex="hex"
+                            @action="openTags"
+                            @close="removeTag(name)"
+                        />
 
                         <p class="game-description" v-html="game.summary" />
 
@@ -57,6 +60,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import Tag from '@/components/Tag/Tag';
 import GameHeader from '@/components/GameDetail/GameHeader';
 import GameScreenshots from '@/components/GameDetail/GameScreenshots';
 import GameNotes from '@/components/GameNotes/GameNotes';
@@ -74,6 +78,7 @@ const db = firebase.firestore();
 export default {
     components: {
         IgdbCredit,
+        Tag,
         GameHeader,
         GameRating,
         GameScreenshots,
@@ -129,6 +134,11 @@ export default {
             return cloudinaryId
                 ? `https://images.igdb.com/igdb/image/upload/t_screenshot_huge/${cloudinaryId}.jpg`
                 : null;
+        },
+
+        removeTag(tagName) {
+            this.$store.commit('REMOVE_GAME_TAG', { tagName, gameId: this.game.id });
+            this.$bus.$emit('SAVE_TAGS', this.tags);
         },
 
         openTags() {
@@ -190,12 +200,7 @@ export default {
         }
 
         &.dark {
-            background: $color-darkest-gray;
-
-            .game-detail-container {
-                background: $color-darkest-gray;
-                color: $color-gray;
-            }
+            color: $color-gray;
         }
     }
 

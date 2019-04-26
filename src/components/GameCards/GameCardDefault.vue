@@ -27,14 +27,13 @@
                     :key="name"
                     v-if="games.includes(game.id)"
                 >
-                    <button
-                        class="tag small"
-                        :style="`background-color: ${hex}`"
+                    <tag
                         v-if="games.includes(game.id)"
-                        @click="openTags"
-                    >
-                        {{ name }}
-                    </button>
+                        :label="name"
+                        :hex="hex"
+                        readonly
+                        @action="openTags"
+                    />
                 </div>
             </div>
         </div>
@@ -44,10 +43,12 @@
 <script>
 import GameRating from '@/components/GameDetail/GameRating';
 import GameCardUtils from '@/components/GameCards/GameCard';
+import Tag from '@/components/Tag/Tag';
 
 export default {
     components: {
         GameRating,
+        Tag,
     },
 
     mixins: [GameCardUtils],

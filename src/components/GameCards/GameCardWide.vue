@@ -3,7 +3,11 @@
         <img :src="coverUrl" @click="openDetails" :alt="game.name">
 
         <div class="game-info">
-            <a v-text="game.name" @click="openDetails" v-if="list.view !== 'covers'" />
+            <a
+                v-if="list.view !== 'covers'"
+                v-text="game.name"
+                @click="openDetails"
+            />
 
             <i class="fas fa-grip-vertical game-drag-handle" />
 
@@ -31,6 +35,7 @@
                         v-if="games.includes(game.id)"
                         :label="name"
                         :hex="hex"
+                        readonly
                         @action="openTags"
                         @close="removeTag(name)"
                     />
