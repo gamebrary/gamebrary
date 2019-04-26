@@ -106,14 +106,23 @@ export default {
             font-size: 14px;
         }
 
+        .prev,
+        .next,
+        .close {
+            visibility: hidden;
+
+            &:before {
+                visibility: visible;
+            }
+        }
+
         .prev, .next {
-            font-size: 0;
             background: none;
             border: 0;
 
             &:before {
-                font-family: "Font Awesome 5 Free";
                 font-size: 30px;
+                font-family: "Font Awesome 5 Free";
                 font-weight: 900;
             }
         }
@@ -132,7 +141,6 @@ export default {
             padding: $gp;
             position: absolute;
             text-decoration: none;
-            font-size: 0;
 
             &:before {
                 font-family: "Font Awesome 5 Free";
