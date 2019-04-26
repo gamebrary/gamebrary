@@ -207,6 +207,14 @@ export default {
                     background-color: $color-darker-gray;
                 }
             }
+
+            .game-detail-container {
+                background-color: $color-darker-gray;
+
+                @media($small) {
+                    background-color: transparent;
+                }
+            }
         }
     }
 
