@@ -35,6 +35,7 @@
                             :key="name"
                             :label="name"
                             :hex="hex"
+                            readonly
                             @action="openTags"
                             @close="removeTag(name)"
                         />
