@@ -283,7 +283,6 @@ export default {
             max-height: calc(100vh - 154px);
             min-height: 80px;
             overflow-y: auto;
-            overflow-y: overlay;
             margin-top: $list-header-height;
             padding: 0 $gp / 2;
             width: 100%;
