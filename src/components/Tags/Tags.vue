@@ -149,7 +149,7 @@ export default {
 
         deleteTag(tagName) {
             this.$store.commit('REMOVE_GAME_TAG', { tagName, gameId: this.game.id });
-            this.$bus.$emit('SAVE_TAGS', this.tags);q
+            this.$bus.$emit('SAVE_TAGS', this.tags);
         },
 
         reset() {
