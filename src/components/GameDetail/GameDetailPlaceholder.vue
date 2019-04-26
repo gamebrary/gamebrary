@@ -78,6 +78,7 @@ export default {
 
     @media($small) {
         margin: 0;
+        padding-top: $gp * 3;
         border-radius: 0;
     }
 }
