@@ -3,7 +3,6 @@
         v-if="label && hex"
         :style="`background-color: ${hex}`"
         :class="['tag', textColor, { readonly }]"
-        @click="action"
     >
         <i
             v-if="!readonly"
@@ -11,7 +10,9 @@
             @click="close"
         />
 
-        {{ label }}
+        <span @click="action">
+            {{ label }}
+        </span>
     </span>
 </template>
 
