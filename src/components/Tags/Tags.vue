@@ -6,7 +6,6 @@
 
                 <div class="tags" v-for="(tag, name) in localTags" :key="name">
                     <tag
-                        v-if="localTags.includes(game.id)"
                         :label="name"
                         :hex="tag.hex"
                         @close="deleteTag(name)"
@@ -148,8 +147,8 @@ export default {
         },
 
         deleteTag(tagName) {
-            this.$store.commit('REMOVE_GAME_TAG', { tagName, gameId: this.game.id });
-            this.$bus.$emit('SAVE_TAGS', this.tags);
+            this.$delete(this.localTags, tagName);
+            this.$bus.$emit('SAVE_TAGS', this.localTags, true);
         },
 
         reset() {
