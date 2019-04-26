@@ -47,7 +47,7 @@ export default {
 
                     return {
                         href: `${url}${image.cloudinary_id}.jpg`,
-                        title: `${this.game.name} - Screenshot ${index + 1} of ${this.game.screenshots.length}`,
+                        title: `${this.game.name} (${index + 1} of ${this.game.screenshots.length})`,
                     };
                 })
                 : null;
@@ -103,7 +103,9 @@ export default {
     .blueimp-gallery {
 
         .title {
-            font-size: 14px;
+            font-size: 14px !important;
+            max-width: 50vw;
+            text-align: left;
         }
 
         .prev,
@@ -140,12 +142,14 @@ export default {
             opacity: 1;
             padding: $gp;
             position: absolute;
-            top: $gp / 2;
-            right: $gp * 2;
+            font-size: 20px;
+            margin: -15px 0 !important;
+            top: 0;
+            right: $gp * 4;
             text-decoration: none;
 
             &:before {
-                font-size: 14px;
+                font-size: 12px;
                 font-weight: 900;
                 content: "Back to game";
                 border: 1px solid $color-gray;
