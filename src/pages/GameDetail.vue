@@ -14,14 +14,14 @@
                         <game-rating :rating="game.rating" />
 
                         <div class="actions" v-if="list.games.includes(game.id)">
-                            <button class="error tag" @click="removeGame">
+                            <button class="error small hollow" @click="removeGame">
                                 <i class="far fa-trash-alt delete-game" />
                                 Remove from list
                             </button>
 
                             <div class="tags" v-if="hasTags">
-                                <button class="primary small tag" @click="openTags">
-                                    <i class="fas fa-tag tags" />
+                                <button class="primary hollow small" @click="openTags">
+                                    <i class="fas fa-tag" />
                                     Add tag
                                 </button>
                             </div>
@@ -297,5 +297,10 @@ export default {
     .actions {
         display: flex;
         align-items: center;
+        margin-top: $gp;
+    }
+
+    .tags {
+        margin-left: $gp;
     }
 </style>
