@@ -4,7 +4,7 @@
 
         <div class="game-detail-container">
             <div class="game-detail">
-                <img :src="coverUrl" alt="">
+                <img :src="coverUrl" :alt="gamePreviewData.name" class="game-cover">
 
                 <div>
                     <h2>{{ gamePreviewData.name }}</h2>
@@ -79,6 +79,21 @@ export default {
 
     @media($small) {
         display: none;
+    }
+}
+
+.game-cover {
+    border: 5px solid $color-gray;
+    background-size: contain;
+    width: 100%;
+    height: auto;
+
+    @media($small) {
+        border: 3px solid $color-gray;
+        height: auto;
+        width: auto;
+        min-width: auto;
+        max-width: 100%;
     }
 }
 
