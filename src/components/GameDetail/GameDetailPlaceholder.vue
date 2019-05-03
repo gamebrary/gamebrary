@@ -44,8 +44,8 @@ export default {
             const url = 'https://images.igdb.com/igdb/image/upload/t_cover_small_2x/';
 
             return this.games && this.games[this.id].cover
-            ? `${url}${this.games[this.id].cover.cloudinary_id}.jpg`
-            : '/static/no-image.jpg';
+                ? `${url}${this.games[this.id].cover.cloudinary_id}.jpg`
+                : '/static/no-image.jpg';
         },
     },
 };
