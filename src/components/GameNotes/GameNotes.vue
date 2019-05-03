@@ -41,7 +41,7 @@
             </div>
         </div>
 
-        <button class="warning small tag" @click="addNote" v-if="!hasNote && !editingNote">
+        <button class="warning small hollow" @click="addNote" v-if="!hasNote && !editingNote">
             <i class="fas fa-sticky-note" />
             Add note
         </button>
