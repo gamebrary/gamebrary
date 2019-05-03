@@ -157,7 +157,8 @@ export default {
             width: 780px;
 
             @media($small) {
-                width: 100vw;
+                max-width: 90vw;
+                max-height: 80vh;
             }
         }
 
@@ -168,12 +169,10 @@ export default {
         }
 
         @media($small) {
-            height: auto;
             margin: 0;
-            max-height: 100vh;
-            height: 100vh;
-            border-radius: 0;
-            width: 100vw;
+            height: auto;
+            max-height: 80vh;
+            width: 80vw;
         }
     }
 
