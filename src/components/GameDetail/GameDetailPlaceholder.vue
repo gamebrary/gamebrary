@@ -4,11 +4,11 @@
 
         <div class="game-detail-container">
             <div class="game-detail">
-                <placeholder image class="game-cover" />
+                <img :src="coverUrl" alt="">
 
                 <div>
-                    <placeholder :lines="1" class="game-title" />
-                    <game-rating :rating="100" placeholder />
+                    <h2>{{ gamePreviewData.name }}</h2>
+                    <game-rating :rating="gamePreviewData.rating" placeholder />
                     <placeholder :lines="5" />
                 </div>
 
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import GameRating from '@/components/GameDetail/GameRating';
 import Placeholder from '@/components/Placeholder/Placeholder';
 
@@ -28,8 +28,25 @@ export default {
         Placeholder,
     },
 
+    props: {
+        id: [Number, String],
+    },
+
     computed: {
         ...mapGetters(['darkModeEnabled']),
+        ...mapState(['games']),
+
+        gamePreviewData() {
+            return this.games[this.id];
+        },
+
+        coverUrl() {
+            const url = 'https://images.igdb.com/igdb/image/upload/t_cover_small_2x/';
+
+            return this.games && this.games[this.id].cover
+            ? `${url}${this.games[this.id].cover.cloudinary_id}.jpg`
+            : '/static/no-image.jpg';
+        },
     },
 };
 </script>

@@ -1,6 +1,6 @@
 <template lang="html">
     <div class="game-detail-wrapper">
-        <game-detail-placeholder v-if="!game" />
+        <game-detail-placeholder v-if="!game" :id="id" />
 
         <div class="game-detail" v-else :class="{ dark: darkModeEnabled }">
             <div class="game-hero" :style="style" />
