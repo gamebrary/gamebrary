@@ -150,14 +150,16 @@ export default {
 
             this.$store.dispatch('LOAD_GAME', gameId)
                 .then(() => {
-                    this.$ga.event({
-                        eventCategory: 'game',
-                        eventAction: 'view',
-                        eventLabel: 'gameViewed',
-                        eventValue: `${this.platform.name} - ${this.game.name}`,
-                    });
+                    if (this.game) {
+                        this.$ga.event({
+                            eventCategory: 'game',
+                            eventAction: 'view',
+                            eventLabel: 'gameViewed',
+                            eventValue: `${this.platform.name} - ${this.game.name}`,
+                        });
 
-                    document.title = `${this.game.name} (${this.platform.name}) - Gamebrary`;
+                        document.title = `${this.game.name} (${this.platform.name}) - Gamebrary`;
+                    }
                 })
                 .catch(() => {
                     this.$bus.$emit('TOAST', { message: 'Error loading game', type: 'error' });
