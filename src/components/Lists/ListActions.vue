@@ -29,7 +29,6 @@
             <modal
                 :title="`${platform.name}`"
                 ref="settings"
-                message="Settings here"
                 padded
             >
                 <button

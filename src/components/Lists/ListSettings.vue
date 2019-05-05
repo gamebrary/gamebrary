@@ -1,45 +1,47 @@
 <template lang="html">
-    <div>
+    <div class="list-settings">
+        <section>
+            <h3>Custom Wallpaper</h3>
+            <wallpaper-upload />
+        </section>
 
-        <h3>Custom Wallpaper</h3>
-        <wallpaper-upload />
+        <section>
+            <h3>Shareable links (beta)</h3>
+            <div class="links">
+                <a class="link small tiny primary" :href="tweetUrl" target="_blank">
+                    <i class="fab fa-twitter" />
+                </a>
 
-        <br><hr><br>
+                <a class="link small tiny primary reddit" :href="redditUrl" target="_blank">
+                    <i class="fab fa-reddit" />
+                </a>
 
-        <h3>Shareable links (beta)</h3>
-        <div class="links">
-            <a class="link small tiny primary" :href="tweetUrl" target="_blank">
-                <i class="fab fa-twitter" />
-            </a>
+                <a class="link small tiny info" :href="shareUrl" target="_blank">
+                    <i class="fas fa-link" />
+                </a>
+            </div>
+        </section>
 
-            <a class="link small tiny primary reddit" :href="redditUrl" target="_blank">
-                <i class="fab fa-reddit" />
-            </a>
-
-            <a class="link small tiny info" :href="shareUrl" target="_blank">
-                <i class="fas fa-link" />
-            </a>
-        </div>
-
-        <br><hr><br>
-
-        <!-- TODO: move to it's own component -->
-        <modal
-            :action-text="`Delete forever`"
-            :message="`Your ${platform.name} collection will be deleted forever.`"
-            :title="`Delete ${platform.name} collection`"
-            padded
-            show-close
-            @action="deletePlatform"
-        >
-            <button
-                class="small accent hollow"
-                :title="$t('list.delete')"
+        <section>
+            <h3>Danger zone</h3>
+            <!-- TODO: move to it's own component -->
+            <modal
+                :action-text="`Delete forever`"
+                :message="`Your ${platform.name} collection will be deleted forever.`"
+                :title="`Delete ${platform.name} collection`"
+                padded
+                show-close
+                @action="deletePlatform"
             >
-                <i class="far fa-trash-alt" />
-                Delete {{ platform.name }} collection
-            </button>
-        </modal>
+                <button
+                    class="small accent hollow"
+                    :title="$t('list.delete')"
+                >
+                    <i class="far fa-trash-alt" />
+                    Delete {{ platform.name }} collection
+                </button>
+            </modal>
+        </section>
     </div>
 </template>
 
@@ -89,12 +91,26 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-.links {
+    @import "~styles/styles.scss";
 
-    a {
-        &.reddit {
-            background-color: #ff4500;
+    .list-settings {
+        display: grid;
+        grid-gap: $gp;
+
+        section {
+            margin-bottom: $gp;
+        }
+
+        h3 {
+            margin: $gp / 2 0;
         }
     }
-}
+
+    .links {
+        a {
+            &.reddit {
+                background-color: #ff4500;
+            }
+        }
+    }
 </style>
