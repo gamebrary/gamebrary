@@ -2,7 +2,7 @@
     <div class="list-actions">
         <div class="actions">
             <button
-                class="small info"
+                class="small success"
                 :title="$t('list.add')"
                 @click="addList"
             >
@@ -17,7 +17,7 @@
                 padded
             >
                 <button
-                    class="small info"
+                    class="small primary"
                     title="Game tags"
                 >
                     <i class="fas fa-tag" />
@@ -27,35 +27,22 @@
             </modal>
 
             <modal
-                title="Custom wallpaper"
-                ref="wallpapers"
-                message="Upload your own wallpaper to customize your game board!"
+                :title="`${platform.name}`"
+                ref="settings"
+                message="Settings here"
                 padded
             >
                 <button
-                    class="small info"
-                    title="Upload wallpaper"
+                    class="small accent"
+                    title="Game tags"
                 >
-                    <i class="far fa-image" />
+                    <i class="fas fa-cog" />
                 </button>
 
-                <wallpaper-upload slot="content" />
-            </modal>
-
-            <modal
-                :action-text="`Delete forever`"
-                :message="`Your ${platform.name} collection will be deleted forever.`"
-                :title="`Delete ${platform.name} collection`"
-                padded
-                show-close
-                @action="deletePlatform"
-            >
-                <button
-                    class="small info"
-                    :title="$t('list.delete')"
-                >
-                    <i class="far fa-trash-alt" />
-                </button>
+                <list-settings
+                    slot="content"
+                    @update="update"
+                />
             </modal>
 
             <share-list />
@@ -69,6 +56,7 @@ import Modal from '@/components/Modal/Modal';
 import Tags from '@/components/Tags/Tags';
 import ShareList from '@/components/ShareList/ShareList';
 import ListAdd from '@/components/Lists/ListAdd';
+import ListSettings from '@/components/Lists/ListSettings';
 import WallpaperUpload from '@/components/WallpaperUpload/WallpaperUpload';
 
 export default {
@@ -78,6 +66,7 @@ export default {
         WallpaperUpload,
         ShareList,
         ListAdd,
+        ListSettings,
     },
 
     computed: {
@@ -101,10 +90,8 @@ export default {
             this.$store.commit('SET_ADDING_LIST_STATUS', true);
         },
 
-        deletePlatform() {
-            this.$store.commit('REMOVE_PLATFORM');
-            this.$router.push({ name: 'platforms' });
-            this.$emit('update', true);
+        update(force) {
+            this.$emit('update', force);
         },
     },
 };
