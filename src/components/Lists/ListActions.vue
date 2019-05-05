@@ -44,8 +44,6 @@
                     @update="update"
                 />
             </modal>
-
-            <share-list />
         </div>
     </div>
 </template>
@@ -54,7 +52,6 @@
 import { mapState } from 'vuex';
 import Modal from '@/components/Modal/Modal';
 import Tags from '@/components/Tags/Tags';
-import ShareList from '@/components/ShareList/ShareList';
 import ListAdd from '@/components/Lists/ListAdd';
 import ListSettings from '@/components/Lists/ListSettings';
 import WallpaperUpload from '@/components/WallpaperUpload/WallpaperUpload';
@@ -64,7 +61,6 @@ export default {
         Modal,
         Tags,
         WallpaperUpload,
-        ShareList,
         ListAdd,
         ListSettings,
     },
