@@ -32,7 +32,6 @@
             >
                 <i class="fas fa-plus-circle"></i>
             </span>
-            </section>
         </div>
     </div>
 </template>
