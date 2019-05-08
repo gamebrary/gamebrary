@@ -17,13 +17,7 @@
 </template>
 
 <script>
-import Tag from '@/components/Tag/Tag';
-
 export default {
-    components: {
-        Tag,
-    },
-
     props: {
         readonly: Boolean,
         label: String,
