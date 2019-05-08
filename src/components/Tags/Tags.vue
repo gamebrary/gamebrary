@@ -8,8 +8,6 @@
             @close="deleteTag(name)"
         />
 
-        <pre>{{ textColor }}</pre>
-
         <div
             class="add-tag"
             :class="textColor"
@@ -151,10 +149,6 @@ export default {
             input {
                 transition: all 1s ease;
                 color: $color-black;
-
-                &::placeholder {
-                    color: $color-black;
-                }
             }
         }
 
@@ -162,10 +156,6 @@ export default {
             input {
                 transition: all 1s ease;
                 color: $color-white;
-
-                &::placeholder {
-                    color: $color-white;
-                }
             }
         }
 
