@@ -30,6 +30,7 @@
 
                 <button
                     class="small primary"
+                    :disabled="isDuplicate"
                     @click="createTag"
                 >
                     <i class="fas fa-plus-circle" />
