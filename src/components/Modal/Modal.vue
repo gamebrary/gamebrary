@@ -29,7 +29,7 @@
 
                         <button
                             v-if="actionText"
-                            class="small primary action"
+                            class="small primary"
                             :disabled="actionDisabled"
                             @click="handleAction"
                         >
