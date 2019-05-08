@@ -30,7 +30,6 @@
 
                 <button
                     class="small primary"
-                    :disabled="!tagHex || !tagName"
                     @click="createTag"
                 >
                     <i class="fas fa-plus-circle" />
