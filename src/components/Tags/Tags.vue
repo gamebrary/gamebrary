@@ -11,27 +11,33 @@
         <div
             class="add-tag"
             :class="textColor"
-            :style="`background-color: ${tagHex}`"
         >
-            <input
-                type="text"
-                v-model="tagName"
-                placeholder="Tag name / color"
-            />
+            <h5>Add tag</h5>
 
-            <input
-                type="color"
-                :value="tagHex || '#ffffff'"
-                @change="updateColor"
-                class="color-picker"
-            />
+            <div class="tag-input">
+                <input
+                    type="text"
+                    v-model="tagName"
+                    placeholder="Tag name"
+                />
 
-            <span
-                class="create-tag"
-                @click="createTag"
-            >
-                <i class="fas fa-plus-circle"></i>
-            </span>
+                <input
+                    type="color"
+                    :value="tagHex || '#ffffff'"
+                    @change="updateColor"
+                    class="color-picker"
+                />
+
+                <button
+                    class="small primary"
+                    :disabled="!tagHex || !tagName"
+                    @click="createTag"
+                >
+                    <i class="fas fa-plus-circle" />
+
+                    Create tag
+                </button>
+            </div>
         </div>
     </div>
 </template>
@@ -52,20 +58,6 @@ export default {
             localTags: {},
             tagName: '',
             tagHex: '#ffffff',
-            colors: [
-                '#eb5a58',
-                '#ffd166',
-                '#06d6a0',
-                '#118ab2',
-                '#073b4c',
-            ],
-            suggestions: [
-                'Completed',
-                'Digital',
-                'Physical',
-                'Playing',
-                'Abandoned',
-            ],
         };
     },
 
@@ -136,61 +128,28 @@ export default {
     @import "~styles/styles.scss";
 
     .add-tag {
-        width: 140px;
-        height: 18px;
-        display: flex;
-        align-items: center;
-        border-radius: $gp;
-        border: 1px solid $color-light-gray;
-        transition: color 0.5s ease;
+        background: $color-lightest-gray;
+        border: 1px solid $color-gray;
+        border-radius: $border-radius;
+        padding: $gp / 2;
+        margin-top: $gp;
+    }
 
-        &.light {
-            input {
-                transition: all 1s ease;
-                color: $color-black;
-            }
-        }
-
-        &.dark {
-            input {
-                transition: all 1s ease;
-                color: $color-white;
-            }
-        }
+    .tag-input {
+        display: grid;
+        grid-template-columns: 1fr 32px auto;
+        grid-gap: $gp / 2;
 
         input {
-            border: 0;
-            border-radius: 0;
             margin: 0;
-            padding: 0;
-            font-size: 10px;
-            background: transparent;
-            outline: 0;
-            height: 20px;
-            padding: 0 $gp / 2;
-
-            &::placeholder {
-                color: $color-black;
-            }
-
-
-            &[type="color"] {
-                padding: 0;
-                width: 25px;
-            }
-        }
-
-        .create-tag {
-            color: $color-green;
-            margin: 0 1px;
-            height: 18px;
-            display: flex;
-            align-items: center;
-
         }
     }
 
     .color-picker {
-        width: 50px;
+        -webkit-appearance: none;
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        margin: 0;
     }
 </style>
