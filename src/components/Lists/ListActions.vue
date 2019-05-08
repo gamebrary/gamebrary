@@ -13,7 +13,6 @@
                 title="Game tags"
                 ref="tags"
                 message="Use tags to better organize your games"
-                large
                 padded
             >
                 <button

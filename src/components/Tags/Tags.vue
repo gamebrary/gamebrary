@@ -1,81 +1,40 @@
 <template lang="html">
     <div class="tags-modal">
-        <div class="content">
-            <div class="my-tags">
-                <h3>My tags</h3>
+        <tag
+            v-for="(tag, name) in localTags"
+            :key="name"
+            :label="name"
+            :hex="tag.hex"
+            @close="deleteTag(name)"
+        />
 
-                <div class="tags" v-for="(tag, name) in localTags" :key="name">
-                    <tag
-                        :label="name"
-                        :hex="tag.hex"
-                        @close="deleteTag(name)"
-                    />
-                </div>
-            </div>
+        <pre>{{ textColor }}</pre>
 
-            <div class="add-tag">
-                <h3>Add new tag</h3>
+        <div
+            class="add-tag"
+            :class="textColor"
+            :style="`background-color: ${tagHex}`"
+        >
+            <input
+                type="text"
+                v-model="tagName"
+                placeholder="Tag name / color"
+            />
 
-                <panel class="warning" v-if="isDuplicate">
-                    <i class="fas fa-exclamation-triangle" />
-                    <small>A tag named
-                        <strong>{{ tagName.toLowerCase() }}</strong>
-                         already exists.</small>
-                </panel>
+            <input
+                type="color"
+                :value="tagHex || '#ffffff'"
+                @change="updateColor"
+                class="color-picker"
+            />
 
-                <section>
-                    <h4>1. Tag name</h4>
-                    <input type="text" v-model="tagName">
-
-                    <div class="suggestions">
-                        <small>Suggestions:</small>
-
-                        <br />
-
-                        <button
-                            v-for="name in suggestions"
-                            :key="`tag-${name}`"
-                            class="tag info hollow small suggestion"
-                            :disabled="localTags[name]"
-                            @click="tagName = name"
-                        >
-                            {{ name }}
-                        </button>
-                    </div>
-                </section>
-
-                <section>
-                    <h4>2. Tag color</h4>
-
-                    <button
-                        v-for="color in colors"
-                        :key="`tag-${color}`"
-                        class="tag small color"
-                        :style="`background-color: ${color}`"
-                        @click="tagHex = color"
-                    >
-                        <i class="fas fa-fill-drip" />
-                    </button>
-
-                    <input type="color" :value="tagHex" @change="updateColor" class="color-picker">
-                    <pre>{{ tagHex }}</pre>
-                </section>
-
-                <section>
-                    <h4>3. Review and save</h4>
-                    <button class="tag small" :style="`background-color: ${tagHex || '#ccc'}`">
-                        {{ tagName || 'Enter tag name' }}
-                    </button>
-                </section>
-
-                <button
-                    class="small primary action"
-                    :disabled="!tagHex || !tagName || isDuplicate"
-                    @click="createTag"
-                >
-                    Create tag
-                </button>
-            </div>
+            <span
+                class="create-tag"
+                @click="createTag"
+            >
+                <i class="fas fa-plus-circle"></i>
+            </span>
+            </section>
         </div>
     </div>
 </template>
@@ -95,7 +54,7 @@ export default {
         return {
             localTags: {},
             tagName: '',
-            tagHex: '',
+            tagHex: '#ffffff',
             colors: [
                 '#eb5a58',
                 '#ffd166',
@@ -123,6 +82,19 @@ export default {
             };
         },
 
+        textColor() {
+            const hexColor = this.tagHex ? this.tagHex.replace('#', 0) : '#000000';
+
+            const r = parseInt(hexColor.substr(0, 2), 16);
+            const g = parseInt(hexColor.substr(2, 2), 16);
+            const b = parseInt(hexColor.substr(4, 2), 16);
+
+            // eslint-disable-next-line
+            const yiq = ((r*299)+(g*587)+(b*114))/1000;
+
+            return yiq >= 128 ? 'dark' : 'light';
+        },
+
         isDuplicate() {
             const tagName = this.tagName.toLowerCase();
 
@@ -141,6 +113,10 @@ export default {
         },
 
         createTag() {
+            if (!this.tagHex || !this.tagName || this.isDuplicate) {
+                return;
+            }
+
             this.$set(this.localTags, this.tagName, this.newTag);
             this.$bus.$emit('SAVE_TAGS', this.localTags);
             this.reset();
@@ -153,7 +129,7 @@ export default {
 
         reset() {
             this.tagName = '';
-            this.tagHex = '';
+            this.tagHex = '#ffffff';
         },
     },
 };
@@ -162,43 +138,67 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles.scss";
 
-    h4 {
-        margin: $gp 0 $gp / 2;
-    }
+    .add-tag {
+        width: 140px;
+        height: 18px;
+        display: flex;
+        align-items: center;
+        border-radius: $gp;
+        border: 1px solid $color-light-gray;
+        transition: color 0.5s ease;
 
-    input {
-        margin: 0;
-    }
+        &.light {
+            input {
+                transition: all 1s ease;
+                color: $color-black;
 
-    .suggestions {
-        margin-top: $gp / 2;
-    }
+                &::placeholder {
+                    color: $color-black;
+                }
+            }
+        }
 
-    .suggestion, .color {
-        display: inline-flex;
-        margin: $gp / 4 $gp / 4 0 0;
-    }
+        &.dark {
+            input {
+                transition: all 1s ease;
+                color: $color-white;
 
-    .actions {
-        display: grid;
-        grid-gap: $gp;
-        grid-template-columns: auto;
-    }
+                &::placeholder {
+                    color: $color-white;
+                }
+            }
+        }
 
-    section {
-        border-bottom: 1px solid $color-light-gray;
-        padding-bottom: $gp;
-        margin-bottom: $gp;
-    }
+        input {
+            border: 0;
+            border-radius: 0;
+            margin: 0;
+            padding: 0;
+            font-size: 10px;
+            background: transparent;
+            outline: 0;
+            height: 20px;
+            padding: 0 $gp / 2;
 
-    .content {
-        display: grid;
-        grid-gap: $gp;
-        grid-template-columns: 1fr 2fr;
-    }
+            &::placeholder {
+                color: $color-black;
+            }
 
-    .my-tags {
-        // display: grid;
+
+            &[type="color"] {
+                padding: 0;
+                width: 25px;
+            }
+        }
+
+        .create-tag {
+            color: $color-green;
+            margin: 0 1px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+
+        }
     }
 
     .color-picker {
