@@ -3,7 +3,7 @@
         <router-link
             tag="button"
             class="logo"
-            :to="{ name: homeRoute }"
+            :to="{ name: logoRoute }"
         >
             <img src='/static/gamebrary-logo.png' />
 
@@ -11,9 +11,13 @@
         </router-link>
 
         <modal popover>
-            <gravatar :email="user.email" class="avatar" v-if="user && user.email" />
+            <gravatar
+                :email="user.email"
+                class="avatar"
+                v-if="isLoggedIn"
+            />
 
-            <settings slot="content" v-if="settings && user" />
+            <settings slot="content" v-if="hasSettings" />
         </modal>
     </nav>
 </template>
@@ -35,6 +39,14 @@ export default {
         ...mapState(['user', 'platform', 'settings']),
         ...mapGetters(['darkModeEnabled']),
 
+        isLoggedIn() {
+            return this.user && this.user.email;
+        },
+
+        hasSettings() {
+            return this.settings && this.user;
+        },
+
         title() {
             if (this.$route.name === 'share-list') {
                 return this.$route.query && this.$route.query.list
@@ -47,7 +59,7 @@ export default {
                 : 'GAMEBRARY';
         },
 
-        homeRoute() {
+        logoRoute() {
             if (this.$route.name === 'share-list') {
                 return null;
             }
