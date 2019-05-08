@@ -15,8 +15,8 @@
             @close="closeGame"
         >
             <game-detail
-                slot="content"
                 v-if="gameDetailId"
+                slot="content"
                 :id="gameDetailId"
                 :list-id="gameDetailListIndex"
             />
@@ -29,7 +29,11 @@
             padded
         >
             <div slot="content">
-                <div class="tags" v-for="(tag, name) in tags" :key="name">
+                <div
+                    class="tags"
+                    v-for="(tag, name) in tags"
+                    :key="name"
+                >
                     <tag
                         :label="name"
                         :hex="tag.hex"
