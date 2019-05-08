@@ -87,7 +87,7 @@ export default {
         isDuplicate() {
             const tagName = this.tagName.toLowerCase();
 
-            const lowerCaseTags = Object.keys(this.localTags).map((field) => field.toLowerCase());
+            const lowerCaseTags = Object.keys(this.localTags).map(field => field.toLowerCase());
 
             return lowerCaseTags && lowerCaseTags.includes(tagName);
         },
