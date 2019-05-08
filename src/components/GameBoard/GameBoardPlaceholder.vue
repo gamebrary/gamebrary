@@ -1,6 +1,10 @@
 <template lang="html">
     <div :class="['gameboard-placeholder', { dark: darkModeEnabled }]">
-        <div :class="`list ${list.view || 'single'}`" v-for="list in lists" :key="list.name">
+        <div
+            :class="`list ${list.view || 'single'}`"
+            v-for="list in lists"
+            :key="list.name"
+        >
             <div class="list-header" />
 
             <div class="games">

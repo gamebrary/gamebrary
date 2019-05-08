@@ -13,7 +13,11 @@
         <div class="note" v-if="editingNote">
             <i class="fas fa-sticky-note corner-icon" />
 
-            <div class="read" v-if="localNote && !editingNote" @click="editNote">
+            <div
+                class="read"
+                v-if="localNote && !editingNote"
+                @click="editNote"
+            >
                 <p>{{ localNote.text }}</p>
             </div>
 
@@ -33,7 +37,11 @@
                         <i class="far fa-trash-alt" />
                     </button>
 
-                    <button class="success tag" @click="saveNote" :disabled="!localNote">
+                    <button
+                        class="success tag"
+                        @click="saveNote"
+                        :disabled="!localNote"
+                    >
                         Save
                     </button>
                 </div>
@@ -41,7 +49,11 @@
             </div>
         </div>
 
-        <button class="warning small hollow" @click="addNote" v-if="!hasNote && !editingNote">
+        <button
+            class="warning small hollow"
+            @click="addNote"
+            v-if="!hasNote && !editingNote"
+        >
             <i class="fas fa-sticky-note" />
             Add note
         </button>
