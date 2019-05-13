@@ -1,6 +1,10 @@
 ---
-name: 🐛 Bug Report
+name: "\U0001F41B Bug Report"
 about: Report issues, visual defects, etc...
+title: ''
+labels: ''
+assignees: ''
+
 ---
 
 # Bug report
