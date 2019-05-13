@@ -1,3 +1,4 @@
+// Colors
 $color-gray: #a5a2a2;
 $color-red: #dd2020;
 $color-orange: #ffae42;
@@ -14,3 +15,26 @@ $color-darkest-gray: #222222;
 $color-light-gray: #e5e5e5;
 $color-light-gray-transparent: rgba(229, 229, 229, .5);
 $color-lightest-gray: #f0f0f0;
+
+// Typography
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+$font-size-xsmall: 10px;
+$font-size-small: 12px;
+$font-size: 14px;
+$font-size-large: 18px;
+$font-size-xlarge: 24px;
+
+// Measurements
+$border-radius: 4px;
+$gp: 16px;
+$navHeight: 48px;
+$container-width: 900px;
+$list-header-height: 30px;
+$list-width: 300px;
+$list-width-wide: 340px;
+
+// Media queries
+$small: "max-width: 780px";
+$medium: "max-width: 1024px";
+
