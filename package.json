@@ -1,8 +1,9 @@
 {
-    "name": "GAMEBRARY",
+    "name": "Gamebrary",
     "version": "1.0.0",
-    "description": "Keep track of your video game collection",
+    "description": "Open source tool to organize video game collections.",
     "author": "Roman Cervantes",
+    "license": "MIT",
     "private": true,
     "scripts": {
         "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",

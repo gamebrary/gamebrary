@@ -5,7 +5,7 @@
   "background_color": "#333333",
   "display": "fullscreen",
   "orientation": "portrait",
-  "description": "Open source tool that helps organize your video game collection.",
+  "description": "Open source tool to organize video game collections.",
   "Scope": "/",
   "start_url": "/",
   "icons": [

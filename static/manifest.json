@@ -4,6 +4,7 @@
     "theme_color": "#555555",
     "background_color": "#333333",
     "display": "standalone",
+    "description": "Open source tool to organize video game collections.",
     "orientation": "portrait",
     "Scope": "/",
     "start_url": "/?utm_source=pwa",
