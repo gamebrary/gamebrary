@@ -6,7 +6,7 @@
     "display": "standalone",
     "orientation": "portrait",
     "Scope": "/",
-    "start_url": "/",
+    "start_url": "/?utm_source=pwa",
     "icons": [
         {
             "src": "\/static\/icons\/icon-72x72.png",
