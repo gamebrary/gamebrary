@@ -54,25 +54,6 @@
                 <i :class="icon" />
                 {{ $t('list.' + sortOrder) }}
             </button>
-            <!--button
-                class="small accent"
-                :class="{ 'info hollow': !darkModeEnabled }"
-                :title="$t('list.sortByName')"
-                @click="sortListAlphabetically"
-            >
-                <i class="fas fa-sort-alpha-down" />
-                {{ $t('list.sortByName') }}
-            </button>
-
-            <button
-                class="small accent"
-                :class="{ 'info hollow': !darkModeEnabled }"
-                :title="$t('list.sortByRating')"
-                @click="sortListByRating"
-            >
-                <i class="fas fa-sort-numeric-up" />
-                {{ $t('list.sortByRating') }}
-            </button-->
         </section>
 
         <footer>
@@ -172,6 +153,9 @@ export default {
 
     mounted() {
         this.localList = JSON.parse(JSON.stringify(this.activeList));
+        this.$bus.$on('GAMES_ADDED', () => {
+            this.sort(this.activeList.sortOrder);
+        });
     },
 
     methods: {
@@ -202,12 +186,18 @@ export default {
                 listIndex: this.activeListIndex,
                 sortOrder,
             });
-            if (sortOrder == 'sortByName') {
-                this.sortListAlphabetically();
-            } else if (sortOrder == 'sortByRating') {
-                this.sortListByRating();
-            }
+            this.sort(sortOrder);
             this.$emit('update');
+        },
+
+        sort(sortOrder) {
+            if (sortOrder == 'sortByName') {
+                this.$store.commit('SORT_LIST_ALPHABETICALLY', this.activeListIndex);
+                this.$emit('update', 'List sorted alphabetically');
+            } else if (sortOrder == 'sortByRating') {
+                this.$store.commit('SORT_LIST_BY_RATING', this.activeListIndex);
+                this.$emit('update', 'List sorted by game rating');
+            }
         },
 
         cancel() {
@@ -217,16 +207,6 @@ export default {
         moveList(from, to) {
             this.$store.commit('MOVE_LIST', { from, to });
             this.$emit('update', 'List moved');
-        },
-
-        sortListAlphabetically() {
-            this.$store.commit('SORT_LIST_ALPHABETICALLY', this.activeListIndex);
-            this.$emit('update', 'List sorted alphabetically');
-        },
-
-        sortListByRating() {
-            this.$store.commit('SORT_LIST_BY_RATING', this.activeListIndex);
-            this.$emit('update', 'List sorted by game rating');
         },
     },
 };

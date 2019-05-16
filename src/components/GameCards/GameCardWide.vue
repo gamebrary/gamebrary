@@ -9,10 +9,7 @@
                 @click="openDetails"
             />
 
-            <i 
-                class="fas fa-grip-vertical" 
-                v-bind:class="{ 'game-drag-handle' : list.sortOrder == 'sortByCustom' }"
-            />
+            <i v-bind:class="{ 'fas fa-grip-vertical game-drag-handle' : list.sortOrder == 'sortByCustom' }" />
 
 
             <game-rating

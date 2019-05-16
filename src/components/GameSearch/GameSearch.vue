@@ -128,6 +128,7 @@ export default {
 
         added() {
             this.$emit('added');
+            this.$bus.$emit('GAMES_ADDED');
 
             if (this.filteredResults.length === 1) {
                 this.clear();
