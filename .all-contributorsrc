@@ -1,0 +1,115 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "romancm",
+      "name": "Roman Cervantes",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/645310?v=4",
+      "profile": "https://dev.to/romancm",
+      "contributions": [
+        "infra",
+        "code"
+      ]
+    },
+    {
+      "login": "mattb555",
+      "name": "Matthew Bunge",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/10692492?v=4",
+      "profile": "https://github.com/mattb555",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "3stan",
+      "name": "Tristan",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/3209018?v=4",
+      "profile": "https://github.com/3stan",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "OmegaRobert",
+      "name": "OmegaRobert",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/50242286?v=4",
+      "profile": "https://github.com/OmegaRobert",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "areyouokani",
+      "name": "areyouokani",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/29702693?v=4",
+      "profile": "https://github.com/areyouokani",
+      "contributions": [
+        "question",
+        "bug"
+      ]
+    },
+    {
+      "login": "ocdtrekkie",
+      "name": "Jacob Weisz",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/4399499?v=4",
+      "profile": "https://www.jacobweisz.com",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "GMartigny",
+      "name": "Guillaume Martigny",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/2543511?v=4",
+      "profile": "http://www.guillaume-martigny.fr",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "Jdban",
+      "name": "Jason Banich",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/490005?v=4",
+      "profile": "https://github.com/Jdban",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "Swinkid",
+      "name": "Alex Noble",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/6237394?v=4",
+      "profile": "http://alexnoble.co.uk",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "Gyndemia",
+      "name": "Gyndemia",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/20953745?v=4",
+      "profile": "https://github.com/Gyndemia",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "apersonnamedmike",
+      "name": "Michael Harding",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/10731372?v=4",
+      "profile": "https://dev.to/apersonnamedmike",
+      "contributions": [
+        "bug"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "gamebrary",
+  "projectOwner": "romancm",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
