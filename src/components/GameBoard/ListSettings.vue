@@ -118,7 +118,7 @@ export default {
                 sortByName: 'fas fa-sort-alpha-down',
                 sortByRating: 'fas fa-sort-numeric-up',
                 sortByCustom: 'fas fa-sort-custom',
-            }
+            },
         };
     },
 
