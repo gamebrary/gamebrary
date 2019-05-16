@@ -3,7 +3,7 @@
         v-if="game.screenshots"
         :class="['game-screenshots', { dark: darkModeEnabled }]"
     >
-        <h3>Screenshots</h3>
+        <h3>{{ $t('gameDetails.screenshots.title') }}</h3>
 
         <vue-gallery
             :images="screenshots"

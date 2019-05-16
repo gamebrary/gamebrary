@@ -26,6 +26,22 @@ module.exports = {
         add: 'Add game',
         addPlural: 'Add games to',
     },
+    gameDetails: {
+        videos: {
+            title: 'Videos',
+        },
+        screenshots: {
+            title: 'Screenshots',
+        },
+        reviewBox: {
+            playerPerspectives: 'Perspective',
+            gameModes: 'Game Mode',
+            genres: 'Genre',
+            gamePlatforms: 'Platforms',
+            developers: 'Developer',
+            publishers: 'Publishers',
+        }
+    },
     list: {
         edit: 'Edit list name',
         input: 'Enter your own',
