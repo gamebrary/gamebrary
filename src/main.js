@@ -6,6 +6,7 @@ import axios from 'axios';
 import VueAnalytics from 'vue-analytics';
 import Raven from 'raven-js';
 import RavenVue from 'raven-js/plugins/vue';
+import VueShortKey from 'vue-shortkey';
 import App from './App';
 import messages from './i18n/';
 import router from './router';
@@ -29,7 +30,7 @@ Vue.use(VueAnalytics, {
 Vue.use(VueAxios, axios);
 Vue.use(VueFire);
 Vue.use(VueI18n);
-Vue.use(require('vue-shortkey'));
+Vue.use(VueShortKey, { prevent: ['input', 'textarea'] });
 
 if (process.env.NODE_ENV !== 'development') {
     Raven
