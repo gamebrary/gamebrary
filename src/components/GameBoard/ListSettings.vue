@@ -45,6 +45,16 @@
             <h4>Sort List</h4>
 
             <button
+                v-for="(icon, sortOrder) in sortOrders"
+                :key="sortOrder"
+                class="small primary"
+                :class="{ hollow: activeList.sortOrder !== sortOrder }"
+                @click="setListSort(sortOrder)"
+            >
+                <i :class="icon" />
+                {{ $t('list.' + sortOrder) }}
+            </button>
+            <!--button
                 class="small accent"
                 :class="{ 'info hollow': !darkModeEnabled }"
                 :title="$t('list.sortByName')"
@@ -62,7 +72,7 @@
             >
                 <i class="fas fa-sort-numeric-up" />
                 {{ $t('list.sortByRating') }}
-            </button>
+            </button-->
         </section>
 
         <footer>
@@ -123,6 +133,11 @@ export default {
                 covers: 'fas fa-th-large',
                 wide: 'fas fa-minus',
             },
+            sortOrders: {
+                sortByName: 'fas fa-sort-alpha-down',
+                sortByRating: 'fas fa-sort-numeric-up',
+                sortByCustom: 'fas fa-sort-custom',
+            }
         };
     },
 
@@ -179,6 +194,19 @@ export default {
                 view,
             });
 
+            this.$emit('update');
+        },
+
+        setListSort(sortOrder) {
+            this.$store.commit('UPDATE_LIST_SORT', {
+                listIndex: this.activeListIndex,
+                sortOrder,
+            });
+            if (sortOrder == 'sortByName') {
+                this.sortListAlphabetically();
+            } else if (sortOrder == 'sortByRating') {
+                this.sortListByRating();
+            }
             this.$emit('update');
         },
 

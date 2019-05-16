@@ -5,7 +5,10 @@
         <div class="game-info">
             <a v-text="game.name" @click="openDetails" v-if="list.view !== 'covers'" />
 
-            <i class="fas fa-grip-vertical game-drag-handle" />
+            <i 
+                class="fas fa-grip-vertical" 
+                v-bind:class="{ 'game-drag-handle' : list.sortOrder == 'sortByCustom' }"
+            />
 
             <game-rating
                 v-if="showGameRatings && list.view !== 'covers'"
