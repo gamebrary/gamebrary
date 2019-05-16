@@ -145,7 +145,7 @@ export default {
         state.gameLists[state.platform.code][listIndex].view = view;
     },
 
-    UPDATE_LIST_SORT(state, {listIndex, sortOrder }) {
+    UPDATE_LIST_SORT(state, { listIndex, sortOrder }) {
         state.gameLists[state.platform.code][listIndex].sortOrder = sortOrder;
     },
 

@@ -52,7 +52,7 @@
                 @click="setListSort(sortOrder)"
             >
                 <i :class="icon" />
-                {{ $t('list.' + sortOrder) }}
+                {{ $t(`list.${sortOrder}`) }}
             </button>
         </section>
 
@@ -191,10 +191,10 @@ export default {
         },
 
         sort(sortOrder) {
-            if (sortOrder == 'sortByName') {
+            if (sortOrder === 'sortByName') {
                 this.$store.commit('SORT_LIST_ALPHABETICALLY', this.activeListIndex);
                 this.$emit('update', 'List sorted alphabetically');
-            } else if (sortOrder == 'sortByRating') {
+            } else if (sortOrder === 'sortByRating') {
                 this.$store.commit('SORT_LIST_BY_RATING', this.activeListIndex);
                 this.$emit('update', 'List sorted by game rating');
             }
