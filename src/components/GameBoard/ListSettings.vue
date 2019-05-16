@@ -158,6 +158,10 @@ export default {
         });
     },
 
+    beforeDestroy() {
+        this.$bus.$off('GAMES_ADDED');
+    },
+
     methods: {
         deleteList() {
             this.$store.commit('REMOVE_LIST', this.activeListIndex);

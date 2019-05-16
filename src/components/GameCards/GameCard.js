@@ -71,6 +71,9 @@ export default {
                 ? 'list'
                 : this.list.name;
         },
+        isDraggable() {
+            return this.list.sortOrder === 'sortByCustom' || this.list.sortOrder === null;
+        }
     },
 
     methods: {
