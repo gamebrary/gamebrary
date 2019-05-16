@@ -60,6 +60,15 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "GMartigny",
+      "name": "Guillaume Martigny",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/2543511?v=4",
+      "profile": "http://www.guillaume-martigny.fr",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
