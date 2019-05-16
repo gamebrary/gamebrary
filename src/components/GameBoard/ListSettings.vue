@@ -84,8 +84,6 @@
                 v-else
                 class="error hollow tiny small"
                 :title="$t('list.delete')"
-                v-shortkey="['ctrl', 'alt', 'd']"
-                @shortkey="deleteList"
                 @click="deleteList"
             >
                 <i class="far fa-trash-alt" />
