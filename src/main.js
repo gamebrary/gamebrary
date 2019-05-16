@@ -29,6 +29,7 @@ Vue.use(VueAnalytics, {
 Vue.use(VueAxios, axios);
 Vue.use(VueFire);
 Vue.use(VueI18n);
+Vue.use(require('vue-shortkey'));
 
 if (process.env.NODE_ENV !== 'development') {
     Raven
