@@ -45,23 +45,14 @@
             <h4>Sort List</h4>
 
             <button
-                class="small accent"
-                :class="{ 'info hollow': !darkModeEnabled }"
-                :title="$t('list.sortByName')"
-                @click="sortListAlphabetically"
+                v-for="(icon, sortOrder) in sortOrders"
+                :key="sortOrder"
+                class="small primary"
+                :class="{ hollow: activeList.sortOrder !== sortOrder }"
+                @click="setListSort(sortOrder)"
             >
-                <i class="fas fa-sort-alpha-down" />
-                {{ $t('list.sortByName') }}
-            </button>
-
-            <button
-                class="small accent"
-                :class="{ 'info hollow': !darkModeEnabled }"
-                :title="$t('list.sortByRating')"
-                @click="sortListByRating"
-            >
-                <i class="fas fa-sort-numeric-up" />
-                {{ $t('list.sortByRating') }}
+                <i :class="icon" />
+                {{ $t(`list.${sortOrder}`) }}
             </button>
         </section>
 
@@ -123,6 +114,11 @@ export default {
                 covers: 'fas fa-th-large',
                 wide: 'fas fa-minus',
             },
+            sortOrders: {
+                sortByName: 'fas fa-sort-alpha-down',
+                sortByRating: 'fas fa-sort-numeric-up',
+                sortByCustom: 'fas fa-sort-custom',
+            }
         };
     },
 
@@ -157,6 +153,13 @@ export default {
 
     mounted() {
         this.localList = JSON.parse(JSON.stringify(this.activeList));
+        this.$bus.$on('GAMES_ADDED', () => {
+            this.sort(this.activeList.sortOrder);
+        });
+    },
+
+    beforeDestroy() {
+        this.$bus.$off('GAMES_ADDED');
     },
 
     methods: {
@@ -182,6 +185,25 @@ export default {
             this.$emit('update');
         },
 
+        setListSort(sortOrder) {
+            this.$store.commit('UPDATE_LIST_SORT', {
+                listIndex: this.activeListIndex,
+                sortOrder,
+            });
+            this.sort(sortOrder);
+            this.$emit('update');
+        },
+
+        sort(sortOrder) {
+            if (sortOrder === 'sortByName') {
+                this.$store.commit('SORT_LIST_ALPHABETICALLY', this.activeListIndex);
+                this.$emit('update', 'List sorted alphabetically');
+            } else if (sortOrder === 'sortByRating') {
+                this.$store.commit('SORT_LIST_BY_RATING', this.activeListIndex);
+                this.$emit('update', 'List sorted by game rating');
+            }
+        },
+
         cancel() {
             this.$store.commit('CLEAR_ACTIVE_LIST_INDEX');
         },
@@ -189,16 +211,6 @@ export default {
         moveList(from, to) {
             this.$store.commit('MOVE_LIST', { from, to });
             this.$emit('update', 'List moved');
-        },
-
-        sortListAlphabetically() {
-            this.$store.commit('SORT_LIST_ALPHABETICALLY', this.activeListIndex);
-            this.$emit('update', 'List sorted alphabetically');
-        },
-
-        sortListByRating() {
-            this.$store.commit('SORT_LIST_BY_RATING', this.activeListIndex);
-            this.$emit('update', 'List sorted by game rating');
         },
     },
 };
