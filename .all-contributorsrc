@@ -14,6 +14,15 @@
         "infra",
         "code"
       ]
+    },
+    {
+      "login": "mattb555",
+      "name": "Matthew Bunge",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/10692492?v=4",
+      "profile": "https://github.com/mattb555",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
