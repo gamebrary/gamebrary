@@ -153,6 +153,7 @@ export default {
 
     mounted() {
         this.localList = JSON.parse(JSON.stringify(this.activeList));
+
         this.$bus.$on('GAMES_ADDED', () => {
             this.sort(this.activeList.sortOrder);
         });
