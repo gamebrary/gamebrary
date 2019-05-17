@@ -44,7 +44,6 @@
 
                         <game-notes />
 
-                        <affiliate-link />
                         <game-review-box />
                     </div>
 
@@ -67,7 +66,6 @@ import GameNotes from '@/components/GameNotes/GameNotes';
 import GameRating from '@/components/GameDetail/GameRating';
 import GameVideos from '@/components/GameDetail/GameVideos';
 import GameReviewBox from '@/components/GameDetail/GameReviewBox';
-import AffiliateLink from '@/components/GameDetail/AffiliateLink';
 import IgdbCredit from '@/components/IgdbCredit/IgdbCredit';
 import GameDetailPlaceholder from '@/components/GameDetail/GameDetailPlaceholder';
 import firebase from 'firebase/app';
@@ -85,7 +83,6 @@ export default {
         GameNotes,
         GameVideos,
         GameReviewBox,
-        AffiliateLink,
         GameDetailPlaceholder,
     },
 
