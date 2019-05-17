@@ -2,7 +2,7 @@
     <div v-if="game" class="review-box">
         <div class="info">
             <section v-if="playerPerspectives">
-                <strong>{{ $t('gameDetails.reviewBox.playerPerspectives') }}</strong> {{ playerPerspectives }}
+                <strong>Perspective</strong> {{ playerPerspectives }}
             </section>
 
             <section v-if="gameModes">

@@ -62,7 +62,7 @@
                 @update="updateLists"
             />
 
-            <list-actions
+            <game-board-actions
                 v-else
                 @update="updateLists"
                 @scroll="scroll"
@@ -74,15 +74,15 @@
 </template>
 
 <script>
-import ListActions from '@/components/Lists/ListActions';
+import GameBoardActions from '@/components/GameBoard/GameBoardActions';
 import GameBoardPlaceholder from '@/components/GameBoard/GameBoardPlaceholder';
-import Tag from '@/components/Tag/Tag';
+import Tag from '@/components/Tags/Tag';
 import ListAdd from '@/components/Lists/ListAdd';
 import Panel from '@/components/Panel/Panel';
 import GameDetail from '@/pages/GameDetail';
 import Modal from '@/components/Modal/Modal';
 // import DevDebug from '@/components/DevDebug/DevDebug';
-import List from '@/components/GameBoard/List';
+import List from '@/components/Lists/List';
 import draggable from 'vuedraggable';
 import { mapState, mapGetters } from 'vuex';
 import firebase from 'firebase/app';
@@ -95,7 +95,7 @@ export default {
         draggable,
         List,
         // DevDebug,
-        ListActions,
+        GameBoardActions,
         GameBoardPlaceholder,
         ListAdd,
         Tag,
