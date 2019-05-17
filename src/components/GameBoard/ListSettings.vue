@@ -61,12 +61,12 @@
             <h4>List Width</h4>
 
             <select 
-                v-model="selectedWidth"
+                v-model="activeList.selectedWidth"
                 class="small primary hollow"
             >
                 <option 
                     v-for="width in widths" 
-                    :selected="selectedWidth === width"
+                    :selected="activeList.selectedWidth === width"
                 >
                     {{ width }}
                 </option>
@@ -136,7 +136,6 @@ export default {
                 sortByRating: 'fas fa-sort-numeric-up',
                 sortByCustom: 'fas fa-sort-custom',
             },
-            selectedWidth: 1,
             widths: [1, 2, 3, 4, 5],
         };
     },

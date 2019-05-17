@@ -96,6 +96,7 @@ export default {
         name: String,
         games: [Object, Array],
         listIndex: [String, Number],
+        selectedWidth: Number,
     },
 
     data() {
