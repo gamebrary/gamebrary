@@ -59,7 +59,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import Tag from '@/components/Tag/Tag';
+import Tag from '@/components/Tags/Tag';
 import GameHeader from '@/components/GameDetail/GameHeader';
 import GameScreenshots from '@/components/GameDetail/GameScreenshots';
 import GameNotes from '@/components/GameNotes/GameNotes';

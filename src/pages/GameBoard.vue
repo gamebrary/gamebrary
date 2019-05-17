@@ -76,7 +76,7 @@
 <script>
 import GameBoardActions from '@/components/GameBoard/GameBoardActions';
 import GameBoardPlaceholder from '@/components/GameBoard/GameBoardPlaceholder';
-import Tag from '@/components/Tag/Tag';
+import Tag from '@/components/Tags/Tag';
 import ListAdd from '@/components/Lists/ListAdd';
 import Panel from '@/components/Panel/Panel';
 import GameDetail from '@/pages/GameDetail';
