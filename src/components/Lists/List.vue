@@ -1,6 +1,9 @@
 <!-- eslint-disable max-len -->
 <template lang="html">
-    <div :class="['list', viewClass, { dark: darkModeEnabled }, transparent]">
+    <div 
+        :class="['list', viewClass, { dark: darkModeEnabled }, transparent]"
+        :style="{width: calculatedWidth}"
+    >
         <div class="list-header" :class="{ searching, editing }">
             <div v-if="searching">
                 {{ $t('game.addPlural') }}
@@ -96,7 +99,6 @@ export default {
         name: String,
         games: [Object, Array],
         listIndex: [String, Number],
-        selectedWidth: Number,
     },
 
     data() {
@@ -161,6 +163,14 @@ export default {
                 ? 'transparent'
                 : '';
         },
+
+        calculatedWidth() {
+            let currentListWidth = this.list[this.listIndex].selectedWidth;
+            let myCalc = ((currentListWidth == null ? 1 : currentListWidth) * (this.gameCardComponent === "GameCardWide" ? 340 : 300) + 'px');
+            console.log(myCalc);
+            console.log(this.selectedWidth);
+            return myCalc;
+        }
     },
 
     methods: {
@@ -218,7 +228,6 @@ export default {
         flex-shrink: 0;
         cursor: default;
         position: relative;
-        width: 300px;
         background-color: $color-light-gray;
         border-radius: $border-radius;
         overflow: hidden;
@@ -227,10 +236,6 @@ export default {
 
         &.transparent {
             background-color: $color-light-gray-transparent;
-        }
-
-        &.wide {
-            width: $list-width-wide;
         }
 
         &.covers {

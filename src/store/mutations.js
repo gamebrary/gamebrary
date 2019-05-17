@@ -149,6 +149,10 @@ export default {
         state.gameLists[state.platform.code][listIndex].sortOrder = sortOrder;
     },
 
+    UPDATE_LIST_WIDTH(state, { listIndex, selectedWidth }) {
+        state.gameLists[state.platform.code][listIndex].selectedWidth = selectedWidth;
+    },
+
     SET_SETTINGS(state, settings) {
         state.settings = settings;
     },

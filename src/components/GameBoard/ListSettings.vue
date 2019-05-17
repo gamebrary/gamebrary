@@ -63,6 +63,7 @@
             <select 
                 v-model="activeList.selectedWidth"
                 class="small primary hollow"
+                @change="setListWidth(activeList.selectedWidth)"
             >
                 <option 
                     v-for="width in widths" 
@@ -210,6 +211,15 @@ export default {
                 sortOrder,
             });
             this.sort(sortOrder);
+            this.$emit('update');
+        },
+
+        setListWidth(selectedWidth) {
+            this.$store.commit('UPDATE_LIST_WIDTH', {
+                listIndex: this.activeListIndex,
+                selectedWidth,
+            });
+
             this.$emit('update');
         },
 
