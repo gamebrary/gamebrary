@@ -2,7 +2,7 @@
 <template lang="html">
     <div 
         :class="['list', viewClass, { dark: darkModeEnabled }, transparent]"
-        :style="{width: calculatedWidth}"
+        :style="[{ width: calculatedWidth}]"
     >
         <div class="list-header" :class="{ searching, editing }">
             <div v-if="searching">
@@ -40,6 +40,7 @@
         <draggable
             v-else
             :class="['games', { 'empty': isEmpty }]"
+            :style="[{'grid-template-columns': calculatedColumns}]"
             :list="games"
             :id="listIndex"
             :move="validateMove"
@@ -167,9 +168,16 @@ export default {
         calculatedWidth() {
             let currentListWidth = this.list[this.listIndex].selectedWidth;
             let myCalc = ((currentListWidth == null ? 1 : currentListWidth) * (this.gameCardComponent === "GameCardWide" ? 340 : 300) + 'px');
-            console.log(myCalc);
-            console.log(this.selectedWidth);
             return myCalc;
+        },
+
+        calculatedColumns() {
+            let currentListWidth = this.list[this.listIndex].selectedWidth;
+            let ans = "1fr";
+            for (let i = 1; i < currentListWidth; i++) {
+                ans += " 1fr";
+            }
+            return ans;
         }
     },
 
@@ -234,6 +242,10 @@ export default {
         margin-right: $gp;
         max-height: calc(100vh - 81px);
 
+        .games {
+            display: grid;
+        }
+
         &.transparent {
             background-color: $color-light-gray-transparent;
         }
@@ -241,8 +253,6 @@ export default {
         &.covers {
             .games {
                 padding-top: $gp / 2;
-                display: grid;
-                grid-template-columns: 1fr 1fr 1fr;
                 grid-gap: $gp / 4;
             }
         }
