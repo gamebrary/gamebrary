@@ -1,13 +1,7 @@
 <template lang="html">
     <div :class="['platforms-page', { dark: darkModeEnabled }]">
 
-        <div
-            v-masonry
-            transition-duration="0.3s"
-            item-selector=".platform"
-            column-width="100"
-            gutter="8"
-        >
+        <div class="platforms">
             <platform
                 v-for="platform in filteredPlatforms"
                 :key="platform.name"
@@ -40,6 +34,7 @@
 </template>
 
 <script>
+import Masonry from 'masonry-layout';
 import platforms from '@/shared/platforms';
 import ToggleSwitch from '@/components/ToggleSwitch/ToggleSwitch';
 import IgdbCredit from '@/components/IgdbCredit/IgdbCredit';
@@ -47,6 +42,8 @@ import Platform from '@/components/Platform/Platform';
 import Panel from '@/components/Panel/Panel';
 import { sortBy } from 'lodash';
 import { mapState, mapGetters } from 'vuex';
+
+let msnry = null;
 
 export default {
     components: {
@@ -87,7 +84,11 @@ export default {
                 ? this.platforms.filter(({ code }) => this.gameLists[code])
                 : this.platforms;
 
-            this.$redrawVueMasonry();
+            if (msnry) {
+                msnry.reloadItems();
+                msnry.layout();
+            }
+
 
             return this.settings && this.settings.sortListsAlphabetically
                 ? sortBy(availableLists, 'name')
@@ -95,7 +96,18 @@ export default {
         },
     },
 
+    mounted() {
+        this.initGrid();
+    },
+
     methods: {
+        initGrid() {
+            msnry = new Masonry('.platforms', {
+                itemSelector: '.platform',
+                gutter: 10,
+            });
+        },
+
         groupLabel(label) {
             return label === '0'
                 ? this.$t('platforms.computersArcade')
@@ -165,13 +177,5 @@ export default {
         a {
             color: $color-dark-gray;
         }
-    }
-
-    .item {
-        overflow: hidden;
-        width: 300px;
-        height: 200px;
-        border-radius: $border-radius;
-        padding: $gp;
     }
 </style>
