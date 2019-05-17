@@ -26,6 +26,22 @@ module.exports = {
         add: 'Add game',
         addPlural: 'Add games to',
     },
+    gameDetails: {
+        videos: {
+            title: 'Videos',
+        },
+        screenshots: {
+            title: 'Screenshots',
+        },
+        reviewBox: {
+            playerPerspectives: 'Perspective',
+            gameModes: 'Game Mode',
+            genres: 'Genre',
+            gamePlatforms: 'Platforms',
+            developers: 'Developer',
+            publishers: 'Publishers',
+        }
+    },
     list: {
         edit: 'Edit list name',
         input: 'Enter your own',
@@ -40,9 +56,15 @@ module.exports = {
     settings: {
         darkTheme: 'Dark theme',
         newsletter: 'Receive update emails (Beta)',
+        ownedLists: 'Only show my platforms',
+        sortPlatforms: 'Sort platforms alphabetically',
         ratings: 'Hide game ratings',
         signOut: 'Sign out',
-        deleteAccount: 'Delete account',
+        deleteAccount: {
+            button: 'Delete account',
+            message: 'Your account data will be deleted forever.',
+            title: 'Are you sure?',
+        },
         donate: 'donating',
         reportBugs: 'reporting bugs',
         submitFeedback: 'submitting feedback',
