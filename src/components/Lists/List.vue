@@ -67,7 +67,7 @@
 
 <script>
 import draggable from 'vuedraggable';
-import ListNameEdit from '@/components/GameBoard/ListNameEdit';
+import ListNameEdit from '@/components/Lists/ListNameEdit';
 import ListSettings from '@/components/GameBoard/ListSettings';
 import GameCardDefault from '@/components/GameCards/GameCardDefault';
 import GameCardCover from '@/components/GameCards/GameCardCover';

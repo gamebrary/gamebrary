@@ -44,7 +44,7 @@
 
 <script>
 import Panel from '@/components/Panel/Panel';
-import Tag from '@/components/Tag/Tag';
+import Tag from '@/components/Tags/Tag';
 import { mapState } from 'vuex';
 
 export default {

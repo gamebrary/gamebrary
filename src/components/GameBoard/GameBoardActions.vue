@@ -37,7 +37,7 @@
                     <i class="fas fa-cog" />
                 </button>
 
-                <list-settings
+                <game-board-settings
                     slot="content"
                     @update="update"
                 />
@@ -51,7 +51,7 @@ import { mapState } from 'vuex';
 import Modal from '@/components/Modal/Modal';
 import Tags from '@/components/Tags/Tags';
 import ListAdd from '@/components/Lists/ListAdd';
-import ListSettings from '@/components/Lists/ListSettings';
+import GameBoardSettings from '@/components/GameBoard/GameBoardSettings';
 import WallpaperUpload from '@/components/WallpaperUpload/WallpaperUpload';
 
 export default {
@@ -60,7 +60,7 @@ export default {
         Tags,
         WallpaperUpload,
         ListAdd,
-        ListSettings,
+        GameBoardSettings,
     },
 
     computed: {

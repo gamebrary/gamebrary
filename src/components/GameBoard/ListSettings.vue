@@ -1,3 +1,4 @@
+<!-- TODO: move file to lists folder -->
 <template lang="html">
     <div class="list-settings">
         <section>
@@ -153,6 +154,7 @@ export default {
 
     mounted() {
         this.localList = JSON.parse(JSON.stringify(this.activeList));
+
         this.$bus.$on('GAMES_ADDED', () => {
             this.sort(this.activeList.sortOrder);
         });
