@@ -4,7 +4,7 @@
             <slot />
         </div>
 
-        <div :class="['modal', { show, popover }]"  @click="close">
+        <div :class="['modal', { show, popover }]" @click="close">
             <i
                 v-if="popover"
                 :class="['fas fa-caret-up popover-arrow', { dark: darkModeEnabled }]"
