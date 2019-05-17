@@ -82,7 +82,7 @@ import Panel from '@/components/Panel/Panel';
 import GameDetail from '@/pages/GameDetail';
 import Modal from '@/components/Modal/Modal';
 // import DevDebug from '@/components/DevDebug/DevDebug';
-import List from '@/components/GameBoard/List';
+import List from '@/components/Lists/List';
 import draggable from 'vuedraggable';
 import { mapState, mapGetters } from 'vuex';
 import firebase from 'firebase/app';
