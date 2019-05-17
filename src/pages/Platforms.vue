@@ -14,7 +14,7 @@
 
         <footer>
             <small>
-                Gamebrary is free and open source, consider helping its development by
+              {{ $t('platforms.donateMessage') }}
                 <a href="https://www.paypal.me/RomanCervantes/5" target="_blank">
                     {{ $t('settings.donate') }}
                 </a>
@@ -22,7 +22,7 @@
                 <a href="https://github.com/romancmx/gamebrary/issues" target="_blank">
                     {{ $t('settings.reportBugs') }}
                 </a>
-                or
+                {{$t('global.or')}}
                 <a href="https://goo.gl/forms/r0juBCsZaUtJ03qb2" target="_blank">
                     {{ $t('settings.submitFeedback') }}
                 </a>

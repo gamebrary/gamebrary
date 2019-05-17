@@ -10,14 +10,14 @@
             </button>
 
             <modal
-                title="Game tags"
+                :title="$t('listActions.title.gameTags')"
                 ref="tags"
-                message="Use tags to better organize your games"
+                :message="$t('listActions.message.useTags')"
                 padded
             >
                 <button
                     class="small primary"
-                    title="Game tags"
+                    :title="$t('listActions.title.gameTags')"
                 >
                     <i class="fas fa-tag" />
                 </button>
@@ -32,7 +32,7 @@
             >
                 <button
                     class="small accent"
-                    title="Game tags"
+                    :title="$t('listActions.title.gameTags')"
                 >
                     <i class="fas fa-cog" />
                 </button>

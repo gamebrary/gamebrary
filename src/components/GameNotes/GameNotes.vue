@@ -30,7 +30,7 @@
 
                 <div class="note-actions">
                     <button class="info tag" @click="reset">
-                        Cancel
+                        {{ $t('global.cancel') }}
                     </button>
 
                     <button class="error tag" @click="deleteNote">
@@ -42,7 +42,7 @@
                         @click="saveNote"
                         :disabled="!localNote"
                     >
-                        Save
+                        {{ $t('save') }}
                     </button>
                 </div>
 
@@ -55,7 +55,7 @@
             v-if="!hasNote && !editingNote"
         >
             <i class="fas fa-sticky-note" />
-            Add note
+            {{ $t('notes.addNote') }}
         </button>
     </div>
 </template>

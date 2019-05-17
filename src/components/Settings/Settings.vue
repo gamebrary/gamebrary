@@ -3,7 +3,7 @@
         class="settings"
         :class="{ dark: darkModeEnabled }"
     >
-        <h4>Global</h4>
+        <h4>{{ $t('settings.title.global') }}</h4>
 
         <section>
             <i class="fas fa-moon" />
