@@ -108,18 +108,10 @@ export default {
             }
 
             if (user) {
-                this.init(user);
-            } else {
-                const GoogleAuth = new firebase.auth.GoogleAuthProvider();
-
-                firebase.auth().signInWithRedirect(GoogleAuth)
-                    .catch((message) => {
-                        this.$bus.$emit('TOAST', {
-                            message,
-                            type: 'error',
-                        });
-                    });
+                return this.init(user);
             }
+
+            return this.handleAuthRedirect();
         });
     },
 
@@ -130,6 +122,22 @@ export default {
     },
 
     methods: {
+        handleAuthRedirect() {
+            const authProvider = this.$route.params.authProvider || 'google';
+
+            const firebaseAuthProvider = authProvider === 'twitter'
+                ? new firebase.auth.TwitterAuthProvider()
+                : new firebase.auth.GoogleAuthProvider();
+
+            firebase.auth().signInWithRedirect(firebaseAuthProvider)
+                .catch((message) => {
+                    this.$bus.$emit('TOAST', {
+                        message,
+                        type: 'error',
+                    });
+                });
+        },
+
         loadWallpaper() {
             const wallpaperRef = this.customWallpaper;
             this.$store.commit('SET_WALLPAPER_URL', '');
