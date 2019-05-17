@@ -5,7 +5,6 @@ export default [
         hex: '#e60012',
         id: 130,
         height: 2,
-        width: 2,
         generation: 8,
     },
     {
@@ -20,7 +19,6 @@ export default [
         hex: '#2E6DB4',
         id: 48,
         height: 2,
-        width: 2,
         generation: 8,
     },
     {
@@ -35,7 +33,6 @@ export default [
         code: 'xbox-one',
         id: 49,
         height: 2,
-        width: 2,
         generation: 8,
     },
     {
@@ -44,7 +41,6 @@ export default [
         hex: '#FFFFFF',
         id: 18,
         generation: 3,
-        width: 2,
     },
     {
         name: 'Wii',
@@ -58,7 +54,6 @@ export default [
         code: 'nintendo-64',
         id: 4,
         generation: 5,
-        width: 2,
         height: 2,
     },
     {
@@ -93,14 +88,12 @@ export default [
         code: 'snes',
         id: 19,
         generation: 4,
-        width: 2,
         height: 1,
     },
     {
         name: 'Sega Mega Drive / Genesis',
         code: 'sega-genesis',
         id: 29,
-        width: 2,
         generation: 4,
     },
     {
@@ -132,7 +125,6 @@ export default [
         name: 'Commodore C64/128',
         code: 'commodore-64',
         id: 15,
-        width: 2,
         hex: '#6F685F',
         generation: 0,
     },
@@ -204,7 +196,6 @@ export default [
         id: 37,
         generation: 8,
         height: 1,
-        width: 2,
     },
     {
         name: 'PSP',
@@ -347,7 +338,6 @@ export default [
         id: 88,
         generation: 1,
         height: 1,
-        width: 2,
     },
     // {
     //     name: 'Commodore PET',
