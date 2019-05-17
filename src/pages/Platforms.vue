@@ -1,15 +1,20 @@
 <template lang="html">
     <div :class="['platforms-page', { dark: darkModeEnabled }]">
-        <div :class="['platforms', { reverse: sortedByGeneration }]">
-            <div v-for="(group, label) in filteredPlatforms" :key="label">
-                <div class="group-label" v-if="sortedByGeneration">{{ groupLabel(label) }}</div>
 
-                <platform
-                    v-for="platform in group"
-                    :key="platform.name"
-                    :platform-data="platform"
-                />
-            </div>
+        <div
+            v-masonry
+            transition-duration="0.3s"
+            item-selector=".platform"
+            column-width="100"
+            gutter="8"
+        >
+            <platform
+                v-for="platform in filteredPlatforms"
+                :key="platform.name"
+                :platform-data="platform"
+                :block-height="platform.height"
+                :block-width="platform.width"
+            />
         </div>
 
         <footer>
@@ -82,9 +87,11 @@ export default {
                 ? this.platforms.filter(({ code }) => this.gameLists[code])
                 : this.platforms;
 
+            this.$redrawVueMasonry();
+
             return this.settings && this.settings.sortListsAlphabetically
-                ? groupBy(sortBy(availableLists, 'name'), '')
-                : groupBy(availableLists, 'generation');
+                ? sortBy(availableLists, 'name')
+                : sortBy(availableLists, 'generation').reverse();
         },
     },
 
@@ -158,5 +165,13 @@ export default {
         a {
             color: $color-dark-gray;
         }
+    }
+
+    .item {
+        overflow: hidden;
+        width: 300px;
+        height: 200px;
+        border-radius: $border-radius;
+        padding: $gp;
     }
 </style>

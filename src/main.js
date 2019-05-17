@@ -6,6 +6,7 @@ import axios from 'axios';
 import VueAnalytics from 'vue-analytics';
 import Raven from 'raven-js';
 import RavenVue from 'raven-js/plugins/vue';
+import { VueMasonryPlugin } from 'vue-masonry';
 import App from './App';
 import messages from './i18n/';
 import router from './router';
@@ -26,6 +27,7 @@ Vue.use(VueAnalytics, {
     router,
 });
 
+Vue.use(VueMasonryPlugin);
 Vue.use(VueAxios, axios);
 Vue.use(VueFire);
 Vue.use(VueI18n);

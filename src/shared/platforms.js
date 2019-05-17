@@ -4,6 +4,14 @@ export default [
         code: 'nintendo-switch',
         hex: '#e60012',
         id: 130,
+        height: 2,
+        width: 2,
+        generation: 8,
+    },
+    {
+        name: 'PlayStation Vita',
+        code: 'playstation-vita',
+        id: 46,
         generation: 8,
     },
     {
@@ -11,12 +19,8 @@ export default [
         code: 'ps4',
         hex: '#2E6DB4',
         id: 48,
-        generation: 8,
-    },
-    {
-        name: 'Xbox One',
-        code: 'xbox-one',
-        id: 49,
+        height: 2,
+        width: 2,
         generation: 8,
     },
     {
@@ -27,11 +31,20 @@ export default [
         hex: '#171a21',
     },
     {
+        name: 'Xbox One',
+        code: 'xbox-one',
+        id: 49,
+        height: 2,
+        width: 2,
+        generation: 8,
+    },
+    {
         name: 'NES',
         code: 'nes',
         hex: '#FFFFFF',
         id: 18,
         generation: 3,
+        width: 2,
     },
     {
         name: 'Wii',
@@ -45,6 +58,8 @@ export default [
         code: 'nintendo-64',
         id: 4,
         generation: 5,
+        width: 2,
+        height: 2,
     },
     {
         name: 'Playstation',
@@ -78,11 +93,14 @@ export default [
         code: 'snes',
         id: 19,
         generation: 4,
+        width: 2,
+        height: 1,
     },
     {
         name: 'Sega Mega Drive / Genesis',
         code: 'sega-genesis',
         id: 29,
+        width: 2,
         generation: 4,
     },
     {
@@ -101,7 +119,8 @@ export default [
         name: 'PC Dos',
         code: 'msdos',
         id: 13,
-        generation: 0,
+        generation: 1,
+        height: 2,
     },
     {
         name: 'Mac',
@@ -113,6 +132,8 @@ export default [
         name: 'Commodore C64/128',
         code: 'commodore-64',
         id: 15,
+        width: 2,
+        hex: '#6F685F',
         generation: 0,
     },
     {
@@ -182,6 +203,8 @@ export default [
         code: 'n3ds',
         id: 37,
         generation: 8,
+        height: 1,
+        width: 2,
     },
     {
         name: 'PSP',
@@ -193,12 +216,6 @@ export default [
         name: 'Wii U',
         code: 'wii-u',
         id: 41,
-        generation: 8,
-    },
-    {
-        name: 'PlayStation Vita',
-        code: 'playstation-vita',
-        id: 46,
         generation: 8,
     },
     {
@@ -224,6 +241,13 @@ export default [
         code: 'atari-7800',
         id: 60,
         generation: 3,
+    },
+    {
+        name: 'Neo Geo CD',
+        code: 'neo-geo-cd',
+        id: 136,
+        generation: 4,
+        height: 1,
     },
     {
         name: 'Atari Lynx',
@@ -266,6 +290,7 @@ export default [
         code: 'colecovision',
         id: 68,
         hex: '#000',
+        height: 2,
         generation: 2,
     },
     {
@@ -321,6 +346,8 @@ export default [
         code: 'odyssey',
         id: 88,
         generation: 1,
+        height: 1,
+        width: 2,
     },
     // {
     //     name: 'Commodore PET',
@@ -354,12 +381,6 @@ export default [
         code: 'wonderswan-color',
         id: 123,
         generation: 5,
-    },
-    {
-        name: 'Neo Geo CD',
-        code: 'neo-geo-cd',
-        id: 136,
-        generation: 4,
     },
     {
         name: 'Turbografx-16/PC Engine CD',
