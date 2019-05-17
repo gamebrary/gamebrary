@@ -1,3 +1,4 @@
+<!-- TODO: move file to lists folder -->
 <template lang="html">
     <div class="list-settings">
         <section>
