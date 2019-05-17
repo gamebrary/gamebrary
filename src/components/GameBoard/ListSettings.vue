@@ -57,6 +57,22 @@
             </button>
         </section>
 
+        <section v-if="hasMultipleGames">
+            <h4>List Width</h4>
+
+            <select 
+                v-model="selectedWidth"
+                class="small primary hollow"
+            >
+                <option 
+                    v-for="width in widths" 
+                    :selected="selectedWidth === width"
+                >
+                    {{ width }}
+                </option>
+            </select>
+        </section>
+
         <footer>
             <button class="filled small tiny info hollow" @click="cancel" title="back">
                 <i class="fas fa-chevron-left" />
@@ -120,6 +136,8 @@ export default {
                 sortByRating: 'fas fa-sort-numeric-up',
                 sortByCustom: 'fas fa-sort-custom',
             },
+            selectedWidth: 1,
+            widths: [1, 2, 3, 4, 5],
         };
     },
 
