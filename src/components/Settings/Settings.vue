@@ -29,7 +29,7 @@
 
         <section v-if="hasLists">
             <i class="fas fa-user-check" />
-            <h5>Only show my platforms</h5>
+            <h5>{{ $t('settings.ownedLists') }}</h5>
 
             <toggle-switch
                 id="ownedListsOnly"
@@ -39,7 +39,7 @@
 
         <section>
             <i class="fas fa-sort-alpha-down" />
-            <h5>Sort platforms alphabetically</h5>
+            <h5>{{ $t('settings.sortPlatforms') }}</h5>
 
             <toggle-switch
                 id="sortListsAlphabetically"
@@ -66,14 +66,14 @@
             </button>
 
             <modal
-                message="Your account data will be deleted forever."
-                title="Are you sure?"
-                :action-text="$t('settings.deleteAccount')"
+                :message="$t('settings.deleteAccount.message')"
+                :title="$t('settings.deleteAccount.title')"
+                :action-text="$t('settings.deleteAccount.button')"
                 @action="deleteAccount"
             >
                 <button class="small tiny error hollow">
                     <i class="fas fa-exclamation-triangle" />
-                    {{ $t('settings.deleteAccount') }}
+                    {{ $t('settings.deleteAccount.button') }}
                 </button>
             </modal>
         </footer>

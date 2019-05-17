@@ -34,6 +34,7 @@
         "vue-gravatar": "^1.2.1",
         "vue-i18n": "^8.0.0",
         "vue-markdown": "^2.2.4",
+        "vue-masonry": "^0.11.7",
         "vue-raven": "^1.0.0",
         "vue-router": "^3.0.1",
         "vue-shortkey": "^3.1.7",

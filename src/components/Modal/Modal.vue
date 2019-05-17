@@ -155,6 +155,7 @@ export default {
 
         &.large {
             width: 780px;
+            max-width: 100% !important;
 
             @media($small) {
                 max-width: 90vw;
