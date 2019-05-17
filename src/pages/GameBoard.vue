@@ -62,7 +62,7 @@
                 @update="updateLists"
             />
 
-            <list-actions
+            <game-board-actions
                 v-else
                 @update="updateLists"
                 @scroll="scroll"
@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import ListActions from '@/components/Lists/ListActions';
+import GameBoardActions from '@/components/GameBoard/GameBoardActions';
 import GameBoardPlaceholder from '@/components/GameBoard/GameBoardPlaceholder';
 import Tag from '@/components/Tag/Tag';
 import ListAdd from '@/components/Lists/ListAdd';
@@ -95,7 +95,7 @@ export default {
         draggable,
         List,
         // DevDebug,
-        ListActions,
+        GameBoardActions,
         GameBoardPlaceholder,
         ListAdd,
         Tag,
