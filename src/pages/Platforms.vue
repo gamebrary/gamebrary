@@ -45,7 +45,7 @@ import ToggleSwitch from '@/components/ToggleSwitch/ToggleSwitch';
 import IgdbCredit from '@/components/IgdbCredit/IgdbCredit';
 import Platform from '@/components/Platform/Platform';
 import Panel from '@/components/Panel/Panel';
-import { groupBy, sortBy } from 'lodash';
+import { sortBy } from 'lodash';
 import { mapState, mapGetters } from 'vuex';
 
 export default {

@@ -2,27 +2,33 @@
     <div v-if="game" class="review-box">
         <div class="info">
             <section v-if="playerPerspectives">
-                <strong>{{ $t('gameDetails.reviewBox.playerPerspectives') }}</strong> {{ playerPerspectives }}
+                <strong>{{ $t('gameDetails.reviewBox.playerPerspectives') }}</strong>
+                {{ playerPerspectives }}
             </section>
 
             <section v-if="gameModes">
-                <strong>{{ $t('gameDetails.reviewBox.gameModes') }}</strong> {{ gameModes }}
+                <strong>{{ $t('gameDetails.reviewBox.gameModes') }}</strong>
+                {{ gameModes }}
             </section>
 
             <section v-if="genres">
-                <strong>{{ $t('gameDetails.reviewBox.genres') }}</strong> {{ genres }}
+                <strong>{{ $t('gameDetails.reviewBox.genres') }}</strong>
+                {{ genres }}
             </section>
 
             <section v-if="gamePlatforms">
-                <strong>{{ $t('gameDetails.reviewBox.gamePlatforms') }}</strong> {{ gamePlatforms }}
+                <strong>{{ $t('gameDetails.reviewBox.gamePlatforms') }}</strong>
+                {{ gamePlatforms }}
             </section>
 
             <section v-if="developers">
-                <strong>{{ $t('gameDetails.reviewBox.developers') }}</strong> {{ developers }}
+                <strong>{{ $t('gameDetails.reviewBox.developers') }}</strong>
+                {{ developers }}
             </section>
 
             <section v-if="publishers">
-                <strong>{{ $t('gameDetails.reviewBox.publishers') }}</strong> {{ publishers }}
+                <strong>{{ $t('gameDetails.reviewBox.publishers') }}</strong>
+                {{ publishers }}
             </section>
 
             <!-- <section v-if="releaseDate">

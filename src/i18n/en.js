@@ -40,7 +40,7 @@ module.exports = {
             gamePlatforms: 'Platforms',
             developers: 'Developer',
             publishers: 'Publishers',
-        }
+        },
     },
     list: {
         edit: 'Edit list name',

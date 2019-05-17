@@ -131,7 +131,6 @@ export default {
 
             firebase.auth().signInWithRedirect(firebaseAuthProvider)
                 .catch((message) => {
-                    console.log(message);
                     this.$bus.$emit('TOAST', {
                         message,
                         type: 'error',
