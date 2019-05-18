@@ -2,7 +2,7 @@
     <div class="game-board-actions">
         <div class="actions">
             <button
-                class="small success"
+                class="small info"
                 :title="$t('list.add')"
                 @click="addList"
             >
@@ -16,7 +16,7 @@
                 padded
             >
                 <button
-                    class="small primary"
+                    class="small accent"
                     :title="$t('tags.title')"
                 >
                     <i class="fas fa-tag" />
