@@ -113,13 +113,6 @@ export default {
             gameDetailListIndex: null,
             gameDetailId: null,
             gameTagsId: null,
-            listDraggableOptions: {
-                animation: 500,
-                handle: '.list-drag-handle',
-                group: { name: 'lists' },
-                draggable: '.list',
-                ghostClass: 'list-placeholder',
-            },
         };
     },
 
