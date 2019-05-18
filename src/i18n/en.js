@@ -3,12 +3,20 @@ module.exports = {
     share: 'Share',
     empty: 'empty',
     back: 'Back',
+    save: 'Save',
     global: {
         cancel: 'Cancel',
         create: 'Create',
         filter: 'Filter',
         with: 'with',
         by: 'by',
+        no: 'no',
+        yes: 'yes',
+        or: 'or',
+        returnHome: 'Return home',
+    },
+    errors: {
+        pageNotFound: 'Page not found',
     },
     platforms: {
         computersArcade: 'Computers and Arcade',
@@ -21,6 +29,7 @@ module.exports = {
         nd: 'nd',
         rd: 'rd',
         th: 'th',
+        donateMessage: 'Gamebrary is free and open source, consider helping its development by',
     },
     game: {
         add: 'Add game',
@@ -52,6 +61,7 @@ module.exports = {
         delete: 'Delete list',
         moveLeft: 'Move left',
         moveRight: 'Move right',
+        emptyList: 'This list is empty',
     },
     settings: {
         darkTheme: 'Dark theme',
@@ -65,8 +75,50 @@ module.exports = {
             message: 'Your account data will be deleted forever.',
             title: 'Are you sure?',
         },
+        title: {
+            global: 'Global',
+        },
         donate: 'donating',
         reportBugs: 'reporting bugs',
         submitFeedback: 'submitting feedback',
+        wallpaper: {
+            title: 'Upload wallpaper',
+            transparency: 'Semi transparent lists',
+            currentWallpaper: 'Current wallpaper',
+            removeWallpaper: 'Remove wallpaper',
+        },
+    },
+    tags: {
+        title: {
+            addTag: 'Add Tag',
+        },
+        button: {
+            createTag: 'Create tag',
+        },
+        input: {
+            placeholder: 'Tag name',
+        },
+        applyTag: 'Apply tag',
+        useTags: 'Use tags to better organise your games',
+    },
+    listActions: {
+        title: {
+            gameTags: 'Game tags'
+        },
+    },
+    igdbCredit: {
+      poweredBy: 'Powered by IGDB',
+    },
+    gameSearch: {
+        input: {
+          placeholder: 'Search here',
+        },
+        alreadyInList: 'from search results already in your list',
+        noResultsFound: 'No results found for ',
+        missingGame: 'Missing a game? Help out the community and',
+        addToIGDB: 'Add it to IGDB',
+    },
+    notes: {
+        addNote: 'Add note',
     },
 };

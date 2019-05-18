@@ -30,7 +30,7 @@
 
                 <div class="note-actions">
                     <button class="info tag" v-shortkey="['shift', 'c']" @shortkey="reset" @click="reset">
-                        Cancel
+                        {{ $t('global.cancel') }}
                     </button>
 
                     <button class="error tag" v-shortkey="['shift', 'del']" @shortkey="deleteNote" @click="deleteNote">
@@ -44,7 +44,7 @@
                         @click="saveNote"
                         :disabled="!localNote"
                     >
-                        Save
+                        {{ $t('save') }}
                     </button>
                 </div>
 
@@ -59,7 +59,7 @@
             v-if="!hasNote && !editingNote"
         >
             <i class="fas fa-sticky-note" />
-            Add note
+            {{ $t('notes.addNote') }}
         </button>
     </div>
 </template>

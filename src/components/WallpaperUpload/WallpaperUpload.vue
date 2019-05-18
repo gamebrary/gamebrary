@@ -6,7 +6,7 @@
 
         <div v-else>
             <div v-show="!wallpaperUrl">
-                Upload wallpaper
+              {{ $t('settings.wallpaper.title') }}
 
                 <input
                     type="file"
@@ -16,7 +16,7 @@
             </div>
 
             <div v-if="wallpaperUrl">
-                <h5>Semi transparent lists</h5>
+                <h5>{{ $t('settings.wallpaper.transparency') }}</h5>
 
                 <div class="button-group">
                     <button
@@ -24,7 +24,7 @@
                         :class="{ primary: !transparent }"
                         @click="setTransparent(false)"
                     >
-                        No
+                      {{ $t('global.no') }}
                     </button>
 
                     <button
@@ -32,14 +32,14 @@
                         :class="{ primary: transparent }"
                         @click="setTransparent(true)"
                     >
-                        Yes
+                      {{ $t('global.yes') }}
                     </button>
                 </div>
 
                 <br>
                 <br>
 
-                <h5>Current wallpaper</h5>
+                <h5>{{ $t('settings.wallpaper.currentWallpaper') }}</h5>
 
                 <img
                     :src="wallpaperUrl"
@@ -48,7 +48,7 @@
 
                 <button class="error small tiny" @click="removeWallpaper">
                     <i class="fas fa-trash" />
-                    Remove wallpaper
+                    {{ $t('settings.wallpaper.removeWallpaper') }}
                 </button>
             </div>
         </div>

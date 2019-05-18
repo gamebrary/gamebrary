@@ -10,7 +10,7 @@
             <header>{{ list.name }} ({{ list.games.length }})</header>
 
             <div class="games">
-                <p v-if="!list.games.length">This list is empty</p>
+                <p v-if="!list.games.length">{{$('list.emptyList')}}</p>
 
                 <div
                     v-if="publicGameData[game]"

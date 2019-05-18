@@ -24,8 +24,8 @@
 
         <modal
             ref="tag"
-            title="Apply tag"
-            message="Use tags to better organize your games"
+            :title="$t('tags.applyTag')"
+            :message="$t('tags.useTags')"
             padded
         >
             <div slot="content">
