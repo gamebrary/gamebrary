@@ -4416,12 +4416,6 @@ ignore@^3.3.3, ignore@^3.3.5:
   version "3.3.10"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-3.3.10.tgz#0a97fb876986e8081c631160f8f9f389157f0043"
 
-imagesloaded@4.1.4:
-  version "4.1.4"
-  resolved "https://infusionsoft.jfrog.io/infusionsoft/api/npm/npm/imagesloaded/-/imagesloaded-4.1.4.tgz#1376efcd162bb768c34c3727ac89cc04051f3cc7"
-  dependencies:
-    ev-emitter "^1.0.0"
-
 import-cwd@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/import-cwd/-/import-cwd-2.1.0.tgz#aa6cf36e722761285cb371ec6519f53e2435b0a9"
@@ -8720,14 +8714,6 @@ vue-markdown@^2.2.4:
     markdown-it-task-lists "^2.0.1"
     markdown-it-toc-and-anchor "^4.1.2"
 
-vue-masonry@^0.11.7:
-  version "0.11.7"
-  resolved "https://infusionsoft.jfrog.io/infusionsoft/api/npm/npm/vue-masonry/-/vue-masonry-0.11.7.tgz#14c41d211b348419ec0d973994ee300a63781462"
-  dependencies:
-    imagesloaded "4.1.4"
-    masonry-layout "^4.2.2"
-    vue "^2.0.0"
-
 vue-raven@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/vue-raven/-/vue-raven-1.0.3.tgz#cce941a9255e9694a5793c384fd8ab2e576ce764"
@@ -8763,7 +8749,7 @@ vue-template-es2015-compiler@^1.6.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
 
-vue@^2.0.0, vue@^2.5.2:
+vue@^2.5.2:
   version "2.6.10"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"
 
