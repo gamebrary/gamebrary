@@ -37,7 +37,7 @@
         </panel>
 
         <div class="search-actions">
-            <button class="small filled info" @click="back" title="back">
+            <button class="small filled info" v-shortkey="['esc']" @shortkey="back" @click="back" title="back">
                 <i class="fas fa-chevron-left" />
                 Back
             </button>

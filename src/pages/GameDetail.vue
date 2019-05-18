@@ -14,7 +14,7 @@
                         <game-rating :rating="game.rating" />
 
                         <div class="actions" v-if="list.games.includes(game.id)">
-                            <button class="error small hollow" @click="removeGame">
+                            <button class="error small hollow" v-shortkey="['del']" @shortkey="removeGame" @click="removeGame">
                                 <i class="far fa-trash-alt delete-game" />
                                 Remove from list
                             </button>

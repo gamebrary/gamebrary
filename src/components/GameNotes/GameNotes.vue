@@ -29,16 +29,18 @@
                 />
 
                 <div class="note-actions">
-                    <button class="info tag" @click="reset">
+                    <button class="info tag" v-shortkey="['shift', 'c']" @shortkey="reset" @click="reset">
                         Cancel
                     </button>
 
-                    <button class="error tag" @click="deleteNote">
+                    <button class="error tag" v-shortkey="['shift', 'del']" @shortkey="deleteNote" @click="deleteNote">
                         <i class="far fa-trash-alt" />
                     </button>
 
                     <button
                         class="success tag"
+                        v-shortkey="['shift', 's']"
+                        @shortkey="saveNote"
                         @click="saveNote"
                         :disabled="!localNote"
                     >
@@ -51,6 +53,8 @@
 
         <button
             class="warning small hollow"
+            v-shortkey="['ctrl', 'alt', 'n']"
+            @shortkey="addNote"
             @click="addNote"
             v-if="!hasNote && !editingNote"
         >
