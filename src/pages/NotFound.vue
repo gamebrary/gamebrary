@@ -1,10 +1,10 @@
 <template lang="html">
     <div class="not-found-page">
         <h1>404</h1>
-        <h3>{{ $t('errors.pageNotFound') }}</h3>
+        <h3>{{ $t('pageNotFound') }}</h3>
 
         <a :href="homeUrl" class="link primary">
-            {{ $t('global.returnHome') }}
+            {{ $t('returnHome') }}
         </a>
     </div>
 </template>

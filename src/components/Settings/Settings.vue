@@ -3,7 +3,7 @@
         class="settings"
         :class="{ dark: darkModeEnabled }"
     >
-        <h4>{{ $t('settings.title.global') }}</h4>
+        <h4>{{ $t('settings.global') }}</h4>
 
         <section>
             <i class="fas fa-moon" />
@@ -66,6 +66,7 @@
             </button>
 
             <modal
+                padded
                 :message="$t('settings.deleteAccount.message')"
                 :title="$t('settings.deleteAccount.title')"
                 :action-text="$t('settings.deleteAccount.button')"
@@ -85,7 +86,7 @@
 
             <span>
                 <i class="fas fa-code" />
-                {{ $t('global.by') }}
+                {{ $t('by') }}
                 <a href="https://twitter.com/romancm" target="_blank">@romancm</a>
             </span>
 

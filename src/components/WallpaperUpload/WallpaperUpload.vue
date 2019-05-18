@@ -24,7 +24,7 @@
                         :class="{ primary: !transparent }"
                         @click="setTransparent(false)"
                     >
-                      {{ $t('global.no') }}
+                      {{ $t('no') }}
                     </button>
 
                     <button
@@ -32,7 +32,7 @@
                         :class="{ primary: transparent }"
                         @click="setTransparent(true)"
                     >
-                      {{ $t('global.yes') }}
+                      {{ $t('yes') }}
                     </button>
                 </div>
 

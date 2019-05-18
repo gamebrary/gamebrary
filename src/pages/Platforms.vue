@@ -15,15 +15,15 @@
             <small>
               {{ $t('platforms.donateMessage') }}
                 <a href="https://www.paypal.me/RomanCervantes/5" target="_blank">
-                    {{ $t('settings.donate') }}
+                    {{ $t('platforms.donating') }}
                 </a>
                 ,
                 <a href="https://github.com/romancmx/gamebrary/issues" target="_blank">
-                    {{ $t('settings.reportBugs') }}
+                    {{ $t('platform.reportBugs') }}
                 </a>
-                {{$t('global.or')}}
+                {{$t('or')}}
                 <a href="https://goo.gl/forms/r0juBCsZaUtJ03qb2" target="_blank">
-                    {{ $t('settings.submitFeedback') }}
+                    {{ $t('platform.submitFeedback') }}
                 </a>
                 .
             </small>

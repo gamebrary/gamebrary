@@ -5,7 +5,7 @@
                 ref="searchInput"
                 type="text"
                 v-model="searchText"
-                :placeholder="$t('gameSearch.input.placeholder')"
+                :placeholder="$t('gameSearch.inputPlaceholder')"
             />
 
             <button class="primary small search-button" @click="search">
@@ -37,7 +37,13 @@
         </panel>
 
         <div class="search-actions">
-            <button class="small filled info" v-shortkey="['esc']" @shortkey="back" @click="back" title="back">
+            <button
+                class="small filled info"
+                title="back"
+                v-shortkey="['esc']"
+                @shortkey="back"
+                @click="back"
+            >
                 <i class="fas fa-chevron-left" />
                 {{ $t('back') }}
             </button>

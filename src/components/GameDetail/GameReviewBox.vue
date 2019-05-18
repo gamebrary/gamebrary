@@ -6,23 +6,23 @@
             </section>
 
             <section v-if="gameModes">
-                <strong>{{ $t('gameDetails.reviewBox.gameModes') }}</strong> {{ gameModes }}
+                <strong>{{ $t('gameDetail.gameModes') }}</strong> {{ gameModes }}
             </section>
 
             <section v-if="genres">
-                <strong>{{ $t('gameDetails.reviewBox.genres') }}</strong> {{ genres }}
+                <strong>{{ $t('gameDetail.genres') }}</strong> {{ genres }}
             </section>
 
             <section v-if="gamePlatforms">
-                <strong>{{ $t('gameDetails.reviewBox.gamePlatforms') }}</strong> {{ gamePlatforms }}
+                <strong>{{ $t('gameDetail.gamePlatforms') }}</strong> {{ gamePlatforms }}
             </section>
 
             <section v-if="developers">
-                <strong>{{ $t('gameDetails.reviewBox.developers') }}</strong> {{ developers }}
+                <strong>{{ $t('gameDetail.developers') }}</strong> {{ developers }}
             </section>
 
             <section v-if="publishers">
-                <strong>{{ $t('gameDetails.reviewBox.publishers') }}</strong> {{ publishers }}
+                <strong>{{ $t('gameDetail.publishers') }}</strong> {{ publishers }}
             </section>
 
             <!-- <section v-if="releaseDate">

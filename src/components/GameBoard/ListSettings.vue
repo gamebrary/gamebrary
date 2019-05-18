@@ -58,7 +58,13 @@
         </section>
 
         <footer>
-            <button class="filled small tiny info hollow" v-shortkey="['esc']" @shortkey="cancel" @click="cancel" title="back">
+            <button
+                class="filled small tiny info hollow"
+                title="back"
+                v-shortkey="['esc']"
+                @shortkey="cancel"
+                @click="cancel"
+            >
                 <i class="fas fa-chevron-left" />
                 Back
             </button>

@@ -29,11 +29,21 @@
                 />
 
                 <div class="note-actions">
-                    <button class="info tag" v-shortkey="['shift', 'c']" @shortkey="reset" @click="reset">
-                        {{ $t('global.cancel') }}
+                    <button
+                        class="info tag"
+                        v-shortkey="['shift', 'c']"
+                        @shortkey="reset"
+                        @click="reset"
+                    >
+                        {{ $t('cancel') }}
                     </button>
 
-                    <button class="error tag" v-shortkey="['shift', 'del']" @shortkey="deleteNote" @click="deleteNote">
+                    <button
+                        class="error tag"
+                        v-shortkey="['shift', 'del']"
+                        @shortkey="deleteNote"
+                        @click="deleteNote"
+                    >
                         <i class="far fa-trash-alt" />
                     </button>
 

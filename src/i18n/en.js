@@ -1,10 +1,7 @@
 module.exports = {
-    searchPlaceholder: 'Search here',
-    share: 'Share',
-    empty: 'empty',
-    back: 'Back',
-    save: 'Save',
     global: {
+        back: 'Back',
+        save: 'Save',
         cancel: 'Cancel',
         create: 'Create',
         filter: 'Filter',
@@ -14,32 +11,28 @@ module.exports = {
         yes: 'yes',
         or: 'or',
         returnHome: 'Return home',
-    },
-    errors: {
         pageNotFound: 'Page not found',
+        add: 'Add game',
     },
     platforms: {
         donateMessage: 'Gamebrary is free and open source, consider helping its development by',
+        donating: 'donating',
+        reportBugs: 'reporting bugs',
+        submitFeedback: 'submitting feedback',
     },
-    game: {
-        add: 'Add game',
-        addPlural: 'Add games to',
+    igdbCredit: {
+        poweredByIgdb: 'Powered by IGDB',
     },
-    gameDetails: {
-        videos: {
-            title: 'Videos',
-        },
-        screenshots: {
-            title: 'Screenshots',
-        },
-        reviewBox: {
-            playerPerspectives: 'Perspective',
-            gameModes: 'Game Mode',
-            genres: 'Genre',
-            gamePlatforms: 'Platforms',
-            developers: 'Developer',
-            publishers: 'Publishers',
-        },
+    gameDetail: {
+        videos: 'Videos',
+        screenshots: 'Screenshots',
+        playerPerspectives: 'Perspective',
+        gameModes: 'Game Mode',
+        genres: 'Genre',
+        gamePlatforms: 'Platforms',
+        developers: 'Developer',
+        publishers: 'Publishers',
+        removeFromList: 'Remove from list',
     },
     list: {
         edit: 'Edit list name',
@@ -54,55 +47,36 @@ module.exports = {
         emptyList: 'This list is empty',
     },
     settings: {
+        global: 'Global',
         darkTheme: 'Dark theme',
         newsletter: 'Receive update emails (Beta)',
         ownedLists: 'Only show my platforms',
         sortPlatforms: 'Sort platforms alphabetically',
         ratings: 'Hide game ratings',
         signOut: 'Sign out',
-        deleteAccount: {
-            button: 'Delete account',
-            message: 'Your account data will be deleted forever.',
-            title: 'Are you sure?',
-        },
-        title: {
-            global: 'Global',
-        },
-        donate: 'donating',
-        reportBugs: 'reporting bugs',
-        submitFeedback: 'submitting feedback',
         wallpaper: {
             title: 'Upload wallpaper',
             transparency: 'Semi transparent lists',
             currentWallpaper: 'Current wallpaper',
             removeWallpaper: 'Remove wallpaper',
         },
+        deleteAccount: {
+            button: 'Delete account',
+            message: 'Your account data will be deleted forever.',
+            title: 'Are you sure?',
+        },
     },
     tags: {
-        title: {
-            addTag: 'Add Tag',
-        },
-        button: {
-            createTag: 'Create tag',
-        },
-        input: {
-            placeholder: 'Tag name',
-        },
+        title: 'Game tags',
+        addTag: 'Add Tag',
+        createTag: 'Create tag',
+        inputPlaceholder: 'Tag name',
         applyTag: 'Apply tag',
         useTags: 'Use tags to better organise your games',
     },
-    listActions: {
-        title: {
-            gameTags: 'Game tags'
-        },
-    },
-    igdbCredit: {
-      poweredBy: 'Powered by IGDB',
-    },
     gameSearch: {
-        input: {
-          placeholder: 'Search here',
-        },
+        title: 'Add games to',
+        inputPlaceholder: 'Search here',
         alreadyInList: 'from search results already in your list',
         noResultsFound: 'No results found for ',
         missingGame: 'Missing a game? Help out the community and',

@@ -12,13 +12,13 @@
             class="add-tag"
             :class="textColor"
         >
-            <h5>{{ $t('tags.title.addTag') }}</h5>
+            <h5>{{ $t('tags.title') }}</h5>
 
             <div class="tag-input">
                 <input
                     type="text"
                     v-model="tagName"
-                    :placeholder="$t('tags.input.placeholder')"
+                    :placeholder="$t('tags.inputPlaceholder')"
                 />
 
                 <input
@@ -35,7 +35,7 @@
                 >
                     <i class="fas fa-plus-circle" />
 
-                    {{ $t('tags.button.createTag') }}
+                    {{ $t('tags.createTag') }}
                 </button>
             </div>
         </div>

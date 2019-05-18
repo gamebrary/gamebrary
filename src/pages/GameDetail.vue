@@ -14,15 +14,20 @@
                         <game-rating :rating="game.rating" />
 
                         <div class="actions" v-if="list.games.includes(game.id)">
-                            <button class="error small hollow" v-shortkey="['del']" @shortkey="removeGame" @click="removeGame">
+                            <button
+                                class="error small hollow"
+                                v-shortkey="['del']"
+                                @shortkey="removeGame"
+                                @click="removeGame"
+                            >
                                 <i class="far fa-trash-alt delete-game" />
-                                Remove from list
+                                {{ $t('gameDetail.removeFromList')}}
                             </button>
 
                             <div class="tags" v-if="hasTags">
                                 <button class="primary hollow small" @click="openTags">
                                     <i class="fas fa-tag" />
-                                    Add tag
+                                    {{ $t('tags.addTag') }}
                                 </button>
                             </div>
                         </div>

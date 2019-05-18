@@ -3,7 +3,7 @@
     <div :class="['list', viewClass, { dark: darkModeEnabled }, transparent]">
         <div class="list-header" :class="{ searching, editing }">
             <div v-if="searching">
-                {{ $t('game.addPlural') }}
+                {{ $t('gameSearch.title') }}
                 <strong>{{ list[listIndex].name }}</strong>
             </div>
 
