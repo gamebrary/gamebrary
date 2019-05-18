@@ -1,6 +1,6 @@
 <template lang="html">
     <div class="game-videos" v-if="game.videos">
-        <h3>{{ $t('gameDetails.videos.title') }}</h3>
+        <h3>{{ $t('gameDetail.videos') }}</h3>
 
         <div class="video">
             <iframe

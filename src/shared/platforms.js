@@ -88,7 +88,6 @@ export default [
         code: 'snes',
         id: 19,
         generation: 4,
-        height: 1,
     },
     {
         name: 'Sega Mega Drive / Genesis',
@@ -195,7 +194,6 @@ export default [
         code: 'n3ds',
         id: 37,
         generation: 8,
-        height: 1,
     },
     {
         name: 'PSP',
@@ -238,7 +236,6 @@ export default [
         code: 'neo-geo-cd',
         id: 136,
         generation: 4,
-        height: 1,
     },
     {
         name: 'Atari Lynx',
@@ -337,7 +334,6 @@ export default [
         code: 'odyssey',
         id: 88,
         generation: 1,
-        height: 1,
     },
     // {
     //     name: 'Commodore PET',

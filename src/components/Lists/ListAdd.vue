@@ -39,6 +39,8 @@
                 <button
                     class="small info"
                     type="button"
+                    v-shortkey="['esc']"
+                    @shortkey="reset"
                     @click="reset"
                 >
                     Cancel

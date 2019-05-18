@@ -1,4 +1,3 @@
-<!-- TODO: move file to lists folder -->
 <template lang="html">
     <div class="list-settings">
         <section>
@@ -75,7 +74,13 @@
         </section>
 
         <footer>
-            <button class="filled small tiny info hollow" @click="cancel" title="back">
+            <button
+                class="filled small tiny info hollow"
+                title="back"
+                v-shortkey="['esc']"
+                @shortkey="cancel"
+                @click="cancel"
+            >
                 <i class="fas fa-chevron-left" />
                 Back
             </button>

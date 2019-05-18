@@ -5,7 +5,7 @@
                 ref="searchInput"
                 type="text"
                 v-model="searchText"
-                placeholder="Search here"
+                :placeholder="$t('gameSearch.inputPlaceholder')"
             />
 
             <button class="primary small search-button" @click="search">
@@ -17,7 +17,7 @@
         <!-- TODO: move logic out of template -->
         <small v-if="gamesInList.length" :title="gamesInList.map(({ name }) => name).join(', ')">
             <strong>{{ gamesInList.length }} game{{ gamesInList.length === 1 ? '' : 's' }}</strong>
-             from search results already in your list
+            {{ $t('gameSearch.alreadyInList') }}
         </small>
 
         <div class="search-results" ref="searchResults" v-if="filteredResults.length > 0">
@@ -32,14 +32,20 @@
         </div>
 
         <panel class="warning" v-if="noResults">
-            <h4>No results found for "{{searchText}}"</h4>
-            <p>Missing a game? Help out the community and <a href="https://www.igdb.com/games/new" target="_blank">Add it to IGDB</a></p>
+            <h4>{{ $t('gameSearch.noResultsFound') }} "{{searchText}}"</h4>
+            <p>{{ $t('gameSearch.missingGame') }} <a href="https://www.igdb.com/games/new" target="_blank">{{$t('gameSearch.addToIGDB')}}</a></p>
         </panel>
 
         <div class="search-actions">
-            <button class="small filled info" @click="back" title="back">
+            <button
+                class="small filled info"
+                title="back"
+                v-shortkey="['esc']"
+                @shortkey="back"
+                @click="back"
+            >
                 <i class="fas fa-chevron-left" />
-                Back
+                {{ $t('back') }}
             </button>
 
             <igdb-credit linkable />

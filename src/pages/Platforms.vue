@@ -13,17 +13,17 @@
 
         <footer>
             <small>
-                Gamebrary is free and open source, consider helping its development by
+              {{ $t('platforms.donateMessage') }}
                 <a href="https://www.paypal.me/RomanCervantes/5" target="_blank">
-                    {{ $t('settings.donate') }}
+                    {{ $t('platforms.donating') }}
                 </a>
                 ,
                 <a href="https://github.com/romancmx/gamebrary/issues" target="_blank">
-                    {{ $t('settings.reportBugs') }}
+                    {{ $t('platforms.reportBugs') }}
                 </a>
-                or
+                {{$t('global.or')}}
                 <a href="https://goo.gl/forms/r0juBCsZaUtJ03qb2" target="_blank">
-                    {{ $t('settings.submitFeedback') }}
+                    {{ $t('platforms.submitFeedback') }}
                 </a>
                 .
             </small>
@@ -63,20 +63,12 @@ export default {
         ...mapState(['gameLists', 'platform', 'settings']),
         ...mapGetters(['darkModeEnabled']),
 
-        ownedListCount() {
-            return Object.keys(this.gameLists).length;
-        },
-
         hasLists() {
             return Object.keys(this.gameLists).length > 0;
         },
 
         ownedListsOnly() {
             return this.settings && this.settings.ownedListsOnly;
-        },
-
-        sortedByGeneration() {
-            return this.settings && !this.settings.sortListsAlphabetically;
         },
 
         filteredPlatforms() {
@@ -88,7 +80,6 @@ export default {
                 msnry.reloadItems();
                 msnry.layout();
             }
-
 
             return this.settings && this.settings.sortListsAlphabetically
                 ? sortBy(availableLists, 'name')

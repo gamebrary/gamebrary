@@ -24,8 +24,8 @@
 
         <modal
             ref="tag"
-            title="Apply tag"
-            message="Use tags to better organize your games"
+            :title="$t('tags.applyTag')"
+            :message="$t('tags.useTags')"
             padded
         >
             <div slot="content">
@@ -113,13 +113,6 @@ export default {
             gameDetailListIndex: null,
             gameDetailId: null,
             gameTagsId: null,
-            listDraggableOptions: {
-                animation: 500,
-                handle: '.list-drag-handle',
-                group: { name: 'lists' },
-                draggable: '.list',
-                ghostClass: 'list-placeholder',
-            },
         };
     },
 

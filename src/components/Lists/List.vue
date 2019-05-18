@@ -6,7 +6,7 @@
     >
         <div class="list-header" :class="{ searching, editing }">
             <div v-if="searching">
-                {{ $t('game.addPlural') }}
+                {{ $t('gameSearch.title') }}
                 <strong>{{ list[listIndex].name }}</strong>
             </div>
 
@@ -44,7 +44,7 @@
             :list="games"
             :id="listIndex"
             :move="validateMove"
-            :options="gameDraggableOptions"
+            v-bind="gameDraggableOptions"
             @end="end"
             @start="start"
         >
@@ -62,7 +62,7 @@
             v-if="!searching && !editing"
             @click="addGame"
             class="add-game-button small"
-            :title="$t('game.add')"
+            :title="$t('list.add')"
         >
             <i class="fas fa-plus" />
         </button>
@@ -72,7 +72,7 @@
 <script>
 import draggable from 'vuedraggable';
 import ListNameEdit from '@/components/Lists/ListNameEdit';
-import ListSettings from '@/components/GameBoard/ListSettings';
+import ListSettings from '@/components/Lists/ListSettings';
 import GameCardDefault from '@/components/GameCards/GameCardDefault';
 import GameCardCover from '@/components/GameCards/GameCardCover';
 import GameCardWide from '@/components/GameCards/GameCardWide';

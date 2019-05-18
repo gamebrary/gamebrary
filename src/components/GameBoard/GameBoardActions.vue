@@ -1,8 +1,8 @@
 <template lang="html">
-    <div class="list-actions">
+    <div class="game-board-actions">
         <div class="actions">
             <button
-                class="small success"
+                class="small info"
                 :title="$t('list.add')"
                 @click="addList"
             >
@@ -10,14 +10,14 @@
             </button>
 
             <modal
-                title="Game tags"
+                :title="$t('tags.title')"
                 ref="tags"
-                message="Use tags to better organize your games"
+                :message="$t('tags.useTags')"
                 padded
             >
                 <button
-                    class="small primary"
-                    title="Game tags"
+                    class="small accent"
+                    :title="$t('tags.title')"
                 >
                     <i class="fas fa-tag" />
                 </button>
@@ -32,7 +32,7 @@
             >
                 <button
                     class="small accent"
-                    title="Game tags"
+                    :title="$t('tags.title')"
                 >
                     <i class="fas fa-cog" />
                 </button>
@@ -94,7 +94,7 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "src/styles/styles.scss";
 
-    .list-actions {
+    .game-board-actions {
         padding-right: $gp;
     }
 
