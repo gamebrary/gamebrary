@@ -63,20 +63,12 @@ export default {
         ...mapState(['gameLists', 'platform', 'settings']),
         ...mapGetters(['darkModeEnabled']),
 
-        ownedListCount() {
-            return Object.keys(this.gameLists).length;
-        },
-
         hasLists() {
             return Object.keys(this.gameLists).length > 0;
         },
 
         ownedListsOnly() {
             return this.settings && this.settings.ownedListsOnly;
-        },
-
-        sortedByGeneration() {
-            return this.settings && !this.settings.sortListsAlphabetically;
         },
 
         filteredPlatforms() {
@@ -88,7 +80,6 @@ export default {
                 msnry.reloadItems();
                 msnry.layout();
             }
-
 
             return this.settings && this.settings.sortListsAlphabetically
                 ? sortBy(availableLists, 'name')

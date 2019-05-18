@@ -19,16 +19,6 @@ module.exports = {
         pageNotFound: 'Page not found',
     },
     platforms: {
-        computersArcade: 'Computers and Arcade',
-        generation: 'Generation',
-        options: {
-            generation: 'Console generations',
-            alphabetically: 'Alphabetically',
-        },
-        st: 'st',
-        nd: 'nd',
-        rd: 'rd',
-        th: 'th',
         donateMessage: 'Gamebrary is free and open source, consider helping its development by',
     },
     game: {
