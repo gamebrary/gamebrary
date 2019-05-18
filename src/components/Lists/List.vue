@@ -40,7 +40,7 @@
             :list="games"
             :id="listIndex"
             :move="validateMove"
-            :options="gameDraggableOptions"
+            v-bind="gameDraggableOptions"
             @end="end"
             @start="start"
         >
