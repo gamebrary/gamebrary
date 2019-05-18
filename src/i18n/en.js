@@ -12,7 +12,6 @@ module.exports = {
         or: 'or',
         returnHome: 'Return home',
         pageNotFound: 'Page not found',
-        add: 'Add game',
     },
     platforms: {
         donateMessage: 'Gamebrary is free and open source, consider helping its development by',
@@ -45,6 +44,7 @@ module.exports = {
         moveLeft: 'Move left',
         moveRight: 'Move right',
         emptyList: 'This list is empty',
+        addGame: 'Add game',
     },
     settings: {
         global: 'Global',
