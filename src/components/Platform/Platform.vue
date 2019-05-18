@@ -44,7 +44,7 @@ export default {
         },
 
         blockClass() {
-            return `height-${this.blockHeight} width-${this.blockWidth}`;
+            return `height-${this.blockHeight}`;
         },
     },
 
@@ -72,23 +72,26 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles.scss";
 
-    $blockSize: 100px;
+    $tileHeight: 80px;
 
     .platform {
-        background: #cfc;
-        padding: $gp * 1.5;
+        padding: $gp;
         display: flex;
         margin-bottom: $gp / 2;
         align-items: center;
         border-radius: $border-radius;
         cursor: pointer;
+        overflow: hidden;
+        width: calc(calc(100% / 7) - 8.5px) !important;
 
-        &.width-1 { width: $blockSize; }
-        &.width-2 { width: $blockSize * 2 + $gp / 2; }
-        &.width-3 { width: $blockSize * 3 + $gp; }
-        &.height-1 { height: $blockSize; }
-        &.height-2 { height: $blockSize * 2 + $gp / 2; }
-        &.height-3 { height: $blockSize * 3 + $gp; }
+        &.height-1 { height: $tileHeight; }
+        &.height-2 { height: $tileHeight * 2 }
+        &.height-3 { height: $tileHeight * 3 }
+
+        @media($small) {
+            padding: $gp / 2;
+            width: calc(calc(100% / 3) - 7px) !important;
+        }
 
         img {
             width: 100%;
