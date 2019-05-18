@@ -17,7 +17,7 @@
             >
                 <button
                     class="small primary"
-                    :title="$t('gameTags')"
+                    :title="$t('tags.title')"
                 >
                     <i class="fas fa-tag" />
                 </button>
@@ -32,7 +32,7 @@
             >
                 <button
                     class="small accent"
-                    :title="$t('gameTags')"
+                    :title="$t('tags.title')"
                 >
                     <i class="fas fa-cog" />
                 </button>
