@@ -45,6 +45,11 @@ module.exports = {
         moveLeft: 'Muovere a sinistra',
         moveRight: 'Vai a destra',
         emptyList: 'Questa lista è vuota',
+        // TODO: Translate From English
+        /* changeView: 'Change view',
+        moveList: 'Move list',
+        sortList: 'Sort list',
+        width: 'List width', */
     },
     settings: {
         global: 'Globale',
