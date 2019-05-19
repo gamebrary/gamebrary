@@ -1,7 +1,7 @@
 <template lang="html">
     <div class="list-settings">
         <section>
-            <h4>Move list</h4>
+            <h4>{{ $t('list.moveList') }}</h4>
 
             <button
                 class="small primary hollow"
@@ -27,7 +27,7 @@
         </section>
 
         <section>
-            <h4>Change view</h4>
+            <h4>{{ $t('list.changeView') }}</h4>
 
             <button
                 v-for="(icon, view) in views"
@@ -42,7 +42,7 @@
         </section>
 
         <section v-if="hasMultipleGames">
-            <h4>Sort List</h4>
+            <h4>{{ $t('list.sortList') }}</h4>
 
             <button
                 v-for="(icon, sortOrder) in sortOrders"
@@ -56,6 +56,23 @@
             </button>
         </section>
 
+        <section v-if="hasMultipleGames">
+            <h4>{{ $t('list.width') }}</h4>
+
+            <select 
+                v-model="activeList.selectedWidth"
+                class="small primary hollow"
+                @change="setListWidth(activeList.selectedWidth)"
+            >
+                <option 
+                    v-for="width in widths" 
+                    :selected="activeList.selectedWidth === width"
+                >
+                    {{ width }}
+                </option>
+            </select>
+        </section>
+
         <footer>
             <button
                 class="filled small tiny info hollow"
@@ -65,7 +82,7 @@
                 @click="cancel"
             >
                 <i class="fas fa-chevron-left" />
-                Back
+                {{ $t('back') }}
             </button>
 
             <modal
@@ -125,6 +142,7 @@ export default {
                 sortByRating: 'fas fa-sort-numeric-up',
                 sortByCustom: 'fas fa-sort-custom',
             },
+            widths: [1, 2, 3, 4, 5],
         };
     },
 
@@ -198,6 +216,15 @@ export default {
                 sortOrder,
             });
             this.sort(sortOrder);
+            this.$emit('update');
+        },
+
+        setListWidth(selectedWidth) {
+            this.$store.commit('UPDATE_LIST_WIDTH', {
+                listIndex: this.activeListIndex,
+                selectedWidth,
+            });
+
             this.$emit('update');
         },
 

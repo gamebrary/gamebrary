@@ -1,6 +1,9 @@
 <!-- eslint-disable max-len -->
 <template lang="html">
-    <div :class="['list', viewClass, { dark: darkModeEnabled }, transparent]">
+    <div 
+        :class="['list', viewClass, { dark: darkModeEnabled }, transparent]"
+        :style="[{ width: calculatedWidth}]"
+    >
         <div class="list-header" :class="{ searching, editing }">
             <div v-if="searching">
                 {{ $t('gameSearch.title') }}
@@ -37,6 +40,7 @@
         <draggable
             v-else
             :class="['games', { 'empty': isEmpty }]"
+            :style="[{'grid-template-columns': calculatedColumns}]"
             :list="games"
             :id="listIndex"
             :move="validateMove"
@@ -160,6 +164,21 @@ export default {
                 ? 'transparent'
                 : '';
         },
+
+        calculatedWidth() {
+            let currentListWidth = this.list[this.listIndex].selectedWidth;
+            let myCalc = ((currentListWidth == null ? 1 : currentListWidth) * (this.gameCardComponent === "GameCardWide" ? 340 : 300) + 'px');
+            return myCalc;
+        },
+
+        calculatedColumns() {
+            let currentListWidth = this.list[this.listIndex].selectedWidth;
+            let ans = "1fr";
+            for (let i = 1; i < currentListWidth; i++) {
+                ans += " 1fr";
+            }
+            return ans;
+        }
     },
 
     methods: {
@@ -217,26 +236,23 @@ export default {
         flex-shrink: 0;
         cursor: default;
         position: relative;
-        width: 300px;
         background-color: $color-light-gray;
         border-radius: $border-radius;
         overflow: hidden;
         margin-right: $gp;
         max-height: calc(100vh - 81px);
 
-        &.transparent {
-            background-color: $color-light-gray-transparent;
+        .games {
+            display: grid;
         }
 
-        &.wide {
-            width: $list-width-wide;
+        &.transparent {
+            background-color: $color-light-gray-transparent;
         }
 
         &.covers {
             .games {
                 padding-top: $gp / 2;
-                display: grid;
-                grid-template-columns: 1fr 1fr 1fr;
                 grid-gap: $gp / 4;
             }
         }

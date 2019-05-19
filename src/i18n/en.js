@@ -45,6 +45,10 @@ module.exports = {
         moveRight: 'Move right',
         emptyList: 'This list is empty',
         addGame: 'Add game',
+        changeView: 'Change view',
+        moveList: 'Move list',
+        sortList: 'Sort list',
+        width: 'List width',
     },
     settings: {
         global: 'Global',
