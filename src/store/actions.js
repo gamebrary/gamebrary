@@ -47,9 +47,31 @@ export default {
         return new Promise((resolve, reject) => {
             axios.get(`${FIREBASE_URL}/search?searchText=${searchText}&platformId=${state.platform.id}`)
                 .then(({ data }) => {
-                    commit('SET_SEARCH_RESULTS', data);
-                    commit('CACHE_GAME_DATA', data);
-                    resolve();
+                    let originalData = data.slice();
+                    if (state.platform.id === 37) {
+                        axios.get(`${FIREBASE_URL}/search?searchText=${searchText}&platformId=${137}`)
+                            .then(({ data }) => {
+                                data.forEach((element)=> {
+                                    let found = false;
+                                    for (let i = 0; i < originalData.length; i++) {
+                                        if (originalData[i].id === element.id) {
+                                            found = true;
+                                            break;
+                                        }
+                                    }
+                                    if (!found) {
+                                        originalData.push(element);
+                                    }
+                                });
+                                commit('SET_SEARCH_RESULTS', originalData);
+                                commit('CACHE_GAME_DATA', originalData);
+                                resolve();
+                            }).catch(reject);
+                    } else {
+                        commit('SET_SEARCH_RESULTS', data);
+                        commit('CACHE_GAME_DATA', data);
+                        resolve();
+                    }
                 }).catch(reject);
         });
     },
