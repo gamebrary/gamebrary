@@ -47,9 +47,9 @@ export default {
         return new Promise((resolve, reject) => {
             axios.get(`${FIREBASE_URL}/search?searchText=${searchText}&platformId=${state.platform.id}`)
                 .then(({ data }) => {
-                    let originalData = data.slice();
+                    const originalData = data.slice();
                     if (state.platform.id === 37) {
-                        axios.get(`${FIREBASE_URL}/search?searchText=${searchText}&platformId=${137}`)
+                        axios.get('${FIREBASE_URL}/search?searchText=${searchText}&platformId=137')
                             .then(({ data }) => {
                                 data.forEach((element)=> {
                                     let found = false;
