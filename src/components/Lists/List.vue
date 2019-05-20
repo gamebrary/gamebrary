@@ -1,6 +1,6 @@
 <!-- eslint-disable max-len -->
 <template lang="html">
-    <div 
+    <div
         :class="['list', viewClass, { dark: darkModeEnabled }, transparent]"
         :style="[{ width: calculatedWidth}]"
     >
@@ -166,19 +166,28 @@ export default {
         },
 
         calculatedWidth() {
-            let currentListWidth = this.list[this.listIndex].selectedWidth;
-            let myCalc = ((currentListWidth == null ? 1 : currentListWidth) * (this.gameCardComponent === "GameCardWide" ? 340 : 300) + 'px');
-            return myCalc;
+            const currentListWidth = this.list[this.listIndex].selectedWidth || 1;
+
+            const cardWidth = this.gameCardComponent === 'GameCardWide'
+                ? 340
+                : 300;
+
+            const width = currentListWidth * cardWidth;
+
+            return `${width}px`;
         },
 
         calculatedColumns() {
-            let currentListWidth = this.list[this.listIndex].selectedWidth;
-            let ans = "1fr";
+            const currentListWidth = this.list[this.listIndex].selectedWidth;
+            let ans = '1fr';
+
+            // eslint-disable-next-line
             for (let i = 1; i < currentListWidth; i++) {
-                ans += " 1fr";
+                ans += ' 1fr';
             }
+
             return ans;
-        }
+        },
     },
 
     methods: {

@@ -59,13 +59,14 @@
         <section v-if="hasMultipleGames">
             <h4>{{ $t('list.width') }}</h4>
 
-            <select 
+            <select
                 v-model="activeList.selectedWidth"
                 class="small primary hollow"
                 @change="setListWidth(activeList.selectedWidth)"
             >
-                <option 
-                    v-for="width in widths" 
+                <option
+                    v-for="(width, index) in widths"
+                    :key="index"
                     :selected="activeList.selectedWidth === width"
                 >
                     {{ width }}
