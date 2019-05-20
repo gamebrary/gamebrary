@@ -83,7 +83,7 @@
                 @click="cancel"
             >
                 <i class="fas fa-chevron-left" />
-                {{ $t('back') }}
+                {{ $t('global.back') }}
             </button>
 
             <modal
