@@ -1,5 +1,5 @@
 # Gamebrary
-[![All Contributors](https://img.shields.io/badge/all_contributors-12-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-12-orange.svg?style=flat-square)](#contributors) : [![CircleCI](https://circleci.com/gh/romancm/gamebrary.svg?style=svg)](https://circleci.com/gh/romancm/gamebrary)
 
 Open source tool to organize video game collections.
 
