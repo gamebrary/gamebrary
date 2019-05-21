@@ -9,10 +9,5 @@ workflows:
   build:
     steps:
         - checkout
-        - *create_npmrc
-        - *restore_yarn_cache
-        - *yarn_install
-        - *rebuild_node_sass
-        - *save_yarn_cache
+        - run: yarn install --pure-lockfile --no-progress --non-interactive --check-files
         - run: yarn run lint
-        - run: yarn run build
