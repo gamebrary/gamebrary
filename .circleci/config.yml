@@ -1,7 +1,17 @@
 version: 2.1
-workflows:
+jobs:
+  lint:
+    steps:
+      - checkout
+      - run: yarn install --pure-lockfile --check-files
+      - run: yarn lint
   build:
     steps:
-        - checkout
-        - run: yarn install --pure-lockfile --no-progress --non-interactive --check-files
-        - run: yarn run lint
+      - checkout
+      - run: yarn build
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - lint
+      - build
