@@ -1,17 +1,31 @@
 version: 2.1
-jobs:
-  lint:
-    steps:
-      - checkout
-      - run: yarn install --pure-lockfile --check-files
-      - run: yarn lint
-  build:
-    steps:
-      - checkout
-      - run: yarn build
+
 workflows:
-  version: 2
-  build_and_test:
+  version: 2.1
+  build-and-deploy:
     jobs:
-      - lint
-      - build
+      - release:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /v[0-9]+(\.[0-9]+)*/
+
+jobs:
+  release:
+    docker:
+      - image: circleci/node:8.11.3-browsers
+    steps:
+      - checkout
+      - run:
+          name: Set and authenticate with registry
+          command: |
+            echo "${NPMRC}" | base64 --decode > ~/.npmrc
+      - run: yarn install --pure-lockfile --no-progress --non-interactive
+      - run:
+          name: "Lint"
+          command: |
+            echo "Running linter"
+            git config --global user.email "romancm@gmail.com"
+            git config --global user.name "romancm"
+            yarn lint
