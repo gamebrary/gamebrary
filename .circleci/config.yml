@@ -1,11 +1,5 @@
 version: 2.1
-orbs:
-  welcome: circleci/welcome-orb@0.3.1
-
 workflows:
-  Welcome:
-    jobs:
-      - welcome/run
   build:
     steps:
         - checkout
