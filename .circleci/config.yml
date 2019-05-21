@@ -13,3 +13,22 @@ workflows:
     # Run the welcome/run job in its own container
     jobs:
       - welcome/run
+
+jobs:
+  release:
+    docker:
+      - image: circleci/node:8.11.3-browsers
+    steps:
+      - checkout
+      - run:
+          name: Set and authenticate with registry test
+          command: |
+            echo "${NPMRC}" | base64 --decode > ~/.npmrc
+      - run: yarn install --pure-lockfile --no-progress --non-interactive
+      - run:
+          name: "Lint"
+          command: |
+            echo "Running linter"
+            git config --global user.email "romancm@gmail.com"
+            git config --global user.name "romancm"
+            yarn lint
