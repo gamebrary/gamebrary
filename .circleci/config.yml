@@ -10,8 +10,8 @@ jobs:
           name: "Lint"
           command: |
             echo "Running linter"
-            git config --global user.email "romancm@gmail.com"
-            git config --global user.name "romancm"
+            git config --global user.email "circleci@gamebrary.com"
+            git config --global user.name "gamebrary"
             yarn lint
 workflows:
   version: 2
