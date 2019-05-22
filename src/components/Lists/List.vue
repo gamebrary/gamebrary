@@ -1,9 +1,6 @@
 <!-- eslint-disable max-len -->
 <template lang="html">
-    <div
-        :class="['list', viewClass, { dark: darkModeEnabled }, transparent]"
-        :style="[{ width: calculatedWidth}]"
-    >
+    <div :class="['list', viewClass, coversSizeClass, { dark: darkModeEnabled }, transparent]">
         <div class="list-header" :class="{ searching, editing }">
             <div v-if="searching">
                 {{ $t('gameSearch.title') }}
@@ -40,7 +37,6 @@
         <draggable
             v-else
             :class="['games', { 'empty': isEmpty }]"
-            :style="[{'grid-template-columns': calculatedColumns}]"
             :list="games"
             :id="listIndex"
             :move="validateMove"
@@ -76,6 +72,7 @@ import ListSettings from '@/components/Lists/ListSettings';
 import GameCardDefault from '@/components/GameCards/GameCardDefault';
 import GameCardCover from '@/components/GameCards/GameCardCover';
 import GameCardWide from '@/components/GameCards/GameCardWide';
+import GameCardText from '@/components/GameCards/GameCardText';
 import GameSearch from '@/components/GameSearch/GameSearch';
 import { mapState, mapGetters } from 'vuex';
 import firebase from 'firebase/app';
@@ -90,6 +87,7 @@ export default {
         GameCardDefault,
         GameCardCover,
         GameCardWide,
+        GameCardText,
         GameSearch,
         ListNameEdit,
         ListSettings,
@@ -145,6 +143,16 @@ export default {
             return this.list[this.listIndex].view;
         },
 
+        coversSizeClass() {
+            return `covers-${this.coversSize}`
+        },
+
+        coversSize() {
+            const activeList = this.list[this.listIndex];
+
+            return activeList.coversSize || 3;
+        },
+
         gameCardComponent() {
             return this.view
                 ? this.gameCardComponents[this.view]
@@ -163,30 +171,6 @@ export default {
                 && this.settings.wallpapers[this.platform.code].transparent
                 ? 'transparent'
                 : '';
-        },
-
-        calculatedWidth() {
-            const currentListWidth = this.list[this.listIndex].selectedWidth || 1;
-
-            const cardWidth = this.gameCardComponent === 'GameCardWide'
-                ? 340
-                : 300;
-
-            const width = currentListWidth * cardWidth;
-
-            return `${width}px`;
-        },
-
-        calculatedColumns() {
-            const currentListWidth = this.list[this.listIndex].selectedWidth;
-            let ans = '1fr';
-
-            // eslint-disable-next-line
-            for (let i = 1; i < currentListWidth; i++) {
-                ans += ' 1fr';
-            }
-
-            return ans;
         },
     },
 
@@ -245,6 +229,7 @@ export default {
         flex-shrink: 0;
         cursor: default;
         position: relative;
+        width: 300px;
         background-color: $color-light-gray;
         border-radius: $border-radius;
         overflow: hidden;
@@ -259,11 +244,42 @@ export default {
             background-color: $color-light-gray-transparent;
         }
 
+        &.wide {
+            width: $list-width-wide;
+        }
+
         &.covers {
             .games {
                 padding-top: $gp / 2;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
                 grid-gap: $gp / 4;
             }
+
+            &.covers-3 {
+                width: 300px;
+
+                .games {
+                    grid-template-columns: repeat(3, 1fr);
+                }
+            }
+
+            &.covers-4 {
+                width: 400px;
+
+                .games {
+                    grid-template-columns: repeat(4, 1fr);
+                }
+            }
+
+            &.covers-5 {
+                width: 500px;
+
+                .games {
+                    grid-template-columns: repeat(5, 1fr);
+                }
+            }
+
         }
 
         &.dark {

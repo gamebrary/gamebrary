@@ -37,8 +37,21 @@
                 @click="setListView(view)"
             >
                 <i :class="icon" />
-                {{ view }}
+                {{ $t(`list.views.${view}`) }}
             </button>
+
+            <div v-if="activeList && activeList.view === 'covers'" class="view-options">
+                <h5>{{ $t('list.coversSizeTitle') }}</h5>
+
+                <button
+                    class="small"
+                    :class="{ primary: coversSize === activeList.coversSize || coversSize === 3 && !activeList.coversSize }"
+                    @click="setCoversSize(coversSize)"
+                    v-for="coversSize in coversSizes"
+                >
+                    {{ coversSize }}
+                </button>
+            </div>
         </section>
 
         <section v-if="hasMultipleGames">
@@ -54,24 +67,6 @@
                 <i :class="icon" />
                 {{ $t(`list.${sortOrder}`) }}
             </button>
-        </section>
-
-        <section v-if="hasMultipleGames">
-            <h4>{{ $t('list.width') }}</h4>
-
-            <select
-                v-model="activeList.selectedWidth"
-                class="small primary hollow"
-                @change="setListWidth(activeList.selectedWidth)"
-            >
-                <option
-                    v-for="(width, index) in widths"
-                    :key="index"
-                    :selected="activeList.selectedWidth === width"
-                >
-                    {{ width }}
-                </option>
-            </select>
         </section>
 
         <footer>
@@ -138,12 +133,12 @@ export default {
                 covers: 'fas fa-th-large',
                 wide: 'fas fa-minus',
             },
+            coversSizes: [3, 4, 5],
             sortOrders: {
                 sortByName: 'fas fa-sort-alpha-down',
                 sortByRating: 'fas fa-sort-numeric-up',
                 sortByCustom: 'fas fa-sort-custom',
             },
-            widths: [1, 2, 3, 4, 5],
         };
     },
 
@@ -220,10 +215,10 @@ export default {
             this.$emit('update');
         },
 
-        setListWidth(selectedWidth) {
-            this.$store.commit('UPDATE_LIST_WIDTH', {
+        setCoversSize(size) {
+            this.$store.commit('UPDATE_LIST_COVERS_SIZE', {
                 listIndex: this.activeListIndex,
-                selectedWidth,
+                size,
             });
 
             this.$emit('update');
@@ -272,5 +267,13 @@ export default {
         border-top: 1px solid $color-gray;
         padding-top: $gp / 2;
         margin-top: $gp;
+    }
+
+    .view-options {
+        border: 1px solid $color-dark-gray;
+        border-radius: $border-radius;
+        margin-top: $gp / 2;
+        padding: $gp / 2;
+        background-color: $color-lightest-gray;
     }
 </style>

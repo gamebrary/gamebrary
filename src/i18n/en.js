@@ -48,7 +48,13 @@ module.exports = {
         changeView: 'Change view',
         moveList: 'Move list',
         sortList: 'Sort list',
-        width: 'List width',
+        coversSizeTitle: 'Covers across',
+        views: {
+            single: 'Default',
+            covers: 'Covers',
+            wide: 'Compact',
+            text: 'Text only',
+        },
     },
     settings: {
         global: 'Global',
