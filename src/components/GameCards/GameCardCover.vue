@@ -7,8 +7,8 @@
         >
 
         <i
-                v-if="isDraggable"
-                class="fas fa-grip-vertical game-drag-handle"
+            v-if="isDraggable"
+            class="fas fa-grip-vertical game-drag-handle"
         />
     </div>
 </template>
