@@ -58,8 +58,12 @@ export default {
                                     ...response.data,
                                 ];
 
-                                commit('SET_SEARCH_RESULTS', joinedData);
-                                commit('CACHE_GAME_DATA', joinedData);
+                                const ids = [...new Set(joinedData.map(({ id }) => id))];
+
+                                const unique = ids.map(e => joinedData.find(({ id }) => id === e));
+
+                                commit('SET_SEARCH_RESULTS', unique);
+                                commit('CACHE_GAME_DATA', unique);
                                 resolve();
                             }).catch(reject);
                     } else {
