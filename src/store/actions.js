@@ -49,22 +49,17 @@ export default {
                 .then(({ data }) => {
                     const originalData = data.slice();
                     if (state.platform.id === 37) {
-                        axios.get('${FIREBASE_URL}/search?searchText=${searchText}&platformId=137')
-                            .then(({ data }) => {
-                                data.forEach((element)=> {
-                                    let found = false;
-                                    for (let i = 0; i < originalData.length; i++) {
-                                        if (originalData[i].id === element.id) {
-                                            found = true;
-                                            break;
-                                        }
-                                    }
-                                    if (!found) {
-                                        originalData.push(element);
-                                    }
-                                });
-                                commit('SET_SEARCH_RESULTS', originalData);
-                                commit('CACHE_GAME_DATA', originalData);
+                        // TODO: specify platform ids in platforms file,
+                        // let endpoint handle multiple ids
+                        axios.get(`${FIREBASE_URL}/search?searchText=${searchText}&platformId=137`)
+                            .then((response) => {
+                                const joinedData = [
+                                    ...originalData,
+                                    ...response.data,
+                                ];
+
+                                commit('SET_SEARCH_RESULTS', joinedData);
+                                commit('CACHE_GAME_DATA', joinedData);
                                 resolve();
                             }).catch(reject);
                     } else {
