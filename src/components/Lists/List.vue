@@ -114,6 +114,7 @@ export default {
                 single: 'GameCardDefault',
                 covers: 'GameCardCover',
                 wide: 'GameCardWide',
+                text: 'GameCardText',
             },
         };
     },

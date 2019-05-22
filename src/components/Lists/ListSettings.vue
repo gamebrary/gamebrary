@@ -132,6 +132,7 @@ export default {
                 single: 'fas fa-square',
                 covers: 'fas fa-th-large',
                 wide: 'fas fa-minus',
+                text: 'fas fa-font',
             },
             coversSizes: [3, 4, 5],
             sortOrders: {
