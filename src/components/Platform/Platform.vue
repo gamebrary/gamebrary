@@ -9,13 +9,12 @@
             :alt="platformData.name"
         />
 
-        <!-- <h4>
-            {{ platformData.name }}
-
-            <small v-if="ownedPlatform(platformData.code)">
-                ({{ getGameCount(platformData.code) }} Games)
-            </small>
-        </h4> -->
+        <span
+            v-if="ownedPlatform(platformData.code)"
+            :class="['game-count', textColor]"
+        >
+            {{ getGameCount(platformData.code) }} Games
+        </span>
     </div>
 </template>
 
@@ -39,12 +38,29 @@ export default {
         ...mapState(['gameLists', 'platform', 'settings']),
         ...mapGetters(['darkModeEnabled']),
 
+        hexColor() {
+            return this.platformData.hex || '#fff';
+        },
+
         style() {
-            return `background-color: ${this.platformData.hex || '#fff'}`;
+            return `background-color: ${this.hexColor}`;
         },
 
         blockClass() {
             return `height-${this.blockHeight}`;
+        },
+
+        textColor() {
+            const hexColor = this.hexColor ? this.hexColor.replace('#', 0) : '#000000';
+
+            const r = parseInt(hexColor.substr(0, 2), 16);
+            const g = parseInt(hexColor.substr(2, 2), 16);
+            const b = parseInt(hexColor.substr(4, 2), 16);
+
+            // eslint-disable-next-line
+            const yiq = ((r*299)+(g*587)+(b*114))/1000;
+
+            return yiq >= 128 ? 'light' : 'dark';
         },
     },
 
@@ -77,8 +93,10 @@ export default {
     .platform {
         padding: $gp;
         display: flex;
+        flex-direction: column;
         margin-bottom: $gp / 2;
         align-items: center;
+        justify-content: center;
         border-radius: $border-radius;
         cursor: pointer;
         overflow: hidden;
@@ -98,6 +116,20 @@ export default {
             height: auto;
 
             max-height: 100%;
+        }
+
+        .game-count {
+            padding-top: $gp / 3;
+            font-weight: bold;
+            font-size: 12px;
+
+            &.light {
+                color: $color-white;
+            }
+
+            &.dark {
+                color: $color-black;
+            }
         }
     }
 </style>
