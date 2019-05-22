@@ -145,7 +145,7 @@ export default {
         },
 
         coversSizeClass() {
-            return `covers-${this.coversSize}`
+            return `covers-${this.coversSize}`;
         },
 
         coversSize() {

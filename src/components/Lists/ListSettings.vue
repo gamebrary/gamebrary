@@ -44,10 +44,14 @@
                 <h5>{{ $t('list.coversSizeTitle') }}</h5>
 
                 <button
-                    class="small"
-                    :class="{ primary: coversSize === activeList.coversSize || coversSize === 3 && !activeList.coversSize }"
-                    @click="setCoversSize(coversSize)"
                     v-for="coversSize in coversSizes"
+                    class="small"
+                    :class="{
+                        primary: coversSize === activeList.coversSize
+                            || coversSize === 3 && !activeList.coversSize
+                    }"
+                    :key="`cover-${coversSize}`"
+                    @click="setCoversSize(coversSize)"
                 >
                     {{ coversSize }}
                 </button>
