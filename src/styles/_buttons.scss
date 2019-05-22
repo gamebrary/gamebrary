@@ -19,7 +19,6 @@ a.link {
     overflow: hidden;
     display: inline-flex;
     align-items: center;
-    border: 1px solid $color-dark-gray;
 
     button {
         float: left;
@@ -52,6 +51,13 @@ button, a.link {
     &[disabled] {
         opacity: 0.5;
         cursor: default;
+    }
+
+    &.xsmall {
+        min-height: $iconSmallSize / 3;
+        min-width: $iconSmallSize / 3;
+        padding: $gp / 3;
+        font-size: 12px;
     }
 
     &.small {

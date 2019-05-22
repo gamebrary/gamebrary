@@ -4,7 +4,7 @@
             <h4>{{ $t('list.moveList') }}</h4>
 
             <button
-                class="small primary hollow"
+                class="xsmall primary hollow"
                 :title="$t('list.moveLeft')"
                 :disabled="isFirst"
                 @click="moveList(activeListIndex, activeListIndex - 1)"
@@ -15,13 +15,12 @@
             </button>
 
             <button
-                class="small primary hollow"
+                class="xsmall primary hollow"
                 :title="$t('list.moveRight')"
                 :disabled="isLast"
                 @click="moveList(activeListIndex, activeListIndex + 1)"
             >
                 {{ $t('list.moveRight') }}
-
                 <i class="fas fa-caret-right" />
             </button>
         </section>
@@ -29,27 +28,29 @@
         <section>
             <h4>{{ $t('list.changeView') }}</h4>
 
-            <button
-                v-for="(icon, view) in views"
-                :key="view"
-                class="small primary"
-                :class="{ hollow: activeList.view !== view }"
-                @click="setListView(view)"
-            >
-                <i :class="icon" />
-                {{ $t(`list.views.${view}`) }}
-            </button>
+            <div class="button-group">
+                <button
+                    v-for="(icon, view) in views"
+                    :key="view"
+                    class="xsmall primary"
+                    :class="{ hollow: activeList.view !== view }"
+                    @click="setListView(view)"
+                >
+                    <i :class="icon" />
+                    <br>
+                    {{ $t(`list.views.${view}`) }}
+                </button>
+            </div>
+        </section>
 
-            <div v-if="activeList && activeList.view === 'covers'" class="view-options">
-                <h5>{{ $t('list.coversSizeTitle') }}</h5>
+        <section v-if="activeList && activeList.view === 'covers'">
+            <h4>{{ $t('list.coversSizeTitle') }}</h4>
 
+            <div class="button-group">
                 <button
                     v-for="coversSize in coversSizes"
-                    class="small"
-                    :class="{
-                        primary: coversSize === activeList.coversSize
-                            || coversSize === 3 && !activeList.coversSize
-                    }"
+                    class="small primary"
+                    :class="{ hollow: coversSize !== activeList.coversSize }"
                     :key="`cover-${coversSize}`"
                     @click="setCoversSize(coversSize)"
                 >
@@ -61,16 +62,18 @@
         <section v-if="hasMultipleGames">
             <h4>{{ $t('list.sortList') }}</h4>
 
-            <button
-                v-for="(icon, sortOrder) in sortOrders"
-                :key="sortOrder"
-                class="small primary"
-                :class="{ hollow: activeList.sortOrder !== sortOrder }"
-                @click="setListSort(sortOrder)"
-            >
-                <i :class="icon" />
-                {{ $t(`list.${sortOrder}`) }}
-            </button>
+            <div class="button-group">
+                <button
+                    v-for="(icon, sortOrder) in sortOrders"
+                    :key="sortOrder"
+                    class="xsmall primary"
+                    :class="{ hollow: activeList.sortOrder !== sortOrder }"
+                    @click="setListSort(sortOrder)"
+                >
+                    <i :class="icon" />
+                    {{ $t(`list.${sortOrder}`) }}
+                </button>
+            </div>
         </section>
 
         <footer>
@@ -274,11 +277,7 @@ export default {
         margin-top: $gp;
     }
 
-    .view-options {
-        border: 1px solid $color-dark-gray;
-        border-radius: $border-radius;
-        margin-top: $gp / 2;
-        padding: $gp / 2;
-        background-color: $color-lightest-gray;
+    .button-group {
+        border: 1px solid $color-blue;
     }
 </style>
