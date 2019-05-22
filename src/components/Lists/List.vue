@@ -236,6 +236,7 @@ export default {
         overflow: hidden;
         margin-right: $gp;
         max-height: calc(100vh - 81px);
+        transition: width 200ms;
 
         .games {
             display: grid;
