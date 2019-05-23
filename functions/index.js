@@ -7,7 +7,7 @@ const igdbUrl = 'https://api-endpoint.igdb.com';
 const igdbV3Url = 'https://api-v3.igdb.com/';
 const igdbFields = 'id,name,slug,created_at,updated_at,summary,rating,category,player_perspectives,release_dates,name,cover,platforms,screenshots,videos,websites,esrb,pegi,themes.name,game.name&expand=game,themes,developers,publishers,game_engines,game_modes,genres,platforms,player_perspectives';
 const igdbV3Fields = 'fields alternative_name,character,collection,company,description,game,name,person,platform,popularity,published_at,test_dummy,theme;';
-const igdbFieldsMinimal = 'id,name,slug,rating,name,cover';
+const igdbFieldsMinimal = 'id,name,slug,rating,name,cover,release_dates';
 
 exports.search = functions.https.onRequest((req, res) => {
     res.set('Access-Control-Allow-Origin', "*")
