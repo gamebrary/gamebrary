@@ -41,6 +41,7 @@ module.exports = {
         sortByName: 'Alfabéticamente',
         sortByRating: 'Calificación del juego',
         sortByCustom: 'Personalizado',
+        sortByReleaseDate: 'Fecha de lanzamiento',
         delete: 'Eliminar lista',
         moveLeft: 'Mover hacia la izquierda',
         moveRight: 'Mover a la derecha',

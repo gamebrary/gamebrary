@@ -40,6 +40,7 @@ module.exports = {
         add: 'Ajouter la liste',
         sortByName: 'Alphabétiquement',
         sortByRating: 'Classement du jeu',
+        sortByReleaseDate: 'Date de sortie',
         sortByCustom: 'Douane',
         delete: 'Supprimer la liste',
         moveLeft: 'Se déplacer à gauche',

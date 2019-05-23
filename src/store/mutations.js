@@ -117,6 +117,28 @@ export default {
         });
     },
 
+    SORT_LIST_BY_RELEASE_DATE(state, listIndex) {
+        const games = state.gameLists[state.platform.code][listIndex].games;
+
+        games.sort((a, b) => {
+            const gameA = state.games[a] && state.games[a].release_dates
+            && state.games[a].release_dates.length > 0
+                ? state.games[a].release_dates.find(releaseDate =>
+                    releaseDate.platform === state.platform.id).date : 0;
+
+            const gameB = state.games[b] && state.games[b].release_dates
+            && state.games[b].release_dates.length > 0
+                ? state.games[b].release_dates.find(releaseDate =>
+                    releaseDate.platform === state.platform.id).date : 0;
+
+            if (gameA > gameB) {
+                return -1;
+            }
+
+            return gameA < gameB ? 1 : 0;
+        });
+    },
+
     SORT_LIST_BY_RATING(state, listIndex) {
         const games = state.gameLists[state.platform.code][listIndex].games;
 
