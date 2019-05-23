@@ -39,6 +39,7 @@ module.exports = {
         add: 'Add list',
         sortByName: 'Alphabetically',
         sortByRating: 'Game rating',
+        sortByReleaseDate: 'Release date',
         sortByCustom: 'Custom',
         delete: 'Delete list',
         moveLeft: 'Move left',

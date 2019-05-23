@@ -60,6 +60,13 @@ button, a.link {
         font-size: 12px;
     }
 
+    &.xxsmall {
+        min-height: $iconSmallSize / 3;
+        min-width: $iconSmallSize / 3;
+        padding: $gp / 3;
+        font-size: 10px;
+    }
+
     &.small {
         min-height: $iconSmallSize;
         min-width: $iconSmallSize;

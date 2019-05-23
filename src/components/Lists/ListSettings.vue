@@ -66,11 +66,12 @@
                 <button
                     v-for="(icon, sortOrder) in sortOrders"
                     :key="sortOrder"
-                    class="xsmall primary"
+                    class="xxsmall primary"
                     :class="{ hollow: activeList.sortOrder !== sortOrder }"
                     @click="setListSort(sortOrder)"
                 >
                     <i :class="icon" />
+                    <br>
                     {{ $t(`list.${sortOrder}`) }}
                 </button>
             </div>
@@ -145,7 +146,8 @@ export default {
             sortOrders: {
                 sortByName: 'fas fa-sort-alpha-down',
                 sortByRating: 'fas fa-sort-numeric-up',
-                sortByCustom: 'fas fa-sort-custom',
+                sortByReleaseDate: 'fas fa-calendar-alt',
+                sortByCustom: 'fas fa-sort',
             },
         };
     },
@@ -238,6 +240,9 @@ export default {
                 this.$emit('update', 'List sorted alphabetically');
             } else if (sortOrder === 'sortByRating') {
                 this.$store.commit('SORT_LIST_BY_RATING', this.activeListIndex);
+                this.$emit('update', 'List sorted by game rating');
+            } else if (sortOrder === 'sortByReleaseDate') {
+                this.$store.commit('SORT_LIST_BY_RELEASE_DATE', this.activeListIndex);
                 this.$emit('update', 'List sorted by game rating');
             }
         },
