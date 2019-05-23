@@ -115,6 +115,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "haseebelahi",
+      "name": "Haseeb Elahi",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/13603051?v=4",
+      "profile": "https://haseebelahi.dev",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
