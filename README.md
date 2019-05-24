@@ -1,22 +1,33 @@
-# Gamebrary
+<p align="center">
+    <img width="100" src="https://user-images.githubusercontent.com/645310/58351456-5d5b5800-7e58-11e9-9236-fedf97ce9945.png" alt="Gamebrary logo">
+    <br>
+    Gamebrary
+    <br>
+    Open source tool to organize video game collections.</span>
+</p>
+
+<p align="center">
 [![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors)
-[![CircleCI](https://circleci.com/gh/romancm/gamebrary.svg?style=svg)](https://circleci.com/gh/romancm/gamebrary)
+<img alt="CircleCI" src="https://img.shields.io/circleci/build/gh/romancm/gamebrary/master.svg?style=flat-square">
+<img alt="Discord" src="https://img.shields.io/discord/581552390315180046.svg?style=flat-square">
+<img alt="GitHub contributors" src="https://img.shields.io/github/contributors/romancm/gamebrary.svg?style=flat-square">
+<img alt="GitHub" src="https://img.shields.io/github/license/romancm/gamebrary.svg?style=flat-square">
+<img alt="GitHub issues" src="https://img.shields.io/github/issues/romancm/gamebrary.svg?style=flat-square">
+</p>
 
-Open source tool to organize video game collections.
+<!-- ![Gamebrary board](https://user-images.githubusercontent.com/645310/57200356-d0e80480-6f3f-11e9-92e2-5c80ec186bda.png) -->
 
-![Gamebrary board](https://user-images.githubusercontent.com/645310/57200356-d0e80480-6f3f-11e9-92e2-5c80ec186bda.png)
-
-## Project setup
+### Project setup
 ```
 yarn
 ```
 
-### Compiles and hot-reloads for development
+#### Compiles and hot-reloads for development
 ```
 yarn dev
 ```
 
-### Compiles and minifies for production
+#### Compiles and minifies for production
 ```
 yarn build
 ```
