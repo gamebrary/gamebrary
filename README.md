@@ -8,7 +8,6 @@
 <img alt="All Contributors" src="https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square">
 <img alt="CircleCI" src="https://img.shields.io/circleci/build/gh/romancm/gamebrary/master.svg?style=flat-square">
 <img alt="Discord" src="https://img.shields.io/discord/581552390315180046.svg?style=flat-square">
-<img alt="GitHub contributors" src="https://img.shields.io/github/contributors/romancm/gamebrary.svg?style=flat-square">
 <img alt="GitHub" src="https://img.shields.io/github/license/romancm/gamebrary.svg?style=flat-square">
 <img alt="GitHub issues" src="https://img.shields.io/github/issues/romancm/gamebrary.svg?style=flat-square">
 </p>
