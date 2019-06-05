@@ -8,15 +8,15 @@
         <section>
             <h3>Shareable links (beta)</h3>
             <div class="links">
-                <a class="link small tiny primary" :href="tweetUrl" target="_blank">
+                <a class="link tiny primary" :href="tweetUrl" target="_blank">
                     <i class="fab fa-twitter" />
                 </a>
 
-                <a class="link small tiny primary reddit" :href="redditUrl" target="_blank">
+                <a class="link tiny primary reddit" :href="redditUrl" target="_blank">
                     <i class="fab fa-reddit" />
                 </a>
 
-                <a class="link small tiny info" :href="shareUrl" target="_blank">
+                <a class="link tiny info" :href="shareUrl" target="_blank">
                     <i class="fas fa-link" />
                 </a>
             </div>

@@ -13,7 +13,7 @@
             />
 
             <button
-                class="success small tiny"
+                class="success tiny"
                 @click="addGame"
             >
                 Add to {{ addToLabel }}

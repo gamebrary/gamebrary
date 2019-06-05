@@ -67,13 +67,17 @@ button, a.link {
         font-size: 10px;
     }
 
-    &.small {
+    &.small, &.tiny {
         min-height: $iconSmallSize;
         min-width: $iconSmallSize;
         padding: 0 $gp / 2;
     }
 
-    &.tag, &.tiny {
+    &.tiny {
+        font-size: 12px;
+    }
+
+    &.tag {
         font-size: 12px;
     }
 

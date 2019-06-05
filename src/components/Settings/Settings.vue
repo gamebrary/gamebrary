@@ -60,7 +60,7 @@
         </section>
 
         <footer>
-            <button class="small tiny accent hollow" @click="signOut">
+            <button class="tiny accent hollow" @click="signOut">
                 <i class="fas fa-sign-out-alt" />
                 {{ $t('settings.signOut') }}
             </button>
@@ -72,7 +72,7 @@
                 :action-text="$t('settings.deleteAccount.button')"
                 @action="deleteAccount"
             >
-                <button class="small tiny error hollow">
+                <button class="tiny error hollow">
                     <i class="fas fa-exclamation-triangle" />
                     {{ $t('settings.deleteAccount.button') }}
                 </button>

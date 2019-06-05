@@ -20,7 +20,7 @@
 
                 <div class="button-group">
                     <button
-                        class="small tiny"
+                        class="tiny"
                         :class="{ primary: !transparent }"
                         @click="setTransparent(false)"
                     >
@@ -28,7 +28,7 @@
                     </button>
 
                     <button
-                        class="small tiny"
+                        class="tiny"
                         :class="{ primary: transparent }"
                         @click="setTransparent(true)"
                     >
@@ -46,7 +46,7 @@
                     alt="Uploaded wallpaper"
                 />
 
-                <button class="error small tiny" @click="removeWallpaper">
+                <button class="error tiny" @click="removeWallpaper">
                     <i class="fas fa-trash" />
                     {{ $t('settings.wallpaper.removeWallpaper') }}
                 </button>

@@ -23,7 +23,7 @@
                     <small>Suggestions:</small>
 
                     <button
-                        class="small tiny tag primary hollow"
+                        class="tiny tag primary hollow"
                         v-for="suggestion in listNameSuggestions"
                         :key="suggestion"
                         type="button"

@@ -79,7 +79,7 @@
 
         <footer>
             <button
-                class="filled small tiny info hollow"
+                class="filled tiny info hollow"
                 title="back"
                 v-shortkey="['esc']"
                 @shortkey="cancel"
@@ -99,7 +99,7 @@
                 @action="deleteList"
             >
                 <button
-                    class="error hollow tiny small"
+                    class="error hollow tiny"
                     :title="$t('list.delete')"
                 >
                     <i class="far fa-trash-alt" />
@@ -109,7 +109,7 @@
 
             <button
                 v-else
-                class="error hollow tiny small"
+                class="error hollow tiny"
                 :title="$t('list.delete')"
                 @click="deleteList"
             >
@@ -141,6 +141,7 @@ export default {
                 covers: 'fas fa-th-large',
                 wide: 'fas fa-minus',
                 text: 'fas fa-font',
+                grid: 'fas fa-th',
             },
             coversSizes: [3, 4, 5],
             sortOrders: {
