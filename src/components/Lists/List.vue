@@ -34,8 +34,19 @@
             @update="updateLists"
         />
 
+        <div class="game-grid" v-if="view === 'grid' && !editing">
+            <component
+                v-for="game in games"
+                :is="gameCardComponent"
+                :key="`covers-${game}`"
+                :id="game"
+                :game-id="game"
+                :list-id="listIndex"
+            />
+        </div>
+
         <draggable
-            v-else
+            v-else-if="!editing"
             :class="['games', { 'empty': isEmpty }]"
             :list="games"
             :id="listIndex"
@@ -67,12 +78,14 @@
 
 <script>
 import draggable from 'vuedraggable';
+import Masonry from 'masonry-layout';
 import ListNameEdit from '@/components/Lists/ListNameEdit';
 import ListSettings from '@/components/Lists/ListSettings';
 import GameCardDefault from '@/components/GameCards/GameCardDefault';
 import GameCardCover from '@/components/GameCards/GameCardCover';
 import GameCardWide from '@/components/GameCards/GameCardWide';
 import GameCardText from '@/components/GameCards/GameCardText';
+import GameCardGrid from '@/components/GameCards/GameCardGrid';
 import GameSearch from '@/components/GameSearch/GameSearch';
 import { mapState, mapGetters } from 'vuex';
 import firebase from 'firebase/app';
@@ -88,6 +101,7 @@ export default {
         GameCardCover,
         GameCardWide,
         GameCardText,
+        GameCardGrid,
         GameSearch,
         ListNameEdit,
         ListSettings,
@@ -115,6 +129,7 @@ export default {
                 covers: 'GameCardCover',
                 wide: 'GameCardWide',
                 text: 'GameCardText',
+                grid: 'GameCardGrid',
             },
         };
     },
@@ -175,7 +190,20 @@ export default {
         },
     },
 
+    mounted() {
+        if (this.view === 'grid') {
+            this.initGrid();
+        }
+    },
+
     methods: {
+        initGrid() {
+            new Masonry('.game-grid', {
+                itemSelector: '.game-card',
+                gutter: 4,
+            });
+        },
+
         updateLists(toastMessage) {
             this.$store.commit('CLEAR_ACTIVE_LIST_INDEX');
 
@@ -347,6 +375,19 @@ export default {
     }
 
     .add-game-button {
+        width: 100%;
+    }
+
+    .game-grid {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        max-height: calc(100vh - 154px);
+        min-height: 80px;
+        overflow-y: auto;
+        margin-top: $list-header-height;
+        padding: 4px;
         width: 100%;
     }
 </style>

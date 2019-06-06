@@ -5,7 +5,6 @@ module.exports = {
         cancel: 'Cancel',
         create: 'Create',
         filter: 'Filter',
-        with: 'with',
         by: 'by',
         no: 'no',
         yes: 'yes',
