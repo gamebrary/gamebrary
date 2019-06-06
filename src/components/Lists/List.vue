@@ -198,6 +198,8 @@ export default {
 
     methods: {
         initGrid() {
+            // TODO: fix specificity of masonry instances
+            // eslint-disable-next-line
             new Masonry('.game-grid', {
                 itemSelector: '.game-card',
                 gutter: 4,
