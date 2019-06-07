@@ -190,25 +190,26 @@ export default {
         },
     },
 
-    mounted() {
-        this.initGrid();
-    },
-
     watch: {
-        view(value) {
+        view() {
             this.initGrid();
         },
+    },
+
+    mounted() {
+        this.initGrid();
     },
 
     methods: {
         initGrid() {
             if (this.view === 'grid') {
                 this.$nextTick(() => {
+                    // eslint-disable-next-line
                     new Masonry(`.game-grid-${this.listIndex}`, {
                         itemSelector: '.game-card',
                         gutter: 4,
                     });
-                })
+                });
             }
         },
 
