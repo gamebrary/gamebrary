@@ -54,6 +54,7 @@ module.exports = {
             covers: 'Covers',
             wide: 'Compact',
             text: 'Text only',
+            grid: 'Masonry',
         },
     },
     settings: {
