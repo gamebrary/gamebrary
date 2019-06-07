@@ -27,6 +27,7 @@ export default {
         margin-bottom: 4px;
         border-radius: $border-radius;
         overflow: hidden;
+        cursor: pointer;
 
         img {
             width: 100%;

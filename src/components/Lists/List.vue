@@ -34,7 +34,7 @@
             @update="updateLists"
         />
 
-        <div class="game-grid" v-if="view === 'grid' && !editing">
+        <div :class="`game-grid game-grid-${listIndex}`" v-if="view === 'grid' && !editing">
             <component
                 v-for="game in games"
                 :is="gameCardComponent"
@@ -191,19 +191,25 @@ export default {
     },
 
     mounted() {
-        if (this.view === 'grid') {
+        this.initGrid();
+    },
+
+    watch: {
+        view(value) {
             this.initGrid();
-        }
+        },
     },
 
     methods: {
         initGrid() {
-            // TODO: fix specificity of masonry instances
-            // eslint-disable-next-line
-            new Masonry('.game-grid', {
-                itemSelector: '.game-card',
-                gutter: 4,
-            });
+            if (this.view === 'grid') {
+                this.$nextTick(() => {
+                    new Masonry(`.game-grid-${this.listIndex}`, {
+                        itemSelector: '.game-card',
+                        gutter: 4,
+                    });
+                })
+            }
         },
 
         updateLists(toastMessage) {
