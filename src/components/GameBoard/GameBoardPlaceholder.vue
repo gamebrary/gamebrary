@@ -11,7 +11,7 @@
                 <placeholder
                     image
                     v-for="n in list.games.length"
-                    :lines="list && list.view === 'covers' ? 0 : 2"
+                    :lines="list && list.view === 'grid' ? 0 : 2"
                     :key="n"
                 />
             </div>
@@ -73,11 +73,11 @@ export default {
             --placeholder-image-height: 80px;
         }
 
-        &.covers {
+        &.grid {
             --placeholder-image-width: 90px;
         }
 
-        &.covers .games {
+        &.grid .games {
             padding-top: $gp / 2;
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;

@@ -43,22 +43,6 @@
             </div>
         </section>
 
-        <section v-if="activeList && activeList.view === 'covers'">
-            <h4>{{ $t('list.coversSizeTitle') }}</h4>
-
-            <div class="button-group">
-                <button
-                    v-for="coversSize in coversSizes"
-                    class="small primary"
-                    :class="{ hollow: coversSize !== activeList.coversSize }"
-                    :key="`cover-${coversSize}`"
-                    @click="setCoversSize(coversSize)"
-                >
-                    {{ coversSize }}
-                </button>
-            </div>
-        </section>
-
         <section v-if="hasMultipleGames">
             <h4>{{ $t('list.sortList') }}</h4>
 
@@ -138,12 +122,10 @@ export default {
             localList: {},
             views: {
                 single: 'fas fa-square',
-                covers: 'fas fa-th-large',
+                grid: 'fas fa-th-large',
                 wide: 'fas fa-minus',
                 text: 'fas fa-font',
-                grid: 'fas fa-th',
             },
-            coversSizes: [3, 4, 5],
             sortOrders: {
                 sortByName: 'fas fa-sort-alpha-down',
                 sortByRating: 'fas fa-sort-numeric-up',

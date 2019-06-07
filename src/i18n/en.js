@@ -51,10 +51,9 @@ module.exports = {
         coversSizeTitle: 'Covers across',
         views: {
             single: 'Default',
-            covers: 'Covers',
             wide: 'Compact',
             text: 'Text only',
-            grid: 'Masonry',
+            grid: 'Masonry Grid',
         },
     },
     settings: {

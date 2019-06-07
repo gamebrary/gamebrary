@@ -1,6 +1,6 @@
 <!-- eslint-disable max-len -->
 <template lang="html">
-    <div :class="['list', viewClass, coversSizeClass, { dark: darkModeEnabled }, transparent]">
+    <div :class="['list', viewClass, { dark: darkModeEnabled }, transparent]">
         <div class="list-header" :class="{ searching, editing }">
             <div v-if="searching">
                 {{ $t('gameSearch.title') }}
@@ -34,11 +34,11 @@
             @update="updateLists"
         />
 
-        <div :class="`game-grid game-grid-${listIndex}`" v-if="view === 'grid' && !editing">
+        <div :class="`game-grid game-grid-${listIndex}`" v-if="view === 'grid' && !editing && !searching">
             <component
                 v-for="game in games"
                 :is="gameCardComponent"
-                :key="`covers-${game}`"
+                :key="`grid-${game}`"
                 :id="game"
                 :game-id="game"
                 :list-id="listIndex"
@@ -46,7 +46,7 @@
         </div>
 
         <draggable
-            v-else-if="!editing"
+            v-else-if="!editing && !searching"
             :class="['games', { 'empty': isEmpty }]"
             :list="games"
             :id="listIndex"
@@ -58,7 +58,7 @@
             <component
                 v-for="game in games"
                 :is="gameCardComponent"
-                :key="`covers-${game}`"
+                :key="`grid-${game}`"
                 :id="game"
                 :game-id="game"
                 :list-id="listIndex"
@@ -82,10 +82,9 @@ import Masonry from 'masonry-layout';
 import ListNameEdit from '@/components/Lists/ListNameEdit';
 import ListSettings from '@/components/Lists/ListSettings';
 import GameCardDefault from '@/components/GameCards/GameCardDefault';
-import GameCardCover from '@/components/GameCards/GameCardCover';
+import GameCardGrid from '@/components/GameCards/GameCardGrid';
 import GameCardWide from '@/components/GameCards/GameCardWide';
 import GameCardText from '@/components/GameCards/GameCardText';
-import GameCardGrid from '@/components/GameCards/GameCardGrid';
 import GameSearch from '@/components/GameSearch/GameSearch';
 import { mapState, mapGetters } from 'vuex';
 import firebase from 'firebase/app';
@@ -98,10 +97,9 @@ export default {
 
     components: {
         GameCardDefault,
-        GameCardCover,
+        GameCardGrid,
         GameCardWide,
         GameCardText,
-        GameCardGrid,
         GameSearch,
         ListNameEdit,
         ListSettings,
@@ -116,6 +114,7 @@ export default {
 
     data() {
         return {
+            masonry: null,
             gameDraggableOptions: {
                 handle: '.game-drag-handle',
                 ghostClass: 'card-placeholder',
@@ -126,10 +125,9 @@ export default {
             },
             gameCardComponents: {
                 single: 'GameCardDefault',
-                covers: 'GameCardCover',
+                grid: 'GameCardGrid',
                 wide: 'GameCardWide',
                 text: 'GameCardText',
-                grid: 'GameCardGrid',
             },
         };
     },
@@ -159,16 +157,6 @@ export default {
             return this.list[this.listIndex].view;
         },
 
-        coversSizeClass() {
-            return `covers-${this.coversSize}`;
-        },
-
-        coversSize() {
-            const activeList = this.list[this.listIndex];
-
-            return activeList.coversSize || 3;
-        },
-
         gameCardComponent() {
             return this.view
                 ? this.gameCardComponents[this.view]
@@ -194,6 +182,10 @@ export default {
         view() {
             this.initGrid();
         },
+
+        games() {
+            this.initGrid();
+        },
     },
 
     mounted() {
@@ -205,7 +197,7 @@ export default {
             if (this.view === 'grid') {
                 this.$nextTick(() => {
                     // eslint-disable-next-line
-                    new Masonry(`.game-grid-${this.listIndex}`, {
+                    this.masonry = new Masonry(`.game-grid-${this.listIndex}`, {
                         itemSelector: '.game-card',
                         gutter: 4,
                     });
@@ -285,40 +277,6 @@ export default {
 
         &.wide {
             width: $list-width-wide;
-        }
-
-        &.covers {
-            .games {
-                padding-top: $gp / 2;
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                grid-gap: $gp / 4;
-            }
-
-            &.covers-3 {
-                width: 300px;
-
-                .games {
-                    grid-template-columns: repeat(3, 1fr);
-                }
-            }
-
-            &.covers-4 {
-                width: 400px;
-
-                .games {
-                    grid-template-columns: repeat(4, 1fr);
-                }
-            }
-
-            &.covers-5 {
-                width: 500px;
-
-                .games {
-                    grid-template-columns: repeat(5, 1fr);
-                }
-            }
-
         }
 
         &.dark {
