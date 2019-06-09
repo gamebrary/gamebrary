@@ -2,46 +2,32 @@
     <div :class="['game-header', { dark: darkModeEnabled}]">
         <img :src="coverUrl" :alt="game.name" class="game-cover" />
 
-        <div class="game-rating" v-if="hasRatings">
+        <div class="game-rating" v-if="game.age_ratings">
             <img
-                v-if="game.esrb"
-                :src='`/static/img/esrb/${igdb.esrb[game.esrb.rating]}.png`'
-                :alt="game.esrb.synopsis"
-            >
-
-            <img
-                v-if="game.pegi"
-                :src='`/static/img/pegi/${igdb.pegi[game.pegi.rating]}.png`'
-                :alt="game.pegi.synopsis"
-            >
+                v-for="{ rating, synopsis, id } in game.age_ratings"
+                :key="id"
+                :src='`/static/img/ageRatings/${ageRatings[rating]}.png`'
+                :alt="synopsis"
+            />
         </div>
     </div>
 </template>
 
 <script>
-import igdb from '@/shared/igdb';
 import { mapState, mapGetters } from 'vuex';
-
 
 export default {
     props: {
         gameId: [Number, String],
     },
 
-    data() {
-        return {
-            igdb,
-        };
-    },
-
     computed: {
         ...mapState(['game', 'platform']),
-        ...mapGetters(['darkModeEnabled']),
+        ...mapGetters(['darkModeEnabled', 'ageRatings']),
 
         coverUrl() {
-            const url = 'https://images.igdb.com/igdb/image/upload/t_cover_big/';
             return this.game && this.game.cover
-                ? `${url}${this.game.cover.cloudinary_id}.jpg`
+                ? `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${this.game.cover.image_id}.jpg`
                 : '/static/no-image.jpg';
         },
 
@@ -92,6 +78,8 @@ export default {
 
         .game-rating {
             margin-top: $gp;
+            display: grid;
+            grid-template-columns: auto auto;
 
             img {
                 height: 60px;

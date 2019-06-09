@@ -43,10 +43,10 @@ export default {
             // eslint-disable-next-line
             return this.game.screenshots
                 ? this.game.screenshots.map((image, index) => {
-                    const url = 'https://images.igdb.com/igdb/image/upload/t_screenshot_huge/';
+                    const href = `https://images.igdb.com/igdb/image/upload/t_screenshot_huge/${image.image_id}.jpg`;
 
                     return {
-                        href: `${url}${image.cloudinary_id}.jpg`,
+                        href,
                         title: `${this.game.name} (${index + 1} of ${this.game.screenshots.length})`,
                     };
                 })
@@ -62,7 +62,7 @@ export default {
         thumbnails() {
             // eslint-disable-next-line
             return this.game.screenshots ? this.game.screenshots.map((image) => {
-                return `https://images.igdb.com/igdb/image/upload/t_thumb/${image.cloudinary_id}.jpg`;
+                return `https://images.igdb.com/igdb/image/upload/t_thumb/${image.image_id}.jpg`;
             }) : null;
         },
     },

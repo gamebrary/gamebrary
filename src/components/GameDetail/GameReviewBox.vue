@@ -1,6 +1,7 @@
 <template lang="html">
     <div v-if="game" class="review-box">
         <div class="info">
+            <!-- TODO: get icons for everything -->
             <section v-if="playerPerspectives">
                 <strong>Perspective</strong> {{ playerPerspectives }}
             </section>
@@ -14,6 +15,8 @@
             </section>
 
             <section v-if="gamePlatforms">
+                <!-- TODO: show current platform icon,
+                and also show "available on these other platforms" -->
                 <strong>{{ $t('gameDetail.gamePlatforms') }}</strong> {{ gamePlatforms }}
             </section>
 
@@ -25,21 +28,29 @@
                 <strong>{{ $t('gameDetail.publishers') }}</strong> {{ publishers }}
             </section>
 
-            <!-- <section v-if="releaseDate">
-                <strong>Release date</strong> {{ releaseDate }}
-            </section> -->
-            <!-- <game-links /> -->
+            <section v-if="releaseDate">
+                <strong>Release date</strong> {{ moment.unix(releaseDate).format('ll') }}
+            </section>
+
+            <game-links />
         </div>
     </div>
 </template>
 
 <script>
+import moment from 'moment';
 import GameLinks from '@/components/GameDetail/GameLinks';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
     components: {
         GameLinks,
+    },
+
+    data() {
+        return {
+            moment,
+        };
     },
 
     computed: {
@@ -53,6 +64,7 @@ export default {
             'developers',
             'gameModes',
             'gamePlatforms',
+            'releaseDate',
             'genres',
             'publishers',
         ]),
