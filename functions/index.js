@@ -3,7 +3,7 @@ const axios = require('axios');
 
 axios.defaults.headers.common['user-key'] = functions.config().igdbv3.key;
 
-exports.searchV2 = functions.https.onRequest((req, res) => {
+exports.search = functions.https.onRequest((req, res) => {
     res.set('Access-Control-Allow-Origin', "*")
 
     const { search, platform } = req.query;
@@ -22,7 +22,7 @@ exports.searchV2 = functions.https.onRequest((req, res) => {
         .catch((error) => { res.send(error) });
 });
 
-exports.gamesV2 = functions.https.onRequest((req, res) => {
+exports.games = functions.https.onRequest((req, res) => {
     res.set('Access-Control-Allow-Origin', "*")
 
     const { games } = req.query;
@@ -45,7 +45,7 @@ exports.gamesV2 = functions.https.onRequest((req, res) => {
         .catch((error) => { res.send(error) });
 });
 
-exports.gameV2 = functions.https.onRequest((req, res) => {
+exports.game = functions.https.onRequest((req, res) => {
     res.set('Access-Control-Allow-Origin', "*")
 
     const { gameId } = req.query;
