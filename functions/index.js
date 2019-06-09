@@ -1,22 +1,25 @@
 const functions = require('firebase-functions');
 const axios = require('axios');
 
-axios.defaults.headers.common['user-key'] = functions.config().igdb.key;
-
-const igdbUrl = 'https://api-endpoint.igdb.com';
-const igdbV3Url = 'https://api-v3.igdb.com/';
-const igdbFields = 'id,name,slug,created_at,updated_at,summary,rating,category,player_perspectives,release_dates,name,cover,platforms,screenshots,videos,websites,esrb,pegi,themes.name,game.name&expand=game,themes,developers,publishers,game_engines,game_modes,genres,platforms,player_perspectives';
-const igdbV3Fields = 'fields alternative_name,character,collection,company,description,game,name,person,platform,popularity,published_at,test_dummy,theme;';
-const igdbFieldsMinimal = 'id,name,slug,rating,name,cover,release_dates';
+axios.defaults.headers.common['user-key'] = functions.config().igdbv3.key;
 
 exports.search = functions.https.onRequest((req, res) => {
     res.set('Access-Control-Allow-Origin', "*")
 
-    const { searchText, platformId } = req.query;
+    const { search, platform } = req.query;
 
-    axios.get(`${igdbUrl}/games/?search=${searchText}&fields=${igdbFields}&filter[platforms][eq]=${platformId}&limit=20&order=popularity:desc`)
+    const data = `search "${search}"; fields id,name,slug,rating,name,cover.image_id; where platforms = (${platform});`
+
+    axios({
+        url: 'https://api-v3.igdb.com/games',
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+        },
+        data,
+    })
         .then(({ data }) => { res.status(200).send(data) })
-        .catch(() => { res.send(400) });
+        .catch((error) => { res.send(error) });
 });
 
 exports.games = functions.https.onRequest((req, res) => {
@@ -24,9 +27,22 @@ exports.games = functions.https.onRequest((req, res) => {
 
     const { games } = req.query;
 
-    axios.get(`${igdbUrl}/games/${games}/?fields=${igdbFieldsMinimal}`)
+    if (!games) {
+        res.status(400).send('missing param games');
+    }
+
+    const data = `fields id,name,slug,rating,name,cover.image_id; where id = (${ games });`;
+
+    axios({
+        url: 'https://api-v3.igdb.com/games',
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+        },
+        data,
+    })
         .then(({ data }) => { res.status(200).send(data) })
-        .catch(() => { res.send(400) });
+        .catch((error) => { res.send(error) });
 });
 
 exports.game = functions.https.onRequest((req, res) => {
@@ -34,9 +50,43 @@ exports.game = functions.https.onRequest((req, res) => {
 
     const { gameId } = req.query;
 
-    axios.get(`${igdbUrl}/games/${gameId}/?fields=${igdbFields}`)
+    if (!gameId) {
+        res.status(400).send('missing param gameId');
+    }
+
+    const data = `fields
+    name,
+    summary,
+    cover.image_id,
+    screenshots.image_id,
+    player_perspectives.name,
+    involved_companies.company.name,
+    involved_companies.developer,
+    involved_companies.publisher,
+    release_dates.platform,
+    release_dates.date,
+    websites.category,
+    websites.url,
+    age_ratings.*,
+    videos.video_id,
+    rating,
+    genres.name,
+    platforms.name,
+    game_modes.name,
+    time_to_beat;
+
+    where id = ${ gameId };`;
+
+    axios({
+        url: 'https://api-v3.igdb.com/games',
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+        },
+        data,
+    })
         .then(({ data }) => { res.status(200).send(data) })
-        .catch(() => { res.send(400) });
+        .catch((error) => { res.send(error) });
 });
 
 exports.email = functions.https.onRequest((req, res) => {
@@ -66,76 +116,5 @@ exports.email = functions.https.onRequest((req, res) => {
         data,
     })
         .then(({ data }) => { res.status(200).send(data) })
-        .catch(() => { res.send(400) });
+        .catch((error) => { res.send(error) });
 });
-
-exports.searchV2 = functions.https.onRequest((req, res) => {
-    res.set('Access-Control-Allow-Origin', "*")
-
-    const { search, platform } = req.query;
-
-    const data = `search "${search}"; fields id,name,slug,rating,name,cover.image_id; where platforms = (${platform});`
-
-    axios({
-        url: 'https://api-v3.igdb.com/games',
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'user-key': '3b516a46c3af209bb6e287e9090d720c'
-        },
-        data,
-    })
-        .then(({ data }) => { res.status(200).send(data) })
-        .catch(() => { res.send(400) });
-});
-
-exports.gameV2 = functions.https.onRequest((req, res) => {
-    res.set('Access-Control-Allow-Origin', "*")
-
-    const { gameId } = req.query;
-
-    if (!gameId) {
-        res.status(400).send('missing param gameId');
-    }
-
-    const data = `fields *; where id = ${ gameId };`;
-
-    axios({
-        url: 'https://api-v3.igdb.com/games',
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'user-key': '3b516a46c3af209bb6e287e9090d720c'
-        },
-        data,
-    })
-        .then(({ data }) => { res.status(200).send(data) })
-        .catch(() => { res.send(400) });
-});
-
-exports.gamesV2 = functions.https.onRequest((req, res) => {
-    res.set('Access-Control-Allow-Origin', "*")
-
-    const { gameId } = req.query;
-
-    if (!gameId) {
-        res.status(400).send('missing param gameId');
-    }
-
-    const data = `fields id,name,slug,rating,name,cover.url; where id = (${ gameId });`;
-
-    axios({
-        url: 'https://api-v3.igdb.com/games',
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'user-key': '3b516a46c3af209bb6e287e9090d720c'
-        },
-        data,
-    })
-        .then(({ data }) => { res.status(200).send(data) })
-        .catch(() => { res.send(400) });
-});
-
-
-// TODO: merge search and game, swap out or request fields in FE

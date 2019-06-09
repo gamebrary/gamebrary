@@ -34,7 +34,10 @@
             @update="updateLists"
         />
 
-        <div :class="`game-grid game-grid-${listIndex}`" v-if="view === 'grid' && !editing && !searching">
+        <div
+            :class="`game-grid game-grid-${listIndex}`"
+            v-if="view === 'grid' && !editing && !searching"
+        >
             <component
                 v-for="game in games"
                 :is="gameCardComponent"
@@ -158,7 +161,7 @@ export default {
         },
 
         gameCardComponent() {
-            return this.view
+            return this.view && Object.keys(this.gameCardComponents).includes(this.view)
                 ? this.gameCardComponents[this.view]
                 : 'GameCardDefault';
         },

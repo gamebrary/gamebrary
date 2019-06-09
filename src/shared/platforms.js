@@ -192,7 +192,7 @@ export default [
     {
         name: 'Nintendo 3DS',
         code: 'n3ds',
-        id: 37,
+        id: '37,137',
         generation: 8,
     },
     {

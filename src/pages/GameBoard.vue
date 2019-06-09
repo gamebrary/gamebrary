@@ -82,6 +82,7 @@ import Panel from '@/components/Panel/Panel';
 import GameDetail from '@/pages/GameDetail';
 import Modal from '@/components/Modal/Modal';
 // import DevDebug from '@/components/DevDebug/DevDebug';
+import { chunk } from 'lodash';
 import List from '@/components/Lists/List';
 import draggable from 'vuedraggable';
 import { mapState, mapGetters } from 'vuex';
@@ -214,6 +215,7 @@ export default {
             if (this.list) {
                 const gameList = [];
 
+                // TODO: refactor this to use reduce or map
                 this.list.forEach((list) => {
                     if (list && list.games.length) {
                         list.games.forEach((id) => {
@@ -225,15 +227,19 @@ export default {
                 });
 
                 if (gameList.length > 0) {
-                    this.loading = true;
+                    const chunkedGameList = chunk(gameList, 10);
 
-                    this.$store.dispatch('LOAD_GAMES', gameList)
-                        .then(() => {
-                            this.loading = false;
-                        })
-                        .catch(() => {
-                            this.$bus.$emit('TOAST', { message: 'Error loading game', type: 'error' });
-                        });
+                    chunkedGameList.forEach((partialGameList) => {
+                        this.loading = true;
+
+                        this.$store.dispatch('LOAD_GAMES', partialGameList.toString())
+                            .then(() => {
+                                this.loading = false;
+                            })
+                            .catch(() => {
+                                this.$bus.$emit('TOAST', { message: 'Error loading game', type: 'error' });
+                            });
+                    });
                 }
             }
         },

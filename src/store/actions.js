@@ -45,32 +45,11 @@ export default {
 
     SEARCH({ commit, state }, searchText) {
         return new Promise((resolve, reject) => {
-            axios.get(`${FIREBASE_URL}/search?searchText=${searchText}&platformId=${state.platform.id}`)
+            axios.get(`${FIREBASE_URL}/search?search=${searchText}&platform=${state.platform.id}`)
                 .then(({ data }) => {
-                    const originalData = data.slice();
-                    if (state.platform.id === 37) {
-                        // TODO: specify platform ids in platforms file,
-                        // let endpoint handle multiple ids
-                        axios.get(`${FIREBASE_URL}/search?searchText=${searchText}&platformId=137`)
-                            .then((response) => {
-                                const joinedData = [
-                                    ...originalData,
-                                    ...response.data,
-                                ];
-
-                                const ids = [...new Set(joinedData.map(({ id }) => id))];
-
-                                const unique = ids.map(e => joinedData.find(({ id }) => id === e));
-
-                                commit('SET_SEARCH_RESULTS', unique);
-                                commit('CACHE_GAME_DATA', unique);
-                                resolve();
-                            }).catch(reject);
-                    } else {
-                        commit('SET_SEARCH_RESULTS', data);
-                        commit('CACHE_GAME_DATA', data);
-                        resolve();
-                    }
+                    commit('SET_SEARCH_RESULTS', data);
+                    commit('CACHE_GAME_DATA', data);
+                    resolve();
                 }).catch(reject);
         });
     },

@@ -1,17 +1,44 @@
 export default {
+    // eslint-disable-next-line
+    ageRatings: () => {
+        return {
+            1: '3',
+            2: '7',
+            3: '12',
+            4: '16',
+            5: '18',
+            6: 'RP',
+            7: 'EC',
+            8: 'E',
+            9: 'E10',
+            10: 'T',
+            11: 'M',
+            12: 'AO',
+        };
+    },
+
+    releaseDate: (state) => {
+        // eslint-disable-next-line
+        const releaseDate = state.game.release_dates.filter(({ platform }) => state.platform.id === platform);
+
+        return releaseDate && releaseDate.length
+            ? releaseDate[0].date
+            : null;
+    },
+
     developers: (state) => {
-        const developers = state.game.developers;
+        const developers = state.game.involved_companies.filter(({ developer }) => developer);
 
         return developers
-            ? developers.map(developer => developer.name).join(', ')
+            ? developers.map(publisher => publisher.company.name).join(', ')
             : null;
     },
 
     publishers: (state) => {
-        const publishers = state.game.publishers;
+        const publishers = state.game.involved_companies.filter(({ publisher }) => publisher);
 
         return publishers
-            ? publishers.map(publisher => publisher.name).join(', ')
+            ? publishers.map(publisher => publisher.company.name).join(', ')
             : null;
     },
 
