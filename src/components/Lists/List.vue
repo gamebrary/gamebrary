@@ -34,7 +34,10 @@
             @update="updateLists"
         />
 
-        <div :class="`game-grid game-grid-${listIndex}`" v-if="view === 'grid' && !editing && !searching">
+        <div
+            :class="`game-grid game-grid-${listIndex}`"
+            v-if="view === 'grid' && !editing && !searching"
+        >
             <component
                 v-for="game in games"
                 :is="gameCardComponent"
