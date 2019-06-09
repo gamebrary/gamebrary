@@ -17,19 +17,28 @@ export default {
         };
     },
 
+    releaseDate: (state) => {
+        // eslint-disable-next-line
+        const releaseDate = state.game.release_dates.filter(({ platform }) => state.platform.id === platform);
+
+        return releaseDate && releaseDate.length
+            ? releaseDate[0].date
+            : null;
+    },
+
     developers: (state) => {
-        const developers = state.game.developers;
+        const developers = state.game.involved_companies.filter(({ developer }) => developer);
 
         return developers
-            ? developers.map(developer => developer.name).join(', ')
+            ? developers.map(publisher => publisher.company.name).join(', ')
             : null;
     },
 
     publishers: (state) => {
-        const publishers = state.game.publishers;
+        const publishers = state.game.involved_companies.filter(({ publisher }) => publisher);
 
         return publishers
-            ? publishers.map(publisher => publisher.name).join(', ')
+            ? publishers.map(publisher => publisher.company.name).join(', ')
             : null;
     },
 
