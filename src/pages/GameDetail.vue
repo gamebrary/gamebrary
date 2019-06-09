@@ -1,8 +1,7 @@
 <template lang="html">
     <div class="game-detail-wrapper">
-        <game-detail-placeholder v-if="!game" :id="id" />
 
-        <div class="game-detail" v-else :class="{ dark: darkModeEnabled }">
+        <div class="game-detail" v-if="game" :class="{ dark: darkModeEnabled }">
             <div class="game-hero" :style="style" />
 
             <div class="game-detail-container">
@@ -48,10 +47,12 @@
                         <p class="game-description" v-html="game.summary" />
 
                         <game-notes />
+                        <!-- Time to beat
+                        {{ new Date(game.time_to_beat * 1000)
+                        .toISOString().substr(11, 8) }} -->
 
                         <game-review-box />
                     </div>
-
                 </div>
 
                 <game-screenshots />
@@ -59,6 +60,8 @@
                 <igdb-credit gray />
             </div>
         </div>
+
+        <game-detail-placeholder v-else :id="id" />
     </div>
 </template>
 
@@ -105,9 +108,15 @@ export default {
         },
 
         style() {
-            return this.game && this.game.screenshots
-                ? `background: url(${this.getImageUrl(this.game.screenshots[0].cloudinary_id)}) center center no-repeat; background-size: cover;`
+            const screenshot = this.game.screenshots && this.game.screenshots.length > 0
+                ? this.game.screenshots[0]
+                : null;
+
+            const screenshotUrl = screenshot && screenshot.image_id
+                ? `https://images.igdb.com/igdb/image/upload/t_screenshot_big/${screenshot.image_id}.jpg`
                 : '';
+
+            return `background: url('${screenshotUrl}') center center no-repeat; background-size: cover;`;
         },
 
         activePlatform() {
@@ -119,10 +128,8 @@ export default {
         },
 
         coverUrl() {
-            const url = 'https://images.igdb.com/igdb/image/upload/t_cover_small_2x/';
-
-            return this.game && this.game.cover
-                ? `${url}${this.game.cover.cloudinary_id}.jpg`
+            return this.game.cover && this.game.cover.image_id
+                ? `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${this.game.cover.image_id}.jpg`
                 : '/static/no-image.jpg';
         },
     },
@@ -132,12 +139,6 @@ export default {
     },
 
     methods: {
-        getImageUrl(cloudinaryId) {
-            return cloudinaryId
-                ? `https://images.igdb.com/igdb/image/upload/t_screenshot_huge/${cloudinaryId}.jpg`
-                : null;
-        },
-
         removeTag(tagName) {
             this.$store.commit('REMOVE_GAME_TAG', { tagName, gameId: this.game.id });
             this.$bus.$emit('SAVE_TAGS', this.tags);
