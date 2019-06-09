@@ -158,7 +158,7 @@ export default {
         },
 
         gameCardComponent() {
-            return this.view
+            return this.view && Object.keys(this.gameCardComponents).includes(this.view)
                 ? this.gameCardComponents[this.view]
                 : 'GameCardDefault';
         },
