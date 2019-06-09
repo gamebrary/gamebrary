@@ -50,10 +50,6 @@ export default {
                 ? `background: url(${this.getImageUrl(this.game.screenshots[0].cloudinary_id)}) center center no-repeat; background-size: cover;`
                 : '';
         },
-
-        hasRatings() {
-            return this.game.esrb || this.game.pegi;
-        },
     },
 
     methods: {

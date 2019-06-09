@@ -41,10 +41,10 @@ export default {
         },
 
         coverUrl() {
-            const url = 'https://images.igdb.com/igdb/image/upload/t_cover_small_2x/';
+            const game = this.games[this.id];
 
-            return this.games && this.games[this.id].cover
-                ? `${url}${this.games[this.id].cover.cloudinary_id}.jpg`
+            return game.cover && game.cover.image_id
+                ? `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${game.cover.image_id}.jpg`
                 : '/static/no-image.jpg';
         },
     },

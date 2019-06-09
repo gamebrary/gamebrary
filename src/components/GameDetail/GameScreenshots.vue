@@ -53,6 +53,12 @@ export default {
                 : null;
         },
 
+        coverUrl() {
+            return this.game && this.game.cover
+                ? `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${this.game.cover.image_id}.jpg`
+                : '/static/no-image.jpg';
+        },
+
         thumbnails() {
             // eslint-disable-next-line
             return this.game.screenshots ? this.game.screenshots.map((image) => {
