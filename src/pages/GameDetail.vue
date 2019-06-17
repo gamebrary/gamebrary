@@ -47,9 +47,6 @@
                         <p class="game-description" v-html="game.summary" />
 
                         <game-notes />
-                        <!-- Time to beat
-                        {{ new Date(game.time_to_beat * 1000)
-                        .toISOString().substr(11, 8) }} -->
 
                         <game-review-box />
                     </div>

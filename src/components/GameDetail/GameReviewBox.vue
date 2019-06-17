@@ -6,6 +6,10 @@
                 <strong>Perspective</strong> {{ playerPerspectives }}
             </section>
 
+            <section v-if="timeToBeat">
+                <strong>Time to beat</strong> {{ timeToBeat }}
+            </section>
+
             <section v-if="gameModes">
                 <strong>{{ $t('gameDetail.gameModes') }}</strong> {{ gameModes }}
             </section>
@@ -68,6 +72,14 @@ export default {
             'genres',
             'publishers',
         ]),
+
+        timeToBeat() {
+            const momentDate = moment.unix(this.game.time_to_beat);
+
+            return this.game && this.game.time_to_beat
+                ? `${momentDate.format('h')}h ${momentDate.format('m')}m`
+                : null;
+        },
     },
 };
 </script>
