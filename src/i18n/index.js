@@ -1,17 +1,15 @@
-import en from './en';
-import de from './de';
-import pt from './pt';
-import it from './it';
-import fr from './fr';
-import es from './es';
+/* eslint-disable global-require */
 
 const messages = {
-    en,
-    de,
-    pt,
-    it,
-    fr,
-    es,
+    ar: require('./ar.json'),
+    cs: require('./cs.json'),
+    de: require('./de.json'),
+    en: require('./en.json'),
+    es: require('./es.json'),
+    eu: require('./eu.json'),
+    fr: require('./fr.json'),
+    it: require('./it.json'),
+    pl: require('./pl.json'),
 };
 
 export default messages;
