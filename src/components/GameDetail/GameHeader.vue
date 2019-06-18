@@ -6,7 +6,7 @@
             <img
                 v-for="{ rating, synopsis, id } in game.age_ratings"
                 :key="id"
-                :src='`/static/img/ageRatings/${ageRatings[rating]}.png`'
+                :src='`/static/img/age-ratings/${ageRatings[rating]}.png`'
                 :alt="synopsis"
             />
         </div>
