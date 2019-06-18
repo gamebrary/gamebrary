@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const fs = require('fs');
 const translate = require('translate-json-object')();
 const baseJson = require('./en.json');
