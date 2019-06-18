@@ -6,9 +6,7 @@
     >
         <nav-header />
 
-        <main class="content" v-if="user || isPublic">
-            <router-view />
-        </main>
+        <router-view v-if="user || isPublic" />
 
         <div class="auth" v-else>
             <img src='/static/gamebrary-logo.png' />
