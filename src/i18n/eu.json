@@ -1,0 +1,98 @@
+{
+    "global": {
+        "back": "Back",
+        "save": "Save",
+        "cancel": "Utzi",
+        "create": "Sortu",
+        "filter": "Filter",
+        "by": "arabera",
+        "no": "no",
+        "yes": "bai",
+        "or": "edo",
+        "returnHome": "Itzuli etxera",
+        "pageNotFound": "Ez da orria aurkitu"
+    },
+    "platforms": {
+        "donateMessage": "Gamebrary iturburu irekia eta doakoa da, pentsa ezazu garapenari laguntzea",
+        "donating": "eman",
+        "reportBugs": "akatsen berri ematea",
+        "submitFeedback": "iritzia bidali"
+    },
+    "igdbCredit": {
+        "poweredByIgdb": "IGDB-k egina"
+    },
+    "gameDetail": {
+        "videos": "Bideoak",
+        "screenshots": "Pantaila-",
+        "playerPerspectives": "perspektiba",
+        "gameModes": "Joko modua",
+        "genres": "generoa",
+        "gamePlatforms": "plataformak",
+        "developers": "Developer",
+        "publishers": "Argitaletxeak",
+        "removeFromList": "Kendu zerrendatik"
+    },
+    "list": {
+        "edit": "Editatu zerrenda izena",
+        "input": "Idatzi zeure",
+        "add": "Gehitu zerrenda",
+        "sortByName": "alfabetikoki",
+        "sortByRating": "Jokoen balorazioa",
+        "sortByReleaseDate": "Argitalpen data",
+        "sortByCustom": "pertsonalizatua",
+        "delete": "Ezabatu zerrenda",
+        "moveLeft": "Mugitu ezkerrera",
+        "moveRight": "Mugitu eskuinera",
+        "emptyList": "Zerrenda hau hutsik dago",
+        "addGame": "Gehitu jokoa",
+        "changeView": "Aldatu ikuspegia",
+        "moveList": "Mugitu zerrenda",
+        "sortList": "Ordenatzeko zerrenda",
+        "coversSizeTitle": "Azalak zeharkatzen ditu",
+        "views": {
+            "single": "Default",
+            "wide": "Compact",
+            "text": "Testua soilik",
+            "grid": "Masoneria sareta"
+        }
+    },
+    "settings": {
+        "global": "Global",
+        "darkTheme": "Gaia iluna",
+        "newsletter": "Jaso eguneratze mezu elektronikoak (Beta)",
+        "ownedLists": "Erakutsi nire plataformak soilik",
+        "sortPlatforms": "Ordenatu plataformak alfabetikoki",
+        "ratings": "Ezkutatu jokoaren balorazioak",
+        "signOut": "Amaitu saioa",
+        "wallpaper": {
+            "title": "Kargatu horma-papera",
+            "transparency": "Zerrenda erdi gardenak",
+            "currentWallpaper": "Uneko atzeko planoa",
+            "removeWallpaper": "Kendu horma-papera"
+        },
+        "deleteAccount": {
+            "button": "Ezabatu kontua",
+            "message": "Zure kontuaren datuak betirako ezabatuko dira.",
+            "title": "Ziur zaude?"
+        }
+    },
+    "tags": {
+        "title": "Joko-etiketak",
+        "addTag": "Gehitu etiketa",
+        "createTag": "Sortu etiketa",
+        "inputPlaceholder": "Egunaren izena",
+        "applyTag": "Aplikatu etiketa",
+        "useTags": "Erabili etiketak zure jokoak hobeto antolatzeko"
+    },
+    "gameSearch": {
+        "title": "Gehitu jokoak",
+        "inputPlaceholder": "Bilatu hemen",
+        "alreadyInList": "zure zerrendan dagoeneko bilaketa-emaitzetatik",
+        "noResultsFound": "Ez da emaitzarik aurkitu",
+        "missingGame": "Joko bat falta al da? Laguntza komunitateari eta",
+        "addToIGDB": "Gehitu IGDB-ra"
+    },
+    "notes": {
+        "addNote": "Gehitu oharra"
+    }
+}

@@ -1,0 +1,98 @@
+{
+    "global": {
+        "back": "Espalda",
+        "save": "Salvar",
+        "cancel": "Cancelar",
+        "create": "Crear",
+        "filter": "Filtrar",
+        "by": "por",
+        "no": "no",
+        "yes": "sí",
+        "or": "o",
+        "returnHome": "Volver a casa",
+        "pageNotFound": "Página no encontrada"
+    },
+    "platforms": {
+        "donateMessage": "Gamebrary es gratuito y de código abierto, considera ayudar a su desarrollo mediante",
+        "donating": "donando",
+        "reportBugs": "reportando errores",
+        "submitFeedback": "enviar comentarios"
+    },
+    "igdbCredit": {
+        "poweredByIgdb": "Desarrollado por IGDB"
+    },
+    "gameDetail": {
+        "videos": "Videos",
+        "screenshots": "Capturas de pantalla",
+        "playerPerspectives": "Perspectiva",
+        "gameModes": "Modo de juego",
+        "genres": "Género",
+        "gamePlatforms": "Plataformas",
+        "developers": "Desarrollador",
+        "publishers": "Editores",
+        "removeFromList": "Quitar de la lista"
+    },
+    "list": {
+        "edit": "Editar el nombre de la lista",
+        "input": "Ingrese su propio",
+        "add": "Añadir lista",
+        "sortByName": "Alfabéticamente",
+        "sortByRating": "Calificación del juego",
+        "sortByReleaseDate": "Fecha de lanzamiento",
+        "sortByCustom": "Personalizado",
+        "delete": "Eliminar lista",
+        "moveLeft": "Mover hacia la izquierda",
+        "moveRight": "Mover a la derecha",
+        "emptyList": "Esta lista esta vacia",
+        "addGame": "Agregar juego",
+        "changeView": "Cambio Vista",
+        "moveList": "Mover lista",
+        "sortList": "Lista Ordenada",
+        "coversSizeTitle": "Cubiertas a través",
+        "views": {
+            "single": "Defecto",
+            "wide": "Compacto",
+            "text": "Solo texto",
+            "grid": "Rejilla de mampostería"
+        }
+    },
+    "settings": {
+        "global": "Global",
+        "darkTheme": "Tema oscuro",
+        "newsletter": "Recibir correos electrónicos de actualización (Beta)",
+        "ownedLists": "Mostrar solo mis plataformas",
+        "sortPlatforms": "Ordenar plataformas alfabéticamente",
+        "ratings": "Ocultar clasificaciones de juego",
+        "signOut": "desconectar",
+        "wallpaper": {
+            "title": "Subir fondo de pantalla",
+            "transparency": "Listas semi transparentes",
+            "currentWallpaper": "Fondo de pantalla actual",
+            "removeWallpaper": "Quitar papel tapiz"
+        },
+        "deleteAccount": {
+            "button": "Borrar cuenta",
+            "message": "Los datos de su cuenta serán eliminados para siempre.",
+            "title": "¿Estás seguro?"
+        }
+    },
+    "tags": {
+        "title": "Etiquetas de juego",
+        "addTag": "Añadir etiqueta",
+        "createTag": "Crear etiqueta",
+        "inputPlaceholder": "Nombre del dia",
+        "applyTag": "Aplicar etiqueta",
+        "useTags": "Usa etiquetas para organizar mejor tus juegos."
+    },
+    "gameSearch": {
+        "title": "Agregar juegos a",
+        "inputPlaceholder": "Busca aquí",
+        "alreadyInList": "de resultados de búsqueda ya en tu lista",
+        "noResultsFound": "No se encontraron resultados para",
+        "missingGame": "¿Te falta un juego? Ayudar a la comunidad y",
+        "addToIGDB": "Agregalo a IGDB"
+    },
+    "notes": {
+        "addNote": "Añadir la nota"
+    }
+}

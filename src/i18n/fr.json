@@ -1,0 +1,98 @@
+{
+    "global": {
+        "back": "Retour",
+        "save": "sauvegarder",
+        "cancel": "Annuler",
+        "create": "Créer",
+        "filter": "Filtre",
+        "by": "par",
+        "no": "non",
+        "yes": "Oui",
+        "or": "ou",
+        "returnHome": "Rentrer à la maison",
+        "pageNotFound": "Page non trouvée"
+    },
+    "platforms": {
+        "donateMessage": "Gamebrary est gratuit et open source, envisagez d’aider son développement en",
+        "donating": "faire un don",
+        "reportBugs": "signaler des bugs",
+        "submitFeedback": "soumettre des commentaires"
+    },
+    "igdbCredit": {
+        "poweredByIgdb": "Propulsé par IGDB"
+    },
+    "gameDetail": {
+        "videos": "Vidéos",
+        "screenshots": "Captures d'écran",
+        "playerPerspectives": "La perspective",
+        "gameModes": "Mode de jeu",
+        "genres": "Genre",
+        "gamePlatforms": "Plateformes",
+        "developers": "Développeur",
+        "publishers": "Les éditeurs",
+        "removeFromList": "Retirer de la liste"
+    },
+    "list": {
+        "edit": "Editer le nom de la liste",
+        "input": "Entrez votre propre",
+        "add": "Ajouter la liste",
+        "sortByName": "Alphabétiquement",
+        "sortByRating": "Classement du jeu",
+        "sortByReleaseDate": "Date de sortie",
+        "sortByCustom": "Douane",
+        "delete": "Supprimer la liste",
+        "moveLeft": "Se déplacer à gauche",
+        "moveRight": "Déplacer vers la droite",
+        "emptyList": "Cette liste est vide",
+        "addGame": "Ajouter un jeu",
+        "changeView": "Change de vue",
+        "moveList": "Déplacer la liste",
+        "sortList": "Liste de tri",
+        "coversSizeTitle": "Couvre à travers",
+        "views": {
+            "single": "Défaut",
+            "wide": "Compact",
+            "text": "Texte seulement",
+            "grid": "Grille de maçonnerie"
+        }
+    },
+    "settings": {
+        "global": "Global",
+        "darkTheme": "Thème sombre",
+        "newsletter": "Recevoir des emails de mise à jour (Beta)",
+        "ownedLists": "Afficher uniquement mes plateformes",
+        "sortPlatforms": "Trier les plateformes par ordre alphabétique",
+        "ratings": "Masquer les notes du jeu",
+        "signOut": "Déconnexion",
+        "wallpaper": {
+            "title": "Télécharger un fond d'écran",
+            "transparency": "Listes semi-transparentes",
+            "currentWallpaper": "Fond d'écran actuel",
+            "removeWallpaper": "Supprimer le papier peint"
+        },
+        "deleteAccount": {
+            "button": "Supprimer le compte",
+            "message": "Les données de votre compte seront définitivement supprimées.",
+            "title": "Êtes-vous sûr?"
+        }
+    },
+    "tags": {
+        "title": "Balises de jeu",
+        "addTag": "Ajouter une étiquette",
+        "createTag": "Créer un tag",
+        "inputPlaceholder": "Nom du jour",
+        "applyTag": "Appliquer le tag",
+        "useTags": "Utilisez des tags pour mieux organiser vos jeux"
+    },
+    "gameSearch": {
+        "title": "Ajouter des jeux à",
+        "inputPlaceholder": "Cherche ici",
+        "alreadyInList": "des résultats de recherche déjà dans votre liste",
+        "noResultsFound": "Aucun résultat trouvé pour",
+        "missingGame": "Manquer un jeu? Aidez la communauté et",
+        "addToIGDB": "Ajoutez-le à IGDB"
+    },
+    "notes": {
+        "addNote": "Ajouter une note"
+    }
+}

@@ -1,0 +1,98 @@
+{
+    "global": {
+        "back": "Zadní",
+        "save": "Uložit",
+        "cancel": "zrušení",
+        "create": "Vytvořit",
+        "filter": "Filtr",
+        "by": "podle",
+        "no": "Ne",
+        "yes": "Ano",
+        "or": "nebo",
+        "returnHome": "Vrátit se domů",
+        "pageNotFound": "Stránka nenalezena"
+    },
+    "platforms": {
+        "donateMessage": "Gamebrary je volný a otevřený zdroj, zvažovat pomoc jeho vývoji",
+        "donating": "darování",
+        "reportBugs": "hlášení chyb",
+        "submitFeedback": "odeslání zpětné vazby"
+    },
+    "igdbCredit": {
+        "poweredByIgdb": "Běží na IGDB"
+    },
+    "gameDetail": {
+        "videos": "Videa",
+        "screenshots": "Snímky obrazovky",
+        "playerPerspectives": "Perspektivní",
+        "gameModes": "Herní mód",
+        "genres": "Žánr",
+        "gamePlatforms": "Platformy",
+        "developers": "Vývojář",
+        "publishers": "Vydavatelé",
+        "removeFromList": "Odstranit ze seznamu"
+    },
+    "list": {
+        "edit": "Upravit název seznamu",
+        "input": "Zadejte svůj vlastní",
+        "add": "Přidat seznam",
+        "sortByName": "Abecedně",
+        "sortByRating": "Hodnocení hry",
+        "sortByReleaseDate": "Datum vydání",
+        "sortByCustom": "Zvyk",
+        "delete": "Smazat seznam",
+        "moveLeft": "Pohyb doleva",
+        "moveRight": "Pohyb vpravo",
+        "emptyList": "Tento seznam je prázdný",
+        "addGame": "Přidat hru",
+        "changeView": "Změnit zobrazení",
+        "moveList": "Přesunout seznam",
+        "sortList": "Seřadit seznam",
+        "coversSizeTitle": "Pokrývá napříč",
+        "views": {
+            "single": "Výchozí",
+            "wide": "Kompaktní",
+            "text": "Pouze text",
+            "grid": "Zednické mřížky"
+        }
+    },
+    "settings": {
+        "global": "Globální",
+        "darkTheme": "Tmavé téma",
+        "newsletter": "Přijímat e-maily s aktualizací (Beta)",
+        "ownedLists": "Zobrazovat pouze mé platformy",
+        "sortPlatforms": "Seřadit platformy abecedně",
+        "ratings": "Skrýt hodnocení her",
+        "signOut": "Odhlásit se",
+        "wallpaper": {
+            "title": "Nahrát tapetu",
+            "transparency": "Poloprůhledné seznamy",
+            "currentWallpaper": "Aktuální tapeta",
+            "removeWallpaper": "Odebrat tapetu"
+        },
+        "deleteAccount": {
+            "button": "smazat účet",
+            "message": "Data účtu budou navždy smazána.",
+            "title": "Jsi si jistá?"
+        }
+    },
+    "tags": {
+        "title": "Herní značky",
+        "addTag": "Přidat značku",
+        "createTag": "Vytvořit značku",
+        "inputPlaceholder": "Název dne",
+        "applyTag": "Použít značku",
+        "useTags": "Pomocí značek můžete lépe organizovat hry"
+    },
+    "gameSearch": {
+        "title": "Přidat hry do",
+        "inputPlaceholder": "Hledej tady",
+        "alreadyInList": "z výsledků vyhledávání, které jsou již ve vašem seznamu",
+        "noResultsFound": "Nebyly nalezeny žádné výsledky",
+        "missingGame": "Chybí hra? Pomozte komunitě a",
+        "addToIGDB": "Přidejte ji do IGDB"
+    },
+    "notes": {
+        "addNote": "Přidat poznámku"
+    }
+}

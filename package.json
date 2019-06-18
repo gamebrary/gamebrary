@@ -27,6 +27,7 @@
         "raven-js": "^3.27.0",
         "sass-loader": "^7.0.1",
         "sw-precache-webpack-plugin": "^0.11.5",
+        "translate-json-object": "^2.3.3",
         "vue": "^2.5.2",
         "vue-analytics": "^5.16.0",
         "vue-axios": "^2.1.1",

@@ -1,0 +1,98 @@
+{
+    "global": {
+        "back": "الى الخلف",
+        "save": "حفظ",
+        "cancel": "إلغاء",
+        "create": "خلق",
+        "filter": "منقي",
+        "by": "بواسطة",
+        "no": "لا",
+        "yes": "نعم فعلا",
+        "or": "أو",
+        "returnHome": "العودة إلى المنزل",
+        "pageNotFound": "الصفحة غير موجودة"
+    },
+    "platforms": {
+        "donateMessage": "Gamebrary مجاني ومفتوح المصدر ، والنظر في المساعدة في تطويرها",
+        "donating": "تبرع",
+        "reportBugs": "الإبلاغ عن الأخطاء",
+        "submitFeedback": "تقديم ردود الفعل"
+    },
+    "igdbCredit": {
+        "poweredByIgdb": "مدعوم من IGDB"
+    },
+    "gameDetail": {
+        "videos": "أشرطة فيديو",
+        "screenshots": "لقطات",
+        "playerPerspectives": "إنطباع",
+        "gameModes": "نوع اللعبة",
+        "genres": "نوع أدبي",
+        "gamePlatforms": "منصات",
+        "developers": "مطور",
+        "publishers": "الناشرون",
+        "removeFromList": "ازله من القائمة"
+    },
+    "list": {
+        "edit": "تحرير اسم القائمة",
+        "input": "أدخل بنفسك",
+        "add": "اضف قائمة",
+        "sortByName": "أبجديا",
+        "sortByRating": "تصنيف اللعبة",
+        "sortByReleaseDate": "يوم الاصدار",
+        "sortByCustom": "العادة",
+        "delete": "حذف القائمة",
+        "moveLeft": "تحرك يسارا",
+        "moveRight": "تحرك يمينا",
+        "emptyList": "هذه القائمة فارغة",
+        "addGame": "إضافة اللعبة",
+        "changeView": "تغيير الرأي",
+        "moveList": "نقل القائمة",
+        "sortList": "قائمة الفرز",
+        "coversSizeTitle": "يغطي عبر",
+        "views": {
+            "single": "افتراضي",
+            "wide": "المدمج",
+            "text": "نص فقط",
+            "grid": "شبكة البناء"
+        }
+    },
+    "settings": {
+        "global": "عالمي",
+        "darkTheme": "موضوع الظلام",
+        "newsletter": "تلقي تحديثات البريد الإلكتروني (تجريبية)",
+        "ownedLists": "فقط عرض منصات بلدي",
+        "sortPlatforms": "فرز المنصات أبجديا",
+        "ratings": "إخفاء تقييمات اللعبة",
+        "signOut": "خروج",
+        "wallpaper": {
+            "title": "تحميل خلفية",
+            "transparency": "قوائم شبه شفافة",
+            "currentWallpaper": "خلفية الحالية",
+            "removeWallpaper": "إزالة خلفية"
+        },
+        "deleteAccount": {
+            "button": "حذف الحساب",
+            "message": "سيتم حذف بيانات حسابك إلى الأبد.",
+            "title": "هل أنت واثق؟"
+        }
+    },
+    "tags": {
+        "title": "علامات اللعبة",
+        "addTag": "إضافة علامة",
+        "createTag": "إنشاء علامة",
+        "inputPlaceholder": "اسم اليوم",
+        "applyTag": "تطبيق العلامة",
+        "useTags": "استخدم العلامات لتنظيم الألعاب بشكل أفضل"
+    },
+    "gameSearch": {
+        "title": "إضافة ألعاب إلى",
+        "inputPlaceholder": "ابحث هنا",
+        "alreadyInList": "من نتائج البحث بالفعل في قائمتك",
+        "noResultsFound": "لا يوجد نتائج ل",
+        "missingGame": "في عداد المفقودين لعبة؟ مساعدة المجتمع و",
+        "addToIGDB": "إضافته إلى IGDB"
+    },
+    "notes": {
+        "addNote": "اضف ملاحظة"
+    }
+}
