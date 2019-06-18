@@ -35,7 +35,7 @@
 
 <script>
 import Masonry from 'masonry-layout';
-import platforms from '@/shared/platforms';
+import platforms from '@/platforms';
 import ToggleSwitch from '@/components/ToggleSwitch/ToggleSwitch';
 import IgdbCredit from '@/components/IgdbCredit/IgdbCredit';
 import Platform from '@/components/Platform/Platform';

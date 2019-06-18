@@ -7,19 +7,17 @@
             target="_blank"
         >
             <i :class="getIcon(category)" />
-            {{ igdb.linkTypes[category] }}
+            {{ linkTypes[category] }}
         </a>
     </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import igdb from '@/shared/igdb';
 
 export default {
     data() {
         return {
-            igdb,
             icons: {
                 official: 'fas fa-globe-americas',
                 facebook: 'fab fa-facebook-f',
@@ -34,6 +32,21 @@ export default {
                 Reddit: 'fab fa-reddit',
                 reddit: 'fab fa-reddit',
             },
+            linkTypes: {
+                1: 'official',
+                2: 'wikia',
+                3: 'wikipedia',
+                4: 'facebook',
+                5: 'twitter',
+                6: 'twitch',
+                8: 'instagram',
+                9: 'youtube',
+                10: 'iphone',
+                11: 'ipad',
+                12: 'android',
+                13: 'steam',
+                14: 'Reddit',
+            },
         };
     },
     computed: {
@@ -46,7 +59,7 @@ export default {
 
     methods: {
         getIcon(id) {
-            const icon = this.igdb.linkTypes[id];
+            const icon = this.linkTypes[id];
 
             return this.icons[icon];
         },
