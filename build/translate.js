@@ -4,8 +4,7 @@ const fs = require('fs');
 const translate = require('translate-json-object')();
 const baseJson = require('../src/i18n/en.json');
 
-// translate.init({ googleApiKey: 'GOOGLE_API_KEY_HERE' });
-translate.init({ googleApiKey: 'AIzaSyCknvhooDrmNf9SJ5hdZKPkqR0pntXJ6cU' });
+translate.init({ googleApiKey: 'GOOGLE_API_KEY_HERE' });
 
 const supportedLanguages = ['es', 'pl', 'de', 'ar', 'fr', 'it', 'eu', 'cs', 'ja'];
 
