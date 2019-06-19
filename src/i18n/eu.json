@@ -62,6 +62,7 @@
         "newsletter": "Jaso eguneratze mezu elektronikoak (Beta)",
         "language": "Hizkuntza",
         "languages": {
+            "en": "English",
             "es": "Espainiako",
             "pl": "Poloniako",
             "de": "Alemaniako",

@@ -62,6 +62,7 @@
         "newsletter": "Přijímat e-maily s aktualizací (Beta)",
         "language": "Jazyk",
         "languages": {
+            "en": "Angličtina",
             "es": "španělština",
             "pl": "polština",
             "de": "Němec",

@@ -62,6 +62,7 @@
         "newsletter": "更新メールを受信する（Beta）",
         "language": "言語",
         "languages": {
+            "en": "英語",
             "es": "スペイン語",
             "pl": "研磨",
             "de": "ドイツ人",

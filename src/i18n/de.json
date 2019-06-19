@@ -62,6 +62,7 @@
         "newsletter": "Aktualisierungs-E-Mails erhalten (Beta)",
         "language": "Sprache",
         "languages": {
+            "en": "Englisch",
             "es": "Spanisch",
             "pl": "Polieren",
             "de": "Deutsche",

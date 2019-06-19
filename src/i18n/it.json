@@ -62,6 +62,7 @@
         "newsletter": "Ricevi email di aggiornamento (Beta)",
         "language": "linguaggio",
         "languages": {
+            "en": "Inglese",
             "es": "spagnolo",
             "pl": "polacco",
             "de": "Tedesco",

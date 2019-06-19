@@ -62,6 +62,7 @@
         "newsletter": "Recevoir des emails de mise à jour (Beta)",
         "language": "La langue",
         "languages": {
+            "en": "Anglais",
             "es": "Espanol",
             "pl": "polonais",
             "de": "allemand",

@@ -16,16 +16,16 @@
             <h5>{{ $t('settings.language') }}</h5>
 
             <select v-model="localSettings.language">
-                <option value="en">🇺🇸 English</option>
-                <option value="es">🇪🇸 Spanish</option>
-                <option value="pl">🇵🇱 Polish</option>
-                <option value="de">🇩🇪 German</option>
-                <option value="ar">🇦🇪 Arabic</option>
-                <option value="fr">🇫🇷 French</option>
-                <option value="ja">🇯🇵 Japan</option>
-                <option value="it">🇮🇹 Italian</option>
-                <option value="eu">🏴 Basque</option>
-                <option value="cs">🇨🇿 Czech</option>
+                <option value="en">🇺🇸 {{ $t('settings.languages.en') }}</option>
+                <option value="es">🇪🇸 {{ $t('settings.languages.es') }}</option>
+                <option value="pl">🇵🇱 {{ $t('settings.languages.pl') }}</option>
+                <option value="de">🇩🇪 {{ $t('settings.languages.de') }}</option>
+                <option value="ar">🇦🇪 {{ $t('settings.languages.ar') }}</option>
+                <option value="fr">🇫🇷 {{ $t('settings.languages.fr') }}</option>
+                <option value="ja">🇯🇵 {{ $t('settings.languages.ja') }}</option>
+                <option value="it">🇮🇹 {{ $t('settings.languages.it') }}</option>
+                <option value="eu">🏴 {{ $t('settings.languages.eu') }}</option>
+                <option value="cs">🇨🇿 {{ $t('settings.languages.cs') }}</option>
             </select>
         </section>
 
