@@ -10,10 +10,11 @@
         />
 
         <span
-            v-if="ownedPlatform(platformData.code)"
+            v-if="ownedPlatform(platformData.code) && getGameCount(platformData.code) > 0"
             :class="['game-count', textColor]"
         >
-            {{ getGameCount(platformData.code) }} Games
+            <i class="fas fa-gamepad" />
+            {{ getGameCount(platformData.code) }}
         </span>
     </div>
 </template>
@@ -88,8 +89,6 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles.scss";
 
-    $tileHeight: 80px;
-
     .platform {
         padding: $gp;
         display: flex;
@@ -100,11 +99,8 @@ export default {
         border-radius: $border-radius;
         cursor: pointer;
         overflow: hidden;
-        width: calc(calc(100% / 7) - 8.5px) !important;
-
-        &.height-1 { height: $tileHeight; }
-        &.height-2 { height: $tileHeight * 2 }
-        &.height-3 { height: $tileHeight * 3 }
+        width: 120px;
+        height: 80px;
 
         @media($small) {
             padding: $gp / 2;
@@ -122,14 +118,14 @@ export default {
             padding-top: $gp / 3;
             font-weight: bold;
             font-size: 12px;
-
-            &.light {
-                color: $color-white;
-            }
-
-            &.dark {
-                color: $color-black;
-            }
+            background-color: $color-green;
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 0 $gp / 4;
+            color: $color-white;
+            font-size: 10px;
+            border-bottom-left-radius: $border-radius;
         }
     }
 </style>

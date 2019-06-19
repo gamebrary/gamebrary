@@ -1,6 +1,5 @@
 <template lang="html">
     <div :class="['platforms-page', { dark: darkModeEnabled }]">
-
         <div class="platforms">
             <platform
                 v-for="platform in filteredPlatforms"
@@ -83,7 +82,7 @@ export default {
 
             return this.settings && this.settings.sortListsAlphabetically
                 ? sortBy(availableLists, 'name')
-                : sortBy(availableLists, 'generation').reverse();
+                : availableLists;
         },
     },
 

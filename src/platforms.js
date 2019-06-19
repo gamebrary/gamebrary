@@ -6,7 +6,19 @@ export default [
         code: 'nintendo-switch',
         hex: '#e60012',
         id: 130,
-        height: 2,
+        generation: 8,
+    },
+    {
+        name: 'PlayStation 4',
+        code: 'ps4',
+        hex: '#2E6DB4',
+        id: 48,
+        generation: 8,
+    },
+    {
+        name: 'Xbox One',
+        code: 'xbox-one',
+        id: 49,
         generation: 8,
     },
     {
@@ -16,26 +28,11 @@ export default [
         generation: 8,
     },
     {
-        name: 'PlayStation 4',
-        code: 'ps4',
-        hex: '#2E6DB4',
-        id: 48,
-        height: 2,
-        generation: 8,
-    },
-    {
         name: 'Steam',
         code: 'steam',
         id: 92,
         generation: 8,
         hex: '#171a21',
-    },
-    {
-        name: 'Xbox One',
-        code: 'xbox-one',
-        id: 49,
-        height: 2,
-        generation: 8,
     },
     {
         name: 'NES',
@@ -56,7 +53,6 @@ export default [
         code: 'nintendo-64',
         id: 4,
         generation: 5,
-        height: 2,
     },
     {
         name: 'Playstation',
@@ -114,7 +110,6 @@ export default [
         code: 'msdos',
         id: 13,
         generation: 1,
-        height: 2,
     },
     {
         name: 'Mac',
@@ -280,7 +275,6 @@ export default [
         code: 'colecovision',
         id: 68,
         hex: '#000',
-        height: 2,
         generation: 2,
     },
     {
