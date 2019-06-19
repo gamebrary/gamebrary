@@ -2,8 +2,9 @@
 
 const fs = require('fs');
 const translate = require('translate-json-object')();
-const baseJson = require('./en.json');
+const baseJson = require('../src/i18n/en.json');
 
+// translate.init({ googleApiKey: 'GOOGLE_API_KEY_HERE' });
 translate.init({ googleApiKey: 'AIzaSyCknvhooDrmNf9SJ5hdZKPkqR0pntXJ6cU' });
 
 const supportedLanguages = ['es', 'pl', 'de', 'ar', 'fr', 'it', 'eu', 'cs', 'ja'];
@@ -14,7 +15,7 @@ for (let i = 0, promise = Promise.resolve(); i < supportedLanguages.length; i++)
 
         translate.translate(baseJson, language)
             .then((data) => {
-                fs.writeFile(`${language}.json`, JSON.stringify(data, null, 4), () => {
+                fs.writeFile(`src/i18n/${language}.json`, JSON.stringify(data, null, 4), () => {
                     console.log(`Translation to ${language} completed`);
                     resolve();
                 });
