@@ -30,7 +30,28 @@
         "gamePlatforms": "منصات",
         "developers": "مطور",
         "publishers": "الناشرون",
-        "removeFromList": "ازله من القائمة"
+        "removeFromList": "ازله من القائمة",
+        "links": {
+            "official": "موقع رسمي",
+            "wikia": "فندوم",
+            "wikipedia": "ويكيبيديا",
+            "facebook": "فيس بوك",
+            "twitter": "تغريد",
+            "twitch": "نشل",
+            "instagram": "إينستاجرام",
+            "youtube": "موقع YouTube",
+            "iphone": "دائرة الرقابة الداخلية",
+            "ipad": "اى باد",
+            "android": "لعب المتجر",
+            "steam": "بخار",
+            "reddit": "رديت",
+            "discord": "خلاف",
+            "google_plus": "جوجل بلس",
+            "tumblr": "نعرفكم",
+            "linkedin": "تابعني على",
+            "pinterest": "موقع Pinterest",
+            "soundcloud": "SoundCloud لل"
+        }
     },
     "list": {
         "edit": "تحرير اسم القائمة",

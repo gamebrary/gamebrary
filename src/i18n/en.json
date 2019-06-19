@@ -30,7 +30,28 @@
         "gamePlatforms": "Platforms",
         "developers": "Developer",
         "publishers": "Publishers",
-        "removeFromList": "Remove from list"
+        "removeFromList": "Remove from list",
+        "links": {
+            "official": "Official Site",
+            "wikia": "Fandom",
+            "wikipedia": "Wikipedia",
+            "facebook": "Facebook",
+            "twitter": "Twitter",
+            "twitch": "Twitch",
+            "instagram": "Instagram",
+            "youtube": "Youtube",
+            "iphone": "iOS",
+            "ipad": "iPad",
+            "android": "Play Store",
+            "steam": "Steam",
+            "reddit": "Reddit",
+            "discord": "Discord",
+            "google_plus": "Google Plus",
+            "tumblr": "Tumblr",
+            "linkedin": "Linkedin",
+            "pinterest": "Pinterest",
+            "soundcloud": "Soundcloud"
+        }
     },
     "list": {
         "edit": "Edit list name",

@@ -30,7 +30,28 @@
         "gamePlatforms": "Platformy",
         "developers": "Deweloper",
         "publishers": "Wydawcy",
-        "removeFromList": "Usunąć z listy"
+        "removeFromList": "Usunąć z listy",
+        "links": {
+            "official": "Oficjalna strona",
+            "wikia": "Fandom",
+            "wikipedia": "Wikipedia",
+            "facebook": "Facebook",
+            "twitter": "Świergot",
+            "twitch": "Skurcz",
+            "instagram": "Instagram",
+            "youtube": "youtube",
+            "iphone": "iOS",
+            "ipad": "iPad",
+            "android": "Sklep Play",
+            "steam": "Parowy",
+            "reddit": "Reddit",
+            "discord": "Niezgoda",
+            "google_plus": "Google Plus",
+            "tumblr": "Tumblr",
+            "linkedin": "Linkedin",
+            "pinterest": "Pinterest",
+            "soundcloud": "Soundcloud"
+        }
     },
     "list": {
         "edit": "Edytuj nazwę listy",

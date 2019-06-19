@@ -30,7 +30,28 @@
         "gamePlatforms": "piattaforme",
         "developers": "Sviluppatore",
         "publishers": "editori",
-        "removeFromList": "Rimuovere dalla lista"
+        "removeFromList": "Rimuovere dalla lista",
+        "links": {
+            "official": "Sito ufficiale",
+            "wikia": "Mondo dei fan",
+            "wikipedia": "Wikipedia",
+            "facebook": "Facebook",
+            "twitter": "cinguettio",
+            "twitch": "Contrazione",
+            "instagram": "Instagram",
+            "youtube": "Youtube",
+            "iphone": "iOS",
+            "ipad": "iPad",
+            "android": "Play Store",
+            "steam": "Vapore",
+            "reddit": "Reddit",
+            "discord": "Discordia",
+            "google_plus": "Google Plus",
+            "tumblr": "Tumblr",
+            "linkedin": "Linkedin",
+            "pinterest": "Pinterest",
+            "soundcloud": "Soundcloud"
+        }
     },
     "list": {
         "edit": "Modifica il nome dell'elenco",

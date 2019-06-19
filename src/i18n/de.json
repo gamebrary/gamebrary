@@ -30,7 +30,28 @@
         "gamePlatforms": "Plattformen",
         "developers": "Entwickler",
         "publishers": "Verlag",
-        "removeFromList": "Aus Liste entfernen"
+        "removeFromList": "Aus Liste entfernen",
+        "links": {
+            "official": "Offizielle Seite",
+            "wikia": "Fangemeinde",
+            "wikipedia": "Wikipedia",
+            "facebook": "Facebook",
+            "twitter": "Twitter",
+            "twitch": "Zucken",
+            "instagram": "Instagram",
+            "youtube": "Youtube",
+            "iphone": "iOS",
+            "ipad": "iPad",
+            "android": "Spielladen",
+            "steam": "Dampf",
+            "reddit": "Reddit",
+            "discord": "Zwietracht",
+            "google_plus": "Google Plus",
+            "tumblr": "Tumblr",
+            "linkedin": "Linkedin",
+            "pinterest": "Pinterest",
+            "soundcloud": "Soundcloud"
+        }
     },
     "list": {
         "edit": "Listenname bearbeiten",

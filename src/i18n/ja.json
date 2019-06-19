@@ -30,7 +30,28 @@
         "gamePlatforms": "プラットフォーム",
         "developers": "開発者",
         "publishers": "出版社",
-        "removeFromList": "リストから削除する"
+        "removeFromList": "リストから削除する",
+        "links": {
+            "official": "オフィシャルサイト",
+            "wikia": "ファンダム",
+            "wikipedia": "ウィキペディア",
+            "facebook": "フェイスブック",
+            "twitter": "Twitter",
+            "twitch": "けいれん",
+            "instagram": "Instagramの",
+            "youtube": "YouTube",
+            "iphone": "iOS",
+            "ipad": "iPad",
+            "android": "プレイストア",
+            "steam": "蒸気",
+            "reddit": "Reddit",
+            "discord": "不和",
+            "google_plus": "グーグルプラス",
+            "tumblr": "タンブラー",
+            "linkedin": "Linkedin",
+            "pinterest": "Pinterest",
+            "soundcloud": "サウンドクラウド"
+        }
     },
     "list": {
         "edit": "リスト名を編集",

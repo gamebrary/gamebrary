@@ -30,7 +30,28 @@
         "gamePlatforms": "Platformy",
         "developers": "Vývojář",
         "publishers": "Vydavatelé",
-        "removeFromList": "Odstranit ze seznamu"
+        "removeFromList": "Odstranit ze seznamu",
+        "links": {
+            "official": "Oficiální stránka",
+            "wikia": "Fandom",
+            "wikipedia": "Wikipedia",
+            "facebook": "Facebook",
+            "twitter": "Cvrlikání",
+            "twitch": "Škubnutí",
+            "instagram": "Instagram",
+            "youtube": "Youtube",
+            "iphone": "iOS",
+            "ipad": "iPad",
+            "android": "Play Store",
+            "steam": "Pára",
+            "reddit": "Reddite",
+            "discord": "Svár",
+            "google_plus": "Google Plus",
+            "tumblr": "Tumblr",
+            "linkedin": "Linkedin",
+            "pinterest": "Pinterest",
+            "soundcloud": "Soundcloud"
+        }
     },
     "list": {
         "edit": "Upravit název seznamu",

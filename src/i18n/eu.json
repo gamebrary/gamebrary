@@ -30,7 +30,28 @@
         "gamePlatforms": "plataformak",
         "developers": "Developer",
         "publishers": "Argitaletxeak",
-        "removeFromList": "Kendu zerrendatik"
+        "removeFromList": "Kendu zerrendatik",
+        "links": {
+            "official": "Gune ofiziala",
+            "wikia": "fandom",
+            "wikipedia": "Wikipedia",
+            "facebook": "Facebook",
+            "twitter": "Twitter",
+            "twitch": "twitch",
+            "instagram": "Instagram",
+            "youtube": "Youtube",
+            "iphone": "iOS",
+            "ipad": "iPad",
+            "android": "Play Store",
+            "steam": "Lurrun",
+            "reddit": "Reddit",
+            "discord": "discord",
+            "google_plus": "Google Plus",
+            "tumblr": "Tumblr",
+            "linkedin": "Linkedin",
+            "pinterest": "Pinterest",
+            "soundcloud": "Soundcloud"
+        }
     },
     "list": {
         "edit": "Editatu zerrenda izena",

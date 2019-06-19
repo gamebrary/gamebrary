@@ -30,7 +30,28 @@
         "gamePlatforms": "Plataformas",
         "developers": "Desarrollador",
         "publishers": "Editores",
-        "removeFromList": "Quitar de la lista"
+        "removeFromList": "Quitar de la lista",
+        "links": {
+            "official": "Sitio oficial",
+            "wikia": "Fandom",
+            "wikipedia": "Wikipedia",
+            "facebook": "Facebook",
+            "twitter": "Gorjeo",
+            "twitch": "Contracción nerviosa",
+            "instagram": "Instagram",
+            "youtube": "Youtube",
+            "iphone": "iOS",
+            "ipad": "iPad",
+            "android": "Tienda de juegos",
+            "steam": "Vapor",
+            "reddit": "Reddit",
+            "discord": "Discordia",
+            "google_plus": "Google Plus",
+            "tumblr": "Tumblr",
+            "linkedin": "Linkedin",
+            "pinterest": "Pinterest",
+            "soundcloud": "Nube de sonido"
+        }
     },
     "list": {
         "edit": "Editar el nombre de la lista",
