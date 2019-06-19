@@ -5,6 +5,30 @@
     >
         <h4>{{ $t('settings.global') }}</h4>
 
+        <span v-if="showReloadMessage" class="reloading">
+            <i class="fas fa-sync-alt fast-spin" />
+
+            Reloading page
+        </span>
+
+        <section>
+            <i class="fas fa-language" />
+            <h5>{{ $t('settings.language') }}</h5>
+
+            <select v-model="localSettings.language">
+                <option value="en">🇺🇸 English</option>
+                <option value="es">🇪🇸 Spanish</option>
+                <option value="pl">🇵🇱 Polish</option>
+                <option value="de">🇩🇪 German</option>
+                <option value="ar">🇦🇪 Arabic</option>
+                <option value="fr">🇫🇷 French</option>
+                <option value="ja">🇯🇵 Japan</option>
+                <option value="it">🇮🇹 Italian</option>
+                <option value="eu">🏴 Basque</option>
+                <option value="cs">🇨🇿 Czech</option>
+            </select>
+        </section>
+
         <section>
             <i class="fas fa-moon" />
             <h5>{{ $t('settings.darkTheme') }}</h5>
@@ -127,6 +151,8 @@ export default {
 
     data() {
         return {
+            language: null,
+            showReloadMessage: false,
             localSettings: {},
             moment,
         };
@@ -166,6 +192,14 @@ export default {
             handler(oldValue, newValue) {
                 if (Object.keys(newValue).length) {
                     this.save();
+
+                    if (this.language !== newValue.language) {
+                        this.showReloadMessage = true;
+
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 2000);
+                    }
                 }
             },
             deep: true,
@@ -174,6 +208,7 @@ export default {
 
     mounted() {
         this.localSettings = JSON.parse(JSON.stringify(this.settings));
+        this.language = this.localSettings.language;
         this.$store.dispatch('LOAD_RELEASES');
     },
 
@@ -277,5 +312,21 @@ export default {
         color: $color-dark-gray;
         align-items: center;
         justify-content: space-around;
+    }
+
+    .reloading {
+        padding: $gp $gp 0;
+        margin: 0 auto;
+        color: $color-blue;
+
+        i {
+            margin-right: $gp / 2;
+        }
+    }
+
+    select {
+        width: 100px;
+        margin-left: auto;
+        margin-bottom: 0;
     }
 </style>
