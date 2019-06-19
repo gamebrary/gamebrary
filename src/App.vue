@@ -3,6 +3,7 @@
         id="app"
         :class="{ dark: darkModeEnabled }"
         :style="style"
+        :dir="dir"
     >
         <nav-header />
 
@@ -51,6 +52,12 @@ export default {
     computed: {
         ...mapState(['user', 'platform', 'wallpaperUrl', 'settings']),
         ...mapGetters(['darkModeEnabled']),
+
+        dir() {
+            return this.settings && this.settings.language === 'ar'
+                ? 'rtl'
+                : 'ltr';
+        },
 
         isPublic() {
             return this.$route.name === 'share-list';
