@@ -69,7 +69,8 @@
             "fr": "français",
             "it": "italien",
             "eu": "basque",
-            "cs": "tchèque"
+            "cs": "tchèque",
+            "ja": "Japon"
         },
         "ownedLists": "Afficher uniquement mes plateformes",
         "sortPlatforms": "Trier les plateformes par ordre alphabétique",
