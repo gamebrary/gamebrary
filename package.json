@@ -14,7 +14,7 @@
         "lint": "eslint --ext .js,.vue src test/unit",
         "translate": "node build/translate.js",
         "build": "node build/build.js",
-        "deploy": "node ./node_modules/vue-gh-pages/index.js"
+        "deploy": "firebase deploy"
     },
     "dependencies": {
         "axios": "^0.19.0",
