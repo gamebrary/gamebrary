@@ -61,6 +61,16 @@
         "darkTheme": "Tema oscuro",
         "newsletter": "Recibir correos electrónicos de actualización (Beta)",
         "language": "Idioma",
+        "languages": {
+            "es": "Español",
+            "pl": "polaco",
+            "de": "alemán",
+            "ar": "Arábica",
+            "fr": "francés",
+            "it": "italiano",
+            "eu": "vasco",
+            "cs": "checo"
+        },
         "ownedLists": "Mostrar solo mis plataformas",
         "sortPlatforms": "Ordenar plataformas alfabéticamente",
         "ratings": "Ocultar clasificaciones de juego",

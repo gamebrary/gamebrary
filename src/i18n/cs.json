@@ -61,6 +61,16 @@
         "darkTheme": "Tmavé téma",
         "newsletter": "Přijímat e-maily s aktualizací (Beta)",
         "language": "Jazyk",
+        "languages": {
+            "es": "španělština",
+            "pl": "polština",
+            "de": "Němec",
+            "ar": "arabština",
+            "fr": "francouzština",
+            "it": "italština",
+            "eu": "Baskicko",
+            "cs": "čeština"
+        },
         "ownedLists": "Zobrazovat pouze mé platformy",
         "sortPlatforms": "Seřadit platformy abecedně",
         "ratings": "Skrýt hodnocení her",

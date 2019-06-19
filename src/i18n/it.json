@@ -61,6 +61,16 @@
         "darkTheme": "Tema scuro",
         "newsletter": "Ricevi email di aggiornamento (Beta)",
         "language": "linguaggio",
+        "languages": {
+            "es": "spagnolo",
+            "pl": "polacco",
+            "de": "Tedesco",
+            "ar": "Arabo",
+            "fr": "francese",
+            "it": "italiano",
+            "eu": "basco",
+            "cs": "ceco"
+        },
         "ownedLists": "Mostra solo le mie piattaforme",
         "sortPlatforms": "Ordina le piattaforme in ordine alfabetico",
         "ratings": "Nascondi valutazioni di gioco",

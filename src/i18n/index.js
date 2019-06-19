@@ -10,6 +10,7 @@ const messages = {
     fr: require('./fr.json'),
     it: require('./it.json'),
     pl: require('./pl.json'),
+    ja: require('./ja.json'),
 };
 
 export default messages;

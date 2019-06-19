@@ -61,6 +61,16 @@
         "darkTheme": "Gaia iluna",
         "newsletter": "Jaso eguneratze mezu elektronikoak (Beta)",
         "language": "Hizkuntza",
+        "languages": {
+            "es": "Espainiako",
+            "pl": "Poloniako",
+            "de": "Alemaniako",
+            "ar": "arabiera",
+            "fr": "Frantziako",
+            "it": "Italiako",
+            "eu": "Euskal",
+            "cs": "Txekiar"
+        },
         "ownedLists": "Erakutsi nire plataformak soilik",
         "sortPlatforms": "Ordenatu plataformak alfabetikoki",
         "ratings": "Ezkutatu jokoaren balorazioak",
