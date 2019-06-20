@@ -55,6 +55,14 @@
     },
     "list": {
         "edit": "Editar el nombre de la lista",
+        "placeholder": "Nombre de la lista (por ejemplo, propiedad)",
+        "suggestionsTitle": "Sugerencias",
+        "suggestions": {
+            "owned": "De propiedad",
+            "wishlist": "Lista de deseos",
+            "currentlyPlaying": "Reproduciendo",
+            "completed": "Terminado"
+        },
         "input": "Ingrese su propio",
         "add": "Añadir lista",
         "sortByName": "Alfabéticamente",
@@ -78,6 +86,8 @@
         }
     },
     "settings": {
+        "platforms": "Plataformas",
+        "gameBoard": "Juego de mesa",
         "global": "Global",
         "darkTheme": "Tema oscuro",
         "newsletter": "Recibir correos electrónicos de actualización (Beta)",
@@ -92,7 +102,7 @@
             "it": "italiano",
             "eu": "vasco",
             "cs": "checo",
-            "ja": "Japón"
+            "ja": "japonés"
         },
         "ownedLists": "Mostrar solo mis plataformas",
         "sortPlatforms": "Ordenar plataformas alfabéticamente",

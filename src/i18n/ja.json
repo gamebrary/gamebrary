@@ -55,6 +55,14 @@
     },
     "list": {
         "edit": "リスト名を編集",
+        "placeholder": "リスト名（例：所有）",
+        "suggestionsTitle": "提案",
+        "suggestions": {
+            "owned": "所有",
+            "wishlist": "ほしい物リスト",
+            "currentlyPlaying": "現在遊んでいます",
+            "completed": "完了しました"
+        },
         "input": "あなた自身を入力してください",
         "add": "リストを追加",
         "sortByName": "アルファベット順",
@@ -78,6 +86,8 @@
         }
     },
     "settings": {
+        "platforms": "プラットフォーム",
+        "gameBoard": "ゲームボード",
         "global": "グローバル",
         "darkTheme": "暗いテーマ",
         "newsletter": "更新メールを受信する（Beta）",
@@ -92,7 +102,7 @@
             "it": "イタリアの",
             "eu": "バスク語",
             "cs": "チェコ語",
-            "ja": "日本"
+            "ja": "日本人"
         },
         "ownedLists": "自分のプラットフォームのみを表示",
         "sortPlatforms": "プラットフォームをアルファベット順に並べ替える",

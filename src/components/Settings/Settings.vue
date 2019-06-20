@@ -49,7 +49,7 @@
             />
         </section>
 
-        <h4>Platforms</h4>
+        <h4>{{ $t('settings.platforms') }}</h4>
 
         <section v-if="hasLists">
             <i class="fas fa-user-check" />
@@ -71,7 +71,7 @@
             />
         </section>
 
-        <h4>Game board</h4>
+        <h4>{{ $t('settings.gameBoard') }}</h4>
 
         <section>
             <i class="fas fa-star-half-alt" />

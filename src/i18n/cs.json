@@ -55,6 +55,14 @@
     },
     "list": {
         "edit": "Upravit název seznamu",
+        "placeholder": "Název seznamu (např. Vlastník)",
+        "suggestionsTitle": "Návrhy",
+        "suggestions": {
+            "owned": "Vlastněno",
+            "wishlist": "Seznam přání",
+            "currentlyPlaying": "Právě hraje",
+            "completed": "Dokončeno"
+        },
         "input": "Zadejte svůj vlastní",
         "add": "Přidat seznam",
         "sortByName": "Abecedně",
@@ -78,6 +86,8 @@
         }
     },
     "settings": {
+        "platforms": "Platformy",
+        "gameBoard": "Hrací deska",
         "global": "Globální",
         "darkTheme": "Tmavé téma",
         "newsletter": "Přijímat e-maily s aktualizací (Beta)",
@@ -92,7 +102,7 @@
             "it": "italština",
             "eu": "Baskicko",
             "cs": "čeština",
-            "ja": "Japonsko"
+            "ja": "japonský"
         },
         "ownedLists": "Zobrazovat pouze mé platformy",
         "sortPlatforms": "Seřadit platformy abecedně",

@@ -1,7 +1,7 @@
 <template lang="html">
     <main>
         <form class="list-add" @submit.prevent="addList">
-            <header>Add list</header>
+            <header>{{ $t('list.add') }}</header>
 
             <section>
                 <input
@@ -10,7 +10,7 @@
                     ref="newListName"
                     autofocus
                     required
-                    placeholder="List name (e.g. Owned)"
+                    :placeholder="$t('list.placeholder')"
                 />
 
                 <panel
@@ -20,7 +20,7 @@
                 />
 
                 <div class="suggestions">
-                    <small>Suggestions:</small>
+                    <small>{{ $t('list.suggestionsTitle') }}:</small>
 
                     <button
                         class="tiny tag primary hollow"
@@ -30,7 +30,7 @@
                         :disabled="listNames.includes(suggestion.toLowerCase())"
                         @click="addSuggestion(suggestion)"
                     >
-                        {{ suggestion }}
+                        {{ $t(`list.suggestions.${suggestion}`) }}
                     </button>
                 </div>
             </section>
@@ -43,7 +43,7 @@
                     @shortkey="reset"
                     @click="reset"
                 >
-                    Cancel
+                    {{ $t('global.cancel') }}
                 </button>
 
                 <button
@@ -52,7 +52,7 @@
                     :disabled="isDuplicate || !newListName"
                     @click="addList"
                 >
-                    Save
+                    {{ $t('global.save') }}
                 </button>
             </footer>
         </form>
@@ -72,10 +72,10 @@ export default {
         return {
             newListName: '',
             listNameSuggestions: [
-                'Owned',
-                'Wishlist',
-                'Currently Playing',
-                'Completed',
+                'owned',
+                'wishlist',
+                'currentlyPlaying',
+                'completed',
             ],
         };
     },

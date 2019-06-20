@@ -55,6 +55,14 @@
     },
     "list": {
         "edit": "Editer le nom de la liste",
+        "placeholder": "Nom de la liste (par exemple, propriétaire)",
+        "suggestionsTitle": "Suggestions",
+        "suggestions": {
+            "owned": "Possédé",
+            "wishlist": "Liste de souhaits",
+            "currentlyPlaying": "En train de jouer",
+            "completed": "Terminé"
+        },
         "input": "Entrez votre propre",
         "add": "Ajouter la liste",
         "sortByName": "Alphabétiquement",
@@ -78,6 +86,8 @@
         }
     },
     "settings": {
+        "platforms": "Plateformes",
+        "gameBoard": "Plateau de jeu",
         "global": "Global",
         "darkTheme": "Thème sombre",
         "newsletter": "Recevoir des emails de mise à jour (Beta)",
@@ -92,7 +102,7 @@
             "it": "italien",
             "eu": "basque",
             "cs": "tchèque",
-            "ja": "Japon"
+            "ja": "Japonais"
         },
         "ownedLists": "Afficher uniquement mes plateformes",
         "sortPlatforms": "Trier les plateformes par ordre alphabétique",

@@ -55,6 +55,14 @@
     },
     "list": {
         "edit": "Editatu zerrenda izena",
+        "placeholder": "Zerrendaren izena (adibidez, Jabetzakoa)",
+        "suggestionsTitle": "Iradokizun",
+        "suggestions": {
+            "owned": "sozietateak",
+            "wishlist": "Gustuko",
+            "currentlyPlaying": "Gaur egun jolasten",
+            "completed": "Osatua"
+        },
         "input": "Idatzi zeure",
         "add": "Gehitu zerrenda",
         "sortByName": "alfabetikoki",
@@ -78,6 +86,8 @@
         }
     },
     "settings": {
+        "platforms": "plataformak",
+        "gameBoard": "Game Board",
         "global": "Global",
         "darkTheme": "Gaia iluna",
         "newsletter": "Jaso eguneratze mezu elektronikoak (Beta)",
@@ -92,7 +102,7 @@
             "it": "Italiako",
             "eu": "Euskal",
             "cs": "Txekiar",
-            "ja": "Japonian"
+            "ja": "Japoniako"
         },
         "ownedLists": "Erakutsi nire plataformak soilik",
         "sortPlatforms": "Ordenatu plataformak alfabetikoki",
