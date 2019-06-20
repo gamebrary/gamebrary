@@ -1,7 +1,7 @@
 <template lang="html">
-    <div class="game-links">
+    <div class="game-links" v-if="hasWebsites">
         <h4>Links</h4>
-        <div class="links" v-if="hasWebsites">
+        <div class="links">
             <a
                 v-for="{ category, url } in game.websites"
                 :key="category"
@@ -32,8 +32,8 @@ export default {
     data() {
         return {
             linkTypes: {
-                1: { name: 'official', icon: 'fas fa-globe-americas' },
-                2: { name: 'wikia', icon: 'fas fa-link' },
+                1: { name: 'official', icon: 'fas fa-home' },
+                2: { name: 'wikia', icon: 'fas fa-heart' },
                 3: { name: 'wikipedia', icon: 'fab fa-wikipedia-w' },
                 4: { name: 'facebook', icon: 'fab fa-facebook-square' },
                 5: { name: 'twitter', icon: 'fab fa-twitter' },
@@ -42,7 +42,7 @@ export default {
                 9: { name: 'youtube', icon: 'fab fa-youtube' },
                 10: { name: 'iphone', icon: 'fab fa-app-store-ios' },
                 11: { name: 'ipad' },
-                12: { name: 'android', icon: 'fab fa-google-play' },
+                12: { name: 'android', icon: 'fab fa-android' },
                 13: { name: 'steam', icon: 'fab fa-steam' },
                 14: { name: 'reddit', icon: 'fab fa-reddit' },
                 15: { name: 'discord', icon: 'fab fa-discord' },
@@ -83,8 +83,8 @@ export default {
 
     .links {
         display: grid;
-        grid-template-columns: repeat(auto-fill, 40px);
-        margin-top: $gp;
+        grid-template-columns: repeat(auto-fill, 30px);
+        margin-top: $gp / 2;
 
         a {
             height: 40px;
@@ -94,11 +94,22 @@ export default {
             color: $color-black;
             text-decoration: none;
 
+            &.official { color: #1a55bd; }
+            &.wikia { color: #00d6d6; }
+            &.twitch { color: #6441a5; }
+            &.iphone { color: $color-blue; }
+            &.android { color: #a4c639; }
+            &.discord { color: #738adb; }
+            &.tumblr { color: #35465c; }
+            &.linkedin { color: #4875B4; }
+            &.pinterest { color: #c8232c; }
+            &.soundcloud { color: #ff7700; }
             &.twitter { color: #1da1f2; }
             &.facebook { color: #3b5998; }
             &.youtube { color: #c4302b; }
             &.reddit { color: #ff4301; }
             &.wikipedia { color: #636466; }
+            &.steam { color: #000000; }
             &.instagram {
                 background: -webkit-linear-gradient(
                     #8a3ab9,
@@ -111,7 +122,6 @@ export default {
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
             }
-            &.steam { color: #000000; }
         }
     }
 </style>
