@@ -9,10 +9,7 @@
                 @click="openDetails"
             />
 
-            <i
-                v-if="isDraggable"
-                class="fas fa-grip-vertical game-drag-handle"
-            />
+            <i class="fas fa-grip-vertical game-drag-handle" />
 
             <game-rating
                 v-if="showGameRatings"

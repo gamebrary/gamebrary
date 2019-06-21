@@ -71,10 +71,6 @@ export default {
                 ? 'list'
                 : this.list.name;
         },
-
-        isDraggable() {
-            return !this.list.sortOrder || this.list.sortOrder === 'sortByCustom';
-        },
     },
 
     methods: {
