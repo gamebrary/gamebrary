@@ -49,7 +49,13 @@ router.beforeEach((to, from, next) => {
     }
 });
 
-const locale = JSON.parse(localStorage.vuex).settings.language || 'en';
+let locale = 'en';
+
+if(localStorage.vuex) {
+  if(JSON.parse(localStorage.vuex).settings.language) {
+    locale = JSON.parse(localStorage.vuex).settings.language
+  }
+}
 
 const i18n = new VueI18n({ locale, messages });
 
