@@ -208,7 +208,7 @@ export default {
 
     mounted() {
         this.localSettings = JSON.parse(JSON.stringify(this.settings));
-        this.language = this.localSettings && this.localSettings.language || 'en';
+        this.language = this.localSettings.language || 'en';
         this.$store.dispatch('LOAD_RELEASES');
     },
 
