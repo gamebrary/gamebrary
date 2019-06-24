@@ -124,6 +124,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "paddykontschak",
+      "name": "Patrick Kontschak",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/984069?v=4",
+      "profile": "http://codinggoat.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
