@@ -53,8 +53,6 @@ const vuexStorage = localStorage && localStorage.vuex
     ? JSON.parse(localStorage.vuex)
     : null;
 
-console.log(vuexStorage);
-
 const locale = vuexStorage && vuexStorage.settings && vuexStorage.settings.language
     ? vuexStorage.settings.language
     : 'en';
