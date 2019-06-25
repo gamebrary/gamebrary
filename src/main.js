@@ -53,6 +53,12 @@ const vuexStorage = localStorage && localStorage.vuex
     ? JSON.parse(localStorage.vuex)
     : null;
 
+if (vuexStorage && vuexStorage.user && window.FS && window.location.origin.indexOf('localhost') === -1) {
+    const { displayName, email, dateJoined } = vuexStorage.user;
+
+    window.FS.identify(vuexStorage.user.uid, { displayName, email, dateJoined });
+}
+
 const locale = vuexStorage && vuexStorage.settings && vuexStorage.settings.language
     ? vuexStorage.settings.language
     : 'en';
