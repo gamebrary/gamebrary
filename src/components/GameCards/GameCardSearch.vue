@@ -16,6 +16,7 @@
                 class="success tiny"
                 @click="addGame"
             >
+                <!-- TODO: translate -->
                 Add to {{ addToLabel }}
             </button>
         </div>

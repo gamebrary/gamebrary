@@ -3,37 +3,45 @@
         <div class="info">
             <!-- TODO: get icons for everything -->
             <section v-if="playerPerspectives">
-                <strong>Perspective</strong> {{ playerPerspectives }}
+                <strong>{{ $t('gameDetail.perspective') }}</strong>
+                {{ playerPerspectives }}
             </section>
 
             <section v-if="timeToBeat">
-                <strong>Time to beat</strong> {{ timeToBeat }}
+                <strong>{{ $t('gameDetail.timeToBeat') }}</strong>
+                {{ timeToBeat }}
             </section>
 
             <section v-if="gameModes">
-                <strong>{{ $t('gameDetail.gameModes') }}</strong> {{ gameModes }}
+                <strong>{{ $t('gameDetail.gameModes') }}</strong>
+                {{ gameModes }}
             </section>
 
             <section v-if="genres">
-                <strong>{{ $t('gameDetail.genres') }}</strong> {{ genres }}
+                <strong>{{ $t('gameDetail.genres') }}</strong>
+                {{ genres }}
             </section>
 
             <section v-if="gamePlatforms">
-                <!-- TODO: show current platform icon,
-                and also show "available on these other platforms" -->
-                <strong>{{ $t('gameDetail.gamePlatforms') }}</strong> {{ gamePlatforms }}
+                <!-- TODO: show current platform icon  -->
+                <!-- TODO: show other platform where available -->
+                <strong>{{ $t('gameDetail.gamePlatforms') }}</strong>
+                {{ gamePlatforms }}
             </section>
 
             <section v-if="developers">
-                <strong>{{ $t('gameDetail.developers') }}</strong> {{ developers }}
+                <strong>{{ $t('gameDetail.developers') }}</strong>
+                {{ developers }}
             </section>
 
             <section v-if="publishers">
-                <strong>{{ $t('gameDetail.publishers') }}</strong> {{ publishers }}
+                <strong>{{ $t('gameDetail.publishers') }}</strong>
+                {{ publishers }}
             </section>
 
             <section v-if="releaseDate">
-                <strong>Release date</strong> {{ moment.unix(releaseDate).format('ll') }}
+                <strong>{{ $t('gameDetail.releaseDate') }}</strong>
+                {{ moment.unix(releaseDate).format('ll') }}
             </section>
 
             <game-links />

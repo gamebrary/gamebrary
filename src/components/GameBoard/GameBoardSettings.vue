@@ -1,12 +1,12 @@
 <template lang="html">
     <div class="list-settings">
         <section>
-            <h3>Custom Wallpaper</h3>
+            <h3>{{ $t('gameBoard.settings.wallpaper') }}</h3>
             <wallpaper-upload />
         </section>
 
         <section>
-            <h3>Shareable links (beta)</h3>
+            <h3>{{ $t('gameBoard.settings.shareLink') }}</h3>
             <div class="links">
                 <a class="link tiny primary" :href="tweetUrl" target="_blank">
                     <i class="fab fa-twitter" />
@@ -23,8 +23,9 @@
         </section>
 
         <section>
-            <h3>Danger zone</h3>
+            <h3>{{ $t('gameBoard.settings.dangerZone') }}</h3>
             <!-- TODO: move to it's own component -->
+            <!-- TODO: translate -->
             <modal
                 :action-text="`Delete forever`"
                 :message="`Your ${platform.name} collection will be deleted forever.`"
