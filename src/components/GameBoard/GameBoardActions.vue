@@ -69,14 +69,6 @@ export default {
         list() {
             return this.gameLists[this.platform.code];
         },
-
-        isDuplicate() {
-            const newListName = this.newListName.toLowerCase();
-
-            return this.list ?
-                this.list.filter(({ name }) => name.toLowerCase() === newListName).length > 0
-                : false;
-        },
     },
 
     methods: {
