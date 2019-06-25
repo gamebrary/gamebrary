@@ -21,10 +21,19 @@
     "igdbCredit": {
         "poweredByIgdb": "Desarrollado por IGDB"
     },
+    "gameBoard": {
+        "settings": {
+            "wallpaper": "Fondo de pantalla personalizado",
+            "shareLink": "Enlaces compartibles (beta)",
+            "dangerZone": "Zona peligrosa"
+        }
+    },
     "gameDetail": {
         "videos": "Videos",
         "screenshots": "Capturas de pantalla",
-        "playerPerspectives": "Perspectiva",
+        "perspective": "Perspectiva",
+        "releaseDate": "Fecha de lanzamiento",
+        "timeToBeat": "Tiempo para vencer",
         "gameModes": "Modo de juego",
         "genres": "Género",
         "gamePlatforms": "Plataformas",

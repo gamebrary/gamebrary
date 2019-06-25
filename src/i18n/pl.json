@@ -21,10 +21,19 @@
     "igdbCredit": {
         "poweredByIgdb": "Obsługiwane przez IGDB"
     },
+    "gameBoard": {
+        "settings": {
+            "wallpaper": "Niestandardowa tapeta",
+            "shareLink": "Udostępniane linki (beta)",
+            "dangerZone": "Strefa niebezpieczeństwa"
+        }
+    },
     "gameDetail": {
         "videos": "Filmy",
         "screenshots": "Zrzuty ekranu",
-        "playerPerspectives": "Perspektywiczny",
+        "perspective": "Perspektywiczny",
+        "releaseDate": "Data wydania",
+        "timeToBeat": "Czas pokonać",
         "gameModes": "Tryb gry",
         "genres": "Gatunek muzyczny",
         "gamePlatforms": "Platformy",
@@ -90,7 +99,7 @@
         "gameBoard": "Gra planszowa",
         "global": "Światowy",
         "darkTheme": "ciemny schemat",
-        "newsletter": "Odbieraj wiadomości e-mail z aktualizacjami (Beta)",
+        "newsletter": "Otrzymuj wiadomości e-mail z aktualizacjami (Beta)",
         "language": "Język",
         "languages": {
             "en": "język angielski",

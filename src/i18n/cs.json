@@ -21,10 +21,19 @@
     "igdbCredit": {
         "poweredByIgdb": "Běží na IGDB"
     },
+    "gameBoard": {
+        "settings": {
+            "wallpaper": "Vlastní Tapeta",
+            "shareLink": "Sdílitelné odkazy (beta)",
+            "dangerZone": "Nebezpečná zóna"
+        }
+    },
     "gameDetail": {
         "videos": "Videa",
         "screenshots": "Snímky obrazovky",
-        "playerPerspectives": "Perspektivní",
+        "perspective": "Perspektivní",
+        "releaseDate": "Datum vydání",
+        "timeToBeat": "Čas bít",
         "gameModes": "Herní mód",
         "genres": "Žánr",
         "gamePlatforms": "Platformy",

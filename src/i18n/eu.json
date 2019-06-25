@@ -21,10 +21,19 @@
     "igdbCredit": {
         "poweredByIgdb": "IGDB-k egina"
     },
+    "gameBoard": {
+        "settings": {
+            "wallpaper": "Wallpaper pertsonalizatua",
+            "shareLink": "Esteka interesgarriak (beta)",
+            "dangerZone": "Arrisku gunea"
+        }
+    },
     "gameDetail": {
         "videos": "Bideoak",
         "screenshots": "Pantaila-",
-        "playerPerspectives": "perspektiba",
+        "perspective": "perspektiba",
+        "releaseDate": "Argitalpen data",
+        "timeToBeat": "Denbora gainditzeko",
         "gameModes": "Joko modua",
         "genres": "generoa",
         "gamePlatforms": "plataformak",

@@ -21,10 +21,19 @@
     "igdbCredit": {
         "poweredByIgdb": "مدعوم من IGDB"
     },
+    "gameBoard": {
+        "settings": {
+            "wallpaper": "خلفيات مخصصة",
+            "shareLink": "الروابط القابلة للمشاركة (تجريبية)",
+            "dangerZone": "منطقة الخطر"
+        }
+    },
     "gameDetail": {
         "videos": "أشرطة فيديو",
         "screenshots": "لقطات",
-        "playerPerspectives": "إنطباع",
+        "perspective": "إنطباع",
+        "releaseDate": "يوم الاصدار",
+        "timeToBeat": "الوقت يداهمك",
         "gameModes": "نوع اللعبة",
         "genres": "نوع أدبي",
         "gamePlatforms": "منصات",

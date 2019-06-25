@@ -21,10 +21,19 @@
     "igdbCredit": {
         "poweredByIgdb": "IGDBを搭載"
     },
+    "gameBoard": {
+        "settings": {
+            "wallpaper": "カスタム壁紙",
+            "shareLink": "共有リンク（ベータ版）",
+            "dangerZone": "危険区域"
+        }
+    },
     "gameDetail": {
         "videos": "動画",
         "screenshots": "スクリーンショット",
-        "playerPerspectives": "展望",
+        "perspective": "展望",
+        "releaseDate": "発売日",
+        "timeToBeat": "打ち負かす時間",
         "gameModes": "ゲームモード",
         "genres": "ジャンル",
         "gamePlatforms": "プラットフォーム",
