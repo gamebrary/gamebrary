@@ -28,7 +28,7 @@
                         :key="suggestion"
                         type="button"
                         :disabled="listNames.includes(suggestion.toLowerCase())"
-                        @click="addSuggestion(suggestion)"
+                        @click="addSuggestion($t(`list.suggestions.${suggestion}`))"
                     >
                         {{ $t(`list.suggestions.${suggestion}`) }}
                     </button>
