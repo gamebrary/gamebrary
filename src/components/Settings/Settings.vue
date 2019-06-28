@@ -110,7 +110,7 @@
 
             <span>
                 <i class="fas fa-code" />
-                {{ $t('by') }}
+                {{ $t('global.by') }}
                 <a href="https://twitter.com/romancm" target="_blank">@romancm</a>
             </span>
 
