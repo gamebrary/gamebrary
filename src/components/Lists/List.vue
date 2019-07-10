@@ -189,6 +189,10 @@ export default {
         games() {
             this.initGrid();
         },
+
+        editing() {
+            this.initGrid();
+        },
     },
 
     mounted() {
