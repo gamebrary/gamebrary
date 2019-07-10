@@ -10,29 +10,26 @@
             {{ title }}
         </router-link>
 
-        <modal popover>
-            <gravatar
-                :email="user.email"
-                class="avatar"
-                v-if="isLoggedIn"
-            />
+        <modal large title="Settings">
+            <button class="small info">
+                <i class="fas fa-cog" />
+            </button>
 
-            <settings slot="content" v-if="hasSettings" />
+            <settings slot="content" />
         </modal>
+
     </nav>
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import Settings from '@/pages/Settings';
 import Modal from '@/components/Modal/Modal';
-import Settings from '@/components/Settings/Settings';
-import Gravatar from 'vue-gravatar';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
     components: {
-        Gravatar,
-        Settings,
         Modal,
+        Settings,
     },
 
     computed: {
@@ -56,7 +53,7 @@ export default {
 
             return this.$route.name === 'game-board' && this.platform
                 ? this.platform.name
-                : 'GAMEBRARY';
+                : 'Gamebrary';
         },
 
         logoRoute() {
@@ -65,6 +62,10 @@ export default {
             }
 
             if (this.$route.name === 'game-detail' && this.platform) {
+                return 'game-board';
+            }
+
+            if (this.$route.name === 'settings' && this.platform) {
                 return 'game-board';
             }
 
