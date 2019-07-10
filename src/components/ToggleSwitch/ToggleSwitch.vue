@@ -37,6 +37,10 @@ export default {
             this.$emit('input', value);
         },
     },
+
+    mounted() {
+        this.localValue = JSON.parse(JSON.stringify(this.value));
+    },
 };
 </script>
 
