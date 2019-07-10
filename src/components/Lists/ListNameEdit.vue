@@ -15,8 +15,9 @@
             :title="$t('list.edit')"
             @click="edit"
         >
-            <span>{{ listName }} ({{ gameCount }})</span>
-            <i class="edit fas fa-pen" />
+            <span>{{ listName }} </span>
+
+            <small>(Click to edit)</small>
         </span>
     </div>
 </template>
