@@ -4,16 +4,13 @@
             <slot />
         </div>
 
-        <div :class="['modal', { show, popover }]" @click="close">
-            <i
-                v-if="popover"
-                :class="['fas fa-caret-up popover-arrow', { dark: darkModeEnabled }]"
-            />
+        <div :class="['modal', { show }]" @click="close">
+            <div :class="['modal-content', { large, padded, dark: darkModeEnabled }]" @click.stop>
+                <button class="small filled close-button" @click="close">
+                    <i class="fas fa-times" />
+                </button>
 
-            <div :class="['content', { large, padded, dark: darkModeEnabled }]" @click.stop>
-                <i class="close fas fa-times" @click="close" v-if="!popover" />
-
-                <header v-if="!popover && title">
+                <header v-if="title">
                     <h2>{{ title }}</h2>
                 </header>
 
@@ -62,7 +59,6 @@ export default {
             type: Boolean,
             default: false,
         },
-        popover: Boolean,
         large: Boolean,
         padded: Boolean,
     },
@@ -100,86 +96,71 @@ export default {
 @import "~styles/styles.scss";
 
 .modal {
-    color: $color-dark-gray;
-    width: 100%;
-    position: fixed;
-    background: rgba(0, 0, 0, 0.8);
-    z-index: 1;
-    top: 0;
-    left: 0;
-    display: flex;
     align-items: center;
-    justify-content: center;
-    opacity: .1;
+    background: rgba(0, 0, 0, 0.8);
+    color: $color-dark-gray;
+    cursor: pointer;
+    display: flex;
     height: 100%;
+    justify-content: center;
+    left: 0;
+    margin: 0;
+    opacity: .1;
+    position: fixed;
+    top: 0;
     transition: all 100ms linear;
     visibility: hidden;
-    cursor: pointer;
-
-    &.popover {
-        background: none;
-        justify-content: flex-end;
-        align-items: baseline;
-
-        .content {
-            @media($small) {
-                height: auto;
-            }
-        }
-    }
+    width: 100%;
+    z-index: 1;
 
     &.show {
         visibility: visible;
         transition: all 100ms linear;
         opacity: 1;
     }
+}
 
-    .content {
-        position: relative;
-        background-color: $color-white;
-        height: auto;
-        width: 380px;
-        max-height: calc(85vh);
-        max-width: 100%;
-        overflow: auto;
-        margin: 0 $gp;
-        padding: 0;
-        border-radius: $border-radius;
-        cursor: default;
+.modal-content {
+    position: relative;
+    background-color: $color-white;
+    height: auto;
+    width: 380px;
+    max-height: calc(85vh);
+    max-width: 100%;
+    overflow: auto;
+    margin: 0 $gp;
+    padding: 0;
+    border-radius: $border-radius;
+    cursor: default;
 
-        &.dark {
-            background-color: $color-darker-gray;
-            color: $color-gray;
-            border: 1px solid $color-darker-gray;
-        }
+    &.dark {
+        background-color: $color-darker-gray;
+        color: $color-gray;
+    }
 
-        &.large {
-            width: 780px;
-            max-width: 100% !important;
-
-            @media($small) {
-                max-width: 90vw;
-                max-height: 80vh;
-            }
-        }
-
-        &.padded {
-            > section {
-                padding: 0 $gp $gp;
-            }
-        }
+    &.large {
+        width: 780px;
+        max-width: 100% !important;
 
         @media($small) {
-            margin: 0;
-            height: auto;
-            max-height: 80vh;
-            width: 80vw;
+            max-width: 90vw;
+            max-height: 100vh;
         }
     }
 
-    &.popover .content {
-        max-width: 280px;
-        margin: $gp * 3 $gp 0;
+    &.padded {
+        > section {
+            padding: 0 $gp $gp;
+        }
+    }
+
+    @media($small) {
+        border-radius: 0;
+        margin: 0;
+        height: auto;
+        max-height: 100vh;
+        height: 100vh;
+        width: 80vw;
     }
 }
 
@@ -194,15 +175,14 @@ header {
     min-height: 30px;
 }
 
-.close {
+.close-button {
     display: none;
     position: fixed;
-    top: 0;
+    top: $gp / 2;
+    right: $gp / 2;
     align-items: center;
     color: $color-white;
     text-shadow: 0 0 3px $color-black;
-    right: 0;
-    font-size: 30px;
     z-index: 99999;
     padding: $gp;
 
@@ -215,17 +195,5 @@ header {
     display: grid;
     grid-gap: $gp;
     grid-template-columns: auto auto;
-}
-
-.popover-arrow {
-    color: $color-white;
-    font-size: 25px;
-    position: absolute;
-    top: $gp * 2;
-    right: $gp * 1.5;
-
-    &.dark {
-        color: $color-darker-gray;
-    }
 }
 </style>
