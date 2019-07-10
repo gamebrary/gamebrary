@@ -1,7 +1,5 @@
 <template lang="html">
     <div class="releases">
-        <h2>Releases</h2>
-        <br>
         <github-button href="https://github.com/romancmx/gamebrary/subscription" data-show-count="true" aria-label="Watch romancmx/gamebrary on GitHub">Watch</github-button>
         <github-button href="https://github.com/romancmx/gamebrary" data-show-count="true" aria-label="Star romancmx/gamebrary on GitHub">Star</github-button>
         <github-button href="https://github.com/romancmx/gamebrary/fork" data-show-count="true" aria-label="Fork romancmx/gamebrary on GitHub">Fork</github-button>
