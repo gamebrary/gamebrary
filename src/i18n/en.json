@@ -97,8 +97,11 @@
     "settings": {
         "platforms": "Platforms",
         "gameBoard": "Game Board",
+        "tags": "Tags",
+        "account": "Account",
         "global": "Global",
         "darkTheme": "Dark theme",
+        "releases": "Release History",
         "newsletter": "Receive update emails (Beta)",
         "language": "Language",
         "languages": {
