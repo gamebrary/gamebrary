@@ -1,0 +1,51 @@
+<template lang="html">
+    <section>
+        <div class="setting" v-if="hasLists">
+            <i class="fas fa-user-check" />
+            <h5>{{ $t('settings.ownedLists') }}</h5>
+
+            <toggle-switch
+            id="ownedListsOnly"
+            v-model="value.ownedListsOnly"
+            />
+        </div>
+
+        <div class="setting">
+            <i class="fas fa-sort-alpha-down" />
+            <h5>{{ $t('settings.sortPlatforms') }}</h5>
+
+            <toggle-switch
+            id="sortListsAlphabetically"
+            v-model="value.sortListsAlphabetically"
+            />
+        </div>
+    </section>
+</template>
+
+<script>
+import ToggleSwitch from '@/components/ToggleSwitch/ToggleSwitch';
+import { mapState } from 'vuex';
+
+export default {
+    components: {
+        ToggleSwitch,
+    },
+
+    props: {
+        value: Object,
+    },
+
+    computed: {
+        ...mapState(['gameLists']),
+
+        hasLists() {
+            return Object.keys(this.gameLists).length > 0;
+        },
+    },
+};
+</script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+    @import "~styles/styles.scss";
+    @import "settings";
+</style>

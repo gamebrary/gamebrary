@@ -1,9 +1,19 @@
 <template lang="html">
-    <div class="list-settings">
-        <section>
+    <section>
+        <div class="setting">
+            <i class="fas fa-star-half-alt" />
+            <h5>{{ $t('settings.ratings') }}</h5>
+
+            <toggle-switch
+                id="gameRatings"
+                v-model="value.hideGameRatings"
+            />
+        </div>
+
+        <div class="settings">
             <h3>{{ $t('gameBoard.settings.wallpaper') }}</h3>
             <wallpaper-upload />
-        </section>
+        </div>
 
         <section>
             <h3>{{ $t('gameBoard.settings.shareLink') }}</h3>
@@ -43,25 +53,33 @@
                 </button>
             </modal>
         </section>
-    </div>
+    </section>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 import Modal from '@/components/Modal/Modal';
 import WallpaperUpload from '@/components/WallpaperUpload/WallpaperUpload';
+import ToggleSwitch from '@/components/ToggleSwitch/ToggleSwitch';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
 export default {
     components: {
         WallpaperUpload,
         Modal,
+        ToggleSwitch,
+    },
+
+    props: {
+        value: Object,
     },
 
     computed: {
-        ...mapState(['user', 'platform']),
+        ...mapState(['user', 'platform', 'gameLists']),
 
         shareText() {
-            return `Check out my ${this.platform.name} collection at GAMEBRARY`;
+            return `Check out my ${this.platform.name} collection at Gamebrary`;
         },
 
         tweetUrl() {
@@ -84,8 +102,16 @@ export default {
     methods: {
         deletePlatform() {
             this.$store.commit('REMOVE_PLATFORM');
-            this.$router.push({ name: 'platforms' });
-            this.$emit('update', true);
+
+            const db = firebase.firestore();
+
+            db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: false })
+                .then(() => {
+                    this.$router.push({ name: 'platforms' });
+                })
+                .catch(() => {
+                    this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
+                });
         },
     },
 };
@@ -93,6 +119,7 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles.scss";
+    @import "settings";
 
     .list-settings {
         display: grid;
