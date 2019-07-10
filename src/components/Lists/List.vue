@@ -8,19 +8,19 @@
             </div>
 
             <div v-else-if="editing">
-                <strong>{{ list[listIndex].name }}</strong> settings
+                <list-name-edit
+                    :list-name="name"
+                    :list-index="listIndex"
+                    @update="updateLists('List name saved')"
+                />
             </div>
 
-            <list-name-edit
-                v-else
-                :list-name="name"
-                :list-index="listIndex"
-                :game-count="games.length"
-                @update="updateLists('List name saved')"
-            />
+            <div v-else>
+                {{ list[listIndex].name }} ({{ games.length }})
+            </div>
 
             <button class="small" @click="editList" v-if="!editing && !searching">
-                <i class="fas fa-cog" />
+                <i class="fas fa-sliders-h" />
             </button>
         </div>
 
