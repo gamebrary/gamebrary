@@ -24,7 +24,7 @@
                         :class="{ primary: !transparent }"
                         @click="setTransparent(false)"
                     >
-                      {{ $t('no') }}
+                      {{ $t('global.no') }}
                     </button>
 
                     <button
@@ -32,7 +32,7 @@
                         :class="{ primary: transparent }"
                         @click="setTransparent(true)"
                     >
-                      {{ $t('yes') }}
+                      {{ $t('global.yes') }}
                     </button>
                 </div>
 
@@ -59,8 +59,6 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { mapState } from 'vuex';
-
-const db = firebase.firestore();
 
 export default {
     data() {
@@ -109,6 +107,8 @@ export default {
                 ...this.settings,
                 wallpapers: this.wallpapers,
             };
+
+            const db = firebase.firestore();
 
             db.collection('settings').doc(this.user.uid).set(settings)
                 .then(() => {
