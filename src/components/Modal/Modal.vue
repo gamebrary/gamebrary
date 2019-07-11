@@ -9,10 +9,7 @@
                 :class="['modal-content', { large, confirm, padded, dark: darkModeEnabled }]"
                 @click.stop
             >
-                <button
-                    :class="[{'info': darkModeEnabled, accent: !darkModeEnabled}, 'small', 'close-button']"
-                    @click="close"
-                >
+                <button :class="closeButtonClass" @click="close">
                     <i class="fas fa-times" />
                 </button>
 
@@ -78,6 +75,17 @@ export default {
 
     computed: {
         ...mapGetters(['darkModeEnabled']),
+
+        closeButtonClass() {
+            return [
+                {
+                    info: this.darkModeEnabled,
+                    accent: !this.darkModeEnabled,
+                },
+                'small',
+                'close-button',
+            ];
+        },
     },
 
     methods: {
