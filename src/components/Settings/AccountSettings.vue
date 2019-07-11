@@ -64,9 +64,20 @@ export default {
 
     computed: {
         ...mapState(['user']),
+
+        exitUrl() {
+            return process.env.NODE_ENV === 'development'
+                ? 'http://localhost:3000'
+                : 'https://gamebrary.com';
+        },
     },
 
     methods: {
+        exit() {
+            this.$store.commit('CLEAR_SESSION');
+            window.location.href = this.exitUrl;
+        },
+
         deleteAccount() {
             const db = firebase.firestore();
 

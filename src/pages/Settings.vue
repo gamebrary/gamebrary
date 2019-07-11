@@ -109,12 +109,6 @@ export default {
         isGameBoard() {
             return this.$route.name === 'game-board';
         },
-
-        exitUrl() {
-            return process.env.NODE_ENV === 'development'
-                ? 'http://localhost:3000'
-                : 'https://gamebrary.com';
-        },
     },
 
     watch: {
@@ -147,11 +141,6 @@ export default {
         openSettings({ component, name }) {
             this.activeComponent = component;
             this.activeSection = name;
-        },
-
-        exit() {
-            this.$store.commit('CLEAR_SESSION');
-            window.location.href = this.exitUrl;
         },
 
         save() {
