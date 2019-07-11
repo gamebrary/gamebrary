@@ -76,4 +76,8 @@ export default {
         text-align: center;
         color: $color-blue;
     }
+
+    select {
+        margin: 0;
+    }
 </style>
