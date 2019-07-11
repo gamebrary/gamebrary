@@ -15,7 +15,6 @@
 
         <main>
             <component
-                v-if="Object.keys(localSettings).length > 0"
                 :is="activeComponent"
                 :reloading="reloading"
                 v-model="localSettings"
