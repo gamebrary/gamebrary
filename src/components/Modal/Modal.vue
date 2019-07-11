@@ -5,7 +5,10 @@
         </div>
 
         <div :class="['modal', { show }]" @click="close">
-            <div :class="['modal-content', { large, confirm, padded, dark: darkModeEnabled }]" @click.stop>
+            <div
+                :class="['modal-content', { large, confirm, padded, dark: darkModeEnabled }]"
+                @click.stop
+            >
                 <button class="small filled close-button" @click="close">
                     <i class="fas fa-times" />
                 </button>
