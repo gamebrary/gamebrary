@@ -95,13 +95,14 @@
         }
     },
     "settings": {
+        "about": "About",
         "platforms": "Platforms",
         "gameBoard": "Game Board",
         "tags": "Tags",
         "account": "Account",
         "global": "Global",
         "darkTheme": "Dark theme",
-        "releases": "Release History",
+        "releases": "Releases",
         "newsletter": "Receive update emails (Beta)",
         "language": "Language",
         "languages": {
