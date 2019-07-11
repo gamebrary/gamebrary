@@ -9,7 +9,10 @@
                 :class="['modal-content', { large, confirm, padded, dark: darkModeEnabled }]"
                 @click.stop
             >
-                <button class="small filled close-button" @click="close">
+                <button
+                    :class="[{'info': darkModeEnabled, accent: !darkModeEnabled}, 'small', 'close-button']"
+                    @click="close"
+                >
                     <i class="fas fa-times" />
                 </button>
 
@@ -194,15 +197,12 @@ header {
 .close-button {
     display: none;
     position: fixed;
+    right: 12px;
     top: $gp / 2;
-    right: $gp / 2;
-    align-items: center;
-    color: $color-dark-gray;
     z-index: 99999;
-    padding: $gp;
 
     @media($small) {
-        display: flex;
+        display: block;
     }
 }
 

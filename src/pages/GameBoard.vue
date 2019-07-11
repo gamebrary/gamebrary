@@ -27,6 +27,7 @@
             :title="$t('tags.applyTag')"
             :message="$t('tags.useTags')"
             padded
+            confirm
         >
             <div slot="content">
                 <div
