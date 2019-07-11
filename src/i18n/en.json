@@ -102,6 +102,7 @@
         "account": "Account",
         "global": "Global",
         "darkTheme": "Dark theme",
+        "reloading": "Reloading...",
         "releases": "Releases",
         "newsletter": "Receive update emails (Beta)",
         "language": "Language",

@@ -102,6 +102,7 @@
         "account": "アカウント",
         "global": "グローバル",
         "darkTheme": "暗いテーマ",
+        "reloading": "再読み込み中...",
         "releases": "リリース",
         "newsletter": "更新メールを受信する（Beta）",
         "language": "言語",
