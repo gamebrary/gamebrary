@@ -7,7 +7,7 @@
             <github-button href="https://github.com/romancmx/gamebrary/issues" data-show-count="true" aria-label="Issue romancmx/gamebrary on GitHub">Issue</github-button>
         </div>
 
-        <vue-markdown :source="readme" />
+        <vue-markdown :source="readme" v-if="readme" />
 
         <footer>
             <i class="far fa-copyright" /> {{ moment().format('YYYY') }} Gamebrary
