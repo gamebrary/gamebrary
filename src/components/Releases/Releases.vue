@@ -1,11 +1,6 @@
 <template lang="html">
     <div class="releases">
         <template v-if="loaded">
-            <github-button href="https://github.com/romancmx/gamebrary/subscription" data-show-count="true" aria-label="Watch romancmx/gamebrary on GitHub">Watch</github-button>
-            <github-button href="https://github.com/romancmx/gamebrary" data-show-count="true" aria-label="Star romancmx/gamebrary on GitHub">Star</github-button>
-            <github-button href="https://github.com/romancmx/gamebrary/fork" data-show-count="true" aria-label="Fork romancmx/gamebrary on GitHub">Fork</github-button>
-            <github-button href="https://github.com/romancmx/gamebrary/issues" data-show-count="true" aria-label="Issue romancmx/gamebrary on GitHub">Issue</github-button>
-
             <div
                 class="release"
                 v-for="notification in releases"
@@ -35,12 +30,10 @@ import moment from 'moment';
 import VueMarkdown from 'vue-markdown';
 import ReleasesPlaceholder from '@/components/Releases/ReleasesPlaceholder';
 import { mapState } from 'vuex';
-import GithubButton from 'vue-github-button';
 
 export default {
     components: {
         VueMarkdown,
-        GithubButton,
         ReleasesPlaceholder,
     },
 
