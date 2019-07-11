@@ -168,7 +168,8 @@ header {
     position: sticky;
     display: flex;
     top: 0;
-    padding: $gp $gp 0;
+    padding: $gp / 2 $gp;
+    background-color: $color-white;
     z-index: 2;
     align-items: center;
     justify-content: space-between;
@@ -181,13 +182,22 @@ header {
     top: $gp / 2;
     right: $gp / 2;
     align-items: center;
-    color: $color-white;
-    text-shadow: 0 0 3px $color-black;
+    color: $color-dark-gray;
     z-index: 99999;
     padding: $gp;
 
     @media($small) {
         display: flex;
+    }
+}
+
+.dark {
+    .close-button {
+        color: $color-white;
+    }
+
+    header {
+        background-color: $color-darker-gray;
     }
 }
 
