@@ -5,7 +5,7 @@
         </div>
 
         <div :class="['modal', { show }]" @click="close">
-            <div :class="['modal-content', { large, padded, dark: darkModeEnabled }]" @click.stop>
+            <div :class="['modal-content', { large, confirm, padded, dark: darkModeEnabled }]" @click.stop>
                 <button class="small filled close-button" @click="close">
                     <i class="fas fa-times" />
                 </button>
@@ -60,6 +60,7 @@ export default {
             default: false,
         },
         large: Boolean,
+        confirm: Boolean,
         padded: Boolean,
     },
 
@@ -154,6 +155,13 @@ export default {
         }
     }
 
+    &.confirm {
+        @media($small) {
+            height: auto;
+            border-radius: $border-radius;
+        }
+    }
+
     @media($small) {
         border-radius: 0;
         margin: 0;
@@ -170,10 +178,14 @@ header {
     top: 0;
     padding: $gp / 2 $gp;
     background-color: $color-white;
-    z-index: 2;
+    z-index: 1;
     align-items: center;
     justify-content: space-between;
     min-height: 30px;
+
+    @media($small) {
+        padding: $gp $gp 0;
+    }
 }
 
 .close-button {

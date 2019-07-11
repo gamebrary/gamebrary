@@ -25,6 +25,7 @@
 
             <modal
                 padded
+                confirm
                 :message="$t('settings.deleteAccount.message')"
                 :title="$t('settings.deleteAccount.title')"
                 :action-text="$t('settings.deleteAccount.button')"
