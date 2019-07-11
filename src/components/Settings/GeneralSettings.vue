@@ -1,6 +1,6 @@
 <template lang="html">
     <section>
-        <div class="reloading">
+        <div class="reloading" v-if="reloading">
             <i class="fas fa-sync-alt fast-spin" />
             <br>
             {{ $t('settings.reloading') }}
