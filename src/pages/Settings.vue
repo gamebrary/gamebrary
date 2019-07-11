@@ -21,25 +21,6 @@
                 v-model="localSettings"
             />
         </main>
-
-        <!-- <footer>
-            <small class="copyright">
-                <small>
-                    <i class="far fa-copyright" /> {{ moment().format('YYYY') }} Gamebrary
-                </small>
-
-                <br>
-
-                <span>
-                    <i class="fab fa-github" />
-                    {{ latestRelease }}
-                </span>
-
-                <i class="fas fa-code" />
-                {{ $t('global.by') }}
-                <a href="https://twitter.com/romancm" target="_blank">@romancm</a>
-            </small>
-        </footer> -->
     </div>
 </template>
 
@@ -51,6 +32,7 @@ import GameBoardSettings from '@/components/Settings/GameBoardSettings';
 import GeneralSettings from '@/components/Settings/GeneralSettings';
 import PlatformsSettings from '@/components/Settings/PlatformsSettings';
 import AccountSettings from '@/components/Settings/AccountSettings';
+import AboutSettings from '@/components/Settings/AboutSettings';
 import TagsSettings from '@/components/Settings/TagsSettings';
 import Modal from '@/components/Modal/Modal';
 import moment from 'moment';
@@ -64,6 +46,7 @@ export default {
         GeneralSettings,
         PlatformsSettings,
         AccountSettings,
+        AboutSettings,
         TagsSettings,
     },
 
@@ -88,37 +71,36 @@ export default {
                 },
                 {
                     name: 'platforms',
-                    icon: 'fas fa-th',
+                    icon: 'fas fa-gamepad',
                     component: 'PlatformsSettings',
                 },
                 {
                     name: 'gameBoard',
-                    icon: 'fas fa-gamepad',
+                    icon: 'fab fa-trello',
                     component: 'GameBoardSettings',
                 },
                 {
                     name: 'account',
-                    icon: 'fas fa-user-cog',
+                    icon: 'fas fa-user',
                     component: 'AccountSettings',
                 },
                 {
                     name: 'releases',
-                    icon: 'fas fa-user-cog',
+                    icon: 'fas fa-rocket',
                     component: 'Releases',
+                },
+                {
+                    name: 'about',
+                    icon: 'fas fa-info',
+                    component: 'AboutSettings',
                 },
             ],
         };
     },
 
     computed: {
-        ...mapState(['user', 'gameLists', 'settings', 'releases', 'platform']),
+        ...mapState(['user', 'gameLists', 'settings', 'platform']),
         ...mapGetters(['darkModeEnabled']),
-
-        latestRelease() {
-            return this.releases && this.releases.length
-                ? this.releases[0].tag_name
-                : null;
-        },
 
         dateJoined() {
             return moment(this.user.dateJoined).format('LL');
@@ -157,7 +139,6 @@ export default {
     mounted() {
         this.localSettings = JSON.parse(JSON.stringify(this.settings));
         this.language = this.localSettings.language || 'en';
-        this.$store.dispatch('LOAD_RELEASES');
 
         this.openSettings(this.settingsSections[0]);
     },
@@ -194,21 +175,24 @@ export default {
 
     nav {
         display: grid;
-        grid-template-columns: repeat(6, auto);
+        grid-template-columns: repeat(10, auto);
+        position: sticky;
+        top: 40px;
+        background-color: $color-white;
     }
 
     a.setting-link {
         color: $color-dark-gray;
         padding: $gp / 2;
         display: grid;
-        font-size: 13px;
+        font-size: 10px;
         cursor: pointer;
-        grid-template-columns: 24px auto;
+        grid-template-columns: auto;
+        grid-gap: $gp / 4;
+        text-align: center;
 
-        @media($small) {
-            grid-template-columns: auto;
-            grid-gap: $gp / 4;
-            text-align: center;
+        i {
+            font-size: 14px;
         }
 
         &.active {
@@ -235,5 +219,9 @@ export default {
 
     .dark {
         color: $color-dark-gray;
+
+        nav {
+            background-color: $color-darker-gray;
+        }
     }
 </style>
