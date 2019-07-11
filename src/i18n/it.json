@@ -95,10 +95,14 @@
         }
     },
     "settings": {
+        "about": "Di",
         "platforms": "piattaforme",
         "gameBoard": "Tavolo da gioco",
+        "tags": "tag",
+        "account": "account",
         "global": "Globale",
         "darkTheme": "Tema scuro",
+        "releases": "Uscite",
         "newsletter": "Ricevi email di aggiornamento (Beta)",
         "language": "linguaggio",
         "languages": {

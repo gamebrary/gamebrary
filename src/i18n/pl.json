@@ -95,11 +95,15 @@
         }
     },
     "settings": {
+        "about": "O",
         "platforms": "Platformy",
         "gameBoard": "Gra planszowa",
+        "tags": "Tagi",
+        "account": "Konto",
         "global": "Światowy",
         "darkTheme": "ciemny schemat",
-        "newsletter": "Otrzymuj wiadomości e-mail z aktualizacjami (Beta)",
+        "releases": "Wydania",
+        "newsletter": "Odbieraj wiadomości e-mail z aktualizacjami (Beta)",
         "language": "Język",
         "languages": {
             "en": "język angielski",

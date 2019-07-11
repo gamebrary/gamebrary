@@ -95,10 +95,14 @@
         }
     },
     "settings": {
+        "about": "Sur",
         "platforms": "Plateformes",
         "gameBoard": "Plateau de jeu",
+        "tags": "Mots clés",
+        "account": "Compte",
         "global": "Global",
         "darkTheme": "Thème sombre",
+        "releases": "Communiqués",
         "newsletter": "Recevoir des emails de mise à jour (Beta)",
         "language": "La langue",
         "languages": {

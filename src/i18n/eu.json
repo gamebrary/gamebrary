@@ -95,10 +95,14 @@
         }
     },
     "settings": {
+        "about": "About",
         "platforms": "plataformak",
         "gameBoard": "Game Board",
+        "tags": "Tags",
+        "account": "Kontu-",
         "global": "Global",
         "darkTheme": "Gaia iluna",
+        "releases": "oharrak",
         "newsletter": "Jaso eguneratze mezu elektronikoak (Beta)",
         "language": "Hizkuntza",
         "languages": {

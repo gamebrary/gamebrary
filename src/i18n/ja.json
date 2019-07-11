@@ -95,10 +95,14 @@
         }
     },
     "settings": {
+        "about": "約",
         "platforms": "プラットフォーム",
         "gameBoard": "ゲームボード",
+        "tags": "タグ",
+        "account": "アカウント",
         "global": "グローバル",
         "darkTheme": "暗いテーマ",
+        "releases": "リリース",
         "newsletter": "更新メールを受信する（Beta）",
         "language": "言語",
         "languages": {

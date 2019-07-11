@@ -95,10 +95,14 @@
         }
     },
     "settings": {
+        "about": "حول",
         "platforms": "منصات",
         "gameBoard": "مجلس لعبة",
+        "tags": "الكلمات",
+        "account": "الحساب",
         "global": "عالمي",
         "darkTheme": "موضوع الظلام",
+        "releases": "إطلاق",
         "newsletter": "تلقي تحديثات البريد الإلكتروني (تجريبية)",
         "language": "لغة",
         "languages": {

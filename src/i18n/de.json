@@ -95,10 +95,14 @@
         }
     },
     "settings": {
+        "about": "Über",
         "platforms": "Plattformen",
         "gameBoard": "Spielbrett",
+        "tags": "Stichworte",
+        "account": "Konto",
         "global": "Global",
         "darkTheme": "Dunkles Thema",
+        "releases": "Releases",
         "newsletter": "Aktualisierungs-E-Mails erhalten (Beta)",
         "language": "Sprache",
         "languages": {

@@ -95,10 +95,14 @@
         }
     },
     "settings": {
+        "about": "Acerca de",
         "platforms": "Plataformas",
         "gameBoard": "Juego de mesa",
+        "tags": "Etiquetas",
+        "account": "Cuenta",
         "global": "Global",
         "darkTheme": "Tema oscuro",
+        "releases": "Lanzamientos",
         "newsletter": "Recibir correos electrónicos de actualización (Beta)",
         "language": "Idioma",
         "languages": {

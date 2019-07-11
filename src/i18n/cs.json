@@ -95,10 +95,14 @@
         }
     },
     "settings": {
+        "about": "O",
         "platforms": "Platformy",
         "gameBoard": "Hrací deska",
+        "tags": "Značky",
+        "account": "Účet",
         "global": "Globální",
         "darkTheme": "Tmavé téma",
+        "releases": "Zprávy",
         "newsletter": "Přijímat e-maily s aktualizací (Beta)",
         "language": "Jazyk",
         "languages": {
