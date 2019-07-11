@@ -10,49 +10,51 @@
             />
         </div>
 
-        <div class="settings">
-            <h3>{{ $t('gameBoard.settings.wallpaper') }}</h3>
-            <wallpaper-upload />
-        </div>
-
-        <section>
-            <h3>{{ $t('gameBoard.settings.shareLink') }}</h3>
-            <div class="links">
-                <a class="link tiny primary" :href="tweetUrl" target="_blank">
-                    <i class="fab fa-twitter" />
-                </a>
-
-                <a class="link tiny primary reddit" :href="redditUrl" target="_blank">
-                    <i class="fab fa-reddit" />
-                </a>
-
-                <a class="link tiny info" :href="shareUrl" target="_blank">
-                    <i class="fas fa-link" />
-                </a>
+        <template v-if="platform">
+            <div class="settings">
+                <h3>{{ $t('gameBoard.settings.wallpaper') }}</h3>
+                <wallpaper-upload />
             </div>
-        </section>
 
-        <section>
-            <h3>{{ $t('gameBoard.settings.dangerZone') }}</h3>
-            <!-- TODO: move to it's own component -->
-            <!-- TODO: translate -->
-            <modal
-                :action-text="`Delete forever`"
-                :message="`Your ${platform.name} collection will be deleted forever.`"
-                :title="`Delete ${platform.name} collection`"
-                padded
-                show-close
-                @action="deletePlatform"
-            >
-                <button
-                    class="small accent hollow"
-                    :title="$t('list.delete')"
+            <section>
+                <h3>{{ $t('gameBoard.settings.shareLink') }}</h3>
+                <div class="links">
+                    <a class="link tiny primary" :href="tweetUrl" target="_blank">
+                        <i class="fab fa-twitter" />
+                    </a>
+
+                    <a class="link tiny primary reddit" :href="redditUrl" target="_blank">
+                        <i class="fab fa-reddit" />
+                    </a>
+
+                    <a class="link tiny info" :href="shareUrl" target="_blank">
+                        <i class="fas fa-link" />
+                    </a>
+                </div>
+            </section>
+
+            <section>
+                <h3>{{ $t('gameBoard.settings.dangerZone') }}</h3>
+                <!-- TODO: move to it's own component -->
+                <!-- TODO: translate -->
+                <modal
+                    :action-text="`Delete forever`"
+                    :message="`Your ${platform.name} collection will be deleted forever.`"
+                    :title="`Delete ${platform.name} collection`"
+                    padded
+                    show-close
+                    @action="deletePlatform"
                 >
-                    <i class="far fa-trash-alt" />
-                    Delete {{ platform.name }} collection
-                </button>
-            </modal>
-        </section>
+                    <button
+                        class="small accent hollow"
+                        :title="$t('list.delete')"
+                    >
+                        <i class="far fa-trash-alt" />
+                        Delete {{ platform.name }} collection
+                    </button>
+                </modal>
+            </section>
+        </template>
     </section>
 </template>
 
