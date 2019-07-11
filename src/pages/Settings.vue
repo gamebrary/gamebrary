@@ -116,7 +116,7 @@ export default {
                 if (Object.keys(newValue).length) {
                     this.save();
 
-                    if (this.language !== newValue.language) {
+                    if (newValue.language !== undefined && this.language !== newValue.language) {
                         this.reloading = true;
 
                         setTimeout(() => {
