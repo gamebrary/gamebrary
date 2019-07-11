@@ -18,6 +18,10 @@ export default {
         state.gameLists = lists;
     },
 
+    SET_GALLERY_OPEN(state, status) {
+        state.galleryOpen = status;
+    },
+
     SET_WALLPAPER_URL(state, url) {
         state.wallpaperUrl = url;
     },

@@ -10,6 +10,7 @@ export default {
     settings: null,
     platform: null,
     results: null,
+    galleryOpen: false,
     games: {},
     publicGameData: {},
     game: null,

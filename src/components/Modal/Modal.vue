@@ -9,7 +9,7 @@
                 :class="['modal-content', { large, confirm, padded, dark: darkModeEnabled }]"
                 @click.stop
             >
-                <button :class="closeButtonClass" @click="close">
+                <button :class="closeButtonClass" @click="close" v-if="!galleryOpen">
                     <i class="fas fa-times" />
                 </button>
 
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 export default {
     props: {
@@ -75,6 +75,7 @@ export default {
 
     computed: {
         ...mapGetters(['darkModeEnabled']),
+        ...mapState(['galleryOpen']),
 
         closeButtonClass() {
             return [

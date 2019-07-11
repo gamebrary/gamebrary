@@ -70,10 +70,12 @@ export default {
     methods: {
         close() {
             this.index = null;
+            this.$store.commit('SET_GALLERY_OPEN', false);
         },
 
         openGallery(index) {
             this.index = index;
+            this.$store.commit('SET_GALLERY_OPEN', true);
         },
     },
 };
@@ -144,23 +146,17 @@ export default {
         }
 
         .close {
-            line-height: normal;
-            opacity: 1;
-            padding: $gp;
-            position: absolute;
-            font-size: 20px;
-            margin: -15px 0 !important;
-            top: 0;
-            right: $gp * 4;
-            text-decoration: none;
-
             &:before {
                 font-size: 12px;
                 font-weight: 900;
-                content: "Back to game";
+                font-family: "Font Awesome 5 Free";
+                content: "\f00d";
                 border: 1px solid $color-gray;
                 border-radius: $border-radius;
-                padding: $gp / 2;
+                position: fixed;
+                right: $gp / 2;
+                top: $gp / 2;
+                width: 30px;
             }
         }
     }
