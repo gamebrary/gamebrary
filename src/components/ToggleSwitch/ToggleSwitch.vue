@@ -39,7 +39,9 @@ export default {
     },
 
     mounted() {
-        this.localValue = JSON.parse(JSON.stringify(this.value));
+        if (this.value !== undefined) {
+            this.localValue = JSON.parse(JSON.stringify(this.value));
+        }
     },
 };
 </script>
