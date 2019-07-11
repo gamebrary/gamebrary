@@ -15,13 +15,11 @@
 <script>
 import { mapState } from 'vuex';
 import Modal from '@/components/Modal/Modal';
-import Tags from '@/components/Tags/Tags';
 import ListAdd from '@/components/Lists/ListAdd';
 
 export default {
     components: {
         Modal,
-        Tags,
         ListAdd,
     },
 
