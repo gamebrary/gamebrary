@@ -1,9 +1,10 @@
 <template lang="html">
     <section>
-        <span v-if="reloading" class="reloading">
-            <pre>{{ reloading }}</pre>
+        <div class="reloading">
             <i class="fas fa-sync-alt fast-spin" />
-        </span>
+            <br>
+            {{ $t('settings.reloading') }}
+        </div>
 
         <div class="setting">
             <i class="fas fa-language" />
@@ -69,4 +70,10 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles.scss";
     @import "settings";
+
+    .reloading {
+        width: 100%;
+        text-align: center;
+        color: $color-blue;
+    }
 </style>
