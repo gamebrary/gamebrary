@@ -1,28 +1,32 @@
 <template lang="html">
     <div class="releases">
-        <github-button href="https://github.com/romancmx/gamebrary/subscription" data-show-count="true" aria-label="Watch romancmx/gamebrary on GitHub">Watch</github-button>
-        <github-button href="https://github.com/romancmx/gamebrary" data-show-count="true" aria-label="Star romancmx/gamebrary on GitHub">Star</github-button>
-        <github-button href="https://github.com/romancmx/gamebrary/fork" data-show-count="true" aria-label="Fork romancmx/gamebrary on GitHub">Fork</github-button>
-        <github-button href="https://github.com/romancmx/gamebrary/issues" data-show-count="true" aria-label="Issue romancmx/gamebrary on GitHub">Issue</github-button>
+        <template v-if="loaded">
+            <github-button href="https://github.com/romancmx/gamebrary/subscription" data-show-count="true" aria-label="Watch romancmx/gamebrary on GitHub">Watch</github-button>
+            <github-button href="https://github.com/romancmx/gamebrary" data-show-count="true" aria-label="Star romancmx/gamebrary on GitHub">Star</github-button>
+            <github-button href="https://github.com/romancmx/gamebrary/fork" data-show-count="true" aria-label="Fork romancmx/gamebrary on GitHub">Fork</github-button>
+            <github-button href="https://github.com/romancmx/gamebrary/issues" data-show-count="true" aria-label="Issue romancmx/gamebrary on GitHub">Issue</github-button>
 
-        <div
-            class="release"
-            v-for="notification in releases"
-            :key="notification.id"
-        >
-            <div class="release-info">
-                <a class="link primary small hollow">
-                    {{ notification.tag_name }}
-                </a>
+            <div
+                class="release"
+                v-for="notification in releases"
+                :key="notification.id"
+            >
+                <div class="release-info">
+                    <a class="link primary small hollow">
+                        {{ notification.tag_name }}
+                    </a>
 
-                <div>
-                    <h3>{{ notification.name }}</h3>
-                    <small>Published {{ formattedDate(notification.published_at) }}</small>
+                    <div>
+                        <h3>{{ notification.name }}</h3>
+                        <small>Published {{ formattedDate(notification.published_at) }}</small>
+                    </div>
                 </div>
-            </div>
 
-            <vue-markdown :source="notification.body" />
-        </div>
+                <vue-markdown :source="notification.body" />
+            </div>
+        </template>
+
+        <releases-placeholder v-else />
     </div>
 </template>
 
@@ -40,13 +44,34 @@ export default {
         ReleasesPlaceholder,
     },
 
+    data() {
+        return {
+            loaded: false,
+        };
+    },
+
     computed: {
         ...mapState(['releases']),
+    },
+
+    mounted() {
+        this.loaded = Boolean(this.releases);
+
+        if (!this.releases) {
+            this.load();
+        }
     },
 
     methods: {
         formattedDate(date) {
             return moment(date).fromNow();
+        },
+
+        load() {
+            this.$store.dispatch('LOAD_RELEASES')
+                .then(() => {
+                    this.loaded = true;
+                });
         },
     },
 };
