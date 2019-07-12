@@ -1,13 +1,5 @@
 <template lang="html">
     <div class="tags-modal">
-        <tag
-            v-for="(tag, name) in localTags"
-            :key="name"
-            :label="name"
-            :hex="tag.hex"
-            @close="deleteTag(name)"
-        />
-
         <div
             class="add-tag"
             :class="textColor"
@@ -23,7 +15,7 @@
 
                 <input
                     type="color"
-                    :value="tagHex || '#ffffff'"
+                    :value="tagHex || defaultColor"
                     @change="updateColor"
                     class="color-picker"
                 />
@@ -38,6 +30,16 @@
                     {{ $t('tags.createTag') }}
                 </button>
             </div>
+        </div>
+
+        <div class="existing-tags" v-if="hasTags">
+            <tag
+                v-for="(tag, name) in localTags"
+                :key="name"
+                :label="name"
+                :hex="tag.hex"
+                @close="deleteTag(name)"
+            />
         </div>
     </div>
 </template>
@@ -57,7 +59,8 @@ export default {
         return {
             localTags: {},
             tagName: '',
-            tagHex: '#ffffff',
+            tagHex: '',
+            defaultColor: '#ffcc00',
         };
     },
 
@@ -91,6 +94,10 @@ export default {
 
             return lowerCaseTags && lowerCaseTags.includes(tagName);
         },
+
+        hasTags() {
+            return Object.keys(this.localTags).length > 0;
+        }
     },
 
     mounted() {
@@ -120,7 +127,7 @@ export default {
 
         reset() {
             this.tagName = '';
-            this.tagHex = '#ffffff';
+            this.tagHex = this.defaultColor;
         },
     },
 };
@@ -134,7 +141,7 @@ export default {
         border: 1px solid $color-gray;
         border-radius: $border-radius;
         padding: $gp / 2;
-        margin-top: $gp;
+        margin-bottom: $gp;
     }
 
     .tag-input {
