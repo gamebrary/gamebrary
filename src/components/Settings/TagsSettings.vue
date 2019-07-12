@@ -97,7 +97,7 @@ export default {
 
         hasTags() {
             return Object.keys(this.localTags).length > 0;
-        }
+        },
     },
 
     mounted() {
