@@ -1,7 +1,7 @@
 <p align="center">
     <img width="200" src="https://user-images.githubusercontent.com/645310/58351456-5d5b5800-7e58-11e9-9236-fedf97ce9945.png" alt="Gamebrary logo">
     <h2 align="center">Gamebrary</h2>
-    Open source tool to organize video game collections.</span>
+    <p align="center">Open source tool to organize video game collections.</p>
 </p>
 
 <p align="center">
