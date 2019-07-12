@@ -50,9 +50,7 @@ export default {
     mounted() {
         this.loaded = Boolean(this.releases);
 
-        if (!this.releases) {
-            this.load();
-        }
+        this.load();
     },
 
     methods: {
