@@ -56,6 +56,7 @@ export default {
 
     .tag {
         border-radius: 100px;
+        box-shadow: 0 0px 1px $color-gray;
         padding: 0 $gp / 2 0 2px;
         min-height: 18px;
         font-size: $font-size-xsmall;
