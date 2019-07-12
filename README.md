@@ -1,6 +1,6 @@
 <p align="center">
-    <img width="100" src="https://user-images.githubusercontent.com/645310/58351456-5d5b5800-7e58-11e9-9236-fedf97ce9945.png" alt="Gamebrary logo"><br>
-    <strong>Gamebrary</strong><br>
+    <img width="200" src="https://user-images.githubusercontent.com/645310/58351456-5d5b5800-7e58-11e9-9236-fedf97ce9945.png" alt="Gamebrary logo">
+    <h2 align="center">Gamebrary</h2>
     Open source tool to organize video game collections.</span>
 </p>
 
@@ -14,29 +14,28 @@
 
 <!-- ![Gamebrary board](https://user-images.githubusercontent.com/645310/57200356-d0e80480-6f3f-11e9-92e2-5c80ec186bda.png) -->
 
-### Project setup
-```
-yarn
-```
+Gamebrary is an open source tool that helps organize video game collections. Written in javascript using [VueJS](https://github.com/vuejs/vue).
 
-#### Compiles and hot-reloads for development
-```
-yarn dev
-```
+## Get started
 
-#### Compiles and minifies for production
-```
-yarn build
-```
+```bash
+# Install dependencies
+$ yarn
 
-### Run your tests
-```
-yarn test
-```
+# Run the app
+$ yarn dev
 
-### Lints and fixes files
-```
-yarn lint
+# Compiles and minifies for production
+$ yarn build
+
+# Run tests
+$ yarn test
+
+# Run linter
+$ yarn lint
+
+# Translate strings (requires google API key)
+$ yarn translate
 ```
 
 ## Contributors
