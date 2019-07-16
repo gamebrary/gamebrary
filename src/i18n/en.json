@@ -24,7 +24,7 @@
     "gameBoard": {
         "settings": {
             "wallpaper": "Custom Wallpaper",
-            "shareLink": "Shareable links (beta)",
+            "shareLink": "Shareable links (experimental)",
             "dangerZone": "Danger zone"
         }
     },
@@ -104,7 +104,7 @@
         "darkTheme": "Dark theme",
         "reloading": "Reloading...",
         "releases": "Releases",
-        "newsletter": "Receive update emails (Beta)",
+        "newsletter": "Receive update emails (coming soon)",
         "language": "Language",
         "languages": {
             "en": "English",
