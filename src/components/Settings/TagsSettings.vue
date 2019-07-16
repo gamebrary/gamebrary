@@ -1,43 +1,45 @@
 <template lang="html">
-    <div class="tags-modal">
-        <div
-            class="add-tag"
-            :class="textColor"
-        >
-            <h5>{{ $t('tags.title') }}</h5>
+    <div class="tags-settings">
+        <div class="tag-input">
+            <input
+                type="text"
+                v-model="tagName"
+                :placeholder="$t('tags.inputPlaceholder')"
+            />
 
-            <div class="tag-input">
-                <input
-                    type="text"
-                    v-model="tagName"
-                    :placeholder="$t('tags.inputPlaceholder')"
-                />
-
-                <input
-                    type="color"
-                    :value="tagHex || defaultColor"
-                    @change="updateColor"
-                    class="color-picker"
-                />
-
-                <button
-                    class="small primary"
-                    :disabled="isDuplicate"
-                    @click="createTag"
-                >
-                    <i class="fas fa-plus-circle" />
-
-                    {{ $t('tags.createTag') }}
-                </button>
-            </div>
+            <input
+                type="color"
+                class="color-picker"
+                :value="tagHex"
+                @change="updateColor"
+            />
         </div>
 
-        <div class="existing-tags" v-if="hasTags">
+        <div class="tag-actions">
+            <button
+                class="small info"
+                :disabled="!tagName"
+                @click="reset"
+            >
+                {{ $t('global.cancel') }}
+            </button>
+
+            <button
+                class="small primary"
+                :disabled="isDuplicate && !editing"
+                @click="createTag"
+            >
+                {{ actionLabel }}
+            </button>
+        </div>
+
+        <div class="tags" v-if="hasTags">
             <tag
                 v-for="(tag, name) in localTags"
                 :key="name"
                 :label="name"
                 :hex="tag.hex"
+                @click.native="editTag(tag, name)"
                 @close="deleteTag(name)"
             />
         </div>
@@ -60,6 +62,7 @@ export default {
             localTags: {},
             tagName: '',
             tagHex: '',
+            editing: false,
             defaultColor: '#ffcc00',
         };
     },
@@ -98,6 +101,12 @@ export default {
         hasTags() {
             return Object.keys(this.localTags).length > 0;
         },
+
+        actionLabel() {
+            return this.editing
+                ? this.$t('global.save')
+                : this.$t('tags.createTag');
+        },
     },
 
     mounted() {
@@ -128,6 +137,13 @@ export default {
         reset() {
             this.tagName = '';
             this.tagHex = this.defaultColor;
+            this.editing = false;
+        },
+
+        editTag({ hex }, tagName) {
+            this.tagName = tagName;
+            this.tagHex = hex;
+            this.editing = true;
         },
     },
 };
@@ -136,22 +152,24 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles.scss";
 
-    .add-tag {
-        background: $color-lightest-gray;
-        border: 1px solid $color-gray;
-        border-radius: $border-radius;
-        padding: $gp / 2;
-        margin-bottom: $gp;
+    .tags-settings {
+        display: grid;
+        grid-gap: $gp;
     }
 
     .tag-input {
         display: grid;
-        grid-template-columns: 1fr 32px auto;
+        grid-template-columns: 1fr 32px;
         grid-gap: $gp / 2;
+    }
 
-        input {
-            margin: 0;
-        }
+    .tag-actions {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    input {
+        margin: 0;
     }
 
     .color-picker {
@@ -160,5 +178,10 @@ export default {
         height: 32px;
         padding: 0;
         margin: 0;
+        border: 0;
+    }
+
+    .tag {
+        margin: 0 $gp / 2 $gp / 2 0;
     }
 </style>
