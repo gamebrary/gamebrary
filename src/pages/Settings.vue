@@ -9,7 +9,7 @@
                 @click="openSettings(section)"
             >
                 <i :class="section.icon" />
-                {{ $t(`settings.${section.name}`) }}
+                {{ getTabName(section.name) }}
             </a>
         </nav>
 
@@ -133,10 +133,20 @@ export default {
         this.localSettings = JSON.parse(JSON.stringify(this.settings));
         this.language = this.localSettings.language || 'en';
 
-        this.openSettings(this.settingsSections[0]);
+        switch (this.$route.name) {
+        case 'game-board': this.openSettings({ name: 'gameBoard', component: 'GameBoardSettings' }); break;
+        case 'platforms': this.openSettings({ name: 'platforms', component: 'PlatformsSettings' }); break;
+        default: this.openSettings(this.settingsSections[0]);
+        }
     },
 
     methods: {
+        getTabName(sectionName) {
+            return sectionName === 'gameBoard' && this.platform && this.$route.name === 'game-board'
+                ? this.platform.name
+                : this.$t(`settings.${sectionName}`);
+        },
+
         openSettings({ component, name }) {
             this.activeComponent = component;
             this.activeSection = name;
