@@ -10,7 +10,7 @@
             />
         </div>
 
-        <template v-if="platform">
+        <template v-if="showBoardSpecificSettings">
             <div class="settings">
                 <h3>{{ $t('gameBoard.settings.wallpaper') }}</h3>
                 <wallpaper-upload />
@@ -82,6 +82,10 @@ export default {
 
         shareText() {
             return `Check out my ${this.platform.name} collection at Gamebrary`;
+        },
+
+        showBoardSpecificSettings() {
+            return this.$route.name === 'game-board' && this.platform;
         },
 
         tweetUrl() {
