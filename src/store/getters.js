@@ -19,7 +19,9 @@ export default {
 
     releaseDate: (state) => {
         // eslint-disable-next-line
-        const releaseDate = state.game.release_dates.filter(({ platform }) => state.platform.id === platform);
+        const releaseDate = state.game && state.game.release_dates
+            ? state.game.release_dates.filter(({ platform }) => state.platform.id === platform)
+            : null;
 
         return releaseDate && releaseDate.length
             ? releaseDate[0].date
@@ -27,7 +29,9 @@ export default {
     },
 
     developers: (state) => {
-        const developers = state.game.involved_companies.filter(({ developer }) => developer);
+        const developers = state.game && state.game.involved_companies
+            ? state.game.involved_companies.filter(({ developer }) => developer)
+            : null;
 
         return developers
             ? developers.map(publisher => publisher.company.name).join(', ')
@@ -35,7 +39,9 @@ export default {
     },
 
     publishers: (state) => {
-        const publishers = state.game.involved_companies.filter(({ publisher }) => publisher);
+        const publishers = state.game && state.game.involved_companies
+            ? state.game.involved_companies.filter(({ publisher }) => publisher)
+            : null;
 
         return publishers
             ? publishers.map(publisher => publisher.company.name).join(', ')
@@ -43,7 +49,9 @@ export default {
     },
 
     genres: (state) => {
-        const genres = state.game.genres;
+        const genres = state.game && state.game.genres
+            ? state.game.genres
+            : null;
 
         return genres
             ? genres.map(genre => genre.name).join(', ')
@@ -51,7 +59,9 @@ export default {
     },
 
     playerPerspectives: (state) => {
-        const perspectives = state.game.player_perspectives;
+        const perspectives = state.game && state.game.player_perspectives
+            ? state.game.player_perspectives
+            : null;
 
         return perspectives
             ? perspectives.map(perspective => perspective.name).join(', ')
@@ -59,7 +69,9 @@ export default {
     },
 
     gameModes: (state) => {
-        const gameModes = state.game.game_modes;
+        const gameModes = state.game && state.game.game_modes
+            ? state.game.game_modes
+            : null;
 
         return gameModes
             ? gameModes.map(gameMode => gameMode.name).join(', ')
@@ -67,7 +79,9 @@ export default {
     },
 
     gamePlatforms: (state) => {
-        const gamePlatforms = state.game.platforms;
+        const gamePlatforms = state.game && state.game.platforms
+            ? state.game.platforms
+            : null;
 
         return gamePlatforms
             ? gamePlatforms.map(gamePlatform => gamePlatform.name).join(', ')
