@@ -26,6 +26,22 @@ export default {
         state.wallpaperUrl = url;
     },
 
+    UPDATE_TAG(state, { tagName, tagHex, tempTag }) {
+        const updatedTag = {
+            ...state.tags[tempTag.tagName],
+            hex: tagHex,
+        };
+
+        const renaming = tagName !== tempTag.tagName;
+
+        if (renaming) {
+            Vue.set(state.tags, tagName, updatedTag);
+            Vue.delete(state.tags, tempTag.tagName);
+        } else {
+            state.tags[tempTag.tagName] = updatedTag;
+        }
+    },
+
     SET_RELEASES(state, releases) {
         state.releases = releases;
     },
