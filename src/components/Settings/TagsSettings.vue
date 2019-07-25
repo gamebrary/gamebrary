@@ -27,7 +27,7 @@
             <button
                 class="small primary"
                 :disabled="isDuplicate && !editing"
-                @click="createTag"
+                @click="submit"
             >
                 {{ actionLabel }}
             </button>
@@ -39,9 +39,9 @@
                 :key="name"
                 :label="name"
                 :hex="tag.hex"
-                @click.native="editTag(tag, name)"
                 @close="deleteTag(name)"
             />
+            <!-- @click.native="editTag(tag, name)" -->
         </div>
     </div>
 </template>
@@ -62,6 +62,7 @@ export default {
             localTags: {},
             tagName: '',
             tagHex: '',
+            originalTagName: '',
             editing: false,
             defaultColor: '#ffcc00',
         };
@@ -115,6 +116,25 @@ export default {
     },
 
     methods: {
+        submit() {
+            if (this.editing) {
+                this.saveTag();
+            } else {
+                this.createTag();
+            }
+        },
+
+        saveTag() {
+            const { tagName, tagHex, tempTag } = this;
+
+            if (tempTag.tagName !== tagName || tempTag.hex !== tagHex) {
+                this.$store.commit('UPDATE_TAG', { tagName, tagHex, tempTag });
+                this.$bus.$emit('SAVE_TAGS', this.tags);
+                this.localTags = JSON.parse(JSON.stringify(this.tags));
+                this.reset();
+            }
+        },
+
         updateColor(e) {
             this.tagHex = e.srcElement.value;
         },
@@ -132,6 +152,7 @@ export default {
         deleteTag(tagName) {
             this.$delete(this.localTags, tagName);
             this.$bus.$emit('SAVE_TAGS', this.localTags, true);
+            this.reset();
         },
 
         reset() {
@@ -141,6 +162,7 @@ export default {
         },
 
         editTag({ hex }, tagName) {
+            this.tempTag = { tagName, hex };
             this.tagName = tagName;
             this.tagHex = hex;
             this.editing = true;
