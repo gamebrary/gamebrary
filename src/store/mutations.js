@@ -18,7 +18,7 @@ export default {
         state.gameLists = lists;
     },
 
-    SET_GALLERY_OPEN(state, status) {
+    SET_SLIDESHOW_OPEN(state, status) {
         state.galleryOpen = status;
     },
 

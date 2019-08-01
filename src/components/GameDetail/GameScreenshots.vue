@@ -70,12 +70,12 @@ export default {
     methods: {
         close() {
             this.index = null;
-            this.$store.commit('SET_GALLERY_OPEN', false);
+            this.$store.commit('SET_SLIDESHOW_OPEN', false);
         },
 
         openGallery(index) {
             this.index = index;
-            this.$store.commit('SET_GALLERY_OPEN', true);
+            this.$store.commit('SET_SLIDESHOW_OPEN', true);
         },
     },
 };
