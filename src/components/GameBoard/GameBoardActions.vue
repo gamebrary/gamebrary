@@ -14,7 +14,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import Modal from '@/components/Modal/Modal';
+import Modal from '@/components/Modal';
 import ListAdd from '@/components/Lists/ListAdd';
 
 export default {

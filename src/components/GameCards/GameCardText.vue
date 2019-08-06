@@ -40,7 +40,7 @@
 <script>
 import GameRating from '@/components/GameDetail/GameRating';
 import GameCardUtils from '@/components/GameCards/GameCard';
-import Tag from '@/components/Tags/Tag';
+import Tag from '@/components/Tag';
 
 export default {
     components: {

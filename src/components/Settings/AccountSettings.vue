@@ -42,7 +42,7 @@
 
 <script>
 import firebase from 'firebase/app';
-import Modal from '@/components/Modal/Modal';
+import Modal from '@/components/Modal';
 import Gravatar from 'vue-gravatar';
 import moment from 'moment';
 import { mapState } from 'vuex';

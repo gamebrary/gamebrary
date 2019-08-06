@@ -60,9 +60,9 @@
 
 <script>
 import { mapState } from 'vuex';
-import Modal from '@/components/Modal/Modal';
-import WallpaperUpload from '@/components/WallpaperUpload/WallpaperUpload';
-import ToggleSwitch from '@/components/ToggleSwitch/ToggleSwitch';
+import Modal from '@/components/Modal';
+import WallpaperUpload from '@/components/WallpaperUpload';
+import ToggleSwitch from '@/components/ToggleSwitch';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 

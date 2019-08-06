@@ -33,7 +33,7 @@ import PlatformsSettings from '@/components/Settings/PlatformsSettings';
 import AccountSettings from '@/components/Settings/AccountSettings';
 import AboutSettings from '@/components/Settings/AboutSettings';
 import TagsSettings from '@/components/Settings/TagsSettings';
-import Modal from '@/components/Modal/Modal';
+import Modal from '@/components/Modal';
 import moment from 'moment';
 import Releases from '@/components/Releases/Releases';
 

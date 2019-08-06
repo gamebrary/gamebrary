@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import Tag from '@/components/Tags/Tag';
+import Tag from '@/components/Tag';
 
 export default {
     components: {

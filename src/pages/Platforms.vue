@@ -35,10 +35,9 @@
 <script>
 import Masonry from 'masonry-layout';
 import platforms from '@/platforms';
-import ToggleSwitch from '@/components/ToggleSwitch/ToggleSwitch';
-import IgdbCredit from '@/components/IgdbCredit/IgdbCredit';
-import Platform from '@/components/Platform/Platform';
-import Panel from '@/components/Panel/Panel';
+import IgdbCredit from '@/components/IgdbCredit';
+import Platform from '@/components/Platform';
+import Panel from '@/components/Panel';
 import { sortBy } from 'lodash';
 import { mapState, mapGetters } from 'vuex';
 
@@ -46,7 +45,6 @@ let msnry = null;
 
 export default {
     components: {
-        ToggleSwitch,
         IgdbCredit,
         Platform,
         Panel,

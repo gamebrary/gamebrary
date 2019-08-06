@@ -105,7 +105,7 @@
 </template>
 
 <script>
-import Modal from '@/components/Modal/Modal';
+import Modal from '@/components/Modal';
 import { mapGetters, mapState } from 'vuex';
 import firebase from 'firebase/app';
 import 'firebase/firestore';

@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import ToggleSwitch from '@/components/ToggleSwitch/ToggleSwitch';
+import ToggleSwitch from '@/components/ToggleSwitch';
 
 export default {
     components: {
