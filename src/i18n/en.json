@@ -74,16 +74,16 @@
         },
         "input": "Enter your own",
         "add": "Add list",
-        "sortByName": "Alphabetically",
-        "sortByRating": "Game rating",
-        "sortByReleaseDate": "Release date",
+        "sortByName": "A-Z",
+        "sortByRating": "Score",
+        "sortByReleaseDate": "Date",
         "sortByCustom": "Custom",
-        "delete": "Delete list",
+        "delete": "Delete",
         "moveLeft": "Move left",
         "moveRight": "Move right",
         "emptyList": "This list is empty",
         "addGame": "Add game",
-        "changeView": "Change view",
+        "view": "List view",
         "moveList": "Move list",
         "sortList": "Sort list",
         "coversSizeTitle": "Covers across",
@@ -91,7 +91,7 @@
             "single": "Default",
             "wide": "Compact",
             "text": "Text only",
-            "grid": "Masonry Grid"
+            "grid": "Grid"
         }
     },
     "settings": {
@@ -120,7 +120,7 @@
         },
         "ownedLists": "Only show my platforms",
         "sortPlatforms": "Sort platforms alphabetically",
-        "ratings": "Hide game ratings",
+        "ratings": "Hide game score",
         "signOut": "Sign out",
         "wallpaper": {
             "title": "Upload wallpaper",

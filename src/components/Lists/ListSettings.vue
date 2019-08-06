@@ -1,15 +1,15 @@
 <template lang="html">
     <div class="list-settings">
-        <section>
-            <h4>{{ $t('list.moveList') }}</h4>
+        <h4>{{ $t('list.moveList') }}</h4>
 
+        <div class="button-grid">
             <button
                 class="xsmall primary hollow"
                 :title="$t('list.moveLeft')"
                 :disabled="isFirst"
                 @click="moveList(activeListIndex, activeListIndex - 1)"
             >
-                <i class="fas fa-caret-left" />
+                <i class="fas fa-arrow-left" />
 
                 {{ $t('list.moveLeft') }}
             </button>
@@ -21,12 +21,12 @@
                 @click="moveList(activeListIndex, activeListIndex + 1)"
             >
                 {{ $t('list.moveRight') }}
-                <i class="fas fa-caret-right" />
+                <i class="fas fa-arrow-right" />
             </button>
-        </section>
+        </div>
 
         <section>
-            <h4>{{ $t('list.changeView') }}</h4>
+            <h4>{{ $t('list.view') }}</h4>
 
             <div class="button-group">
                 <button
@@ -50,7 +50,7 @@
                 <button
                     v-for="(icon, sortOrder) in sortOrders"
                     :key="sortOrder"
-                    class="xxsmall primary"
+                    class="xsmall primary"
                     :class="{ hollow: activeList.sortOrder !== sortOrder }"
                     @click="setListSort(sortOrder)"
                 >
@@ -128,9 +128,9 @@ export default {
             },
             sortOrders: {
                 sortByName: 'fas fa-sort-alpha-down',
-                sortByRating: 'fas fa-sort-numeric-up',
+                sortByRating: 'fas fa-star',
                 sortByReleaseDate: 'fas fa-calendar-alt',
-                sortByCustom: 'fas fa-sort',
+                sortByCustom: 'fas fa-user',
             },
         };
     },
@@ -254,6 +254,10 @@ export default {
         margin-bottom: $gp;
     }
 
+    h4 {
+        margin-bottom: $gp / 2;
+    }
+
     .actions, footer {
         display: flex;
         justify-content: space-between;
@@ -267,5 +271,13 @@ export default {
 
     .button-group {
         border: 1px solid $color-blue;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    .button-grid {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: $gp;
     }
 </style>
