@@ -9,8 +9,8 @@ import RavenVue from 'raven-js/plugins/vue';
 import VueShortKey from 'vue-shortkey';
 import App from './App';
 import messages from './i18n/';
-import router from './router/';
 import store from './store/';
+import router from './router';
 
 const EventBus = new Vue();
 

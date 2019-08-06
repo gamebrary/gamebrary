@@ -14,7 +14,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import Placeholder from '@/components/Placeholder/Placeholder';
+import Placeholder from '@/components/Placeholder';
 
 export default {
     components: {

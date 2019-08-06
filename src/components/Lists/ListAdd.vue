@@ -61,7 +61,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import Panel from '@/components/Panel/Panel';
+import Panel from '@/components/Panel';
 
 export default {
     components: {

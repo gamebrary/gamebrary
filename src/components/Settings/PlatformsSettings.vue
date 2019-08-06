@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import ToggleSwitch from '@/components/ToggleSwitch/ToggleSwitch';
+import ToggleSwitch from '@/components/ToggleSwitch';
 import { mapState } from 'vuex';
 
 export default {

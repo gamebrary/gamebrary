@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import NavHeader from '@/components/NavHeader/NavHeader';
-import Toast from '@/components/Toast/Toast';
+import NavHeader from '@/components/NavHeader';
+import Toast from '@/components/Toast';
 import firebase from 'firebase/app';
 import { mapState, mapGetters } from 'vuex';
 import { debounce } from 'lodash';

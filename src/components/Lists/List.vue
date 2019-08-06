@@ -88,7 +88,7 @@ import GameCardDefault from '@/components/GameCards/GameCardDefault';
 import GameCardGrid from '@/components/GameCards/GameCardGrid';
 import GameCardWide from '@/components/GameCards/GameCardWide';
 import GameCardText from '@/components/GameCards/GameCardText';
-import GameSearch from '@/components/GameSearch/GameSearch';
+import GameSearch from '@/components/GameSearch';
 import { mapState, mapGetters } from 'vuex';
 import firebase from 'firebase/app';
 import 'firebase/firestore';

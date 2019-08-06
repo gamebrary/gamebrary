@@ -64,14 +64,14 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import Tag from '@/components/Tags/Tag';
+import Tag from '@/components/Tag';
 import GameHeader from '@/components/GameDetail/GameHeader';
 import GameScreenshots from '@/components/GameDetail/GameScreenshots';
-import GameNotes from '@/components/GameNotes/GameNotes';
+import GameNotes from '@/components/GameNotes';
 import GameRating from '@/components/GameDetail/GameRating';
 import GameVideos from '@/components/GameDetail/GameVideos';
 import GameReviewBox from '@/components/GameDetail/GameReviewBox';
-import IgdbCredit from '@/components/IgdbCredit/IgdbCredit';
+import IgdbCredit from '@/components/IgdbCredit';
 import GameDetailPlaceholder from '@/components/GameDetail/GameDetailPlaceholder';
 import firebase from 'firebase/app';
 import 'firebase/firestore';

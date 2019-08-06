@@ -55,8 +55,8 @@
 
 <script>
 import GameCardSearch from '@/components/GameCards/GameCardSearch';
-import IgdbCredit from '@/components/IgdbCredit/IgdbCredit';
-import Panel from '@/components/Panel/Panel';
+import IgdbCredit from '@/components/IgdbCredit';
+import Panel from '@/components/Panel';
 import { debounce } from 'lodash';
 import { mapState } from 'vuex';
 

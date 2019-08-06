@@ -23,7 +23,7 @@
 
 <script>
 import Settings from '@/pages/Settings';
-import Modal from '@/components/Modal/Modal';
+import Modal from '@/components/Modal';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
