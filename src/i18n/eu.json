@@ -9,31 +9,31 @@
         "no": "no",
         "yes": "bai",
         "or": "edo",
-        "returnHome": "Itzuli etxera",
+        "returnHome": "Etxera itzuli",
         "pageNotFound": "Ez da orria aurkitu"
     },
     "platforms": {
-        "donateMessage": "Gamebrary iturburu irekia eta doakoa da, pentsa ezazu garapenari laguntzea",
+        "donateMessage": "Gamebrary iturri librea eta irekia da eta kontuan hartu bere garapenari laguntzen",
         "donating": "eman",
         "reportBugs": "akatsen berri ematea",
-        "submitFeedback": "iritzia bidali"
+        "submitFeedback": "feedbacka bidaltzea"
     },
     "igdbCredit": {
-        "poweredByIgdb": "IGDB-k egina"
+        "poweredByIgdb": "IGDB-k eginda"
     },
     "gameBoard": {
         "settings": {
-            "wallpaper": "Wallpaper pertsonalizatua",
-            "shareLink": "Esteka interesgarriak (beta)",
-            "dangerZone": "Arrisku gunea"
+            "wallpaper": "Neurri pertsonalizatua",
+            "shareLink": "Lotura partekagarriak (esperimentalak)",
+            "dangerZone": "Arriskuen zona"
         }
     },
     "gameDetail": {
         "videos": "Bideoak",
         "screenshots": "Pantaila-",
         "perspective": "perspektiba",
-        "releaseDate": "Argitalpen data",
-        "timeToBeat": "Denbora gainditzeko",
+        "releaseDate": "Kaleratze data",
+        "timeToBeat": "Irabazteko garaia",
         "gameModes": "Joko modua",
         "genres": "generoa",
         "gamePlatforms": "plataformak",
@@ -51,7 +51,7 @@
             "youtube": "Youtube",
             "iphone": "iOS",
             "ipad": "iPad",
-            "android": "Play Store",
+            "android": "Play denda",
             "steam": "Lurrun",
             "reddit": "Reddit",
             "discord": "discord",
@@ -63,8 +63,8 @@
         }
     },
     "list": {
-        "edit": "Editatu zerrenda izena",
-        "placeholder": "Zerrendaren izena (adibidez, Jabetzakoa)",
+        "edit": "Editatu zerrendaren izena",
+        "placeholder": "Zerrenda izena (adibidez. Jabea)",
         "suggestionsTitle": "Iradokizun",
         "suggestions": {
             "owned": "sozietateak",
@@ -72,39 +72,39 @@
             "currentlyPlaying": "Gaur egun jolasten",
             "completed": "Osatua"
         },
-        "input": "Idatzi zeure",
+        "input": "Sartu zurea",
         "add": "Gehitu zerrenda",
-        "sortByName": "alfabetikoki",
-        "sortByRating": "Jokoen balorazioa",
-        "sortByReleaseDate": "Argitalpen data",
+        "sortByName": "THE",
+        "sortByRating": "Puntuazioa",
+        "sortByReleaseDate": "data",
         "sortByCustom": "pertsonalizatua",
-        "delete": "Ezabatu zerrenda",
+        "delete": "ezabatu",
         "moveLeft": "Mugitu ezkerrera",
         "moveRight": "Mugitu eskuinera",
         "emptyList": "Zerrenda hau hutsik dago",
         "addGame": "Gehitu jokoa",
-        "changeView": "Aldatu ikuspegia",
+        "view": "Zerrenda ikuspegia",
         "moveList": "Mugitu zerrenda",
-        "sortList": "Ordenatzeko zerrenda",
-        "coversSizeTitle": "Azalak zeharkatzen ditu",
+        "sortList": "Sailkapen zerrenda",
+        "coversSizeTitle": "Estaldurak zehar",
         "views": {
             "single": "Default",
             "wide": "Compact",
             "text": "Testua soilik",
-            "grid": "Masoneria sareta"
+            "grid": "Grid"
         }
     },
     "settings": {
         "about": "About",
         "platforms": "plataformak",
-        "gameBoard": "Game Board",
+        "gameBoard": "Joko taula",
         "tags": "Tags",
         "account": "Kontu-",
         "global": "Global",
-        "darkTheme": "Gaia iluna",
+        "darkTheme": "Gai iluna",
         "reloading": "Berkargatzean ...",
         "releases": "oharrak",
-        "newsletter": "Jaso eguneratze mezu elektronikoak (Beta)",
+        "newsletter": "Jaso eguneratze mezu elektronikoak (laster etorriko dira)",
         "language": "Hizkuntza",
         "languages": {
             "en": "English",
@@ -118,26 +118,26 @@
             "cs": "Txekiar",
             "ja": "Japoniako"
         },
-        "ownedLists": "Erakutsi nire plataformak soilik",
+        "ownedLists": "Nire plataformak bakarrik erakutsi",
         "sortPlatforms": "Ordenatu plataformak alfabetikoki",
-        "ratings": "Ezkutatu jokoaren balorazioak",
-        "signOut": "Amaitu saioa",
+        "ratings": "Ezkutatu jokoaren puntuazioa",
+        "signOut": "Hasi saioa",
         "wallpaper": {
-            "title": "Kargatu horma-papera",
+            "title": "Kargatu horma-irudia",
             "transparency": "Zerrenda erdi gardenak",
-            "currentWallpaper": "Uneko atzeko planoa",
-            "removeWallpaper": "Kendu horma-papera"
+            "currentWallpaper": "Uneko horma-irudia",
+            "removeWallpaper": "Kendu papera"
         },
         "deleteAccount": {
             "button": "Ezabatu kontua",
-            "message": "Zure kontuaren datuak betirako ezabatuko dira.",
+            "message": "Zure kontuko datuak betiko ezabatuko dira.",
             "title": "Ziur zaude?"
         }
     },
     "tags": {
-        "title": "Joko-etiketak",
+        "title": "Jokoaren etiketak",
         "addTag": "Gehitu etiketa",
-        "createTag": "Sortu etiketa",
+        "createTag": "Etiketa sortu",
         "inputPlaceholder": "Egunaren izena",
         "applyTag": "Aplikatu etiketa",
         "useTags": "Erabili etiketak zure jokoak hobeto antolatzeko"
@@ -145,12 +145,12 @@
     "gameSearch": {
         "title": "Gehitu jokoak",
         "inputPlaceholder": "Bilatu hemen",
-        "alreadyInList": "zure zerrendan dagoeneko bilaketa-emaitzetatik",
+        "alreadyInList": "dagoeneko zure zerrendako bilaketa-emaitzetatik",
         "noResultsFound": "Ez da emaitzarik aurkitu",
-        "missingGame": "Joko bat falta al da? Laguntza komunitateari eta",
-        "addToIGDB": "Gehitu IGDB-ra"
+        "missingGame": "Joko bat falta al zaizu? Lagundu komunitateari eta",
+        "addToIGDB": "Gehitu IGDB-ri"
     },
     "notes": {
-        "addNote": "Gehitu oharra"
+        "addNote": "Oharra gehitu"
     }
 }

@@ -24,7 +24,7 @@
     "gameBoard": {
         "settings": {
             "wallpaper": "Benutzerdefinierte Wallpaper",
-            "shareLink": "Gemeinsam nutzbare Links (Beta)",
+            "shareLink": "Gemeinsam nutzbare Links (experimentell)",
             "dangerZone": "Gefahrenzone"
         }
     },
@@ -74,16 +74,16 @@
         },
         "input": "Geben Sie Ihre eigenen ein",
         "add": "Liste hinzufügen",
-        "sortByName": "Alphabetisch",
-        "sortByRating": "Spielbewertung",
-        "sortByReleaseDate": "Veröffentlichungsdatum",
+        "sortByName": "DAS",
+        "sortByRating": "Ergebnis",
+        "sortByReleaseDate": "Datum",
         "sortByCustom": "Brauch",
-        "delete": "Liste löschen",
+        "delete": "Löschen",
         "moveLeft": "Geh nach links",
         "moveRight": "Nach rechts bewegen",
         "emptyList": "Diese Liste ist leer",
         "addGame": "Spiel hinzufügen",
-        "changeView": "Ansicht ändern",
+        "view": "Listenansicht",
         "moveList": "Liste verschieben",
         "sortList": "Sortierliste",
         "coversSizeTitle": "Abdeckungen herüber",
@@ -91,7 +91,7 @@
             "single": "Standard",
             "wide": "Kompakt",
             "text": "Nur Text",
-            "grid": "Mauerwerksgitter"
+            "grid": "Gitter"
         }
     },
     "settings": {
@@ -104,7 +104,7 @@
         "darkTheme": "Dunkles Thema",
         "reloading": "Neuladen...",
         "releases": "Releases",
-        "newsletter": "Aktualisierungs-E-Mails erhalten (Beta)",
+        "newsletter": "Erhalte Update-E-Mails (in Kürze)",
         "language": "Sprache",
         "languages": {
             "en": "Englisch",
@@ -120,7 +120,7 @@
         },
         "ownedLists": "Zeige nur meine Plattformen",
         "sortPlatforms": "Plattformen alphabetisch sortieren",
-        "ratings": "Spielbewertungen ausblenden",
+        "ratings": "Spielstand ausblenden",
         "signOut": "Ausloggen",
         "wallpaper": {
             "title": "Hintergrundbild hochladen",

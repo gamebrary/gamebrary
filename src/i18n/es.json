@@ -1,6 +1,6 @@
 {
     "global": {
-        "back": "Espalda",
+        "back": "atrás",
         "save": "Salvar",
         "cancel": "Cancelar",
         "create": "Crear",
@@ -13,10 +13,10 @@
         "pageNotFound": "Página no encontrada"
     },
     "platforms": {
-        "donateMessage": "Gamebrary es gratuito y de código abierto, considera ayudar a su desarrollo mediante",
+        "donateMessage": "Gamebrary es gratuito y de código abierto, considere ayudar a su desarrollo mediante",
         "donating": "donando",
-        "reportBugs": "reportando errores",
-        "submitFeedback": "enviar comentarios"
+        "reportBugs": "informar errores",
+        "submitFeedback": "enviando comentarios"
     },
     "igdbCredit": {
         "poweredByIgdb": "Desarrollado por IGDB"
@@ -24,7 +24,7 @@
     "gameBoard": {
         "settings": {
             "wallpaper": "Fondo de pantalla personalizado",
-            "shareLink": "Enlaces compartibles (beta)",
+            "shareLink": "Enlaces compartibles (experimental)",
             "dangerZone": "Zona peligrosa"
         }
     },
@@ -33,7 +33,7 @@
         "screenshots": "Capturas de pantalla",
         "perspective": "Perspectiva",
         "releaseDate": "Fecha de lanzamiento",
-        "timeToBeat": "Tiempo para vencer",
+        "timeToBeat": "Hora de vencer",
         "gameModes": "Modo de juego",
         "genres": "Género",
         "gamePlatforms": "Plataformas",
@@ -59,12 +59,12 @@
             "tumblr": "Tumblr",
             "linkedin": "Linkedin",
             "pinterest": "Pinterest",
-            "soundcloud": "Nube de sonido"
+            "soundcloud": "Soundcloud"
         }
     },
     "list": {
-        "edit": "Editar el nombre de la lista",
-        "placeholder": "Nombre de la lista (por ejemplo, propiedad)",
+        "edit": "Editar nombre de lista",
+        "placeholder": "Nombre de la lista (p. Ej., Propiedad)",
         "suggestionsTitle": "Sugerencias",
         "suggestions": {
             "owned": "De propiedad",
@@ -72,26 +72,26 @@
             "currentlyPlaying": "Reproduciendo",
             "completed": "Terminado"
         },
-        "input": "Ingrese su propio",
+        "input": "Ingrese el suyo",
         "add": "Añadir lista",
-        "sortByName": "Alfabéticamente",
-        "sortByRating": "Calificación del juego",
-        "sortByReleaseDate": "Fecha de lanzamiento",
+        "sortByName": "LA",
+        "sortByRating": "Puntuación",
+        "sortByReleaseDate": "Fecha",
         "sortByCustom": "Personalizado",
-        "delete": "Eliminar lista",
+        "delete": "Borrar",
         "moveLeft": "Mover hacia la izquierda",
         "moveRight": "Mover a la derecha",
         "emptyList": "Esta lista esta vacia",
         "addGame": "Agregar juego",
-        "changeView": "Cambio Vista",
+        "view": "Vista de la lista",
         "moveList": "Mover lista",
         "sortList": "Lista Ordenada",
-        "coversSizeTitle": "Cubiertas a través",
+        "coversSizeTitle": "Cubre a través de",
         "views": {
             "single": "Defecto",
             "wide": "Compacto",
             "text": "Solo texto",
-            "grid": "Rejilla de mampostería"
+            "grid": "Cuadrícula"
         }
     },
     "settings": {
@@ -104,7 +104,7 @@
         "darkTheme": "Tema oscuro",
         "reloading": "Recargando ...",
         "releases": "Lanzamientos",
-        "newsletter": "Recibir correos electrónicos de actualización (Beta)",
+        "newsletter": "Recibir correos electrónicos de actualización (próximamente)",
         "language": "Idioma",
         "languages": {
             "en": "Inglés",
@@ -120,17 +120,17 @@
         },
         "ownedLists": "Mostrar solo mis plataformas",
         "sortPlatforms": "Ordenar plataformas alfabéticamente",
-        "ratings": "Ocultar clasificaciones de juego",
+        "ratings": "Ocultar puntuación del juego",
         "signOut": "desconectar",
         "wallpaper": {
             "title": "Subir fondo de pantalla",
-            "transparency": "Listas semi transparentes",
+            "transparency": "Listas semitransparentes",
             "currentWallpaper": "Fondo de pantalla actual",
-            "removeWallpaper": "Quitar papel tapiz"
+            "removeWallpaper": "Eliminar fondo de pantalla"
         },
         "deleteAccount": {
             "button": "Borrar cuenta",
-            "message": "Los datos de su cuenta serán eliminados para siempre.",
+            "message": "Los datos de su cuenta se eliminarán para siempre.",
             "title": "¿Estás seguro?"
         }
     },
@@ -138,17 +138,17 @@
         "title": "Etiquetas de juego",
         "addTag": "Añadir etiqueta",
         "createTag": "Crear etiqueta",
-        "inputPlaceholder": "Nombre del dia",
+        "inputPlaceholder": "Nombre del día",
         "applyTag": "Aplicar etiqueta",
-        "useTags": "Usa etiquetas para organizar mejor tus juegos."
+        "useTags": "Usa etiquetas para organizar mejor tus juegos"
     },
     "gameSearch": {
         "title": "Agregar juegos a",
         "inputPlaceholder": "Busca aquí",
-        "alreadyInList": "de resultados de búsqueda ya en tu lista",
+        "alreadyInList": "de los resultados de búsqueda que ya están en su lista",
         "noResultsFound": "No se encontraron resultados para",
-        "missingGame": "¿Te falta un juego? Ayudar a la comunidad y",
-        "addToIGDB": "Agregalo a IGDB"
+        "missingGame": "¿Te falta un juego? Ayuda a la comunidad y",
+        "addToIGDB": "Agréguelo a IGDB"
     },
     "notes": {
         "addNote": "Añadir la nota"

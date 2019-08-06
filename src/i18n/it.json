@@ -13,18 +13,18 @@
         "pageNotFound": "pagina non trovata"
     },
     "platforms": {
-        "donateMessage": "Gamebrary è gratuito e open source, considera l'aiuto per lo sviluppo di",
+        "donateMessage": "Gamebrary è gratuito e open source, considera l'idea di aiutarne lo sviluppo",
         "donating": "la donazione",
-        "reportBugs": "segnalando bug",
-        "submitFeedback": "invio di feedback"
+        "reportBugs": "segnalazione di bug",
+        "submitFeedback": "invio feedback"
     },
     "igdbCredit": {
         "poweredByIgdb": "Alimentato da IGDB"
     },
     "gameBoard": {
         "settings": {
-            "wallpaper": "Wallpaper personalizzato",
-            "shareLink": "Link condivisibili (beta)",
+            "wallpaper": "Sfondo personalizzato",
+            "shareLink": "Link condivisibili (sperimentale)",
             "dangerZone": "Zona pericolosa"
         }
     },
@@ -33,7 +33,7 @@
         "screenshots": "Screenshots",
         "perspective": "Prospettiva",
         "releaseDate": "Data di rilascio",
-        "timeToBeat": "È ora di battere",
+        "timeToBeat": "È tempo di battere",
         "gameModes": "Modalità di gioco",
         "genres": "Genere",
         "gamePlatforms": "piattaforme",
@@ -64,7 +64,7 @@
     },
     "list": {
         "edit": "Modifica il nome dell'elenco",
-        "placeholder": "Nome dell'elenco (es. Di proprietà)",
+        "placeholder": "Nome elenco (ad es. Di proprietà)",
         "suggestionsTitle": "suggerimenti",
         "suggestions": {
             "owned": "Di proprietà",
@@ -73,25 +73,25 @@
             "completed": "Completato"
         },
         "input": "Inserisci il tuo",
-        "add": "Aggiungi lista",
-        "sortByName": "In ordine alfabetico",
-        "sortByRating": "Valutazione del gioco",
-        "sortByReleaseDate": "Data di rilascio",
+        "add": "Aggiungi elenco",
+        "sortByName": "IL",
+        "sortByRating": "Punto",
+        "sortByReleaseDate": "Data",
         "sortByCustom": "costume",
-        "delete": "Cancella lista",
+        "delete": "Elimina",
         "moveLeft": "Muovere a sinistra",
         "moveRight": "Vai a destra",
-        "emptyList": "Questa lista è vuota",
+        "emptyList": "Questo elenco è vuoto",
         "addGame": "Aggiungi gioco",
-        "changeView": "Cambia punto di vista",
-        "moveList": "Sposta la lista",
-        "sortList": "Lista di ordinamento",
-        "coversSizeTitle": "Copertine",
+        "view": "Visualizzazione elenco",
+        "moveList": "Sposta elenco",
+        "sortList": "Elenco di ordinamento",
+        "coversSizeTitle": "Copre attraverso",
         "views": {
             "single": "Predefinito",
             "wide": "Compatto",
             "text": "Solo testo",
-            "grid": "Griglia in muratura"
+            "grid": "Griglia"
         }
     },
     "settings": {
@@ -104,7 +104,7 @@
         "darkTheme": "Tema scuro",
         "reloading": "Ricaricamento ...",
         "releases": "Uscite",
-        "newsletter": "Ricevi email di aggiornamento (Beta)",
+        "newsletter": "Ricevi email di aggiornamento (in arrivo)",
         "language": "linguaggio",
         "languages": {
             "en": "Inglese",
@@ -120,17 +120,17 @@
         },
         "ownedLists": "Mostra solo le mie piattaforme",
         "sortPlatforms": "Ordina le piattaforme in ordine alfabetico",
-        "ratings": "Nascondi valutazioni di gioco",
+        "ratings": "Nascondi il punteggio del gioco",
         "signOut": "disconnessione",
         "wallpaper": {
             "title": "Carica sfondo",
             "transparency": "Elenchi semi trasparenti",
-            "currentWallpaper": "Carta da parati attuale",
-            "removeWallpaper": "Rimuovi carta da parati"
+            "currentWallpaper": "Sfondo corrente",
+            "removeWallpaper": "Rimuovi sfondo"
         },
         "deleteAccount": {
             "button": "Eliminare l'account",
-            "message": "I dati del tuo account verranno cancellati per sempre.",
+            "message": "I dati del tuo account verranno eliminati per sempre.",
             "title": "Sei sicuro?"
         }
     },
@@ -140,14 +140,14 @@
         "createTag": "Crea tag",
         "inputPlaceholder": "Nome del giorno",
         "applyTag": "Applica tag",
-        "useTags": "Usa i tag per organizzare al meglio i tuoi giochi"
+        "useTags": "Usa i tag per organizzare meglio i tuoi giochi"
     },
     "gameSearch": {
         "title": "Aggiungi giochi a",
         "inputPlaceholder": "Cerca qui",
-        "alreadyInList": "dai risultati di ricerca già nella tua lista",
+        "alreadyInList": "dai risultati di ricerca già nel tuo elenco",
         "noResultsFound": "Nessun risultato trovato per",
-        "missingGame": "Manca una partita? Aiutare la comunità e",
+        "missingGame": "Manca una partita? Aiuta la comunità e",
         "addToIGDB": "Aggiungilo a IGDB"
     },
     "notes": {

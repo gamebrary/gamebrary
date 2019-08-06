@@ -24,7 +24,7 @@
     "gameBoard": {
         "settings": {
             "wallpaper": "خلفيات مخصصة",
-            "shareLink": "الروابط القابلة للمشاركة (تجريبية)",
+            "shareLink": "روابط قابلة للمشاركة (تجريبية)",
             "dangerZone": "منطقة الخطر"
         }
     },
@@ -74,16 +74,16 @@
         },
         "input": "أدخل بنفسك",
         "add": "اضف قائمة",
-        "sortByName": "أبجديا",
-        "sortByRating": "تصنيف اللعبة",
-        "sortByReleaseDate": "يوم الاصدار",
+        "sortByName": "THE",
+        "sortByRating": "أحرز هدفا",
+        "sortByReleaseDate": "تاريخ",
         "sortByCustom": "العادة",
-        "delete": "حذف القائمة",
+        "delete": "حذف",
         "moveLeft": "تحرك يسارا",
         "moveRight": "تحرك يمينا",
         "emptyList": "هذه القائمة فارغة",
         "addGame": "إضافة اللعبة",
-        "changeView": "تغيير الرأي",
+        "view": "عرض القائمة",
         "moveList": "نقل القائمة",
         "sortList": "قائمة الفرز",
         "coversSizeTitle": "يغطي عبر",
@@ -91,7 +91,7 @@
             "single": "افتراضي",
             "wide": "المدمج",
             "text": "نص فقط",
-            "grid": "شبكة البناء"
+            "grid": "شبكة"
         }
     },
     "settings": {
@@ -104,7 +104,7 @@
         "darkTheme": "موضوع الظلام",
         "reloading": "إعادة ...",
         "releases": "إطلاق",
-        "newsletter": "تلقي تحديثات البريد الإلكتروني (تجريبية)",
+        "newsletter": "تلقي رسائل البريد الإلكتروني المحدثة (قريبًا)",
         "language": "لغة",
         "languages": {
             "en": "الإنجليزية",
@@ -120,7 +120,7 @@
         },
         "ownedLists": "فقط عرض منصات بلدي",
         "sortPlatforms": "فرز المنصات أبجديا",
-        "ratings": "إخفاء تقييمات اللعبة",
+        "ratings": "إخفاء النتيجة اللعبة",
         "signOut": "خروج",
         "wallpaper": {
             "title": "تحميل خلفية",

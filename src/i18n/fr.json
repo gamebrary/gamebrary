@@ -13,7 +13,7 @@
         "pageNotFound": "Page non trouvée"
     },
     "platforms": {
-        "donateMessage": "Gamebrary est gratuit et open source, envisagez d’aider son développement en",
+        "donateMessage": "Gamebrary est gratuit et open source, envisagez d'aider à son développement en",
         "donating": "faire un don",
         "reportBugs": "signaler des bugs",
         "submitFeedback": "soumettre des commentaires"
@@ -24,7 +24,7 @@
     "gameBoard": {
         "settings": {
             "wallpaper": "Papier peint personnalisé",
-            "shareLink": "Liens partageables (beta)",
+            "shareLink": "Liens partageables (expérimental)",
             "dangerZone": "Zone dangereuse"
         }
     },
@@ -74,16 +74,16 @@
         },
         "input": "Entrez votre propre",
         "add": "Ajouter la liste",
-        "sortByName": "Alphabétiquement",
-        "sortByRating": "Classement du jeu",
-        "sortByReleaseDate": "Date de sortie",
+        "sortByName": "LA",
+        "sortByRating": "But",
+        "sortByReleaseDate": "Rendez-vous amoureux",
         "sortByCustom": "Douane",
-        "delete": "Supprimer la liste",
+        "delete": "Effacer",
         "moveLeft": "Se déplacer à gauche",
         "moveRight": "Déplacer vers la droite",
         "emptyList": "Cette liste est vide",
         "addGame": "Ajouter un jeu",
-        "changeView": "Change de vue",
+        "view": "Vue liste",
         "moveList": "Déplacer la liste",
         "sortList": "Liste de tri",
         "coversSizeTitle": "Couvre à travers",
@@ -91,11 +91,11 @@
             "single": "Défaut",
             "wide": "Compact",
             "text": "Texte seulement",
-            "grid": "Grille de maçonnerie"
+            "grid": "la grille"
         }
     },
     "settings": {
-        "about": "Sur",
+        "about": "À propos",
         "platforms": "Plateformes",
         "gameBoard": "Plateau de jeu",
         "tags": "Mots clés",
@@ -104,7 +104,7 @@
         "darkTheme": "Thème sombre",
         "reloading": "Rechargement ...",
         "releases": "Communiqués",
-        "newsletter": "Recevoir des emails de mise à jour (Beta)",
+        "newsletter": "Recevoir des emails de mise à jour (à venir)",
         "language": "La langue",
         "languages": {
             "en": "Anglais",
@@ -120,7 +120,7 @@
         },
         "ownedLists": "Afficher uniquement mes plateformes",
         "sortPlatforms": "Trier les plateformes par ordre alphabétique",
-        "ratings": "Masquer les notes du jeu",
+        "ratings": "Masquer le score du jeu",
         "signOut": "Déconnexion",
         "wallpaper": {
             "title": "Télécharger un fond d'écran",

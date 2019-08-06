@@ -13,7 +13,7 @@
         "pageNotFound": "Strona nie znaleziona"
     },
     "platforms": {
-        "donateMessage": "Gamebrary jest darmowy i open source, rozważ pomoc w jego rozwoju przez",
+        "donateMessage": "Gamebrary jest darmowy i open source, rozważ pomoc w jego rozwoju",
         "donating": "darowizny",
         "reportBugs": "zgłaszanie błędów",
         "submitFeedback": "przesyłanie opinii"
@@ -23,17 +23,17 @@
     },
     "gameBoard": {
         "settings": {
-            "wallpaper": "Niestandardowa tapeta",
-            "shareLink": "Udostępniane linki (beta)",
+            "wallpaper": "Własna tapeta",
+            "shareLink": "Udostępniane linki (eksperymentalne)",
             "dangerZone": "Strefa niebezpieczeństwa"
         }
     },
     "gameDetail": {
-        "videos": "Filmy",
+        "videos": "Wideo",
         "screenshots": "Zrzuty ekranu",
         "perspective": "Perspektywiczny",
         "releaseDate": "Data wydania",
-        "timeToBeat": "Czas pokonać",
+        "timeToBeat": "Czas na pokonanie",
         "gameModes": "Tryb gry",
         "genres": "Gatunek muzyczny",
         "gamePlatforms": "Platformy",
@@ -67,31 +67,31 @@
         "placeholder": "Nazwa listy (np. Własność)",
         "suggestionsTitle": "Propozycje",
         "suggestions": {
-            "owned": "Własność",
+            "owned": "Posiadane",
             "wishlist": "Lista życzeń",
             "currentlyPlaying": "Obecnie gra",
             "completed": "Zakończony"
         },
-        "input": "Wpisz swój własny",
+        "input": "Wpisz własne",
         "add": "Dodaj listę",
-        "sortByName": "Alfabetycznie",
-        "sortByRating": "Ocena gry",
-        "sortByReleaseDate": "Data wydania",
+        "sortByName": "",
+        "sortByRating": "Wynik",
+        "sortByReleaseDate": "Data",
         "sortByCustom": "Zwyczaj",
-        "delete": "Usuń listę",
+        "delete": "Kasować",
         "moveLeft": "Przesuń w lewo",
         "moveRight": "Ruch w prawo",
         "emptyList": "Ta lista jest pusta",
         "addGame": "Dodaj grę",
-        "changeView": "Zmień widok",
-        "moveList": "Lista ruchów",
-        "sortList": "Lista sortowania",
-        "coversSizeTitle": "Okładki w poprzek",
+        "view": "Widok listy",
+        "moveList": "Przenieś listę",
+        "sortList": "Sortuj listę",
+        "coversSizeTitle": "Obejmuje w poprzek",
         "views": {
             "single": "Domyślna",
             "wide": "Kompaktowy",
             "text": "Tylko tekst",
-            "grid": "Siatka murarska"
+            "grid": "Krata"
         }
     },
     "settings": {
@@ -102,9 +102,9 @@
         "account": "Konto",
         "global": "Światowy",
         "darkTheme": "ciemny schemat",
-        "reloading": "Przeładowywanie ...",
-        "releases": "Wydania",
-        "newsletter": "Odbieraj wiadomości e-mail z aktualizacjami (Beta)",
+        "reloading": "Ponowne ładowanie ...",
+        "releases": "Prasowe",
+        "newsletter": "Otrzymuj e-maile z aktualizacją (wkrótce)",
         "language": "Język",
         "languages": {
             "en": "język angielski",
@@ -120,7 +120,7 @@
         },
         "ownedLists": "Pokaż tylko moje platformy",
         "sortPlatforms": "Sortuj platformy alfabetycznie",
-        "ratings": "Ukryj oceny gier",
+        "ratings": "Ukryj wynik gry",
         "signOut": "Wyloguj się",
         "wallpaper": {
             "title": "Prześlij tapetę",
@@ -130,7 +130,7 @@
         },
         "deleteAccount": {
             "button": "Usuń konto",
-            "message": "Twoje dane konta zostaną usunięte na zawsze.",
+            "message": "Twoje dane zostaną usunięte na zawsze.",
             "title": "Jesteś pewny?"
         }
     },
@@ -145,7 +145,7 @@
     "gameSearch": {
         "title": "Dodaj gry do",
         "inputPlaceholder": "Szukaj tutaj",
-        "alreadyInList": "z wyników wyszukiwania już na liście",
+        "alreadyInList": "z wyników wyszukiwania już na twojej liście",
         "noResultsFound": "Nie znaleziono wyników dla",
         "missingGame": "Brakuje gry? Pomóż społeczności i",
         "addToIGDB": "Dodaj go do IGDB"
