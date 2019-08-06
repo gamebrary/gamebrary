@@ -15,9 +15,9 @@
                 />
             </div>
 
-            <div v-else>
+            <template v-else>
                 {{ list[listIndex].name }} ({{ games.length }})
-            </div>
+            </template>
 
             <button class="small" @click="editList" v-if="!editing && !searching">
                 <i class="fas fa-sliders-h" />
