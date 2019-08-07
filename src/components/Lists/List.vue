@@ -197,6 +197,10 @@ export default {
 
     mounted() {
         this.initGrid();
+
+        setTimeout(() => {
+            this.initGrid();
+        }, 500);
     },
 
     methods: {
