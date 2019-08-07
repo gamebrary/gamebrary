@@ -13,7 +13,7 @@
             />
 
             <button
-                class="success tiny"
+                class="success xxsmall"
                 @click="addGame"
             >
                 <!-- TODO: translate -->

@@ -31,10 +31,9 @@
             />
         </div>
 
-        <panel class="warning" v-if="noResults">
-            <h4>{{ $t('gameSearch.noResultsFound') }} "{{searchText}}"</h4>
-            <p>{{ $t('gameSearch.missingGame') }} <a href="https://www.igdb.com/games/new" target="_blank">{{$t('gameSearch.addToIGDB')}}</a></p>
-        </panel>
+        <span class="no-results" v-if="noResults">
+            {{ $t('gameSearch.noResultsFound') }}
+        </span>
 
         <div class="search-actions">
             <button
@@ -56,7 +55,6 @@
 <script>
 import GameCardSearch from '@/components/GameCards/GameCardSearch';
 import IgdbCredit from '@/components/IgdbCredit';
-import Panel from '@/components/Panel';
 import { debounce } from 'lodash';
 import { mapState } from 'vuex';
 
@@ -64,7 +62,6 @@ export default {
     components: {
         GameCardSearch,
         IgdbCredit,
-        Panel,
     },
 
     props: {
