@@ -1,5 +1,5 @@
 <template lang="html">
-    <form @submit.prevent="search" class="game-search">
+    <form @submit.prevent="search" :class="['game-search', { dark: darkModeEnabled }]">
         <div class="search-box">
             <input
                 ref="searchInput"
@@ -37,7 +37,7 @@
 
         <div class="search-actions">
             <button
-                class="small accent"
+                class="filled small info hollow"
                 title="back"
                 v-shortkey="['esc']"
                 @shortkey="back"
@@ -56,7 +56,7 @@
 import GameCardSearch from '@/components/GameCards/GameCardSearch';
 import IgdbCredit from '@/components/IgdbCredit';
 import { debounce } from 'lodash';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
     components: {
@@ -86,6 +86,7 @@ export default {
 
     computed: {
         ...mapState(['results', 'gameLists', 'platform']),
+        ...mapGetters(['darkModeEnabled']),
 
         list() {
             return this.gameLists[this.platform.code];
@@ -165,9 +166,13 @@ export default {
     @import "~styles/styles.scss";
 
     .game-search {
-        background: $color-light-gray;
+        background-color: $color-light-gray;
         margin-top: $list-header-height;
         padding: $gp / 2;
+
+        &.dark {
+            background-color: $color-dark-gray;
+        }
     }
 
     .search-box {

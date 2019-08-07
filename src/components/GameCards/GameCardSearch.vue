@@ -13,7 +13,7 @@
             />
 
             <button
-                class="success xxsmall"
+                :class="['accent xxsmall', { 'hollow': darkModeEnabled }]"
                 @click="addGame"
             >
                 <!-- TODO: translate -->
@@ -56,10 +56,16 @@ export default {
         }
 
         &.dark {
-            background: $color-gray;
+            background: $color-darker-gray;
 
             img {
                 opacity: 0.9;
+            }
+
+            .game-info {
+                a {
+                    color: $color-gray;
+                }
             }
         }
 

@@ -63,7 +63,7 @@
 
         <footer>
             <button
-                class="filled tiny info hollow"
+                class="filled small info hollow"
                 title="back"
                 v-shortkey="['esc']"
                 @shortkey="cancel"
@@ -83,7 +83,7 @@
                 @action="deleteList"
             >
                 <button
-                    class="error hollow tiny"
+                    class="filled small error hollow"
                     :title="$t('list.delete')"
                 >
                     <i class="far fa-trash-alt" />
