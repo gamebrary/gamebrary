@@ -124,7 +124,7 @@
         "signOut": "Sign out",
         "wallpaper": {
             "title": "Upload wallpaper",
-            "transparency": "Semi transparent lists",
+            "transparency": "Allow transparency",
             "currentWallpaper": "Current wallpaper",
             "removeWallpaper": "Remove wallpaper"
         },

@@ -11,12 +11,20 @@
         </div>
 
         <template v-if="showBoardSpecificSettings">
-            <div class="settings">
-                <h3>{{ $t('gameBoard.settings.wallpaper') }}</h3>
-                <wallpaper-upload />
+            <wallpaper-upload />
+
+            <div class="setting" v-if="value.wallpapers && value.wallpapers[platform.code]">
+                <i class="fas fa-images"></i>
+                <h5>{{ $t('settings.wallpaper.transparency') }}</h5>
+
+                <toggle-switch
+                    id="wallpaperTransparency"
+                    v-model="value.wallpapers[platform.code].transparent"
+                />
             </div>
 
-            <section>
+            <!-- TODO: refactor gameBoard to allow public data source -->
+            <!-- <section>
                 <h3>{{ $t('gameBoard.settings.shareLink') }}</h3>
                 <div class="links">
                     <a class="link tiny primary" :href="tweetUrl" target="_blank">
@@ -31,12 +39,12 @@
                         <i class="fas fa-link" />
                     </a>
                 </div>
-            </section>
+            </section> -->
 
-            <section>
-                <h3>{{ $t('gameBoard.settings.dangerZone') }}</h3>
-                <!-- TODO: move to it's own component -->
-                <!-- TODO: translate -->
+            <div class="setting">
+                <i class="fas fa-exclamation-triangle" />
+                <h5>{{ $t('gameBoard.settings.dangerZone') }}</h5>
+
                 <modal
                     :action-text="`Delete forever`"
                     :message="`Your ${platform.name} collection will be deleted forever.`"
@@ -46,14 +54,14 @@
                     @action="deletePlatform"
                 >
                     <button
-                        class="small accent hollow"
+                        class="xsmall error hollow"
                         :title="$t('list.delete')"
                     >
                         <i class="far fa-trash-alt" />
                         Delete {{ platform.name }} collection
                     </button>
                 </modal>
-            </section>
+            </div>
         </template>
     </section>
 </template>

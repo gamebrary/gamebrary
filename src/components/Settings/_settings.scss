@@ -1,6 +1,6 @@
 .setting {
     display: grid;
-    grid-template-columns: 24px auto 40px;
+    grid-template-columns: minmax(24px, auto) 1fr auto;
     border-bottom: 1px dashed $color-dark-gray-transparent;
     align-items: center;
     padding: $gp 0;

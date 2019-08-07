@@ -9,7 +9,7 @@
                 @click="openSettings(section)"
             >
                 <i :class="section.icon" />
-                {{ getTabName(section.name) }}
+                {{ $t(`settings.${section.name}`) }}
             </a>
         </nav>
 
@@ -141,12 +141,6 @@ export default {
     },
 
     methods: {
-        getTabName(sectionName) {
-            return sectionName === 'gameBoard' && this.platform && this.$route.name === 'game-board'
-                ? this.platform.name
-                : this.$t(`settings.${sectionName}`);
-        },
-
         openSettings({ component, name }) {
             this.activeComponent = component;
             this.activeSection = name;
@@ -165,15 +159,14 @@ export default {
     .settings {
         display: flex;
         flex-direction: column;
-        padding: $gp;
+        padding: $gp $gp * 2;
         margin: 0 auto;
-        min-height: 500px;
-        max-width: 500px;
+        min-height: 600px;
     }
 
     nav {
-        display: grid;
-        grid-template-columns: repeat(10, auto);
+        display: flex;
+        justify-content: space-around;
         position: sticky;
         top: 40px;
         background-color: $color-white;

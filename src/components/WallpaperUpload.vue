@@ -1,61 +1,72 @@
 <template>
-    <div class="wallpaper-upload">
-        <div class="loading" v-if="loading">
-            <i class="fas fa-sync-alt fa-2x fast-spin" />
-        </div>
-
-        <div v-else>
-            <div v-show="!wallpaperUrl">
-              {{ $t('settings.wallpaper.title') }}
-
-                <input
-                    type="file"
-                    accept='image/*'
-                    @change="handleUpload"
-                />
-            </div>
-
-            <div v-if="wallpaperUrl">
-                <h5>{{ $t('settings.wallpaper.transparency') }}</h5>
-
-                <div class="button-group">
-                    <button
-                        class="tiny"
-                        :class="{ primary: !transparent }"
-                        @click="setTransparent(false)"
-                    >
-                      {{ $t('global.no') }}
-                    </button>
-
-                    <button
-                        class="tiny"
-                        :class="{ primary: transparent }"
-                        @click="setTransparent(true)"
-                    >
-                      {{ $t('global.yes') }}
-                    </button>
-                </div>
-
-                <br>
-                <br>
-
+    <div class="setting wallpaper-upload">
+        <template v-if="wallpaperUrl">
+            <div class="current-wallpaper">
+                <i class="far fa-image" />
                 <h5>{{ $t('settings.wallpaper.currentWallpaper') }}</h5>
-
-                <img
-                    :src="wallpaperUrl"
-                    alt="Uploaded wallpaper"
-                />
-
-                <button class="error tiny" @click="removeWallpaper">
-                    <i class="fas fa-trash" />
-                    {{ $t('settings.wallpaper.removeWallpaper') }}
-                </button>
             </div>
-        </div>
+
+            <div></div>
+
+            <div>
+                <modal
+                    ref="addList"
+                    :title="$t('settings.wallpaper.currentWallpaper')"
+                    large
+                    padded
+                    action-text="Remove wallpaper"
+                    @action="removeWallpaper"
+                >
+                    <button
+                        class="error xxsmall remove-wallpaper"
+                        :title="$t('settings.wallpaper.removeWallpaper')"
+                        @click="removeWallpaper"
+                    >
+                        <i class="fas fa-times"></i>
+                    </button>
+
+                    <img
+                        v-if="wallpaperUrl"
+                        class="preview"
+                        :src="wallpaperUrl"
+                        alt="Uploaded wallpaper"
+                    />
+
+                    <div slot="content" class="wallpaper-preview">
+                        <img
+                            v-if="wallpaperUrl"
+                            :src="wallpaperUrl"
+                            alt="Uploaded wallpaper"
+                        />
+                    </div>
+                </modal>
+            </div>
+        </template>
+
+        <template v-else="!wallpaperUrl">
+            <i class="far fa-image" />
+            <h5>{{ $t('settings.wallpaper.title') }}</h5>
+
+            <button class="primary xsmall hollow" @click="triggerUpload">
+                <i class="fas fa-sync-alt fast-spin" v-if="loading" />
+                <i class="fas fa-cloud-upload-alt" v-else />
+                Upload file
+            </button>
+
+            <input
+                hidden
+                class="file-input"
+                ref="fileInput"
+                type="file"
+                accept='image/*'
+                @change="handleUpload"
+            />
+        </template>
     </div>
 </template>
 
 <script>
+import Modal from '@/components/Modal';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { mapState } from 'vuex';
@@ -70,6 +81,10 @@ export default {
             transparent: false,
             loading: false,
         };
+    },
+
+    components: {
+        Modal,
     },
 
     computed: {
@@ -92,6 +107,10 @@ export default {
         setTransparent(value) {
             this.transparent = value;
             this.saveSettings();
+        },
+
+        triggerUpload() {
+            this.$refs.fileInput.click();
         },
 
         removeWallpaper() {
@@ -149,18 +168,18 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles.scss";
+    @import "src/components/Settings/_settings.scss";
 
-    .wallpaper-upload {
-        display: flex;
-        flex-direction: column;
-    }
-
-    img {
-        width: 100%;
+    img.preview {
+        max-width: 100px;
+        cursor: pointer;
         height: auto;
         border: 1px solid $color-gray;
-        padding: $gp / 2;
         border-radius: $border-radius;
+
+        &:hover {
+            border-color: $color-blue;
+        }
     }
 
     input {
@@ -174,11 +193,28 @@ export default {
         border: 1px solid $color-green;
     }
 
-    .loading {
-        height: 200px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
+    .current-wallpaper {
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-gap: $gp / 2;
+        margin-right: $gp;
+    }
+
+    .file-input {
+        display: none;
+    }
+
+    .wallpaper-preview {
+
+        img {
+            width: 100%;
+        }
+    }
+
+    .remove-wallpaper {
+        position: absolute;
+        right: 36px;
+        margin-top: 4px;
+        width: 20px;
     }
 </style>
