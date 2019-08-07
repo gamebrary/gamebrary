@@ -43,7 +43,7 @@
             </div>
         </template>
 
-        <template v-else="!wallpaperUrl">
+        <template v-else>
             <i class="far fa-image" />
             <h5>{{ $t('settings.wallpaper.title') }}</h5>
 
@@ -72,6 +72,10 @@ import 'firebase/firestore';
 import { mapState } from 'vuex';
 
 export default {
+    components: {
+        Modal,
+    },
+
     data() {
         return {
             progressUpload: 0,
@@ -81,10 +85,6 @@ export default {
             transparent: false,
             loading: false,
         };
-    },
-
-    components: {
-        Modal,
     },
 
     computed: {
