@@ -37,7 +37,7 @@
 
         <div class="search-actions">
             <button
-                class="small filled info"
+                class="small accent"
                 title="back"
                 v-shortkey="['esc']"
                 @shortkey="back"
