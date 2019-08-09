@@ -100,7 +100,11 @@ export default {
         },
 
         isEmptyBoard() {
-            return this.gameLists && this.platform && !this.gameLists[this.platform.code] || this.gameLists[this.platform.code].length === 0;
+            const newList = this.gameLists && this.platform && !this.gameLists[this.platform.code];
+            const emptyList = this.gameLists[this.platform.code]
+                && this.gameLists[this.platform.code].length === 0;
+
+            return newList || emptyList;
         },
     },
 
