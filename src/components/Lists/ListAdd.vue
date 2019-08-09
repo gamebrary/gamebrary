@@ -1,11 +1,14 @@
 <template lang="html">
     <main>
         <form class="list-add" @submit.prevent="addList">
-            <header>{{ $t('list.add') }}</header>
+            <header>{{ title }}</header>
 
             <section>
+                <label for="newListName">List name:</label>
+
                 <input
-                    v-model="newListName"
+                    name="newListName"
+                    v-model.trim="newListName"
                     type="text"
                     ref="newListName"
                     autofocus
@@ -13,30 +16,30 @@
                     :placeholder="$t('list.placeholder')"
                 />
 
-                <panel
-                    class="warning"
-                    v-if="isDuplicate"
-                    v-html="errorMessage"
-                />
+                <div class="list-types">
+                    <div class="button-group">
+                        <button type="button" class="xsmall" @click="listType = null">
+                            <i class="fas fa-check-square" v-if="listType === null" />
+                            <i class="far fa-square" v-else />
+                            Collection
+                        </button>
 
-                <div class="suggestions">
-                    <small>{{ $t('list.suggestionsTitle') }}:</small>
-
-                    <button
-                        class="tiny tag primary hollow"
-                        v-for="suggestion in listNameSuggestions"
-                        :key="suggestion"
-                        type="button"
-                        :disabled="listNames.includes(suggestion.toLowerCase())"
-                        @click="addSuggestion($t(`list.suggestions.${suggestion}`))"
-                    >
-                        {{ $t(`list.suggestions.${suggestion}`) }}
-                    </button>
+                        <button type="button" class="xsmall" @click="listType = 'wishlist'">
+                            <i class="fas fa-check-square" v-if="listType === 'wishlist'" />
+                            <i class="far fa-square" v-else />
+                            Wishlist
+                        </button>
+                    </div>
                 </div>
+
+                <small v-if="isDuplicate">
+                    {{ $t('list.duplicateWarning') }}
+                </small>
             </section>
 
             <footer>
                 <button
+                    v-if="!isEmptyBoard"
                     class="small info"
                     type="button"
                     v-shortkey="['esc']"
@@ -52,7 +55,7 @@
                     :disabled="isDuplicate || !newListName"
                     @click="addList"
                 >
-                    {{ $t('global.save') }}
+                    {{ buttonLabel }}
                 </button>
             </footer>
         </form>
@@ -61,22 +64,13 @@
 
 <script>
 import { mapState } from 'vuex';
-import Panel from '@/components/Panel';
 
 export default {
-    components: {
-        Panel,
-    },
 
     data() {
         return {
             newListName: '',
-            listNameSuggestions: [
-                'owned',
-                'wishlist',
-                'currentlyPlaying',
-                'completed',
-            ],
+            listType: null,
         };
     },
 
@@ -87,14 +81,16 @@ export default {
             return this.gameLists[this.platform.code];
         },
 
-        errorMessage() {
-            return `You already have a list named <strong>${this.newListName}</strong>. Please use a different name.`;
+        title() {
+            return this.isEmptyBoard
+                ? this.$t('list.addFirstTime')
+                : this.$t('list.add');
         },
 
-        listNames() {
-            return this.list ?
-                this.list.map(({ name }) => name.toLowerCase())
-                : [];
+        buttonLabel() {
+            return this.isEmptyBoard
+                ? this.$t('list.getStarted')
+                : this.$t('global.save');
         },
 
         isDuplicate() {
@@ -103,6 +99,10 @@ export default {
             return this.list ?
                 this.list.filter(({ name }) => name.toLowerCase() === newListName).length > 0
                 : false;
+        },
+
+        isEmptyBoard() {
+            return this.gameLists && this.platform && !this.gameLists[this.platform.code] || this.gameLists[this.platform.code].length === 0;
         },
     },
 
@@ -132,7 +132,10 @@ export default {
                 return;
             }
 
-            this.$store.commit('ADD_LIST', this.newListName);
+            this.$store.commit('ADD_LIST', {
+                listName: this.newListName,
+                listType: this.listType,
+            });
 
             this.$ga.event({
                 eventCategory: 'list',
@@ -175,12 +178,12 @@ export default {
     }
 
     header {
+        background-color: $color-green;
+        color: $color-white;
         display: flex;
         align-items: center;
-        background: $color-green;
-        color: $color-white;
         height: $list-header-height;
-        padding-left: $gp / 2;
+        padding: 0 $gp / 2;
     }
 
     section {
@@ -204,5 +207,11 @@ export default {
         padding: 0 $gp / 2 $gp / 2;
         display: flex;
         justify-content: space-between;
+    }
+
+    .list-types {
+        // display: grid;
+        // grid-template-columns: 1fr 1fr;
+        // grid-gap: $gp;
     }
 </style>

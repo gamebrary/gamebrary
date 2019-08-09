@@ -218,10 +218,11 @@ export default {
         currentList.games.push(gameId);
     },
 
-    ADD_LIST(state, listName) {
+    ADD_LIST(state, { listName, listType }) {
         const newList = {
             games: [],
             name: listName,
+            type: listType,
         };
 
         if (!state.gameLists[state.platform.code]) {
