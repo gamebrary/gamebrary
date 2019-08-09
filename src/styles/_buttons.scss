@@ -5,13 +5,9 @@ a {
 }
 
 a.link {
-    display: inline-block;
-    line-height: 30px;
+    display: flex;
+    align-items: center;
     text-decoration: none;
-
-    &.small {
-        line-height: $iconSmallSize;
-    }
 }
 
 .button-group {
