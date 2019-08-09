@@ -11,7 +11,7 @@
         </router-link>
 
         <modal large title="Settings">
-            <button class="small hollow settings">
+            <button class="small info">
                 <i class="fas fa-cog" />
             </button>
 
@@ -108,10 +108,6 @@ export default {
         &.dark {
             color: $color-gray !important;
         }
-    }
-
-    .settings {
-        margin-right: -$gp / 2;
     }
 
     img.avatar {
