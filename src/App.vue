@@ -162,6 +162,7 @@ export default {
                     })
                     .catch(() => {
                         this.$bus.$emit('TOAST', { message: 'There was an error saving your settings', type: 'error' });
+                        this.$router.push({ name: 'sessionExpired' });
                     });
             }, 500),
 
@@ -172,10 +173,8 @@ export default {
                         this.$bus.$emit('TOAST', { message: 'Tags updated' });
                     })
                     .catch(() => {
-                        this.$bus.$emit('TOAST', {
-                            message: 'There was an error saving your tag',
-                            type: 'error',
-                        });
+                        this.$bus.$emit('TOAST', { message: 'There was an error saving your tag', type: 'error' });
+                        this.$router.push({ name: 'sessionExpired' });
                     });
             }
         },
@@ -187,10 +186,8 @@ export default {
                         this.$bus.$emit('TOAST', { message: 'Notes updated' });
                     })
                     .catch(() => {
-                        this.$bus.$emit('TOAST', {
-                            message: 'There was an error saving your note',
-                            type: 'error',
-                        });
+                        this.$bus.$emit('TOAST', { message: 'There was an error saving your note', type: 'error' });
+                        this.$router.push({ name: 'sessionExpired' });
                     });
             }
         },
@@ -252,6 +249,7 @@ export default {
                 }
             }).catch(() => {
                 this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
+                this.$router.push({ name: 'sessionExpired' });
             });
         },
 
@@ -267,6 +265,7 @@ export default {
                 })
                 .catch(() => {
                     this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
+                    this.$router.push({ name: 'sessionExpired' });
                 });
         },
 
@@ -280,6 +279,7 @@ export default {
                 })
                 .catch(() => {
                     this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
+                    this.$router.push({ name: 'sessionExpired' });
                 });
         },
 
@@ -287,6 +287,10 @@ export default {
             db.collection('lists').doc(this.user.uid).set({}, { merge: true })
                 .then(() => {
                     this.loadLists();
+                })
+                .catch(() => {
+                    this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
+                    this.$router.push({ name: 'sessionExpired' });
                 });
         },
 
@@ -294,6 +298,10 @@ export default {
             db.collection('settings').doc(this.user.uid).set({}, { merge: true })
                 .then(() => {
                     this.loadSettings();
+                })
+                .catch(() => {
+                    this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
+                    this.$router.push({ name: 'sessionExpired' });
                 });
         },
     },
