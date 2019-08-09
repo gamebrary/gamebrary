@@ -15,11 +15,16 @@
                 />
             </div>
 
-            <template v-else>
+            <div v-else>
+                <i class="fas fa-magic" v-if="list[listIndex].type === 'wishlist'" />
                 {{ list[listIndex].name }} ({{ games.length }})
-            </template>
+            </div>
 
-            <button class="small" @click="editList" v-if="!editing && !searching">
+            <button
+                class="small"
+                v-if="!editing && !searching"
+                @click="editList"
+            >
                 <i class="fas fa-sliders-h" />
             </button>
         </div>
