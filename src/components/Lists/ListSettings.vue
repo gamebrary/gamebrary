@@ -26,6 +26,22 @@
         </div>
 
         <section>
+            <h4>{{ $t('list.type') }}</h4>
+
+            <button type="button" class="xsmall" @click="setListType(null)">
+                <i class="fas fa-check-square" v-if="!activeList.type" />
+                <i class="far fa-square" v-else />
+                Collection
+            </button>
+
+            <button type="button" class="xsmall" @click="setListType('wishlist')">
+                <i class="fas fa-check-square" v-if="activeList.type === 'wishlist'" />
+                <i class="far fa-square" v-else />
+                Wishlist
+            </button>
+        </section>
+
+        <section>
             <h4>{{ $t('list.view') }}</h4>
 
             <div class="button-group">
@@ -194,6 +210,15 @@ export default {
             this.$store.commit('UPDATE_LIST_VIEW', {
                 listIndex: this.activeListIndex,
                 view,
+            });
+
+            this.$emit('update');
+        },
+
+        setListType(type) {
+            this.$store.commit('UPDATE_LIST_TYPE', {
+                listIndex: this.activeListIndex,
+                type,
             });
 
             this.$emit('update');
