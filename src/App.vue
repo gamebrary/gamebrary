@@ -242,11 +242,9 @@ export default {
             const docRef = db.collection('settings').doc(this.user.uid);
 
             docRef.get().then((doc) => {
-                if (doc.exists) {
-                    this.$store.commit('SET_SETTINGS', doc.data());
-                } else {
-                    this.initSettings();
-                }
+                return doc.exists
+                    ? this.$store.commit('SET_SETTINGS', doc.data())
+                    : this.initSettings();
             }).catch(() => {
                 this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
                 this.$router.push({ name: 'sessionExpired' });
