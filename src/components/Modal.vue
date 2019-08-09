@@ -67,6 +67,12 @@ export default {
         padded: Boolean,
     },
 
+    watch: {
+        routeName() {
+            this.close()
+        },
+    },
+
     data() {
         return {
             show: false,
@@ -76,6 +82,10 @@ export default {
     computed: {
         ...mapGetters(['darkModeEnabled']),
         ...mapState(['galleryOpen']),
+
+        routeName() {
+            return this.$route.name;
+        },
 
         closeButtonClass() {
             return [
