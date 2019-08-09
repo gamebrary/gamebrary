@@ -64,6 +64,7 @@
     },
     "list": {
         "edit": "Edit list name",
+        "type": "List type",
         "placeholder": "Type your list name here",
         "suggestions": {
             "owned": "Owned",
