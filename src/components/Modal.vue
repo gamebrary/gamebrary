@@ -67,12 +67,6 @@ export default {
         padded: Boolean,
     },
 
-    watch: {
-        routeName() {
-            this.close()
-        },
-    },
-
     data() {
         return {
             show: false,
@@ -96,6 +90,12 @@ export default {
                 'small',
                 'close-button',
             ];
+        },
+    },
+
+    watch: {
+        routeName() {
+            this.close();
         },
     },
 

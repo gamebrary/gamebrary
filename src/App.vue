@@ -242,7 +242,9 @@ export default {
             const docRef = db.collection('settings').doc(this.user.uid);
 
             docRef.get().then((doc) => {
-                return doc.exists
+                const hasData = doc && doc.exists;
+
+                return hasData
                     ? this.$store.commit('SET_SETTINGS', doc.data())
                     : this.initSettings();
             }).catch(() => {
