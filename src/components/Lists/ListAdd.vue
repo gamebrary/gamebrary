@@ -16,20 +16,18 @@
                     :placeholder="$t('list.placeholder')"
                 />
 
-                <div class="list-types">
-                    <div class="button-group">
-                        <button type="button" class="xsmall" @click="listType = null">
-                            <i class="fas fa-check-square" v-if="listType === null" />
-                            <i class="far fa-square" v-else />
-                            Collection
-                        </button>
+                <div class="button-group">
+                    <button type="button" class="xsmall" @click="listType = null">
+                        <i class="fas fa-check-square" v-if="listType === null" />
+                        <i class="far fa-square" v-else />
+                        Collection
+                    </button>
 
-                        <button type="button" class="xsmall" @click="listType = 'wishlist'">
-                            <i class="fas fa-check-square" v-if="listType === 'wishlist'" />
-                            <i class="far fa-square" v-else />
-                            Wishlist
-                        </button>
-                    </div>
+                    <button type="button" class="xsmall" @click="listType = 'wishlist'">
+                        <i class="fas fa-check-square" v-if="listType === 'wishlist'" />
+                        <i class="far fa-square" v-else />
+                        Wishlist
+                    </button>
                 </div>
 
                 <small v-if="isDuplicate">
