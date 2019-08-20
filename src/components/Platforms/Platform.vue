@@ -1,7 +1,7 @@
 <template lang="html">
     <div
         @click="changePlatform"
-        :class="['platform', { dark: darkModeEnabled } ]"
+        :class="['platform', { dark: darkModeEnabled, clickable } ]"
         :style="style"
     >
         <img
@@ -25,6 +25,7 @@ import { mapState, mapGetters } from 'vuex';
 export default {
     props: {
         platform: Object,
+        clickable: Boolean,
     },
 
     computed: {
@@ -55,8 +56,10 @@ export default {
 
     methods: {
         changePlatform() {
-            this.$store.commit('SET_PLATFORM', this.platform);
-            this.$router.push({ name: 'game-board' });
+            if (this.clickable) {
+                this.$store.commit('SET_PLATFORM', this.platform);
+                this.$router.push({ name: 'game-board' });
+            }
         },
 
         ownedPlatform(platformCode) {
@@ -80,15 +83,18 @@ export default {
     .platform {
         padding: $gp;
         display: flex;
-        flex-direction: column;
         margin-bottom: $gp / 2;
         align-items: center;
         justify-content: center;
         border-radius: $border-radius;
-        cursor: pointer;
         overflow: hidden;
-        width: 120px;
+        width: 100%;
+        max-width: 120px;
         height: 80px;
+
+        &.clickable {
+            cursor: pointer;
+        }
 
         @media($small) {
             padding: $gp / 2;
