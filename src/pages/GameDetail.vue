@@ -10,6 +10,7 @@
 
                     <div class="game-details">
                         <h2>{{ game.name }}</h2>
+                        {{ platform.name }}
                         <game-rating :rating="game.rating" />
 
                         <div class="actions" v-if="list.games.includes(game.id)">
@@ -47,7 +48,6 @@
                         <p class="game-description" v-html="game.summary" />
 
                         <game-notes />
-
                         <game-review-box />
                     </div>
                 </div>
