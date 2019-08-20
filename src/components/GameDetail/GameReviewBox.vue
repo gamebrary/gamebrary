@@ -1,5 +1,17 @@
 <template lang="html">
     <div v-if="game" class="review-box">
+        <section v-if="gamePlatforms && gamePlatforms.length > 0">
+            <h4>{{ $t('gameDetail.gamePlatforms') }}</h4>
+
+            <div class="platforms">
+                <platform
+                    v-for="platform in gamePlatforms"
+                    :key="platform.name"
+                    :platform="platform"
+                />
+            </div>
+        </section>
+
         <div class="info">
             <!-- TODO: get icons for everything -->
             <section v-if="playerPerspectives">
@@ -20,13 +32,6 @@
             <section v-if="genres">
                 <strong>{{ $t('gameDetail.genres') }}</strong>
                 {{ genres }}
-            </section>
-
-            <section v-if="gamePlatforms">
-                <!-- TODO: show current platform icon  -->
-                <!-- TODO: show other platform where available -->
-                <strong>{{ $t('gameDetail.gamePlatforms') }}</strong>
-                {{ gamePlatforms }}
             </section>
 
             <section v-if="developers">
@@ -52,10 +57,12 @@
 <script>
 import moment from 'moment';
 import GameLinks from '@/components/GameDetail/GameLinks';
+import Platform from '@/components/Platforms/Platform';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
     components: {
+        Platform,
         GameLinks,
     },
 
@@ -66,10 +73,7 @@ export default {
     },
 
     computed: {
-        ...mapState([
-            'game',
-            'platforms',
-        ]),
+        ...mapState(['game']),
 
         ...mapGetters([
             'playerPerspectives',
@@ -110,6 +114,12 @@ export default {
 
     section {
         margin-bottom: $gp / 3;
+    }
+
+    .platforms {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: $gp;
     }
 }
 </style>
