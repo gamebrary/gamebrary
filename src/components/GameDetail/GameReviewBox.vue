@@ -117,9 +117,20 @@ export default {
     }
 
     .platforms {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-gap: $gp;
+        display: flex;
+        flex-wrap: wrap;
+
+        .platform {
+            margin-right: $gp / 2;
+            
+            &:first-child {
+                margin-left: 0;
+            }
+            
+            &:last-child {
+                margin-right: 0;
+            }
+        }
     }
 }
 </style>
