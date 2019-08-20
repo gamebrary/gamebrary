@@ -1,20 +1,20 @@
 <template lang="html">
     <div
         @click="changePlatform"
-        :class="['platform', { dark: darkModeEnabled }, blockClass ]"
+        :class="['platform', { dark: darkModeEnabled } ]"
         :style="style"
     >
         <img
-            :src='`/static/img/platforms/${platformData.code}.svg`'
-            :alt="platformData.name"
+            :src='`/static/img/platforms/${platform.code}.svg`'
+            :alt="platform.name"
         />
 
         <span
-            v-if="ownedPlatform(platformData.code) && getGameCount(platformData.code) > 0"
+            v-if="ownedPlatform(platform.code) && getGameCount(platform.code) > 0"
             :class="['game-count', textColor]"
         >
             <i class="fas fa-gamepad" />
-            {{ getGameCount(platformData.code) }}
+            {{ getGameCount(platform.code) }}
         </span>
     </div>
 </template>
@@ -24,31 +24,19 @@ import { mapState, mapGetters } from 'vuex';
 
 export default {
     props: {
-        platformData: Object,
-        blockHeight: {
-            type: [String, Number],
-            default: 1,
-        },
-        blockWidth: {
-            type: [String, Number],
-            default: 2,
-        },
+        platform: Object,
     },
 
     computed: {
-        ...mapState(['gameLists', 'platform', 'settings']),
+        ...mapState(['gameLists', 'settings']),
         ...mapGetters(['darkModeEnabled']),
 
         hexColor() {
-            return this.platformData.hex || '#fff';
+            return this.platform.hex || '#fff';
         },
 
         style() {
             return `background-color: ${this.hexColor}`;
-        },
-
-        blockClass() {
-            return `height-${this.blockHeight}`;
         },
 
         textColor() {
@@ -67,7 +55,7 @@ export default {
 
     methods: {
         changePlatform() {
-            this.$store.commit('SET_PLATFORM', this.platformData);
+            this.$store.commit('SET_PLATFORM', this.platform);
             this.$router.push({ name: 'game-board' });
         },
 

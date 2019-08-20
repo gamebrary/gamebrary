@@ -4,39 +4,19 @@
             <platform
                 v-for="platform in filteredPlatforms"
                 :key="platform.name"
-                :platform-data="platform"
-                :block-height="platform.height"
-                :block-width="platform.width"
+                :platform="platform"
             />
         </div>
 
-        <footer>
-            <small>
-              {{ $t('platforms.donateMessage') }}
-                <a href="https://www.paypal.me/RomanCervantes/5" target="_blank">
-                    {{ $t('platforms.donating') }}
-                </a>
-                ,
-                <a href="https://github.com/romancmx/gamebrary/issues" target="_blank">
-                    {{ $t('platforms.reportBugs') }}
-                </a>
-                {{$t('global.or')}}
-                <a href="https://goo.gl/forms/r0juBCsZaUtJ03qb2" target="_blank">
-                    {{ $t('platforms.submitFeedback') }}
-                </a>
-                .
-            </small>
-
-            <igdb-credit gray />
-        </footer>
+        <page-footer />
     </div>
 </template>
 
 <script>
 import Masonry from 'masonry-layout';
 import platforms from '@/platforms';
-import IgdbCredit from '@/components/IgdbCredit';
-import Platform from '@/components/Platform';
+import Platform from '@/components/Platforms/Platform';
+import PageFooter from '@/components/Platforms/PageFooter';
 import Panel from '@/components/Panel';
 import { sortBy } from 'lodash';
 import { mapState, mapGetters } from 'vuex';
@@ -45,9 +25,9 @@ let msnry = null;
 
 export default {
     components: {
-        IgdbCredit,
         Platform,
         Panel,
+        PageFooter,
     },
 
     data() {
