@@ -85,7 +85,7 @@ export default {
             ? state.game.platforms.map(platform => platform.id)
             : null;
 
-        return platforms.filter(platform => Number(platform.id) !== Number(state.platform.id) && gamePlatforms.includes(platform.id));
+        return platforms.filter(({ id }) => id !== state.platform.id && gamePlatforms.includes(id));
     },
 
     // eslint-disable-next-line
