@@ -72,6 +72,7 @@ exports.game = functions.https.onRequest((req, res) => {
     rating,
     genres.name,
     platforms.name,
+    platforms.id,
     game_modes.name,
     time_to_beat;
 
