@@ -5,6 +5,7 @@
                 v-for="platform in filteredPlatforms"
                 :key="platform.name"
                 :platform="platform"
+                clickable
             />
         </div>
 
