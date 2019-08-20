@@ -1,3 +1,5 @@
+import platforms from '@/platforms';
+
 export default {
     // eslint-disable-next-line
     ageRatings: () => {
@@ -80,12 +82,10 @@ export default {
 
     gamePlatforms: (state) => {
         const gamePlatforms = state.game && state.game.platforms
-            ? state.game.platforms
+            ? state.game.platforms.map(platform => platform.id)
             : null;
 
-        return gamePlatforms
-            ? gamePlatforms.map(gamePlatform => gamePlatform.name).join(', ')
-            : null;
+        return platforms.filter(platform => Number(platform.id) !== Number(state.platform.id) && gamePlatforms.includes(platform.id));
     },
 
     // eslint-disable-next-line
