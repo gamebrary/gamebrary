@@ -63,9 +63,11 @@ export default {
         },
 
         ownedPlatform(platformCode) {
-            return this.gameLists
+            const isOwned = this.gameLists
                 && this.gameLists[platformCode]
                 && Object.keys(this.gameLists[platformCode]).length;
+
+            return this.isOwned && this.clickable;
         },
 
         getGameCount(platform) {
