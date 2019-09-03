@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import ShareList from '@/pages/ShareList';
 import GameBoard from '@/pages/GameBoard';
 import SessionExpired from '@/pages/SessionExpired';
 import Platforms from '@/pages/Platforms';
