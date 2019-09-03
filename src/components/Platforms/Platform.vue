@@ -67,7 +67,7 @@ export default {
                 && this.gameLists[platformCode]
                 && Object.keys(this.gameLists[platformCode]).length;
 
-            return this.isOwned && this.clickable;
+            return isOwned && this.clickable;
         },
 
         getGameCount(platform) {
