@@ -31,7 +31,16 @@ exports.games = functions.https.onRequest((req, res) => {
         res.status(400).send('missing param games');
     }
 
-    const data = `fields id,name,slug,rating,name,cover.image_id; where id = (${ games });`;
+    const data = `fields
+    id,
+    name,
+    slug,
+    rating,
+    name,
+    cover.image_id;
+
+    where id = (${ games });
+    limit 50;`;
 
     axios({
         url: 'https://api-v3.igdb.com/games',
