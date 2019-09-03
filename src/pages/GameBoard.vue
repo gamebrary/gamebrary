@@ -115,6 +115,7 @@ export default {
             gameDetailListIndex: null,
             gameDetailId: null,
             gameTagsId: null,
+            queryLimit: 500,
         };
     },
 
@@ -132,8 +133,8 @@ export default {
     mounted() {
         this.$store.commit('CLEAR_ACTIVE_LIST_INDEX');
 
-        if (this.platform || this.$route.name === 'share-list') {
-            this.loadGameData();
+        if (this.list && this.platform || this.$route.name === 'share-list') {
+            this.load();
             this.setPageTitle();
         } else {
             this.$router.push({ name: 'platforms' });
@@ -213,27 +214,33 @@ export default {
                 });
         },
 
-        loadGameData() {
-            if (this.list) {
-                const flattenedList = this.list.map(({ games }) => games).flat();
-                const gameList = Array.from(new Set(flattenedList));
+        load() {
+            const flattenedList = this.list.map(({ games }) => games).flat();
+            const dedupedList = Array.from(new Set(flattenedList));
 
-                if (gameList.length > 0) {
-                    const chunkedGameList = chunk(gameList, 50);
+            return dedupedList.length > this.queryLimit
+                ? this.loadGamesInChunks(dedupedList)
+                : this.loadGames(dedupedList);
+        },
 
-                    chunkedGameList.forEach((partialGameList) => {
-                        this.loading = true;
+        loadGames(gameList) {
+            this.loading = true;
 
-                        this.$store.dispatch('LOAD_GAMES', partialGameList.toString())
-                            .then(() => {
-                                this.loading = false;
-                            })
-                            .catch(() => {
-                                this.$bus.$emit('TOAST', { message: 'Error loading games', type: 'error' });
-                            });
-                    });
-                }
-            }
+            this.$store.dispatch('LOAD_GAMES', gameList.toString())
+                .then(() => {
+                    this.loading = false;
+                })
+                .catch(() => {
+                    this.$bus.$emit('TOAST', { message: 'Error loading games', type: 'error' });
+                });
+        },
+
+        loadGamesInChunks(gameList) {
+            const chunkedGameList = chunk(gameList, this.queryLimit);
+
+            chunkedGameList.forEach((gameListChunk) => {
+                this.loadGames(gameListChunk);
+            });
         },
     },
 };
