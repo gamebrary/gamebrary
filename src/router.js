@@ -12,11 +12,6 @@ export default new Router({
     mode: 'history',
     routes: [
         {
-            path: '/s',
-            name: 'share-list',
-            component: ShareList,
-        },
-        {
             name: 'platforms',
             path: '/platforms',
             component: Platforms,

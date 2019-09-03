@@ -133,7 +133,7 @@ export default {
     mounted() {
         this.$store.commit('CLEAR_ACTIVE_LIST_INDEX');
 
-        if (this.list && this.platform || this.$route.name === 'share-list') {
+        if (this.list && this.platform) {
             this.load();
             this.setPageTitle();
         } else {
