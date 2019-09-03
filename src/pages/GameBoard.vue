@@ -215,21 +215,11 @@ export default {
 
         loadGameData() {
             if (this.list) {
-                const gameList = [];
-
-                // TODO: refactor this to use reduce or map
-                this.list.forEach((list) => {
-                    if (list && list.games.length) {
-                        list.games.forEach((id) => {
-                            if (!gameList.includes(id)) {
-                                gameList.push(id);
-                            }
-                        });
-                    }
-                });
+                const flattenedList = this.list.map(({ games }) => games).flat();
+                const gameList = Array.from(new Set(flattenedList));
 
                 if (gameList.length > 0) {
-                    const chunkedGameList = chunk(gameList, 10);
+                    const chunkedGameList = chunk(gameList, 50);
 
                     chunkedGameList.forEach((partialGameList) => {
                         this.loading = true;
@@ -239,7 +229,7 @@ export default {
                                 this.loading = false;
                             })
                             .catch(() => {
-                                this.$bus.$emit('TOAST', { message: 'Error loading game', type: 'error' });
+                                this.$bus.$emit('TOAST', { message: 'Error loading games', type: 'error' });
                             });
                     });
                 }
