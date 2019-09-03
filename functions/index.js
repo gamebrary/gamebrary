@@ -40,7 +40,7 @@ exports.games = functions.https.onRequest((req, res) => {
     cover.image_id;
 
     where id = (${ games });
-    limit 50;`;
+    limit 500;`;
 
     axios({
         url: 'https://api-v3.igdb.com/games',
