@@ -1,6 +1,6 @@
 <!-- eslint-disable max-len -->
 <template lang="html">
-    <div :class="['list', viewClass, { dark: darkModeEnabled }, transparent]">
+    <div :class="['list', viewClass, { dark: darkModeEnabled, unique }, transparent]">
         <div class="list-header" :class="{ searching, editing }">
             <div v-if="searching">
                 {{ $t('gameSearch.title') }}
@@ -165,6 +165,10 @@ export default {
             return this.list[this.listIndex].view;
         },
 
+        unique() {
+            return this.list.length === 1;
+        },
+
         gameCardComponent() {
             return this.view && Object.keys(this.gameCardComponents).includes(this.view)
                 ? this.gameCardComponents[this.view]
@@ -309,6 +313,12 @@ export default {
 
             .add-game-button {
                 color: $color-white;
+            }
+        }
+
+        &.unique {
+            @media($small) {
+                width: calc(100vw - 80px);
             }
         }
 
