@@ -133,7 +133,7 @@ export default {
     mounted() {
         this.$store.commit('CLEAR_ACTIVE_LIST_INDEX');
 
-        if (this.list && this.platform) {
+        if (this.platform) {
             this.load();
             this.setPageTitle();
         } else {
@@ -215,7 +215,10 @@ export default {
         },
 
         load() {
-            const flattenedList = this.list.map(({ games }) => games).flat();
+            const flattenedList = this.list
+                ? this.list.map(({ games }) => games).flat()
+                : [];
+
             const dedupedList = Array.from(new Set(flattenedList));
 
             return dedupedList.length > this.queryLimit
@@ -224,15 +227,17 @@ export default {
         },
 
         loadGames(gameList) {
-            this.loading = true;
+            if (gameList && gameList.length > 0) {
+                this.loading = true;
 
-            this.$store.dispatch('LOAD_GAMES', gameList.toString())
-                .then(() => {
-                    this.loading = false;
-                })
-                .catch(() => {
-                    this.$bus.$emit('TOAST', { message: 'Error loading games', type: 'error' });
-                });
+                this.$store.dispatch('LOAD_GAMES', gameList.toString())
+                    .then(() => {
+                        this.loading = false;
+                    })
+                    .catch(() => {
+                        this.$bus.$emit('TOAST', { message: 'Error loading games', type: 'error' });
+                    });
+            }
         },
 
         loadGamesInChunks(gameList) {
