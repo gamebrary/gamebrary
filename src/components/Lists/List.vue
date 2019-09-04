@@ -77,7 +77,7 @@
             v-if="!searching && !editing"
             @click="addGame"
             class="add-game-button small"
-            :title="$t('list.add')"
+            :title="$t('list.addGame')"
         >
             <i class="fas fa-plus" />
         </button>
