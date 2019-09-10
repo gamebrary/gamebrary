@@ -85,14 +85,13 @@ export default {
     .platform {
         padding: $gp;
         display: flex;
-        margin-bottom: $gp / 2;
+        margin-bottom: $gp;
         align-items: center;
         justify-content: center;
-        border-radius: $border-radius;
+        border-radius: $border-radius / 2;
         overflow: hidden;
-        width: 100%;
-        max-width: 120px;
-        height: 80px;
+        width: 200px;
+        height: 100px;
 
         &.clickable {
             cursor: pointer;
@@ -100,14 +99,19 @@ export default {
 
         @media($small) {
             padding: $gp / 2;
-            width: calc(calc(100% / 3) - 7px) !important;
+            width: 100%;
+            height: 60px;
         }
 
         img {
-            width: 100%;
+            width: 80%;
             height: auto;
 
-            max-height: 100%;
+            @media($small) {
+                width: auto;
+                height: 70px;
+                max-height: 60%;
+            }
         }
 
         .game-count {

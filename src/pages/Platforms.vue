@@ -73,32 +73,8 @@ export default {
         initGrid() {
             msnry = new Masonry('.platforms', {
                 itemSelector: '.platform',
-                gutter: 10,
+                gutter: 16,
             });
-        },
-
-        groupLabel(label) {
-            return label === '0'
-                ? this.$t('platforms.computersArcade')
-                : `${this.ordinalSuffix(label)} ${this.$t('platforms.generation')}`;
-        },
-
-        ordinalSuffix(value) {
-            const j = value % 10;
-            const k = value % 100;
-
-            if (j === 1 && k !== 11) {
-                return `${value}${this.$t('platforms.st')}`;
-            }
-
-            if (j === 2 && k !== 12) {
-                return `${value}${this.$t('platforms.nd')}`;
-            }
-            if (j === 3 && k !== 13) {
-                return `${value}${this.$t('platforms.rd')}`;
-            }
-
-            return `${value}${this.$t('platforms.th')}`;
         },
     },
 };
@@ -110,31 +86,16 @@ export default {
     .platforms-page {
         color: $color-dark-gray;
         min-height: calc(100vh - #{$navHeight});
-        padding: 0 $gp;
+        padding: $gp / 2 $gp;
 
         &.dark {
             color: $color-gray;
-
-            .group-label {
-                background-color: $color-darkest-gray;
-            }
         }
     }
 
     .platforms {
         display: flex;
         flex-direction: column;
-
-        &.reverse {
-            flex-direction: column-reverse;
-        }
-    }
-
-    .group-label {
-        position: sticky;
-        top: 0;
-        padding: $gp / 3 0;
-        background-color: $color-gray;
     }
 
     footer {
