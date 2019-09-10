@@ -310,11 +310,11 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss">
     @import url(https://fonts.googleapis.com/css?family=Fira+Sans:700|Roboto:400,400italic,700);
-    @import "~styles/styles.scss";
+    @import "~styles/styles";
 </style>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    @import "~styles/styles.scss";
+    @import "~styles/styles";
 
     #app {
         background-color: $color-gray;

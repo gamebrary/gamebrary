@@ -82,7 +82,7 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    @import "~styles/styles.scss";
+    @import "~styles/styles";
 
     .game-screenshots {
         padding: $gp / 2 $gp;
@@ -106,7 +106,7 @@ export default {
 </style>
 
 <style lang="scss" rel="stylesheet/scss">
-    @import "~styles/styles.scss";
+    @import "~styles/styles";
 
     .blueimp-gallery {
 
