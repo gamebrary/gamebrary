@@ -10,7 +10,7 @@ export default [
     {
         name: 'PlayStation 4',
         code: 'ps4',
-        hex: '#2E6DB4',
+        hex: '#2e6db4',
         id: 48,
     },
     {
@@ -32,13 +32,13 @@ export default [
     {
         name: 'NES',
         code: 'nes',
-        hex: '#FFFFFF',
+        hex: '#ffffff',
         id: 18,
     },
     {
         name: 'Wii',
         code: 'wii',
-        hex: '#FFFFFF',
+        hex: '#ffffff',
         id: 5,
     },
     {
@@ -103,7 +103,7 @@ export default [
         name: 'Commodore C64/128',
         code: 'commodore-64',
         id: 15,
-        hex: '#6F685F',
+        hex: '#6f685f',
     },
     {
         name: 'Amiga',
