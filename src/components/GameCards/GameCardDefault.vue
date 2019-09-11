@@ -66,6 +66,8 @@ export default {
         position: relative;
         display: grid;
         grid-template-columns: $gameCoverWidth auto;
+        border-radius: $border-radius;
+        overflow: hidden;
 
         &.card-placeholder {
             background: $color-light-gray;

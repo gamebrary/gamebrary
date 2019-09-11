@@ -88,7 +88,7 @@ export default {
         margin-bottom: $gp;
         align-items: center;
         justify-content: center;
-        border-radius: $border-radius / 2;
+        border-radius: $border-radius;
         overflow: hidden;
         width: 200px;
         height: 100px;

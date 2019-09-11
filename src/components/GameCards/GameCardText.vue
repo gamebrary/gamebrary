@@ -61,6 +61,7 @@ export default {
         background-color: $color-white;
         margin-top: $gp / 2;
         position: relative;
+        border-radius: $border-radius;
 
         &.card-placeholder {
             background: $color-light-gray;

@@ -69,6 +69,8 @@ export default {
         position: relative;
         display: grid;
         grid-template-columns: 60px auto;
+        border-radius: $border-radius;
+        overflow: hidden;
 
         img {
             width: 60px;
