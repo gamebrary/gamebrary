@@ -4,19 +4,23 @@ export default [
     {
         name: 'Nintendo Switch',
         code: 'nintendo-switch',
-        hex: '#e60012',
+        hex: '#ce181e',
         id: 130,
+        brandingEnabled: true,
     },
     {
         name: 'PlayStation 4',
         code: 'ps4',
         hex: '#2e6db4',
         id: 48,
+        brandingEnabled: true,
     },
     {
         name: 'Xbox One',
         code: 'xbox-one',
         id: 49,
+        hex: '#177d3e',
+        brandingEnabled: true,
     },
     {
         name: 'PlayStation Vita',
@@ -90,7 +94,7 @@ export default [
         id: 12,
     },
     {
-        name: 'PC Dos',
+        name: 'MS-DOS',
         code: 'msdos',
         id: 13,
     },
@@ -119,6 +123,7 @@ export default [
         name: 'Nintendo GameCube',
         code: 'nintendo-gamecube',
         id: 21,
+        hex: '#000',
     },
     {
         name: 'Game Boy Color',
@@ -134,6 +139,7 @@ export default [
         name: 'Game Boy Advance',
         code: 'gameboy-advance',
         id: 24,
+        hex: '#1F00CC',
     },
     {
         name: 'Sega 32X',
@@ -199,11 +205,13 @@ export default [
         name: 'Atari Lynx',
         code: 'atari-lynx',
         id: 61,
+        hex: '#000',
     },
     {
         name: 'Atari Jaguar',
         code: 'atari-jaguar',
         id: 62,
+        hex: '#231f20',
     },
     {
         name: 'Atari ST',
