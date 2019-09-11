@@ -6,7 +6,7 @@
                 {{ $t('platforms.donating') }}
             </a>
             ,
-            <a href="https://github.com/romancmx/gamebrary/issues" target="_blank">
+            <a href="https://github.com/romancm/gamebrary/issues" target="_blank">
                 {{ $t('platforms.reportBugs') }}
             </a>
             {{$t('global.or')}}
