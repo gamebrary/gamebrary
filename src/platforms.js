@@ -295,13 +295,8 @@ export default [
     {
         name: 'Neo Geo Pocket',
         code: 'neo-geo-pocket',
-        id: 119,
+        id: '119,120',
     },
-    // {
-    //     name: 'Neo Geo Pocket Color',
-    //     code: 'neo-geo-pocket-color',
-    //     id: 120,
-    // },
     {
         name: 'WonderSwan Color',
         code: 'wonderswan-color',
