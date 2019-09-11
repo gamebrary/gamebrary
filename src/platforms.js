@@ -256,9 +256,7 @@ export default [
     {
         name: 'Neo Geo MVS',
         code: 'neo-geo',
-        id: 79,
-        // TODO: combine
-        // id: 80,
+        id: '79,80',
     },
     {
         name: 'TurboGrafx-16 (PC Engine / SuperGrafx)',
