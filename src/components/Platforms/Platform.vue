@@ -5,7 +5,7 @@
         :style="style"
     >
         <img
-            :src='`/static/img/platforms/${platform.code}.svg`'
+            :src='`/static/img/platforms/logos/${platform.code}.svg`'
             :alt="platform.name"
         />
 
