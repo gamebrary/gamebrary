@@ -4,13 +4,11 @@ export default [
     {
         name: 'Nintendo Switch',
         code: 'nintendo-switch',
-        hex: '#e60012',
         id: 130,
     },
     {
         name: 'PlayStation 4',
         code: 'ps4',
-        hex: '#2E6DB4',
         id: 48,
     },
     {
@@ -27,18 +25,15 @@ export default [
         name: 'Steam',
         code: 'steam',
         id: 92,
-        hex: '#171a21',
     },
     {
         name: 'NES',
         code: 'nes',
-        hex: '#FFFFFF',
         id: 18,
     },
     {
         name: 'Wii',
         code: 'wii',
-        hex: '#FFFFFF',
         id: 5,
     },
     {
@@ -49,19 +44,16 @@ export default [
     {
         name: 'Playstation',
         code: 'ps',
-        hex: '#fff',
         id: 7,
     },
     {
         name: 'Playstation 2',
         code: 'ps2',
-        hex: '#fff',
         id: 8,
     },
     {
         name: 'Playstation 3',
         code: 'ps3',
-        hex: '#fff',
         id: 9,
     },
     {
@@ -103,7 +95,6 @@ export default [
         name: 'Commodore C64/128',
         code: 'commodore-64',
         id: 15,
-        hex: '#6F685F',
     },
     {
         name: 'Amiga',
@@ -231,7 +222,6 @@ export default [
         name: 'ColecoVision',
         code: 'colecovision',
         id: 68,
-        hex: '#000',
     },
     {
         name: 'Vectrex',
@@ -246,13 +236,11 @@ export default [
     {
         name: 'Apple II',
         code: 'apple-2',
-        hex: '#fff',
         id: 75,
     },
     {
         name: 'Sega CD',
         code: 'sega-cd',
-        hex: '#000',
         id: 78,
     },
     {
@@ -312,7 +300,6 @@ export default [
     {
         name: 'Turbografx-16/PC Engine CD',
         code: 'turbografx-16',
-        hex: '#000',
         id: 150,
     },
 ];
