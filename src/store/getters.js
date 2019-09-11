@@ -92,4 +92,11 @@ export default {
     activeList: ({ gameLists, platform, activeListIndex }) => gameLists[platform.code][activeListIndex],
 
     darkModeEnabled: state => state.settings && state.settings.nightMode,
+
+    brandingEnabled: ({ settings, platform }) => {
+        const brandingEnabled = settings && settings.branding;
+        const brandingAvailble = platform && platform.brandingEnabled && Boolean(platform.hex);
+
+        return Boolean(brandingEnabled && brandingAvailble);
+    },
 };

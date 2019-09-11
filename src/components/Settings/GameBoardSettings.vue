@@ -2,6 +2,16 @@
     <section>
         <div class="setting">
             <i class="fas fa-star-half-alt" />
+            <h5>Enable platform branding (colors, logo, etc...)</h5>
+
+            <toggle-switch
+                id="gameRatings"
+                v-model="value.branding"
+            />
+        </div>
+
+        <div class="setting">
+            <i class="fas fa-star-half-alt" />
             <h5>{{ $t('settings.ratings') }}</h5>
 
             <toggle-switch

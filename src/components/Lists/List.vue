@@ -1,7 +1,7 @@
 <!-- eslint-disable max-len -->
 <template lang="html">
     <div :class="['list', viewClass, { dark: darkModeEnabled, unique }, transparent]">
-        <div class="list-header" :class="{ searching, editing }">
+        <div class="list-header" :class="{ searching, editing }" :style="style">
             <div v-if="searching">
                 {{ $t('gameSearch.title') }}
                 <strong>{{ list[listIndex].name }}</strong>
@@ -143,7 +143,7 @@ export default {
     computed: {
         ...mapState(['user', 'gameLists', 'platform', 'activeListIndex', 'settings', 'searchActive']),
 
-        ...mapGetters(['darkModeEnabled']),
+        ...mapGetters(['darkModeEnabled', 'brandingEnabled']),
 
         list() {
             return this.gameLists[this.platform.code];
@@ -159,6 +159,12 @@ export default {
 
         isEmpty() {
             return this.games.length === 0;
+        },
+
+        style() {
+            return this.brandingEnabled
+                ? `background-color: ${this.platform.hex}`
+                : null;
         },
 
         view() {

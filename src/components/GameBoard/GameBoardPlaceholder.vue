@@ -5,7 +5,7 @@
             v-for="list in lists"
             :key="list.name"
         >
-            <div class="list-header" />
+            <div class="list-header" :style="style" />
 
             <div class="games">
                 <placeholder
@@ -30,12 +30,18 @@ export default {
 
     computed: {
         ...mapState(['gameLists', 'platform']),
-        ...mapGetters(['darkModeEnabled']),
+        ...mapGetters(['darkModeEnabled', 'brandingEnabled']),
 
         lists() {
             return this.gameLists && this.platform && this.gameLists[this.platform.code]
                 ? this.gameLists[this.platform.code]
                 : [];
+        },
+
+        style() {
+            return this.brandingEnabled
+                ? `background-color: ${this.platform.hex}; opacity: 0.8;`
+                : null;
         },
     },
 
