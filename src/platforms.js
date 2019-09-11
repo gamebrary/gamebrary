@@ -113,9 +113,7 @@ export default [
     {
         name: 'Nintendo DS',
         code: 'nintendo-ds',
-        id: 20,
-        // Combine
-        // id: 159,
+        id: '20,159',
     },
     {
         name: 'Nintendo GameCube',
