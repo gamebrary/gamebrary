@@ -296,10 +296,6 @@ export default {
             background-color: $color-light-gray-transparent;
         }
 
-        &.wide {
-            width: $list-width-wide;
-        }
-
         &.dark {
             background-color: $color-dark-gray;
 

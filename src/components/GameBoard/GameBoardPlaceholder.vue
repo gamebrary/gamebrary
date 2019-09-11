@@ -68,7 +68,6 @@ export default {
         max-height: calc(100vh - 81px);
 
         &.wide {
-            width: $list-width-wide;
             --placeholder-image-width: 80px;
             --placeholder-image-height: 80px;
         }
