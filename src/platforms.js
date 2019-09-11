@@ -261,11 +261,9 @@ export default [
         // id: 80,
     },
     {
-        name: 'TurboGrafx-16 / PC Engine',
+        name: 'TurboGrafx-16 (PC Engine / SuperGrafx)',
         code: 'pc-engine',
-        id: 86,
-        // name: 'PC Engine SuperGrafx (combine with pc engine)',
-        // id: 128,
+        id: '86,128',
     },
     {
         name: 'Nintendo Virtual Boy',
