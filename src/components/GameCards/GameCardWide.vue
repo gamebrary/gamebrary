@@ -68,12 +68,12 @@ export default {
         margin-top: $gp / 2;
         position: relative;
         display: grid;
-        grid-template-columns: 60px auto;
+        grid-template-columns: 50px auto;
         border-radius: $border-radius;
         overflow: hidden;
 
         img {
-            width: 60px;
+            width: 50px;
             height: auto;
             display: flex;
             align-self: center;
