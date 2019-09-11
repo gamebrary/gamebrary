@@ -209,10 +209,19 @@ export default {
     }
 
     .dark {
-        color: $color-dark-gray;
+        color: $color-gray;
 
         nav {
             background-color: $color-darker-gray;
+
+            a.setting-link {
+                color: $color-gray;
+
+                &.active {
+                    font-weight: bold;
+                    color: $color-white;
+                }
+            }
         }
     }
 </style>
