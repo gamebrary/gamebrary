@@ -199,14 +199,26 @@ export default {
     watch: {
         view() {
             this.initGrid();
+
+            setTimeout(() => {
+                this.initGrid();
+            }, 500);
         },
 
         games() {
             this.initGrid();
+
+            setTimeout(() => {
+                this.initGrid();
+            }, 500);
         },
 
         editing() {
             this.initGrid();
+
+            setTimeout(() => {
+                this.initGrid();
+            }, 500);
         },
     },
 
