@@ -12,6 +12,12 @@
         "returnHome": "Etxera itzuli",
         "pageNotFound": "Ez da orria aurkitu"
     },
+    "errors": {
+        "loading": "Errorea gertatu da datuak kargatzean"
+    },
+    "releases": {
+        "published": "Argitaratua {data}"
+    },
     "platforms": {
         "donateMessage": "Gamebrary iturri librea eta irekia da eta kontuan hartu bere garapenari laguntzen",
         "donating": "eman",
@@ -28,6 +34,11 @@
             "dangerZone": "Arriskuen zona"
         }
     },
+    "sessionExpired": {
+        "title": "Saioa iraungita dago",
+        "login": "Saioa hasi",
+        "exit": "Irten"
+    },
     "gameDetail": {
         "videos": "Bideoak",
         "screenshots": "Pantaila-",
@@ -36,7 +47,7 @@
         "timeToBeat": "Irabazteko garaia",
         "gameModes": "Joko modua",
         "genres": "generoa",
-        "gamePlatforms": "plataformak",
+        "gamePlatforms": "Eskuragarri ere:",
         "developers": "Developer",
         "publishers": "Argitaletxeak",
         "removeFromList": "Kendu zerrendatik",
@@ -64,8 +75,8 @@
     },
     "list": {
         "edit": "Editatu zerrendaren izena",
-        "placeholder": "Zerrenda izena (adibidez. Jabea)",
-        "suggestionsTitle": "Iradokizun",
+        "type": "Zerrenda mota",
+        "placeholder": "Idatzi hemen zure zerrenda izena",
         "suggestions": {
             "owned": "sozietateak",
             "wishlist": "Gustuko",
@@ -74,6 +85,9 @@
         },
         "input": "Sartu zurea",
         "add": "Gehitu zerrenda",
+        "duplicateWarning": "Dagoeneko zerrenda bat duzu izen horrekin",
+        "getStarted": "Hasi!",
+        "addFirstTime": "Ongi etorri, gehitu zure lehen zerrenda!",
         "sortByName": "THE",
         "sortByRating": "Puntuazioa",
         "sortByReleaseDate": "data",
@@ -105,6 +119,7 @@
         "reloading": "Berkargatzean ...",
         "releases": "oharrak",
         "newsletter": "Jaso eguneratze mezu elektronikoak (laster etorriko dira)",
+        "branding": "Plataforma marka (koloreak, logotipoa, etab ...)",
         "language": "Hizkuntza",
         "languages": {
             "en": "English",
@@ -124,7 +139,7 @@
         "signOut": "Hasi saioa",
         "wallpaper": {
             "title": "Kargatu horma-irudia",
-            "transparency": "Zerrenda erdi gardenak",
+            "transparency": "Gardentasuna eman",
             "currentWallpaper": "Uneko horma-irudia",
             "removeWallpaper": "Kendu papera"
         },
@@ -146,7 +161,7 @@
         "title": "Gehitu jokoak",
         "inputPlaceholder": "Bilatu hemen",
         "alreadyInList": "dagoeneko zure zerrendako bilaketa-emaitzetatik",
-        "noResultsFound": "Ez da emaitzarik aurkitu",
+        "noResultsFound": "Emaitzarik ez",
         "missingGame": "Joko bat falta al zaizu? Lagundu komunitateari eta",
         "addToIGDB": "Gehitu IGDB-ri"
     },

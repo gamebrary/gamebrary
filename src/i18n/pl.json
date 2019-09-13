@@ -12,8 +12,14 @@
         "returnHome": "Wrócić do domu",
         "pageNotFound": "Strona nie znaleziona"
     },
+    "errors": {
+        "loading": "Błąd ładowania danych"
+    },
+    "releases": {
+        "published": "Data publikacji}"
+    },
     "platforms": {
-        "donateMessage": "Gamebrary jest darmowy i open source, rozważ pomoc w jego rozwoju",
+        "donateMessage": "Gamebrary jest darmowym i otwartym oprogramowaniem, rozważ pomoc w jego rozwoju",
         "donating": "darowizny",
         "reportBugs": "zgłaszanie błędów",
         "submitFeedback": "przesyłanie opinii"
@@ -28,6 +34,11 @@
             "dangerZone": "Strefa niebezpieczeństwa"
         }
     },
+    "sessionExpired": {
+        "title": "Sesja wygasła",
+        "login": "Zaloguj Się",
+        "exit": "Wyjście"
+    },
     "gameDetail": {
         "videos": "Wideo",
         "screenshots": "Zrzuty ekranu",
@@ -36,7 +47,7 @@
         "timeToBeat": "Czas na pokonanie",
         "gameModes": "Tryb gry",
         "genres": "Gatunek muzyczny",
-        "gamePlatforms": "Platformy",
+        "gamePlatforms": "Dostępne również dla:",
         "developers": "Deweloper",
         "publishers": "Wydawcy",
         "removeFromList": "Usunąć z listy",
@@ -64,8 +75,8 @@
     },
     "list": {
         "edit": "Edytuj nazwę listy",
-        "placeholder": "Nazwa listy (np. Własność)",
-        "suggestionsTitle": "Propozycje",
+        "type": "Rodzaj listy",
+        "placeholder": "Wpisz tutaj swoją nazwę listy",
         "suggestions": {
             "owned": "Posiadane",
             "wishlist": "Lista życzeń",
@@ -74,6 +85,9 @@
         },
         "input": "Wpisz własne",
         "add": "Dodaj listę",
+        "duplicateWarning": "Masz już listę o tej nazwie",
+        "getStarted": "Zaczynać!",
+        "addFirstTime": "Witamy, dodaj swoją pierwszą listę!",
         "sortByName": "",
         "sortByRating": "Wynik",
         "sortByReleaseDate": "Data",
@@ -103,8 +117,9 @@
         "global": "Światowy",
         "darkTheme": "ciemny schemat",
         "reloading": "Ponowne ładowanie ...",
-        "releases": "Prasowe",
+        "releases": "Wydawnictwa",
         "newsletter": "Otrzymuj e-maile z aktualizacją (wkrótce)",
+        "branding": "Znakowanie platformy (kolory, logo itp.)",
         "language": "Język",
         "languages": {
             "en": "język angielski",
@@ -124,7 +139,7 @@
         "signOut": "Wyloguj się",
         "wallpaper": {
             "title": "Prześlij tapetę",
-            "transparency": "Półprzezroczyste listy",
+            "transparency": "Zezwól na przezroczystość",
             "currentWallpaper": "Aktualna tapeta",
             "removeWallpaper": "Usuń tapetę"
         },
@@ -146,7 +161,7 @@
         "title": "Dodaj gry do",
         "inputPlaceholder": "Szukaj tutaj",
         "alreadyInList": "z wyników wyszukiwania już na twojej liście",
-        "noResultsFound": "Nie znaleziono wyników dla",
+        "noResultsFound": "Brak wyników",
         "missingGame": "Brakuje gry? Pomóż społeczności i",
         "addToIGDB": "Dodaj go do IGDB"
     },

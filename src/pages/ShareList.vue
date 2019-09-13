@@ -64,6 +64,8 @@ export default {
         load() {
             const { id, list } = this.$route.query;
 
+            const message = this.$t('errors.loading');
+
             db.collection('lists').doc(id).get()
                 .then((doc) => {
                     if (doc.exists) {
@@ -74,7 +76,7 @@ export default {
                 })
                 .catch(() => {
                     this.loading = false;
-                    this.$bus.$emit('TOAST', { message: 'Error loading data', type: 'error' });
+                    this.$bus.$emit('TOAST', { message, type: 'error' });
                 });
         },
 

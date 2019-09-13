@@ -2,13 +2,21 @@
     <section>
         <div class="setting">
             <i class="fas fa-palette" />
-            <h5>Platform branding (colors, logo, etc...)</h5>
+            <h5>{{ $t('settings.branding') }}</h5>
 
             <toggle-switch
                 id="gameRatings"
                 v-model="value.branding"
             />
         </div>
+
+        <div class="form-group">
+            <label class="form-switch">
+                <input type="checkbox" v-model="value.branding">
+                <i class="form-icon" />
+            </label>
+        </div>
+
 
         <div class="setting">
             <i class="fas fa-star-half-alt" />

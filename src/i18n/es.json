@@ -12,6 +12,12 @@
         "returnHome": "Volver a casa",
         "pageNotFound": "Página no encontrada"
     },
+    "errors": {
+        "loading": "Error al cargar datos"
+    },
+    "releases": {
+        "published": "Fecha de Publicación}"
+    },
     "platforms": {
         "donateMessage": "Gamebrary es gratuito y de código abierto, considere ayudar a su desarrollo mediante",
         "donating": "donando",
@@ -28,6 +34,11 @@
             "dangerZone": "Zona peligrosa"
         }
     },
+    "sessionExpired": {
+        "title": "Sesión expirada",
+        "login": "Iniciar sesión",
+        "exit": "Salida"
+    },
     "gameDetail": {
         "videos": "Videos",
         "screenshots": "Capturas de pantalla",
@@ -36,7 +47,7 @@
         "timeToBeat": "Hora de vencer",
         "gameModes": "Modo de juego",
         "genres": "Género",
-        "gamePlatforms": "Plataformas",
+        "gamePlatforms": "También disponible para:",
         "developers": "Desarrollador",
         "publishers": "Editores",
         "removeFromList": "Quitar de la lista",
@@ -64,8 +75,8 @@
     },
     "list": {
         "edit": "Editar nombre de lista",
-        "placeholder": "Nombre de la lista (p. Ej., Propiedad)",
-        "suggestionsTitle": "Sugerencias",
+        "type": "Tipo de lista",
+        "placeholder": "Escriba el nombre de su lista aquí",
         "suggestions": {
             "owned": "De propiedad",
             "wishlist": "Lista de deseos",
@@ -74,6 +85,9 @@
         },
         "input": "Ingrese el suyo",
         "add": "Añadir lista",
+        "duplicateWarning": "Ya tienes una lista con este nombre",
+        "getStarted": "¡Empezar!",
+        "addFirstTime": "Bienvenido, agrega tu primera lista!",
         "sortByName": "LA",
         "sortByRating": "Puntuación",
         "sortByReleaseDate": "Fecha",
@@ -105,6 +119,7 @@
         "reloading": "Recargando ...",
         "releases": "Lanzamientos",
         "newsletter": "Recibir correos electrónicos de actualización (próximamente)",
+        "branding": "Marca de la plataforma (colores, logotipo, etc.)",
         "language": "Idioma",
         "languages": {
             "en": "Inglés",
@@ -124,7 +139,7 @@
         "signOut": "desconectar",
         "wallpaper": {
             "title": "Subir fondo de pantalla",
-            "transparency": "Listas semitransparentes",
+            "transparency": "Permitir transparencia",
             "currentWallpaper": "Fondo de pantalla actual",
             "removeWallpaper": "Eliminar fondo de pantalla"
         },
@@ -146,7 +161,7 @@
         "title": "Agregar juegos a",
         "inputPlaceholder": "Busca aquí",
         "alreadyInList": "de los resultados de búsqueda que ya están en su lista",
-        "noResultsFound": "No se encontraron resultados para",
+        "noResultsFound": "No hay resultados",
         "missingGame": "¿Te falta un juego? Ayuda a la comunidad y",
         "addToIGDB": "Agréguelo a IGDB"
     },

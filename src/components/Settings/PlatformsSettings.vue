@@ -5,8 +5,8 @@
             <h5>{{ $t('settings.ownedLists') }}</h5>
 
             <toggle-switch
-            id="ownedListsOnly"
-            v-model="value.ownedListsOnly"
+                id="ownedListsOnly"
+                v-model="value.ownedListsOnly"
             />
         </div>
 
@@ -15,8 +15,8 @@
             <h5>{{ $t('settings.sortPlatforms') }}</h5>
 
             <toggle-switch
-            id="sortListsAlphabetically"
-            v-model="value.sortListsAlphabetically"
+                id="sortListsAlphabetically"
+                v-model="value.sortListsAlphabetically"
             />
         </div>
     </section>
@@ -38,6 +38,7 @@ export default {
     computed: {
         ...mapState(['gameLists']),
 
+        // TODO: use getter instead
         hasLists() {
             return Object.keys(this.gameLists).length > 0;
         },

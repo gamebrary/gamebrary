@@ -1,10 +1,10 @@
 <template lang="html">
     <div class="session-expired">
-        <h2>Session expired</h2>
+        <h2>{{ $t('sessionExpired.title')}}</h2>
 
         <div class="actions">
-            <button class="success" @click="login">Login</button>
-            <a class="link primary" :href="exitUrl">Exit</a>
+            <button class="success" @click="login">{{ $t('sessionExpired.login') }}</button>
+            <a class="link primary" :href="exitUrl">{{ $t('sessionExpired.exit') }}</a>
         </div>
     </div>
 </template>
@@ -13,12 +13,14 @@
 export default {
     computed: {
         exitUrl() {
+            // TODO: move to getter and replace other instances
             return process.env.NODE_ENV === 'development'
                 ? 'http://localhost:3000'
                 : 'https://gamebrary.com';
         },
 
         homeUrl() {
+            // TODO: move to getter and replace other instances
             return process.env.NODE_ENV === 'development'
                 ? 'http://localhost:4000'
                 : 'https://app.gamebrary.com';

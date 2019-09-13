@@ -12,8 +12,14 @@
         "returnHome": "Rentrer à la maison",
         "pageNotFound": "Page non trouvée"
     },
+    "errors": {
+        "loading": "Erreur lors du chargement des données"
+    },
+    "releases": {
+        "published": "Date de publication}"
+    },
     "platforms": {
-        "donateMessage": "Gamebrary est gratuit et open source, envisagez d'aider à son développement en",
+        "donateMessage": "Gamebrary est gratuit et open source, envisagez d’aider son développement en",
         "donating": "faire un don",
         "reportBugs": "signaler des bugs",
         "submitFeedback": "soumettre des commentaires"
@@ -28,6 +34,11 @@
             "dangerZone": "Zone dangereuse"
         }
     },
+    "sessionExpired": {
+        "title": "La session a expiré",
+        "login": "S'identifier",
+        "exit": "Sortie"
+    },
     "gameDetail": {
         "videos": "Vidéos",
         "screenshots": "Captures d'écran",
@@ -36,7 +47,7 @@
         "timeToBeat": "Temps à battre",
         "gameModes": "Mode de jeu",
         "genres": "Genre",
-        "gamePlatforms": "Plateformes",
+        "gamePlatforms": "Aussi disponible pour:",
         "developers": "Développeur",
         "publishers": "Les éditeurs",
         "removeFromList": "Retirer de la liste",
@@ -64,8 +75,8 @@
     },
     "list": {
         "edit": "Editer le nom de la liste",
-        "placeholder": "Nom de la liste (par exemple, propriétaire)",
-        "suggestionsTitle": "Suggestions",
+        "type": "Type de liste",
+        "placeholder": "Tapez votre nom de liste ici",
         "suggestions": {
             "owned": "Possédé",
             "wishlist": "Liste de souhaits",
@@ -74,6 +85,9 @@
         },
         "input": "Entrez votre propre",
         "add": "Ajouter la liste",
+        "duplicateWarning": "Vous avez déjà une liste avec ce nom",
+        "getStarted": "Commencer!",
+        "addFirstTime": "Bienvenue, ajoutez votre première liste!",
         "sortByName": "LA",
         "sortByRating": "But",
         "sortByReleaseDate": "Rendez-vous amoureux",
@@ -105,6 +119,7 @@
         "reloading": "Rechargement ...",
         "releases": "Communiqués",
         "newsletter": "Recevoir des emails de mise à jour (à venir)",
+        "branding": "Marque de la plateforme (couleurs, logo, etc ...)",
         "language": "La langue",
         "languages": {
             "en": "Anglais",
@@ -124,7 +139,7 @@
         "signOut": "Déconnexion",
         "wallpaper": {
             "title": "Télécharger un fond d'écran",
-            "transparency": "Listes semi-transparentes",
+            "transparency": "Autoriser la transparence",
             "currentWallpaper": "Fond d'écran actuel",
             "removeWallpaper": "Supprimer le papier peint"
         },
@@ -146,7 +161,7 @@
         "title": "Ajouter des jeux à",
         "inputPlaceholder": "Cherche ici",
         "alreadyInList": "des résultats de recherche déjà dans votre liste",
-        "noResultsFound": "Aucun résultat trouvé pour",
+        "noResultsFound": "Aucun résultat",
         "missingGame": "Manquer un jeu? Aidez la communauté et",
         "addToIGDB": "Ajoutez-le à IGDB"
     },

@@ -12,6 +12,12 @@
         "returnHome": "Vrátit se domů",
         "pageNotFound": "Stránka nenalezena"
     },
+    "errors": {
+        "loading": "Při načítání dat došlo k chybě"
+    },
+    "releases": {
+        "published": "Zveřejněno {date}"
+    },
     "platforms": {
         "donateMessage": "Gamebrary je bezplatný a otevřený zdroj, zvažte pomoc při jeho vývoji",
         "donating": "darování",
@@ -28,6 +34,11 @@
             "dangerZone": "Nebezpečná zóna"
         }
     },
+    "sessionExpired": {
+        "title": "Relace vypršela",
+        "login": "Přihlásit se",
+        "exit": "Výstup"
+    },
     "gameDetail": {
         "videos": "Videa",
         "screenshots": "Screenshoty",
@@ -36,7 +47,7 @@
         "timeToBeat": "Je čas porazit",
         "gameModes": "Herní mód",
         "genres": "Žánr",
-        "gamePlatforms": "Platformy",
+        "gamePlatforms": "K dispozici také pro:",
         "developers": "Vývojář",
         "publishers": "Vydavatelé",
         "removeFromList": "Odstranit ze seznamu",
@@ -64,8 +75,8 @@
     },
     "list": {
         "edit": "Upravit název seznamu",
-        "placeholder": "Název seznamu (např. Vlastní)",
-        "suggestionsTitle": "Návrhy",
+        "type": "Typ seznamu",
+        "placeholder": "Sem zadejte název seznamu",
         "suggestions": {
             "owned": "Vlastní",
             "wishlist": "Seznam přání",
@@ -74,6 +85,9 @@
         },
         "input": "Zadejte svůj vlastní",
         "add": "Přidat seznam",
+        "duplicateWarning": "Již máte seznam s tímto názvem",
+        "getStarted": "Začít!",
+        "addFirstTime": "Vítejte, přidejte svůj první seznam!",
         "sortByName": "",
         "sortByRating": "Skóre",
         "sortByReleaseDate": "datum",
@@ -105,6 +119,7 @@
         "reloading": "Přebíjení...",
         "releases": "Vydání",
         "newsletter": "Dostávat aktualizační e-maily (již brzy)",
+        "branding": "Značky platforem (barvy, logo atd.)",
         "language": "Jazyk",
         "languages": {
             "en": "Angličtina",
@@ -114,7 +129,7 @@
             "ar": "arabština",
             "fr": "francouzština",
             "it": "italština",
-            "eu": "Baskičtina",
+            "eu": "Baskicko",
             "cs": "čeština",
             "ja": "japonský"
         },
@@ -124,7 +139,7 @@
         "signOut": "Odhlásit se",
         "wallpaper": {
             "title": "Nahrajte tapetu",
-            "transparency": "Poloprůhledné seznamy",
+            "transparency": "Povolit průhlednost",
             "currentWallpaper": "Aktuální tapeta",
             "removeWallpaper": "Odstraňte tapetu"
         },
@@ -146,7 +161,7 @@
         "title": "Přidat hry do",
         "inputPlaceholder": "Hledej tady",
         "alreadyInList": "z výsledků vyhledávání již ve vašem seznamu",
-        "noResultsFound": "Nebyly nalezeny žádné výsledky",
+        "noResultsFound": "Žádné výsledky",
         "missingGame": "Chybí vám hra? Pomozte komunitě a",
         "addToIGDB": "Přidejte ji do IGDB"
     },

@@ -41,6 +41,7 @@ export default {
         ...mapState(['gameLists', 'platform', 'settings']),
         ...mapGetters(['darkModeEnabled']),
 
+        // TODO: move to getter and replace other instances
         hasLists() {
             return Object.keys(this.gameLists).length > 0;
         },
@@ -96,16 +97,5 @@ export default {
     .platforms {
         display: flex;
         flex-direction: column;
-    }
-
-    footer {
-        padding: $gp / 2 0;
-        justify-content: center;
-        display: flex;
-        align-items: center;
-
-        a {
-            color: $color-dark-gray;
-        }
     }
 </style>

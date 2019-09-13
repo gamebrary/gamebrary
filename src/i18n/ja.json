@@ -12,6 +12,12 @@
         "returnHome": "帰宅",
         "pageNotFound": "ページが見つかりません"
     },
+    "errors": {
+        "loading": "データの読み込みエラー"
+    },
+    "releases": {
+        "published": "{date}を公開しました"
+    },
     "platforms": {
         "donateMessage": "Gamebraryは無料でオープンソースです。その開発を支援することを検討してください",
         "donating": "寄付",
@@ -28,6 +34,11 @@
             "dangerZone": "危険区域"
         }
     },
+    "sessionExpired": {
+        "title": "セッションの有効期限が切れ",
+        "login": "ログイン",
+        "exit": "出口"
+    },
     "gameDetail": {
         "videos": "動画",
         "screenshots": "スクリーンショット",
@@ -36,7 +47,7 @@
         "timeToBeat": "ビートする時間",
         "gameModes": "ゲームモード",
         "genres": "ジャンル",
-        "gamePlatforms": "プラットフォーム",
+        "gamePlatforms": "以下にも利用可能：",
         "developers": "開発者",
         "publishers": "出版社",
         "removeFromList": "リストから削除する",
@@ -64,8 +75,8 @@
     },
     "list": {
         "edit": "リスト名を編集",
-        "placeholder": "リスト名（例：所有）",
-        "suggestionsTitle": "提案",
+        "type": "リストタイプ",
+        "placeholder": "ここにリスト名を入力してください",
         "suggestions": {
             "owned": "所有",
             "wishlist": "ウィッシュリスト",
@@ -74,6 +85,9 @@
         },
         "input": "あなた自身を入力してください",
         "add": "リストを追加",
+        "duplicateWarning": "この名前のリストは既にあります",
+        "getStarted": "始めましょう！",
+        "addFirstTime": "ようこそ、最初のリストを追加してください！",
         "sortByName": "THE",
         "sortByRating": "スコア",
         "sortByReleaseDate": "日付",
@@ -105,6 +119,7 @@
         "reloading": "再読み込みしています...",
         "releases": "リリース",
         "newsletter": "更新メールを受け取る（近日公開予定）",
+        "branding": "プラットフォームのブランディング（色、ロゴなど）",
         "language": "言語",
         "languages": {
             "en": "英語",
@@ -124,7 +139,7 @@
         "signOut": "サインアウト",
         "wallpaper": {
             "title": "壁紙をアップロード",
-            "transparency": "半透明のリスト",
+            "transparency": "透明化を許可する",
             "currentWallpaper": "現在の壁紙",
             "removeWallpaper": "壁紙を削除"
         },
@@ -146,7 +161,7 @@
         "title": "にゲームを追加",
         "inputPlaceholder": "検索",
         "alreadyInList": "すでにリストにある検索結果から",
-        "noResultsFound": "の結果は見つかりませんでした",
+        "noResultsFound": "結果がありません",
         "missingGame": "ゲームが見つかりませんか？コミュニティを助け、",
         "addToIGDB": "IGDBに追加します"
     },

@@ -29,3 +29,18 @@ export default {
     },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+    @import "~styles/styles";
+
+    footer {
+        padding: $gp / 2 0;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+
+        a {
+            color: $color-dark-gray;
+        }
+    }
+</style>

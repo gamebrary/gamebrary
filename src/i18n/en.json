@@ -12,6 +12,12 @@
         "returnHome": "Return home",
         "pageNotFound": "Page not found"
     },
+    "errors": {
+        "loading": "Error loading data"
+    },
+    "releases": {
+        "published": "Published {date}"
+    },
     "platforms": {
         "donateMessage": "Gamebrary is free and open source, consider helping its development by",
         "donating": "donating",
@@ -27,6 +33,11 @@
             "shareLink": "Shareable links (experimental)",
             "dangerZone": "Danger zone"
         }
+    },
+    "sessionExpired": {
+        "title": "Session expired",
+        "login": "Login",
+        "exit": "Exit"
     },
     "gameDetail": {
         "videos": "Videos",
@@ -108,6 +119,7 @@
         "reloading": "Reloading...",
         "releases": "Releases",
         "newsletter": "Receive update emails (coming soon)",
+        "branding": "Platform branding (colors, logo, etc...)",
         "language": "Language",
         "languages": {
             "en": "English",

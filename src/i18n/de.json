@@ -12,6 +12,12 @@
         "returnHome": "Nach Hause zurückkehren",
         "pageNotFound": "Seite nicht gefunden"
     },
+    "errors": {
+        "loading": "Fehler beim Laden der Daten"
+    },
+    "releases": {
+        "published": "Veröffentlichungsdatum}"
+    },
     "platforms": {
         "donateMessage": "Gamebrary ist kostenlos und Open Source",
         "donating": "spenden",
@@ -28,6 +34,11 @@
             "dangerZone": "Gefahrenzone"
         }
     },
+    "sessionExpired": {
+        "title": "Sitzung abgelaufen",
+        "login": "Anmeldung",
+        "exit": "Ausgang"
+    },
     "gameDetail": {
         "videos": "Videos",
         "screenshots": "Screenshots",
@@ -36,7 +47,7 @@
         "timeToBeat": "Zeit zu schlagen",
         "gameModes": "Spielmodus",
         "genres": "Genre",
-        "gamePlatforms": "Plattformen",
+        "gamePlatforms": "Auch erhältlich für:",
         "developers": "Entwickler",
         "publishers": "Verlag",
         "removeFromList": "Aus Liste entfernen",
@@ -64,8 +75,8 @@
     },
     "list": {
         "edit": "Listenname bearbeiten",
-        "placeholder": "Listenname (zB Owned)",
-        "suggestionsTitle": "Vorschläge",
+        "type": "Listentyp",
+        "placeholder": "Geben Sie hier Ihren Listennamen ein",
         "suggestions": {
             "owned": "Besessen",
             "wishlist": "Wunschzettel",
@@ -74,6 +85,9 @@
         },
         "input": "Geben Sie Ihre eigenen ein",
         "add": "Liste hinzufügen",
+        "duplicateWarning": "Sie haben bereits eine Liste mit diesem Namen",
+        "getStarted": "Loslegen!",
+        "addFirstTime": "Willkommen, füge deine erste Liste hinzu!",
         "sortByName": "DAS",
         "sortByRating": "Ergebnis",
         "sortByReleaseDate": "Datum",
@@ -105,6 +119,7 @@
         "reloading": "Neuladen...",
         "releases": "Releases",
         "newsletter": "Erhalte Update-E-Mails (in Kürze)",
+        "branding": "Plattform-Branding (Farben, Logo usw.)",
         "language": "Sprache",
         "languages": {
             "en": "Englisch",
@@ -124,7 +139,7 @@
         "signOut": "Ausloggen",
         "wallpaper": {
             "title": "Hintergrundbild hochladen",
-            "transparency": "Halbtransparente Listen",
+            "transparency": "Transparenz zulassen",
             "currentWallpaper": "Aktuelles Hintergrundbild",
             "removeWallpaper": "Tapete entfernen"
         },
@@ -146,7 +161,7 @@
         "title": "Spiele hinzufügen zu",
         "inputPlaceholder": "Suche hier",
         "alreadyInList": "von den Suchergebnissen bereits in Ihrer Liste",
-        "noResultsFound": "Keine Ergebnisse gefunden für",
+        "noResultsFound": "Keine Ergebnisse",
         "missingGame": "Vermissen Sie ein Spiel? Helfen Sie der Community und",
         "addToIGDB": "Fügen Sie es zu IGDB hinzu"
     },

@@ -12,8 +12,14 @@
         "returnHome": "Torna a casa",
         "pageNotFound": "pagina non trovata"
     },
+    "errors": {
+        "loading": "Errore durante il caricamento dei dati"
+    },
+    "releases": {
+        "published": "Pubblicato {data}"
+    },
     "platforms": {
-        "donateMessage": "Gamebrary è gratuito e open source, considera l'idea di aiutarne lo sviluppo",
+        "donateMessage": "Gamebrary è gratuito e open source, considera di aiutarne lo sviluppo",
         "donating": "la donazione",
         "reportBugs": "segnalazione di bug",
         "submitFeedback": "invio feedback"
@@ -28,6 +34,11 @@
             "dangerZone": "Zona pericolosa"
         }
     },
+    "sessionExpired": {
+        "title": "Sessione scaduta",
+        "login": "Accesso",
+        "exit": "Uscita"
+    },
     "gameDetail": {
         "videos": "video",
         "screenshots": "Screenshots",
@@ -36,7 +47,7 @@
         "timeToBeat": "È tempo di battere",
         "gameModes": "Modalità di gioco",
         "genres": "Genere",
-        "gamePlatforms": "piattaforme",
+        "gamePlatforms": "Disponibile anche per:",
         "developers": "Sviluppatore",
         "publishers": "editori",
         "removeFromList": "Rimuovere dalla lista",
@@ -64,8 +75,8 @@
     },
     "list": {
         "edit": "Modifica il nome dell'elenco",
-        "placeholder": "Nome elenco (ad es. Di proprietà)",
-        "suggestionsTitle": "suggerimenti",
+        "type": "Tipo di elenco",
+        "placeholder": "Digita qui il nome della tua lista",
         "suggestions": {
             "owned": "Di proprietà",
             "wishlist": "Lista dei desideri",
@@ -74,6 +85,9 @@
         },
         "input": "Inserisci il tuo",
         "add": "Aggiungi elenco",
+        "duplicateWarning": "Hai già un elenco con questo nome",
+        "getStarted": "Iniziare!",
+        "addFirstTime": "Benvenuto, aggiungi il tuo primo elenco!",
         "sortByName": "IL",
         "sortByRating": "Punto",
         "sortByReleaseDate": "Data",
@@ -105,6 +119,7 @@
         "reloading": "Ricaricamento ...",
         "releases": "Uscite",
         "newsletter": "Ricevi email di aggiornamento (in arrivo)",
+        "branding": "Marchio della piattaforma (colori, logo, ecc ...)",
         "language": "linguaggio",
         "languages": {
             "en": "Inglese",
@@ -124,7 +139,7 @@
         "signOut": "disconnessione",
         "wallpaper": {
             "title": "Carica sfondo",
-            "transparency": "Elenchi semi trasparenti",
+            "transparency": "Consenti trasparenza",
             "currentWallpaper": "Sfondo corrente",
             "removeWallpaper": "Rimuovi sfondo"
         },
@@ -146,7 +161,7 @@
         "title": "Aggiungi giochi a",
         "inputPlaceholder": "Cerca qui",
         "alreadyInList": "dai risultati di ricerca già nel tuo elenco",
-        "noResultsFound": "Nessun risultato trovato per",
+        "noResultsFound": "Nessun risultato",
         "missingGame": "Manca una partita? Aiuta la comunità e",
         "addToIGDB": "Aggiungilo a IGDB"
     },

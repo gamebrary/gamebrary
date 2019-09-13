@@ -12,6 +12,12 @@
         "returnHome": "العودة إلى المنزل",
         "pageNotFound": "الصفحة غير موجودة"
     },
+    "errors": {
+        "loading": "خطأ في تحميل البيانات"
+    },
+    "releases": {
+        "published": "تاريخ النشر}"
+    },
     "platforms": {
         "donateMessage": "Gamebrary مجاني ومفتوح المصدر ، والنظر في المساعدة في تطويرها",
         "donating": "تبرع",
@@ -28,6 +34,11 @@
             "dangerZone": "منطقة الخطر"
         }
     },
+    "sessionExpired": {
+        "title": "انتهت الجلسة",
+        "login": "تسجيل الدخول",
+        "exit": "ىخرج"
+    },
     "gameDetail": {
         "videos": "أشرطة فيديو",
         "screenshots": "لقطات",
@@ -36,7 +47,7 @@
         "timeToBeat": "الوقت يداهمك",
         "gameModes": "نوع اللعبة",
         "genres": "نوع أدبي",
-        "gamePlatforms": "منصات",
+        "gamePlatforms": "متاح أيضًا لـ:",
         "developers": "مطور",
         "publishers": "الناشرون",
         "removeFromList": "ازله من القائمة",
@@ -64,8 +75,8 @@
     },
     "list": {
         "edit": "تحرير اسم القائمة",
-        "placeholder": "اسم القائمة (مثل المملوكة)",
-        "suggestionsTitle": "اقتراحات",
+        "type": "نوع القائمة",
+        "placeholder": "اكتب اسم قائمتك هنا",
         "suggestions": {
             "owned": "مملوكة",
             "wishlist": "الأماني",
@@ -74,6 +85,9 @@
         },
         "input": "أدخل بنفسك",
         "add": "اضف قائمة",
+        "duplicateWarning": "لديك بالفعل قائمة بهذا الاسم",
+        "getStarted": "البدء!",
+        "addFirstTime": "مرحبا ، أضف قائمتك الأولى!",
         "sortByName": "THE",
         "sortByRating": "أحرز هدفا",
         "sortByReleaseDate": "تاريخ",
@@ -105,6 +119,7 @@
         "reloading": "إعادة ...",
         "releases": "إطلاق",
         "newsletter": "تلقي رسائل البريد الإلكتروني المحدثة (قريبًا)",
+        "branding": "العلامة التجارية للمنصة (الألوان ، والشعار ، الخ ...)",
         "language": "لغة",
         "languages": {
             "en": "الإنجليزية",
@@ -124,7 +139,7 @@
         "signOut": "خروج",
         "wallpaper": {
             "title": "تحميل خلفية",
-            "transparency": "قوائم شبه شفافة",
+            "transparency": "السماح بالشفافية",
             "currentWallpaper": "خلفية الحالية",
             "removeWallpaper": "إزالة خلفية"
         },
@@ -146,7 +161,7 @@
         "title": "إضافة ألعاب إلى",
         "inputPlaceholder": "ابحث هنا",
         "alreadyInList": "من نتائج البحث بالفعل في قائمتك",
-        "noResultsFound": "لا يوجد نتائج ل",
+        "noResultsFound": "لا نتائج",
         "missingGame": "في عداد المفقودين لعبة؟ مساعدة المجتمع و",
         "addToIGDB": "إضافته إلى IGDB"
     },
