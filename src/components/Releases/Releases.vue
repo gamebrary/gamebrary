@@ -13,7 +13,11 @@
 
                     <div>
                         <h3>{{ notification.name }}</h3>
-                        <small>{{ $t('releases.published', { date: formattedDate(notification.published_at) })}}</small>
+                        <small>
+                            {{ $t('releases.published', {
+                                date: formattedDate(notification.published_at)
+                            })}}
+                        </small>
                     </div>
                 </div>
 
