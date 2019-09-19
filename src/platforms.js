@@ -123,7 +123,6 @@ export default [
         name: 'Nintendo GameCube',
         code: 'nintendo-gamecube',
         id: 21,
-        hex: '#000',
     },
     {
         name: 'Game Boy Color',
