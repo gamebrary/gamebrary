@@ -1,6 +1,9 @@
 <template lang="html">
     <section>
-        <h5 class="title">Game board <span v-if="showBoardSpecificSettings">({{ platform.name }})</span></h5>
+        <h5 class="title">
+            Game board
+            <span v-if="showBoardSpecificSettings">({{ platform.name }})</span>
+        </h5>
 
         <div class="setting">
             <i class="fas fa-palette" />
