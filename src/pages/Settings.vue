@@ -1,25 +1,10 @@
 <template lang="html">
     <div class="settings" :class="{ dark: darkModeEnabled }">
-        <nav>
-            <a
-                class="setting-link"
-                v-for="section in settingsSections"
-                :key="section.name"
-                :class="{ active: activeSection === section.name }"
-                @click="openSettings(section)"
-            >
-                <i :class="section.icon" />
-                {{ $t(`settings.${section.name}`) }}
-            </a>
-        </nav>
-
-        <main>
-            <component
-                :is="activeComponent"
-                :reloading="reloading"
-                v-model="localSettings"
-            />
-        </main>
+        <general-settings v-model="localSettings" :reloading="reloading" />
+        <platforms-settings v-model="localSettings" :reloading="reloading" />
+        <game-board-settings v-model="localSettings" :reloading="reloading" />
+        <tags-settings v-model="localSettings" :reloading="reloading" />
+        <account-settings v-model="localSettings" :reloading="reloading" />
     </div>
 </template>
 
@@ -159,7 +144,7 @@ export default {
     .settings {
         display: flex;
         flex-direction: column;
-        padding: $gp $gp * 2;
+        padding: 0 $gp * 2 $gp * 2;
         margin: 0 auto;
         min-height: 600px;
     }
@@ -190,10 +175,6 @@ export default {
             font-weight: bold;
             color: $color-blue;
         }
-    }
-
-    main {
-        margin-top: $gp;
     }
 
     footer {

@@ -1,42 +1,23 @@
 <template lang="html">
-    <section>
-        <div class="profile">
-            <gravatar
-                :email="user.email"
-                class="avatar"
-            />
+    <section class="account-setting">
+        <button class="tiny accent hollow" @click="signOut">
+            <i class="fas fa-sign-out-alt" />
+            {{ $t('settings.signOut') }}
+        </button>
 
-            <div class="user-info">
-                <span>{{ user.displayName }}</span>
-                <span>{{ user.email }}</span>
-                <small>Joined {{ moment(user.dateJoined).format('ll') }}</small>
-                <div class="verified" v-if="user.emailVerified">
-                    <i class="fas fa-user-check" />
-                    Verified
-                </div>
-            </div>
-        </div>
-
-        <div class="account-actions">
-            <button class="tiny accent hollow" @click="signOut">
-                <i class="fas fa-sign-out-alt" />
-                {{ $t('settings.signOut') }}
+        <modal
+            padded
+            confirm
+            :message="$t('settings.deleteAccount.message')"
+            :title="$t('settings.deleteAccount.title')"
+            :action-text="$t('settings.deleteAccount.button')"
+            @action="deleteAccount"
+        >
+            <button class="tiny error hollow">
+                <i class="fas fa-exclamation-triangle" />
+                {{ $t('settings.deleteAccount.button') }}
             </button>
-
-            <modal
-                padded
-                confirm
-                :message="$t('settings.deleteAccount.message')"
-                :title="$t('settings.deleteAccount.title')"
-                :action-text="$t('settings.deleteAccount.button')"
-                @action="deleteAccount"
-            >
-                <button class="tiny error hollow">
-                    <i class="fas fa-exclamation-triangle" />
-                    {{ $t('settings.deleteAccount.button') }}
-                </button>
-            </modal>
-        </div>
+        </modal>
     </section>
 </template>
 
@@ -117,35 +98,8 @@ export default {
     @import "~styles/styles";
     @import "settings";
 
-    .profile {
-        display: grid;
-        grid-template-columns: 100px auto;
-        margin: $gp 0;
-        position: relative;
-        border-radius: $border-radius;
-        background-color: $color-light-gray-transparent;
-        overflow: hidden;
-    }
-
-    .user-info {
-        padding: $gp / 2 0;
+    .account-setting {
         display: flex;
-        flex-direction: column;
-    }
-
-    .verified {
-        position: absolute;
-        top: $gp / 4;
-        right: $gp / 4;
-        border-radius: $border-radius;
-        padding: $gp / 2;
-        background-color: $color-orange;
-        color: $color-white;
-        font-size: 10px;
-    }
-
-    .account-actions {
-        display: flex;
-        justify-content: space-between;
+        background: #cf0;
     }
 </style>

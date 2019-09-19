@@ -1,5 +1,6 @@
 <template lang="html">
     <div class="tags-settings">
+        <h4>Tags</h4>
         <div class="tag-input">
             <input
                 type="text"
@@ -177,6 +178,10 @@ export default {
     .tags-settings {
         display: grid;
         grid-gap: $gp;
+        margin: $gp 0;
+        background-color: $color-light-gray;
+        padding: $gp;
+        border-radius: $border-radius;
     }
 
     .tag-input {
