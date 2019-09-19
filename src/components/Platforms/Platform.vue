@@ -1,7 +1,7 @@
 <template lang="html">
     <div
         @click="changePlatform"
-        :class="['platform', { dark: darkModeEnabled, clickable } ]"
+        :class="['platform', { dark: darkModeEnabled, clickable, square } ]"
         :style="style"
     >
         <img
@@ -25,6 +25,7 @@ import { mapState, mapGetters } from 'vuex';
 export default {
     props: {
         platform: Object,
+        square: Boolean,
         clickable: Boolean,
     },
 
@@ -90,7 +91,7 @@ export default {
         justify-content: center;
         border-radius: $border-radius;
         overflow: hidden;
-        width: 200px;
+        width: 180px;
         height: 100px;
 
         &.clickable {

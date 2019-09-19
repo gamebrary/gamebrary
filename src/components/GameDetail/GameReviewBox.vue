@@ -1,17 +1,5 @@
 <template lang="html">
     <div v-if="game" class="review-box">
-        <section v-if="gamePlatforms && gamePlatforms.length > 0">
-            <h4>{{ $t('gameDetail.gamePlatforms') }}</h4>
-
-            <div class="platforms">
-                <platform
-                    v-for="platform in gamePlatforms"
-                    :key="platform.name"
-                    :platform="platform"
-                />
-            </div>
-        </section>
-
         <div class="info">
             <!-- TODO: get icons for everything -->
             <section v-if="playerPerspectives">
@@ -50,6 +38,18 @@
             </section>
 
             <game-links />
+
+            <section v-if="gamePlatforms && gamePlatforms.length > 0">
+                <h4>{{ $t('gameDetail.gamePlatforms') }}</h4>
+
+                <div class="platforms">
+                    <platform
+                        v-for="platform in gamePlatforms"
+                        :key="platform.name"
+                        :platform="platform"
+                    />
+                </div>
+            </section>
         </div>
     </div>
 </template>
@@ -121,7 +121,10 @@ export default {
         flex-wrap: wrap;
 
         .platform {
+            width: 90px;
+            height: 50px;
             margin-right: $gp / 2;
+            padding: $gp / 4;
 
             &:first-child {
                 margin-left: 0;
