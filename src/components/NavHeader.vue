@@ -11,7 +11,9 @@
         </router-link>
 
         <modal large title="Settings">
-            <button class="small info">
+            <button
+                :class="['small', { filled: darkModeEnabled, 'info filled': !darkModeEnabled }]"
+            >
                 <i class="fas fa-cog" />
             </button>
 
