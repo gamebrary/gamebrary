@@ -10,14 +10,6 @@
             />
         </div>
 
-        <div class="form-group">
-            <label class="form-switch">
-                <input type="checkbox" v-model="value.branding">
-                <i class="form-icon" />
-            </label>
-        </div>
-
-
         <div class="setting">
             <i class="fas fa-star-half-alt" />
             <h5>{{ $t('settings.ratings') }}</h5>
