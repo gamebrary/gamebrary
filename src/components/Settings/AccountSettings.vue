@@ -99,7 +99,8 @@ export default {
     @import "settings";
 
     .account-setting {
-        display: flex;
-        background: #cf0;
+        display: grid;
+        grid-template-columns: 80px 200px;
+        grid-gap: $gp;
     }
 </style>

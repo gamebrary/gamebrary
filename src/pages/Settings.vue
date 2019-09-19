@@ -144,65 +144,12 @@ export default {
     .settings {
         display: flex;
         flex-direction: column;
-        padding: 0 $gp * 2 $gp * 2;
+        padding: $gp * 2;
         margin: 0 auto;
         min-height: 600px;
     }
 
-    nav {
-        display: flex;
-        justify-content: space-around;
-        position: sticky;
-        top: 40px;
-        background-color: $color-white;
-    }
-
-    a.setting-link {
-        color: $color-dark-gray;
-        padding: $gp / 2;
-        display: grid;
-        font-size: 10px;
-        cursor: pointer;
-        grid-template-columns: auto;
-        grid-gap: $gp / 4;
-        text-align: center;
-
-        i {
-            font-size: 14px;
-        }
-
-        &.active {
-            font-weight: bold;
-            color: $color-blue;
-        }
-    }
-
-    footer {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        left: 0;
-        text-align: center;
-
-        span {
-            display: inline-flex;
-        }
-    }
-
     .dark {
         color: $color-gray;
-
-        nav {
-            background-color: $color-darker-gray;
-
-            a.setting-link {
-                color: $color-gray;
-
-                &.active {
-                    font-weight: bold;
-                    color: $color-white;
-                }
-            }
-        }
     }
 </style>

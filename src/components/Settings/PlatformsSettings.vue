@@ -1,5 +1,7 @@
 <template lang="html">
     <section>
+        <h5 class="title">Platform page</h5>
+
         <div class="setting" v-if="hasLists">
             <i class="fas fa-user-check" />
             <h5>{{ $t('settings.ownedLists') }}</h5>

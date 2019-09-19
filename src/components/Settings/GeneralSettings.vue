@@ -1,5 +1,6 @@
 <template lang="html">
     <section>
+        <h5>Global</h5>
         <div class="reloading" v-if="reloading">
             <i class="fas fa-sync-alt fast-spin" />
             <br>
