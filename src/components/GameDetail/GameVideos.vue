@@ -56,7 +56,6 @@ export default {
             position: relative;
             padding-bottom: 56.25%;
             margin: $gp;
-            width: calc(100% - $gp * 2);
             height: 56.25%;
 
             iframe {
