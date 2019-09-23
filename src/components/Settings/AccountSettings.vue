@@ -63,8 +63,11 @@ export default {
         deleteAccount() {
             const db = firebase.firestore();
 
+
+            // TOOD: move to actions
             db.collection('settings').doc(this.user.uid).delete()
                 .then(() => {
+                    // TOOD: move to actions
                     db.collection('lists').doc(this.user.uid).delete()
                         .then(() => {
                             this.$bus.$emit('TOAST', { message: 'Account deleted' });

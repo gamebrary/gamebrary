@@ -66,6 +66,7 @@ export default {
 
             const message = this.$t('errors.loading');
 
+            // TOOD: move to actions
             db.collection('lists').doc(id).get()
                 .then((doc) => {
                     if (doc.exists) {

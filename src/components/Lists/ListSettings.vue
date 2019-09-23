@@ -196,6 +196,8 @@ export default {
         deleteList() {
             this.$store.commit('REMOVE_LIST', this.activeListIndex);
 
+
+            // TOOD: move to actions
             db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
                 .then(() => {
                     this.$bus.$emit('TOAST', { message: 'List deleted' });

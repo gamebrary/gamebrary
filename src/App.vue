@@ -158,6 +158,7 @@ export default {
         saveSettings: debounce(
             // eslint-disable-next-line
             function(settings) {
+                // TOOD: move to actions
                 db.collection('settings').doc(this.user.uid).set(settings, { merge: true })
                     .then(() => {
                         this.$store.commit('SET_SETTINGS', settings);
@@ -171,6 +172,7 @@ export default {
 
         saveTags(tags, force) {
             if (tags) {
+                // TOOD: move to actions
                 db.collection('tags').doc(this.user.uid).set(tags, { merge: !force })
                     .then(() => {
                         this.$bus.$emit('TOAST', { message: 'Tags updated' });
@@ -184,6 +186,7 @@ export default {
 
         saveNotes(notes, force) {
             if (notes) {
+                // TOOD: move to actions
                 db.collection('notes').doc(this.user.uid).set(notes, { merge: !force })
                     .then(() => {
                         this.$bus.$emit('TOAST', { message: 'Notes updated' });
@@ -196,6 +199,7 @@ export default {
         },
 
         syncData() {
+            // TOOD: move to actions
             db.collection('lists').doc(this.user.uid)
                 .onSnapshot((doc) => {
                     if (doc.exists) {
@@ -205,6 +209,7 @@ export default {
                 });
 
 
+            // TOOD: move to actions
             db.collection('settings').doc(this.user.uid)
                 .onSnapshot((doc) => {
                     if (doc.exists) {
@@ -214,6 +219,7 @@ export default {
                     }
                 });
 
+            // TOOD: move to actions
             db.collection('tags').doc(this.user.uid)
                 .onSnapshot((doc) => {
                     if (doc.exists) {
@@ -223,6 +229,7 @@ export default {
                     }
                 });
 
+            // TOOD: move to actions
             db.collection('notes').doc(this.user.uid)
                 .onSnapshot((doc) => {
                     if (doc.exists) {
@@ -233,7 +240,7 @@ export default {
                 });
         },
 
-        init(user) {
+        initUser(user) {
             this.$store.commit('SET_USER', user);
             this.loadSettings();
             this.loadTags();
@@ -242,6 +249,7 @@ export default {
         },
 
         loadSettings() {
+            // TOOD: move to actions
             const docRef = db.collection('settings').doc(this.user.uid);
 
             docRef.get().then((doc) => {
@@ -257,6 +265,7 @@ export default {
         },
 
         loadLists() {
+            // TOOD: move to actions
             db.collection('lists').doc(this.user.uid).get()
                 .then((doc) => {
                     if (doc.exists) {
@@ -273,6 +282,7 @@ export default {
         },
 
         loadTags() {
+            // TOOD: move to actions
             db.collection('tags').doc(this.user.uid).get()
                 .then((doc) => {
                     if (doc.exists) {
@@ -287,6 +297,7 @@ export default {
         },
 
         initList() {
+            // TOOD: move to actions
             db.collection('lists').doc(this.user.uid).set({}, { merge: true })
                 .then(() => {
                     this.loadLists();
@@ -298,6 +309,7 @@ export default {
         },
 
         initSettings() {
+            // TOOD: move to actions
             db.collection('settings').doc(this.user.uid).set({}, { merge: true })
                 .then(() => {
                     this.loadSettings();

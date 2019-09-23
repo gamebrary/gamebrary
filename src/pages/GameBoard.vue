@@ -207,6 +207,7 @@ export default {
         },
 
         updateLists(force) {
+            // TOOD: move to actions
             db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: !force })
                 .catch(() => {
                     this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });

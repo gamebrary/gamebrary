@@ -174,6 +174,7 @@ export default {
 
             this.$store.commit('REMOVE_GAME', data);
 
+            // TOOD: move to actions
             db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
                 .then(() => {
                     this.$bus.$emit('TOAST', {
