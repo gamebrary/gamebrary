@@ -93,31 +93,7 @@ export default {
         this.$bus.$on('SAVE_SETTINGS', this.saveSettings);
         this.$bus.$on('SAVE_TAGS', this.saveTags);
         this.$bus.$on('SAVE_NOTES', this.saveNotes);
-
-        if (this.isPublic) {
-            return;
-        }
-
-        if (this.user) {
-            this.syncData();
-            return;
-        }
-
-        if (this.customWallpaper) {
-            this.loadWallpaper();
-        }
-
-        firebase.auth().getRedirectResult().then(({ additionalUserInfo, user }) => {
-            if (additionalUserInfo && additionalUserInfo.isNewUser) {
-                this.$store.dispatch('SEND_WELCOME_EMAIL', additionalUserInfo);
-            }
-
-            if (user) {
-                return this.init(user);
-            }
-
-            return this.handleAuthRedirect();
-        });
+        this.init();
     },
 
     beforeDestroy() {
@@ -127,6 +103,33 @@ export default {
     },
 
     methods: {
+        init() {
+            if (this.isPublic) {
+                return;
+            }
+
+            if (this.user) {
+                this.syncData();
+                return;
+            }
+
+            if (this.customWallpaper) {
+                this.loadWallpaper();
+            }
+
+            firebase.auth().getRedirectResult().then(({ additionalUserInfo, user }) => {
+                if (additionalUserInfo && additionalUserInfo.isNewUser) {
+                    this.$store.dispatch('SEND_WELCOME_EMAIL', additionalUserInfo);
+                }
+
+                if (user) {
+                    return this.initUser(user);
+                }
+
+                return this.handleAuthRedirect();
+            });
+        },
+
         handleAuthRedirect() {
             const authProvider = this.$route.params.authProvider || 'google';
 
