@@ -5,6 +5,7 @@ export default {
         state.isTouchDevice = ('ontouchstart' in window);
 
         state.user = {
+            lastLogin: data.metadata.lastSignInTime,
             uid: data.uid,
             displayName: data.displayName,
             email: data.email,
