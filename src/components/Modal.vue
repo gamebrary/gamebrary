@@ -9,12 +9,12 @@
                 :class="['modal-content', { large, confirm, padded, dark: darkModeEnabled }]"
                 @click.stop
             >
-                <button :class="closeButtonClass" @click="close" v-if="!galleryOpen">
-                    <i class="fas fa-times" />
-                </button>
+                <header :class="{ fixed: !title }">
+                    <h2 v-if="title">{{ title }}</h2>
 
-                <header v-if="title">
-                    <h2>{{ title }}</h2>
+                    <button :class="closeButtonClass" @click="close">
+                        <i class="fas fa-times" />
+                    </button>
                 </header>
 
                 <section>
@@ -86,6 +86,7 @@ export default {
                 {
                     info: this.darkModeEnabled,
                     accent: !this.darkModeEnabled,
+                    fixed: !this.title,
                 },
                 'small',
                 'close-button',
@@ -209,16 +210,18 @@ header {
     min-height: 30px;
 
     @media($small) {
-        padding: $gp $gp 0;
+        padding: $gp;
+        right: 0;
+    }
+
+    &.fixed {
+        position: fixed;
+        background-color: transparent !important;
     }
 }
 
 .close-button {
     display: none;
-    position: fixed;
-    right: 12px;
-    top: $gp / 2;
-    z-index: 99999;
 
     @media($small) {
         display: block;
