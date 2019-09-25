@@ -57,7 +57,7 @@ export default {
 
     methods: {
         showCount({ code }) {
-            return this.ownedPlatform(code) && this.getGameCount(code) > 0
+            return this.ownedPlatform(code) && this.getGameCount(code) > 0;
         },
 
         changePlatform() {
