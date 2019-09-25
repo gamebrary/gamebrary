@@ -16,6 +16,16 @@
         </div>
 
         <div class="setting">
+            <i class="fas fa-users" />
+            <h5>{{ $t('settings.public') }}</h5>
+
+            <toggle-switch
+                id="nightMode"
+                v-model="value.public"
+            />
+        </div>
+
+        <div class="setting">
             <i class="fas fa-star-half-alt" />
             <h5>{{ $t('settings.ratings') }}</h5>
 

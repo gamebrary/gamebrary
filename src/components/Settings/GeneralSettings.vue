@@ -1,6 +1,6 @@
 <template lang="html">
     <section>
-        <h5>Global</h5>
+        <h3>General</h3>
         <div class="reloading" v-if="reloading">
             <i class="fas fa-sync-alt fast-spin" />
             <br>
@@ -75,7 +75,6 @@ export default {
     .reloading {
         width: 100%;
         text-align: center;
-        color: $color-blue;
     }
 
     select {

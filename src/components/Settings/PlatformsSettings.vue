@@ -1,6 +1,6 @@
 <template lang="html">
     <section>
-        <h5 class="title">Platform page</h5>
+        <h3>Platform page</h3>
 
         <div class="setting" v-if="hasLists">
             <i class="fas fa-user-check" />

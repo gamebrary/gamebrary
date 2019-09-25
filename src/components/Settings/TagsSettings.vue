@@ -1,6 +1,6 @@
 <template lang="html">
-    <div class="tags-settings">
-        <h4>Tags</h4>
+    <section class="tags-settings">
+        <h3>Tags</h3>
         <div class="tag-input">
             <input
                 type="text"
@@ -44,7 +44,7 @@
             />
             <!-- @click.native="editTag(tag, name)" -->
         </div>
-    </div>
+    </section>
 </template>
 
 <script>
@@ -179,7 +179,6 @@ export default {
         display: grid;
         grid-gap: $gp;
         margin: $gp 0;
-        background-color: $color-light-gray;
         padding: $gp;
         border-radius: $border-radius;
     }
