@@ -10,7 +10,7 @@
         />
 
         <span
-            v-if="ownedPlatform(platform.code) && getGameCount(platform.code) > 0"
+            v-if="showCount(platform)"
             :class="['game-count', textColor]"
         >
             <i class="fas fa-gamepad" />
@@ -56,6 +56,10 @@ export default {
     },
 
     methods: {
+        showCount({ code }) {
+            return this.ownedPlatform(code) && this.getGameCount(code) > 0
+        },
+
         changePlatform() {
             if (this.clickable) {
                 this.$store.commit('SET_PLATFORM', this.platform);
