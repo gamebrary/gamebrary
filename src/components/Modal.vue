@@ -210,13 +210,17 @@ header {
     min-height: 30px;
 
     @media($small) {
-        padding: $gp / 2 $gp;
+        padding: $gp * 2 $gp $gp;
         right: 0;
+        margin-top: $gp;
     }
 
     &.fixed {
         position: fixed;
+        padding: $gp;
         background-color: transparent !important;
+        margin: 0;
+        z-index: 99999999;
     }
 }
 
