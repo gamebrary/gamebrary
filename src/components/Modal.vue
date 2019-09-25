@@ -210,7 +210,7 @@ header {
     min-height: 30px;
 
     @media($small) {
-        padding: $gp;
+        padding: $gp / 2 $gp;
         right: 0;
     }
 
