@@ -104,7 +104,7 @@ export default {
 
         @media($small) {
             padding: $gp / 2;
-            width: 100%;
+            width: 100% / 2;
             height: 60px;
         }
 
