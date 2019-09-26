@@ -263,6 +263,7 @@ export default {
             if (this.editing) {
                 this.$store.commit('CLEAR_ACTIVE_LIST_INDEX');
             } else {
+                this.$store.commit('SET_SEARCH_ACTIVE', false);
                 this.$store.commit('SET_ACTIVE_LIST_INDEX', this.listIndex);
             }
         },
