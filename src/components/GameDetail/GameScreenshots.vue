@@ -99,8 +99,9 @@ export default {
         }
 
         img {
-            margin: 0 $gp / 4;
+            margin: 0 $gp / 4 $gp / 4;
             cursor: pointer;
+            border-radius: $border-radius;
         }
     }
 </style>
