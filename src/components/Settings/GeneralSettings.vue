@@ -35,7 +35,7 @@
             />
         </div>
 
-        <div class="setting">
+        <!-- <div class="setting">
             <i class="far fa-envelope" />
             <h5>{{ $t('settings.newsletter') }}</h5>
 
@@ -43,7 +43,7 @@
                 id="newsletter"
                 v-model="value.newsletter"
             />
-        </div>
+        </div> -->
     </section>
 </template>
 
