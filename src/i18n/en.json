@@ -50,7 +50,7 @@
         "gamePlatforms": "Also available for:",
         "developers": "Developer",
         "publishers": "Publishers",
-        "removeFromList": "Remove from list",
+        "removeFromList": "Remove",
         "links": {
             "official": "Official Site",
             "wikia": "Fandom",
@@ -167,6 +167,7 @@
         "addToIGDB": "Add it to IGDB"
     },
     "notes": {
-        "addNote": "Add note"
+        "addNote": "Add note",
+        "notes": "Notes"
     }
 }

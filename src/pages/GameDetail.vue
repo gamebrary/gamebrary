@@ -13,26 +13,7 @@
                         {{ platform.name }}
                         <game-rating :rating="game.rating" />
 
-                        <div class="actions" v-if="list.games.includes(game.id)">
-                            <button
-                                class="error small hollow"
-                                v-shortkey="['del']"
-                                @shortkey="removeGame"
-                                @click="removeGame"
-                            >
-                                <i class="far fa-trash-alt delete-game" />
-                                {{ $t('gameDetail.removeFromList')}}
-                            </button>
-
-                            <div class="tags" v-if="hasTags">
-                                <button class="primary hollow small" @click="openTags">
-                                    <i class="fas fa-tag" />
-                                    {{ $t('tags.addTag') }}
-                                </button>
-                            </div>
-                        </div>
-
-                        <br>
+                        <p class="game-description" v-html="game.summary" />
 
                         <tag
                             v-if="games.includes(game.id)"
@@ -45,10 +26,34 @@
                             @close="removeTag(name)"
                         />
 
-                        <p class="game-description" v-html="game.summary" />
+                        <game-review-box />
+
+                        <div class="actions">
+                            <button
+                                v-if="list.games.includes(game.id)"
+                                class="error hollow"
+                                v-shortkey="['del']"
+                                @shortkey="removeGame"
+                                @click="removeGame"
+                            >
+                                <i class="far fa-trash-alt delete-game" />
+                                {{ $t('gameDetail.removeFromList')}}
+                            </button>
+
+                            <button class="success hollow" v-else>
+                                {{ $t('list.addGame') }}
+
+                            </button>
+
+                            <div class="tags" v-if="hasTags">
+                                <button class="primary hollow" @click="openTags">
+                                    <i class="fas fa-tag" />
+                                    {{ $t('tags.addTag') }}
+                                </button>
+                            </div>
+                        </div>
 
                         <game-notes />
-                        <game-review-box />
                     </div>
                 </div>
 
@@ -70,7 +75,7 @@ import GameScreenshots from '@/components/GameDetail/GameScreenshots';
 import GameNotes from '@/components/GameNotes';
 import GameRating from '@/components/GameDetail/GameRating';
 import GameVideos from '@/components/GameDetail/GameVideos';
-import GameReviewBox from '@/components/GameDetail/GameReviewBox';
+import GameDetails from '@/components/GameDetail/GameDetails';
 import IgdbCredit from '@/components/IgdbCredit';
 import GameDetailPlaceholder from '@/components/GameDetail/GameDetailPlaceholder';
 import firebase from 'firebase/app';
@@ -87,7 +92,7 @@ export default {
         GameScreenshots,
         GameNotes,
         GameVideos,
-        GameReviewBox,
+        GameDetails,
         GameDetailPlaceholder,
     },
 
@@ -302,9 +307,9 @@ export default {
         display: flex;
         align-items: center;
         margin-top: $gp;
-    }
 
-    .tags {
-        margin-left: $gp;
+        button {
+            margin-right: $gp;
+        }
     }
 </style>

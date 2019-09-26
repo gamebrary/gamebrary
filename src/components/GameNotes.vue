@@ -1,5 +1,7 @@
 <template lang="html">
     <div class="game-notes" :class="{ dark: darkModeEnabled }">
+        <h4>{{ $t('notes.notes') }}</h4>
+
         <div
             class="note"
             v-if="hasNote && !editingNote"
@@ -35,7 +37,7 @@
                         @shortkey="reset"
                         @click="reset"
                     >
-                        {{ $t('cancel') }}
+                        {{ $t('global.cancel') }}
                     </button>
 
                     <button
@@ -54,15 +56,14 @@
                         @click="saveNote"
                         :disabled="!localNote"
                     >
-                        {{ $t('save') }}
+                        {{ $t('global.save') }}
                     </button>
                 </div>
-
             </div>
         </div>
 
         <button
-            class="warning small hollow"
+            class="warning hollow"
             v-shortkey="['ctrl', 'alt', 'n']"
             @shortkey="addNote"
             @click="addNote"
@@ -155,6 +156,14 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles";
+
+    .game-notes {
+        margin-top: $gp;
+    }
+
+    h4 {
+        padding-bottom: $gp / 2;
+    }
 
     .dark .note {
         border-color: $color-gray;
