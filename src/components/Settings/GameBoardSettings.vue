@@ -10,7 +10,7 @@
             <h5>{{ $t('settings.branding') }}</h5>
 
             <toggle-switch
-                id="gameRatings"
+                id="gameBoardBranding"
                 v-model="value.branding"
             />
         </div>
