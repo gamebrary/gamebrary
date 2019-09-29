@@ -76,7 +76,7 @@
         <button
             v-if="!searching && !editing"
             @click="addGame"
-            class="add-game-button small"
+            class="add-game-button accent small"
             :title="$t('list.addGame')"
         >
             <i class="fas fa-plus" />
@@ -347,6 +347,9 @@ export default {
             justify-content: space-between;
             padding-left: $gp / 2;
             position: absolute;
+            border-radius: $border-radius;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
             width: 100%;
 
             &.searching {
@@ -365,7 +368,7 @@ export default {
             min-height: 80px;
             overflow-y: auto;
             margin-top: $list-header-height;
-            padding: 0 $gp / 2;
+            padding: 0 $gp / 2 $gp / 2;
             width: 100%;
 
             &.empty {
@@ -385,7 +388,9 @@ export default {
     }
 
     .add-game-button {
-        width: 100%;
+        position: absolute;
+        right: 0;
+        bottom: 0;
     }
 
     .game-grid {
