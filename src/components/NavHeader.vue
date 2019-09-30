@@ -19,7 +19,6 @@
 
             <settings slot="content" />
         </modal>
-
     </nav>
 </template>
 
