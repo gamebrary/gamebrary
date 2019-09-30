@@ -29,13 +29,8 @@
             </button>
         </div>
 
-        <game-search
-            v-if="searching"
-            :list-id="listIndex"
-        />
-
         <list-settings
-            v-else-if="editing"
+            v-if="editing"
             @update="updateLists"
         />
 
@@ -73,20 +68,26 @@
             />
         </draggable>
 
-        <button
-            v-if="!searching && !editing"
-            @click="addGame"
-            class="add-game-button accent small"
-            :title="$t('list.addGame')"
-        >
-            <i class="fas fa-plus" />
-        </button>
+        <modal large :title="$t('list.addGame')">
+            <button
+                class="add-game-button accent small"
+                :title="$t('list.addGame')"
+            >
+                <i class="fas fa-plus" />
+            </button>
+
+            <game-search
+                slot="content"
+                :list-id="listIndex"
+            />
+        </modal>
     </div>
 </template>
 
 <script>
 import draggable from 'vuedraggable';
 import Masonry from 'masonry-layout';
+import Modal from '@/components/Modal';
 import ListNameEdit from '@/components/Lists/ListNameEdit';
 import ListSettings from '@/components/Lists/ListSettings';
 import GameCardDefault from '@/components/GameCards/GameCardDefault';
@@ -112,6 +113,7 @@ export default {
         ListNameEdit,
         ListSettings,
         draggable,
+        Modal,
     },
 
     props: {
@@ -268,6 +270,7 @@ export default {
             }
         },
 
+        // TODO: deprecate
         addGame() {
             this.$store.commit('CLEAR_SEARCH_RESULTS');
             this.$store.commit('SET_ACTIVE_LIST_INDEX', this.listIndex);

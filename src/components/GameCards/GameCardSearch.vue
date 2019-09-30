@@ -13,11 +13,10 @@
             />
 
             <button
-                :class="['accent xxsmall', { 'hollow': darkModeEnabled }]"
+                class="success small add-game-button"
                 @click="addGame"
             >
-                <!-- TODO: translate -->
-                Add to {{ addToLabel }}
+                {{ $t('list.addGame') }}
             </button>
         </div>
     </div>
@@ -39,38 +38,27 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles";
 
+    $gameCoverWidth: 80px;
+
     .game-card {
         background-color: $color-white;
-        margin-top: $gp / 4;
+        margin-top: $gp / 2;
+        position: relative;
         display: grid;
-        grid-template-columns: 60px auto;
-
-        &.card-placeholder {
-            background: $color-light-gray;
-            outline: 1px dashed $color-gray;
-            opacity: 0.6;
-
-            .game-card-options {
-                display: none;
-            }
-        }
+        grid-template-columns: $gameCoverWidth auto;
+        border-radius: $border-radius;
+        overflow: hidden;
 
         &.dark {
-            background: $color-darker-gray;
+            background: $color-gray;
 
             img {
                 opacity: 0.9;
             }
-
-            .game-info {
-                a {
-                    color: $color-gray;
-                }
-            }
         }
 
         img {
-            width: 60px;
+            width: $gameCoverWidth;
             height: auto;
             display: flex;
             align-self: center;
@@ -78,8 +66,15 @@ export default {
         }
 
         .game-info {
-            padding: $gp / 2;
-            display: grid;
+            padding: $gp / 2 $gp;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+
+            button {
+                margin-top: $gp / 2;
+                align-self: flex-start;
+            }
 
             .game-rating, a {
                 display: inline-flex;

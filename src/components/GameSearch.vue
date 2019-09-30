@@ -1,6 +1,6 @@
 <template lang="html">
-    <form @submit.prevent="search" :class="['game-search', { dark: darkModeEnabled }]">
-        <div class="search-box">
+    <div :class="['game-search', { dark: darkModeEnabled }]">
+        <form @submit.prevent="search">
             <input
                 ref="searchInput"
                 type="text"
@@ -8,15 +8,14 @@
                 :placeholder="$t('gameSearch.inputPlaceholder')"
             />
 
-            <button class="primary small search-button" @click="search">
+            <button class="primary small" @click="search">
                 <i class="fas fa-circle-notch fast-spin hollow" v-if="loading" />
                 <i class="fas fa-search" v-else />
             </button>
-        </div>
+        </form>
 
-        <!-- TODO: move logic out of template -->
-        <small v-if="gamesInList.length" :title="gamesInList.map(({ name }) => name).join(', ')">
-            <strong>{{ gamesInList.length }} game{{ gamesInList.length === 1 ? '' : 's' }}</strong>
+        <small v-if="gamesInList.length" :title="gamesInListNames">
+            <strong>{{ gamesInListMessage }}</strong>
             {{ $t('gameSearch.alreadyInList') }}
         </small>
 
@@ -35,21 +34,8 @@
             {{ $t('gameSearch.noResultsFound') }}
         </span>
 
-        <div class="search-actions">
-            <button
-                class="filled small info hollow"
-                title="back"
-                v-shortkey="['esc']"
-                @shortkey="back"
-                @click="back"
-            >
-                <i class="fas fa-chevron-left" />
-                {{ $t('global.back') }}
-            </button>
-
-            <igdb-credit linkable />
-        </div>
-    </form>
+        <igdb-credit linkable />
+    </div>
 </template>
 
 <script>
@@ -76,7 +62,6 @@ export default {
         return {
             searchText: '',
             loading: false,
-            noResults: false,
             styles: {
                 width: '95%',
                 'max-width': '800px',
@@ -88,6 +73,12 @@ export default {
         ...mapState(['results', 'gameLists', 'platform']),
         ...mapGetters(['darkModeEnabled']),
 
+        noResults() {
+            return this.filteredResults.length === 0
+                && !this.loading
+                && this.searchText.trim().length > 0;
+        },
+
         list() {
             return this.gameLists[this.platform.code];
         },
@@ -98,10 +89,21 @@ export default {
                 : [];
         },
 
+        gamesInListNames() {
+            return this.gamesInList.map(({ name }) => name).join(', ');
+        },
+
         gamesInList() {
             return this.results
                 ? this.results.filter(({ id }) => this.list[this.listId].games.includes(id))
                 : [];
+        },
+
+        gamesInListMessage() {
+            const gameCount = this.gamesInList.length;
+            const plural = gameCount === 1 ? '' : 's';
+
+            return `${gameCount} game${plural}`;
         },
     },
 
@@ -125,18 +127,12 @@ export default {
             this.$store.commit('CLEAR_SEARCH_RESULTS');
         },
 
-        back() {
-            this.$store.commit('SET_ACTIVE_LIST_INDEX', null);
-            this.$store.commit('SET_SEARCH_ACTIVE', false);
-        },
-
         added() {
             this.$emit('added');
             this.$bus.$emit('GAMES_ADDED');
 
             if (this.filteredResults.length === 1) {
                 this.clear();
-                this.back();
             }
         },
 
@@ -144,13 +140,11 @@ export default {
             // eslint-disable-next-line
             function() {
                 this.loading = true;
-                this.noResults = false;
 
                 this.$store.dispatch('SEARCH', this.searchText)
                     .then(() => {
                         this.error = null;
                         this.loading = false;
-                        this.noResults = this.filteredResults.length === 0;
                         this.$refs.searchResults.scrollTop = 0;
                     })
                     .catch(({ data }) => {
@@ -166,38 +160,30 @@ export default {
     @import "~styles/styles";
 
     .game-search {
-        background-color: $color-light-gray;
-        margin-top: $list-header-height;
-        padding: $gp / 2;
-
-        &.dark {
-            background-color: $color-dark-gray;
-        }
+        padding: 0 $gp $gp;
     }
 
-    .search-box {
-        display: grid;
-        grid-gap: $gp / 2;
-        grid-template-columns: auto 32px;
-    }
-
-    .search-actions {
+    form {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        margin-top: $gp / 2;
+        margin-bottom: $gp;
+
+        input {
+            margin-bottom: 0;
+        }
+
+        button {
+            margin-left: $gp;
+        }
     }
 
     .search-results {
         overflow: auto;
-        max-height: calc(100vh - 300px);
+        max-height: 70vh;
     }
 
-    input {
-        margin: 0 0 $gp / 2;
-    }
-
-    .search-button {
-        height: 20px;
+    .igdb-credit {
+        justify-content: center;
+        margin-top: $gp;
     }
 </style>
