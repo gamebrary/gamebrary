@@ -394,6 +394,8 @@ export default {
         position: absolute;
         right: 0;
         bottom: 0;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 0;
     }
 
     .game-grid {
