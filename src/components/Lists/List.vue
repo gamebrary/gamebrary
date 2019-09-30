@@ -1,13 +1,8 @@
 <!-- eslint-disable max-len -->
 <template lang="html">
     <div :class="['list', viewClass, { dark: darkModeEnabled, unique }, transparent]">
-        <div class="list-header" :class="{ searching, editing }" :style="style">
-            <div v-if="searching">
-                {{ $t('gameSearch.title') }}
-                <strong>{{ list[listIndex].name }}</strong>
-            </div>
-
-            <div v-else-if="editing">
+        <div class="list-header" :class="{ editing }" :style="style">
+            <div v-if="editing">
                 <list-name-edit
                     :list-name="name"
                     :list-index="listIndex"
@@ -22,7 +17,7 @@
 
             <button
                 class="small"
-                v-if="!editing && !searching"
+                v-if="!editing"
                 @click="editList"
             >
                 <i class="fas fa-sliders-h" />
@@ -36,7 +31,7 @@
 
         <div
             :class="`game-grid game-grid-${listIndex}`"
-            v-if="view === 'grid' && !editing && !searching"
+            v-if="view === 'grid' && !editing"
         >
             <component
                 v-for="game in games"
@@ -49,7 +44,7 @@
         </div>
 
         <draggable
-            v-else-if="!editing && !searching"
+            v-else-if="!editing"
             :class="['games', { 'empty': isEmpty }]"
             :list="games"
             :id="listIndex"
@@ -68,26 +63,13 @@
             />
         </draggable>
 
-        <modal large :title="$t('list.addGame')">
-            <button
-                :class="['add-game-button small', { info: this.darkModeEnabled, accent: !this.darkModeEnabled, }]"
-                :title="$t('list.addGame')"
-            >
-                <i class="fas fa-plus" />
-            </button>
-
-            <game-search
-                slot="content"
-                :list-id="listIndex"
-            />
-        </modal>
+        <game-search :list-id="listIndex" />
     </div>
 </template>
 
 <script>
 import draggable from 'vuedraggable';
 import Masonry from 'masonry-layout';
-import Modal from '@/components/Modal';
 import ListNameEdit from '@/components/Lists/ListNameEdit';
 import ListSettings from '@/components/Lists/ListSettings';
 import GameCardDefault from '@/components/GameCards/GameCardDefault';
@@ -113,7 +95,6 @@ export default {
         ListNameEdit,
         ListSettings,
         draggable,
-        Modal,
     },
 
     props: {
@@ -143,7 +124,7 @@ export default {
     },
 
     computed: {
-        ...mapState(['user', 'gameLists', 'platform', 'activeListIndex', 'settings', 'searchActive']),
+        ...mapState(['user', 'gameLists', 'platform', 'activeListIndex', 'settings']),
 
         ...mapGetters(['darkModeEnabled', 'brandingEnabled']),
 
@@ -151,12 +132,8 @@ export default {
             return this.gameLists[this.platform.code];
         },
 
-        searching() {
-            return this.activeListIndex === this.listIndex && this.searchActive;
-        },
-
         editing() {
-            return this.activeListIndex === this.listIndex && !this.searchActive;
+            return this.activeListIndex === this.listIndex;
         },
 
         isEmpty() {
@@ -329,10 +306,6 @@ export default {
             .list-header {
                 background-color: $color-darker-gray;
             }
-
-            .add-game-button {
-                color: $color-white;
-            }
         }
 
         &.unique {
@@ -354,10 +327,6 @@ export default {
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
             width: 100%;
-
-            &.searching {
-                background: $color-green;
-            }
 
             &.editing {
                 background: $color-blue;
@@ -388,14 +357,6 @@ export default {
 
     .list-settings {
         padding: $gp;
-    }
-
-    .add-game-button {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        border-bottom-left-radius: 0;
-        border-top-right-radius: 0;
     }
 
     .game-grid {

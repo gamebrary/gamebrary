@@ -1,45 +1,55 @@
 <template lang="html">
-    <div :class="['game-search', { dark: darkModeEnabled }]">
-        <form @submit.prevent="search">
-            <input
-                ref="searchInput"
-                type="text"
-                v-model="searchText"
-                :placeholder="$t('gameSearch.inputPlaceholder')"
-            />
+    <modal large :title="$t('list.addGame')">
+        <button
+            :class="['add-game-button small', { info: this.darkModeEnabled, accent: !this.darkModeEnabled, }]"
+            :title="$t('list.addGame')"
+        >
+            <i class="fas fa-plus" />
+        </button>
 
-            <button class="primary small" @click="search">
-                <i class="fas fa-circle-notch fast-spin hollow" v-if="loading" />
-                <i class="fas fa-search" v-else />
-            </button>
-        </form>
+        <div :class="['game-search', { dark: darkModeEnabled }]" slot="content">
+            <form @submit.prevent="search">
+                <input
+                    ref="searchInput"
+                    type="text"
+                    v-model="searchText"
+                    :placeholder="$t('gameSearch.inputPlaceholder')"
+                />
 
-        <small v-if="gamesInList.length" :title="gamesInListNames">
-            <strong>{{ gamesInListMessage }}</strong>
-            {{ $t('gameSearch.alreadyInList') }}
-        </small>
+                <button class="primary small" @click="search">
+                    <i class="fas fa-circle-notch fast-spin hollow" v-if="loading" />
+                    <i class="fas fa-search" v-else />
+                </button>
+            </form>
 
-        <div class="search-results" ref="searchResults" v-if="filteredResults.length > 0">
-            <game-card-search
-                v-for="{ id } in filteredResults"
-                search-result
-                :key="id"
-                :game-id="id"
-                :listId="listId"
-                @added="added"
-            />
+            <small v-if="gamesInList.length" :title="gamesInListNames">
+                <strong>{{ gamesInListMessage }}</strong>
+                {{ $t('gameSearch.alreadyInList') }}
+            </small>
+
+            <div class="search-results" ref="searchResults" v-if="filteredResults.length > 0">
+                <game-card-search
+                    v-for="{ id } in filteredResults"
+                    search-result
+                    :key="id"
+                    :game-id="id"
+                    :listId="listId"
+                    @added="added"
+                />
+            </div>
+
+            <span class="no-results" v-if="noResults">
+                {{ $t('gameSearch.noResultsFound') }}
+            </span>
+
+            <igdb-credit linkable />
         </div>
-
-        <span class="no-results" v-if="noResults">
-            {{ $t('gameSearch.noResultsFound') }}
-        </span>
-
-        <igdb-credit linkable />
-    </div>
+    </modal>
 </template>
 
 <script>
 import GameCardSearch from '@/components/GameCards/GameCardSearch';
+import Modal from '@/components/Modal';
 import IgdbCredit from '@/components/IgdbCredit';
 import { debounce } from 'lodash';
 import { mapState, mapGetters } from 'vuex';
@@ -48,6 +58,7 @@ export default {
     components: {
         GameCardSearch,
         IgdbCredit,
+        Modal,
     },
 
     props: {
@@ -161,6 +172,14 @@ export default {
 
     .game-search {
         padding: 0 $gp $gp;
+    }
+
+    .add-game-button {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 0;
     }
 
     form {
