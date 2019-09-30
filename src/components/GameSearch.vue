@@ -179,7 +179,7 @@ export default {
 
     .search-results {
         overflow: auto;
-        max-height: 70vh;
+        max-height: calc(70vh - 100px);
     }
 
     .igdb-credit {
