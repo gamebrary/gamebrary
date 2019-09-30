@@ -70,7 +70,7 @@
 
         <modal large :title="$t('list.addGame')">
             <button
-                class="add-game-button accent small"
+                :class="['add-game-button small', { info: this.darkModeEnabled, accent: !this.darkModeEnabled, }]"
                 :title="$t('list.addGame')"
             >
                 <i class="fas fa-plus" />
