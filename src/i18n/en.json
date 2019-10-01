@@ -76,13 +76,9 @@
     "list": {
         "edit": "Edit list name",
         "type": "List type",
+        "preferences": "List preferences",
         "placeholder": "Type your list name here",
-        "suggestions": {
-            "owned": "Owned",
-            "wishlist": "Wishlist",
-            "currentlyPlaying": "Currently Playing",
-            "completed": "Completed"
-        },
+        "wishlist": "Wishlist",
         "input": "Enter your own",
         "add": "Add list",
         "duplicateWarning": "You already have a list with this name",
