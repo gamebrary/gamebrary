@@ -1,81 +1,55 @@
 <template lang="html">
-    <main>
-        <form class="list-add" @submit.prevent="addList">
-            <header>{{ title }}</header>
+    <modal :title="title" ref="listAddModal">
+        <button
+            class="small info add-list-button"
+            :title="$t('list.add')"
+        >
+            <i class="fas fa-plus" />
+        </button>
 
-            <section>
-                <label for="newListName">List name:</label>
-
-                <input
-                    name="newListName"
-                    v-model.trim="newListName"
-                    type="text"
-                    ref="newListName"
-                    autofocus
-                    required
-                    :placeholder="$t('list.placeholder')"
-                />
-
-                <div class="button-group">
-                    <button type="button" class="xsmall" @click="listType = null">
-                        <i class="fas fa-check-square" v-if="listType === null" />
-                        <i class="far fa-square" v-else />
-                        Collection
-                    </button>
-
-                    <button type="button" class="xsmall" @click="listType = 'wishlist'">
-                        <i class="fas fa-check-square" v-if="listType === 'wishlist'" />
-                        <i class="far fa-square" v-else />
-                        Wishlist
-                    </button>
-                </div>
-
-                <small v-if="isDuplicate">
-                    {{ $t('list.duplicateWarning') }}
-                </small>
-            </section>
+        <form class="list-add" @submit.prevent="addList" slot="content">
+            <input
+                v-model.trim="listName"
+                type="text"
+                autofocus
+                required
+                :placeholder="$t('list.placeholder')"
+            />
 
             <footer>
                 <button
-                    v-if="!isEmptyBoard"
-                    class="small info"
-                    type="button"
-                    v-shortkey="['esc']"
-                    @shortkey="reset"
-                    @click="reset"
-                >
-                    {{ $t('global.cancel') }}
-                </button>
-
-                <button
-                    class="small primary action"
+                    class="primary"
                     type="submit"
-                    :disabled="isDuplicate || !newListName"
-                    @click="addList"
+                    :disabled="disabled"
                 >
                     {{ buttonLabel }}
                 </button>
+
+                <small v-if="isDuplicate">{{ $t('list.duplicateWarning') }}</small>
             </footer>
         </form>
-    </main>
+    </modal>
 </template>
 
 <script>
+import Modal from '@/components/Modal';
 import { mapState } from 'vuex';
 
 export default {
+    components: {
+        Modal,
+    },
 
     data() {
         return {
-            newListName: '',
-            listType: null,
+            listName: '',
         };
     },
 
     computed: {
         ...mapState(['gameLists', 'platform']),
 
-        list() {
+        lists() {
             return this.gameLists[this.platform.code];
         },
 
@@ -91,12 +65,14 @@ export default {
                 : this.$t('global.save');
         },
 
-        isDuplicate() {
-            const newListName = this.newListName.toLowerCase();
+        existingListNames() {
+            return this.lists
+                ? this.lists.map(({ name }) => name.toLowerCase())
+                : [];
+        },
 
-            return this.list ?
-                this.list.filter(({ name }) => name.toLowerCase() === newListName).length > 0
-                : false;
+        isDuplicate() {
+            return this.existingListNames.includes(this.listName.toLowerCase());
         },
 
         isEmptyBoard() {
@@ -106,59 +82,30 @@ export default {
 
             return newList || emptyList;
         },
-    },
 
-    mounted() {
-        this.focusField();
+        disabled() {
+            return this.isDuplicate || !this.listName;
+        },
     },
 
     methods: {
-        addSuggestion(suggestion) {
-            this.newListName = suggestion;
-            this.addList();
-        },
-
-        focusField() {
-            this.$nextTick(() => {
-                this.$emit('scroll');
-            });
-        },
-
-        reset() {
-            this.newListName = '';
-            this.$store.commit('SET_ADDING_LIST_STATUS', false);
-        },
-
         addList() {
-            if (this.isDuplicate || !this.newListName) {
+            if (this.disabled) {
                 return;
             }
 
-            this.$store.commit('ADD_LIST', {
-                listName: this.newListName,
-                listType: this.listType,
-            });
+            const list = {
+                games: [],
+                name: this.listName,
+            };
 
-            this.$ga.event({
-                eventCategory: 'list',
-                eventAction: 'add',
-                eventLabel: 'listAdded',
-                eventValue: this.newListName,
-            });
+            this.$store.commit('ADD_LIST', list);
 
-            this.$emit('update');
-            this.$emit('scroll');
-            this.reset();
-
-            this.$bus.$emit('TOAST', { message: 'List added' });
-
-            this.$nextTick(() => {
-                this.$emit('scroll');
-            });
-
-            this.$store.commit('CLEAR_SEARCH_RESULTS');
-            this.$store.commit('SET_ACTIVE_LIST_INDEX', this.list.length - 1);
-            this.$store.commit('SET_SEARCH_ACTIVE', true);
+            this.$store.dispatch('SAVE_LIST', this.gameLists)
+                .then(() => {
+                    this.$bus.$emit('TOAST', { message: 'List added' });
+                    this.$refs.listAddModal.close();
+                });
         },
     },
 };
@@ -167,53 +114,23 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "src/styles/styles.scss";
 
-    main {
-        flex-shrink: 0;
-        padding-right: $gp;
+    .add-list-button {
+        margin-right: $gp;
     }
 
     .list-add {
-        background: $color-light-gray;
-        width: 300px;
-        border-radius: $border-radius;
-        overflow: hidden;
+        padding: 0 $gp $gp;
+        margin-right: $gp;
     }
 
-    header {
-        background-color: $color-green;
-        color: $color-white;
-        display: flex;
-        align-items: center;
-        height: $list-header-height;
-        padding: 0 $gp / 2;
-    }
-
-    section {
-        padding: $gp / 2;
-
-        small {
-            display: flex;
-            margin-bottom: $gp / 4;
-        }
-
-        input {
-            margin-bottom: $gp / 2;
-        }
-    }
-
-    .panel.warning {
-        margin-bottom: $gp / 2;
+    small {
+        color: $color-orange;
     }
 
     footer {
-        padding: 0 $gp / 2 $gp / 2;
+        margin-top: $gp;
         display: flex;
+        align-items: center;
         justify-content: space-between;
-    }
-
-    .list-types {
-        // display: grid;
-        // grid-template-columns: 1fr 1fr;
-        // grid-gap: $gp;
     }
 </style>

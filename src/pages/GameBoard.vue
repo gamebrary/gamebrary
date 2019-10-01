@@ -1,17 +1,15 @@
 <template lang="html">
     <div
-        class="lists"
-        ref="lists"
+        class="game-board"
+        ref="gameBoard"
         v-if="user && platform"
         :class="{ dark: darkModeEnabled }"
-        @click.self="loseFocus"
     >
         <game-board-placeholder :id="gameDetailId" v-if="loading" />
 
         <modal
             ref="game"
             large
-            no-padding
             @close="closeGame"
         >
             <game-detail
@@ -58,22 +56,14 @@
             />
 
             <list-add
-                v-if="addingList || !list"
                 @scroll="scroll"
                 @update="updateLists"
-            />
-
-            <game-board-actions
-                v-else
-                @update="updateLists"
-                @scroll="scroll"
             />
         </template>
     </div>
 </template>
 
 <script>
-import GameBoardActions from '@/components/GameBoard/GameBoardActions';
 import GameBoardPlaceholder from '@/components/GameBoard/GameBoardPlaceholder';
 import Tag from '@/components/Tag';
 import ListAdd from '@/components/Lists/ListAdd';
@@ -93,7 +83,6 @@ export default {
     components: {
         draggable,
         List,
-        GameBoardActions,
         GameBoardPlaceholder,
         ListAdd,
         Tag,
@@ -116,7 +105,7 @@ export default {
     },
 
     computed: {
-        ...mapState(['user', 'gameLists', 'addingList', 'platform', 'tags', 'games']),
+        ...mapState(['user', 'gameLists', 'platform', 'tags', 'games']),
         ...mapGetters(['darkModeEnabled']),
 
         list() {
@@ -127,8 +116,6 @@ export default {
     },
 
     mounted() {
-        this.$store.commit('CLEAR_ACTIVE_LIST_INDEX');
-
         if (this.platform) {
             this.load();
             this.setPageTitle();
@@ -184,14 +171,10 @@ export default {
             this.$refs.tag.open(id);
         },
 
-        loseFocus() {
-            this.$store.commit('CLEAR_ACTIVE_LIST_INDEX');
-        },
-
         scroll() {
             this.$nextTick(() => {
-                const lists = this.$refs.lists;
-                lists.scrollLeft = lists.scrollWidth;
+                const gameBoard = this.$refs.gameBoard;
+                gameBoard.scrollLeft = gameBoard.scrollWidth;
             });
         },
 
@@ -255,12 +238,7 @@ export default {
         color: $color-white;
     }
 
-    .panel {
-        margin-right: $gp;
-        width: $list-width;
-    }
-
-    .lists {
+    .game-board {
         user-select: none;
         display: flex;
         align-items: flex-start;
@@ -270,10 +248,6 @@ export default {
         overflow-x: auto;
         overflow-x: overlay;
         display: flex;
-
-        &.empty {
-            background: $color-white;
-        }
     }
 
     .list-placeholder {
