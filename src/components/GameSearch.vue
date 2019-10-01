@@ -1,9 +1,6 @@
 <template lang="html">
     <modal large :title="$t('list.addGame')">
-        <button
-            :class="['add-game-button small', { info: this.darkModeEnabled, accent: !this.darkModeEnabled, }]"
-            :title="$t('list.addGame')"
-        >
+        <button :class="buttonClass" :title="$t('list.addGame')">
             <i class="fas fa-plus" />
         </button>
 
@@ -83,6 +80,16 @@ export default {
     computed: {
         ...mapState(['results', 'gameLists', 'platform']),
         ...mapGetters(['darkModeEnabled']),
+
+        buttonClass() {
+            return [
+                'add-game-button small',
+                {
+                    info: this.darkModeEnabled,
+                    accent: !this.darkModeEnabled,
+                },
+            ];
+        },
 
         noResults() {
             return this.filteredResults.length === 0
