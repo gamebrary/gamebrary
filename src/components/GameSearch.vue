@@ -70,10 +70,6 @@ export default {
         return {
             searchText: '',
             loading: false,
-            styles: {
-                width: '95%',
-                'max-width': '800px',
-            },
         };
     },
 
