@@ -10,26 +10,16 @@
             {{ title }}
         </router-link>
 
-        <modal large title="Settings">
-            <button
-                :class="['small', { filled: darkModeEnabled, 'info filled': !darkModeEnabled }]"
-            >
-                <i class="fas fa-cog" />
-            </button>
-
-            <settings slot="content" />
-        </modal>
+        <settings />
     </nav>
 </template>
 
 <script>
 import Settings from '@/pages/Settings';
-import Modal from '@/components/Modal';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
     components: {
-        Modal,
         Settings,
     },
 

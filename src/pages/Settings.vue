@@ -1,11 +1,19 @@
 <template lang="html">
-    <div class="settings" :class="{ dark: darkModeEnabled }">
-        <general-settings v-model="localSettings" :reloading="reloading" />
-        <platforms-settings v-model="localSettings" :reloading="reloading" />
-        <game-board-settings v-model="localSettings" :reloading="reloading" />
-        <tags-settings v-model="localSettings" :reloading="reloading" />
-        <account-settings v-model="localSettings" :reloading="reloading" />
-    </div>
+    <modal title="Settings">
+        <button
+            :class="['small', { filled: darkModeEnabled, 'info filled': !darkModeEnabled }]"
+        >
+            <i class="fas fa-cog" />
+        </button>
+
+        <div class="settings" slot="content" :class="{ dark: darkModeEnabled }">
+            <general-settings v-model="localSettings" :reloading="reloading" />
+            <platforms-settings v-model="localSettings" :reloading="reloading" />
+            <game-board-settings v-model="localSettings" :reloading="reloading" />
+            <tags-settings v-model="localSettings" :reloading="reloading" />
+            <account-settings v-model="localSettings" :reloading="reloading" />
+        </div>
+    </modal>
 </template>
 
 <script>
