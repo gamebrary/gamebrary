@@ -1,5 +1,5 @@
 <template lang="html">
-    <modal large :title="$t('list.addGame')">
+    <modal padded :title="$t('list.addGame')" @open="clear">
         <button :class="buttonClass" :title="$t('list.addGame')">
             <i class="fas fa-plus" />
         </button>
@@ -137,7 +137,7 @@ export default {
 
     methods: {
         clear() {
-            this.searchText = null;
+            this.searchText = '';
             this.$store.commit('CLEAR_SEARCH_RESULTS');
         },
 
@@ -172,10 +172,6 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles";
-
-    .game-search {
-        padding: 0 $gp $gp;
-    }
 
     .add-game-button {
         position: absolute;
