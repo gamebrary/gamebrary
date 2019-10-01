@@ -1,4 +1,6 @@
 import axios from 'axios';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
 const FIREBASE_URL = 'https://us-central1-gamebrary-8c736.cloudfunctions.net';
 
@@ -11,6 +13,15 @@ export default {
                     resolve();
                 }).catch(reject);
         });
+    },
+
+    SAVE_LIST({ commit, state }, payload) {
+        const db = firebase.firestore();
+
+        db.collection('lists').doc(state.user.uid).set(payload, { merge: true })
+            .then(() => {
+                commit('SAVE_LISTS', payload);
+            });
     },
 
     LOAD_RELEASES({ commit }) {

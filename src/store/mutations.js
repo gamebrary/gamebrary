@@ -96,21 +96,12 @@ export default {
         state.activeListIndex = listId;
     },
 
-    SET_SEARCH_ACTIVE(state, status) {
-        state.searchActive = status;
-    },
-
-    SET_ADDING_LIST_STATUS(state, status) {
-        state.addingList = status;
-    },
-
     SET_ACTIVE_LIST_INDEX(state, listIndex) {
         state.activeListIndex = listIndex;
     },
 
     CLEAR_ACTIVE_LIST_INDEX(state) {
         state.activeListIndex = null;
-        state.searchActive = null;
         state.addingList = false;
     },
 
@@ -188,6 +179,10 @@ export default {
         state.gameLists[state.platform.code][listIndex].view = view;
     },
 
+    SAVE_LISTS(state, lists) {
+        state.gameLists = lists;
+    },
+
     UPDATE_LIST_TYPE(state, { listIndex, type }) {
         state.gameLists[state.platform.code][listIndex].type = type;
     },
@@ -206,6 +201,7 @@ export default {
 
     MOVE_LIST(state, { from, to }) {
         const cutOut = state.gameLists[state.platform.code].splice(from, 1)[0];
+
         state.gameLists[state.platform.code].splice(to, 0, cutOut);
     },
 
@@ -223,18 +219,12 @@ export default {
         currentList.games.push(gameId);
     },
 
-    ADD_LIST(state, { listName, listType }) {
-        const newList = {
-            games: [],
-            name: listName,
-            type: listType,
-        };
-
+    ADD_LIST(state, list) {
         if (!state.gameLists[state.platform.code]) {
             Vue.set(state.gameLists, state.platform.code, []);
         }
 
-        state.gameLists[state.platform.code].push(newList);
+        state.gameLists[state.platform.code].push(list);
     },
 
     REMOVE_GAME(state, { gameId, listId }) {
