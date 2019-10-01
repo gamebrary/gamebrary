@@ -26,7 +26,7 @@
                             @close="removeTag(name)"
                         />
 
-                        <game-review-box />
+                        <game-details />
 
                         <div class="actions">
                             <button
