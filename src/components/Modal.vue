@@ -123,13 +123,10 @@ export default {
 @import "~styles/styles";
 
 .modal {
-    align-items: center;
     background: rgba(0, 0, 0, 0.8);
     color: $color-dark-gray;
     cursor: pointer;
-    display: flex;
     height: 100%;
-    justify-content: center;
     left: 0;
     margin: 0;
     opacity: .1;
@@ -151,11 +148,11 @@ export default {
     position: relative;
     background-color: $color-white;
     height: auto;
-    width: 380px;
+    width: 500px;
     max-height: calc(85vh);
     max-width: 100%;
     overflow: auto;
-    margin: 0 $gp;
+    margin: $gp * 2 auto $gp;
     padding: 0;
     border-radius: $border-radius;
     cursor: default;
@@ -194,7 +191,7 @@ export default {
         height: auto;
         max-height: 100vh;
         height: 100vh;
-        width: 80vw;
+        width: 100vw;
     }
 }
 
