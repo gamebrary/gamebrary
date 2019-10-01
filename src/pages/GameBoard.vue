@@ -69,8 +69,6 @@
                 @scroll="scroll"
             />
         </template>
-
-        <!-- <dev-debug /> -->
     </div>
 </template>
 
@@ -82,7 +80,6 @@ import ListAdd from '@/components/Lists/ListAdd';
 import Panel from '@/components/Panel';
 import GameDetail from '@/pages/GameDetail';
 import Modal from '@/components/Modal';
-// import DevDebug from '@/components/DevDebug';
 import { chunk } from 'lodash';
 import List from '@/components/Lists/List';
 import draggable from 'vuedraggable';
@@ -96,7 +93,6 @@ export default {
     components: {
         draggable,
         List,
-        // DevDebug,
         GameBoardActions,
         GameBoardPlaceholder,
         ListAdd,
