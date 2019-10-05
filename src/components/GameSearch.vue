@@ -197,11 +197,11 @@ export default {
 
     .search-results {
         overflow: auto;
-        max-height: calc(70vh - 100px);
+        height: calc(100vh - 240px);
     }
 
     .igdb-credit {
         justify-content: center;
-        margin-top: $gp;
+        margin-top: auto;
     }
 </style>
