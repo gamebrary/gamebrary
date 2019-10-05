@@ -6,7 +6,7 @@
             <i class="fas fa-cog" />
         </button>
 
-        <div class="settings" slot="content" :class="{ dark: darkModeEnabled }">
+        <div class="settings" slot="content" :class="{ dark: darkModeEnabled }" v-if="localSettings">
             <general-settings v-model="localSettings" :reloading="reloading" />
             <platforms-settings v-model="localSettings" :reloading="reloading" />
             <game-board-settings v-model="localSettings" :reloading="reloading" />
@@ -48,7 +48,7 @@ export default {
             activeComponent: null,
             language: null,
             reloading: false,
-            localSettings: {},
+            localSettings: null,
             moment,
             settingsSections: [
                 {
@@ -106,7 +106,7 @@ export default {
     watch: {
         localSettings: {
             handler(oldValue, newValue) {
-                if (Object.keys(newValue).length) {
+                if (newValue && Object.keys(newValue).length) {
                     this.save();
 
                     if (newValue.language !== undefined && this.language !== newValue.language) {
