@@ -13,3 +13,30 @@ input, select {
         margin: 0;
     }
 }
+
+.checkbox-group {
+    display: inline-flex;
+
+    > span {
+        width: 60px;
+        margin-right: $gp / 2;
+
+        > input {
+            display: none;
+        }
+
+        label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            &.active {
+                color: $color-blue;
+            }
+
+            i {
+                margin-bottom: $gp / 4;
+            }
+        }
+    }
+}
