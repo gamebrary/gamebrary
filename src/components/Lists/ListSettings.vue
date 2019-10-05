@@ -1,127 +1,115 @@
 <template lang="html">
-    <div class="list-settings">
-        <h4>{{ $t('list.moveList') }}</h4>
+    <modal
+        :title="$t('list.preferences')"
+        v-if="activeList"
+        ref="listSettingsModal"
+        padded
+        @open="open"
+        @close="close"
+    >
+        <button class="small">
+            <i class="fas fa-sliders-h" />
+        </button>
 
-        <div class="button-grid">
-            <button
-                class="xsmall primary hollow"
-                :title="$t('list.moveLeft')"
-                :disabled="isFirst"
-                @click="moveList(activeListIndex, activeListIndex - 1)"
-            >
-                <i class="fas fa-arrow-left" />
+        <div class="list-settings" slot="content" v-if="localList">
+            <section class="setting-box">
+                <h4>List name</h4>
 
-                {{ $t('list.moveLeft') }}
-            </button>
+                <input v-model="localList.name" ref="input" />
+            </section>
 
-            <button
-                class="xsmall primary hollow"
-                :title="$t('list.moveRight')"
-                :disabled="isLast"
-                @click="moveList(activeListIndex, activeListIndex + 1)"
-            >
-                {{ $t('list.moveRight') }}
-                <i class="fas fa-arrow-right" />
-            </button>
-        </div>
+            <section class="setting-box">
+                <h4>{{ $t('list.view') }}</h4>
 
-        <section>
-            <h4>{{ $t('list.type') }}</h4>
+                <div class="checkbox-group">
+                    <span v-for="(icon, view) in views" :key="view">
+                        <label :for="view" :class="{ active: view === localList.view }">
+                            <i :class="icon" />
+                            {{ $t(`list.views.${view}`) }}
+                        </label>
+                        <input type="radio" :id="view" :value="view" v-model="localList.view" />
+                    </span>
+                </div>
+            </section>
 
-            <button type="button" class="xsmall" @click="setListType(null)">
-                <i class="fas fa-check-square" v-if="!activeList.type" />
-                <i class="far fa-square" v-else />
-                Collection
-            </button>
+            <section class="setting-box" v-if="hasMultipleGames">
+                <h4>{{ $t('list.sortList') }}</h4>
 
-            <button type="button" class="xsmall" @click="setListType('wishlist')">
-                <i class="fas fa-check-square" v-if="activeList.type === 'wishlist'" />
-                <i class="far fa-square" v-else />
-                Wishlist
-            </button>
-        </section>
+                <div class="checkbox-group">
+                    <span v-for="(icon, sortOrder) in sortOrders" :key="sortOrder">
+                        <label :for="sortOrder" :class="{ active: sortOrder === localList.sortOrder }">
+                            <i :class="icon" />
+                            {{ $t(`list.${sortOrder}`) }}
+                        </label>
+                        <input type="radio" :id="sortOrder" :value="sortOrder" v-model="localList.sortOrder" />
+                    </span>
+                </div>
+            </section>
 
-        <section>
-            <h4>{{ $t('list.view') }}</h4>
-
-            <div class="button-group">
-                <button
-                    v-for="(icon, view) in views"
-                    :key="view"
-                    class="xsmall primary"
-                    :class="{ hollow: activeList.view !== view }"
-                    @click="setListView(view)"
+            <footer>
+                <modal
+                    v-if="localList.games && localList.games.length"
+                    ref="addList"
+                    :message="warningMessage"
+                    title="Are you sure?"
+                    :action-text="$t('list.delete')"
+                    padded
+                    @action="deleteList"
                 >
-                    <i :class="icon" />
-                    <br>
-                    {{ $t(`list.views.${view}`) }}
-                </button>
-            </div>
-        </section>
+                    <button
+                        class="filled error hollow"
+                        :title="$t('list.delete')"
+                    >
+                        <i class="far fa-trash-alt" />
+                        {{ $t('list.delete') }}
+                    </button>
+                </modal>
 
-        <section v-if="hasMultipleGames">
-            <h4>{{ $t('list.sortList') }}</h4>
-
-            <div class="button-group">
                 <button
-                    v-for="(icon, sortOrder) in sortOrders"
-                    :key="sortOrder"
-                    class="xsmall primary"
-                    :class="{ hollow: activeList.sortOrder !== sortOrder }"
-                    @click="setListSort(sortOrder)"
-                >
-                    <i :class="icon" />
-                    <br>
-                    {{ $t(`list.${sortOrder}`) }}
-                </button>
-            </div>
-        </section>
-
-        <footer>
-            <button
-                class="filled small info hollow"
-                title="back"
-                v-shortkey="['esc']"
-                @shortkey="cancel"
-                @click="cancel"
-            >
-                <i class="fas fa-chevron-left" />
-                {{ $t('global.back') }}
-            </button>
-
-            <modal
-                v-if="activeList.games && activeList.games.length"
-                ref="addList"
-                :message="warningMessage"
-                title="Are you sure?"
-                :action-text="$t('list.delete')"
-                padded
-                @action="deleteList"
-            >
-                <button
-                    class="filled small error hollow"
+                    v-else
+                    class="error hollow"
                     :title="$t('list.delete')"
                 >
                     <i class="far fa-trash-alt" />
                     {{ $t('list.delete') }}
                 </button>
-            </modal>
 
-            <button
-                v-else
-                class="error hollow tiny"
-                :title="$t('list.delete')"
-                @click="deleteList"
-            >
-                <i class="far fa-trash-alt" />
-                {{ $t('list.delete') }}
-            </button>
-        </footer>
-    </div>
+                <button
+                    class="primary hollow"
+                    :title="$t('list.moveLeft')"
+                    :disabled="isFirst"
+                    @click="moveList(listIndex, listIndex - 1)"
+                >
+                    <i class="fas fa-arrow-left" />
+
+                    {{ $t('list.moveLeft') }}
+                </button>
+
+                <button
+                    class="primary hollow"
+                    :title="$t('list.moveRight')"
+                    :disabled="isLast"
+                    @click="moveList(listIndex, listIndex + 1)"
+                >
+                    {{ $t('list.moveRight') }}
+                    <i class="fas fa-arrow-right" />
+                </button>
+
+                <button
+                    class="primary"
+                    :title="$t('global.save')"
+                    @click="save"
+                >
+                    {{ $t('global.save') }}
+                </button>
+            </footer>
+        </div>
+    </modal>
 </template>
 
 <script>
 import Modal from '@/components/Modal';
+import ToggleSwitch from '@/components/ToggleSwitch';
 import { mapGetters, mapState } from 'vuex';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -131,11 +119,20 @@ const db = firebase.firestore();
 export default {
     components: {
         Modal,
+        ToggleSwitch,
+    },
+
+    props: {
+        listIndex: {
+            type: [Number, String, Boolean],
+            required: true,
+            default: 0,
+        },
     },
 
     data() {
         return {
-            localList: {},
+            localList: null,
             views: {
                 single: 'fas fa-square',
                 grid: 'fas fa-th-large',
@@ -152,17 +149,21 @@ export default {
     },
 
     computed: {
-        ...mapState(['user', 'activeListIndex', 'gameLists', 'platform']),
-        ...mapGetters(['activeList', 'darkModeEnabled']),
+        ...mapState(['user', 'gameLists', 'platform']),
+        ...mapGetters(['darkModeEnabled']),
 
         isFirst() {
-            return this.activeListIndex === 0;
+            return this.listIndex === 0;
+        },
+
+        activeList() {
+            return this.gameLists[this.platform.code][this.listIndex];
         },
 
         isLast() {
             const lastListIndex = Object.keys(this.gameLists[this.platform.code]).length - 1;
 
-            return this.activeListIndex === lastListIndex;
+            return this.listIndex === lastListIndex;
         },
 
         hasMultipleGames() {
@@ -182,26 +183,15 @@ export default {
 
     mounted() {
         this.localList = JSON.parse(JSON.stringify(this.activeList));
-
-        this.$bus.$on('GAMES_ADDED', () => {
-            this.sort(this.activeList.sortOrder);
-        });
-    },
-
-    beforeDestroy() {
-        this.$bus.$off('GAMES_ADDED');
     },
 
     methods: {
         deleteList() {
-            this.$store.commit('REMOVE_LIST', this.activeListIndex);
+            this.$store.commit('REMOVE_LIST', this.listIndex);
 
-
-            // TOOD: move to actions
             db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
                 .then(() => {
                     this.$bus.$emit('TOAST', { message: 'List deleted' });
-                    this.$store.commit('CLEAR_ACTIVE_LIST_INDEX');
                 })
                 .catch(() => {
                     this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
@@ -209,62 +199,48 @@ export default {
                 });
         },
 
-        setListView(view) {
-            this.$store.commit('UPDATE_LIST_VIEW', {
-                listIndex: this.activeListIndex,
-                view,
-            });
+        save() {
+            const gameLists = JSON.parse(JSON.stringify(this.gameLists));
 
-            this.$emit('update');
-        },
+            gameLists[this.platform.code][this.listIndex] = this.localList;
 
-        setListType(type) {
-            this.$store.commit('UPDATE_LIST_TYPE', {
-                listIndex: this.activeListIndex,
-                type,
-            });
+            // sort list
 
-            this.$emit('update');
-        },
-
-        setListSort(sortOrder) {
-            this.$store.commit('UPDATE_LIST_SORT', {
-                listIndex: this.activeListIndex,
-                sortOrder,
-            });
-            this.sort(sortOrder);
-            this.$emit('update');
-        },
-
-        setCoversSize(size) {
-            this.$store.commit('UPDATE_LIST_COVERS_SIZE', {
-                listIndex: this.activeListIndex,
-                size,
-            });
-
-            this.$emit('update');
+            this.$store.dispatch('SAVE_LIST', gameLists)
+                .then(() => {
+                    this.$bus.$emit('TOAST', { message: 'List saved' });
+                    this.$refs.listSettingsModal.close();
+                })
+                .catch(() => {
+                    this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
+                    this.$router.push({ name: 'sessionExpired' });
+                });
         },
 
         sort(sortOrder) {
             if (sortOrder === 'sortByName') {
-                this.$store.commit('SORT_LIST_ALPHABETICALLY', this.activeListIndex);
+                this.$store.commit('SORT_LIST_ALPHABETICALLY', this.listIndex);
                 this.$emit('update', 'List sorted alphabetically');
             } else if (sortOrder === 'sortByRating') {
-                this.$store.commit('SORT_LIST_BY_RATING', this.activeListIndex);
+                this.$store.commit('SORT_LIST_BY_RATING', this.listIndex);
                 this.$emit('update', 'List sorted by game rating');
             } else if (sortOrder === 'sortByReleaseDate') {
-                this.$store.commit('SORT_LIST_BY_RELEASE_DATE', this.activeListIndex);
+                this.$store.commit('SORT_LIST_BY_RELEASE_DATE', this.listIndex);
                 this.$emit('update', 'List sorted by game rating');
             }
         },
 
-        cancel() {
-            this.$store.commit('CLEAR_ACTIVE_LIST_INDEX');
-        },
-
         moveList(from, to) {
             this.$store.commit('MOVE_LIST', { from, to });
-            this.$emit('update', 'List moved');
+            this.save();
+        },
+
+        open() {
+            this.localList = JSON.parse(JSON.stringify(this.activeList));
+        },
+
+        close() {
+            this.localList = null;
         },
     },
 };
@@ -272,11 +248,6 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles";
-
-    .list-settings {
-        background: $color-light-gray;
-        margin-top: $list-header-height;
-    }
 
     section {
         margin-bottom: $gp;
@@ -286,15 +257,9 @@ export default {
         margin-bottom: $gp / 2;
     }
 
-    .actions, footer {
+    footer {
         display: flex;
         justify-content: space-between;
-    }
-
-    footer {
-        border-top: 1px solid $color-gray;
-        padding-top: $gp / 2;
-        margin-top: $gp;
     }
 
     .button-group {
