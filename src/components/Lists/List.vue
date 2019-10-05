@@ -2,32 +2,12 @@
 <template lang="html">
     <div :class="['list', viewClass, { dark: darkModeEnabled, unique }, transparent]">
         <div class="list-header" :class="{ editing }" :style="style">
-            <div v-if="editing">
-                <list-name-edit
-                    :list-name="name"
-                    :list-index="listIndex"
-                    @update="updateLists('List name saved')"
-                />
-            </div>
-
-            <div v-else>
+            <span>
                 <i class="fas fa-magic" v-if="list[listIndex].type === 'wishlist'" />
                 {{ list[listIndex].name }} ({{ games.length }})
-            </div>
-
-            <button
-                class="small"
-                v-if="!editing"
-                @click="editList"
-            >
-                <i class="fas fa-sliders-h" />
-            </button>
+            </span>
+            <list-settings :list-index="listIndex" />
         </div>
-
-        <list-settings
-            v-if="editing"
-            @update="updateLists"
-        />
 
         <div
             :class="`game-grid game-grid-${listIndex}`"
@@ -70,7 +50,6 @@
 <script>
 import draggable from 'vuedraggable';
 import Masonry from 'masonry-layout';
-import ListNameEdit from '@/components/Lists/ListNameEdit';
 import ListSettings from '@/components/Lists/ListSettings';
 import GameCardDefault from '@/components/GameCards/GameCardDefault';
 import GameCardGrid from '@/components/GameCards/GameCardGrid';
@@ -92,7 +71,6 @@ export default {
         GameCardWide,
         GameCardText,
         GameSearch,
-        ListNameEdit,
         ListSettings,
         draggable,
     },
@@ -223,8 +201,6 @@ export default {
         },
 
         updateLists(toastMessage) {
-            this.$store.commit('CLEAR_ACTIVE_LIST_INDEX');
-
             const message = toastMessage || 'List saved';
 
             // TOOD: move to actions
@@ -236,22 +212,6 @@ export default {
                     this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
                     this.$router.push({ name: 'sessionExpired' });
                 });
-        },
-
-        editList() {
-            if (this.editing) {
-                this.$store.commit('CLEAR_ACTIVE_LIST_INDEX');
-            } else {
-                this.$store.commit('SET_SEARCH_ACTIVE', false);
-                this.$store.commit('SET_ACTIVE_LIST_INDEX', this.listIndex);
-            }
-        },
-
-        // TODO: deprecate
-        addGame() {
-            this.$store.commit('CLEAR_SEARCH_RESULTS');
-            this.$store.commit('SET_ACTIVE_LIST_INDEX', this.listIndex);
-            this.$store.commit('SET_SEARCH_ACTIVE', true);
         },
 
         validateMove({ from, to }) {
