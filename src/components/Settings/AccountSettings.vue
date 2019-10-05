@@ -99,7 +99,6 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles";
-    @import "settings";
 
     .account-setting {
         display: grid;

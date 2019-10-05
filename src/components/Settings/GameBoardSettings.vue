@@ -1,5 +1,5 @@
 <template lang="html">
-    <section>
+    <section class="setting-box">
         <h5 class="title">
             Game board
             <span v-if="showBoardSpecificSettings">({{ platform.name }})</span>
@@ -160,7 +160,6 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles";
-    @import "settings";
 
     .list-settings {
         display: grid;

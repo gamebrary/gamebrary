@@ -1,5 +1,5 @@
 <template lang="html">
-    <section class="tags-settings">
+    <section class="tags-settings setting-box">
         <h3>Tags</h3>
         <div class="tag-input">
             <input

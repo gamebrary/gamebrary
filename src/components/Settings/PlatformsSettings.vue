@@ -1,5 +1,5 @@
 <template lang="html">
-    <section>
+    <section class="setting-box">
         <h3>Platform page</h3>
 
         <div class="setting" v-if="hasLists">
@@ -47,8 +47,3 @@ export default {
     },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-    @import "~styles/styles";
-    @import "settings";
-</style>

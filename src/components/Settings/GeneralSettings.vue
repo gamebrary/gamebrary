@@ -1,5 +1,5 @@
 <template lang="html">
-    <section>
+    <section class="setting-box">
         <h3>General</h3>
         <div class="reloading" v-if="reloading">
             <i class="fas fa-sync-alt fast-spin" />
@@ -70,7 +70,6 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles";
-    @import "settings";
 
     .reloading {
         width: 100%;

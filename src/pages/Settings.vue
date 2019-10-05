@@ -149,13 +149,6 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles";
 
-    section {
-        border: 1px solid $color-dark-gray-transparent;
-        border-radius: $border-radius;
-        margin: 0 0 $gp * 1.5;
-        padding: $gp;
-    }
-
     .settings {
         display: flex;
         flex-direction: column;

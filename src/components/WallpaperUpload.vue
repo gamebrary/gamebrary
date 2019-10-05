@@ -169,7 +169,6 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles";
-    @import "src/components/Settings/_settings.scss";
 
     img.preview {
         max-width: 100px;
