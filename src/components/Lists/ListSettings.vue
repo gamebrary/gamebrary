@@ -37,11 +37,20 @@
 
                 <div class="checkbox-group">
                     <span v-for="(icon, sortOrder) in sortOrders" :key="sortOrder">
-                        <label :for="sortOrder" :class="{ active: sortOrder === localList.sortOrder }">
+                        <label
+                            :for="sortOrder"
+                            :class="{ active: sortOrder === localList.sortOrder }"
+                        >
                             <i :class="icon" />
                             {{ $t(`list.${sortOrder}`) }}
                         </label>
-                        <input type="radio" :id="sortOrder" :value="sortOrder" v-model="localList.sortOrder" />
+
+                        <input
+                            type="radio"
+                            :id="sortOrder"
+                            :value="sortOrder"
+                            v-model="localList.sortOrder"
+                        />
                     </span>
                 </div>
             </section>

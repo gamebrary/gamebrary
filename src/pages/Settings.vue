@@ -6,7 +6,11 @@
             <i class="fas fa-cog" />
         </button>
 
-        <div class="settings" slot="content" :class="{ dark: darkModeEnabled }" v-if="localSettings">
+        <div
+            slot="content"
+            :class="[{ dark: darkModeEnabled }, 'settings']"
+            v-if="localSettings"
+        >
             <general-settings v-model="localSettings" :reloading="reloading" />
             <platforms-settings v-model="localSettings" :reloading="reloading" />
             <game-board-settings v-model="localSettings" :reloading="reloading" />
