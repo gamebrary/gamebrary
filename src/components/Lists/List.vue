@@ -287,8 +287,7 @@ export default {
         border-radius: $border-radius;
         overflow: hidden;
         margin-right: $gp;
-        max-height: calc(100vh - 81px);
-        transition: width 200ms;
+        max-height: calc(100vh - 100px);
 
         .games {
             display: grid;
@@ -334,11 +333,11 @@ export default {
         .games {
             height: 100%;
             overflow: hidden;
-            max-height: calc(100vh - 154px);
+            max-height: calc(100vh - 150px);
             min-height: 80px;
             overflow-y: auto;
             margin-top: $list-header-height;
-            padding: 0 $gp / 2 $gp / 2;
+            padding: $gp / 2 $gp / 2 0;
             width: 100%;
 
             &.empty {

@@ -62,7 +62,7 @@ export default {
 
     .game-card {
         background-color: $color-white;
-        margin-top: $gp / 2;
+        margin-bottom: $gp / 2;
         position: relative;
         display: grid;
         grid-template-columns: $gameCoverWidth auto;
