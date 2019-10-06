@@ -212,8 +212,6 @@ export default {
 
             gameLists[this.platform.code][this.listIndex] = this.localList;
 
-            // sort list
-
             this.$store.dispatch('SAVE_LIST', gameLists)
                 .then(() => {
                     this.$bus.$emit('TOAST', { message: 'List saved' });
@@ -223,19 +221,6 @@ export default {
                     this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
                     this.$router.push({ name: 'sessionExpired' });
                 });
-        },
-
-        sort(sortOrder) {
-            if (sortOrder === 'sortByName') {
-                this.$store.commit('SORT_LIST_ALPHABETICALLY', this.listIndex);
-                this.$emit('update', 'List sorted alphabetically');
-            } else if (sortOrder === 'sortByRating') {
-                this.$store.commit('SORT_LIST_BY_RATING', this.listIndex);
-                this.$emit('update', 'List sorted by game rating');
-            } else if (sortOrder === 'sortByReleaseDate') {
-                this.$store.commit('SORT_LIST_BY_RELEASE_DATE', this.listIndex);
-                this.$emit('update', 'List sorted by game rating');
-            }
         },
 
         moveList(from, to) {
