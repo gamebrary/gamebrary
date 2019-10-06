@@ -83,7 +83,7 @@
                     {{ $t('list.delete') }}
                 </button>
 
-                <button
+                <!-- <button
                     class="primary hollow"
                     :title="$t('list.moveLeft')"
                     :disabled="isFirst"
@@ -102,7 +102,7 @@
                 >
                     {{ $t('list.moveRight') }}
                     <i class="fas fa-arrow-right" />
-                </button>
+                </button> -->
 
                 <button
                     class="primary"
@@ -223,10 +223,10 @@ export default {
                 });
         },
 
-        moveList(from, to) {
-            this.$store.commit('MOVE_LIST', { from, to });
-            this.save();
-        },
+        // moveList(from, to) {
+        //     this.$store.commit('MOVE_LIST', { from, to });
+        //     // this.save();
+        // },
 
         open() {
             this.localList = JSON.parse(JSON.stringify(this.activeList));
