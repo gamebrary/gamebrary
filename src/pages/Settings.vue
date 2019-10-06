@@ -9,7 +9,6 @@
         <div
             slot="content"
             :class="[{ dark: darkModeEnabled }, 'settings']"
-            v-if="localSettings"
         >
             <general-settings v-model="localSettings" :reloading="reloading" />
             <platforms-settings v-model="localSettings" :reloading="reloading" />
@@ -113,7 +112,10 @@ export default {
                 if (newValue && Object.keys(newValue).length) {
                     this.save();
 
-                    if (newValue.language !== undefined && this.language !== newValue.language) {
+                    if (newValue
+                            && newValue.language !== undefined
+                            && this.language !== newValue.language
+                    ) {
                         this.reloading = true;
 
                         setTimeout(() => {
@@ -128,7 +130,7 @@ export default {
 
     mounted() {
         this.localSettings = JSON.parse(JSON.stringify(this.settings));
-        this.language = this.localSettings.language || 'en';
+        this.language = (this.localSettings && this.localSettings.language) || 'en';
 
         switch (this.$route.name) {
         case 'game-board': this.openSettings({ name: 'gameBoard', component: 'GameBoardSettings' }); break;
