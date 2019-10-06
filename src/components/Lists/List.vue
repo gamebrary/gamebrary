@@ -3,7 +3,11 @@
     <div :class="['list', viewClass, { dark: darkModeEnabled, unique }, transparent]">
         <div class="list-header" :style="style">
             <span>
-                <i class="fas fa-magic" v-if="list[listIndex].type === 'wishlist'" />
+                <i
+                    class="fas fa-magic"
+                    title="List sorted automatically"
+                    v-if="autoSortEnabled"
+                />
                 {{ list[listIndex].name }} ({{ gameList.length }})
             </span>
             <list-settings :list-index="listIndex" />
@@ -102,9 +106,15 @@ export default {
     },
 
     computed: {
-        ...mapState(['user', 'gameLists', 'platform', 'activeListIndex', 'settings', 'games']),
+        ...mapState(['user', 'gameLists', 'platform', 'settings', 'games']),
 
         ...mapGetters(['darkModeEnabled', 'brandingEnabled']),
+
+        autoSortEnabled() {
+            const list = this.list[this.listIndex];
+
+            return list && list.sortOrder && list.sortOrder !== 'sortByCustom';
+        },
 
         sortedGames() {
             const sortOrder = this.list[this.listIndex].sortOrder || 'sortByCustom';
