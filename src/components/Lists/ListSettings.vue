@@ -78,6 +78,7 @@
                     v-else
                     class="error hollow"
                     :title="$t('list.delete')"
+                    @click="deleteList"
                 >
                     <i class="far fa-trash-alt" />
                     {{ $t('list.delete') }}
