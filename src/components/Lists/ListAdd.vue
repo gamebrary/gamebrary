@@ -1,5 +1,5 @@
 <template lang="html">
-    <modal :title="title" ref="listAddModal">
+    <modal :title="title" ref="listAddModal" @open="open">
         <button
             class="small info add-list-button"
             :title="$t('list.add')"
@@ -89,6 +89,10 @@ export default {
     },
 
     methods: {
+        open() {
+            this.listName = '';
+        },
+
         addList() {
             if (this.disabled) {
                 return;
