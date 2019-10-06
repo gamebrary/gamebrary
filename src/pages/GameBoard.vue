@@ -47,7 +47,7 @@
         <template>
             <list
                 :name="list.name"
-                :games="list.games"
+                :game-list="list.games"
                 :listIndex="listIndex"
                 :key="`${list.name}-${listIndex}`"
                 v-if="list && !loading"

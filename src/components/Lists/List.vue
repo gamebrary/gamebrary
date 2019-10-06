@@ -1,20 +1,20 @@
 <!-- eslint-disable max-len -->
 <template lang="html">
     <div :class="['list', viewClass, { dark: darkModeEnabled, unique }, transparent]">
-        <div class="list-header" :class="{ editing }" :style="style">
+        <div class="list-header" :style="style">
             <span>
                 <i class="fas fa-magic" v-if="list[listIndex].type === 'wishlist'" />
-                {{ list[listIndex].name }} ({{ games.length }})
+                {{ list[listIndex].name }} ({{ gameList.length }})
             </span>
             <list-settings :list-index="listIndex" />
         </div>
 
         <div
             :class="`game-grid game-grid-${listIndex}`"
-            v-if="view === 'grid' && !editing"
+            v-if="view === 'grid'"
         >
             <component
-                v-for="game in games"
+                v-for="game in gameList"
                 :is="gameCardComponent"
                 :key="`grid-${game}`"
                 :id="game"
@@ -24,9 +24,9 @@
         </div>
 
         <draggable
-            v-else-if="!editing"
+            v-else
             :class="['games', { 'empty': isEmpty }]"
-            :list="games"
+            :list="gameList"
             :id="listIndex"
             :move="validateMove"
             v-bind="gameDraggableOptions"
@@ -34,7 +34,7 @@
             @start="start"
         >
             <component
-                v-for="game in games"
+                v-for="game in sortedGames"
                 :is="gameCardComponent"
                 :key="`grid-${game}`"
                 :id="game"
@@ -77,7 +77,7 @@ export default {
 
     props: {
         name: String,
-        games: [Object, Array],
+        gameList: [Object, Array],
         listIndex: [String, Number],
     },
 
@@ -102,20 +102,60 @@ export default {
     },
 
     computed: {
-        ...mapState(['user', 'gameLists', 'platform', 'activeListIndex', 'settings']),
+        ...mapState(['user', 'gameLists', 'platform', 'activeListIndex', 'settings', 'games']),
 
         ...mapGetters(['darkModeEnabled', 'brandingEnabled']),
+
+        sortedGames() {
+            const sortOrder = this.list[this.listIndex].sortOrder || 'sortByCustom';
+            const { gameList } = this;
+
+            switch (sortOrder) {
+            case 'sortByCustom':
+                return gameList;
+            case 'sortByRating':
+                return gameList.sort((a, b) => {
+                    const gameA = this.games[a] && this.games[a].rating
+                        ? this.games[a].rating
+                        : 0;
+
+                    const gameB = this.games[b] && this.games[b].rating
+                        ? this.games[b].rating
+                        : 0;
+
+                    if (gameA > gameB) {
+                        return -1;
+                    }
+
+                    return gameA < gameB ? 1 : 0;
+                });
+            case 'sortByName':
+                return gameList.sort((a, b) => {
+                    const gameA = this.games[a] && this.games[a].name
+                        ? this.games[a].name.toUpperCase()
+                        : '';
+
+                    const gameB = this.games[b] && this.games[b].name
+                        ? this.games[b].name.toUpperCase()
+                        : '';
+
+                    if (gameA < gameB) {
+                        return -1;
+                    }
+
+                    return gameA > gameB ? 1 : 0;
+                });
+            default:
+                return gameList;
+            }
+        },
 
         list() {
             return this.gameLists[this.platform.code];
         },
 
-        editing() {
-            return this.activeListIndex === this.listIndex;
-        },
-
         isEmpty() {
-            return this.games.length === 0;
+            return this.gameList.length === 0;
         },
 
         style() {
@@ -162,15 +202,7 @@ export default {
             }, 500);
         },
 
-        games() {
-            this.initGrid();
-
-            setTimeout(() => {
-                this.initGrid();
-            }, 500);
-        },
-
-        editing() {
+        gameList() {
             this.initGrid();
 
             setTimeout(() => {
@@ -287,10 +319,6 @@ export default {
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
             width: 100%;
-
-            &.editing {
-                background: $color-blue;
-            }
         }
 
         .games {
