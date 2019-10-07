@@ -129,7 +129,10 @@ export default {
     },
 
     mounted() {
-        this.localSettings = JSON.parse(JSON.stringify(this.settings));
+        this.localSettings = this.settings !== null
+            ? JSON.parse(JSON.stringify(this.settings))
+            : {};
+
         this.language = (this.localSettings && this.localSettings.language) || 'en';
 
         switch (this.$route.name) {
