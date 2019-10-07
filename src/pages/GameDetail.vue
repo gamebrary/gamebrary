@@ -32,8 +32,6 @@
                             <button
                                 v-if="list.games.includes(game.id)"
                                 class="error hollow"
-                                v-shortkey="['del']"
-                                @shortkey="removeGame"
                                 @click="removeGame"
                             >
                                 <i class="far fa-trash-alt delete-game" />
