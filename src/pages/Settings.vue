@@ -5,10 +5,10 @@
         </button>
 
         <div class="settings" slot="content">
+            <general-settings v-model="localSettings" :reloading="reloading" />
             <game-board-settings v-model="localSettings" :reloading="reloading" />
             <platforms-settings v-model="localSettings" :reloading="reloading" />
             <tags-settings v-model="localSettings" :reloading="reloading" />
-            <general-settings v-model="localSettings" :reloading="reloading" />
             <account-settings v-model="localSettings" :reloading="reloading" />
         </div>
     </modal>
