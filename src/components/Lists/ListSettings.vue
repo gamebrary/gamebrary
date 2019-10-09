@@ -7,7 +7,7 @@
         @open="open"
         @close="close"
     >
-        <button class="small">
+        <button class="small primary">
             <i class="fas fa-sliders-h" />
         </button>
 
@@ -66,7 +66,7 @@
                     @action="deleteList"
                 >
                     <button
-                        class="filled error hollow"
+                        class="danger"
                         :title="$t('list.delete')"
                     >
                         <i class="far fa-trash-alt" />
@@ -76,7 +76,7 @@
 
                 <button
                     v-else
-                    class="error hollow"
+                    class="danger"
                     :title="$t('list.delete')"
                     @click="deleteList"
                 >
@@ -120,7 +120,7 @@
 <script>
 import Modal from '@/components/Modal';
 import ToggleSwitch from '@/components/ToggleSwitch';
-import { mapGetters, mapState } from 'vuex';
+import { mapState } from 'vuex';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
@@ -159,7 +159,6 @@ export default {
 
     computed: {
         ...mapState(['user', 'gameLists', 'platform']),
-        ...mapGetters(['darkModeEnabled']),
 
         isFirst() {
             return this.listIndex === 0;
@@ -254,17 +253,5 @@ export default {
     footer {
         display: flex;
         justify-content: space-between;
-    }
-
-    .button-group {
-        border: 1px solid $color-blue;
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-    }
-
-    .button-grid {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: $gp;
     }
 </style>

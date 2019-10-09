@@ -2,8 +2,6 @@ import Vue from 'vue';
 
 export default {
     SET_USER(state, data) {
-        state.isTouchDevice = ('ontouchstart' in window);
-
         state.user = {
             lastLogin: data.metadata.lastSignInTime,
             uid: data.uid,

@@ -6,7 +6,7 @@
 
         <div :class="['modal', { show }]" @click="close">
             <div
-                :class="['modal-content', { large, confirm, padded, dark: darkModeEnabled }]"
+                :class="['modal-content', { large, confirm, padded }]"
                 @click.stop
             >
                 <header :class="{ fixed: !title }">
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
     props: {
@@ -74,7 +74,6 @@ export default {
     },
 
     computed: {
-        ...mapGetters(['darkModeEnabled']),
         ...mapState(['galleryOpen']),
 
         routeName() {
@@ -83,12 +82,9 @@ export default {
 
         closeButtonClass() {
             return [
-                {
-                    info: this.darkModeEnabled,
-                    accent: !this.darkModeEnabled,
-                    fixed: !this.title,
-                },
+                { fixed: !this.title },
                 'small',
+                'secondary',
                 'close-button',
             ];
         },
@@ -123,8 +119,7 @@ export default {
 @import "~styles/styles";
 
 .modal {
-    background: rgba(0, 0, 0, 0.8);
-    color: $color-dark-gray;
+    background: rgba(0, 0, 0, 0.6);
     cursor: pointer;
     height: 100%;
     left: 0;
@@ -146,7 +141,8 @@ export default {
 
 .modal-content {
     position: relative;
-    background-color: $color-white;
+    background: var(--modal-background);
+    color: var(--modal-text-color);
     height: auto;
     width: 500px;
     max-height: calc(85vh);
@@ -156,11 +152,6 @@ export default {
     padding: 0;
     border-radius: $border-radius;
     cursor: default;
-
-    &.dark {
-        background-color: $color-darker-gray;
-        color: $color-gray;
-    }
 
     &.large {
         width: 780px;
@@ -196,11 +187,9 @@ export default {
 }
 
 header {
-    position: sticky;
     display: flex;
     top: 0;
     padding: $gp / 2 $gp;
-    background-color: $color-white;
     z-index: 1;
     align-items: center;
     justify-content: space-between;
@@ -226,16 +215,6 @@ header {
 
     @media($small) {
         display: block;
-    }
-}
-
-.dark {
-    .close-button {
-        color: $color-white;
-    }
-
-    header {
-        background-color: $color-darker-gray;
     }
 }
 

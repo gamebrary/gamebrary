@@ -1,10 +1,11 @@
+<!-- TODO: rename component to add-game or similar -->
 <template lang="html">
     <modal padded :title="$t('list.addGame')" @open="clear">
-        <button :class="buttonClass" :title="$t('list.addGame')">
+        <button class="add-game-button small secondary" :title="$t('list.addGame')">
             <i class="fas fa-plus" />
         </button>
 
-        <div :class="['game-search', { dark: darkModeEnabled }]" slot="content">
+        <div class="game-search" slot="content">
             <form @submit.prevent="search">
                 <input
                     ref="searchInput"
@@ -49,7 +50,7 @@ import GameCardSearch from '@/components/GameCards/GameCardSearch';
 import Modal from '@/components/Modal';
 import IgdbCredit from '@/components/IgdbCredit';
 import { debounce } from 'lodash';
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
     components: {
@@ -75,17 +76,6 @@ export default {
 
     computed: {
         ...mapState(['results', 'gameLists', 'platform']),
-        ...mapGetters(['darkModeEnabled']),
-
-        buttonClass() {
-            return [
-                'add-game-button small',
-                {
-                    info: this.darkModeEnabled,
-                    accent: !this.darkModeEnabled,
-                },
-            ];
-        },
 
         noResults() {
             return this.filteredResults.length === 0

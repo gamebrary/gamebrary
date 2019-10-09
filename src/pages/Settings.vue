@@ -1,26 +1,21 @@
 <template lang="html">
     <modal title="Settings">
-        <button
-            :class="['small', { filled: darkModeEnabled, 'info filled': !darkModeEnabled }]"
-        >
+        <button class="small primary">
             <i class="fas fa-cog" />
         </button>
 
-        <div
-            slot="content"
-            :class="[{ dark: darkModeEnabled }, 'settings']"
-        >
-            <general-settings v-model="localSettings" :reloading="reloading" />
-            <platforms-settings v-model="localSettings" :reloading="reloading" />
+        <div class="settings" slot="content">
             <game-board-settings v-model="localSettings" :reloading="reloading" />
+            <platforms-settings v-model="localSettings" :reloading="reloading" />
             <tags-settings v-model="localSettings" :reloading="reloading" />
+            <general-settings v-model="localSettings" :reloading="reloading" />
             <account-settings v-model="localSettings" :reloading="reloading" />
         </div>
     </modal>
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import 'firebase/firestore';
 import 'firebase/auth';
 import GameBoardSettings from '@/components/Settings/GameBoardSettings';
@@ -95,7 +90,6 @@ export default {
 
     computed: {
         ...mapState(['user', 'gameLists', 'settings', 'platform']),
-        ...mapGetters(['darkModeEnabled']),
 
         dateJoined() {
             return moment(this.user.dateJoined).format('LL');
@@ -133,6 +127,10 @@ export default {
             ? JSON.parse(JSON.stringify(this.settings))
             : {};
 
+        // this.localSettings.theme = {};
+
+        // console.log(this.localSettings);
+
         this.language = (this.localSettings && this.localSettings.language) || 'en';
 
         switch (this.$route.name) {
@@ -164,9 +162,5 @@ export default {
         padding: $gp * 2 $gp;
         margin: 0 auto;
         min-height: 600px;
-    }
-
-    .dark {
-        color: $color-gray;
     }
 </style>

@@ -1,7 +1,7 @@
 <template lang="html">
     <div
         @click="changePlatform"
-        :class="['platform', { dark: darkModeEnabled, clickable, square } ]"
+        :class="['platform', { clickable, square } ]"
         :style="style"
     >
         <img
@@ -9,10 +9,7 @@
             :alt="platform.name"
         />
 
-        <span
-            v-if="showCount(platform)"
-            :class="['game-count', textColor]"
-        >
+        <span v-if="showCount(platform)" class="game-count">
             <i class="fas fa-gamepad" />
             {{ getGameCount(platform.code) }}
         </span>
@@ -20,7 +17,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
     props: {
@@ -31,7 +28,6 @@ export default {
 
     computed: {
         ...mapState(['gameLists', 'settings']),
-        ...mapGetters(['darkModeEnabled']),
 
         hexColor() {
             return this.platform.hex || '#fff';
@@ -39,19 +35,6 @@ export default {
 
         style() {
             return `background-color: ${this.hexColor}`;
-        },
-
-        textColor() {
-            const hexColor = this.hexColor ? this.hexColor.replace('#', 0) : '#000000';
-
-            const r = parseInt(hexColor.substr(0, 2), 16);
-            const g = parseInt(hexColor.substr(2, 2), 16);
-            const b = parseInt(hexColor.substr(4, 2), 16);
-
-            // eslint-disable-next-line
-            const yiq = ((r*299)+(g*587)+(b*114))/1000;
-
-            return yiq >= 128 ? 'light' : 'dark';
         },
     },
 
@@ -104,7 +87,7 @@ export default {
 
         @media($small) {
             padding: $gp / 2;
-            width: 100% / 2;
+            width: 100%;
             height: 60px;
         }
 
@@ -123,12 +106,12 @@ export default {
             padding-top: $gp / 3;
             font-weight: bold;
             font-size: 12px;
-            background-color: $color-green;
+            background: var(--primary-background);
             position: absolute;
             top: 0;
             right: 0;
             padding: 0 $gp / 4;
-            color: $color-white;
+            color: var(--primary-text-color);
             font-size: 10px;
             border-bottom-left-radius: $border-radius;
         }

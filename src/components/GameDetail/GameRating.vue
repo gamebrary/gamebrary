@@ -1,5 +1,5 @@
 <template lang="html">
-    <div :class="['game-rating', { small, dark }]">
+    <div :class="['game-rating', { small }]">
         <span v-for="n in 5" :key="`star-${n}`">
             <i class="fas fa-star" v-if="(roundedRating - n) + 1 >= 1" />
             <i class="fas fa-star-half" v-if="(roundedRating - n) + 1 === .5" />
@@ -8,24 +8,15 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
     props: {
         rating: Number,
         small: Boolean,
-        placeholder: Boolean,
     },
 
     computed: {
-        ...mapGetters(['darkModeEnabled']),
-
         roundedRating() {
             return Math.round((this.rating / 20) * 2) / 2;
-        },
-
-        dark() {
-            return this.darkModeEnabled || this.placeholder;
         },
     },
 };
@@ -35,16 +26,12 @@ export default {
 @import "~styles/styles";
 
 .game-rating {
-    color: $color-orange;
+    color: var(--rating-star-color);
     font-size: 20px;
     margin: $gp / 4 0;
 
     &.small {
         font-size: 12px;
-    }
-
-    &.dark {
-        color: $color-dark-gray !important;
     }
 }
 </style>

@@ -103,13 +103,12 @@ export default {
     text-align: left;
     display: grid;
     margin: 0 auto;
-    // grid-template-columns: 100px auto;
     grid-gap: $gp;
     padding: $gp 0;
     align-items: center;
 
     strong {
-        color: $color-red;
+        color: var(--link-color);
     }
 
     section {

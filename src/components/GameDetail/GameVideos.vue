@@ -89,7 +89,7 @@ export default {
 
                 i {
                     position: absolute;
-                    color: $color-white;
+                    color: #fff;
                     opacity: 0.7;
                     left: 34px;
                     top: 23px;

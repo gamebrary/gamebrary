@@ -16,7 +16,7 @@
             .
         </small>
 
-        <igdb-credit gray />
+        <igdb-credit />
     </footer>
 </template>
 
@@ -38,9 +38,6 @@ export default {
         justify-content: center;
         display: flex;
         align-items: center;
-
-        a {
-            color: $color-dark-gray;
-        }
+        color: var(--header-text-color);
     }
 </style>

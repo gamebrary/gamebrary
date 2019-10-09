@@ -76,7 +76,7 @@ export default {
     @import "~styles/styles";
 
     .game-links {
-        border-top: 1px solid $color-light-gray;
+        border-top: 1px solid #e5e5e5;
         margin-top: $gp;
         padding-top: $gp;
     }
@@ -91,37 +91,7 @@ export default {
             font-size: 20px;
             display: flex;
             flex-direction: column;
-            color: $color-black;
             text-decoration: none;
-
-            &.official { color: #1a55bd; }
-            &.wikia { color: #00d6d6; }
-            &.twitch { color: #6441a5; }
-            &.iphone { color: $color-blue; }
-            &.android { color: #a4c639; }
-            &.discord { color: #738adb; }
-            &.tumblr { color: #35465c; }
-            &.linkedin { color: #4875B4; }
-            &.pinterest { color: #c8232c; }
-            &.soundcloud { color: #ff7700; }
-            &.twitter { color: #1da1f2; }
-            &.facebook { color: #3b5998; }
-            &.youtube { color: #c4302b; }
-            &.reddit { color: #ff4301; }
-            &.wikipedia { color: #636466; }
-            &.steam { color: #000000; }
-            &.instagram {
-                background: -webkit-linear-gradient(
-                    #8a3ab9,
-                    #e95950,
-                    #bc2a8d,
-                    #fccc63,
-                    #fbad50,
-                    #cd486b
-                );
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-            }
         }
     }
 </style>

@@ -5,16 +5,6 @@
             <span v-if="showBoardSpecificSettings">({{ platform.name }})</span>
         </h5>
 
-        <div class="setting">
-            <i class="fas fa-palette" />
-            <h5>{{ $t('settings.branding') }}</h5>
-
-            <toggle-switch
-                id="gameBoardBranding"
-                v-model="value.branding"
-            />
-        </div>
-
         <!-- <div class="setting">
             <i class="fas fa-users" />
             <h5>{{ $t('settings.public') }}</h5>
@@ -48,19 +38,30 @@
                 />
             </div>
 
+            <div class="setting">
+                <i class="fas fa-palette" />
+                <h5>Global theme</h5>
+
+                <select v-model="value.theme[platform.code]">
+                    <option v-for="{ id, name } in themes" :key="id" :value="id">
+                        {{ name }}
+                    </option>
+                </select>
+            </div>
+
             <!-- TODO: refactor gameBoard to allow public data source -->
             <!-- <section>
                 <h3>{{ $t('gameBoard.settings.shareLink') }}</h3>
                 <div class="links">
-                    <a class="link tiny primary" :href="tweetUrl" target="_blank">
+                    <a class="link primary" :href="tweetUrl" target="_blank">
                         <i class="fab fa-twitter" />
                     </a>
 
-                    <a class="link tiny primary reddit" :href="redditUrl" target="_blank">
+                    <a class="link primary reddit" :href="redditUrl" target="_blank">
                         <i class="fab fa-reddit" />
                     </a>
 
-                    <a class="link tiny info" :href="shareUrl" target="_blank">
+                    <a class="link info" :href="shareUrl" target="_blank">
                         <i class="fas fa-link" />
                     </a>
                 </div>
@@ -79,7 +80,7 @@
                     @action="deletePlatform"
                 >
                     <button
-                        class="xsmall error hollow"
+                        class="small warning"
                         :title="$t('list.delete')"
                     >
                         <i class="far fa-trash-alt" />
@@ -93,6 +94,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import themes from '@/themes';
 import Modal from '@/components/Modal';
 import WallpaperUpload from '@/components/WallpaperUpload';
 import ToggleSwitch from '@/components/ToggleSwitch';
@@ -108,6 +110,12 @@ export default {
 
     props: {
         value: Object,
+    },
+
+    data() {
+        return {
+            themes,
+        };
     },
 
     computed: {

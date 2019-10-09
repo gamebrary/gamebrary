@@ -13,16 +13,11 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import Placeholder from '@/components/Placeholder';
 
 export default {
     components: {
         Placeholder,
-    },
-
-    computed: {
-        ...mapGetters(['darkModeEnabled']),
     },
 };
 </script>
@@ -31,7 +26,7 @@ export default {
     @import "~styles/styles";
 
     .release {
-        border-bottom: 1px solid $color-light-gray;
+        border-bottom: 1px solid #e5e5e5;
         margin: $gp 0;
         padding-bottom: $gp / 2;
     }

@@ -1,7 +1,7 @@
 <!-- eslint-disable max-len -->
 <template lang="html">
-    <div :class="['list', viewClass, { dark: darkModeEnabled, unique }, transparent]">
-        <div class="list-header" :style="style">
+    <div :class="['list', viewClass, { unique }, transparent]">
+        <header>
             <span>
                 <i
                     class="fas fa-magic"
@@ -10,8 +10,9 @@
                 />
                 {{ list[listIndex].name }} ({{ gameList.length }})
             </span>
+
             <list-settings :list-index="listIndex" />
-        </div>
+        </header>
 
         <div
             :class="`game-grid game-grid-${listIndex}`"
@@ -108,7 +109,7 @@ export default {
     computed: {
         ...mapState(['user', 'gameLists', 'platform', 'settings', 'games']),
 
-        ...mapGetters(['darkModeEnabled', 'brandingEnabled']),
+        ...mapGetters(['brandingEnabled']),
 
         autoSortEnabled() {
             const list = this.list[this.listIndex];
@@ -166,12 +167,6 @@ export default {
 
         isEmpty() {
             return this.gameList.length === 0;
-        },
-
-        style() {
-            return this.brandingEnabled
-                ? `background-color: ${this.platform.hex}`
-                : null;
         },
 
         view() {
@@ -283,7 +278,7 @@ export default {
         cursor: default;
         position: relative;
         width: 300px;
-        background-color: $color-light-gray;
+        background: var(--list-background);
         border-radius: $border-radius;
         overflow: hidden;
         margin-right: $gp;
@@ -293,32 +288,16 @@ export default {
             display: grid;
         }
 
-        &.transparent {
-            background-color: $color-light-gray-transparent;
-        }
-
-        &.dark {
-            background-color: $color-dark-gray;
-
-            &.transparent {
-                background-color: $color-dark-gray-transparent;
-            }
-
-            .list-header {
-                background-color: $color-darker-gray;
-            }
-        }
-
         &.unique {
             @media($small) {
                 width: calc(100vw - 80px);
             }
         }
 
-        .list-header {
+        header {
             align-items: center;
-            background: $color-dark-gray;
-            color: $color-white;
+            background: var(--list-header-background);
+            color: var(--list-header-text-color);
             display: flex;
             height: $list-header-height;
             justify-content: space-between;
@@ -347,7 +326,7 @@ export default {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                border: 1px dashed $color-gray;
+                border: 1px dashed #a5a2a2;
             }
         }
     }

@@ -1,8 +1,5 @@
 <template lang="html">
-    <section
-        v-if="game.screenshots"
-        :class="['game-screenshots', { dark: darkModeEnabled }]"
-    >
+    <section class="game-screenshots" v-if="game.screenshots">
         <h3>{{ $t('gameDetail.screenshots') }}</h3>
 
         <vue-gallery
@@ -21,7 +18,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import VueGallery from 'vue-gallery';
 
 export default {
@@ -37,7 +34,6 @@ export default {
 
     computed: {
         ...mapState(['game']),
-        ...mapGetters(['darkModeEnabled']),
 
         screenshots() {
             // eslint-disable-next-line
@@ -88,11 +84,6 @@ export default {
         padding: $gp / 2 $gp;
         text-align: center;
         margin: $gp 0;
-        background-color: $color-light-gray;
-
-        &.dark {
-            background-color: $color-dark-gray;
-        }
 
         h3 {
             margin: 0 0 $gp / 2;
@@ -152,7 +143,7 @@ export default {
                 font-weight: 900;
                 font-family: "Font Awesome 5 Free";
                 content: "\f00d";
-                border: 1px solid $color-gray;
+                border: 1px solid #a5a2a2;
                 border-radius: $border-radius;
                 position: fixed;
                 right: $gp / 2;

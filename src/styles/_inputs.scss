@@ -1,6 +1,6 @@
 input, select {
-    background: $color-white;
-    border: 1px solid $color-dark-gray;
+    background: #fff;
+    border: 1px solid #555555;
     border-radius: $border-radius;
     height: 32px;
     padding: 0 $gp / 2;
@@ -31,7 +31,7 @@ input, select {
             align-items: center;
 
             &.active {
-                color: $color-blue;
+                color: var(--link-color);
             }
 
             i {

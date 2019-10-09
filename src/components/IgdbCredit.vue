@@ -1,6 +1,6 @@
 <template lang="html">
-    <a :href="href" class="igdb-credit" target="_blank" :class="{ gray }">
-        <img :src="`/static/img/igdb-logo${logo}.svg`" />
+    <a :href="href" class="igdb-credit" target="_blank">
+        <img :src="`/static/img/igdb-logo.svg`" />
         <strong>{{ $t('igdbCredit.poweredByIgdb') }}</strong>
     </a>
 </template>
@@ -8,17 +8,10 @@
 <script>
 export default {
     props: {
-        gray: Boolean,
         linkable: Boolean,
     },
 
     computed: {
-        logo() {
-            return this.gray
-                ? '-gray'
-                : '';
-        },
-
         href() {
             return this.linkable
                 ? 'https://www.igdb.com/'
@@ -32,15 +25,11 @@ export default {
     @import "~styles/styles";
 
     .igdb-credit {
-        color: $color-igdb-green;
+        color: #3eb87a;
         display: flex;
         align-items: center;
         text-decoration: none;
         font-size: 11px;
-
-        &.gray {
-            color: $color-dark-gray;
-        }
 
         img {
             height: 40px;

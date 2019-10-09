@@ -66,7 +66,7 @@ export default {
         visibility: hidden;
 
         &:checked + label {
-            background: $color-green;
+            background: var(--success-background);
         }
 
         &:checked + label:after {

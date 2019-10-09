@@ -1,5 +1,5 @@
 <template lang="html">
-    <nav :class="{ dark: darkModeEnabled }">
+    <nav>
         <router-link
             tag="button"
             class="logo"
@@ -16,7 +16,7 @@
 
 <script>
 import Settings from '@/pages/Settings';
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
     components: {
@@ -25,7 +25,6 @@ export default {
 
     computed: {
         ...mapState(['user', 'platform', 'settings']),
-        ...mapGetters(['darkModeEnabled']),
 
         isLoggedIn() {
             return this.user && this.user.email;
@@ -80,7 +79,7 @@ export default {
         justify-content: space-between;
         align-items: center;
         padding: 0 $gp;
-        color: $color-darkest-gray;
+        color: var(--header-text-color);
 
         .logo {
             height: $navHeight;
@@ -94,10 +93,6 @@ export default {
                 height: 24px;
                 margin-right: $gp / 4;
             }
-        }
-
-        &.dark {
-            color: $color-gray !important;
         }
     }
 

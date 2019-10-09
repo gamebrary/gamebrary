@@ -1,10 +1,10 @@
 <template lang="html">
     <div
-        :class="['toast', { show, 'has-image': imageUrl }]"
+        :class="['toast', type, { show, 'has-image': imageUrl }]"
         @click="close"
     >
         <img :src="imageUrl" />
-        <i :class="[iconName, type]" />
+        <i :class="[iconName]" />
         <h4>{{ message }}</h4>
     </div>
 </template>
@@ -80,7 +80,6 @@ export default {
 .toast {
     display: flex;
     align-items: center;
-    background: $color-white;
     position: fixed;
     bottom: -80px;
     right: $gp;
@@ -91,6 +90,16 @@ export default {
     border-radius: $border-radius;
     padding: $gp;
     transition: all 200ms linear;
+
+    &.success {
+        background: var(--success-background);
+        color: var(--success-text-color);
+    }
+
+    &.error {
+        background: var(--danger-background);
+        color: var(--danger-text-color);
+    }
 
     &.has-image {
         padding: $gp / 3;
@@ -110,18 +119,6 @@ export default {
     i {
         margin-right: $gp / 2;
         font-size: 20px;
-
-        &.success {
-            color: $color-green;
-        }
-
-        &.warning {
-            color: $color-orange;
-        }
-
-        &.error {
-            color: $color-red;
-        }
     }
 
     &.show {

@@ -58,23 +58,19 @@ export default {
     $gameCoverWidth: 80px;
 
     .game-card {
-        background-color: $color-white;
+        background: var(--game-card-background);
         margin-bottom: $gp / 2;
         position: relative;
         border-radius: $border-radius;
 
         &.card-placeholder {
-            background: $color-light-gray;
-            outline: 1px dashed $color-gray;
+            background: #e5e5e5;
+            outline: 1px dashed #a5a2a2;
             opacity: 0.6;
 
             .game-card-options {
                 display: none;
             }
-        }
-
-        &.dark {
-            background: $color-gray;
         }
 
         .game-info {
@@ -108,29 +104,21 @@ export default {
             }
 
             a {
-                color: $color-darkest-gray;
                 cursor: pointer;
                 margin-right: $gp / 2;
+                color: var(--game-card-text-color);
             }
         }
 
         .game-drag-handle {
             @include drag-cursor;
             position: absolute;
-            color: $color-light-gray;
+            color: #e5e5e5;
             right: $gp / 3;
             top: $gp / 3;
 
             &:hover {
-                color: $color-gray;
-            }
-        }
-
-        .tags {
-            color: $color-light-gray;
-
-            &:hover {
-                color: $color-blue;
+                color: #a5a2a2;
             }
         }
 
@@ -140,6 +128,6 @@ export default {
     }
 
     .note {
-        color: $color-orange;
+        color: var(--note-color);
     }
 </style>

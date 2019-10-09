@@ -56,14 +56,14 @@ export default {
 
     .tag {
         border-radius: 100px;
-        box-shadow: 0 0px 1px $color-gray;
+        box-shadow: 0 0px 1px #a5a2a2;
         padding: 0 $gp / 2 0 2px;
         min-height: 18px;
         font-size: $font-size-xsmall;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        color: $color-dark-gray;
+        color: #555555;
         cursor: pointer;
         margin: 0 2px 2px 0;
 
@@ -71,8 +71,8 @@ export default {
             padding: 0 $gp / 2;
         }
 
-        &.light { color: $color-white; }
-        &.dark { color: $color-darkest-gray; }
+        &.light { color: #fff; }
+        &.dark { color: #fff; }
     }
 
     .close {
@@ -88,16 +88,16 @@ export default {
     .light .close,
     .dark .close {
         &:hover {
-            color: $color-white;
-            background-color: $color-red;
+            color: var(--danger-text-color);
+            background-color: var(--danger-background);
         }
     }
 
     .light .close {
-        background-color: $color-dark-gray-transparent;
+        background-color: rgba(85, 85, 85, .5);
     }
 
     .dark .close {
-        background-color: $color-light-gray-transparent;
+        background-color: rgba(229, 229, 229, .5);
     }
 </style>

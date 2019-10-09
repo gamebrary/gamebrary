@@ -1,26 +1,13 @@
 $iconSmallSize: 32px;
 
 a {
-    color: $color-blue;
+    color: var(--link-color);
 }
 
 a.link {
     display: flex;
     align-items: center;
     text-decoration: none;
-}
-
-.button-group {
-    border-radius: $border-radius;
-    overflow: hidden;
-    display: inline-flex;
-    align-items: center;
-
-    button {
-        float: left;
-        border-radius: 0;
-        border: 0 !important;
-    }
 }
 
 button, a.link {
@@ -49,6 +36,12 @@ button, a.link {
         cursor: default;
     }
 
+    &.small {
+        min-height: $iconSmallSize;
+        min-width: $iconSmallSize;
+        padding: 0 $gp / 2;
+    }
+
     &.xsmall {
         min-height: $iconSmallSize / 3;
         min-width: $iconSmallSize / 3;
@@ -56,200 +49,8 @@ button, a.link {
         font-size: 12px;
     }
 
-    &.xxsmall {
-        min-height: $iconSmallSize / 3;
-        min-width: $iconSmallSize / 3;
-        padding: $gp / 3;
-        font-size: 10px;
-    }
-
-    &.small, &.tiny {
-        min-height: $iconSmallSize;
-        min-width: $iconSmallSize;
-        padding: 0 $gp / 2;
-    }
-
-    &.tiny {
-        font-size: 12px;
-    }
-
-    &.tag {
-        font-size: 12px;
-    }
-
-    &.tag {
-        min-height: 20px;
-        font-size: 10px;
-        color: $color-white;
-        margin-right: 2px;
-        margin-bottom: 2px;
-    }
-
-    &.primary {
-        background: $color-blue;
-        color: $color-white;
-
-        &:hover { background-color: lighten($color-blue, 10%); }
-        &:active { background-color: darken($color-blue, 10%); }
-    }
-
-    &.success {
-        background: $color-green;
-        color: $color-white;
-
-        &:hover { background-color: lighten($color-green, 10%); }
-        &:active { background-color: darken($color-green, 10%); }
-    }
-
-    &.accent {
-        background: $color-light-gray;
-        color: $color-dark-gray;
-
-        &:hover { background-color: lighten($color-light-gray, 10%); }
-        &:active { background-color: darken($color-light-gray, 10%); }
-    }
-
-    &.info {
-        background: $color-dark-gray;
-        color: $color-white;
-
-        &:hover { background-color: lighten($color-dark-gray, 10%); }
-        &:active { background-color: darken($color-dark-gray, 10%); }
-    }
-
-    &.error {
-        background: $color-red;
-        color: $color-white;
-
-        &:hover { background-color: lighten($color-red, 10%); }
-        &:active { background-color: darken($color-red, 10%); }
-    }
-
-    &.warning {
-        background: $color-orange;
-        color: $color-white;
-
-        &:hover { background-color: lighten($color-orange, 10%); }
-        &:active { background-color: darken($color-orange, 10%); }
-    }
-
-    &.hollow {
-        &.primary {
-            color: $color-blue;
-            border: 1px solid $color-blue;
-            background: transparent;
-
-            &:hover {
-                background: $color-blue;
-                color: $color-white;
-            }
-        }
-
-        &.success {
-            color: $color-green;
-            border: 1px solid $color-green;
-            background: transparent;
-
-            &:hover {
-                background: $color-green;
-                color: $color-white;
-            }
-        }
-
-        &.accent {
-            color: $color-gray;
-            border: 1px solid $color-gray;
-            background: transparent;
-
-            &:hover {
-                background: $color-gray;
-                color: $color-white;
-            }
-        }
-
-        &.info {
-            color: $color-dark-gray;
-            border: 1px solid $color-dark-gray;
-            background: transparent;
-
-            &:hover {
-                background: $color-dark-gray;
-                color: $color-white;
-            }
-        }
-
-        &.error {
-            color: $color-red;
-            border: 1px solid $color-red;
-            background: transparent;
-
-            &:hover {
-                background: $color-red;
-                color: $color-white;
-            }
-        }
-
-        &.warning {
-            color: $color-orange;
-            border: 1px solid $color-orange;
-            background: transparent;
-
-            &:hover {
-                background: $color-orange;
-                color: $color-white;
-            }
-        }
-    }
-
-    &.filled {
-        &.primary {
-            color: $color-blue;
-            background: transparent;
-
-            &:hover {
-                background: $color-lightest-gray;
-                color: darken($color-blue, 10%);
-            }
-        }
-
-        &.accent {
-            color: $color-gray;
-            background: transparent;
-
-            &:hover {
-                background: $color-lightest-gray;
-                color: darken($color-gray, 10%);
-            }
-        }
-
-        &.info {
-            color: $color-darkest-gray;
-            background: transparent;
-
-            &:hover {
-                background: $color-lightest-gray;
-                color: darken($color-dark-gray, 10%);
-            }
-        }
-
-        &.error {
-            color: $color-red;
-            background: transparent;
-
-            &:hover {
-                background: $color-lightest-gray;
-                color: darken($color-red, 10%);
-            }
-        }
-
-        &.warning {
-            color: $color-orange;
-            background: transparent;
-
-            &:hover {
-                background: $color-lightest-gray;
-                color: darken($color-orange, 10%);
-            }
-        }
-    }
+    &.primary { background: var(--primary-background); color: var(--primary-text-color); }
+    &.secondary { background: var(--secondary-background); color: var(--secondary-text-color); }
+    &.danger { background: var(--danger-background); color: var(--danger-text-color); }
+    &.warning { background: var(--warning-background); color: var(--warning-text-color); }
 }

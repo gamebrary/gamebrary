@@ -18,7 +18,7 @@
 
         <div class="tag-actions">
             <button
-                class="small info"
+                class="secondary small"
                 :disabled="!tagName"
                 @click="reset"
             >
@@ -26,7 +26,7 @@
             </button>
 
             <button
-                class="small primary"
+                class="primary small"
                 :disabled="isDuplicate && !editing"
                 @click="submit"
             >
@@ -48,14 +48,12 @@
 </template>
 
 <script>
-import Panel from '@/components/Panel';
 import Tag from '@/components/Tag';
 import { mapState } from 'vuex';
 
 export default {
     components: {
         Tag,
-        Panel,
     },
 
     data() {

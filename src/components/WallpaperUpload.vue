@@ -17,14 +17,6 @@
                     action-text="Remove wallpaper"
                     @action="removeWallpaper"
                 >
-                    <button
-                        class="error xxsmall remove-wallpaper"
-                        :title="$t('settings.wallpaper.removeWallpaper')"
-                        @click="removeWallpaper"
-                    >
-                        <i class="fas fa-times"></i>
-                    </button>
-
                     <img
                         v-if="wallpaperUrl"
                         class="preview"
@@ -47,7 +39,7 @@
             <i class="far fa-image" />
             <h5>{{ $t('settings.wallpaper.title') }}</h5>
 
-            <button class="primary xsmall hollow" @click="triggerUpload">
+            <button class="primary small" @click="triggerUpload">
                 <i class="fas fa-sync-alt fast-spin" v-if="loading" />
                 <i class="fas fa-cloud-upload-alt" v-else />
                 Upload file
@@ -174,23 +166,12 @@ export default {
         max-width: 100px;
         cursor: pointer;
         height: auto;
-        border: 1px solid $color-gray;
+        border: 1px solid transparent;
         border-radius: $border-radius;
 
         &:hover {
-            border-color: $color-blue;
+            border-color: var(--link-color);
         }
-    }
-
-    input {
-        width: auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: $gp / 2;
-        height: auto;
-        width: 100%;
-        border: 1px solid $color-green;
     }
 
     .current-wallpaper {

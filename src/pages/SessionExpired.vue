@@ -40,7 +40,7 @@ export default {
     @import "~styles/styles";
 
     .session-expired {
-        color: $color-dark-gray;
+        color: #555555;
         min-height: calc(100vh - #{$navHeight});
         padding: 0 $gp;
         display: flex;

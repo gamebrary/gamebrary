@@ -1,5 +1,5 @@
 <template lang="html">
-    <div :class="['game-detail-placeholder', { dark: darkModeEnabled }]">
+    <div class="game-detail-placeholder">
         <div class="game-hero" />
 
         <div class="game-detail-container">
@@ -8,8 +8,8 @@
 
                 <div>
                     <h2>{{ gamePreviewData.name }}</h2>
-                    <game-rating :rating="gamePreviewData.rating" placeholder />
-                    <placeholder :lines="5" />
+                    <game-rating :rating="gamePreviewData.rating" />
+                    <placeholder :lines="3" />
                 </div>
 
             </div>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import GameRating from '@/components/GameDetail/GameRating';
 import Placeholder from '@/components/Placeholder';
 
@@ -33,7 +33,6 @@ export default {
     },
 
     computed: {
-        ...mapGetters(['darkModeEnabled']),
         ...mapState(['games']),
 
         gamePreviewData() {
@@ -57,20 +56,11 @@ export default {
 .game-detail-placeholder {
     display: flex;
     justify-content: center;
-    background: $color-light-gray;
+    background: var(--modal-background);
     min-height: calc(100vh - #{$navHeight});
-
-    &.dark {
-        background: $color-darkest-gray;
-
-        .game-detail-container {
-            background-color: $color-dark-gray;
-        }
-    }
 }
 
 .game-hero {
-    background-color: $color-dark-gray;
     position: absolute;
     width: 100%;
     left: 0;
@@ -83,13 +73,13 @@ export default {
 }
 
 .game-cover {
-    border: 5px solid $color-gray;
+    border: 5px solid #a5a2a2;
     background-size: contain;
     width: 100%;
     height: auto;
 
     @media($small) {
-        border: 3px solid $color-gray;
+        border: 3px solid #a5a2a2;
         height: auto;
         width: auto;
         min-width: auto;
@@ -98,9 +88,8 @@ export default {
 }
 
 .game-detail-container {
-    background-color: $color-white;
-    -webkit-box-shadow: 0 0 2px 0 $color-gray;
-    box-shadow: 0 0 2px 0 $color-gray;
+    -webkit-box-shadow: 0 0 2px 0 #a5a2a2;
+    box-shadow: 0 0 2px 0 #a5a2a2;
     width: $container-width;
     max-width: 100%;
     z-index: 1;

@@ -26,13 +26,18 @@
         </div>
 
         <div class="setting">
-            <i class="fas fa-moon" />
-            <h5>{{ $t('settings.darkTheme') }}</h5>
+            <i class="fas fa-palette" />
+            <h5>Global theme</h5>
 
-            <toggle-switch
-                id="nightMode"
-                v-model="value.nightMode"
-            />
+            <select v-model="value.theme['global']">
+                <option
+                    v-for="{ id, name } in themes"
+                    :key="id"
+                    :value="id"
+                >
+                    {{ name }}
+                </option>
+            </select>
         </div>
 
         <!-- <div class="setting">
@@ -48,6 +53,7 @@
 </template>
 
 <script>
+import themes from '@/themes';
 import ToggleSwitch from '@/components/ToggleSwitch';
 
 export default {
@@ -58,6 +64,12 @@ export default {
     props: {
         value: Object,
         reloading: Boolean,
+    },
+
+    data() {
+        return {
+            themes,
+        };
     },
 
     computed: {

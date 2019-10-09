@@ -1,7 +1,7 @@
 <template>
     <div
         id="app"
-        :class="{ dark: darkModeEnabled }"
+        :class="theme"
         :style="style"
         :dir="dir"
     >
@@ -23,7 +23,7 @@
 import NavHeader from '@/components/NavHeader';
 import Toast from '@/components/Toast';
 import firebase from 'firebase/app';
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import { debounce } from 'lodash';
 import 'firebase/auth';
 import 'firebase/firestore';
@@ -51,7 +51,6 @@ export default {
 
     computed: {
         ...mapState(['user', 'platform', 'wallpaperUrl', 'settings']),
-        ...mapGetters(['darkModeEnabled']),
 
         dir() {
             return this.settings && this.settings.language === 'ar'
@@ -74,6 +73,19 @@ export default {
             return this.settings && this.settings.wallpapers && this.platform && this.settings.wallpapers[this.platform.code]
                 ? this.settings.wallpapers[this.platform.code].url
                 : '';
+        },
+
+        theme() {
+            const hasPlatform = this.platform && this.platform.code;
+            const globalTheme = this.settings && this.settings.theme.global
+                ? `theme-${this.settings.theme.global}`
+                : 'theme-default';
+
+            const hasTheme = this.settings && this.settings.theme[this.platform.code];
+
+            return this.$route.name === 'game-board' && hasPlatform && hasTheme
+                ? `theme-${this.settings.theme[this.platform.code]}`
+                : globalTheme;
         },
     },
 
@@ -332,16 +344,12 @@ export default {
     @import "~styles/styles";
 
     #app {
-        background-color: $color-gray;
+        background: var(--body-background);
         background-size: cover;
-
-        &.dark {
-            background-color: $color-darkest-gray;
-        }
     }
 
     .auth {
-        background: $color-white;
+        background: var(--body-background);
         height: 100vh;
         position: fixed;
         top: 0;

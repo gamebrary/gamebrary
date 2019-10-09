@@ -1,6 +1,6 @@
 <template lang="html">
     <div v-if="gameId && games[gameId]" :class="gameCardClass">
-        <img :src="coverUrl" @click="openDetails" :alt="game.name">
+        <img :src="coverUrl" :alt="game.name">
 
         <div class="game-info">
             <a v-text="game.name" @click="openDetails" />
@@ -13,7 +13,7 @@
             />
 
             <button
-                class="success small add-game-button"
+                class="primary small add-game-button"
                 @click="addGame"
             >
                 {{ $t('list.addGame') }}
@@ -41,21 +41,13 @@ export default {
     $gameCoverWidth: 80px;
 
     .game-card {
-        background-color: $color-white;
+        background: var(--game-card-background);
         margin-top: $gp / 2;
         position: relative;
         display: grid;
         grid-template-columns: $gameCoverWidth auto;
         border-radius: $border-radius;
         overflow: hidden;
-
-        &.dark {
-            background: $color-gray;
-
-            img {
-                opacity: 0.9;
-            }
-        }
 
         img {
             width: $gameCoverWidth;
@@ -76,21 +68,13 @@ export default {
                 align-self: flex-start;
             }
 
+            a {
+                color: var(--game-card-text-color);
+            }
+
             .game-rating, a {
                 display: inline-flex;
                 font-weight: bold;
-            }
-
-            &:hover {
-                a {
-                    text-decoration: underline;
-                }
-            }
-
-            a {
-                color: $color-darkest-gray;
-                cursor: pointer;
-                margin-right: $gp / 2;
             }
         }
     }

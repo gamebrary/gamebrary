@@ -1,5 +1,5 @@
 // Identify stuff that's not being reused
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
@@ -9,7 +9,6 @@ export default {
     props: {
         gameId: Number,
         listId: Number,
-        searchResult: Boolean,
     },
 
     data() {
@@ -21,8 +20,6 @@ export default {
     computed: {
         ...mapState(['settings', 'games', 'gameLists', 'platform', 'user', 'tags', 'activeList', 'notes']),
 
-        ...mapGetters(['darkModeEnabled']),
-
         showGameRatings() {
             return this.settings && !this.settings.hideGameRatings;
         },
@@ -31,10 +28,6 @@ export default {
             return [
                 'game-card',
                 this.list.view,
-                {
-                    'search-result': this.searchResult,
-                    dark: this.darkModeEnabled,
-                },
             ];
         },
 

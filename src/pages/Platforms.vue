@@ -1,5 +1,5 @@
 <template lang="html">
-    <div :class="['platforms-page', { dark: darkModeEnabled }]">
+    <div class="platforms-page">
         <div class="platforms">
             <platform
                 v-for="platform in filteredPlatforms"
@@ -18,16 +18,14 @@ import Masonry from 'masonry-layout';
 import platforms from '@/platforms';
 import Platform from '@/components/Platforms/Platform';
 import PageFooter from '@/components/Platforms/PageFooter';
-import Panel from '@/components/Panel';
 import { sortBy } from 'lodash';
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 let msnry = null;
 
 export default {
     components: {
         Platform,
-        Panel,
         PageFooter,
     },
 
@@ -39,7 +37,6 @@ export default {
 
     computed: {
         ...mapState(['gameLists', 'platform', 'settings']),
-        ...mapGetters(['darkModeEnabled']),
 
         // TODO: move to getter and replace other instances
         hasLists() {
@@ -85,13 +82,8 @@ export default {
     @import "~styles/styles";
 
     .platforms-page {
-        color: $color-dark-gray;
         min-height: calc(100vh - #{$navHeight});
         padding: $gp / 2 $gp;
-
-        &.dark {
-            color: $color-gray;
-        }
     }
 
     .platforms {

@@ -1,7 +1,7 @@
 <template lang="html">
     <modal :title="title" ref="listAddModal" @open="open">
         <button
-            class="small info add-list-button"
+            class="small primary add-list-button"
             :title="$t('list.add')"
         >
             <i class="fas fa-plus" />
@@ -128,7 +128,7 @@ export default {
     }
 
     small {
-        color: $color-orange;
+        color: var(--note-color);
     }
 
     footer {

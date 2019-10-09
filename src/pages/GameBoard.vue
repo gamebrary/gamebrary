@@ -3,7 +3,6 @@
         class="game-board"
         ref="gameBoard"
         v-if="user && platform"
-        :class="{ dark: darkModeEnabled }"
     >
         <game-board-placeholder :id="gameDetailId" v-if="loading" />
 
@@ -67,13 +66,12 @@
 import GameBoardPlaceholder from '@/components/GameBoard/GameBoardPlaceholder';
 import Tag from '@/components/Tag';
 import ListAdd from '@/components/Lists/ListAdd';
-import Panel from '@/components/Panel';
-import GameDetail from '@/pages/GameDetail';
 import Modal from '@/components/Modal';
-import { chunk } from 'lodash';
 import List from '@/components/Lists/List';
+import GameDetail from '@/pages/GameDetail';
+import { chunk } from 'lodash';
+import { mapState } from 'vuex';
 import draggable from 'vuedraggable';
-import { mapState, mapGetters } from 'vuex';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
@@ -86,7 +84,6 @@ export default {
         GameBoardPlaceholder,
         ListAdd,
         Tag,
-        Panel,
         GameDetail,
         Modal,
     },
@@ -106,7 +103,6 @@ export default {
 
     computed: {
         ...mapState(['user', 'gameLists', 'platform', 'tags', 'games']),
-        ...mapGetters(['darkModeEnabled']),
 
         list() {
             return this.gameLists && this.platform && this.gameLists[this.platform.code]
@@ -181,7 +177,7 @@ export default {
         dragEnd() {
             this.dragging = false;
             this.draggingId = null;
-            this.$bus.$emit('TOAST', { message: 'Collection updated' });
+            this.$bus.$emit('TOAST', { message: 'List updated' });
             this.updateLists();
         },
 
@@ -233,10 +229,6 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles";
-
-    .draggable * {
-        color: $color-white;
-    }
 
     .game-board {
         user-select: none;

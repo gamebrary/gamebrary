@@ -1,5 +1,6 @@
+<!-- TODO: Account for unique list style (100%) -->
 <template lang="html">
-    <div :class="['gameboard-placeholder', { dark: darkModeEnabled }]">
+    <div class="gameboard-placeholder">
         <div
             :class="`list ${list.view || 'single'}`"
             v-for="list in lists"
@@ -30,7 +31,7 @@ export default {
 
     computed: {
         ...mapState(['gameLists', 'platform']),
-        ...mapGetters(['darkModeEnabled', 'brandingEnabled']),
+        ...mapGetters(['brandingEnabled']),
 
         lists() {
             return this.gameLists && this.platform && this.gameLists[this.platform.code]
@@ -66,7 +67,7 @@ export default {
         flex-shrink: 0;
         cursor: default;
         border-radius: $border-radius;
-        background: $color-white;
+        background: var(--list-background);
         overflow: hidden;
         position: relative;
         width: $list-width;
@@ -95,12 +96,8 @@ export default {
         }
     }
 
-    .dark .list {
-        background: $color-dark-gray;
-    }
-
     .list-header {
-        background: $color-dark-gray;
+        background: var(--list-header-background);
         height: $list-header-height;
         position: absolute;
         width: 100%;

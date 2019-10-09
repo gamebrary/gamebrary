@@ -1,7 +1,6 @@
 <template lang="html">
     <div class="game-detail-wrapper">
-
-        <div class="game-detail" v-if="game" :class="{ dark: darkModeEnabled }">
+        <div class="game-detail" v-if="game">
             <div class="game-hero" :style="style" />
 
             <div class="game-detail-container">
@@ -31,14 +30,14 @@
                         <div class="actions">
                             <button
                                 v-if="list.games.includes(game.id)"
-                                class="error hollow"
+                                class="danger"
                                 @click="removeGame"
                             >
                                 <i class="far fa-trash-alt delete-game" />
                                 {{ $t('gameDetail.removeFromList')}}
                             </button>
 
-                            <button class="success hollow" v-else>
+                            <button class="primary" v-else>
                                 {{ $t('list.addGame') }}
 
                             </button>
@@ -66,7 +65,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import Tag from '@/components/Tag';
 import GameHeader from '@/components/GameDetail/GameHeader';
 import GameScreenshots from '@/components/GameDetail/GameScreenshots';
@@ -101,7 +100,6 @@ export default {
 
     computed: {
         ...mapState(['game', 'user', 'platform', 'tags', 'gameLists']),
-        ...mapGetters(['darkModeEnabled']),
 
         hasTags() {
             return Object.keys(this.tags) && Object.keys(this.tags).length > 0;
@@ -205,28 +203,10 @@ export default {
         @media($small) {
             padding-top: $gp * 2;
         }
-
-        &.dark {
-            color: $color-gray;
-
-            .game-details {
-                @media($small) {
-                    background-color: $color-darker-gray;
-                }
-            }
-
-            .game-detail-container {
-                background-color: $color-darker-gray;
-
-                @media($small) {
-                    background-color: transparent;
-                }
-            }
-        }
     }
 
     .game-hero {
-        background-color: $color-dark-gray;
+        background-color: #555555;
         position: absolute;
         background-position: bottom;
         width: 100%;
@@ -250,7 +230,7 @@ export default {
             margin: -$gp;
             margin-top: $gp;
             padding: $gp;
-            background-color: $color-white;
+            background-color: var(--modal-background);
         }
     }
 
@@ -275,9 +255,10 @@ export default {
     }
 
     .game-detail-container {
-        background-color: rgba(255, 255, 255, 0.95);
-        box-shadow: 0 0 2px 0 $color-gray;
+        box-shadow: 0 0 2px 0 #a5a2a2;
         width: $container-width;
+        background: var(--modal-background);
+        opacity: 0.95;
         max-width: 100%;
         z-index: 1;
         margin: $gp * 3;

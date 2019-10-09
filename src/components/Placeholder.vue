@@ -1,6 +1,6 @@
 <template lang="html">
     <div
-        :class="['placeholder', { dark: darkModeEnabled, 'has-image': image && lines > 0 }]"
+        :class="['placeholder', { 'has-image': image && lines > 0 }]"
         v-if="image || lines"
     >
         <div class="image" v-if="image" />
@@ -16,17 +16,11 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
     props: {
         image: Boolean,
         large: Boolean,
         lines: Number,
-    },
-
-    computed: {
-        ...mapGetters(['darkModeEnabled']),
     },
 };
 </script>
@@ -41,10 +35,6 @@ export default {
             display: grid;
             grid-template-columns: 80px auto;
             grid-gap: $gp;
-        }
-
-        &.dark {
-            opacity: 0.5;
         }
     }
 
@@ -64,10 +54,8 @@ export default {
         animation-iteration-count: infinite;
         animation-name: placeholder;
         animation-timing-function: linear;
-        background: $color-light-gray;
-        background: linear-gradient(to right,
-            $color-light-gray 8%,
-            $color-white 18%, $color-light-gray 33%);
+        background: #e5e5e5;
+        background: linear-gradient(to right, #e5e5e5 8%, #fff 18%, #e5e5e5 33%);
         background-size: 800px 104px;
         height: 96px;
         position: relative;

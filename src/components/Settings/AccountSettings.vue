@@ -1,6 +1,6 @@
 <template lang="html">
     <section class="account-setting">
-        <button class="tiny accent hollow" @click="signOut">
+        <button class="secondary" @click="signOut">
             <i class="fas fa-sign-out-alt" />
             {{ $t('settings.signOut') }}
         </button>
@@ -13,7 +13,7 @@
             :action-text="$t('settings.deleteAccount.button')"
             @action="deleteAccount"
         >
-            <button class="tiny error hollow">
+            <button class="danger">
                 <i class="fas fa-exclamation-triangle" />
                 {{ $t('settings.deleteAccount.button') }}
             </button>
@@ -32,10 +32,6 @@ export default {
     components: {
         Modal,
         Gravatar,
-    },
-
-    props: {
-        value: Object,
     },
 
     data() {

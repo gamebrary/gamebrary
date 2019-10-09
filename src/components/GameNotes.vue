@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="game-notes" :class="{ dark: darkModeEnabled }">
+    <div class="game-notes">
         <h4>{{ $t('notes.notes') }}</h4>
 
         <div
@@ -32,21 +32,21 @@
 
                 <div class="note-actions">
                     <button
-                        class="info tag"
+                        class="small secondary"
                         @click="reset"
                     >
                         {{ $t('global.cancel') }}
                     </button>
 
                     <button
-                        class="error tag"
+                        class="small danger"
                         @click="deleteNote"
                     >
                         <i class="far fa-trash-alt" />
                     </button>
 
                     <button
-                        class="primary tag"
+                        class="small primary"
                         @click="saveNote"
                         :disabled="!localNote"
                     >
@@ -57,7 +57,7 @@
         </div>
 
         <button
-            class="warning hollow"
+            class="primary"
             @click="addNote"
             v-if="!hasNote && !editingNote"
         >
@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
     data() {
@@ -82,7 +82,6 @@ export default {
 
     computed: {
         ...mapState(['game', 'notes']),
-        ...mapGetters(['darkModeEnabled']),
 
         hasNote() {
             return this.localNote && this.localNote.text;
@@ -157,22 +156,9 @@ export default {
         padding-bottom: $gp / 2;
     }
 
-    .dark .note {
-        border-color: $color-gray;
-
-        p {
-            color: $color-gray;
-        }
-
-        .corner-icon {
-            color: $color-white;
-            background: $color-gray;
-        }
-    }
-
     .note {
         cursor: pointer;
-        border: 2px solid $color-orange;
+        border: 2px solid var(--note-color);
         border-radius: $border-radius;
         position: relative;
         overflow: hidden;
@@ -187,8 +173,8 @@ export default {
         }
 
         .corner-icon {
-            background: $color-orange;
-            color: $color-white;
+            background: var(--note-color);
+            color: #fff;
             padding: $gp / 4;
             position: absolute;
             border-bottom-right-radius: $border-radius;
@@ -198,7 +184,6 @@ export default {
 
         p {
             font-size: 12px;
-            color: $color-dark-gray;
             margin: 0;
             display: inline-flex;
         }
@@ -207,7 +192,7 @@ export default {
     .game-note-field {
         resize: vertical;
         border-radius: $border-radius;
-        border: 1px solid $color-gray;
+        border: 1px solid #a5a2a2;
         width: 100%;
         min-height: 60px;
         max-height: 300px;
