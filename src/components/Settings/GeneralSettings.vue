@@ -24,31 +24,6 @@
                 <option value="cs">🇨🇿 {{ $t('settings.languages.cs') }}</option>
             </select>
         </div>
-
-        <div class="setting">
-            <i class="fas fa-palette" />
-            <h5>Global theme</h5>
-
-            <select v-model="value.theme['global']">
-                <option
-                    v-for="{ id, name } in themes"
-                    :key="id"
-                    :value="id"
-                >
-                    {{ name }}
-                </option>
-            </select>
-        </div>
-
-        <!-- <div class="setting">
-            <i class="far fa-envelope" />
-            <h5>{{ $t('settings.newsletter') }}</h5>
-
-            <toggle-switch
-                id="newsletter"
-                v-model="value.newsletter"
-            />
-        </div> -->
     </section>
 </template>
 
