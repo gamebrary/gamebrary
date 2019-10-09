@@ -74,7 +74,6 @@ export default {
             file: File,
             uploadTask: '',
             wallpapers: {},
-            transparent: false,
             loading: false,
         };
     },
@@ -91,16 +90,9 @@ export default {
         if (!this.wallpapers[this.platform.code]) {
             this.wallpapers[this.platform.code] = {};
         }
-
-        this.transparent = this.wallpapers[this.platform.code].transparent || false;
     },
 
     methods: {
-        setTransparent(value) {
-            this.transparent = value;
-            this.saveSettings();
-        },
-
         triggerUpload() {
             this.$refs.fileInput.click();
         },
@@ -112,8 +104,6 @@ export default {
         },
 
         saveSettings() {
-            this.wallpapers[this.platform.code].transparent = this.transparent;
-
             const settings = {
                 ...this.settings,
                 wallpapers: this.wallpapers,

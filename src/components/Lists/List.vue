@@ -1,6 +1,6 @@
 <!-- eslint-disable max-len -->
 <template lang="html">
-    <div :class="['list', viewClass, { unique }, transparent]">
+    <div :class="['list', viewClass, { unique }]">
         <header>
             <span>
                 <i
@@ -185,16 +185,6 @@ export default {
 
         viewClass() {
             return this.list[this.listIndex].view || 'single';
-        },
-
-        transparent() {
-            return this.settings
-                && this.settings.wallpapers
-                && this.settings.wallpapers[this.platform.code]
-                && this.settings.wallpapers[this.platform.code].url
-                && this.settings.wallpapers[this.platform.code].transparent
-                ? 'transparent'
-                : '';
         },
     },
 

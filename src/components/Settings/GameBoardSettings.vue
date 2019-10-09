@@ -28,16 +28,6 @@
         <template v-if="showBoardSpecificSettings">
             <wallpaper-upload />
 
-            <div class="setting" v-if="value.wallpapers && value.wallpapers[platform.code]">
-                <i class="fas fa-images"></i>
-                <h5>{{ $t('settings.wallpaper.transparency') }}</h5>
-
-                <toggle-switch
-                    id="wallpaperTransparency"
-                    v-model="value.wallpapers[platform.code].transparent"
-                />
-            </div>
-
             <div class="setting">
                 <i class="fas fa-palette" />
                 <h5>Global theme</h5>
