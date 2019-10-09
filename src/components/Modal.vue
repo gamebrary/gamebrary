@@ -4,7 +4,7 @@
             <slot />
         </div>
 
-        <div :class="['modal', { show }]" @click="close">
+        <div :class="['overlay', { show }]" @click="close">
             <div
                 :class="['modal-content', { large, confirm, padded }]"
                 @click.stop
@@ -118,7 +118,7 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
 @import "~styles/styles";
 
-.modal {
+.overlay {
     background: rgba(0, 0, 0, 0.6);
     cursor: pointer;
     height: 100%;
