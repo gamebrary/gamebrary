@@ -48,6 +48,12 @@ export default {
             reloading: false,
             localSettings: null,
             moment,
+            defaultSettings: {
+                language: 'en',
+                theme: {
+                    global: 'theme-default',
+                },
+            },
             settingsSections: [
                 {
                     name: 'global',
@@ -125,28 +131,12 @@ export default {
     mounted() {
         this.localSettings = this.settings !== null
             ? JSON.parse(JSON.stringify(this.settings))
-            : {};
-
-        // this.localSettings.theme = {};
-
-        // console.log(this.localSettings);
-
-        this.language = (this.localSettings && this.localSettings.language) || 'en';
-
-        switch (this.$route.name) {
-        case 'game-board': this.openSettings({ name: 'gameBoard', component: 'GameBoardSettings' }); break;
-        case 'platforms': this.openSettings({ name: 'platforms', component: 'PlatformsSettings' }); break;
-        default: this.openSettings(this.settingsSections[0]);
-        }
+            : JSON.parse(JSON.stringify(this.defaultSettings));
     },
 
     methods: {
-        openSettings({ component, name }) {
-            this.activeComponent = component;
-            this.activeSection = name;
-        },
-
         save() {
+            // TODO: call action directly
             this.$bus.$emit('SAVE_SETTINGS', this.localSettings);
         },
     },
