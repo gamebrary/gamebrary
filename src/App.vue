@@ -77,13 +77,19 @@ export default {
 
         theme() {
             const hasPlatform = this.platform && this.platform.code;
+            const hasTheme = hasPlatform
+                && this.settings
+                && this.settings.theme[this.platform.code];
+
+            const isGameBoard = this.$route.name === 'game-board';
+
             const globalTheme = this.settings && this.settings.theme.global
                 ? `theme-${this.settings.theme.global}`
                 : 'theme-default';
 
-            const hasTheme = this.settings && this.settings.theme[this.platform.code];
+            const hasPlatformTheme = hasPlatform && hasTheme;
 
-            return this.$route.name === 'game-board' && hasPlatform && hasTheme
+            return isGameBoard && hasPlatformTheme
                 ? `theme-${this.settings.theme[this.platform.code]}`
                 : globalTheme;
         },
