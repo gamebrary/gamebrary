@@ -112,13 +112,13 @@ export default {
     },
 
     mounted() {
-        if (this.platform) {
-            this.load();
-            this.setPageTitle();
-        } else {
+        if (!this.platform) {
             this.$router.push({ name: 'platforms' });
+            return;
         }
 
+        this.load();
+        this.setPageTitle();
         this.$bus.$on('OPEN_GAME', this.openGame);
         this.$bus.$on('OPEN_TAGS', this.openTags);
     },
