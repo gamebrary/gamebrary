@@ -1,5 +1,5 @@
 <template lang="html">
-    <modal :title="title" ref="listAddModal" @open="open">
+    <modal confirm :title="title" ref="listAddModal" padded @open="open">
         <button
             class="small primary add-list-button"
             :title="$t('list.add')"
@@ -7,7 +7,7 @@
             <i class="fas fa-plus" />
         </button>
 
-        <form class="list-add" @submit.prevent="addList" slot="content">
+        <form @submit.prevent="addList" slot="content">
             <input
                 v-model.trim="listName"
                 type="text"
@@ -16,17 +16,15 @@
                 :placeholder="$t('list.placeholder')"
             />
 
-            <footer>
-                <button
-                    class="primary"
-                    type="submit"
-                    :disabled="disabled"
-                >
-                    {{ buttonLabel }}
-                </button>
+            <button
+                class="primary"
+                type="submit"
+                :disabled="disabled"
+            >
+                {{ buttonLabel }}
+            </button>
 
-                <small v-if="isDuplicate">{{ $t('list.duplicateWarning') }}</small>
-            </footer>
+            <small v-if="isDuplicate">{{ $t('list.duplicateWarning') }}</small>
         </form>
     </modal>
 </template>
@@ -122,19 +120,8 @@ export default {
         margin-right: $gp;
     }
 
-    .list-add {
-        padding: 0 $gp $gp;
-        margin-right: $gp;
-    }
-
     small {
-        color: var(--note-color);
-    }
-
-    footer {
-        margin-top: $gp;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        color: var(--warning-color);
+        margin: 0 $gp;
     }
 </style>
