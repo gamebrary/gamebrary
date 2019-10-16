@@ -1,11 +1,6 @@
 <template lang="html">
     <section class="setting-box">
         <h3>General</h3>
-        <div class="reloading" v-if="reloading">
-            <i class="fas fa-sync-alt fast-spin" />
-            <br>
-            {{ $t('settings.reloading') }}
-        </div>
 
         <div class="setting">
             <i class="fas fa-language" />
@@ -24,27 +19,14 @@
                 <option value="cs">🇨🇿 {{ $t('settings.languages.cs') }}</option>
             </select>
         </div>
+        <small>Browser reload required</small>
     </section>
 </template>
 
 <script>
-import themes from '@/themes';
-import ToggleSwitch from '@/components/ToggleSwitch';
-
 export default {
-    components: {
-        ToggleSwitch,
-    },
-
     props: {
         value: Object,
-        reloading: Boolean,
-    },
-
-    data() {
-        return {
-            themes,
-        };
     },
 
     computed: {

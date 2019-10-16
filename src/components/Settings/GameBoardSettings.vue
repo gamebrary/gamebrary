@@ -32,7 +32,7 @@
                 <i class="fas fa-palette" />
                 <h5>Global theme</h5>
 
-                <select v-model="value.theme[platform.code]">
+                <select v-model="value[platform.code].theme">
                     <option v-for="{ id, name } in themes" :key="id" :value="id">
                         {{ name }}
                     </option>
@@ -62,11 +62,12 @@
                 <h5>{{ $t('gameBoard.settings.dangerZone') }}</h5>
 
                 <modal
-                    :action-text="`Delete forever`"
+                    action-text="Delete forever"
+                    action-button-class="danger"
+                    confirm
                     :message="`Your ${platform.name} collection will be deleted forever.`"
                     :title="`Delete ${platform.name} collection`"
                     padded
-                    show-close
                     @action="deletePlatform"
                 >
                     <button
@@ -134,6 +135,13 @@ export default {
 
             return `${url}/s?id=${this.user.uid}&list=${this.platform.code}`;
         },
+    },
+
+    mounted() {
+        if (!this.value.theme) {
+            this.value.theme = {};
+            this.value.theme[this.platform.code] = 'theme-default';
+        }
     },
 
     methods: {

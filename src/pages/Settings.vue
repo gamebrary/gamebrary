@@ -5,12 +5,13 @@
         </button>
 
         <div class="settings" slot="content">
-            <general-settings v-model="localSettings" :reloading="reloading" />
-            <game-board-settings v-model="localSettings" :reloading="reloading" />
-            <platforms-settings v-model="localSettings" :reloading="reloading" />
-            <tags-settings v-model="localSettings" :reloading="reloading" />
-            <account-settings v-model="localSettings" :reloading="reloading" />
+            <!-- <pre>{{ localSettings }}</pre> -->
+            <settings-global v-model="localSettings" />
+            <game-board-settings v-model="localSettings" />
+            <tags-settings v-model="localSettings" />
         </div>
+
+        <settings-actions slot="footer" @save="save" />
     </modal>
 </template>
 
@@ -19,9 +20,8 @@ import { mapState } from 'vuex';
 import 'firebase/firestore';
 import 'firebase/auth';
 import GameBoardSettings from '@/components/Settings/GameBoardSettings';
-import GeneralSettings from '@/components/Settings/GeneralSettings';
-import PlatformsSettings from '@/components/Settings/PlatformsSettings';
-import AccountSettings from '@/components/Settings/AccountSettings';
+import SettingsGlobal from '@/components/Settings/SettingsGlobal';
+import SettingsActions from '@/components/Settings/SettingsActions';
 import AboutSettings from '@/components/Settings/AboutSettings';
 import TagsSettings from '@/components/Settings/TagsSettings';
 import Modal from '@/components/Modal';
@@ -33,9 +33,8 @@ export default {
         Modal,
         Releases,
         GameBoardSettings,
-        GeneralSettings,
-        PlatformsSettings,
-        AccountSettings,
+        SettingsGlobal,
+        SettingsActions,
         AboutSettings,
         TagsSettings,
     },
@@ -54,43 +53,6 @@ export default {
                     global: 'theme-default',
                 },
             },
-            settingsSections: [
-                {
-                    name: 'global',
-                    icon: 'fas fa-sliders-h',
-                    component: 'GeneralSettings',
-                },
-                {
-                    name: 'tags',
-                    icon: 'fas fa-tag',
-                    component: 'TagsSettings',
-                },
-                {
-                    name: 'platforms',
-                    icon: 'fas fa-gamepad',
-                    component: 'PlatformsSettings',
-                },
-                {
-                    name: 'gameBoard',
-                    icon: 'fab fa-trello',
-                    component: 'GameBoardSettings',
-                },
-                {
-                    name: 'account',
-                    icon: 'fas fa-user',
-                    component: 'AccountSettings',
-                },
-                {
-                    name: 'releases',
-                    icon: 'fas fa-rocket',
-                    component: 'Releases',
-                },
-                {
-                    name: 'about',
-                    icon: 'fas fa-info',
-                    component: 'AboutSettings',
-                },
-            ],
         };
     },
 
@@ -106,28 +68,6 @@ export default {
         },
     },
 
-    watch: {
-        localSettings: {
-            handler(oldValue, newValue) {
-                if (newValue && Object.keys(newValue).length) {
-                    this.save();
-
-                    if (newValue
-                            && newValue.language !== undefined
-                            && this.language !== newValue.language
-                    ) {
-                        this.reloading = true;
-
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 2000);
-                    }
-                }
-            },
-            deep: true,
-        },
-    },
-
     mounted() {
         this.localSettings = this.settings !== null
             ? JSON.parse(JSON.stringify(this.settings))
@@ -136,7 +76,6 @@ export default {
 
     methods: {
         save() {
-            // TODO: call action directly
             this.$bus.$emit('SAVE_SETTINGS', this.localSettings);
         },
     },

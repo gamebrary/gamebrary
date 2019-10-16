@@ -1,5 +1,5 @@
 <template lang="html">
-    <section class="account-setting">
+    <div class="settings-actions">
         <button class="secondary" @click="signOut">
             <i class="fas fa-sign-out-alt" />
             {{ $t('settings.signOut') }}
@@ -18,7 +18,11 @@
                 {{ $t('settings.deleteAccount.button') }}
             </button>
         </modal>
-    </section>
+
+        <button class="primary" @click="save">
+            {{ $t('global.save') }}
+        </button>
+    </div>
 </template>
 
 <script>
@@ -89,6 +93,10 @@ export default {
                     this.$bus.$emit('TOAST', { message: error, type: 'error' });
                 });
         },
+
+        save() {
+            this.$emit('save');
+        },
     },
 };
 </script>
@@ -96,9 +104,8 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles";
 
-    .account-setting {
-        display: grid;
-        grid-template-columns: 80px 200px;
-        grid-gap: $gp;
+    .settings-actions {
+        display: flex;
+        justify-content: space-between;
     }
 </style>

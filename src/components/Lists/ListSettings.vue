@@ -7,7 +7,7 @@
         @open="open"
         @close="close"
     >
-        <button class="small primary">
+        <button class="small">
             <i class="fas fa-sliders-h" />
         </button>
 
@@ -54,65 +54,67 @@
                     </span>
                 </div>
             </section>
+        </div>
 
-            <footer>
-                <modal
-                    v-if="localList.games && localList.games.length"
-                    ref="addList"
-                    :message="warningMessage"
-                    title="Are you sure?"
-                    :action-text="$t('list.delete')"
-                    padded
-                    @action="deleteList"
-                >
-                    <button
-                        class="danger"
-                        :title="$t('list.delete')"
-                    >
-                        <i class="far fa-trash-alt" />
-                        {{ $t('list.delete') }}
-                    </button>
-                </modal>
-
+        <div slot="footer">
+            <modal
+                v-if="localList && localList.games && localList.games.length"
+                ref="addList"
+                :message="warningMessage"
+                title="Are you sure?"
+                :action-text="$t('list.delete')"
+                action-button-class="danger"
+                padded
+                confirm
+                @action="deleteList"
+            >
                 <button
-                    v-else
                     class="danger"
                     :title="$t('list.delete')"
-                    @click="deleteList"
                 >
                     <i class="far fa-trash-alt" />
                     {{ $t('list.delete') }}
                 </button>
+            </modal>
 
-                <!-- <button
-                    class="primary hollow"
-                    :title="$t('list.moveLeft')"
-                    :disabled="isFirst"
-                    @click="moveList(listIndex, listIndex - 1)"
-                >
-                    <i class="fas fa-arrow-left" />
+            <button
+                v-else
+                class="danger"
+                :title="$t('list.delete')"
+                @click="deleteList"
+            >
+                <i class="far fa-trash-alt" />
+                {{ $t('list.delete') }}
+            </button>
 
-                    {{ $t('list.moveLeft') }}
-                </button>
+            <!-- <button
+                class="primary hollow"
+                :title="$t('list.moveLeft')"
+                :disabled="isFirst"
+                @click="moveList(listIndex, listIndex - 1)"
+            >
+                <i class="fas fa-arrow-left" />
 
-                <button
-                    class="primary hollow"
-                    :title="$t('list.moveRight')"
-                    :disabled="isLast"
-                    @click="moveList(listIndex, listIndex + 1)"
-                >
-                    {{ $t('list.moveRight') }}
-                    <i class="fas fa-arrow-right" />
-                </button> -->
+                {{ $t('list.moveLeft') }}
+            </button>
 
-                <button
-                    class="primary"
-                    :title="$t('global.save')"
-                    @click="save"
-                >
-                    {{ $t('global.save') }}
-                </button>
-            </footer>
+            <button
+                class="primary hollow"
+                :title="$t('list.moveRight')"
+                :disabled="isLast"
+                @click="moveList(listIndex, listIndex + 1)"
+            >
+                {{ $t('list.moveRight') }}
+                <i class="fas fa-arrow-right" />
+            </button> -->
+
+            <button
+                class="primary"
+                :title="$t('global.save')"
+                @click="save"
+            >
+                {{ $t('global.save') }}
+            </button>
         </div>
     </modal>
 </template>
