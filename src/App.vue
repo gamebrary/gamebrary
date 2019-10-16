@@ -79,6 +79,7 @@ export default {
             const hasPlatform = this.platform && this.platform.code;
             const hasTheme = hasPlatform
                 && this.settings
+                && this.settings.theme
                 && this.settings.theme[this.platform.code];
 
             const isGameBoard = this.$route.name === 'game-board';
@@ -86,7 +87,7 @@ export default {
             const hasPlatformTheme = hasPlatform && hasTheme;
 
             return isGameBoard && hasPlatformTheme
-                ? `theme-${this.settings.theme[this.platform.code]}`
+                ? this.settings.theme[this.platform.code]
                 : 'theme-default';
         },
     },
