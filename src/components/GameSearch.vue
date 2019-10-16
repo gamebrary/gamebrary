@@ -18,6 +18,8 @@
                     <i class="fas fa-circle-notch fast-spin hollow" v-if="loading" />
                     <i class="fas fa-search" v-else />
                 </button>
+
+                <igdb-credit linkable />
             </form>
 
             <small v-if="gamesInList.length" :title="gamesInListNames">
@@ -39,8 +41,6 @@
             <span class="no-results" v-if="noResults">
                 {{ $t('gameSearch.noResultsFound') }}
             </span>
-
-            <igdb-credit linkable />
         </div>
     </modal>
 </template>
@@ -181,17 +181,7 @@ export default {
         }
 
         button {
-            margin-left: $gp;
+            margin: 0 $gp / 2;
         }
-    }
-
-    .search-results {
-        overflow: auto;
-        height: calc(100vh - 240px);
-    }
-
-    .igdb-credit {
-        justify-content: center;
-        margin-top: auto;
     }
 </style>
