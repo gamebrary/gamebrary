@@ -1,7 +1,5 @@
 <template lang="html">
     <section class="game-screenshots" v-if="game.screenshots">
-        <h3>{{ $t('gameDetail.screenshots') }}</h3>
-
         <vue-gallery
             :images="screenshots"
             :index="index"

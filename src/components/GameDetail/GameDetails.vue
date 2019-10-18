@@ -36,36 +36,15 @@
                 <strong>{{ $t('gameDetail.releaseDate') }}</strong>
                 {{ moment.unix(releaseDate).format('ll') }}
             </section>
-
-            <game-links />
-
-            <section v-if="gamePlatforms && gamePlatforms.length > 0">
-                <h4>{{ $t('gameDetail.gamePlatforms') }}</h4>
-
-                <div class="platforms">
-                    <platform
-                        v-for="platform in gamePlatforms"
-                        :key="platform.name"
-                        :platform="platform"
-                    />
-                </div>
-            </section>
         </div>
     </div>
 </template>
 
 <script>
 import moment from 'moment';
-import GameLinks from '@/components/GameDetail/GameLinks';
-import Platform from '@/components/Platforms/Platform';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
-    components: {
-        Platform,
-        GameLinks,
-    },
-
     data() {
         return {
             moment,
@@ -79,7 +58,6 @@ export default {
             'playerPerspectives',
             'developers',
             'gameModes',
-            'gamePlatforms',
             'releaseDate',
             'genres',
             'publishers',
@@ -113,26 +91,6 @@ export default {
 
     section {
         margin-bottom: $gp / 3;
-    }
-
-    .platforms {
-        display: flex;
-        flex-wrap: wrap;
-
-        .platform {
-            width: 90px;
-            height: 50px;
-            margin-right: $gp / 2;
-            padding: $gp / 4;
-
-            &:first-child {
-                margin-left: 0;
-            }
-
-            &:last-child {
-                margin-right: 0;
-            }
-        }
     }
 }
 </style>

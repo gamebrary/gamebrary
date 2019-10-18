@@ -1,7 +1,5 @@
 <template lang="html">
     <div class="game-videos" v-if="game.videos">
-        <h3>{{ $t('gameDetail.videos') }}</h3>
-
         <div class="video">
             <iframe
                 :src="`https://www.youtube.com/embed/${youtubeVideoId}?rel=0&autohide=1`"
