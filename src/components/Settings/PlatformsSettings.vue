@@ -1,5 +1,5 @@
 <template lang="html">
-    <section class="setting-box">
+    <section>
         <h3>Platform page</h3>
 
         <div class="setting" v-if="hasLists">

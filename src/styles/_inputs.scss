@@ -2,16 +2,11 @@ input, select {
     background: #fff;
     border: 1px solid #555555;
     border-radius: $border-radius;
-    height: 32px;
+    height: 40px;
     padding: 0 $gp / 2;
     width: 100%;
-    font-size: 12px;
+    font-size: 14px;
     margin-bottom: $gp;
-
-    &.small {
-        height: 20px;
-        margin: 0;
-    }
 }
 
 .checkbox-group {
@@ -31,7 +26,7 @@ input, select {
             align-items: center;
 
             &.active {
-                color: var(--link-color);
+                color: var(--accent-color);
             }
 
             i {

@@ -1,59 +1,81 @@
 <template lang="html">
-    <section class="tags-settings setting-box">
-        <h3>Tags</h3>
-        <div class="tag-input">
-            <input
-                type="text"
-                v-model="tagName"
-                :placeholder="$t('tags.inputPlaceholder')"
-            />
+    <div>
+        <modal title="Manage tags">
+            <div class="setting">
+                <i class="fas fa-tags" />
+                <h5>Tags</h5>
 
-            <input
-                type="color"
-                class="color-picker"
-                :value="tagHex"
-                @change="updateColor"
-            />
-        </div>
+                <button class="primary">
+                    Manage tags
+                </button>
+            </div>
 
-        <div class="tag-actions">
-            <button
-                class="secondary small"
-                :disabled="!tagName"
-                @click="reset"
+            <div slot="content">
+                <div class="tag-input">
+                    <input
+                        type="text"
+                        v-model="tagName"
+                        :placeholder="$t('tags.inputPlaceholder')"
+                    />
+
+                    <input
+                        type="color"
+                        class="color-picker"
+                        :value="tagHex"
+                        @change="updateColor"
+                    />
+                </div>
+
+                <div class="tag-actions">
+                    <button
+                        class="secondary"
+                        :disabled="!tagName"
+                        @click="reset"
+                    >
+                        {{ $t('global.cancel') }}
+                    </button>
+
+                    <button
+                        class="primary"
+                        :disabled="isDuplicate && !editing"
+                        @click="submit"
+                    >
+                        {{ actionLabel }}
+                    </button>
+                </div>
+
+                <div class="tags" v-if="hasTags">
+                    <tag
+                        v-for="(tag, name) in localTags"
+                        :key="name"
+                        :label="name"
+                        :hex="tag.hex"
+                        @close="deleteTag(name)"
+                    />
+                    <!-- @click.native="editTag(tag, name)" -->
+                </div>
+            </div>
+            <!-- <button
+                class="small warning"
+                :title="$t('list.delete')"
             >
-                {{ $t('global.cancel') }}
-            </button>
+                <i class="far fa-trash-alt" />
+                Delete {{ platform.name }} collection
+            </button> -->
 
-            <button
-                class="primary small"
-                :disabled="isDuplicate && !editing"
-                @click="submit"
-            >
-                {{ actionLabel }}
-            </button>
-        </div>
-
-        <div class="tags" v-if="hasTags">
-            <tag
-                v-for="(tag, name) in localTags"
-                :key="name"
-                :label="name"
-                :hex="tag.hex"
-                @close="deleteTag(name)"
-            />
-            <!-- @click.native="editTag(tag, name)" -->
-        </div>
-    </section>
+        </modal>
+    </div>
 </template>
 
 <script>
 import Tag from '@/components/Tag';
+import Modal from '@/components/Modal';
 import { mapState } from 'vuex';
 
 export default {
     components: {
         Tag,
+        Modal,
     },
 
     data() {
@@ -173,23 +195,17 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
     @import "~styles/styles";
 
-    .tags-settings {
-        display: grid;
-        grid-gap: $gp;
-        margin: $gp 0;
-        padding: $gp;
-        border-radius: $border-radius;
-    }
-
     .tag-input {
         display: grid;
-        grid-template-columns: 1fr 32px;
-        grid-gap: $gp / 2;
+        grid-template-columns: 1fr 40px;
+        grid-gap: $gp;
+        margin-bottom: $gp;
     }
 
     .tag-actions {
         display: flex;
         justify-content: space-between;
+        margin-bottom: $gp;
     }
 
     input {
@@ -198,8 +214,8 @@ export default {
 
     .color-picker {
         -webkit-appearance: none;
-        width: 32px;
-        height: 32px;
+        width: 40px;
+        height: 40px;
         padding: 0;
         margin: 0;
         border: 0;

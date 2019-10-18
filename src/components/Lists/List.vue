@@ -48,7 +48,7 @@
             />
         </draggable>
 
-        <game-search :list-id="listIndex" />
+        <add-game :list-id="listIndex" />
     </div>
 </template>
 
@@ -60,7 +60,7 @@ import GameCardDefault from '@/components/GameCards/GameCardDefault';
 import GameCardGrid from '@/components/GameCards/GameCardGrid';
 import GameCardWide from '@/components/GameCards/GameCardWide';
 import GameCardText from '@/components/GameCards/GameCardText';
-import GameSearch from '@/components/GameSearch';
+import AddGame from '@/components/AddGame';
 import { mapState, mapGetters } from 'vuex';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -75,7 +75,7 @@ export default {
         GameCardGrid,
         GameCardWide,
         GameCardText,
-        GameSearch,
+        AddGame,
         ListSettings,
         draggable,
     },

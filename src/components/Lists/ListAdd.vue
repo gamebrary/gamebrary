@@ -1,5 +1,5 @@
 <template lang="html">
-    <modal confirm :title="title" ref="listAddModal" padded @open="open">
+    <modal :title="title" ref="listAddModal" @open="open">
         <button
             class="small primary add-list-button"
             :title="$t('list.add')"

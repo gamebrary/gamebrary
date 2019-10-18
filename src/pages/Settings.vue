@@ -1,17 +1,38 @@
 <template lang="html">
-    <modal title="Settings">
+    <modal title="Settings" action-text="Save" @action="save">
         <button class="small primary">
             <i class="fas fa-cog" />
         </button>
 
         <div class="settings" slot="content">
-            <!-- <pre>{{ localSettings }}</pre> -->
-            <settings-global v-model="localSettings" />
             <game-board-settings v-model="localSettings" />
             <tags-settings v-model="localSettings" />
-        </div>
 
-        <settings-actions slot="footer" @save="save" />
+            <div class="setting">
+                <i class="fas fa-sign-out-alt" />
+                {{ $t('settings.signOut') }}
+
+                <button class="secondary" @click="signOut">
+                    {{ $t('settings.signOut') }}
+                </button>
+            </div>
+
+            <modal
+                :message="$t('settings.deleteAccount.message')"
+                :title="$t('settings.deleteAccount.title')"
+                :action-text="$t('settings.deleteAccount.button')"
+                @action="deleteAccount"
+            >
+                <div class="setting">
+                    <i class="fas fa-exclamation-triangle" />
+                    {{ $t('settings.deleteAccount.button') }}
+
+                    <button class="danger">
+                        {{ $t('settings.deleteAccount.button') }}
+                    </button>
+                </div>
+            </modal>
+        </div>
     </modal>
 </template>
 
@@ -21,11 +42,11 @@ import 'firebase/firestore';
 import 'firebase/auth';
 import GameBoardSettings from '@/components/Settings/GameBoardSettings';
 import SettingsGlobal from '@/components/Settings/SettingsGlobal';
-import SettingsActions from '@/components/Settings/SettingsActions';
 import AboutSettings from '@/components/Settings/AboutSettings';
 import TagsSettings from '@/components/Settings/TagsSettings';
 import Modal from '@/components/Modal';
 import moment from 'moment';
+import firebase from 'firebase/app';
 import Releases from '@/components/Releases/Releases';
 
 export default {
@@ -34,7 +55,6 @@ export default {
         Releases,
         GameBoardSettings,
         SettingsGlobal,
-        SettingsActions,
         AboutSettings,
         TagsSettings,
     },
@@ -76,7 +96,47 @@ export default {
 
     methods: {
         save() {
+            // TODO: call action directly
             this.$bus.$emit('SAVE_SETTINGS', this.localSettings);
+        },
+
+        deleteAccount() {
+            const db = firebase.firestore();
+
+
+            // TOOD: move to actions
+            db.collection('settings').doc(this.user.uid).delete()
+                .then(() => {
+                    // TOOD: move to actions
+                    db.collection('lists').doc(this.user.uid).delete()
+                        .then(() => {
+                            this.$bus.$emit('TOAST', { message: 'Account deleted' });
+                            this.exit();
+                        })
+                        .catch(() => {
+                            this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
+                            this.$router.push({ name: 'sessionExpired' });
+                        });
+                })
+                .catch(() => {
+                    this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
+                    this.$router.push({ name: 'sessionExpired' });
+                });
+        },
+
+        signOut() {
+            firebase.auth().signOut()
+                .then(() => {
+                    this.exit();
+                })
+                .catch((error) => {
+                    this.$bus.$emit('TOAST', { message: error, type: 'error' });
+                });
+        },
+
+        exit() {
+            this.$store.commit('CLEAR_SESSION');
+            window.location.href = this.exitUrl;
         },
     },
 };
@@ -88,8 +148,5 @@ export default {
     .settings {
         display: flex;
         flex-direction: column;
-        padding: $gp * 2 $gp;
-        margin: 0 auto;
-        min-height: 600px;
     }
 </style>

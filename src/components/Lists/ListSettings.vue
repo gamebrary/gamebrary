@@ -3,7 +3,6 @@
         :title="$t('list.preferences')"
         v-if="activeList"
         ref="listSettingsModal"
-        padded
         @open="open"
         @close="close"
     >
@@ -12,13 +11,13 @@
         </button>
 
         <div class="list-settings" slot="content" v-if="localList">
-            <section class="setting-box">
+            <section>
                 <h4>List name</h4>
 
                 <input v-model="localList.name" ref="input" />
             </section>
 
-            <section class="setting-box">
+            <section>
                 <h4>{{ $t('list.view') }}</h4>
 
                 <div class="checkbox-group">
@@ -32,7 +31,7 @@
                 </div>
             </section>
 
-            <section class="setting-box" v-if="hasMultipleGames">
+            <section v-if="hasMultipleGames">
                 <h4>{{ $t('list.sortList') }}</h4>
 
                 <div class="checkbox-group">
@@ -54,67 +53,65 @@
                     </span>
                 </div>
             </section>
-        </div>
 
-        <div slot="footer">
-            <modal
-                v-if="localList && localList.games && localList.games.length"
-                ref="addList"
-                :message="warningMessage"
-                title="Are you sure?"
-                :action-text="$t('list.delete')"
-                action-button-class="danger"
-                padded
-                confirm
-                @action="deleteList"
-            >
+            <footer>
+                <modal
+                    v-if="localList && localList.games && localList.games.length"
+                    ref="addList"
+                    :message="warningMessage"
+                    title="Are you sure?"
+                    :action-text="$t('list.delete')"
+                    action-button-class="danger"
+                    @action="deleteList"
+                >
+                    <button
+                        class="danger"
+                        :title="$t('list.delete')"
+                    >
+                        <i class="far fa-trash-alt" />
+                        {{ $t('list.delete') }}
+                    </button>
+                </modal>
+
                 <button
+                    v-else
                     class="danger"
                     :title="$t('list.delete')"
+                    @click="deleteList"
                 >
                     <i class="far fa-trash-alt" />
                     {{ $t('list.delete') }}
                 </button>
-            </modal>
 
-            <button
-                v-else
-                class="danger"
-                :title="$t('list.delete')"
-                @click="deleteList"
-            >
-                <i class="far fa-trash-alt" />
-                {{ $t('list.delete') }}
-            </button>
+                <!-- <button
+                    class="primary hollow"
+                    :title="$t('list.moveLeft')"
+                    :disabled="isFirst"
+                    @click="moveList(listIndex, listIndex - 1)"
+                >
+                    <i class="fas fa-arrow-left" />
 
-            <!-- <button
-                class="primary hollow"
-                :title="$t('list.moveLeft')"
-                :disabled="isFirst"
-                @click="moveList(listIndex, listIndex - 1)"
-            >
-                <i class="fas fa-arrow-left" />
+                    {{ $t('list.moveLeft') }}
+                </button>
 
-                {{ $t('list.moveLeft') }}
-            </button>
+                <button
+                    class="primary hollow"
+                    :title="$t('list.moveRight')"
+                    :disabled="isLast"
+                    @click="moveList(listIndex, listIndex + 1)"
+                >
+                    {{ $t('list.moveRight') }}
+                    <i class="fas fa-arrow-right" />
+                </button> -->
 
-            <button
-                class="primary hollow"
-                :title="$t('list.moveRight')"
-                :disabled="isLast"
-                @click="moveList(listIndex, listIndex + 1)"
-            >
-                {{ $t('list.moveRight') }}
-                <i class="fas fa-arrow-right" />
-            </button> -->
-
-            <button
-                class="primary"
-                :title="$t('global.save')"
-                @click="save"
-            >
-                {{ $t('global.save') }}
-            </button>
+                <button
+                    class="primary"
+                    :title="$t('global.save')"
+                    @click="save"
+                >
+                    {{ $t('global.save') }}
+                </button>
+            </footer>
         </div>
     </modal>
 </template>
@@ -199,6 +196,7 @@ export default {
         deleteList() {
             this.$store.commit('REMOVE_LIST', this.listIndex);
 
+            // TODO: move to action
             db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
                 .then(() => {
                     this.$bus.$emit('TOAST', { message: 'List deleted' });

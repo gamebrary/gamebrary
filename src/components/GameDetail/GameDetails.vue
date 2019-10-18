@@ -108,7 +108,7 @@ export default {
     align-items: center;
 
     strong {
-        color: var(--link-color);
+        color: var(--accent-color);
     }
 
     section {

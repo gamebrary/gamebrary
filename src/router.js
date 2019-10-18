@@ -32,6 +32,11 @@ export default new Router({
             component: GameBoard,
         },
         {
+            path: '/settings',
+            name: 'settings',
+            component: GameBoard,
+        },
+        {
             path: '/auth/:authProvider',
             name: 'auth',
             component: GameBoard,

@@ -1,19 +1,14 @@
 <template lang="html">
-    <section class="setting-box">
-        <h5 class="title">
-            Game board
-            <span v-if="showBoardSpecificSettings">({{ platform.name }})</span>
-        </h5>
-
-        <!-- <div class="setting">
+    <section>
+        <div class="setting">
             <i class="fas fa-users" />
             <h5>{{ $t('settings.public') }}</h5>
 
             <toggle-switch
-                id="nightMode"
-                v-model="value.public"
+                id="public"
+                v-model="value[platform.code].public"
             />
-        </div> -->
+        </div>
 
         <div class="setting">
             <i class="fas fa-star-half-alt" />
@@ -21,65 +16,43 @@
 
             <toggle-switch
                 id="gameRatings"
-                v-model="value.hideGameRatings"
+                v-model="value[platform.code].hideGameRatings"
             />
         </div>
 
-        <template v-if="showBoardSpecificSettings">
-            <wallpaper-upload />
+        <wallpaper-upload />
 
-            <div class="setting">
-                <i class="fas fa-palette" />
-                <h5>Global theme</h5>
+        <div class="setting">
+            <i class="fas fa-palette" />
+            <h5>Global theme</h5>
 
-                <select v-model="value[platform.code].theme">
-                    <option v-for="{ id, name } in themes" :key="id" :value="id">
-                        {{ name }}
-                    </option>
-                </select>
-            </div>
+            <select v-model="value[platform.code].theme">
+                <option v-for="{ id, name } in themes" :key="id" :value="id">
+                    {{ name }}
+                </option>
+            </select>
+        </div>
 
-            <!-- TODO: refactor gameBoard to allow public data source -->
-            <!-- <section>
-                <h3>{{ $t('gameBoard.settings.shareLink') }}</h3>
-                <div class="links">
-                    <a class="link primary" :href="tweetUrl" target="_blank">
-                        <i class="fab fa-twitter" />
-                    </a>
+        <div class="setting">
+            <i class="fas fa-exclamation-triangle" />
+            <h5>{{ $t('gameBoard.settings.dangerZone') }}</h5>
 
-                    <a class="link primary reddit" :href="redditUrl" target="_blank">
-                        <i class="fab fa-reddit" />
-                    </a>
-
-                    <a class="link info" :href="shareUrl" target="_blank">
-                        <i class="fas fa-link" />
-                    </a>
-                </div>
-            </section> -->
-
-            <div class="setting">
-                <i class="fas fa-exclamation-triangle" />
-                <h5>{{ $t('gameBoard.settings.dangerZone') }}</h5>
-
-                <modal
-                    action-text="Delete forever"
-                    action-button-class="danger"
-                    confirm
-                    :message="`Your ${platform.name} collection will be deleted forever.`"
-                    :title="`Delete ${platform.name} collection`"
-                    padded
-                    @action="deletePlatform"
+            <modal
+                action-text="Delete forever"
+                action-button-class="danger"
+                :message="`Your ${platform.name} collection will be deleted forever.`"
+                :title="`Delete ${platform.name} collection`"
+                @action="deletePlatform"
+            >
+                <button
+                    class="small warning"
+                    :title="$t('list.delete')"
                 >
-                    <button
-                        class="small warning"
-                        :title="$t('list.delete')"
-                    >
-                        <i class="far fa-trash-alt" />
-                        Delete {{ platform.name }} collection
-                    </button>
-                </modal>
-            </div>
-        </template>
+                    <i class="far fa-trash-alt" />
+                    Delete {{ platform.name }} collection
+                </button>
+            </modal>
+        </div>
     </section>
 </template>
 
@@ -116,10 +89,6 @@ export default {
             return `Check out my ${this.platform.name} collection at Gamebrary`;
         },
 
-        showBoardSpecificSettings() {
-            return this.$route.name === 'game-board' && this.platform;
-        },
-
         tweetUrl() {
             return `https://twitter.com/intent/tweet?text=${this.shareText}&url=${encodeURIComponent(this.shareUrl)}`;
         },
@@ -138,9 +107,8 @@ export default {
     },
 
     mounted() {
-        if (!this.value.theme) {
-            this.value.theme = {};
-            this.value.theme[this.platform.code] = 'theme-default';
+        if (!this.value[this.platform.code]) {
+            this.value[this.platform.code] = {};
         }
     },
 
@@ -150,7 +118,7 @@ export default {
 
             const db = firebase.firestore();
 
-            // TOOD: move to actions
+            // TODO: move to actions
             db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: false })
                 .then(() => {
                     this.$router.push({ name: 'platforms' });
@@ -163,28 +131,3 @@ export default {
     },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-    @import "~styles/styles";
-
-    .list-settings {
-        display: grid;
-        grid-gap: $gp;
-
-        section {
-            margin-bottom: $gp;
-        }
-
-        h3 {
-            margin: $gp / 2 0;
-        }
-    }
-
-    .links {
-        a {
-            &.reddit {
-                background-color: #ff4500;
-            }
-        }
-    }
-</style>

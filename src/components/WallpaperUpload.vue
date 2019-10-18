@@ -1,3 +1,4 @@
+<!-- TODO: refactor to live in platform settings -->
 <template>
     <div class="setting wallpaper-upload">
         <template v-if="wallpaperUrl">
@@ -13,7 +14,6 @@
                     ref="addList"
                     :title="$t('settings.wallpaper.currentWallpaper')"
                     large
-                    padded
                     action-text="Remove wallpaper"
                     @action="removeWallpaper"
                 >
@@ -160,7 +160,7 @@ export default {
         border-radius: $border-radius;
 
         &:hover {
-            border-color: var(--link-color);
+            border-color: var(--accent-color);
         }
     }
 
