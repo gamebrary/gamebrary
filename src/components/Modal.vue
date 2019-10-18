@@ -4,9 +4,9 @@
             <slot />
         </div>
 
-        <div :class="['overlay', { show, confirm }]" @click="close">
-            <div :class="['modal-content', { large, confirm }]" @click.stop>
-                <header :class="{ fixed: !title }">
+        <div :class="['overlay', { show }]" @click="close">
+            <div :class="['modal-content', { large, fixed: !title }]" @click.stop>
+                <header>
                     <h2 v-if="title">{{ title }}</h2>
 
                     <button class="secondary small" @click="close">
@@ -14,24 +14,20 @@
                     </button>
                 </header>
 
-                <main :class="{ padded }">
-                    <span v-if="confirm && message">{{ message }}</span>
+                <main>
+                    <span v-if="message">{{ message }}</span>
                     <slot name="content" v-else-if="show" />
+
+                    <footer v-if="actionText">
+                        <button
+                            :class="actionButtonClass"
+                            :disabled="actionDisabled"
+                            @click="handleAction"
+                        >
+                            {{ actionText }}
+                        </button>
+                    </footer>
                 </main>
-
-                <footer>
-                    <button
-                        v-if="actionText && confirm"
-                        :class="actionButtonClass"
-                        :disabled="actionDisabled"
-                        @click="handleAction"
-                    >
-                        {{ actionText }}
-                    </button>
-
-                    <slot v-else name="footer" />
-                </footer>
-
             </div>
         </div>
     </div>
@@ -47,13 +43,8 @@ export default {
             type: String,
             default: 'primary',
         },
-        actionDisabled: {
-            type: Boolean,
-            default: false,
-        },
+        actionDisabled: Boolean,
         large: Boolean,
-        confirm: Boolean,
-        padded: Boolean,
     },
 
     data() {
@@ -115,59 +106,50 @@ export default {
             transition: all 100ms linear;
             opacity: 1;
         }
-
-        &.confirm {
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-
-            @media($small) {
-                align-items: flex-end;
-            }
-        }
     }
 
     .modal-content {
         background: var(--modal-background);
         color: var(--modal-text-color);
-        height: auto;
         width: 500px;
-        max-height: calc(85vh);
-        max-width: 100%;
-        overflow: auto;
+        height: auto;
+        max-height: calc(100% - #{$gp * 4});
+        overflow-y: auto;
         margin: $gp * 2 auto $gp;
         padding: 0;
         border-radius: $border-radius;
         cursor: default;
-        display: flex;
-        flex-direction: column;
 
         @media($small) {
             border-radius: 0;
             margin: 0;
+            width: 100%;
             height: 100%;
-            max-height: 100vh;
-            height: 100vh;
-            width: 100vw;
+            max-height: 100%;
         }
 
         &.large {
             width: 780px;
-            max-width: 100% !important;
-
-            @media($small) {
-                max-width: 90vw;
-                max-height: 100vh;
-            }
+            max-width: 100%;
         }
 
-        &.confirm {
-            height: auto;
-            max-width: calc(100vw - #{$gp * 4});
-            border-radius: $border-radius;
-
+        &.fixed {
             @media($small) {
-                margin-bottom: $gp * 2;
+                display: flex;
+                height: 100vh;
+            }
+
+            header {
+                position: fixed;
+                right: $gp;
+
+                button {
+                    display: none;
+
+                    @media($small) {
+                        display: block;
+                    }
+                }
             }
         }
     }
@@ -179,31 +161,17 @@ export default {
         align-items: center;
         justify-content: space-between;
 
-        @media($small) {
-            right: 0;
-        }
-
         &.fixed {
             position: fixed;
-            padding: $gp;
-            background-color: transparent !important;
-            margin: 0;
-            z-index: 99999999;
         }
     }
 
     main {
-        &.padded {
-            padding: 0 $gp;
-        }
-
-        flex-grow: 1;
-        max-height: calc(100% - 144px);
-        overflow: auto;
+        padding: 0 $gp $gp;
+        overflow-y: auto;
     }
 
     footer {
-        padding: $gp;
-        margin-top: auto;
+        margin-top: $gp;
     }
 </style>
