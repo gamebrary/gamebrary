@@ -35,3 +35,35 @@ input, select {
         }
     }
 }
+
+.tabs {
+    display: inline-flex;
+    border-bottom: 1px solid var(--accent-color);
+
+    > span {
+        &:not(:last-child) {
+            margin-right: $gp / 2;
+        }
+
+        > input {
+            display: none;
+        }
+
+        label {
+            padding: $gp / 4 $gp;
+            border-radius: $gp / 2;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            border: 1px solid var(--accent-color);
+            border-bottom: 0;
+
+            &.active {
+                color: var(--accent-color);
+            }
+
+            i {
+                margin-bottom: $gp / 4;
+            }
+        }
+    }
+}
