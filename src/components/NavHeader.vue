@@ -10,7 +10,7 @@
             {{ title }}
         </router-link>
 
-        <settings />
+        <settings v-if="showSettings" />
     </nav>
 </template>
 
@@ -30,8 +30,8 @@ export default {
             return this.user && this.user.email;
         },
 
-        hasSettings() {
-            return this.settings && this.user;
+        showSettings() {
+            return this.$route.name === 'game-board';
         },
 
         title() {
