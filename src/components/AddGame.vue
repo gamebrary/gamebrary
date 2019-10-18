@@ -1,6 +1,6 @@
 <!-- TODO: rename component to add-game or similar -->
 <template lang="html">
-    <modal padded :title="$t('list.addGame')" @open="clear">
+    <modal :title="$t('list.addGame')" @open="clear">
         <button class="add-game-button small secondary" :title="$t('list.addGame')">
             <i class="fas fa-plus" />
         </button>
