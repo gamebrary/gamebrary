@@ -93,7 +93,7 @@ export default {
             ? JSON.parse(JSON.stringify(this.settings))
             : JSON.parse(JSON.stringify(this.defaultSettings));
 
-        if (!this.localSettings[this.platform.code]) {
+        if (this.platform && !this.localSettings[this.platform.code]) {
             this.localSettings[this.platform.code] = {
                 theme: 'theme-default',
             };
