@@ -92,6 +92,12 @@ export default {
         this.localSettings = this.settings !== null
             ? JSON.parse(JSON.stringify(this.settings))
             : JSON.parse(JSON.stringify(this.defaultSettings));
+
+        if (!this.localSettings[this.platform.code]) {
+            this.localSettings[this.platform.code] = {
+                theme: 'theme-default',
+            };
+        }
     },
 
     methods: {
