@@ -24,7 +24,6 @@ import NavHeader from '@/components/NavHeader';
 import Toast from '@/components/Toast';
 import firebase from 'firebase/app';
 import { mapState } from 'vuex';
-import { debounce } from 'lodash';
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage';
@@ -105,14 +104,12 @@ export default {
     },
 
     mounted() {
-        this.$bus.$on('SAVE_SETTINGS', this.saveSettings);
         this.$bus.$on('SAVE_TAGS', this.saveTags);
         this.$bus.$on('SAVE_NOTES', this.saveNotes);
         this.init();
     },
 
     beforeDestroy() {
-        this.$bus.$off('SAVE_SETTINGS');
         this.$bus.$off('SAVE_TAGS');
         this.$bus.$off('SAVE_NOTES');
     },
@@ -169,21 +166,6 @@ export default {
                 this.$store.commit('SET_WALLPAPER_URL', url);
             });
         },
-
-        saveSettings: debounce(
-            // eslint-disable-next-line
-            function(settings) {
-                // TOOD: move to actions
-                db.collection('settings').doc(this.user.uid).set(settings, { merge: true })
-                    .then(() => {
-                        this.$store.commit('SET_SETTINGS', settings);
-                        this.$bus.$emit('TOAST', { message: 'Settings saved' });
-                    })
-                    .catch(() => {
-                        this.$bus.$emit('TOAST', { message: 'There was an error saving your settings', type: 'error' });
-                        this.$router.push({ name: 'sessionExpired' });
-                    });
-            }, 500),
 
         saveTags(tags, force) {
             if (tags) {

@@ -102,8 +102,14 @@ export default {
 
     methods: {
         save() {
-            // TODO: call action directly
-            this.$bus.$emit('SAVE_SETTINGS', this.localSettings);
+            this.$store.dispatch('SAVE_SETTINGS', this.localSettings)
+                .then(() => {
+                    this.$bus.$emit('TOAST', { message: 'Settings saved' });
+                })
+                .catch(() => {
+                    this.$bus.$emit('TOAST', { message: 'There was an error saving your settings', type: 'error' });
+                    this.$router.push({ name: 'sessionExpired' });
+                });
         },
 
         deleteAccount() {

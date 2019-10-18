@@ -24,6 +24,19 @@ export default {
             });
     },
 
+    SAVE_SETTINGS({ commit, state }, settings) {
+        const db = firebase.firestore();
+
+        return new Promise((resolve, reject) => {
+            db.collection('settings').doc(state.user.uid).set(settings, { merge: true })
+                .then(() => {
+                    commit('SET_SETTINGS', settings);
+                    resolve();
+                })
+                .catch(reject);
+        });
+    },
+
     LOAD_RELEASES({ commit }) {
         return new Promise((resolve, reject) => {
             axios.get('https://api.github.com/repos/romancm/gamebrary/releases')
