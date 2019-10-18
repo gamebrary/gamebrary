@@ -62,6 +62,7 @@ export default {
         margin-bottom: $gp / 2;
         position: relative;
         border-radius: $border-radius;
+        min-height: 50px;
 
         &.card-placeholder {
             background: #e5e5e5;
