@@ -141,6 +141,7 @@ export default {
         closeGame() {
             this.setPageTitle();
             this.gameDetailId = null;
+            this.$store.commit('CLEAR_ACTIVE_GAME');
         },
 
         setPageTitle() {
