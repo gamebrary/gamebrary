@@ -1,4 +1,4 @@
-<!-- TODO: rename component to add-game or similar -->
+<!-- TODO: Exclude existing ids from query, increase limit to 20 or more, fix empty state weirdness -->
 <template lang="html">
     <modal :title="$t('list.addGame')" @open="clear">
         <button class="add-game-button small secondary" :title="$t('list.addGame')">
