@@ -1,6 +1,6 @@
 <template lang="html">
     <section>
-        <div class="setting">
+        <!-- <div class="setting">
             <i class="fas fa-users" />
             <h5>{{ $t('settings.public') }}</h5>
 
@@ -8,7 +8,7 @@
                 id="public"
                 v-model="value[platform.code].public"
             />
-        </div>
+        </div> -->
 
         <div class="setting">
             <i class="fas fa-star-half-alt" />
@@ -22,7 +22,7 @@
 
         <wallpaper-upload />
 
-        <div class="setting">
+        <!-- <div class="setting">
             <i class="fas fa-palette" />
             <h5>Global theme</h5>
 
@@ -31,7 +31,7 @@
                     {{ name }}
                 </option>
             </select>
-        </div>
+        </div> -->
 
         <div class="setting">
             <i class="fas fa-exclamation-triangle" />
