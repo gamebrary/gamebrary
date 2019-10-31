@@ -21,7 +21,9 @@ export default {
         ...mapState(['settings', 'games', 'gameLists', 'platform', 'user', 'tags', 'activeList', 'notes']),
 
         showGameRatings() {
-            return this.settings && !this.settings.hideGameRatings;
+            return this.settings
+                && this.settings[this.platform.code]
+                && !this.settings[this.platform.code].hideGameRatings;
         },
 
         gameCardClass() {
