@@ -1,27 +1,26 @@
 <template lang="html">
     <div class="game-detail">
-        <game-detail-placeholder v-if="!game" :id="id" />
+        <header>
+            <aside>
+                <img :src="coverUrl" :alt="games[id].name" class="game-cover" />
 
-        <template v-else>
-            <header>
-                <aside>
-                    <img :src="coverUrl" :alt="game.name" class="game-cover" />
+                <div class="game-rating" v-if="game && game.age_ratings">
+                    <img
+                    v-for="{ rating, synopsis, id } in game.age_ratings"
+                    :key="id"
+                    :src='`/static/img/age-ratings/${ageRatings[rating]}.png`'
+                    :alt="synopsis"
+                    />
+                </div>
+            </aside>
 
-                    <div class="game-rating" v-if="game.age_ratings">
-                        <img
-                        v-for="{ rating, synopsis, id } in game.age_ratings"
-                        :key="id"
-                        :src='`/static/img/age-ratings/${ageRatings[rating]}.png`'
-                        :alt="synopsis"
-                        />
-                    </div>
-                </aside>
+            <article>
+                <h2>{{ games[id].name }}</h2>
+                {{ platform.name }}
+                <game-rating :rating="games[id].rating" v-if="games[id].rating" />
 
-                <article>
-                    <h2>{{ game.name }}</h2>
-                    {{ platform.name }}
-                    <game-rating :rating="game.rating" />
-
+                <div class="details" v-if="game">
+                    <p class="game-description" v-html="game.summary" />
                     <div class="actions">
                         <button
                             v-if="list.games.includes(game.id)"
@@ -44,8 +43,6 @@
                             </button>
                         </div>
                     </div>
-
-                    <p class="game-description" v-html="game.summary" />
                     <game-notes />
 
                     <section v-if="gamePlatforms && gamePlatforms.length > 0">
@@ -85,9 +82,11 @@
                     </div>
 
                     <component :is="activeComponent" />
-                </article>
-            </header>
-        </template>
+                </div>
+
+                <placeholder :lines="3" v-else />
+            </article>
+        </header>
     </div>
 </template>
 
@@ -101,6 +100,7 @@ import GameLinks from '@/components/GameDetail/GameLinks';
 import GameVideos from '@/components/GameDetail/GameVideos';
 import GameDetails from '@/components/GameDetail/GameDetails';
 import Platform from '@/components/Platforms/Platform';
+import Placeholder from '@/components/Placeholder';
 import IgdbCredit from '@/components/IgdbCredit';
 import GameDetailPlaceholder from '@/components/GameDetail/GameDetailPlaceholder';
 import firebase from 'firebase/app';
@@ -114,6 +114,7 @@ export default {
         Tag,
         GameRating,
         GameLinks,
+        Placeholder,
         GameScreenshots,
         GameNotes,
         Platform,
@@ -160,7 +161,7 @@ export default {
     },
 
     computed: {
-        ...mapState(['game', 'user', 'platform', 'tags', 'gameLists']),
+        ...mapState(['game', 'user', 'platform', 'tags', 'gameLists', 'games']),
         ...mapGetters(['ageRatings', 'gamePlatforms']),
 
         hasTags() {
@@ -184,8 +185,8 @@ export default {
         },
 
         coverUrl() {
-            return this.game && this.game.cover
-                ? `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${this.game.cover.image_id}.jpg`
+            return this.games[this.id] && this.games[this.id].cover
+                ? `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${this.games[this.id].cover.image_id}.jpg`
                 : '/static/no-image.jpg';
         },
     },
@@ -255,7 +256,8 @@ export default {
 
     header {
         display: grid;
-        grid-template-columns: 200px auto;
+        grid-template-columns: 180px auto;
+        grid-gap: $gp;
         margin-top: $gp;
 
         @media($small) {
