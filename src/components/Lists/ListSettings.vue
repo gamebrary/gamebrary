@@ -120,10 +120,6 @@
 import Modal from '@/components/Modal';
 import ToggleSwitch from '@/components/ToggleSwitch';
 import { mapState } from 'vuex';
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-
-const db = firebase.firestore();
 
 export default {
     components: {
@@ -196,8 +192,7 @@ export default {
         deleteList() {
             this.$store.commit('REMOVE_LIST', this.listIndex);
 
-            // TODO: move to action
-            db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
+            this.$store.dispatch('SAVE_LIST', this.gameLists)
                 .then(() => {
                     this.$bus.$emit('TOAST', { message: 'List deleted' });
                 })
