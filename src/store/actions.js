@@ -25,6 +25,15 @@ export default {
             });
     },
 
+    SAVE_LIST_NO_MERGE({ commit, state }, payload) {
+        const db = firebase.firestore();
+
+        db.collection('lists').doc(state.user.uid).set(payload, { merge: false })
+            .then(() => {
+                commit('SAVE_LISTS', payload);
+            });
+    },
+
     SAVE_SETTINGS({ commit, state }, settings) {
         const db = firebase.firestore();
 

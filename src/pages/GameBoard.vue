@@ -52,10 +52,7 @@
                 @end="dragEnd"
             />
 
-            <list-add
-                @scroll="scroll"
-                @update="updateLists"
-            />
+            <list-add />
         </template>
     </div>
 </template>
@@ -70,10 +67,6 @@ import GameDetail from '@/pages/GameDetail';
 import { chunk } from 'lodash';
 import { mapState } from 'vuex';
 import draggable from 'vuedraggable';
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-
-const db = firebase.firestore();
 
 export default {
     components: {
@@ -166,23 +159,17 @@ export default {
             this.$refs.tag.open(id);
         },
 
-        scroll() {
-            this.$nextTick(() => {
-                const gameBoard = this.$refs.gameBoard;
-                gameBoard.scrollLeft = gameBoard.scrollWidth;
-            });
-        },
-
         dragEnd() {
             this.dragging = false;
             this.draggingId = null;
-            this.$bus.$emit('TOAST', { message: 'List updated' });
             this.updateLists();
         },
 
-        updateLists(force) {
-            // TOOD: move to actions
-            db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: !force })
+        updateLists() {
+            this.$store.dispatch('SAVE_LIST', this.gameLists)
+                .then(() => {
+                    this.$bus.$emit('TOAST', { message: 'List updated' });
+                })
                 .catch(() => {
                     this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
                     this.$router.push({ name: 'sessionExpired' });

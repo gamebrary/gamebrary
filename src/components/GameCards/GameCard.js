@@ -1,9 +1,5 @@
 // Identify stuff that's not being reused
 import { mapState } from 'vuex';
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-
-const db = firebase.firestore();
 
 export default {
     props: {
@@ -96,8 +92,7 @@ export default {
                 eventValue: data,
             });
 
-            // TOOD: move to actions
-            db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
+            this.$store.dispatch('SAVE_LIST', this.gameLists)
                 .then(() => {
                     this.$bus.$emit('TOAST', {
                         message: `Added ${this.game.name} to list ${this.list.name}`,
@@ -113,28 +108,6 @@ export default {
         removeTag(tagName) {
             this.$store.commit('REMOVE_GAME_TAG', { tagName, gameId: this.gameId });
             this.$bus.$emit('SAVE_TAGS', this.tags);
-        },
-
-        removeGame() {
-            const data = {
-                listId: this.listId,
-                gameId: this.gameId,
-            };
-
-            this.$store.commit('REMOVE_GAME', data);
-
-            // TOOD: move to actions
-            db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
-                .then(() => {
-                    this.$bus.$emit('TOAST', {
-                        message: `Removed ${this.game.name} from list ${this.list.name}`,
-                        imageUrl: this.coverUrl,
-                    });
-                })
-                .catch(() => {
-                    this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
-                    this.$router.push({ name: 'sessionExpired' });
-                });
         },
     },
 };

@@ -35,22 +35,12 @@ export default {
         },
 
         title() {
-            if (this.$route.name === 'share-list') {
-                return this.$route.query && this.$route.query.list
-                    ? this.$route.query.list.split('-').join(' ')
-                    : 'GAMEBRARY';
-            }
-
             return this.$route.name === 'game-board' && this.platform
                 ? this.platform.name
                 : 'Gamebrary';
         },
 
         logoRoute() {
-            if (this.$route.name === 'share-list') {
-                return null;
-            }
-
             if (this.$route.name === 'game-detail' && this.platform) {
                 return 'game-board';
             }

@@ -62,8 +62,6 @@ import themes from '@/themes';
 import Modal from '@/components/Modal';
 import WallpaperUpload from '@/components/WallpaperUpload';
 import ToggleSwitch from '@/components/ToggleSwitch';
-import firebase from 'firebase/app';
-import 'firebase/firestore';
 
 export default {
     components: {
@@ -116,10 +114,7 @@ export default {
         deletePlatform() {
             this.$store.commit('REMOVE_PLATFORM');
 
-            const db = firebase.firestore();
-
-            // TODO: move to actions
-            db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: false })
+            this.$store.dispatch('SAVE_LIST_NO_MERGE', this.gameLists)
                 .then(() => {
                     this.$router.push({ name: 'platforms' });
                 })

@@ -107,7 +107,16 @@ export default {
                 .then(() => {
                     this.$bus.$emit('TOAST', { message: 'List added' });
                     this.$refs.listAddModal.close();
+                    this.scroll();
                 });
+        },
+
+        scroll() {
+            this.$nextTick(() => {
+                const gameBoard = document.querySelector('.game-board');
+
+                gameBoard.scrollLeft = gameBoard.scrollWidth;
+            });
         },
     },
 };

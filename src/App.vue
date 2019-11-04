@@ -7,7 +7,7 @@
     >
         <nav-header />
 
-        <router-view v-if="user || isPublic" />
+        <router-view v-if="user" />
 
         <div class="auth" v-else>
             <img src='/static/gamebrary-logo.png' />
@@ -57,10 +57,6 @@ export default {
                 : 'ltr';
         },
 
-        isPublic() {
-            return this.$route.name === 'share-list';
-        },
-
         style() {
             return this.$route.name === 'game-board' && this.wallpaperUrl
                 ? `background-image: url('${this.wallpaperUrl}')`
@@ -104,7 +100,9 @@ export default {
     },
 
     mounted() {
+        // TODO: REMOVE, call action directly
         this.$bus.$on('SAVE_TAGS', this.saveTags);
+        // TODO: REMOVE, call action directly
         this.$bus.$on('SAVE_NOTES', this.saveNotes);
         this.init();
     },
@@ -116,10 +114,6 @@ export default {
 
     methods: {
         init() {
-            if (this.isPublic) {
-                return;
-            }
-
             if (this.user) {
                 this.syncData();
                 return;

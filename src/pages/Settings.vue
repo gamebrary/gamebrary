@@ -122,7 +122,7 @@ export default {
         deleteAccount() {
             const db = firebase.firestore();
 
-
+            // TODO: Add progress bar, delete tags, files, etc...
             // TOOD: move to actions
             db.collection('settings').doc(this.user.uid).delete()
                 .then(() => {
