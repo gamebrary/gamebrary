@@ -22,7 +22,7 @@
 
         <wallpaper-upload />
 
-        <!-- <div class="setting">
+        <div class="setting">
             <i class="fas fa-palette" />
             <h5>Global theme</h5>
 
@@ -31,7 +31,7 @@
                     {{ name }}
                 </option>
             </select>
-        </div> -->
+        </div>
 
         <div class="setting">
             <i class="fas fa-exclamation-triangle" />
