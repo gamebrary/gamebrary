@@ -103,10 +103,6 @@ import Platform from '@/components/Platforms/Platform';
 import Placeholder from '@/components/Placeholder';
 import IgdbCredit from '@/components/IgdbCredit';
 import GameDetailPlaceholder from '@/components/GameDetail/GameDetailPlaceholder';
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-
-const db = firebase.firestore();
 
 export default {
     components: {
@@ -234,8 +230,7 @@ export default {
 
             this.$store.commit('REMOVE_GAME', data);
 
-            // TOOD: move to actions
-            db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
+            this.$store.dispatch('SAVE_LIST', this.gameLists)
                 .then(() => {
                     this.$bus.$emit('TOAST', {
                         message: `Removed ${this.game.name} from list ${this.list.name}`,
