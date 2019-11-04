@@ -1,6 +1,6 @@
 <!-- eslint-disable max-len -->
 <template lang="html">
-    <div :class="['list', viewClass, { unique }]">
+    <div :class="['list', viewClass, { unique: unique && view !== 'grid' }]">
         <header>
             <span>
                 <i
