@@ -62,8 +62,6 @@ import themes from '@/themes';
 import Modal from '@/components/Modal';
 import WallpaperUpload from '@/components/WallpaperUpload';
 import ToggleSwitch from '@/components/ToggleSwitch';
-import firebase from 'firebase/app';
-import 'firebase/firestore';
 
 export default {
     components: {
