@@ -86,6 +86,13 @@ export default {
         isGameBoard() {
             return this.$route.name === 'game-board';
         },
+
+        exitUrl() {
+            // TODO: move to getter and replace other instances
+            return process.env.NODE_ENV === 'development'
+                ? 'http://localhost:3000'
+                : 'https://gamebrary.com';
+        },
     },
 
     mounted() {
