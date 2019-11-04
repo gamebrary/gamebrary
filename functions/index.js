@@ -8,7 +8,11 @@ exports.search = functions.https.onRequest((req, res) => {
 
     const { search, platform } = req.query;
 
-    const data = `search "${search}"; fields id,name,slug,rating,name,cover.image_id; where platforms = (${platform});`
+    const data = `
+    search "${search}";
+    fields id,name,slug,rating,name,cover.image_id;
+    limit 50;
+    where platforms = (${platform});`
 
     axios({
         url: 'https://api-v3.igdb.com/games',
