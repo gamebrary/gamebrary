@@ -1,7 +1,11 @@
 const functions = require('firebase-functions');
 const axios = require('axios');
 
-axios.defaults.headers.common['user-key'] = functions.config().igdbv3.key;
+const envVars = functions.config();
+
+axios.defaults.headers.common['user-key'] = envVars && envVars.igdbv3
+    ? envVars.igdbv3.key
+    : 'YOUR IGDB API KEY';
 
 exports.search = functions.https.onRequest((req, res) => {
     res.set('Access-Control-Allow-Origin', "*")
