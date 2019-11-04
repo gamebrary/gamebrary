@@ -1,7 +1,5 @@
 // Identify stuff that's not being reused
 import { mapState } from 'vuex';
-import firebase from 'firebase/app';
-import 'firebase/firestore';
 
 export default {
     props: {
