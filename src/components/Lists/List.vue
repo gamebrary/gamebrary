@@ -62,10 +62,6 @@ import GameCardWide from '@/components/GameCards/GameCardWide';
 import GameCardText from '@/components/GameCards/GameCardText';
 import AddGame from '@/components/AddGame';
 import { mapState, mapGetters } from 'vuex';
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-
-const db = firebase.firestore();
 
 export default {
     name: 'List',
@@ -225,20 +221,6 @@ export default {
                     });
                 });
             }
-        },
-
-        updateLists(toastMessage) {
-            const message = toastMessage || 'List saved';
-
-            // TOOD: move to actions
-            db.collection('lists').doc(this.user.uid).set(this.gameLists, { merge: true })
-                .then(() => {
-                    this.$bus.$emit('TOAST', { message });
-                })
-                .catch(() => {
-                    this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
-                    this.$router.push({ name: 'sessionExpired' });
-                });
         },
 
         validateMove({ from, to }) {
