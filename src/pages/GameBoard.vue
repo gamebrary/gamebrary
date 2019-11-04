@@ -67,10 +67,6 @@ import GameDetail from '@/pages/GameDetail';
 import { chunk } from 'lodash';
 import { mapState } from 'vuex';
 import draggable from 'vuedraggable';
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-
-const db = firebase.firestore();
 
 export default {
     components: {
