@@ -2,12 +2,13 @@ import axios from 'axios';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
-const FIREBASE_URL = 'https://us-central1-gamebrary-8c736.cloudfunctions.net';
+const API_BASE = 'https://us-central1-gamebrary-8c736.cloudfunctions.net';
+// const API_BASE = 'http://localhost:5000/gamebrary-8c736/us-central1';
 
 export default {
     LOAD_GAMES({ commit }, gameList) {
         return new Promise((resolve, reject) => {
-            axios.get(`${FIREBASE_URL}/games?games=${gameList}`)
+            axios.get(`${API_BASE}/games?games=${gameList}`)
                 .then(({ data }) => {
                     commit('CACHE_GAME_DATA', data);
                     resolve();
@@ -49,7 +50,7 @@ export default {
 
     LOAD_PUBLIC_GAMES({ commit }, gameList) {
         return new Promise((resolve, reject) => {
-            axios.get(`${FIREBASE_URL}/games?games=${gameList}`)
+            axios.get(`${API_BASE}/games?games=${gameList}`)
                 .then(({ data }) => {
                     commit('SET_PUBLIC_GAME_DATA', data);
                     resolve();
@@ -59,7 +60,7 @@ export default {
 
     LOAD_GAME({ commit }, gameId) {
         return new Promise((resolve, reject) => {
-            axios.get(`${FIREBASE_URL}/game?gameId=${gameId}`)
+            axios.get(`${API_BASE}/game?gameId=${gameId}`)
                 .then(({ data }) => {
                     commit('SET_ACTIVE_GAME', data);
                     resolve();
@@ -69,7 +70,7 @@ export default {
 
     SEARCH({ commit, state }, searchText) {
         return new Promise((resolve, reject) => {
-            axios.get(`${FIREBASE_URL}/search?search=${searchText}&platform=${state.platform.id}`)
+            axios.get(`${API_BASE}/search?search=${searchText}&platform=${state.platform.id}`)
                 .then(({ data }) => {
                     commit('SET_SEARCH_RESULTS', data);
                     commit('CACHE_GAME_DATA', data);
@@ -81,7 +82,7 @@ export default {
     SEND_WELCOME_EMAIL(context, additionalUserInfo) {
         return new Promise((resolve, reject) => {
             if (additionalUserInfo && additionalUserInfo.profile) {
-                axios.get(`${FIREBASE_URL}/email?address=${additionalUserInfo.profile.email}&template_id=welcome`)
+                axios.get(`${API_BASE}/email?address=${additionalUserInfo.profile.email}&template_id=welcome`)
                     .catch(reject);
             } else {
                 reject();
