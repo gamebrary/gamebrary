@@ -7,7 +7,7 @@
     >
         <nav-header />
 
-        <router-view v-if="user || isPublic" />
+        <router-view v-if="user" />
 
         <div class="auth" v-else>
             <img src='/static/gamebrary-logo.png' />
@@ -55,10 +55,6 @@ export default {
             return this.settings && this.settings.language === 'ar'
                 ? 'rtl'
                 : 'ltr';
-        },
-
-        isPublic() {
-            return this.$route.name === 'share-list';
         },
 
         style() {
@@ -116,10 +112,6 @@ export default {
 
     methods: {
         init() {
-            if (this.isPublic) {
-                return;
-            }
-
             if (this.user) {
                 this.syncData();
                 return;
