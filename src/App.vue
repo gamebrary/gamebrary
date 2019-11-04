@@ -100,7 +100,9 @@ export default {
     },
 
     mounted() {
+        // TODO: REMOVE, call action directly
         this.$bus.$on('SAVE_TAGS', this.saveTags);
+        // TODO: REMOVE, call action directly
         this.$bus.$on('SAVE_NOTES', this.saveNotes);
         this.init();
     },
