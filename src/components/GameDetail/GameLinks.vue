@@ -29,46 +29,46 @@
 import { mapState } from 'vuex';
 
 export default {
-    data() {
-        return {
-            linkTypes: {
-                1: { name: 'official', icon: 'fas fa-home' },
-                2: { name: 'wikia', icon: 'fas fa-heart' },
-                3: { name: 'wikipedia', icon: 'fab fa-wikipedia-w' },
-                4: { name: 'facebook', icon: 'fab fa-facebook-square' },
-                5: { name: 'twitter', icon: 'fab fa-twitter' },
-                6: { name: 'twitch', icon: 'fab fa-twitch' },
-                8: { name: 'instagram', icon: 'fab fa-instagram' },
-                9: { name: 'youtube', icon: 'fab fa-youtube' },
-                10: { name: 'iphone', icon: 'fab fa-app-store-ios' },
-                11: { name: 'ipad' },
-                12: { name: 'android', icon: 'fab fa-android' },
-                13: { name: 'steam', icon: 'fab fa-steam' },
-                14: { name: 'reddit', icon: 'fab fa-reddit' },
-                15: { name: 'discord', icon: 'fab fa-discord' },
-                16: { name: 'google_plus', icon: 'fab fa-google' },
-                17: { name: 'tumblr', icon: 'fab fa-tumblr' },
-                18: { name: 'linkedin', icon: 'fab fa-linkedin' },
-                19: { name: 'pinterest', icon: 'fab fa-pinterest' },
-                20: { name: 'soundcloud', icon: 'fab fa-soundcloud' },
-            },
-        };
-    },
-    computed: {
-        ...mapState(['game']),
+  data() {
+    return {
+      linkTypes: {
+        1: { name: 'official', icon: 'fas fa-home' },
+        2: { name: 'wikia', icon: 'fas fa-heart' },
+        3: { name: 'wikipedia', icon: 'fab fa-wikipedia-w' },
+        4: { name: 'facebook', icon: 'fab fa-facebook-square' },
+        5: { name: 'twitter', icon: 'fab fa-twitter' },
+        6: { name: 'twitch', icon: 'fab fa-twitch' },
+        8: { name: 'instagram', icon: 'fab fa-instagram' },
+        9: { name: 'youtube', icon: 'fab fa-youtube' },
+        10: { name: 'iphone', icon: 'fab fa-app-store-ios' },
+        11: { name: 'ipad' },
+        12: { name: 'android', icon: 'fab fa-android' },
+        13: { name: 'steam', icon: 'fab fa-steam' },
+        14: { name: 'reddit', icon: 'fab fa-reddit' },
+        15: { name: 'discord', icon: 'fab fa-discord' },
+        16: { name: 'google_plus', icon: 'fab fa-google' },
+        17: { name: 'tumblr', icon: 'fab fa-tumblr' },
+        18: { name: 'linkedin', icon: 'fab fa-linkedin' },
+        19: { name: 'pinterest', icon: 'fab fa-pinterest' },
+        20: { name: 'soundcloud', icon: 'fab fa-soundcloud' },
+      },
+    };
+  },
+  computed: {
+    ...mapState(['game']),
 
-        hasWebsites() {
-            return this.game && this.game.websites;
-        },
+    hasWebsites() {
+      return this.game && this.game.websites;
     },
+  },
 
-    methods: {
-        getIcon(id) {
-            const icon = this.linkTypes[id];
+  methods: {
+    getIcon(id) {
+      const icon = this.linkTypes[id];
 
-            return this.icons[icon];
-        },
+      return this.icons[icon];
     },
+  },
 };
 </script>
 

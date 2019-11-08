@@ -45,32 +45,32 @@ import moment from 'moment';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
-    data() {
-        return {
-            moment,
-        };
+  data() {
+    return {
+      moment,
+    };
+  },
+
+  computed: {
+    ...mapState(['game']),
+
+    ...mapGetters([
+      'playerPerspectives',
+      'developers',
+      'gameModes',
+      'releaseDate',
+      'genres',
+      'publishers',
+    ]),
+
+    timeToBeat() {
+      const momentDate = moment.unix(this.game.time_to_beat);
+
+      return this.game && this.game.time_to_beat
+        ? `${momentDate.format('h')}h ${momentDate.format('m')}m`
+        : null;
     },
-
-    computed: {
-        ...mapState(['game']),
-
-        ...mapGetters([
-            'playerPerspectives',
-            'developers',
-            'gameModes',
-            'releaseDate',
-            'genres',
-            'publishers',
-        ]),
-
-        timeToBeat() {
-            const momentDate = moment.unix(this.game.time_to_beat);
-
-            return this.game && this.game.time_to_beat
-                ? `${momentDate.format('h')}h ${momentDate.format('m')}m`
-                : null;
-        },
-    },
+  },
 };
 </script>
 

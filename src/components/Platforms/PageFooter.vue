@@ -24,9 +24,9 @@
 import IgdbCredit from '@/components/IgdbCredit';
 
 export default {
-    components: {
-        IgdbCredit,
-    },
+  components: {
+    IgdbCredit,
+  },
 };
 </script>
 

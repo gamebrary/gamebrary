@@ -71,77 +71,77 @@
 import { mapState } from 'vuex';
 
 export default {
-    data() {
-        return {
-            editingNote: false,
-            localNote: {
-                text: null,
-            },
-        };
+  data() {
+    return {
+      editingNote: false,
+      localNote: {
+        text: null,
+      },
+    };
+  },
+
+  computed: {
+    ...mapState(['game', 'notes']),
+
+    hasNote() {
+      return this.localNote && this.localNote.text;
     },
 
-    computed: {
-        ...mapState(['game', 'notes']),
+    formattedNoteText() {
+      return this.localNote.text.replace(/(?:\r\n|\r|\n)/g, '<br>');
+    },
+  },
 
-        hasNote() {
-            return this.localNote && this.localNote.text;
-        },
+  mounted() {
+    this.getNote();
+  },
 
-        formattedNoteText() {
-            return this.localNote.text.replace(/(?:\r\n|\r|\n)/g, '<br>');
-        },
+  methods: {
+    getNote() {
+      this.localNote = this.notes && this.notes[this.game.id]
+        ? JSON.parse(JSON.stringify(this.notes[this.game.id]))
+        : { text: null };
     },
 
-    mounted() {
-        this.getNote();
+    addNote() {
+      this.getNote();
+      this.editingNote = true;
     },
 
-    methods: {
-        getNote() {
-            this.localNote = this.notes && this.notes[this.game.id]
-                ? JSON.parse(JSON.stringify(this.notes[this.game.id]))
-                : { text: null };
-        },
-
-        addNote() {
-            this.getNote();
-            this.editingNote = true;
-        },
-
-        editNote() {
-            this.editingNote = true;
-        },
-
-        reset() {
-            this.getNote();
-            this.editingNote = false;
-        },
-
-        deleteNote() {
-            const updatedNotes = {
-                ...this.notes,
-            };
-
-            this.$delete(updatedNotes, this.game.id);
-
-            this.$bus.$emit('SAVE_NOTES', updatedNotes, true);
-            this.editingNote = false;
-            this.localNote = {
-                text: null,
-            };
-        },
-
-        saveNote() {
-            const updatedNotes = {
-                ...this.notes,
-            };
-
-            updatedNotes[this.game.id] = this.localNote;
-
-            this.$bus.$emit('SAVE_NOTES', updatedNotes);
-            this.editingNote = false;
-        },
+    editNote() {
+      this.editingNote = true;
     },
+
+    reset() {
+      this.getNote();
+      this.editingNote = false;
+    },
+
+    deleteNote() {
+      const updatedNotes = {
+        ...this.notes,
+      };
+
+      this.$delete(updatedNotes, this.game.id);
+
+      this.$bus.$emit('SAVE_NOTES', updatedNotes, true);
+      this.editingNote = false;
+      this.localNote = {
+        text: null,
+      };
+    },
+
+    saveNote() {
+      const updatedNotes = {
+        ...this.notes,
+      };
+
+      updatedNotes[this.game.id] = this.localNote;
+
+      this.$bus.$emit('SAVE_NOTES', updatedNotes);
+      this.editingNote = false;
+    },
+  },
 };
 </script>
 

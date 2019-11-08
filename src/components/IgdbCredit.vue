@@ -7,17 +7,17 @@
 
 <script>
 export default {
-    props: {
-        linkable: Boolean,
-    },
+  props: {
+    linkable: Boolean,
+  },
 
-    computed: {
-        href() {
-            return this.linkable
-                ? 'https://www.igdb.com/'
-                : null;
-        },
+  computed: {
+    href() {
+      return this.linkable
+        ? 'https://www.igdb.com/'
+        : null;
     },
+  },
 };
 </script>
 

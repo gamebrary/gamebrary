@@ -73,122 +73,122 @@ import Modal from '@/components/Modal';
 import { mapState } from 'vuex';
 
 export default {
-    components: {
-        Tag,
-        Modal,
+  components: {
+    Tag,
+    Modal,
+  },
+
+  data() {
+    return {
+      localTags: {},
+      tagName: '',
+      tagHex: '',
+      originalTagName: '',
+      editing: false,
+      defaultColor: '#ffcc00',
+    };
+  },
+
+  computed: {
+    ...mapState(['tags']),
+
+    newTag() {
+      return {
+        hex: this.tagHex,
+        games: [],
+      };
     },
 
-    data() {
-        return {
-            localTags: {},
-            tagName: '',
-            tagHex: '',
-            originalTagName: '',
-            editing: false,
-            defaultColor: '#ffcc00',
-        };
-    },
+    textColor() {
+      const hexColor = this.tagHex ? this.tagHex.replace('#', 0) : '#000000';
 
-    computed: {
-        ...mapState(['tags']),
+      const r = parseInt(hexColor.substr(0, 2), 16);
+      const g = parseInt(hexColor.substr(2, 2), 16);
+      const b = parseInt(hexColor.substr(4, 2), 16);
 
-        newTag() {
-            return {
-                hex: this.tagHex,
-                games: [],
-            };
-        },
-
-        textColor() {
-            const hexColor = this.tagHex ? this.tagHex.replace('#', 0) : '#000000';
-
-            const r = parseInt(hexColor.substr(0, 2), 16);
-            const g = parseInt(hexColor.substr(2, 2), 16);
-            const b = parseInt(hexColor.substr(4, 2), 16);
-
-            // eslint-disable-next-line
+      // eslint-disable-next-line
             const yiq = ((r*299)+(g*587)+(b*114))/1000;
 
-            return yiq >= 128 ? 'dark' : 'light';
-        },
-
-        isDuplicate() {
-            const tagName = this.tagName.toLowerCase();
-
-            const lowerCaseTags = Object.keys(this.localTags).map(field => field.toLowerCase());
-
-            return lowerCaseTags && lowerCaseTags.includes(tagName);
-        },
-
-        hasTags() {
-            return Object.keys(this.localTags).length > 0;
-        },
-
-        actionLabel() {
-            return this.editing
-                ? this.$t('global.save')
-                : this.$t('tags.createTag');
-        },
+      return yiq >= 128 ? 'dark' : 'light';
     },
 
-    mounted() {
-        this.reset();
+    isDuplicate() {
+      const tagName = this.tagName.toLowerCase();
+
+      const lowerCaseTags = Object.keys(this.localTags).map(field => field.toLowerCase());
+
+      return lowerCaseTags && lowerCaseTags.includes(tagName);
+    },
+
+    hasTags() {
+      return Object.keys(this.localTags).length > 0;
+    },
+
+    actionLabel() {
+      return this.editing
+        ? this.$t('global.save')
+        : this.$t('tags.createTag');
+    },
+  },
+
+  mounted() {
+    this.reset();
+    this.localTags = JSON.parse(JSON.stringify(this.tags));
+  },
+
+  methods: {
+    submit() {
+      if (this.editing) {
+        this.saveTag();
+      } else {
+        this.createTag();
+      }
+    },
+
+    saveTag() {
+      const { tagName, tagHex, tempTag } = this;
+
+      if (tempTag.tagName !== tagName || tempTag.hex !== tagHex) {
+        this.$store.commit('UPDATE_TAG', { tagName, tagHex, tempTag });
+        this.$bus.$emit('SAVE_TAGS', this.tags);
         this.localTags = JSON.parse(JSON.stringify(this.tags));
+        this.reset();
+      }
     },
 
-    methods: {
-        submit() {
-            if (this.editing) {
-                this.saveTag();
-            } else {
-                this.createTag();
-            }
-        },
-
-        saveTag() {
-            const { tagName, tagHex, tempTag } = this;
-
-            if (tempTag.tagName !== tagName || tempTag.hex !== tagHex) {
-                this.$store.commit('UPDATE_TAG', { tagName, tagHex, tempTag });
-                this.$bus.$emit('SAVE_TAGS', this.tags);
-                this.localTags = JSON.parse(JSON.stringify(this.tags));
-                this.reset();
-            }
-        },
-
-        updateColor(e) {
-            this.tagHex = e.srcElement.value;
-        },
-
-        createTag() {
-            if (!this.tagHex || !this.tagName || this.isDuplicate) {
-                return;
-            }
-
-            this.$set(this.localTags, this.tagName, this.newTag);
-            this.$bus.$emit('SAVE_TAGS', this.localTags);
-            this.reset();
-        },
-
-        deleteTag(tagName) {
-            this.$delete(this.localTags, tagName);
-            this.$bus.$emit('SAVE_TAGS', this.localTags, true);
-            this.reset();
-        },
-
-        reset() {
-            this.tagName = '';
-            this.tagHex = this.defaultColor;
-            this.editing = false;
-        },
-
-        editTag({ hex }, tagName) {
-            this.tempTag = { tagName, hex };
-            this.tagName = tagName;
-            this.tagHex = hex;
-            this.editing = true;
-        },
+    updateColor(e) {
+      this.tagHex = e.srcElement.value;
     },
+
+    createTag() {
+      if (!this.tagHex || !this.tagName || this.isDuplicate) {
+        return;
+      }
+
+      this.$set(this.localTags, this.tagName, this.newTag);
+      this.$bus.$emit('SAVE_TAGS', this.localTags);
+      this.reset();
+    },
+
+    deleteTag(tagName) {
+      this.$delete(this.localTags, tagName);
+      this.$bus.$emit('SAVE_TAGS', this.localTags, true);
+      this.reset();
+    },
+
+    reset() {
+      this.tagName = '';
+      this.tagHex = this.defaultColor;
+      this.editing = false;
+    },
+
+    editTag({ hex }, tagName) {
+      this.tempTag = { tagName, hex };
+      this.tagName = tagName;
+      this.tagHex = hex;
+      this.editing = true;
+    },
+  },
 };
 </script>
 

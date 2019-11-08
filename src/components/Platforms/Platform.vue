@@ -20,50 +20,50 @@
 import { mapState } from 'vuex';
 
 export default {
-    props: {
-        platform: Object,
-        square: Boolean,
-        clickable: Boolean,
+  props: {
+    platform: Object,
+    square: Boolean,
+    clickable: Boolean,
+  },
+
+  computed: {
+    ...mapState(['gameLists', 'settings']),
+
+    hexColor() {
+      return this.platform.hex || '#fff';
     },
 
-    computed: {
-        ...mapState(['gameLists', 'settings']),
+    style() {
+      return `background-color: ${this.hexColor}`;
+    },
+  },
 
-        hexColor() {
-            return this.platform.hex || '#fff';
-        },
-
-        style() {
-            return `background-color: ${this.hexColor}`;
-        },
+  methods: {
+    showCount({ code }) {
+      return this.ownedPlatform(code) && this.getGameCount(code) > 0;
     },
 
-    methods: {
-        showCount({ code }) {
-            return this.ownedPlatform(code) && this.getGameCount(code) > 0;
-        },
+    changePlatform() {
+      if (this.clickable) {
+        this.$store.commit('SET_PLATFORM', this.platform);
+        this.$router.push({ name: 'game-board' });
+      }
+    },
 
-        changePlatform() {
-            if (this.clickable) {
-                this.$store.commit('SET_PLATFORM', this.platform);
-                this.$router.push({ name: 'game-board' });
-            }
-        },
-
-        ownedPlatform(platformCode) {
-            const isOwned = this.gameLists
+    ownedPlatform(platformCode) {
+      const isOwned = this.gameLists
                 && this.gameLists[platformCode]
                 && Object.keys(this.gameLists[platformCode]).length;
 
-            return isOwned && this.clickable;
-        },
-
-        getGameCount(platform) {
-            return this.gameLists[platform]
-                .map(({ games }) => games.length)
-                .reduce((totalCount, listCount) => totalCount + listCount);
-        },
+      return isOwned && this.clickable;
     },
+
+    getGameCount(platform) {
+      return this.gameLists[platform]
+        .map(({ games }) => games.length)
+        .reduce((totalCount, listCount) => totalCount + listCount);
+    },
+  },
 };
 </script>
 

@@ -64,65 +64,65 @@ import WallpaperUpload from '@/components/WallpaperUpload';
 import ToggleSwitch from '@/components/ToggleSwitch';
 
 export default {
-    components: {
-        WallpaperUpload,
-        Modal,
-        ToggleSwitch,
+  components: {
+    WallpaperUpload,
+    Modal,
+    ToggleSwitch,
+  },
+
+  props: {
+    value: Object,
+  },
+
+  data() {
+    return {
+      themes,
+    };
+  },
+
+  computed: {
+    ...mapState(['user', 'platform', 'gameLists']),
+
+    shareText() {
+      return `Check out my ${this.platform.name} collection at Gamebrary`;
     },
 
-    props: {
-        value: Object,
+    tweetUrl() {
+      return `https://twitter.com/intent/tweet?text=${this.shareText}&url=${encodeURIComponent(this.shareUrl)}`;
     },
 
-    data() {
-        return {
-            themes,
-        };
+    redditUrl() {
+      return `https://www.reddit.com/submit?url=${this.shareUrl}&title=${this.shareText}`;
     },
 
-    computed: {
-        ...mapState(['user', 'platform', 'gameLists']),
+    shareUrl() {
+      const url = process.env.NODE_ENV === 'development'
+        ? 'http://localhost:4000'
+        : 'https://app.gamebrary.com';
 
-        shareText() {
-            return `Check out my ${this.platform.name} collection at Gamebrary`;
-        },
-
-        tweetUrl() {
-            return `https://twitter.com/intent/tweet?text=${this.shareText}&url=${encodeURIComponent(this.shareUrl)}`;
-        },
-
-        redditUrl() {
-            return `https://www.reddit.com/submit?url=${this.shareUrl}&title=${this.shareText}`;
-        },
-
-        shareUrl() {
-            const url = process.env.NODE_ENV === 'development'
-                ? 'http://localhost:4000'
-                : 'https://app.gamebrary.com';
-
-            return `${url}/s?id=${this.user.uid}&list=${this.platform.code}`;
-        },
+      return `${url}/s?id=${this.user.uid}&list=${this.platform.code}`;
     },
+  },
 
-    mounted() {
-        if (!this.value[this.platform.code]) {
-            this.value[this.platform.code] = {};
-        }
+  mounted() {
+    if (!this.value[this.platform.code]) {
+      this.value[this.platform.code] = {};
+    }
+  },
+
+  methods: {
+    deletePlatform() {
+      this.$store.commit('REMOVE_PLATFORM');
+
+      this.$store.dispatch('SAVE_LIST_NO_MERGE', this.gameLists)
+        .then(() => {
+          this.$router.push({ name: 'platforms' });
+        })
+        .catch(() => {
+          this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
+          this.$router.push({ name: 'sessionExpired' });
+        });
     },
-
-    methods: {
-        deletePlatform() {
-            this.$store.commit('REMOVE_PLATFORM');
-
-            this.$store.dispatch('SAVE_LIST_NO_MERGE', this.gameLists)
-                .then(() => {
-                    this.$router.push({ name: 'platforms' });
-                })
-                .catch(() => {
-                    this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
-                    this.$router.push({ name: 'sessionExpired' });
-                });
-        },
-    },
+  },
 };
 </script>

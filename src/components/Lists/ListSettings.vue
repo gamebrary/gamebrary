@@ -122,115 +122,115 @@ import ToggleSwitch from '@/components/ToggleSwitch';
 import { mapState } from 'vuex';
 
 export default {
-    components: {
-        Modal,
-        ToggleSwitch,
+  components: {
+    Modal,
+    ToggleSwitch,
+  },
+
+  props: {
+    listIndex: {
+      type: [Number, String, Boolean],
+      required: true,
+      default: 0,
+    },
+  },
+
+  data() {
+    return {
+      localList: null,
+      views: {
+        single: 'fas fa-square',
+        grid: 'fas fa-th-large',
+        wide: 'fas fa-minus',
+        text: 'fas fa-font',
+      },
+      sortOrders: {
+        sortByName: 'fas fa-sort-alpha-down',
+        sortByRating: 'fas fa-star',
+        sortByCustom: 'fas fa-user',
+      },
+    };
+  },
+
+  computed: {
+    ...mapState(['user', 'gameLists', 'platform']),
+
+    isFirst() {
+      return this.listIndex === 0;
     },
 
-    props: {
-        listIndex: {
-            type: [Number, String, Boolean],
-            required: true,
-            default: 0,
-        },
+    activeList() {
+      return this.gameLists[this.platform.code][this.listIndex];
     },
 
-    data() {
-        return {
-            localList: null,
-            views: {
-                single: 'fas fa-square',
-                grid: 'fas fa-th-large',
-                wide: 'fas fa-minus',
-                text: 'fas fa-font',
-            },
-            sortOrders: {
-                sortByName: 'fas fa-sort-alpha-down',
-                sortByRating: 'fas fa-star',
-                sortByCustom: 'fas fa-user',
-            },
-        };
+    isLast() {
+      const lastListIndex = Object.keys(this.gameLists[this.platform.code]).length - 1;
+
+      return this.listIndex === lastListIndex;
     },
 
-    computed: {
-        ...mapState(['user', 'gameLists', 'platform']),
-
-        isFirst() {
-            return this.listIndex === 0;
-        },
-
-        activeList() {
-            return this.gameLists[this.platform.code][this.listIndex];
-        },
-
-        isLast() {
-            const lastListIndex = Object.keys(this.gameLists[this.platform.code]).length - 1;
-
-            return this.listIndex === lastListIndex;
-        },
-
-        hasMultipleGames() {
-            return this.activeList.games.length > 1;
-        },
-
-        disableSave() {
-            return this.localList.name === this.activeList.name;
-        },
-
-        warningMessage() {
-            const gameCount = this.activeList.games.length;
-
-            return `This list contains ${gameCount} games, all games will be deleted as well.`;
-        },
+    hasMultipleGames() {
+      return this.activeList.games.length > 1;
     },
 
-    mounted() {
-        this.localList = JSON.parse(JSON.stringify(this.activeList));
+    disableSave() {
+      return this.localList.name === this.activeList.name;
     },
 
-    methods: {
-        deleteList() {
-            this.$store.commit('REMOVE_LIST', this.listIndex);
+    warningMessage() {
+      const gameCount = this.activeList.games.length;
 
-            this.$store.dispatch('SAVE_LIST', this.gameLists)
-                .then(() => {
-                    this.$bus.$emit('TOAST', { message: 'List deleted' });
-                })
-                .catch(() => {
-                    this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
-                    this.$router.push({ name: 'sessionExpired' });
-                });
-        },
-
-        save() {
-            const gameLists = JSON.parse(JSON.stringify(this.gameLists));
-
-            gameLists[this.platform.code][this.listIndex] = this.localList;
-
-            this.$store.dispatch('SAVE_LIST', gameLists)
-                .then(() => {
-                    this.$bus.$emit('TOAST', { message: 'List saved' });
-                    this.$refs.listSettingsModal.close();
-                })
-                .catch(() => {
-                    this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
-                    this.$router.push({ name: 'sessionExpired' });
-                });
-        },
-
-        // moveList(from, to) {
-        //     this.$store.commit('MOVE_LIST', { from, to });
-        //     // this.save();
-        // },
-
-        open() {
-            this.localList = JSON.parse(JSON.stringify(this.activeList));
-        },
-
-        close() {
-            this.localList = null;
-        },
+      return `This list contains ${gameCount} games, all games will be deleted as well.`;
     },
+  },
+
+  mounted() {
+    this.localList = JSON.parse(JSON.stringify(this.activeList));
+  },
+
+  methods: {
+    deleteList() {
+      this.$store.commit('REMOVE_LIST', this.listIndex);
+
+      this.$store.dispatch('SAVE_LIST', this.gameLists)
+        .then(() => {
+          this.$bus.$emit('TOAST', { message: 'List deleted' });
+        })
+        .catch(() => {
+          this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
+          this.$router.push({ name: 'sessionExpired' });
+        });
+    },
+
+    save() {
+      const gameLists = JSON.parse(JSON.stringify(this.gameLists));
+
+      gameLists[this.platform.code][this.listIndex] = this.localList;
+
+      this.$store.dispatch('SAVE_LIST', gameLists)
+        .then(() => {
+          this.$bus.$emit('TOAST', { message: 'List saved' });
+          this.$refs.listSettingsModal.close();
+        })
+        .catch(() => {
+          this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
+          this.$router.push({ name: 'sessionExpired' });
+        });
+    },
+
+    // moveList(from, to) {
+    //     this.$store.commit('MOVE_LIST', { from, to });
+    //     // this.save();
+    // },
+
+    open() {
+      this.localList = JSON.parse(JSON.stringify(this.activeList));
+    },
+
+    close() {
+      this.localList = null;
+    },
+  },
 };
 </script>
 

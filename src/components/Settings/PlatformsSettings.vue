@@ -29,21 +29,21 @@ import ToggleSwitch from '@/components/ToggleSwitch';
 import { mapState } from 'vuex';
 
 export default {
-    components: {
-        ToggleSwitch,
-    },
+  components: {
+    ToggleSwitch,
+  },
 
-    props: {
-        value: Object,
-    },
+  props: {
+    value: Object,
+  },
 
-    computed: {
-        ...mapState(['gameLists']),
+  computed: {
+    ...mapState(['gameLists']),
 
-        // TODO: use getter instead
-        hasLists() {
-            return Object.keys(this.gameLists).length > 0;
-        },
+    // TODO: use getter instead
+    hasLists() {
+      return Object.keys(this.gameLists).length > 0;
     },
+  },
 };
 </script>

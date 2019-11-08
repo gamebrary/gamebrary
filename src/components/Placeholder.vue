@@ -17,11 +17,11 @@
 
 <script>
 export default {
-    props: {
-        image: Boolean,
-        large: Boolean,
-        lines: Number,
-    },
+  props: {
+    image: Boolean,
+    large: Boolean,
+    lines: Number,
+  },
 };
 </script>
 

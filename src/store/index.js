@@ -10,14 +10,14 @@ import getters from './getters';
 Vue.use(Vuex);
 
 const vuexLocalStorage = new VuexPersist({
-    key: 'vuex',
-    storage: window.localStorage,
+  key: 'vuex',
+  storage: window.localStorage,
 });
 
 export default new Vuex.Store({
-    state,
-    actions,
-    mutations,
-    getters,
-    plugins: [vuexLocalStorage.plugin],
+  state,
+  actions,
+  mutations,
+  getters,
+  plugins: [vuexLocalStorage.plugin],
 });

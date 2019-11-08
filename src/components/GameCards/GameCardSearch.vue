@@ -27,11 +27,11 @@ import GameRating from '@/components/GameDetail/GameRating';
 import GameCardUtils from '@/components/GameCards/GameCard';
 
 export default {
-    components: {
-        GameRating,
-    },
+  components: {
+    GameRating,
+  },
 
-    mixins: [GameCardUtils],
+  mixins: [GameCardUtils],
 };
 </script>
 

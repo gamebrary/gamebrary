@@ -9,16 +9,16 @@
 
 <script>
 export default {
-    props: {
-        rating: Number,
-        small: Boolean,
-    },
+  props: {
+    rating: Number,
+    small: Boolean,
+  },
 
-    computed: {
-        roundedRating() {
-            return Math.round((this.rating / 20) * 2) / 2;
-        },
+  computed: {
+    roundedRating() {
+      return Math.round((this.rating / 20) * 2) / 2;
     },
+  },
 };
 </script>
 

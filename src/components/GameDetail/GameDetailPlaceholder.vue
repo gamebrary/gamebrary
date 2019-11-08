@@ -23,30 +23,30 @@ import GameRating from '@/components/GameDetail/GameRating';
 import Placeholder from '@/components/Placeholder';
 
 export default {
-    components: {
-        GameRating,
-        Placeholder,
+  components: {
+    GameRating,
+    Placeholder,
+  },
+
+  props: {
+    id: [Number, String],
+  },
+
+  computed: {
+    ...mapState(['games']),
+
+    gamePreviewData() {
+      return this.games[this.id];
     },
 
-    props: {
-        id: [Number, String],
+    coverUrl() {
+      const game = this.games[this.id];
+
+      return game.cover && game.cover.image_id
+        ? `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${game.cover.image_id}.jpg`
+        : '/static/no-image.jpg';
     },
-
-    computed: {
-        ...mapState(['games']),
-
-        gamePreviewData() {
-            return this.games[this.id];
-        },
-
-        coverUrl() {
-            const game = this.games[this.id];
-
-            return game.cover && game.cover.image_id
-                ? `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${game.cover.image_id}.jpg`
-                : '/static/no-image.jpg';
-        },
-    },
+  },
 };
 </script>
 

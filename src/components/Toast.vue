@@ -11,66 +11,66 @@
 
 <script>
 export default {
-    data() {
-        return {
-            message: '',
-            imageUrl: null,
-            type: 'success',
-            timer: 2000,
-            show: false,
-            timeout: null,
-            toastTypes: {
-                success: 'fas fa-check',
-                warning: 'fas fa-exclamation',
-                error: 'fas fa-times',
-            },
-        };
+  data() {
+    return {
+      message: '',
+      imageUrl: null,
+      type: 'success',
+      timer: 2000,
+      show: false,
+      timeout: null,
+      toastTypes: {
+        success: 'fas fa-check',
+        warning: 'fas fa-exclamation',
+        error: 'fas fa-times',
+      },
+    };
+  },
+
+  computed: {
+    iconName() {
+      return this.toastTypes[this.type];
+    },
+  },
+
+  watch: {
+    show() {
+      clearTimeout(this.timeout);
+
+      this.timeout = setTimeout(() => {
+        this.close();
+      }, this.timer);
+    },
+  },
+
+  mounted() {
+    this.$bus.$on('TOAST', this.toast);
+  },
+
+  beforeDestroy() {
+    this.$bus.$off('TOAST');
+  },
+
+  methods: {
+    toast({ message, type, imageUrl }) {
+      this.timer = type === 'error'
+        ? 5000
+        : 2000;
+
+      this.message = message || null;
+      this.imageUrl = imageUrl || null;
+
+      this.type = Object.keys(this.toastTypes).includes(type)
+        ? type
+        : 'success';
+
+      this.show = Boolean(message);
     },
 
-    computed: {
-        iconName() {
-            return this.toastTypes[this.type];
-        },
+    close() {
+      this.show = false;
     },
-
-    watch: {
-        show() {
-            clearTimeout(this.timeout);
-
-            this.timeout = setTimeout(() => {
-                this.close();
-            }, this.timer);
-        },
-    },
-
-    mounted() {
-        this.$bus.$on('TOAST', this.toast);
-    },
-
-    beforeDestroy() {
-        this.$bus.$off('TOAST');
-    },
-
-    methods: {
-        toast({ message, type, imageUrl }) {
-            this.timer = type === 'error'
-                ? 5000
-                : 2000;
-
-            this.message = message || null;
-            this.imageUrl = imageUrl || null;
-
-            this.type = Object.keys(this.toastTypes).includes(type)
-                ? type
-                : 'success';
-
-            this.show = Boolean(message);
-        },
-
-        close() {
-            this.show = false;
-        },
-    },
+  },
 };
 </script>
 

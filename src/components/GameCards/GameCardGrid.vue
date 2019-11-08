@@ -12,7 +12,7 @@
 import GameCardUtils from '@/components/GameCards/GameCard';
 
 export default {
-    mixins: [GameCardUtils],
+  mixins: [GameCardUtils],
 };
 </script>
 

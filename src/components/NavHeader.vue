@@ -19,43 +19,43 @@ import Settings from '@/pages/Settings';
 import { mapState } from 'vuex';
 
 export default {
-    components: {
-        Settings,
+  components: {
+    Settings,
+  },
+
+  computed: {
+    ...mapState(['user', 'platform', 'settings']),
+
+    isLoggedIn() {
+      return this.user && this.user.email;
     },
 
-    computed: {
-        ...mapState(['user', 'platform', 'settings']),
-
-        isLoggedIn() {
-            return this.user && this.user.email;
-        },
-
-        showSettings() {
-            return this.$route.name === 'game-board';
-        },
-
-        title() {
-            return this.$route.name === 'game-board' && this.platform
-                ? this.platform.name
-                : 'Gamebrary';
-        },
-
-        logoRoute() {
-            if (this.$route.name === 'game-detail' && this.platform) {
-                return 'game-board';
-            }
-
-            if (this.$route.name === 'settings' && this.platform) {
-                return 'game-board';
-            }
-
-            if (this.$route.name === 'game-board') {
-                return 'platforms';
-            }
-
-            return null;
-        },
+    showSettings() {
+      return this.$route.name === 'game-board';
     },
+
+    title() {
+      return this.$route.name === 'game-board' && this.platform
+        ? this.platform.name
+        : 'Gamebrary';
+    },
+
+    logoRoute() {
+      if (this.$route.name === 'game-detail' && this.platform) {
+        return 'game-board';
+      }
+
+      if (this.$route.name === 'settings' && this.platform) {
+        return 'game-board';
+      }
+
+      if (this.$route.name === 'game-board') {
+        return 'platforms';
+      }
+
+      return null;
+    },
+  },
 };
 </script>
 

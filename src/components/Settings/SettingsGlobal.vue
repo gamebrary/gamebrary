@@ -25,15 +25,15 @@
 
 <script>
 export default {
-    props: {
-        value: Object,
-    },
+  props: {
+    value: Object,
+  },
 
-    computed: {
-        hasLists() {
-            return Object.keys(this.gameLists).length > 0;
-        },
+  computed: {
+    hasLists() {
+      return Object.keys(this.gameLists).length > 0;
     },
+  },
 };
 </script>
 

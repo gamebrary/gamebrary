@@ -20,58 +20,58 @@ import { mapState } from 'vuex';
 import VueGallery from 'vue-gallery';
 
 export default {
-    components: {
-        VueGallery,
-    },
+  components: {
+    VueGallery,
+  },
 
-    data() {
-        return {
-            index: null,
-        };
-    },
+  data() {
+    return {
+      index: null,
+    };
+  },
 
-    computed: {
-        ...mapState(['game']),
+  computed: {
+    ...mapState(['game']),
 
-        screenshots() {
-            // eslint-disable-next-line
+    screenshots() {
+      // eslint-disable-next-line
             return this.game.screenshots
-                ? this.game.screenshots.map((image, index) => {
-                    const href = `https://images.igdb.com/igdb/image/upload/t_screenshot_huge/${image.image_id}.jpg`;
+        ? this.game.screenshots.map((image, index) => {
+          const href = `https://images.igdb.com/igdb/image/upload/t_screenshot_huge/${image.image_id}.jpg`;
 
-                    return {
-                        href,
-                        title: `${this.game.name} (${index + 1} of ${this.game.screenshots.length})`,
-                    };
-                })
-                : null;
-        },
+          return {
+            href,
+            title: `${this.game.name} (${index + 1} of ${this.game.screenshots.length})`,
+          };
+        })
+        : null;
+    },
 
-        coverUrl() {
-            return this.game && this.game.cover
-                ? `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${this.game.cover.image_id}.jpg`
-                : '/static/no-image.jpg';
-        },
+    coverUrl() {
+      return this.game && this.game.cover
+        ? `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${this.game.cover.image_id}.jpg`
+        : '/static/no-image.jpg';
+    },
 
-        thumbnails() {
-            // eslint-disable-next-line
+    thumbnails() {
+      // eslint-disable-next-line
             return this.game.screenshots ? this.game.screenshots.map((image) => {
-                return `https://images.igdb.com/igdb/image/upload/t_thumb/${image.image_id}.jpg`;
-            }) : null;
-        },
+        return `https://images.igdb.com/igdb/image/upload/t_thumb/${image.image_id}.jpg`;
+      }) : null;
+    },
+  },
+
+  methods: {
+    close() {
+      this.index = null;
+      this.$store.commit('SET_SLIDESHOW_OPEN', false);
     },
 
-    methods: {
-        close() {
-            this.index = null;
-            this.$store.commit('SET_SLIDESHOW_OPEN', false);
-        },
-
-        openGallery(index) {
-            this.index = index;
-            this.$store.commit('SET_SLIDESHOW_OPEN', true);
-        },
+    openGallery(index) {
+      this.index = index;
+      this.$store.commit('SET_SLIDESHOW_OPEN', true);
     },
+  },
 };
 </script>
 

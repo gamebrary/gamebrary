@@ -25,32 +25,32 @@ import { mapState, mapGetters } from 'vuex';
 import Placeholder from '@/components/Placeholder';
 
 export default {
-    components: {
-        Placeholder,
+  components: {
+    Placeholder,
+  },
+
+  computed: {
+    ...mapState(['gameLists', 'platform']),
+    ...mapGetters(['brandingEnabled']),
+
+    lists() {
+      return this.gameLists && this.platform && this.gameLists[this.platform.code]
+        ? this.gameLists[this.platform.code]
+        : [];
     },
 
-    computed: {
-        ...mapState(['gameLists', 'platform']),
-        ...mapGetters(['brandingEnabled']),
-
-        lists() {
-            return this.gameLists && this.platform && this.gameLists[this.platform.code]
-                ? this.gameLists[this.platform.code]
-                : [];
-        },
-
-        style() {
-            return this.brandingEnabled
-                ? `background-color: ${this.platform.hex}; opacity: 0.8;`
-                : null;
-        },
+    style() {
+      return this.brandingEnabled
+        ? `background-color: ${this.platform.hex}; opacity: 0.8;`
+        : null;
     },
+  },
 
-    methods: {
-        randomColumn() {
-            return Math.floor(Math.random() * 4) + 1;
-        },
+  methods: {
+    randomColumn() {
+      return Math.floor(Math.random() * 4) + 1;
     },
+  },
 };
 </script>
 

@@ -24,57 +24,57 @@ import { mapState } from 'vuex';
 let msnry = null;
 
 export default {
-    components: {
-        Platform,
-        PageFooter,
+  components: {
+    Platform,
+    PageFooter,
+  },
+
+  data() {
+    return {
+      platforms,
+    };
+  },
+
+  computed: {
+    ...mapState(['gameLists', 'platform', 'settings']),
+
+    // TODO: move to getter and replace other instances
+    hasLists() {
+      return Object.keys(this.gameLists).length > 0;
     },
 
-    data() {
-        return {
-            platforms,
-        };
+    ownedListsOnly() {
+      return this.settings && this.settings.ownedListsOnly;
     },
 
-    computed: {
-        ...mapState(['gameLists', 'platform', 'settings']),
+    filteredPlatforms() {
+      const availableLists = this.ownedListsOnly
+        ? this.platforms.filter(({ code }) => this.gameLists[code])
+        : this.platforms;
 
-        // TODO: move to getter and replace other instances
-        hasLists() {
-            return Object.keys(this.gameLists).length > 0;
-        },
+      if (msnry) {
+        msnry.reloadItems();
+        msnry.layout();
+      }
 
-        ownedListsOnly() {
-            return this.settings && this.settings.ownedListsOnly;
-        },
-
-        filteredPlatforms() {
-            const availableLists = this.ownedListsOnly
-                ? this.platforms.filter(({ code }) => this.gameLists[code])
-                : this.platforms;
-
-            if (msnry) {
-                msnry.reloadItems();
-                msnry.layout();
-            }
-
-            return this.settings && this.settings.sortListsAlphabetically
-                ? sortBy(availableLists, 'name')
-                : availableLists;
-        },
+      return this.settings && this.settings.sortListsAlphabetically
+        ? sortBy(availableLists, 'name')
+        : availableLists;
     },
+  },
 
-    mounted() {
-        this.initGrid();
-    },
+  mounted() {
+    this.initGrid();
+  },
 
-    methods: {
-        initGrid() {
-            msnry = new Masonry('.platforms', {
-                itemSelector: '.platform',
-                gutter: 16,
-            });
-        },
+  methods: {
+    initGrid() {
+      msnry = new Masonry('.platforms', {
+        itemSelector: '.platform',
+        gutter: 16,
+      });
     },
+  },
 };
 </script>
 

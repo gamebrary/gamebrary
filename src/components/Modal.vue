@@ -35,52 +35,52 @@
 
 <script>
 export default {
-    props: {
-        actionText: String,
-        title: String,
-        message: String,
-        actionButtonClass: {
-            type: String,
-            default: 'primary',
-        },
-        actionDisabled: Boolean,
-        large: Boolean,
+  props: {
+    actionText: String,
+    title: String,
+    message: String,
+    actionButtonClass: {
+      type: String,
+      default: 'primary',
+    },
+    actionDisabled: Boolean,
+    large: Boolean,
+  },
+
+  data() {
+    return {
+      show: false,
+    };
+  },
+
+  computed: {
+    routeName() {
+      return this.$route.name;
+    },
+  },
+
+  watch: {
+    routeName() {
+      this.close();
+    },
+  },
+
+  methods: {
+    open() {
+      this.show = true;
+      this.$emit('open');
     },
 
-    data() {
-        return {
-            show: false,
-        };
+    handleAction() {
+      this.$emit('action');
+      this.close();
     },
 
-    computed: {
-        routeName() {
-            return this.$route.name;
-        },
+    close() {
+      this.$emit('close');
+      this.show = false;
     },
-
-    watch: {
-        routeName() {
-            this.close();
-        },
-    },
-
-    methods: {
-        open() {
-            this.show = true;
-            this.$emit('open');
-        },
-
-        handleAction() {
-            this.$emit('action');
-            this.close();
-        },
-
-        close() {
-            this.$emit('close');
-            this.show = false;
-        },
-    },
+  },
 };
 </script>
 

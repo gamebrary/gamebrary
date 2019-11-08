@@ -46,12 +46,12 @@ import GameCardUtils from '@/components/GameCards/GameCard';
 import Tag from '@/components/Tag';
 
 export default {
-    components: {
-        GameRating,
-        Tag,
-    },
+  components: {
+    GameRating,
+    Tag,
+  },
 
-    mixins: [GameCardUtils],
+  mixins: [GameCardUtils],
 };
 </script>
 

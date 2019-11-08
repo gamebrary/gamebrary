@@ -64,84 +64,84 @@ import 'firebase/firestore';
 import { mapState } from 'vuex';
 
 export default {
-    components: {
-        Modal,
+  components: {
+    Modal,
+  },
+
+  data() {
+    return {
+      progressUpload: 0,
+      file: File,
+      uploadTask: '',
+      wallpapers: {},
+      loading: false,
+    };
+  },
+
+  computed: {
+    ...mapState(['user', 'settings', 'platform', 'wallpaperUrl']),
+  },
+
+  mounted() {
+    this.wallpapers = this.settings && this.settings.wallpapers
+      ? JSON.parse(JSON.stringify(this.settings.wallpapers))
+      : {};
+
+    if (!this.wallpapers[this.platform.code]) {
+      this.wallpapers[this.platform.code] = {};
+    }
+  },
+
+  methods: {
+    triggerUpload() {
+      this.$refs.fileInput.click();
     },
 
-    data() {
-        return {
-            progressUpload: 0,
-            file: File,
-            uploadTask: '',
-            wallpapers: {},
-            loading: false,
-        };
+    removeWallpaper() {
+      delete this.wallpapers[this.platform.code].url;
+
+      this.saveSettings();
     },
 
-    computed: {
-        ...mapState(['user', 'settings', 'platform', 'wallpaperUrl']),
+    saveSettings() {
+      const settings = {
+        ...this.settings,
+        wallpapers: this.wallpapers,
+      };
+
+      this.$store.dispatch('SAVE_SETTINGS', settings)
+        .then(() => {
+          this.$bus.$emit('TOAST', { message: 'Settings saved' });
+          this.loading = false;
+        })
+        .catch(() => {
+          this.$bus.$emit('TOAST', { message: 'There was an error saving your settings', type: 'error' });
+          this.loading = false;
+        });
     },
 
-    mounted() {
-        this.wallpapers = this.settings && this.settings.wallpapers
-            ? JSON.parse(JSON.stringify(this.settings.wallpapers))
-            : {};
+    handleUpload(e) {
+      this.loading = true;
+      const file = e.target.files[0];
+      const extenstion = file.name.split('.')[1];
 
-        if (!this.wallpapers[this.platform.code]) {
-            this.wallpapers[this.platform.code] = {};
-        }
+      firebase.storage().ref(`${this.user.uid}/wallpapers/${this.platform.code}.${extenstion}`).put(file)
+        .then(({ state, metadata }) => {
+          if (state === 'success') {
+            if (!this.wallpapers[this.platform.code]) {
+              this.wallpapers[this.platform.code] = {};
+            }
+
+            this.wallpapers[this.platform.code].url = metadata.fullPath;
+
+            this.saveSettings({
+              ...this.settings,
+              wallpapers: this.wallpapers,
+            });
+          }
+        });
     },
-
-    methods: {
-        triggerUpload() {
-            this.$refs.fileInput.click();
-        },
-
-        removeWallpaper() {
-            delete this.wallpapers[this.platform.code].url;
-
-            this.saveSettings();
-        },
-
-        saveSettings() {
-            const settings = {
-                ...this.settings,
-                wallpapers: this.wallpapers,
-            };
-
-            this.$store.dispatch('SAVE_SETTINGS', settings)
-                .then(() => {
-                    this.$bus.$emit('TOAST', { message: 'Settings saved' });
-                    this.loading = false;
-                })
-                .catch(() => {
-                    this.$bus.$emit('TOAST', { message: 'There was an error saving your settings', type: 'error' });
-                    this.loading = false;
-                });
-        },
-
-        handleUpload(e) {
-            this.loading = true;
-            const file = e.target.files[0];
-            const extenstion = file.name.split('.')[1];
-
-            firebase.storage().ref(`${this.user.uid}/wallpapers/${this.platform.code}.${extenstion}`).put(file)
-                .then(({ state, metadata }) => {
-                    if (state === 'success') {
-                        if (!this.wallpapers[this.platform.code]) {
-                            this.wallpapers[this.platform.code] = {};
-                        }
-
-                        this.wallpapers[this.platform.code].url = metadata.fullPath;
-
-                        this.saveSettings({
-                            ...this.settings,
-                            wallpapers: this.wallpapers,
-                        });
-                    }
-                });
-        },
-    },
+  },
 };
 </script>
 

@@ -64,181 +64,181 @@ import AddGame from '@/components/AddGame';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
-    name: 'List',
+  name: 'List',
 
-    components: {
-        GameCardDefault,
-        GameCardGrid,
-        GameCardWide,
-        GameCardText,
-        AddGame,
-        ListSettings,
-        draggable,
-    },
+  components: {
+    GameCardDefault,
+    GameCardGrid,
+    GameCardWide,
+    GameCardText,
+    AddGame,
+    ListSettings,
+    draggable,
+  },
 
-    props: {
-        name: String,
-        gameList: [Object, Array],
-        listIndex: [String, Number],
-    },
+  props: {
+    name: String,
+    gameList: [Object, Array],
+    listIndex: [String, Number],
+  },
 
-    data() {
-        return {
-            masonry: null,
-            gameDraggableOptions: {
-                handle: '.game-drag-handle',
-                ghostClass: 'card-placeholder',
-                animation: 500,
-                group: {
-                    name: 'games',
-                },
-            },
-            gameCardComponents: {
-                single: 'GameCardDefault',
-                grid: 'GameCardGrid',
-                wide: 'GameCardWide',
-                text: 'GameCardText',
-            },
-        };
-    },
-
-    computed: {
-        ...mapState(['user', 'gameLists', 'platform', 'settings', 'games']),
-
-        ...mapGetters(['brandingEnabled']),
-
-        autoSortEnabled() {
-            const list = this.list[this.listIndex];
-
-            return list && list.sortOrder && list.sortOrder !== 'sortByCustom';
+  data() {
+    return {
+      masonry: null,
+      gameDraggableOptions: {
+        handle: '.game-drag-handle',
+        ghostClass: 'card-placeholder',
+        animation: 500,
+        group: {
+          name: 'games',
         },
+      },
+      gameCardComponents: {
+        single: 'GameCardDefault',
+        grid: 'GameCardGrid',
+        wide: 'GameCardWide',
+        text: 'GameCardText',
+      },
+    };
+  },
 
-        sortedGames() {
-            const sortOrder = this.list[this.listIndex].sortOrder || 'sortByCustom';
-            const { gameList } = this;
+  computed: {
+    ...mapState(['user', 'gameLists', 'platform', 'settings', 'games']),
 
-            switch (sortOrder) {
-            case 'sortByCustom':
-                return gameList;
-            case 'sortByRating':
-                return gameList.sort((a, b) => {
-                    const gameA = this.games[a] && this.games[a].rating
-                        ? this.games[a].rating
-                        : 0;
+    ...mapGetters(['brandingEnabled']),
 
-                    const gameB = this.games[b] && this.games[b].rating
-                        ? this.games[b].rating
-                        : 0;
+    autoSortEnabled() {
+      const list = this.list[this.listIndex];
 
-                    if (gameA > gameB) {
-                        return -1;
-                    }
+      return list && list.sortOrder && list.sortOrder !== 'sortByCustom';
+    },
 
-                    return gameA < gameB ? 1 : 0;
-                });
-            case 'sortByName':
-                return gameList.sort((a, b) => {
-                    const gameA = this.games[a] && this.games[a].name
-                        ? this.games[a].name.toUpperCase()
-                        : '';
+    sortedGames() {
+      const sortOrder = this.list[this.listIndex].sortOrder || 'sortByCustom';
+      const { gameList } = this;
 
-                    const gameB = this.games[b] && this.games[b].name
-                        ? this.games[b].name.toUpperCase()
-                        : '';
+      switch (sortOrder) {
+        case 'sortByCustom':
+          return gameList;
+        case 'sortByRating':
+          return gameList.sort((a, b) => {
+            const gameA = this.games[a] && this.games[a].rating
+              ? this.games[a].rating
+              : 0;
 
-                    if (gameA < gameB) {
-                        return -1;
-                    }
+            const gameB = this.games[b] && this.games[b].rating
+              ? this.games[b].rating
+              : 0;
 
-                    return gameA > gameB ? 1 : 0;
-                });
-            default:
-                return gameList;
+            if (gameA > gameB) {
+              return -1;
             }
-        },
 
-        list() {
-            return this.gameLists[this.platform.code];
-        },
+            return gameA < gameB ? 1 : 0;
+          });
+        case 'sortByName':
+          return gameList.sort((a, b) => {
+            const gameA = this.games[a] && this.games[a].name
+              ? this.games[a].name.toUpperCase()
+              : '';
 
-        isEmpty() {
-            return this.gameList.length === 0;
-        },
+            const gameB = this.games[b] && this.games[b].name
+              ? this.games[b].name.toUpperCase()
+              : '';
 
-        view() {
-            return this.list[this.listIndex].view;
-        },
+            if (gameA < gameB) {
+              return -1;
+            }
 
-        unique() {
-            return this.list.length === 1;
-        },
-
-        gameCardComponent() {
-            return this.view && Object.keys(this.gameCardComponents).includes(this.view)
-                ? this.gameCardComponents[this.view]
-                : 'GameCardDefault';
-        },
-
-        viewClass() {
-            return this.list[this.listIndex].view || 'single';
-        },
+            return gameA > gameB ? 1 : 0;
+          });
+        default:
+          return gameList;
+      }
     },
 
-    watch: {
-        view() {
-            this.initGrid();
-
-            setTimeout(() => {
-                this.initGrid();
-            }, 500);
-        },
-
-        gameList() {
-            this.initGrid();
-
-            setTimeout(() => {
-                this.initGrid();
-            }, 500);
-        },
+    list() {
+      return this.gameLists[this.platform.code];
     },
 
-    mounted() {
+    isEmpty() {
+      return this.gameList.length === 0;
+    },
+
+    view() {
+      return this.list[this.listIndex].view;
+    },
+
+    unique() {
+      return this.list.length === 1;
+    },
+
+    gameCardComponent() {
+      return this.view && Object.keys(this.gameCardComponents).includes(this.view)
+        ? this.gameCardComponents[this.view]
+        : 'GameCardDefault';
+    },
+
+    viewClass() {
+      return this.list[this.listIndex].view || 'single';
+    },
+  },
+
+  watch: {
+    view() {
+      this.initGrid();
+
+      setTimeout(() => {
         this.initGrid();
-
-        setTimeout(() => {
-            this.initGrid();
-        }, 500);
+      }, 500);
     },
 
-    methods: {
-        initGrid() {
-            if (this.view === 'grid') {
-                this.$nextTick(() => {
-                    // eslint-disable-next-line
+    gameList() {
+      this.initGrid();
+
+      setTimeout(() => {
+        this.initGrid();
+      }, 500);
+    },
+  },
+
+  mounted() {
+    this.initGrid();
+
+    setTimeout(() => {
+      this.initGrid();
+    }, 500);
+  },
+
+  methods: {
+    initGrid() {
+      if (this.view === 'grid') {
+        this.$nextTick(() => {
+          // eslint-disable-next-line
                     this.masonry = new Masonry(`.game-grid-${this.listIndex}`, {
-                        itemSelector: '.game-card',
-                        gutter: 4,
-                    });
-                });
-            }
-        },
-
-        validateMove({ from, to }) {
-            const isDifferentList = from.id !== to.id;
-            const isDuplicate = this.list[to.id].games.includes(Number(this.draggingId));
-            const validMove = isDifferentList && isDuplicate;
-            return !validMove;
-        },
-
-        start({ item }) {
-            this.dragging = true;
-            this.draggingId = item.id;
-        },
-
-        end() {
-            this.$emit('end');
-        },
+            itemSelector: '.game-card',
+            gutter: 4,
+          });
+        });
+      }
     },
+
+    validateMove({ from, to }) {
+      const isDifferentList = from.id !== to.id;
+      const isDuplicate = this.list[to.id].games.includes(Number(this.draggingId));
+      const validMove = isDifferentList && isDuplicate;
+      return !validMove;
+    },
+
+    start({ item }) {
+      this.dragging = true;
+      this.draggingId = item.id;
+    },
+
+    end() {
+      this.$emit('end');
+    },
+  },
 };
 </script>
 

@@ -55,110 +55,110 @@ import { debounce } from 'lodash';
 import { mapState } from 'vuex';
 
 export default {
-    components: {
-        GameCardSearch,
-        IgdbCredit,
-        Modal,
+  components: {
+    GameCardSearch,
+    IgdbCredit,
+    Modal,
+  },
+
+  props: {
+    listId: {
+      type: [Number, String, Boolean],
+      required: true,
+      default: 0,
     },
+  },
 
-    props: {
-        listId: {
-            type: [Number, String, Boolean],
-            required: true,
-            default: 0,
-        },
-    },
+  data() {
+    return {
+      searchText: '',
+      loading: false,
+    };
+  },
 
-    data() {
-        return {
-            searchText: '',
-            loading: false,
-        };
-    },
+  computed: {
+    ...mapState(['results', 'gameLists', 'platform']),
 
-    computed: {
-        ...mapState(['results', 'gameLists', 'platform']),
-
-        noResults() {
-            return this.filteredResults.length === 0
+    noResults() {
+      return this.filteredResults.length === 0
                 && !this.loading
                 && this.searchText.trim().length > 0;
-        },
-
-        list() {
-            return this.gameLists[this.platform.code];
-        },
-
-        filteredResults() {
-            return this.results
-                ? this.results.filter(({ id }) => !this.list[this.listId].games.includes(id))
-                : [];
-        },
-
-        gamesInListNames() {
-            return this.gamesInList.map(({ name }) => name).join(', ');
-        },
-
-        gamesInList() {
-            return this.results
-                ? this.results.filter(({ id }) => this.list[this.listId].games.includes(id))
-                : [];
-        },
-
-        gamesInListMessage() {
-            const gameCount = this.gamesInList.length;
-            const plural = gameCount === 1 ? '' : 's';
-
-            return `${gameCount} game${plural}`;
-        },
     },
 
-    watch: {
-        searchText(value) {
-            if (value) {
-                this.search();
-            }
-        },
+    list() {
+      return this.gameLists[this.platform.code];
     },
 
-    mounted() {
-        if (this.$refs.searchInput) {
-            this.$refs.searchInput.focus();
-        }
+    filteredResults() {
+      return this.results
+        ? this.results.filter(({ id }) => !this.list[this.listId].games.includes(id))
+        : [];
     },
 
-    methods: {
-        clear() {
-            this.searchText = '';
-            this.$store.commit('CLEAR_SEARCH_RESULTS');
-        },
+    gamesInListNames() {
+      return this.gamesInList.map(({ name }) => name).join(', ');
+    },
 
-        added() {
-            this.$emit('added');
-            this.$bus.$emit('GAMES_ADDED');
+    gamesInList() {
+      return this.results
+        ? this.results.filter(({ id }) => this.list[this.listId].games.includes(id))
+        : [];
+    },
 
-            if (this.filteredResults.length === 1) {
-                this.clear();
-            }
-        },
+    gamesInListMessage() {
+      const gameCount = this.gamesInList.length;
+      const plural = gameCount === 1 ? '' : 's';
 
-        search: debounce(
-            // eslint-disable-next-line
+      return `${gameCount} game${plural}`;
+    },
+  },
+
+  watch: {
+    searchText(value) {
+      if (value) {
+        this.search();
+      }
+    },
+  },
+
+  mounted() {
+    if (this.$refs.searchInput) {
+      this.$refs.searchInput.focus();
+    }
+  },
+
+  methods: {
+    clear() {
+      this.searchText = '';
+      this.$store.commit('CLEAR_SEARCH_RESULTS');
+    },
+
+    added() {
+      this.$emit('added');
+      this.$bus.$emit('GAMES_ADDED');
+
+      if (this.filteredResults.length === 1) {
+        this.clear();
+      }
+    },
+
+    search: debounce(
+      // eslint-disable-next-line
             function() {
-                this.loading = true;
+        this.loading = true;
 
-                this.$store.dispatch('SEARCH', this.searchText)
-                    .then(() => {
-                        this.error = null;
-                        this.loading = false;
-                        this.$refs.searchResults.scrollTop = 0;
-                    })
-                    .catch(({ data }) => {
-                        this.loading = false;
-                        this.error = data;
-                    });
-            }, 300),
-    },
+        this.$store.dispatch('SEARCH', this.searchText)
+          .then(() => {
+            this.error = null;
+            this.loading = false;
+            this.$refs.searchResults.scrollTop = 0;
+          })
+          .catch(({ data }) => {
+            this.loading = false;
+            this.error = data;
+          });
+      }, 300),
+  },
 };
 </script>
 

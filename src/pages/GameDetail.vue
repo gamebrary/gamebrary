@@ -105,144 +105,144 @@ import IgdbCredit from '@/components/IgdbCredit';
 import GameDetailPlaceholder from '@/components/GameDetail/GameDetailPlaceholder';
 
 export default {
-    components: {
-        IgdbCredit,
-        Tag,
-        GameRating,
-        GameLinks,
-        Placeholder,
-        GameScreenshots,
-        GameNotes,
-        Platform,
-        GameVideos,
-        GameDetails,
-        GameDetailPlaceholder,
+  components: {
+    IgdbCredit,
+    Tag,
+    GameRating,
+    GameLinks,
+    Placeholder,
+    GameScreenshots,
+    GameNotes,
+    Platform,
+    GameVideos,
+    GameDetails,
+    GameDetailPlaceholder,
+  },
+
+  props: {
+    id: [Number, String],
+    listId: [Number, String],
+  },
+
+  data() {
+    return {
+      tab: 'details',
+      tabs: [
+        {
+          value: 'details',
+          icon: 'fab fa-youtube',
+          text: 'Details',
+          component: 'GameDetails',
+        },
+        {
+          value: 'videos',
+          icon: 'fab fa-youtube',
+          text: 'Videos',
+          component: 'GameVideos',
+        },
+        {
+          value: 'screenshots',
+          icon: 'fas fa-images',
+          text: 'Screenshots',
+          component: 'GameScreenshots',
+        },
+        {
+          value: 'links',
+          icon: 'fas fa-link',
+          text: 'Links',
+          component: 'GameLinks',
+        },
+      ],
+    };
+  },
+
+  computed: {
+    ...mapState(['game', 'user', 'platform', 'tags', 'gameLists', 'games']),
+    ...mapGetters(['ageRatings', 'gamePlatforms']),
+
+    hasTags() {
+      return Object.keys(this.tags) && Object.keys(this.tags).length > 0;
     },
 
-    props: {
-        id: [Number, String],
-        listId: [Number, String],
+    activeComponent() {
+      const activeTab = this.tabs.find(tab => tab.value === this.tab);
+
+      return activeTab
+        ? activeTab.component
+        : '';
     },
 
-    data() {
-        return {
-            tab: 'details',
-            tabs: [
-                {
-                    value: 'details',
-                    icon: 'fab fa-youtube',
-                    text: 'Details',
-                    component: 'GameDetails',
-                },
-                {
-                    value: 'videos',
-                    icon: 'fab fa-youtube',
-                    text: 'Videos',
-                    component: 'GameVideos',
-                },
-                {
-                    value: 'screenshots',
-                    icon: 'fas fa-images',
-                    text: 'Screenshots',
-                    component: 'GameScreenshots',
-                },
-                {
-                    value: 'links',
-                    icon: 'fas fa-link',
-                    text: 'Links',
-                    component: 'GameLinks',
-                },
-            ],
-        };
+    activePlatform() {
+      return this.gameLists[this.platform.code];
     },
 
-    computed: {
-        ...mapState(['game', 'user', 'platform', 'tags', 'gameLists', 'games']),
-        ...mapGetters(['ageRatings', 'gamePlatforms']),
-
-        hasTags() {
-            return Object.keys(this.tags) && Object.keys(this.tags).length > 0;
-        },
-
-        activeComponent() {
-            const activeTab = this.tabs.find(tab => tab.value === this.tab);
-
-            return activeTab
-                ? activeTab.component
-                : '';
-        },
-
-        activePlatform() {
-            return this.gameLists[this.platform.code];
-        },
-
-        list() {
-            return this.activePlatform[this.listId];
-        },
-
-        coverUrl() {
-            return this.games[this.id] && this.games[this.id].cover
-                ? `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${this.games[this.id].cover.image_id}.jpg`
-                : '/static/no-image.jpg';
-        },
+    list() {
+      return this.activePlatform[this.listId];
     },
 
-    mounted() {
-        this.loadGame(this.id);
+    coverUrl() {
+      return this.games[this.id] && this.games[this.id].cover
+        ? `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${this.games[this.id].cover.image_id}.jpg`
+        : '/static/no-image.jpg';
+    },
+  },
+
+  mounted() {
+    this.loadGame(this.id);
+  },
+
+  methods: {
+    removeTag(tagName) {
+      this.$store.commit('REMOVE_GAME_TAG', { tagName, gameId: this.game.id });
+      this.$bus.$emit('SAVE_TAGS', this.tags);
     },
 
-    methods: {
-        removeTag(tagName) {
-            this.$store.commit('REMOVE_GAME_TAG', { tagName, gameId: this.game.id });
-            this.$bus.$emit('SAVE_TAGS', this.tags);
-        },
-
-        openTags() {
-            this.$bus.$emit('OPEN_TAGS', this.id);
-        },
-
-        loadGame(gameId) {
-            this.$store.commit('CLEAR_ACTIVE_GAME');
-
-            this.$store.dispatch('LOAD_GAME', gameId)
-                .then(() => {
-                    if (this.game) {
-                        this.$ga.event({
-                            eventCategory: 'game',
-                            eventAction: 'view',
-                            eventLabel: 'gameViewed',
-                            eventValue: `${this.platform.name} - ${this.game.name}`,
-                        });
-
-                        document.title = `${this.game.name} (${this.platform.name}) - Gamebrary`;
-                    }
-                })
-                .catch(() => {
-                    this.$bus.$emit('TOAST', { message: 'Error loading game', type: 'error' });
-                });
-        },
-
-        removeGame() {
-            const data = {
-                listId: this.listId,
-                gameId: this.game.id,
-            };
-
-            this.$store.commit('REMOVE_GAME', data);
-
-            this.$store.dispatch('SAVE_LIST', this.gameLists)
-                .then(() => {
-                    this.$bus.$emit('TOAST', {
-                        message: `Removed ${this.game.name} from list ${this.list.name}`,
-                        imageUrl: this.coverUrl,
-                    });
-                })
-                .catch(() => {
-                    this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
-                    this.$router.push({ name: 'sessionExpired' });
-                });
-        },
+    openTags() {
+      this.$bus.$emit('OPEN_TAGS', this.id);
     },
+
+    loadGame(gameId) {
+      this.$store.commit('CLEAR_ACTIVE_GAME');
+
+      this.$store.dispatch('LOAD_GAME', gameId)
+        .then(() => {
+          if (this.game) {
+            this.$ga.event({
+              eventCategory: 'game',
+              eventAction: 'view',
+              eventLabel: 'gameViewed',
+              eventValue: `${this.platform.name} - ${this.game.name}`,
+            });
+
+            document.title = `${this.game.name} (${this.platform.name}) - Gamebrary`;
+          }
+        })
+        .catch(() => {
+          this.$bus.$emit('TOAST', { message: 'Error loading game', type: 'error' });
+        });
+    },
+
+    removeGame() {
+      const data = {
+        listId: this.listId,
+        gameId: this.game.id,
+      };
+
+      this.$store.commit('REMOVE_GAME', data);
+
+      this.$store.dispatch('SAVE_LIST', this.gameLists)
+        .then(() => {
+          this.$bus.$emit('TOAST', {
+            message: `Removed ${this.game.name} from list ${this.list.name}`,
+            imageUrl: this.coverUrl,
+          });
+        })
+        .catch(() => {
+          this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
+          this.$router.push({ name: 'sessionExpired' });
+        });
+    },
+  },
 };
 </script>
 

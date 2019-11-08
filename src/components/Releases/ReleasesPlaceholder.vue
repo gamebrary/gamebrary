@@ -16,9 +16,9 @@
 import Placeholder from '@/components/Placeholder';
 
 export default {
-    components: {
-        Placeholder,
-    },
+  components: {
+    Placeholder,
+  },
 };
 </script>
 

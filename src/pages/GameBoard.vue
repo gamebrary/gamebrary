@@ -69,147 +69,147 @@ import { mapState } from 'vuex';
 import draggable from 'vuedraggable';
 
 export default {
-    components: {
-        draggable,
-        List,
-        GameBoardPlaceholder,
-        ListAdd,
-        Tag,
-        GameDetail,
-        Modal,
+  components: {
+    draggable,
+    List,
+    GameBoardPlaceholder,
+    ListAdd,
+    Tag,
+    GameDetail,
+    Modal,
+  },
+
+  data() {
+    return {
+      dragging: false,
+      draggingId: null,
+      loading: false,
+      gameData: null,
+      gameDetailListIndex: null,
+      gameDetailId: null,
+      gameTagsId: null,
+      queryLimit: 500,
+    };
+  },
+
+  computed: {
+    ...mapState(['user', 'gameLists', 'platform', 'tags', 'games']),
+
+    list() {
+      return this.gameLists && this.platform && this.gameLists[this.platform.code]
+        ? this.gameLists[this.platform.code]
+        : null;
+    },
+  },
+
+  mounted() {
+    if (!this.platform) {
+      this.$router.push({ name: 'platforms' });
+      return;
+    }
+
+    this.load();
+    this.setPageTitle();
+    this.$bus.$on('OPEN_GAME', this.openGame);
+    this.$bus.$on('OPEN_TAGS', this.openTags);
+  },
+
+  beforeDestroy() {
+    this.$bus.$off('OPEN_GAME');
+    this.$bus.$off('OPEN_TAGS');
+  },
+
+  methods: {
+    tryAdd(games, tagName) {
+      if (!games.includes(this.gameTagsId)) {
+        this.addTag(tagName);
+      }
     },
 
-    data() {
-        return {
-            dragging: false,
-            draggingId: null,
-            loading: false,
-            gameData: null,
-            gameDetailListIndex: null,
-            gameDetailId: null,
-            gameTagsId: null,
-            queryLimit: 500,
-        };
+    addTag(tagName) {
+      this.$store.commit('ADD_GAME_TAG', { tagName, gameId: this.gameTagsId });
+      this.$bus.$emit('SAVE_TAGS', this.tags);
     },
 
-    computed: {
-        ...mapState(['user', 'gameLists', 'platform', 'tags', 'games']),
-
-        list() {
-            return this.gameLists && this.platform && this.gameLists[this.platform.code]
-                ? this.gameLists[this.platform.code]
-                : null;
-        },
+    closeGame() {
+      this.setPageTitle();
+      this.gameDetailId = null;
+      this.$store.commit('CLEAR_ACTIVE_GAME');
     },
 
-    mounted() {
-        if (!this.platform) {
-            this.$router.push({ name: 'platforms' });
-            return;
-        }
-
-        this.load();
-        this.setPageTitle();
-        this.$bus.$on('OPEN_GAME', this.openGame);
-        this.$bus.$on('OPEN_TAGS', this.openTags);
+    setPageTitle() {
+      document.title = this.platform
+        ? `${this.platform.name} - Gamebrary`
+        : 'Gamebrary';
     },
 
-    beforeDestroy() {
-        this.$bus.$off('OPEN_GAME');
-        this.$bus.$off('OPEN_TAGS');
+    removeTag(tagName) {
+      this.$store.commit('REMOVE_GAME_TAG', { tagName, gameId: this.gameTagsId });
+      this.$bus.$emit('SAVE_TAGS', this.tags);
     },
 
-    methods: {
-        tryAdd(games, tagName) {
-            if (!games.includes(this.gameTagsId)) {
-                this.addTag(tagName);
-            }
-        },
-
-        addTag(tagName) {
-            this.$store.commit('ADD_GAME_TAG', { tagName, gameId: this.gameTagsId });
-            this.$bus.$emit('SAVE_TAGS', this.tags);
-        },
-
-        closeGame() {
-            this.setPageTitle();
-            this.gameDetailId = null;
-            this.$store.commit('CLEAR_ACTIVE_GAME');
-        },
-
-        setPageTitle() {
-            document.title = this.platform
-                ? `${this.platform.name} - Gamebrary`
-                : 'Gamebrary';
-        },
-
-        removeTag(tagName) {
-            this.$store.commit('REMOVE_GAME_TAG', { tagName, gameId: this.gameTagsId });
-            this.$bus.$emit('SAVE_TAGS', this.tags);
-        },
-
-        openGame({ id, listId }) {
-            this.gameDetailId = id;
-            this.gameDetailListIndex = listId;
-            this.$refs.game.open();
-        },
-
-        openTags(id) {
-            this.gameTagsId = id;
-            this.$refs.tag.open(id);
-        },
-
-        dragEnd() {
-            this.dragging = false;
-            this.draggingId = null;
-            this.updateLists();
-        },
-
-        updateLists() {
-            this.$store.dispatch('SAVE_LIST', this.gameLists)
-                .then(() => {
-                    this.$bus.$emit('TOAST', { message: 'List updated' });
-                })
-                .catch(() => {
-                    this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
-                    this.$router.push({ name: 'sessionExpired' });
-                });
-        },
-
-        load() {
-            const flattenedList = this.list
-                ? this.list.map(({ games }) => games).flat()
-                : [];
-
-            const dedupedList = Array.from(new Set(flattenedList));
-
-            return dedupedList.length > this.queryLimit
-                ? this.loadGamesInChunks(dedupedList)
-                : this.loadGames(dedupedList);
-        },
-
-        loadGames(gameList) {
-            if (gameList && gameList.length > 0) {
-                this.loading = true;
-
-                this.$store.dispatch('LOAD_GAMES', gameList.toString())
-                    .then(() => {
-                        this.loading = false;
-                    })
-                    .catch(() => {
-                        this.$bus.$emit('TOAST', { message: 'Error loading games', type: 'error' });
-                    });
-            }
-        },
-
-        loadGamesInChunks(gameList) {
-            const chunkedGameList = chunk(gameList, this.queryLimit);
-
-            chunkedGameList.forEach((gameListChunk) => {
-                this.loadGames(gameListChunk);
-            });
-        },
+    openGame({ id, listId }) {
+      this.gameDetailId = id;
+      this.gameDetailListIndex = listId;
+      this.$refs.game.open();
     },
+
+    openTags(id) {
+      this.gameTagsId = id;
+      this.$refs.tag.open(id);
+    },
+
+    dragEnd() {
+      this.dragging = false;
+      this.draggingId = null;
+      this.updateLists();
+    },
+
+    updateLists() {
+      this.$store.dispatch('SAVE_LIST', this.gameLists)
+        .then(() => {
+          this.$bus.$emit('TOAST', { message: 'List updated' });
+        })
+        .catch(() => {
+          this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
+          this.$router.push({ name: 'sessionExpired' });
+        });
+    },
+
+    load() {
+      const flattenedList = this.list
+        ? this.list.map(({ games }) => games).flat()
+        : [];
+
+      const dedupedList = Array.from(new Set(flattenedList));
+
+      return dedupedList.length > this.queryLimit
+        ? this.loadGamesInChunks(dedupedList)
+        : this.loadGames(dedupedList);
+    },
+
+    loadGames(gameList) {
+      if (gameList && gameList.length > 0) {
+        this.loading = true;
+
+        this.$store.dispatch('LOAD_GAMES', gameList.toString())
+          .then(() => {
+            this.loading = false;
+          })
+          .catch(() => {
+            this.$bus.$emit('TOAST', { message: 'Error loading games', type: 'error' });
+          });
+      }
+    },
+
+    loadGamesInChunks(gameList) {
+      const chunkedGameList = chunk(gameList, this.queryLimit);
+
+      chunkedGameList.forEach((gameListChunk) => {
+        this.loadGames(gameListChunk);
+      });
+    },
+  },
 };
 </script>
 

@@ -11,28 +11,28 @@
 
 <script>
 export default {
-    computed: {
-        exitUrl() {
-            // TODO: move to getter and replace other instances
-            return process.env.NODE_ENV === 'development'
-                ? 'http://localhost:3000'
-                : 'https://gamebrary.com';
-        },
-
-        homeUrl() {
-            // TODO: move to getter and replace other instances
-            return process.env.NODE_ENV === 'development'
-                ? 'http://localhost:4000'
-                : 'https://app.gamebrary.com';
-        },
+  computed: {
+    exitUrl() {
+      // TODO: move to getter and replace other instances
+      return process.env.NODE_ENV === 'development'
+        ? 'http://localhost:3000'
+        : 'https://gamebrary.com';
     },
 
-    methods: {
-        login() {
-            this.$store.commit('CLEAR_SESSION');
-            window.location.href = this.homeUrl;
-        },
+    homeUrl() {
+      // TODO: move to getter and replace other instances
+      return process.env.NODE_ENV === 'development'
+        ? 'http://localhost:4000'
+        : 'https://app.gamebrary.com';
     },
+  },
+
+  methods: {
+    login() {
+      this.$store.commit('CLEAR_SESSION');
+      window.location.href = this.homeUrl;
+    },
+  },
 };
 </script>
 

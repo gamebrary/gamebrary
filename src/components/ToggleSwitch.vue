@@ -14,35 +14,35 @@
 
 <script>
 export default {
-    props: {
-        value: Boolean,
-        id: String,
-        label: String,
+  props: {
+    value: Boolean,
+    id: String,
+    label: String,
+  },
+
+  data() {
+    return {
+      localValue: null,
+    };
+  },
+
+  watch: {
+    value(value) {
+      if (value) {
+        this.localValue = JSON.parse(JSON.stringify(this.value));
+      }
     },
 
-    data() {
-        return {
-            localValue: null,
-        };
+    localValue(value) {
+      this.$emit('input', value);
     },
+  },
 
-    watch: {
-        value(value) {
-            if (value) {
-                this.localValue = JSON.parse(JSON.stringify(this.value));
-            }
-        },
-
-        localValue(value) {
-            this.$emit('input', value);
-        },
-    },
-
-    mounted() {
-        if (this.value !== undefined) {
-            this.localValue = JSON.parse(JSON.stringify(this.value));
-        }
-    },
+  mounted() {
+    if (this.value !== undefined) {
+      this.localValue = JSON.parse(JSON.stringify(this.value));
+    }
+  },
 };
 </script>
 

@@ -36,40 +36,40 @@ import ReleasesPlaceholder from '@/components/Releases/ReleasesPlaceholder';
 import { mapState } from 'vuex';
 
 export default {
-    components: {
-        VueMarkdown,
-        ReleasesPlaceholder,
+  components: {
+    VueMarkdown,
+    ReleasesPlaceholder,
+  },
+
+  data() {
+    return {
+      loaded: false,
+    };
+  },
+
+  computed: {
+    ...mapState(['releases']),
+  },
+
+  mounted() {
+    this.loaded = Boolean(this.releases);
+
+    this.load();
+  },
+
+  methods: {
+    formattedDate(date) {
+      return moment(date).fromNow();
     },
 
-    data() {
-        return {
-            loaded: false,
-        };
+    load() {
+      // TODO: use await / async
+      this.$store.dispatch('LOAD_RELEASES')
+        .then(() => {
+          this.loaded = true;
+        });
     },
-
-    computed: {
-        ...mapState(['releases']),
-    },
-
-    mounted() {
-        this.loaded = Boolean(this.releases);
-
-        this.load();
-    },
-
-    methods: {
-        formattedDate(date) {
-            return moment(date).fromNow();
-        },
-
-        load() {
-            // TODO: use await / async
-            this.$store.dispatch('LOAD_RELEASES')
-                .then(() => {
-                    this.loaded = true;
-                });
-        },
-    },
+  },
 };
 </script>
 
