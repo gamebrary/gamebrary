@@ -36,7 +36,10 @@ export default {
   },
 
   props: {
-    value: Object,
+    value: {
+      type: Object,
+      default: () => {},
+    },
   },
 
   computed: {
