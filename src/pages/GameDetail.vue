@@ -1,93 +1,120 @@
 <template lang="html">
-    <div class="game-detail">
-        <header>
-            <aside>
-                <img :src="coverUrl" :alt="games[id].name" class="game-cover" />
+  <div class="game-detail">
+    <header>
+      <aside>
+        <img
+          :src="coverUrl"
+          :alt="games[id].name"
+          class="game-cover" >
 
-                <div class="game-rating" v-if="game && game.age_ratings">
-                    <img
-                    v-for="{ rating, synopsis, id } in game.age_ratings"
-                    :key="id"
-                    :src='`/static/img/age-ratings/${ageRatings[rating]}.png`'
-                    :alt="synopsis"
-                    />
-                </div>
-            </aside>
+        <div
+          v-if="game && game.age_ratings"
+          class="game-rating">
+          <img
+            v-for="{ rating, synopsis, id } in game.age_ratings"
+            :key="id"
+            :src="`/static/img/age-ratings/${ageRatings[rating]}.png`"
+            :alt="synopsis"
+          >
+        </div>
+      </aside>
 
-            <article>
-                <h2>{{ games[id].name }}</h2>
-                {{ platform.name }}
-                <game-rating :rating="games[id].rating" v-if="games[id].rating" />
+      <article>
+        <h2>{{ games[id].name }}</h2>
+        {{ platform.name }}
+        <game-rating
+          v-if="games[id].rating"
+          :rating="games[id].rating" />
 
-                <div class="details" v-if="game">
-                    <p class="game-description" v-html="game.summary" />
-                    <div class="actions">
-                        <button
-                            v-if="list.games.includes(game.id)"
-                            class="danger"
-                            @click="removeGame"
-                        >
-                            <i class="far fa-trash-alt delete-game" />
-                            {{ $t('gameDetail.removeFromList')}}
-                        </button>
+        <div
+          v-if="game"
+          class="details">
+          <p
+            class="game-description"
+            v-html="game.summary" />
+          <div class="actions">
+            <button
+              v-if="list.games.includes(game.id)"
+              class="danger"
+              @click="removeGame"
+            >
+              <i class="far fa-trash-alt delete-game" />
+              {{ $t('gameDetail.removeFromList') }}
+            </button>
 
-                        <button class="primary" v-else>
-                            {{ $t('list.addGame') }}
+            <button
+              v-else
+              class="primary">
+              {{ $t('list.addGame') }}
 
-                        </button>
+            </button>
 
-                        <div class="tags" v-if="hasTags">
-                            <button class="primary hollow" @click="openTags">
-                                <i class="fas fa-tag" />
-                                {{ $t('tags.addTag') }}
-                            </button>
-                        </div>
-                    </div>
-                    <game-notes />
+            <div
+              v-if="hasTags"
+              class="tags">
+              <button
+                class="primary hollow"
+                @click="openTags">
+                <i class="fas fa-tag" />
+                {{ $t('tags.addTag') }}
+              </button>
+            </div>
+          </div>
+          <game-notes />
 
-                    <section v-if="gamePlatforms && gamePlatforms.length > 0">
-                        <h4>{{ $t('gameDetail.gamePlatforms') }}</h4>
+          <section v-if="gamePlatforms && gamePlatforms.length > 0">
+            <h4>{{ $t('gameDetail.gamePlatforms') }}</h4>
 
-                        <div class="platforms">
-                            <platform
-                                v-for="platform in gamePlatforms"
-                                :key="platform.name"
-                                :platform="platform"
-                            />
-                        </div>
-                    </section>
+            <div class="platforms">
+              <platform
+                v-for="platform in gamePlatforms"
+                :key="platform.name"
+                :platform="platform"
+              />
+            </div>
+          </section>
 
-                    <tag
-                        v-if="games.includes(game.id)"
-                        v-for="({ games, hex }, name) in tags"
-                        :key="name"
-                        :label="name"
-                        :hex="hex"
-                        readonly
-                        @action="openTags"
-                        @close="removeTag(name)"
-                    />
+          <tag
+            v-for="({ games, hex }, name) in tags"
+            v-if="games.includes(game.id)"
+            :key="name"
+            :label="name"
+            :hex="hex"
+            readonly
+            @action="openTags"
+            @close="removeTag(name)"
+          />
 
-                    <igdb-credit gray />
+          <igdb-credit gray />
 
-                    <div class="tabs">
-                        <span v-for="{ value, icon, text } in tabs" :key="value">
-                            <label :for="value" :class="{ active: value === tab }">
-                                <i :class="icon" />
-                                {{ text }}
-                            </label>
+          <div class="tabs">
+            <span
+              v-for="{ value, icon, text } in tabs"
+              :key="value">
+              <label
+                :for="value"
+                :class="{ active: value === tab }">
+                <i :class="icon" />
+                {{ text }}
+              </label>
 
-                            <input type="radio" :id="value" :value="value" v-model="tab" />
-                        </span>
-                    </div>
+              <input
+                :id="value"
+                :value="value"
+                v-model="tab"
+                type="radio" >
+            </span>
+          </div>
 
-                    <component :is="activeComponent" />
-                </div>
+          <component :is="activeComponent" />
+        </div>
 
-                <placeholder :lines="3" v-else />
-            </article>
-        </header>
-    </div>
+        <placeholder
+          v-else
+          :lines="3" />
+      </article>
+    </header>
+  </div>
 </template>
 
 <script>
@@ -120,8 +147,14 @@ export default {
   },
 
   props: {
-    id: [Number, String],
-    listId: [Number, String],
+    id: {
+      type: [Number, String],
+      default: null,
+    },
+    listId: {
+      type: [Number, String],
+      default: null,
+    },
   },
 
   data() {
@@ -247,47 +280,47 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    @import "~styles/styles";
+  @import "~styles/styles";
 
-    header {
-        display: grid;
-        grid-template-columns: 180px auto;
-        grid-gap: $gp;
-        margin-top: $gp;
+  header {
+    display: grid;
+    grid-template-columns: 180px auto;
+    grid-gap: $gp;
+    margin-top: $gp;
 
-        @media($small) {
-            grid-template-columns: auto;
-        }
+    @media($small) {
+      grid-template-columns: auto;
     }
+  }
 
-    aside {
-        @media($small) {
-            text-align: center;
-        }
+  aside {
+    @media($small) {
+      text-align: center;
     }
+  }
 
-    .game-cover {
-        border-radius: $border-radius;
+  .game-cover {
+    border-radius: $border-radius;
+  }
+
+  .platforms {
+    margin-top: $gp;
+    display: flex;
+    flex-wrap: wrap;
+
+    .platform {
+      width: 90px;
+      height: 50px;
+      margin-right: $gp / 2;
+      padding: $gp / 4;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
     }
-
-    .platforms {
-        margin-top: $gp;
-        display: flex;
-        flex-wrap: wrap;
-
-        .platform {
-            width: 90px;
-            height: 50px;
-            margin-right: $gp / 2;
-            padding: $gp / 4;
-
-            &:first-child {
-                margin-left: 0;
-            }
-
-            &:last-child {
-                margin-right: 0;
-            }
-        }
-    }
+  }
 </style>

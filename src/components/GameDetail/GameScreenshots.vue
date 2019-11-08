@@ -1,18 +1,20 @@
 <template lang="html">
-    <section class="game-screenshots" v-if="game.screenshots">
-        <vue-gallery
-            :images="screenshots"
-            :index="index"
-            @close="close"
-        />
+  <section
+    v-if="game.screenshots"
+    class="game-screenshots">
+    <vue-gallery
+      :images="screenshots"
+      :index="index"
+      @close="close"
+    />
 
-        <img
-            v-for="(image, index) in thumbnails"
-            :src="image"
-            :key="image"
-            @click="openGallery(index)"
-        />
-    </section>
+    <img
+      v-for="(image, index) in thumbnails"
+      :src="image"
+      :key="image"
+      @click="openGallery(index)"
+    >
+  </section>
 </template>
 
 <script>
@@ -35,7 +37,7 @@ export default {
 
     screenshots() {
       // eslint-disable-next-line
-            return this.game.screenshots
+      return this.game.screenshots
         ? this.game.screenshots.map((image, index) => {
           const href = `https://images.igdb.com/igdb/image/upload/t_screenshot_huge/${image.image_id}.jpg`;
 
@@ -55,7 +57,7 @@ export default {
 
     thumbnails() {
       // eslint-disable-next-line
-            return this.game.screenshots ? this.game.screenshots.map((image) => {
+      return this.game.screenshots ? this.game.screenshots.map((image) => {
         return `https://images.igdb.com/igdb/image/upload/t_thumb/${image.image_id}.jpg`;
       }) : null;
     },
@@ -76,78 +78,78 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    @import "~styles/styles";
+  @import "~styles/styles";
 
-    .game-screenshots {
-        padding: $gp / 2 $gp;
-        text-align: center;
-        margin: $gp 0;
+  .game-screenshots {
+    padding: $gp / 2 $gp;
+    text-align: center;
+    margin: $gp 0;
 
-        h3 {
-            margin: 0 0 $gp / 2;
-        }
-
-        img {
-            margin: 0 $gp / 4 $gp / 4;
-            cursor: pointer;
-            border-radius: $border-radius;
-        }
+    h3 {
+      margin: 0 0 $gp / 2;
     }
+
+    img {
+      margin: 0 $gp / 4 $gp / 4;
+      cursor: pointer;
+      border-radius: $border-radius;
+    }
+  }
 </style>
 
 <style lang="scss" rel="stylesheet/scss">
-    @import "~styles/styles";
+  @import "~styles/styles";
 
-    .blueimp-gallery {
+  .blueimp-gallery {
 
-        .title {
-            font-size: 14px !important;
-            max-width: 50vw;
-            text-align: left;
-        }
-
-        .prev,
-        .next,
-        .close {
-            visibility: hidden;
-
-            &:before {
-                visibility: visible;
-            }
-        }
-
-        .prev, .next {
-            background: none;
-            border: 0;
-
-            &:before {
-                font-size: 30px;
-                font-family: "Font Awesome 5 Free";
-                font-weight: 900;
-            }
-        }
-
-        .prev:before {
-            content: "\f359";
-        }
-
-        .next:before {
-            content: "\f35a";
-        }
-
-        .close {
-            &:before {
-                font-size: 12px;
-                font-weight: 900;
-                font-family: "Font Awesome 5 Free";
-                content: "\f00d";
-                border: 1px solid #a5a2a2;
-                border-radius: $border-radius;
-                position: fixed;
-                right: $gp / 2;
-                top: $gp / 2;
-                width: 30px;
-            }
-        }
+    .title {
+      font-size: 14px !important;
+      max-width: 50vw;
+      text-align: left;
     }
+
+    .prev,
+    .next,
+    .close {
+      visibility: hidden;
+
+      &:before {
+        visibility: visible;
+      }
+    }
+
+    .prev, .next {
+      background: none;
+      border: 0;
+
+      &:before {
+        font-size: 30px;
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+      }
+    }
+
+    .prev:before {
+      content: "\f359";
+    }
+
+    .next:before {
+      content: "\f35a";
+    }
+
+    .close {
+      &:before {
+        font-size: 12px;
+        font-weight: 900;
+        font-family: "Font Awesome 5 Free";
+        content: "\f00d";
+        border: 1px solid #a5a2a2;
+        border-radius: $border-radius;
+        position: fixed;
+        right: $gp / 2;
+        top: $gp / 2;
+        width: 30px;
+      }
+    }
+  }
 </style>

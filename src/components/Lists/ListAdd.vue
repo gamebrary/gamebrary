@@ -1,32 +1,37 @@
 <template lang="html">
-    <modal :title="title" ref="listAddModal" @open="open">
-        <button
-            class="small primary add-list-button"
-            :title="$t('list.add')"
-        >
-            <i class="fas fa-plus" />
-        </button>
+  <modal
+    ref="listAddModal"
+    :title="title"
+    @open="open">
+    <button
+      :title="$t('list.add')"
+      class="small primary add-list-button"
+    >
+      <i class="fas fa-plus" />
+    </button>
 
-        <form @submit.prevent="addList" slot="content">
-            <input
-                v-model.trim="listName"
-                type="text"
-                autofocus
-                required
-                :placeholder="$t('list.placeholder')"
-            />
+    <form
+      slot="content"
+      @submit.prevent="addList">
+      <input
+        v-model.trim="listName"
+        :placeholder="$t('list.placeholder')"
+        type="text"
+        autofocus
+        required
+      >
 
-            <button
-                class="primary"
-                type="submit"
-                :disabled="disabled"
-            >
-                {{ buttonLabel }}
-            </button>
+      <button
+        :disabled="disabled"
+        class="primary"
+        type="submit"
+      >
+        {{ buttonLabel }}
+      </button>
 
-            <small v-if="isDuplicate">{{ $t('list.duplicateWarning') }}</small>
-        </form>
-    </modal>
+      <small v-if="isDuplicate">{{ $t('list.duplicateWarning') }}</small>
+    </form>
+  </modal>
 </template>
 
 <script>
@@ -76,7 +81,7 @@ export default {
     isEmptyBoard() {
       const newList = this.gameLists && this.platform && !this.gameLists[this.platform.code];
       const emptyList = this.gameLists[this.platform.code]
-                && this.gameLists[this.platform.code].length === 0;
+      && this.gameLists[this.platform.code].length === 0;
 
       return newList || emptyList;
     },
@@ -123,14 +128,14 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    @import "src/styles/styles.scss";
+  @import "src/styles/styles.scss";
 
-    .add-list-button {
-        margin-right: $gp;
-    }
+  .add-list-button {
+    margin-right: $gp;
+  }
 
-    small {
-        color: var(--warning-color);
-        margin: 0 $gp;
-    }
+  small {
+    color: var(--warning-color);
+    margin: 0 $gp;
+  }
 </style>

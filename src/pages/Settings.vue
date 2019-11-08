@@ -1,39 +1,46 @@
 <template lang="html">
-    <modal title="Settings" action-text="Save" @action="save">
-        <button class="small primary">
-            <i class="fas fa-cog" />
+  <modal
+    title="Settings"
+    action-text="Save"
+    @action="save">
+    <button class="small primary">
+      <i class="fas fa-cog" />
+    </button>
+
+    <div
+      slot="content"
+      class="settings">
+      <game-board-settings v-model="localSettings" />
+      <tags-settings v-model="localSettings" />
+
+      <div class="setting">
+        <i class="fas fa-sign-out-alt" />
+        {{ $t('settings.signOut') }}
+
+        <button
+          class="secondary"
+          @click="signOut">
+          {{ $t('settings.signOut') }}
         </button>
+      </div>
 
-        <div class="settings" slot="content">
-            <game-board-settings v-model="localSettings" />
-            <tags-settings v-model="localSettings" />
+      <modal
+        :message="$t('settings.deleteAccount.message')"
+        :title="$t('settings.deleteAccount.title')"
+        :action-text="$t('settings.deleteAccount.button')"
+        @action="deleteAccount"
+      >
+        <div class="setting">
+          <i class="fas fa-exclamation-triangle" />
+          {{ $t('settings.deleteAccount.button') }}
 
-            <div class="setting">
-                <i class="fas fa-sign-out-alt" />
-                {{ $t('settings.signOut') }}
-
-                <button class="secondary" @click="signOut">
-                    {{ $t('settings.signOut') }}
-                </button>
-            </div>
-
-            <modal
-                :message="$t('settings.deleteAccount.message')"
-                :title="$t('settings.deleteAccount.title')"
-                :action-text="$t('settings.deleteAccount.button')"
-                @action="deleteAccount"
-            >
-                <div class="setting">
-                    <i class="fas fa-exclamation-triangle" />
-                    {{ $t('settings.deleteAccount.button') }}
-
-                    <button class="danger">
-                        {{ $t('settings.deleteAccount.button') }}
-                    </button>
-                </div>
-            </modal>
+          <button class="danger">
+            {{ $t('settings.deleteAccount.button') }}
+          </button>
         </div>
-    </modal>
+      </modal>
+    </div>
+  </modal>
 </template>
 
 <script>
@@ -126,7 +133,7 @@ export default {
       // TOOD: move to actions
       db.collection('settings').doc(this.user.uid).delete()
         .then(() => {
-          // TOOD: move to actions
+        // TOOD: move to actions
           db.collection('lists').doc(this.user.uid).delete()
             .then(() => {
               this.$bus.$emit('TOAST', { message: 'Account deleted' });
@@ -162,10 +169,10 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    @import "~styles/styles";
+  @import "~styles/styles";
 
-    .settings {
-        display: flex;
-        flex-direction: column;
-    }
+  .settings {
+    display: flex;
+    flex-direction: column;
+  }
 </style>

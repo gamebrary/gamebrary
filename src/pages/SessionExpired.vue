@@ -1,12 +1,23 @@
 <template lang="html">
-    <div class="session-expired">
-        <h2>{{ $t('sessionExpired.title')}}</h2>
+  <div class="session-expired">
+    <h2>{{ $t('sessionExpired.title') }}</h2>
 
-        <div class="actions">
-            <button class="success" @click="login">{{ $t('sessionExpired.login') }}</button>
-            <a class="link primary" :href="exitUrl">{{ $t('sessionExpired.exit') }}</a>
-        </div>
+    <div class="actions">
+      <button
+        class="success"
+        @click="login"
+      >
+        {{ $t('sessionExpired.login') }}
+      </button>
+
+      <a
+        :href="exitUrl"
+        class="link primary"
+      >
+        {{ $t('sessionExpired.exit') }}
+      </a>
     </div>
+  </div>
 </template>
 
 <script>
@@ -37,23 +48,23 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    @import "~styles/styles";
+@import "~styles/styles";
 
-    .session-expired {
-        color: #555555;
-        min-height: calc(100vh - #{$navHeight});
-        padding: 0 $gp;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-    }
+.session-expired {
+  color: #555555;
+  min-height: calc(100vh - #{$navHeight});
+  padding: 0 $gp;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
 
-    .actions {
-        display: grid;
-        margin-top: $gp;
-        grid-template-columns: auto auto;
-        grid-gap: $gp;
-        text-align: center;
-        align-items: center;
-    }
+.actions {
+  display: grid;
+  margin-top: $gp;
+  grid-template-columns: auto auto;
+  grid-gap: $gp;
+  text-align: center;
+  align-items: center;
+}
 </style>

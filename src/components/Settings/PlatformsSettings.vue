@@ -1,27 +1,29 @@
 <template lang="html">
-    <section>
-        <h3>Platform page</h3>
+  <section>
+    <h3>Platform page</h3>
 
-        <div class="setting" v-if="hasLists">
-            <i class="fas fa-user-check" />
-            <h5>{{ $t('settings.ownedLists') }}</h5>
+    <div
+      v-if="hasLists"
+      class="setting">
+      <i class="fas fa-user-check" />
+      <h5>{{ $t('settings.ownedLists') }}</h5>
 
-            <toggle-switch
-                id="ownedListsOnly"
-                v-model="value.ownedListsOnly"
-            />
-        </div>
+      <toggle-switch
+        id="ownedListsOnly"
+        v-model="value.ownedListsOnly"
+      />
+    </div>
 
-        <div class="setting">
-            <i class="fas fa-sort-alpha-down" />
-            <h5>{{ $t('settings.sortPlatforms') }}</h5>
+    <div class="setting">
+      <i class="fas fa-sort-alpha-down" />
+      <h5>{{ $t('settings.sortPlatforms') }}</h5>
 
-            <toggle-switch
-                id="sortListsAlphabetically"
-                v-model="value.sortListsAlphabetically"
-            />
-        </div>
-    </section>
+      <toggle-switch
+        id="sortListsAlphabetically"
+        v-model="value.sortListsAlphabetically"
+      />
+    </div>
+  </section>
 </template>
 
 <script>

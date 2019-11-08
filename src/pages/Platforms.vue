@@ -1,16 +1,16 @@
 <template lang="html">
-    <div class="platforms-page">
-        <div class="platforms">
-            <platform
-                v-for="platform in filteredPlatforms"
-                :key="platform.name"
-                :platform="platform"
-                clickable
-            />
-        </div>
-
-        <page-footer />
+  <div class="platforms-page">
+    <div class="platforms">
+      <platform
+        v-for="platform in filteredPlatforms"
+        :key="platform.name"
+        :platform="platform"
+        clickable
+      />
     </div>
+
+    <page-footer />
+  </div>
 </template>
 
 <script>
@@ -79,15 +79,15 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    @import "~styles/styles";
+  @import "~styles/styles";
 
-    .platforms-page {
-        min-height: calc(100vh - #{$navHeight});
-        padding: $gp / 2 $gp;
-    }
+  .platforms-page {
+    min-height: calc(100vh - #{$navHeight});
+    padding: $gp / 2 $gp;
+  }
 
-    .platforms {
-        display: flex;
-        flex-direction: column;
-    }
+  .platforms {
+    display: flex;
+    flex-direction: column;
+  }
 </style>

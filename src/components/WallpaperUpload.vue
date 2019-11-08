@@ -1,60 +1,68 @@
 <!-- TODO: refactor to live in platform settings -->
 <template>
-    <div class="setting wallpaper-upload">
-        <template v-if="wallpaperUrl">
-            <div class="current-wallpaper">
-                <i class="far fa-image" />
-                <h5>{{ $t('settings.wallpaper.currentWallpaper') }}</h5>
-            </div>
+  <div class="setting wallpaper-upload">
+    <template v-if="wallpaperUrl">
+      <div class="current-wallpaper">
+        <i class="far fa-image" />
+        <h5>{{ $t('settings.wallpaper.currentWallpaper') }}</h5>
+      </div>
 
-            <div></div>
+      <div/>
 
-            <div>
-                <modal
-                    ref="addList"
-                    :title="$t('settings.wallpaper.currentWallpaper')"
-                    large
-                    action-text="Remove wallpaper"
-                    @action="removeWallpaper"
-                >
-                    <img
-                        v-if="wallpaperUrl"
-                        class="preview"
-                        :src="wallpaperUrl"
-                        alt="Uploaded wallpaper"
-                    />
+      <div>
+        <modal
+          ref="addList"
+          :title="$t('settings.wallpaper.currentWallpaper')"
+          large
+          action-text="Remove wallpaper"
+          @action="removeWallpaper"
+        >
+          <img
+            v-if="wallpaperUrl"
+            :src="wallpaperUrl"
+            class="preview"
+            alt="Uploaded wallpaper"
+          >
 
-                    <div slot="content" class="wallpaper-preview">
-                        <img
-                            v-if="wallpaperUrl"
-                            :src="wallpaperUrl"
-                            alt="Uploaded wallpaper"
-                        />
-                    </div>
-                </modal>
-            </div>
-        </template>
+          <div
+            slot="content"
+            class="wallpaper-preview">
+            <img
+              v-if="wallpaperUrl"
+              :src="wallpaperUrl"
+              alt="Uploaded wallpaper"
+            >
+          </div>
+        </modal>
+      </div>
+    </template>
 
-        <template v-else>
-            <i class="far fa-image" />
-            <h5>{{ $t('settings.wallpaper.title') }}</h5>
+    <template v-else>
+      <i class="far fa-image" />
+      <h5>{{ $t('settings.wallpaper.title') }}</h5>
 
-            <button class="primary small" @click="triggerUpload">
-                <i class="fas fa-sync-alt fast-spin" v-if="loading" />
-                <i class="fas fa-cloud-upload-alt" v-else />
-                Upload file
-            </button>
+      <button
+        class="primary small"
+        @click="triggerUpload">
+        <i
+          v-if="loading"
+          class="fas fa-sync-alt fast-spin" />
+        <i
+          v-else
+          class="fas fa-cloud-upload-alt" />
+        Upload file
+      </button>
 
-            <input
-                hidden
-                class="file-input"
-                ref="fileInput"
-                type="file"
-                accept='image/*'
-                @change="handleUpload"
-            />
-        </template>
-    </div>
+      <input
+        ref="fileInput"
+        hidden
+        class="file-input"
+        type="file"
+        accept="image/*"
+        @change="handleUpload"
+      >
+    </template>
+  </div>
 </template>
 
 <script>
@@ -146,42 +154,42 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    @import "~styles/styles";
+  @import "~styles/styles";
 
-    img.preview {
-        max-width: 100px;
-        cursor: pointer;
-        height: auto;
-        border: 1px solid transparent;
-        border-radius: $border-radius;
+  img.preview {
+    max-width: 100px;
+    cursor: pointer;
+    height: auto;
+    border: 1px solid transparent;
+    border-radius: $border-radius;
 
-        &:hover {
-            border-color: var(--accent-color);
-        }
+    &:hover {
+      border-color: var(--accent-color);
     }
+  }
 
-    .current-wallpaper {
-        display: grid;
-        grid-template-columns: auto auto;
-        grid-gap: $gp / 2;
-        margin-right: $gp;
+  .current-wallpaper {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: $gp / 2;
+    margin-right: $gp;
+  }
+
+  .file-input {
+    display: none;
+  }
+
+  .wallpaper-preview {
+
+    img {
+      width: 100%;
     }
+  }
 
-    .file-input {
-        display: none;
-    }
-
-    .wallpaper-preview {
-
-        img {
-            width: 100%;
-        }
-    }
-
-    .remove-wallpaper {
-        position: absolute;
-        right: 36px;
-        margin-top: 4px;
-        width: 20px;
-    }
+  .remove-wallpaper {
+    position: absolute;
+    right: 36px;
+    margin-top: 4px;
+    width: 20px;
+  }
 </style>

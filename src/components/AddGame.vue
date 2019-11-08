@@ -2,49 +2,68 @@
 <!-- TODO: increase limit to 20 or more -->
 <!-- TODO: fix empty state weirdness -->
 <template lang="html">
-    <modal :title="$t('list.addGame')" @open="clear">
-        <button class="add-game-button small secondary" :title="$t('list.addGame')">
-            <i class="fas fa-plus" />
+  <modal
+    :title="$t('list.addGame')"
+    @open="clear">
+    <button
+      :title="$t('list.addGame')"
+      class="add-game-button small secondary">
+      <i class="fas fa-plus" />
+    </button>
+
+    <div
+      slot="content"
+      class="game-search">
+      <form @submit.prevent="search">
+        <input
+          ref="searchInput"
+          v-model="searchText"
+          :placeholder="$t('gameSearch.inputPlaceholder')"
+          type="text"
+        >
+
+        <button
+          class="primary small"
+          @click="search">
+          <i
+            v-if="loading"
+            class="fas fa-circle-notch fast-spin hollow" />
+          <i
+            v-else
+            class="fas fa-search" />
         </button>
 
-        <div class="game-search" slot="content">
-            <form @submit.prevent="search">
-                <input
-                    ref="searchInput"
-                    type="text"
-                    v-model="searchText"
-                    :placeholder="$t('gameSearch.inputPlaceholder')"
-                />
+        <igdb-credit linkable />
+      </form>
 
-                <button class="primary small" @click="search">
-                    <i class="fas fa-circle-notch fast-spin hollow" v-if="loading" />
-                    <i class="fas fa-search" v-else />
-                </button>
+      <small
+        v-if="gamesInList.length"
+        :title="gamesInListNames">
+        <strong>{{ gamesInListMessage }}</strong>
+        {{ $t('gameSearch.alreadyInList') }}
+      </small>
 
-                <igdb-credit linkable />
-            </form>
+      <div
+        v-if="filteredResults.length > 0"
+        ref="searchResults"
+        class="search-results">
+        <game-card-search
+          v-for="{ id } in filteredResults"
+          :key="id"
+          :game-id="id"
+          :list-id="listId"
+          search-result
+          @added="added"
+        />
+      </div>
 
-            <small v-if="gamesInList.length" :title="gamesInListNames">
-                <strong>{{ gamesInListMessage }}</strong>
-                {{ $t('gameSearch.alreadyInList') }}
-            </small>
-
-            <div class="search-results" ref="searchResults" v-if="filteredResults.length > 0">
-                <game-card-search
-                    v-for="{ id } in filteredResults"
-                    search-result
-                    :key="id"
-                    :game-id="id"
-                    :listId="listId"
-                    @added="added"
-                />
-            </div>
-
-            <span class="no-results" v-if="noResults">
-                {{ $t('gameSearch.noResultsFound') }}
-            </span>
-        </div>
-    </modal>
+      <span
+        v-if="noResults"
+        class="no-results">
+        {{ $t('gameSearch.noResultsFound') }}
+      </span>
+    </div>
+  </modal>
 </template>
 
 <script>
@@ -81,8 +100,8 @@ export default {
 
     noResults() {
       return this.filteredResults.length === 0
-                && !this.loading
-                && this.searchText.trim().length > 0;
+        && !this.loading
+        && this.searchText.trim().length > 0;
     },
 
     list() {
@@ -144,7 +163,7 @@ export default {
 
     search: debounce(
       // eslint-disable-next-line
-            function() {
+      function() {
         this.loading = true;
 
         this.$store.dispatch('SEARCH', this.searchText)
@@ -163,27 +182,27 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    @import "~styles/styles";
+  @import "~styles/styles";
 
-    .add-game-button {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        border-bottom-left-radius: 0;
-        border-top-right-radius: 0;
+  .add-game-button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  form {
+    display: flex;
+    align-items: center;
+    margin-bottom: $gp;
+
+    input {
+      margin-bottom: 0;
     }
 
-    form {
-        display: flex;
-        align-items: center;
-        margin-bottom: $gp;
-
-        input {
-            margin-bottom: 0;
-        }
-
-        button {
-            margin: 0 $gp / 2;
-        }
+    button {
+      margin: 0 $gp / 2;
     }
+  }
 </style>

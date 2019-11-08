@@ -1,28 +1,30 @@
 <template lang="html">
-    <div class="game-links" v-if="hasWebsites">
-        <h4>Links</h4>
-        <div class="links">
-            <a
-                v-for="{ category, url } in game.websites"
-                :key="category"
-                :href="url"
-                :class="linkTypes[category].name"
-                target="_blank"
-            >
-                <template v-if="linkTypes[category].icon">
-                    <i
-                        :class="linkTypes[category].icon"
-                        :title="$t(`gameDetail.links.${linkTypes[category].name}`)"
-                    />
-                </template>
+  <div
+    v-if="hasWebsites"
+    class="game-links">
+    <h4>Links</h4>
+    <div class="links">
+      <a
+        v-for="{ category, url } in game.websites"
+        :key="category"
+        :href="url"
+        :class="linkTypes[category].name"
+        target="_blank"
+      >
+        <template v-if="linkTypes[category].icon">
+          <i
+            :class="linkTypes[category].icon"
+            :title="$t(`gameDetail.links.${linkTypes[category].name}`)"
+          />
+        </template>
 
-                <template v-else>
-                    <i class="fas fa-link"/>
-                    <small>{{ $t(`gameDetail.links.${linkTypes[category].name}`) }}</small>
-                </template>
-            </a>
-        </div>
+        <template v-else>
+          <i class="fas fa-link"/>
+          <small>{{ $t(`gameDetail.links.${linkTypes[category].name}`) }}</small>
+        </template>
+      </a>
     </div>
+  </div>
 </template>
 
 <script>
@@ -73,25 +75,25 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    @import "~styles/styles";
+  @import "~styles/styles";
 
-    .game-links {
-        border-top: 1px solid #e5e5e5;
-        margin-top: $gp;
-        padding-top: $gp;
+  .game-links {
+    border-top: 1px solid #e5e5e5;
+    margin-top: $gp;
+    padding-top: $gp;
+  }
+
+  .links {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 30px);
+    margin-top: $gp / 2;
+
+    a {
+      height: 40px;
+      font-size: 20px;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
     }
-
-    .links {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, 30px);
-        margin-top: $gp / 2;
-
-        a {
-            height: 40px;
-            font-size: 20px;
-            display: flex;
-            flex-direction: column;
-            text-decoration: none;
-        }
-    }
+  }
 </style>

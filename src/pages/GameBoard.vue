@@ -1,60 +1,62 @@
 <template lang="html">
-    <div
-        class="game-board"
-        ref="gameBoard"
-        v-if="user && platform"
+  <div
+    v-if="user && platform"
+    ref="gameBoard"
+    class="game-board"
+  >
+    <game-board-placeholder
+      v-if="loading"
+      :id="gameDetailId" />
+
+    <modal
+      ref="game"
+      large
+      @close="closeGame"
     >
-        <game-board-placeholder :id="gameDetailId" v-if="loading" />
+      <game-detail
+        v-if="gameDetailId"
+        slot="content"
+        :id="gameDetailId"
+        :list-id="gameDetailListIndex"
+      />
+    </modal>
 
-        <modal
-            ref="game"
-            large
-            @close="closeGame"
+    <modal
+      ref="tag"
+      :title="$t('tags.applyTag')"
+      :message="$t('tags.useTags')"
+    >
+      <div slot="content">
+        <div
+          v-for="(tag, name) in tags"
+          :key="name"
+          class="tags"
         >
-            <game-detail
-                v-if="gameDetailId"
-                slot="content"
-                :id="gameDetailId"
-                :list-id="gameDetailListIndex"
-            />
-        </modal>
+          <tag
+            :label="name"
+            :hex="tag.hex"
+            :readonly="!tag.games.includes(gameTagsId)"
+            @action="tryAdd(tag.games, name)"
+            @close="removeTag(name)"
+          />
+        </div>
+      </div>
+    </modal>
 
-        <modal
-            ref="tag"
-            :title="$t('tags.applyTag')"
-            :message="$t('tags.useTags')"
-        >
-            <div slot="content">
-                <div
-                    class="tags"
-                    v-for="(tag, name) in tags"
-                    :key="name"
-                >
-                    <tag
-                        :label="name"
-                        :hex="tag.hex"
-                        :readonly="!tag.games.includes(gameTagsId)"
-                        @action="tryAdd(tag.games, name)"
-                        @close="removeTag(name)"
-                    />
-                </div>
-            </div>
-        </modal>
+    <template>
+      <list
+        v-for="(list, listIndex) in gameLists[platform.code]"
+        v-if="list && !loading"
+        :name="list.name"
+        :game-list="list.games"
+        :list-index="listIndex"
+        :key="`${list.name}-${listIndex}`"
+        @end="dragEnd"
+      />
 
-        <template>
-            <list
-                :name="list.name"
-                :game-list="list.games"
-                :listIndex="listIndex"
-                :key="`${list.name}-${listIndex}`"
-                v-if="list && !loading"
-                v-for="(list, listIndex) in gameLists[platform.code]"
-                @end="dragEnd"
-            />
-
-            <list-add />
-        </template>
-    </div>
+      <list-add />
+    </template>
+  </div>
 </template>
 
 <script>
@@ -214,21 +216,21 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    @import "~styles/styles";
+  @import "~styles/styles";
 
-    .game-board {
-        user-select: none;
-        display: flex;
-        align-items: flex-start;
-        height: calc(100vh - 48px);
-        padding: 0 $gp;
-        box-sizing: border-box;
-        overflow-x: auto;
-        overflow-x: overlay;
-        display: flex;
-    }
+  .game-board {
+    user-select: none;
+    display: flex;
+    align-items: flex-start;
+    height: calc(100vh - 48px);
+    padding: 0 $gp;
+    box-sizing: border-box;
+    overflow-x: auto;
+    overflow-x: overlay;
+    display: flex;
+  }
 
-    .list-placeholder {
-        opacity: 0.25;
-    }
+  .list-placeholder {
+    opacity: 0.25;
+  }
 </style>

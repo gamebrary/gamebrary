@@ -1,119 +1,134 @@
 <template lang="html">
-    <modal
-        :title="$t('list.preferences')"
-        v-if="activeList"
-        ref="listSettingsModal"
-        @open="open"
-        @close="close"
-    >
-        <button class="small">
-            <i class="fas fa-sliders-h" />
+  <modal
+    v-if="activeList"
+    ref="listSettingsModal"
+    :title="$t('list.preferences')"
+    @open="open"
+    @close="close"
+  >
+    <button class="small">
+      <i class="fas fa-sliders-h" />
+    </button>
+
+    <div
+      v-if="localList"
+      slot="content"
+      class="list-settings">
+      <section>
+        <h4>List name</h4>
+
+        <input
+          ref="input"
+          v-model="localList.name" >
+      </section>
+
+      <section>
+        <h4>{{ $t('list.view') }}</h4>
+
+        <div class="checkbox-group">
+          <span
+            v-for="(icon, view) in views"
+            :key="view">
+            <label
+              :for="view"
+              :class="{ active: view === localList.view }">
+              <i :class="icon" />
+              {{ $t(`list.views.${view}`) }}
+            </label>
+            <input
+              :id="view"
+              :value="view"
+              v-model="localList.view"
+              type="radio" >
+          </span>
+        </div>
+      </section>
+
+      <section v-if="hasMultipleGames">
+        <h4>{{ $t('list.sortList') }}</h4>
+
+        <div class="checkbox-group">
+          <span
+            v-for="(icon, sortOrder) in sortOrders"
+            :key="sortOrder">
+            <label
+              :for="sortOrder"
+              :class="{ active: sortOrder === localList.sortOrder }"
+            >
+              <i :class="icon" />
+              {{ $t(`list.${sortOrder}`) }}
+            </label>
+
+            <input
+              :id="sortOrder"
+              :value="sortOrder"
+              v-model="localList.sortOrder"
+              type="radio"
+            >
+          </span>
+        </div>
+      </section>
+
+      <footer>
+        <modal
+          v-if="localList && localList.games && localList.games.length"
+          ref="addList"
+          :message="warningMessage"
+          :action-text="$t('list.delete')"
+          title="Are you sure?"
+          action-button-class="danger"
+          @action="deleteList"
+        >
+          <button
+            :title="$t('list.delete')"
+            class="danger"
+          >
+            <i class="far fa-trash-alt" />
+            {{ $t('list.delete') }}
+          </button>
+        </modal>
+
+        <button
+          v-else
+          :title="$t('list.delete')"
+          class="danger"
+          @click="deleteList"
+        >
+          <i class="far fa-trash-alt" />
+          {{ $t('list.delete') }}
         </button>
 
-        <div class="list-settings" slot="content" v-if="localList">
-            <section>
-                <h4>List name</h4>
+        <!-- <button
+class="primary hollow"
+:title="$t('list.moveLeft')"
+:disabled="isFirst"
+@click="moveList(listIndex, listIndex - 1)"
+>
+<i class="fas fa-arrow-left" />
 
-                <input v-model="localList.name" ref="input" />
-            </section>
+{{ $t('list.moveLeft') }}
+</button>
 
-            <section>
-                <h4>{{ $t('list.view') }}</h4>
+<button
+class="primary hollow"
+:title="$t('list.moveRight')"
+:disabled="isLast"
+@click="moveList(listIndex, listIndex + 1)"
+>
+{{ $t('list.moveRight') }}
+<i class="fas fa-arrow-right" />
+</button> -->
 
-                <div class="checkbox-group">
-                    <span v-for="(icon, view) in views" :key="view">
-                        <label :for="view" :class="{ active: view === localList.view }">
-                            <i :class="icon" />
-                            {{ $t(`list.views.${view}`) }}
-                        </label>
-                        <input type="radio" :id="view" :value="view" v-model="localList.view" />
-                    </span>
-                </div>
-            </section>
-
-            <section v-if="hasMultipleGames">
-                <h4>{{ $t('list.sortList') }}</h4>
-
-                <div class="checkbox-group">
-                    <span v-for="(icon, sortOrder) in sortOrders" :key="sortOrder">
-                        <label
-                            :for="sortOrder"
-                            :class="{ active: sortOrder === localList.sortOrder }"
-                        >
-                            <i :class="icon" />
-                            {{ $t(`list.${sortOrder}`) }}
-                        </label>
-
-                        <input
-                            type="radio"
-                            :id="sortOrder"
-                            :value="sortOrder"
-                            v-model="localList.sortOrder"
-                        />
-                    </span>
-                </div>
-            </section>
-
-            <footer>
-                <modal
-                    v-if="localList && localList.games && localList.games.length"
-                    ref="addList"
-                    :message="warningMessage"
-                    title="Are you sure?"
-                    :action-text="$t('list.delete')"
-                    action-button-class="danger"
-                    @action="deleteList"
-                >
-                    <button
-                        class="danger"
-                        :title="$t('list.delete')"
-                    >
-                        <i class="far fa-trash-alt" />
-                        {{ $t('list.delete') }}
-                    </button>
-                </modal>
-
-                <button
-                    v-else
-                    class="danger"
-                    :title="$t('list.delete')"
-                    @click="deleteList"
-                >
-                    <i class="far fa-trash-alt" />
-                    {{ $t('list.delete') }}
-                </button>
-
-                <!-- <button
-                    class="primary hollow"
-                    :title="$t('list.moveLeft')"
-                    :disabled="isFirst"
-                    @click="moveList(listIndex, listIndex - 1)"
-                >
-                    <i class="fas fa-arrow-left" />
-
-                    {{ $t('list.moveLeft') }}
-                </button>
-
-                <button
-                    class="primary hollow"
-                    :title="$t('list.moveRight')"
-                    :disabled="isLast"
-                    @click="moveList(listIndex, listIndex + 1)"
-                >
-                    {{ $t('list.moveRight') }}
-                    <i class="fas fa-arrow-right" />
-                </button> -->
-
-                <button
-                    class="primary"
-                    :title="$t('global.save')"
-                    @click="save"
-                >
-                    {{ $t('global.save') }}
-                </button>
-            </footer>
-        </div>
-    </modal>
+        <button
+          :title="$t('global.save')"
+          class="primary"
+          @click="save"
+        >
+          {{ $t('global.save') }}
+        </button>
+      </footer>
+    </div>
+  </modal>
 </template>
 
 <script>
@@ -235,18 +250,18 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    @import "~styles/styles";
+  @import "~styles/styles";
 
-    section {
-        margin-bottom: $gp;
-    }
+  section {
+    margin-bottom: $gp;
+  }
 
-    h4 {
-        margin-bottom: $gp / 2;
-    }
+  h4 {
+    margin-bottom: $gp / 2;
+  }
 
-    footer {
-        display: flex;
-        justify-content: space-between;
-    }
+  footer {
+    display: flex;
+    justify-content: space-between;
+  }
 </style>

@@ -1,70 +1,74 @@
 <template lang="html">
-    <div class="game-notes">
-        <h4>{{ $t('notes.notes') }}</h4>
+  <div class="game-notes">
+    <h4>{{ $t('notes.notes') }}</h4>
 
-        <div
-            class="note"
-            v-if="hasNote && !editingNote"
-            @click="editNote"
-        >
-            <i class="fas fa-sticky-note corner-icon" />
+    <div
+      v-if="hasNote && !editingNote"
+      class="note"
+      @click="editNote"
+    >
+      <i class="fas fa-sticky-note corner-icon" />
 
-            <p v-html="formattedNoteText" />
-        </div>
-
-        <div class="note" v-if="editingNote">
-            <i class="fas fa-sticky-note corner-icon" />
-
-            <div
-                class="read"
-                v-if="localNote && !editingNote"
-                @click="editNote"
-            >
-                <p>{{ localNote.text }}</p>
-            </div>
-
-            <div class="edit" v-if="editingNote">
-                <textarea
-                    v-model="localNote.text"
-                    class="game-note-field"
-                    maxlength="1024"
-                />
-
-                <div class="note-actions">
-                    <button
-                        class="small secondary"
-                        @click="reset"
-                    >
-                        {{ $t('global.cancel') }}
-                    </button>
-
-                    <button
-                        class="small danger"
-                        @click="deleteNote"
-                    >
-                        <i class="far fa-trash-alt" />
-                    </button>
-
-                    <button
-                        class="small primary"
-                        @click="saveNote"
-                        :disabled="!localNote"
-                    >
-                        {{ $t('global.save') }}
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <button
-            class="primary"
-            @click="addNote"
-            v-if="!hasNote && !editingNote"
-        >
-            <i class="fas fa-sticky-note" />
-            {{ $t('notes.addNote') }}
-        </button>
+      <p v-html="formattedNoteText" />
     </div>
+
+    <div
+      v-if="editingNote"
+      class="note">
+      <i class="fas fa-sticky-note corner-icon" />
+
+      <div
+        v-if="localNote && !editingNote"
+        class="read"
+        @click="editNote"
+      >
+        <p>{{ localNote.text }}</p>
+      </div>
+
+      <div
+        v-if="editingNote"
+        class="edit">
+        <textarea
+          v-model="localNote.text"
+          class="game-note-field"
+          maxlength="1024"
+        />
+
+        <div class="note-actions">
+          <button
+            class="small secondary"
+            @click="reset"
+          >
+            {{ $t('global.cancel') }}
+          </button>
+
+          <button
+            class="small danger"
+            @click="deleteNote"
+          >
+            <i class="far fa-trash-alt" />
+          </button>
+
+          <button
+            :disabled="!localNote"
+            class="small primary"
+            @click="saveNote"
+          >
+            {{ $t('global.save') }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <button
+      v-if="!hasNote && !editingNote"
+      class="primary"
+      @click="addNote"
+    >
+      <i class="fas fa-sticky-note" />
+      {{ $t('notes.addNote') }}
+    </button>
+  </div>
 </template>
 
 <script>
@@ -146,66 +150,66 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    @import "~styles/styles";
+  @import "~styles/styles";
 
-    .game-notes {
-        margin-top: $gp;
+  .game-notes {
+    margin-top: $gp;
+  }
+
+  h4 {
+    padding-bottom: $gp / 2;
+  }
+
+  .note {
+    cursor: pointer;
+    border: 2px solid var(--note-color);
+    border-radius: $border-radius;
+    position: relative;
+    overflow: hidden;
+    min-width: 200px;
+    max-width: 100%;
+    display: inline-flex;
+    flex-direction: column;
+    padding: $gp / 2 $gp $gp / 2 $gp * 2;
+
+    @media($small) {
+      margin: $gp auto;
     }
 
-    h4 {
-        padding-bottom: $gp / 2;
+    .corner-icon {
+      background: var(--note-color);
+      color: #fff;
+      padding: $gp / 4;
+      position: absolute;
+      border-bottom-right-radius: $border-radius;
+      top: 0;
+      left: 0;
     }
 
-    .note {
-        cursor: pointer;
-        border: 2px solid var(--note-color);
-        border-radius: $border-radius;
-        position: relative;
-        overflow: hidden;
-        min-width: 200px;
-        max-width: 100%;
-        display: inline-flex;
-        flex-direction: column;
-        padding: $gp / 2 $gp $gp / 2 $gp * 2;
-
-        @media($small) {
-            margin: $gp auto;
-        }
-
-        .corner-icon {
-            background: var(--note-color);
-            color: #fff;
-            padding: $gp / 4;
-            position: absolute;
-            border-bottom-right-radius: $border-radius;
-            top: 0;
-            left: 0;
-        }
-
-        p {
-            font-size: 12px;
-            margin: 0;
-            display: inline-flex;
-        }
+    p {
+      font-size: 12px;
+      margin: 0;
+      display: inline-flex;
     }
+  }
 
-    .game-note-field {
-        resize: vertical;
-        border-radius: $border-radius;
-        border: 1px solid #a5a2a2;
-        width: 100%;
-        min-height: 60px;
-        max-height: 300px;
+  .game-note-field {
+    resize: vertical;
+    border-radius: $border-radius;
+    border: 1px solid #a5a2a2;
+    width: 100%;
+    min-height: 60px;
+    max-height: 300px;
+  }
+
+  .note-actions {
+    display: flex;
+    align-items: center;
+    grid-gap: $gp / 2;
+    margin-top: $gp / 4;
+
+    .success {
+      margin-left: auto;
     }
-
-    .note-actions {
-        display: flex;
-        align-items: center;
-        grid-gap: $gp / 2;
-        margin-top: $gp / 4;
-
-        .success {
-            margin-left: auto;
-        }
-    }
+  }
 </style>

@@ -1,43 +1,45 @@
 <template lang="html">
-    <div v-if="game" class="review-box">
-        <div class="info">
-            <!-- TODO: get icons for everything -->
-            <section v-if="playerPerspectives">
-                <strong>{{ $t('gameDetail.perspective') }}</strong>
-                {{ playerPerspectives }}
-            </section>
+  <div
+    v-if="game"
+    class="review-box">
+    <div class="info">
+      <!-- TODO: get icons for everything -->
+      <section v-if="playerPerspectives">
+        <strong>{{ $t('gameDetail.perspective') }}</strong>
+        {{ playerPerspectives }}
+      </section>
 
-            <section v-if="timeToBeat">
-                <strong>{{ $t('gameDetail.timeToBeat') }}</strong>
-                {{ timeToBeat }}
-            </section>
+      <section v-if="timeToBeat">
+        <strong>{{ $t('gameDetail.timeToBeat') }}</strong>
+        {{ timeToBeat }}
+      </section>
 
-            <section v-if="gameModes">
-                <strong>{{ $t('gameDetail.gameModes') }}</strong>
-                {{ gameModes }}
-            </section>
+      <section v-if="gameModes">
+        <strong>{{ $t('gameDetail.gameModes') }}</strong>
+        {{ gameModes }}
+      </section>
 
-            <section v-if="genres">
-                <strong>{{ $t('gameDetail.genres') }}</strong>
-                {{ genres }}
-            </section>
+      <section v-if="genres">
+        <strong>{{ $t('gameDetail.genres') }}</strong>
+        {{ genres }}
+      </section>
 
-            <section v-if="developers">
-                <strong>{{ $t('gameDetail.developers') }}</strong>
-                {{ developers }}
-            </section>
+      <section v-if="developers">
+        <strong>{{ $t('gameDetail.developers') }}</strong>
+        {{ developers }}
+      </section>
 
-            <section v-if="publishers">
-                <strong>{{ $t('gameDetail.publishers') }}</strong>
-                {{ publishers }}
-            </section>
+      <section v-if="publishers">
+        <strong>{{ $t('gameDetail.publishers') }}</strong>
+        {{ publishers }}
+      </section>
 
-            <section v-if="releaseDate">
-                <strong>{{ $t('gameDetail.releaseDate') }}</strong>
-                {{ moment.unix(releaseDate).format('ll') }}
-            </section>
-        </div>
+      <section v-if="releaseDate">
+        <strong>{{ $t('gameDetail.releaseDate') }}</strong>
+        {{ moment.unix(releaseDate).format('ll') }}
+      </section>
     </div>
+  </div>
 </template>
 
 <script>
@@ -75,9 +77,9 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-@import "~styles/styles";
+  @import "~styles/styles";
 
-.review-box {
+  .review-box {
     text-align: left;
     display: grid;
     margin: 0 auto;
@@ -86,11 +88,11 @@ export default {
     align-items: center;
 
     strong {
-        color: var(--accent-color);
+      color: var(--accent-color);
     }
 
     section {
-        margin-bottom: $gp / 3;
+      margin-bottom: $gp / 3;
     }
-}
+  }
 </style>

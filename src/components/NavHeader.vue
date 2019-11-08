@@ -1,17 +1,17 @@
 <template lang="html">
-    <nav>
-        <router-link
-            tag="button"
-            class="logo"
-            :to="{ name: logoRoute }"
-        >
-            <img src='/static/gamebrary-logo.png' />
+  <nav>
+    <router-link
+      :to="{ name: logoRoute }"
+      tag="button"
+      class="logo"
+    >
+      <img src="/static/gamebrary-logo.png" >
 
-            {{ title }}
-        </router-link>
+      {{ title }}
+    </router-link>
 
-        <settings v-if="showSettings" />
-    </nav>
+    <settings v-if="showSettings" />
+  </nav>
 </template>
 
 <script>
@@ -60,41 +60,40 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    @import "~styles/styles";
-    nav {
-        user-select: none;
-        width: 100vw;
-        height: $navHeight;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 $gp;
-        color: var(--header-text-color);
+  @import "~styles/styles";
+  nav {
+    user-select: none;
+    width: 100vw;
+    height: $navHeight;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 $gp;
+    color: var(--header-text-color);
 
-        .logo {
-            height: $navHeight;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            margin-left: -$gp;
-            text-transform: capitalize;
+    .logo {
+      height: $navHeight;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      margin-left: -$gp;
+      text-transform: capitalize;
 
-            img {
-                height: 24px;
-                margin-right: $gp / 4;
-            }
-        }
+      img {
+        height: 24px;
+        margin-right: $gp / 4;
+      }
     }
+  }
 
-    img.avatar {
-        width: 30px;
-        height: 30px;
-        border-radius: $border-radius;
+  img.avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: $border-radius;
 
-        @media($small) {
-            width: 30px;
-            height: 30px;
-        }
+    @media($small) {
+      width: 30px;
+      height: 30px;
     }
+  }
 </style>
-

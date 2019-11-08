@@ -1,70 +1,72 @@
 <template lang="html">
-    <div>
-        <modal title="Manage tags">
-            <div class="setting">
-                <i class="fas fa-tags" />
-                <h5>Tags</h5>
+  <div>
+    <modal title="Manage tags">
+      <div class="setting">
+        <i class="fas fa-tags" />
+        <h5>Tags</h5>
 
-                <button class="primary">
-                    Manage tags
-                </button>
-            </div>
+        <button class="primary">
+          Manage tags
+        </button>
+      </div>
 
-            <div slot="content">
-                <div class="tag-input">
-                    <input
-                        type="text"
-                        v-model="tagName"
-                        :placeholder="$t('tags.inputPlaceholder')"
-                    />
+      <div slot="content">
+        <div class="tag-input">
+          <input
+            v-model="tagName"
+            :placeholder="$t('tags.inputPlaceholder')"
+            type="text"
+          >
 
-                    <input
-                        type="color"
-                        class="color-picker"
-                        :value="tagHex"
-                        @change="updateColor"
-                    />
-                </div>
+          <input
+            :value="tagHex"
+            type="color"
+            class="color-picker"
+            @change="updateColor"
+          >
+        </div>
 
-                <div class="tag-actions">
-                    <button
-                        class="secondary"
-                        :disabled="!tagName"
-                        @click="reset"
-                    >
-                        {{ $t('global.cancel') }}
-                    </button>
+        <div class="tag-actions">
+          <button
+            :disabled="!tagName"
+            class="secondary"
+            @click="reset"
+          >
+            {{ $t('global.cancel') }}
+          </button>
 
-                    <button
-                        class="primary"
-                        :disabled="isDuplicate && !editing"
-                        @click="submit"
-                    >
-                        {{ actionLabel }}
-                    </button>
-                </div>
+          <button
+            :disabled="isDuplicate && !editing"
+            class="primary"
+            @click="submit"
+          >
+            {{ actionLabel }}
+          </button>
+        </div>
 
-                <div class="tags" v-if="hasTags">
-                    <tag
-                        v-for="(tag, name) in localTags"
-                        :key="name"
-                        :label="name"
-                        :hex="tag.hex"
-                        @close="deleteTag(name)"
-                    />
-                    <!-- @click.native="editTag(tag, name)" -->
-                </div>
-            </div>
-            <!-- <button
-                class="small warning"
-                :title="$t('list.delete')"
-            >
-                <i class="far fa-trash-alt" />
-                Delete {{ platform.name }} collection
-            </button> -->
+        <div
+          v-if="hasTags"
+          class="tags">
+          <tag
+            v-for="(tag, name) in localTags"
+            :key="name"
+            :label="name"
+            :hex="tag.hex"
+            @close="deleteTag(name)"
+          />
+          <!-- @click.native="editTag(tag, name)" -->
+        </div>
+      </div>
+      <!-- <button
+  class="small warning"
+  :title="$t('list.delete')"
+  >
+  <i class="far fa-trash-alt" />
+  Delete {{ platform.name }} collection
+</button> -->
 
-        </modal>
-    </div>
+    </modal>
+  </div>
 </template>
 
 <script>
@@ -107,7 +109,7 @@ export default {
       const b = parseInt(hexColor.substr(4, 2), 16);
 
       // eslint-disable-next-line
-            const yiq = ((r*299)+(g*587)+(b*114))/1000;
+        const yiq = ((r*299)+(g*587)+(b*114))/1000;
 
       return yiq >= 128 ? 'dark' : 'light';
     },
@@ -193,35 +195,35 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    @import "~styles/styles";
+  @import "~styles/styles";
 
-    .tag-input {
-        display: grid;
-        grid-template-columns: 1fr 40px;
-        grid-gap: $gp;
-        margin-bottom: $gp;
-    }
+  .tag-input {
+    display: grid;
+    grid-template-columns: 1fr 40px;
+    grid-gap: $gp;
+    margin-bottom: $gp;
+  }
 
-    .tag-actions {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: $gp;
-    }
+  .tag-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: $gp;
+  }
 
-    input {
-        margin: 0;
-    }
+  input {
+    margin: 0;
+  }
 
-    .color-picker {
-        -webkit-appearance: none;
-        width: 40px;
-        height: 40px;
-        padding: 0;
-        margin: 0;
-        border: 0;
-    }
+  .color-picker {
+    -webkit-appearance: none;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    margin: 0;
+    border: 0;
+  }
 
-    .tag {
-        margin: 0 $gp / 2 $gp / 2 0;
-    }
+  .tag {
+    margin: 0 $gp / 2 $gp / 2 0;
+  }
 </style>

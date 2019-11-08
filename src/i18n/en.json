@@ -1,168 +1,168 @@
 {
-    "global": {
-        "back": "Back",
-        "save": "Save",
-        "cancel": "Cancel",
-        "create": "Create",
-        "filter": "Filter",
-        "by": "by",
-        "no": "no",
-        "yes": "yes",
-        "or": "or",
-        "returnHome": "Return home",
-        "pageNotFound": "Page not found"
-    },
-    "errors": {
-        "loading": "Error loading data"
-    },
-    "releases": {
-        "published": "Published {date}"
-    },
-    "platforms": {
-        "donateMessage": "Gamebrary is free and open source, consider helping its development by",
-        "donating": "donating",
-        "reportBugs": "reporting bugs",
-        "submitFeedback": "submitting feedback"
-    },
-    "igdbCredit": {
-        "poweredByIgdb": "Powered by IGDB"
-    },
-    "gameBoard": {
-        "settings": {
-            "wallpaper": "Custom Wallpaper",
-            "shareLink": "Shareable links (experimental)",
-            "dangerZone": "Danger zone"
-        }
-    },
-    "sessionExpired": {
-        "title": "Session expired",
-        "login": "Login",
-        "exit": "Exit"
-    },
-    "gameDetail": {
-        "videos": "Videos",
-        "screenshots": "Screenshots",
-        "perspective": "Perspective",
-        "releaseDate": "Release date",
-        "timeToBeat": "Time to beat",
-        "gameModes": "Game Mode",
-        "genres": "Genre",
-        "gamePlatforms": "Also available for:",
-        "developers": "Developer",
-        "publishers": "Publishers",
-        "removeFromList": "Remove",
-        "links": {
-            "official": "Official Site",
-            "wikia": "Fandom",
-            "wikipedia": "Wikipedia",
-            "facebook": "Facebook",
-            "twitter": "Twitter",
-            "twitch": "Twitch",
-            "instagram": "Instagram",
-            "youtube": "Youtube",
-            "iphone": "iOS",
-            "ipad": "iPad",
-            "android": "Play Store",
-            "steam": "Steam",
-            "reddit": "Reddit",
-            "discord": "Discord",
-            "google_plus": "Google Plus",
-            "tumblr": "Tumblr",
-            "linkedin": "Linkedin",
-            "pinterest": "Pinterest",
-            "soundcloud": "Soundcloud"
-        }
-    },
-    "list": {
-        "edit": "Edit list name",
-        "type": "List type",
-        "preferences": "List preferences",
-        "placeholder": "Type your list name here",
-        "wishlist": "Wishlist",
-        "input": "Enter your own",
-        "add": "Add list",
-        "duplicateWarning": "You already have a list with this name",
-        "getStarted": "Get started!",
-        "addFirstTime": "Welcome, add your first list!",
-        "sortByName": "A-Z",
-        "sortByRating": "Score",
-        "sortByReleaseDate": "Date",
-        "sortByCustom": "Custom",
-        "delete": "Delete",
-        "moveLeft": "Move left",
-        "moveRight": "Move right",
-        "emptyList": "This list is empty",
-        "addGame": "Add game",
-        "view": "List view",
-        "moveList": "Move list",
-        "sortList": "Sort list",
-        "coversSizeTitle": "Covers across",
-        "views": {
-            "single": "Default",
-            "wide": "Compact",
-            "text": "Text only",
-            "grid": "Grid"
-        }
-    },
+  "global": {
+    "back": "Back",
+    "save": "Save",
+    "cancel": "Cancel",
+    "create": "Create",
+    "filter": "Filter",
+    "by": "by",
+    "no": "no",
+    "yes": "yes",
+    "or": "or",
+    "returnHome": "Return home",
+    "pageNotFound": "Page not found"
+  },
+  "errors": {
+    "loading": "Error loading data"
+  },
+  "releases": {
+    "published": "Published {date}"
+  },
+  "platforms": {
+    "donateMessage": "Gamebrary is free and open source, consider helping its development by",
+    "donating": "donating",
+    "reportBugs": "reporting bugs",
+    "submitFeedback": "submitting feedback"
+  },
+  "igdbCredit": {
+    "poweredByIgdb": "Powered by IGDB"
+  },
+  "gameBoard": {
     "settings": {
-        "about": "About",
-        "platforms": "Platforms",
-        "gameBoard": "Game Board",
-        "public": "Public",
-        "tags": "Tags",
-        "account": "Account",
-        "global": "Global",
-        "reloading": "Reloading...",
-        "releases": "Releases",
-        "newsletter": "Receive update emails (coming soon)",
-        "branding": "Platform branding (colors, logo, etc...)",
-        "language": "Language",
-        "languages": {
-            "en": "English",
-            "es": "Spanish",
-            "pl": "Polish",
-            "de": "German",
-            "ar": "Arabic",
-            "fr": "French",
-            "it": "Italian",
-            "eu": "Basque",
-            "cs": "Czech",
-            "ja": "Japanese"
-        },
-        "ownedLists": "Only show my platforms",
-        "sortPlatforms": "Sort platforms alphabetically",
-        "ratings": "Hide game score",
-        "signOut": "Sign out",
-        "wallpaper": {
-            "title": "Upload wallpaper",
-            "transparency": "Allow transparency",
-            "currentWallpaper": "Current wallpaper",
-            "removeWallpaper": "Remove wallpaper"
-        },
-        "deleteAccount": {
-            "button": "Delete account",
-            "message": "Your account data will be deleted forever.",
-            "title": "Are you sure?"
-        }
-    },
-    "tags": {
-        "title": "Game tags",
-        "addTag": "Add Tag",
-        "createTag": "Create tag",
-        "inputPlaceholder": "Tag name",
-        "applyTag": "Apply tag",
-        "useTags": "Use tags to better organise your games"
-    },
-    "gameSearch": {
-        "title": "Add games to",
-        "inputPlaceholder": "Search here",
-        "alreadyInList": "from search results already in your list",
-        "noResultsFound": "No results",
-        "missingGame": "Missing a game? Help out the community and",
-        "addToIGDB": "Add it to IGDB"
-    },
-    "notes": {
-        "addNote": "Add note",
-        "notes": "Notes"
+      "wallpaper": "Custom Wallpaper",
+      "shareLink": "Shareable links (experimental)",
+      "dangerZone": "Danger zone"
     }
+  },
+  "sessionExpired": {
+    "title": "Session expired",
+    "login": "Login",
+    "exit": "Exit"
+  },
+  "gameDetail": {
+    "videos": "Videos",
+    "screenshots": "Screenshots",
+    "perspective": "Perspective",
+    "releaseDate": "Release date",
+    "timeToBeat": "Time to beat",
+    "gameModes": "Game Mode",
+    "genres": "Genre",
+    "gamePlatforms": "Also available for:",
+    "developers": "Developer",
+    "publishers": "Publishers",
+    "removeFromList": "Remove",
+    "links": {
+      "official": "Official Site",
+      "wikia": "Fandom",
+      "wikipedia": "Wikipedia",
+      "facebook": "Facebook",
+      "twitter": "Twitter",
+      "twitch": "Twitch",
+      "instagram": "Instagram",
+      "youtube": "Youtube",
+      "iphone": "iOS",
+      "ipad": "iPad",
+      "android": "Play Store",
+      "steam": "Steam",
+      "reddit": "Reddit",
+      "discord": "Discord",
+      "google_plus": "Google Plus",
+      "tumblr": "Tumblr",
+      "linkedin": "Linkedin",
+      "pinterest": "Pinterest",
+      "soundcloud": "Soundcloud"
+    }
+  },
+  "list": {
+    "edit": "Edit list name",
+    "type": "List type",
+    "preferences": "List preferences",
+    "placeholder": "Type your list name here",
+    "wishlist": "Wishlist",
+    "input": "Enter your own",
+    "add": "Add list",
+    "duplicateWarning": "You already have a list with this name",
+    "getStarted": "Get started!",
+    "addFirstTime": "Welcome, add your first list!",
+    "sortByName": "A-Z",
+    "sortByRating": "Score",
+    "sortByReleaseDate": "Date",
+    "sortByCustom": "Custom",
+    "delete": "Delete",
+    "moveLeft": "Move left",
+    "moveRight": "Move right",
+    "emptyList": "This list is empty",
+    "addGame": "Add game",
+    "view": "List view",
+    "moveList": "Move list",
+    "sortList": "Sort list",
+    "coversSizeTitle": "Covers across",
+    "views": {
+      "single": "Default",
+      "wide": "Compact",
+      "text": "Text only",
+      "grid": "Grid"
+    }
+  },
+  "settings": {
+    "about": "About",
+    "platforms": "Platforms",
+    "gameBoard": "Game Board",
+    "public": "Public",
+    "tags": "Tags",
+    "account": "Account",
+    "global": "Global",
+    "reloading": "Reloading...",
+    "releases": "Releases",
+    "newsletter": "Receive update emails (coming soon)",
+    "branding": "Platform branding (colors, logo, etc...)",
+    "language": "Language",
+    "languages": {
+      "en": "English",
+      "es": "Spanish",
+      "pl": "Polish",
+      "de": "German",
+      "ar": "Arabic",
+      "fr": "French",
+      "it": "Italian",
+      "eu": "Basque",
+      "cs": "Czech",
+      "ja": "Japanese"
+    },
+    "ownedLists": "Only show my platforms",
+    "sortPlatforms": "Sort platforms alphabetically",
+    "ratings": "Hide game score",
+    "signOut": "Sign out",
+    "wallpaper": {
+      "title": "Upload wallpaper",
+      "transparency": "Allow transparency",
+      "currentWallpaper": "Current wallpaper",
+      "removeWallpaper": "Remove wallpaper"
+    },
+    "deleteAccount": {
+      "button": "Delete account",
+      "message": "Your account data will be deleted forever.",
+      "title": "Are you sure?"
+    }
+  },
+  "tags": {
+    "title": "Game tags",
+    "addTag": "Add Tag",
+    "createTag": "Create tag",
+    "inputPlaceholder": "Tag name",
+    "applyTag": "Apply tag",
+    "useTags": "Use tags to better organise your games"
+  },
+  "gameSearch": {
+    "title": "Add games to",
+    "inputPlaceholder": "Search here",
+    "alreadyInList": "from search results already in your list",
+    "noResultsFound": "No results",
+    "missingGame": "Missing a game? Help out the community and",
+    "addToIGDB": "Add it to IGDB"
+  },
+  "notes": {
+    "addNote": "Add note",
+    "notes": "Notes"
+  }
 }

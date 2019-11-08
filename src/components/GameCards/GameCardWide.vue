@@ -1,48 +1,55 @@
 <template lang="html">
-    <div v-if="gameId && games[gameId]" :class="gameCardClass">
-        <img :src="coverUrl" @click="openDetails" :alt="game.name">
+  <div
+    v-if="gameId && games[gameId]"
+    :class="gameCardClass">
+    <img
+      :src="coverUrl"
+      :alt="game.name"
+      @click="openDetails">
 
-        <div class="game-info">
-            <a
-                v-if="list.view !== 'covers'"
-                v-text="game.name"
-                @click="openDetails"
-            />
+    <div class="game-info">
+      <a
+        v-if="list.view !== 'covers'"
+        @click="openDetails"
+        v-text="game.name"
+      />
 
-            <i class="fas fa-grip-vertical game-drag-handle" />
+      <i class="fas fa-grip-vertical game-drag-handle" />
 
-            <game-rating
-                v-if="showGameRatings"
-                :rating="game.rating"
-                small
-                @click.native="openDetails"
-            />
+      <game-rating
+        v-if="showGameRatings"
+        :rating="game.rating"
+        small
+        @click.native="openDetails"
+      />
 
-            <i
-                v-if="note"
-                :title="note"
-                class="fas fa-sticky-note note"
-                @click="openDetails"
-            />
+      <i
+        v-if="note"
+        :title="note"
+        class="fas fa-sticky-note note"
+        @click="openDetails"
+      />
 
-            <div class="game-tags" v-if="hasTags">
-                <div
-                    v-if="games.includes(game.id)"
-                    v-for="({ games, hex }, name) in tags"
-                    :key="name"
-                >
-                    <tag
-                        v-if="games.includes(game.id)"
-                        :label="name"
-                        :hex="hex"
-                        readonly
-                        @action="openTags"
-                        @close="removeTag(name)"
-                    />
-                </div>
-            </div>
+      <div
+        v-if="hasTags"
+        class="game-tags">
+        <div
+          v-for="({ games, hex }, name) in tags"
+          v-if="games.includes(game.id)"
+          :key="name"
+        >
+          <tag
+            v-if="games.includes(game.id)"
+            :label="name"
+            :hex="hex"
+            readonly
+            @action="openTags"
+            @close="removeTag(name)"
+          />
         </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -61,90 +68,91 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    @import "~styles/styles";
+  @import "~styles/styles";
 
-    .game-card {
-        background: var(--game-card-background);
-        margin-bottom: $gp / 2;
-        position: relative;
-        display: grid;
-        grid-template-columns: 50px auto;
-        border-radius: $border-radius;
-        overflow: hidden;
+  .game-card {
+    background: var(--game-card-background);
+    margin-bottom: $gp / 2;
+    position: relative;
+    display: grid;
+    grid-template-columns: 50px auto;
+    border-radius: $border-radius;
+    overflow: hidden;
 
-        img {
-            width: 50px;
-            height: auto;
-            display: flex;
-            align-self: center;
-            cursor: pointer;
-        }
-
-        &.card-placeholder {
-            background: #e5e5e5;
-            outline: 1px dashed #a5a2a2;
-            opacity: 0.6;
-
-            .game-card-options {
-                display: none;
-            }
-        }
-
-        .game-info {
-            padding: $gp / 2 $gp;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-
-            .game-tags {
-                display: flex;
-                flex-wrap: wrap;
-                align-items: center;
-                margin-top: $gp / 4;
-            }
-
-            i.tags {
-                position: absolute;
-                bottom: $gp * 1.5;
-                right: $gp / 4;
-            }
-
-            .game-rating, a {
-                display: inline-flex;
-                font-weight: bold;
-            }
-
-            &:hover {
-                a {
-                    text-decoration: underline;
-                }
-            }
-
-            a {
-                cursor: pointer;
-                margin-right: $gp / 2;
-                color: var(--game-card-text-color);
-            }
-        }
-
-        .game-drag-handle {
-            @include drag-cursor;
-            position: absolute;
-            color: #e5e5e5;
-            right: $gp / 3;
-            top: $gp / 3;
-
-            &:hover {
-                color: #a5a2a2;
-            }
-        }
-
-        .game-tag {
-            margin-bottom: $gp / 3;
-        }
+    img {
+      width: 50px;
+      height: auto;
+      display: flex;
+      align-self: center;
+      cursor: pointer;
     }
 
-    .note {
-        color: var(--note-color);
+    &.card-placeholder {
+      background: #e5e5e5;
+      outline: 1px dashed #a5a2a2;
+      opacity: 0.6;
+
+      .game-card-options {
+        display: none;
+      }
     }
+
+    .game-info {
+      padding: $gp / 2 $gp;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+
+      .game-tags {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-top: $gp / 4;
+      }
+
+      i.tags {
+        position: absolute;
+        bottom: $gp * 1.5;
+        right: $gp / 4;
+      }
+
+      .game-rating, a {
+        display: inline-flex;
+        font-weight: bold;
+      }
+
+      &:hover {
+        a {
+          text-decoration: underline;
+        }
+      }
+
+      a {
+        cursor: pointer;
+        margin-right: $gp / 2;
+        color: var(--game-card-text-color);
+      }
+    }
+
+    .game-drag-handle {
+      @include drag-cursor;
+      position: absolute;
+      color: #e5e5e5;
+      right: $gp / 3;
+      top: $gp / 3;
+
+      &:hover {
+        color: #a5a2a2;
+      }
+    }
+
+    .game-tag {
+      margin-bottom: $gp / 3;
+    }
+  }
+
+  .note {
+    color: var(--note-color);
+  }
 </style>
+

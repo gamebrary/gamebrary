@@ -1,22 +1,24 @@
 <template>
+  <div
+    id="app"
+    :class="theme"
+    :style="style"
+    :dir="dir"
+  >
+    <nav-header />
+
+    <router-view v-if="user" />
+
     <div
-        id="app"
-        :class="theme"
-        :style="style"
-        :dir="dir"
-    >
-        <nav-header />
-
-        <router-view v-if="user" />
-
-        <div class="auth" v-else>
-            <img src='/static/gamebrary-logo.png' />
-            <i class="fas fa-sync-alt fa-2x fast-spin" />
-            <h3>Authorizing</h3>
-        </div>
-
-        <toast />
+      v-else
+      class="auth">
+      <img src="/static/gamebrary-logo.png" >
+      <i class="fas fa-sync-alt fa-2x fast-spin" />
+      <h3>Authorizing</h3>
     </div>
+
+    <toast />
+  </div>
 </template>
 
 <script>
@@ -65,7 +67,7 @@ export default {
 
     customWallpaper() {
       // eslint-disable-next-line
-            return this.settings && this.settings.wallpapers && this.platform && this.settings.wallpapers[this.platform.code]
+      return this.settings && this.settings.wallpapers && this.platform && this.settings.wallpapers[this.platform.code]
         ? this.settings.wallpapers[this.platform.code].url
         : '';
     },
@@ -73,9 +75,9 @@ export default {
     theme() {
       const hasPlatform = this.platform && this.platform.code;
       const hasTheme = hasPlatform
-                && this.settings
-                && this.settings[this.platform.code]
-                && this.settings[this.platform.code].theme;
+      && this.settings
+      && this.settings[this.platform.code]
+      && this.settings[this.platform.code].theme;
 
       const isGameBoard = this.$route.name === 'game-board';
 
@@ -315,35 +317,35 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
-    @import url(https://fonts.googleapis.com/css?family=Fira+Sans:700|Roboto:400,400italic,700);
-    @import "~styles/styles";
+  @import url(https://fonts.googleapis.com/css?family=Fira+Sans:700|Roboto:400,400italic,700);
+  @import "~styles/styles";
 </style>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    @import "~styles/styles";
+  @import "~styles/styles";
 
-    #app {
-        background: var(--body-background);
-        background-size: cover;
+  #app {
+    background: var(--body-background);
+    background-size: cover;
+  }
+
+  .auth {
+    background: var(--body-background);
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    img {
+      width: 100px;
+      margin-top: 100px;
     }
 
-    .auth {
-        background: var(--body-background);
-        height: 100vh;
-        position: fixed;
-        top: 0;
-        width: 100vw;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-
-        img {
-            width: 100px;
-            margin-top: 100px;
-        }
-
-        i {
-            margin: $gp;
-        }
+    i {
+      margin: $gp;
     }
+  }
 </style>

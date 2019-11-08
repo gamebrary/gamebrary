@@ -1,12 +1,12 @@
 <template lang="html">
-    <div
-        :class="['toast', type, { show, 'has-image': imageUrl }]"
-        @click="close"
-    >
-        <img :src="imageUrl" />
-        <i :class="[iconName]" />
-        <h4>{{ message }}</h4>
-    </div>
+  <div
+    :class="['toast', type, { show, 'has-image': imageUrl }]"
+    @click="close"
+  >
+    <img :src="imageUrl" >
+    <i :class="[iconName]" />
+    <h4>{{ message }}</h4>
+  </div>
 </template>
 
 <script>
@@ -75,9 +75,9 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-@import "~styles/styles";
+  @import "~styles/styles";
 
-.toast {
+  .toast {
     display: flex;
     align-items: center;
     position: fixed;
@@ -92,39 +92,39 @@ export default {
     transition: all 200ms linear;
 
     &.success {
-        background: var(--success-background);
-        color: var(--success-text-color);
+      background: var(--success-background);
+      color: var(--success-text-color);
     }
 
     &.error {
-        background: var(--danger-background);
-        color: var(--danger-text-color);
+      background: var(--danger-background);
+      color: var(--danger-text-color);
     }
 
     &.has-image {
-        padding: $gp / 3;
-        max-width: 240px;
+      padding: $gp / 3;
+      max-width: 240px;
 
-        h4 {
-            font-size: 12px;
-        }
+      h4 {
+        font-size: 12px;
+      }
 
-        img {
-            margin-right: $gp / 2;
-            max-width: 50px;
-            max-height: 50px;
-        }
+      img {
+        margin-right: $gp / 2;
+        max-width: 50px;
+        max-height: 50px;
+      }
     }
 
     i {
-        margin-right: $gp / 2;
-        font-size: 20px;
+      margin-right: $gp / 2;
+      font-size: 20px;
     }
 
     &.show {
-        bottom: $gp;
-        opacity: 1;
-        transition: all 200ms linear;
+      bottom: $gp;
+      opacity: 1;
+      transition: all 200ms linear;
     }
-}
+  }
 </style>

@@ -1,59 +1,62 @@
 <template lang="html">
-    <section>
-        <!-- <div class="setting">
-            <i class="fas fa-users" />
-            <h5>{{ $t('settings.public') }}</h5>
+  <section>
+    <!-- <div class="setting">
+    <i class="fas fa-users" />
+    <h5>{{ $t('settings.public') }}</h5>
 
-            <toggle-switch
-                id="public"
-                v-model="value[platform.code].public"
-            />
-        </div> -->
+    <toggle-switch
+    id="public"
+    v-model="value[platform.code].public"
+    />
+  </div> -->
 
-        <div class="setting">
-            <i class="fas fa-star-half-alt" />
-            <h5>{{ $t('settings.ratings') }}</h5>
+    <div class="setting">
+      <i class="fas fa-star-half-alt" />
+      <h5>{{ $t('settings.ratings') }}</h5>
 
-            <toggle-switch
-                id="gameRatings"
-                v-model="value[platform.code].hideGameRatings"
-            />
-        </div>
+      <toggle-switch
+        id="gameRatings"
+        v-model="value[platform.code].hideGameRatings"
+      />
+    </div>
 
-        <wallpaper-upload />
+    <wallpaper-upload />
 
-        <div class="setting">
-            <i class="fas fa-palette" />
-            <h5>Global theme</h5>
+    <div class="setting">
+      <i class="fas fa-palette" />
+      <h5>Global theme</h5>
 
-            <select v-model="value[platform.code].theme">
-                <option v-for="{ id, name } in themes" :key="id" :value="id">
-                    {{ name }}
-                </option>
-            </select>
-        </div>
+      <select v-model="value[platform.code].theme">
+        <option
+          v-for="{ id, name } in themes"
+          :key="id"
+          :value="id">
+          {{ name }}
+        </option>
+      </select>
+    </div>
 
-        <div class="setting">
-            <i class="fas fa-exclamation-triangle" />
-            <h5>{{ $t('gameBoard.settings.dangerZone') }}</h5>
+    <div class="setting">
+      <i class="fas fa-exclamation-triangle" />
+      <h5>{{ $t('gameBoard.settings.dangerZone') }}</h5>
 
-            <modal
-                action-text="Delete forever"
-                action-button-class="danger"
-                :message="`Your ${platform.name} collection will be deleted forever.`"
-                :title="`Delete ${platform.name} collection`"
-                @action="deletePlatform"
-            >
-                <button
-                    class="small warning"
-                    :title="$t('list.delete')"
-                >
-                    <i class="far fa-trash-alt" />
-                    Delete {{ platform.name }} collection
-                </button>
-            </modal>
-        </div>
-    </section>
+      <modal
+        :message="`Your ${platform.name} collection will be deleted forever.`"
+        :title="`Delete ${platform.name} collection`"
+        action-text="Delete forever"
+        action-button-class="danger"
+        @action="deletePlatform"
+      >
+        <button
+          :title="$t('list.delete')"
+          class="small warning"
+        >
+          <i class="far fa-trash-alt" />
+          Delete {{ platform.name }} collection
+        </button>
+      </modal>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -71,7 +74,10 @@ export default {
   },
 
   props: {
-    value: Object,
+    value: {
+      type: Object,
+      default: () => {},
+    },
   },
 
   data() {

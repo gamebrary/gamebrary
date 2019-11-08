@@ -18,8 +18,8 @@ export default {
 
     showGameRatings() {
       return this.settings
-                && this.settings[this.platform.code]
-                && !this.settings[this.platform.code].hideGameRatings;
+      && this.settings[this.platform.code]
+      && !this.settings[this.platform.code].hideGameRatings;
     },
 
     gameCardClass() {
@@ -111,3 +111,4 @@ export default {
     },
   },
 };
+

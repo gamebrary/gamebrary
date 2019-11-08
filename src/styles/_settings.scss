@@ -1,11 +1,11 @@
 h5.title {
-    margin: $gp 0 0;
+  margin: $gp 0 0;
 }
 
 .setting {
-    display: grid;
-    grid-template-columns: minmax(24px, auto) 1fr auto;
-    border-bottom: 1px dashed rgba(85, 85, 85, .5);
-    align-items: center;
-    padding: $gp 0;
+  display: grid;
+  grid-template-columns: minmax(24px, auto) 1fr auto;
+  border-bottom: 1px dashed rgba(85, 85, 85, .5);
+  align-items: center;
+  padding: $gp 0;
 }
