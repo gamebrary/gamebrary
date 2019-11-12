@@ -22,16 +22,13 @@
       <article>
         <h2>{{ games[id].name }}</h2>
         {{ platform.name }}
-        <game-rating
-          v-if="games[id].rating"
-          :rating="games[id].rating" />
 
-        <div
-          v-if="game"
-          class="details">
-          <p
-            class="game-description"
-            v-html="game.summary" />
+        <game-rating v-if="games[id].rating" :rating="games[id].rating" />
+
+        <div v-if="game" class="details">
+
+          <p class="game-description" v-html="game.summary" />
+
           <div class="actions">
             <button
               v-if="list.games.includes(game.id)"
@@ -42,19 +39,12 @@
               {{ $t('gameDetail.removeFromList') }}
             </button>
 
-            <button
-              v-else
-              class="primary">
+            <button v-else class="primary">
               {{ $t('list.addGame') }}
-
             </button>
 
-            <div
-              v-if="hasTags"
-              class="tags">
-              <button
-                class="primary hollow"
-                @click="openTags">
+            <div v-if="hasTags" class="tags">
+              <button class="primary hollow" @click="openTags">
                 <i class="fas fa-tag" />
                 {{ $t('tags.addTag') }}
               </button>
@@ -88,12 +78,8 @@
           <igdb-credit gray />
 
           <div class="tabs">
-            <span
-              v-for="{ value, icon, text } in tabs"
-              :key="value">
-              <label
-                :for="value"
-                :class="{ active: value === tab }">
+            <span v-for="{ value, icon, text } in tabs" :key="value">
+              <label :for="value" :class="{ active: value === tab }">
                 <i :class="icon" />
                 {{ text }}
               </label>
@@ -102,7 +88,8 @@
                 :id="value"
                 :value="value"
                 v-model="tab"
-                type="radio" >
+                type="radio"
+              />
             </span>
           </div>
 
@@ -200,9 +187,7 @@ export default {
     activeComponent() {
       const activeTab = this.tabs.find(tab => tab.value === this.tab);
 
-      return activeTab
-        ? activeTab.component
-        : '';
+      return activeTab ? activeTab.component : '';
     },
 
     activePlatform() {
@@ -237,7 +222,8 @@ export default {
     loadGame(gameId) {
       this.$store.commit('CLEAR_ACTIVE_GAME');
 
-      this.$store.dispatch('LOAD_GAME', gameId)
+      this.$store
+        .dispatch('LOAD_GAME', gameId)
         .then(() => {
           if (this.game) {
             this.$ga.event({
@@ -263,7 +249,8 @@ export default {
 
       this.$store.commit('REMOVE_GAME', data);
 
-      this.$store.dispatch('SAVE_LIST', this.gameLists)
+      this.$store
+        .dispatch('SAVE_LIST', this.gameLists)
         .then(() => {
           this.$bus.$emit('TOAST', {
             message: `Removed ${this.game.name} from list ${this.list.name}`,
@@ -280,47 +267,56 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  @import "~styles/styles";
+@import '~styles/styles';
 
-  header {
-    display: grid;
-    grid-template-columns: 180px auto;
-    grid-gap: $gp;
-    margin-top: $gp;
+header {
+  display: grid;
+  grid-template-columns: 180px auto;
+  grid-gap: $gp;
+  margin-top: $gp;
 
-    @media($small) {
-      grid-template-columns: auto;
+  @media ($small) {
+    grid-template-columns: auto;
+  }
+}
+
+aside {
+  @media ($small) {
+    text-align: center;
+  }
+}
+
+.game-cover {
+  border-radius: $border-radius;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+
+  button {
+    margin-right: $gp / 2;
+  }
+}
+
+.platforms {
+  margin-top: $gp;
+  display: flex;
+  flex-wrap: wrap;
+
+  .platform {
+    width: 90px;
+    height: 50px;
+    margin-right: $gp / 2;
+    padding: $gp / 4;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
     }
   }
-
-  aside {
-    @media($small) {
-      text-align: center;
-    }
-  }
-
-  .game-cover {
-    border-radius: $border-radius;
-  }
-
-  .platforms {
-    margin-top: $gp;
-    display: flex;
-    flex-wrap: wrap;
-
-    .platform {
-      width: 90px;
-      height: 50px;
-      margin-right: $gp / 2;
-      padding: $gp / 4;
-
-      &:first-child {
-        margin-left: 0;
-      }
-
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-  }
+}
 </style>
