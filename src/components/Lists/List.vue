@@ -82,8 +82,8 @@ export default {
       default: '',
     },
     gameList: {
-      type: Object,
-      default: () => {},
+      type: Array,
+      default: () => [],
     },
     listIndex: {
       type: Number,
