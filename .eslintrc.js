@@ -13,7 +13,6 @@ module.exports = {
   extends: [
     'plugin:vue/essential',
     'airbnb-base',
-    'prettier',
   ],
   // required to lint *.vue files
   plugins: [
