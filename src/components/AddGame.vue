@@ -4,16 +4,19 @@
 <template lang="html">
   <modal
     :title="$t('list.addGame')"
-    @open="clear">
+    @open="clear"
+>
     <button
       :title="$t('list.addGame')"
-      class="add-game-button small secondary">
+      class="add-game-button small secondary"
+>
       <i class="fas fa-plus" />
     </button>
 
     <div
       slot="content"
-      class="game-search">
+      class="game-search"
+>
       <form @submit.prevent="search">
         <input
           ref="searchInput"
@@ -24,13 +27,16 @@
 
         <button
           class="primary small"
-          @click="search">
+          @click="search"
+>
           <i
             v-if="loading"
-            class="fas fa-circle-notch fast-spin hollow" />
+            class="fas fa-circle-notch fast-spin hollow"
+/>
           <i
             v-else
-            class="fas fa-search" />
+            class="fas fa-search"
+/>
         </button>
 
         <igdb-credit linkable />
@@ -38,7 +44,8 @@
 
       <small
         v-if="gamesInList.length"
-        :title="gamesInListNames">
+        :title="gamesInListNames"
+>
         <strong>{{ gamesInListMessage }}</strong>
         {{ $t('gameSearch.alreadyInList') }}
       </small>
@@ -46,7 +53,8 @@
       <div
         v-if="filteredResults.length > 0"
         ref="searchResults"
-        class="search-results">
+        class="search-results"
+>
         <game-card-search
           v-for="{ id } in filteredResults"
           :key="id"
@@ -59,7 +67,8 @@
 
       <span
         v-if="noResults"
-        class="no-results">
+        class="no-results"
+>
         {{ $t('gameSearch.noResultsFound') }}
       </span>
     </div>

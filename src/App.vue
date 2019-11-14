@@ -11,7 +11,8 @@
 
     <div
       v-else
-      class="auth">
+      class="auth"
+>
       <img src="/static/gamebrary-logo.png" >
       <i class="fas fa-sync-alt fa-2x fast-spin" />
       <h3>Authorizing</h3>

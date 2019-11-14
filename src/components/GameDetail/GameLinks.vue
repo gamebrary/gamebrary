@@ -1,7 +1,5 @@
 <template lang="html">
-  <div
-    v-if="hasWebsites"
-    class="game-links">
+  <div v-if="hasWebsites" class="game-links">
     <h4>Links</h4>
     <div class="links">
       <a

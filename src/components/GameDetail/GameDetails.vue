@@ -1,7 +1,5 @@
 <template lang="html">
-  <div
-    v-if="game"
-    class="review-box">
+  <div v-if="game" class="review-box">
     <div class="info">
       <!-- TODO: get icons for everything -->
       <section v-if="playerPerspectives">

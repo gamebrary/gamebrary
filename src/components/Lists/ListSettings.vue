@@ -13,33 +13,30 @@
     <div
       v-if="localList"
       slot="content"
-      class="list-settings">
+      class="list-settings"
+    >
       <section>
         <h4>List name</h4>
 
-        <input
-          ref="input"
-          v-model="localList.name" >
+        <input ref="input" v-model="localList.name">
       </section>
 
       <section>
         <h4>{{ $t('list.view') }}</h4>
 
         <div class="checkbox-group">
-          <span
-            v-for="(icon, view) in views"
-            :key="view">
-            <label
-              :for="view"
-              :class="{ active: view === localList.view }">
+          <span v-for="(icon, view) in views" :key="view">
+            <label :for="view" :class="{ active: view === localList.view }">
               <i :class="icon" />
               {{ $t(`list.views.${view}`) }}
             </label>
+
             <input
               :id="view"
               :value="view"
               v-model="localList.view"
-              type="radio" >
+              type="radio"
+            >
           </span>
         </div>
       </section>
@@ -50,7 +47,8 @@
         <div class="checkbox-group">
           <span
             v-for="(icon, sortOrder) in sortOrders"
-            :key="sortOrder">
+            :key="sortOrder"
+          >
             <label
               :for="sortOrder"
               :class="{ active: sortOrder === localList.sortOrder }"

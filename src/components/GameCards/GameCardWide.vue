@@ -1,11 +1,10 @@
 <template lang="html">
-  <div
-    v-if="gameId && games[gameId]"
-    :class="gameCardClass">
+  <div v-if="gameId && games[gameId]" :class="gameCardClass">
     <img
       :src="coverUrl"
       :alt="game.name"
-      @click="openDetails">
+      @click="openDetails"
+>
 
     <div class="game-info">
       <a
@@ -30,9 +29,7 @@
         @click="openDetails"
       />
 
-      <div
-        v-if="hasTags"
-        class="game-tags">
+      <div v-if="hasTags" class="game-tags">
         <div
           v-for="({ games, hex }, name) in tags"
           v-if="games.includes(game.id)"

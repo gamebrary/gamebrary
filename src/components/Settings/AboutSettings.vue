@@ -5,24 +5,37 @@
       <github-button
         href="https://github.com/romancm/gamebrary/subscription"
         data-show-count="true"
-        aria-label="Watch romancm/gamebrary on GitHub">Watch</github-button>
+        aria-label="Watch romancm/gamebrary on GitHub"
+      >
+        Watch
+      </github-button>
       <github-button
         href="https://github.com/romancm/gamebrary"
         data-show-count="true"
-        aria-label="Star romancm/gamebrary on GitHub">Star</github-button>
+        aria-label="Star romancm/gamebrary on GitHub"
+      >
+        Star
+      </github-button>
       <github-button
         href="https://github.com/romancm/gamebrary/fork"
         data-show-count="true"
-        aria-label="Fork romancm/gamebrary on GitHub">Fork</github-button>
+        aria-label="Fork romancm/gamebrary on GitHub"
+      >
+        Fork
+      </github-button>
       <github-button
         href="https://github.com/romancm/gamebrary/issues"
         data-show-count="true"
-        aria-label="Issue romancm/gamebrary on GitHub">Issue</github-button>
+        aria-label="Issue romancm/gamebrary on GitHub"
+      >
+        Issue
+      </github-button>
     </div>
 
     <vue-markdown
       v-if="readme"
-      :source="readme" />
+      :source="readme"
+    />
 
     <footer>
       <i class="far fa-copyright" /> {{ moment().format('YYYY') }} Gamebrary

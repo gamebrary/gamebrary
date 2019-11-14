@@ -4,10 +4,7 @@
 
     <div class="game-detail-container">
       <div class="game-detail">
-        <img
-          :src="coverUrl"
-          :alt="gamePreviewData.name"
-          class="game-cover">
+        <img :src="coverUrl" :alt="gamePreviewData.name" class="game-cover">
 
         <div>
           <h2>{{ gamePreviewData.name }}</h2>

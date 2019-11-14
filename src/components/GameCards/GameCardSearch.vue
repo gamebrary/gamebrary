@@ -1,15 +1,10 @@
 <template lang="html">
-  <div
-    v-if="gameId && games[gameId]"
-    :class="gameCardClass">
-    <img
-      :src="coverUrl"
-      :alt="game.name">
+  <div v-if="gameId && games[gameId]" :class="gameCardClass">
+
+    <img :src="coverUrl" :alt="game.name" >
 
     <div class="game-info">
-      <a
-        @click="openDetails"
-        v-text="game.name" />
+      <a @click="openDetails" v-text="game.name" />
 
       <game-rating
         v-if="showGameRatings && list.view !== 'covers'"

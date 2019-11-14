@@ -3,11 +3,13 @@
     <div
       v-for="n in 3"
       :key="n"
-      class="release">
+      class="release"
+    >
       <div class="release-info">
         <button
           class="link info small hollow"
-          disabled />
+          disabled
+        />
 
         <placeholder :lines="2" />
       </div>

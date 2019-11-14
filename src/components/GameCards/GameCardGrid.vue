@@ -1,7 +1,8 @@
 <template lang="html">
   <div
     v-if="gameId && games[gameId]"
-    :class="gameCardClass">
+    :class="gameCardClass"
+>
     <img
       :src="coverUrl"
       :alt="game.name"

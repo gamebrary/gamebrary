@@ -8,7 +8,8 @@
     >
       <div
         :style="style"
-        class="list-header" />
+        class="list-header"
+/>
 
       <div class="games">
         <placeholder

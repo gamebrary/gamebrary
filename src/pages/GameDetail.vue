@@ -5,11 +5,13 @@
         <img
           :src="coverUrl"
           :alt="games[id].name"
-          class="game-cover" >
+          class="game-cover"
+        >
 
         <div
           v-if="game && game.age_ratings"
-          class="game-rating">
+          class="game-rating"
+        >
           <img
             v-for="{ rating, synopsis, id } in game.age_ratings"
             :key="id"
@@ -98,7 +100,8 @@
 
         <placeholder
           v-else
-          :lines="3" />
+          :lines="3"
+        />
       </article>
     </header>
   </div>

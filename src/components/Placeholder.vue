@@ -3,13 +3,9 @@
     v-if="image || lines"
     :class="['placeholder', { 'has-image': image && lines > 0 }]"
   >
-    <div
-      v-if="image"
-      class="image" />
+    <div v-if="image" class="image" />
 
-    <div
-      v-if="lines"
-      class="text">
+    <div v-if="lines" class="text">
       <div
         v-for="n in lines"
         :key="n"

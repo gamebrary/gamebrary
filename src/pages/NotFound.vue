@@ -5,7 +5,8 @@
 
     <a
       :href="homeUrl"
-      class="link primary">
+      class="link primary"
+    >
       {{ $t('returnHome') }}
     </a>
   </div>

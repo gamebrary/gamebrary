@@ -1,7 +1,5 @@
 <template lang="html">
-  <div
-    v-if="game.videos"
-    class="game-videos">
+  <div v-if="game.videos" class="game-videos">
     <div class="video">
       <iframe
         :src="`https://www.youtube.com/embed/${youtubeVideoId}?rel=0&autohide=1`"
@@ -19,9 +17,7 @@
         @click="selectedVideo = video_id"
       >
         <img :src="`https://img.youtube.com/vi/${video_id}/default.jpg`" >
-        <i
-          v-if="youtubeVideoId !== video_id"
-          class="fab fa-youtube fa-2x" />
+        <i v-if="youtubeVideoId !== video_id" class="fab fa-youtube fa-2x" />
       </a>
     </div>
 

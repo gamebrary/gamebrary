@@ -4,27 +4,19 @@
       <slot />
     </div>
 
-    <div
-      :class="['overlay', { show }]"
-      @click="close">
-      <div
-        :class="['modal-content', { large, fixed: !title }]"
-        @click.stop>
+    <div :class="['overlay', { show }]" @click="close">
+      <div :class="['modal-content', { large, fixed: !title }]" @click.stop>
         <header>
           <h2 v-if="title">{{ title }}</h2>
 
-          <button
-            class="secondary small"
-            @click="close">
+          <button class="secondary small" @click="close">
             <i class="fas fa-times" />
           </button>
         </header>
 
         <main>
           <span v-if="message">{{ message }}</span>
-          <slot
-            v-else-if="show"
-            name="content" />
+          <slot v-else-if="show" name="content" />
 
           <footer v-if="actionText">
             <button

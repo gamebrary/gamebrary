@@ -2,7 +2,8 @@
   <modal
     ref="listAddModal"
     :title="title"
-    @open="open">
+    @open="open"
+  >
     <button
       :title="$t('list.add')"
       class="small primary add-list-button"
@@ -10,9 +11,7 @@
       <i class="fas fa-plus" />
     </button>
 
-    <form
-      slot="content"
-      @submit.prevent="addList">
+    <form slot="content" @submit.prevent="addList">
       <input
         v-model.trim="listName"
         :placeholder="$t('list.placeholder')"

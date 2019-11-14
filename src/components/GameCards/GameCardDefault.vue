@@ -1,17 +1,20 @@
 <template lang="html">
   <div
     v-if="gameId && games[gameId]"
-    :class="gameCardClass">
+    :class="gameCardClass"
+>
     <img
       :src="coverUrl"
       :alt="game.name"
-      @click="openDetails">
+      @click="openDetails"
+>
 
     <div class="game-info">
       <a
         v-if="list.view !== 'covers'"
         @click="openDetails"
-        v-text="game.name" />
+        v-text="game.name"
+/>
 
       <i class="fas fa-grip-vertical game-drag-handle" />
 
@@ -31,7 +34,8 @@
 
       <div
         v-if="hasTags"
-        class="game-tags">
+        class="game-tags"
+>
         <div
           v-for="({ games, hex }, name) in tags"
           v-if="games.includes(game.id)"

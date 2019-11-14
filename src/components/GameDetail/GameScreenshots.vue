@@ -1,7 +1,5 @@
 <template lang="html">
-  <section
-    v-if="game.screenshots"
-    class="game-screenshots">
+  <section v-if="game.screenshots" class="game-screenshots">
     <vue-gallery
       :images="screenshots"
       :index="index"

@@ -12,9 +12,7 @@
       <p v-html="formattedNoteText" />
     </div>
 
-    <div
-      v-if="editingNote"
-      class="note">
+    <div v-if="editingNote" class="note">
       <i class="fas fa-sticky-note corner-icon" />
 
       <div
@@ -25,9 +23,7 @@
         <p>{{ localNote.text }}</p>
       </div>
 
-      <div
-        v-if="editingNote"
-        class="edit">
+      <div v-if="editingNote" class="edit">
         <textarea
           v-model="localNote.text"
           class="game-note-field"

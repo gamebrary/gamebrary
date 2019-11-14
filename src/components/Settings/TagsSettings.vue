@@ -46,7 +46,8 @@
 
         <div
           v-if="hasTags"
-          class="tags">
+          class="tags"
+        >
           <tag
             v-for="(tag, name) in localTags"
             :key="name"

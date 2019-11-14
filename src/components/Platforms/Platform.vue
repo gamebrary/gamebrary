@@ -11,7 +11,8 @@
 
     <span
       v-if="showCount(platform)"
-      class="game-count">
+      class="game-count"
+    >
       <i class="fas fa-gamepad" />
       {{ getGameCount(platform.code) }}
     </span>

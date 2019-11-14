@@ -4,7 +4,8 @@
 
     <div
       v-if="hasLists"
-      class="setting">
+      class="setting"
+>
       <i class="fas fa-user-check" />
       <h5>{{ $t('settings.ownedLists') }}</h5>
 

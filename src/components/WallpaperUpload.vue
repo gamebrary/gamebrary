@@ -26,7 +26,8 @@
 
           <div
             slot="content"
-            class="wallpaper-preview">
+            class="wallpaper-preview"
+          >
             <img
               v-if="wallpaperUrl"
               :src="wallpaperUrl"
@@ -43,13 +44,16 @@
 
       <button
         class="primary small"
-        @click="triggerUpload">
+        @click="triggerUpload"
+      >
         <i
           v-if="loading"
-          class="fas fa-sync-alt fast-spin" />
+          class="fas fa-sync-alt fast-spin"
+        />
         <i
           v-else
-          class="fas fa-cloud-upload-alt" />
+          class="fas fa-cloud-upload-alt"
+        />
         Upload file
       </button>
 

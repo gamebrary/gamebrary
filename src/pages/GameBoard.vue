@@ -6,7 +6,8 @@
   >
     <game-board-placeholder
       v-if="loading"
-      :id="gameDetailId" />
+      :id="gameDetailId"
+    />
 
     <modal
       ref="game"
@@ -140,9 +141,7 @@ export default {
     },
 
     setPageTitle() {
-      document.title = this.platform
-        ? `${this.platform.name} - Gamebrary`
-        : 'Gamebrary';
+      document.title = this.platform ? `${this.platform.name} - Gamebrary` : 'Gamebrary';
     },
 
     removeTag(tagName) {
@@ -168,7 +167,8 @@ export default {
     },
 
     updateLists() {
-      this.$store.dispatch('SAVE_LIST', this.gameLists)
+      this.$store
+        .dispatch('SAVE_LIST', this.gameLists)
         .then(() => {
           this.$bus.$emit('TOAST', { message: 'List updated' });
         })
@@ -179,9 +179,7 @@ export default {
     },
 
     load() {
-      const flattenedList = this.list
-        ? this.list.map(({ games }) => games).flat()
-        : [];
+      const flattenedList = this.list ? this.list.map(({ games }) => games).flat() : [];
 
       const dedupedList = Array.from(new Set(flattenedList));
 
@@ -194,7 +192,8 @@ export default {
       if (gameList && gameList.length > 0) {
         this.loading = true;
 
-        this.$store.dispatch('LOAD_GAMES', gameList.toString())
+        this.$store
+          .dispatch('LOAD_GAMES', gameList.toString())
           .then(() => {
             this.loading = false;
           })
@@ -216,21 +215,21 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  @import "~styles/styles";
+@import '~styles/styles';
 
-  .game-board {
-    user-select: none;
-    display: flex;
-    align-items: flex-start;
-    height: calc(100vh - 48px);
-    padding: 0 $gp;
-    box-sizing: border-box;
-    overflow-x: auto;
-    overflow-x: overlay;
-    display: flex;
-  }
+.game-board {
+  user-select: none;
+  display: flex;
+  align-items: flex-start;
+  height: calc(100vh - 48px);
+  padding: 0 $gp;
+  box-sizing: border-box;
+  overflow-x: auto;
+  overflow-x: overlay;
+  display: flex;
+}
 
-  .list-placeholder {
-    opacity: 0.25;
-  }
+.list-placeholder {
+  opacity: 0.25;
+}
 </style>

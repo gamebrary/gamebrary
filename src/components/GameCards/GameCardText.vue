@@ -1,11 +1,7 @@
 <template lang="html">
-  <div
-    v-if="gameId && games[gameId]"
-    :class="gameCardClass">
+  <div v-if="gameId && games[gameId]" :class="gameCardClass">
     <div class="game-info">
-      <a
-        @click="openDetails"
-        v-text="game.name"/>
+      <a v-text="game.name" @click="openDetails"/>
       <i class="fas fa-grip-vertical game-drag-handle" />
 
       <game-rating
@@ -24,7 +20,8 @@
 
       <div
         v-if="hasTags"
-        class="game-tags">
+        class="game-tags"
+>
         <div
           v-for="({ games, hex }, name) in tags"
           v-if="games.includes(game.id)"

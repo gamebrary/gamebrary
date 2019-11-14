@@ -1,8 +1,5 @@
 <template lang="html">
-  <a
-    :href="href"
-    class="igdb-credit"
-    target="_blank">
+  <a :href="href" class="igdb-credit" target="_blank">
     <img :src="`/static/img/igdb-logo.svg`" >
     <strong>{{ $t('igdbCredit.poweredByIgdb') }}</strong>
   </a>

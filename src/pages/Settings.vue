@@ -2,14 +2,16 @@
   <modal
     title="Settings"
     action-text="Save"
-    @action="save">
+    @action="save"
+>
     <button class="small primary">
       <i class="fas fa-cog" />
     </button>
 
     <div
       slot="content"
-      class="settings">
+      class="settings"
+    >
       <game-board-settings v-model="localSettings" />
       <tags-settings v-model="localSettings" />
 
@@ -19,7 +21,8 @@
 
         <button
           class="secondary"
-          @click="signOut">
+          @click="signOut"
+        >
           {{ $t('settings.signOut') }}
         </button>
       </div>

@@ -30,7 +30,8 @@
         <option
           v-for="{ id, name } in themes"
           :key="id"
-          :value="id">
+          :value="id"
+        >
           {{ name }}
         </option>
       </select>
