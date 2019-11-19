@@ -30,7 +30,7 @@
 
     <draggable
       v-else
-      :class="['games', { 'empty': isEmpty }]"
+      :class="['games', { 'empty': isEmpty } ]"
       :list="gameList"
       :id="listIndex"
       :move="validateMove"
