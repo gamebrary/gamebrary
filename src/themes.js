@@ -35,4 +35,13 @@ export default [
       url: 'http://gamebrary.com',
     },
   },
+  {
+    name: 'Hyrule',
+    id: 'hyrule',
+    description: 'Theme inspired by Hyrule colors',
+    author: {
+      name: 'Gamebrary staff',
+      url: 'http://gamebrary.com',
+    },
+  },
 ];
