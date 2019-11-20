@@ -13,7 +13,7 @@
       class="settings"
     >
       <game-board-settings v-model="localSettings" />
-      <tags-settings v-model="localSettings" />
+      <manage-tags v-model="localSettings" />
 
       <div class="setting">
         <i class="fas fa-sign-out-alt" />
@@ -53,7 +53,7 @@ import 'firebase/auth';
 import GameBoardSettings from '@/components/Settings/GameBoardSettings';
 import SettingsGlobal from '@/components/Settings/SettingsGlobal';
 import AboutSettings from '@/components/Settings/AboutSettings';
-import TagsSettings from '@/components/Settings/TagsSettings';
+import ManageTags from '@/components/Settings/ManageTags';
 import Modal from '@/components/Modal';
 import moment from 'moment';
 import firebase from 'firebase/app';
@@ -66,7 +66,7 @@ export default {
     GameBoardSettings,
     SettingsGlobal,
     AboutSettings,
-    TagsSettings,
+    ManageTags,
   },
 
   data() {

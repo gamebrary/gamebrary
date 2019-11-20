@@ -31,7 +31,7 @@
 
       <div v-if="hasTags" class="game-tags">
         <div
-          v-for="({ games, hex }, name) in tags"
+          v-for="({ games, hex, tagTextColor }, name) in tags"
           v-if="games.includes(game.id)"
           :key="name"
         >
@@ -39,6 +39,7 @@
             v-if="games.includes(game.id)"
             :label="name"
             :hex="hex"
+            :text-hex="tagTextColor"
             readonly
             @action="openTags"
             @close="removeTag(name)"

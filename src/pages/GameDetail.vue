@@ -52,6 +52,7 @@
               </button>
             </div>
           </div>
+
           <game-notes />
 
           <section v-if="gamePlatforms && gamePlatforms.length > 0">
@@ -67,11 +68,12 @@
           </section>
 
           <tag
-            v-for="({ games, hex }, name) in tags"
+            v-for="({ games, hex, tagTextColor }, name) in tags"
             v-if="games.includes(game.id)"
             :key="name"
             :label="name"
             :hex="hex"
+            :text-hex="tagTextColor"
             readonly
             @action="openTags"
             @close="removeTag(name)"

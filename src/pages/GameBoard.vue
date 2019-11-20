@@ -22,25 +22,40 @@
       />
     </modal>
 
+    <!-- TODO: move this to its own component -->
     <modal
       ref="tag"
       :title="$t('tags.applyTag')"
       :message="$t('tags.useTags')"
     >
       <div slot="content">
-        <div
+        <h3>All tags</h3>
+
+        <tag
           v-for="(tag, name) in tags"
+          v-if="!tag.platform"
           :key="name"
-          class="tags"
-        >
-          <tag
-            :label="name"
-            :hex="tag.hex"
-            :readonly="!tag.games.includes(gameTagsId)"
-            @action="tryAdd(tag.games, name)"
-            @close="removeTag(name)"
-          />
-        </div>
+          :label="name"
+          :hex="tag.hex"
+          :text-hex="tag.tagTextColor"
+          :readonly="!tag.games.includes(gameTagsId)"
+          @action="tryAdd(tag.games, name)"
+          @close="removeTag(name)"
+        />
+
+        <h3>{{ platform.name }} tags</h3>
+
+        <tag
+          v-for="(tag, name) in tags"
+          v-if="tag.platform && tag.platform === platform.id"
+          :key="name"
+          :label="name"
+          :hex="tag.hex"
+          :text-hex="tag.tagTextColor"
+          :readonly="!tag.games.includes(gameTagsId)"
+          @action="tryAdd(tag.games, name)"
+          @close="removeTag(name)"
+        />
       </div>
     </modal>
 

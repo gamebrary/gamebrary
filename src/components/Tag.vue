@@ -1,8 +1,8 @@
 <template lang="html">
   <span
     v-if="label && hex"
-    :style="`background-color: ${hex}`"
-    :class="['tag', textColor, { readonly }]"
+    :style="`background-color: ${hex}; color: ${textHex}`"
+    :class="['tag', { readonly }]"
   >
     <i
       v-if="!readonly"
@@ -31,20 +31,9 @@ export default {
       type: String,
       default: '',
     },
-  },
-
-  computed: {
-    textColor() {
-      const hexColor = this.hex ? this.hex.replace('#', 0) : '#000000';
-
-      const r = parseInt(hexColor.substr(0, 2), 16);
-      const g = parseInt(hexColor.substr(2, 2), 16);
-      const b = parseInt(hexColor.substr(4, 2), 16);
-
-      // eslint-disable-next-line
-      const yiq = ((r*299)+(g*587)+(b*114))/1000;
-
-      return yiq >= 128 ? 'dark' : 'light';
+    textHex: {
+      type: String,
+      default: '#000',
     },
   },
 

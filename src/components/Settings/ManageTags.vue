@@ -18,12 +18,43 @@
             type="text"
           >
 
-          <input
-            :value="tagHex"
-            type="color"
-            class="color-picker"
-            @change="updateColor"
-          >
+          <div class="color-picker-wrapper">
+            <i class="fas fa-fill-drip" />
+
+            <input
+              :value="tagHex"
+              type="color"
+              class="color-picker"
+              @change="updateColor"
+            >
+          </div>
+
+          <div class="color-picker-wrapper">
+            <i class="fas fa-font" />
+            <input
+              :value="tagTextColor"
+              type="color"
+              class="color-picker"
+              @change="updateTextColor"
+            >
+          </div>
+
+          <div class="preview">
+            <tag
+              label="Preview"
+              :hex="tagHex"
+              :textHex="tagTextColor"
+            />
+          </div>
+
+          <div class="exclusive-toggle">
+            Exclusive to {{ platform.name }}
+
+            <toggle-switch
+              id="global"
+              v-model="exclusive"
+            />
+          </div>
         </div>
 
         <div class="tag-actions">
@@ -36,41 +67,51 @@
           </button>
 
           <button
-            :disabled="isDuplicate && !editing"
+            :disabled="isDuplicate"
             class="primary"
-            @click="submit"
+            @click="createTag"
           >
-            {{ actionLabel }}
+            {{ $t('global.save') }}
           </button>
         </div>
 
-        <div
-          v-if="hasTags"
-          class="tags"
-        >
-          <tag
-            v-for="(tag, name) in localTags"
-            :key="name"
-            :label="name"
-            :hex="tag.hex"
-            @close="deleteTag(name)"
-          />
-          <!-- @click.native="editTag(tag, name)" -->
+        <div v-if="hasTags" class="tags">
+          <!-- TODO: use computed properties for filtering out tags -->
+          <section>
+            <h3>All tags</h3>
+
+            <tag
+              v-for="(tag, name) in localTags"
+              v-if="!tag.platform"
+              :key="name"
+              :label="name"
+              :hex="tag.hex"
+              :text-hex="tag.tagTextColor"
+              @close="deleteTag(name)"
+            />
+          </section>
+
+          <section>
+            <h3>{{ platform.name }} tags</h3>
+
+            <tag
+              v-for="(tag, name) in localTags"
+              v-if="tag.platform && tag.platform === platform.id"
+              :key="name"
+              :label="name"
+              :hex="tag.hex"
+              :text-hex="tag.tagTextColor"
+              @close="deleteTag(name)"
+            />
+          </section>
         </div>
       </div>
-      <!-- <button
-  class="small warning"
-  :title="$t('list.delete')"
-  >
-  <i class="far fa-trash-alt" />
-  Delete {{ platform.name }} collection
-</button> -->
-
     </modal>
   </div>
 </template>
 
 <script>
+import ToggleSwitch from '@/components/ToggleSwitch';
 import Tag from '@/components/Tag';
 import Modal from '@/components/Modal';
 import { mapState } from 'vuex';
@@ -79,6 +120,7 @@ export default {
   components: {
     Tag,
     Modal,
+    ToggleSwitch,
   },
 
   data() {
@@ -86,18 +128,19 @@ export default {
       localTags: {},
       tagName: '',
       tagHex: '',
-      originalTagName: '',
-      editing: false,
-      defaultColor: '#ffcc00',
+      tagTextColor: '#f4b41a',
+      defaultColor: '#143d59',
+      exclusive: false,
     };
   },
 
   computed: {
-    ...mapState(['tags']),
+    ...mapState(['tags', 'platform']),
 
     newTag() {
       return {
         hex: this.tagHex,
+        tagTextColor: this.tagTextColor,
         games: [],
       };
     },
@@ -126,12 +169,6 @@ export default {
     hasTags() {
       return Object.keys(this.localTags).length > 0;
     },
-
-    actionLabel() {
-      return this.editing
-        ? this.$t('global.save')
-        : this.$t('tags.createTag');
-    },
   },
 
   mounted() {
@@ -140,32 +177,21 @@ export default {
   },
 
   methods: {
-    submit() {
-      if (this.editing) {
-        this.saveTag();
-      } else {
-        this.createTag();
-      }
-    },
-
-    saveTag() {
-      const { tagName, tagHex, tempTag } = this;
-
-      if (tempTag.tagName !== tagName || tempTag.hex !== tagHex) {
-        this.$store.commit('UPDATE_TAG', { tagName, tagHex, tempTag });
-        this.$bus.$emit('SAVE_TAGS', this.tags);
-        this.localTags = JSON.parse(JSON.stringify(this.tags));
-        this.reset();
-      }
-    },
-
     updateColor(e) {
       this.tagHex = e.srcElement.value;
+    },
+
+    updateTextColor(e) {
+      this.tagTextColor = e.srcElement.value;
     },
 
     createTag() {
       if (!this.tagHex || !this.tagName || this.isDuplicate) {
         return;
+      }
+
+      if (this.exclusive) {
+        this.newTag.platform = this.platform.id;
       }
 
       this.$set(this.localTags, this.tagName, this.newTag);
@@ -182,14 +208,9 @@ export default {
     reset() {
       this.tagName = '';
       this.tagHex = this.defaultColor;
-      this.editing = false;
-    },
+      this.exclusive = false;
 
-    editTag({ hex }, tagName) {
-      this.tempTag = { tagName, hex };
-      this.tagName = tagName;
-      this.tagHex = hex;
-      this.editing = true;
+      this.$forceUpdate();
     },
   },
 };
@@ -200,7 +221,7 @@ export default {
 
   .tag-input {
     display: grid;
-    grid-template-columns: 1fr 40px;
+    grid-template-columns: 1fr 40px 40px 60px;
     grid-gap: $gp;
     margin-bottom: $gp;
   }
@@ -226,5 +247,39 @@ export default {
 
   .tag {
     margin: 0 $gp / 2 $gp / 2 0;
+  }
+
+  .tags {
+    display: grid;
+    grid-gap: $gp / 2;
+
+    h3 {
+      margin-bottom: $gp / 2;
+    }
+  }
+
+  .exclusive-toggle {
+    display: flex;
+    align-items: center;
+  }
+
+  .color-picker-wrapper {
+    i {
+      position: absolute;
+      width: 40px;
+      text-shadow: 0 1px 0 #000;
+      height: 40px;
+      display: flex;
+      overflow: visible;
+      pointer-events: none;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 </style>
