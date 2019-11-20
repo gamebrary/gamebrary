@@ -16,7 +16,7 @@
 
         <main>
           <span v-if="message">{{ message }}</span>
-          <slot v-else-if="show" name="content" />
+          <slot v-if="show" name="content" />
 
           <footer v-if="actionText">
             <button
