@@ -86,7 +86,7 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import GameScreenshots from '@/components/GameDetail/GameScreenshots';
-import GameNotes from '@/components/GameNotes';
+import GameNotes from '@/components/GameDetail/GameNotes';
 import GameTags from '@/components/GameDetail/GameTags';
 import GameRating from '@/components/GameDetail/GameRating';
 import GameLinks from '@/components/GameDetail/GameLinks';
