@@ -1,5 +1,7 @@
 <template lang="html">
   <section v-if="game.screenshots" class="game-screenshots">
+    <h3>Screenshots</h3>
+
     <vue-gallery
       :images="screenshots"
       :index="index"
@@ -84,7 +86,7 @@ export default {
     margin: $gp 0;
 
     h3 {
-      margin: 0 0 $gp / 2;
+      margin: 0 0 $gp;
     }
 
     img {

@@ -1,5 +1,7 @@
 <template lang="html">
   <div v-if="game.videos" class="game-videos">
+    <h3>Videos</h3>
+
     <div class="video">
       <iframe
         :src="`https://www.youtube.com/embed/${youtubeVideoId}?rel=0&autohide=1`"
@@ -53,7 +55,7 @@ export default {
   .video {
     position: relative;
     padding-bottom: 56.25%;
-    margin: $gp;
+    margin: $gp 0;
     height: 56.25%;
 
     iframe {
@@ -68,12 +70,11 @@ export default {
   .video-thumbnails {
     display: grid;
     grid-template-columns: repeat(auto-fill, 100px);
-    padding: 0 $gp;
+    padding: 0;
     grid-gap: $gp;
 
     @media($small) {
       grid-template-columns: repeat(auto-fill, 70px);
-      justify-content: center;
     }
 
     .thumbnail {
