@@ -1,13 +1,6 @@
 <template lang="html">
-  <div
-    v-if="user && platform"
-    ref="gameBoard"
-    class="game-board"
-  >
-    <game-board-placeholder
-      v-if="loading"
-      :id="gameDetailId"
-    />
+  <div v-if="loaded" class="game-board" >
+    <game-board-placeholder v-if="loading" :id="gameDetailId" />
 
     <modal
       ref="game"
@@ -80,6 +73,10 @@ export default {
         ? this.gameLists[this.platform.code]
         : null;
     },
+
+    loaded() {
+      return this.user && this.platform;
+    }
   },
 
   mounted() {
