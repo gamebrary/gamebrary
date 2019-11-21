@@ -1,20 +1,17 @@
 <template lang="html">
-  <div
-    v-if="gameId && games[gameId]"
-    :class="gameCardClass"
->
+  <div v-if="gameId && games[gameId]" :class="gameCardClass">
     <img
       :src="coverUrl"
       :alt="game.name"
       @click="openDetails"
->
+    >
 
     <div class="game-info">
       <a
         v-if="list.view !== 'covers'"
-        @click="openDetails"
         v-text="game.name"
-/>
+        @click="openDetails"
+      />
 
       <i class="fas fa-grip-vertical game-drag-handle" />
 
@@ -32,27 +29,25 @@
         @click="openDetails"
       />
 
+      <div v-if="hasTags" class="game-tags">
+
       <div
-        v-if="hasTags"
-        class="game-tags"
->
-        <div
-          v-for="({ games, hex, tagTextColor }, name) in tags"
+        v-for="({ games, hex, tagTextColor }, name) in tags"
+        v-if="games.includes(game.id)"
+        :key="name"
+      >
+        <tag
           v-if="games.includes(game.id)"
-          :key="name"
-        >
-          <tag
-            v-if="games.includes(game.id)"
-            :label="name"
-            :hex="hex"
-            :text-hex="tagTextColor"
-            readonly
-            @action="openTags"
-          />
-        </div>
-      </div>
+          :label="name"
+          :hex="hex"
+          :text-hex="tagTextColor"
+          readonly
+          @action="openTags"
+        />
     </div>
   </div>
+</div>
+</div>
 </template>
 
 <script>
@@ -159,3 +154,4 @@ export default {
     color: var(--note-color);
   }
 </style>
+
