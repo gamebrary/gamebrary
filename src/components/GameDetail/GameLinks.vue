@@ -1,6 +1,6 @@
 <template lang="html">
   <div v-if="hasWebsites" class="game-links">
-    <h4>Links</h4>
+    <h3>Links</h3>
     <div class="links">
       <a
         v-for="{ category, url } in game.websites"
@@ -74,12 +74,6 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
   @import "~styles/styles";
-
-  .game-links {
-    border-top: 1px solid #e5e5e5;
-    margin-top: $gp;
-    padding-top: $gp;
-  }
 
   .links {
     display: grid;

@@ -71,9 +71,9 @@
           </section> -->
 
           <game-details />
+          <game-links />
           <game-videos />
           <game-screenshots />
-          <game-links />
           <igdb-credit gray />
         </div>
 
