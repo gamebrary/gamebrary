@@ -1,5 +1,3 @@
-<!-- TODO: Exclude existing ids from query -->
-<!-- TODO: fix empty state weirdness -->
 <template lang="html">
   <modal :title="$t('list.addGame')" @open="clear">
     <button
