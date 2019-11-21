@@ -10,7 +10,7 @@
         {{ list[listIndex].name }} ({{ gameList.length }})
       </span>
 
-      <list-settings :list-index="listIndex" />
+      <list-settings-modal :list-index="listIndex" />
     </header>
 
     <div
@@ -54,7 +54,7 @@
 <script>
 import draggable from 'vuedraggable';
 import Masonry from 'masonry-layout';
-import ListSettings from '@/components/Lists/ListSettings';
+import ListSettingsModal from '@/components/Lists/ListSettingsModal';
 import GameCardDefault from '@/components/GameCards/GameCardDefault';
 import GameCardGrid from '@/components/GameCards/GameCardGrid';
 import GameCardWide from '@/components/GameCards/GameCardWide';
@@ -71,7 +71,7 @@ export default {
     GameCardWide,
     GameCardText,
     AddGameModal,
-    ListSettings,
+    ListSettingsModal,
     draggable,
   },
 
