@@ -22,63 +22,26 @@
       />
     </modal>
 
-    <!-- TODO: move this to its own component -->
-    <modal
-      ref="tag"
-      :title="$t('tags.applyTag')"
-      :message="$t('tags.useTags')"
-    >
-      <div slot="content">
-        <h3>All tags</h3>
+    <apply-tag />
 
-        <tag
-          v-for="(tag, name) in tags"
-          v-if="!tag.platform"
-          :key="name"
-          :label="name"
-          :hex="tag.hex"
-          :text-hex="tag.tagTextColor"
-          :readonly="!tag.games.includes(gameTagsId)"
-          @action="tryAdd(tag.games, name)"
-          @close="removeTag(name)"
-        />
+    <list
+      v-for="(list, listIndex) in gameLists[platform.code]"
+      v-if="list && !loading"
+      :name="list.name"
+      :game-list="list.games"
+      :list-index="listIndex"
+      :key="`${list.name}-${listIndex}`"
+      @end="dragEnd"
+    />
 
-        <h3>{{ platform.name }} tags</h3>
-
-        <tag
-          v-for="(tag, name) in tags"
-          v-if="tag.platform && tag.platform === platform.id"
-          :key="name"
-          :label="name"
-          :hex="tag.hex"
-          :text-hex="tag.tagTextColor"
-          :readonly="!tag.games.includes(gameTagsId)"
-          @action="tryAdd(tag.games, name)"
-          @close="removeTag(name)"
-        />
-      </div>
-    </modal>
-
-    <template>
-      <list
-        v-for="(list, listIndex) in gameLists[platform.code]"
-        v-if="list && !loading"
-        :name="list.name"
-        :game-list="list.games"
-        :list-index="listIndex"
-        :key="`${list.name}-${listIndex}`"
-        @end="dragEnd"
-      />
-
-      <list-add />
-    </template>
+    <list-add />
   </div>
 </template>
 
 <script>
 import GameBoardPlaceholder from '@/components/GameBoard/GameBoardPlaceholder';
-import Tag from '@/components/Tag';
 import ListAdd from '@/components/Lists/ListAdd';
+import ApplyTag from '@/components/Tags/ApplyTag';
 import Modal from '@/components/Modal';
 import List from '@/components/Lists/List';
 import Game from '@/pages/Game';
@@ -92,7 +55,7 @@ export default {
     List,
     GameBoardPlaceholder,
     ListAdd,
-    Tag,
+    ApplyTag,
     Game,
     Modal,
   },
@@ -105,13 +68,12 @@ export default {
       gameData: null,
       gameDetailListIndex: null,
       gameDetailId: null,
-      gameTagsId: null,
       queryLimit: 500,
     };
   },
 
   computed: {
-    ...mapState(['user', 'gameLists', 'platform', 'tags', 'games']),
+    ...mapState(['user', 'gameLists', 'platform', 'games']),
 
     list() {
       return this.gameLists && this.platform && this.gameLists[this.platform.code]
@@ -129,26 +91,13 @@ export default {
     this.load();
     this.setPageTitle();
     this.$bus.$on('OPEN_GAME', this.openGame);
-    this.$bus.$on('OPEN_TAGS', this.openTags);
   },
 
   beforeDestroy() {
     this.$bus.$off('OPEN_GAME');
-    this.$bus.$off('OPEN_TAGS');
   },
 
   methods: {
-    tryAdd(games, tagName) {
-      if (!games.includes(this.gameTagsId)) {
-        this.addTag(tagName);
-      }
-    },
-
-    addTag(tagName) {
-      this.$store.commit('ADD_GAME_TAG', { tagName, gameId: this.gameTagsId });
-      this.$bus.$emit('SAVE_TAGS', this.tags);
-    },
-
     closeGame() {
       this.setPageTitle();
       this.gameDetailId = null;
@@ -159,20 +108,10 @@ export default {
       document.title = this.platform ? `${this.platform.name} - Gamebrary` : 'Gamebrary';
     },
 
-    removeTag(tagName) {
-      this.$store.commit('REMOVE_GAME_TAG', { tagName, gameId: this.gameTagsId });
-      this.$bus.$emit('SAVE_TAGS', this.tags);
-    },
-
     openGame({ id, listId }) {
       this.gameDetailId = id;
       this.gameDetailListIndex = listId;
       this.$refs.game.open();
-    },
-
-    openTags(id) {
-      this.gameTagsId = id;
-      this.$refs.tag.open(id);
     },
 
     dragEnd() {
