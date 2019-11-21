@@ -151,7 +151,7 @@
     "createTag": "Create tag",
     "inputPlaceholder": "Tag name",
     "applyTag": "Apply tag",
-    "useTags": "Use tags to better organise your games"
+    "message": "Use tags to better organize your games!"
   },
   "gameSearch": {
     "title": "Add games to",

@@ -2,7 +2,7 @@
   <modal
     ref="tag"
     :title="$t('tags.applyTag')"
-    :message="$t('tags.useTags')"
+    :message="$t('tags.message')"
   >
     <div slot="content">
       <h3>All tags</h3>
@@ -91,4 +91,13 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
+@import '~styles/styles';
+
+h3 {
+  margin: $gp 0;
+}
+
+.tag {
+  margin-right: $gp / 2;
+}
 </style>
