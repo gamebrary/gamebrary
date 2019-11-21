@@ -12,7 +12,7 @@
       @end="dragEnd"
     />
 
-    <list-add />
+    <list-add-modal />
     <game-modal />
     <apply-tag-modal />
   </div>
@@ -20,7 +20,7 @@
 
 <script>
 import GameBoardPlaceholder from '@/components/GameBoard/GameBoardPlaceholder';
-import ListAdd from '@/components/Lists/ListAdd';
+import ListAddModal from '@/components/GameBoard/ListAddModal';
 import ApplyTagModal from '@/components/GameBoard/ApplyTagModal';
 import GameModal from '@/components/GameBoard/GameModal';
 import List from '@/components/Lists/List';
@@ -33,7 +33,7 @@ export default {
     draggable,
     List,
     GameBoardPlaceholder,
-    ListAdd,
+    ListAddModal,
     ApplyTagModal,
     GameModal,
   },
