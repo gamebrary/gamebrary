@@ -1,6 +1,6 @@
 <!-- TODO: rename to Game.vue -->
 <template lang="html">
-  <div class="game-detail">
+  <div class="game">
     <header>
       <aside>
         <img
