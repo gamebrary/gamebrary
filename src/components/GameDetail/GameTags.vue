@@ -2,7 +2,7 @@
   <div class="game-tags">
     <tag
       v-for="({ games, hex, tagTextColor }, name) in tags"
-      v-if="games.includes(game.id)"
+      v-if="game && games.includes(game.id)"
       :key="name"
       :label="name"
       :hex="hex"
