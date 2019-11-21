@@ -28,6 +28,7 @@
           {{ platform.name }}
 
           <game-rating v-if="games[id].rating" :rating="games[id].rating" />
+          <game-tags />
         </div>
 
         <div v-if="game" class="details">
@@ -56,7 +57,6 @@
           </div>
 
           <game-notes />
-          <game-tags />
 
           <!-- <section v-if="gamePlatforms && gamePlatforms.length > 0">
             <h4>{{ $t('gameDetail.gamePlatforms') }}</h4>
@@ -77,10 +77,7 @@
           <igdb-credit gray />
         </div>
 
-        <placeholder
-          v-else
-          :lines="3"
-        />
+        <placeholder v-else :lines="3" class="game-placeholder" />
       </main>
     </header>
   </div>
@@ -239,27 +236,6 @@ aside {
 
   button {
     margin-right: $gp / 2;
-  }
-}
-
-.platforms {
-  margin-top: $gp;
-  display: flex;
-  flex-wrap: wrap;
-
-  .platform {
-    width: 90px;
-    height: 50px;
-    margin-right: $gp / 2;
-    padding: $gp / 4;
-
-    &:first-child {
-      margin-left: 0;
-    }
-
-    &:last-child {
-      margin-right: 0;
-    }
   }
 }
 </style>

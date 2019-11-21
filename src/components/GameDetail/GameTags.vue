@@ -1,7 +1,5 @@
 <template lang="html">
   <div class="game-tags">
-    <h3>Tags</h3>
-
     <tag
       v-for="({ games, hex, tagTextColor }, name) in tags"
       v-if="games.includes(game.id)"
@@ -47,11 +45,7 @@ export default {
 @import '~styles/styles';
 
 .game-tags {
-  margin: $gp / 2 0;
-}
-
-h3 {
-  margin-bottom: $gp / 2;
+  margin: $gp / 2 0 $gp;
 }
 
 .tag {
