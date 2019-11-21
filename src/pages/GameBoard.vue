@@ -1,21 +1,6 @@
 <template lang="html">
   <div v-if="loaded" class="game-board" >
-    <game-board-placeholder v-if="loading" :id="gameDetailId" />
-
-    <modal
-      ref="game"
-      large
-      @close="closeGame"
-    >
-      <game
-        v-if="gameDetailId"
-        slot="content"
-        :id="gameDetailId"
-        :list-id="gameDetailListIndex"
-      />
-    </modal>
-
-    <apply-tag />
+    <game-board-placeholder v-if="loading" />
 
     <list
       v-for="(list, listIndex) in gameLists[platform.code]"
@@ -28,16 +13,17 @@
     />
 
     <list-add />
+    <game-modal />
+    <apply-tag-modal />
   </div>
 </template>
 
 <script>
 import GameBoardPlaceholder from '@/components/GameBoard/GameBoardPlaceholder';
 import ListAdd from '@/components/Lists/ListAdd';
-import ApplyTag from '@/components/Tags/ApplyTag';
-import Modal from '@/components/Modal';
+import ApplyTagModal from '@/components/GameBoard/ApplyTagModal';
+import GameModal from '@/components/GameBoard/GameModal';
 import List from '@/components/Lists/List';
-import Game from '@/pages/Game';
 import { chunk } from 'lodash';
 import { mapState } from 'vuex';
 import draggable from 'vuedraggable';
@@ -48,9 +34,8 @@ export default {
     List,
     GameBoardPlaceholder,
     ListAdd,
-    ApplyTag,
-    Game,
-    Modal,
+    ApplyTagModal,
+    GameModal,
   },
 
   data() {
@@ -60,7 +45,6 @@ export default {
       loading: false,
       gameData: null,
       gameDetailListIndex: null,
-      gameDetailId: null,
       queryLimit: 500,
     };
   },
@@ -86,30 +70,9 @@ export default {
     }
 
     this.load();
-    this.setPageTitle();
-    this.$bus.$on('OPEN_GAME', this.openGame);
-  },
-
-  beforeDestroy() {
-    this.$bus.$off('OPEN_GAME');
   },
 
   methods: {
-    closeGame() {
-      this.setPageTitle();
-      this.gameDetailId = null;
-      this.$store.commit('CLEAR_ACTIVE_GAME');
-    },
-
-    setPageTitle() {
-      document.title = this.platform ? `${this.platform.name} - Gamebrary` : 'Gamebrary';
-    },
-
-    openGame({ id, listId }) {
-      this.gameDetailId = id;
-      this.gameDetailListIndex = listId;
-      this.$refs.game.open();
-    },
 
     dragEnd() {
       this.dragging = false;

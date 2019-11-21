@@ -112,7 +112,7 @@
 
 <script>
 import ToggleSwitch from '@/components/ToggleSwitch';
-import Tag from '@/components/Tags/Tag';
+import Tag from '@/components/Tag';
 import Modal from '@/components/Modal';
 import { mapState } from 'vuex';
 

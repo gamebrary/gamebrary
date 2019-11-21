@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import Tag from '@/components/Tags/Tag';
+import Tag from '@/components/Tag';
 import { mapState, mapGetters } from 'vuex';
 
 export default {

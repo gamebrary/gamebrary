@@ -38,7 +38,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import Tag from '@/components/Tags/Tag';
+import Tag from '@/components/Tag';
 import Modal from '@/components/Modal';
 
 export default {
