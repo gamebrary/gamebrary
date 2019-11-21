@@ -1,4 +1,3 @@
-<!-- eslint-disable max-len -->
 <template lang="html">
   <div :class="['list', viewClass, { unique: unique && view !== 'grid' }]">
     <header>
@@ -48,7 +47,7 @@
       />
     </draggable>
 
-    <add-game :list-id="listIndex" />
+    <add-game-modal :list-id="listIndex" />
   </div>
 </template>
 
@@ -60,7 +59,7 @@ import GameCardDefault from '@/components/GameCards/GameCardDefault';
 import GameCardGrid from '@/components/GameCards/GameCardGrid';
 import GameCardWide from '@/components/GameCards/GameCardWide';
 import GameCardText from '@/components/GameCards/GameCardText';
-import AddGame from '@/components/AddGame';
+import AddGameModal from '@/components/Lists/AddGameModal';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
@@ -71,7 +70,7 @@ export default {
     GameCardGrid,
     GameCardWide,
     GameCardText,
-    AddGame,
+    AddGameModal,
     ListSettings,
     draggable,
   },
