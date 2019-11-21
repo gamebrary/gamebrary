@@ -97,4 +97,6 @@ export default {
 
     return Boolean(brandingEnabled && brandingAvailble);
   },
+
+  hasTags: state => Object.keys(state.tags) && Object.keys(state.tags).length > 0,
 };

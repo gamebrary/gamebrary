@@ -1,5 +1,4 @@
-// Identify stuff that's not being reused
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   props: {
@@ -15,6 +14,7 @@ export default {
 
   computed: {
     ...mapState(['settings', 'games', 'gameLists', 'platform', 'user', 'tags', 'activeList', 'notes']),
+    ...mapGetters(['hasTags']),
 
     showGameRatings() {
       return this.settings
@@ -43,10 +43,6 @@ export default {
 
     game() {
       return this.games[this.gameId];
-    },
-
-    hasTags() {
-      return Object.keys(this.tags) && Object.keys(this.tags).length > 0;
     },
 
     coverUrl() {
