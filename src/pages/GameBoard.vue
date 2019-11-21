@@ -76,7 +76,7 @@ export default {
 
     loaded() {
       return this.user && this.platform;
-    }
+    },
   },
 
   mounted() {

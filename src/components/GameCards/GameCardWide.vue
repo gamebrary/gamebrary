@@ -53,7 +53,7 @@
 <script>
 import GameRating from '@/components/GameDetail/GameRating';
 import GameCardUtils from '@/components/GameCards/GameCard';
-import Tag from '@/components/Tag';
+import Tag from '@/components/Tags/Tag';
 
 export default {
   components: {
