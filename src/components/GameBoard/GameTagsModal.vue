@@ -2,7 +2,7 @@
   <modal
     ref="tag"
     :title="$t('tags.editTags' )"
-    :message="$t('tags.message', { gameName: game.name })"
+    :message="$t('tags.message', { gameName: game && game.name })"
   >
     <div slot="content" class="game-tags">
       <h3>All tags</h3>
