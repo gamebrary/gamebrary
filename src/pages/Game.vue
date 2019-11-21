@@ -43,7 +43,7 @@
               {{ $t('gameDetail.removeFromList') }}
             </button>
 
-            <button v-else class="primary">
+            <button v-else class="primary" @click="addGame">
               {{ $t('list.addGame') }}
             </button>
 
@@ -171,6 +171,35 @@ export default {
         })
         .catch(() => {
           this.$bus.$emit('TOAST', { message: 'Error loading game', type: 'error' });
+        });
+    },
+
+    addGame() {
+      const data = {
+        listId: this.listId,
+        gameId: this.game.id,
+      };
+
+      this.$emit('added');
+      this.$store.commit('ADD_GAME', data);
+
+      this.$ga.event({
+        eventCategory: 'game',
+        eventAction: 'add',
+        eventLabel: 'addGame',
+        eventValue: data,
+      });
+
+      this.$store.dispatch('SAVE_LIST', this.gameLists)
+        .then(() => {
+          this.$bus.$emit('TOAST', {
+            message: `Added ${this.game.name} to list ${this.list.name}`,
+            imageUrl: this.coverUrl,
+          });
+        })
+        .catch(() => {
+          this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
+          this.$router.push({ name: 'sessionExpired' });
         });
     },
 
