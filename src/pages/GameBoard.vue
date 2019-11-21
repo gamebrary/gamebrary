@@ -14,7 +14,7 @@
       large
       @close="closeGame"
     >
-      <game-detail
+      <game
         v-if="gameDetailId"
         slot="content"
         :id="gameDetailId"
@@ -81,7 +81,7 @@ import Tag from '@/components/Tag';
 import ListAdd from '@/components/Lists/ListAdd';
 import Modal from '@/components/Modal';
 import List from '@/components/Lists/List';
-import GameDetail from '@/pages/GameDetail';
+import Game from '@/pages/Game';
 import { chunk } from 'lodash';
 import { mapState } from 'vuex';
 import draggable from 'vuedraggable';
@@ -93,7 +93,7 @@ export default {
     GameBoardPlaceholder,
     ListAdd,
     Tag,
-    GameDetail,
+    Game,
     Modal,
   },
 
