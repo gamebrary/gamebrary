@@ -1,3 +1,4 @@
+<!-- TODO: rename to Game.vue -->
 <template lang="html">
   <div class="game-detail">
     <header>
@@ -30,8 +31,7 @@
         </div>
 
         <div v-if="game" class="details">
-
-          <p class="game-description" v-html="game.summary" />
+          <game-description />
 
           <div class="actions">
             <button
@@ -93,6 +93,7 @@ import GameNotes from '@/components/GameNotes';
 import GameTags from '@/components/GameDetail/GameTags';
 import GameRating from '@/components/GameDetail/GameRating';
 import GameLinks from '@/components/GameDetail/GameLinks';
+import GameDescription from '@/components/GameDetail/GameDescription';
 import GameVideos from '@/components/GameDetail/GameVideos';
 import GameDetails from '@/components/GameDetail/GameDetails';
 import Platform from '@/components/Platforms/Platform';
@@ -105,6 +106,7 @@ export default {
     IgdbCredit,
     GameRating,
     GameLinks,
+    GameDescription,
     Placeholder,
     GameScreenshots,
     GameNotes,
@@ -229,12 +231,6 @@ aside {
   @media($small) {
     text-align: center;
   }
-}
-
-.game-description {
-  line-height: 1.4rem;
-  font-size: 16px;
-  letter-spacing: .01em
 }
 
 .actions {
