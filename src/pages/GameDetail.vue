@@ -8,7 +8,7 @@
           class="game-cover"
         >
 
-        <div
+        <!-- <div
           v-if="game && game.age_ratings"
           class="game-rating"
         >
@@ -18,14 +18,16 @@
             :src="`/static/img/age-ratings/${ageRatings[rating]}.png`"
             :alt="synopsis"
           >
-        </div>
+        </div> -->
       </aside>
 
-      <article>
-        <h2>{{ games[id].name }}</h2>
-        {{ platform.name }}
+      <main>
+        <div class="game-title">
+          <h2>{{ games[id].name }}</h2>
+          {{ platform.name }}
 
-        <game-rating v-if="games[id].rating" :rating="games[id].rating" />
+          <game-rating v-if="games[id].rating" :rating="games[id].rating" />
+        </div>
 
         <div v-if="game" class="details">
 
@@ -54,8 +56,9 @@
           </div>
 
           <game-notes />
+          <game-tags />
 
-          <section v-if="gamePlatforms && gamePlatforms.length > 0">
+          <!-- <section v-if="gamePlatforms && gamePlatforms.length > 0">
             <h4>{{ $t('gameDetail.gamePlatforms') }}</h4>
 
             <div class="platforms">
@@ -65,55 +68,29 @@
                 :platform="platform"
               />
             </div>
-          </section>
+          </section> -->
 
-          <tag
-            v-for="({ games, hex, tagTextColor }, name) in tags"
-            v-if="games.includes(game.id)"
-            :key="name"
-            :label="name"
-            :hex="hex"
-            :text-hex="tagTextColor"
-            readonly
-            @action="openTags"
-            @close="removeTag(name)"
-          />
-
+          <game-details />
+          <game-videos />
+          <game-screenshots />
+          <game-links />
           <igdb-credit gray />
-
-          <div class="tabs">
-            <span v-for="{ value, icon, text } in tabs" :key="value">
-              <label :for="value" :class="{ active: value === tab }">
-                <i :class="icon" />
-                {{ text }}
-              </label>
-
-              <input
-                :id="value"
-                :value="value"
-                v-model="tab"
-                type="radio"
-              />
-            </span>
-          </div>
-
-          <component :is="activeComponent" />
         </div>
 
         <placeholder
           v-else
           :lines="3"
         />
-      </article>
+      </main>
     </header>
   </div>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import Tag from '@/components/Tag';
 import GameScreenshots from '@/components/GameDetail/GameScreenshots';
 import GameNotes from '@/components/GameNotes';
+import GameTags from '@/components/GameDetail/GameTags';
 import GameRating from '@/components/GameDetail/GameRating';
 import GameLinks from '@/components/GameDetail/GameLinks';
 import GameVideos from '@/components/GameDetail/GameVideos';
@@ -126,12 +103,12 @@ import GameDetailPlaceholder from '@/components/GameDetail/GameDetailPlaceholder
 export default {
   components: {
     IgdbCredit,
-    Tag,
     GameRating,
     GameLinks,
     Placeholder,
     GameScreenshots,
     GameNotes,
+    GameTags,
     Platform,
     GameVideos,
     GameDetails,
@@ -149,51 +126,9 @@ export default {
     },
   },
 
-  data() {
-    return {
-      tab: 'details',
-      tabs: [
-        {
-          value: 'details',
-          icon: 'fab fa-youtube',
-          text: 'Details',
-          component: 'GameDetails',
-        },
-        {
-          value: 'videos',
-          icon: 'fab fa-youtube',
-          text: 'Videos',
-          component: 'GameVideos',
-        },
-        {
-          value: 'screenshots',
-          icon: 'fas fa-images',
-          text: 'Screenshots',
-          component: 'GameScreenshots',
-        },
-        {
-          value: 'links',
-          icon: 'fas fa-link',
-          text: 'Links',
-          component: 'GameLinks',
-        },
-      ],
-    };
-  },
-
   computed: {
     ...mapState(['game', 'user', 'platform', 'tags', 'gameLists', 'games']),
-    ...mapGetters(['ageRatings', 'gamePlatforms']),
-
-    hasTags() {
-      return Object.keys(this.tags) && Object.keys(this.tags).length > 0;
-    },
-
-    activeComponent() {
-      const activeTab = this.tabs.find(tab => tab.value === this.tab);
-
-      return activeTab ? activeTab.component : '';
-    },
+    ...mapGetters(['ageRatings', 'gamePlatforms', 'hasTags']),
 
     activePlatform() {
       return this.gameLists[this.platform.code];
@@ -215,11 +150,6 @@ export default {
   },
 
   methods: {
-    removeTag(tagName) {
-      this.$store.commit('REMOVE_GAME_TAG', { tagName, gameId: this.game.id });
-      this.$bus.$emit('SAVE_TAGS', this.tags);
-    },
-
     openTags() {
       this.$bus.$emit('OPEN_TAGS', this.id);
     },
@@ -293,6 +223,18 @@ aside {
 
 .game-cover {
   border-radius: $border-radius;
+}
+
+.game-title {
+  @media($small) {
+    text-align: center;
+  }
+}
+
+.game-description {
+  line-height: 1.4rem;
+  font-size: 16px;
+  letter-spacing: .01em
 }
 
 .actions {
