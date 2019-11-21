@@ -14,14 +14,14 @@
 
     <list-add-modal />
     <game-modal />
-    <apply-tag-modal />
+    <game-tags-modal />
   </div>
 </template>
 
 <script>
 import GameBoardPlaceholder from '@/components/GameBoard/GameBoardPlaceholder';
 import ListAddModal from '@/components/GameBoard/ListAddModal';
-import ApplyTagModal from '@/components/GameBoard/ApplyTagModal';
+import GameTagsModal from '@/components/GameBoard/GameTagsModal';
 import GameModal from '@/components/GameBoard/GameModal';
 import List from '@/components/Lists/List';
 import { chunk } from 'lodash';
@@ -34,7 +34,7 @@ export default {
     List,
     GameBoardPlaceholder,
     ListAddModal,
-    ApplyTagModal,
+    GameTagsModal,
     GameModal,
   },
 

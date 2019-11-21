@@ -1,10 +1,10 @@
 <template lang="html">
   <modal
     ref="tag"
-    :title="$t('tags.applyTag')"
-    :message="$t('tags.message')"
+    :title="$t('tags.editTags' )"
+    :message="$t('tags.message', { gameName: game.name })"
   >
-    <div slot="content">
+    <div slot="content" class="game-tags">
       <h3>All tags</h3>
 
       <tag
@@ -32,6 +32,11 @@
         @action="tryAdd(tag.games, name)"
         @close="removeTag(name)"
       />
+
+      <div class="settings-message">
+        <p>{{ $t('tags.settingsMessage') }}</p>
+        <settings />
+      </div>
     </div>
   </modal>
 </template>
@@ -40,11 +45,13 @@
 import { mapState } from 'vuex';
 import Tag from '@/components/Tag';
 import Modal from '@/components/Modal';
+import Settings from '@/pages/Settings';
 
 export default {
   components: {
     Tag,
     Modal,
+    Settings,
   },
 
   data() {
@@ -54,7 +61,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['tags', 'platform']),
+    ...mapState(['tags', 'platform', 'game']),
   },
 
   mounted() {
@@ -97,7 +104,31 @@ h3 {
   margin: $gp 0;
 }
 
+.game-tags {
+}
+
 .tag {
   margin-right: $gp / 2;
+}
+
+.settings-message {
+  margin-top: $gp * 3;
+  border-top: 1px solid var(--modal-text-color);
+  display: flex;
+  align-items: center;
+  padding-top: $gp;
+
+  @media($small) {
+    padding: $gp;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    width: 100%;
+  }
+
+  p {
+    margin: 0 $gp 0 0;
+  }
 }
 </style>

@@ -150,8 +150,9 @@
     "addTag": "Add Tag",
     "createTag": "Create tag",
     "inputPlaceholder": "Tag name",
-    "applyTag": "Apply tag",
-    "message": "Use tags to better organize your games!"
+    "editTags": "Edit game tags",
+    "message": "Click on tag to add it to <a>{gameName}</a>. Click on <i class=\"fas fa-times close\"></i> to remove tag.",
+    "settingsMessage": "You can add or edit existing tags in settings."
   },
   "gameSearch": {
     "title": "Add games to",

@@ -15,7 +15,7 @@
         </header>
 
         <main>
-          <span v-if="message">{{ message }}</span>
+          <span v-if="message" v-html="message" />
           <slot v-if="show" name="content" />
 
           <footer v-if="actionText">
