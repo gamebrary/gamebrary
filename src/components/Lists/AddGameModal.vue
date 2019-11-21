@@ -21,18 +21,8 @@
           type="text"
         >
 
-        <button
-          class="primary small"
-          @click="search"
-        >
-          <i
-            v-if="loading"
-            class="fas fa-circle-notch fast-spin hollow"
-          />
-          <i
-            v-else
-            class="fas fa-search"
-          />
+        <button class="primary" @click="search">
+          <i :class="searchIcon" />
         </button>
 
         <igdb-credit linkable />
@@ -107,6 +97,12 @@ export default {
       return !this.loading
         && this.filteredResults.length === 0
         && this.searchText.trim().length > 0;
+    },
+
+    searchIcon() {
+      return this.loading
+        ? 'fas fa-circle-notch fast-spin hollow'
+        : 'fas fa-search';
     },
 
     list() {
