@@ -1,22 +1,18 @@
 <!-- TODO: Exclude existing ids from query -->
-<!-- TODO: increase limit to 20 or more -->
 <!-- TODO: fix empty state weirdness -->
 <template lang="html">
-  <modal
-    :title="$t('list.addGame')"
-    @open="clear"
->
+  <modal :title="$t('list.addGame')" @open="clear">
     <button
       :title="$t('list.addGame')"
       class="add-game-button small secondary"
->
+    >
       <i class="fas fa-plus" />
     </button>
 
     <div
       slot="content"
       class="game-search"
->
+    >
       <form @submit.prevent="search">
         <input
           ref="searchInput"
@@ -28,15 +24,15 @@
         <button
           class="primary small"
           @click="search"
->
+        >
           <i
             v-if="loading"
             class="fas fa-circle-notch fast-spin hollow"
-/>
+          />
           <i
             v-else
             class="fas fa-search"
-/>
+          />
         </button>
 
         <igdb-credit linkable />
@@ -45,7 +41,7 @@
       <small
         v-if="gamesInList.length"
         :title="gamesInListNames"
->
+      >
         <strong>{{ gamesInListMessage }}</strong>
         {{ $t('gameSearch.alreadyInList') }}
       </small>
@@ -54,7 +50,7 @@
         v-if="filteredResults.length > 0"
         ref="searchResults"
         class="search-results"
->
+      >
         <game-card-search
           v-for="{ id } in filteredResults"
           :key="id"
@@ -68,7 +64,7 @@
       <span
         v-if="noResults"
         class="no-results"
->
+      >
         {{ $t('gameSearch.noResultsFound') }}
       </span>
     </div>
@@ -108,8 +104,8 @@ export default {
     ...mapState(['results', 'gameLists', 'platform']),
 
     noResults() {
-      return this.filteredResults.length === 0
-        && !this.loading
+      return !this.loading
+        && this.filteredResults.length === 0
         && this.searchText.trim().length > 0;
     },
 
@@ -144,6 +140,7 @@ export default {
   watch: {
     searchText(value) {
       if (value) {
+        this.loading = true;
         this.search();
       }
     },
@@ -173,8 +170,6 @@ export default {
     search: debounce(
       // eslint-disable-next-line
       function() {
-        this.loading = true;
-
         this.$store.dispatch('SEARCH', this.searchText)
           .then(() => {
             this.error = null;
