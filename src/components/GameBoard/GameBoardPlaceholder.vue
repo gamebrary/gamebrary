@@ -1,4 +1,3 @@
-<!-- TODO: Account for unique list style (100%) -->
 <template lang="html">
   <div class="gameboard-placeholder">
     <div
