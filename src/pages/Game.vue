@@ -1,4 +1,3 @@
-<!-- TODO: rename to Game.vue -->
 <template lang="html">
   <div class="game">
     <header>
