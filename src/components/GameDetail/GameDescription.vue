@@ -25,15 +25,15 @@ export default {
 
     collapsed() {
       return !this.expanded && this.game.summary && this.game.summary.length > this.characterLimit;
-    }
+    },
   },
 
   methods: {
-      expand() {
-        if (this.collapsed) {
-          this.expanded = true
-        };
-      },
+    expand() {
+      if (this.collapsed) {
+        this.expanded = true;
+      }
+    },
   },
 };
 </script>
@@ -71,3 +71,4 @@ p {
   }
 }
 </style>
+
