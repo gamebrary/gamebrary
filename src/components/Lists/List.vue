@@ -1,7 +1,7 @@
 <template lang="html">
   <div :class="['list', viewClass, { unique: unique && view !== 'grid' }]">
     <header>
-      <span>
+      <span class="list-name">
         <i
           v-if="autoSortEnabled"
           class="fas fa-magic"
@@ -287,6 +287,12 @@ export default {
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
       width: 100%;
+    }
+
+    .list-name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .games {
