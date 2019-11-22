@@ -1,0 +1,31 @@
+<template lang="html">
+  <div class="authorizing">
+    <img src="/static/gamebrary-logo.png" >
+    <i class="fas fa-sync-alt fa-2x fast-spin" />
+    <h3>Authorizing</h3>
+  </div>
+</template>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+@import "~styles/styles";
+
+.authorizing {
+  background: var(--body-background);
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  img {
+    width: 100px;
+    margin-top: 100px;
+  }
+
+  i {
+    margin: $gp;
+  }
+}
+</style>

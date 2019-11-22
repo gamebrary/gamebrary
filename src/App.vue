@@ -6,24 +6,15 @@
     :dir="dir"
   >
     <nav-header />
-
-    <router-view v-if="user" />
-
-    <div
-      v-else
-      class="auth"
->
-      <img src="/static/gamebrary-logo.png" >
-      <i class="fas fa-sync-alt fa-2x fast-spin" />
-      <h3>Authorizing</h3>
-    </div>
-
+    <router-view v-if="!user" />
+    <authorizing v-else />
     <toast />
   </div>
 </template>
 
 <script>
 import NavHeader from '@/components/NavHeader';
+import Authorizing from '@/pages/Authorizing';
 import Toast from '@/components/Toast';
 import firebase from 'firebase/app';
 import { mapState } from 'vuex';
@@ -48,6 +39,7 @@ export default {
 
   components: {
     NavHeader,
+    Authorizing,
     Toast,
   },
 
@@ -328,25 +320,5 @@ export default {
   #app {
     background: var(--body-background);
     background-size: cover;
-  }
-
-  .auth {
-    background: var(--body-background);
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    width: 100vw;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-
-    img {
-      width: 100px;
-      margin-top: 100px;
-    }
-
-    i {
-      margin: $gp;
-    }
   }
 </style>
