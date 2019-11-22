@@ -6,7 +6,7 @@
     :dir="dir"
   >
     <nav-header />
-    <router-view v-if="!user" />
+    <router-view v-if="user" />
     <authorizing v-else />
     <toast />
   </div>
