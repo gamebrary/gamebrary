@@ -200,7 +200,7 @@ export default {
       this.tagName = '';
       this.tagHex = this.defaultColor;
       this.exclusive = false;
-      this.tagTextColor = '#f4b41a',
+      this.tagTextColor = '#f4b41a';
 
       this.$forceUpdate();
     },
