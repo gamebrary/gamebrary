@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <modal title="Manage tags">
+    <modal title="Manage tags" @open="reset">
       <div class="setting">
         <i class="fas fa-tags" />
         <h5>Tags</h5>
@@ -11,40 +11,41 @@
       </div>
 
       <div slot="content">
-        <div class="tag-input">
-          <input
-            v-model="tagName"
-            :placeholder="$t('tags.inputPlaceholder')"
-            type="text"
-          >
-
-          <div class="color-picker-wrapper">
-            <i class="fas fa-fill-drip" />
-
+        <form class="add-tag" @submit.prevent="createTag">
+          <h3>Add a tag</h3>
+          <div class="tag-input">
             <input
-              :value="tagHex"
-              type="color"
-              class="color-picker"
-              @change="updateColor"
+              v-model="tagName"
+              required
+              maxlength="20"
+              :placeholder="$t('tags.inputPlaceholder')"
+              type="text"
             >
-          </div>
 
-          <div class="color-picker-wrapper">
-            <i class="fas fa-font" />
-            <input
-              :value="tagTextColor"
-              type="color"
-              class="color-picker"
-              @change="updateTextColor"
-            >
-          </div>
-
-          <div class="preview">
-            <tag
-              label="Preview"
-              :hex="tagHex"
-              :textHex="tagTextColor"
+            <swatches
+              v-model="tagHex"
+              show-fallback
+              popover-to="left"
+              swatch-size="32"
+              colors="basic"
             />
+
+            <swatches
+              v-model="tagTextColor"
+              show-fallback
+              popover-to="left"
+              swatch-size="32"
+              colors="basic"
+            />
+
+            <div class="preview">
+              <small>Tag preview</small>
+              <tag
+                :label="tagName || 'Preview'"
+                :hex="tagHex"
+                :textHex="tagTextColor"
+              />
+            </div>
           </div>
 
           <div class="exclusive-toggle">
@@ -55,25 +56,25 @@
               v-model="exclusive"
             />
           </div>
-        </div>
 
-        <div class="tag-actions">
-          <button
-            :disabled="!tagName"
-            class="secondary"
-            @click="reset"
-          >
-            {{ $t('global.cancel') }}
-          </button>
+          <div class="tag-actions">
+            <button
+              :disabled="!tagName"
+              class="secondary"
+              @click="reset"
+            >
+              <i class="fas fa-redo"></i>
+            </button>
 
-          <button
-            :disabled="isDuplicate"
-            class="primary"
-            @click="createTag"
-          >
-            {{ $t('global.save') }}
-          </button>
-        </div>
+            <button
+              :disabled="isDuplicate"
+              class="primary"
+              type="submit"
+            >
+              {{ $t('global.save') }}
+            </button>
+          </div>
+        </form>
 
         <div v-if="hasTags" class="tags">
           <!-- TODO: use computed properties for filtering out tags -->
@@ -112,15 +113,18 @@
 
 <script>
 import ToggleSwitch from '@/components/ToggleSwitch';
+import Swatches from 'vue-swatches';
 import Tag from '@/components/Tag';
 import Modal from '@/components/Modal';
 import { mapState } from 'vuex';
+import 'vue-swatches/dist/vue-swatches.min.css';
 
 export default {
   components: {
     Tag,
     Modal,
     ToggleSwitch,
+    Swatches,
   },
 
   data() {
@@ -128,6 +132,12 @@ export default {
       localTags: {},
       tagName: '',
       tagHex: '',
+      colors: [
+        ['#F64272', '#F6648B', '#F493A7', '#F891A6', '#FFCCD5' ],
+        ['#8b5aff', '#a27bff', '#b99cff', '#d0bdff', '#e8deff' ],
+        ['#51e5db', '#74ebe3', '#96f0ea', '#b9f5f1', '#dcfaf8' ],
+        ['#ffa51a', '#ffb748', '#ffc976', '#ffdba3', '#ffedd1' ]
+      ],
       tagTextColor: '#f4b41a',
       defaultColor: '#143d59',
       exclusive: false,
@@ -209,6 +219,7 @@ export default {
       this.tagName = '';
       this.tagHex = this.defaultColor;
       this.exclusive = false;
+      this.tagTextColor = '#f4b41a',
 
       this.$forceUpdate();
     },
@@ -216,33 +227,36 @@ export default {
 };
 </script>
 
+<style lang="scss" rel="stylesheet/scss">
+  @import "~styles/styles";
+
+  .add-tag {
+    .vue-swatches__wrapper {
+      width: 200px !important;
+    }
+
+    .vue-swatches__fallback__wrapper {
+      width: 100%;
+      margin: 0 $gp / 2 !important;
+    }
+  }
+</style>
+
 <style lang="scss" rel="stylesheet/scss" scoped>
   @import "~styles/styles";
 
   .tag-input {
     display: grid;
-    grid-template-columns: 1fr 40px 40px 60px;
+    grid-template-columns: 1fr 40px 40px 100px;
     grid-gap: $gp;
-    margin-bottom: $gp;
   }
 
-  .tag-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: $gp;
+  h3 {
+    margin-bottom: $gp / 2;
   }
 
   input {
     margin: 0;
-  }
-
-  .color-picker {
-    -webkit-appearance: none;
-    width: 40px;
-    height: 40px;
-    padding: 0;
-    margin: 0;
-    border: 0;
   }
 
   .tag {
@@ -263,23 +277,33 @@ export default {
     align-items: center;
   }
 
-  .color-picker-wrapper {
-    i {
-      position: absolute;
-      width: 40px;
-      text-shadow: 0 1px 0 #000;
-      height: 40px;
-      display: flex;
-      overflow: visible;
-      pointer-events: none;
-      align-items: center;
-      justify-content: center;
-    }
-  }
-
   .preview {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    flex-direction: column;
+
+    small {
+      font-size: 10px;
+      margin-bottom: $gp / 4;
+    }
+
+    .tag {
+      margin: 0;
+    }
+  }
+
+  .add-tag {
+    padding: $gp;
+    border: 1px dashed var(--modal-text-color);
+    border-radius: $gp;
+    margin-bottom: $gp;
+  }
+
+  .tag-actions {
+    display: flex;
+    margin-top: $gp;
+    justify-content: space-between;
   }
 </style>

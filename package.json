@@ -39,6 +39,7 @@
         "vue-markdown": "^2.2.4",
         "vue-raven": "^1.0.0",
         "vue-router": "^3.0.1",
+        "vue-swatches": "^1.0.4",
         "vuedraggable": "^2.16.0",
         "vuefire": "^1.4.5",
         "vuex": "^3.0.1",
