@@ -132,12 +132,6 @@ export default {
       localTags: {},
       tagName: '',
       tagHex: '',
-      colors: [
-        ['#F64272', '#F6648B', '#F493A7', '#F891A6', '#FFCCD5' ],
-        ['#8b5aff', '#a27bff', '#b99cff', '#d0bdff', '#e8deff' ],
-        ['#51e5db', '#74ebe3', '#96f0ea', '#b9f5f1', '#dcfaf8' ],
-        ['#ffa51a', '#ffb748', '#ffc976', '#ffdba3', '#ffedd1' ]
-      ],
       tagTextColor: '#f4b41a',
       defaultColor: '#143d59',
       exclusive: false,
@@ -153,19 +147,6 @@ export default {
         tagTextColor: this.tagTextColor,
         games: [],
       };
-    },
-
-    textColor() {
-      const hexColor = this.tagHex ? this.tagHex.replace('#', 0) : '#000000';
-
-      const r = parseInt(hexColor.substr(0, 2), 16);
-      const g = parseInt(hexColor.substr(2, 2), 16);
-      const b = parseInt(hexColor.substr(4, 2), 16);
-
-      // eslint-disable-next-line
-        const yiq = ((r*299)+(g*587)+(b*114))/1000;
-
-      return yiq >= 128 ? 'dark' : 'light';
     },
 
     isDuplicate() {
