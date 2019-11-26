@@ -60,7 +60,7 @@ import GameCardGrid from '@/components/GameCards/GameCardGrid';
 import GameCardWide from '@/components/GameCards/GameCardWide';
 import GameCardText from '@/components/GameCards/GameCardText';
 import AddGameModal from '@/components/Lists/AddGameModal';
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   name: 'List',
