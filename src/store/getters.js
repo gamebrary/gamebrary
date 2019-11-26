@@ -91,12 +91,5 @@ export default {
   // eslint-disable-next-line
     activeList: ({ gameLists, platform, activeListIndex }) => gameLists[platform.code][activeListIndex],
 
-  brandingEnabled: ({ settings, platform }) => {
-    const brandingEnabled = settings && settings.branding;
-    const brandingAvailble = platform && platform.brandingEnabled && Boolean(platform.hex);
-
-    return Boolean(brandingEnabled && brandingAvailble);
-  },
-
   hasTags: state => Object.keys(state.tags) && Object.keys(state.tags).length > 0,
 };

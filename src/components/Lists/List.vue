@@ -113,8 +113,6 @@ export default {
   computed: {
     ...mapState(['user', 'gameLists', 'platform', 'settings', 'games']),
 
-    ...mapGetters(['brandingEnabled']),
-
     autoSortEnabled() {
       const list = this.list[this.listIndex];
 

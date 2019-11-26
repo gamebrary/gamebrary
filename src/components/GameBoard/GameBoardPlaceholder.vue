@@ -33,18 +33,11 @@ export default {
 
   computed: {
     ...mapState(['gameLists', 'platform']),
-    ...mapGetters(['brandingEnabled']),
 
     lists() {
       return this.gameLists && this.platform && this.gameLists[this.platform.code]
         ? this.gameLists[this.platform.code]
         : [];
-    },
-
-    style() {
-      return this.brandingEnabled
-        ? `background-color: ${this.platform.hex}; opacity: 0.8;`
-        : null;
     },
   },
 

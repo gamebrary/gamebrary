@@ -6,21 +6,18 @@ export default [
     code: 'nintendo-switch',
     hex: '#ce181e',
     id: 130,
-    brandingEnabled: true,
   },
   {
     name: 'PlayStation 4',
     code: 'ps4',
     hex: '#2e6db4',
     id: 48,
-    brandingEnabled: true,
   },
   {
     name: 'Xbox One',
     code: 'xbox-one',
     id: 49,
     hex: '#177d3e',
-    brandingEnabled: true,
   },
   {
     name: 'PlayStation Vita',
