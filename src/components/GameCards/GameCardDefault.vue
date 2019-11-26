@@ -109,6 +109,10 @@ export default {
         margin-top: $gp / 4;
       }
 
+      .tag {
+        margin-right: $gp / 4;
+      }
+
       i.tags {
         position: absolute;
         bottom: $gp * 1.5;
