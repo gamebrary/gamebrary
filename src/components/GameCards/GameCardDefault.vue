@@ -1,3 +1,4 @@
+<!-- TODO: abstract styles, only add card specific styles in each component -->
 <template lang="html">
   <div v-if="gameId && games[gameId]" :class="gameCardClass">
     <img
