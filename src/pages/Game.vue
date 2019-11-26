@@ -255,6 +255,7 @@ aside {
 .game-title {
   @media($small) {
     text-align: center;
+    width: calc(100vw - #{$gp * 2});
   }
 }
 
