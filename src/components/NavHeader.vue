@@ -7,7 +7,7 @@
     >
       <img src="/static/gamebrary-logo.png" >
 
-      {{ title }}
+      <span>{{ title }}</span>
     </router-link>
 
     <settings v-if="showSettings" />
@@ -78,6 +78,13 @@ export default {
       align-items: center;
       margin-left: -$gp;
       text-transform: capitalize;
+
+      > span {
+        text-shadow: -1px -1px 0 var(--body-background),
+          1px -1px 0 var(--body-background),
+          -1px 1px 0 var(--body-background),
+          1px 1px 0 var(--body-background);
+      }
 
       img {
         height: 24px;
