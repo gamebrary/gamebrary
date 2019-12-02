@@ -4,9 +4,7 @@
     action-text="Save"
     @action="save"
 >
-    <button class="small primary">
-      <i class="fas fa-cog" />
-    </button>
+    <gravatar :email="user.email" class="avatar" />
 
     <div
       slot="content"
@@ -50,6 +48,7 @@
 import { mapState } from 'vuex';
 import 'firebase/firestore';
 import 'firebase/auth';
+import Gravatar from 'vue-gravatar';
 import GameBoardSettings from '@/components/Settings/GameBoardSettings';
 import SettingsGlobal from '@/components/Settings/SettingsGlobal';
 import AboutSettings from '@/components/Settings/AboutSettings';
@@ -67,6 +66,7 @@ export default {
     SettingsGlobal,
     AboutSettings,
     TagsSettings,
+    Gravatar,
   },
 
   data() {
@@ -174,8 +174,17 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
   @import "~styles/styles";
 
+  $avatarSize: 30px;
+
   .settings {
     display: flex;
     flex-direction: column;
+  }
+
+  .avatar {
+    width: $avatarSize;
+    height: $avatarSize;
+    border-radius: $avatarSize;
+    overflow: hidden;
   }
 </style>
