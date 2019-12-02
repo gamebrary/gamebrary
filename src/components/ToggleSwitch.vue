@@ -5,6 +5,7 @@
     <input
       :id="id"
       v-model="localValue"
+      @change="$emit('change')"
       type="checkbox"
     >
 
@@ -72,6 +73,8 @@ export default {
   input[type=checkbox]{
     height: 0;
     width: 0;
+    margin: 0;
+    padding: 0;
     visibility: hidden;
 
     &:checked + label {

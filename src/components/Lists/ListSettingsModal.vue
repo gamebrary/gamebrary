@@ -19,6 +19,15 @@
         <h4>List name</h4>
 
         <input ref="input" v-model="localList.name">
+
+        <button
+          :title="$t('global.save')"
+          class="primary"
+          type="button"
+          @click="save"
+        >
+          {{ $t('global.save') }}
+        </button>
       </section>
 
       <section>
@@ -35,19 +44,11 @@
               :id="view"
               :value="view"
               v-model="localList.view"
+              @change="save"
               type="radio"
             >
           </span>
         </div>
-      </section>
-
-      <section>
-        <h4>Hide game ratings</h4>
-
-        <toggle-switch
-          id="gameRatings"
-          v-model="localList.hideGameRatings"
-        />
       </section>
 
       <section v-if="hasMultipleGames">
@@ -69,6 +70,7 @@
             <input
               :id="sortOrder"
               :value="sortOrder"
+              @change="save"
               v-model="localList.sortOrder"
               type="radio"
             >
@@ -76,10 +78,19 @@
         </div>
       </section>
 
+      <section :class="{ disabled: localList.view === 'grid' }">
+        <h4>Hide game ratings</h4>
+
+        <toggle-switch
+          id="gameRatings"
+          @change="save"
+          v-model="localList.hideGameRatings"
+        />
+      </section>
+
       <footer>
         <modal
           v-if="localList && localList.games && localList.games.length"
-          ref="addList"
           :message="warningMessage"
           :action-text="$t('list.delete')"
           title="Are you sure?"
@@ -126,13 +137,6 @@ class="primary hollow"
 <i class="fas fa-arrow-right" />
 </button> -->
 
-        <button
-          :title="$t('global.save')"
-          class="primary"
-          @click="save"
-        >
-          {{ $t('global.save') }}
-        </button>
       </footer>
     </div>
   </modal>
@@ -232,7 +236,6 @@ export default {
       this.$store.dispatch('SAVE_LIST', gameLists)
         .then(() => {
           this.$bus.$emit('TOAST', { message: 'List saved' });
-          this.$refs.listSettingsModal.close();
         })
         .catch(() => {
           this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
@@ -260,7 +263,12 @@ export default {
   @import "~styles/styles";
 
   section {
-    margin-bottom: $gp;
+    margin-bottom: $gp * 2;
+
+    &.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
   }
 
   h4 {
@@ -268,6 +276,8 @@ export default {
   }
 
   footer {
+    border-top: 1px solid var(--modal-text-color);
+    padding-top: $gp * 2;
     display: flex;
     justify-content: space-between;
   }
