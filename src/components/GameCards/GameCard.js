@@ -17,9 +17,7 @@ export default {
     ...mapGetters(['hasTags']),
 
     showGameRatings() {
-      return this.settings
-      && this.settings[this.platform.code]
-      && !this.settings[this.platform.code].hideGameRatings;
+      return this.list && !this.list.hideGameRatings;
     },
 
     gameCardClass() {

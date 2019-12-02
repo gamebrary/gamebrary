@@ -2,12 +2,12 @@
   <modal
     v-if="activeList"
     ref="listSettingsModal"
-    :title="$t('list.preferences')"
+    :title="$t('list.settings')"
     @open="open"
     @close="close"
   >
     <button class="small">
-      <i class="fas fa-sliders-h" />
+      <i class="fas fa-cog" />
     </button>
 
     <div
@@ -39,6 +39,15 @@
             >
           </span>
         </div>
+      </section>
+
+      <section>
+        <h4>Hide game ratings</h4>
+
+        <toggle-switch
+          id="gameRatings"
+          v-model="localList.hideGameRatings"
+        />
       </section>
 
       <section v-if="hasMultipleGames">
