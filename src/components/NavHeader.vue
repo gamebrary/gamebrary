@@ -92,15 +92,4 @@ export default {
       }
     }
   }
-
-  img.avatar {
-    width: 30px;
-    height: 30px;
-    border-radius: $border-radius;
-
-    @media($small) {
-      width: 30px;
-      height: 30px;
-    }
-  }
 </style>
