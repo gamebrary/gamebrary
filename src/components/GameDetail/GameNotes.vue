@@ -1,7 +1,5 @@
 <template lang="html">
   <div class="game-notes">
-    <h4>{{ $t('notes.notes') }}</h4>
-
     <div
       v-if="hasNote && !editingNote"
       class="note"
@@ -147,10 +145,6 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
   @import "~styles/styles";
-
-  .game-notes {
-    margin-top: $gp;
-  }
 
   h4 {
     padding-bottom: $gp / 2;

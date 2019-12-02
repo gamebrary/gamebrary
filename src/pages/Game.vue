@@ -2,11 +2,7 @@
   <div class="game">
     <header>
       <aside>
-        <img
-          :src="coverUrl"
-          :alt="games[id].name"
-          class="game-cover"
-        >
+        <img :src="coverUrl" :alt="games[id].name" class="game-cover" />
 
         <!-- <div
           v-if="game && game.age_ratings"
@@ -28,14 +24,10 @@
 
           <game-rating v-if="games[id].rating" :rating="games[id].rating" />
           <game-tags />
-        </div>
-
-        <div v-if="game" class="details">
-          <game-description />
 
           <div class="actions">
             <button
-              v-if="list.games.includes(game.id)"
+              v-if="list.games.includes(id)"
               class="danger"
               @click="removeGame"
             >
@@ -53,9 +45,18 @@
                 {{ $t('tags.addTag') }}
               </button>
             </div>
-          </div>
 
-          <game-notes />
+            <game-notes v-if="game" />
+          </div>
+        </div>
+
+        <div class="details" v-if="game">
+          <game-description />
+          <game-details />
+          <game-links />
+          <game-videos />
+          <game-screenshots />
+          <igdb-credit gray />
 
           <!-- <section v-if="gamePlatforms && gamePlatforms.length > 0">
             <h4>{{ $t('gameDetail.gamePlatforms') }}</h4>
@@ -68,12 +69,6 @@
               />
             </div>
           </section> -->
-
-          <game-details />
-          <game-links />
-          <game-videos />
-          <game-screenshots />
-          <igdb-credit gray />
         </div>
 
         <placeholder v-else :lines="3" class="game-placeholder" />
@@ -266,5 +261,9 @@ aside {
   button {
     margin-right: $gp / 2;
   }
+}
+
+.game-placeholder {
+  margin-top: $gp;
 }
 </style>
