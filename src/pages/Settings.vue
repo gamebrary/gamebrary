@@ -1,9 +1,5 @@
 <template lang="html">
-  <modal
-    title="Settings"
-    action-text="Save"
-    @action="save"
->
+  <modal title="Settings">
     <gravatar :email="user.email" class="avatar" />
 
     <div
