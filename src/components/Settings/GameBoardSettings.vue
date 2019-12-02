@@ -16,7 +16,7 @@
       <i class="fas fa-palette" />
       <h5>Global theme</h5>
 
-      <select v-model="value[platform.code].theme">
+      <select v-model="value[platform.code].theme" @change="$emit('save')">
         <option
           v-for="{ id, name } in themes"
           :key="id"

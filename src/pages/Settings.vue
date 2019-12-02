@@ -10,7 +10,7 @@
       slot="content"
       class="settings"
     >
-      <game-board-settings v-model="localSettings" />
+      <game-board-settings v-model="localSettings" @save="save"/>
       <tags-settings v-model="localSettings" />
 
       <div class="setting">
