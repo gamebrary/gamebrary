@@ -5,10 +5,7 @@
       :class="`list ${list.view || 'single'}`"
       :key="list.name"
     >
-      <div
-        :style="style"
-        class="list-header"
-/>
+      <div class="list-header" />
 
       <div class="games">
         <placeholder
