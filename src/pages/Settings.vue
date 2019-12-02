@@ -184,7 +184,7 @@ export default {
   .avatar {
     width: $avatarSize;
     height: $avatarSize;
-    border-radius: $avatarSize;
+    border-radius: $border-radius;
     overflow: hidden;
   }
 </style>
