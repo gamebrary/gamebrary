@@ -81,7 +81,6 @@ export default {
       width: 50px;
       height: auto;
       display: flex;
-      align-self: center;
       cursor: pointer;
     }
 
