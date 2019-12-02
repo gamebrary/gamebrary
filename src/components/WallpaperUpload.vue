@@ -4,7 +4,7 @@
     <template v-if="wallpaperUrl">
       <div class="current-wallpaper">
         <i class="far fa-image" />
-        <h5>{{ $t('settings.wallpaper.currentWallpaper') }}</h5>
+        <h5>{{ $t('settings.wallpaper.wallpaper') }}</h5>
       </div>
 
       <div/>

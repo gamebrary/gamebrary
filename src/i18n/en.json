@@ -76,7 +76,7 @@
   "list": {
     "edit": "Edit list name",
     "type": "List type",
-    "preferences": "List preferences",
+    "settings": "List settings",
     "placeholder": "Type your list name here",
     "wishlist": "Wishlist",
     "input": "Enter your own",
@@ -137,6 +137,7 @@
       "title": "Upload wallpaper",
       "transparency": "Allow transparency",
       "currentWallpaper": "Current wallpaper",
+      "wallpaper": "Wallpaper",
       "removeWallpaper": "Remove wallpaper"
     },
     "deleteAccount": {
