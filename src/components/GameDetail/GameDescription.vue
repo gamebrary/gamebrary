@@ -1,6 +1,7 @@
 
 <template lang="html">
   <div class="game-description" @click="expand">
+    <h3>Game description</h3>
     <p :class="{ collapsed }">
       {{ game.summary }}
     </p>
@@ -42,7 +43,7 @@ export default {
 @import "~styles/styles";
 
 .game-description {
-  margin-bottom: $gp;
+  margin: $gp 0;
 }
 
 p {

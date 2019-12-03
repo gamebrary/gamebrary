@@ -20,7 +20,10 @@
         rows="5"
       />
 
-      <small><i class="fab fa-markdown"></i> Markdown supported</small>
+      <small>
+        <i class="fab fa-markdown" />
+        <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">Markdown supported</a>
+      </small>
 
       <footer>
         <button class="secondary" @click="reset">

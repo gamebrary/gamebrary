@@ -45,13 +45,12 @@
                 {{ $t('tags.addTag') }}
               </button>
             </div>
-
-            <game-notes v-if="game" />
           </div>
         </div>
 
         <div class="details" v-if="game">
           <game-description />
+          <game-notes />
           <game-details />
           <game-links />
           <game-videos />
@@ -257,6 +256,10 @@ aside {
 .actions {
   display: flex;
   align-items: center;
+
+  @media($small) {
+    justify-content: center;
+  }
 
   button {
     margin-right: $gp / 2;
