@@ -1,6 +1,6 @@
 <template lang="html">
   <modal title="Settings">
-    <gravatar :email="user.email" class="avatar" />
+    <gravatar :email="user.email" class="avatar" v-if="user && user.email" />
 
     <div
       slot="content"
