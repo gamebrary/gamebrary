@@ -22,7 +22,9 @@
 
       <small>
         <i class="fab fa-markdown" />
-        <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">Markdown supported</a>
+        <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">
+          Markdown supported
+        </a>
       </small>
 
       <footer>
@@ -53,7 +55,7 @@ import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
-      VueMarkdown,
+    VueMarkdown,
   },
 
   data() {
