@@ -1,64 +1,43 @@
 <template lang="html">
   <div class="game-notes">
-    <div
-      v-if="hasNote && !editingNote"
-      class="note"
-      @click="editNote"
-    >
-      <i class="fas fa-sticky-note corner-icon" />
+    <h3>Game notes</h3>
 
-      <p v-html="formattedNoteText" />
-    </div>
-
-    <div v-if="editingNote" class="note">
-      <i class="fas fa-sticky-note corner-icon" />
-
-      <div
-        v-if="localNote && !editingNote"
-        class="read"
-        @click="editNote"
-      >
-        <p>{{ localNote.text }}</p>
+    <div v-if="hasNote && !showNoteField" class="note">
+      <div class="markdown">
+        <vue-markdown :source="localNote.text" />
       </div>
 
-      <div v-if="editingNote" class="edit">
-        <textarea
-          v-model="localNote.text"
-          class="game-note-field"
-          maxlength="1024"
-        />
-
-        <div class="note-actions">
-          <button
-            class="small secondary"
-            @click="reset"
-          >
-            {{ $t('global.cancel') }}
-          </button>
-
-          <button
-            class="small danger"
-            @click="deleteNote"
-          >
-            <i class="far fa-trash-alt" />
-          </button>
-
-          <button
-            :disabled="!localNote"
-            class="small primary"
-            @click="saveNote"
-          >
-            {{ $t('global.save') }}
-          </button>
-        </div>
-      </div>
+      <button class="primary" @click="editNote">
+        Edit note
+      </button>
     </div>
 
-    <button
-      v-if="!hasNote && !editingNote"
-      class="primary"
-      @click="addNote"
-    >
+    <div v-if="showNoteField">
+      <textarea
+        v-model="localNote.text"
+        placeholder="Type note here"
+        cols="30"
+        rows="5"
+      />
+
+      <small><i class="fab fa-markdown"></i> Markdown supported</small>
+
+      <footer>
+        <button class="secondary" @click="reset">
+          {{ $t('global.cancel') }}
+        </button>
+
+        <button class="primary" @click="saveNote">
+          {{ $t('global.save') }}
+        </button>
+
+        <button class="danger" @click="deleteNote">
+          Delete note
+        </button>
+      </footer>
+    </div>
+
+    <button v-if="!hasNote && !showNoteField" class="primary" @click="addNote">
       <i class="fas fa-sticky-note" />
       {{ $t('notes.addNote') }}
     </button>
@@ -66,12 +45,17 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import VueMarkdown from 'vue-markdown';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
+  components: {
+      VueMarkdown,
+  },
+
   data() {
     return {
-      editingNote: false,
+      showNoteField: false,
       localNote: {
         text: null,
       },
@@ -80,39 +64,32 @@ export default {
 
   computed: {
     ...mapState(['game', 'notes']),
+    ...mapGetters(['gameNote']),
 
     hasNote() {
-      return this.localNote && this.localNote.text;
-    },
-
-    formattedNoteText() {
-      return this.localNote.text.replace(/(?:\r\n|\r|\n)/g, '<br>');
+      return this.gameNote && this.gameNote.text;
     },
   },
 
   mounted() {
-    this.getNote();
+    this.reset();
   },
 
   methods: {
-    getNote() {
-      this.localNote = this.notes && this.notes[this.game.id]
-        ? JSON.parse(JSON.stringify(this.notes[this.game.id]))
+    reset() {
+      this.localNote = this.gameNote
+        ? JSON.parse(JSON.stringify(this.gameNote))
         : { text: null };
+
+      this.showNoteField = false;
     },
 
     addNote() {
-      this.getNote();
-      this.editingNote = true;
+      this.showNoteField = true;
     },
 
     editNote() {
-      this.editingNote = true;
-    },
-
-    reset() {
-      this.getNote();
-      this.editingNote = false;
+      this.showNoteField = true;
     },
 
     deleteNote() {
@@ -123,7 +100,7 @@ export default {
       this.$delete(updatedNotes, this.game.id);
 
       this.$bus.$emit('SAVE_NOTES', updatedNotes, true);
-      this.editingNote = false;
+      this.showNoteField = false;
       this.localNote = {
         text: null,
       };
@@ -137,7 +114,7 @@ export default {
       updatedNotes[this.game.id] = this.localNote;
 
       this.$bus.$emit('SAVE_NOTES', updatedNotes);
-      this.editingNote = false;
+      this.showNoteField = false;
     },
   },
 };
@@ -146,60 +123,33 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
   @import "~styles/styles";
 
-  h4 {
-    padding-bottom: $gp / 2;
+  .game-notes {
+    max-width: calc(100% - #{$gp});
   }
 
-  .note {
-    cursor: pointer;
-    border: 2px solid var(--note-color);
-    border-radius: $border-radius;
-    position: relative;
-    overflow: hidden;
-    min-width: 200px;
-    max-width: 100%;
-    display: inline-flex;
-    flex-direction: column;
-    padding: $gp / 2 $gp $gp / 2 $gp * 2;
-
-    @media($small) {
-      margin: $gp auto;
-    }
-
-    .corner-icon {
-      background: var(--note-color);
-      color: #fff;
-      padding: $gp / 4;
-      position: absolute;
-      border-bottom-right-radius: $border-radius;
-      top: 0;
-      left: 0;
-    }
-
-    p {
-      font-size: 12px;
-      margin: 0;
-      display: inline-flex;
-    }
+  .markdown {
+    margin-bottom: $gp;
   }
 
-  .game-note-field {
+  textarea {
+    margin-top: $gp;
+    margin-bottom: 0;
     resize: vertical;
-    border-radius: $border-radius;
-    border: 1px solid #a5a2a2;
-    width: 100%;
-    min-height: 60px;
-    max-height: 300px;
+    padding: $gp / 2;
   }
 
-  .note-actions {
+  footer {
     display: flex;
     align-items: center;
-    grid-gap: $gp / 2;
-    margin-top: $gp / 4;
+    margin-top: $gp;
 
-    .success {
+    .secondary {
+      margin-right: $gp;
+    }
+
+    .danger {
       margin-left: auto;
     }
   }
+
 </style>
