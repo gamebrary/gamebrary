@@ -186,13 +186,26 @@ export default {
       }
 
       this.$set(this.localTags, this.tagName, this.newTag);
-      this.$bus.$emit('SAVE_TAGS', this.localTags);
-      this.reset();
+      this.saveTags();
     },
 
     deleteTag(tagName) {
       this.$delete(this.localTags, tagName);
-      this.$bus.$emit('SAVE_TAGS', this.localTags, true);
+      this.saveTags(true);
+    },
+
+    async saveTags(force) {
+      const action = force
+        ? 'SAVE_TAGS_NO_MERGE'
+        : 'SAVE_TAGS';
+
+      await this.$store.dispatch(action, this.localTags)
+        .catch(() => {
+          this.$bus.$emit('TOAST', { message: 'There was an error saving your tag', type: 'error' });
+          this.$router.push({ name: 'sessionExpired' });
+        });
+
+      this.$bus.$emit('TOAST', { message: 'Tags updated' });
       this.reset();
     },
 

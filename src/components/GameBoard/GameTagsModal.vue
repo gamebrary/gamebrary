@@ -86,12 +86,22 @@ export default {
 
     addTag(tagName) {
       this.$store.commit('ADD_GAME_TAG', { tagName, gameId: this.gameTagsId });
-      this.$bus.$emit('SAVE_TAGS', this.tags);
+      this.saveTags();
     },
 
     removeTag(tagName) {
       this.$store.commit('REMOVE_GAME_TAG', { tagName, gameId: this.gameTagsId });
-      this.$bus.$emit('SAVE_TAGS', this.tags);
+      this.saveTags();
+    },
+
+    async saveTags() {
+      await this.$store.dispatch('SAVE_TAGS', this.tags)
+        .catch(() => {
+          this.$bus.$emit('TOAST', { message: 'There was an error saving your tag', type: 'error' });
+          this.$router.push({ name: 'sessionExpired' });
+        });
+
+      this.$bus.$emit('TOAST', { message: 'Tags updated' });
     },
   },
 };

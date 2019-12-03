@@ -31,11 +31,21 @@ export default {
   methods: {
     removeTag(tagName) {
       this.$store.commit('REMOVE_GAME_TAG', { tagName, gameId: this.game.id });
-      this.$bus.$emit('SAVE_TAGS', this.tags);
+      this.saveTags();
     },
 
     openTags() {
       this.$bus.$emit('OPEN_TAGS', this.game.id);
+    },
+
+    async saveTags() {
+      await this.$store.dispatch('SAVE_TAGS', this.tags)
+        .catch(() => {
+          this.$bus.$emit('TOAST', { message: 'There was an error saving your tag', type: 'error' });
+          this.$router.push({ name: 'sessionExpired' });
+        });
+
+      this.$bus.$emit('TOAST', { message: 'Tags updated' });
     },
   },
 };

@@ -96,14 +96,11 @@ export default {
 
   mounted() {
     // TODO: REMOVE, call action directly
-    this.$bus.$on('SAVE_TAGS', this.saveTags);
-    // TODO: REMOVE, call action directly
     this.$bus.$on('SAVE_NOTES', this.saveNotes);
     this.init();
   },
 
   beforeDestroy() {
-    this.$bus.$off('SAVE_TAGS');
     this.$bus.$off('SAVE_NOTES');
   },
 
@@ -154,20 +151,6 @@ export default {
       storage.child(wallpaperRef).getDownloadURL().then((url) => {
         this.$store.commit('SET_WALLPAPER_URL', url);
       });
-    },
-
-    saveTags(tags, force) {
-      if (tags) {
-        // TOOD: move to actions
-        db.collection('tags').doc(this.user.uid).set(tags, { merge: !force })
-          .then(() => {
-            this.$bus.$emit('TOAST', { message: 'Tags updated' });
-          })
-          .catch(() => {
-            this.$bus.$emit('TOAST', { message: 'There was an error saving your tag', type: 'error' });
-            this.$router.push({ name: 'sessionExpired' });
-          });
-      }
     },
 
     saveNotes(notes, force) {

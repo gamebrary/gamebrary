@@ -25,6 +25,26 @@ export default {
       });
   },
 
+  SAVE_TAGS({ state }, tags) {
+    const db = firebase.firestore();
+
+    return new Promise((resolve, reject) => {
+      db.collection('tags').doc(state.user.uid).set(tags, { merge: true })
+        .then(() => resolve())
+        .catch(reject);
+    });
+  },
+
+  SAVE_TAGS_NO_MERGE({ state }, tags) {
+    const db = firebase.firestore();
+
+    return new Promise((resolve, reject) => {
+      db.collection('tags').doc(state.user.uid).set(tags, { merge: false })
+        .then(() => resolve())
+        .catch(reject);
+    });
+  },
+
   SAVE_LIST_NO_MERGE({ commit, state }, payload) {
     const db = firebase.firestore();
 
