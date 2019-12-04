@@ -1,7 +1,6 @@
 textarea, input, select {
-  background: var(--primary-background);
-  border: 1px solid var(--primary-text-color);
-  color: var(--primary-text-color);
+  border: 1px solid #555555;
+  background: #fff;
   border-radius: $border-radius;
   height: 40px;
   padding: 0 $gp / 2;
