@@ -79,6 +79,10 @@ export default {
       this.$emit('added');
       this.$store.commit('ADD_GAME', data);
 
+      console.log(this);
+      // this parent parent refs = searchInput
+      
+
       this.$ga.event({
         eventCategory: 'game',
         eventAction: 'add',
