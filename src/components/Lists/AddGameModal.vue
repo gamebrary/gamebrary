@@ -140,16 +140,20 @@ export default {
     },
   },
 
-  mounted() {
-    if (this.$refs.searchInput) {
-      this.$refs.searchInput.focus();
-    }
-  },
-
   methods: {
     clear() {
       this.searchText = '';
       this.$store.commit('CLEAR_SEARCH_RESULTS');
+
+      if (this.clear) {
+        this.focusInput();
+      }
+    },
+
+    focusInput() {
+      setTimeout(() => {          
+        this.$refs.searchInput.focus();
+      }, 100);
     },
 
     added() {

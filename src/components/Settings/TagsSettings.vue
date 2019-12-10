@@ -15,6 +15,7 @@
           <h3>Add a tag</h3>
           <div class="tag-input">
             <input
+              ref="tagInput"
               v-model="tagName"
               required
               maxlength="20"
@@ -216,6 +217,18 @@ export default {
       this.tagTextColor = '#f4b41a';
 
       this.$forceUpdate();
+
+      if (this.reset) {
+        this.focusInput();
+      }
+    },
+
+    focusInput() {
+      setTimeout(() => {    
+        if(this.$refs.tagInput) {      
+          this.$refs.tagInput.focus();
+        }
+      }, 200);
     },
   },
 };

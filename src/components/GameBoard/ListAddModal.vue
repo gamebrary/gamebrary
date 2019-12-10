@@ -13,6 +13,7 @@
 
     <form slot="content" @submit.prevent="addList">
       <input
+        ref="listNameInput"
         v-model.trim="listName"
         :placeholder="$t('list.placeholder')"
         type="text"
@@ -93,6 +94,16 @@ export default {
   methods: {
     open() {
       this.listName = '';
+
+      if (this.open) {
+        this.focusInput();
+      }
+    },
+
+    focusInput() {
+      setTimeout(() => {
+        this.$refs.listNameInput.focus();
+      }, 100);
     },
 
     addList() {

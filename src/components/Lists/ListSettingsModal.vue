@@ -250,6 +250,16 @@ export default {
 
     open() {
       this.localList = JSON.parse(JSON.stringify(this.activeList));
+
+      if (this.open) {
+        this.focusInput()
+      }
+    },
+
+    focusInput() {
+      setTimeout(() => {          
+        this.$refs.input.focus();
+      }, 100);
     },
 
     close() {
