@@ -141,6 +141,10 @@ export default {
   overflow-x: auto;
   overflow-x: overlay;
   display: flex;
+
+  @media($small) {
+    scroll-snap-type: y mandatory;
+  }
 }
 
 .list-placeholder {
