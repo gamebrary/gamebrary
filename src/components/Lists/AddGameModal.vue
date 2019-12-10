@@ -151,7 +151,7 @@ export default {
     },
 
     focusInput() {
-      setTimeout(() => {          
+      setTimeout(() => {
         this.$refs.searchInput.focus();
       }, 100);
     },

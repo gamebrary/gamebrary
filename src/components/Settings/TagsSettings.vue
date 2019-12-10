@@ -224,8 +224,8 @@ export default {
     },
 
     focusInput() {
-      setTimeout(() => {    
-        if(this.$refs.tagInput) {      
+      setTimeout(() => {
+        if (this.$refs.tagInput) {
           this.$refs.tagInput.focus();
         }
       }, 200);
