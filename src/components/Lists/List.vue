@@ -52,7 +52,7 @@
       />
     </draggable>
 
-    <add-game-modal :list-id="listIndex" />
+    <add-game-modal class="bottom-bar" :list-id="listIndex" />
   </div>
 </template>
 
@@ -278,7 +278,11 @@ export default {
     }
 
     .theme-app-like & {
-      min-height: calc(100vh - 100px);
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      min-height: calc(100vh - 48px);
+      max-height: calc(100vh - 48px);
       border-radius: 0;
     }
 
@@ -337,6 +341,25 @@ export default {
         border-radius: 0;
       }
     }
+
+    .bottom-bar {
+      .theme-app-like & {
+        position: absolute;
+        bottom: 0;
+        padding: 5px;
+        background: var(--body-background);
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        align-self: flex-end;
+
+        @supports (backdrop-filter: none) {
+          background: rgba(var(--body-background-rgb), .8);
+          backdrop-filter: blur(10px);
+        }
+      }
+    }
   }
 
   .list-settings {
@@ -356,6 +379,7 @@ export default {
     width: 100%;
 
     .theme-app-like & {
+      max-height: calc(100vh - 80px);
       border-radius: 0;
     }
   }

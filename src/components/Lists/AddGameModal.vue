@@ -191,7 +191,6 @@ export default {
 
     .theme-app-like & {
       position: relative;
-      float: right;
       font-size: 24px;
       font-weight: 700;
       color: var(--accent-color);
