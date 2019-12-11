@@ -32,6 +32,10 @@ export default {
   overflow: hidden;
   cursor: pointer;
 
+  .theme-app-like & {
+    border-radius: 0;
+  }
+
   img {
     width: 100%;
     height: auto;

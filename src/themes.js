@@ -44,4 +44,13 @@ export default [
       url: 'http://gamebrary.com',
     },
   },
+  {
+    name: 'App Like',
+    id: 'app-like',
+    description: 'An approach to an app-like theme',
+    author: {
+      name: 'Patrick Kontschak',
+      url: 'https://patrickkontschak.com/',
+    },
+  },
 ];

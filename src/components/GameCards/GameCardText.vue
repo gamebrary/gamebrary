@@ -78,6 +78,10 @@ export default {
       }
     }
 
+    .theme-app-like & {
+      border-radius: 0;
+    }
+
     .game-info {
       padding: $gp / 3 $gp / 2;
       width: 100%;

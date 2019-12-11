@@ -7,7 +7,12 @@
           class="fas fa-magic"
           title="List sorted automatically"
         />
-        {{ list[listIndex].name }} ({{ gameList.length }})
+        {{ list[listIndex].name }}
+        <span
+          v-if="this.settings[this.platform.code].theme != 'app-like'"
+        >
+          ({{ gameList.length }})
+        </span>
       </span>
 
       <list-settings-modal :list-index="listIndex" />
@@ -272,6 +277,11 @@ export default {
       }
     }
 
+    .theme-app-like & {
+      min-height: calc(100vh - 100px);
+      border-radius: 0;
+    }
+
     header {
       align-items: center;
       background: var(--list-header-background);
@@ -291,6 +301,16 @@ export default {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+
+      .theme-app-like & {
+        font-size: 24px;
+        font-weight: 700;
+
+        + div {
+          font-size: 18px;
+          color: var(--accent-color);
+        }
+      }
     }
 
     .games {
@@ -312,6 +332,10 @@ export default {
         justify-content: center;
         border: 1px dashed #a5a2a2;
       }
+
+      .theme-app-like & {
+        border-radius: 0;
+      }
     }
   }
 
@@ -330,5 +354,9 @@ export default {
     margin-top: $list-header-height;
     padding: 4px;
     width: 100%;
+
+    .theme-app-like & {
+      border-radius: 0;
+    }
   }
 </style>

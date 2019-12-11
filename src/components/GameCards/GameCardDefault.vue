@@ -89,6 +89,10 @@ export default {
       }
     }
 
+    .theme-app-like & {
+      border-radius: 0;
+    }
+
     img {
       width: $gameCoverWidth;
       height: auto;

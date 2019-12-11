@@ -77,6 +77,10 @@ export default {
     border-radius: $border-radius;
     overflow: hidden;
 
+    .theme-app-like & {
+      border-radius: 0;
+    }
+
     img {
       width: 50px;
       height: auto;

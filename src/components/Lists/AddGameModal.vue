@@ -188,6 +188,15 @@ export default {
     bottom: 0;
     border-bottom-left-radius: 0;
     border-top-right-radius: 0;
+
+    .theme-app-like & {
+      position: relative;
+      float: right;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--accent-color);
+      background: var(--list-background);
+    }
   }
 
   form {
