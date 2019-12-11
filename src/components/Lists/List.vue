@@ -347,7 +347,7 @@ export default {
         position: absolute;
         bottom: 0;
         padding: 5px;
-        background: var(--body-background);
+        background: rgba(var(--body-background-rgb), .99);
         width: 100%;
         display: flex;
         justify-content: center;
