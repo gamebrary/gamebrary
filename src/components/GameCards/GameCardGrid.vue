@@ -98,10 +98,13 @@ export default {
   }
 
   .game-info {
-    padding: $gp / 2 0;
+    padding: $gp / 2;
     width: 100%;
     display: flex;
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
     flex-direction: column;
+    background: var(--game-card-background);
 
     .game-tags {
       display: flex;
