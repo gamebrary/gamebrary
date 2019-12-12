@@ -346,7 +346,7 @@ export default {
     }
 
     .list-settings-button {
-      font-size: 18px;
+      font-size: 24px;
       color: var(--accent-color);
     }
 

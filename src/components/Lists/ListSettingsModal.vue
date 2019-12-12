@@ -7,7 +7,8 @@
     @close="close"
   >
     <button class="small">
-      <i class="fas fa-cog" />
+      <i v-if="this.settings[this.platform.code].theme === 'touch'" class="fas fa-ellipsis-v" />
+      <i v-else class="fas fa-cog" />
     </button>
 
     <div
@@ -179,7 +180,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['user', 'gameLists', 'platform']),
+    ...mapState(['user', 'gameLists', 'platform', 'settings']),
 
     isFirst() {
       return this.listIndex === 0;
