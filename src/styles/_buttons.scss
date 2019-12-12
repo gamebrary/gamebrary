@@ -50,7 +50,16 @@ button, a.link {
   }
 
   &.primary { background: var(--primary-background); color: var(--primary-text-color); }
-  &.secondary { background: var(--secondary-background); color: var(--secondary-text-color); }
+  &.secondary {
+    background: var(--secondary-background);
+    color: var(--secondary-text-color);
+
+    .theme-app-like & {
+      font-size: 24px;
+      background: transparent;
+      color: var(--accent-color);
+    }
+  }
   &.danger { background: var(--danger-background); color: var(--danger-text-color); }
   &.warning { background: var(--warning-background); color: var(--warning-text-color); }
 }

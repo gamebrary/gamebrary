@@ -15,7 +15,23 @@
         </span>
       </span>
 
-      <list-settings-modal :list-index="listIndex" />
+      <div
+        v-if="this.settings[this.platform.code].theme === 'app-like'"
+        class="list-actions"
+      >
+        <add-game-modal
+          class="add-game-button"
+          :list-id="listIndex"
+        />
+        <list-settings-modal
+          class="list-settings-button"
+          :list-index="listIndex"
+        />
+      </div>
+      <list-settings-modal
+        v-else
+        :list-index="listIndex"
+      />
     </header>
 
     <div
@@ -52,7 +68,10 @@
       />
     </draggable>
 
-    <add-game-modal class="bottom-bar" :list-id="listIndex" />
+    <add-game-modal
+      :list-id="listIndex"
+      v-if="this.settings[this.platform.code].theme != 'app-like'"
+    />
   </div>
 </template>
 
@@ -299,6 +318,11 @@ export default {
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
       width: 100%;
+
+      .theme-app-like & {
+        margin-top: 15px;
+        margin-bottom: 15px;
+      }
     }
 
     .list-name {
@@ -309,12 +333,16 @@ export default {
       .theme-app-like & {
         font-size: 24px;
         font-weight: 700;
-
-        + div {
-          font-size: 18px;
-          color: var(--accent-color);
-        }
       }
+    }
+
+    .list-actions {
+      display: flex;
+    }
+
+    .list-settings-button {
+      font-size: 18px;
+      color: var(--accent-color);
     }
 
     .games {
@@ -339,24 +367,14 @@ export default {
 
       .theme-app-like & {
         border-radius: 0;
-      }
-    }
+        margin-top: calc(#{$list-header-height} + 30px);
+        max-height: calc(100vh - calc(#{$list-header-height} + 30px));
 
-    .bottom-bar {
-      .theme-app-like & {
-        position: absolute;
-        bottom: 0;
-        padding: 5px;
-        background: rgba(var(--body-background-rgb), .99);
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-content: center;
-        align-self: flex-end;
-
-        @supports (backdrop-filter: none) {
-          background: rgba(var(--body-background-rgb), .8);
-          backdrop-filter: blur(10px);
+        &::after {
+          content: '';
+          display: block;
+          height: 48px;
+          width: 100%;
         }
       }
     }

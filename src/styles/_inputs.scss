@@ -24,6 +24,7 @@ textarea, input, select {
       display: flex;
       flex-direction: column;
       align-items: center;
+      text-align: center;
 
       &.active {
         color: var(--accent-color);

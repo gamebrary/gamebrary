@@ -136,7 +136,17 @@ export default {
       font-size: 24px;
       font-weight: 700;
       color: var(--accent-color);
-      background: var(--list-background);
+      background: var(--secondary-background);
+      flex-shrink: 0;
+      cursor: default;
+      display: flex;
+      position: relative;
+      width: calc(300px - #{$gp});
+      overflow: hidden;
+      height: calc(100vh - 48px - calc(#{$gp} * 2));
+      margin: $gp;
+      justify-content: center;
+      align-items: center;
     }
   }
 

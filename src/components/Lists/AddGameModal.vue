@@ -190,7 +190,7 @@ export default {
     border-top-right-radius: 0;
 
     .theme-app-like & {
-      position: relative;
+      position: static;
       font-size: 24px;
       font-weight: 700;
       color: var(--accent-color);
