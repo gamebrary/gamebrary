@@ -26,7 +26,7 @@ export default {
   display: flex;
   flex-direction: column;
   position: relative;
-  width: calc((100%/3) - 8px);
+  width: 94.5px;
   margin-bottom: 4px;
   border-radius: $border-radius;
   overflow: hidden;

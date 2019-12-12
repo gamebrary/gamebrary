@@ -248,7 +248,6 @@ export default {
             this.masonry = new Masonry(`.game-grid-${this.listIndex}`, {
             itemSelector: '.game-card',
             gutter: 4,
-            percentPosition: true,
           });
         });
       }
