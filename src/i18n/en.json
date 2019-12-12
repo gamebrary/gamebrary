@@ -101,6 +101,7 @@
       "single": "Default",
       "wide": "Compact",
       "text": "Text only",
+      "masonry": "Masonry",
       "grid": "Grid"
     }
   },

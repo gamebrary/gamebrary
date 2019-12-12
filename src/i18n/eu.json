@@ -105,6 +105,7 @@
       "single": "Default",
       "wide": "Compact",
       "text": "Testua soilik",
+      "masonry": "Masonry",
       "grid": "Grid"
     }
   },

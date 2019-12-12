@@ -64,11 +64,11 @@ export default {
   },
 
   mounted() {
-    this.initGrid();
+    this.initMasonry();
   },
 
   methods: {
-    initGrid() {
+    initMasonry() {
       msnry = new Masonry('.platforms', {
         itemSelector: '.platform',
         gutter: 16,

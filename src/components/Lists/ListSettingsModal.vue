@@ -78,7 +78,7 @@
         </div>
       </section>
 
-      <section :class="{ disabled: localList.view === 'grid' }">
+      <section :class="{ disabled: localList.view === 'masonry' }">
         <h4>Hide game ratings</h4>
 
         <toggle-switch
@@ -166,7 +166,7 @@ export default {
       localList: null,
       views: {
         single: 'fas fa-square',
-        grid: 'fas fa-th-large',
+        masonry: 'fas fa-th',
         wide: 'fas fa-minus',
         text: 'fas fa-font',
       },
