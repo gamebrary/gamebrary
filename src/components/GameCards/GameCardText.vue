@@ -133,6 +133,11 @@ export default {
       &:hover {
         color: #a5a2a2;
       }
+
+      .theme-touch & {
+        right: $gp / 2;
+        top: calc(50% - 7px);
+      }
     }
 
     .game-tag {
