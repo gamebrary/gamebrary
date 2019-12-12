@@ -1,5 +1,10 @@
 <template lang="html">
-  <a :href="href" class="igdb-credit" target="_blank">
+  <a
+    :href="href"
+    class="igdb-credit"
+    target="_blank"
+    v-if="this.settings[this.platform.code].theme != 'app-like'"
+  >
     <img :src="`/static/img/igdb-logo.svg`" >
     <strong>{{ $t('igdbCredit.poweredByIgdb') }}</strong>
   </a>
