@@ -141,6 +141,10 @@ export default {
   overflow-x: auto;
   overflow-x: overlay;
   display: flex;
+
+  .theme-app-like & {
+    height: 100vh;
+  }
 }
 
 .list-placeholder {

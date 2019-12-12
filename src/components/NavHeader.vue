@@ -71,6 +71,29 @@ export default {
     padding: 0 $gp;
     color: var(--header-text-color);
 
+    .theme-app-like & {
+      bottom: 0;
+      position: absolute;
+      background: var(--nav-background);
+
+      @supports (backdrop-filter: none) {
+        z-index: 1;
+        background: transparent;
+
+        &::before {
+          content: '';
+          display: block;
+          position: absolute;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: -1;
+          background: rgba(var(--nav-background-rgb), .8);
+          backdrop-filter: blur(10px);
+        }
+      }
+    }
+
     .logo {
       height: $navHeight;
       font-weight: bold;

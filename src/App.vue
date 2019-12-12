@@ -4,10 +4,23 @@
     :class="theme"
     :style="style"
     :dir="dir"
+    v-if="theme === 'theme-app-like'"
   >
-    <nav-header />
     <router-view v-if="user" />
-    <authorizing v-else />
+    <nav-header />
+    <authorizing v-if="!user" />
+    <toast />
+  </div>
+  <div
+    id="app"
+    :class="theme"
+    :style="style"
+    :dir="dir"
+    v-else
+  >
+    <router-view v-if="user" />
+    <nav-header />
+    <authorizing v-if="!user" />
     <toast />
   </div>
 </template>

@@ -297,11 +297,10 @@ export default {
     }
 
     .theme-app-like & {
-      position: relative;
       display: flex;
       flex-wrap: wrap;
-      min-height: calc(100vh - 48px);
-      max-height: calc(100vh - 48px);
+      min-height: 100vh;
+      max-height: 100vh;
       border-radius: 0;
     }
 
@@ -397,8 +396,10 @@ export default {
     width: 100%;
 
     .theme-app-like & {
-      max-height: calc(100vh - 80px);
       border-radius: 0;
+      display: inline-flex;
+      margin-top: calc(#{$list-header-height} + 30px);
+      max-height: calc(100vh - calc(#{$list-header-height} + 30px + 48px + 15px));
     }
   }
 </style>
