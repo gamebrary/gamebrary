@@ -142,7 +142,7 @@ export default {
   overflow-x: overlay;
   display: flex;
 
-  .theme-app-like & {
+  .theme-touch & {
     height: 100vh;
 
     @media($tiny) {

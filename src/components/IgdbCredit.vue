@@ -3,7 +3,7 @@
     :href="href"
     class="igdb-credit"
     target="_blank"
-    v-if="this.settings[this.platform.code].theme != 'app-like'"
+    v-if="this.settings[this.platform.code].theme != 'touch'"
   >
     <img :src="`/static/img/igdb-logo.svg`" >
     <strong>{{ $t('igdbCredit.poweredByIgdb') }}</strong>

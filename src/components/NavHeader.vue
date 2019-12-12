@@ -8,14 +8,14 @@
       <img src="/static/gamebrary-logo.png" >
 
       <span
-        v-if="this.settings[this.platform.code].theme != 'app-like'"
+        v-if="this.settings[this.platform.code].theme != 'touch'"
       >
         {{ title }}
       </span>
     </router-link>
 
     <span
-      v-if="this.settings[this.platform.code].theme === 'app-like'"
+      v-if="this.settings[this.platform.code].theme === 'touch'"
     >
       {{ title }}
     </span>
@@ -80,7 +80,7 @@ export default {
     padding: 0 $gp;
     color: var(--header-text-color);
 
-    .theme-app-like & {
+    .theme-touch & {
       bottom: 0;
       position: absolute;
       background: var(--nav-background);

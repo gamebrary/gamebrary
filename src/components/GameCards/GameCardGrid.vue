@@ -32,7 +32,7 @@ export default {
   overflow: hidden;
   cursor: pointer;
 
-  .theme-app-like & {
+  .theme-touch & {
     border-radius: 0;
   }
 

@@ -9,14 +9,14 @@
         />
         {{ list[listIndex].name }}
         <span
-          v-if="this.settings[this.platform.code].theme != 'app-like'"
+          v-if="this.settings[this.platform.code].theme != 'touch'"
         >
           ({{ gameList.length }})
         </span>
       </span>
 
       <div
-        v-if="this.settings[this.platform.code].theme === 'app-like'"
+        v-if="this.settings[this.platform.code].theme === 'touch'"
         class="list-actions"
       >
         <add-game-modal
@@ -70,7 +70,7 @@
 
     <add-game-modal
       :list-id="listIndex"
-      v-if="this.settings[this.platform.code].theme != 'app-like'"
+      v-if="this.settings[this.platform.code].theme != 'touch'"
     />
   </div>
 </template>
@@ -297,7 +297,7 @@ export default {
       }
     }
 
-    .theme-app-like & {
+    .theme-touch & {
       display: flex;
       flex-wrap: wrap;
       min-height: 100vh;
@@ -325,7 +325,7 @@ export default {
       border-bottom-right-radius: 0;
       width: 100%;
 
-      .theme-app-like & {
+      .theme-touch & {
         margin-top: 15px;
         margin-bottom: 15px;
       }
@@ -336,7 +336,7 @@ export default {
       overflow: hidden;
       text-overflow: ellipsis;
 
-      .theme-app-like & {
+      .theme-touch & {
         font-size: 24px;
         font-weight: 700;
       }
@@ -371,7 +371,7 @@ export default {
         border: 1px dashed #a5a2a2;
       }
 
-      .theme-app-like & {
+      .theme-touch & {
         border-radius: 0;
         margin-top: calc(#{$list-header-height} + 30px);
         max-height: calc(100vh - calc(#{$list-header-height} + 30px));
@@ -402,7 +402,7 @@ export default {
     padding: 4px;
     width: 100%;
 
-    .theme-app-like & {
+    .theme-touch & {
       border-radius: 0;
       display: inline-flex;
       margin-top: calc(#{$list-header-height} + 30px);

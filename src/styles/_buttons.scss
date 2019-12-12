@@ -54,7 +54,7 @@ button, a.link {
     background: var(--secondary-background);
     color: var(--secondary-text-color);
 
-    .theme-app-like & {
+    .theme-touch & {
       font-size: 24px;
       background: transparent;
       color: var(--accent-color);

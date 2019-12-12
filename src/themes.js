@@ -45,8 +45,8 @@ export default [
     },
   },
   {
-    name: 'App Like',
-    id: 'app-like',
+    name: 'Touch',
+    id: 'touch',
     description: 'An approach to an app-like theme',
     author: {
       name: 'Patrick Kontschak',

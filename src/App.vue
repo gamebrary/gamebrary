@@ -4,7 +4,7 @@
     :class="theme"
     :style="style"
     :dir="dir"
-    v-if="theme === 'theme-app-like'"
+    v-if="theme === 'theme-touch'"
   >
     <router-view v-if="user" />
     <nav-header />

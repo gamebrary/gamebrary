@@ -132,7 +132,7 @@ export default {
   .add-list-button {
     margin-right: $gp;
 
-    .theme-app-like & {
+    .theme-touch & {
       font-size: 24px;
       font-weight: 700;
       color: var(--accent-color);

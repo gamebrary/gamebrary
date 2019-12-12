@@ -77,7 +77,7 @@ export default {
     border-radius: $border-radius;
     overflow: hidden;
 
-    .theme-app-like & {
+    .theme-touch & {
       border-radius: 0;
     }
 

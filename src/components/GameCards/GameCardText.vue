@@ -78,7 +78,7 @@ export default {
       }
     }
 
-    .theme-app-like & {
+    .theme-touch & {
       border-radius: 0;
     }
 

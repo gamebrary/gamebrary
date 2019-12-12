@@ -189,7 +189,7 @@ export default {
     border-bottom-left-radius: 0;
     border-top-right-radius: 0;
 
-    .theme-app-like & {
+    .theme-touch & {
       position: static;
       font-size: 24px;
       font-weight: 700;
