@@ -20,6 +20,10 @@ export default {
       return this.game.rating && this.list && !this.list.hideGameRatings;
     },
 
+    showGameInfo() {
+      return this.game.name && this.list && !this.list.hideGameInfo;
+    },
+
     gameCardClass() {
       return [
         'game-card',

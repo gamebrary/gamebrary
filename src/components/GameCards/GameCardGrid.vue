@@ -9,9 +9,9 @@
       @click="openDetails"
     >
 
-    <div class="game-info">
+    <div :class="{ 'game-info': showGameInfo }" >
       <a
-        v-if="list.view !== 'covers'"
+        v-if="showGameInfo && list.view !== 'covers'"
         v-text="game.name"
         @click="openDetails"
       />
@@ -19,24 +19,24 @@
       <i class="fas fa-grip-vertical game-drag-handle" />
 
       <game-rating
-        v-if="showGameRatings && list.view !== 'covers'"
+        v-if="showGameInfo && showGameRatings && list.view !== 'covers'"
         :rating="game.rating"
         small
         @click.native="openDetails"
       />
 
       <i
-        v-if="note"
+        v-if="showGameInfo && note"
         :title="note"
         class="fas fa-sticky-note note"
         @click="openDetails"
       />
 
-      <div v-if="hasTags" class="game-tags">
+      <div v-if="showGameInfo && hasTags" class="game-tags">
 
       <div
         v-for="({ games, hex, tagTextColor }, name) in tags"
-        v-if="games.includes(game.id)"
+        v-if="showGameInfo && games.includes(game.id)"
         :key="name"
       >
         <tag
