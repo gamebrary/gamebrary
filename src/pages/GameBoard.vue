@@ -144,6 +144,10 @@ export default {
 
   .theme-app-like & {
     height: 100vh;
+
+    @media($tiny) {
+      padding: 0;
+    }
   }
 }
 

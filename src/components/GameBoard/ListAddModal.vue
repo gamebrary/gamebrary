@@ -141,12 +141,17 @@ export default {
       cursor: default;
       display: flex;
       position: relative;
-      width: calc(300px - #{$gp});
+      width: calc(300px - calc(#{$gp} * 2));
       overflow: hidden;
       height: calc(100vh - 48px - calc(#{$gp} * 2));
       margin: $gp;
       justify-content: center;
       align-items: center;
+
+      @media($tiny) {
+        min-width: calc(300px - calc(#{$gp} * 2));
+        width: calc(100vw - calc(#{$gp} * 2));
+      }
     }
   }
 

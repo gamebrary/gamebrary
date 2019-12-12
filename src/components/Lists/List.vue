@@ -248,6 +248,7 @@ export default {
             this.masonry = new Masonry(`.game-grid-${this.listIndex}`, {
             itemSelector: '.game-card',
             gutter: 4,
+            percentPosition: true,
           });
         });
       }
@@ -302,6 +303,12 @@ export default {
       min-height: 100vh;
       max-height: 100vh;
       border-radius: 0;
+
+      @media($tiny) {
+        min-width: 300px;
+        width: 100vw;
+        margin-right: 0;
+      }
     }
 
     header {
