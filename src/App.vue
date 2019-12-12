@@ -18,8 +18,8 @@
     :dir="dir"
     v-else
   >
-    <router-view v-if="user" />
     <nav-header />
+    <router-view v-if="user" />
     <authorizing v-if="!user" />
     <toast />
   </div>
