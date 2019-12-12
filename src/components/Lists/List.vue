@@ -57,6 +57,7 @@ import Masonry from 'masonry-layout';
 import ListSettingsModal from '@/components/Lists/ListSettingsModal';
 import GameCardDefault from '@/components/GameCards/GameCardDefault';
 import GameCardMasonry from '@/components/GameCards/GameCardMasonry';
+import GameCardGrid from '@/components/GameCards/GameCardGrid';
 import GameCardWide from '@/components/GameCards/GameCardWide';
 import GameCardText from '@/components/GameCards/GameCardText';
 import AddGameModal from '@/components/Lists/AddGameModal';
@@ -68,6 +69,7 @@ export default {
   components: {
     GameCardDefault,
     GameCardMasonry,
+    GameCardGrid,
     GameCardWide,
     GameCardText,
     AddGameModal,
@@ -104,6 +106,7 @@ export default {
       gameCardComponents: {
         single: 'GameCardDefault',
         masonry: 'GameCardMasonry',
+        grid: 'GameCardGrid',
         wide: 'GameCardWide',
         text: 'GameCardText',
       },
@@ -263,10 +266,6 @@ export default {
     margin-right: $gp;
     max-height: calc(100vh - 100px);
 
-    .games {
-      display: grid;
-    }
-
     &.unique {
       @media($small) {
         width: calc(100vw - 80px);
@@ -295,6 +294,7 @@ export default {
     }
 
     .games {
+      display: grid;
       height: 100%;
       overflow: hidden;
       max-height: calc(100vh - 150px);
@@ -312,6 +312,24 @@ export default {
         align-items: center;
         justify-content: center;
         border: 1px dashed #a5a2a2;
+      }
+    }
+
+    &.grid {
+      .games {
+        padding: $gp / 2;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: $gp / 2;
+
+        // https://github.com/w3c/csswg-drafts/issues/129
+        &::after {
+          content: '';
+          display: block;
+          height: 1px;
+          margin-top: -1px;
+          width: 100%;
+          grid-column: span 2;
+        }
       }
     }
   }

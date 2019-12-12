@@ -167,6 +167,7 @@ export default {
       views: {
         single: 'fas fa-square',
         masonry: 'fas fa-th',
+        grid: 'fas fa-th-large',
         wide: 'fas fa-minus',
         text: 'fas fa-font',
       },
