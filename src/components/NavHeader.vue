@@ -7,9 +7,18 @@
     >
       <img src="/static/gamebrary-logo.png" >
 
-      <span>{{ title }}</span>
+      <span
+        v-if="this.settings[this.platform.code].theme != 'app-like'"
+      >
+        {{ title }}
+      </span>
     </router-link>
 
+    <span
+      v-if="this.settings[this.platform.code].theme === 'app-like'"
+    >
+      {{ title }}
+    </span>
     <settings v-if="showSettings" />
   </nav>
 </template>
