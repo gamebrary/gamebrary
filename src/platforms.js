@@ -8,7 +8,7 @@ export default [
     hex: '#ce181e',
     releaseYear: 2017,
     id: 130,
-    type: 'handheld',
+    type: 'home',
   },
   {
     name: 'PlayStation 4',

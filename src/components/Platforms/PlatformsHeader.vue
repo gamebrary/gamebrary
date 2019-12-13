@@ -206,7 +206,7 @@ header {
 }
 
 .filter-active {
-  color: #fc0;
+  color: var(--success-background);
 }
 
 section {

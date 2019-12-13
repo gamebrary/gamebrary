@@ -2,8 +2,6 @@
   <div class="platforms-page">
     <platforms-header />
 
-    <pre>{{ platformsSortField }}</pre>
-
     <component
       :is="platformsComponent"
       :platforms="sortedPlatforms"
@@ -79,9 +77,6 @@ export default {
       const availableLists = this.ownedListsOnly
         ? this.platforms.filter(({ code }) => this.gameLists[code])
         : this.platforms;
-
-      console.log(availableLists);
-      console.log(this.platformsFilterField);
 
       return this.platformsFilterField
         ? availableLists.filter(({ type }) => type === this.platformsFilterField)
