@@ -169,7 +169,7 @@ export default {
 
   .platforms-page {
     min-height: calc(100vh - #{$navHeight});
-    padding: $gp / 2 $gp;
+    padding: 0 $gp $gp / 2;
   }
 
   header {
