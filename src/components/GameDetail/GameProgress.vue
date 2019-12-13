@@ -1,31 +1,36 @@
 <template lang="html">
   <div class="game-progresses">
     <div v-if="hasProgress && !showProgressField" class="progress">
-      <div class="markdown">
-        <vue-markdown :source="localProgress.text" />
+      <progress
+        class="progress-bar"
+        max="100"
+        :value="localProgress.number"
+      >
+        <div class="progress-bar-fallback">
+          <span :style="style">
+            Progress: {{localProgress.number}}%
+          </span>
       </div>
+      </progress>
 
       <button class="primary" @click="editProgress">
         Edit progress
       </button>
     </div>
 
-    <div v-if="showProgressField">
-      <textarea
-        v-model="localProgress.text"
-        placeholder="Type progress here"
-        cols="30"
-        rows="5"
-      />
+    <div
+      class="progress-field"
+      v-if="showProgressField"
+    >
+      <input
+        v-model.trim="localProgress.number"
+        placeholder="50"
+        type="number"
+        autofocus
+        required
+      >
 
-      <small>
-        <i class="fab fa-markdown" />
-        <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">
-          Markdown supported
-        </a>
-      </small>
-
-      <footer>
+      <div class="progress-action">
         <button class="secondary" @click="reset">
           {{ $t('global.cancel') }}
         </button>
@@ -37,7 +42,7 @@
         <button class="danger" @click="deleteProgress">
           Delete progress
         </button>
-      </footer>
+      </div>
     </div>
 
     <button v-if="!hasProgress && !showProgressField" class="primary" @click="addProgress">
@@ -48,19 +53,14 @@
 </template>
 
 <script>
-import VueMarkdown from 'vue-markdown';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
-  components: {
-    VueMarkdown,
-  },
-
   data() {
     return {
       showProgressField: false,
       localProgress: {
-        text: null,
+        number: null,
       },
     };
   },
@@ -70,7 +70,11 @@ export default {
     ...mapGetters(['gameProgress']),
 
     hasProgress() {
-      return this.gameProgress && this.gameProgress.text;
+      return this.gameProgress && this.gameProgress.number;
+    },
+
+    style() {
+      return `width: ${this.localProgress.number}%`;
     },
   },
 
@@ -82,7 +86,7 @@ export default {
     reset() {
       this.localProgress = this.gameProgress
         ? JSON.parse(JSON.stringify(this.gameProgress))
-        : { text: null };
+        : { number: null };
 
       this.showProgressField = false;
     },
@@ -105,7 +109,7 @@ export default {
       this.$bus.$emit('SAVE_PROGRESSES', updatedProgresses, true);
       this.showProgressField = false;
       this.localProgress = {
-        text: null,
+        number: null,
       };
     },
 
@@ -130,29 +134,59 @@ export default {
     max-width: calc(100% - #{$gp});
   }
 
-  .markdown {
-    margin-bottom: $gp;
+  .progress-bar {
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: $border-radius;
+    background: var(--list-background);
+    height: 20px;
+    border-color: transparent;
+    overflow: hidden;
+
+    &::-moz-progress-bar {
+      background: var(--accent-color);
+    }
+
+    &::-webkit-progress-bar {
+      border-radius: $border-radius;
+    }
+
+    &::-webkit-progress-value {
+      background-image: linear-gradient(var(--accent-color), var(--accent-color));
+    }
   }
 
-  textarea {
-    margin-top: $gp;
+  input {
+    width: 75px;
     margin-bottom: 0;
-    resize: vertical;
+    margin-right: $gp;
     padding: $gp / 2;
+
+    @media($small) {
+      width: 75%;
+      margin-right: 0;
+      margin-bottom: $gp;
+    }
   }
 
-  footer {
+  .progress-field {
     display: flex;
     align-items: center;
-    margin-top: $gp;
+    justify-content: space-between;
 
-    .secondary {
-      margin-right: $gp;
+    @media($small) {
+      flex-wrap: wrap;
+      justify-content: center;
     }
+  }
 
-    .danger {
-      margin-left: auto;
-    }
+  .progress-action {
+    min-width: 300px;
+    max-width: 355px;
+    width: calc(100% - 75px - (#{$gp} * 8));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
 </style>
