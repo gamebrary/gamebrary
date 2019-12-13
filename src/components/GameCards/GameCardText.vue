@@ -13,7 +13,6 @@
 
       <game-progress
         v-if="progress && list.view !== 'covers'"
-        viewOnly
         small
         @click.native="openDetails"
       />

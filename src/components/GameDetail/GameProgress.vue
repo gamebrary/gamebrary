@@ -19,7 +19,7 @@
       </div>
 
       <button
-        v-if="!viewOnly"
+        v-if="!small"
         class="primary"
         @click="editProgress"
       >
@@ -29,7 +29,7 @@
 
     <div
       class="progress-field"
-      v-if="showProgressField && !viewOnly"
+      v-if="showProgressField && !small"
     >
       <input
         v-model.number="localProgress.number"
@@ -58,7 +58,7 @@
     <button
       v-if="!hasProgress &&
             !showProgressField &&
-            !viewOnly"
+            !small"
       class="primary"
       @click="addProgress"
     >
@@ -73,10 +73,6 @@ import { mapState, mapGetters } from 'vuex';
 
 export default {
   props: {
-    viewOnly: {
-      type: Boolean,
-      default: false,
-    },
     small: {
       type: Boolean,
       default: false,
