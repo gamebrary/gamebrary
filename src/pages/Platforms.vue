@@ -1,37 +1,91 @@
 <template lang="html">
   <div class="platforms-page">
-    <div class="platforms">
-      <platform
-        v-for="platform in filteredPlatforms"
-        :key="platform.name"
-        :platform="platform"
-        clickable
-      />
-    </div>
+    <header>
+        <button @click="toggleView" class="primary small">
+          <i :class="viewIcon" />
+        </button>
+
+        <!-- <button class="primary small">
+          <i class="fas fa-square" />
+        </button> -->
+
+        <!-- <modal
+          ref="listAddModal"
+          title="Filter and sort platforms"
+        >
+          <button class="primary small">
+            <i class="fas fa-filter" />
+          </button>
+
+          <div slot="content">
+            <section>
+              Filter:
+
+              <button class="primary small">
+                Mine only
+              </button>
+              <button class="primary small">
+                All
+              </button>
+
+              <button class="primary small">
+                Home consoles
+              </button>
+
+              <button class="primary small">
+                Home Computers
+              </button>
+
+              <button class="primary small">
+                Handhelds
+              </button>
+            </section>
+
+            <section>
+              Sort by:
+
+              <button class="primary small">
+                Year released
+              </button>
+
+              <button class="primary small">
+                All
+              </button>
+            </section>
+          </div>
+        </modal> -->
+    </header>
+
+    <component
+      :is="platformsComponent"
+      :platforms="filteredPlatforms"
+    />
 
     <page-footer />
   </div>
 </template>
 
 <script>
-import Masonry from 'masonry-layout';
 import platforms from '@/platforms';
-import Platform from '@/components/Platforms/Platform';
 import PageFooter from '@/components/Platforms/PageFooter';
-import { sortBy } from 'lodash';
+import PlatformsGrid from '@/components/Platforms/PlatformsGrid';
+import PlatformsList from '@/components/Platforms/PlatformsList';
+import Modal from '@/components/Modal';
+// import { sortBy } from 'lodash';
 import { mapState } from 'vuex';
-
-let msnry = null;
 
 export default {
   components: {
-    Platform,
     PageFooter,
+    PlatformsGrid,
+    PlatformsList,
+    Modal,
   },
 
   data() {
     return {
       platforms,
+      searchText: '',
     };
   },
 
@@ -43,36 +97,68 @@ export default {
       return Object.keys(this.gameLists).length > 0;
     },
 
-    ownedListsOnly() {
-      return this.settings && this.settings.ownedListsOnly;
+    viewIcon() {
+      return this.listView === 'list'
+        ? 'fas fa-th-large'
+        : 'fas fa-list';
+    },
+
+    platformsComponent() {
+      return this.listView === 'list'
+        ? 'PlatformsList'
+        : 'PlatformsGrid';
     },
 
     filteredPlatforms() {
-      const availableLists = this.ownedListsOnly
-        ? this.platforms.filter(({ code }) => this.gameLists[code])
-        : this.platforms;
+      return this.platforms;
 
-      if (msnry) {
-        msnry.reloadItems();
-        msnry.layout();
-      }
-
-      return this.settings && this.settings.sortListsAlphabetically
-        ? sortBy(availableLists, 'name')
-        : availableLists;
+      // return this.platforms.filter(({ name }) => {
+      //   const platformName = name.toLowerCase();
+      //   const searchText = this.searchText.toLowerCase();
+      //
+      //   return platformName.includes(searchText);
+      // });
     },
-  },
 
-  mounted() {
-    this.initGrid();
+    listView() {
+      return this.settings && this.settings.platformsView
+        ? this.settings.platformsView
+        : 'grid';
+    },
+
+    // filteredPlatforms() {
+    //   const availableLists = this.ownedListsOnly
+    //     ? this.platforms.filter(({ code }) => this.gameLists[code])
+    //     : this.platforms;
+    //
+    // if (msnry) {
+    //   msnry.reloadItems();
+    //   msnry.layout();
+    // }
+    //
+    //   return this.settings && this.settings.sortListsAlphabetically
+    //     ? sortBy(availableLists, 'name')
+    //     : availableLists;
+    // },
   },
 
   methods: {
-    initGrid() {
-      msnry = new Masonry('.platforms', {
-        itemSelector: '.platform',
-        gutter: 16,
-      });
+    toggleView() {
+      const value = this.listView === 'grid'
+        ? 'list'
+        : 'grid';
+
+      this.$store.commit('UPDATE_SETTING', { key: 'platformsView', value });
+
+      this.$store.dispatch('SAVE_SETTINGS', this.settings)
+        .then(() => {
+          this.$bus.$emit('TOAST', { message: 'Settings saved' });
+          this.loading = false;
+        })
+        .catch(() => {
+          this.$bus.$emit('TOAST', { message: 'There was an error saving your settings', type: 'error' });
+          this.loading = false;
+        });
     },
   },
 };
@@ -86,8 +172,16 @@ export default {
     padding: $gp / 2 $gp;
   }
 
-  .platforms {
+  header {
+    // display: inline-grid;
+    // align-items: center;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    margin-bottom: $gp;
+    grid-gap: $gp;
+
+    button {
+      margin-right: $gp / 2;
+    }
   }
 </style>

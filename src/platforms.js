@@ -1,3 +1,4 @@
+// TODO: add home console, handheld, year released
 // Platforms reference:
 // https://gist.github.com/romancm/3e58f307b8c475cace6a28eae8aee2b5
 export default [
@@ -5,24 +6,29 @@ export default [
     name: 'Nintendo Switch',
     code: 'nintendo-switch',
     hex: '#ce181e',
+    releaseYear: 2017,
     id: 130,
+    handheld: true,
   },
   {
     name: 'PlayStation 4',
     code: 'ps4',
     hex: '#2e6db4',
+    releaseYear: 2013,
     id: 48,
   },
   {
     name: 'Xbox One',
     code: 'xbox-one',
     id: 49,
+    releaseYear: 2013,
     hex: '#177d3e',
   },
   {
     name: 'PlayStation Vita',
     code: 'playstation-vita',
     id: 46,
+    handheld: true,
   },
   {
     name: 'Steam',
@@ -171,6 +177,7 @@ export default [
     name: 'Wii U',
     code: 'wii-u',
     id: 41,
+    releaseYear: 2012,
   },
   {
     name: '3DO Interactive Multiplayer',
@@ -265,6 +272,7 @@ export default [
   {
     name: 'TurboGrafx-16 (PC Engine / SuperGrafx)',
     code: 'pc-engine',
+    hex: '#000',
     id: '86,128',
   },
   {
