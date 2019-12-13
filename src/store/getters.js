@@ -97,6 +97,15 @@ export default {
       : '';
   },
 
+  gameProgress: ({ game, progresses }) => {
+    const gameSelected = game && game.id;
+    const hasProgress = gameSelected && progresses[game.id];
+
+    return hasProgress
+      ? progresses[game.id]
+      : '';
+  },
+
   // eslint-disable-next-line
     activeList: ({ gameLists, platform, activeListIndex }) => gameLists[platform.code][activeListIndex],
 

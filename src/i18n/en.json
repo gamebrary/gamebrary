@@ -173,5 +173,9 @@
   "notes": {
     "addNote": "Add note",
     "notes": "Notes"
+  },
+  "progresses": {
+    "addProgress": "Add progress",
+    "progresses": "Progress"
   }
 }

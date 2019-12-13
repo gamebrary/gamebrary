@@ -23,6 +23,7 @@
           {{ platform.name }}
 
           <game-rating v-if="games[id].rating" :rating="games[id].rating" />
+          <game-progress />
           <game-tags />
 
           <div class="actions">
@@ -80,6 +81,7 @@
 import { mapState, mapGetters } from 'vuex';
 import GameScreenshots from '@/components/GameDetail/GameScreenshots';
 import GameNotes from '@/components/GameDetail/GameNotes';
+import GameProgress from '@/components/GameDetail/GameProgress';
 import GameTags from '@/components/GameDetail/GameTags';
 import GameRating from '@/components/GameDetail/GameRating';
 import GameLinks from '@/components/GameDetail/GameLinks';
@@ -99,6 +101,7 @@ export default {
     Placeholder,
     GameScreenshots,
     GameNotes,
+    GameProgress,
     GameTags,
     GameVideos,
     GameDetails,

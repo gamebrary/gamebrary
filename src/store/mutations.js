@@ -53,6 +53,10 @@ export default {
     state.notes = notes;
   },
 
+  SET_PROGRESSES(state, progresses) {
+    state.progresses = progresses;
+  },
+
   ADD_GAME_TAG(state, { tagName, gameId }) {
     state.tags[tagName].games.push(gameId);
   },

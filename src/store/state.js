@@ -3,6 +3,7 @@ export default {
   releases: null,
   tags: {},
   notes: {},
+  progresses: {},
   activeListIndex: null,
   gameLists: {},
   settings: null,
