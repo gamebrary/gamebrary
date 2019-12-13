@@ -20,7 +20,6 @@
           {{localProgress.number}}%
         </div>
       </div>
-      </progress>
 
       <button
         v-if="!small"
