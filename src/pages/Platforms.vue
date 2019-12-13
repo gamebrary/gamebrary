@@ -1,64 +1,12 @@
 <template lang="html">
   <div class="platforms-page">
-    <header>
-        <button @click="toggleView" class="primary small">
-          <i :class="viewIcon" />
-        </button>
+    <platforms-header />
 
-        <!-- <button class="primary small">
-          <i class="fas fa-square" />
-        </button> -->
-
-        <!-- <modal
-          ref="listAddModal"
-          title="Filter and sort platforms"
-        >
-          <button class="primary small">
-            <i class="fas fa-filter" />
-          </button>
-
-          <div slot="content">
-            <section>
-              Filter:
-
-              <button class="primary small">
-                Mine only
-              </button>
-              <button class="primary small">
-                All
-              </button>
-
-              <button class="primary small">
-                Home consoles
-              </button>
-
-              <button class="primary small">
-                Home Computers
-              </button>
-
-              <button class="primary small">
-                Handhelds
-              </button>
-            </section>
-
-            <section>
-              Sort by:
-
-              <button class="primary small">
-                Year released
-              </button>
-
-              <button class="primary small">
-                All
-              </button>
-            </section>
-          </div>
-        </modal> -->
-    </header>
+    <pre>{{ platformsSortField }}</pre>
 
     <component
       :is="platformsComponent"
-      :platforms="filteredPlatforms"
+      :platforms="sortedPlatforms"
     />
 
     <platforms-footer />
@@ -68,18 +16,18 @@
 <script>
 import platforms from '@/platforms';
 import PlatformsFooter from '@/components/Platforms/PlatformsFooter';
+import PlatformsHeader from '@/components/Platforms/PlatformsHeader';
 import PlatformsGrid from '@/components/Platforms/PlatformsGrid';
 import PlatformsList from '@/components/Platforms/PlatformsList';
-import Modal from '@/components/Modal';
-// import { sortBy } from 'lodash';
+import { sortBy } from 'lodash';
 import { mapState } from 'vuex';
 
 export default {
   components: {
     PlatformsFooter,
+    PlatformsHeader,
     PlatformsGrid,
     PlatformsList,
-    Modal,
   },
 
   data() {
@@ -97,10 +45,10 @@ export default {
       return Object.keys(this.gameLists).length > 0;
     },
 
-    viewIcon() {
-      return this.listView === 'list'
-        ? 'fas fa-th-large'
-        : 'fas fa-list';
+    listView() {
+      return this.settings && this.settings.platformsView
+        ? this.settings.platformsView
+        : 'grid';
     },
 
     platformsComponent() {
@@ -109,22 +57,45 @@ export default {
         : 'PlatformsGrid';
     },
 
-    filteredPlatforms() {
-      return this.platforms;
-
-      // return this.platforms.filter(({ releaseYear }) => !releaseYear);
-      // return this.platforms.filter(({ name }) => {
-      //   const platformName = name.toLowerCase();
-      //   const searchText = this.searchText.toLowerCase();
-      //
-      //   return platformName.includes(searchText);
-      // });
+    platformsFilterField() {
+      return this.settings && this.settings.platformsFilterField
+        ? this.settings.platformsFilterField
+        : null;
     },
 
-    listView() {
-      return this.settings && this.settings.platformsView
-        ? this.settings.platformsView
-        : 'grid';
+    platformsSortField() {
+      return this.settings && this.settings.platformsSortField
+        ? this.settings.platformsSortField
+        : 'releaseYear';
+    },
+
+    ownedListsOnly() {
+      return this.settings && this.settings.ownedListsOnly
+        ? this.settings.ownedListsOnly
+        : false;
+    },
+
+    filteredPlatforms() {
+      const availableLists = this.ownedListsOnly
+        ? this.platforms.filter(({ code }) => this.gameLists[code])
+        : this.platforms;
+
+      console.log(availableLists);
+      console.log(this.platformsFilterField);
+
+      return this.platformsFilterField
+        ? availableLists.filter(({ type }) => type === this.platformsFilterField)
+        : availableLists;
+    },
+
+    sortedPlatforms() {
+      const sortedPlatforms = this.platformsSortField
+        ? sortBy(this.filteredPlatforms, this.platformsSortField)
+        : this.filteredPlatforms;
+
+      return this.platformsSortField === 'releaseYear'
+        ? sortedPlatforms.reverse()
+        : sortedPlatforms;
     },
 
     // filteredPlatforms() {
@@ -142,26 +113,6 @@ export default {
     //     : availableLists;
     // },
   },
-
-  methods: {
-    toggleView() {
-      const value = this.listView === 'grid'
-        ? 'list'
-        : 'grid';
-
-      this.$store.commit('UPDATE_SETTING', { key: 'platformsView', value });
-
-      this.$store.dispatch('SAVE_SETTINGS', this.settings)
-        .then(() => {
-          this.$bus.$emit('TOAST', { message: 'Settings saved' });
-          this.loading = false;
-        })
-        .catch(() => {
-          this.$bus.$emit('TOAST', { message: 'There was an error saving your settings', type: 'error' });
-          this.loading = false;
-        });
-    },
-  },
 };
 </script>
 
@@ -171,18 +122,5 @@ export default {
   .platforms-page {
     min-height: calc(100vh - #{$navHeight});
     padding: 0 $gp $gp / 2;
-  }
-
-  header {
-    // display: inline-grid;
-    // align-items: center;
-    display: flex;
-    align-items: center;
-    margin-bottom: $gp;
-    grid-gap: $gp;
-
-    button {
-      margin-right: $gp / 2;
-    }
   }
 </style>

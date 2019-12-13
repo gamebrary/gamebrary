@@ -12,25 +12,36 @@
       <i class="fas fa-plus" />
     </button>
 
-    <form slot="content" @submit.prevent="addList">
-      <input
-        v-model.trim="listName"
-        :placeholder="$t('list.placeholder')"
-        type="text"
-        autofocus
-        required
-      >
+    <div slot="content">
+      <!-- <div v-if="isEmptyBoard">
+        <h3>Get started with a preset</h3>
 
-      <button
-        :disabled="disabled"
-        class="primary"
-        type="submit"
-      >
-        {{ buttonLabel }}
-      </button>
+        <button class="secondary">Minimalist (Owned / Wishlist)</button>
+        <button class="secondary">Completionist (Owned / Wishlist / Completed)</button>
 
-      <small v-if="isDuplicate">{{ $t('list.duplicateWarning') }}</small>
-    </form>
+        <h3>Or create your first list</h3>
+      </div> -->
+
+      <form @submit.prevent="addList">
+        <input
+          v-model.trim="listName"
+          :placeholder="$t('list.placeholder')"
+          type="text"
+          autofocus
+          required
+        >
+
+        <button
+          :disabled="disabled"
+          class="primary"
+          type="submit"
+        >
+          {{ buttonLabel }}
+        </button>
+
+        <small v-if="isDuplicate">{{ $t('list.duplicateWarning') }}</small>
+      </form>
+    </div>
   </modal>
 </template>
 
