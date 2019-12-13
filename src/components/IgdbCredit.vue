@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   props: {
     linkable: {
@@ -20,6 +22,8 @@ export default {
   },
 
   computed: {
+    ...mapState(['platform', 'settings']),
+
     href() {
       return this.linkable
         ? 'https://www.igdb.com/'
