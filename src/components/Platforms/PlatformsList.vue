@@ -1,6 +1,5 @@
 <template lang="html">
   <div class="platform-list">
-
     <div
       class="platform"
       v-for="platform in platforms"
