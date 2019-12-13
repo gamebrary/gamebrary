@@ -184,6 +184,7 @@ export default {
       sortOrders: {
         sortByName: 'fas fa-sort-alpha-down',
         sortByRating: 'fas fa-star',
+        sortByProgress: 'fas fa-clock',
         sortByCustom: 'fas fa-user',
       },
     };

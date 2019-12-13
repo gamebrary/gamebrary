@@ -91,6 +91,7 @@
     "getStarted": "Get started!",
     "addFirstTime": "Welcome, add your first list!",
     "sortByName": "A-Z",
+    "sortByProgress": "Progress",
     "sortByRating": "Score",
     "sortByReleaseDate": "Date",
     "sortByCustom": "Custom",

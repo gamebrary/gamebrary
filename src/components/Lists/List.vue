@@ -114,7 +114,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['user', 'gameLists', 'platform', 'settings', 'games']),
+    ...mapState(['user', 'gameLists', 'platform', 'settings', 'games', 'progresses']),
 
     autoSortEnabled() {
       const list = this.list[this.listIndex];
@@ -129,6 +129,26 @@ export default {
       switch (sortOrder) {
       case 'sortByCustom':
         return gameList;
+      case 'sortByProgress':
+        return gameList.sort((a, b) => {
+          const gameA = this.games[a] &&
+                        this.progresses[this.games[a].id] &&
+                        this.progresses[this.games[a].id].number
+            ? this.progresses[this.games[a].id].number
+            : 0;
+
+          const gameB = this.games[b] &&
+                        this.progresses[this.games[b].id] &&
+                        this.progresses[this.games[b].id].number
+            ? this.progresses[this.games[b].id].number
+            : 0;
+
+          if (gameA > gameB) {
+            return -1;
+          }
+
+          return gameA < gameB ? 1 : 0;
+        });
       case 'sortByRating':
         return gameList.sort((a, b) => {
           const gameA = this.games[a] && this.games[a].rating
