@@ -61,13 +61,13 @@
       :platforms="filteredPlatforms"
     />
 
-    <page-footer />
+    <platforms-footer />
   </div>
 </template>
 
 <script>
 import platforms from '@/platforms';
-import PageFooter from '@/components/Platforms/PageFooter';
+import PlatformsFooter from '@/components/Platforms/PlatformsFooter';
 import PlatformsGrid from '@/components/Platforms/PlatformsGrid';
 import PlatformsList from '@/components/Platforms/PlatformsList';
 import Modal from '@/components/Modal';
@@ -76,7 +76,7 @@ import { mapState } from 'vuex';
 
 export default {
   components: {
-    PageFooter,
+    PlatformsFooter,
     PlatformsGrid,
     PlatformsList,
     Modal,
