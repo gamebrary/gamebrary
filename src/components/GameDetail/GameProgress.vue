@@ -23,6 +23,7 @@
           {{localProgress.number}}%
         </div>
       </div>
+      </progress>
 
       <div
         v-else
