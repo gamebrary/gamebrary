@@ -28,11 +28,10 @@
       v-if="showProgressField"
     >
       <input
-        v-model.trim="localProgress.number"
+        v-model.number="localProgress.number"
         placeholder="50"
         type="number"
         autofocus
-        required
       >
 
       <div class="progress-action">
