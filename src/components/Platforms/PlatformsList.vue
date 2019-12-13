@@ -21,8 +21,7 @@
 
       <div class="platform-info">
         <h4>{{ platform.name }}</h4>
-        <!-- {{ platform.releaseYear }} -->
-        <!-- <span v-if="platform.handheld">Handheld? {{ platform.handheld }}</span> -->
+        {{ platform.releaseYear }}
       </div>
     </div>
   </div>

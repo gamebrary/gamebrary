@@ -112,6 +112,7 @@ export default {
     filteredPlatforms() {
       return this.platforms;
 
+      // return this.platforms.filter(({ releaseYear }) => !releaseYear);
       // return this.platforms.filter(({ name }) => {
       //   const platformName = name.toLowerCase();
       //   const searchText = this.searchText.toLowerCase();

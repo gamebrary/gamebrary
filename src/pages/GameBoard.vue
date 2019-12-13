@@ -98,7 +98,7 @@ export default {
       const hasLists = this.list && this.list.length;
 
       if (!hasLists && flattenedList.length === 0) {
-        this.$refs.listAddModal.$refs.addList.click()
+        this.$refs.listAddModal.$refs.addList.click();
       }
 
       const dedupedList = Array.from(new Set(flattenedList));
