@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="game-progresses">
+  <div :class="['game-progresses', { small }]">
     <div v-if="hasProgress && !showProgressField" class="progress">
       <div class="progress-data">
         <progress
@@ -18,14 +18,18 @@
         </div>
       </div>
 
-      <button class="primary" @click="editProgress">
+      <button
+        v-if="!viewOnly"
+        class="primary"
+        @click="editProgress"
+      >
         Edit progress
       </button>
     </div>
 
     <div
       class="progress-field"
-      v-if="showProgressField"
+      v-if="showProgressField && !viewOnly"
     >
       <input
         v-model.number="localProgress.number"
@@ -51,7 +55,13 @@
       </div>
     </div>
 
-    <button v-if="!hasProgress && !showProgressField" class="primary" @click="addProgress">
+    <button
+      v-if="!hasProgress &&
+            !showProgressField &&
+            !viewOnly"
+      class="primary"
+      @click="addProgress"
+    >
       <i class="fas fa-clock" />
       {{ $t('progresses.addProgress') }}
     </button>
@@ -62,6 +72,17 @@
 import { mapState, mapGetters } from 'vuex';
 
 export default {
+  props: {
+    viewOnly: {
+      type: Boolean,
+      default: false,
+    },
+    small: {
+      type: Boolean,
+      default: false,
+    },
+  },
+
   data() {
     return {
       showProgressField: false,
@@ -144,99 +165,119 @@ export default {
     @media($small) {
       margin: $gp auto;
     }
-  }
 
-  .progress-data {
-    display: flex;
-    align-items: center;
-    margin-top: $gp;
-    margin-bottom: $gp;
-
-    @media($small) {
-      flex-wrap: wrap;
-      margin: $gp auto;
-      justify-content: center;
-    }
-  }
-
-  .progress-bar {
-    -webkit-appearance: none;
-    appearance: none;
-    display: block;
-    border-radius: $border-radius;
-    background: var(--list-background);
-    height: 20px;
-    border-color: transparent;
-    overflow: hidden;
-
-    @media($small) {
-      order: 2;
-    }
-
-    &::-moz-progress-bar {
-      background: var(--accent-color);
-    }
-
-    &::-webkit-progress-bar {
-      border-radius: $border-radius;
-    }
-
-    &::-webkit-progress-value {
-      background-image: linear-gradient(var(--accent-color), var(--accent-color));
-    }
-  }
-
-  .progress-bar-label {
-    margin-left: $gp;
-    font-size: 18px;
-    font-weight: bold;
-    color: var(--accent-color);
-
-    @media($small) {
-      order: 1;
-      margin-left: 0;
-      margin-bottom: $gp / 3;
-      flex-basis: 100%;
-    }
-  }
-
-  input {
-    width: 100%;
-    margin-bottom: 0;
-    margin-right: $gp;
-    padding: $gp / 2;
-
-    @media($small) {
-      margin-right: 0;
+    .progress-data {
+      display: flex;
+      align-items: center;
+      margin-top: $gp;
       margin-bottom: $gp;
-    }
-  }
 
-  .progress-action {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: $gp;
-
-    .secondary {
-      margin-right: $gp;
-    }
-
-    @media($small) {
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 0;
-
-      .danger {
-        margin-top: $gp;
+      @media($small) {
+        flex-wrap: wrap;
+        margin: $gp auto;
+        justify-content: center;
       }
     }
-  }
 
-  .progress-edit {
-    min-width: 300px;
-    max-width: 355px;
-    width: calc(100% - 75px - (#{$gp} * 8));
+    .progress-bar {
+      -webkit-appearance: none;
+      appearance: none;
+      display: block;
+      border-radius: $border-radius;
+      background: var(--list-background);
+      height: 20px;
+      border-color: transparent;
+      overflow: hidden;
+
+      @media($small) {
+        order: 2;
+      }
+
+      &::-moz-progress-bar {
+        background: var(--accent-color);
+      }
+
+      &::-webkit-progress-bar {
+        border-radius: $border-radius;
+      }
+
+      &::-webkit-progress-value {
+        background-image: linear-gradient(var(--accent-color), var(--accent-color));
+      }
+    }
+
+    .progress-bar-label {
+      margin-left: $gp;
+      font-size: 18px;
+      font-weight: bold;
+      color: var(--accent-color);
+
+      @media($small) {
+        order: 1;
+        margin-left: 0;
+        margin-bottom: $gp / 3;
+        flex-basis: 100%;
+      }
+    }
+
+    input {
+      width: 100%;
+      margin-bottom: 0;
+      margin-right: $gp;
+      padding: $gp / 2;
+
+      @media($small) {
+        margin-right: 0;
+        margin-bottom: $gp;
+      }
+    }
+
+    .progress-action {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: $gp;
+
+      .secondary {
+        margin-right: $gp;
+      }
+
+      @media($small) {
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 0;
+
+        .danger {
+          margin-top: $gp;
+        }
+      }
+
+      .progress-edit {
+        min-width: 300px;
+        max-width: 355px;
+        width: calc(100% - 75px - (#{$gp} * 8));
+      }
+    }
+
+    &.small {
+      max-width: 100%;
+      margin-top: $gp / 4;
+      margin-bottom: $gp / 4;
+
+      .progress-data {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+
+      .progress-bar {
+        height: 10px;
+        width: 100%;
+      }
+
+      .progress-bar-label {
+        display: none;
+      }
+    }
   }
 
 </style>
