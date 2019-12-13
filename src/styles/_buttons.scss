@@ -62,4 +62,8 @@ button, a.link {
   }
   &.danger { background: var(--danger-background); color: var(--danger-text-color); }
   &.warning { background: var(--warning-background); color: var(--warning-text-color); }
+
+  .theme-touch & {
+    border-radius: 0;
+  }
 }

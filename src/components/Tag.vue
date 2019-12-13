@@ -71,6 +71,12 @@ export default {
 
     &.light { color: #fff; }
     &.dark { color: #fff; }
+
+    .theme-touch & {
+      border-radius: 0;
+      padding: $gp / 2 $gp;
+      font-size: $font-size-large;
+    }
   }
 
   .close {

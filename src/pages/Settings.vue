@@ -182,5 +182,9 @@ export default {
     height: $avatarSize;
     border-radius: $border-radius;
     overflow: hidden;
+
+    .theme-touch & {
+      border-radius: 0;
+    }
   }
 </style>

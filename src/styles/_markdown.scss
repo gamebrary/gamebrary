@@ -8,6 +8,10 @@
   padding: $gp / 2;
   margin-top: $gp / 2;
   border-radius: $border-radius;
+
+  .theme-touch & {
+    border-radius: 0;
+  }
 }
 
 .markdown .octicon {

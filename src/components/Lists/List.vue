@@ -341,13 +341,15 @@ export default {
       }
     }
 
-    .list-actions {
-      display: flex;
-    }
+    .theme-touch & {
+      .list-actions {
+        display: flex;
 
-    .list-settings-button {
-      font-size: 24px;
-      color: var(--accent-color);
+        .list-settings-button {
+          font-size: 24px;
+          color: var(--accent-color);
+        }
+      }
     }
 
     .games {

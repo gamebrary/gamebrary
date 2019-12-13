@@ -143,6 +143,12 @@ export default {
       max-height: 100%;
     }
 
+    .theme-touch & {
+      font-size: 14px;
+      border-radius: 0;
+      max-height: calc(100% - #{$gp * 7});
+    }
+
     &.large {
       width: 780px;
       max-width: 100%;

@@ -93,6 +93,10 @@ export default {
       margin: 0 $gp / 4 $gp / 4;
       cursor: pointer;
       border-radius: $border-radius;
+
+      .theme-touch & {
+        border-radius: 0;
+      }
     }
   }
 </style>
