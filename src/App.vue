@@ -174,7 +174,7 @@ export default {
         // TODO: move to actions
         db.collection('progresses').doc(this.user.uid).set(progresses, { merge: !force })
           .then(() => {
-            this.$bus.$emit('TOAST', { message: 'Progresses updated' });
+            this.$bus.$emit('TOAST', { message: 'Progress updated' });
           })
           .catch(() => {
             this.$bus.$emit('TOAST', { message: 'There was an error saving your progress', type: 'error' });
