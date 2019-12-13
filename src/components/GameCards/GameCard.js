@@ -40,7 +40,7 @@ export default {
     },
 
     progress() {
-      return this.progresses && this.progresses[this.gameId] && this.progresses[this.gameId].text;
+      return this.progresses && this.progresses[this.gameId] && this.progresses[this.gameId].number;
     },
 
     list() {
