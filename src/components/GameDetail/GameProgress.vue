@@ -1,17 +1,22 @@
 <template lang="html">
   <div class="game-progresses">
     <div v-if="hasProgress && !showProgressField" class="progress">
-      <progress
-        class="progress-bar"
-        max="100"
-        :value="localProgress.number"
-      >
-        <div class="progress-bar-fallback">
-          <span :style="style">
-            Progress: {{localProgress.number}}%
-          </span>
+      <div class="progress-data">
+        <progress
+          class="progress-bar"
+          max="100"
+          :value="localProgress.number"
+        >
+          <div class="progress-bar-fallback">
+            <span :style="style">
+              Progress: {{localProgress.number}}%
+            </span>
+          </div>
+        </progress>
+        <div class="progress-bar-label">
+          {{localProgress.number}}%
+        </div>
       </div>
-      </progress>
 
       <button class="primary" @click="editProgress">
         Edit progress
@@ -31,13 +36,15 @@
       >
 
       <div class="progress-action">
-        <button class="secondary" @click="reset">
-          {{ $t('global.cancel') }}
-        </button>
+        <div class="progress-edit">
+          <button class="secondary" @click="reset">
+            {{ $t('global.cancel') }}
+          </button>
 
-        <button class="primary" @click="saveProgress">
-          {{ $t('global.save') }}
-        </button>
+          <button class="primary" @click="saveProgress">
+            {{ $t('global.save') }}
+          </button>
+        </div>
 
         <button class="danger" @click="deleteProgress">
           Delete progress
@@ -132,16 +139,40 @@ export default {
 
   .game-progresses {
     max-width: calc(100% - #{$gp});
+    margin-top: $gp;
+    margin-bottom: $gp;
+
+    @media($small) {
+      margin: $gp auto;
+    }
+  }
+
+  .progress-data {
+    display: flex;
+    align-items: center;
+    margin-top: $gp;
+    margin-bottom: $gp;
+
+    @media($small) {
+      flex-wrap: wrap;
+      margin: $gp auto;
+      justify-content: center;
+    }
   }
 
   .progress-bar {
     -webkit-appearance: none;
     appearance: none;
+    display: block;
     border-radius: $border-radius;
     background: var(--list-background);
     height: 20px;
     border-color: transparent;
     overflow: hidden;
+
+    @media($small) {
+      order: 2;
+    }
 
     &::-moz-progress-bar {
       background: var(--accent-color);
@@ -156,37 +187,57 @@ export default {
     }
   }
 
+  .progress-bar-label {
+    margin-left: $gp;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--accent-color);
+
+    @media($small) {
+      order: 1;
+      margin-left: 0;
+      margin-bottom: $gp / 3;
+      flex-basis: 100%;
+    }
+  }
+
   input {
-    width: 75px;
+    width: 100%;
     margin-bottom: 0;
     margin-right: $gp;
     padding: $gp / 2;
 
     @media($small) {
-      width: 75%;
       margin-right: 0;
       margin-bottom: $gp;
     }
   }
 
-  .progress-field {
+  .progress-action {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: $gp;
+
+    .secondary {
+      margin-right: $gp;
+    }
 
     @media($small) {
       flex-wrap: wrap;
       justify-content: center;
+      margin-top: 0;
+
+      .danger {
+        margin-top: $gp;
+      }
     }
   }
 
-  .progress-action {
+  .progress-edit {
     min-width: 300px;
     max-width: 355px;
     width: calc(100% - 75px - (#{$gp} * 8));
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
   }
 
 </style>
