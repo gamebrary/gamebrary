@@ -12,7 +12,7 @@
       @end="dragEnd"
     />
 
-    <list-add-modal />
+    <list-add-modal ref="listAddModal" />
     <game-modal />
     <game-tags-modal />
   </div>
@@ -94,6 +94,12 @@ export default {
 
     load() {
       const flattenedList = this.list ? this.list.map(({ games }) => games).flat() : [];
+
+      const hasLists = this.list && this.list.length;
+
+      if (!hasLists && flattenedList.length === 0) {
+        this.$refs.listAddModal.$refs.addList.click()
+      }
 
       const dedupedList = Array.from(new Set(flattenedList));
 

@@ -7,6 +7,7 @@
     <button
       :title="$t('list.add')"
       class="small primary add-list-button"
+      ref="addList"
     >
       <i class="fas fa-plus" />
     </button>
