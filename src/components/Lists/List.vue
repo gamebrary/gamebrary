@@ -266,6 +266,10 @@ export default {
       display: grid;
     }
 
+    @media($small) {
+      scroll-snap-align: center;
+    }
+
     &.unique {
       @media($small) {
         width: calc(100vw - 80px);

@@ -1,5 +1,6 @@
 <template lang="html">
   <modal
+    class="listAddButton"
     ref="listAddModal"
     :title="title"
     @open="open"
@@ -140,6 +141,10 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
   @import "src/styles/styles.scss";
+
+  .listAddButton {
+    scroll-snap-align: center;
+  }
 
   .add-list-button {
     margin-right: $gp;
