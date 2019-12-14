@@ -144,10 +144,7 @@ export default {
     clear() {
       this.searchText = '';
       this.$store.commit('CLEAR_SEARCH_RESULTS');
-
-      if (this.clear) {
-        this.focusInput();
-      }
+      this.focusInput();
     },
 
     focusInput() {

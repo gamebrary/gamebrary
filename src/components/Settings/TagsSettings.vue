@@ -217,10 +217,7 @@ export default {
       this.tagTextColor = '#f4b41a';
 
       this.$forceUpdate();
-
-      if (this.reset) {
-        this.focusInput();
-      }
+      this.focusInput();
     },
 
     focusInput() {

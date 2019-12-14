@@ -106,10 +106,7 @@ export default {
   methods: {
     open() {
       this.listName = '';
-
-      if (this.open) {
-        this.focusInput();
-      }
+      this.focusInput();
     },
 
     focusInput() {
