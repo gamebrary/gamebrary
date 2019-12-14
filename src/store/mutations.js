@@ -119,6 +119,10 @@ export default {
     state.settings = settings;
   },
 
+  UPDATE_SETTING(state, { key, value }) {
+    state.settings[key] = value;
+  },
+
   // MOVE_LIST(state, { from, to }) {
   //     const cutOut = state.gameLists[state.platform.code].splice(from, 1)[0];
   //

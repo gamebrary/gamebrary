@@ -1,37 +1,37 @@
 <template lang="html">
   <div class="platforms-page">
-    <div class="platforms">
-      <platform
-        v-for="platform in filteredPlatforms"
-        :key="platform.name"
-        :platform="platform"
-        clickable
-      />
-    </div>
+    <platforms-header />
 
-    <page-footer />
+    <component
+      :is="platformsComponent"
+      :platforms="sortedPlatforms"
+    />
+
+    <platforms-footer />
   </div>
 </template>
 
 <script>
-import Masonry from 'masonry-layout';
 import platforms from '@/platforms';
-import Platform from '@/components/Platforms/Platform';
-import PageFooter from '@/components/Platforms/PageFooter';
+import PlatformsFooter from '@/components/Platforms/PlatformsFooter';
+import PlatformsHeader from '@/components/Platforms/PlatformsHeader';
+import PlatformsGrid from '@/components/Platforms/PlatformsGrid';
+import PlatformsList from '@/components/Platforms/PlatformsList';
 import { sortBy } from 'lodash';
 import { mapState } from 'vuex';
 
-let msnry = null;
-
 export default {
   components: {
-    Platform,
-    PageFooter,
+    PlatformsFooter,
+    PlatformsHeader,
+    PlatformsGrid,
+    PlatformsList,
   },
 
   data() {
     return {
       platforms,
+      searchText: '',
     };
   },
 
@@ -43,8 +43,34 @@ export default {
       return Object.keys(this.gameLists).length > 0;
     },
 
+    listView() {
+      return this.settings && this.settings.platformsView
+        ? this.settings.platformsView
+        : 'grid';
+    },
+
+    platformsComponent() {
+      return this.listView === 'list'
+        ? 'PlatformsList'
+        : 'PlatformsGrid';
+    },
+
+    platformsFilterField() {
+      return this.settings && this.settings.platformsFilterField
+        ? this.settings.platformsFilterField
+        : null;
+    },
+
+    platformsSortField() {
+      return this.settings && this.settings.platformsSortField
+        ? this.settings.platformsSortField
+        : 'releaseYear';
+    },
+
     ownedListsOnly() {
-      return this.settings && this.settings.ownedListsOnly;
+      return this.settings && this.settings.ownedListsOnly
+        ? this.settings.ownedListsOnly
+        : false;
     },
 
     filteredPlatforms() {
@@ -52,28 +78,35 @@ export default {
         ? this.platforms.filter(({ code }) => this.gameLists[code])
         : this.platforms;
 
-      if (msnry) {
-        msnry.reloadItems();
-        msnry.layout();
-      }
-
-      return this.settings && this.settings.sortListsAlphabetically
-        ? sortBy(availableLists, 'name')
+      return this.platformsFilterField
+        ? availableLists.filter(({ type }) => type === this.platformsFilterField)
         : availableLists;
     },
-  },
 
-  mounted() {
-    this.initGrid();
-  },
+    sortedPlatforms() {
+      const sortedPlatforms = this.platformsSortField
+        ? sortBy(this.filteredPlatforms, this.platformsSortField)
+        : this.filteredPlatforms;
 
-  methods: {
-    initGrid() {
-      msnry = new Masonry('.platforms', {
-        itemSelector: '.platform',
-        gutter: 16,
-      });
+      return this.platformsSortField === 'releaseYear'
+        ? sortedPlatforms.reverse()
+        : sortedPlatforms;
     },
+
+    // filteredPlatforms() {
+    //   const availableLists = this.ownedListsOnly
+    //     ? this.platforms.filter(({ code }) => this.gameLists[code])
+    //     : this.platforms;
+    //
+    // if (msnry) {
+    //   msnry.reloadItems();
+    //   msnry.layout();
+    // }
+    //
+    //   return this.settings && this.settings.sortListsAlphabetically
+    //     ? sortBy(availableLists, 'name')
+    //     : availableLists;
+    // },
   },
 };
 </script>
@@ -83,11 +116,6 @@ export default {
 
   .platforms-page {
     min-height: calc(100vh - #{$navHeight});
-    padding: $gp / 2 $gp;
-  }
-
-  .platforms {
-    display: flex;
-    flex-direction: column;
+    padding: 0 $gp $gp / 2;
   }
 </style>
