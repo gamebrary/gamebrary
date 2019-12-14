@@ -22,7 +22,13 @@
     "donateMessage": "Gamebrary is free and open source, consider helping its development by",
     "donating": "donating",
     "reportBugs": "reporting bugs",
-    "submitFeedback": "submitting feedback"
+    "submitFeedback": "submitting feedback",
+    "home": "Home consoles",
+    "handheld": "Handhelds",
+    "computer": "Home Computer",
+    "releaseYear": "Year released",
+    "name": "Alphabetically",
+    "type": "Type"
   },
   "igdbCredit": {
     "poweredByIgdb": "Powered by IGDB"

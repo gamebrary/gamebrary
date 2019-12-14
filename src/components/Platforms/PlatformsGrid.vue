@@ -1,65 +1,69 @@
 <template lang="html">
-  <div
-    :class="['platform', { clickable, square } ]"
-    :style="style"
-    @click="changePlatform"
-  >
-    <img
-      :src="`/static/img/platforms/logos/${platform.code}.svg`"
-      :alt="platform.name"
+  <div class="platforms">
+    <div class="platform"
+      v-for="platform in platforms"
+      :key="platform.name"
+      :style="`background-color: ${platform.hex || '#fff'}`"
+      @click="changePlatform(platform)"
     >
+      <img
+        :src="`/static/img/platforms/logos/${platform.code}.svg`"
+        :alt="platform.name"
+      >
 
-    <span
-      v-if="showCount(platform)"
-      class="game-count"
-    >
-      <i class="fas fa-gamepad" />
-      {{ getGameCount(platform.code) }}
-    </span>
+      <span v-if="hasLists(platform.code)" class="lists-indicator" />
+    </div>
   </div>
 </template>
 
 <script>
+import Masonry from 'masonry-layout';
 import { mapState } from 'vuex';
+
+let msnry = null;
 
 export default {
   props: {
-    platform: {
-      type: Object,
-      default: () => {},
-    },
-    square: {
-      type: Boolean,
-      default: false,
-    },
-    clickable: {
-      type: Boolean,
-      default: false,
-    },
+    platforms: Array,
   },
 
   computed: {
     ...mapState(['gameLists', 'settings']),
+  },
 
-    hexColor() {
-      return this.platform.hex || '#fff';
-    },
 
-    style() {
-      return `background-color: ${this.hexColor}`;
+  watch: {
+    platforms() {
+      this.$nextTick(() => {
+        msnry.reloadItems();
+        msnry.layout();
+      });
     },
   },
 
+  mounted() {
+    this.initGrid();
+  },
+
   methods: {
-    showCount({ code }) {
-      return this.ownedPlatform(code) && this.getGameCount(code) > 0;
+    hasLists(platform) {
+      return Boolean(this.gameLists[platform] && this.gameLists[platform].length);
     },
 
-    changePlatform() {
-      if (this.clickable) {
-        this.$store.commit('SET_PLATFORM', this.platform);
-        this.$router.push({ name: 'game-board' });
-      }
+    initGrid() {
+      msnry = new Masonry('.platforms', {
+        itemSelector: '.platform',
+        gutter: 16,
+      });
+    },
+
+    changePlatform(platform) {
+      this.$store.commit('SET_PLATFORM', platform);
+      this.$router.push({ name: 'game-board' });
+    },
+
+    showCount({ code }) {
+      return this.gameCount && this.ownedPlatform(code) && this.getGameCount(code) > 0;
     },
 
     ownedPlatform(platformCode) {
@@ -81,7 +85,6 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
   @import "~styles/styles";
-
   .platform {
     padding: $gp;
     display: flex;
@@ -128,5 +131,16 @@ export default {
       border-bottom-left-radius: $border-radius;
     }
   }
-</style>
 
+  .lists-indicator {
+    position: absolute;
+    top: -15px;
+    right: -20px;
+    width: 40px;
+    height: 30px;
+    transform: rotate(45deg);
+    background: red;
+    border-bottom: 3px solid var(--body-background);
+    background-color: #555;
+  }
+</style>

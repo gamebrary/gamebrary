@@ -6,7 +6,7 @@
       slot="content"
       class="settings"
     >
-      <game-board-settings v-model="localSettings" @save="save"/>
+      <game-board-settings v-model="localSettings" @save="save" v-if="isGameBoard" />
       <tags-settings v-model="localSettings" />
 
       <div class="setting">

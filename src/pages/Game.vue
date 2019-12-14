@@ -86,7 +86,6 @@ import GameLinks from '@/components/GameDetail/GameLinks';
 import GameDescription from '@/components/GameDetail/GameDescription';
 import GameVideos from '@/components/GameDetail/GameVideos';
 import GameDetails from '@/components/GameDetail/GameDetails';
-import Platform from '@/components/Platforms/Platform';
 import Placeholder from '@/components/Placeholder';
 import IgdbCredit from '@/components/IgdbCredit';
 import GameDetailPlaceholder from '@/components/GameDetail/GameDetailPlaceholder';
@@ -101,7 +100,6 @@ export default {
     GameScreenshots,
     GameNotes,
     GameTags,
-    Platform,
     GameVideos,
     GameDetails,
     GameDetailPlaceholder,
