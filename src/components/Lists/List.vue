@@ -313,6 +313,10 @@ export default {
         justify-content: center;
         border: 1px dashed #a5a2a2;
       }
+      
+      @media($small) {
+        scroll-snap-align: center;
+      }
     }
 
     &.grid {
