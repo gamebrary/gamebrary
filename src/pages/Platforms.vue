@@ -108,19 +108,6 @@ export default {
     //     : availableLists;
     // },
   },
-  
-  mounted() {
-    this.initMasonry();
-  },
-
-  methods: {
-    initMasonry() {
-      msnry = new Masonry('.platforms', {
-        itemSelector: '.platform',
-        gutter: 16,
-      });
-    }
-  }
 };
 </script>
 
