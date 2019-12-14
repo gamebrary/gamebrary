@@ -76,7 +76,7 @@ export default {
       defaultSettings: {
         language: 'en',
         theme: {
-          global: 'theme-default',
+          global: 'default',
         },
       },
     };
@@ -108,7 +108,7 @@ export default {
 
     if (this.platform && !this.localSettings[this.platform.code]) {
       this.localSettings[this.platform.code] = {
-        theme: 'theme-default',
+        theme: 'default',
       };
     }
   },
