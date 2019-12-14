@@ -316,5 +316,6 @@ export default {
   #app {
     background: var(--body-background);
     background-size: cover;
+    overflow-x: hidden;
   }
 </style>

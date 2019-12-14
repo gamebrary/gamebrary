@@ -19,7 +19,7 @@
     >
       {{ title }}
     </span>
-    <settings v-if="showSettings" />
+    <settings v-if="user" />
   </nav>
 </template>
 
@@ -37,10 +37,6 @@ export default {
 
     isLoggedIn() {
       return this.user && this.user.email;
-    },
-
-    showSettings() {
-      return this.$route.name === 'game-board';
     },
 
     title() {

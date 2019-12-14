@@ -16,7 +16,7 @@
       .
     </small>
 
-    <igdb-credit />
+    <igdb-credit gray />
   </footer>
 </template>
 

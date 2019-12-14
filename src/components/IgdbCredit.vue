@@ -37,14 +37,16 @@ export default {
 @import "~styles/styles";
 
 .igdb-credit {
-  color: #3eb87a;
+  color: #fff;
+  background: #3eb87a;
+  border-radius: $border-radius;
   display: flex;
   align-items: center;
   text-decoration: none;
-  font-size: 11px;
+  font-size: 10px;
 
   img {
-    height: 40px;
+    height: 34px;
   }
 }
 </style>
