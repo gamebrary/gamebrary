@@ -11,6 +11,7 @@
 
 .authorizing {
   background: var(--body-background);
+  color: var(--primary-text-color);
   height: 100vh;
   position: fixed;
   top: 0;
@@ -25,6 +26,7 @@
   }
 
   i {
+    font-size: 1.99999999em;
     margin: $gp;
   }
 }
