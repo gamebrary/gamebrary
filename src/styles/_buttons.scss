@@ -20,7 +20,7 @@ button, a.link {
   background: transparent;
   color: inherit;
   font: inherit;
-  border-radius: $border-radius;
+  border-radius: var(--border-radius);
   line-height: normal;
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;

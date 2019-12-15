@@ -1,7 +1,7 @@
 textarea, input, select {
   border: 1px solid #555555;
   background: #fff;
-  border-radius: $border-radius;
+  border-radius: var(--border-radius);
   height: 40px;
   padding: 0 $gp / 2;
   width: 100%;

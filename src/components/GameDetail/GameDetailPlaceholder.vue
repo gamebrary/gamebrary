@@ -98,7 +98,7 @@ export default {
     z-index: 1;
     margin: $gp * 3;
     padding: $gp 0;
-    border-radius: $border-radius;
+    border-radius: var(--border-radius);
 
     @media($small) {
       margin: 0;

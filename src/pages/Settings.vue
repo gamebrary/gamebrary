@@ -7,6 +7,8 @@
       class="settings"
     >
       <game-board-settings v-model="localSettings" @save="save" v-if="isGameBoard" />
+
+      <h3>Global</h3>
       <tags-settings v-model="localSettings" />
 
       <div class="setting">
@@ -78,6 +80,12 @@ export default {
         theme: {
           global: 'default',
         },
+        position: {
+          global: 'top',
+        },
+        borderRadius: true,
+        showGameAmount: true,
+        hideListBackgrounds: false,
       },
     };
   },
@@ -109,6 +117,10 @@ export default {
     if (this.platform && !this.localSettings[this.platform.code]) {
       this.localSettings[this.platform.code] = {
         theme: 'default',
+        position: 'top',
+        borderRadius: true,
+        showGameAmount: true,
+        hideListBackgrounds: false,
       };
     }
   },
@@ -180,7 +192,7 @@ export default {
   .avatar {
     width: $avatarSize;
     height: $avatarSize;
-    border-radius: $border-radius;
+    border-radius: var(--border-radius);
     overflow: hidden;
   }
 </style>

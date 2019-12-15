@@ -92,7 +92,7 @@ export default {
     img {
       margin: 0 $gp / 4 $gp / 4;
       cursor: pointer;
-      border-radius: $border-radius;
+      border-radius: var(--border-radius);
     }
   }
 </style>
@@ -144,7 +144,7 @@ export default {
         font-family: "Font Awesome 5 Free";
         content: "\f00d";
         border: 1px solid #a5a2a2;
-        border-radius: $border-radius;
+        border-radius: var(--border-radius);
         position: fixed;
         right: $gp / 2;
         top: $gp / 2;

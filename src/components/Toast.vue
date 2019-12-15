@@ -87,7 +87,7 @@ export default {
     max-width: 300px;
     opacity: 0;
     z-index: 1;
-    border-radius: $border-radius;
+    border-radius: var(--border-radius);
     padding: $gp;
     transition: all 200ms linear;
 

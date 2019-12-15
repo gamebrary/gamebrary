@@ -8,7 +8,12 @@
           title="List sorted automatically"
         />
 
-        {{ list[listIndex].name }} ({{ gameList.length }})
+        {{ list[listIndex].name }}
+        <span
+          v-if="gameAmountEnabled"
+        >
+          ({{ gameList.length }})
+        </span>
       </span>
 
       <list-settings-modal :list-index="listIndex" />
@@ -201,6 +206,10 @@ export default {
       return this.list.length === 1;
     },
 
+    gameAmountEnabled() {
+      return this.settings[this.platform.code].showGameAmount;
+    },
+
     gameCardComponent() {
       return this.view && Object.keys(this.gameCardComponents).includes(this.view)
         ? this.gameCardComponents[this.view]
@@ -281,7 +290,7 @@ export default {
     position: relative;
     width: 300px;
     background: var(--list-background);
-    border-radius: $border-radius;
+    border-radius: var(--border-radius);
     overflow: hidden;
     margin-right: $gp;
     max-height: calc(100vh - 100px);
@@ -314,7 +323,7 @@ export default {
       justify-content: space-between;
       padding-left: $gp / 2;
       position: absolute;
-      border-radius: $border-radius;
+      border-radius: var(--border-radius);
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
       width: 100%;

@@ -86,7 +86,7 @@ export default {
     position: relative;
     display: grid;
     grid-template-columns: $gameCoverWidth auto;
-    border-radius: $border-radius;
+    border-radius: var(--border-radius);
     overflow: hidden;
 
     &.card-placeholder {

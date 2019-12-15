@@ -4,10 +4,24 @@
     :class="theme"
     :style="style"
     :dir="dir"
+    v-if="headerPosition === 'top'"
   >
     <nav-header />
     <router-view v-if="user" />
     <authorizing v-else />
+    <toast />
+  </div>
+
+  <div
+    id="app"
+    :class="theme"
+    :style="style"
+    :dir="dir"
+    v-else
+  >
+    <router-view v-if="user" />
+    <nav-header />
+    <authorizing v-if="!user" />
     <toast />
   </div>
 </template>
@@ -53,9 +67,31 @@ export default {
     },
 
     style() {
-      return this.$route.name === 'game-board' && this.wallpaperUrl
-        ? `background-image: url('${this.wallpaperUrl}')`
-        : null;
+      
+      return {
+        'background-image': this.$route.name === 'game-board' &&
+                            this.wallpaperUrl
+                          ? `url('${this.wallpaperUrl}')`
+                          : null,
+        '--border-radius': this.settings &&
+                           this.platform &&
+                           this.settings[this.platform.code] &&
+                           !this.settings[this.platform.code].borderRadius
+                          ? '0px'
+                          : null,
+        '--list-background': this.settings &&
+                             this.platform &&
+                             this.settings[this.platform.code] &&
+                             this.settings[this.platform.code].hideListBackgrounds
+                           ? 'transparent'
+                           : null,
+        '--list-header-background': this.settings &&
+                                    this.platform &&
+                                    this.settings[this.platform.code] &&
+                                    this.settings[this.platform.code].hideListBackgrounds
+                                  ? 'transparent'
+                                  : null
+      }
     },
 
     customWallpaper() {
@@ -79,6 +115,22 @@ export default {
       return isGameBoard && hasPlatformTheme
         ? `theme-${this.settings[this.platform.code].theme}`
         : 'theme-default';
+    },
+
+    headerPosition() {
+      const hasPlatform = this.platform && this.platform.code;
+      const hasPosition = hasPlatform
+      && this.settings
+      && this.settings[this.platform.code]
+      && this.settings[this.platform.code].position;
+
+      const isGameBoard = this.$route.name === 'game-board';
+
+      const hasPlatformPosition = hasPlatform && hasPosition;
+
+      return isGameBoard && hasPlatformPosition
+        ? `${this.settings[this.platform.code].position}`
+        : 'top';
     },
   },
 
@@ -295,5 +347,6 @@ export default {
     background: var(--body-background);
     background-size: cover;
     overflow-x: hidden;
+    --border-radius: 4px;
   }
 </style>
