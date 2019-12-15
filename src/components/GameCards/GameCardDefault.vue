@@ -17,7 +17,7 @@
       <i class="fas fa-grip-vertical game-drag-handle" />
 
       <game-rating
-        v-if="showGameRatings && list.view !== 'covers'"
+        v-if="showGameRatings"
         :rating="game.rating"
         small
         @click.native="openDetails"
