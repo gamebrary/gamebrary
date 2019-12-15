@@ -67,31 +67,34 @@ export default {
     },
 
     style() {
-      
       return {
-        'background-image': this.$route.name === 'game-board' &&
-                            this.wallpaperUrl
-                          ? `url('${this.wallpaperUrl}')`
-                          : null,
-        '--border-radius': this.settings &&
-                           this.platform &&
-                           this.settings[this.platform.code] &&
-                           !this.settings[this.platform.code].borderRadius
-                          ? '0px'
-                          : null,
-        '--list-background': this.settings &&
-                             this.platform &&
-                             this.settings[this.platform.code] &&
-                             this.settings[this.platform.code].hideListBackgrounds
-                           ? 'transparent'
-                           : null,
-        '--list-header-background': this.settings &&
-                                    this.platform &&
-                                    this.settings[this.platform.code] &&
-                                    this.settings[this.platform.code].hideListBackgrounds
-                                  ? 'transparent'
-                                  : null
-      }
+        'background-image':
+          this.$route.name === 'game-board' &&
+          this.wallpaperUrl
+        ? `url('${this.wallpaperUrl}')`
+        : null,
+        '--border-radius':
+          this.settings &&
+          this.platform &&
+          this.settings[this.platform.code] &&
+          !this.settings[this.platform.code].borderRadius
+        ? '0px'
+        : null,
+        '--list-background':
+          this.settings &&
+          this.platform &&
+          this.settings[this.platform.code] &&
+          this.settings[this.platform.code].hideListBackgrounds
+        ? 'transparent'
+        : null,
+        '--list-header-background':
+          this.settings &&
+          this.platform &&
+          this.settings[this.platform.code] &&
+          this.settings[this.platform.code].hideListBackgrounds
+        ? 'transparent'
+        : null,
+      };
     },
 
     customWallpaper() {
