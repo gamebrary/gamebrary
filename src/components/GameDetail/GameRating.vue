@@ -2,7 +2,8 @@
   <div :class="['game-rating', { small }]">
     <span v-for="n in 5" :key="`star-${n}`">
       <i v-if="(roundedRating - n) + 1 >= 1" class="fas fa-star" />
-      <i v-if="(roundedRating - n) + 1 === .5" class="fas fa-star-half" />
+      <i v-if="(roundedRating - n) + 1 === .5" class="fas fa-star-half-alt" />
+      <i v-if="(roundedRating - n) + 1 <= 0" class="far fa-star" />
     </span>
   </div>
 </template>
