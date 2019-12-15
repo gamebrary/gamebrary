@@ -105,6 +105,7 @@
       "single": "Standard",
       "wide": "Kompakt",
       "text": "Nur Text",
+      "masonry": "Masonry",
       "grid": "Gitter"
     }
   },

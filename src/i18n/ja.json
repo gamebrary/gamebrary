@@ -105,6 +105,7 @@
       "single": "デフォルト",
       "wide": "コンパクト",
       "text": "テキストのみ",
+      "masonry": "Masonry",
       "grid": "グリッド"
     }
   },

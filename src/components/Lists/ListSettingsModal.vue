@@ -78,7 +78,17 @@
         </div>
       </section>
 
-      <section :class="{ disabled: localList.view === 'grid' }">
+      <section v-if="localList.view === 'grid'">
+        <h4>Hide game info</h4>
+
+        <toggle-switch
+          id="gameInfo"
+          @change="save"
+          v-model="localList.hideGameInfo"
+        />
+      </section>
+
+      <section :class="{ disabled: localList.view === 'masonry' }">
         <h4>Hide game ratings</h4>
 
         <toggle-switch
@@ -166,6 +176,7 @@ export default {
       localList: null,
       views: {
         single: 'fas fa-square',
+        masonry: 'fas fa-th',
         grid: 'fas fa-th-large',
         wide: 'fas fa-minus',
         text: 'fas fa-font',

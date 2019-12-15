@@ -1,5 +1,5 @@
 <template lang="html">
-  <div :class="['list', viewClass, { unique: unique && view !== 'grid' }]">
+  <div :class="['list', viewClass, { unique: unique && view !== 'masonry' }]">
     <header>
       <span class="list-name">
         <i
@@ -14,13 +14,13 @@
     </header>
 
     <div
-      v-if="view === 'grid'"
-      :class="`game-grid game-grid-${listIndex}`"
+      v-if="view === 'masonry'"
+      :class="`game-masonry game-masonry-${listIndex}`"
     >
       <component
         v-for="game in gameList"
         :is="gameCardComponent"
-        :key="`grid-${game}`"
+        :key="`masonry-${game}`"
         :id="game"
         :game-id="game"
         :list-id="listIndex"
@@ -40,7 +40,7 @@
       <component
         v-for="game in sortedGames"
         :is="gameCardComponent"
-        :key="`grid-${game}`"
+        :key="`masonry-${game}`"
         :id="game"
         :game-id="game"
         :list-id="listIndex"
@@ -56,6 +56,7 @@ import draggable from 'vuedraggable';
 import Masonry from 'masonry-layout';
 import ListSettingsModal from '@/components/Lists/ListSettingsModal';
 import GameCardDefault from '@/components/GameCards/GameCardDefault';
+import GameCardMasonry from '@/components/GameCards/GameCardMasonry';
 import GameCardGrid from '@/components/GameCards/GameCardGrid';
 import GameCardWide from '@/components/GameCards/GameCardWide';
 import GameCardText from '@/components/GameCards/GameCardText';
@@ -67,6 +68,7 @@ export default {
 
   components: {
     GameCardDefault,
+    GameCardMasonry,
     GameCardGrid,
     GameCardWide,
     GameCardText,
@@ -103,6 +105,7 @@ export default {
       },
       gameCardComponents: {
         single: 'GameCardDefault',
+        masonry: 'GameCardMasonry',
         grid: 'GameCardGrid',
         wide: 'GameCardWide',
         text: 'GameCardText',
@@ -192,38 +195,39 @@ export default {
 
   watch: {
     view() {
-      this.initGrid();
+      this.initMasonry();
 
       setTimeout(() => {
-        this.initGrid();
+        this.initMasonry();
       }, 500);
     },
 
     gameList() {
-      this.initGrid();
+      this.initMasonry();
 
       setTimeout(() => {
-        this.initGrid();
+        this.initMasonry();
       }, 500);
     },
   },
 
   mounted() {
-    this.initGrid();
+    this.initMasonry();
 
     setTimeout(() => {
-      this.initGrid();
+      this.initMasonry();
     }, 500);
   },
 
   methods: {
-    initGrid() {
-      if (this.view === 'grid') {
+    initMasonry() {
+      if (this.view === 'masonry') {
         this.$nextTick(() => {
           // eslint-disable-next-line
-            this.masonry = new Masonry(`.game-grid-${this.listIndex}`, {
+            this.masonry = new Masonry(`.game-masonry-${this.listIndex}`, {
             itemSelector: '.game-card',
             gutter: 4,
+            percentPosition: true,
           });
         });
       }
@@ -262,14 +266,6 @@ export default {
     margin-right: $gp;
     max-height: calc(100vh - 100px);
 
-    .games {
-      display: grid;
-    }
-
-    @media($small) {
-      scroll-snap-align: center;
-    }
-
     &.unique {
       @media($small) {
         width: calc(100vw - 80px);
@@ -298,6 +294,7 @@ export default {
     }
 
     .games {
+      display: grid;
       height: 100%;
       overflow: hidden;
       max-height: calc(100vh - 150px);
@@ -316,6 +313,28 @@ export default {
         justify-content: center;
         border: 1px dashed #a5a2a2;
       }
+
+      @media($small) {
+        scroll-snap-align: center;
+      }
+    }
+
+    &.grid {
+      .games {
+        padding: $gp / 2;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: $gp / 2;
+
+        // https://github.com/w3c/csswg-drafts/issues/129
+        &::after {
+          content: '';
+          display: block;
+          height: 1px;
+          margin-top: -1px;
+          width: 100%;
+          grid-column: span 2;
+        }
+      }
     }
   }
 
@@ -323,7 +342,7 @@ export default {
     padding: $gp;
   }
 
-  .game-grid {
+  .game-masonry {
     height: 100%;
     display: flex;
     align-items: center;
