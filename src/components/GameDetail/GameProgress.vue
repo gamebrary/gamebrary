@@ -1,7 +1,10 @@
 <template lang="html">
   <div :class="['game-progresses', { small }]">
     <div v-if="hasProgress && !showProgressField" class="progress">
-      <div class="progress-data">
+      <div
+        class="progress-data"
+        v-if="!pie"
+      >
         <progress
           class="progress-bar"
           max="100"
@@ -21,8 +24,15 @@
         </div>
       </div>
 
+      <div
+        v-else
+        class="progress-pie"
+        :data-value="localProgress.number"
+      >
+      </div>
+
       <button
-        v-if="!small"
+        v-if="!small && !pie"
         class="primary"
         @click="editProgress"
       >
@@ -32,7 +42,7 @@
 
     <div
       class="progress-field"
-      v-if="showProgressField && !small"
+      v-if="showProgressField && !small && !pie"
     >
       <div class="progress-data">
         <div
@@ -74,7 +84,8 @@
     <button
       v-if="!hasProgress &&
             !showProgressField &&
-            !small"
+            !small &&
+            !pie"
       class="primary"
       @click="addProgress"
     >
@@ -90,6 +101,10 @@ import { mapState, mapGetters } from 'vuex';
 export default {
   props: {
     small: {
+      type: Boolean,
+      default: false,
+    },
+    pie: {
       type: Boolean,
       default: false,
     },
@@ -197,6 +212,15 @@ export default {
             order: 2;
           }
         }
+      }
+    }
+
+    .progress-pie {
+      width: 30px;
+      height: 30px;
+
+      &::after {
+        font: 100 10px/21px Tahoma;
       }
     }
 

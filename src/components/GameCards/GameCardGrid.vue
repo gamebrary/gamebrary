@@ -10,8 +10,38 @@
     >
 
     <div :class="{ 'game-info': showGameInfo }" >
+      <div
+        v-if="showGameInfo && progress"
+        class="title-progress"
+      >
+        <a
+          v-text="game.name"
+          @click="openDetails"
+        />
+
+        <game-rating
+          v-if="showGameRatings"
+          :rating="game.rating"
+          small
+          @click.native="openDetails"
+        />
+
+        <game-progress
+          small
+          pie
+          @click.native="openDetails"
+        />
+
+        <i
+          v-if="note"
+          :title="note"
+          class="fas fa-sticky-note note"
+          @click="openDetails"
+        />
+      </div>
+
       <a
-        v-if="showGameInfo && list.view !== 'covers'"
+        v-if="showGameInfo && !progress"
         v-text="game.name"
         @click="openDetails"
       />
@@ -19,14 +49,14 @@
       <i class="fas fa-grip-vertical game-drag-handle" />
 
       <game-rating
-        v-if="showGameInfo && showGameRatings && list.view !== 'covers'"
+        v-if="showGameInfo && showGameRatings && !progress"
         :rating="game.rating"
         small
         @click.native="openDetails"
       />
 
       <i
-        v-if="showGameInfo && note"
+        v-if="showGameInfo && note && !progress"
         :title="note"
         class="fas fa-sticky-note note"
         @click="openDetails"
@@ -55,12 +85,14 @@
 
 <script>
 import GameRating from '@/components/GameDetail/GameRating';
+import GameProgress from '@/components/GameDetail/GameProgress';
 import GameCardUtils from '@/components/GameCards/GameCard';
 import Tag from '@/components/Tag';
 
 export default {
   components: {
     GameRating,
+    GameProgress,
     Tag,
   },
 
@@ -142,6 +174,26 @@ export default {
       cursor: pointer;
       margin-right: $gp / 2;
       color: var(--game-card-text-color);
+    }
+
+    .title-progress {
+      display: grid;
+      grid-template: auto auto / auto auto;
+
+      a {
+        grid-column: 1;
+      }
+
+      .game-rating {
+        grid-column: 1;
+        grid-row: 2;
+      }
+
+      .game-progresses {
+        justify-self: end;
+        grid-column: 2;
+        grid-row: span 2;
+      }
     }
   }
 
