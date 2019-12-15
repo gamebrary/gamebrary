@@ -149,7 +149,7 @@ export default {
   display: flex;
 
   @media($small) {
-    scroll-snap-type: y mandatory;
+    scroll-snap-type: x mandatory;
   }
 }
 
