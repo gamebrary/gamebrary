@@ -28,8 +28,7 @@ export default {
 @import "~styles/styles";
 
 .igdb-credit {
-  color: #fff;
-  background: #3eb87a;
+  color: var(--primary-text-color);
   border-radius: $border-radius;
   display: flex;
   align-items: center;
