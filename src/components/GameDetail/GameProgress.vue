@@ -23,14 +23,6 @@
           {{localProgress.number}}%
         </div>
       </div>
-      </progress>
-
-      <div
-        v-else
-        class="progress-pie"
-        :data-value="localProgress.number"
-      >
-      </div>
 
       <div
         v-else
