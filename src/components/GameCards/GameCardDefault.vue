@@ -14,7 +14,10 @@
         @click="openDetails"
       />
 
-      <i class="fas fa-grip-vertical game-drag-handle" />
+      <i
+        v-if="list.sortOrder === 'sortByCustom'"
+        class="fas fa-grip-vertical game-drag-handle"
+      />
 
       <game-rating
         v-if="showGameRatings && list.view !== 'covers'"
