@@ -10,7 +10,7 @@
 
         {{ list[listIndex].name }}
         <span
-          v-if="gameAmountEnabled"
+          v-if="!hideGameAmount"
         >
           ({{ gameList.length }})
         </span>
@@ -206,8 +206,8 @@ export default {
       return this.list.length === 1;
     },
 
-    gameAmountEnabled() {
-      return this.settings[this.platform.code].showGameAmount;
+    hideGameAmount() {
+      return this.settings[this.platform.code].hideGameAmount;
     },
 
     gameCardComponent() {
