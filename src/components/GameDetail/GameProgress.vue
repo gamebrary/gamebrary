@@ -13,7 +13,10 @@
             </span>
           </div>
         </progress>
-        <div class="progress-bar-label">
+        <div
+          v-if="localProgress.number"
+          class="progress-bar-label"
+        >
           {{localProgress.number}}%
         </div>
       </div>
@@ -31,12 +34,25 @@
       class="progress-field"
       v-if="showProgressField && !small"
     >
-      <input
-        v-model.number="localProgress.number"
-        placeholder="50"
-        type="number"
-        autofocus
-      >
+      <div class="progress-data">
+        <div
+          v-if="localProgress.number"
+          class="progress-bar-label"
+        >
+          {{localProgress.number}}%
+        </div>
+
+        <input
+          class="progress-range"
+          v-model.number="localProgress.number"
+          placeholder="50"
+          type="range"
+          min="0"
+          max="100"
+          step="5"
+          autofocus
+        >
+      </div>
 
       <div class="progress-action">
         <div class="progress-edit">
@@ -172,6 +188,15 @@ export default {
         flex-wrap: wrap;
         margin: $gp auto;
         justify-content: center;
+
+        .progress-bar-label {
+          order: 1;
+
+          + .progress-range {
+            margin-top: $gp / 3;
+            order: 2;
+          }
+        }
       }
     }
 
@@ -207,6 +232,7 @@ export default {
       font-size: 18px;
       font-weight: bold;
       color: var(--accent-color);
+      order: 2;
 
       @media($small) {
         order: 1;
@@ -216,13 +242,107 @@ export default {
       }
     }
 
-    input {
+    .progress-range {
+      -webkit-appearance: none;
+      appearance: none;
       width: 100%;
+      height: 36px;
+      border: 0;
+      border-radius: 0;
+      padding: 0;
       margin-bottom: 0;
-      margin-right: $gp;
-      padding: $gp / 2;
+      background: transparent;
+      overflow: hidden;
+      order: 1;
+
+      &:focus {
+        outline: none;
+
+        &::-webkit-slider-runnable-track {
+          background: var(--accent-color);
+        }
+
+        &::-ms-fill-lower {
+          background: var(--accent-color);
+        }
+
+        &::-ms-fill-upper {
+          background: var(--accent-color);
+        }
+      }
+
+      &::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 36px;
+        cursor: pointer;
+        animate: 0.2s;
+        background: var(--accent-color);
+        border-radius: $border-radius;
+        overflow: hidden;
+      }
+
+      &::-webkit-slider-thumb {
+        height: 36px;
+        width: 16px;
+        background: var(--primary-background);
+        cursor: pointer;
+        -webkit-appearance: none;
+        box-shadow: 500px 0 0 500px var(--list-background);
+      }
+
+      &::-moz-range-track {
+        width: 100%;
+        height: 36px;
+        cursor: pointer;
+        animate: 0.2s;
+        overflow: hidden;
+        background: var(--accent-color);
+        border-radius: $border-radius;
+      }
+
+      &::-moz-range-thumb {
+        height: 36px;
+        width: 16px;
+        border: none;
+        border-radius: 0;
+        background: var(--primary-background);
+        box-shadow: 500px 0 0 500px var(--list-background);
+        cursor: pointer;
+      }
+
+      &::-ms-track {
+        width: 100%;
+        height: 36px;
+        cursor: pointer;
+        animate: 0.2s;
+        overflow: hidden;
+        background: transparent;
+        border-color: transparent;
+        border-width: 16px 0;
+        color: transparent;
+      }
+
+      &::-ms-fill-lower {
+        background: var(--accent-color);
+        border-radius: $border-radius;
+      }
+
+      &::-ms-fill-upper {
+        background: var(--accent-color);
+        border-radius: $border-radius;
+      }
+
+      &::-ms-thumb {
+        height: 36px;
+        width: 16px;
+        border-radius: 0;
+        background: var(--primary-background);
+        box-shadow: 500px 0 0 500px var(--list-background);
+        cursor: pointer;
+      }
 
       @media($small) {
+        margin-top: $gp * 2;
         margin-right: 0;
         margin-bottom: $gp;
       }
