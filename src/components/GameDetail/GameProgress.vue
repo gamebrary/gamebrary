@@ -32,6 +32,13 @@
       >
       </div>
 
+      <div
+        v-else
+        class="progress-pie"
+        :data-value="localProgress.number"
+      >
+      </div>
+
       <button
         v-if="!small && !pie"
         class="primary"
