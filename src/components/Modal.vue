@@ -103,7 +103,8 @@ export default {
   @import "~styles/styles";
 
   .overlay {
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: grayscale(10%) blur(1px);
     cursor: pointer;
     height: 100%;
     left: 0;
