@@ -112,6 +112,11 @@ export default {
     width: 100%;
   }
 
+  .placeholder {
+    background: var(--game-card-background);
+    padding: $gp / 2;
+  }
+
   .games {
     margin-top: $list-header-height;
     display: grid;
