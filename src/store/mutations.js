@@ -123,11 +123,11 @@ export default {
     state.settings[key] = value;
   },
 
-  // MOVE_LIST(state, { from, to }) {
-  //     const cutOut = state.gameLists[state.platform.code].splice(from, 1)[0];
-  //
-  //     state.gameLists[state.platform.code].splice(to, 0, cutOut);
-  // },
+  MOVE_LIST(state, { from, to }) {
+    const cutOut = state.gameLists[state.platform.code].splice(from, 1)[0];
+
+    state.gameLists[state.platform.code].splice(to, 0, cutOut);
+  },
 
   REMOVE_LIST(state, index) {
     state.gameLists[state.platform.code].splice(index, 1);

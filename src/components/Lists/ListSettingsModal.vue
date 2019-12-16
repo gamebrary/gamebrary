@@ -88,6 +88,31 @@
         />
       </section>
 
+      <section>
+        <h4>Move list</h4>
+
+        <button
+          class="primary hollow"
+          :title="$t('list.moveLeft')"
+          :disabled="isFirst"
+          @click="moveList(listIndex, listIndex - 1)"
+        >
+          <i class="fas fa-arrow-left" />
+
+          {{ $t('list.moveLeft') }}
+        </button>
+
+        <button
+          class="primary hollow"
+          :title="$t('list.moveRight')"
+          :disabled="isLast"
+          @click="moveList(listIndex, listIndex + 1)"
+        >
+          {{ $t('list.moveRight') }}
+          <i class="fas fa-arrow-right" />
+        </button>
+      </section>
+
       <section :class="{ disabled: localList.view === 'masonry' }">
         <h4>Hide game ratings</h4>
 
@@ -125,28 +150,6 @@
           <i class="far fa-trash-alt" />
           {{ $t('list.delete') }}
         </button>
-
-        <!-- <button
-class="primary hollow"
-:title="$t('list.moveLeft')"
-:disabled="isFirst"
-@click="moveList(listIndex, listIndex - 1)"
->
-<i class="fas fa-arrow-left" />
-
-{{ $t('list.moveLeft') }}
-</button>
-
-<button
-class="primary hollow"
-:title="$t('list.moveRight')"
-:disabled="isLast"
-@click="moveList(listIndex, listIndex + 1)"
->
-{{ $t('list.moveRight') }}
-<i class="fas fa-arrow-right" />
-</button> -->
-
       </footer>
     </div>
   </modal>
@@ -240,6 +243,7 @@ export default {
     },
 
     save() {
+      // TODO: use mutations instead of this logic here, have action save whatever is in store
       const gameLists = JSON.parse(JSON.stringify(this.gameLists));
 
       gameLists[this.platform.code][this.listIndex] = this.localList;
@@ -254,10 +258,17 @@ export default {
         });
     },
 
-    // moveList(from, to) {
-    //     this.$store.commit('MOVE_LIST', { from, to });
-    //     // this.save();
-    // },
+    async moveList(from, to) {
+      this.$store.commit('MOVE_LIST', { from, to });
+
+      await this.$store.dispatch('SAVE_LIST', this.gameLists)
+        .catch(() => {
+          this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
+          this.$router.push({ name: 'sessionExpired' });
+        });
+
+      this.$bus.$emit('TOAST', { message: 'List saved' });
+    },
 
     open() {
       this.localList = JSON.parse(JSON.stringify(this.activeList));
