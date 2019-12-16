@@ -1,5 +1,5 @@
 <template lang="html">
-  <div v-if="loaded" class="game-board" >
+  <div v-if="loaded" class="game-board" :class="{ dragging }" >
     <game-board-placeholder v-if="loading" />
 
     <list
@@ -9,7 +9,8 @@
       :game-list="list.games"
       :list-index="listIndex"
       :key="`${list.name}-${listIndex}`"
-      @end="dragEnd"
+      @dragStart="dragStart"
+      @dragEnd="dragEnd"
     />
 
     <list-add-modal ref="listAddModal" />
@@ -73,6 +74,9 @@ export default {
   },
 
   methods: {
+    dragStart() {
+      this.dragging = true;
+    },
 
     dragEnd() {
       this.dragging = false;
@@ -149,13 +153,15 @@ export default {
   display: flex;
 
   @media($small) {
-    scroll-snap-type: mandatory;
-    scroll-snap-points-x: repeat(300px);
-    scroll-snap-type: x mandatory;
-    scroll-padding: $gp;
+    &:not(.dragging) {
+      scroll-snap-type: mandatory;
+      scroll-snap-points-x: repeat(300px);
+      scroll-snap-type: x mandatory;
+      scroll-padding: $gp;
 
-    .list {
-      scroll-snap-align: center;
+      .list {
+        scroll-snap-align: start;
+      }
     }
   }
 }

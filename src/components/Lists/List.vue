@@ -1,5 +1,5 @@
 <template lang="html">
-  <div :class="['list', viewClass, { unique: unique && view !== 'masonry' }]">
+  <div :class="['list', viewClass, { unique: unique && view !== 'masonry', dragging }]">
     <header>
       <span class="list-name">
         <i
@@ -34,8 +34,8 @@
       :id="listIndex"
       :move="validateMove"
       v-bind="gameDraggableOptions"
-      @end="end"
-      @start="start"
+      @end="dragEnd"
+      @start="dragStart"
     >
       <component
         v-for="game in sortedGames"
@@ -240,13 +240,14 @@ export default {
       return !validMove;
     },
 
-    start({ item }) {
+    dragStart({ item }) {
       this.dragging = true;
       this.draggingId = item.id;
+      this.$emit('dragStart');
     },
 
-    end() {
-      this.$emit('end');
+    dragEnd() {
+      this.$emit('dragEnd');
     },
   },
 };
@@ -265,6 +266,19 @@ export default {
     overflow: hidden;
     margin-right: $gp;
     max-height: calc(100vh - 100px);
+
+    @media($small) {
+      .games {
+        &:not(.dragging) {
+          scroll-snap-type: y mandatory;
+          scroll-padding: $gp / 2;
+
+          .game-card {
+            scroll-snap-align: start;
+          }
+        }
+      }
+    }
 
     &.unique {
       @media($small) {
