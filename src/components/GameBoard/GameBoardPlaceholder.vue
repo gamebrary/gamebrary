@@ -71,14 +71,31 @@ export default {
       --placeholder-image-height: 80px;
     }
 
-    &.grid {
+    &.masonry {
       --placeholder-image-width: 90px;
+    }
+
+    &.masonry .games {
+      padding-top: $gp / 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-gap: $gp / 4;
+
+      .placeholder {
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+    &.grid {
+      --placeholder-image-width: 140px;
+      --placeholder-image-height: 220px;
     }
 
     &.grid .games {
       padding-top: $gp / 2;
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
       grid-gap: $gp / 4;
 
       .placeholder {
