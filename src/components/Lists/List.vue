@@ -114,7 +114,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['user', 'gameLists', 'platform', 'settings', 'games']),
+    ...mapState(['user', 'gameLists', 'platform', 'settings', 'games', 'dragging']),
 
     autoSortEnabled() {
       const list = this.list[this.listIndex];
@@ -241,12 +241,12 @@ export default {
     },
 
     dragStart({ item }) {
-      this.dragging = true;
+      this.$store.commit('SET_DRAGGING_STATUS', true);
       this.draggingId = item.id;
-      this.$emit('dragStart');
     },
 
     dragEnd() {
+      this.$store.commit('SET_DRAGGING_STATUS', false);
       this.$emit('dragEnd');
     },
   },
@@ -268,8 +268,8 @@ export default {
     max-height: calc(100vh - 100px);
 
     @media($small) {
-      .games {
-        &:not(.dragging) {
+      &:not(.dragging) {
+        .games {
           scroll-snap-type: y mandatory;
           scroll-padding: $gp / 2;
 

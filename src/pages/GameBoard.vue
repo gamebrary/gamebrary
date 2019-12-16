@@ -9,7 +9,6 @@
       :game-list="list.games"
       :list-index="listIndex"
       :key="`${list.name}-${listIndex}`"
-      @dragStart="dragStart"
       @dragEnd="dragEnd"
     />
 
@@ -41,7 +40,6 @@ export default {
 
   data() {
     return {
-      dragging: false,
       draggingId: null,
       loading: false,
       gameData: null,
@@ -51,7 +49,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['user', 'gameLists', 'platform', 'games']),
+    ...mapState(['user', 'gameLists', 'platform', 'games', 'dragging']),
 
     list() {
       return this.gameLists && this.platform && this.gameLists[this.platform.code]
@@ -74,12 +72,7 @@ export default {
   },
 
   methods: {
-    dragStart() {
-      this.dragging = true;
-    },
-
     dragEnd() {
-      this.dragging = false;
       this.draggingId = null;
       this.updateLists();
     },

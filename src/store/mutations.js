@@ -49,6 +49,10 @@ export default {
     state.tags = tags;
   },
 
+  SET_DRAGGING_STATUS(state, status) {
+    state.dragging = status;
+  },
+
   SET_NOTES(state, notes) {
     state.notes = notes;
   },
