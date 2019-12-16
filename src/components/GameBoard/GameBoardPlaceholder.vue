@@ -12,7 +12,7 @@
           v-for="n in list.games.length"
           :lines="list && list.view === 'grid' ? 0 : 2"
           :key="n"
-          image
+          :image="list.view !== 'text'"
         />
       </div>
     </div>
