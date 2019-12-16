@@ -151,7 +151,7 @@ export default {
   @import "src/styles/styles.scss";
 
   .listAddButton {
-    scroll-snap-align: center;
+    // scroll-snap-align: center;
   }
 
   .add-list-button {
