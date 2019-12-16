@@ -149,7 +149,14 @@ export default {
   display: flex;
 
   @media($small) {
+    scroll-snap-type: mandatory;
+    scroll-snap-points-x: repeat(300px);
     scroll-snap-type: x mandatory;
+    scroll-padding: $gp;
+
+    .list {
+      scroll-snap-align: center;
+    }
   }
 }
 
