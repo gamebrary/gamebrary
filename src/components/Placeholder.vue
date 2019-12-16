@@ -63,8 +63,8 @@ export default {
   animation-iteration-count: infinite;
   animation-name: placeholder;
   animation-timing-function: linear;
-  background: #e5e5e5;
-  background: linear-gradient(to right, #e5e5e5 8%, #fff 18%, #e5e5e5 33%);
+  background: var(--body-background);
+  background: linear-gradient(to right, var(--body-background) 8%, var(--accent-color) 18%, var(--body-background) 33%);
   background-size: 800px 104px;
   height: 96px;
   position: relative;
