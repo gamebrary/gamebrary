@@ -42,7 +42,7 @@ export default {
 
   &.has-image {
     display: grid;
-    grid-template-columns: 80px auto;
+    grid-template-columns: var(--placeholder-image-width, 80px) auto;
     grid-gap: $gp;
   }
 }
@@ -63,8 +63,11 @@ export default {
   animation-iteration-count: infinite;
   animation-name: placeholder;
   animation-timing-function: linear;
-  background: #e5e5e5;
-  background: linear-gradient(to right, #e5e5e5 8%, #fff 18%, #e5e5e5 33%);
+  background: var(--placeholder-background, #e5e5e5);
+  background: linear-gradient(to right,
+    var(--placeholder-background, #e5e5e5) 8%,
+    var(--placeholder-accent, #fff) 18%,
+    var(--placeholder-background, #e5e5e5) 33%);
   background-size: 800px 104px;
   height: 96px;
   position: relative;
@@ -75,6 +78,10 @@ export default {
   height: var(--placeholder-image-height, 120px);
   @extend .animated-background;
   border-radius: $border-radius / 2;
+}
+
+.text {
+  margin: var(--placeholder-text-margin, 0);
 }
 
 .text-line {
