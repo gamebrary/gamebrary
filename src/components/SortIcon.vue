@@ -41,8 +41,8 @@ export default {
     custom: {
       type: Boolean,
       default: false,
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -68,7 +68,7 @@ export default {
     .single-icon {
       align-self: start;
     }
-    
+
     .bottom-icon {
       grid-column: 2;
       grid-row: 2;
