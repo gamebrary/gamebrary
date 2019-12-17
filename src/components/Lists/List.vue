@@ -4,7 +4,7 @@
       <span class="list-name">
         <sort-icon
           v-if="autoSortEnabled"
-          :sortOrder="list[listIndex].sortOrder"
+          :sort-order="list[listIndex].sortOrder"
           title="List sorted automatically"
         />
         {{ list[listIndex].name }} ({{ gameList.length }})
