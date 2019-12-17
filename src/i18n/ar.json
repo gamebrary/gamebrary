@@ -1,172 +1,182 @@
 {
-  "global": {
-    "back": "الى الخلف",
-    "save": "حفظ",
-    "cancel": "إلغاء",
-    "create": "خلق",
-    "filter": "منقي",
-    "by": "بواسطة",
-    "no": "لا",
-    "yes": "نعم فعلا",
-    "or": "أو",
-    "returnHome": "العودة إلى المنزل",
-    "pageNotFound": "الصفحة غير موجودة"
-  },
-  "errors": {
-    "loading": "خطأ في تحميل البيانات"
-  },
-  "releases": {
-    "published": "تاريخ النشر}"
-  },
-  "platforms": {
-    "donateMessage": "Gamebrary مجاني ومفتوح المصدر ، والنظر في المساعدة في تطويرها",
-    "donating": "تبرع",
-    "reportBugs": "الإبلاغ عن الأخطاء",
-    "submitFeedback": "تقديم ردود الفعل"
-  },
-  "igdbCredit": {
-    "poweredByIgdb": "مدعوم من IGDB"
-  },
-  "gameBoard": {
+    "global": {
+        "back": "الى الخلف",
+        "save": "حفظ",
+        "cancel": "إلغاء",
+        "create": "خلق",
+        "filter": "منقي",
+        "by": "بواسطة",
+        "no": "لا",
+        "yes": "نعم فعلا",
+        "or": "أو",
+        "returnHome": "العودة إلى المنزل",
+        "pageNotFound": "الصفحة غير موجودة"
+    },
+    "errors": {
+        "loading": "خطأ في تحميل البيانات"
+    },
+    "releases": {
+        "published": "تاريخ النشر}"
+    },
+    "platforms": {
+        "donateMessage": "Gamebrary مجاني ومفتوح المصدر ، والنظر في المساعدة في تطويرها",
+        "donating": "تبرع",
+        "reportBugs": "الإبلاغ عن الأخطاء",
+        "submitFeedback": "تقديم ردود الفعل",
+        "home": "لوحات المفاتيح المنزلية",
+        "handheld": "الأجهزة المحمولة",
+        "computer": "الكمبيوتر المنزلي",
+        "releaseYear": "صدر العام",
+        "name": "أبجديا",
+        "type": "نوع"
+    },
+    "igdbCredit": {
+        "poweredByIgdb": "مدعوم من IGDB"
+    },
+    "gameBoard": {
+        "settings": {
+            "wallpaper": "خلفيات مخصصة",
+            "shareLink": "روابط قابلة للمشاركة (تجريبية)",
+            "dangerZone": "منطقة الخطر"
+        }
+    },
+    "sessionExpired": {
+        "title": "انتهت الجلسة",
+        "login": "تسجيل الدخول",
+        "exit": "ىخرج"
+    },
+    "gameDetail": {
+        "videos": "أشرطة فيديو",
+        "screenshots": "لقطات",
+        "perspective": "إنطباع",
+        "releaseDate": "يوم الاصدار",
+        "timeToBeat": "الوقت يداهمك",
+        "gameModes": "وضع اللعب",
+        "genres": "نوع أدبي",
+        "gamePlatforms": "متاح أيضًا لـ:",
+        "developers": "مطور",
+        "publishers": "الناشرون",
+        "removeFromList": "إزالة",
+        "links": {
+            "official": "موقع رسمي",
+            "wikia": "فندوم",
+            "wikipedia": "ويكيبيديا",
+            "facebook": "فيس بوك",
+            "twitter": "تغريد",
+            "twitch": "نشل",
+            "instagram": "إينستاجرام",
+            "youtube": "موقع يوتيوب",
+            "iphone": "دائرة الرقابة الداخلية",
+            "ipad": "اى باد",
+            "android": "لعب المتجر",
+            "steam": "بخار",
+            "reddit": "رديت",
+            "discord": "خلاف",
+            "google_plus": "جوجل بلس",
+            "tumblr": "نعرفكم",
+            "linkedin": "تابعني على",
+            "pinterest": "موقع Pinterest",
+            "soundcloud": "SoundCloud لل"
+        }
+    },
+    "list": {
+        "edit": "تحرير اسم القائمة",
+        "type": "نوع القائمة",
+        "settings": "قائمة الإعدادات",
+        "placeholder": "اكتب اسم قائمتك هنا",
+        "wishlist": "الأماني",
+        "input": "أدخل بنفسك",
+        "add": "اضف قائمة",
+        "duplicateWarning": "لديك بالفعل قائمة بهذا الاسم",
+        "getStarted": "البدء!",
+        "addFirstTime": "مرحبا ، أضف قائمتك الأولى!",
+        "sortByName": "THE",
+        "sortByProgress": "تقدم",
+        "sortByRating": "أحرز هدفا",
+        "sortByReleaseDate": "تاريخ",
+        "sortByCustom": "العادة",
+        "delete": "حذف القائمة",
+        "moveLeft": "تحرك يسارا",
+        "moveRight": "تحرك يمينا",
+        "emptyList": "هذه القائمة فارغة",
+        "addGame": "إضافة اللعبة",
+        "view": "عرض القائمة",
+        "moveList": "نقل القائمة",
+        "sortList": "قائمة الفرز التلقائي",
+        "coversSizeTitle": "يغطي عبر",
+        "views": {
+            "single": "افتراضي",
+            "wide": "المدمج",
+            "text": "نص فقط",
+            "masonry": "ماسونية",
+            "grid": "شبكة"
+        }
+    },
     "settings": {
-      "wallpaper": "خلفيات مخصصة",
-      "shareLink": "روابط قابلة للمشاركة (تجريبية)",
-      "dangerZone": "منطقة الخطر"
-    }
-  },
-  "sessionExpired": {
-    "title": "انتهت الجلسة",
-    "login": "تسجيل الدخول",
-    "exit": "ىخرج"
-  },
-  "gameDetail": {
-    "videos": "أشرطة فيديو",
-    "screenshots": "لقطات",
-    "perspective": "إنطباع",
-    "releaseDate": "يوم الاصدار",
-    "timeToBeat": "الوقت يداهمك",
-    "gameModes": "نوع اللعبة",
-    "genres": "نوع أدبي",
-    "gamePlatforms": "متاح أيضًا لـ:",
-    "developers": "مطور",
-    "publishers": "الناشرون",
-    "removeFromList": "ازله من القائمة",
-    "links": {
-      "official": "موقع رسمي",
-      "wikia": "فندوم",
-      "wikipedia": "ويكيبيديا",
-      "facebook": "فيس بوك",
-      "twitter": "تغريد",
-      "twitch": "نشل",
-      "instagram": "إينستاجرام",
-      "youtube": "موقع YouTube",
-      "iphone": "دائرة الرقابة الداخلية",
-      "ipad": "اى باد",
-      "android": "لعب المتجر",
-      "steam": "بخار",
-      "reddit": "رديت",
-      "discord": "خلاف",
-      "google_plus": "جوجل بلس",
-      "tumblr": "نعرفكم",
-      "linkedin": "تابعني على",
-      "pinterest": "موقع Pinterest",
-      "soundcloud": "SoundCloud لل"
-    }
-  },
-  "list": {
-    "edit": "تحرير اسم القائمة",
-    "type": "نوع القائمة",
-    "placeholder": "اكتب اسم قائمتك هنا",
-    "suggestions": {
-      "owned": "مملوكة",
-      "wishlist": "الأماني",
-      "currentlyPlaying": "يلعب حاليا",
-      "completed": "منجز"
+        "about": "حول",
+        "platforms": "منصات",
+        "gameBoard": "مجلس لعبة",
+        "public": "عامة",
+        "tags": "الكلمات",
+        "account": "الحساب",
+        "global": "عالمي",
+        "reloading": "إعادة ...",
+        "releases": "إطلاق",
+        "newsletter": "تلقي رسائل البريد الإلكتروني المحدثة (قريبًا)",
+        "branding": "العلامة التجارية للمنصة (الألوان ، والشعار ، الخ ...)",
+        "language": "لغة",
+        "languages": {
+            "en": "الإنجليزية",
+            "es": "الأسبانية",
+            "pl": "البولندي",
+            "de": "ألمانية",
+            "ar": "عربى",
+            "fr": "الفرنسية",
+            "it": "الإيطالي",
+            "eu": "الباسكي",
+            "cs": "تشيكي",
+            "ja": "اليابانية"
+        },
+        "ownedLists": "فقط عرض منصات بلدي",
+        "sortPlatforms": "فرز المنصات أبجديا",
+        "ratings": "إخفاء النتيجة اللعبة",
+        "signOut": "خروج",
+        "wallpaper": {
+            "title": "تحميل خلفية",
+            "transparency": "اسمح بالشفافية",
+            "currentWallpaper": "خلفية الحالية",
+            "wallpaper": "ورق الجدران",
+            "removeWallpaper": "إزالة خلفية"
+        },
+        "deleteAccount": {
+            "button": "حذف الحساب",
+            "message": "سيتم حذف بيانات حسابك إلى الأبد.",
+            "title": "هل أنت واثق؟"
+        }
     },
-    "input": "أدخل بنفسك",
-    "add": "اضف قائمة",
-    "duplicateWarning": "لديك بالفعل قائمة بهذا الاسم",
-    "getStarted": "البدء!",
-    "addFirstTime": "مرحبا ، أضف قائمتك الأولى!",
-    "sortByName": "THE",
-    "sortByRating": "أحرز هدفا",
-    "sortByReleaseDate": "تاريخ",
-    "sortByCustom": "العادة",
-    "delete": "حذف",
-    "moveLeft": "تحرك يسارا",
-    "moveRight": "تحرك يمينا",
-    "emptyList": "هذه القائمة فارغة",
-    "addGame": "إضافة اللعبة",
-    "view": "عرض القائمة",
-    "moveList": "نقل القائمة",
-    "sortList": "قائمة الفرز",
-    "coversSizeTitle": "يغطي عبر",
-    "views": {
-      "single": "افتراضي",
-      "wide": "المدمج",
-      "text": "نص فقط",
-      "masonry": "Masonry",
-      "grid": "شبكة"
-    }
-  },
-  "settings": {
-    "about": "حول",
-    "platforms": "منصات",
-    "gameBoard": "مجلس لعبة",
-    "tags": "الكلمات",
-    "account": "الحساب",
-    "global": "عالمي",
-    "darkTheme": "موضوع الظلام",
-    "reloading": "إعادة ...",
-    "releases": "إطلاق",
-    "newsletter": "تلقي رسائل البريد الإلكتروني المحدثة (قريبًا)",
-    "branding": "العلامة التجارية للمنصة (الألوان ، والشعار ، الخ ...)",
-    "language": "لغة",
-    "languages": {
-      "en": "الإنجليزية",
-      "es": "الأسبانية",
-      "pl": "البولندي",
-      "de": "ألمانية",
-      "ar": "عربى",
-      "fr": "الفرنسية",
-      "it": "الإيطالي",
-      "eu": "الباسكي",
-      "cs": "تشيكي",
-      "ja": "اليابانية"
+    "tags": {
+        "title": "علامات اللعبة",
+        "addTag": "إضافة علامة",
+        "createTag": "إنشاء علامة",
+        "inputPlaceholder": "اسم العلامة",
+        "editTags": "تحرير علامات اللعبة",
+        "message": "انقر فوق العلامة لإضافتها إلى <a>{gameName}</a> . انقر فوق <i class=\"fas fa-times close\"></i> لإزالة العلامة.",
+        "settingsMessage": "يمكنك إضافة أو تعديل العلامات الموجودة في الإعدادات."
     },
-    "ownedLists": "فقط عرض منصات بلدي",
-    "sortPlatforms": "فرز المنصات أبجديا",
-    "ratings": "إخفاء النتيجة اللعبة",
-    "signOut": "خروج",
-    "wallpaper": {
-      "title": "تحميل خلفية",
-      "transparency": "السماح بالشفافية",
-      "currentWallpaper": "خلفية الحالية",
-      "removeWallpaper": "إزالة خلفية"
+    "gameSearch": {
+        "title": "إضافة ألعاب إلى",
+        "inputPlaceholder": "ابحث هنا",
+        "alreadyInList": "من نتائج البحث بالفعل في قائمتك",
+        "noResultsFound": "لا نتائج",
+        "missingGame": "في عداد المفقودين لعبة؟ مساعدة المجتمع و",
+        "addToIGDB": "إضافته إلى IGDB"
     },
-    "deleteAccount": {
-      "button": "حذف الحساب",
-      "message": "سيتم حذف بيانات حسابك إلى الأبد.",
-      "title": "هل أنت واثق؟"
+    "notes": {
+        "addNote": "اضف ملاحظة",
+        "notes": "ملاحظات"
+    },
+    "progresses": {
+        "addProgress": "إضافة التقدم",
+        "progresses": "تقدم"
     }
-  },
-  "tags": {
-    "title": "علامات اللعبة",
-    "addTag": "إضافة علامة",
-    "createTag": "إنشاء علامة",
-    "inputPlaceholder": "اسم اليوم",
-    "applyTag": "تطبيق العلامة",
-    "useTags": "استخدم العلامات لتنظيم الألعاب بشكل أفضل"
-  },
-  "gameSearch": {
-    "title": "إضافة ألعاب إلى",
-    "inputPlaceholder": "ابحث هنا",
-    "alreadyInList": "من نتائج البحث بالفعل في قائمتك",
-    "noResultsFound": "لا نتائج",
-    "missingGame": "في عداد المفقودين لعبة؟ مساعدة المجتمع و",
-    "addToIGDB": "إضافته إلى IGDB"
-  },
-  "notes": {
-    "addNote": "اضف ملاحظة"
-  }
 }

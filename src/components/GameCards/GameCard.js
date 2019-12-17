@@ -13,7 +13,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['settings', 'games', 'gameLists', 'platform', 'user', 'tags', 'activeList', 'notes']),
+    ...mapState(['settings', 'games', 'gameLists', 'platform', 'user', 'tags', 'activeList', 'notes', 'progresses']),
     ...mapGetters(['hasTags']),
 
     showGameRatings() {
@@ -37,6 +37,10 @@ export default {
 
     note() {
       return this.notes && this.notes[this.gameId] && this.notes[this.gameId].text;
+    },
+
+    progress() {
+      return this.progresses && this.progresses[this.gameId] && this.progresses[this.gameId].number;
     },
 
     list() {

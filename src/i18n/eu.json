@@ -1,172 +1,182 @@
 {
-  "global": {
-    "back": "Back",
-    "save": "Save",
-    "cancel": "Utzi",
-    "create": "Sortu",
-    "filter": "Filter",
-    "by": "arabera",
-    "no": "no",
-    "yes": "bai",
-    "or": "edo",
-    "returnHome": "Etxera itzuli",
-    "pageNotFound": "Ez da orria aurkitu"
-  },
-  "errors": {
-    "loading": "Errorea gertatu da datuak kargatzean"
-  },
-  "releases": {
-    "published": "Argitaratua {data}"
-  },
-  "platforms": {
-    "donateMessage": "Gamebrary iturri librea eta irekia da eta kontuan hartu bere garapenari laguntzen",
-    "donating": "eman",
-    "reportBugs": "akatsen berri ematea",
-    "submitFeedback": "feedbacka bidaltzea"
-  },
-  "igdbCredit": {
-    "poweredByIgdb": "IGDB-k eginda"
-  },
-  "gameBoard": {
+    "global": {
+        "back": "Back",
+        "save": "Save",
+        "cancel": "Utzi",
+        "create": "Sortu",
+        "filter": "Filter",
+        "by": "arabera",
+        "no": "no",
+        "yes": "bai",
+        "or": "edo",
+        "returnHome": "Etxera itzuli",
+        "pageNotFound": "Ez da orria aurkitu"
+    },
+    "errors": {
+        "loading": "Errorea gertatu da datuak kargatzean"
+    },
+    "releases": {
+        "published": "Argitaratua {data}"
+    },
+    "platforms": {
+        "donateMessage": "Gamebrary iturri librea eta irekia da eta kontuan hartu bere garapenari laguntzen",
+        "donating": "eman",
+        "reportBugs": "akatsen berri ematea",
+        "submitFeedback": "feedbacka bidaltzea",
+        "home": "Etxeko kontsolak",
+        "handheld": "eskuko gailuek",
+        "computer": "Etxeko ordenagailua",
+        "releaseYear": "Urtea kaleratu du",
+        "name": "alfabetikoki",
+        "type": "Mota"
+    },
+    "igdbCredit": {
+        "poweredByIgdb": "IGDB-k eginda"
+    },
+    "gameBoard": {
+        "settings": {
+            "wallpaper": "Neurri pertsonalizatua",
+            "shareLink": "Lotura partekagarriak (esperimentalak)",
+            "dangerZone": "Arriskuen zona"
+        }
+    },
+    "sessionExpired": {
+        "title": "Saioa iraungita dago",
+        "login": "Saioa hasi",
+        "exit": "Irten"
+    },
+    "gameDetail": {
+        "videos": "Bideoak",
+        "screenshots": "Pantaila-",
+        "perspective": "perspektiba",
+        "releaseDate": "Kaleratze data",
+        "timeToBeat": "Irabazteko garaia",
+        "gameModes": "Joko modua",
+        "genres": "generoa",
+        "gamePlatforms": "Eskuragarri ere:",
+        "developers": "Developer",
+        "publishers": "Argitaletxeak",
+        "removeFromList": "Kendu",
+        "links": {
+            "official": "Gune ofiziala",
+            "wikia": "fandom",
+            "wikipedia": "Wikipedia",
+            "facebook": "Facebook",
+            "twitter": "Twitter",
+            "twitch": "twitch",
+            "instagram": "Instagram",
+            "youtube": "Youtube",
+            "iphone": "iOS",
+            "ipad": "iPad",
+            "android": "Play denda",
+            "steam": "Lurrun",
+            "reddit": "Reddit",
+            "discord": "discord",
+            "google_plus": "Google Plus",
+            "tumblr": "Tumblr",
+            "linkedin": "Linkedin",
+            "pinterest": "Pinterest",
+            "soundcloud": "Soundcloud"
+        }
+    },
+    "list": {
+        "edit": "Editatu zerrendaren izena",
+        "type": "Zerrenda mota",
+        "settings": "Zerrendako ezarpenak",
+        "placeholder": "Idatzi hemen zure zerrenda izena",
+        "wishlist": "Gustuko",
+        "input": "Sartu zurea",
+        "add": "Gehitu zerrenda",
+        "duplicateWarning": "Izen horrekin zerrenda bat duzu jada",
+        "getStarted": "Hasi!",
+        "addFirstTime": "Ongi etorri, gehitu zure lehen zerrenda!",
+        "sortByName": "THE",
+        "sortByProgress": "Eraikitzen",
+        "sortByRating": "Puntuazioa",
+        "sortByReleaseDate": "data",
+        "sortByCustom": "pertsonalizatua",
+        "delete": "Zerrenda ezabatu",
+        "moveLeft": "Mugitu ezkerrera",
+        "moveRight": "Mugitu eskuinera",
+        "emptyList": "Zerrenda hau hutsik dago",
+        "addGame": "Gehitu jokoa",
+        "view": "Zerrenda ikuspegia",
+        "moveList": "Mugitu zerrenda",
+        "sortList": "Auto ordenazioen zerrenda",
+        "coversSizeTitle": "Estaldurak zehar",
+        "views": {
+            "single": "Default",
+            "wide": "Compact",
+            "text": "Testua soilik",
+            "masonry": "Masoneria",
+            "grid": "Grid"
+        }
+    },
     "settings": {
-      "wallpaper": "Neurri pertsonalizatua",
-      "shareLink": "Lotura partekagarriak (esperimentalak)",
-      "dangerZone": "Arriskuen zona"
-    }
-  },
-  "sessionExpired": {
-    "title": "Saioa iraungita dago",
-    "login": "Saioa hasi",
-    "exit": "Irten"
-  },
-  "gameDetail": {
-    "videos": "Bideoak",
-    "screenshots": "Pantaila-",
-    "perspective": "perspektiba",
-    "releaseDate": "Kaleratze data",
-    "timeToBeat": "Irabazteko garaia",
-    "gameModes": "Joko modua",
-    "genres": "generoa",
-    "gamePlatforms": "Eskuragarri ere:",
-    "developers": "Developer",
-    "publishers": "Argitaletxeak",
-    "removeFromList": "Kendu zerrendatik",
-    "links": {
-      "official": "Gune ofiziala",
-      "wikia": "fandom",
-      "wikipedia": "Wikipedia",
-      "facebook": "Facebook",
-      "twitter": "Twitter",
-      "twitch": "twitch",
-      "instagram": "Instagram",
-      "youtube": "Youtube",
-      "iphone": "iOS",
-      "ipad": "iPad",
-      "android": "Play denda",
-      "steam": "Lurrun",
-      "reddit": "Reddit",
-      "discord": "discord",
-      "google_plus": "Google Plus",
-      "tumblr": "Tumblr",
-      "linkedin": "Linkedin",
-      "pinterest": "Pinterest",
-      "soundcloud": "Soundcloud"
-    }
-  },
-  "list": {
-    "edit": "Editatu zerrendaren izena",
-    "type": "Zerrenda mota",
-    "placeholder": "Idatzi hemen zure zerrenda izena",
-    "suggestions": {
-      "owned": "sozietateak",
-      "wishlist": "Gustuko",
-      "currentlyPlaying": "Gaur egun jolasten",
-      "completed": "Osatua"
+        "about": "About",
+        "platforms": "plataformak",
+        "gameBoard": "Joko taula",
+        "public": "Publiko",
+        "tags": "Tags",
+        "account": "Kontu-",
+        "global": "Global",
+        "reloading": "Berkargatzean ...",
+        "releases": "oharrak",
+        "newsletter": "Jaso eguneratze mezu elektronikoak (laster etorriko dira)",
+        "branding": "Plataforma marka (koloreak, logotipoa, etab ...)",
+        "language": "Hizkuntza",
+        "languages": {
+            "en": "English",
+            "es": "Espainiako",
+            "pl": "Poloniako",
+            "de": "Alemaniako",
+            "ar": "arabiera",
+            "fr": "Frantziako",
+            "it": "Italiako",
+            "eu": "Euskal",
+            "cs": "Txekiar",
+            "ja": "Japoniako"
+        },
+        "ownedLists": "Nire plataformak bakarrik erakutsi",
+        "sortPlatforms": "Ordenatu plataformak alfabetikoki",
+        "ratings": "Ezkutatu jokoaren puntuazioa",
+        "signOut": "Hasi saioa",
+        "wallpaper": {
+            "title": "Kargatu horma-irudia",
+            "transparency": "Gardentasuna eman",
+            "currentWallpaper": "Uneko horma-irudia",
+            "wallpaper": "Wallpaper",
+            "removeWallpaper": "Kendu papera"
+        },
+        "deleteAccount": {
+            "button": "Ezabatu kontua",
+            "message": "Zure kontuko datuak betiko ezabatuko dira.",
+            "title": "Ziur zaude?"
+        }
     },
-    "input": "Sartu zurea",
-    "add": "Gehitu zerrenda",
-    "duplicateWarning": "Dagoeneko zerrenda bat duzu izen horrekin",
-    "getStarted": "Hasi!",
-    "addFirstTime": "Ongi etorri, gehitu zure lehen zerrenda!",
-    "sortByName": "THE",
-    "sortByRating": "Puntuazioa",
-    "sortByReleaseDate": "data",
-    "sortByCustom": "pertsonalizatua",
-    "delete": "ezabatu",
-    "moveLeft": "Mugitu ezkerrera",
-    "moveRight": "Mugitu eskuinera",
-    "emptyList": "Zerrenda hau hutsik dago",
-    "addGame": "Gehitu jokoa",
-    "view": "Zerrenda ikuspegia",
-    "moveList": "Mugitu zerrenda",
-    "sortList": "Sailkapen zerrenda",
-    "coversSizeTitle": "Estaldurak zehar",
-    "views": {
-      "single": "Default",
-      "wide": "Compact",
-      "text": "Testua soilik",
-      "masonry": "Masonry",
-      "grid": "Grid"
-    }
-  },
-  "settings": {
-    "about": "About",
-    "platforms": "plataformak",
-    "gameBoard": "Joko taula",
-    "tags": "Tags",
-    "account": "Kontu-",
-    "global": "Global",
-    "darkTheme": "Gai iluna",
-    "reloading": "Berkargatzean ...",
-    "releases": "oharrak",
-    "newsletter": "Jaso eguneratze mezu elektronikoak (laster etorriko dira)",
-    "branding": "Plataforma marka (koloreak, logotipoa, etab ...)",
-    "language": "Hizkuntza",
-    "languages": {
-      "en": "English",
-      "es": "Espainiako",
-      "pl": "Poloniako",
-      "de": "Alemaniako",
-      "ar": "arabiera",
-      "fr": "Frantziako",
-      "it": "Italiako",
-      "eu": "Euskal",
-      "cs": "Txekiar",
-      "ja": "Japoniako"
+    "tags": {
+        "title": "Jokoaren etiketak",
+        "addTag": "Gehitu etiketa",
+        "createTag": "Etiketa sortu",
+        "inputPlaceholder": "Etiketaren izena",
+        "editTags": "Editatu jokoen etiketak",
+        "message": "Egin klik etiketan <a>{gameName}</a> (e) n gehitzeko. Egin klik <i class=\"fas fa-times close\"></i> etiketa kentzeko.",
+        "settingsMessage": "Dauden ezarpenetan etiketak gehitu edo editatu ditzakezu."
     },
-    "ownedLists": "Nire plataformak bakarrik erakutsi",
-    "sortPlatforms": "Ordenatu plataformak alfabetikoki",
-    "ratings": "Ezkutatu jokoaren puntuazioa",
-    "signOut": "Hasi saioa",
-    "wallpaper": {
-      "title": "Kargatu horma-irudia",
-      "transparency": "Gardentasuna eman",
-      "currentWallpaper": "Uneko horma-irudia",
-      "removeWallpaper": "Kendu papera"
+    "gameSearch": {
+        "title": "Gehitu jokoak",
+        "inputPlaceholder": "Bilatu hemen",
+        "alreadyInList": "dagoeneko zure zerrendako bilaketa-emaitzetatik",
+        "noResultsFound": "Emaitzarik ez",
+        "missingGame": "Joko bat falta al zaizu? Lagundu komunitateari eta",
+        "addToIGDB": "Gehitu IGDB-ri"
     },
-    "deleteAccount": {
-      "button": "Ezabatu kontua",
-      "message": "Zure kontuko datuak betiko ezabatuko dira.",
-      "title": "Ziur zaude?"
+    "notes": {
+        "addNote": "Oharra gehitu",
+        "notes": "Oharrak"
+    },
+    "progresses": {
+        "addProgress": "Gehitu aurrerapenak",
+        "progresses": "Eraikitzen"
     }
-  },
-  "tags": {
-    "title": "Jokoaren etiketak",
-    "addTag": "Gehitu etiketa",
-    "createTag": "Etiketa sortu",
-    "inputPlaceholder": "Egunaren izena",
-    "applyTag": "Aplikatu etiketa",
-    "useTags": "Erabili etiketak zure jokoak hobeto antolatzeko"
-  },
-  "gameSearch": {
-    "title": "Gehitu jokoak",
-    "inputPlaceholder": "Bilatu hemen",
-    "alreadyInList": "dagoeneko zure zerrendako bilaketa-emaitzetatik",
-    "noResultsFound": "Emaitzarik ez",
-    "missingGame": "Joko bat falta al zaizu? Lagundu komunitateari eta",
-    "addToIGDB": "Gehitu IGDB-ri"
-  },
-  "notes": {
-    "addNote": "Oharra gehitu"
-  }
 }

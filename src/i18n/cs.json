@@ -1,172 +1,182 @@
 {
-  "global": {
-    "back": "Zadní",
-    "save": "Uložit",
-    "cancel": "zrušení",
-    "create": "Vytvořit",
-    "filter": "Filtr",
-    "by": "podle",
-    "no": "Ne",
-    "yes": "Ano",
-    "or": "nebo",
-    "returnHome": "Vrátit se domů",
-    "pageNotFound": "Stránka nenalezena"
-  },
-  "errors": {
-    "loading": "Při načítání dat došlo k chybě"
-  },
-  "releases": {
-    "published": "Zveřejněno {date}"
-  },
-  "platforms": {
-    "donateMessage": "Gamebrary je bezplatný a otevřený zdroj, zvažte pomoc při jeho vývoji",
-    "donating": "darování",
-    "reportBugs": "hlášení chyb",
-    "submitFeedback": "odeslání zpětné vazby"
-  },
-  "igdbCredit": {
-    "poweredByIgdb": "Běží na IGDB"
-  },
-  "gameBoard": {
+    "global": {
+        "back": "Zadní",
+        "save": "Uložit",
+        "cancel": "zrušení",
+        "create": "Vytvořit",
+        "filter": "Filtr",
+        "by": "podle",
+        "no": "Ne",
+        "yes": "Ano",
+        "or": "nebo",
+        "returnHome": "Vrátit se domů",
+        "pageNotFound": "Stránka nenalezena"
+    },
+    "errors": {
+        "loading": "Při načítání dat došlo k chybě"
+    },
+    "releases": {
+        "published": "Zveřejněno {date}"
+    },
+    "platforms": {
+        "donateMessage": "Gamebrary je bezplatný a otevřený zdroj, zvažte pomoc při jeho rozvoji",
+        "donating": "darování",
+        "reportBugs": "hlášení chyb",
+        "submitFeedback": "odeslání zpětné vazby",
+        "home": "Domácí konzole",
+        "handheld": "Kapesní počítače",
+        "computer": "Domácí počítač",
+        "releaseYear": "Rok vydání",
+        "name": "Abecedně",
+        "type": "Typ"
+    },
+    "igdbCredit": {
+        "poweredByIgdb": "Běží na IGDB"
+    },
+    "gameBoard": {
+        "settings": {
+            "wallpaper": "Vlastní tapety",
+            "shareLink": "Sdílené odkazy (experimentální)",
+            "dangerZone": "Nebezpečná zóna"
+        }
+    },
+    "sessionExpired": {
+        "title": "Relace vypršela",
+        "login": "Přihlásit se",
+        "exit": "Výstup"
+    },
+    "gameDetail": {
+        "videos": "Videa",
+        "screenshots": "Screenshoty",
+        "perspective": "Perspektivní",
+        "releaseDate": "Datum vydání",
+        "timeToBeat": "Je čas porazit",
+        "gameModes": "Herní mód",
+        "genres": "Žánr",
+        "gamePlatforms": "K dispozici také pro:",
+        "developers": "Vývojář",
+        "publishers": "Vydavatelé",
+        "removeFromList": "Odstranit",
+        "links": {
+            "official": "Oficiální stránka",
+            "wikia": "Fandom",
+            "wikipedia": "Wikipedia",
+            "facebook": "Facebook",
+            "twitter": "Cvrlikání",
+            "twitch": "Škubnutí",
+            "instagram": "Instagram",
+            "youtube": "Youtube",
+            "iphone": "iOS",
+            "ipad": "iPad",
+            "android": "Obchod Play",
+            "steam": "Parní",
+            "reddit": "Reddit",
+            "discord": "Svár",
+            "google_plus": "Google Plus",
+            "tumblr": "Tumblr",
+            "linkedin": "Linkedin",
+            "pinterest": "Pinterest",
+            "soundcloud": "Soundcloud"
+        }
+    },
+    "list": {
+        "edit": "Upravit název seznamu",
+        "type": "Typ seznamu",
+        "settings": "Nastavení seznamu",
+        "placeholder": "Sem zadejte název seznamu",
+        "wishlist": "Seznam přání",
+        "input": "Zadejte svůj vlastní",
+        "add": "Přidat seznam",
+        "duplicateWarning": "Již máte seznam s tímto názvem",
+        "getStarted": "Začít!",
+        "addFirstTime": "Vítejte, přidejte svůj první seznam!",
+        "sortByName": "",
+        "sortByProgress": "Pokrok",
+        "sortByRating": "Skóre",
+        "sortByReleaseDate": "datum",
+        "sortByCustom": "Zvyk",
+        "delete": "Smazat seznam",
+        "moveLeft": "Pohyb doleva",
+        "moveRight": "Pohyb vpravo",
+        "emptyList": "Tento seznam je prázdný",
+        "addGame": "Přidat hru",
+        "view": "Zobrazení seznamu",
+        "moveList": "Přesunout seznam",
+        "sortList": "Seznam automatického třídění",
+        "coversSizeTitle": "Přikrývá se",
+        "views": {
+            "single": "Výchozí",
+            "wide": "Kompaktní",
+            "text": "Pouze text",
+            "masonry": "Zdivo",
+            "grid": "Mřížka"
+        }
+    },
     "settings": {
-      "wallpaper": "Vlastní tapety",
-      "shareLink": "Sdílené odkazy (experimentální)",
-      "dangerZone": "Nebezpečná zóna"
-    }
-  },
-  "sessionExpired": {
-    "title": "Relace vypršela",
-    "login": "Přihlásit se",
-    "exit": "Výstup"
-  },
-  "gameDetail": {
-    "videos": "Videa",
-    "screenshots": "Screenshoty",
-    "perspective": "Perspektivní",
-    "releaseDate": "Datum vydání",
-    "timeToBeat": "Je čas porazit",
-    "gameModes": "Herní mód",
-    "genres": "Žánr",
-    "gamePlatforms": "K dispozici také pro:",
-    "developers": "Vývojář",
-    "publishers": "Vydavatelé",
-    "removeFromList": "Odstranit ze seznamu",
-    "links": {
-      "official": "Oficiální stránka",
-      "wikia": "Fandom",
-      "wikipedia": "Wikipedia",
-      "facebook": "Facebook",
-      "twitter": "Cvrlikání",
-      "twitch": "Škubnutí",
-      "instagram": "Instagram",
-      "youtube": "Youtube",
-      "iphone": "iOS",
-      "ipad": "iPad",
-      "android": "Obchod Play",
-      "steam": "Pára",
-      "reddit": "Reddit",
-      "discord": "Svár",
-      "google_plus": "Google Plus",
-      "tumblr": "Tumblr",
-      "linkedin": "Linkedin",
-      "pinterest": "Pinterest",
-      "soundcloud": "Soundcloud"
-    }
-  },
-  "list": {
-    "edit": "Upravit název seznamu",
-    "type": "Typ seznamu",
-    "placeholder": "Sem zadejte název seznamu",
-    "suggestions": {
-      "owned": "Vlastní",
-      "wishlist": "Seznam přání",
-      "currentlyPlaying": "Právě hraje",
-      "completed": "Dokončeno"
+        "about": "O",
+        "platforms": "Platformy",
+        "gameBoard": "Hrací deska",
+        "public": "Veřejnost",
+        "tags": "Značky",
+        "account": "Účet",
+        "global": "Globální",
+        "reloading": "Přebíjení...",
+        "releases": "Vydání",
+        "newsletter": "Dostávat aktualizační e-maily (již brzy)",
+        "branding": "Značky platforem (barvy, logo atd.)",
+        "language": "Jazyk",
+        "languages": {
+            "en": "Angličtina",
+            "es": "španělština",
+            "pl": "polština",
+            "de": "Němec",
+            "ar": "arabština",
+            "fr": "francouzština",
+            "it": "italština",
+            "eu": "Baskicko",
+            "cs": "čeština",
+            "ja": "japonský"
+        },
+        "ownedLists": "Zobrazovat pouze mé platformy",
+        "sortPlatforms": "Seřadit platformy abecedně",
+        "ratings": "Skrýt skóre hry",
+        "signOut": "Odhlásit se",
+        "wallpaper": {
+            "title": "Nahrajte tapetu",
+            "transparency": "Povolit průhlednost",
+            "currentWallpaper": "Aktuální tapeta",
+            "wallpaper": "Tapeta na zeď",
+            "removeWallpaper": "Odstraňte tapetu"
+        },
+        "deleteAccount": {
+            "button": "smazat účet",
+            "message": "Data vašeho účtu budou navždy smazána.",
+            "title": "Jsi si jistá?"
+        }
     },
-    "input": "Zadejte svůj vlastní",
-    "add": "Přidat seznam",
-    "duplicateWarning": "Již máte seznam s tímto názvem",
-    "getStarted": "Začít!",
-    "addFirstTime": "Vítejte, přidejte svůj první seznam!",
-    "sortByName": "",
-    "sortByRating": "Skóre",
-    "sortByReleaseDate": "datum",
-    "sortByCustom": "Zvyk",
-    "delete": "Odstranit",
-    "moveLeft": "Pohyb doleva",
-    "moveRight": "Pohyb vpravo",
-    "emptyList": "Tento seznam je prázdný",
-    "addGame": "Přidat hru",
-    "view": "Zobrazení seznamu",
-    "moveList": "Přesunout seznam",
-    "sortList": "Seřadit seznam",
-    "coversSizeTitle": "Přikrývá se",
-    "views": {
-      "single": "Výchozí",
-      "wide": "Kompaktní",
-      "text": "Pouze text",
-      "masonry": "Masonry",
-      "grid": "Mřížka"
-    }
-  },
-  "settings": {
-    "about": "O",
-    "platforms": "Platformy",
-    "gameBoard": "Hrací deska",
-    "tags": "Značky",
-    "account": "Účet",
-    "global": "Globální",
-    "darkTheme": "Tmavé téma",
-    "reloading": "Přebíjení...",
-    "releases": "Vydání",
-    "newsletter": "Dostávat aktualizační e-maily (již brzy)",
-    "branding": "Značky platforem (barvy, logo atd.)",
-    "language": "Jazyk",
-    "languages": {
-      "en": "Angličtina",
-      "es": "španělština",
-      "pl": "polština",
-      "de": "Němec",
-      "ar": "arabština",
-      "fr": "francouzština",
-      "it": "italština",
-      "eu": "Baskicko",
-      "cs": "čeština",
-      "ja": "japonský"
+    "tags": {
+        "title": "Herní štítky",
+        "addTag": "Přidat značku",
+        "createTag": "Vytvořit značku",
+        "inputPlaceholder": "Název značky",
+        "editTags": "Úpravy herních značek",
+        "message": "Kliknutím na značku ji přidáte do <a>{gameName}</a> . Klikněte na <i class=\"fas fa-times close\"></i> odebrat značku.",
+        "settingsMessage": "Existující značky můžete přidat nebo upravit v nastavení."
     },
-    "ownedLists": "Zobrazovat pouze mé platformy",
-    "sortPlatforms": "Seřadit platformy abecedně",
-    "ratings": "Skrýt skóre hry",
-    "signOut": "Odhlásit se",
-    "wallpaper": {
-      "title": "Nahrajte tapetu",
-      "transparency": "Povolit průhlednost",
-      "currentWallpaper": "Aktuální tapeta",
-      "removeWallpaper": "Odstraňte tapetu"
+    "gameSearch": {
+        "title": "Přidejte hry do",
+        "inputPlaceholder": "Hledej zde",
+        "alreadyInList": "z výsledků vyhledávání již ve vašem seznamu",
+        "noResultsFound": "Žádné výsledky",
+        "missingGame": "Chybí vám hra? Pomozte komunitě a",
+        "addToIGDB": "Přidejte ji do IGDB"
     },
-    "deleteAccount": {
-      "button": "smazat účet",
-      "message": "Data vašeho účtu budou navždy smazána.",
-      "title": "Jsi si jistá?"
+    "notes": {
+        "addNote": "Přidat poznámku",
+        "notes": "Poznámky"
+    },
+    "progresses": {
+        "addProgress": "Přidejte pokrok",
+        "progresses": "Pokrok"
     }
-  },
-  "tags": {
-    "title": "Herní štítky",
-    "addTag": "Přidat značku",
-    "createTag": "Vytvořit značku",
-    "inputPlaceholder": "Název dne",
-    "applyTag": "Použít značku",
-    "useTags": "Pomocí značek můžete lépe organizovat své hry"
-  },
-  "gameSearch": {
-    "title": "Přidat hry do",
-    "inputPlaceholder": "Hledej tady",
-    "alreadyInList": "z výsledků vyhledávání již ve vašem seznamu",
-    "noResultsFound": "Žádné výsledky",
-    "missingGame": "Chybí vám hra? Pomozte komunitě a",
-    "addToIGDB": "Přidejte ji do IGDB"
-  },
-  "notes": {
-    "addNote": "Přidat poznámku"
-  }
 }

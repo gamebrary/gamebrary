@@ -1,172 +1,182 @@
 {
-  "global": {
-    "back": "バック",
-    "save": "保存する",
-    "cancel": "キャンセル",
-    "create": "作成する",
-    "filter": "フィルタ",
-    "by": "によって",
-    "no": "いや",
-    "yes": "はい",
-    "or": "または",
-    "returnHome": "帰宅",
-    "pageNotFound": "ページが見つかりません"
-  },
-  "errors": {
-    "loading": "データの読み込みエラー"
-  },
-  "releases": {
-    "published": "{date}を公開しました"
-  },
-  "platforms": {
-    "donateMessage": "Gamebraryは無料でオープンソースです。その開発を支援することを検討してください",
-    "donating": "寄付",
-    "reportBugs": "バグを報告する",
-    "submitFeedback": "フィードバックを送信する"
-  },
-  "igdbCredit": {
-    "poweredByIgdb": "IGDBを搭載"
-  },
-  "gameBoard": {
+    "global": {
+        "back": "バック",
+        "save": "セーブ",
+        "cancel": "キャンセル",
+        "create": "作成する",
+        "filter": "フィルタ",
+        "by": "によって",
+        "no": "いや",
+        "yes": "はい",
+        "or": "または",
+        "returnHome": "帰宅",
+        "pageNotFound": "ページが見つかりません"
+    },
+    "errors": {
+        "loading": "データの読み込みエラー"
+    },
+    "releases": {
+        "published": "{date}を公開しました"
+    },
+    "platforms": {
+        "donateMessage": "Gamebraryは無料でオープンソースです。その開発を支援することを検討してください",
+        "donating": "寄付",
+        "reportBugs": "バグを報告する",
+        "submitFeedback": "フィードバックを送信する",
+        "home": "ホームコンソール",
+        "handheld": "ハンドヘルド",
+        "computer": "ホームコンピューター",
+        "releaseYear": "リリース年",
+        "name": "アルファベット順",
+        "type": "タイプ"
+    },
+    "igdbCredit": {
+        "poweredByIgdb": "IGDBを搭載"
+    },
+    "gameBoard": {
+        "settings": {
+            "wallpaper": "カスタム壁紙",
+            "shareLink": "共有可能なリンク（実験的）",
+            "dangerZone": "危険区域"
+        }
+    },
+    "sessionExpired": {
+        "title": "セッションの有効期限が切れ",
+        "login": "ログイン",
+        "exit": "出口"
+    },
+    "gameDetail": {
+        "videos": "動画",
+        "screenshots": "スクリーンショット",
+        "perspective": "遠近法",
+        "releaseDate": "発売日",
+        "timeToBeat": "ビートする時間",
+        "gameModes": "ゲームモード",
+        "genres": "ジャンル",
+        "gamePlatforms": "以下にも利用可能：",
+        "developers": "開発者",
+        "publishers": "出版社",
+        "removeFromList": "削除する",
+        "links": {
+            "official": "公式サイト",
+            "wikia": "ファンダム",
+            "wikipedia": "ウィキペディア",
+            "facebook": "フェイスブック",
+            "twitter": "Twitter",
+            "twitch": "けいれん",
+            "instagram": "Instagram",
+            "youtube": "Youtube",
+            "iphone": "iOS",
+            "ipad": "iPad",
+            "android": "プレイストア",
+            "steam": "蒸気",
+            "reddit": "Reddit",
+            "discord": "不和",
+            "google_plus": "Google Plus",
+            "tumblr": "タンブラー",
+            "linkedin": "Linkedin",
+            "pinterest": "Pinterest",
+            "soundcloud": "Soundcloud"
+        }
+    },
+    "list": {
+        "edit": "リスト名を編集",
+        "type": "リストタイプ",
+        "settings": "リスト設定",
+        "placeholder": "ここにリスト名を入力してください",
+        "wishlist": "ウィッシュリスト",
+        "input": "あなた自身を入力してください",
+        "add": "リストを追加",
+        "duplicateWarning": "この名前のリストは既にあります",
+        "getStarted": "始めましょう！",
+        "addFirstTime": "ようこそ、最初のリストを追加してください！",
+        "sortByName": "THE",
+        "sortByProgress": "進捗",
+        "sortByRating": "スコア",
+        "sortByReleaseDate": "日付",
+        "sortByCustom": "カスタム",
+        "delete": "リストを削除",
+        "moveLeft": "左に移動",
+        "moveRight": "右に動く",
+        "emptyList": "このリストは空です",
+        "addGame": "ゲームを追加",
+        "view": "リストビュー",
+        "moveList": "リストを移動する",
+        "sortList": "自動ソートリスト",
+        "coversSizeTitle": "全体をカバー",
+        "views": {
+            "single": "デフォルト",
+            "wide": "コンパクト",
+            "text": "テキストのみ",
+            "masonry": "石積み",
+            "grid": "グリッド"
+        }
+    },
     "settings": {
-      "wallpaper": "カスタム壁紙",
-      "shareLink": "共有可能なリンク（実験的）",
-      "dangerZone": "危険区域"
-    }
-  },
-  "sessionExpired": {
-    "title": "セッションの有効期限が切れ",
-    "login": "ログイン",
-    "exit": "出口"
-  },
-  "gameDetail": {
-    "videos": "動画",
-    "screenshots": "スクリーンショット",
-    "perspective": "遠近法",
-    "releaseDate": "発売日",
-    "timeToBeat": "ビートする時間",
-    "gameModes": "ゲームモード",
-    "genres": "ジャンル",
-    "gamePlatforms": "以下にも利用可能：",
-    "developers": "開発者",
-    "publishers": "出版社",
-    "removeFromList": "リストから削除する",
-    "links": {
-      "official": "オフィシャルサイト",
-      "wikia": "ファンダム",
-      "wikipedia": "ウィキペディア",
-      "facebook": "フェイスブック",
-      "twitter": "Twitter",
-      "twitch": "けいれん",
-      "instagram": "Instagram",
-      "youtube": "Youtube",
-      "iphone": "iOS",
-      "ipad": "iPad",
-      "android": "プレイストア",
-      "steam": "蒸気",
-      "reddit": "Reddit",
-      "discord": "不和",
-      "google_plus": "Google Plus",
-      "tumblr": "タンブラー",
-      "linkedin": "Linkedin",
-      "pinterest": "Pinterest",
-      "soundcloud": "Soundcloud"
-    }
-  },
-  "list": {
-    "edit": "リスト名を編集",
-    "type": "リストタイプ",
-    "placeholder": "ここにリスト名を入力してください",
-    "suggestions": {
-      "owned": "所有",
-      "wishlist": "ウィッシュリスト",
-      "currentlyPlaying": "現在プレイ中",
-      "completed": "完了しました"
+        "about": "約",
+        "platforms": "プラットフォーム",
+        "gameBoard": "ゲームボード",
+        "public": "パブリック",
+        "tags": "タグ",
+        "account": "アカウント",
+        "global": "グローバル",
+        "reloading": "再読み込みしています...",
+        "releases": "リリース",
+        "newsletter": "更新メールを受け取る（近日公開予定）",
+        "branding": "プラットフォームのブランディング（色、ロゴなど）",
+        "language": "言語",
+        "languages": {
+            "en": "英語",
+            "es": "スペイン語",
+            "pl": "研磨",
+            "de": "ドイツ人",
+            "ar": "アラビア語",
+            "fr": "フランス語",
+            "it": "イタリア語",
+            "eu": "バスク",
+            "cs": "チェコ語",
+            "ja": "日本人"
+        },
+        "ownedLists": "プラットフォームのみを表示する",
+        "sortPlatforms": "プラットフォームをアルファベット順に並べ替えます",
+        "ratings": "ゲームのスコアを非表示",
+        "signOut": "サインアウト",
+        "wallpaper": {
+            "title": "壁紙をアップロード",
+            "transparency": "透明化を許可する",
+            "currentWallpaper": "現在の壁紙",
+            "wallpaper": "壁紙",
+            "removeWallpaper": "壁紙を削除"
+        },
+        "deleteAccount": {
+            "button": "アカウントを削除する",
+            "message": "アカウントデータは完全に削除されます。",
+            "title": "本気ですか？"
+        }
     },
-    "input": "あなた自身を入力してください",
-    "add": "リストを追加",
-    "duplicateWarning": "この名前のリストは既にあります",
-    "getStarted": "始めましょう！",
-    "addFirstTime": "ようこそ、最初のリストを追加してください！",
-    "sortByName": "THE",
-    "sortByRating": "スコア",
-    "sortByReleaseDate": "日付",
-    "sortByCustom": "カスタム",
-    "delete": "削除する",
-    "moveLeft": "左に移動",
-    "moveRight": "右に動く",
-    "emptyList": "このリストは空です",
-    "addGame": "ゲームを追加",
-    "view": "リストビュー",
-    "moveList": "リストを移動する",
-    "sortList": "ソートリスト",
-    "coversSizeTitle": "全体をカバー",
-    "views": {
-      "single": "デフォルト",
-      "wide": "コンパクト",
-      "text": "テキストのみ",
-      "masonry": "Masonry",
-      "grid": "グリッド"
-    }
-  },
-  "settings": {
-    "about": "約",
-    "platforms": "プラットフォーム",
-    "gameBoard": "ゲームボード",
-    "tags": "タグ",
-    "account": "アカウント",
-    "global": "グローバル",
-    "darkTheme": "暗いテーマ",
-    "reloading": "再読み込みしています...",
-    "releases": "リリース",
-    "newsletter": "更新メールを受け取る（近日公開予定）",
-    "branding": "プラットフォームのブランディング（色、ロゴなど）",
-    "language": "言語",
-    "languages": {
-      "en": "英語",
-      "es": "スペイン語",
-      "pl": "研磨",
-      "de": "ドイツ人",
-      "ar": "アラビア語",
-      "fr": "フランス語",
-      "it": "イタリアの",
-      "eu": "バスク",
-      "cs": "チェコ語",
-      "ja": "日本人"
+    "tags": {
+        "title": "ゲームタグ",
+        "addTag": "タグ付けする",
+        "createTag": "タグを作成",
+        "inputPlaceholder": "タグ名",
+        "editTags": "ゲームタグを編集する",
+        "message": "タグをクリックして<a>{gameName}</a>に追加します。クリック<i class=\"fas fa-times close\"></i>タグを削除します。",
+        "settingsMessage": "設定で既存のタグを追加または編集できます。"
     },
-    "ownedLists": "プラットフォームのみを表示する",
-    "sortPlatforms": "プラットフォームをアルファベット順に並べ替えます",
-    "ratings": "ゲームのスコアを非表示",
-    "signOut": "サインアウト",
-    "wallpaper": {
-      "title": "壁紙をアップロード",
-      "transparency": "透明化を許可する",
-      "currentWallpaper": "現在の壁紙",
-      "removeWallpaper": "壁紙を削除"
+    "gameSearch": {
+        "title": "にゲームを追加",
+        "inputPlaceholder": "検索",
+        "alreadyInList": "既にリストにある検索結果から",
+        "noResultsFound": "結果がありません",
+        "missingGame": "ゲームが見つかりませんか？コミュニティを助け、",
+        "addToIGDB": "IGDBに追加します"
     },
-    "deleteAccount": {
-      "button": "アカウントを削除する",
-      "message": "アカウントデータは完全に削除されます。",
-      "title": "本気ですか？"
+    "notes": {
+        "addNote": "メモを追加",
+        "notes": "ノート"
+    },
+    "progresses": {
+        "addProgress": "進行状況を追加",
+        "progresses": "進捗"
     }
-  },
-  "tags": {
-    "title": "ゲームタグ",
-    "addTag": "タグ付けする",
-    "createTag": "タグを作成",
-    "inputPlaceholder": "曜日名",
-    "applyTag": "タグを適用",
-    "useTags": "タグを使用してゲームを整理します"
-  },
-  "gameSearch": {
-    "title": "にゲームを追加",
-    "inputPlaceholder": "検索",
-    "alreadyInList": "すでにリストにある検索結果から",
-    "noResultsFound": "結果がありません",
-    "missingGame": "ゲームが見つかりませんか？コミュニティを助け、",
-    "addToIGDB": "IGDBに追加します"
-  },
-  "notes": {
-    "addNote": "メモを追加"
-  }
 }

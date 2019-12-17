@@ -8,6 +8,7 @@
       </div>
 
       <button class="primary" @click="editNote">
+        <i class="fas fa-pen" />
         Edit note
       </button>
     </div>
@@ -37,6 +38,7 @@
         </button>
 
         <button class="danger" @click="deleteNote">
+          <i class="fas fa-trash-alt" />
           Delete note
         </button>
       </footer>

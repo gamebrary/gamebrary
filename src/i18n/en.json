@@ -91,6 +91,7 @@
     "getStarted": "Get started!",
     "addFirstTime": "Welcome, add your first list!",
     "sortByName": "A-Z",
+    "sortByProgress": "Progress",
     "sortByRating": "Score",
     "sortByReleaseDate": "Date",
     "sortByCustom": "Custom",
@@ -173,5 +174,9 @@
   "notes": {
     "addNote": "Add note",
     "notes": "Notes"
+  },
+  "progresses": {
+    "addProgress": "Add progress",
+    "progresses": "Progress"
   }
 }
