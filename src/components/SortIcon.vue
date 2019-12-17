@@ -27,7 +27,7 @@
   />
   <i
     v-else
-    class="fas fa-sort-amount-up"
+    class="fas fa-sort-amount-down"
   />
 </template>
 
