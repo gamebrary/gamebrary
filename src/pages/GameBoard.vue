@@ -140,6 +140,10 @@ export default {
   overflow-x: overlay;
   display: flex;
 
+  .bottom & {
+    padding: $gp $gp 0;
+  }
+
   @media($small) {
     &:not(.dragging) {
       scroll-snap-type: mandatory;

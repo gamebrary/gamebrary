@@ -1,27 +1,13 @@
 <template>
   <div
     id="app"
-    :class="theme"
+    :class="[theme, headerPosition]"
     :style="style"
     :dir="dir"
-    v-if="headerPosition === 'top'"
   >
     <nav-header />
     <router-view v-if="user" />
     <authorizing v-else />
-    <toast />
-  </div>
-
-  <div
-    id="app"
-    :class="theme"
-    :style="style"
-    :dir="dir"
-    v-else
-  >
-    <router-view v-if="user" />
-    <nav-header />
-    <authorizing v-if="!user" />
     <toast />
   </div>
 </template>
@@ -347,9 +333,15 @@ export default {
   @import "~styles/styles";
 
   #app {
+    display: flex;
+    flex-direction: column;
     background: var(--body-background);
     background-size: cover;
     overflow-x: hidden;
     --border-radius: 4px;
+
+    &.bottom {
+      flex-direction: column-reverse;
+    }
   }
 </style>
