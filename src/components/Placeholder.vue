@@ -42,7 +42,7 @@ export default {
 
   &.has-image {
     display: grid;
-    grid-template-columns: 80px auto;
+    grid-template-columns: var(--placeholder-image-width, 80px) auto;
     grid-gap: $gp;
   }
 }
@@ -78,6 +78,10 @@ export default {
   height: var(--placeholder-image-height, 120px);
   @extend .animated-background;
   border-radius: $border-radius / 2;
+}
+
+.text {
+  margin: var(--placeholder-text-margin, 0);
 }
 
 .text-line {
