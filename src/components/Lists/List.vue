@@ -2,9 +2,9 @@
   <div :class="['list', viewClass, { unique: unique && view !== 'masonry' }]">
     <header>
       <span class="list-name">
-        <i
+        <sort-icon
           v-if="autoSortEnabled"
-          class="fas fa-magic"
+          :sortOrder="list[listIndex].sortOrder"
           title="List sorted automatically"
         />
         {{ list[listIndex].name }} ({{ gameList.length }})
@@ -61,6 +61,7 @@ import GameCardGrid from '@/components/GameCards/GameCardGrid';
 import GameCardWide from '@/components/GameCards/GameCardWide';
 import GameCardText from '@/components/GameCards/GameCardText';
 import AddGameModal from '@/components/Lists/AddGameModal';
+import SortIcon from '@/components/SortIcon';
 import { mapState } from 'vuex';
 
 export default {
@@ -73,6 +74,7 @@ export default {
     GameCardWide,
     GameCardText,
     AddGameModal,
+    SortIcon,
     ListSettingsModal,
     draggable,
   },
