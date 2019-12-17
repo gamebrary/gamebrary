@@ -84,7 +84,7 @@ export default {
           global: 'top',
         },
         borderRadius: true,
-        showGameAmount: true,
+        showGameCount: false,
         hideListBackgrounds: false,
       },
     };
@@ -119,7 +119,7 @@ export default {
         theme: 'default',
         position: 'top',
         borderRadius: true,
-        showGameAmount: true,
+        showGameCount: false,
         hideListBackgrounds: false,
       };
     }

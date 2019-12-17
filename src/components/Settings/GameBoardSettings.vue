@@ -69,12 +69,12 @@
     <h3>Gameboard</h3>
     <div class="setting">
       <i class="fas fa-heading" />
-      <h5>Hide amount of games next to list title</h5>
+      <h5>Show amount of games next to list title</h5>
 
       <toggle-switch
-        id="hideGameAmount"
+        id="showGameCount"
         @change="$emit('save')"
-        v-model="value[platform.code].hideGameAmount"
+        v-model="value[platform.code].showGameCount"
       />
     </div>
 
