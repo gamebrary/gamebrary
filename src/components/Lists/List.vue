@@ -114,7 +114,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['user', 'gameLists', 'platform', 'settings', 'games', 'dragging', 'progresses]),
+    ...mapState(['user', 'gameLists', 'platform', 'settings', 'games', 'dragging', 'progresses']),
 
     autoSortEnabled() {
       const list = this.list[this.listIndex];
