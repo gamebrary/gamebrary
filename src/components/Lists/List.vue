@@ -1,5 +1,5 @@
 <template lang="html">
-  <div :class="['list', viewClass, { unique: unique && view !== 'masonry' }]">
+  <div :class="['list', viewClass, { unique: unique && view !== 'masonry', dragging }]">
     <header>
       <span class="list-name">
         <i
@@ -34,8 +34,8 @@
       :id="listIndex"
       :move="validateMove"
       v-bind="gameDraggableOptions"
-      @end="end"
-      @start="start"
+      @end="dragEnd"
+      @start="dragStart"
     >
       <component
         v-for="game in sortedGames"
@@ -114,7 +114,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['user', 'gameLists', 'platform', 'settings', 'games', 'progresses']),
+    ...mapState(['user', 'gameLists', 'platform', 'settings', 'games', 'dragging', 'progresses]),
 
     autoSortEnabled() {
       const list = this.list[this.listIndex];
@@ -260,13 +260,14 @@ export default {
       return !validMove;
     },
 
-    start({ item }) {
-      this.dragging = true;
+    dragStart({ item }) {
+      this.$store.commit('SET_DRAGGING_STATUS', true);
       this.draggingId = item.id;
     },
 
-    end() {
-      this.$emit('end');
+    dragEnd() {
+      this.$store.commit('SET_DRAGGING_STATUS', false);
+      this.$emit('dragEnd');
     },
   },
 };
@@ -285,6 +286,19 @@ export default {
     overflow: hidden;
     margin-right: $gp;
     max-height: calc(100vh - 100px);
+
+    @media($small) {
+      &:not(.dragging) {
+        .games {
+          scroll-snap-type: y mandatory;
+          scroll-padding: $gp / 2;
+
+          .game-card {
+            scroll-snap-align: start;
+          }
+        }
+      }
+    }
 
     &.unique {
       @media($small) {
@@ -332,10 +346,6 @@ export default {
         align-items: center;
         justify-content: center;
         border: 1px dashed #a5a2a2;
-      }
-
-      @media($small) {
-        scroll-snap-align: center;
       }
     }
 

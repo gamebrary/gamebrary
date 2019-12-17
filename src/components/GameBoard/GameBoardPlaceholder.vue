@@ -7,12 +7,13 @@
     >
       <div class="list-header" />
 
-      <div class="games">
+      <div :class="['games', list.view]">
         <placeholder
+          class="game"
           v-for="n in list.games.length"
           :lines="list && list.view === 'grid' ? 0 : 2"
           :key="n"
-          image
+          :image="list.view !== 'text'"
         />
       </div>
     </div>
@@ -65,27 +66,6 @@ export default {
     width: $list-width;
     margin-right: $gp;
     max-height: calc(100vh - 81px);
-
-    &.wide {
-      --placeholder-image-width: 80px;
-      --placeholder-image-height: 80px;
-    }
-
-    &.grid {
-      --placeholder-image-width: 90px;
-    }
-
-    &.grid .games {
-      padding-top: $gp / 2;
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-gap: $gp / 4;
-
-      .placeholder {
-        margin: 0;
-        padding: 0;
-      }
-    }
   }
 
   .list-header {
@@ -99,7 +79,44 @@ export default {
     margin-top: $list-header-height;
     display: grid;
     grid-gap: $gp / 2 ;
-    width: 100%;
+    width: calc(100% - #{gp / 2});
     padding: $gp / 2;
+
+    &.single {
+      --placeholder-text-margin: #{$gp / 2} #{$gp / 2} 0 0;
+      border-radius: $border-radius;
+    }
+
+    &.masonry {
+      --placeholder-image-width: 100px;
+      padding-top: $gp / 2;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-gap: $gp / 4;
+    }
+
+    &.grid {
+      --placeholder-image-width: 140px;
+      --placeholder-image-height: 200px;
+      padding-top: $gp / 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: $gp / 4;
+    }
+
+    &.wide {
+      --placeholder-image-width: 50px;
+      --placeholder-image-height: 80px;
+      --placeholder-text-margin: #{$gp / 2} #{$gp / 2} 0 0;
+    }
+
+    &.text {
+      --placeholder-text-margin: #{$gp / 2};
+    }
+  }
+
+  .game {
+    background: var(--game-card-background);
+    border-radius: $border-radius;
+    overflow: hidden;
   }
 </style>

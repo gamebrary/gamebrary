@@ -1,5 +1,5 @@
 <template lang="html">
-  <div v-if="loaded" class="game-board" >
+  <div v-if="loaded" class="game-board" :class="{ dragging }" >
     <game-board-placeholder v-if="loading" />
 
     <list
@@ -9,7 +9,7 @@
       :game-list="list.games"
       :list-index="listIndex"
       :key="`${list.name}-${listIndex}`"
-      @end="dragEnd"
+      @dragEnd="dragEnd"
     />
 
     <list-add-modal ref="listAddModal" />
@@ -40,7 +40,6 @@ export default {
 
   data() {
     return {
-      dragging: false,
       draggingId: null,
       loading: false,
       gameData: null,
@@ -50,7 +49,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['user', 'gameLists', 'platform', 'games']),
+    ...mapState(['user', 'gameLists', 'platform', 'games', 'dragging']),
 
     list() {
       return this.gameLists && this.platform && this.gameLists[this.platform.code]
@@ -73,9 +72,7 @@ export default {
   },
 
   methods: {
-
     dragEnd() {
-      this.dragging = false;
       this.draggingId = null;
       this.updateLists();
     },
@@ -149,7 +146,16 @@ export default {
   display: flex;
 
   @media($small) {
-    scroll-snap-type: y mandatory;
+    &:not(.dragging) {
+      scroll-snap-type: mandatory;
+      scroll-snap-points-x: repeat(300px);
+      scroll-snap-type: x mandatory;
+      scroll-padding: $gp;
+
+      .list {
+        scroll-snap-align: start;
+      }
+    }
   }
 }
 
