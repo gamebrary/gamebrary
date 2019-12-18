@@ -65,6 +65,26 @@ export default {
     });
   },
 
+  SAVE_NOTES({ state }) {
+    return new Promise((resolve, reject) => {
+      const db = firebase.firestore();
+
+      db.collection('notes').doc(state.user.uid).set(state.notes, { merge: true })
+        .then(() => resolve())
+        .catch(reject);
+    });
+  },
+
+  SAVE_NOTES_NO_MERGE({ state }) {
+    return new Promise((resolve, reject) => {
+      const db = firebase.firestore();
+
+      db.collection('notes').doc(state.user.uid).set(state.notes, { merge: false })
+        .then(() => resolve())
+        .catch(reject);
+    });
+  },
+
   SAVE_LIST_NO_MERGE({ commit, state }, payload) {
     const db = firebase.firestore();
 
