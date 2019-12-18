@@ -30,35 +30,15 @@
 
           <game-rating v-if="games[id].rating" :rating="games[id].rating" />
           <game-tags />
-
-          <div class="actions">
-            <button
-              v-if="list.games.includes(id)"
-              class="danger"
-              @click="removeGame"
-            >
-              <i class="far fa-trash-alt delete-game" />
-              {{ $t('gameDetail.removeFromList') }}
-            </button>
-
-            <button v-else class="primary" @click="addGame">
-              {{ $t('list.addGame') }}
-            </button>
-
-            <game-progress />
-
-            <div v-if="hasTags" class="tags">
-              <button class="primary" @click="openTags">
-                <i class="fas fa-tag" />
-                {{ $t('tags.addTag') }}
-              </button>
-            </div>
-          </div>
+          <!-- TODO: set list id to store instead of passing it around -->
+          <game-actions :list-id="listId" />
         </div>
 
         <div class="details" v-if="game">
           <game-description />
-          <game-notes />
+          <div class="markdown" v-if="notes && game && notes[game.id]">
+            <vue-markdown :source="notes[game.id].text" />
+          </div>
           <game-details />
           <game-links />
           <game-videos />
@@ -87,8 +67,8 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import GameScreenshots from '@/components/GameDetail/GameScreenshots';
-import GameNotes from '@/components/GameDetail/GameNotes';
-import GameProgress from '@/components/GameDetail/GameProgress';
+import VueMarkdown from 'vue-markdown';
+import GameActions from '@/components/GameDetail/GameActions';
 import GameTags from '@/components/GameDetail/GameTags';
 import GameRating from '@/components/GameDetail/GameRating';
 import GameLinks from '@/components/GameDetail/GameLinks';
@@ -107,8 +87,8 @@ export default {
     GameDescription,
     Placeholder,
     GameScreenshots,
-    GameNotes,
-    GameProgress,
+    GameActions,
+    VueMarkdown,
     GameTags,
     GameVideos,
     GameDetails,
@@ -127,9 +107,10 @@ export default {
   },
 
   computed: {
-    ...mapState(['game', 'user', 'platform', 'tags', 'gameLists', 'games']),
+    ...mapState(['game', 'user', 'platform', 'tags', 'gameLists', 'games', 'notes']),
     ...mapGetters(['ageRatings', 'gamePlatforms', 'hasTags', 'gameProgress']),
 
+    // TODO: create getter for activeList
     activePlatform() {
       return this.gameLists[this.platform.code];
     },
@@ -150,10 +131,6 @@ export default {
   },
 
   methods: {
-    openTags() {
-      this.$bus.$emit('OPEN_TAGS', this.id);
-    },
-
     loadGame(gameId) {
       this.$store.commit('CLEAR_ACTIVE_GAME');
 
@@ -173,57 +150,6 @@ export default {
         })
         .catch(() => {
           this.$bus.$emit('TOAST', { message: 'Error loading game', type: 'error' });
-        });
-    },
-
-    addGame() {
-      const data = {
-        listId: this.listId,
-        gameId: this.game.id,
-      };
-
-      this.$emit('added');
-      this.$store.commit('ADD_GAME', data);
-
-      this.$ga.event({
-        eventCategory: 'game',
-        eventAction: 'add',
-        eventLabel: 'addGame',
-        eventValue: data,
-      });
-
-      this.$store.dispatch('SAVE_LIST', this.gameLists)
-        .then(() => {
-          this.$bus.$emit('TOAST', {
-            message: `Added ${this.game.name} to list ${this.list.name}`,
-            imageUrl: this.coverUrl,
-          });
-        })
-        .catch(() => {
-          this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
-          this.$router.push({ name: 'sessionExpired' });
-        });
-    },
-
-    removeGame() {
-      const data = {
-        listId: this.listId,
-        gameId: this.game.id,
-      };
-
-      this.$store.commit('REMOVE_GAME', data);
-
-      this.$store
-        .dispatch('SAVE_LIST', this.gameLists)
-        .then(() => {
-          this.$bus.$emit('TOAST', {
-            message: `Removed ${this.game.name} from list ${this.list.name}`,
-            imageUrl: this.coverUrl,
-          });
-        })
-        .catch(() => {
-          this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
-          this.$router.push({ name: 'sessionExpired' });
         });
     },
   },
@@ -258,19 +184,6 @@ aside {
   @media($small) {
     text-align: center;
     width: calc(100vw - #{$gp * 2});
-  }
-}
-
-.actions {
-  display: flex;
-  align-items: center;
-
-  > * {
-    margin-right: $gp / 2;
-  }
-
-  @media($small) {
-    justify-content: center;
   }
 }
 
