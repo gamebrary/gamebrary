@@ -1,4 +1,5 @@
 <template lang="html">
+  <!-- TODO: simplify, use computed props -->
   <span
     v-if="custom && sortOrder != 'sortByName'"
     class="sort-icon"
