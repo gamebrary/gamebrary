@@ -59,20 +59,18 @@ import ListSettingsModal from '@/components/Lists/ListSettingsModal';
 import GameCardDefault from '@/components/GameCards/GameCardDefault';
 import GameCardMasonry from '@/components/GameCards/GameCardMasonry';
 import GameCardGrid from '@/components/GameCards/GameCardGrid';
-import GameCardWide from '@/components/GameCards/GameCardWide';
+import GameCardCompact from '@/components/GameCards/GameCardCompact';
 import GameCardText from '@/components/GameCards/GameCardText';
 import AddGameModal from '@/components/Lists/AddGameModal';
 import SortIcon from '@/components/SortIcon';
 import { mapState } from 'vuex';
 
 export default {
-  name: 'List',
-
   components: {
     GameCardDefault,
     GameCardMasonry,
     GameCardGrid,
-    GameCardWide,
+    GameCardCompact,
     GameCardText,
     AddGameModal,
     SortIcon,
@@ -110,7 +108,7 @@ export default {
         single: 'GameCardDefault',
         masonry: 'GameCardMasonry',
         grid: 'GameCardGrid',
-        wide: 'GameCardWide',
+        compact: 'GameCardCompact',
         text: 'GameCardText',
       },
     };

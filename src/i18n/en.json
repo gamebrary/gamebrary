@@ -106,7 +106,7 @@
     "coversSizeTitle": "Covers across",
     "views": {
       "single": "Default",
-      "wide": "Compact",
+      "compact": "Compact",
       "text": "Text only",
       "masonry": "Masonry",
       "grid": "Grid"
