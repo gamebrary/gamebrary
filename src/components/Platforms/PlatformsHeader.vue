@@ -61,7 +61,7 @@
             @click="setSortField(field)"
           >
             <span v-if="field">{{ $t(`platforms.${field}`) }}</span>
-            <span v-else><i class="fas fa-times"></i> Clear field</span>
+            <span v-else><i class="fas fa-times" /> Clear field</span>
           </button>
         </section>
       </div>

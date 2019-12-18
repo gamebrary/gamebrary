@@ -64,7 +64,7 @@
               class="secondary"
               @click="reset"
             >
-              <i class="fas fa-redo"></i>
+              <i class="fas fa-redo" />
             </button>
 
             <button

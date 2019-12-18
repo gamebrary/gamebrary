@@ -77,6 +77,18 @@ export default {
     state.progresses[state.platform.code][state.game.id] = value;
   },
 
+  SET_GAME_NOTE(state, note) {
+    state.notes[state.game.id] = note;
+  },
+
+  REMOVE_GAME_NOTE({ game, notes }) {
+    const noteExists = game && notes[game.id];
+
+    if (noteExists) {
+      Vue.delete(notes, game.id);
+    }
+  },
+
   ADD_GAME_TAG(state, { tagName, gameId }) {
     state.tags[tagName].games.push(gameId);
   },

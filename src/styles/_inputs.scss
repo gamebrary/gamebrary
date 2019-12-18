@@ -9,6 +9,15 @@ textarea, input, select {
   margin-bottom: $gp;
 }
 
+textarea {
+  height: auto;
+  min-height: 80px;
+  margin-top: $gp;
+  margin-bottom: 0;
+  resize: vertical;
+  padding: $gp / 2;
+}
+
 .checkbox-group {
   display: inline-flex;
 

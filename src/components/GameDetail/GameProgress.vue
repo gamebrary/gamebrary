@@ -1,8 +1,7 @@
 <template lang="html">
   <modal :title="$t('progresses.modalTitle')" ref="progressModal">
-    <button class="primary">
+    <button class="primary" :title="buttonLabel">
       <i class="fas fa-clock" />
-      {{ buttonLabel }}
     </button>
 
     <div slot="content">

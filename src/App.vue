@@ -95,13 +95,7 @@ export default {
   },
 
   mounted() {
-    // TODO: REMOVE, call action directly
-    this.$bus.$on('SAVE_NOTES', this.saveNotes);
     this.init();
-  },
-
-  beforeDestroy() {
-    this.$bus.$off('SAVE_NOTES');
   },
 
   methods: {
@@ -153,22 +147,8 @@ export default {
       });
     },
 
-    saveNotes(notes, force) {
-      if (notes) {
-        // TODO: move to actions
-        db.collection('notes').doc(this.user.uid).set(notes, { merge: !force })
-          .then(() => {
-            this.$bus.$emit('TOAST', { message: 'Notes updated' });
-          })
-          .catch(() => {
-            this.$bus.$emit('TOAST', { message: 'There was an error saving your note', type: 'error' });
-            this.$router.push({ name: 'sessionExpired' });
-          });
-      }
-    },
-
     syncData() {
-      // TODO: track progresses anod notes as well
+      // TODO: track progresses as well
       // TODO: move to actions
       db.collection('lists').doc(this.user.uid)
         .onSnapshot((doc) => {

@@ -1,68 +1,71 @@
+<!-- TODO: when file management is in place, allow to insert image from your files -->
 <template lang="html">
-  <div class="game-notes">
-    <h3>Game notes</h3>
+  <modal title="Game notes" ref="notesModal">
+    <button class="primary" :title="$t('notes.addNote')">
+      <i class="fas fa-sticky-note" />
+    </button>
 
-    <div v-if="hasNote && !showNoteField" class="note">
-      <div class="markdown" v-if="localNote.text">
-        <vue-markdown :source="localNote.text" />
-      </div>
+    <div slot="content" v-if="game" class="game-notes">
+      <h3>Add note for {{ game.name }}</h3>
 
-      <button class="primary" @click="editNote">
-        <i class="fas fa-pen" />
-        Edit note
-      </button>
-    </div>
-
-    <div v-if="showNoteField">
       <textarea
         v-model="localNote.text"
         placeholder="Type note here"
         cols="30"
-        rows="5"
+        rows="10"
       />
 
       <small>
-        <i class="fab fa-markdown" />
         <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">
+          <i class="fab fa-markdown" />
           Markdown supported
         </a>
       </small>
 
-      <footer>
-        <button class="secondary" @click="reset">
-          {{ $t('global.cancel') }}
+      <div class="preview" v-if="localNote.text && showPreview">
+        <h3>Preview</h3>
+
+        <div class="markdown">
+          <vue-markdown :source="localNote.text" />
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="primary save" @click="saveNote">
+          {{ $t('global.save') }}
         </button>
 
-        <button class="primary" @click="saveNote">
-          {{ $t('global.save') }}
+        <button
+          class="primary"
+          v-if="localNote.text"
+          @click="togglePreview"
+        >
+          <i :class="`far fa-eye${showPreview ? '-slash' : ''}`" />
+          Toggle preview
         </button>
 
         <button class="danger" @click="deleteNote">
           <i class="fas fa-trash-alt" />
-          Delete note
         </button>
-      </footer>
+      </div>
     </div>
-
-    <button v-if="!hasNote && !showNoteField" class="primary" @click="addNote">
-      <i class="fas fa-sticky-note" />
-      {{ $t('notes.addNote') }}
-    </button>
-  </div>
+  </modal>
 </template>
 
 <script>
 import VueMarkdown from 'vue-markdown';
+import Modal from '@/components/Modal';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
     VueMarkdown,
+    Modal,
   },
 
   data() {
     return {
-      showNoteField: false,
+      showPreview: false,
       localNote: {
         text: null,
       },
@@ -70,12 +73,8 @@ export default {
   },
 
   computed: {
-    ...mapState(['game', 'notes']),
+    ...mapState(['game']),
     ...mapGetters(['gameNote']),
-
-    hasNote() {
-      return this.gameNote && this.gameNote.text;
-    },
   },
 
   mounted() {
@@ -87,41 +86,36 @@ export default {
       this.localNote = this.gameNote
         ? JSON.parse(JSON.stringify(this.gameNote))
         : { text: null };
-
-      this.showNoteField = false;
     },
 
-    addNote() {
-      this.showNoteField = true;
+    async deleteNote() {
+      this.$store.commit('REMOVE_GAME_NOTE');
+
+      await this.$store.dispatch('SAVE_NOTES_NO_MERGE')
+        .catch(() => {
+          this.$bus.$emit('TOAST', { message: 'There was an error deleting your note', type: 'error' });
+          this.$router.push({ name: 'sessionExpired' });
+        });
+
+      this.$bus.$emit('TOAST', { message: 'Note deleted' });
+      this.$refs.notesModal.close();
     },
 
-    editNote() {
-      this.showNoteField = true;
+    togglePreview() {
+      this.showPreview = !this.showPreview;
     },
 
-    deleteNote() {
-      const updatedNotes = {
-        ...this.notes,
-      };
+    async saveNote() {
+      this.$store.commit('SET_GAME_NOTE', this.localNote);
 
-      this.$delete(updatedNotes, this.game.id);
+      await this.$store.dispatch('SAVE_NOTES')
+        .catch(() => {
+          this.$bus.$emit('TOAST', { message: 'There was an error saving your note', type: 'error' });
+          this.$router.push({ name: 'sessionExpired' });
+        });
 
-      this.$bus.$emit('SAVE_NOTES', updatedNotes, true);
-      this.showNoteField = false;
-      this.localNote = {
-        text: null,
-      };
-    },
-
-    saveNote() {
-      const updatedNotes = {
-        ...this.notes,
-      };
-
-      updatedNotes[this.game.id] = this.localNote;
-
-      this.$bus.$emit('SAVE_NOTES', updatedNotes);
-      this.showNoteField = false;
+      this.$bus.$emit('TOAST', { message: 'Note saved' });
+      this.$refs.notesModal.close();
     },
   },
 };
@@ -130,28 +124,21 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
   @import "~styles/styles";
 
-  .game-notes {
-    max-width: calc(100% - #{$gp});
+  .preview {
+    margin: $gp 0 $gp * 2;
+
+    .markdown {
+      margin-bottom: $gp;
+    }
   }
 
-  .markdown {
-    margin-bottom: $gp;
-  }
-
-  textarea {
-    margin-top: $gp;
-    margin-bottom: 0;
-    resize: vertical;
-    padding: $gp / 2;
-  }
-
-  footer {
+  .actions {
     display: flex;
     align-items: center;
     margin-top: $gp;
 
-    .secondary {
-      margin-right: $gp;
+    .save {
+      margin-right: $gp / 2;
     }
 
     .danger {

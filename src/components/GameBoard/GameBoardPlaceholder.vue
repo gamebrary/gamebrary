@@ -102,7 +102,7 @@ export default {
       grid-gap: $gp / 4;
     }
 
-    &.wide {
+    &.compact {
       --placeholder-image-width: 50px;
       --placeholder-image-height: 80px;
       --placeholder-text-margin: #{$gp / 2} #{$gp / 2} 0 0;
