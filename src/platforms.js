@@ -1,4 +1,3 @@
-// TODO: add home console, handheld, year released
 // Platforms reference:
 // https://gist.github.com/romancm/3e58f307b8c475cace6a28eae8aee2b5
 export default [
