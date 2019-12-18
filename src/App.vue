@@ -168,6 +168,7 @@ export default {
     },
 
     syncData() {
+      // TODO: track progresses anod notes as well
       // TODO: move to actions
       db.collection('lists').doc(this.user.uid)
         .onSnapshot((doc) => {
