@@ -19,13 +19,22 @@
           @click.native="openDetails"
         />
 
-        <progress
-          v-if="gameProgress"
-          class="small"
-          max="100"
-          :value="gameProgress"
-          @click="openDetails"
-        />
+        <div class="game-progress">
+          <progress
+            v-if="gameProgress"
+            class="small"
+            max="100"
+            :value="gameProgress"
+            @click="openDetails"
+          />
+
+          <span
+            v-if="gameProgress"
+            class="progress-bar-label"
+          >
+            {{ gameProgress }}%
+          </span>
+        </div>
 
         <i
           v-if="note"
@@ -160,7 +169,7 @@ export default {
         grid-row: 2;
       }
 
-      .game-progresses {
+      .game-progress {
         justify-self: end;
         grid-column: 2;
         grid-row: span 2;
@@ -182,6 +191,17 @@ export default {
 
   .game-tag {
     margin-bottom: $gp / 3;
+  }
+
+  .game-progress {
+    display: flex;
+    align-items: center;
+  }
+
+  .progress-bar-label {
+    margin-left: $gp / 2;
+    font-size: $font-size;
+    font-weight: bold;
   }
 }
 

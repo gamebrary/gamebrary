@@ -21,12 +21,21 @@
         <div class="game-title">
           <h2>{{ games[id].name }}</h2>
           <h4>{{ platform.name }}</h4>
+          
+          <div class="game-progress">
+            <progress
+              v-if="gameProgress"
+              max="100"
+              :value="gameProgress"
+            />
 
-          <progress
-            v-if="gameProgress"
-            max="100"
-            :value="gameProgress"
-          />
+            <span
+              v-if="gameProgress"
+              class="progress-bar-label"
+            >
+              {{ gameProgress }}%
+            </span>
+          </div>
 
           <game-rating v-if="games[id].rating" :rating="games[id].rating" />
           <game-tags />
@@ -193,5 +202,16 @@ aside {
 
 .game-placeholder {
   margin-top: $gp;
+}
+
+.game-progress {
+  display: flex;
+  align-items: center;
+}
+
+.progress-bar-label {
+  margin-left: $gp / 2;
+  font-size: $font-size;
+  font-weight: bold;
 }
 </style>
