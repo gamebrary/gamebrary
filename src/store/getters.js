@@ -101,6 +101,7 @@ export default {
   gameProgress: ({ game, progresses, platform }) => {
     const gameSelected = game && game.id;
     const hasProgress = gameSelected
+      && platform
       && progresses[platform.code]
       && progresses[platform.code][game.id];
 

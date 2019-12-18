@@ -21,7 +21,10 @@ export default {
     },
 
     gameProgress() {
-      return this.game && this.progresses[this.platform.code][this.game.id];
+      return this.game
+        && this.platform
+        && this.progresses[this.platform.code]
+        && this.progresses[this.platform.code][this.game.id];
     },
 
     gameCardClass() {
