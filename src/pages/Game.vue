@@ -48,7 +48,7 @@
             <game-progress />
 
             <div v-if="hasTags" class="tags">
-              <button class="primary hollow" @click="openTags">
+              <button class="primary" @click="openTags">
                 <i class="fas fa-tag" />
                 {{ $t('tags.addTag') }}
               </button>
