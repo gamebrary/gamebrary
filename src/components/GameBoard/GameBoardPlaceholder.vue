@@ -79,7 +79,6 @@ export default {
     margin-top: $list-header-height;
     display: grid;
     grid-gap: $gp / 2 ;
-    width: calc(100% - #{gp / 2});
     padding: $gp / 2;
 
     &.single {
