@@ -3,7 +3,7 @@
     <h3>Game notes</h3>
 
     <div v-if="hasNote && !showNoteField" class="note">
-      <div class="markdown">
+      <div class="markdown" v-if="localNote.text">
         <vue-markdown :source="localNote.text" />
       </div>
 
