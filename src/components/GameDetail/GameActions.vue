@@ -132,7 +132,10 @@ export default {
   grid-template-columns: repeat(4, 44px);
   grid-gap: $gp / 2;
   margin-top: $gp;
-  justify-content: center;
   text-align: left;
+
+  @media($small) {
+    justify-content: center;
+  }
 }
 </style>
