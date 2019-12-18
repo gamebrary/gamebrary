@@ -21,7 +21,7 @@
         <div class="game-title">
           <h2>{{ games[id].name }}</h2>
           <h4>{{ platform.name }}</h4>
-          
+
           <div class="game-progress">
             <progress
               v-if="gameProgress"
