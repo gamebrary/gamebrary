@@ -2,7 +2,7 @@ import platforms from '@/platforms';
 
 export default {
   // eslint-disable-next-line
-    ageRatings: () => {
+  ageRatings: () => {
     return {
       1: '3',
       2: '7',
@@ -21,7 +21,7 @@ export default {
 
   releaseDate: (state) => {
     // eslint-disable-next-line
-        const releaseDate = state.game && state.game.release_dates
+    const releaseDate = state.game && state.game.release_dates
       ? state.game.release_dates.filter(({ platform }) => state.platform.id === platform)
       : null;
 
@@ -107,7 +107,7 @@ export default {
   },
 
   // eslint-disable-next-line
-    activeList: ({ gameLists, platform, activeListIndex }) => gameLists[platform.code][activeListIndex],
+  activeList: ({ gameLists, platform, activeListIndex }) => gameLists[platform.code][activeListIndex],
 
   hasTags: state => Object.keys(state.tags) && Object.keys(state.tags).length > 0,
 };
