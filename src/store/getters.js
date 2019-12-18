@@ -97,13 +97,14 @@ export default {
       : '';
   },
 
-  gameProgress: ({ game, progresses }) => {
+  // eslint-disable-next-line
+  gameProgress: ({ game, progresses, platform }) => {
     const gameSelected = game && game.id;
-    const hasProgress = gameSelected && progresses[game.id];
+    const hasProgress = progresses[platform.code] && progresses[platform.code][game.id];
 
-    return hasProgress
-      ? progresses[game.id]
-      : '';
+    return gameSelected && hasProgress
+      ? progresses[platform.code][game.id]
+      : null;
   },
 
   // eslint-disable-next-line
