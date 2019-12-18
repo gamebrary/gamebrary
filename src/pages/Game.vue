@@ -20,10 +20,15 @@
       <main>
         <div class="game-title">
           <h2>{{ games[id].name }}</h2>
-          {{ platform.name }}
+          <h4>{{ platform.name }}</h4>
+
+          <progress
+            v-if="gameProgress"
+            max="100"
+            :value="gameProgress"
+          />
 
           <game-rating v-if="games[id].rating" :rating="games[id].rating" />
-          <game-progress />
           <game-tags />
 
           <div class="actions">
@@ -40,8 +45,10 @@
               {{ $t('list.addGame') }}
             </button>
 
+            <game-progress />
+
             <div v-if="hasTags" class="tags">
-              <button class="primary hollow" @click="openTags">
+              <button class="primary" @click="openTags">
                 <i class="fas fa-tag" />
                 {{ $t('tags.addTag') }}
               </button>
@@ -121,7 +128,7 @@ export default {
 
   computed: {
     ...mapState(['game', 'user', 'platform', 'tags', 'gameLists', 'games']),
-    ...mapGetters(['ageRatings', 'gamePlatforms', 'hasTags']),
+    ...mapGetters(['ageRatings', 'gamePlatforms', 'hasTags', 'gameProgress']),
 
     activePlatform() {
       return this.gameLists[this.platform.code];
@@ -258,12 +265,12 @@ aside {
   display: flex;
   align-items: center;
 
-  @media($small) {
-    justify-content: center;
+  > * {
+    margin-right: $gp / 2;
   }
 
-  button {
-    margin-right: $gp / 2;
+  @media($small) {
+    justify-content: center;
   }
 }
 

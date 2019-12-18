@@ -7,7 +7,7 @@
     >
       <div class="release-info">
         <button
-          class="link info small hollow"
+          class="link info small"
           disabled
         />
 

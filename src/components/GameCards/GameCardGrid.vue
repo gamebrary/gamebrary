@@ -1,19 +1,12 @@
 <template lang="html">
-  <div
-    v-if="gameId && games[gameId]"
-    :class="gameCardClass"
->
+  <div v-if="gameId && games[gameId]" :class="gameCardClass">
     <img
       :src="coverUrl"
       :alt="game.name"
       @click="openDetails"
     >
 
-    <div :class="{ 'game-info': showGameInfo }" >
-      <div
-        v-if="showGameInfo && progress"
-        class="title-progress"
-      >
+    <div class="game-info" v-if="!list.hideGameInfo">
         <a
           v-text="game.name"
           @click="openDetails"
@@ -26,10 +19,11 @@
           @click.native="openDetails"
         />
 
-        <game-progress
-          small
-          pie
-          @click.native="openDetails"
+        <progress
+          v-if="gameProgress"
+          max="100"
+          :value="gameProgress"
+          @click="openDetails"
         />
 
         <i
@@ -38,61 +32,33 @@
           class="fas fa-sticky-note note"
           @click="openDetails"
         />
+
+        <i class="fas fa-grip-vertical game-drag-handle" />
+
+        <div v-if="hasTags" class="game-tags">
+          <tag
+            v-for="({ games, hex, tagTextColor }, name) in tags"
+            v-if="games.includes(game.id)"
+            :key="name"
+            :label="name"
+            :hex="hex"
+            :text-hex="tagTextColor"
+            readonly
+            @action="openTags"
+          />
       </div>
-
-      <a
-        v-if="showGameInfo && !progress"
-        v-text="game.name"
-        @click="openDetails"
-      />
-
-      <i class="fas fa-grip-vertical game-drag-handle" />
-
-      <game-rating
-        v-if="showGameInfo && showGameRatings && !progress"
-        :rating="game.rating"
-        small
-        @click.native="openDetails"
-      />
-
-      <i
-        v-if="showGameInfo && note && !progress"
-        :title="note"
-        class="fas fa-sticky-note note"
-        @click="openDetails"
-      />
-
-      <div v-if="showGameInfo && hasTags" class="game-tags">
-
-      <div
-        v-for="({ games, hex, tagTextColor }, name) in tags"
-        v-if="showGameInfo && games.includes(game.id)"
-        :key="name"
-      >
-        <tag
-          v-if="games.includes(game.id)"
-          :label="name"
-          :hex="hex"
-          :text-hex="tagTextColor"
-          readonly
-          @action="openTags"
-        />
     </div>
   </div>
-</div>
-</div>
 </template>
 
 <script>
 import GameRating from '@/components/GameDetail/GameRating';
-import GameProgress from '@/components/GameDetail/GameProgress';
 import GameCardUtils from '@/components/GameCards/GameCard';
 import Tag from '@/components/Tag';
 
 export default {
   components: {
     GameRating,
-    GameProgress,
     Tag,
   },
 
@@ -127,6 +93,10 @@ export default {
     display: flex;
     align-self: center;
     cursor: pointer;
+  }
+
+  progress {
+    max-width: 100%;
   }
 
   .game-info {

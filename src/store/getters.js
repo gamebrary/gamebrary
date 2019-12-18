@@ -2,7 +2,7 @@ import platforms from '@/platforms';
 
 export default {
   // eslint-disable-next-line
-    ageRatings: () => {
+  ageRatings: () => {
     return {
       1: '3',
       2: '7',
@@ -21,7 +21,7 @@ export default {
 
   releaseDate: (state) => {
     // eslint-disable-next-line
-        const releaseDate = state.game && state.game.release_dates
+    const releaseDate = state.game && state.game.release_dates
       ? state.game.release_dates.filter(({ platform }) => state.platform.id === platform)
       : null;
 
@@ -97,17 +97,20 @@ export default {
       : '';
   },
 
-  gameProgress: ({ game, progresses }) => {
+  // eslint-disable-next-line
+  gameProgress: ({ game, progresses, platform }) => {
     const gameSelected = game && game.id;
-    const hasProgress = gameSelected && progresses[game.id];
+    const hasProgress = gameSelected
+      && progresses[platform.code]
+      && progresses[platform.code][game.id];
 
     return hasProgress
-      ? progresses[game.id]
-      : '';
+      ? progresses[platform.code][game.id]
+      : null;
   },
 
   // eslint-disable-next-line
-    activeList: ({ gameLists, platform, activeListIndex }) => gameLists[platform.code][activeListIndex],
+  activeList: ({ gameLists, platform, activeListIndex }) => gameLists[platform.code][activeListIndex],
 
   hasTags: state => Object.keys(state.tags) && Object.keys(state.tags).length > 0,
 };

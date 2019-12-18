@@ -99,7 +99,7 @@ export default {
 
     searchIcon() {
       return this.loading
-        ? 'fas fa-circle-notch fast-spin hollow'
+        ? 'fas fa-circle-notch fast-spin'
         : 'fas fa-search';
     },
 

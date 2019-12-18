@@ -5,11 +5,12 @@
     </div>
 
     <div :class="['overlay', { show }]" @click="close">
-      <div :class="['modal-content', { large, fixed: !title }]" @click.stop>
+      <div :class="['modal-content', { large }]" @click.stop>
         <header>
           <h2 v-if="title">{{ title }}</h2>
 
-          <button class="secondary small" @click="close">
+
+          <button class="secondary small close-button" @click="close">
             <i class="fas fa-times" />
           </button>
         </header>
@@ -148,25 +149,15 @@ export default {
       width: 780px;
       max-width: 100%;
     }
+  }
 
-    &.fixed {
-      @media($small) {
-        display: flex;
-        height: 100vh;
-      }
+  .close-button {
+    position: fixed;
+    right: $gp;
+    top: $gp / 2;
 
-      header {
-        position: fixed;
-        right: $gp;
-
-        button {
-          display: none;
-
-          @media($small) {
-            display: block;
-          }
-        }
-      }
+    @media($desktop) {
+      display: none;
     }
   }
 
@@ -176,10 +167,6 @@ export default {
     z-index: 1;
     align-items: center;
     justify-content: space-between;
-
-    &.fixed {
-      position: fixed;
-    }
   }
 
   main {

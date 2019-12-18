@@ -92,7 +92,7 @@
         <h4>Move list</h4>
 
         <button
-          class="primary hollow"
+          class="primary"
           :title="$t('list.moveLeft')"
           :disabled="isFirst"
           @click="moveList(listIndex, listIndex - 1)"
@@ -103,7 +103,7 @@
         </button>
 
         <button
-          class="primary hollow"
+          class="primary"
           :title="$t('list.moveRight')"
           :disabled="isLast"
           @click="moveList(listIndex, listIndex + 1)"

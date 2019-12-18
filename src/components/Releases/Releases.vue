@@ -7,7 +7,7 @@
         class="release"
       >
         <div class="release-info">
-          <a class="link primary small hollow">
+          <a class="link primary small">
             {{ notification.tag_name }}
           </a>
 

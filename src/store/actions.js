@@ -25,6 +25,26 @@ export default {
       });
   },
 
+  SAVE_PROGRESSES({ state }) {
+    return new Promise((resolve, reject) => {
+      const db = firebase.firestore();
+
+      db.collection('progresses').doc(state.user.uid).set(state.progresses, { merge: true })
+        .then(() => resolve())
+        .catch(reject);
+    });
+  },
+
+  SAVE_PROGRESSES_NO_MERGE({ state }) {
+    return new Promise((resolve, reject) => {
+      const db = firebase.firestore();
+
+      db.collection('progresses').doc(state.user.uid).set(state.progresses, { merge: false })
+        .then(() => resolve())
+        .catch(reject);
+    });
+  },
+
   SAVE_TAGS({ state }, tags) {
     const db = firebase.firestore();
 
