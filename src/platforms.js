@@ -33,12 +33,11 @@ export default [
     type: 'handheld',
   },
   {
-    name: 'Steam',
-    code: 'steam',
-    id: 92,
-    releaseYear: 2003,
+    name: 'PC',
+    code: 'pc',
+    id: '92,6',
+    releaseYear: 2012.5,
     type: 'computer',
-    hex: '#171a21',
   },
   {
     name: 'NES',
@@ -86,13 +85,6 @@ export default [
     hex: '#fff',
     releaseYear: 2006,
     id: 9,
-  },
-  {
-    name: 'PC - Windows',
-    code: 'win',
-    type: 'computer',
-    releaseYear: 1985,
-    id: 6,
   },
   {
     name: 'Super Nintendo',
