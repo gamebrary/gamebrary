@@ -1,5 +1,6 @@
 <template lang="html">
   <div class="game-tags">
+    <!-- TODO: use array function to filter out tags -->
     <tag
       v-for="({ games, hex, tagTextColor }, name) in tags"
       v-if="game && games.includes(game.id)"
@@ -53,10 +54,6 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
 @import '~styles/styles';
-
-.game-tags {
-  margin: $gp / 2 0 $gp;
-}
 
 .tag {
   margin-right: $gp / 2;
