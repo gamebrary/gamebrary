@@ -24,10 +24,6 @@ export default {
       return this.game && this.progresses[this.platform.code][this.game.id];
     },
 
-    showGameInfo() {
-      return this.game.name && this.list && !this.list.hideGameInfo;
-    },
-
     gameCardClass() {
       return [
         'game-card',
