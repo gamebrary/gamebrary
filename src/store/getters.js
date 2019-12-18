@@ -100,9 +100,11 @@ export default {
   // eslint-disable-next-line
   gameProgress: ({ game, progresses, platform }) => {
     const gameSelected = game && game.id;
-    const hasProgress = progresses[platform.code] && progresses[platform.code][game.id];
+    const hasProgress = gameSelected
+      && progresses[platform.code]
+      && progresses[platform.code][game.id];
 
-    return gameSelected && hasProgress
+    return hasProgress
       ? progresses[platform.code][game.id]
       : null;
   },
