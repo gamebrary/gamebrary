@@ -8,6 +8,7 @@
       <h2>{{ localProgress }}%</h2>
 
       <input
+        class="progress-range"
         v-model="localProgress"
         type="range"
         max="100"
@@ -101,3 +102,116 @@ export default {
   },
 };
 </script>
+<style lang="scss" rel="stylesheet/scss" scoped>
+  @import "~styles/styles";
+
+  .progress-range {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 36px;
+    border: 0;
+    border-radius: $border-radius;
+    padding: 0;
+    margin-bottom: 0;
+    background: transparent;
+    overflow: hidden;
+    order: 1;
+    margin-top: $gp;
+    margin-bottom: $gp;
+
+    &:focus {
+      outline: none;
+
+      &::-webkit-slider-runnable-track {
+        background: var(--accent-color);
+      }
+
+      &::-ms-fill-lower {
+        background: var(--accent-color);
+      }
+
+      &::-ms-fill-upper {
+        background: var(--accent-color);
+      }
+    }
+
+    &::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 36px;
+      cursor: pointer;
+      animate: 0.2s;
+      background: var(--accent-color);
+      border-radius: $border-radius;
+      overflow: hidden;
+    }
+
+    &::-webkit-slider-thumb {
+      height: 36px;
+      width: 16px;
+      background: var(--primary-background);
+      cursor: pointer;
+      border-radius: 0;
+      -webkit-appearance: none;
+      box-shadow: 500px 0 0 500px var(--list-background);
+    }
+
+    &::-moz-range-track {
+      width: 100%;
+      height: 36px;
+      cursor: pointer;
+      animate: 0.2s;
+      overflow: hidden;
+      background: var(--list-background);
+      border-radius: $border-radius;
+    }
+
+    &::-moz-range-thumb {
+      height: 36px;
+      width: 16px;
+      border: none;
+      border-radius: 0;
+      background: var(--primary-background);
+      cursor: pointer;
+    }
+
+    &::-moz-range-progress {
+      height: 36px;
+      width: 16px;
+      border: none;
+      border-radius: 0;
+      background: var(--accent-color);
+    }
+
+    &::-ms-track {
+      width: 100%;
+      height: 36px;
+      cursor: pointer;
+      animate: 0.2s;
+      overflow: hidden;
+      background: transparent;
+      border-color: transparent;
+      border-width: 16px 0;
+      color: transparent;
+    }
+
+    &::-ms-fill-lower {
+      background: var(--accent-color);
+      border-radius: $border-radius;
+    }
+
+    &::-ms-fill-upper {
+      background: var(--accent-color);
+      border-radius: $border-radius;
+    }
+
+    &::-ms-thumb {
+      height: 36px;
+      width: 16px;
+      border-radius: 0;
+      background: var(--primary-background);
+      box-shadow: 500px 0 0 500px var(--list-background);
+      cursor: pointer;
+    }
+  }
+</style>

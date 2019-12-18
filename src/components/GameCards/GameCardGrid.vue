@@ -21,6 +21,7 @@
 
         <progress
           v-if="gameProgress"
+          class="small"
           max="100"
           :value="gameProgress"
           @click="openDetails"
