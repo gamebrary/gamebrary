@@ -61,6 +61,22 @@ export default {
     state.progresses = progresses;
   },
 
+  REMOVE_GAME_PROGRESS({ game, progresses, platform }) {
+    const progressExists = game && progresses[platform.code] && progresses[platform.code][game.id];
+
+    if (progressExists) {
+      Vue.delete(progresses[platform.code], game.id);
+    }
+  },
+
+  SET_GAME_PROGRESS(state, value) {
+    if (!state.progresses[state.platform.code]) {
+      state.progresses[state.platform.code] = {};
+    }
+
+    state.progresses[state.platform.code][state.game.id] = value;
+  },
+
   ADD_GAME_TAG(state, { tagName, gameId }) {
     state.tags[tagName].games.push(gameId);
   },
