@@ -97,13 +97,11 @@ export default {
   mounted() {
     // TODO: REMOVE, call action directly
     this.$bus.$on('SAVE_NOTES', this.saveNotes);
-    this.$bus.$on('SAVE_PROGRESSES', this.saveProgresses);
     this.init();
   },
 
   beforeDestroy() {
     this.$bus.$off('SAVE_NOTES');
-    this.$bus.$off('SAVE_PROGRESSES');
   },
 
   methods: {
@@ -164,20 +162,6 @@ export default {
           })
           .catch(() => {
             this.$bus.$emit('TOAST', { message: 'There was an error saving your note', type: 'error' });
-            this.$router.push({ name: 'sessionExpired' });
-          });
-      }
-    },
-
-    saveProgresses(progresses, force) {
-      if (progresses) {
-        // TODO: move to actions
-        db.collection('progresses').doc(this.user.uid).set(progresses, { merge: !force })
-          .then(() => {
-            this.$bus.$emit('TOAST', { message: 'Progress updated' });
-          })
-          .catch(() => {
-            this.$bus.$emit('TOAST', { message: 'There was an error saving your progress', type: 'error' });
             this.$router.push({ name: 'sessionExpired' });
           });
       }
