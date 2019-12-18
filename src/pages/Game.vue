@@ -265,12 +265,12 @@ aside {
   display: flex;
   align-items: center;
 
-  @media($small) {
-    justify-content: center;
+  > * {
+    margin-right: $gp / 2;
   }
 
-  button {
-    margin-right: $gp / 2;
+  @media($small) {
+    justify-content: center;
   }
 }
 
