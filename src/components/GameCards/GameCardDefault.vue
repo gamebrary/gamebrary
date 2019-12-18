@@ -16,15 +16,16 @@
 
       <i class="fas fa-grip-vertical game-drag-handle" />
 
+      <progress
+        v-if="gameProgress"
+        max="100"
+        :value="gameProgress"
+        @click="openDetails"
+      />
+
       <game-rating
         v-if="showGameRatings"
         :rating="game.rating"
-        small
-        @click.native="openDetails"
-      />
-
-      <game-progress
-        v-if="progress"
         small
         @click.native="openDetails"
       />
@@ -59,14 +60,12 @@
 
 <script>
 import GameRating from '@/components/GameDetail/GameRating';
-import GameProgress from '@/components/GameDetail/GameProgress';
 import GameCardUtils from '@/components/GameCards/GameCard';
 import Tag from '@/components/Tag';
 
 export default {
   components: {
     GameRating,
-    GameProgress,
     Tag,
   },
 

@@ -20,6 +20,10 @@ export default {
       return this.game.rating && this.list && !this.list.hideGameRatings;
     },
 
+    gameProgress() {
+      return this.game && this.progresses[this.platform.code][this.game.id];
+    },
+
     showGameInfo() {
       return this.game.name && this.list && !this.list.hideGameInfo;
     },
