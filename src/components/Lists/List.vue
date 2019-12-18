@@ -7,6 +7,7 @@
           :sort-order="list[listIndex].sortOrder"
           title="List sorted automatically"
         />
+
         {{ list[listIndex].name }} ({{ gameList.length }})
       </span>
 
@@ -128,21 +129,19 @@ export default {
       const sortOrder = this.list[this.listIndex].sortOrder || 'sortByCustom';
       const { gameList } = this;
 
+      // TODO: use lodash to clean things up a bit here
+
       switch (sortOrder) {
       case 'sortByCustom':
         return gameList;
       case 'sortByProgress':
         return gameList.sort((a, b) => {
-          const gameA = this.games[a] &&
-                        this.progresses[this.games[a].id] &&
-                        this.progresses[this.games[a].id].number
-            ? this.progresses[this.games[a].id].number
+          const gameA = this.games[a] && this.progresses[this.platform.code][this.games[a].id]
+            ? Number(this.progresses[this.platform.code][this.games[a].id])
             : 0;
 
-          const gameB = this.games[b] &&
-                        this.progresses[this.games[b].id] &&
-                        this.progresses[this.games[b].id].number
-            ? this.progresses[this.games[b].id].number
+          const gameB = this.games[b] && this.progresses[this.platform.code][this.games[b].id]
+            ? Number(this.progresses[this.platform.code][this.games[b].id])
             : 0;
 
           if (gameA > gameB) {
