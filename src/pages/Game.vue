@@ -37,6 +37,7 @@
         <div class="details" v-if="game">
           <game-description />
           <div class="markdown" v-if="notes && game && notes[game.id]">
+            <h3>Notes</h3>
             <vue-markdown :source="notes[game.id].text" />
           </div>
           <game-details />
