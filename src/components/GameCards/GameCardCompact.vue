@@ -24,6 +24,7 @@
 
       <game-progress
         v-if="gameProgress"
+        small
         :progress="gameProgress"
         @click.native="openDetails"
       />

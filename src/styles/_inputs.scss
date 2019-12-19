@@ -207,7 +207,7 @@ progress {
     background-image: linear-gradient(var(--accent-color), var(--accent-color));
   }
 
-  &.small {
+  .small & {
     height: 10px;
     width: 100%;
     margin: $gp / 4 0;

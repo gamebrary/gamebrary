@@ -1,17 +1,16 @@
 <template lang="html">
-  <div class="game-progress">
+  <div :class="['game-progress', { small }]">
     <progress
-        :class="[{ small }]"
-        max="100"
-        :value="progress"
+      max="100"
+      :value="progress"
     />
 
     <span
-        class="progress-bar-label"
+      class="progress-bar-label"
     >
-        {{ progress }}%
+      {{ progress }}%
     </span>
-    </div>
+  </div>
 </template>
 
 <script>
@@ -32,13 +31,29 @@ export default {
   @import "~styles/styles";
 
   .game-progress {
-    display: flex;
+    display: grid;
+    width: 140px;
     align-items: center;
+    justify-items: center;
+
+    progress,
+    .progress-bar-label {
+      grid-column: 1;
+      grid-row: 1;
     }
 
-  .progress-bar-label {
-    margin-left: $gp / 2;
-    font-size: $font-size;
-    font-weight: bold;
+    .progress-bar-label {
+      margin-left: $gp / 2;
+      font-size: $font-size;
+      font-weight: bold;
+    }
+
+    &.small {
+      width: auto;
+
+      .progress-bar-label {
+        font-size: $font-size-xsmall;
+      }
+    }
   }
 </style>
