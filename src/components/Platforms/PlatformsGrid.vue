@@ -1,8 +1,9 @@
 <template lang="html">
   <div class="platforms">
-    <div class="platform"
+    <div
       v-for="platform in platforms"
       :key="platform.name"
+      :class="['platform', platform.code]"
       :style="`background-color: ${platform.hex || '#fff'}`"
       @click="changePlatform(platform)"
     >
@@ -95,6 +96,12 @@ export default {
     overflow: hidden;
     width: 180px;
     height: 100px;
+
+    &.pc {
+      img {
+        width: 60px;
+      }
+    }
 
     &.clickable {
       cursor: pointer;
