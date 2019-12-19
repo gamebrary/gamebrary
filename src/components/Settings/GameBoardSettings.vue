@@ -12,7 +12,7 @@
 
     <wallpaper-upload />
 
-    <div class="setting">
+    <div class="setting" v-if="value[platform.code]">
       <i class="fas fa-palette" />
       <h5>Global theme</h5>
 
