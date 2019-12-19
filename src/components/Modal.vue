@@ -6,14 +6,11 @@
 
     <div :class="['overlay', { show }]" @click="close">
       <div :class="['modal-content', { large }]" @click.stop>
-        <header>
-          <h2 v-if="title">{{ title }}</h2>
+        <h2 v-if="title">{{ title }}</h2>
 
-
-          <button class="secondary small close-button" @click="close">
-            <i class="fas fa-times" />
-          </button>
-        </header>
+        <button class="secondary small close-button" @click="close">
+          <i class="fas fa-times" />
+        </button>
 
         <main>
           <span v-if="message" v-html="message" />
@@ -161,7 +158,7 @@ export default {
     }
   }
 
-  header {
+  h2 {
     display: flex;
     padding: $gp;
     z-index: 1;
