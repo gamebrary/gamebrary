@@ -39,6 +39,7 @@
 
           <game-rating v-if="games[id].rating" :rating="games[id].rating" />
           <game-tags />
+
           <!-- TODO: set list id to store instead of passing it around -->
           <game-actions :list-id="listId" />
         </div>

@@ -22,22 +22,11 @@
         @click.native="openDetails"
       />
 
-      <div class="game-progress">
-        <progress
-          v-if="gameProgress"
-          class="small"
-          max="100"
-          :value="gameProgress"
-          @click="openDetails"
-        />
-
-        <span
-          v-if="gameProgress"
-          class="progress-bar-label"
-        >
-          {{ gameProgress }}%
-        </span>
-      </div>
+      <game-progress
+        v-if="gameProgress"
+        :progress="gameProgress"
+        @click.native="openDetails"
+      />
 
       <i
         v-if="note"
@@ -69,12 +58,14 @@
 
 <script>
 import GameRating from '@/components/GameDetail/GameRating';
+import GameProgress from '@/components/GameDetail/GameProgress';
 import GameCardUtils from '@/components/GameCards/GameCard';
 import Tag from '@/components/Tag';
 
 export default {
   components: {
     GameRating,
+    GameProgress,
     Tag,
   },
 
@@ -166,17 +157,6 @@ export default {
 
     .game-tag {
       margin-bottom: $gp / 3;
-    }
-
-    .game-progress {
-      display: flex;
-      align-items: center;
-    }
-
-    .progress-bar-label {
-      margin-left: $gp / 2;
-      font-size: $font-size;
-      font-weight: bold;
     }
   }
 
