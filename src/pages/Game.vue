@@ -68,6 +68,7 @@
 import { mapState, mapGetters } from 'vuex';
 import GameScreenshots from '@/components/GameDetail/GameScreenshots';
 import VueMarkdown from 'vue-markdown';
+import GameProgress from '@/components/GameDetail/GameProgress';
 import GameActions from '@/components/GameDetail/GameActions';
 import GameTags from '@/components/GameDetail/GameTags';
 import GameRating from '@/components/GameDetail/GameRating';
@@ -89,6 +90,7 @@ export default {
     GameScreenshots,
     GameActions,
     VueMarkdown,
+    GameProgress,
     GameTags,
     GameVideos,
     GameDetails,
