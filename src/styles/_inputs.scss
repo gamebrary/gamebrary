@@ -178,39 +178,3 @@ input[type=range] {
     cursor: pointer;
   }
 }
-
-progress {
-  -webkit-appearance: none;
-  appearance: none;
-  display: block;
-  border-radius: $border-radius;
-  background: var(--list-background);
-  height: 20px;
-  border: none;
-  overflow: hidden;
-  margin: $gp 0;
-
-  @media($small) {
-    order: 2;
-    margin: $gp auto;
-  }
-
-  &::-moz-progress-bar {
-    background: var(--accent-color);
-  }
-
-  &::-webkit-progress-bar {
-    border-radius: $border-radius;
-  }
-
-  &::-webkit-progress-value {
-    background-image: linear-gradient(var(--accent-color), var(--accent-color));
-  }
-
-  .small & {
-    height: 10px;
-    width: 100%;
-    margin: $gp / 4 0;
-    border-radius: $border-radius / 2;
-  }
-}

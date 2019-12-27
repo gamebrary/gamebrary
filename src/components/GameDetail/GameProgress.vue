@@ -1,15 +1,19 @@
 <template lang="html">
   <div :class="['game-progress', { small }]">
-    <progress
-      max="100"
-      :value="progress"
-    />
-
-    <span
-      class="progress-bar-label"
+    <div
+      class="progress"
+      ref="progress"
+      :style="`--progress: ${progress}%; --progress-width: ${width}px`"
     >
-      {{ progress }}%
-    </span>
+      <div
+        class="progress-bar-label not-progressed"
+        :data-progress="progress"
+      ></div>
+      <div
+        class="progress-bar-label progressed"
+        :data-progress="progress"
+      ></div>
+    </div>
   </div>
 </template>
 
@@ -25,6 +29,22 @@ export default {
       default: false,
     },
   },
+
+  data() {
+    return {
+      width: 0,
+    };
+  },
+
+  mounted() {
+    this.getProgressBarWidth();
+  },
+
+  methods: {
+    getProgressBarWidth() {
+      this.width = this.$refs.progress.clientWidth;
+    },
+  },
 };
 </script>
 <style lang="scss" rel="stylesheet/scss" scoped>
@@ -36,23 +56,60 @@ export default {
     align-items: center;
     justify-items: center;
 
-    progress,
-    .progress-bar-label {
-      grid-column: 1;
-      grid-row: 1;
+    .progress {
+      display: grid;
+      height: 20px;
+      width: 100%;
+      margin: $gp / 4 0;
+      overflow: hidden;
+      border-radius: $border-radius / 2;
     }
 
     .progress-bar-label {
-      margin-left: $gp / 2;
-      font-size: $font-size;
+      grid-row: 1;
+      grid-column: 1;
+      width: 100%;
+      overflow: hidden;
       font-weight: bold;
+
+      &::after {
+        content: attr(data-progress) "%";
+        line-height: 1.5;
+        display: block;
+        width: 140px;
+        text-align: center;
+        color: var(--accent-color);
+      }
+
+      &.not-progressed {
+        background: var(--list-background);
+      }
+
+      &.progressed {
+        z-index: 1;
+        width: var(--progress);
+        background: var(--accent-color);
+
+        &::after {
+          color: var(--game-card-text-color);
+        }
+      }
     }
 
     &.small {
       width: auto;
 
+      .progress {
+        height: 10px;
+      }
+
       .progress-bar-label {
         font-size: $font-size-xsmall;
+
+        &::after {
+          width: var(--progress-width);
+          line-height: 1;
+        }
       }
     }
   }
