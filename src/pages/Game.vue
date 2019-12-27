@@ -36,8 +36,7 @@
 
         <div class="details" v-if="game">
           <game-description />
-          <div class="markdown" v-if="notes && game && notes[game.id]">
-            <h3>Notes</h3>
+          <div class="markdown" v-if="hasNote">
             <vue-markdown :source="notes[game.id].text" />
           </div>
           <game-details />
@@ -114,6 +113,10 @@ export default {
     // TODO: create getter for activeList
     activePlatform() {
       return this.gameLists[this.platform.code];
+    },
+
+    hasNote() {
+      return this.notes && this.game && this.notes[this.game.id] && this.notes[this.game.id].text;
     },
 
     list() {
