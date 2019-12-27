@@ -1,6 +1,6 @@
 <!-- TODO: when file management is in place, allow to insert image from your files -->
 <template lang="html">
-  <modal title="Game notes" ref="notesModal">
+  <modal title="Game notes" ref="notesModal" @open="reset">
     <button class="primary" :title="$t('notes.addNote')">
       <i class="fas fa-sticky-note" />
     </button>
@@ -9,7 +9,7 @@
       <h3>Add note for {{ game.name }}</h3>
 
       <textarea
-        v-model="localNote.text"
+        v-model.trim="localNote.text"
         placeholder="Type note here"
         cols="30"
         rows="10"
@@ -22,7 +22,7 @@
         </a>
       </small>
 
-      <div class="preview" v-if="localNote.text && showPreview">
+      <div class="preview" v-if="!isEmptyNote && showPreview">
         <h3>Preview</h3>
 
         <div class="markdown">
@@ -31,7 +31,11 @@
       </div>
 
       <div class="actions">
-        <button class="primary save" @click="saveNote">
+        <button
+          class="primary save"
+          :disabled="isEmptyNote"
+          @click="saveNote"
+        >
           {{ $t('global.save') }}
         </button>
 
@@ -75,10 +79,10 @@ export default {
   computed: {
     ...mapState(['game']),
     ...mapGetters(['gameNote']),
-  },
 
-  mounted() {
-    this.reset();
+    isEmptyNote() {
+      return Boolean(this.localNote && this.localNote.text === null);
+    },
   },
 
   methods: {
