@@ -55,6 +55,11 @@ export default {
     width: 140px;
     align-items: center;
     justify-items: center;
+    margin: $gp / 2 0;
+
+    @media($small) {
+      margin: $gp auto;
+    }
 
     .progress {
       display: grid;
@@ -98,6 +103,7 @@ export default {
 
     &.small {
       width: auto;
+      margin: 0;
 
       .progress {
         height: 10px;
