@@ -1,103 +1,122 @@
 <template lang="html">
-  <modal :title="$t('progresses.modalTitle')" ref="progressModal">
-    <button class="primary" :title="buttonLabel">
-      <i class="fas fa-clock" />
-    </button>
-
-    <div slot="content">
-      <h2>{{ localProgress }}%</h2>
-
-      <input
-        v-model="localProgress"
-        type="range"
-        max="100"
-        step="5"
-        @change="saveProgress"
-      >
-
-      <button class="danger" @click="deleteProgress">
-        {{ $t('progresses.deleteProgress') }}
-      </button>
+  <div :class="['game-progress', { small }]">
+    <div
+      class="progress"
+      ref="progress"
+      :style="`--progress: ${progress}%; --progress-width: ${width}px`"
+    >
+      <div
+        class="progress-bar-label not-progressed"
+        :data-progress="progress"
+      ></div>
+      <div
+        class="progress-bar-label progressed"
+        :data-progress="progress"
+      ></div>
     </div>
-  </modal>
+  </div>
 </template>
 
 <script>
-import Modal from '@/components/Modal';
-import { debounce } from 'lodash';
-import { mapGetters } from 'vuex';
-
 export default {
-  components: {
-    Modal,
+  props: {
+    progress: {
+      type: String,
+      default: '',
+    },
+    small: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   data() {
     return {
-      localProgress: {},
+      width: 0,
     };
   },
 
-  computed: {
-    ...mapGetters(['gameProgress']),
-
-    defaultValue() {
-      return {
-        value: 0,
-      };
-    },
-
-    buttonLabel() {
-      return this.gameProgress
-        ? this.$t('progresses.updateProgress')
-        : this.$t('progresses.addProgress');
-    },
-  },
-
-  watch: {
-    gameProgress() {
-      this.reset();
-    },
-  },
-
   mounted() {
-    this.reset();
+    this.getProgressBarWidth();
   },
 
   methods: {
-    reset() {
-      this.localProgress = this.gameProgress
-        ? JSON.parse(JSON.stringify(this.gameProgress))
-        : 0;
+    getProgressBarWidth() {
+      this.width = this.$refs.progress.clientWidth;
     },
-
-    async deleteProgress() {
-      this.$store.commit('REMOVE_GAME_PROGRESS');
-
-      await this.$store.dispatch('SAVE_PROGRESSES_NO_MERGE')
-        .catch(() => {
-          this.$bus.$emit('TOAST', { message: 'There was an error deleting your progress', type: 'error' });
-          this.$router.push({ name: 'sessionExpired' });
-        });
-
-      this.$bus.$emit('TOAST', { message: 'Progress deleted' });
-      this.$refs.progressModal.close();
-    },
-
-    saveProgress: debounce(
-      // eslint-disable-next-line
-      function () {
-        this.$store.commit('SET_GAME_PROGRESS', this.localProgress);
-
-        this.$store.dispatch('SAVE_PROGRESSES')
-          .then(() => {
-            this.$bus.$emit('TOAST', { message: 'Progress updated' });
-          })
-          .catch(() => {
-            this.$bus.$emit('TOAST', { message: 'There was an error saving your progress', type: 'error' });
-            this.$router.push({ name: 'sessionExpired' });
-          });
-      }, 300),
   },
 };
 </script>
+<style lang="scss" rel="stylesheet/scss" scoped>
+  @import "~styles/styles";
+
+  .game-progress {
+    display: grid;
+    width: 140px;
+    align-items: center;
+    justify-items: center;
+    margin: $gp / 2 0;
+
+    @media($small) {
+      margin: $gp auto;
+    }
+
+    .progress {
+      display: grid;
+      height: 20px;
+      width: 100%;
+      margin: $gp / 4 0;
+      overflow: hidden;
+      border-radius: $border-radius / 2;
+    }
+
+    .progress-bar-label {
+      grid-row: 1;
+      grid-column: 1;
+      width: 100%;
+      overflow: hidden;
+      font-weight: bold;
+
+      &::after {
+        content: attr(data-progress) "%";
+        line-height: 1.5;
+        display: block;
+        width: 140px;
+        text-align: center;
+        color: var(--accent-color);
+      }
+
+      &.not-progressed {
+        background: var(--list-background);
+      }
+
+      &.progressed {
+        z-index: 1;
+        width: var(--progress);
+        background: var(--accent-color);
+
+        &::after {
+          color: var(--game-card-text-color);
+        }
+      }
+    }
+
+    &.small {
+      width: auto;
+      margin: 0;
+
+      .progress {
+        height: 10px;
+      }
+
+      .progress-bar-label {
+        font-size: $font-size-xsmall;
+
+        &::after {
+          width: var(--progress-width);
+          line-height: 1;
+        }
+      }
+    }
+  }
+</style>

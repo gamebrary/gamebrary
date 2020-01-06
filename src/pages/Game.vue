@@ -22,14 +22,14 @@
           <h2>{{ games[id].name }}</h2>
           <h4>{{ platform.name }}</h4>
 
-          <progress
+          <game-progress
             v-if="gameProgress"
-            max="100"
-            :value="gameProgress"
+            :progress="gameProgress"
           />
 
           <game-rating v-if="games[id].rating" :rating="games[id].rating" />
           <game-tags />
+
           <!-- TODO: set list id to store instead of passing it around -->
           <game-actions :list-id="listId" />
         </div>
@@ -68,6 +68,7 @@
 import { mapState, mapGetters } from 'vuex';
 import GameScreenshots from '@/components/GameDetail/GameScreenshots';
 import VueMarkdown from 'vue-markdown';
+import GameProgress from '@/components/GameDetail/GameProgress';
 import GameActions from '@/components/GameDetail/GameActions';
 import GameTags from '@/components/GameDetail/GameTags';
 import GameRating from '@/components/GameDetail/GameRating';
@@ -89,6 +90,7 @@ export default {
     GameScreenshots,
     GameActions,
     VueMarkdown,
+    GameProgress,
     GameTags,
     GameVideos,
     GameDetails,

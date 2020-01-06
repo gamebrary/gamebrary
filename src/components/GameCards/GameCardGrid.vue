@@ -19,11 +19,11 @@
           @click.native="openDetails"
         />
 
-        <progress
+        <game-progress
           v-if="gameProgress"
-          max="100"
-          :value="gameProgress"
-          @click="openDetails"
+          small
+          :progress="gameProgress"
+          @click.native="openDetails"
         />
 
         <i
@@ -53,12 +53,14 @@
 
 <script>
 import GameRating from '@/components/GameDetail/GameRating';
+import GameProgress from '@/components/GameDetail/GameProgress';
 import GameCardUtils from '@/components/GameCards/GameCard';
 import Tag from '@/components/Tag';
 
 export default {
   components: {
     GameRating,
+    GameProgress,
     Tag,
   },
 
@@ -159,7 +161,7 @@ export default {
         grid-row: 2;
       }
 
-      .game-progresses {
+      .game-progress {
         justify-self: end;
         grid-column: 2;
         grid-row: span 2;

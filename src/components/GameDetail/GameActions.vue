@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="game-actions">
-    <game-progress />
+    <game-progress-modal />
     <game-notes />
 
     <div v-if="hasTags" class="tags">
@@ -36,12 +36,12 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import GameNotes from '@/components/GameDetail/GameNotes';
-import GameProgress from '@/components/GameDetail/GameProgress';
+import GameProgressModal from '@/components/GameDetail/GameProgressModal';
 
 export default {
   components: {
     GameNotes,
-    GameProgress,
+    GameProgressModal,
   },
 
   props: {
