@@ -6,7 +6,23 @@
       @click="openDetails"
     >
 
-    <div class="game-info" v-if="!list.hideGameInfo">
+    <game-completed
+      v-if="gameProgress"
+      :progress="gameProgress"
+      @click.native="openDetails"
+    />
+
+    <game-progress
+      v-if="!showGameInfo && gameProgress"
+      small
+      :progress="gameProgress"
+      @click.native="openDetails"
+    />
+
+    <div
+      v-if="showGameInfo"
+      class="game-info"
+    >
         <a
           v-text="game.name"
           @click="openDetails"
@@ -53,6 +69,7 @@
 
 <script>
 import GameRating from '@/components/GameDetail/GameRating';
+import GameCompleted from '@/components/GameDetail/GameCompleted';
 import GameProgress from '@/components/GameDetail/GameProgress';
 import GameCardUtils from '@/components/GameCards/GameCard';
 import Tag from '@/components/Tag';
@@ -60,6 +77,7 @@ import Tag from '@/components/Tag';
 export default {
   components: {
     GameRating,
+    GameCompleted,
     GameProgress,
     Tag,
   },
@@ -95,6 +113,13 @@ export default {
     display: flex;
     align-self: center;
     cursor: pointer;
+
+    + .game-progress {
+      width: calc(100% - #{$gp});
+      position: absolute;
+      bottom: $gp / 6;
+      left: $gp / 2;
+    }
   }
 
   progress {

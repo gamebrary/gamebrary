@@ -1,5 +1,12 @@
 <template lang="html">
   <div v-if="gameId && games[gameId]" :class="gameCardClass">
+    <game-completed
+      v-if="gameProgress"
+      size="tiny"
+      :progress="gameProgress"
+      @click.native="openDetails"
+    />
+
     <div class="game-info">
       <a v-text="game.name" @click="openDetails"/>
       <i class="fas fa-grip-vertical game-drag-handle" />
@@ -50,6 +57,7 @@
 
 <script>
 import GameRating from '@/components/GameDetail/GameRating';
+import GameCompleted from '@/components/GameDetail/GameCompleted';
 import GameProgress from '@/components/GameDetail/GameProgress';
 import GameCardUtils from '@/components/GameCards/GameCard';
 import Tag from '@/components/Tag';
@@ -57,6 +65,7 @@ import Tag from '@/components/Tag';
 export default {
   components: {
     GameRating,
+    GameCompleted,
     GameProgress,
     Tag,
   },
@@ -76,6 +85,7 @@ export default {
     position: relative;
     border-radius: $border-radius;
     min-height: 50px;
+    overflow: hidden;
 
     &.card-placeholder {
       background: #e5e5e5;
@@ -125,6 +135,18 @@ export default {
         cursor: pointer;
         margin-right: $gp / 2;
         color: var(--game-card-text-color);
+      }
+    }
+
+    .game-completed {
+      padding: $gp / 8;
+      width: 25px;
+      height: 25px;
+
+      + .game-info {
+        a {
+          padding-left: #{$gp / 2 + 12px};
+        }
       }
     }
 

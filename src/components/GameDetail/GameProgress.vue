@@ -1,5 +1,8 @@
 <template lang="html">
-  <div :class="['game-progress', { small }]">
+  <div
+    v-if="progress != 100"
+    :class="['game-progress', { small }]"
+  >
     <div
       class="progress"
       ref="progress"
@@ -42,7 +45,7 @@ export default {
 
   methods: {
     getProgressBarWidth() {
-      this.width = this.$refs.progress.clientWidth;
+      this.width = this.$refs.progress ? this.$refs.progress.clientWidth : '';
     },
   },
 };
@@ -102,7 +105,7 @@ export default {
     }
 
     &.small {
-      width: auto;
+      width: var(--progress-width);
       margin: 0;
 
       .progress {

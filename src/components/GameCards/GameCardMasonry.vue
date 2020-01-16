@@ -8,13 +8,34 @@
       :alt="game.name"
       @click="openDetails"
     >
+
+    <game-completed
+      v-if="gameProgress"
+      size="small"
+      :progress="gameProgress"
+      @click.native="openDetails"
+    />
+
+    <game-progress
+      v-if="gameProgress"
+      small
+      :progress="gameProgress"
+      @click.native="openDetails"
+    />
   </div>
 </template>
 
 <script>
+import GameCompleted from '@/components/GameDetail/GameCompleted';
+import GameProgress from '@/components/GameDetail/GameProgress';
 import GameCardUtils from '@/components/GameCards/GameCard';
 
 export default {
+  components: {
+    GameCompleted,
+    GameProgress,
+  },
+
   mixins: [GameCardUtils],
 };
 </script>
@@ -35,6 +56,13 @@ export default {
   img {
     width: 100%;
     height: auto;
+  }
+
+  .game-progress {
+    width: calc(100% - #{$gp});
+    position: absolute;
+    bottom: $gp / 6;
+    left: $gp / 2;
   }
 }
 </style>
