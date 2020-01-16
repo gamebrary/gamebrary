@@ -68,7 +68,7 @@ export default {
     width: 100%;
     left: 0;
     height: 400px;
-    z-index: 1;
+    z-index: 2;
 
     @media($small) {
       display: none;
@@ -95,7 +95,7 @@ export default {
     box-shadow: 0 0 2px 0 #a5a2a2;
     width: $container-width;
     max-width: 100%;
-    z-index: 1;
+    z-index: 2;
     margin: $gp * 3;
     padding: $gp 0;
     border-radius: $border-radius;
