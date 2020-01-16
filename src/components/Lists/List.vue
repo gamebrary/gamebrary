@@ -210,6 +210,14 @@ export default {
     viewClass() {
       return this.list[this.listIndex].view || 'single';
     },
+
+    hideGameRatings() {
+      return this.list[this.listIndex].hideGameRatings || false;
+    },
+
+    hideGameInfo() {
+      return this.list[this.listIndex].hideGameInfo || false;
+    },
   },
 
   watch: {
