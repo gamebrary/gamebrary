@@ -30,6 +30,7 @@ export default {
     padding: $gp / 4;
     width: 50px;
     height: 50px;
+    line-height: 1;
     color: var(--game-card-text-color);
     background-color: var(--accent-color);
     clip-path: polygon(0 0, 0 100%, 100% 0);
