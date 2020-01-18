@@ -19,6 +19,11 @@
       @click.native="openDetails"
     />
 
+    <i
+      v-if="!showGameInfo"
+      class="fas fa-grip-vertical game-drag-handle"
+    />
+
     <div
       v-if="showGameInfo"
       class="game-info"
