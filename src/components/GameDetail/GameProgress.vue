@@ -44,7 +44,7 @@ export default {
   },
 
   mounted() {
-    if(this.view === 'masonry') {
+    if (this.view === 'masonry') {
       setTimeout(() => {
         this.styles();
       }, 500);
