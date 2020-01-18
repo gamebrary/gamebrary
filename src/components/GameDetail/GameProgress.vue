@@ -6,7 +6,7 @@
     <div
       class="progress"
       ref="progress"
-      :style="`--progress: ${progress}%; --progress-width: ${width}px`"
+      :style="this.style"
     >
       <div
         class="progress-bar-label not-progressed"
@@ -31,21 +31,33 @@ export default {
       type: Boolean,
       default: false,
     },
+    view: {
+      type: String,
+      default: '',
+    },
   },
 
   data() {
     return {
-      width: 0,
+      style: '',
     };
   },
 
   mounted() {
-    this.getProgressBarWidth();
+    if(this.view === 'masonry') {
+      setTimeout(() => {
+        this.styles();
+      }, 500);
+    } else {
+      this.styles();
+    }
   },
 
   methods: {
-    getProgressBarWidth() {
-      this.width = this.$refs.progress ? this.$refs.progress.clientWidth : '';
+    styles() {
+      const width = this.$refs.progress && this.$refs.progress.clientWidth ? `${this.$el.clientWidth}px` : '0%';
+
+      this.style = `--progress: ${this.progress}%; --progress-width: ${width}`;
     },
   },
 };

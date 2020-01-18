@@ -2,7 +2,7 @@
   <div
     v-if="gameId && games[gameId]"
     :class="gameCardClass"
->
+  >
     <img
       :src="coverUrl"
       :alt="game.name"
@@ -20,6 +20,7 @@
       v-if="gameProgress"
       small
       :progress="gameProgress"
+      :view="list.view"
       @click.native="openDetails"
     />
   </div>
