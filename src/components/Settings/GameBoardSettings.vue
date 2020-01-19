@@ -31,7 +31,7 @@
 
     <div class="setting">
       <i class="fas fa-bars" />
-      <h5>Header position</h5>
+      <h5>Header position (only affects mobile)</h5>
 
       <select v-model="value[platform.code].position" @change="$emit('save')">
         <option

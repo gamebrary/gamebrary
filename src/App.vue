@@ -326,8 +326,10 @@ export default {
     overflow-x: hidden;
     --border-radius: 4px;
 
-    &.bottom {
-      flex-direction: column-reverse;
+    @media($small) {
+      &.bottom {
+        flex-direction: column-reverse;
+      }
     }
   }
 </style>
