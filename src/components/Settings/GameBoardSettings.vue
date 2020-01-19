@@ -55,17 +55,6 @@
       />
     </div>
 
-    <div class="setting">
-      <i class="fas fa-stream" />
-      <h5>Hide list backgrounds</h5>
-
-      <toggle-switch
-        id="hideListBackgrounds"
-        @change="$emit('save')"
-        v-model="value[platform.code].hideListBackgrounds"
-      />
-    </div>
-
     <h3>Gameboard</h3>
     <div class="setting">
       <i class="fas fa-heading" />

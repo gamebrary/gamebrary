@@ -85,7 +85,6 @@ export default {
         },
         borderRadius: true,
         showGameCount: false,
-        hideListBackgrounds: false,
       },
     };
   },
@@ -120,7 +119,6 @@ export default {
         position: 'top',
         borderRadius: true,
         showGameCount: false,
-        hideListBackgrounds: false,
       };
     }
   },
