@@ -83,7 +83,7 @@ input[type=range] {
   width: 100%;
   height: 36px;
   border: 0;
-  border-radius: $border-radius;
+  border-radius: var(--border-radius);
   padding: 0;
   background: transparent;
   overflow: hidden;
@@ -106,7 +106,7 @@ input[type=range] {
     cursor: pointer;
     animate: 0.2s;
     background: var(--accent-color);
-    border-radius: $border-radius;
+    border-radius: var(--border-radius);
     overflow: hidden;
   }
 
@@ -127,7 +127,7 @@ input[type=range] {
     animate: 0.2s;
     overflow: hidden;
     background: var(--list-background);
-    border-radius: $border-radius;
+    border-radius: var(--border-radius);
   }
 
   &::-moz-range-thumb {
@@ -161,12 +161,12 @@ input[type=range] {
 
   &::-ms-fill-lower {
     background: var(--accent-color);
-    border-radius: $border-radius;
+    border-radius: var(--border-radius);
   }
 
   &::-ms-fill-upper {
     background: var(--accent-color);
-    border-radius: $border-radius;
+    border-radius: var(--border-radius);
   }
 
   &::-ms-thumb {

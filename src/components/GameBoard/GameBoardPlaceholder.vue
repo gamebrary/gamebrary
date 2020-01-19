@@ -83,7 +83,7 @@ export default {
 
     &.single {
       --placeholder-text-margin: #{$gp / 2} #{$gp / 2} 0 0;
-      border-radius: $border-radius;
+      border-radius: var(--border-radius);
     }
 
     &.masonry {
@@ -115,7 +115,7 @@ export default {
 
   .game {
     background: var(--game-card-background);
-    border-radius: $border-radius;
+    border-radius: var(--border-radius);
     overflow: hidden;
   }
 </style>
