@@ -311,7 +311,7 @@ export default {
     @media($small) {
       &:not(.dragging) {
         .games {
-          scroll-snap-type: y mandatory;
+          scroll-snap-type: x mandatory;
           scroll-padding: $gp / 2;
 
           .game-card {

@@ -145,21 +145,26 @@ export default {
   display: flex;
 
   @media($small) {
-    .bottom & {
-      padding: $gp $gp 0;
-    }
-  }
+    transform: scale(.9);
+    transition: all 0.25s linear;
+    width: calc(100% / 0.9);
+    transform-origin: top center;
 
-  @media($small) {
     &:not(.dragging) {
       scroll-snap-type: mandatory;
       scroll-snap-points-x: repeat(300px);
       scroll-snap-type: x mandatory;
       scroll-padding: $gp;
+      transform: none;
+      width: 100%;
 
       .list {
         scroll-snap-align: start;
       }
+    }
+
+    .bottom & {
+      padding: $gp $gp 0;
     }
   }
 }
