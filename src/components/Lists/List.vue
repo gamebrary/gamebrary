@@ -309,6 +309,7 @@ export default {
 
     &.unique {
       @media($small) {
+        min-width: 300px;
         width: calc(100vw - 80px);
       }
     }
@@ -370,6 +371,20 @@ export default {
           margin-top: -1px;
           width: 100%;
           grid-column: span 2;
+        }
+      }
+
+      &.unique {
+        .games {
+          grid-template-columns: 1fr 1fr 1fr;
+
+          @media($phone) {
+            grid-template-columns: 1fr 1fr;
+          }
+
+          @media($desktop) {
+            grid-template-columns: 1fr 1fr;
+          }
         }
       }
     }

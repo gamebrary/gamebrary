@@ -51,6 +51,8 @@ export default {
     } else {
       this.styles();
     }
+
+    window.addEventListener('resize', this.styles);
   },
 
   methods: {
