@@ -83,20 +83,20 @@ export default {
         display: block;
         width: 140px;
         text-align: center;
-        color: var(--accent-color);
+        color: var(--progress-primary-color);
       }
 
       &.not-progressed {
-        background: var(--list-background);
+        background: var(--progress-secondary-color);
       }
 
       &.progressed {
         z-index: 1;
         width: var(--progress);
-        background: var(--accent-color);
+        background: var(--progress-primary-color);
 
         &::after {
-          color: var(--game-card-text-color);
+          color: var(--progress-text-color);
         }
       }
     }
