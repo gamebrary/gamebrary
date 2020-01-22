@@ -8,12 +8,14 @@
       @close="close"
     />
 
-    <img
-      v-for="(image, index) in thumbnails"
-      :src="image"
-      :key="image"
-      @click="openGallery(index)"
-    >
+    <div class="thumbnails">
+      <img
+        v-for="(image, index) in thumbnails"
+        :src="image"
+        :key="image"
+        @click="openGallery(index)"
+      >
+    </div>
   </section>
 </template>
 
@@ -80,17 +82,17 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
   @import "~styles/styles";
 
-  .game-screenshots {
-    padding: $gp / 2 $gp;
-    text-align: center;
+  h3 {
     margin: $gp 0;
+  }
 
-    h3 {
-      margin: 0 0 $gp;
-    }
+  .thumbnails {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 90px);
+    grid-gap: $gp;
+    margin-bottom: $gp;
 
     img {
-      margin: 0 $gp / 4 $gp / 4;
       cursor: pointer;
       border-radius: var(--border-radius);
     }
@@ -101,6 +103,7 @@ export default {
   @import "~styles/styles";
 
   .blueimp-gallery {
+    text-align: center;
 
     .title {
       font-size: 14px !important;

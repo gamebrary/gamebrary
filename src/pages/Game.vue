@@ -1,66 +1,64 @@
 <template lang="html">
   <div class="game">
     <header>
-      <aside>
-        <img :src="coverUrl" :alt="games[id].name" class="game-cover" />
+      <img :src="coverUrl" :alt="games[id].name" class="game-cover" />
 
-        <!-- <div
-          v-if="game && game.age_ratings"
-          class="game-rating"
+      <!-- <div
+        v-if="game && game.age_ratings"
+        class="game-rating"
+      >
+        <img
+          v-for="{ rating, synopsis, id } in game.age_ratings"
+          :key="id"
+          :src="`/static/img/age-ratings/${ageRatings[rating]}.png`"
+          :alt="synopsis"
         >
-          <img
-            v-for="{ rating, synopsis, id } in game.age_ratings"
-            :key="id"
-            :src="`/static/img/age-ratings/${ageRatings[rating]}.png`"
-            :alt="synopsis"
-          >
-        </div> -->
-      </aside>
-
-      <main>
-        <div class="game-title">
-          <h2>{{ games[id].name }}</h2>
-          <h4>{{ platform.name }}</h4>
-
-          <game-progress
-            v-if="gameProgress"
-            :progress="gameProgress"
-          />
-
-          <game-rating v-if="games[id].rating" :rating="games[id].rating" />
-          <game-tags />
-
-          <!-- TODO: set list id to store instead of passing it around -->
-          <game-actions :list-id="listId" />
-        </div>
-
-        <div class="details" v-if="game">
-          <game-description />
-          <div class="markdown" v-if="hasNote">
-            <vue-markdown :source="notes[game.id].text" />
-          </div>
-          <game-details />
-          <game-links />
-          <game-videos />
-          <game-screenshots />
-          <igdb-credit gray />
-
-          <!-- <section v-if="gamePlatforms && gamePlatforms.length > 0">
-            <h4>{{ $t('gameDetail.gamePlatforms') }}</h4>
-
-            <div class="platforms">
-              <platform
-                v-for="platform in gamePlatforms"
-                :key="platform.name"
-                :platform="platform"
-              />
-            </div>
-          </section> -->
-        </div>
-
-        <placeholder v-else :lines="3" class="game-placeholder" />
-      </main>
+      </div> -->
     </header>
+
+    <main>
+      <div class="game-title">
+        <h2>{{ games[id].name }}</h2>
+        <h4>{{ platform.name }}</h4>
+
+        <game-progress
+          v-if="gameProgress"
+          :progress="gameProgress"
+        />
+
+        <game-rating v-if="games[id].rating" :rating="games[id].rating" />
+        <game-tags />
+
+        <!-- TODO: set list id to store instead of passing it around -->
+        <game-actions :list-id="listId" />
+      </div>
+
+      <div class="details" v-if="game">
+        <game-description />
+        <div class="markdown" v-if="hasNote">
+          <vue-markdown :source="notes[game.id].text" />
+        </div>
+        <game-details />
+        <game-links />
+        <game-videos />
+        <game-screenshots />
+        <igdb-credit gray />
+
+        <!-- <section v-if="gamePlatforms && gamePlatforms.length > 0">
+          <h4>{{ $t('gameDetail.gamePlatforms') }}</h4>
+
+          <div class="platforms">
+            <platform
+              v-for="platform in gamePlatforms"
+              :key="platform.name"
+              :platform="platform"
+            />
+          </div>
+        </section> -->
+      </div>
+
+      <placeholder v-else :lines="3" class="game-placeholder" />
+    </main>
   </div>
 </template>
 
@@ -165,7 +163,7 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
 @import '~styles/styles';
 
-header {
+.game {
   display: grid;
   grid-template-columns: 180px auto;
   grid-gap: $gp;
@@ -176,7 +174,7 @@ header {
   }
 }
 
-aside {
+header {
   @media ($small) {
     text-align: center;
   }
