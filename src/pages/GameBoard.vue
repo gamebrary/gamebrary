@@ -63,7 +63,11 @@ export default {
   },
 
   mounted() {
-    this.load();
+    if (this.platform) {
+      this.load();
+    } else {
+      this.$router.push({ name: 'platforms' });
+    }
   },
 
   methods: {
