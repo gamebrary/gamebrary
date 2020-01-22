@@ -6,7 +6,7 @@
     <div
       class="progress"
       ref="progress"
-      :style="this.style"
+      :style="style"
     >
       <div
         class="progress-bar-label not-progressed"
