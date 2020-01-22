@@ -113,7 +113,7 @@ export default {
       const hasPlatformBorderRadius = hasPlatform && hasBorderRadius;
 
       return isGameBoard && hasPlatformBorderRadius
-        ? ``
+        ? ''
         : 'no-border-radius';
     },
   },
