@@ -59,13 +59,6 @@ export default {
           this.wallpaperUrl
             ? `url('${this.wallpaperUrl}')`
             : null,
-        '--border-radius':
-          this.settings &&
-          this.platform &&
-          this.settings[this.platform.code] &&
-          !this.settings[this.platform.code].borderRadius
-            ? '0px'
-            : null,
       };
     },
 
@@ -324,7 +317,6 @@ export default {
     background: var(--body-background);
     background-size: cover;
     overflow-x: hidden;
-    --border-radius: 4px;
 
     @media($small) {
       &.bottom {
