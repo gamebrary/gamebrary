@@ -35,7 +35,7 @@
 
     <draggable
       v-else
-      :class="['games', { 'empty': isEmpty } ]"
+      class="games"
       :list="gameList"
       :id="listIndex"
       :move="validateMove"
@@ -52,6 +52,11 @@
         :list-id="listIndex"
       />
     </draggable>
+
+    <div v-if="isEmpty" class="empty-list">
+      <i class="fas fa-hand-pointer fa-2x hand-drag" />
+      <p><i class="fas fa-grip-vertical" /> Drag games here</p>
+    </div>
 
     <add-game-modal :list-id="listIndex" />
   </div>
@@ -340,21 +345,11 @@ export default {
       height: 100%;
       overflow: hidden;
       max-height: calc(100vh - 150px);
-      min-height: 80px;
+      min-height: 120px;
       overflow-y: auto;
       margin-top: $list-header-height;
       padding: $gp / 2 $gp / 2 0;
       width: 100%;
-
-      &.empty {
-        margin: ($list-header-height + $gp / 2) $gp / 2 $gp / 2;
-        padding: $gp;
-        width: auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px dashed #a5a2a2;
-      }
     }
 
     &.grid {
@@ -391,5 +386,31 @@ export default {
     margin-top: $list-header-height;
     padding: 4px;
     width: 100%;
+  }
+
+  .empty-list {
+    color: var(--primary-text-color);
+    opacity: 0.8;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    margin-top: 62px;
+    height: 60px;
+    width: 130px;
+    left: 95px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .fa-grip-vertical {
+    opacity: 0.5;
+    margin-right: $gp / 2;
+  }
+
+  .hand-drag {
+    position: absolute;
+    left: 0;
+    top: 22px;
   }
 </style>
