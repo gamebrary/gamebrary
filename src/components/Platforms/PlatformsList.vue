@@ -72,7 +72,7 @@ export default {
 
   .thumbnail {
     padding: $gp;
-    border-radius: $border-radius;
+    border-radius: var(--border-radius);
     justify-content: center;
     text-align: center;
     display: flex;
@@ -114,7 +114,7 @@ export default {
       max-width: 100%;
       align-self: center;
       max-height: 50px;
-      border-radius: $border-radius;
+      border-radius: var(--border-radius);
   }
 
   .has-lists-badge {

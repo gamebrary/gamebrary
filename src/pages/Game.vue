@@ -183,7 +183,7 @@ aside {
 }
 
 .game-cover {
-  border-radius: $border-radius;
+  border-radius: var(--border-radius);
 }
 
 .game-title {

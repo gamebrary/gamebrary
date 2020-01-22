@@ -29,7 +29,7 @@ export default {
 
 .igdb-credit {
   color: var(--primary-text-color);
-  border-radius: $border-radius;
+  border-radius: var(--border-radius);
   display: flex;
   align-items: center;
   text-decoration: none;

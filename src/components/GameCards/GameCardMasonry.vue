@@ -28,7 +28,7 @@ export default {
   position: relative;
   width: calc((100%/3) - 5.5px);
   margin-bottom: 4px;
-  border-radius: $border-radius;
+  border-radius: var(--border-radius);
   overflow: hidden;
   cursor: pointer;
 

@@ -92,7 +92,7 @@ export default {
     margin-bottom: $gp;
     align-items: center;
     justify-content: center;
-    border-radius: $border-radius;
+    border-radius: var(--border-radius);
     overflow: hidden;
     width: 180px;
     height: 100px;
@@ -135,7 +135,7 @@ export default {
       padding: 0 $gp / 4;
       color: var(--primary-text-color);
       font-size: 10px;
-      border-bottom-left-radius: $border-radius;
+      border-bottom-left-radius: var(--border-radius);
     }
   }
 

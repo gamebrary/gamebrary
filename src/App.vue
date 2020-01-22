@@ -1,7 +1,7 @@
 <template>
   <div
     id="app"
-    :class="theme"
+    :class="[theme, headerPosition]"
     :style="style"
     :dir="dir"
   >
@@ -53,9 +53,20 @@ export default {
     },
 
     style() {
-      return this.$route.name === 'game-board' && this.wallpaperUrl
-        ? `background-image: url('${this.wallpaperUrl}')`
-        : null;
+      return {
+        'background-image':
+          this.$route.name === 'game-board' &&
+          this.wallpaperUrl
+            ? `url('${this.wallpaperUrl}')`
+            : null,
+        '--border-radius':
+          this.settings &&
+          this.platform &&
+          this.settings[this.platform.code] &&
+          !this.settings[this.platform.code].borderRadius
+            ? '0px'
+            : null,
+      };
     },
 
     customWallpaper() {
@@ -79,6 +90,22 @@ export default {
       return isGameBoard && hasPlatformTheme
         ? `theme-${this.settings[this.platform.code].theme}`
         : 'theme-default';
+    },
+
+    headerPosition() {
+      const hasPlatform = this.platform && this.platform.code;
+      const hasPosition = hasPlatform
+      && this.settings
+      && this.settings[this.platform.code]
+      && this.settings[this.platform.code].position;
+
+      const isGameBoard = this.$route.name === 'game-board';
+
+      const hasPlatformPosition = hasPlatform && hasPosition;
+
+      return isGameBoard && hasPlatformPosition
+        ? `${this.settings[this.platform.code].position}`
+        : 'top';
     },
   },
 
@@ -292,8 +319,17 @@ export default {
   @import "~styles/styles";
 
   #app {
+    display: flex;
+    flex-direction: column;
     background: var(--body-background);
     background-size: cover;
     overflow-x: hidden;
+    --border-radius: 4px;
+
+    @media($small) {
+      &.bottom {
+        flex-direction: column-reverse;
+      }
+    }
   }
 </style>
