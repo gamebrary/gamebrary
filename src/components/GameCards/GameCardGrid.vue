@@ -6,12 +6,6 @@
       @click="openDetails"
     >
 
-    <game-completed
-      v-if="gameProgress"
-      :progress="gameProgress"
-      @click.native="openDetails"
-    />
-
     <game-progress
       v-if="!showGameInfo && gameProgress"
       small
@@ -74,7 +68,6 @@
 
 <script>
 import GameRating from '@/components/GameDetail/GameRating';
-import GameCompleted from '@/components/GameDetail/GameCompleted';
 import GameProgress from '@/components/GameDetail/GameProgress';
 import GameCardUtils from '@/components/GameCards/GameCard';
 import Tag from '@/components/Tag';
@@ -82,7 +75,6 @@ import Tag from '@/components/Tag';
 export default {
   components: {
     GameRating,
-    GameCompleted,
     GameProgress,
     Tag,
   },

@@ -9,13 +9,6 @@
       @click="openDetails"
     >
 
-    <game-completed
-      v-if="gameProgress"
-      size="small"
-      :progress="gameProgress"
-      @click.native="openDetails"
-    />
-
     <game-progress
       v-if="gameProgress"
       small
@@ -27,13 +20,11 @@
 </template>
 
 <script>
-import GameCompleted from '@/components/GameDetail/GameCompleted';
 import GameProgress from '@/components/GameDetail/GameProgress';
 import GameCardUtils from '@/components/GameCards/GameCard';
 
 export default {
   components: {
-    GameCompleted,
     GameProgress,
   },
 

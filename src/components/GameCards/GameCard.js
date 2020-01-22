@@ -32,9 +32,16 @@ export default {
     },
 
     gameCardClass() {
+      let badge = '';
+
+      if (this.gameProgress === '100') {
+        badge = 'badge';
+      }
+
       return [
         'game-card',
         this.list.view,
+        badge,
       ];
     },
 
