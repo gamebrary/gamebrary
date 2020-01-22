@@ -389,7 +389,7 @@ export default {
   }
 
   .empty-list {
-    color: var(--primary-text-color);
+    color: var(--progress-secondary-color);
     opacity: 0.8;
     position: absolute;
     z-index: 1;
