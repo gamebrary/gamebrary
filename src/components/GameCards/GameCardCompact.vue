@@ -148,8 +148,9 @@ export default {
       @include drag-cursor;
       position: absolute;
       color: #e5e5e5;
-      right: $gp / 3;
-      top: $gp / 3;
+      padding: $gp / 3;
+      right: 0;
+      top: 0;
 
       &:hover {
         color: #a5a2a2;
