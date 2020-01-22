@@ -96,7 +96,7 @@ input[type=range] {
     &::-webkit-slider-runnable-track,
     &::-ms-fill-lower,
     &::-ms-fill-upper {
-      background: var(--accent-color);
+      background: var(--progress-primary-color);
     }
   }
 
@@ -105,7 +105,7 @@ input[type=range] {
     height: 36px;
     cursor: pointer;
     animate: 0.2s;
-    background: var(--accent-color);
+    background: var(--progress-primary-color);
     border-radius: $border-radius;
     overflow: hidden;
   }
@@ -113,11 +113,11 @@ input[type=range] {
   &::-webkit-slider-thumb {
     height: 36px;
     width: 16px;
-    background: var(--primary-background);
+    background: var(--progress-text-color);
     cursor: pointer;
     border-radius: 0;
     -webkit-appearance: none;
-    box-shadow: 500px 0 0 500px var(--list-background);
+    box-shadow: 500px 0 0 500px var(--progress-secondary-color);
   }
 
   &::-moz-range-track {
@@ -126,7 +126,7 @@ input[type=range] {
     cursor: pointer;
     animate: 0.2s;
     overflow: hidden;
-    background: var(--list-background);
+    background: var(--progress-secondary-color);
     border-radius: $border-radius;
   }
 
@@ -135,7 +135,7 @@ input[type=range] {
     width: 16px;
     border: none;
     border-radius: 0;
-    background: var(--primary-background);
+    background: var(--progress-text-color);
     cursor: pointer;
   }
 
@@ -144,7 +144,7 @@ input[type=range] {
     width: 16px;
     border: none;
     border-radius: 0;
-    background: var(--accent-color);
+    background: var(--progress-primary-color);
   }
 
   &::-ms-track {
@@ -160,12 +160,12 @@ input[type=range] {
   }
 
   &::-ms-fill-lower {
-    background: var(--accent-color);
+    background: var(--progress-primary-color);
     border-radius: $border-radius;
   }
 
   &::-ms-fill-upper {
-    background: var(--accent-color);
+    background: var(--progress-primary-color);
     border-radius: $border-radius;
   }
 
@@ -173,8 +173,8 @@ input[type=range] {
     height: 36px;
     width: 16px;
     border-radius: 0;
-    background: var(--primary-background);
-    box-shadow: 500px 0 0 500px var(--list-background);
+    background: var(--progress-text-color);
+    box-shadow: 500px 0 0 500px var(--progress-secondary-color);
     cursor: pointer;
   }
 }
