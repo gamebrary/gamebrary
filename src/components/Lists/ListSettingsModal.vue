@@ -249,14 +249,16 @@ export default {
 
       gameLists[this.platform.code][this.listIndex] = this.localList;
 
-      this.$store.dispatch('SAVE_LIST', gameLists)
-        .then(() => {
-          this.$bus.$emit('TOAST', { message: 'List saved' });
-        })
-        .catch(() => {
-          this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
-          this.$router.push({ name: 'sessionExpired' });
-        });
+      setTimeout(() => {
+        this.$store.dispatch('SAVE_LIST', gameLists)
+          .then(() => {
+            this.$bus.$emit('TOAST', { message: 'List saved' });
+          })
+          .catch(() => {
+            this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
+            this.$router.push({ name: 'sessionExpired' });
+          });
+      }, 500);
     },
 
     async moveList(from, to) {

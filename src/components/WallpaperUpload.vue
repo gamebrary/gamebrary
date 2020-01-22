@@ -165,7 +165,7 @@ export default {
     cursor: pointer;
     height: auto;
     border: 1px solid transparent;
-    border-radius: $border-radius;
+    border-radius: var(--border-radius);
 
     &:hover {
       border-color: var(--accent-color);

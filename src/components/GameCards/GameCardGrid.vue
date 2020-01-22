@@ -98,7 +98,7 @@ export default {
   display: flex;
   flex-direction: column;
   position: relative;
-  border-radius: $border-radius;
+  border-radius: var(--border-radius);
   overflow: hidden;
   cursor: pointer;
 
@@ -135,8 +135,8 @@ export default {
     padding: $gp / 2;
     width: 100%;
     display: flex;
-    border-bottom-left-radius: $border-radius;
-    border-bottom-right-radius: $border-radius;
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
     flex-direction: column;
     background: var(--game-card-background);
 

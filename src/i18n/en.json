@@ -100,6 +100,7 @@
     "moveRight": "Move right",
     "emptyList": "This list is empty",
     "addGame": "Add game",
+    "addGames": "Add games to {listName}",
     "view": "List view",
     "moveList": "Move list",
     "sortList": "Auto sort list",

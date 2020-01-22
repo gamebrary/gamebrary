@@ -43,11 +43,10 @@ $gameCoverWidth: 80px;
 
 .game-card {
   background: var(--game-card-background);
-  margin-top: $gp / 2;
   position: relative;
   display: grid;
   grid-template-columns: $gameCoverWidth auto;
-  border-radius: $border-radius;
+  border-radius: var(--border-radius);
   overflow: hidden;
 
   img {

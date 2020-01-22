@@ -1,17 +1,14 @@
 <template lang="html">
-  <modal :title="$t('list.addGame')" @open="clear">
+  <modal :title="$t('list.addGames', { listName })" @open="clear">
     <button
-      :title="$t('list.addGame')"
+      :title="$t('list.addGames', { listName })"
       class="add-game-button small secondary"
     >
       <i class="fas fa-plus" />
     </button>
 
-    <div
-      slot="content"
-      class="game-search"
-    >
-      <form @submit.prevent="search">
+    <template slot="content">
+      <form @submit.prevent="search" class="search-form">
         <input
           ref="searchInput"
           v-model="searchText"
@@ -22,12 +19,11 @@
         <button class="primary" @click="search">
           <i :class="searchIcon" />
         </button>
-
-        <igdb-credit linkable />
       </form>
 
       <small
-        v-if="gamesInList.length"
+        v-if="gamesInList.length > 0"
+        class="games-in-list"
         :title="gamesInListNames"
       >
         <strong>{{ gamesInListMessage }}</strong>
@@ -47,6 +43,8 @@
           search-result
           @added="added"
         />
+
+        <igdb-credit linkable />
       </div>
 
       <span
@@ -55,7 +53,7 @@
       >
         {{ $t('gameSearch.noResultsFound') }}
       </span>
-    </div>
+    </template>
   </modal>
 </template>
 
@@ -105,6 +103,10 @@ export default {
 
     list() {
       return this.gameLists[this.platform.code];
+    },
+
+    listName() {
+      return this.list[this.listId].name;
     },
 
     filteredResults() {
@@ -191,7 +193,7 @@ export default {
     border-top-right-radius: 0;
   }
 
-  form {
+  .search-form {
     display: flex;
     align-items: center;
     margin-bottom: $gp;
@@ -201,7 +203,29 @@ export default {
     }
 
     button {
-      margin: 0 $gp / 2;
+      margin-left: $gp;
+    }
+  }
+
+  .games-in-list {
+    margin-bottom: $gp;
+    display: flex;
+    align-items: center;
+
+    strong {
+      margin-right: .2rem;
+    }
+  }
+
+  .search-results {
+    max-height: calc(100vh - 300px);
+    overflow-y: auto;
+    border-radius: var(--border-radius);
+    display: grid;
+    grid-gap: $gp / 2;
+
+    @media($small) {
+      max-height: calc(100vh - 200px);
     }
   }
 </style>

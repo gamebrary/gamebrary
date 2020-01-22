@@ -83,7 +83,7 @@ export default {
     background: var(--game-card-background);
     margin-bottom: $gp / 2;
     position: relative;
-    border-radius: $border-radius;
+    border-radius: var(--border-radius);
     min-height: 50px;
     overflow: hidden;
 

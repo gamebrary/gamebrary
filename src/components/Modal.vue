@@ -131,7 +131,7 @@ export default {
     overflow-y: auto;
     margin: $gp * 2 auto $gp;
     padding: 0;
-    border-radius: $border-radius;
+    border-radius: var(--border-radius);
     cursor: default;
 
     @media($small) {

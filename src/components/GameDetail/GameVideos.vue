@@ -50,8 +50,6 @@ export default {
 @import "~styles/styles";
 
 .game-videos {
-  text-align: center;
-
   .video {
     position: relative;
     padding-bottom: 56.25%;

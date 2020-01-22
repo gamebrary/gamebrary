@@ -63,7 +63,11 @@ export default {
   },
 
   mounted() {
-    this.load();
+    if (this.platform) {
+      this.load();
+    } else {
+      this.$router.push({ name: 'platforms' });
+    }
   },
 
   methods: {
@@ -139,6 +143,12 @@ export default {
   overflow-x: auto;
   overflow-x: overlay;
   display: flex;
+
+  @media($small) {
+    .bottom & {
+      padding: $gp $gp 0;
+    }
+  }
 
   @media($small) {
     &:not(.dragging) {

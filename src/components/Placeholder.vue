@@ -77,7 +77,7 @@ export default {
   width: var(--placeholder-image-width, 80px);
   height: var(--placeholder-image-height, 120px);
   @extend .animated-background;
-  border-radius: $border-radius / 2;
+  border-radius: var(--border-radius) / 2;
 }
 
 .text {
@@ -88,7 +88,7 @@ export default {
   width: var(--placeholder-text-width, 100%);
   height: var(--placeholder-text-height, 12px);
   margin-bottom: $gp / 2;
-  border-radius: $border-radius / 2;
+  border-radius: var(--border-radius) / 2;
   @extend .animated-background;
 }
 </style>
