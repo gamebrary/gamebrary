@@ -378,7 +378,7 @@ export default {
         .games {
           grid-template-columns: 1fr 1fr 1fr;
 
-          @media($phone) {
+          @media($tiny) {
             grid-template-columns: 1fr 1fr;
           }
 
