@@ -1,7 +1,7 @@
 <template>
   <div
     id="app"
-    :class="[theme, headerPosition]"
+    :class="[theme, headerPosition, borderRadius]"
     :style="style"
     :dir="dir"
   >
@@ -99,6 +99,22 @@ export default {
       return isGameBoard && hasPlatformPosition
         ? `${this.settings[this.platform.code].position}`
         : 'top';
+    },
+
+    borderRadius() {
+      const hasPlatform = this.platform && this.platform.code;
+      const hasBorderRadius = hasPlatform
+      && this.settings
+      && this.settings[this.platform.code]
+      && this.settings[this.platform.code].borderRadius;
+
+      const isGameBoard = this.$route.name === 'game-board';
+
+      const hasPlatformBorderRadius = hasPlatform && hasBorderRadius;
+
+      return isGameBoard && hasPlatformBorderRadius
+        ? ``
+        : 'no-border-radius';
     },
   },
 
@@ -317,6 +333,10 @@ export default {
     background: var(--body-background);
     background-size: cover;
     overflow-x: hidden;
+
+    &.no-border-radius {
+      --border-radius: 0;
+    }
 
     @media($small) {
       &.bottom {
