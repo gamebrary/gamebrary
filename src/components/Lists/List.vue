@@ -392,7 +392,6 @@ export default {
     color: var(--progress-secondary-color);
     opacity: 0.8;
     position: absolute;
-    z-index: 1;
     top: 0;
     margin-top: 62px;
     height: 60px;
