@@ -32,13 +32,9 @@ export default {
     },
 
     gameCardClass() {
-      let badge = '';
-
-      if (this.gameProgress === '100') {
-        badge = 'badge';
-const badge = this.gameProgress === '100'
-    ? 'badge'
-    : '';
+      const badge = this.gameProgress === '100'
+        ? 'badge'
+        : '';
 
       return [
         'game-card',
