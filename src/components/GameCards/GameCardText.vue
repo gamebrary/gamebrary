@@ -2,7 +2,7 @@
   <div v-if="gameId && games[gameId]" :class="gameCardClass">
     <div class="game-info">
       <a v-text="game.name" @click="openDetails"/>
-      <i class="fas fa-grip-vertical game-drag-handle" />
+      <i class="fas fa-grip-vertical draggable-icon game-drag-handle" />
 
       <game-rating
         v-if="showGameRatings && list.view !== 'covers'"
@@ -129,7 +129,7 @@ export default {
       }
     }
 
-    .game-drag-handle {
+    .draggable-icon {
       @include drag-cursor;
       position: absolute;
       color: #e5e5e5;

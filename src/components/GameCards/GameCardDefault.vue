@@ -4,6 +4,7 @@
     <img
       :src="coverUrl"
       :alt="game.name"
+      class="game-drag-handle"
       @click="openDetails"
     >
 
@@ -14,7 +15,7 @@
         @click="openDetails"
       />
 
-      <i class="fas fa-grip-vertical game-drag-handle" />
+      <i class="fas fa-grip-vertical draggable-icon game-drag-handle" />
 
       <game-progress
         v-if="gameProgress"
@@ -147,7 +148,7 @@ export default {
       }
     }
 
-    .game-drag-handle {
+    .draggable-icon {
       @include drag-cursor;
       position: absolute;
       color: #e5e5e5;
