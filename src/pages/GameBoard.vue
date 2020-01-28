@@ -145,20 +145,11 @@ export default {
   display: flex;
 
   @media($small) {
-    transform: scale(.9) translateX(calc(-100% * 0.05));
-    transition: all 0.25s linear;
-    width: calc(100% / 0.9);
-    height: calc((100vh - 48px) / 0.9);
-    transform-origin: top center;
-
     &:not(.dragging) {
       scroll-snap-type: mandatory;
       scroll-snap-points-x: repeat(300px);
       scroll-snap-type: x mandatory;
       scroll-padding: $gp;
-      transform: none;
-      width: 100%;
-      height: calc(100vh - 48px);
 
       .list {
         scroll-snap-align: start;

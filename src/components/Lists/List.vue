@@ -108,11 +108,10 @@ export default {
       masonry: null,
       gameDraggableOptions: {
         handle: '.game-card',
-        forceFallback: true,
-        fallbackClass: 'card-placeholder',
-        fallbackOnBody: true,
+        ghostClass: 'card-placeholder',
         filter: '.drag-filter',
-        fallbackTolerance: 50,
+        delay: 100,
+        delayOnTouchOnly: true,
         animation: 500,
         group: {
           name: 'games',
@@ -288,31 +287,11 @@ export default {
     dragStart({ item }) {
       this.$store.commit('SET_DRAGGING_STATUS', true);
       this.draggingId = item.id;
-
-      this.$nextTick(() => {
-        if (window.innerWidth <= 780) {
-          const gameBoard = document.querySelector('.game-board');
-          const windowWidth = document.documentElement.clientWidth;
-          const listWidth = item.closest('.list.dragging').clientWidth;
-
-          gameBoard.scrollTo({ left: gameBoard.scrollLeft - ((windowWidth - listWidth) / 2), behavior: 'smooth' });
-        }
-      });
     },
 
     dragEnd() {
       this.$store.commit('SET_DRAGGING_STATUS', false);
       this.$emit('dragEnd');
-
-      this.$nextTick(() => {
-        if (window.innerWidth <= 780) {
-          const gameBoard = document.querySelector('.game-board');
-          const windowWidth = document.documentElement.clientWidth;
-          const listWidth = document.querySelector('.list').clientWidth;
-
-          gameBoard.scrollTo({ left: gameBoard.scrollLeft + ((windowWidth - listWidth) / 2), behavior: 'smooth' });
-        }
-      });
     },
   },
 };
