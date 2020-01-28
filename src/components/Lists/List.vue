@@ -212,7 +212,7 @@ export default {
     },
 
     showGameCount() {
-      return this.settings[this.platform.code].showGameCount;
+      return this.settings[this.platform.code] && this.settings[this.platform.code].showGameCount;
     },
 
     gameCardComponent() {
