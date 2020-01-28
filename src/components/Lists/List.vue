@@ -311,6 +311,9 @@ export default {
     max-height: calc(100vh - 100px);
 
     @media($small) {
+      max-height: calc(100vh - 80px);
+      min-height: calc(100vh - 80px);
+
       &:not(.dragging) {
         .games {
           scroll-snap-type: x mandatory;
