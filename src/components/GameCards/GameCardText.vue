@@ -1,5 +1,5 @@
 <template lang="html">
-  <div v-if="gameId && games[gameId]" :class="[gameCardClass, 'game-drag-handle']">
+  <div v-if="gameId && games[gameId]" :class="gameCardClass">
     <div class="game-info">
       <a v-text="game.name" class="drag-filter" @click="openDetails"/>
       <i class="fas fa-grip-vertical draggable-icon game-drag-handle" />
@@ -83,7 +83,7 @@ export default {
     &.card-placeholder {
       background: #e5e5e5;
       outline: 1px dashed #a5a2a2;
-      opacity: 0.6;
+      opacity: 0.3;
 
       .game-card-options {
         display: none;

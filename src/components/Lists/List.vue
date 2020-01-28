@@ -107,8 +107,10 @@ export default {
     return {
       masonry: null,
       gameDraggableOptions: {
-        handle: '.game-drag-handle',
-        ghostClass: 'card-placeholder',
+        handle: '.game-card',
+        forceFallback: true,
+        fallbackClass: 'card-placeholder',
+        fallbackOnBody: true,
         filter: '.drag-filter',
         animation: 500,
         group: {
