@@ -2,6 +2,7 @@
   <modal
     ref="listAddModal"
     :title="title"
+    class="list-add-modal"
     @open="open"
   >
     <button
@@ -151,6 +152,16 @@ export default {
 
   .add-list-button {
     margin-right: $gp;
+  }
+
+  @media($small) {
+    .list-add-modal {
+      min-width: calc(100vw - #{$gp});
+
+      .add-list-button {
+        margin-right: 0;
+      }
+    }
   }
 
   small {
