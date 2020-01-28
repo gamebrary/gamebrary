@@ -15,7 +15,7 @@
 
     <i
       v-if="!showGameInfo"
-      class="fas fa-grip-vertical game-drag-handle"
+      class="fas fa-grip-vertical draggable-icon game-drag-handle"
     />
 
     <div
