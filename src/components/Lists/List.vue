@@ -285,11 +285,31 @@ export default {
     dragStart({ item }) {
       this.$store.commit('SET_DRAGGING_STATUS', true);
       this.draggingId = item.id;
+
+      this.$nextTick(() => {
+        if (window.innerWidth <= 780) {
+          const gameBoard = document.querySelector('.game-board');
+          const windowWidth = document.documentElement.clientWidth;
+          const listWidth = item.closest('.list.dragging').clientWidth;
+
+          gameBoard.scrollTo({ left: gameBoard.scrollLeft - ((windowWidth - listWidth) / 2), behavior: 'smooth' });
+        }
+      });
     },
 
     dragEnd() {
       this.$store.commit('SET_DRAGGING_STATUS', false);
       this.$emit('dragEnd');
+
+      this.$nextTick(() => {
+        if (window.innerWidth <= 780) {
+          const gameBoard = document.querySelector('.game-board');
+          const windowWidth = document.documentElement.clientWidth;
+          const listWidth = document.querySelector('.list').clientWidth;
+
+          gameBoard.scrollTo({ left: gameBoard.scrollLeft + ((windowWidth - listWidth) / 2), behavior: 'smooth' });
+        }
+      });
     },
   },
 };

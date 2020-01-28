@@ -145,7 +145,7 @@ export default {
   display: flex;
 
   @media($small) {
-    transform: scale(.9);
+    transform: scale(.9) translateX(calc(-100% * 0.05));
     transition: all 0.25s linear;
     width: calc(100% / 0.9);
     height: calc((100vh - 48px) / 0.9);
