@@ -112,6 +112,7 @@ export default {
         fallbackClass: 'card-placeholder',
         fallbackOnBody: true,
         filter: '.drag-filter',
+        fallbackTolerance: 50,
         animation: 500,
         group: {
           name: 'games',
