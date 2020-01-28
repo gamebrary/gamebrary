@@ -109,6 +109,7 @@ export default {
       gameDraggableOptions: {
         handle: '.game-drag-handle',
         ghostClass: 'card-placeholder',
+        filter: '.drag-filter',
         animation: 500,
         group: {
           name: 'games',
@@ -304,7 +305,6 @@ export default {
     width: 300px;
     background: var(--list-background);
     border-radius: var(--border-radius);
-    overflow: hidden;
     margin-right: $gp;
     max-height: calc(100vh - 100px);
 

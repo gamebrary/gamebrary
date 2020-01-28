@@ -1,9 +1,8 @@
 <template lang="html">
-  <div v-if="gameId && games[gameId]" :class="gameCardClass">
+  <div v-if="gameId && games[gameId]" :class="[gameCardClass, 'game-drag-handle']">
     <img
       :src="coverUrl"
       :alt="game.name"
-      class="game-drag-handle"
       @click="openDetails"
     >
 
@@ -11,6 +10,7 @@
       <a
         v-if="list.view !== 'covers'"
         @click="openDetails"
+        class="drag-filter"
         v-text="game.name"
       />
 
@@ -20,6 +20,7 @@
         v-if="showGameRatings"
         :rating="game.rating"
         small
+        class="drag-filter"
         @click.native="openDetails"
       />
 
@@ -27,17 +28,18 @@
         v-if="gameProgress"
         small
         :progress="gameProgress"
+        class="drag-filter"
         @click.native="openDetails"
       />
 
       <i
         v-if="note"
         :title="note"
-        class="fas fa-sticky-note note"
+        class="fas fa-sticky-note note drag-filter"
         @click="openDetails"
       />
 
-      <div v-if="hasTags" class="game-tags">
+      <div v-if="hasTags" class="game-tags drag-filter">
         <div
           v-for="({ games, hex, tagTextColor }, name) in tags"
           v-if="games.includes(game.id)"
@@ -149,9 +151,8 @@ export default {
       @include drag-cursor;
       position: absolute;
       color: #e5e5e5;
-      padding: $gp / 3;
-      right: 0;
-      top: 0;
+      right: $gp / 3;
+      top: $gp / 3;
 
       &:hover {
         color: #a5a2a2;
