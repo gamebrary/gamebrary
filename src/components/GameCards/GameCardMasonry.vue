@@ -2,19 +2,32 @@
   <div
     v-if="gameId && games[gameId]"
     :class="gameCardClass"
->
+  >
     <img
       :src="coverUrl"
       :alt="game.name"
       @click="openDetails"
     >
+
+    <game-progress
+      v-if="gameProgress"
+      small
+      :progress="gameProgress"
+      :view="list.view"
+      @click.native="openDetails"
+    />
   </div>
 </template>
 
 <script>
+import GameProgress from '@/components/GameDetail/GameProgress';
 import GameCardUtils from '@/components/GameCards/GameCard';
 
 export default {
+  components: {
+    GameProgress,
+  },
+
   mixins: [GameCardUtils],
 };
 </script>
@@ -35,6 +48,13 @@ export default {
   img {
     width: 100%;
     height: auto;
+  }
+
+  .game-progress {
+    width: calc(100% - #{$gp});
+    position: absolute;
+    bottom: $gp / 6;
+    left: $gp / 2;
   }
 }
 </style>

@@ -6,7 +6,22 @@
       @click="openDetails"
     >
 
-    <div class="game-info" v-if="!list.hideGameInfo">
+    <game-progress
+      v-if="!showGameInfo && gameProgress"
+      small
+      :progress="gameProgress"
+      @click.native="openDetails"
+    />
+
+    <i
+      v-if="!showGameInfo"
+      class="fas fa-grip-vertical game-drag-handle"
+    />
+
+    <div
+      v-if="showGameInfo"
+      class="game-info"
+    >
         <a
           v-text="game.name"
           @click="openDetails"
@@ -95,6 +110,13 @@ export default {
     display: flex;
     align-self: center;
     cursor: pointer;
+
+    + .game-progress {
+      width: calc(100% - #{$gp});
+      position: absolute;
+      bottom: $gp / 6;
+      left: $gp / 2;
+    }
   }
 
   progress {

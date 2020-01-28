@@ -4,7 +4,7 @@
       :src="coverUrl"
       :alt="game.name"
       @click="openDetails"
->
+    >
 
     <div class="game-info">
       <a

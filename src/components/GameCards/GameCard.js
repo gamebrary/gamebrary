@@ -20,6 +20,10 @@ export default {
       return this.game.rating && this.list && !this.list.hideGameRatings;
     },
 
+    showGameInfo() {
+      return this.list && !this.list.hideGameInfo;
+    },
+
     gameProgress() {
       return this.game
         && this.platform
@@ -28,9 +32,14 @@ export default {
     },
 
     gameCardClass() {
+      const badge = this.gameProgress === '100'
+        ? 'badge'
+        : '';
+
       return [
         'game-card',
         this.list.view,
+        badge,
       ];
     },
 
@@ -126,4 +135,3 @@ export default {
     },
   },
 };
-

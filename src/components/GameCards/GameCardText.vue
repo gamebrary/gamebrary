@@ -76,6 +76,7 @@ export default {
     position: relative;
     border-radius: var(--border-radius);
     min-height: 50px;
+    overflow: hidden;
 
     &.card-placeholder {
       background: #e5e5e5;

@@ -86,7 +86,7 @@ export default {
     cursor: pointer;
     max-width: 300px;
     opacity: 0;
-    z-index: 1;
+    z-index: 2;
     border-radius: var(--border-radius);
     padding: $gp;
     transition: all 200ms linear;
