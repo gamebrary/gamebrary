@@ -290,7 +290,7 @@ export default {
 
       this.$nextTick(() => {
         if (window.innerWidth <= 780) {
-          window.navigator.vibrate([150, 30, 150]);
+          window.navigator.vibrate([100]);
         }
       });
     },
