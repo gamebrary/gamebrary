@@ -154,16 +154,6 @@ export default {
     margin-right: $gp;
   }
 
-  @media($small) {
-    .list-add-modal {
-      min-width: calc(100vw - #{$gp});
-
-      .add-list-button {
-        margin-right: 0;
-      }
-    }
-  }
-
   small {
     color: var(--warning-color);
     margin: 0 $gp;

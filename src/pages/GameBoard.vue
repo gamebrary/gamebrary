@@ -152,14 +152,7 @@ export default {
       scroll-padding: $gp;
 
       .list {
-        scroll-snap-align: start;
-      }
-
-      .list-add-modal {
-        scroll-snap-type: mandatory;
-        scroll-snap-points-x: repeat(300px);
-        scroll-snap-type: x mandatory;
-        scroll-snap-align: start;
+        scroll-snap-align: center;
       }
     }
 
