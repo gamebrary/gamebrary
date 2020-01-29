@@ -287,6 +287,12 @@ export default {
     dragStart({ item }) {
       this.$store.commit('SET_DRAGGING_STATUS', true);
       this.draggingId = item.id;
+
+      this.$nextTick(() => {
+        if (window.innerWidth <= 780) {
+          window.navigator.vibrate([150, 30, 150]);
+        }
+      });
     },
 
     dragEnd() {
