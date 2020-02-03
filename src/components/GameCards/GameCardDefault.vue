@@ -11,15 +11,17 @@
       <a
         v-if="list.view !== 'covers'"
         v-text="game.name"
+        class="drag-filter"
         @click="openDetails"
       />
 
-      <i class="fas fa-grip-vertical game-drag-handle" />
+      <i class="fas fa-grip-vertical draggable-icon game-drag-handle" />
 
       <game-progress
         v-if="gameProgress"
         small
         :progress="gameProgress"
+        class="drag-filter"
         @click.native="openDetails"
       />
 
@@ -27,34 +29,34 @@
         v-if="showGameRatings"
         :rating="game.rating"
         small
+        class="drag-filter"
         @click.native="openDetails"
       />
 
       <i
         v-if="note"
         :title="note"
-        class="fas fa-sticky-note note"
+        class="fas fa-sticky-note note drag-filter"
         @click="openDetails"
       />
 
-      <div v-if="hasTags" class="game-tags">
-
-      <div
-        v-for="({ games, hex, tagTextColor }, name) in tags"
-        v-if="games.includes(game.id)"
-        :key="name"
-      >
-        <tag
+      <div v-if="hasTags" class="game-tags drag-filter">
+        <div
+          v-for="({ games, hex, tagTextColor }, name) in tags"
           v-if="games.includes(game.id)"
-          :label="name"
-          :hex="hex"
-          :text-hex="tagTextColor"
-          readonly
-          @action="openTags"
-        />
+          :key="name"
+        >
+          <tag
+            v-if="games.includes(game.id)"
+            :label="name"
+            :hex="hex"
+            :text-hex="tagTextColor"
+            readonly
+            @action="openTags"
+          />
+      </div>
     </div>
   </div>
-</div>
 </div>
 </template>
 
@@ -90,8 +92,13 @@ export default {
     overflow: hidden;
 
     &.card-placeholder {
-      background: var(--game-card-background);
+      background: #e5e5e5;
+      outline: 1px dashed #a5a2a2;
       opacity: 0.3;
+
+      img {
+        filter: grayscale(1);
+      }
 
       .game-card-options {
         display: none;
@@ -111,6 +118,7 @@ export default {
       width: 100%;
       display: flex;
       flex-direction: column;
+      align-items: flex-start;
 
       .game-tags {
         display: flex;
@@ -129,6 +137,7 @@ export default {
         right: $gp / 4;
       }
 
+      .game-progress,
       .game-rating, a {
         display: inline-flex;
         font-weight: bold;
@@ -147,7 +156,7 @@ export default {
       }
     }
 
-    .game-drag-handle {
+    .draggable-icon {
       @include drag-cursor;
       position: absolute;
       color: #e5e5e5;

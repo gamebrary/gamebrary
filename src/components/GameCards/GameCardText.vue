@@ -1,13 +1,14 @@
 <template lang="html">
   <div v-if="gameId && games[gameId]" :class="gameCardClass">
     <div class="game-info">
-      <a v-text="game.name" @click="openDetails"/>
-      <i class="fas fa-grip-vertical game-drag-handle" />
+      <a v-text="game.name" class="drag-filter" @click="openDetails"/>
+      <i class="fas fa-grip-vertical draggable-icon game-drag-handle" />
 
       <game-rating
         v-if="showGameRatings && list.view !== 'covers'"
         :rating="game.rating"
         small
+        class="drag-filter"
         @click.native="openDetails"
       />
 
@@ -15,19 +16,20 @@
         v-if="gameProgress"
         small
         :progress="gameProgress"
+        class="drag-filter"
         @click.native="openDetails"
       />
 
       <i
         v-if="note"
         :title="note"
-        class="fas fa-sticky-note note"
+        class="fas fa-sticky-note note drag-filter"
         @click="openDetails"
       />
 
       <div
         v-if="hasTags"
-        class="game-tags"
+        class="game-tags drag-filter"
 >
         <div
           v-for="({ games, hex, tagTextColor }, name) in tags"
@@ -81,7 +83,7 @@ export default {
     &.card-placeholder {
       background: #e5e5e5;
       outline: 1px dashed #a5a2a2;
-      opacity: 0.6;
+      opacity: 0.3;
 
       .game-card-options {
         display: none;
@@ -93,6 +95,7 @@ export default {
       width: 100%;
       display: flex;
       flex-direction: column;
+      align-items: flex-start;
 
       .game-tags {
         display: flex;
@@ -129,7 +132,7 @@ export default {
       }
     }
 
-    .game-drag-handle {
+    .draggable-icon {
       @include drag-cursor;
       position: absolute;
       color: #e5e5e5;

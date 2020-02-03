@@ -145,12 +145,6 @@ export default {
   display: flex;
 
   @media($small) {
-    .bottom & {
-      padding: $gp $gp 0;
-    }
-  }
-
-  @media($small) {
     &:not(.dragging) {
       scroll-snap-type: mandatory;
       scroll-snap-points-x: repeat(300px);
@@ -158,8 +152,12 @@ export default {
       scroll-padding: $gp;
 
       .list {
-        scroll-snap-align: start;
+        scroll-snap-align: center;
       }
+    }
+
+    .bottom & {
+      padding: $gp $gp 0;
     }
   }
 }

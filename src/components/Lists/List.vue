@@ -107,8 +107,11 @@ export default {
     return {
       masonry: null,
       gameDraggableOptions: {
-        handle: '.game-drag-handle',
+        handle: '.game-card',
         ghostClass: 'card-placeholder',
+        filter: '.drag-filter',
+        delay: 100,
+        delayOnTouchOnly: true,
         animation: 500,
         group: {
           name: 'games',
@@ -284,6 +287,12 @@ export default {
     dragStart({ item }) {
       this.$store.commit('SET_DRAGGING_STATUS', true);
       this.draggingId = item.id;
+
+      this.$nextTick(() => {
+        if (window.innerWidth <= 780) {
+          window.navigator.vibrate([100]);
+        }
+      });
     },
 
     dragEnd() {
@@ -304,14 +313,16 @@ export default {
     width: 300px;
     background: var(--list-background);
     border-radius: var(--border-radius);
-    overflow: hidden;
     margin-right: $gp;
     max-height: calc(100vh - 100px);
 
     @media($small) {
+      max-height: calc(100vh - 80px);
+      min-height: calc(100vh - 80px);
+
       &:not(.dragging) {
         .games {
-          scroll-snap-type: y mandatory;
+          scroll-snap-type: x mandatory;
           scroll-padding: $gp / 2;
 
           .game-card {

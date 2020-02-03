@@ -70,6 +70,7 @@ export default {
   .game-progress {
     display: grid;
     width: 140px;
+    align-self: stretch;
     align-items: center;
     justify-items: center;
     margin: $gp / 2 0;
@@ -132,6 +133,18 @@ export default {
         &::after {
           width: var(--progress-width);
           line-height: 1;
+        }
+      }
+    }
+
+    .card-placeholder & {
+      .progress-bar-label {
+        &.not-progressed {
+          background: #a5a2a2;
+        }
+
+        &.progressed {
+          background: #777777;
         }
       }
     }

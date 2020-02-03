@@ -2,6 +2,7 @@
   <modal
     ref="listAddModal"
     :title="title"
+    class="list-add-modal"
     @open="open"
   >
     <button
