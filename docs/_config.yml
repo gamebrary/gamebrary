@@ -1,37 +1,22 @@
-
-exclude:
-  - "/vendor/"
-  - "Gemfile"
-  - "Gemfile.lock"
-  - "README.md"
-  - "LICENSE.md"
-  - "*.gemspec"
-
-keep_files:
-  - "CNAME"
-  - ".git"
-  - ".gitignore"
-
-
 # Site settings
-title: Airspace
-subtitle: "A free HTML5 agency template"
-url: "http://ndrewtl.github.io" # the base hostname & protocol for your site
-# baseurl: "/the/subpath/of/your/site" # Set this value to "" if you want your site to be root
-baseurl: "/airspace-jekyll"
-cover: "/assets/cover.png"
-logo: "/assets/logo.png"
+title: My Little Website
+tagline: "Changing the world, one uninspired quote at a time"
+url: "http://yourwebsite.com" # The base hostname & protocol for your site. Use it if you need absolute URL's
 
-# Build settings
-markdown: kramdown
+# Social
+socialimg: /img/social.jpg # be sure to change this image
+facebook: fbusername
+twitter: twusername
+github: ghusername
+googleplus: gusername
+instagram: igusername
 
-# Google analytics
-# ga_tracking_id: "UA-XXXX-1"
+# Contact
+phone: "916-276-1044" # This is my real number. You should text me.
+email: "hello@garrettboatman.com" # This is my real email address. Please don't email me.
 
-# Category descriptions (for archive pages)
-descriptions:
-  - cat: jekyll
-    desc: "Posts describing Jekyll setup techniques."
+# Use this for production
+#sass:
+#    style: compressed
 
-  - cat: dummy
-    desc: "Just some placeholder posts, lorem ipsum and the rest."
+exclude: [.scss, README.md, node_modules, gruntfile.js, package.json]
