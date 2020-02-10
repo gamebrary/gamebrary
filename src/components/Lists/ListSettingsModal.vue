@@ -189,6 +189,7 @@ export default {
         sortByRating: 'fas fa-star',
         sortByProgress: 'fas fa-clock',
         sortByCustom: 'fas fa-user',
+        sortByReleaseDate: 'fas fa-calendar-alt',
       },
     };
   },

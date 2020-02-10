@@ -193,6 +193,22 @@ export default {
 
           return gameA > gameB ? 1 : 0;
         });
+      case 'sortByReleaseDate':
+        return gameList.sort((a, b) => {
+          const gameA = this.games[a] && this.games[a].name
+            ? this.games[a].name.toUpperCase()
+            : '';
+
+          const gameB = this.games[b] && this.games[b].name
+            ? this.games[b].name.toUpperCase()
+            : '';
+
+          if (gameA < gameB) {
+            return -1;
+          }
+
+          return gameA > gameB ? 1 : 0;
+        });
       default:
         return gameList;
       }
