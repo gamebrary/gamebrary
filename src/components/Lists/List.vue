@@ -73,6 +73,7 @@ import GameCardCompact from '@/components/GameCards/GameCardCompact';
 import GameCardText from '@/components/GameCards/GameCardText';
 import AddGameModal from '@/components/Lists/AddGameModal';
 import SortIcon from '@/components/SortIcon';
+import { sortBy } from 'lodash';
 import { mapState } from 'vuex';
 
 export default {
@@ -146,22 +147,35 @@ export default {
       case 'sortByCustom':
         return gameList;
       case 'sortByProgress':
-        return gameList.sort((a, b) => {
-          const gameA = this.games[a] && this.progresses[this.platform.code][this.games[a].id]
-            ? Number(this.progresses[this.platform.code][this.games[a].id])
+        return sortBy(gameList, [(game) => {
+          const progress = this.games[game]
+                        && this.progresses[this.platform.code][this.games[game].id]
+            ? Number(this.progresses[this.platform.code][this.games[game].id])
             : 0;
 
-          const gameB = this.games[b] && this.progresses[this.platform.code][this.games[b].id]
-            ? Number(this.progresses[this.platform.code][this.games[b].id])
-            : 0;
+          return progress;
+        }]);
+        // return gameList.sort((a, b) => {
+        //   const gameA = this.games[a] && this.progresses[this.platform.code][this.games[a].id]
+        //     ? Number(this.progresses[this.platform.code][this.games[a].id])
+        //     : 0;
 
-          if (gameA > gameB) {
-            return -1;
-          }
+        //   const gameB = this.games[b] && this.progresses[this.platform.code][this.games[b].id]
+        //     ? Number(this.progresses[this.platform.code][this.games[b].id])
+        //     : 0;
 
-          return gameA < gameB ? 1 : 0;
-        });
+        //   if (gameA > gameB) {
+        //     return -1;
+        //   }
+
+        //   return gameA < gameB ? 1 : 0;
+        // });
       case 'sortByRating':
+        // return sortBy(gameList, [(game) =>
+        //   this.games[game] && this.games[game].rating
+        //   ? this.games[game].rating
+        //   : 0
+        // ]).reverse();
         return gameList.sort((a, b) => {
           const gameA = this.games[a] && this.games[a].rating
             ? this.games[a].rating
@@ -178,6 +192,7 @@ export default {
           return gameA < gameB ? 1 : 0;
         });
       case 'sortByName':
+        // return sortBy(gameList, game => this.games[game].name);
         return gameList.sort((a, b) => {
           const gameA = this.games[a] && this.games[a].name
             ? this.games[a].name.toUpperCase()
@@ -194,13 +209,21 @@ export default {
           return gameA > gameB ? 1 : 0;
         });
       case 'sortByReleaseDate':
+        // return sortBy(gameList, [(game) =>
+        //   this.games[game] && this.games[game].release_dates
+        //   ? this.games[game].release_dates
+        //     .filter(({ platform }) => this.platform.id === platform)[0].date
+        //   : ''
+        // ]);
         return gameList.sort((a, b) => {
-          const gameA = this.games[a] && this.games[a].name
-            ? this.games[a].name.toUpperCase()
+          const gameA = this.games[a] && this.games[a].release_dates
+            ? this.games[a].release_dates
+              .filter(({ platform }) => this.platform.id === platform)[0].date
             : '';
 
-          const gameB = this.games[b] && this.games[b].name
-            ? this.games[b].name.toUpperCase()
+          const gameB = this.games[b] && this.games[b].release_dates
+            ? this.games[b].release_dates
+              .filter(({ platform }) => this.platform.id === platform)[0].date
             : '';
 
           if (gameA < gameB) {
