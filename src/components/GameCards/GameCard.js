@@ -60,7 +60,7 @@ export default {
       if (this.releaseDate > 1) {
         return `Releases in ${this.releaseDate} days`;
       } else if (this.releaseDate === 1) {
-        return "Releases tomorrow";
+        return 'Releases tomorrow';
       }
 
       return this.releaseDate;
