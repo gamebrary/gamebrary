@@ -187,9 +187,9 @@ export default {
       sortOrders: {
         sortByName: 'fas fa-sort-alpha-down',
         sortByRating: 'fas fa-star',
+        sortByReleaseDate: 'fas fa-calendar-alt',
         sortByProgress: 'fas fa-clock',
         sortByCustom: 'fas fa-user',
-        sortByReleaseDate: 'fas fa-calendar-alt',
       },
     };
   },
