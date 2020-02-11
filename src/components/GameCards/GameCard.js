@@ -62,7 +62,7 @@ export default {
       } else if (this.releaseDate === 1) {
         return `Release in ${this.releaseDate} day`;
       }
-      
+
       return this.releaseDate;
     },
 
