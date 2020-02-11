@@ -9,6 +9,8 @@
       @click="openDetails"
     >
 
+    <i class="fas fa-grip-vertical draggable-icon game-drag-handle" />
+
     <game-progress
       v-if="gameProgress"
       small
@@ -55,6 +57,18 @@ export default {
     position: absolute;
     bottom: $gp / 6;
     left: $gp / 2;
+  }
+
+  .draggable-icon {
+    @include drag-cursor;
+    position: absolute;
+    color: #e5e5e5;
+    right: $gp / 3;
+    top: $gp / 3;
+
+    &:hover {
+      color: #a5a2a2;
+    }
   }
 }
 </style>

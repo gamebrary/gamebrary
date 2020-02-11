@@ -19,9 +19,15 @@
       <list-settings-modal :list-index="listIndex" />
     </header>
 
-    <div
+    <draggable
       v-if="view === 'masonry'"
       :class="`game-masonry game-masonry-${listIndex}`"
+      :list="gameList"
+      :id="listIndex"
+      :move="validateMove"
+      v-bind="gameDraggableOptions"
+      @end="dragEnd"
+      @start="dragStart"
     >
       <component
         v-for="game in gameList"
@@ -31,7 +37,7 @@
         :game-id="game"
         :list-id="listIndex"
       />
-    </div>
+    </draggable>
 
     <draggable
       v-else
