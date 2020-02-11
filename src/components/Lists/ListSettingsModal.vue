@@ -79,12 +79,22 @@
       </section>
 
       <section v-if="localList.view === 'grid'">
-        <h4>Hide game info</h4>
+        <h4>Compact grid view</h4>
 
         <toggle-switch
           id="gameInfo"
           @change="save"
           v-model="localList.hideGameInfo"
+        />
+      </section>
+
+      <section :class="{ disabled: !localList.hideGameInfo }" v-if="localList.view === 'grid'">
+        <h4>Hide game info on top of game covers</h4>
+
+        <toggle-switch
+          id="hideGameInfoOnCover"
+          @change="save"
+          v-model="localList.hideGameInfoOnCover"
         />
       </section>
 

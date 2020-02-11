@@ -24,6 +24,10 @@ export default {
       return this.list && !this.list.hideGameInfo;
     },
 
+    showGameInfoOnCover() {
+      return this.list && !this.list.hideGameInfoOnCover;
+    },
+
     gameProgress() {
       return this.game
         && this.platform
@@ -32,7 +36,7 @@ export default {
     },
 
     gameCardClass() {
-      const badge = this.gameProgress === '100'
+      const badge = this.showGameInfoOnCover && this.gameProgress === '100'
         ? 'badge'
         : '';
 

@@ -7,16 +7,13 @@
     >
 
     <game-progress
-      v-if="!showGameInfo && gameProgress"
+      v-if="!showGameInfo && showGameInfoOnCover && gameProgress"
       small
       :progress="gameProgress"
       @click.native="openDetails"
     />
 
-    <i
-      v-if="!showGameInfo"
-      class="fas fa-grip-vertical draggable-icon game-drag-handle"
-    />
+    <i class="fas fa-grip-vertical draggable-icon game-drag-handle" />
 
     <div
       v-if="showGameInfo"
