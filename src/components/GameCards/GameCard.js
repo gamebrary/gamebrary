@@ -36,13 +36,9 @@ export default {
     },
 
     gameCardClass() {
-      let badge = '';
-
-      if (this.showGameInfoOnCover) {
-        badge = this.gameProgress === '100'
-          ? 'badge'
-          : '';
-      }
+      const badge = this.showGameInfoOnCover && this.gameProgress === '100'
+        ? 'badge'
+        : '';
 
       return [
         'game-card',
