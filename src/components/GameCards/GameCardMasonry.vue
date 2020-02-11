@@ -10,7 +10,7 @@
     >
 
     <game-progress
-      v-if="gameProgress"
+      v-if="showGameInfoOnCover && gameProgress"
       small
       :progress="gameProgress"
       :view="list.view"
@@ -18,7 +18,7 @@
     />
 
     <span
-      v-if="releaseDate"
+      v-if="showGameInfoOnCover && releaseDate"
       v-text="releaseDate"
       class="release-date drag-filter"
     >
