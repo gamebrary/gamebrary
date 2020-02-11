@@ -88,7 +88,10 @@
         />
       </section>
 
-      <section :class="{ disabled: !localList.hideGameInfo }" v-if="localList.view === 'grid' || localList.view === 'masonry'">
+      <section
+        :class="{disabled: !localList.hideGameInfo }"
+        v-if="localList.view === 'grid' || localList.view === 'masonry'"
+      >
         <h4>Hide game info on top of game covers</h4>
 
         <toggle-switch
