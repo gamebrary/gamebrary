@@ -85,7 +85,7 @@ export default {
       width: 100%;
       margin: $gp / 4 0;
       overflow: hidden;
-      border-radius: var(--border-radius) / 2;
+      border-radius: var(--border-radius);
     }
 
     .progress-bar-label {

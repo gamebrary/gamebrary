@@ -13,6 +13,13 @@
       @click.native="openDetails"
     />
 
+    <span
+      v-if="!showGameInfo && showGameInfoOnCover && releaseDate"
+      v-text="releaseDate"
+      class="release-date drag-filter"
+    >
+    </span>
+
     <i class="fas fa-grip-vertical draggable-icon game-drag-handle" />
 
     <div
@@ -129,11 +136,37 @@ export default {
       position: absolute;
       bottom: $gp / 6;
       left: $gp / 2;
+
+      + .release-date {
+        margin: 0;
+        position: absolute;
+        bottom: $gp * 1.5;
+        right: $gp / 2;
+        padding: $gp / 6 $gp / 4;
+        background: var(--list-background);
+      }
+    }
+
+    + .release-date {
+      margin: 0;
+      position: absolute;
+      bottom: $gp / 2;
+      right: $gp / 2;
+      padding: $gp / 6 $gp / 4;
+      background: var(--list-background);
     }
   }
 
   progress {
     max-width: 100%;
+  }
+
+  .release-date {
+    color: var(--accent-color);
+    font-weight: bold;
+    justify-self: end;
+    margin: $gp / 4 0;
+    border-radius: var(--border-radius);
   }
 
   .game-info {
@@ -172,12 +205,6 @@ export default {
     .game-rating, a {
       display: inline-flex;
       font-weight: bold;
-    }
-
-    .release-date {
-      color: var(--accent-color);
-      justify-self: end;
-      margin: $gp / 4 0;
     }
 
     &:hover {
