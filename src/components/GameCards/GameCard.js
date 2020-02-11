@@ -58,9 +58,9 @@ export default {
 
     releaseDateText() {
       if (this.releaseDate > 1) {
-        return `Release in ${this.releaseDate} days`;
+        return `Releases in ${this.releaseDate} days`;
       } else if (this.releaseDate === 1) {
-        return `Release in ${this.releaseDate} day`;
+        return `Releases tomorrow`;
       }
 
       return this.releaseDate;
