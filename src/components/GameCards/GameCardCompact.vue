@@ -16,13 +16,21 @@
 
       <i class="fas fa-grip-vertical draggable-icon game-drag-handle" />
 
-      <game-rating
-        v-if="showGameRatings"
-        :rating="game.rating"
-        small
-        class="drag-filter"
-        @click.native="openDetails"
-      />
+      <div class="rating-release">
+        <game-rating
+          v-if="showGameRatings"
+          :rating="game.rating"
+          small
+          class="drag-filter"
+          @click.native="openDetails"
+        />
+
+        <span
+          v-text="releaseDate"
+          class="release-date drag-filter"
+        >
+        </span>
+      </div>
 
       <game-progress
         v-if="gameProgress"
@@ -134,9 +142,21 @@ export default {
         right: $gp / 4;
       }
 
+      .rating-release {
+        width: 100%;
+        display: grid;
+        grid-auto-flow: column;
+      }
+
       .game-rating, a {
         display: inline-flex;
         font-weight: bold;
+      }
+
+      .release-date {
+        color: var(--accent-color);
+        justify-self: end;
+        margin: $gp / 4 0;
       }
 
       &:hover {

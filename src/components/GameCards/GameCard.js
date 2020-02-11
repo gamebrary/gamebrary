@@ -35,6 +35,23 @@ export default {
         && this.progresses[this.platform.code][this.game.id];
     },
 
+    releaseDate() {
+      const releaseDate = this.game
+        && this.game.release_dates
+        && this.game.release_dates.filter(({ platform }) => this.platform.id === platform)
+        && this.game.release_dates.filter(({ platform }) => this.platform.id === platform)[0].date;
+
+      const milisecUntil = releaseDate - Math.floor(Date.now() / 1000);
+
+      if (milisecUntil > 0) {
+        return Math.round(milisecUntil / (60 * 60 * 24));
+      } else if (milisecUntil < 0) {
+        return '';
+      }
+
+      return 'TBA';
+    },
+
     gameCardClass() {
       const badge = this.showGameInfoOnCover && this.gameProgress === '100'
         ? 'badge'

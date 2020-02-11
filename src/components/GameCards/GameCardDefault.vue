@@ -25,13 +25,21 @@
         @click.native="openDetails"
       />
 
-      <game-rating
-        v-if="showGameRatings"
-        :rating="game.rating"
-        small
-        class="drag-filter"
-        @click.native="openDetails"
-      />
+      <div class="rating-release">
+        <game-rating
+          v-if="showGameRatings"
+          :rating="game.rating"
+          small
+          class="drag-filter"
+          @click.native="openDetails"
+        />
+
+        <span
+          v-text="releaseDate"
+          class="release-date drag-filter"
+        >
+        </span>
+      </div>
 
       <i
         v-if="note"
@@ -137,10 +145,22 @@ export default {
         right: $gp / 4;
       }
 
+      .rating-release {
+        width: 100%;
+        display: grid;
+        grid-auto-flow: column;
+      }
+
       .game-progress,
       .game-rating, a {
         display: inline-flex;
         font-weight: bold;
+      }
+
+      .release-date {
+        color: var(--accent-color);
+        justify-self: end;
+        margin: $gp / 4 0;
       }
 
       &:hover {
