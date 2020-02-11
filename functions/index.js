@@ -44,6 +44,7 @@ exports.games = functions.https.onRequest((req, res) => {
     name,
     slug,
     rating,
+    release_dates.*,
     name,
     cover.image_id;
 
