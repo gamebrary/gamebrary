@@ -26,6 +26,7 @@
         />
 
         <span
+          v-if="releaseDate"
           v-text="releaseDate"
           class="release-date drag-filter"
         >
