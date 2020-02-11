@@ -235,6 +235,10 @@ export default {
     hideGameInfo() {
       return this.list[this.listIndex].hideGameInfo || false;
     },
+
+    hideGameInfoOnCover() {
+      return this.list[this.listIndex].hideGameInfoOnCover || false;
+    },
   },
 
   watch: {
