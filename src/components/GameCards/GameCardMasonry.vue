@@ -18,7 +18,7 @@
     />
 
     <span
-      v-if="showGameInfoOnCover && releaseDate"
+      v-if="showReleaseDates && showGameInfoOnCover && releaseDate"
       v-text="releaseDate"
       class="release-date drag-filter"
     >

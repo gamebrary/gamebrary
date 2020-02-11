@@ -133,6 +133,16 @@
         />
       </section>
 
+      <section>
+        <h4>Hide days until release</h4>
+
+        <toggle-switch
+          id="releaseDates"
+          @change="save"
+          v-model="localList.hideReleaseDates"
+        />
+      </section>
+
       <footer>
         <modal
           v-if="localList && localList.games && localList.games.length"

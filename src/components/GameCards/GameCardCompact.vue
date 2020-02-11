@@ -26,7 +26,7 @@
         />
 
         <span
-          v-if="releaseDate"
+          v-if="showReleaseDates && releaseDate"
           v-text="releaseDate"
           class="release-date drag-filter"
         >

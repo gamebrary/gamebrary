@@ -225,6 +225,10 @@ export default {
       return this.list[this.listIndex].hideGameRatings || false;
     },
 
+    hideReleaseDates() {
+      return this.list[this.listIndex].hideReleaseDates || false;
+    },
+
     hideGameInfo() {
       return this.list[this.listIndex].hideGameInfo || false;
     },

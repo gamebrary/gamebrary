@@ -20,6 +20,10 @@ export default {
       return this.game.rating && this.list && !this.list.hideGameRatings;
     },
 
+    showReleaseDates() {
+      return this.releaseDate && this.list && !this.list.hideReleaseDates;
+    },
+
     showGameInfo() {
       return this.list && !this.list.hideGameInfo;
     },
