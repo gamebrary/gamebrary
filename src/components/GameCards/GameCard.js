@@ -56,6 +56,16 @@ export default {
       return 'TBA';
     },
 
+    releaseDateText() {
+      if (this.releaseDate > 1) {
+        return `Release in ${this.releaseDate} days`;
+      } else if (this.releaseDate === 1) {
+        return `Release in ${this.releaseDate} day`;
+      }
+      
+      return this.releaseDate;
+    },
+
     gameCardClass() {
       const badge = this.showGameInfoOnCover && this.gameProgress === '100'
         ? 'badge'
