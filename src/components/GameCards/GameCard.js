@@ -45,11 +45,12 @@ export default {
         && this.game.release_dates.filter(({ platform }) => this.platform.id === platform)
         && this.game.release_dates.filter(({ platform }) => this.platform.id === platform)[0].date;
 
-      const milisecUntil = releaseDate - Math.floor(Date.now() / 1000);
+      const daysUntilRelease = Math
+        .round((new Date(releaseDate * 1000) - new Date()) / (1000 * 60 * 60 * 24));
 
-      if (milisecUntil > 0) {
-        return Math.round(milisecUntil / (60 * 60 * 24));
-      } else if (milisecUntil < 0) {
+      if (daysUntilRelease > 0) {
+        return daysUntilRelease;
+      } else if (daysUntilRelease < 0) {
         return '';
       }
 
