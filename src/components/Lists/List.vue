@@ -30,7 +30,7 @@
       @start="dragStart"
     >
       <component
-        v-for="game in gameList"
+        v-for="game in sortedGames"
         :is="gameCardComponent"
         :key="`masonry-${game}`"
         :id="game"
