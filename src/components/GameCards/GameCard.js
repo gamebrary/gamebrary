@@ -48,8 +48,8 @@ export default {
       const daysUntilRelease = Math
         .round((new Date(releaseDate * 1000) - new Date()) / (1000 * 60 * 60 * 24));
 
-      if (daysUntilRelease > 0) {
-        return daysUntilRelease;
+      if (daysUntilRelease >= 0) {
+        return `${daysUntilRelease}`;
       } else if (daysUntilRelease < 0) {
         return '';
       }
