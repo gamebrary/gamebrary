@@ -46,7 +46,7 @@ export default {
         && this.game.release_dates.filter(({ platform }) => this.platform.id === platform)[0].date;
 
       const daysUntilRelease = Math
-        .round((new Date(releaseDate * 1000) - new Date()) / (1000 * 60 * 60 * 24));
+        .ceil((new Date(releaseDate * 1000) - new Date()) / (1000 * 60 * 60 * 24));
 
       if (daysUntilRelease >= 0) {
         return `${daysUntilRelease}`;
@@ -60,9 +60,9 @@ export default {
     releaseDateText() {
       if (this.releaseDate > 1) {
         return `Releases in ${this.releaseDate} days`;
-      } else if (this.releaseDate == 1) {
+      } else if (this.releaseDate === '1') {
         return 'Releases tomorrow';
-      } else if (this.releaseDate == 0) {
+      } else if (this.releaseDate === '0') {
         return 'Releases today';
       }
 
