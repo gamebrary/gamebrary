@@ -62,9 +62,9 @@ export default {
         return `Releases in ${this.releaseDate} days`;
       } else if (this.releaseDate === '1') {
         return 'Releases tomorrow';
-      } else if (this.releaseDate === '0' && new Date().getHours() !== 12) {
+      } else if (this.releaseDate === '0' && new Date().getHours() < 15) {
         return 'Releases today';
-      } else if (this.releaseDate === '0' && new Date().getHours() === 15) {
+      } else if (this.releaseDate === '0') {
         return 'Released today';
       }
 
