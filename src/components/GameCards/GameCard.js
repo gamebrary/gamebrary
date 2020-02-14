@@ -48,26 +48,26 @@ export default {
       const daysUntilRelease = Math
         .ceil((new Date(releaseDate * 1000) - new Date()) / (1000 * 60 * 60 * 24));
 
-      if (daysUntilRelease > 0) {
-        return daysUntilRelease;
-      } else if (daysUntilRelease === 0) {
-        return 'Today';
-      } else if (daysUntilRelease < 0) {
-        return '';
+      if (daysUntilRelease >= 0) {
+        return daysUntilRelease === 0
+          ? 'Today'
+          : daysUntilRelease;
       }
 
-      return 'TBA';
+      return daysUntilRelease < 0
+        ? ''
+        : 'TBA';
     },
 
     releaseDateText() {
-      if (this.releaseDate > 1) {
-        return `Releases in ${this.releaseDate} days`;
-      } else if (this.releaseDate === 1) {
-        return 'Releases tomorrow';
-      } else if (this.releaseDate === 'Today' && new Date().getHours() < 15) {
-        return 'Releases today';
+      if (this.releaseDate >= 1) {
+        return this.releaseDate === 1
+          ? 'Releases tomorrow'
+          : `Releases in ${this.releaseDate} days`;
       } else if (this.releaseDate === 'Today') {
-        return 'Released today';
+        return new Date().getHours() < 15
+          ? 'Releases today'
+          : 'Released today';
       }
 
       return this.releaseDate;
