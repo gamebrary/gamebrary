@@ -1,8 +1,8 @@
 {
     "global": {
-        "back": "Z powrotem",
+        "back": "Plecy",
         "save": "Zapisać",
-        "cancel": "anulować",
+        "cancel": "Anuluj",
         "create": "Stwórz",
         "filter": "Filtr",
         "by": "przez",
@@ -42,7 +42,7 @@
     },
     "sessionExpired": {
         "title": "Sesja wygasła",
-        "login": "Zaloguj Się",
+        "login": "Zaloguj sie",
         "exit": "Wyjście"
     },
     "gameDetail": {
@@ -88,7 +88,7 @@
         "input": "Wpisz własne",
         "add": "Dodaj listę",
         "duplicateWarning": "Masz już listę o tej nazwie",
-        "getStarted": "Zaczynać!",
+        "getStarted": "Zaczynaj!",
         "addFirstTime": "Witamy, dodaj swoją pierwszą listę!",
         "sortByName": "",
         "sortByProgress": "Postęp",
@@ -100,13 +100,14 @@
         "moveRight": "Ruch w prawo",
         "emptyList": "Ta lista jest pusta",
         "addGame": "Dodaj grę",
+        "addGames": "Dodaj gry do {listName}",
         "view": "Widok listy",
         "moveList": "Przenieś listę",
         "sortList": "Lista automatycznego sortowania",
         "coversSizeTitle": "Obejmuje w poprzek",
         "views": {
             "single": "Domyślna",
-            "wide": "Kompaktowy",
+            "compact": "Kompaktowy",
             "text": "Tylko tekst",
             "masonry": "Kamieniarstwo",
             "grid": "Krata"
@@ -121,8 +122,8 @@
         "account": "Konto",
         "global": "Światowy",
         "reloading": "Ponowne ładowanie ...",
-        "releases": "Prasowe",
-        "newsletter": "Otrzymuj e-maile z aktualizacją (wkrótce)",
+        "releases": "Wydawnictwa",
+        "newsletter": "Otrzymuj e-maile o aktualizacjach (wkrótce)",
         "branding": "Znakowanie platformy (kolory, logo itp.)",
         "language": "Język",
         "languages": {
@@ -176,7 +177,18 @@
         "notes": "Notatki"
     },
     "progresses": {
+        "modalTitle": "Ustaw postęp gry",
         "addProgress": "Dodaj postęp",
+        "updateProgress": "Postęp aktualizacji",
+        "deleteProgress": "Usuń postęp",
         "progresses": "Postęp"
+    },
+    "releaseDates": {
+        "Today": "Dzisiaj",
+        "ReleasesToday": "Wydaje dziś",
+        "ReleasedToday": "Wydany dzisiaj",
+        "ReleasesTomorrow": "Wydaje jutro",
+        "ReleasesInXDays": "Wydawnictwa za {dni} dni",
+        "ToBeAnnounced": "TBA"
     }
 }

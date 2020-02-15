@@ -1,7 +1,7 @@
 {
     "global": {
         "back": "Indietro",
-        "save": "Salvare",
+        "save": "Salva",
         "cancel": "Annulla",
         "create": "Creare",
         "filter": "Filtro",
@@ -100,13 +100,14 @@
         "moveRight": "Vai a destra",
         "emptyList": "Questo elenco è vuoto",
         "addGame": "Aggiungi gioco",
+        "addGames": "Aggiungi giochi a {listName}",
         "view": "Visualizzazione elenco",
         "moveList": "Sposta elenco",
         "sortList": "Elenco di ordinamento automatico",
         "coversSizeTitle": "Copre attraverso",
         "views": {
             "single": "Predefinito",
-            "wide": "Compatto",
+            "compact": "Compatto",
             "text": "Solo testo",
             "masonry": "Opere murarie",
             "grid": "Griglia"
@@ -122,7 +123,7 @@
         "global": "Globale",
         "reloading": "Ricaricamento ...",
         "releases": "Uscite",
-        "newsletter": "Ricevi email di aggiornamento (in arrivo)",
+        "newsletter": "Ricevi email di aggiornamento (presto in arrivo)",
         "branding": "Marchio della piattaforma (colori, logo, ecc ...)",
         "language": "linguaggio",
         "languages": {
@@ -173,10 +174,21 @@
     },
     "notes": {
         "addNote": "Aggiungi nota",
-        "notes": "Gli appunti"
+        "notes": "Appunti"
     },
     "progresses": {
+        "modalTitle": "Imposta i progressi del gioco",
         "addProgress": "Aggiungi progressi",
+        "updateProgress": "Avanzamento dell'aggiornamento",
+        "deleteProgress": "Elimina progressi",
         "progresses": "Progresso"
+    },
+    "releaseDates": {
+        "Today": "Oggi",
+        "ReleasesToday": "Rilasci oggi",
+        "ReleasedToday": "Rilasciato oggi",
+        "ReleasesTomorrow": "Rilascia domani",
+        "ReleasesInXDays": "Rilasci tra {giorni} giorni",
+        "ToBeAnnounced": "TBA"
     }
 }

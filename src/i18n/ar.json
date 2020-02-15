@@ -1,13 +1,13 @@
 {
     "global": {
-        "back": "الى الخلف",
+        "back": "عودة",
         "save": "حفظ",
         "cancel": "إلغاء",
         "create": "خلق",
         "filter": "منقي",
         "by": "بواسطة",
         "no": "لا",
-        "yes": "نعم فعلا",
+        "yes": "نعم",
         "or": "أو",
         "returnHome": "العودة إلى المنزل",
         "pageNotFound": "الصفحة غير موجودة"
@@ -28,7 +28,7 @@
         "computer": "الكمبيوتر المنزلي",
         "releaseYear": "صدر العام",
         "name": "أبجديا",
-        "type": "نوع"
+        "type": "اكتب"
     },
     "igdbCredit": {
         "poweredByIgdb": "مدعوم من IGDB"
@@ -43,7 +43,7 @@
     "sessionExpired": {
         "title": "انتهت الجلسة",
         "login": "تسجيل الدخول",
-        "exit": "ىخرج"
+        "exit": "خروج"
     },
     "gameDetail": {
         "videos": "أشرطة فيديو",
@@ -51,7 +51,7 @@
         "perspective": "إنطباع",
         "releaseDate": "يوم الاصدار",
         "timeToBeat": "الوقت يداهمك",
-        "gameModes": "وضع اللعب",
+        "gameModes": "نوع اللعبة",
         "genres": "نوع أدبي",
         "gamePlatforms": "متاح أيضًا لـ:",
         "developers": "مطور",
@@ -61,9 +61,9 @@
             "official": "موقع رسمي",
             "wikia": "فندوم",
             "wikipedia": "ويكيبيديا",
-            "facebook": "فيس بوك",
-            "twitter": "تغريد",
-            "twitch": "نشل",
+            "facebook": "موقع التواصل الاجتماعي الفيسبوك",
+            "twitter": "تويتر",
+            "twitch": "تويتش",
             "instagram": "إينستاجرام",
             "youtube": "موقع يوتيوب",
             "iphone": "دائرة الرقابة الداخلية",
@@ -84,7 +84,7 @@
         "type": "نوع القائمة",
         "settings": "قائمة الإعدادات",
         "placeholder": "اكتب اسم قائمتك هنا",
-        "wishlist": "الأماني",
+        "wishlist": "قائمة الرغبات",
         "input": "أدخل بنفسك",
         "add": "اضف قائمة",
         "duplicateWarning": "لديك بالفعل قائمة بهذا الاسم",
@@ -94,22 +94,23 @@
         "sortByProgress": "تقدم",
         "sortByRating": "أحرز هدفا",
         "sortByReleaseDate": "تاريخ",
-        "sortByCustom": "العادة",
+        "sortByCustom": "مخصص",
         "delete": "حذف القائمة",
         "moveLeft": "تحرك يسارا",
         "moveRight": "تحرك يمينا",
         "emptyList": "هذه القائمة فارغة",
         "addGame": "إضافة اللعبة",
+        "addGames": "إضافة ألعاب إلى {listName}",
         "view": "عرض القائمة",
         "moveList": "نقل القائمة",
         "sortList": "قائمة الفرز التلقائي",
         "coversSizeTitle": "يغطي عبر",
         "views": {
-            "single": "افتراضي",
-            "wide": "المدمج",
+            "single": "إفتراضي",
+            "compact": "المدمج",
             "text": "نص فقط",
             "masonry": "ماسونية",
-            "grid": "شبكة"
+            "grid": "جريد"
         }
     },
     "settings": {
@@ -128,10 +129,10 @@
         "languages": {
             "en": "الإنجليزية",
             "es": "الأسبانية",
-            "pl": "البولندي",
+            "pl": "تلميع",
             "de": "ألمانية",
             "ar": "عربى",
-            "fr": "الفرنسية",
+            "fr": "فرنسي",
             "it": "الإيطالي",
             "eu": "الباسكي",
             "cs": "تشيكي",
@@ -143,7 +144,7 @@
         "signOut": "خروج",
         "wallpaper": {
             "title": "تحميل خلفية",
-            "transparency": "اسمح بالشفافية",
+            "transparency": "السماح بالشفافية",
             "currentWallpaper": "خلفية الحالية",
             "wallpaper": "ورق الجدران",
             "removeWallpaper": "إزالة خلفية"
@@ -176,7 +177,18 @@
         "notes": "ملاحظات"
     },
     "progresses": {
+        "modalTitle": "ضبط تقدم اللعبة",
         "addProgress": "إضافة التقدم",
+        "updateProgress": "كم لم ترسلها",
+        "deleteProgress": "حذف التقدم",
         "progresses": "تقدم"
+    },
+    "releaseDates": {
+        "Today": "اليوم",
+        "ReleasesToday": "النشرات اليوم",
+        "ReleasedToday": "صدر اليوم",
+        "ReleasesTomorrow": "إصدارات غدا",
+        "ReleasesInXDays": "الإصدارات في {أيام}",
+        "ToBeAnnounced": "TBA"
     }
 }

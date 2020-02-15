@@ -49,14 +49,14 @@ export default {
 
       let daysUntilRelease = releaseDate.date
         ? Math.ceil(moment.unix(releaseDate.date).diff(moment(), 'days', true))
-        : 'TBA';
+        : this.$t('releaseDates.ToBeAnnounced');
 
       daysUntilRelease = daysUntilRelease < 0
         ? ''
         : daysUntilRelease;
 
       daysUntilRelease = daysUntilRelease >= 0 && daysUntilRelease === 0
-        ? 'Today'
+        ? this.$t('releaseDates.Today')
         : daysUntilRelease;
 
       return daysUntilRelease;
@@ -65,12 +65,12 @@ export default {
     releaseDateText() {
       if (this.releaseDate >= 1) {
         return this.releaseDate === 1
-          ? 'Releases tomorrow'
-          : `Releases in ${this.releaseDate} days`;
-      } else if (this.releaseDate === 'Today') {
+          ? this.$t('releaseDates.ReleasesTomorrow')
+          : this.$t('releaseDates.ReleasesInXDays', { days: this.releaseDate });
+      } else if (this.releaseDate === this.$t('releaseDates.Today')) {
         return new Date().getHours() < 15
-          ? 'Releases today'
-          : 'Released today';
+          ? this.$t('releaseDates.ReleasesToday')
+          : this.$t('releaseDates.ReleasedToday');
       }
 
       return this.releaseDate;

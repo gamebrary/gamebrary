@@ -5,8 +5,8 @@
         "cancel": "キャンセル",
         "create": "作成する",
         "filter": "フィルタ",
-        "by": "によって",
-        "no": "いや",
+        "by": "沿って",
+        "no": "番号",
         "yes": "はい",
         "or": "または",
         "returnHome": "帰宅",
@@ -19,7 +19,7 @@
         "published": "{date}を公開しました"
     },
     "platforms": {
-        "donateMessage": "Gamebraryは無料でオープンソースです。その開発を支援することを検討してください",
+        "donateMessage": "Gamebraryは無料でオープンソースです。",
         "donating": "寄付",
         "reportBugs": "バグを報告する",
         "submitFeedback": "フィードバックを送信する",
@@ -42,7 +42,7 @@
     },
     "sessionExpired": {
         "title": "セッションの有効期限が切れ",
-        "login": "ログイン",
+        "login": "ログインする",
         "exit": "出口"
     },
     "gameDetail": {
@@ -53,16 +53,16 @@
         "timeToBeat": "ビートする時間",
         "gameModes": "ゲームモード",
         "genres": "ジャンル",
-        "gamePlatforms": "以下にも利用可能：",
+        "gamePlatforms": "また利用可能：",
         "developers": "開発者",
         "publishers": "出版社",
         "removeFromList": "削除する",
         "links": {
-            "official": "公式サイト",
+            "official": "オフィシャルサイト",
             "wikia": "ファンダム",
             "wikipedia": "ウィキペディア",
             "facebook": "フェイスブック",
-            "twitter": "Twitter",
+            "twitter": "ツイッター",
             "twitch": "けいれん",
             "instagram": "Instagram",
             "youtube": "Youtube",
@@ -100,13 +100,14 @@
         "moveRight": "右に動く",
         "emptyList": "このリストは空です",
         "addGame": "ゲームを追加",
+        "addGames": "{listName}にゲームを追加します",
         "view": "リストビュー",
         "moveList": "リストを移動する",
         "sortList": "自動ソートリスト",
         "coversSizeTitle": "全体をカバー",
         "views": {
             "single": "デフォルト",
-            "wide": "コンパクト",
+            "compact": "コンパクト",
             "text": "テキストのみ",
             "masonry": "石積み",
             "grid": "グリッド"
@@ -116,7 +117,7 @@
         "about": "約",
         "platforms": "プラットフォーム",
         "gameBoard": "ゲームボード",
-        "public": "パブリック",
+        "public": "公衆",
         "tags": "タグ",
         "account": "アカウント",
         "global": "グローバル",
@@ -132,10 +133,10 @@
             "de": "ドイツ人",
             "ar": "アラビア語",
             "fr": "フランス語",
-            "it": "イタリア語",
+            "it": "イタリアの",
             "eu": "バスク",
             "cs": "チェコ語",
-            "ja": "日本人"
+            "ja": "日本語"
         },
         "ownedLists": "プラットフォームのみを表示する",
         "sortPlatforms": "プラットフォームをアルファベット順に並べ替えます",
@@ -176,7 +177,18 @@
         "notes": "ノート"
     },
     "progresses": {
+        "modalTitle": "ゲームの進行状況を設定する",
         "addProgress": "進行状況を追加",
+        "updateProgress": "進捗状況を更新",
+        "deleteProgress": "進行状況を削除",
         "progresses": "進捗"
+    },
+    "releaseDates": {
+        "Today": "今日",
+        "ReleasesToday": "本日リリース",
+        "ReleasedToday": "本日発売",
+        "ReleasesTomorrow": "明日リリース",
+        "ReleasesInXDays": "{days}日でリリース",
+        "ToBeAnnounced": "TBA"
     }
 }
