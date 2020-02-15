@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
@@ -42,21 +43,28 @@ export default {
     releaseDate() {
       const releaseDate = this.game
         && this.game.release_dates
-        && this.game.release_dates.filter(({ platform }) => this.platform.id === platform)
-        && this.game.release_dates.filter(({ platform }) => this.platform.id === platform)[0].date;
+        && this.game.release_dates.filter(
+          ({ platform }) => this.platform.id === platform,
+        )
+        && this.game.release_dates.filter(
+          ({ platform }) => this.platform.id === platform,
+        )[0].date
 
-      const daysUntilRelease = Math
-        .ceil((new Date(releaseDate * 1000) - new Date()) / (1000 * 60 * 60 * 24));
+      let daysUntilRelease = Math.ceil(moment.unix(releaseDate).diff(moment(), 'days', true));
 
-      if (daysUntilRelease >= 0) {
-        return daysUntilRelease === 0
-          ? 'Today'
-          : daysUntilRelease;
-      }
-
-      return daysUntilRelease < 0
-        ? ''
+      daysUntilRelease = daysUntilRelease
+        ? daysUntilRelease
         : 'TBA';
+
+      daysUntilRelease = daysUntilRelease < 0
+        ? ''
+        : daysUntilRelease;
+      
+      daysUntilRelease = daysUntilRelease >= 0 && daysUntilRelease === 0
+        ? 'Today'
+        : daysUntilRelease;
+
+      return daysUntilRelease;
     },
 
     releaseDateText() {
