@@ -48,13 +48,11 @@ export default {
         )
         && this.game.release_dates.filter(
           ({ platform }) => this.platform.id === platform,
-        )[0].date;
+        )[0];
 
-      let daysUntilRelease = Math.ceil(moment.unix(releaseDate).diff(moment(), 'days', true));
-
-      if (!daysUntilRelease) {
-        daysUntilRelease = 'TBA';
-      }
+      let daysUntilRelease = releaseDate.date
+        ? Math.ceil(moment.unix(releaseDate.date).diff(moment(), 'days', true))
+        : 'TBA';
 
       daysUntilRelease = daysUntilRelease < 0
         ? ''
