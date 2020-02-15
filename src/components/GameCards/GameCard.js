@@ -43,12 +43,9 @@ export default {
     releaseDate() {
       const releaseDate = this.game
         && this.game.release_dates
-        && this.game.release_dates.filter(
+        && this.game.release_dates.find(
           ({ platform }) => this.platform.id === platform,
-        )
-        && this.game.release_dates.filter(
-          ({ platform }) => this.platform.id === platform,
-        )[0];
+        );
 
       let daysUntilRelease = releaseDate.date
         ? Math.ceil(moment.unix(releaseDate.date).diff(moment(), 'days', true))
