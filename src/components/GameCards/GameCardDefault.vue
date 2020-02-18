@@ -17,6 +17,13 @@
 
       <i class="fas fa-grip-vertical draggable-icon game-drag-handle" />
 
+      <span
+        v-if="showReleaseDates && releaseDate"
+        v-text="releaseDateText"
+        class="release-date drag-filter"
+      >
+      </span>
+
       <game-progress
         v-if="gameProgress"
         small
@@ -141,6 +148,11 @@ export default {
       .game-rating, a {
         display: inline-flex;
         font-weight: bold;
+      }
+
+      .release-date {
+        color: var(--accent-color);
+        margin: $gp / 4 0;
       }
 
       &:hover {

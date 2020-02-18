@@ -100,13 +100,14 @@
         "moveRight": "Pohyb vpravo",
         "emptyList": "Tento seznam je prázdný",
         "addGame": "Přidat hru",
+        "addGames": "Přidat hry do {listName}",
         "view": "Zobrazení seznamu",
         "moveList": "Přesunout seznam",
         "sortList": "Seznam automatického třídění",
         "coversSizeTitle": "Přikrývá se",
         "views": {
             "single": "Výchozí",
-            "wide": "Kompaktní",
+            "compact": "Kompaktní",
             "text": "Pouze text",
             "masonry": "Zdivo",
             "grid": "Mřížka"
@@ -158,14 +159,14 @@
         "title": "Herní štítky",
         "addTag": "Přidat značku",
         "createTag": "Vytvořit značku",
-        "inputPlaceholder": "Název značky",
+        "inputPlaceholder": "Název štítku",
         "editTags": "Úpravy herních značek",
         "message": "Kliknutím na značku ji přidáte do <a>{gameName}</a> . Klikněte na <i class=\"fas fa-times close\"></i> odebrat značku.",
         "settingsMessage": "Existující značky můžete přidat nebo upravit v nastavení."
     },
     "gameSearch": {
         "title": "Přidejte hry do",
-        "inputPlaceholder": "Hledej zde",
+        "inputPlaceholder": "Hledej tady",
         "alreadyInList": "z výsledků vyhledávání již ve vašem seznamu",
         "noResultsFound": "Žádné výsledky",
         "missingGame": "Chybí vám hra? Pomozte komunitě a",
@@ -176,7 +177,18 @@
         "notes": "Poznámky"
     },
     "progresses": {
+        "modalTitle": "Nastavit postup hry",
         "addProgress": "Přidejte pokrok",
+        "updateProgress": "Aktualizace průběhu",
+        "deleteProgress": "Smazat pokrok",
         "progresses": "Pokrok"
+    },
+    "releaseDates": {
+        "Today": "Dnes",
+        "ReleasesToday": "Vydání dnes",
+        "ReleasedToday": "Vydáno dnes",
+        "ReleasesTomorrow": "Vydání zítra",
+        "ReleasesInXDays": "Vydání za {dny} dní",
+        "ToBeAnnounced": "TBA"
     }
 }

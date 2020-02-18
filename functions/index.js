@@ -14,7 +14,7 @@ exports.search = functions.https.onRequest((req, res) => {
 
     const data = `
     search "${search}";
-    fields id,name,slug,rating,name,cover.image_id;
+    fields id,name,slug,rating,release_dates.*,name,cover.image_id;
     limit 50;
     where platforms = (${platform});`
 

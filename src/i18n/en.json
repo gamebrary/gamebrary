@@ -182,5 +182,13 @@
     "updateProgress": "Update progress",
     "deleteProgress": "Delete progress",
     "progresses": "Progress"
+  },
+  "releaseDates": {
+    "Today": "Today",
+    "ReleasesToday": "Releases today",
+    "ReleasedToday": "Released today",
+    "ReleasesTomorrow": "Releases tomorrow",
+    "ReleasesInXDays": "Releases in {days} days",
+    "ToBeAnnounced": "TBA"
   }
 }

@@ -9,15 +9,22 @@
       @click="openDetails"
     >
 
-    <i class="fas fa-grip-vertical draggable-icon game-drag-handle" />
-
     <game-progress
-      v-if="gameProgress"
+      v-if="showGameInfoOnCover && gameProgress"
       small
       :progress="gameProgress"
       :view="list.view"
       @click.native="openDetails"
     />
+
+    <span
+      v-if="showReleaseDates && showGameInfoOnCover && releaseDate"
+      v-text="releaseDate"
+      class="release-date drag-filter"
+    >
+    </span>
+
+    <i class="fas fa-grip-vertical draggable-icon game-drag-handle" />
   </div>
 </template>
 
@@ -50,6 +57,15 @@ export default {
   img {
     width: 100%;
     height: auto;
+
+    + .release-date {
+      margin: 0;
+      position: absolute;
+      bottom: $gp / 4;
+      right: $gp / 4;
+      padding: $gp / 8 $gp / 6;
+      background: var(--list-background);
+    }
   }
 
   .game-progress {
@@ -57,6 +73,24 @@ export default {
     position: absolute;
     bottom: $gp / 6;
     left: $gp / 2;
+
+    + .release-date {
+      margin: 0;
+      position: absolute;
+      bottom: $gp * 1.5;
+      right: $gp / 2;
+      padding: $gp / 8 $gp / 6;
+      background: var(--list-background);
+    }
+  }
+
+  .release-date {
+    color: var(--accent-color);
+    font-size: $font-size-xsmall;
+    font-weight: bold;
+    justify-self: end;
+    margin: $gp / 4 0;
+    border-radius: calc(var(--border-radius) / 2);
   }
 
   .draggable-icon {

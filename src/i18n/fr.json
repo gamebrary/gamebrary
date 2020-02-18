@@ -1,7 +1,7 @@
 {
     "global": {
         "back": "Retour",
-        "save": "sauver",
+        "save": "sauvegarder",
         "cancel": "Annuler",
         "create": "Créer",
         "filter": "Filtre",
@@ -62,7 +62,7 @@
             "wikia": "Fandom",
             "wikipedia": "Wikipédia",
             "facebook": "Facebook",
-            "twitter": "Gazouillement",
+            "twitter": "Twitter",
             "twitch": "Tic",
             "instagram": "Instagram",
             "youtube": "Youtube",
@@ -93,20 +93,21 @@
         "sortByName": "LA",
         "sortByProgress": "Le progrès",
         "sortByRating": "But",
-        "sortByReleaseDate": "Rendez-vous amoureux",
+        "sortByReleaseDate": "Date",
         "sortByCustom": "Douane",
         "delete": "Supprimer la liste",
         "moveLeft": "Se déplacer à gauche",
         "moveRight": "Déplacer vers la droite",
         "emptyList": "Cette liste est vide",
         "addGame": "Ajouter un jeu",
-        "view": "Affichage liste",
+        "addGames": "Ajouter des jeux à {listName}",
+        "view": "Vue liste",
         "moveList": "Déplacer la liste",
         "sortList": "Liste de tri automatique",
         "coversSizeTitle": "Couvre à travers",
         "views": {
             "single": "Défaut",
-            "wide": "Compact",
+            "compact": "Compact",
             "text": "Texte seulement",
             "masonry": "Maçonnerie",
             "grid": "la grille"
@@ -123,11 +124,11 @@
         "reloading": "Rechargement ...",
         "releases": "Communiqués",
         "newsletter": "Recevez des e-mails de mise à jour (à venir bientôt)",
-        "branding": "Marque de la plateforme (couleurs, logo, etc ...)",
-        "language": "La langue",
+        "branding": "Marquage de la plateforme (couleurs, logo, etc ...)",
+        "language": "Langue",
         "languages": {
             "en": "Anglais",
-            "es": "Espanol",
+            "es": "Espagnol",
             "pl": "polonais",
             "de": "allemand",
             "ar": "arabe",
@@ -176,7 +177,18 @@
         "notes": "Remarques"
     },
     "progresses": {
+        "modalTitle": "Définir la progression du jeu",
         "addProgress": "Ajouter des progrès",
+        "updateProgress": "Progression de la mise à jour",
+        "deleteProgress": "Supprimer la progression",
         "progresses": "Le progrès"
+    },
+    "releaseDates": {
+        "Today": "Aujourd'hui",
+        "ReleasesToday": "Sorties aujourd'hui",
+        "ReleasedToday": "Sorti aujourd'hui",
+        "ReleasesTomorrow": "Sort demain",
+        "ReleasesInXDays": "Sorties dans {jours} jours",
+        "ToBeAnnounced": "TBA"
     }
 }

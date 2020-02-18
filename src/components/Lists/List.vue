@@ -20,28 +20,7 @@
     </header>
 
     <draggable
-      v-if="view === 'masonry'"
-      :class="`game-masonry game-masonry-${listIndex}`"
-      :list="gameList"
-      :id="listIndex"
-      :move="validateMove"
-      v-bind="gameDraggableOptions"
-      @end="dragEnd"
-      @start="dragStart"
-    >
-      <component
-        v-for="game in gameList"
-        :is="gameCardComponent"
-        :key="`masonry-${game}`"
-        :id="game"
-        :game-id="game"
-        :list-id="listIndex"
-      />
-    </draggable>
-
-    <draggable
-      v-else
-      class="games"
+      :class="gamesClass"
       :list="gameList"
       :id="listIndex"
       :move="validateMove"
@@ -221,8 +200,18 @@ export default {
       return this.list[this.listIndex].view || 'single';
     },
 
+    gamesClass() {
+      return this.list[this.listIndex].view === 'masonry'
+        ? `game-masonry game-masonry-${this.listIndex}`
+        : 'games';
+    },
+
     hideGameRatings() {
       return this.list[this.listIndex].hideGameRatings || false;
+    },
+
+    hideReleaseDates() {
+      return this.list[this.listIndex].hideReleaseDates || false;
     },
 
     hideGameInfo() {

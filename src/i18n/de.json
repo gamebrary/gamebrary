@@ -23,7 +23,7 @@
         "donating": "spenden",
         "reportBugs": "Fehler melden",
         "submitFeedback": "Feedback senden",
-        "home": "Hauptkonsolen",
+        "home": "Heimkonsolen",
         "handheld": "Handhelds",
         "computer": "Heimcomputer",
         "releaseYear": "Jahr veröffentlicht",
@@ -31,11 +31,11 @@
         "type": "Art"
     },
     "igdbCredit": {
-        "poweredByIgdb": "Bereitgestellt von IGDB"
+        "poweredByIgdb": "Powered by IGDB"
     },
     "gameBoard": {
         "settings": {
-            "wallpaper": "Benutzerdefinierte Wallpaper",
+            "wallpaper": "Benutzerdefiniertes Hintergrundbild",
             "shareLink": "Gemeinsam nutzbare Links (experimentell)",
             "dangerZone": "Gefahrenzone"
         }
@@ -56,7 +56,7 @@
         "gamePlatforms": "Auch erhältlich für:",
         "developers": "Entwickler",
         "publishers": "Verlag",
-        "removeFromList": "Löschen",
+        "removeFromList": "Entfernen",
         "links": {
             "official": "Offizielle Seite",
             "wikia": "Fangemeinde",
@@ -80,7 +80,7 @@
         }
     },
     "list": {
-        "edit": "Listenname bearbeiten",
+        "edit": "Listennamen bearbeiten",
         "type": "Listentyp",
         "settings": "Listeneinstellungen",
         "placeholder": "Geben Sie hier Ihren Listennamen ein",
@@ -89,24 +89,25 @@
         "add": "Liste hinzufügen",
         "duplicateWarning": "Sie haben bereits eine Liste mit diesem Namen",
         "getStarted": "Loslegen!",
-        "addFirstTime": "Willkommen, füge deine erste Liste hinzu!",
+        "addFirstTime": "Willkommen, fügen Sie Ihre erste Liste hinzu!",
         "sortByName": "DAS",
         "sortByProgress": "Fortschritt",
         "sortByRating": "Ergebnis",
         "sortByReleaseDate": "Datum",
-        "sortByCustom": "Brauch",
+        "sortByCustom": "Benutzerdefiniert",
         "delete": "Liste löschen",
         "moveLeft": "Geh nach links",
         "moveRight": "Nach rechts bewegen",
         "emptyList": "Diese Liste ist leer",
         "addGame": "Spiel hinzufügen",
+        "addGames": "Spiele zu {listName} hinzufügen",
         "view": "Listenansicht",
         "moveList": "Liste verschieben",
-        "sortList": "Automatische Sortierliste",
-        "coversSizeTitle": "Abdeckungen herüber",
+        "sortList": "Liste der automatischen Sortierung",
+        "coversSizeTitle": "Deckt über",
         "views": {
             "single": "Standard",
-            "wide": "Kompakt",
+            "compact": "Kompakt",
             "text": "Nur Text",
             "masonry": "Mauerwerk",
             "grid": "Gitter"
@@ -121,8 +122,8 @@
         "account": "Konto",
         "global": "Global",
         "reloading": "Neuladen...",
-        "releases": "Releases",
-        "newsletter": "Erhalte Update-E-Mails (in Kürze)",
+        "releases": "Veröffentlichungen",
+        "newsletter": "Erhalten Sie Update-E-Mails (in Kürze)",
         "branding": "Plattform-Branding (Farben, Logo usw.)",
         "language": "Sprache",
         "languages": {
@@ -145,7 +146,7 @@
             "title": "Hintergrundbild hochladen",
             "transparency": "Transparenz zulassen",
             "currentWallpaper": "Aktuelles Hintergrundbild",
-            "wallpaper": "Tapete",
+            "wallpaper": "Hintergrund",
             "removeWallpaper": "Tapete entfernen"
         },
         "deleteAccount": {
@@ -155,12 +156,12 @@
         }
     },
     "tags": {
-        "title": "Spieletags",
+        "title": "Spiel-Tags",
         "addTag": "Tag hinzufügen",
         "createTag": "Tag erstellen",
-        "inputPlaceholder": "Tag name",
+        "inputPlaceholder": "Verlinke den Namen",
         "editTags": "Spiel-Tags bearbeiten",
-        "message": "Klicken Sie auf das Tag, um es zu <a>{gameName} hinzuzufügen</a> . Klicke auf <i class=\"fas fa-times close\"></i> tag entfernen.",
+        "message": "Klicken Sie auf das Tag, um es zu <a>{gameName} hinzuzufügen</a> . Klicke auf <i class=\"fas fa-times close\"></i> Tag entfernen.",
         "settingsMessage": "Sie können vorhandene Tags in den Einstellungen hinzufügen oder bearbeiten."
     },
     "gameSearch": {
@@ -169,14 +170,25 @@
         "alreadyInList": "aus Suchergebnissen, die bereits in Ihrer Liste enthalten sind",
         "noResultsFound": "Keine Ergebnisse",
         "missingGame": "Vermissen Sie ein Spiel? Helfen Sie der Community und",
-        "addToIGDB": "Fügen Sie es zu IGDB hinzu"
+        "addToIGDB": "Fügen Sie es der IGDB hinzu"
     },
     "notes": {
         "addNote": "Notiz hinzufügen",
         "notes": "Anmerkungen"
     },
     "progresses": {
+        "modalTitle": "Spielfortschritt einstellen",
         "addProgress": "Fortschritt hinzufügen",
+        "updateProgress": "Aktualisierungsfortschritt",
+        "deleteProgress": "Fortschritt löschen",
         "progresses": "Fortschritt"
+    },
+    "releaseDates": {
+        "Today": "Heute",
+        "ReleasesToday": "Veröffentlicht heute",
+        "ReleasedToday": "Heute veröffentlicht",
+        "ReleasesTomorrow": "Veröffentlicht morgen",
+        "ReleasesInXDays": "Veröffentlichungen in {Tagen} Tagen",
+        "ToBeAnnounced": "TBA"
     }
 }

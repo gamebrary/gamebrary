@@ -13,6 +13,13 @@
       @click.native="openDetails"
     />
 
+    <span
+      v-if="!showGameInfo && showGameInfoOnCover && showReleaseDates && releaseDate"
+      v-text="releaseDate"
+      class="release-date drag-filter"
+    >
+    </span>
+
     <i class="fas fa-grip-vertical draggable-icon game-drag-handle" />
 
     <div
@@ -25,13 +32,22 @@
           @click="openDetails"
         />
 
-        <game-rating
-          v-if="showGameRatings"
-          :rating="game.rating"
-          small
-          class="drag-filter"
-          @click.native="openDetails"
-        />
+        <div class="rating-release">
+          <game-rating
+            v-if="showGameRatings"
+            :rating="game.rating"
+            small
+            class="drag-filter"
+            @click.native="openDetails"
+          />
+
+          <span
+            v-if="showReleaseDates && releaseDate"
+            v-text="releaseDate"
+            class="release-date drag-filter"
+          >
+          </span>
+        </div>
 
         <game-progress
           v-if="gameProgress"
@@ -121,11 +137,37 @@ export default {
       position: absolute;
       bottom: $gp / 6;
       left: $gp / 2;
+
+      + .release-date {
+        margin: 0;
+        position: absolute;
+        bottom: $gp * 1.5;
+        right: $gp / 2;
+        padding: $gp / 6 $gp / 4;
+        background: var(--list-background);
+      }
+    }
+
+    + .release-date {
+      margin: 0;
+      position: absolute;
+      bottom: $gp / 2;
+      right: $gp / 2;
+      padding: $gp / 6 $gp / 4;
+      background: var(--list-background);
     }
   }
 
   progress {
     max-width: 100%;
+  }
+
+  .release-date {
+    color: var(--accent-color);
+    font-weight: bold;
+    justify-self: end;
+    margin: $gp / 4 0;
+    border-radius: var(--border-radius);
   }
 
   .game-info {
@@ -153,6 +195,12 @@ export default {
       position: absolute;
       bottom: $gp * 1.5;
       right: $gp / 4;
+    }
+
+    .rating-release {
+      width: 100%;
+      display: grid;
+      grid-auto-flow: column;
     }
 
     .game-rating, a {

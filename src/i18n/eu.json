@@ -87,7 +87,7 @@
         "wishlist": "Gustuko",
         "input": "Sartu zurea",
         "add": "Gehitu zerrenda",
-        "duplicateWarning": "Izen horrekin zerrenda bat duzu jada",
+        "duplicateWarning": "Dagoeneko izen hori duen zerrenda duzu",
         "getStarted": "Hasi!",
         "addFirstTime": "Ongi etorri, gehitu zure lehen zerrenda!",
         "sortByName": "THE",
@@ -100,13 +100,14 @@
         "moveRight": "Mugitu eskuinera",
         "emptyList": "Zerrenda hau hutsik dago",
         "addGame": "Gehitu jokoa",
+        "addGames": "Gehitu jokoak {listName} (e) ra jokoak",
         "view": "Zerrenda ikuspegia",
         "moveList": "Mugitu zerrenda",
-        "sortList": "Auto ordenazioen zerrenda",
+        "sortList": "Ordenaketa automatikoen zerrenda",
         "coversSizeTitle": "Estaldurak zehar",
         "views": {
             "single": "Default",
-            "wide": "Compact",
+            "compact": "Compact",
             "text": "Testua soilik",
             "masonry": "Masoneria",
             "grid": "Grid"
@@ -176,7 +177,18 @@
         "notes": "Oharrak"
     },
     "progresses": {
-        "addProgress": "Gehitu aurrerapenak",
+        "modalTitle": "Ezarri jokoaren aurrerapena",
+        "addProgress": "Aurrerapenak gehitu",
+        "updateProgress": "Eguneratu aurrerapen",
+        "deleteProgress": "Ezabatu aurrerapenak",
         "progresses": "Eraikitzen"
+    },
+    "releaseDates": {
+        "Today": "gaur",
+        "ReleasesToday": "Kaleratzeak gaur",
+        "ReleasedToday": "Gaur kaleratua",
+        "ReleasesTomorrow": "Kaleak bihar",
+        "ReleasesInXDays": "Oharrak {egun} egunetan",
+        "ToBeAnnounced": "zehazteke"
     }
 }

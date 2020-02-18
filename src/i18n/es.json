@@ -6,8 +6,8 @@
         "create": "Crear",
         "filter": "Filtrar",
         "by": "por",
-        "no": "no",
-        "yes": "sí",
+        "no": "No",
+        "yes": "si",
         "or": "o",
         "returnHome": "Volver a casa",
         "pageNotFound": "Página no encontrada"
@@ -25,7 +25,7 @@
         "submitFeedback": "enviando comentarios",
         "home": "Consolas para el hogar",
         "handheld": "Dispositivos de mano",
-        "computer": "Computador del hogar",
+        "computer": "Computadora de casa",
         "releaseYear": "Año de lanzamiento",
         "name": "Alfabéticamente",
         "type": "Tipo"
@@ -56,7 +56,7 @@
         "gamePlatforms": "También disponible para:",
         "developers": "Desarrollador",
         "publishers": "Editores",
-        "removeFromList": "retirar",
+        "removeFromList": "Eliminar",
         "links": {
             "official": "Sitio oficial",
             "wikia": "Fandom",
@@ -97,16 +97,17 @@
         "sortByCustom": "Personalizado",
         "delete": "Eliminar lista",
         "moveLeft": "Mover hacia la izquierda",
-        "moveRight": "Moverse a la derecha",
+        "moveRight": "Mover a la derecha",
         "emptyList": "Esta lista esta vacia",
         "addGame": "Agregar juego",
+        "addGames": "Agregar juegos a {listName}",
         "view": "Vista de la lista",
         "moveList": "Mover lista",
         "sortList": "Lista de ordenación automática",
         "coversSizeTitle": "Cubre a través de",
         "views": {
             "single": "Defecto",
-            "wide": "Compacto",
+            "compact": "Compacto",
             "text": "Solo texto",
             "masonry": "Albañilería",
             "grid": "Cuadrícula"
@@ -145,7 +146,7 @@
             "title": "Subir fondo de pantalla",
             "transparency": "Permitir transparencia",
             "currentWallpaper": "Fondo de pantalla actual",
-            "wallpaper": "Papel pintado",
+            "wallpaper": "Fondo de pantalla",
             "removeWallpaper": "Eliminar fondo de pantalla"
         },
         "deleteAccount": {
@@ -160,7 +161,7 @@
         "createTag": "Crear etiqueta",
         "inputPlaceholder": "Nombre de etiqueta",
         "editTags": "Editar etiquetas de juego",
-        "message": "Haga clic en la etiqueta para agregarla a <a>{gameName}</a> . Haga clic en <i class=\"fas fa-times close\"></i> para eliminar la etiqueta",
+        "message": "Haz clic en la etiqueta para agregarla a <a>{gameName}</a> . Haga clic en <i class=\"fas fa-times close\"></i> para eliminar la etiqueta",
         "settingsMessage": "Puede agregar o editar etiquetas existentes en la configuración."
     },
     "gameSearch": {
@@ -176,7 +177,18 @@
         "notes": "Notas"
     },
     "progresses": {
+        "modalTitle": "Establecer progreso del juego",
         "addProgress": "Agregar progreso",
+        "updateProgress": "Progreso de actualización",
+        "deleteProgress": "Eliminar progreso",
         "progresses": "Progreso"
+    },
+    "releaseDates": {
+        "Today": "Hoy",
+        "ReleasesToday": "Lanzamientos hoy",
+        "ReleasedToday": "Lanzado hoy",
+        "ReleasesTomorrow": "Estrenos mañana",
+        "ReleasesInXDays": "Lanzamientos en {días} días",
+        "ToBeAnnounced": "TBA"
     }
 }
