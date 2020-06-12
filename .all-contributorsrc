@@ -133,11 +133,22 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "Bagerian",
+      "name": "Bagerian",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/28718007?v=4",
+      "profile": "https://github.com/Bagerian",
+      "contributions": [
+        "platform",
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
   "projectName": "gamebrary",
   "projectOwner": "romancm",
   "repoType": "github",
-  "repoHost": "https://github.com"
+  "repoHost": "https://github.com",
+  "skipCi": true
 }
