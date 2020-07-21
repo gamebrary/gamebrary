@@ -1,68 +1,62 @@
 <template lang="html">
   <header>
-    <button @click="toggleView" class="primary small">
-      <i :class="viewIcon" />
-    </button>
+    <b-button variant="primary" @click="toggleView">
+      <b-icon-grid />
+      <b-icon-list />
+    </b-button>
 
     <modal
       ref="listAddModal"
       title="Filter and sort platforms"
     >
-      <button class="primary small filter-button">
-
-        <i class="fas fa-filter" :class="{ 'filter-active': filterField }" />
+      <b-button>
+        <i class="fas fa-filter" />
         <span class="indicator" v-if="ownedListsOnly" />
-      </button>
+      </b-button>
 
       <div slot="content">
         <section>
           <h3>Show</h3>
 
-          <button
-            class="primary small"
+          <b-button
             :class="{ secondary: !ownedListsOnly }"
             @click="setOwned(false)"
           >
             All
-          </button>
+          </b-button>
 
-          <button
-            class="primary small"
+          <b-button
             :class="{ secondary: ownedListsOnly }"
             @click="setOwned(true)"
           >
             Mine
-          </button>
+          </b-button>
         </section>
 
         <section>
-          <h3>Filter by</h3>
+          <h5>Filter by</h5>
 
-          <button
-            class="primary small"
-            :class="{ secondary: filter === filterField }"
+          <b-button
             v-for="filter in availableFilters"
             :key="filter"
             @click="setFilter(filter)"
           >
             <span v-if="filter">{{ $t(`platforms.${filter}`) }}</span>
             <span v-else>All</span>
-          </button>
+          </b-button>
         </section>
 
         <section>
           <h3>Sort by</h3>
 
-          <button
-            class="primary small"
-            :class="{ secondary: field === sortField }"
+          <b-button
             v-for="field in availableSortFields"
             :key="field"
             @click="setSortField(field)"
           >
             <span v-if="field">{{ $t(`platforms.${field}`) }}</span>
             <span v-else><i class="fas fa-times" /> Clear field</span>
-          </button>
+          </b-button>
         </section>
       </div>
     </modal>
@@ -182,27 +176,6 @@ header {
   align-items: center;
   margin-bottom: $gp;
   grid-gap: $gp;
-
-  button {
-    margin-right: $gp / 2;
-  }
-}
-
-.filter-button {
-  position: relative;
-  overflow: hidden;
-}
-
-.indicator {
-  position: absolute;
-  top: -10px;
-  right: -15px;
-  width: 30px;
-  height: 20px;
-  transform: rotate(45deg);
-  background: red;
-  border-bottom: 3px solid var(--body-background);
-  background-color: #555;
 }
 
 .filter-active {

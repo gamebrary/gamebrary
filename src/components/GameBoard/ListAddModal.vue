@@ -5,24 +5,14 @@
     class="list-add-modal"
     @open="open"
   >
-    <button
+    <b-button
       :title="$t('list.add')"
-      class="small primary add-list-button"
       ref="addList"
     >
       <i class="fas fa-plus" />
-    </button>
+    </b-button>
 
     <div slot="content">
-      <!-- <div v-if="isEmptyBoard">
-        <h3>Get started with a preset</h3>
-
-        <button class="secondary">Minimalist (Owned / Wishlist)</button>
-        <button class="secondary">Completionist (Owned / Wishlist / Completed)</button>
-
-        <h3>Or create your first list</h3>
-      </div> -->
-
       <form @submit.prevent="addList">
         <input
           ref="listNameInput"
@@ -33,13 +23,12 @@
           required
         >
 
-        <button
+        <b-button
           :disabled="disabled"
-          class="primary"
           type="submit"
         >
           {{ buttonLabel }}
-        </button>
+        </b-button>
 
         <small v-if="isDuplicate">{{ $t('list.duplicateWarning') }}</small>
       </form>
@@ -149,10 +138,6 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
   @import "src/styles/styles.scss";
-
-  .add-list-button {
-    margin-right: $gp;
-  }
 
   small {
     color: var(--warning-color);

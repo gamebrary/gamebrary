@@ -78,13 +78,13 @@
         action-button-class="danger"
         @action="deletePlatform"
       >
-        <button
+        <b-button
           :title="$t('list.delete')"
-          class="small warning"
+          variant="danger"
         >
           <i class="far fa-trash-alt" />
           Delete {{ platform.name }} collection
-        </button>
+        </b-button>
       </modal>
     </div>
   </section>

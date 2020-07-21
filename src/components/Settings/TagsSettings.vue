@@ -5,9 +5,9 @@
         <i class="fas fa-tags" />
         <h5>Tags</h5>
 
-        <button class="primary">
+        <b-button class="primary">
           Manage tags
-        </button>
+        </b-button>
       </div>
 
       <div slot="content">
@@ -59,21 +59,21 @@
           </div>
 
           <div class="tag-actions">
-            <button
+            <b-button
               :disabled="!tagName"
               class="secondary"
               @click="reset"
             >
               <i class="fas fa-redo" />
-            </button>
+            </b-button>
 
-            <button
+            <b-button
               :disabled="isDuplicate"
               class="primary"
               type="submit"
             >
               {{ $t('global.save') }}
-            </button>
+            </b-button>
           </div>
         </form>
 

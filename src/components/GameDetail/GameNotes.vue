@@ -1,9 +1,9 @@
 <!-- TODO: when file management is in place, allow to insert image from your files -->
 <template lang="html">
   <modal title="Game notes" ref="notesModal" @open="reset">
-    <button class="primary" :title="$t('notes.addNote')">
+    <b-button variant="primary" :title="$t('notes.addNote')">
       <i class="fas fa-sticky-note" />
-    </button>
+    </b-button>
 
     <div slot="content" v-if="game" class="game-notes">
       <h3>Add note for {{ game.name }}</h3>
@@ -31,26 +31,25 @@
       </div>
 
       <div class="actions">
-        <button
-          class="primary save"
+        <b-button
+          variant="success"
           :disabled="isEmptyNote"
           @click="saveNote"
         >
           {{ $t('global.save') }}
-        </button>
+        </b-button>
 
-        <button
-          class="primary"
+        <b-button
           v-if="localNote.text"
           @click="togglePreview"
         >
           <i :class="`far fa-eye${showPreview ? '-slash' : ''}`" />
           Toggle preview
-        </button>
+        </b-button>
 
-        <button class="danger" @click="deleteNote">
+        <b-button variant="danger" @click="deleteNote">
           <i class="fas fa-trash-alt" />
-        </button>
+        </b-button>
       </div>
     </div>
   </modal>
@@ -135,19 +134,4 @@ export default {
       margin-bottom: $gp;
     }
   }
-
-  .actions {
-    display: flex;
-    align-items: center;
-    margin-top: $gp;
-
-    .save {
-      margin-right: $gp / 2;
-    }
-
-    .danger {
-      margin-left: auto;
-    }
-  }
-
 </style>

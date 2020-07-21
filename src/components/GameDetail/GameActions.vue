@@ -4,32 +4,30 @@
     <game-notes />
 
     <div v-if="hasTags" class="tags">
-      <button
-        class="primary"
+      <b-button
         :title="$t('tags.addTag')"
         @click="openTags"
       >
         <i class="fas fa-tag" />
-      </button>
+      </b-button>
     </div>
 
-    <button
+    <b-button
       v-if="game && !list.games.includes(game.id)"
-      class="primary"
       :title="$t('list.addGame')"
       @click="addGame"
     >
       <i class="fas fa-plus" />
-    </button>
+    </b-button>
 
-    <button
+    <b-button
       v-else
-      class="danger"
+      variant="danger"
       :title="$t('gameDetail.removeFromList')"
       @click="removeGame"
     >
       <i class="far fa-trash-alt" />
-    </button>
+    </b-button>
   </div>
 </template>
 

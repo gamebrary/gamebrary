@@ -3,12 +3,12 @@
     <h2>{{ $t('sessionExpired.title') }}</h2>
 
     <div class="actions">
-      <button
-        class="success"
+      <b-button
+        variant="success"
         @click="login"
       >
         {{ $t('sessionExpired.login') }}
-      </button>
+      </b-button>
 
       <a
         :href="exitUrl"

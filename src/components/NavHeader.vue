@@ -2,7 +2,8 @@
   <nav>
     <router-link
       :to="{ name: logoRoute }"
-      tag="button"
+      tag="b-button"
+      size="sm"
       class="logo"
     >
       <img src="/static/gamebrary-logo.png" >
@@ -65,23 +66,8 @@ export default {
     justify-content: space-between;
     align-items: center;
     padding: 0 $gp;
-    color: var(--header-text-color);
 
     .logo {
-      height: $navHeight;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      margin-left: -$gp;
-      text-transform: capitalize;
-
-      > span {
-        text-shadow: -1px -1px 0 var(--body-background),
-          1px -1px 0 var(--body-background),
-          -1px 1px 0 var(--body-background),
-          1px 1px 0 var(--body-background);
-      }
-
       img {
         height: 24px;
         margin-right: $gp / 4;

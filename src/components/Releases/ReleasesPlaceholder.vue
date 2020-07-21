@@ -6,7 +6,7 @@
       class="release"
     >
       <div class="release-info">
-        <button
+        <b-button
           class="link info small"
           disabled
         />

@@ -6,9 +6,9 @@
     @open="open"
     @close="close"
   >
-    <button class="small">
+    <b-button size="sm" variant="link">
       <i class="fas fa-cog" />
-    </button>
+    </b-button>
 
     <div
       v-if="localList"
@@ -20,14 +20,12 @@
 
         <input ref="input" v-model="localList.name">
 
-        <button
+        <b-button
           :title="$t('global.save')"
-          class="primary"
-          type="button"
           @click="save"
         >
           {{ $t('global.save') }}
-        </button>
+        </b-button>
       </section>
 
       <section>
@@ -104,8 +102,7 @@
       <section>
         <h4>Move list</h4>
 
-        <button
-          class="primary"
+        <b-button
           :title="$t('list.moveLeft')"
           :disabled="isFirst"
           @click="moveList(listIndex, listIndex - 1)"
@@ -113,17 +110,16 @@
           <i class="fas fa-arrow-left" />
 
           {{ $t('list.moveLeft') }}
-        </button>
+        </b-button>
 
-        <button
-          class="primary"
+        <b-button
           :title="$t('list.moveRight')"
           :disabled="isLast"
           @click="moveList(listIndex, listIndex + 1)"
         >
           {{ $t('list.moveRight') }}
           <i class="fas fa-arrow-right" />
-        </button>
+        </b-button>
       </section>
 
       <section :class="{ disabled: localList.view === 'masonry' }">
@@ -155,24 +151,24 @@
           action-button-class="danger"
           @action="deleteList"
         >
-          <button
+          <b-button
             :title="$t('list.delete')"
-            class="danger"
+            variant="danger"
           >
             <i class="far fa-trash-alt" />
             {{ $t('list.delete') }}
-          </button>
+          </b-button>
         </modal>
 
-        <button
+        <b-button
           v-else
           :title="$t('list.delete')"
-          class="danger"
+          variant="danger"
           @click="deleteList"
         >
           <i class="far fa-trash-alt" />
           {{ $t('list.delete') }}
-        </button>
+        </b-button>
       </footer>
     </div>
   </modal>

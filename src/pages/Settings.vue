@@ -15,12 +15,9 @@
         <i class="fas fa-sign-out-alt" />
         {{ $t('settings.signOut') }}
 
-        <button
-          class="secondary"
-          @click="signOut"
-        >
+        <b-button @click="signOut">
           {{ $t('settings.signOut') }}
-        </button>
+        </b-button>
       </div>
 
       <modal
@@ -33,9 +30,9 @@
           <i class="fas fa-exclamation-triangle" />
           {{ $t('settings.deleteAccount.button') }}
 
-          <button class="danger">
+          <b-button class="danger">
             {{ $t('settings.deleteAccount.button') }}
-          </button>
+          </b-button>
         </div>
       </modal>
     </div>

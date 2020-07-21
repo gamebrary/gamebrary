@@ -1,11 +1,11 @@
 <template lang="html">
   <modal :title="$t('list.addGames', { listName })" @open="clear">
-    <button
+    <b-button
       :title="$t('list.addGames', { listName })"
-      class="add-game-button small secondary"
+      class="add-game-button"
     >
       <i class="fas fa-plus" />
-    </button>
+    </b-button>
 
     <template slot="content">
       <form @submit.prevent="search" class="search-form">
@@ -16,9 +16,9 @@
           type="text"
         >
 
-        <button class="primary" @click="search">
+        <b-button @click="search">
           <i :class="searchIcon" />
-        </button>
+        </b-button>
       </form>
 
       <small

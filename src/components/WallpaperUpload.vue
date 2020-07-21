@@ -42,10 +42,7 @@
       <i class="far fa-image" />
       <h5>{{ $t('settings.wallpaper.title') }}</h5>
 
-      <button
-        class="primary small"
-        @click="triggerUpload"
-      >
+      <b-button @click="triggerUpload">
         <i
           v-if="loading"
           class="fas fa-sync-alt fast-spin"
@@ -55,7 +52,7 @@
           class="fas fa-cloud-upload-alt"
         />
         Upload file
-      </button>
+      </b-button>
 
       <input
         ref="fileInput"

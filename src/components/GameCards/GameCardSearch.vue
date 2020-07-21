@@ -13,12 +13,9 @@
         @click.native="openDetails"
       />
 
-      <button
-        class="primary small add-game-button"
-        @click="addGame"
-      >
+      <b-button @click="addGame">
         {{ $t('list.addGame') }}
-      </button>
+      </b-button>
     </div>
   </div>
 </template>

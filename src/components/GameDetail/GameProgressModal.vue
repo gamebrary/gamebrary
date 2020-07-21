@@ -1,8 +1,8 @@
 <template lang="html">
   <modal :title="$t('progresses.modalTitle')" ref="progressModal">
-    <button class="primary" :title="buttonLabel">
+    <b-button :title="buttonLabel">
       <i class="fas fa-clock" />
-    </button>
+    </b-button>
 
     <div slot="content">
       <h2>{{ localProgress }}%</h2>
@@ -15,9 +15,9 @@
         @change="saveProgress"
       >
 
-      <button class="danger" @click="deleteProgress">
+      <b-button class="danger" @click="deleteProgress">
         {{ $t('progresses.deleteProgress') }}
-      </button>
+      </b-button>
     </div>
   </modal>
 </template>

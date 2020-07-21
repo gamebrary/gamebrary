@@ -8,22 +8,22 @@
       <div :class="['modal-content', { large }]" @click.stop>
         <h2 v-if="title">{{ title }}</h2>
 
-        <button class="secondary small close-button" @click="close">
+        <b-button class="close-button" @click="close">
           <i class="fas fa-times" />
-        </button>
+        </b-button>
 
         <main>
           <span v-if="message" v-html="message" />
           <slot v-if="show" name="content" />
 
           <footer v-if="actionText">
-            <button
+            <b-button
               :class="actionButtonClass"
               :disabled="actionDisabled"
               @click="handleAction"
             >
               {{ actionText }}
-            </button>
+            </b-button>
           </footer>
         </main>
       </div>
@@ -152,6 +152,7 @@ export default {
     position: fixed;
     right: $gp;
     top: $gp / 2;
+    z-index: 9999;
 
     @media($desktop) {
       display: none;
