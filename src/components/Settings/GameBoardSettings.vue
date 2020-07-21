@@ -18,30 +18,30 @@
       <i class="fas fa-palette" />
       <h5>Theme</h5>
 
-      <select v-model="value[platform.code].theme" @change="$emit('save')">
-        <option
+      <b-form-select v-model="value[platform.code].theme" @change="$emit('save')">
+        <b-form-select-option
           v-for="{ id, name } in themes"
           :key="id"
           :value="id"
         >
           {{ name }}
-        </option>
-      </select>
+        </b-form-select-option>
+      </b-form-select>
     </div>
 
     <div class="setting">
       <i class="fas fa-bars" />
       <h5>Header position (only affects mobile)</h5>
 
-      <select v-model="value[platform.code].position" @change="$emit('save')">
-        <option
+      <b-form-select v-model="value[platform.code].position" @change="$emit('save')">
+        <b-form-select-option
           v-for="{ id, name } in positions"
           :key="id"
           :value="id"
         >
           {{ name }}
-        </option>
-      </select>
+        </b-form-select-option>
+      </b-form-select>
     </div>
 
     <div class="setting">

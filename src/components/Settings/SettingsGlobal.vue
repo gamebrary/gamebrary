@@ -6,18 +6,18 @@
       <i class="fas fa-language" />
       <h5>{{ $t('settings.language') }}</h5>
 
-      <select v-model="value.language">
-        <option value="en">🇺🇸 {{ $t('settings.languages.en') }}</option>
-        <option value="es">🇪🇸 {{ $t('settings.languages.es') }}</option>
-        <option value="pl">🇵🇱 {{ $t('settings.languages.pl') }}</option>
-        <option value="de">🇩🇪 {{ $t('settings.languages.de') }}</option>
-        <option value="ar">🇦🇪 {{ $t('settings.languages.ar') }}</option>
-        <option value="fr">🇫🇷 {{ $t('settings.languages.fr') }}</option>
-        <option value="ja">🇯🇵 {{ $t('settings.languages.ja') }}</option>
-        <option value="it">🇮🇹 {{ $t('settings.languages.it') }}</option>
-        <option value="eu">🏴 {{ $t('settings.languages.eu') }}</option>
-        <option value="cs">🇨🇿 {{ $t('settings.languages.cs') }}</option>
-      </select>
+      <b-form-select v-model="value.language">
+        <b-form-select-option value="en">🇺🇸 {{ $t('settings.languages.en') }}</b-form-select-option>
+        <b-form-select-option value="es">🇪🇸 {{ $t('settings.languages.es') }}</b-form-select-option>
+        <b-form-select-option value="pl">🇵🇱 {{ $t('settings.languages.pl') }}</b-form-select-option>
+        <b-form-select-option value="de">🇩🇪 {{ $t('settings.languages.de') }}</b-form-select-option>
+        <b-form-select-option value="ar">🇦🇪 {{ $t('settings.languages.ar') }}</b-form-select-option>
+        <b-form-select-option value="fr">🇫🇷 {{ $t('settings.languages.fr') }}</b-form-select-option>
+        <b-form-select-option value="ja">🇯🇵 {{ $t('settings.languages.ja') }}</b-form-select-option>
+        <b-form-select-option value="it">🇮🇹 {{ $t('settings.languages.it') }}</b-form-select-option>
+        <b-form-select-option value="eu">🏴 {{ $t('settings.languages.eu') }}</b-form-select-option>
+        <b-form-select-option value="cs">🇨🇿 {{ $t('settings.languages.cs') }}</b-form-select-option>
+      </b-form-select>
     </div>
     <small>Browser reload required</small>
   </section>
