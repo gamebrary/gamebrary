@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 import VueAxios from 'vue-axios';
 import VueFire from 'vuefire';
 import VueI18n from 'vue-i18n';
@@ -6,6 +7,8 @@ import axios from 'axios';
 import VueAnalytics from 'vue-analytics';
 import Raven from 'raven-js';
 import RavenVue from 'raven-js/plugins/vue';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
 import App from './App';
 import messages from './i18n/';
 import store from './store/';
@@ -21,6 +24,8 @@ Object.defineProperties(Vue.prototype, {
   },
 });
 
+Vue.use(BootstrapVue);
+Vue.use(IconsPlugin);
 Vue.use(VueAnalytics, { id: 'UA-120053966-1', router });
 Vue.use(VueAxios, axios);
 Vue.use(VueFire);
