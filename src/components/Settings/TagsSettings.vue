@@ -49,14 +49,12 @@
             </div>
           </div>
 
-          <div class="exclusive-toggle">
+          <b-form-checkbox
+            switch
+            v-model="exclusive"
+          >
             Exclusive to {{ platform.name }}
-
-            <toggle-switch
-              id="global"
-              v-model="exclusive"
-            />
-          </div>
+          </b-form-checkbox>
 
           <div class="tag-actions">
             <b-button
@@ -113,7 +111,6 @@
 </template>
 
 <script>
-import ToggleSwitch from '@/components/ToggleSwitch';
 import Swatches from 'vue-swatches';
 import Tag from '@/components/Tag';
 import Modal from '@/components/Modal';
@@ -124,7 +121,6 @@ export default {
   components: {
     Tag,
     Modal,
-    ToggleSwitch,
     Swatches,
   },
 
@@ -274,11 +270,6 @@ export default {
     h3 {
       margin-bottom: $gp / 2;
     }
-  }
-
-  .exclusive-toggle {
-    display: flex;
-    align-items: center;
   }
 
   .preview {

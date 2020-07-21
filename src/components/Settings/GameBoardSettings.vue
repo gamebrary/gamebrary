@@ -2,11 +2,14 @@
   <section>
     <!-- <div class="setting">
     <i class="fas fa-users" />
-    <h5>{{ $t('settings.public') }}</h5>
 
-    <toggle-switch
-    id="public"
-    v-model="value[platform.code].public"
+    <b-form-checkbox
+      switch
+      v-model="value[platform.code].public"
+      @change="save"
+    >
+      $t('settings.public')
+    </b-form-checkbox>
     />
   </div> -->
 
@@ -44,28 +47,23 @@
       </b-form-select>
     </div>
 
-    <div class="setting">
-      <i class="fas fa-shapes" />
-      <h5>Border Radius</h5>
-
-      <toggle-switch
-        id="borderRadius"
-        @change="$emit('save')"
-        v-model="value[platform.code].borderRadius"
-      />
-    </div>
+    <b-form-checkbox
+      switch
+      v-model="value[platform.code].borderRadius"
+      @change="$emit('save')"
+    >
+      Border radius
+    </b-form-checkbox>
 
     <h3>Gameboard</h3>
-    <div class="setting">
-      <i class="fas fa-heading" />
-      <h5>Show amount of games next to list title</h5>
 
-      <toggle-switch
-        id="showGameCount"
-        @change="$emit('save')"
-        v-model="value[platform.code].showGameCount"
-      />
-    </div>
+    <b-form-checkbox
+      switch
+      v-model="value[platform.code].showGameCount"
+      @change="$emit('save')"
+    >
+      Show game count
+    </b-form-checkbox>
 
     <div class="setting">
       <i class="fas fa-exclamation-triangle" />
@@ -96,13 +94,11 @@ import themes from '@/themes';
 import positions from '@/positions';
 import Modal from '@/components/Modal';
 import WallpaperUpload from '@/components/WallpaperUpload';
-import ToggleSwitch from '@/components/ToggleSwitch';
 
 export default {
   components: {
     WallpaperUpload,
     Modal,
-    ToggleSwitch,
   },
 
   props: {

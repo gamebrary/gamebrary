@@ -48,28 +48,24 @@
         />
       </b-form-group>
 
-      <section v-if="localList.view === 'grid'">
-        <h4>Compact grid view</h4>
-
-        <toggle-switch
-          id="gameInfo"
-          @change="save"
-          v-model="localList.hideGameInfo"
-        />
-      </section>
-
-      <section
-        :class="{disabled: !localList.hideGameInfo }"
-        v-if="localList.view === 'grid' || localList.view === 'masonry'"
+      <b-form-checkbox
+        v-if="localList.view === 'grid'"
+        switch
+        v-model="localList.hideGameInfo"
+        @change="save"
       >
-        <h4>Hide game info on top of game covers</h4>
+        Compact grid view
+      </b-form-checkbox>
 
-        <toggle-switch
-          id="hideGameInfoOnCover"
-          @change="save"
-          v-model="localList.hideGameInfoOnCover"
-        />
-      </section>
+      <b-form-checkbox
+        v-if="localList.view === 'grid' || localList.view === 'masonry'"
+        switch
+        v-model="localList.hideGameInfoOnCover"
+        :disabled="!localList.hideGameInfo"
+        @change="save"
+      >
+        Hide game info on top of game covers
+      </b-form-checkbox>
 
       <section>
         <h4>Move list</h4>
@@ -94,25 +90,22 @@
         </b-button>
       </section>
 
-      <section :class="{ disabled: localList.view === 'masonry' }">
-        <h4>Hide game ratings</h4>
+      <b-form-checkbox
+        switch
+        v-model="localList.hideGameRatings"
+        :disabled="localList.view === 'masonry'"
+        @change="save"
+      >
+        Hide game ratings
+      </b-form-checkbox>
 
-        <toggle-switch
-          id="gameRatings"
-          @change="save"
-          v-model="localList.hideGameRatings"
-        />
-      </section>
-
-      <section>
-        <h4>Hide days until release</h4>
-
-        <toggle-switch
-          id="releaseDates"
-          @change="save"
-          v-model="localList.hideReleaseDates"
-        />
-      </section>
+      <b-form-checkbox
+        switch
+        v-model="localList.hideReleaseDates"
+        @change="save"
+      >
+        Hide days until release
+      </b-form-checkbox>
 
       <footer>
         <modal
@@ -148,13 +141,11 @@
 
 <script>
 import Modal from '@/components/Modal';
-import ToggleSwitch from '@/components/ToggleSwitch';
 import { mapState } from 'vuex';
 
 export default {
   components: {
     Modal,
-    ToggleSwitch,
   },
 
   props: {
@@ -176,11 +167,11 @@ export default {
         { text: 'text', value: 'text' },
       ],
       sortingOptions: [
-        { text: 'sortByName', value: 'sortByName' },
-        { text: 'sortByRating', value: 'sortByRating' },
-        { text: 'sortByReleaseDate', value: 'sortByReleaseDate' },
-        { text: 'sortByProgress', value: 'sortByProgress' },
-        { text: 'sortByCustom', value: 'sortByCustom' },
+        { text: 'Custom', value: 'sortByCustom' },
+        { text: 'Name', value: 'sortByName' },
+        { text: 'Rating', value: 'sortByRating' },
+        { text: 'Release date', value: 'sortByReleaseDate' },
+        { text: 'Progress', value: 'sortByProgress' },
       ],
     };
   },
