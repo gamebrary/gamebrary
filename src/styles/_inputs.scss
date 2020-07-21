@@ -1,4 +1,4 @@
-textarea, input, select {
+input, select {
   border: 1px solid #555555;
   background: #fff;
   border-radius: var(--border-radius);
@@ -7,15 +7,6 @@ textarea, input, select {
   width: 100%;
   font-size: 14px;
   margin-bottom: $gp;
-}
-
-textarea {
-  height: auto;
-  min-height: 80px;
-  margin-top: $gp;
-  margin-bottom: 0;
-  resize: vertical;
-  padding: $gp / 2;
 }
 
 .checkbox-group {

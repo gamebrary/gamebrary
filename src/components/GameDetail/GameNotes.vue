@@ -6,13 +6,13 @@
     </b-button>
 
     <div slot="content" v-if="game" class="game-notes">
-      <h3>Add note for {{ game.name }}</h3>
+      <h6>Add note for {{ game.name }}</h6>
 
-      <textarea
+      <b-form-textarea
         v-model.trim="localNote.text"
         placeholder="Type note here"
-        cols="30"
-        rows="10"
+        rows="3"
+        max-rows="20"
       />
 
       <small>
