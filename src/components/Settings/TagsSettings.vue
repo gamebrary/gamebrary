@@ -5,7 +5,7 @@
         <i class="fas fa-tags" />
         <h5>Tags</h5>
 
-        <b-button class="primary">
+        <b-button>
           Manage tags
         </b-button>
       </div>
@@ -14,14 +14,14 @@
         <form class="add-tag" @submit.prevent="createTag">
           <h3>Add a tag</h3>
           <div class="tag-input">
-            <input
+            <b-form-input
               ref="tagInput"
               v-model="tagName"
               required
               maxlength="20"
               :placeholder="$t('tags.inputPlaceholder')"
               type="text"
-            >
+            />
 
             <swatches
               v-model="tagHex"

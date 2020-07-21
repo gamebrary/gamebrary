@@ -30,7 +30,7 @@
           <i class="fas fa-exclamation-triangle" />
           {{ $t('settings.deleteAccount.button') }}
 
-          <b-button class="danger">
+          <b-button variant="danger">
             {{ $t('settings.deleteAccount.button') }}
           </b-button>
         </div>

@@ -9,12 +9,12 @@
 
     <template slot="content">
       <form @submit.prevent="search" class="search-form">
-        <input
+        <b-form-input
           ref="searchInput"
           v-model="searchText"
           :placeholder="$t('gameSearch.inputPlaceholder')"
           type="text"
-        >
+        />
 
         <b-button @click="search">
           <i :class="searchIcon" />

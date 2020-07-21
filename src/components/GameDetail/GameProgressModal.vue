@@ -5,17 +5,18 @@
     </b-button>
 
     <div slot="content">
-      <h2>{{ localProgress }}%</h2>
+      <b-input-group :prepend="`${localProgress}%`" class="mb-4" size="lg">
+        <b-form-input
+          size="lg"
+          v-model="localProgress"
+          type="range"
+          max="100"
+          step="5"
+          @change="saveProgress"
+        />
+      </b-input-group>
 
-      <input
-        v-model="localProgress"
-        type="range"
-        max="100"
-        step="5"
-        @change="saveProgress"
-      >
-
-      <b-button class="danger" @click="deleteProgress">
+      <b-button variant="danger" @click="deleteProgress">
         {{ $t('progresses.deleteProgress') }}
       </b-button>
     </div>
@@ -34,7 +35,7 @@ export default {
 
   data() {
     return {
-      localProgress: {},
+      localProgress: '',
     };
   },
 
@@ -68,7 +69,7 @@ export default {
     reset() {
       this.localProgress = this.gameProgress
         ? JSON.parse(JSON.stringify(this.gameProgress))
-        : 0;
+        : '0';
     },
 
     async deleteProgress() {

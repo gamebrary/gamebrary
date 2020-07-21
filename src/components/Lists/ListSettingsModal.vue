@@ -18,7 +18,7 @@
       <section>
         <h4>List name</h4>
 
-        <input ref="input" v-model="localList.name">
+        <b-form-input ref="input" v-model="localList.name" />
 
         <b-button
           :title="$t('global.save')"
@@ -28,53 +28,25 @@
         </b-button>
       </section>
 
-      <section>
-        <h4>{{ $t('list.view') }}</h4>
+      <!-- <b-form-group :label="$t(list.view)">
+        <b-form-radio-group
+          v-model="localList.view"
+          buttons
+          variant="primary"
+          :options="listViews"
+          @change="save"
+        />
+      </b-form-group> -->
 
-        <div class="checkbox-group">
-          <span v-for="(icon, view) in views" :key="view">
-            <label :for="view" :class="{ active: view === localList.view }">
-              <i :class="icon" />
-              {{ $t(`list.views.${view}`) }}
-            </label>
-
-            <input
-              :id="view"
-              :value="view"
-              v-model="localList.view"
-              @change="save"
-              type="radio"
-            >
-          </span>
-        </div>
-      </section>
-
-      <section v-if="hasMultipleGames">
-        <h4>{{ $t('list.sortList') }}</h4>
-
-        <div class="checkbox-group">
-          <span
-            v-for="(icon, sortOrder) in sortOrders"
-            :key="sortOrder"
-          >
-            <label
-              :for="sortOrder"
-              :class="{ active: sortOrder === localList.sortOrder }"
-            >
-              <i :class="icon" />
-              {{ $t(`list.${sortOrder}`) }}
-            </label>
-
-            <input
-              :id="sortOrder"
-              :value="sortOrder"
-              @change="save"
-              v-model="localList.sortOrder"
-              type="radio"
-            >
-          </span>
-        </div>
-      </section>
+      <b-form-group :label="$t('list.sortList')" v-if="hasMultipleGames">
+        <b-form-radio-group
+          v-model="localList.sortOrder"
+          buttons
+          variant="primary"
+          :options="sortingOptions"
+          @change="save"
+        />
+      </b-form-group>
 
       <section v-if="localList.view === 'grid'">
         <h4>Compact grid view</h4>
@@ -196,20 +168,20 @@ export default {
   data() {
     return {
       localList: null,
-      views: {
-        single: 'fas fa-square',
-        masonry: 'fas fa-th',
-        grid: 'fas fa-th-large',
-        compact: 'fas fa-minus',
-        text: 'fas fa-font',
-      },
-      sortOrders: {
-        sortByName: 'fas fa-sort-alpha-down',
-        sortByRating: 'fas fa-star',
-        sortByReleaseDate: 'fas fa-calendar-alt',
-        sortByProgress: 'fas fa-clock',
-        sortByCustom: 'fas fa-user',
-      },
+      listViews: [
+        { text: 'single', value: 'single' },
+        { text: 'masonry', value: 'masonry' },
+        { text: 'grid', value: 'grid' },
+        { text: 'compact', value: 'compact' },
+        { text: 'text', value: 'text' },
+      ],
+      sortingOptions: [
+        { text: 'sortByName', value: 'sortByName' },
+        { text: 'sortByRating', value: 'sortByRating' },
+        { text: 'sortByReleaseDate', value: 'sortByReleaseDate' },
+        { text: 'sortByProgress', value: 'sortByProgress' },
+        { text: 'sortByCustom', value: 'sortByCustom' },
+      ],
     };
   },
 

@@ -14,14 +14,14 @@
 
     <div slot="content">
       <form @submit.prevent="addList">
-        <input
+        <b-form-input
           ref="listNameInput"
           v-model.trim="listName"
           :placeholder="$t('list.placeholder')"
           type="text"
           autofocus
           required
-        >
+        />
 
         <b-button
           :disabled="disabled"
