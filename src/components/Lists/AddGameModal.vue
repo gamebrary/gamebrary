@@ -1,14 +1,23 @@
 <template lang="html">
-  <modal :title="$t('list.addGames', { listName })" @open="clear">
+  <div class="add-game-modal">
     <b-button
+      v-b-modal="`game-modal-${listId}`"
       :title="$t('list.addGames', { listName })"
       class="add-game-button"
     >
       <i class="fas fa-plus" />
     </b-button>
 
-    <template slot="content">
-      <form @submit.prevent="search" class="search-form">
+    <b-modal
+      :id="`game-modal-${listId}`"
+      :title="$t('list.addGames', { listName })"
+      hide-footer
+      @show="clear"
+    >
+      <form
+        @submit.prevent="search"
+        class="search-form"
+      >
         <b-form-input
           ref="searchInput"
           v-model="searchText"
@@ -17,7 +26,8 @@
         />
 
         <b-button @click="search">
-          <i :class="searchIcon" />
+          <b-spinner v-if="loading" small label="Loading..." />
+          <b-icon-search v-else />
         </b-button>
       </form>
 
@@ -53,13 +63,12 @@
       >
         {{ $t('gameSearch.noResultsFound') }}
       </span>
-    </template>
-  </modal>
+    </b-modal>
+  </div>
 </template>
 
 <script>
 import GameCardSearch from '@/components/GameCards/GameCardSearch';
-import Modal from '@/components/Modal';
 import IgdbCredit from '@/components/IgdbCredit';
 import { debounce } from 'lodash';
 import { mapState } from 'vuex';
@@ -68,7 +77,6 @@ export default {
   components: {
     GameCardSearch,
     IgdbCredit,
-    Modal,
   },
 
   props: {
@@ -93,12 +101,6 @@ export default {
       return !this.loading
         && this.filteredResults.length === 0
         && this.searchText.trim().length > 0;
-    },
-
-    searchIcon() {
-      return this.loading
-        ? 'fas fa-circle-notch fast-spin'
-        : 'fas fa-search';
     },
 
     list() {
