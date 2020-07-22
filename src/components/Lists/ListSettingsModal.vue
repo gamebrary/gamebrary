@@ -38,6 +38,19 @@
         />
       </b-form-group> -->
 
+      <h4>{{ $t('list.view') }}</h4>
+
+      <div class="checkbox-group">
+          <span v-for="view in listViews" :key="view">
+              <input
+                  :value="view.value"
+                  v-model="localList.view"
+                  @change="save"
+                  type="radio"
+              >
+          </span>
+      </div>
+
       <b-form-group :label="$t('list.sortList')" v-if="hasMultipleGames">
         <b-form-radio-group
           v-model="localList.sortOrder"
@@ -160,11 +173,11 @@ export default {
     return {
       localList: null,
       listViews: [
-        { text: 'single', value: 'single' },
-        { text: 'masonry', value: 'masonry' },
-        { text: 'grid', value: 'grid' },
-        { text: 'compact', value: 'compact' },
-        { text: 'text', value: 'text' },
+        { text: 'Single', value: 'single' },
+        { text: 'Masonry', value: 'masonry' },
+        { text: 'Grid', value: 'grid' },
+        { text: 'Compact', value: 'compact' },
+        { text: 'Text', value: 'text' },
       ],
       sortingOptions: [
         { text: 'Custom', value: 'sortByCustom' },
