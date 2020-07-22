@@ -131,7 +131,7 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-@import '~styles/styles';
+//@import '~styles/styles';
 
 .game-board {
   user-select: none;

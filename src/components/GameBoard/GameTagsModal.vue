@@ -108,7 +108,7 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-@import '~styles/styles';
+//@import '~styles/styles';
 
 h3 {
   margin: 1rem 0;
