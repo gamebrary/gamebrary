@@ -1,18 +1,15 @@
 <template lang="html">
-  <nav>
-    <router-link
-      :to="{ name: logoRoute }"
-      tag="b-button"
-      size="sm"
-      class="logo"
-    >
-      <img src="/static/gamebrary-logo.png" >
+  <b-navbar>
+    <b-navbar-brand href="/">
+      <img src="/static/gamebrary-logo.png" height="30" />
+    </b-navbar-brand>
 
-      <span>{{ title }}</span>
-    </router-link>
-
-    <settings v-if="user" />
-  </nav>
+    <b-navbar-nav class="ml-auto">
+      <b-nav-item href="#">
+        <settings v-if="user" />
+      </b-nav-item>
+    </b-navbar-nav>
+  </b-navbar>
 </template>
 
 <script>
@@ -25,53 +22,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['user', 'platform', 'settings']),
-
-    isLoggedIn() {
-      return this.user && this.user.email;
-    },
-
-    title() {
-      return this.$route.name === 'game-board' && this.platform
-        ? this.platform.name
-        : 'Gamebrary';
-    },
-
-    logoRoute() {
-      if (this.$route.name === 'game-detail' && this.platform) {
-        return 'game-board';
-      }
-
-      if (this.$route.name === 'settings' && this.platform) {
-        return 'game-board';
-      }
-
-      if (this.$route.name === 'game-board') {
-        return 'platforms';
-      }
-
-      return null;
-    },
+    ...mapState(['user']),
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-  @import "~styles/styles";
-  nav {
-    user-select: none;
-    width: 100vw;
-    height: $navHeight;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 $gp;
-
-    .logo {
-      img {
-        height: 24px;
-        margin-right: $gp / 4;
-      }
-    }
-  }
-</style>
