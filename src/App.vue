@@ -321,11 +321,11 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss">
   @import url(https://fonts.googleapis.com/css?family=Fira+Sans:700|Roboto:400,400italic,700);
-  @import "~styles/styles";
+  // @import "~styles/styles";
 </style>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  @import "~styles/styles";
+  // @import "~styles/styles";
 
   #app {
     display: flex;
@@ -338,7 +338,7 @@ export default {
       --border-radius: 0;
     }
 
-    @media($small) {
+    @media(max-width: 780px) {
       &.bottom {
         flex-direction: column-reverse;
       }

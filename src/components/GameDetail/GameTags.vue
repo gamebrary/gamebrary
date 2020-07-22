@@ -56,6 +56,6 @@ export default {
 @import '~styles/styles';
 
 .tag {
-  margin-right: $gp / 2;
+  margin-right: .5rem;
 }
 </style>

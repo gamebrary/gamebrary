@@ -74,17 +74,17 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  @import "~styles/styles";
+  // @import "~styles/styles";
 
   .release {
-    margin-bottom: $gp;
+    margin-bottom: 1rem;
     border-bottom: 1px solid #e5e5e5;
     font-size: 12px;
-    padding: $gp 0;
+    padding: 1rem 0;
 
     .release-info {
       display: grid;
-      grid-gap: $gp / 2;
+      grid-gap: .5rem;
       grid-template-columns: 50px auto;
 
       a {

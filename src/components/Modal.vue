@@ -98,7 +98,7 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  @import "~styles/styles";
+  // @import "~styles/styles";
 
   .overlay {
     background: rgba(0, 0, 0, 0.6);
@@ -127,14 +127,14 @@ export default {
     color: var(--modal-text-color);
     width: 500px;
     height: auto;
-    max-height: calc(100% - #{$gp * 4});
+    max-height: calc(100% - 4rem);
     overflow-y: auto;
-    margin: $gp * 2 auto $gp;
+    margin: 2rem auto 1rem;
     padding: 0;
     border-radius: var(--border-radius);
     cursor: default;
 
-    @media($small) {
+    @media(max-width: 780px) {
       border-radius: 0;
       margin: 0;
       width: 100%;
@@ -150,29 +150,29 @@ export default {
 
   .close-button {
     position: fixed;
-    right: $gp;
-    top: $gp / 2;
+    right: 1rem;
+    top: .5rem;
     z-index: 9999;
 
-    @media($desktop) {
+    @media(min-width: 781px) {
       display: none;
     }
   }
 
   h2 {
     display: flex;
-    padding: $gp;
+    padding: 1rem;
     z-index: 2;
     align-items: center;
     justify-content: space-between;
   }
 
   main {
-    padding: 0 $gp $gp;
+    padding: 0 1rem 1rem;
     overflow-y: auto;
   }
 
   footer {
-    margin-top: $gp;
+    margin-top: 1rem;
   }
 </style>

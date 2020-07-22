@@ -85,11 +85,11 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  @import "~styles/styles";
+  // @import "~styles/styles";
 
   .game-card {
     background: var(--game-card-background);
-    margin-bottom: $gp / 2;
+    margin-bottom: .5rem;
     position: relative;
     display: grid;
     grid-template-columns: 50px auto;
@@ -118,7 +118,7 @@ export default {
     }
 
     .game-info {
-      padding: $gp / 2 $gp;
+      padding: .5rem 1rem;
       width: 100%;
       display: flex;
       flex-direction: column;
@@ -128,17 +128,17 @@ export default {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        margin-top: $gp / 4;
+        margin-top: .25rem;
       }
 
       .tag {
-        margin-right: $gp / 4;
+        margin-right: .25rem;
       }
 
       i.tags {
         position: absolute;
-        bottom: $gp * 1.5;
-        right: $gp / 4;
+        bottom: 1.5rem;
+        right: .25rem;
       }
 
       .game-rating, a {
@@ -148,7 +148,7 @@ export default {
 
       .release-date {
         color: var(--accent-color);
-        margin: $gp / 4 0;
+        margin: .25rem 0;
       }
 
       &:hover {
@@ -159,17 +159,17 @@ export default {
 
       a {
         cursor: pointer;
-        margin-right: $gp / 2;
+        margin-right: .5rem;
         color: var(--game-card-text-color);
       }
     }
 
     .draggable-icon {
-      @include drag-cursor;
+      //@include drag-cursor;
       position: absolute;
       color: #e5e5e5;
-      right: $gp / 3;
-      top: $gp / 3;
+      right: .33rem;
+      top: .33rem;
 
       &:hover {
         color: #a5a2a2;
@@ -177,7 +177,7 @@ export default {
     }
 
     .game-tag {
-      margin-bottom: $gp / 3;
+      margin-bottom: .33rem;
     }
   }
 

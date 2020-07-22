@@ -47,13 +47,13 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-@import "~styles/styles";
+// @import "~styles/styles";
 
 .game-videos {
   .video {
     position: relative;
     padding-bottom: 56.25%;
-    margin: $gp 0;
+    margin: 1rem 0;
     height: 56.25%;
 
     iframe {
@@ -69,9 +69,9 @@ export default {
     display: grid;
     grid-template-columns: repeat(auto-fill, 100px);
     padding: 0;
-    grid-gap: $gp;
+    grid-gap: 1rem;
 
-    @media($small) {
+    @media(max-width: 780px) {
       grid-template-columns: repeat(auto-fill, 70px);
     }
 
@@ -91,7 +91,7 @@ export default {
         left: 34px;
         top: 23px;
 
-        @media($small) {
+        @media(max-width: 780px) {
           display: none;
         }
       }

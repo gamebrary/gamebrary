@@ -5,8 +5,8 @@
 
 .markdown {
   background-color: rgba(255, 255, 255, .1);
-  padding: $gp / 2;
-  margin-top: $gp / 2;
+  padding: .5rem;
+  margin-top: .5rem;
   border-radius: var(--border-radius);
 }
 
@@ -356,7 +356,7 @@
 }
 
 .markdown p {
-  margin-bottom: $gp / 2;
+  margin-bottom: .5rem;
   margin-top: 0;
 }
 

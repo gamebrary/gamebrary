@@ -25,12 +25,12 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-@import "~styles/styles";
+// @import "~styles/styles";
 
 .not-found-page {
   color: #555555;
-  min-height: calc(100vh - #{$navHeight});
-  padding: 0 $gp;
+  min-height: calc(100vh - 48px);
+  padding: 0 1rem;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -42,7 +42,7 @@ h1 {
 
 h3 {
   font-size: 50px;
-  margin-bottom: $gp;
+  margin-bottom: 1rem;
 }
 
 a.link {

@@ -30,17 +30,17 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-@import "~styles/styles";
+// @import "~styles/styles";
 
 .release {
   border-bottom: 1px solid #e5e5e5;
-  margin: $gp 0;
-  padding-bottom: $gp / 2;
+  margin: 1rem 0;
+  padding-bottom: .5rem;
 }
 
 .release-info {
   display: grid;
   grid-template-columns: 50px 30%;
-  grid-gap: $gp;
+  grid-gap: 1rem;
 }
 </style>

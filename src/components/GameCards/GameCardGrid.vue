@@ -100,7 +100,7 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-@import "~styles/styles";
+// @import "~styles/styles";
 
 .game-card {
   display: flex;
@@ -133,17 +133,17 @@ export default {
     cursor: pointer;
 
     + .game-progress {
-      width: calc(100% - #{$gp});
+      width: calc(100% - 1rem);
       position: absolute;
-      bottom: $gp / 6;
-      left: $gp / 2;
+      bottom: .3rem;
+      left: .5rem;
 
       + .release-date {
         margin: 0;
         position: absolute;
-        bottom: $gp * 1.5;
-        right: $gp / 2;
-        padding: $gp / 6 $gp / 4;
+        bottom: 1.5rem;
+        right: .5rem;
+        padding: .3rem .25rem;
         background: var(--list-background);
       }
     }
@@ -151,9 +151,9 @@ export default {
     + .release-date {
       margin: 0;
       position: absolute;
-      bottom: $gp / 2;
-      right: $gp / 2;
-      padding: $gp / 6 $gp / 4;
+      bottom: .5rem;
+      right: .5rem;
+      padding: .3rem .25rem;
       background: var(--list-background);
     }
   }
@@ -166,12 +166,12 @@ export default {
     color: var(--accent-color);
     font-weight: bold;
     justify-self: end;
-    margin: $gp / 4 0;
+    margin: .25rem 0;
     border-radius: var(--border-radius);
   }
 
   .game-info {
-    padding: $gp / 2;
+    padding: .5rem;
     width: 100%;
     display: flex;
     border-bottom-left-radius: var(--border-radius);
@@ -184,17 +184,17 @@ export default {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      margin-top: $gp / 4;
+      margin-top: .25rem;
     }
 
     .tag {
-      margin-right: $gp / 4;
+      margin-right: .25rem;
     }
 
     i.tags {
       position: absolute;
-      bottom: $gp * 1.5;
-      right: $gp / 4;
+      bottom: 1.5rem;
+      right: .25rem;
     }
 
     .rating-release {
@@ -220,7 +220,7 @@ export default {
       overflow: hidden;
       text-overflow: ellipsis;
       cursor: pointer;
-      margin-right: $gp / 2;
+      margin-right: .5rem;
       color: var(--game-card-text-color);
     }
 
@@ -246,11 +246,11 @@ export default {
   }
 
   .draggable-icon {
-    @include drag-cursor;
+    //@include drag-cursor;
     position: absolute;
     color: #e5e5e5;
-    right: $gp / 3;
-    top: $gp / 3;
+    right: .33rem;
+    top: .33rem;
 
     &:hover {
       color: #a5a2a2;
@@ -258,7 +258,7 @@ export default {
   }
 
   .game-tag {
-    margin-bottom: $gp / 3;
+    margin-bottom: .33rem;
   }
 }
 

@@ -85,11 +85,11 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  @import "~styles/styles";
+  // @import "~styles/styles";
   .platform {
-    padding: $gp;
+    padding: 1rem;
     display: flex;
-    margin-bottom: $gp;
+    margin-bottom: 1rem;
     align-items: center;
     justify-content: center;
     border-radius: var(--border-radius);
@@ -107,8 +107,8 @@ export default {
       cursor: pointer;
     }
 
-    @media($small) {
-      padding: $gp / 2;
+    @media(max-width: 780px) {
+      padding: .5rem;
       width: 100%;
       height: 60px;
     }
@@ -117,7 +117,7 @@ export default {
       width: 80%;
       height: auto;
 
-      @media($small) {
+      @media(max-width: 780px) {
         width: auto;
         height: 70px;
         max-height: 60%;
@@ -125,14 +125,14 @@ export default {
     }
 
     .game-count {
-      padding-top: $gp / 3;
+      padding-top: .33rem;
       font-weight: bold;
       font-size: 12px;
       background: var(--primary-background);
       position: absolute;
       top: 0;
       right: 0;
-      padding: 0 $gp / 4;
+      padding: 0 .25rem;
       color: var(--primary-text-color);
       font-size: 10px;
       border-bottom-left-radius: var(--border-radius);

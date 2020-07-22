@@ -48,12 +48,12 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-@import "~styles/styles";
+// @import "~styles/styles";
 
 .session-expired {
   color: #555555;
-  min-height: calc(100vh - #{$navHeight});
-  padding: 0 $gp;
+  min-height: calc(100vh - 48px);
+  padding: 0 1rem;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -61,9 +61,9 @@ export default {
 
 .actions {
   display: grid;
-  margin-top: $gp;
+  margin-top: 1rem;
   grid-template-columns: auto auto;
-  grid-gap: $gp;
+  grid-gap: 1rem;
   text-align: center;
   align-items: center;
 }

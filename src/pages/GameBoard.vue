@@ -138,18 +138,18 @@ export default {
   display: flex;
   align-items: flex-start;
   height: calc(100vh - 48px);
-  padding: 0 $gp;
+  padding: 0 1rem;
   box-sizing: border-box;
   overflow-x: auto;
   overflow-x: overlay;
   display: flex;
 
-  @media($small) {
+  @media(max-width: 780px) {
     &:not(.dragging) {
       scroll-snap-type: mandatory;
       scroll-snap-points-x: repeat(300px);
       scroll-snap-type: x mandatory;
-      scroll-padding: $gp;
+      scroll-padding: 1rem;
 
       .list {
         scroll-snap-align: center;
@@ -157,7 +157,7 @@ export default {
     }
 
     .bottom & {
-      padding: $gp $gp 0;
+      padding: 1rem 1rem 0;
     }
   }
 }

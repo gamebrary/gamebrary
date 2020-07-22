@@ -40,10 +40,10 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-@import "~styles/styles";
+// @import "~styles/styles";
 
 .game-description {
-  margin: $gp 0;
+  margin: 1rem 0;
 }
 
 p {
@@ -52,9 +52,9 @@ p {
   letter-spacing: .01em;
 
   &.collapsed {
-    margin-bottom: $gp / 2;
+    margin-bottom: .5rem;
 
-    @media($small) {
+    @media(max-width: 780px) {
       overflow : hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
@@ -67,7 +67,7 @@ p {
 .read-more {
   display: none;
 
-  @media($small) {
+  @media(max-width: 780px) {
     display: inline;
   }
 }

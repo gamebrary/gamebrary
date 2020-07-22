@@ -128,11 +128,11 @@ export default {
 .game-actions {
   display: grid;
   grid-template-columns: repeat(4, 44px);
-  grid-gap: $gp / 2;
-  margin-top: $gp;
+  grid-gap: .5rem;
+  margin-top: 1rem;
   text-align: left;
 
-  @media($small) {
+  @media(max-width: 780px) {
     justify-content: center;
   }
 }

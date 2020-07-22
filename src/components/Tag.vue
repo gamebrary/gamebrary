@@ -50,14 +50,14 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  @import "~styles/styles";
+  // @import "~styles/styles";
 
   .tag {
     border-radius: 100px;
     box-shadow: 0 0px 1px #a5a2a2;
-    padding: 0 $gp / 2 0 2px;
+    padding: 0 .5rem 0 2px;
     min-height: 18px;
-    font-size: $font-size-xsmall;
+    font-size: 10px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -66,7 +66,7 @@ export default {
     margin: 0 2px 2px 0;
 
     &.readonly {
-      padding: 0 $gp / 2;
+      padding: 0 .5rem;
     }
 
     &.light { color: #fff; }

@@ -54,13 +54,13 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  @import "~styles/styles";
+  // @import "~styles/styles";
 
   .game-detail-placeholder {
     display: flex;
     justify-content: center;
     background: var(--modal-background);
-    min-height: calc(100vh - #{$navHeight});
+    min-height: calc(100vh - 48px);
   }
 
   .game-hero {
@@ -70,7 +70,7 @@ export default {
     height: 400px;
     z-index: 2;
 
-    @media($small) {
+    @media(max-width: 780px) {
       display: none;
     }
   }
@@ -81,7 +81,7 @@ export default {
     width: 100%;
     height: auto;
 
-    @media($small) {
+    @media(max-width: 780px) {
       border: 3px solid #a5a2a2;
       height: auto;
       width: auto;
@@ -93,16 +93,16 @@ export default {
   .game-detail-container {
     -webkit-box-shadow: 0 0 2px 0 #a5a2a2;
     box-shadow: 0 0 2px 0 #a5a2a2;
-    width: $container-width;
+    width: 900px;
     max-width: 100%;
     z-index: 2;
-    margin: $gp * 3;
-    padding: $gp 0;
+    margin: 3rem;
+    padding: 1rem 0;
     border-radius: var(--border-radius);
 
-    @media($small) {
+    @media(max-width: 780px) {
       margin: 0;
-      padding-top: $gp * 3;
+      padding-top: 3rem;
       border-radius: 0;
     }
   }
@@ -110,10 +110,10 @@ export default {
   .game-detail {
     display: grid;
     grid-template-columns: 180px auto;
-    grid-gap: $gp * 2;
-    margin: 0 $gp;
+    grid-gap: 2rem;
+    margin: 0 1rem;
 
-    @media($small) {
+    @media(max-width: 780px) {
       grid-template-columns: auto;
     }
   }
@@ -122,7 +122,7 @@ export default {
     --placeholder-image-width: 175px;
     --placeholder-image-height: 220px;
 
-    @media($small) {
+    @media(max-width: 780px) {
       --placeholder-image-width: 240px;
       --placeholder-image-height: 300px;
       width: 240px;
@@ -134,13 +134,13 @@ export default {
     --placeholder-text-height: 30px;
     width: 50%;
 
-    @media($small) {
+    @media(max-width: 780px) {
       width: 50%;
       margin: 0 auto;
     }
   }
 
   .game-rating {
-    margin-bottom: $gp;
+    margin-bottom: 1rem;
   }
 </style>

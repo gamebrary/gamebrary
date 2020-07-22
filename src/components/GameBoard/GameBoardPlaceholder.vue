@@ -48,7 +48,7 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  @import "~styles/styles";
+  // @import "~styles/styles";
 
   .gameboard-placeholder {
     user-select: none;
@@ -63,53 +63,53 @@ export default {
     background: var(--list-background);
     overflow: hidden;
     position: relative;
-    width: $list-width;
-    margin-right: $gp;
+    width: 300px;
+    margin-right: 1rem;
     max-height: calc(100vh - 81px);
   }
 
   .list-header {
     background: var(--list-header-background);
-    height: $list-header-height;
+    height: 32px;
     position: absolute;
     width: 100%;
   }
 
   .games {
-    margin-top: $list-header-height;
+    margin-top: 32px;
     display: grid;
-    grid-gap: $gp / 2 ;
-    padding: $gp / 2;
+    grid-gap: .5rem ;
+    padding: .5rem;
 
     &.single {
-      --placeholder-text-margin: #{$gp / 2} #{$gp / 2} 0 0;
+      --placeholder-text-margin: .5rem .5rem 0 0;
       border-radius: var(--border-radius);
     }
 
     &.masonry {
       --placeholder-image-width: 100px;
-      padding-top: $gp / 2;
+      padding-top: .5rem;
       grid-template-columns: 1fr 1fr 1fr;
-      grid-gap: $gp / 4;
+      grid-gap: .25rem;
     }
 
     &.grid {
       --placeholder-image-width: 140px;
       --placeholder-image-height: 200px;
-      padding-top: $gp / 2;
+      padding-top: .5rem;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-gap: $gp / 4;
+      grid-gap: .25rem;
     }
 
     &.compact {
       --placeholder-image-width: 50px;
       --placeholder-image-height: 80px;
-      --placeholder-text-margin: #{$gp / 2} #{$gp / 2} 0 0;
+      --placeholder-text-margin: .5rem .5rem 0 0;
     }
 
     &.text {
-      --placeholder-text-margin: #{$gp / 2};
+      --placeholder-text-margin: .5rem;
     }
   }
 

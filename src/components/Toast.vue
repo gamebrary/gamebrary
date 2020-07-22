@@ -75,20 +75,20 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  @import "~styles/styles";
+  // @import "~styles/styles";
 
   .toast {
     display: flex;
     align-items: center;
     position: fixed;
     bottom: -80px;
-    right: $gp;
+    right: 1rem;
     cursor: pointer;
     max-width: 300px;
     opacity: 0;
     z-index: 2;
     border-radius: var(--border-radius);
-    padding: $gp;
+    padding: 1rem;
     transition: all 200ms linear;
 
     &.success {
@@ -102,7 +102,7 @@ export default {
     }
 
     &.has-image {
-      padding: $gp / 3;
+      padding: .33rem;
       max-width: 240px;
 
       h4 {
@@ -110,19 +110,19 @@ export default {
       }
 
       img {
-        margin-right: $gp / 2;
+        margin-right: .5rem;
         max-width: 50px;
         max-height: 50px;
       }
     }
 
     i {
-      margin-right: $gp / 2;
+      margin-right: .5rem;
       font-size: 20px;
     }
 
     &.show {
-      bottom: $gp;
+      bottom: 1rem;
       opacity: 1;
       transition: all 200ms linear;
     }

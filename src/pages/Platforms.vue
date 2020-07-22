@@ -112,10 +112,10 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  @import "~styles/styles";
+  // @import "~styles/styles";
 
   .platforms-page {
-    min-height: calc(100vh - #{$navHeight});
-    padding: 0 $gp $gp / 2;
+    min-height: calc(100vh - 48px);
+    padding: 0 1rem .5rem;
   }
 </style>

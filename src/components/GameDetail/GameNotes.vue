@@ -125,13 +125,13 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  @import "~styles/styles";
+  // @import "~styles/styles";
 
   .preview {
-    margin: $gp 0 $gp * 2;
+    margin: 1rem 0 2rem;
 
     .markdown {
-      margin-bottom: $gp;
+      margin-bottom: 1rem;
     }
   }
 </style>

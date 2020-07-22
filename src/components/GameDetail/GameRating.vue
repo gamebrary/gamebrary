@@ -38,12 +38,12 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-@import "~styles/styles";
+// @import "~styles/styles";
 
 .game-rating {
   color: var(--rating-star-color);
   font-size: 20px;
-  margin: $gp / 4 0;
+  margin: .25rem 0;
 
   &.small {
     font-size: 12px;

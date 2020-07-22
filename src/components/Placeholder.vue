@@ -35,7 +35,7 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-@import "~styles/styles";
+// @import "~styles/styles";
 
 .placeholder {
   max-width: 100%;
@@ -43,7 +43,7 @@ export default {
   &.has-image {
     display: grid;
     grid-template-columns: var(--placeholder-image-width, 80px) auto;
-    grid-gap: $gp;
+    grid-gap: 1rem;
   }
 }
 
@@ -87,7 +87,7 @@ export default {
 .text-line {
   width: var(--placeholder-text-width, 100%);
   height: var(--placeholder-text-height, 12px);
-  margin-bottom: $gp / 2;
+  margin-bottom: .5rem;
   border-radius: var(--border-radius) / 2;
   @extend .animated-background;
 }

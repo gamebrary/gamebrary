@@ -290,7 +290,7 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  @import "~styles/styles";
+  // @import "~styles/styles";
 
   .list {
     flex-shrink: 0;
@@ -299,17 +299,17 @@ export default {
     width: 300px;
     background: var(--list-background);
     border-radius: var(--border-radius);
-    margin-right: $gp;
+    margin-right: 1rem;
     max-height: calc(100vh - 100px);
 
-    @media($small) {
+    @media(max-width: 780px) {
       max-height: calc(100vh - 80px);
       min-height: calc(100vh - 80px);
 
       &:not(.dragging) {
         .games {
           scroll-snap-type: x mandatory;
-          scroll-padding: $gp / 2;
+          scroll-padding: .5rem;
 
           .game-card {
             scroll-snap-align: start;
@@ -319,7 +319,7 @@ export default {
     }
 
     &.unique {
-      @media($small) {
+      @media(max-width: 780px) {
         min-width: 300px;
         width: calc(100vw - 80px);
       }
@@ -330,9 +330,9 @@ export default {
       background: var(--list-header-background);
       color: var(--list-header-text-color);
       display: flex;
-      height: $list-header-height;
+      height: 32px;
       justify-content: space-between;
-      padding-left: $gp / 2;
+      padding-left: .5rem;
       position: absolute;
       border-radius: var(--border-radius);
       border-bottom-left-radius: 0;
@@ -353,16 +353,16 @@ export default {
       max-height: calc(100vh - 150px);
       min-height: 120px;
       overflow-y: auto;
-      margin-top: $list-header-height;
-      padding: $gp / 2 $gp / 2 0;
+      margin-top: 32px;
+      padding: .5rem .5rem 0;
       width: 100%;
     }
 
     &.grid {
       .games {
-        padding: $gp / 2;
+        padding: .5rem;
         grid-template-columns: 1fr 1fr;
-        grid-gap: $gp / 2;
+        grid-gap: .5rem;
 
         // https://github.com/w3c/csswg-drafts/issues/129
         &::after {
@@ -379,11 +379,11 @@ export default {
         .games {
           grid-template-columns: 1fr 1fr 1fr;
 
-          @media($tiny) {
-            grid-template-columns: 1fr 1fr;
-          }
+          // @media($tiny) {
+          //   grid-template-columns: 1fr 1fr;
+          // }
 
-          @media($desktop) {
+          @media(min-width: 781px) {
             grid-template-columns: 1fr 1fr;
           }
         }
@@ -392,7 +392,7 @@ export default {
   }
 
   .list-settings {
-    padding: $gp;
+    padding: 1rem;
   }
 
   .game-masonry {
@@ -403,7 +403,7 @@ export default {
     max-height: calc(100vh - 154px);
     min-height: 80px;
     overflow-y: auto;
-    margin-top: $list-header-height;
+    margin-top: 32px;
     padding: 4px;
     width: 100%;
   }
@@ -424,7 +424,7 @@ export default {
 
   .fa-grip-vertical {
     opacity: 0.5;
-    margin-right: $gp / 2;
+    margin-right: .5rem;
   }
 
   .hand-drag {

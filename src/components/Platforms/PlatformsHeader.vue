@@ -167,15 +167,15 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-@import "~styles/styles";
+// @import "~styles/styles";
 
 header {
   // display: inline-grid;
   // align-items: center;
   display: flex;
   align-items: center;
-  margin-bottom: $gp;
-  grid-gap: $gp;
+  margin-bottom: 1rem;
+  grid-gap: 1rem;
 }
 
 .filter-active {
@@ -183,10 +183,10 @@ header {
 }
 
 section {
-  padding-top: $gp;
+  padding-top: 1rem;
 }
 
 h3 {
-  margin-bottom: $gp / 2;
+  margin-bottom: .5rem;
 }
 </style>

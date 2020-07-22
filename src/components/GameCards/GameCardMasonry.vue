@@ -42,7 +42,7 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-@import "~styles/styles";
+// @import "~styles/styles";
 
 .game-card {
   display: flex;
@@ -61,44 +61,44 @@ export default {
     + .release-date {
       margin: 0;
       position: absolute;
-      bottom: $gp / 4;
-      right: $gp / 4;
-      padding: $gp / 8 $gp / 6;
+      bottom: .25rem;
+      right: .25rem;
+      padding: .2rem .3rem;
       background: var(--list-background);
     }
   }
 
   .game-progress {
-    width: calc(100% - #{$gp});
+    width: calc(100% - 1rem);
     position: absolute;
-    bottom: $gp / 6;
-    left: $gp / 2;
+    bottom: .3rem;
+    left: .5rem;
 
     + .release-date {
       margin: 0;
       position: absolute;
-      bottom: $gp * 1.5;
-      right: $gp / 2;
-      padding: $gp / 8 $gp / 6;
+      bottom: 1.5rem;
+      right: .5rem;
+      padding: .2rem .3rem;
       background: var(--list-background);
     }
   }
 
   .release-date {
     color: var(--accent-color);
-    font-size: $font-size-xsmall;
+    font-size: 10px;
     font-weight: bold;
     justify-self: end;
-    margin: $gp / 4 0;
+    margin: .25rem 0;
     border-radius: calc(var(--border-radius) / 2);
   }
 
   .draggable-icon {
-    @include drag-cursor;
+    //@include drag-cursor;
     position: absolute;
     color: #e5e5e5;
-    right: $gp / 3;
-    top: $gp / 3;
+    right: .33rem;
+    top: .33rem;
 
     &:hover {
       color: #a5a2a2;

@@ -7,7 +7,7 @@
 </template>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-@import "~styles/styles";
+// @import "~styles/styles";
 
 .authorizing {
   background: var(--body-background);
@@ -27,7 +27,7 @@
 
   i {
     font-size: 1.99999999em;
-    margin: $gp;
+    margin: 1rem;
   }
 }
 </style>

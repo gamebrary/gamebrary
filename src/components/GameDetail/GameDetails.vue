@@ -74,14 +74,14 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  @import "~styles/styles";
+  // @import "~styles/styles";
 
   .review-box {
     text-align: left;
     display: grid;
     margin: 0 auto;
-    grid-gap: $gp;
-    padding: $gp 0;
+    grid-gap: 1rem;
+    padding: 1rem 0;
     align-items: center;
 
     strong {
@@ -89,7 +89,7 @@ export default {
     }
 
     section {
-      margin-bottom: $gp / 3;
+      margin-bottom: .33rem;
     }
   }
 </style>

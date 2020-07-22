@@ -166,16 +166,16 @@ export default {
 .game {
   display: grid;
   grid-template-columns: 180px auto;
-  grid-gap: $gp;
-  margin-top: $gp;
+  grid-gap: 1rem;
+  margin-top: 1rem;
 
-  @media ($small) {
+  @media (max-width: 780px) {
     grid-template-columns: auto;
   }
 }
 
 header {
-  @media ($small) {
+  @media (max-width: 780px) {
     text-align: center;
   }
 }
@@ -185,13 +185,13 @@ header {
 }
 
 .game-title {
-  @media($small) {
+  @media(max-width: 780px) {
     text-align: center;
-    width: calc(100vw - #{$gp * 2});
+    width: calc(100vw - 1rem);
   }
 }
 
 .game-placeholder {
-  margin-top: $gp;
+  margin-top: 1rem;
 }
 </style>

@@ -73,12 +73,12 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  @import "~styles/styles";
+  // @import "~styles/styles";
 
   .links {
     display: grid;
     grid-template-columns: repeat(auto-fill, 30px);
-    margin-top: $gp / 2;
+    margin-top: .5rem;
 
     a {
       height: 40px;

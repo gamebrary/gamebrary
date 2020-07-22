@@ -155,7 +155,7 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  @import "~styles/styles";
+  // @import "~styles/styles";
 
   img.preview {
     max-width: 100px;
@@ -172,8 +172,8 @@ export default {
   .current-wallpaper {
     display: grid;
     grid-template-columns: auto auto;
-    grid-gap: $gp / 2;
-    margin-right: $gp;
+    grid-gap: .5rem;
+    margin-right: 1rem;
   }
 
   .file-input {

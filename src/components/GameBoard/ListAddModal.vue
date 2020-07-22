@@ -141,6 +141,6 @@ export default {
 
   small {
     color: var(--warning-color);
-    margin: 0 $gp;
+    margin: 0 1rem;
   }
 </style>

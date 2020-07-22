@@ -80,17 +80,17 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  @import "~styles/styles";
+  // @import "~styles/styles";
 
   h3 {
-    margin: $gp 0;
+    margin: 1rem 0;
   }
 
   .thumbnails {
     display: grid;
     grid-template-columns: repeat(auto-fill, 90px);
-    grid-gap: $gp;
-    margin-bottom: $gp;
+    grid-gap: 1rem;
+    margin-bottom: 1rem;
 
     img {
       cursor: pointer;
@@ -100,7 +100,7 @@ export default {
 </style>
 
 <style lang="scss" rel="stylesheet/scss">
-  @import "~styles/styles";
+  // @import "~styles/styles";
 
   .blueimp-gallery {
     text-align: center;
@@ -149,8 +149,8 @@ export default {
         border: 1px solid #a5a2a2;
         border-radius: var(--border-radius);
         position: fixed;
-        right: $gp / 2;
-        top: $gp / 2;
+        right: .5rem;
+        top: .5rem;
         width: 30px;
       }
     }

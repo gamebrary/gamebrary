@@ -34,7 +34,7 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-@import "~styles/styles";
+// @import "~styles/styles";
 
 $gameCoverWidth: 80px;
 
@@ -55,13 +55,13 @@ $gameCoverWidth: 80px;
   }
 
   .game-info {
-    padding: $gp / 2 $gp;
+    padding: .5rem 1rem;
     width: 100%;
     display: flex;
     flex-direction: column;
 
     button {
-      margin-top: $gp / 2;
+      margin-top: .5rem;
       align-self: flex-start;
     }
 

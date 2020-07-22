@@ -111,25 +111,25 @@ export default {
 @import '~styles/styles';
 
 h3 {
-  margin: $gp 0;
+  margin: 1rem 0;
 }
 
 .game-tags {
 }
 
 .tag {
-  margin-right: $gp / 2;
+  margin-right: .5rem;
 }
 
 .settings-message {
-  margin-top: $gp * 3;
+  margin-top: 3rem;
   border-top: 1px solid var(--modal-text-color);
   display: flex;
   align-items: center;
-  padding-top: $gp;
+  padding-top: 1rem;
 
-  @media($small) {
-    padding: $gp;
+  @media(max-width: 780px) {
+    padding: 1rem;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -138,7 +138,7 @@ h3 {
   }
 
   p {
-    margin: 0 $gp 0 0;
+    margin: 0 1rem 0 0;
   }
 }
 </style>

@@ -185,7 +185,7 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  @import "~styles/styles";
+  // @import "~styles/styles";
 
   .add-game-button {
     position: absolute;
@@ -198,19 +198,19 @@ export default {
   .search-form {
     display: flex;
     align-items: center;
-    margin-bottom: $gp;
+    margin-bottom: 1rem;
 
     input {
       margin-bottom: 0;
     }
 
     button {
-      margin-left: $gp;
+      margin-left: 1rem;
     }
   }
 
   .games-in-list {
-    margin-bottom: $gp;
+    margin-bottom: 1rem;
     display: flex;
     align-items: center;
 
@@ -224,9 +224,9 @@ export default {
     overflow-y: auto;
     border-radius: var(--border-radius);
     display: grid;
-    grid-gap: $gp / 2;
+    grid-gap: .5rem;
 
-    @media($small) {
+    @media(max-width: 780px) {
       max-height: calc(100vh - 200px);
     }
   }

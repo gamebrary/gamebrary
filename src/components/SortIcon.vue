@@ -48,7 +48,7 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  @import "~styles/styles";
+  // @import "~styles/styles";
 
   .sort-icon {
     display: inline-grid;
@@ -60,10 +60,6 @@ export default {
     .arrow,
     .single-icon {
       grid-row: span 2;
-    }
-
-    .sort-type {
-      font-size: $font-size / 2;
     }
 
     .single-icon {

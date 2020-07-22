@@ -65,7 +65,7 @@ export default {
 };
 </script>
 <style lang="scss" rel="stylesheet/scss" scoped>
-  @import "~styles/styles";
+  // @import "~styles/styles";
 
   .game-progress {
     display: grid;
@@ -73,17 +73,17 @@ export default {
     align-self: stretch;
     align-items: center;
     justify-items: center;
-    margin: $gp / 2 0;
+    margin: .5rem 0;
 
-    @media($small) {
-      margin: $gp auto;
+    @media(max-width: 780px) {
+      margin: 1rem auto;
     }
 
     .progress {
       display: grid;
       height: 20px;
       width: 100%;
-      margin: $gp / 4 0;
+      margin: .25rem 0;
       overflow: hidden;
       border-radius: calc(var(--border-radius) / 2);
     }
@@ -128,7 +128,7 @@ export default {
       }
 
       .progress-bar-label {
-        font-size: $font-size-xsmall;
+        font-size: 10px;
 
         &::after {
           width: var(--progress-width);

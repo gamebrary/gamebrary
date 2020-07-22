@@ -291,10 +291,10 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  @import "~styles/styles";
+  // @import "~styles/styles";
 
   section {
-    margin-bottom: $gp * 2;
+    margin-bottom: 2rem;
 
     &.disabled {
       opacity: 0.5;
@@ -303,12 +303,12 @@ export default {
   }
 
   h4 {
-    margin-bottom: $gp / 2;
+    margin-bottom: .5rem;
   }
 
   footer {
     border-top: 1px solid var(--modal-text-color);
-    padding-top: $gp * 2;
+    padding-top: 2rem;
     display: flex;
     justify-content: space-between;
   }

@@ -52,26 +52,26 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  @import "~styles/styles";
+  // @import "~styles/styles";
 
   .platform-list {
     display: grid;
     grid-template-columns: auto auto;
 
-    @media($small) {
+    @media(max-width: 780px) {
       grid-template-columns: auto;
     }
   }
 
   .platform {
-    margin-bottom: $gp;
+    margin-bottom: 1rem;
     display: grid;
     grid-template-columns: 200px auto;
-    grid-gap: $gp;
+    grid-gap: 1rem;
   }
 
   .thumbnail {
-    padding: $gp;
+    padding: 1rem;
     border-radius: var(--border-radius);
     justify-content: center;
     text-align: center;
@@ -91,7 +91,7 @@ export default {
       }
 
       &::after {
-        border-width: $gp / 2;
+        border-width: .5rem;
         border-right-color: #555;
         border-top-color: #555;
       }

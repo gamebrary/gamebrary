@@ -228,7 +228,7 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
-  @import "~styles/styles";
+  // @import "~styles/styles";
 
   .add-tag {
     .vue-swatches__wrapper {
@@ -237,22 +237,22 @@ export default {
 
     .vue-swatches__fallback__wrapper {
       width: 100%;
-      margin: 0 $gp / 2 !important;
+      margin: 0 .5rem !important;
     }
   }
 </style>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  @import "~styles/styles";
+  // @import "~styles/styles";
 
   .tag-input {
     display: grid;
     grid-template-columns: 1fr 40px 40px 100px;
-    grid-gap: $gp;
+    grid-gap: 1rem;
   }
 
   h3 {
-    margin-bottom: $gp / 2;
+    margin-bottom: .5rem;
   }
 
   input {
@@ -260,15 +260,15 @@ export default {
   }
 
   .tag {
-    margin: 0 $gp / 2 $gp / 2 0;
+    margin: 0 .5rem .5rem 0;
   }
 
   .tags {
     display: grid;
-    grid-gap: $gp / 2;
+    grid-gap: .5rem;
 
     h3 {
-      margin-bottom: $gp / 2;
+      margin-bottom: .5rem;
     }
   }
 
@@ -281,7 +281,7 @@ export default {
 
     small {
       font-size: 10px;
-      margin-bottom: $gp / 4;
+      margin-bottom: .25rem;
     }
 
     .tag {
@@ -290,15 +290,15 @@ export default {
   }
 
   .add-tag {
-    padding: $gp;
+    padding: 1rem;
     border: 1px dashed var(--modal-text-color);
-    border-radius: $gp;
-    margin-bottom: $gp;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
   }
 
   .tag-actions {
     display: flex;
-    margin-top: $gp;
+    margin-top: 1rem;
     justify-content: space-between;
   }
 </style>
