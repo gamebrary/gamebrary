@@ -21,6 +21,10 @@ export default {
     state.galleryOpen = status;
   },
 
+  SET_USER_UID(state, uid) {
+    state.user.uid = uid;
+  },
+
   SET_WALLPAPER_URL(state, url) {
     state.wallpaperUrl = url;
   },
