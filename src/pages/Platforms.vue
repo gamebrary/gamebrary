@@ -2,20 +2,18 @@
   <div class="platforms-page">
     <platforms-header />
 
-    <component
-      :is="platformsComponent"
+    <platforms-list
       :platforms="sortedPlatforms"
     />
 
     <platforms-footer />
-  </div>
+</div>
 </template>
 
 <script>
 import platforms from '@/platforms';
 import PlatformsFooter from '@/components/Platforms/PlatformsFooter';
 import PlatformsHeader from '@/components/Platforms/PlatformsHeader';
-import PlatformsGrid from '@/components/Platforms/PlatformsGrid';
 import PlatformsList from '@/components/Platforms/PlatformsList';
 import { sortBy } from 'lodash';
 import { mapState } from 'vuex';
@@ -24,7 +22,6 @@ export default {
   components: {
     PlatformsFooter,
     PlatformsHeader,
-    PlatformsGrid,
     PlatformsList,
   },
 
@@ -49,12 +46,6 @@ export default {
         : 'grid';
     },
 
-    platformsComponent() {
-      return this.listView === 'list'
-        ? 'PlatformsList'
-        : 'PlatformsGrid';
-    },
-
     platformsFilterField() {
       return this.settings && this.settings.platformsFilterField
         ? this.settings.platformsFilterField
@@ -67,20 +58,10 @@ export default {
         : 'releaseYear';
     },
 
-    ownedListsOnly() {
-      return this.settings && this.settings.ownedListsOnly
-        ? this.settings.ownedListsOnly
-        : false;
-    },
-
     filteredPlatforms() {
-      const availableLists = this.ownedListsOnly
-        ? this.platforms.filter(({ code }) => this.gameLists[code])
-        : this.platforms;
-
       return this.platformsFilterField
-        ? availableLists.filter(({ type }) => type === this.platformsFilterField)
-        : availableLists;
+        ? this.platforms.filter(({ type }) => type === this.platformsFilterField)
+        : this.platforms;
     },
 
     sortedPlatforms() {
@@ -92,30 +73,17 @@ export default {
         ? sortedPlatforms.reverse()
         : sortedPlatforms;
     },
-
-    // filteredPlatforms() {
-    //   const availableLists = this.ownedListsOnly
-    //     ? this.platforms.filter(({ code }) => this.gameLists[code])
-    //     : this.platforms;
-    //
-    // if (msnry) {
-    //   msnry.reloadItems();
-    //   msnry.layout();
-    // }
-    //
-    //   return this.settings && this.settings.sortListsAlphabetically
-    //     ? sortBy(availableLists, 'name')
-    //     : availableLists;
-    // },
   },
 };
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  // @import "~styles/styles";
-
   .platforms-page {
     min-height: calc(100vh - 48px);
     padding: 0 1rem .5rem;
+  }
+
+  .card-columns {
+    column-count: 5;
   }
 </style>

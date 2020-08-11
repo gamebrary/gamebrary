@@ -1,49 +1,47 @@
 <template lang="html">
   <div :class="['list', viewClass, { unique: unique && view !== 'masonry', dragging }]">
-    <header>
-      <span class="list-name">
-        <sort-icon
-          v-if="autoSortEnabled"
-          :sort-order="list[listIndex].sortOrder"
-          title="List sorted automatically"
-        />
+    <b-card no-body>
+      <b-card-header class="py-1 px-2">
+        <span class="list-name">
+          <sort-icon
+            v-if="autoSortEnabled"
+            :sort-order="list[listIndex].sortOrder"
+            title="List sorted automatically"
+          />
 
-        {{ list[listIndex].name }}
-        <span
-          v-if="showGameCount"
-        >
-          ({{ gameList.length }})
+          {{ list[listIndex].name }}
+          <span
+            v-if="showGameCount"
+          >
+            ({{ gameList.length }})
+          </span>
         </span>
-      </span>
 
-      <list-settings-modal :list-index="listIndex" />
-    </header>
+        <list-settings-modal :list-index="listIndex" />
+      </b-card-header>
 
-    <draggable
-      :class="gamesClass"
-      :list="gameList"
-      :id="listIndex"
-      :move="validateMove"
-      v-bind="gameDraggableOptions"
-      @end="dragEnd"
-      @start="dragStart"
-    >
-      <component
-        v-for="game in sortedGames"
-        :is="gameCardComponent"
-        :key="`masonry-${game}`"
-        :id="game"
-        :game-id="game"
-        :list-id="listIndex"
-      />
-    </draggable>
+      <draggable
+        :class="gamesClass"
+        :list="gameList"
+        :id="listIndex"
+        :move="validateMove"
+        v-bind="gameDraggableOptions"
+        @end="dragEnd"
+        @start="dragStart"
+      >
+        <component
+          v-for="game in sortedGames"
+          :is="gameCardComponent"
+          :key="`masonry-${game}`"
+          :id="game"
+          :game-id="game"
+          :list-id="listIndex"
+        />
+        <b-alert show v-if="isEmpty">Drag games here</b-alert>
+      </draggable>
 
-    <div v-if="isEmpty" class="empty-list">
-      <i class="fas fa-hand-pointer fa-2x hand-drag" />
-      <p><i class="fas fa-grip-vertical" /> Drag games here</p>
-    </div>
-
-    <add-game-modal :list-id="listIndex" />
+      <add-game-modal :list-id="listIndex" />
+    </b-card>
   </div>
 </template>
 
@@ -290,15 +288,19 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  // @import "~styles/styles";
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
   .list {
     flex-shrink: 0;
     cursor: default;
     position: relative;
     width: 300px;
-    background: var(--list-background);
-    border-radius: var(--border-radius);
+    // background: #fff;
+    border-radius: 3px;
     margin-right: 1rem;
     max-height: calc(100vh - 100px);
 
@@ -340,12 +342,6 @@ export default {
       width: 100%;
     }
 
-    .list-name {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
     .games {
       display: grid;
       height: 100%;
@@ -353,7 +349,6 @@ export default {
       max-height: calc(100vh - 150px);
       min-height: 120px;
       overflow-y: auto;
-      margin-top: 32px;
       padding: .5rem .5rem 0;
       width: 100%;
     }
@@ -408,28 +403,28 @@ export default {
     width: 100%;
   }
 
-  .empty-list {
-    color: var(--progress-secondary-color);
-    opacity: 0.8;
-    position: absolute;
-    top: 0;
-    margin-top: 62px;
-    height: 60px;
-    width: 130px;
-    left: 95px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+  // .empty-list {
+  //   color: var(--progress-secondary-color);
+  //   opacity: 0.8;
+  //   position: absolute;
+  //   top: 0;
+  //   margin-top: 62px;
+  //   height: 60px;
+  //   width: 130px;
+  //   left: 95px;
+  //   display: flex;
+  //   flex-direction: column;
+  //   align-items: center;
+  // }
 
   .fa-grip-vertical {
     opacity: 0.5;
     margin-right: .5rem;
   }
 
-  .hand-drag {
-    position: absolute;
-    left: 0;
-    top: 22px;
-  }
+  // .hand-drag {
+  //   position: absolute;
+  //   left: 0;
+  //   top: 22px;
+  // }
 </style>

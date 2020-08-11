@@ -11,8 +11,8 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      name: 'platforms',
-      path: '/platforms',
+      name: 'home',
+      path: '/',
       component: Platforms,
       meta: {
         title: 'Platforms',
@@ -27,7 +27,7 @@ export default new Router({
       },
     },
     {
-      path: '/',
+      path: '/board',
       name: 'game-board',
       component: GameBoard,
     },

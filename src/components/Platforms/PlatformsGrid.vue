@@ -1,3 +1,4 @@
+<!-- DEPRECATED -->
 <template lang="html">
   <div class="platforms">
     <div

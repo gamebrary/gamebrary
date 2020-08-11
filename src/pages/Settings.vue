@@ -1,6 +1,10 @@
 <template lang="html">
   <modal title="Settings">
-    <gravatar :email="user.email" class="avatar" v-if="user && user.email" />
+    <b-avatar
+      v-if="user && user.email"
+      variant="info"
+      :src="user.photoURL"
+    />
 
     <div
       slot="content"
@@ -43,7 +47,6 @@
 import { mapState } from 'vuex';
 import 'firebase/firestore';
 import 'firebase/auth';
-import Gravatar from 'vue-gravatar';
 import GameBoardSettings from '@/components/Settings/GameBoardSettings';
 import SettingsGlobal from '@/components/Settings/SettingsGlobal';
 import AboutSettings from '@/components/Settings/AboutSettings';
@@ -61,7 +64,6 @@ export default {
     SettingsGlobal,
     AboutSettings,
     TagsSettings,
-    Gravatar,
   },
 
   data() {

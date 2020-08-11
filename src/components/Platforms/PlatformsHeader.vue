@@ -1,77 +1,35 @@
 <template lang="html">
   <header>
-    <b-button variant="primary" @click="toggleView">
-      <b-icon-grid />
-      <b-icon-list />
-    </b-button>
+    <b-button-toolbar key-nav aria-label="Toolbar with button groups">
+      <b-dropdown class="mx-1" text="Filter">
+        <b-dropdown-item
+          v-for="filter in availableFilters"
+          :key="filter"
+          @click="setFilter(filter)"
+        >
+          <span v-if="filter">{{ $t(`platforms.${filter}`) }}</span>
+          <span v-else>All</span>
+        </b-dropdown-item>
+      </b-dropdown>
 
-    <modal
-      ref="listAddModal"
-      title="Filter and sort platforms"
-    >
-      <b-button>
-        <i class="fas fa-filter" />
-        <span class="indicator" v-if="ownedListsOnly" />
-      </b-button>
-
-      <div slot="content">
-        <section>
-          <h3>Show</h3>
-
-          <b-button
-            :class="{ secondary: !ownedListsOnly }"
-            @click="setOwned(false)"
-          >
-            All
-          </b-button>
-
-          <b-button
-            :class="{ secondary: ownedListsOnly }"
-            @click="setOwned(true)"
-          >
-            Mine
-          </b-button>
-        </section>
-
-        <section>
-          <h5>Filter by</h5>
-
-          <b-button
-            v-for="filter in availableFilters"
-            :key="filter"
-            @click="setFilter(filter)"
-          >
-            <span v-if="filter">{{ $t(`platforms.${filter}`) }}</span>
-            <span v-else>All</span>
-          </b-button>
-        </section>
-
-        <section>
-          <h3>Sort by</h3>
-
-          <b-button
-            v-for="field in availableSortFields"
-            :key="field"
-            @click="setSortField(field)"
-          >
-            <span v-if="field">{{ $t(`platforms.${field}`) }}</span>
-            <span v-else><i class="fas fa-times" /> Clear field</span>
-          </b-button>
-        </section>
-      </div>
-    </modal>
+      <b-dropdown class="mx-1" right text="Sort">
+        <b-dropdown-item
+          v-for="field in availableSortFields"
+          :key="field"
+          @click="setSortField(field)"
+        >
+          <span v-if="field">{{ $t(`platforms.${field}`) }}</span>
+          <span v-else><i class="fas fa-times" /> Clear field</span>
+        </b-dropdown-item>
+      </b-dropdown>
+    </b-button-toolbar>
   </header>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import Modal from '@/components/Modal';
 
 export default {
-  components: {
-    Modal,
-  },
-
   data() {
     return {
       availableFilters: [
@@ -114,19 +72,9 @@ export default {
         ? this.settings.platformsView
         : 'grid';
     },
-
-    ownedListsOnly() {
-      return this.settings && this.settings.ownedListsOnly
-        ? this.settings.ownedListsOnly
-        : false;
-    },
   },
 
   methods: {
-    clearFilter() {
-
-    },
-
     saveSettings() {
       this.$store.dispatch('SAVE_SETTINGS', this.settings)
         .then(() => {
@@ -153,12 +101,6 @@ export default {
         : 'grid';
 
       this.$store.commit('UPDATE_SETTING', { key: 'platformsView', value });
-
-      this.saveSettings();
-    },
-
-    setOwned(value) {
-      this.$store.commit('UPDATE_SETTING', { key: 'ownedListsOnly', value });
 
       this.saveSettings();
     },

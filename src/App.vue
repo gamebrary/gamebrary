@@ -5,7 +5,7 @@
     :style="style"
     :dir="dir"
   >
-    <nav-header />
+    <page-header />
     <router-view v-if="user" />
     <authorizing v-else />
     <toast />
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import NavHeader from '@/components/NavHeader';
+import PageHeader from '@/components/PageHeader';
 import Authorizing from '@/pages/Authorizing';
 import Toast from '@/components/Toast';
 import firebase from 'firebase/app';
@@ -38,13 +38,23 @@ export default {
   name: 'App',
 
   components: {
-    NavHeader,
+    PageHeader,
     Authorizing,
     Toast,
   },
 
+  data() {
+    return {
+      debugUserId: null,
+    };
+  },
+
   computed: {
     ...mapState(['user', 'platform', 'wallpaperUrl', 'settings']),
+
+    userId() {
+      return this.debugUserId || this.user.uid;
+    },
 
     dir() {
       return this.settings && this.settings.language === 'ar'
@@ -186,7 +196,7 @@ export default {
     syncData() {
       // TODO: track progresses as well
       // TODO: move to actions
-      db.collection('lists').doc(this.user.uid)
+      db.collection('lists').doc(this.userId)
         .onSnapshot((doc) => {
           if (doc.exists) {
             const gameLists = doc.data();
@@ -196,7 +206,7 @@ export default {
 
 
       // TODO: move to actions
-      db.collection('settings').doc(this.user.uid)
+      db.collection('settings').doc(this.userId)
         .onSnapshot((doc) => {
           if (doc.exists) {
             const settings = doc.data();
@@ -206,7 +216,7 @@ export default {
         });
 
       // TODO: move to actions
-      db.collection('tags').doc(this.user.uid)
+      db.collection('tags').doc(this.userId)
         .onSnapshot((doc) => {
           if (doc.exists) {
             const tags = doc.data();
@@ -216,7 +226,7 @@ export default {
         });
 
       // TODO: move to actions
-      db.collection('notes').doc(this.user.uid)
+      db.collection('notes').doc(this.userId)
         .onSnapshot((doc) => {
           if (doc.exists) {
             const notes = doc.data();
@@ -226,7 +236,7 @@ export default {
         });
 
       // TODO: move to actions
-      db.collection('progresses').doc(this.user.uid)
+      db.collection('progresses').doc(this.userId)
         .onSnapshot((doc) => {
           if (doc.exists) {
             const progresses = doc.data();
@@ -246,7 +256,7 @@ export default {
 
     loadSettings() {
       // TODO: move to actions
-      const docRef = db.collection('settings').doc(this.user.uid);
+      const docRef = db.collection('settings').doc(this.userId);
 
       docRef.get().then((doc) => {
         const hasData = doc && doc.exists;
@@ -262,7 +272,7 @@ export default {
 
     loadLists() {
       // TODO: move to actions
-      db.collection('lists').doc(this.user.uid).get()
+      db.collection('lists').doc(this.userId).get()
         .then((doc) => {
           if (doc.exists) {
             const data = doc.data();
@@ -279,7 +289,7 @@ export default {
 
     loadTags() {
       // TODO: move to actions
-      db.collection('tags').doc(this.user.uid).get()
+      db.collection('tags').doc(this.userId).get()
         .then((doc) => {
           if (doc.exists) {
             const data = doc.data();
@@ -294,7 +304,7 @@ export default {
 
     initList() {
       // TODO: move to actions
-      db.collection('lists').doc(this.user.uid).set({}, { merge: true })
+      db.collection('lists').doc(this.userId).set({}, { merge: true })
         .then(() => {
           this.loadLists();
         })
@@ -306,7 +316,7 @@ export default {
 
     initSettings() {
       // TODO: move to actions
-      db.collection('settings').doc(this.user.uid).set({}, { merge: true })
+      db.collection('settings').doc(this.userId).set({}, { merge: true })
         .then(() => {
           this.loadSettings();
         })
@@ -325,12 +335,10 @@ export default {
 </style>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  // @import "~styles/styles";
-
   #app {
     display: flex;
     flex-direction: column;
-    background: var(--body-background);
+    background-color: #ccc;
     background-size: cover;
     overflow-x: hidden;
 

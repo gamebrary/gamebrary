@@ -1,58 +1,70 @@
 <template lang="html">
-  <modal
-    ref="listAddModal"
-    :title="title"
-    class="list-add-modal"
-    @open="open"
-  >
+  <div>
     <b-button
-      :title="$t('list.add')"
+      v-b-modal="modalId"
+      :title="title"
       ref="addList"
     >
       <i class="fas fa-plus" />
     </b-button>
 
-    <div slot="content">
-      <form @submit.prevent="addList">
+    <b-modal
+      :id="modalId"
+      :title="title"
+      @shown="reset"
+    >
+      <form ref="addListForm" @submit.stop.prevent="submit">
         <b-form-input
-          ref="listNameInput"
-          v-model.trim="listName"
-          :placeholder="$t('list.placeholder')"
-          type="text"
           autofocus
+          v-model="listName"
+          :placeholder="$t('list.placeholder')"
           required
         />
 
-        <b-button
-          :disabled="disabled"
-          type="submit"
+        <b-alert
+          class="mt-3 mb-0"
+          :show="isDuplicate"
+          variant="warning"
         >
-          {{ buttonLabel }}
+          {{ $t('list.duplicateWarning') }}
+        </b-alert>
+      </form>
+
+      <template v-slot:modal-footer="{ cancel }">
+        <b-button @click="cancel">
+          Cancel
         </b-button>
 
-        <small v-if="isDuplicate">{{ $t('list.duplicateWarning') }}</small>
-      </form>
-    </div>
-  </modal>
+        <b-button
+          variant="primary"
+          :disabled="saving || isDuplicate"
+          @click="submit"
+        >
+          <b-spinner small v-if="saving" />
+          <span v-else>{{ buttonLabel }}</span>
+        </b-button>
+      </template>
+    </b-modal>
+  </div>
 </template>
 
 <script>
-import Modal from '@/components/Modal';
 import { mapState } from 'vuex';
 
 export default {
-  components: {
-    Modal,
-  },
-
   data() {
     return {
       listName: '',
+      saving: false,
     };
   },
 
   computed: {
     ...mapState(['gameLists', 'platform']),
+
+    modalId() {
+      return `add-list-${this.listIndex}`;
+    },
 
     lists() {
       return this.gameLists[this.platform.code];
@@ -94,22 +106,19 @@ export default {
   },
 
   methods: {
-    open() {
+    reset() {
       this.listName = '';
-      this.focusInput();
     },
 
-    focusInput() {
-      setTimeout(() => {
-        this.$refs.listNameInput.focus();
-      }, 100);
+    submit(e) {
+      e.preventDefault();
+
+      if (this.$refs.addListForm.checkValidity()) {
+        this.addList();
+      }
     },
 
     addList() {
-      if (this.disabled) {
-        return;
-      }
-
       const list = {
         games: [],
         name: this.listName,
@@ -137,12 +146,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-  @import "src/styles/styles.scss";
-
-  small {
-    color: var(--warning-color);
-    margin: 0 1rem;
-  }
-</style>

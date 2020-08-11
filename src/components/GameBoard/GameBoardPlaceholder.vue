@@ -5,7 +5,10 @@
       :class="`list ${list.view || 'single'}`"
       :key="list.name"
     >
-      <div class="list-header" />
+    <b-card no-body>
+      <b-card-header class="py-1 px-2">
+        <div class="list-header" />
+      </b-card-header>
 
       <div :class="['games', list.view]">
         <placeholder
@@ -16,6 +19,7 @@
           :image="list.view !== 'text'"
         />
       </div>
+    </b-card>
     </div>
   </div>
 </template>
@@ -71,12 +75,10 @@ export default {
   .list-header {
     background: var(--list-header-background);
     height: 32px;
-    position: absolute;
     width: 100%;
   }
 
   .games {
-    margin-top: 32px;
     display: grid;
     grid-gap: .5rem ;
     padding: .5rem;

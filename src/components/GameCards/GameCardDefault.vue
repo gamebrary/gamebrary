@@ -1,7 +1,7 @@
 <!-- TODO: abstract styles, only add card specific styles in each component -->
 <template lang="html">
   <b-card no-body class="mb-2">
-    <b-row no-gutters class="game-card">
+    <b-row no-gutters class="game-card" v-if="game && game.name">
       <b-col md="4">
         <b-card-img
           :src="coverUrl"

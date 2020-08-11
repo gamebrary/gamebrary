@@ -123,7 +123,7 @@ export default {
   }
 
   .modal-content {
-    background: var(--modal-background);
+    background: var(--modal-background, #fff);
     color: var(--modal-text-color);
     width: 500px;
     height: auto;
@@ -131,7 +131,7 @@ export default {
     overflow-y: auto;
     margin: 2rem auto 1rem;
     padding: 0;
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius, 4px);
     cursor: default;
 
     @media(max-width: 780px) {

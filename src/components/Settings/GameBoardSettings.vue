@@ -1,97 +1,59 @@
 <template lang="html">
   <section>
-    <!-- <div class="setting">
-    <i class="fas fa-users" />
+    <b-list-group>
+      <wallpaper-upload />
 
-    <b-form-checkbox
-      switch
-      v-model="value[platform.code].public"
-      @change="save"
-    >
-      $t('settings.public')
-    </b-form-checkbox>
-    />
-  </div> -->
-
-    <h3>Theme</h3>
-
-    <wallpaper-upload />
-
-    <div class="setting" v-if="value[platform.code]">
-      <i class="fas fa-palette" />
-      <h5>Theme</h5>
-
-      <b-form-select v-model="value[platform.code].theme" @change="$emit('save')">
-        <b-form-select-option
-          v-for="{ id, name } in themes"
-          :key="id"
-          :value="id"
+      <b-list-group-item v-if="value[platform.code]">
+        <label for="theme">Theme</label>
+        <b-form-select
+          id="theme"
+          v-model="value[platform.code].theme"
+          @change="$emit('save')"
         >
-          {{ name }}
-        </b-form-select-option>
-      </b-form-select>
-    </div>
+          <b-form-select-option
+            v-for="{ id, name } in themes"
+            :key="id"
+            :value="id"
+          >
+            {{ name }}
+          </b-form-select-option>
+        </b-form-select>
+      </b-list-group-item>
 
-    <div class="setting">
-      <i class="fas fa-bars" />
-      <h5>Header position (only affects mobile)</h5>
-
-      <b-form-select v-model="value[platform.code].position" @change="$emit('save')">
-        <b-form-select-option
-          v-for="{ id, name } in positions"
-          :key="id"
-          :value="id"
+      <b-list-group-item>
+        <b-form-checkbox
+          switch
+          v-model="value[platform.code].showGameCount"
+          @change="$emit('save')"
         >
-          {{ name }}
-        </b-form-select-option>
-      </b-form-select>
-    </div>
+          Show game count
+        </b-form-checkbox>
+      </b-list-group-item>
 
-    <b-form-checkbox
-      switch
-      v-model="value[platform.code].borderRadius"
-      @change="$emit('save')"
-    >
-      Border radius
-    </b-form-checkbox>
-
-    <h3>Gameboard</h3>
-
-    <b-form-checkbox
-      switch
-      v-model="value[platform.code].showGameCount"
-      @change="$emit('save')"
-    >
-      Show game count
-    </b-form-checkbox>
-
-    <div class="setting">
-      <i class="fas fa-exclamation-triangle" />
-      <h5>{{ $t('gameBoard.settings.dangerZone') }}</h5>
-
-      <modal
-        :message="`Your ${platform.name} collection will be deleted forever.`"
-        :title="`Delete ${platform.name} collection`"
-        action-text="Delete forever"
-        action-button-class="danger"
-        @action="deletePlatform"
-      >
-        <b-button
-          :title="$t('list.delete')"
-          variant="danger"
+      <b-list-group-item>
+        <modal
+          :message="`Your ${platform.name} collection will be deleted forever.`"
+          :title="`Delete ${platform.name} collection`"
+          action-text="Delete forever"
+          action-button-class="danger"
+          @action="deletePlatform"
         >
-          <i class="far fa-trash-alt" />
-          Delete {{ platform.name }} collection
-        </b-button>
-      </modal>
-    </div>
+          <b-button
+            :title="$t('list.delete')"
+            variant="danger"
+          >
+            <i class="far fa-trash-alt" />
+            Delete {{ platform.name }} collection
+          </b-button>
+        </modal>
+      </b-list-group-item>
+    </b-list-group>
   </section>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 import themes from '@/themes';
-import positions from '@/positions';
 import Modal from '@/components/Modal';
 import WallpaperUpload from '@/components/WallpaperUpload';
 
@@ -111,7 +73,6 @@ export default {
   data() {
     return {
       themes,
-      positions,
     };
   },
 

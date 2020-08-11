@@ -53,8 +53,6 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-//@import '~styles/styles';
-
 .tag {
   margin-right: .5rem;
 }

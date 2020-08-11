@@ -12,7 +12,7 @@
       @dragEnd="dragEnd"
     />
 
-    <list-add-modal ref="listAddModal" />
+    <add-list ref="listAddModal" />
     <game-modal />
     <game-tags-modal />
   </div>
@@ -22,6 +22,7 @@
 import GameBoardPlaceholder from '@/components/GameBoard/GameBoardPlaceholder';
 import ListAddModal from '@/components/GameBoard/ListAddModal';
 import GameTagsModal from '@/components/GameBoard/GameTagsModal';
+import AddList from '@/components/GameBoard/AddList';
 import GameModal from '@/components/GameBoard/GameModal';
 import List from '@/components/Lists/List';
 import { chunk } from 'lodash';
@@ -35,6 +36,7 @@ export default {
     GameBoardPlaceholder,
     ListAddModal,
     GameTagsModal,
+    AddList,
     GameModal,
   },
 
@@ -76,16 +78,17 @@ export default {
       this.updateLists();
     },
 
-    updateLists() {
-      this.$store
-        .dispatch('SAVE_LIST', this.gameLists)
-        .then(() => {
-          this.$bus.$emit('TOAST', { message: 'List updated' });
-        })
+    async updateLists() {
+      await this.$store.dispatch('SAVE_LIST', this.gameLists)
         .catch(() => {
           this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
           this.$router.push({ name: 'sessionExpired' });
         });
+
+      this.$bvToast.toast('List saved', {
+        title: 'Success',
+        variant: 'success',
+      });
     },
 
     load() {
@@ -131,13 +134,11 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-//@import '~styles/styles';
-
 .game-board {
   user-select: none;
   display: flex;
   align-items: flex-start;
-  height: calc(100vh - 48px);
+  height: calc(100vh - 72px);
   padding: 0 1rem;
   box-sizing: border-box;
   overflow-x: auto;
