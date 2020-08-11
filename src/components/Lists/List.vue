@@ -1,7 +1,7 @@
 <template lang="html">
-  <div :class="['list', viewClass, { unique: unique && view !== 'masonry', dragging }]">
+  <div :class="['list mr-3', viewClass, { unique, dragging }]">
     <b-card no-body>
-      <b-card-header class="py-1 px-2">
+      <b-card-header class="py-1 px-2 d-flex justify-content-between align-items-center">
         <span class="list-name">
           <sort-icon
             v-if="autoSortEnabled"
@@ -17,11 +17,14 @@
           </span>
         </span>
 
-        <list-settings-modal :list-index="listIndex" />
+        <b-button-group>
+          <add-game-modal :list-id="listIndex" />
+          <list-settings :list-index="listIndex" />
+        </b-button-group>
       </b-card-header>
 
       <draggable
-        :class="gamesClass"
+        class="games"
         :list="gameList"
         :id="listIndex"
         :move="validateMove"
@@ -32,25 +35,24 @@
         <component
           v-for="game in sortedGames"
           :is="gameCardComponent"
-          :key="`masonry-${game}`"
+          :key="game"
           :id="game"
           :game-id="game"
           :list-id="listIndex"
         />
-        <b-alert show v-if="isEmpty">Drag games here</b-alert>
-      </draggable>
 
-      <add-game-modal :list-id="listIndex" />
+        <b-alert variant="secondary" show v-if="isEmpty" class="mb-2 text-center">
+          <small class="text-muted">Drag games here</small>
+        </b-alert>
+      </draggable>
     </b-card>
   </div>
 </template>
 
 <script>
 import draggable from 'vuedraggable';
-import Masonry from 'masonry-layout';
-import ListSettingsModal from '@/components/Lists/ListSettingsModal';
+import ListSettings from '@/components/Lists/ListSettings';
 import GameCardDefault from '@/components/GameCards/GameCardDefault';
-import GameCardMasonry from '@/components/GameCards/GameCardMasonry';
 import GameCardGrid from '@/components/GameCards/GameCardGrid';
 import GameCardCompact from '@/components/GameCards/GameCardCompact';
 import GameCardText from '@/components/GameCards/GameCardText';
@@ -62,13 +64,12 @@ import { mapState } from 'vuex';
 export default {
   components: {
     GameCardDefault,
-    GameCardMasonry,
     GameCardGrid,
     GameCardCompact,
     GameCardText,
     AddGameModal,
     SortIcon,
-    ListSettingsModal,
+    ListSettings,
     draggable,
   },
 
@@ -89,7 +90,6 @@ export default {
 
   data() {
     return {
-      masonry: null,
       gameDraggableOptions: {
         handle: '.game-card',
         ghostClass: 'card-placeholder',
@@ -103,7 +103,6 @@ export default {
       },
       gameCardComponents: {
         single: 'GameCardDefault',
-        masonry: 'GameCardMasonry',
         grid: 'GameCardGrid',
         compact: 'GameCardCompact',
         text: 'GameCardText',
@@ -198,69 +197,16 @@ export default {
       return this.list[this.listIndex].view || 'single';
     },
 
-    gamesClass() {
-      return this.list[this.listIndex].view === 'masonry'
-        ? `game-masonry game-masonry-${this.listIndex}`
-        : 'games';
-    },
-
-    hideGameRatings() {
-      return this.list[this.listIndex].hideGameRatings || false;
+    showGameRatings() {
+      return this.list[this.listIndex].showGameRatings || false;
     },
 
     hideReleaseDates() {
       return this.list[this.listIndex].hideReleaseDates || false;
     },
-
-    hideGameInfo() {
-      return this.list[this.listIndex].hideGameInfo || false;
-    },
-
-    hideGameInfoOnCover() {
-      return this.list[this.listIndex].hideGameInfoOnCover || false;
-    },
-  },
-
-  watch: {
-    view() {
-      this.initMasonry();
-
-      setTimeout(() => {
-        this.initMasonry();
-      }, 500);
-    },
-
-    gameList() {
-      this.initMasonry();
-
-      setTimeout(() => {
-        this.initMasonry();
-      }, 500);
-    },
-  },
-
-  mounted() {
-    this.initMasonry();
-
-    setTimeout(() => {
-      this.initMasonry();
-    }, 500);
   },
 
   methods: {
-    initMasonry() {
-      if (this.view === 'masonry') {
-        this.$nextTick(() => {
-          // eslint-disable-next-line
-            this.masonry = new Masonry(`.game-masonry-${this.listIndex}`, {
-            itemSelector: '.game-card',
-            gutter: 4,
-            percentPosition: true,
-          });
-        });
-      }
-    },
-
     validateMove({ from, to }) {
       const isDifferentList = from.id !== to.id;
       const isDuplicate = this.list[to.id].games.includes(Number(this.draggingId));
@@ -288,37 +234,12 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  .card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
   .list {
     flex-shrink: 0;
     cursor: default;
     position: relative;
     width: 300px;
-    // background: #fff;
     border-radius: 3px;
-    margin-right: 1rem;
-    max-height: calc(100vh - 100px);
-
-    @media(max-width: 780px) {
-      max-height: calc(100vh - 80px);
-      min-height: calc(100vh - 80px);
-
-      &:not(.dragging) {
-        .games {
-          scroll-snap-type: x mandatory;
-          scroll-padding: .5rem;
-
-          .game-card {
-            scroll-snap-align: start;
-          }
-        }
-      }
-    }
 
     &.unique {
       @media(max-width: 780px) {
@@ -327,27 +248,11 @@ export default {
       }
     }
 
-    header {
-      align-items: center;
-      background: var(--list-header-background);
-      color: var(--list-header-text-color);
-      display: flex;
-      height: 32px;
-      justify-content: space-between;
-      padding-left: .5rem;
-      position: absolute;
-      border-radius: var(--border-radius);
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-      width: 100%;
-    }
-
     .games {
       display: grid;
       height: 100%;
       overflow: hidden;
-      max-height: calc(100vh - 150px);
-      min-height: 120px;
+      max-height: calc(100vh - 144px);
       overflow-y: auto;
       padding: .5rem .5rem 0;
       width: 100%;
@@ -390,41 +295,8 @@ export default {
     padding: 1rem;
   }
 
-  .game-masonry {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    max-height: calc(100vh - 154px);
-    min-height: 80px;
-    overflow-y: auto;
-    margin-top: 32px;
-    padding: 4px;
-    width: 100%;
-  }
-
-  // .empty-list {
-  //   color: var(--progress-secondary-color);
-  //   opacity: 0.8;
-  //   position: absolute;
-  //   top: 0;
-  //   margin-top: 62px;
-  //   height: 60px;
-  //   width: 130px;
-  //   left: 95px;
-  //   display: flex;
-  //   flex-direction: column;
-  //   align-items: center;
-  // }
-
   .fa-grip-vertical {
     opacity: 0.5;
     margin-right: .5rem;
   }
-
-  // .hand-drag {
-  //   position: absolute;
-  //   left: 0;
-  //   top: 22px;
-  // }
 </style>

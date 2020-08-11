@@ -24,7 +24,6 @@
         "firebase-admin": "^6.0.0",
         "firebase-functions": "^2.0.5",
         "lodash": "^4.17.13",
-        "masonry-layout": "^4.2.2",
         "moment": "^2.22.1",
         "node-sass": "^4.8.3",
         "raven-js": "^3.27.0",

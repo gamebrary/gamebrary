@@ -3,7 +3,7 @@
     <game-progress-modal />
     <game-notes />
 
-    <div v-if="hasTags" class="tags">
+    <div v-if="gameTags" class="tags">
       <b-button
         :title="$t('tags.addTag')"
         @click="openTags"
@@ -51,7 +51,7 @@ export default {
 
   computed: {
     ...mapState(['gameLists', 'platform', 'game']),
-    ...mapGetters(['hasTags']),
+    ...mapGetters(['gameTags']),
 
     // TODO: create getter for activeList
     activePlatform() {

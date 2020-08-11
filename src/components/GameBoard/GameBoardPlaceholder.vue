@@ -88,13 +88,6 @@ export default {
       border-radius: var(--border-radius);
     }
 
-    &.masonry {
-      --placeholder-image-width: 100px;
-      padding-top: .5rem;
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-gap: .25rem;
-    }
-
     &.grid {
       --placeholder-image-width: 140px;
       --placeholder-image-height: 200px;

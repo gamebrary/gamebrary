@@ -113,5 +113,5 @@ export default {
   // eslint-disable-next-line
   activeList: ({ gameLists, platform, activeListIndex }) => gameLists[platform.code][activeListIndex],
 
-  hasTags: state => Object.keys(state.tags) && Object.keys(state.tags).length > 0,
+  gameTags: state => Object.keys(state.tags) && Object.keys(state.tags).length > 0,
 };

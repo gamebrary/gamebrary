@@ -75,7 +75,7 @@
           </div>
         </form>
 
-        <div v-if="hasTags" class="tags">
+        <div v-if="gameTags" class="tags">
           <!-- TODO: use computed properties for filtering out tags -->
           <section>
             <h3>All tags</h3>
@@ -154,7 +154,7 @@ export default {
       return lowerCaseTags && lowerCaseTags.includes(tagName);
     },
 
-    hasTags() {
+    gameTags() {
       return Object.keys(this.localTags).length > 0;
     },
   },

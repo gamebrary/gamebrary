@@ -25,7 +25,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['hasTags']),
+    ...mapGetters(['gameTags']),
     ...mapState(['tags', 'games', 'game']),
   },
 

@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-navbar>
+  <b-navbar class="px-3 py-0">
     <b-navbar-brand href="/">
       <img src="/static/gamebrary-logo.png" height="30" />
     </b-navbar-brand>

@@ -20,7 +20,6 @@
 
 <script>
 import GameBoardPlaceholder from '@/components/GameBoard/GameBoardPlaceholder';
-import ListAddModal from '@/components/GameBoard/ListAddModal';
 import GameTagsModal from '@/components/GameBoard/GameTagsModal';
 import AddList from '@/components/GameBoard/AddList';
 import GameModal from '@/components/GameBoard/GameModal';
@@ -34,7 +33,6 @@ export default {
     draggable,
     List,
     GameBoardPlaceholder,
-    ListAddModal,
     GameTagsModal,
     AddList,
     GameModal,
@@ -138,29 +136,12 @@ export default {
   user-select: none;
   display: flex;
   align-items: flex-start;
-  height: calc(100vh - 72px);
+  height: calc(100vh - 56px);
   padding: 0 1rem;
   box-sizing: border-box;
   overflow-x: auto;
   overflow-x: overlay;
   display: flex;
-
-  @media(max-width: 780px) {
-    &:not(.dragging) {
-      scroll-snap-type: mandatory;
-      scroll-snap-points-x: repeat(300px);
-      scroll-snap-type: x mandatory;
-      scroll-padding: 1rem;
-
-      .list {
-        scroll-snap-align: center;
-      }
-    }
-
-    .bottom & {
-      padding: 1rem 1rem 0;
-    }
-  }
 }
 
 .list-placeholder {

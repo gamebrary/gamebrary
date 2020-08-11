@@ -15,76 +15,47 @@ export default {
 
   computed: {
     ...mapState(['settings', 'games', 'gameLists', 'platform', 'user', 'tags', 'activeList', 'notes', 'progresses']),
-    ...mapGetters(['hasTags']),
+    ...mapGetters(['gameTags']),
 
-    showGameRatings() {
-      return this.game.rating && this.list && !this.list.hideGameRatings;
+    showGameTags() {
+      return this.list.showGameTags && this.gameTags;
     },
 
-    showReleaseDates() {
-      return this.releaseDate && this.list && !this.list.hideReleaseDates;
-    },
-
-    showGameInfo() {
-      return this.list && !this.list.hideGameInfo;
-    },
-
-    showGameInfoOnCover() {
-      return this.list && !this.list.hideGameInfoOnCover;
+    gameRating() {
+      return this.list.showGameRatings && this.game.rating
+        ? Math.round((this.game.rating / 20) * 2) / 2
+        : false;
     },
 
     gameProgress() {
-      return this.game
-        && this.platform
-        && this.progresses[this.platform.code]
-        && this.progresses[this.platform.code][this.game.id];
+      const { game, platform, progresses, list } = this;
+
+      return game
+        && list.showGameProgress
+        && platform
+        && progresses[platform.code]
+        && progresses[platform.code][game.id];
     },
 
     releaseDate() {
       const releaseDate = this.game
+        && this.list.showReleaseDates
         && this.game.release_dates
-        && this.game.release_dates.find(
-          ({ platform }) => this.platform.id === platform,
-        );
+        && this.game.release_dates.find(({ platform }) => this.platform.id === platform);
 
-      let daysUntilRelease = releaseDate.date
-        ? Math.ceil(moment.unix(releaseDate.date).diff(moment(), 'days', true))
-        : this.$t('releaseDates.ToBeAnnounced');
+      const formattedDate = releaseDate && releaseDate.date
+        ? moment.unix(releaseDate.date)
+        : null;
 
-      daysUntilRelease = daysUntilRelease < 0
-        ? ''
-        : daysUntilRelease;
-
-      daysUntilRelease = daysUntilRelease >= 0 && daysUntilRelease === 0
-        ? this.$t('releaseDates.Today')
-        : daysUntilRelease;
-
-      return daysUntilRelease;
-    },
-
-    releaseDateText() {
-      if (this.releaseDate >= 1) {
-        return this.releaseDate === 1
-          ? this.$t('releaseDates.ReleasesTomorrow')
-          : this.$t('releaseDates.ReleasesInXDays', { days: this.releaseDate });
-      } else if (this.releaseDate === this.$t('releaseDates.Today')) {
-        return new Date().getHours() < 15
-          ? this.$t('releaseDates.ReleasesToday')
-          : this.$t('releaseDates.ReleasedToday');
-      }
-
-      return this.releaseDate;
+      return moment(formattedDate).isAfter()
+        ? formattedDate.toNow(true)
+        : null;
     },
 
     gameCardClass() {
-      const badge = this.showGameInfoOnCover && this.gameProgress === '100'
-        ? 'badge'
-        : '';
-
       return [
         'game-card',
         this.list.view,
-        badge,
       ];
     },
 
@@ -92,16 +63,15 @@ export default {
       return this.gameLists[this.platform.code];
     },
 
-    note() {
-      return this.notes && this.notes[this.gameId] && this.notes[this.gameId].text;
-    },
-
-    progress() {
-      return this.progresses && this.progresses[this.gameId] && this.progresses[this.gameId].number;
+    gameNotes() {
+      return this.list.showGameNotes
+        && this.notes
+        && this.notes[this.gameId]
+        && this.notes[this.gameId].text;
     },
 
     list() {
-      return this.activePlatform[this.listId];
+      return this.activePlatform[this.listId] || {};
     },
 
     game() {

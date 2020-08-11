@@ -1,11 +1,13 @@
 <template lang="html">
   <div class="add-game-modal">
     <b-button
+      block
+      size="sm"
+      variant="light"
       v-b-modal="`game-modal-${listId}`"
       :title="$t('list.addGames', { listName })"
-      class="add-game-button"
     >
-      <i class="fas fa-plus" />
+      <b-icon-plus />
     </b-button>
 
     <b-modal
@@ -185,16 +187,6 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  // @import "~styles/styles";
-
-  .add-game-button {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    border-bottom-left-radius: 0;
-    border-top-right-radius: 0;
-  }
-
   .search-form {
     display: flex;
     align-items: center;

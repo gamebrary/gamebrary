@@ -1,7 +1,6 @@
-<!-- TODO: handle dupes -->
 <template lang="html">
   <b-dropdown-item-button v-b-modal="modalId">
-    Rename
+    <b-icon-textarea-t /> Rename list
 
     <b-modal
       :id="modalId"
@@ -12,10 +11,18 @@
         <b-form-input
           ref="listNameField"
           autofocus
-          v-model="listName"
+          v-model.trim="listName"
           placeholder="Enter your name"
           required
         />
+
+        <b-alert
+          class="mt-3 mb-0"
+          :show="isDuplicate"
+          variant="warning"
+        >
+          {{ $t('list.duplicateWarning') }}
+        </b-alert>
       </form>
 
       <template v-slot:modal-footer="{ cancel }">
@@ -25,7 +32,7 @@
 
         <b-button
           variant="primary"
-          :disabled="saving"
+          :disabled="saving || !dirtied || isDuplicate"
           @click="submit"
         >
           <b-spinner small v-if="saving" />
@@ -60,6 +67,24 @@ export default {
 
     modalId() {
       return `rename-list-${this.listIndex}`;
+    },
+
+    dirtied() {
+      const { name } = this.gameLists[this.platform.code][this.listIndex];
+
+      return this.listName && name !== this.listName;
+    },
+
+    existingListNames() {
+      const lists = this.gameLists[this.platform.code];
+      const currentList = lists[this.listIndex];
+
+      return lists.map(list => list.name.toLowerCase())
+        .filter(name => name !== currentList.name.toLowerCase());
+    },
+
+    isDuplicate() {
+      return this.listName && this.existingListNames.includes(this.listName.toLowerCase());
     },
   },
 

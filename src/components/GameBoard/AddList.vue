@@ -2,6 +2,7 @@
   <div>
     <b-button
       v-b-modal="modalId"
+      class="mr-3"
       :title="title"
       ref="addList"
     >

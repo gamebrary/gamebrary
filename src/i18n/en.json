@@ -109,7 +109,6 @@
       "single": "Default",
       "compact": "Compact",
       "text": "Text only",
-      "masonry": "Masonry",
       "grid": "Grid"
     }
   },

@@ -1,38 +1,71 @@
 <template lang="html">
-  <b-dropdown size="sm" no-caret variant="light">
-    <template v-slot:button-content>
-      <b-icon icon="gear-fill" aria-hidden="true" />
-    </template>
-
-    <rename-list :list-index="listIndex" />
-
-    <b-dropdown-item-button>Change view</b-dropdown-item-button>
-    <b-dropdown-item-button>Move</b-dropdown-item-button>
-    <b-dropdown-item-button>
-      <b-form-checkbox switch>Hide game ratings</b-form-checkbox>
-    </b-dropdown-item-button>
-    <b-dropdown-item-button>
-      <b-form-checkbox switch>Hide days until relase</b-form-checkbox>
-    </b-dropdown-item-button>
-    <b-dropdown-divider></b-dropdown-divider>
-    <b-dropdown-item-button
-      variant="danger"
-      @click="promptDeleteList"
+  <div>
+    <b-dropdown
+      size="sm"
+      no-caret
+      variant="light"
     >
-      Delete list
-    </b-dropdown-item-button>
-  </b-dropdown>
+      <template v-slot:button-content>
+        <b-icon icon="three-dots" aria-hidden="true" />
+      </template>
+
+      <sort-list :list-index="listIndex" />
+      <rename-list :list-index="listIndex" />
+      <change-list-view :list-index="listIndex" />
+      <list-tweaks :list-index="listIndex" />
+
+      <b-dropdown-divider />
+
+      <b-dropdown-item>
+        <b-button-group size="sm">
+          <b-button
+            :title="$t('list.moveLeft')"
+            :disabled="isFirst"
+            @click="moveList(listIndex, listIndex - 1)"
+          >
+            <i class="fas fa-arrow-left" />
+
+            {{ $t('list.moveLeft') }}
+          </b-button>
+
+          <b-button
+            :title="$t('list.moveRight')"
+            :disabled="isLast"
+            @click="moveList(listIndex, listIndex + 1)"
+          >
+            {{ $t('list.moveRight') }}
+            <i class="fas fa-arrow-right" />
+          </b-button>
+        </b-button-group>
+      </b-dropdown-item>
+
+      <b-dropdown-divider />
+
+      <b-dropdown-item
+        variant="danger"
+        @click="promptDeleteList"
+      >
+        Delete list
+      </b-dropdown-item>
+    </b-dropdown>
+  </div>
 </template>
 
 <script>
+import ChangeListView from '@/components/Lists/ChangeListView';
 import RenameList from '@/components/Lists/RenameList';
+import ListTweaks from '@/components/Lists/ListTweaks';
+import SortList from '@/components/Lists/SortList';
 import Modal from '@/components/Modal';
 import { mapState } from 'vuex';
 
 export default {
   components: {
     Modal,
+    ChangeListView,
     RenameList,
+    ListTweaks,
+    SortList,
   },
 
   props: {
@@ -46,20 +79,6 @@ export default {
   data() {
     return {
       localList: null,
-      listViews: [
-        { text: 'Single', value: 'single' },
-        { text: 'Masonry', value: 'masonry' },
-        { text: 'Grid', value: 'grid' },
-        { text: 'Compact', value: 'compact' },
-        { text: 'Text', value: 'text' },
-      ],
-      sortingOptions: [
-        { text: 'Custom', value: 'sortByCustom' },
-        { text: 'Name', value: 'sortByName' },
-        { text: 'Rating', value: 'sortByRating' },
-        { text: 'Release date', value: 'sortByReleaseDate' },
-        { text: 'Progress', value: 'sortByProgress' },
-      ],
     };
   },
 
@@ -78,10 +97,6 @@ export default {
       const lastListIndex = Object.keys(this.gameLists[this.platform.code]).length - 1;
 
       return this.listIndex === lastListIndex;
-    },
-
-    hasMultipleGames() {
-      return this.activeList.games.length > 1;
     },
 
     disableSave() {
@@ -147,27 +162,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-  // @import "~styles/styles";
-
-  section {
-    margin-bottom: 2rem;
-
-    &.disabled {
-      opacity: 0.5;
-      pointer-events: none;
-    }
-  }
-
-  h4 {
-    margin-bottom: .5rem;
-  }
-
-  footer {
-    border-top: 1px solid var(--modal-text-color);
-    padding-top: 2rem;
-    display: flex;
-    justify-content: space-between;
-  }
-</style>
