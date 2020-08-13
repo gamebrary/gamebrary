@@ -2,6 +2,30 @@
 // https://gist.github.com/romancm/3e58f307b8c475cace6a28eae8aee2b5
 export default [
   {
+    name: 'Xbox Series X',
+    code: 'xbsx',
+    hex: '#fff',
+    releaseYear: 2020,
+    id: 169,
+    type: 'home',
+  },
+  {
+    name: 'Playstation 5',
+    code: 'ps5',
+    hex: '#222',
+    releaseYear: 2020,
+    id: 167,
+    type: 'home',
+  },
+  {
+    name: 'Google Stadia',
+    code: 'stadia',
+    hex: '#fff',
+    releaseYear: 2019,
+    id: 170,
+    type: 'home',
+  },
+  {
     name: 'Nintendo Switch',
     code: 'nintendo-switch',
     hex: '#ce181e',
