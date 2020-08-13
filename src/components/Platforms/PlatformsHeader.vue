@@ -78,10 +78,10 @@ export default {
     saveSettings() {
       this.$store.dispatch('SAVE_SETTINGS', this.settings)
         .then(() => {
-          this.$bus.$emit('TOAST', { message: 'Settings saved' });
+          this.$bvToast.toast('Settings saved', { title: 'Success', variant: 'success' });
         })
         .catch(() => {
-          this.$bus.$emit('TOAST', { message: 'There was an error saving your settings', type: 'error' });
+          this.$bvToast.toast('There was an error saving your settings', { title: 'Error', variant: 'danger' });
         });
     },
 

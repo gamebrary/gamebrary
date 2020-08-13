@@ -151,7 +151,7 @@ export default {
           }
         })
         .catch(() => {
-          this.$bus.$emit('TOAST', { message: 'Error loading game', type: 'error' });
+          this.$bvToast.toast('Error loading game', { title: 'Error', variant: 'error' });
         });
     },
   },

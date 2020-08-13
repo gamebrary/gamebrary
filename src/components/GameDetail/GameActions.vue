@@ -79,13 +79,11 @@ export default {
       this.$store
         .dispatch('SAVE_LIST', this.gameLists)
         .then(() => {
-          this.$bus.$emit('TOAST', {
-            message: `Removed ${this.game.name} from list ${this.list.name}`,
-            imageUrl: this.coverUrl,
-          });
+          // TODO customize using cover
+          this.$bvToast.toast(`Removed ${this.game.name} from list ${this.list.name}`, { title: 'Success', variant: 'success' });
         })
         .catch(() => {
-          this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
+          this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
           this.$router.push({ name: 'sessionExpired' });
         });
     },
@@ -108,13 +106,11 @@ export default {
 
       this.$store.dispatch('SAVE_LIST', this.gameLists)
         .then(() => {
-          this.$bus.$emit('TOAST', {
-            message: `Added ${this.game.name} to list ${this.list.name}`,
-            imageUrl: this.coverUrl,
-          });
+          // TODO: customize using cover image
+          this.$bvToast.toast(`Added ${this.game.name} to list ${this.list.name}`, { title: 'Success', variant: 'success' });
         })
         .catch(() => {
-          this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
+          this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
           this.$router.push({ name: 'sessionExpired' });
         });
     },

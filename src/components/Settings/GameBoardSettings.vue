@@ -115,7 +115,7 @@ export default {
           this.$router.push({ name: 'platforms' });
         })
         .catch(() => {
-          this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
+          this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
           this.$router.push({ name: 'sessionExpired' });
         });
     },

@@ -46,7 +46,6 @@
             height="6px"
           />
 
-
           <div v-if="showGameTags">
             <b-badge
               v-for="({ games, hex, tagTextColor }, name) in tags"

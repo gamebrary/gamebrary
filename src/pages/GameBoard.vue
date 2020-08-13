@@ -79,7 +79,7 @@ export default {
     async updateLists() {
       await this.$store.dispatch('SAVE_LIST', this.gameLists)
         .catch(() => {
-          this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
+          this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
           this.$router.push({ name: 'sessionExpired' });
         });
 
@@ -115,7 +115,7 @@ export default {
             this.loading = false;
           })
           .catch(() => {
-            this.$bus.$emit('TOAST', { message: 'Error loading games', type: 'error' });
+            this.$bvToast.toast('Error loading games', { title: 'Error', variant: 'error' });
           });
       }
     },

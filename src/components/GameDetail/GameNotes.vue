@@ -96,11 +96,12 @@ export default {
 
       await this.$store.dispatch('SAVE_NOTES_NO_MERGE')
         .catch(() => {
-          this.$bus.$emit('TOAST', { message: 'There was an error deleting your note', type: 'error' });
+          this.$bvToast.toast('There was an error deleting your note', { title: 'Error', variant: 'danger' });
           this.$router.push({ name: 'sessionExpired' });
         });
 
-      this.$bus.$emit('TOAST', { message: 'Note deleted' });
+      this.$bvToast.toast('Note deleted', { title: 'Success', variant: 'success' });
+
       this.$refs.notesModal.close();
     },
 
@@ -113,11 +114,12 @@ export default {
 
       await this.$store.dispatch('SAVE_NOTES')
         .catch(() => {
-          this.$bus.$emit('TOAST', { message: 'There was an error saving your note', type: 'error' });
+          this.$bvToast.toast('There was an error saving your note', { title: 'Error', variant: 'danger' });
           this.$router.push({ name: 'sessionExpired' });
         });
 
-      this.$bus.$emit('TOAST', { message: 'Note saved' });
+      this.$bvToast.toast('Note saved', { title: 'Success', variant: 'success' });
+
       this.$refs.notesModal.close();
     },
   },

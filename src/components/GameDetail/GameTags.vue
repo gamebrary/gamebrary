@@ -42,11 +42,11 @@ export default {
     async saveTags() {
       await this.$store.dispatch('SAVE_TAGS', this.tags)
         .catch(() => {
-          this.$bus.$emit('TOAST', { message: 'There was an error saving your tag', type: 'error' });
+          this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
           this.$router.push({ name: 'sessionExpired' });
         });
 
-      this.$bus.$emit('TOAST', { message: 'Tags updated' });
+      this.$bvToast.toast('Tags updated', { title: 'Success', variant: 'success' });
     },
   },
 };

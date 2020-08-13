@@ -133,7 +133,7 @@ export default {
 
       await this.$store.dispatch('SAVE_LIST', this.gameLists)
         .catch(() => {
-          this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
+          this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
           this.$router.push({ name: 'sessionExpired' });
         });
 
@@ -147,11 +147,11 @@ export default {
 
       await this.$store.dispatch('SAVE_LIST', this.gameLists)
         .catch(() => {
-          this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
+          this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
           this.$router.push({ name: 'sessionExpired' });
         });
 
-      this.$bus.$emit('TOAST', { message: 'List saved' });
+      this.$bvToast.toast('List saved', { title: 'success', variant: 'success' });
     },
 
     focusInput() {

@@ -126,10 +126,10 @@ export default {
     save() {
       this.$store.dispatch('SAVE_SETTINGS', this.localSettings)
         .then(() => {
-          this.$bus.$emit('TOAST', { message: 'Settings saved' });
+          this.$bvToast.toast('Settings saved', { title: 'Success', variant: 'success' });
         })
         .catch(() => {
-          this.$bus.$emit('TOAST', { message: 'There was an error saving your settings', type: 'error' });
+          this.$bvToast.toast('There was an error saving your settings', { title: 'Error', variant: 'danger' });
           this.$router.push({ name: 'sessionExpired' });
         });
     },
@@ -144,16 +144,16 @@ export default {
         // TODO: move to actions
           db.collection('lists').doc(this.user.uid).delete()
             .then(() => {
-              this.$bus.$emit('TOAST', { message: 'Account deleted' });
+              this.$bvToast.toast('Account deleted', { title: 'Success', variant: 'success' });
               this.exit();
             })
             .catch(() => {
-              this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
+              this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
               this.$router.push({ name: 'sessionExpired' });
             });
         })
         .catch(() => {
-          this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
+          this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
           this.$router.push({ name: 'sessionExpired' });
         });
     },
@@ -164,7 +164,7 @@ export default {
           this.exit();
         })
         .catch((error) => {
-          this.$bus.$emit('TOAST', { message: error, type: 'error' });
+          this.$bvToast.toast(error, { title: 'Error', variant: 'danger' });
         });
     },
 

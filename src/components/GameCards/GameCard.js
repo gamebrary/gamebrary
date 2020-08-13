@@ -95,10 +95,10 @@ export default {
 
   methods: {
     openDetails() {
-      this.$bus.$emit('OPEN_GAME', {
-        id: this.game.id,
-        listId: this.listId,
-      });
+      const { gameId, listId } = this;
+
+      this.$store.commit('SET_GAME_MODAL_DATA', { gameId, listId });
+      this.$bvModal.show('game-modal');
     },
 
     openTags() {
@@ -123,13 +123,11 @@ export default {
 
       this.$store.dispatch('SAVE_LIST', this.gameLists)
         .then(() => {
-          this.$bus.$emit('TOAST', {
-            message: `Added ${this.game.name} to list ${this.list.name}`,
-            imageUrl: this.coverUrl,
-          });
+          // TODO: customize, show cover url
+          this.$bvToast.toast(`Added ${this.game.name} to list ${this.list.name}`, { title: 'Game added', variant: 'success' });
         })
         .catch(() => {
-          this.$bus.$emit('TOAST', { message: 'Authentication error', type: 'error' });
+          this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
           this.$router.push({ name: 'sessionExpired' });
         });
     },
@@ -142,11 +140,11 @@ export default {
     async saveTags() {
       await this.$store.dispatch('SAVE_TAGS', this.tags)
         .catch(() => {
-          this.$bus.$emit('TOAST', { message: 'There was an error saving your tag', type: 'error' });
+          this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
           this.$router.push({ name: 'sessionExpired' });
         });
 
-      this.$bus.$emit('TOAST', { message: 'Tags updated' });
+      this.$bvToast.toast('Tags updated', { title: 'Success', variant: 'success' });
     },
   },
 };
