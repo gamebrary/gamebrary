@@ -24,7 +24,7 @@
 
         <b-alert
           class="mt-3 mb-0"
-          :show="isDuplicate"
+          :show="isDuplicate && !saving"
           variant="warning"
         >
           {{ $t('list.duplicateWarning') }}
@@ -125,6 +125,8 @@ export default {
         name: this.listName,
       };
 
+      this.saving = true;
+
       this.$store.commit('ADD_LIST', list);
 
       this.$store.dispatch('SAVE_LIST', this.gameLists)
@@ -132,16 +134,19 @@ export default {
           this.$bvToast.toast('List added', {
             variant: 'success',
           });
+          this.saving = true;
           this.$bvModal.hide(this.modalId);
           this.scroll();
         });
+
+      // TODO: catch and make async
     },
 
     scroll() {
       this.$nextTick(() => {
-        const gameBoard = document.querySelector('.game-board');
+        const board = document.querySelector('.board');
 
-        gameBoard.scrollLeft = gameBoard.scrollWidth;
+        board.scrollLeft = board.scrollWidth;
       });
     },
   },

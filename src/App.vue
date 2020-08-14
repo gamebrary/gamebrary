@@ -62,7 +62,7 @@ export default {
     style() {
       return {
         'background-image':
-          this.$route.name === 'game-board' &&
+          this.$route.name === 'board' &&
           this.wallpaperUrl
             ? `url('${this.wallpaperUrl}')`
             : null,
@@ -83,11 +83,11 @@ export default {
       && this.settings[this.platform.code]
       && this.settings[this.platform.code].theme;
 
-      const isGameBoard = this.$route.name === 'game-board';
+      const isBoard = this.$route.name === 'board';
 
       const hasPlatformTheme = hasPlatform && hasTheme;
 
-      return isGameBoard && hasPlatformTheme
+      return isBoard && hasPlatformTheme
         ? `theme-${this.settings[this.platform.code].theme}`
         : 'theme-default';
     },
@@ -99,11 +99,11 @@ export default {
       && this.settings[this.platform.code]
       && this.settings[this.platform.code].position;
 
-      const isGameBoard = this.$route.name === 'game-board';
+      const isBoard = this.$route.name === 'board';
 
       const hasPlatformPosition = hasPlatform && hasPosition;
 
-      return isGameBoard && hasPlatformPosition
+      return isBoard && hasPlatformPosition
         ? `${this.settings[this.platform.code].position}`
         : 'top';
     },
@@ -115,11 +115,11 @@ export default {
       && this.settings[this.platform.code]
       && this.settings[this.platform.code].borderRadius;
 
-      const isGameBoard = this.$route.name === 'game-board';
+      const isBoard = this.$route.name === 'board';
 
       const hasPlatformBorderRadius = hasPlatform && hasBorderRadius;
 
-      return isGameBoard && hasPlatformBorderRadius
+      return isBoard && hasPlatformBorderRadius
         ? ''
         : 'no-border-radius';
     },

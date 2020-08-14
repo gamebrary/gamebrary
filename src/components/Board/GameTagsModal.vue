@@ -4,6 +4,7 @@
     :title="$t('tags.editTags' )"
     :message="$t('tags.message', { gameName: game && game.name })"
   >
+    <!-- TODO: change to popover -->
     <div slot="content" class="game-tags">
       <h3>All tags</h3>
 
@@ -35,7 +36,6 @@
 
       <div class="settings-message">
         <p>{{ $t('tags.settingsMessage') }}</p>
-        <settings />
       </div>
     </div>
   </modal>
@@ -45,13 +45,11 @@
 import { mapState } from 'vuex';
 import Tag from '@/components/Tag';
 import Modal from '@/components/Modal';
-import Settings from '@/pages/Settings';
 
 export default {
   components: {
     Tag,
     Modal,
-    Settings,
   },
 
   data() {
