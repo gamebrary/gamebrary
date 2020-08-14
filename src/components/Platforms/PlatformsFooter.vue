@@ -1,5 +1,5 @@
 <template>
-  <footer>
+  <footer class="text-center">
     <small>
       {{ $t('platforms.donateMessage') }}
       <a href="https://www.paypal.me/RomanCervantes/5" target="_blank">
@@ -15,29 +15,5 @@
       </a>
       .
     </small>
-
-    <igdb-credit gray />
   </footer>
 </template>
-
-<script>
-import IgdbCredit from '@/components/IgdbCredit';
-
-export default {
-  components: {
-    IgdbCredit,
-  },
-};
-</script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-// @import "~styles/styles";
-
-footer {
-  padding: .5rem 0;
-  justify-content: center;
-  display: flex;
-  align-items: center;
-  color: var(--header-text-color);
-}
-</style>
