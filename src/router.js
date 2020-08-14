@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import GameBoard from '@/pages/GameBoard';
+import Board from '@/pages/Board';
 import SessionExpired from '@/pages/SessionExpired';
 import Platforms from '@/pages/Platforms';
 import NotFound from '@/pages/NotFound';
@@ -28,18 +28,13 @@ export default new Router({
     },
     {
       path: '/board',
-      name: 'game-board',
-      component: GameBoard,
-    },
-    {
-      path: '/settings',
-      name: 'settings',
-      component: GameBoard,
+      name: 'board',
+      component: Board,
     },
     {
       path: '/auth/:authProvider',
       name: 'auth',
-      component: GameBoard,
+      component: Board,
     },
     {
       path: '*',
