@@ -1,57 +1,50 @@
 <template lang="html">
-  <modal
+  <!-- <modal
     ref="tag"
     :title="$t('tags.editTags' )"
     :message="$t('tags.message', { gameName: game && game.name })"
-  >
-    <!-- TODO: change to popover -->
-    <div slot="content" class="game-tags">
-      <h3>All tags</h3>
+  > -->
+  <!-- TODO: change to popover -->
+  <div slot="content" class="game-tags">
+    <h3>All tags</h3>
 
-      <tag
-        v-for="(tag, name) in tags"
-        v-if="!tag.platform"
-        :key="name"
-        :label="name"
-        :hex="tag.hex"
-        :text-hex="tag.tagTextColor"
-        :readonly="!tag.games.includes(gameTagsId)"
-        @action="tryAdd(tag.games, name)"
-        @close="removeTag(name)"
-      />
+    <!-- <tag
+      v-for="(tag, name) in tags"
+      v-if="!tag.platform"
+      :key="name"
+      :label="name"
+      :hex="tag.hex"
+      :text-hex="tag.tagTextColor"
+      :readonly="!tag.games.includes(gameTagsId)"
+      @action="tryAdd(tag.games, name)"
+      @close="removeTag(name)"
+    /> -->
 
-      <h3>{{ platform.name }} tags</h3>
+    <h3>{{ platform.name }} tags</h3>
 
-      <tag
-        v-for="(tag, name) in tags"
-        v-if="tag.platform && tag.platform === platform.id"
-        :key="name"
-        :label="name"
-        :hex="tag.hex"
-        :text-hex="tag.tagTextColor"
-        :readonly="!tag.games.includes(gameTagsId)"
-        @action="tryAdd(tag.games, name)"
-        @close="removeTag(name)"
-      />
+    <!-- <tag
+      v-for="(tag, name) in tags"
+      v-if="tag.platform && tag.platform === platform.id"
+      :key="name"
+      :label="name"
+      :hex="tag.hex"
+      :text-hex="tag.tagTextColor"
+      :readonly="!tag.games.includes(gameTagsId)"
+      @action="tryAdd(tag.games, name)"
+      @close="removeTag(name)"
+    /> -->
 
-      <div class="settings-message">
-        <p>{{ $t('tags.settingsMessage') }}</p>
-      </div>
+    <div class="settings-message">
+      <p>{{ $t('tags.settingsMessage') }}</p>
     </div>
-  </modal>
+  </div>
+  <!-- </modal> -->
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import Tag from '@/components/Tag';
-import Modal from '@/components/Modal';
 
 export default {
-  components: {
-    Tag,
-    Modal,
-  },
-
   data() {
     return {
       gameTagsId: null,

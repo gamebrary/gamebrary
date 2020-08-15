@@ -1,8 +1,9 @@
 <!-- TODO: when file management is in place, allow to insert image from your files -->
 <template lang="html">
-  <modal title="Game notes" ref="notesModal" @open="reset">
+  <!-- <modal title="Game notes" ref="notesModal" @open="reset"> -->
+  <div>
     <b-button variant="primary" :title="$t('notes.addNote')">
-      <i class="fas fa-sticky-note" />
+      NOTE ICON HERE
     </b-button>
 
     <div slot="content" v-if="game" class="game-notes">
@@ -17,7 +18,7 @@
 
       <small>
         <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">
-          <i class="fab fa-markdown" />
+          SHOW EYE BALL ICON HERE
           Markdown supported
         </a>
       </small>
@@ -43,27 +44,26 @@
           v-if="localNote.text"
           @click="togglePreview"
         >
-          <i :class="`far fa-eye${showPreview ? '-slash' : ''}`" />
+          <!-- TODO: SHOW ICON -->
           Toggle preview
         </b-button>
 
         <b-button variant="danger" @click="deleteNote">
-          <i class="fas fa-trash-alt" />
+          <b-icon-trash />
         </b-button>
       </div>
     </div>
-  </modal>
+  </div>
+  <!-- </modal> -->
 </template>
 
 <script>
 import VueMarkdown from 'vue-markdown';
-import Modal from '@/components/Modal';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
     VueMarkdown,
-    Modal,
   },
 
   data() {

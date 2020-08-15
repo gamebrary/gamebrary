@@ -14,13 +14,13 @@
 
     <add-list ref="listAddModal" />
     <game-modal />
-    <game-tags-modal />
+    <!-- <game-tags-modal /> -->
   </div>
 </template>
 
 <script>
 import BoardPlaceholder from '@/components/Board/BoardPlaceholder';
-import GameTagsModal from '@/components/Board/GameTagsModal';
+// import GameTagsModal from '@/components/Board/GameTagsModal';
 import AddList from '@/components/Board/AddList';
 import GameModal from '@/components/Board/GameModal';
 import List from '@/components/Lists/List';
@@ -33,7 +33,7 @@ export default {
     draggable,
     List,
     BoardPlaceholder,
-    GameTagsModal,
+    // GameTagsModal,
     AddList,
     GameModal,
   },
