@@ -29,12 +29,11 @@ export default {
     },
 
     gameProgress() {
-      const { game, progresses, list } = this;
+      const { gameId, progresses, list } = this;
 
-      return game
-        && list.showGameProgress
-        && progresses[game.id]
-        || null;
+      return list.showGameProgress && gameId && progresses[gameId]
+        ? progresses[gameId]
+        : null;
     },
 
     releaseDate() {
@@ -64,10 +63,7 @@ export default {
     },
 
     gameNotes() {
-      return this.list.showGameNotes
-        && this.notes
-        && this.notes[this.gameId]
-        && this.notes[this.gameId].text;
+      return this.list.showGameNotes && this.notes[this.gameId];
     },
 
     list() {

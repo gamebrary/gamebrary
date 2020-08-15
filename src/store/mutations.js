@@ -75,15 +75,13 @@ export default {
     state.progresses[gameId] = progress;
   },
 
-  SET_GAME_NOTE(state, note) {
-    state.notes[state.game.id] = note;
+  SET_GAME_NOTE(state, { note, gameId }) {
+    state.notes[gameId] = note;
   },
 
-  REMOVE_GAME_NOTE({ game, notes }) {
-    const noteExists = game && notes[game.id];
-
-    if (noteExists) {
-      Vue.delete(notes, game.id);
+  REMOVE_GAME_NOTE(state, gameId) {
+    if (state.notes[gameId]) {
+      Vue.delete(state.notes, gameId);
     }
   },
 

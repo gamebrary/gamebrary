@@ -75,7 +75,7 @@
               <b-icon-check />
             </b-button>
 
-            <b-modal id="progress" title="Set game progress" ok-only @shown="getProgress">
+            <b-modal id="progress" title="Set game progress" @shown="getProgress">
               <b-input-group :prepend="`${localProgress}%`" class="mb-4" size="lg">
                 <b-form-input
                   size="lg"
@@ -97,9 +97,28 @@
               </template>
             </b-modal>
 
-            <b-button variant="warning">
+            <b-button v-b-modal.notes variant="warning">
               <b-icon-file-earmark-text />
             </b-button>
+
+            <b-modal id="notes" title="Game notes" @shown="getNotes">
+              <b-form-textarea
+                v-model.trim="localNote"
+                placeholder="Type note here"
+                rows="3"
+                max-rows="20"
+              />
+
+              <template v-slot:modal-footer>
+                <b-button variant="danger" @click="deleteNote">
+                  {{ $t('progresses.deleteProgress') }}
+                </b-button>
+
+                <b-button variant="primary" @click="saveNote">
+                  {{ $t('progresses.save') }}
+                </b-button>
+              </template>
+            </b-modal>
 
             <game-tags :game-id="game.id" />
 
@@ -166,10 +185,22 @@
 
           <b-tab>
             <template v-slot:title>
-              Notes
+              Notes <b-badge v-if="notes[gameId]">1</b-badge>
             </template>
 
-            <vue-markdown v-if="hasNote" :source="notes[game.id].text" />
+            <template v-if="notes[gameId]">
+              <vue-markdown :source="notes[gameId]" />
+              <!-- TODO add markdown preview? -->
+              <!-- <vue-markdown :source="localNote.text" /> -->
+
+              <b-button v-b-modal.notes variant="warning">
+                Edit note
+              </b-button>
+            </template>
+
+            <b-button v-else v-b-modal.notes>
+              Add note
+            </b-button>
           </b-tab>
 
           <b-tab v-if="game.websites">
@@ -258,6 +289,8 @@ export default {
       localProgress: '0',
       game: null,
       loading: true,
+      showPreview: false,
+      localNote: '',
       // TODO: GET THIS FROM https://api-v3.igdb.com/igdbapi.proto?
       linkTypes: {
         1: 'Official site',
@@ -315,10 +348,6 @@ export default {
 
     list() {
       return this.activePlatform[this.listId];
-    },
-
-    hasNote() {
-      return this.notes && this.game && this.notes[this.game.id] && this.notes[this.game.id].text;
     },
 
     releaseDate() {
@@ -440,7 +469,47 @@ export default {
         : 0;
     },
 
+    getNotes() {
+      const { gameId, notes } = this;
+
+      this.localNote = notes[gameId] || '';
+    },
+
+    async saveNote() {
+      const payload = {
+        note: this.localNote,
+        gameId: this.gameId,
+      };
+
+      this.$store.commit('SET_GAME_NOTE', payload);
+
+      await this.$store.dispatch('SAVE_NOTES')
+        .catch(() => {
+          this.$bvToast.toast('There was an error saving your note', { title: 'Error', variant: 'danger' });
+          this.$router.push({ name: 'sessionExpired' });
+        });
+
+      this.$bvToast.toast('Note saved', { title: 'Success', variant: 'success' });
+
+      this.$bvModal.hide('notes');
+    },
+
+    async deleteNote() {
+      this.$store.commit('REMOVE_GAME_NOTE', this.gameId);
+
+      await this.$store.dispatch('SAVE_NOTES_NO_MERGE')
+        .catch(() => {
+          this.$bvToast.toast('There was an error deleting your note', { title: 'Error', variant: 'danger' });
+          this.$router.push({ name: 'sessionExpired' });
+        });
+
+      this.$bvToast.toast('Note deleted', { title: 'Success', variant: 'success' });
+
+      this.$bvModal.hide('notes');
+    },
+
     addGame() {
+      // TODO: destructure
       const data = {
         listId: this.listId,
         gameId: this.game.id,

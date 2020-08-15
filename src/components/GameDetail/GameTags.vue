@@ -7,7 +7,7 @@
       title="Apply tags"
       placement="auto"
     >
-      <!-- close on blur -->
+      <!-- TODO: close on blur -->
       <template v-slot:title>
         <div class="py-0 pr-0 pl-2 d-flex justify-content-between align-items-center">
           Apply tags
