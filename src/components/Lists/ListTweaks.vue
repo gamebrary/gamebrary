@@ -27,6 +27,10 @@
         <b-form-checkbox v-model="showGameTags" name="check-button" switch>
           Show game tags
         </b-form-checkbox>
+
+        <b-form-checkbox v-model="showGameCount" name="check-button" switch>
+          Show game count
+        </b-form-checkbox>
       </form>
 
       <template v-slot:modal-footer="{ cancel }">
@@ -66,6 +70,7 @@ export default {
       showGameProgress: false,
       showGameNotes: false,
       showGameTags: false,
+      showGameCount: false,
       saving: false,
     };
   },
@@ -90,6 +95,7 @@ export default {
         showGameProgress,
         showGameNotes,
         showGameTags,
+        showGameCount,
       } = this.gameLists[this.platform.code][this.listIndex];
 
       this.showReleaseDates = showReleaseDates || false;
@@ -97,6 +103,7 @@ export default {
       this.showGameProgress = showGameProgress || false;
       this.showGameNotes = showGameNotes || false;
       this.showGameTags = showGameTags || false;
+      this.showGameCount = showGameCount || false;
     },
 
     async save() {
@@ -109,6 +116,7 @@ export default {
       gameLists[this.platform.code][this.listIndex].showGameProgress = this.showGameProgress;
       gameLists[this.platform.code][this.listIndex].showGameNotes = this.showGameNotes;
       gameLists[this.platform.code][this.listIndex].showGameTags = this.showGameTags;
+      gameLists[this.platform.code][this.listIndex].showGameCount = this.showGameCount;
 
       await this.$store.dispatch('SAVE_LIST', gameLists)
         .catch(() => {
