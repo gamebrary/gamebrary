@@ -6,7 +6,6 @@
     <b-modal
       id="board-settings"
       title="Board settings"
-      hide-footer
       body-class="p-0"
       @shown="getSettings"
     >
@@ -20,6 +19,7 @@
           <label for="theme">Theme</label>
           <b-form-select
             id="theme"
+            disabled
           >
             <b-form-select-option
               v-for="{ id, name } in themes"
@@ -29,19 +29,22 @@
               {{ name }}
             </b-form-select-option>
           </b-form-select>
-        </b-list-group-item>
 
-        <b-list-group-item>
-          <b-button
-            :title="$t('list.delete')"
-            variant="danger"
-            @click="promptDeleteBoard"
-          >
-            <i class="far fa-trash-alt" />
-            Delete board
-          </b-button>
+          <b-alert show variant="warning" class="mt-3">
+            Themes are temporarily disabled
+          </b-alert>
         </b-list-group-item>
       </b-list-group>
+
+      <template v-slot:modal-footer>
+        <b-button
+          :title="$t('list.delete')"
+          variant="danger"
+          @click="promptDeleteBoard"
+        >
+          Delete board
+        </b-button>
+      </template>
     </b-modal>
   </b-dropdown-item>
 </template>
