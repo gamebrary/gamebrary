@@ -23,6 +23,7 @@
         <b-form-input
           ref="searchInput"
           v-model="searchText"
+          debounce="500"
           :placeholder="$t('gameSearch.inputPlaceholder')"
           type="text"
         />
@@ -76,7 +77,6 @@
 <script>
 import GameCardSearch from '@/components/GameCards/GameCardSearch';
 import IgdbLogo from '@/components/IgdbLogo';
-import { debounce } from 'lodash';
 import { mapState } from 'vuex';
 
 export default {
@@ -172,20 +172,20 @@ export default {
       }
     },
 
-    search: debounce(
-      // eslint-disable-next-line
-      function() {
-        this.$store.dispatch('SEARCH', this.searchText)
-          .then(() => {
-            this.error = null;
-            this.loading = false;
-            this.$refs.searchResults.scrollTop = 0;
-          })
-          .catch(({ data }) => {
-            this.loading = false;
-            this.error = data;
-          });
-      }, 300),
+    async search() {
+      await this.$store.dispatch('SEARCH', this.searchText)
+        .catch(({ data }) => {
+          this.loading = false;
+          this.error = data;
+        });
+
+      this.error = null;
+      this.loading = false;
+
+      if (this.$refs.searchResults) {
+        this.$refs.searchResults.scrollTop = 0;
+      }
+    },
   },
 };
 </script>
