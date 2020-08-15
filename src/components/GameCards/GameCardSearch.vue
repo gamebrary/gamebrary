@@ -5,7 +5,6 @@
         <b-card-img
           :src="coverUrl"
           :alt="game.name"
-          @click="openDetails"
         />
       </b-col>
 
