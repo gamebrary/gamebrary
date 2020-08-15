@@ -152,7 +152,9 @@
             <template v-if="editingTagName">
               Preview:
 
-              <b-badge :style="`background-color: ${editingTag.hex}; color: ${editingTag.tagTextColor}`">
+              <b-badge
+                :style="`background-color: ${editingTag.hex}; color: ${editingTag.tagTextColor}`"
+              >
                 {{ editingTagName }}
               </b-badge>
             </template>
