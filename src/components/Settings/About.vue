@@ -9,7 +9,7 @@
       scrollable
       footer-class="p-2 d-flex align-items-center justify-content-between"
       size="lg"
-      @shown="loadRepoReadme"
+      @shown="load"
     >
       <vue-markdown
         v-if="readme"
@@ -17,41 +17,42 @@
       />
 
       <template v-slot:modal-footer>
-        <div>
-          <github-button
+        <div v-if="repo">
+          <b-button
+            size="sm"
             href="https://github.com/romancm/gamebrary/subscription"
-            data-show-count="true"
-            aria-label="Watch romancm/gamebrary on GitHub"
+            target="_blank"
           >
-            Watch
-          </github-button>
-          <github-button
+            Watch <b-badge variant="light">{{ repo.watchers }}</b-badge>
+          </b-button>
+
+          <b-button
+            size="sm"
             href="https://github.com/romancm/gamebrary"
-            data-show-count="true"
-            aria-label="Star romancm/gamebrary on GitHub"
+            target="_blank"
           >
-            Star
-          </github-button>
-          <github-button
+            Star <b-badge variant="light">{{ repo.stargazers_count }}</b-badge>
+          </b-button>
+
+          <b-button
+            size="sm"
             href="https://github.com/romancm/gamebrary/fork"
-            data-show-count="true"
-            aria-label="Fork romancm/gamebrary on GitHub"
+            target="_blank"
           >
-            Fork
-          </github-button>
-          <github-button
+            Fork <b-badge variant="light">{{ repo.forks }}</b-badge>
+          </b-button>
+
+          <b-button
+            size="sm"
             href="https://github.com/romancm/gamebrary/issues"
-            data-show-count="true"
-            aria-label="Issue romancm/gamebrary on GitHub"
+            target="_blank"
           >
-            Issue
-          </github-button>
+            Issues <b-badge variant="light">{{ repo.open_issues }}</b-badge>
+          </b-button>
         </div>
 
         <small>©{{ currentYear }} Gamebrary</small>
       </template>
-      <footer>
-      </footer>
     </b-modal>
   </b-dropdown-item>
 </template>
@@ -59,19 +60,18 @@
 <script>
 import VueMarkdown from 'vue-markdown';
 import moment from 'moment';
-import GithubButton from 'vue-github-button';
 import Placeholder from '@/components/Placeholder';
 
 export default {
   components: {
     VueMarkdown,
     Placeholder,
-    GithubButton,
   },
 
   data() {
     return {
       readme: null,
+      repo: null,
     };
   },
 
@@ -86,8 +86,9 @@ export default {
       return moment(date).format('LL');
     },
 
-    async loadRepoReadme() {
-      this.readme = await this.$store.dispatch('LOAD_REPO_README');
+    async load() {
+      this.readme = await this.$store.dispatch('LOAD_GITHUB_README');
+      this.repo = await this.$store.dispatch('LOAD_GITHUB_REPOSITORY');
     },
   },
 };

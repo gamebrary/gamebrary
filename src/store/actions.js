@@ -116,7 +116,16 @@ export default {
     });
   },
 
-  LOAD_REPO_README() {
+  LOAD_GITHUB_REPOSITORY() {
+    return new Promise((resolve, reject) => {
+      axios.get('https://api.github.com/repos/romancm/gamebrary')
+        .then(({ data }) => {
+          resolve(data);
+        }).catch(reject);
+    });
+  },
+
+  LOAD_GITHUB_README() {
     return new Promise((resolve, reject) => {
       axios.get('https://raw.githubusercontent.com/romancm/gamebrary/master/README.md')
         .then(({ data }) => {
