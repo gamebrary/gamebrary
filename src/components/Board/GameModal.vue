@@ -62,8 +62,8 @@
               v-if="games.includes(game.id)"
               :key="name"
               pill
-              variant="primary"
               tag="small"
+              class="mr-1 mb-2"
               :style="`background-color: ${hex}; color: ${tagTextColor}`"
             >
               {{ name }}
@@ -75,7 +75,7 @@
               <b-icon-check />
             </b-button>
 
-            <b-modal id="progress" title="Set game progress" ok-only @shown="setProgress">
+            <b-modal id="progress" title="Set game progress" ok-only @shown="getProgress">
               <b-input-group :prepend="`${localProgress}%`" class="mb-4" size="lg">
                 <b-form-input
                   size="lg"
@@ -83,13 +83,18 @@
                   type="range"
                   max="100"
                   step="5"
-                  @change="saveProgress"
                 />
               </b-input-group>
 
-              <b-button variant="danger" @click="deleteProgress">
-                {{ $t('progresses.deleteProgress') }}
-              </b-button>
+              <template v-slot:modal-footer>
+                <b-button variant="danger" @click="deleteProgress">
+                  {{ $t('progresses.deleteProgress') }}
+                </b-button>
+
+                <b-button variant="primary" @click="saveProgress">
+                  {{ $t('progresses.save') }}
+                </b-button>
+              </template>
             </b-modal>
 
             <b-button variant="warning">
@@ -250,7 +255,7 @@ export default {
     return {
       gameId: null,
       listId: null,
-      localProgress: '',
+      localProgress: '0',
       game: null,
       loading: true,
       // TODO: GET THIS FROM https://api-v3.igdb.com/igdbapi.proto?
@@ -298,7 +303,7 @@ export default {
 
   computed: {
     ...mapState(['gameModalData', 'games', 'platform', 'progresses', 'tags', 'notes', 'gameLists']),
-    ...mapGetters(['gameTags', 'gameProgress']),
+    ...mapGetters(['gameTags']),
 
     title() {
       return this.game && this.game.name;
@@ -331,12 +336,9 @@ export default {
     },
 
     progress() {
-      const { game, platform, progresses } = this;
+      const { gameId, progresses } = this;
 
-      return game
-        && platform
-        && progresses[platform.code]
-        && progresses[platform.code][game.id];
+      return progresses[gameId] || null;
     },
 
     genres() {
@@ -414,24 +416,28 @@ export default {
   },
 
   methods: {
-    saveProgress() {
-      /* eslint-disable */
-      // this.$store.commit('SET_GAME_PROGRESS', this.localProgress);
-      //
-      // this.$store.dispatch('SAVE_PROGRESSES')
-      //   .then(() => {
-      //     this.$bvToast.toast('Progress updated', { title: 'Success', variant: 'success' });
-      //   })
-      //   .catch(() => {
-      //     this.$bvToast.toast('There was an error saving your progress', { title: 'Error', variant: 'error' });
-      //     this.$router.push({ name: 'sessionExpired' });
-      //   });
+    async saveProgress() {
+      const payload = {
+        progress: this.localProgress,
+        gameId: this.gameId,
+      };
+
+      this.$store.commit('SET_GAME_PROGRESS', payload);
+
+      await this.$store.dispatch('SAVE_PROGRESSES')
+        .catch(() => {
+          this.$bvToast.toast('There was an error saving your progress', { title: 'Error', variant: 'error' });
+          this.$router.push({ name: 'sessionExpired' });
+        });
+
+      this.$bvToast.toast('Progress updated', { title: 'Success', variant: 'success' });
+      this.$bvModal.hide('progress');
     },
 
-    setProgress() {
-      this.localProgress = this.gameProgress
-        ? JSON.parse(JSON.stringify(this.gameProgress))
-        : '0';
+    getProgress() {
+      this.localProgress = this.progresses[this.gameId]
+        ? this.progresses[this.gameId]
+        : 0;
     },
 
     addGame() {
@@ -522,16 +528,18 @@ export default {
     },
 
     async deleteProgress() {
-      // this.$store.commit('REMOVE_GAME_PROGRESS');
-      //
-      // await this.$store.dispatch('SAVE_PROGRESSES_NO_MERGE')
-      //   .catch(() => {
-      //     this.$bvToast.toast('There was an error deleting your progress', { title: 'Error', variant: 'error' });
-      //     this.$router.push({ name: 'sessionExpired' });
-      //   });
-      //
-      // this.$bvToast.toast('Progress deleted', { title: 'Success', variant: 'success' });
-      // this.$refs.progressModal.close();
+      const { gameId } = this.gameModalData;
+
+      this.$store.commit('REMOVE_GAME_PROGRESS', gameId);
+
+      await this.$store.dispatch('SAVE_PROGRESSES_NO_MERGE')
+        .catch(() => {
+          this.$bvToast.toast('There was an error deleting your progress', { title: 'Error', variant: 'error' });
+          this.$router.push({ name: 'sessionExpired' });
+        });
+
+      this.$bvToast.toast('Progress deleted', { title: 'Success', variant: 'success' });
+      this.$bvModal.hide('progress');
     },
   },
 };

@@ -177,7 +177,7 @@
   "progresses": {
     "modalTitle": "Set game progress",
     "addProgress": "Add progress",
-    "updateProgress": "Update progress",
+    "save": "Save progress",
     "deleteProgress": "Delete progress",
     "progresses": "Progress"
   },

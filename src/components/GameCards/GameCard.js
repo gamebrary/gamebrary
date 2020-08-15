@@ -29,13 +29,12 @@ export default {
     },
 
     gameProgress() {
-      const { game, platform, progresses, list } = this;
+      const { game, progresses, list } = this;
 
       return game
         && list.showGameProgress
-        && platform
-        && progresses[platform.code]
-        && progresses[platform.code][game.id];
+        && progresses[game.id]
+        || null;
     },
 
     releaseDate() {

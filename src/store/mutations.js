@@ -65,22 +65,15 @@ export default {
     state.progresses = progresses;
   },
 
-  /* eslint-disable */
-  // REMOVE_GAME_PROGRESS({ game, progresses, platform }) {
-  //   const progressExists = game && progresses[platform.code] && progresses[platform.code][game.id];
-  //
-  //   if (progressExists) {
-  //     Vue.delete(progresses[platform.code], game.id);
-  //   }
-  // },
+  REMOVE_GAME_PROGRESS({ progresses }, gameId) {
+    if (progresses[gameId]) {
+      Vue.delete(progresses, gameId);
+    }
+  },
 
-  // SET_GAME_PROGRESS(state, value) {
-  //   if (!state.progresses[state.platform.code]) {
-  //     state.progresses[state.platform.code] = {};
-  //   }
-  //
-  //   state.progresses[state.platform.code][state.game.id] = value;
-  // },
+  SET_GAME_PROGRESS(state, { progress, gameId }) {
+    state.progresses[gameId] = progress;
+  },
 
   SET_GAME_NOTE(state, note) {
     state.notes[state.game.id] = note;

@@ -19,19 +19,6 @@ export default {
   },
 
   // eslint-disable-next-line
-  gameProgress: ({ game, progresses, platform }) => {
-    const gameSelected = game && game.id;
-    const hasProgress = gameSelected
-      && platform
-      && progresses[platform.code]
-      && progresses[platform.code][game.id];
-
-    return hasProgress
-      ? progresses[platform.code][game.id]
-      : null;
-  },
-
-  // eslint-disable-next-line
   activeList: ({ gameLists, platform, activeListIndex }) => gameLists[platform.code][activeListIndex],
 
   gameTags: state => Object.keys(state.tags) && Object.keys(state.tags).length > 0,
