@@ -24,7 +24,7 @@ import GameTagsModal from '@/components/Board/GameTagsModal';
 import AddList from '@/components/Board/AddList';
 import GameModal from '@/components/Board/GameModal';
 import List from '@/components/Lists/List';
-import { chunk } from 'lodash';
+import chunk from 'lodash.chunk';
 import { mapState } from 'vuex';
 import draggable from 'vuedraggable';
 

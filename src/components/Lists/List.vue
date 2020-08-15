@@ -56,7 +56,7 @@ import GameCardGrid from '@/components/GameCards/GameCardGrid';
 import GameCardCompact from '@/components/GameCards/GameCardCompact';
 import GameCardText from '@/components/GameCards/GameCardText';
 import AddGameModal from '@/components/Lists/AddGameModal';
-import { orderBy } from 'lodash';
+import orderby from 'lodash.orderby';
 import { mapState } from 'vuex';
 
 export default {
@@ -126,7 +126,7 @@ export default {
       case 'sortByCustom':
         return gameList;
       case 'sortByProgress':
-        return orderBy(gameList, [(game) => {
+        return orderby(gameList, [(game) => {
           const progress = this.games[game]
                         && this.progresses[this.platform.code][this.games[game].id]
             ? Number(this.progresses[this.platform.code][this.games[game].id])
@@ -135,7 +135,7 @@ export default {
           return progress;
         }], ['desc']);
       case 'sortByRating':
-        return orderBy(gameList, [(game) => {
+        return orderby(gameList, [(game) => {
           const rating = this.games[game] && this.games[game].rating
             ? this.games[game].rating
             : 0;
@@ -143,7 +143,7 @@ export default {
           return rating;
         }], ['desc']);
       case 'sortByName':
-        return orderBy(gameList, [(game) => {
+        return orderby(gameList, [(game) => {
           const name = this.games[game] && this.games[game].name
             ? this.games[game].name.toUpperCase()
             : '';
@@ -151,7 +151,7 @@ export default {
           return name;
         }]);
       case 'sortByReleaseDate':
-        return orderBy(gameList, [(game) => {
+        return orderby(gameList, [(game) => {
           const releaseDate = this.games[game] && this.games[game].release_dates
             ? this.games[game].release_dates
               .find(({ platform }) => this.platform.id === platform)
@@ -290,10 +290,5 @@ export default {
 
   .list-settings {
     padding: 1rem;
-  }
-
-  .fa-grip-vertical {
-    opacity: 0.5;
-    margin-right: .5rem;
   }
 </style>

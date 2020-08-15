@@ -15,7 +15,7 @@ import platforms from '@/platforms';
 import PlatformsFooter from '@/components/Platforms/PlatformsFooter';
 import PlatformsHeader from '@/components/Platforms/PlatformsHeader';
 import PlatformsList from '@/components/Platforms/PlatformsList';
-import { sortBy } from 'lodash';
+import sortby from 'lodash.sortby';
 import { mapState } from 'vuex';
 
 export default {
@@ -66,7 +66,7 @@ export default {
 
     sortedPlatforms() {
       const sortedPlatforms = this.platformsSortField
-        ? sortBy(this.filteredPlatforms, this.platformsSortField)
+        ? sortby(this.filteredPlatforms, this.platformsSortField)
         : this.filteredPlatforms;
 
       return this.platformsSortField === 'releaseYear'
