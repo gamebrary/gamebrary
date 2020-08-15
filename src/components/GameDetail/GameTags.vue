@@ -1,41 +1,93 @@
 <template lang="html">
-  <div class="game-tags">
-    <!-- TODO: use array function to filter out tags -->
-    <!-- TODO: use bs tags/badge -->
-    <!-- <tag
-      v-for="({ games, hex, tagTextColor }, name) in tags"
-      v-if="game && games.includes(game.id)"
-      :key="name"
-      :label="name"
-      :hex="hex"
-      :text-hex="tagTextColor"
-      readonly
-      @action="openTags"
-      @close="removeTag(name)"
-    /> -->
-  </div>
+  <b-button id="tags-popover" variant="primary">
+    <b-icon-tag />
+
+    <b-popover
+      target="tags-popover"
+      title="Apply tags"
+      placement="auto"
+    >
+      <!-- close on blur -->
+      <template v-slot:title>
+        <div class="py-0 pr-0 pl-2 d-flex justify-content-between align-items-center">
+          Apply tags
+
+          <b-button
+            variant="light"
+            class="text-muted"
+            @click="openTagsSettings"
+          >
+            <b-icon-gear-fill />
+          </b-button>
+        </div>
+      </template>
+
+      <b-button
+        v-for="({ games, hex, tagTextColor }, name) in tags"
+        :key="name"
+        :style="`background-color: ${hex}; color: ${tagTextColor}`"
+        variant="primary"
+        size="sm"
+        pill
+        class="m-1 p-1"
+      >
+        {{ name }}
+
+        <b-button
+          v-if="games.includes(gameId)"
+          variant="light"
+          size="sm"
+          pill
+          class="ml-1 mr-0 p-1"
+          @click="removeTag(name)"
+        >
+          <b-icon-x />
+        </b-button>
+
+        <b-button
+          v-else
+          size="sm"
+          pill
+          class="ml-1 mr-0 p-1"
+          @click="addTag(name)"
+        >
+          <b-icon-plus />
+        </b-button>
+      </b-button>
+    </b-popover>
+  </b-button>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
 
 export default {
-  components: {
+  props: {
+    gameId: Number,
   },
 
   computed: {
     ...mapGetters(['gameTags']),
-    ...mapState(['tags', 'games', 'game']),
+    ...mapState(['tags', 'games']),
   },
 
   methods: {
-    removeTag(tagName) {
-      this.$store.commit('REMOVE_GAME_TAG', { tagName, gameId: this.game.id });
+    openTagsSettings() {
+      this.$bvModal.show('tags-settings');
+    },
+
+    addTag(tagName) {
+      const { gameId } = this;
+
+      this.$store.commit('ADD_GAME_TAG', { tagName, gameId });
       this.saveTags();
     },
 
-    openTags() {
-      this.$bus.$emit('OPEN_TAGS', this.game.id);
+    removeTag(tagName) {
+      const { gameId } = this;
+
+      this.$store.commit('REMOVE_GAME_TAG', { tagName, gameId });
+      this.saveTags();
     },
 
     async saveTags() {

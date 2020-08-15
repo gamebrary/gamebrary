@@ -48,7 +48,6 @@
               variant="primary"
               tag="small"
               :style="`background-color: ${hex}; color: ${tagTextColor}`"
-              @click="openTags"
             >
               {{ name }}
             </b-badge>

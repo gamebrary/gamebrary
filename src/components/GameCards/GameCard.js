@@ -102,10 +102,6 @@ export default {
       this.$bvModal.show('game-modal');
     },
 
-    openTags() {
-      this.$bus.$emit('OPEN_TAGS', this.game.id);
-    },
-
     addGame() {
       const data = {
         listId: this.listId,

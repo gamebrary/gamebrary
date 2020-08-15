@@ -70,9 +70,6 @@
             </b-badge>
           </div>
 
-          <!-- <game-tags /> -->
-          <!-- <game-actions :list-id="listId" /> -->
-
           <div class="mb-3">
             <b-button v-b-modal.progress variant="info">
               <b-icon-check />
@@ -99,9 +96,7 @@
               <b-icon-file-earmark-text />
             </b-button>
 
-            <b-button variant="info">
-              <b-icon-tag />
-            </b-button>
+            <game-tags :game-id="game.id" />
 
             <b-button
               v-if="game && !list.games.includes(game.id)"
