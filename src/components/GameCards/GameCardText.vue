@@ -60,13 +60,8 @@
 
 <script>
 import GameCardUtils from '@/components/GameCards/GameCard';
-import Tag from '@/components/Tag';
 
 export default {
-  components: {
-    Tag,
-  },
-
   mixins: [GameCardUtils],
 };
 </script>

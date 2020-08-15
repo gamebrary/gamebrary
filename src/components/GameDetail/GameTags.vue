@@ -1,7 +1,8 @@
 <template lang="html">
   <div class="game-tags">
     <!-- TODO: use array function to filter out tags -->
-    <tag
+    <!-- TODO: use bs tags/badge -->
+    <!-- <tag
       v-for="({ games, hex, tagTextColor }, name) in tags"
       v-if="game && games.includes(game.id)"
       :key="name"
@@ -11,17 +12,15 @@
       readonly
       @action="openTags"
       @close="removeTag(name)"
-    />
+    /> -->
   </div>
 </template>
 
 <script>
-import Tag from '@/components/Tag';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
-    Tag,
   },
 
   computed: {
