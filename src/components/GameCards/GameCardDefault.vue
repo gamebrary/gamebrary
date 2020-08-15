@@ -3,6 +3,7 @@
     <b-row no-gutters class="game-card" v-if="game && game.name">
       <b-col md="4">
         <b-card-img
+          lazy
           :src="coverUrl"
           :alt="game.name"
           @click="openDetails"
