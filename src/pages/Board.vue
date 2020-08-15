@@ -1,6 +1,6 @@
 <template lang="html">
-  <div v-if="loaded" class="game-board" :class="{ dragging }" >
-    <game-board-placeholder v-if="loading" />
+  <div v-if="loaded" class="board" :class="{ dragging }" >
+    <board-placeholder v-if="loading" />
 
     <list
       v-for="(list, listIndex) in gameLists[platform.code]"
@@ -19,10 +19,10 @@
 </template>
 
 <script>
-import GameBoardPlaceholder from '@/components/GameBoard/GameBoardPlaceholder';
-import GameTagsModal from '@/components/GameBoard/GameTagsModal';
-import AddList from '@/components/GameBoard/AddList';
-import GameModal from '@/components/GameBoard/GameModal';
+import BoardPlaceholder from '@/components/Board/BoardPlaceholder';
+import GameTagsModal from '@/components/Board/GameTagsModal';
+import AddList from '@/components/Board/AddList';
+import GameModal from '@/components/Board/GameModal';
 import List from '@/components/Lists/List';
 import { chunk } from 'lodash';
 import { mapState } from 'vuex';
@@ -32,7 +32,7 @@ export default {
   components: {
     draggable,
     List,
-    GameBoardPlaceholder,
+    BoardPlaceholder,
     GameTagsModal,
     AddList,
     GameModal,
@@ -132,11 +132,11 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-.game-board {
+.board {
   user-select: none;
   display: flex;
   align-items: flex-start;
-  height: calc(100vh - 56px);
+  height: calc(100vh - 58px);
   padding: 0 1rem;
   box-sizing: border-box;
   overflow-x: auto;

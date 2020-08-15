@@ -1,5 +1,67 @@
 <template lang="html">
-  <div class="game-detail-placeholder">
+  <b-card class="mt-4" no-body>
+    <b-tabs card>
+      <b-tab title="Game details" active>
+        <template v-slot:title>
+          <placeholder class="w-10 h-100" />
+        </template>
+        <dl class="row">
+          <dt class="col-sm-3">{{ $t('gameDetail.platforms') }}</dt>
+          <dd class="col-sm-9">
+            <placeholder class="w-75" />
+          </dd>
+
+          <dt class="col-sm-3">{{ $t('gameDetail.genres') }}</dt>
+          <dd class="col-sm-9">
+            <placeholder class="w-75" />
+          </dd>
+
+          <dt class="col-sm-3">{{ $t('gameDetail.gameModes') }}</dt>
+          <dd class="col-sm-9">
+            <placeholder class="w-75" />
+          </dd>
+
+          <dt class="col-sm-3">{{ $t('gameDetail.developers') }}</dt>
+          <dd class="col-sm-9">
+            <placeholder class="w-75" />
+          </dd>
+
+          <dt class="col-sm-3">{{ $t('gameDetail.publishers') }}</dt>
+          <dd class="col-sm-9">
+            <placeholder class="w-75" />
+          </dd>
+
+          <dt class="col-sm-3">{{ $t('gameDetail.perspective') }}</dt>
+          <dd class="col-sm-9">
+            <placeholder class="w-75" />
+          </dd>
+
+          <dt class="col-sm-3">{{ $t('gameDetail.timeToBeat') }}</dt>
+          <dd class="col-sm-9">
+            <placeholder class="w-75" />
+          </dd>
+
+          <dt class="col-sm-3">{{ $t('gameDetail.ageRatings') }}</dt>
+          <dd class="col-sm-9">
+            <placeholder class="w-75" />
+          </dd>
+        </dl>
+      </b-tab>
+
+      <b-tab title="Game details">
+        <template v-slot:title>
+          <placeholder class="w-10 h-100" />
+        </template>
+      </b-tab>
+
+      <b-tab title="Game details">
+        <template v-slot:title>
+          <placeholder class="w-10 h-100" />
+        </template>
+      </b-tab>
+    </b-tabs>
+  </b-card>
+  <!-- <div class="game-detail-placeholder">
     <div class="game-hero" />
 
     <div class="game-detail-container">
@@ -8,23 +70,20 @@
 
         <div>
           <h2>{{ gamePreviewData.name }}</h2>
-          <game-rating :rating="gamePreviewData.rating" />
           <placeholder :lines="3" />
         </div>
 
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import GameRating from '@/components/GameDetail/GameRating';
 import Placeholder from '@/components/Placeholder';
 
 export default {
   components: {
-    GameRating,
     Placeholder,
   },
 
