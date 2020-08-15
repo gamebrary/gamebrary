@@ -1,27 +1,31 @@
 <template lang="html">
   <header>
-    <b-button-toolbar key-nav aria-label="Toolbar with button groups">
-      <b-dropdown class="mx-1" text="Filter">
-        <b-dropdown-item
-          v-for="filter in availableFilters"
+    <b-button-toolbar aria-label="Filter and sort platforms">
+      <strong class="py-2 pr-1">Filter:</strong>
+      <b-button-group class="mx-1">
+        <b-button
+          v-for="filter in filters"
           :key="filter"
+          :variant="filterField === filter ? 'primary' : null"
+          size="sm"
           @click="setFilter(filter)"
         >
-          <span v-if="filter">{{ $t(`platforms.${filter}`) }}</span>
-          <span v-else>All</span>
-        </b-dropdown-item>
-      </b-dropdown>
+          {{ filter ? $t(`platforms.${filter}`) : $t('platforms.all') }}
+        </b-button>
+      </b-button-group>
 
-      <b-dropdown class="mx-1" right text="Sort">
-        <b-dropdown-item
+      <strong class="py-2 pr-1 mx-1">Sort:</strong>
+      <b-button-group>
+        <b-button
           v-for="field in availableSortFields"
           :key="field"
+          :variant="sortField === field ? 'primary' : null"
+          size="sm"
           @click="setSortField(field)"
         >
-          <span v-if="field">{{ $t(`platforms.${field}`) }}</span>
-          <span v-else><i class="fas fa-times" /> Clear field</span>
-        </b-dropdown-item>
-      </b-dropdown>
+          {{ $t(`platforms.${field}`) }}
+        </b-button>
+      </b-button-group>
     </b-button-toolbar>
   </header>
 </template>
@@ -32,9 +36,9 @@ import { mapState } from 'vuex';
 export default {
   data() {
     return {
-      availableFilters: [
+      filters: [
         null,
-        'home',
+        'consoles',
         'handheld',
         'computer',
       ],
@@ -49,12 +53,6 @@ export default {
   computed: {
     ...mapState(['settings']),
 
-    viewIcon() {
-      return this.listView === 'list'
-        ? 'fas fa-th-large'
-        : 'fas fa-list';
-    },
-
     filterField() {
       return this.settings && this.settings.platformsFilterField
         ? this.settings.platformsFilterField
@@ -65,12 +63,6 @@ export default {
       return this.settings && this.settings.platformsSortField
         ? this.settings.platformsSortField
         : 'releaseYear';
-    },
-
-    listView() {
-      return this.settings && this.settings.platformsView
-        ? this.settings.platformsView
-        : 'grid';
     },
   },
 
@@ -92,16 +84,6 @@ export default {
 
     setSortField(value) {
       this.$store.commit('UPDATE_SETTING', { key: 'platformsSortField', value });
-      this.saveSettings();
-    },
-
-    toggleView() {
-      const value = this.listView === 'grid'
-        ? 'list'
-        : 'grid';
-
-      this.$store.commit('UPDATE_SETTING', { key: 'platformsView', value });
-
       this.saveSettings();
     },
   },
