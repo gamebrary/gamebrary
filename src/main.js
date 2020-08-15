@@ -29,7 +29,6 @@ Object.defineProperties(Vue.prototype, {
 
 Vue.use(BootstrapVue, {
   BToast: {
-    toaster: 'b-toaster-top-center',
     autoHideDelay: 500,
   },
 },
