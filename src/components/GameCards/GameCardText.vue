@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-card no-body class="mb-2">
+  <b-card no-body class="mb-2" @click="openDetails">
     <b-row no-gutters class="game-card" v-if="game && game.name">
         <b-card-body body-class="pt-0 pb-1 px-2">
           <small>
