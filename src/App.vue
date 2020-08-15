@@ -20,6 +20,7 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage';
 
+// TODO: store in env vars
 firebase.initializeApp({
   apiKey: 'AIzaSyA6MsmnLtqT4b11r-j15wwreRypO3AodcA',
   authDomain: 'gamebrary.com',
@@ -335,6 +336,7 @@ export default {
     background-color: #ccc;
     background-size: cover;
     overflow-x: hidden;
+    min-height: 100vh;
 
     &.no-border-radius {
       --border-radius: 0;

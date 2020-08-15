@@ -15,6 +15,7 @@ export default {
 
   computed: {
     ...mapState(['settings', 'games', 'gameLists', 'platform', 'user', 'tags', 'activeList', 'notes', 'progresses']),
+    // TODO: remove getter
     ...mapGetters(['gameTags']),
 
     showGameTags() {
