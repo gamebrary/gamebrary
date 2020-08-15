@@ -82,7 +82,7 @@
 
         <b-list-group>
           <b-list-group-item
-            class="d-flex justify-content-between align-items-center"
+            class="d-flex justify-content-between align-items-center p-2"
             v-for="({ games, hex, tagTextColor }, name) in localTags"
             :key="name"
           >
@@ -118,7 +118,7 @@
           </template>
 
           <form
-            ref="newTagForm"
+            ref="editTagForm"
             @submit.stop.prevent="saveTag"
           >
             <b-row class="mb-3" v-if="editingTag">
@@ -248,7 +248,7 @@ export default {
     async saveTag(e) {
       e.preventDefault();
 
-      if (this.$refs.newTagForm.checkValidity()) {
+      if (this.$refs.editTagForm.checkValidity()) {
         const { editingTagName, editingOriginalTagName, editingTag } = this;
 
         const renaming = editingTagName.toLowerCase() !== editingOriginalTagName.toLowerCase();
