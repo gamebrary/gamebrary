@@ -4,7 +4,9 @@
     class="mb-2"
     :img-src="coverUrl"
     img-top
+    @click="openDetails"
   >
+    <!-- TODO: lazy load image -->
     <b-card-body body-class="p-2" v-if="game && game.name">
       <b-card-title class="mb-0" title-tag="h6">
         {{ game.name }}

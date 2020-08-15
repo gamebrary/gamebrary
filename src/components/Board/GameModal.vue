@@ -216,7 +216,6 @@
               v-for="(screenshot, index) in screenshots"
               :key="index"
               :src="screenshot"
-              blank
               fluid
               blank-color="#ccc"
               fluid-grow

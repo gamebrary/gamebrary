@@ -1,18 +1,22 @@
 <template lang="html">
-  <b-card no-body class="mb-2">
+  <b-card no-body class="mb-2" @click="openDetails">
     <b-row no-gutters class="game-card" v-if="game && game.name">
       <b-col md="3">
-        <b-card-img
+        <b-img-lazy
+          fluid
+          blank-color="#ccc"
           :src="coverUrl"
           :alt="game.name"
           class="rounded-0"
-          @click="openDetails"
         />
       </b-col>
 
       <b-col md="9">
         <b-card-body body-class="p-2">
-          <b-card-title class="mb-0" title-tag="small">
+          <b-card-title
+            class="mb-0"
+            title-tag="small"
+          >
             {{ game.name }}
 
             <b-badge variant="warning" v-if="gameNotes">
