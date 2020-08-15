@@ -40,9 +40,15 @@
           :list-id="listIndex"
         />
 
-        <b-alert variant="secondary" show v-if="isEmpty" class="mb-2 text-center">
-          <small class="text-muted">Drag games here</small>
-        </b-alert>
+        <b-button
+          variant="light"
+          block
+          v-if="isEmpty"
+          class="mb-2"
+          v-b-modal="`game-modal-${listIndex}`"
+        >
+          Click here or drag games here
+        </b-button>
       </draggable>
     </b-card>
   </div>
