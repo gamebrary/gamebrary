@@ -12,7 +12,7 @@
       @dragEnd="dragEnd"
     />
 
-    <add-list ref="listAddModal" />
+    <add-list />
     <game-modal />
     <!-- <game-tags-modal /> -->
   </div>
@@ -95,7 +95,7 @@ export default {
       const hasLists = this.list && this.list.length;
 
       if (!hasLists && flattenedList.length === 0) {
-        this.$refs.listAddModal.$refs.addList.click();
+        this.$bvModal.show('add-list-0');
       }
 
       const dedupedList = Array.from(new Set(flattenedList));
