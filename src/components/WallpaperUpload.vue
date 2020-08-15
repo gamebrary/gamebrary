@@ -1,45 +1,22 @@
 <template>
   <b-list-group-item>
+    <h5>{{ $t('settings.wallpaper.wallpaper') }}</h5>
+
     <template v-if="wallpaperUrl">
-      <h5>{{ $t('settings.wallpaper.wallpaper') }}</h5>
-
-      <!-- :title="$t('settings.wallpaper.currentWallpaper')"
-      action-text="Remove wallpaper"
-      @action="removeWallpaper" -->
-
       <b-img
         fluid
-        v-if="wallpaperUrl"
         :src="wallpaperUrl"
-        class="preview"
+        class="mb-2"
         alt="Uploaded wallpaper"
       />
 
-      <div
-        slot="content"
-        class="wallpaper-preview"
-      >
-        <img
-          fluid
-          v-if="wallpaperUrl"
-          :src="wallpaperUrl"
-          alt="Uploaded wallpaper"
-        >
-      </div>
+      <b-button @click="removeWallpaper" variant="outline-danger">
+        <b-icon-trash />
+      </b-button>
     </template>
 
     <template v-else>
-      <h5>{{ $t('settings.wallpaper.title') }}</h5>
-
       <b-button @click="triggerUpload">
-        <i
-          v-if="loading"
-          class="fas fa-sync-alt fast-spin"
-        />
-        <i
-          v-else
-          class="fas fa-cloud-upload-alt"
-        />
         Upload file
       </b-button>
 
@@ -66,9 +43,7 @@ export default {
 
   data() {
     return {
-      progressUpload: 0,
       file: File,
-      uploadTask: '',
       wallpapers: {},
       loading: false,
     };
@@ -94,6 +69,7 @@ export default {
     },
 
     removeWallpaper() {
+      // TODO: delete file in firestore
       delete this.wallpapers[this.platform.code].url;
 
       this.saveSettings();
@@ -118,12 +94,14 @@ export default {
 
     handleUpload(e) {
       this.loading = true;
+
       const file = e.target.files[0];
       const extenstion = file.name.split('.')[1];
 
       firebase.storage().ref(`${this.user.uid}/wallpapers/${this.platform.code}.${extenstion}`).put(file)
         .then(({ state, metadata }) => {
           if (state === 'success') {
+            // TODO use this.$set instead
             if (!this.wallpapers[this.platform.code]) {
               this.wallpapers[this.platform.code] = {};
             }
