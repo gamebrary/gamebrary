@@ -23,9 +23,10 @@
     "donating": "donating",
     "reportBugs": "reporting bugs",
     "submitFeedback": "submitting feedback",
-    "home": "Home consoles",
+    "all": "All",
+    "consoles": "Consoles",
     "handheld": "Handhelds",
-    "computer": "Home Computer",
+    "computer": "Home Computers",
     "releaseYear": "Year released",
     "name": "Alphabetically",
     "type": "Type"
@@ -158,7 +159,7 @@
     "createTag": "Create tag",
     "inputPlaceholder": "Tag name",
     "editTags": "Edit game tags",
-    "message": "Click on tag to add it to <a>{gameName}</a>. Click on <i class=\"fas fa-times close\"></i> to remove tag.",
+    "message": "Click on tag to add it to <a>{gameName}</a>.",
     "settingsMessage": "You can add or edit existing tags in settings."
   },
   "gameSearch": {
