@@ -56,8 +56,6 @@
           search-result
           @added="added"
         />
-
-        <igdb-logo />
       </div>
 
       <span
