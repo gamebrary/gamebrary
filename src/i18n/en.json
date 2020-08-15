@@ -30,9 +30,6 @@
     "name": "Alphabetically",
     "type": "Type"
   },
-  "igdbCredit": {
-    "poweredByIgdb": "Powered by IGDB"
-  },
   "gameBoard": {
     "settings": {
       "wallpaper": "Custom Wallpaper",
@@ -53,7 +50,8 @@
     "timeToBeat": "Time to beat",
     "gameModes": "Game Mode",
     "genres": "Genre",
-    "gamePlatforms": "Also available for:",
+    "ageRatings": "Age ratings",
+    "platforms": "Platforms",
     "developers": "Developer",
     "publishers": "Publishers",
     "removeFromList": "Remove",
@@ -189,5 +187,7 @@
     "ReleasesTomorrow": "Releases tomorrow",
     "ReleasesInXDays": "Releases in {days} days",
     "ToBeAnnounced": "TBA"
-  }
+  },
+  "poweredByIgdb": "Powered by IGDB",
+  "poweredBy": "Powered by"
 }

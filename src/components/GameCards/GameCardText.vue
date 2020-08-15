@@ -56,72 +56,14 @@
         </b-card-body>
     </b-row>
   </b-card>
-  <!-- <div v-if="gameId && games[gameId]" :class="gameCardClass">
-    <div class="game-info">
-      <a v-text="game.name" class="drag-filter" @click="openDetails"/>
-      <i class="fas fa-grip-vertical draggable-icon game-drag-handle" />
-
-      <span
-        v-if="showReleaseDates && releaseDate"
-        v-text="releaseDateText"
-        class="release-date drag-filter"
-      >
-      </span>
-
-      <game-rating
-        v-if="showGameRatings && list.view !== 'covers'"
-        :rating="game.rating"
-        small
-        class="drag-filter"
-        @click.native="openDetails"
-      />
-
-      <game-progress
-        v-if="gameProgress"
-        small
-        :progress="gameProgress"
-        class="drag-filter"
-        @click.native="openDetails"
-      />
-
-      <i
-        v-if="note"
-        :title="note"
-        class="fas fa-sticky-note note drag-filter"
-        @click="openDetails"
-      />
-
-      <div
-        v-if="gameTags"
-        class="game-tags drag-filter"
->
-        <div
-          v-for="({ games, hex, tagTextColor }, name) in tags"
-          v-if="games.includes(game.id)"
-          :key="name"
-        >
-          <tag
-            v-if="games.includes(game.id)"
-            :label="name"
-            :hex="hex"
-            :text-hex="tagTextColor"
-            readonly
-            @action="openTags"
-          />
-        </div>
-      </div>
-    </div>
-  </div> -->
 </template>
 
 <script>
-import GameRating from '@/components/GameDetail/GameRating';
 import GameCardUtils from '@/components/GameCards/GameCard';
 import Tag from '@/components/Tag';
 
 export default {
   components: {
-    GameRating,
     Tag,
   },
 

@@ -13,7 +13,7 @@
     <b-modal
       :id="`game-modal-${listId}`"
       :title="$t('list.addGames', { listName })"
-      hide-footer
+      footer-class="p-2 justify-content-center"
       @show="clear"
     >
       <form
@@ -56,7 +56,7 @@
           @added="added"
         />
 
-        <igdb-credit linkable />
+        <igdb-logo />
       </div>
 
       <span
@@ -65,20 +65,24 @@
       >
         {{ $t('gameSearch.noResultsFound') }}
       </span>
+
+      <template v-slot:modal-footer>
+        <igdb-logo />
+      </template>
     </b-modal>
   </div>
 </template>
 
 <script>
 import GameCardSearch from '@/components/GameCards/GameCardSearch';
-import IgdbCredit from '@/components/IgdbCredit';
+import IgdbLogo from '@/components/IgdbLogo';
 import { debounce } from 'lodash';
 import { mapState } from 'vuex';
 
 export default {
   components: {
     GameCardSearch,
-    IgdbCredit,
+    IgdbLogo,
   },
 
   props: {

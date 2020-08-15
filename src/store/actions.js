@@ -107,12 +107,20 @@ export default {
     });
   },
 
-  LOAD_RELEASES({ commit }) {
+  LOAD_RELEASES() {
     return new Promise((resolve, reject) => {
       axios.get('https://api.github.com/repos/romancm/gamebrary/releases')
         .then(({ data }) => {
-          commit('SET_RELEASES', data);
-          resolve();
+          resolve(data);
+        }).catch(reject);
+    });
+  },
+
+  LOAD_REPO_README() {
+    return new Promise((resolve, reject) => {
+      axios.get('https://raw.githubusercontent.com/romancm/gamebrary/master/README.md')
+        .then(({ data }) => {
+          resolve(data);
         }).catch(reject);
     });
   },
@@ -127,12 +135,13 @@ export default {
     });
   },
 
-  LOAD_GAME({ commit }, gameId) {
+  LOAD_GAME(context, gameId) {
     return new Promise((resolve, reject) => {
       axios.get(`${API_BASE}/game?gameId=${gameId}`)
         .then(({ data }) => {
-          commit('SET_ACTIVE_GAME', data);
-          resolve();
+          const [game] = data;
+
+          resolve(game);
         }).catch(reject);
     });
   },

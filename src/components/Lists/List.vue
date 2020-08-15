@@ -1,21 +1,20 @@
 <template lang="html">
   <div :class="['list mr-3', viewClass, { unique, dragging }]">
     <b-card no-body>
-      <b-card-header class="py-1 px-2 d-flex justify-content-between align-items-center">
-        <span class="list-name">
-          <sort-icon
-            v-if="autoSortEnabled"
-            :sort-order="list[listIndex].sortOrder"
-            title="List sorted automatically"
-          />
+      <b-card-header
+        class="py-0 pr-0 pl-2 d-flex justify-content-between align-items-center"
+      >
+        <h6 class="m-0">
+          <b-badge v-if="autoSortEnabled">
+            <b-icon-sort-up />
+          </b-badge>
+
+          <b-badge v-if="list[listIndex].showGameCount">
+              {{ gameList.length }}
+          </b-badge>
 
           {{ list[listIndex].name }}
-          <span
-            v-if="showGameCount"
-          >
-            ({{ gameList.length }})
-          </span>
-        </span>
+        </h6>
 
         <b-button-group>
           <add-game-modal :list-id="listIndex" />
@@ -57,7 +56,6 @@ import GameCardGrid from '@/components/GameCards/GameCardGrid';
 import GameCardCompact from '@/components/GameCards/GameCardCompact';
 import GameCardText from '@/components/GameCards/GameCardText';
 import AddGameModal from '@/components/Lists/AddGameModal';
-import SortIcon from '@/components/SortIcon';
 import { orderBy } from 'lodash';
 import { mapState } from 'vuex';
 
@@ -68,7 +66,6 @@ export default {
     GameCardCompact,
     GameCardText,
     AddGameModal,
-    SortIcon,
     ListSettings,
     draggable,
   },
@@ -155,12 +152,12 @@ export default {
         }]);
       case 'sortByReleaseDate':
         return orderBy(gameList, [(game) => {
-          const date = this.games[game] && this.games[game].release_dates
+          const releaseDate = this.games[game] && this.games[game].release_dates
             ? this.games[game].release_dates
-              .filter(({ platform }) => this.platform.id === platform)[0].date
+              .find(({ platform }) => this.platform.id === platform)
             : '';
 
-          return date;
+          return releaseDate && releaseDate.date;
         }]);
       default:
         return gameList;

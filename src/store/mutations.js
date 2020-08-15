@@ -17,6 +17,14 @@ export default {
     state.gameLists = lists;
   },
 
+  SET_GAME_MODAL_DATA(state, gameModalData) {
+    state.gameModalData = gameModalData;
+  },
+
+  CLEAR_GAME_MODAL_DATA(state) {
+    state.gameModalData = null;
+  },
+
   SET_SLIDESHOW_OPEN(state, status) {
     state.galleryOpen = status;
   },
@@ -41,10 +49,6 @@ export default {
     }
   },
 
-  SET_RELEASES(state, releases) {
-    state.releases = releases;
-  },
-
   SET_TAGS(state, tags) {
     state.tags = tags;
   },
@@ -61,21 +65,22 @@ export default {
     state.progresses = progresses;
   },
 
-  REMOVE_GAME_PROGRESS({ game, progresses, platform }) {
-    const progressExists = game && progresses[platform.code] && progresses[platform.code][game.id];
+  /* eslint-disable */
+  // REMOVE_GAME_PROGRESS({ game, progresses, platform }) {
+  //   const progressExists = game && progresses[platform.code] && progresses[platform.code][game.id];
+  //
+  //   if (progressExists) {
+  //     Vue.delete(progresses[platform.code], game.id);
+  //   }
+  // },
 
-    if (progressExists) {
-      Vue.delete(progresses[platform.code], game.id);
-    }
-  },
-
-  SET_GAME_PROGRESS(state, value) {
-    if (!state.progresses[state.platform.code]) {
-      state.progresses[state.platform.code] = {};
-    }
-
-    state.progresses[state.platform.code][state.game.id] = value;
-  },
+  // SET_GAME_PROGRESS(state, value) {
+  //   if (!state.progresses[state.platform.code]) {
+  //     state.progresses[state.platform.code] = {};
+  //   }
+  //
+  //   state.progresses[state.platform.code][state.game.id] = value;
+  // },
 
   SET_GAME_NOTE(state, note) {
     state.notes[state.game.id] = note;
@@ -115,14 +120,6 @@ export default {
 
   CLEAR_SEARCH_RESULTS(state) {
     state.results = [];
-  },
-
-  SET_ACTIVE_GAME(state, [game]) {
-    state.game = game;
-  },
-
-  CLEAR_ACTIVE_GAME(state) {
-    state.game = null;
   },
 
   SET_EDIT_GAME(state, { listId, gameId }) {

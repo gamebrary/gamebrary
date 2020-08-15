@@ -41,7 +41,7 @@ export default {
   methods: {
     changePlatform(platform) {
       this.$store.commit('SET_PLATFORM', platform);
-      this.$router.push({ name: 'game-board' });
+      this.$router.push({ name: 'board' });
     },
 
     hasLists(platform) {

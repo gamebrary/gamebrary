@@ -56,12 +56,10 @@ import ChangeListView from '@/components/Lists/ChangeListView';
 import RenameList from '@/components/Lists/RenameList';
 import ListTweaks from '@/components/Lists/ListTweaks';
 import SortList from '@/components/Lists/SortList';
-import Modal from '@/components/Modal';
 import { mapState } from 'vuex';
 
 export default {
   components: {
-    Modal,
     ChangeListView,
     RenameList,
     ListTweaks,

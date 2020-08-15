@@ -1,6 +1,5 @@
 export default {
   user: null,
-  releases: null,
   tags: {},
   notes: {},
   progresses: {},
@@ -12,6 +11,7 @@ export default {
   results: null,
   galleryOpen: false,
   games: {},
+  gameModalData: null,
   publicGameData: {},
   game: null,
   wallpaperUrl: null,

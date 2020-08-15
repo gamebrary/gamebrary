@@ -1,157 +1,229 @@
 <template lang="html">
-  <div>
-    <modal title="Manage tags" @open="reset">
-      <div class="setting">
-        <i class="fas fa-tags" />
-        <h5>Tags</h5>
+  <b-dropdown-item v-b-modal:tags-settings>
+    <b-icon-tags class="mr-1" />
+    Manage Tags
 
-        <b-button>
-          Manage tags
-        </b-button>
-      </div>
+    <b-modal
+      id="tags-settings"
+      title="Manage Tags"
+      hide-footer
+      @shown="shown"
+    >
+      <form
+        ref="newTagForm"
+        @submit.stop.prevent="submit"
+      >
+        <h6>Add new tag</h6>
 
-      <div slot="content">
-        <form class="add-tag" @submit.prevent="createTag">
-          <h3>Add a tag</h3>
-          <div class="tag-input">
+        <b-row class="mb-3">
+          <b-col sm="8">
             <b-form-input
-              ref="tagInput"
-              v-model="tagName"
-              required
+              label="test"
               maxlength="20"
               :placeholder="$t('tags.inputPlaceholder')"
-              type="text"
+              required
+              v-model.trim="tagName"
             />
+          </b-col>
 
-            <swatches
-              v-model="tagHex"
-              show-fallback
-              popover-to="left"
-              swatch-size="32"
-              colors="basic"
-            />
-
-            <swatches
-              v-model="tagTextColor"
-              show-fallback
-              popover-to="left"
-              swatch-size="32"
-              colors="basic"
-            />
-
-            <div class="preview">
-              <small>Tag preview</small>
-              <tag
-                :label="tagName || 'Preview'"
-                :hex="tagHex"
-                :textHex="tagTextColor"
+          <b-col sm="4">
+            <b-input-group>
+              <b-form-input
+                v-model="hex"
+                type="color"
+                required
               />
-            </div>
-          </div>
 
-          <b-form-checkbox
-            switch
-            v-model="exclusive"
+              <b-form-input
+                v-model="tagTextColor"
+                type="color"
+                required
+              />
+            </b-input-group>
+          </b-col>
+        </b-row>
+
+        <b-row class="mb-2">
+          <b-col sm="8">
+            <template v-if="tagName">
+              Preview:
+
+              <b-badge :style="`background-color: ${hex}; color: ${tagTextColor}`">
+                {{ tagName }}
+              </b-badge>
+            </template>
+          </b-col>
+
+          <b-col sm="4" class="d-flex justify-content-end">
+            <b-button
+              variant="primary"
+              :disabled="isDuplicate || saving || !Boolean(tagName)"
+              @click="submit"
+            >
+              <b-spinner small v-if="saving" />
+              <span v-else>Save</span>
+            </b-button>
+          </b-col>
+        </b-row>
+
+        <b-alert
+          class="mt-3 mb-0"
+          :show="isDuplicate"
+          variant="warning"
+        >
+          You already have a tag named <strong>{{ tagName }}</strong>
+        </b-alert>
+      </form>
+
+      <template v-if="gameTags && localTags">
+        <hr>
+
+        <h6>My tags</h6>
+
+        <b-list-group>
+          <b-list-group-item
+            class="d-flex justify-content-between align-items-center"
+            v-for="({ games, hex, tagTextColor }, name) in localTags"
+            :key="name"
           >
-            Exclusive to {{ platform.name }}
-          </b-form-checkbox>
-
-          <div class="tag-actions">
-            <b-button
-              :disabled="!tagName"
-              class="secondary"
-              @click="reset"
+            <b-badge
+              pill
+              tag="small"
+              :style="`background-color: ${hex}; color: ${tagTextColor}`"
             >
-              <i class="fas fa-redo" />
+              {{ name }}
+            </b-badge>
+
+            <b-button-group>
+              <b-button
+                variant="outline-primary"
+                @click="editTag(name)"
+              >
+                <b-icon-pencil />
+              </b-button>
+
+              <b-button
+                variant="outline-danger"
+                @click="deleteTag(name)"
+              >
+                <b-icon-trash />
+              </b-button>
+            </b-button-group>
+          </b-list-group-item>
+        </b-list-group>
+
+        <b-modal id="editTag">
+          <template v-slot:modal-title>
+            Edit <strong>{{ editingOriginalTagName }}</strong> tag
+          </template>
+
+          <form
+            ref="newTagForm"
+            @submit.stop.prevent="saveTag"
+          >
+            <b-row class="mb-3" v-if="editingTag">
+              <b-col sm="8">
+                <b-form-input
+                  label="test"
+                  maxlength="20"
+                  :placeholder="$t('tags.inputPlaceholder')"
+                  required
+                  v-model.trim="editingTagName"
+                />
+              </b-col>
+
+              <b-col sm="4">
+                <b-input-group>
+                  <b-form-input
+                    v-model="editingTag.hex"
+                    type="color"
+                    required
+                  />
+
+                  <b-form-input
+                    v-model="editingTag.tagTextColor"
+                    type="color"
+                    required
+                  />
+                </b-input-group>
+              </b-col>
+            </b-row>
+
+            <template v-if="editingTagName">
+              Preview:
+
+              <b-badge :style="`background-color: ${editingTag.hex}; color: ${editingTag.tagTextColor}`">
+                {{ editingTagName }}
+              </b-badge>
+            </template>
+          </form>
+
+          <template v-slot:modal-footer="{ cancel }">
+            <b-button @click="cancel">
+              Cancel
             </b-button>
 
             <b-button
-              :disabled="isDuplicate"
-              class="primary"
-              type="submit"
+              variant="primary"
+              :disabled="isEditedNameDuplicate || !Boolean(editingTagName) || saving"
+              @click="saveTag"
             >
-              {{ $t('global.save') }}
+              Save
             </b-button>
-          </div>
-        </form>
+          </template>
 
-        <div v-if="gameTags" class="tags">
-          <!-- TODO: use computed properties for filtering out tags -->
-          <section>
-            <h3>All tags</h3>
-
-            <tag
-              v-for="(tag, name) in localTags"
-              v-if="!tag.platform"
-              :key="name"
-              :label="name"
-              :hex="tag.hex"
-              :text-hex="tag.tagTextColor"
-              @close="deleteTag(name)"
-            />
-          </section>
-
-          <section>
-            <h3>{{ platform.name }} tags</h3>
-
-            <tag
-              v-for="(tag, name) in localTags"
-              v-if="tag.platform && tag.platform === platform.id"
-              :key="name"
-              :label="name"
-              :hex="tag.hex"
-              :text-hex="tag.tagTextColor"
-              @close="deleteTag(name)"
-            />
-          </section>
-        </div>
-      </div>
-    </modal>
-  </div>
+          <b-alert
+            class="mt-3 mb-0"
+            :show="isEditedNameDuplicate"
+            variant="warning"
+          >
+            You already have a tag named <strong>{{ editingTagName }}</strong>
+          </b-alert>
+        </b-modal>
+      </template>
+    </b-modal>
+  </b-dropdown-item>
 </template>
 
 <script>
-import Swatches from 'vue-swatches';
-import Tag from '@/components/Tag';
-import Modal from '@/components/Modal';
 import { mapState } from 'vuex';
-import 'vue-swatches/dist/vue-swatches.min.css';
 
 export default {
-  components: {
-    Tag,
-    Modal,
-    Swatches,
-  },
-
   data() {
     return {
-      localTags: {},
+      saving: false,
       tagName: '',
-      tagHex: '',
-      tagTextColor: '#f4b41a',
-      defaultColor: '#143d59',
+      hex: '#143D59',
+      tagTextColor: '#F4B41A',
       exclusive: false,
+      editingTag: {},
+      editingTagName: '',
+      editingOriginalTagName: '',
+      localTags: {},
     };
   },
 
   computed: {
     ...mapState(['tags', 'platform']),
 
-    newTag() {
-      return {
-        hex: this.tagHex,
-        tagTextColor: this.tagTextColor,
-        games: [],
-      };
+    isDuplicate() {
+      const { tagName, localTags } = this;
+
+      const tagNames = Object.keys(localTags)
+        .filter(name => name !== tagName)
+        .map(name => name.toLowerCase());
+
+      return tagNames.includes(tagName.toLowerCase());
     },
 
-    isDuplicate() {
-      const tagName = this.tagName.toLowerCase();
+    isEditedNameDuplicate() {
+      const { editingOriginalTagName, editingTagName, localTags } = this;
 
-      const lowerCaseTags = Object.keys(this.localTags).map(field => field.toLowerCase());
+      const tagNames = Object.keys(localTags)
+        .filter(name => name !== editingOriginalTagName)
+        .map(tagName => tagName.toLowerCase());
 
-      return lowerCaseTags && lowerCaseTags.includes(tagName);
+      return tagNames.includes(editingTagName.toLowerCase());
     },
 
     gameTags() {
@@ -159,30 +231,67 @@ export default {
     },
   },
 
-  mounted() {
-    this.reset();
-    this.localTags = JSON.parse(JSON.stringify(this.tags));
-  },
-
   methods: {
-    updateColor(e) {
-      this.tagHex = e.srcElement.value;
+    shown() {
+      this.localTags = JSON.parse(JSON.stringify(this.tags));
     },
 
-    updateTextColor(e) {
-      this.tagTextColor = e.srcElement.value;
+    editTag(tagName) {
+      this.editingTagName = tagName;
+      this.editingOriginalTagName = tagName;
+      this.editingTag = JSON.parse(JSON.stringify(this.localTags[tagName]));
+      this.$bvModal.show('editTag');
+    },
+
+    async saveTag(e) {
+      e.preventDefault();
+
+      if (this.$refs.newTagForm.checkValidity()) {
+        const { editingTagName, editingOriginalTagName, editingTag } = this;
+
+        const renaming = editingTagName.toLowerCase() !== editingOriginalTagName.toLowerCase();
+
+        if (renaming) {
+          this.$delete(this.localTags, editingOriginalTagName);
+          this.$set(this.localTags, editingTagName, editingTag);
+
+          await this.saveTags(true);
+
+          this.$bvModal.hide('editTag');
+        } else {
+          this.localTags[editingOriginalTagName] = JSON.parse(JSON.stringify(editingTag));
+
+          await this.saveTags();
+
+          this.$bvModal.hide('editTag');
+        }
+      }
+    },
+
+    submit(e) {
+      e.preventDefault();
+
+      if (this.$refs.newTagForm.checkValidity()) {
+        this.createTag();
+      }
+    },
+
+    reset() {
+      this.tagName = '';
+      this.hex = '#143D59';
+      this.tagTextColor = '#F4B41A';
     },
 
     createTag() {
-      if (!this.tagHex || !this.tagName || this.isDuplicate) {
-        return;
-      }
+      const { hex, tagTextColor, tagName } = this;
 
-      if (this.exclusive) {
-        this.newTag.platform = this.platform.id;
-      }
+      const newTag = {
+        games: [],
+        hex,
+        tagTextColor,
+      };
 
-      this.$set(this.localTags, this.tagName, this.newTag);
+      this.$set(this.localTags, tagName, newTag);
       this.saveTags();
     },
 
@@ -191,8 +300,8 @@ export default {
       this.saveTags(true);
     },
 
-    async saveTags(force) {
-      const action = force
+    async saveTags(editing) {
+      const action = editing
         ? 'SAVE_TAGS_NO_MERGE'
         : 'SAVE_TAGS';
 
@@ -202,103 +311,13 @@ export default {
           this.$router.push({ name: 'sessionExpired' });
         });
 
-      this.$bvToast.toast('Tags updated', { title: 'Success', variant: 'success' });
+      const message = editing
+        ? 'Tags saved'
+        : 'Tag added';
+
+      this.$bvToast.toast(message, { title: 'Success', variant: 'success' });
       this.reset();
-    },
-
-    reset() {
-      this.tagName = '';
-      this.tagHex = this.defaultColor;
-      this.exclusive = false;
-      this.tagTextColor = '#f4b41a';
-
-      this.$forceUpdate();
-      this.focusInput();
-    },
-
-    focusInput() {
-      setTimeout(() => {
-        if (this.$refs.tagInput) {
-          this.$refs.tagInput.focus();
-        }
-      }, 200);
     },
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss">
-  // @import "~styles/styles";
-
-  .add-tag {
-    .vue-swatches__wrapper {
-      width: 200px !important;
-    }
-
-    .vue-swatches__fallback__wrapper {
-      width: 100%;
-      margin: 0 .5rem !important;
-    }
-  }
-</style>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-  // @import "~styles/styles";
-
-  .tag-input {
-    display: grid;
-    grid-template-columns: 1fr 40px 40px 100px;
-    grid-gap: 1rem;
-  }
-
-  h3 {
-    margin-bottom: .5rem;
-  }
-
-  input {
-    margin: 0;
-  }
-
-  .tag {
-    margin: 0 .5rem .5rem 0;
-  }
-
-  .tags {
-    display: grid;
-    grid-gap: .5rem;
-
-    h3 {
-      margin-bottom: .5rem;
-    }
-  }
-
-  .preview {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    flex-direction: column;
-
-    small {
-      font-size: 10px;
-      margin-bottom: .25rem;
-    }
-
-    .tag {
-      margin: 0;
-    }
-  }
-
-  .add-tag {
-    padding: 1rem;
-    border: 1px dashed var(--modal-text-color);
-    border-radius: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .tag-actions {
-    display: flex;
-    margin-top: 1rem;
-    justify-content: space-between;
-  }
-</style>

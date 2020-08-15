@@ -3,34 +3,29 @@
     <template v-if="wallpaperUrl">
       <h5>{{ $t('settings.wallpaper.wallpaper') }}</h5>
 
-      <modal
-        ref="addList"
-        :title="$t('settings.wallpaper.currentWallpaper')"
-        large
-        action-text="Remove wallpaper"
-        @action="removeWallpaper"
-      >
+      <!-- :title="$t('settings.wallpaper.currentWallpaper')"
+      action-text="Remove wallpaper"
+      @action="removeWallpaper" -->
 
-        <b-img
+      <b-img
+        fluid
+        v-if="wallpaperUrl"
+        :src="wallpaperUrl"
+        class="preview"
+        alt="Uploaded wallpaper"
+      />
+
+      <div
+        slot="content"
+        class="wallpaper-preview"
+      >
+        <img
           fluid
           v-if="wallpaperUrl"
           :src="wallpaperUrl"
-          class="preview"
           alt="Uploaded wallpaper"
-        />
-
-        <div
-          slot="content"
-          class="wallpaper-preview"
         >
-          <img
-            fluid
-            v-if="wallpaperUrl"
-            :src="wallpaperUrl"
-            alt="Uploaded wallpaper"
-          >
-        </div>
-      </modal>
+      </div>
     </template>
 
     <template v-else>
@@ -61,14 +56,12 @@
 </template>
 
 <script>
-import Modal from '@/components/Modal';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { mapState } from 'vuex';
 
 export default {
   components: {
-    Modal,
   },
 
   data() {
