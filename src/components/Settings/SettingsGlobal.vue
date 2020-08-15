@@ -3,7 +3,6 @@
     <h3>General</h3>
 
     <div class="setting">
-      <i class="fas fa-language" />
       <h5>{{ $t('settings.language') }}</h5>
 
       <b-form-select v-model="value.language">

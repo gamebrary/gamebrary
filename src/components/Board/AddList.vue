@@ -6,7 +6,7 @@
       :title="title"
       ref="addList"
     >
-      <i class="fas fa-plus" />
+      <b-icon-plus />
     </b-button>
 
     <b-modal

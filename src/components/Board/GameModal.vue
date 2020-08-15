@@ -118,7 +118,7 @@
               :title="$t('gameDetail.removeFromList')"
               @click="removeGame"
             >
-              <i class="far fa-trash-alt" />
+              <b-icon-trash />
             </b-button>
           </div>
 

@@ -23,7 +23,7 @@
             :disabled="isFirst"
             @click="moveList(listIndex, listIndex - 1)"
           >
-            <i class="fas fa-arrow-left" />
+            <b-icon-arrow-left-short />
 
             {{ $t('list.moveLeft') }}
           </b-button>
@@ -34,7 +34,7 @@
             @click="moveList(listIndex, listIndex + 1)"
           >
             {{ $t('list.moveRight') }}
-            <i class="fas fa-arrow-right" />
+            <b-icon-arrow-right-short />
           </b-button>
         </b-button-group>
       </b-dropdown-item>
