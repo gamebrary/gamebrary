@@ -1,6 +1,6 @@
 <template lang="html">
-  <b-card no-body class="mb-2" @click="openDetails">
-    <b-row no-gutters class="game-card" v-if="game && game.name">
+  <b-card no-body class="game-card mb-2" @click="openDetails">
+    <b-row no-gutters v-if="game && game.name">
       <b-col md="4">
         <b-img-lazy
           fluid
@@ -56,8 +56,8 @@
               v-if="games.includes(game.id)"
               :key="name"
               pill
+              class="mr-1"
               variant="primary"
-              tag="small"
               :style="`background-color: ${hex}; color: ${tagTextColor}`"
             >
               {{ name }}
@@ -76,3 +76,7 @@ export default {
   mixins: [GameCardUtils],
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+@import "GameCard";
+</style>

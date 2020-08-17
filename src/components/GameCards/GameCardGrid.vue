@@ -1,12 +1,11 @@
 <template lang="html">
   <b-card
     no-body
-    class="mb-2"
+    class="game-card mb-2"
     :img-src="coverUrl"
     img-top
     @click="openDetails"
   >
-    <!-- TODO: lazy load image -->
     <b-card-body body-class="p-2" v-if="game && game.name">
       <b-card-title class="mb-0" title-tag="h6">
         {{ game.name }}
@@ -68,3 +67,7 @@ export default {
   mixins: [GameCardUtils],
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+  @import "GameCard";
+</style>

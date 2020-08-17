@@ -1,6 +1,6 @@
 <template lang="html">
-  <b-card no-body class="mb-2">
-    <b-row no-gutters class="game-card" v-if="game && game.name">
+  <b-card no-body class="game-card mb-2">
+    <b-row no-gutters v-if="game && game.name">
       <b-col md="3">
         <b-card-img
           :src="coverUrl"
@@ -44,3 +44,7 @@ export default {
   mixins: [GameCardUtils],
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+@import "GameCard";
+</style>
