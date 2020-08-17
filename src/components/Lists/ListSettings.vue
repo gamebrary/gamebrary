@@ -1,7 +1,6 @@
 <template lang="html">
   <div>
     <b-dropdown
-      size="sm"
       no-caret
       variant="light"
     >

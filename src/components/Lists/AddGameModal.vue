@@ -2,7 +2,6 @@
   <div class="add-game-modal">
     <b-button
       block
-      size="sm"
       variant="light"
       v-b-modal="`game-modal-${listId}`"
       :title="$t('list.addGames', { listName })"
