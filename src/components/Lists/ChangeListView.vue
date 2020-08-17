@@ -23,7 +23,6 @@
           :id="randomGame"
           :game-id="randomGame"
           :list-id="listIndex"
-          @click.stop.native="selectListView('default')"
         />
 
         <game-card-grid
@@ -31,7 +30,6 @@
           :id="randomGame"
           :game-id="randomGame"
           :list-id="listIndex"
-          @click.stop.native="selectListView('grid')"
         />
 
         <game-card-compact
@@ -39,7 +37,6 @@
           :id="randomGame"
           :game-id="randomGame"
           :list-id="listIndex"
-          @click.stop.native="selectListView('compact')"
         />
 
         <game-card-text
@@ -47,7 +44,6 @@
           :id="randomGame"
           :game-id="randomGame"
           :list-id="listIndex"
-          @click.stop.native="selectListView('text')"
         />
       </form>
 
