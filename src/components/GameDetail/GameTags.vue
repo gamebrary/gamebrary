@@ -6,15 +6,16 @@
       target="tags-popover"
       title="Apply tags"
       placement="auto"
+      triggers="click blur"
     >
-      <!-- TODO: close on blur -->
       <template v-slot:title>
         <div class="py-0 pr-0 pl-2 d-flex justify-content-between align-items-center">
           Apply tags
 
           <b-button
             variant="light"
-            class="text-muted"
+            class="text-muted ml-4"
+            size="sm"
             @click="openTagsSettings"
           >
             <b-icon-gear-fill />
@@ -22,38 +23,41 @@
         </div>
       </template>
 
-      <b-button
-        v-for="({ games, hex, tagTextColor }, name) in tags"
-        :key="name"
-        :style="`background-color: ${hex}; color: ${tagTextColor}`"
-        variant="primary"
-        size="sm"
-        pill
-        class="m-1 p-1"
-      >
-        {{ name }}
-
-        <b-button
-          v-if="games.includes(gameId)"
-          variant="light"
-          size="sm"
-          pill
-          class="ml-1 mr-0 p-1"
-          @click="removeTag(name)"
+      <b-list-group>
+        <b-list-group-item
+          v-for="({ games, hex, tagTextColor }, name) in tags"
+          :key="name"
+          class="p-2 d-flex align-items-center justify-content-between"
         >
-          <b-icon-x />
-        </b-button>
+          <b-badge
+            pill
+            tag="small"
+            class="mr-3"
+            :style="`background-color: ${hex}; color: ${tagTextColor}`"
+          >
+            {{ name }}
+          </b-badge>
 
-        <b-button
-          v-else
-          size="sm"
-          pill
-          class="ml-1 mr-0 p-1"
-          @click="addTag(name)"
-        >
-          <b-icon-plus />
-        </b-button>
-      </b-button>
+          <b-button
+            v-if="games.includes(gameId)"
+            variant="outline-danger"
+            size="sm"
+            @click="removeTag(name)"
+          >
+            <b-icon-trash />
+          </b-button>
+
+          <b-button
+            v-else
+            variant="outline-success"
+            size="sm"
+            @click="addTag(name)"
+          >
+            <b-icon-plus font-scale="1" />
+          </b-button>
+
+        </b-list-group-item>
+      </b-list-group>
     </b-popover>
   </b-button>
 </template>
