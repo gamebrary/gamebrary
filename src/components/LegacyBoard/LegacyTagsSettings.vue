@@ -304,8 +304,8 @@ export default {
 
     async saveTags(editing) {
       const action = editing
-        ? 'SAVE_TAGS_NO_MERGE'
-        : 'SAVE_TAGS';
+        ? 'SAVE_TAGS_NO_MERGE_LEGACY'
+        : 'SAVE_TAGS_LEGACY';
 
       await this.$store.dispatch(action, this.localTags)
         .catch(() => {

@@ -78,7 +78,7 @@ export default {
     },
 
     async updateLists() {
-      await this.$store.dispatch('SAVE_LIST', this.gameLists)
+      await this.$store.dispatch('SAVE_LIST_LEGACY', this.gameLists)
         .catch(() => {
           this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
           this.$router.push({ name: 'sessionExpired' });
@@ -111,7 +111,7 @@ export default {
         this.loading = true;
 
         this.$store
-          .dispatch('LOAD_GAMES', gameList.toString())
+          .dispatch('LOAD_GAMES_LEGACY', gameList.toString())
           .then(() => {
             this.loading = false;
           })

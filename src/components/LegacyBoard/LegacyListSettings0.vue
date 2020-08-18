@@ -128,7 +128,7 @@ export default {
     async deleteList() {
       this.$store.commit('REMOVE_LIST', this.listIndex);
 
-      await this.$store.dispatch('SAVE_LIST', this.gameLists)
+      await this.$store.dispatch('SAVE_LIST_LEGACY', this.gameLists)
         .catch(() => {
           this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
           this.$router.push({ name: 'sessionExpired' });
@@ -142,7 +142,7 @@ export default {
     async moveList(from, to) {
       this.$store.commit('MOVE_LIST', { from, to });
 
-      await this.$store.dispatch('SAVE_LIST', this.gameLists)
+      await this.$store.dispatch('SAVE_LIST_LEGACY', this.gameLists)
         .catch(() => {
           this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
           this.$router.push({ name: 'sessionExpired' });

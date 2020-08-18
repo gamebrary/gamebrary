@@ -126,7 +126,7 @@ export default {
 
       this.$store.commit('ADD_LIST', list);
 
-      this.$store.dispatch('SAVE_LIST', this.gameLists)
+      this.$store.dispatch('SAVE_LIST_LEGACY', this.gameLists)
         .then(() => {
           this.$bvToast.toast('List added', {
             variant: 'success',

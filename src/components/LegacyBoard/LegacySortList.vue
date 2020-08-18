@@ -89,7 +89,7 @@ export default {
 
       gameLists[this.platform.code][this.listIndex].sortOrder = this.sortOrder;
 
-      await this.$store.dispatch('SAVE_LIST', gameLists)
+      await this.$store.dispatch('SAVE_LIST_LEGACY', gameLists)
         .catch(() => {
           this.saving = false;
 

@@ -170,7 +170,7 @@ export default {
     },
 
     async search() {
-      await this.$store.dispatch('SEARCH', this.searchText)
+      await this.$store.dispatch('SEARCH_LEGACY', this.searchText)
         .catch(({ data }) => {
           this.loading = false;
           this.error = data;

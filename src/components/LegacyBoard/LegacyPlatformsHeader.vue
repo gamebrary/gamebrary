@@ -68,7 +68,7 @@ export default {
 
   methods: {
     saveSettings() {
-      this.$store.dispatch('SAVE_SETTINGS', this.settings)
+      this.$store.dispatch('SAVE_SETTINGS_LEGACY', this.settings)
         .then(() => {
           this.$bvToast.toast('Settings saved', { title: 'Success', variant: 'success' });
         })

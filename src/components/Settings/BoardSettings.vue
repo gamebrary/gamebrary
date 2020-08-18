@@ -94,7 +94,7 @@ export default {
     deleteBoard() {
       this.$store.commit('REMOVE_PLATFORM');
 
-      this.$store.dispatch('SAVE_LIST_NO_MERGE', this.gameLists)
+      this.$store.dispatch('SAVE_LIST_NO_MERGE_LEGACY', this.gameLists)
         .then(() => {
           this.$router.push({ name: 'platforms' });
         })
@@ -111,7 +111,7 @@ export default {
     //
     //   gameLists[this.platform.code][this.listIndex].sortOrder = this.sortOrder;
     //
-    //   await this.$store.dispatch('SAVE_LIST', gameLists)
+    //   await this.$store.dispatch('SAVE_LIST_LEGACY', gameLists)
     //     .catch(() => {
     //       this.saving = false;
     //

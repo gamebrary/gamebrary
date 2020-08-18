@@ -168,7 +168,7 @@ export default {
     },
 
     async loadPlatforms() {
-      this.platforms = await this.$store.dispatch('LOAD_PLATFORMS');
+      this.platforms = await this.$store.dispatch('LOAD_IGDB_PLATFORMS');
     },
 
     selectPlatform({ id, name }) {

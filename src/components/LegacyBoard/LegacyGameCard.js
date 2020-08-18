@@ -113,7 +113,7 @@ export default {
         eventValue: data,
       });
 
-      this.$store.dispatch('SAVE_LIST', this.gameLists)
+      this.$store.dispatch('SAVE_LIST_LEGACY', this.gameLists)
         .then(() => {
           // TODO: customize, show cover url
           this.$bvToast.toast(`Added ${this.game.name} to list ${this.list.name}`, { title: 'Game added', variant: 'success' });
@@ -130,7 +130,7 @@ export default {
     },
 
     async saveTags() {
-      await this.$store.dispatch('SAVE_TAGS', this.tags)
+      await this.$store.dispatch('SAVE_TAGS_LEGACY', this.tags)
         .catch(() => {
           this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
           this.$router.push({ name: 'sessionExpired' });

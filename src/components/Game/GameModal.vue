@@ -453,7 +453,7 @@ export default {
 
       this.$store.commit('SET_GAME_PROGRESS', payload);
 
-      await this.$store.dispatch('SAVE_PROGRESSES')
+      await this.$store.dispatch('SAVE_PROGRESSES_LEGACY')
         .catch(() => {
           this.$bvToast.toast('There was an error saving your progress', { title: 'Error', variant: 'error' });
           this.$router.push({ name: 'sessionExpired' });
@@ -483,7 +483,7 @@ export default {
 
       this.$store.commit('SET_GAME_NOTE', payload);
 
-      await this.$store.dispatch('SAVE_NOTES')
+      await this.$store.dispatch('SAVE_NOTES_LEGACY')
         .catch(() => {
           this.$bvToast.toast('There was an error saving your note', { title: 'Error', variant: 'danger' });
           this.$router.push({ name: 'sessionExpired' });
@@ -497,7 +497,7 @@ export default {
     async deleteNote() {
       this.$store.commit('REMOVE_GAME_NOTE', this.gameId);
 
-      await this.$store.dispatch('SAVE_NOTES_NO_MERGE')
+      await this.$store.dispatch('SAVE_NOTES_NO_MERGE_LEGACY')
         .catch(() => {
           this.$bvToast.toast('There was an error deleting your note', { title: 'Error', variant: 'danger' });
           this.$router.push({ name: 'sessionExpired' });
@@ -525,7 +525,7 @@ export default {
         eventValue: data,
       });
 
-      this.$store.dispatch('SAVE_LIST', this.gameLists)
+      this.$store.dispatch('SAVE_LIST_LEGACY', this.gameLists)
         .then(() => {
           // TODO: customize using cover image
           this.$bvToast.toast(`Added ${this.game.name} to list ${this.list.name}`, { title: 'Success', variant: 'success' });
@@ -545,7 +545,7 @@ export default {
       this.$store.commit('REMOVE_GAME', data);
 
       this.$store
-        .dispatch('SAVE_LIST', this.gameLists)
+        .dispatch('SAVE_LIST_LEGACY', this.gameLists)
         .then(() => {
           // TODO customize using cover
           this.$bvToast.toast(`Removed ${this.game.name} from list ${this.list.name}`, { title: 'Success', variant: 'success' });
@@ -601,7 +601,7 @@ export default {
 
       this.$store.commit('REMOVE_GAME_PROGRESS', gameId);
 
-      await this.$store.dispatch('SAVE_PROGRESSES_NO_MERGE')
+      await this.$store.dispatch('SAVE_PROGRESSES_NO_MERGE_LEGACY')
         .catch(() => {
           this.$bvToast.toast('There was an error deleting your progress', { title: 'Error', variant: 'error' });
           this.$router.push({ name: 'sessionExpired' });

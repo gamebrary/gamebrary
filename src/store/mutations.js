@@ -153,7 +153,7 @@ export default {
     state.platform = platform;
   },
 
-  SAVE_LISTS(state, lists) {
+  SAVE_LIST_LEGACYS(state, lists) {
     state.gameLists = lists;
   },
 

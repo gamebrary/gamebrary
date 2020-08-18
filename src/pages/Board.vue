@@ -66,7 +66,7 @@ export default {
     },
 
     async updateLists() {
-      await this.$store.dispatch('SAVE_LIST', this.gameLists)
+      await this.$store.dispatch('SAVE_LIST_LEGACY', this.gameLists)
         .catch(() => {
           this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
           this.$router.push({ name: 'sessionExpired' });
@@ -93,7 +93,7 @@ export default {
     loadBoardGames() {
       const { lists } = this.board;
 
-      if (lists.length = 0) {
+      if (lists.length === 0) {
         return this.$bvModal.show('add-list');
       }
 
@@ -101,7 +101,10 @@ export default {
         ? lists.map(({ games }) => games).flat()
         : [];
 
+      // eslint-disable-next-line
       console.log(boardGames);
+
+      return boardGames;
 
       // if (!hasLists && flattenedList.length === 0) {
       // }
