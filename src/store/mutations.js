@@ -17,6 +17,28 @@ export default {
     state.gameLists = lists;
   },
 
+  SET_BOARDS(state, boards) {
+    state.boards = boards;
+  },
+
+  SET_GAME_BOARD(state, board) {
+    state.board = board;
+  },
+
+  SET_BOARD_GAMES(state, boardGames) {
+    state.boardGames = boardGames;
+  },
+
+  ADD_BOARD(state, board) {
+    state.boards.push(board);
+  },
+
+  REMOVE_BOARD(state, boardId) {
+    const boardIndex = state.boards.findIndex(({ id }) => id === boardId);
+
+    state.boards.splice(boardIndex, 1);
+  },
+
   SET_GAME_MODAL_DATA(state, gameModalData) {
     state.gameModalData = gameModalData;
   },

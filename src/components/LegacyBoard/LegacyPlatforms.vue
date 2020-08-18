@@ -1,5 +1,16 @@
 <template lang="html">
   <div class="platforms-page">
+    <b-alert show variant="warning">
+      <h4 class="alert-heading">Deprecation warning</h4>
+      <p>
+
+      </p>
+      <hr>
+      <b-button variant="primary">
+        Go to boards
+      </b-button>
+    </b-alert>
+
     <platforms-header />
 
     <platforms-list
@@ -9,12 +20,11 @@
     <platforms-footer />
 </div>
 </template>
-
 <script>
 import platforms from '@/platforms';
-import PlatformsFooter from '@/components/Platforms/PlatformsFooter';
-import PlatformsHeader from '@/components/Platforms/PlatformsHeader';
-import PlatformsList from '@/components/Platforms/PlatformsList';
+import PlatformsFooter from '@/components/LegacyBoard/LegacyPlatformsFooter';
+import PlatformsHeader from '@/components/LegacyBoard/LegacyPlatformsHeader';
+import PlatformsList from '@/components/LegacyBoard/LegacyPlatformsList';
 import sortby from 'lodash.sortby';
 import { mapState } from 'vuex';
 
@@ -28,7 +38,6 @@ export default {
   data() {
     return {
       platforms,
-      searchText: '',
     };
   },
 
@@ -52,6 +61,10 @@ export default {
         : null;
     },
 
+    ownedPlatforms() {
+      return this.platforms.filter(({ code }) => this.gameLists[code]);
+    },
+
     platformsSortField() {
       return this.settings && this.settings.platformsSortField
         ? this.settings.platformsSortField
@@ -60,8 +73,8 @@ export default {
 
     filteredPlatforms() {
       return this.platformsFilterField
-        ? this.platforms.filter(({ type }) => type === this.platformsFilterField)
-        : this.platforms;
+        ? this.ownedPlatforms.filter(({ type }) => type === this.platformsFilterField)
+        : this.ownedPlatforms;
     },
 
     sortedPlatforms() {

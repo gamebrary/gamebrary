@@ -2,8 +2,8 @@ import axios from 'axios';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
-const API_BASE = 'https://us-central1-gamebrary-8c736.cloudfunctions.net';
-// const API_BASE = 'http://localhost:5000/gamebrary-8c736/us-central1';
+// const API_BASE = 'https://us-central1-gamebrary-8c736.cloudfunctions.net';
+const API_BASE = 'http://localhost:5001/gamebrary-8c736/us-central1';
 
 export default {
   LOAD_GAMES({ commit }, gameList) {
@@ -16,6 +16,15 @@ export default {
     });
   },
 
+  LOAD_PLATFORMS() {
+    return new Promise((resolve, reject) => {
+      axios.get(`${API_BASE}/platforms`)
+        .then(({ data }) => {
+          resolve(data);
+        }).catch(reject);
+    });
+  },
+
   SAVE_LIST({ commit, state }, payload) {
     const db = firebase.firestore();
 
@@ -23,6 +32,87 @@ export default {
       .then(() => {
         commit('SAVE_LISTS', payload);
       });
+  },
+
+  LOAD_BOARDS({ state, commit }) {
+    return new Promise((resolve, reject) => {
+      const db = firebase.firestore();
+
+      db.collection('boards').where('owner', '==', state.user.uid)
+        .get()
+        .then(({ docs }) => {
+          const boards = docs.length
+            ? docs.map((doc) => {
+              const board = doc.data();
+
+              return {
+                id: doc.id,
+                ...board,
+              };
+            })
+            : null;
+
+          if (boards) {
+            commit('SET_BOARDS', boards);
+          }
+
+          resolve();
+        })
+        .catch(reject);
+    });
+  },
+
+  LOAD_BOARD({ state }, id) {
+    return new Promise((resolve, reject) => {
+      const db = firebase.firestore();
+
+      db.collection('boards')
+        .doc(id)
+        .get()
+        .then((docs) => {
+          const board = docs.data();
+
+          return state.user.uid === board.owner
+            ? resolve(board)
+            : reject();
+        })
+        .catch(reject);
+    });
+  },
+
+  CREATE_BOARD({ state, commit }, board) {
+    return new Promise((resolve, reject) => {
+      const db = firebase.firestore();
+
+      const payload = {
+        ...board,
+        owner: state.user.uid,
+      };
+
+      db.collection('boards').add(payload)
+        .then(({ id }) => {
+          commit('ADD_BOARD', {
+            ...payload,
+            id,
+          });
+
+          resolve();
+        })
+        .catch(reject);
+    });
+  },
+
+  DELETE_BOARD({ commit }, id) {
+    return new Promise((resolve, reject) => {
+      const db = firebase.firestore();
+
+      db.collection('boards').doc(id).delete()
+        .then(() => {
+          commit('REMOVE_BOARD', id);
+          resolve();
+        })
+        .catch(reject);
+    });
   },
 
   SAVE_PROGRESSES({ state }) {

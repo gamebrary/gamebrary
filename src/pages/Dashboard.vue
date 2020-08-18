@@ -1,0 +1,21 @@
+<template lang="html">
+  <div>
+    <boards />
+    <legacy-platforms />
+  </div>
+</template>
+
+<script>
+import LegacyPlatforms from '@/components/LegacyBoard/LegacyPlatforms';
+import Boards from '@/components/Boards';
+
+export default {
+  components: {
+    LegacyPlatforms,
+    Boards,
+  },
+};
+</script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+</style>

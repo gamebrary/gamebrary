@@ -1,30 +1,31 @@
 <template lang="html">
-  <div v-if="loaded" class="board" :class="{ dragging }" >
+  <div class="board" :class="{ dragging }" >
     <board-placeholder v-if="loading" />
 
-    <list
-      v-for="(list, listIndex) in gameLists[platform.code]"
-      v-if="list && !loading"
-      :name="list.name"
-      :game-list="list.games"
-      :list-index="listIndex"
-      :key="`${list.name}-${listIndex}`"
-      @dragEnd="dragEnd"
-    />
+    <template v-else>
+      <pre>{{ board }}</pre>
+      <list
+        v-for="(list, listIndex) in board.lists"
+        v-if="list && !loading"
+        :name="list.name"
+        :game-list="list.games"
+        :list-index="listIndex"
+        :key="`${list.name}-${listIndex}`"
+        @dragEnd="updateLists"
+      />
+    </template>
 
     <add-list />
     <game-modal />
-    <!-- <game-tags-modal /> -->
   </div>
 </template>
 
 <script>
 import BoardPlaceholder from '@/components/Board/BoardPlaceholder';
-// import GameTagsModal from '@/components/Board/GameTagsModal';
 import AddList from '@/components/Board/AddList';
-import GameModal from '@/components/Board/GameModal';
+import GameModal from '@/components/Game/GameModal';
 import List from '@/components/Lists/List';
-import chunk from 'lodash.chunk';
+// import chunk from 'lodash.chunk';
 import { mapState } from 'vuex';
 import draggable from 'vuedraggable';
 
@@ -33,15 +34,13 @@ export default {
     draggable,
     List,
     BoardPlaceholder,
-    // GameTagsModal,
     AddList,
     GameModal,
   },
 
   data() {
     return {
-      draggingId: null,
-      loading: false,
+      loading: true,
       gameData: null,
       gameDetailListIndex: null,
       queryLimit: 500,
@@ -49,31 +48,21 @@ export default {
   },
 
   computed: {
-    ...mapState(['user', 'gameLists', 'platform', 'games', 'dragging']),
-
-    list() {
-      return this.gameLists && this.platform && this.gameLists[this.platform.code]
-        ? this.gameLists[this.platform.code]
-        : null;
-    },
-
-    loaded() {
-      return this.user && this.platform;
-    },
+    ...mapState(['user', 'gameLists', 'platform', 'boards', 'games', 'dragging', 'board']),
   },
 
   mounted() {
-    if (this.platform) {
-      this.load();
-    } else {
-      this.$router.push({ name: 'platforms' });
-    }
+    this.load();
   },
 
   methods: {
-    dragEnd() {
-      this.draggingId = null;
-      this.updateLists();
+    load() {
+      // TODO: handle loading public board
+      if (this.$route.params.id && this.user) {
+        this.loadBoard(this.$route.params.id);
+      } else {
+        this.$router.push({ name: 'dashboard' });
+      }
     },
 
     async updateLists() {
@@ -89,43 +78,66 @@ export default {
       });
     },
 
-    load() {
-      const flattenedList = this.list ? this.list.map(({ games }) => games).flat() : [];
+    async loadBoard(id) {
+      this.loading = true;
 
-      const hasLists = this.list && this.list.length;
+      await this.$store.dispatch('LOAD_BOARD', id)
+        .catch(() => {
+          this.$router.replace({ path: '/' });
+        });
 
-      if (!hasLists && flattenedList.length === 0) {
-        this.$bvModal.show('add-list-0');
+      this.loading = false;
+      this.loadBoardGames();
+    },
+
+    loadBoardGames() {
+      const { lists } = this.board;
+
+      if (lists.length = 0) {
+        return this.$bvModal.show('add-list');
       }
 
-      const dedupedList = Array.from(new Set(flattenedList));
+      const boardGames = lists.length > 0
+        ? lists.map(({ games }) => games).flat()
+        : [];
 
-      return dedupedList.length > this.queryLimit
-        ? this.loadGamesInChunks(dedupedList)
-        : this.loadGames(dedupedList);
+      console.log(boardGames);
+
+      // if (!hasLists && flattenedList.length === 0) {
+      // }
+      //
+      // const dedupedList = Array.from(new Set(flattenedList));
+      //
+      // return dedupedList.length > this.queryLimit
+      //   ? this.loadGamesInChunks(dedupedList)
+      //   : this.loadGames(dedupedList);
     },
 
     loadGames(gameList) {
-      if (gameList && gameList.length > 0) {
-        this.loading = true;
-
-        this.$store
-          .dispatch('LOAD_GAMES', gameList.toString())
-          .then(() => {
-            this.loading = false;
-          })
-          .catch(() => {
-            this.$bvToast.toast('Error loading games', { title: 'Error', variant: 'error' });
-          });
-      }
+      // eslint-disable-next-line
+      console.log(gameList);
+      // if (gameList && gameList.length > 0) {
+      //   this.loading = true;
+      //
+      //   this.$store
+      //     .dispatch('LOAD_BOARD_GAMES', gameList.toString())
+      //     .then(() => {
+      //       this.loading = false;
+      //     })
+      //     .catch(() => {
+      //       this.$bvToast.toast('Error loading games', { title: 'Error', variant: 'error' });
+      //     });
+      // }
     },
 
     loadGamesInChunks(gameList) {
-      const chunkedGameList = chunk(gameList, this.queryLimit);
-
-      chunkedGameList.forEach((gameListChunk) => {
-        this.loadGames(gameListChunk);
-      });
+      // eslint-disable-next-line
+      console.log(gameList);
+      // const chunkedGameList = chunk(gameList, this.queryLimit);
+      //
+      // chunkedGameList.forEach((gameListChunk) => {
+      //   this.loadGames(gameListChunk);
+      // });
     },
   },
 };

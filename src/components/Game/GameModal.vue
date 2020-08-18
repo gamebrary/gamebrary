@@ -103,7 +103,7 @@
 
             <b-modal id="notes" title="Game notes" @shown="getNotes">
               <b-form-textarea
-                v-model.trim="localNote"
+                v-model.trim="localNote.text"
                 placeholder="Type note here"
                 rows="3"
                 max-rows="20"
@@ -189,7 +189,7 @@
             </template>
 
             <template v-if="notes[gameId]">
-              <vue-markdown :source="notes[gameId]" />
+              <vue-markdown :source="notes[gameId].text" />
               <!-- TODO add markdown preview? -->
               <!-- <vue-markdown :source="localNote.text" /> -->
 
@@ -268,8 +268,8 @@
 import moment from 'moment';
 import { mapState, mapGetters } from 'vuex';
 import VueMarkdown from 'vue-markdown';
-import GameDetailPlaceholder from '@/components/GameDetail/GameDetailPlaceholder';
-import GameTags from '@/components/GameDetail/GameTags';
+import GameDetailPlaceholder from '@/components/Game/GameDetailPlaceholder';
+import GameTags from '@/components/Game/GameTags';
 import IgdbLogo from '@/components/IgdbLogo';
 import Placeholder from '@/components/Placeholder';
 
