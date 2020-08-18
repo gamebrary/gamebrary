@@ -57,15 +57,12 @@ export default {
     return {
       listName: '',
       saving: false,
+      modalId: 'add-list',
     };
   },
 
   computed: {
     ...mapState(['gameLists', 'platform']),
-
-    modalId() {
-      return `add-list-${this.listIndex}`;
-    },
 
     lists() {
       return this.gameLists[this.platform.code];
@@ -127,9 +124,7 @@ export default {
 
       this.saving = true;
 
-      this.$store.commit('ADD_LIST', list);
-
-      this.$store.dispatch('SAVE_LIST', this.gameLists)
+      this.$store.dispatch('ADD_LIST', list)
         .then(() => {
           this.$bvToast.toast('List added', {
             variant: 'success',
