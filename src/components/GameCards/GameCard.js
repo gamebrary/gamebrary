@@ -104,7 +104,7 @@ export default {
       };
 
       this.$emit('added');
-      this.$store.commit('ADD_GAME', data);
+      this.$store.commit('ADD_GAME_LEGACY', data);
 
       this.$ga.event({
         eventCategory: 'game',

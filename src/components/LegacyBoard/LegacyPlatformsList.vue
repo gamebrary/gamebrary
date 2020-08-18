@@ -40,7 +40,7 @@ export default {
 
   methods: {
     changePlatform(platform) {
-      this.$store.commit('SET_PLATFORM', platform);
+      this.$store.commit('SET_PLATFORM_LEGACY', platform);
       this.$router.push({ name: 'legacy-board' });
     },
 

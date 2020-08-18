@@ -124,7 +124,7 @@ export default {
 
       this.saving = true;
 
-      this.$store.dispatch('ADD_LIST', list)
+      this.$store.dispatch('ADD_LIST_LEGACY', list)
         .then(() => {
           this.$bvToast.toast('List added', {
             variant: 'success',

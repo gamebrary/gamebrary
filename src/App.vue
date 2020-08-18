@@ -133,7 +133,7 @@ export default {
           this.loadWallpaper();
         }
       } else {
-        this.$store.commit('SET_WALLPAPER_URL', '');
+        this.$store.commit('SET_WALLPAPER_URL_LEGACY', '');
       }
     },
   },
@@ -181,10 +181,10 @@ export default {
 
     loadWallpaper() {
       const wallpaperRef = this.customWallpaper;
-      this.$store.commit('SET_WALLPAPER_URL', '');
+      this.$store.commit('SET_WALLPAPER_URL_LEGACY', '');
 
       storage.child(wallpaperRef).getDownloadURL().then((url) => {
-        this.$store.commit('SET_WALLPAPER_URL', url);
+        this.$store.commit('SET_WALLPAPER_URL_LEGACY', url);
       });
     },
 
@@ -195,7 +195,7 @@ export default {
         .onSnapshot((doc) => {
           if (doc.exists) {
             const gameLists = doc.data();
-            this.$store.commit('SET_GAME_LISTS', gameLists);
+            this.$store.commit('SET_GAME_LISTS_LEGACY', gameLists);
           }
         });
 
@@ -271,7 +271,7 @@ export default {
         .then((doc) => {
           if (doc.exists) {
             const data = doc.data();
-            this.$store.commit('SET_GAME_LISTS', data);
+            this.$store.commit('SET_GAME_LISTS_LEGACY', data);
           } else {
             this.initList();
           }

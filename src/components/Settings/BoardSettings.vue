@@ -92,7 +92,7 @@ export default {
     },
 
     deleteBoard() {
-      this.$store.commit('REMOVE_PLATFORM');
+      this.$store.commit('REMOVE_PLATFORM_LEGACY');
 
       this.$store.dispatch('SAVE_LIST_NO_MERGE_LEGACY', this.gameLists)
         .then(() => {

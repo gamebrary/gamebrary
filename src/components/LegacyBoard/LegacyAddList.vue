@@ -124,7 +124,7 @@ export default {
 
       this.saving = true;
 
-      this.$store.commit('ADD_LIST', list);
+      this.$store.commit('ADD_LIST_LEGACY', list);
 
       this.$store.dispatch('SAVE_LIST_LEGACY', this.gameLists)
         .then(() => {

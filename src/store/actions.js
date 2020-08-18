@@ -47,7 +47,7 @@ export default {
     });
   },
 
-  LOAD_BOARD({ state }, id) {
+  LOAD_BOARD({ state, commit }, id) {
     return new Promise((resolve, reject) => {
       const db = firebase.firestore();
 
@@ -57,9 +57,12 @@ export default {
         .then((docs) => {
           const board = docs.data();
 
-          return state.user.uid === board.owner
-            ? resolve(board)
-            : reject();
+          if (state.user.uid !== board.owner) {
+            return reject();
+          }
+
+          commit('SET_BOARD', board);
+          return resolve();
         })
         .catch(reject);
     });
@@ -119,7 +122,7 @@ export default {
 
     db.collection('lists').doc(state.user.uid).set(payload, { merge: true })
       .then(() => {
-        commit('SAVE_LIST_LEGACYS', payload);
+        commit('SAVE_LIST_LEGACY', payload);
       });
   },
 
@@ -188,7 +191,7 @@ export default {
 
     db.collection('lists').doc(state.user.uid).set(payload, { merge: false })
       .then(() => {
-        commit('SAVE_LIST_LEGACYS', payload);
+        commit('SAVE_LIST_LEGACY', payload);
       });
   },
 

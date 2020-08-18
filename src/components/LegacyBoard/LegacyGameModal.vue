@@ -516,7 +516,7 @@ export default {
       };
 
       // this.$emit('added');
-      this.$store.commit('ADD_GAME', data);
+      this.$store.commit('ADD_GAME_LEGACY', data);
 
       this.$ga.event({
         eventCategory: 'game',
@@ -542,7 +542,7 @@ export default {
         gameId: this.game.id,
       };
 
-      this.$store.commit('REMOVE_GAME', data);
+      this.$store.commit('REMOVE_GAME_LEGACY', data);
 
       this.$store
         .dispatch('SAVE_LIST_LEGACY', this.gameLists)
@@ -573,6 +573,11 @@ export default {
           this.loading = false;
           this.$bvToast.toast('Error loading game', { title: 'Error', variant: 'error' });
         });
+
+      // avoid error when closing modal before game finishes loading
+      if (!this.game) {
+        return;
+      }
 
       this.game = {
         ...this.game,

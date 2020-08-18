@@ -126,7 +126,7 @@ export default {
     },
 
     async deleteList() {
-      this.$store.commit('REMOVE_LIST', this.listIndex);
+      this.$store.commit('REMOVE_LIST_LEGACY', this.listIndex);
 
       await this.$store.dispatch('SAVE_LIST_LEGACY', this.gameLists)
         .catch(() => {
@@ -140,7 +140,7 @@ export default {
     },
 
     async moveList(from, to) {
-      this.$store.commit('MOVE_LIST', { from, to });
+      this.$store.commit('MOVE_LIST_LEGACY', { from, to });
 
       await this.$store.dispatch('SAVE_LIST_LEGACY', this.gameLists)
         .catch(() => {
