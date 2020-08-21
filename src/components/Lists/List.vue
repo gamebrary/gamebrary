@@ -25,7 +25,7 @@
       <draggable
         class="games"
         :list="list.games"
-        :id="list.id"
+        :id="listIndex"
         :move="validateMove"
         v-bind="gameDraggableOptions"
         @end="dragEnd"
@@ -107,7 +107,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['games', 'dragging', 'progresses']),
+    ...mapState(['games', 'dragging', 'progresses', 'board']),
 
     autoSortEnabled() {
       const { settings } = this.list;
@@ -209,7 +209,7 @@ export default {
   methods: {
     validateMove({ from, to }) {
       const isDifferentList = from.id !== to.id;
-      const isDuplicate = this.list[to.id].games.includes(Number(this.draggingId));
+      const isDuplicate = this.board.lists[to.id].games.includes(Number(this.draggingId));
       const validMove = isDifferentList && isDuplicate;
       return !validMove;
     },
@@ -227,7 +227,20 @@ export default {
 
     dragEnd() {
       this.$store.commit('SET_DRAGGING_STATUS', false);
-      this.$emit('dragEnd');
+      this.saveBoard();
+    },
+
+    async saveBoard() {
+      await this.$store.dispatch('SAVE_BOARD')
+        .catch(() => {
+          this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
+          this.$router.push({ name: 'sessionExpired' });
+        });
+
+      this.$bvToast.toast('List saved', {
+        title: 'Success',
+        variant: 'success',
+      });
     },
   },
 };

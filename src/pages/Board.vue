@@ -8,7 +8,6 @@
         :list="list"
         :listIndex="listIndex"
         :key="list.name"
-        @dragEnd="updateLists"
       />
     </template>
 
@@ -60,19 +59,6 @@ export default {
       } else {
         this.$router.push({ name: 'dashboard' });
       }
-    },
-
-    async updateLists() {
-      // await this.$store.dispatch('SAVE_LIST_LEGACY', this.gameLists)
-      //   .catch(() => {
-      //     this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
-      //     this.$router.push({ name: 'sessionExpired' });
-      //   });
-      //
-      // this.$bvToast.toast('List saved', {
-      //   title: 'Success',
-      //   variant: 'success',
-      // });
     },
 
     async loadBoard(id) {
