@@ -108,13 +108,13 @@ export default {
     });
   },
 
-  SAVE_BOARD({ state }) {
+  SAVE_BOARD({ state }, merge = false) {
     const db = firebase.firestore();
 
     return new Promise((resolve, reject) => {
       db.collection('boards')
         .doc(state.board.id)
-        .set(state.board)
+        .set(state.board, { merge })
         .then(() => {
           resolve();
         })
