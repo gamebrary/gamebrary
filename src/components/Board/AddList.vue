@@ -62,11 +62,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['gameLists', 'platform']),
-
-    lists() {
-      return this.gameLists[this.platform.code];
-    },
+    ...mapState(['platform', 'board']),
 
     title() {
       return this.isEmptyBoard
@@ -81,8 +77,8 @@ export default {
     },
 
     existingListNames() {
-      return this.lists
-        ? this.lists.map(({ name }) => name.toLowerCase())
+      return this.board.lists
+        ? this.board.lists.map(({ name }) => name.toLowerCase())
         : [];
     },
 
@@ -91,11 +87,7 @@ export default {
     },
 
     isEmptyBoard() {
-      const newList = this.gameLists && this.platform && !this.gameLists[this.platform.code];
-      const emptyList = this.gameLists[this.platform.code]
-      && this.gameLists[this.platform.code].length === 0;
-
-      return newList || emptyList;
+      return this.board.lists.length === 0;
     },
 
     disabled() {
@@ -116,7 +108,7 @@ export default {
       }
     },
 
-    addList() {
+    async addList() {
       const list = {
         games: [],
         name: this.listName,
@@ -124,17 +116,15 @@ export default {
 
       this.saving = true;
 
-      this.$store.dispatch('ADD_LIST_LEGACY', list)
-        .then(() => {
-          this.$bvToast.toast('List added', {
-            variant: 'success',
-          });
-          this.saving = true;
-          this.$bvModal.hide(this.modalId);
-          this.scroll();
+      await this.$store.dispatch('ADD_LIST', list)
+        .catch(() => {
+          this.$bvToast.toast('Error adding list', { title: 'Error', variant: 'danger' });
         });
 
-      // TODO: catch and make async
+      this.$bvToast.toast('List added', { variant: 'success' });
+      this.saving = false;
+      this.$bvModal.hide(this.modalId);
+      this.scroll();
     },
 
     scroll() {
