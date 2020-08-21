@@ -21,6 +21,10 @@ export default {
     state.boards.push(board);
   },
 
+  ADD_LIST(state, list) {
+    state.board.lists.push(list);
+  },
+
   REMOVE_BOARD(state, boardId) {
     const boardIndex = state.boards.findIndex(({ id }) => id === boardId);
 
@@ -33,6 +37,10 @@ export default {
 
   CLEAR_GAME_MODAL_DATA(state) {
     state.gameModalData = null;
+  },
+
+  ADD_GAME_TO_LIST({ board }, { listIndex, gameId }) {
+    board.lists[listIndex].games.push(gameId);
   },
 
   //

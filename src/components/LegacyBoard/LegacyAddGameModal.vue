@@ -47,7 +47,7 @@
         ref="searchResults"
         class="search-results"
       >
-        <game-card-search
+        <legacy-game-card-search
           v-for="{ id } in filteredResults"
           :key="id"
           :game-id="id"
@@ -72,13 +72,13 @@
 </template>
 
 <script>
-import GameCardSearch from '@/components/GameCards/GameCardSearch';
+import LegacyGameCardSearch from '@/components/LegacyBoard/LegacyGameCardSearch';
 import IgdbLogo from '@/components/IgdbLogo';
 import { mapState } from 'vuex';
 
 export default {
   components: {
-    GameCardSearch,
+    LegacyGameCardSearch,
     IgdbLogo,
   },
 
@@ -115,7 +115,7 @@ export default {
     },
 
     filteredResults() {
-      return this.results
+      return this.results.length
         ? this.results.filter(({ id }) => !this.list[this.listId].games.includes(id))
         : [];
     },

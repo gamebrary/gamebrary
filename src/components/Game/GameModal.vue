@@ -6,8 +6,8 @@
     header-bg-variant="light"
     footer-bg-variant="light"
     footer-class="p-2 justify-content-center"
-    :title="title"
-    @show="loadCachedGame"
+    :title="modalTitle"
+    @show="setData"
     @shown="loadGame"
     @hidden="reset"
   >
@@ -35,7 +35,7 @@
             {{ title }}
           </h3>
 
-          <h6>
+          <!-- <h6>
             <b-badge
               v-if="releaseDate"
               variant="secondary"
@@ -43,7 +43,7 @@
               Releases in
               {{ releaseDate }}
             </b-badge>
-          </h6>
+          </h6> -->
 
           <b-form-rating
             v-if="rating"
@@ -335,19 +335,12 @@ export default {
   },
 
   computed: {
+    // TODO: rename gameModalData
     ...mapState(['gameModalData', 'games', 'platform', 'progresses', 'tags', 'notes', 'gameLists']),
     ...mapGetters(['gameTags']),
 
-    title() {
+    modalTitle() {
       return this.game && this.game.name;
-    },
-
-    activePlatform() {
-      return this.gameLists[this.platform.code];
-    },
-
-    list() {
-      return this.activePlatform[this.listId];
     },
 
     releaseDate() {
@@ -445,6 +438,45 @@ export default {
   },
 
   methods: {
+    setData() {
+      const { gameId, list } = this.gameModalData;
+
+      this.gameId = gameId;
+      this.list = list;
+      this.game = this.games[gameId];
+    },
+
+    async loadGame() {
+      this.loading = true;
+
+      const { gameId } = this.gameModalData;
+
+      const game = await this.$store.dispatch('LOAD_GAME', gameId)
+        .catch(() => {
+          this.loading = false;
+          this.$bvToast.toast('Error loading game', { title: 'Error', variant: 'error' });
+        });
+
+      // avoid error when closing modal before game finishes loading
+      if (!this.game) {
+        return;
+      }
+
+      this.game = {
+        ...this.game,
+        ...game,
+      };
+
+      this.loading = false;
+
+      this.$ga.event({
+        eventCategory: 'game',
+        eventAction: 'view',
+        eventLabel: 'gameViewed',
+        eventValue: `${this.platform.name} - ${this.game.name}`,
+      });
+    },
+
     async saveProgress() {
       const payload = {
         progress: this.localProgress,
@@ -554,45 +586,6 @@ export default {
           this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
           this.$router.push({ name: 'sessionExpired' });
         });
-    },
-
-    loadCachedGame() {
-      const { gameId, listId } = this.gameModalData;
-
-      this.gameId = gameId;
-      this.listId = listId;
-      this.game = this.games[gameId];
-    },
-
-    async loadGame() {
-      this.loading = true;
-      const { gameId } = this.gameModalData;
-
-      const game = await this.$store.dispatch('LOAD_GAME', gameId)
-        .catch(() => {
-          this.loading = false;
-          this.$bvToast.toast('Error loading game', { title: 'Error', variant: 'error' });
-        });
-
-
-      // avoid error when closing modal before game finishes loading
-      if (!this.game) {
-        return;
-      }
-
-      this.game = {
-        ...this.game,
-        ...game,
-      };
-
-      this.loading = false;
-
-      this.$ga.event({
-        eventCategory: 'game',
-        eventAction: 'view',
-        eventLabel: 'gameViewed',
-        eventValue: `${this.platform.name} - ${this.game.name}`,
-      });
     },
 
     reset() {

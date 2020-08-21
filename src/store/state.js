@@ -8,7 +8,7 @@ export default {
   gameLists: {},
   settings: null,
   platform: null,
-  results: null,
+  results: [],
   galleryOpen: false,
   games: {},
   boards: [],

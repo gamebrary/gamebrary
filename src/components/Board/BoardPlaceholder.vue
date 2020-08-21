@@ -34,18 +34,12 @@ export default {
   },
 
   computed: {
-    ...mapState(['gameLists', 'platform']),
+    ...mapState(['boards']),
 
     lists() {
-      return this.gameLists && this.platform && this.gameLists[this.platform.code]
-        ? this.gameLists[this.platform.code]
-        : [];
-    },
-  },
+      const board = this.boards.find((({ id }) => id === this.$route.params.id));
 
-  methods: {
-    randomColumn() {
-      return Math.floor(Math.random() * 4) + 1;
+      return board && board.lists;
     },
   },
 };

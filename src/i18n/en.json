@@ -165,7 +165,7 @@
   "gameSearch": {
     "title": "Add games to",
     "inputPlaceholder": "Search here",
-    "alreadyInList": "from search results already in your list",
+    "alreadyInList": "game(s) from search results already in your list",
     "noResultsFound": "No results",
     "missingGame": "Missing a game? Help out the community and",
     "addToIGDB": "Add it to IGDB"

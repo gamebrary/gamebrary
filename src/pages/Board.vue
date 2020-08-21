@@ -3,14 +3,10 @@
     <board-placeholder v-if="loading" />
 
     <template v-else>
-      <pre>{{ board }}</pre>
       <list
-        v-for="(list, listIndex) in board.lists"
-        v-if="list && !loading"
-        :name="list.name"
-        :game-list="list.games"
-        :list-index="listIndex"
-        :key="`${list.name}-${listIndex}`"
+        v-for="list in board.lists"
+        :list="list"
+        :key="list.name"
         @dragEnd="updateLists"
       />
     </template>
@@ -25,7 +21,7 @@ import BoardPlaceholder from '@/components/Board/BoardPlaceholder';
 import AddList from '@/components/Board/AddList';
 import GameModal from '@/components/Game/GameModal';
 import List from '@/components/Lists/List';
-// import chunk from 'lodash.chunk';
+import chunk from 'lodash.chunk';
 import { mapState } from 'vuex';
 import draggable from 'vuedraggable';
 
@@ -66,16 +62,16 @@ export default {
     },
 
     async updateLists() {
-      await this.$store.dispatch('SAVE_LIST_LEGACY', this.gameLists)
-        .catch(() => {
-          this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
-          this.$router.push({ name: 'sessionExpired' });
-        });
-
-      this.$bvToast.toast('List saved', {
-        title: 'Success',
-        variant: 'success',
-      });
+      // await this.$store.dispatch('SAVE_LIST_LEGACY', this.gameLists)
+      //   .catch(() => {
+      //     this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
+      //     this.$router.push({ name: 'sessionExpired' });
+      //   });
+      //
+      // this.$bvToast.toast('List saved', {
+      //   title: 'Success',
+      //   variant: 'success',
+      // });
     },
 
     async loadBoard(id) {
@@ -86,7 +82,6 @@ export default {
           this.$router.replace({ path: '/' });
         });
 
-      this.loading = false;
       this.loadBoardGames();
     },
 
@@ -97,50 +92,36 @@ export default {
         return this.$bvModal.show('add-list');
       }
 
-      const boardGames = lists.length > 0
-        ? lists.map(({ games }) => games).flat()
-        : [];
+      const boardGames = Array.from(new Set(lists.map(({ games }) => games).flat()));
 
-      // eslint-disable-next-line
-      console.log(boardGames);
+      if (boardGames.length === 0) {
+        this.loading = false;
 
-      return boardGames;
+        return boardGames;
+      }
 
-      // if (!hasLists && flattenedList.length === 0) {
-      // }
-      //
-      // const dedupedList = Array.from(new Set(flattenedList));
-      //
-      // return dedupedList.length > this.queryLimit
-      //   ? this.loadGamesInChunks(dedupedList)
-      //   : this.loadGames(dedupedList);
+      return boardGames.length > this.queryLimit
+        ? this.loadGamesInChunks(boardGames)
+        : this.loadGames(boardGames);
     },
 
-    loadGames(gameList) {
-      // eslint-disable-next-line
-      console.log(gameList);
-      // if (gameList && gameList.length > 0) {
-      //   this.loading = true;
-      //
-      //   this.$store
-      //     .dispatch('LOAD_BOARD_GAMES', gameList.toString())
-      //     .then(() => {
-      //       this.loading = false;
-      //     })
-      //     .catch(() => {
-      //       this.$bvToast.toast('Error loading games', { title: 'Error', variant: 'error' });
-      //     });
-      // }
+    async loadGames(gameList) {
+      this.loading = true;
+
+      await this.$store.dispatch('LOAD_BOARD_GAMES', gameList.toString())
+        .catch(() => {
+          this.$bvToast.toast('Error loading games', { title: 'Error', variant: 'error' });
+        });
+
+      this.loading = false;
     },
 
     loadGamesInChunks(gameList) {
-      // eslint-disable-next-line
-      console.log(gameList);
-      // const chunkedGameList = chunk(gameList, this.queryLimit);
-      //
-      // chunkedGameList.forEach((gameListChunk) => {
-      //   this.loadGames(gameListChunk);
-      // });
+      const chunkedGameList = chunk(gameList, this.queryLimit);
+
+      chunkedGameList.forEach((gameListChunk) => {
+        this.loadGames(gameListChunk);
+      });
     },
   },
 };

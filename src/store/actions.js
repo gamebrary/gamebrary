@@ -2,8 +2,8 @@ import axios from 'axios';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
-// const API_BASE = 'https://us-central1-gamebrary-8c736.cloudfunctions.net';
-const API_BASE = 'http://localhost:5001/gamebrary-8c736/us-central1';
+const API_BASE = 'https://us-central1-gamebrary-8c736.cloudfunctions.net';
+// const API_BASE = 'http://localhost:5001/gamebrary-8c736/us-central1';
 
 export default {
   //
@@ -54,14 +54,17 @@ export default {
       db.collection('boards')
         .doc(id)
         .get()
-        .then((docs) => {
-          const board = docs.data();
+        .then((doc) => {
+          const board = doc.data();
 
           if (state.user.uid !== board.owner) {
             return reject();
           }
 
-          commit('SET_BOARD', board);
+          commit('SET_BOARD', {
+            ...board,
+            id: doc.id,
+          });
           return resolve();
         })
         .catch(reject);
@@ -90,6 +93,35 @@ export default {
     });
   },
 
+  ADD_LIST({ state, commit }, list) {
+    return new Promise((resolve, reject) => {
+      const db = firebase.firestore();
+
+      db.collection('boards')
+        .doc(state.board.id)
+        .update({ lists: firebase.firestore.FieldValue.arrayUnion(list) })
+        .then(() => {
+          commit('ADD_LIST', list);
+          resolve();
+        })
+        .catch(reject);
+    });
+  },
+
+  SAVE_BOARD({ state }) {
+    const db = firebase.firestore();
+
+    return new Promise((resolve, reject) => {
+      db.collection('boards')
+        .doc(state.board.id)
+        .set(state.board)
+        .then(() => {
+          resolve();
+        })
+        .catch(reject);
+    });
+  },
+
   DELETE_BOARD({ commit }, id) {
     return new Promise((resolve, reject) => {
       const db = firebase.firestore();
@@ -100,6 +132,29 @@ export default {
           resolve();
         })
         .catch(reject);
+    });
+  },
+
+  LOAD_BOARD_GAMES({ commit }, gameList) {
+    return new Promise((resolve, reject) => {
+      axios.get(`${API_BASE}/games?games=${gameList}`)
+        .then(({ data }) => {
+          commit('CACHE_GAME_DATA', data);
+          resolve();
+        }).catch(reject);
+    });
+  },
+
+  SEARCH_GAMES({ commit, state }, searchText) {
+    const platforms = state.board.platforms.join(',')
+
+    return new Promise((resolve, reject) => {
+      axios.get(`${API_BASE}/search?search=${searchText}&platform=${platforms}`)
+        .then(({ data }) => {
+          commit('SET_SEARCH_RESULTS', data);
+          commit('CACHE_GAME_DATA', data);
+          resolve();
+        }).catch(reject);
     });
   },
 
