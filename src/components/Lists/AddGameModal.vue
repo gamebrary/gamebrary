@@ -129,6 +129,7 @@ export default {
     async search() {
       await this.$store.dispatch('SEARCH_GAMES', this.searchText)
         .catch(() => {
+          // TODO toast error
           this.loading = false;
         });
 

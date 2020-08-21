@@ -18,7 +18,7 @@
 
         <b-button-group>
           <add-game-modal :list="list" />
-          <!-- <list-settings :list-index="listIndex" /> -->
+          <list-settings :list="list" :list-index="listIndex" />
         </b-button-group>
       </b-card-header>
 
@@ -80,6 +80,7 @@ export default {
       type: Object,
       default: () => {},
     },
+    listIndex: Number,
     required: true,
   },
 

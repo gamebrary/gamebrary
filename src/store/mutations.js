@@ -43,6 +43,20 @@ export default {
     board.lists[listIndex].games.push(gameId);
   },
 
+  REMOVE_LIST(state, index) {
+    state.board.lists.splice(index, 1);
+  },
+
+  MOVE_LIST(state, { from, to }) {
+    const cutOut = state.board.lists.splice(from, 1)[0];
+
+    state.board.lists.splice(to, 0, cutOut);
+  },
+
+  SET_LIST_SORT_ORDER(state, { listIndex, sortOrder }) {
+    Vue.set(state.board.lists[listIndex].settings, 'sortOrder', sortOrder);
+  },
+
   //
   // LEGACY STUFF
   //

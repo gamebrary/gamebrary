@@ -4,8 +4,9 @@
 
     <template v-else>
       <list
-        v-for="list in board.lists"
+        v-for="(list, listIndex) in board.lists"
         :list="list"
+        :listIndex="listIndex"
         :key="list.name"
         @dragEnd="updateLists"
       />

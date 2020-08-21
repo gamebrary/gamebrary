@@ -8,10 +8,10 @@
         <b-icon icon="three-dots" aria-hidden="true" />
       </template>
 
-      <sort-list :list-index="listIndex" />
-      <rename-list :list-index="listIndex" />
-      <change-list-view :list-index="listIndex" />
-      <list-tweaks :list-index="listIndex" />
+      <sort-list :list="list" :list-index="listIndex" />
+      <!-- <rename-list :list-index="listIndex" /> -->
+      <!-- <change-list-view :list-index="listIndex" /> -->
+      <!-- <list-tweaks :list-index="listIndex" /> -->
 
       <b-dropdown-divider />
 
@@ -66,11 +66,8 @@ export default {
   },
 
   props: {
-    listIndex: {
-      type: [Number, String, Boolean],
-      required: true,
-      default: 0,
-    },
+    listIndex: Number,
+    list: Object,
   },
 
   data() {
@@ -80,35 +77,17 @@ export default {
   },
 
   computed: {
-    ...mapState(['user', 'gameLists', 'platform']),
+    ...mapState(['user', 'gameLists', 'platform', 'board']),
 
     isFirst() {
       return this.listIndex === 0;
     },
 
-    activeList() {
-      return this.gameLists[this.platform.code][this.listIndex];
-    },
-
     isLast() {
-      const lastListIndex = Object.keys(this.gameLists[this.platform.code]).length - 1;
+      const lastListIndex = this.board.lists.length - 1;
 
       return this.listIndex === lastListIndex;
     },
-
-    disableSave() {
-      return this.localList.name === this.activeList.name;
-    },
-
-    warningMessage() {
-      const gameCount = this.activeList.games.length;
-
-      return `This list contains ${gameCount} games, all games will be deleted as well.`;
-    },
-  },
-
-  mounted() {
-    this.localList = JSON.parse(JSON.stringify(this.activeList));
   },
 
   methods: {
@@ -126,9 +105,9 @@ export default {
     },
 
     async deleteList() {
-      this.$store.commit('REMOVE_LIST_LEGACY', this.listIndex);
+      this.$store.commit('REMOVE_LIST', this.listIndex);
 
-      await this.$store.dispatch('SAVE_LIST_LEGACY', this.gameLists)
+      await this.$store.dispatch('SAVE_BOARD', true)
         .catch(() => {
           this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
           this.$router.push({ name: 'sessionExpired' });
@@ -140,9 +119,9 @@ export default {
     },
 
     async moveList(from, to) {
-      this.$store.commit('MOVE_LIST_LEGACY', { from, to });
+      this.$store.commit('MOVE_LIST', { from, to });
 
-      await this.$store.dispatch('SAVE_LIST_LEGACY', this.gameLists)
+      await this.$store.dispatch('SAVE_BOARD')
         .catch(() => {
           this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
           this.$router.push({ name: 'sessionExpired' });
