@@ -56,11 +56,8 @@ import { mapState } from 'vuex';
 
 export default {
   props: {
-    listIndex: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
+    listIndex: Number,
+    list: Object,
   },
 
   data() {
@@ -96,7 +93,7 @@ export default {
         showGameNotes,
         showGameTags,
         showGameCount,
-      } = this.gameLists[this.platform.code][this.listIndex];
+      } = this.list.settings;
 
       this.showReleaseDates = showReleaseDates || false;
       this.showGameRatings = showGameRatings || false;
@@ -107,18 +104,19 @@ export default {
     },
 
     async save() {
+      const { listIndex, list: { settings } } = this;
       this.saving = true;
 
-      const gameLists = JSON.parse(JSON.stringify(this.gameLists));
+      settings.showReleaseDates = this.showReleaseDates;
+      settings.showGameRatings = this.showGameRatings;
+      settings.showGameProgress = this.showGameProgress;
+      settings.showGameNotes = this.showGameNotes;
+      settings.showGameTags = this.showGameTags;
+      settings.showGameCount = this.showGameCount;
 
-      gameLists[this.platform.code][this.listIndex].showReleaseDates = this.showReleaseDates;
-      gameLists[this.platform.code][this.listIndex].showGameRatings = this.showGameRatings;
-      gameLists[this.platform.code][this.listIndex].showGameProgress = this.showGameProgress;
-      gameLists[this.platform.code][this.listIndex].showGameNotes = this.showGameNotes;
-      gameLists[this.platform.code][this.listIndex].showGameTags = this.showGameTags;
-      gameLists[this.platform.code][this.listIndex].showGameCount = this.showGameCount;
+      this.$store.commit('SET_LIST_SETTINGS', { listIndex, settings });
 
-      await this.$store.dispatch('SAVE_LIST_LEGACY', gameLists)
+      await this.$store.dispatch('SAVE_BOARD')
         .catch(() => {
           this.saving = false;
 

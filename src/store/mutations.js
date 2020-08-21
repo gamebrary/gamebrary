@@ -61,6 +61,10 @@ export default {
     Vue.set(state.board.lists[listIndex].settings, 'view', view);
   },
 
+  SET_LIST_SETTINGS(state, { listIndex, settings }) {
+    Vue.set(state.board.lists[listIndex], 'settings', settings);
+  },
+
   RENAME_LIST(state, { listIndex, listName }) {
     state.board.lists[listIndex].name = listName;
   },
