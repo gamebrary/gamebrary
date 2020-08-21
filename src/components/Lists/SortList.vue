@@ -42,15 +42,10 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-
 export default {
   props: {
-    listIndex: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
+    listIndex: Number,
+    list: Object,
   },
 
   data() {
@@ -68,8 +63,6 @@ export default {
   },
 
   computed: {
-    ...mapState(['gameLists', 'platform']),
-
     modalId() {
       return `sort-list-${this.listIndex}`;
     },
@@ -77,23 +70,22 @@ export default {
 
   methods: {
     getSortValue() {
-      const { sortOrder } = this.gameLists[this.platform.code][this.listIndex];
+      const { sortOrder } = this.list.settings;
 
       this.sortOrder = sortOrder || 'sortByCustom';
     },
 
     async save() {
+      const { listIndex, sortOrder, list } = this;
       this.saving = true;
 
-      const gameLists = JSON.parse(JSON.stringify(this.gameLists));
+      this.$store.commit('SET_LIST_SORT_ORDER', { listIndex, sortOrder });
 
-      gameLists[this.platform.code][this.listIndex].sortOrder = this.sortOrder;
-
-      await this.$store.dispatch('SAVE_LIST_LEGACY', gameLists)
+      await this.$store.dispatch('SAVE_BOARD')
         .catch(() => {
           this.saving = false;
 
-          this.$bvToast.toast('There was an error renaming list', {
+          this.$bvToast.toast('There was an error saving sort order', {
             title: 'Error',
             variant: 'danger',
           });
@@ -101,8 +93,8 @@ export default {
 
       this.saving = false;
 
-      this.$bvToast.toast('List renamed', {
-        title: 'Saved',
+      this.$bvToast.toast('Sort order saved', {
+        title: list.name,
         variant: 'success',
       });
 
