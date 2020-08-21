@@ -9,8 +9,8 @@
       </template>
 
       <sort-list :list="list" :list-index="listIndex" />
-      <!-- <rename-list :list-index="listIndex" /> -->
-      <!-- <change-list-view :list-index="listIndex" /> -->
+      <rename-list :list="list" :list-index="listIndex" />
+      <change-list-view :list="list" :list-index="listIndex" />
       <!-- <list-tweaks :list-index="listIndex" /> -->
 
       <b-dropdown-divider />

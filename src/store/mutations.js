@@ -57,6 +57,14 @@ export default {
     Vue.set(state.board.lists[listIndex].settings, 'sortOrder', sortOrder);
   },
 
+  SET_LIST_VIEW(state, { listIndex, view }) {
+    Vue.set(state.board.lists[listIndex].settings, 'view', view);
+  },
+
+  RENAME_LIST(state, { listIndex, listName }) {
+    state.board.lists[listIndex].name = listName;
+  },
+
   //
   // LEGACY STUFF
   //

@@ -48,11 +48,8 @@ import { mapState } from 'vuex';
 
 export default {
   props: {
-    listIndex: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
+    listIndex: Number,
+    list: Object,
   },
 
   data() {
@@ -63,24 +60,23 @@ export default {
   },
 
   computed: {
-    ...mapState(['gameLists', 'platform']),
+    ...mapState(['board']),
 
     modalId() {
       return `rename-list-${this.listIndex}`;
     },
 
     dirtied() {
-      const { name } = this.gameLists[this.platform.code][this.listIndex];
+      const { name } = this.list;
 
       return this.listName && name !== this.listName;
     },
 
     existingListNames() {
-      const lists = this.gameLists[this.platform.code];
-      const currentList = lists[this.listIndex];
+      const { board, list } = this;
 
-      return lists.map(list => list.name.toLowerCase())
-        .filter(name => name !== currentList.name.toLowerCase());
+      return board.lists.map(({ name }) => name.toLowerCase())
+        .filter(name => name !== list.name.toLowerCase());
     },
 
     isDuplicate() {
@@ -90,7 +86,7 @@ export default {
 
   methods: {
     getListName() {
-      const { name } = this.gameLists[this.platform.code][this.listIndex];
+      const { name } = this.list;
 
       this.listName = name;
     },
@@ -104,13 +100,13 @@ export default {
     },
 
     async save() {
+      const { listIndex, listName } = this;
+
       this.saving = true;
 
-      const gameLists = JSON.parse(JSON.stringify(this.gameLists));
+      this.$store.commit('RENAME_LIST', { listIndex, listName });
 
-      gameLists[this.platform.code][this.listIndex].name = this.listName;
-
-      await this.$store.dispatch('SAVE_LIST_LEGACY', gameLists)
+      await this.$store.dispatch('SAVE_BOARD')
         .catch(() => {
           this.saving = false;
 

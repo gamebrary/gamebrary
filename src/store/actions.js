@@ -108,6 +108,7 @@ export default {
     });
   },
 
+  // set merge to true when deleting lists
   SAVE_BOARD({ state }, merge = false) {
     const db = firebase.firestore();
 

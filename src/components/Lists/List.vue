@@ -199,10 +199,10 @@ export default {
     },
 
     viewClass() {
-      return 'single';
-      // const { settings } = this.list;
-      //
-      // return this.list && .view || 'single';
+      const { settings } = this.list;
+
+      // TODO: put default view in constant
+      return settings.view || 'single';
     },
   },
 

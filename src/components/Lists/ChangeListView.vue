@@ -6,45 +6,44 @@
     <b-modal
       :id="modalId"
       title="Change list view"
-      @shown="getView"
+      @show="load"
     >
       <form ref="renameListForm" @submit.prevent="save">
         <b-form-group label="Views">
           <b-form-radio-group
-            v-model="listView"
+            v-model="view"
             required
             :options="listViews"
             buttons
           />
         </b-form-group>
 
-        <game-card-default
-          v-if="!listView || listView === 'single'"
-          :id="randomGame"
-          :game-id="randomGame"
-          :list-id="listIndex"
-        />
+        <!-- TODO: use dynamic named component -->
+        <template v-if="randomGameId">
+          <game-card-default
+            v-if="!view || view === 'single'"
+            :game-id="randomGameId"
+            :list="list"
+          />
 
-        <game-card-grid
-          v-if="listView === 'grid'"
-          :id="randomGame"
-          :game-id="randomGame"
-          :list-id="listIndex"
-        />
+          <game-card-grid
+            v-if="view === 'grid'"
+            :game-id="randomGameId"
+            :list="list"
+          />
 
-        <game-card-compact
-          v-if="listView === 'compact'"
-          :id="randomGame"
-          :game-id="randomGame"
-          :list-id="listIndex"
-        />
+          <game-card-compact
+            v-if="view === 'compact'"
+            :game-id="randomGameId"
+            :list="list"
+          />
 
-        <game-card-text
-          v-if="listView === 'text'"
-          :id="randomGame"
-          :game-id="randomGame"
-          :list-id="listIndex"
-        />
+          <game-card-text
+            v-if="view === 'text'"
+            :game-id="randomGameId"
+            :list="list"
+          />
+        </template>
       </form>
 
       <template v-slot:modal-footer="{ cancel }">
@@ -80,17 +79,16 @@ export default {
     GameCardText,
   },
   props: {
-    listIndex: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
+    listIndex: Number,
+    list: Object,
   },
 
   data() {
     return {
-      listView: null,
+      view: null,
       saving: false,
+      randomGameId: null,
+      // TODO: put in constants file
       listViews: [
         { text: 'Single', value: 'single' },
         { text: 'Grid', value: 'grid' },
@@ -101,42 +99,44 @@ export default {
   },
 
   computed: {
-    ...mapState(['gameLists', 'platform']),
+    ...mapState(['games']),
 
     modalId() {
       return `add-game-${this.listIndex}`;
     },
-
-    list() {
-      return this.gameLists && this.platform && this.gameLists[this.platform.code]
-        ? this.gameLists[this.platform.code]
-        : null;
-    },
-
-    randomGame() {
-      const flattenedList = this.list ? this.list.map(({ games }) => games).flat() : [];
-
-      const randomNumber = Math.floor(Math.random() * flattenedList.length);
-
-      return flattenedList[randomNumber];
-    },
   },
 
   methods: {
-    getView() {
-      const { view } = this.gameLists[this.platform.code][this.listIndex];
+    load() {
+      this.getRandomGameId();
+      this.getView();
+    },
 
-      this.listView = view || 'single';
+    getRandomGameId() {
+      // TODO: clean this up
+      const { games } = this;
+
+      const gameKeys = Object.keys(games);
+      const randomNumber = Math.floor(Math.random() * gameKeys.length);
+      const randomGame = games[gameKeys[randomNumber]];
+
+      this.randomGameId = randomGame.id;
+    },
+
+    getView() {
+      const { view } = this.list.settings;
+
+      this.view = view || 'single';
     },
 
     async save() {
+      const { listIndex, view, list } = this;
+
       this.saving = true;
 
-      const gameLists = JSON.parse(JSON.stringify(this.gameLists));
+      this.$store.commit('SET_LIST_VIEW', { listIndex, view });
 
-      gameLists[this.platform.code][this.listIndex].view = this.listView;
-
-      await this.$store.dispatch('SAVE_LIST_LEGACY', gameLists)
+      await this.$store.dispatch('SAVE_BOARD')
         .catch(() => {
           this.saving = false;
 
@@ -149,7 +149,7 @@ export default {
       this.saving = false;
 
       this.$bvToast.toast('List view saved', {
-        title: 'Saved',
+        title: list.name,
         variant: 'success',
       });
 
