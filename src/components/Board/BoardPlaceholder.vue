@@ -1,8 +1,8 @@
 <template lang="html">
   <div class="gameboard-placeholder">
     <div
-      v-for="list in lists"
-      :class="`list ${list.view || 'single'}`"
+      v-for="list in board.lists"
+      :class="`list ${list.settings.view || 'single'}`"
       :key="list.name"
     >
     <b-card no-body>
@@ -10,13 +10,13 @@
         <div class="list-header" />
       </b-card-header>
 
-      <div :class="['games', list.view]">
+      <div :class="['games', list.settings.view]">
         <placeholder
           class="game"
           v-for="n in list.games.length"
-          :lines="list && list.view === 'grid' ? 0 : 2"
+          :lines="list && list.settings.view === 'grid' ? 0 : 2"
           :key="n"
-          :image="list.view !== 'text'"
+          :image="list.settings.view !== 'text'"
         />
       </div>
     </b-card>
@@ -34,13 +34,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['boards']),
-
-    lists() {
-      const board = this.boards.find((({ id }) => id === this.$route.params.id));
-
-      return board && board.lists;
-    },
+    ...mapState(['board']),
   },
 };
 </script>
