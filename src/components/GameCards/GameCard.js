@@ -1,29 +1,31 @@
-import moment from 'moment';
+// import moment from 'moment';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
   props: {
-    gameId: Number,
-    listId: Number,
-  },
-
-  data() {
-    return {
-      showEditOptions: false,
-    };
+    list: {
+      type: Object,
+      default: () => {},
+    },
+    gameId: [String, Number],
   },
 
   computed: {
-    ...mapState(['settings', 'games', 'gameLists', 'platform', 'user', 'tags', 'activeList', 'notes', 'progresses']),
+    // Remove unused stuff
+    ...mapState(['settings', 'games', 'gameLists', 'platform', 'user', 'tags', 'activeList', 'notes', 'progresses', 'board']),
     // TODO: remove getter
     ...mapGetters(['gameTags']),
 
     showGameTags() {
-      return this.list.showGameTags && this.gameTags;
+      const { settings } = this.list;
+
+      return settings && settings.showGameTags && this.gameTags;
     },
 
     gameRating() {
-      return this.list.showGameRatings && this.game.rating
+      const { settings } = this.list;
+
+      return settings && settings.showGameRatings && this.game.rating
         ? Math.round((this.game.rating / 20) * 2) / 2
         : false;
     },
@@ -36,38 +38,10 @@ export default {
         : null;
     },
 
-    releaseDate() {
-      const releaseDate = this.game
-        && this.list.showReleaseDates
-        && this.game.release_dates
-        && this.game.release_dates.find(({ platform }) => this.platform.id === platform);
-
-      const formattedDate = releaseDate && releaseDate.date
-        ? moment.unix(releaseDate.date)
-        : null;
-
-      return moment(formattedDate).isAfter()
-        ? formattedDate.toNow(true)
-        : null;
-    },
-
-    gameCardClass() {
-      return [
-        'game-card',
-        this.list.view,
-      ];
-    },
-
-    activePlatform() {
-      return this.gameLists[this.platform.code];
-    },
-
     gameNotes() {
-      return this.list.showGameNotes && this.notes[this.gameId];
-    },
+      const { settings } = this.list;
 
-    list() {
-      return this.activePlatform[this.listId] || {};
+      return settings && settings.showGameNotes && this.notes[this.gameId];
     },
 
     game() {
@@ -91,37 +65,10 @@ export default {
 
   methods: {
     openDetails() {
-      const { gameId, listId } = this;
+      const { gameId, list } = this;
 
-      this.$store.commit('SET_GAME_MODAL_DATA', { gameId, listId });
+      this.$store.commit('SET_GAME_MODAL_DATA', { gameId, list });
       this.$bvModal.show('game-modal');
-    },
-
-    addGame() {
-      const data = {
-        listId: this.listId,
-        gameId: this.gameId,
-      };
-
-      this.$emit('added');
-      this.$store.commit('ADD_GAME_LEGACY', data);
-
-      this.$ga.event({
-        eventCategory: 'game',
-        eventAction: 'add',
-        eventLabel: 'addGame',
-        eventValue: data,
-      });
-
-      this.$store.dispatch('SAVE_LIST_LEGACY', this.gameLists)
-        .then(() => {
-          // TODO: customize, show cover url
-          this.$bvToast.toast(`Added ${this.game.name} to list ${this.list.name}`, { title: 'Game added', variant: 'success' });
-        })
-        .catch(() => {
-          this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
-          this.$router.push({ name: 'sessionExpired' });
-        });
     },
 
     removeTag(tagName) {

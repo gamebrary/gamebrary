@@ -9,35 +9,34 @@
             <b-icon-sort-up />
           </b-badge>
 
-          <b-badge v-if="list[listIndex].showGameCount">
-              {{ gameList.length }}
+          <b-badge v-if="showGameCount">
+              {{ list.games.length }}
           </b-badge>
 
-          {{ list[listIndex].name }}
+          {{ list.name }}
         </h6>
 
         <b-button-group>
-          <add-game-modal :list-id="listIndex" />
-          <list-settings :list-index="listIndex" />
+          <add-game-modal :list="list" />
+          <!-- <list-settings :list-index="listIndex" /> -->
         </b-button-group>
       </b-card-header>
 
       <draggable
         class="games"
-        :list="gameList"
-        :id="listIndex"
+        :list="list.games"
+        :id="list.id"
         :move="validateMove"
         v-bind="gameDraggableOptions"
         @end="dragEnd"
         @start="dragStart"
       >
         <component
-          v-for="game in sortedGames"
+          v-for="game in list.games"
           :is="gameCardComponent"
           :key="game"
-          :id="game"
+          :list="list"
           :game-id="game"
-          :list-id="listIndex"
         />
 
         <b-button
@@ -45,7 +44,7 @@
           block
           v-if="isEmpty"
           class="mb-2"
-          v-b-modal="`game-modal-${listIndex}`"
+          v-b-modal="`game-modal-${list.name}`"
         >
           Click here or drag games here
         </b-button>
@@ -62,7 +61,7 @@ import GameCardGrid from '@/components/GameCards/GameCardGrid';
 import GameCardCompact from '@/components/GameCards/GameCardCompact';
 import GameCardText from '@/components/GameCards/GameCardText';
 import AddGameModal from '@/components/Lists/AddGameModal';
-import orderby from 'lodash.orderby';
+// import orderby from 'lodash.orderby';
 import { mapState } from 'vuex';
 
 export default {
@@ -77,18 +76,11 @@ export default {
   },
 
   props: {
-    name: {
-      type: String,
-      default: '',
+    list: {
+      type: Object,
+      default: () => {},
     },
-    gameList: {
-      type: Array,
-      default: () => [],
-    },
-    listIndex: {
-      type: Number,
-      default: null,
-    },
+    required: true,
   },
 
   data() {
@@ -114,72 +106,77 @@ export default {
   },
 
   computed: {
-    ...mapState(['user', 'gameLists', 'platform', 'settings', 'games', 'dragging', 'progresses']),
+    ...mapState(['games', 'dragging', 'progresses']),
 
     autoSortEnabled() {
-      const list = this.list[this.listIndex];
+      const { settings } = this.list;
 
-      return list && list.sortOrder && list.sortOrder !== 'sortByCustom';
-    },
-
-    sortedGames() {
-      const sortOrder = this.list[this.listIndex].sortOrder || 'sortByCustom';
-      const { gameList } = this;
-
-      // TODO: use lodash to clean things up a bit here
-
-      switch (sortOrder) {
-      case 'sortByCustom':
-        return gameList;
-      case 'sortByProgress':
-        return orderby(gameList, [(game) => {
-          const progress = this.games[game]
-                        && this.progresses[this.platform.code][this.games[game].id]
-            ? Number(this.progresses[this.platform.code][this.games[game].id])
-            : 0;
-
-          return progress;
-        }], ['desc']);
-      case 'sortByRating':
-        return orderby(gameList, [(game) => {
-          const rating = this.games[game] && this.games[game].rating
-            ? this.games[game].rating
-            : 0;
-
-          return rating;
-        }], ['desc']);
-      case 'sortByName':
-        return orderby(gameList, [(game) => {
-          const name = this.games[game] && this.games[game].name
-            ? this.games[game].name.toUpperCase()
-            : '';
-
-          return name;
-        }]);
-      case 'sortByReleaseDate':
-        return orderby(gameList, [(game) => {
-          const releaseDate = this.games[game] && this.games[game].release_dates
-            ? this.games[game].release_dates
-              .find(({ platform }) => this.platform.id === platform)
-            : '';
-
-          return releaseDate && releaseDate.date;
-        }]);
-      default:
-        return gameList;
+      if (!settings) {
+        return false;
       }
+
+      return ['sortByName', 'sortByRating', 'sortByReleaseDate', 'sortByProgress'].includes(settings.sortOrder);
     },
 
-    list() {
-      return this.gameLists[this.platform.code];
-    },
+    // sortedGames() {
+    //   const { settings } = this.list;
+    //
+    //   const sortOrder = settings.sortOrder || 'sortByCustom';
+    //
+    //   return gameList;
+    //
+    //   // TODO: use lodash to clean things up a bit here
+    //
+    //   switch (sortOrder) {
+    //   case 'sortByCustom':
+    //     return gameList;
+    //   case 'sortByProgress':
+    //     return orderby(this.list, [(game) => {
+    //       const progress = this.games[game]
+    //                     && this.progresses[this.platform.code][this.games[game].id]
+    //         ? Number(this.progresses[this.platform.code][this.games[game].id])
+    //         : 0;
+    //
+    //       return progress;
+    //     }], ['desc']);
+    //   case 'sortByRating':
+    //     return orderby(this.list, [(game) => {
+    //       const rating = this.games[game] && this.games[game].rating
+    //         ? this.games[game].rating
+    //         : 0;
+    //
+    //       return rating;
+    //     }], ['desc']);
+    //   case 'sortByName':
+    //     return orderby(this.list, [(game) => {
+    //       const name = this.games[game] && this.games[game].name
+    //         ? this.games[game].name.toUpperCase()
+    //         : '';
+    //
+    //       return name;
+    //     }]);
+    //   case 'sortByReleaseDate':
+    //     return orderby(this.list, [(game) => {
+    //       const releaseDate = this.games[game] && this.games[game].release_dates
+    //         ? this.games[game].release_dates
+    //           .find(({ platform }) => this.platform.id === platform)
+    //         : '';
+    //
+    //       return releaseDate && releaseDate.date;
+    //     }]);
+    //   default:
+    //     return gameList;
+    //   }
+    // },
 
     isEmpty() {
-      return this.gameList.length === 0;
+      return this.list.games.length === 0;
     },
 
     view() {
-      return this.list[this.listIndex].view;
+      const { settings } = this.list;
+
+      return settings && settings.view;
     },
 
     unique() {
@@ -187,25 +184,24 @@ export default {
     },
 
     showGameCount() {
-      return this.settings[this.platform.code] && this.settings[this.platform.code].showGameCount;
+      const { settings } = this.list;
+
+      return settings && settings.showGameCount;
     },
 
     gameCardComponent() {
-      return this.view && Object.keys(this.gameCardComponents).includes(this.view)
+      const availableViews = Object.keys(this.gameCardComponents);
+
+      return this.view && availableViews.includes(this.view)
         ? this.gameCardComponents[this.view]
         : 'GameCardDefault';
     },
 
     viewClass() {
-      return this.list[this.listIndex].view || 'single';
-    },
-
-    showGameRatings() {
-      return this.list[this.listIndex].showGameRatings || false;
-    },
-
-    hideReleaseDates() {
-      return this.list[this.listIndex].hideReleaseDates || false;
+      return 'single';
+      // const { settings } = this.list;
+      //
+      // return this.list && .view || 'single';
     },
   },
 

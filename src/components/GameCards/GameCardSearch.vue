@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-card no-body class="game-card mb-2">
+  <b-card no-body class="game-card mb-1">
     <b-row no-gutters v-if="game && game.name">
       <b-col md="3">
         <b-card-img
@@ -42,9 +42,19 @@ import GameCardUtils from '@/components/GameCards/GameCard';
 
 export default {
   mixins: [GameCardUtils],
+
+  methods: {
+    async addGame() {
+      const { list, gameId, board } = this;
+
+      const listIndex = board.lists.findIndex(({ name }) => name === list.name);
+
+      this.$store.commit('ADD_GAME_TO_LIST', { listIndex, gameId });
+      await this.$store.dispatch('SAVE_BOARD');
+
+      // TODO: CUSTOMIZE TO SHOW GAME COVER
+      this.$bvToast.toast(`${this.game.name} added`, { title: list.name, variant: 'success' });
+    },
+  },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-@import "GameCard";
-</style>
