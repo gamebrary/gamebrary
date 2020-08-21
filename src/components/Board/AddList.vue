@@ -112,6 +112,7 @@ export default {
       const list = {
         games: [],
         name: this.listName,
+        settings: {},
       };
 
       this.saving = true;
