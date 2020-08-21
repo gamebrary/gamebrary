@@ -15,14 +15,14 @@
         </b-badge>
       </b-card-title>
 
-      <b-badge
+      <!-- <b-badge
         v-if="releaseDate"
         variant="secondary"
         class="mb-2"
       >
         Releases in
         {{ releaseDate }}
-      </b-badge>
+      </b-badge> -->
 
       <b-form-rating
         v-if="gameRating"
