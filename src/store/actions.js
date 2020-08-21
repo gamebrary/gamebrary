@@ -146,7 +146,7 @@ export default {
   },
 
   SEARCH_GAMES({ commit, state }, searchText) {
-    const platforms = state.board.platforms.join(',')
+    const platforms = state.board.platforms.join(',');
 
     return new Promise((resolve, reject) => {
       axios.get(`${API_BASE}/search?search=${searchText}&platform=${platforms}`)
