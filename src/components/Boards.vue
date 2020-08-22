@@ -6,40 +6,38 @@
       <create-board />
     </div>
 
-    <b-alert show variant="success">
-      <h4 class="alert-heading">Big news!</h4>
-      <p>
-        Introducing boards! Boards are pretty much the same as the
-        current lists, except that you can now select more than one platform.
+    <!-- <pre>{{ platforms }}</pre> -->
 
-        We've improved a ton of stuff under the hood.
-      </p>
-      <hr>
-      <b-button variant="primary" as="router-link" :to="{ name: 'boards' }">
-        Go to boards
-      </b-button>
-    </b-alert>
-
-    <b-overlay :show="loading" rounded="sm" variant="transparent">
+    <b-overlay :show="loading && !platforms.length" rounded="sm" variant="transparent">
       <b-row cols="3" no-gutters>
-        <b-col v-for="{ name, description, id, lists } in boards" :key="id">
+        <b-col v-for="board in boards" :key="board.id">
           <b-card
-            :title="name"
+            :title="board.name"
             tag="article"
             class="m-2"
-            @click="viewBoard(id)"
           >
             <b-card-text>
-              {{ description }}
+              {{ board.description }}
             </b-card-text>
 
-            <pre>{{ lists }}</pre>
+            <div v-for="platform in board.platforms" :key="platform">
+              {{ platforms[platform].name }}
+            </div>
+
+            {{ board.lists.length }} lists
 
             <b-button
               variant="danger"
-              @click.stop="confirmDelete(id)"
+              @click="confirmDelete(board.id)"
             >
               Delete board
+            </b-button>
+
+            <b-button
+              variant="primary"
+              @click="viewBoard(board.id)"
+            >
+              Open board
             </b-button>
           </b-card>
         </b-col>
@@ -65,7 +63,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['boards']),
+    ...mapState(['boards', 'platforms']),
   },
 
   mounted() {
@@ -75,6 +73,21 @@ export default {
   methods: {
     load() {
       this.loadBoards();
+      this.loadPlatforms();
+    },
+
+    // getPlatformNames(boardPlatforms) {
+    //   const platformNames = boardPlatforms.map((platform) => {
+    //     this.platforms.find(({ id }) => id === platform)
+    //     console.log(platform);
+    //   })
+    // },
+
+    async loadPlatforms() {
+      await this.$store.dispatch('LOAD_IGDB_PLATFORMS')
+        .catch(() => {
+          this.$bvToast.toast('There was an error loading platforms', { title: 'Error', variant: 'error' });
+        });
     },
 
     async loadBoards() {

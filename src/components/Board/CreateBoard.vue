@@ -1,11 +1,15 @@
 <template lang="html">
-  <b-button variant="primary" v-b-modal:create-board>
+  <b-button
+    variant="primary"
+    v-b-modal:create-board
+    :disabled="!Object.keys(platforms).length"
+  >
     Create board
 
     <b-modal
       id="create-board"
       title="Create board"
-      @shown="load"
+      @show="resetBoard"
       @hidden="resetBoard"
     >
       <form ref="createBoardForm" @submit.stop.prevent="submit">
@@ -107,6 +111,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   data() {
     return {
@@ -119,7 +125,6 @@ export default {
         5: 'portable_console',
         6: 'computer',
       },
-      platforms: [],
       saving: false,
       selectedTemplate: null,
       boardTemplatesOptions: [
@@ -137,6 +142,8 @@ export default {
   },
 
   computed: {
+    ...mapState(['platforms']),
+
     filteredPlatforms() {
       return this.platforms.length && this.board.platforms
         ? this.platforms.filter(({ id }) => !this.flattenedSelectedPlatforms.includes(id))
@@ -151,11 +158,6 @@ export default {
   },
 
   methods: {
-    load() {
-      this.loadPlatforms();
-      this.resetBoard();
-    },
-
     resetBoard() {
       this.board = {
         name: null,
@@ -165,10 +167,6 @@ export default {
         platforms: [],
         lists: [],
       };
-    },
-
-    async loadPlatforms() {
-      this.platforms = await this.$store.dispatch('LOAD_IGDB_PLATFORMS');
     },
 
     selectPlatform({ id, name }) {
