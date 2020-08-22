@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import { PLATFORM_CATEGORIES, EXCLUDED_PLATFORMS, PLATFORM_BG_HEX, PLATFORM_LOGO_FORMAT } from '@/constants';
 
 export default {
   SET_BOARDS(state, boards) {
@@ -14,21 +15,29 @@ export default {
   },
 
   SET_PLATFORMS(state, platforms) {
-    const test = {};
+    const formattedPlatforms = {};
 
     platforms.forEach((platform) => {
       const formattedPlatform = {
         id: platform.id,
         name: platform.name,
         slug: platform.slug,
-        category: platform.category,
+        category: PLATFORM_CATEGORIES[platform.category],
+        categoryId: platform.category,
         generation: platform.generation,
+        bgHex: PLATFORM_BG_HEX[platform.id] || null,
       };
 
-      test[platform.id] = formattedPlatform;
+      if (!EXCLUDED_PLATFORMS.includes(platform.id)) {
+        formattedPlatforms[platform.id] = formattedPlatform;
+      }
+
+      if (PLATFORM_LOGO_FORMAT[platform.id]) {
+        formattedPlatform.logoFormat = PLATFORM_LOGO_FORMAT[platform.id];
+      }
     });
 
-    state.platforms = test;
+    state.platforms = formattedPlatforms;
   },
 
   SET_BOARD_GAMES(state, boardGames) {
