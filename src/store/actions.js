@@ -94,21 +94,6 @@ export default {
     });
   },
 
-  ADD_LIST({ state, commit }, list) {
-    return new Promise((resolve, reject) => {
-      const db = firebase.firestore();
-
-      db.collection('boards')
-        .doc(state.board.id)
-        .update({ lists: firebase.firestore.FieldValue.arrayUnion(list) })
-        .then(() => {
-          commit('ADD_LIST', list);
-          resolve();
-        })
-        .catch(reject);
-    });
-  },
-
   // set merge to true when deleting lists
   SAVE_BOARD({ state }, merge = false) {
     const db = firebase.firestore();
