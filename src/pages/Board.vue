@@ -76,7 +76,7 @@ export default {
       const { lists } = this.board;
 
       if (lists.length === 0) {
-        return this.$bvModal.show('add-list');
+        this.$bvModal.show('add-list');
       }
 
       const boardGames = Array.from(new Set(lists.map(({ games }) => games).flat()));
