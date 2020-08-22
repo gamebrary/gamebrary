@@ -1,6 +1,7 @@
 <template lang="html">
   <div>
     <boards />
+    <hr />
     <legacy-platforms />
   </div>
 </template>
