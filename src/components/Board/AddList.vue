@@ -12,7 +12,7 @@
     <b-modal
       :id="modalId"
       :title="title"
-      @shown="reset"
+      @show="reset"
     >
       <form ref="addListForm" @submit.stop.prevent="submit">
         <b-form-input
@@ -117,11 +117,14 @@ export default {
 
       this.saving = true;
 
-      await this.$store.dispatch('ADD_LIST', list)
+      this.$store.commit('ADD_LIST', list);
+
+      await this.$store.dispatch('SAVE_BOARD')
         .catch(() => {
           this.$bvToast.toast('Error adding list', { title: 'Error', variant: 'danger' });
         });
 
+      this.$forceUpdate();
       this.$bvToast.toast('List added', { variant: 'success' });
       this.saving = false;
       this.$bvModal.hide(this.modalId);
