@@ -183,26 +183,6 @@ export default {
       });
   },
 
-  SAVE_PROGRESSES_LEGACY({ state }) {
-    return new Promise((resolve, reject) => {
-      const db = firebase.firestore();
-
-      db.collection('progresses').doc(state.user.uid).set(state.progresses, { merge: true })
-        .then(() => resolve())
-        .catch(reject);
-    });
-  },
-
-  SAVE_PROGRESSES_NO_MERGE_LEGACY({ state }) {
-    return new Promise((resolve, reject) => {
-      const db = firebase.firestore();
-
-      db.collection('progresses').doc(state.user.uid).set(state.progresses, { merge: false })
-        .then(() => resolve())
-        .catch(reject);
-    });
-  },
-
   SAVE_TAGS_LEGACY({ state }, tags) {
     const db = firebase.firestore();
 
@@ -218,26 +198,6 @@ export default {
 
     return new Promise((resolve, reject) => {
       db.collection('tags').doc(state.user.uid).set(tags, { merge: false })
-        .then(() => resolve())
-        .catch(reject);
-    });
-  },
-
-  SAVE_NOTES_LEGACY({ state }) {
-    return new Promise((resolve, reject) => {
-      const db = firebase.firestore();
-
-      db.collection('notes').doc(state.user.uid).set(state.notes, { merge: true })
-        .then(() => resolve())
-        .catch(reject);
-    });
-  },
-
-  SAVE_NOTES_NO_MERGE_LEGACY({ state }) {
-    return new Promise((resolve, reject) => {
-      const db = firebase.firestore();
-
-      db.collection('notes').doc(state.user.uid).set(state.notes, { merge: false })
         .then(() => resolve())
         .catch(reject);
     });
@@ -279,6 +239,48 @@ export default {
   //
   // STUFF THAT REMAINS THE SAME
   //
+
+  // TODO: combine into single action
+  SAVE_NOTES({ state }) {
+    return new Promise((resolve, reject) => {
+      const db = firebase.firestore();
+
+      db.collection('notes').doc(state.user.uid).set(state.notes, { merge: true })
+        .then(() => resolve())
+        .catch(reject);
+    });
+  },
+
+  SAVE_NOTES_NO_MERGE({ state }) {
+    return new Promise((resolve, reject) => {
+      const db = firebase.firestore();
+
+      db.collection('notes').doc(state.user.uid).set(state.notes, { merge: false })
+        .then(() => resolve())
+        .catch(reject);
+    });
+  },
+
+  // TODO: combine into single action
+  SAVE_PROGRESSES_NO_MERGE({ state }) {
+    return new Promise((resolve, reject) => {
+      const db = firebase.firestore();
+
+      db.collection('progresses').doc(state.user.uid).set(state.progresses, { merge: false })
+        .then(() => resolve())
+        .catch(reject);
+    });
+  },
+
+  SAVE_PROGRESSES({ state }) {
+    return new Promise((resolve, reject) => {
+      const db = firebase.firestore();
+
+      db.collection('progresses').doc(state.user.uid).set(state.progresses, { merge: true })
+        .then(() => resolve())
+        .catch(reject);
+    });
+  },
 
   // TODO: use firebase email extension instead
   SEND_WELCOME_EMAIL(context, additionalUserInfo) {

@@ -453,7 +453,7 @@ export default {
 
       this.$store.commit('SET_GAME_PROGRESS', payload);
 
-      await this.$store.dispatch('SAVE_PROGRESSES_LEGACY')
+      await this.$store.dispatch('SAVE_PROGRESSES')
         .catch(() => {
           this.$bvToast.toast('There was an error saving your progress', { title: 'Error', variant: 'error' });
           this.$router.push({ name: 'sessionExpired' });
@@ -483,7 +483,7 @@ export default {
 
       this.$store.commit('SET_GAME_NOTE', payload);
 
-      await this.$store.dispatch('SAVE_NOTES_LEGACY')
+      await this.$store.dispatch('SAVE_NOTES')
         .catch(() => {
           this.$bvToast.toast('There was an error saving your note', { title: 'Error', variant: 'danger' });
           this.$router.push({ name: 'sessionExpired' });
@@ -497,7 +497,7 @@ export default {
     async deleteNote() {
       this.$store.commit('REMOVE_GAME_NOTE', this.gameId);
 
-      await this.$store.dispatch('SAVE_NOTES_NO_MERGE_LEGACY')
+      await this.$store.dispatch('SAVE_NOTES_NO_MERGE')
         .catch(() => {
           this.$bvToast.toast('There was an error deleting your note', { title: 'Error', variant: 'danger' });
           this.$router.push({ name: 'sessionExpired' });
@@ -509,7 +509,6 @@ export default {
     },
 
     addGame() {
-      // TODO: destructure
       const data = {
         listId: this.listId,
         gameId: this.game.id,
@@ -606,7 +605,7 @@ export default {
 
       this.$store.commit('REMOVE_GAME_PROGRESS', gameId);
 
-      await this.$store.dispatch('SAVE_PROGRESSES_NO_MERGE_LEGACY')
+      await this.$store.dispatch('SAVE_PROGRESSES_NO_MERGE')
         .catch(() => {
           this.$bvToast.toast('There was an error deleting your progress', { title: 'Error', variant: 'error' });
           this.$router.push({ name: 'sessionExpired' });
