@@ -31,9 +31,9 @@ export default {
     },
 
     gameProgress() {
-      const { gameId, progresses, list } = this;
+      const { gameId, progresses, list: { settings } } = this;
 
-      return list.showGameProgress && gameId && progresses[gameId]
+      return settings && settings.showGameProgress && gameId && progresses[gameId]
         ? progresses[gameId]
         : null;
     },
