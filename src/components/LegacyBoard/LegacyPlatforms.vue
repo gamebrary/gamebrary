@@ -1,23 +1,26 @@
 <template lang="html">
-  <div class="platforms-page">
-    <b-alert show variant="warning">
-      <h4 class="alert-heading">Deprecation warning</h4>
-      <p>
+  <div class="platforms-page container-fluid">
 
-      </p>
-      <hr>
-      <b-button variant="primary">
-        Go to boards
-      </b-button>
-    </b-alert>
+  <div class="container-fluid">
+    <div class="row">
+      <b-alert show variant="warning" class="col-xs-6">
+        <strong>Deprecation warning!</strong>
+        <p>Platform-based boards will be phased out soon.
+          A migration tool will be provided shortly.</p>
+        <p>More information will be provided soon.</p>
+      </b-alert>
+    </div>
+  </div>
 
-    <platforms-header />
+  <h5>Platforms (Deprecated)</h5>
 
-    <platforms-list
-      :platforms="sortedPlatforms"
-    />
+  <platforms-header />
 
-    <platforms-footer />
+  <platforms-list
+    :platforms="sortedPlatforms"
+  />
+
+  <platforms-footer />
 </div>
 </template>
 <script>
@@ -42,7 +45,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['gameLists', 'platform', 'settings']),
+    ...mapState(['gameLists', 'settings']),
 
     // TODO: move to getter and replace other instances
     hasLists() {
@@ -89,14 +92,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-  .platforms-page {
-    min-height: calc(100vh - 48px);
-    padding: 0 1rem .5rem;
-  }
-
-  .card-columns {
-    column-count: 5;
-  }
-</style>
