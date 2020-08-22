@@ -13,6 +13,24 @@ export default {
     state.board = board;
   },
 
+  SET_PLATFORMS(state, platforms) {
+    const test = {};
+
+    platforms.forEach((platform) => {
+      const formattedPlatform = {
+        id: platform.id,
+        name: platform.name,
+        slug: platform.slug,
+        category: platform.category,
+        generation: platform.generation,
+      };
+
+      test[platform.id] = formattedPlatform;
+    });
+
+    state.platforms = test;
+  },
+
   SET_BOARD_GAMES(state, boardGames) {
     state.boardGames = boardGames;
   },

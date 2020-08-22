@@ -10,10 +10,11 @@ export default {
   // NEW STUFF
   //
 
-  LOAD_IGDB_PLATFORMS() {
+  LOAD_IGDB_PLATFORMS({ commit }) {
     return new Promise((resolve, reject) => {
       axios.get(`${API_BASE}/platforms`)
         .then(({ data }) => {
+          commit('SET_PLATFORMS', data);
           resolve(data);
         }).catch(reject);
     });
