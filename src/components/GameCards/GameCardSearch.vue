@@ -45,12 +45,15 @@ export default {
 
   methods: {
     async addGame() {
-      const { list, gameId, board } = this;
+      const { list, game, board } = this;
 
       const listIndex = board.lists.findIndex(({ name }) => name === list.name);
 
-      this.$store.commit('ADD_GAME_TO_LIST', { listIndex, gameId });
-      await this.$store.dispatch('SAVE_BOARD');
+      this.$store.commit('ADD_GAME_TO_LIST', { listIndex, game });
+      await this.$store.dispatch('SAVE_BOARD')
+        .catch(() => {
+          this.$bvToast.toast(`There was an error adding ${this.game.name}`, { title: list.name, variant: 'danger' });
+        });
 
       // TODO: CUSTOMIZE TO SHOW GAME COVER
       this.$bvToast.toast(`${this.game.name} added`, { title: list.name, variant: 'success' });
