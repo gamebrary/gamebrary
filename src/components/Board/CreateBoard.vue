@@ -9,6 +9,8 @@
     <b-modal
       id="create-board"
       title="Create board"
+      size="lg"
+      scrollable
       @show="resetBoard"
       @hidden="resetBoard"
     >
@@ -61,36 +63,26 @@
           </b-row>
         </b-form-group>
 
-        <template v-if="platforms.length">
-          <b-form-group label="Select platform(s)">
-            <b-dropdown id="dropdown-1" text="Select platform(s)" menu-class="h-40">
-              <b-dropdown-item
-                v-for="platform in filteredPlatforms"
-                :key="platform.id"
-                @click="selectPlatform(platform)"
-              >
-                {{ platform.name }}
-              </b-dropdown-item>
-            </b-dropdown>
-          </b-form-group>
+        <platform-picker
+          v-model="board.platforms"
+        />
 
-          <b-button
-            variant="primary"
-            class="ml-1 mb-1"
-            v-for="({ id, name }, index) in board.platforms"
-            :key="id"
+        <b-button
+          variant="primary"
+          class="ml-1 mb-1"
+          v-for="({ id, name }, index) in board.platforms"
+          :key="id"
+        >
+          {{ name }}
+
+          <b-badge
+            variant="light"
+            class="ml-1"
+            @click="removePlatform(index)"
           >
-            {{ name }}
-
-            <b-badge
-              variant="light"
-              class="ml-1"
-              @click="removePlatform(index)"
-            >
-              <b-icon-x />
-            </b-badge>
-          </b-button>
-        </template>
+            <b-icon-x />
+          </b-badge>
+        </b-button>
       </form>
 
       <template v-slot:modal-footer="{ cancel }">
@@ -111,9 +103,15 @@
 </template>
 
 <script>
+import PlatformPicker from '@/components/Board/PlatformPicker';
+
 import { mapState } from 'vuex';
 
 export default {
+  components: {
+    PlatformPicker,
+  },
+
   data() {
     return {
       board: {},
@@ -143,18 +141,6 @@ export default {
 
   computed: {
     ...mapState(['platforms']),
-
-    filteredPlatforms() {
-      return this.platforms.length && this.board.platforms
-        ? this.platforms.filter(({ id }) => !this.flattenedSelectedPlatforms.includes(id))
-        : [];
-    },
-
-    flattenedSelectedPlatforms() {
-      return this.board && this.board.platforms && this.board.platforms.length
-        ? Object.values(this.board.platforms.map(({ id }) => id))
-        : [];
-    },
   },
 
   methods: {
@@ -167,14 +153,6 @@ export default {
         platforms: [],
         lists: [],
       };
-    },
-
-    selectPlatform({ id, name }) {
-      this.board.platforms.push({ id, name });
-    },
-
-    removePlatform(index) {
-      this.board.platforms.splice(index, 1);
     },
 
     submit(e) {
@@ -204,7 +182,6 @@ export default {
 
       const payload = {
         ...board,
-        platforms: this.flattenedSelectedPlatforms,
         lists,
       };
 
@@ -221,10 +198,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss">
-ul.dropdown-menu {
-  max-height: 300px !important;
-  overflow: auto !important;
-}
-</style>
