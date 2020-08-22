@@ -2,7 +2,7 @@
   <b-card no-body class="game-card mb-2" @click="openDetails">
     <b-row no-gutters v-if="game && game.name">
       <b-col md="3">
-        <b-img-lazy
+        <b-img
           fluid
           blank-color="#ccc"
           :src="coverUrl"

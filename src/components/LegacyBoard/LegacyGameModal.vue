@@ -243,7 +243,7 @@
             <!-- TODO: use blank-width prop? -->
             <!-- TODO: use blank-height prop? -->
 
-            <b-img-lazy
+            <b-img
               v-for="(screenshot, index) in screenshots"
               :key="index"
               :src="screenshot"

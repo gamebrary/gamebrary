@@ -5,7 +5,7 @@
       <b-badge>{{ screenshots.length }}</b-badge>
     </template>
 
-    <b-img-lazy
+    <b-img
       v-for="(screenshot, index) in screenshots"
       :key="index"
       :src="screenshot"
