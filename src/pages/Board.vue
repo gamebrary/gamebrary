@@ -44,7 +44,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['user', 'gameLists', 'platform', 'boards', 'games', 'dragging', 'board']),
+    ...mapState(['user', 'dragging', 'board']),
   },
 
   mounted() {
