@@ -24,6 +24,20 @@
       </template>
 
       <b-list-group>
+        <div v-if="empty">
+          <b-alert show class="mb-2">
+            No tags
+          </b-alert>
+
+          <b-button
+            size="sm"
+            variant="primary"
+            @click="openTagsSettings"
+          >
+            Add a tag
+          </b-button>
+        </div>
+
         <b-list-group-item
           v-for="({ games, hex, tagTextColor }, name) in tags"
           :key="name"
@@ -39,7 +53,7 @@
           </b-badge>
 
           <b-button
-            v-if="games.includes(gameId)"
+            v-if="games.includes(game.id)"
             variant="outline-danger"
             size="sm"
             @click="removeTag(name)"
@@ -63,16 +77,19 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   props: {
-    gameId: Number,
+    game: Object,
   },
 
   computed: {
-    ...mapGetters(['gameTags']),
-    ...mapState(['tags', 'games']),
+    ...mapState(['tags']),
+
+    empty() {
+      return Object.keys(this.tags).length === 0;
+    },
   },
 
   methods: {
@@ -80,28 +97,29 @@ export default {
       this.$bvModal.show('tags-settings');
     },
 
-    addTag(tagName) {
-      const { gameId } = this;
+    async addTag(tagName) {
+      const gameId = this.game.id;
 
       this.$store.commit('ADD_GAME_TAG', { tagName, gameId });
-      this.saveTags();
+      await this.saveTags();
+
+      this.$bvToast.toast(`Tag "${tagName}" added`, { title: this.game.name, variant: 'success' });
     },
 
-    removeTag(tagName) {
-      const { gameId } = this;
+    async removeTag(tagName) {
+      const gameId = this.game.id;
 
       this.$store.commit('REMOVE_GAME_TAG', { tagName, gameId });
-      this.saveTags();
+      await this.saveTags();
+
+      this.$bvToast.toast(`Tag "${tagName}" removed`, { title: this.game.name, variant: 'success' });
     },
 
-    async saveTags() {
-      await this.$store.dispatch('SAVE_TAGS_LEGACY', this.tags)
+    saveTags() {
+      this.$store.dispatch('SAVE_TAGS_LEGACY', this.tags)
         .catch(() => {
           this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
-          this.$router.push({ name: 'sessionExpired' });
         });
-
-      this.$bvToast.toast('Tags updated', { title: 'Success', variant: 'success' });
     },
   },
 };
