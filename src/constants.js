@@ -8,6 +8,8 @@ export const PLATFORM_CATEGORIES = {
 };
 
 export const PLATFORM_BG_HEX = {
+  167: '#222',
+  166: '#000',
   48: '#2e6db4',
   49: '#177d3e',
   130: '#ce181e',
@@ -21,18 +23,31 @@ export const LIST_VIEWS = {
 };
 
 export const PLATFORM_LOGO_FORMAT = {
-  164: '.png',
-  51: '.png',
-  47: '.png',
-  36: '.png',
-  45: '.jpg',
-  124: '.png',
-  132: '.png',
-  160: '.png',
-  163: '.png',
-  161: '.png',
-  165: '.png',
-  150: '.png',
+  164: 'png',
+  51: 'png',
+  47: 'png',
+  36: 'png',
+  45: 'jpg',
+  124: 'png',
+  132: 'png',
+  160: 'png',
+  163: 'png',
+  161: 'png',
+  165: 'png',
+  150: 'png',
+};
+
+export const PLATFORM_NAME_OVERRIDES = {
+  6: 'Windows',
+  18: 'NES',
+  19: 'SNES',
+  21: 'GameCube',
+  150: 'PC Engine CD',
+  38: 'PSP',
+  163: 'Steam VR',
+  50: '3D0',
+  99: 'FAMICOM',
+  51: 'FAMICOM Disk System',
 };
 
 export const EXCLUDED_PLATFORMS = [

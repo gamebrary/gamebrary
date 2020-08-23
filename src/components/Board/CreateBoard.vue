@@ -27,13 +27,11 @@
         </b-form-group>
 
         <b-form-group
-          id="input-group-1"
           label="Board descriptiopn"
           label-for="description"
           description="Optional"
         >
           <b-form-textarea
-            id="description"
             v-model="board.description"
             maxlength="280"
             rows="3"
@@ -42,7 +40,6 @@
 
         <b-form-group label="Board template">
           <b-form-radio-group
-            id="btn-radios-1"
             v-model="selectedTemplate"
             :options="boardTemplatesOptions"
             buttons
@@ -63,26 +60,11 @@
           </b-row>
         </b-form-group>
 
+        <hr />
+
         <platform-picker
           v-model="board.platforms"
         />
-
-        <b-button
-          variant="primary"
-          class="ml-1 mb-1"
-          v-for="({ id, name }, index) in board.platforms"
-          :key="id"
-        >
-          {{ name }}
-
-          <b-badge
-            variant="light"
-            class="ml-1"
-            @click="removePlatform(index)"
-          >
-            <b-icon-x />
-          </b-badge>
-        </b-button>
       </form>
 
       <template v-slot:modal-footer="{ cancel }">
@@ -166,6 +148,10 @@ export default {
     async createBoard() {
       const { selectedTemplate, boardTemplates, board } = this;
 
+      if (board.platforms.length === 0) {
+        return this.$bvToast.toast('Please select at least 1 platform', { title: 'Error', variant: 'error' });
+      }
+
       this.saving = true;
 
       const lists = selectedTemplate && boardTemplates[selectedTemplate]
@@ -188,7 +174,7 @@ export default {
       await this.$store.dispatch('CREATE_BOARD', payload)
         .catch(() => {
           this.saving = false;
-          this.$bvToast.toast('There was an creating board', { title: 'Error', variant: 'error' });
+          this.$bvToast.toast('There was an error creating board', { title: 'Error', variant: 'error' });
         });
 
       this.saving = false;

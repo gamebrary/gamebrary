@@ -4,34 +4,30 @@
 
     <div class="platforms">
       <b-card
-        v-for="platform in platforms" :key="platform.id"
-        class="platform text-center"
+        v-for="platform in sortedPlatforms" :key="platform.id"
+        :header="platform.name"
+        :header-class="['py-0 px-2', value.includes(platform.id) ? 'text-white' : '']"
         :border-variant="value.includes(platform.id) ? 'success' : ''"
-        :style="`background-color: ${platform.bgHex || ''}`"
+        :header-bg-variant="value.includes(platform.id) ? 'success' : ''"
+        body-class="d-flex p-2 text-center justify-content-center align-items-center"
+        header-tag="small"
         @click="handleClick(platform.id)"
       >
         <b-img
-          v-if="platform.logoFormat"
-          :src="`/static/platform-logos/${platform.slug}${platform.logoFormat}`"
+          :src="`/static/platform-logos/${platform.slug}.${platform.logoFormat
+            ? platform.logoFormat : 'svg'}`"
           :alt="platform.name"
           fluid
-          class="platform-logo"
+          class="platform-logo py-2"
         />
-
-        <b-img
-          v-else
-          :src="`/static/platform-logos/${platform.slug}.svg`"
-          :alt="platform.name"
-          fluid
-          class="platform-logo"
-        />
+        <!-- {{ platform.id }} -->
       </b-card>
     </div>
   </div>
 </template>
 
 <script>
-// import orderBy from 'lodash.orderBy';
+import orderBy from 'lodash.orderBy';
 import { mapState } from 'vuex';
 
 export default {
@@ -42,9 +38,11 @@ export default {
   computed: {
     ...mapState(['platforms']),
 
-    // sortedPlatforms() {
-    //   return orderBy(this.platforms, 'generation');
-    // },
+    sortedPlatforms() {
+      return orderBy(this.platforms, 'generation')
+        .filter(({ generation }) => Boolean(generation))
+        .reverse();
+    },
   },
 
   methods: {
@@ -72,19 +70,11 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
   .platforms {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 1rem;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .platform {
-    height: 120px;
-    cursor: pointer;
-    display: flex;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: .5rem;
   }
 
   .platform-logo {
-    max-height: 100px;
+    max-height: 80px;
   }
 </style>

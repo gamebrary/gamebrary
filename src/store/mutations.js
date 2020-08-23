@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { PLATFORM_CATEGORIES, EXCLUDED_PLATFORMS, PLATFORM_BG_HEX, PLATFORM_LOGO_FORMAT } from '@/constants';
+import { PLATFORM_CATEGORIES, EXCLUDED_PLATFORMS, PLATFORM_BG_HEX, PLATFORM_LOGO_FORMAT, PLATFORM_NAME_OVERRIDES } from '@/constants';
 
 export default {
   SET_BOARDS(state, boards) {
@@ -19,21 +19,19 @@ export default {
 
     platforms.forEach((platform) => {
       const formattedPlatform = {
+        ...platform,
         id: platform.id,
-        name: platform.name,
+        name: PLATFORM_NAME_OVERRIDES[platform.id] || platform.name,
         slug: platform.slug,
         category: PLATFORM_CATEGORIES[platform.category],
         categoryId: platform.category,
-        generation: platform.generation,
+        generation: platform.generation || null,
         bgHex: PLATFORM_BG_HEX[platform.id] || null,
+        logoFormat: PLATFORM_LOGO_FORMAT[platform.id] || null,
       };
 
       if (!EXCLUDED_PLATFORMS.includes(platform.id)) {
         formattedPlatforms[platform.id] = formattedPlatform;
-      }
-
-      if (PLATFORM_LOGO_FORMAT[platform.id]) {
-        formattedPlatform.logoFormat = PLATFORM_LOGO_FORMAT[platform.id];
       }
     });
 
