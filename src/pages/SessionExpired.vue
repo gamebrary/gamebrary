@@ -1,22 +1,18 @@
 <template lang="html">
-  <div class="session-expired">
-    <h2>{{ $t('sessionExpired.title') }}</h2>
-
-    <div class="actions">
-      <b-button
-        variant="success"
-        @click="login"
-      >
-        {{ $t('sessionExpired.login') }}
-      </b-button>
-
-      <a
-        :href="exitUrl"
-        class="link primary"
-      >
-        {{ $t('sessionExpired.exit') }}
-      </a>
-    </div>
+  <div class="d-flex justify-content-center">
+    <b-alert show variant="warning" class="mw-75 mt-3 mx-3" style="width: 500px;">
+      <h4 class="alert-heading">{{ $t('sessionExpired.title') }}</h4>
+      <p>
+        Aww yeah, you successfully read this important alert message. This example text is going to
+        run a bit longer so that you can see how spacing within an alert works with this kind of
+        content.
+      </p>
+      <hr>
+      <p class="mb-0">
+        <b-button variant="success" @click="login">{{ $t('sessionExpired.login') }}</b-button>
+        <b-button :href="exitUrl">{{ $t('sessionExpired.exit') }}</b-button>
+      </p>
+    </b-alert>
   </div>
 </template>
 
@@ -46,25 +42,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-// @import "~styles/styles";
-
-.session-expired {
-  color: #555555;
-  min-height: calc(100vh - 48px);
-  padding: 0 1rem;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-.actions {
-  display: grid;
-  margin-top: 1rem;
-  grid-template-columns: auto auto;
-  grid-gap: 1rem;
-  text-align: center;
-  align-items: center;
-}
-</style>
