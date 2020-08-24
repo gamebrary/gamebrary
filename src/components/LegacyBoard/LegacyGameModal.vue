@@ -456,7 +456,6 @@ export default {
       await this.$store.dispatch('SAVE_PROGRESSES')
         .catch(() => {
           this.$bvToast.toast('There was an error saving your progress', { title: 'Error', variant: 'error' });
-          this.$router.push({ name: 'sessionExpired' });
         });
 
       this.$bvToast.toast('Progress updated', { title: 'Success', variant: 'success' });
@@ -486,7 +485,6 @@ export default {
       await this.$store.dispatch('SAVE_NOTES')
         .catch(() => {
           this.$bvToast.toast('There was an error saving your note', { title: 'Error', variant: 'danger' });
-          this.$router.push({ name: 'sessionExpired' });
         });
 
       this.$bvToast.toast('Note saved', { title: 'Success', variant: 'success' });
@@ -500,7 +498,6 @@ export default {
       await this.$store.dispatch('SAVE_NOTES_NO_MERGE')
         .catch(() => {
           this.$bvToast.toast('There was an error deleting your note', { title: 'Error', variant: 'danger' });
-          this.$router.push({ name: 'sessionExpired' });
         });
 
       this.$bvToast.toast('Note deleted', { title: 'Success', variant: 'success' });
@@ -531,7 +528,6 @@ export default {
         })
         .catch(() => {
           this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
-          this.$router.push({ name: 'sessionExpired' });
         });
     },
 
@@ -551,7 +547,6 @@ export default {
         })
         .catch(() => {
           this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
-          this.$router.push({ name: 'sessionExpired' });
         });
     },
 
@@ -608,7 +603,6 @@ export default {
       await this.$store.dispatch('SAVE_PROGRESSES_NO_MERGE')
         .catch(() => {
           this.$bvToast.toast('There was an error deleting your progress', { title: 'Error', variant: 'error' });
-          this.$router.push({ name: 'sessionExpired' });
         });
 
       this.$bvToast.toast('Progress deleted', { title: 'Success', variant: 'success' });

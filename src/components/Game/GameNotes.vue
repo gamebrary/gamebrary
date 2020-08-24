@@ -86,7 +86,6 @@ export default {
         .catch(() => {
           this.saving = false;
           this.$bvToast.toast('There was an error saving your note', { title: 'Error', variant: 'danger' });
-          this.$router.push({ name: 'sessionExpired' });
         });
 
       this.$bvToast.toast('Note saved', { title: 'Success', variant: 'success' });

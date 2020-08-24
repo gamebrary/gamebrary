@@ -100,7 +100,6 @@ export default {
         })
         .catch(() => {
           this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
-          this.$router.push({ name: 'sessionExpired' });
         });
     },
 

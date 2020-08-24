@@ -98,7 +98,6 @@ export default {
       await this.$store.dispatch('SAVE_TAGS_LEGACY', this.tags)
         .catch(() => {
           this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
-          this.$router.push({ name: 'sessionExpired' });
         });
 
       this.$bvToast.toast('Tags updated', { title: 'Success', variant: 'success' });

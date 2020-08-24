@@ -310,7 +310,6 @@ export default {
       await this.$store.dispatch(action, this.localTags)
         .catch(() => {
           this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
-          this.$router.push({ name: 'sessionExpired' });
         });
 
       const message = editing
