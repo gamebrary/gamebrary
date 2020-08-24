@@ -7,8 +7,7 @@
     footer-bg-variant="light"
     footer-class="p-2 justify-content-center"
     :title="game.name"
-    @show="setData"
-    @shown="loadGame"
+    @show="load"
     @hidden="reset"
   >
     <b-container v-if="game.name">
@@ -195,12 +194,14 @@ export default {
   },
 
   methods: {
-    setData() {
+    load() {
       const { gameId, list } = this.gameModalData;
 
       this.gameId = gameId;
       this.list = list;
       this.game = this.games[gameId];
+
+      this.loadGame();
     },
 
     async loadGame() {
