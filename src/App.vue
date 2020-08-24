@@ -1,7 +1,7 @@
 <template>
   <div
     id="app"
-    :class="[theme, headerPosition, borderRadius]"
+    :class="['vh-100', theme]"
     :style="style"
     :dir="dir"
   >
@@ -91,38 +91,6 @@ export default {
       return isBoard && hasPlatformTheme
         ? `theme-${this.settings[this.platform.code].theme}`
         : 'theme-default';
-    },
-
-    headerPosition() {
-      const hasPlatform = this.platform && this.platform.code;
-      const hasPosition = hasPlatform
-      && this.settings
-      && this.settings[this.platform.code]
-      && this.settings[this.platform.code].position;
-
-      const isBoard = this.$route.name === 'board';
-
-      const hasPlatformPosition = hasPlatform && hasPosition;
-
-      return isBoard && hasPlatformPosition
-        ? `${this.settings[this.platform.code].position}`
-        : 'top';
-    },
-
-    borderRadius() {
-      const hasPlatform = this.platform && this.platform.code;
-      const hasBorderRadius = hasPlatform
-      && this.settings
-      && this.settings[this.platform.code]
-      && this.settings[this.platform.code].borderRadius;
-
-      const isBoard = this.$route.name === 'board';
-
-      const hasPlatformBorderRadius = hasPlatform && hasBorderRadius;
-
-      return isBoard && hasPlatformBorderRadius
-        ? ''
-        : 'no-border-radius';
     },
   },
 
@@ -331,21 +299,11 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
   #app {
-    display: flex;
-    flex-direction: column;
+    // display: flex;
+    // flex-direction: column;
     background-color: #ccc;
-    background-size: cover;
-    overflow-x: hidden;
-    min-height: 100vh;
-
-    &.no-border-radius {
-      --border-radius: 0;
-    }
-
-    @media(max-width: 780px) {
-      &.bottom {
-        flex-direction: column-reverse;
-      }
-    }
+    // background-size: cover;
+    // overflow-x: hidden;
+    // min-height: 100vh;
   }
 </style>
