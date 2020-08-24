@@ -7,7 +7,7 @@
       id="tags-settings"
       title="Manage Tags"
       hide-footer
-      @shown="shown"
+      @show="setLocalTags"
     >
       <form
         ref="newTagForm"
@@ -234,7 +234,7 @@ export default {
   },
 
   methods: {
-    shown() {
+    setLocalTags() {
       this.localTags = JSON.parse(JSON.stringify(this.tags));
     },
 

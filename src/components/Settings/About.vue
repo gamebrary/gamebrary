@@ -9,7 +9,7 @@
       scrollable
       footer-class="p-2 d-flex align-items-center justify-content-between"
       size="lg"
-      @shown="load"
+      @show="load"
     >
       <vue-markdown
         v-if="readme"

@@ -6,7 +6,7 @@
     <b-modal
       :id="modalId"
       title="Sort list"
-      @shown="getSortValue"
+      @show="getSortValue"
     >
       <form ref="renameListForm" @submit.stop.prevent="save">
         <b-form-group :label="$t('list.sortList')" block>
@@ -111,6 +111,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-</style>

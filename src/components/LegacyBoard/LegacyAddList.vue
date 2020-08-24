@@ -12,7 +12,7 @@
     <b-modal
       :id="modalId"
       :title="title"
-      @shown="reset"
+      @show="reset"
     >
       <form ref="addListForm" @submit.stop.prevent="submit">
         <b-form-input

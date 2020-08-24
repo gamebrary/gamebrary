@@ -5,7 +5,7 @@
     <b-modal
       :id="modalId"
       title="Rename list"
-      @shown="getListName"
+      @show="getListName"
     >
       <form ref="renameListForm" @submit.stop.prevent="submit">
         <b-form-input
@@ -132,6 +132,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-</style>

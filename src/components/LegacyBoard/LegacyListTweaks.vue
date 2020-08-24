@@ -5,7 +5,7 @@
     <b-modal
       :id="modalId"
       title="List tweaks"
-      @shown="getSettings"
+      @show="getSettings"
     >
       <form ref="renameListForm" @submit.stop.prevent="save">
         <b-form-checkbox v-model="showReleaseDates" name="check-button" switch>

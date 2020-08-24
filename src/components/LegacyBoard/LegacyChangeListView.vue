@@ -6,7 +6,7 @@
     <b-modal
       :id="modalId"
       title="Change list view"
-      @shown="getView"
+      @show="getView"
     >
       <form ref="renameListForm" @submit.prevent="save">
         <b-form-group label="Views">

@@ -7,8 +7,7 @@
     footer-bg-variant="light"
     footer-class="p-2 justify-content-center"
     :title="title"
-    @show="loadCachedGame"
-    @shown="loadGame"
+    @show="load"
     @hidden="reset"
   >
     <b-container v-if="game">
@@ -75,7 +74,7 @@
               <b-icon-check />
             </b-button>
 
-            <b-modal id="progress" title="Set game progress" @shown="getProgress">
+            <b-modal id="progress" title="Set game progress" @show="getProgress">
               <b-input-group :prepend="`${localProgress}%`" class="mb-4" size="lg">
                 <b-form-input
                   size="lg"
@@ -101,7 +100,7 @@
               <b-icon-file-earmark-text />
             </b-button>
 
-            <b-modal id="notes" title="Game notes" @shown="getNotes">
+            <b-modal id="notes" title="Game notes" @show="getNotes">
               <b-form-textarea
                 v-model.trim="localNote.text"
                 placeholder="Type note here"
@@ -550,12 +549,14 @@ export default {
         });
     },
 
-    loadCachedGame() {
+    load() {
       const { gameId, listId } = this.gameModalData;
 
       this.gameId = gameId;
       this.listId = listId;
       this.game = this.games[gameId];
+
+      this.loadGame();
     },
 
     async loadGame() {

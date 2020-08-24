@@ -7,7 +7,7 @@
       id="board-settings"
       title="Board settings"
       body-class="p-0"
-      @shown="getSettings"
+      @show="getSettings"
     >
       <b-list-group flush>
 

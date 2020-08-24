@@ -10,7 +10,7 @@
       scrollable
       hide-footer
       size="lg"
-      @shown="loadReleases"
+      @show="loadReleases"
     >
       <div v-if="releases">
         <b-card
