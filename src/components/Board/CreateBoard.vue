@@ -179,7 +179,7 @@ export default {
 
       this.saving = false;
       this.$bvToast.toast('Board crated', { title: 'Success', variant: 'success' });
-      this.$bvModal.hide('create-board');
+      return this.$bvModal.hide('create-board');
     },
   },
 };

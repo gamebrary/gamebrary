@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import orderBy from 'lodash.orderBy';
+import orderby from 'lodash.orderby';
 import { mapState } from 'vuex';
 
 export default {
@@ -39,7 +39,7 @@ export default {
     ...mapState(['platforms']),
 
     sortedPlatforms() {
-      return orderBy(this.platforms, 'generation')
+      return orderby(this.platforms, 'generation')
         .filter(({ generation }) => Boolean(generation))
         .reverse();
     },
