@@ -28,7 +28,7 @@
         </b-form-group>
 
         <b-form-group
-          label="Board descriptiopn"
+          label="Board description"
           label-for="description"
           description="Optional"
         >
