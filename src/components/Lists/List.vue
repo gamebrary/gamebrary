@@ -4,7 +4,7 @@
       <b-card-header
         class="py-0 pr-0 pl-2 d-flex justify-content-between align-items-center"
       >
-        <h6 class="m-0">
+        <h6 class="m-0" v-b-modal="`rename-list-${listIndex}`">
           <b-badge v-if="autoSortEnabled">
             <b-icon-sort-up />
           </b-badge>
