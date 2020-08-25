@@ -1,7 +1,7 @@
 <template lang="html">
   <b-dropdown-item v-b-modal:tags-settings>
     <b-icon-tags class="mr-1" />
-    Manage Tags
+    Tags
 
     <b-modal
       id="tags-settings"
@@ -112,6 +112,7 @@
           </b-list-group-item>
         </b-list-group>
 
+        <!-- TODO: move to component -->
         <b-modal id="editTag">
           <template v-slot:modal-title>
             Edit <strong>{{ editingOriginalTagName }}</strong> tag
@@ -170,13 +171,14 @@
               :disabled="isEditedNameDuplicate || !Boolean(editingTagName) || saving"
               @click="saveTag"
             >
-              Save
+              <b-spinner small v-if="saving" />
+              <span v-else>Save</span>
             </b-button>
           </template>
 
           <b-alert
             class="mt-3 mb-0"
-            :show="isEditedNameDuplicate"
+            :show="isEditedNameDuplicate && !saving"
             variant="warning"
           >
             You already have a tag named <strong>{{ editingTagName }}</strong>
@@ -258,14 +260,10 @@ export default {
           this.$set(this.localTags, editingTagName, editingTag);
 
           await this.saveTags(true);
-
-          this.$bvModal.hide('editTag');
         } else {
           this.localTags[editingOriginalTagName] = JSON.parse(JSON.stringify(editingTag));
 
-          await this.saveTags();
-
-          this.$bvModal.hide('editTag');
+          this.saveTags();
         }
       }
     },
@@ -302,22 +300,26 @@ export default {
       this.saveTags(true);
     },
 
-    async saveTags(editing) {
-      const action = editing
+    async saveTags(deleting) {
+      this.saving = true;
+      const action = deleting
         ? 'SAVE_TAGS_NO_MERGE_LEGACY'
         : 'SAVE_TAGS_LEGACY';
 
       await this.$store.dispatch(action, this.localTags)
         .catch(() => {
+          this.saving = false;
           this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
         });
 
-      const message = editing
+      const message = deleting
         ? 'Tags saved'
         : 'Tag added';
 
+      this.$bvModal.hide('editTag');
       this.$bvToast.toast(message, { title: 'Success', variant: 'success' });
       this.reset();
+      this.saving = false;
     },
   },
 };
