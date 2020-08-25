@@ -302,5 +302,6 @@ export default {
     display: flex;
     flex-direction: column;
     background-color: #ccc;
+    min-height: 100vh;
   }
 </style>
