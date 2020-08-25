@@ -8,6 +8,8 @@
         <p>Platform-based boards will be phased out soon.
           A migration tool will be provided shortly.</p>
         <p>More information will be provided soon.</p>
+
+        <small>If you can't wait and want all your platform-based lists migrated to the new boards you can send me an email at contact@gamebrary.com</small>
       </b-alert>
     </div>
   </div>
@@ -18,7 +20,7 @@
     :platforms="ownedPlatforms"
   />
 
-  <platforms-footer />
+  <platforms-footer class="mb-3" />
 </div>
 </template>
 <script>
