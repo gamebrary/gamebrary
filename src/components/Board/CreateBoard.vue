@@ -166,7 +166,11 @@ export default {
 
           return list;
         })
-        : [];
+        : [{
+          name: 'List name here',
+          games: [],
+          settings: {},
+        }];
 
       const payload = {
         ...board,
