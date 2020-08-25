@@ -7,6 +7,7 @@
       id="file-settings"
       title="Manage Files"
       hide-footer
+      scrollable
       size="xl"
       @show="loadWallpapers"
     >
