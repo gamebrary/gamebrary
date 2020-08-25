@@ -42,6 +42,7 @@
         >
           <b-form-select
             id="theme"
+            disabled
             v-model="theme"
           >
             <b-form-select-option
@@ -55,15 +56,14 @@
         </b-form-group>
 
         <b-form-group
+          v-if="wallpapers.length"
           label="Board wallpaper"
           label-for="wallpaper"
         >
           <b-dropdown
-            v-if="wallpapers.length"
             id="wallpaper"
             text="Select wallpaper"
             boundary="viewport"
-            class="m-md-2"
           >
             <b-dropdown-item variant="danger" v-if="wallpaper" @click="removeWallpaper">
               Remove wallpaper
@@ -75,7 +75,6 @@
             >
               <b-img
                 thumbnail
-                width="200px"
                 :src="file.url"
                 :alt="file.name"
                 fluid
@@ -84,10 +83,16 @@
           </b-dropdown>
         </b-form-group>
 
+        <div v-else>
+          No wallpapers uploaded yet.
+          <b-button v-b-modal:file-settings>Manage files</b-button>
+        </div>
+
+
         <b-img
           v-if="wallpaper"
           thumbnail
-          width="200px"
+          class="mb-3"
           :src="wallpaperUrl"
           fluid
         />
