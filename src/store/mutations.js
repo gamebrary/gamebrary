@@ -1,9 +1,13 @@
 import Vue from 'vue';
-import { PLATFORM_CATEGORIES, EXCLUDED_PLATFORMS, PLATFORM_BG_HEX, PLATFORM_LOGO_FORMAT, PLATFORM_NAME_OVERRIDES } from '@/constants';
+import { PLATFORM_CATEGORIES, EXCLUDED_PLATFORMS, PLATFORM_BG_HEX, PLATFORM_LOGO_FORMAT, PLATFORM_NAME_OVERRIDES, POPULAR_PLATFORMS } from '@/constants';
 
 export default {
   SET_BOARDS(state, boards) {
     state.boards = boards;
+  },
+
+  CLEAR_BOARD(state) {
+    state.board = {};
   },
 
   SET_BOARD(state, board) {
@@ -15,27 +19,23 @@ export default {
   },
 
   SET_PLATFORMS(state, platforms) {
-    const formattedPlatforms = {};
+    state.platforms = platforms
+      .filter(({ id }) => !EXCLUDED_PLATFORMS.includes(id))
+      .map((platform) => {
+        const formattedPlatform = {
+          id: platform.id,
+          name: PLATFORM_NAME_OVERRIDES[platform.id] || platform.name,
+          slug: platform.slug,
+          category: PLATFORM_CATEGORIES[platform.category],
+          popular: POPULAR_PLATFORMS.includes(platform.id),
+          // categoryId: platform.category,
+          generation: platform.generation || 0,
+          bgHex: PLATFORM_BG_HEX[platform.id] || null,
+          logoFormat: PLATFORM_LOGO_FORMAT[platform.id] || null,
+        };
 
-    platforms.forEach((platform) => {
-      const formattedPlatform = {
-        ...platform,
-        id: platform.id,
-        name: PLATFORM_NAME_OVERRIDES[platform.id] || platform.name,
-        slug: platform.slug,
-        category: PLATFORM_CATEGORIES[platform.category],
-        categoryId: platform.category,
-        generation: platform.generation || null,
-        bgHex: PLATFORM_BG_HEX[platform.id] || null,
-        logoFormat: PLATFORM_LOGO_FORMAT[platform.id] || null,
-      };
-
-      if (!EXCLUDED_PLATFORMS.includes(platform.id)) {
-        formattedPlatforms[platform.id] = formattedPlatform;
-      }
-    });
-
-    state.platforms = formattedPlatforms;
+        return formattedPlatform;
+      });
   },
 
   SET_BOARD_GAMES(state, boardGames) {

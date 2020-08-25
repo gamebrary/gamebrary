@@ -2,9 +2,11 @@
   <div class="platform-picker">
     <b-form-group label="Select platform(s)" class="mb-1" />
 
+    <platform-picker-sort-filter />
+
     <div class="platforms">
       <b-card
-        v-for="platform in sortedPlatforms" :key="platform.id"
+        v-for="platform in filteredPlatforms" :key="platform.id"
         :header="platform.name"
         :header-class="['py-0 px-2', value.includes(platform.id) ? 'text-white' : '']"
         :border-variant="value.includes(platform.id) ? 'success' : ''"
@@ -27,22 +29,20 @@
 </template>
 
 <script>
-import orderby from 'lodash.orderby';
-import { mapState } from 'vuex';
+import PlatformPickerSortFilter from '@/components/Board/PlatformPickerSortFilter';
+import { mapGetters } from 'vuex';
 
 export default {
+  components: {
+    PlatformPickerSortFilter,
+  },
+
   props: {
     value: Array,
   },
 
   computed: {
-    ...mapState(['platforms']),
-
-    sortedPlatforms() {
-      return orderby(this.platforms, 'generation')
-        .filter(({ generation }) => Boolean(generation))
-        .reverse();
-    },
+    ...mapGetters(['filteredPlatforms']),
   },
 
   methods: {
