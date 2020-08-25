@@ -14,10 +14,8 @@
 
   <h5>Platforms (Deprecated)</h5>
 
-  <platforms-header />
-
   <platforms-list
-    :platforms="sortedPlatforms"
+    :platforms="ownedPlatforms"
   />
 
   <platforms-footer />
@@ -26,15 +24,12 @@
 <script>
 import platforms from '@/platforms';
 import PlatformsFooter from '@/components/LegacyBoard/LegacyPlatformsFooter';
-import PlatformsHeader from '@/components/LegacyBoard/LegacyPlatformsHeader';
 import PlatformsList from '@/components/LegacyBoard/LegacyPlatformsList';
-import sortby from 'lodash.sortby';
 import { mapState } from 'vuex';
 
 export default {
   components: {
     PlatformsFooter,
-    PlatformsHeader,
     PlatformsList,
   },
 
@@ -47,47 +42,12 @@ export default {
   computed: {
     ...mapState(['gameLists', 'settings']),
 
-    // TODO: move to getter and replace other instances
     hasLists() {
       return Object.keys(this.gameLists).length > 0;
     },
 
-    listView() {
-      return this.settings && this.settings.platformsView
-        ? this.settings.platformsView
-        : 'grid';
-    },
-
-    platformsFilterField() {
-      return this.settings && this.settings.platformsFilterField
-        ? this.settings.platformsFilterField
-        : null;
-    },
-
     ownedPlatforms() {
       return this.platforms.filter(({ code }) => this.gameLists[code]);
-    },
-
-    platformsSortField() {
-      return this.settings && this.settings.platformsSortField
-        ? this.settings.platformsSortField
-        : 'releaseYear';
-    },
-
-    filteredPlatforms() {
-      return this.platformsFilterField
-        ? this.ownedPlatforms.filter(({ type }) => type === this.platformsFilterField)
-        : this.ownedPlatforms;
-    },
-
-    sortedPlatforms() {
-      const sortedPlatforms = this.platformsSortField
-        ? sortby(this.filteredPlatforms, this.platformsSortField)
-        : this.filteredPlatforms;
-
-      return this.platformsSortField === 'releaseYear'
-        ? sortedPlatforms.reverse()
-        : sortedPlatforms;
     },
   },
 };

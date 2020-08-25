@@ -6,8 +6,6 @@
       <create-board />
     </div>
 
-    <!-- <pre>{{ platforms }}</pre> -->
-
     <b-overlay :show="loading && !platforms.length" rounded="sm" variant="transparent">
       <b-row cols="3" no-gutters>
         <b-col v-for="board in boards" :key="board.id">
@@ -19,12 +17,6 @@
             <b-card-text>
               {{ board.description }}
             </b-card-text>
-
-            <div v-for="platform in board.platforms" :key="platform">
-              {{ platforms[platform].name }}
-            </div>
-
-            {{ board.lists.length }} lists
 
             <b-button
               variant="danger"
@@ -39,6 +31,10 @@
             >
               Open board
             </b-button>
+
+            <!-- <b-button v-b-modal:board-settings>
+              <b-icon-gear-fill />
+            </b-button> -->
           </b-card>
         </b-col>
       </b-row>

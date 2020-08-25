@@ -94,6 +94,40 @@ export default {
     });
   },
 
+
+  DELETE_FIRESTORE_FILE(context, path) {
+    return new Promise((resolve, reject) => {
+      firebase.storage().ref(path).delete()
+        .then(() => {
+          resolve();
+        })
+        .catch(reject);
+    });
+  },
+
+  LOAD_FIRESTORE_FILE(context, path) {
+    const storage = firebase.storage().ref();
+
+    return new Promise((resolve, reject) => {
+      storage.child(path).getDownloadURL()
+        .then((url) => {
+          resolve(url);
+        })
+        .catch(reject);
+    });
+  },
+
+  async LOAD_WALLPAPERS({ state }) {
+    const storage = firebase.storage().ref(`${state.user.uid}/wallpapers`);
+
+    return new Promise((resolve, reject) => {
+      storage
+        .listAll()
+        .then(({ items }) => resolve(items.map(({ fullPath }) => fullPath)))
+        .catch(reject);
+    });
+  },
+
   // set merge to true when deleting lists
   SAVE_BOARD({ state }, merge = false) {
     const db = firebase.firestore();
@@ -197,19 +231,6 @@ export default {
       });
   },
 
-  SAVE_SETTINGS_LEGACY({ commit, state }, settings) {
-    const db = firebase.firestore();
-
-    return new Promise((resolve, reject) => {
-      db.collection('settings').doc(state.user.uid).set(settings, { merge: true })
-        .then(() => {
-          commit('SET_SETTINGS', settings);
-          resolve();
-        })
-        .catch(reject);
-    });
-  },
-
   SEARCH_LEGACY({ commit, state }, searchText) {
     return new Promise((resolve, reject) => {
       axios.get(`${API_BASE}/search?search=${searchText}&platform=${state.platform.id}`)
@@ -224,6 +245,19 @@ export default {
   //
   // STUFF THAT REMAINS THE SAME
   //
+
+  SAVE_SETTINGS({ commit, state }, settings) {
+    const db = firebase.firestore();
+
+    return new Promise((resolve, reject) => {
+      db.collection('settings').doc(state.user.uid).set(settings, { merge: true })
+        .then(() => {
+          commit('SET_SETTINGS', settings);
+          resolve();
+        })
+        .catch(reject);
+    });
+  },
 
   // TODO: combine into single action
   SAVE_NOTES({ state }) {

@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="board" :class="{ dragging }" >
+  <div :class="['board', { dragging }]" :style="wallpaper" >
     <board-placeholder v-if="loading" />
 
     <template v-else>
@@ -11,12 +11,17 @@
       />
     </template>
 
-    <add-list />
+    <div class="d-flex flex-column pr-3">
+      <add-list />
+      <board-settings />
+    </div>
+
     <game-modal />
   </div>
 </template>
 
 <script>
+import BoardSettings from '@/components/Settings/BoardSettings';
 import BoardPlaceholder from '@/components/Board/BoardPlaceholder';
 import AddList from '@/components/Board/AddList';
 import GameModal from '@/components/Game/GameModal';
@@ -31,24 +36,38 @@ export default {
     List,
     BoardPlaceholder,
     AddList,
+    BoardSettings,
     GameModal,
   },
 
   data() {
     return {
       loading: true,
-      gameData: null,
-      gameDetailListIndex: null,
       queryLimit: 500,
+      wallpaperUrl: null,
     };
   },
 
   computed: {
     ...mapState(['user', 'dragging', 'board']),
+
+    wallpaper() {
+      const { wallpaperUrl } = this;
+
+      return wallpaperUrl
+        ? `background-image: url('${wallpaperUrl}');`
+        : '';
+    },
   },
 
   mounted() {
     this.load();
+    this.$bus.$on('RELOAD_WALLPAPER', this.loadBoardWallpaper);
+  },
+
+  destroyed() {
+    this.$store.commit('CLEAR_BOARD');
+    this.$bus.$off('RELOAD_WALLPAPER', this.loadBoardWallpaper);
   },
 
   methods: {
@@ -70,6 +89,13 @@ export default {
         });
 
       this.loadBoardGames();
+      this.loadBoardWallpaper();
+    },
+
+    async loadBoardWallpaper() {
+      this.wallpaperUrl = this.board.wallpaper
+        ? await this.$store.dispatch('LOAD_FIRESTORE_FILE', this.board.wallpaper)
+        : null;
     },
 
     loadBoardGames() {
@@ -118,9 +144,10 @@ export default {
 .board {
   user-select: none;
   display: flex;
+  background-size: cover;
   align-items: flex-start;
-  height: calc(100vh - 58px);
-  padding: 0 1rem;
+  height: 100vh;
+  padding: 58px 1rem 0;
   box-sizing: border-box;
   overflow-x: auto;
   overflow-x: overlay;

@@ -1,25 +1,48 @@
 <template lang="html">
-  <b-dropdown-item v-b-modal:board-settings>
-    <b-icon-kanban class="mr-1" />
-    Board settings
+  <b-button
+    v-b-modal:board-settings
+    class="mt-3"
+    ref="addList"
+  >
+    <b-icon-gear-fill />
 
     <b-modal
       id="board-settings"
       title="Board settings"
-      body-class="p-0"
-      @show="getSettings"
+      scrollable
+      @show="init"
     >
-      <b-list-group flush>
+      <form ref="boardSettingsForm" @submit.stop.prevent="submit">
+        <b-form-group
+          label="Board name"
+          label-for="name"
+        >
+          <b-form-input
+            id="name"
+            v-model="name"
+            required
+          />
+        </b-form-group>
 
-        <b-list-group-item>
-          <wallpaper-upload />
-        </b-list-group-item>
+        <b-form-group
+          label="Board descriptiopn"
+          label-for="description"
+        >
+          <b-form-textarea
+            id="description"
+            v-model="description"
+            maxlength="280"
+            rows="3"
+          />
+        </b-form-group>
 
-        <b-list-group-item>
-          <label for="theme">Theme</label>
+        <b-form-group
+          label="Board theme"
+          label-for="theme"
+        >
           <b-form-select
             id="theme"
-            disabled
+            v-model="theme"
           >
             <b-form-select-option
               v-for="{ id, name } in themes"
@@ -29,60 +52,155 @@
               {{ name }}
             </b-form-select-option>
           </b-form-select>
+        </b-form-group>
 
-          <b-alert show variant="warning" class="mt-3">
-            Themes are temporarily disabled
-          </b-alert>
-        </b-list-group-item>
-      </b-list-group>
+        <b-form-group
+          label="Board wallpaper"
+          label-for="wallpaper"
+        >
+          <b-dropdown
+            v-if="wallpapers.length"
+            id="wallpaper"
+            text="Select wallpaper"
+            boundary="viewport"
+            class="m-md-2"
+          >
+            <b-dropdown-item variant="danger" v-if="wallpaper" @click="removeWallpaper">
+              Remove wallpaper
+            </b-dropdown-item>
+            <b-dropdown-item
+              v-for="file in wallpapers"
+              :key="file.name"
+              @click="setWallpaper(file)"
+            >
+              <b-img
+                thumbnail
+                width="200px"
+                :src="file.url"
+                :alt="file.name"
+                fluid
+              />
+            </b-dropdown-item>
+          </b-dropdown>
+        </b-form-group>
+
+        <b-img
+          v-if="wallpaper"
+          thumbnail
+          width="200px"
+          :src="wallpaperUrl"
+          fluid
+        />
+
+        <platform-picker
+          v-model="board.platforms"
+        />
+      </form>
 
       <template v-slot:modal-footer>
         <b-button
-          :title="$t('list.delete')"
           variant="danger"
-          @click="promptDeleteBoard"
+          @click="confirmDelete"
         >
           Delete board
         </b-button>
+
+        <b-button
+          variant="primary"
+          :disabled="saving"
+          @click="saveSettings"
+        >
+          <b-spinner small v-if="saving" />
+          <span v-else>Save</span>
+        </b-button>
       </template>
     </b-modal>
-  </b-dropdown-item>
+  </b-button>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 import themes from '@/themes';
-import WallpaperUpload from '@/components/WallpaperUpload';
+import PlatformPicker from '@/components/Board/PlatformPicker';
 
 export default {
   components: {
-    WallpaperUpload,
+    PlatformPicker,
   },
 
   data() {
     return {
       themes,
       saving: false,
+      description: null,
+      name: null,
+      platforms: null,
+      theme: null,
+      wallpaper: null,
+      wallpaperUrl: null,
+      wallpapers: [],
     };
   },
 
   computed: {
-    ...mapState(['user', 'platform', 'gameLists']),
+    ...mapState(['board', 'user']),
   },
 
   methods: {
-    getSettings() {
-      // console.log('get settings bitdch!');
-      // const { sortOrder } = this.gameLists[this.platform.code][this.listIndex];
-      //
-      // this.sortOrder = sortOrder || 'sortByCustom';
+    async loadWallpapers() {
+      this.wallpapers = [];
+
+      const files = await this.$store.dispatch('LOAD_WALLPAPERS');
+
+      // TODO: use promise all instead
+      files.forEach(async (path) => {
+        const url = await this.$store.dispatch('LOAD_FIRESTORE_FILE', path);
+
+        const name = path.split(`${this.user.uid}/wallpapers/`)[1];
+
+        this.wallpapers.push({ name, url, path });
+      });
     },
 
-    promptDeleteBoard() {
-      this.$bvModal.msgBoxConfirm('All your data will be removed', {
-        title: 'Are you sure you want to delete this board?',
+    removeWallpaper() {
+      this.wallpaper = null;
+      this.wallpaperUrl = null;
+    },
+
+    async setWallpaper(file) {
+      this.wallpaper = file.path;
+
+      this.wallpaperUrl = await this.$store.dispatch('LOAD_FIRESTORE_FILE', file.path);
+    },
+
+    submit(e) {
+      e.preventDefault();
+
+      if (this.$refs.createBoardForm.checkValidity()) {
+        this.createBoard();
+      }
+    },
+
+    async init() {
+      const { board } = this;
+
+      this.description = board.description;
+      this.name = board.name;
+      this.platforms = board.platforms;
+      this.theme = board.theme || 'default';
+      this.wallpaper = board.wallpaper;
+      this.wallpaperUrl = board.wallpaper
+        ? await this.$store.dispatch('LOAD_FIRESTORE_FILE', board.wallpaper)
+        : null;
+
+      this.loadWallpapers();
+    },
+
+    confirmDelete() {
+      this.$bvModal.msgBoxConfirm('Are you sure you want to delete this board?', {
+        title: 'Delete board',
         okVariant: 'danger',
-        okTitle: 'Yes, delete board! Hahaha!',
+        okTitle: 'Yes, delete board',
       })
         .then((value) => {
           if (value) {
@@ -91,47 +209,60 @@ export default {
         });
     },
 
-    deleteBoard() {
-      this.$store.commit('REMOVE_PLATFORM_LEGACY');
+    async deleteBoard() {
+      this.loading = true;
 
-      this.$store.dispatch('SAVE_LIST_NO_MERGE_LEGACY', this.gameLists)
-        .then(() => {
-          this.$router.push({ name: 'platforms' });
-        })
+      await this.$store.dispatch('DELETE_BOARD', this.board.id)
         .catch(() => {
-          this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
+          this.loading = false;
+          this.$bvToast.toast('There was an error deleting board', { title: 'Error', variant: 'error' });
         });
+
+      this.loading = false;
+      this.$bvToast.toast('Board removed', { title: 'Success', variant: 'success' });
+      this.$router.push({ name: 'home' });
     },
 
-    // async save() {
-    //   this.saving = true;
-    //
-    //   const gameLists = JSON.parse(JSON.stringify(this.gameLists));
-    //
-    //   gameLists[this.platform.code][this.listIndex].sortOrder = this.sortOrder;
-    //
-    //   await this.$store.dispatch('SAVE_LIST_LEGACY', gameLists)
-    //     .catch(() => {
-    //       this.saving = false;
-    //
-    //       this.$bvToast.toast('There was an error renaming list', {
-    //         title: 'Error',
-    //         variant: 'danger',
-    //       });
-    //     });
-    //
-    //   this.saving = false;
-    //
-    //   this.$bvToast.toast('List renamed', {
-    //     title: 'Saved',
-    //     variant: 'success',
-    //   });
-    //
-    //   this.$bvModal.hide('board-settings');
-    // },
+    async saveSettings() {
+      this.saving = true;
+      const wallpaperChanged = this.board.wallpaper !== this.wallpaper;
+
+      const { board } = this;
+
+      const payload = {
+        ...board,
+        description: this.description,
+        name: this.name,
+        platforms: this.platforms,
+        theme: this.theme,
+        wallpaper: this.wallpaper,
+      };
+
+      this.$store.commit('SET_BOARD', payload);
+
+      await this.$store.dispatch('SAVE_BOARD')
+        .catch(() => {
+          this.saving = false;
+
+          this.$bvToast.toast('There was an error renaming list', { title: 'Error', variant: 'danger' });
+        });
+
+      this.saving = false;
+      this.$bvToast.toast('Board settings saved', { title: 'Saved', variant: 'success' });
+      this.$bvModal.hide('board-settings');
+
+      if (wallpaperChanged) {
+        this.$bus.$emit('RELOAD_WALLPAPER');
+      }
+    },
   },
 };
 </script>
 
-<style lang="scss" rel="stylesheet/scss" scoped>
+<style lang="scss" rel="stylesheet/scss">
+.dropdown-menu {
+  max-height: 400px;
+  max-width: 360px;
+  overflow: auto;
+}
 </style>

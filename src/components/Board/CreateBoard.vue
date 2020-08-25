@@ -22,6 +22,7 @@
           <b-form-input
             id="name"
             v-model="board.name"
+            autofocus
             required
           />
         </b-form-group>
@@ -74,6 +75,7 @@
 
         <b-button
           variant="primary"
+          :disabled="saving"
           @click="submit"
         >
           <b-spinner small v-if="saving" />
@@ -131,7 +133,7 @@ export default {
         name: null,
         description: null,
         theme: null,
-        backgroundColor: '#ccc',
+        wallpaper: null,
         platforms: [],
         lists: [],
       };

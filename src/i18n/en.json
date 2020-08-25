@@ -25,11 +25,15 @@
     "reportBugs": "reporting bugs",
     "submitFeedback": "submitting feedback",
     "all": "All",
-    "consoles": "Consoles",
-    "handheld": "Handhelds",
+    "console": "Consoles",
+    "platform": "Digital",
+    "operating_system": "PC / Other",
+    "portable_console": "Handhelds",
     "computer": "Home Computers",
+    "popular": "Popular",
     "releaseYear": "Year released",
     "name": "Alphabetically",
+    "generation": "Generation / Date relased",
     "type": "Type"
   },
   "gameBoard": {

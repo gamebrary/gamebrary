@@ -1,3 +1,5 @@
+export const POPULAR_PLATFORMS = [169, 167, 130, 48, 49, 41];
+
 export const PLATFORM_CATEGORIES = {
   1: 'console',
   2: 'arcade',
@@ -6,6 +8,22 @@ export const PLATFORM_CATEGORIES = {
   5: 'portable_console',
   6: 'computer',
 };
+
+export const PLATFORM_FILTER_FIELDS = [
+  null,
+  'popular',
+  'console',
+  // 'arcade',
+  // 'platform',
+  'operating_system',
+  'portable_console',
+  'computer',
+];
+
+export const PLATFORM_SORT_FILEDS = [
+  'generation',
+  'name',
+];
 
 export const PLATFORM_BG_HEX = {
   167: '#222',
@@ -56,6 +74,7 @@ export const EXCLUDED_PLATFORMS = [
   151,
   152,
   52, // Arcade
+  79, // Neogeo
   153,
   154,
   155,

@@ -81,7 +81,7 @@ export default {
         wallpapers: this.wallpapers,
       };
 
-      this.$store.dispatch('SAVE_SETTINGS_LEGACY', settings)
+      this.$store.dispatch('SAVE_SETTINGS', settings)
         .then(() => {
           this.$bvToast.toast('Settings saved', { title: 'Success', variant: 'success' });
           this.loading = false;

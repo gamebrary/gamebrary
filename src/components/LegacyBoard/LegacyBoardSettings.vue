@@ -12,7 +12,7 @@
       <b-list-group flush>
 
         <b-list-group-item>
-          <wallpaper-upload />
+          <legacy-wallpaper-upload />
         </b-list-group-item>
 
         <b-list-group-item>
@@ -52,11 +52,11 @@
 <script>
 import { mapState } from 'vuex';
 import themes from '@/themes';
-import WallpaperUpload from '@/components/WallpaperUpload';
+import LegacyWallpaperUpload from '@/components/LegacyBoard/LegacyWallpaperUpload';
 
 export default {
   components: {
-    WallpaperUpload,
+    LegacyWallpaperUpload,
   },
 
   data() {

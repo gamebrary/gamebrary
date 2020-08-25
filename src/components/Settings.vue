@@ -14,13 +14,9 @@
         />
       </template>
 
-      <template v-if="isBoard">
-        <board-settings />
-        <b-dropdown-divider />
-      </template>
-
       <tags-settings />
       <account-settings />
+      <file-settings />
       <releases />
       <about />
       <b-dropdown-divider />
@@ -34,8 +30,8 @@
 <script>
 import TagsSettings from '@/components/Settings/TagsSettings';
 import AccountSettings from '@/components/Settings/AccountSettings';
+import FileSettings from '@/components/Settings/FileSettings';
 import Releases from '@/components/Settings/Releases';
-import BoardSettings from '@/components/Settings/BoardSettings';
 import SignOut from '@/components/Settings/SignOut';
 import About from '@/components/Settings/About';
 import { mapState } from 'vuex';
@@ -44,18 +40,14 @@ export default {
   components: {
     TagsSettings,
     AccountSettings,
+    FileSettings,
     Releases,
-    BoardSettings,
     SignOut,
     About,
   },
 
   computed: {
     ...mapState(['user']),
-
-    isBoard() {
-      return this.$route.name === 'board';
-    },
   },
 };
 </script>
