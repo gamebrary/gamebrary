@@ -1,13 +1,10 @@
 <template lang="html">
-  <div>
-    <b-button
-      v-b-modal="modalId"
-      class="mr-3"
-      :title="title"
-      ref="addList"
-    >
-      <b-icon-plus />
-    </b-button>
+  <b-button
+    v-b-modal="modalId"
+    :title="title"
+    ref="addList"
+  >
+    <b-icon-plus />
 
     <b-modal
       :id="modalId"
@@ -46,7 +43,7 @@
         </b-button>
       </template>
     </b-modal>
-  </div>
+  </b-button>
 </template>
 
 <script>
@@ -87,7 +84,7 @@ export default {
     },
 
     isEmptyBoard() {
-      return this.board.lists.length === 0;
+      return this.board.lists && this.board.lists.length === 0;
     },
 
     disabled() {
