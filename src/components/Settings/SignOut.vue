@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-dropdown-item @click="signOut" variant="warning">
+  <b-dropdown-item @click="signOut">
     {{ $t('settings.signOut') }}
   </b-dropdown-item>
 </template>
