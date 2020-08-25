@@ -1,34 +1,32 @@
 <template lang="html">
-  <b-button-toolbar aria-label="Filter and sort platforms" class="mb-3">
-    <strong class="py-2 pr-1">Filter:</strong>
-
-    <b-button-group class="mx-1">
-      <b-button
+  <div class="mb-3">
+    <b-dropdown
+      :text="$t(`platforms.${settings.platformsFilterField || 'all'}`)"
+      class="mr-2"
+    >
+      <b-dropdown-item
         v-for="filter in PLATFORM_FILTER_FIELDS"
         :key="filter"
         :variant="settings.platformsFilterField === filter ? 'primary' : null"
-        size="sm"
         @click="setFilter(filter)"
       >
         {{ filter ? $t(`platforms.${filter}`) : $t('platforms.all') }}
-      </b-button>
-    </b-button-group>
+      </b-dropdown-item>
+    </b-dropdown>
 
-    <strong class="py-2 pr-1 mx-1">Sort:</strong>
-    <b-button-group>
-      <b-button
+    <b-dropdown
+      :text="$t(`platforms.${settings.platformsSortField || 'generation'}`)"
+    >
+      <b-dropdown-item
         v-for="field in PLATFORM_SORT_FILEDS"
         :key="field"
         :variant="settings.platformsSortField === field ? 'primary' : null"
-        v-b-tooltip.hover :title="$t(`platforms.${field}`)"
-        size="sm"
         @click="setSortField(field)"
       >
-        <b-icon-sort-alpha-down v-if="field === 'name'" />
-        <b-icon-clock-history v-if="field === 'generation'" />
-      </b-button>
-    </b-button-group>
-  </b-button-toolbar>
+        {{ $t(`platforms.${field}`) }}
+      </b-dropdown-item>
+    </b-dropdown>
+  </div>
 </template>
 
 <script>
