@@ -55,9 +55,45 @@ export default {
           this.$bvToast.toast(`There was an error adding ${this.game.name}`, { title: list.name, variant: 'danger' });
         });
 
-      // TODO: CUSTOMIZE TO SHOW GAME COVER
-      this.$bvToast.toast(`${this.game.name} added`, { title: list.name, variant: 'success' });
+      this.showGameToast();
+    },
+
+    showGameToast() {
+      const h = this.$createElement;
+
+      const vNodesMsg = h(
+        'div', { class: 'image-toast' }, [
+          h('b-card-img', {
+            class: 'toast-image',
+            props: {
+              src: this.coverUrl,
+              alt: this.game.name,
+              width: 80,
+            },
+          }),
+          h('p', `${this.game.name} added`),
+        ],
+      );
+      // Pass the VNodes as an array for message and title
+      this.$bvToast.toast([vNodesMsg], {
+        title: this.list.name,
+        solid: true,
+        variant: 'info',
+      });
     },
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+.image-toast {
+  display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: 80px auto;
+}
+
+.toast-image {
+  width: 80px !important;
+}
+</style>
+
