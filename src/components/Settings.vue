@@ -15,13 +15,14 @@
       </template>
 
       <tags-settings />
-      <account-settings />
-      <file-settings />
+      <wallpaper-settings />
+      <b-dropdown-divider />
       <releases />
       <about />
       <b-dropdown-divider />
       <!-- language -->
       <!-- theme -->
+      <account-settings />
       <sign-out />
     </b-dropdown>
   </b-navbar-nav>
@@ -30,7 +31,7 @@
 <script>
 import TagsSettings from '@/components/Settings/TagsSettings';
 import AccountSettings from '@/components/Settings/AccountSettings';
-import FileSettings from '@/components/Settings/FileSettings';
+import WallpaperSettings from '@/components/Settings/WallpaperSettings';
 import Releases from '@/components/Settings/Releases';
 import SignOut from '@/components/Settings/SignOut';
 import About from '@/components/Settings/About';
@@ -40,7 +41,7 @@ export default {
   components: {
     TagsSettings,
     AccountSettings,
-    FileSettings,
+    WallpaperSettings,
     Releases,
     SignOut,
     About,

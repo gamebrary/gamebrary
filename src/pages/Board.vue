@@ -94,14 +94,14 @@ export default {
 
     async loadBoardWallpaper() {
       this.wallpaperUrl = this.board.wallpaper
-        ? await this.$store.dispatch('LOAD_FIRESTORE_FILE', this.board.wallpaper)
+        ? await this.$store.dispatch('LOAD_WALLPAPER', this.board.wallpaper)
         : null;
     },
 
     loadBoardGames() {
       const { lists } = this.board;
 
-      if (lists.length === 0) {
+      if (lists && lists.length === 0) {
         this.$bvModal.show('add-list');
       }
 

@@ -95,17 +95,18 @@ export default {
   },
 
 
-  DELETE_FIRESTORE_FILE(context, path) {
+  DELETE_WALLPAPER({ commit }, { fullPath }) {
     return new Promise((resolve, reject) => {
-      firebase.storage().ref(path).delete()
+      firebase.storage().ref(fullPath).delete()
         .then(() => {
+          commit('REMOVE_WALLPAPER', fullPath);
           resolve();
         })
         .catch(reject);
     });
   },
 
-  LOAD_FIRESTORE_FILE(context, path) {
+  LOAD_WALLPAPER(context, path) {
     const storage = firebase.storage().ref();
 
     return new Promise((resolve, reject) => {
@@ -117,13 +118,72 @@ export default {
     });
   },
 
-  async LOAD_WALLPAPERS({ state }) {
+  // TODO: commit wallpapers to store
+  LOAD_WALLPAPERS({ state, commit }) {
     const storage = firebase.storage().ref(`${state.user.uid}/wallpapers`);
 
     return new Promise((resolve, reject) => {
       storage
         .listAll()
-        .then(({ items }) => resolve(items.map(({ fullPath }) => fullPath)))
+        .then(({ items }) => {
+          const wallpapers = items.map(({ fullPath, name }) => {
+            const wallpaper = {
+              fullPath,
+              name,
+            };
+
+            return wallpaper;
+          });
+
+          // TODO: refactor? there's gotta be a better way to do this
+          const fetchedUrls = [];
+
+          wallpapers.forEach(({ fullPath }, index) => {
+            firebase.storage()
+              .ref()
+              .child(fullPath).getDownloadURL()
+              .then((url) => {
+                fetchedUrls.push(url);
+
+                wallpapers[index].url = url;
+
+                if (fetchedUrls.length === wallpapers.length) {
+                  commit('SET_WALLPAPERS', wallpapers);
+                  resolve();
+                }
+              })
+              .catch(reject);
+          });
+        })
+        .catch(reject);
+    });
+  },
+
+  UPLOAD_WALLPAPER({ state, commit }, file) {
+    return new Promise((resolve, reject) => {
+      firebase.storage()
+        .ref(`${state.user.uid}/wallpapers/${file.name}`)
+        .put(file)
+        .then((response) => {
+          if (response.state === 'success') {
+            const { metadata: { fullPath, name } } = response;
+
+            firebase.storage()
+              .ref()
+              .child(fullPath).getDownloadURL()
+              .then((url) => {
+                const wallpaper = {
+                  fullPath,
+                  name,
+                  url,
+                };
+
+                commit('ADD_WALLPAPER', wallpaper);
+                resolve();
+              })
+              .catch(reject);
+          }
+        })
         .catch(reject);
     });
   },

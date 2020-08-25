@@ -19,4 +19,5 @@ export default {
   publicGameData: {},
   game: null,
   wallpaperUrl: null,
+  wallpapers: [],
 };

@@ -11,6 +11,7 @@
       title="Board settings"
       scrollable
       @show="init"
+      @hide="hide"
     >
       <form ref="boardSettingsForm" @submit.stop.prevent="submit">
         <b-form-group
@@ -25,7 +26,7 @@
         </b-form-group>
 
         <b-form-group
-          label="Board descriptiopn"
+          label="Board description"
           label-for="description"
         >
           <b-form-textarea
@@ -152,6 +153,10 @@ export default {
   },
 
   methods: {
+    hide() {
+      this.$bus.$off('WALLPAPER_UPLOADED', this.loadWallpapers);
+    },
+
     async loadWallpapers() {
       this.wallpapers = [];
 
@@ -159,7 +164,7 @@ export default {
 
       // TODO: use promise all instead
       files.forEach(async (path) => {
-        const url = await this.$store.dispatch('LOAD_FIRESTORE_FILE', path);
+        const url = await this.$store.dispatch('LOAD_WALLPAPER', path);
 
         const name = path.split(`${this.user.uid}/wallpapers/`)[1];
 
@@ -175,7 +180,7 @@ export default {
     async setWallpaper(file) {
       this.wallpaper = file.path;
 
-      this.wallpaperUrl = await this.$store.dispatch('LOAD_FIRESTORE_FILE', file.path);
+      this.wallpaperUrl = await this.$store.dispatch('LOAD_WALLPAPER', file.path);
     },
 
     submit(e) {
@@ -187,6 +192,8 @@ export default {
     },
 
     async init() {
+      this.$bus.$on('WALLPAPER_UPLOADED', this.loadWallpapers);
+
       const { board } = this;
 
       this.description = board.description;
@@ -195,7 +202,7 @@ export default {
       this.theme = board.theme || 'default';
       this.wallpaper = board.wallpaper;
       this.wallpaperUrl = board.wallpaper
-        ? await this.$store.dispatch('LOAD_FIRESTORE_FILE', board.wallpaper)
+        ? await this.$store.dispatch('LOAD_WALLPAPER', board.wallpaper)
         : null;
 
       this.loadWallpapers();

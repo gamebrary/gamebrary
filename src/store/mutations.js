@@ -42,6 +42,20 @@ export default {
     state.boardGames = boardGames;
   },
 
+  SET_WALLPAPERS(state, wallpapers) {
+    state.wallpapers = wallpapers;
+  },
+
+  REMOVE_WALLPAPER(state, fullPath) {
+    const wallpaperIndex = state.wallpapers.findIndex(wallpaper => wallpaper.fullPath === fullPath);
+
+    state.wallpapers.splice(wallpaperIndex, 1);
+  },
+
+  ADD_WALLPAPER(state, wallpaper) {
+    state.wallpapers.push(wallpaper);
+  },
+
   ADD_BOARD(state, board) {
     state.boards.push(board);
   },
