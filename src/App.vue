@@ -1,7 +1,7 @@
 <template>
   <div
     id="app"
-    :class="['vh-100', theme]"
+    :class="['mvh-100', theme]"
     :style="style"
     :dir="dir"
   >
@@ -299,11 +299,8 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
   #app {
-    // display: flex;
-    // flex-direction: column;
+    display: flex;
+    flex-direction: column;
     background-color: #ccc;
-    // background-size: cover;
-    // overflow-x: hidden;
-    // min-height: 100vh;
   }
 </style>
