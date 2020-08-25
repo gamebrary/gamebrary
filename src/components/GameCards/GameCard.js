@@ -1,3 +1,4 @@
+// TODO: dissolve
 // import moment from 'moment';
 import { mapState, mapGetters } from 'vuex';
 
@@ -48,18 +49,13 @@ export default {
       return this.games[this.gameId];
     },
 
+    // TODO: move to utils file
     coverUrl() {
       const game = this.games[this.gameId];
 
       return game && game.cover && game.cover.image_id
         ? `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${game.cover.image_id}.jpg`
         : '/static/no-image.jpg';
-    },
-
-    addToLabel() {
-      return this.list.name.length >= 25
-        ? 'list'
-        : this.list.name;
     },
   },
 
