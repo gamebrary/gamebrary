@@ -33,8 +33,20 @@ export default {
     Placeholder,
   },
 
+  data() {
+    return {
+      board: {},
+    };
+  },
+
   computed: {
-    ...mapState(['board']),
+    ...mapState(['boards']),
+  },
+
+  mounted() {
+    const boardId = this.$route.params.id;
+
+    this.board = this.boards.find(({ id }) => id === boardId);
   },
 };
 </script>
