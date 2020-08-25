@@ -1,0 +1,17 @@
+.modal-header .close {
+  background-color: $gray-100;
+  padding: 0;
+  margin: 0;
+  height: 30px;
+  width: 30px;
+  border-radius: $border-radius;
+  transition: $btn-transition;
+
+  &:hover {
+    background-color: $gray-200;
+  }
+
+  &:active {
+    background-color: $gray-300;
+  }
+}

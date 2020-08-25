@@ -1,5 +1,4 @@
 import Vue from 'vue';
-// TODO: Cherry pick components and icon to reduce bundle size
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue';
 import VueAxios from 'vue-axios';
 import VueFire from 'vuefire';
@@ -8,14 +7,11 @@ import axios from 'axios';
 import VueAnalytics from 'vue-analytics';
 import Raven from 'raven-js';
 import RavenVue from 'raven-js/plugins/vue';
-// is this needed?
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-vue/dist/bootstrap-vue.css';
-import 'bootstrap-vue/dist/bootstrap-vue-icons.min.css';
 import App from '@/App';
 import messages from '@/i18n/';
 import store from '@/store/';
 import router from '@/router';
+import bootstrapSettings from '@/bootstrapSettings';
 
 const EventBus = new Vue();
 
@@ -27,13 +23,7 @@ Object.defineProperties(Vue.prototype, {
   },
 });
 
-Vue.use(BootstrapVue, {
-  BToast: {
-    toaster: 'b-toaster-bottom-right',
-    autoHideDelay: 500,
-  },
-},
-);
+Vue.use(BootstrapVue, bootstrapSettings);
 
 Vue.use(BootstrapVueIcons);
 Vue.use(VueAnalytics, { id: 'UA-120053966-1', router });
