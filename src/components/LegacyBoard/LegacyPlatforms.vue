@@ -9,7 +9,8 @@
           A migration tool will be provided shortly.</p>
         <p>More information will be provided soon.</p>
 
-        <small>If you can't wait and want all your platform-based lists migrated to the new boards you can send me an email at contact@gamebrary.com</small>
+        <small>If you can't wait and want all your platform-based lists migrated
+          to the new boards you can send me an email at contact@gamebrary.com</small>
       </b-alert>
     </div>
   </div>
