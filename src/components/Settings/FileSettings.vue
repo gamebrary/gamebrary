@@ -10,49 +10,59 @@
       size="xl"
       @show="loadWallpapers"
     >
-      <h5>Wallpapers</h5>
+      <b-row>
+        <b-col cols="12" lg="6">
+          <h5>Wallpapers</h5>
 
-      <b-form-file
-        v-model="file"
-        accept="image/*"
-        class="mb-3"
-        placeholder="Choose a file or drop it here..."
-        drop-placeholder="Drop file here..."
-      />
+          <b-form-file
+            v-model="file"
+            accept="image/*"
+            class="mb-3"
+            placeholder="Choose a file or drop it here..."
+            drop-placeholder="Drop file here..."
+          />
 
-      <b-button @click="uploadFile" :disabled="!Boolean(file)">
-        Upload
-      </b-button>
+          <b-button @click="uploadFile" :disabled="!Boolean(file)">
+            Upload
+          </b-button>
+        </b-col>
+      </b-row>
 
       <hr>
 
-
       Files
-      <div class="wallpapers">
-        <b-card
+      <b-form-row>
+        <b-col
           v-for="(file, index) in wallpapers"
           :key="file.name"
-          :header="file.name"
-          header-class="py-0 px-2"
-          body-class="d-flex p-0 text-center justify-content-center align-items-center"
-          header-tag="small"
+          cols="6"
+          sm="4"
+          lg="3"
         >
-          <b-img
-            :src="file.url"
-            :alt="file.name"
-            fluid
-          />
-
-          <b-button
-            class="delete-file"
-            variant="danger"
-            size="sm"
-            @click="confirmDeleteFile({ file, index })"
+          <b-card
+            :header="file.name"
+            class="mb-2"
+            header-class="py-0 px-2"
+            body-class="d-flex p-0 text-center justify-content-center align-items-center"
+            header-tag="small"
           >
-            <b-icon-trash />
-          </b-button>
-        </b-card>
-      </div>
+            <b-img
+              :src="file.url"
+              :alt="file.name"
+              fluid
+            />
+
+            <b-button
+              class="position-absolute delete-file"
+              variant="danger"
+              size="sm"
+              @click="confirmDeleteFile({ file, index })"
+            >
+              <b-icon-trash />
+            </b-button>
+          </b-card>
+        </b-col>
+      </b-form-row>
     </b-modal>
   </b-dropdown-item>
 </template>
@@ -135,19 +145,12 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-.wallpapers {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-gap: 1rem;
+img {
+  max-height: 140px;
+}
 
-  img {
-    max-height: 140px;
-  }
-
-  .delete-file {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-  }
+.delete-file {
+  bottom: .5rem;
+  right: .5rem;
 }
 </style>

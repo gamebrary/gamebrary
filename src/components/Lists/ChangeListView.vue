@@ -26,11 +26,21 @@
             :list="list"
           />
 
-          <game-card-grid
-            v-if="view === 'grid'"
-            :game-id="randomGameId"
-            :list="list"
-          />
+          <b-form-row v-if="view === 'grid'">
+            <b-col cols="12" lg="6">
+              <game-card-grid
+                :game-id="randomGameId"
+                :list="list"
+              />
+            </b-col>
+
+            <b-col cols="12" lg="6">
+              <game-card-grid
+                :game-id="randomGameId"
+                :list="list"
+              />
+            </b-col>
+          </b-form-row>
 
           <game-card-compact
             v-if="view === 'compact'"
