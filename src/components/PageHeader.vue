@@ -3,7 +3,7 @@
     <b-navbar-brand :to="{ name: 'home' }">
       <img src="/static/gamebrary-logo.png" height="30" />
 
-      <small v-if="showBoardTitle" class="board-name">{{ board.name }}</small>
+      <small v-if="showBoardTitle">{{ board.name }}</small>
     </b-navbar-brand>
 
     <legacy-settings v-if="isLegacyBoard" />
@@ -41,9 +41,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-.board-name {
-  text-shadow: 2px 2px #ff0000;
-}
-</style>
