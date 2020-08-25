@@ -1,7 +1,7 @@
 <template>
   <div
     id="app"
-    :class="['mvh-100', theme]"
+    :class="['mvh-100 d-flex flex-column', theme]"
     :style="style"
     :dir="dir"
   >
@@ -293,15 +293,13 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
-  @import url(https://fonts.googleapis.com/css?family=Fira+Sans:700|Roboto:400,400italic,700);
-  // @import "~styles/styles";
+  @import "~styles/styles";
 </style>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
   #app {
-    display: flex;
-    flex-direction: column;
-    background-color: #ccc;
-    min-height: 100vh;
+    // display: flex;
+    // flex-direction: column;
+    // min-height: 100vh;
   }
 </style>
