@@ -1,5 +1,6 @@
 .game-card {
   cursor: pointer;
+  overflow: hidden;
   transition: box-shadow 200ms ease-in-out;
 
   &:hover {

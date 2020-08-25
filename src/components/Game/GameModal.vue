@@ -10,12 +10,13 @@
     @show="load"
     @hidden="reset"
   >
-    <b-container v-if="game.name">
+    <b-container v-if="game.name" class="m-0 p-0">
       <b-row>
-        <b-col lg="4">
+        <b-col cols="12" md="4" class="text-center">
           <b-img
             :src="coverUrl"
             :alt="game.name"
+            class="game-cover"
             rounded
             fluid
           />
@@ -29,7 +30,7 @@
           />
         </b-col>
 
-        <b-col lg="8" md="auto">
+        <b-col cols="12" md="8" class="mt-md-0 mt-3 text-md-left text-center">
           <h3 class="mb-0">{{ game.name }}</h3>
 
           <!-- <h6>
@@ -245,9 +246,14 @@ export default {
 </script>
 
 
-<style lang="scss" rel="stylesheet/scss">
+<style lang="scss" rel="stylesheet/scss" scoped>
   .b-rating {
     line-height: normal !important;
     height: auto !important;
+  }
+
+  .game-cover {
+    max-height: 50vh;
+    margin: 0 auto;
   }
 </style>

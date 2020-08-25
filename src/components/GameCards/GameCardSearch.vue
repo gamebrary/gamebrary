@@ -1,14 +1,14 @@
 <template lang="html">
   <b-card no-body class="game-card mb-1">
     <b-row no-gutters v-if="game && game.name">
-      <b-col md="3">
+      <b-col cols="3">
         <b-card-img
           :src="coverUrl"
           :alt="game.name"
         />
       </b-col>
 
-      <b-col md="9">
+      <b-col cols="9">
         <b-card-body body-class="p-2">
           <b-card-title class="mb-2" title-tag="h6">
             {{ game.name }}
