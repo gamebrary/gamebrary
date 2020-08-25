@@ -6,9 +6,13 @@
       <create-board />
     </div>
 
+    <div class="text-right" v-if="!loading && !boards.length">
+      <b-img src="/static/img/empty-state.png" fluid class="mr-5" />
+    </div>
+
     <b-overlay :show="loading && !platforms.length" rounded="sm" variant="transparent">
-      <b-row cols="3" no-gutters>
-        <b-col v-for="board in boards" :key="board.id">
+      <b-row no-gutters>
+        <b-col cols="12" sm="6" md="4" lg="3" v-for="board in boards" :key="board.id">
           <b-card
             :title="board.name"
             tag="article"
@@ -31,10 +35,6 @@
             >
               Open board
             </b-button>
-
-            <!-- <b-button v-b-modal:board-settings>
-              <b-icon-gear-fill />
-            </b-button> -->
           </b-card>
         </b-col>
       </b-row>
