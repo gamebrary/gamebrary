@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="gameboard-placeholder">
     <div
-      v-for="list in board.lists"
+      v-for="list in placeholderBoard.lists"
       :class="`list ${list.settings.view || 'single'}`"
       :key="list.name"
     >
@@ -35,18 +35,20 @@ export default {
 
   data() {
     return {
-      board: {},
+      placeholderBoard: {},
     };
   },
 
   computed: {
-    ...mapState(['boards']),
+    ...mapState(['boards', 'board']),
   },
 
   mounted() {
     const boardId = this.$route.params.id;
 
-    this.board = this.boards.find(({ id }) => id === boardId);
+    this.placeholderBoard = Object.keys(this.board).length > 0
+      ? this.board
+      : this.boards.find(({ id }) => id === boardId);
   },
 };
 </script>
