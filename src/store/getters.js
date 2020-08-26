@@ -12,7 +12,7 @@ export default {
   },
 
   filteredPlatforms: (state) => {
-    const filterField = state.settings.platformsFilterField || null;
+    const filterField = state.settings.platformsFilterField || 'popular';
     const sortField = state.settings.platformsSortField || 'generation';
 
     let filteredPlatforms = [];
