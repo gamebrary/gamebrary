@@ -1,8 +1,7 @@
 <template>
   <div
     id="app"
-    :class="['mvh-100 d-flex flex-column', theme]"
-    :style="style"
+    class="mvh-100 d-flex flex-column"
     :dir="dir"
   >
     <page-header />
@@ -58,39 +57,6 @@ export default {
       return this.settings && this.settings.language === 'ar'
         ? 'rtl'
         : 'ltr';
-    },
-
-    style() {
-      return {
-        'background-image':
-          this.$route.name === 'board' &&
-          this.wallpaperUrl
-            ? `url('${this.wallpaperUrl}')`
-            : null,
-      };
-    },
-
-    customWallpaper() {
-      // eslint-disable-next-line
-      return this.settings && this.settings.wallpapers && this.platform && this.settings.wallpapers[this.platform.code]
-        ? this.settings.wallpapers[this.platform.code].url
-        : '';
-    },
-
-    theme() {
-      const hasPlatform = this.platform && this.platform.code;
-      const hasTheme = hasPlatform
-      && this.settings
-      && this.settings[this.platform.code]
-      && this.settings[this.platform.code].theme;
-
-      const isBoard = this.$route.name === 'board';
-
-      const hasPlatformTheme = hasPlatform && hasTheme;
-
-      return isBoard && hasPlatformTheme
-        ? `theme-${this.settings[this.platform.code].theme}`
-        : 'theme-default';
     },
   },
 
