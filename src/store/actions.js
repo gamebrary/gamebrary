@@ -20,6 +20,16 @@ export default {
     });
   },
 
+  LOAD_THEMES({ commit }) {
+    return new Promise((resolve, reject) => {
+      axios.get('https://bootswatch.com/api/4.json')
+        .then(({ data }) => {
+          commit('SET_THEMES', data.themes);
+          resolve();
+        }).catch(reject);
+    });
+  },
+
   LOAD_BOARDS({ state, commit }) {
     return new Promise((resolve, reject) => {
       const db = firebase.firestore();

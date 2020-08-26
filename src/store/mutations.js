@@ -10,6 +10,10 @@ export default {
     state.board = {};
   },
 
+  SET_THEMES(state, themes) {
+    state.themes = themes;
+  },
+
   SET_BOARD(state, board) {
     state.board = board;
   },

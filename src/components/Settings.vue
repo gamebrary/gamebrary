@@ -18,6 +18,7 @@
       <wallpaper-settings />
       <b-dropdown-divider />
       <releases />
+      <themes />
       <about />
       <b-dropdown-divider />
       <!-- language -->
@@ -33,6 +34,7 @@ import TagsSettings from '@/components/Settings/TagsSettings';
 import AccountSettings from '@/components/Settings/AccountSettings';
 import WallpaperSettings from '@/components/Settings/WallpaperSettings';
 import Releases from '@/components/Settings/Releases';
+import Themes from '@/components/Settings/Themes';
 import SignOut from '@/components/Settings/SignOut';
 import About from '@/components/Settings/About';
 import { mapState } from 'vuex';
@@ -43,6 +45,7 @@ export default {
     AccountSettings,
     WallpaperSettings,
     Releases,
+    Themes,
     SignOut,
     About,
   },

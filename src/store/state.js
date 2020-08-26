@@ -2,6 +2,7 @@ export default {
   user: null,
   tags: {},
   notes: {},
+  themes: [],
   progresses: {},
   dragging: false,
   activeListIndex: null,

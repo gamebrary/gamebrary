@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
 import VueAxios from 'vue-axios';
 import VueFire from 'vuefire';
 import VueI18n from 'vue-i18n';
@@ -54,7 +55,11 @@ router.beforeEach((to, from, next) => {
 
 const vuexStorage = localStorage && localStorage.vuex
   ? JSON.parse(localStorage.vuex)
-  : null;
+  : {};
+
+if (vuexStorage.settings && vuexStorage.settings.theme && vuexStorage.settings.theme.cssCdn) {
+  document.querySelector('link[rel="stylesheet"').href = vuexStorage.settings.theme.cssCdn;
+}
 
 if (vuexStorage && vuexStorage.user && window.FS && window.location.origin.indexOf('localhost') === -1) {
   const { displayName, email, dateJoined } = vuexStorage.user;
