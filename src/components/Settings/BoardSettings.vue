@@ -72,7 +72,7 @@
             <b-dropdown-item
               v-for="file in wallpapers"
               :key="file.name"
-              @click="setWallpaper(file.url)"
+              @click="setWallpaper(file.fullPath)"
             >
               <b-img
                 thumbnail
@@ -166,8 +166,8 @@ export default {
       this.wallpaper = null;
     },
 
-    async setWallpaper(url) {
-      this.wallpaper = url;
+    async setWallpaper(wallpaper) {
+      this.wallpaper = await this.$store.dispatch('LOAD_WALLPAPER', wallpaper);
     },
 
     submit(e) {
