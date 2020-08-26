@@ -16,7 +16,7 @@
           <b-card
             :title="board.name"
             tag="article"
-            class="m-2"
+            class="m-2 clickable"
             @click="viewBoard(board.id)"
           >
             <b-card-text>
