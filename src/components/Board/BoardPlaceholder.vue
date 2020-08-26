@@ -7,10 +7,10 @@
     >
     <b-card no-body>
       <b-card-header class="py-1 px-2">
-        <div class="list-header" />
+        <placeholder class="header" />
       </b-card-header>
 
-      <div :class="['games', list.settings.view]">
+      <div :class="['games', list.settings.view]" v-if="list.games.length">
         <placeholder
           class="game"
           v-for="n in list.games.length"
@@ -19,6 +19,16 @@
           :image="list.settings.view !== 'text'"
         />
       </div>
+
+      <b-button
+        v-else
+        variant="light"
+        block
+        class="mb-2"
+        disabled
+      >
+        Click here or drag games here
+      </b-button>
     </b-card>
     </div>
   </div>
@@ -74,10 +84,8 @@ export default {
     max-height: calc(100vh - 81px);
   }
 
-  .list-header {
-    background: var(--list-header-background);
-    height: 32px;
-    width: 100%;
+  .header {
+    margin: 6px 0;
   }
 
   .games {
