@@ -10,7 +10,6 @@
       id="create-board"
       title="Create board"
       size="lg"
-      scrollable
       @show="resetBoard"
       @hidden="resetBoard"
     >
