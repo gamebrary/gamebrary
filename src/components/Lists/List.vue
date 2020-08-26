@@ -87,7 +87,7 @@ export default {
   data() {
     return {
       gameDraggableOptions: {
-        handle: '.game-card',
+        handle: '.card',
         ghostClass: 'card-placeholder',
         filter: '.drag-filter',
         delay: 100,
