@@ -14,26 +14,32 @@
       <b-row no-gutters>
         <b-col cols="12" sm="6" md="4" lg="3" v-for="board in boards" :key="board.id">
           <b-card
-            :title="board.name"
-            tag="article"
+            :header="board.name"
+            header-tag="h6"
+            header-class="p-2"
+            body-class="p-2"
             class="m-2 clickable"
+            footer-class="p-2"
             @click="viewBoard(board.id)"
           >
-            <!-- <b-card-text>
-              {{ board.description }}
-            </b-card-text> -->
+            <b-card-text>
+              <p v-if="board.description">
+                {{ board.description }}
+              </p>
+
+              {{ board.lists.length }} Lists
+            </b-card-text>
 
             <template v-slot:footer>
-              <b-row>
-                <b-col cols="3" sm="4" md="6" lg="6" v-for="id in board.platforms" :key="id.slug">
-                  <!-- eslint-disable-next-line -->
-                  <b-img :src="`/static/platform-logos/${platformNames[id].slug}.${platformNames[id].logoFormat}`"
-                    :alt="platformNames[id].name"
-                    fluid
-                    class="platform-logo py-2"
-                  />
-                </b-col>
-              </b-row>
+              <b-avatar-group>
+                <!-- eslint-disable-next-line -->
+                <b-avatar :src="`/static/platform-logos/${platformNames[id].slug}.${platformNames[id].logoFormat}`"
+                  v-for="id in board.platforms"
+                  :key="id.slug"
+                  variant="light"
+                  size="sm"
+                />
+              </b-avatar-group>
             </template>
 
             <!-- <b-button
@@ -139,3 +145,12 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss">
+.b-avatar .b-avatar-img img {
+  width: 40px !important;
+  height: auto !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+}
+</style>
