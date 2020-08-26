@@ -5,7 +5,14 @@
     <platform-picker-sort-filter />
 
     <b-row>
-      <b-col cols="6" md="4" lg="3" v-for="platform in filteredPlatforms" :key="platform.id" class="mb-3">
+      <b-col
+        cols="6"
+        md="4"
+        lg="3"
+        v-for="platform in filteredPlatforms"
+        :key="platform.id"
+        class="mb-3"
+      >
         <b-card
           :header="platform.name"
           :header-class="['py-0 px-2', value.includes(platform.id) ? 'text-white' : '']"
@@ -21,7 +28,6 @@
             :alt="platform.name"
             class="platform-logo py-2"
           />
-          <!-- {{ platform.id }} -->
         </b-card>
       </b-col>
     </b-row>
