@@ -5,12 +5,11 @@
     <div class="row">
       <b-alert show variant="warning" class="col-xs-6">
         <strong>Deprecation warning!</strong>
-        <p>Platform-based boards will be phased out soon.
-          A migration tool will be provided shortly.</p>
-        <p>More information will be provided soon.</p>
-
-        <small>If you can't wait and want all your platform-based lists migrated
-          to the new boards you can send me an email at contact@gamebrary.com</small>
+        <p>Platform-based boards will be phased out soon</p>
+        <p>If you have any questions or need help feel free to email
+          <strong>contact@gamebrary.com</strong> and/or open defects in
+          <a href="https://github.com/romancm/gamebrary/issues" target="_blank">GitHub</a></p>
+        <p>You can convert your platforms to boards by clicking on a platform</p>
       </b-alert>
     </div>
   </div>
