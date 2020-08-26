@@ -106,6 +106,7 @@ export default {
   methods: {
     reset() {
       this.listName = '';
+      this.saving = false;
     },
 
     submit(e) {
