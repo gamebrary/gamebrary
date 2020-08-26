@@ -228,12 +228,12 @@ export default {
 
       this.loading = false;
 
-      this.$ga.event({
-        eventCategory: 'game',
-        eventAction: 'view',
-        eventLabel: 'gameViewed',
-        eventValue: `${this.platform.name} - ${this.game.name}`,
-      });
+      // this.$ga.event({
+      //   eventCategory: 'game',
+      //   eventAction: 'view',
+      //   eventLabel: 'gameViewed',
+      //   eventValue: `${this.platform.name} - ${this.game.name}`,
+      // });
     },
 
     reset() {

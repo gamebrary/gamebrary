@@ -44,7 +44,6 @@ export default {
     return {
       loading: true,
       queryLimit: 500,
-      wallpaperUrl: null,
     };
   },
 
@@ -52,22 +51,20 @@ export default {
     ...mapState(['user', 'dragging', 'board']),
 
     wallpaper() {
-      const { wallpaperUrl } = this;
+      const { board } = this;
 
-      return wallpaperUrl
-        ? `background-image: url('${wallpaperUrl}');`
+      return board.wallpaper
+        ? `background-image: url('${board.wallpaper}');`
         : '';
     },
   },
 
   mounted() {
     this.load();
-    this.$bus.$on('RELOAD_WALLPAPER', this.loadBoardWallpaper);
   },
 
   destroyed() {
     this.$store.commit('CLEAR_BOARD');
-    this.$bus.$off('RELOAD_WALLPAPER', this.loadBoardWallpaper);
   },
 
   methods: {
@@ -89,13 +86,7 @@ export default {
         });
 
       this.loadBoardGames();
-      this.loadBoardWallpaper();
-    },
-
-    async loadBoardWallpaper() {
-      this.wallpaperUrl = this.board.wallpaper
-        ? await this.$store.dispatch('LOAD_WALLPAPER', this.board.wallpaper)
-        : null;
+      this.$store.dispatch('LOAD_WALLPAPERS');
     },
 
     loadBoardGames() {

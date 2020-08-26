@@ -72,7 +72,7 @@
             <b-dropdown-item
               v-for="file in wallpapers"
               :key="file.name"
-              @click="setWallpaper(file)"
+              @click="setWallpaper(file.url)"
             >
               <b-img
                 thumbnail
@@ -94,7 +94,7 @@
           v-if="wallpaper"
           thumbnail
           class="mb-3"
-          :src="wallpaperUrl"
+          :src="wallpaper"
           fluid
         />
 
@@ -143,13 +143,11 @@ export default {
       platforms: null,
       theme: null,
       wallpaper: null,
-      wallpaperUrl: null,
-      wallpapers: [],
     };
   },
 
   computed: {
-    ...mapState(['board', 'user']),
+    ...mapState(['board', 'user', 'wallpapers']),
   },
 
   methods: {
@@ -158,36 +156,25 @@ export default {
     },
 
     async loadWallpapers() {
-      this.wallpapers = [];
-
-      const files = await this.$store.dispatch('LOAD_WALLPAPERS');
-
-      // TODO: use promise all instead
-      files.forEach(async (path) => {
-        const url = await this.$store.dispatch('LOAD_WALLPAPER', path);
-
-        const name = path.split(`${this.user.uid}/wallpapers/`)[1];
-
-        this.wallpapers.push({ name, url, path });
-      });
+      await this.$store.dispatch('LOAD_WALLPAPERS')
+        .catch(() => {
+          this.$bvToast.toast('There was an error loading wallpapers', { title: 'Error', variant: 'danger' });
+        });
     },
 
     removeWallpaper() {
       this.wallpaper = null;
-      this.wallpaperUrl = null;
     },
 
-    async setWallpaper(file) {
-      this.wallpaper = file.path;
-
-      this.wallpaperUrl = await this.$store.dispatch('LOAD_WALLPAPER', file.path);
+    async setWallpaper(url) {
+      this.wallpaper = url;
     },
 
     submit(e) {
       e.preventDefault();
 
-      if (this.$refs.createBoardForm.checkValidity()) {
-        this.createBoard();
+      if (this.$refs.boardSettingsForm.checkValidity()) {
+        this.saveSettings();
       }
     },
 
@@ -201,9 +188,6 @@ export default {
       this.platforms = board.platforms;
       this.theme = board.theme || 'default';
       this.wallpaper = board.wallpaper;
-      this.wallpaperUrl = board.wallpaper
-        ? await this.$store.dispatch('LOAD_WALLPAPER', board.wallpaper)
-        : null;
 
       this.loadWallpapers();
     },
