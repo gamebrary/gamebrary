@@ -5,11 +5,10 @@
     >
     <b-card
       class="sw-100 w-30"
-      body-class="pb-0 text-center"
+      body-class="text-center"
       sub-title="404"
       :title="$t('global.pageNotFound')"
     >
-      <img src="/static/img/travolta-lost.gif" class="pt-4" />
     </b-card>
   </div>
 </template>
