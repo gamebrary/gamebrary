@@ -31,7 +31,7 @@ export default {
           // categoryId: platform.category,
           generation: platform.generation || 0,
           bgHex: PLATFORM_BG_HEX[platform.id] || null,
-          logoFormat: PLATFORM_LOGO_FORMAT[platform.id] || null,
+          logoFormat: PLATFORM_LOGO_FORMAT[platform.id] || 'svg',
         };
 
         return formattedPlatform;

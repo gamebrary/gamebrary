@@ -23,8 +23,7 @@
           @click="handleClick(platform.id)"
         >
           <b-img
-            :src="`/static/platform-logos/${platform.slug}.${platform.logoFormat
-              ? platform.logoFormat : 'svg'}`"
+            :src="`/static/platform-logos/${platform.slug}.${platform.logoFormat}`"
             :alt="platform.name"
             class="platform-logo py-2"
           />
