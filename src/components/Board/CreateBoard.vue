@@ -34,9 +34,15 @@
           <b-form-textarea
             v-model="board.description"
             maxlength="280"
-            rows="3"
+            rows="2"
           />
         </b-form-group>
+
+        <platform-picker
+          v-model="board.platforms"
+        />
+
+        <hr />
 
         <b-form-group label="Board template">
           <b-form-radio-group
@@ -59,12 +65,6 @@
             </b-col>
           </b-row>
         </b-form-group>
-
-        <hr />
-
-        <platform-picker
-          v-model="board.platforms"
-        />
       </form>
 
       <template v-slot:modal-footer="{ cancel }">
