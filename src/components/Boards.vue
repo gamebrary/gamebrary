@@ -22,12 +22,12 @@
               {{ board.description }}
             </b-card-text>
 
-            <b-button
+            <!-- <b-button
               variant="danger"
               @click="confirmDelete(board.id)"
             >
               Delete board
-            </b-button>
+            </b-button> -->
 
             <b-button
               variant="primary"
