@@ -17,6 +17,7 @@
             :title="board.name"
             tag="article"
             class="m-2"
+            @click="viewBoard(board.id)"
           >
             <b-card-text>
               {{ board.description }}
@@ -29,12 +30,12 @@
               Delete board
             </b-button> -->
 
-            <b-button
+            <!-- <b-button
               variant="primary"
               @click="viewBoard(board.id)"
             >
               Open board
-            </b-button>
+            </b-button> -->
           </b-card>
         </b-col>
       </b-row>
