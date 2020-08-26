@@ -1,5 +1,5 @@
 <template lang="html">
-  <div :class="['board', { dragging }]" :style="wallpaper" >
+  <div :class="['board', { dragging }]" :style="wallpaper">
     <board-placeholder v-if="loading" />
 
     <template v-else>
@@ -44,6 +44,7 @@ export default {
     return {
       loading: true,
       queryLimit: 500,
+      wallpaperUrl: null,
     };
   },
 
@@ -51,20 +52,21 @@ export default {
     ...mapState(['user', 'dragging', 'board']),
 
     wallpaper() {
-      const { board } = this;
-
-      return board.wallpaper
-        ? `background-image: url('${board.wallpaper}');`
+      return this.wallpaperUrl
+        ? `background-image: url('${this.wallpaperUrl}');`
         : '';
     },
   },
 
   mounted() {
     this.load();
+
+    this.$bus.$on('RELOAD_WALLPAPER', this.loadWallpaper);
   },
 
   destroyed() {
     this.$store.commit('CLEAR_BOARD');
+    this.$bus.$off('RELOAD_WALLPAPER');
   },
 
   methods: {
@@ -86,7 +88,13 @@ export default {
         });
 
       this.loadBoardGames();
-      this.$store.dispatch('LOAD_WALLPAPERS');
+      this.loadWallpaper();
+    },
+
+    async loadWallpaper() {
+      if (this.board.wallpaper) {
+        this.wallpaperUrl = await this.$store.dispatch('LOAD_WALLPAPER', this.board.wallpaper);
+      }
     },
 
     loadBoardGames() {

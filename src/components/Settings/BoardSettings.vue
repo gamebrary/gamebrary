@@ -91,10 +91,10 @@
 
 
         <b-img
-          v-if="wallpaper"
+          v-if="wallpaper && wallpaperUrl"
           thumbnail
           class="mb-3"
-          :src="wallpaper"
+          :src="wallpaperUrl"
           fluid
         />
 
@@ -143,6 +143,7 @@ export default {
       platforms: null,
       theme: null,
       wallpaper: null,
+      wallpaperUrl: null,
     };
   },
 
@@ -167,7 +168,9 @@ export default {
     },
 
     async setWallpaper(wallpaper) {
-      this.wallpaper = await this.$store.dispatch('LOAD_WALLPAPER', wallpaper);
+      this.wallpaper = wallpaper;
+      this.wallpaperUrl = await this.$store.dispatch('LOAD_WALLPAPER', wallpaper);
+      this.$bus.$emit('RELOAD_WALLPAPER');
     },
 
     submit(e) {
@@ -190,6 +193,10 @@ export default {
       this.wallpaper = board.wallpaper;
 
       this.loadWallpapers();
+
+      if (this.wallpaper) {
+        this.wallpaperUrl = await this.$store.dispatch('LOAD_WALLPAPER', this.wallpaper);
+      }
     },
 
     confirmDelete() {
