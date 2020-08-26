@@ -10,7 +10,7 @@
         :variant="settings.platformsFilterField === filter ? 'primary' : null"
         @click="setFilter(filter)"
       >
-        {{ filter ? $t(`platforms.${filter}`) : $t('platforms.all') }}
+        {{ filter ? $t(`platforms.${filter}`) : $t('platforms.popular') }}
       </b-dropdown-item>
     </b-dropdown>
 

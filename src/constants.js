@@ -11,7 +11,7 @@ export const PLATFORM_CATEGORIES = {
 
 export const PLATFORM_FILTER_FIELDS = [
   null,
-  'popular',
+  'all',
   'console',
   // 'arcade',
   // 'platform',

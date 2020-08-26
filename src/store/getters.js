@@ -12,17 +12,17 @@ export default {
   },
 
   filteredPlatforms: (state) => {
-    const filterField = state.settings.platformsFilterField || 'popular';
+    const filterField = state.settings.platformsFilterField || null;
     const sortField = state.settings.platformsSortField || 'generation';
 
     let filteredPlatforms = [];
 
-    if (filterField === 'popular') {
-      filteredPlatforms = state.platforms.filter(({ popular }) => popular);
+    if (filterField === 'all') {
+      filteredPlatforms = state.platforms;
     } else {
       filteredPlatforms = filterField && PLATFORM_FILTER_FIELDS.includes(filterField)
         ? state.platforms.filter(({ category }) => category === filterField)
-        : state.platforms;
+        : filteredPlatforms = state.platforms.filter(({ popular }) => popular);;
     }
 
     const sortedPlatforms = orderby(filteredPlatforms, sortField);
