@@ -117,6 +117,8 @@ export default {
           .catch(() => {
             this.$bvToast.toast('Error loading games', { title: 'Error', variant: 'error' });
           });
+      } else {
+        this.loading = false;
       }
     },
 
