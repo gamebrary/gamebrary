@@ -215,14 +215,26 @@ export default {
 
   CLEAR_SESSION(state) {
     state.user = null;
+    state.tags = {};
+    state.notes = {};
+    state.progresses = {};
+    state.dragging = false;
     state.activeListIndex = null;
     state.gameLists = {};
     state.settings = null;
     state.platform = null;
-    state.results = null;
+    state.platforms = [];
+    state.results = [];
+    state.galleryOpen = false;
     state.games = {};
+    state.boards = [];
+    state.board = {};
+    state.boardGames = [];
+    state.gameModalData = null;
     state.publicGameData = {};
     state.game = null;
+    state.wallpaperUrl = null;
+    state.wallpapers = [];
   },
 
   SET_NOTES(state, notes) {
