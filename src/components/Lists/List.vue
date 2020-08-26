@@ -1,97 +1,91 @@
 <template lang="html">
-  <div :class="['list', viewClass, { unique: unique && view !== 'masonry', dragging }]">
-    <header>
-      <span class="list-name">
-        <sort-icon
-          v-if="autoSortEnabled"
-          :sort-order="list[listIndex].sortOrder"
-          title="List sorted automatically"
+  <div :class="['list mr-3', viewClass, { unique, dragging }]">
+    <b-card no-body>
+      <b-card-header
+        class="py-0 pr-0 pl-2 d-flex justify-content-between align-items-center"
+      >
+        <h6 class="m-0" v-b-modal="`rename-list-${listIndex}`">
+          <b-badge v-if="autoSortEnabled">
+            <b-icon-sort-up />
+          </b-badge>
+
+          <b-badge v-if="showGameCount">
+              {{ list.games.length }}
+          </b-badge>
+
+          {{ list.name }}
+        </h6>
+
+        <b-button-group>
+          <add-game-modal :list="list" />
+          <list-settings :list="list" :list-index="listIndex" />
+        </b-button-group>
+      </b-card-header>
+
+      <draggable
+        class="games"
+        :list="list.games"
+        :id="listIndex"
+        :move="validateMove"
+        v-bind="gameDraggableOptions"
+        @end="dragEnd"
+        @start="dragStart"
+      >
+        <component
+          v-for="game in list.games"
+          :is="gameCardComponent"
+          :key="game"
+          :list="list"
+          :game-id="game"
         />
 
-        {{ list[listIndex].name }}
-        <span
-          v-if="showGameCount"
+        <b-button
+          variant="light"
+          block
+          v-if="isEmpty"
+          class="mb-2"
+          v-b-modal="`game-modal-${list.name}`"
         >
-          ({{ gameList.length }})
-        </span>
-      </span>
-
-      <list-settings-modal :list-index="listIndex" />
-    </header>
-
-    <draggable
-      :class="gamesClass"
-      :list="gameList"
-      :id="listIndex"
-      :move="validateMove"
-      v-bind="gameDraggableOptions"
-      @end="dragEnd"
-      @start="dragStart"
-    >
-      <component
-        v-for="game in sortedGames"
-        :is="gameCardComponent"
-        :key="`masonry-${game}`"
-        :id="game"
-        :game-id="game"
-        :list-id="listIndex"
-      />
-    </draggable>
-
-    <div v-if="isEmpty" class="empty-list">
-      <i class="fas fa-hand-pointer fa-2x hand-drag" />
-      <p><i class="fas fa-grip-vertical" /> Drag games here</p>
-    </div>
-
-    <add-game-modal :list-id="listIndex" />
+          Click here or drag games here
+        </b-button>
+      </draggable>
+    </b-card>
   </div>
 </template>
 
 <script>
 import draggable from 'vuedraggable';
-import Masonry from 'masonry-layout';
-import ListSettingsModal from '@/components/Lists/ListSettingsModal';
+import ListSettings from '@/components/Lists/ListSettings';
 import GameCardDefault from '@/components/GameCards/GameCardDefault';
-import GameCardMasonry from '@/components/GameCards/GameCardMasonry';
 import GameCardGrid from '@/components/GameCards/GameCardGrid';
 import GameCardCompact from '@/components/GameCards/GameCardCompact';
 import GameCardText from '@/components/GameCards/GameCardText';
 import AddGameModal from '@/components/Lists/AddGameModal';
-import SortIcon from '@/components/SortIcon';
-import { orderBy } from 'lodash';
+// import orderby from 'lodash.orderby';
 import { mapState } from 'vuex';
 
 export default {
   components: {
     GameCardDefault,
-    GameCardMasonry,
     GameCardGrid,
     GameCardCompact,
     GameCardText,
     AddGameModal,
-    SortIcon,
-    ListSettingsModal,
+    ListSettings,
     draggable,
   },
 
   props: {
-    name: {
-      type: String,
-      default: '',
+    list: {
+      type: Object,
+      default: () => {},
     },
-    gameList: {
-      type: Array,
-      default: () => [],
-    },
-    listIndex: {
-      type: Number,
-      default: null,
-    },
+    listIndex: Number,
+    required: true,
   },
 
   data() {
     return {
-      masonry: null,
       gameDraggableOptions: {
         handle: '.game-card',
         ghostClass: 'card-placeholder',
@@ -105,7 +99,6 @@ export default {
       },
       gameCardComponents: {
         single: 'GameCardDefault',
-        masonry: 'GameCardMasonry',
         grid: 'GameCardGrid',
         compact: 'GameCardCompact',
         text: 'GameCardText',
@@ -114,72 +107,77 @@ export default {
   },
 
   computed: {
-    ...mapState(['user', 'gameLists', 'platform', 'settings', 'games', 'dragging', 'progresses']),
+    ...mapState(['games', 'dragging', 'progresses', 'board']),
 
     autoSortEnabled() {
-      const list = this.list[this.listIndex];
+      const { settings } = this.list;
 
-      return list && list.sortOrder && list.sortOrder !== 'sortByCustom';
-    },
-
-    sortedGames() {
-      const sortOrder = this.list[this.listIndex].sortOrder || 'sortByCustom';
-      const { gameList } = this;
-
-      // TODO: use lodash to clean things up a bit here
-
-      switch (sortOrder) {
-      case 'sortByCustom':
-        return gameList;
-      case 'sortByProgress':
-        return orderBy(gameList, [(game) => {
-          const progress = this.games[game]
-                        && this.progresses[this.platform.code][this.games[game].id]
-            ? Number(this.progresses[this.platform.code][this.games[game].id])
-            : 0;
-
-          return progress;
-        }], ['desc']);
-      case 'sortByRating':
-        return orderBy(gameList, [(game) => {
-          const rating = this.games[game] && this.games[game].rating
-            ? this.games[game].rating
-            : 0;
-
-          return rating;
-        }], ['desc']);
-      case 'sortByName':
-        return orderBy(gameList, [(game) => {
-          const name = this.games[game] && this.games[game].name
-            ? this.games[game].name.toUpperCase()
-            : '';
-
-          return name;
-        }]);
-      case 'sortByReleaseDate':
-        return orderBy(gameList, [(game) => {
-          const date = this.games[game] && this.games[game].release_dates
-            ? this.games[game].release_dates
-              .filter(({ platform }) => this.platform.id === platform)[0].date
-            : '';
-
-          return date;
-        }]);
-      default:
-        return gameList;
+      if (!settings) {
+        return false;
       }
+
+      return ['sortByName', 'sortByRating', 'sortByReleaseDate', 'sortByProgress'].includes(settings.sortOrder);
     },
 
-    list() {
-      return this.gameLists[this.platform.code];
-    },
+    // sortedGames() {
+    //   const { settings } = this.list;
+    //
+    //   const sortOrder = settings.sortOrder || 'sortByCustom';
+    //
+    //   return gameList;
+    //
+    //   // TODO: use lodash to clean things up a bit here
+    //
+    //   switch (sortOrder) {
+    //   case 'sortByCustom':
+    //     return gameList;
+    //   case 'sortByProgress':
+    //     return orderby(this.list, [(game) => {
+    //       const progress = this.games[game]
+    //                     && this.progresses[this.platform.code][this.games[game].id]
+    //         ? Number(this.progresses[this.platform.code][this.games[game].id])
+    //         : 0;
+    //
+    //       return progress;
+    //     }], ['desc']);
+    //   case 'sortByRating':
+    //     return orderby(this.list, [(game) => {
+    //       const rating = this.games[game] && this.games[game].rating
+    //         ? this.games[game].rating
+    //         : 0;
+    //
+    //       return rating;
+    //     }], ['desc']);
+    //   case 'sortByName':
+    //     return orderby(this.list, [(game) => {
+    //       const name = this.games[game] && this.games[game].name
+    //         ? this.games[game].name.toUpperCase()
+    //         : '';
+    //
+    //       return name;
+    //     }]);
+    //   case 'sortByReleaseDate':
+    //     return orderby(this.list, [(game) => {
+    //       const releaseDate = this.games[game] && this.games[game].release_dates
+    //         ? this.games[game].release_dates
+    //           .find(({ platform }) => this.platform.id === platform)
+    //         : '';
+    //
+    //       return releaseDate && releaseDate.date;
+    //     }]);
+    //   default:
+    //     return gameList;
+    //   }
+    // },
 
     isEmpty() {
-      return this.gameList.length === 0;
+      return this.list.games.length === 0;
     },
 
     view() {
-      return this.list[this.listIndex].view;
+      const { settings } = this.list;
+
+      return settings && settings.view;
     },
 
     unique() {
@@ -187,85 +185,31 @@ export default {
     },
 
     showGameCount() {
-      return this.settings[this.platform.code] && this.settings[this.platform.code].showGameCount;
+      const { settings } = this.list;
+
+      return settings && settings.showGameCount;
     },
 
     gameCardComponent() {
-      return this.view && Object.keys(this.gameCardComponents).includes(this.view)
+      const availableViews = Object.keys(this.gameCardComponents);
+
+      return this.view && availableViews.includes(this.view)
         ? this.gameCardComponents[this.view]
         : 'GameCardDefault';
     },
 
     viewClass() {
-      return this.list[this.listIndex].view || 'single';
+      const { settings } = this.list;
+
+      // TODO: put default view in constant
+      return settings.view || 'single';
     },
-
-    gamesClass() {
-      return this.list[this.listIndex].view === 'masonry'
-        ? `game-masonry game-masonry-${this.listIndex}`
-        : 'games';
-    },
-
-    hideGameRatings() {
-      return this.list[this.listIndex].hideGameRatings || false;
-    },
-
-    hideReleaseDates() {
-      return this.list[this.listIndex].hideReleaseDates || false;
-    },
-
-    hideGameInfo() {
-      return this.list[this.listIndex].hideGameInfo || false;
-    },
-
-    hideGameInfoOnCover() {
-      return this.list[this.listIndex].hideGameInfoOnCover || false;
-    },
-  },
-
-  watch: {
-    view() {
-      this.initMasonry();
-
-      setTimeout(() => {
-        this.initMasonry();
-      }, 500);
-    },
-
-    gameList() {
-      this.initMasonry();
-
-      setTimeout(() => {
-        this.initMasonry();
-      }, 500);
-    },
-  },
-
-  mounted() {
-    this.initMasonry();
-
-    setTimeout(() => {
-      this.initMasonry();
-    }, 500);
   },
 
   methods: {
-    initMasonry() {
-      if (this.view === 'masonry') {
-        this.$nextTick(() => {
-          // eslint-disable-next-line
-            this.masonry = new Masonry(`.game-masonry-${this.listIndex}`, {
-            itemSelector: '.game-card',
-            gutter: 4,
-            percentPosition: true,
-          });
-        });
-      }
-    },
-
     validateMove({ from, to }) {
       const isDifferentList = from.id !== to.id;
-      const isDuplicate = this.list[to.id].games.includes(Number(this.draggingId));
+      const isDuplicate = this.board.lists[to.id].games.includes(Number(this.draggingId));
       const validMove = isDifferentList && isDuplicate;
       return !validMove;
     },
@@ -283,40 +227,31 @@ export default {
 
     dragEnd() {
       this.$store.commit('SET_DRAGGING_STATUS', false);
-      this.$emit('dragEnd');
+      this.saveBoard();
+    },
+
+    async saveBoard() {
+      await this.$store.dispatch('SAVE_BOARD')
+        .catch(() => {
+          this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
+        });
+
+      this.$bvToast.toast('List saved', {
+        title: 'Success',
+        variant: 'success',
+      });
     },
   },
 };
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  // @import "~styles/styles";
-
   .list {
     flex-shrink: 0;
     cursor: default;
     position: relative;
     width: 300px;
-    background: var(--list-background);
-    border-radius: var(--border-radius);
-    margin-right: 1rem;
-    max-height: calc(100vh - 100px);
-
-    @media(max-width: 780px) {
-      max-height: calc(100vh - 80px);
-      min-height: calc(100vh - 80px);
-
-      &:not(.dragging) {
-        .games {
-          scroll-snap-type: x mandatory;
-          scroll-padding: .5rem;
-
-          .game-card {
-            scroll-snap-align: start;
-          }
-        }
-      }
-    }
+    border-radius: 3px;
 
     &.unique {
       @media(max-width: 780px) {
@@ -325,35 +260,12 @@ export default {
       }
     }
 
-    header {
-      align-items: center;
-      background: var(--list-header-background);
-      color: var(--list-header-text-color);
-      display: flex;
-      height: 32px;
-      justify-content: space-between;
-      padding-left: .5rem;
-      position: absolute;
-      border-radius: var(--border-radius);
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-      width: 100%;
-    }
-
-    .list-name {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
     .games {
       display: grid;
       height: 100%;
       overflow: hidden;
-      max-height: calc(100vh - 150px);
-      min-height: 120px;
+      max-height: calc(100vh - 144px);
       overflow-y: auto;
-      margin-top: 32px;
       padding: .5rem .5rem 0;
       width: 100%;
     }
@@ -393,43 +305,5 @@ export default {
 
   .list-settings {
     padding: 1rem;
-  }
-
-  .game-masonry {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    max-height: calc(100vh - 154px);
-    min-height: 80px;
-    overflow-y: auto;
-    margin-top: 32px;
-    padding: 4px;
-    width: 100%;
-  }
-
-  .empty-list {
-    color: var(--progress-secondary-color);
-    opacity: 0.8;
-    position: absolute;
-    top: 0;
-    margin-top: 62px;
-    height: 60px;
-    width: 130px;
-    left: 95px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .fa-grip-vertical {
-    opacity: 0.5;
-    margin-right: .5rem;
-  }
-
-  .hand-drag {
-    position: absolute;
-    left: 0;
-    top: 22px;
   }
 </style>

@@ -3,6 +3,7 @@
     "back": "Back",
     "save": "Save",
     "cancel": "Cancel",
+    "delete": "Delete",
     "create": "Create",
     "filter": "Filter",
     "by": "by",
@@ -23,15 +24,17 @@
     "donating": "donating",
     "reportBugs": "reporting bugs",
     "submitFeedback": "submitting feedback",
-    "home": "Home consoles",
-    "handheld": "Handhelds",
-    "computer": "Home Computer",
+    "all": "All",
+    "console": "Consoles",
+    "platform": "Digital",
+    "operating_system": "PC / Other",
+    "portable_console": "Handhelds",
+    "computer": "Home Computers",
+    "popular": "Popular",
     "releaseYear": "Year released",
     "name": "Alphabetically",
+    "generation": "Generation / Date relased",
     "type": "Type"
-  },
-  "igdbCredit": {
-    "poweredByIgdb": "Powered by IGDB"
   },
   "gameBoard": {
     "settings": {
@@ -53,7 +56,8 @@
     "timeToBeat": "Time to beat",
     "gameModes": "Game Mode",
     "genres": "Genre",
-    "gamePlatforms": "Also available for:",
+    "ageRatings": "Age ratings",
+    "platforms": "Platforms",
     "developers": "Developer",
     "publishers": "Publishers",
     "removeFromList": "Remove",
@@ -109,7 +113,6 @@
       "single": "Default",
       "compact": "Compact",
       "text": "Text only",
-      "masonry": "Masonry",
       "grid": "Grid"
     }
   },
@@ -161,13 +164,13 @@
     "createTag": "Create tag",
     "inputPlaceholder": "Tag name",
     "editTags": "Edit game tags",
-    "message": "Click on tag to add it to <a>{gameName}</a>. Click on <i class=\"fas fa-times close\"></i> to remove tag.",
+    "message": "Click on tag to add it to <a>{gameName}</a>.",
     "settingsMessage": "You can add or edit existing tags in settings."
   },
   "gameSearch": {
     "title": "Add games to",
     "inputPlaceholder": "Search here",
-    "alreadyInList": "from search results already in your list",
+    "alreadyInList": "game(s) from search results already in your list",
     "noResultsFound": "No results",
     "missingGame": "Missing a game? Help out the community and",
     "addToIGDB": "Add it to IGDB"
@@ -179,7 +182,7 @@
   "progresses": {
     "modalTitle": "Set game progress",
     "addProgress": "Add progress",
-    "updateProgress": "Update progress",
+    "save": "Save progress",
     "deleteProgress": "Delete progress",
     "progresses": "Progress"
   },
@@ -190,5 +193,7 @@
     "ReleasesTomorrow": "Releases tomorrow",
     "ReleasesInXDays": "Releases in {days} days",
     "ToBeAnnounced": "TBA"
-  }
+  },
+  "poweredByIgdb": "Powered by IGDB",
+  "poweredBy": "Powered by"
 }

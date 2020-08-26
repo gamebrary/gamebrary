@@ -1,7 +1,7 @@
 <template lang="html">
   <div
     v-if="image || lines"
-    :class="['placeholder', { 'has-image': image && lines > 0 }]"
+    :class="['placeholder w-100', { 'has-image': image && lines > 0 }]"
   >
     <div v-if="image" class="image" />
 
@@ -28,7 +28,7 @@ export default {
     },
     lines: {
       type: Number,
-      default: null,
+      default: 1,
     },
   },
 };
@@ -39,6 +39,7 @@ export default {
 
 .placeholder {
   max-width: 100%;
+  min-width: 100px;
 
   &.has-image {
     display: grid;
@@ -82,12 +83,13 @@ export default {
 
 .text {
   margin: var(--placeholder-text-margin, 0);
+  display: grid;
+  grid-gap: 1rem;
 }
 
 .text-line {
   width: var(--placeholder-text-width, 100%);
-  height: var(--placeholder-text-height, 12px);
-  margin-bottom: .5rem;
+  height: var(--placeholder-text-height, 16px);
   border-radius: var(--border-radius) / 2;
   @extend .animated-background;
 }

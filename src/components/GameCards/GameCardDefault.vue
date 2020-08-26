@@ -1,85 +1,85 @@
-<!-- TODO: abstract styles, only add card specific styles in each component -->
 <template lang="html">
-  <b-card no-body class="mb-2">
-    <b-row no-gutters class="game-card">
-      <b-col md="4">
-        <b-card-img
+  <b-card no-body class="game-card mb-2" @click="openDetails">
+    <b-row
+      no-gutters
+      v-if="game && game.name"
+    >
+      <b-col cols="4">
+        <b-img
+          fluid
+          blank-color="#ccc"
           :src="coverUrl"
           :alt="game.name"
-          @click="openDetails"
         />
       </b-col>
 
-      <b-col md="8">
-        <b-card-body :title="game.name" title-tag="h6">
+      <b-col cols="8">
+        <b-card-body body-class="p-2">
+          <b-card-title
+            class="mb-0"
+            title-tag="h6"
+          >
+            {{ game.name }}
+
+            <b-badge variant="warning" v-if="gameNotes">
+              <b-icon-file-earmark-text />
+            </b-badge>
+          </b-card-title>
+
+          <!-- <b-badge
+            v-if="releaseDate"
+            variant="secondary"
+            class="mb-2"
+          >
+            Releases in
+            {{ releaseDate }}
+          </b-badge> -->
+
           <b-form-rating
+            v-if="gameRating"
+            class="p-0"
             inline
-            :value="Math.round((game.rating / 20) * 2) / 2"
+            :value="gameRating"
             readonly
             variant="warning"
             size="sm"
             no-border
           />
+
+          <b-progress
+            v-if="gameProgress"
+            :value="gameProgress"
+            variant="success"
+            height="6px"
+          />
+
+          <div v-if="showGameTags">
+            <b-badge
+              v-for="({ games, hex, tagTextColor }, name) in tags"
+              v-if="games.includes(game.id)"
+              :key="name"
+              pill
+              class="mr-1"
+              variant="primary"
+              :style="`background-color: ${hex}; color: ${tagTextColor}`"
+            >
+              {{ name }}
+            </b-badge>
+          </div>
         </b-card-body>
       </b-col>
     </b-row>
   </b-card>
-
-  <!-- <div v-if="gameId && games[gameId]" :class="gameCardClass">
-    <div class="game-info">
-      <span
-        v-if="showReleaseDates && releaseDate"
-        v-text="releaseDateText"
-        class="release-date drag-filter"
-      >
-      </span>
-
-      <game-progress
-        v-if="gameProgress"
-        small
-        :progress="gameProgress"
-        class="drag-filter"
-        @click.native="openDetails"
-      />
-
-      <i
-        v-if="note"
-        :title="note"
-        class="fas fa-sticky-note note drag-filter"
-        @click="openDetails"
-      />
-
-      <div v-if="hasTags" class="game-tags drag-filter">
-        <div
-          v-for="({ games, hex, tagTextColor }, name) in tags"
-          v-if="games.includes(game.id)"
-          :key="name"
-        >
-          <tag
-            v-if="games.includes(game.id)"
-            :label="name"
-            :hex="hex"
-            :text-hex="tagTextColor"
-            readonly
-            @action="openTags"
-          />
-      </div>
-    </div>
-  </div>
-</div> -->
 </template>
 
 <script>
-import GameProgress from '@/components/GameDetail/GameProgress';
 import GameCardUtils from '@/components/GameCards/GameCard';
-import Tag from '@/components/Tag';
 
 export default {
-  components: {
-    GameProgress,
-    Tag,
-  },
-
   mixins: [GameCardUtils],
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+@import "GameCard";
+</style>

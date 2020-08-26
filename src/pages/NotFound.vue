@@ -1,14 +1,16 @@
 <template lang="html">
-  <div class="not-found-page">
-    <h1>404</h1>
-    <h3>{{ $t('pageNotFound') }}</h3>
-
-    <a
-      :href="homeUrl"
-      class="link primary"
+  <div
+    class="d-flex align-items-center justify-content-center"
+    :style="`height: calc(100vh - 58px)`"
     >
-      {{ $t('returnHome') }}
-    </a>
+    <b-card
+      class="sw-100 w-30"
+      body-class="pb-0 text-center"
+      sub-title="404"
+      :title="$t('global.pageNotFound')"
+    >
+      <img src="/static/img/travolta-lost.gif" class="pt-4" />
+    </b-card>
   </div>
 </template>
 
@@ -23,30 +25,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-// @import "~styles/styles";
-
-.not-found-page {
-  color: #555555;
-  min-height: calc(100vh - 48px);
-  padding: 0 1rem;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-h1 {
-  font-size: 300px;
-}
-
-h3 {
-  font-size: 50px;
-  margin-bottom: 1rem;
-}
-
-a.link {
-  display: flex;
-  align-items: center;
-}
-</style>

@@ -1,79 +1,99 @@
 <template lang="html">
-  <div v-if="gameId && games[gameId]" :class="gameCardClass">
+  <b-card no-body class="game-card mb-1">
+    <b-row no-gutters v-if="game && game.name">
+      <b-col cols="3">
+        <b-card-img
+          :src="coverUrl"
+          :alt="game.name"
+        />
+      </b-col>
 
-    <img :src="coverUrl" :alt="game.name" >
+      <b-col cols="9">
+        <b-card-body body-class="p-2">
+          <b-card-title class="mb-2" title-tag="h6">
+            {{ game.name }}
+          </b-card-title>
 
-    <div class="game-info">
-      <a @click="openDetails" v-text="game.name" />
+          <b-button
+            @click="addGame"
+            variant="primary"
+          >
+            {{ $t('list.addGame') }}
+          </b-button>
 
-      <game-rating
-        v-if="showGameRatings && list.view !== 'covers'"
-        :rating="game.rating"
-        small
-        @click.native="openDetails"
-      />
-
-      <b-button @click="addGame">
-        {{ $t('list.addGame') }}
-      </b-button>
-    </div>
-  </div>
+          <b-form-rating
+            v-if="gameRating"
+            class="p-0"
+            inline
+            :value="gameRating"
+            readonly
+            variant="warning"
+            size="sm"
+            no-border
+          />
+        </b-card-body>
+      </b-col>
+    </b-row>
+  </b-card>
 </template>
 
 <script>
-import GameRating from '@/components/GameDetail/GameRating';
 import GameCardUtils from '@/components/GameCards/GameCard';
 
 export default {
-  components: {
-    GameRating,
-  },
-
   mixins: [GameCardUtils],
+
+  methods: {
+    async addGame() {
+      const { list, game, board } = this;
+
+      const listIndex = board.lists.findIndex(({ name }) => name === list.name);
+
+      this.$store.commit('ADD_GAME_TO_LIST', { listIndex, game });
+      await this.$store.dispatch('SAVE_BOARD')
+        .catch(() => {
+          this.$bvToast.toast(`There was an error adding ${this.game.name}`, { title: list.name, variant: 'danger' });
+        });
+
+      this.showGameToast();
+    },
+
+    showGameToast() {
+      const h = this.$createElement;
+
+      const vNodesMsg = h(
+        'div', { class: 'image-toast' }, [
+          h('b-card-img', {
+            class: 'toast-image',
+            props: {
+              src: this.coverUrl,
+              alt: this.game.name,
+              width: 80,
+            },
+          }),
+          h('p', `${this.game.name} added`),
+        ],
+      );
+      // Pass the VNodes as an array for message and title
+      this.$bvToast.toast([vNodesMsg], {
+        title: this.list.name,
+        solid: true,
+        variant: 'info',
+      });
+    },
+  },
 };
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-// @import "~styles/styles";
-
-$gameCoverWidth: 80px;
-
-.game-card {
-  background: var(--game-card-background);
-  position: relative;
+.image-toast {
   display: grid;
-  grid-template-columns: $gameCoverWidth auto;
-  border-radius: var(--border-radius);
-  overflow: hidden;
+    grid-gap: 1rem;
+    grid-template-columns: 80px auto;
+}
 
-  img {
-    width: $gameCoverWidth;
-    height: auto;
-    display: flex;
-    align-self: center;
-    cursor: pointer;
-  }
-
-  .game-info {
-    padding: .5rem 1rem;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-
-    button {
-      margin-top: .5rem;
-      align-self: flex-start;
-    }
-
-    a {
-      color: var(--game-card-text-color);
-    }
-
-    .game-rating, a {
-      display: inline-flex;
-      font-weight: bold;
-    }
-  }
+.toast-image {
+  width: 80px !important;
 }
 </style>
 

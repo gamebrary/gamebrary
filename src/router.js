@@ -1,22 +1,43 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import GameBoard from '@/pages/GameBoard';
+import Board from '@/pages/Board';
+import LegacyBoard from '@/pages/LegacyBoard';
 import SessionExpired from '@/pages/SessionExpired';
-import Platforms from '@/pages/Platforms';
+import Dashboard from '@/pages/Dashboard';
 import NotFound from '@/pages/NotFound';
 
 Vue.use(Router);
 
 export default new Router({
-  mode: 'history',
   routes: [
     {
-      name: 'platforms',
-      path: '/platforms',
-      component: Platforms,
+      name: 'home',
+      path: '/',
+      component: Dashboard,
       meta: {
-        title: 'Platforms',
+        title: 'Dashboard',
       },
+    },
+    {
+      name: 'boards',
+      path: '/boards',
+      component: Dashboard,
+      meta: {
+        title: 'Dashboard',
+      },
+    },
+    {
+      name: 'legacy-board',
+      path: '/legacy-board',
+      component: LegacyBoard,
+      meta: {
+        title: 'Boards',
+      },
+    },
+    {
+      path: '/boards/:id',
+      name: 'board',
+      component: Board,
     },
     {
       name: 'sessionExpired',
@@ -27,19 +48,9 @@ export default new Router({
       },
     },
     {
-      path: '/',
-      name: 'game-board',
-      component: GameBoard,
-    },
-    {
-      path: '/settings',
-      name: 'settings',
-      component: GameBoard,
-    },
-    {
       path: '/auth/:authProvider',
       name: 'auth',
-      component: GameBoard,
+      component: Board,
     },
     {
       path: '*',
