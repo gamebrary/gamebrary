@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="mb-3">
     <b-dropdown
-      :text="$t(`platforms.${settings.platformsFilterField || 'all'}`)"
+      :text="$t(`platforms.${settings.platformsFilterField || 'popular'}`)"
       class="mr-2"
     >
       <b-dropdown-item
