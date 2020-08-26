@@ -32,8 +32,11 @@
     >
       <b-alert show variant="warning">
         <h3>Deprecation warning</h3>
-        <p>Platform-based game boards are being phased out.
-          Please click the button below to convert this platform into a board.</p>
+        <p>Platform-based boards will be phased out soon</p>
+        <p>Please click the button below to convert this platform into a board.</p>
+        <small>If you have any questions or need help feel free to email
+          <strong>contact@gamebrary.com</strong> and/or open defects in
+          <a href="https://github.com/romancm/gamebrary/issues" target="_blank">GitHub</a></small>
       </b-alert>
 
       <b-button
