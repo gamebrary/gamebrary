@@ -4,27 +4,27 @@
 
     <platform-picker-sort-filter />
 
-    <div class="platforms">
-      <b-card
-        v-for="platform in filteredPlatforms" :key="platform.id"
-        :header="platform.name"
-        :header-class="['py-0 px-2', value.includes(platform.id) ? 'text-white' : '']"
-        :border-variant="value.includes(platform.id) ? 'success' : ''"
-        :header-bg-variant="value.includes(platform.id) ? 'success' : ''"
-        body-class="d-flex p-2 text-center justify-content-center align-items-center"
-        header-tag="small"
-        @click="handleClick(platform.id)"
-      >
-        <b-img
-          :src="`/static/platform-logos/${platform.slug}.${platform.logoFormat
-            ? platform.logoFormat : 'svg'}`"
-          :alt="platform.name"
-          fluid
-          class="platform-logo py-2"
-        />
-        <!-- {{ platform.id }} -->
-      </b-card>
-    </div>
+    <b-row>
+      <b-col cols="6" md="4" lg="3" v-for="platform in filteredPlatforms" :key="platform.id" class="mb-3">
+        <b-card
+          :header="platform.name"
+          :header-class="['py-0 px-2', value.includes(platform.id) ? 'text-white' : '']"
+          :border-variant="value.includes(platform.id) ? 'success' : ''"
+          :header-bg-variant="value.includes(platform.id) ? 'success' : ''"
+          body-class="p-2 text-center platform"
+          header-tag="small"
+          @click="handleClick(platform.id)"
+        >
+          <b-img
+            :src="`/static/platform-logos/${platform.slug}.${platform.logoFormat
+              ? platform.logoFormat : 'svg'}`"
+            :alt="platform.name"
+            class="platform-logo py-2"
+          />
+          <!-- {{ platform.id }} -->
+        </b-card>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
@@ -68,13 +68,13 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  .platforms {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: .5rem;
+  .platform {
+    height: 80px;
   }
 
   .platform-logo {
-    max-height: 80px;
+    max-height: 60px;
+    width: auto;
+    max-width: 100%;
   }
 </style>
