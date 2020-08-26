@@ -34,6 +34,20 @@ export default {
       : sortedPlatforms;
   },
 
+  platformNames: (state) => {
+    const formattedPlatforms = {};
+
+    state.platforms.forEach(({ id, slug, logoFormat, name }) => {
+      formattedPlatforms[id] = {
+        name,
+        slug,
+        logoFormat,
+      };
+    });
+
+    return formattedPlatforms;
+  },
+
   // eslint-disable-next-line
   activeList: ({ gameLists, platform, activeListIndex }) => gameLists[platform.code][activeListIndex],
 
