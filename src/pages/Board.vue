@@ -9,12 +9,12 @@
         :listIndex="listIndex"
         :key="list.name"
       />
-    </template>
 
-    <div class="d-flex flex-column pr-3">
-      <add-list />
-      <board-settings />
-    </div>
+      <div class="d-flex flex-column pr-3">
+        <add-list />
+        <board-settings />
+      </div>
+    </template>
 
     <game-modal />
   </div>
