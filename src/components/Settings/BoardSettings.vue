@@ -9,7 +9,6 @@
     <b-modal
       id="board-settings"
       title="Board settings"
-      scrollable
       size="lg"
       @show="init"
       @hide="hide"

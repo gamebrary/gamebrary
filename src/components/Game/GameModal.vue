@@ -92,7 +92,7 @@
           </div>
 
           <placeholder :lines="3" v-if="loading"/>
-          <p v-else>{{ game.summary }}</p>
+          <p v-else class="text-left">{{ game.summary }}</p>
         </b-col>
       </b-row>
 

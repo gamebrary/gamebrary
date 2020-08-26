@@ -8,27 +8,57 @@
       @show="getSettings"
     >
       <form ref="renameListForm" @submit.stop.prevent="save">
-        <b-form-checkbox v-model="showReleaseDates" name="check-button" switch>
+        <b-form-checkbox
+          v-model="showReleaseDates"
+          name="check-button"
+          class="mb-2"
+          switch
+        >
           Show release date for unreleased games
         </b-form-checkbox>
 
-        <b-form-checkbox v-model="showGameRatings" name="check-button" switch>
+        <b-form-checkbox
+          v-model="showGameRatings"
+          name="check-button"
+          class="mb-2"
+          switch
+        >
           Show game ratings
         </b-form-checkbox>
 
-        <b-form-checkbox v-model="showGameProgress" name="check-button" switch>
+        <b-form-checkbox
+          v-model="showGameProgress"
+          name="check-button"
+          class="mb-2"
+          switch
+        >
           Show game progress
         </b-form-checkbox>
 
-        <b-form-checkbox v-model="showGameNotes" name="check-button" switch>
+        <b-form-checkbox
+          v-model="showGameNotes"
+          name="check-button"
+          class="mb-2"
+          switch
+        >
           Show game notes
         </b-form-checkbox>
 
-        <b-form-checkbox v-model="showGameTags" name="check-button" switch>
+        <b-form-checkbox
+          v-model="showGameTags"
+          name="check-button"
+          class="mb-2"
+          switch
+        >
           Show game tags
         </b-form-checkbox>
 
-        <b-form-checkbox v-model="showGameCount" name="check-button" switch>
+        <b-form-checkbox
+          v-model="showGameCount"
+          name="check-button"
+          class="mb-2"
+          switch
+        >
           Show game count
         </b-form-checkbox>
       </form>

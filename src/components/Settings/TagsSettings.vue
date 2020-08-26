@@ -16,7 +16,7 @@
         <h6>Add new tag</h6>
 
         <b-row class="mb-3">
-          <b-col sm="8">
+          <b-col cols="8" md="9">
             <b-form-input
               label="test"
               maxlength="20"
@@ -26,7 +26,7 @@
             />
           </b-col>
 
-          <b-col sm="4">
+          <b-col cols="4" md="3">
             <b-input-group>
               <b-form-input
                 v-model="hex"

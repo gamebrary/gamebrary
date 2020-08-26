@@ -13,6 +13,7 @@
           <b-form-radio-group
             v-model="sortOrder"
             buttons
+            stacked
             variant="primary"
             :options="sortingOptions"
           />
