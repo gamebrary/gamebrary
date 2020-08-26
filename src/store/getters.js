@@ -22,7 +22,7 @@ export default {
     } else {
       filteredPlatforms = filterField && PLATFORM_FILTER_FIELDS.includes(filterField)
         ? state.platforms.filter(({ category }) => category === filterField)
-        : filteredPlatforms = state.platforms.filter(({ popular }) => popular);;
+        : filteredPlatforms = state.platforms.filter(({ popular }) => popular);
     }
 
     const sortedPlatforms = orderby(filteredPlatforms, sortField);
