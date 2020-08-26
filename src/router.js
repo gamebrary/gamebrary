@@ -35,7 +35,7 @@ export default new Router({
       },
     },
     {
-      path: '/boards/:id',
+      path: '/board/:id',
       name: 'board',
       component: Board,
     },
