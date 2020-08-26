@@ -115,7 +115,7 @@ export default {
     },
 
     filteredResults() {
-      return this.results.length
+      return this.results && this.results.length
         ? this.results.filter(({ id }) => !this.list[this.listId].games.includes(id))
         : [];
     },
