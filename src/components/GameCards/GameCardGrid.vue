@@ -1,7 +1,7 @@
 <template lang="html">
   <b-card
     no-body
-    class="game-card mb-2"
+    class="clickable mb-2"
     :img-src="coverUrl"
     img-top
     @click="openDetails"
@@ -67,7 +67,3 @@ export default {
   mixins: [GameCardUtils],
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-  @import "GameCard";
-</style>

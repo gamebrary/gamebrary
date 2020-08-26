@@ -19,9 +19,22 @@
             class="m-2 clickable"
             @click="viewBoard(board.id)"
           >
-            <b-card-text>
+            <!-- <b-card-text>
               {{ board.description }}
-            </b-card-text>
+            </b-card-text> -->
+
+            <template v-slot:footer>
+              <b-row>
+                <b-col cols="3" sm="4" md="6" lg="6" v-for="id in board.platforms" :key="id.slug">
+                  <!-- eslint-disable-next-line -->
+                  <b-img :src="`/static/platform-logos/${platformNames[id].slug}.${platformNames[id].logoFormat}`"
+                    :alt="platformNames[id].name"
+                    fluid
+                    class="platform-logo py-2"
+                  />
+                </b-col>
+              </b-row>
+            </template>
 
             <!-- <b-button
               variant="danger"
@@ -46,7 +59,7 @@
 <script>
 import CreateBoard from '@/components/Board/CreateBoard';
 
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -60,7 +73,8 @@ export default {
   },
 
   computed: {
-    ...mapState(['boards', 'platforms']),
+    ...mapState(['boards', 'platforms', 'platformNames']),
+    ...mapGetters(['platformNames']),
   },
 
   mounted() {
@@ -72,13 +86,6 @@ export default {
       this.loadBoards();
       this.loadPlatforms();
     },
-
-    // getPlatformNames(boardPlatforms) {
-    //   const platformNames = boardPlatforms.map((platform) => {
-    //     this.platforms.find(({ id }) => id === platform)
-    //     console.log(platform);
-    //   })
-    // },
 
     async loadPlatforms() {
       await this.$store.dispatch('LOAD_IGDB_PLATFORMS')
