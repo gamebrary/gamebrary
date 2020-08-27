@@ -35,7 +35,7 @@
                 <!-- eslint-disable-next-line -->
                 <b-avatar :src="`/static/platform-logos/${platformNames[id].slug}.${platformNames[id].logoFormat}`"
                   v-for="id in board.platforms"
-                  :key="id.slug"
+                  :key="id"
                   variant="light"
                   size="sm"
                 />
