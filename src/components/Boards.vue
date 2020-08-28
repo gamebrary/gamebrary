@@ -12,7 +12,7 @@
 
     <b-overlay :show="loading && !platforms.length" rounded="sm" variant="transparent">
       <b-row no-gutters>
-        <b-col cols="12" sm="6" md="4" lg="2" v-for="board in boards" :key="board.id">
+        <b-col cols="12" sm="6" md="4" lg="2" v-for="board in sortedBoards" :key="board.id">
           <b-card
             :header="board.name"
             :img-src="getWallpaper(board.wallpaper)"
@@ -60,6 +60,7 @@
 
 <script>
 import CreateBoard from '@/components/Board/CreateBoard';
+import orderby from 'lodash.orderby';
 
 import { mapState, mapGetters } from 'vuex';
 
@@ -77,6 +78,10 @@ export default {
   computed: {
     ...mapState(['boards', 'platforms', 'platformNames', 'wallpapers']),
     ...mapGetters(['platformNames']),
+
+    sortedBoards() {
+      return orderby(this.boards, 'name');
+    },
   },
 
   mounted() {
