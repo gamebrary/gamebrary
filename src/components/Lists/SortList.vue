@@ -57,7 +57,7 @@ export default {
         { text: 'Custom', value: 'sortByCustom' },
         { text: 'Name', value: 'sortByName' },
         { text: 'Rating', value: 'sortByRating' },
-        { text: 'Release date', value: 'sortByReleaseDate' },
+        // { text: 'Release date', value: 'sortByReleaseDate' },
         { text: 'Progress', value: 'sortByProgress' },
       ],
     };
