@@ -2,7 +2,7 @@
   <div>
     <b-dropdown
       no-caret
-      variant="light"
+      variant="transparent"
     >
       <template v-slot:button-content>
         <b-icon icon="three-dots" aria-hidden="true" />
