@@ -1,28 +1,26 @@
 <template lang="html">
   <div class="platform-list">
-    <div
-      class="platform"
-      v-for="platform in platforms"
-      :key="platform.id"
-    >
-      <a
-        class="thumbnail"
-        :style="`background-color: ${platform.hex || '#fff'}`"
+    <b-row>
+      <b-col
+        cols="12" sm="6" md="4" lg="2"
+        v-for="platform in platforms"
+        :key="platform.id"
+        class="mb-4"
         @click="openDeprecationWarning(platform)"
       >
-        <img
-          :src="`/static/img/platforms/logos/${platform.code}.svg`"
-          :alt="platform.name"
-        />
+        <a
+          class="thumbnail"
+          :style="`background-color: ${platform.hex || '#fff'}`"
+        >
+          <img
+            :src="`/static/img/platforms/logos/${platform.code}.svg`"
+            :alt="platform.name"
+          />
+        </a>
 
-        <span v-if="hasLists(platform.code)" class="lists-indicator" />
-      </a>
-
-      <div class="platform-info">
-        <h4>{{ platform.name }}</h4>
-        {{ platform.releaseYear }}
-      </div>
-    </div>
+        <h6>{{ platform.name }}</h6>
+      </b-col>
+    </b-row>
 
     <b-modal
       id="deprecation-warning"
@@ -31,12 +29,12 @@
       @hidden="resetPlatorm"
     >
       <b-alert show variant="warning">
-        <h3>Deprecation warning</h3>
+        <h4>Deprecation warning</h4>
         <p>Platform-based boards will be phased out soon</p>
         <p>Please click the button below to convert this platform into a board.</p>
-        <small>If you have any questions or need help feel free to email
+        <p>If you have any questions or need help feel free to email
           <strong>contact@gamebrary.com</strong> and/or open defects in
-          <a href="https://github.com/romancm/gamebrary/issues" target="_blank">GitHub</a></small>
+          <a href="https://github.com/romancm/gamebrary/issues" target="_blank">GitHub</a></p>
       </b-alert>
 
       <b-button
@@ -134,71 +132,26 @@ export default {
       this.$store.commit('SET_PLATFORM_LEGACY', platform);
       this.$router.push({ name: 'legacy-board' });
     },
-
-    hasLists(platform) {
-      return Boolean(this.gameLists[platform] && this.gameLists[platform].length);
-    },
   },
 };
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  // @import "~styles/styles";
-
-  .platform-list {
-    display: grid;
-    grid-template-columns: auto auto;
-
-    @media(max-width: 780px) {
-      grid-template-columns: auto;
-    }
-  }
-
   .platform {
     margin-bottom: 1rem;
     display: grid;
-    grid-template-columns: 200px auto;
+    align-items: center;
+    grid-template-columns: 120px auto;
     grid-gap: 1rem;
   }
 
   .thumbnail {
     padding: 1rem;
-    border-radius: var(--border-radius);
     justify-content: center;
     text-align: center;
     display: flex;
     position: relative;
     overflow: hidden;
-
-    &.has-lists {
-      &::before,
-      &::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 0;
-        border-color: transparent;
-        border-style: solid;
-      }
-
-      &::after {
-        border-width: .5rem;
-        border-right-color: #555;
-        border-top-color: #555;
-      }
-    }
-  }
-
-  .lists-indicator {
-    position: absolute;
-    top: -15px;
-    right: -20px;
-    width: 40px;
-    height: 30px;
-    transform: rotate(45deg);
-    background: red;
-    border-bottom: 3px solid var(--body-background);
-    background-color: #555;
   }
 
   img {
