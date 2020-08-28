@@ -192,8 +192,6 @@ export default {
       this.theme = board.theme || 'default';
       this.wallpaper = board.wallpaper;
 
-      this.loadWallpapers();
-
       if (this.wallpaper) {
         this.wallpaperUrl = await this.$store.dispatch('LOAD_WALLPAPER', this.wallpaper);
       }

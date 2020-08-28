@@ -9,7 +9,6 @@
       hide-footer
       scrollable
       size="lg"
-      @show="loadWallpapers"
     >
       <b-row>
         <b-col cols="12" lg="6">
@@ -111,15 +110,6 @@ export default {
   },
 
   methods: {
-    async loadWallpapers() {
-      this.loading = true;
-
-      await this.$store.dispatch('LOAD_WALLPAPERS')
-        .catch(() => {
-          this.$bvToast.toast('There was an error loading wallpapers', { title: 'Error', variant: 'danger' });
-        });
-    },
-
     async uploadWallpaper() {
       const { file } = this;
       this.saving = true;

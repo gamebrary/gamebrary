@@ -12,14 +12,14 @@
 
     <b-overlay :show="loading && !platforms.length" rounded="sm" variant="transparent">
       <b-row no-gutters>
-        <b-col cols="12" sm="6" md="4" lg="3" v-for="board in boards" :key="board.id">
+        <b-col cols="12" sm="6" md="4" lg="2" v-for="board in boards" :key="board.id">
           <b-card
             :header="board.name"
-            header-tag="h6"
-            header-class="p-2"
-            body-class="p-2"
+            :img-src="getWallpaper(board.wallpaper)"
+            img-alt="Wallpaper"
+            img-top
+            tag="article"
             class="m-2 clickable"
-            footer-class="p-2"
             @click="viewBoard(board.id)"
           >
             <b-card-text>
@@ -27,20 +27,16 @@
                 {{ board.description }}
               </p>
 
-              {{ board.lists.length }} Lists
-            </b-card-text>
-
-            <template v-slot:footer>
-              <b-avatar-group v-if="platformNames.length">
+              <b-avatar-group v-if="Object.keys(platformNames).length">
                 <!-- eslint-disable-next-line -->
-                <b-avatar :src="`/static/platform-logos/${platformNames[id].slug}.${platformNames[id].logoFormat}`"
+                <b-avatar :src="getPlatformImage(id)"
                   v-for="id in board.platforms"
                   :key="id"
                   variant="light"
                   size="sm"
                 />
               </b-avatar-group>
-            </template>
+            </b-card-text>
 
             <!-- <b-button
               variant="danger"
@@ -79,7 +75,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['boards', 'platforms', 'platformNames']),
+    ...mapState(['boards', 'platforms', 'platformNames', 'wallpapers']),
     ...mapGetters(['platformNames']),
   },
 
@@ -91,6 +87,22 @@ export default {
     load() {
       this.loadBoards();
       this.loadPlatforms();
+    },
+
+    getWallpaper(wallpaper) {
+      const wallpaperObject = this.wallpapers.length
+        ? this.wallpapers.find(({ fullPath }) => fullPath === wallpaper)
+        : null;
+
+      return wallpaperObject && wallpaperObject.url;
+    },
+
+    getPlatformImage(id) {
+      const { platformNames } = this;
+
+      return id && platformNames && platformNames[id] && platformNames[id].logoFormat
+        ? `/static/platform-logos/${platformNames[id].slug}.${platformNames[id].logoFormat}`
+        : '';
     },
 
     async loadPlatforms() {

@@ -128,7 +128,6 @@ export default {
     });
   },
 
-  // TODO: commit wallpapers to store
   LOAD_WALLPAPERS({ state, commit }) {
     const storage = firebase.storage().ref(`${state.user.uid}/wallpapers`);
 

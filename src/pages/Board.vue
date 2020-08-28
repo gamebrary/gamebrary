@@ -49,7 +49,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['user', 'dragging', 'board']),
+    ...mapState(['user', 'dragging', 'board', 'wallpapers']),
 
     wallpaper() {
       return this.wallpaperUrl
@@ -61,7 +61,7 @@ export default {
   mounted() {
     this.load();
 
-    this.$bus.$on('RELOAD_WALLPAPER', this.loadWallpaper);
+    this.$bus.$on('RELOAD_WALLPAPER', this.setWallpaper);
   },
 
   destroyed() {
@@ -88,13 +88,19 @@ export default {
         });
 
       this.loadBoardGames();
-      this.loadWallpaper();
+      this.setWallpaper();
     },
 
-    async loadWallpaper() {
-      if (this.board.wallpaper) {
-        this.wallpaperUrl = await this.$store.dispatch('LOAD_WALLPAPER', this.board.wallpaper);
-      }
+    async setWallpaper() {
+      const { wallpaper } = this.board;
+
+      const wallpaperObject = wallpaper && this.wallpapers.length
+        ? this.wallpapers.find(({ fullPath }) => fullPath === wallpaper)
+        : null;
+
+      this.wallpaperUrl = wallpaperObject && wallpaperObject.url
+        ? wallpaperObject.url
+        : null;
     },
 
     loadBoardGames() {
