@@ -1,6 +1,6 @@
 <template lang="html">
   <b-dropdown-item v-b-modal:themes>
-    <b-icon-mailbox class="mr-1" />
+    <b-icon-droplet class="mr-1" />
     Themes
 
     <b-modal
@@ -16,17 +16,29 @@
 
       <b-row v-else>
         <b-col
-          cols="3"
+          cols="6"
+          lg="4"
           v-for="theme in themes"
           :key="theme.name"
           class="mb-4"
           @click="setTheme(theme)"
         >
-          <b-img
-            :src="theme.thumbnail"
-            fluid
-            thumbnail
-          />
+          <b-card
+            :title="theme.name"
+            title-tag="h6"
+            body-class="p-2"
+            :border-variant="isSelected(theme) ? 'success' : ''"
+            :img-src="theme.thumbnail"
+            img-alt="Image"
+            img-top
+            tag="article"
+            style="max-width: 20rem;"
+            class="mb-2 clickable"
+          >
+            <b-card-text>
+              {{ theme.description }}
+            </b-card-text>
+          </b-card>
         </b-col>
       </b-row>
     </b-modal>
@@ -45,7 +57,7 @@ export default {
   data() {
     return {
       loading: false,
-      theme: null,
+      selectedTheme: {},
     };
   },
 
@@ -54,14 +66,18 @@ export default {
   },
 
   methods: {
+    isSelected(theme) {
+      return this.selectedTheme.name && theme.name === this.selectedTheme.name;
+    },
+
     setTheme(theme) {
-      this.theme = theme;
+      this.selectedTheme = theme;
 
       document.querySelector('link[rel="stylesheet"').href = theme.cssCdn;
 
       const settings = {
         ...this.settings,
-        theme: this.theme,
+        theme: this.selectedTheme,
       };
 
       this.$store.dispatch('SAVE_SETTINGS', settings)
@@ -80,7 +96,7 @@ export default {
 
       const { settings } = this;
 
-      this.theme = settings.theme || null;
+      this.selectedTheme = settings.theme || null;
     },
 
     async loadThemes() {
