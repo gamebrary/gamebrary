@@ -3,8 +3,6 @@
     id="game-modal"
     scrollable
     size="lg"
-    header-bg-variant="light"
-    footer-bg-variant="light"
     footer-class="p-2 justify-content-center"
     :title="game.name"
     @show="load"
@@ -46,7 +44,7 @@
           <b-form-rating
             v-if="rating"
             :value="rating"
-            class="p-0 mt-1 game-rating"
+            class="p-0 mt-1 border-0 shadow-none"
             inline
             readonly
             variant="warning"

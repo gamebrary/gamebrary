@@ -2,6 +2,7 @@
   <div>
     <b-dropdown
       no-caret
+      toggle-class="shadow-none border-0"
       variant="transparent"
     >
       <template v-slot:button-content>

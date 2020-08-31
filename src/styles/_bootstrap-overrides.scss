@@ -2,7 +2,10 @@
   cursor: pointer;
 }
 
-.navbar, .b-rating {
-  border: none !important;
-  box-shadow: none !important;
+.b-rating {
+  background-color: transparent !important;
+}
+
+.btn.dropdown-toggle:before {
+  display: none;
 }

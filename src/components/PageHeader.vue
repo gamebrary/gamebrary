@@ -1,6 +1,6 @@
 <template lang="html">
-  <b-navbar class="px-3 py-2" :fixed="fixed">
-    <b-navbar-brand :to="{ name: 'home' }">
+  <b-navbar class="px-3 py-2 border-0 shadow-none" :fixed="fixed">
+    <b-navbar-brand :to="{ name: 'home' }" class="border-0 p-0">
       <img src="/static/gamebrary-logo.png" height="30" />
 
       <small v-if="showBoardTitle">{{ board.name }}</small>
