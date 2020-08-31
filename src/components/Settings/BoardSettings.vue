@@ -110,9 +110,11 @@
           fluid
         />
 
-        <platform-picker
-          v-model="board.platforms"
-        />
+        <b-button v-b-toggle.platforms>Change board platforms</b-button>
+
+        <b-collapse id="platforms" class="mt-2">
+          <platform-picker v-model="board.platforms" />
+        </b-collapse>
       </form>
 
       <template v-slot:modal-footer>
