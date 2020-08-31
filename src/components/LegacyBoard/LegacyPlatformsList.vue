@@ -52,7 +52,14 @@
         they will eventually be removed</p>
 
       <b-button @click="changePlatform(tempPlatform)">
-        View platform
+        View legacy board
+      </b-button>
+
+      <b-button
+        variant="danger"
+        @click="deleteLegacyPlatform(tempPlatform)"
+      >
+        Delete legacy board
       </b-button>
 
       <!-- <pre>{{ tempPlatform }}</pre> -->
@@ -119,14 +126,21 @@ export default {
       this.saving = false;
       this.$bvToast.toast('Board converted', { title: 'Success', variant: 'success' });
       this.$bvModal.hide('deprecation-warning');
-      this.showDeleteMessage();
+      this.showDeleteMessage(tempPlatform);
     },
 
-    showDeleteMessage() {
+    showDeleteMessage(tempPlatform) {
       this.$bvModal.msgBoxConfirm('You can now safely delete your legacy platform', {
         title: 'Board converted',
-        okVariant: 'success',
-      });
+        okVariant: 'danger',
+        cancelTitle: 'Dismiss',
+        okTitle: 'Delete legacy board',
+      })
+        .then((value) => {
+          if (value) {
+            this.deleteLegacyPlatform(tempPlatform);
+          }
+        });
     },
 
     openDeprecationWarning(platform) {
@@ -143,6 +157,21 @@ export default {
     changePlatform(platform) {
       this.$store.commit('SET_PLATFORM_LEGACY', platform);
       this.$router.push({ name: 'legacy-board' });
+    },
+
+    deleteLegacyPlatform(platform) {
+      this.$store.commit('SET_PLATFORM_LEGACY', platform);
+
+      this.$store.commit('REMOVE_PLATFORM_LEGACY');
+
+      this.$store.dispatch('SAVE_LIST_NO_MERGE_LEGACY', this.gameLists)
+        .then(() => {
+          this.$bvModal.hide('deprecation-warning');
+          this.$bvToast.toast('Legacy board deleted', { title: 'Success', variant: 'success' });
+        })
+        .catch(() => {
+          this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
+        });
     },
   },
 };
