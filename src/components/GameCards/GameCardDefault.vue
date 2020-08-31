@@ -5,6 +5,13 @@
       v-if="game && game.name"
     >
       <b-col cols="4">
+        <b-icon-check-circle
+          class="position-absolute rounded bg-success p-1 m-1"
+          variant="white"
+          font-scale="1.5"
+          v-if="showCompletedBadge"
+        />
+
         <b-img
           fluid
           blank-color="#ccc"
@@ -47,8 +54,9 @@
           />
 
           <b-progress
-            v-if="gameProgress"
+            v-if="showGameProgress"
             :value="gameProgress"
+            class="my-2"
             variant="success"
             height="6px"
           />

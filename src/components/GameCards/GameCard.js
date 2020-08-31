@@ -16,6 +16,14 @@ export default {
     // TODO: remove getter
     ...mapGetters(['gameTags']),
 
+    showCompletedBadge() {
+      return this.gameProgress && Number(this.gameProgress) === 100;
+    },
+
+    showGameProgress() {
+      return this.gameProgress && Number(this.gameProgress) < 100;
+    },
+
     showGameTags() {
       const { settings } = this.list;
 

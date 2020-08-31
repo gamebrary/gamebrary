@@ -8,12 +8,23 @@
   >
     <b-card-body body-class="p-2" v-if="game && game.name">
       <b-card-title class="mb-0" title-tag="h6">
-        {{ game.name }}
+        <b-icon-check-circle
+          class="rounded bg-success p-1"
+          variant="white"
+          font-scale="1.5"
+          v-if="showCompletedBadge"
+        />
 
-        <b-badge variant="warning" v-if="gameNotes">
-          <b-icon-file-earmark-text />
-        </b-badge>
+        {{ game.name }}
       </b-card-title>
+
+      <b-progress
+        v-if="showGameProgress"
+        :value="gameProgress"
+        class="my-2"
+        variant="success"
+        height="6px"
+      />
 
       <!-- <b-badge
         v-if="releaseDate"
@@ -35,15 +46,7 @@
         no-border
       />
 
-      <b-progress
-        v-if="gameProgress"
-        :value="gameProgress"
-        variant="success"
-        height="6px"
-      />
-
-
-      <div v-if="showGameTags">
+      <template v-if="showGameTags">
         <b-badge
           v-for="({ games, hex, tagTextColor }, name) in tags"
           v-if="games.includes(game.id)"
@@ -55,7 +58,11 @@
         >
           {{ name }}
         </b-badge>
-      </div>
+      </template>
+
+      <b-badge variant="warning" v-if="gameNotes">
+        <b-icon-file-earmark-text />
+      </b-badge>
     </b-card-body>
   </b-card>
 </template>

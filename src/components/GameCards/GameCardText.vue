@@ -3,6 +3,13 @@
     <b-row no-gutters v-if="game && game.name">
         <b-card-body body-class="pt-0 pb-1 px-2">
           <small>
+            <b-icon-check-circle
+              class="rounded bg-success p-1"
+              variant="white"
+              font-scale="1.5"
+              v-if="showCompletedBadge"
+            />
+
             {{ game.name }}
 
             <b-badge variant="warning" v-if="gameNotes">
@@ -31,8 +38,9 @@
           />
 
           <b-progress
-            v-if="gameProgress"
+            v-if="showGameProgress"
             :value="gameProgress"
+            class="my-1"
             variant="success"
             height="6px"
           />

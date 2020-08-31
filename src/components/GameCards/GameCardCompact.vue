@@ -2,6 +2,13 @@
   <b-card no-body class="clickable mb-2" @click="openDetails">
     <b-row no-gutters v-if="game && game.name">
       <b-col cols="3">
+        <b-icon-check-circle
+          class="position-absolute rounded bg-success p-1 m-1"
+          variant="white"
+          font-scale="1.5"
+          v-if="showCompletedBadge"
+        />
+
         <b-img
           fluid
           blank-color="#ccc"
@@ -45,8 +52,9 @@
           />
 
           <b-progress
-            v-if="gameProgress"
+            v-if="showGameProgress"
             :value="gameProgress"
+            class="my-2"
             variant="success"
             height="6px"
           />
