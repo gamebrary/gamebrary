@@ -97,11 +97,15 @@ export default {
 
       const { id } = tempPlatform;
 
+      const platforms = isNaN(id) && id.includes(',')
+        ? id.split(',').map(platformId => Number(platformId))
+        : [id];
+
       const newBoard = {
         description: '',
         lists,
         name: tempPlatform.name,
-        platforms: [id],
+        platforms,
         theme: null,
         wallpaper: null,
       };
