@@ -119,6 +119,14 @@ export default {
       this.saving = false;
       this.$bvToast.toast('Board converted', { title: 'Success', variant: 'success' });
       this.$bvModal.hide('deprecation-warning');
+      this.showDeleteMessage();
+    },
+
+    showDeleteMessage() {
+      this.$bvModal.msgBoxConfirm('You can now safely delete your legacy platform', {
+        title: 'Board converted',
+        okVariant: 'success',
+      });
     },
 
     openDeprecationWarning(platform) {
