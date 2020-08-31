@@ -12,8 +12,7 @@ export default {
   },
 
   computed: {
-    // Remove unused stuff
-    ...mapState(['settings', 'games', 'gameLists', 'platform', 'user', 'tags', 'activeList', 'notes', 'progresses', 'board']),
+    ...mapState(['settings', 'games', 'tags', 'notes', 'progresses', 'board']),
     // TODO: remove getter
     ...mapGetters(['gameTags']),
 
