@@ -37,7 +37,7 @@
           />
         </b-form-group>
 
-        <b-form-group
+        <!-- <b-form-group
           label="Board theme"
           label-for="theme"
         >
@@ -54,7 +54,7 @@
               {{ name }}
             </b-form-select-option>
           </b-form-select>
-        </b-form-group>
+        </b-form-group> -->
 
         <b-form-group
           v-if="wallpapers.length"
@@ -140,7 +140,6 @@
 
 <script>
 import { mapState } from 'vuex';
-import themes from '@/themes';
 import PlatformPicker from '@/components/Board/PlatformPicker';
 
 export default {
@@ -150,7 +149,6 @@ export default {
 
   data() {
     return {
-      themes,
       saving: false,
       description: null,
       name: null,
