@@ -3,7 +3,7 @@
     v-b-modal.progress
     variant="info"
   >
-    <b-icon-check />
+    <b-icon-clock-history />
 
     <b-modal
       id="progress"

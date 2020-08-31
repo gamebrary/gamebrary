@@ -46,7 +46,7 @@
           <b-form-rating
             v-if="rating"
             :value="rating"
-            class="p-0 game-rating"
+            class="p-0 mt-1 game-rating"
             inline
             readonly
             variant="warning"
@@ -68,7 +68,7 @@
 
           <div v-if="loading" class="my-2">
             <b-button variant="light">
-              <b-icon-check />
+              <b-icon-clock-history />
             </b-button>
 
             <b-button variant="light">
