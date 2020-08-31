@@ -66,9 +66,21 @@
             text="Select wallpaper"
             boundary="viewport"
           >
-            <b-dropdown-item variant="danger" v-if="wallpaper" @click="removeWallpaper">
+            <b-dropdown-item
+              variant="danger"
+              v-if="wallpaper"
+              @click="removeWallpaper"
+            >
               Remove wallpaper
             </b-dropdown-item>
+
+            <b-dropdown-item
+              variant="primary"
+              v-b-modal:wallpapers
+            >
+              Upload wallpaper
+            </b-dropdown-item>
+
             <b-dropdown-item
               v-for="file in wallpapers"
               :key="file.name"
@@ -86,7 +98,7 @@
 
         <div v-else>
           No wallpapers uploaded yet.
-          <b-button v-b-modal:file-settings>Manage files</b-button>
+          <b-button v-b-modal:wallpapers>Manage files</b-button>
         </div>
 
 

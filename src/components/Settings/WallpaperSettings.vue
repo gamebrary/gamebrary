@@ -1,10 +1,10 @@
 <template lang="html">
-  <b-dropdown-item v-b-modal:file-settings>
+  <b-dropdown-item v-b-modal:wallpapers>
     <b-icon-file-richtext class="mr-1" />
     Wallpapers
 
     <b-modal
-      id="file-settings"
+      id="wallpapers"
       title="Wallpapers"
       hide-footer
       scrollable
