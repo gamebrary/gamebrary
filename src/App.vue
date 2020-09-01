@@ -130,6 +130,7 @@ export default {
     },
 
     syncData() {
+      this.$store.dispatch('LOAD_RELEASES');
       this.loadWallpapers();
 
       // TODO: track progresses as well

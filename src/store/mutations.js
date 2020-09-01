@@ -6,6 +6,10 @@ export default {
     state.boards = boards;
   },
 
+  SET_RELEASES(state, releases) {
+    state.releases = releases;
+  },
+
   CLEAR_BOARD(state) {
     state.board = {};
   },

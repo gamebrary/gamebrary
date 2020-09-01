@@ -3,6 +3,7 @@ export default {
   tags: {},
   notes: {},
   themes: [],
+  releases: [],
   progresses: {},
   dragging: false,
   activeListIndex: null,
