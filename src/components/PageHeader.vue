@@ -15,7 +15,6 @@
       class="d-none d-md-flex"
       align="center"
       pills
-      small
     >
       <b-nav-item
         link-classes="p-2"

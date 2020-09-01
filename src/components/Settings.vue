@@ -17,37 +17,34 @@
       <tags-settings />
       <wallpaper-settings />
       <language />
+      <themes />
       <b-dropdown-divider />
       <releases />
-      <themes />
       <about />
       <b-dropdown-divider />
-      <account-settings />
-      <sign-out />
+      <account-modal />
     </b-dropdown>
   </b-navbar-nav>
 </template>
 
 <script>
 import TagsSettings from '@/components/Settings/TagsSettings';
-import AccountSettings from '@/components/Settings/AccountSettings';
+import AccountModal from '@/components/Settings/AccountModal';
 import WallpaperSettings from '@/components/Settings/WallpaperSettings';
 import Releases from '@/components/Settings/Releases';
 import Themes from '@/components/Settings/Themes';
 import Language from '@/components/Settings/Language';
-import SignOut from '@/components/Settings/SignOut';
 import About from '@/components/Settings/About';
 import { mapState } from 'vuex';
 
 export default {
   components: {
     TagsSettings,
-    AccountSettings,
+    AccountModal,
     WallpaperSettings,
     Releases,
     Themes,
     Language,
-    SignOut,
     About,
   },
 

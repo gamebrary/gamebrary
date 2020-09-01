@@ -1,24 +1,21 @@
 <template lang="html">
-  <div class="platforms-page container-fluid">
+  <div class="platforms-page">
 
-  <h5>Platforms (Deprecated)</h5>
+  <h5 class="mb-4">
+    Platforms
+    <b-badge variant="warning">Deprecated</b-badge>
+  </h5>
 
-  <platforms-list
-    :platforms="ownedPlatforms"
-  />
-
-  <platforms-footer class="mb-3" />
+  <platforms-list :platforms="ownedPlatforms" />
 </div>
 </template>
 <script>
 import platforms from '@/platforms';
-import PlatformsFooter from '@/components/LegacyBoard/LegacyPlatformsFooter';
 import PlatformsList from '@/components/LegacyBoard/LegacyPlatformsList';
 import { mapState } from 'vuex';
 
 export default {
   components: {
-    PlatformsFooter,
     PlatformsList,
   },
 

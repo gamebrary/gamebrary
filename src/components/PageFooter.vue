@@ -1,5 +1,5 @@
 <template>
-  <footer class="text-center">
+  <footer class="p-4 text-center">
     <small>
       {{ $t('platforms.donateMessage') }}
       <a href="https://www.paypal.me/RomanCervantes/5" target="_blank">

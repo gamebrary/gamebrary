@@ -1,6 +1,6 @@
 <template lang="html">
-  <div class="container-fluid">
-    <div class="px-2 my-2 d-flex justify-content-between align-items-center">
+  <div>
+    <div class="d-flex justify-content-between align-items-center">
       <h5>Boards</h5>
 
       <create-board />
@@ -11,15 +11,23 @@
     </div>
 
     <b-overlay :show="loading && !platforms.length" rounded="sm" variant="transparent">
-      <b-row no-gutters>
-        <b-col cols="12" sm="6" md="4" lg="2" v-for="board in sortedBoards" :key="board.id">
+      <b-form-row>
+        <b-col
+          v-for="board in sortedBoards"
+          :key="board.id"
+          class="d-flex mt-2"
+          cols="12"
+          sm="6"
+          md="4"
+          lg="3"
+        >
           <b-card
             :header="board.name"
-            :img-src="getWallpaper(board.wallpaper)"
+            :img-src="getWallpaper(board)"
             img-alt="Wallpaper"
             img-top
             tag="article"
-            class="m-2 clickable"
+            class="clickable w-100"
             @click="viewBoard(board.id)"
           >
             <b-card-text>
@@ -53,7 +61,7 @@
             </b-button> -->
           </b-card>
         </b-col>
-      </b-row>
+      </b-form-row>
     </b-overlay>
   </div>
 </template>
@@ -89,12 +97,12 @@ export default {
       this.loadPlatforms();
     },
 
-    getWallpaper(wallpaper) {
-      const wallpaperObject = this.wallpapers.length
-        ? this.wallpapers.find(({ fullPath }) => fullPath === wallpaper)
-        : null;
+    getWallpaper({ wallpaper, name }) {
+      const boardWallpaper = this.wallpapers.find(({ fullPath }) => fullPath === wallpaper);
 
-      return wallpaperObject && wallpaperObject.url;
+      return this.wallpapers.length && boardWallpaper && boardWallpaper.url
+        ? boardWallpaper.url
+        : `https://via.placeholder.com/512x288?text=${name}`;
     },
 
     getPlatformImage(id) {

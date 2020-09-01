@@ -1,7 +1,7 @@
 <template lang="html">
-  <b-dropdown-item @click="signOut">
+  <b-button @click="signOut" variant="dark">
     {{ $t('settings.signOut') }}
-  </b-dropdown-item>
+  </b-button>
 </template>
 
 <script>
