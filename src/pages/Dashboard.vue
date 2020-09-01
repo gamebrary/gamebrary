@@ -11,14 +11,14 @@
       no-fade
       vertical
       nav-wrapper-class="col-12 col-sm-auto"
-      nav-class="rounded p-0 bg-transparent mb-4 mb-sm-0 mr-sm-4"
+      nav-class="rounded p-0 bg-transparent mb-4 mb-sm-0 mr-sm-3"
       content-class="bg-light rounded p-0"
     >
-      <b-tab title-link-class="p-2" title="Boards" active>
+      <b-tab title-link-class="p-2 px-5" title="Boards" active>
         <boards />
       </b-tab>
 
-      <b-tab title-link-class="p-2" v-if="Object.keys(gameLists).length">
+      <b-tab title-link-class="p-2 px-5" v-if="Object.keys(gameLists).length">
         <template v-slot:title>
           Platforms <b-badge variant="warning">Deprecated</b-badge>
         </template>
@@ -26,7 +26,7 @@
         <legacy-platforms />
       </b-tab>
 
-      <b-tab title-link-class="p-2" title="Settings">
+      <b-tab title-link-class="p-2 px-5" title="Settings">
         <h5 class="mb-2">Settings</h5>
 
         <b-form-row>
@@ -107,14 +107,14 @@
         </b-form-row>
       </b-tab>
 
-      <b-tab title-link-class="p-2" title="Releases">
+      <b-tab title-link-class="p-2 px-5" title="Releases">
         <h5 class="mb-2">Releases</h5>
         <p>An archive of every release we’ve done that we have a record of.</p>
 
         <releases class="overflow-auto vh-100" />
       </b-tab>
 
-      <b-tab title-link-class="p-2" title="Account">
+      <b-tab title-link-class="p-2 px-5" title="Account">
         <h5 class="mb-2">Account</h5>
 
         <account />
