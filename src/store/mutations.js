@@ -18,6 +18,12 @@ export default {
     state.board = board;
   },
 
+  UPDATE_BOARD_NAME(state, updatedBoard) {
+    const board = state.boards.find(({ id }) => updatedBoard.id === id);
+
+    board.name = updatedBoard.name;
+  },
+
   SET_GAME_BOARD(state, board) {
     state.board = board;
   },

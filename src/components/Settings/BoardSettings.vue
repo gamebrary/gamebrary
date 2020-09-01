@@ -253,6 +253,10 @@ export default {
 
       this.$store.commit('SET_BOARD', payload);
 
+      if (board.name !== this.name) {
+        this.$store.commit('UPDATE_BOARD_NAME', payload);
+      }
+
       await this.$store.dispatch('SAVE_BOARD')
         .catch(() => {
           this.saving = false;
