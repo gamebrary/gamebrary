@@ -45,7 +45,7 @@ export const PLATFORM_LOGO_FORMAT = {
   51: 'png',
   47: 'png',
   36: 'png',
-  45: 'jpg',
+  45: 'png',
   124: 'png',
   132: 'png',
   160: 'png',
