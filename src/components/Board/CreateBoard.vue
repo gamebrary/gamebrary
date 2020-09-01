@@ -49,7 +49,6 @@
             v-model="selectedTemplate"
             :options="boardTemplatesOptions"
             buttons
-            button-variant="outline-primary"
             name="radios-btn-default"
             description="Optional"
           />
