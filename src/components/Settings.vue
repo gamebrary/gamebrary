@@ -19,7 +19,7 @@
       <language />
       <themes />
       <b-dropdown-divider />
-      <releases />
+      <releases-modal />
       <about />
       <b-dropdown-divider />
       <account-modal />
@@ -31,7 +31,7 @@
 import TagsSettings from '@/components/Settings/TagsSettings';
 import AccountModal from '@/components/Settings/AccountModal';
 import WallpaperSettings from '@/components/Settings/WallpaperSettings';
-import Releases from '@/components/Settings/Releases';
+import ReleasesModal from '@/components/Settings/ReleasesModal';
 import Themes from '@/components/Settings/Themes';
 import Language from '@/components/Settings/Language';
 import About from '@/components/Settings/About';
@@ -42,7 +42,7 @@ export default {
     TagsSettings,
     AccountModal,
     WallpaperSettings,
-    Releases,
+    ReleasesModal,
     Themes,
     Language,
     About,

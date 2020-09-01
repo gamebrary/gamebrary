@@ -11,14 +11,14 @@
       no-fade
       vertical
       nav-wrapper-class="col-12 col-sm-auto"
-      nav-class="rounded p-0 bg-transparent mr-4 mb-4"
+      nav-class="rounded p-0 bg-transparent mb-4 mb-sm-0 mr-sm-4"
       content-class="bg-light rounded p-0"
     >
-      <b-tab title="Boards" active>
+      <b-tab title-link-class="p-2" title="Boards" active>
         <boards />
       </b-tab>
 
-      <b-tab v-if="Object.keys(gameLists).length">
+      <b-tab title-link-class="p-2" v-if="Object.keys(gameLists).length">
         <template v-slot:title>
           Platforms <b-badge variant="warning">Deprecated</b-badge>
         </template>
@@ -26,7 +26,7 @@
         <legacy-platforms />
       </b-tab>
 
-      <b-tab title="Settings">
+      <b-tab title-link-class="p-2" title="Settings">
         <h5 class="mb-2">Settings</h5>
 
         <b-form-row>
@@ -107,51 +107,14 @@
         </b-form-row>
       </b-tab>
 
-      <b-tab title="About">
-        <h5 class="mb-2">About</h5>
+      <b-tab title-link-class="p-2" title="Releases">
+        <h5 class="mb-2">Releases</h5>
+        <p>An archive of every release we’ve done that we have a record of.</p>
 
-        <b-form-row>
-          <b-col
-            class="d-flex mt-2"
-            cols="12"
-            sm="6"
-            md="4"
-            lg="3"
-          >
-            <b-card
-              v-b-modal:releases
-              header="GitHub Releases"
-              class="clickable w-100"
-            >
-              <b-card-text>
-                Manage game tags
-
-                Latest release v1.2
-              </b-card-text>
-            </b-card>
-          </b-col>
-
-          <b-col
-            class="d-flex mt-2"
-            cols="12"
-            sm="6"
-            md="4"
-            lg="3"
-          >
-            <b-card
-              v-b-modal:about
-              header="About Gamebrary"
-              class="clickable w-100"
-            >
-              <b-card-text>
-                Info about the project, contributors, development info...
-              </b-card-text>
-            </b-card>
-          </b-col>
-        </b-form-row>
+        <releases class="overflow-auto vh-100" />
       </b-tab>
 
-      <b-tab title="Account">
+      <b-tab title-link-class="p-2" title="Account">
         <h5 class="mb-2">Account</h5>
 
         <account />
@@ -167,11 +130,13 @@ import { mapState } from 'vuex';
 import LegacyPlatforms from '@/components/LegacyBoard/LegacyPlatforms';
 import PageFooter from '@/components/PageFooter';
 import Account from '@/components/Settings/Account';
+import Releases from '@/components/Settings/Releases';
 import Boards from '@/components/Boards';
 
 export default {
   components: {
     Account,
+    Releases,
     LegacyPlatforms,
     PageFooter,
     Boards,

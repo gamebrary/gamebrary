@@ -382,11 +382,12 @@ export default {
     });
   },
 
-  LOAD_RELEASES() {
+  LOAD_RELEASES({ commit }) {
     return new Promise((resolve, reject) => {
       axios.get('https://api.github.com/repos/romancm/gamebrary/releases')
         .then(({ data }) => {
-          resolve(data);
+          commit('SET_RELEASES', data);
+          resolve();
         }).catch(reject);
     });
   },

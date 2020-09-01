@@ -1,12 +1,11 @@
 <template lang="html">
-  <div class="platforms-page">
+  <div>
+    <h5 class="mb-4">
+      Platforms
+      <b-badge variant="warning">Deprecated</b-badge>
+    </h5>
 
-  <h5 class="mb-4">
-    Platforms
-    <b-badge variant="warning">Deprecated</b-badge>
-  </h5>
-
-  <platforms-list :platforms="ownedPlatforms" />
+    <platforms-list :platforms="ownedPlatforms" />
 </div>
 </template>
 <script>
