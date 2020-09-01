@@ -56,6 +56,18 @@ export default {
         ? `background-image: url('${this.wallpaperUrl}');`
         : '';
     },
+
+    boardId() {
+      return this.$route.params.id;
+    },
+  },
+
+  watch: {
+    boardId(value) {
+      if (value) {
+        this.load();
+      }
+    },
   },
 
   mounted() {
@@ -72,8 +84,8 @@ export default {
   methods: {
     load() {
       // TODO: handle loading public board
-      if (this.$route.params.id && this.user) {
-        this.loadBoard(this.$route.params.id);
+      if (this.boardId && this.user) {
+        this.loadBoard(this.boardId);
       } else {
         this.$router.push({ name: 'dashboard' });
       }
