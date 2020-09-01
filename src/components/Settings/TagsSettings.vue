@@ -94,21 +94,21 @@
               {{ name }}
             </b-badge>
 
-            <b-button-group>
+            <div>
               <b-button
-                variant="outline-primary"
+                variant="primary"
                 @click="editTag(name)"
               >
                 <b-icon-pencil />
               </b-button>
 
               <b-button
-                variant="outline-danger"
+                variant="danger"
                 @click="deleteTag(name)"
               >
                 <b-icon-trash />
               </b-button>
-            </b-button-group>
+            </div>
           </b-list-group-item>
         </b-list-group>
 
