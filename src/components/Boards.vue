@@ -60,7 +60,6 @@
 
 <script>
 import CreateBoard from '@/components/Board/CreateBoard';
-import orderby from 'lodash.orderby';
 
 import { mapState, mapGetters } from 'vuex';
 
@@ -77,11 +76,7 @@ export default {
 
   computed: {
     ...mapState(['boards', 'platforms', 'platformNames', 'wallpapers']),
-    ...mapGetters(['platformNames']),
-
-    sortedBoards() {
-      return orderby(this.boards, 'name');
-    },
+    ...mapGetters(['platformNames', 'sortedBoards']),
   },
 
   mounted() {

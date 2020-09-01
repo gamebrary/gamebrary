@@ -11,6 +11,8 @@ export default {
     return platforms.filter(({ id }) => id !== state.platform.id && gamePlatforms.includes(id));
   },
 
+  sortedBoards: ({ boards }) => orderby(boards, 'name'),
+
   filteredPlatforms: (state) => {
     const filterField = state.settings.platformsFilterField || null;
     const sortField = state.settings.platformsSortField || 'generation';
