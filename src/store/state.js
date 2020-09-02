@@ -2,7 +2,6 @@ export default {
   user: null,
   tags: {},
   notes: {},
-  themes: [],
   releases: [],
   progresses: {},
   dragging: false,

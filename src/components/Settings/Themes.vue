@@ -12,9 +12,7 @@
       size="lg"
       @show="init"
     >
-      <placeholder v-if="loading" />
-
-      <b-row v-else>
+      <b-row>
         <b-col
           cols="6"
           lg="4"
@@ -48,6 +46,7 @@
 <script>
 import { mapState } from 'vuex';
 import Placeholder from '@/components/Placeholder';
+import themes from '@/themes';
 
 export default {
   components: {
@@ -56,13 +55,13 @@ export default {
 
   data() {
     return {
-      loading: false,
       selectedTheme: {},
+      themes,
     };
   },
 
   computed: {
-    ...mapState(['themes', 'settings']),
+    ...mapState(['settings']),
   },
 
   methods: {
@@ -70,7 +69,7 @@ export default {
       return this.selectedTheme.name && theme.name === this.selectedTheme.name;
     },
 
-    setTheme(theme) {
+    async setTheme(theme) {
       this.selectedTheme = theme;
 
       document.querySelector('link[rel="stylesheet"').href = theme.cssCdn;
@@ -80,35 +79,18 @@ export default {
         theme: this.selectedTheme,
       };
 
-      this.$store.dispatch('SAVE_SETTINGS', settings)
-        .then(() => {
-          this.$bvToast.toast('Settings saved', { title: 'Success', variant: 'success' });
-          this.loading = false;
-        })
+      await this.$store.dispatch('SAVE_SETTINGS', settings)
         .catch(() => {
           this.$bvToast.toast('There was an error saving your settings', { title: 'Error', variant: 'danger' });
-          this.loading = false;
         });
+
+      this.$bvToast.toast('Settings saved', { title: 'Success', variant: 'success' });
     },
 
     init() {
-      this.loadThemes();
-
       const { settings } = this;
 
       this.selectedTheme = settings.theme || null;
-    },
-
-    async loadThemes() {
-      this.loading = true;
-
-      await this.$store.dispatch('LOAD_THEMES')
-        .catch(() => {
-          this.loading = false;
-          this.$bvToast.toast('There was an error loading themes', { title: 'Error', variant: 'danger' });
-        });
-
-      this.loading = false;
     },
   },
 };
