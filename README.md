@@ -65,8 +65,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="http://codinggoat.com"><img src="https://avatars3.githubusercontent.com/u/984069?v=4" width="100px;" alt=""/><br /><sub><b>Patrick Kontschak</b></sub></a><br /><a href="https://github.com/romancm/gamebrary/commits?author=paddykontschak" title="Code">💻</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://github.com/Bagerian"><img src="https://avatars1.githubusercontent.com/u/28718007?v=4" width="100px;" alt=""/><br /><sub><b>Bagerian</b></sub></a><br /><a href="#platform-Bagerian" title="Packaging/porting to new platform">📦</a> <a href="https://github.com/romancm/gamebrary/issues?q=author%3ABagerian" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://github.com/vman88"><img src="https://avatars1.githubusercontent.com/u/8726593?v=4" width="100px;" alt=""/><br /><sub><b>Vikas</b></sub></a><br /><a href="#ideas-vman88" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/romancm/gamebrary/issues?q=author%3Avman88" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/Bagerian"><img src="https://avatars1.githubusercontent.com/u/28718007?v=4" width="100px;" alt=""/><br /><sub><b>Bagerian</b></sub></a><br /><a href="#platform-Bagerian" title="Packaging/porting to new platform">📦</a> <a href="https://github.com/romancm/gamebrary/issues?q=author%3ABagerian" title="Bug reports">🐛</a> <a href="#translation-Bagerian" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/gamebrary"><img src="https://avatars3.githubusercontent.com/u/60666270?v=4" width="100px;" alt=""/><br /><sub><b>gamebrary</b></sub></a><br /><a href="https://github.com/romancm/gamebrary/commits?author=gamebrary" title="Code">💻</a> <a href="#infra-gamebrary" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
   </tr>
 </table>
 

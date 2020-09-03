@@ -141,7 +141,18 @@
       "profile": "https://github.com/Bagerian",
       "contributions": [
         "platform",
-        "bug"
+        "bug",
+        "translation"
+      ]
+    },
+    {
+      "login": "gamebrary",
+      "name": "gamebrary",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/60666270?v=4",
+      "profile": "https://github.com/gamebrary",
+      "contributions": [
+        "code",
+        "infra"
       ]
     },
     {
