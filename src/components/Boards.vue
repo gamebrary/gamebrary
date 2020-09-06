@@ -123,6 +123,7 @@
 
 <script>
 import CreateBoard from '@/components/Board/CreateBoard';
+import legacyPlatforms from '@/platforms';
 
 import { mapState, mapGetters } from 'vuex';
 
@@ -149,7 +150,7 @@ export default {
     },
 
     ownedPlatforms() {
-      return this.platforms.filter(({ code }) => this.gameLists[code]);
+      return legacyPlatforms.filter(({ code }) => this.gameLists[code]);
     },
   },
 
