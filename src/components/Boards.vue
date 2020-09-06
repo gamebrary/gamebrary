@@ -10,7 +10,7 @@
       <b-img src="/static/img/empty-state.png" fluid class="mr-5" />
     </div>
 
-    <b-overlay :show="loading && !platforms.length" rounded="sm" variant="transparent">
+    <b-overlay :show="loading" rounded="sm" variant="transparent">
       <b-form-row>
         <b-col
           v-for="board in sortedBoards"
@@ -123,14 +123,12 @@
 
 <script>
 import CreateBoard from '@/components/Board/CreateBoard';
-import platforms from '@/platforms';
 
 import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
     CreateBoard,
-    platforms,
   },
 
   data() {
@@ -139,7 +137,6 @@ export default {
       tempPlatform: null,
       migratePlatform: null,
       saving: false,
-      platforms,
     };
   },
 

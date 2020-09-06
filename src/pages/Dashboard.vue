@@ -118,7 +118,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
 import PageFooter from '@/components/PageFooter';
 import Account from '@/components/Settings/Account';
 import Releases from '@/components/Settings/Releases';
@@ -136,10 +135,6 @@ export default {
     return {
       activeTab: 0,
     };
-  },
-
-  computed: {
-    ...mapState(['gameLists']),
   },
 };
 </script>

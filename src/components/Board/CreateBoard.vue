@@ -2,7 +2,6 @@
   <b-button
     variant="primary"
     v-b-modal:create-board
-    :disabled="!Object.keys(platforms).length"
   >
     Create board
 
@@ -87,8 +86,6 @@
 <script>
 import PlatformPicker from '@/components/Board/PlatformPicker';
 
-import { mapState } from 'vuex';
-
 export default {
   components: {
     PlatformPicker,
@@ -119,10 +116,6 @@ export default {
         completionist: ['Owned', 'Playing', 'Completed'],
       },
     };
-  },
-
-  computed: {
-    ...mapState(['platforms']),
   },
 
   methods: {

@@ -78,7 +78,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['user', 'gameLists', 'platform', 'board']),
+    ...mapState(['user', 'platform', 'board']),
 
     isFirst() {
       return this.listIndex === 0;

@@ -50,8 +50,5 @@ export default {
     return formattedPlatforms;
   },
 
-  // eslint-disable-next-line
-  activeList: ({ gameLists, platform, activeListIndex }) => gameLists[platform.code][activeListIndex],
-
   gameTags: state => Object.keys(state.tags) && Object.keys(state.tags).length > 0,
 };

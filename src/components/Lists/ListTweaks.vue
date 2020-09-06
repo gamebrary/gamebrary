@@ -82,8 +82,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-
 export default {
   props: {
     listIndex: Number,
@@ -103,8 +101,6 @@ export default {
   },
 
   computed: {
-    ...mapState(['gameLists', 'platform']),
-
     modalId() {
       return `list-tweaks-${this.listIndex}`;
     },
