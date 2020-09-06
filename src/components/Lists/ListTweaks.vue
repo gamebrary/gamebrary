@@ -159,6 +159,8 @@ export default {
         variant: 'success',
       });
 
+      await this.$store.dispatch('LOAD_BOARD', this.$route.params.id);
+
       this.$bvModal.hide(this.modalId);
     },
   },
