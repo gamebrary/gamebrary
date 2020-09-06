@@ -18,14 +18,6 @@
         <boards />
       </b-tab>
 
-      <b-tab title-link-class="p-2 px-5" v-if="Object.keys(gameLists).length">
-        <template v-slot:title>
-          Platforms <b-badge variant="warning">Deprecated</b-badge>
-        </template>
-
-        <legacy-platforms />
-      </b-tab>
-
       <b-tab title-link-class="p-2 px-5" title="Settings">
         <h5 class="mb-2">Settings</h5>
 
@@ -127,7 +119,6 @@
 
 <script>
 import { mapState } from 'vuex';
-import LegacyPlatforms from '@/components/LegacyBoard/LegacyPlatforms';
 import PageFooter from '@/components/PageFooter';
 import Account from '@/components/Settings/Account';
 import Releases from '@/components/Settings/Releases';
@@ -137,7 +128,6 @@ export default {
   components: {
     Account,
     Releases,
-    LegacyPlatforms,
     PageFooter,
     Boards,
   },

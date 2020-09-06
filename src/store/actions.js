@@ -238,29 +238,6 @@ export default {
     });
   },
 
-  //
-  // LEGACY
-  //
-
-  LOAD_GAMES_LEGACY({ commit }, gameList) {
-    return new Promise((resolve, reject) => {
-      axios.get(`${API_BASE}/games?games=${gameList}`)
-        .then(({ data }) => {
-          commit('CACHE_GAME_DATA', data);
-          resolve();
-        }).catch(reject);
-    });
-  },
-
-  SAVE_LIST_LEGACY({ commit, state }, payload) {
-    const db = firebase.firestore();
-
-    db.collection('lists').doc(state.user.uid).set(payload, { merge: true })
-      .then(() => {
-        commit('SAVE_LIST_LEGACY', payload);
-      });
-  },
-
   SAVE_TAGS_LEGACY({ state }, tags) {
     const db = firebase.firestore();
 
@@ -271,7 +248,7 @@ export default {
     });
   },
 
-  SAVE_TAGS_NO_MERGE_LEGACY({ state }, tags) {
+  SAVE_TAGS_NO_MERGE({ state }, tags) {
     const db = firebase.firestore();
 
     return new Promise((resolve, reject) => {
@@ -281,7 +258,7 @@ export default {
     });
   },
 
-  SAVE_LIST_NO_MERGE_LEGACY({ commit, state }, payload) {
+  SAVE_LEGACY_LISTS({ commit, state }, payload) {
     const db = firebase.firestore();
 
     db.collection('lists').doc(state.user.uid).set(payload, { merge: false })
@@ -289,21 +266,6 @@ export default {
         commit('SAVE_LIST_LEGACY', payload);
       });
   },
-
-  SEARCH_LEGACY({ commit, state }, searchText) {
-    return new Promise((resolve, reject) => {
-      axios.get(`${API_BASE}/search?search=${searchText}&platform=${state.platform.id}`)
-        .then(({ data }) => {
-          commit('SET_SEARCH_RESULTS', data);
-          commit('CACHE_GAME_DATA', data);
-          resolve();
-        }).catch(reject);
-    });
-  },
-
-  //
-  // STUFF THAT REMAINS THE SAME
-  //
 
   SAVE_SETTINGS({ commit, state }, settings) {
     const db = firebase.firestore();

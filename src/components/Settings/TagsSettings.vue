@@ -303,8 +303,8 @@ export default {
     async saveTags(deleting) {
       this.saving = true;
       const action = deleting
-        ? 'SAVE_TAGS_NO_MERGE_LEGACY'
-        : 'SAVE_TAGS_LEGACY';
+        ? '_LEGACY'
+        : 'SAVE_TAGS';
 
       await this.$store.dispatch(action, this.localTags)
         .catch(() => {

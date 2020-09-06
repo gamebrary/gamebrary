@@ -116,7 +116,7 @@ export default {
     },
 
     saveTags() {
-      this.$store.dispatch('SAVE_TAGS_LEGACY', this.tags)
+      this.$store.dispatch('SAVE_TAGS', this.tags)
         .catch(() => {
           this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
         });

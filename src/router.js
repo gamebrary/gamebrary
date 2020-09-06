@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Board from '@/pages/Board';
-import LegacyBoard from '@/pages/LegacyBoard';
 import SessionExpired from '@/pages/SessionExpired';
 import Dashboard from '@/pages/Dashboard';
 import NotFound from '@/pages/NotFound';
@@ -27,17 +26,15 @@ export default new Router({
       },
     },
     {
-      name: 'legacy-board',
-      path: '/legacy-board',
-      component: LegacyBoard,
-      meta: {
-        title: 'Boards',
-      },
+      path: '/board/:id',
+      name: 'board',
+      component: Board,
     },
     {
       path: '/board/:id',
       name: 'board',
       component: Board,
+
     },
     {
       name: 'sessionExpired',

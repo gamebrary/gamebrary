@@ -13,6 +13,13 @@
       <div class="d-flex flex-column pr-3">
         <add-list />
         <board-settings />
+        <b-button
+          v-b-modal:board-settings
+          class="mt-3"
+          ref="addList"
+        >
+          <b-icon-filter />
+        </b-button>
       </div>
     </template>
 

@@ -1,3 +1,5 @@
+// TODO: clean up state and mutations
+
 export default {
   user: null,
   tags: {},

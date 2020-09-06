@@ -1,3 +1,5 @@
+// TODO: clean up state and mutations
+
 import Vue from 'vue';
 import { PLATFORM_CATEGORIES, EXCLUDED_PLATFORMS, PLATFORM_BG_HEX, PLATFORM_LOGO_FORMAT, PLATFORM_NAME_OVERRIDES, POPULAR_PLATFORMS } from '@/constants';
 
@@ -128,14 +130,6 @@ export default {
   // LEGACY STUFF
   //
 
-  ADD_LIST_LEGACY(state, list) {
-    if (!state.gameLists[state.platform.code]) {
-      Vue.set(state.gameLists, state.platform.code, []);
-    }
-
-    state.gameLists[state.platform.code].push(list);
-  },
-
   SET_PLATFORM_LEGACY(state, platform) {
     state.platform = platform;
   },
@@ -162,12 +156,6 @@ export default {
 
   REMOVE_PLATFORM_LEGACY(state) {
     Vue.delete(state.gameLists, state.platform.code);
-  },
-
-  ADD_GAME_LEGACY(state, { gameId, listId }) {
-    const currentList = state.gameLists[state.platform.code][listId];
-
-    currentList.games.push(gameId);
   },
 
   SET_WALLPAPER_URL_LEGACY(state, url) {
