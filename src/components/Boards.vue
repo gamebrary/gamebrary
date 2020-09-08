@@ -11,80 +11,63 @@
     </div>
 
     <b-overlay :show="loading" rounded="sm" variant="transparent">
-      <b-form-row>
-        <b-col
-          v-for="board in sortedBoards"
-          :key="board.id"
-          class="d-flex mt-2"
-          cols="12"
-          sm="6"
-          md="4"
-          lg="3"
-        >
-          <b-card
-            no-body
-            class="clickable w-100"
-            @click="viewBoard(board.id)"
-          >
-            <template v-slot:header>
-              <h4 class="mb-0">{{ board.name }}</h4>
-            </template>
+      <b-card
+        v-for="board in sortedBoards"
+        :key="board.id"
+        no-body
+        class="overflow-hidden clickable mt-3"
+        @click="viewBoard(board.id)"
+      >
+        <b-row no-gutters>
+          <b-col md="3">
+            <b-card-img :src="getWallpaper(board)" alt="Image" class="rounded-0" />
+          </b-col>
 
-            <b-card-body>
+          <b-col md="9" >
+            <b-card-body :title="board.name" title-tag="h5">
               <b-card-text v-if="board.description">
                 {{ board.description }}
               </b-card-text>
-              <b-avatar-group v-if="Object.keys(platformNames).length">
-                <!-- eslint-disable-next-line -->
+
+              <b-avatar-group
+                v-if="Object.keys(platformNames).length"
+                size="lg"
+                variant="light"
+              >
                 <b-avatar :src="getPlatformImage(id)"
                   v-for="id in board.platforms"
+                  v-b-tooltip.hover
+                  :title="platformNames[id].name"
                   :key="id"
-                  variant="light"
-                  size="sm"
                 />
               </b-avatar-group>
             </b-card-body>
+          </b-col>
+        </b-row>
+      </b-card>
 
-            <b-card-img
-              :src="getWallpaper(board)"
-              :alt="board.name"
-              bottom
-            />
-          </b-card>
-        </b-col>
+      <b-card
+        no-body
+        border-variant="warning"
+        class="clickable mt-3"
+        v-for="platform in ownedPlatforms"
+        :key="platform.id"
+        @click="openDeprecationWarning(platform)"
+      >
+        <b-card-body>
+          <h4 class="mb-0">
+            {{ platform.name }}
+            <b-badge variant="warning">Deprecated</b-badge>
+          </h4>
 
-        <b-col
-          class="d-flex mt-2"
-          cols="12"
-          sm="6"
-          md="4"
-          lg="3"
-          v-for="platform in ownedPlatforms"
-          :key="platform.id"
-        >
-          <b-card
-            no-body
-            border-variant="warning"
-            class="clickable w-100"
-            @click="openDeprecationWarning(platform)"
-          >
-            <template v-slot:header>
-              <h4 class="mb-0">
-                {{ platform.name }}
-                <b-badge variant="warning">Deprecated</b-badge>
-              </h4>
-            </template>
-
-            <b-card-body>
-              <b-avatar
-                :src="`/static/img/platforms/logos/${platform.code}.svg`"
-                variant="light"
-                size="sm"
-              />
-            </b-card-body>
-          </b-card>
-        </b-col>
-      </b-form-row>
+          <b-avatar
+            :src="`/static/img/platforms/logos/${platform.code}.svg`"
+            variant="light"
+            size="lg"
+            square
+          />
+        </b-card-body>
+      </b-card>
 
       <b-modal
         id="deprecation-warning"
@@ -249,7 +232,7 @@ export default {
 
       return this.wallpapers.length && boardWallpaper && boardWallpaper.url
         ? boardWallpaper.url
-        : `https://via.placeholder.com/512x288?text=${name}`;
+        : `https://via.placeholder.com/300x100?text=${name}`;
     },
 
     getPlatformImage(id) {
