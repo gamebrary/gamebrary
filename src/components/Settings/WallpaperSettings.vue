@@ -158,10 +158,6 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-img {
-  max-height: 140px;
-}
-
 .delete-file {
   bottom: .5rem;
   right: .5rem;
