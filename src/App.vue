@@ -65,7 +65,7 @@ export default {
   methods: {
     init() {
       if (this.user) {
-        this.syncData();
+        this.load();
         return;
       }
 
@@ -102,8 +102,20 @@ export default {
         });
     },
 
-    syncData() {
-      this.$store.dispatch('LOAD_RELEASES');
+    load() {
+      this.$store.dispatch('LOAD_RELEASES')
+        .then((releases) => {
+          const [latestRelease] = releases;
+
+          const latestReleaseVersion = latestRelease && latestRelease.tag_name;
+
+          const lastReleaseSeenByUser = (this.settings && this.settings.release) || null;
+
+          if (latestReleaseVersion === lastReleaseSeenByUser) {
+            this.$store.commit('SET_NOTIFICATION', true);
+          }
+        });
+
       this.loadWallpapers();
 
       // TODO: track progresses as well
