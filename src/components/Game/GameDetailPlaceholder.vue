@@ -113,8 +113,6 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  // @import "~styles/styles";
-
   .game-detail-placeholder {
     display: flex;
     justify-content: center;

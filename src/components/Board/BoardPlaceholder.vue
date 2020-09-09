@@ -64,8 +64,6 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  // @import "~styles/styles";
-
   .gameboard-placeholder {
     user-select: none;
     display: flex;

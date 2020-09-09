@@ -35,8 +35,6 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-// @import "~styles/styles";
-
 .placeholder {
   max-width: 100%;
   min-width: 100px;
