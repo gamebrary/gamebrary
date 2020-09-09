@@ -111,7 +111,7 @@ export default {
 
           const lastReleaseSeenByUser = (this.settings && this.settings.release) || null;
 
-          if (latestReleaseVersion === lastReleaseSeenByUser) {
+          if (latestReleaseVersion !== lastReleaseSeenByUser) {
             this.$store.commit('SET_NOTIFICATION', true);
           }
         });
