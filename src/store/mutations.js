@@ -1,5 +1,3 @@
-// TODO: clean up state and mutations
-
 import Vue from 'vue';
 import { PLATFORM_CATEGORIES, EXCLUDED_PLATFORMS, PLATFORM_BG_HEX, PLATFORM_LOGO_FORMAT, PLATFORM_NAME_OVERRIDES, POPULAR_PLATFORMS } from '@/constants';
 
@@ -126,49 +124,6 @@ export default {
     state.board.lists[listIndex].name = listName;
   },
 
-  //
-  // LEGACY STUFF
-  //
-
-  SET_PLATFORM_LEGACY(state, platform) {
-    state.platform = platform;
-  },
-
-  SAVE_LIST_LEGACY(state, lists) {
-    state.gameLists = lists;
-  },
-
-  REMOVE_GAME_LEGACY(state, { gameId, listId }) {
-    const currentList = state.gameLists[state.platform.code][listId];
-
-    currentList.games.splice(currentList.games.indexOf(gameId), 1);
-  },
-
-  MOVE_LIST_LEGACY(state, { from, to }) {
-    const cutOut = state.gameLists[state.platform.code].splice(from, 1)[0];
-
-    state.gameLists[state.platform.code].splice(to, 0, cutOut);
-  },
-
-  REMOVE_LIST_LEGACY(state, index) {
-    state.gameLists[state.platform.code].splice(index, 1);
-  },
-
-  REMOVE_PLATFORM_LEGACY(state) {
-    Vue.delete(state.gameLists, state.platform.code);
-  },
-
-  SET_WALLPAPER_URL_LEGACY(state, url) {
-    state.wallpaperUrl = url;
-  },
-
-  SET_GAME_LISTS_LEGACY(state, lists) {
-    state.gameLists = lists;
-  },
-
-  //
-  // STUFF THAT REMAINS THE SAME
-  //
   SET_USER(state, data) {
     state.user = {
       lastLogin: data.metadata.lastSignInTime,
@@ -227,7 +182,6 @@ export default {
     state.board = {};
     state.boardGames = [];
     state.gameModalData = null;
-    state.game = null;
     state.wallpaperUrl = null;
     state.wallpapers = [];
   },
@@ -282,5 +236,25 @@ export default {
 
   UPDATE_SETTING(state, { key, value }) {
     state.settings[key] = value;
+  },
+
+  //
+  // LEGACY STUFF
+  //
+
+  SET_ACTIVE_PLATFORM_LEGACY(state, platform) {
+    state.platform = platform;
+  },
+
+  SAVE_LIST_LEGACY(state, lists) {
+    state.gameLists = lists;
+  },
+
+  REMOVE_PLATFORM_LEGACY(state) {
+    Vue.delete(state.gameLists, state.platform.code);
+  },
+
+  SET_GAME_LISTS_LEGACY(state, lists) {
+    state.gameLists = lists;
   },
 };

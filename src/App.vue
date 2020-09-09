@@ -17,7 +17,6 @@ import firebase from 'firebase/app';
 import { mapState } from 'vuex';
 import 'firebase/auth';
 import 'firebase/firestore';
-import 'firebase/storage';
 
 // TODO: store in env vars
 firebase.initializeApp({
@@ -29,7 +28,6 @@ firebase.initializeApp({
   messagingSenderId: '324529217902',
 });
 
-const storage = firebase.storage().ref();
 const db = firebase.firestore();
 
 export default {
@@ -47,7 +45,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['user', 'platform', 'wallpaperUrl', 'settings']),
+    ...mapState(['user', 'wallpaperUrl', 'settings']),
 
     userId() {
       return this.debugUserId || this.user.uid;
@@ -60,18 +58,6 @@ export default {
     },
   },
 
-  watch: {
-    customWallpaper(value) {
-      if (value) {
-        if (this.platform) {
-          this.loadWallpaper();
-        }
-      } else {
-        this.$store.commit('SET_WALLPAPER_URL_LEGACY', '');
-      }
-    },
-  },
-
   mounted() {
     this.init();
   },
@@ -81,10 +67,6 @@ export default {
       if (this.user) {
         this.syncData();
         return;
-      }
-
-      if (this.customWallpaper) {
-        this.loadWallpaper();
       }
 
       firebase.auth().getRedirectResult().then(({ additionalUserInfo, user }) => {
@@ -111,15 +93,6 @@ export default {
         .catch((message) => {
           this.$bvToast.toast(message, { title: 'Error', variant: 'danger' });
         });
-    },
-
-    loadWallpaper() {
-      const wallpaperRef = this.customWallpaper;
-      this.$store.commit('SET_WALLPAPER_URL_LEGACY', '');
-
-      storage.child(wallpaperRef).getDownloadURL().then((url) => {
-        this.$store.commit('SET_WALLPAPER_URL_LEGACY', url);
-      });
     },
 
     loadWallpapers() {

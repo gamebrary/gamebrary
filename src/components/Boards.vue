@@ -20,7 +20,10 @@
       >
         <b-row no-gutters>
           <b-col md="3">
-            <b-card-img :src="getWallpaper(board)" alt="Image" class="rounded-0" />
+            <b-card-img
+              :src="getWallpaper(board)"
+              :alt="board.name"
+            />
           </b-col>
 
           <b-col md="9" >
@@ -32,7 +35,7 @@
               <b-avatar-group
                 v-if="Object.keys(platformNames).length"
                 size="lg"
-                variant="light"
+                variant="dark"
               >
                 <b-avatar :src="getPlatformImage(id)"
                   v-for="id in board.platforms"
@@ -55,7 +58,7 @@
         @click="openDeprecationWarning(platform)"
       >
         <b-card-body>
-          <h4 class="mb-0">
+          <h4 class="mb-2">
             {{ platform.name }}
             <b-badge variant="warning">Deprecated</b-badge>
           </h4>
@@ -213,7 +216,7 @@ export default {
     },
 
     deleteLegacyPlatform(platform) {
-      this.$store.commit('SET_PLATFORM_LEGACY', platform);
+      this.$store.commit('SET_ACTIVE_PLATFORM_LEGACY', platform);
 
       this.$store.commit('REMOVE_PLATFORM_LEGACY');
 

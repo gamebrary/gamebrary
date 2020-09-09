@@ -31,12 +31,6 @@ export default new Router({
       component: Board,
     },
     {
-      path: '/board/:id',
-      name: 'board',
-      component: Board,
-
-    },
-    {
       name: 'sessionExpired',
       path: '/session-expired',
       component: SessionExpired,

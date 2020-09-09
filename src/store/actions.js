@@ -1,5 +1,6 @@
 import axios from 'axios';
 import firebase from 'firebase/app';
+import 'firebase/storage';
 import 'firebase/firestore';
 
 const API_BASE = 'https://us-central1-gamebrary-8c736.cloudfunctions.net';
@@ -238,7 +239,7 @@ export default {
     });
   },
 
-  SAVE_TAGS_LEGACY({ state }, tags) {
+  SAVE_TAGS({ state }, tags) {
     const db = firebase.firestore();
 
     return new Promise((resolve, reject) => {
