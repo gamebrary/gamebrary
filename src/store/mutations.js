@@ -10,6 +10,10 @@ export default {
     state.releases = releases;
   },
 
+  SET_NOTIFICATION(state, notification) {
+    state.notification = notification;
+  },
+
   CLEAR_BOARD(state) {
     state.board = {};
   },

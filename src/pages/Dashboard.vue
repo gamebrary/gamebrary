@@ -99,14 +99,18 @@
         </b-form-row>
       </b-tab>
 
-      <b-tab title-link-class="p-2 px-5" title="Releases">
+      <b-tab title-link-class="p-2 px-5" lazy>
+        <template v-slot:title>
+          Releases <b-badge variant="success" v-if="notification">New!</b-badge>
+        </template>
+
         <h5 class="mb-2">Releases</h5>
         <p>An archive of every release we’ve done that we have a record of.</p>
 
         <releases class="overflow-auto vh-100" />
       </b-tab>
 
-      <b-tab title-link-class="p-2 px-5" title="Account">
+      <b-tab title-link-class="p-2 px-5" title="Account" lazy>
         <h5 class="mb-2">Account</h5>
 
         <account />
@@ -122,6 +126,7 @@ import PageFooter from '@/components/PageFooter';
 import Account from '@/components/Settings/Account';
 import Releases from '@/components/Settings/Releases';
 import Boards from '@/components/Boards';
+import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -129,6 +134,10 @@ export default {
     Releases,
     PageFooter,
     Boards,
+  },
+
+  computed: {
+    ...mapState(['notification']),
   },
 
   data() {

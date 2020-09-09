@@ -10,6 +10,8 @@
         <b-avatar
           v-if="user && user.photoURL"
           variant="info"
+          :badge="notification"
+          badge-variant="danger"
           :src="user.photoURL"
         />
       </template>
@@ -49,7 +51,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['user']),
+    ...mapState(['user', 'notification']),
   },
 };
 </script>

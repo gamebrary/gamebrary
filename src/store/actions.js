@@ -340,7 +340,7 @@ export default {
       axios.get('https://api.github.com/repos/romancm/gamebrary/releases')
         .then(({ data }) => {
           commit('SET_RELEASES', data);
-          resolve();
+          resolve(data);
         }).catch(reject);
     });
   },

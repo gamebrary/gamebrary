@@ -36,7 +36,28 @@ export default {
   },
 
   computed: {
-    ...mapState(['releases']),
+    ...mapState(['releases', 'notification', 'settings']),
+  },
+
+  mounted() {
+    if (this.notification) {
+      const [latestRelease] = this.releases;
+
+      if (latestRelease && latestRelease.tag_name) {
+        this.$store.commit('UPDATE_SETTING', { key: 'release', value: latestRelease.tag_name });
+
+        this.$store.dispatch('SAVE_SETTINGS', this.settings)
+          .then(() => {
+            this.$store.commit('SET_NOTIFICATION', false);
+          })
+          .catch(() => {
+            this.$bvToast.toast(
+              'There was an error saving your settings',
+              { title: 'Error', variant: 'danger' });
+          });
+      }
+
+    }
   },
 
   methods: {
