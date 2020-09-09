@@ -136,14 +136,14 @@ export default {
     Boards,
   },
 
-  computed: {
-    ...mapState(['notification']),
-  },
-
   data() {
     return {
       activeTab: 0,
     };
+  },
+
+  computed: {
+    ...mapState(['notification']),
   },
 };
 </script>
