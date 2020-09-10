@@ -175,7 +175,7 @@ export default {
       this.loadSettings();
       this.loadTags();
       this.loadLists();
-      this.syncData();
+      this.load();
     },
 
     loadSettings() {
