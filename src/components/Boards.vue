@@ -19,7 +19,7 @@
         @click="viewBoard(board.id)"
       >
         <b-row no-gutters>
-          <b-col md="3">
+          <b-col md="3" v-if="board.wallpaper">
             <b-card-img
               :src="getWallpaper(board)"
               :alt="board.name"
