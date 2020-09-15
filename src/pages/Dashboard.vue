@@ -161,7 +161,7 @@ export default {
     ...mapState(['notification']),
 
     coverScreenshot() {
-      const baseUrl = 'https://images.igdb.com/igdb/image/upload/t_screenshot_huge_2x/';
+      const baseUrl = 'https://images.igdb.com/igdb/image/upload/t_1080p_2x/';
       return this.coverGame && this.coverGame.screenshots.length
         ? `${baseUrl}${this.coverGame.screenshots[0].image_id}.jpg`
         : '';
