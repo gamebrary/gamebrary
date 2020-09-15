@@ -15,5 +15,6 @@ export default {
   gameModalData: null,
   wallpapers: [],
   platform: null,
+  duplicatedGame: null,
   legacyPlatforms: [],
 };
