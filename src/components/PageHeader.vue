@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-navbar class="px-3 py-2 border-0 shadow-none" :fixed="fixed">
+  <b-navbar class="px-3 py-2 border-0 shadow-none" fixed="top">
     <b-navbar-brand :to="{ name: 'home' }" class="border-0 p-0 mr-1">
       <img src="/static/gamebrary-logo.png" height="30" />
 
@@ -45,12 +45,6 @@ export default {
   computed: {
     ...mapState(['board']),
     ...mapGetters(['sortedBoards']),
-
-    fixed() {
-      return this.$route.name === 'board'
-        ? 'top'
-        : '';
-    },
 
     showBoardTitle() {
       return this.$route.name === 'board' && this.board.name;
