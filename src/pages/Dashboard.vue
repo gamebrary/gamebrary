@@ -25,6 +25,7 @@
         nav-wrapper-class="col-12 col-sm-auto"
         nav-class="rounded p-0 bg-transparent mb-4 mb-sm-0 mr-sm-3"
         content-class="rounded p-0"
+        active-tab-class="p-0"
       >
         <b-tab title-link-class="p-2 px-5" title="Boards" active>
           <boards />
