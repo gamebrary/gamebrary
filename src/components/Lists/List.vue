@@ -3,9 +3,7 @@
     :class="['list mr-3', viewClass, { unique, dragging }]"
     :id="listIndex"
   >
-    <b-card
-      no-body
-    >
+    <b-card no-body>
       <b-card-header
         class="py-0 pr-0 pl-2 d-flex justify-content-between align-items-center"
         :header-bg-variant="showDuplicateWarning ? 'warning' : null"
