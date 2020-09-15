@@ -133,6 +133,33 @@ exports.game = functions.https.onRequest((req, res) => {
     .catch((error) => { res.send(error) });
 });
 
+exports.popularGames = functions.https.onRequest((req, res) => {
+  res.set('Access-Control-Allow-Origin', "*")
+
+  const data = `fields
+  name,
+  screenshots.image_id,
+  popularity,
+  platforms.name;
+
+  limit 50;
+  where platforms = (48, 49, 130, 167, 169);
+  sort popularity desc;
+  `;
+
+  axios({
+    url: 'https://api-v3.igdb.com/games',
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'user-key': functions.config().igdbv3.key,
+    },
+    data,
+  })
+    .then(({ data }) => { res.status(200).send(data) })
+    .catch((error) => { res.send(error) });
+});
+
 exports.email = functions.https.onRequest((req, res) => {
   res.set('Access-Control-Allow-Origin', "*")
 
