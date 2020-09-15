@@ -21,6 +21,15 @@ export default {
     });
   },
 
+  LOAD_POPULAR_GAMES() {
+    return new Promise((resolve, reject) => {
+      axios.get(`${API_BASE}/popularGames`)
+        .then(({ data }) => {
+          resolve(data);
+        }).catch(reject);
+    });
+  },
+
   LOAD_BOARDS({ state, commit }) {
     return new Promise((resolve, reject) => {
       const db = firebase.firestore();
