@@ -1,6 +1,6 @@
 <template lang="html">
   <div
-    :class="['list mr-3', viewClass, { unique, dragging }]"
+    :class="['list mr-3', viewClass, { dragging }]"
     :id="listIndex"
   >
     <b-card no-body>
@@ -67,6 +67,7 @@ import GameCardCompact from '@/components/GameCards/GameCardCompact';
 import GameCardText from '@/components/GameCards/GameCardText';
 import AddGameModal from '@/components/Lists/AddGameModal';
 import orderby from 'lodash.orderby';
+import { DEFAULT_LIST_VIEW } from '@/constants';
 import { mapState } from 'vuex';
 
 export default {
@@ -141,15 +142,6 @@ export default {
       case 'sortByProgress': return orderby(games, [game => this.progresses[game] || 0], ['desc']);
       case 'sortByRating': return orderby(games, [game => this.games[game].rating || 0], ['desc']);
       case 'sortByName': return orderby(games, [game => this.games[game].name]);
-      // case 'sortByReleaseDate':
-      //   return orderby(this.list, [(game) => {
-      //     const releaseDate = this.games[game] && this.games[game].release_dates
-      //       ? this.games[game].release_dates
-      //         .find(({ platform }) => this.platform.id === platform)
-      //       : '';
-      //
-      //     return releaseDate && releaseDate.date;
-      //   }]);
       default:
         return this.list.games;
       }
@@ -163,10 +155,6 @@ export default {
       const { settings } = this.list;
 
       return settings && settings.view;
-    },
-
-    unique() {
-      return this.list.length === 1;
     },
 
     showGameCount() {
@@ -244,13 +232,6 @@ export default {
     width: 300px;
     border-radius: 3px;
 
-    &.unique {
-      @media(max-width: 780px) {
-        min-width: 300px;
-        width: calc(100vw - 80px);
-      }
-    }
-
     .games {
       display: grid;
       height: 100%;
@@ -263,9 +244,9 @@ export default {
 
     &.grid {
       .games {
-        padding: .5rem;
+        padding: .5rem .5rem 0;
         grid-template-columns: 1fr 1fr;
-        grid-gap: .5rem;
+        grid-column-gap: .5rem;
 
         // https://github.com/w3c/csswg-drafts/issues/129
         &::after {
@@ -277,24 +258,21 @@ export default {
           grid-column: span 2;
         }
       }
-
-      &.unique {
-        .games {
-          grid-template-columns: 1fr 1fr 1fr;
-
-          // @media($tiny) {
-          //   grid-template-columns: 1fr 1fr;
-          // }
-
-          @media(min-width: 781px) {
-            grid-template-columns: 1fr 1fr;
-          }
-        }
-      }
     }
   }
 
   .list-settings {
     padding: 1rem;
   }
+</style>
+
+<style lang="scss" rel="stylesheet/scss">
+.card-placeholder {
+  > div {
+    visibility: hidden !important;
+  }
+
+  opacity: .1;
+  background: #000;
+}
 </style>
