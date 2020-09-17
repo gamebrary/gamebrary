@@ -1,19 +1,16 @@
 <template lang="html">
-  <div>
-    <b-jumbotron
-      header="Welcome to Gamebrary"
-      text-variant="white"
-      header-level="4"
-      class="text-center rounded-0"
-      lead="The open source video game collection management tool."
-      :style="`
-        background-image: url('${ coverScreenshot }');
-        background-size: cover;
-        height: 50vh;
-      `"
-      >
-        <small v-if="coverGame">Screenshot from <strong>{{ coverGame.name }}</strong></small>
-    </b-jumbotron>
+  <div :style="`
+    background-image: linear-gradient(transparent, #222 50%), url(${ coverScreenshot });
+    background-size: 100%;
+    background-repeat: no-repeat;
+  `"
+  >
+
+  <div class="hero text-center py-5 my-5">
+    <h3>Welcome to Gamebrary</h3>
+    <p class="lead">The open source video game collection management tool.</p>
+    <small v-if="coverGame">Screenshot from <strong>{{ coverGame.name }}</strong></small>
+  </div>
 
     <div class="container dashboard">
       <b-tabs
@@ -34,93 +31,48 @@
         <b-tab title-link-class="p-2 px-5" title="Settings">
           <h5 class="mb-2">Settings</h5>
 
-          <b-form-row>
-            <b-col
-              class="d-flex mt-2"
-              cols="12"
-              sm="6"
-              md="4"
-              lg="3"
-            >
-              <b-card
-                v-b-modal:tags-settings
-                class="clickable w-100"
-              >
-              <template v-slot:header>
-                <b-icon icon="tags" />
-                Manage game tags
-              </template>
-
-              <p>Tags are a great way to organize and manage your video game collection.
-                Add, edit or delete tags.</p>
-              </b-card>
-            </b-col>
-
-            <b-col
-              class="d-flex mt-2"
-              cols="12"
-              sm="6"
-              md="4"
-              lg="3"
-            >
-              <b-card
-                v-b-modal:wallpapers
-                header="Wallpapers"
-                class="clickable w-100"
-              >
-                <b-card-text>
-                  Manage board wallpapers
-                </b-card-text>
-              </b-card>
-            </b-col>
-
-            <b-col
-              class="d-flex mt-2"
-              cols="12"
-              sm="6"
-              md="4"
-              lg="3"
-            >
-              <b-card
-                v-b-modal:language
-                header="Language"
-                class="clickable w-100"
-              >
-                <b-card-text>
-                  Change language
-                </b-card-text>
-              </b-card>
-            </b-col>
-
-            <b-col
-              class="d-flex mt-2"
-              cols="12"
-              sm="6"
-              md="4"
-              lg="3"
-            >
-              <b-card
-                v-b-modal:themes
-                header="Theme"
-                class="clickable w-100"
-              >
-                <b-card-text>
-                  Change UI theme
-                </b-card-text>
-              </b-card>
-            </b-col>
-          </b-form-row>
-        </b-tab>
-
-        <b-tab title-link-class="p-2 px-5" lazy>
-          <template v-slot:title>
-            Releases <b-badge variant="success" v-if="notification">New!</b-badge>
+          <b-card
+            v-b-modal:tags-settings
+            class="clickable w-100 mb-3"
+          >
+          <template v-slot:header>
+            <b-icon icon="tags" />
+            Manage game tags
           </template>
 
-          <h5 class="mb-2">Releases</h5>
-          <p>An archive of every release we’ve done that we have a record of.</p>
+          <p>Tags are a great way to organize and manage your video game collection.
+            Add, edit or delete tags.</p>
+          </b-card>
 
-          <releases />
+          <b-card
+            v-b-modal:wallpapers
+            header="Wallpapers"
+            class="clickable w-100 mb-3"
+          >
+            <b-card-text>
+              Manage board wallpapers
+            </b-card-text>
+          </b-card>
+
+          <b-card
+            v-b-modal:language
+            header="Language"
+            class="clickable w-100 mb-3"
+          >
+            <b-card-text>
+              Change language
+            </b-card-text>
+          </b-card>
+
+          <b-card
+            v-b-modal:themes
+            header="Theme"
+            class="clickable w-100 mb-3"
+          >
+            <b-card-text>
+              Change UI theme
+            </b-card-text>
+          </b-card>
         </b-tab>
 
         <b-tab title-link-class="p-2 px-5" title="Account" lazy>
@@ -140,7 +92,6 @@ import PageFooter from '@/components/PageFooter';
 import Account from '@/components/Settings/Account';
 import Releases from '@/components/Settings/Releases';
 import Boards from '@/components/Boards';
-import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -158,8 +109,6 @@ export default {
   },
 
   computed: {
-    ...mapState(['notification']),
-
     coverScreenshot() {
       const baseUrl = 'https://images.igdb.com/igdb/image/upload/t_1080p_2x/';
       return this.coverGame && this.coverGame.screenshots.length
@@ -179,7 +128,7 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-.jumbotron {
+.hero {
   text-shadow: 2px 3px 5px rgba(0,0,0,0.5);
 }
 </style>
