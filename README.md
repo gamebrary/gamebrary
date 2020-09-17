@@ -1,5 +1,5 @@
 <p align="center">
-    <img width="200" src="https://user-images.githubusercontent.com/60666270/93530531-8f68b700-f8f2-11ea-9303-9e00783c0088.png" alt="Gamebrary logo">
+    <img width="200" src="https://user-images.githubusercontent.com/60666270/93530966-567d1200-f8f3-11ea-8fd3-131976105d06.png" alt="Gamebrary logo">
     <h2 align="center">Gamebrary</h2>
     <p align="center">Open source tool to organize video game collections.</p>
 </p>
