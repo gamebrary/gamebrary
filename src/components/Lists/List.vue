@@ -186,8 +186,7 @@ export default {
     viewClass() {
       const { settings } = this.list;
 
-      // TODO: put default view in constant
-      return settings.view || 'single';
+      return settings.view || DEFAULT_LIST_VIEW;
     },
   },
 

@@ -1,5 +1,7 @@
 export const POPULAR_PLATFORMS = [169, 167, 130, 48, 49, 41];
 
+export const DEFAULT_LIST_VIEW = 'single';
+
 export const PLATFORM_CATEGORIES = {
   1: 'console',
   2: 'arcade',
