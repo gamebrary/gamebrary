@@ -82,7 +82,7 @@ export default {
     async saveTags() {
       await this.$store.dispatch('SAVE_TAGS', this.tags)
         .catch(() => {
-          this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
+          this.$store.commit('SET_SESSION_EXPIRED', true);
         });
 
       this.$bvToast.toast('Tags updated', { title: 'Success', variant: 'success' });

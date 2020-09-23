@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Board from '@/pages/Board';
-import SessionExpired from '@/pages/SessionExpired';
 import Dashboard from '@/pages/Dashboard';
 import NotFound from '@/pages/NotFound';
 
@@ -29,14 +28,6 @@ export default new Router({
       path: '/board/:id',
       name: 'board',
       component: Board,
-    },
-    {
-      name: 'sessionExpired',
-      path: '/session-expired',
-      component: SessionExpired,
-      meta: {
-        title: 'Session expired',
-      },
     },
     {
       path: '/auth/:authProvider',

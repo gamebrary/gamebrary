@@ -101,7 +101,7 @@ export default {
 
       await this.$store.dispatch('SAVE_BOARD', true)
         .catch(() => {
-          this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
+          this.$store.commit('SET_SESSION_EXPIRED', true);
         });
 
       this.$bvToast.toast('List deleted', {
@@ -114,7 +114,7 @@ export default {
 
       await this.$store.dispatch('SAVE_BOARD')
         .catch(() => {
-          this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
+          this.$store.commit('SET_SESSION_EXPIRED', true);
         });
 
       this.$bvToast.toast('List saved', { title: 'success', variant: 'success' });

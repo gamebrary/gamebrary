@@ -64,11 +64,11 @@ export default {
       //         window.location.href = exitUrl;
       //       })
       //       .catch(() => {
-      //         this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
+      //         this.$store.commit('SET_SESSION_EXPIRED', true);
       //       });
       //   })
       //   .catch(() => {
-      //     this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
+      //     this.$store.commit('SET_SESSION_EXPIRED', true);
       //   });
     },
   },

@@ -309,7 +309,7 @@ export default {
       await this.$store.dispatch(action, this.localTags)
         .catch(() => {
           this.saving = false;
-          this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
+          this.$store.commit('SET_SESSION_EXPIRED', true);
         });
 
       const message = deleting

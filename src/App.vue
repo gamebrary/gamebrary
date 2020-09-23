@@ -7,11 +7,13 @@
     <page-header />
     <router-view v-if="user" />
     <authorizing v-else />
+    <session-expired />
   </div>
 </template>
 
 <script>
 import PageHeader from '@/components/PageHeader';
+import SessionExpired from '@/components/SessionExpired';
 import Authorizing from '@/pages/Authorizing';
 import firebase from 'firebase/app';
 import { mapState } from 'vuex';
@@ -35,6 +37,7 @@ export default {
 
   components: {
     PageHeader,
+    SessionExpired,
     Authorizing,
   },
 
@@ -45,7 +48,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['user', 'wallpaperUrl', 'settings']),
+    ...mapState(['user', 'wallpaperUrl', 'settings', 'sessionExpired']),
 
     userId() {
       return this.debugUserId || this.user.uid;
@@ -189,8 +192,7 @@ export default {
           ? this.$store.commit('SET_SETTINGS', doc.data())
           : this.initSettings();
       }).catch(() => {
-        this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
-        this.$router.push({ name: 'sessionExpired' });
+        this.$store.commit('SET_SESSION_EXPIRED', true);
       });
     },
 
@@ -206,8 +208,7 @@ export default {
           }
         })
         .catch(() => {
-          this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
-          this.$router.push({ name: 'sessionExpired' });
+          this.$store.commit('SET_SESSION_EXPIRED', true);
         });
     },
 
@@ -221,8 +222,7 @@ export default {
           }
         })
         .catch(() => {
-          this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
-          this.$router.push({ name: 'sessionExpired' });
+          this.$store.commit('SET_SESSION_EXPIRED', true);
         });
     },
 
@@ -233,8 +233,7 @@ export default {
           this.loadLists();
         })
         .catch(() => {
-          this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
-          this.$router.push({ name: 'sessionExpired' });
+          this.$store.commit('SET_SESSION_EXPIRED', true);
         });
     },
 
@@ -245,8 +244,7 @@ export default {
           this.loadSettings();
         })
         .catch(() => {
-          this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
-          this.$router.push({ name: 'sessionExpired' });
+          this.$store.commit('SET_SESSION_EXPIRED', true);
         });
     },
   },

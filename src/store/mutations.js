@@ -6,6 +6,10 @@ export default {
     state.boards = boards;
   },
 
+  SET_SESSION_EXPIRED(state, sessionExpired) {
+    state.sessionExpired = sessionExpired;
+  },
+
   SET_RELEASES(state, releases) {
     state.releases = releases;
   },

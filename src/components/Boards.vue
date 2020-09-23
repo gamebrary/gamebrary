@@ -226,7 +226,7 @@ export default {
           this.$bvToast.toast('Legacy board deleted', { title: 'Success', variant: 'success' });
         })
         .catch(() => {
-          this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
+          this.$store.commit('SET_SESSION_EXPIRED', true);
         });
     },
 
@@ -259,7 +259,7 @@ export default {
       await this.$store.dispatch('LOAD_BOARDS')
         .catch(() => {
           this.loading = false;
-          this.$bvToast.toast('There was an error loading boards', { title: 'Error', variant: 'error' });
+          this.$store.commit('SET_SESSION_EXPIRED', true);
         });
 
       this.loading = false;

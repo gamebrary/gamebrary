@@ -207,7 +207,7 @@ export default {
     async saveBoard() {
       await this.$store.dispatch('SAVE_BOARD')
         .catch(() => {
-          this.$bvToast.toast('Authentication error', { title: 'Error', variant: 'danger' });
+          this.$store.commit('SET_SESSION_EXPIRED', true);
         });
 
       this.$bvToast.toast('List saved', {

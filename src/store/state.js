@@ -17,4 +17,5 @@ export default {
   platform: null,
   duplicatedGame: null,
   legacyPlatforms: [],
+  sessionExpired: false,
 };
