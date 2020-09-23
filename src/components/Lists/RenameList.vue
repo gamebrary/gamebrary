@@ -1,6 +1,7 @@
 <template lang="html">
   <b-dropdown-item-button v-b-modal="modalId">
-    <b-icon-textarea-t /> Rename list
+    <b-icon-pencil class="mr-1" />
+    Rename list
 
     <b-modal
       :id="modalId"

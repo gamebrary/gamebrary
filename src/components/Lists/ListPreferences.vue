@@ -1,6 +1,7 @@
 <template lang="html">
   <b-dropdown-item-button v-b-modal="modalId">
-    <b-icon-toggles /> List tweaks
+    <b-icon-toggles class="mr-1" />
+    List tweaks
 
     <b-modal
       :id="modalId"

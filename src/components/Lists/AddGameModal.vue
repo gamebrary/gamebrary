@@ -1,14 +1,7 @@
 <template lang="html">
-  <div class="add-game-modal">
-    <b-button
-      block
-      variant="transparent"
-      class="shadow-none border-0 p-2"
-      v-b-modal="`game-modal-${list.name}`"
-      :title="$t('list.addGames', { listName: list.name })"
-    >
-      <b-icon-plus />
-    </b-button>
+  <b-dropdown-item-button @click="$bvModal.show(`game-modal-${list.name}`)">
+    <b-icon-plus class="mr-1" />
+    Add games
 
     <b-modal
       :id="`game-modal-${list.name}`"
@@ -16,7 +9,6 @@
       footer-class="p-2 justify-content-center"
       @show="clear"
     >
-
       <b-form @submit.prevent="search" class="mb-2">
         <b-input-group>
           <b-form-input
@@ -62,7 +54,7 @@
         <igdb-logo />
       </template>
     </b-modal>
-  </div>
+  </b-dropdown-item-button>
 </template>
 
 <script>

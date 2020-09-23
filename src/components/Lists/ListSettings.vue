@@ -1,68 +1,59 @@
 <template lang="html">
-  <div>
-    <b-dropdown
-      no-caret
-      toggle-class="shadow-none border-0"
-      variant="transparent"
+  <b-dropdown size="sm" class="m-2">
+    <add-game-modal :list="list" />
+    <b-dd-divider />
+    <sort-list :list="list" :list-index="listIndex" />
+    <rename-list :list="list" :list-index="listIndex" />
+    <change-list-view :list="list" :list-index="listIndex" />
+    <list-preferences :list="list" :list-index="listIndex" />
+    <b-dropdown-divider />
+    <b-dropdown-item>
+      <b-button-group size="sm">
+        <b-button
+          v-b-tooltip.hover
+          :title="$t('list.moveLeft')"
+          :disabled="isFirst"
+          @click="moveList(listIndex, listIndex - 1)"
+        >
+          <b-icon-arrow-left-short />
+        </b-button>
+
+        <b-button
+          v-b-tooltip.hover
+          :title="$t('list.moveRight')"
+          :disabled="isLast"
+          @click="moveList(listIndex, listIndex + 1)"
+        >
+          <b-icon-arrow-right-short />
+        </b-button>
+      </b-button-group>
+    </b-dropdown-item>
+    <b-dropdown-divider />
+
+    <b-dropdown-item
+      variant="outline-danger"
+      @click="promptDeleteList"
     >
-      <template v-slot:button-content>
-        <b-icon icon="three-dots" aria-hidden="true" />
-      </template>
-
-      <sort-list :list="list" :list-index="listIndex" />
-      <rename-list :list="list" :list-index="listIndex" />
-      <change-list-view :list="list" :list-index="listIndex" />
-      <list-tweaks :list="list" :list-index="listIndex" />
-
-      <b-dropdown-divider />
-
-      <b-dropdown-item>
-        <b-button-group size="sm">
-          <b-button
-            :title="$t('list.moveLeft')"
-            :disabled="isFirst"
-            @click="moveList(listIndex, listIndex - 1)"
-          >
-            <b-icon-arrow-left-short />
-
-            {{ $t('list.moveLeft') }}
-          </b-button>
-
-          <b-button
-            :title="$t('list.moveRight')"
-            :disabled="isLast"
-            @click="moveList(listIndex, listIndex + 1)"
-          >
-            {{ $t('list.moveRight') }}
-            <b-icon-arrow-right-short />
-          </b-button>
-        </b-button-group>
-      </b-dropdown-item>
-
-      <b-dropdown-divider />
-
-      <b-dropdown-item
-        variant="danger"
-        @click="promptDeleteList"
-      >
-        Delete list
-      </b-dropdown-item>
-    </b-dropdown>
-  </div>
+      <b-icon-trash class="mr-1" />
+      Delete list
+    </b-dropdown-item>
+  </b-dropdown>
 </template>
 
 <script>
 import ChangeListView from '@/components/Lists/ChangeListView';
 import RenameList from '@/components/Lists/RenameList';
-import ListTweaks from '@/components/Lists/ListTweaks';
+import ListPreferences from '@/components/Lists/ListPreferences';
 import SortList from '@/components/Lists/SortList';
+import AddGameModal from '@/components/Lists/AddGameModal';
 import { mapState } from 'vuex';
 
 export default {
   components: {
     ChangeListView,
     RenameList,
-    ListTweaks,
+    ListPreferences,
+    AddGameModal,
     SortList,
   },
 

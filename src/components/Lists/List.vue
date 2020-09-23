@@ -20,10 +20,7 @@
           {{ showDuplicateWarning ? 'Game already in list' : list.name }}
         </h6>
 
-        <b-button-group>
-          <add-game-modal :list="list" />
-          <list-settings :list="list" :list-index="listIndex" />
-        </b-button-group>
+        <list-settings :list="list" :list-index="listIndex" />
       </b-card-header>
 
       <draggable
@@ -65,7 +62,6 @@ import GameCardDefault from '@/components/GameCards/GameCardDefault';
 import GameCardGrid from '@/components/GameCards/GameCardGrid';
 import GameCardCompact from '@/components/GameCards/GameCardCompact';
 import GameCardText from '@/components/GameCards/GameCardText';
-import AddGameModal from '@/components/Lists/AddGameModal';
 import orderby from 'lodash.orderby';
 import { DEFAULT_LIST_VIEW } from '@/constants';
 import { mapState } from 'vuex';
@@ -76,7 +72,6 @@ export default {
     GameCardGrid,
     GameCardCompact,
     GameCardText,
-    AddGameModal,
     ListSettings,
     draggable,
   },
