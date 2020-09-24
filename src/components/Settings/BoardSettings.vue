@@ -1,6 +1,8 @@
 <template lang="html">
   <b-button
     v-b-modal:board-settings
+    v-b-tooltip.hover.left
+    title="Board settings"
     class="mt-3"
     ref="addList"
   >

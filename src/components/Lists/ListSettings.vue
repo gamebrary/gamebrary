@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-dropdown size="sm" class="m-2">
+  <b-dropdown size="sm" class="m-1">
     <add-game-modal :list="list" />
     <b-dd-divider />
     <sort-list :list="list" :list-index="listIndex" />

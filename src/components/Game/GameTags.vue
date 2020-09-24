@@ -1,5 +1,10 @@
 <template lang="html">
-  <b-button id="tags-popover" variant="primary">
+  <b-button
+    id="tags-popover"
+    variant="primary"
+    v-b-tooltip.hover
+    title="Apply tags"
+   >
     <b-icon-tag />
 
     <b-popover

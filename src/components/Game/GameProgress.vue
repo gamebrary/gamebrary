@@ -1,7 +1,9 @@
 <template lang="html">
   <b-button
     v-b-modal.progress
+    v-b-tooltip.hover
     variant="info"
+    title="Set game progress"
   >
     <b-icon-clock-history />
 

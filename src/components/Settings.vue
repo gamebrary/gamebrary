@@ -1,15 +1,17 @@
-<template lang="html">
+`<template lang="html">
   <b-navbar-nav class="ml-auto" v-if="user">
     <b-dropdown
       variant="link"
+      v-b-tooltip.hover.left
+      :title="notification ? 'New releases' : ''"
       toggle-class="text-decoration-none p-0"
-      no-caret
       right
     >
       <template v-slot:button-content>
         <b-avatar
           v-if="user && user.photoURL"
           variant="info"
+          square
           :badge="notification"
           badge-variant="danger"
           :src="user.photoURL"

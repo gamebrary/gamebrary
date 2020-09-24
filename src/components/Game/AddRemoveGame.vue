@@ -3,6 +3,7 @@
     v-if="game && !list.games.includes(game.id)"
     :title="$t('list.addGame')"
     variant="success"
+    v-b-tooltip.hover
     @click="addGame"
   >
     <b-icon-plus />
@@ -11,6 +12,7 @@
   <b-button
     v-else
     variant="danger"
+    v-b-tooltip.hover
     :title="$t('gameDetail.removeFromList')"
     @click="removeGame"
   >

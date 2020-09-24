@@ -2,6 +2,7 @@
   <b-button
     v-b-modal="modalId"
     :title="title"
+    v-b-tooltip.hover.left
     ref="addList"
   >
     <b-icon-plus />

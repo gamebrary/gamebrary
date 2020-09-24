@@ -1,5 +1,10 @@
 <template lang="html">
-  <b-button v-b-modal.notes variant="warning">
+  <b-button
+    v-b-modal.notes
+    variant="warning"
+    v-b-tooltip.hover
+    title="Game notes"
+   >
     <b-icon-file-earmark-text />
 
     <b-modal
