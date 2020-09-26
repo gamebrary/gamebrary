@@ -10,10 +10,8 @@
     <b-container>
       <b-row>
         <b-col
-          cols="6"
           lg="3"
-          md="1"
-          sm="1"
+          md="4"
           v-for="theme in themes"
           :key="theme.name"
           class="mb-4"

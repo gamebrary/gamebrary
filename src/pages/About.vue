@@ -1,49 +1,22 @@
 <template lang="html">
-  <b-container>
-    <h2>About Gamebrary</h2>
-
-    <vue-markdown
-      class="w-100"
-      v-if="readme"
-      :source="readme"
+  <b-container-fluid>
+    <b-jumbotron
+      header="About Gamebrary"
+      header-level="5"
+      fluid
+      lead="Links to github here"
     />
 
-    <div v-if="repo">
-      <b-button
-        size="sm"
-        href="https://github.com/romancm/gamebrary/subscription"
-        target="_blank"
-      >
-        Watch <b-badge variant="light">{{ repo.watchers }}</b-badge>
-      </b-button>
+    <b-container>
+      <vue-markdown
+        class="w-100"
+        v-if="readme"
+        :source="readme"
+      />
 
-      <b-button
-        size="sm"
-        href="https://github.com/romancm/gamebrary"
-        target="_blank"
-      >
-        Star <b-badge variant="light">{{ repo.stargazers_count }}</b-badge>
-      </b-button>
-
-      <b-button
-        size="sm"
-        href="https://github.com/romancm/gamebrary/fork"
-        target="_blank"
-      >
-        Fork <b-badge variant="light">{{ repo.forks }}</b-badge>
-      </b-button>
-
-      <b-button
-        size="sm"
-        href="https://github.com/romancm/gamebrary/issues"
-        target="_blank"
-      >
-        Issues <b-badge variant="light">{{ repo.open_issues }}</b-badge>
-      </b-button>
-    </div>
-
-    <small>©{{ currentYear }} Gamebrary</small>
-  </b-container>
+      <small>©{{ currentYear }} Gamebrary</small>
+    </b-container>
+  </b-container-fluid>
 </template>
 
 <script>

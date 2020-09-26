@@ -1,36 +1,65 @@
 <template lang="html">
   <b-container-fluid>
     <b-jumbotron
-      header="Themes"
+      header="Releases"
       header-level="5"
       fluid
       lead="Select a theme below"
     />
 
     <b-container>
-      <!-- TODO: add releases selector, only display latest by default -->
-      <b-card
-        v-for="release in releases"
-        :key="release.id"
-        header-tag="header"
-        hide-footer
-        class="mb-3"
-      >
-        <template v-slot:header>
-          <h6 class="mb-0">
-            <b-badge>{{ release.tag_name }}</b-badge>
-            {{ release.name }}
-          </h6>
-        </template>
+      <b-row>
+        <b-col>
+          <!-- TODO: add releases selector, only display latest by default -->
+          <b-card
+            v-for="release in releases"
+            :key="release.id"
+            header-tag="header"
+            hide-footer
+            class="mb-3"
+          >
+            <template v-slot:header>
+              <h6 class="mb-0">
+                <b-badge>{{ release.tag_name }}</b-badge>
+                {{ release.name }}
+              </h6>
+            </template>
 
-        <small class="text-muted">
-          {{ $t('releases.published', { date: formatDate(release.published_at) }) }}
-        </small>
+            <small class="text-muted">
+              {{ $t('releases.published', { date: formatDate(release.published_at) }) }}
+            </small>
 
-        <b-card-text>
-          <vue-markdown :source="release.body" class="w-100 releases" />
-        </b-card-text>
-      </b-card>
+            </b-card-text>
+          </b-card>
+        </b-col>
+
+        <b-col cols="8">
+          <!-- TODO: add releases selector, only display latest by default -->
+          <b-card
+            v-for="release in releases"
+            :key="release.id"
+            header-tag="header"
+            hide-footer
+            class="mb-3"
+          >
+            <template v-slot:header>
+              <h6 class="mb-0">
+                <b-badge>{{ release.tag_name }}</b-badge>
+                {{ release.name }}
+              </h6>
+            </template>
+
+            <small class="text-muted">
+              {{ $t('releases.published', { date: formatDate(release.published_at) }) }}
+            </small>
+
+            <b-card-text>
+              <vue-markdown :source="release.body" class="w-100 releases" />
+            </b-card-text>
+          </b-card>
+        </b-col>
+      </b-row>
+
     </b-container>
   </b-container-fluid>
 </template>
@@ -43,6 +72,12 @@ import moment from 'moment';
 export default {
   components: {
     VueMarkdown,
+  },
+
+  data() {
+    return {
+      selectedRelease: null,
+    };
   },
 
   computed: {
