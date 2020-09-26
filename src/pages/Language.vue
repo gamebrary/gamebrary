@@ -1,15 +1,14 @@
 <template lang="html">
-  <b-dropdown-item v-b-modal:language>
-    <b-icon-chat-left-text class="mr-1" />
-    {{ $t('settings.language') }}
+  <b-container-fluid>
+    <b-jumbotron
+      header="Language"
+      header-level="5"
+      fluid
+      lead="Contributors wanted"
+    />
 
-    <b-modal
-      id="language"
-      title="Language"
-      hide-footer
-      @show="show"
-    >
-      <b-form-select v-model="language" class="mb-2">
+    <b-container>
+      <b-form-select v-model="language" class="mb-2 w-50">
         <b-form-select-option
           v-for="{ flag, code } in languages"
           :key="code"
@@ -19,15 +18,18 @@
         </b-form-select-option>
       </b-form-select>
 
+      <br>
+
       <b-button
         :disabled="saving"
+        variant="primary"
         @click="saveSettings"
       >
         <b-spinner small v-if="saving" />
         <span v-else>Save and reload browser</span>
       </b-button>
-    </b-modal>
-  </b-dropdown-item>
+    </b-container>
+  </b-container-fluid>
 </template>
 
 <script>
@@ -56,13 +58,13 @@ export default {
     ...mapState(['settings']),
   },
 
+  mounted() {
+    const { settings } = this;
+
+    this.language = settings.language || 'en';
+  },
+
   methods: {
-    show() {
-      const { settings } = this;
-
-      this.language = settings.language || 'en';
-    },
-
     saveSettings() {
       const { language, settings } = this;
 

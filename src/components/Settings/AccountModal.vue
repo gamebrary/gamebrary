@@ -1,7 +1,9 @@
 <template lang="html">
-  <b-dropdown-item v-b-modal:account-settings>
+  <b-dropdown-item v-b-modal:account-settings title="Account" v-b-tooltip.hover.right>
     <b-icon-person class="mr-1" />
-    Account
+    <span class="d-none d-sm-block">
+      Account
+    </span>
 
     <b-modal
       id="account-settings"

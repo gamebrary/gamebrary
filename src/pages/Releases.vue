@@ -1,28 +1,38 @@
 <template lang="html">
-  <div class="releases">
-    <b-card
-      v-for="release in releases"
-      :key="release.id"
-      header-tag="header"
-      hide-footer
-      class="mb-3"
-    >
-      <template v-slot:header>
-        <h6 class="mb-0">
-          <b-badge>{{ release.tag_name }}</b-badge>
-          {{ release.name }}
-        </h6>
-      </template>
+  <b-container-fluid>
+    <b-jumbotron
+      header="Themes"
+      header-level="5"
+      fluid
+      lead="Select a theme below"
+    />
 
-      <small class="text-muted">
-        {{ $t('releases.published', { date: formatDate(release.published_at) }) }}
-      </small>
+    <b-container>
+      <!-- TODO: add releases selector, only display latest by default -->
+      <b-card
+        v-for="release in releases"
+        :key="release.id"
+        header-tag="header"
+        hide-footer
+        class="mb-3"
+      >
+        <template v-slot:header>
+          <h6 class="mb-0">
+            <b-badge>{{ release.tag_name }}</b-badge>
+            {{ release.name }}
+          </h6>
+        </template>
 
-      <b-card-text>
-        <vue-markdown :source="release.body" class="w-100" />
-      </b-card-text>
-    </b-card>
-  </div>
+        <small class="text-muted">
+          {{ $t('releases.published', { date: formatDate(release.published_at) }) }}
+        </small>
+
+        <b-card-text>
+          <vue-markdown :source="release.body" class="w-100 releases" />
+        </b-card-text>
+      </b-card>
+    </b-container>
+  </b-container-fluid>
 </template>
 
 <script>

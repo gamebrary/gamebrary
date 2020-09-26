@@ -1,9 +1,14 @@
 <template lang="html">
   <div>
+    <!-- TODO: allow board settings to be accessed here -->
+    <!-- TODO: allow to override backdrop using search -->
     <div class="d-flex justify-content-between align-items-center">
       <h5>Boards</h5>
 
-      <create-board />
+      <div>
+        <b-button>Change backdrop</b-button>
+        <create-board />
+      </div>
     </div>
 
     <div class="text-right" v-if="!loading && !boards.length">

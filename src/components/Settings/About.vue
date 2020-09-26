@@ -1,7 +1,10 @@
 <template lang="html">
-  <b-dropdown-item v-b-modal:about>
+  <b-dropdown-item v-b-modal:about title="About" v-b-tooltip.hover.right>
     <b-icon-question class="mr-1" />
-    About
+
+    <span class="d-none d-sm-block">
+      About
+    </span>
 
     <b-modal
       id="about"

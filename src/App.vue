@@ -1,12 +1,14 @@
 <template>
   <div
     id="app"
-    class="mvh-100 d-flex flex-column"
     :dir="dir"
   >
     <page-header />
-    <router-view v-if="user" />
-    <authorizing v-else />
+    <main>
+      <router-view />
+    </main>
+    <!-- <router-view v-if="user" />
+    <authorizing v-else /> -->
     <session-expired />
   </div>
 </template>
@@ -71,6 +73,8 @@ export default {
         this.load();
         return;
       }
+
+      // TODO: move this logic to the authorizing page
 
       firebase.auth().getRedirectResult().then(({ additionalUserInfo, user }) => {
         if (additionalUserInfo && additionalUserInfo.isNewUser) {
@@ -257,8 +261,13 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
   #app {
-    // display: flex;
-    // flex-direction: column;
-    // min-height: 100vh;
+  }
+
+  main {
+    position: fixed;
+    left: 50px;
+    height: 100vh;
+    width: calc(100vw - 50px);
+    overflow-y: auto;
   }
 </style>

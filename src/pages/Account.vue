@@ -1,5 +1,5 @@
 <template lang="html">
-  <div>
+  <b-container>
     <b-list-group flush>
       <b-list-group-item>
         <b-avatar
@@ -53,7 +53,7 @@
         <sign-out />
       </b-list-group-item>
     </b-list-group>
-  </div>
+  </b-container>
 </template>
 
 <script>

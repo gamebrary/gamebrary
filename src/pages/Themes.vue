@@ -1,21 +1,19 @@
 <template lang="html">
-  <b-dropdown-item v-b-modal:themes title="Themes" v-b-tooltip.hover.right>
-    <b-icon-droplet class="mr-1" />
-    <span class="d-none d-sm-block">Themes</span>
+  <b-container-fluid>
+    <b-jumbotron
+      header="Themes"
+      header-level="5"
+      fluid
+      lead="Select a theme below"
+    />
 
-    <b-modal
-      id="themes"
-      title="Themes"
-      modal-class="themes"
-      scrollable
-      hide-footer
-      size="lg"
-      @show="init"
-    >
+    <b-container>
       <b-row>
         <b-col
           cols="6"
-          lg="4"
+          lg="3"
+          md="1"
+          sm="1"
           v-for="theme in themes"
           :key="theme.name"
           class="mb-4"
@@ -39,20 +37,15 @@
           </b-card>
         </b-col>
       </b-row>
-    </b-modal>
-  </b-dropdown-item>
+    </b-container>
+  </b-container-fluid>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import Placeholder from '@/components/Placeholder';
 import themes from '@/themes';
 
 export default {
-  components: {
-    Placeholder,
-  },
-
   data() {
     return {
       selectedTheme: {},
@@ -62,6 +55,10 @@ export default {
 
   computed: {
     ...mapState(['settings']),
+  },
+
+  mounted() {
+    this.init();
   },
 
   methods: {

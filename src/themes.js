@@ -11,6 +11,7 @@ export default [
     cssCdn: 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/cerulean/bootstrap.min.css',
     scss: 'https://bootswatch.com/4/cerulean/_bootswatch.scss',
     scssVariables: 'https://bootswatch.com/4/cerulean/_variables.scss',
+    dark: false,
   },
   {
     name: 'Cosmo',
@@ -22,6 +23,7 @@ export default [
     cssCdn: 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/cosmo/bootstrap.min.css',
     scss: 'https://bootswatch.com/4/cosmo/_bootswatch.scss',
     scssVariables: 'https://bootswatch.com/4/cosmo/_variables.scss',
+    dark: false,
   },
   {
     name: 'Cyborg',
@@ -33,6 +35,7 @@ export default [
     cssCdn: 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/cyborg/bootstrap.min.css',
     scss: 'https://bootswatch.com/4/cyborg/_bootswatch.scss',
     scssVariables: 'https://bootswatch.com/4/cyborg/_variables.scss',
+    dark: true,
   },
   {
     name: 'Darkly',
@@ -44,6 +47,7 @@ export default [
     cssCdn: 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/darkly/bootstrap.min.css',
     scss: 'https://bootswatch.com/4/darkly/_bootswatch.scss',
     scssVariables: 'https://bootswatch.com/4/darkly/_variables.scss',
+    dark: true,
   },
   {
     name: 'Flatly',
@@ -55,6 +59,7 @@ export default [
     cssCdn: 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/flatly/bootstrap.min.css',
     scss: 'https://bootswatch.com/4/flatly/_bootswatch.scss',
     scssVariables: 'https://bootswatch.com/4/flatly/_variables.scss',
+    dark: false,
   },
   {
     name: 'Journal',
@@ -66,6 +71,7 @@ export default [
     cssCdn: 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/journal/bootstrap.min.css',
     scss: 'https://bootswatch.com/4/journal/_bootswatch.scss',
     scssVariables: 'https://bootswatch.com/4/journal/_variables.scss',
+    dark: false,
   },
   {
     name: 'Litera',
@@ -77,6 +83,7 @@ export default [
     cssCdn: 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/litera/bootstrap.min.css',
     scss: 'https://bootswatch.com/4/litera/_bootswatch.scss',
     scssVariables: 'https://bootswatch.com/4/litera/_variables.scss',
+    dark: false,
   },
   {
     name: 'Lumen',
@@ -88,6 +95,7 @@ export default [
     cssCdn: 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/lumen/bootstrap.min.css',
     scss: 'https://bootswatch.com/4/lumen/_bootswatch.scss',
     scssVariables: 'https://bootswatch.com/4/lumen/_variables.scss',
+    dark: false,
   },
   {
     name: 'Lux',
@@ -99,6 +107,7 @@ export default [
     cssCdn: 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/lux/bootstrap.min.css',
     scss: 'https://bootswatch.com/4/lux/_bootswatch.scss',
     scssVariables: 'https://bootswatch.com/4/lux/_variables.scss',
+    dark: false,
   },
   {
     name: 'Materia',
@@ -110,6 +119,7 @@ export default [
     cssCdn: 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/materia/bootstrap.min.css',
     scss: 'https://bootswatch.com/4/materia/_bootswatch.scss',
     scssVariables: 'https://bootswatch.com/4/materia/_variables.scss',
+    dark: false,
   },
   {
     name: 'Minty',
@@ -121,6 +131,7 @@ export default [
     cssCdn: 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/minty/bootstrap.min.css',
     scss: 'https://bootswatch.com/4/minty/_bootswatch.scss',
     scssVariables: 'https://bootswatch.com/4/minty/_variables.scss',
+    dark: false,
   },
   {
     name: 'Pulse',
@@ -132,6 +143,7 @@ export default [
     cssCdn: 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/pulse/bootstrap.min.css',
     scss: 'https://bootswatch.com/4/pulse/_bootswatch.scss',
     scssVariables: 'https://bootswatch.com/4/pulse/_variables.scss',
+    dark: false,
   },
   {
     name: 'Sandstone',
@@ -143,6 +155,7 @@ export default [
     cssCdn: 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/sandstone/bootstrap.min.css',
     scss: 'https://bootswatch.com/4/sandstone/_bootswatch.scss',
     scssVariables: 'https://bootswatch.com/4/sandstone/_variables.scss',
+    dark: false,
   },
   {
     name: 'Simplex',
@@ -154,6 +167,7 @@ export default [
     cssCdn: 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/simplex/bootstrap.min.css',
     scss: 'https://bootswatch.com/4/simplex/_bootswatch.scss',
     scssVariables: 'https://bootswatch.com/4/simplex/_variables.scss',
+    dark: false,
   },
   {
     name: 'Sketchy',
@@ -165,6 +179,7 @@ export default [
     cssCdn: 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/sketchy/bootstrap.min.css',
     scss: 'https://bootswatch.com/4/sketchy/_bootswatch.scss',
     scssVariables: 'https://bootswatch.com/4/sketchy/_variables.scss',
+    dark: false,
   },
   {
     name: 'Slate',
@@ -176,6 +191,7 @@ export default [
     cssCdn: 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/slate/bootstrap.min.css',
     scss: 'https://bootswatch.com/4/slate/_bootswatch.scss',
     scssVariables: 'https://bootswatch.com/4/slate/_variables.scss',
+    dark: true,
   },
   {
     name: 'Solar',
@@ -187,6 +203,7 @@ export default [
     cssCdn: 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/solar/bootstrap.min.css',
     scss: 'https://bootswatch.com/4/solar/_bootswatch.scss',
     scssVariables: 'https://bootswatch.com/4/solar/_variables.scss',
+    dark: true,
   },
   {
     name: 'Spacelab',
@@ -198,6 +215,7 @@ export default [
     cssCdn: 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/spacelab/bootstrap.min.css',
     scss: 'https://bootswatch.com/4/spacelab/_bootswatch.scss',
     scssVariables: 'https://bootswatch.com/4/spacelab/_variables.scss',
+    dark: false,
   },
   {
     name: 'Superhero',
@@ -209,6 +227,7 @@ export default [
     cssCdn: 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/superhero/bootstrap.min.css',
     scss: 'https://bootswatch.com/4/superhero/_bootswatch.scss',
     scssVariables: 'https://bootswatch.com/4/superhero/_variables.scss',
+    dark: true,
   },
   {
     name: 'United',
@@ -220,6 +239,7 @@ export default [
     cssCdn: 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/united/bootstrap.min.css',
     scss: 'https://bootswatch.com/4/united/_bootswatch.scss',
     scssVariables: 'https://bootswatch.com/4/united/_variables.scss',
+    dark: false,
   },
   {
     name: 'Yeti',
@@ -231,5 +251,6 @@ export default [
     cssCdn: 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/yeti/bootstrap.min.css',
     scss: 'https://bootswatch.com/4/yeti/_bootswatch.scss',
     scssVariables: 'https://bootswatch.com/4/yeti/_variables.scss',
+    dark: false,
   },
 ];
