@@ -7,31 +7,6 @@
       <img :src="logoUrl" width="32" />
     </router-link>
 
-    <b-dropdown
-      v-if="showBoardsDropdown"
-      variant="transparent"
-      toggle-class="p-0 px-1"
-      :text="board.name"
-    >
-      <b-dropdown-item
-        :to="`/board/${id}`"
-        :key="id"
-        variant="outline-primary"
-        v-for="{ name, id } in sortedBoards"
-        :active="board.id === id"
-      >
-        <b-icon-arrow-left-right />
-      </b-dropdown-item>
-    </b-dropdown>
-
-    <!-- <b-button
-      v-else-if="showBoardTitle"
-      class="p-0 px-1"
-      variant="transparent"
-    >
-      {{ board.name }}
-    </b-button> -->
-
     <router-link
       title="Tags"
       v-b-tooltip.hover.right
@@ -87,6 +62,31 @@
         About
       </span> -->
     </router-link>
+
+    <b-dropdown
+      v-if="showBoardsDropdown"
+      variant="transparent"
+      toggle-class="p-0 px-1"
+      :text="board.name"
+    >
+      <b-dropdown-item
+        :to="`/board/${id}`"
+        :key="id"
+        variant="outline-primary"
+        v-for="{ name, id } in sortedBoards"
+        :active="board.id === id"
+      >
+        <b-icon-arrow-left-right />
+      </b-dropdown-item>
+    </b-dropdown>
+
+    <b-button
+      v-else-if="showBoardTitle"
+      class="p-0 px-1"
+      variant="transparent"
+    >
+      {{ board.name }}
+    </b-button>
 
     <router-link
       class="mt-auto mb-2"

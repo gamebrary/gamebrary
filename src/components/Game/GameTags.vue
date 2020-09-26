@@ -16,15 +16,6 @@
       <template v-slot:title>
         <div class="py-0 pr-0 pl-2 d-flex justify-content-between align-items-center">
           Apply tags
-
-          <b-button
-            variant="light"
-            class="text-muted ml-4"
-            size="sm"
-            @click="openTagsSettings"
-          >
-            <b-icon-gear-fill />
-          </b-button>
         </div>
       </template>
 
@@ -33,14 +24,6 @@
           <b-alert show class="mb-2">
             No tags
           </b-alert>
-
-          <b-button
-            size="sm"
-            variant="primary"
-            @click="openTagsSettings"
-          >
-            Add a tag
-          </b-button>
         </div>
 
         <b-list-group-item
@@ -98,10 +81,6 @@ export default {
   },
 
   methods: {
-    openTagsSettings() {
-      this.$bvModal.show('tags-settings');
-    },
-
     async addTag(tagName) {
       const gameId = this.game.id;
 

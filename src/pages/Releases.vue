@@ -10,51 +10,42 @@
     <b-container>
       <b-row>
         <b-col>
-          <!-- TODO: add releases selector, only display latest by default -->
-          <b-card
-            v-for="release in releases"
-            :key="release.id"
-            header-tag="header"
-            hide-footer
-            class="mb-3"
-          >
-            <template v-slot:header>
-              <h6 class="mb-0">
+          <b-list-group>
+            <b-list-group-item
+              class="d-flex justify-content-between align-items-center"
+              v-for="release in releases"
+              :key="release.id"
+              :active="release.id === selectedRelease.id"
+              @click="selectedRelease = release"
+            >
+              <h6 class="m-0">
                 <b-badge>{{ release.tag_name }}</b-badge>
                 {{ release.name }}
               </h6>
-            </template>
-
-            <small class="text-muted">
-              {{ $t('releases.published', { date: formatDate(release.published_at) }) }}
-            </small>
-
-            </b-card-text>
-          </b-card>
+            </b-list-group-item>
+          </b-list-group>
         </b-col>
 
         <b-col cols="8">
           <!-- TODO: add releases selector, only display latest by default -->
           <b-card
-            v-for="release in releases"
-            :key="release.id"
-            header-tag="header"
+            v-if="selectedRelease"
             hide-footer
             class="mb-3"
           >
             <template v-slot:header>
               <h6 class="mb-0">
-                <b-badge>{{ release.tag_name }}</b-badge>
-                {{ release.name }}
+                <b-badge>{{ selectedRelease.tag_name }}</b-badge>
+                {{ selectedRelease.name }}
               </h6>
             </template>
 
             <small class="text-muted">
-              {{ $t('releases.published', { date: formatDate(release.published_at) }) }}
+              {{ $t('releases.published', { date: formatDate(selectedRelease.published_at) }) }}
             </small>
 
             <b-card-text>
-              <vue-markdown :source="release.body" class="w-100 releases" />
+              <vue-markdown :source="selectedRelease.body" class="w-100 releases" />
             </b-card-text>
           </b-card>
         </b-col>
@@ -85,6 +76,10 @@ export default {
   },
 
   mounted() {
+    const [latestRelease] = this.releases;
+
+    this.selectedRelease = latestRelease;
+
     if (this.notification) {
       const [latestRelease] = this.releases;
 

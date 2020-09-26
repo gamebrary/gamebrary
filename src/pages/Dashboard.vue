@@ -1,23 +1,17 @@
 <template lang="html">
-  <div  :style="`
-    background-size: 100%;
-    background-repeat: no-repeat;
-  `"
-  >
+  <b-container-fluid>
+    <b-jumbotron
+      header="Gamebrary"
+      header-level="5"
+      fluid
+      lead="The open source video game collection management tool."
+    />
     <!-- background-image: linear-gradient(transparent, #222 50%), url(${ coverScreenshot }); -->
     <b-container>
-
-    <div class="hero text-center py-5">
-      <h3>Welcome to Gamebrary</h3>
-      <p class="lead">The open source video game collection management tool.</p>
-      <small v-if="coverGame">Screenshot from <strong>{{ coverGame.name }}</strong></small>
-    </div>
-
       <boards />
-
       <page-footer />
     </b-container>
-  </div>
+  </b-container-fluid>
 </template>
 
 <script>
