@@ -2,83 +2,34 @@
   <nav
     class="position-fixed d-flex flex-column p-0 vh-100 text-center border-right border-light"
   >
-    <router-link :to="{ name: 'home' }" class="mt-2">
+    <router-link :to="{ name: 'home' }" class="mt-2 mb-3">
       <!-- TODO: use svg, change color based on theme -->
       <img :src="logoUrl" width="32" />
     </router-link>
 
-    <router-link
-      title="Tags"
-      v-b-tooltip.hover.right
-      :to="{ name: 'tags' }"
-      class="py-2 mt-1"
-    >
-      <b-icon-tags :variant="routeName === 'tags' ? 'primary' : 'secondary'" />
-    </router-link>
-
-    <router-link
-      title="Wallpapers"
-      v-b-tooltip.hover.right
-      class="py-2 mt-1"
-      :to="{ name: 'wallpapers' }"
-    >
-      <b-icon-file-richtext :variant="routeName === 'wallpapers' ? 'primary' : 'secondary'" />
-    </router-link>
-
-    <router-link
-      title="Language"
-      v-b-tooltip.hover.right
-      :to="{ name: 'language' }"
-      class="py-2 mt-1"
-    >
-      <b-icon-chat-left-text :variant="routeName === 'language' ? 'primary' : 'secondary'" />
-    </router-link>
-    <router-link
-      title="Themes"
-      v-b-tooltip.hover.right
-      :to="{ name: 'themes' }"
-      class="py-2 mt-1"
-    >
-      <b-icon-droplet :variant="routeName === 'themes' ? 'primary' : 'secondary'" />
-    </router-link>
-    <router-link
-      title="Releases"
-      v-b-tooltip.hover.right
-      class="py-2 mt-1"
-      :to="{ name: 'releases' }"
-    >
-      <b-icon-mailbox :variant="routeName === 'releases' ? 'primary' : 'secondary'" />
-    </router-link>
-
-    <router-link
-      title="About"
-      v-b-tooltip.hover.right
-      class="py-2 mt-1"
-      :to="{ name: 'about' }"
-    >
-      <b-icon-question :variant="routeName === 'about' ? 'primary' : 'secondary'"  />
-
-      <!-- <span class="d-none d-sm-block">
-        About
-      </span> -->
-    </router-link>
-
-    <b-dropdown
-      v-if="showBoardsDropdown"
-      variant="transparent"
-      toggle-class="p-0 px-1"
-      :text="board.name"
-    >
-      <b-dropdown-item
-        :to="`/board/${id}`"
-        :key="id"
-        variant="outline-primary"
-        v-for="{ name, id } in sortedBoards"
-        :active="board.id === id"
-      >
+    <template v-if="showBoardsDropdown">
+      <a id="boardSwitcher" >
         <b-icon-arrow-left-right />
-      </b-dropdown-item>
-    </b-dropdown>
+
+        <b-popover
+          target="boardSwitcher"
+          :offset="10"
+          placement="right"
+          triggers="click blur"
+        >
+          <b-list-group flush>
+            <b-list-group-item
+              :to="`/board/${id}`"
+              :key="id"
+              v-for="{ name, id } in sortedBoards"
+              :active="board.id === id"
+            >
+              {{ name }}
+            </b-list-group-item>
+          </b-list-group>
+        </b-popover>
+      </a>
+    </template>
 
     <b-button
       v-else-if="showBoardTitle"
@@ -88,21 +39,88 @@
       {{ board.name }}
     </b-button>
 
-    <router-link
-      class="mt-auto mb-2"
-      title="Account"
-      v-b-tooltip.hover.right
-      :to="{ name: 'account' }"
-    >
-      <b-avatar
-        v-if="user && user.photoURL"
-        variant="info"
-        small
-        :badge="notification"
-        badge-variant="danger"
-        :src="user.photoURL"
-      />
-    </router-link>
+    <div class="mt-auto">
+      <a id="settingsPopover" class="py-2 d-block bg-danger">
+        <b-icon-gear />
+      </a>
+
+      <b-popover
+        target="settingsPopover"
+        :offset="10"
+        placement="right"
+        triggers="click blur"
+      >
+        <b-list-group flush>
+          <b-list-group-item
+            title="Tags"
+            v-b-tooltip.hover.right
+            :to="{ name: 'tags' }"
+          >
+            <b-icon-tags />
+            Tags
+          </b-list-group-item>
+
+          <b-list-group-item
+            title="Wallpapers"
+            v-b-tooltip.hover.right
+            :to="{ name: 'wallpapers' }"
+          >
+            <b-icon-file-richtext />
+            Wallpapers
+          </b-list-group-item>
+
+          <b-list-group-item
+            title="Language"
+            v-b-tooltip.hover.right
+            :to="{ name: 'language' }"
+          >
+            <b-icon-chat-left-text />
+            Language
+          </b-list-group-item>
+          <b-list-group-item
+            title="Themes"
+            v-b-tooltip.hover.right
+            :to="{ name: 'themes' }"
+          >
+            <b-icon-droplet />
+            Themes
+          </b-list-group-item>
+          <b-list-group-item
+            title="Releases"
+            v-b-tooltip.hover.right
+            :to="{ name: 'releases' }"
+          >
+            <b-icon-mailbox />
+            Releases
+          </b-list-group-item>
+
+          <b-list-group-item
+            title="About"
+            v-b-tooltip.hover.right
+            :to="{ name: 'about' }"
+          >
+            <b-icon-question />
+            About
+          </b-list-group-item>
+        </b-list-group>
+      </b-popover>
+
+      <router-link
+        title="Account"
+        v-b-tooltip.hover.right
+        :to="{ name: 'account' }"
+        class="mb-2 mt-3 d-block"
+      >
+        <b-avatar
+          v-if="user && user.photoURL"
+          variant="info"
+          small
+          :badge="notification"
+          badge-variant="danger"
+          :src="user.photoURL"
+        />
+      </router-link>
+    </div>
   </nav>
 </template>
 
