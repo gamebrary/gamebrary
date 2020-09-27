@@ -80,22 +80,18 @@ export default {
 
     this.selectedRelease = latestRelease;
 
-    if (this.notification) {
-      const [latestRelease] = this.releases;
+    if (this.notification && latestRelease && latestRelease.tag_name) {
+      this.$store.commit('UPDATE_SETTING', { key: 'release', value: latestRelease.tag_name });
 
-      if (latestRelease && latestRelease.tag_name) {
-        this.$store.commit('UPDATE_SETTING', { key: 'release', value: latestRelease.tag_name });
-
-        this.$store.dispatch('SAVE_SETTINGS', this.settings)
-          .then(() => {
-            this.$store.commit('SET_NOTIFICATION', false);
-          })
-          .catch(() => {
-            this.$bvToast.toast(
-              'There was an error saving your settings',
-              { title: 'Error', variant: 'danger' });
-          });
-      }
+      this.$store.dispatch('SAVE_SETTINGS', this.settings)
+        .then(() => {
+          this.$store.commit('SET_NOTIFICATION', false);
+        })
+        .catch(() => {
+          this.$bvToast.toast(
+            'There was an error saving your settings',
+            { title: 'Error', variant: 'danger' });
+        });
     }
   },
 
