@@ -4,7 +4,8 @@
       header="Tags"
       header-level="5"
       fluid
-      lead="Tags are a great way to organize and manage your video game collection. Add, edit or delete tags."
+      lead="Tags are a great way to organize and manage your video
+        game collection. Add, edit or delete tags."
     />
 
     <!-- <b-skeleton-wrapper loading>
