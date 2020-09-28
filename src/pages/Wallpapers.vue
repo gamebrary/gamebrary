@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container-fluid>
+  <b-container fluid>
     <b-jumbotron
       header="Wallpapers"
       header-level="5"
@@ -76,7 +76,7 @@
 
       <b-alert show v-else>You don't have any wallpapers.</b-alert>
     </b-container>
-  </b-container-fluid>
+  </b-container>
 </template>
 
 <script>

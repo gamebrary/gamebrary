@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container-fluid>
+  <b-container fluid>
     <b-jumbotron
       header="About Gamebrary"
       header-level="5"
@@ -16,7 +16,7 @@
 
       <small>©{{ currentYear }} Gamebrary</small>
     </b-container>
-  </b-container-fluid>
+  </b-container>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container-fluid>
+  <b-container fluid>
     <b-jumbotron
       header="Tags"
       header-level="5"
@@ -207,7 +207,7 @@
         </b-col>
       </b-row>
     </b-container>
-  </b-container-fluid>
+  </b-container>
 </template>
 
 <script>
