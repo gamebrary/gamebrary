@@ -40,7 +40,7 @@
     </b-button>
 
     <div class="mt-auto">
-      <a id="settingsPopover" class="py-2 d-block bg-danger">
+      <a id="settingsPopover" class="py-2 d-block">
         <b-icon-gear />
       </a>
 
