@@ -26,17 +26,20 @@ export default {
       return this.$router.replace({ name: 'dashboard' });
     }
 
-    return firebase.auth().getRedirectResult().then(({ additionalUserInfo, user }) => {
-      if (additionalUserInfo && additionalUserInfo.isNewUser) {
-        this.$store.dispatch('SEND_WELCOME_EMAIL', additionalUserInfo);
-      }
+    return firebase.auth().getRedirectResult()
+      .then(({ additionalUserInfo, user }) => {
+        if (additionalUserInfo && additionalUserInfo.isNewUser) {
+          this.$store.dispatch('SEND_WELCOME_EMAIL', additionalUserInfo);
+        }
 
-      if (user) {
-        return this.initUser(user);
-      }
+        if (user) {
+          return this.initUser(user);
+        }
 
-      return this.handleAuthRedirect();
-    });
+        return this.handleAuthRedirect();
+      }).catch(() => {});
+
+    // TODO: handle issue when viewing site in incognito mode
   },
 
   methods: {
