@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container fluid>
+  <div fluid>
     <b-jumbotron
       header="Gamebrary"
       header-level="5"
@@ -11,7 +11,7 @@
       <boards />
       <page-footer />
     </b-container>
-  </b-container>
+  </div>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container fluid>
+  <div>
     <b-jumbotron
       header="Language"
       header-level="5"
@@ -29,7 +29,7 @@
         <span v-else>Save and reload browser</span>
       </b-button>
     </b-container>
-  </b-container>
+  </div>
 </template>
 
 <script>

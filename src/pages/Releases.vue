@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container fluid>
+  <div>
     <b-jumbotron
       header="Releases"
       header-level="5"
@@ -52,7 +52,7 @@
       </b-row>
 
     </b-container>
-  </b-container>
+  </div>
 </template>
 
 <script>

@@ -1,10 +1,9 @@
 <template lang="html">
-  <b-container fluid>
+  <div>
     <b-jumbotron
       header="Account"
       header-level="5"
       fluid
-      lead="...<3"
     />
 
     <b-container>
@@ -62,7 +61,7 @@
         </b-list-group-item>
       </b-list-group>
     </b-container>
-  </b-container>
+  </div>
 </template>
 
 <script>
