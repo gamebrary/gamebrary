@@ -8,6 +8,7 @@ import Tags from '@/pages/Tags';
 import Account from '@/pages/Account';
 import Themes from '@/pages/Themes';
 import Releases from '@/pages/Releases';
+import Auth from '@/pages/Auth';
 import Dashboard from '@/pages/Dashboard';
 import NotFound from '@/pages/NotFound';
 
@@ -88,13 +89,16 @@ export default new Router({
       },
     },
     {
-      path: '/board/:id',
-      name: 'board',
-      component: Board,
+      name: 'auth',
+      path: '/auth',
+      component: Auth,
+      meta: {
+        title: 'Auth',
+      },
     },
     {
-      path: '/auth/:authProvider',
-      name: 'auth',
+      path: '/board/:id',
+      name: 'board',
       component: Board,
     },
     {
