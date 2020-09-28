@@ -1,12 +1,12 @@
 {
     "global": {
-        "back": "Plecy",
-        "save": "Zapisać",
+        "back": "Powrót",
+        "save": "Zapisz",
         "cancel": "Anuluj",
-        "create": "Stwórz",
-        "filter": "Filtr",
+        "create": "Utwórz",
+        "filter": "Filtruj",
         "by": "przez",
-        "no": "Nie",
+        "no": "nie",
         "yes": "tak",
         "or": "lub",
         "returnHome": "Powrót do domu",
@@ -16,16 +16,16 @@
         "loading": "Błąd ładowania danych"
     },
     "releases": {
-        "published": "Data publikacji}"
+        "published": "Data premiery {date}"
     },
     "platforms": {
-        "donateMessage": "Gamebrary jest darmowy i open source, rozważ pomoc w jego rozwoju",
+        "donateMessage": "Gamebrary jest darmowy i open source, rozważ pomoc w jego rozwoju poprzez",
         "donating": "darowizny",
         "reportBugs": "zgłaszanie błędów",
         "submitFeedback": "przesyłanie opinii",
-        "home": "Konsole domowe",
-        "handheld": "Podręczne urządzenia",
-        "computer": "Komputer domowy",
+        "home": "Konsole",
+        "handheld": "Konsole przenośne",
+        "computer": "Komputer",
         "releaseYear": "Rok wydania",
         "name": "Alfabetycznie",
         "type": "Rodzaj"
@@ -36,42 +36,42 @@
     "gameBoard": {
         "settings": {
             "wallpaper": "Własna tapeta",
-            "shareLink": "Udostępniane linki (eksperymentalne)",
+            "shareLink": "Udostępniane linków (eksperymentalne)",
             "dangerZone": "Strefa niebezpieczeństwa"
         }
     },
     "sessionExpired": {
         "title": "Sesja wygasła",
-        "login": "Zaloguj sie",
-        "exit": "Wyjście"
+        "login": "Zaloguj się",
+        "exit": "Wyloguj się"
     },
     "gameDetail": {
         "videos": "Wideo",
         "screenshots": "Zrzuty ekranu",
-        "perspective": "Perspektywiczny",
+        "perspective": "Perspektywa",
         "releaseDate": "Data wydania",
-        "timeToBeat": "Czas na pokonanie",
-        "gameModes": "Tryb gry",
-        "genres": "Gatunek muzyczny",
-        "gamePlatforms": "Dostępne również dla:",
+        "timeToBeat": "Czas potrzebny do przejścia gry",
+        "gameModes": "Tryby gry",
+        "genres": "Gatunek",
+        "gamePlatforms": "Dostępne również na:",
         "developers": "Deweloper",
-        "publishers": "Wydawcy",
-        "removeFromList": "Usunąć",
+        "publishers": "Wydawca/y",
+        "removeFromList": "Usuń",
         "links": {
             "official": "Oficjalna strona",
             "wikia": "Fandom",
             "wikipedia": "Wikipedia",
             "facebook": "Facebook",
-            "twitter": "Świergot",
-            "twitch": "Skurcz",
+            "twitter": "Twitter",
+            "twitch": "Twitch",
             "instagram": "Instagram",
-            "youtube": "youtube",
+            "youtube": "YouTube",
             "iphone": "iOS",
             "ipad": "iPad",
-            "android": "Sklep Play",
-            "steam": "Parowy",
+            "android": "Google Play",
+            "steam": "Steam",
             "reddit": "Reddit",
-            "discord": "Niezgoda",
+            "discord": "Discord",
             "google_plus": "Google Plus",
             "tumblr": "Tumblr",
             "linkedin": "Linkedin",
@@ -83,64 +83,64 @@
         "edit": "Edytuj nazwę listy",
         "type": "Rodzaj listy",
         "settings": "Ustawienia listy",
-        "placeholder": "Wpisz tutaj swoją nazwę listy",
+        "placeholder": "Wpisz tutaj nazwę swojej listy",
         "wishlist": "Lista życzeń",
-        "input": "Wpisz własne",
+        "input": "Dodaj własne",
         "add": "Dodaj listę",
         "duplicateWarning": "Masz już listę o tej nazwie",
-        "getStarted": "Zaczynaj!",
+        "getStarted": "Rozpocznij!",
         "addFirstTime": "Witamy, dodaj swoją pierwszą listę!",
-        "sortByName": "",
+        "sortByName": " A-Z ",
         "sortByProgress": "Postęp",
-        "sortByRating": "Wynik",
+        "sortByRating": "Ocena",
         "sortByReleaseDate": "Data",
-        "sortByCustom": "Zwyczaj",
+        "sortByCustom": "Niestandardowe",
         "delete": "Usuń listę",
         "moveLeft": "Przesuń w lewo",
-        "moveRight": "Ruch w prawo",
+        "moveRight": "Przesuń w prawo",
         "emptyList": "Ta lista jest pusta",
         "addGame": "Dodaj grę",
         "addGames": "Dodaj gry do {listName}",
         "view": "Widok listy",
         "moveList": "Przenieś listę",
-        "sortList": "Lista automatycznego sortowania",
-        "coversSizeTitle": "Obejmuje w poprzek",
+        "sortList": "Lista sortowana automatycznie",
+        "coversSizeTitle": "Okładki w poprzek",
         "views": {
-            "single": "Domyślna",
+            "single": "Domyślny",
             "compact": "Kompaktowy",
             "text": "Tylko tekst",
-            "masonry": "Kamieniarstwo",
-            "grid": "Krata"
+            "masonry": "Kafelki",
+            "grid": "Siatka"
         }
     },
     "settings": {
-        "about": "O",
+        "about": "O nas",
         "platforms": "Platformy",
-        "gameBoard": "Gra planszowa",
-        "public": "Publiczny",
+        "gameBoard": "Tablica gier",
+        "public": "Publiczna",
         "tags": "Tagi",
         "account": "Konto",
-        "global": "Światowy",
-        "reloading": "Ponowne ładowanie ...",
-        "releases": "Wydawnictwa",
+        "global": "Globalny",
+        "reloading": "Przeładowywanie...",
+        "releases": "Wydania",
         "newsletter": "Otrzymuj e-maile o aktualizacjach (wkrótce)",
-        "branding": "Znakowanie platformy (kolory, logo itp.)",
+        "branding": "Oznaczenia platformy (kolory, logo itp.)",
         "language": "Język",
         "languages": {
-            "en": "język angielski",
+            "en": "angielski",
             "es": "hiszpański",
-            "pl": "Polskie",
-            "de": "Niemiecki",
+            "pl": "polski",
+            "de": "niemiecki",
             "ar": "arabski",
-            "fr": "Francuski",
-            "it": "Włoski",
+            "fr": "francuski",
+            "it": "włoski",
             "eu": "baskijski",
-            "cs": "Czech",
-            "ja": "język japoński"
+            "cs": "czeski",
+            "ja": "japoński"
         },
         "ownedLists": "Pokaż tylko moje platformy",
         "sortPlatforms": "Sortuj platformy alfabetycznie",
-        "ratings": "Ukryj wynik gry",
+        "ratings": "Ukryj ocenę gry",
         "signOut": "Wyloguj się",
         "wallpaper": {
             "title": "Prześlij tapetę",
@@ -152,43 +152,43 @@
         "deleteAccount": {
             "button": "Usuń konto",
             "message": "Twoje dane zostaną usunięte na zawsze.",
-            "title": "Jesteś pewny?"
+            "title": "Jesteś pewny/a?"
         }
     },
     "tags": {
         "title": "Tagi gier",
         "addTag": "Dodaj tag",
         "createTag": "Utwórz tag",
-        "inputPlaceholder": "Nazwa znacznika",
+        "inputPlaceholder": "Nazwa tagu",
         "editTags": "Edytuj tagi gier",
-        "message": "Kliknij znacznik, aby dodać go do <a>{gameName}</a> . Kliknij <i class=\"fas fa-times close\"></i> aby usunąć tag.",
+        "message": "Kliknij tag, aby dodać go do <a>{gameName}</a> . Kliknij <i class=\"fas fa-times close\"></i> aby usunąć tag.",
         "settingsMessage": "Możesz dodawać lub edytować istniejące tagi w ustawieniach."
     },
     "gameSearch": {
         "title": "Dodaj gry do",
-        "inputPlaceholder": "Szukaj tutaj",
+        "inputPlaceholder": "Szukaj",
         "alreadyInList": "z wyników wyszukiwania już na twojej liście",
         "noResultsFound": "Brak wyników",
         "missingGame": "Brakuje gry? Pomóż społeczności i",
-        "addToIGDB": "Dodaj go do IGDB"
+        "addToIGDB": "Dodaj grę do IGDB"
     },
     "notes": {
         "addNote": "Dodaj notatkę",
         "notes": "Notatki"
     },
     "progresses": {
-        "modalTitle": "Ustaw postęp gry",
+        "modalTitle": "Ustaw postęp w grze",
         "addProgress": "Dodaj postęp",
-        "updateProgress": "Postęp aktualizacji",
+        "updateProgress": "Aktualizuj postęp ",
         "deleteProgress": "Usuń postęp",
         "progresses": "Postęp"
     },
     "releaseDates": {
         "Today": "Dzisiaj",
-        "ReleasesToday": "Wydaje dziś",
-        "ReleasedToday": "Wydany dzisiaj",
-        "ReleasesTomorrow": "Wydaje jutro",
-        "ReleasesInXDays": "Wydawnictwa za {dni} dni",
-        "ToBeAnnounced": "TBA"
+        "ReleasesToday": "Zostanie wydana dzisiaj",
+        "ReleasedToday": "Premiera dzisiaj",
+        "ReleasesTomorrow": "Zostanie wydana jutro",
+        "ReleasesInXDays": "Zostanie wydana za {days} dni",
+        "ToBeAnnounced": "Data premiery nie została podana"
     }
 }
