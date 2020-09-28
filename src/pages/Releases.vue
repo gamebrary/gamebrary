@@ -15,7 +15,7 @@
               class="d-flex justify-content-between align-items-center"
               v-for="release in releases"
               :key="release.id"
-              :active="release.id === selectedRelease.id"
+              :active="selectedRelease && release.id === selectedRelease.id"
               @click="selectedRelease = release"
             >
               <h6 class="m-0">
