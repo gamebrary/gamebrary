@@ -1,23 +1,21 @@
 <template>
   <div
     id="app"
-    class="mvh-100 d-flex flex-column"
     :dir="dir"
   >
-    <page-header />
-    <router-view v-if="user" />
-    <authorizing v-else />
-    <session-expired />
+    <page-header v-if="user" />
+    <main :class="{ 'authorizing': !user }">
+      <router-view />
+    </main>
+    <session-expired v-if="user" />
   </div>
 </template>
 
 <script>
 import PageHeader from '@/components/PageHeader';
 import SessionExpired from '@/components/SessionExpired';
-import Authorizing from '@/pages/Authorizing';
 import firebase from 'firebase/app';
 import { mapState } from 'vuex';
-import 'firebase/auth';
 import 'firebase/firestore';
 
 // TODO: store in env vars
@@ -38,7 +36,6 @@ export default {
   components: {
     PageHeader,
     SessionExpired,
-    Authorizing,
   },
 
   data() {
@@ -69,33 +66,9 @@ export default {
     init() {
       if (this.user) {
         this.load();
-        return;
+      } else if (this.$route.name !== 'auth') {
+        this.$router.replace({ name: 'auth' });
       }
-
-      firebase.auth().getRedirectResult().then(({ additionalUserInfo, user }) => {
-        if (additionalUserInfo && additionalUserInfo.isNewUser) {
-          this.$store.dispatch('SEND_WELCOME_EMAIL', additionalUserInfo);
-        }
-
-        if (user) {
-          return this.initUser(user);
-        }
-
-        return this.handleAuthRedirect();
-      });
-    },
-
-    handleAuthRedirect() {
-      const authProvider = this.$route.params.authProvider || 'google';
-
-      const firebaseAuthProvider = authProvider === 'twitter'
-        ? new firebase.auth.TwitterAuthProvider()
-        : new firebase.auth.GoogleAuthProvider();
-
-      firebase.auth().signInWithRedirect(firebaseAuthProvider)
-        .catch((message) => {
-          this.$bvToast.toast(message, { title: 'Error', variant: 'danger' });
-        });
     },
 
     loadWallpapers() {
@@ -106,6 +79,7 @@ export default {
     },
 
     load() {
+      // TODO: move logic to actions
       this.$store.dispatch('LOAD_RELEASES')
         .then((releases) => {
           const [latestRelease] = releases;
@@ -120,6 +94,7 @@ export default {
         });
 
       this.loadWallpapers();
+      // TODO: remove onSnapshot? May get costly $$$
 
       // TODO: track progresses as well
       // TODO: move to actions
@@ -172,81 +147,6 @@ export default {
           }
         });
     },
-
-    initUser(user) {
-      this.$store.commit('SET_USER', user);
-      this.loadSettings();
-      this.loadTags();
-      this.loadLists();
-      this.load();
-    },
-
-    loadSettings() {
-      // TODO: move to actions
-      const docRef = db.collection('settings').doc(this.userId);
-
-      docRef.get().then((doc) => {
-        const hasData = doc && doc.exists;
-
-        return hasData
-          ? this.$store.commit('SET_SETTINGS', doc.data())
-          : this.initSettings();
-      }).catch(() => {
-        this.$store.commit('SET_SESSION_EXPIRED', true);
-      });
-    },
-
-    loadLists() {
-      // TODO: move to actions
-      db.collection('lists').doc(this.userId).get()
-        .then((doc) => {
-          if (doc.exists) {
-            const data = doc.data();
-            this.$store.commit('SET_GAME_LISTS_LEGACY', data);
-          } else {
-            this.initList();
-          }
-        })
-        .catch(() => {
-          this.$store.commit('SET_SESSION_EXPIRED', true);
-        });
-    },
-
-    loadTags() {
-      // TODO: move to actions
-      db.collection('tags').doc(this.userId).get()
-        .then((doc) => {
-          if (doc.exists) {
-            const data = doc.data();
-            this.$store.commit('SET_TAGS', data);
-          }
-        })
-        .catch(() => {
-          this.$store.commit('SET_SESSION_EXPIRED', true);
-        });
-    },
-
-    initList() {
-      // TODO: move to actions
-      db.collection('lists').doc(this.userId).set({}, { merge: true })
-        .then(() => {
-          this.loadLists();
-        })
-        .catch(() => {
-          this.$store.commit('SET_SESSION_EXPIRED', true);
-        });
-    },
-
-    initSettings() {
-      // TODO: move to actions
-      db.collection('settings').doc(this.userId).set({}, { merge: true })
-        .then(() => {
-          this.loadSettings();
-        })
-        .catch(() => {
-          this.$store.commit('SET_SESSION_EXPIRED', true);
-        });
-    },
   },
 };
 </script>
@@ -257,8 +157,18 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
   #app {
-    // display: flex;
-    // flex-direction: column;
-    // min-height: 100vh;
+  }
+
+  main {
+    position: fixed;
+    left: 50px;
+    height: 100vh;
+    width: calc(100vw - 50px);
+    overflow-y: auto;
+
+    &.authorizing {
+      width: 100%;
+      left: 0;
+    }
   }
 </style>

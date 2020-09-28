@@ -42,15 +42,11 @@ if (process.env.NODE_ENV !== 'development') {
 Vue.config.productionTip = false;
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.requiresAuth && !store.getters.auth) {
-    next('/');
-  } else {
-    if (to.meta && to.meta.title) {
-      document.title = `${to.meta.title} - Gamebrary`;
-    }
-
-    next();
+  if (to.meta && to.meta.title) {
+    document.title = `${to.meta.title} - Gamebrary`;
   }
+
+  next();
 });
 
 const vuexStorage = localStorage && localStorage.vuex
