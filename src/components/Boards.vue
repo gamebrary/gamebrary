@@ -6,7 +6,6 @@
       <h5>Boards</h5>
 
       <div>
-        <b-button>Change backdrop</b-button>
         <create-board />
       </div>
     </div>
