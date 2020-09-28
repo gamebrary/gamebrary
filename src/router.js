@@ -16,7 +16,7 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
-      name: 'home',
+      name: 'dashboard',
       path: '/',
       component: Dashboard,
       meta: {
