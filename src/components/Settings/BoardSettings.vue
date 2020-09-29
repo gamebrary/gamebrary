@@ -235,7 +235,7 @@ export default {
 
       this.loading = false;
       this.$bvToast.toast('Board removed', { title: 'Success', variant: 'success' });
-      this.$router.push({ name: 'home' });
+      this.$router.push({ name: 'dashboard' });
     },
 
     async saveSettings() {

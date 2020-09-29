@@ -164,7 +164,8 @@ export default {
   background-size: cover;
   align-items: flex-start;
   height: 100vh;
-  padding: 58px 1rem 0;
+  width: 100%;
+  padding: 1rem;
   box-sizing: border-box;
   overflow-x: auto;
   overflow-x: overlay;

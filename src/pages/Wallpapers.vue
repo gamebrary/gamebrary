@@ -1,15 +1,14 @@
 <template lang="html">
-  <b-dropdown-item v-b-modal:wallpapers>
-    <b-icon-file-richtext class="mr-1" />
-    Wallpapers
-
-    <b-modal
-      id="wallpapers"
-      title="Wallpapers"
-      hide-footer
-      scrollable
-      size="lg"
-    >
+  <div>
+    <b-jumbotron
+      header="Wallpapers"
+      header-level="5"
+      fluid
+      lead="Manage board wallpapers"
+    />
+    <!-- TODO: show space used -->
+    <!-- TODO: allow to apply wallpaper to board from here -->
+    <b-container>
       <b-row>
         <b-col cols="12" lg="6">
           <b-form-group
@@ -38,8 +37,6 @@
           </b-button>
         </b-col>
       </b-row>
-
-      <hr>
 
       <b-form-row v-if="wallpapers.length">
         <b-col cols="12">
@@ -78,8 +75,8 @@
       </b-form-row>
 
       <b-alert show v-else>You don't have any wallpapers.</b-alert>
-    </b-modal>
-  </b-dropdown-item>
+    </b-container>
+  </div>
 </template>
 
 <script>
