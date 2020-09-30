@@ -64,36 +64,23 @@
             {{ name }}
           </b-badge>
 
-          <div v-if="loading" class="my-2">
-            <b-button variant="light">
-              <b-icon-clock-history />
-            </b-button>
-
-            <b-button variant="light">
-              <b-icon-file-earmark-text />
-            </b-button>
-
-            <b-button variant="light">
-              <b-icon-tag />
-            </b-button>
-
-            <b-button variant="light">
-              <b-icon-trash />
-            </b-button>
+          <div v-if="loading" class="my-2 d-flex justify-content-md-start justify-content-center">
+            <b-skeleton type="button" width="45px" v-for="n in 4" :key="n" class="mr-1" />
           </div>
 
-          <div v-if="!loading" class="my-2">
+          <div v-else class="my-2">
             <game-progress :game="game" />
             <game-notes :game="game" />
             <game-tags :game="game" />
             <add-remove-game :game="game" :list="list" />
           </div>
 
-          <placeholder :lines="3" v-if="loading"/>
+          <b-skeleton v-if="loading" v-for="n in 3" :key="n" />
           <p v-else class="text-left">{{ game.summary }}</p>
         </b-col>
       </b-row>
 
+      <game-detail-placeholder />
       <game-detail-placeholder v-if="loading" />
 
       <b-card v-else class="mt-4" no-body>
@@ -127,11 +114,9 @@ import GameProgress from '@/components/Game/GameProgress';
 import AddRemoveGame from '@/components/Game/AddRemoveGame';
 import GameTags from '@/components/Game/GameTags';
 import IgdbLogo from '@/components/IgdbLogo';
-import Placeholder from '@/components/Placeholder';
 
 export default {
   components: {
-    Placeholder,
     GameTags,
     IgdbLogo,
     GameDetailPlaceholder,

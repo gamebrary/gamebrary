@@ -6,18 +6,72 @@
       :key="list.name"
     >
     <b-card no-body>
-      <b-card-header class="py-1 px-2">
-        <placeholder class="header" />
+      <b-card-header class="pt-2 pb-1 px-2">
+        <b-skeleton />
       </b-card-header>
 
-      <div :class="['games', list.settings.view]" v-if="list.games.length">
-        <placeholder
-          class="game"
-          v-for="n in list.games.length"
-          :lines="list && list.settings.view === 'grid' ? 0 : 2"
-          :key="n"
-          :image="list.settings.view !== 'text'"
-        />
+      <div
+        v-if="list.games.length"
+        :class="['games', list.settings.view]"
+      >
+        <div v-for="n in list.games.length" :key="n">
+          <b-card
+            no-body
+            img-top
+            v-if="list.settings.view === 'grid'"
+          >
+            <b-skeleton-img
+              card-img="top"
+              height="180px"
+            />
+
+            <b-card-body class="p-2">
+              <b-skeleton class="mt-2" />
+            </b-card-body>
+          </b-card>
+
+          <b-card
+            v-else-if="!list.settings.view || list.settings.view === 'single'"
+            no-body
+            img-left
+          >
+            <b-skeleton-img
+              card-img="left"
+              width="94px"
+              height="124px"
+            />
+
+            <b-card-body class="p-2">
+              <b-skeleton />
+            </b-card-body>
+          </b-card>
+
+          <b-card
+            v-else-if="list.settings.view === 'compact'"
+            no-body
+            img-left
+          >
+            <b-skeleton-img
+              card-img="left"
+              width="70px"
+              height="93px"
+            />
+
+            <b-card-body class="p-2">
+              <b-skeleton />
+            </b-card-body>
+          </b-card>
+
+          <b-card
+            v-else-if="list.settings.view === 'text'"
+            no-body
+            img-left
+          >
+            <b-card-body class="p-2">
+              <b-skeleton />
+            </b-card-body>
+          </b-card>
+        </div>
       </div>
 
       <b-button
@@ -36,13 +90,8 @@
 
 <script>
 import { mapState } from 'vuex';
-import Placeholder from '@/components/Placeholder';
 
 export default {
-  components: {
-    Placeholder,
-  },
-
   data() {
     return {
       placeholderBoard: {},
@@ -88,37 +137,14 @@ export default {
 
   .games {
     display: grid;
-    grid-gap: .5rem ;
+    grid-gap: .5rem;
     padding: .5rem;
 
-    &.single {
-      --placeholder-text-margin: .5rem .5rem 0 0;
-      border-radius: var(--border-radius);
-    }
-
     &.grid {
-      --placeholder-image-width: 140px;
-      --placeholder-image-height: 200px;
       padding-top: .5rem;
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-gap: .25rem;
     }
-
-    &.compact {
-      --placeholder-image-width: 50px;
-      --placeholder-image-height: 80px;
-      --placeholder-text-margin: .5rem .5rem 0 0;
-    }
-
-    &.text {
-      --placeholder-text-margin: .5rem;
-    }
-  }
-
-  .game {
-    background: var(--game-card-background);
-    border-radius: var(--border-radius);
-    overflow: hidden;
   }
 </style>

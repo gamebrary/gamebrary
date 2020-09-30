@@ -3,47 +3,47 @@
     <b-tabs card>
       <b-tab title="Game details" active>
         <template v-slot:title>
-          <placeholder class="w-10 h-100" />
+          <b-skeleton width="80px" />
         </template>
         <dl class="row">
           <dt class="col-sm-3">{{ $t('gameDetail.platforms') }}</dt>
           <dd class="col-sm-9">
-            <placeholder class="w-75" />
+            <b-skeleton />
           </dd>
 
           <dt class="col-sm-3">{{ $t('gameDetail.genres') }}</dt>
           <dd class="col-sm-9">
-            <placeholder class="w-75" />
+            <b-skeleton />
           </dd>
 
           <dt class="col-sm-3">{{ $t('gameDetail.gameModes') }}</dt>
           <dd class="col-sm-9">
-            <placeholder class="w-75" />
+            <b-skeleton />
           </dd>
 
           <dt class="col-sm-3">{{ $t('gameDetail.developers') }}</dt>
           <dd class="col-sm-9">
-            <placeholder class="w-75" />
+            <b-skeleton />
           </dd>
 
           <dt class="col-sm-3">{{ $t('gameDetail.publishers') }}</dt>
           <dd class="col-sm-9">
-            <placeholder class="w-75" />
+            <b-skeleton />
           </dd>
 
           <dt class="col-sm-3">{{ $t('gameDetail.perspective') }}</dt>
           <dd class="col-sm-9">
-            <placeholder class="w-75" />
+            <b-skeleton />
           </dd>
 
           <dt class="col-sm-3">{{ $t('gameDetail.timeToBeat') }}</dt>
           <dd class="col-sm-9">
-            <placeholder class="w-75" />
+            <b-skeleton />
           </dd>
 
           <dt class="col-sm-3">{{ $t('gameDetail.ageRatings') }}</dt>
           <dd class="col-sm-9">
-            <placeholder class="w-75" />
+            <b-skeleton />
           </dd>
         </dl>
       </b-tab>
@@ -80,13 +80,8 @@
 
 <script>
 import { mapState } from 'vuex';
-import Placeholder from '@/components/Placeholder';
 
 export default {
-  components: {
-    Placeholder,
-  },
-
   props: {
     id: {
       type: [Number, String],
