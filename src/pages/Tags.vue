@@ -29,14 +29,14 @@
 
     <b-container>
       <b-row>
-        <b-col>
+        <b-col cols="12" lg="6" class="mb-3">
           <form
             ref="newTagForm"
             @submit.stop.prevent="submit"
           >
             <h6>Add new tag</h6>
 
-            <b-row class="mb-3">
+            <b-form-row class="mb-3">
               <b-col cols="8" md="9">
                 <b-form-input
                   label="test"
@@ -45,6 +45,14 @@
                   required
                   v-model.trim="tagName"
                 />
+
+                <b-form-text v-if="tagName" tag="span">
+                  Preview:
+
+                  <b-badge :style="`background-color: ${hex}; color: ${tagTextColor}`">
+                    {{ tagName }}
+                  </b-badge>
+                </b-form-text>
               </b-col>
 
               <b-col cols="4" md="3">
@@ -62,30 +70,16 @@
                   />
                 </b-input-group>
               </b-col>
-            </b-row>
+            </b-form-row>
 
-            <b-row class="mb-2">
-              <b-col sm="8">
-                <template v-if="tagName">
-                  Preview:
-
-                  <b-badge :style="`background-color: ${hex}; color: ${tagTextColor}`">
-                    {{ tagName }}
-                  </b-badge>
-                </template>
-              </b-col>
-
-              <b-col sm="4" class="d-flex justify-content-end">
-                <b-button
-                  variant="primary"
-                  :disabled="isDuplicate || saving || !Boolean(tagName)"
-                  @click="submit"
-                >
-                  <b-spinner small v-if="saving" />
-                  <span v-else>Save</span>
-                </b-button>
-              </b-col>
-            </b-row>
+            <b-button
+              variant="primary"
+              :disabled="isDuplicate || saving || !Boolean(tagName)"
+              @click="submit"
+            >
+              <b-spinner small v-if="saving" />
+              <span v-else>Add tag</span>
+            </b-button>
 
             <b-alert
               class="mt-3 mb-0"
@@ -97,7 +91,7 @@
           </form>
         </b-col>
 
-        <b-col cols="8" v-if="gameTags && localTags">
+        <b-col cols="12" lg="6" v-if="gameTags && localTags">
           <h6>My tags</h6>
 
           <b-list-group>

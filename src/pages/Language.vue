@@ -4,7 +4,6 @@
       header="Language"
       header-level="5"
       fluid
-      lead="Contributors wanted"
     />
 
     <b-container>

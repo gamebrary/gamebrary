@@ -4,14 +4,16 @@
       header="Releases"
       header-level="5"
       fluid
+      class="position-sticky"
       lead="Select a theme below"
     />
 
-    <b-container>
-      <b-row>
-        <b-col>
+    <b-container fluid>
+      <b-form-row>
+        <b-col cols="3">
           <b-list-group>
             <b-list-group-item
+              button
               class="d-flex justify-content-between align-items-center"
               v-for="release in releases"
               :key="release.id"
@@ -20,14 +22,13 @@
             >
               <h6 class="m-0">
                 <b-badge>{{ release.tag_name }}</b-badge>
-                {{ release.name }}
+                <span class="d-none d-md-inline">{{ release.name }}</span>
               </h6>
             </b-list-group-item>
           </b-list-group>
         </b-col>
 
-        <b-col cols="8">
-          <!-- TODO: add releases selector, only display latest by default -->
+        <b-col cols="9">
           <b-card
             v-if="selectedRelease"
             hide-footer
@@ -49,8 +50,7 @@
             </b-card-text>
           </b-card>
         </b-col>
-      </b-row>
-
+      </b-form-row>
     </b-container>
   </div>
 </template>

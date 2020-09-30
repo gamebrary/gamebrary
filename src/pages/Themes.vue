@@ -10,6 +10,7 @@
     <b-container>
       <b-row>
         <b-col
+          cols="6"
           lg="3"
           md="4"
           v-for="theme in themes"
