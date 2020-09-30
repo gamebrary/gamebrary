@@ -79,7 +79,7 @@
         </b-dropdown-item>
       </b-dropdown>
 
-      <router-link title="Account" :to="{ name: 'account' } "class="mb-2 mt-3 d-block">
+      <router-link title="Account" :to="{ name: 'account' }" class="mb-2 mt-3 d-block">
         <b-avatar
           v-if="user && user.photoURL"
           variant="info"
