@@ -10,7 +10,7 @@
       <b-list-group flush>
         <b-list-group-item>
           <b-avatar
-            v-if="user.photoURL"
+            v-if="user && user.photoURL"
             size="xl"
             variant="info"
             :src="user.photoURL"

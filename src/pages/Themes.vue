@@ -61,7 +61,9 @@ export default {
 
   methods: {
     isSelected(theme) {
-      return this.selectedTheme.name && theme.name === this.selectedTheme.name;
+      return this.selectedTheme
+        && this.selectedTheme.name
+        && theme.name === this.selectedTheme.name;
     },
 
     async setTheme(theme) {

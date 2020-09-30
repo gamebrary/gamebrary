@@ -105,7 +105,9 @@ export default {
       const { settings } = this;
 
       // TODO: use optional chaining
-      const isDark = !settings.theme || (settings.theme && settings.theme.dark);
+      const noTheme = Boolean(settings && !settings.theme);
+      const darkTheme = Boolean(settings && settings.theme && settings.theme.dark);
+      const isDark = noTheme || darkTheme;
 
       return `/static/gamebrary-logo${isDark ? '' : '-dark'}.png`;
     },
