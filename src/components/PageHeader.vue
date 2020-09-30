@@ -8,27 +8,26 @@
     </router-link>
 
     <template v-if="showBoardsDropdown">
-      <a id="boardSwitcher" >
-        <b-icon-arrow-left-right />
+      <b-dropdown
+        dropright
+        right
+        no-caret
+        boundary="viewport"
+        variant="link"
+      >
+        <template v-slot:button-content>
+          <b-icon-arrow-left-right />
+        </template>
 
-        <b-popover
-          target="boardSwitcher"
-          :offset="10"
-          placement="right"
-          triggers="click blur"
+        <b-dropdown-item
+          :to="`/board/${id}`"
+          :key="id"
+          v-for="{ name, id } in sortedBoards"
+          :active="board.id === id"
         >
-          <b-list-group flush>
-            <b-list-group-item
-              :to="`/board/${id}`"
-              :key="id"
-              v-for="{ name, id } in sortedBoards"
-              :active="board.id === id"
-            >
-              {{ name }}
-            </b-list-group-item>
-          </b-list-group>
-        </b-popover>
-      </a>
+          {{ name }}
+        </b-dropdown-item>
+      </b-dropdown>
     </template>
 
     <b-button
@@ -40,77 +39,47 @@
     </b-button>
 
     <div class="mt-auto">
-      <a id="settingsPopover" class="py-2 d-block">
-        <b-icon-gear />
-      </a>
-
-      <b-popover
-        target="settingsPopover"
-        :offset="10"
-        placement="right"
-        triggers="click blur"
+      <b-dropdown
+        dropright
+        right
+        no-caret
+        boundary="viewport"
+        variant="link"
       >
-        <b-list-group flush>
-          <b-list-group-item
-            title="Tags"
-            v-b-tooltip.hover.right
-            :to="{ name: 'tags' }"
-          >
-            <b-icon-tags />
-            Tags
-          </b-list-group-item>
+        <template v-slot:button-content>
+          <b-icon-gear />
+        </template>
 
-          <b-list-group-item
-            title="Wallpapers"
-            v-b-tooltip.hover.right
-            :to="{ name: 'wallpapers' }"
-          >
-            <b-icon-file-richtext />
-            Wallpapers
-          </b-list-group-item>
+        <b-dropdown-item title="Tags" :to="{ name: 'tags' }">
+          <b-icon-tags />
+          Tags
+        </b-dropdown-item>
 
-          <b-list-group-item
-            title="Language"
-            v-b-tooltip.hover.right
-            :to="{ name: 'language' }"
-          >
-            <b-icon-chat-left-text />
-            Language
-          </b-list-group-item>
-          <b-list-group-item
-            title="Themes"
-            v-b-tooltip.hover.right
-            :to="{ name: 'themes' }"
-          >
-            <b-icon-droplet />
-            Themes
-          </b-list-group-item>
-          <b-list-group-item
-            title="Releases"
-            v-b-tooltip.hover.right
-            :to="{ name: 'releases' }"
-          >
-            <b-icon-mailbox />
-            Releases
-          </b-list-group-item>
+        <b-dropdown-item title="Wallpapers" :to="{ name: 'wallpapers' }">
+          <b-icon-file-richtext />
+          Wallpapers
+        </b-dropdown-item>
 
-          <b-list-group-item
-            title="About"
-            v-b-tooltip.hover.right
-            :to="{ name: 'about' }"
-          >
-            <b-icon-question />
-            About
-          </b-list-group-item>
-        </b-list-group>
-      </b-popover>
+        <b-dropdown-item title="Language" :to="{ name: 'language' }">
+          <b-icon-chat-left-text />
+          Language
+        </b-dropdown-item>
+        <b-dropdown-item title="Themes" :to="{ name: 'themes' }">
+          <b-icon-droplet />
+          Themes
+        </b-dropdown-item>
+        <b-dropdown-item title="Releases" :to="{ name: 'releases' }">
+          <b-icon-mailbox />
+          Releases
+        </b-dropdown-item>
 
-      <router-link
-        title="Account"
-        v-b-tooltip.hover.right
-        :to="{ name: 'account' }"
-        class="mb-2 mt-3 d-block"
-      >
+        <b-dropdown-item title="About" :to="{ name: 'about' }">
+          <b-icon-question />
+          About
+        </b-dropdown-item>
+      </b-dropdown>
+
+      <router-link title="Account" :to="{ name: 'account' } "class="mb-2 mt-3 d-block">
         <b-avatar
           v-if="user && user.photoURL"
           variant="info"
@@ -136,7 +105,7 @@ export default {
       const { settings } = this;
 
       // TODO: use optional chaining
-      const isDark = settings && settings.theme && settings.theme.dark;
+      const isDark = !settings.theme || (settings.theme && settings.theme.dark);
 
       return `/static/gamebrary-logo${isDark ? '' : '-dark'}.png`;
     },
@@ -159,5 +128,6 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
 nav {
   width: 50px;
+  z-index: 1;
 }
 </style>
