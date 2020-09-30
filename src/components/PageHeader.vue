@@ -1,6 +1,6 @@
 <template lang="html">
   <nav
-    class="position-fixed d-flex flex-column p-0 vh-100 text-center border-right border-light"
+    class="position-fixed d-flex flex-column p-0 vh-100 text-center"
   >
     <router-link :to="{ name: 'dashboard' }" class="mt-2 mb-3">
       <!-- TODO: use svg, change color based on theme -->
