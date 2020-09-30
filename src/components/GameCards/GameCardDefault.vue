@@ -33,6 +33,8 @@
             </b-badge>
           </b-card-title>
 
+          <br />
+
           <!-- <b-badge
             v-if="releaseDate"
             variant="secondary"

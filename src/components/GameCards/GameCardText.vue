@@ -17,6 +17,8 @@
             </b-badge>
           </small>
 
+          <br />
+
           <!-- <b-badge
             v-if="releaseDate"
             variant="secondary"
