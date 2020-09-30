@@ -36,18 +36,15 @@
                 {{ board.description }}
               </b-card-text>
 
-              <b-avatar-group
-                v-if="Object.keys(platformNames).length"
-                size="lg"
-                variant="dark"
-              >
-                <b-avatar :src="getPlatformImage(id)"
-                  v-for="id in board.platforms"
-                  v-b-tooltip.hover
-                  :title="platformNames[id].name"
-                  :key="id"
-                />
-              </b-avatar-group>
+              <span :id="board.id">
+                {{ board.platforms.length }} Platforms
+              </span>
+
+              <b-popover :target="board.id" triggers="hover">
+                <div v-for="id in board.platforms" :key="id">
+                  {{ platformNames[id].name }}
+                </div>
+              </b-popover>
             </b-card-body>
           </b-col>
         </b-row>
