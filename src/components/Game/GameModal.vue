@@ -75,12 +75,15 @@
             <add-remove-game :game="game" :list="list" />
           </div>
 
-          <b-skeleton v-if="loading" v-for="n in 3" :key="n" />
+          <template v-if="loading">
+            <b-skeleton v-for="n in 3" :key="n" />
+          </template>
+
+
           <p v-else class="text-left">{{ game.summary }}</p>
         </b-col>
       </b-row>
 
-      <game-detail-placeholder />
       <game-detail-placeholder v-if="loading" />
 
       <b-card v-else class="mt-4" no-body>
