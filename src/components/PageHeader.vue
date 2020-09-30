@@ -1,13 +1,11 @@
 <template lang="html">
-  <nav
-    class="position-fixed d-flex flex-column p-0 vh-100 text-center"
-  >
+  <nav class="position-fixed d-flex flex-column p-0 vh-100 text-center">
     <router-link :to="{ name: 'dashboard' }" class="mt-2 mb-3">
       <!-- TODO: use svg, change color based on theme -->
       <img :src="logoUrl" width="32" />
     </router-link>
 
-    <template v-if="showBoardsDropdown">
+    <template v-if="hasMultipleBoards">
       <b-dropdown
         dropright
         right
@@ -29,14 +27,6 @@
         </b-dropdown-item>
       </b-dropdown>
     </template>
-
-    <b-button
-      v-else-if="showBoardTitle"
-      class="p-0 px-1"
-      variant="transparent"
-    >
-      {{ board.name }}
-    </b-button>
 
     <div class="mt-auto">
       <b-dropdown
@@ -116,12 +106,8 @@ export default {
       return this.$route.name;
     },
 
-    showBoardTitle() {
-      return this.$route.name === 'board' && this.board.name;
-    },
-
-    showBoardsDropdown() {
-      return this.showBoardTitle && this.sortedBoards.length > 1;
+    hasMultipleBoards() {
+      return this.$route.name === 'board' && this.board.name && this.sortedBoards.length > 1;
     },
   },
 };
