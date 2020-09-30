@@ -231,7 +231,7 @@ export default {
       display: grid;
       height: 100%;
       overflow: hidden;
-      max-height: calc(100vh - 144px);
+      max-height: calc(100vh - 80px);
       overflow-y: auto;
       padding: .5rem .5rem 0;
       width: 100%;
