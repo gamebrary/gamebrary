@@ -1,11 +1,11 @@
 <template lang="html">
   <b-dropdown-item-button v-b-modal="modalId">
     <b-icon-pencil class="mr-1" />
-    Rename list
+    {{ $t('board.list.renameList') }}
 
     <b-modal
       :id="modalId"
-      title="Rename list"
+      :title="$t('board.list.renameList')"
       @show="getListName"
     >
       <form ref="renameListForm" @submit.stop.prevent="submit">
@@ -13,7 +13,7 @@
           ref="listNameField"
           autofocus
           v-model.trim="listName"
-          placeholder="Enter your name"
+          :placeholder="$t('board.list.renameListPlaceholder')"
           required
         />
 
@@ -22,13 +22,13 @@
           :show="isDuplicate"
           variant="warning"
         >
-          {{ $t('list.duplicateWarning') }}
+          {{ $t('board.list.duplicateWarning') }}
         </b-alert>
       </form>
 
       <template v-slot:modal-footer="{ cancel }">
         <b-button @click="cancel">
-          Cancel
+          {{ $t('global.cancel') }}
         </b-button>
 
         <b-button
@@ -37,7 +37,7 @@
           @click="submit"
         >
           <b-spinner small v-if="saving" />
-          <span v-else>Save</span>
+          <span v-else>{{ $t('global.save') }}</span>
         </b-button>
       </template>
     </b-modal>

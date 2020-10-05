@@ -1,0 +1,208 @@
+{
+    "global": {
+        "back": "De volta",
+        "save": "Gardar",
+        "cancel": "Cancelar",
+        "delete": "Eliminar",
+        "create": "Crear",
+        "filter": "Filtro",
+        "by": "por",
+        "no": "non",
+        "yes": "si",
+        "or": "ou",
+        "pageNotFound": "páxina non atopada",
+        "poweredByIgdb": "Impulsado por",
+        "signOut": "Pecha sesión",
+        "donateMessage": "Gamebrary é de código aberto e gratuíto; considere axudar no seu desenvolvemento",
+        "donating": "doar",
+        "reportBugs": "informar de erros",
+        "submitFeedback": "enviando comentarios"
+    },
+    "gitHub": {
+        "watch": "Mire",
+        "star": "Estrela",
+        "fork": "Garfo",
+        "issues": "Problemas"
+    },
+    "dashboard": {
+        "subtitle": "A ferramenta de xestión de coleccións de videoxogos de código aberto."
+    },
+    "boards": {
+        "title": "Xuntas",
+        "create": "Crear taboleiro",
+        "platforms": "Plataformas",
+        "deprecated": "Obsoleto"
+    },
+    "board": {
+        "gameModal": {
+            "videos": "Vídeos",
+            "screenshots": "Capturas de pantalla",
+            "perspective": "Perspectiva",
+            "releaseDate": "Data de lanzamento",
+            "timeToBeat": "Tempo de bater",
+            "gameModes": "Modo de xogo",
+            "genres": "Xénero",
+            "ageRatings": "Valoracións por idade",
+            "platforms": "Plataformas",
+            "developers": "Desenvolvedor",
+            "publishers": "Editores",
+            "removeFromList": "Quitar",
+            "links": {
+                "official": "Sitio oficial",
+                "wikia": "Fandom",
+                "wikipedia": "Wikipedia",
+                "facebook": "Facebook",
+                "twitter": "Twitter",
+                "twitch": "Twitch",
+                "instagram": "Instagram",
+                "youtube": "Youtube",
+                "iphone": "iOS",
+                "ipad": "iPad",
+                "android": "Play Store",
+                "steam": "Vapor",
+                "reddit": "Reddit",
+                "discord": "Discordia",
+                "google_plus": "Google plus",
+                "tumblr": "Tumblr",
+                "linkedin": "Linkedin",
+                "pinterest": "Pinterest",
+                "soundcloud": "Soundcloud"
+            }
+        },
+        "addList": {
+            "title": "Engadir lista",
+            "placeholder": "Escribe aquí o nome da túa lista"
+        },
+        "addGame": {
+            "title": "Engadir xogo",
+            "inputPlaceholder": "Escribe aquí para buscar",
+            "noResults": "Non se atoparon resultados",
+            "alreadyInList": "xogo (s) dos resultados da busca xa na súa lista"
+        },
+        "list": {
+            "edit": "Editar o nome da lista",
+            "type": "Tipo de lista",
+            "settings": "Configuración da lista",
+            "placeholder": "Escribe aquí o nome da túa lista",
+            "wishlist": "Lista de desexos",
+            "input": "Introduce o teu",
+            "add": "Engadir lista",
+            "duplicateWarning": "Xa tes unha lista con este nome",
+            "getStarted": "Comezar!",
+            "addFirstTime": "Benvido, engade a túa primeira lista.",
+            "sortByName": "O",
+            "sortByProgress": "Progreso",
+            "sortByRating": "Puntuación",
+            "sortByReleaseDate": "Data",
+            "sortByCustom": "Personalizado",
+            "delete": "Eliminar lista",
+            "moveLeft": "Mover á esquerda",
+            "moveRight": "Mover á dereita",
+            "emptyList": "Esta lista está baleira",
+            "addGame": "Engadir xogo",
+            "addGames": "Engade xogos a {listName}",
+            "view": "Vista de lista",
+            "moveList": "Mover lista",
+            "renameList": "Cambiar o nome da lista",
+            "renameListPlaceholder": "Escriba o seu nome",
+            "sortList": "Lista de clasificación automática",
+            "sortWarning": "A lista de clasificación automática afectará a función de arrastrar e soltar",
+            "coversSizeTitle": "Cubertas transversais",
+            "showReleaseDates": "Mostrar a data de lanzamento dos xogos inéditos",
+            "showGameRatings": "Mostrar valoracións do xogo",
+            "showGameProgress": "Mostrar o progreso do xogo",
+            "showGameNotes": "Mostrar as notas do xogo",
+            "showGameTags": "Mostrar etiquetas de xogo",
+            "showGameCount": "Mostrar o reconto do xogo",
+            "views": {
+                "single": "Predeterminado",
+                "compact": "Compacto",
+                "text": "Só texto",
+                "grid": "Reixa"
+            },
+            "deleteWarning": {
+                "title": "Seguro que queres eliminar esta lista?",
+                "message": "Esta acción non se pode desfacer",
+                "buttonLabel": "Si, elimina a lista"
+            }
+        }
+    },
+    "themes": {
+        "title": "Temas",
+        "subtitle": "Selecciona un tema a continuación"
+    },
+    "languages": {
+        "title": "Idiomas",
+        "save": "Garda e recarga o navegador"
+    },
+    "settings": {
+        "tags": "Etiquetas",
+        "wallpapers": "Fondos de pantalla",
+        "language": "Lingua",
+        "themes": "Temas",
+        "releases": "Lanzamentos",
+        "about": "Acerca de",
+        "account": "Conta"
+    },
+    "tags": {
+        "title": "Etiquetas",
+        "subtitle": "As etiquetas son unha boa forma de organizar e xestionar a túa colección de videoxogos. Engade, edita ou elimina etiquetas.",
+        "form": {
+            "title": "Engadir nova etiqueta",
+            "inputPlaceholder": "Nome da etiqueta",
+            "preview": "Vista previa:",
+            "addTag": "Engadir etiqueta",
+            "duplicateMessage": "Xa tes unha etiqueta chamada {tagName}"
+        },
+        "list": {
+            "title": "As miñas etiquetas"
+        }
+    },
+    "wallpapers": {
+        "title": "Fondos de pantalla",
+        "subtitle": "Xestionar fondos de escritorio",
+        "form": {
+            "label": "Cargar fondo de pantalla",
+            "placeholder": "Escolle un ficheiro ou déixao aquí ...",
+            "browse": "Explorar",
+            "helperText": "Só ficheiros de imaxe",
+            "upload": "Cargar",
+            "duplicateMessage": "Xa tes un ficheiro chamado {fileName}"
+        },
+        "list": {
+            "title": "Os meus fondos de pantalla"
+        }
+    },
+    "releases": {
+        "title": "Lanzamentos",
+        "published": "Publicado"
+    },
+    "about": {
+        "title": "Acerca de Gamebrary",
+        "subtitle": "Léame de Github"
+    },
+    "progresses": {
+        "modalTitle": "Establece o progreso do xogo",
+        "addProgress": "Engade progreso",
+        "save": "Gardar o progreso",
+        "deleteProgress": "Eliminar progreso",
+        "progresses": "Progreso"
+    },
+    "platforms": {
+        "donateMessage": "Gamebrary é de código aberto e gratuíto; considere axudar no seu desenvolvemento",
+        "donating": "doar",
+        "reportBugs": "informar de erros",
+        "submitFeedback": "enviando comentarios",
+        "all": "Todo",
+        "console": "Consolas",
+        "platform": "Dixital",
+        "operating_system": "PC / Outros",
+        "portable_console": "Portátiles",
+        "computer": "Informática doméstica",
+        "popular": "Popular",
+        "releaseYear": "Ano de lanzamento",
+        "name": "Alfabeticamente",
+        "generation": "Xeración / data released",
+        "type": "Tipo"
+    }
+}

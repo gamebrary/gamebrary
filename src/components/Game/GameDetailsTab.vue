@@ -2,32 +2,32 @@
   <b-tab title="Game details" active>
     <dl class="row">
       <!-- TODO: plural vs singular translations? -->
-      <dt class="col-sm-3">{{ $t('gameDetail.platforms') }}</dt>
+      <dt class="col-sm-3">{{ $t('board.gameModal.platforms') }}</dt>
       <dd class="col-sm-9">{{ platforms }}</dd>
 
-      <dt class="col-sm-3">{{ $t('gameDetail.genres') }}</dt>
+      <dt class="col-sm-3">{{ $t('board.gameModal.genres') }}</dt>
       <dd class="col-sm-9">{{ genres }}</dd>
 
-      <dt class="col-sm-3">{{ $t('gameDetail.gameModes') }}</dt>
+      <dt class="col-sm-3">{{ $t('board.gameModal.gameModes') }}</dt>
       <dd class="col-sm-9">{{ gameModes }}</dd>
 
-      <dt class="col-sm-3">{{ $t('gameDetail.developers') }}</dt>
+      <dt class="col-sm-3">{{ $t('board.gameModal.developers') }}</dt>
       <dd class="col-sm-9">{{ gameDevelopers }}</dd>
 
-      <dt class="col-sm-3">{{ $t('gameDetail.publishers') }}</dt>
+      <dt class="col-sm-3">{{ $t('board.gameModal.publishers') }}</dt>
       <dd class="col-sm-9">{{ gamePublishers }}</dd>
 
-      <dt class="col-sm-3">{{ $t('gameDetail.perspective') }}</dt>
+      <dt class="col-sm-3">{{ $t('board.gameModal.perspective') }}</dt>
       <dd class="col-sm-9">{{ playerPerspectives }}</dd>
 
-      <dt class="col-sm-3">{{ $t('gameDetail.timeToBeat') }}</dt>
+      <dt class="col-sm-3">{{ $t('board.gameModal.timeToBeat') }}</dt>
       <dd class="col-sm-9">{{ timeToBeat }}</dd>
 
-      <dt class="col-sm-3">{{ $t('gameDetail.ageRatings') }}</dt>
+      <dt class="col-sm-3">{{ $t('board.gameModal.ageRatings') }}</dt>
       <dd class="col-sm-9">{{ ageRatings }}</dd>
 
       <!-- TODO: add release dates -->
-      <!-- {{ $t('gameDetail.releaseDate') }} -->
+      <!-- {{ $t('board.gameModal.releaseDate') }} -->
       <!-- <pre>{{ game.release_dates }}</pre> -->
     </dl>
   </b-tab>

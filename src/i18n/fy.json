@@ -1,0 +1,81 @@
+{
+    "global": {
+        "back": "Efterkant",
+        "save": "Rêde",
+        "cancel": "Ofbrekke",
+        "delete": "Wiskje",
+        "create": "Meitsje",
+        "filter": "Filter",
+        "by": "troch",
+        "no": "Nee",
+        "yes": "ja",
+        "or": "of",
+        "pageNotFound": "Side net fûn"
+    },
+    "gitHub": {
+        "watch": "Horloazje",
+        "star": "Stjer",
+        "fork": "Foarke",
+        "issues": "Utjeften"
+    },
+    "boards": {
+        "title": "Boards",
+        "create": "Board oanmeitsje",
+        "platforms": "Platfoarms",
+        "deprecated": "Ferâldere"
+    },
+    "themes": {
+        "title": "Tema's",
+        "subtitle": "Selektearje in tema hjirûnder"
+    },
+    "languages": {
+        "title": "Talen",
+        "save": "Blêder bewarje en opnij lade"
+    },
+    "settings": {
+        "tags": "Tags",
+        "wallpapers": "Wallpapers",
+        "language": "Taal",
+        "themes": "Tema's",
+        "releases": "Releases",
+        "about": "Oer",
+        "account": "Rekken"
+    },
+    "tags": {
+        "title": "Tags",
+        "subtitle": "Tags binne in geweldige manier om jo fideospultsjesamling te organisearjen en te behearjen. Tags tafoegje, bewurkje of wiskje.",
+        "form": {
+            "title": "Nije tag tafoegje",
+            "inputPlaceholder": "Tagnamme",
+            "preview": "Foarbyld:",
+            "addTag": "Tag tafoegje",
+            "duplicateMessage": "Jo hawwe al in tag mei de namme {tagName}"
+        },
+        "list": {
+            "title": "Myn tags"
+        }
+    },
+    "wallpapers": {
+        "title": "Wallpapers",
+        "subtitle": "Behear board wallpapers",
+        "form": {
+            "label": "Upload wallpaper",
+            "placeholder": "Kies in bestân of drop it hjir ...",
+            "browse": "Blêdzje",
+            "helperText": "Allinich ôfbyldingsbestannen",
+            "upload": "Upload",
+            "duplicateMessage": "Jo hawwe al in bestân mei de namme {fileName}"
+        },
+        "list": {
+            "title": "Myn wallpapers"
+        }
+    },
+    "releases": {
+        "title": "Releases",
+        "published": "Publisearre"
+    },
+    "about": {
+        "title": "Oer Gamebrary",
+        "subtitle": "Readme fan Github"
+    }
+}

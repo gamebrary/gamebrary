@@ -1,0 +1,208 @@
+{
+    "global": {
+        "back": "Ar ais",
+        "save": "Sábháil",
+        "cancel": "Cealaigh",
+        "delete": "Scrios",
+        "create": "Cruthaigh",
+        "filter": "Scagaire",
+        "by": "le",
+        "no": "níl",
+        "yes": "sea",
+        "or": "nó",
+        "pageNotFound": "Ní bhfuarthas an leathanach",
+        "poweredByIgdb": "Cumhachtaithe ag",
+        "signOut": "Logáil Amach",
+        "donateMessage": "Tá Gamebrary saor in aisce agus foinse oscailte, smaoinigh ar chabhrú lena fhorbairt trí",
+        "donating": "ag bronnadh",
+        "reportBugs": "fabhtanna tuairiscithe",
+        "submitFeedback": "aiseolas a chur isteach"
+    },
+    "gitHub": {
+        "watch": "Bí ag faire",
+        "star": "Réalta",
+        "fork": "Forc",
+        "issues": "Ceisteanna"
+    },
+    "dashboard": {
+        "subtitle": "An uirlis bainistíochta bailiúcháin cluichí físeáin foinse oscailte."
+    },
+    "boards": {
+        "title": "Boird",
+        "create": "Cruthaigh bord",
+        "platforms": "Ardáin",
+        "deprecated": "Deprecated"
+    },
+    "board": {
+        "gameModal": {
+            "videos": "Físeáin",
+            "screenshots": "Scáileáin scáileáin",
+            "perspective": "Peirspictíocht",
+            "releaseDate": "Dáta scaoilte",
+            "timeToBeat": "Am le buille",
+            "gameModes": "Mód Cluiche",
+            "genres": "Seánra",
+            "ageRatings": "Rátálacha aoise",
+            "platforms": "Ardáin",
+            "developers": "Forbróir",
+            "publishers": "Foilsitheoirí",
+            "removeFromList": "Bain",
+            "links": {
+                "official": "Suíomh Oifigiúil",
+                "wikia": "Fandom",
+                "wikipedia": "Wikipedia",
+                "facebook": "Facebook",
+                "twitter": "Twitter",
+                "twitch": "Twitch",
+                "instagram": "Instagram",
+                "youtube": "Youtube",
+                "iphone": "iOS",
+                "ipad": "iPad",
+                "android": "Siopa Súgartha",
+                "steam": "Gaile",
+                "reddit": "Reddit",
+                "discord": "Discord",
+                "google_plus": "Google móide",
+                "tumblr": "Tumblr",
+                "linkedin": "Linkedin",
+                "pinterest": "Pinterest",
+                "soundcloud": "Soundcloud"
+            }
+        },
+        "addList": {
+            "title": "Cuir liosta leis",
+            "placeholder": "Clóscríobh d'ainm liosta anseo"
+        },
+        "addGame": {
+            "title": "Cuir cluiche leis",
+            "inputPlaceholder": "Clóscríobh anseo chun cuardach a dhéanamh",
+            "noResults": "Ní bhfuarthas torthaí",
+            "alreadyInList": "cluiche (anna) ó thorthaí cuardaigh atá ar do liosta cheana féin"
+        },
+        "list": {
+            "edit": "Cuir ainm an liosta in eagar",
+            "type": "Cineál liosta",
+            "settings": "Liostaigh socruithe",
+            "placeholder": "Clóscríobh d'ainm liosta anseo",
+            "wishlist": "Liosta Mianta",
+            "input": "Iontráil do cheann féin",
+            "add": "Cuir liosta leis",
+            "duplicateWarning": "Tá liosta agat cheana leis an ainm seo",
+            "getStarted": "Tosaigh!",
+            "addFirstTime": "Fáilte, cuir do chéad liosta leis!",
+            "sortByName": "AN",
+            "sortByProgress": "Dul chun cinn",
+            "sortByRating": "Scór",
+            "sortByReleaseDate": "Dáta",
+            "sortByCustom": "Saincheaptha",
+            "delete": "Scrios liosta",
+            "moveLeft": "Bog ar chlé",
+            "moveRight": "Bog ar dheis",
+            "emptyList": "Tá an liosta seo folamh",
+            "addGame": "Cuir cluiche leis",
+            "addGames": "Cuir cluichí le {listName}",
+            "view": "Amharc liosta",
+            "moveList": "Bog liosta",
+            "renameList": "Liosta athainmnigh",
+            "renameListPlaceholder": "Iontráil d’ainm",
+            "sortList": "Liosta sórtála uathoibríoch",
+            "sortWarning": "Beidh tionchar ag liosta sórtála uathoibríoch ar an gcaoi a n-oibríonn tarraing agus titim",
+            "coversSizeTitle": "Clúdaigh trasna",
+            "showReleaseDates": "Taispeáin dáta scaoilte do chluichí neamhréadaithe",
+            "showGameRatings": "Taispeáin rátálacha cluiche",
+            "showGameProgress": "Taispeáin dul chun cinn an chluiche",
+            "showGameNotes": "Taispeáin nótaí cluiche",
+            "showGameTags": "Taispeáin clibeanna cluiche",
+            "showGameCount": "Taispeáin comhaireamh cluiche",
+            "views": {
+                "single": "Réamhshocrú",
+                "compact": "Dlúth",
+                "text": "Téacs amháin",
+                "grid": "Greille"
+            },
+            "deleteWarning": {
+                "title": "An bhfuil tú cinnte gur mhaith leat an liosta seo a scriosadh?",
+                "message": "Ní féidir an gníomh seo a scriosadh",
+                "buttonLabel": "Sea, scrios liosta"
+            }
+        }
+    },
+    "themes": {
+        "title": "Téamaí",
+        "subtitle": "Roghnaigh téama thíos"
+    },
+    "languages": {
+        "title": "Teangacha",
+        "save": "Sábháil agus athlódáil brabhsálaí"
+    },
+    "settings": {
+        "tags": "Clibeanna",
+        "wallpapers": "Cúlbhrat",
+        "language": "Teanga",
+        "themes": "Téamaí",
+        "releases": "Scaoileadh",
+        "about": "Faoi",
+        "account": "Cuntas"
+    },
+    "tags": {
+        "title": "Clibeanna",
+        "subtitle": "Is bealach iontach iad clibeanna chun do bhailiúchán cluiche físeáin a eagrú agus a bhainistiú. Clibeanna a chur leis, a chur in eagar nó a scriosadh.",
+        "form": {
+            "title": "Cuir clib nua leis",
+            "inputPlaceholder": "Ainm tag",
+            "preview": "Réamhamharc:",
+            "addTag": "Cuir clib leis",
+            "duplicateMessage": "Tá clib agat cheana féin darb ainm {tagName}"
+        },
+        "list": {
+            "title": "Mo chlibeanna"
+        }
+    },
+    "wallpapers": {
+        "title": "Cúlbhrat",
+        "subtitle": "Bainistigh páipéir balla an bhoird",
+        "form": {
+            "label": "Uaslódáil páipéar balla",
+            "placeholder": "Roghnaigh comhad nó scaoil anseo é ...",
+            "browse": "Brabhsáil",
+            "helperText": "Comhaid íomhá amháin",
+            "upload": "Uaslódáil",
+            "duplicateMessage": "Tá comhad agat cheana darb ainm {fileName}"
+        },
+        "list": {
+            "title": "Mo pháipéar balla"
+        }
+    },
+    "releases": {
+        "title": "Scaoileadh",
+        "published": "Foilsithe"
+    },
+    "about": {
+        "title": "Maidir le Gamebrary",
+        "subtitle": "Readme ó Github"
+    },
+    "progresses": {
+        "modalTitle": "Dul chun cinn cluiche a shocrú",
+        "addProgress": "Cuir dul chun cinn leis",
+        "save": "Sábháil dul chun cinn",
+        "deleteProgress": "Scrios an dul chun cinn",
+        "progresses": "Dul chun cinn"
+    },
+    "platforms": {
+        "donateMessage": "Tá Gamebrary saor in aisce agus foinse oscailte, smaoinigh ar chabhrú lena fhorbairt trí",
+        "donating": "ag bronnadh",
+        "reportBugs": "fabhtanna tuairiscithe",
+        "submitFeedback": "aiseolas a chur isteach",
+        "all": "Gach",
+        "console": "Consóil",
+        "platform": "Digiteach",
+        "operating_system": "PC / Eile",
+        "portable_console": "Ríomhaire boise",
+        "computer": "Ríomhairí Baile",
+        "popular": "Coitianta",
+        "releaseYear": "Bliain scaoilte",
+        "name": "Aibítreach",
+        "generation": "Giniúint / Dáta athlasadh",
+        "type": "Cineál"
+    }
+}

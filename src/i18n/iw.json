@@ -1,0 +1,208 @@
+{
+    "global": {
+        "back": "חזור",
+        "save": "להציל",
+        "cancel": "לְבַטֵל",
+        "delete": "לִמְחוֹק",
+        "create": "לִיצוֹר",
+        "filter": "לְסַנֵן",
+        "by": "על ידי",
+        "no": "לא",
+        "yes": "כן",
+        "or": "אוֹ",
+        "pageNotFound": "הדף לא נמצא",
+        "poweredByIgdb": "נתמך על ידי",
+        "signOut": "התנתק",
+        "donateMessage": "Gamebrary הוא קוד פתוח ופתוח, שקול לעזור לפיתוח שלה על ידי",
+        "donating": "תורם",
+        "reportBugs": "דיווח על באגים",
+        "submitFeedback": "הגשת משוב"
+    },
+    "gitHub": {
+        "watch": "שעון",
+        "star": "כוכב",
+        "fork": "מזלג",
+        "issues": "נושאים"
+    },
+    "dashboard": {
+        "subtitle": "הכלי לניהול אוסף משחקי הוידאו בקוד פתוח."
+    },
+    "boards": {
+        "title": "לוחות",
+        "create": "צור לוח",
+        "platforms": "פלטפורמות",
+        "deprecated": "הוצא משימוש"
+    },
+    "board": {
+        "gameModal": {
+            "videos": "סרטונים",
+            "screenshots": "צילומי מסך",
+            "perspective": "נקודת מבט",
+            "releaseDate": "תאריך הוצאה",
+            "timeToBeat": "הגיע הזמן לנצח",
+            "gameModes": "מצב משחק",
+            "genres": "ז'ָאנר",
+            "ageRatings": "דירוגי גיל",
+            "platforms": "פלטפורמות",
+            "developers": "מפתח",
+            "publishers": "מו\"לים",
+            "removeFromList": "לְהַסִיר",
+            "links": {
+                "official": "אתר רשמי",
+                "wikia": "פאנדום",
+                "wikipedia": "ויקיפדיה",
+                "facebook": "פייסבוק",
+                "twitter": "טוויטר",
+                "twitch": "פִּרפּוּר",
+                "instagram": "אינסטגרם",
+                "youtube": "Youtube",
+                "iphone": "iOS",
+                "ipad": "אייפד",
+                "android": "חנות משחקים",
+                "steam": "קִיטוֹר",
+                "reddit": "רדיט",
+                "discord": "מַחֲלוֹקֶת",
+                "google_plus": "גוגל פלוס",
+                "tumblr": "טאמבלר",
+                "linkedin": "קישור",
+                "pinterest": "פינטרסט",
+                "soundcloud": "Soundcloud"
+            }
+        },
+        "addList": {
+            "title": "הוסף רשימה",
+            "placeholder": "הקלד את שם הרשימה שלך כאן"
+        },
+        "addGame": {
+            "title": "הוסף משחק",
+            "inputPlaceholder": "הקלד כאן לחיפוש",
+            "noResults": "לא נמצאו תוצאות",
+            "alreadyInList": "משחק (ים) מתוצאות החיפוש שכבר ברשימה שלך"
+        },
+        "list": {
+            "edit": "ערוך את שם הרשימה",
+            "type": "סוג הרשימה",
+            "settings": "הגדרות רשימה",
+            "placeholder": "הקלד את שם הרשימה שלך כאן",
+            "wishlist": "רשימת משאלות",
+            "input": "הזן משלך",
+            "add": "הוסף רשימה",
+            "duplicateWarning": "כבר יש לך רשימה עם שם זה",
+            "getStarted": "להתחיל!",
+            "addFirstTime": "ברוך הבא, הוסף את הרשימה הראשונה שלך!",
+            "sortByName": "ה",
+            "sortByProgress": "התקדמות",
+            "sortByRating": "ציון",
+            "sortByReleaseDate": "תַאֲרִיך",
+            "sortByCustom": "המותאם אישית",
+            "delete": "מחק רשימה",
+            "moveLeft": "זוז שמאלה",
+            "moveRight": "זוז ימינה",
+            "emptyList": "הרשימה הזו ריקה",
+            "addGame": "הוסף משחק",
+            "addGames": "הוסף משחקים ל- {listName}",
+            "view": "תצוגת רשימה",
+            "moveList": "העברת רשימת",
+            "renameList": "שנה את שם הרשימה",
+            "renameListPlaceholder": "הזן את שמך",
+            "sortList": "רשימת מיון אוטומטית",
+            "sortWarning": "רשימת מיון אוטומטית תשפיע על אופן הפעולה של גרור ושחרר",
+            "coversSizeTitle": "מכסה לרוחב",
+            "showReleaseDates": "הצג תאריך יציאה למשחקים שלא פורסמו",
+            "showGameRatings": "הראה דירוגי משחק",
+            "showGameProgress": "הראה התקדמות המשחק",
+            "showGameNotes": "הראה הערות למשחק",
+            "showGameTags": "הראה תגי משחק",
+            "showGameCount": "הראה ספירת משחקים",
+            "views": {
+                "single": "בְּרִירַת מֶחדָל",
+                "compact": "קוֹמפָּקטִי",
+                "text": "רק טקסט",
+                "grid": "רֶשֶׁת"
+            },
+            "deleteWarning": {
+                "title": "האם אתה בטוח שברצונך למחוק רשימה זו?",
+                "message": "לא ניתן לבטל פעולה זו",
+                "buttonLabel": "כן, מחק רשימה"
+            }
+        }
+    },
+    "themes": {
+        "title": "ערכות נושא",
+        "subtitle": "בחר נושא למטה"
+    },
+    "languages": {
+        "title": "שפות",
+        "save": "שמור וטען מחדש את הדפדפן"
+    },
+    "settings": {
+        "tags": "תגים",
+        "wallpapers": "רקעים",
+        "language": "שפה",
+        "themes": "ערכות נושא",
+        "releases": "משחרר",
+        "about": "על אודות",
+        "account": "חֶשְׁבּוֹן"
+    },
+    "tags": {
+        "title": "תגים",
+        "subtitle": "תגים הם דרך נהדרת לארגן ולנהל את אוסף משחקי הווידאו שלך. הוסף, ערוך או מחק תגים.",
+        "form": {
+            "title": "הוסף תג חדש",
+            "inputPlaceholder": "תג שם",
+            "preview": "תצוגה מקדימה:",
+            "addTag": "הוסף תגית",
+            "duplicateMessage": "כבר יש לך תג בשם {tagName}"
+        },
+        "list": {
+            "title": "התגים שלי"
+        }
+    },
+    "wallpapers": {
+        "title": "רקעים",
+        "subtitle": "נהל טפטים ללוח",
+        "form": {
+            "label": "העלה טפט",
+            "placeholder": "בחר קובץ או שחרר אותו כאן ...",
+            "browse": "לְדַפדֵף",
+            "helperText": "קבצי תמונה בלבד",
+            "upload": "העלה",
+            "duplicateMessage": "כבר יש לך קובץ בשם {fileName}"
+        },
+        "list": {
+            "title": "טפטים שלי"
+        }
+    },
+    "releases": {
+        "title": "משחרר",
+        "published": "יצא לאור"
+    },
+    "about": {
+        "title": "על Gamebrary",
+        "subtitle": "Readme מ- Github"
+    },
+    "progresses": {
+        "modalTitle": "הגדר את התקדמות המשחק",
+        "addProgress": "הוסף התקדמות",
+        "save": "שמור התקדמות",
+        "deleteProgress": "מחק התקדמות",
+        "progresses": "התקדמות"
+    },
+    "platforms": {
+        "donateMessage": "Gamebrary הוא קוד פתוח ופתוח, שקול לעזור לפיתוח שלה על ידי",
+        "donating": "תורם",
+        "reportBugs": "דיווח על באגים",
+        "submitFeedback": "הגשת משוב",
+        "all": "את כל",
+        "console": "קונסולות",
+        "platform": "דִיגִיטָלי",
+        "operating_system": "מחשב / אחר",
+        "portable_console": "כף יד",
+        "computer": "מחשבים ביתיים",
+        "popular": "פופולרי",
+        "releaseYear": "השנה שוחררה",
+        "name": "באלף בית",
+        "generation": "דור / תאריך שוחרר",
+        "type": "סוּג"
+    }
+}

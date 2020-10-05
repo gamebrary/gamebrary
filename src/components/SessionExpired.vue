@@ -1,6 +1,5 @@
 <template lang="html">
   <b-modal
-    id="my-modal"
     centered
     cancel-title="Sign out"
     cancel-variant="primary"
@@ -8,7 +7,6 @@
     ok-variant="success"
     @ok="login"
     @cancel="logout"
-    hide-header-close
     title="Uh oh!"
     no-close-on-backdrop
     v-model="sessionExpired"

@@ -1,0 +1,208 @@
+{
+    "global": {
+        "back": "Tillbaka",
+        "save": "Spara",
+        "cancel": "Avbryt",
+        "delete": "Radera",
+        "create": "Skapa",
+        "filter": "Filtrera",
+        "by": "förbi",
+        "no": "Nej",
+        "yes": "ja",
+        "or": "eller",
+        "pageNotFound": "sidan hittas inte",
+        "poweredByIgdb": "Drivs av",
+        "signOut": "Logga ut",
+        "donateMessage": "Gamebrary är gratis och öppen källkod, överväga att hjälpa utvecklingen av",
+        "donating": "donera",
+        "reportBugs": "rapportera fel",
+        "submitFeedback": "skicka feedback"
+    },
+    "gitHub": {
+        "watch": "Kolla på",
+        "star": "Stjärna",
+        "fork": "Gaffel",
+        "issues": "Problem"
+    },
+    "dashboard": {
+        "subtitle": "Verktyget för öppen källkod för videosamlingshantering."
+    },
+    "boards": {
+        "title": "Styrelser",
+        "create": "Skapa styrelse",
+        "platforms": "Plattformar",
+        "deprecated": "Föråldrad"
+    },
+    "board": {
+        "gameModal": {
+            "videos": "videoklipp",
+            "screenshots": "Skärmdumpar",
+            "perspective": "Perspektiv",
+            "releaseDate": "Utgivningsdatum",
+            "timeToBeat": "Dags att slå",
+            "gameModes": "Spelläge",
+            "genres": "Genre",
+            "ageRatings": "Åldersgrader",
+            "platforms": "Plattformar",
+            "developers": "Utvecklaren",
+            "publishers": "Förläggare",
+            "removeFromList": "Ta bort",
+            "links": {
+                "official": "Officiell webbplats",
+                "wikia": "Fandom",
+                "wikipedia": "Wikipedia",
+                "facebook": "Facebook",
+                "twitter": "Twitter",
+                "twitch": "Rycka till",
+                "instagram": "Instagram",
+                "youtube": "Youtube",
+                "iphone": "iOS",
+                "ipad": "iPad",
+                "android": "Play Butik",
+                "steam": "Ånga",
+                "reddit": "Reddit",
+                "discord": "Disharmoni",
+                "google_plus": "Google Plus",
+                "tumblr": "Tumblr",
+                "linkedin": "Linkedin",
+                "pinterest": "Pinterest",
+                "soundcloud": "Soundcloud"
+            }
+        },
+        "addList": {
+            "title": "Lägg till lista",
+            "placeholder": "Skriv ditt listnamn här"
+        },
+        "addGame": {
+            "title": "Lägg till spel",
+            "inputPlaceholder": "Skriv här för att söka",
+            "noResults": "Inga resultat funna",
+            "alreadyInList": "spel från sökresultat som redan finns i din lista"
+        },
+        "list": {
+            "edit": "Redigera listans namn",
+            "type": "Listtyp",
+            "settings": "Listinställningar",
+            "placeholder": "Skriv ditt listnamn här",
+            "wishlist": "Önskelista",
+            "input": "Ange din egen",
+            "add": "Lägg till lista",
+            "duplicateWarning": "Du har redan en lista med det här namnet",
+            "getStarted": "Komma igång!",
+            "addFirstTime": "Välkommen, lägg till din första lista!",
+            "sortByName": "DE",
+            "sortByProgress": "Framsteg",
+            "sortByRating": "Göra",
+            "sortByReleaseDate": "Datum",
+            "sortByCustom": "Beställnings",
+            "delete": "Radera lista",
+            "moveLeft": "Flytta vänster",
+            "moveRight": "Flytta höger",
+            "emptyList": "Denna lista är tom",
+            "addGame": "Lägg till spel",
+            "addGames": "Lägg till spel i {listName}",
+            "view": "Listvy",
+            "moveList": "Flytta listan",
+            "renameList": "Byt namn på listan",
+            "renameListPlaceholder": "Ange ditt namn",
+            "sortList": "Automatisk sorteringslista",
+            "sortWarning": "Listan för automatisk sortering kommer att påverka hur dra och släpp fungerar",
+            "coversSizeTitle": "Täcker över",
+            "showReleaseDates": "Visa utgivningsdatum för spel som inte släppts",
+            "showGameRatings": "Visa spelbetyg",
+            "showGameProgress": "Visa spelets framsteg",
+            "showGameNotes": "Visa spelanteckningar",
+            "showGameTags": "Visa speltaggar",
+            "showGameCount": "Visa antal spel",
+            "views": {
+                "single": "Standard",
+                "compact": "Kompakt",
+                "text": "Text endast",
+                "grid": "Rutnät"
+            },
+            "deleteWarning": {
+                "title": "Är du säker på att du vill ta bort listan?",
+                "message": "Denna åtgärd kan inte ångras",
+                "buttonLabel": "Ja, ta bort listan"
+            }
+        }
+    },
+    "themes": {
+        "title": "Teman",
+        "subtitle": "Välj ett tema nedan"
+    },
+    "languages": {
+        "title": "språk",
+        "save": "Spara och ladda om webbläsaren"
+    },
+    "settings": {
+        "tags": "Taggar",
+        "wallpapers": "Bakgrundsbilder",
+        "language": "Språk",
+        "themes": "Teman",
+        "releases": "Släpp",
+        "about": "Handla om",
+        "account": "konto"
+    },
+    "tags": {
+        "title": "Taggar",
+        "subtitle": "Taggar är ett utmärkt sätt att organisera och hantera din videospelkollektion. Lägg till, redigera eller ta bort taggar.",
+        "form": {
+            "title": "Lägg till ny tagg",
+            "inputPlaceholder": "Taggnamn",
+            "preview": "Förhandsvisning:",
+            "addTag": "Lägg till tagg",
+            "duplicateMessage": "Du har redan en tagg med namnet {tagName}"
+        },
+        "list": {
+            "title": "Mina taggar"
+        }
+    },
+    "wallpapers": {
+        "title": "Bakgrundsbilder",
+        "subtitle": "Hantera bakgrundsbilder",
+        "form": {
+            "label": "Ladda upp bakgrund",
+            "placeholder": "Välj en fil eller släpp den här ...",
+            "browse": "Bläddra",
+            "helperText": "Endast bildfiler",
+            "upload": "Ladda upp",
+            "duplicateMessage": "Du har redan en fil med namnet {fileName}"
+        },
+        "list": {
+            "title": "Mina tapeter"
+        }
+    },
+    "releases": {
+        "title": "Släpp",
+        "published": "Publicerad"
+    },
+    "about": {
+        "title": "Om Gamebrary",
+        "subtitle": "Readme från Github"
+    },
+    "progresses": {
+        "modalTitle": "Ställ in spelets framsteg",
+        "addProgress": "Lägg till framsteg",
+        "save": "Spara framsteg",
+        "deleteProgress": "Ta bort framsteg",
+        "progresses": "Framsteg"
+    },
+    "platforms": {
+        "donateMessage": "Gamebrary är gratis och öppen källkod, överväga att hjälpa utvecklingen av",
+        "donating": "donera",
+        "reportBugs": "rapportera fel",
+        "submitFeedback": "skicka feedback",
+        "all": "Allt",
+        "console": "Konsoler",
+        "platform": "Digital",
+        "operating_system": "PC / Annat",
+        "portable_console": "Handhållna",
+        "computer": "Hemdatorer",
+        "popular": "Populär",
+        "releaseYear": "År släppt",
+        "name": "Alfabetiskt",
+        "generation": "Generation / Date relased",
+        "type": "Typ"
+    }
+}

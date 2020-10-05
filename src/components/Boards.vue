@@ -3,7 +3,7 @@
     <!-- TODO: allow board settings to be accessed here -->
     <!-- TODO: allow to override backdrop using search -->
     <div class="d-flex justify-content-between align-items-center">
-      <h5>Boards</h5>
+      <h5>{{ $t('boards.title') }}</h5>
 
       <div>
         <create-board />
@@ -37,7 +37,7 @@
               </b-card-text>
 
               <span :id="board.id">
-                {{ board.platforms.length }} Platforms
+                {{ board.platforms.length }} {{ $t('boards.platforms') }}
               </span>
 
               <b-popover :target="board.id" triggers="hover">
@@ -61,7 +61,7 @@
         <b-card-body>
           <h4 class="mb-2">
             {{ platform.name }}
-            <b-badge variant="warning">Deprecated</b-badge>
+            <b-badge variant="warning">{{ $t('boards.deprecated') }}</b-badge>
           </h4>
 
           <b-avatar

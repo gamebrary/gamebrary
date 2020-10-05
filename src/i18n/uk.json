@@ -1,0 +1,208 @@
+{
+    "global": {
+        "back": "Назад",
+        "save": "Зберегти",
+        "cancel": "Скасувати",
+        "delete": "Видалити",
+        "create": "Створити",
+        "filter": "Фільтр",
+        "by": "від",
+        "no": "ні",
+        "yes": "так",
+        "or": "або",
+        "pageNotFound": "Сторінку не знайдено",
+        "poweredByIgdb": "Працює на",
+        "signOut": "Вийти з аккаунта",
+        "donateMessage": "Бібліотека ігор є безкоштовною і відкритою, розгляньте можливість допомогти її розробці",
+        "donating": "дарування",
+        "reportBugs": "повідомлення про помилки",
+        "submitFeedback": "подання відгуку"
+    },
+    "gitHub": {
+        "watch": "Дивіться",
+        "star": "Зірка",
+        "fork": "Виделка",
+        "issues": "Проблеми"
+    },
+    "dashboard": {
+        "subtitle": "Інструмент управління колекцією відеоігор із відкритим кодом."
+    },
+    "boards": {
+        "title": "Дошки",
+        "create": "Створити дошку",
+        "platforms": "Платформи",
+        "deprecated": "Застаріле"
+    },
+    "board": {
+        "gameModal": {
+            "videos": "Відео",
+            "screenshots": "Знімки екрана",
+            "perspective": "Перспектива",
+            "releaseDate": "Дата випуску",
+            "timeToBeat": "Час бити",
+            "gameModes": "Режим гри",
+            "genres": "Жанр",
+            "ageRatings": "Вікові рейтинги",
+            "platforms": "Платформи",
+            "developers": "Розробник",
+            "publishers": "Видавці",
+            "removeFromList": "Видалити",
+            "links": {
+                "official": "Офіційний сайт",
+                "wikia": "Фендом",
+                "wikipedia": "Вікіпедія",
+                "facebook": "Facebook",
+                "twitter": "Twitter",
+                "twitch": "Посмикування",
+                "instagram": "Instagram",
+                "youtube": "Youtube",
+                "iphone": "iOS",
+                "ipad": "iPad",
+                "android": "Play Store",
+                "steam": "Пар",
+                "reddit": "Reddit",
+                "discord": "Розбрат",
+                "google_plus": "Google плюс",
+                "tumblr": "Tumblr",
+                "linkedin": "Linkedin",
+                "pinterest": "Pinterest",
+                "soundcloud": "Звукова хмара"
+            }
+        },
+        "addList": {
+            "title": "Додати список",
+            "placeholder": "Введіть тут своє ім’я списку"
+        },
+        "addGame": {
+            "title": "Додати гру",
+            "inputPlaceholder": "Введіть тут для пошуку",
+            "noResults": "Нічого не знайдено",
+            "alreadyInList": "ігри з результатів пошуку, які вже є у вашому списку"
+        },
+        "list": {
+            "edit": "Змінити назву списку",
+            "type": "Тип списку",
+            "settings": "Налаштування списку",
+            "placeholder": "Введіть тут своє ім’я списку",
+            "wishlist": "Список бажань",
+            "input": "Введіть свій власний",
+            "add": "Додати список",
+            "duplicateWarning": "У вас вже є список із цим ім’ям",
+            "getStarted": "Почати!",
+            "addFirstTime": "Ласкаво просимо, додайте свій перший список!",
+            "sortByName": "THE",
+            "sortByProgress": "Прогрес",
+            "sortByRating": "Оцінка",
+            "sortByReleaseDate": "Дата",
+            "sortByCustom": "На замовлення",
+            "delete": "Видалити список",
+            "moveLeft": "Рухайте ліворуч",
+            "moveRight": "Рухайтеся вправо",
+            "emptyList": "Цей список порожній",
+            "addGame": "Додати гру",
+            "addGames": "Додати ігри до списку {listName}",
+            "view": "Перегляд списку",
+            "moveList": "Перемістити список",
+            "renameList": "Перейменувати список",
+            "renameListPlaceholder": "Введіть ім'я",
+            "sortList": "Список автоматичного сортування",
+            "sortWarning": "Список автоматичного сортування вплине на те, як працює перетягування",
+            "coversSizeTitle": "Покриває поперек",
+            "showReleaseDates": "Показати дату випуску невипущених ігор",
+            "showGameRatings": "Показати рейтинги гри",
+            "showGameProgress": "Показати хід гри",
+            "showGameNotes": "Показати ігрові примітки",
+            "showGameTags": "Показати теги гри",
+            "showGameCount": "Показати кількість ігор",
+            "views": {
+                "single": "За замовчуванням",
+                "compact": "Компактний",
+                "text": "Лише текст",
+                "grid": "Сітка"
+            },
+            "deleteWarning": {
+                "title": "Ви впевнені, що хочете видалити цей список?",
+                "message": "Цю дію не можна скасувати",
+                "buttonLabel": "Так, видалити список"
+            }
+        }
+    },
+    "themes": {
+        "title": "Теми",
+        "subtitle": "Виберіть тему нижче"
+    },
+    "languages": {
+        "title": "Мови",
+        "save": "Збережіть і перезавантажте браузер"
+    },
+    "settings": {
+        "tags": "Теги",
+        "wallpapers": "Шпалери",
+        "language": "Мова",
+        "themes": "Теми",
+        "releases": "Випуски",
+        "about": "Про",
+        "account": "Рахунок"
+    },
+    "tags": {
+        "title": "Теги",
+        "subtitle": "Теги - це чудовий спосіб впорядкувати колекцію відеоігор та керувати нею. Додавання, редагування або видалення тегів.",
+        "form": {
+            "title": "Додати новий тег",
+            "inputPlaceholder": "Назва тегу",
+            "preview": "Попередній перегляд:",
+            "addTag": "Додати тег",
+            "duplicateMessage": "У вас уже є тег із назвою {tagName}"
+        },
+        "list": {
+            "title": "Мої теги"
+        }
+    },
+    "wallpapers": {
+        "title": "Шпалери",
+        "subtitle": "Керуйте шпалерами дошки",
+        "form": {
+            "label": "Завантажте шпалери",
+            "placeholder": "Виберіть файл або опустіть його сюди ...",
+            "browse": "Перегляньте",
+            "helperText": "Тільки файли зображень",
+            "upload": "Завантажити",
+            "duplicateMessage": "Ви вже маєте файл із назвою {fileName}"
+        },
+        "list": {
+            "title": "Мої шпалери"
+        }
+    },
+    "releases": {
+        "title": "Випуски",
+        "published": "Опубліковано"
+    },
+    "about": {
+        "title": "Про бібліотеку ігор",
+        "subtitle": "Readme від Github"
+    },
+    "progresses": {
+        "modalTitle": "Встановіть прогрес гри",
+        "addProgress": "Додайте прогрес",
+        "save": "Зберегти прогрес",
+        "deleteProgress": "Видалити прогрес",
+        "progresses": "Прогрес"
+    },
+    "platforms": {
+        "donateMessage": "Бібліотека ігор є безкоштовною і відкритою, розгляньте можливість допомогти її розробці",
+        "donating": "дарування",
+        "reportBugs": "повідомлення про помилки",
+        "submitFeedback": "подання відгуку",
+        "all": "Всі",
+        "console": "Консолі",
+        "platform": "Цифровий",
+        "operating_system": "ПК / інше",
+        "portable_console": "КПК",
+        "computer": "Домашні комп’ютери",
+        "popular": "Популярні",
+        "releaseYear": "Рік випущений",
+        "name": "За алфавітом",
+        "generation": "Покоління / Дата відновлення",
+        "type": "Тип"
+    }
+}

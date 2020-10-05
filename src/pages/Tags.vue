@@ -1,31 +1,11 @@
 <template lang="html">
   <div>
     <b-jumbotron
-      header="Tags"
+      :header="$t('tags.title')"
+      :lead="$t('tags.subtitle')"
       header-level="5"
       fluid
-      lead="Tags are a great way to organize and manage your video
-        game collection. Add, edit or delete tags."
     />
-
-    <!-- <b-skeleton-wrapper loading>
-      <template v-slot:loading>
-        <b-card>
-          <b-skeleton width="85%"></b-skeleton>
-          <b-skeleton width="55%"></b-skeleton>
-          <b-skeleton width="70%"></b-skeleton>
-        </b-card>
-      </template>
-
-      <b-card>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas viverra nunc sapien,
-        non rhoncus elit tincidunt vitae. Vestibulum maximus, ligula eu feugiat molestie,
-        massa diam imperdiet odio, vitae viverra ligula est id nisi. Aliquam ut molestie est.
-        Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
-        turpis egestas. Phasellus at consequat dui. Aenean tristique sagittis quam,
-        sit amet sollicitudin neque sodales in.
-      </b-card>
-    </b-skeleton-wrapper> -->
 
     <b-container>
       <b-row>
@@ -34,20 +14,20 @@
             ref="newTagForm"
             @submit.stop.prevent="submit"
           >
-            <h6>Add new tag</h6>
+            <h6>{{ $t('tags.form.title') }}</h6>
 
             <b-form-row class="mb-3">
               <b-col cols="8" md="9">
                 <b-form-input
                   label="test"
                   maxlength="20"
-                  :placeholder="$t('tags.inputPlaceholder')"
+                  :placeholder="$t('tags.form.inputPlaceholder')"
                   required
                   v-model.trim="tagName"
                 />
 
                 <b-form-text v-if="tagName" tag="span">
-                  Preview:
+                  {{ $t('tags.form.preview') }}
 
                   <b-badge :style="`background-color: ${hex}; color: ${tagTextColor}`">
                     {{ tagName }}
@@ -86,13 +66,14 @@
               :show="isDuplicate"
               variant="warning"
             >
-              You already have a tag named <strong>{{ tagName }}</strong>
+              {{ $t('tags.form.duplicateMessage', { tagName }) }}
+               <strong>{{ tagName }}</strong>
             </b-alert>
           </form>
         </b-col>
 
         <b-col cols="12" lg="6" v-if="gameTags && localTags">
-          <h6>My tags</h6>
+          <h6>{{ $t('tags.list.title') }}</h6>
 
           <b-list-group>
             <b-list-group-item
@@ -141,7 +122,7 @@
                   <b-form-input
                     label="test"
                     maxlength="20"
-                    :placeholder="$t('tags.inputPlaceholder')"
+                    :placeholder="$t('tags.form.inputPlaceholder')"
                     required
                     v-model.trim="editingTagName"
                   />

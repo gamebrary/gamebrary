@@ -1,11 +1,10 @@
 <template lang="html">
   <div>
     <b-jumbotron
-      header="Releases"
+      :header="$t('releases.title')"
       header-level="5"
       fluid
       class="position-sticky"
-      lead="Select a theme below"
     />
 
     <b-container fluid>
@@ -42,7 +41,7 @@
             </template>
 
             <small class="text-muted">
-              {{ $t('releases.published', { date: formatDate(selectedRelease.published_at) }) }}
+              {{ $t('releases.published') }} {{ formatDate(selectedRelease.published_at) }}
             </small>
 
             <b-card-text>

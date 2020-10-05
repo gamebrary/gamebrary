@@ -18,7 +18,7 @@
             @click="addGame"
             variant="primary"
           >
-            {{ $t('list.addGame') }}
+            {{ $t('board.list.addGame') }}
           </b-button>
 
           <b-form-rating

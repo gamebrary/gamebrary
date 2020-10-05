@@ -1,0 +1,208 @@
+{
+    "global": {
+        "back": "پیچھے",
+        "save": "محفوظ کریں",
+        "cancel": "منسوخ کریں",
+        "delete": "حذف کریں",
+        "create": "بنانا",
+        "filter": "فلٹر کریں",
+        "by": "بذریعہ",
+        "no": "نہیں",
+        "yes": "جی ہاں",
+        "or": "یا",
+        "pageNotFound": "صفحہ نہیں ملا",
+        "poweredByIgdb": "از: وی بلیٹن",
+        "signOut": "باہر جائیں",
+        "donateMessage": "گیمبری مفت اور آزاد وسیلہ ہے ، اس کی ترقی میں مدد کرنے پر غور کریں",
+        "donating": "چندہ دینا",
+        "reportBugs": "کیڑے رپورٹنگ",
+        "submitFeedback": "آراء جمع کروانا"
+    },
+    "gitHub": {
+        "watch": "دیکھو",
+        "star": "ستارہ",
+        "fork": "کانٹا",
+        "issues": "مسائل"
+    },
+    "dashboard": {
+        "subtitle": "اوپن سورس ویڈیو گیم کلیکشن مینجمنٹ ٹول۔"
+    },
+    "boards": {
+        "title": "بورڈز",
+        "create": "بورڈ بنائیں",
+        "platforms": "پلیٹ فارم",
+        "deprecated": "فرسودہ"
+    },
+    "board": {
+        "gameModal": {
+            "videos": "ویڈیوز",
+            "screenshots": "اسکرین شاٹس",
+            "perspective": "نقطہ نظر",
+            "releaseDate": "رہائی کی تاریخ",
+            "timeToBeat": "شکست دینے کا وقت",
+            "gameModes": "کھیل کی قسم",
+            "genres": "صنف",
+            "ageRatings": "عمر کی درجہ بندی",
+            "platforms": "پلیٹ فارم",
+            "developers": "ڈویلپر",
+            "publishers": "پبلشرز",
+            "removeFromList": "دور",
+            "links": {
+                "official": "سرکاری سائٹ",
+                "wikia": "Fandom",
+                "wikipedia": "ویکیپیڈیا",
+                "facebook": "فیس بک",
+                "twitter": "ٹویٹر",
+                "twitch": "چہکنا",
+                "instagram": "انسٹاگرام",
+                "youtube": "یوٹیوب",
+                "iphone": "iOS",
+                "ipad": "رکن",
+                "android": "پلےسٹور",
+                "steam": "بھاپ",
+                "reddit": "ریڈڈیٹ",
+                "discord": "جھگڑا",
+                "google_plus": "گوگل پلس",
+                "tumblr": "ٹمبلر",
+                "linkedin": "لنکڈین",
+                "pinterest": "پنٹیرسٹ",
+                "soundcloud": "ساؤنڈ کلاؤڈ"
+            }
+        },
+        "addList": {
+            "title": "فہرست شامل کریں",
+            "placeholder": "اپنی فہرست کا نام یہاں ٹائپ کریں"
+        },
+        "addGame": {
+            "title": "کھیل شامل کریں",
+            "inputPlaceholder": "تلاش کرنے کے لئے یہاں ٹائپ کریں",
+            "noResults": "کوئی نتیجہ نہیں",
+            "alreadyInList": "پہلے ہی آپ کی فہرست میں تلاش کے نتائج سے کھیل (زبانیں)"
+        },
+        "list": {
+            "edit": "فہرست کا نام ترمیم کریں",
+            "type": "فہرست کی قسم",
+            "settings": "فہرست کی ترتیبات",
+            "placeholder": "اپنی فہرست کا نام یہاں ٹائپ کریں",
+            "wishlist": "خواہش کی فہرست",
+            "input": "اپنا اپنا اندراج کریں",
+            "add": "فہرست شامل کریں",
+            "duplicateWarning": "آپ کے پاس پہلے ہی اس نام کے ساتھ ایک فہرست موجود ہے",
+            "getStarted": "شروع کرنے کے!",
+            "addFirstTime": "خوش آمدید ، اپنی پہلی فہرست شامل کریں!",
+            "sortByName": "وہ",
+            "sortByProgress": "ترقی",
+            "sortByRating": "اسکور",
+            "sortByReleaseDate": "تاریخ",
+            "sortByCustom": "اپنی مرضی کے مطابق",
+            "delete": "فہرست کو حذف کریں",
+            "moveLeft": "بائیں منتقل کریں",
+            "moveRight": "دائیں بڑھو",
+            "emptyList": "یہ فہرست خالی ہے",
+            "addGame": "کھیل شامل کریں",
+            "addGames": "کھیلوں کو {listName to میں شامل کریں",
+            "view": "فہرست دیکھیں",
+            "moveList": "فہرست میں منتقل کریں",
+            "renameList": "فہرست کا نام تبدیل کریں",
+            "renameListPlaceholder": "اپنا نام درج کریں",
+            "sortList": "آٹو ترتیب کی فہرست",
+            "sortWarning": "آٹو چھانٹنے کی فہرست اثر انداز کرے گی کہ ڈریگ اور ڈراپ کیسے کام کرتا ہے",
+            "coversSizeTitle": "کا احاطہ کرتا ہے",
+            "showReleaseDates": "غیر خوش کھیل کے لئے رہائی کی تاریخ دکھائیں",
+            "showGameRatings": "کھیل کی درجہ بندی دکھائیں",
+            "showGameProgress": "کھیل کی پیشرفت دکھائیں",
+            "showGameNotes": "گیم نوٹ دکھائیں",
+            "showGameTags": "گیم ٹیگ دکھائیں",
+            "showGameCount": "گیم گنتی دکھائیں",
+            "views": {
+                "single": "پہلے سے طے شدہ",
+                "compact": "کومپیکٹ",
+                "text": "صرف متن",
+                "grid": "گرڈ"
+            },
+            "deleteWarning": {
+                "title": "کیا آپ واقعی اس فہرست کو حذف کرنا چاہتے ہیں؟",
+                "message": "اس کارروائی کو کالعدم نہیں کیا جاسکتا",
+                "buttonLabel": "ہاں ، فہرست کو حذف کریں"
+            }
+        }
+    },
+    "themes": {
+        "title": "موضوعات",
+        "subtitle": "نیچے ایک تھیم منتخب کریں"
+    },
+    "languages": {
+        "title": "زبانیں",
+        "save": "براؤزر کو محفوظ کریں اور دوبارہ لوڈ کریں"
+    },
+    "settings": {
+        "tags": "ٹیگز",
+        "wallpapers": "وال پیپر",
+        "language": "زبان",
+        "themes": "موضوعات",
+        "releases": "ریلیز",
+        "about": "کے بارے میں",
+        "account": "کھاتہ"
+    },
+    "tags": {
+        "title": "ٹیگز",
+        "subtitle": "اپنے ویڈیو گیم مجموعہ کو منظم اور منظم کرنے کا ایک بہترین طریقہ ٹیگز ہیں۔ ٹیگز شامل کریں ، ترمیم کریں یا حذف کریں۔",
+        "form": {
+            "title": "نیا ٹیگ شامل کریں",
+            "inputPlaceholder": "ٹیگ کا نام",
+            "preview": "پیش نظارہ:",
+            "addTag": "ٹیگ شامل کریں",
+            "duplicateMessage": "آپ کے پاس پہلے ہی tag tagName named نام کا ایک ٹیگ ہے"
+        },
+        "list": {
+            "title": "میرے ٹیگز"
+        }
+    },
+    "wallpapers": {
+        "title": "وال پیپر",
+        "subtitle": "بورڈ وال پیپرس کا نظم کریں",
+        "form": {
+            "label": "وال پیپر اپ لوڈ کریں",
+            "placeholder": "ایک فائل کا انتخاب کریں یا اسے یہاں چھوڑ دیں…",
+            "browse": "براؤز کریں",
+            "helperText": "صرف تصویری فائلیں",
+            "upload": "اپ لوڈ کریں",
+            "duplicateMessage": "آپ کے پاس پہلے ہی {fileName named نامی فائل ہے"
+        },
+        "list": {
+            "title": "میرے وال پیپر"
+        }
+    },
+    "releases": {
+        "title": "ریلیز",
+        "published": "شائع ہوا"
+    },
+    "about": {
+        "title": "گیمبری کے بارے میں",
+        "subtitle": "گیتوب سے ریڈیم"
+    },
+    "progresses": {
+        "modalTitle": "کھیل کی پیشرفت طے کریں",
+        "addProgress": "ترقی شامل کریں",
+        "save": "ترقی کو بچائیں",
+        "deleteProgress": "پیشرفت کو حذف کریں",
+        "progresses": "ترقی"
+    },
+    "platforms": {
+        "donateMessage": "گیمبری مفت اور آزاد وسیلہ ہے ، اس کی ترقی میں مدد کرنے پر غور کریں",
+        "donating": "چندہ دینا",
+        "reportBugs": "کیڑے رپورٹنگ",
+        "submitFeedback": "آراء جمع کروانا",
+        "all": "سب",
+        "console": "کنسولز",
+        "platform": "ڈیجیٹل",
+        "operating_system": "پی سی / دیگر",
+        "portable_console": "ہینڈ ہیلڈز",
+        "computer": "ہوم کمپیوٹر",
+        "popular": "مقبول",
+        "releaseYear": "سال جاری ہوا",
+        "name": "حروف تہجی کے لحاظ سے",
+        "generation": "نسل / تاریخ سے وابستہ",
+        "type": "ٹائپ کریں"
+    }
+}

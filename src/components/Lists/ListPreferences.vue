@@ -1,11 +1,11 @@
 <template lang="html">
   <b-dropdown-item-button v-b-modal="modalId">
     <b-icon-toggles class="mr-1" />
-    List tweaks
+    {{ $t('board.list.settings') }}
 
     <b-modal
       :id="modalId"
-      title="List tweaks"
+      :title="$t('board.list.settings')"
       @show="getSettings"
     >
       <form ref="renameListForm" @submit.stop.prevent="save">
@@ -15,7 +15,7 @@
           class="mb-2"
           switch
         >
-          Show release date for unreleased games
+          {{ $t('board.list.showReleaseDates') }}
         </b-form-checkbox>
 
         <b-form-checkbox
@@ -24,7 +24,7 @@
           class="mb-2"
           switch
         >
-          Show game ratings
+          {{ $t('board.list.showGameRatings') }}
         </b-form-checkbox>
 
         <b-form-checkbox
@@ -33,7 +33,7 @@
           class="mb-2"
           switch
         >
-          Show game progress
+          {{ $t('board.list.showGameProgress') }}
         </b-form-checkbox>
 
         <b-form-checkbox
@@ -42,7 +42,7 @@
           class="mb-2"
           switch
         >
-          Show game notes
+          {{ $t('board.list.showGameNotes') }}
         </b-form-checkbox>
 
         <b-form-checkbox
@@ -51,7 +51,7 @@
           class="mb-2"
           switch
         >
-          Show game tags
+          {{ $t('board.list.showGameTags') }}
         </b-form-checkbox>
 
         <b-form-checkbox
@@ -60,7 +60,7 @@
           class="mb-2"
           switch
         >
-          Show game count
+          {{ $t('board.list.showGameCount') }}
         </b-form-checkbox>
       </form>
 

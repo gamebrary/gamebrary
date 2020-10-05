@@ -1,0 +1,81 @@
+{
+    "global": {
+        "back": "ተመለስ",
+        "save": "አስቀምጥ",
+        "cancel": "ሰርዝ",
+        "delete": "ሰርዝ",
+        "create": "ፍጠር",
+        "filter": "ማጣሪያ",
+        "by": "በ",
+        "no": "አይ",
+        "yes": "አዎ",
+        "or": "ወይም",
+        "pageNotFound": "ገጹ አልተገኘም"
+    },
+    "gitHub": {
+        "watch": "ይመልከቱ",
+        "star": "ኮከብ",
+        "fork": "ሹካ",
+        "issues": "ጉዳዮች"
+    },
+    "boards": {
+        "title": "ቦርዶች",
+        "create": "ሰሌዳ ይፍጠሩ",
+        "platforms": "መድረኮች",
+        "deprecated": "ተቋርጧል"
+    },
+    "themes": {
+        "title": "ገጽታዎች",
+        "subtitle": "አንድ ገጽታ ከዚህ በታች ይምረጡ"
+    },
+    "languages": {
+        "title": "ቋንቋዎች",
+        "save": "አሳሽን ያስቀምጡ እና እንደገና ይጫኑ"
+    },
+    "settings": {
+        "tags": "መለያዎች",
+        "wallpapers": "የግድግዳ ወረቀቶች",
+        "language": "ቋንቋ",
+        "themes": "ገጽታዎች",
+        "releases": "የተለቀቁ",
+        "about": "ስለ",
+        "account": "መለያ"
+    },
+    "tags": {
+        "title": "መለያዎች",
+        "subtitle": "መለያዎች የቪዲዮ ጨዋታ ስብስብዎን ለማደራጀት እና ለማስተዳደር ጥሩ መንገድ ናቸው ፡፡ መለያዎችን ያክሉ ፣ ያርትዑ ወይም ይሰርዙ።",
+        "form": {
+            "title": "አዲስ መለያ ያክሉ",
+            "inputPlaceholder": "የመለያ ስም",
+            "preview": "ቅድመ-እይታ",
+            "addTag": "መለያ አክል",
+            "duplicateMessage": "ቀድሞውኑ {tagName} የሚል ስም አለዎት"
+        },
+        "list": {
+            "title": "የእኔ መለያዎች"
+        }
+    },
+    "wallpapers": {
+        "title": "የግድግዳ ወረቀቶች",
+        "subtitle": "የሰሌዳ ግድግዳ ወረቀቶችን ያቀናብሩ",
+        "form": {
+            "label": "የግድግዳ ወረቀት ይስቀሉ",
+            "placeholder": "ፋይል ይምረጡ ወይም እዚህ ይጣሉት ...",
+            "browse": "ያስሱ",
+            "helperText": "የምስል ፋይሎች ብቻ",
+            "upload": "ስቀል",
+            "duplicateMessage": "ቀድሞውኑ {fileName} የሚል ፋይል አለዎት"
+        },
+        "list": {
+            "title": "የእኔ የግድግዳ ወረቀቶች"
+        }
+    },
+    "releases": {
+        "title": "የተለቀቁ",
+        "published": "ታትሟል"
+    },
+    "about": {
+        "title": "ስለ ጌምብራሪ",
+        "subtitle": "Readme ከጊቱብ"
+    }
+}

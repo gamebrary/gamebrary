@@ -1,0 +1,208 @@
+{
+    "global": {
+        "back": "Tilbake",
+        "save": "Lagre",
+        "cancel": "Avbryt",
+        "delete": "Slett",
+        "create": "Skape",
+        "filter": "Filter",
+        "by": "av",
+        "no": "Nei",
+        "yes": "ja",
+        "or": "eller",
+        "pageNotFound": "Side ikke funnet",
+        "poweredByIgdb": "Drevet av",
+        "signOut": "Logg ut",
+        "donateMessage": "Gamebrary er gratis og åpen kildekode. Vurder å hjelpe utviklingen innen",
+        "donating": "donere",
+        "reportBugs": "rapportering av feil",
+        "submitFeedback": "sende inn tilbakemelding"
+    },
+    "gitHub": {
+        "watch": "Se",
+        "star": "Stjerne",
+        "fork": "Gaffel",
+        "issues": "Problemer"
+    },
+    "dashboard": {
+        "subtitle": "Åpen kildekode verktøy for styring av videospillsamling."
+    },
+    "boards": {
+        "title": "Tavler",
+        "create": "Lag brett",
+        "platforms": "Plattformer",
+        "deprecated": "Foreldet"
+    },
+    "board": {
+        "gameModal": {
+            "videos": "Videoer",
+            "screenshots": "Skjermbilder",
+            "perspective": "Perspektiv",
+            "releaseDate": "Utgivelsesdato",
+            "timeToBeat": "Tid til å slå",
+            "gameModes": "Spillemodus",
+            "genres": "Sjanger",
+            "ageRatings": "Aldersgrenser",
+            "platforms": "Plattformer",
+            "developers": "Utvikler",
+            "publishers": "Forleggere",
+            "removeFromList": "Ta vekk",
+            "links": {
+                "official": "Offisiell side",
+                "wikia": "Fandom",
+                "wikipedia": "Wikipedia",
+                "facebook": "Facebook",
+                "twitter": "Twitter",
+                "twitch": "Rykke",
+                "instagram": "Instagram",
+                "youtube": "Youtube",
+                "iphone": "iOS",
+                "ipad": "iPad",
+                "android": "Play Store",
+                "steam": "Damp",
+                "reddit": "Reddit",
+                "discord": "Uenighet",
+                "google_plus": "Google pluss",
+                "tumblr": "Tumblr",
+                "linkedin": "Linkedin",
+                "pinterest": "Pinterest",
+                "soundcloud": "Soundcloud"
+            }
+        },
+        "addList": {
+            "title": "Legg til liste",
+            "placeholder": "Skriv inn listenavnet ditt her"
+        },
+        "addGame": {
+            "title": "Legg til spill",
+            "inputPlaceholder": "Skriv her for å søke",
+            "noResults": "Ingen resultater",
+            "alreadyInList": "spill fra søkeresultater som allerede er i listen din"
+        },
+        "list": {
+            "edit": "Rediger navn på listen",
+            "type": "Listetype",
+            "settings": "Listeinnstillinger",
+            "placeholder": "Skriv inn listenavnet ditt her",
+            "wishlist": "Ønskeliste",
+            "input": "Skriv inn din egen",
+            "add": "Legg til liste",
+            "duplicateWarning": "Du har allerede en liste med dette navnet",
+            "getStarted": "Kom i gang!",
+            "addFirstTime": "Velkommen, legg til din første liste!",
+            "sortByName": "DE",
+            "sortByProgress": "Framgang",
+            "sortByRating": "Resultat",
+            "sortByReleaseDate": "Dato",
+            "sortByCustom": "Tilpasset",
+            "delete": "Slett listen",
+            "moveLeft": "Gå til venstre",
+            "moveRight": "Flytt til høyre",
+            "emptyList": "Denne listen er tom",
+            "addGame": "Legg til spill",
+            "addGames": "Legg til spill i {listName}",
+            "view": "Listevisning",
+            "moveList": "Flytt liste",
+            "renameList": "Gi nytt navn til listen",
+            "renameListPlaceholder": "Skriv inn navnet ditt",
+            "sortList": "Automatisk sorteringsliste",
+            "sortWarning": "Automatisk sorteringsliste vil påvirke hvordan dra og slipp fungerer",
+            "coversSizeTitle": "Dekker over",
+            "showReleaseDates": "Vis utgivelsesdato for ikke-utgitte spill",
+            "showGameRatings": "Vis spillkarakterer",
+            "showGameProgress": "Vis fremdrift i spillet",
+            "showGameNotes": "Vis spillnotater",
+            "showGameTags": "Vis spillkoder",
+            "showGameCount": "Vis antall spill",
+            "views": {
+                "single": "Misligholde",
+                "compact": "Kompakt",
+                "text": "Bare tekst",
+                "grid": "Nett"
+            },
+            "deleteWarning": {
+                "title": "Er du sikker på at du vil slette denne listen?",
+                "message": "Denne handlingen kan ikke angres",
+                "buttonLabel": "Ja, slett listen"
+            }
+        }
+    },
+    "themes": {
+        "title": "Temaer",
+        "subtitle": "Velg et tema nedenfor"
+    },
+    "languages": {
+        "title": "Språk",
+        "save": "Lagre og last inn nettleseren på nytt"
+    },
+    "settings": {
+        "tags": "Merker",
+        "wallpapers": "Bakgrunnsbilder",
+        "language": "Språk",
+        "themes": "Temaer",
+        "releases": "Utgivelser",
+        "about": "Om",
+        "account": "Regnskap"
+    },
+    "tags": {
+        "title": "Merker",
+        "subtitle": "Merker er en fin måte å organisere og administrere videospillsamlingen på. Legg til, rediger eller slett koder.",
+        "form": {
+            "title": "Legg til ny tag",
+            "inputPlaceholder": "Merkens navn",
+            "preview": "Forhåndsvisning:",
+            "addTag": "Legg til tag",
+            "duplicateMessage": "Du har allerede en tag med navnet {tagName}"
+        },
+        "list": {
+            "title": "Merkelappene mine"
+        }
+    },
+    "wallpapers": {
+        "title": "Bakgrunnsbilder",
+        "subtitle": "Administrer bakgrunnsbilder",
+        "form": {
+            "label": "Last opp bakgrunnsbilde",
+            "placeholder": "Velg en fil eller slipp den her ...",
+            "browse": "Bla gjennom",
+            "helperText": "Bare bildefiler",
+            "upload": "Laste opp",
+            "duplicateMessage": "Du har allerede en fil som heter {fileName}"
+        },
+        "list": {
+            "title": "Mine bakgrunnsbilder"
+        }
+    },
+    "releases": {
+        "title": "Utgivelser",
+        "published": "Publisert"
+    },
+    "about": {
+        "title": "Om Gamebrary",
+        "subtitle": "Readme fra Github"
+    },
+    "progresses": {
+        "modalTitle": "Angi spillfremdrift",
+        "addProgress": "Legg til fremgang",
+        "save": "Lagre fremgang",
+        "deleteProgress": "Slett fremdriften",
+        "progresses": "Framgang"
+    },
+    "platforms": {
+        "donateMessage": "Gamebrary er gratis og åpen kildekode. Vurder å hjelpe utviklingen innen",
+        "donating": "donere",
+        "reportBugs": "rapportering av feil",
+        "submitFeedback": "sende inn tilbakemelding",
+        "all": "Alle",
+        "console": "Konsoller",
+        "platform": "Digital",
+        "operating_system": "PC / Annet",
+        "portable_console": "Håndholdte",
+        "computer": "Hjemmedatamaskiner",
+        "popular": "Populær",
+        "releaseYear": "År utgitt",
+        "name": "Alfabetisk",
+        "generation": "Generasjon / dato utgitt",
+        "type": "Type"
+    }
+}

@@ -1,0 +1,208 @@
+{
+    "global": {
+        "back": "Terug",
+        "save": "Opslaan",
+        "cancel": "annuleren",
+        "delete": "Verwijderen",
+        "create": "Creëer",
+        "filter": "Filter",
+        "by": "door",
+        "no": "Nee",
+        "yes": "Ja",
+        "or": "of",
+        "pageNotFound": "Pagina niet gevonden",
+        "poweredByIgdb": "Aangedreven door",
+        "signOut": "Afmelden",
+        "donateMessage": "Gamebrary is gratis en open source, overweeg om de ontwikkeling ervan te helpen door",
+        "donating": "doneren",
+        "reportBugs": "bugs melden",
+        "submitFeedback": "feedback geven"
+    },
+    "gitHub": {
+        "watch": "Kijk maar",
+        "star": "Ster",
+        "fork": "Vork",
+        "issues": "Problemen"
+    },
+    "dashboard": {
+        "subtitle": "De open source tool voor het beheren van videogames."
+    },
+    "boards": {
+        "title": "Borden",
+        "create": "Maak een bord",
+        "platforms": "Platformen",
+        "deprecated": "Verouderd"
+    },
+    "board": {
+        "gameModal": {
+            "videos": "Videos",
+            "screenshots": "Screenshots",
+            "perspective": "Perspectief",
+            "releaseDate": "Datum van publicatie",
+            "timeToBeat": "Tijd om te verslaan",
+            "gameModes": "Spelmodus",
+            "genres": "Genre",
+            "ageRatings": "Leeftijdsclassificaties",
+            "platforms": "Platformen",
+            "developers": "Ontwikkelaar",
+            "publishers": "Uitgevers",
+            "removeFromList": "Verwijderen",
+            "links": {
+                "official": "Officiële site",
+                "wikia": "Fandom",
+                "wikipedia": "Wikipedia",
+                "facebook": "Facebook",
+                "twitter": "Twitter",
+                "twitch": "Zenuwtrekking",
+                "instagram": "Instagram",
+                "youtube": "Youtube",
+                "iphone": "iOS",
+                "ipad": "iPad",
+                "android": "Play Store",
+                "steam": "Stoom",
+                "reddit": "Reddit",
+                "discord": "Onenigheid",
+                "google_plus": "Google Plus",
+                "tumblr": "Tumblr",
+                "linkedin": "Linkedin",
+                "pinterest": "Pinterest",
+                "soundcloud": "Soundcloud"
+            }
+        },
+        "addList": {
+            "title": "Lijst toevoegen",
+            "placeholder": "Typ hier uw lijstnaam"
+        },
+        "addGame": {
+            "title": "Spel toevoegen",
+            "inputPlaceholder": "Typ hier om te zoeken",
+            "noResults": "geen resultaten gevonden",
+            "alreadyInList": "game (s) uit zoekresultaten die al in je lijst staan"
+        },
+        "list": {
+            "edit": "Bewerk lijstnaam",
+            "type": "Lijsttype",
+            "settings": "Lijst instellingen",
+            "placeholder": "Typ hier uw lijstnaam",
+            "wishlist": "Verlanglijst",
+            "input": "Voer uw eigen in",
+            "add": "Lijst toevoegen",
+            "duplicateWarning": "Je hebt al een lijst met deze naam",
+            "getStarted": "Begin!",
+            "addFirstTime": "Welkom, voeg je eerste lijst toe!",
+            "sortByName": "DE",
+            "sortByProgress": "Vooruitgang",
+            "sortByRating": "Score",
+            "sortByReleaseDate": "Datum",
+            "sortByCustom": "Op maat",
+            "delete": "Lijst verwijderen",
+            "moveLeft": "Ga naar links",
+            "moveRight": "Ga naar rechts",
+            "emptyList": "Deze lijst is leeg",
+            "addGame": "Spel toevoegen",
+            "addGames": "Games toevoegen aan {listName}",
+            "view": "Lijstweergave",
+            "moveList": "Verplaats lijst",
+            "renameList": "Hernoem lijst",
+            "renameListPlaceholder": "Vul uw naam in",
+            "sortList": "Auto sorteer lijst",
+            "sortWarning": "De automatische sorteerlijst heeft invloed op hoe slepen en neerzetten werkt",
+            "coversSizeTitle": "Covers over",
+            "showReleaseDates": "Toon releasedatum voor niet-uitgebrachte games",
+            "showGameRatings": "Game-beoordelingen weergeven",
+            "showGameProgress": "Toon spelvoortgang",
+            "showGameNotes": "Toon spelnotities",
+            "showGameTags": "Game-tags weergeven",
+            "showGameCount": "Toon het aantal games",
+            "views": {
+                "single": "Standaard",
+                "compact": "Compact",
+                "text": "Alleen tekst",
+                "grid": "Raster"
+            },
+            "deleteWarning": {
+                "title": "Weet u zeker dat u deze lijst wilt verwijderen?",
+                "message": "Deze actie kan niet ongedaan gemaakt worden",
+                "buttonLabel": "Ja, verwijder lijst"
+            }
+        }
+    },
+    "themes": {
+        "title": "Thema's",
+        "subtitle": "Selecteer hieronder een thema"
+    },
+    "languages": {
+        "title": "Talen",
+        "save": "Bewaar en laad de browser opnieuw"
+    },
+    "settings": {
+        "tags": "Tags",
+        "wallpapers": "Achtergronden",
+        "language": "Taal",
+        "themes": "Thema's",
+        "releases": "Releases",
+        "about": "Over",
+        "account": "Account"
+    },
+    "tags": {
+        "title": "Tags",
+        "subtitle": "Tags zijn een geweldige manier om uw verzameling videogames te organiseren en te beheren. Tags toevoegen, bewerken of verwijderen.",
+        "form": {
+            "title": "Voeg een nieuwe tag toe",
+            "inputPlaceholder": "Tag naam",
+            "preview": "Voorbeeld:",
+            "addTag": "Tag toevoegen",
+            "duplicateMessage": "Je hebt al een tag met de naam {tagName}"
+        },
+        "list": {
+            "title": "Mijn tags"
+        }
+    },
+    "wallpapers": {
+        "title": "Achtergronden",
+        "subtitle": "Beheer bordachtergronden",
+        "form": {
+            "label": "Upload achtergrond",
+            "placeholder": "Kies een bestand of zet het hier neer ...",
+            "browse": "Bladeren",
+            "helperText": "Alleen afbeeldingsbestanden",
+            "upload": "Uploaden",
+            "duplicateMessage": "Je hebt al een bestand met de naam {fileName}"
+        },
+        "list": {
+            "title": "Mijn achtergronden"
+        }
+    },
+    "releases": {
+        "title": "Releases",
+        "published": "Gepubliceerd"
+    },
+    "about": {
+        "title": "Over Gamebrary",
+        "subtitle": "Leesmij van Github"
+    },
+    "progresses": {
+        "modalTitle": "Stel de voortgang van het spel in",
+        "addProgress": "Voeg voortgang toe",
+        "save": "Bewaar de voortgang",
+        "deleteProgress": "Voortgang verwijderen",
+        "progresses": "Vooruitgang"
+    },
+    "platforms": {
+        "donateMessage": "Gamebrary is gratis en open source, overweeg om de ontwikkeling ervan te helpen door",
+        "donating": "doneren",
+        "reportBugs": "bugs melden",
+        "submitFeedback": "feedback geven",
+        "all": "Alle",
+        "console": "Consoles",
+        "platform": "Digitaal",
+        "operating_system": "PC / Overig",
+        "portable_console": "Handhelds",
+        "computer": "Thuiscomputers",
+        "popular": "Populair",
+        "releaseYear": "Jaar uitgebracht",
+        "name": "Alfabetisch",
+        "generation": "Generatie / datum vrijgegeven",
+        "type": "Type"
+    }
+}

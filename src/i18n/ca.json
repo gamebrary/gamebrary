@@ -1,0 +1,208 @@
+{
+    "global": {
+        "back": "esquena",
+        "save": "Desa",
+        "cancel": "Cancel · lar",
+        "delete": "Suprimeix",
+        "create": "Crear",
+        "filter": "Filtre",
+        "by": "per",
+        "no": "no",
+        "yes": "sí",
+        "or": "o bé",
+        "pageNotFound": "Pàgina no trobada",
+        "poweredByIgdb": "Impulsat per",
+        "signOut": "Tanca sessió",
+        "donateMessage": "Gamebrary és gratuït i de codi obert; penseu a ajudar-lo al desenvolupament",
+        "donating": "donant",
+        "reportBugs": "informar d'errors",
+        "submitFeedback": "enviant comentaris"
+    },
+    "gitHub": {
+        "watch": "Veure",
+        "star": "Estrella",
+        "fork": "Forquilla",
+        "issues": "Problemes"
+    },
+    "dashboard": {
+        "subtitle": "L’eina de gestió de col·lecció de jocs de codi obert."
+    },
+    "boards": {
+        "title": "Taulers",
+        "create": "Crea un tauler",
+        "platforms": "Plataformes",
+        "deprecated": "Obsoleta"
+    },
+    "board": {
+        "gameModal": {
+            "videos": "Vídeos",
+            "screenshots": "Captures de pantalla",
+            "perspective": "Perspectiva",
+            "releaseDate": "Data de publicació",
+            "timeToBeat": "És hora de batre",
+            "gameModes": "Mode de joc",
+            "genres": "Gènere",
+            "ageRatings": "Classificacions per edat",
+            "platforms": "Plataformes",
+            "developers": "Desenvolupador",
+            "publishers": "Editors",
+            "removeFromList": "Elimina",
+            "links": {
+                "official": "Lloc oficial",
+                "wikia": "Fandom",
+                "wikipedia": "Viquipèdia",
+                "facebook": "Facebook",
+                "twitter": "Twitter",
+                "twitch": "Twitch",
+                "instagram": "Instagram",
+                "youtube": "Youtube",
+                "iphone": "iOS",
+                "ipad": "iPad",
+                "android": "Play Store",
+                "steam": "Vapor",
+                "reddit": "Reddit",
+                "discord": "Discòrdia",
+                "google_plus": "Google plus",
+                "tumblr": "Tumblr",
+                "linkedin": "Linkedin",
+                "pinterest": "Pinterest",
+                "soundcloud": "Soundcloud"
+            }
+        },
+        "addList": {
+            "title": "Afegeix una llista",
+            "placeholder": "Escriviu el nom de la llista aquí"
+        },
+        "addGame": {
+            "title": "Afegeix un joc",
+            "inputPlaceholder": "Escriviu aquí per cercar",
+            "noResults": "Sense resultats",
+            "alreadyInList": "jocs dels resultats de la cerca que ja apareixen a la vostra llista"
+        },
+        "list": {
+            "edit": "Edita el nom de la llista",
+            "type": "Tipus de llista",
+            "settings": "Configuració de la llista",
+            "placeholder": "Escriviu el nom de la llista aquí",
+            "wishlist": "Llista de desitjos",
+            "input": "Introduïu el vostre",
+            "add": "Afegeix una llista",
+            "duplicateWarning": "Ja teniu una llista amb aquest nom",
+            "getStarted": "Començar!",
+            "addFirstTime": "Benvingut, afegiu la vostra primera llista.",
+            "sortByName": "EL",
+            "sortByProgress": "Progrés, progressar",
+            "sortByRating": "Puntuació",
+            "sortByReleaseDate": "Data",
+            "sortByCustom": "Personalitzat",
+            "delete": "Esborra la llista",
+            "moveLeft": "Mou-te a l'esquerra",
+            "moveRight": "Mou cap a la dreta",
+            "emptyList": "Aquesta llista és buida",
+            "addGame": "Afegeix un joc",
+            "addGames": "Afegeix jocs a {listName}",
+            "view": "Vista de llista",
+            "moveList": "Mou la llista",
+            "renameList": "Canvia el nom de la llista",
+            "renameListPlaceholder": "Introdueixi el seu nom",
+            "sortList": "Llista d'ordenació automàtica",
+            "sortWarning": "La llista d'ordenació automàtica afectarà el funcionament d'arrossegar i deixar anar",
+            "coversSizeTitle": "Cobertes transversals",
+            "showReleaseDates": "Mostra la data de llançament dels jocs inèdits",
+            "showGameRatings": "Mostra les puntuacions del joc",
+            "showGameProgress": "Mostra el progrés del joc",
+            "showGameNotes": "Mostra les notes del joc",
+            "showGameTags": "Mostra les etiquetes del joc",
+            "showGameCount": "Mostra el recompte de jocs",
+            "views": {
+                "single": "Per defecte",
+                "compact": "Compacte",
+                "text": "Només text",
+                "grid": "Quadrícula"
+            },
+            "deleteWarning": {
+                "title": "Esteu segur que voleu suprimir aquesta llista?",
+                "message": "Aquesta acció no es pot desfer",
+                "buttonLabel": "Sí, suprimiu la llista"
+            }
+        }
+    },
+    "themes": {
+        "title": "Temes",
+        "subtitle": "Seleccioneu un tema a continuació"
+    },
+    "languages": {
+        "title": "Idiomes",
+        "save": "Desa i torna a carregar el navegador"
+    },
+    "settings": {
+        "tags": "Etiquetes",
+        "wallpapers": "Fons de pantalla",
+        "language": "Llenguatge",
+        "themes": "Temes",
+        "releases": "Estrenes",
+        "about": "Sobre",
+        "account": "Compte"
+    },
+    "tags": {
+        "title": "Etiquetes",
+        "subtitle": "Les etiquetes són una manera excel·lent d’organitzar i gestionar la col·lecció de videojocs. Afegiu, editeu o suprimiu etiquetes.",
+        "form": {
+            "title": "Afegeix una etiqueta nova",
+            "inputPlaceholder": "Nom de l'etiqueta",
+            "preview": "Vista prèvia:",
+            "addTag": "Afegeix una etiqueta",
+            "duplicateMessage": "Ja teniu una etiqueta anomenada {tagName}"
+        },
+        "list": {
+            "title": "Les meves etiquetes"
+        }
+    },
+    "wallpapers": {
+        "title": "Fons de pantalla",
+        "subtitle": "Gestionar fons de pantalla de taulers",
+        "form": {
+            "label": "Pengeu fons de pantalla",
+            "placeholder": "Trieu un fitxer o deixeu-lo anar aquí ...",
+            "browse": "Navega",
+            "helperText": "Només fitxers d'imatge",
+            "upload": "Pujar",
+            "duplicateMessage": "Ja teniu un fitxer anomenat {fileName}"
+        },
+        "list": {
+            "title": "Els meus fons de pantalla"
+        }
+    },
+    "releases": {
+        "title": "Estrenes",
+        "published": "Publicat"
+    },
+    "about": {
+        "title": "Quant a Gamebrary",
+        "subtitle": "Llegeix-me de Github"
+    },
+    "progresses": {
+        "modalTitle": "Estableix el progrés del joc",
+        "addProgress": "Afegeix progrés",
+        "save": "Desa el progrés",
+        "deleteProgress": "Suprimeix el progrés",
+        "progresses": "Progrés, progressar"
+    },
+    "platforms": {
+        "donateMessage": "Gamebrary és gratuït i de codi obert; penseu a ajudar-lo al desenvolupament",
+        "donating": "donant",
+        "reportBugs": "informar d'errors",
+        "submitFeedback": "enviant comentaris",
+        "all": "Tots",
+        "console": "Consoles",
+        "platform": "Digital",
+        "operating_system": "PC / Altres",
+        "portable_console": "Dispositius de mà",
+        "computer": "Ordinadors per a la llar",
+        "popular": "Popular",
+        "releaseYear": "Any de llançament",
+        "name": "Alfabèticament",
+        "generation": "Generació / Data relassada",
+        "type": "Tipus"
+    }
+}

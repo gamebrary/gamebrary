@@ -1,0 +1,208 @@
+{
+    "global": {
+        "back": "Tilbage",
+        "save": "Gemme",
+        "cancel": "Afbestille",
+        "delete": "Slet",
+        "create": "skab",
+        "filter": "Filter",
+        "by": "ved",
+        "no": "ingen",
+        "yes": "Ja",
+        "or": "eller",
+        "pageNotFound": "Siden blev ikke fundet",
+        "poweredByIgdb": "Drevet af",
+        "signOut": "Log ud",
+        "donateMessage": "Gamebrary er gratis og open source, overvej at hjælpe med at udvikle den ved",
+        "donating": "donere",
+        "reportBugs": "rapportering af fejl",
+        "submitFeedback": "indsendelse af feedback"
+    },
+    "gitHub": {
+        "watch": "Holde øje",
+        "star": "Stjerne",
+        "fork": "Gaffel",
+        "issues": "Problemer"
+    },
+    "dashboard": {
+        "subtitle": "Open source-værktøjet til styring af videospilindsamling."
+    },
+    "boards": {
+        "title": "Bestyrelser",
+        "create": "Opret bord",
+        "platforms": "Platforme",
+        "deprecated": "Forældet"
+    },
+    "board": {
+        "gameModal": {
+            "videos": "Videoer",
+            "screenshots": "Skærmbilleder",
+            "perspective": "Perspektiv",
+            "releaseDate": "Udgivelses dato",
+            "timeToBeat": "Tid til at slå",
+            "gameModes": "Spilletilstand",
+            "genres": "Genre",
+            "ageRatings": "Aldersvurderinger",
+            "platforms": "Platforme",
+            "developers": "Udvikler",
+            "publishers": "Forlag",
+            "removeFromList": "Fjerne",
+            "links": {
+                "official": "Officielt websted",
+                "wikia": "Fandom",
+                "wikipedia": "Wikipedia",
+                "facebook": "Facebook",
+                "twitter": "Twitter",
+                "twitch": "Ryk",
+                "instagram": "Instagram",
+                "youtube": "Youtube",
+                "iphone": "iOS",
+                "ipad": "iPad",
+                "android": "Legetøjsbutik",
+                "steam": "Damp",
+                "reddit": "Reddit",
+                "discord": "Uenighed",
+                "google_plus": "Google plus",
+                "tumblr": "Tumblr",
+                "linkedin": "Linkedin",
+                "pinterest": "Pinterest",
+                "soundcloud": "Soundcloud"
+            }
+        },
+        "addList": {
+            "title": "Tilføj liste",
+            "placeholder": "Indtast dit listenavn her"
+        },
+        "addGame": {
+            "title": "Tilføj spil",
+            "inputPlaceholder": "Skriv her for at søge",
+            "noResults": "Ingen resultater fundet",
+            "alreadyInList": "spil fra søgeresultater, der allerede findes på din liste"
+        },
+        "list": {
+            "edit": "Rediger navn på listen",
+            "type": "Listetype",
+            "settings": "Listeindstillinger",
+            "placeholder": "Indtast dit listenavn her",
+            "wishlist": "Ønskeliste",
+            "input": "Indtast din egen",
+            "add": "Tilføj liste",
+            "duplicateWarning": "Du har allerede en liste med dette navn",
+            "getStarted": "Kom igang!",
+            "addFirstTime": "Velkommen, tilføj din første liste!",
+            "sortByName": "DET",
+            "sortByProgress": "Fremskridt",
+            "sortByRating": "Score",
+            "sortByReleaseDate": "Dato",
+            "sortByCustom": "Brugerdefinerede",
+            "delete": "Slet liste",
+            "moveLeft": "Bevæg dig til venstre",
+            "moveRight": "Flyt til højre",
+            "emptyList": "Denne liste er tom",
+            "addGame": "Tilføj spil",
+            "addGames": "Føj spil til {listName}",
+            "view": "Listevisning",
+            "moveList": "Flyt liste",
+            "renameList": "Omdøb liste",
+            "renameListPlaceholder": "Indtast dit navn",
+            "sortList": "Liste over automatisk sortering",
+            "sortWarning": "Liste med automatisk sortering vil påvirke, hvordan træk og slip fungerer",
+            "coversSizeTitle": "Dækker over",
+            "showReleaseDates": "Vis udgivelsesdato for ikke-udgivne spil",
+            "showGameRatings": "Vis spilbedømmelser",
+            "showGameProgress": "Vis spilfremskridt",
+            "showGameNotes": "Vis spilnoter",
+            "showGameTags": "Vis spilkoder",
+            "showGameCount": "Vis antal spil",
+            "views": {
+                "single": "Standard",
+                "compact": "Kompakt",
+                "text": "Kun tekst",
+                "grid": "Gitter"
+            },
+            "deleteWarning": {
+                "title": "Er du sikker på, at du vil slette denne liste?",
+                "message": "Denne handling kan ikke fortrydes",
+                "buttonLabel": "Ja, slet liste"
+            }
+        }
+    },
+    "themes": {
+        "title": "Temaer",
+        "subtitle": "Vælg et tema nedenfor"
+    },
+    "languages": {
+        "title": "Sprog",
+        "save": "Gem og genindlæs browseren"
+    },
+    "settings": {
+        "tags": "Mærker",
+        "wallpapers": "Baggrunde",
+        "language": "Sprog",
+        "themes": "Temaer",
+        "releases": "Udgivelser",
+        "about": "Om",
+        "account": "Konto"
+    },
+    "tags": {
+        "title": "Mærker",
+        "subtitle": "Mærker er en fantastisk måde at organisere og administrere din videospilopsamling på. Tilføj, rediger eller slet tags.",
+        "form": {
+            "title": "Tilføj nyt tag",
+            "inputPlaceholder": "Tagnavn",
+            "preview": "Eksempel:",
+            "addTag": "Tilføj tag",
+            "duplicateMessage": "Du har allerede et tag med navnet {tagName}"
+        },
+        "list": {
+            "title": "Mine tags"
+        }
+    },
+    "wallpapers": {
+        "title": "Baggrunde",
+        "subtitle": "Administrer tapetbaggrund",
+        "form": {
+            "label": "Upload tapet",
+            "placeholder": "Vælg en fil, eller slip den her ...",
+            "browse": "Gennemse",
+            "helperText": "Kun billedfiler",
+            "upload": "Upload",
+            "duplicateMessage": "Du har allerede en fil med navnet {fileName}"
+        },
+        "list": {
+            "title": "Mine baggrunde"
+        }
+    },
+    "releases": {
+        "title": "Udgivelser",
+        "published": "Udgivet"
+    },
+    "about": {
+        "title": "Om Gamebrary",
+        "subtitle": "Readme fra Github"
+    },
+    "progresses": {
+        "modalTitle": "Indstil spillet fremskridt",
+        "addProgress": "Tilføj fremskridt",
+        "save": "Gem fremskridt",
+        "deleteProgress": "Slet status",
+        "progresses": "Fremskridt"
+    },
+    "platforms": {
+        "donateMessage": "Gamebrary er gratis og open source, overvej at hjælpe med at udvikle den ved",
+        "donating": "donere",
+        "reportBugs": "rapportering af fejl",
+        "submitFeedback": "indsendelse af feedback",
+        "all": "Alle",
+        "console": "Konsoller",
+        "platform": "Digital",
+        "operating_system": "PC / Andet",
+        "portable_console": "Håndholdte",
+        "computer": "Hjemmecomputere",
+        "popular": "Populær",
+        "releaseYear": "Udgivelsesår",
+        "name": "Alfabetisk",
+        "generation": "Generation / Date relased",
+        "type": "Type"
+    }
+}

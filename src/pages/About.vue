@@ -1,10 +1,10 @@
 <template lang="html">
   <div>
     <b-jumbotron
-      header="About Gamebrary"
+      :header="$t('about.title')"
+      :lead="$t('about.subtitle')"
       header-level="5"
       fluid
-      lead="Readme from GitHub"
     >
     <div v-if="repo">
       <b-button
@@ -12,7 +12,7 @@
         href="https://github.com/romancm/gamebrary/subscription"
         target="_blank"
       >
-        Watch <b-badge variant="light">{{ repo.watchers }}</b-badge>
+        {{ $t('gitHub.watch') }} <b-badge variant="light">{{ repo.watchers }}</b-badge>
       </b-button>
 
       <b-button
@@ -20,7 +20,7 @@
         href="https://github.com/romancm/gamebrary"
         target="_blank"
       >
-        Star <b-badge variant="light">{{ repo.stargazers_count }}</b-badge>
+        {{ $t('gitHub.star') }} <b-badge variant="light">{{ repo.stargazers_count }}</b-badge>
       </b-button>
 
       <b-button
@@ -28,7 +28,7 @@
         href="https://github.com/romancm/gamebrary/fork"
         target="_blank"
       >
-        Fork <b-badge variant="light">{{ repo.forks }}</b-badge>
+        {{ $t('gitHub.fork') }} <b-badge variant="light">{{ repo.forks }}</b-badge>
       </b-button>
 
       <b-button
@@ -36,7 +36,7 @@
         href="https://github.com/romancm/gamebrary/issues"
         target="_blank"
       >
-        Issues <b-badge variant="light">{{ repo.open_issues }}</b-badge>
+        {{ $t('gitHub.issues') }} <b-badge variant="light">{{ repo.open_issues }}</b-badge>
       </b-button>
     </div>
     </b-jumbotron>

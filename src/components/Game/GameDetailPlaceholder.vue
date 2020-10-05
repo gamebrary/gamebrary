@@ -6,42 +6,42 @@
           <b-skeleton width="80px" />
         </template>
         <dl class="row">
-          <dt class="col-sm-3">{{ $t('gameDetail.platforms') }}</dt>
+          <dt class="col-sm-3">{{ $t('board.gameModal.platforms') }}</dt>
           <dd class="col-sm-9">
             <b-skeleton />
           </dd>
 
-          <dt class="col-sm-3">{{ $t('gameDetail.genres') }}</dt>
+          <dt class="col-sm-3">{{ $t('board.gameModal.genres') }}</dt>
           <dd class="col-sm-9">
             <b-skeleton />
           </dd>
 
-          <dt class="col-sm-3">{{ $t('gameDetail.gameModes') }}</dt>
+          <dt class="col-sm-3">{{ $t('board.gameModal.gameModes') }}</dt>
           <dd class="col-sm-9">
             <b-skeleton />
           </dd>
 
-          <dt class="col-sm-3">{{ $t('gameDetail.developers') }}</dt>
+          <dt class="col-sm-3">{{ $t('board.gameModal.developers') }}</dt>
           <dd class="col-sm-9">
             <b-skeleton />
           </dd>
 
-          <dt class="col-sm-3">{{ $t('gameDetail.publishers') }}</dt>
+          <dt class="col-sm-3">{{ $t('board.gameModal.publishers') }}</dt>
           <dd class="col-sm-9">
             <b-skeleton />
           </dd>
 
-          <dt class="col-sm-3">{{ $t('gameDetail.perspective') }}</dt>
+          <dt class="col-sm-3">{{ $t('board.gameModal.perspective') }}</dt>
           <dd class="col-sm-9">
             <b-skeleton />
           </dd>
 
-          <dt class="col-sm-3">{{ $t('gameDetail.timeToBeat') }}</dt>
+          <dt class="col-sm-3">{{ $t('board.gameModal.timeToBeat') }}</dt>
           <dd class="col-sm-9">
             <b-skeleton />
           </dd>
 
-          <dt class="col-sm-3">{{ $t('gameDetail.ageRatings') }}</dt>
+          <dt class="col-sm-3">{{ $t('board.gameModal.ageRatings') }}</dt>
           <dd class="col-sm-9">
             <b-skeleton />
           </dd>
@@ -50,13 +50,13 @@
 
       <b-tab title="Game details">
         <template v-slot:title>
-          <placeholder class="w-10 h-100" />
+          <b-skeleton width="80px" />
         </template>
       </b-tab>
 
       <b-tab title="Game details">
         <template v-slot:title>
-          <placeholder class="w-10 h-100" />
+          <b-skeleton width="80px" />
         </template>
       </b-tab>
     </b-tabs>

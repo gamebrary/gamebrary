@@ -1,0 +1,208 @@
+{
+    "global": {
+        "back": "tagasi",
+        "save": "Salvesta",
+        "cancel": "Tühista",
+        "delete": "Kustuta",
+        "create": "Loo",
+        "filter": "Filtreeri",
+        "by": "kõrval",
+        "no": "ei",
+        "yes": "jah",
+        "or": "või",
+        "pageNotFound": "lehte ei leitud",
+        "poweredByIgdb": "Powered by",
+        "signOut": "Logi välja",
+        "donateMessage": "Gamebrary on tasuta ja avatud lähtekoodiga. Kaaluge selle arendamise aitamist",
+        "donating": "annetamine",
+        "reportBugs": "vigadest teatamine",
+        "submitFeedback": "tagasiside esitamine"
+    },
+    "gitHub": {
+        "watch": "Vaata",
+        "star": "Täht",
+        "fork": "Kahvel",
+        "issues": "Küsimused"
+    },
+    "dashboard": {
+        "subtitle": "Avatud lähtekoodiga videomängude kogu haldamise tööriist."
+    },
+    "boards": {
+        "title": "Lauad",
+        "create": "Loo pardal",
+        "platforms": "Platvormid",
+        "deprecated": "Katkestatud"
+    },
+    "board": {
+        "gameModal": {
+            "videos": "Videod",
+            "screenshots": "Ekraanipildid",
+            "perspective": "Perspektiiv",
+            "releaseDate": "Väljalaske kuupäev",
+            "timeToBeat": "Aeg peksta",
+            "gameModes": "Mängurežiim",
+            "genres": "Žanr",
+            "ageRatings": "Vanusepiirangud",
+            "platforms": "Platvormid",
+            "developers": "Arendaja",
+            "publishers": "Kirjastajad",
+            "removeFromList": "Eemalda",
+            "links": {
+                "official": "Ametlik veebisait",
+                "wikia": "Fandom",
+                "wikipedia": "Vikipeedia",
+                "facebook": "Facebook",
+                "twitter": "Twitter",
+                "twitch": "Tõmblema",
+                "instagram": "Instagram",
+                "youtube": "Youtube",
+                "iphone": "iOS",
+                "ipad": "iPad",
+                "android": "Play pood",
+                "steam": "Aur",
+                "reddit": "Reddit",
+                "discord": "Ebakõla",
+                "google_plus": "Google plus",
+                "tumblr": "Tumblr",
+                "linkedin": "Linkedin",
+                "pinterest": "Pinterest",
+                "soundcloud": "Helipilv"
+            }
+        },
+        "addList": {
+            "title": "Lisa loend",
+            "placeholder": "Sisestage siia oma loendi nimi"
+        },
+        "addGame": {
+            "title": "Lisa mäng",
+            "inputPlaceholder": "Otsimiseks sisestage siia",
+            "noResults": "Tulemusi ei leitud",
+            "alreadyInList": "mäng (ed) teie loendis juba olevate otsingutulemite hulgast"
+        },
+        "list": {
+            "edit": "Muuda loendi nime",
+            "type": "Loendi tüüp",
+            "settings": "Loendi seaded",
+            "placeholder": "Sisestage siia oma loendi nimi",
+            "wishlist": "Sooviloend",
+            "input": "Sisestage oma",
+            "add": "Lisa loend",
+            "duplicateWarning": "Selle nimega loend on teil juba olemas",
+            "getStarted": "Alustama!",
+            "addFirstTime": "Tere tulemast, lisage oma esimene nimekiri!",
+            "sortByName": "THE",
+            "sortByProgress": "Edusammud",
+            "sortByRating": "Skoor",
+            "sortByReleaseDate": "Kuupäev",
+            "sortByCustom": "Kohandatud",
+            "delete": "Kustuta loend",
+            "moveLeft": "Liigu vasakule",
+            "moveRight": "Liigu paremale",
+            "emptyList": "See loend on tühi",
+            "addGame": "Lisa mäng",
+            "addGames": "Mängude lisamine loendisse {listName}",
+            "view": "Loendivaade",
+            "moveList": "Teisalda loend",
+            "renameList": "Nimeta loend ümber",
+            "renameListPlaceholder": "Sisestage oma nimi",
+            "sortList": "Automaatse sortimise loend",
+            "sortWarning": "Automaatne sortimisloend mõjutab lohistamise toimimist",
+            "coversSizeTitle": "Kaaned üle",
+            "showReleaseDates": "Näita avaldamata mängude väljaandmiskuupäeva",
+            "showGameRatings": "Kuva mängude hinnangud",
+            "showGameProgress": "Näita mängu edenemist",
+            "showGameNotes": "Näita mängu märkmeid",
+            "showGameTags": "Kuva mängumärgendid",
+            "showGameCount": "Näita mängude arvu",
+            "views": {
+                "single": "Vaikimisi",
+                "compact": "Kompaktne",
+                "text": "Ainult tekst",
+                "grid": "Võre"
+            },
+            "deleteWarning": {
+                "title": "Kas soovite kindlasti selle loendi kustutada?",
+                "message": "Seda toimingut ei saa tagasi võtta",
+                "buttonLabel": "Jah, kustuta loend"
+            }
+        }
+    },
+    "themes": {
+        "title": "Teemad",
+        "subtitle": "Valige allpool teema"
+    },
+    "languages": {
+        "title": "Keeled",
+        "save": "Salvestage ja laadige brauser uuesti"
+    },
+    "settings": {
+        "tags": "Sildid",
+        "wallpapers": "Taustapildid",
+        "language": "Keel",
+        "themes": "Teemad",
+        "releases": "Väljalasked",
+        "about": "Umbes",
+        "account": "Konto"
+    },
+    "tags": {
+        "title": "Sildid",
+        "subtitle": "Sildid on suurepärane viis videomängude kogu korraldamiseks ja haldamiseks. Siltide lisamine, muutmine või kustutamine.",
+        "form": {
+            "title": "Lisage uus silt",
+            "inputPlaceholder": "Sildi nimi",
+            "preview": "Eelvaade:",
+            "addTag": "Lisa silt",
+            "duplicateMessage": "Teil on juba silt nimega {tagName}"
+        },
+        "list": {
+            "title": "Minu sildid"
+        }
+    },
+    "wallpapers": {
+        "title": "Taustapildid",
+        "subtitle": "Hallake tahvlite taustapilte",
+        "form": {
+            "label": "Laadige üles tapeet",
+            "placeholder": "Valige fail või visake see siia ...",
+            "browse": "Sirvige",
+            "helperText": "Ainult pildifailid",
+            "upload": "Laadi üles",
+            "duplicateMessage": "Teil on juba fail nimega {fileName}"
+        },
+        "list": {
+            "title": "Minu taustapildid"
+        }
+    },
+    "releases": {
+        "title": "Väljalasked",
+        "published": "Avaldatud"
+    },
+    "about": {
+        "title": "Gamebrary kohta",
+        "subtitle": "Readme Githubist"
+    },
+    "progresses": {
+        "modalTitle": "Määra mängu edenemine",
+        "addProgress": "Lisage edusammud",
+        "save": "Salvesta edusammud",
+        "deleteProgress": "Kustuta edenemine",
+        "progresses": "Edusammud"
+    },
+    "platforms": {
+        "donateMessage": "Gamebrary on tasuta ja avatud lähtekoodiga. Kaaluge selle arendamise aitamist",
+        "donating": "annetamine",
+        "reportBugs": "vigadest teatamine",
+        "submitFeedback": "tagasiside esitamine",
+        "all": "Kõik",
+        "console": "Konsoolid",
+        "platform": "Digitaalne",
+        "operating_system": "PC / muu",
+        "portable_console": "Pihuarvutid",
+        "computer": "Koduarvutid",
+        "popular": "Populaarne",
+        "releaseYear": "Aasta välja antud",
+        "name": "Tähestikulises järjekorras",
+        "generation": "Generatsioon / kuupäev on uuesti arvestatud",
+        "type": "Tüüp"
+    }
+}

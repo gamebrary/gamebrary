@@ -1,0 +1,208 @@
+{
+    "global": {
+        "back": "Vissza",
+        "save": "Megment",
+        "cancel": "Megszünteti",
+        "delete": "Töröl",
+        "create": "Teremt",
+        "filter": "Szűrő",
+        "by": "által",
+        "no": "nem",
+        "yes": "Igen",
+        "or": "vagy",
+        "pageNotFound": "Az oldal nem található",
+        "poweredByIgdb": "Powered by",
+        "signOut": "Kijelentkezés",
+        "donateMessage": "A Gamebrary ingyenes és nyílt forráskódú, fontolja meg annak fejlesztését",
+        "donating": "adakozás",
+        "reportBugs": "hibabejelentés",
+        "submitFeedback": "visszajelzés benyújtása"
+    },
+    "gitHub": {
+        "watch": "Néz",
+        "star": "Csillag",
+        "fork": "Villa",
+        "issues": "Problémák"
+    },
+    "dashboard": {
+        "subtitle": "A nyílt forráskódú videojáték-gyűjtemény-kezelő eszköz."
+    },
+    "boards": {
+        "title": "Táblák",
+        "create": "Tábla létrehozása",
+        "platforms": "Platformok",
+        "deprecated": "Elavult"
+    },
+    "board": {
+        "gameModal": {
+            "videos": "Videók",
+            "screenshots": "Pillanatképek",
+            "perspective": "Perspektíva",
+            "releaseDate": "Kiadási dátum",
+            "timeToBeat": "Ideje verni",
+            "gameModes": "Játék mód",
+            "genres": "Műfaj",
+            "ageRatings": "Életkor szerinti besorolások",
+            "platforms": "Platformok",
+            "developers": "Fejlesztő",
+            "publishers": "Kiadók",
+            "removeFromList": "Eltávolítás",
+            "links": {
+                "official": "Hivatalos oldal",
+                "wikia": "Rajongás",
+                "wikipedia": "Wikipédia",
+                "facebook": "Facebook",
+                "twitter": "Twitter",
+                "twitch": "Rángatás",
+                "instagram": "Instagram",
+                "youtube": "Youtube",
+                "iphone": "iOS",
+                "ipad": "iPad",
+                "android": "A Play Áruház",
+                "steam": "Gőz",
+                "reddit": "Reddit",
+                "discord": "Viszály",
+                "google_plus": "Google Plusz",
+                "tumblr": "Tumblr",
+                "linkedin": "Linkedin",
+                "pinterest": "Pinterest",
+                "soundcloud": "Soundcloud"
+            }
+        },
+        "addList": {
+            "title": "Lista hozzáadása",
+            "placeholder": "Ide írja be a lista nevét"
+        },
+        "addGame": {
+            "title": "Játék hozzáadása",
+            "inputPlaceholder": "Írja be ide a keresést",
+            "noResults": "Nincs találat",
+            "alreadyInList": "játék (ok) a listában már szereplő keresési eredményekből"
+        },
+        "list": {
+            "edit": "Szerkessze a lista nevét",
+            "type": "Lista típusa",
+            "settings": "Lista beállításai",
+            "placeholder": "Ide írja be a lista nevét",
+            "wishlist": "Kívánság lista",
+            "input": "Írja be a sajátját",
+            "add": "Lista hozzáadása",
+            "duplicateWarning": "Már van ilyen nevű listája",
+            "getStarted": "Fogj neki!",
+            "addFirstTime": "Üdvözöljük, adja hozzá első listáját!",
+            "sortByName": "A",
+            "sortByProgress": "Előrehalad",
+            "sortByRating": "Pontszám",
+            "sortByReleaseDate": "Dátum",
+            "sortByCustom": "Egyedi",
+            "delete": "Lista törlése",
+            "moveLeft": "Menj balra",
+            "moveRight": "Mozdulj jobbra",
+            "emptyList": "Ez a lista üres",
+            "addGame": "Játék hozzáadása",
+            "addGames": "Játékok hozzáadása a következőhöz: {listName}",
+            "view": "Lista nézet",
+            "moveList": "Lista áthelyezése",
+            "renameList": "Lista átnevezése",
+            "renameListPlaceholder": "Adja meg nevét",
+            "sortList": "Automatikus rendezési lista",
+            "sortWarning": "Az automatikus rendezési lista hatással lesz a drag and drop működésére",
+            "coversSizeTitle": "Áttetszik",
+            "showReleaseDates": "Mutassa meg a nem kiadott játékok megjelenési dátumát",
+            "showGameRatings": "A játék értékeléseinek megjelenítése",
+            "showGameProgress": "A játék előrehaladásának megjelenítése",
+            "showGameNotes": "Játékjegyzetek megjelenítése",
+            "showGameTags": "Játékcímkék megjelenítése",
+            "showGameCount": "Mutassa a játék számát",
+            "views": {
+                "single": "Alapértelmezett",
+                "compact": "Kompakt",
+                "text": "Csak szöveg",
+                "grid": "Rács"
+            },
+            "deleteWarning": {
+                "title": "Biztosan törli ezt a listát?",
+                "message": "Ez a művelet nem visszavonható",
+                "buttonLabel": "Igen, törölje a listát"
+            }
+        }
+    },
+    "themes": {
+        "title": "Témák",
+        "subtitle": "Válasszon témát alább"
+    },
+    "languages": {
+        "title": "Nyelvek",
+        "save": "Mentse és töltse be újra a böngészőt"
+    },
+    "settings": {
+        "tags": "Címkék",
+        "wallpapers": "Háttérképek",
+        "language": "Nyelv",
+        "themes": "Témák",
+        "releases": "Kiadások",
+        "about": "Ról ről",
+        "account": "Számla"
+    },
+    "tags": {
+        "title": "Címkék",
+        "subtitle": "A címkék nagyszerű módot kínálnak a videojáték-gyűjtemény rendezésére és kezelésére. Címkék hozzáadása, szerkesztése vagy törlése.",
+        "form": {
+            "title": "Új címke hozzáadása",
+            "inputPlaceholder": "Címke neve",
+            "preview": "Előnézet:",
+            "addTag": "Címke hozzáadása",
+            "duplicateMessage": "Már van egy {tagName} nevű címkéje"
+        },
+        "list": {
+            "title": "Saját címkék"
+        }
+    },
+    "wallpapers": {
+        "title": "Háttérképek",
+        "subtitle": "Tábla háttérképek kezelése",
+        "form": {
+            "label": "Töltsön fel háttérképet",
+            "placeholder": "Válasszon egy fájlt, vagy dobja ide ...",
+            "browse": "Tallózás",
+            "helperText": "Csak képfájlok",
+            "upload": "Feltöltés",
+            "duplicateMessage": "Már van egy {fileName} nevű fájlja"
+        },
+        "list": {
+            "title": "Saját háttérképek"
+        }
+    },
+    "releases": {
+        "title": "Kiadások",
+        "published": "Közzétett"
+    },
+    "about": {
+        "title": "Gamebrary-ról",
+        "subtitle": "Readme a Githubból"
+    },
+    "progresses": {
+        "modalTitle": "Állítsa be a játék előrehaladását",
+        "addProgress": "Add hozzá a haladást",
+        "save": "Mentsd el a haladást",
+        "deleteProgress": "Törölje az előrehaladást",
+        "progresses": "Előrehalad"
+    },
+    "platforms": {
+        "donateMessage": "A Gamebrary ingyenes és nyílt forráskódú, fontolja meg annak fejlesztését",
+        "donating": "adakozás",
+        "reportBugs": "hibabejelentés",
+        "submitFeedback": "visszajelzés benyújtása",
+        "all": "Összes",
+        "console": "Konzolok",
+        "platform": "Digitális",
+        "operating_system": "PC / Egyéb",
+        "portable_console": "Kézi számítógépek",
+        "computer": "Otthoni számítógépek",
+        "popular": "Népszerű",
+        "releaseYear": "Év megjelent",
+        "name": "Betűrendben",
+        "generation": "Generálás / dátum áttekintve",
+        "type": "típus"
+    }
+}

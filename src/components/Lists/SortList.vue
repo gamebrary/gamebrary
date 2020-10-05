@@ -1,15 +1,15 @@
 <template lang="html">
   <b-dropdown-item-button v-b-modal="modalId">
     <b-icon-sort-up class="mr-1" />
-    Sort list
+    {{ $t('board.list.sortList') }}
 
     <b-modal
       :id="modalId"
-      title="Sort list"
+      :title="$t('board.list.sortList')"
       @show="getSortValue"
     >
       <form ref="renameListForm" @submit.stop.prevent="save">
-        <b-form-group :label="$t('list.sortList')" block>
+        <b-form-group :label="$t('board.list.sortList')" block>
           <b-form-radio-group
             v-model="sortOrder"
             buttons
@@ -20,7 +20,7 @@
         </b-form-group>
 
         <b-alert show variant="warning" class="m-0" v-if="sortOrder !== 'sortByCustom'">
-          Auto sorting list will affect how drag and drop works
+          {{ $t('board.list.sortWarning') }}
         </b-alert>
       </form>
 

@@ -11,7 +11,7 @@
       <b-button-group size="sm">
         <b-button
           v-b-tooltip.hover
-          :title="$t('list.moveLeft')"
+          :title="$t('board.list.moveLeft')"
           :disabled="isFirst"
           @click="moveList(listIndex, listIndex - 1)"
         >
@@ -20,7 +20,7 @@
 
         <b-button
           v-b-tooltip.hover
-          :title="$t('list.moveRight')"
+          :title="$t('board.list.moveRight')"
           :disabled="isLast"
           @click="moveList(listIndex, listIndex + 1)"
         >
@@ -35,7 +35,7 @@
       @click="promptDeleteList"
     >
       <b-icon-trash class="mr-1" />
-      Delete list
+      {{ $t('board.list.delete') }}
     </b-dropdown-item>
   </b-dropdown>
 </template>
@@ -84,10 +84,11 @@ export default {
 
   methods: {
     promptDeleteList() {
-      this.$bvModal.msgBoxConfirm('This action cannot be undone', {
-        title: 'Are you sure you want to delete this list?',
+      this.$bvModal.msgBoxConfirm(this.$t('board.list.deleteWarning.message'), {
+        title: this.$t('board.list.deleteWarning.title'),
         okVariant: 'danger',
-        okTitle: 'Yes, delete list',
+        okTitle: this.$t('board.list.deleteWarning.buttonLabel'),
+        cancelTitle: this.$t('global.cancel'),
       })
         .then((value) => {
           if (value) {

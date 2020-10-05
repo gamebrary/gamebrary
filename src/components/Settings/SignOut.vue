@@ -1,6 +1,6 @@
 <template lang="html">
   <b-button @click="signOut" variant="dark">
-    {{ $t('settings.signOut') }}
+    {{ $t('global.signOut') }}
   </b-button>
 </template>
 

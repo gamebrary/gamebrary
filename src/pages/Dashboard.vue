@@ -4,7 +4,7 @@
       header="Gamebrary"
       header-level="5"
       fluid
-      lead="The open source video game collection management tool."
+      :lead="$t('dashboard.subtitle')"
     />
     <!-- background-image: linear-gradient(transparent, #222 50%), url(${ coverScreenshot }); -->
     <b-container>

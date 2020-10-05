@@ -1,7 +1,7 @@
 <template lang="html">
   <b-button
     v-b-modal="modalId"
-    :title="title"
+    :title="$t('board.addList.title')"
     v-b-tooltip.hover.left
     ref="addList"
   >
@@ -9,14 +9,14 @@
 
     <b-modal
       :id="modalId"
-      :title="title"
+      :title="$t('board.addList.title')"
       @show="reset"
     >
       <form ref="addListForm" @submit.stop.prevent="submit">
         <b-form-input
           autofocus
           v-model="listName"
-          :placeholder="$t('list.placeholder')"
+          :placeholder="$t('board.addList.placeholder')"
           required
         />
 
@@ -25,13 +25,13 @@
           :show="isDuplicate && !saving"
           variant="warning"
         >
-          {{ $t('list.duplicateWarning') }}
+          {{ $t('board.list.duplicateWarning') }}
         </b-alert>
       </form>
 
       <template v-slot:modal-footer="{ cancel }">
         <b-button @click="cancel">
-          Cancel
+          {{ $t('global.cancel') }}
         </b-button>
 
         <b-button
@@ -40,7 +40,7 @@
           @click="submit"
         >
           <b-spinner small v-if="saving" />
-          <span v-else>{{ buttonLabel }}</span>
+          <span v-else>{{ $t('global.save') }}</span>
         </b-button>
       </template>
     </b-modal>
@@ -61,18 +61,6 @@ export default {
 
   computed: {
     ...mapState(['platform', 'board']),
-
-    title() {
-      return this.isEmptyBoard
-        ? this.$t('list.addFirstTime')
-        : this.$t('list.add');
-    },
-
-    buttonLabel() {
-      return this.isEmptyBoard
-        ? this.$t('list.getStarted')
-        : this.$t('global.save');
-    },
 
     existingListNames() {
       return this.board.lists

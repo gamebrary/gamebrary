@@ -1,0 +1,208 @@
+{
+    "global": {
+        "back": "צוריק",
+        "save": "היט",
+        "cancel": "באָטל מאַכן",
+        "delete": "ויסמעקן",
+        "create": "שאַפֿן",
+        "filter": "פילטער",
+        "by": "דורך",
+        "no": "ניין",
+        "yes": "יאָ",
+        "or": "אָדער",
+        "pageNotFound": "בלאַט ניט געפֿונען",
+        "poweredByIgdb": "Powered דורך",
+        "signOut": "צייכן אויס",
+        "donateMessage": "Gamebrary איז פריי און אָפֿן מקור. איר קענט העלפּינג די אַנטוויקלונג דורך",
+        "donating": "דאָונייטינג",
+        "reportBugs": "ריפּאָרטינג באַגז",
+        "submitFeedback": "סאַבמיטינג באַמערקונגען"
+    },
+    "gitHub": {
+        "watch": "וואַך",
+        "star": "שטערן",
+        "fork": "גאָפּל",
+        "issues": "ישוז"
+    },
+    "dashboard": {
+        "subtitle": "די עפענען מקור ווידעא שפּיל זאַמלונג פאַרוואַלטונג געצייַג."
+    },
+    "boards": {
+        "title": "באָאַרדס",
+        "create": "שאַפֿן ברעט",
+        "platforms": "Platforms",
+        "deprecated": "דעפּרעסאַטעד"
+    },
+    "board": {
+        "gameModal": {
+            "videos": "ווידיאס",
+            "screenshots": "סקרעענשאָץ",
+            "perspective": "פּערספּעקטיוו",
+            "releaseDate": "טאג וואס עס קומט ארויס",
+            "timeToBeat": "צייט צו שלאָגן",
+            "gameModes": "שפּיל מאָדע",
+            "genres": "גענרע",
+            "ageRatings": "עלטער רייטינגז",
+            "platforms": "Platforms",
+            "developers": "דעוועלאָפּער",
+            "publishers": "פֿאַרלאַגן",
+            "removeFromList": "אַראָפּנעמען",
+            "links": {
+                "official": "אַפישאַל מאַפּע",
+                "wikia": "פאַנדאָם",
+                "wikipedia": "וויקיפעדיע",
+                "facebook": "פאַסעבאָאָק",
+                "twitter": "טוויטער",
+                "twitch": "Twitch",
+                "instagram": "ינסטאַגראַם",
+                "youtube": "יאָוטובע",
+                "iphone": "iOS",
+                "ipad": "iPad",
+                "android": "שפּיל סטאָר",
+                "steam": "פּאַרע",
+                "reddit": "רעדדיט",
+                "discord": "דיסקאָרד",
+                "google_plus": "Google פּלוס",
+                "tumblr": "טומבלר",
+                "linkedin": "לינקעדין",
+                "pinterest": "פּינטערעסט",
+                "soundcloud": "סאָונדקלאָוד"
+            }
+        },
+        "addList": {
+            "title": "לייג רשימה",
+            "placeholder": "טיפּ דיין רשימה נאָמען דאָ"
+        },
+        "addGame": {
+            "title": "לייג שפּיל",
+            "inputPlaceholder": "טיפּ דאָ צו זוכן",
+            "noResults": "קיין רעזולטאַטן געפֿונען",
+            "alreadyInList": "שפּיל (s) פון זוכן רעזולטאַטן שוין אין דיין רשימה"
+        },
+        "list": {
+            "edit": "רעדאַגירן רשימה נאָמען",
+            "type": "רשימה טיפּ",
+            "settings": "רשימה סעטטינגס",
+            "placeholder": "טיפּ דיין רשימה נאָמען דאָ",
+            "wishlist": "ווישליסט",
+            "input": "אַרייַן דיין אייגענע",
+            "add": "לייג רשימה",
+            "duplicateWarning": "איר האָבן שוין אַ רשימה מיט דעם נאָמען",
+            "getStarted": "הייב אהן!",
+            "addFirstTime": "באַגריסן, לייגן דיין ערשטער רשימה!",
+            "sortByName": "די",
+            "sortByProgress": "פּראָגרעס",
+            "sortByRating": "Score",
+            "sortByReleaseDate": "טאָג",
+            "sortByCustom": "מנהג",
+            "delete": "ויסמעקן רשימה",
+            "moveLeft": "מאַך לינקס",
+            "moveRight": "מאַך רעכט",
+            "emptyList": "די רשימה איז ליידיק",
+            "addGame": "לייג שפּיל",
+            "addGames": "לייג גאַמעס צו {listName}",
+            "view": "רשימה מיינונג",
+            "moveList": "מאַך רשימה",
+            "renameList": "רענאַמע רשימה",
+            "renameListPlaceholder": "אַרייַן דיין נאָמען",
+            "sortList": "אַוטאָ סאָרט רשימה",
+            "sortWarning": "אַוטאָ סאָרטינג רשימה וועט ווירקן ווי שלעפּן און קאַפּ אַרבעט",
+            "coversSizeTitle": "קאָווערס אַריבער",
+            "showReleaseDates": "ווייַזן מעלדונג דאַטע פֿאַר אַנריליסט שפּילערייַ",
+            "showGameRatings": "ווייַזן שפּיל רייטינגז",
+            "showGameProgress": "ווייַזן שפּיל פּראָגרעס",
+            "showGameNotes": "ווייַזן שפּיל הערות",
+            "showGameTags": "ווייַזן שפּיל טאַגס",
+            "showGameCount": "ווייַזן שפּיל ציילן",
+            "views": {
+                "single": "פעליקייַט",
+                "compact": "סאָליד",
+                "text": "בלויז טעקסט",
+                "grid": "גריד"
+            },
+            "deleteWarning": {
+                "title": "ביסטו זיכער אז דו ווילסט אויסמעקן די ליסטע?",
+                "message": "דער קאַמף קען נישט זיין אַנדאַן",
+                "buttonLabel": "יאָ, ויסמעקן רשימה"
+            }
+        }
+    },
+    "themes": {
+        "title": "טעמעס",
+        "subtitle": "אויסקלייַבן אַ טעמע ונטער"
+    },
+    "languages": {
+        "title": "שפראכן",
+        "save": "היט און רילאָוד בלעטערער"
+    },
+    "settings": {
+        "tags": "טאַגס",
+        "wallpapers": "וואַללפּאַפּערס",
+        "language": "שפּראַך",
+        "themes": "טעמעס",
+        "releases": "ריליסיז",
+        "about": "וועגן",
+        "account": "קאנטע"
+    },
+    "tags": {
+        "title": "טאַגס",
+        "subtitle": "טאַגס זענען אַ גרויס וועג צו אָרגאַניזירן און פירן דיין ווידעא שפּיל זאַמלונג. לייג, רעדאַגירן אָדער ויסמעקן טאַגס.",
+        "form": {
+            "title": "לייג נייַ קוויטל",
+            "inputPlaceholder": "פאַרבינדן נאָמען",
+            "preview": "פארויסקוק:",
+            "addTag": "לייג צעטל",
+            "duplicateMessage": "איר האָט שוין אַ קוויטל מיטן נאָמען {tagName}"
+        },
+        "list": {
+            "title": "מייַן טאַגס"
+        }
+    },
+    "wallpapers": {
+        "title": "וואַללפּאַפּערס",
+        "subtitle": "פירן ברעט וואָלפּייפּערז",
+        "form": {
+            "label": "צופֿעליקער טאַפּעטן",
+            "placeholder": "קלייַבן אַ טעקע אָדער פאַלן עס דאָ ...",
+            "browse": "בלעטער",
+            "helperText": "בלויז בילד טעקעס",
+            "upload": "צופֿעליקער",
+            "duplicateMessage": "איר האָט שוין אַ טעקע מיטן נאָמען {fileName}"
+        },
+        "list": {
+            "title": "מייַן וואָלפּייפּערז"
+        }
+    },
+    "releases": {
+        "title": "ריליסיז",
+        "published": "פֿאַרעפֿנטלעכט"
+    },
+    "about": {
+        "title": "וועגן Gamebrary",
+        "subtitle": "רעאַדמע פֿון Github"
+    },
+    "progresses": {
+        "modalTitle": "שטעלן שפּיל פּראָגרעס",
+        "addProgress": "לייג פּראָגרעס",
+        "save": "היט פּראָגרעס",
+        "deleteProgress": "ויסמעקן פּראָגרעס",
+        "progresses": "פּראָגרעס"
+    },
+    "platforms": {
+        "donateMessage": "Gamebrary איז פריי און אָפֿן מקור. איר קענט העלפּינג די אַנטוויקלונג דורך",
+        "donating": "דאָונייטינג",
+        "reportBugs": "ריפּאָרטינג באַגז",
+        "submitFeedback": "סאַבמיטינג באַמערקונגען",
+        "all": "אַלע",
+        "console": "קאַנסאָולז",
+        "platform": "דיגיטאַל",
+        "operating_system": "פּיסי / אַנדערער",
+        "portable_console": "האַנדהעלדס",
+        "computer": "היים קאָמפּיוטערס",
+        "popular": "פאָלקס",
+        "releaseYear": "יאָר באפרייט",
+        "name": "אלפאבעט",
+        "generation": "דור / טאָג ריליסעד",
+        "type": "טיפּ"
+    }
+}

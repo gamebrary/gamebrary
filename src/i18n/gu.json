@@ -1,0 +1,81 @@
+{
+    "global": {
+        "back": "પાછળ",
+        "save": "સાચવો",
+        "cancel": "રદ કરો",
+        "delete": "કા .ી નાખો",
+        "create": "બનાવો",
+        "filter": "ફિલ્ટર કરો",
+        "by": "દ્વારા",
+        "no": "ના",
+        "yes": "હા",
+        "or": "અથવા",
+        "pageNotFound": "પેજ નથી મળ્યું"
+    },
+    "gitHub": {
+        "watch": "જુઓ",
+        "star": "નક્ષત્ર",
+        "fork": "કાંટો",
+        "issues": "મુદ્દાઓ"
+    },
+    "boards": {
+        "title": "બોર્ડ",
+        "create": "બોર્ડ બનાવો",
+        "platforms": "પ્લેટફોર્મ",
+        "deprecated": "વંચિત"
+    },
+    "themes": {
+        "title": "થીમ્સ",
+        "subtitle": "નીચે એક થીમ પસંદ કરો"
+    },
+    "languages": {
+        "title": "ભાષાઓ",
+        "save": "બ્રાઉઝર સાચવો અને ફરીથી લોડ કરો"
+    },
+    "settings": {
+        "tags": "ટ Tagsગ્સ",
+        "wallpapers": "વ Wallpapersલપેપર્સ",
+        "language": "ભાષા",
+        "themes": "થીમ્સ",
+        "releases": "પ્રકાશનો",
+        "about": "વિશે",
+        "account": "ખાતું"
+    },
+    "tags": {
+        "title": "ટ Tagsગ્સ",
+        "subtitle": "ટ videoગ્સ એ તમારા વિડિઓ ગેમ સંગ્રહને વ્યવસ્થિત અને સંચાલિત કરવાની શ્રેષ્ઠ રીત છે. ટ ,ગ્સ ઉમેરો, સંપાદિત કરો અથવા કા deleteી નાખો.",
+        "form": {
+            "title": "નવો ટ tagગ ઉમેરો",
+            "inputPlaceholder": "ટેગ નામ",
+            "preview": "પૂર્વાવલોકન:",
+            "addTag": "ટ tagગ ઉમેરો",
+            "duplicateMessage": "તમારી પાસે પહેલેથી જ {tagName named નામનો ટેગ છે"
+        },
+        "list": {
+            "title": "મારા ટsગ્સ"
+        }
+    },
+    "wallpapers": {
+        "title": "વ Wallpapersલપેપર્સ",
+        "subtitle": "બોર્ડ વ wallpલપેપર્સ મેનેજ કરો",
+        "form": {
+            "label": "વ Uploadલપેપર અપલોડ કરો",
+            "placeholder": "ફાઇલ પસંદ કરો અથવા તેને અહીં છોડો ...",
+            "browse": "બ્રાઉઝ કરો",
+            "helperText": "ફક્ત છબી ફાઇલો",
+            "upload": "અપલોડ કરો",
+            "duplicateMessage": "તમારી પાસે પહેલેથી જ {fileName named નામની ફાઇલ છે"
+        },
+        "list": {
+            "title": "મારા વapersલપેપર્સ"
+        }
+    },
+    "releases": {
+        "title": "પ્રકાશનો",
+        "published": "પ્રકાશિત"
+    },
+    "about": {
+        "title": "ગેમબryરી વિશે",
+        "subtitle": "ગીથબથી રેડમે"
+    }
+}

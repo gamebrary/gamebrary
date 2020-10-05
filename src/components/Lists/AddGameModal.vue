@@ -1,11 +1,11 @@
 <template lang="html">
   <b-dropdown-item-button @click="$bvModal.show(`game-modal-${list.name}`)">
     <b-icon-plus class="mr-1" />
-    Add games
+    {{ $t('board.addGame.title') }}
 
     <b-modal
       :id="`game-modal-${list.name}`"
-      :title="$t('list.addGames', { listName: list.name })"
+      :title="$t('board.addGame.title')"
       footer-class="p-2 justify-content-center"
       @show="clear"
     >
@@ -15,12 +15,12 @@
             v-model="searchText"
             autofocus
             debounce="500"
-            :placeholder="$t('gameSearch.inputPlaceholder')"
+            :placeholder="$t('board.addGame.inputPlaceholder')"
           />
 
           <b-input-group-append>
             <b-button variant="primary" @click="search">
-              <b-spinner v-if="loading" small label="Loading..." />
+              <b-spinner v-if="loading" small />
               <b-icon-search v-else />
             </b-button>
           </b-input-group-append>
@@ -28,7 +28,7 @@
 
         <b-form-text v-if="gamesInList.length">
           <strong>{{ gamesInList.length }}</strong>
-          {{ $t('gameSearch.alreadyInList') }}
+          {{ $t('board.addGame.alreadyInList') }}
         </b-form-text>
       </b-form>
 
@@ -47,7 +47,7 @@
       </b-card>
 
       <b-alert :show="noResults" variant="warning" class="mt-2 mb-0">
-        {{ $t('gameSearch.noResultsFound') }}
+        {{ $t('board.addGame.noResults') }}
       </b-alert>
 
       <template v-slot:modal-footer>

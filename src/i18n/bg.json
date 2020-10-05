@@ -1,0 +1,208 @@
+{
+    "global": {
+        "back": "обратно",
+        "save": "Запазете",
+        "cancel": "Отказ",
+        "delete": "Изтрий",
+        "create": "Създайте",
+        "filter": "Филтър",
+        "by": "от",
+        "no": "не",
+        "yes": "да",
+        "or": "или",
+        "pageNotFound": "Страницата не е намерена",
+        "poweredByIgdb": "Задвижвани от",
+        "signOut": "Отписване",
+        "donateMessage": "Gamebrary е безплатен и с отворен код, помислете за подпомагане на развитието му от",
+        "donating": "дарение",
+        "reportBugs": "докладване на грешки",
+        "submitFeedback": "изпращане на обратна връзка"
+    },
+    "gitHub": {
+        "watch": "Гледам",
+        "star": "Звезда",
+        "fork": "Вилица",
+        "issues": "Проблеми"
+    },
+    "dashboard": {
+        "subtitle": "Инструментът за управление на събиране на видеоигри с отворен код."
+    },
+    "boards": {
+        "title": "Табла",
+        "create": "Създайте дъска",
+        "platforms": "Платформи",
+        "deprecated": "Оттеглено"
+    },
+    "board": {
+        "gameModal": {
+            "videos": "Видеоклипове",
+            "screenshots": "Снимки на екрана",
+            "perspective": "Перспектива",
+            "releaseDate": "Дата на излизане",
+            "timeToBeat": "Време за победа",
+            "gameModes": "Режим на игра",
+            "genres": "Жанр",
+            "ageRatings": "Възрастни оценки",
+            "platforms": "Платформи",
+            "developers": "Разработчик",
+            "publishers": "Издатели",
+            "removeFromList": "Премахване",
+            "links": {
+                "official": "Официален сайт",
+                "wikia": "Фандом",
+                "wikipedia": "Уикипедия",
+                "facebook": "Facebook",
+                "twitter": "Twitter",
+                "twitch": "Потрепване",
+                "instagram": "Instagram",
+                "youtube": "Youtube",
+                "iphone": "iOS",
+                "ipad": "Ай Пад",
+                "android": "Магазин за игри",
+                "steam": "Парна",
+                "reddit": "Reddit",
+                "discord": "Раздор",
+                "google_plus": "Google плюс",
+                "tumblr": "Tumblr",
+                "linkedin": "Linkedin",
+                "pinterest": "Pinterest",
+                "soundcloud": "Soundcloud"
+            }
+        },
+        "addList": {
+            "title": "Добавяне на списък",
+            "placeholder": "Въведете името на вашия списък тук"
+        },
+        "addGame": {
+            "title": "Добавете игра",
+            "inputPlaceholder": "Въведете тук, за да търсите",
+            "noResults": "Няма намерени резултати",
+            "alreadyInList": "игра (и) от резултатите от търсенето, които вече са във вашия списък"
+        },
+        "list": {
+            "edit": "Редактиране на името на списъка",
+            "type": "Тип списък",
+            "settings": "Настройки на списъка",
+            "placeholder": "Въведете името на вашия списък тук",
+            "wishlist": "Списък с желания",
+            "input": "Въведете своя",
+            "add": "Добавяне на списък",
+            "duplicateWarning": "Вече имате списък с това име",
+            "getStarted": "Първи стъпки!",
+            "addFirstTime": "Добре дошли, добавете първия си списък!",
+            "sortByName": "НА",
+            "sortByProgress": "Напредък",
+            "sortByRating": "Резултат",
+            "sortByReleaseDate": "Дата",
+            "sortByCustom": "Персонализиран",
+            "delete": "Изтриване на списъка",
+            "moveLeft": "Мръдни на ляво",
+            "moveRight": "Премести се надясно",
+            "emptyList": "Този списък е празен",
+            "addGame": "Добавете игра",
+            "addGames": "Добавяне на игри към {listName}",
+            "view": "Изглед на списък",
+            "moveList": "Преместване на списък",
+            "renameList": "Преименуване на списъка",
+            "renameListPlaceholder": "Въведете вашето име",
+            "sortList": "Списък за автоматично сортиране",
+            "sortWarning": "Списъкът за автоматично сортиране ще повлияе на това как работи плъзгането и пускането",
+            "coversSizeTitle": "Обхваща през",
+            "showReleaseDates": "Показване на датата на пускане на неиздадени игри",
+            "showGameRatings": "Показване на рейтингите на играта",
+            "showGameProgress": "Показване на напредъка на играта",
+            "showGameNotes": "Показване на бележки за играта",
+            "showGameTags": "Показване на етикетите на играта",
+            "showGameCount": "Показване на броя на игрите",
+            "views": {
+                "single": "По подразбиране",
+                "compact": "Компактен",
+                "text": "Само текст",
+                "grid": "Решетка"
+            },
+            "deleteWarning": {
+                "title": "Наистина ли искате да изтриете този списък?",
+                "message": "Това действие не може да бъде отменено",
+                "buttonLabel": "Да, изтриване на списъка"
+            }
+        }
+    },
+    "themes": {
+        "title": "Теми",
+        "subtitle": "Изберете тема по-долу"
+    },
+    "languages": {
+        "title": "Езици",
+        "save": "Запазете и презаредете браузъра"
+    },
+    "settings": {
+        "tags": "Етикети",
+        "wallpapers": "Тапети",
+        "language": "Език",
+        "themes": "Теми",
+        "releases": "Пускания",
+        "about": "относно",
+        "account": "Сметка"
+    },
+    "tags": {
+        "title": "Етикети",
+        "subtitle": "Етикетите са чудесен начин за организиране и управление на вашата колекция от видеоигри. Добавяне, редактиране или изтриване на тагове.",
+        "form": {
+            "title": "Добавете нов маркер",
+            "inputPlaceholder": "Име на маркера",
+            "preview": "Визуализация:",
+            "addTag": "Добавяне на таг",
+            "duplicateMessage": "Вече имате маркер с име {tagName}"
+        },
+        "list": {
+            "title": "Моите тагове"
+        }
+    },
+    "wallpapers": {
+        "title": "Тапети",
+        "subtitle": "Управление на тапети на дъска",
+        "form": {
+            "label": "Качете тапет",
+            "placeholder": "Изберете файл или го пуснете тук ...",
+            "browse": "Преглед",
+            "helperText": "Само файлове с изображения",
+            "upload": "Качване",
+            "duplicateMessage": "Вече имате файл с име {fileName}"
+        },
+        "list": {
+            "title": "Моите тапети"
+        }
+    },
+    "releases": {
+        "title": "Пускания",
+        "published": "Публикувано"
+    },
+    "about": {
+        "title": "Всичко за библиотеката на игрите",
+        "subtitle": "Readme от Github"
+    },
+    "progresses": {
+        "modalTitle": "Задайте напредъка на играта",
+        "addProgress": "Добавете напредък",
+        "save": "Запазете напредъка",
+        "deleteProgress": "Изтрийте напредъка",
+        "progresses": "Напредък"
+    },
+    "platforms": {
+        "donateMessage": "Gamebrary е безплатен и с отворен код, помислете за подпомагане на развитието му от",
+        "donating": "дарение",
+        "reportBugs": "докладване на грешки",
+        "submitFeedback": "изпращане на обратна връзка",
+        "all": "всичко",
+        "console": "Конзоли",
+        "platform": "Дигитален",
+        "operating_system": "PC / Други",
+        "portable_console": "Ръчни дръжки",
+        "computer": "Домашни компютри",
+        "popular": "Популярен",
+        "releaseYear": "Година освободена",
+        "name": "По азбучен ред",
+        "generation": "Поколение / Дата на връщане",
+        "type": "Тип"
+    }
+}

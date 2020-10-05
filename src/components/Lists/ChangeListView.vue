@@ -1,15 +1,15 @@
 <template lang="html">
   <b-dropdown-item-button v-b-modal="modalId">
     <b-icon-grid1x2 class="mr-1" />
-    Change view
+    {{ $t('board.list.view') }}
 
     <b-modal
       :id="modalId"
-      title="Change list view"
+      :title="$t('board.list.view')"
       @show="load"
     >
       <form ref="renameListForm" @submit.prevent="save">
-        <b-form-group label="Views">
+        <b-form-group :label="$t('board.list.view')">
           <b-form-radio-group
             v-model="view"
             required
@@ -100,10 +100,10 @@ export default {
       randomGameId: null,
       // TODO: put in constants file
       listViews: [
-        { text: 'Single', value: 'single' },
-        { text: 'Grid', value: 'grid' },
-        { text: 'Compact', value: 'compact' },
-        { text: 'Text', value: 'text' },
+        { text: this.$t('board.list.views.single'), value: 'single' },
+        { text: this.$t('board.list.views.grid'), value: 'grid' },
+        { text: this.$t('board.list.views.compact'), value: 'compact' },
+        { text: this.$t('board.list.views.text'), value: 'text' },
       ],
     };
   },

@@ -1,7 +1,7 @@
 <template lang="html">
   <b-button
     v-if="game && !list.games.includes(game.id)"
-    :title="$t('list.addGame')"
+    :title="$t('board.list.addGame')"
     variant="success"
     v-b-tooltip.hover
     @click="addGame"
@@ -13,7 +13,7 @@
     v-else
     variant="danger"
     v-b-tooltip.hover
-    :title="$t('gameDetail.removeFromList')"
+    :title="$t('board.gameModal.removeFromList')"
     @click="removeGame"
   >
     <b-icon-trash />

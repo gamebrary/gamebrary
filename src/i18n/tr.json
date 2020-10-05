@@ -1,0 +1,208 @@
+{
+    "global": {
+        "back": "Geri",
+        "save": "Kayıt etmek",
+        "cancel": "İptal etmek",
+        "delete": "Sil",
+        "create": "Oluşturmak",
+        "filter": "Filtrele",
+        "by": "tarafından",
+        "no": "Hayır",
+        "yes": "Evet",
+        "or": "veya",
+        "pageNotFound": "sayfa bulunamadı",
+        "poweredByIgdb": "Tarafından desteklenmektedir",
+        "signOut": "oturumu Kapat",
+        "donateMessage": "Gamebrary ücretsiz ve açık kaynaktır, geliştirilmesine şu yollarla yardımcı olmayı düşünün:",
+        "donating": "bağış",
+        "reportBugs": "hataları bildirmek",
+        "submitFeedback": "geri bildirim göndermek"
+    },
+    "gitHub": {
+        "watch": "İzlemek",
+        "star": "Star",
+        "fork": "Çatal",
+        "issues": "Sorunlar"
+    },
+    "dashboard": {
+        "subtitle": "Açık kaynak video oyun koleksiyonu yönetim aracı."
+    },
+    "boards": {
+        "title": "Panolar",
+        "create": "Pano oluştur",
+        "platforms": "Platformlar",
+        "deprecated": "Kullanımdan kaldırıldı"
+    },
+    "board": {
+        "gameModal": {
+            "videos": "Videolar",
+            "screenshots": "Ekran görüntüleri",
+            "perspective": "Perspektif",
+            "releaseDate": "Yayın tarihi",
+            "timeToBeat": "Yenme zamanı",
+            "gameModes": "Oyun modu",
+            "genres": "Tür",
+            "ageRatings": "Yaş derecelendirmeleri",
+            "platforms": "Platformlar",
+            "developers": "Geliştirici",
+            "publishers": "Yayıncılar",
+            "removeFromList": "Kaldırmak",
+            "links": {
+                "official": "Resmi site",
+                "wikia": "Hayranlık",
+                "wikipedia": "Wikipedia",
+                "facebook": "Facebook",
+                "twitter": "Twitter",
+                "twitch": "Seğirme",
+                "instagram": "Instagram",
+                "youtube": "Youtube",
+                "iphone": "iOS",
+                "ipad": "iPad",
+                "android": "Oyun mağazası",
+                "steam": "Buhar",
+                "reddit": "Reddit",
+                "discord": "Uyuşmazlık",
+                "google_plus": "Google artı",
+                "tumblr": "Tumblr",
+                "linkedin": "Linkedin",
+                "pinterest": "Pinterest",
+                "soundcloud": "ses bulutu"
+            }
+        },
+        "addList": {
+            "title": "Liste ekle",
+            "placeholder": "Liste adınızı buraya yazın"
+        },
+        "addGame": {
+            "title": "Oyun ekle",
+            "inputPlaceholder": "Aramak için buraya yazınız",
+            "noResults": "Sonuç bulunamadı",
+            "alreadyInList": "arama sonuçlarındaki oyun (lar) zaten listenizde var"
+        },
+        "list": {
+            "edit": "Liste adını düzenleyin",
+            "type": "Liste türü",
+            "settings": "Liste ayarları",
+            "placeholder": "Liste adınızı buraya yazın",
+            "wishlist": "İstek Listesi",
+            "input": "Kendininkini gir",
+            "add": "Liste ekle",
+            "duplicateWarning": "Zaten bu isimde bir listeniz var",
+            "getStarted": "Başlamak!",
+            "addFirstTime": "Hoş geldiniz, ilk listenizi ekleyin!",
+            "sortByName": "THE",
+            "sortByProgress": "İlerleme",
+            "sortByRating": "Puan",
+            "sortByReleaseDate": "Tarih",
+            "sortByCustom": "Özel",
+            "delete": "Listeyi sil",
+            "moveLeft": "Sola hareket et",
+            "moveRight": "Sağa hareket et",
+            "emptyList": "Bu liste boş",
+            "addGame": "Oyun ekle",
+            "addGames": "Oyunları {listName} listesine ekleyin",
+            "view": "Liste görünümü",
+            "moveList": "Listeyi taşı",
+            "renameList": "Listeyi yeniden adlandır",
+            "renameListPlaceholder": "Adınızı giriniz",
+            "sortList": "Otomatik sıralama listesi",
+            "sortWarning": "Otomatik sıralama listesi, sürükle ve bırak işleminin çalışma şeklini etkiler",
+            "coversSizeTitle": "Kapaklar",
+            "showReleaseDates": "Yayınlanmamış oyunların çıkış tarihini göster",
+            "showGameRatings": "Oyun derecelendirmelerini göster",
+            "showGameProgress": "Oyundaki ilerlemeyi göster",
+            "showGameNotes": "Oyun notlarını göster",
+            "showGameTags": "Oyun etiketlerini göster",
+            "showGameCount": "Oyun sayısını göster",
+            "views": {
+                "single": "Varsayılan",
+                "compact": "Kompakt",
+                "text": "Sadece yazı",
+                "grid": "Kafes"
+            },
+            "deleteWarning": {
+                "title": "Bu listeyi silmek istediğinizden emin misiniz?",
+                "message": "Bu eylem geri alınamaz",
+                "buttonLabel": "Evet, listeyi sil"
+            }
+        }
+    },
+    "themes": {
+        "title": "Temalar",
+        "subtitle": "Aşağıdan bir tema seçin"
+    },
+    "languages": {
+        "title": "Diller",
+        "save": "Tarayıcıyı kaydedin ve yeniden yükleyin"
+    },
+    "settings": {
+        "tags": "Etiketler",
+        "wallpapers": "Duvar kağıtları",
+        "language": "Dil",
+        "themes": "Temalar",
+        "releases": "Salıverme",
+        "about": "hakkında",
+        "account": "Hesap"
+    },
+    "tags": {
+        "title": "Etiketler",
+        "subtitle": "Etiketler, video oyunu koleksiyonunuzu düzenlemenin ve yönetmenin harika bir yoludur. Etiket ekleyin, düzenleyin veya silin.",
+        "form": {
+            "title": "Yeni etiket ekleyin",
+            "inputPlaceholder": "Etiket adı",
+            "preview": "Ön izleme:",
+            "addTag": "Etiket ekleyin",
+            "duplicateMessage": "Zaten {tagName} adında bir etiketiniz var"
+        },
+        "list": {
+            "title": "Etiketlerim"
+        }
+    },
+    "wallpapers": {
+        "title": "Duvar kağıtları",
+        "subtitle": "Pano duvar kağıtlarını yönet",
+        "form": {
+            "label": "Duvar kağıdı yükle",
+            "placeholder": "Bir dosya seçin veya buraya bırakın ...",
+            "browse": "Araştır",
+            "helperText": "Yalnızca görüntü dosyaları",
+            "upload": "Yükle",
+            "duplicateMessage": "Zaten {fileName} adında bir dosyanız var"
+        },
+        "list": {
+            "title": "Benim duvar kağıtları"
+        }
+    },
+    "releases": {
+        "title": "Salıverme",
+        "published": "Yayınlanan"
+    },
+    "about": {
+        "title": "Gamebrary hakkında",
+        "subtitle": "Github'dan Benioku"
+    },
+    "progresses": {
+        "modalTitle": "Oyun ilerlemesini ayarlayın",
+        "addProgress": "İlerleme ekleyin",
+        "save": "İlerlemeyi kaydet",
+        "deleteProgress": "İlerlemeyi sil",
+        "progresses": "İlerleme"
+    },
+    "platforms": {
+        "donateMessage": "Gamebrary ücretsiz ve açık kaynaktır, geliştirilmesine şu yollarla yardımcı olmayı düşünün:",
+        "donating": "bağış",
+        "reportBugs": "hataları bildirmek",
+        "submitFeedback": "geri bildirim göndermek",
+        "all": "Herşey",
+        "console": "Konsollar",
+        "platform": "Dijital",
+        "operating_system": "PC / Diğer",
+        "portable_console": "El bilgisayarları",
+        "computer": "Ev Bilgisayarları",
+        "popular": "Popüler",
+        "releaseYear": "Yıl yayınlandı",
+        "name": "Alfabetik olarak",
+        "generation": "Oluşturma / Yeniden yayınlanma tarihi",
+        "type": "Tür"
+    }
+}

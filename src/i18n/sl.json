@@ -1,0 +1,208 @@
+{
+    "global": {
+        "back": "Nazaj",
+        "save": "Shrani",
+        "cancel": "Prekliči",
+        "delete": "Izbriši",
+        "create": "Ustvari",
+        "filter": "Filter",
+        "by": "avtor",
+        "no": "št",
+        "yes": "ja",
+        "or": "ali",
+        "pageNotFound": "Stran ni najdena",
+        "poweredByIgdb": "Poganja ga",
+        "signOut": "Odjava",
+        "donateMessage": "Gamebrary je brezplačen in odprtokoden, razmislite o pomoči pri njegovem razvoju do",
+        "donating": "darovanje",
+        "reportBugs": "poročanje o napakah",
+        "submitFeedback": "pošiljanje povratnih informacij"
+    },
+    "gitHub": {
+        "watch": "Pazi",
+        "star": "zvezda",
+        "fork": "Vilice",
+        "issues": "Vprašanja"
+    },
+    "dashboard": {
+        "subtitle": "Odprtokodno orodje za upravljanje zbirk video iger."
+    },
+    "boards": {
+        "title": "Plošče",
+        "create": "Ustvari tablo",
+        "platforms": "Platforme",
+        "deprecated": "Zastarelo"
+    },
+    "board": {
+        "gameModal": {
+            "videos": "Video posnetki",
+            "screenshots": "Posnetki zaslona",
+            "perspective": "Perspektiva",
+            "releaseDate": "Datum izdaje",
+            "timeToBeat": "Čas za premagovanje",
+            "gameModes": "Igralni način",
+            "genres": "Žanr",
+            "ageRatings": "Starostne ocene",
+            "platforms": "Platforme",
+            "developers": "Razvijalec",
+            "publishers": "Založniki",
+            "removeFromList": "Odstrani",
+            "links": {
+                "official": "Uradna stran",
+                "wikia": "Fandom",
+                "wikipedia": "Wikipedija",
+                "facebook": "Facebook",
+                "twitter": "Twitter",
+                "twitch": "Trzanje",
+                "instagram": "Instagram",
+                "youtube": "Youtube",
+                "iphone": "iOS",
+                "ipad": "iPad",
+                "android": "Trgovina z igračami",
+                "steam": "Steam",
+                "reddit": "Reddit",
+                "discord": "Neskladje",
+                "google_plus": "Google plus",
+                "tumblr": "Tumblr",
+                "linkedin": "Linkedin",
+                "pinterest": "Pinterest",
+                "soundcloud": "Soundcloud"
+            }
+        },
+        "addList": {
+            "title": "Dodaj seznam",
+            "placeholder": "Sem vnesite ime svojega seznama"
+        },
+        "addGame": {
+            "title": "Dodaj igro",
+            "inputPlaceholder": "Vnesite tukaj za iskanje",
+            "noResults": "Ni zadetkov",
+            "alreadyInList": "igre iz rezultatov iskanja, ki so že na vašem seznamu"
+        },
+        "list": {
+            "edit": "Uredi ime seznama",
+            "type": "Vrsta seznama",
+            "settings": "Nastavitve seznama",
+            "placeholder": "Sem vnesite ime svojega seznama",
+            "wishlist": "Seznam želja",
+            "input": "Vnesite svojega",
+            "add": "Dodaj seznam",
+            "duplicateWarning": "Seznam s tem imenom že imate",
+            "getStarted": "Začeti!",
+            "addFirstTime": "Dobrodošli, dodajte svoj prvi seznam!",
+            "sortByName": "THE",
+            "sortByProgress": "Napredek",
+            "sortByRating": "Rezultat",
+            "sortByReleaseDate": "Datum",
+            "sortByCustom": "Po meri",
+            "delete": "Izbriši seznam",
+            "moveLeft": "Premakni levo",
+            "moveRight": "Premakni desno",
+            "emptyList": "Ta seznam je prazen",
+            "addGame": "Dodaj igro",
+            "addGames": "Dodaj igre na seznam {listName}",
+            "view": "Pogled seznama",
+            "moveList": "Premakni seznam",
+            "renameList": "Preimenuj seznam",
+            "renameListPlaceholder": "Vnesite svoje ime",
+            "sortList": "Seznam samodejnega razvrščanja",
+            "sortWarning": "Seznam samodejnega razvrščanja bo vplival na delovanje povleci in spusti",
+            "coversSizeTitle": "Ovitki čez",
+            "showReleaseDates": "Prikaži datum izdaje neobjavljenih iger",
+            "showGameRatings": "Pokaži ocene iger",
+            "showGameProgress": "Pokažite napredek igre",
+            "showGameNotes": "Pokaži opombe k igri",
+            "showGameTags": "Pokaži oznake igre",
+            "showGameCount": "Pokaži število iger",
+            "views": {
+                "single": "Privzeto",
+                "compact": "Kompakten",
+                "text": "Samo besedilo",
+                "grid": "Mreža"
+            },
+            "deleteWarning": {
+                "title": "Ali ste prepričani, da želite izbrisati ta seznam?",
+                "message": "Tega dejanja ni mogoče razveljaviti",
+                "buttonLabel": "Da, izbriši seznam"
+            }
+        }
+    },
+    "themes": {
+        "title": "Teme",
+        "subtitle": "Spodaj izberite temo"
+    },
+    "languages": {
+        "title": "Jeziki",
+        "save": "Shranite in znova naložite brskalnik"
+    },
+    "settings": {
+        "tags": "Oznake",
+        "wallpapers": "Ozadja",
+        "language": "Jezik",
+        "themes": "Teme",
+        "releases": "Izpusti",
+        "about": "O tem",
+        "account": "račun"
+    },
+    "tags": {
+        "title": "Oznake",
+        "subtitle": "Oznake so odličen način za organizacijo in upravljanje zbirke videoiger. Dodajanje, urejanje ali brisanje oznak.",
+        "form": {
+            "title": "Dodaj novo oznako",
+            "inputPlaceholder": "Ime oznake",
+            "preview": "Predogled:",
+            "addTag": "Dodaj oznako",
+            "duplicateMessage": "Oznako z imenom {tagName} že imate"
+        },
+        "list": {
+            "title": "Moje oznake"
+        }
+    },
+    "wallpapers": {
+        "title": "Ozadja",
+        "subtitle": "Upravljajte ozadja plošče",
+        "form": {
+            "label": "Naložite ozadje",
+            "placeholder": "Izberite datoteko ali jo spustite sem ...",
+            "browse": "Brskaj",
+            "helperText": "Samo slikovne datoteke",
+            "upload": "Naloži",
+            "duplicateMessage": "Datoteko z imenom {fileName} že imate"
+        },
+        "list": {
+            "title": "Moja ozadja"
+        }
+    },
+    "releases": {
+        "title": "Izpusti",
+        "published": "Objavljeno"
+    },
+    "about": {
+        "title": "O Gamebrary",
+        "subtitle": "Readme iz Githuba"
+    },
+    "progresses": {
+        "modalTitle": "Nastavite napredek igre",
+        "addProgress": "Dodajte napredek",
+        "save": "Shrani napredek",
+        "deleteProgress": "Izbriši napredek",
+        "progresses": "Napredek"
+    },
+    "platforms": {
+        "donateMessage": "Gamebrary je brezplačen in odprtokoden, razmislite o pomoči pri njegovem razvoju do",
+        "donating": "darovanje",
+        "reportBugs": "poročanje o napakah",
+        "submitFeedback": "pošiljanje povratnih informacij",
+        "all": "Vse",
+        "console": "Konzole",
+        "platform": "Digitalno",
+        "operating_system": "PC / drugo",
+        "portable_console": "Dlančniki",
+        "computer": "Domači računalniki",
+        "popular": "Priljubljeno",
+        "releaseYear": "Leto izpuščeno",
+        "name": "Po abecedi",
+        "generation": "Generacija / datum relacije",
+        "type": "Tip"
+    }
+}

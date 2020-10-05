@@ -1,0 +1,208 @@
+{
+    "global": {
+        "back": "Bumalik",
+        "save": "Magtipid",
+        "cancel": "Kanselahin",
+        "delete": "Tanggalin",
+        "create": "Lumikha",
+        "filter": "Salain",
+        "by": "ni",
+        "no": "hindi",
+        "yes": "oo",
+        "or": "o",
+        "pageNotFound": "Hindi nahanap ang pahina",
+        "poweredByIgdb": "Pinatatakbo ng",
+        "signOut": "Mag-sign out",
+        "donateMessage": "Ang Gamebrary ay libre at bukas na mapagkukunan, isaalang-alang ang pagtulong sa pag-unlad nito sa pamamagitan ng",
+        "donating": "nagbibigay ng donasyon",
+        "reportBugs": "pag-uulat ng mga bug",
+        "submitFeedback": "pagsumite ng feedback"
+    },
+    "gitHub": {
+        "watch": "Panoorin",
+        "star": "Bituin",
+        "fork": "Tinidor",
+        "issues": "Mga Isyu"
+    },
+    "dashboard": {
+        "subtitle": "Ang tool sa pamamahala ng koleksyon ng video game na open source."
+    },
+    "boards": {
+        "title": "Mga board",
+        "create": "Lumikha board",
+        "platforms": "Mga Platform",
+        "deprecated": "Hindi na nagtatrabaho"
+    },
+    "board": {
+        "gameModal": {
+            "videos": "Mga video",
+            "screenshots": "Mga screenshot",
+            "perspective": "Pananaw",
+            "releaseDate": "Petsa ng Paglabas",
+            "timeToBeat": "Oras upang matalo",
+            "gameModes": "Game Mode",
+            "genres": "Genre",
+            "ageRatings": "Mga rating ng edad",
+            "platforms": "Mga Platform",
+            "developers": "Developer",
+            "publishers": "Mga Publisher",
+            "removeFromList": "Tanggalin",
+            "links": {
+                "official": "Opisyal na Site",
+                "wikia": "Fandom",
+                "wikipedia": "Wikipedia",
+                "facebook": "Facebook",
+                "twitter": "Twitter",
+                "twitch": "Kibot",
+                "instagram": "Instagram",
+                "youtube": "Youtube",
+                "iphone": "iOS",
+                "ipad": "iPad",
+                "android": "Play Store",
+                "steam": "Singaw",
+                "reddit": "Reddit",
+                "discord": "Pagtatalo",
+                "google_plus": "Google Plus",
+                "tumblr": "Tumblr",
+                "linkedin": "Linkedin",
+                "pinterest": "Pinterest",
+                "soundcloud": "Soundcloud"
+            }
+        },
+        "addList": {
+            "title": "Magdagdag ng listahan",
+            "placeholder": "I-type ang iyong pangalan ng listahan dito"
+        },
+        "addGame": {
+            "title": "Magdagdag ng laro",
+            "inputPlaceholder": "Mag-type dito upang maghanap",
+            "noResults": "Walang nahanap na resulta",
+            "alreadyInList": "(mga) laro mula sa mga resulta ng paghahanap na nasa iyong listahan"
+        },
+        "list": {
+            "edit": "I-edit ang pangalan ng listahan",
+            "type": "Uri ng listahan",
+            "settings": "Mga setting ng listahan",
+            "placeholder": "I-type ang iyong pangalan ng listahan dito",
+            "wishlist": "Wishlist",
+            "input": "Ipasok ang iyong sarili",
+            "add": "Magdagdag ng listahan",
+            "duplicateWarning": "Mayroon ka nang isang listahan na may ganitong pangalan",
+            "getStarted": "Magsimula!",
+            "addFirstTime": "Maligayang pagdating, idagdag ang iyong unang listahan!",
+            "sortByName": "ANG",
+            "sortByProgress": "Pag-unlad",
+            "sortByRating": "Iskor",
+            "sortByReleaseDate": "Petsa",
+            "sortByCustom": "Pasadya",
+            "delete": "Tanggalin ang listahan",
+            "moveLeft": "Lumipat pakaliwa",
+            "moveRight": "Ilipat pakanan",
+            "emptyList": "Walang laman ang listahang ito",
+            "addGame": "Magdagdag ng laro",
+            "addGames": "Magdagdag ng mga laro sa {listName}",
+            "view": "Listahan ng pagtingin",
+            "moveList": "Ilipat ang listahan",
+            "renameList": "Palitan ang pangalan ng listahan",
+            "renameListPlaceholder": "Ipasok ang iyong pangalan",
+            "sortList": "Listahan ng awtomatikong pag-uuri",
+            "sortWarning": "Makakaapekto ang listahan ng pag-uuri ng awtomatiko kung paano gumagana ang pag-drag at drop",
+            "coversSizeTitle": "Sumasaklaw sa kabuuan",
+            "showReleaseDates": "Ipakita ang petsa ng paglabas para sa mga hindi pinakawalan na laro",
+            "showGameRatings": "Ipakita ang mga rating ng laro",
+            "showGameProgress": "Ipakita ang pag-usad ng laro",
+            "showGameNotes": "Ipakita ang mga tala ng laro",
+            "showGameTags": "Ipakita ang mga tag ng laro",
+            "showGameCount": "Ipakita ang bilang ng laro",
+            "views": {
+                "single": "Default",
+                "compact": "Siksik",
+                "text": "Teksto lamang",
+                "grid": "Grid"
+            },
+            "deleteWarning": {
+                "title": "Sigurado ka bang nais mong tanggalin ang listahang ito?",
+                "message": "Ang gawaing ito ay hindi pwedeng baguhin",
+                "buttonLabel": "Oo, tanggalin ang listahan"
+            }
+        }
+    },
+    "themes": {
+        "title": "Mga Tema",
+        "subtitle": "Pumili ng isang tema sa ibaba"
+    },
+    "languages": {
+        "title": "Mga Wika",
+        "save": "I-save at i-reload ang browser"
+    },
+    "settings": {
+        "tags": "Mga tag",
+        "wallpapers": "Mga wallpaper",
+        "language": "Wika",
+        "themes": "Mga Tema",
+        "releases": "Naglalabas",
+        "about": "Tungkol sa",
+        "account": "Account"
+    },
+    "tags": {
+        "title": "Mga tag",
+        "subtitle": "Ang mga tag ay isang mahusay na paraan upang ayusin at pamahalaan ang iyong koleksyon ng video game. Magdagdag, mag-edit o magtanggal ng mga tag.",
+        "form": {
+            "title": "Magdagdag ng bagong tag",
+            "inputPlaceholder": "Pangalan ng tag",
+            "preview": "Pag-preview:",
+            "addTag": "Magdagdag ng tag",
+            "duplicateMessage": "Mayroon ka nang tag na pinangalanang {tagName}"
+        },
+        "list": {
+            "title": "Mga tag ko"
+        }
+    },
+    "wallpapers": {
+        "title": "Mga wallpaper",
+        "subtitle": "Pamahalaan ang mga wallpaper ng board",
+        "form": {
+            "label": "Mag-upload ng wallpaper",
+            "placeholder": "Pumili ng isang file o i-drop ito dito ...",
+            "browse": "Mag-browse",
+            "helperText": "Mga file ng imahe lamang",
+            "upload": "I-upload",
+            "duplicateMessage": "Mayroon ka nang isang file na pinangalanang {fileName}"
+        },
+        "list": {
+            "title": "Ang aking mga wallpaper"
+        }
+    },
+    "releases": {
+        "title": "Naglalabas",
+        "published": "Nai-publish"
+    },
+    "about": {
+        "title": "Tungkol sa Gamebrary",
+        "subtitle": "Readme mula sa Github"
+    },
+    "progresses": {
+        "modalTitle": "Itakda ang pag-usad ng laro",
+        "addProgress": "Magdagdag ng pag-unlad",
+        "save": "I-save ang pag-unlad",
+        "deleteProgress": "Tanggalin ang pag-unlad",
+        "progresses": "Pag-unlad"
+    },
+    "platforms": {
+        "donateMessage": "Ang Gamebrary ay libre at bukas na mapagkukunan, isaalang-alang ang pagtulong sa pag-unlad nito sa pamamagitan ng",
+        "donating": "nagbibigay ng donasyon",
+        "reportBugs": "pag-uulat ng mga bug",
+        "submitFeedback": "pagsumite ng feedback",
+        "all": "Lahat",
+        "console": "Mga console",
+        "platform": "Digital",
+        "operating_system": "PC / Iba pa",
+        "portable_console": "Mga kamay",
+        "computer": "Mga Computer sa Bahay",
+        "popular": "Patok",
+        "releaseYear": "Pinalaya ang taon",
+        "name": "Alpabetikal",
+        "generation": "Ang henerasyon / Petsa ay pinalitan",
+        "type": "Uri"
+    }
+}

@@ -1,0 +1,81 @@
+{
+    "global": {
+        "back": "Back",
+        "save": "salvare",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "create": "Create",
+        "filter": "filter",
+        "by": "per",
+        "no": "nihil",
+        "yes": "etiam",
+        "or": "uel",
+        "pageNotFound": "Page non inveni"
+    },
+    "gitHub": {
+        "watch": "custodibus",
+        "star": "Stella",
+        "fork": "furca",
+        "issues": "quaestiones"
+    },
+    "boards": {
+        "title": "boards",
+        "create": "crea tabulas",
+        "platforms": "platforms",
+        "deprecated": "Deprecated"
+    },
+    "themes": {
+        "title": "themata",
+        "subtitle": "Select a lemma inferius"
+    },
+    "languages": {
+        "title": "Linguae",
+        "save": "Nisi quod pasco Reload"
+    },
+    "settings": {
+        "tags": "tags",
+        "wallpapers": "Caelum Wallpapers",
+        "language": "Lingua",
+        "themes": "themata",
+        "releases": "solvo",
+        "about": "circa",
+        "account": "ratio"
+    },
+    "tags": {
+        "title": "tags",
+        "subtitle": "Ut organize vestri et administrare non tags magnus video venatus collectione. Addere, tags aspernatur aut odit.",
+        "form": {
+            "title": "Add new tag",
+            "inputPlaceholder": "tag nomen,",
+            "preview": "preview:",
+            "addTag": "Add",
+            "duplicateMessage": "Iam tag nomine tagName} {"
+        },
+        "list": {
+            "title": "tags meum"
+        }
+    },
+    "wallpapers": {
+        "title": "Caelum Wallpapers",
+        "subtitle": "Curo tabula wallpapers",
+        "form": {
+            "label": "Index wallpaper",
+            "placeholder": "Et fluent lima hic, elige quod ...",
+            "browse": "Browse",
+            "helperText": "Imagines tantum,",
+            "upload": "Index",
+            "duplicateMessage": "Iam enim nominatur {file fileName}"
+        },
+        "list": {
+            "title": "mea wallpapers"
+        }
+    },
+    "releases": {
+        "title": "solvo",
+        "published": "published"
+    },
+    "about": {
+        "title": "De Gamebrary",
+        "subtitle": "Readme ex Github"
+    }
+}

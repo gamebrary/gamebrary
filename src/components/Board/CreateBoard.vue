@@ -3,7 +3,7 @@
     variant="primary"
     v-b-modal:create-board
   >
-    Create board
+    {{ $t('boards.create') }}
 
     <b-modal
       id="create-board"

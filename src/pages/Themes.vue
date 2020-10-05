@@ -1,10 +1,10 @@
 <template lang="html">
   <div>
     <b-jumbotron
-      header="Themes"
+      :header="$t('themes.title')"
+      :lead="$t('themes.subtitle')"
       header-level="5"
       fluid
-      lead="Select a theme below"
     />
 
     <b-container>

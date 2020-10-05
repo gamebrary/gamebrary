@@ -1,0 +1,208 @@
+{
+    "global": {
+        "back": "Mbrapa",
+        "save": "Ruaj",
+        "cancel": "Anulo",
+        "delete": "Fshij",
+        "create": "Krijoni",
+        "filter": "Filtri",
+        "by": "nga",
+        "no": "jo",
+        "yes": "po",
+        "or": "ose",
+        "pageNotFound": "Faqja nuk u gjet",
+        "poweredByIgdb": "Mundësuar nga",
+        "signOut": "Dilni",
+        "donateMessage": "Gamebrary është falas dhe me burim të hapur, merrni parasysh zhvillimin e tij duke",
+        "donating": "dhurimi",
+        "reportBugs": "raportimin e të metave",
+        "submitFeedback": "paraqitja e komenteve"
+    },
+    "gitHub": {
+        "watch": "Shiko",
+        "star": "Yll",
+        "fork": "Pirun",
+        "issues": "Çështjet"
+    },
+    "dashboard": {
+        "subtitle": "Mjeti i menaxhimit të mbledhjes së lojërave video me burim të hapur."
+    },
+    "boards": {
+        "title": "Bordet",
+        "create": "Krijoni tabelë",
+        "platforms": "Platformat",
+        "deprecated": "I amortizuar"
+    },
+    "board": {
+        "gameModal": {
+            "videos": "Video",
+            "screenshots": "Fotografitë",
+            "perspective": "Prespektive",
+            "releaseDate": "Data e lëshimit",
+            "timeToBeat": "Koha për të rrahur",
+            "gameModes": "Modaliteti i Lojërave",
+            "genres": "Zhanri",
+            "ageRatings": "Vlerësimet e moshës",
+            "platforms": "Platformat",
+            "developers": "Zhvilluesi",
+            "publishers": "Botuesit",
+            "removeFromList": "Hiq",
+            "links": {
+                "official": "Faqja zyrtare",
+                "wikia": "Fandom",
+                "wikipedia": "Wikipedia",
+                "facebook": "Facebook",
+                "twitter": "Cicëroj",
+                "twitch": "Dridhje",
+                "instagram": "Instagram",
+                "youtube": "YouTube",
+                "iphone": "iOS",
+                "ipad": "iPad",
+                "android": "Dyqan Lojërash",
+                "steam": "Avulli",
+                "reddit": "Reddit",
+                "discord": "Mosmarrëveshje",
+                "google_plus": "Google plus",
+                "tumblr": "Tumblr",
+                "linkedin": "Linkedin",
+                "pinterest": "Pinterest",
+                "soundcloud": "Klima e zërit"
+            }
+        },
+        "addList": {
+            "title": "Shto listë",
+            "placeholder": "Shtypni emrin e listës tuaj këtu"
+        },
+        "addGame": {
+            "title": "Shto lojë",
+            "inputPlaceholder": "Shkruaj këtu për të kërkuar",
+            "noResults": "Nuk u gjetën rezultate",
+            "alreadyInList": "lojë (a) nga rezultatet e kërkimit tashmë në listën tuaj"
+        },
+        "list": {
+            "edit": "Redakto emrin e listës",
+            "type": "Lloji i listës",
+            "settings": "Cilësimet e listës",
+            "placeholder": "Shtypni emrin e listës tuaj këtu",
+            "wishlist": "Lista e dëshirave",
+            "input": "Futni tuajin",
+            "add": "Shto listë",
+            "duplicateWarning": "Ju tashmë keni një listë me këtë emër",
+            "getStarted": "Fillo!",
+            "addFirstTime": "Mirësevini, shtoni listën tuaj të parë!",
+            "sortByName": "",
+            "sortByProgress": "Përparimi",
+            "sortByRating": "Rezultati",
+            "sortByReleaseDate": "Data",
+            "sortByCustom": "Me porosi",
+            "delete": "Fshi listën",
+            "moveLeft": "Leviz Majtas",
+            "moveRight": "Leviz djathtas",
+            "emptyList": "Kjo listë është bosh",
+            "addGame": "Shto lojë",
+            "addGames": "Shto lojëra te {listName}",
+            "view": "Pamja e listës",
+            "moveList": "Zhvendos listën",
+            "renameList": "Riemërtoni listën",
+            "renameListPlaceholder": "Shkruaj emrin tend",
+            "sortList": "Lista e renditjes automatike",
+            "sortWarning": "Lista e klasifikimit automatik do të ndikojë në mënyrën se si funksionon zvarritja dhe rënia",
+            "coversSizeTitle": "Mbulon përtej",
+            "showReleaseDates": "Trego datën e lëshimit për lojërat e pa publikuara",
+            "showGameRatings": "Shfaq vlerësimet e lojërave",
+            "showGameProgress": "Trego progresin e lojës",
+            "showGameNotes": "Shfaq shënimet e lojës",
+            "showGameTags": "Shfaq etiketat e lojërave",
+            "showGameCount": "Shfaq numërimin e lojërave",
+            "views": {
+                "single": "Parazgjedhur",
+                "compact": "Kompakt",
+                "text": "Vetëm tekst",
+                "grid": "Rrjeta"
+            },
+            "deleteWarning": {
+                "title": "Je i sigurt që dëshiron ta fshish këtë listë?",
+                "message": "Ky veprim nuk mund të zhbëhet",
+                "buttonLabel": "Po, fshi listën"
+            }
+        }
+    },
+    "themes": {
+        "title": "Temat",
+        "subtitle": "Zgjidhni një temë më poshtë"
+    },
+    "languages": {
+        "title": "Gjuhët",
+        "save": "Ruaj dhe rimbush shfletuesin"
+    },
+    "settings": {
+        "tags": "Etiketat",
+        "wallpapers": "Wallpapers",
+        "language": "Gjuhe",
+        "themes": "Temat",
+        "releases": "Lirimet",
+        "about": "Rreth",
+        "account": "Llogari"
+    },
+    "tags": {
+        "title": "Etiketat",
+        "subtitle": "Etiketat janë një mënyrë e shkëlqyeshme për të organizuar dhe menaxhuar koleksionin tuaj të lojërave video. Shtoni, modifikoni ose fshini etiketat.",
+        "form": {
+            "title": "Shto etiketë të re",
+            "inputPlaceholder": "Emri i etiketës",
+            "preview": "Pamje paraprake:",
+            "addTag": "Shto etiketë",
+            "duplicateMessage": "Ju tashmë keni një etiketë me emrin {tagName}"
+        },
+        "list": {
+            "title": "Etiketat e mia"
+        }
+    },
+    "wallpapers": {
+        "title": "Wallpapers",
+        "subtitle": "Menaxhoni sfondet e bordit",
+        "form": {
+            "label": "Ngarko sfondin",
+            "placeholder": "Zgjidhni një skedar ose hidhni këtu ...",
+            "browse": "Shfletoni",
+            "helperText": "Vetëm skedarë imazhesh",
+            "upload": "Ngarkoni",
+            "duplicateMessage": "Ju tashmë keni një skedar të quajtur {fileName}"
+        },
+        "list": {
+            "title": "Sfondet e mia"
+        }
+    },
+    "releases": {
+        "title": "Lirimet",
+        "published": "Publikuar"
+    },
+    "about": {
+        "title": "Rreth Gamebrary",
+        "subtitle": "Readme nga Github"
+    },
+    "progresses": {
+        "modalTitle": "Vendos progresin e lojës",
+        "addProgress": "Shto progres",
+        "save": "Ruaj progresin",
+        "deleteProgress": "Fshi progresin",
+        "progresses": "Përparimi"
+    },
+    "platforms": {
+        "donateMessage": "Gamebrary është falas dhe me burim të hapur, merrni parasysh zhvillimin e tij duke",
+        "donating": "dhurimi",
+        "reportBugs": "raportimin e të metave",
+        "submitFeedback": "paraqitja e komenteve",
+        "all": "Të gjitha",
+        "console": "Consoles",
+        "platform": "Dixhital",
+        "operating_system": "PC / Tjetër",
+        "portable_console": "Mbajtëse dore",
+        "computer": "Kompjuterë shtëpiak",
+        "popular": "Popullore",
+        "releaseYear": "Viti i lëshuar",
+        "name": "Alfabetikisht",
+        "generation": "Gjenerimi / Data e lidhur",
+        "type": "Lloji"
+    }
+}

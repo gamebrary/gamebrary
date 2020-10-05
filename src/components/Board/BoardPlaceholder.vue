@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="gameboard-placeholder">
+  <div class="gameboard-placeholder" v-if="placeholderBoard && placeholderBoard.lists">
     <div
       v-for="list in placeholderBoard.lists"
       :class="`list ${list.settings.view || 'single'}`"

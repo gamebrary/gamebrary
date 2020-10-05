@@ -1,0 +1,208 @@
+{
+    "global": {
+        "back": "Վերադառնալ",
+        "save": "Խնայել",
+        "cancel": "Չեղարկել",
+        "delete": "Նջել",
+        "create": "Ստեղծել",
+        "filter": "Filտել",
+        "by": "կողմից",
+        "no": "ոչ",
+        "yes": "այո",
+        "or": "կամ",
+        "pageNotFound": "Էջը չի գտնվել",
+        "poweredByIgdb": "Սնուցվում է",
+        "signOut": "Դուրս գալ",
+        "donateMessage": "Gamebrary- ն անվճար է և բաց կոդով, հաշվի առեք, որ այն կօգնի դրան",
+        "donating": "նվիրատվություն",
+        "reportBugs": "հաշվետվություն սխալների մասին",
+        "submitFeedback": "հետադարձ կապ ներկայացնելը"
+    },
+    "gitHub": {
+        "watch": "Դիտեք",
+        "star": "Աստղ",
+        "fork": "Պատառաքաղ",
+        "issues": "Հարցեր"
+    },
+    "dashboard": {
+        "subtitle": "Բաց կոդով վիդեոխաղերի հավաքածուի կառավարման գործիք:"
+    },
+    "boards": {
+        "title": "Տախտակներ",
+        "create": "Ստեղծել տախտակ",
+        "platforms": "Հարթակներ",
+        "deprecated": "Հնացած է"
+    },
+    "board": {
+        "gameModal": {
+            "videos": "Տեսանյութեր",
+            "screenshots": "Հատվածներ",
+            "perspective": "Հեռանկար",
+            "releaseDate": "Թողարկման ամսաթիվ",
+            "timeToBeat": "Timeեծելու ժամանակը",
+            "gameModes": "Խաղի ռեժիմ",
+            "genres": "Անր",
+            "ageRatings": "Տարիքային վարկանիշներ",
+            "platforms": "Հարթակներ",
+            "developers": "Կառուցապատող",
+            "publishers": "Հրատարակիչներ",
+            "removeFromList": "Հեռացնել",
+            "links": {
+                "official": "Պաշտոնական կայք",
+                "wikia": "Հիասքանչ",
+                "wikipedia": "Վիքիպեդիա",
+                "facebook": "Ֆեյսբուք",
+                "twitter": "Twitter- ը",
+                "twitch": "Կծկվել",
+                "instagram": "Ինստագրամ",
+                "youtube": "Youtube",
+                "iphone": "iOS",
+                "ipad": "iPad",
+                "android": "Խաղալ խանութ",
+                "steam": "Գոլորշի",
+                "reddit": "Reddit",
+                "discord": "Տարաձայնություն",
+                "google_plus": "Google plus",
+                "tumblr": "Tumblr",
+                "linkedin": "Linkedin- ը",
+                "pinterest": "Pinterest",
+                "soundcloud": "Ձայնային ամպ"
+            }
+        },
+        "addList": {
+            "title": "Ավելացնել ցուցակ",
+            "placeholder": "Մուտքագրեք այստեղ ձեր ցուցակի անունը"
+        },
+        "addGame": {
+            "title": "Ավելացնել խաղ",
+            "inputPlaceholder": "Մուտքագրեք այստեղ `որոնելու համար",
+            "noResults": "Ոչ մի արդյունք չի գտնվել",
+            "alreadyInList": "խաղ (ներ) որոնման արդյունքներից արդեն ձեր ցուցակում"
+        },
+        "list": {
+            "edit": "Խմբագրել ցուցակի անունը",
+            "type": "Listանկի տեսակը",
+            "settings": "Listանկի պարամետրերը",
+            "placeholder": "Մուտքագրեք այստեղ ձեր ցուցակի անունը",
+            "wishlist": "Ishանկությունների ցուցակ",
+            "input": "Մուտքագրեք ձեր սեփականը",
+            "add": "Ավելացնել ցուցակ",
+            "duplicateWarning": "Դուք արդեն ունեք այս անունով ցուցակ",
+            "getStarted": "Սկսել!",
+            "addFirstTime": "Բարի գալուստ, ավելացրեք ձեր առաջին ցուցակը:",
+            "sortByName": "Է",
+            "sortByProgress": "Առաջընթաց",
+            "sortByRating": "Գնահատական",
+            "sortByReleaseDate": "Ամսաթիվ",
+            "sortByCustom": "Պատվերով",
+            "delete": "Deleteնջել ցուցակը",
+            "moveLeft": "Շարժվիր ձախ",
+            "moveRight": "Շարժվել աջ",
+            "emptyList": "Այս ցուցակը դատարկ է",
+            "addGame": "Ավելացնել խաղ",
+            "addGames": "Ավելացնել խաղեր {listName} - ին",
+            "view": "Listանկի տեսք",
+            "moveList": "Տեղափոխել ցուցակը",
+            "renameList": "Վերանվանել ցուցակը",
+            "renameListPlaceholder": "Մուտքագրեք ձեր անունը",
+            "sortList": "Ավտոմատ տեսակավորման ցուցակ",
+            "sortWarning": "Ավտոմատ տեսակավորման ցուցակը կանդրադառնա ինչպես քաշել և թողնելը",
+            "coversSizeTitle": "Ընդհանուր ծածկոցներ",
+            "showReleaseDates": "Ույց տալ չթողարկված խաղերի թողարկման ամսաթիվը",
+            "showGameRatings": "Gameուցադրել խաղի գնահատականները",
+            "showGameProgress": "Gameուցադրել խաղի առաջընթացը",
+            "showGameNotes": "Gameուցադրել խաղի գրառումները",
+            "showGameTags": "Gameուցադրել խաղի պիտակները",
+            "showGameCount": "Showուցադրել խաղի հաշվարկը",
+            "views": {
+                "single": "Լռելյայն",
+                "compact": "Կոմպակտ",
+                "text": "Միայն տեքստ",
+                "grid": "Gանց"
+            },
+            "deleteWarning": {
+                "title": "Վստա՞հ եք, որ ցանկանում եք ջնջել այս ցուցակը:",
+                "message": "Այս գործողությունը չի կարող հետարկվել",
+                "buttonLabel": "Այո, ջնջել ցուցակը"
+            }
+        }
+    },
+    "themes": {
+        "title": "Թեմաներ",
+        "subtitle": "Ստորև ընտրեք թեման"
+    },
+    "languages": {
+        "title": "Լեզուներ",
+        "save": "Պահել և վերաբեռնել զննարկիչը"
+    },
+    "settings": {
+        "tags": "Պիտակները",
+        "wallpapers": "Պաստառներ",
+        "language": "Լեզու",
+        "themes": "Թեմաներ",
+        "releases": "Թողարկումներ",
+        "about": "Մասին",
+        "account": "Հաշիվ"
+    },
+    "tags": {
+        "title": "Պիտակները",
+        "subtitle": "Պիտակները հիանալի միջոց են ձեր տեսախաղերի հավաքածուն կազմակերպելու և կառավարելու համար: Ավելացնել, խմբագրել կամ ջնջել պիտակները:",
+        "form": {
+            "title": "Ավելացնել նոր պիտակ",
+            "inputPlaceholder": "Պիտակի անվանումը",
+            "preview": "Նախադիտում ՝",
+            "addTag": "Ավելացնել պիտակ",
+            "duplicateMessage": "Դուք արդեն ունեք պիտակ ՝ {tagName} անունով"
+        },
+        "list": {
+            "title": "Իմ պիտակները"
+        }
+    },
+    "wallpapers": {
+        "title": "Պաստառներ",
+        "subtitle": "Կառավարեք տախտակի պաստառները",
+        "form": {
+            "label": "Վերբեռնել պաստառ",
+            "placeholder": "Ընտրեք ֆայլ կամ գցեք այստեղ ...",
+            "browse": "Դիտել",
+            "helperText": "Միայն պատկերային ֆայլեր",
+            "upload": "Վերբեռնել",
+            "duplicateMessage": "Դուք արդեն ունեք {fileName} անունով ֆայլ"
+        },
+        "list": {
+            "title": "Իմ պաստառները"
+        }
+    },
+    "releases": {
+        "title": "Թողարկումներ",
+        "published": "Հրապարակված է"
+    },
+    "about": {
+        "title": "Gamebrary- ի մասին",
+        "subtitle": "Կարդացեք Github- ից"
+    },
+    "progresses": {
+        "modalTitle": "Սահմանեք խաղի առաջընթացը",
+        "addProgress": "Առաջընթաց ավելացնել",
+        "save": "Խնայեք առաջընթացը",
+        "deleteProgress": "Deleteնջել առաջընթացը",
+        "progresses": "Առաջընթաց"
+    },
+    "platforms": {
+        "donateMessage": "Gamebrary- ն անվճար է և բաց կոդով, հաշվի առեք, որ այն կօգնի դրան",
+        "donating": "նվիրատվություն",
+        "reportBugs": "հաշվետվություն սխալների մասին",
+        "submitFeedback": "հետադարձ կապ ներկայացնելը",
+        "all": "Բոլորը",
+        "console": "Վահանակներ",
+        "platform": "Թվային",
+        "operating_system": "ԱՀ / Այլ",
+        "portable_console": "Ձեռքի ձեռքեր",
+        "computer": "Տնային համակարգիչներ",
+        "popular": "Հանրաճանաչ",
+        "releaseYear": "Թողարկված տարին",
+        "name": "Այբբենական կարգով",
+        "generation": "Ստեղծում / Ամսաթիվը կապված է",
+        "type": "Տիպ"
+    }
+}

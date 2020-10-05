@@ -3,192 +3,206 @@
         "back": "Retour",
         "save": "sauvegarder",
         "cancel": "Annuler",
+        "delete": "Effacer",
         "create": "Créer",
         "filter": "Filtre",
         "by": "par",
         "no": "non",
         "yes": "Oui",
         "or": "ou",
-        "returnHome": "Rentrer à la maison",
-        "pageNotFound": "Page non trouvée"
-    },
-    "errors": {
-        "loading": "Erreur lors du chargement des données"
-    },
-    "releases": {
-        "published": "Date de publication}"
-    },
-    "platforms": {
-        "donateMessage": "Gamebrary est gratuit et open source, envisagez d'aider à son développement en",
+        "pageNotFound": "Page non trouvée",
+        "poweredByIgdb": "Alimenté par",
+        "signOut": "Déconnexion",
+        "donateMessage": "Gamebrary est gratuit et open source, pensez à aider son développement en",
         "donating": "faire un don",
         "reportBugs": "signaler des bogues",
-        "submitFeedback": "soumettre des commentaires",
-        "home": "Consoles de salon",
-        "handheld": "Ordinateurs de poche",
-        "computer": "Ordinateur de famille",
-        "releaseYear": "Année de sortie",
-        "name": "Alphabétiquement",
-        "type": "Type"
+        "submitFeedback": "soumission de commentaires"
     },
-    "igdbCredit": {
-        "poweredByIgdb": "Propulsé par IGDB"
+    "gitHub": {
+        "watch": "Regarder",
+        "star": "Étoile",
+        "fork": "Fourchette",
+        "issues": "Problèmes"
     },
-    "gameBoard": {
-        "settings": {
-            "wallpaper": "Fond d'écran personnalisé",
-            "shareLink": "Liens partageables (expérimental)",
-            "dangerZone": "Zone dangereuse"
+    "dashboard": {
+        "subtitle": "L'outil de gestion de collection de jeux vidéo open source."
+    },
+    "boards": {
+        "title": "Planches",
+        "create": "Créer un tableau",
+        "platforms": "Plateformes",
+        "deprecated": "Obsolète"
+    },
+    "board": {
+        "gameModal": {
+            "videos": "Vidéos",
+            "screenshots": "Captures d'écran",
+            "perspective": "Perspective",
+            "releaseDate": "Date de sortie",
+            "timeToBeat": "Il est temps de battre",
+            "gameModes": "Mode de jeu",
+            "genres": "Genre",
+            "ageRatings": "Classifications d'âge",
+            "platforms": "Plateformes",
+            "developers": "Développeur",
+            "publishers": "Éditeurs",
+            "removeFromList": "Retirer",
+            "links": {
+                "official": "Site officiel",
+                "wikia": "Fandom",
+                "wikipedia": "Wikipédia",
+                "facebook": "Facebook",
+                "twitter": "Twitter",
+                "twitch": "Tic",
+                "instagram": "Instagram",
+                "youtube": "Youtube",
+                "iphone": "iOS",
+                "ipad": "iPad",
+                "android": "Play Store",
+                "steam": "Vapeur",
+                "reddit": "Reddit",
+                "discord": "Discorde",
+                "google_plus": "Google plus",
+                "tumblr": "Tumblr",
+                "linkedin": "Linkedin",
+                "pinterest": "Pinterest",
+                "soundcloud": "Soundcloud"
+            }
+        },
+        "addList": {
+            "title": "Ajouter la liste",
+            "placeholder": "Tapez le nom de votre liste ici"
+        },
+        "addGame": {
+            "title": "Ajouter un jeu",
+            "inputPlaceholder": "Tapez ici pour rechercher",
+            "noResults": "Aucun résultat trouvé",
+            "alreadyInList": "jeu (s) à partir des résultats de recherche déjà dans votre liste"
+        },
+        "list": {
+            "edit": "Modifier le nom de la liste",
+            "type": "Type de liste",
+            "settings": "Paramètres de la liste",
+            "placeholder": "Tapez le nom de votre liste ici",
+            "wishlist": "Liste de souhaits",
+            "input": "Entrez le vôtre",
+            "add": "Ajouter la liste",
+            "duplicateWarning": "Vous avez déjà une liste avec ce nom",
+            "getStarted": "Commencer!",
+            "addFirstTime": "Bienvenue, ajoutez votre première liste!",
+            "sortByName": "LES",
+            "sortByProgress": "Le progrès",
+            "sortByRating": "But",
+            "sortByReleaseDate": "Date",
+            "sortByCustom": "Douane",
+            "delete": "Supprimer la liste",
+            "moveLeft": "Se déplacer à gauche",
+            "moveRight": "Déplacer vers la droite",
+            "emptyList": "Cette liste est vide",
+            "addGame": "Ajouter un jeu",
+            "addGames": "Ajouter des jeux à {listName}",
+            "view": "Vue de liste",
+            "moveList": "Déplacer la liste",
+            "renameList": "Renommer la liste",
+            "renameListPlaceholder": "Entrez votre nom",
+            "sortList": "Liste de tri automatique",
+            "sortWarning": "La liste de tri automatique affectera le fonctionnement du glisser-déposer",
+            "coversSizeTitle": "Couvre à travers",
+            "showReleaseDates": "Afficher la date de sortie des jeux inédits",
+            "showGameRatings": "Afficher les évaluations du jeu",
+            "showGameProgress": "Afficher la progression du jeu",
+            "showGameNotes": "Afficher les notes de jeu",
+            "showGameTags": "Afficher les balises du jeu",
+            "showGameCount": "Afficher le nombre de parties",
+            "views": {
+                "single": "Défaut",
+                "compact": "Compact",
+                "text": "Texte seulement",
+                "grid": "la grille"
+            },
+            "deleteWarning": {
+                "title": "Voulez-vous vraiment supprimer cette liste?",
+                "message": "Cette action ne peut pas être annulée",
+                "buttonLabel": "Oui, supprimer la liste"
+            }
         }
     },
-    "sessionExpired": {
-        "title": "La session a expiré",
-        "login": "S'identifier",
-        "exit": "Sortie"
+    "themes": {
+        "title": "Thèmes",
+        "subtitle": "Sélectionnez un thème ci-dessous"
     },
-    "gameDetail": {
-        "videos": "Vidéos",
-        "screenshots": "Captures d'écran",
-        "perspective": "La perspective",
-        "releaseDate": "Date de sortie",
-        "timeToBeat": "Il est temps de battre",
-        "gameModes": "Mode de jeu",
-        "genres": "Genre",
-        "gamePlatforms": "Aussi disponible pour:",
-        "developers": "Développeur",
-        "publishers": "Éditeurs",
-        "removeFromList": "Retirer",
-        "links": {
-            "official": "Site officiel",
-            "wikia": "Fandom",
-            "wikipedia": "Wikipédia",
-            "facebook": "Facebook",
-            "twitter": "Twitter",
-            "twitch": "Tic",
-            "instagram": "Instagram",
-            "youtube": "Youtube",
-            "iphone": "iOS",
-            "ipad": "iPad",
-            "android": "Play Store",
-            "steam": "Vapeur",
-            "reddit": "Reddit",
-            "discord": "Discorde",
-            "google_plus": "Google Plus",
-            "tumblr": "Tumblr",
-            "linkedin": "Linkedin",
-            "pinterest": "Pinterest",
-            "soundcloud": "Soundcloud"
-        }
-    },
-    "list": {
-        "edit": "Modifier le nom de la liste",
-        "type": "Type de liste",
-        "settings": "Liste des paramètres",
-        "placeholder": "Tapez le nom de votre liste ici",
-        "wishlist": "Liste de souhaits",
-        "input": "Entrez le vôtre",
-        "add": "Ajouter la liste",
-        "duplicateWarning": "Vous avez déjà une liste avec ce nom",
-        "getStarted": "Commencer!",
-        "addFirstTime": "Bienvenue, ajoutez votre première liste!",
-        "sortByName": "LA",
-        "sortByProgress": "Le progrès",
-        "sortByRating": "But",
-        "sortByReleaseDate": "Date",
-        "sortByCustom": "Douane",
-        "delete": "Supprimer la liste",
-        "moveLeft": "Se déplacer à gauche",
-        "moveRight": "Déplacer vers la droite",
-        "emptyList": "Cette liste est vide",
-        "addGame": "Ajouter un jeu",
-        "addGames": "Ajouter des jeux à {listName}",
-        "view": "Vue liste",
-        "moveList": "Déplacer la liste",
-        "sortList": "Liste de tri automatique",
-        "coversSizeTitle": "Couvre à travers",
-        "views": {
-            "single": "Défaut",
-            "compact": "Compact",
-            "text": "Texte seulement",
-            "masonry": "Maçonnerie",
-            "grid": "la grille"
-        }
+    "languages": {
+        "title": "Langues",
+        "save": "Enregistrer et recharger le navigateur"
     },
     "settings": {
-        "about": "Sur",
-        "platforms": "Plateformes",
-        "gameBoard": "Plateau de jeu",
-        "public": "Publique",
         "tags": "Mots clés",
-        "account": "Compte",
-        "global": "Global",
-        "reloading": "Rechargement ...",
-        "releases": "Communiqués",
-        "newsletter": "Recevez des e-mails de mise à jour (à venir bientôt)",
-        "branding": "Marquage de la plateforme (couleurs, logo, etc ...)",
+        "wallpapers": "Fonds d'écran",
         "language": "Langue",
-        "languages": {
-            "en": "Anglais",
-            "es": "Espagnol",
-            "pl": "polonais",
-            "de": "allemand",
-            "ar": "arabe",
-            "fr": "français",
-            "it": "italien",
-            "eu": "basque",
-            "cs": "tchèque",
-            "ja": "Japonais"
-        },
-        "ownedLists": "Afficher uniquement mes plateformes",
-        "sortPlatforms": "Trier les plateformes par ordre alphabétique",
-        "ratings": "Masquer le score du jeu",
-        "signOut": "Déconnexion",
-        "wallpaper": {
-            "title": "Télécharger un fond d'écran",
-            "transparency": "Autoriser la transparence",
-            "currentWallpaper": "Fond d'écran actuel",
-            "wallpaper": "Fond d'écran",
-            "removeWallpaper": "Supprimer le papier peint"
-        },
-        "deleteAccount": {
-            "button": "Supprimer le compte",
-            "message": "Les données de votre compte seront supprimées pour toujours.",
-            "title": "Êtes-vous sûr?"
-        }
+        "themes": "Thèmes",
+        "releases": "Communiqués",
+        "about": "Sur",
+        "account": "Compte"
     },
     "tags": {
-        "title": "Tags du jeu",
-        "addTag": "Ajouter une étiquette",
-        "createTag": "Créer une balise",
-        "inputPlaceholder": "Nom du tag",
-        "editTags": "Modifier les balises de jeu",
-        "message": "Cliquez sur le tag pour l'ajouter à <a>{gameName}</a> . Cliquer sur <i class=\"fas fa-times close\"></i> pour supprimer la balise.",
-        "settingsMessage": "Vous pouvez ajouter ou modifier des balises existantes dans les paramètres."
+        "title": "Mots clés",
+        "subtitle": "Les tags sont un excellent moyen d'organiser et de gérer votre collection de jeux vidéo. Ajoutez, modifiez ou supprimez des balises.",
+        "form": {
+            "title": "Ajouter une nouvelle balise",
+            "inputPlaceholder": "Nom de la balise",
+            "preview": "Aperçu:",
+            "addTag": "Ajouter une étiquette",
+            "duplicateMessage": "Vous avez déjà un tag nommé {tagName}"
+        },
+        "list": {
+            "title": "Mes tags"
+        }
     },
-    "gameSearch": {
-        "title": "Ajouter des jeux à",
-        "inputPlaceholder": "Cherche ici",
-        "alreadyInList": "à partir des résultats de recherche déjà dans votre liste",
-        "noResultsFound": "Aucun résultat",
-        "missingGame": "Vous manquez un match? Aidez la communauté et",
-        "addToIGDB": "Ajoutez-le à IGDB"
+    "wallpapers": {
+        "title": "Fonds d'écran",
+        "subtitle": "Gérer les fonds d'écran du tableau",
+        "form": {
+            "label": "Télécharger un fond d'écran",
+            "placeholder": "Choisissez un fichier ou déposez-le ici ...",
+            "browse": "Feuilleter",
+            "helperText": "Fichiers image uniquement",
+            "upload": "Télécharger",
+            "duplicateMessage": "Vous avez déjà un fichier nommé {fileName}"
+        },
+        "list": {
+            "title": "Mes fonds d'écran"
+        }
     },
-    "notes": {
-        "addNote": "Ajouter une note",
-        "notes": "Remarques"
+    "releases": {
+        "title": "Communiqués",
+        "published": "Publié"
+    },
+    "about": {
+        "title": "À propos de Gamebrary",
+        "subtitle": "Lisez-moi depuis Github"
     },
     "progresses": {
         "modalTitle": "Définir la progression du jeu",
-        "addProgress": "Ajouter des progrès",
-        "updateProgress": "Progression de la mise à jour",
+        "addProgress": "Ajouter une progression",
+        "save": "Enregistrer la progression",
         "deleteProgress": "Supprimer la progression",
         "progresses": "Le progrès"
     },
-    "releaseDates": {
-        "Today": "Aujourd'hui",
-        "ReleasesToday": "Sorties aujourd'hui",
-        "ReleasedToday": "Sorti aujourd'hui",
-        "ReleasesTomorrow": "Sort demain",
-        "ReleasesInXDays": "Sorties dans {jours} jours",
-        "ToBeAnnounced": "TBA"
+    "platforms": {
+        "donateMessage": "Gamebrary est gratuit et open source, pensez à aider son développement en",
+        "donating": "faire un don",
+        "reportBugs": "signaler des bogues",
+        "submitFeedback": "soumission de commentaires",
+        "all": "Tout",
+        "console": "Consoles",
+        "platform": "Numérique",
+        "operating_system": "PC / Autre",
+        "portable_console": "Ordinateurs de poche",
+        "computer": "Ordinateurs domestiques",
+        "popular": "Populaire",
+        "releaseYear": "Année de sortie",
+        "name": "Alphabétiquement",
+        "generation": "Génération / Date relâchée",
+        "type": "Type"
     }
 }

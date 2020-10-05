@@ -1,30 +1,32 @@
 <template lang="html">
   <div>
     <b-jumbotron
-      header="Wallpapers"
+      :header="$t('wallpapers.title')"
+      :lead="$t('wallpapers.subtitle')"
       header-level="5"
       fluid
-      lead="Manage board wallpapers"
     />
     <!-- TODO: show space used -->
     <!-- TODO: allow to apply wallpaper to board from here -->
     <b-container>
-      <b-row>
+      <!-- TODO: convert to form -->
+      <!-- TODO: translate "browse" -->
+      <!-- TODO: display file names -->
+      <b-row class="mb-3">
         <b-col cols="12" lg="6">
           <b-form-group
-            label="Upload wallpaper"
-            label-for="input-1"
-            description="Image files only"
+            :label="$t('wallpapers.form.label')"
+            :description="$t('wallpapers.form.helperText')"
           >
             <b-form-file
               v-model="file"
               accept="image/*"
-              placeholder="Choose a file or drop it here..."
+              :placeholder="$t('wallpapers.form.placeholder')"
             />
           </b-form-group>
 
           <b-alert v-if="isDuplicate && !saving" show variant="warning">
-            You already have a file named <strong>{{ file.name }}</strong>
+            {{ $t('wallpapers.form.duplicateMessage', { fileName: file.name }) }}
           </b-alert>
 
           <b-button
@@ -33,14 +35,14 @@
             :disabled="!Boolean(file) || saving || isDuplicate"
           >
             <b-spinner small v-if="saving" />
-            <span v-else>Upload</span>
+            <span v-else>{{ $t('wallpapers.form.upload') }}</span>
           </b-button>
         </b-col>
       </b-row>
 
       <b-form-row v-if="wallpapers.length">
         <b-col cols="12">
-          <h5>My Wallpapers</h5>
+          <h5>{{ $t('wallpapers.list.title') }}</h5>
         </b-col>
 
         <b-col

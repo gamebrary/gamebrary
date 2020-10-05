@@ -42,34 +42,38 @@
 
         <b-dropdown-item title="Tags" :to="{ name: 'tags' }">
           <b-icon-tags />
-          Tags
+          {{ $t('settings.tags') }}
         </b-dropdown-item>
 
         <b-dropdown-item title="Wallpapers" :to="{ name: 'wallpapers' }">
           <b-icon-file-richtext />
-          Wallpapers
+          {{ $t('settings.wallpapers') }}
         </b-dropdown-item>
 
         <b-dropdown-item title="Language" :to="{ name: 'language' }">
           <b-icon-chat-left-text />
-          Language
+          {{ $t('settings.language') }}
         </b-dropdown-item>
         <b-dropdown-item title="Themes" :to="{ name: 'themes' }">
           <b-icon-droplet />
-          Themes
+          {{ $t('settings.themes') }}
         </b-dropdown-item>
         <b-dropdown-item title="Releases" :to="{ name: 'releases' }">
           <b-icon-mailbox />
-          Releases
+          {{ $t('settings.releases') }}
         </b-dropdown-item>
 
         <b-dropdown-item title="About" :to="{ name: 'about' }">
           <b-icon-question />
-          About
+          {{ $t('settings.about') }}
         </b-dropdown-item>
       </b-dropdown>
 
-      <router-link title="Account" :to="{ name: 'account' }" class="mb-2 mt-3 d-block">
+      <router-link
+        :title="$t('settings.account')"
+        class="mb-2 mt-3 d-block"
+        :to="{ name: 'account' }"
+      >
         <b-avatar
           v-if="user && user.photoURL"
           variant="info"

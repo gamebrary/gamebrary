@@ -1,0 +1,208 @@
+{
+    "global": {
+        "back": "Kembali",
+        "save": "Menyimpan",
+        "cancel": "Membatalkan",
+        "delete": "Menghapus",
+        "create": "Membuat",
+        "filter": "Saring",
+        "by": "oleh",
+        "no": "tidak",
+        "yes": "Iya",
+        "or": "atau",
+        "pageNotFound": "halaman tidak ditemukan",
+        "poweredByIgdb": "Dipersembahkan oleh",
+        "signOut": "Keluar",
+        "donateMessage": "Gamebrary gratis dan open source, pertimbangkan untuk membantu perkembangannya",
+        "donating": "berdonasi",
+        "reportBugs": "melaporkan bug",
+        "submitFeedback": "mengirimkan umpan balik"
+    },
+    "gitHub": {
+        "watch": "Menonton",
+        "star": "Bintang",
+        "fork": "Garpu",
+        "issues": "Masalah"
+    },
+    "dashboard": {
+        "subtitle": "Alat manajemen koleksi video game open source."
+    },
+    "boards": {
+        "title": "Papan",
+        "create": "Buat papan",
+        "platforms": "Platform",
+        "deprecated": "Tidak digunakan lagi"
+    },
+    "board": {
+        "gameModal": {
+            "videos": "Video",
+            "screenshots": "Screenshot",
+            "perspective": "Perspektif",
+            "releaseDate": "Tanggal rilis",
+            "timeToBeat": "Waktunya untuk mengalahkan",
+            "gameModes": "Modus permainan",
+            "genres": "Aliran",
+            "ageRatings": "Peringkat usia",
+            "platforms": "Platform",
+            "developers": "Pengembang",
+            "publishers": "Penerbit",
+            "removeFromList": "Menghapus",
+            "links": {
+                "official": "Situs resmi",
+                "wikia": "Kepenggemaran",
+                "wikipedia": "Wikipedia",
+                "facebook": "Facebook",
+                "twitter": "Indonesia",
+                "twitch": "Berkedut",
+                "instagram": "Instagram",
+                "youtube": "Youtube",
+                "iphone": "iOS",
+                "ipad": "iPad",
+                "android": "Play Store",
+                "steam": "Uap",
+                "reddit": "Reddit",
+                "discord": "Perselisihan",
+                "google_plus": "Google plus",
+                "tumblr": "Tumblr",
+                "linkedin": "Linkedin",
+                "pinterest": "Pinterest",
+                "soundcloud": "Soundcloud"
+            }
+        },
+        "addList": {
+            "title": "Tambahkan daftar",
+            "placeholder": "Ketik nama daftar Anda di sini"
+        },
+        "addGame": {
+            "title": "Tambahkan game",
+            "inputPlaceholder": "Ketik di sini untuk mencari",
+            "noResults": "Tidak ada hasil yang ditemukan",
+            "alreadyInList": "game dari hasil penelusuran sudah ada di daftar Anda"
+        },
+        "list": {
+            "edit": "Edit nama daftar",
+            "type": "Jenis daftar",
+            "settings": "Pengaturan daftar",
+            "placeholder": "Ketik nama daftar Anda di sini",
+            "wishlist": "Wishlist",
+            "input": "Masukkan milik Anda",
+            "add": "Tambahkan daftar",
+            "duplicateWarning": "Anda sudah memiliki daftar dengan nama ini",
+            "getStarted": "Memulai!",
+            "addFirstTime": "Selamat datang, tambahkan daftar pertama Anda!",
+            "sortByName": "ITU",
+            "sortByProgress": "Kemajuan",
+            "sortByRating": "Skor",
+            "sortByReleaseDate": "Tanggal",
+            "sortByCustom": "Adat",
+            "delete": "Hapus daftar",
+            "moveLeft": "Pindah ke kiri",
+            "moveRight": "Bergerak ke kanan",
+            "emptyList": "Daftar ini kosong",
+            "addGame": "Tambahkan game",
+            "addGames": "Tambahkan game ke {listName}",
+            "view": "Tampilan daftar",
+            "moveList": "Pindah daftar",
+            "renameList": "Ubah nama daftar",
+            "renameListPlaceholder": "Masukkan nama Anda",
+            "sortList": "Daftar sortir otomatis",
+            "sortWarning": "Daftar penyortiran otomatis akan memengaruhi cara kerja seret dan lepas",
+            "coversSizeTitle": "Meliputi",
+            "showReleaseDates": "Tampilkan tanggal rilis untuk game yang belum dirilis",
+            "showGameRatings": "Tampilkan peringkat game",
+            "showGameProgress": "Tunjukkan kemajuan game",
+            "showGameNotes": "Tampilkan catatan permainan",
+            "showGameTags": "Tampilkan tag game",
+            "showGameCount": "Tampilkan hitungan game",
+            "views": {
+                "single": "Default",
+                "compact": "Kompak",
+                "text": "Teks saja",
+                "grid": "Kotak"
+            },
+            "deleteWarning": {
+                "title": "Apakah Anda yakin ingin menghapus daftar ini?",
+                "message": "Tindakan ini tidak bisa dibatalkan",
+                "buttonLabel": "Ya, hapus daftar"
+            }
+        }
+    },
+    "themes": {
+        "title": "Tema",
+        "subtitle": "Pilih tema di bawah ini"
+    },
+    "languages": {
+        "title": "Bahasa",
+        "save": "Simpan dan muat ulang browser"
+    },
+    "settings": {
+        "tags": "Tag",
+        "wallpapers": "Wallpaper",
+        "language": "Bahasa",
+        "themes": "Tema",
+        "releases": "Rilis",
+        "about": "Tentang",
+        "account": "Akun"
+    },
+    "tags": {
+        "title": "Tag",
+        "subtitle": "Tag adalah cara terbaik untuk mengatur dan mengelola koleksi permainan video Anda. Tambahkan, edit, atau hapus tag.",
+        "form": {
+            "title": "Tambahkan tag baru",
+            "inputPlaceholder": "Nama tag",
+            "preview": "Pratinjau:",
+            "addTag": "Tambahkan tag",
+            "duplicateMessage": "Anda sudah memiliki tag bernama {tagName}"
+        },
+        "list": {
+            "title": "Tag saya"
+        }
+    },
+    "wallpapers": {
+        "title": "Wallpaper",
+        "subtitle": "Kelola wallpaper papan",
+        "form": {
+            "label": "Unggah wallpaper",
+            "placeholder": "Pilih file atau taruh di sini ...",
+            "browse": "Jelajahi",
+            "helperText": "File gambar saja",
+            "upload": "Unggah",
+            "duplicateMessage": "Anda sudah memiliki file bernama {fileName}"
+        },
+        "list": {
+            "title": "Wallpaper saya"
+        }
+    },
+    "releases": {
+        "title": "Rilis",
+        "published": "Diterbitkan"
+    },
+    "about": {
+        "title": "Tentang Gamebrary",
+        "subtitle": "Readme dari Github"
+    },
+    "progresses": {
+        "modalTitle": "Atur kemajuan game",
+        "addProgress": "Tambahkan kemajuan",
+        "save": "Simpan kemajuan",
+        "deleteProgress": "Hapus kemajuan",
+        "progresses": "Kemajuan"
+    },
+    "platforms": {
+        "donateMessage": "Gamebrary gratis dan open source, pertimbangkan untuk membantu perkembangannya",
+        "donating": "berdonasi",
+        "reportBugs": "melaporkan bug",
+        "submitFeedback": "mengirimkan umpan balik",
+        "all": "Semua",
+        "console": "Konsol",
+        "platform": "Digital",
+        "operating_system": "PC / Lainnya",
+        "portable_console": "Perangkat genggam",
+        "computer": "Komputer Rumah",
+        "popular": "Populer",
+        "releaseYear": "Tahun dirilis",
+        "name": "Menurut abjad",
+        "generation": "Generasi / Tanggal dirilis",
+        "type": "Tipe"
+    }
+}

@@ -1,0 +1,208 @@
+{
+    "global": {
+        "back": "背部",
+        "save": "救",
+        "cancel": "取消",
+        "delete": "刪除",
+        "create": "創造",
+        "filter": "過濾",
+        "by": "通過",
+        "no": "沒有",
+        "yes": "是",
+        "or": "要么",
+        "pageNotFound": "找不到網頁",
+        "poweredByIgdb": "供電",
+        "signOut": "登出",
+        "donateMessage": "Gamebrary是免費和開源的，請考慮通過以下方式幫助其發展",
+        "donating": "捐贈",
+        "reportBugs": "報告錯誤",
+        "submitFeedback": "提交反饋"
+    },
+    "gitHub": {
+        "watch": "看",
+        "star": "星",
+        "fork": "叉子",
+        "issues": "問題"
+    },
+    "dashboard": {
+        "subtitle": "開源視頻遊戲收藏管理工具。"
+    },
+    "boards": {
+        "title": "板子",
+        "create": "創建板",
+        "platforms": "平台類",
+        "deprecated": "不推薦使用"
+    },
+    "board": {
+        "gameModal": {
+            "videos": "影片",
+            "screenshots": "屏幕截圖",
+            "perspective": "透視",
+            "releaseDate": "發布日期",
+            "timeToBeat": "時間到了",
+            "gameModes": "遊戲模式",
+            "genres": "類型",
+            "ageRatings": "年齡等級",
+            "platforms": "平台類",
+            "developers": "開發者",
+            "publishers": "出版商",
+            "removeFromList": "去掉",
+            "links": {
+                "official": "官方網站",
+                "wikia": "粉絲",
+                "wikipedia": "維基百科",
+                "facebook": "臉書",
+                "twitter": "推特",
+                "twitch": "抽搐",
+                "instagram": "Instagram的",
+                "youtube": "優酷",
+                "iphone": "的iOS",
+                "ipad": "的iPad",
+                "android": "應用商店",
+                "steam": "蒸汽",
+                "reddit": "Reddit",
+                "discord": "不和諧",
+                "google_plus": "谷歌加",
+                "tumblr": "Tumblr",
+                "linkedin": "領英",
+                "pinterest": "Pinterest的",
+                "soundcloud": "聲雲"
+            }
+        },
+        "addList": {
+            "title": "新增清單",
+            "placeholder": "在此處輸入您的列表名稱"
+        },
+        "addGame": {
+            "title": "新增遊戲",
+            "inputPlaceholder": "在此處輸入內容進行搜索",
+            "noResults": "未找到結果",
+            "alreadyInList": "您列表中已有搜索結果的遊戲"
+        },
+        "list": {
+            "edit": "編輯清單名稱",
+            "type": "清單類型",
+            "settings": "清單設定",
+            "placeholder": "在此處輸入您的列表名稱",
+            "wishlist": "心願單",
+            "input": "輸入您自己的",
+            "add": "新增清單",
+            "duplicateWarning": "您已經有一個使用此名稱的列表",
+            "getStarted": "開始吧！",
+            "addFirstTime": "歡迎，添加您的第一個列表！",
+            "sortByName": "的",
+            "sortByProgress": "進展",
+            "sortByRating": "得分了",
+            "sortByReleaseDate": "日期",
+            "sortByCustom": "自訂",
+            "delete": "刪除清單",
+            "moveLeft": "向左移動",
+            "moveRight": "向右移",
+            "emptyList": "此清單為空",
+            "addGame": "新增遊戲",
+            "addGames": "將游戲添加到{listName}",
+            "view": "列表顯示",
+            "moveList": "移動清單",
+            "renameList": "重命名清單",
+            "renameListPlaceholder": "輸入你的名字",
+            "sortList": "自動排序清單",
+            "sortWarning": "自動排序列表將影響拖放的工作方式",
+            "coversSizeTitle": "覆蓋整個",
+            "showReleaseDates": "顯示未發布遊戲的發布日期",
+            "showGameRatings": "顯示遊戲等級",
+            "showGameProgress": "顯示遊戲進度",
+            "showGameNotes": "顯示遊戲記錄",
+            "showGameTags": "顯示遊戲標籤",
+            "showGameCount": "顯示遊戲數",
+            "views": {
+                "single": "默認",
+                "compact": "緊湊",
+                "text": "純文本",
+                "grid": "格"
+            },
+            "deleteWarning": {
+                "title": "您確定要刪除此列表嗎？",
+                "message": "此操作無法撤消",
+                "buttonLabel": "是的，刪除列表"
+            }
+        }
+    },
+    "themes": {
+        "title": "主題",
+        "subtitle": "在下面選擇一個主題"
+    },
+    "languages": {
+        "title": "語言能力",
+        "save": "保存並重新加載瀏覽器"
+    },
+    "settings": {
+        "tags": "標籤",
+        "wallpapers": "牆紙",
+        "language": "語言",
+        "themes": "主題",
+        "releases": "發布",
+        "about": "關於",
+        "account": "帳戶"
+    },
+    "tags": {
+        "title": "標籤",
+        "subtitle": "標籤是組織和管理視頻遊戲收藏的好方法。添加，編輯或刪除標籤。",
+        "form": {
+            "title": "新增標籤",
+            "inputPlaceholder": "標籤名",
+            "preview": "預習：",
+            "addTag": "添加標籤",
+            "duplicateMessage": "您已經有一個名為{tagName}的標籤"
+        },
+        "list": {
+            "title": "我的標籤"
+        }
+    },
+    "wallpapers": {
+        "title": "牆紙",
+        "subtitle": "管理板壁紙",
+        "form": {
+            "label": "上載牆紙",
+            "placeholder": "選擇一個文件或將其放在此處...",
+            "browse": "瀏覽",
+            "helperText": "僅圖像文件",
+            "upload": "上載",
+            "duplicateMessage": "您已經有一個名為{fileName}的文件"
+        },
+        "list": {
+            "title": "我的牆紙"
+        }
+    },
+    "releases": {
+        "title": "發布",
+        "published": "已發表"
+    },
+    "about": {
+        "title": "關於Gamebrary",
+        "subtitle": "Github的自述文件"
+    },
+    "progresses": {
+        "modalTitle": "設定遊戲進度",
+        "addProgress": "增加進度",
+        "save": "保存進度",
+        "deleteProgress": "刪除進度",
+        "progresses": "進展"
+    },
+    "platforms": {
+        "donateMessage": "Gamebrary是免費和開源的，請考慮通過以下方式幫助其發展",
+        "donating": "捐贈",
+        "reportBugs": "報告錯誤",
+        "submitFeedback": "提交反饋",
+        "all": "所有",
+        "console": "遊戲機",
+        "platform": "數字",
+        "operating_system": "電腦/其他",
+        "portable_console": "掌上電腦",
+        "computer": "家用電腦",
+        "popular": "流行",
+        "releaseYear": "發行年份",
+        "name": "按字母順序",
+        "generation": "產生/發布日期",
+        "type": "類型"
+    }
+}

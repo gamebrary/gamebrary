@@ -1,0 +1,208 @@
+{
+    "global": {
+        "back": "späť",
+        "save": "Uložiť",
+        "cancel": "Zrušiť",
+        "delete": "Odstrániť",
+        "create": "Vytvoriť",
+        "filter": "Filtrovať",
+        "by": "od",
+        "no": "č",
+        "yes": "Áno",
+        "or": "alebo",
+        "pageNotFound": "Stránka nenájdená",
+        "poweredByIgdb": "Poháňaný",
+        "signOut": "Odhlásiť Sa",
+        "donateMessage": "Gamebrary je bezplatný a otvorený zdroj, zvážte pomoc pri jeho vývoji tým, že",
+        "donating": "darovanie",
+        "reportBugs": "hlásenie chýb",
+        "submitFeedback": "odoslanie spätnej väzby"
+    },
+    "gitHub": {
+        "watch": "Sledujte",
+        "star": "Hviezda",
+        "fork": "Vidlička",
+        "issues": "Problémy"
+    },
+    "dashboard": {
+        "subtitle": "Open source nástroj na správu zbierok videohier."
+    },
+    "boards": {
+        "title": "Dosky",
+        "create": "Vytvorte dosku",
+        "platforms": "Platformy",
+        "deprecated": "Zastarané"
+    },
+    "board": {
+        "gameModal": {
+            "videos": "Videá",
+            "screenshots": "Screenshoty",
+            "perspective": "Perspektíva",
+            "releaseDate": "Dátum vydania",
+            "timeToBeat": "Čas poraziť",
+            "gameModes": "Hrací mód",
+            "genres": "Žáner",
+            "ageRatings": "Vekové hodnotenie",
+            "platforms": "Platformy",
+            "developers": "Vývojár",
+            "publishers": "Vydavateľstvá",
+            "removeFromList": "Odstrániť",
+            "links": {
+                "official": "Oficiálna stránka",
+                "wikia": "Fandom",
+                "wikipedia": "Wikipedia",
+                "facebook": "Facebook",
+                "twitter": "Twitter",
+                "twitch": "Škubnutie",
+                "instagram": "Instagram",
+                "youtube": "ty trúbka",
+                "iphone": "iOS",
+                "ipad": "iPad",
+                "android": "Hračkárstvo",
+                "steam": "Parou",
+                "reddit": "Reddit",
+                "discord": "Svár",
+                "google_plus": "Google plus",
+                "tumblr": "Tumblr",
+                "linkedin": "Linkedin",
+                "pinterest": "Pinterest",
+                "soundcloud": "Soundcloud"
+            }
+        },
+        "addList": {
+            "title": "Pridať zoznam",
+            "placeholder": "Sem zadajte názov zoznamu"
+        },
+        "addGame": {
+            "title": "Pridajte hru",
+            "inputPlaceholder": "Sem zadajte vyhľadávanie",
+            "noResults": "Neboli nájdené žiadne výsledky",
+            "alreadyInList": "hry z výsledkov vyhľadávania, ktoré sa už nachádzajú vo vašom zozname"
+        },
+        "list": {
+            "edit": "Upravte názov zoznamu",
+            "type": "Typ zoznamu",
+            "settings": "Nastavenia zoznamu",
+            "placeholder": "Sem zadajte názov zoznamu",
+            "wishlist": "Zoznam želaní",
+            "input": "Zadajte svoj vlastný",
+            "add": "Pridať zoznam",
+            "duplicateWarning": "Zoznam s týmto názvom už máte",
+            "getStarted": "Začať!",
+            "addFirstTime": "Vitajte, pridajte svoj prvý zoznam!",
+            "sortByName": "THE",
+            "sortByProgress": "Pokrok",
+            "sortByRating": "Skóre",
+            "sortByReleaseDate": "Dátum",
+            "sortByCustom": "Vlastné",
+            "delete": "Odstrániť zoznam",
+            "moveLeft": "Presuňte sa doľava",
+            "moveRight": "Pohnúť sa vpravo",
+            "emptyList": "Tento zoznam je prázdny",
+            "addGame": "Pridajte hru",
+            "addGames": "Pridajte hry do zoznamu {listName}",
+            "view": "Zobrazenie zoznamu",
+            "moveList": "Presunúť zoznam",
+            "renameList": "Premenovať zoznam",
+            "renameListPlaceholder": "Zadajte svoje meno",
+            "sortList": "Zoznam automatického triedenia",
+            "sortWarning": "Zoznam automatického triedenia bude mať vplyv na to, ako funguje pretiahnutie",
+            "coversSizeTitle": "Kryty naprieč",
+            "showReleaseDates": "Zobraziť dátum vydania nevydaných hier",
+            "showGameRatings": "Zobraziť hodnotenia hier",
+            "showGameProgress": "Zobraziť priebeh hry",
+            "showGameNotes": "Zobraziť poznámky z hry",
+            "showGameTags": "Zobraziť herné značky",
+            "showGameCount": "Zobraziť počet hier",
+            "views": {
+                "single": "Predvolené",
+                "compact": "Kompaktný",
+                "text": "Iba text",
+                "grid": "Mriežka"
+            },
+            "deleteWarning": {
+                "title": "Naozaj chcete odstrániť tento zoznam?",
+                "message": "Túto akciu nie je možné vrátiť späť",
+                "buttonLabel": "Áno, vymazať zoznam"
+            }
+        }
+    },
+    "themes": {
+        "title": "Témy",
+        "subtitle": "Vyberte tému nižšie"
+    },
+    "languages": {
+        "title": "Jazyky",
+        "save": "Uložte a znovu načítajte prehliadač"
+    },
+    "settings": {
+        "tags": "Značky",
+        "wallpapers": "Tapety",
+        "language": "Jazyk",
+        "themes": "Témy",
+        "releases": "Správy",
+        "about": "O",
+        "account": "Účet"
+    },
+    "tags": {
+        "title": "Značky",
+        "subtitle": "Značky sú skvelým spôsobom, ako usporiadať a spravovať zbierku videohier. Pridajte, upravte alebo odstráňte značky.",
+        "form": {
+            "title": "Pridajte novú značku",
+            "inputPlaceholder": "Názov značky",
+            "preview": "Náhľad:",
+            "addTag": "Pridajte značku",
+            "duplicateMessage": "Značka s názvom {tagName} už existuje"
+        },
+        "list": {
+            "title": "Moje značky"
+        }
+    },
+    "wallpapers": {
+        "title": "Tapety",
+        "subtitle": "Spravujte tapety na doske",
+        "form": {
+            "label": "Nahrajte tapetu",
+            "placeholder": "Vyberte súbor alebo ho sem umiestnite ...",
+            "browse": "Prechádzať",
+            "helperText": "Iba obrazové súbory",
+            "upload": "Nahrať",
+            "duplicateMessage": "Súbor s názvom {fileName} už máte"
+        },
+        "list": {
+            "title": "Moje tapety"
+        }
+    },
+    "releases": {
+        "title": "Správy",
+        "published": "Uverejnený"
+    },
+    "about": {
+        "title": "O spoločnosti Gamebrary",
+        "subtitle": "Readme z Githubu"
+    },
+    "progresses": {
+        "modalTitle": "Nastaviť postup v hre",
+        "addProgress": "Pridajte pokrok",
+        "save": "Ušetrite pokrok",
+        "deleteProgress": "Odstrániť postup",
+        "progresses": "Pokrok"
+    },
+    "platforms": {
+        "donateMessage": "Gamebrary je bezplatný a otvorený zdroj, zvážte pomoc pri jeho vývoji tým, že",
+        "donating": "darovanie",
+        "reportBugs": "hlásenie chýb",
+        "submitFeedback": "odoslanie spätnej väzby",
+        "all": "Všetky",
+        "console": "Konzoly",
+        "platform": "Digitálne",
+        "operating_system": "PC / iné",
+        "portable_console": "Ručné počítače",
+        "computer": "Domáce počítače",
+        "popular": "Populárne",
+        "releaseYear": "Rok vydania",
+        "name": "Abecedne",
+        "generation": "Generácia / dátum premiestnenia",
+        "type": "Typ"
+    }
+}
