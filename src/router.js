@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Board from '@/pages/Board';
 import About from '@/pages/About';
-import Language from '@/pages/Language';
+import Languages from '@/pages/Languages';
 import Wallpapers from '@/pages/Wallpapers';
 import Tags from '@/pages/Tags';
 import Account from '@/pages/Account';
@@ -59,9 +59,9 @@ export default new Router({
     {
       name: 'language',
       path: '/language',
-      component: Language,
+      component: Languages,
       meta: {
-        title: 'Language',
+        title: 'Languages',
       },
     },
     {
@@ -100,6 +100,14 @@ export default new Router({
       path: '/board/:id',
       name: 'board',
       component: Board,
+    },
+    {
+      path: '/b/:id',
+      name: 'public-board',
+      component: Board,
+      meta: {
+        public: true,
+      },
     },
     {
       path: '*',

@@ -1,7 +1,7 @@
 <template lang="html">
   <div>
     <b-jumbotron
-      header="Language"
+      :header="$t('languages.title')"
       header-level="5"
       fluid
     />
@@ -9,11 +9,11 @@
     <b-container>
       <b-form-select v-model="language" class="mb-2 w-50">
         <b-form-select-option
-          v-for="{ flag, code } in languages"
-          :key="code"
-          :value="code"
+          v-for="{ name, value } in SUPPORTED_LANGUAGES"
+          :key="value"
+          :value="value"
         >
-          {{ flag }}  {{ $t(`settings.languages.${code}`) }}
+          {{ name }}
         </b-form-select-option>
       </b-form-select>
 
@@ -25,7 +25,7 @@
         @click="saveSettings"
       >
         <b-spinner small v-if="saving" />
-        <span v-else>Save and reload browser</span>
+        <span v-else>{{ $t('languages.save') }}</span>
       </b-button>
     </b-container>
   </div>
@@ -33,22 +33,13 @@
 
 <script>
 import { mapState } from 'vuex';
+import { SUPPORTED_LANGUAGES } from '@/constants';
 
 export default {
   data() {
     return {
       saving: false,
-      languages: [
-        { flag: '🇺🇸', code: 'en' },
-        { flag: '🇪🇸', code: 'es' },
-        { flag: '🇵🇱', code: 'pl' },
-        { flag: '🇩🇪', code: 'de' },
-        { flag: '🇦🇪', code: 'ar' },
-        { flag: '🇫🇷', code: 'fr' },
-        { flag: '🇯🇵', code: 'ja' },
-        { flag: '🇮🇹', code: 'it' },
-        { flag: '🇨🇿', code: 'cs' },
-      ],
+      SUPPORTED_LANGUAGES,
       language: null,
     };
   },
@@ -72,6 +63,7 @@ export default {
         language,
       };
 
+      // TODO: Make async
       this.$store.dispatch('SAVE_SETTINGS', payload)
         .then(() => {
           this.$bvToast.toast('Settings saved', { title: 'Success', variant: 'success' });
