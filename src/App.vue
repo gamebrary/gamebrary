@@ -56,6 +56,10 @@ export default {
         ? 'rtl'
         : 'ltr';
     },
+
+    isPublicBoard() {
+      return this.$route.meta && this.$route.meta.public;
+    },
   },
 
   mounted() {
@@ -64,6 +68,10 @@ export default {
 
   methods: {
     init() {
+      if (this.isPublicBoard) {
+        return;
+      }
+
       if (this.user) {
         this.load();
       } else if (this.$route.name !== 'auth') {

@@ -60,6 +60,10 @@ export default {
     boardId() {
       return this.$route.params.id;
     },
+
+    isPublicBoard() {
+      return this.$route.meta && this.$route.meta.public;
+    },
   },
 
   watch: {
@@ -70,8 +74,15 @@ export default {
     },
   },
 
-  mounted() {
-    this.load();
+  async mounted() {
+    if (this.isPublicBoard) {
+      await this.loadPublicBoard(this.boardId);
+
+      this.loadBoardGames();
+      this.setWallpaper();
+    } else {
+      this.load();
+    }
 
     this.$bus.$on('RELOAD_WALLPAPER', this.setWallpaper);
   },
@@ -97,6 +108,18 @@ export default {
       await this.$store.dispatch('LOAD_BOARD', id)
         .catch(() => {
           this.$router.replace({ path: '/' });
+        });
+
+      this.loadBoardGames();
+      this.setWallpaper();
+    },
+
+    async loadPublicBoard(id) {
+      this.loading = true;
+
+      await this.$store.dispatch('LOAD_PUBIC_BOARD', id)
+        .catch(() => {
+          // this.$router.replace({ path: '/' });
         });
 
       this.loadBoardGames();

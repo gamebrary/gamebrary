@@ -82,6 +82,27 @@ export default {
     });
   },
 
+  LOAD_PUBIC_BOARD({ commit }, id) {
+    return new Promise((resolve, reject) => {
+      const db = firebase.firestore();
+
+      db.collection('boards')
+        .doc(id)
+        .get()
+        .then((doc) => {
+          const board = doc.data();
+
+          commit('SET_BOARD', {
+            ...board,
+            id: doc.id,
+          });
+
+          return resolve();
+        })
+        .catch(reject);
+    });
+  },
+
   CREATE_BOARD({ state, commit }, board) {
     return new Promise((resolve, reject) => {
       const db = firebase.firestore();
