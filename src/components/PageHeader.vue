@@ -11,6 +11,8 @@
         right
         no-caret
         boundary="viewport"
+        v-b-tooltip.hover.right
+        :title="$t('navMenu.changeBoard')"
         variant="transparent"
       >
         <template v-slot:button-content>
@@ -29,46 +31,50 @@
     </template>
 
     <div class="mt-auto">
-      <b-dropdown
-        dropright
-        right
-        no-caret
-        boundary="viewport"
-        variant="transparent"
+      <b-button
+        variant="link"
+        :title="$t('navMenu.tags')"
+        :to="{ name: 'tags' }"
+        v-b-tooltip.hover.right
       >
-        <template v-slot:button-content>
-          <icon name="gear" />
-        </template>
+        <icon name="tag" />
+      </b-button>
 
-        <b-dropdown-item title="Tags" :to="{ name: 'tags' }">
-          <icon name="tag" />
+      <b-button
+        variant="link"
+        :title="$t('navMenu.wallpapers')"
+        :to="{ name: 'wallpapers' }"
+        v-b-tooltip.hover.right
+      >
+        <icon name="image" />
+      </b-button>
 
-          {{ $t('settings.tags') }}
-        </b-dropdown-item>
+      <b-button
+        variant="link"
+        :title="$t('navMenu.language')"
+        :to="{ name: 'language' }"
+        v-b-tooltip.hover.right
+      >
+        <icon name="globe" />
+      </b-button>
 
-        <b-dropdown-item title="Wallpapers" :to="{ name: 'wallpapers' }">
-          <icon name="image" />
-          {{ $t('settings.wallpapers') }}
-        </b-dropdown-item>
+      <b-button
+        variant="link"
+        :title="$t('navMenu.releases')"
+        :to="{ name: 'releases' }"
+        v-b-tooltip.hover.right
+      >
+        <icon name="megaphone" />
+      </b-button>
 
-        <b-dropdown-item title="Language" :to="{ name: 'language' }">
-          <icon name="globe" />
-          {{ $t('settings.language') }}
-        </b-dropdown-item>
-        <b-dropdown-item title="Themes" :to="{ name: 'themes' }">
-          <icon name="sun" />
-          {{ $t('settings.themes') }}
-        </b-dropdown-item>
-        <b-dropdown-item title="Releases" :to="{ name: 'releases' }">
-          <icon name="megaphone" />
-          {{ $t('settings.releases') }}
-        </b-dropdown-item>
-
-        <b-dropdown-item title="About" :to="{ name: 'about' }">
-          <icon name="info" />
-          {{ $t('settings.about') }}
-        </b-dropdown-item>
-      </b-dropdown>
+      <b-button
+        variant="link"
+        :title="$t('navMenu.about')"
+        :to="{ name: 'about' }"
+        v-b-tooltip.hover.right
+      >
+        <icon name="info" />
+      </b-button>
 
       <router-link
         :title="$t('settings.account')"
@@ -79,6 +85,8 @@
           v-if="user && user.photoURL"
           variant="info"
           small
+          :title="$t('navMenu.account')"
+          v-b-tooltip.hover.right
           :badge="notification"
           badge-variant="danger"
           :src="user.photoURL"
