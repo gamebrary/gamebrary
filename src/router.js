@@ -6,7 +6,6 @@ import Languages from '@/pages/Languages';
 import Wallpapers from '@/pages/Wallpapers';
 import Tags from '@/pages/Tags';
 import Account from '@/pages/Account';
-import Themes from '@/pages/Themes';
 import Releases from '@/pages/Releases';
 import Auth from '@/pages/Auth';
 import Dashboard from '@/pages/Dashboard';
@@ -62,14 +61,6 @@ export default new Router({
       component: Languages,
       meta: {
         title: 'Languages',
-      },
-    },
-    {
-      name: 'themes',
-      path: '/themes',
-      component: Themes,
-      meta: {
-        title: 'Themes',
       },
     },
     {
