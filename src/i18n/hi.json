@@ -18,6 +18,15 @@
         "reportBugs": "बग की सूचना देना",
         "submitFeedback": "प्रतिक्रिया प्रस्तुत करना"
     },
+    "navMenu": {
+        "changeBoard": "बोर्ड बदलें",
+        "tags": "टैग",
+        "wallpapers": "वॉलपेपर",
+        "language": "भाषा: हिन्दी",
+        "releases": "विज्ञप्ति",
+        "about": "के बारे में",
+        "account": "लेखा"
+    },
     "gitHub": {
         "watch": "घड़ी",
         "star": "तारा",
@@ -25,7 +34,7 @@
         "issues": "मुद्दे"
     },
     "dashboard": {
-        "subtitle": "ओपन सोर्स वीडियो गेम कलेक्शन मैनेजमेंट टूल।"
+        "subtitle": "खुला स्रोत वीडियो गेम संग्रह प्रबंधन उपकरण।"
     },
     "boards": {
         "title": "बोर्डों",
@@ -103,9 +112,9 @@
             "addGames": "खेलों को {listName} में जोड़ें",
             "view": "सूची दृश्य",
             "moveList": "सूची ले जाएँ",
-            "renameList": "सूची का नाम बदलें",
+            "renameList": "नाम बदलें",
             "renameListPlaceholder": "अपना नाम दर्ज करें",
-            "sortList": "ऑटो तरह की सूची",
+            "sortList": "तरह",
             "sortWarning": "ऑटो छँटाई सूची को प्रभावित करेगा कि कैसे खींचें और ड्रॉप काम करता है",
             "coversSizeTitle": "के पार हो जाता है",
             "showReleaseDates": "असंबंधित खेलों के लिए रिलीज की तारीख दिखाएं",

@@ -18,6 +18,15 @@
         "reportBugs": "prijavljivanje bugova",
         "submitFeedback": "podnošenje povratnih informacija"
     },
+    "navMenu": {
+        "changeBoard": "Promjena ploče",
+        "tags": "Oznake",
+        "wallpapers": "Pozadine",
+        "language": "Jezik",
+        "releases": "Izdanja",
+        "about": "Oko",
+        "account": "Račun"
+    },
     "gitHub": {
         "watch": "Gledati",
         "star": "Zvijezda",
@@ -103,9 +112,9 @@
             "addGames": "Dodajte igre na {listName}",
             "view": "Prikaz popisa",
             "moveList": "Pokretni popis",
-            "renameList": "Preimenuj popis",
+            "renameList": "Preimenovati",
             "renameListPlaceholder": "Unesite svoje ime",
-            "sortList": "Popis za automatsko sortiranje",
+            "sortList": "Vrsta",
             "sortWarning": "Popis automatskog sortiranja utjecati će na način rada povlačenja i ispuštanja",
             "coversSizeTitle": "Omoti preko",
             "showReleaseDates": "Prikaži datum izlaska neobjavljenih igara",

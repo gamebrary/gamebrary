@@ -18,6 +18,15 @@
         "reportBugs": "poročanje o napakah",
         "submitFeedback": "pošiljanje povratnih informacij"
     },
+    "navMenu": {
+        "changeBoard": "Spremeni tablo",
+        "tags": "Oznake",
+        "wallpapers": "Ozadja",
+        "language": "Jezik",
+        "releases": "Izpusti",
+        "about": "O tem",
+        "account": "račun"
+    },
     "gitHub": {
         "watch": "Pazi",
         "star": "zvezda",
@@ -103,9 +112,9 @@
             "addGames": "Dodaj igre na seznam {listName}",
             "view": "Pogled seznama",
             "moveList": "Premakni seznam",
-            "renameList": "Preimenuj seznam",
+            "renameList": "Preimenuj",
             "renameListPlaceholder": "Vnesite svoje ime",
-            "sortList": "Seznam samodejnega razvrščanja",
+            "sortList": "Razvrsti",
             "sortWarning": "Seznam samodejnega razvrščanja bo vplival na delovanje povleci in spusti",
             "coversSizeTitle": "Ovitki čez",
             "showReleaseDates": "Prikaži datum izdaje neobjavljenih iger",
@@ -146,7 +155,7 @@
     },
     "tags": {
         "title": "Oznake",
-        "subtitle": "Oznake so odličen način za organizacijo in upravljanje zbirke videoiger. Dodajanje, urejanje ali brisanje oznak.",
+        "subtitle": "Oznake so odličen način za organizacijo in upravljanje zbirke video iger. Dodajanje, urejanje ali brisanje oznak.",
         "form": {
             "title": "Dodaj novo oznako",
             "inputPlaceholder": "Ime oznake",

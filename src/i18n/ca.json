@@ -18,6 +18,15 @@
         "reportBugs": "informar d'errors",
         "submitFeedback": "enviant comentaris"
     },
+    "navMenu": {
+        "changeBoard": "Canviar tauler",
+        "tags": "Etiquetes",
+        "wallpapers": "Fons de pantalla",
+        "language": "Llenguatge",
+        "releases": "Estrenes",
+        "about": "Sobre",
+        "account": "Compte"
+    },
     "gitHub": {
         "watch": "Veure",
         "star": "Estrella",
@@ -103,9 +112,9 @@
             "addGames": "Afegeix jocs a {listName}",
             "view": "Vista de llista",
             "moveList": "Mou la llista",
-            "renameList": "Canvia el nom de la llista",
+            "renameList": "Canvia el nom",
             "renameListPlaceholder": "Introdueixi el seu nom",
-            "sortList": "Llista d'ordenació automàtica",
+            "sortList": "Ordena",
             "sortWarning": "La llista d'ordenació automàtica afectarà el funcionament d'arrossegar i deixar anar",
             "coversSizeTitle": "Cobertes transversals",
             "showReleaseDates": "Mostra la data de llançament dels jocs inèdits",

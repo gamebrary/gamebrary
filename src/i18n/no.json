@@ -18,6 +18,15 @@
         "reportBugs": "rapportering av feil",
         "submitFeedback": "sende inn tilbakemelding"
     },
+    "navMenu": {
+        "changeBoard": "Bytt tavle",
+        "tags": "Merker",
+        "wallpapers": "Bakgrunnsbilder",
+        "language": "Språk",
+        "releases": "Utgivelser",
+        "about": "Om",
+        "account": "Regnskap"
+    },
     "gitHub": {
         "watch": "Se",
         "star": "Stjerne",
@@ -103,9 +112,9 @@
             "addGames": "Legg til spill i {listName}",
             "view": "Listevisning",
             "moveList": "Flytt liste",
-            "renameList": "Gi nytt navn til listen",
+            "renameList": "Gi nytt navn",
             "renameListPlaceholder": "Skriv inn navnet ditt",
-            "sortList": "Automatisk sorteringsliste",
+            "sortList": "Sortere",
             "sortWarning": "Automatisk sorteringsliste vil påvirke hvordan dra og slipp fungerer",
             "coversSizeTitle": "Dekker over",
             "showReleaseDates": "Vis utgivelsesdato for ikke-utgitte spill",

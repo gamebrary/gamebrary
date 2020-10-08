@@ -18,6 +18,15 @@
         "reportBugs": "报告错误",
         "submitFeedback": "提交反馈"
     },
+    "navMenu": {
+        "changeBoard": "更换板",
+        "tags": "标签",
+        "wallpapers": "墙纸",
+        "language": "语言",
+        "releases": "发布",
+        "about": "关于",
+        "account": "帐户"
+    },
     "gitHub": {
         "watch": "看",
         "star": "星",
@@ -103,9 +112,9 @@
             "addGames": "将游戏添加到{listName}",
             "view": "列表显示",
             "moveList": "移动清单",
-            "renameList": "重命名清单",
+            "renameList": "改名",
             "renameListPlaceholder": "输入你的名字",
-            "sortList": "自动排序清单",
+            "sortList": "分类",
             "sortWarning": "自动排序列表将影响拖放的工作方式",
             "coversSizeTitle": "覆盖整个",
             "showReleaseDates": "显示未发布游戏的发布日期",

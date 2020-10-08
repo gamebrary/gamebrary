@@ -18,6 +18,15 @@
         "reportBugs": "الإبلاغ عن الأخطاء",
         "submitFeedback": "إرسال التعليقات"
     },
+    "navMenu": {
+        "changeBoard": "تغيير اللوحة",
+        "tags": "العلامات",
+        "wallpapers": "خلفيات",
+        "language": "لغة",
+        "releases": "إطلاق",
+        "about": "حول",
+        "account": "الحساب"
+    },
     "gitHub": {
         "watch": "راقب",
         "star": "نجمة",
@@ -103,9 +112,9 @@
             "addGames": "إضافة ألعاب إلى {listName}",
             "view": "عرض القائمة",
             "moveList": "قائمة النقل",
-            "renameList": "إعادة تسمية القائمة",
+            "renameList": "إعادة تسمية",
             "renameListPlaceholder": "أدخل أسمك",
-            "sortList": "قائمة الفرز التلقائي",
+            "sortList": "فرز",
             "sortWarning": "ستؤثر قائمة الفرز التلقائي على كيفية عمل السحب والإفلات",
             "coversSizeTitle": "يغطي عبر",
             "showReleaseDates": "عرض تاريخ الإصدار للألعاب التي لم يتم طرحها",

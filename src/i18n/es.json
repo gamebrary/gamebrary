@@ -18,6 +18,15 @@
         "reportBugs": "reportar errores",
         "submitFeedback": "enviar comentarios"
     },
+    "navMenu": {
+        "changeBoard": "Cambiar tablero",
+        "tags": "Etiquetas",
+        "wallpapers": "Fondos de pantalla",
+        "language": "Idioma",
+        "releases": "Lanzamientos",
+        "about": "Acerca de",
+        "account": "Cuenta"
+    },
     "gitHub": {
         "watch": "Reloj",
         "star": "Estrella",
@@ -103,9 +112,9 @@
             "addGames": "Agregar juegos a {listName}",
             "view": "Vista de la lista",
             "moveList": "Mover lista",
-            "renameList": "Cambiar nombre de lista",
+            "renameList": "Rebautizar",
             "renameListPlaceholder": "Introduzca su nombre",
-            "sortList": "Lista de ordenación automática",
+            "sortList": "Ordenar",
             "sortWarning": "La lista de clasificación automática afectará el funcionamiento de arrastrar y soltar",
             "coversSizeTitle": "Cubre a través",
             "showReleaseDates": "Mostrar la fecha de lanzamiento de los juegos inéditos",

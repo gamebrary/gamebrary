@@ -18,6 +18,15 @@
         "reportBugs": "melaporkan pepijat",
         "submitFeedback": "mengemukakan maklum balas"
     },
+    "navMenu": {
+        "changeBoard": "Tukar papan",
+        "tags": "Teg",
+        "wallpapers": "Kertas dinding",
+        "language": "Bahasa",
+        "releases": "Pelepasan",
+        "about": "Mengenai",
+        "account": "Akaun"
+    },
     "gitHub": {
         "watch": "Tonton",
         "star": "Bintang",
@@ -103,9 +112,9 @@
             "addGames": "Tambahkan permainan ke {listName}",
             "view": "Senarai semak",
             "moveList": "Pindahkan senarai",
-            "renameList": "Namakan semula senarai",
+            "renameList": "Namakan semula",
             "renameListPlaceholder": "Masukkan nama anda",
-            "sortList": "Senarai pilihan automatik",
+            "sortList": "Susun",
             "sortWarning": "Senarai menyusun automatik akan mempengaruhi cara seret dan lepas berfungsi",
             "coversSizeTitle": "Meliputi di seberang",
             "showReleaseDates": "Tunjukkan tarikh pelepasan untuk permainan yang belum diterbitkan",

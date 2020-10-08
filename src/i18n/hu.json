@@ -18,6 +18,15 @@
         "reportBugs": "hibabejelentés",
         "submitFeedback": "visszajelzés benyújtása"
     },
+    "navMenu": {
+        "changeBoard": "Táblát váltani",
+        "tags": "Címkék",
+        "wallpapers": "Háttérképek",
+        "language": "Nyelv",
+        "releases": "Kiadások",
+        "about": "Ról ről",
+        "account": "Számla"
+    },
     "gitHub": {
         "watch": "Néz",
         "star": "Csillag",
@@ -71,7 +80,7 @@
         },
         "addList": {
             "title": "Lista hozzáadása",
-            "placeholder": "Ide írja be a lista nevét"
+            "placeholder": "Ide írja a lista nevét"
         },
         "addGame": {
             "title": "Játék hozzáadása",
@@ -103,9 +112,9 @@
             "addGames": "Játékok hozzáadása a következőhöz: {listName}",
             "view": "Lista nézet",
             "moveList": "Lista áthelyezése",
-            "renameList": "Lista átnevezése",
+            "renameList": "Átnevezés",
             "renameListPlaceholder": "Adja meg nevét",
-            "sortList": "Automatikus rendezési lista",
+            "sortList": "Fajta",
             "sortWarning": "Az automatikus rendezési lista hatással lesz a drag and drop működésére",
             "coversSizeTitle": "Áttetszik",
             "showReleaseDates": "Mutassa meg a nem kiadott játékok megjelenési dátumát",

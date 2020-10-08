@@ -18,6 +18,15 @@
         "reportBugs": "tirrapporta bugs",
         "submitFeedback": "tissottometti feedback"
     },
+    "navMenu": {
+        "changeBoard": "Ibdel il-bord",
+        "tags": "Tags",
+        "wallpapers": "Sfondi",
+        "language": "Lingwa",
+        "releases": "Rilaxxi",
+        "about": "Dwar",
+        "account": "Kont"
+    },
     "gitHub": {
         "watch": "Ara",
         "star": "Stilla",
@@ -103,9 +112,9 @@
             "addGames": "Żid logħob ma '{listName}",
             "view": "Veduta tal-lista",
             "moveList": "Mexxi l-lista",
-            "renameList": "Semmi mill-ġdid il-lista",
+            "renameList": "Semmi mill-ġdid",
             "renameListPlaceholder": "Daħħal ismek",
-            "sortList": "Lista ta 'sort awtomatiku",
+            "sortList": "Issortja",
             "sortWarning": "Il-lista tal-issortjar awtomatiku taffettwa kif jaħdem id-drag and drop",
             "coversSizeTitle": "Tkopri madwar",
             "showReleaseDates": "Uri d-data tar-rilaxx għal-logħob mhux rilaxxat",
@@ -133,7 +142,7 @@
     },
     "languages": {
         "title": "Lingwi",
-        "save": "Issejvja u erġa 'kkarga l-browser"
+        "save": "Issejvja u erġa 'kkargajt il-browser"
     },
     "settings": {
         "tags": "Tags",

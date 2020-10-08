@@ -18,6 +18,15 @@
         "reportBugs": "foute aanmeld",
         "submitFeedback": "terugvoer indien"
     },
+    "navMenu": {
+        "changeBoard": "Verander bord",
+        "tags": "Merkers",
+        "wallpapers": "Agtergronde",
+        "language": "Taal",
+        "releases": "Vrystellings",
+        "about": "Oor",
+        "account": "Rekening"
+    },
     "gitHub": {
         "watch": "Kyk",
         "star": "Ster",
@@ -25,7 +34,7 @@
         "issues": "Kwessies"
     },
     "dashboard": {
-        "subtitle": "Die instrument vir die bestuur van die oopbron vir die versameling van videospeletjies."
+        "subtitle": "Die bestuurder van die oopbron vir die versameling van videospeletjies."
     },
     "boards": {
         "title": "Borde",
@@ -103,9 +112,9 @@
             "addGames": "Voeg speletjies by {listName}",
             "view": "Lys sig",
             "moveList": "Skuif lys",
-            "renameList": "Hernoem lys",
+            "renameList": "Hernoem",
             "renameListPlaceholder": "Gee jou naam",
-            "sortList": "Lys outomaties sorteer",
+            "sortList": "Sorteer",
             "sortWarning": "Lys met outomatiese sorteer beïnvloed hoe sleep en werk",
             "coversSizeTitle": "Bedekkings dwars",
             "showReleaseDates": "Wys die vrystellingsdatum vir speletjies wat nog nie vrygestel is nie",

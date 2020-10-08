@@ -18,6 +18,15 @@
         "reportBugs": "バグの報告",
         "submitFeedback": "フィードバックの送信"
     },
+    "navMenu": {
+        "changeBoard": "ボードを変更します",
+        "tags": "タグ",
+        "wallpapers": "壁紙",
+        "language": "言語",
+        "releases": "リリース",
+        "about": "約",
+        "account": "アカウント"
+    },
     "gitHub": {
         "watch": "見る",
         "star": "星",
@@ -103,9 +112,9 @@
             "addGames": "{listName}にゲームを追加する",
             "view": "リストビュー",
             "moveList": "リストを移動",
-            "renameList": "リストの名前を変更",
+            "renameList": "名前を変更",
             "renameListPlaceholder": "あなたの名前を入力してください",
-            "sortList": "自動ソートリスト",
+            "sortList": "ソート",
             "sortWarning": "自動並べ替えリストは、ドラッグアンドドロップの動作に影響します",
             "coversSizeTitle": "全体をカバー",
             "showReleaseDates": "未リリースのゲームのリリース日を表示する",

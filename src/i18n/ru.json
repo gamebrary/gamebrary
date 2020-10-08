@@ -18,6 +18,15 @@
         "reportBugs": "сообщать об ошибках",
         "submitFeedback": "отправка отзыва"
     },
+    "navMenu": {
+        "changeBoard": "Сменить доску",
+        "tags": "Теги",
+        "wallpapers": "Обои",
+        "language": "Язык",
+        "releases": "Релизы",
+        "about": "Около",
+        "account": "Счет"
+    },
     "gitHub": {
         "watch": "Смотреть",
         "star": "Звезда",
@@ -103,9 +112,9 @@
             "addGames": "Добавить игры в {listName}",
             "view": "Посмотреть список",
             "moveList": "Переместить список",
-            "renameList": "Переименовать список",
+            "renameList": "Переименовать",
             "renameListPlaceholder": "Введите ваше имя",
-            "sortList": "Список автосортировки",
+            "sortList": "Сортировать",
             "sortWarning": "Список автосортировки повлияет на работу перетаскивания",
             "coversSizeTitle": "Обложки через",
             "showReleaseDates": "Показывать дату выпуска неизданных игр",

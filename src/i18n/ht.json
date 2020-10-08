@@ -18,6 +18,15 @@
         "reportBugs": "rapòte pinèz",
         "submitFeedback": "soumèt fidbak"
     },
+    "navMenu": {
+        "changeBoard": "Chanje tablo",
+        "tags": "Tags",
+        "wallpapers": "D '",
+        "language": "Lang",
+        "releases": "Lage",
+        "about": "About",
+        "account": "Kont"
+    },
     "gitHub": {
         "watch": "Gade",
         "star": "Star",
@@ -103,9 +112,9 @@
             "addGames": "Ajoute jwèt nan {listName}",
             "view": "Lis View",
             "moveList": "Deplase lis la",
-            "renameList": "Chanje non lis la",
+            "renameList": "Chanje non",
             "renameListPlaceholder": "Ekri non ou",
-            "sortList": "Lis sòt Auto",
+            "sortList": "Triye",
             "sortWarning": "Lis klasman Auto pral afekte ki jan trennen ak gout travay",
             "coversSizeTitle": "Kouvri atravè",
             "showReleaseDates": "Montre dat lage pou jwèt unreleased",
@@ -141,7 +150,7 @@
         "language": "Lang",
         "themes": "Tèm",
         "releases": "Lage",
-        "about": "Sou",
+        "about": "About",
         "account": "Kont"
     },
     "tags": {

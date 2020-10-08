@@ -18,6 +18,15 @@
         "reportBugs": "rapportera fel",
         "submitFeedback": "skicka feedback"
     },
+    "navMenu": {
+        "changeBoard": "Byt styrelse",
+        "tags": "Taggar",
+        "wallpapers": "Bakgrundsbilder",
+        "language": "Språk",
+        "releases": "Släpp",
+        "about": "Handla om",
+        "account": "konto"
+    },
     "gitHub": {
         "watch": "Kolla på",
         "star": "Stjärna",
@@ -25,7 +34,7 @@
         "issues": "Problem"
     },
     "dashboard": {
-        "subtitle": "Verktyget för öppen källkod för videosamlingshantering."
+        "subtitle": "Verktyget för öppen källkod för hantering av videospel."
     },
     "boards": {
         "title": "Styrelser",
@@ -103,9 +112,9 @@
             "addGames": "Lägg till spel i {listName}",
             "view": "Listvy",
             "moveList": "Flytta listan",
-            "renameList": "Byt namn på listan",
+            "renameList": "Döp om",
             "renameListPlaceholder": "Ange ditt namn",
-            "sortList": "Automatisk sorteringslista",
+            "sortList": "Sortera",
             "sortWarning": "Listan för automatisk sortering kommer att påverka hur dra och släpp fungerar",
             "coversSizeTitle": "Täcker över",
             "showReleaseDates": "Visa utgivningsdatum för spel som inte släppts",

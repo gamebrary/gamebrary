@@ -18,6 +18,15 @@
         "reportBugs": "Fehler melden",
         "submitFeedback": "Feedback senden"
     },
+    "navMenu": {
+        "changeBoard": "Karte wechseln",
+        "tags": "Stichworte",
+        "wallpapers": "Hintergrundbilder",
+        "language": "Sprache",
+        "releases": "Veröffentlichungen",
+        "about": "Über",
+        "account": "Konto"
+    },
     "gitHub": {
         "watch": "Sehen",
         "star": "Star",
@@ -103,9 +112,9 @@
             "addGames": "Spiele zu {listName} hinzufügen",
             "view": "Listenansicht",
             "moveList": "Liste verschieben",
-            "renameList": "Liste umbenennen",
+            "renameList": "Umbenennen",
             "renameListPlaceholder": "Gib deinen Namen ein",
-            "sortList": "Liste der automatischen Sortierung",
+            "sortList": "Sortieren",
             "sortWarning": "Die Liste der automatischen Sortierung wirkt sich auf die Funktionsweise von Drag & Drop aus",
             "coversSizeTitle": "Deckt über",
             "showReleaseDates": "Veröffentlichungsdatum für unveröffentlichte Spiele anzeigen",

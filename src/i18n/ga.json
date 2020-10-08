@@ -18,6 +18,15 @@
         "reportBugs": "fabhtanna tuairiscithe",
         "submitFeedback": "aiseolas a chur isteach"
     },
+    "navMenu": {
+        "changeBoard": "Athraigh bord",
+        "tags": "Clibeanna",
+        "wallpapers": "Cúlbhrat",
+        "language": "Teanga",
+        "releases": "Scaoileadh",
+        "about": "Faoi",
+        "account": "Cuntas"
+    },
     "gitHub": {
         "watch": "Bí ag faire",
         "star": "Réalta",
@@ -103,12 +112,12 @@
             "addGames": "Cuir cluichí le {listName}",
             "view": "Amharc liosta",
             "moveList": "Bog liosta",
-            "renameList": "Liosta athainmnigh",
+            "renameList": "Athainmnigh",
             "renameListPlaceholder": "Iontráil d’ainm",
-            "sortList": "Liosta sórtála uathoibríoch",
+            "sortList": "Sórtáil",
             "sortWarning": "Beidh tionchar ag liosta sórtála uathoibríoch ar an gcaoi a n-oibríonn tarraing agus titim",
             "coversSizeTitle": "Clúdaigh trasna",
-            "showReleaseDates": "Taispeáin dáta scaoilte do chluichí neamhréadaithe",
+            "showReleaseDates": "Taispeáin dáta scaoilte do chluichí neamhfhoilsithe",
             "showGameRatings": "Taispeáin rátálacha cluiche",
             "showGameProgress": "Taispeáin dul chun cinn an chluiche",
             "showGameNotes": "Taispeáin nótaí cluiche",

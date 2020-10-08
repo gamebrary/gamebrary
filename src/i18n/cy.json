@@ -18,6 +18,15 @@
         "reportBugs": "riportio chwilod",
         "submitFeedback": "cyflwyno adborth"
     },
+    "navMenu": {
+        "changeBoard": "Newid bwrdd",
+        "tags": "Tagiau",
+        "wallpapers": "Papurau wal",
+        "language": "Iaith",
+        "releases": "Rhyddhau",
+        "about": "Am",
+        "account": "Cyfrif"
+    },
     "gitHub": {
         "watch": "Gwylio",
         "star": "Seren",
@@ -103,9 +112,9 @@
             "addGames": "Ychwanegu gemau at {listName}",
             "view": "Rhestr gweld",
             "moveList": "Rhestr symud",
-            "renameList": "Ail-enwi rhestr",
+            "renameList": "Ail-enwi",
             "renameListPlaceholder": "Rhowch eich enw",
-            "sortList": "Rhestr didoli awto",
+            "sortList": "Trefnu",
             "sortWarning": "Bydd rhestr didoli awto yn effeithio ar sut mae llusgo a gollwng yn gweithio",
             "coversSizeTitle": "Yn cwmpasu ar draws",
             "showReleaseDates": "Dangos dyddiad rhyddhau ar gyfer gemau heb eu rhyddhau",

@@ -18,6 +18,15 @@
         "reportBugs": "گزارش اشکالات",
         "submitFeedback": "ارسال بازخورد"
     },
+    "navMenu": {
+        "changeBoard": "تغییر صفحه",
+        "tags": "برچسب ها",
+        "wallpapers": "تصاویر پس زمینه",
+        "language": "زبان",
+        "releases": "منتشر شده",
+        "about": "در باره",
+        "account": "حساب"
+    },
     "gitHub": {
         "watch": "تماشا کردن",
         "star": "ستاره",
@@ -103,9 +112,9 @@
             "addGames": "اضافه کردن بازی ها به {listName}",
             "view": "نمای لیست",
             "moveList": "انتقال لیست",
-            "renameList": "تغییر نام لیست",
+            "renameList": "تغییر نام دهید",
             "renameListPlaceholder": "اسمت را وارد کن",
-            "sortList": "لیست مرتب سازی خودکار",
+            "sortList": "مرتب سازی",
             "sortWarning": "لیست مرتب سازی خودکار بر نحوه عملکرد کشیدن و رها کردن تأثیر می گذارد",
             "coversSizeTitle": "پوشش در سراسر",
             "showReleaseDates": "تاریخ انتشار بازی های منتشر نشده را نشان دهید",

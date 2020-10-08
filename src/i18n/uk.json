@@ -18,6 +18,15 @@
         "reportBugs": "повідомлення про помилки",
         "submitFeedback": "подання відгуку"
     },
+    "navMenu": {
+        "changeBoard": "Змінити дошку",
+        "tags": "Теги",
+        "wallpapers": "Шпалери",
+        "language": "Мова",
+        "releases": "Випуски",
+        "about": "Про",
+        "account": "Рахунок"
+    },
     "gitHub": {
         "watch": "Дивіться",
         "star": "Зірка",
@@ -103,9 +112,9 @@
             "addGames": "Додати ігри до списку {listName}",
             "view": "Перегляд списку",
             "moveList": "Перемістити список",
-            "renameList": "Перейменувати список",
+            "renameList": "Перейменувати",
             "renameListPlaceholder": "Введіть ім'я",
-            "sortList": "Список автоматичного сортування",
+            "sortList": "Сортувати",
             "sortWarning": "Список автоматичного сортування вплине на те, як працює перетягування",
             "coversSizeTitle": "Покриває поперек",
             "showReleaseDates": "Показати дату випуску невипущених ігор",

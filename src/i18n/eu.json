@@ -18,6 +18,15 @@
         "reportBugs": "akatsen berri ematea",
         "submitFeedback": "iritzia bidaltzen"
     },
+    "navMenu": {
+        "changeBoard": "Aldatu taula",
+        "tags": "Etiketak",
+        "wallpapers": "Horma paperak",
+        "language": "Hizkuntza",
+        "releases": "Estreinaldiak",
+        "about": "Buruz",
+        "account": "Kontua"
+    },
     "gitHub": {
         "watch": "Ikusi",
         "star": "Izarra",
@@ -103,9 +112,9 @@
             "addGames": "Gehitu jokoak {listName} atalean",
             "view": "Zerrenda ikuspegia",
             "moveList": "Mugitu zerrenda",
-            "renameList": "Izena aldatu zerrenda",
+            "renameList": "Aldatu izena",
             "renameListPlaceholder": "Sartu zure izena",
-            "sortList": "Ordenatzeko zerrenda automatikoa",
+            "sortList": "Ordenatu",
             "sortWarning": "Auto sailkapen zerrendak arrastatu eta jaregitearen funtzionamenduan eragina izango du",
             "coversSizeTitle": "Estalkiak zeharka",
             "showReleaseDates": "Erakutsi kaleratu gabeko jokoen kaleratze data",

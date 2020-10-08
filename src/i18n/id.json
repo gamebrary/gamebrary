@@ -18,6 +18,15 @@
         "reportBugs": "melaporkan bug",
         "submitFeedback": "mengirimkan umpan balik"
     },
+    "navMenu": {
+        "changeBoard": "Ganti papan",
+        "tags": "Tag",
+        "wallpapers": "Wallpaper",
+        "language": "Bahasa",
+        "releases": "Rilis",
+        "about": "Tentang",
+        "account": "Akun"
+    },
     "gitHub": {
         "watch": "Menonton",
         "star": "Bintang",
@@ -103,9 +112,9 @@
             "addGames": "Tambahkan game ke {listName}",
             "view": "Tampilan daftar",
             "moveList": "Pindah daftar",
-            "renameList": "Ubah nama daftar",
+            "renameList": "Ganti nama",
             "renameListPlaceholder": "Masukkan nama Anda",
-            "sortList": "Daftar sortir otomatis",
+            "sortList": "Menyortir",
             "sortWarning": "Daftar penyortiran otomatis akan memengaruhi cara kerja seret dan lepas",
             "coversSizeTitle": "Meliputi",
             "showReleaseDates": "Tampilkan tanggal rilis untuk game yang belum dirilis",

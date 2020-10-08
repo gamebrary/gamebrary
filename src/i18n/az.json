@@ -18,6 +18,15 @@
         "reportBugs": "hataları hesabatlandırmaq",
         "submitFeedback": "rəy göndərilməsi"
     },
+    "navMenu": {
+        "changeBoard": "Lövhəni dəyişdirin",
+        "tags": "Teqlər",
+        "wallpapers": "Divar kağızları",
+        "language": "Dil",
+        "releases": "Relizlər",
+        "about": "Haqqında",
+        "account": "Hesab"
+    },
     "gitHub": {
         "watch": "Baxın",
         "star": "Ulduz",
@@ -64,7 +73,7 @@
                 "discord": "İxtilaf",
                 "google_plus": "Google plus",
                 "tumblr": "Tumblr",
-                "linkedin": "Bağlıdır",
+                "linkedin": "Əlaqələndirildi",
                 "pinterest": "Pinterest",
                 "soundcloud": "Soundcloud"
             }
@@ -103,9 +112,9 @@
             "addGames": "{ListName} -ə oyunlar əlavə edin",
             "view": "Siyahı görünüşü",
             "moveList": "Siyahını köçürün",
-            "renameList": "Siyahının adını dəyişin",
+            "renameList": "Yenidən adlandırın",
             "renameListPlaceholder": "Adınızı daxil edin",
-            "sortList": "Avtomatik çeşidləmə siyahısı",
+            "sortList": "Növ",
             "sortWarning": "Avtomatik çeşidləmə siyahısı sürüklə və buraxın necə işləməsini təsir edəcəkdir",
             "coversSizeTitle": "Üzərində örtüklər",
             "showReleaseDates": "Yayımlanmamış oyunlar üçün buraxılış tarixini göstərin",
@@ -185,7 +194,7 @@
         "modalTitle": "Oyun tərəqqisini qurun",
         "addProgress": "Tərəqqi əlavə edin",
         "save": "İnkişaf edin",
-        "deleteProgress": "İrəliləməni silin",
+        "deleteProgress": "Tərəqqi silin",
         "progresses": "Tərəqqi"
     },
     "platforms": {

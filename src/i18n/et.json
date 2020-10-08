@@ -18,6 +18,15 @@
         "reportBugs": "vigadest teatamine",
         "submitFeedback": "tagasiside esitamine"
     },
+    "navMenu": {
+        "changeBoard": "Vaheta juhatus",
+        "tags": "Sildid",
+        "wallpapers": "Taustapildid",
+        "language": "Keel",
+        "releases": "Väljalasked",
+        "about": "Umbes",
+        "account": "Konto"
+    },
     "gitHub": {
         "watch": "Vaata",
         "star": "Täht",
@@ -103,9 +112,9 @@
             "addGames": "Mängude lisamine loendisse {listName}",
             "view": "Loendivaade",
             "moveList": "Teisalda loend",
-            "renameList": "Nimeta loend ümber",
+            "renameList": "Nimeta ümber",
             "renameListPlaceholder": "Sisestage oma nimi",
-            "sortList": "Automaatse sortimise loend",
+            "sortList": "Sorteeri",
             "sortWarning": "Automaatne sortimisloend mõjutab lohistamise toimimist",
             "coversSizeTitle": "Kaaned üle",
             "showReleaseDates": "Näita avaldamata mängude väljaandmiskuupäeva",
@@ -162,7 +171,7 @@
         "title": "Taustapildid",
         "subtitle": "Hallake tahvlite taustapilte",
         "form": {
-            "label": "Laadige üles tapeet",
+            "label": "Laadige taustapilt üles",
             "placeholder": "Valige fail või visake see siia ...",
             "browse": "Sirvige",
             "helperText": "Ainult pildifailid",

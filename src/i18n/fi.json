@@ -18,6 +18,15 @@
         "reportBugs": "ilmoittamalla virheistä",
         "submitFeedback": "palautteen lähettäminen"
     },
+    "navMenu": {
+        "changeBoard": "Vaihda lauta",
+        "tags": "Tunnisteet",
+        "wallpapers": "Taustakuvat",
+        "language": "Kieli",
+        "releases": "Tiedotteet",
+        "about": "Noin",
+        "account": "Tili"
+    },
     "gitHub": {
         "watch": "Katsella",
         "star": "Tähti",
@@ -103,9 +112,9 @@
             "addGames": "Lisää pelejä luetteloon {listName}",
             "view": "Listanäkymä",
             "moveList": "Siirrä luettelo",
-            "renameList": "Nimeä luettelo uudelleen",
+            "renameList": "Nimeä uudelleen",
             "renameListPlaceholder": "Kirjoita nimesi",
-            "sortList": "Automaattinen lajittelulista",
+            "sortList": "Järjestellä",
             "sortWarning": "Automaattinen lajittelulista vaikuttaa vetämisen ja pudottamisen toimintaan",
             "coversSizeTitle": "Kattaa poikki",
             "showReleaseDates": "Näytä julkaisemattomien pelien julkaisupäivä",

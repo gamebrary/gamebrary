@@ -18,6 +18,15 @@
         "reportBugs": "ריפּאָרטינג באַגז",
         "submitFeedback": "סאַבמיטינג באַמערקונגען"
     },
+    "navMenu": {
+        "changeBoard": "טוישן ברעט",
+        "tags": "טאַגס",
+        "wallpapers": "וואַללפּאַפּערס",
+        "language": "שפּראַך",
+        "releases": "ריליסיז",
+        "about": "וועגן",
+        "account": "קאנטע"
+    },
     "gitHub": {
         "watch": "וואַך",
         "star": "שטערן",
@@ -103,9 +112,9 @@
             "addGames": "לייג גאַמעס צו {listName}",
             "view": "רשימה מיינונג",
             "moveList": "מאַך רשימה",
-            "renameList": "רענאַמע רשימה",
+            "renameList": "רענאַמע",
             "renameListPlaceholder": "אַרייַן דיין נאָמען",
-            "sortList": "אַוטאָ סאָרט רשימה",
+            "sortList": "סאָרט",
             "sortWarning": "אַוטאָ סאָרטינג רשימה וועט ווירקן ווי שלעפּן און קאַפּ אַרבעט",
             "coversSizeTitle": "קאָווערס אַריבער",
             "showReleaseDates": "ווייַזן מעלדונג דאַטע פֿאַר אַנריליסט שפּילערייַ",

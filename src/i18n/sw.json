@@ -18,6 +18,15 @@
         "reportBugs": "kuripoti mende",
         "submitFeedback": "kuwasilisha maoni"
     },
+    "navMenu": {
+        "changeBoard": "Badilisha bodi",
+        "tags": "Vitambulisho",
+        "wallpapers": "Ukuta",
+        "language": "Lugha",
+        "releases": "Kutolewa",
+        "about": "Kuhusu",
+        "account": "Akaunti"
+    },
     "gitHub": {
         "watch": "Tazama",
         "star": "Nyota",
@@ -25,7 +34,7 @@
         "issues": "Mambo"
     },
     "dashboard": {
-        "subtitle": "Zana ya usimamizi wa ukusanyaji wa video ya chanzo wazi"
+        "subtitle": "Zana ya usimamizi wa ukusanyaji wa video ya chanzo wazi."
     },
     "boards": {
         "title": "Bodi",
@@ -103,9 +112,9 @@
             "addGames": "Ongeza michezo kwenye {listName}",
             "view": "Orodha ya orodha",
             "moveList": "Sogeza orodha",
-            "renameList": "Badili jina orodha",
+            "renameList": "Badili jina",
             "renameListPlaceholder": "Ingiza jina lako",
-            "sortList": "Panga orodha kiotomatiki",
+            "sortList": "Panga",
             "sortWarning": "Orodha ya kuchagua kiotomatiki itaathiri jinsi buruta na kuacha kazi",
             "coversSizeTitle": "Inashughulikia kote",
             "showReleaseDates": "Onyesha tarehe ya kutolewa kwa michezo ambayo haijatolewa",

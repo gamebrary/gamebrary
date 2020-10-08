@@ -18,6 +18,15 @@
         "reportBugs": "hataları bildirmek",
         "submitFeedback": "geri bildirim göndermek"
     },
+    "navMenu": {
+        "changeBoard": "Panoyu değiştir",
+        "tags": "Etiketler",
+        "wallpapers": "Duvar kağıtları",
+        "language": "Dil",
+        "releases": "Salıverme",
+        "about": "hakkında",
+        "account": "Hesap"
+    },
     "gitHub": {
         "watch": "İzlemek",
         "star": "Star",
@@ -103,9 +112,9 @@
             "addGames": "Oyunları {listName} listesine ekleyin",
             "view": "Liste görünümü",
             "moveList": "Listeyi taşı",
-            "renameList": "Listeyi yeniden adlandır",
+            "renameList": "Adını değiştirmek",
             "renameListPlaceholder": "Adınızı giriniz",
-            "sortList": "Otomatik sıralama listesi",
+            "sortList": "Çeşit",
             "sortWarning": "Otomatik sıralama listesi, sürükle ve bırak işleminin çalışma şeklini etkiler",
             "coversSizeTitle": "Kapaklar",
             "showReleaseDates": "Yayınlanmamış oyunların çıkış tarihini göster",

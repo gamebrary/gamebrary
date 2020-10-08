@@ -18,6 +18,15 @@
         "reportBugs": "reporting bugs",
         "submitFeedback": "submitting feedback"
     },
+    "navMenu": {
+        "changeBoard": "Change board",
+        "tags": "Tags",
+        "wallpapers": "Wallpapers",
+        "language": "Language",
+        "releases": "Releases",
+        "about": "About",
+        "account": "Account"
+    },
     "gitHub": {
         "watch": "Watch",
         "star": "Star",

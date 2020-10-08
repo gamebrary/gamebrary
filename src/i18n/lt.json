@@ -18,6 +18,15 @@
         "reportBugs": "pranešti apie klaidas",
         "submitFeedback": "teikiant atsiliepimus"
     },
+    "navMenu": {
+        "changeBoard": "Keisti lentą",
+        "tags": "Žymos",
+        "wallpapers": "Užsklandos",
+        "language": "Kalba",
+        "releases": "Išleidimai",
+        "about": "Apie",
+        "account": "Sąskaita"
+    },
     "gitHub": {
         "watch": "Žiūrėti",
         "star": "Žvaigždė",
@@ -103,9 +112,9 @@
             "addGames": "Pridėkite žaidimų prie „{listName}“",
             "view": "Sarašas",
             "moveList": "Perkelti sąrašą",
-            "renameList": "Pervardyti sąrašą",
+            "renameList": "Pervardyti",
             "renameListPlaceholder": "Įveskite savo vardą",
-            "sortList": "Automatinio rūšiavimo sąrašas",
+            "sortList": "Rūšiuoti",
             "sortWarning": "Automatinio rūšiavimo sąrašas paveiks vilkimo ir nuleidimo veikimą",
             "coversSizeTitle": "Apima skersai",
             "showReleaseDates": "Rodyti neišleistų žaidimų išleidimo datą",

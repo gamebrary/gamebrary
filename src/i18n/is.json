@@ -18,6 +18,15 @@
         "reportBugs": "tilkynna galla",
         "submitFeedback": "senda inn álit"
     },
+    "navMenu": {
+        "changeBoard": "Skipta um borð",
+        "tags": "Merkimiðar",
+        "wallpapers": "Veggfóður",
+        "language": "Tungumál",
+        "releases": "Útgáfur",
+        "about": "Um það bil",
+        "account": "Reikningur"
+    },
     "gitHub": {
         "watch": "Horfa á",
         "star": "Stjarna",
@@ -103,9 +112,9 @@
             "addGames": "Bættu leikjum við {listName}",
             "view": "Listasýn",
             "moveList": "Færa lista",
-            "renameList": "Endurnefna lista",
+            "renameList": "Endurnefna",
             "renameListPlaceholder": "Sláðu inn nafnið þitt",
-            "sortList": "Sjálfvirkur flokkunarlisti",
+            "sortList": "Raða",
             "sortWarning": "Sjálfvirkur flokkunarlisti hefur áhrif á hvernig draga og sleppa virkar",
             "coversSizeTitle": "Nær yfir",
             "showReleaseDates": "Sýnið útgáfudag fyrir óútgefna leiki",

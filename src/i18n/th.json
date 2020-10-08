@@ -18,6 +18,15 @@
         "reportBugs": "การรายงานข้อบกพร่อง",
         "submitFeedback": "ส่งข้อเสนอแนะ"
     },
+    "navMenu": {
+        "changeBoard": "เปลี่ยนบอร์ด",
+        "tags": "แท็ก",
+        "wallpapers": "วอลเปเปอร์",
+        "language": "ภาษา",
+        "releases": "เผยแพร่",
+        "about": "เกี่ยวกับ",
+        "account": "บัญชีผู้ใช้"
+    },
     "gitHub": {
         "watch": "ดู",
         "star": "ดาว",
@@ -103,9 +112,9 @@
             "addGames": "เพิ่มเกมใน {listName}",
             "view": "มุมมองรายการ",
             "moveList": "ย้ายรายการ",
-            "renameList": "เปลี่ยนชื่อรายการ",
+            "renameList": "เปลี่ยนชื่อ",
             "renameListPlaceholder": "ใส่ชื่อของคุณ",
-            "sortList": "รายการจัดเรียงอัตโนมัติ",
+            "sortList": "จัดเรียง",
             "sortWarning": "การจัดเรียงรายการอัตโนมัติจะส่งผลต่อวิธีการทำงานของการลากและวาง",
             "coversSizeTitle": "ครอบคลุมทั่ว",
             "showReleaseDates": "แสดงวันที่วางจำหน่ายสำหรับเกมที่ยังไม่เปิดตัว",

@@ -18,6 +18,15 @@
         "reportBugs": "דיווח על באגים",
         "submitFeedback": "הגשת משוב"
     },
+    "navMenu": {
+        "changeBoard": "החלף לוח",
+        "tags": "תגים",
+        "wallpapers": "רקעים",
+        "language": "שפה",
+        "releases": "משחרר",
+        "about": "על אודות",
+        "account": "חֶשְׁבּוֹן"
+    },
     "gitHub": {
         "watch": "שעון",
         "star": "כוכב",
@@ -103,9 +112,9 @@
             "addGames": "הוסף משחקים ל- {listName}",
             "view": "תצוגת רשימה",
             "moveList": "העברת רשימת",
-            "renameList": "שנה את שם הרשימה",
+            "renameList": "שנה שם",
             "renameListPlaceholder": "הזן את שמך",
-            "sortList": "רשימת מיון אוטומטית",
+            "sortList": "סוג",
             "sortWarning": "רשימת מיון אוטומטית תשפיע על אופן הפעולה של גרור ושחרר",
             "coversSizeTitle": "מכסה לרוחב",
             "showReleaseDates": "הצג תאריך יציאה למשחקים שלא פורסמו",

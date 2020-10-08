@@ -18,6 +18,15 @@
         "reportBugs": "raportimin e të metave",
         "submitFeedback": "paraqitja e komenteve"
     },
+    "navMenu": {
+        "changeBoard": "Ndrysho tabelën",
+        "tags": "Etiketat",
+        "wallpapers": "Wallpapers",
+        "language": "Gjuhe",
+        "releases": "Lirimet",
+        "about": "Rreth",
+        "account": "Llogari"
+    },
     "gitHub": {
         "watch": "Shiko",
         "star": "Yll",
@@ -103,9 +112,9 @@
             "addGames": "Shto lojëra te {listName}",
             "view": "Pamja e listës",
             "moveList": "Zhvendos listën",
-            "renameList": "Riemërtoni listën",
+            "renameList": "Riemërto",
             "renameListPlaceholder": "Shkruaj emrin tend",
-            "sortList": "Lista e renditjes automatike",
+            "sortList": "Rendit",
             "sortWarning": "Lista e klasifikimit automatik do të ndikojë në mënyrën se si funksionon zvarritja dhe rënia",
             "coversSizeTitle": "Mbulon përtej",
             "showReleaseDates": "Trego datën e lëshimit për lojërat e pa publikuara",

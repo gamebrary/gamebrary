@@ -18,6 +18,15 @@
         "reportBugs": "کیڑے رپورٹنگ",
         "submitFeedback": "آراء جمع کروانا"
     },
+    "navMenu": {
+        "changeBoard": "بورڈ تبدیل کریں",
+        "tags": "ٹیگز",
+        "wallpapers": "وال پیپر",
+        "language": "زبان",
+        "releases": "ریلیز",
+        "about": "کے بارے میں",
+        "account": "کھاتہ"
+    },
     "gitHub": {
         "watch": "دیکھو",
         "star": "ستارہ",
@@ -103,9 +112,9 @@
             "addGames": "کھیلوں کو {listName to میں شامل کریں",
             "view": "فہرست دیکھیں",
             "moveList": "فہرست میں منتقل کریں",
-            "renameList": "فہرست کا نام تبدیل کریں",
+            "renameList": "نام تبدیل کریں",
             "renameListPlaceholder": "اپنا نام درج کریں",
-            "sortList": "آٹو ترتیب کی فہرست",
+            "sortList": "ترتیب دیں",
             "sortWarning": "آٹو چھانٹنے کی فہرست اثر انداز کرے گی کہ ڈریگ اور ڈراپ کیسے کام کرتا ہے",
             "coversSizeTitle": "کا احاطہ کرتا ہے",
             "showReleaseDates": "غیر خوش کھیل کے لئے رہائی کی تاریخ دکھائیں",

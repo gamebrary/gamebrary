@@ -18,6 +18,15 @@
         "reportBugs": "raportarea erorilor",
         "submitFeedback": "trimiterea de feedback"
     },
+    "navMenu": {
+        "changeBoard": "Schimbă tabla",
+        "tags": "Etichete",
+        "wallpapers": "Imagini de fundal",
+        "language": "Limba",
+        "releases": "Lansări",
+        "about": "Despre",
+        "account": "Cont"
+    },
     "gitHub": {
         "watch": "Ceas",
         "star": "Stea",
@@ -103,9 +112,9 @@
             "addGames": "Adăugați jocuri în {listName}",
             "view": "Vizualizare listă",
             "moveList": "Mutați lista",
-            "renameList": "Redenumiți lista",
+            "renameList": "Redenumiți",
             "renameListPlaceholder": "Introdu numele tau",
-            "sortList": "Lista de sortare automată",
+            "sortList": "Fel",
             "sortWarning": "Lista de sortare automată va afecta modul în care funcționează drag and drop",
             "coversSizeTitle": "Acoperă peste",
             "showReleaseDates": "Afișează data lansării pentru jocurile nepublicate",

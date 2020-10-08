@@ -18,6 +18,15 @@
         "reportBugs": "rapportering af fejl",
         "submitFeedback": "indsendelse af feedback"
     },
+    "navMenu": {
+        "changeBoard": "Skift bord",
+        "tags": "Mærker",
+        "wallpapers": "Baggrunde",
+        "language": "Sprog",
+        "releases": "Udgivelser",
+        "about": "Om",
+        "account": "Konto"
+    },
     "gitHub": {
         "watch": "Holde øje",
         "star": "Stjerne",
@@ -103,9 +112,9 @@
             "addGames": "Føj spil til {listName}",
             "view": "Listevisning",
             "moveList": "Flyt liste",
-            "renameList": "Omdøb liste",
+            "renameList": "Omdøb",
             "renameListPlaceholder": "Indtast dit navn",
-            "sortList": "Liste over automatisk sortering",
+            "sortList": "Sortere",
             "sortWarning": "Liste med automatisk sortering vil påvirke, hvordan træk og slip fungerer",
             "coversSizeTitle": "Dækker over",
             "showReleaseDates": "Vis udgivelsesdato for ikke-udgivne spil",

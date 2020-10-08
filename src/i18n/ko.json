@@ -18,6 +18,15 @@
         "reportBugs": "버그보고",
         "submitFeedback": "피드백 제출"
     },
+    "navMenu": {
+        "changeBoard": "보드 변경",
+        "tags": "태그",
+        "wallpapers": "월페이퍼",
+        "language": "언어",
+        "releases": "릴리스",
+        "about": "약",
+        "account": "계정"
+    },
     "gitHub": {
         "watch": "손목 시계",
         "star": "별",
@@ -103,9 +112,9 @@
             "addGames": "{listName}에 게임 추가",
             "view": "목록보기",
             "moveList": "목록 이동",
-            "renameList": "목록 이름 변경",
+            "renameList": "이름 바꾸기",
             "renameListPlaceholder": "당신의 이름을 입력",
-            "sortList": "자동 정렬 목록",
+            "sortList": "종류",
             "sortWarning": "자동 정렬 목록은 드래그 앤 드롭 작동 방식에 영향을 미칩니다.",
             "coversSizeTitle": "걸쳐 커버",
             "showReleaseDates": "출시되지 않은 게임의 출시일 표시",

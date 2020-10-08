@@ -18,6 +18,15 @@
         "reportBugs": "報告錯誤",
         "submitFeedback": "提交反饋"
     },
+    "navMenu": {
+        "changeBoard": "更換板",
+        "tags": "標籤",
+        "wallpapers": "牆紙",
+        "language": "語言",
+        "releases": "發布",
+        "about": "關於",
+        "account": "帳戶"
+    },
     "gitHub": {
         "watch": "看",
         "star": "星",
@@ -103,9 +112,9 @@
             "addGames": "將游戲添加到{listName}",
             "view": "列表顯示",
             "moveList": "移動清單",
-            "renameList": "重命名清單",
+            "renameList": "改名",
             "renameListPlaceholder": "輸入你的名字",
-            "sortList": "自動排序清單",
+            "sortList": "分類",
             "sortWarning": "自動排序列表將影響拖放的工作方式",
             "coversSizeTitle": "覆蓋整個",
             "showReleaseDates": "顯示未發布遊戲的發布日期",

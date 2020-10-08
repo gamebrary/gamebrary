@@ -18,6 +18,15 @@
         "reportBugs": "zgłaszanie błędów",
         "submitFeedback": "przesyłanie opinii"
     },
+    "navMenu": {
+        "changeBoard": "Zmień planszę",
+        "tags": "Tagi",
+        "wallpapers": "Tapety",
+        "language": "Język",
+        "releases": "Wydania",
+        "about": "O",
+        "account": "Konto"
+    },
     "gitHub": {
         "watch": "Zegarek",
         "star": "Gwiazda",
@@ -103,9 +112,9 @@
             "addGames": "Dodaj gry do {listName}",
             "view": "Widok listy",
             "moveList": "Lista ruchów",
-            "renameList": "Zmień nazwę listy",
+            "renameList": "Przemianować",
             "renameListPlaceholder": "Wpisz swoje imię",
-            "sortList": "Lista automatycznego sortowania",
+            "sortList": "Sortować",
             "sortWarning": "Lista automatycznego sortowania wpłynie na działanie funkcji przeciągnij i upuść",
             "coversSizeTitle": "Osłony w poprzek",
             "showReleaseDates": "Pokaż datę premiery niewydanych gier",

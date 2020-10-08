@@ -18,6 +18,15 @@
         "reportBugs": "ziņošana par kļūdām",
         "submitFeedback": "iesniegt atsauksmes"
     },
+    "navMenu": {
+        "changeBoard": "Mainīt dēli",
+        "tags": "Tagi",
+        "wallpapers": "Tapetes",
+        "language": "Valoda",
+        "releases": "Izlaidumi",
+        "about": "Par",
+        "account": "Konts"
+    },
     "gitHub": {
         "watch": "Skatīties",
         "star": "Zvaigzne",
@@ -103,9 +112,9 @@
             "addGames": "Pievienojiet spēles sarakstam {listName}",
             "view": "Saraksta skats",
             "moveList": "Pārvietot sarakstu",
-            "renameList": "Pārdēvēt sarakstu",
+            "renameList": "Pārdēvēt",
             "renameListPlaceholder": "Ievadiet savu vārdu",
-            "sortList": "Automātiskās kārtošanas saraksts",
+            "sortList": "Kārtot",
             "sortWarning": "Automātiskās šķirošanas saraksts ietekmēs vilkšanas un nomešanas darbību",
             "coversSizeTitle": "Pārklāj pāri",
             "showReleaseDates": "Rādīt neizdoto spēļu izlaišanas datumu",

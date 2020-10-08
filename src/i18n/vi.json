@@ -18,6 +18,15 @@
         "reportBugs": "báo cáo lỗi",
         "submitFeedback": "gửi phản hồi"
     },
+    "navMenu": {
+        "changeBoard": "Thay đổi bảng",
+        "tags": "Thẻ",
+        "wallpapers": "Hình nền",
+        "language": "Ngôn ngữ",
+        "releases": "Phát hành",
+        "about": "Trong khoảng",
+        "account": "Tài khoản"
+    },
     "gitHub": {
         "watch": "Đồng hồ đeo tay",
         "star": "Ngôi sao",
@@ -103,9 +112,9 @@
             "addGames": "Thêm trò chơi vào {listName}",
             "view": "Xem danh sách",
             "moveList": "Di chuyển danh sách",
-            "renameList": "Đổi tên danh sách",
+            "renameList": "Đổi tên",
             "renameListPlaceholder": "Điền tên của bạn",
-            "sortList": "Danh sách sắp xếp tự động",
+            "sortList": "Sắp xếp",
             "sortWarning": "Danh sách tự động sắp xếp sẽ ảnh hưởng đến cách kéo và thả hoạt động",
             "coversSizeTitle": "Bao gồm",
             "showReleaseDates": "Hiển thị ngày phát hành cho các trò chơi chưa được phát hành",
@@ -178,7 +187,7 @@
         "published": "Được phát hành"
     },
     "about": {
-        "title": "Về Gamebrary",
+        "title": "Giới thiệu về Gamebrary",
         "subtitle": "Readme từ Github"
     },
     "progresses": {

@@ -18,6 +18,15 @@
         "reportBugs": "hlášení chyb",
         "submitFeedback": "odeslání zpětné vazby"
     },
+    "navMenu": {
+        "changeBoard": "Vyměnit desku",
+        "tags": "Značky",
+        "wallpapers": "Tapety",
+        "language": "Jazyk",
+        "releases": "Zprávy",
+        "about": "O",
+        "account": "Účet"
+    },
     "gitHub": {
         "watch": "Hodinky",
         "star": "Hvězda",
@@ -103,9 +112,9 @@
             "addGames": "Přidat hry na {listName}",
             "view": "Zobrazení seznamu",
             "moveList": "Přesunout seznam",
-            "renameList": "Přejmenovat seznam",
+            "renameList": "Přejmenovat",
             "renameListPlaceholder": "Zadejte své jméno",
-            "sortList": "Seznam automatického řazení",
+            "sortList": "Třídit",
             "sortWarning": "Seznam automatického řazení ovlivní fungování přetahování",
             "coversSizeTitle": "Kryty napříč",
             "showReleaseDates": "Zobrazit datum vydání nevydaných her",

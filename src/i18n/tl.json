@@ -18,6 +18,15 @@
         "reportBugs": "pag-uulat ng mga bug",
         "submitFeedback": "pagsumite ng feedback"
     },
+    "navMenu": {
+        "changeBoard": "Palitan ang board",
+        "tags": "Mga tag",
+        "wallpapers": "Mga wallpaper",
+        "language": "Wika",
+        "releases": "Naglalabas",
+        "about": "Tungkol sa",
+        "account": "Account"
+    },
     "gitHub": {
         "watch": "Panoorin",
         "star": "Bituin",
@@ -103,9 +112,9 @@
             "addGames": "Magdagdag ng mga laro sa {listName}",
             "view": "Listahan ng pagtingin",
             "moveList": "Ilipat ang listahan",
-            "renameList": "Palitan ang pangalan ng listahan",
+            "renameList": "Palitan ang pangalan",
             "renameListPlaceholder": "Ipasok ang iyong pangalan",
-            "sortList": "Listahan ng awtomatikong pag-uuri",
+            "sortList": "Pagbukud-bukurin",
             "sortWarning": "Makakaapekto ang listahan ng pag-uuri ng awtomatiko kung paano gumagana ang pag-drag at drop",
             "coversSizeTitle": "Sumasaklaw sa kabuuan",
             "showReleaseDates": "Ipakita ang petsa ng paglabas para sa mga hindi pinakawalan na laro",

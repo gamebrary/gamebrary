@@ -18,6 +18,15 @@
         "reportBugs": "bugs melden",
         "submitFeedback": "feedback geven"
     },
+    "navMenu": {
+        "changeBoard": "Verander van bestuur",
+        "tags": "Tags",
+        "wallpapers": "Achtergronden",
+        "language": "Taal",
+        "releases": "Releases",
+        "about": "Over",
+        "account": "Account"
+    },
     "gitHub": {
         "watch": "Kijk maar",
         "star": "Ster",
@@ -103,9 +112,9 @@
             "addGames": "Games toevoegen aan {listName}",
             "view": "Lijstweergave",
             "moveList": "Verplaats lijst",
-            "renameList": "Hernoem lijst",
+            "renameList": "Hernoemen",
             "renameListPlaceholder": "Vul uw naam in",
-            "sortList": "Auto sorteer lijst",
+            "sortList": "Soort",
             "sortWarning": "De automatische sorteerlijst heeft invloed op hoe slepen en neerzetten werkt",
             "coversSizeTitle": "Covers over",
             "showReleaseDates": "Toon releasedatum voor niet-uitgebrachte games",
