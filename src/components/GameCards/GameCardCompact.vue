@@ -2,10 +2,9 @@
   <b-card no-body class="clickable mb-2" @click="openDetails">
     <b-row no-gutters v-if="game && game.name">
       <b-col cols="3">
-        <b-icon-check-circle
+        <icon name="check-circle"
+          white
           class="position-absolute rounded bg-success p-1 m-1"
-          variant="white"
-          font-scale="1.5"
           v-if="showCompletedBadge"
         />
 
@@ -27,7 +26,7 @@
             {{ game.name }}
 
             <b-badge variant="warning" v-if="gameNotes">
-              <b-icon-file-earmark-text />
+              <icon name="note" />
             </b-badge>
           </b-card-title>
 

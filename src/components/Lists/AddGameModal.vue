@@ -1,6 +1,6 @@
 <template lang="html">
   <b-dropdown-item-button @click="$bvModal.show(`game-modal-${list.name}`)">
-    <b-icon-plus class="mr-1" />
+    <icon name="plus" />
     {{ $t('board.addGame.title') }}
 
     <b-modal
@@ -20,8 +20,11 @@
 
           <b-input-group-append>
             <b-button variant="primary" @click="search">
-              <b-spinner v-if="loading" small />
-              <b-icon-search v-else />
+              <icon
+                :name="loading ? 'sync' : 'search'"
+                :animated="loading"
+                white
+              />
             </b-button>
           </b-input-group-append>
         </b-input-group>

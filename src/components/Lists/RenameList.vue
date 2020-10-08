@@ -1,6 +1,6 @@
 <template lang="html">
   <b-dropdown-item-button v-b-modal="modalId">
-    <b-icon-pencil class="mr-1" />
+    <icon name="pencil" />
     {{ $t('board.list.renameList') }}
 
     <b-modal

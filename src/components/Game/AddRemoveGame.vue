@@ -6,7 +6,7 @@
     v-b-tooltip.hover
     @click="addGame"
   >
-    <b-icon-plus />
+    <icon name="plus" white />
   </b-button>
 
   <b-button
@@ -16,7 +16,7 @@
     :title="$t('board.gameModal.removeFromList')"
     @click="removeGame"
   >
-    <b-icon-trash />
+    <icon name="trash" white />
   </b-button>
 </template>
 

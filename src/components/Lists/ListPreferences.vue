@@ -1,6 +1,6 @@
 <template lang="html">
   <b-dropdown-item-button v-b-modal="modalId">
-    <b-icon-toggles class="mr-1" />
+    <icon name="tools" />
     {{ $t('board.list.settings') }}
 
     <b-modal

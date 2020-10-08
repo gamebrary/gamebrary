@@ -5,7 +5,7 @@
     v-b-tooltip.hover
     title="Game notes"
    >
-    <b-icon-file-earmark-text />
+    <icon name="note" white />
 
     <b-modal
       id="notes"

@@ -1,6 +1,6 @@
 <template lang="html">
   <b-dropdown-item-button v-b-modal="modalId">
-    <b-icon-grid1x2 class="mr-1" />
+    <icon name="versions" />
     {{ $t('board.list.view') }}
 
     <b-modal

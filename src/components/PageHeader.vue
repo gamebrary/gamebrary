@@ -11,10 +11,10 @@
         right
         no-caret
         boundary="viewport"
-        variant="link"
+        variant="transparent"
       >
         <template v-slot:button-content>
-          <b-icon-arrow-left-right />
+          <icon name="arrow-switch" />
         </template>
 
         <b-dropdown-item
@@ -34,37 +34,38 @@
         right
         no-caret
         boundary="viewport"
-        variant="link"
+        variant="transparent"
       >
         <template v-slot:button-content>
-          <b-icon-gear />
+          <icon name="gear" />
         </template>
 
         <b-dropdown-item title="Tags" :to="{ name: 'tags' }">
-          <b-icon-tags />
+          <icon name="tag" />
+
           {{ $t('settings.tags') }}
         </b-dropdown-item>
 
         <b-dropdown-item title="Wallpapers" :to="{ name: 'wallpapers' }">
-          <b-icon-file-richtext />
+          <icon name="image" />
           {{ $t('settings.wallpapers') }}
         </b-dropdown-item>
 
         <b-dropdown-item title="Language" :to="{ name: 'language' }">
-          <b-icon-chat-left-text />
+          <icon name="globe" />
           {{ $t('settings.language') }}
         </b-dropdown-item>
         <b-dropdown-item title="Themes" :to="{ name: 'themes' }">
-          <b-icon-droplet />
+          <icon name="sun" />
           {{ $t('settings.themes') }}
         </b-dropdown-item>
         <b-dropdown-item title="Releases" :to="{ name: 'releases' }">
-          <b-icon-mailbox />
+          <icon name="megaphone" />
           {{ $t('settings.releases') }}
         </b-dropdown-item>
 
         <b-dropdown-item title="About" :to="{ name: 'about' }">
-          <b-icon-question />
+          <icon name="info" />
           {{ $t('settings.about') }}
         </b-dropdown-item>
       </b-dropdown>

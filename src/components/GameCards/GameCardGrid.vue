@@ -8,10 +8,10 @@
   >
     <b-card-body body-class="p-2" v-if="game && game.name">
       <b-card-title class="mb-0" title-tag="h6">
-        <b-icon-check-circle
+        <icon
+          name="verified"
           class="rounded bg-success p-1"
-          variant="white"
-          font-scale="1.5"
+          white
           v-if="showCompletedBadge"
         />
 
@@ -61,7 +61,7 @@
       </template>
 
       <b-badge variant="warning" v-if="gameNotes">
-        <b-icon-file-earmark-text />
+        <icon name="note" />
       </b-badge>
     </b-card-body>
   </b-card>

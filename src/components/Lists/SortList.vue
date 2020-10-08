@@ -1,6 +1,6 @@
 <template lang="html">
   <b-dropdown-item-button v-b-modal="modalId">
-    <b-icon-sort-up class="mr-1" />
+    <icon name="list-ordered" />
     {{ $t('board.list.sortList') }}
 
     <b-modal

@@ -1,9 +1,10 @@
 import Vue from 'vue';
-import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue';
+import { BootstrapVue } from 'bootstrap-vue';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import VueAxios from 'vue-axios';
 import VueFire from 'vuefire';
 import VueI18n from 'vue-i18n';
+import Icon from '@/components/Icon';
 import axios from 'axios';
 import VueAnalytics from 'vue-analytics';
 import Raven from 'raven-js';
@@ -25,12 +26,11 @@ Object.defineProperties(Vue.prototype, {
 });
 
 Vue.use(BootstrapVue, bootstrapSettings);
-
-Vue.use(BootstrapVueIcons);
 Vue.use(VueAnalytics, { id: 'UA-120053966-1', router });
 Vue.use(VueAxios, axios);
 Vue.use(VueFire);
 Vue.use(VueI18n);
+Vue.component('icon', Icon);
 
 if (process.env.NODE_ENV !== 'development') {
   Raven
@@ -52,10 +52,6 @@ router.beforeEach((to, from, next) => {
 const vuexStorage = localStorage && localStorage.vuex
   ? JSON.parse(localStorage.vuex)
   : {};
-
-if (vuexStorage.settings && vuexStorage.settings.theme && vuexStorage.settings.theme.cssCdn) {
-  document.querySelector('link[rel="stylesheet"').href = vuexStorage.settings.theme.cssCdn;
-}
 
 if (vuexStorage && vuexStorage.user && window.FS && window.location.origin.indexOf('localhost') === -1) {
   const { displayName, email, dateJoined } = vuexStorage.user;

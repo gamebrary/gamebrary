@@ -9,12 +9,12 @@
         :header-bg-variant="showDuplicateWarning ? 'warning' : null"
       >
         <h6 class="m-0" v-b-modal="`rename-list-${listIndex}`">
-          <b-badge v-if="autoSortEnabled">
-            <b-icon-sort-up />
-          </b-badge>
-
           <b-badge v-if="showGameCount">
               {{ list.games.length }}
+          </b-badge>
+
+          <b-badge v-if="autoSortEnabled">
+            <icon small white name="list-ordered" />
           </b-badge>
 
           {{ showDuplicateWarning ? 'Game already in list' : list.name }}

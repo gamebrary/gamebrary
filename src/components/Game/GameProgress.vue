@@ -5,7 +5,7 @@
     variant="info"
     title="Set game progress"
   >
-    <b-icon-clock-history />
+    <icon name="clock" white />
 
     <b-modal
       id="progress"

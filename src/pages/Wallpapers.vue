@@ -70,7 +70,7 @@
               size="sm"
               @click="confirmDeleteWallpaper(wallpaper)"
             >
-              <b-icon-trash />
+              <icon name="trash" white />
             </b-button>
           </b-card>
         </b-col>

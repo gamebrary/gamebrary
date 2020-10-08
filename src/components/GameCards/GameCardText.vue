@@ -3,9 +3,10 @@
     <b-row no-gutters v-if="game && game.name">
         <b-card-body body-class="pt-0 pb-1 px-2">
           <small>
-            <b-icon-check-circle
+            <icon
+              name="verified"
               class="rounded bg-success p-1"
-              variant="white"
+              white
               font-scale="1.5"
               v-if="showCompletedBadge"
             />
@@ -13,7 +14,7 @@
             {{ game.name }}
 
             <b-badge variant="warning" v-if="gameNotes">
-              <b-icon-file-earmark-text />
+              <icon name="note" />
             </b-badge>
           </small>
 

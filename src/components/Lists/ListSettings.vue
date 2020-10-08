@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-dropdown size="sm" class="m-1" right>
+  <b-dropdown size="sm" class="m-1" right variant="transparent">
     <add-game-modal :list="list" />
     <b-dd-divider />
     <sort-list :list="list" :list-index="listIndex" />
@@ -13,18 +13,20 @@
           v-b-tooltip.hover
           :title="$t('board.list.moveLeft')"
           :disabled="isFirst"
+          variant="light"
           @click="moveList(listIndex, listIndex - 1)"
         >
-          <b-icon-arrow-left-short />
+          <icon name="triangle-left" />
         </b-button>
 
         <b-button
           v-b-tooltip.hover
           :title="$t('board.list.moveRight')"
           :disabled="isLast"
+          variant="light"
           @click="moveList(listIndex, listIndex + 1)"
         >
-          <b-icon-arrow-right-short />
+          <icon name="triangle-right" />
         </b-button>
       </b-button-group>
     </b-dropdown-item>
@@ -34,7 +36,7 @@
       variant="outline-danger"
       @click="promptDeleteList"
     >
-      <b-icon-trash class="mr-1" />
+      <icon name="trash" />
       {{ $t('board.list.delete') }}
     </b-dropdown-item>
   </b-dropdown>

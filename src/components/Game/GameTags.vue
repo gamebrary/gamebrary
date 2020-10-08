@@ -5,7 +5,7 @@
     v-b-tooltip.hover
     title="Apply tags"
    >
-    <b-icon-tag />
+    <icon name="tag" white />
 
     <b-popover
       target="tags-popover"
@@ -46,7 +46,7 @@
             size="sm"
             @click="removeTag(name)"
           >
-            <b-icon-trash />
+            <icon name="dash" />
           </b-button>
 
           <b-button
@@ -55,7 +55,7 @@
             size="sm"
             @click="addTag(name)"
           >
-            <b-icon-plus font-scale="1" />
+            <icon name="plus" />
           </b-button>
 
         </b-list-group-item>

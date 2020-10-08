@@ -94,14 +94,14 @@
                   variant="primary"
                   @click="editTag(name)"
                 >
-                  <b-icon-pencil />
+                  <icon name="pencil" white />
                 </b-button>
 
                 <b-button
                   variant="danger"
                   @click="deleteTag(name)"
                 >
-                  <b-icon-trash />
+                  <icon name="trash" white />
                 </b-button>
               </div>
             </b-list-group-item>

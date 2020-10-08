@@ -2,10 +2,11 @@
   <b-button
     v-b-modal="modalId"
     :title="$t('board.addList.title')"
+    size="sm"
     v-b-tooltip.hover.left
     ref="addList"
   >
-    <b-icon-plus />
+    <icon name="plus" white />
 
     <b-modal
       :id="modalId"

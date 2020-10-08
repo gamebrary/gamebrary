@@ -4,9 +4,10 @@
     v-b-tooltip.hover.left
     title="Board settings"
     class="mt-3"
+    size="sm"
     ref="addList"
   >
-    <b-icon-gear-fill />
+    <icon name="gear" white />
 
     <b-modal
       id="board-settings"
