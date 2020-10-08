@@ -1,21 +1,13 @@
 <template lang="html">
-  <b-tab>
-    <template v-slot:title>
-      Notes <b-badge v-if="notes[game.id]">1</b-badge>
-    </template>
-
-    <template v-if="notes[game.id]">
-      <vue-markdown :source="notes[game.id]" />
-
-      <b-button v-b-modal.notes variant="warning">
-        Edit note
-      </b-button>
-    </template>
-
-    <b-button v-else v-b-modal.notes>
-      Add note
-    </b-button>
-  </b-tab>
+  <b-alert
+    v-if="notes[game.id]"
+    variant="warning"
+    show
+    v-b-modal.notes
+    class="mt-3"
+  >
+    <vue-markdown :source="notes[game.id]" />
+  </b-alert>
 </template>
 
 <script>

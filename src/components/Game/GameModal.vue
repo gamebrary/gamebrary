@@ -8,9 +8,26 @@
     @show="load"
     @hidden="reset"
   >
+    <template v-slot:modal-header="{ close }">
+      <div>
+        <b-button-group>
+          <b-button>
+            <icon name="triangle-left" />
+          </b-button>
+          <b-button>
+            <icon name="triangle-right" />
+          </b-button>
+        </b-button-group>
+      </div>
+
+      <b-button @click="close">
+        <icon name="x" />
+      </b-button>
+    </template>
+
     <b-container v-if="game.name" class="m-0 p-0">
       <b-row>
-        <b-col cols="12" md="4" class="text-center">
+        <b-col cols="12" md="4">
           <b-img
             :src="coverUrl"
             :alt="game.name"
@@ -19,13 +36,9 @@
             fluid
           />
 
-          <b-progress
-            v-if="progress"
-            :value="progress"
-            variant="success"
-            height="8px"
-            class="mt-2"
-          />
+          <game-screenshots :game="game" />
+
+          <game-notes-tab :game="game" />
         </b-col>
 
         <b-col cols="12" md="8" class="mt-md-0 mt-3 text-md-left text-center">
@@ -64,6 +77,14 @@
             {{ name }}
           </b-badge>
 
+          <b-progress
+            v-if="progress"
+            :value="progress"
+            variant="success"
+            height="8px"
+            class="mt-2"
+          />
+
           <div v-if="loading" class="my-2 d-flex justify-content-md-start justify-content-center">
             <b-skeleton type="button" width="45px" v-for="n in 4" :key="n" class="mr-1" />
           </div>
@@ -77,24 +98,22 @@
 
           <template v-if="loading">
             <b-skeleton v-for="n in 3" :key="n" />
+
+            <game-detail-placeholder />
           </template>
 
+          <template v-else>
+            <game-details :game="game" />
 
-          <p v-else class="text-left">{{ game.summary }}</p>
+            <b-card class="mt-4" no-body>
+              <b-tabs card>
+                <game-websites-tab :game="game" />
+                <game-videos-tab :game="game" />
+              </b-tabs>
+            </b-card>
+          </template>
         </b-col>
       </b-row>
-
-      <game-detail-placeholder v-if="loading" />
-
-      <b-card v-else class="mt-4" no-body>
-        <b-tabs card>
-          <game-details-tab :game="game" />
-          <game-notes-tab :game="game" />
-          <game-websites-tab :game="game" />
-          <game-videos-tab :game="game" />
-          <game-screenshots-tab :game="game" />
-        </b-tabs>
-      </b-card>
     </b-container>
 
     <template v-slot:modal-footer>
@@ -107,9 +126,9 @@
 import moment from 'moment';
 import { mapState } from 'vuex';
 import GameDetailPlaceholder from '@/components/Game/GameDetailPlaceholder';
-import GameDetailsTab from '@/components/Game/GameDetailsTab';
+import GameDetails from '@/components/Game/GameDetails';
 import GameNotesTab from '@/components/Game/GameNotesTab';
-import GameScreenshotsTab from '@/components/Game/GameScreenshotsTab';
+import GameScreenshots from '@/components/Game/GameScreenshots';
 import GameVideosTab from '@/components/Game/GameVideosTab';
 import GameWebsitesTab from '@/components/Game/GameWebsitesTab';
 import GameNotes from '@/components/Game/GameNotes';
@@ -123,9 +142,9 @@ export default {
     GameTags,
     IgdbLogo,
     GameDetailPlaceholder,
-    GameDetailsTab,
+    GameDetails,
     GameNotesTab,
-    GameScreenshotsTab,
+    GameScreenshots,
     GameVideosTab,
     GameWebsitesTab,
     GameNotes,
@@ -239,7 +258,8 @@ export default {
   }
 
   .game-cover {
-    max-height: 50vh;
+    // max-height: 50vh;
+    width: 100%;
     margin: 0 auto;
   }
 </style>

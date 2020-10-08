@@ -1,5 +1,7 @@
 <template lang="html">
-  <b-tab title="Game details" active>
+  <div>
+    <p class="text-left">{{ game.summary }}</p>
+
     <dl class="row">
       <!-- TODO: plural vs singular translations? -->
       <dt class="col-sm-3">{{ $t('board.gameModal.platforms') }}</dt>
@@ -30,7 +32,7 @@
       <!-- {{ $t('board.gameModal.releaseDate') }} -->
       <!-- <pre>{{ game.release_dates }}</pre> -->
     </dl>
-  </b-tab>
+  </div>
 </template>
 
 <script>
