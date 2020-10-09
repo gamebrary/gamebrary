@@ -6,7 +6,7 @@
     v-b-modal.notes
     class="mt-3"
   >
-    <vue-markdown :source="notes[game.id]" />
+    <vue-markdown :source="gameNotes" />
   </b-alert>
 </template>
 
@@ -25,6 +25,12 @@ export default {
 
   computed: {
     ...mapState(['notes']),
+
+    gameNotes() {
+      return typeof this.notes[this.game.id] === 'object' && this.notes[this.game.id].text
+        ? this.notes[this.game.id].text
+        : this.notes[this.game.id];
+    },
   },
 };
 </script>

@@ -18,6 +18,7 @@
         rows="3"
         max-rows="20"
       />
+
       <b-form-text id="input-live-help">
         <a href="https://www.markdownguide.org/cheat-sheet/" target="_blank">
           Markdown supported
@@ -74,9 +75,9 @@ export default {
 
       const { id } = this.game;
 
-      this.localNote = this.notes[id]
-        ? JSON.parse(JSON.stringify(this.notes[id]))
-        : '';
+      this.localNote = typeof this.notes[id] === 'object' && this.notes[id].text
+        ? this.notes[id].text
+        : JSON.parse(JSON.stringify(this.notes[id]));
     },
 
     async saveNote() {
