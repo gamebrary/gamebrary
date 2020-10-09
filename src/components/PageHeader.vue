@@ -1,8 +1,7 @@
 <template lang="html">
   <nav class="position-fixed d-flex flex-column p-0 vh-100 text-center">
     <router-link :to="{ name: 'dashboard' }" class="mt-2 mb-3">
-      <!-- TODO: use svg, change color based on theme -->
-      <img :src="logoUrl" width="32" />
+      <img src="/static/gamebrary-logo-dark.png" width="32" />
     </router-link>
 
     <template v-if="hasMultipleBoards">
@@ -103,17 +102,6 @@ export default {
   computed: {
     ...mapState(['board', 'user', 'notification', 'settings']),
     ...mapGetters(['sortedBoards']),
-
-    logoUrl() {
-      const { settings } = this;
-
-      // TODO: use optional chaining
-      const noTheme = Boolean(settings && !settings.theme);
-      const darkTheme = Boolean(settings && settings.theme && settings.theme.dark);
-      const isDark = noTheme || darkTheme;
-
-      return `/static/gamebrary-logo${isDark ? '' : '-dark'}.png`;
-    },
 
     routeName() {
       return this.$route.name;
