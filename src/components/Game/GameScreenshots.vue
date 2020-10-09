@@ -1,15 +1,15 @@
 <template lang="html">
   <div v-if="screenshots" class="mt-2">
-    <b-button @click="openModal(0)" class="d-block d-md-none" variant="outline-primary">
+    <b-button @click="openModal(0)" class="d-block d-lg-none" variant="outline-primary">
       <icon name="image" />
       {{ screenshots.length }}
     </b-button>
 
-    <div class="screenshots d-none d-md-flex">
+    <div class="screenshots d-none d-lg-flex">
       <b-img
-        v-for="(screenshot, index) in screenshots"
+        v-for="(thumbnail, index) in thumbnails"
         :key="index"
-        :src="screenshot"
+        :src="thumbnail"
         width="70"
         class="mr-2 mb-2"
         rounded
@@ -66,10 +66,17 @@ export default {
   },
 
   computed: {
+    thumbnails() {
+      return this.game && this.game.screenshots
+        // eslint-disable-next-line
+        ? this.game.screenshots.map(({ image_id }) => `https://images.igdb.com/igdb/image/upload/t_thumb/${image_id}.jpg`)
+        : 'N/A';
+    },
+
     screenshots() {
       return this.game && this.game.screenshots
         // eslint-disable-next-line
-        ? this.game.screenshots.map(({ image_id }) => `https://images.igdb.com/igdb/image/upload/t_screenshot_huge/${image_id}.jpg`)
+        ? this.game.screenshots.map(({ image_id }) => `https://images.igdb.com/igdb/image/upload/t_screenshot_huge_2x/${image_id}.jpg`)
         : 'N/A';
     },
   },

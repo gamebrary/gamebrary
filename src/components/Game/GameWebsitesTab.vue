@@ -1,17 +1,12 @@
 <template lang="html">
-  <b-tab v-if="game.websites">
-    <template v-slot:title>
-      Links
-      <b-badge>{{ game.websites.length }}</b-badge>
-    </template>
-
+  <div v-if="game.websites">
     <dl class="row mb-0" v-for="link in game.websites" :key="link.id">
       <!-- TODO: research which links can be leveraged to get API data,
        e.g. wikipedia article, wikia, etc -->
       <dt class="col-sm-3">{{ linkTypes[link.category]}}</dt>
       <dd class="col-sm-9"><a :href="link.url" target="_blank">{{ link.url }}</a></dd>
     </dl>
-  </b-tab>
+  </div>
 </template>
 
 <script>

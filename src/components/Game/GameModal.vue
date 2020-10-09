@@ -4,25 +4,42 @@
     scrollable
     size="lg"
     footer-class="p-2 justify-content-center"
-    :title="game.name"
+    header-class="align-items-center py-2"
     @show="load"
     @hidden="reset"
   >
     <template v-slot:modal-header="{ close }">
-      <div>
-        <b-button-group>
-          <b-button>
+      <h5 class="mb-0">{{ game.name }}</h5>
+
+      <b-button-toolbar key-nav aria-label="Toolbar with button groups">
+        <b-button-group class="mx-2">
+          <b-button
+            size="sm"
+            variant="light"
+            :disabled="prevDisabled"
+            @click="previousGame"
+          >
             <icon name="triangle-left" />
           </b-button>
-          <b-button>
+
+          <b-button
+            size="sm"
+            variant="light"
+            :disabled="nextDisabled"
+            @click="nextGame"
+          >
             <icon name="triangle-right" />
           </b-button>
         </b-button-group>
-      </div>
 
-      <b-button @click="close">
-        <icon name="x" />
-      </b-button>
+        <b-button
+          variant="light"
+          size="sm"
+          @click="close"
+        >
+          <icon name="x" />
+        </b-button>
+      </b-button-toolbar>
     </template>
 
     <b-container v-if="game.name" class="m-0 p-0">
@@ -36,14 +53,12 @@
             fluid
           />
 
-          <game-screenshots :game="game" />
-
+          <game-screenshots :game="game" v-if="!loading" />
           <game-notes-tab :game="game" />
         </b-col>
 
         <b-col cols="12" md="8" class="mt-md-0 mt-3 text-md-left text-center">
           <h3 class="mb-0">{{ game.name }}</h3>
-
           <!-- <h6>
             <b-badge
               v-if="releaseDate"
@@ -103,14 +118,10 @@
           </template>
 
           <template v-else>
+            <p class="text-left">{{ game.summary }}</p>
             <game-details :game="game" />
-
-            <b-card class="mt-4" no-body>
-              <b-tabs card>
-                <game-websites-tab :game="game" />
-                <game-videos-tab :game="game" />
-              </b-tabs>
-            </b-card>
+            <game-websites-tab :game="game" />
+            <game-videos-tab :game="game" />
           </template>
         </b-col>
       </b-row>
@@ -197,9 +208,55 @@ export default {
         ? Math.round((this.game.rating / 20) * 2) / 2
         : false;
     },
+
+    gameIndex() {
+      const { gameId, list } = this.gameModalData;
+
+      return list.games.indexOf(gameId);
+    },
+
+    prevDisabled() {
+      return this.gameIndex === 0;
+    },
+
+    nextDisabled() {
+      const { list } = this.gameModalData;
+
+      return this.gameIndex === list.games.length - 1;
+    },
   },
 
   methods: {
+    previousGame() {
+      const { gameId, list } = this.gameModalData;
+
+      const index = list.games.indexOf(gameId);
+
+      const prevGameId = list.games[index - 1];
+
+      this.$store.commit('SET_GAME_MODAL_DATA', {
+        gameId: prevGameId,
+        list,
+      });
+
+      this.load();
+    },
+
+    nextGame() {
+      const { gameId, list } = this.gameModalData;
+
+      const index = list.games.indexOf(gameId);
+
+      const nextGameId = list.games[index + 1];
+
+      this.$store.commit('SET_GAME_MODAL_DATA', {
+        gameId: nextGameId,
+        list,
+      });
+
+      this.load();
+    },
+
     load() {
       const { gameId, list } = this.gameModalData;
 
