@@ -1,5 +1,5 @@
 <template lang="html">
-  <div fluid>
+  <div fluid v-if="user">
     <b-jumbotron
       header="Gamebrary"
       header-level="5"
@@ -17,6 +17,7 @@
 <script>
 import PageFooter from '@/components/PageFooter';
 import Boards from '@/components/Boards';
+import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -32,6 +33,8 @@ export default {
   },
 
   computed: {
+    ...mapState(['user']),
+
     coverScreenshot() {
       const baseUrl = 'https://images.igdb.com/igdb/image/upload/t_1080p_2x/';
       return this.coverGame && this.coverGame.screenshots.length
