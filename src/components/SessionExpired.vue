@@ -5,6 +5,7 @@
     cancel-variant="primary"
     ok-title="Authenticate with Google"
     ok-variant="success"
+    hide-header-close
     @ok="login"
     @cancel="logout"
     title="Uh oh!"
