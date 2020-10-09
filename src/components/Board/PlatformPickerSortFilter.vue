@@ -1,13 +1,13 @@
 <template lang="html">
   <div class="mb-3">
     <b-dropdown
-      :text="$t(`platforms.${settings.platformsFilterField || 'popular'}`)"
+      :text="$t(`platforms.${settings && settings.platformsFilterField || 'popular'}`)"
       class="mr-2"
     >
       <b-dropdown-item
         v-for="filter in PLATFORM_FILTER_FIELDS"
         :key="filter"
-        :variant="settings.platformsFilterField === filter ? 'primary' : null"
+        :variant="settings && settings.platformsFilterField === filter ? 'primary' : null"
         @click="setFilter(filter)"
       >
         {{ filter ? $t(`platforms.${filter}`) : $t('platforms.popular') }}
@@ -15,12 +15,12 @@
     </b-dropdown>
 
     <b-dropdown
-      :text="$t(`platforms.${settings.platformsSortField || 'generation'}`)"
+      :text="$t(`platforms.${settings && settings.platformsSortField || 'generation'}`)"
     >
       <b-dropdown-item
         v-for="field in PLATFORM_SORT_FILEDS"
         :key="field"
-        :variant="settings.platformsSortField === field ? 'primary' : null"
+        :variant="settings && settings.platformsSortField === field ? 'primary' : null"
         @click="setSortField(field)"
       >
         {{ $t(`platforms.${field}`) }}

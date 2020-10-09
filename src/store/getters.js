@@ -14,8 +14,13 @@ export default {
   sortedBoards: ({ boards }) => orderby(boards, 'name'),
 
   filteredPlatforms: (state) => {
-    const filterField = state.settings.platformsFilterField || null;
-    const sortField = state.settings.platformsSortField || 'generation';
+    const filterField = state.settings && state.settings.platformsFilterField
+      ? state.settings.platformsFilterField
+      : null;
+
+    const sortField = state.settings && state.settings.platformsSortField
+      ? state.settings.platformsSortField
+      : 'generation';
 
     let filteredPlatforms = [];
 
