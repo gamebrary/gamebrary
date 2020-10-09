@@ -63,13 +63,6 @@
             {{ platform.name }}
             <b-badge variant="warning">{{ $t('boards.deprecated') }}</b-badge>
           </h4>
-
-          <b-avatar
-            :src="`/static/img/platforms/logos/${platform.code}.svg`"
-            variant="light"
-            size="lg"
-            square
-          />
         </b-card-body>
       </b-card>
 
