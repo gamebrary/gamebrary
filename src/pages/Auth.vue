@@ -58,11 +58,9 @@ export default {
       const docRef = db.collection('settings').doc(this.user.uid);
 
       docRef.get().then((doc) => {
-        const hasData = doc && doc.exists;
+        const settings = doc.data();
 
-        return hasData
-          ? this.$store.commit('SET_SETTINGS', doc.data())
-          : this.initSettings();
+        this.$store.commit('SET_SETTINGS', settings);
       }).catch(() => {
         this.$store.commit('SET_SESSION_EXPIRED', true);
       });
@@ -89,8 +87,6 @@ export default {
           if (doc.exists) {
             const data = doc.data();
             this.$store.commit('SET_GAME_LISTS_LEGACY', data);
-          } else {
-            this.initList();
           }
         })
         .catch(() => {
