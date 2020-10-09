@@ -247,6 +247,10 @@ export default {
   },
 
   UPDATE_SETTING(state, { key, value }) {
+    if (!state.settings) {
+      state.settings = {};
+    }
+
     state.settings[key] = value;
   },
 
