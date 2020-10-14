@@ -9,7 +9,6 @@
 
     <b-modal
       id="progress"
-      title="Set game progress"
       :header-bg-variant="nightMode ? 'dark' : null"
       :header-text-variant="nightMode ? 'white' : null"
       :body-bg-variant="nightMode ? 'dark' : null"
@@ -18,6 +17,20 @@
       :footer-text-variant="nightMode ? 'white' : null"
       @show="show"
     >
+      <template v-slot:modal-header="{ close }">
+        <modal-header
+          title="Set game progress"
+        >
+          <b-button
+            variant="light"
+            size="sm"
+            @click="close"
+          >
+            <icon name="x" />
+          </b-button>
+        </modal-header>
+      </template>
+
       <b-input-group :prepend="`${localProgress}%`" class="mb-4" size="lg">
         <b-form-input
           size="lg"

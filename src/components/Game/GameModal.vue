@@ -4,42 +4,49 @@
     scrollable
     size="lg"
     footer-class="p-2 justify-content-center"
-    header-class="align-items-center py-2"
+    header-class="align-items-center pb-0 border-0"
     @show="load"
     @hidden="reset"
   >
+  <!-- header-bg-variant="dark"
+  body-bg-variant="dark"
+  footer-bg-variant="dark" -->
     <template v-slot:modal-header="{ close }">
-      <h5 class="mb-0">{{ game.name }}</h5>
+      <modal-header
+        :title="game.name"
+        :subtitle="gameModalData.list.name"
+        header-class="border-0"
+      >
+        <b-button-toolbar key-nav aria-label="Toolbar with button groups">
+          <b-button-group class="mr-2">
+            <b-button
+              size="sm"
+              variant="light"
+              :disabled="prevDisabled"
+              @click="previousGame"
+            >
+              <icon name="triangle-left" />
+            </b-button>
 
-      <b-button-toolbar key-nav aria-label="Toolbar with button groups">
-        <b-button-group class="mx-2">
+            <b-button
+              size="sm"
+              variant="light"
+              :disabled="nextDisabled"
+              @click="nextGame"
+            >
+              <icon name="triangle-right" />
+            </b-button>
+          </b-button-group>
+
           <b-button
-            size="sm"
             variant="light"
-            :disabled="prevDisabled"
-            @click="previousGame"
-          >
-            <icon name="triangle-left" />
-          </b-button>
-
-          <b-button
             size="sm"
-            variant="light"
-            :disabled="nextDisabled"
-            @click="nextGame"
+            @click="close"
           >
-            <icon name="triangle-right" />
+            <icon name="x" />
           </b-button>
-        </b-button-group>
-
-        <b-button
-          variant="light"
-          size="sm"
-          @click="close"
-        >
-          <icon name="x" />
-        </b-button>
-      </b-button-toolbar>
+        </b-button-toolbar>
+      </modal-header>
     </template>
 
     <b-container v-if="game.name" class="m-0 p-0">
@@ -100,8 +107,17 @@
             class="mt-2"
           />
 
-          <div v-if="loading" class="my-2 d-flex justify-content-md-start justify-content-center">
-            <b-skeleton type="button" width="45px" v-for="n in 4" :key="n" class="mr-1" />
+          <div
+            v-if="loading"
+            class="my-2 d-flex justify-content-md-start justify-content-center"
+          >
+            <b-skeleton
+              v-for="n in 4"
+              :key="n"
+              type="button"
+              width="45px"
+              class="mr-1"
+            />
           </div>
 
           <div v-else class="my-2">

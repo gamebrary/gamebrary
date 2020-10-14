@@ -19,10 +19,23 @@
 
     <b-modal
       id="screenshots"
-      :title="game.name"
       size="xl"
       hide-footer
     >
+      <template v-slot:modal-header="{ close }">
+        <modal-header
+          :title="game.name"
+        >
+          <b-button
+            variant="light"
+            size="sm"
+            @click="close"
+          >
+            <icon name="x" />
+          </b-button>
+        </modal-header>
+      </template>
+
       <b-carousel
         ref="screenshots"
         v-model="activeImage"

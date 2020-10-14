@@ -1,3 +1,5 @@
+<!-- TODO: translate -->
+
 <template lang="html">
   <b-button
     v-b-modal.notes
@@ -9,7 +11,6 @@
 
     <b-modal
       id="notes"
-      title="Game notes"
       :header-bg-variant="nightMode ? 'dark' : null"
       :header-text-variant="nightMode ? 'white' : null"
       :body-bg-variant="nightMode ? 'dark' : null"
@@ -18,6 +19,20 @@
       :footer-text-variant="nightMode ? 'white' : null"
       @show="show"
     >
+      <template v-slot:modal-header="{ close }">
+        <modal-header
+          title="Game notes"
+        >
+          <b-button
+            variant="light"
+            size="sm"
+            @click="close"
+          >
+            <icon name="x" />
+          </b-button>
+        </modal-header>
+      </template>
+
       <b-form-textarea
         v-model.trim="localNote"
         placeholder="Type note here"
