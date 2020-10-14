@@ -20,11 +20,11 @@
           <br />
 
           <small v-if="showGameCount">
-              {{ list.games.length }} games
+              {{ list.games.length }} {{ $t('global.games') }}
           </small>
 
           <small v-if="autoSortEnabled" class="text-muted" v-b-modal="`sort-list-${listIndex}`">
-            Sorted by {{ $t(`board.list.${list.settings.sortOrder}`) }}
+            {{ `${$t('board.list.sortedBy')} ${$t(`board.list.${list.settings.sortOrder}`)}` }}
           </small>
         </p>
 
@@ -56,7 +56,7 @@
           class="mb-2"
           v-b-modal="`game-modal-${list.name}`"
         >
-          Click here or drag games here
+          {{ $t('board.list.emptyListButton') }}
         </b-button>
       </draggable>
     </b-card>
