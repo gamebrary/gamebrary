@@ -49,7 +49,7 @@
 
           <b-form-rating
             v-if="gameRating"
-            class="p-0 border-0 shadow-none"
+            :class="['p-0', { 'bg-dark': nightMode }]"
             inline
             :value="gameRating"
             readonly
