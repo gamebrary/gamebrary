@@ -5,9 +5,7 @@
     <div class="d-flex justify-content-between align-items-center">
       <h5>{{ $t('boards.title') }}</h5>
 
-      <div>
-        <create-board />
-      </div>
+      <create-board />
     </div>
 
     <div class="text-right" v-if="!loading && !boards.length">
