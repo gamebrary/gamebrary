@@ -8,10 +8,23 @@
     hide-header-close
     @ok="login"
     @cancel="logout"
-    title="Uh oh!"
     no-close-on-backdrop
     v-model="sessionExpired"
   >
+    <template v-slot:modal-header="{ close }">
+      <modal-header
+        title="Uh oh!"
+      >
+        <b-button
+          variant="light"
+          size="sm"
+          @click="close"
+        >
+          <icon name="x" />
+        </b-button>
+      </modal-header>
+    </template>
+
     Your session has expired.
   </b-modal>
 </template>
