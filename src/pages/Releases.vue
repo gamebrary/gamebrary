@@ -4,6 +4,9 @@
       :header="$t('releases.title')"
       header-level="5"
       fluid
+      :bg-variant="nightMode ? 'dark' : ''"
+      :text-variant="nightMode ? 'white' : ''"
+      :border-variant="nightMode ? 'dark' : ''"
       class="position-sticky"
     />
 
@@ -16,6 +19,7 @@
               class="d-flex justify-content-between align-items-center"
               v-for="release in releases"
               :key="release.id"
+              :variant="nightMode ? 'dark' : null"
               :active="selectedRelease && release.id === selectedRelease.id"
               @click="selectedRelease = release"
             >
@@ -29,6 +33,8 @@
 
         <b-col cols="9">
           <b-card
+            :bg-variant="nightMode ? 'dark' : null"
+            :text-variant="nightMode ? 'white' : null"
             v-if="selectedRelease"
             hide-footer
             class="mb-3"
@@ -55,7 +61,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import VueMarkdown from 'vue-markdown';
 import moment from 'moment';
 
@@ -72,6 +78,7 @@ export default {
 
   computed: {
     ...mapState(['releases', 'notification', 'settings']),
+    ...mapGetters(['nightMode']),
   },
 
   mounted() {

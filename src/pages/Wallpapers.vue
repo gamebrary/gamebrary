@@ -3,6 +3,9 @@
     <b-jumbotron
       :header="$t('wallpapers.title')"
       :lead="$t('wallpapers.subtitle')"
+      :bg-variant="nightMode ? 'dark' : ''"
+      :text-variant="nightMode ? 'white' : ''"
+      :border-variant="nightMode ? 'dark' : ''"
       header-level="5"
       fluid
     />
@@ -12,10 +15,11 @@
       <!-- TODO: convert to form -->
       <!-- TODO: translate "browse" -->
       <!-- TODO: display file names -->
+      <h5>{{ $t('wallpapers.form.label') }}</h5>
+
       <b-row class="mb-3">
-        <b-col cols="12" lg="6">
+        <b-col cols="12" lg="6" class="mb-4">
           <b-form-group
-            :label="$t('wallpapers.form.label')"
             :description="$t('wallpapers.form.helperText')"
           >
             <b-form-file
@@ -40,11 +44,38 @@
         </b-col>
       </b-row>
 
-      <b-form-row v-if="wallpapers.length">
-        <b-col cols="12">
-          <h5>{{ $t('wallpapers.list.title') }}</h5>
+      <h5>{{ $t('wallpapers.list.title') }}</h5>
+
+      <b-row
+        v-if="wallpapers.length"
+        v-for="wallpaper in wallpapers"
+        :key="wallpaper.name"
+        no-gutters
+        class="mb-4 border-bottom pb-4"
+      >
+        <b-col cols="6" lg="3" class="pr-3">
+          <b-img
+           :src="wallpaper.url"
+           thumbnail
+           class="rounded-0"
+         />
         </b-col>
 
+        <b-col cols="6">
+          <p>{{ wallpaper.name }}</p>
+          <b-button
+            variant="danger"
+            size="sm"
+            @click="confirmDeleteWallpaper(wallpaper)"
+          >
+            <icon name="trash" white />
+          </b-button>
+        </b-col>
+      </b-row>
+
+      <!-- <b-form-row v-if="wallpapers.length">
+        <b-col cols="12">
+        </b-col>
         <b-col
           v-for="wallpaper in wallpapers"
           :key="wallpaper.name"
@@ -58,23 +89,11 @@
             body-class="d-flex p-0 text-center justify-content-center align-items-center"
             header-tag="small"
           >
-            <b-img
-              :src="wallpaper.url"
-              :alt="wallpaper.name"
-              fluid
-            />
 
-            <b-button
-              class="position-absolute delete-file"
-              variant="danger"
-              size="sm"
-              @click="confirmDeleteWallpaper(wallpaper)"
-            >
-              <icon name="trash" white />
-            </b-button>
+
           </b-card>
         </b-col>
-      </b-form-row>
+      </b-form-row> -->
 
       <b-alert show v-else>You don't have any wallpapers.</b-alert>
     </b-container>
@@ -82,7 +101,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -96,6 +115,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'board', 'wallpapers']),
+    ...mapGetters(['nightMode']),
 
     existingFiles() {
       return this.wallpapers.map(({ name }) => name);

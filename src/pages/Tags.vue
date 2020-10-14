@@ -3,6 +3,9 @@
     <b-jumbotron
       :header="$t('tags.title')"
       :lead="$t('tags.subtitle')"
+      :bg-variant="nightMode ? 'dark' : ''"
+      :text-variant="nightMode ? 'white' : ''"
+      :border-variant="nightMode ? 'dark' : ''"
       header-level="5"
       fluid
     />
@@ -108,9 +111,27 @@
           </b-list-group>
 
           <!-- TODO: move to component -->
-          <b-modal id="editTag">
-            <template v-slot:modal-title>
-              Edit <strong>{{ editingOriginalTagName }}</strong> tag
+          <b-modal
+            id="editTag"
+            :header-bg-variant="nightMode ? 'dark' : null"
+            :header-text-variant="nightMode ? 'white' : null"
+            :body-bg-variant="nightMode ? 'dark' : null"
+            :body-text-variant="nightMode ? 'white' : null"
+            :footer-bg-variant="nightMode ? 'dark' : null"
+            :footer-text-variant="nightMode ? 'white' : null"
+          >
+            <template v-slot:modal-header="{ close }">
+              <modal-header
+                :title="`Edit ${editingOriginalTagName} tag`"
+              >
+                <b-button
+                  variant="light"
+                  size="sm"
+                  @click="close"
+                >
+                  <icon name="x" />
+                </b-button>
+              </modal-header>
             </template>
 
             <form
@@ -186,7 +207,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -205,6 +226,7 @@ export default {
 
   computed: {
     ...mapState(['tags', 'platform']),
+    ...mapGetters(['nightMode']),
 
     isDuplicate() {
       const { tagName, localTags } = this;

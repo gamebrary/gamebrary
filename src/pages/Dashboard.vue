@@ -5,6 +5,9 @@
       header-level="5"
       fluid
       :lead="$t('dashboard.subtitle')"
+      :bg-variant="nightMode ? 'dark' : ''"
+      :text-variant="nightMode ? 'white' : ''"
+      :border-variant="nightMode ? 'dark' : ''"
     />
     <!-- background-image: linear-gradient(transparent, #222 50%), url(${ coverScreenshot }); -->
     <b-container>
@@ -17,7 +20,7 @@
 <script>
 import PageFooter from '@/components/PageFooter';
 import Boards from '@/components/Boards';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -33,7 +36,8 @@ export default {
   },
 
   computed: {
-    ...mapState(['user']),
+    ...mapState(['user', 'settings']),
+    ...mapGetters(['nightMode']),
 
     coverScreenshot() {
       const baseUrl = 'https://images.igdb.com/igdb/image/upload/t_1080p_2x/';

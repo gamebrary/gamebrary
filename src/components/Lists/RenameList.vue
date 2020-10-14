@@ -11,9 +11,22 @@
       :body-text-variant="nightMode ? 'white' : null"
       :footer-bg-variant="nightMode ? 'dark' : null"
       :footer-text-variant="nightMode ? 'white' : null"
-      :title="$t('board.list.renameList')"
       @show="getListName"
     >
+      <template v-slot:modal-header="{ close }">
+        <modal-header
+          :title="$t('board.list.renameList')"
+        >
+          <b-button
+            variant="light"
+            size="sm"
+            @click="close"
+          >
+            <icon name="x" />
+          </b-button>
+        </modal-header>
+      </template>
+
       <form ref="renameListForm" @submit.stop.prevent="submit">
         <b-form-input
           ref="listNameField"

@@ -5,18 +5,30 @@
 
     <b-modal
       :id="modalId"
-      :title="$t('board.list.view')"
       @show="load"
     >
+      <template v-slot:modal-header="{ close }">
+        <modal-header
+          :title="$t('board.list.view')"
+        >
+          <b-button
+            variant="light"
+            size="sm"
+            @click="close"
+          >
+            <icon name="x" />
+          </b-button>
+        </modal-header>
+      </template>
+
       <form ref="renameListForm" @submit.prevent="save">
-        <b-form-group :label="$t('board.list.view')">
-          <b-form-radio-group
-            v-model="view"
-            required
-            :options="listViews"
-            buttons
-          />
-        </b-form-group>
+        <b-form-radio-group
+          v-model="view"
+          required
+          :options="listViews"
+          class="mb-2"
+          buttons
+        />
 
         <!-- TODO: use dynamic named component -->
         <template v-if="randomGameId">

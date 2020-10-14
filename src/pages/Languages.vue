@@ -3,6 +3,9 @@
     <b-jumbotron
       :header="$t('languages.title')"
       header-level="5"
+      :bg-variant="nightMode ? 'dark' : ''"
+      :text-variant="nightMode ? 'white' : ''"
+      :border-variant="nightMode ? 'dark' : ''"
       fluid
     />
 
@@ -32,7 +35,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import { SUPPORTED_LANGUAGES } from '@/constants';
 
 export default {
@@ -46,6 +49,7 @@ export default {
 
   computed: {
     ...mapState(['settings']),
+    ...mapGetters(['nightMode']),
   },
 
   mounted() {

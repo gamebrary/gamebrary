@@ -7,7 +7,6 @@
 
     <b-modal
       id="create-board"
-      title="Create board"
       size="lg"
       :header-bg-variant="nightMode ? 'dark' : null"
       :header-text-variant="nightMode ? 'white' : null"
@@ -18,6 +17,20 @@
       @show="resetBoard"
       @hidden="resetBoard"
     >
+      <template v-slot:modal-header="{ close }">
+        <modal-header
+          title="Create board"
+        >
+          <b-button
+            variant="light"
+            size="sm"
+            @click="close"
+          >
+            <icon name="x" />
+          </b-button>
+        </modal-header>
+      </template>
+
       <form ref="createBoardForm" @submit.stop.prevent="submit">
         <b-form-group
           label="Board name"

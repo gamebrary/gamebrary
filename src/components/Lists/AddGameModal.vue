@@ -5,10 +5,29 @@
 
     <b-modal
       :id="`game-modal-${list.name}`"
-      :title="$t('board.addGame.title')"
-      footer-class="p-2 justify-content-center"
+      :header-bg-variant="nightMode ? 'dark' : null"
+      :header-text-variant="nightMode ? 'white' : null"
+      :body-bg-variant="nightMode ? 'dark' : null"
+      :body-text-variant="nightMode ? 'white' : null"
+      :footer-bg-variant="nightMode ? 'dark' : null"
+      :footer-text-variant="nightMode ? 'white' : null"
+      footer-class="justify-content-center"
       @show="clear"
     >
+      <template v-slot:modal-header="{ close }">
+        <modal-header
+          :title="$t('board.addGame.title')"
+        >
+          <b-button
+            variant="light"
+            size="sm"
+            @click="close"
+          >
+            <icon name="x" />
+          </b-button>
+        </modal-header>
+      </template>
+
       <b-form @submit.prevent="search" class="mb-2">
         <b-input-group>
           <b-form-input
@@ -63,7 +82,7 @@
 <script>
 import GameCardSearch from '@/components/GameCards/GameCardSearch';
 import IgdbLogo from '@/components/IgdbLogo';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -87,6 +106,7 @@ export default {
 
   computed: {
     ...mapState(['results']),
+    ...mapGetters(['nightMode']),
 
     noResults() {
       return !this.loading

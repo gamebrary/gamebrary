@@ -5,9 +5,22 @@
 
     <b-modal
       :id="modalId"
-      :title="$t('board.list.settings')"
       @show="getSettings"
     >
+      <template v-slot:modal-header="{ close }">
+        <modal-header
+          :title="$t('board.list.settings')"
+        >
+          <b-button
+            variant="light"
+            size="sm"
+            @click="close"
+          >
+            <icon name="x" />
+          </b-button>
+        </modal-header>
+      </template>
+
       <form ref="renameListForm" @submit.stop.prevent="save">
         <b-form-checkbox
           v-model="showReleaseDates"
