@@ -26,7 +26,8 @@
         "language": "Language",
         "releases": "Releases",
         "about": "About",
-        "account": "Account"
+        "account": "Account",
+        "theme": "Switch theme"
     },
     "gitHub": {
         "watch": "Watch",

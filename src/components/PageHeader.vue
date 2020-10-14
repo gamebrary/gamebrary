@@ -18,6 +18,7 @@
         boundary="viewport"
         v-b-tooltip.hover.right
         :title="$t('navMenu.changeBoard')"
+        :menu-class="nightMode ? 'bg-dark' : ''"
         variant="transparent"
       >
         <template v-slot:button-content>
@@ -28,6 +29,7 @@
           :to="`/board/${id}`"
           :key="id"
           v-for="{ name, id } in sortedBoards"
+          variant="transparent"
           :active="board.id === id"
         >
           {{ name }}
@@ -88,7 +90,7 @@
 
       <b-button
         variant="link"
-        :title="$t('navMenu.about')"
+        :title="$t('navMenu.theme')"
         v-b-tooltip.hover.right
         @click="toggleTheme"
       >

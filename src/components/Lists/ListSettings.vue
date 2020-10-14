@@ -4,6 +4,7 @@
     class="m-1"
     right
     variant="transparent"
+    :menu-class="nightMode ? 'bg-dark' : ''"
     no-caret
   >
     <template v-slot:button-content>
@@ -62,7 +63,7 @@ import RenameList from '@/components/Lists/RenameList';
 import ListPreferences from '@/components/Lists/ListPreferences';
 import SortList from '@/components/Lists/SortList';
 import AddGameModal from '@/components/Lists/AddGameModal';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -86,6 +87,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'platform', 'board']),
+    ...mapGetters(['nightMode']),
 
     isFirst() {
       return this.listIndex === 0;

@@ -61,6 +61,25 @@
 
         <b-col cols="12" md="8" class="mt-md-0 mt-3 text-md-left text-center">
           <h3 class="mb-0">{{ game.name }}</h3>
+
+          <b-progress
+            v-if="progress"
+            :value="progress"
+            variant="success"
+            height="8px"
+            class="my-1 w-50"
+          />
+
+          <b-form-rating
+            v-if="rating"
+            :value="rating"
+            :class="['p-0 mt-1', { 'bg-dark': nightMode }]"
+            inline
+            readonly
+            variant="warning"
+            size="lg"
+            no-border
+          />
           <!-- <h6>
             <b-badge
               v-if="releaseDate"
@@ -71,16 +90,7 @@
             </b-badge>
           </h6> -->
 
-          <b-form-rating
-            v-if="rating"
-            :value="rating"
-            class="p-0 mt-1 border-0 shadow-none"
-            inline
-            readonly
-            variant="warning"
-            size="lg"
-            no-border
-          />
+          <br />
 
           <b-badge
             v-for="({ games, hex, tagTextColor }, name) in tags"
@@ -93,14 +103,6 @@
           >
             {{ name }}
           </b-badge>
-
-          <b-progress
-            v-if="progress"
-            :value="progress"
-            variant="success"
-            height="8px"
-            class="mt-2"
-          />
 
           <div
             v-if="loading"
