@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary เป็นโอเพ่นซอร์สฟรีและให้ความช่วยเหลือในการพัฒนาโดย",
         "donating": "บริจาค",
         "reportBugs": "การรายงานข้อบกพร่อง",
+        "games": "เกม",
         "submitFeedback": "ส่งข้อเสนอแนะ"
     },
     "navMenu": {
@@ -96,14 +97,16 @@
             "wishlist": "Wishlist",
             "input": "ป้อนของคุณเอง",
             "add": "เพิ่มรายการ",
-            "duplicateWarning": "คุณมีรายชื่อที่มีชื่อนี้อยู่แล้ว",
+            "duplicateWarning": "คุณมีรายชื่อนี้อยู่แล้ว",
+            "emptyListButton": "คลิกที่นี่หรือลากเกมที่นี่",
             "getStarted": "เริ่ม!",
             "addFirstTime": "ยินดีต้อนรับเพิ่มรายการแรกของคุณ!",
-            "sortByName": "เดอะ",
+            "sortByName": "ชื่อ",
             "sortByProgress": "ความคืบหน้า",
             "sortByRating": "คะแนน",
             "sortByReleaseDate": "วันที่",
             "sortByCustom": "กำหนดเอง",
+            "sortedBy": "จัดเรียงโดย",
             "delete": "ลบรายการ",
             "moveLeft": "เลื่อนไปทางซ้าย",
             "moveRight": "เลื่อนไปทางขวา",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "แท็กของฉัน"
+        },
+        "delete": {
+            "title": "แน่ใจไหมว่าต้องการลบแท็กนี้",
+            "message": "การดำเนินการนี้ไม่สามารถยกเลิกได้",
+            "buttonLabel": "ใช่ลบแท็ก"
         }
     },
     "wallpapers": {

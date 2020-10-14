@@ -13,9 +13,10 @@
         "pageNotFound": "Stran ni najdena",
         "poweredByIgdb": "Poganja ga",
         "signOut": "Odjava",
-        "donateMessage": "Gamebrary je brezplačen in odprtokoden, razmislite o pomoči pri njegovem razvoju do",
+        "donateMessage": "Gamebrary je brezplačen in odprtokoden, razmislite o njegovem razvoju do",
         "donating": "darovanje",
         "reportBugs": "poročanje o napakah",
+        "games": "igre",
         "submitFeedback": "pošiljanje povratnih informacij"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "Vnesite svojega",
             "add": "Dodaj seznam",
             "duplicateWarning": "Seznam s tem imenom že imate",
+            "emptyListButton": "Kliknite tukaj ali povlecite igre sem",
             "getStarted": "Začeti!",
             "addFirstTime": "Dobrodošli, dodajte svoj prvi seznam!",
-            "sortByName": "THE",
+            "sortByName": "Ime",
             "sortByProgress": "Napredek",
             "sortByRating": "Rezultat",
             "sortByReleaseDate": "Datum",
             "sortByCustom": "Po meri",
+            "sortedBy": "Razvrščeno po",
             "delete": "Izbriši seznam",
             "moveLeft": "Premakni levo",
             "moveRight": "Premakni desno",
@@ -165,11 +168,16 @@
         },
         "list": {
             "title": "Moje oznake"
+        },
+        "delete": {
+            "title": "Ali ste prepričani, da želite izbrisati to oznako?",
+            "message": "Tega dejanja ni mogoče razveljaviti",
+            "buttonLabel": "Da, izbriši oznako"
         }
     },
     "wallpapers": {
         "title": "Ozadja",
-        "subtitle": "Upravljajte ozadja plošče",
+        "subtitle": "Upravljanje ozadij plošče",
         "form": {
             "label": "Naložite ozadje",
             "placeholder": "Izberite datoteko ali jo spustite sem ...",
@@ -198,7 +206,7 @@
         "progresses": "Napredek"
     },
     "platforms": {
-        "donateMessage": "Gamebrary je brezplačen in odprtokoden, razmislite o pomoči pri njegovem razvoju do",
+        "donateMessage": "Gamebrary je brezplačen in odprtokoden, razmislite o njegovem razvoju do",
         "donating": "darovanje",
         "reportBugs": "poročanje o napakah",
         "submitFeedback": "pošiljanje povratnih informacij",

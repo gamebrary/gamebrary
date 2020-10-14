@@ -14,8 +14,9 @@
         "poweredByIgdb": "Knúið af",
         "signOut": "Útskrá",
         "donateMessage": "Gamebrary er ókeypis og opinn uppspretta, íhugaðu að hjálpa þróun þess með því að",
-        "donating": "gefa",
+        "donating": "framlag",
         "reportBugs": "tilkynna galla",
+        "games": "leikir",
         "submitFeedback": "senda inn álit"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "Sláðu inn þína eigin",
             "add": "Bæta við lista",
             "duplicateWarning": "Þú ert þegar með lista með þessu nafni",
+            "emptyListButton": "Smelltu hér eða dragðu leiki hingað",
             "getStarted": "Byrja!",
             "addFirstTime": "Verið velkomin, bættu við fyrsta listanum þínum!",
-            "sortByName": "ÞAÐ",
+            "sortByName": "Nafn",
             "sortByProgress": "Framsókn",
             "sortByRating": "Mark",
             "sortByReleaseDate": "Dagsetning",
             "sortByCustom": "Sérsniðin",
+            "sortedBy": "Raðað eftir",
             "delete": "Eyða lista",
             "moveLeft": "Færðu þig til vinstri",
             "moveRight": "Færðu til hægri",
@@ -155,7 +158,7 @@
     },
     "tags": {
         "title": "Merkimiðar",
-        "subtitle": "Merki eru frábær leið til að skipuleggja og stjórna tölvuleikjasafninu þínu. Bæta við, breyta eða eyða merkjum.",
+        "subtitle": "Merkin eru frábær leið til að skipuleggja og stjórna tölvuleikjasafninu þínu. Bæta við, breyta eða eyða merkjum.",
         "form": {
             "title": "Bættu við nýju merki",
             "inputPlaceholder": "Merki nafn",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "Merkin mín"
+        },
+        "delete": {
+            "title": "Ertu viss um að þú viljir eyða þessu merki?",
+            "message": "Ekki er hægt að afturkalla þessa aðgerð",
+            "buttonLabel": "Já, eytt merki"
         }
     },
     "wallpapers": {
@@ -199,7 +207,7 @@
     },
     "platforms": {
         "donateMessage": "Gamebrary er ókeypis og opinn uppspretta, íhugaðu að hjálpa þróun þess með því að",
-        "donating": "gefa",
+        "donating": "framlag",
         "reportBugs": "tilkynna galla",
         "submitFeedback": "senda inn álit",
         "all": "Allt",

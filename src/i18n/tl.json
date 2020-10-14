@@ -16,6 +16,7 @@
         "donateMessage": "Ang Gamebrary ay libre at bukas na mapagkukunan, isaalang-alang ang pagtulong sa pag-unlad nito sa pamamagitan ng",
         "donating": "nagbibigay ng donasyon",
         "reportBugs": "pag-uulat ng mga bug",
+        "games": "mga laro",
         "submitFeedback": "pagsumite ng feedback"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "Ipasok ang iyong sarili",
             "add": "Magdagdag ng listahan",
             "duplicateWarning": "Mayroon ka nang isang listahan na may ganitong pangalan",
+            "emptyListButton": "Mag-click dito o i-drag ang mga laro dito",
             "getStarted": "Magsimula!",
             "addFirstTime": "Maligayang pagdating, idagdag ang iyong unang listahan!",
-            "sortByName": "ANG",
+            "sortByName": "Pangalan",
             "sortByProgress": "Pag-unlad",
             "sortByRating": "Iskor",
             "sortByReleaseDate": "Petsa",
             "sortByCustom": "Pasadya",
+            "sortedBy": "Nakaayos ayon sa",
             "delete": "Tanggalin ang listahan",
             "moveLeft": "Lumipat pakaliwa",
             "moveRight": "Ilipat pakanan",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "Mga tag ko"
+        },
+        "delete": {
+            "title": "Sigurado ka bang nais mong tanggalin ang tag na ito?",
+            "message": "Ang gawaing ito ay hindi pwedeng baguhin",
+            "buttonLabel": "Oo, tanggalin ang tag"
         }
     },
     "wallpapers": {

@@ -13,9 +13,10 @@
         "pageNotFound": "Ez da orria aurkitu",
         "poweredByIgdb": "Egilea",
         "signOut": "Saioa amaitu",
-        "donateMessage": "Gamebrary doakoa eta kode irekikoa da; pentsa dezagun garapenean",
+        "donateMessage": "Gamebrary doakoa eta kode irekikoa da, pentsa dezagun garapenean",
         "donating": "emanez",
         "reportBugs": "akatsen berri ematea",
+        "games": "jolasak",
         "submitFeedback": "iritzia bidaltzen"
     },
     "navMenu": {
@@ -86,7 +87,7 @@
             "title": "Gehitu jokoa",
             "inputPlaceholder": "Idatzi hemen bilatzeko",
             "noResults": "Ez da emaitzarik aurkitu",
-            "alreadyInList": "zure zerrendan dauden bilaketa-emaitzetako jokoak"
+            "alreadyInList": "zure zerrendako bilaketa-emaitzetako jokoak"
         },
         "list": {
             "edit": "Editatu zerrendaren izena",
@@ -97,13 +98,15 @@
             "input": "Sartu zeurea",
             "add": "Gehitu zerrenda",
             "duplicateWarning": "Izen honekin zerrenda bat duzu jada",
+            "emptyListButton": "Egin klik hemen edo arrastatu jokoak hemen",
             "getStarted": "Hasi!",
             "addFirstTime": "Ongi etorri, gehitu zure lehen zerrenda!",
-            "sortByName": "THE",
+            "sortByName": "Izena",
             "sortByProgress": "Aurrerapena",
             "sortByRating": "Puntuazioa",
             "sortByReleaseDate": "Data",
             "sortByCustom": "Pertsonalizatua",
+            "sortedBy": "Arabera ordenatuta",
             "delete": "Ezabatu zerrenda",
             "moveLeft": "Mugitu ezkerrera",
             "moveRight": "Mugitu eskuinera",
@@ -155,7 +158,7 @@
     },
     "tags": {
         "title": "Etiketak",
-        "subtitle": "Etiketak bideo jokoen bilduma antolatzeko eta kudeatzeko modu bikaina dira. Etiketak gehitu, editatu edo ezabatu.",
+        "subtitle": "Etiketak bideojokoen bilduma antolatzeko eta kudeatzeko modu bikaina dira. Etiketak gehitu, editatu edo ezabatu.",
         "form": {
             "title": "Gehitu etiketa berria",
             "inputPlaceholder": "Etiketaren izena",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "Nire etiketak"
+        },
+        "delete": {
+            "title": "Ziur zaude etiketa hau ezabatu nahi duzula?",
+            "message": "Ekintza hau ezin da desegin",
+            "buttonLabel": "Bai, ezabatu etiketa"
         }
     },
     "wallpapers": {
@@ -198,7 +206,7 @@
         "progresses": "Aurrerapena"
     },
     "platforms": {
-        "donateMessage": "Gamebrary doakoa eta kode irekikoa da; pentsa dezagun garapenean",
+        "donateMessage": "Gamebrary doakoa eta kode irekikoa da, pentsa dezagun garapenean",
         "donating": "emanez",
         "reportBugs": "akatsen berri ematea",
         "submitFeedback": "iritzia bidaltzen",

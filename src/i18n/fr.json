@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary est gratuit et open source, pensez à aider son développement en",
         "donating": "faire un don",
         "reportBugs": "signaler des bogues",
+        "games": "Jeux",
         "submitFeedback": "soumission de commentaires"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "Entrez le vôtre",
             "add": "Ajouter la liste",
             "duplicateWarning": "Vous avez déjà une liste avec ce nom",
+            "emptyListButton": "Cliquez ici ou faites glisser les jeux ici",
             "getStarted": "Commencer!",
             "addFirstTime": "Bienvenue, ajoutez votre première liste!",
-            "sortByName": "LES",
+            "sortByName": "Nom",
             "sortByProgress": "Le progrès",
             "sortByRating": "But",
             "sortByReleaseDate": "Date",
             "sortByCustom": "Douane",
+            "sortedBy": "Trié par",
             "delete": "Supprimer la liste",
             "moveLeft": "Se déplacer à gauche",
             "moveRight": "Déplacer vers la droite",
@@ -155,7 +158,7 @@
     },
     "tags": {
         "title": "Mots clés",
-        "subtitle": "Les tags sont un excellent moyen d'organiser et de gérer votre collection de jeux vidéo. Ajoutez, modifiez ou supprimez des balises.",
+        "subtitle": "Les balises sont un excellent moyen d'organiser et de gérer votre collection de jeux vidéo. Ajoutez, modifiez ou supprimez des balises.",
         "form": {
             "title": "Ajouter une nouvelle balise",
             "inputPlaceholder": "Nom de la balise",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "Mes tags"
+        },
+        "delete": {
+            "title": "Voulez-vous vraiment supprimer cette balise?",
+            "message": "Cette action ne peut pas être annulée",
+            "buttonLabel": "Oui, supprimer la balise"
         }
     },
     "wallpapers": {

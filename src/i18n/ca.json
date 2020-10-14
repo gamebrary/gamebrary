@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary és gratuït i de codi obert; penseu a ajudar-lo al desenvolupament",
         "donating": "donant",
         "reportBugs": "informar d'errors",
+        "games": "jocs",
         "submitFeedback": "enviant comentaris"
     },
     "navMenu": {
@@ -48,7 +49,7 @@
             "screenshots": "Captures de pantalla",
             "perspective": "Perspectiva",
             "releaseDate": "Data de publicació",
-            "timeToBeat": "És hora de batre",
+            "timeToBeat": "Temps de batre",
             "gameModes": "Mode de joc",
             "genres": "Gènere",
             "ageRatings": "Classificacions per edat",
@@ -97,17 +98,19 @@
             "input": "Introduïu el vostre",
             "add": "Afegeix una llista",
             "duplicateWarning": "Ja teniu una llista amb aquest nom",
+            "emptyListButton": "Feu clic aquí o arrossegueu els jocs aquí",
             "getStarted": "Començar!",
             "addFirstTime": "Benvingut, afegiu la vostra primera llista.",
-            "sortByName": "EL",
+            "sortByName": "Nom",
             "sortByProgress": "Progrés, progressar",
             "sortByRating": "Puntuació",
             "sortByReleaseDate": "Data",
             "sortByCustom": "Personalitzat",
+            "sortedBy": "Ordenat per",
             "delete": "Esborra la llista",
             "moveLeft": "Mou-te a l'esquerra",
             "moveRight": "Mou cap a la dreta",
-            "emptyList": "Aquesta llista és buida",
+            "emptyList": "Aquesta llista està buida",
             "addGame": "Afegeix un joc",
             "addGames": "Afegeix jocs a {listName}",
             "view": "Vista de llista",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "Les meves etiquetes"
+        },
+        "delete": {
+            "title": "Esteu segur que voleu suprimir aquesta etiqueta?",
+            "message": "Aquesta acció no es pot desfer",
+            "buttonLabel": "Sí, suprimiu l'etiqueta"
         }
     },
     "wallpapers": {

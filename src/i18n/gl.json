@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary é de código aberto e gratuíto; considere axudar no seu desenvolvemento",
         "donating": "doar",
         "reportBugs": "informar de erros",
+        "games": "xogos",
         "submitFeedback": "enviando comentarios"
     },
     "navMenu": {
@@ -75,7 +76,7 @@
                 "tumblr": "Tumblr",
                 "linkedin": "Linkedin",
                 "pinterest": "Pinterest",
-                "soundcloud": "Soundcloud"
+                "soundcloud": "Nube de son"
             }
         },
         "addList": {
@@ -97,13 +98,15 @@
             "input": "Introduce o teu",
             "add": "Engadir lista",
             "duplicateWarning": "Xa tes unha lista con este nome",
+            "emptyListButton": "Fai clic aquí ou arrastra xogos aquí",
             "getStarted": "Comezar!",
             "addFirstTime": "Benvido, engade a túa primeira lista.",
-            "sortByName": "O",
+            "sortByName": "Nome",
             "sortByProgress": "Progreso",
             "sortByRating": "Puntuación",
             "sortByReleaseDate": "Data",
             "sortByCustom": "Personalizado",
+            "sortedBy": "Ordenado por",
             "delete": "Eliminar lista",
             "moveLeft": "Mover á esquerda",
             "moveRight": "Mover á dereita",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "As miñas etiquetas"
+        },
+        "delete": {
+            "title": "Seguro que queres eliminar esta etiqueta?",
+            "message": "Esta acción non se pode desfacer",
+            "buttonLabel": "Si, elimina a etiqueta"
         }
     },
     "wallpapers": {

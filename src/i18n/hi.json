@@ -16,6 +16,7 @@
         "donateMessage": "गेमब्ररी स्वतंत्र और खुला स्रोत है, इसके विकास में मदद करने पर विचार करें",
         "donating": "दान",
         "reportBugs": "बग की सूचना देना",
+        "games": "खेल",
         "submitFeedback": "प्रतिक्रिया प्रस्तुत करना"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "अपना दर्ज करें",
             "add": "सूची में जोड़ने",
             "duplicateWarning": "आपके पास पहले से ही इस नाम की एक सूची है",
+            "emptyListButton": "यहां क्लिक करें या गेम को यहां खींचें",
             "getStarted": "शुरू हो जाओ!",
             "addFirstTime": "आपका स्वागत है, अपनी पहली सूची जोड़ें!",
-            "sortByName": "",
+            "sortByName": "नाम",
             "sortByProgress": "प्रगति",
             "sortByRating": "स्कोर",
             "sortByReleaseDate": "तारीख",
             "sortByCustom": "रिवाज",
+            "sortedBy": "आधार पर छाँटे",
             "delete": "सूची हटाएँ",
             "moveLeft": "बाएं खिसको",
             "moveRight": "दाएँ चले",
@@ -115,7 +118,7 @@
             "renameList": "नाम बदलें",
             "renameListPlaceholder": "अपना नाम दर्ज करें",
             "sortList": "तरह",
-            "sortWarning": "ऑटो छँटाई सूची को प्रभावित करेगा कि कैसे खींचें और ड्रॉप काम करता है",
+            "sortWarning": "ऑटो छँटाई सूची को प्रभावित करेगा कि ड्रैग और ड्रॉप कैसे काम करता है",
             "coversSizeTitle": "के पार हो जाता है",
             "showReleaseDates": "असंबंधित खेलों के लिए रिलीज की तारीख दिखाएं",
             "showGameRatings": "खेल रेटिंग दिखाएं",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "मेरे टैग"
+        },
+        "delete": {
+            "title": "क्या आप वाकई इस टैग को हटाना चाहते हैं?",
+            "message": "यह कार्य दोबारा से नहीं हो सकता",
+            "buttonLabel": "हां, टैग हटाएं"
         }
     },
     "wallpapers": {

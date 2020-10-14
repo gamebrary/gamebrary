@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary är gratis och öppen källkod, överväga att hjälpa utvecklingen av",
         "donating": "donera",
         "reportBugs": "rapportera fel",
+        "games": "spel",
         "submitFeedback": "skicka feedback"
     },
     "navMenu": {
@@ -40,7 +41,7 @@
         "title": "Styrelser",
         "create": "Skapa styrelse",
         "platforms": "Plattformar",
-        "deprecated": "Föråldrad"
+        "deprecated": "Utfasad"
     },
     "board": {
         "gameModal": {
@@ -97,13 +98,15 @@
             "input": "Ange din egen",
             "add": "Lägg till lista",
             "duplicateWarning": "Du har redan en lista med det här namnet",
+            "emptyListButton": "Klicka här eller dra spel här",
             "getStarted": "Komma igång!",
             "addFirstTime": "Välkommen, lägg till din första lista!",
-            "sortByName": "DE",
+            "sortByName": "namn",
             "sortByProgress": "Framsteg",
             "sortByRating": "Göra",
             "sortByReleaseDate": "Datum",
             "sortByCustom": "Beställnings",
+            "sortedBy": "Sorterat efter",
             "delete": "Radera lista",
             "moveLeft": "Flytta vänster",
             "moveRight": "Flytta höger",
@@ -115,9 +118,9 @@
             "renameList": "Döp om",
             "renameListPlaceholder": "Ange ditt namn",
             "sortList": "Sortera",
-            "sortWarning": "Listan för automatisk sortering kommer att påverka hur dra och släpp fungerar",
+            "sortWarning": "Listan med automatisk sortering påverkar hur dra och släpp fungerar",
             "coversSizeTitle": "Täcker över",
-            "showReleaseDates": "Visa utgivningsdatum för spel som inte släppts",
+            "showReleaseDates": "Visa släppdatum för icke-släppta spel",
             "showGameRatings": "Visa spelbetyg",
             "showGameProgress": "Visa spelets framsteg",
             "showGameNotes": "Visa spelanteckningar",
@@ -155,7 +158,7 @@
     },
     "tags": {
         "title": "Taggar",
-        "subtitle": "Taggar är ett utmärkt sätt att organisera och hantera din videospelkollektion. Lägg till, redigera eller ta bort taggar.",
+        "subtitle": "Taggar är ett bra sätt att organisera och hantera din videospelkollektion. Lägg till, redigera eller ta bort taggar.",
         "form": {
             "title": "Lägg till ny tagg",
             "inputPlaceholder": "Taggnamn",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "Mina taggar"
+        },
+        "delete": {
+            "title": "Är du säker på att du vill ta bort den här taggen?",
+            "message": "Denna åtgärd kan inte ångras",
+            "buttonLabel": "Ja, ta bort taggen"
         }
     },
     "wallpapers": {

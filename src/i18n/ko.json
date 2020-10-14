@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary는 무료이며 오픈 소스입니다.",
         "donating": "기부",
         "reportBugs": "버그보고",
+        "games": "계략",
         "submitFeedback": "피드백 제출"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "직접 입력",
             "add": "목록 추가",
             "duplicateWarning": "이 이름의 목록이 이미 있습니다.",
+            "emptyListButton": "여기를 클릭하거나 여기로 게임을 드래그하세요",
             "getStarted": "시작하다!",
             "addFirstTime": "환영합니다. 첫 번째 목록을 추가하세요!",
-            "sortByName": "그만큼",
+            "sortByName": "이름",
             "sortByProgress": "진행",
             "sortByRating": "점수",
             "sortByReleaseDate": "데이트",
             "sortByCustom": "커스텀",
+            "sortedBy": "정렬 기준",
             "delete": "목록 삭제",
             "moveLeft": "왼쪽으로 이동",
             "moveRight": "오른쪽으로 이동해라",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "내 태그"
+        },
+        "delete": {
+            "title": "이 태그를 삭제 하시겠습니까?",
+            "message": "이 작업은 취소 할 수 없습니다.",
+            "buttonLabel": "예, 태그를 삭제합니다."
         }
     },
     "wallpapers": {

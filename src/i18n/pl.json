@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary jest darmowy i open source, rozważ pomoc w jego rozwoju przez",
         "donating": "darowizny",
         "reportBugs": "zgłaszanie błędów",
+        "games": "Gry",
         "submitFeedback": "przesyłanie opinii"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "Wpisz swój własny",
             "add": "Dodaj listę",
             "duplicateWarning": "Masz już listę o tej nazwie",
+            "emptyListButton": "Kliknij tutaj lub przeciągnij gry tutaj",
             "getStarted": "Zaczynaj!",
             "addFirstTime": "Witamy, dodaj swoją pierwszą listę!",
-            "sortByName": "THE",
+            "sortByName": "Nazwa",
             "sortByProgress": "Postęp",
             "sortByRating": "Wynik",
             "sortByReleaseDate": "Data",
             "sortByCustom": "Zwyczaj",
+            "sortedBy": "Posortowane według",
             "delete": "Usuń listę",
             "moveLeft": "Przesuń w lewo",
             "moveRight": "Ruch w prawo",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "Moje tagi"
+        },
+        "delete": {
+            "title": "Czy na pewno chcesz usunąć ten tag?",
+            "message": "Tej czynności nie można cofnąć",
+            "buttonLabel": "Tak, usuń tag"
         }
     },
     "wallpapers": {

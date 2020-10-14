@@ -13,9 +13,10 @@
         "pageNotFound": "sayfa bulunamadı",
         "poweredByIgdb": "Tarafından desteklenmektedir",
         "signOut": "oturumu Kapat",
-        "donateMessage": "Gamebrary ücretsiz ve açık kaynaktır, geliştirilmesine şu yollarla yardımcı olmayı düşünün:",
+        "donateMessage": "Gamebrary ücretsiz ve açık kaynaktır, geliştirilmesine şu şekilde yardımcı olmayı düşünün:",
         "donating": "bağış",
         "reportBugs": "hataları bildirmek",
+        "games": "oyunlar",
         "submitFeedback": "geri bildirim göndermek"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "Kendininkini gir",
             "add": "Liste ekle",
             "duplicateWarning": "Zaten bu isimde bir listeniz var",
+            "emptyListButton": "Buraya tıklayın veya oyunları buraya sürükleyin",
             "getStarted": "Başlamak!",
             "addFirstTime": "Hoş geldiniz, ilk listenizi ekleyin!",
-            "sortByName": "THE",
+            "sortByName": "İsim",
             "sortByProgress": "İlerleme",
             "sortByRating": "Puan",
             "sortByReleaseDate": "Tarih",
             "sortByCustom": "Özel",
+            "sortedBy": "E göre kategorilendi",
             "delete": "Listeyi sil",
             "moveLeft": "Sola hareket et",
             "moveRight": "Sağa hareket et",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "Etiketlerim"
+        },
+        "delete": {
+            "title": "Bu etiketi silmek istediğinizden emin misiniz?",
+            "message": "Bu eylem geri alınamaz",
+            "buttonLabel": "Evet, etiketi sil"
         }
     },
     "wallpapers": {
@@ -198,7 +206,7 @@
         "progresses": "İlerleme"
     },
     "platforms": {
-        "donateMessage": "Gamebrary ücretsiz ve açık kaynaktır, geliştirilmesine şu yollarla yardımcı olmayı düşünün:",
+        "donateMessage": "Gamebrary ücretsiz ve açık kaynaktır, geliştirilmesine şu şekilde yardımcı olmayı düşünün:",
         "donating": "bağış",
         "reportBugs": "hataları bildirmek",
         "submitFeedback": "geri bildirim göndermek",

@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary הוא קוד פתוח ופתוח, שקול לעזור לפיתוח שלה על ידי",
         "donating": "תורם",
         "reportBugs": "דיווח על באגים",
+        "games": "משחקים",
         "submitFeedback": "הגשת משוב"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "הזן משלך",
             "add": "הוסף רשימה",
             "duplicateWarning": "כבר יש לך רשימה עם שם זה",
+            "emptyListButton": "לחץ כאן או גרור לכאן משחקים",
             "getStarted": "להתחיל!",
             "addFirstTime": "ברוך הבא, הוסף את הרשימה הראשונה שלך!",
-            "sortByName": "ה",
+            "sortByName": "שֵׁם",
             "sortByProgress": "התקדמות",
             "sortByRating": "ציון",
             "sortByReleaseDate": "תַאֲרִיך",
             "sortByCustom": "המותאם אישית",
+            "sortedBy": "ממוין לפי",
             "delete": "מחק רשימה",
             "moveLeft": "זוז שמאלה",
             "moveRight": "זוז ימינה",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "התגים שלי"
+        },
+        "delete": {
+            "title": "האם אתה בטוח שברצונך למחוק את התג הזה?",
+            "message": "לא ניתן לבטל פעולה זו",
+            "buttonLabel": "כן, מחק את התג"
         }
     },
     "wallpapers": {

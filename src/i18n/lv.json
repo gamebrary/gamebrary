@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary ir bezmaksas un atvērts avots, apsveriet iespēju palīdzēt tā attīstībai",
         "donating": "ziedojot",
         "reportBugs": "ziņošana par kļūdām",
+        "games": "spēles",
         "submitFeedback": "iesniegt atsauksmes"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "Ievadiet savu",
             "add": "Pievienot sarakstu",
             "duplicateWarning": "Jums jau ir saraksts ar šo vārdu",
+            "emptyListButton": "Noklikšķiniet šeit vai velciet spēles šeit",
             "getStarted": "Sāc!",
             "addFirstTime": "Laipni lūdzam, pievienojiet savu pirmo sarakstu!",
-            "sortByName": "",
+            "sortByName": "Nosaukums",
             "sortByProgress": "Progress",
             "sortByRating": "Rezultāts",
             "sortByReleaseDate": "Datums",
             "sortByCustom": "Pielāgots",
+            "sortedBy": "Kārtots pēc",
             "delete": "Dzēst sarakstu",
             "moveLeft": "Pārvietoties pa kreisi",
             "moveRight": "Kusties pa labi",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "Mani tagi"
+        },
+        "delete": {
+            "title": "Vai tiešām vēlaties dzēst šo tagu?",
+            "message": "Šo darbību nevar atsaukt",
+            "buttonLabel": "Jā, dzēst tagu"
         }
     },
     "wallpapers": {

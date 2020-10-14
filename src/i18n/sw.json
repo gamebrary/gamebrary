@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary ni chanzo huru na wazi, fikiria kusaidia maendeleo yake kwa",
         "donating": "kutoa",
         "reportBugs": "kuripoti mende",
+        "games": "michezo",
         "submitFeedback": "kuwasilisha maoni"
     },
     "navMenu": {
@@ -34,7 +35,7 @@
         "issues": "Mambo"
     },
     "dashboard": {
-        "subtitle": "Zana ya usimamizi wa ukusanyaji wa video ya chanzo wazi."
+        "subtitle": "Chombo cha usimamizi wa mkusanyiko wa mchezo wa video wazi."
     },
     "boards": {
         "title": "Bodi",
@@ -86,7 +87,7 @@
             "title": "Ongeza mchezo",
             "inputPlaceholder": "Andika hapa kutafuta",
             "noResults": "Hakuna matokeo yaliyopatikana",
-            "alreadyInList": "mchezo kutoka kwa matokeo ya utaftaji tayari kwenye orodha yako"
+            "alreadyInList": "mchezo (s) kutoka kwa matokeo ya utaftaji tayari kwenye orodha yako"
         },
         "list": {
             "edit": "Hariri jina la orodha",
@@ -97,13 +98,15 @@
             "input": "Ingiza yako mwenyewe",
             "add": "Ongeza orodha",
             "duplicateWarning": "Tayari unayo orodha iliyo na jina hili",
+            "emptyListButton": "Bonyeza hapa au buruta michezo hapa",
             "getStarted": "Anza!",
             "addFirstTime": "Karibu, ongeza orodha yako ya kwanza!",
-            "sortByName": "THE",
+            "sortByName": "Jina",
             "sortByProgress": "Maendeleo",
             "sortByRating": "Alama",
             "sortByReleaseDate": "Tarehe",
             "sortByCustom": "Desturi",
+            "sortedBy": "Imepangwa kwa",
             "delete": "Futa orodha",
             "moveLeft": "Sogea kushoto",
             "moveRight": "Sogea kulia",
@@ -115,7 +118,7 @@
             "renameList": "Badili jina",
             "renameListPlaceholder": "Ingiza jina lako",
             "sortList": "Panga",
-            "sortWarning": "Orodha ya kuchagua kiotomatiki itaathiri jinsi buruta na kuacha kazi",
+            "sortWarning": "Orodha ya kuchagua kiotomatiki itaathiri jinsi buruta na Achia kazi",
             "coversSizeTitle": "Inashughulikia kote",
             "showReleaseDates": "Onyesha tarehe ya kutolewa kwa michezo ambayo haijatolewa",
             "showGameRatings": "Onyesha ukadiriaji wa mchezo",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "Lebo zangu"
+        },
+        "delete": {
+            "title": "Je! Una uhakika unataka kufuta lebo hii?",
+            "message": "Kitendo hiki hakiwezi kutenduliwa",
+            "buttonLabel": "Ndio, futa lebo"
         }
     },
     "wallpapers": {

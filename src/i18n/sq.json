@@ -3,7 +3,7 @@
         "back": "Mbrapa",
         "save": "Ruaj",
         "cancel": "Anulo",
-        "delete": "Fshij",
+        "delete": "Fshije",
         "create": "Krijoni",
         "filter": "Filtri",
         "by": "nga",
@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary është falas dhe me burim të hapur, merrni parasysh zhvillimin e tij duke",
         "donating": "dhurimi",
         "reportBugs": "raportimin e të metave",
+        "games": "lojëra",
         "submitFeedback": "paraqitja e komenteve"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "Futni tuajin",
             "add": "Shto listë",
             "duplicateWarning": "Ju tashmë keni një listë me këtë emër",
+            "emptyListButton": "Klikoni këtu ose tërhiqni lojërat këtu",
             "getStarted": "Fillo!",
             "addFirstTime": "Mirësevini, shtoni listën tuaj të parë!",
-            "sortByName": "",
+            "sortByName": "Emrin",
             "sortByProgress": "Përparimi",
             "sortByRating": "Rezultati",
             "sortByReleaseDate": "Data",
             "sortByCustom": "Me porosi",
+            "sortedBy": "Renditur nga",
             "delete": "Fshi listën",
             "moveLeft": "Leviz Majtas",
             "moveRight": "Leviz djathtas",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "Etiketat e mia"
+        },
+        "delete": {
+            "title": "Je i sigurt që dëshiron ta fshish këtë etiketë?",
+            "message": "Ky veprim nuk mund të zhbëhet",
+            "buttonLabel": "Po, fshi etiketën"
         }
     },
     "wallpapers": {
@@ -184,7 +192,7 @@
     },
     "releases": {
         "title": "Lirimet",
-        "published": "Publikuar"
+        "published": "Botuar"
     },
     "about": {
         "title": "Rreth Gamebrary",

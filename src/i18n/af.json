@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary is gratis en open source, oorweeg dit om die ontwikkeling daarvan te help deur",
         "donating": "skenk",
         "reportBugs": "foute aanmeld",
+        "games": "speletjies",
         "submitFeedback": "terugvoer indien"
     },
     "navMenu": {
@@ -86,7 +87,7 @@
             "title": "Voeg speletjie by",
             "inputPlaceholder": "Tik hier om te soek",
             "noResults": "Geen resultate gevind",
-            "alreadyInList": "speletjie (s) uit soekresultate wat reeds in u lys is"
+            "alreadyInList": "speletjie (s) uit die soekresultate wat reeds in u lys is"
         },
         "list": {
             "edit": "Wysig lysnaam",
@@ -97,13 +98,15 @@
             "input": "Tik u eie in",
             "add": "Voeg lys by",
             "duplicateWarning": "U het reeds 'n lys met hierdie naam",
+            "emptyListButton": "Klik hier of sleep speletjies hierheen",
             "getStarted": "Begin!",
             "addFirstTime": "Welkom, voeg u eerste lys by!",
-            "sortByName": "DIE",
+            "sortByName": "Naam",
             "sortByProgress": "Vooruitgang",
             "sortByRating": "Telling",
             "sortByReleaseDate": "Datum",
             "sortByCustom": "Pasgemaak",
+            "sortedBy": "Gesorteer volgens",
             "delete": "Vee lys uit",
             "moveLeft": "Skuif links",
             "moveRight": "Beweeg regs",
@@ -115,7 +118,7 @@
             "renameList": "Hernoem",
             "renameListPlaceholder": "Gee jou naam",
             "sortList": "Sorteer",
-            "sortWarning": "Lys met outomatiese sorteer beïnvloed hoe sleep en werk",
+            "sortWarning": "Lys met outomatiese sorteer, sal beïnvloed hoe sleep en werk",
             "coversSizeTitle": "Bedekkings dwars",
             "showReleaseDates": "Wys die vrystellingsdatum vir speletjies wat nog nie vrygestel is nie",
             "showGameRatings": "Wys spelgraderings",
@@ -130,7 +133,7 @@
                 "grid": "Rooster"
             },
             "deleteWarning": {
-                "title": "Is u seker dat u hierdie lys wil uitvee?",
+                "title": "Is jy seker jy wil hierdie lys uitvee?",
                 "message": "Hierdie handeling kan nie ongedaan gemaak word nie",
                 "buttonLabel": "Ja, vee lys uit"
             }
@@ -155,7 +158,7 @@
     },
     "tags": {
         "title": "Merkers",
-        "subtitle": "Merkers is 'n uitstekende manier om u videospeletjiesversameling te organiseer en te bestuur. Merkers kan bygevoeg, gewysig of verwyder word.",
+        "subtitle": "Merkers is 'n uitstekende manier om u videospeletjie-versameling te organiseer en te bestuur. Merkers kan bygevoeg, gewysig of verwyder word.",
         "form": {
             "title": "Voeg nuwe merker by",
             "inputPlaceholder": "Merknaam",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "My tags"
+        },
+        "delete": {
+            "title": "Is jy seker jy wil hierdie merker uitvee?",
+            "message": "Hierdie handeling kan nie ongedaan gemaak word nie",
+            "buttonLabel": "Ja, vee die merker uit"
         }
     },
     "wallpapers": {

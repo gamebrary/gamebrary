@@ -16,6 +16,7 @@
         "donateMessage": "Tá Gamebrary saor in aisce agus foinse oscailte, smaoinigh ar chabhrú lena fhorbairt trí",
         "donating": "ag bronnadh",
         "reportBugs": "fabhtanna tuairiscithe",
+        "games": "cluichí",
         "submitFeedback": "aiseolas a chur isteach"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "Iontráil do cheann féin",
             "add": "Cuir liosta leis",
             "duplicateWarning": "Tá liosta agat cheana leis an ainm seo",
+            "emptyListButton": "Cliceáil anseo nó tarraing cluichí anseo",
             "getStarted": "Tosaigh!",
             "addFirstTime": "Fáilte, cuir do chéad liosta leis!",
-            "sortByName": "AN",
+            "sortByName": "Ainm",
             "sortByProgress": "Dul chun cinn",
             "sortByRating": "Scór",
             "sortByReleaseDate": "Dáta",
             "sortByCustom": "Saincheaptha",
+            "sortedBy": "Sórtáilte ag",
             "delete": "Scrios liosta",
             "moveLeft": "Bog ar chlé",
             "moveRight": "Bog ar dheis",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "Mo chlibeanna"
+        },
+        "delete": {
+            "title": "An bhfuil tú cinnte gur mhaith leat an chlib seo a scriosadh?",
+            "message": "Ní féidir an gníomh seo a scriosadh",
+            "buttonLabel": "Sea, scrios tag"
         }
     },
     "wallpapers": {

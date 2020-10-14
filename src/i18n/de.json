@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary ist kostenlos und Open Source",
         "donating": "spenden",
         "reportBugs": "Fehler melden",
+        "games": "Spiele",
         "submitFeedback": "Feedback senden"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "Geben Sie Ihre eigenen ein",
             "add": "Liste hinzufügen",
             "duplicateWarning": "Sie haben bereits eine Liste mit diesem Namen",
+            "emptyListButton": "Klicken Sie hier oder ziehen Sie Spiele hierher",
             "getStarted": "Loslegen!",
             "addFirstTime": "Willkommen, fügen Sie Ihre erste Liste hinzu!",
-            "sortByName": "DAS",
+            "sortByName": "Name",
             "sortByProgress": "Fortschritt",
             "sortByRating": "Ergebnis",
             "sortByReleaseDate": "Datum",
             "sortByCustom": "Benutzerdefiniert",
+            "sortedBy": "Sortiert nach",
             "delete": "Liste löschen",
             "moveLeft": "Geh nach links",
             "moveRight": "Nach rechts bewegen",
@@ -165,11 +168,16 @@
         },
         "list": {
             "title": "Meine Tags"
+        },
+        "delete": {
+            "title": "Möchten Sie dieses Tag wirklich löschen?",
+            "message": "Diese Aktion kann nicht rückgängig gemacht werden",
+            "buttonLabel": "Ja, Tag löschen"
         }
     },
     "wallpapers": {
         "title": "Hintergrundbilder",
-        "subtitle": "Verwalten von Board-Hintergrundbildern",
+        "subtitle": "Verwalten Sie Board Wallpaper",
         "form": {
             "label": "Hintergrundbild hochladen",
             "placeholder": "Wählen Sie eine Datei oder legen Sie sie hier ab ...",

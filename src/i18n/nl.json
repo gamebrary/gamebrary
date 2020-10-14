@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary is gratis en open source, overweeg om de ontwikkeling ervan te helpen door",
         "donating": "doneren",
         "reportBugs": "bugs melden",
+        "games": "spellen",
         "submitFeedback": "feedback geven"
     },
     "navMenu": {
@@ -45,7 +46,7 @@
     "board": {
         "gameModal": {
             "videos": "Videos",
-            "screenshots": "Screenshots",
+            "screenshots": "Schermafbeeldingen",
             "perspective": "Perspectief",
             "releaseDate": "Datum van publicatie",
             "timeToBeat": "Tijd om te verslaan",
@@ -90,20 +91,22 @@
         },
         "list": {
             "edit": "Bewerk lijstnaam",
-            "type": "Lijsttype",
+            "type": "Type lijst",
             "settings": "Lijst instellingen",
             "placeholder": "Typ hier uw lijstnaam",
             "wishlist": "Verlanglijst",
             "input": "Voer uw eigen in",
             "add": "Lijst toevoegen",
             "duplicateWarning": "Je hebt al een lijst met deze naam",
+            "emptyListButton": "Klik hier of sleep games hierheen",
             "getStarted": "Begin!",
             "addFirstTime": "Welkom, voeg je eerste lijst toe!",
-            "sortByName": "DE",
+            "sortByName": "Naam",
             "sortByProgress": "Vooruitgang",
             "sortByRating": "Score",
             "sortByReleaseDate": "Datum",
             "sortByCustom": "Op maat",
+            "sortedBy": "Gesorteerd op",
             "delete": "Lijst verwijderen",
             "moveLeft": "Ga naar links",
             "moveRight": "Ga naar rechts",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "Mijn tags"
+        },
+        "delete": {
+            "title": "Weet u zeker dat u deze tag wilt verwijderen?",
+            "message": "Deze actie kan niet ongedaan gemaakt worden",
+            "buttonLabel": "Ja, tag verwijderen"
         }
     },
     "wallpapers": {

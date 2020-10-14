@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary se gratis epi louvri sous, konsidere ede devlopman li pa",
         "donating": "bay",
         "reportBugs": "rapòte pinèz",
+        "games": "jwèt",
         "submitFeedback": "soumèt fidbak"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "Antre nan pwòp ou yo",
             "add": "Ajoute lis",
             "duplicateWarning": "Ou deja gen yon lis ki gen non sa a",
+            "emptyListButton": "Klike la a oswa trennen jwèt la a",
             "getStarted": "Kòmanse!",
             "addFirstTime": "Byenveni, ajoute premye lis ou!",
-            "sortByName": "LA",
+            "sortByName": "Non",
             "sortByProgress": "Pwogrè",
             "sortByRating": "Nòt",
             "sortByReleaseDate": "Dat",
             "sortByCustom": "Custom",
+            "sortedBy": "Ranje pa",
             "delete": "Efase lis la",
             "moveLeft": "Deplase agoch",
             "moveRight": "Deplase adwat",
@@ -113,9 +116,9 @@
             "view": "Lis View",
             "moveList": "Deplase lis la",
             "renameList": "Chanje non",
-            "renameListPlaceholder": "Ekri non ou",
+            "renameListPlaceholder": "Mete non ou",
             "sortList": "Triye",
-            "sortWarning": "Lis klasman Auto pral afekte ki jan trennen ak gout travay",
+            "sortWarning": "Lis klasman Auto ap afekte ki jan trennen ak gout travay",
             "coversSizeTitle": "Kouvri atravè",
             "showReleaseDates": "Montre dat lage pou jwèt unreleased",
             "showGameRatings": "Montre evalyasyon jwèt",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "Tags mwen yo"
+        },
+        "delete": {
+            "title": "Èske ou sèten ou vle efase tag sa a?",
+            "message": "Aksyon sa a pa ka anile",
+            "buttonLabel": "Wi, efase tag"
         }
     },
     "wallpapers": {

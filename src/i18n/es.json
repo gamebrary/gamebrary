@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary es gratuito y de código abierto, considere ayudar a su desarrollo",
         "donating": "donando",
         "reportBugs": "reportar errores",
+        "games": "juegos",
         "submitFeedback": "enviar comentarios"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "Ingrese el suyo",
             "add": "Añadir lista",
             "duplicateWarning": "Ya tienes una lista con este nombre",
+            "emptyListButton": "Haga clic aquí o arrastre juegos aquí",
             "getStarted": "¡Empezar!",
             "addFirstTime": "¡Bienvenido, agrega tu primera lista!",
-            "sortByName": "LOS",
+            "sortByName": "Nombre",
             "sortByProgress": "Progreso",
             "sortByRating": "Puntuación",
             "sortByReleaseDate": "Fecha",
             "sortByCustom": "Personalizado",
+            "sortedBy": "Ordenado por",
             "delete": "Eliminar lista",
             "moveLeft": "Mover hacia la izquierda",
             "moveRight": "Moverse a la derecha",
@@ -116,7 +119,7 @@
             "renameListPlaceholder": "Introduzca su nombre",
             "sortList": "Ordenar",
             "sortWarning": "La lista de clasificación automática afectará el funcionamiento de arrastrar y soltar",
-            "coversSizeTitle": "Cubre a través",
+            "coversSizeTitle": "Cubre todo",
             "showReleaseDates": "Mostrar la fecha de lanzamiento de los juegos inéditos",
             "showGameRatings": "Mostrar calificaciones de juegos",
             "showGameProgress": "Muestra el progreso del juego",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "Mis etiquetas"
+        },
+        "delete": {
+            "title": "¿Está seguro de que desea eliminar esta etiqueta?",
+            "message": "Esta acción no se puede deshacer",
+            "buttonLabel": "Sí, eliminar etiqueta"
         }
     },
     "wallpapers": {

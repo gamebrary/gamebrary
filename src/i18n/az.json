@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary pulsuz və açıq mənbəyidir, inkişafına kömək etməyi düşünün",
         "donating": "ianə",
         "reportBugs": "hataları hesabatlandırmaq",
+        "games": "oyunlar",
         "submitFeedback": "rəy göndərilməsi"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "Özünüzü daxil edin",
             "add": "Siyahı əlavə edin",
             "duplicateWarning": "Artıq bu adla bir siyahınız var",
+            "emptyListButton": "Buraya vurun və ya oyunları buraya sürükləyin",
             "getStarted": "Başlamaq!",
             "addFirstTime": "Xoş gəlmisiniz, ilk siyahınızı əlavə edin!",
-            "sortByName": "THE",
+            "sortByName": "Ad",
             "sortByProgress": "Tərəqqi",
             "sortByRating": "Hesab",
             "sortByReleaseDate": "Tarix",
             "sortByCustom": "Xüsusi",
+            "sortedBy": "Tərəfindən çeşidlənib",
             "delete": "Siyahını silin",
             "moveLeft": "Sola keçin",
             "moveRight": "Sağa hərəkət et",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "Mənim yazılarım"
+        },
+        "delete": {
+            "title": "Bu etiketi silmək istədiyinizə əminsiniz?",
+            "message": "Bu əməliyyat geri qaytarıla bilməz",
+            "buttonLabel": "Bəli, etiketi silin"
         }
     },
     "wallpapers": {

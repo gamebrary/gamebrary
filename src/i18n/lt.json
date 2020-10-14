@@ -16,6 +16,7 @@
         "donateMessage": "„Gamebrary“ yra nemokamas ir atviras šaltinis, apsvarstykite galimybę padėti",
         "donating": "aukojant",
         "reportBugs": "pranešti apie klaidas",
+        "games": "žaidimai",
         "submitFeedback": "teikiant atsiliepimus"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "Įveskite savo",
             "add": "Pridėti sąrašą",
             "duplicateWarning": "Jūs jau turite sąrašą su šiuo vardu",
+            "emptyListButton": "Spustelėkite čia arba vilkite žaidimus čia",
             "getStarted": "Pradėti!",
             "addFirstTime": "Sveiki, pridėkite savo pirmąjį sąrašą!",
-            "sortByName": "",
+            "sortByName": "vardas",
             "sortByProgress": "Progresas",
             "sortByRating": "Rezultatas",
             "sortByReleaseDate": "Data",
             "sortByCustom": "Pasirinktinis",
+            "sortedBy": "Rūšiuota pagal",
             "delete": "Ištrinti sąrašą",
             "moveLeft": "Pereiti į kairę",
             "moveRight": "Perkelti į dešinę",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "Mano žymos"
+        },
+        "delete": {
+            "title": "Ar tikrai norite ištrinti šią žymą?",
+            "message": "Šio veiksmo negalima anuliuoti",
+            "buttonLabel": "Taip, ištrinti žymą"
         }
     },
     "wallpapers": {

@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary איז פריי און אָפֿן מקור. איר קענט העלפּינג די אַנטוויקלונג דורך",
         "donating": "דאָונייטינג",
         "reportBugs": "ריפּאָרטינג באַגז",
+        "games": "שפּילערייַ",
         "submitFeedback": "סאַבמיטינג באַמערקונגען"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "אַרייַן דיין אייגענע",
             "add": "לייג רשימה",
             "duplicateWarning": "איר האָבן שוין אַ רשימה מיט דעם נאָמען",
+            "emptyListButton": "דריקט דאָ אָדער שלעפּן גאַמעס דאָ",
             "getStarted": "הייב אהן!",
             "addFirstTime": "באַגריסן, לייגן דיין ערשטער רשימה!",
-            "sortByName": "די",
+            "sortByName": "נאָמען",
             "sortByProgress": "פּראָגרעס",
             "sortByRating": "Score",
             "sortByReleaseDate": "טאָג",
             "sortByCustom": "מנהג",
+            "sortedBy": "סאָרטירט לויט",
             "delete": "ויסמעקן רשימה",
             "moveLeft": "מאַך לינקס",
             "moveRight": "מאַך רעכט",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "מייַן טאַגס"
+        },
+        "delete": {
+            "title": "ביסטו זיכער אז דו ווילסט אויסמעקן דעם צעטל?",
+            "message": "דער קאַמף קען נישט זיין אַנדאַן",
+            "buttonLabel": "יאָ, ויסמעקן פאַרבינדן"
         }
     },
     "wallpapers": {

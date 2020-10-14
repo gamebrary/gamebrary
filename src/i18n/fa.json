@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary رایگان و منبع باز است ، به توسعه آن کمک کنید",
         "donating": "اهدا کردن",
         "reportBugs": "گزارش اشکالات",
+        "games": "بازی ها",
         "submitFeedback": "ارسال بازخورد"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "خود را وارد کنید",
             "add": "افزودن لیست",
             "duplicateWarning": "شما در حال حاضر لیستی با این نام دارید",
+            "emptyListButton": "اینجا را کلیک کنید یا بازی ها را اینجا بکشید",
             "getStarted": "شروع کنید!",
             "addFirstTime": "خوش آمدید ، اولین لیست خود را اضافه کنید!",
-            "sortByName": "",
+            "sortByName": "نام",
             "sortByProgress": "پیش رفتن",
             "sortByRating": "نمره",
             "sortByReleaseDate": "تاریخ",
             "sortByCustom": "سفارشی",
+            "sortedBy": "مرتب شده بر اساس",
             "delete": "حذف لیست",
             "moveLeft": "حرکت به سمت چپ",
             "moveRight": "برو راست",
@@ -117,7 +120,7 @@
             "sortList": "مرتب سازی",
             "sortWarning": "لیست مرتب سازی خودکار بر نحوه عملکرد کشیدن و رها کردن تأثیر می گذارد",
             "coversSizeTitle": "پوشش در سراسر",
-            "showReleaseDates": "تاریخ انتشار بازی های منتشر نشده را نشان دهید",
+            "showReleaseDates": "تاریخ انتشار بازی های منتشر نشده را نمایش دهید",
             "showGameRatings": "نمایش رتبه بندی بازی ها",
             "showGameProgress": "پیشرفت بازی را نشان دهید",
             "showGameNotes": "نمایش یادداشت های بازی",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "برچسب های من"
+        },
+        "delete": {
+            "title": "آیا مطمئن هستید که می خواهید این برچسب را حذف کنید؟",
+            "message": "این عمل قابل واگرد نیست",
+            "buttonLabel": "بله ، برچسب را حذف کنید"
         }
     },
     "wallpapers": {

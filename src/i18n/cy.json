@@ -15,7 +15,8 @@
         "signOut": "Cofrestrwch allan",
         "donateMessage": "Mae Gamebrary yn rhad ac am ddim ac yn ffynhonnell agored, ystyriwch helpu ei ddatblygiad erbyn",
         "donating": "rhoi",
-        "reportBugs": "riportio chwilod",
+        "reportBugs": "adrodd bygiau",
+        "games": "gemau",
         "submitFeedback": "cyflwyno adborth"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "Rhowch eich un eich hun",
             "add": "Ychwanegu rhestr",
             "duplicateWarning": "Mae gennych chi restr gyda'r enw hwn eisoes",
+            "emptyListButton": "Cliciwch yma neu lusgo gemau yma",
             "getStarted": "Dechrau!",
             "addFirstTime": "Croeso, ychwanegwch eich rhestr gyntaf!",
-            "sortByName": "YR",
+            "sortByName": "Enw",
             "sortByProgress": "Cynnydd",
             "sortByRating": "Sgôr",
             "sortByReleaseDate": "Dyddiad",
             "sortByCustom": "Custom",
+            "sortedBy": "Trefnwyd gan",
             "delete": "Dileu rhestr",
             "moveLeft": "Symud i'r chwith",
             "moveRight": "Symud i'r dde",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "Fy tagiau"
+        },
+        "delete": {
+            "title": "Ydych chi'n siŵr eich bod chi am ddileu'r tag hwn?",
+            "message": "Ni ellir dadwneud y weithred hon",
+            "buttonLabel": "Ie, dileu tag"
         }
     },
     "wallpapers": {
@@ -200,7 +208,7 @@
     "platforms": {
         "donateMessage": "Mae Gamebrary yn rhad ac am ddim ac yn ffynhonnell agored, ystyriwch helpu ei ddatblygiad erbyn",
         "donating": "rhoi",
-        "reportBugs": "riportio chwilod",
+        "reportBugs": "adrodd bygiau",
         "submitFeedback": "cyflwyno adborth",
         "all": "I gyd",
         "console": "Consoliaid",

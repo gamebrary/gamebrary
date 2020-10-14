@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary on tasuta ja avatud lähtekoodiga. Kaaluge selle arendamise aitamist",
         "donating": "annetamine",
         "reportBugs": "vigadest teatamine",
+        "games": "mängud",
         "submitFeedback": "tagasiside esitamine"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "Sisestage oma",
             "add": "Lisa loend",
             "duplicateWarning": "Selle nimega loend on teil juba olemas",
+            "emptyListButton": "Klõpsake siin või lohistage mänge siia",
             "getStarted": "Alustama!",
             "addFirstTime": "Tere tulemast, lisage oma esimene nimekiri!",
-            "sortByName": "THE",
+            "sortByName": "Nimi",
             "sortByProgress": "Edusammud",
             "sortByRating": "Skoor",
             "sortByReleaseDate": "Kuupäev",
             "sortByCustom": "Kohandatud",
+            "sortedBy": "Sorteeritud",
             "delete": "Kustuta loend",
             "moveLeft": "Liigu vasakule",
             "moveRight": "Liigu paremale",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "Minu sildid"
+        },
+        "delete": {
+            "title": "Kas soovite kindlasti selle märgendi kustutada?",
+            "message": "Seda toimingut ei saa tagasi võtta",
+            "buttonLabel": "Jah, kustuta silt"
         }
     },
     "wallpapers": {

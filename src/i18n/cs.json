@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary je bezplatný a otevřený zdroj, zvažte jeho rozvoj pomocí",
         "donating": "darování",
         "reportBugs": "hlášení chyb",
+        "games": "hry",
         "submitFeedback": "odeslání zpětné vazby"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "Zadejte svůj vlastní",
             "add": "Přidat seznam",
             "duplicateWarning": "Seznam s tímto názvem již máte",
+            "emptyListButton": "Klikněte sem nebo sem přetáhněte hry",
             "getStarted": "Začít!",
             "addFirstTime": "Vítejte, přidejte svůj první seznam!",
-            "sortByName": "THE",
+            "sortByName": "název",
             "sortByProgress": "Pokrok",
             "sortByRating": "Skóre",
             "sortByReleaseDate": "datum",
             "sortByCustom": "Zvyk",
+            "sortedBy": "Řazeno podle",
             "delete": "Smazat seznam",
             "moveLeft": "Pohyb doleva",
             "moveRight": "Pohyb vpravo",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "Moje značky"
+        },
+        "delete": {
+            "title": "Opravdu chcete tuto značku smazat?",
+            "message": "Tuto akci nelze vrátit zpět",
+            "buttonLabel": "Ano, smazat značku"
         }
     },
     "wallpapers": {

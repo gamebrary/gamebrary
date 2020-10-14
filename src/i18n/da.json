@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary er gratis og open source, overvej at hjælpe med at udvikle den ved",
         "donating": "donere",
         "reportBugs": "rapportering af fejl",
+        "games": "spil",
         "submitFeedback": "indsendelse af feedback"
     },
     "navMenu": {
@@ -86,7 +87,7 @@
             "title": "Tilføj spil",
             "inputPlaceholder": "Skriv her for at søge",
             "noResults": "Ingen resultater fundet",
-            "alreadyInList": "spil fra søgeresultater, der allerede findes på din liste"
+            "alreadyInList": "spil fra søgeresultater, der allerede er på din liste"
         },
         "list": {
             "edit": "Rediger navn på listen",
@@ -97,13 +98,15 @@
             "input": "Indtast din egen",
             "add": "Tilføj liste",
             "duplicateWarning": "Du har allerede en liste med dette navn",
+            "emptyListButton": "Klik her, eller træk spil her",
             "getStarted": "Kom igang!",
             "addFirstTime": "Velkommen, tilføj din første liste!",
-            "sortByName": "DET",
+            "sortByName": "Navn",
             "sortByProgress": "Fremskridt",
             "sortByRating": "Score",
             "sortByReleaseDate": "Dato",
             "sortByCustom": "Brugerdefinerede",
+            "sortedBy": "Sorteret efter",
             "delete": "Slet liste",
             "moveLeft": "Bevæg dig til venstre",
             "moveRight": "Flyt til højre",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "Mine tags"
+        },
+        "delete": {
+            "title": "Er du sikker på, at du vil slette dette tag?",
+            "message": "Denne handling kan ikke fortrydes",
+            "buttonLabel": "Ja, slet tag"
         }
     },
     "wallpapers": {

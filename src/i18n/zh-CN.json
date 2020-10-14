@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary是免费和开源的，请考虑通过以下方式帮助其发展",
         "donating": "捐赠",
         "reportBugs": "报告错误",
+        "games": "游戏",
         "submitFeedback": "提交反馈"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "输入您自己的",
             "add": "新增清单",
             "duplicateWarning": "您已经有一个使用此名称的列表",
+            "emptyListButton": "单击此处或将游戏拖到此处",
             "getStarted": "开始吧！",
             "addFirstTime": "欢迎，添加您的第一个列表！",
-            "sortByName": "的",
+            "sortByName": "名称",
             "sortByProgress": "进展",
             "sortByRating": "得分了",
             "sortByReleaseDate": "日期",
             "sortByCustom": "自订",
+            "sortedBy": "排序",
             "delete": "删除清单",
             "moveLeft": "向左移动",
             "moveRight": "向右移",
@@ -132,7 +135,7 @@
             "deleteWarning": {
                 "title": "您确定要删除此列表吗？",
                 "message": "此操作无法撤消",
-                "buttonLabel": "是的，删除清单"
+                "buttonLabel": "是的，删除列表"
             }
         }
     },
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "我的标签"
+        },
+        "delete": {
+            "title": "您确定要删除此标签吗？",
+            "message": "此操作无法撤消",
+            "buttonLabel": "是的，删除标签"
         }
     },
     "wallpapers": {

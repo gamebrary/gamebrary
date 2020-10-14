@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary este gratuit și open source, vă recomandăm să ajutați la dezvoltarea acestuia",
         "donating": "donând",
         "reportBugs": "raportarea erorilor",
+        "games": "jocuri",
         "submitFeedback": "trimiterea de feedback"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "Intră pe a ta",
             "add": "Adăugați o listă",
             "duplicateWarning": "Aveți deja o listă cu acest nume",
+            "emptyListButton": "Faceți clic aici sau trageți jocurile aici",
             "getStarted": "Incepe!",
             "addFirstTime": "Bine ați venit, adăugați prima listă!",
-            "sortByName": "THE",
+            "sortByName": "Nume",
             "sortByProgress": "Progres",
             "sortByRating": "Scor",
             "sortByReleaseDate": "Data",
             "sortByCustom": "Personalizat",
+            "sortedBy": "Sortate dupa",
             "delete": "Ștergeți lista",
             "moveLeft": "Mută la stânga",
             "moveRight": "Misca-te la dreapta",
@@ -120,7 +123,7 @@
             "showReleaseDates": "Afișează data lansării pentru jocurile nepublicate",
             "showGameRatings": "Afișați evaluările jocului",
             "showGameProgress": "Arată progresul jocului",
-            "showGameNotes": "Afișează notele jocului",
+            "showGameNotes": "Afișați notele jocului",
             "showGameTags": "Afișați etichetele jocului",
             "showGameCount": "Afișați numărul de jocuri",
             "views": {
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "Etichetele mele"
+        },
+        "delete": {
+            "title": "Sigur doriți să ștergeți această etichetă?",
+            "message": "Această acțiune nu poate fi anulată",
+            "buttonLabel": "Da, ștergeți eticheta"
         }
     },
     "wallpapers": {

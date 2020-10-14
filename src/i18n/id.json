@@ -13,9 +13,10 @@
         "pageNotFound": "halaman tidak ditemukan",
         "poweredByIgdb": "Dipersembahkan oleh",
         "signOut": "Keluar",
-        "donateMessage": "Gamebrary gratis dan open source, pertimbangkan untuk membantu perkembangannya",
+        "donateMessage": "Gamebrary gratis dan open source, pertimbangkan untuk membantu pengembangannya",
         "donating": "berdonasi",
         "reportBugs": "melaporkan bug",
+        "games": "permainan",
         "submitFeedback": "mengirimkan umpan balik"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "Masukkan milik Anda",
             "add": "Tambahkan daftar",
             "duplicateWarning": "Anda sudah memiliki daftar dengan nama ini",
+            "emptyListButton": "Klik di sini atau tarik game ke sini",
             "getStarted": "Memulai!",
             "addFirstTime": "Selamat datang, tambahkan daftar pertama Anda!",
-            "sortByName": "ITU",
+            "sortByName": "Nama",
             "sortByProgress": "Kemajuan",
             "sortByRating": "Skor",
             "sortByReleaseDate": "Tanggal",
             "sortByCustom": "Adat",
+            "sortedBy": "Disortir menurut",
             "delete": "Hapus daftar",
             "moveLeft": "Pindah ke kiri",
             "moveRight": "Bergerak ke kanan",
@@ -130,7 +133,7 @@
                 "grid": "Kotak"
             },
             "deleteWarning": {
-                "title": "Apakah Anda yakin ingin menghapus daftar ini?",
+                "title": "Anda yakin ingin menghapus daftar ini?",
                 "message": "Tindakan ini tidak bisa dibatalkan",
                 "buttonLabel": "Ya, hapus daftar"
             }
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "Tag saya"
+        },
+        "delete": {
+            "title": "Apakah Anda yakin ingin menghapus tag ini?",
+            "message": "Tindakan ini tidak bisa dibatalkan",
+            "buttonLabel": "Ya, hapus tag"
         }
     },
     "wallpapers": {
@@ -198,7 +206,7 @@
         "progresses": "Kemajuan"
     },
     "platforms": {
-        "donateMessage": "Gamebrary gratis dan open source, pertimbangkan untuk membantu perkembangannya",
+        "donateMessage": "Gamebrary gratis dan open source, pertimbangkan untuk membantu pengembangannya",
         "donating": "berdonasi",
         "reportBugs": "melaporkan bug",
         "submitFeedback": "mengirimkan umpan balik",

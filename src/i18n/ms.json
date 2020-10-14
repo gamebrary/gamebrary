@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary adalah sumber percuma dan terbuka, pertimbangkan untuk membantu pengembangannya dengan",
         "donating": "menderma",
         "reportBugs": "melaporkan pepijat",
+        "games": "permainan",
         "submitFeedback": "mengemukakan maklum balas"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "Masukkan sendiri",
             "add": "Tambah senarai",
             "duplicateWarning": "Anda sudah mempunyai senarai dengan nama ini",
+            "emptyListButton": "Klik di sini atau seret permainan di sini",
             "getStarted": "Mulakan!",
             "addFirstTime": "Selamat datang, tambahkan senarai pertama anda!",
-            "sortByName": "THE",
+            "sortByName": "Nama",
             "sortByProgress": "Kemajuan",
             "sortByRating": "Markah",
             "sortByReleaseDate": "Tarikh",
             "sortByCustom": "Adat",
+            "sortedBy": "Disusun mengikut",
             "delete": "Padamkan senarai",
             "moveLeft": "Bergerak ke kiri",
             "moveRight": "Bergerak ke kanan",
@@ -115,7 +118,7 @@
             "renameList": "Namakan semula",
             "renameListPlaceholder": "Masukkan nama anda",
             "sortList": "Susun",
-            "sortWarning": "Senarai menyusun automatik akan mempengaruhi cara seret dan lepas berfungsi",
+            "sortWarning": "Senarai pengisihan automatik akan mempengaruhi cara drag and drop berfungsi",
             "coversSizeTitle": "Meliputi di seberang",
             "showReleaseDates": "Tunjukkan tarikh pelepasan untuk permainan yang belum diterbitkan",
             "showGameRatings": "Tunjukkan penilaian permainan",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "Tag saya"
+        },
+        "delete": {
+            "title": "Adakah anda pasti mahu memadamkan teg ini?",
+            "message": "Tindakan ini tidak boleh dibuat asal",
+            "buttonLabel": "Ya, padamkan teg"
         }
     },
     "wallpapers": {

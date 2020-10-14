@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary on ilmainen ja avoin lähdekoodi, harkitse sen kehittämisen auttamista",
         "donating": "lahjoittaminen",
         "reportBugs": "ilmoittamalla virheistä",
+        "games": "pelejä",
         "submitFeedback": "palautteen lähettäminen"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "Anna oma",
             "add": "Lisää luettelo",
             "duplicateWarning": "Sinulla on jo luettelo tällä nimellä",
+            "emptyListButton": "Napsauta tätä tai vedä pelejä tähän",
             "getStarted": "Aloittaa!",
             "addFirstTime": "Tervetuloa, lisää ensimmäinen luettelosi!",
-            "sortByName": "THE",
+            "sortByName": "Nimi",
             "sortByProgress": "Edistyminen",
             "sortByRating": "Pisteet",
             "sortByReleaseDate": "Päivämäärä",
             "sortByCustom": "Mukautettu",
+            "sortedBy": "Lajiteltu",
             "delete": "Poista luettelo",
             "moveLeft": "Siirry vasemmalle",
             "moveRight": "Liiku oikealle",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "Omat tunnisteet"
+        },
+        "delete": {
+            "title": "Haluatko varmasti poistaa tämän tagin?",
+            "message": "Tätä toimintoa ei voi kumota",
+            "buttonLabel": "Kyllä, poista tunniste"
         }
     },
     "wallpapers": {

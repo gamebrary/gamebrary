@@ -13,9 +13,10 @@
         "pageNotFound": "Stranica nije pronađena",
         "poweredByIgdb": "Pokreće",
         "signOut": "Odjavi se",
-        "donateMessage": "Gamebrary je besplatan i otvoren izvor, razmislite o tome da pomognete njegovom razvoju",
+        "donateMessage": "Gamebrary je besplatan i otvoren izvor, razmislite o tome da pomognete njegovom razvoju do",
         "donating": "doniranje",
         "reportBugs": "prijavljivanje bugova",
+        "games": "igre",
         "submitFeedback": "podnošenje povratnih informacija"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "Unesite svoj",
             "add": "Dodaj popis",
             "duplicateWarning": "Već imate popis s ovim imenom",
+            "emptyListButton": "Kliknite ovdje ili povucite igre ovdje",
             "getStarted": "Započnite!",
             "addFirstTime": "Dobrodošli, dodajte svoj prvi popis!",
-            "sortByName": "THE",
+            "sortByName": "Ime",
             "sortByProgress": "Napredak",
             "sortByRating": "Postići",
             "sortByReleaseDate": "Datum",
             "sortByCustom": "Prilagođen",
+            "sortedBy": "Poredano po",
             "delete": "Izbriši popis",
             "moveLeft": "Pomakni se lijevo",
             "moveRight": "Pomaknuti se udesno",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "Moje oznake"
+        },
+        "delete": {
+            "title": "Jeste li sigurni da želite izbrisati ovu oznaku?",
+            "message": "Ova se radnja ne može poništiti",
+            "buttonLabel": "Da, izbriši oznaku"
         }
     },
     "wallpapers": {
@@ -198,7 +206,7 @@
         "progresses": "Napredak"
     },
     "platforms": {
-        "donateMessage": "Gamebrary je besplatan i otvoren izvor, razmislite o tome da pomognete njegovom razvoju",
+        "donateMessage": "Gamebrary je besplatan i otvoren izvor, razmislite o tome da pomognete njegovom razvoju do",
         "donating": "doniranje",
         "reportBugs": "prijavljivanje bugova",
         "submitFeedback": "podnošenje povratnih informacija",

@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary huwa b'xejn u open source, tikkunsidra li tgħin l-iżvilupp tagħha billi",
         "donating": "donazzjoni",
         "reportBugs": "tirrapporta bugs",
+        "games": "logħob",
         "submitFeedback": "tissottometti feedback"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "Daħħal tiegħek",
             "add": "Żid lista",
             "duplicateWarning": "Int diġà għandek lista b'dan l-isem",
+            "emptyListButton": "Ikklikkja hawn jew drag il-logħob hawn",
             "getStarted": "Ibda!",
             "addFirstTime": "Merħba, żid l-ewwel lista tiegħek!",
-            "sortByName": "IL",
+            "sortByName": "Isem",
             "sortByProgress": "Progress",
             "sortByRating": "Punteġġ",
             "sortByReleaseDate": "Data",
             "sortByCustom": "Custom",
+            "sortedBy": "Issortjat minn",
             "delete": "Ħassar il-lista",
             "moveLeft": "Mexxi lejn ix-xellug",
             "moveRight": "Mexxi lejn il-lemin",
@@ -115,7 +118,7 @@
             "renameList": "Semmi mill-ġdid",
             "renameListPlaceholder": "Daħħal ismek",
             "sortList": "Issortja",
-            "sortWarning": "Il-lista tal-issortjar awtomatiku taffettwa kif jaħdem id-drag and drop",
+            "sortWarning": "Il-lista tal-għażla awtomatika taffettwa kif jaħdem id-drag and drop",
             "coversSizeTitle": "Tkopri madwar",
             "showReleaseDates": "Uri d-data tar-rilaxx għal-logħob mhux rilaxxat",
             "showGameRatings": "Uri l-klassifikazzjonijiet tal-logħob",
@@ -142,7 +145,7 @@
     },
     "languages": {
         "title": "Lingwi",
-        "save": "Issejvja u erġa 'kkargajt il-browser"
+        "save": "Issejvja u erġa 'kkarga l-browser"
     },
     "settings": {
         "tags": "Tags",
@@ -155,7 +158,7 @@
     },
     "tags": {
         "title": "Tags",
-        "subtitle": "It-tags huma mod tajjeb ħafna biex torganizza u timmaniġġja l-ġbir tal-logħob tal-vidjo tiegħek. Żid, teditja jew tħassar tags.",
+        "subtitle": "It-tags huma mod tajjeb ħafna biex torganizza u timmaniġġja l-ġbir tal-logħob tal-kompjuter tiegħek. Żid, teditja jew tħassar tags.",
         "form": {
             "title": "Żid tag ġdid",
             "inputPlaceholder": "Isem tat-tikketta",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "It-tikketti tiegħi"
+        },
+        "delete": {
+            "title": "Int żgur li trid tħassar din it-tikketta?",
+            "message": "Din l-azzjoni ma tistax titneħħa",
+            "buttonLabel": "Iva, ħassar it-tikketta"
         }
     },
     "wallpapers": {

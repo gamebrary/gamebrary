@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary é gratuito e de código aberto, considere ajudar seu desenvolvimento",
         "donating": "doando",
         "reportBugs": "reportando bugs",
+        "games": "jogos",
         "submitFeedback": "enviando feedback"
     },
     "navMenu": {
@@ -94,16 +95,18 @@
             "settings": "Configurações da lista",
             "placeholder": "Digite o nome da sua lista aqui",
             "wishlist": "Lista de Desejos",
-            "input": "Insira o seu",
+            "input": "Digite o seu",
             "add": "Adicionar lista",
             "duplicateWarning": "Você já tem uma lista com este nome",
+            "emptyListButton": "Clique aqui ou arraste os jogos aqui",
             "getStarted": "Iniciar!",
             "addFirstTime": "Bem-vindo, adicione sua primeira lista!",
-            "sortByName": "A",
+            "sortByName": "Nome",
             "sortByProgress": "Progresso",
             "sortByRating": "Ponto",
             "sortByReleaseDate": "Encontro",
             "sortByCustom": "personalizadas",
+            "sortedBy": "Ordenado por",
             "delete": "Excluir lista",
             "moveLeft": "Mova para a esquerda",
             "moveRight": "Mover para a direita",
@@ -117,7 +120,7 @@
             "sortList": "Ordenar",
             "sortWarning": "A lista de classificação automática afetará o funcionamento de arrastar e soltar",
             "coversSizeTitle": "Cobre toda",
-            "showReleaseDates": "Mostrar data de lançamento para jogos inéditos",
+            "showReleaseDates": "Mostrar data de lançamento para jogos não lançados",
             "showGameRatings": "Mostrar classificações de jogos",
             "showGameProgress": "Mostrar o progresso do jogo",
             "showGameNotes": "Mostrar notas do jogo",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "Minhas etiquetas"
+        },
+        "delete": {
+            "title": "Tem certeza de que deseja excluir esta tag?",
+            "message": "Essa ação não pode ser desfeita",
+            "buttonLabel": "Sim, deletar tag"
         }
     },
     "wallpapers": {

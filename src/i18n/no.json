@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary er gratis og åpen kildekode. Vurder å hjelpe utviklingen innen",
         "donating": "donere",
         "reportBugs": "rapportering av feil",
+        "games": "spill",
         "submitFeedback": "sende inn tilbakemelding"
     },
     "navMenu": {
@@ -34,7 +35,7 @@
         "issues": "Problemer"
     },
     "dashboard": {
-        "subtitle": "Åpen kildekode verktøy for styring av videospillsamling."
+        "subtitle": "Åpen kildekode verktøy for styring av videospillsamling"
     },
     "boards": {
         "title": "Tavler",
@@ -97,13 +98,15 @@
             "input": "Skriv inn din egen",
             "add": "Legg til liste",
             "duplicateWarning": "Du har allerede en liste med dette navnet",
+            "emptyListButton": "Klikk her eller dra spill hit",
             "getStarted": "Kom i gang!",
             "addFirstTime": "Velkommen, legg til din første liste!",
-            "sortByName": "DE",
+            "sortByName": "Navn",
             "sortByProgress": "Framgang",
             "sortByRating": "Resultat",
             "sortByReleaseDate": "Dato",
             "sortByCustom": "Tilpasset",
+            "sortedBy": "Sortert etter",
             "delete": "Slett listen",
             "moveLeft": "Gå til venstre",
             "moveRight": "Flytt til høyre",
@@ -161,10 +164,15 @@
             "inputPlaceholder": "Merkens navn",
             "preview": "Forhåndsvisning:",
             "addTag": "Legg til tag",
-            "duplicateMessage": "Du har allerede en tag med navnet {tagName}"
+            "duplicateMessage": "Du har allerede en tag som heter {tagName}"
         },
         "list": {
             "title": "Merkelappene mine"
+        },
+        "delete": {
+            "title": "Er du sikker på at du vil slette denne taggen?",
+            "message": "Denne handlingen kan ikke angres",
+            "buttonLabel": "Ja, slett taggen"
         }
     },
     "wallpapers": {

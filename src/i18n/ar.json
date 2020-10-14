@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary مجاني ومفتوح المصدر ، ففكر في المساعدة في تطويره من خلال",
         "donating": "التبرع",
         "reportBugs": "الإبلاغ عن الأخطاء",
+        "games": "ألعاب",
         "submitFeedback": "إرسال التعليقات"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "أدخل الخاص بك",
             "add": "اضف قائمة",
             "duplicateWarning": "لديك بالفعل قائمة بهذا الاسم",
+            "emptyListButton": "انقر هنا أو اسحب الألعاب هنا",
             "getStarted": "البدء!",
             "addFirstTime": "مرحبًا ، أضف قائمتك الأولى!",
-            "sortByName": "ال",
+            "sortByName": "اسم",
             "sortByProgress": "التقدم",
             "sortByRating": "أحرز هدفا",
             "sortByReleaseDate": "تاريخ",
             "sortByCustom": "مخصص",
+            "sortedBy": "مرتبة حسب",
             "delete": "قائمة الحذف",
             "moveLeft": "تحرك يسارا",
             "moveRight": "تحرك يمينا",
@@ -120,9 +123,9 @@
             "showReleaseDates": "عرض تاريخ الإصدار للألعاب التي لم يتم طرحها",
             "showGameRatings": "عرض تقييمات اللعبة",
             "showGameProgress": "إظهار تقدم اللعبة",
-            "showGameNotes": "عرض ملاحظات اللعبة",
+            "showGameNotes": "إظهار ملاحظات اللعبة",
             "showGameTags": "إظهار بطاقات اللعبة",
-            "showGameCount": "إظهار عدد الألعاب",
+            "showGameCount": "عرض عدد الألعاب",
             "views": {
                 "single": "إفتراضي",
                 "compact": "المدمج",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "علاماتي"
+        },
+        "delete": {
+            "title": "هل أنت متأكد أنك تريد حذف هذه العلامة؟",
+            "message": "لا يمكن التراجع عن هذا الإجراء",
+            "buttonLabel": "نعم ، احذف العلامة"
         }
     },
     "wallpapers": {
@@ -207,7 +215,7 @@
         "platform": "رقمي",
         "operating_system": "الكمبيوتر / أخرى",
         "portable_console": "أجهزة محمولة",
-        "computer": "أجهزة الكمبيوتر المنزلية",
+        "computer": "أجهزة كمبيوتر منزلية",
         "popular": "جمع",
         "releaseYear": "صدر عام",
         "name": "أبجديا",

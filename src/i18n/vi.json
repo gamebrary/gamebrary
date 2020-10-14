@@ -16,6 +16,7 @@
         "donateMessage": "Gamebrary là nguồn mở và miễn phí, hãy xem xét giúp đỡ sự phát triển của nó bằng cách",
         "donating": "quyên góp",
         "reportBugs": "báo cáo lỗi",
+        "games": "Trò chơi",
         "submitFeedback": "gửi phản hồi"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "Nhập của riêng bạn",
             "add": "Thêm vào danh sách",
             "duplicateWarning": "Bạn đã có một danh sách với tên này",
+            "emptyListButton": "Bấm vào đây hoặc kéo trò chơi vào đây",
             "getStarted": "Bắt đầu!",
             "addFirstTime": "Chào mừng, hãy thêm danh sách đầu tiên của bạn!",
-            "sortByName": "CÁC",
+            "sortByName": "Tên",
             "sortByProgress": "Phát triển",
             "sortByRating": "Ghi bàn",
             "sortByReleaseDate": "Ngày",
             "sortByCustom": "Tập quán",
+            "sortedBy": "Được sắp xếp bởi",
             "delete": "Xóa danh sách",
             "moveLeft": "Di chuyển sang trái",
             "moveRight": "Đi sang phải",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "Thẻ của tôi"
+        },
+        "delete": {
+            "title": "Bạn có chắc chắn muốn xóa thẻ này không?",
+            "message": "Hành động này không thể được hoàn tác",
+            "buttonLabel": "Có, xóa thẻ"
         }
     },
     "wallpapers": {
@@ -176,7 +184,7 @@
             "browse": "Duyệt qua",
             "helperText": "Chỉ tệp hình ảnh",
             "upload": "Tải lên",
-            "duplicateMessage": "Bạn đã có một tệp tên là {fileName}"
+            "duplicateMessage": "Bạn đã có một tệp có tên {fileName}"
         },
         "list": {
             "title": "Hình nền của tôi"

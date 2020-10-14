@@ -16,6 +16,7 @@
         "donateMessage": "Gamebraryは無料でオープンソースです。",
         "donating": "寄付",
         "reportBugs": "バグの報告",
+        "games": "ゲーム",
         "submitFeedback": "フィードバックの送信"
     },
     "navMenu": {
@@ -97,13 +98,15 @@
             "input": "あなた自身を入力してください",
             "add": "リストを追加",
             "duplicateWarning": "あなたはすでにこの名前のリストを持っています",
+            "emptyListButton": "ここをクリックするか、ゲームをここにドラッグします",
             "getStarted": "始めましょう！",
             "addFirstTime": "ようこそ、最初のリストを追加してください！",
-            "sortByName": "THE",
+            "sortByName": "名前",
             "sortByProgress": "進捗",
             "sortByRating": "スコア",
             "sortByReleaseDate": "日付",
             "sortByCustom": "カスタム",
+            "sortedBy": "並べ替え",
             "delete": "リストを削除",
             "moveLeft": "左に移動",
             "moveRight": "右に動く",
@@ -165,6 +168,11 @@
         },
         "list": {
             "title": "私のタグ"
+        },
+        "delete": {
+            "title": "このタグを削除してもよろしいですか？",
+            "message": "このアクションは元に戻せません",
+            "buttonLabel": "はい、タグを削除します"
         }
     },
     "wallpapers": {
