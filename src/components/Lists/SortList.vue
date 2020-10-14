@@ -5,21 +5,37 @@
 
     <b-modal
       :id="modalId"
-      :title="$t('board.list.sortList')"
       @show="getSortValue"
     >
-      <form ref="renameListForm" @submit.stop.prevent="save">
-        <b-form-group :label="$t('board.list.sortList')" block>
-          <b-form-radio-group
-            v-model="sortOrder"
-            buttons
-            stacked
-            variant="primary"
-            :options="sortingOptions"
-          />
-        </b-form-group>
+      <template v-slot:modal-header="{ close }">
+        <modal-header
+          :title="$t('board.list.sortList')"
+        >
+          <b-button
+            variant="light"
+            size="sm"
+            @click="close"
+          >
+            <icon name="x" />
+          </b-button>
+        </modal-header>
+      </template>
 
-        <b-alert show variant="warning" class="m-0" v-if="sortOrder !== 'sortByCustom'">
+      <form ref="renameListForm" @submit.stop.prevent="save">
+        <b-form-radio-group
+          v-model="sortOrder"
+          buttons
+          stacked
+          variant="primary"
+          :options="sortingOptions"
+        />
+
+        <b-alert
+          v-if="sortOrder !== 'sortByCustom'"
+          show
+          variant="warning"
+          class="m-0 mt-3"
+        >
           {{ $t('board.list.sortWarning') }}
         </b-alert>
       </form>

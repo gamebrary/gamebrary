@@ -1,35 +1,43 @@
 <template lang="html">
-  <b-dropdown size="sm" class="m-1" right variant="transparent">
+  <b-dropdown size="sm" class="m-1" right variant="transparent" no-caret>
+    <template v-slot:button-content>
+      <icon name="triangle-down" small />
+    </template>
+
     <add-game-modal :list="list" />
     <b-dd-divider />
     <sort-list :list="list" :list-index="listIndex" />
     <rename-list :list="list" :list-index="listIndex" />
     <change-list-view :list="list" :list-index="listIndex" />
     <list-preferences :list="list" :list-index="listIndex" />
-    <b-dropdown-divider />
-    <b-dropdown-item>
-      <b-button-group size="sm">
-        <b-button
-          v-b-tooltip.hover
-          :title="$t('board.list.moveLeft')"
-          :disabled="isFirst"
-          variant="light"
-          @click="moveList(listIndex, listIndex - 1)"
-        >
-          <icon name="triangle-left" />
-        </b-button>
 
-        <b-button
-          v-b-tooltip.hover
-          :title="$t('board.list.moveRight')"
-          :disabled="isLast"
-          variant="light"
-          @click="moveList(listIndex, listIndex + 1)"
-        >
-          <icon name="triangle-right" />
-        </b-button>
-      </b-button-group>
-    </b-dropdown-item>
+    <template v-if="board.lists.length > 1">
+      <b-dropdown-divider />
+      <b-dropdown-item>
+        <b-button-group size="sm" class="w-100">
+          <b-button
+            v-b-tooltip.hover
+            :title="$t('board.list.moveLeft')"
+            :disabled="isFirst"
+            variant="light"
+            @click="moveList(listIndex, listIndex - 1)"
+          >
+            <icon name="triangle-left" />
+          </b-button>
+
+          <b-button
+            v-b-tooltip.hover
+            :title="$t('board.list.moveRight')"
+            :disabled="isLast"
+            variant="light"
+            @click="moveList(listIndex, listIndex + 1)"
+          >
+            <icon name="triangle-right" />
+          </b-button>
+        </b-button-group>
+      </b-dropdown-item>
+    </template>
+
     <b-dropdown-divider />
 
     <b-dropdown-item
@@ -91,6 +99,8 @@ export default {
         okVariant: 'danger',
         okTitle: this.$t('board.list.deleteWarning.buttonLabel'),
         cancelTitle: this.$t('global.cancel'),
+        headerClass: 'pb-0 border-0',
+        footerClass: 'pt-0 border-0',
       })
         .then((value) => {
           if (value) {

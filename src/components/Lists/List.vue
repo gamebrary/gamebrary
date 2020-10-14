@@ -1,24 +1,32 @@
 <template lang="html">
   <div
-    :class="['list mr-3', viewClass, { dragging }]"
+    :class="['list mr-3', viewClass, { dragging, 'single': singleBoard }]"
     :id="listIndex"
   >
-    <b-card no-body>
+    <b-card
+      no-body
+      :bg-variant="nightMode ? 'dark' : null"
+      :text-variant="nightMode ? 'white' : null"
+    >
       <b-card-header
         class="py-0 pr-0 pl-2 d-flex justify-content-between align-items-center"
         :header-bg-variant="showDuplicateWarning ? 'warning' : null"
       >
-        <h6 class="m-0" v-b-modal="`rename-list-${listIndex}`">
-          <b-badge v-if="showGameCount">
-              {{ list.games.length }}
-          </b-badge>
+        <p class="list-name p-0 m-0">
+          <span v-b-modal="`rename-list-${listIndex}`">
+            {{ showDuplicateWarning ? 'Game already in list' : list.name }}
+          </span>
 
-          <b-badge v-if="autoSortEnabled">
-            <icon small white name="list-ordered" />
-          </b-badge>
+          <br />
 
-          {{ showDuplicateWarning ? 'Game already in list' : list.name }}
-        </h6>
+          <small v-if="showGameCount">
+              {{ list.games.length }} games
+          </small>
+
+          <small v-if="autoSortEnabled" class="text-muted" v-b-modal="`sort-list-${listIndex}`">
+            Sorted by {{ $t(`board.list.${list.settings.sortOrder}`) }}
+          </small>
+        </p>
 
         <list-settings :list="list" :list-index="listIndex" />
       </b-card-header>
@@ -64,7 +72,7 @@ import GameCardCompact from '@/components/GameCards/GameCardCompact';
 import GameCardText from '@/components/GameCards/GameCardText';
 import orderby from 'lodash.orderby';
 import { DEFAULT_LIST_VIEW } from '@/constants';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -110,6 +118,7 @@ export default {
 
   computed: {
     ...mapState(['games', 'dragging', 'progresses', 'board', 'duplicatedGame']),
+    ...mapGetters(['nightMode']),
 
     autoSortEnabled() {
       const { settings } = this.list;
@@ -144,6 +153,10 @@ export default {
 
     isEmpty() {
       return this.list.games.length === 0;
+    },
+
+    singleBoard() {
+      return this.list.games.length === 1;
     },
 
     view() {
@@ -227,6 +240,12 @@ export default {
     width: 300px;
     border-radius: 3px;
 
+    &.single {
+      @media(max-width: 780px) {
+        width: calc(100vw - 140px);
+      }
+    }
+
     .games {
       display: grid;
       height: 100%;
@@ -269,5 +288,9 @@ export default {
 
   opacity: .1;
   background: #000;
+}
+
+.list-name {
+  line-height: 0.9rem;
 }
 </style>
