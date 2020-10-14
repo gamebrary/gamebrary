@@ -61,7 +61,7 @@
               @click="submit"
             >
               <b-spinner small v-if="saving" />
-              <span v-else>Add tag</span>
+              <span v-else>{{ $t('tags.form.addTag')}}</span>
             </b-button>
 
             <b-alert
@@ -78,21 +78,30 @@
         <b-col cols="12" lg="6" v-if="gameTags && localTags">
           <h6>{{ $t('tags.list.title') }}</h6>
 
-          <b-list-group>
-            <b-list-group-item
-              class="d-flex justify-content-between align-items-center p-2"
-              v-for="({ games, hex, tagTextColor }, name) in localTags"
-              :key="name"
-            >
-              <b-badge
-                pill
-                tag="small"
-                :style="`background-color: ${hex}; color: ${tagTextColor}`"
-              >
-                {{ name }}
-              </b-badge>
+          <b-card
+            class="mb-3"
+            :bg-variant="nightMode ? 'dark' : null"
+            :text-variant="nightMode ?  'white' : null"
+            no-body
+            v-for="({ games, hex, tagTextColor }, name) in localTags"
+            :key="name"
+          >
+            <b-form-row class="p-3 d-flex align-items-center">
+              <b-col cols="8" md="9">
+                <b-badge
+                  pill
+                  tag="small"
+                  :style="`background-color: ${hex}; color: ${tagTextColor}`"
+                >
+                  {{ name }}
+                </b-badge>
 
-              <div>
+                <small class="text-muted pl-2">
+                  {{ games.length }} {{ $t('global.games') }}
+                </small>
+              </b-col>
+
+              <b-col cols="4" md="3" class="text-right">
                 <b-button
                   variant="primary"
                   @click="editTag(name)"
@@ -102,13 +111,13 @@
 
                 <b-button
                   variant="danger"
-                  @click="deleteTag(name)"
+                  @click="promptDeleteTag(name)"
                 >
                   <icon name="trash" white />
                 </b-button>
-              </div>
-            </b-list-group-item>
-          </b-list-group>
+              </b-col>
+            </b-form-row>
+          </b-card>
 
           <!-- TODO: move to component -->
           <b-modal
@@ -119,19 +128,13 @@
             :body-text-variant="nightMode ? 'white' : null"
             :footer-bg-variant="nightMode ? 'dark' : null"
             :footer-text-variant="nightMode ? 'white' : null"
+            footer-class="d-flex justify-content-between"
           >
             <template v-slot:modal-header="{ close }">
               <modal-header
-                :title="`Edit ${editingOriginalTagName} tag`"
-              >
-                <b-button
-                  variant="light"
-                  size="sm"
-                  @click="close"
-                >
-                  <icon name="x" />
-                </b-button>
-              </modal-header>
+                :title="$t('tags.edit.title')"
+                @close="close"
+              />
             </template>
 
             <form
@@ -178,7 +181,10 @@
             </form>
 
             <template v-slot:modal-footer="{ cancel }">
-              <b-button @click="cancel">
+              <b-button
+                variant="light"
+                @click="cancel"
+              >
                 Cancel
               </b-button>
 
@@ -315,6 +321,22 @@ export default {
 
       this.$set(this.localTags, tagName, newTag);
       this.saveTags();
+    },
+
+    promptDeleteTag(tagName) {
+      this.$bvModal.msgBoxConfirm(this.$t('tags.delete.message'), {
+        title: this.$t('tags.delete.title'),
+        okVariant: 'danger',
+        okTitle: this.$t('tags.delete.buttonLabel'),
+        cancelTitle: this.$t('global.cancel'),
+        headerClass: 'pb-0 border-0',
+        footerClass: 'pt-0 border-0',
+      })
+        .then((value) => {
+          if (value) {
+            this.deleteTag(tagName);
+          }
+        });
     },
 
     deleteTag(tagName) {
