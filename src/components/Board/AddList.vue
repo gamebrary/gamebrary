@@ -11,6 +11,12 @@
     <b-modal
       :id="modalId"
       :title="$t('board.addList.title')"
+      :header-bg-variant="nightMode ? 'dark' : null"
+      :header-text-variant="nightMode ? 'white' : null"
+      :body-bg-variant="nightMode ? 'dark' : null"
+      :body-text-variant="nightMode ? 'white' : null"
+      :footer-bg-variant="nightMode ? 'dark' : null"
+      :footer-text-variant="nightMode ? 'white' : null"
       @show="reset"
     >
       <form ref="addListForm" @submit.stop.prevent="submit">
@@ -49,7 +55,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -62,6 +68,7 @@ export default {
 
   computed: {
     ...mapState(['platform', 'board']),
+    ...mapGetters(['nightMode']),
 
     existingListNames() {
       return this.board.lists

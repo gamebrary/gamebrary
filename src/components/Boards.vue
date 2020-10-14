@@ -19,6 +19,8 @@
         v-for="board in sortedBoards"
         :key="board.id"
         no-body
+        :bg-variant="nightMode ? 'dark' : null"
+        :text-variant="nightMode ?  'white' : null"
         class="overflow-hidden clickable mt-3"
         @click="viewBoard(board.id)"
       >
@@ -123,7 +125,7 @@ export default {
 
   computed: {
     ...mapState(['boards', 'platforms', 'platformNames', 'wallpapers', 'gameLists', 'settings']),
-    ...mapGetters(['platformNames', 'sortedBoards']),
+    ...mapGetters(['platformNames', 'sortedBoards', 'nightMode']),
 
     hasLists() {
       return Object.keys(this.gameLists).length > 0;

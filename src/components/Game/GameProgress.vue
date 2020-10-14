@@ -10,6 +10,12 @@
     <b-modal
       id="progress"
       title="Set game progress"
+      :header-bg-variant="nightMode ? 'dark' : null"
+      :header-text-variant="nightMode ? 'white' : null"
+      :body-bg-variant="nightMode ? 'dark' : null"
+      :body-text-variant="nightMode ? 'white' : null"
+      :footer-bg-variant="nightMode ? 'dark' : null"
+      :footer-text-variant="nightMode ? 'white' : null"
       @show="show"
     >
       <b-input-group :prepend="`${localProgress}%`" class="mb-4" size="lg">
@@ -46,7 +52,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   props: {
@@ -63,6 +69,7 @@ export default {
 
   computed: {
     ...mapState(['progresses']),
+    ...mapGetters(['nightMode']),
   },
 
   methods: {

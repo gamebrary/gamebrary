@@ -3,6 +3,9 @@
     <b-jumbotron
       :header="$t('about.title')"
       :lead="$t('about.subtitle')"
+      :bg-variant="nightMode ? 'dark' : ''"
+      :text-variant="nightMode ? 'white' : ''"
+      :border-variant="nightMode ? 'dark' : ''"
       header-level="5"
       fluid
     >
@@ -54,6 +57,7 @@
 <script>
 import VueMarkdown from 'vue-markdown';
 import moment from 'moment';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -68,6 +72,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['nightMode']),
+
     currentYear() {
       return new Date().getFullYear();
     },

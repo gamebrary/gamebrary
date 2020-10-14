@@ -9,6 +9,12 @@
       id="create-board"
       title="Create board"
       size="lg"
+      :header-bg-variant="nightMode ? 'dark' : null"
+      :header-text-variant="nightMode ? 'white' : null"
+      :body-bg-variant="nightMode ? 'dark' : null"
+      :body-text-variant="nightMode ? 'white' : null"
+      :footer-bg-variant="nightMode ? 'dark' : null"
+      :footer-text-variant="nightMode ? 'white' : null"
       @show="resetBoard"
       @hidden="resetBoard"
     >
@@ -85,6 +91,7 @@
 
 <script>
 import PlatformPicker from '@/components/Board/PlatformPicker';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -116,6 +123,10 @@ export default {
         completionist: ['Owned', 'Playing', 'Completed'],
       },
     };
+  },
+
+  computed: {
+    ...mapGetters(['nightMode']),
   },
 
   methods: {

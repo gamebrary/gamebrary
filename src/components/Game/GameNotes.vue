@@ -10,6 +10,12 @@
     <b-modal
       id="notes"
       title="Game notes"
+      :header-bg-variant="nightMode ? 'dark' : null"
+      :header-text-variant="nightMode ? 'white' : null"
+      :body-bg-variant="nightMode ? 'dark' : null"
+      :body-text-variant="nightMode ? 'white' : null"
+      :footer-bg-variant="nightMode ? 'dark' : null"
+      :footer-text-variant="nightMode ? 'white' : null"
       @show="show"
     >
       <b-form-textarea
@@ -49,7 +55,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   props: {
@@ -66,6 +72,7 @@ export default {
 
   computed: {
     ...mapState(['notes']),
+    ...mapGetters(['nightMode']),
   },
 
   methods: {
