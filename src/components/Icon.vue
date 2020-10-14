@@ -1,11 +1,13 @@
 <template lang="html">
   <img
     :src="`static/octicons/${name}.svg`"
-    :class="{ white, animated, small }"
+    :class="{ white, animated, small, invert: nightMode }"
   />
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   props: {
     name: {
@@ -15,6 +17,10 @@ export default {
     white: Boolean,
     animated: Boolean,
     small: Boolean,
+  },
+
+  computed: {
+    ...mapGetters(['nightMode']),
   },
 };
 </script>
@@ -30,9 +36,16 @@ img {
     filter: invert(1);
   }
 
+  width: 22px;
+  height: 22px;
+
   &.small {
     width: 16px;
     height: 16px;
+  }
+
+  &.invert {
+    filter: invert(1);
   }
 
   &.animated {

@@ -4,7 +4,9 @@
     :dir="dir"
   >
     <page-header v-if="user" />
-    <main :class="{ 'authorizing': !user }">
+    <main
+      :class="{ 'authorizing': !user, 'bg-dark text-white': nightMode }"
+    >
       <router-view />
     </main>
     <session-expired v-if="user" />
@@ -15,7 +17,7 @@
 import PageHeader from '@/components/PageHeader';
 import SessionExpired from '@/components/SessionExpired';
 import firebase from 'firebase/app';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import 'firebase/firestore';
 
 // TODO: store in env vars
@@ -46,6 +48,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'wallpaperUrl', 'settings', 'sessionExpired']),
+    ...mapGetters(['nightMode']),
 
     userId() {
       return this.debugUserId || this.user.uid;
@@ -103,17 +106,7 @@ export default {
 
       this.loadWallpapers();
       // TODO: remove onSnapshot? May get costly $$$
-
       // TODO: track progresses as well
-      // TODO: move to actions
-      db.collection('lists').doc(this.userId)
-        .onSnapshot((doc) => {
-          if (doc.exists) {
-            const gameLists = doc.data();
-            this.$store.commit('SET_GAME_LISTS_LEGACY', gameLists);
-          }
-        });
-
 
       // TODO: move to actions
       db.collection('settings').doc(this.userId)
@@ -164,9 +157,6 @@ export default {
 </style>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  #app {
-  }
-
   main {
     position: fixed;
     left: 50px;
