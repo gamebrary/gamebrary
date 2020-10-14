@@ -4,6 +4,7 @@
     class="game-card mb-1"
     :bg-variant="nightMode ? 'dark' : ''"
     :text-variant="nightMode ? 'white' : ''"
+    @click="addGame"
   >
     <b-row no-gutters v-if="game && game.name">
       <b-col cols="3">
@@ -19,16 +20,9 @@
             {{ game.name }}
           </b-card-title>
 
-          <b-button
-            @click="addGame"
-            variant="primary"
-          >
-            {{ $t('board.list.addGame') }}
-          </b-button>
-
           <b-form-rating
             v-if="gameRating"
-            class="p-0 border-0 shadow-none"
+            :class="['p-0', { 'bg-dark': nightMode }]"
             inline
             :value="gameRating"
             readonly
@@ -99,6 +93,10 @@ export default {
 
 .toast-image {
   width: 80px !important;
+}
+
+.game-card {
+  cursor: pointer;
 }
 </style>
 
