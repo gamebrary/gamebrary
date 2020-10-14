@@ -1,7 +1,13 @@
 <template lang="html">
-  <nav class="position-fixed d-flex flex-column p-0 vh-100 text-center">
+  <nav
+    class="position-fixed d-flex flex-column p-0 vh-100 text-center"
+    :class="{ 'bg-dark text-white': nightMode }"
+  >
     <router-link :to="{ name: 'dashboard' }" class="mt-2 mb-3">
-      <img src="/static/gamebrary-logo-dark.png" width="32" />
+      <img
+        :src="`/static/gamebrary-logo${nightMode ? '' : '-dark'}.png`"
+        width="32"
+      />
     </router-link>
 
     <template v-if="hasMultipleBoards">
@@ -75,6 +81,15 @@
         <icon name="info" />
       </b-button>
 
+      <!-- <b-button
+        variant="link"
+        :title="$t('navMenu.about')"
+        v-b-tooltip.hover.right
+        @click="toggleTheme"
+      >
+        <icon :name="nightMode ? 'moon' : 'sun'" />
+      </b-button> -->
+
       <router-link
         :title="$t('settings.account')"
         class="mb-2 mt-3 d-block"
@@ -101,7 +116,7 @@ import { mapState, mapGetters } from 'vuex';
 export default {
   computed: {
     ...mapState(['board', 'user', 'notification', 'settings']),
-    ...mapGetters(['sortedBoards']),
+    ...mapGetters(['sortedBoards', 'nightMode']),
 
     routeName() {
       return this.$route.name;
@@ -109,6 +124,17 @@ export default {
 
     hasMultipleBoards() {
       return this.$route.name === 'board' && this.board.name && this.sortedBoards.length > 1;
+    },
+  },
+
+  methods: {
+    toggleTheme() {
+      this.$store.commit('UPDATE_SETTING', { key: 'nightMode', value: !this.nightMode });
+
+      this.$store.dispatch('SAVE_SETTINGS', this.settings)
+        .catch(() => {
+          this.$bvToast.toast('There was an error saving your settings', { title: 'Error', variant: 'danger' });
+        });
     },
   },
 };
