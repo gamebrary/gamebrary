@@ -1,5 +1,8 @@
 <template lang="html">
-  <div :class="['board', { dragging, 'empty': isEmptyBoard }]" :style="wallpaper">
+  <div
+    :class="['board', boardBackground, { dragging, 'empty': isEmptyBoard }]"
+    :style="wallpaper"
+  >
     <board-placeholder v-if="loading" />
 
     <template v-else>
@@ -30,7 +33,7 @@ import AddList from '@/components/Board/AddList';
 import GameModal from '@/components/Game/GameModal';
 import List from '@/components/Lists/List';
 import chunk from 'lodash.chunk';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import draggable from 'vuedraggable';
 
 export default {
@@ -54,6 +57,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'dragging', 'board', 'wallpapers']),
+    ...mapGetters(['nightMode']),
 
     wallpaper() {
       return this.wallpaperUrl
@@ -73,6 +77,12 @@ export default {
     isPublicBoard() {
       // TODO: use optional chaining
       return this.$route.meta && this.$route.meta.public;
+    },
+
+    boardBackground() {
+      return this.nightMode
+        ? 'bg-dark'
+        : 'bg-light';
     },
   },
 
@@ -203,7 +213,6 @@ export default {
   overflow-x: auto;
   overflow-x: overlay;
   display: flex;
-  background-color: #ccc;
 }
 
 .list-placeholder {
