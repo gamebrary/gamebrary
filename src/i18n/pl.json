@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "Ustawienia planszy",
+            "deleteBoard": "Usuń tablicę",
+            "changePlatform": "Zmień platformy pokładowe",
+            "noWallpapers": "Nie przesłano jeszcze żadnych tapet.",
+            "descriptionLabel": "Opis tablicy",
+            "nameLabel": "Nazwa tablicy",
+            "wallpaper": "Tapeta na pokładzie",
+            "removeWallpaper": "Usuń tapetę",
+            "uploadWallpaper": "Prześlij tapetę",
+            "platformPlaceholder": "Wybierz platformę (y)",
+            "platformLabel": "Wybrane platformy: {platformCount}"
+        },
         "addList": {
             "title": "Dodaj listę",
             "placeholder": "Wpisz tutaj nazwę swojej listy"
@@ -173,6 +186,9 @@
             "title": "Czy na pewno chcesz usunąć ten tag?",
             "message": "Tej czynności nie można cofnąć",
             "buttonLabel": "Tak, usuń tag"
+        },
+        "edit": {
+            "title": "Edytuj tag"
         }
     },
     "wallpapers": {

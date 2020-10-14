@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "Anviwònman Komisyon Konsèy la",
+            "deleteBoard": "Efase tablo",
+            "changePlatform": "Chanje tribin tablo",
+            "noWallpapers": "Pa gen D 'chargé ankò.",
+            "descriptionLabel": "Deskripsyon tablo",
+            "nameLabel": "Non Komisyon Konsèy la",
+            "wallpaper": "Wallpaper tablo",
+            "removeWallpaper": "Retire D '",
+            "uploadWallpaper": "Voye photo",
+            "platformPlaceholder": "Chwazi platfòm (yo)",
+            "platformLabel": "{platformCount} platfòm (yo) chwazi"
+        },
         "addList": {
             "title": "Ajoute lis",
             "placeholder": "Tape non lis ou isit la"
@@ -173,6 +186,9 @@
             "title": "Èske ou sèten ou vle efase tag sa a?",
             "message": "Aksyon sa a pa ka anile",
             "buttonLabel": "Wi, efase tag"
+        },
+        "edit": {
+            "title": "Modifye tag"
         }
     },
     "wallpapers": {

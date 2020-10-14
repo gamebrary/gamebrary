@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "보드 설정",
+            "deleteBoard": "보드 삭제",
+            "changePlatform": "보드 플랫폼 변경",
+            "noWallpapers": "아직 업로드 된 배경 화면이 없습니다.",
+            "descriptionLabel": "보드 설명",
+            "nameLabel": "보드 이름",
+            "wallpaper": "보드 벽지",
+            "removeWallpaper": "배경 화면 제거",
+            "uploadWallpaper": "배경 화면 업로드",
+            "platformPlaceholder": "플랫폼 선택",
+            "platformLabel": "선택한 플랫폼 {platformCount} 개"
+        },
         "addList": {
             "title": "목록 추가",
             "placeholder": "여기에 목록 이름을 입력하세요."
@@ -173,6 +186,9 @@
             "title": "이 태그를 삭제 하시겠습니까?",
             "message": "이 작업은 취소 할 수 없습니다.",
             "buttonLabel": "예, 태그를 삭제합니다."
+        },
+        "edit": {
+            "title": "태그 수정"
         }
     },
     "wallpapers": {

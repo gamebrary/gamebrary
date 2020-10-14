@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "बोर्ड सेटिंग्स",
+            "deleteBoard": "बोर्ड को हटा दें",
+            "changePlatform": "बोर्ड प्लेटफॉर्म बदलें",
+            "noWallpapers": "अभी कोई वॉलपेपर अपलोड नहीं किया गया है।",
+            "descriptionLabel": "बोर्ड विवरण",
+            "nameLabel": "बोर्ड का नाम",
+            "wallpaper": "बोर्ड वॉलपेपर",
+            "removeWallpaper": "वॉलपेपर निकालें",
+            "uploadWallpaper": "वॉलपेपर अपलोड करें",
+            "platformPlaceholder": "प्लेटफ़ॉर्म चुनें",
+            "platformLabel": "{platformCount} प्लेटफ़ॉर्म चयनित हैं"
+        },
         "addList": {
             "title": "सूची में जोड़ने",
             "placeholder": "यहां अपनी सूची का नाम लिखें"
@@ -173,6 +186,9 @@
             "title": "क्या आप वाकई इस टैग को हटाना चाहते हैं?",
             "message": "यह कार्य दोबारा से नहीं हो सकता",
             "buttonLabel": "हां, टैग हटाएं"
+        },
+        "edit": {
+            "title": "टैग संपादित करें"
         }
     },
     "wallpapers": {

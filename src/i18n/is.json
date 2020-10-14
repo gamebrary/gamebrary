@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "Stillingar stjórnar",
+            "deleteBoard": "Eyða borði",
+            "changePlatform": "Skipta um borðpalla",
+            "noWallpapers": "Engum veggfóðri hlaðið enn.",
+            "descriptionLabel": "Lýsing stjórnar",
+            "nameLabel": "Nafn stjórnar",
+            "wallpaper": "Borðveggfóður",
+            "removeWallpaper": "Fjarlægðu veggfóður",
+            "uploadWallpaper": "Settu inn veggfóður",
+            "platformPlaceholder": "Veldu vettvang",
+            "platformLabel": "{platformCount} vettvangur / valdir"
+        },
         "addList": {
             "title": "Bæta við lista",
             "placeholder": "Sláðu inn nafn listans hér"
@@ -173,6 +186,9 @@
             "title": "Ertu viss um að þú viljir eyða þessu merki?",
             "message": "Ekki er hægt að afturkalla þessa aðgerð",
             "buttonLabel": "Já, eytt merki"
+        },
+        "edit": {
+            "title": "Breyta merki"
         }
     },
     "wallpapers": {

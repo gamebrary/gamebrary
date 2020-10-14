@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "Paramètres de la carte",
+            "deleteBoard": "Supprimer le tableau",
+            "changePlatform": "Changer de plateforme de conseil",
+            "noWallpapers": "Aucun fond d'écran téléchargé pour le moment.",
+            "descriptionLabel": "Description du conseil",
+            "nameLabel": "Nom du conseil",
+            "wallpaper": "Papier peint Conseil",
+            "removeWallpaper": "Supprimer le papier peint",
+            "uploadWallpaper": "Télécharger un fond d'écran",
+            "platformPlaceholder": "Sélectionnez la (les) plateforme (s)",
+            "platformLabel": "{platformCount} plate-forme (s) sélectionnée (s)"
+        },
         "addList": {
             "title": "Ajouter la liste",
             "placeholder": "Tapez le nom de votre liste ici"
@@ -173,6 +186,9 @@
             "title": "Voulez-vous vraiment supprimer cette balise?",
             "message": "Cette action ne peut pas être annulée",
             "buttonLabel": "Oui, supprimer la balise"
+        },
+        "edit": {
+            "title": "Modifier la balise"
         }
     },
     "wallpapers": {

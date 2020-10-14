@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "Mga setting ng board",
+            "deleteBoard": "Tanggalin ang board",
+            "changePlatform": "Baguhin ang mga platform ng board",
+            "noWallpapers": "Wala pang na-upload na mga wallpaper.",
+            "descriptionLabel": "Paglalarawan ng board",
+            "nameLabel": "Pangalan ng board",
+            "wallpaper": "Board wallpaper",
+            "removeWallpaper": "Tanggalin ang wallpaper",
+            "uploadWallpaper": "Mag-upload ng wallpaper",
+            "platformPlaceholder": "Piliin ang (mga) platform",
+            "platformLabel": "Napiling platform ng {platformCount}"
+        },
         "addList": {
             "title": "Magdagdag ng listahan",
             "placeholder": "I-type ang iyong pangalan ng listahan dito"
@@ -173,6 +186,9 @@
             "title": "Sigurado ka bang nais mong tanggalin ang tag na ito?",
             "message": "Ang gawaing ito ay hindi pwedeng baguhin",
             "buttonLabel": "Oo, tanggalin ang tag"
+        },
+        "edit": {
+            "title": "I-edit ang tag"
         }
     },
     "wallpapers": {

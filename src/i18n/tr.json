@@ -79,6 +79,19 @@
                 "soundcloud": "ses bulutu"
             }
         },
+        "settings": {
+            "title": "Pano ayarları",
+            "deleteBoard": "Panoyu sil",
+            "changePlatform": "Pano platformlarını değiştirin",
+            "noWallpapers": "Henüz duvar kağıdı yüklenmedi.",
+            "descriptionLabel": "Kurul açıklaması",
+            "nameLabel": "Kurul adı",
+            "wallpaper": "Kurulu duvar kağıdı",
+            "removeWallpaper": "Duvar kağıdını kaldır",
+            "uploadWallpaper": "Duvar kağıdı yükle",
+            "platformPlaceholder": "Platformları seçin",
+            "platformLabel": "{platformCount} platform seçildi"
+        },
         "addList": {
             "title": "Liste ekle",
             "placeholder": "Liste adınızı buraya yazın"
@@ -173,6 +186,9 @@
             "title": "Bu etiketi silmek istediğinizden emin misiniz?",
             "message": "Bu eylem geri alınamaz",
             "buttonLabel": "Evet, etiketi sil"
+        },
+        "edit": {
+            "title": "Etiketi düzenle"
         }
     },
     "wallpapers": {

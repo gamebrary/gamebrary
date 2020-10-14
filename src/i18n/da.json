@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "Board indstillinger",
+            "deleteBoard": "Slet tavle",
+            "changePlatform": "Skift bordplatforme",
+            "noWallpapers": "Ingen wallpapers uploadet endnu.",
+            "descriptionLabel": "Bestyrelsesbeskrivelse",
+            "nameLabel": "Bestyrelsens navn",
+            "wallpaper": "Board tapet",
+            "removeWallpaper": "Fjern tapet",
+            "uploadWallpaper": "Upload tapet",
+            "platformPlaceholder": "Vælg platform (er)",
+            "platformLabel": "{platformCount} platform (er) valgt"
+        },
         "addList": {
             "title": "Tilføj liste",
             "placeholder": "Indtast dit listenavn her"
@@ -173,6 +186,9 @@
             "title": "Er du sikker på, at du vil slette dette tag?",
             "message": "Denne handling kan ikke fortrydes",
             "buttonLabel": "Ja, slet tag"
+        },
+        "edit": {
+            "title": "Rediger tag"
         }
     },
     "wallpapers": {

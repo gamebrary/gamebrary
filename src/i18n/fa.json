@@ -79,6 +79,19 @@
                 "soundcloud": "ابر صدا"
             }
         },
+        "settings": {
+            "title": "تنظیمات صفحه",
+            "deleteBoard": "صفحه را حذف کنید",
+            "changePlatform": "سیستم عامل های صفحه را تغییر دهید",
+            "noWallpapers": "هنوز هیچ کاغذ دیواری بارگذاری نشده است.",
+            "descriptionLabel": "شرح صفحه",
+            "nameLabel": "نام هیئت مدیره",
+            "wallpaper": "کاغذ دیواری تابلو",
+            "removeWallpaper": "کاغذ دیواری را بردارید",
+            "uploadWallpaper": "بارگذاری تصویر زمینه",
+            "platformPlaceholder": "بستر (های) را انتخاب کنید",
+            "platformLabel": "{platformCount} بستر (های) انتخاب شده است"
+        },
         "addList": {
             "title": "افزودن لیست",
             "placeholder": "نام لیست خود را در اینجا تایپ کنید"
@@ -173,6 +186,9 @@
             "title": "آیا مطمئن هستید که می خواهید این برچسب را حذف کنید؟",
             "message": "این عمل قابل واگرد نیست",
             "buttonLabel": "بله ، برچسب را حذف کنید"
+        },
+        "edit": {
+            "title": "ویرایش برچسب"
         }
     },
     "wallpapers": {

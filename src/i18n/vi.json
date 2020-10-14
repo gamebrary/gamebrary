@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "Cài đặt bảng",
+            "deleteBoard": "Xóa bảng",
+            "changePlatform": "Thay đổi nền tảng bảng",
+            "noWallpapers": "Chưa có hình nền nào được tải lên.",
+            "descriptionLabel": "Bảng mô tả",
+            "nameLabel": "Bảng tên",
+            "wallpaper": "Hình nền bảng",
+            "removeWallpaper": "Xóa hình nền",
+            "uploadWallpaper": "Tải lên hình nền",
+            "platformPlaceholder": "Chọn (các) nền tảng",
+            "platformLabel": "Đã chọn {platformCount} nền tảng"
+        },
         "addList": {
             "title": "Thêm vào danh sách",
             "placeholder": "Nhập tên danh sách của bạn ở đây"
@@ -173,6 +186,9 @@
             "title": "Bạn có chắc chắn muốn xóa thẻ này không?",
             "message": "Hành động này không thể được hoàn tác",
             "buttonLabel": "Có, xóa thẻ"
+        },
+        "edit": {
+            "title": "Thẻ chỉnh sửa"
         }
     },
     "wallpapers": {

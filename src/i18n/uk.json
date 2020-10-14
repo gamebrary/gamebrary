@@ -79,6 +79,19 @@
                 "soundcloud": "Звукова хмара"
             }
         },
+        "settings": {
+            "title": "Налаштування дошки",
+            "deleteBoard": "Видалити дошку",
+            "changePlatform": "Зміна платформи плат",
+            "noWallpapers": "Ще не завантажено шпалери.",
+            "descriptionLabel": "Опис дошки",
+            "nameLabel": "Назва дошки",
+            "wallpaper": "Настільні шпалери",
+            "removeWallpaper": "Видаліть шпалери",
+            "uploadWallpaper": "Завантажте шпалери",
+            "platformPlaceholder": "Виберіть платформу (и)",
+            "platformLabel": "Вибрано платформу (і) {platformCount}"
+        },
         "addList": {
             "title": "Додати список",
             "placeholder": "Введіть тут своє ім’я списку"
@@ -173,6 +186,9 @@
             "title": "Ви впевнені, що хочете видалити цей тег?",
             "message": "Цю дію не можна скасувати",
             "buttonLabel": "Так, видалити тег"
+        },
+        "edit": {
+            "title": "Редагувати тег"
         }
     },
     "wallpapers": {

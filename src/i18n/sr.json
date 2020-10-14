@@ -79,6 +79,19 @@
                 "soundcloud": "Соундцлоуд"
             }
         },
+        "settings": {
+            "title": "Поставке плоче",
+            "deleteBoard": "Избриши таблу",
+            "changePlatform": "Промените платформе одбора",
+            "noWallpapers": "Још увек нису постављене позадине.",
+            "descriptionLabel": "Опис табле",
+            "nameLabel": "Назив одбора",
+            "wallpaper": "Тапете на дасци",
+            "removeWallpaper": "Уклоните позадину",
+            "uploadWallpaper": "Отпремите позадину",
+            "platformPlaceholder": "Изаберите платформу",
+            "platformLabel": "Изабране платформе: {платформЦоунт}"
+        },
         "addList": {
             "title": "Додај листу",
             "placeholder": "Унесите овде име своје листе"
@@ -173,6 +186,9 @@
             "title": "Да ли сте сигурни да желите да избришете ову ознаку?",
             "message": "Ова радња се не може опозвати",
             "buttonLabel": "Да, избриши ознаку"
+        },
+        "edit": {
+            "title": "Уреди ознаку"
         }
     },
     "wallpapers": {

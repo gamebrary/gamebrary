@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "Nastavení desky",
+            "deleteBoard": "Smazat desku",
+            "changePlatform": "Změňte platformy na palubě",
+            "noWallpapers": "Zatím nebyly nahrány žádné tapety.",
+            "descriptionLabel": "Popis desky",
+            "nameLabel": "Název desky",
+            "wallpaper": "Desková tapeta",
+            "removeWallpaper": "Odebrat tapetu",
+            "uploadWallpaper": "Nahrajte tapetu",
+            "platformPlaceholder": "Vyberte platformu",
+            "platformLabel": "Vybráno {platformCount} platforem"
+        },
         "addList": {
             "title": "Přidat seznam",
             "placeholder": "Sem zadejte název seznamu"
@@ -173,6 +186,9 @@
             "title": "Opravdu chcete tuto značku smazat?",
             "message": "Tuto akci nelze vrátit zpět",
             "buttonLabel": "Ano, smazat značku"
+        },
+        "edit": {
+            "title": "Upravit značku"
         }
     },
     "wallpapers": {

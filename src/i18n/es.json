@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "Configuración del tablero",
+            "deleteBoard": "Eliminar tablero",
+            "changePlatform": "Cambiar plataformas de tablero",
+            "noWallpapers": "Aún no se han subido fondos de pantalla.",
+            "descriptionLabel": "Descripción del tablero",
+            "nameLabel": "Nombre de la placa",
+            "wallpaper": "Fondo de pantalla de tablero",
+            "removeWallpaper": "Quitar papel tapiz",
+            "uploadWallpaper": "Subir fondo de pantalla",
+            "platformPlaceholder": "Seleccionar plataforma (s)",
+            "platformLabel": "{platformCount} plataformas seleccionadas"
+        },
         "addList": {
             "title": "Añadir lista",
             "placeholder": "Escriba el nombre de su lista aquí"
@@ -173,6 +186,9 @@
             "title": "¿Está seguro de que desea eliminar esta etiqueta?",
             "message": "Esta acción no se puede deshacer",
             "buttonLabel": "Sí, eliminar etiqueta"
+        },
+        "edit": {
+            "title": "Editar etiqueta"
         }
     },
     "wallpapers": {

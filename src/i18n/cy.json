@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "Gosodiadau bwrdd",
+            "deleteBoard": "Dileu bwrdd",
+            "changePlatform": "Newid llwyfannau bwrdd",
+            "noWallpapers": "Dim papurau wal wedi'u llwytho i fyny eto.",
+            "descriptionLabel": "Disgrifiad o'r bwrdd",
+            "nameLabel": "Enw'r bwrdd",
+            "wallpaper": "Papur wal y bwrdd",
+            "removeWallpaper": "Tynnwch y papur wal",
+            "uploadWallpaper": "Llwythwch bapur wal i fyny",
+            "platformPlaceholder": "Dewis platfform (au)",
+            "platformLabel": "platfform (au) {platformCount} wedi'u dewis"
+        },
         "addList": {
             "title": "Ychwanegu rhestr",
             "placeholder": "Teipiwch enw eich rhestr yma"
@@ -173,6 +186,9 @@
             "title": "Ydych chi'n siŵr eich bod chi am ddileu'r tag hwn?",
             "message": "Ni ellir dadwneud y weithred hon",
             "buttonLabel": "Ie, dileu tag"
+        },
+        "edit": {
+            "title": "Golygu tag"
         }
     },
     "wallpapers": {

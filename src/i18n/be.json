@@ -79,6 +79,19 @@
                 "soundcloud": "Гукавая хмара"
             }
         },
+        "settings": {
+            "title": "Налады дошкі",
+            "deleteBoard": "Выдаліць дошку",
+            "changePlatform": "Змена платформаў",
+            "noWallpapers": "Шпалеры пакуль не загружаныя.",
+            "descriptionLabel": "Апісанне дошкі",
+            "nameLabel": "Назва дошкі",
+            "wallpaper": "Настольныя шпалеры",
+            "removeWallpaper": "Выдаліце шпалеры",
+            "uploadWallpaper": "Загрузіце шпалеры",
+            "platformPlaceholder": "Выбраць платформу",
+            "platformLabel": "Выбрана платформа (і) {platformCount}"
+        },
         "addList": {
             "title": "Дадаць спіс",
             "placeholder": "Увядзіце тут імя спіса"
@@ -173,6 +186,9 @@
             "title": "Вы ўпэўнены, што хочаце выдаліць гэты тэг?",
             "message": "Гэта дзеянне нельга адмяніць",
             "buttonLabel": "Так, выдаліць тэг"
+        },
+        "edit": {
+            "title": "Рэдагаваць тэг"
         }
     },
     "wallpapers": {

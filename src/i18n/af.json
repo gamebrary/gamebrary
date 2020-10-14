@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "Board instellings",
+            "deleteBoard": "Skrap bord",
+            "changePlatform": "Verander bordplatforms",
+            "noWallpapers": "Nog geen agtergronde opgelaai nie.",
+            "descriptionLabel": "Raadbeskrywing",
+            "nameLabel": "Raad se naam",
+            "wallpaper": "Bordpapier",
+            "removeWallpaper": "Verwyder muurpapier",
+            "uploadWallpaper": "Laai agtergrond op",
+            "platformPlaceholder": "Kies platform (s)",
+            "platformLabel": "{platformCount} platform (s) gekies"
+        },
         "addList": {
             "title": "Voeg lys by",
             "placeholder": "Tik u lysnaam hier in"
@@ -173,6 +186,9 @@
             "title": "Is jy seker jy wil hierdie merker uitvee?",
             "message": "Hierdie handeling kan nie ongedaan gemaak word nie",
             "buttonLabel": "Ja, vee die merker uit"
+        },
+        "edit": {
+            "title": "Wysig merker"
         }
     },
     "wallpapers": {

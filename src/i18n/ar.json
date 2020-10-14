@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "إعدادات اللوحة",
+            "deleteBoard": "حذف اللوحة",
+            "changePlatform": "تغيير منصات اللوحة",
+            "noWallpapers": "لا خلفيات تم تحميلها حتى الان.",
+            "descriptionLabel": "وصف اللوحة",
+            "nameLabel": "اسم المجلس",
+            "wallpaper": "خلفية المجلس",
+            "removeWallpaper": "إزالة الخلفية",
+            "uploadWallpaper": "تحميل خلفية",
+            "platformPlaceholder": "حدد منصة (منصات)",
+            "platformLabel": "تم تحديد {platformCount} منصة (أنظمة)"
+        },
         "addList": {
             "title": "اضف قائمة",
             "placeholder": "اكتب اسم قائمتك هنا"
@@ -173,6 +186,9 @@
             "title": "هل أنت متأكد أنك تريد حذف هذه العلامة؟",
             "message": "لا يمكن التراجع عن هذا الإجراء",
             "buttonLabel": "نعم ، احذف العلامة"
+        },
+        "edit": {
+            "title": "تحرير العلامة"
         }
     },
     "wallpapers": {

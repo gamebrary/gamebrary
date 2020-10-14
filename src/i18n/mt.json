@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "Is-settings tal-bord",
+            "deleteBoard": "Ħassar il-bord",
+            "changePlatform": "Ibdel il-pjattaformi tal-bord",
+            "noWallpapers": "L-ebda wallpapers għadhom ma ttellgħu.",
+            "descriptionLabel": "Deskrizzjoni tal-bord",
+            "nameLabel": "Isem il-bord",
+            "wallpaper": "Wallpaper tal-bord",
+            "removeWallpaper": "Neħħi l-karta tal-ħajt",
+            "uploadWallpaper": "Tella 'l-wallpaper",
+            "platformPlaceholder": "Agħżel pjattaforma (i)",
+            "platformLabel": "{platformCount} pjattaforma (i) magħżula"
+        },
         "addList": {
             "title": "Żid lista",
             "placeholder": "Ikteb l-isem tal-lista tiegħek hawn"
@@ -173,6 +186,9 @@
             "title": "Int żgur li trid tħassar din it-tikketta?",
             "message": "Din l-azzjoni ma tistax titneħħa",
             "buttonLabel": "Iva, ħassar it-tikketta"
+        },
+        "edit": {
+            "title": "Editja t-tikketta"
         }
     },
     "wallpapers": {

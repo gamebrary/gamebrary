@@ -79,6 +79,19 @@
                 "soundcloud": "Skaņu mākonis"
             }
         },
+        "settings": {
+            "title": "Dēļa iestatījumi",
+            "deleteBoard": "Dzēst dēli",
+            "changePlatform": "Mainīt dēļu platformas",
+            "noWallpapers": "Pagaidām nav augšupielādēta neviena tapete.",
+            "descriptionLabel": "Dēļa apraksts",
+            "nameLabel": "Valdes nosaukums",
+            "wallpaper": "Dēļa tapetes",
+            "removeWallpaper": "Noņemt fonu",
+            "uploadWallpaper": "Augšupielādēt fonu",
+            "platformPlaceholder": "Atlasīt platformu (-as)",
+            "platformLabel": "Atlasīta platforma (-s) {platformCount}"
+        },
         "addList": {
             "title": "Pievienot sarakstu",
             "placeholder": "Šeit ierakstiet sava saraksta nosaukumu"
@@ -173,6 +186,9 @@
             "title": "Vai tiešām vēlaties dzēst šo tagu?",
             "message": "Šo darbību nevar atsaukt",
             "buttonLabel": "Jā, dzēst tagu"
+        },
+        "edit": {
+            "title": "Rediģēt tagu"
         }
     },
     "wallpapers": {

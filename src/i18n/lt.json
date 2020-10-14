@@ -79,6 +79,19 @@
                 "soundcloud": "Garso debesis"
             }
         },
+        "settings": {
+            "title": "Lentos nustatymai",
+            "deleteBoard": "Ištrinti lentą",
+            "changePlatform": "Keisti lentos platformas",
+            "noWallpapers": "Kol kas nėra įkeltų fono paveikslėlių.",
+            "descriptionLabel": "Lentos aprašymas",
+            "nameLabel": "Valdybos pavadinimas",
+            "wallpaper": "Lentos tapetai",
+            "removeWallpaper": "Pašalinti foną",
+            "uploadWallpaper": "Įkelti ekrano foną",
+            "platformPlaceholder": "Pasirinkite platformą (-as)",
+            "platformLabel": "Pasirinkta platforma (-os) {platformCount}"
+        },
         "addList": {
             "title": "Pridėti sąrašą",
             "placeholder": "Čia įveskite savo sąrašo pavadinimą"
@@ -173,6 +186,9 @@
             "title": "Ar tikrai norite ištrinti šią žymą?",
             "message": "Šio veiksmo negalima anuliuoti",
             "buttonLabel": "Taip, ištrinti žymą"
+        },
+        "edit": {
+            "title": "Redaguoti žymą"
         }
     },
     "wallpapers": {

@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "Board-inställningar",
+            "deleteBoard": "Ta bort tavlan",
+            "changePlatform": "Byt plattformar",
+            "noWallpapers": "Inga bakgrundsbilder har laddats upp än.",
+            "descriptionLabel": "Styrelsens beskrivning",
+            "nameLabel": "Styrelsens namn",
+            "wallpaper": "Board tapet",
+            "removeWallpaper": "Ta bort tapeten",
+            "uploadWallpaper": "Ladda upp bakgrund",
+            "platformPlaceholder": "Välj plattform (ar)",
+            "platformLabel": "{platformCount} plattform (ar) har valts"
+        },
         "addList": {
             "title": "Lägg till lista",
             "placeholder": "Skriv ditt listnamn här"
@@ -173,6 +186,9 @@
             "title": "Är du säker på att du vill ta bort den här taggen?",
             "message": "Denna åtgärd kan inte ångras",
             "buttonLabel": "Ja, ta bort taggen"
+        },
+        "edit": {
+            "title": "Redigera taggen"
         }
     },
     "wallpapers": {

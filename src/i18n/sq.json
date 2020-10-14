@@ -79,6 +79,19 @@
                 "soundcloud": "Klima e zërit"
             }
         },
+        "settings": {
+            "title": "Cilësimet e bordit",
+            "deleteBoard": "Fshi tabelën",
+            "changePlatform": "Ndryshoni platformat e bordit",
+            "noWallpapers": "Asnjë sfond i ngarkuar ende.",
+            "descriptionLabel": "Përshkrimi i bordit",
+            "nameLabel": "Emri i bordit",
+            "wallpaper": "Muri i bordit",
+            "removeWallpaper": "Hiqni sfondin",
+            "uploadWallpaper": "Ngarko sfondin",
+            "platformPlaceholder": "Zgjidhni platformën (et)",
+            "platformLabel": "Platforma (platformat) e zgjedhura {platformCount}"
+        },
         "addList": {
             "title": "Shto listë",
             "placeholder": "Shtypni emrin e listës tuaj këtu"
@@ -173,6 +186,9 @@
             "title": "Je i sigurt që dëshiron ta fshish këtë etiketë?",
             "message": "Ky veprim nuk mund të zhbëhet",
             "buttonLabel": "Po, fshi etiketën"
+        },
+        "edit": {
+            "title": "Redakto etiketën"
         }
     },
     "wallpapers": {

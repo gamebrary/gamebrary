@@ -79,6 +79,19 @@
                 "soundcloud": "Nube de son"
             }
         },
+        "settings": {
+            "title": "Configuración do taboleiro",
+            "deleteBoard": "Eliminar taboleiro",
+            "changePlatform": "Cambiar plataformas de taboleiro",
+            "noWallpapers": "Aínda non se cargaron fondos de pantalla.",
+            "descriptionLabel": "Descrición do taboleiro",
+            "nameLabel": "Nome da xunta",
+            "wallpaper": "Papel de parede do taboleiro",
+            "removeWallpaper": "Elimina o fondo de pantalla",
+            "uploadWallpaper": "Cargar fondo de pantalla",
+            "platformPlaceholder": "Seleccionar plataforma (s)",
+            "platformLabel": "{platformCount} plataforma (s) seleccionada (s)"
+        },
         "addList": {
             "title": "Engadir lista",
             "placeholder": "Escribe aquí o nome da túa lista"
@@ -173,6 +186,9 @@
             "title": "Seguro que queres eliminar esta etiqueta?",
             "message": "Esta acción non se pode desfacer",
             "buttonLabel": "Si, elimina a etiqueta"
+        },
+        "edit": {
+            "title": "Editar etiqueta"
         }
     },
     "wallpapers": {

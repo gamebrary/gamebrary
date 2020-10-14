@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "Configurações do tabuleiro",
+            "deleteBoard": "Excluir placa",
+            "changePlatform": "Mudar as plataformas do tabuleiro",
+            "noWallpapers": "Nenhum papel de parede carregado ainda.",
+            "descriptionLabel": "Descrição do tabuleiro",
+            "nameLabel": "Nome do tabuleiro",
+            "wallpaper": "Papel de parede do tabuleiro",
+            "removeWallpaper": "Remover papel de parede",
+            "uploadWallpaper": "Carregar papel de parede",
+            "platformPlaceholder": "Selecione a (s) plataforma (s)",
+            "platformLabel": "{platformCount} plataforma (s) selecionada (s)"
+        },
         "addList": {
             "title": "Adicionar lista",
             "placeholder": "Digite o nome da sua lista aqui"
@@ -173,6 +186,9 @@
             "title": "Tem certeza de que deseja excluir esta tag?",
             "message": "Essa ação não pode ser desfeita",
             "buttonLabel": "Sim, deletar tag"
+        },
+        "edit": {
+            "title": "Editar etiqueta"
         }
     },
     "wallpapers": {

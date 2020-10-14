@@ -79,6 +79,19 @@
                 "soundcloud": "Bunyi Suara"
             }
         },
+        "settings": {
+            "title": "Tetapan papan",
+            "deleteBoard": "Padamkan papan",
+            "changePlatform": "Tukar platform papan",
+            "noWallpapers": "Belum ada kertas dinding yang dimuat naik.",
+            "descriptionLabel": "Penerangan papan",
+            "nameLabel": "Nama papan",
+            "wallpaper": "Kertas dinding papan",
+            "removeWallpaper": "Keluarkan kertas dinding",
+            "uploadWallpaper": "Muat naik kertas dinding",
+            "platformPlaceholder": "Pilih platform",
+            "platformLabel": "{platformCount} platform dipilih"
+        },
         "addList": {
             "title": "Tambah senarai",
             "placeholder": "Taipkan nama senarai anda di sini"
@@ -173,6 +186,9 @@
             "title": "Adakah anda pasti mahu memadamkan teg ini?",
             "message": "Tindakan ini tidak boleh dibuat asal",
             "buttonLabel": "Ya, padamkan teg"
+        },
+        "edit": {
+            "title": "Edit teg"
         }
     },
     "wallpapers": {

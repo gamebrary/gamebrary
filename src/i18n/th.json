@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "การตั้งค่าบอร์ด",
+            "deleteBoard": "ลบบอร์ด",
+            "changePlatform": "เปลี่ยนแพลตฟอร์มบอร์ด",
+            "noWallpapers": "ยังไม่มีการอัปโหลดวอลเปเปอร์",
+            "descriptionLabel": "คำอธิบายคณะกรรมการ",
+            "nameLabel": "ชื่อคณะกรรมการ",
+            "wallpaper": "วอลล์เปเปอร์คณะกรรมการ",
+            "removeWallpaper": "ลบวอลเปเปอร์",
+            "uploadWallpaper": "อัปโหลดวอลเปเปอร์",
+            "platformPlaceholder": "เลือกแพลตฟอร์ม",
+            "platformLabel": "เลือก {platformCount} แพลตฟอร์ม"
+        },
         "addList": {
             "title": "เพิ่มรายการ",
             "placeholder": "พิมพ์ชื่อรายการของคุณที่นี่"
@@ -173,6 +186,9 @@
             "title": "แน่ใจไหมว่าต้องการลบแท็กนี้",
             "message": "การดำเนินการนี้ไม่สามารถยกเลิกได้",
             "buttonLabel": "ใช่ลบแท็ก"
+        },
+        "edit": {
+            "title": "แก้ไขแท็ก"
         }
     },
     "wallpapers": {

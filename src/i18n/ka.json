@@ -79,6 +79,19 @@
                 "soundcloud": "საუნდკლიუდი"
             }
         },
+        "settings": {
+            "title": "დაფის პარამეტრები",
+            "deleteBoard": "დაფის წაშლა",
+            "changePlatform": "შეცვალეთ დაფის პლატფორმები",
+            "noWallpapers": "ჯერ არ არის ატვირთული ფონები.",
+            "descriptionLabel": "დაფის აღწერა",
+            "nameLabel": "დაფის სახელი",
+            "wallpaper": "დაფის ფონი",
+            "removeWallpaper": "შპალერის ამოღება",
+            "uploadWallpaper": "ატვირთეთ ფონი",
+            "platformPlaceholder": "აირჩიეთ პლატფორმა (ებ) ი",
+            "platformLabel": "არჩეულია {platformCount} პლატფორმა"
+        },
         "addList": {
             "title": "სიის დამატება",
             "placeholder": "აქ აკრიფეთ თქვენი სიის სახელი"
@@ -173,6 +186,9 @@
             "title": "დარწმუნებული ხართ, რომ გსურთ ამ თეგის წაშლა?",
             "message": "ამ მოქმედების გაუქმება შეუძლებელია",
             "buttonLabel": "დიახ, წაშალეთ ნიშანი"
+        },
+        "edit": {
+            "title": "რედაქტირება"
         }
     },
     "wallpapers": {

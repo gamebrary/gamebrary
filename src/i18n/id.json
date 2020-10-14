@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "Pengaturan papan",
+            "deleteBoard": "Hapus papan",
+            "changePlatform": "Ganti platform papan",
+            "noWallpapers": "Belum ada wallpaper yang diunggah.",
+            "descriptionLabel": "Deskripsi papan",
+            "nameLabel": "Nama papan",
+            "wallpaper": "Wallpaper papan",
+            "removeWallpaper": "Hapus wallpaper",
+            "uploadWallpaper": "Unggah wallpaper",
+            "platformPlaceholder": "Pilih platform",
+            "platformLabel": "{platformCount} platform dipilih"
+        },
         "addList": {
             "title": "Tambahkan daftar",
             "placeholder": "Ketik nama daftar Anda di sini"
@@ -173,6 +186,9 @@
             "title": "Apakah Anda yakin ingin menghapus tag ini?",
             "message": "Tindakan ini tidak bisa dibatalkan",
             "buttonLabel": "Ya, hapus tag"
+        },
+        "edit": {
+            "title": "Edit tag"
         }
     },
     "wallpapers": {

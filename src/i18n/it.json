@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "Impostazioni della scheda",
+            "deleteBoard": "Elimina scheda",
+            "changePlatform": "Cambia piattaforme di bordo",
+            "noWallpapers": "Nessun sfondo caricato ancora.",
+            "descriptionLabel": "Descrizione della scheda",
+            "nameLabel": "Nome della scheda",
+            "wallpaper": "Carta da parati a bordo",
+            "removeWallpaper": "Rimuovi lo sfondo",
+            "uploadWallpaper": "Carica lo sfondo",
+            "platformPlaceholder": "Seleziona piattaforma / e",
+            "platformLabel": "{platformCount} piattaforme selezionate"
+        },
         "addList": {
             "title": "Aggiungi elenco",
             "placeholder": "Digita qui il nome della tua lista"
@@ -173,6 +186,9 @@
             "title": "Sei sicuro di voler eliminare questo tag?",
             "message": "Questa azione non può essere annullata",
             "buttonLabel": "Sì, elimina il tag"
+        },
+        "edit": {
+            "title": "Modifica tag"
         }
     },
     "wallpapers": {

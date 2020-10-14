@@ -79,6 +79,19 @@
                 "soundcloud": "Äänipilvi"
             }
         },
+        "settings": {
+            "title": "Hallituksen asetukset",
+            "deleteBoard": "Poista levy",
+            "changePlatform": "Vaihda levyn alustoja",
+            "noWallpapers": "Ei vielä ladattuja taustakuvia.",
+            "descriptionLabel": "Hallituksen kuvaus",
+            "nameLabel": "Hallituksen nimi",
+            "wallpaper": "Hallituksen taustakuva",
+            "removeWallpaper": "Poista taustakuva",
+            "uploadWallpaper": "Lataa taustakuva",
+            "platformPlaceholder": "Valitse alusta (t)",
+            "platformLabel": "{platformCount} alustaa valittu"
+        },
         "addList": {
             "title": "Lisää luettelo",
             "placeholder": "Kirjoita luettelonimesi tähän"
@@ -173,6 +186,9 @@
             "title": "Haluatko varmasti poistaa tämän tagin?",
             "message": "Tätä toimintoa ei voi kumota",
             "buttonLabel": "Kyllä, poista tunniste"
+        },
+        "edit": {
+            "title": "Muokkaa tagia"
         }
     },
     "wallpapers": {

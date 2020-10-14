@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "ボード設定",
+            "deleteBoard": "ボードを削除する",
+            "changePlatform": "ボードプラットフォームの変更",
+            "noWallpapers": "壁紙はまだアップロードされていません。",
+            "descriptionLabel": "ボードの説明",
+            "nameLabel": "委員会名",
+            "wallpaper": "ボードの壁紙",
+            "removeWallpaper": "壁紙を削除する",
+            "uploadWallpaper": "壁紙をアップロードする",
+            "platformPlaceholder": "プラットフォームを選択します",
+            "platformLabel": "{platformCount}プラットフォームが選択されました"
+        },
         "addList": {
             "title": "リストを追加",
             "placeholder": "ここにリスト名を入力してください"
@@ -173,6 +186,9 @@
             "title": "このタグを削除してもよろしいですか？",
             "message": "このアクションは元に戻せません",
             "buttonLabel": "はい、タグを削除します"
+        },
+        "edit": {
+            "title": "タグを編集"
         }
     },
     "wallpapers": {

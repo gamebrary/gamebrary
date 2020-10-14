@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "Setările plăcii",
+            "deleteBoard": "Ștergeți placa",
+            "changePlatform": "Schimbați platformele de bord",
+            "noWallpapers": "Nu s-au încărcat încă imagini de fundal.",
+            "descriptionLabel": "Descrierea consiliului",
+            "nameLabel": "Numele consiliului",
+            "wallpaper": "Tapet de bord",
+            "removeWallpaper": "Eliminați tapetul",
+            "uploadWallpaper": "Încărcați tapet",
+            "platformPlaceholder": "Selectați platforma (platformele)",
+            "platformLabel": "{platformCount} platformă (platforme) selectată (e)"
+        },
         "addList": {
             "title": "Adăugați o listă",
             "placeholder": "Introduceți numele listei aici"
@@ -173,6 +186,9 @@
             "title": "Sigur doriți să ștergeți această etichetă?",
             "message": "Această acțiune nu poate fi anulată",
             "buttonLabel": "Da, ștergeți eticheta"
+        },
+        "edit": {
+            "title": "Editați eticheta"
         }
     },
     "wallpapers": {

@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "Настройки платы",
+            "deleteBoard": "Удалить доску",
+            "changePlatform": "Сменить платформу доски",
+            "noWallpapers": "Обои еще не загружены.",
+            "descriptionLabel": "Описание платы",
+            "nameLabel": "Название платы",
+            "wallpaper": "Настольные обои",
+            "removeWallpaper": "Удалить обои",
+            "uploadWallpaper": "Загрузить обои",
+            "platformPlaceholder": "Выберите платформу (ы)",
+            "platformLabel": "Выбраны платформы {platformCount}"
+        },
         "addList": {
             "title": "Добавить список",
             "placeholder": "Введите здесь название вашего списка"
@@ -173,6 +186,9 @@
             "title": "Вы уверены, что хотите удалить этот тег?",
             "message": "Это действие не может быть отменено",
             "buttonLabel": "Да, удалить тег"
+        },
+        "edit": {
+            "title": "Изменить тег"
         }
     },
     "wallpapers": {

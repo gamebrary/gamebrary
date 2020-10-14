@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "Board-Einstellungen",
+            "deleteBoard": "Board löschen",
+            "changePlatform": "Board-Plattformen wechseln",
+            "noWallpapers": "Es wurden noch keine Hintergrundbilder hochgeladen.",
+            "descriptionLabel": "Board Beschreibung",
+            "nameLabel": "Boardname",
+            "wallpaper": "Board Wallpaper",
+            "removeWallpaper": "Tapete entfernen",
+            "uploadWallpaper": "Hintergrundbild hochladen",
+            "platformPlaceholder": "Plattform (en) auswählen",
+            "platformLabel": "{platformCount} Plattform (en) ausgewählt"
+        },
         "addList": {
             "title": "Liste hinzufügen",
             "placeholder": "Geben Sie hier Ihren Listennamen ein"
@@ -173,6 +186,9 @@
             "title": "Möchten Sie dieses Tag wirklich löschen?",
             "message": "Diese Aktion kann nicht rückgängig gemacht werden",
             "buttonLabel": "Ja, Tag löschen"
+        },
+        "edit": {
+            "title": "Tag bearbeiten"
         }
     },
     "wallpapers": {

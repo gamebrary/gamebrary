@@ -79,6 +79,19 @@
                 "soundcloud": "Sauti ya sauti"
             }
         },
+        "settings": {
+            "title": "Mipangilio ya bodi",
+            "deleteBoard": "Futa bodi",
+            "changePlatform": "Badilisha majukwaa ya bodi",
+            "noWallpapers": "Hakuna mandhari yaliyopakiwa bado.",
+            "descriptionLabel": "Maelezo ya bodi",
+            "nameLabel": "Jina la bodi",
+            "wallpaper": "Ukuta wa bodi",
+            "removeWallpaper": "Ondoa Ukuta",
+            "uploadWallpaper": "Pakia Ukuta",
+            "platformPlaceholder": "Chagua majukwaa",
+            "platformLabel": "Majukwaa ya {platformCount} yamechaguliwa"
+        },
         "addList": {
             "title": "Ongeza orodha",
             "placeholder": "Andika jina la orodha yako hapa"
@@ -173,6 +186,9 @@
             "title": "Je! Una uhakika unataka kufuta lebo hii?",
             "message": "Kitendo hiki hakiwezi kutenduliwa",
             "buttonLabel": "Ndio, futa lebo"
+        },
+        "edit": {
+            "title": "Hariri lebo"
         }
     },
     "wallpapers": {

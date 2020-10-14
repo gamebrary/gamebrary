@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "Configuració del tauler",
+            "deleteBoard": "Suprimeix el tauler",
+            "changePlatform": "Canviar les plataformes del tauler",
+            "noWallpapers": "Encara no s'ha penjat cap fons de pantalla.",
+            "descriptionLabel": "Descripció del tauler",
+            "nameLabel": "Nom de la junta",
+            "wallpaper": "Fons de pantalla de tauler",
+            "removeWallpaper": "Elimina el fons de pantalla",
+            "uploadWallpaper": "Pengeu fons de pantalla",
+            "platformPlaceholder": "Seleccioneu les plataformes",
+            "platformLabel": "{platformCount} plataforma (s) seleccionada (s)"
+        },
         "addList": {
             "title": "Afegeix una llista",
             "placeholder": "Escriviu el nom de la llista aquí"
@@ -173,6 +186,9 @@
             "title": "Esteu segur que voleu suprimir aquesta etiqueta?",
             "message": "Aquesta acció no es pot desfer",
             "buttonLabel": "Sí, suprimiu l'etiqueta"
+        },
+        "edit": {
+            "title": "Edita l'etiqueta"
         }
     },
     "wallpapers": {

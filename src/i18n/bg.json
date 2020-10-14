@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "Настройки на борда",
+            "deleteBoard": "Изтриване на дъската",
+            "changePlatform": "Сменете платформи на борда",
+            "noWallpapers": "Все още няма качени тапети.",
+            "descriptionLabel": "Описание на дъската",
+            "nameLabel": "Име на борда",
+            "wallpaper": "Тапети на дъска",
+            "removeWallpaper": "Премахнете тапета",
+            "uploadWallpaper": "Качете тапет",
+            "platformPlaceholder": "Изберете платформа (и)",
+            "platformLabel": "Избрана (и) платформа (и) {platformCount}"
+        },
         "addList": {
             "title": "Добавяне на списък",
             "placeholder": "Въведете името на вашия списък тук"
@@ -173,6 +186,9 @@
             "title": "Наистина ли искате да изтриете този маркер?",
             "message": "Това действие не може да бъде отменено",
             "buttonLabel": "Да, изтриване на маркера"
+        },
+        "edit": {
+            "title": "Редактиране на таг"
         }
     },
     "wallpapers": {

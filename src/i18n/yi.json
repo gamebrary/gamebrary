@@ -79,6 +79,19 @@
                 "soundcloud": "סאָונדקלאָוד"
             }
         },
+        "settings": {
+            "title": "ברעט סעטטינגס",
+            "deleteBoard": "ויסמעקן ברעט",
+            "changePlatform": "טוישן ברעט פּלאַטפאָרמס",
+            "noWallpapers": "קיין וואָלפּייפּערז ופּלאָאַדעד נאָך.",
+            "descriptionLabel": "ברעט באַשרייַבונג",
+            "nameLabel": "ברעט נאָמען",
+            "wallpaper": "ברעט טאַפּעטן",
+            "removeWallpaper": "אַראָפּנעמען טאַפּעטן",
+            "uploadWallpaper": "צופֿעליקער טאַפּעטן",
+            "platformPlaceholder": "סעלעקטירן פּלאַטפאָרמע",
+            "platformLabel": "{platformCount} פּלאַטפאָרמע (s) אויסגעקליבן"
+        },
         "addList": {
             "title": "לייג רשימה",
             "placeholder": "טיפּ דיין רשימה נאָמען דאָ"
@@ -173,6 +186,9 @@
             "title": "ביסטו זיכער אז דו ווילסט אויסמעקן דעם צעטל?",
             "message": "דער קאַמף קען נישט זיין אַנדאַן",
             "buttonLabel": "יאָ, ויסמעקן פאַרבינדן"
+        },
+        "edit": {
+            "title": "רעדאַגירן פאַרבינדן"
         }
     },
     "wallpapers": {

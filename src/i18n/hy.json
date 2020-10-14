@@ -79,6 +79,19 @@
                 "soundcloud": "Ձայնային ամպ"
             }
         },
+        "settings": {
+            "title": "Տախտակի կարգավորումներ",
+            "deleteBoard": "Deleteնջել տախտակը",
+            "changePlatform": "Փոխել տախտակի պլատֆորմները",
+            "noWallpapers": "Դեռևս պաստառներ չեն վերբեռնվել:",
+            "descriptionLabel": "Տախտակի նկարագրություն",
+            "nameLabel": "Տախտակի անվանումը",
+            "wallpaper": "Տախտակի պաստառ",
+            "removeWallpaper": "Հեռացնել պաստառները",
+            "uploadWallpaper": "Վերբեռնել պաստառ",
+            "platformPlaceholder": "Ընտրեք հարթակ (ներ)",
+            "platformLabel": "Ընտրված է {platformCount} պլատֆորմ (ներ)"
+        },
         "addList": {
             "title": "Ավելացնել ցուցակ",
             "placeholder": "Մուտքագրեք այստեղ ձեր ցուցակի անունը"
@@ -173,6 +186,9 @@
             "title": "Վստա՞հ եք, որ ցանկանում եք ջնջել այս պիտակը:",
             "message": "Այս գործողությունը չի կարող հետարկվել",
             "buttonLabel": "Այո, ջնջիր պիտակը"
+        },
+        "edit": {
+            "title": "Խմբագրել պիտակը"
         }
     },
     "wallpapers": {

@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "Board instellingen",
+            "deleteBoard": "Bord verwijderen",
+            "changePlatform": "Verander bordplatforms",
+            "noWallpapers": "Nog geen wallpapers geüpload.",
+            "descriptionLabel": "Board beschrijving",
+            "nameLabel": "Board naam",
+            "wallpaper": "Board behang",
+            "removeWallpaper": "Verwijder behang",
+            "uploadWallpaper": "Upload achtergrond",
+            "platformPlaceholder": "Selecteer platform (en)",
+            "platformLabel": "{platformCount} platform (en) geselecteerd"
+        },
         "addList": {
             "title": "Lijst toevoegen",
             "placeholder": "Typ hier uw lijstnaam"
@@ -173,6 +186,9 @@
             "title": "Weet u zeker dat u deze tag wilt verwijderen?",
             "message": "Deze actie kan niet ongedaan gemaakt worden",
             "buttonLabel": "Ja, tag verwijderen"
+        },
+        "edit": {
+            "title": "Bewerk label"
         }
     },
     "wallpapers": {

@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "Socruithe an bhoird",
+            "deleteBoard": "Scrios bord",
+            "changePlatform": "Athraigh ardáin bhoird",
+            "noWallpapers": "Níor uaslódáil aon pháipéar balla fós.",
+            "descriptionLabel": "Tuairisc an bhoird",
+            "nameLabel": "Ainm an bhoird",
+            "wallpaper": "Cúlbhrat boird",
+            "removeWallpaper": "Bain páipéar balla",
+            "uploadWallpaper": "Uaslódáil páipéar balla",
+            "platformPlaceholder": "Roghnaigh ardán (í)",
+            "platformLabel": "ardán (í) {platformCount} roghnaithe"
+        },
         "addList": {
             "title": "Cuir liosta leis",
             "placeholder": "Clóscríobh d'ainm liosta anseo"
@@ -173,6 +186,9 @@
             "title": "An bhfuil tú cinnte gur mhaith leat an chlib seo a scriosadh?",
             "message": "Ní féidir an gníomh seo a scriosadh",
             "buttonLabel": "Sea, scrios tag"
+        },
+        "edit": {
+            "title": "Cuir tag in eagar"
         }
     },
     "wallpapers": {

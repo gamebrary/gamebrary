@@ -79,6 +79,19 @@
                 "soundcloud": "Helipilv"
             }
         },
+        "settings": {
+            "title": "Juhatuse sätted",
+            "deleteBoard": "Kustuta tahvel",
+            "changePlatform": "Muutke pardal olevaid platvorme",
+            "noWallpapers": "Ühtegi taustapilti pole üles laaditud.",
+            "descriptionLabel": "Juhatuse kirjeldus",
+            "nameLabel": "Juhatuse nimi",
+            "wallpaper": "Laua tapeet",
+            "removeWallpaper": "Eemalda tapeet",
+            "uploadWallpaper": "Laadige taustapilt üles",
+            "platformPlaceholder": "Valige platvorm (id)",
+            "platformLabel": "Valitud on {platformCount} platvorm (id)"
+        },
         "addList": {
             "title": "Lisa loend",
             "placeholder": "Sisestage siia oma loendi nimi"
@@ -173,6 +186,9 @@
             "title": "Kas soovite kindlasti selle märgendi kustutada?",
             "message": "Seda toimingut ei saa tagasi võtta",
             "buttonLabel": "Jah, kustuta silt"
+        },
+        "edit": {
+            "title": "Muuda silti"
         }
     },
     "wallpapers": {

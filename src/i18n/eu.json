@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "Taularen ezarpenak",
+            "deleteBoard": "Ezabatu taula",
+            "changePlatform": "Aldatu taula plataformak",
+            "noWallpapers": "Ez da horma paperik kargatu oraindik.",
+            "descriptionLabel": "Taularen deskribapena",
+            "nameLabel": "Batzordearen izena",
+            "wallpaper": "Taularen horma papera",
+            "removeWallpaper": "Kendu horma papera",
+            "uploadWallpaper": "Kargatu horma papera",
+            "platformPlaceholder": "Aukeratu plataforma (k)",
+            "platformLabel": "{platformCount} plataforma (k) hautatu da"
+        },
         "addList": {
             "title": "Gehitu zerrenda",
             "placeholder": "Idatzi zure zerrendaren izena hemen"
@@ -173,6 +186,9 @@
             "title": "Ziur zaude etiketa hau ezabatu nahi duzula?",
             "message": "Ekintza hau ezin da desegin",
             "buttonLabel": "Bai, ezabatu etiketa"
+        },
+        "edit": {
+            "title": "Editatu etiketa"
         }
     },
     "wallpapers": {

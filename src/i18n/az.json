@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "Taxta parametrləri",
+            "deleteBoard": "Lövhəni silin",
+            "changePlatform": "Taxta platformalarını dəyişdirin",
+            "noWallpapers": "Hələ divar kağızı yüklənməyib.",
+            "descriptionLabel": "Şuranın təsviri",
+            "nameLabel": "Şuranın adı",
+            "wallpaper": "Taxta divar kağızı",
+            "removeWallpaper": "Divar kağızı silin",
+            "uploadWallpaper": "Divar kağızı yükləyin",
+            "platformPlaceholder": "Platformaları seçin",
+            "platformLabel": "{platformCount} platforması seçildi"
+        },
         "addList": {
             "title": "Siyahı əlavə edin",
             "placeholder": "Siyahınızın adını buraya yazın"
@@ -173,6 +186,9 @@
             "title": "Bu etiketi silmək istədiyinizə əminsiniz?",
             "message": "Bu əməliyyat geri qaytarıla bilməz",
             "buttonLabel": "Bəli, etiketi silin"
+        },
+        "edit": {
+            "title": "Etiketi redaktə edin"
         }
     },
     "wallpapers": {

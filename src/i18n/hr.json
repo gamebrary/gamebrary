@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "Postavke ploče",
+            "deleteBoard": "Izbriši ploču",
+            "changePlatform": "Promijenite platforme ploče",
+            "noWallpapers": "Još nema učitanih pozadina.",
+            "descriptionLabel": "Opis ploče",
+            "nameLabel": "Naziv ploče",
+            "wallpaper": "Pozadina ploče",
+            "removeWallpaper": "Uklonite pozadinu",
+            "uploadWallpaper": "Prenesite pozadinu",
+            "platformPlaceholder": "Odaberite platformu (e)",
+            "platformLabel": "Odabrane platforme: {platformCount}"
+        },
         "addList": {
             "title": "Dodaj popis",
             "placeholder": "Ovdje upišite ime popisa"
@@ -173,6 +186,9 @@
             "title": "Jeste li sigurni da želite izbrisati ovu oznaku?",
             "message": "Ova se radnja ne može poništiti",
             "buttonLabel": "Da, izbriši oznaku"
+        },
+        "edit": {
+            "title": "Uredi oznaku"
         }
     },
     "wallpapers": {

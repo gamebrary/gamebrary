@@ -79,6 +79,19 @@
                 "soundcloud": "Саундклауд"
             }
         },
+        "settings": {
+            "title": "Поставки на таблата",
+            "deleteBoard": "Избриши табла",
+            "changePlatform": "Променете ги платформите на таблата",
+            "noWallpapers": "Сè уште не се поставени позадини.",
+            "descriptionLabel": "Опис на табла",
+            "nameLabel": "Име на табла",
+            "wallpaper": "Позадина на табла",
+            "removeWallpaper": "Отстранете ја тапетата",
+            "uploadWallpaper": "Поставете позадина",
+            "platformPlaceholder": "Изберете платформа (и)",
+            "platformLabel": "Избрани се {platformCount} платформа (и)"
+        },
         "addList": {
             "title": "Додадете список",
             "placeholder": "Внесете го името на списокот тука"
@@ -173,6 +186,9 @@
             "title": "Дали сте сигурни дека сакате да ја избришете оваа ознака?",
             "message": "Ова дејство не може да се врати",
             "buttonLabel": "Да, избришете ја ознаката"
+        },
+        "edit": {
+            "title": "Уредете ја ознаката"
         }
     },
     "wallpapers": {

@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "הגדרות לוח",
+            "deleteBoard": "מחק לוח",
+            "changePlatform": "שנה פלטפורמות לוח",
+            "noWallpapers": "טרם הועלה טפטים.",
+            "descriptionLabel": "תיאור הלוח",
+            "nameLabel": "שם הלוח",
+            "wallpaper": "טפט לוח",
+            "removeWallpaper": "הסר טפט",
+            "uploadWallpaper": "העלה טפט",
+            "platformPlaceholder": "בחר פלטפורמות",
+            "platformLabel": "נבחרה {platformCount} פלטפורמה"
+        },
         "addList": {
             "title": "הוסף רשימה",
             "placeholder": "הקלד את שם הרשימה שלך כאן"
@@ -173,6 +186,9 @@
             "title": "האם אתה בטוח שברצונך למחוק את התג הזה?",
             "message": "לא ניתן לבטל פעולה זו",
             "buttonLabel": "כן, מחק את התג"
+        },
+        "edit": {
+            "title": "ערוך תג"
         }
     },
     "wallpapers": {

@@ -79,6 +79,19 @@
                 "soundcloud": "声云"
             }
         },
+        "settings": {
+            "title": "主板设置",
+            "deleteBoard": "删除板",
+            "changePlatform": "更换板平台",
+            "noWallpapers": "暂无壁纸上传。",
+            "descriptionLabel": "董事会说明",
+            "nameLabel": "董事会名称",
+            "wallpaper": "木板壁纸",
+            "removeWallpaper": "移除墙纸",
+            "uploadWallpaper": "上载墙纸",
+            "platformPlaceholder": "选择平台",
+            "platformLabel": "选择了{platformCount}个平台"
+        },
         "addList": {
             "title": "新增清单",
             "placeholder": "在此处输入您的列表名称"
@@ -173,6 +186,9 @@
             "title": "您确定要删除此标签吗？",
             "message": "此操作无法撤消",
             "buttonLabel": "是的，删除标签"
+        },
+        "edit": {
+            "title": "编辑标签"
         }
     },
     "wallpapers": {

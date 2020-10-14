@@ -80,15 +80,17 @@
             }
         },
         "settings": {
-          "title": "Board settings",
-          "deleteBoard": "Delete board",
-          "changePlatform": "Change board platforms",
-          "noWallpapers": "No wallpapers uploaded yet.",
-          "managefiles": "Manage files",
-          "descriptionLabel": "Board description",
-          "nameLabel": "Board name",
-          "removeWallpaper": "Remove wallpaper",
-          "uploadWallpaper": "Upload wallpaper"
+            "title": "Board settings",
+            "deleteBoard": "Delete board",
+            "changePlatform": "Change board platforms",
+            "noWallpapers": "No wallpapers uploaded yet.",
+            "descriptionLabel": "Board description",
+            "nameLabel": "Board name",
+            "wallpaper": "Board wallpaper",
+            "removeWallpaper": "Remove wallpaper",
+            "uploadWallpaper": "Upload wallpaper",
+            "platformPlaceholder": "Select platform(s)",
+            "platformLabel": "{platformCount} platform(s) selected"
         },
         "addList": {
             "title": "Add list",
@@ -186,7 +188,7 @@
             "buttonLabel": "Yes, delete tag"
         },
         "edit": {
-          "title": "Edit tag"
+            "title": "Edit tag"
         }
     },
     "wallpapers": {

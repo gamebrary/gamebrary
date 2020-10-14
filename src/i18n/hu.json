@@ -79,6 +79,19 @@
                 "soundcloud": "Soundcloud"
             }
         },
+        "settings": {
+            "title": "Tábla beállításai",
+            "deleteBoard": "Tábla törlése",
+            "changePlatform": "Tábla platformok cseréje",
+            "noWallpapers": "Még nem töltöttek fel háttérképeket.",
+            "descriptionLabel": "Tábla leírása",
+            "nameLabel": "Tábla neve",
+            "wallpaper": "Board háttérkép",
+            "removeWallpaper": "Távolítsa el a háttérképet",
+            "uploadWallpaper": "Töltsön fel háttérképet",
+            "platformPlaceholder": "Platform (ok) kiválasztása",
+            "platformLabel": "{platformCount} platform (ok) kiválasztva"
+        },
         "addList": {
             "title": "Lista hozzáadása",
             "placeholder": "Ide írja be a lista nevét"
@@ -173,6 +186,9 @@
             "title": "Biztosan törli ezt a címkét?",
             "message": "Ez a művelet nem visszavonható",
             "buttonLabel": "Igen, törölje a címkét"
+        },
+        "edit": {
+            "title": "Címke szerkesztése"
         }
     },
     "wallpapers": {
