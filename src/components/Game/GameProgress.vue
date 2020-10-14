@@ -15,20 +15,14 @@
       :body-text-variant="nightMode ? 'white' : null"
       :footer-bg-variant="nightMode ? 'dark' : null"
       :footer-text-variant="nightMode ? 'white' : null"
+      footer-class="d-flex justify-content-between"
       @show="show"
     >
       <template v-slot:modal-header="{ close }">
         <modal-header
           title="Set game progress"
-        >
-          <b-button
-            variant="light"
-            size="sm"
-            @click="close"
-          >
-            <icon name="x" />
-          </b-button>
-        </modal-header>
+          @close="close"
+        />
       </template>
 
       <b-input-group :prepend="`${localProgress}%`" class="mb-4" size="lg">

@@ -17,20 +17,14 @@
       :body-text-variant="nightMode ? 'white' : null"
       :footer-bg-variant="nightMode ? 'dark' : null"
       :footer-text-variant="nightMode ? 'white' : null"
+      footer-class="d-flex justify-content-between"
       @show="show"
     >
       <template v-slot:modal-header="{ close }">
         <modal-header
           title="Game notes"
-        >
-          <b-button
-            variant="light"
-            size="sm"
-            @click="close"
-          >
-            <icon name="x" />
-          </b-button>
-        </modal-header>
+          @close="close"
+        />
       </template>
 
       <b-form-textarea
@@ -46,24 +40,35 @@
         </a>
       </b-form-text>
 
-      <template v-slot:modal-footer>
+      <template v-slot:modal-footer="{ cancel }">
         <b-button
           variant="danger"
-          :disabled="deleting"
+          :disabled="deleting || !notes[game.id]"
           @click="deleteNote"
         >
           <b-spinner small v-if="deleting" />
           <span v-else>{{ $t('global.delete') }}</span>
         </b-button>
 
-        <b-button
-          variant="primary"
-          :disabled="saving"
-          @click="saveNote"
-        >
-          <b-spinner small v-if="saving" />
-          <span v-else>{{ $t('global.save') }}</span>
-        </b-button>
+        <div>
+          <b-button
+            variant="light"
+            class="mx-2"
+            :disabled="saving"
+            @click="cancel"
+          >
+            {{ $t('global.cancel') }}
+          </b-button>
+
+          <b-button
+            variant="primary"
+            :disabled="saving"
+            @click="saveNote"
+          >
+            <b-spinner small v-if="saving" />
+            <span v-else>{{ $t('global.save') }}</span>
+          </b-button>
+        </div>
       </template>
     </b-modal>
   </b-button>

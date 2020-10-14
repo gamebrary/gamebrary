@@ -17,15 +17,8 @@
       <template v-slot:modal-header="{ close }">
         <modal-header
           :title="$t('board.addGame.title')"
-        >
-          <b-button
-            variant="light"
-            size="sm"
-            @click="close"
-          >
-            <icon name="x" />
-          </b-button>
-        </modal-header>
+          @close="close"
+        />
       </template>
 
       <b-form @submit.prevent="search" class="mb-2">

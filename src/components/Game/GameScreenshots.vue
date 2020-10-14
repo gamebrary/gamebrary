@@ -25,15 +25,8 @@
       <template v-slot:modal-header="{ close }">
         <modal-header
           :title="game.name"
-        >
-          <b-button
-            variant="light"
-            size="sm"
-            @click="close"
-          >
-            <icon name="x" />
-          </b-button>
-        </modal-header>
+          @close="close"
+        />
       </template>
 
       <b-carousel

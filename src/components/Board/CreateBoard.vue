@@ -14,21 +14,15 @@
       :body-text-variant="nightMode ? 'white' : null"
       :footer-bg-variant="nightMode ? 'dark' : null"
       :footer-text-variant="nightMode ? 'white' : null"
+      footer-class="d-flex justify-content-between"
       @show="resetBoard"
       @hidden="resetBoard"
     >
       <template v-slot:modal-header="{ close }">
         <modal-header
-          title="Create board"
-        >
-          <b-button
-            variant="light"
-            size="sm"
-            @click="close"
-          >
-            <icon name="x" />
-          </b-button>
-        </modal-header>
+          :title="$t('boards.create')"
+          @close="close"
+        />
       </template>
 
       <form ref="createBoardForm" @submit.stop.prevent="submit">
@@ -85,7 +79,7 @@
       </form>
 
       <template v-slot:modal-footer="{ cancel }">
-        <b-button @click="cancel">
+        <b-button @click="cancel" variant="light">
           Cancel
         </b-button>
 

@@ -5,6 +5,12 @@
     size="lg"
     footer-class="p-2 justify-content-center"
     header-class="align-items-center pb-0 border-0"
+    :header-bg-variant="nightMode ? 'dark' : null"
+    :header-text-variant="nightMode ? 'white' : null"
+    :body-bg-variant="nightMode ? 'dark' : null"
+    :body-text-variant="nightMode ? 'white' : null"
+    :footer-bg-variant="nightMode ? 'dark' : null"
+    :footer-text-variant="nightMode ? 'white' : null"
     @show="load"
     @hidden="reset"
   >
@@ -15,38 +21,27 @@
       <modal-header
         :title="game.name"
         :subtitle="gameModalData.list.name"
-        header-class="border-0"
-      >
-        <b-button-toolbar key-nav aria-label="Toolbar with button groups">
-          <b-button-group class="mr-2">
-            <b-button
-              size="sm"
-              variant="light"
-              :disabled="prevDisabled"
-              @click="previousGame"
-            >
-              <icon name="triangle-left" />
-            </b-button>
-
-            <b-button
-              size="sm"
-              variant="light"
-              :disabled="nextDisabled"
-              @click="nextGame"
-            >
-              <icon name="triangle-right" />
-            </b-button>
-          </b-button-group>
+        @close="close"
+      />
+        <b-button-group>
+          <b-button
+            size="sm"
+            :variant="nightMode ? 'dark' : 'light'"
+            :disabled="prevDisabled"
+            @click="previousGame"
+          >
+            <icon name="triangle-left" />
+          </b-button>
 
           <b-button
-            variant="light"
             size="sm"
-            @click="close"
+            :variant="nightMode ? 'dark' : 'light'"
+            :disabled="nextDisabled"
+            @click="nextGame"
           >
-            <icon name="x" />
+            <icon name="triangle-right" />
           </b-button>
-        </b-button-toolbar>
-      </modal-header>
+        </b-button-group>
     </template>
 
     <b-container v-if="game.name" class="m-0 p-0">
@@ -151,7 +146,7 @@
 
 <script>
 import moment from 'moment';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import GameDetailPlaceholder from '@/components/Game/GameDetailPlaceholder';
 import GameDetails from '@/components/Game/GameDetails';
 import GameNotesTab from '@/components/Game/GameNotesTab';
@@ -190,6 +185,7 @@ export default {
   computed: {
     // TODO: rename gameModalData
     ...mapState(['gameModalData', 'games', 'platform', 'progresses', 'tags']),
+    ...mapGetters(['nightMode']),
 
     releaseDate() {
       const releaseDate = this.game

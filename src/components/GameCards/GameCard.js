@@ -14,7 +14,7 @@ export default {
   computed: {
     ...mapState(['settings', 'games', 'tags', 'notes', 'progresses', 'board']),
     // TODO: remove getter
-    ...mapGetters(['gameTags']),
+    ...mapGetters(['gameTags', 'nightMode']),
 
     showCompletedBadge() {
       return this.gameProgress && Number(this.gameProgress) === 100;
