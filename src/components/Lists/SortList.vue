@@ -5,27 +5,26 @@
 
     <b-modal
       :id="modalId"
+      :header-bg-variant="nightMode ? 'dark' : null"
+      :header-text-variant="nightMode ? 'white' : null"
+      :body-bg-variant="nightMode ? 'dark' : null"
+      :body-text-variant="nightMode ? 'white' : null"
+      :footer-bg-variant="nightMode ? 'dark' : null"
+      :footer-text-variant="nightMode ? 'white' : null"
+      footer-class="d-flex justify-content-between"
       @show="getSortValue"
     >
       <template v-slot:modal-header="{ close }">
         <modal-header
           :title="$t('board.list.sortList')"
-        >
-          <b-button
-            variant="light"
-            size="sm"
-            @click="close"
-          >
-            <icon name="x" />
-          </b-button>
-        </modal-header>
+          @close="close"
+        />
       </template>
 
       <form ref="renameListForm" @submit.stop.prevent="save">
         <b-form-radio-group
           v-model="sortOrder"
           buttons
-          stacked
           variant="primary"
           :options="sortingOptions"
         />
@@ -41,8 +40,11 @@
       </form>
 
       <template v-slot:modal-footer="{ cancel }">
-        <b-button @click="cancel">
-          Cancel
+        <b-button
+          variant="light"
+          @click="cancel"
+        >
+          {{ $t('global.cancel') }}
         </b-button>
 
         <b-button
@@ -51,7 +53,7 @@
           @click="save"
         >
           <b-spinner small v-if="saving" />
-          <span v-else>Save</span>
+          <span v-else>{{ $t('global.save') }}</span>
         </b-button>
       </template>
     </b-modal>
@@ -59,6 +61,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   props: {
     listIndex: Number,
@@ -70,16 +74,18 @@ export default {
       sortOrder: null,
       saving: false,
       sortingOptions: [
-        { text: 'Custom', value: 'sortByCustom' },
-        { text: 'Name', value: 'sortByName' },
-        { text: 'Rating', value: 'sortByRating' },
+        { text: this.$t('board.list.sortByCustom'), value: 'sortByCustom' },
+        { text: this.$t('board.list.sortByName'), value: 'sortByName' },
+        { text: this.$t('board.list.sortByRating'), value: 'sortByRating' },
+        { text: this.$t('board.list.sortByProgress'), value: 'sortByProgress' },
         // { text: 'Release date', value: 'sortByReleaseDate' },
-        { text: 'Progress', value: 'sortByProgress' },
       ],
     };
   },
 
   computed: {
+    ...mapGetters(['nightMode']),
+
     modalId() {
       return `sort-list-${this.listIndex}`;
     },

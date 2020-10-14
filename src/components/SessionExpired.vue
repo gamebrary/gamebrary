@@ -1,3 +1,4 @@
+<!-- TODO: translate -->
 <template lang="html">
   <b-modal
     centered
@@ -14,15 +15,8 @@
     <template v-slot:modal-header="{ close }">
       <modal-header
         title="Uh oh!"
-      >
-        <b-button
-          variant="light"
-          size="sm"
-          @click="close"
-        >
-          <icon name="x" />
-        </b-button>
-      </modal-header>
+        @close="close"
+      />
     </template>
 
     Your session has expired.

@@ -5,20 +5,14 @@
 
     <b-modal
       :id="modalId"
+      footer-class="d-flex justify-content-between"
       @show="getSettings"
     >
       <template v-slot:modal-header="{ close }">
         <modal-header
           :title="$t('board.list.settings')"
-        >
-          <b-button
-            variant="light"
-            size="sm"
-            @click="close"
-          >
-            <icon name="x" />
-          </b-button>
-        </modal-header>
+          @close="close"
+        />
       </template>
 
       <form ref="renameListForm" @submit.stop.prevent="save">
@@ -78,7 +72,10 @@
       </form>
 
       <template v-slot:modal-footer="{ cancel }">
-        <b-button @click="cancel">
+        <b-button
+          variant="light"
+          @click="cancel"
+        >
           Cancel
         </b-button>
 

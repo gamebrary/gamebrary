@@ -3,11 +3,11 @@
     v-b-modal="modalId"
     :title="$t('board.addList.title')"
     size="sm"
-    variant="light"
+    variant="primary"
     v-b-tooltip.hover.left
     ref="addList"
   >
-    <icon name="plus" />
+    <icon name="plus" white />
 
     <b-modal
       :id="modalId"
@@ -18,21 +18,14 @@
       :body-text-variant="nightMode ? 'white' : null"
       :footer-bg-variant="nightMode ? 'dark' : null"
       :footer-text-variant="nightMode ? 'white' : null"
+      footer-class="d-flex justify-content-between"
       @show="reset"
     >
       <template v-slot:modal-header="{ close }">
         <modal-header
           :title="$t('board.addList.title')"
-          header-class="border-0"
-        >
-          <b-button
-            variant="light"
-            size="sm"
-            @click="close"
-          >
-            <icon name="x" />
-          </b-button>
-        </modal-header>
+          @close="close"
+        />
       </template>
 
       <form ref="addListForm" @submit.stop.prevent="submit">
@@ -53,7 +46,7 @@
       </form>
 
       <template v-slot:modal-footer="{ cancel }">
-        <b-button @click="cancel">
+        <b-button @click="cancel" variant="light">
           {{ $t('global.cancel') }}
         </b-button>
 

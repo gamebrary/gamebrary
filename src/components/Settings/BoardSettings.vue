@@ -12,7 +12,6 @@
 
     <b-modal
       id="board-settings"
-      title="Board settings"
       size="lg"
       :header-bg-variant="nightMode ? 'dark' : null"
       :header-text-variant="nightMode ? 'white' : null"
@@ -20,27 +19,20 @@
       :body-text-variant="nightMode ? 'white' : null"
       :footer-bg-variant="nightMode ? 'dark' : null"
       :footer-text-variant="nightMode ? 'white' : null"
+      footer-class="d-flex justify-content-between"
       @show="init"
       @hide="hide"
     >
       <template v-slot:modal-header="{ close }">
         <modal-header
-          title="Board settings"
-          header-class="border-0"
-        >
-          <b-button
-            variant="light"
-            size="sm"
-            @click="close"
-          >
-            <icon name="x" />
-          </b-button>
-        </modal-header>
+          :title="$t('board.settings.title')"
+          @close="close"
+        />
       </template>
 
       <form ref="boardSettingsForm" @submit.stop.prevent="submit">
         <b-form-group
-          label="Board name"
+          :label="$t('board.settings.nameLabel')"
           label-for="name"
         >
           <b-form-input
@@ -51,7 +43,7 @@
         </b-form-group>
 
         <b-form-group
-          label="Board description"
+          :label="$t('board.settings.descriptionLabel')"
           label-for="description"
         >
           <b-form-textarea
@@ -96,14 +88,14 @@
               v-if="wallpaper"
               @click="removeWallpaper"
             >
-              Remove wallpaper
+              {{ $t('board.settings.removeWallpaper') }}
             </b-dropdown-item>
 
             <b-dropdown-item
               variant="primary"
               v-b-modal:wallpapers
             >
-              Upload wallpaper
+              {{ $t('board.settings.uploadWallpaper') }}
             </b-dropdown-item>
 
             <b-dropdown-item
@@ -122,10 +114,12 @@
         </b-form-group>
 
         <div v-else>
-          No wallpapers uploaded yet.
-          <b-button v-b-modal:wallpapers>Manage files</b-button>
-        </div>
+          {{ $t('board.settings.noWallpapers') }}
 
+          <b-button v-b-modal:wallpapers>
+            {{ $t('board.settings.managefiles') }}
+          </b-button>
+        </div>
 
         <b-img
           v-if="wallpaper && wallpaperUrl"
@@ -135,7 +129,9 @@
           fluid
         />
 
-        <b-button v-b-toggle.platforms>Change board platforms</b-button>
+        <b-button v-b-toggle.platforms>
+          {{ $t('board.settings.changePlatform') }}
+        </b-button>
 
         <b-collapse id="platforms" class="mt-2">
           <platform-picker v-model="board.platforms" />
@@ -147,7 +143,7 @@
           variant="danger"
           @click="confirmDelete"
         >
-          Delete board
+          {{ $t('board.settings.deleteBoard') }}
         </b-button>
 
         <b-button
@@ -156,7 +152,7 @@
           @click="saveSettings"
         >
           <b-spinner small v-if="saving" />
-          <span v-else>Save</span>
+          <span v-else>{{ $t('global.save') }}</span>
         </b-button>
       </template>
     </b-modal>

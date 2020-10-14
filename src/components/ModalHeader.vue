@@ -5,17 +5,30 @@
       <small>{{ subtitle }}</small>
     </div>
 
-    <div class="actions">
-      <slot />
-    </div>
+    <slot />
+
+    <b-button
+      :variant="nightMode ? 'dark' : 'light'"
+      size="sm"
+      class="ml-auto"
+      @click="$emit('close')"
+    >
+      <icon name="x" />
+    </b-button>
   </header>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   props: {
     title: String,
     subtitle: String,
+  },
+
+  computed: {
+    ...mapGetters(['nightMode']),
   },
 };
 </script>

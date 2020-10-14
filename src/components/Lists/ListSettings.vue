@@ -1,5 +1,11 @@
 <template lang="html">
-  <b-dropdown size="sm" class="m-1" right variant="transparent" no-caret>
+  <b-dropdown
+    size="sm"
+    class="m-1"
+    right
+    variant="transparent"
+    no-caret
+  >
     <template v-slot:button-content>
       <icon name="triangle-down" small />
     </template>
