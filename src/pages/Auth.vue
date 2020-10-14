@@ -48,7 +48,6 @@ export default {
       this.$store.commit('SET_USER', user);
       this.loadSettings();
       this.loadTags();
-      this.loadLists();
       this.load();
       this.$router.replace({ name: 'dashboard' });
     },
@@ -73,20 +72,6 @@ export default {
           if (doc.exists) {
             const data = doc.data();
             this.$store.commit('SET_TAGS', data);
-          }
-        })
-        .catch(() => {
-          this.$store.commit('SET_SESSION_EXPIRED', true);
-        });
-    },
-
-    loadLists() {
-      // TODO: move to actions
-      db.collection('lists').doc(this.user.uid).get()
-        .then((doc) => {
-          if (doc.exists) {
-            const data = doc.data();
-            this.$store.commit('SET_GAME_LISTS_LEGACY', data);
           }
         })
         .catch(() => {
@@ -127,16 +112,6 @@ export default {
       this.loadWallpapers();
 
       // TODO: track progresses as well
-      // TODO: move to actions
-      db.collection('lists').doc(this.user.uid)
-        .onSnapshot((doc) => {
-          if (doc.exists) {
-            const gameLists = doc.data();
-            this.$store.commit('SET_GAME_LISTS_LEGACY', gameLists);
-          }
-        });
-
-
       // TODO: move to actions
       db.collection('settings').doc(this.user.uid)
         .onSnapshot((doc) => {
