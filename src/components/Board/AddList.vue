@@ -3,10 +3,11 @@
     v-b-modal="modalId"
     :title="$t('board.addList.title')"
     size="sm"
+    variant="light"
     v-b-tooltip.hover.left
     ref="addList"
   >
-    <icon name="plus" white />
+    <icon name="plus" />
 
     <b-modal
       :id="modalId"
@@ -19,6 +20,21 @@
       :footer-text-variant="nightMode ? 'white' : null"
       @show="reset"
     >
+      <template v-slot:modal-header="{ close }">
+        <modal-header
+          :title="$t('board.addList.title')"
+          header-class="border-0"
+        >
+          <b-button
+            variant="light"
+            size="sm"
+            @click="close"
+          >
+            <icon name="x" />
+          </b-button>
+        </modal-header>
+      </template>
+
       <form ref="addListForm" @submit.stop.prevent="submit">
         <b-form-input
           autofocus

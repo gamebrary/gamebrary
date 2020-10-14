@@ -4,6 +4,7 @@
     v-b-tooltip.hover.left
     title="Board settings"
     class="mt-3"
+    variant="primary"
     size="sm"
     ref="addList"
   >
@@ -22,6 +23,21 @@
       @show="init"
       @hide="hide"
     >
+      <template v-slot:modal-header="{ close }">
+        <modal-header
+          title="Board settings"
+          header-class="border-0"
+        >
+          <b-button
+            variant="light"
+            size="sm"
+            @click="close"
+          >
+            <icon name="x" />
+          </b-button>
+        </modal-header>
+      </template>
+
       <form ref="boardSettingsForm" @submit.stop.prevent="submit">
         <b-form-group
           label="Board name"
