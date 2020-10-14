@@ -1,5 +1,5 @@
 <template lang="html">
-  <div :class="['board', { dragging }]" :style="wallpaper">
+  <div :class="['board', { dragging, 'empty': isEmptyBoard }]" :style="wallpaper">
     <board-placeholder v-if="loading" />
 
     <template v-else>
@@ -10,7 +10,9 @@
         :key="list.name"
       />
 
-      <div class="d-flex flex-column pr-3">
+      <empty-board v-if="isEmptyBoard" class="mr-3" />
+
+      <div :class="['d-flex flex-column', { 'pr-3': !isEmptyBoard }]">
         <add-list />
         <board-settings />
       </div>
@@ -23,6 +25,7 @@
 <script>
 import BoardSettings from '@/components/Settings/BoardSettings';
 import BoardPlaceholder from '@/components/Board/BoardPlaceholder';
+import EmptyBoard from '@/components/Board/EmptyBoard';
 import AddList from '@/components/Board/AddList';
 import GameModal from '@/components/Game/GameModal';
 import List from '@/components/Lists/List';
@@ -35,6 +38,7 @@ export default {
     draggable,
     List,
     BoardPlaceholder,
+    EmptyBoard,
     AddList,
     BoardSettings,
     GameModal,
@@ -61,7 +65,13 @@ export default {
       return this.$route.params.id;
     },
 
+    isEmptyBoard() {
+      // TODO: use optional chaining
+      return this.board && this.board.lists && this.board.lists.length === 0;
+    },
+
     isPublicBoard() {
+      // TODO: use optional chaining
       return this.$route.meta && this.$route.meta.public;
     },
   },
@@ -193,6 +203,7 @@ export default {
   overflow-x: auto;
   overflow-x: overlay;
   display: flex;
+  background-color: #ccc;
 }
 
 .list-placeholder {
