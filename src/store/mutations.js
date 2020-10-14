@@ -253,24 +253,4 @@ export default {
 
     state.settings[key] = value;
   },
-
-  //
-  // LEGACY STUFF
-  //
-
-  SET_ACTIVE_PLATFORM_LEGACY(state, platform) {
-    state.platform = platform;
-  },
-
-  SAVE_LIST_LEGACY(state, lists) {
-    state.gameLists = lists;
-  },
-
-  REMOVE_PLATFORM_LEGACY(state) {
-    Vue.delete(state.gameLists, state.platform.code);
-  },
-
-  SET_GAME_LISTS_LEGACY(state, lists) {
-    state.gameLists = lists;
-  },
 };

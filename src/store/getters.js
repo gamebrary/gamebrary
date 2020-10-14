@@ -1,16 +1,8 @@
 import { PLATFORM_FILTER_FIELDS } from '@/constants';
-import platforms from '@/platforms';
 import orderby from 'lodash.orderby';
 
 export default {
-  gamePlatforms: (state) => {
-    const gamePlatforms = state.game && state.game.platforms
-      ? state.game.platforms.map(platform => platform.id)
-      : null;
-
-    return platforms.filter(({ id }) => id !== state.platform.id && gamePlatforms.includes(id));
-  },
-
+  nightMode: state => Boolean(state.settings && state.settings.nightMode),
   sortedBoards: ({ boards }) => orderby(boards, 'name'),
 
   filteredPlatforms: (state) => {

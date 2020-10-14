@@ -16,6 +16,5 @@ export default {
   wallpapers: [],
   platform: null,
   duplicatedGame: null,
-  legacyPlatforms: [],
   sessionExpired: false,
 };

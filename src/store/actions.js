@@ -289,15 +289,6 @@ export default {
     });
   },
 
-  SAVE_LEGACY_LISTS({ commit, state }, payload) {
-    const db = firebase.firestore();
-
-    db.collection('lists').doc(state.user.uid).set(payload, { merge: false })
-      .then(() => {
-        commit('SAVE_LIST_LEGACY', payload);
-      });
-  },
-
   SAVE_SETTINGS({ commit, state }, settings) {
     const db = firebase.firestore();
 
