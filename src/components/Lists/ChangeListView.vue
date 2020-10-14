@@ -5,20 +5,20 @@
 
     <b-modal
       :id="modalId"
+      :header-bg-variant="nightMode ? 'dark' : null"
+      :header-text-variant="nightMode ? 'white' : null"
+      :body-bg-variant="nightMode ? 'dark' : null"
+      :body-text-variant="nightMode ? 'white' : null"
+      :footer-bg-variant="nightMode ? 'dark' : null"
+      :footer-text-variant="nightMode ? 'white' : null"
+      footer-class="d-flex justify-content-between"
       @show="load"
     >
       <template v-slot:modal-header="{ close }">
         <modal-header
           :title="$t('board.list.view')"
-        >
-          <b-button
-            variant="light"
-            size="sm"
-            @click="close"
-          >
-            <icon name="x" />
-          </b-button>
-        </modal-header>
+          @close="close"
+        />
       </template>
 
       <form ref="renameListForm" @submit.prevent="save">
@@ -69,8 +69,11 @@
       </form>
 
       <template v-slot:modal-footer="{ cancel }">
-        <b-button @click="cancel">
-          Cancel
+        <b-button
+          variant="light"
+          @click="cancel"
+        >
+          {{ $t('global.cancel') }}
         </b-button>
 
         <b-button
@@ -79,7 +82,7 @@
           @click="save"
         >
           <b-spinner small v-if="saving" />
-          <span v-else>Save</span>
+          <span v-else>{{ $t('global.save') }}</span>
         </b-button>
       </template>
     </b-modal>
@@ -87,7 +90,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import GameCardDefault from '@/components/GameCards/GameCardDefault';
 import GameCardGrid from '@/components/GameCards/GameCardGrid';
 import GameCardCompact from '@/components/GameCards/GameCardCompact';
@@ -100,6 +103,7 @@ export default {
     GameCardCompact,
     GameCardText,
   },
+
   props: {
     listIndex: Number,
     list: Object,
@@ -122,6 +126,7 @@ export default {
 
   computed: {
     ...mapState(['games']),
+    ...mapGetters(['nightMode']),
 
     modalId() {
       return `add-game-${this.listIndex}`;

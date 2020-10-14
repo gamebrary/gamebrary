@@ -1,5 +1,11 @@
 <template lang="html">
-  <b-card no-body class="clickable mb-2" @click="openDetails">
+  <b-card
+    no-body
+    class="clickable mb-2"
+    :bg-variant="nightMode ? 'dark' : ''"
+    :text-variant="nightMode ? 'white' : ''"
+    @click="openDetails"
+  >
     <b-row
       no-gutters
       v-if="game && game.name"

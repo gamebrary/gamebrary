@@ -3,6 +3,8 @@
     no-body
     class="clickable mb-2"
     :img-src="coverUrl"
+    :bg-variant="nightMode ? 'dark' : ''"
+    :text-variant="nightMode ? 'white' : ''"
     img-top
     @click="openDetails"
   >

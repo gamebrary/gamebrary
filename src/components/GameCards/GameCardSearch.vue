@@ -1,5 +1,10 @@
 <template lang="html">
-  <b-card no-body class="game-card mb-1">
+  <b-card
+    no-body
+    class="game-card mb-1"
+    :bg-variant="nightMode ? 'dark' : ''"
+    :text-variant="nightMode ? 'white' : ''"
+  >
     <b-row no-gutters v-if="game && game.name">
       <b-col cols="3">
         <b-card-img
