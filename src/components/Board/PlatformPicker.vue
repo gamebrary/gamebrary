@@ -1,6 +1,8 @@
 <template lang="html">
   <div class="platform-picker">
-    <b-dropdown>
+    <b-dropdown
+      menu-class="dropdown"
+    >
       <template v-slot:button-content>
         {{ dropdownLabel }}
       </template>
@@ -67,3 +69,10 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+  .dropdown {
+    overflow: auto;
+    max-height: 50vh;
+  }
+</style>
