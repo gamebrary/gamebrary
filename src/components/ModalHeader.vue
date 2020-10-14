@@ -1,0 +1,40 @@
+<template lang="html">
+  <header>
+    <div>
+      <h5 class="mb-0">{{ title }}</h5>
+      <small>{{ subtitle }}</small>
+    </div>
+
+    <div class="actions">
+      <slot />
+    </div>
+  </header>
+</template>
+
+<script>
+export default {
+  props: {
+    title: String,
+    subtitle: String,
+  },
+};
+</script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+header {
+  display: grid;
+  width: 100%;
+  align-items: center;
+  grid-template-columns: auto auto;
+}
+
+h5 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.actions {
+  margin-left: auto;
+}
+</style>

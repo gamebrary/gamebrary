@@ -5,6 +5,7 @@ import VueAxios from 'vue-axios';
 import VueFire from 'vuefire';
 import VueI18n from 'vue-i18n';
 import Icon from '@/components/Icon';
+import ModalHeader from '@/components/ModalHeader';
 import axios from 'axios';
 import VueAnalytics from 'vue-analytics';
 import Raven from 'raven-js';
@@ -31,6 +32,7 @@ Vue.use(VueAxios, axios);
 Vue.use(VueFire);
 Vue.use(VueI18n);
 Vue.component('icon', Icon);
+Vue.component('modal-header', ModalHeader);
 
 if (process.env.NODE_ENV !== 'development') {
   Raven
