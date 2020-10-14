@@ -31,114 +31,92 @@
       </template>
 
       <form ref="boardSettingsForm" @submit.stop.prevent="submit">
-        <b-form-group
-          :label="$t('board.settings.nameLabel')"
-          label-for="name"
-        >
-          <b-form-input
-            id="name"
-            v-model="name"
-            required
-          />
-        </b-form-group>
-
-        <b-form-group
-          :label="$t('board.settings.descriptionLabel')"
-          label-for="description"
-        >
-          <b-form-textarea
-            id="description"
-            v-model="description"
-            maxlength="280"
-            rows="3"
-          />
-        </b-form-group>
-
-        <!-- <b-form-group
-          label="Board theme"
-          label-for="theme"
-        >
-          <b-form-select
-            id="theme"
-            disabled
-            v-model="theme"
-          >
-            <b-form-select-option
-              v-for="{ id, name } in themes"
-              :key="id"
-              :value="id"
+        <b-row>
+          <b-col>
+            <b-form-group
+              :label="$t('board.settings.nameLabel')"
+              label-for="name"
             >
-              {{ name }}
-            </b-form-select-option>
-          </b-form-select>
-        </b-form-group> -->
+              <b-form-input
+                id="name"
+                v-model="name"
+                required
+              />
+            </b-form-group>
 
-        <b-form-group
-          v-if="wallpapers.length"
-          label="Board wallpaper"
-          label-for="wallpaper"
-        >
-          <b-dropdown
-            id="wallpaper"
-            text="Select wallpaper"
-            boundary="viewport"
-          >
-            <b-dropdown-item
-              variant="danger"
+            <b-form-group
+              :label="$t('board.settings.descriptionLabel')"
+              label-for="description"
+            >
+              <b-form-textarea
+                id="description"
+                v-model="description"
+                maxlength="280"
+                rows="3"
+              />
+            </b-form-group>
+
+            <platform-picker v-model="board.platforms" />
+          </b-col>
+
+          <b-col>
+            <b-form-group
+              :label="$t('board.settings.wallpaper')"
+              class="mb-0"
+            />
+
+            <b-dropdown
+              id="wallpaper"
+              v-if="wallpapers.length"
+              text="Select wallpaper"
+              boundary="viewport"
+            >
+              <b-dropdown-item
+                v-for="file in wallpapers"
+                :key="file.name"
+                @click="setWallpaper(file.fullPath)"
+              >
+                <b-img
+                  thumbnail
+                  :src="file.url"
+                  :alt="file.name"
+                  width="200"
+                  fluid
+                />
+              </b-dropdown-item>
+            </b-dropdown>
+
+            <b-button
               v-if="wallpaper"
+              variant="danger"
+              class="mx-2"
               @click="removeWallpaper"
             >
               {{ $t('board.settings.removeWallpaper') }}
-            </b-dropdown-item>
+            </b-button>
 
-            <b-dropdown-item
-              variant="primary"
-              v-b-modal:wallpapers
-            >
-              {{ $t('board.settings.uploadWallpaper') }}
-            </b-dropdown-item>
+            <b-alert :show="!wallpapers.length">
+              {{ $t('board.settings.noWallpapers') }}
 
-            <b-dropdown-item
-              v-for="file in wallpapers"
-              :key="file.name"
-              @click="setWallpaper(file.fullPath)"
-            >
-              <b-img
-                thumbnail
-                :src="file.url"
-                :alt="file.name"
-                fluid
-              />
-            </b-dropdown-item>
-          </b-dropdown>
-        </b-form-group>
+              <br />
 
-        <div v-else>
-          {{ $t('board.settings.noWallpapers') }}
+              <b-button :to="{ name: 'wallpapers' }" class="mt-3">
+                {{ $t('board.settings.uploadWallpaper') }}
+              </b-button>
+            </b-alert>
 
-          <b-button v-b-modal:wallpapers>
-            {{ $t('board.settings.managefiles') }}
-          </b-button>
-        </div>
-
-        <b-img
-          v-if="wallpaper && wallpaperUrl"
-          thumbnail
-          class="mb-3"
-          :src="wallpaperUrl"
-          fluid
-        />
-
-        <b-button v-b-toggle.platforms>
-          {{ $t('board.settings.changePlatform') }}
-        </b-button>
-
-        <b-collapse id="platforms" class="mt-2">
-          <platform-picker v-model="board.platforms" />
-        </b-collapse>
+            <b-img
+              v-if="wallpaperUrl"
+              thumbnail
+              class="my-3"
+              :src="wallpaperUrl"
+              fluid
+            />
+          </b-col>
+        </b-row>
       </form>
 
-      <template v-slot:modal-footer>
+      <template v-slot:modal-footer="{ cancel }">
         <b-button
           variant="danger"
           @click="confirmDelete"
@@ -146,14 +124,25 @@
           {{ $t('board.settings.deleteBoard') }}
         </b-button>
 
-        <b-button
-          variant="primary"
-          :disabled="saving"
-          @click="saveSettings"
-        >
-          <b-spinner small v-if="saving" />
-          <span v-else>{{ $t('global.save') }}</span>
-        </b-button>
+        <div>
+          <b-button
+            variant="light"
+            :disabled="saving"
+            class="mx-2"
+            @click="cancel"
+          >
+            {{ $t('global.cancel') }}
+          </b-button>
+
+          <b-button
+            variant="primary"
+            :disabled="saving"
+            @click="saveSettings"
+          >
+            <b-spinner small v-if="saving" />
+            <span v-else>{{ $t('global.save') }}</span>
+          </b-button>
+        </div>
       </template>
     </b-modal>
   </b-button>
@@ -199,6 +188,7 @@ export default {
 
     removeWallpaper() {
       this.wallpaper = null;
+      this.wallpaperUrl = null;
     },
 
     async setWallpaper(wallpaper) {
