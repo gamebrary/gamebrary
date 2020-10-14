@@ -32,6 +32,11 @@
         >
           {{ name }}
         </b-dropdown-item>
+
+        <b-dropdown-divider />
+        <b-dropdown-item-button>
+          <create-board />
+        </b-dropdown-item-button>
       </b-dropdown>
     </template>
 
@@ -81,14 +86,14 @@
         <icon name="info" />
       </b-button>
 
-      <!-- <b-button
+      <b-button
         variant="link"
         :title="$t('navMenu.about')"
         v-b-tooltip.hover.right
         @click="toggleTheme"
       >
         <icon :name="nightMode ? 'moon' : 'sun'" />
-      </b-button> -->
+      </b-button>
 
       <router-link
         :title="$t('settings.account')"
@@ -112,8 +117,13 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import CreateBoard from '@/components/Board/CreateBoard';
 
 export default {
+  components: {
+    CreateBoard,
+  },
+
   computed: {
     ...mapState(['board', 'user', 'notification', 'settings']),
     ...mapGetters(['sortedBoards', 'nightMode']),
