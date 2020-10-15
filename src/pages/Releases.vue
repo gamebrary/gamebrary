@@ -12,11 +12,12 @@
 
     <b-container fluid>
       <b-form-row>
-        <b-col cols="3">
+        <b-col cols="2" md="3">
           <b-list-group>
             <b-list-group-item
               button
-              class="d-flex justify-content-between align-items-center"
+              class="d-flex justify-content-center justify-content-md-between
+               align-items-center p-2"
               v-for="release in releases"
               :key="release.id"
               :variant="nightMode ? 'dark' : null"
@@ -31,7 +32,7 @@
           </b-list-group>
         </b-col>
 
-        <b-col cols="9">
+        <b-col cols="10" md="9">
           <b-card
             :bg-variant="nightMode ? 'dark' : null"
             :text-variant="nightMode ? 'white' : null"
