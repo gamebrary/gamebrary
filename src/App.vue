@@ -65,7 +65,9 @@ export default {
     },
   },
 
-  mounted() {
+  async mounted() {
+    await this.$store.dispatch('GET_TWITCH_TOKEN');
+
     this.init();
   },
 

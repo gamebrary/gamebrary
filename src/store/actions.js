@@ -279,6 +279,20 @@ export default {
     });
   },
 
+  GET_TWITCH_TOKEN({ state, commit }, data) {
+    const db = firebase.firestore();
+
+    return new Promise((resolve, reject) => {
+      db.collection('app')
+        .doc('twitch')
+        .get()
+        .then((doc) => {
+          commit('SET_TWITCH_TOKEN', doc.data());
+        })
+        .catch(reject);
+    });
+  },
+
   SAVE_TAGS_NO_MERGE({ state }, tags) {
     const db = firebase.firestore();
 

@@ -18,6 +18,10 @@ export default {
     state.notification = notification;
   },
 
+  SET_TWITCH_TOKEN(state, token) {
+    state.twitchToken = token;
+  },
+
   CLEAR_BOARD(state) {
     state.board = {};
   },
