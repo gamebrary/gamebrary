@@ -1,6 +1,6 @@
 <template lang="html">
   <b-button
-    variant="primary"
+    :variant="nightMode ? 'light' : 'primary'"
     v-b-modal:create-board
   >
     {{ $t('boards.create') }}

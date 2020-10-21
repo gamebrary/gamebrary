@@ -2,7 +2,6 @@
   <div class="platform-picker">
     <b-dropdown
       :text="dropdownLabel"
-      menu-class="platforms-dropdown"
       boundary="viewport"
     >
       <b-dropdown-item
@@ -68,9 +67,8 @@ export default {
 };
 </script>
 
-<style lang="scss" rel="stylesheet/scss">
-  .platforms-dropdown {
-    overflow: auto;
-    max-height: 300px;
+<style lang="scss" rel="stylesheet/scss" scoped>
+  .dropdown {
+    max-height: 50vh;
   }
 </style>
