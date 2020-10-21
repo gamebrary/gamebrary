@@ -3,15 +3,14 @@ import firebase from 'firebase/app';
 import 'firebase/storage';
 import 'firebase/firestore';
 
-// const API_BASE = 'https://us-central1-gamebrary-8c736.cloudfunctions.net';
-const API_BASE = 'http://localhost:5000/gamebrary-8c736/us-central1';
+const API_BASE = 'https://us-central1-gamebrary-8c736.cloudfunctions.net';
+// const API_BASE = 'http://localhost:5001/gamebrary-8c736/us-central1';
 
 export default {
   LOAD_IGDB_PLATFORMS({ state, commit }) {
     return new Promise((resolve, reject) => {
       axios.get(`${API_BASE}/platforms?token=${state.twitchToken.access_token}`)
         .then(({ data }) => {
-          console.log(data);
           commit('SET_PLATFORMS', data);
           resolve(data);
         }).catch(reject);
@@ -267,7 +266,7 @@ export default {
     });
   },
 
-  GET_TWITCH_TOKEN({ state, commit }) {
+  GET_TWITCH_TOKEN({ commit }) {
     const db = firebase.firestore();
 
     return new Promise((resolve, reject) => {
@@ -390,16 +389,10 @@ export default {
     return new Promise((resolve, reject) => {
       axios.get(`${API_BASE}/game?gameId=${gameId}&token=${state.twitchToken.access_token}`)
         .then(({ data }) => {
-          console.log(data);
-          // const [game] = data;
+          const [game] = data;
 
-          // console.log(game);
-
-          // resolve(game);
-        }).catch((e) => {
-          console.log(e);
-          reject();
-        });
+          resolve(game);
+        }).catch(reject);
     });
   },
 };

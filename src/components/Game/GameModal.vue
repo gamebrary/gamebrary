@@ -287,8 +287,7 @@ export default {
       const { gameId } = this.gameModalData;
 
       const game = await this.$store.dispatch('LOAD_GAME', gameId)
-        .catch((e) => {
-          console.log(e);
+        .catch(() => {
           this.loading = false;
           this.$bvToast.toast('Error loading game', { title: 'Error', variant: 'error' });
         });

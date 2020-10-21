@@ -1,5 +1,11 @@
+// firebase emulators:start --only functions
+// TODO: INJECT TOKEN USING AXIOS MIDDLEWARE
+// Add json object in .runtimeconfig.json to use env variables locally
+
 const functions = require('firebase-functions');
+const axios = require('axios');
 const admin = require('firebase-admin');
+
 admin.initializeApp({
   apiKey: 'AIzaSyA6MsmnLtqT4b11r-j15wwreRypO3AodcA',
   authDomain: 'gamebrary.com',
@@ -9,40 +15,30 @@ admin.initializeApp({
   messagingSenderId: '324529217902',
 });
 
-const axios = require('axios');
-
-// firebase emulators:start --only functions
-// Add json object in .runtimeconfig.json to use env variables locally
-
 exports.search = functions.https.onRequest((req, res) => {
   res.set('Access-Control-Allow-Origin', "*")
 
   const { search, platform, token } = req.query;
 
-  if (!search) {
-    return res.status(400).send('missing param search');
-  }
+  const missingFields = [search, platform, token].filter((field) => !field).length > 0;
 
-  if (!platform) {
-    return res.status(400).send('missing param games');
-  }
-
-  if (!token) {
-    return res.status(400).send('missing param games');
+  if (missingFields) {
+    return res.status(400).json({ error: 'missing required params (search OR platform OR token)' });
   }
 
   const data = `
-  search "${search}";
-  fields id,name,slug,rating,release_dates.*,name,cover.image_id;
-  limit 50;
-  where platforms = (${platform});`
+    search "${search}";
+    fields id,name,slug,rating,release_dates.*,name,cover.image_id;
+    limit 50;
+    where platforms = (${platform});
+  `
 
   axios({
     url: 'https://api.igdb.com/v4/games',
     method: 'POST',
     headers: {
       'Accept': 'application/json',
-      'Client-ID': '0oo6dw5f0y8frai8l31koyq8egcu17',
+      'Client-ID': functions.config().twitch.clientid,
       'Authorization': `Bearer ${token}`,
     },
     data,
@@ -70,7 +66,6 @@ exports.refreshToken = functions.pubsub.schedule('0 0 * * 0')
 
         return db.collection('app').doc('twitch').set(data, { merge: true })
           .then((res) => {
-            console.log('token refreshed');
             return res.status(200).send(res);
           })
           .catch((e) => {
@@ -85,23 +80,21 @@ exports.platforms = functions.https.onRequest((req, res) => {
 
   const { token } = req.query;
 
-  console.log(token);
-
   if (!token) {
-    return res.status(400).send('missing param games');
+    return res.status(400).send('missing token');
   }
 
   const data = `
     fields category,generation,name,alternative_name,slug;
     limit 200;
-  `
+  `;
 
   axios({
     url: 'https://api.igdb.com/v4/platforms',
     method: 'POST',
     headers: {
       'Accept': 'application/json',
-      'Client-ID': '0oo6dw5f0y8frai8l31koyq8egcu17',
+      'Client-ID': functions.config().twitch.clientid,
       'Authorization': `Bearer ${token}`,
     },
     data,
@@ -122,7 +115,7 @@ exports.games = functions.https.onRequest((req, res) => {
   }
 
   if (!games) {
-    return res.status(400).send('missing param games');
+    return res.status(400).send('missing games');
   }
 
   const data = `fields
@@ -142,7 +135,7 @@ exports.games = functions.https.onRequest((req, res) => {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
-      'Client-ID': '0oo6dw5f0y8frai8l31koyq8egcu17',
+      'Client-ID': functions.config().twitch.clientid,
       'Authorization': `Bearer ${token}`,
     },
     data,
@@ -151,7 +144,6 @@ exports.games = functions.https.onRequest((req, res) => {
     .catch((error) => { res.send(error) });
 });
 
-// TODO: fix game
 exports.game = functions.https.onRequest((req, res) => {
   res.set('Access-Control-Allow-Origin', "*")
 
@@ -162,7 +154,7 @@ exports.game = functions.https.onRequest((req, res) => {
   }
 
   if (!gameId) {
-    res.status(400).send('missing param gameId');
+    res.status(400).send('missing gameId');
   }
 
   const data = `fields
@@ -184,19 +176,16 @@ exports.game = functions.https.onRequest((req, res) => {
   genres.name,
   platforms.name,
   platforms.id,
-  game_modes.name,
-  time_to_beat;
+  game_modes.name;
 
   where id = ${ gameId };`;
-
-  console.log(data);
 
   axios({
     url: 'https://api.igdb.com/v4/games',
     method: 'POST',
     headers: {
       'Accept': 'application/json',
-      'Client-ID': '0oo6dw5f0y8frai8l31koyq8egcu17',
+      'Client-ID': functions.config().twitch.clientid,
       'Authorization': `Bearer ${token}`,
     },
     data,
