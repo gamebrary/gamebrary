@@ -3,8 +3,8 @@
     size="sm"
     class="m-1"
     right
-    variant="transparent"
-    :menu-class="nightMode ? 'bg-dark' : ''"
+    :variant="nightMode ? 'dark' : 'transparent'"
+    :menu-class="nightMode ? 'bg-dark text-white' : ''"
     no-caret
   >
     <template v-slot:button-content>
@@ -26,7 +26,7 @@
             v-b-tooltip.hover
             :title="$t('board.list.moveLeft')"
             :disabled="isFirst"
-            variant="light"
+            :variant="nightMode ? 'dark' : 'light'"
             @click="moveList(listIndex, listIndex - 1)"
           >
             <icon name="triangle-left" />

@@ -5,7 +5,11 @@
       :class="`list ${list.settings.view || 'single'}`"
       :key="list.name"
     >
-    <b-card no-body>
+    <b-card
+      no-body
+      :bg-variant="nightMode ? 'dark' : null"
+      :text-variant="nightMode ? 'white' : null"
+    >
       <b-card-header class="pt-2 pb-1 px-2">
         <b-skeleton />
       </b-card-header>
@@ -18,6 +22,8 @@
           <b-card
             no-body
             img-top
+            :bg-variant="nightMode ? 'dark' : null"
+            :text-variant="nightMode ? 'white' : null"
             v-if="list.settings.view === 'grid'"
           >
             <b-skeleton-img
@@ -33,6 +39,8 @@
           <b-card
             v-else-if="!list.settings.view || list.settings.view === 'single'"
             no-body
+            :bg-variant="nightMode ? 'dark' : null"
+            :text-variant="nightMode ? 'white' : null"
             img-left
           >
             <b-skeleton-img
@@ -47,6 +55,8 @@
           </b-card>
 
           <b-card
+            :bg-variant="nightMode ? 'dark' : null"
+            :text-variant="nightMode ? 'white' : null"
             v-else-if="list.settings.view === 'compact'"
             no-body
             img-left
@@ -64,6 +74,8 @@
 
           <b-card
             v-else-if="list.settings.view === 'text'"
+            :bg-variant="nightMode ? 'dark' : null"
+            :text-variant="nightMode ? 'white' : null"
             no-body
             img-left
           >
@@ -89,7 +101,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -100,6 +112,7 @@ export default {
 
   computed: {
     ...mapState(['boards', 'board']),
+    ...mapGetters(['nightMode']),
   },
 
   mounted() {

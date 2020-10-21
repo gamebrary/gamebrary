@@ -1,3 +1,12 @@
+# Large header
+# Tech stack
+# Build Process
+- instructions for yarn translate
+# Add table of content
+# Features
+# Feedback
+# Contributors
+
 <p align="center">
     <img width="200" src="https://user-images.githubusercontent.com/60666270/93530966-567d1200-f8f3-11ea-8fd3-131976105d06.png" alt="Gamebrary logo">
     <h2 align="center">Gamebrary</h2>

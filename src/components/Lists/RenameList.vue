@@ -1,5 +1,8 @@
 <template lang="html">
-  <b-dropdown-item-button v-b-modal="modalId">
+  <b-dropdown-item-button
+    v-b-modal="modalId"
+    :variant="nightMode ? 'light' : null"
+  >
     <icon name="pencil" />
     {{ $t('board.list.renameList') }}
 
