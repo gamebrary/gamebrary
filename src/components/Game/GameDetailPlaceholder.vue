@@ -1,85 +1,56 @@
 <template lang="html">
-  <b-card class="mt-4" no-body>
-    <b-tabs card>
-      <b-tab title="Game details" active>
-        <template v-slot:title>
-          <b-skeleton width="80px" />
-        </template>
-        <dl class="row">
-          <dt class="col-sm-3">{{ $t('board.gameModal.platforms') }}</dt>
-          <dd class="col-sm-9">
-            <b-skeleton />
-          </dd>
+  <b-card
+    class="mt-4"
+    no-body
+    :bg-variant="nightMode ? 'dark' : ''"
+    :text-variant="nightMode ? 'white' : ''"
+  >
+    <dl class="row">
+      <dt class="col-sm-3">{{ $t('board.gameModal.platforms') }}</dt>
+      <dd class="col-sm-9">
+        <b-skeleton />
+      </dd>
 
-          <dt class="col-sm-3">{{ $t('board.gameModal.genres') }}</dt>
-          <dd class="col-sm-9">
-            <b-skeleton />
-          </dd>
+      <dt class="col-sm-3">{{ $t('board.gameModal.genres') }}</dt>
+      <dd class="col-sm-9">
+        <b-skeleton />
+      </dd>
 
-          <dt class="col-sm-3">{{ $t('board.gameModal.gameModes') }}</dt>
-          <dd class="col-sm-9">
-            <b-skeleton />
-          </dd>
+      <dt class="col-sm-3">{{ $t('board.gameModal.gameModes') }}</dt>
+      <dd class="col-sm-9">
+        <b-skeleton />
+      </dd>
 
-          <dt class="col-sm-3">{{ $t('board.gameModal.developers') }}</dt>
-          <dd class="col-sm-9">
-            <b-skeleton />
-          </dd>
+      <dt class="col-sm-3">{{ $t('board.gameModal.developers') }}</dt>
+      <dd class="col-sm-9">
+        <b-skeleton />
+      </dd>
 
-          <dt class="col-sm-3">{{ $t('board.gameModal.publishers') }}</dt>
-          <dd class="col-sm-9">
-            <b-skeleton />
-          </dd>
+      <dt class="col-sm-3">{{ $t('board.gameModal.publishers') }}</dt>
+      <dd class="col-sm-9">
+        <b-skeleton />
+      </dd>
 
-          <dt class="col-sm-3">{{ $t('board.gameModal.perspective') }}</dt>
-          <dd class="col-sm-9">
-            <b-skeleton />
-          </dd>
+      <dt class="col-sm-3">{{ $t('board.gameModal.perspective') }}</dt>
+      <dd class="col-sm-9">
+        <b-skeleton />
+      </dd>
 
-          <dt class="col-sm-3">{{ $t('board.gameModal.timeToBeat') }}</dt>
-          <dd class="col-sm-9">
-            <b-skeleton />
-          </dd>
+      <dt class="col-sm-3">{{ $t('board.gameModal.timeToBeat') }}</dt>
+      <dd class="col-sm-9">
+        <b-skeleton />
+      </dd>
 
-          <dt class="col-sm-3">{{ $t('board.gameModal.ageRatings') }}</dt>
-          <dd class="col-sm-9">
-            <b-skeleton />
-          </dd>
-        </dl>
-      </b-tab>
-
-      <b-tab title="Game details">
-        <template v-slot:title>
-          <b-skeleton width="80px" />
-        </template>
-      </b-tab>
-
-      <b-tab title="Game details">
-        <template v-slot:title>
-          <b-skeleton width="80px" />
-        </template>
-      </b-tab>
-    </b-tabs>
+      <dt class="col-sm-3">{{ $t('board.gameModal.ageRatings') }}</dt>
+      <dd class="col-sm-9">
+        <b-skeleton />
+      </dd>
+    </dl>
   </b-card>
-  <!-- <div class="game-detail-placeholder">
-    <div class="game-hero" />
-
-    <div class="game-detail-container">
-      <div class="game-detail">
-        <img :src="coverUrl" :alt="gamePreviewData.name" class="game-cover">
-
-        <div>
-          <h2>{{ gamePreviewData.name }}</h2>
-          <placeholder :lines="3" />
-        </div>
-
-      </div>
-    </div>
-  </div> -->
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   props: {
@@ -91,6 +62,7 @@ export default {
 
   computed: {
     ...mapState(['games']),
+    ...mapGetters(['nightMode']),
 
     gamePreviewData() {
       return this.games[this.id];
