@@ -1,5 +1,8 @@
 <template lang="html">
-  <b-dropdown-item-button @click="$bvModal.show(`game-modal-${list.name}`)">
+  <b-dropdown-item-button
+    :variant="nightMode ? 'light' : null"
+    @click="$bvModal.show(`game-modal-${list.name}`)"
+  >
     <icon name="plus" />
     {{ $t('board.addGame.title') }}
 

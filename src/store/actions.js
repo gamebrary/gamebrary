@@ -3,18 +3,15 @@ import firebase from 'firebase/app';
 import 'firebase/storage';
 import 'firebase/firestore';
 
-const API_BASE = 'https://us-central1-gamebrary-8c736.cloudfunctions.net';
-// const API_BASE = 'http://localhost:5001/gamebrary-8c736/us-central1';
+// const API_BASE = 'https://us-central1-gamebrary-8c736.cloudfunctions.net';
+const API_BASE = 'http://localhost:5000/gamebrary-8c736/us-central1';
 
 export default {
-  //
-  // NEW STUFF
-  //
-
-  LOAD_IGDB_PLATFORMS({ commit }) {
+  LOAD_IGDB_PLATFORMS({ state, commit }) {
     return new Promise((resolve, reject) => {
-      axios.get(`${API_BASE}/platforms`)
+      axios.get(`${API_BASE}/platforms?token=${state.twitchToken.access_token}`)
         .then(({ data }) => {
+          console.log(data);
           commit('SET_PLATFORMS', data);
           resolve(data);
         }).catch(reject);
@@ -246,9 +243,9 @@ export default {
     });
   },
 
-  LOAD_BOARD_GAMES({ commit }, gameList) {
+  LOAD_BOARD_GAMES({ state, commit }, gameList) {
     return new Promise((resolve, reject) => {
-      axios.get(`${API_BASE}/games?games=${gameList}`)
+      axios.get(`${API_BASE}/games?games=${gameList}&token=${state.twitchToken.access_token}`)
         .then(({ data }) => {
           commit('CACHE_GAME_DATA', data);
           resolve();
@@ -260,7 +257,7 @@ export default {
     const platforms = state.board.platforms.join(',');
 
     return new Promise((resolve, reject) => {
-      axios.get(`${API_BASE}/search?search=${searchText}&platform=${platforms}`)
+      axios.get(`${API_BASE}/search?search=${searchText}&platform=${platforms}&token=${state.twitchToken.access_token}`)
         .then(({ data }) => {
           commit('SET_SEARCH_RESULTS', data);
           commit('CACHE_GAME_DATA', data);
@@ -279,7 +276,7 @@ export default {
     });
   },
 
-  GET_TWITCH_TOKEN({ state, commit }, data) {
+  GET_TWITCH_TOKEN({ state, commit }) {
     const db = firebase.firestore();
 
     return new Promise((resolve, reject) => {
@@ -398,14 +395,20 @@ export default {
     });
   },
 
-  LOAD_GAME(context, gameId) {
+  LOAD_GAME({ state }, gameId) {
     return new Promise((resolve, reject) => {
-      axios.get(`${API_BASE}/game?gameId=${gameId}`)
+      axios.get(`${API_BASE}/game?gameId=${gameId}&token=${state.twitchToken.access_token}`)
         .then(({ data }) => {
-          const [game] = data;
+          console.log(data);
+          // const [game] = data;
 
-          resolve(game);
-        }).catch(reject);
+          // console.log(game);
+
+          // resolve(game);
+        }).catch((e) => {
+          console.log(e);
+          reject();
+        });
     });
   },
 };

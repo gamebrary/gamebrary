@@ -1,5 +1,8 @@
 <template lang="html">
-  <b-dropdown-item-button v-b-modal="modalId">
+  <b-dropdown-item-button
+    v-b-modal="modalId"
+    :variant="nightMode ? 'light' : null"
+  >
     <icon name="tools" />
     {{ $t('board.list.settings') }}
 
@@ -93,6 +96,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   props: {
     listIndex: Number,
@@ -112,6 +117,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['nightMode']),
+
     modalId() {
       return `list-tweaks-${this.listIndex}`;
     },

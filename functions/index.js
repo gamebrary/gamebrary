@@ -1,4 +1,14 @@
 const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+admin.initializeApp({
+  apiKey: 'AIzaSyA6MsmnLtqT4b11r-j15wwreRypO3AodcA',
+  authDomain: 'gamebrary.com',
+  databaseURL: 'https://gamebrary-8c736.firebaseio.com',
+  projectId: 'gamebrary-8c736',
+  storageBucket: 'gamebrary-8c736.appspot.com',
+  messagingSenderId: '324529217902',
+});
+
 const axios = require('axios');
 
 // firebase emulators:start --only functions
@@ -6,10 +16,20 @@ const axios = require('axios');
 
 exports.search = functions.https.onRequest((req, res) => {
   res.set('Access-Control-Allow-Origin', "*")
-  // TODO: whitelist domains/localhost
 
-  const { search, platform } = req.query;
-  // TODO: throw bad request if these are missing ^
+  const { search, platform, token } = req.query;
+
+  if (!search) {
+    return res.status(400).send('missing param search');
+  }
+
+  if (!platform) {
+    return res.status(400).send('missing param games');
+  }
+
+  if (!token) {
+    return res.status(400).send('missing param games');
+  }
 
   const data = `
   search "${search}";
@@ -18,11 +38,12 @@ exports.search = functions.https.onRequest((req, res) => {
   where platforms = (${platform});`
 
   axios({
-    url: 'https://api-v3.igdb.com/games',
+    url: 'https://api.igdb.com/v4/games',
     method: 'POST',
     headers: {
       'Accept': 'application/json',
-      'user-key': functions.config().igdbv3.key,
+      'Client-ID': '0oo6dw5f0y8frai8l31koyq8egcu17',
+      'Authorization': `Bearer ${token}`,
     },
     data,
   })
@@ -30,36 +51,78 @@ exports.search = functions.https.onRequest((req, res) => {
     .catch((error) => { res.send(error) });
 });
 
+// TODO: update to run once a month instead of once a week
+exports.refreshToken = functions.pubsub.schedule('0 0 * * 0')
+  .onRun((context) => {
+    const id = functions.config().twitch.clientid;
+    const secret = functions.config().twitch.clientsecret;
+    const url = `https://id.twitch.tv/oauth2/token?client_id=${id}&client_secret=${secret}&grant_type=client_credentials`;
+
+    axios({
+      url,
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+      },
+    })
+      .then(({ data }) => {
+        const db = admin.firestore();
+
+        return db.collection('app').doc('twitch').set(data, { merge: true })
+          .then((res) => {
+            console.log('token refreshed');
+            return res.status(200).send(res);
+          })
+          .catch((e) => {
+            return res.status(200).send(res);
+          });
+      })
+      .catch(() => {});
+  });
+
 exports.platforms = functions.https.onRequest((req, res) => {
   res.set('Access-Control-Allow-Origin', "*")
 
-  // TODO: hand pick fields
-  // TODO: extend necessary fields field.*
+  const { token } = req.query;
+
+  console.log(token);
+
+  if (!token) {
+    return res.status(400).send('missing param games');
+  }
+
   const data = `
     fields category,generation,name,alternative_name,slug;
     limit 200;
   `
 
   axios({
-    url: 'https://api-v3.igdb.com/platforms',
+    url: 'https://api.igdb.com/v4/platforms',
     method: 'POST',
     headers: {
       'Accept': 'application/json',
-      'user-key': functions.config().igdbv3.key,
+      'Client-ID': '0oo6dw5f0y8frai8l31koyq8egcu17',
+      'Authorization': `Bearer ${token}`,
     },
     data,
   })
-    .then(({ data }) => { res.status(200).send(data) })
+    .then(({ data }) => {
+      res.status(200).send(data)
+    })
     .catch((error) => { res.send(error) });
 });
 
 exports.games = functions.https.onRequest((req, res) => {
   res.set('Access-Control-Allow-Origin', "*")
 
-  const { games } = req.query;
+  const { games, token } = req.query;
+
+  if (!token) {
+    return res.status(400).send('missing token');
+  }
 
   if (!games) {
-    res.status(400).send('missing param games');
+    return res.status(400).send('missing param games');
   }
 
   const data = `fields
@@ -75,11 +138,12 @@ exports.games = functions.https.onRequest((req, res) => {
   limit 500;`;
 
   axios({
-    url: 'https://api-v3.igdb.com/games',
+    url: 'https://api.igdb.com/v4/games',
     method: 'POST',
     headers: {
       'Accept': 'application/json',
-      'user-key': functions.config().igdbv3.key,
+      'Client-ID': '0oo6dw5f0y8frai8l31koyq8egcu17',
+      'Authorization': `Bearer ${token}`,
     },
     data,
   })
@@ -87,10 +151,15 @@ exports.games = functions.https.onRequest((req, res) => {
     .catch((error) => { res.send(error) });
 });
 
+// TODO: fix game
 exports.game = functions.https.onRequest((req, res) => {
   res.set('Access-Control-Allow-Origin', "*")
 
-  const { gameId } = req.query;
+  const { gameId, token } = req.query;
+
+  if (!token) {
+    return res.status(400).send('missing token');
+  }
 
   if (!gameId) {
     res.status(400).send('missing param gameId');
@@ -120,12 +189,15 @@ exports.game = functions.https.onRequest((req, res) => {
 
   where id = ${ gameId };`;
 
+  console.log(data);
+
   axios({
-    url: 'https://api-v3.igdb.com/games',
+    url: 'https://api.igdb.com/v4/games',
     method: 'POST',
     headers: {
       'Accept': 'application/json',
-      'user-key': functions.config().igdbv3.key,
+      'Client-ID': '0oo6dw5f0y8frai8l31koyq8egcu17',
+      'Authorization': `Bearer ${token}`,
     },
     data,
   })
