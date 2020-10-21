@@ -1,17 +1,13 @@
 <template lang="html">
   <div class="platform-picker">
     <b-dropdown
+      :text="dropdownLabel"
       menu-class="platforms-dropdown"
-      class="platforms-dropdown"
       boundary="viewport"
     >
-      <template v-slot:button-content>
-        {{ dropdownLabel }}
-      </template>
-
       <b-dropdown-item
         v-for="platform in filteredPlatforms"
-        :key="platform"
+        :key="platform.id"
         :active="value.includes(platform.id)"
         @click="handleClick(platform.id)"
       >
