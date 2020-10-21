@@ -1,7 +1,6 @@
 <template lang="html">
   <div>
     <!-- TODO: allow board settings to be accessed here -->
-    <!-- TODO: allow to override backdrop using search -->
     <div class="d-flex justify-content-between align-items-center">
       <h5>{{ $t('boards.title') }}</h5>
 
