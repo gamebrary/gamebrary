@@ -10,37 +10,7 @@
       />
     </router-link>
 
-    <template v-if="hasMultipleBoards">
-      <b-dropdown
-        dropright
-        right
-        no-caret
-        boundary="viewport"
-        v-b-tooltip.hover.right
-        :title="$t('navMenu.changeBoard')"
-        :menu-class="nightMode ? 'bg-dark' : ''"
-        variant="transparent"
-      >
-        <template v-slot:button-content>
-          <icon name="arrow-switch" />
-        </template>
-
-        <b-dropdown-item
-          :to="`/board/${id}`"
-          :key="id"
-          v-for="{ name, id } in sortedBoards"
-          variant="transparent"
-          :active="board.id === id"
-        >
-          {{ name }}
-        </b-dropdown-item>
-
-        <b-dropdown-divider />
-        <b-dropdown-item-button>
-          <create-board />
-        </b-dropdown-item-button>
-      </b-dropdown>
-    </template>
+    <board-switcher />
 
     <div class="mt-auto">
       <b-button
@@ -104,12 +74,12 @@
       >
         <b-avatar
           v-if="user && user.photoURL"
-          variant="info"
-          small
-          :title="$t('navMenu.account')"
           v-b-tooltip.hover.right
-          :badge="notification"
+          small
+          variant="info"
           badge-variant="danger"
+          :title="$t('navMenu.account')"
+          :badge="notification"
           :src="user.photoURL"
         />
       </router-link>
@@ -119,24 +89,16 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import CreateBoard from '@/components/Board/CreateBoard';
+import BoardSwitcher from '@/components/Board/BoardSwitcher';
 
 export default {
   components: {
-    CreateBoard,
+    BoardSwitcher,
   },
 
   computed: {
     ...mapState(['board', 'user', 'notification', 'settings']),
-    ...mapGetters(['sortedBoards', 'nightMode']),
-
-    routeName() {
-      return this.$route.name;
-    },
-
-    hasMultipleBoards() {
-      return this.$route.name === 'board' && this.board.name && this.sortedBoards.length > 1;
-    },
+    ...mapGetters(['nightMode']),
   },
 
   methods: {
