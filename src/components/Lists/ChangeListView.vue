@@ -24,51 +24,47 @@
         />
       </template>
 
-      <form ref="renameListForm" @submit.prevent="save">
-        <b-form-radio-group
-          v-model="view"
-          required
-          :options="listViews"
-          class="mb-2"
-          buttons
+      <form class="list-view" ref="renameListForm" @submit.prevent="save">
+        <!-- TODO: use named components and for loop -->
+        <h6>{{ $t('board.list.views.single') }}</h6>
+
+        <game-card-default
+          :game-id="randomGameId"
+          :list="list"
+          :class="{ 'border-2 border-success': !view || view === 'single'}"
+          @click.native="view = 'single'"
         />
 
-        <!-- TODO: use dynamic named component -->
-        <template v-if="randomGameId">
-          <game-card-default
-            v-if="!view || view === 'single'"
-            :game-id="randomGameId"
-            :list="list"
-          />
+        <h6>{{ $t('board.list.views.grid') }}</h6>
 
-          <b-form-row v-if="view === 'grid'">
-            <b-col cols="6">
-              <game-card-grid
-                :game-id="randomGameId"
-                :list="list"
-              />
-            </b-col>
+        <b-form-row>
+          <b-col cols="6">
+            <game-card-grid
+              :game-id="randomGameId"
+              :list="list"
+              :class="{ 'rounded border border-success': view === 'grid'}"
+              @click.native="view = 'grid'"
+            />
+          </b-col>
 
-            <b-col cols="6">
-              <game-card-grid
-                :game-id="randomGameId"
-                :list="list"
-              />
-            </b-col>
-          </b-form-row>
+          <b-col cols="6" />
+        </b-form-row>
 
-          <game-card-compact
-            v-if="view === 'compact'"
-            :game-id="randomGameId"
-            :list="list"
-          />
+        <h6>{{ $t('board.list.views.compact') }}</h6>
+        <game-card-compact
+          :game-id="randomGameId"
+          :list="list"
+          :class="{ 'border-success': view === 'compact'}"
+          @click.native="view = 'compact'"
+        />
 
-          <game-card-text
-            v-if="view === 'text'"
-            :game-id="randomGameId"
-            :list="list"
-          />
-        </template>
+        <h6>{{ $t('board.list.views.text') }}</h6>
+        <game-card-text
+          :game-id="randomGameId"
+          :list="list"
+          :class="{ 'border-success': view === 'text'}"
+          @click.native="view = 'text'"
+        />
       </form>
 
       <template v-slot:modal-footer="{ cancel }">
@@ -117,13 +113,6 @@ export default {
       view: null,
       saving: false,
       randomGameId: null,
-      // TODO: put in constants file
-      listViews: [
-        { text: this.$t('board.list.views.single'), value: 'single' },
-        { text: this.$t('board.list.views.grid'), value: 'grid' },
-        { text: this.$t('board.list.views.compact'), value: 'compact' },
-        { text: this.$t('board.list.views.text'), value: 'text' },
-      ],
     };
   },
 
@@ -188,3 +177,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+  .list-view {
+    width: 300px;
+  }
+</style>
