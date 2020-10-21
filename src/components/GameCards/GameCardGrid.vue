@@ -6,7 +6,6 @@
     :bg-variant="nightMode ? 'dark' : ''"
     :text-variant="nightMode ? 'white' : ''"
     img-top
-    @click="openDetails"
   >
     <b-card-body body-class="p-2" v-if="game && game.name">
       <b-card-title class="mb-0" title-tag="h6">

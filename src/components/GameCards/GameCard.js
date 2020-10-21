@@ -67,13 +67,6 @@ export default {
   },
 
   methods: {
-    openDetails() {
-      const { gameId, list } = this;
-
-      this.$store.commit('SET_GAME_MODAL_DATA', { gameId, list });
-      this.$bvModal.show('game-modal');
-    },
-
     removeTag(tagName) {
       this.$store.commit('REMOVE_GAME_TAG', { tagName, gameId: this.gameId });
       this.saveTags();

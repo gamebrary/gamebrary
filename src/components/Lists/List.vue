@@ -47,6 +47,7 @@
           :key="game"
           :list="list"
           :game-id="game"
+          @click.native="openGame(game, list)"
         />
 
         <b-button
@@ -187,6 +188,11 @@ export default {
   },
 
   methods: {
+    openGame(gameId, list) {
+      this.$store.commit('SET_GAME_MODAL_DATA', { gameId, list });
+      this.$bvModal.show('game-modal');
+    },
+
     validateMove({ from, to }) {
       const isDifferentList = from.id !== to.id;
       const isDuplicate = this.board.lists[to.id].games.includes(Number(this.draggingId));

@@ -4,7 +4,6 @@
     class="clickable mb-2"
     :bg-variant="nightMode ? 'dark' : ''"
     :text-variant="nightMode ? 'white' : ''"
-    @click="openDetails"
   >
     <b-row no-gutters v-if="game && game.name">
         <b-card-body body-class="pt-0 pb-1 px-2">
