@@ -21,30 +21,45 @@
         class="overflow-hidden clickable mt-3"
         @click="viewBoard(board.id)"
       >
-        <b-row no-gutters>
-          <b-col md="3" v-if="board.wallpaper">
-            <b-card-img
+        <b-row>
+          <b-col md="3">
+            <b-img
+              v-if="board.wallpaper"
+              rounded
+              class="m-2 w-100"
               :src="getWallpaper(board)"
               :alt="board.name"
             />
+
+            <b-img
+              v-else
+              rounded
+              :alt="board.name"
+              class="m-2 w-100"
+              width="150"
+              height="84"
+              blank
+              blank-color="darkgray"
+              fluid
+            />
           </b-col>
 
-          <b-col md="9" >
-            <b-card-body :title="board.name" title-tag="h5">
-              <b-card-text v-if="board.description">
-                {{ board.description }}
-              </b-card-text>
+          <b-col md="9" class="p-2" >
+            <h6 class="m-0">{{ board.name }}</h6>
 
-              <span :id="board.id">
-                {{ board.platforms.length }} {{ $t('boards.platforms') }}
-              </span>
+            <small :id="board.id">
+              {{ board.platforms.length }} {{ $t('boards.platforms') }}
+            </small>
 
-              <b-popover :target="board.id" triggers="hover">
-                <div v-for="id in board.platforms" :key="id">
-                  {{ platformNames[id].name }}
-                </div>
-              </b-popover>
-            </b-card-body>
+            <b-popover :target="board.id" triggers="hover">
+              <div v-for="id in board.platforms" :key="id">
+                {{ platformNames[id].name }}
+              </div>
+            </b-popover>
+
+            <p class="text-muted small" v-if="board.description">
+              {{ board.description }}
+            </p>
           </b-col>
         </b-row>
       </b-card>
