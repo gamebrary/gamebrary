@@ -67,6 +67,14 @@
         <icon :name="nightMode ? 'moon' : 'sun'" />
       </b-button>
 
+      <b-button
+        :title="$t('navMenu.about')"
+        :to="{ name: 'upgrade' }"
+        v-b-tooltip.hover.right
+      >
+        <icon name="star-fill" />
+      </b-button>
+
       <router-link
         :title="$t('settings.account')"
         class="mb-2 mt-3 d-block"

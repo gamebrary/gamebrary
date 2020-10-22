@@ -238,5 +238,9 @@
         "name": "Alphabetically",
         "generation": "Generation / Date relased",
         "type": "Type"
+    },
+    "upgrade": {
+      "title": "Upgrade to Gamebrary Pro",
+      "subtitle": "Give me your money"
     }
 }

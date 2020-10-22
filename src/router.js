@@ -9,6 +9,7 @@ import Account from '@/pages/Account';
 import Releases from '@/pages/Releases';
 import Auth from '@/pages/Auth';
 import Dashboard from '@/pages/Dashboard';
+import Upgrade from '@/pages/Upgrade';
 import NotFound from '@/pages/NotFound';
 
 Vue.use(Router);
@@ -21,6 +22,14 @@ export default new Router({
       component: Dashboard,
       meta: {
         title: 'Dashboard',
+      },
+    },
+    {
+      name: 'upgrade',
+      path: '/upgrade',
+      component: Upgrade,
+      meta: {
+        title: 'Upgrade',
       },
     },
     {
