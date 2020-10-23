@@ -5,16 +5,18 @@
       <small>{{ subtitle }}</small>
     </div>
 
-    <slot />
+    <div class="actions">
+      <slot />
 
-    <b-button
-      :variant="nightMode ? 'dark' : 'light'"
-      size="sm"
-      class="ml-auto"
-      @click="$emit('close')"
-    >
-      <icon name="x" />
-    </b-button>
+      <b-button
+        :variant="nightMode ? 'dark' : 'light'"
+        size="sm"
+        class="ml-auto"
+        @click="$emit('close')"
+      >
+        <icon name="x" />
+      </b-button>
+    </div>
   </header>
 </template>
 
