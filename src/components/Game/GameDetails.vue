@@ -2,29 +2,26 @@
   <div>
     <dl class="row">
       <!-- TODO: plural vs singular translations? -->
-      <dt class="col-sm-3">{{ $t('board.gameModal.platforms') }}</dt>
-      <dd class="col-sm-9">{{ platforms }}</dd>
+      <dt class="col-sm-5">{{ $t('board.gameModal.platforms') }}</dt>
+      <dd class="col-sm-9 text-wrap">{{ platforms }}</dd>
 
       <dt class="col-sm-3">{{ $t('board.gameModal.genres') }}</dt>
-      <dd class="col-sm-9">{{ genres }}</dd>
+      <dd class="col-sm-9 text-wrap">{{ genres }}</dd>
 
       <dt class="col-sm-3">{{ $t('board.gameModal.gameModes') }}</dt>
-      <dd class="col-sm-9">{{ gameModes }}</dd>
+      <dd class="col-sm-9 text-wrap">{{ gameModes }}</dd>
 
       <dt class="col-sm-3">{{ $t('board.gameModal.developers') }}</dt>
-      <dd class="col-sm-9">{{ gameDevelopers }}</dd>
+      <dd class="col-sm-9 text-wrap">{{ gameDevelopers }}</dd>
 
       <dt class="col-sm-3">{{ $t('board.gameModal.publishers') }}</dt>
-      <dd class="col-sm-9">{{ gamePublishers }}</dd>
+      <dd class="col-sm-9 text-wrap">{{ gamePublishers }}</dd>
 
       <dt class="col-sm-3">{{ $t('board.gameModal.perspective') }}</dt>
-      <dd class="col-sm-9">{{ playerPerspectives }}</dd>
-
-      <dt class="col-sm-3">{{ $t('board.gameModal.timeToBeat') }}</dt>
-      <dd class="col-sm-9">{{ timeToBeat }}</dd>
+      <dd class="col-sm-9 text-wrap">{{ playerPerspectives }}</dd>
 
       <dt class="col-sm-3">{{ $t('board.gameModal.ageRatings') }}</dt>
-      <dd class="col-sm-9">{{ ageRatings }}</dd>
+      <dd class="col-sm-9 text-wrap">{{ ageRatings }}</dd>
 
       <!-- TODO: add release dates -->
       <!-- {{ $t('board.gameModal.releaseDate') }} -->
@@ -34,8 +31,6 @@
 </template>
 
 <script>
-import moment from 'moment';
-
 export default {
   props: {
     game: Object,
@@ -70,12 +65,6 @@ export default {
     genres() {
       return this.game && this.game.genres
         ? this.game.genres.map(({ name }) => name).join(', ')
-        : 'N/A';
-    },
-
-    timeToBeat() {
-      return this.game && this.game.time_to_beat
-        ? moment.unix(this.game.time_to_beat).format('h[h] m[m]')
         : 'N/A';
     },
 

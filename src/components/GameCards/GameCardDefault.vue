@@ -17,9 +17,11 @@
           v-if="showCompletedBadge"
         />
 
+        <!-- TODO: handle rtl -->
         <b-img
           fluid
           blank-color="#ccc"
+          rounded="left"
           :src="coverUrl"
           :alt="game.name"
         />
