@@ -21,8 +21,7 @@
       <modal-header
         :title="game.name"
         :subtitle="gameModalData.list.name"
-        @close="close"
-      />
+      >
         <b-button-group>
           <b-button
             size="sm"
@@ -42,6 +41,7 @@
             <icon name="triangle-right" />
           </b-button>
         </b-button-group>
+      </modal-header>
     </template>
 
     <b-container v-if="game.name" class="m-0 p-0">
