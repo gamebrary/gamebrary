@@ -51,5 +51,6 @@ h5 {
 
 .actions {
   margin-left: auto;
+  align-self: flex-start;
 }
 </style>
