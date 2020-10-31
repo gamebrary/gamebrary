@@ -26,6 +26,8 @@
         "language": "Language",
         "releases": "Releases",
         "about": "About",
+        "upgrade": "Upgrade",
+        "notes": "Notes",
         "account": "Account",
         "theme": "Switch theme"
     },
@@ -242,5 +244,9 @@
     "upgrade": {
       "title": "Upgrade to Gamebrary Pro",
       "subtitle": "Give me your money"
+    },
+    "notes": {
+      "title": "Notes",
+      "subtitle": "Notes!"
     }
 }

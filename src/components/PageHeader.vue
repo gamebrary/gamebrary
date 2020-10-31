@@ -24,6 +24,15 @@
 
       <b-button
         variant="link"
+        :title="$t('navMenu.notes')"
+        :to="{ name: 'notes' }"
+        v-b-tooltip.hover.right
+      >
+        <icon name="note" />
+      </b-button>
+
+      <b-button
+        variant="link"
         :title="$t('navMenu.wallpapers')"
         :to="{ name: 'wallpapers' }"
         v-b-tooltip.hover.right
@@ -68,8 +77,9 @@
       </b-button>
 
       <b-button
-        :title="$t('navMenu.about')"
+        :title="$t('navMenu.upgrade')"
         :to="{ name: 'upgrade' }"
+        variant="link"
         v-b-tooltip.hover.right
       >
         <icon name="star-fill" />
