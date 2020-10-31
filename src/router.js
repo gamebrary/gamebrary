@@ -5,6 +5,7 @@ import About from '@/pages/About';
 import Languages from '@/pages/Languages';
 import Wallpapers from '@/pages/Wallpapers';
 import Tags from '@/pages/Tags';
+import Notes from '@/pages/Notes';
 import Account from '@/pages/Account';
 import Releases from '@/pages/Releases';
 import Auth from '@/pages/Auth';
@@ -62,6 +63,14 @@ export default new Router({
       component: Tags,
       meta: {
         title: 'Tags',
+      },
+    },
+    {
+      name: 'notes',
+      path: '/notes',
+      component: Notes,
+      meta: {
+        title: 'Notes',
       },
     },
     {
