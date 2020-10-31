@@ -40,6 +40,7 @@
         "vue-github-button": "^1.0.5",
         "vue-i18n": "^8.0.0",
         "vue-markdown": "^2.2.4",
+        "vue-quill": "^1.5.1",
         "vue-raven": "^1.0.0",
         "vue-router": "^3.0.1",
         "vuedraggable": "^2.16.0",
