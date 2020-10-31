@@ -4,7 +4,6 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
 import VueAxios from 'vue-axios';
 import VueFire from 'vuefire';
 import VueI18n from 'vue-i18n';
-import VueQuill from 'vue-quill';
 import Icon from '@/components/Icon';
 import ModalHeader from '@/components/ModalHeader';
 import axios from 'axios';
@@ -27,7 +26,6 @@ Object.defineProperties(Vue.prototype, {
   },
 });
 
-Vue.use(VueQuill);
 Vue.use(BootstrapVue, bootstrapSettings);
 Vue.use(VueAnalytics, { id: 'UA-120053966-1', router });
 Vue.use(VueAxios, axios);
