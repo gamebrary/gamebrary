@@ -68,7 +68,6 @@
 <script>
 import SignOut from '@/components/Settings/SignOut';
 import DeleteAccount from '@/components/Settings/DeleteAccount';
-import moment from 'moment';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
@@ -84,7 +83,7 @@ export default {
 
   methods: {
     formatDate(date) {
-      return moment(date).format('LL');
+      return new Intl.DateTimeFormat().format(new Date(date));
     },
   },
 };

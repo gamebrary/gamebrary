@@ -64,7 +64,6 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import VueMarkdown from 'vue-markdown';
-import moment from 'moment';
 
 export default {
   components: {
@@ -104,7 +103,7 @@ export default {
 
   methods: {
     formatDate(date) {
-      return moment(date).format('LL');
+      return new Intl.DateTimeFormat().format(new Date(date));
     },
   },
 };
