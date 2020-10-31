@@ -14,86 +14,49 @@
     <b-container>
       <!-- TODO: convert to form -->
       <!-- TODO: translate "browse" -->
-      <!-- TODO: display file names -->
-      <h5>{{ $t('wallpapers.form.label') }}</h5>
 
       <b-row class="mb-3">
         <b-col cols="12" lg="6" class="mb-4">
           <b-form-group
             :description="$t('wallpapers.form.helperText')"
+            :label="$t('wallpapers.form.label')"
           >
             <b-form-file
               v-model="file"
               accept="image/*"
+              :browse-text="$t('wallpapers.form.upload')"
               :placeholder="$t('wallpapers.form.placeholder')"
+              @input="uploadWallpaper"
             />
           </b-form-group>
 
-          <b-alert v-if="isDuplicate && !saving" show variant="warning">
+          <b-alert v-if="isDuplicate && !saving && file && file.name" show variant="warning">
             {{ $t('wallpapers.form.duplicateMessage', { fileName: file.name }) }}
           </b-alert>
-
-          <b-button
-            @click="uploadWallpaper"
-            variant="primary"
-            :disabled="!Boolean(file) || saving || isDuplicate"
-          >
-            <b-spinner small v-if="saving" />
-            <span v-else>{{ $t('wallpapers.form.upload') }}</span>
-          </b-button>
         </b-col>
       </b-row>
 
       <h5>{{ $t('wallpapers.list.title') }}</h5>
 
-      <b-row
+      <b-card
         v-if="wallpapers.length"
         v-for="wallpaper in wallpapers"
         :key="wallpaper.name"
-        no-gutters
-        class="mb-4 border-bottom pb-4"
+        :img-src="wallpaper.url"
+        :img-alt="wallpaper.name"
+        img-left
+        img-width="180"
+        class="mb-3"
       >
-        <b-col cols="6" lg="3" class="pr-3">
-          <b-img
-           :src="wallpaper.url"
-           thumbnail
-           class="rounded-0"
-         />
-        </b-col>
-
-        <b-col cols="6">
-          <p>{{ wallpaper.name }}</p>
-          <b-button
-            variant="danger"
-            size="sm"
-            @click="confirmDeleteWallpaper(wallpaper)"
-          >
-            <icon name="trash" white />
-          </b-button>
-        </b-col>
-      </b-row>
-
-      <!-- <b-form-row v-if="wallpapers.length">
-        <b-col cols="12">
-        </b-col>
-        <b-col
-          v-for="wallpaper in wallpapers"
-          :key="wallpaper.name"
-          cols="6"
-          sm="4"
-          lg="3"
+        <p>{{ wallpaper.name }}</p>
+        <b-button
+          variant="danger"
+          size="sm"
+          @click="confirmDeleteWallpaper(wallpaper)"
         >
-          <b-card
-            class="mb-2"
-            header-class="py-0 px-2"
-            body-class="d-flex p-0 text-center justify-content-center align-items-center"
-            header-tag="small"
-          >
-
-
-          </b-card>
-        </b-col>
-      </b-form-row> -->
+          <icon name="trash" white />
+        </b-button>
+      </b-card>
 
       <b-alert show v-else>You don't have any wallpapers.</b-alert>
     </b-container>
@@ -130,19 +93,27 @@ export default {
 
   methods: {
     async uploadWallpaper() {
-      const { file } = this;
+      if (this.isDuplicate) {
+        return this.$bvToast.toast('File already exists', { title: '!', variant: 'warning' });
+      }
+
+      if (!this.file) {
+        return;
+      }
+
       this.saving = true;
 
-      await this.$store.dispatch('UPLOAD_WALLPAPER', file)
+      this.$store.dispatch('UPLOAD_WALLPAPER', this.file)
+        .then(() => {
+          this.$bvToast.toast('File uploaded', { title: 'Success', variant: 'success' });
+          this.file = null;
+          this.saving = false;
+          this.$bus.$emit('WALLPAPER_UPLOADED');
+        })
         .catch(() => {
           this.saving = false;
           this.$bvToast.toast('There was an error uploading wallpaper', { title: 'Error', variant: 'danger' });
         });
-
-      this.file = null;
-      this.saving = false;
-      this.$bvToast.toast(file.name, { title: 'File uploaded', variant: 'success' });
-      this.$bus.$emit('WALLPAPER_UPLOADED');
     },
 
     confirmDeleteWallpaper(file) {
