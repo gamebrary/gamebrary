@@ -275,6 +275,7 @@ export default {
         .get()
         .then((doc) => {
           commit('SET_TWITCH_TOKEN', doc.data());
+          resolve();
         })
         .catch(reject);
     });
