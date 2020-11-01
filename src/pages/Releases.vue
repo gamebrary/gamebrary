@@ -16,7 +16,6 @@
         :key="release.id"
         :bg-variant="nightMode ? 'dark' : null"
         :text-variant="nightMode ? 'white' : null"
-        v-if="selectedTag"
         hide-footer
         class="mb-3"
       >
