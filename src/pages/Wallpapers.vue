@@ -92,18 +92,18 @@ export default {
   },
 
   methods: {
-    async uploadWallpaper() {
+    uploadWallpaper() {
       if (this.isDuplicate) {
         return this.$bvToast.toast('File already exists', { title: '!', variant: 'warning' });
       }
 
       if (!this.file) {
-        return;
+        return false;
       }
 
       this.saving = true;
 
-      this.$store.dispatch('UPLOAD_WALLPAPER', this.file)
+      return this.$store.dispatch('UPLOAD_WALLPAPER', this.file)
         .then(() => {
           this.$bvToast.toast('File uploaded', { title: 'Success', variant: 'success' });
           this.file = null;
