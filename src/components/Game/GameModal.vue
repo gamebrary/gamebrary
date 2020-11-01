@@ -117,8 +117,6 @@
 
           <template v-if="loading">
             <b-skeleton v-for="n in 3" :key="n" />
-
-            <game-detail-placeholder />
           </template>
 
           <template v-else>
@@ -139,7 +137,6 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import GameDetailPlaceholder from '@/components/Game/GameDetailPlaceholder';
 import GameDetails from '@/components/Game/GameDetails';
 import GameNotesTab from '@/components/Game/GameNotesTab';
 import GameScreenshots from '@/components/Game/GameScreenshots';
@@ -155,7 +152,6 @@ export default {
   components: {
     GameTags,
     IgdbLogo,
-    GameDetailPlaceholder,
     GameDetails,
     GameNotesTab,
     GameScreenshots,

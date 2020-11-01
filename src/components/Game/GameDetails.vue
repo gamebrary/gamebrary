@@ -1,33 +1,31 @@
 <template lang="html">
-  <div>
-    <dl class="row">
-      <!-- TODO: plural vs singular translations? -->
-      <dt class="col-sm-5">{{ $t('board.gameModal.platforms') }}</dt>
-      <dd class="col-sm-9 text-wrap">{{ platforms }}</dd>
+  <dl>
+    <!-- TODO: plural vs singular translations? -->
+    <dt class="w-100">{{ $t('board.gameModal.platforms') }}</dt>
+    <dd class="text-wrap">{{ platforms }}</dd>
 
-      <dt class="col-sm-3">{{ $t('board.gameModal.genres') }}</dt>
-      <dd class="col-sm-9 text-wrap">{{ genres }}</dd>
+    <dt class="w-100">{{ $t('board.gameModal.genres') }}</dt>
+    <dd class="text-wrap">{{ genres }}</dd>
 
-      <dt class="col-sm-3">{{ $t('board.gameModal.gameModes') }}</dt>
-      <dd class="col-sm-9 text-wrap">{{ gameModes }}</dd>
+    <dt class="w-100">{{ $t('board.gameModal.gameModes') }}</dt>
+    <dd class="text-wrap">{{ gameModes }}</dd>
 
-      <dt class="col-sm-3">{{ $t('board.gameModal.developers') }}</dt>
-      <dd class="col-sm-9 text-wrap">{{ gameDevelopers }}</dd>
+    <dt class="w-100">{{ $t('board.gameModal.developers') }}</dt>
+    <dd class="text-wrap">{{ gameDevelopers }}</dd>
 
-      <dt class="col-sm-3">{{ $t('board.gameModal.publishers') }}</dt>
-      <dd class="col-sm-9 text-wrap">{{ gamePublishers }}</dd>
+    <dt class="w-100">{{ $t('board.gameModal.publishers') }}</dt>
+    <dd class="text-wrap">{{ gamePublishers }}</dd>
 
-      <dt class="col-sm-3">{{ $t('board.gameModal.perspective') }}</dt>
-      <dd class="col-sm-9 text-wrap">{{ playerPerspectives }}</dd>
+    <dt class="w-100">{{ $t('board.gameModal.perspective') }}</dt>
+    <dd class="text-wrap">{{ playerPerspectives }}</dd>
 
-      <dt class="col-sm-3">{{ $t('board.gameModal.ageRatings') }}</dt>
-      <dd class="col-sm-9 text-wrap">{{ ageRatings }}</dd>
+    <dt class="w-100">{{ $t('board.gameModal.ageRatings') }}</dt>
+    <dd class="text-wrap">{{ ageRatings }}</dd>
 
-      <!-- TODO: add release dates -->
-      <!-- {{ $t('board.gameModal.releaseDate') }} -->
-      <!-- <pre>{{ game.release_dates }}</pre> -->
-    </dl>
-  </div>
+    <!-- TODO: add release dates -->
+    <!-- {{ $t('board.gameModal.releaseDate') }} -->
+    <!-- <pre>{{ game.release_dates }}</pre> -->
+  </dl>
 </template>
 
 <script>
