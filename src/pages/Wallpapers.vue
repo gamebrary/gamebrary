@@ -37,6 +37,7 @@
       </b-row>
 
       <h5>{{ $t('wallpapers.list.title') }}</h5>
+      <pre>{{ wallpapers }}</pre>
 
       <b-card
         v-if="wallpapers.length"
