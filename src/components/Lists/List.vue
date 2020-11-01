@@ -1,6 +1,6 @@
 <template lang="html">
   <div
-    :class="['list mr-3', viewClass, { dragging, 'single': singleBoard }]"
+    :class="['list mr-3', viewClass, { dragging, 'unique': singleList }]"
     :id="listIndex"
   >
     <b-card
@@ -156,8 +156,8 @@ export default {
       return this.list.games.length === 0;
     },
 
-    singleBoard() {
-      return this.list.games.length === 1;
+    singleList() {
+      return this.board.lists.length === 1;
     },
 
     view() {
@@ -246,9 +246,10 @@ export default {
     width: 300px;
     border-radius: 3px;
 
-    &.single {
+    &.unique {
       @media(max-width: 780px) {
         width: calc(100vw - 140px);
+        // background: #ccf;
       }
     }
 
