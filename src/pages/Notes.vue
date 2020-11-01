@@ -25,7 +25,7 @@
           <b-card
             v-for="(note, gameId) in notes"
             :key="gameId"
-            class="mb-3 w-100"
+            class="mb-3 w-100 note"
             :img-src="getCoverUrl(gameId)"
             :img-alt="games[gameId].name"
             img-left
@@ -123,3 +123,17 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+.note {
+  img {
+    align-self: baseline;
+  }
+}
+</style>
+
+<style lang="scss" rel="stylesheet/scss">
+img {
+  max-width: 100%;
+}
+</style>
