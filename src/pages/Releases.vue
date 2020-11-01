@@ -10,53 +10,31 @@
       class="position-sticky"
     />
 
-    <b-container fluid>
-      <b-form-row>
-        <b-col cols="2" md="3">
-          <b-list-group>
-            <b-list-group-item
-              button
-              class="d-flex justify-content-center justify-content-md-between
-               align-items-center p-2"
-              v-for="release in releases"
-              :key="release.id"
-              :variant="nightMode ? 'dark' : null"
-              :active="selectedRelease && release.id === selectedRelease.id"
-              @click="selectedRelease = release"
-            >
-              <h6 class="m-0">
-                <b-badge>{{ release.tag_name }}</b-badge>
-                <span class="d-none d-md-inline">{{ release.name }}</span>
-              </h6>
-            </b-list-group-item>
-          </b-list-group>
-        </b-col>
+    <b-container>
+      <b-card
+        v-for="release in releases"
+        :key="release.id"
+        :bg-variant="nightMode ? 'dark' : null"
+        :text-variant="nightMode ? 'white' : null"
+        v-if="selectedTag"
+        hide-footer
+        class="mb-3"
+      >
+        <template v-slot:header>
+          <h6 class="mb-0">
+            <b-badge>{{ release.tag_name }}</b-badge>
+            {{ release.name }}
+          </h6>
+        </template>
 
-        <b-col cols="10" md="9">
-          <b-card
-            :bg-variant="nightMode ? 'dark' : null"
-            :text-variant="nightMode ? 'white' : null"
-            v-if="selectedRelease"
-            hide-footer
-            class="mb-3"
-          >
-            <template v-slot:header>
-              <h6 class="mb-0">
-                <b-badge>{{ selectedRelease.tag_name }}</b-badge>
-                {{ selectedRelease.name }}
-              </h6>
-            </template>
+        <b-card-text>
+          <small class="text-muted">
+            {{ $t('releases.published') }} {{ formatDate(release.published_at) }}
+          </small>
 
-            <small class="text-muted">
-              {{ $t('releases.published') }} {{ formatDate(selectedRelease.published_at) }}
-            </small>
-
-            <b-card-text>
-              <vue-markdown :source="selectedRelease.body" class="w-100 releases" />
-            </b-card-text>
-          </b-card>
-        </b-col>
-      </b-form-row>
+          <vue-markdown :source="release.body" class="w-100 releases" />
+        </b-card-text>
+      </b-card>
     </b-container>
   </div>
 </template>
@@ -70,12 +48,6 @@ export default {
     VueMarkdown,
   },
 
-  data() {
-    return {
-      selectedRelease: null,
-    };
-  },
-
   computed: {
     ...mapState(['releases', 'notification', 'settings']),
     ...mapGetters(['nightMode']),
@@ -83,8 +55,6 @@ export default {
 
   mounted() {
     const [latestRelease] = this.releases;
-
-    this.selectedRelease = latestRelease;
 
     if (this.notification && latestRelease && latestRelease.tag_name) {
       this.$store.commit('UPDATE_SETTING', { key: 'release', value: latestRelease.tag_name });
