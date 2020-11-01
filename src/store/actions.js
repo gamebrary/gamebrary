@@ -144,6 +144,13 @@ export default {
         .listAll()
         .then(({ items }) => {
           const wallpapers = items.map(({ fullPath, name }) => {
+            const forestRef = firebase.storage().ref(fullPath);
+
+            forestRef.getMetadata().then((metadata) => {
+              // TODO: get sizes
+              console.log(metadata);
+            });
+
             const wallpaper = {
               fullPath,
               name,
