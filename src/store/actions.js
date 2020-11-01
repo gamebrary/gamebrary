@@ -144,13 +144,6 @@ export default {
         .listAll()
         .then(({ items }) => {
           const wallpapers = items.map(({ fullPath, name }) => {
-            const forestRef = firebase.storage().ref(fullPath);
-
-            forestRef.getMetadata().then((metadata) => {
-              // TODO: get sizes
-              console.log(metadata);
-            });
-
             const wallpaper = {
               fullPath,
               name,
@@ -160,6 +153,7 @@ export default {
           });
 
           // TODO: refactor? there's gotta be a better way to do this
+          // TODO: for real, refactor this crap, use promise.all or something better
           const fetchedUrls = [];
 
           wallpapers.forEach(({ fullPath }, index) => {
@@ -172,8 +166,22 @@ export default {
                 wallpapers[index].url = url;
 
                 if (fetchedUrls.length === wallpapers.length) {
-                  commit('SET_WALLPAPERS', wallpapers);
-                  resolve();
+                  const fetchedMetadatas = [];
+
+                  wallpapers.forEach((wallpaper, i) => {
+                    const forestRef = firebase.storage().ref(wallpaper.fullPath);
+
+                    forestRef.getMetadata().then((metadata) => {
+                      fetchedMetadatas.push(metadata);
+
+                      wallpapers[i].metadata = metadata;
+
+                      if (fetchedMetadatas.length === wallpapers.length) {
+                        commit('SET_WALLPAPERS', wallpapers);
+                        resolve();
+                      }
+                    });
+                  });
                 }
               })
               .catch(reject);
