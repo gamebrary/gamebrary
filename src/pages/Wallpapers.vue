@@ -40,7 +40,7 @@
 
       <h5>{{ $t('wallpapers.list.title') }}</h5>
 
-      <b-progress value="59" max="72" variant="success" class="mb-3" />
+      <!-- <b-progress value="59" max="72" variant="success" class="mb-3" /> -->
 
       <b-card
         v-if="wallpapers.length"
@@ -52,8 +52,8 @@
         img-width="180"
         class="mb-3"
       >
-        <p>{{ wallpaper.name }}</p>
-        {{ bytesToSize(wallpaper.metadata.size) }}
+        <p>{{ wallpaper.name }} <b-badge>{{ bytesToSize(wallpaper.metadata.size) }}</b-badge></p>
+
         <b-button
           variant="danger"
           size="sm"
