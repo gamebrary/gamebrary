@@ -179,7 +179,7 @@
       </b-button>
 
       <div class="text-center mt-4">
-        <h2>GamePro enhances your all-in-one Discord voice, video, and text chat.</h2>
+        <h2>Title here</h2>
         <p class="lead">Check out the perks you'll get.</p>
 
 

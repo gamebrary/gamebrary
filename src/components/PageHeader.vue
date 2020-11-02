@@ -76,14 +76,14 @@
         <icon :name="nightMode ? 'moon' : 'sun'" />
       </b-button>
 
-      <b-button
+      <!-- <b-button
         :title="$t('navMenu.upgrade')"
         :to="{ name: 'upgrade' }"
         variant="link"
         v-b-tooltip.hover.right
       >
         <icon name="star-fill" />
-      </b-button>
+      </b-button> -->
 
       <router-link
         :title="$t('settings.account')"

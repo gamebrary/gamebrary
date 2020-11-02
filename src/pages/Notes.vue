@@ -12,13 +12,14 @@
 
     <b-container>
       <!-- TODO: add skeleton -->
-      <b-row class="mb-3">
+      <!-- TODO: finish search, include game title? -->
+      <!-- <b-row class="mb-3">
         <b-form-input
           type="search"
           placeholder="Search notes"
           v-model="search"
         />
-      </b-row>
+      </b-row> -->
 
       <b-row>
         <template v-if="loaded && games && notes">
@@ -35,12 +36,12 @@
               <h5>{{ games[gameId] && games[gameId].name ? games[gameId].name : '' }}</h5>
 
               <b-alert show variant="warning" class="mt-2">
-                <vue-markdown :source="note && note.text ? note.text : note" />
+                <vue-markdown :source="note.text ? note.text : note" />
               </b-alert>
             </div>
 
             <div v-else>
-              no tiene
+              ...
             </div>
           </b-card>
 
