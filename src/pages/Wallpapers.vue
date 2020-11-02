@@ -14,6 +14,8 @@
     <b-container>
       <!-- TODO: convert to form -->
       <!-- TODO: translate "browse" -->
+      <!-- TODO: add skeleton -->
+      <!-- TODO: add progress bar -->
 
       <b-row class="mb-3">
         <b-col cols="12" lg="6" class="mb-4">
@@ -37,7 +39,8 @@
       </b-row>
 
       <h5>{{ $t('wallpapers.list.title') }}</h5>
-      <pre>{{ wallpapers }}</pre>
+
+      <b-progress value="59" max="72" variant="success" class="mb-3" />
 
       <b-card
         v-if="wallpapers.length"
@@ -50,6 +53,7 @@
         class="mb-3"
       >
         <p>{{ wallpaper.name }}</p>
+        {{ bytesToSize(wallpaper.metadata.size) }}
         <b-button
           variant="danger"
           size="sm"
@@ -93,6 +97,16 @@ export default {
   },
 
   methods: {
+    bytesToSize(bytes) {
+      const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+
+      if (bytes == 0) return '0 Byte';
+
+      const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+
+      return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+    },
+
     uploadWallpaper() {
       if (this.isDuplicate) {
         return this.$bvToast.toast('File already exists', { title: '!', variant: 'warning' });
