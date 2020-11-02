@@ -17,7 +17,7 @@
 
 Gamebrary is an open source tool that helps organize video game collections. Written in javascript using [VueJS](https://github.com/vuejs/vue).
 
-# Table of content
+<!-- # Table of content
 Take me to [pookie](#pookie)
 
 - <a name="features">Features</a>
@@ -29,7 +29,7 @@ Take me to [pookie](#pookie)
 - instructions for yarn translate
 # Add table of content
 # Feedback
-# Contributors
+# Contributors -->
 
 ## Get started
 
