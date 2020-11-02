@@ -153,6 +153,7 @@ export default {
           });
 
           // TODO: refactor? there's gotta be a better way to do this
+          // TODO: for real, refactor this crap, use promise.all or something better
           const fetchedUrls = [];
 
           wallpapers.forEach(({ fullPath }, index) => {
@@ -165,8 +166,22 @@ export default {
                 wallpapers[index].url = url;
 
                 if (fetchedUrls.length === wallpapers.length) {
-                  commit('SET_WALLPAPERS', wallpapers);
-                  resolve();
+                  const fetchedMetadatas = [];
+
+                  wallpapers.forEach((wallpaper, i) => {
+                    const forestRef = firebase.storage().ref(wallpaper.fullPath);
+
+                    forestRef.getMetadata().then((metadata) => {
+                      fetchedMetadatas.push(metadata);
+
+                      wallpapers[i].metadata = metadata;
+
+                      if (fetchedMetadatas.length === wallpapers.length) {
+                        commit('SET_WALLPAPERS', wallpapers);
+                        resolve();
+                      }
+                    });
+                  });
                 }
               })
               .catch(reject);
@@ -275,6 +290,7 @@ export default {
         .get()
         .then((doc) => {
           commit('SET_TWITCH_TOKEN', doc.data());
+          resolve();
         })
         .catch(reject);
     });

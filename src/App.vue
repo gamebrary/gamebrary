@@ -4,6 +4,7 @@
     :dir="dir"
   >
     <page-header v-if="user" />
+
     <main
       :class="{ 'authorizing': !user, 'bg-dark text-white': nightMode }"
     >

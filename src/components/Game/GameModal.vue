@@ -80,15 +80,6 @@
             size="lg"
             no-border
           />
-          <!-- <h6>
-            <b-badge
-              v-if="releaseDate"
-              variant="secondary"
-            >
-              Releases in
-              {{ releaseDate }}
-            </b-badge>
-          </h6> -->
 
           <br />
 
@@ -126,8 +117,6 @@
 
           <template v-if="loading">
             <b-skeleton v-for="n in 3" :key="n" />
-
-            <game-detail-placeholder />
           </template>
 
           <template v-else>
@@ -147,9 +136,7 @@
 </template>
 
 <script>
-import moment from 'moment';
 import { mapState, mapGetters } from 'vuex';
-import GameDetailPlaceholder from '@/components/Game/GameDetailPlaceholder';
 import GameDetails from '@/components/Game/GameDetails';
 import GameNotesTab from '@/components/Game/GameNotesTab';
 import GameScreenshots from '@/components/Game/GameScreenshots';
@@ -165,7 +152,6 @@ export default {
   components: {
     GameTags,
     IgdbLogo,
-    GameDetailPlaceholder,
     GameDetails,
     GameNotesTab,
     GameScreenshots,
@@ -188,20 +174,6 @@ export default {
     // TODO: rename gameModalData
     ...mapState(['gameModalData', 'games', 'platform', 'progresses', 'tags']),
     ...mapGetters(['nightMode']),
-
-    releaseDate() {
-      const releaseDate = this.game
-        && this.game.release_dates
-        && this.game.release_dates.find(({ platform }) => this.platform.id === platform);
-
-      const formattedDate = releaseDate && releaseDate.date
-        ? moment.unix(releaseDate.date)
-        : null;
-
-      return moment(formattedDate).isAfter()
-        ? formattedDate.toNow(true)
-        : null;
-    },
 
     progress() {
       const { gameId, progresses } = this;

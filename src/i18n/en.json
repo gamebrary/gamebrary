@@ -26,6 +26,8 @@
         "language": "Language",
         "releases": "Releases",
         "about": "About",
+        "upgrade": "Upgrade",
+        "notes": "Notes",
         "account": "Account",
         "theme": "Switch theme"
     },
@@ -238,5 +240,13 @@
         "name": "Alphabetically",
         "generation": "Generation / Date relased",
         "type": "Type"
+    },
+    "upgrade": {
+      "title": "Upgrade to Gamebrary Pro",
+      "subtitle": "..."
+    },
+    "notes": {
+      "title": "Notes",
+      "subtitle": "Notes!"
     }
 }

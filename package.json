@@ -27,7 +27,6 @@
         "lodash.groupby": "^4.6.0",
         "lodash.orderby": "^4.6.0",
         "lodash.sortby": "^4.7.0",
-        "moment": "^2.22.1",
         "node-sass": "^4.8.3",
         "raven-js": "^3.27.0",
         "sass-loader": "^7.0.1",

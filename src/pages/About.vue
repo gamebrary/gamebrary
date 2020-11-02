@@ -56,7 +56,6 @@
 
 <script>
 import VueMarkdown from 'vue-markdown';
-import moment from 'moment';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -84,10 +83,6 @@ export default {
   },
 
   methods: {
-    formatDate(date) {
-      return moment(date).format('LL');
-    },
-
     async load() {
       this.readme = await this.$store.dispatch('LOAD_GITHUB_README');
       this.repo = await this.$store.dispatch('LOAD_GITHUB_REPOSITORY');

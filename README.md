@@ -1,17 +1,9 @@
-# Large header
-# Tech stack
-# Build Process
-- instructions for yarn translate
-# Add table of content
-# Features
-# Feedback
-# Contributors
-
 <p align="center">
     <img width="200" src="https://user-images.githubusercontent.com/60666270/93530966-567d1200-f8f3-11ea-8fd3-131976105d06.png" alt="Gamebrary logo">
     <h2 align="center">Gamebrary</h2>
     <p align="center">Open source tool to organize video game collections.</p>
 </p>
+- test
 
 <p align="center">
 <img alt="All Contributors" src="https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square">
@@ -24,6 +16,20 @@
 <!-- ![Gamebrary board](https://user-images.githubusercontent.com/645310/57200356-d0e80480-6f3f-11e9-92e2-5c80ec186bda.png) -->
 
 Gamebrary is an open source tool that helps organize video game collections. Written in javascript using [VueJS](https://github.com/vuejs/vue).
+
+# Table of content
+Take me to [pookie](#pookie)
+
+- <a name="features">Features</a>
+
+# Features
+
+# Tech stack
+# Build Process
+- instructions for yarn translate
+# Add table of content
+# Feedback
+# Contributors
 
 ## Get started
 
@@ -86,3 +92,5 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
+### <a name="pookie"></a>Some heading
