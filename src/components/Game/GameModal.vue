@@ -21,6 +21,7 @@
       <modal-header
         :title="game.name"
         :subtitle="gameModalData.list.name"
+        @close="close"
       >
         <b-button-group>
           <b-button
