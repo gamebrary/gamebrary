@@ -3,7 +3,6 @@
     <h2 align="center">Gamebrary</h2>
     <p align="center">Open source tool to organize video game collections.</p>
 </p>
-- test
 
 <p align="center">
 <img alt="All Contributors" src="https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square">
