@@ -12,7 +12,10 @@ export default {
   boards: [],
   board: {},
   boardGames: [],
-  gameModalData: null,
+  gameModalData: {
+    gameId: null,
+    list: null,
+  },
   wallpapers: [],
   platform: null,
   duplicatedGame: null,
