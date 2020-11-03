@@ -20,8 +20,6 @@
         <board-settings />
       </div>
     </template>
-
-    <game-modal />
   </div>
 </template>
 
@@ -30,7 +28,6 @@ import BoardSettings from '@/components/Settings/BoardSettings';
 import BoardPlaceholder from '@/components/Board/BoardPlaceholder';
 import EmptyBoard from '@/components/Board/EmptyBoard';
 import AddList from '@/components/Board/AddList';
-import GameModal from '@/components/Game/GameModal';
 import List from '@/components/Lists/List';
 import chunk from 'lodash.chunk';
 import { mapState, mapGetters } from 'vuex';
@@ -44,7 +41,6 @@ export default {
     EmptyBoard,
     AddList,
     BoardSettings,
-    GameModal,
   },
 
   data() {

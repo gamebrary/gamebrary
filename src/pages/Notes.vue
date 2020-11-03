@@ -11,7 +11,6 @@
     />
 
     <b-container>
-      <!-- TODO: add skeleton -->
       <!-- TODO: finish search, include game title? -->
       <!-- <b-row class="mb-3">
         <b-form-input
@@ -30,18 +29,14 @@
             :img-src="getCoverUrl(gameId)"
             :img-alt="games[gameId].name"
             img-left
+            @click="openGame(gameId)"
           >
             <div v-if="games[gameId]">
-
               <h5>{{ games[gameId] && games[gameId].name ? games[gameId].name : '' }}</h5>
 
               <b-alert show variant="warning" class="mt-2">
-                <vue-markdown :source="note.text ? note.text : note" />
+                <vue-markdown :source="note" />
               </b-alert>
-            </div>
-
-            <div v-else>
-              ...
             </div>
           </b-card>
 
@@ -112,6 +107,11 @@ export default {
         });
 
       this.loaded = true;
+    },
+
+    openGame(gameId) {
+      this.$store.commit('SET_GAME_MODAL_DATA', { gameId });
+      this.$bvModal.show('game-modal');
     },
 
     getCoverUrl(gameId) {

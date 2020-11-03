@@ -20,10 +20,10 @@
     <template v-slot:modal-header="{ close }">
       <modal-header
         :title="game.name"
-        :subtitle="gameModalData.list.name"
+        :subtitle="gameModalData.list ? gameModalData.list.name : null"
         @close="close"
       >
-        <b-button-group>
+        <b-button-group v-if="gameModalData.list">
           <b-button
             size="sm"
             :variant="nightMode ? 'dark' : 'light'"
@@ -57,7 +57,7 @@
           />
 
           <game-screenshots :game="game" v-if="!loading" />
-          <game-notes-tab :game="game" />
+          <game-notes :game="game" />
         </b-col>
 
         <b-col cols="12" md="8" class="mt-md-0 mt-3 text-md-left text-center">
@@ -111,7 +111,7 @@
 
           <div v-else class="my-2">
             <game-progress :game="game" />
-            <game-notes :game="game" />
+            <game-notes-modal :game="game" />
             <game-tags :game="game" />
             <add-remove-game :game="game" :list="list" />
           </div>
@@ -123,8 +123,8 @@
           <template v-else>
             <p class="text-left">{{ game.summary }}</p>
             <game-details :game="game" />
-            <game-websites-tab :game="game" />
-            <game-videos-tab :game="game" />
+            <game-websites :game="game" />
+            <game-videos :game="game" />
           </template>
         </b-col>
       </b-row>
@@ -139,11 +139,11 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import GameDetails from '@/components/Game/GameDetails';
-import GameNotesTab from '@/components/Game/GameNotesTab';
-import GameScreenshots from '@/components/Game/GameScreenshots';
-import GameVideosTab from '@/components/Game/GameVideosTab';
-import GameWebsitesTab from '@/components/Game/GameWebsitesTab';
 import GameNotes from '@/components/Game/GameNotes';
+import GameScreenshots from '@/components/Game/GameScreenshots';
+import GameVideos from '@/components/Game/GameVideos';
+import GameWebsites from '@/components/Game/GameWebsites';
+import GameNotesModal from '@/components/Game/GameNotesModal';
 import GameProgress from '@/components/Game/GameProgress';
 import AddRemoveGame from '@/components/Game/AddRemoveGame';
 import GameTags from '@/components/Game/GameTags';
@@ -154,11 +154,11 @@ export default {
     GameTags,
     IgdbLogo,
     GameDetails,
-    GameNotesTab,
-    GameScreenshots,
-    GameVideosTab,
-    GameWebsitesTab,
     GameNotes,
+    GameScreenshots,
+    GameVideos,
+    GameWebsites,
+    GameNotesModal,
     GameProgress,
     AddRemoveGame,
   },
@@ -199,7 +199,7 @@ export default {
     gameIndex() {
       const { gameId, list } = this.gameModalData;
 
-      return list.games.indexOf(gameId);
+      return list && list.games.indexOf(gameId);
     },
 
     prevDisabled() {
@@ -209,7 +209,7 @@ export default {
     nextDisabled() {
       const { list } = this.gameModalData;
 
-      return this.gameIndex === list.games.length - 1;
+      return this.list && list.games && this.gameIndex === list.games.length - 1;
     },
   },
 

@@ -11,12 +11,14 @@
       <router-view />
     </main>
     <session-expired v-if="user" />
+    <game-modal />
   </div>
 </template>
 
 <script>
 import PageHeader from '@/components/PageHeader';
 import SessionExpired from '@/components/SessionExpired';
+import GameModal from '@/components/Game/GameModal';
 import firebase from 'firebase/app';
 import { mapState, mapGetters } from 'vuex';
 import 'firebase/firestore';
@@ -38,6 +40,7 @@ export default {
 
   components: {
     PageHeader,
+    GameModal,
     SessionExpired,
   },
 
