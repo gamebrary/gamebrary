@@ -102,7 +102,8 @@ export default {
 
       const { id } = this.game;
 
-      this.localNote = typeof this.notes[id] === 'object' && this.notes[id].text
+      // TODO: use optional chaining
+      this.localNote = this.notes[id] && typeof this.notes[id] === 'object' && this.notes[id].text
         ? this.notes[id].text
         : JSON.parse(JSON.stringify(this.notes[id]));
     },
