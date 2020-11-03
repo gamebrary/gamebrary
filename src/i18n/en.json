@@ -218,10 +218,8 @@
         "subtitle": "Readme from Github"
     },
     "progresses": {
-        "modalTitle": "Set game progress",
+        "modalTitle": "Game progress",
         "addProgress": "Add progress",
-        "save": "Save progress",
-        "deleteProgress": "Delete progress",
         "progresses": "Progress"
     },
     "platforms": {
@@ -247,6 +245,6 @@
     },
     "notes": {
       "title": "Notes",
-      "subtitle": "Notes!"
+      "subtitle": "↑↑↓↓←→←→BA"
     }
 }

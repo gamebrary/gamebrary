@@ -3,7 +3,7 @@
     v-b-modal.progress
     v-b-tooltip.hover
     variant="info"
-    title="Set game progress"
+    :title="$t('progresses.modalTitle')"
   >
     <icon name="clock" white />
 
@@ -15,17 +15,17 @@
       :body-text-variant="nightMode ? 'white' : null"
       :footer-bg-variant="nightMode ? 'dark' : null"
       :footer-text-variant="nightMode ? 'white' : null"
-      footer-class="d-flex justify-content-between"
+      footer-class="d-flex justify-content-between pt-0"
       @show="show"
     >
       <template v-slot:modal-header="{ close }">
         <modal-header
-          title="Set game progress"
+          :title="$t('progresses.modalTitle')"
           @close="close"
         />
       </template>
 
-      <b-input-group :prepend="`${localProgress}%`" class="mb-4" size="lg">
+      <b-input-group :prepend="`${localProgress}%`" size="lg">
         <b-form-input
           size="lg"
           v-model="localProgress"
@@ -42,7 +42,7 @@
           @click="deleteProgress"
         >
           <b-spinner small v-if="deleting" />
-          <span v-else>{{ $t('progresses.deleteProgress') }}</span>
+          <span v-else>{{ $t('global.delete') }}</span>
         </b-button>
 
         <b-button
@@ -51,7 +51,7 @@
           @click="saveProgress"
         >
           <b-spinner small v-if="saving" />
-          <span v-else>{{ $t('progresses.save') }}</span>
+          <span v-else>{{ $t('global.save') }}</span>
         </b-button>
       </template>
     </b-modal>
