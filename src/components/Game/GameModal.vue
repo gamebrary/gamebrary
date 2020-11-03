@@ -113,7 +113,7 @@
             <game-progress :game="game" />
             <game-notes-modal :game="game" />
             <game-tags :game="game" />
-            <add-remove-game :game="game" :list="list" />
+            <add-remove-game v-if="list" :game="game" :list="list" />
           </div>
 
           <template v-if="loading">
