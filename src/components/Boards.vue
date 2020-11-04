@@ -11,7 +11,27 @@
       <b-img src="/static/img/empty-state.png" fluid class="mr-5" />
     </div>
 
-    <b-overlay :show="loading" rounded="sm" variant="transparent">
+    <template v-if="loading">
+      <b-card
+        v-for="n in 3"
+        :key="n"
+        no-body
+        img-left
+        class="w-100 mb-3 p-2 mt-3"
+      >
+      <b-skeleton-img
+        card-img="left"
+        width="210px"
+      />
+
+      <div class="w-50 ml-3">
+        <b-skeleton class="w-50" />
+        <b-skeleton class="w-25" />
+      </div>
+      </b-card>
+    </template>
+
+    <template v-else>
       <b-card
         v-for="board in sortedBoards"
         :key="board.id"
@@ -22,7 +42,7 @@
         @click="viewBoard(board.id)"
       >
         <b-row>
-          <b-col md="3">
+          <b-col cols="6" md="3">
             <b-img
               v-if="board.wallpaper"
               rounded
@@ -44,7 +64,7 @@
             />
           </b-col>
 
-          <b-col md="9" class="p-2" >
+          <b-col cols="6" md="9" class="p-2" >
             <h6 class="m-0">{{ board.name }}</h6>
 
             <small :id="board.id">
@@ -63,7 +83,7 @@
           </b-col>
         </b-row>
       </b-card>
-    </b-overlay>
+    </template>
   </div>
 </template>
 
