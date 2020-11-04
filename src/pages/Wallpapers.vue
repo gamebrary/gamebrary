@@ -12,7 +12,6 @@
     <!-- TODO: show space used -->
     <!-- TODO: allow to apply wallpaper to board from here -->
     <b-container>
-      <!-- TODO: convert to form -->
       <!-- TODO: translate "browse" -->
       <!-- TODO: add skeleton -->
       <!-- TODO: add progress bar -->
