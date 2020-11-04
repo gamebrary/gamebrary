@@ -4,6 +4,7 @@ const fs = require('fs');
 const translate = require('translate-json-object')();
 const baseJson = require('../src/i18n/en.json');
 
+// NOTE: Please be careful using you api key, translating the entire app to all languages can get costly
 translate.init({ googleApiKey: 'GOOGLE_TRANSLATE_API_KEY' });
 
 const supportedLanguages = [
