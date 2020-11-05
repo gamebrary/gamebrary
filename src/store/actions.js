@@ -248,7 +248,7 @@ export default {
     });
   },
 
-  LOAD_BOARD_GAMES({ state, commit }, gameList) {
+  LOAD_GAMES({ state, commit }, gameList) {
     return new Promise((resolve, reject) => {
       axios.get(`${API_BASE}/games?games=${gameList}&token=${state.twitchToken.access_token}`)
         .then(({ data }) => {
@@ -258,9 +258,20 @@ export default {
     });
   },
 
-  SEARCH_GAMES({ commit, state }, searchText) {
+  SEARCH_BOARD_GAMES({ commit, state }, searchText) {
     const platforms = state.board.platforms.join(',');
 
+    return new Promise((resolve, reject) => {
+      axios.get(`${API_BASE}/search?search=${searchText}&platform=${platforms}&token=${state.twitchToken.access_token}`)
+        .then(({ data }) => {
+          commit('SET_SEARCH_RESULTS', data);
+          commit('CACHE_GAME_DATA', data);
+          resolve();
+        }).catch(reject);
+    });
+  },
+
+  SEARCH_GAMES({ commit, state }, { searchText, platforms, sortField, sortOrder}) {
     return new Promise((resolve, reject) => {
       axios.get(`${API_BASE}/search?search=${searchText}&platform=${platforms}&token=${state.twitchToken.access_token}`)
         .then(({ data }) => {
