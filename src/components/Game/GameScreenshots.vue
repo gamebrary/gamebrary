@@ -1,21 +1,19 @@
 <template lang="html">
-  <div v-if="screenshots" class="mt-2">
-    <b-button @click="openModal(0)" class="d-block d-lg-none" variant="outline-primary">
-      <icon name="image" />
-      {{ screenshots.length }}
-    </b-button>
-
-    <div class="screenshots d-none d-lg-flex">
+  <b-form-row v-if="screenshots" class="mt-2">
+    <b-col
+      v-for="(thumbnail, index) in thumbnails"
+      :key="index"
+      cols="2"
+      sm="3"
+    >
       <b-img
-        v-for="(thumbnail, index) in thumbnails"
-        :key="index"
         :src="thumbnail"
         width="70"
-        class="mr-2 mb-2"
+        class="mr-2 mb-2 screenshot"
         rounded
         @click="openModal(index)"
       />
-    </div>
+    </b-col>
 
     <b-modal
       id="screenshots"
@@ -56,7 +54,7 @@
         />
       </div>
     </b-modal>
-  </div>
+  </b-form-row>
 </template>
 
 <script>
@@ -102,7 +100,8 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-.screenshots {
-  flex-wrap: wrap;
+.screenshot {
+  width: 100%;
+  height: auto;
 }
 </style>
