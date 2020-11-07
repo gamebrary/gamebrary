@@ -53,11 +53,13 @@
             :alt="game.name"
             class="game-cover"
             rounded
-            fluid
           />
 
           <game-screenshots :game="game" v-if="!loading" />
           <game-notes :game="game" />
+          <!-- TODO: add related games -->
+          <!-- More games like {{ game.name }} -->
+          <!-- <pre>{{ game.genres.map(({ id }) => id) }}</pre> -->
         </b-col>
 
         <b-col cols="12" md="8" class="mt-md-0 mt-3 text-md-left text-center">
@@ -302,8 +304,14 @@ export default {
   }
 
   .game-cover {
-    // max-height: 50vh;
     width: 100%;
-    margin: 0 auto;
+    height: auto;
+
+    @media(max-width: 780px) {
+      max-height: 40vh;
+      width: auto;
+      display: block;
+      margin: 0 auto;
+    }
   }
 </style>
