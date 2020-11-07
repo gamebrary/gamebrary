@@ -15,7 +15,7 @@
 
       <empty-board v-if="isEmptyBoard" class="mr-3" />
 
-      <div :class="['d-flex flex-column', { 'pr-3': !isEmptyBoard }]">
+      <div :class="['board-actions d-flex flex-column', { 'pr-3': !isEmptyBoard }]">
         <add-list />
         <board-settings />
       </div>
@@ -177,7 +177,7 @@ export default {
     async loadGames(gameList) {
       this.loading = true;
 
-      await this.$store.dispatch('LOAD_BOARD_GAMES', gameList.toString())
+      await this.$store.dispatch('LOAD_GAMES', gameList.toString())
         .catch(() => {
           this.$bvToast.toast('Error loading games', { title: 'Error', variant: 'error' });
         });
@@ -208,10 +208,13 @@ export default {
   box-sizing: border-box;
   overflow-x: auto;
   overflow-x: overlay;
-  display: flex;
 }
 
 .list-placeholder {
   opacity: 0.25;
+}
+
+.board-actions {
+  width: 56px;
 }
 </style>
