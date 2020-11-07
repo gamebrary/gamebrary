@@ -2,7 +2,7 @@
   <header>
     <div>
       <h5 class="mb-0">{{ title }}</h5>
-      <small>{{ subtitle }}</small>
+      <small class="d-block text-muted">{{ subtitle }}</small>
     </div>
 
     <div class="actions">
@@ -47,6 +47,7 @@ h5 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: 0.8;
 }
 
 .actions {
