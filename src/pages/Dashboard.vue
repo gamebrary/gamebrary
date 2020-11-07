@@ -1,5 +1,5 @@
 <template lang="html">
-  <div fluid v-if="user">
+  <div v-if="user">
     <b-jumbotron
       header="Gamebrary"
       header-level="5"
