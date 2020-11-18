@@ -12,7 +12,7 @@
     </template>
 
     <add-game-modal :list="list" />
-    <b-dd-divider />
+    <b-dropdown-divider />
     <sort-list :list="list" :list-index="listIndex" />
     <rename-list :list="list" :list-index="listIndex" />
     <change-list-view :list="list" :list-index="listIndex" />
