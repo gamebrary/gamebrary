@@ -6,7 +6,10 @@
     <page-header v-if="user" />
 
     <main
-      :class="{ 'authorizing': !user, 'bg-dark text-white': nightMode }"
+      :class="{ 'authorizing': !user,
+        'bg-dark text-white': nightMode,
+        'offset': !isBoard,
+        }"
     >
       <router-view />
     </main>
@@ -67,6 +70,10 @@ export default {
 
     isPublicBoard() {
       return this.$route.meta && this.$route.meta.public;
+    },
+
+    isBoard() {
+      return this.$route.name === 'board';
     },
   },
 
@@ -165,15 +172,16 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
   main {
-    position: fixed;
-    left: 50px;
     height: 100vh;
-    width: calc(100vw - 50px);
     overflow-y: auto;
 
     &.authorizing {
       width: 100%;
       left: 0;
+    }
+
+    &.offset {
+      padding-left: 75px;
     }
   }
 </style>

@@ -1,6 +1,6 @@
 <template lang="html">
   <div
-    :class="['board', boardBackground, { dragging, 'empty': isEmptyBoard }]"
+    :class="['board py-2', boardBackground, { dragging, 'empty': isEmptyBoard }]"
     :style="wallpaper"
   >
     <board-placeholder v-if="loading" />
@@ -204,7 +204,7 @@ export default {
   align-items: flex-start;
   height: 100vh;
   width: 100%;
-  padding: 1rem 1rem 0;
+  padding-left: 75px;
   box-sizing: border-box;
   overflow-x: auto;
   overflow-x: overlay;

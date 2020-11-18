@@ -1,6 +1,6 @@
 <template lang="html">
   <nav
-    class="position-fixed d-flex flex-column p-0 vh-100 text-center"
+    class="border rounded position-fixed d-flex flex-column p-0 m-2 text-center"
     :class="{ 'bg-dark text-white': nightMode }"
   >
     <router-link :to="{ name: 'dashboard' }" class="mt-2 mb-3">
@@ -136,5 +136,10 @@ export default {
 nav {
   width: 50px;
   z-index: 1;
+  background: rgba(255, 255, 255, 0.9);
+
+  &:hover {
+    background: white;
+  }
 }
 </style>
