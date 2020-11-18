@@ -271,7 +271,8 @@ export default {
     });
   },
 
-  SEARCH_GAMES({ commit, state }, { searchText, platforms, sortField, sortOrder}) {
+  // SEARCH_GAMES({ commit, state }, { searchText, platforms, sortField, sortOrder }) {
+  SEARCH_GAMES({ commit, state }, { searchText, platforms }) {
     return new Promise((resolve, reject) => {
       axios.get(`${API_BASE}/search?search=${searchText}&platform=${platforms}&token=${state.twitchToken.access_token}`)
         .then(({ data }) => {
