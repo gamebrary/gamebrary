@@ -1,7 +1,7 @@
 <template lang="html">
   <nav
-    class="border rounded position-fixed d-flex flex-column p-0 m-2 text-center"
-    :class="{ 'bg-dark text-white': nightMode }"
+    class="rounded position-fixed d-flex flex-column p-0 m-2 text-center"
+    :class="{ 'bg-dark text-white': nightMode, 'border': !nightMode }"
   >
     <router-link :to="{ name: 'dashboard' }" class="mt-2 mb-3">
       <img
