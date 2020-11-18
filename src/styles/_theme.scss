@@ -128,7 +128,7 @@ $theme-colors: map-merge(
 // // variables. Mostly focused on spacing.
 // // You can add more entries to the $spacers map, should you need more variation.
 //
-// $spacer: 1rem !default;
+$spacer: 1rem !default;
 // $spacers: () !default;
 // $spacers: map-merge(
 //   (
@@ -265,17 +265,11 @@ $theme-colors: map-merge(
 // );
 //
 // // Typography
-// //
-// // Font, line-height, and color for body text, headings, and more.
-//
-// // stylelint-disable value-keyword-case
 $font-family-sans-serif: 'Signika', sans-serif !default;
 $font-family-base:            $font-family-sans-serif !default;
-// // stylelint-enable value-keyword-case
-//
-// $font-size-base:              1rem !default; // Assumes the browser default, typically `16px`
-// $font-size-lg:                $font-size-base * 1.25 !default;
-// $font-size-sm:                $font-size-base * .875 !default;
+$font-size-base:              1rem !default; // Assumes the browser default, typically `16px`
+$font-size-lg:                $font-size-base * 1.25 !default;
+$font-size-sm:                $font-size-base * .875 !default;
 //
 // $font-weight-lighter:         lighter !default;
 // $font-weight-light:           300 !default;
@@ -749,9 +743,9 @@ $font-family-base:            $font-family-sans-serif !default;
 // // Dropdown menu container and contents.
 //
 // $dropdown-min-width:                10rem !default;
-$dropdown-padding-y:                0 !default;
+$dropdown-padding-y:                $spacer / 4 !default;
 // $dropdown-spacer:                   .125rem !default;
-// $dropdown-font-size:                $font-size-base !default;
+$dropdown-font-size:                $font-size-sm !default;
 // $dropdown-color:                    $body-color !default;
 // $dropdown-bg:                       $white !default;
 // $dropdown-border-color:             rgba($black, .15) !default;
@@ -759,7 +753,7 @@ $dropdown-padding-y:                0 !default;
 // $dropdown-border-width:             $border-width !default;
 // $dropdown-inner-border-radius:      subtract($dropdown-border-radius, $dropdown-border-width) !default;
 // $dropdown-divider-bg:               $gray-200 !default;
-// $dropdown-divider-margin-y:         $nav-divider-margin-y !default;
+$dropdown-divider-margin-y:          $spacer / 4 !default;
 // $dropdown-box-shadow:               0 .5rem 1rem rgba($black, .175) !default;
 //
 // $dropdown-link-color:               $gray-900 !default;
@@ -771,8 +765,8 @@ $dropdown-padding-y:                0 !default;
 //
 // $dropdown-link-disabled-color:      $gray-600 !default;
 //
-// $dropdown-item-padding-y:           .25rem !default;
-// $dropdown-item-padding-x:           1.5rem !default;
+$dropdown-item-padding-y:           .25rem !default;
+$dropdown-item-padding-x:           .5rem !default;
 //
 // $dropdown-header-color:             $gray-600 !default;
 // $dropdown-header-padding:           $dropdown-padding-y $dropdown-item-padding-x !default;
