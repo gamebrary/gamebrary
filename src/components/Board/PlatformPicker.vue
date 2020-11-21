@@ -8,7 +8,11 @@
       {{ buttonLabel }}
     </b-button>
 
-    <b-modal id="platforms">
+    <b-modal
+      id="platforms"
+      scrollable
+      hide-footer
+    >
       <template v-slot:modal-header="{ close }">
         <modal-header
           title="Board Platforms"
