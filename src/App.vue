@@ -181,7 +181,7 @@ export default {
     }
 
     &.offset {
-      padding-left: 75px;
+      padding-left: 55px;
     }
   }
 </style>
