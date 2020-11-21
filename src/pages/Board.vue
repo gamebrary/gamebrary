@@ -15,7 +15,7 @@
 
       <empty-board v-if="isEmptyBoard" class="mr-3" />
 
-      <div :class="['board-actions d-flex flex-column', { 'pr-3': !isEmptyBoard }]">
+      <div :class="['board-actions', { 'pr-3': !isEmptyBoard }]">
         <add-list />
         <board-settings />
       </div>
