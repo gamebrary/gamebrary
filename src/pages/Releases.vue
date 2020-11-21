@@ -1,41 +1,31 @@
 <template lang="html">
-  <div>
-    <b-jumbotron
-      :header="$t('releases.title')"
-      header-level="5"
-      fluid
-      :bg-variant="nightMode ? 'dark' : ''"
-      :text-variant="nightMode ? 'white' : ''"
-      :border-variant="nightMode ? 'dark' : ''"
-      class="position-sticky"
-    />
+  <b-container class="pt-2">
+    <h2>{{ $t('releases.title') }}</h2>
 
-    <b-container>
-      <b-card
-        v-for="release in releases"
-        :key="release.id"
-        :bg-variant="nightMode ? 'dark' : null"
-        :text-variant="nightMode ? 'white' : null"
-        hide-footer
-        class="mb-3"
-      >
-        <template v-slot:header>
-          <h6 class="mb-0">
-            <b-badge>{{ release.tag_name }}</b-badge>
-            {{ release.name }}
-          </h6>
-        </template>
+    <b-card
+      v-for="release in releases"
+      :key="release.id"
+      :bg-variant="nightMode ? 'dark' : null"
+      :text-variant="nightMode ? 'white' : null"
+      hide-footer
+      class="mb-3"
+    >
+      <template v-slot:header>
+        <h6 class="mb-0">
+          <b-badge>{{ release.tag_name }}</b-badge>
+          {{ release.name }}
+        </h6>
+      </template>
 
-        <b-card-text>
-          <small class="text-muted">
-            {{ $t('releases.published') }} {{ formatDate(release.published_at) }}
-          </small>
+      <b-card-text>
+        <small class="text-muted">
+          {{ $t('releases.published') }} {{ formatDate(release.published_at) }}
+        </small>
 
-          <vue-markdown :source="release.body" class="w-100 releases" />
-        </b-card-text>
-      </b-card>
-    </b-container>
-  </div>
+        <vue-markdown :source="release.body" class="w-100 releases" />
+      </b-card-text>
+    </b-card>
+  </b-container>
 </template>
 
 <script>

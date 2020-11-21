@@ -1,69 +1,57 @@
 <template lang="html">
-  <div>
-    <b-jumbotron
-      :header="$t('notes.title')"
-      :lead="$t('notes.subtitle')"
-      :bg-variant="nightMode ? 'dark' : ''"
-      :text-variant="nightMode ? 'white' : ''"
-      :border-variant="nightMode ? 'dark' : ''"
-      header-level="5"
-      fluid
+  <b-container class="pt-2">
+    <h2>{{ $t('notes.title') }}</h2>
+    <p>{{ $t('notes.subtitle') }}</p>
+    <!-- TODO: finish search, include game title? -->
+    <!-- <b-row class="mb-3">
+      <b-form-input
+        type="search"
+        placeholder="Search notes"
+        v-model="search"
+      />
+    </b-row> -->
+
+    <template v-if="loaded && games && notes">
+      <b-card
+        v-for="(note, gameId) in notes"
+        :key="gameId"
+        class="mb-3 w-100 note"
+        :img-src="getCoverUrl(gameId)"
+        :img-alt="games[gameId].name"
+        img-left
+        @click="openGame(gameId)"
+      >
+        <div v-if="games[gameId]">
+          <h5>{{ games[gameId] && games[gameId].name ? games[gameId].name : '' }}</h5>
+
+          <b-alert show variant="warning" class="mt-2">
+            <vue-markdown :source="note" />
+          </b-alert>
+        </div>
+      </b-card>
+
+    </template>
+
+    <b-card
+      v-else
+      v-for="n in 3"
+      :key="n"
+      no-body
+      img-left
+      class="w-100 mb-3"
+    >
+    <b-skeleton-img
+      card-img="left"
+      width="180px"
+      height="240px"
     />
 
-    <b-container>
-      <!-- TODO: finish search, include game title? -->
-      <!-- <b-row class="mb-3">
-        <b-form-input
-          type="search"
-          placeholder="Search notes"
-          v-model="search"
-        />
-      </b-row> -->
-
-      <b-row>
-        <template v-if="loaded && games && notes">
-          <b-card
-            v-for="(note, gameId) in notes"
-            :key="gameId"
-            class="mb-3 w-100 note"
-            :img-src="getCoverUrl(gameId)"
-            :img-alt="games[gameId].name"
-            img-left
-            @click="openGame(gameId)"
-          >
-            <div v-if="games[gameId]">
-              <h5>{{ games[gameId] && games[gameId].name ? games[gameId].name : '' }}</h5>
-
-              <b-alert show variant="warning" class="mt-2">
-                <vue-markdown :source="note" />
-              </b-alert>
-            </div>
-          </b-card>
-
-        </template>
-
-        <b-card
-          v-else
-          v-for="n in 3"
-          :key="n"
-          no-body
-          img-left
-          class="w-100 mb-3"
-        >
-        <b-skeleton-img
-          card-img="left"
-          width="180px"
-          height="240px"
-        />
-
-        <b-card-body>
-          <b-skeleton />
-          <b-skeleton />
-        </b-card-body>
-      </b-card>
-      </b-row>
-    </b-container>
-  </div>
+    <b-card-body>
+      <b-skeleton />
+      <b-skeleton />
+    </b-card-body>
+  </b-card>
+  </b-container>
 </template>
 
 <script>

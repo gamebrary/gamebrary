@@ -10,6 +10,7 @@ import Account from '@/pages/Account';
 import Releases from '@/pages/Releases';
 import Auth from '@/pages/Auth';
 import Dashboard from '@/pages/Dashboard';
+import Settings from '@/pages/Settings';
 import Upgrade from '@/pages/Upgrade';
 import NotFound from '@/pages/NotFound';
 
@@ -117,6 +118,11 @@ export default new Router({
       meta: {
         public: true,
       },
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: Settings,
     },
     {
       path: '*',

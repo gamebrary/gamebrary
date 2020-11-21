@@ -1,37 +1,28 @@
 <template lang="html">
-  <div>
-    <b-jumbotron
-      :header="$t('languages.title')"
-      header-level="5"
-      :bg-variant="nightMode ? 'dark' : ''"
-      :text-variant="nightMode ? 'white' : ''"
-      :border-variant="nightMode ? 'dark' : ''"
-      fluid
-    />
+  <b-container class="pt-2">
+    <h2>{{ $t('languages.title') }}</h2>
 
-    <b-container>
-      <b-form-select v-model="language" class="mb-2 w-50">
-        <b-form-select-option
-          v-for="{ name, value } in SUPPORTED_LANGUAGES"
-          :key="value"
-          :value="value"
-        >
-          {{ name }}
-        </b-form-select-option>
-      </b-form-select>
-
-      <br>
-
-      <b-button
-        :disabled="saving"
-        variant="primary"
-        @click="saveSettings"
+    <b-form-select v-model="language" class="mb-2 w-50">
+      <b-form-select-option
+        v-for="{ name, value } in SUPPORTED_LANGUAGES"
+        :key="value"
+        :value="value"
       >
-        <b-spinner small v-if="saving" />
-        <span v-else>{{ $t('languages.save') }}</span>
-      </b-button>
-    </b-container>
-  </div>
+        {{ name }}
+      </b-form-select-option>
+    </b-form-select>
+
+    <br>
+
+    <b-button
+      :disabled="saving"
+      variant="primary"
+      @click="saveSettings"
+    >
+      <b-spinner small v-if="saving" />
+      <span v-else>{{ $t('languages.save') }}</span>
+    </b-button>
+  </b-container>
 </template>
 
 <script>

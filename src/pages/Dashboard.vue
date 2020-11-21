@@ -1,19 +1,8 @@
 <template lang="html">
-  <div v-if="user">
-    <b-jumbotron
-      header="Gamebrary"
-      header-level="5"
-      fluid
-      :lead="$t('dashboard.subtitle')"
-      :bg-variant="nightMode ? 'dark' : ''"
-      :text-variant="nightMode ? 'white' : ''"
-      :border-variant="nightMode ? 'dark' : ''"
-    />
-    <b-container>
-      <boards />
-      <page-footer />
-    </b-container>
-  </div>
+  <b-container class="pt-2" v-if="user">
+    <boards />
+    <page-footer />
+  </b-container>
 </template>
 
 <script>

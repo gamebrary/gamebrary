@@ -1,70 +1,63 @@
 <template lang="html">
-  <div>
-    <b-jumbotron
-      :header="$t('wallpapers.title')"
-      :lead="$t('wallpapers.subtitle')"
-      :bg-variant="nightMode ? 'dark' : ''"
-      :text-variant="nightMode ? 'white' : ''"
-      :border-variant="nightMode ? 'dark' : ''"
-      header-level="5"
-      fluid
-    />
-    <!-- TODO: show space used -->
-    <!-- TODO: allow to apply wallpaper to board from here -->
-    <b-container>
-      <!-- TODO: translate "browse" -->
-      <!-- TODO: add skeleton -->
-      <!-- TODO: add progress bar -->
+  <!-- TODO: show space used -->
+  <!-- TODO: allow to apply wallpaper to board from here -->
+  <b-container class="pt-2">
+    <!-- TODO: translate "browse" -->
+    <!-- TODO: add skeleton -->
+    <!-- TODO: add progress bar -->
+    <!-- TODO: sort by -->
+    <div class="d-flex justify-content-between align-items-center">
+      <h2>{{ $t('wallpapers.title') }}</h2>
 
-      <b-row class="mb-3">
-        <b-col cols="12" lg="6" class="mb-4">
-          <b-form-group
-            :description="$t('wallpapers.form.helperText')"
-            :label="$t('wallpapers.form.label')"
-          >
-            <b-form-file
-              v-model="file"
-              accept="image/*"
-              :browse-text="$t('wallpapers.form.upload')"
-              :placeholder="$t('wallpapers.form.placeholder')"
-              @input="uploadWallpaper"
-            />
-          </b-form-group>
-
-          <b-alert v-if="isDuplicate && !saving && file && file.name" show variant="warning">
-            {{ $t('wallpapers.form.duplicateMessage', { fileName: file.name }) }}
-          </b-alert>
-        </b-col>
-      </b-row>
-
-      <h5>{{ $t('wallpapers.list.title') }}</h5>
-
-      <!-- <b-progress value="59" max="72" variant="success" class="mb-3" /> -->
-
-      <b-card
-        v-if="wallpapers.length"
-        v-for="wallpaper in wallpapers"
-        :key="wallpaper.name"
-        :img-src="wallpaper.url"
-        :img-alt="wallpaper.name"
-        img-left
-        img-width="180"
-        class="mb-3"
+      <b-button
+        variant="primary"
+        @click="uploadWallpaper"
       >
-        <p>{{ wallpaper.name }} <b-badge>{{ bytesToSize(wallpaper.metadata.size) }}</b-badge></p>
+        {{ $t('wallpapers.form.label') }}
+      </b-button>
+    </div>
 
-        <b-button
-          variant="danger"
-          size="sm"
-          @click="confirmDeleteWallpaper(wallpaper)"
-        >
-          <icon name="trash" white />
-        </b-button>
-      </b-card>
+    <b-form-file
+      class="d-none"
+      v-model="file"
+      accept="image/*"
+      :browse-text="$t('wallpapers.form.upload')"
+      :placeholder="$t('wallpapers.form.placeholder')"
+      @input="uploadWallpaper"
+    />
 
-      <b-alert show v-else>You don't have any wallpapers.</b-alert>
-    </b-container>
-  </div>
+    <b-alert v-if="isDuplicate && !saving && file && file.name" show variant="warning">
+      {{ $t('wallpapers.form.duplicateMessage', { fileName: file.name }) }}
+    </b-alert>
+
+    <!-- <h5>{{ $t('wallpapers.list.title') }}</h5> -->
+
+    <small class="d-block text-center">{{ formattedSpaceUsed }} of 64MB used</small>
+    <b-progress :value="spaceUsed" max="67108864" variant="success" class="mb-3" />
+
+    <b-card
+      v-if="wallpapers.length"
+      v-for="wallpaper in wallpapers"
+      :key="wallpaper.name"
+      :img-src="wallpaper.url"
+      :img-alt="wallpaper.name"
+      img-left
+      img-width="180"
+      class="mb-3"
+    >
+      <p>{{ wallpaper.name }} <b-badge>{{ bytesToSize(wallpaper.metadata.size) }}</b-badge></p>
+
+      <b-button
+        variant="danger"
+        size="sm"
+        @click="confirmDeleteWallpaper(wallpaper)"
+      >
+        <icon name="trash" white />
+      </b-button>
+    </b-card>
+
+    <b-alert show v-else>You don't have any wallpapers.</b-alert>
+  </b-container>
 </template>
 
 <script>
@@ -76,6 +69,7 @@ export default {
       file: null,
       saving: false,
       loading: false,
+      isPaid: true,
       wallpaperUrls: [],
     };
   },
@@ -92,6 +86,16 @@ export default {
       const { file, existingFiles } = this;
 
       return file && file.name && existingFiles.includes(file.name);
+    },
+
+    formattedSpaceUsed() {
+      return this.spaceUsed
+        ? this.bytesToSize(this.spaceUsed)
+        : null;
+    },
+
+    spaceUsed() {
+      return this.wallpapers.reduce((total, file) => total + file.metadata.size, 0);
     },
   },
 
