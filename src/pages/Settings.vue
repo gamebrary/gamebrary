@@ -1,62 +1,43 @@
 <template lang="html">
   <b-container class="pt-2">
-    <h2>{{ $t('tags.title') }}</h2>
-    <p>{{ $t('tags.subtitle') }}</p>
-    <h1>Settings</h1>
+    <h2>Settings</h2>
 
-    <b-button
-      variant="link"
-      :title="$t('navMenu.wallpapers')"
-      :to="{ name: 'wallpapers' }"
-      v-b-tooltip.hover.right
-    >
-      <icon name="image" />
-    </b-button>
+    <b-list-group>
+      <b-list-group-item variant="transparent" @click="toggleTheme">
+        <icon :name="nightMode ? 'moon' : 'sun'" />
+        Toggle dark theme (Beta)
+      </b-list-group-item>
 
-    <b-button
-      variant="link"
-      :title="$t('navMenu.language')"
-      :to="{ name: 'language' }"
-      v-b-tooltip.hover.right
-    >
-      <icon name="globe" />
-    </b-button>
+      <b-list-group-item variant="transparent" :to="{ name: 'wallpapers' }">
+        <icon name="image" />
+        Wallpapers
+      </b-list-group-item>
 
-    <b-button
-      variant="link"
-      :title="$t('navMenu.theme')"
-      v-b-tooltip.hover.right
-      @click="toggleTheme"
-    >
-      <icon :name="nightMode ? 'moon' : 'sun'" />
-    </b-button>
+      <b-list-group-item variant="transparent" :to="{ name: 'language' }">
+        <icon name="globe" />
+        Language
+      </b-list-group-item>
 
-    <b-button
-      variant="link"
-      :title="$t('navMenu.releases')"
-      :to="{ name: 'releases' }"
-      v-b-tooltip.hover.right
-    >
-      <icon name="megaphone" />
-    </b-button>
+      <b-list-group-item variant="transparent" :to="{ name: 'about' }">
+        <icon name="info" />
+        About
+      </b-list-group-item>
 
-    <b-button
-      variant="link"
-      :title="$t('navMenu.about')"
-      :to="{ name: 'about' }"
-      v-b-tooltip.hover.right
-    >
-      <icon name="info" />
-    </b-button>
+      <b-list-group-item variant="transparent" :to="{ name: 'releases' }">
+        <icon name="megaphone" />
+        Releases
+      </b-list-group-item>
+    </b-list-group>
   </b-container>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 export default {
   computed: {
     ...mapGetters(['nightMode']),
+    ...mapState(['settings']),
   },
 
   methods: {
