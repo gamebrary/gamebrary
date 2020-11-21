@@ -33,6 +33,7 @@
           <b-form-input
             id="name"
             v-model="board.name"
+            placeholder="e.g. PS4 collection, Nintendo Switch, Xbox..."
             autofocus
             required
           />
@@ -85,11 +86,11 @@
 
         <b-button
           variant="primary"
-          :disabled="saving"
+          :disabled="saving || !board.platforms.length"
           @click="submit"
         >
           <b-spinner small v-if="saving" />
-          <span v-else>Save</span>
+          <span v-else>Create board</span>
         </b-button>
       </template>
     </b-modal>

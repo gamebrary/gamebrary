@@ -1,34 +1,46 @@
+<!-- TODO: return filteredPlatforms getter and return sort/filters -->
 <template lang="html">
   <div class="platform-picker">
-    <b-dropdown
-      :text="dropdownLabel"
-      boundary="viewport"
+    <b-button
+      v-b-modal.platforms
+      :variant="value.length ? 'success' : 'warning'"
     >
-      <b-dropdown-item
-        v-for="platform in filteredPlatforms"
-        :key="platform.id"
-        :active="value.includes(platform.id)"
-        @click="handleClick(platform.id)"
-      >
-        <b-img
-          :src="`/static/platform-logos/${platform.slug}.${platform.logoFormat}`"
-          :alt="platform.name"
-          width="40"
-          class="pr-2"
+      {{ buttonLabel }}
+    </b-button>
+
+    <b-modal id="platforms">
+      <template v-slot:modal-header="{ close }">
+        <modal-header
+          title="Board Platforms"
+          subtitle="Game search will be limited to the platforms selected."
+          @close="close"
         />
+      </template>
 
-        {{ platform.name }}
-      </b-dropdown-item>
-    </b-dropdown>
+      <b-list-group>
+        <b-list-group-item
+          v-for="platform in platforms"
+          :key="platform.id"
+          button
+          :active="value.includes(platform.id)"
+          @click="handleClick(platform.id)"
+        >
+          <b-img
+            :src="`/static/platform-logos/${platform.slug}.${platform.logoFormat}`"
+            :alt="platform.name"
+            width="40"
+            class="pr-2"
+          />
 
-    <b-alert :show="value.length > 1" class="mt-3 mb-0">
-      Game search will be limited to the platforms selected.
-    </b-alert>
+          {{ platform.name }}
+        </b-list-group-item>
+      </b-list-group>
+    </b-modal>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   props: {
@@ -36,9 +48,9 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['filteredPlatforms']),
+    ...mapState(['platforms']),
 
-    dropdownLabel() {
+    buttonLabel() {
       return this.value.length
         ? this.$t('board.settings.platformLabel', { platformCount: this.value.length })
         : this.$t('board.settings.platformPlaceholder');
