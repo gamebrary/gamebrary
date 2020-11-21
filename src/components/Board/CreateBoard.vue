@@ -1,4 +1,5 @@
 <template lang="html">
+  <!-- TODO: go to board right after creation -->
   <b-button
     :variant="nightMode ? 'light' : 'primary'"
     v-b-modal:create-board
