@@ -12,9 +12,7 @@
       :header-text-variant="nightMode ? 'white' : null"
       :body-bg-variant="nightMode ? 'dark' : null"
       :body-text-variant="nightMode ? 'white' : null"
-      :footer-bg-variant="nightMode ? 'dark' : null"
-      :footer-text-variant="nightMode ? 'white' : null"
-      footer-class="d-flex justify-content-between"
+      hide-footer
       @show="resetBoard"
       @hidden="resetBoard"
     >
@@ -77,22 +75,24 @@
             </b-col>
           </b-row>
         </b-form-group>
-      </form>
 
-      <template v-slot:modal-footer="{ cancel }">
-        <b-button @click="cancel" variant="light">
+        <!-- <b-button @click="cancel" variant="light">
           Cancel
-        </b-button>
+        </b-button> -->
 
         <b-button
           variant="primary"
-          :disabled="saving || !board.platforms.length"
+          :disabled="saving"
           @click="submit"
         >
           <b-spinner small v-if="saving" />
           <span v-else>Create board</span>
         </b-button>
-      </template>
+
+        <!-- <template v-slot:modal-footer="{ cancel }">
+
+        </template> -->
+      </form>
     </b-modal>
   </b-button>
 </template>
