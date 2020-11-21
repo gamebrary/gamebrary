@@ -2,7 +2,7 @@
   <div>
     <!-- TODO: allow board settings to be accessed here -->
     <div class="d-flex justify-content-between align-items-center">
-      <h5>{{ $t('boards.title') }}</h5>
+      <h2>{{ $t('boards.title') }}</h2>
 
       <create-board />
     </div>
