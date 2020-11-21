@@ -1,3 +1,4 @@
+<!-- TODO: border overlaps close button in dark mode -->
 <template lang="html">
   <header>
     <div>
@@ -47,7 +48,6 @@ h5 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 0.8;
 }
 
 .actions {
