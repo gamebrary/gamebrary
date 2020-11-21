@@ -1,14 +1,8 @@
 <template lang="html">
-  <div>
-    <b-jumbotron
-      :header="$t('about.title')"
-      :lead="$t('about.subtitle')"
-      :bg-variant="nightMode ? 'dark' : ''"
-      :text-variant="nightMode ? 'white' : ''"
-      :border-variant="nightMode ? 'dark' : ''"
-      header-level="5"
-      fluid
-    >
+  <b-container class="pt-2">
+    <h2>{{ $t('about.title') }}</h2>
+    <p>{{ $t('about.subtitle') }}</p>
+
     <div v-if="repo">
       <b-button
         size="sm"
@@ -42,16 +36,13 @@
         {{ $t('gitHub.issues') }} <b-badge variant="light">{{ repo.open_issues }}</b-badge>
       </b-button>
     </div>
-    </b-jumbotron>
 
-    <b-container>
-      <vue-markdown
-        class="w-100"
-        v-if="readme"
-        :source="readme"
-      />
-    </b-container>
-  </div>
+    <vue-markdown
+      class="w-100"
+      v-if="readme"
+      :source="readme"
+    />
+  </b-container>
 </template>
 
 <script>
