@@ -1,3 +1,4 @@
+<!-- TODO: only make transparent when x-scrolled -->
 <template lang="html">
   <nav
     class="rounded position-fixed d-flex flex-column p-0 m-2 text-center"
@@ -33,47 +34,11 @@
 
       <b-button
         variant="link"
-        :title="$t('navMenu.wallpapers')"
-        :to="{ name: 'wallpapers' }"
+        title="Settings"
+        :to="{ name: 'settings' }"
         v-b-tooltip.hover.right
       >
-        <icon name="image" />
-      </b-button>
-
-      <b-button
-        variant="link"
-        :title="$t('navMenu.language')"
-        :to="{ name: 'language' }"
-        v-b-tooltip.hover.right
-      >
-        <icon name="globe" />
-      </b-button>
-
-      <b-button
-        variant="link"
-        :title="$t('navMenu.releases')"
-        :to="{ name: 'releases' }"
-        v-b-tooltip.hover.right
-      >
-        <icon name="megaphone" />
-      </b-button>
-
-      <b-button
-        variant="link"
-        :title="$t('navMenu.about')"
-        :to="{ name: 'about' }"
-        v-b-tooltip.hover.right
-      >
-        <icon name="info" />
-      </b-button>
-
-      <b-button
-        variant="link"
-        :title="$t('navMenu.theme')"
-        v-b-tooltip.hover.right
-        @click="toggleTheme"
-      >
-        <icon :name="nightMode ? 'moon' : 'sun'" />
+        <icon name="gear" />
       </b-button>
 
       <!-- <b-button
@@ -117,17 +82,6 @@ export default {
   computed: {
     ...mapState(['board', 'user', 'notification', 'settings']),
     ...mapGetters(['nightMode']),
-  },
-
-  methods: {
-    toggleTheme() {
-      this.$store.commit('UPDATE_SETTING', { key: 'nightMode', value: !this.nightMode });
-
-      this.$store.dispatch('SAVE_SETTINGS', this.settings)
-        .catch(() => {
-          this.$bvToast.toast('There was an error saving your settings', { title: 'Error', variant: 'danger' });
-        });
-    },
   },
 };
 </script>
