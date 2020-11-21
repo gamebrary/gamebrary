@@ -1,24 +1,30 @@
 <template lang="html">
   <!-- TODO: show space used -->
   <!-- TODO: allow to apply wallpaper to board from here -->
-  <b-container class="pt-2">
+  <b-container class="pt-3">
     <!-- TODO: translate "browse" -->
     <!-- TODO: add skeleton -->
     <!-- TODO: add progress bar -->
     <!-- TODO: sort by -->
-    <div class="d-flex justify-content-between align-items-center">
+    <div class="d-flex justify-content-between align-items-center mb-2">
       <h2>{{ $t('wallpapers.title') }}</h2>
 
       <b-button
         variant="primary"
-        @click="uploadWallpaper"
+        @click="triggerFileUpload"
       >
-        {{ $t('wallpapers.form.label') }}
+        <b-spinner
+          label="Spinning"
+          v-if="saving"
+        />
+        <span v-else>
+          {{ $t('wallpapers.form.label') }}
+        </span>
       </b-button>
     </div>
 
     <b-form-file
-      class="d-none"
+      class="d-none file-input"
       v-model="file"
       accept="image/*"
       :browse-text="$t('wallpapers.form.upload')"
@@ -32,8 +38,8 @@
 
     <!-- <h5>{{ $t('wallpapers.list.title') }}</h5> -->
 
-    <small class="d-block text-center">{{ formattedSpaceUsed }} of 64MB used</small>
-    <b-progress :value="spaceUsed" max="67108864" variant="success" class="mb-3" />
+    <!-- <small class="d-block text-center">{{ formattedSpaceUsed }} of 64MB used</small> -->
+    <!-- <b-progress :value="spaceUsed" max="67108864" variant="success" class="mb-3" /> -->
 
     <b-card
       v-if="wallpapers.length"
@@ -45,7 +51,9 @@
       img-width="180"
       class="mb-3"
     >
-      <p>{{ wallpaper.name }} <b-badge>{{ bytesToSize(wallpaper.metadata.size) }}</b-badge></p>
+      <p>{{ wallpaper.name }}
+        <b-badge v-if="wallpaper.metadata">{{ bytesToSize(wallpaper.metadata.size) }}</b-badge>
+      </p>
 
       <b-button
         variant="danger"
@@ -94,12 +102,16 @@ export default {
         : null;
     },
 
-    spaceUsed() {
-      return this.wallpapers.reduce((total, file) => total + file.metadata.size, 0);
-    },
+    // spaceUsed() {
+    //   return this.wallpapers.reduce((total, file) => total + file.metadata.size, 0);
+    // },
   },
 
   methods: {
+    triggerFileUpload() {
+      document.querySelector('.file-input input').click();
+    },
+
     bytesToSize(bytes) {
       const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
 

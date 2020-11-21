@@ -1,3 +1,4 @@
+<!-- TODO: Consolidate how data is displayed -->
 <template>
   <div
     id="app"
