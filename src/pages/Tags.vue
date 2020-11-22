@@ -214,6 +214,10 @@ import { mapState, mapGetters } from 'vuex';
 import EmptyState from '@/components/EmptyState';
 
 export default {
+  components: {
+    EmptyState,
+  },
+
   data() {
     return {
       saving: false,
@@ -226,10 +230,6 @@ export default {
       editingOriginalTagName: '',
       localTags: {},
     };
-  },
-
-  components: {
-    EmptyState,
   },
 
   computed: {
