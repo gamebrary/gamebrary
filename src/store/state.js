@@ -21,4 +21,5 @@ export default {
   duplicatedGame: null,
   sessionExpired: false,
   twitchToken: null,
+  notification: false,
 };
