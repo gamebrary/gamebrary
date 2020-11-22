@@ -119,7 +119,6 @@ export default {
 
   methods: {
     load() {
-      this.loadBoards();
       this.loadPlatforms();
     },
 
@@ -144,6 +143,8 @@ export default {
         .catch(() => {
           this.$bvToast.toast('There was an error loading platforms', { title: 'Error', variant: 'error' });
         });
+
+      this.loadBoards();
     },
 
     async loadBoards() {
