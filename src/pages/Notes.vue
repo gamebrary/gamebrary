@@ -1,7 +1,50 @@
 <template lang="html">
   <b-container class="pt-2">
+    <template v-if="!loaded">
+      <b-card
+        v-for="n in 3"
+        :key="n"
+        no-body
+        img-left
+        class="w-100 mb-3"
+      >
+        <b-skeleton-img
+          card-img="left"
+          width="180px"
+          height="240px"
+        />
+
+        <b-card-body>
+          <b-skeleton />
+          <b-skeleton />
+        </b-card-body>
+      </b-card>
+    </template>
+
+  <empty-state v-else-if="showEmptyState" />
+
+  <template v-else>
     <h2>{{ $t('notes.title') }}</h2>
-    <p>{{ $t('notes.subtitle') }}</p>
+
+    <b-card
+      v-for="(note, gameId) in notes"
+      :key="gameId"
+      class="mb-3 w-100 note"
+      :img-src="getCoverUrl(gameId)"
+      :img-alt="games[gameId].name"
+      img-left
+      @click="openGame(gameId)"
+    >
+      <div v-if="games[gameId]">
+        <h5>{{ games[gameId] && games[gameId].name ? games[gameId].name : '' }}</h5>
+
+        <b-alert show variant="warning" class="mt-2">
+          <vue-markdown :source="note" />
+        </b-alert>
+      </div>
+    </b-card>
+  </template>
+
     <!-- TODO: finish search, include game title? -->
     <!-- <b-row class="mb-3">
       <b-form-input
@@ -10,57 +53,18 @@
         v-model="search"
       />
     </b-row> -->
-
-    <template v-if="loaded && games && notes">
-      <b-card
-        v-for="(note, gameId) in notes"
-        :key="gameId"
-        class="mb-3 w-100 note"
-        :img-src="getCoverUrl(gameId)"
-        :img-alt="games[gameId].name"
-        img-left
-        @click="openGame(gameId)"
-      >
-        <div v-if="games[gameId]">
-          <h5>{{ games[gameId] && games[gameId].name ? games[gameId].name : '' }}</h5>
-
-          <b-alert show variant="warning" class="mt-2">
-            <vue-markdown :source="note" />
-          </b-alert>
-        </div>
-      </b-card>
-
-    </template>
-
-    <b-card
-      v-else
-      v-for="n in 3"
-      :key="n"
-      no-body
-      img-left
-      class="w-100 mb-3"
-    >
-    <b-skeleton-img
-      card-img="left"
-      width="180px"
-      height="240px"
-    />
-
-    <b-card-body>
-      <b-skeleton />
-      <b-skeleton />
-    </b-card-body>
-  </b-card>
   </b-container>
 </template>
 
 <script>
 import VueMarkdown from 'vue-markdown';
+import EmptyState from '@/components/EmptyState';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
     VueMarkdown,
+    EmptyState,
   },
 
   data() {
@@ -73,6 +77,10 @@ export default {
   computed: {
     ...mapState(['notes', 'games']),
     ...mapGetters(['nightMode']),
+
+    showEmptyState() {
+      return this.loaded && !Object.keys(this.notes).length;
+    },
   },
 
   mounted() {
@@ -85,7 +93,11 @@ export default {
         ? Object.keys(this.notes).toString()
         : null;
 
-      if (!gamesList) return;
+      if (!gamesList) {
+        this.loaded = true;
+
+        return;
+      }
 
       // TODO: get list of games that aren't currently cached
 

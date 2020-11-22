@@ -2,7 +2,7 @@
 <template lang="html">
   <header>
     <div>
-      <h5 class="mb-0">{{ title }}</h5>
+      <h5 class="mb-0 text-wrap">{{ title }}</h5>
       <small class="d-block text-muted">{{ subtitle }}</small>
     </div>
 

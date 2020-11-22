@@ -1,5 +1,4 @@
 <template lang="html">
-  <!-- TODO: go to board right after creation -->
   <b-button
     :variant="nightMode ? 'light' : 'primary'"
     v-b-modal:create-board
@@ -8,12 +7,10 @@
 
     <b-modal
       id="create-board"
-      size="lg"
       :header-bg-variant="nightMode ? 'dark' : null"
       :header-text-variant="nightMode ? 'white' : null"
       :body-bg-variant="nightMode ? 'dark' : null"
       :body-text-variant="nightMode ? 'white' : null"
-      hide-footer
       @show="resetBoard"
       @hidden="resetBoard"
     >
@@ -76,10 +73,12 @@
             </b-col>
           </b-row>
         </b-form-group>
+      </form>
 
-        <!-- <b-button @click="cancel" variant="light">
+      <template v-slot:modal-footer="{ cancel }">
+        <b-button @click="cancel" variant="light">
           Cancel
-        </b-button> -->
+        </b-button>
 
         <b-button
           variant="primary"
@@ -89,11 +88,7 @@
           <b-spinner small v-if="saving" />
           <span v-else>Create board</span>
         </b-button>
-
-        <!-- <template v-slot:modal-footer="{ cancel }">
-
-        </template> -->
-      </form>
+      </template>
     </b-modal>
   </b-button>
 </template>

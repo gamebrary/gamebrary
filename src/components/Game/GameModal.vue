@@ -5,6 +5,7 @@
     size="lg"
     footer-class="p-2 justify-content-center"
     header-class="align-items-center pb-0 border-0"
+    body-class="pt-1"
     :header-bg-variant="nightMode ? 'dark' : null"
     :header-text-variant="nightMode ? 'white' : null"
     :body-bg-variant="nightMode ? 'dark' : null"

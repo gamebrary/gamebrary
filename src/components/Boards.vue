@@ -1,15 +1,6 @@
 <template lang="html">
   <div>
     <!-- TODO: allow board settings to be accessed here -->
-    <div class="d-flex justify-content-between align-items-center">
-      <h2>{{ $t('boards.title') }}</h2>
-
-      <create-board />
-    </div>
-
-    <div class="text-right" v-if="!loading && !boards.length">
-      <b-img src="/static/img/empty-state.png" fluid class="mr-5" />
-    </div>
 
     <template v-if="loading">
       <b-card
@@ -31,7 +22,15 @@
       </b-card>
     </template>
 
+    <empty-state v-else-if="!boards.length" />
+
     <template v-else>
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>{{ $t('boards.title') }}</h2>
+
+        <create-board />
+      </div>
+
       <b-card
         v-for="board in sortedBoards"
         :key="board.id"
@@ -89,12 +88,14 @@
 
 <script>
 import CreateBoard from '@/components/Board/CreateBoard';
+import EmptyState from '@/components/EmptyState';
 
 import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
     CreateBoard,
+    EmptyState,
   },
 
   data() {
