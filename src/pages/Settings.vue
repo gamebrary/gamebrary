@@ -31,6 +31,20 @@
         <icon name="megaphone" />
         Releases
       </b-list-group-item>
+
+      <b-list-group-item variant="transparent" :to="{ name: 'account' }">
+        <b-avatar
+          v-if="user && user.photoURL"
+          v-b-tooltip.hover.right
+          small
+          variant="info"
+          badge-variant="danger"
+          :title="$t('navMenu.account')"
+          :src="user.photoURL"
+        />
+
+        Account
+      </b-list-group-item>
     </b-list-group>
   </b-container>
 </template>
@@ -41,7 +55,7 @@ import { mapGetters, mapState } from 'vuex';
 export default {
   computed: {
     ...mapGetters(['nightMode']),
-    ...mapState(['settings']),
+    ...mapState(['settings', 'user']),
   },
 
   methods: {

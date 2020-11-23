@@ -49,22 +49,6 @@
       >
         <icon name="star-fill" />
       </b-button> -->
-
-      <router-link
-        :title="$t('settings.account')"
-        class="mb-2 mt-3 d-block"
-        :to="{ name: 'account' }"
-      >
-        <b-avatar
-          v-if="user && user.photoURL"
-          v-b-tooltip.hover.right
-          small
-          variant="info"
-          badge-variant="danger"
-          :title="$t('navMenu.account')"
-          :src="user.photoURL"
-        />
-      </router-link>
     </div>
   </nav>
 </template>
@@ -79,7 +63,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['board', 'user', 'notification', 'settings']),
+    ...mapState(['board', 'notification', 'settings']),
     ...mapGetters(['nightMode']),
   },
 };
