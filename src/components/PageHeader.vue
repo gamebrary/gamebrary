@@ -62,7 +62,6 @@
           variant="info"
           badge-variant="danger"
           :title="$t('navMenu.account')"
-          :badge="notification"
           :src="user.photoURL"
         />
       </router-link>
