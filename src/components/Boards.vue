@@ -22,7 +22,13 @@
       </b-card>
     </template>
 
-    <empty-state v-else-if="!boards.length" />
+    <empty-state
+      v-else-if="!boards.length"
+      title="Boards"
+      message="Use boards to easily organize your video game collections"
+    >
+      <create-board />
+    </empty-state>
 
     <template v-else>
       <div class="d-flex justify-content-between align-items-center">
