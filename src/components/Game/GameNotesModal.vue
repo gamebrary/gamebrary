@@ -1,3 +1,4 @@
+<!-- TODO: make it more portable, put trigger in slot -->
 <!-- TODO: translate -->
 
 <template lang="html">
