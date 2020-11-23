@@ -4,7 +4,12 @@
     class="rounded position-fixed d-flex flex-column p-0 m-2 text-center"
     :class="{ 'bg-dark text-white': nightMode, 'border': !nightMode }"
   >
-    <router-link :to="{ name: 'dashboard' }" class="mt-2 mb-3">
+    <router-link
+      :to="{ name: 'dashboard' }"
+      title="Boards"
+      class="my-2"
+      v-b-tooltip.hover.right
+    >
       <img
         :src="`/static/gamebrary-logo${nightMode ? '' : '-dark'}.png`"
         width="32"
