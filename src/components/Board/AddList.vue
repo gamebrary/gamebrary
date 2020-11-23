@@ -3,11 +3,11 @@
     v-b-modal="modalId"
     :title="$t('board.addList.title')"
     size="sm"
-    variant="primary"
+    variant="outline-secondary"
     v-b-tooltip.hover.left
     ref="addList"
   >
-    <icon name="plus" white />
+    <icon name="plus" />
 
     <b-modal
       :id="modalId"

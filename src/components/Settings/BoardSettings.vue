@@ -4,11 +4,11 @@
     v-b-tooltip.hover.left
     title="Board settings"
     class="mt-3"
-    variant="primary"
+    variant="outline-secondary"
     size="sm"
     ref="addList"
   >
-    <icon name="gear" white />
+    <icon name="gear" />
 
     <b-modal
       id="board-settings"
@@ -56,7 +56,32 @@
               />
             </b-form-group>
 
-            <platform-picker v-model="board.platforms" />
+
+            <b-button
+              v-b-modal.editPlatforms
+              :variant="noPlatformsSelected ? 'warning' : 'secondary'"
+            >
+              Platforms {{ noPlatformsSelected ? null : `(${board.platforms.length})` }}
+            </b-button>
+
+            <b-modal
+              id="editPlatforms"
+              hide-footer
+            >
+              <template v-slot:modal-header="{ close }">
+                <modal-header
+                  title="Board platforms"
+                  @close="close"
+                />
+              </template>
+
+              <b-alert :show="noPlatformsSelected" variant="warning">
+                Please select at least 1 platform
+              </b-alert>
+
+              <platform-picker v-model="board.platforms" />
+            </b-modal>
+
           </b-col>
 
           <b-col>
@@ -136,7 +161,7 @@
 
           <b-button
             variant="primary"
-            :disabled="saving"
+            :disabled="saving || noPlatformsSelected"
             @click="saveSettings"
           >
             <b-spinner small v-if="saving" />
@@ -172,6 +197,10 @@ export default {
   computed: {
     ...mapState(['board', 'user', 'wallpapers']),
     ...mapGetters(['nightMode']),
+
+    noPlatformsSelected() {
+      return this.board.platforms.length === 0;
+    }
   },
 
   methods: {
