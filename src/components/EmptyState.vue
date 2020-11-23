@@ -1,13 +1,27 @@
 <template lang="html">
   <div class="text-center pt-5">
-    <h2>Boards</h2>
-    <p>Use boards to easily organize your video game collections</p>
-    <b-button variant="primary">Create board</b-button>
+    <h2>{{ title }}</h2>
+    <p>{{ message }}</p>
+
+    <b-button
+      v-if="actionText"
+      variant="primary"
+      @click="$emit('action')"
+    >
+      {{ actionText }}
+    </b-button>
+
+    <slot />
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    title: String,
+    message: String,
+    actionText: String,
+  },
 };
 </script>
 
