@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="text-center pt-5">
-    <h2>{{ title }}</h2>
-    <p>{{ message }}</p>
+    <h2 v-if="title">{{ title }}</h2>
+    <p v-if="message">{{ message }}</p>
 
     <b-button
       v-if="actionText"
