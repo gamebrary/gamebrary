@@ -36,7 +36,7 @@
         <b-avatar
           v-if="user && user.photoURL"
           v-b-tooltip.hover.right
-          small
+          size="22px"
           variant="info"
           badge-variant="danger"
           :title="$t('navMenu.account')"
