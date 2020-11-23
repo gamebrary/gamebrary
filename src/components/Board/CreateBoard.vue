@@ -14,63 +14,88 @@
       :header-text-variant="nightMode ? 'white' : null"
       :body-bg-variant="nightMode ? 'dark' : null"
       :body-text-variant="nightMode ? 'white' : null"
-      @show="resetBoard"
-      @hidden="resetBoard"
+      hide-footer
+      scrollable
+      @show="init"
+      @hidden="init"
     >
       <template v-slot:modal-header="{ close }">
         <modal-header
           :title="$t('boards.create')"
+          :subtitle="modalSubtitle"
           @close="close"
         />
       </template>
 
-      <b-carousel
-        no-animation
-        indicators
-      >
-        <b-carousel-slide>
-          boom
-        </b-carousel-slide>
-        <b-carousel-slide>
-          boom 1
-        </b-carousel-slide>
-        <b-carousel-slide>
-          boom 2
-        </b-carousel-slide>
-      </b-carousel>
-
-      <form ref="createBoardForm" @submit.stop.prevent="submit">
-        <b-form-group
-          label="Board name"
-          label-for="name"
-        >
-          <b-form-input
-            id="name"
-            v-model="board.name"
-            placeholder="e.g. PS4 collection, Nintendo Switch, Xbox..."
-            autofocus
-            required
-          />
-        </b-form-group>
-
-        <b-form-group
-          label="Board description"
-          label-for="description"
-          description="Optional"
-        >
-          <b-form-textarea
-            v-model="board.description"
-            maxlength="280"
-            rows="2"
-          />
-        </b-form-group>
-
-        <platform-picker
-          v-model="board.platforms"
+      <template v-if="activeStep === 1">
+        <b-form-input
+          v-model.trim="board.name"
+          class="mb-2"
+          placeholder="e.g. PS4 collection, Nintendo Switch, Xbox..."
+          autofocus
+          required
         />
 
-        <hr />
+        <b-button
+          v-if="!showDescriptionField"
+          size="sm"
+          @click="showDescriptionField = !showDescriptionField"
+        >
+          Add description
+        </b-button>
 
+        <b-collapse v-model="showDescriptionField">
+          <b-form-group
+            label="Board description (optional)"
+            label-for="description"
+          >
+            <b-form-textarea
+              v-model="board.description"
+              maxlength="280"
+              rows="2"
+            />
+          </b-form-group>
+        </b-collapse>
+
+        <b-button
+          class="d-flex ml-auto"
+          :variant="board.name ? 'primary' : 'secondary'"
+          :disabled="!board.name"
+          v-if="activeStep < 4"
+          @click="activeStep = activeStep + 1"
+        >
+          Next: choose platforms
+        </b-button>
+      </template>
+
+      <template v-if="activeStep === 2">
+        <platform-picker v-model="board.platforms" />
+
+        <div class="d-flex justify-content-end align-items-center">
+          <b-button
+            variant="secondary"
+            :disabled="!board.platforms.length"
+            v-if="activeStep < 4"
+            @click="activeStep = activeStep + 1"
+          >
+            Optional: choose a board template
+          </b-button>
+
+          <span class="mx-2">or</span>
+
+          <b-button
+            :variant="board.platforms.length ? 'primary' : 'secondary'"
+            :disabled="!board.platforms.length"
+            v-if="activeStep < 4"
+            @click="createBoard"
+          >
+            <b-spinner small v-if="saving" />
+            <span v-else>Create board</span>
+          </b-button>
+        </div>
+      </template>
+
+      <template v-if="activeStep === 3">
         <b-form-group label="Board template">
           <b-form-radio-group
             v-model="selectedTemplate"
@@ -91,17 +116,11 @@
             </b-col>
           </b-row>
         </b-form-group>
-      </form>
-
-      <template v-slot:modal-footer="{ cancel }">
-        <b-button @click="cancel" variant="light">
-          Cancel
-        </b-button>
 
         <b-button
           variant="primary"
-          :disabled="saving"
-          @click="submit"
+          class="d-flex ml-auto"
+          @click="createBoard"
         >
           <b-spinner small v-if="saving" />
           <span v-else>Create board</span>
@@ -122,7 +141,17 @@ export default {
 
   data() {
     return {
-      board: {},
+      board: {
+        name: '',
+        description: '',
+      },
+      activeStep: 1,
+      stepTitles: {
+        1: 'Name your board',
+        2: 'Game search will be limited to the platforms selected.',
+        3: 'Use a board template or start from scratch',
+      },
+      showDescriptionField: false,
       platformCategories: {
         1: 'console',
         2: 'arcade',
@@ -149,26 +178,25 @@ export default {
 
   computed: {
     ...mapGetters(['nightMode']),
+
+    modalSubtitle() {
+      return this.stepTitles[this.activeStep];
+    },
   },
 
   methods: {
-    resetBoard() {
+    init() {
+      this.showDescriptionField = false;
+      this.activeStep = 1;
+
       this.board = {
-        name: null,
-        description: null,
+        name: '',
+        description: '',
         theme: null,
         wallpaper: null,
         platforms: [],
         lists: [],
       };
-    },
-
-    submit(e) {
-      e.preventDefault();
-
-      if (this.$refs.createBoardForm.checkValidity()) {
-        this.createBoard();
-      }
     },
 
     createBoard() {
