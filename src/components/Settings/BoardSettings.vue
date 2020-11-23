@@ -4,7 +4,7 @@
     v-b-tooltip.hover.left
     title="Board settings"
     class="mt-3"
-    variant="outline-secondary"
+    variant="secondary"
     size="sm"
     ref="addList"
   >

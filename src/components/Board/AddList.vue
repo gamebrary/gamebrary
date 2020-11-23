@@ -3,7 +3,7 @@
     v-b-modal="modalId"
     :title="$t('board.addList.title')"
     size="sm"
-    variant="outline-secondary"
+    variant="secondary"
     v-b-tooltip.hover.left
     ref="addList"
   >
