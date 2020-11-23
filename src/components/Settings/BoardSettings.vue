@@ -200,7 +200,7 @@ export default {
 
     noPlatformsSelected() {
       return this.board.platforms.length === 0;
-    }
+    },
   },
 
   methods: {
