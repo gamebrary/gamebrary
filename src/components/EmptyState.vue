@@ -8,7 +8,8 @@
       variant="primary"
       @click="$emit('action')"
     >
-      {{ actionText }}
+      <b-spinner small v-if="busy" />
+      <span v-else>{{ actionText }}</span>
     </b-button>
 
     <slot />
@@ -21,6 +22,7 @@ export default {
     title: String,
     message: String,
     actionText: String,
+    busy: false,
   },
 };
 </script>

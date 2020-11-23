@@ -1,3 +1,6 @@
+<!-- TODO: hide optional fields -->
+<!-- TODO: improve board template picker -->
+<!-- TODO: switch to a wizard style? -->
 <template lang="html">
   <b-button
     :variant="nightMode ? 'light' : 'primary'"
@@ -20,6 +23,21 @@
           @close="close"
         />
       </template>
+
+      <b-carousel
+        no-animation
+        indicators
+      >
+        <b-carousel-slide>
+          boom
+        </b-carousel-slide>
+        <b-carousel-slide>
+          boom 1
+        </b-carousel-slide>
+        <b-carousel-slide>
+          boom 2
+        </b-carousel-slide>
+      </b-carousel>
 
       <form ref="createBoardForm" @submit.stop.prevent="submit">
         <b-form-group
@@ -183,7 +201,7 @@ export default {
         lists,
       };
 
-      this.$store.dispatch('CREATE_BOARD', payload)
+      return this.$store.dispatch('CREATE_BOARD', payload)
         .then(({ id }) => {
           this.saving = false;
           this.$bvToast.toast('Board crated', { title: 'Success', variant: 'success' });
