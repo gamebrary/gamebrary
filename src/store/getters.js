@@ -1,4 +1,4 @@
-import { PLATFORM_FILTER_FIELDS } from '@/constants';
+// import { PLATFORM_FILTER_FIELDS } from '@/constants';
 import orderby from 'lodash.orderby';
 
 export default {
@@ -6,31 +6,34 @@ export default {
   sortedBoards: ({ boards }) => orderby(boards, 'name'),
 
   filteredPlatforms: (state) => {
-    const filterField = state.settings && state.settings.platformsFilterField
-      ? state.settings.platformsFilterField
-      : null;
+    // const filterField = state.settings && state.settings.platformsFilterField
+    //   ? state.settings.platformsFilterField
+    //   : null;
 
-    const sortField = state.settings && state.settings.platformsSortField
-      ? state.settings.platformsSortField
-      : 'generation';
+    // const sortField = state.settings && state.settings.platformsSortField
+    //   ? state.settings.platformsSortField
+    //   : 'generation';
 
-    let filteredPlatforms = [];
+    // let filteredPlatforms = [];
+    //
+    // if (filterField === 'all') {
+    //   filteredPlatforms = state.platforms;
+    // } else {
+    //   filteredPlatforms = filterField && PLATFORM_FILTER_FIELDS.includes(filterField)
+    //     ? state.platforms.filter(({ category }) => category === filterField)
+    //     : filteredPlatforms = state.platforms.filter(({ popular }) => popular);
+    // }
 
-    if (filterField === 'all') {
-      filteredPlatforms = state.platforms;
-    } else {
-      filteredPlatforms = filterField && PLATFORM_FILTER_FIELDS.includes(filterField)
-        ? state.platforms.filter(({ category }) => category === filterField)
-        : filteredPlatforms = state.platforms.filter(({ popular }) => popular);
-    }
+    const sortedPlatforms = orderby(state.platforms, ['popular', 'generation']);
+    // const sortedPlatforms = orderby(filteredPlatforms, sortField);
 
-    const sortedPlatforms = orderby(filteredPlatforms, sortField);
+    return sortedPlatforms.reverse();
 
-    const reverseOrder = ['releaseYear', 'generation'].includes(sortField);
-
-    return reverseOrder
-      ? sortedPlatforms.reverse()
-      : sortedPlatforms;
+    // const reverseOrder = ['releaseYear', 'generation'].includes(sortField);
+    //
+    // return reverseOrder
+    //   ? sortedPlatforms.reverse()
+    //   : sortedPlatforms;
   },
 
   platformNames: (state) => {

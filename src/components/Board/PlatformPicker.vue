@@ -1,50 +1,27 @@
 <!-- TODO: return filteredPlatforms getter and return sort/filters -->
 <template lang="html">
-  <div class="platform-picker">
-    <b-button
-      v-b-modal.platforms
-      :variant="value.length ? 'success' : 'warning'"
+  <b-list-group class="platforms mb-3">
+    <b-list-group-item
+      v-for="platform in filteredPlatforms"
+      :key="platform.id"
+      button
+      :active="value.includes(platform.id)"
+      @click="handleClick(platform.id)"
     >
-      {{ buttonLabel }}
-    </b-button>
+      <b-img
+        :src="`/static/platform-logos/${platform.slug}.${platform.logoFormat}`"
+        :alt="platform.name"
+        width="40"
+        class="pr-2"
+      />
 
-    <b-modal
-      id="platforms"
-      scrollable
-      hide-footer
-    >
-      <template v-slot:modal-header="{ close }">
-        <modal-header
-          title="Board Platforms"
-          subtitle="Game search will be limited to the platforms selected."
-          @close="close"
-        />
-      </template>
-
-      <b-list-group>
-        <b-list-group-item
-          v-for="platform in platforms"
-          :key="platform.id"
-          button
-          :active="value.includes(platform.id)"
-          @click="handleClick(platform.id)"
-        >
-          <b-img
-            :src="`/static/platform-logos/${platform.slug}.${platform.logoFormat}`"
-            :alt="platform.name"
-            width="40"
-            class="pr-2"
-          />
-
-          {{ platform.name }}
-        </b-list-group-item>
-      </b-list-group>
-    </b-modal>
-  </div>
+      {{ platform.name }}
+    </b-list-group-item>
+  </b-list-group>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   props: {
@@ -53,6 +30,7 @@ export default {
 
   computed: {
     ...mapState(['platforms']),
+    ...mapGetters(['filteredPlatforms']),
 
     buttonLabel() {
       return this.value.length
@@ -84,7 +62,9 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  .dropdown {
+  .platforms {
     max-height: 50vh;
+    overflow: scroll;
+    overflow-x: hidden;
   }
 </style>
