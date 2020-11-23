@@ -153,7 +153,7 @@ export default {
       }
     },
 
-    async createBoard() {
+    createBoard() {
       const { selectedTemplate, boardTemplates, board } = this;
 
       if (board.platforms.length === 0) {
@@ -183,15 +183,17 @@ export default {
         lists,
       };
 
-      await this.$store.dispatch('CREATE_BOARD', payload)
+      this.$store.dispatch('CREATE_BOARD', payload)
+        .then(({ id }) => {
+          this.saving = false;
+          this.$bvToast.toast('Board crated', { title: 'Success', variant: 'success' });
+          this.$bvModal.hide('create-board');
+          this.$router.push({ name: 'board', params: { id } });
+        })
         .catch(() => {
           this.saving = false;
           this.$bvToast.toast('There was an error creating board', { title: 'Error', variant: 'error' });
         });
-
-      this.saving = false;
-      this.$bvToast.toast('Board crated', { title: 'Success', variant: 'success' });
-      return this.$bvModal.hide('create-board');
     },
   },
 };

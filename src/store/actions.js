@@ -101,12 +101,14 @@ export default {
 
       db.collection('boards').add(payload)
         .then(({ id }) => {
-          commit('ADD_BOARD', {
+          const newBoard = {
             ...payload,
             id,
-          });
+          };
 
-          resolve();
+          commit('ADD_BOARD', newBoard);
+
+          resolve(newBoard);
         })
         .catch(reject);
     });
