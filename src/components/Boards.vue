@@ -2,7 +2,7 @@
   <div>
     <!-- TODO: allow board settings to be accessed here -->
 
-    <template v-if="loading">
+    <template v-if="loading && Object.keys(boards).length === 0">
       <b-card
         v-for="n in 3"
         :key="n"
