@@ -1,5 +1,10 @@
+<!-- TODO: create add a note modal -->
+<!-- TODO: add note search -->
+<!-- TODO: pagination? -->
+<!-- TODO: open notes from game modal on click? -->
+
 <template lang="html">
-  <b-container class="pt-2">
+  <b-container class="pt-3">
     <template v-if="!loaded">
       <b-card
         v-for="n in 3"
@@ -21,10 +26,26 @@
       </b-card>
     </template>
 
-  <empty-state v-else-if="showEmptyState" />
+  <empty-state
+    v-else-if="showEmptyState"
+    :title="$t('notes.title')"
+    message="Looks like you don't have any notes yet."
+  />
+  <!-- TODO: update text once add note modal is ready v -->
+  <!-- message="All your video game notes, in one place." -->
+  <!-- actionText="Add a note" -->
 
   <template v-else>
-    <h2>{{ $t('notes.title') }}</h2>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h3 class="m-0">{{ $t('notes.title') }}</h3>
+
+      <b-button
+        variant="primary"
+        disabled
+      >
+        Add note
+      </b-button>
+    </div>
 
     <b-card
       v-for="(note, gameId) in notes"

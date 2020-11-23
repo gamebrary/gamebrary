@@ -2,27 +2,6 @@
   <!-- TODO: show space used -->
   <!-- TODO: allow to apply wallpaper to board from here -->
   <b-container class="pt-3">
-    <!-- TODO: translate "browse" -->
-    <!-- TODO: add skeleton -->
-    <!-- TODO: add progress bar -->
-    <!-- TODO: sort by -->
-    <div class="d-flex justify-content-between align-items-center mb-2">
-      <h2>{{ $t('wallpapers.title') }}</h2>
-
-      <b-button
-        variant="primary"
-        @click="triggerFileUpload"
-      >
-        <b-spinner
-          label="Spinning"
-          v-if="saving"
-        />
-        <span v-else>
-          {{ $t('wallpapers.form.label') }}
-        </span>
-      </b-button>
-    </div>
-
     <b-form-file
       class="d-none file-input"
       v-model="file"
@@ -32,46 +11,103 @@
       @input="uploadWallpaper"
     />
 
-    <b-alert v-if="isDuplicate && !saving && file && file.name" show variant="warning">
-      {{ $t('wallpapers.form.duplicateMessage', { fileName: file.name }) }}
-    </b-alert>
+    <empty-state
+      v-if="showEmptyState"
+      :title="$t('wallpapers.title')"
+      message="Upload a wallpaper to customize your boards"
+      action-text="Upload a wallpaper"
+      :busy="saving"
+      @action="triggerFileUpload"
+    />
 
-    <!-- <h5>{{ $t('wallpapers.list.title') }}</h5> -->
+    <template v-else>
+      <!-- TODO: translate "browse" -->
+      <!-- TODO: add skeleton -->
+      <!-- TODO: add progress bar -->
+      <!-- TODO: sort by -->
+      <!-- TODO: add wallpaper preview carousel -->
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="m-0">
+          <b-button
+            size="sm"
+            :variant="nightMode ? 'dark' : 'light'"
+            @click="$router.push({ name: 'settings' })"
+          >
+            <icon name="chevron-left" />
+          </b-button>
 
-    <!-- <small class="d-block text-center">{{ formattedSpaceUsed }} of 64MB used</small> -->
-    <!-- <b-progress :value="spaceUsed" max="67108864" variant="success" class="mb-3" /> -->
+          {{ $t('wallpapers.title') }}
+        </h3>
 
-    <b-card
-      v-if="wallpapers.length"
-      v-for="wallpaper in wallpapers"
-      :key="wallpaper.name"
-      :img-src="wallpaper.url"
-      :img-alt="wallpaper.name"
-      img-left
-      img-width="180"
-      class="mb-3"
-    >
-      <p>{{ wallpaper.name }}
-        <b-badge v-if="wallpaper.metadata">{{ bytesToSize(wallpaper.metadata.size) }}</b-badge>
-      </p>
+        <b-button
+          variant="primary"
+          @click="triggerFileUpload"
+        >
+          <b-spinner
+            small
+            v-if="saving"
+          />
+          <span v-else>
+            {{ $t('wallpapers.form.label') }}
+          </span>
+        </b-button>
+      </div>
 
-      <b-button
-        variant="danger"
-        size="sm"
-        @click="confirmDeleteWallpaper(wallpaper)"
+      <b-alert
+        v-if="isDuplicate && !saving && file && file.name"
+        show
+        dismissible
+        variant="warning"
       >
-        <icon name="trash" white />
-      </b-button>
-    </b-card>
+        {{ $t('wallpapers.form.duplicateMessage', { fileName: file.name }) }}
+      </b-alert>
 
-    <b-alert show v-else>You don't have any wallpapers.</b-alert>
+      <!-- <h5>{{ $t('wallpapers.list.title') }}</h5> -->
+
+      <!-- <small class="d-block text-center">{{ formattedSpaceUsed }} of 64MB used</small> -->
+      <!-- <b-progress :value="spaceUsed" max="67108864" variant="success" class="mb-3" /> -->
+
+      <b-card
+        v-if="wallpapers.length"
+        v-for="wallpaper in wallpapers"
+        :key="wallpaper.name"
+        :img-src="wallpaper.url"
+        :img-alt="wallpaper.name"
+        img-left
+        img-width="180"
+        class="mb-3 overflow-hidden word-wrap"
+      >
+        <h6>
+          {{ wallpaper.name }}
+
+          <b-badge v-if="wallpaper.metadata">
+            {{ bytesToSize(wallpaper.metadata.size) }}
+          </b-badge>
+        </h6>
+
+        <b-button
+          variant="danger"
+          size="sm"
+          @click="confirmDeleteWallpaper(wallpaper)"
+        >
+          <icon name="trash" white />
+        </b-button>
+      </b-card>
+
+      <b-alert show v-else>You don't have any wallpapers.</b-alert>
+    </template>
   </b-container>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import EmptyState from '@/components/EmptyState';
 
 export default {
+  components: {
+    EmptyState,
+  },
+
   data() {
     return {
       file: null,
@@ -88,6 +124,10 @@ export default {
 
     existingFiles() {
       return this.wallpapers.map(({ name }) => name);
+    },
+
+    showEmptyState() {
+      return this.wallpapers.length === 0;
     },
 
     isDuplicate() {

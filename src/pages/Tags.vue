@@ -1,76 +1,31 @@
 <template lang="html">
-  <b-container class="pt-2">
-    <empty-state v-if="showEmptyState" />
+  <b-container class="pt-3">
+    <empty-state
+      v-if="showEmptyState"
+      :title="$t('tags.title')"
+      message="Tags are a great way to organize your collection"
+     >
+       <b-button
+         variant="primary"
+         v-b-modal.addTag
+       >
+         Add tag
+       </b-button>
+     </empty-state>
 
     <template v-else>
-      <h2>{{ $t('tags.title') }}</h2>
-      <p>{{ $t('tags.subtitle') }}</p>
-      <!-- TODO: move add tag to modal -->
-      <!-- TODO: empty state -->
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="m-0">{{ $t('tags.title') }}</h3>
+
+        <b-button
+          variant="primary"
+          v-b-modal.addTag
+        >
+          Add tag
+        </b-button>
+      </div>
 
       <b-row>
-        <b-col cols="12" lg="6" class="mb-3">
-          <form
-            ref="newTagForm"
-            @submit.stop.prevent="submit"
-          >
-            <h6>{{ $t('tags.form.title') }}</h6>
-
-            <b-form-row class="mb-3">
-              <b-col cols="8" md="9">
-                <b-form-input
-                  label="test"
-                  maxlength="20"
-                  :placeholder="$t('tags.form.inputPlaceholder')"
-                  required
-                  v-model.trim="tagName"
-                />
-
-                <b-form-text v-if="tagName" tag="span">
-                  {{ $t('tags.form.preview') }}
-
-                  <b-badge :style="`background-color: ${hex}; color: ${tagTextColor}`">
-                    {{ tagName }}
-                  </b-badge>
-                </b-form-text>
-              </b-col>
-
-              <b-col cols="4" md="3">
-                <b-input-group>
-                  <b-form-input
-                    v-model="hex"
-                    type="color"
-                    required
-                  />
-
-                  <b-form-input
-                    v-model="tagTextColor"
-                    type="color"
-                    required
-                  />
-                </b-input-group>
-              </b-col>
-            </b-form-row>
-
-            <b-button
-              variant="primary"
-              :disabled="isDuplicate || saving || !Boolean(tagName)"
-              @click="submit"
-            >
-              <b-spinner small v-if="saving" />
-              <span v-else>{{ $t('tags.form.addTag')}}</span>
-            </b-button>
-
-            <b-alert
-              class="mt-3 mb-0"
-              :show="isDuplicate"
-              variant="warning"
-            >
-              {{ $t('tags.form.duplicateMessage', { tagName }) }}
-               <strong>{{ tagName }}</strong>
-            </b-alert>
-          </form>
-        </b-col>
 
         <b-col cols="12" lg="6" v-if="gameTags && localTags">
           <h6>{{ $t('tags.list.title') }}</h6>
@@ -206,6 +161,79 @@
         </b-col>
       </b-row>
     </template>
+
+    <b-modal
+      id="addTag"
+      hide-footer
+      @show="open"
+    >
+      <template v-slot:modal-header="{ close }">
+        <modal-header
+          :title="$t('Add tag')"
+          @close="close"
+        />
+      </template>
+
+      <form
+        ref="newTagForm"
+        @submit.stop.prevent="submit"
+      >
+        <b-form-row class="mb-3">
+          <b-col cols="8" md="9">
+            <b-form-input
+              label="test"
+              maxlength="20"
+              :placeholder="$t('tags.form.inputPlaceholder')"
+              required
+              v-model.trim="tagName"
+            />
+
+            <b-form-text v-if="tagName" tag="span">
+              {{ $t('tags.form.preview') }}
+
+              <b-badge :style="`background-color: ${hex}; color: ${tagTextColor}`">
+                {{ tagName }}
+              </b-badge>
+            </b-form-text>
+          </b-col>
+
+          <b-col cols="4" md="3">
+            <b-input-group>
+              <b-form-input
+                v-model="hex"
+                type="color"
+                required
+              />
+
+              <b-form-input
+                v-model="tagTextColor"
+                type="color"
+                required
+              />
+            </b-input-group>
+          </b-col>
+        </b-form-row>
+
+        <b-button
+          variant="primary"
+          class="d-flex ml-auto"
+          :disabled="isDuplicate || saving || !Boolean(tagName)"
+          @click="submit"
+        >
+          <b-spinner small v-if="saving" />
+          <span v-else>{{ $t('tags.form.addTag')}}</span>
+        </b-button>
+
+        <b-alert
+          class="mt-3 mb-0"
+          :show="isDuplicate"
+          variant="warning"
+        >
+          {{ $t('tags.form.duplicateMessage', { tagName }) }}
+           <strong>{{ tagName }}</strong>
+        </b-alert>
+      </form>
+    </b-modal>
   </b-container>
 </template>
 
@@ -224,6 +252,14 @@ export default {
       tagName: '',
       hex: '#143D59',
       tagTextColor: '#F4B41A',
+      colorCombinations: [
+        // [text, bg]
+        ['#0d1137', '#e52165'],
+        ['#ffffff', '#000000'],
+        ['#101820', '#FEE715'],
+        ['#F2AA4C', '#101820'],
+        ['#F93822', '#FDD20E'],
+      ],
       exclusive: false,
       editingTag: {},
       editingTagName: '',
@@ -266,12 +302,25 @@ export default {
   },
 
   mounted() {
-    this.setLocalTags();
+    this.init();
   },
 
   methods: {
-    setLocalTags() {
+    init() {
       this.localTags = JSON.parse(JSON.stringify(this.tags));
+    },
+
+    open() {
+      this.setRandomColors();
+    },
+
+    setRandomColors() {
+      const { colorCombinations } = this;
+
+      const randomNumber = Math.floor(Math.random() * colorCombinations.length);
+
+      this.tagTextColor = colorCombinations[randomNumber][0];
+      this.hex = colorCombinations[randomNumber][1];
     },
 
     editTag(tagName) {
@@ -367,6 +416,7 @@ export default {
         : 'Tag added';
 
       this.$bvModal.hide('editTag');
+      this.$bvModal.hide('addTag');
       this.$bvToast.toast(message, { title: 'Success', variant: 'success' });
       this.reset();
       this.saving = false;

@@ -1,6 +1,10 @@
 <template lang="html">
-  <b-container class="pt-2">
-    <h2>Settings</h2>
+  <b-container class="pt-3">
+
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="m-0">Settings</h3>
+      </div>
+
 
     <b-list-group>
       <b-list-group-item variant="transparent" @click="toggleTheme">

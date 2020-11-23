@@ -1,6 +1,18 @@
 <template lang="html">
-  <b-container class="pt-2">
-    <h2>{{ $t('languages.title') }}</h2>
+  <b-container class="pt-3">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h3 class="m-0">
+        <b-button
+          size="sm"
+          :variant="nightMode ? 'dark' : 'light'"
+          @click="$router.push({ name: 'settings' })"
+        >
+          <icon name="chevron-left" />
+        </b-button>
+
+        Language
+      </h3>
+    </div>
 
     <b-form-select v-model="language" class="mb-2 w-50">
       <b-form-select-option

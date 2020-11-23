@@ -1,6 +1,18 @@
 <template lang="html">
   <b-container class="pt-3">
-    <h2>Account</h2>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h3 class="m-0">
+        <b-button
+          size="sm"
+          :variant="nightMode ? 'dark' : 'light'"
+          @click="$router.push({ name: 'settings' })"
+        >
+          <icon name="chevron-left" />
+        </b-button>
+
+        Account
+      </h3>
+    </div>
 
     <b-list-group flush>
       <b-list-group-item>
