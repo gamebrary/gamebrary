@@ -111,16 +111,14 @@ export default {
   },
 
   computed: {
-    ...mapState(['boards', 'board']),
+    ...mapState(['boards']),
     ...mapGetters(['nightMode']),
   },
 
   mounted() {
     const boardId = this.$route.params.id;
 
-    this.placeholderBoard = Object.keys(this.board).length > 0
-      ? this.board
-      : this.boards.find(({ id }) => id === boardId);
+    this.placeholderBoard = this.boards.find(({ id }) => id === boardId);
   },
 };
 </script>
