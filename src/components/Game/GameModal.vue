@@ -49,14 +49,23 @@
     <b-container v-if="game.name" class="m-0 p-0">
       <b-row>
         <b-col cols="12" md="4">
-          <b-img
-            :src="coverUrl"
-            :alt="game.name"
-            class="game-cover"
-            rounded
+          <b-skeleton-img
+            v-if="loading"
+            width="100%"
+            height="200px"
           />
 
-          <game-screenshots :game="game" v-if="!loading" />
+          <template v-else>
+            <b-img
+              :src="coverUrl"
+              :alt="game.name"
+              class="game-cover"
+              rounded
+            />
+
+            <game-screenshots :game="game" />
+          </template>
+
           <game-notes :game="game" />
           <!-- TODO: add related games -->
           <!-- More games like {{ game.name }} -->
@@ -218,6 +227,8 @@ export default {
 
   methods: {
     previousGame() {
+      this.loading = true;
+
       const { gameId, list } = this.gameModalData;
 
       const index = list.games.indexOf(gameId);
@@ -233,6 +244,8 @@ export default {
     },
 
     nextGame() {
+      this.loading = true;
+
       const { gameId, list } = this.gameModalData;
 
       const index = list.games.indexOf(gameId);
