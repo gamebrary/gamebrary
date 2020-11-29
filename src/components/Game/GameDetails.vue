@@ -1,5 +1,5 @@
 <template lang="html">
-  <dl>
+  <dl class="text-left">
     <!-- TODO: plural vs singular translations? -->
     <dt class="w-100">{{ $t('board.gameModal.platforms') }}</dt>
     <dd class="text-wrap">{{ platforms }}</dd>

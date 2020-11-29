@@ -41,6 +41,8 @@
         />
       </b-carousel>
 
+      <!-- TODO: add skeleton -->
+
       <div class="d-flex overflow-auto mt-2">
         <b-img
           v-for="(screenshot, index) in screenshots"
