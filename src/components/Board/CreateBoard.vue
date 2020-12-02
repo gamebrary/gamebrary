@@ -1,6 +1,3 @@
-<!-- TODO: hide optional fields -->
-<!-- TODO: improve board template picker -->
-<!-- TODO: switch to a wizard style? -->
 <template lang="html">
   <b-button
     :variant="nightMode ? 'light' : 'primary'"
