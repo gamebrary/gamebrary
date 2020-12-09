@@ -105,6 +105,13 @@ export default {
     },
 
     load() {
+      this.$bvToast.toast('There was an error loading wallpapers');
+      this.$bvToast.toast('There was an error loading wallpapers', { variant: 'success' });
+      this.$bvToast.toast('There was an error loading wallpapers', { variant: 'danger' });
+      this.$bvToast.toast('There was an error loading wallpapers', { variant: 'warning' });
+      this.$bvToast.toast('There was an error loading wallpapers', { variant: 'info' });
+      this.$bvToast.toast('There was an error loading wallpapers', { variant: 'primary' });
+
       // TODO: move logic to actions
       this.$store.dispatch('LOAD_RELEASES')
         .then((releases) => {

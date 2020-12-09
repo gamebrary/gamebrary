@@ -1,6 +1,7 @@
 <!-- TODO: return filteredPlatforms getter and return sort/filters -->
 <template lang="html">
   <b-list-group class="platforms mb-3">
+    <pre>{{ settings }}</pre>
     <b-list-group-item
       v-for="platform in filteredPlatforms"
       :key="platform.id"
@@ -29,7 +30,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['platforms']),
+    ...mapState(['platforms', 'settings']),
     ...mapGetters(['filteredPlatforms']),
 
     buttonLabel() {

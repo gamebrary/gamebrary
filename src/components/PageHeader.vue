@@ -16,8 +16,6 @@
       />
     </router-link>
 
-    <board-switcher />
-
     <div class="mt-auto">
       <b-button
         variant="link"
@@ -45,6 +43,19 @@
       >
         <icon name="gear" />
       </b-button>
+
+      <hr class="m-0">
+
+      <b-button
+        variant="link"
+        title="Settings"
+        :to="{ name: 'settings' }"
+        v-b-tooltip.hover.right
+      >
+        <icon name="gear" />
+      </b-button>
+
+      <board-switcher />
 
       <!-- <b-button
         :title="$t('navMenu.upgrade')"

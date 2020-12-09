@@ -2,3 +2,7 @@
 @import 'node_modules/bootstrap/scss/bootstrap';
 @import 'node_modules/bootstrap-vue/src/index.scss';
 @import "_utilities";
+
+.toast-header {
+  // display: none;
+}

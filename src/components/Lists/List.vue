@@ -231,7 +231,6 @@ export default {
 
       this.$bvToast.toast('List saved', {
         title: 'Success',
-        variant: 'success',
       });
     },
   },

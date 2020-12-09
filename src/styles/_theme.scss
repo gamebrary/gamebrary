@@ -887,21 +887,21 @@ $dropdown-item-padding-x:           .5rem !default;
 // $popover-arrow-outer-color:         fade-in($popover-border-color, .05) !default;
 //
 //
-// // Toasts
-//
-// $toast-max-width:                   350px !default;
-// $toast-padding-x:                   .75rem !default;
-// $toast-padding-y:                   .25rem !default;
-// $toast-font-size:                   .875rem !default;
-// $toast-color:                       null !default;
-// $toast-background-color:            rgba($white, .85) !default;
-// $toast-border-width:                1px !default;
-// $toast-border-color:                rgba(0, 0, 0, .1) !default;
-// $toast-border-radius:               .25rem !default;
+
+// Toasts
+$toast-max-width: 300px !default;
+$toast-padding-x: .5rem !default;
+$toast-padding-y: .5rem !default;
+$toast-font-size: .875rem !default;
+$toast-color: $white !default;
+$toast-background-color: $black;
+$toast-border-width: 0 !default;
+$toast-no-close-button: true !default;
+// $toast-border-color: rgba(0, 0, 0, .1) !default;
+// $toast-border-radius: .25rem !default;
 // $toast-box-shadow:                  0 .25rem .75rem rgba($black, .1) !default;
-//
-// $toast-header-color:                $gray-600 !default;
-// $toast-header-background-color:     rgba($white, .85) !default;
+$toast-header-color: $white !default;
+$toast-header-background-color: $black !default;
 // $toast-header-border-color:         rgba(0, 0, 0, .05) !default;
 //
 //

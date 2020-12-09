@@ -5,66 +5,45 @@
 
 <template lang="html">
   <b-container class="pt-3">
-    <template v-if="!loaded">
-      <b-card
-        v-for="n in 3"
-        :key="n"
-        no-body
-        img-left
-        class="w-100 mb-3"
-      >
-        <b-skeleton-img
-          card-img="left"
-          width="180px"
-          height="240px"
-        />
+    <empty-state
+      v-if="showEmptyState"
+      :title="$t('notes.title')"
+      message="Looks like you don't have any notes yet."
+    />
+    <!-- TODO: update text once add note modal is ready v -->
+    <!-- message="All your video game notes, in one place." -->
+    <!-- actionText="Add a note" -->
 
-        <b-card-body>
-          <b-skeleton />
-          <b-skeleton />
-        </b-card-body>
+    <template v-else>
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="m-0">{{ $t('notes.title') }}</h3>
+
+        <b-button
+          variant="primary"
+          disabled
+        >
+          Add note
+        </b-button>
+      </div>
+
+      <b-card
+        v-for="(note, gameId) in notes"
+        :key="gameId"
+        class="mb-3 w-100 note"
+        :img-src="getCoverUrl(gameId)"
+        :img-alt="games[gameId].name"
+        img-left
+        @click="openGame(gameId)"
+      >
+        <div v-if="games[gameId]">
+          <h5>{{ games[gameId] && games[gameId].name ? games[gameId].name : '' }}</h5>
+
+          <b-alert show variant="warning" class="mt-2">
+            <vue-markdown :source="note" />
+          </b-alert>
+        </div>
       </b-card>
     </template>
-
-  <empty-state
-    v-else-if="showEmptyState"
-    :title="$t('notes.title')"
-    message="Looks like you don't have any notes yet."
-  />
-  <!-- TODO: update text once add note modal is ready v -->
-  <!-- message="All your video game notes, in one place." -->
-  <!-- actionText="Add a note" -->
-
-  <template v-else>
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h3 class="m-0">{{ $t('notes.title') }}</h3>
-
-      <b-button
-        variant="primary"
-        disabled
-      >
-        Add note
-      </b-button>
-    </div>
-
-    <b-card
-      v-for="(note, gameId) in notes"
-      :key="gameId"
-      class="mb-3 w-100 note"
-      :img-src="getCoverUrl(gameId)"
-      :img-alt="games[gameId].name"
-      img-left
-      @click="openGame(gameId)"
-    >
-      <div v-if="games[gameId]">
-        <h5>{{ games[gameId] && games[gameId].name ? games[gameId].name : '' }}</h5>
-
-        <b-alert show variant="warning" class="mt-2">
-          <vue-markdown :source="note" />
-        </b-alert>
-      </div>
-    </b-card>
-  </template>
 
     <!-- TODO: finish search, include game title? -->
     <!-- <b-row class="mb-3">
@@ -119,6 +98,10 @@ export default {
 
         return;
       }
+
+      console.log(gamesList);
+      console.log(Object);
+      debugger;
 
       // TODO: get list of games that aren't currently cached
 
