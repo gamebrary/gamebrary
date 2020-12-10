@@ -78,7 +78,7 @@ export default {
       // TODO: get list of games that aren't currently cached?
       await this.$store.dispatch('LOAD_GAMES', gamesList)
         .catch(() => {
-          this.$bvToast.toast('Error loading games', { title: 'Error', variant: 'error' });
+          this.$bvToast.toast('Error loading games', { variant: 'error' });
           this.loaded = true;
         });
 

@@ -179,7 +179,7 @@ export default {
 
       await this.$store.dispatch('LOAD_GAMES', gameList.toString())
         .catch(() => {
-          this.$bvToast.toast('Error loading games', { title: 'Error', variant: 'error' });
+          this.$bvToast.toast('Error loading games', { variant: 'error' });
         });
 
       this.loading = false;

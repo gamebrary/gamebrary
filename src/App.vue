@@ -100,18 +100,11 @@ export default {
     loadWallpapers() {
       this.$store.dispatch('LOAD_WALLPAPERS')
         .catch(() => {
-          this.$bvToast.toast('There was an error loading wallpapers', { title: 'Error', variant: 'danger' });
+          this.$bvToast.toast('There was an error loading wallpapers', { variant: 'danger' });
         });
     },
 
     load() {
-      this.$bvToast.toast('There was an error loading wallpapers');
-      this.$bvToast.toast('There was an error loading wallpapers', { variant: 'success' });
-      this.$bvToast.toast('There was an error loading wallpapers', { variant: 'danger' });
-      this.$bvToast.toast('There was an error loading wallpapers', { variant: 'warning' });
-      this.$bvToast.toast('There was an error loading wallpapers', { variant: 'info' });
-      this.$bvToast.toast('There was an error loading wallpapers', { variant: 'primary' });
-
       // TODO: move logic to actions
       this.$store.dispatch('LOAD_RELEASES')
         .then((releases) => {

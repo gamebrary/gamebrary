@@ -91,7 +91,7 @@ export default {
     loadWallpapers() {
       this.$store.dispatch('LOAD_WALLPAPERS')
         .catch(() => {
-          this.$bvToast.toast('There was an error loading wallpapers', { title: 'Error', variant: 'danger' });
+          this.$bvToast.toast('There was an error loading wallpapers', { variant: 'danger' });
         });
     },
 

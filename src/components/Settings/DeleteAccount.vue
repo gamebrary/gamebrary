@@ -107,7 +107,7 @@ export default {
       this.progress = this.progress + 1;
 
       user.delete().then(() => {
-        this.$bvToast.toast('Account deleted', { title: 'Success', variant: 'success' });
+        this.$bvToast.toast('Account deleted');
 
         const exitUrl = process.env.NODE_ENV === 'development'
           ? 'http://localhost:3000'

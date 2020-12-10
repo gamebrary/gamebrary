@@ -121,7 +121,7 @@ export default {
       await this.$store.dispatch('SAVE_PROGRESSES')
         .catch(() => {
           this.saving = false;
-          this.$bvToast.toast('There was an error saving your progress', { title: 'Error', variant: 'error' });
+          this.$bvToast.toast('There was an error saving your progress', { variant: 'error' });
         });
 
       this.$bvToast.toast('Progress updated', { title: `${name} progress`, variant: 'success' });

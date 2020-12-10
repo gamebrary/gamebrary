@@ -124,11 +124,11 @@ export default {
 
       await this.$store.dispatch('SAVE_BOARD')
         .catch(() => {
-          this.$bvToast.toast('Error adding list', { title: 'Error', variant: 'danger' });
+          this.$bvToast.toast('Error adding list', { variant: 'danger' });
         });
 
       this.$forceUpdate();
-      this.$bvToast.toast('List added', { variant: 'success' });
+      this.$bvToast.toast('List added');
       this.saving = false;
       this.$bvModal.hide(this.modalId);
       this.scroll();

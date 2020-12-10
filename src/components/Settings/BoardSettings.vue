@@ -211,7 +211,7 @@ export default {
     async loadWallpapers() {
       await this.$store.dispatch('LOAD_WALLPAPERS')
         .catch(() => {
-          this.$bvToast.toast('There was an error loading wallpapers', { title: 'Error', variant: 'danger' });
+          this.$bvToast.toast('There was an error loading wallpapers', { variant: 'danger' });
         });
     },
 
@@ -269,11 +269,11 @@ export default {
       await this.$store.dispatch('DELETE_BOARD', this.board.id)
         .catch(() => {
           this.loading = false;
-          this.$bvToast.toast('There was an error deleting board', { title: 'Error', variant: 'error' });
+          this.$bvToast.toast('There was an error deleting board', { variant: 'error' });
         });
 
       this.loading = false;
-      this.$bvToast.toast('Board removed', { title: 'Success', variant: 'success' });
+      this.$bvToast.toast('Board removed');
       this.$router.push({ name: 'dashboard' });
     },
 
@@ -302,11 +302,11 @@ export default {
         .catch(() => {
           this.saving = false;
 
-          this.$bvToast.toast('There was an error renaming list', { title: 'Error', variant: 'danger' });
+          this.$bvToast.toast('There was an error renaming list', { variant: 'danger' });
         });
 
       this.saving = false;
-      this.$bvToast.toast('Board settings saved', { title: 'Saved', variant: 'success' });
+      this.$bvToast.toast('Board settings saved');
       this.$bvModal.hide('board-settings');
 
       if (wallpaperChanged) {

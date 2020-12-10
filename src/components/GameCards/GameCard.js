@@ -77,7 +77,7 @@ export default {
           this.$store.commit('SET_SESSION_EXPIRED', true);
         });
 
-      this.$bvToast.toast('Tags updated', { title: 'Success', variant: 'success' });
+      this.$bvToast.toast('Tags updated');
     },
   },
 };

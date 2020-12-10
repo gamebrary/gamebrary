@@ -200,7 +200,7 @@ export default {
       const { selectedTemplate, boardTemplates, board } = this;
 
       if (board.platforms.length === 0) {
-        return this.$bvToast.toast('Please select at least 1 platform', { title: 'Error', variant: 'error' });
+        return this.$bvToast.toast('Please select at least 1 platform', { variant: 'error' });
       }
 
       this.saving = true;
@@ -229,13 +229,13 @@ export default {
       return this.$store.dispatch('CREATE_BOARD', payload)
         .then(({ id }) => {
           this.saving = false;
-          this.$bvToast.toast('Board crated', { title: 'Success', variant: 'success' });
+          this.$bvToast.toast('Board crated');
           this.$bvModal.hide('create-board');
           this.$router.push({ name: 'board', params: { id } });
         })
         .catch(() => {
           this.saving = false;
-          this.$bvToast.toast('There was an error creating board', { title: 'Error', variant: 'error' });
+          this.$bvToast.toast('There was an error creating board', { variant: 'error' });
         });
     },
   },

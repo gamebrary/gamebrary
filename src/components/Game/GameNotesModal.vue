@@ -120,10 +120,10 @@ export default {
       await this.$store.dispatch('SAVE_NOTES')
         .catch(() => {
           this.saving = false;
-          this.$bvToast.toast('There was an error saving your note', { title: 'Error', variant: 'danger' });
+          this.$bvToast.toast('There was an error saving your note', { variant: 'danger' });
         });
 
-      this.$bvToast.toast('Note saved', { title: 'Success', variant: 'success' });
+      this.$bvToast.toast('Note saved');
 
       this.$bvModal.hide('notes');
     },
@@ -136,10 +136,10 @@ export default {
       await this.$store.dispatch('SAVE_NOTES_NO_MERGE')
         .catch(() => {
           this.deleting = false;
-          this.$bvToast.toast('There was an error deleting your note', { title: 'Error', variant: 'danger' });
+          this.$bvToast.toast('There was an error deleting your note', { variant: 'danger' });
         });
 
-      this.$bvToast.toast('Note deleted', { title: 'Success', variant: 'success' });
+      this.$bvToast.toast('Note deleted');
       this.$bvModal.hide('notes');
     },
   },

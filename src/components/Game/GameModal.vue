@@ -278,7 +278,7 @@ export default {
       const game = await this.$store.dispatch('LOAD_GAME', gameId)
         .catch(() => {
           this.loading = false;
-          this.$bvToast.toast('Error loading game', { title: 'Error', variant: 'error' });
+          this.$bvToast.toast('Error loading game', { variant: 'error' });
         });
 
       // avoid error when closing modal before game finishes loading

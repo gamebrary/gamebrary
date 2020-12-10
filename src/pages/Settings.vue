@@ -7,32 +7,32 @@
 
 
     <b-list-group>
-      <b-list-group-item variant="transparent" @click="toggleTheme">
+      <b-list-group-item @click="toggleTheme">
         <icon :name="nightMode ? 'moon' : 'sun'" />
         Toggle dark theme (Beta)
       </b-list-group-item>
 
-      <b-list-group-item variant="transparent" :to="{ name: 'wallpapers' }">
+      <b-list-group-item :to="{ name: 'wallpapers' }">
         <icon name="image" />
         Wallpapers
       </b-list-group-item>
 
-      <b-list-group-item variant="transparent" :to="{ name: 'language' }">
+      <b-list-group-item :to="{ name: 'language' }">
         <icon name="globe" />
         Language
       </b-list-group-item>
 
-      <b-list-group-item variant="transparent" :to="{ name: 'about' }">
+      <b-list-group-item :to="{ name: 'about' }">
         <icon name="info" />
         About
       </b-list-group-item>
 
-      <b-list-group-item variant="transparent" :to="{ name: 'releases' }">
+      <b-list-group-item :to="{ name: 'releases' }">
         <icon name="megaphone" />
         Releases
       </b-list-group-item>
 
-      <b-list-group-item variant="transparent" :to="{ name: 'account' }">
+      <b-list-group-item :to="{ name: 'account' }">
         <b-avatar
           v-if="user && user.photoURL"
           v-b-tooltip.hover.right
@@ -64,7 +64,7 @@ export default {
 
       this.$store.dispatch('SAVE_SETTINGS', this.settings)
         .catch(() => {
-          this.$bvToast.toast('There was an error saving your settings', { title: 'Error', variant: 'danger' });
+          this.$bvToast.toast('There was an error saving your settings', { variant: 'danger' });
         });
     },
   },

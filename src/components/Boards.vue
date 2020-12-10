@@ -147,7 +147,7 @@ export default {
     async loadPlatforms() {
       await this.$store.dispatch('LOAD_IGDB_PLATFORMS')
         .catch(() => {
-          this.$bvToast.toast('There was an error loading platforms', { title: 'Error', variant: 'error' });
+          this.$bvToast.toast('There was an error loading platforms', { variant: 'error' });
         });
 
       this.loadBoards();
@@ -189,11 +189,11 @@ export default {
         .catch(() => {
           this.loading = false;
 
-          this.$bvToast.toast('There was an error deleting board', { title: 'Error', variant: 'error' });
+          this.$bvToast.toast('There was an error deleting board', { variant: 'error' });
         });
 
       this.loading = false;
-      this.$bvToast.toast('Board removed', { title: 'Success', variant: 'success' });
+      this.$bvToast.toast('Board removed');
     },
   },
 };

@@ -229,9 +229,7 @@ export default {
           this.$store.commit('SET_SESSION_EXPIRED', true);
         });
 
-      this.$bvToast.toast('List saved', {
-        title: 'Success',
-      });
+      this.$bvToast.toast('List saved');
     },
   },
 };

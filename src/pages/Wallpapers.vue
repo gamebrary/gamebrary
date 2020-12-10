@@ -164,7 +164,7 @@ export default {
 
     uploadWallpaper() {
       if (this.isDuplicate) {
-        return this.$bvToast.toast('File already exists', { title: '!', variant: 'warning' });
+        return this.$bvToast.toast('File already exists', { variant: 'warning' });
       }
 
       if (!this.file) {
@@ -175,14 +175,14 @@ export default {
 
       return this.$store.dispatch('UPLOAD_WALLPAPER', this.file)
         .then(() => {
-          this.$bvToast.toast('File uploaded', { title: 'Success', variant: 'success' });
+          this.$bvToast.toast('File uploaded');
           this.file = null;
           this.saving = false;
           this.$bus.$emit('WALLPAPER_UPLOADED');
         })
         .catch(() => {
           this.saving = false;
-          this.$bvToast.toast('There was an error uploading wallpaper', { title: 'Error', variant: 'danger' });
+          this.$bvToast.toast('There was an error uploading wallpaper', { variant: 'danger' });
         });
     },
 
@@ -202,7 +202,7 @@ export default {
     async deleteFile(file) {
       await this.$store.dispatch('DELETE_WALLPAPER', file)
         .catch(() => {
-          this.$bvToast.toast('There was an error deleting wallpaper', { title: 'Error', variant: 'danger' });
+          this.$bvToast.toast('There was an error deleting wallpaper', { variant: 'danger' });
         });
 
       this.$bvToast.toast(file.name, { title: 'File deleted', variant: 'success' });

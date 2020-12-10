@@ -64,7 +64,7 @@ export default {
   },
 
   methods: {
-    saveSettings() {
+    async saveSettings() {
       const { language, settings } = this;
 
       const payload = {
@@ -72,16 +72,14 @@ export default {
         language,
       };
 
-      // TODO: Make async
-      this.$store.dispatch('SAVE_SETTINGS', payload)
-        .then(() => {
-          this.$bvToast.toast('Settings saved', { title: 'Success', variant: 'success' });
-          location.reload();
-        })
+      await this.$store.dispatch('SAVE_SETTINGS', payload)
         .catch(() => {
-          this.$bvToast.toast('There was an error saving your settings', { title: 'Error', variant: 'danger' });
+          this.$bvToast.toast('There was an error saving your settings', { variant: 'danger' });
           this.saving = false;
         });
+
+      this.$bvToast.toast('Settings saved');
+      location.reload();
     },
   },
 };
