@@ -24,55 +24,8 @@
         />
       </template>
 
-      <b-tabs content-class="mt-3">
+      <!-- <b-tabs content-class="mt-3">
         <b-tab title="Search" active>
-          <b-form @submit.prevent="search" class="mb-2">
-            <b-input-group>
-              <b-form-input
-                v-model="searchText"
-                autofocus
-                debounce="500"
-                :placeholder="$t('board.addGame.inputPlaceholder')"
-              />
-
-              <b-input-group-append>
-                <b-button variant="primary" @click="search">
-                  <icon
-                    :name="loading ? 'sync' : 'search'"
-                    :animated="loading"
-                    white
-                  />
-                </b-button>
-              </b-input-group-append>
-            </b-input-group>
-
-            <b-form-text>
-              Searching <strong>{{ board.platforms.length }} platforms</strong>.
-              <b-button>edit</b-button>
-              <template v-if="gamesInList.length">
-                <strong>{{ gamesInList.length }}</strong>
-                {{ $t('board.addGame.alreadyInList') }}
-              </template>
-            </b-form-text>
-          </b-form>
-
-          <b-card
-            v-if="filteredResults.length > 0"
-            ref="searchResults"
-            body-class="p-1 pb-0 search-results"
-            bg-variant="light"
-          >
-            <game-card-search
-              v-for="{ id } in filteredResults"
-              :key="id"
-              :game-id="id"
-              :list="list"
-            />
-          </b-card>
-
-          <b-alert :show="noResults" variant="warning" class="mt-2 mb-0">
-            {{ $t('board.addGame.noResults') }}
-          </b-alert>
         </b-tab>
 
         <b-tab title="Recent games">
@@ -86,7 +39,56 @@
         <b-tab title="Most popular">
           <p>I'm a disabled tab!</p>
         </b-tab>
-      </b-tabs>
+      </b-tabs> -->
+      <b-form @submit.prevent="search" class="mb-2">
+        <b-input-group>
+          <b-form-input
+            v-model="searchText"
+            autofocus
+            debounce="500"
+            :placeholder="$t('board.addGame.inputPlaceholder')"
+          />
+
+          <b-input-group-append>
+            <b-button variant="primary" @click="search">
+              <icon
+                :name="loading ? 'sync' : 'search'"
+                :animated="loading"
+                white
+              />
+            </b-button>
+          </b-input-group-append>
+        </b-input-group>
+
+        <b-form-text v-if="gamesInList.length">
+          <!-- Searching <strong>{{ board.platforms.length }} platforms</strong>.
+          <b-button>edit</b-button> -->
+
+          <!-- <template v-if="gamesInList.length"> -->
+          <template>
+            <strong>{{ gamesInList.length }}</strong>
+            {{ $t('board.addGame.alreadyInList') }}
+          </template>
+        </b-form-text>
+      </b-form>
+
+      <b-card
+        v-if="filteredResults.length > 0"
+        ref="searchResults"
+        body-class="p-1 pb-0 search-results"
+        bg-variant="light"
+      >
+        <game-card-search
+          v-for="{ id } in filteredResults"
+          :key="id"
+          :game-id="id"
+          :list="list"
+        />
+      </b-card>
+
+      <b-alert :show="noResults" variant="warning" class="mt-2 mb-0">
+        {{ $t('board.addGame.noResults') }}
+      </b-alert>
 
       <template v-slot:modal-footer>
         <igdb-logo />
