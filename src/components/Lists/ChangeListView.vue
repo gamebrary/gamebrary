@@ -149,7 +149,7 @@ export default {
     },
 
     async save() {
-      const { listIndex, view, list } = this;
+      const { listIndex, view } = this;
 
       this.saving = true;
 
@@ -159,18 +159,12 @@ export default {
         .catch(() => {
           this.saving = false;
 
-          this.$bvToast.toast('There was an error saving list view', {
-            title: 'Error',
-            variant: 'danger',
-          });
+          this.$bvToast.toast('There was an error saving list view', { variant: 'danger' });
         });
 
       this.saving = false;
 
-      this.$bvToast.toast('List view saved', {
-        title: list.name,
-        variant: 'success',
-      });
+      this.$bvToast.toast('List view saved');
 
       this.$bvModal.hide(this.modalId);
     },
