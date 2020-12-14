@@ -205,7 +205,7 @@ export default {
           this.$bvToast.toast('There was an error deleting wallpaper', { variant: 'danger' });
         });
 
-      this.$bvToast.toast(file.name, { title: 'File deleted', variant: 'success' });
+      this.$bvToast.toast('File deleted');
 
       // const { board } = this;
       // TODO: handle wallpapers in use
