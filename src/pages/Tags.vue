@@ -1,3 +1,6 @@
+<!-- TODO: show games assigned to tag -->
+<!-- TODO: warning if deleting, when has games -->
+
 <template lang="html">
   <b-container class="pt-3">
     <empty-state
