@@ -78,7 +78,9 @@
 
             <b-popover :target="board.id" triggers="hover">
               <div v-for="id in board.platforms" :key="id">
-                {{ platformNames[id].name }}
+                <span v-if="platformNames[id] && platformNames[id].name">
+                  {{ platformNames[id].name }}
+                </span>
               </div>
             </b-popover>
 
