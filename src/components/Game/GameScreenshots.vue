@@ -3,8 +3,7 @@
     <b-col
       v-for="(thumbnail, index) in thumbnails"
       :key="index"
-      cols="2"
-      sm="3"
+      cols="4"
     >
       <b-img
         :src="thumbnail"
@@ -13,6 +12,16 @@
         rounded
         @click="openModal(index)"
       />
+    </b-col>
+
+    <b-col
+      v-if="screenshots.length > maxThumbnails"
+      cols="4"
+      @click="openModal(maxThumbnails)"
+    >
+      <b-button class="d-block w-100 px-0">
+        <i class="fas fa-images fa-fw" aria-hidden></i>
+      </b-button>
     </b-col>
 
     <b-modal
@@ -35,20 +44,25 @@
         fade
       >
         <b-carousel-slide
-          v-for="(screenshot, index) in screenshots"
+          v-for="(screenshot, index) in slides"
           :key="index"
-          :img-src="screenshot"
-        />
+          content-tag="rounded"
+        >
+          <template #img>
+            <b-img
+              rounded
+              class="d-block w-100"
+              :src="screenshot"
+            />
+          </template>
+        </b-carousel-slide>
       </b-carousel>
-
-      <!-- TODO: add skeleton -->
 
       <div class="d-flex overflow-auto mt-2">
         <b-img
-          v-for="(screenshot, index) in screenshots"
+          v-for="(screenshot, index) in slides"
           :key="index"
           :src="screenshot"
-          thumbnail
           rounded
           width="100"
           :class="['border mr-2', { 'border-primary': activeImage === index }]"
@@ -68,22 +82,29 @@ export default {
   data() {
     return {
       activeImage: 0,
+      maxThumbnails: 5,
     };
   },
 
   computed: {
     thumbnails() {
-      return this.game && this.game.screenshots
-        // eslint-disable-next-line
-        ? this.game.screenshots.map(({ image_id }) => `https://images.igdb.com/igdb/image/upload/t_thumb/${image_id}.jpg`)
-        : 'N/A';
+      // eslint-disable-next-line
+      return this.trimmedScreenshots.map(({ image_id }) => `https://images.igdb.com/igdb/image/upload/t_thumb/${image_id}.jpg`)
+    },
+
+    slides() {
+      // eslint-disable-next-line
+      return this.screenshots.map(({ image_id }) => `https://images.igdb.com/igdb/image/upload/t_screenshot_huge_2x/${image_id}.jpg`);
     },
 
     screenshots() {
-      return this.game && this.game.screenshots
-        // eslint-disable-next-line
-        ? this.game.screenshots.map(({ image_id }) => `https://images.igdb.com/igdb/image/upload/t_screenshot_huge_2x/${image_id}.jpg`)
-        : 'N/A';
+      return this.game && this.game.screenshots ? this.game.screenshots : [];
+    },
+
+    trimmedScreenshots() {
+      return this.screenshots.length > this.maxThumbnails
+        ? this.screenshots.slice(0, this.maxThumbnails)
+        : this.screenshots;
     },
   },
 
