@@ -1,5 +1,3 @@
-<!-- TODO: translate -->
-
 <template lang="html">
   <b-jumbotron
     class="empty-board w-100 text-center"
