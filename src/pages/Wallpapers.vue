@@ -1,5 +1,4 @@
 <template lang="html">
-  <!-- TODO: show space used -->
   <!-- TODO: allow to apply wallpaper to board from here -->
   <b-container class="pt-3">
     <b-form-file
@@ -41,6 +40,7 @@
 
         <b-button
           variant="primary"
+          :disabled="outOfSpace"
           @click="triggerFileUpload"
         >
           <b-spinner
@@ -48,7 +48,8 @@
             v-if="saving"
           />
           <span v-else>
-            {{ $t('wallpapers.form.label') }}
+            <i class="fas fa-upload"></i>
+            Upload wallpaper
           </span>
         </b-button>
       </div>
@@ -62,10 +63,16 @@
         {{ $t('wallpapers.form.duplicateMessage', { fileName: file.name }) }}
       </b-alert>
 
-      <!-- <h5>{{ $t('wallpapers.list.title') }}</h5> -->
+      <small class="d-block text-center" :class="{ 'text-danger': outOfSpace }">
+        {{ formattedSpaceUsed }} of {{ bytesToSize(maxSpace) }} used
+      </small>
 
-      <!-- <small class="d-block text-center">{{ formattedSpaceUsed }} of 64MB used</small> -->
-      <!-- <b-progress :value="spaceUsed" max="67108864" variant="success" class="mb-3" /> -->
+      <b-progress
+        :value="spaceUsed"
+        :max="maxSpace"
+        :variant="outOfSpace ? 'danger' : 'success'"
+        class="mb-3"
+      />
 
       <b-card
         v-if="wallpapers.length"
@@ -114,6 +121,7 @@ export default {
       saving: false,
       loading: false,
       isPaid: true,
+      maxSpace: '67108864', // 64mb storage limit
       wallpaperUrls: [],
     };
   },
@@ -142,9 +150,13 @@ export default {
         : null;
     },
 
-    // spaceUsed() {
-    //   return this.wallpapers.reduce((total, file) => total + file.metadata.size, 0);
-    // },
+    spaceUsed() {
+      return this.wallpapers.reduce((total, file) => total + file.metadata.size, 0);
+    },
+
+    outOfSpace() {
+      return this.spaceUsed >= this.maxSpace;
+    },
   },
 
   methods: {
