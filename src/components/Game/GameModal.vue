@@ -15,23 +15,20 @@
     @show="load"
     @hidden="reset"
   >
-  <!-- header-bg-variant="dark"
-  body-bg-variant="dark"
-  footer-bg-variant="dark" -->
     <template v-slot:modal-header="{ close }">
       <modal-header
         :title="game.name"
         :subtitle="gameModalData.list ? gameModalData.list.name : null"
         @close="close"
       >
-        <b-button-group v-if="gameModalData.list">
+        <b-button-group v-if="hasMultipleGames">
           <b-button
             size="sm"
             :variant="nightMode ? 'dark' : 'light'"
             :disabled="prevDisabled"
             @click="previousGame"
           >
-            <icon name="triangle-left" />
+            <i class="fas fa-caret-left fa-fw" aria-hidden></i>
           </b-button>
 
           <b-button
@@ -40,7 +37,7 @@
             :disabled="nextDisabled"
             @click="nextGame"
           >
-            <icon name="triangle-right" />
+            <i class="fas fa-caret-right fa-fw" aria-hidden></i>
           </b-button>
         </b-button-group>
       </modal-header>
@@ -188,6 +185,14 @@ export default {
     ...mapState(['gameModalData', 'games', 'platform', 'progresses', 'tags']),
     ...mapGetters(['nightMode']),
 
+    hasMultipleGames() {
+      // TODO: use optional chaining
+      return this.gameModalData
+        && this.gameModalData.list
+        && this.gameModalData.list.games
+        && this.gameModalData.list.games.length > 1;
+    },
+
     progress() {
       const { gameId, progresses } = this;
 
@@ -227,6 +232,7 @@ export default {
 
   methods: {
     previousGame() {
+      // TODO: account for list sorting when getting previous game
       this.loading = true;
 
       const { gameId, list } = this.gameModalData;
@@ -244,6 +250,7 @@ export default {
     },
 
     nextGame() {
+      // TODO: account for list sorting when getting next game
       this.loading = true;
 
       const { gameId, list } = this.gameModalData;
