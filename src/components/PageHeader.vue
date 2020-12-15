@@ -18,52 +18,43 @@
 
     <div class="mt-auto">
       <b-button
-        variant="link"
+        variant="transparent"
         :title="$t('navMenu.tags')"
         :to="{ name: 'tags' }"
         v-b-tooltip.hover.right
       >
-        <icon name="tag" />
+        <i class="fas fa-tags"></i>
       </b-button>
 
       <b-button
-        variant="link"
+        variant="transparent"
         :title="$t('navMenu.notes')"
         :to="{ name: 'notes' }"
         v-b-tooltip.hover.right
       >
-        <icon name="note" />
+        <i class="far fa-sticky-note"></i>
       </b-button>
 
       <b-button
-        variant="link"
+        variant="transparent"
         title="Settings"
         :to="{ name: 'settings' }"
         v-b-tooltip.hover.right
       >
-        <icon name="gear" />
+        <i class="fas fa-cog"></i>
       </b-button>
 
       <hr class="m-0">
-
-      <b-button
-        variant="link"
-        title="Settings"
-        :to="{ name: 'settings' }"
-        v-b-tooltip.hover.right
-      >
-        <icon name="gear" />
-      </b-button>
 
       <board-switcher />
 
       <!-- <b-button
         :title="$t('navMenu.upgrade')"
         :to="{ name: 'upgrade' }"
-        variant="link"
+        variant="transparent"
         v-b-tooltip.hover.right
       >
-        <icon name="star-fill" />
+        <i class="fas fa-star" aria-hidden></i>
       </b-button> -->
     </div>
   </nav>

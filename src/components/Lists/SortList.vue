@@ -3,7 +3,7 @@
     v-b-modal="modalId"
     :variant="nightMode ? 'light' : null"
   >
-    <icon name="list-ordered" />
+    <i class="fas fa-sort fa-fw" aria-hidden></i>
     {{ $t('board.list.sortList') }}
 
     <b-modal

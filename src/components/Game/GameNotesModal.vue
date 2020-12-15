@@ -8,7 +8,7 @@
     v-b-tooltip.hover
     title="Game notes"
    >
-    <icon name="note" white />
+    <i class="far fa-sticky-note"></i>
 
     <b-modal
       id="notes"

@@ -2,7 +2,7 @@
   <b-overlay show no-center no-wrap>
     <template v-slot:overlay>
       <div class="text-center p-4">
-        <icon name="sync" animated />
+        <i class="fas fa-sync fa-spin" aria-hidden></i>
         <p>Please wait...</p>
       </div>
     </template>
@@ -23,7 +23,8 @@ export default {
 
   mounted() {
     if (this.user && this.user.uid) {
-      return this.$router.replace({ name: 'dashboard' });
+      return
+      // return this.$router.replace({ name: 'dashboard' });
     }
 
     return firebase.auth().getRedirectResult()

@@ -8,7 +8,7 @@
     no-caret
   >
     <template v-slot:button-content>
-      <icon name="triangle-down" small />
+      <i class="fas fa-caret-down" aria-hidden></i>
     </template>
 
     <add-game-modal :list="list" />
@@ -29,7 +29,7 @@
             :variant="nightMode ? 'dark' : 'light'"
             @click="moveList(listIndex, listIndex - 1)"
           >
-            <icon name="triangle-left" />
+            <i class="fas fa-angle-left" aria-hidden></i>
           </b-button>
 
           <b-button
@@ -39,7 +39,7 @@
             variant="light"
             @click="moveList(listIndex, listIndex + 1)"
           >
-            <icon name="triangle-right" />
+            <i class="fas fa-angle-right" aria-hidden></i>
           </b-button>
         </b-button-group>
       </b-dropdown-item>
@@ -51,7 +51,7 @@
       variant="outline-danger"
       @click="promptDeleteList"
     >
-      <icon name="trash" />
+      <i class="fas fa-trash-alt fa-fw" aria-hidden></i>
       {{ $t('board.list.delete') }}
     </b-dropdown-item>
   </b-dropdown>

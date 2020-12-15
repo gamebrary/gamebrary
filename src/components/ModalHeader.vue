@@ -15,7 +15,7 @@
         class="ml-auto"
         @click="$emit('close')"
       >
-        <icon name="x" />
+        <i class="fas fa-times" aria-hidden></i>
       </b-button>
     </div>
   </header>

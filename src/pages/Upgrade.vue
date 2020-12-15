@@ -36,7 +36,7 @@
           <tr>
             <td class="text-right">Filters</td>
             <td>
-              <icon name="x" />
+              <i class="fas fa-times" aria-hidden></i>
             </td>
 
             <td>
@@ -48,7 +48,7 @@
           <tr>
             <td class="text-right">Search</td>
             <td>
-              <icon name="x" />
+              <i class="fas fa-times" aria-hidden></i>
             </td>
 
             <td>
@@ -83,15 +83,15 @@
 
           <tr>
             <td class="text-right">Custom boards</td>
-            <td><icon name="x" /></td>
+            <td><i class="fas fa-times" aria-hidden></i></td>
             <td>Custom wallpaper</td>
           </tr>
 
           <tr>
             <td class="text-right">Public profile</td>
-            <td><icon name="x" /></td>
+            <td><i class="fas fa-times" aria-hidden></i></td>
             <td>
-              <icon name="check" />
+              <i class="fas fa-check" aria-hidden></i>
               Claim your profile
             </td>
           </tr>
@@ -104,9 +104,9 @@
 
           <tr>
             <td class="text-right">Public profile</td>
-            <td><icon name="x" /></td>
+            <td><i class="fas fa-times" aria-hidden></i></td>
             <td>
-              <icon name="check" />
+              <i class="fas fa-check" aria-hidden></i>
               Claim your profile
             </td>
           </tr>
@@ -117,7 +117,7 @@
               Basic
             </td>
             <td>
-              <icon name="check" />
+              <i class="fas fa-check" aria-hidden></i>
               Advanced:
 
               Claim your profile
@@ -131,7 +131,7 @@
               x
             </td>
             <td>
-              <icon name="check" />
+              <i class="fas fa-check" aria-hidden></i>
             </td>
           </tr>
 
@@ -142,7 +142,7 @@
               x
             </td>
             <td>
-              <icon name="check" />
+              <i class="fas fa-check" aria-hidden></i>
             </td>
           </tr>
 
@@ -152,14 +152,14 @@
               x
             </td>
             <td>
-              <icon name="check" />
+              <i class="fas fa-check" aria-hidden></i>
             </td>
           </tr>
 
           <tr>
             <td class="text-right">Track game progress</td>
-            <td><icon name="x" /></td>
-            <td><icon name="check" /></td>
+            <td><i class="fas fa-times" aria-hidden></i></td>
+            <td><i class="fas fa-check" aria-hidden></i></td>
           </tr>
 
           <tr>

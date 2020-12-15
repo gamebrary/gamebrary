@@ -3,7 +3,7 @@
     v-b-modal="modalId"
     :variant="nightMode ? 'light' : null"
   >
-    <icon name="pencil" />
+    <i class="fas fa-pencil-alt fa-fw" aria-hidden></i>
     {{ $t('board.list.renameList') }}
 
     <b-modal

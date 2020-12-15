@@ -8,7 +8,7 @@
     size="sm"
     ref="addList"
   >
-    <icon name="gear" />
+    <i class="fas fa-cog"></i>
 
     <b-modal
       id="board-settings"

@@ -5,7 +5,7 @@
     variant="info"
     :title="$t('progresses.modalTitle')"
   >
-    <icon name="clock" white />
+    <i class="fas fa-stopwatch"></i>
 
     <b-modal
       id="progress"

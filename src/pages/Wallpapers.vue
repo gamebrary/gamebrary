@@ -32,7 +32,7 @@
             :variant="nightMode ? 'dark' : 'light'"
             @click="$router.push({ name: 'settings' })"
           >
-            <icon name="chevron-left" />
+            <i class="fas fa-chevron-circle-left" aria-hidden></i>
           </b-button>
 
           {{ $t('wallpapers.title') }}
@@ -97,7 +97,7 @@
           size="sm"
           @click="confirmDeleteWallpaper(wallpaper)"
         >
-          <icon name="trash" white />
+          <i class="fas fa-trash-alt" aria-hidden></i>
         </b-button>
       </b-card>
 

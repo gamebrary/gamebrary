@@ -11,7 +11,7 @@
     :menu-class="nightMode ? 'bg-dark' : ''"
   >
     <template v-slot:button-content>
-      <icon name="arrow-switch" />
+      <i class="fas fa-retweet" aria-hidden></i>
     </template>
 
     <b-dropdown-item

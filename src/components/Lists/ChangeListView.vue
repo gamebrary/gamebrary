@@ -3,7 +3,7 @@
     v-b-modal="modalId"
     :variant="nightMode ? 'light' : null"
   >
-    <icon name="versions" />
+    <i class="fas fa-list" aria-hidden></i>
     {{ $t('board.list.view') }}
 
     <b-modal

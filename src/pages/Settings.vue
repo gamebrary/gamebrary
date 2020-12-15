@@ -7,28 +7,28 @@
 
 
     <b-list-group>
-      <b-list-group-item @click="toggleTheme">
-        <icon :name="nightMode ? 'moon' : 'sun'" />
+      <b-list-group-item tag="a" @click="toggleTheme">
+        <i :class="`fas fa-${nightMode ? 'sun' : 'moon'}`" aria-hidden></i>
         Toggle dark theme (Beta)
       </b-list-group-item>
 
       <b-list-group-item :to="{ name: 'wallpapers' }">
-        <icon name="image" />
+        <i class="fas fa-image" aria-hidden></i>
         Wallpapers
       </b-list-group-item>
 
       <b-list-group-item :to="{ name: 'language' }">
-        <icon name="globe" />
+        <i class="fas fa-language" aria-hidden></i>
         Language
       </b-list-group-item>
 
       <b-list-group-item :to="{ name: 'about' }">
-        <icon name="info" />
+        <i class="fas fa-info" aria-hidden></i>
         About
       </b-list-group-item>
 
       <b-list-group-item :to="{ name: 'releases' }">
-        <icon name="megaphone" />
+        <i class="fas fa-bullhorn" aria-hidden></i>
         Releases
       </b-list-group-item>
 
@@ -70,6 +70,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-</style>

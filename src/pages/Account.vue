@@ -7,7 +7,7 @@
           :variant="nightMode ? 'dark' : 'light'"
           @click="$router.push({ name: 'settings' })"
         >
-          <icon name="chevron-left" />
+          <i class="fas fa-chevron-circle-left" aria-hidden></i>
         </b-button>
 
         Account

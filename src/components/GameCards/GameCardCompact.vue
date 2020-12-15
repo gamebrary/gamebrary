@@ -7,10 +7,10 @@
   >
     <b-row no-gutters v-if="game && game.name">
       <b-col cols="3">
-        <icon name="check-circle"
-          white
-          class="position-absolute rounded bg-success p-1 m-1"
+        <i
           v-if="showCompletedBadge"
+          class="far fa-check-circle position-absolute text-white bg-success m-1 rounded"
+          aria-hidden
         />
 
         <b-img
@@ -31,7 +31,7 @@
             {{ game.name }}
 
             <b-badge variant="warning" v-if="gameNotes">
-              <icon name="note" />
+              <i class="far fa-sticky-note"></i>
             </b-badge>
           </b-card-title>
 

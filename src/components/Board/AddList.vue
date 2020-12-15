@@ -7,7 +7,7 @@
     v-b-tooltip.hover.left
     ref="addList"
   >
-    <icon name="plus" />
+    <i class="fas fa-plus" />
 
     <b-modal
       :id="modalId"

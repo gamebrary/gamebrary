@@ -12,14 +12,13 @@
               name="verified"
               class="rounded bg-success p-1"
               white
-              font-scale="1.5"
               v-if="showCompletedBadge"
             />
 
             {{ game.name }}
 
             <b-badge variant="warning" v-if="gameNotes">
-              <icon name="note" />
+              <i class="far fa-sticky-note"></i>
             </b-badge>
           </small>
 
