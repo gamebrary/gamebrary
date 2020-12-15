@@ -10,11 +10,10 @@
       v-if="game && game.name"
     >
       <b-col cols="4">
-        <icon
-          name="verified"
-          white
-          class="position-absolute rounded bg-success p-1 m-1"
+        <i
           v-if="showCompletedBadge"
+          class="far fa-check-circle position-absolute text-white bg-success m-1 rounded"
+          aria-hidden
         />
 
         <!-- TODO: handle rtl -->

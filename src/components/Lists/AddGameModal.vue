@@ -51,11 +51,7 @@
 
           <b-input-group-append>
             <b-button variant="primary" @click="search">
-              <icon
-                :name="loading ? 'sync' : 'search'"
-                :animated="loading"
-                white
-              />
+              <i :class="`fas ${loading ? 'fa-sync fa-spin' : 'fa-search'} fa-search`" aria-hidden />
             </b-button>
           </b-input-group-append>
         </b-input-group>

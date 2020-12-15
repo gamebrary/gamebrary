@@ -9,11 +9,10 @@
   >
     <b-card-body body-class="p-2" v-if="game && game.name">
       <b-card-title class="mb-0" title-tag="h6">
-        <icon
-          name="verified"
-          class="rounded bg-success p-1"
-          white
+        <i
           v-if="showCompletedBadge"
+          class="fas fa-check-square text-success"
+          aria-hidden
         />
 
         {{ game.name }}

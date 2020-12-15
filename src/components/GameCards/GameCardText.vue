@@ -8,11 +8,10 @@
     <b-row no-gutters v-if="game && game.name">
         <b-card-body body-class="pt-0 pb-1 px-2">
           <small>
-            <icon
-              name="verified"
-              class="rounded bg-success p-1"
-              white
+            <i
               v-if="showCompletedBadge"
+              class="fas fa-check-square text-success"
+              aria-hidden
             />
 
             {{ game.name }}
