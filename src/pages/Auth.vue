@@ -23,8 +23,7 @@ export default {
 
   mounted() {
     if (this.user && this.user.uid) {
-      return
-      // return this.$router.replace({ name: 'dashboard' });
+      return this.$router.replace({ name: 'dashboard' });
     }
 
     return firebase.auth().getRedirectResult()
