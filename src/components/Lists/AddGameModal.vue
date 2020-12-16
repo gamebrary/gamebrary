@@ -51,7 +51,10 @@
 
           <b-input-group-append>
             <b-button variant="primary" @click="search">
-              <i :class="`fas ${loading ? 'fa-sync fa-spin' : 'fa-search'} fa-search`" aria-hidden />
+              <i
+                :class="`fas ${loading ? 'fa-sync fa-spin' : 'fa-search'}`"
+                aria-hidden
+              />
             </b-button>
           </b-input-group-append>
         </b-input-group>
