@@ -3,7 +3,9 @@
     <b-col
       v-for="(thumbnail, index) in thumbnails"
       :key="index"
-      cols="4"
+      cols="2"
+      md="6"
+      lg="4"
     >
       <b-img
         :src="thumbnail"
@@ -16,12 +18,14 @@
 
     <b-col
       v-if="screenshots.length > maxThumbnails"
-      cols="4"
+      cols="2"
+      md="6"
+      lg="4"
+      class="rounded mb-2 text-center pt-4"
       @click="openModal(maxThumbnails)"
     >
-      <b-button class="d-block w-100 px-0">
-        <i class="fas fa-images fa-fw" aria-hidden></i>
-      </b-button>
+      {{ screenshots.length }}
+      <i class="fas fa-images fa-fw" aria-hidden></i>
     </b-col>
 
     <b-modal
