@@ -8,7 +8,7 @@
 
     <b-modal
       :id="modalId"
-      footer-class="d-flex justify-content-between"
+      footer-class="d-flex justify-content-between pt-0"
       @show="getSettings"
     >
       <template v-slot:modal-header="{ close }">
@@ -47,6 +47,15 @@
         </b-form-checkbox>
 
         <b-form-checkbox
+          v-model="highlightCompletedGames"
+          name="check-button"
+          class="mb-2"
+          switch
+        >
+          Highlight completed games
+        </b-form-checkbox>
+
+        <b-form-checkbox
           v-model="showGameNotes"
           name="check-button"
           class="mb-2"
@@ -67,7 +76,6 @@
         <b-form-checkbox
           v-model="showGameCount"
           name="check-button"
-          class="mb-2"
           switch
         >
           {{ $t('board.list.showGameCount') }}
@@ -109,6 +117,7 @@ export default {
       showReleaseDates: false,
       showGameRatings: false,
       showGameProgress: false,
+      highlightCompletedGames: false,
       showGameNotes: false,
       showGameTags: false,
       showGameCount: false,
@@ -135,10 +144,12 @@ export default {
         showGameRatings,
         showGameProgress,
         showGameNotes,
+        highlightCompletedGames,
         showGameTags,
         showGameCount,
       } = this.list.settings;
 
+      this.highlightCompletedGames = highlightCompletedGames || false;
       this.showReleaseDates = showReleaseDates || false;
       this.showGameRatings = showGameRatings || false;
       this.showGameProgress = showGameProgress || false;
@@ -154,6 +165,7 @@ export default {
       settings.showReleaseDates = this.showReleaseDates;
       settings.showGameRatings = this.showGameRatings;
       settings.showGameProgress = this.showGameProgress;
+      settings.highlightCompletedGames = this.highlightCompletedGames;
       settings.showGameNotes = this.showGameNotes;
       settings.showGameTags = this.showGameTags;
       settings.showGameCount = this.showGameCount;

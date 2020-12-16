@@ -8,13 +8,10 @@
     img-top
   >
     <b-card-body body-class="p-2" v-if="game && game.name">
-      <b-card-title class="mb-0" title-tag="h6">
-        <i
-          v-if="showCompletedBadge"
-          class="fas fa-check-square text-success"
-          aria-hidden
-        />
-
+      <b-card-title
+        :class="`mb-0 ${highlightCompletedGame ? 'text-success' : ''}`"
+        title-tag="h6"
+      >
         {{ game.name }}
       </b-card-title>
 

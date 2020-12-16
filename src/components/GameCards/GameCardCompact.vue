@@ -19,15 +19,9 @@
       <b-col cols="9">
         <b-card-body body-class="p-2">
           <b-card-title
-            class="mb-0"
+            :class="`mb-0 ${highlightCompletedGame ? 'text-success' : ''}`"
             title-tag="small"
           >
-            <i
-              v-if="showCompletedBadge"
-              class="fas fa-check-square text-success"
-              aria-hidden
-            />
-
             {{ game.name }}
 
             <b-badge variant="warning" v-if="gameNotes">

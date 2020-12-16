@@ -10,12 +10,6 @@
       v-if="game && game.name"
     >
       <b-col cols="4">
-        <i
-          v-if="showCompletedBadge"
-          class="far fa-check-circle position-absolute text-white bg-success m-1 rounded"
-          aria-hidden
-        />
-
         <!-- TODO: handle rtl -->
         <b-img
           fluid
@@ -29,7 +23,7 @@
       <b-col cols="8">
         <b-card-body body-class="p-2">
           <b-card-title
-            class="mb-0"
+            :class="`mb-0 ${highlightCompletedGame ? 'text-success' : ''}`"
             title-tag="h6"
           >
             {{ game.name }}

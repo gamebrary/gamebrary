@@ -7,13 +7,7 @@
   >
     <b-row no-gutters v-if="game && game.name">
         <b-card-body body-class="pt-0 pb-1 px-2">
-          <small>
-            <i
-              v-if="showCompletedBadge"
-              class="fas fa-check-square text-success"
-              aria-hidden
-            />
-
+          <small :class="`${highlightCompletedGame ? 'text-success' : ''}`">
             {{ game.name }}
 
             <b-badge variant="warning" v-if="gameNotes">

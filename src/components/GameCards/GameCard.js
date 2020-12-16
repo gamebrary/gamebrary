@@ -12,11 +12,14 @@ export default {
 
   computed: {
     ...mapState(['settings', 'games', 'tags', 'notes', 'progresses', 'board']),
-    // TODO: remove getter
     ...mapGetters(['gameTags', 'nightMode']),
 
-    showCompletedBadge() {
-      return this.gameProgress && Number(this.gameProgress) === 100;
+    highlightCompletedGame() {
+      const { settings } = this.list;
+
+      return settings.highlightCompletedGames
+        && this.gameProgress
+        && Number(this.gameProgress) === 100;
     },
 
     showGameProgress() {
