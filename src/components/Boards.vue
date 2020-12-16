@@ -1,8 +1,7 @@
 <template lang="html">
   <div>
     <!-- TODO: allow board settings to be accessed here -->
-
-    <template v-if="loading && Object.keys(boards).length === 0">
+    <template v-if="loading">
       <b-card
         v-for="n in 3"
         :key="n"
@@ -37,65 +36,29 @@
         <create-board />
       </div>
 
-      <b-card
-        v-for="board in sortedBoards"
-        :key="board.id"
-        no-body
-        :bg-variant="nightMode ? 'dark' : null"
-        :text-variant="nightMode ?  'white' : null"
-        class="overflow-hidden clickable mt-3"
-        @click="viewBoard(board.id)"
-      >
-        <b-row>
-          <b-col cols="6" md="3">
-            <b-img
-              v-if="board.wallpaper"
-              rounded
-              class="m-2 w-100"
-              :src="getWallpaper(board)"
-              :alt="board.name"
-            />
-
-            <b-img
-              v-else
-              rounded
-              :alt="board.name"
-              class="m-2 w-100"
-              width="150"
-              height="84"
-              blank
-              blank-color="darkgray"
-              fluid
-            />
-          </b-col>
-
-          <b-col cols="6" md="9" class="p-2" >
-            <h6 class="m-0">{{ board.name }}</h6>
-
-            <small :id="board.id">
-              {{ board.platforms.length }} {{ $t('boards.platforms') }}
-            </small>
-
-            <b-popover :target="board.id" triggers="hover">
-              <div v-for="id in board.platforms" :key="id">
-                <span v-if="platformNames[id] && platformNames[id].name">
-                  {{ platformNames[id].name }}
-                </span>
-              </div>
-            </b-popover>
-
-            <p class="text-muted small" v-if="board.description">
-              {{ board.description }}
-            </p>
-          </b-col>
-        </b-row>
-      </b-card>
+      <div class="boards">
+        <b-card
+          v-for="board in sortedBoards"
+          :key="board.id"
+          no-body
+          :bg-variant="nightMode ? 'dark' : null"
+          :text-variant="nightMode ?  'white' : null"
+          class="overflow-hidden clickable"
+          @click="viewBoard(board.id)"
+        >
+          <mini-board
+            :board="board"
+            :background="getWallpaper(board)"
+          />
+        </b-card>
+      </div>
     </template>
   </div>
 </template>
 
 <script>
 import CreateBoard from '@/components/Board/CreateBoard';
+import MiniBoard from '@/components/Board/MiniBoard';
 import EmptyState from '@/components/EmptyState';
 
 import { mapState, mapGetters } from 'vuex';
@@ -103,6 +66,7 @@ import { mapState, mapGetters } from 'vuex';
 export default {
   components: {
     CreateBoard,
+    MiniBoard,
     EmptyState,
   },
 
@@ -130,12 +94,10 @@ export default {
       this.loadPlatforms();
     },
 
-    getWallpaper({ wallpaper, name }) {
+    getWallpaper({ wallpaper }) {
       const boardWallpaper = this.wallpapers.find(({ fullPath }) => fullPath === wallpaper);
 
-      return this.wallpapers.length && boardWallpaper && boardWallpaper.url
-        ? boardWallpaper.url
-        : `https://via.placeholder.com/300x100?text=${name}`;
+      return this.wallpapers.length && boardWallpaper && boardWallpaper.url;
     },
 
     getPlatformImage(id) {
@@ -201,11 +163,18 @@ export default {
 };
 </script>
 
-<style lang="scss" rel="stylesheet/scss">
-.b-avatar .b-avatar-img img {
-  width: 40px !important;
-  height: auto !important;
-  max-width: 100% !important;
-  max-height: 100% !important;
+<style lang="scss" rel="stylesheet/scss" scoped>
+.boards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1rem;
+
+  @media(max-width: 780px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media(max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
