@@ -1,7 +1,7 @@
 <template lang="html">
   <div>
     <!-- TODO: allow board settings to be accessed here -->
-    <template v-if="loading">
+    <template v-if="showPlaceholder">
       <b-card
         v-for="n in 3"
         :key="n"
@@ -82,6 +82,10 @@ export default {
 
     hasLists() {
       return Object.keys(this.gameLists).length > 0;
+    },
+
+    showPlaceholder() {
+      return this.loading && Object.keys(this.boards).length === 0
     },
   },
 
