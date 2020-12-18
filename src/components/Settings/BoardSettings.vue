@@ -56,6 +56,25 @@
               />
             </b-form-group>
 
+            <b-form-group
+              label="Board background color"
+              label-for="backgroundColor"
+            >
+              <b-form-input
+                id="backgroundColor"
+                class="color-picker"
+                v-model="backgroundColor"
+                type="color"
+              />
+
+              <b-form-text
+                v-if="backgroundColor"
+                id="input-live-help"
+              >
+                {{ backgroundColor }}
+              </b-form-text>
+            </b-form-group>
+
 
             <b-button
               v-b-modal.editPlatforms
@@ -186,6 +205,7 @@ export default {
     return {
       saving: false,
       description: null,
+      backgroundColor: null,
       name: null,
       platforms: null,
       theme: null,
@@ -242,6 +262,7 @@ export default {
       this.description = board.description;
       this.name = board.name;
       this.platforms = board.platforms;
+      this.backgroundColor = board.backgroundColor || null;
       this.theme = board.theme || 'default';
       this.wallpaper = board.wallpaper;
 
@@ -288,6 +309,7 @@ export default {
         description: this.description,
         name: this.name,
         platforms: this.platforms,
+        backgroundColor: this.backgroundColor,
         theme: this.theme,
         wallpaper: this.wallpaper,
       };
@@ -322,5 +344,9 @@ export default {
   max-height: 400px;
   max-width: 360px;
   overflow: auto;
+}
+
+.color-picker {
+  width: 38px;
 }
 </style>
