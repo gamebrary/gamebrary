@@ -61,9 +61,9 @@ export default {
       }
 
       // TODO: use optional chaining
-      if (this.board && this.board.backgroundColor) {
-        return `background-color: ${this.board.backgroundColor};`;
-      }
+      return this.board && this.board.backgroundColor
+        ? `background-color: ${this.board.backgroundColor};`
+        : null;
     },
 
     boardId() {

@@ -85,7 +85,7 @@ export default {
     },
 
     showPlaceholder() {
-      return this.loading && Object.keys(this.boards).length === 0
+      return this.loading && Object.keys(this.boards).length === 0;
     },
   },
 

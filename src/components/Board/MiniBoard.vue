@@ -45,16 +45,16 @@ export default {
   },
 
   computed: {
-      miniBoardStyles() {
-        if (this.backgroundImage) {
-          return `background-image: url(${this.backgroundImage});`;
-        }
+    miniBoardStyles() {
+      if (this.backgroundImage) {
+        return `background-image: url(${this.backgroundImage});`;
+      }
 
-        // TODO: use optional chaining
-        if (this.board && this.board.backgroundColor) {
-          return `background-color: ${this.board.backgroundColor};`;
-        }
-      },
+      // TODO: use optional chaining
+      return this.board && this.board.backgroundColor
+        ? `background-color: ${this.board.backgroundColor};`
+        : null;
+    },
   },
 };
 </script>
