@@ -1,5 +1,5 @@
 <template lang="html">
-  <div>
+  <b-container class="pt-3">
     <!-- TODO: allow board settings to be accessed here -->
     <template v-if="showPlaceholder">
       <b-card
@@ -29,9 +29,9 @@
       <create-board />
     </empty-state>
 
-    <template v-else>
-      <div class="d-flex justify-content-between align-items-center">
-        <h2>{{ $t('boards.title') }}</h2>
+    <b-row v-else>
+      <div class="d-flex w-100 justify-content-between align-items-center mb-3">
+        <h3 class="m-0 mr-a">{{ $t('boards.title') }}</h3>
 
         <create-board />
       </div>
@@ -48,12 +48,12 @@
         >
           <mini-board
             :board="board"
-            :background="getWallpaper(board)"
+            :background-image="getWallpaper(board)"
           />
         </b-card>
       </div>
-    </template>
-  </div>
+    </b-row>
+  </b-container>
 </template>
 
 <script>

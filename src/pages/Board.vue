@@ -1,7 +1,7 @@
 <template lang="html">
   <div
     :class="['board py-2', boardBackground, { dragging, 'empty': isEmptyBoard }]"
-    :style="wallpaper"
+    :style="boardStyles"
   >
     <board-placeholder v-if="loading" />
 
@@ -55,10 +55,15 @@ export default {
     ...mapState(['user', 'dragging', 'board', 'wallpapers']),
     ...mapGetters(['nightMode']),
 
-    wallpaper() {
-      return this.wallpaperUrl
-        ? `background-image: url('${this.wallpaperUrl}');`
-        : '';
+    boardStyles() {
+      if (this.wallpaperUrl) {
+        return `background: url('${this.wallpaperUrl}');`;
+      }
+
+      // TODO: use optional chaining
+      if (this.board && this.board.backgroundColor) {
+        return `background-color: ${this.board.backgroundColor};`;
+      }
     },
 
     boardId() {
@@ -76,6 +81,10 @@ export default {
     },
 
     boardBackground() {
+      if (this.board.backgroundColor) {
+        return null;
+      }
+
       return this.nightMode
         ? 'bg-dark'
         : 'bg-light';

@@ -1,11 +1,10 @@
 <template lang="html">
   <div
-    class="mini-board p-1 rounded bg-secondary"
-    :style="`background-image: url(${background})`"
+    class="mini-board p-1 rounded"
+    :style="miniBoardStyles"
   >
     <small>
       {{ board.name }}
-      /
       {{ board.platforms.length }} {{ $t('boards.platforms') }}
     </small>
 
@@ -42,7 +41,20 @@
 export default {
   props: {
     board: Object,
-    background: String,
+    backgroundImage: String,
+  },
+
+  computed: {
+      miniBoardStyles() {
+        if (this.backgroundImage) {
+          return `background-image: url(${this.backgroundImage});`;
+        }
+
+        // TODO: use optional chaining
+        if (this.board && this.board.backgroundColor) {
+          return `background-color: ${this.board.backgroundColor};`;
+        }
+      },
   },
 };
 </script>
