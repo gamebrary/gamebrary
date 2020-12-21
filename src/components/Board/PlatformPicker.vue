@@ -1,7 +1,6 @@
 <!-- TODO: return filteredPlatforms getter and return sort/filters -->
 <template lang="html">
   <b-list-group class="platforms mb-3">
-    <pre>{{ settings }}</pre>
     <b-list-group-item
       v-for="platform in filteredPlatforms"
       :key="platform.id"
@@ -12,7 +11,8 @@
       <b-img
         :src="`/static/platform-logos/${platform.slug}.${platform.logoFormat}`"
         :alt="platform.name"
-        width="40"
+        width="60"
+        thumbnail
         class="pr-2"
       />
 
@@ -61,11 +61,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-  .platforms {
-    max-height: 50vh;
-    overflow: scroll;
-    overflow-x: hidden;
-  }
-</style>
