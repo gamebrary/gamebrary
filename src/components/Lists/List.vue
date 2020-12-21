@@ -236,52 +236,52 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  .list {
-    flex-shrink: 0;
-    cursor: default;
-    position: relative;
-    width: 300px;
-    border-radius: 3px;
+.list {
+  flex-shrink: 0;
+  cursor: default;
+  position: relative;
+  width: 300px;
+  border-radius: 3px;
 
-    &.unique {
-      @media(max-width: 780px) {
-        width: calc(100vw - 140px);
-        // background: #ccf;
-      }
+  &.unique {
+    @media(max-width: 780px) {
+      width: calc(100vw - 140px);
+      background: #ccf;
     }
+  }
 
+  .games {
+    height: 100%;
+    overflow: hidden;
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+    padding: .5rem .5rem 0;
+    width: 100%;
+  }
+
+  &.grid {
     .games {
       display: grid;
-      height: 100%;
-      overflow: hidden;
-      max-height: calc(100vh - 80px);
-      overflow-y: auto;
       padding: .5rem .5rem 0;
-      width: 100%;
-    }
+      grid-template-columns: 1fr 1fr;
+      grid-column-gap: .5rem;
 
-    &.grid {
-      .games {
-        padding: .5rem .5rem 0;
-        grid-template-columns: 1fr 1fr;
-        grid-column-gap: .5rem;
-
-        // https://github.com/w3c/csswg-drafts/issues/129
-        &::after {
-          content: '';
-          display: block;
-          height: 1px;
-          margin-top: -1px;
-          width: 100%;
-          grid-column: span 2;
-        }
+      // https://github.com/w3c/csswg-drafts/issues/129
+      &::after {
+        content: '';
+        display: block;
+        height: 1px;
+        margin-top: -1px;
+        width: 100%;
+        grid-column: span 2;
       }
     }
   }
+}
 
-  .list-settings {
-    padding: 1rem;
-  }
+.list-settings {
+  padding: 1rem;
+}
 </style>
 
 <style lang="scss" rel="stylesheet/scss">
