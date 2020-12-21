@@ -57,7 +57,7 @@ export default {
 
     boardStyles() {
       if (this.wallpaperUrl) {
-        return `background: url('${this.wallpaperUrl}');`;
+        return `background-image: url('${this.wallpaperUrl}');`;
       }
 
       // TODO: use optional chaining
