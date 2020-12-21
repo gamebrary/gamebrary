@@ -66,6 +66,28 @@
       </template>
 
       <template v-if="activeStep === 2">
+        <div
+          v-if="board.platforms.length"
+          class="mb-3 d-flex justify-content-end align-items-center"
+        >
+          <b-button
+            variant="secondary"
+            @click="activeStep = activeStep + 1"
+          >
+            Optional: choose a board template
+          </b-button>
+
+          <span class="mx-2">or</span>
+
+          <b-button
+            variant="primary"
+            @click="createBoard"
+          >
+            <b-spinner small v-if="saving" />
+            <span v-else>Create board</span>
+          </b-button>
+        </div>
+
         <platform-picker v-model="board.platforms" />
 
         <div class="d-flex justify-content-end align-items-center">
