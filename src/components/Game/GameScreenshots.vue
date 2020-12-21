@@ -9,9 +9,8 @@
     >
       <b-img
         :src="thumbnail"
-        width="70"
-        class="mr-2 mb-2 screenshot"
         rounded
+        class="w-100 h-auto mb-2"
         @click="openModal(index)"
       />
     </b-col>
@@ -55,14 +54,14 @@
           <template #img>
             <b-img
               rounded
-              class="d-block w-100"
+              class="w-100"
               :src="screenshot"
             />
           </template>
         </b-carousel-slide>
       </b-carousel>
 
-      <div class="d-flex overflow-auto mt-2">
+      <!-- <div class="d-flex overflow-auto mt-2">
         <b-img
           v-for="(screenshot, index) in slides"
           :key="index"
@@ -72,7 +71,7 @@
           :class="['border mr-2', { 'border-primary': activeImage === index }]"
           @click="setSlide(index)"
         />
-      </div>
+      </div> -->
     </b-modal>
   </b-form-row>
 </template>
@@ -125,10 +124,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-.screenshot {
-  width: 100%;
-  height: auto;
-}
-</style>
