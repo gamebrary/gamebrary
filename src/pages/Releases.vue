@@ -3,11 +3,10 @@
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h3 class="m-0">
         <b-button
-          size="sm"
           :variant="nightMode ? 'dark' : 'light'"
           @click="$router.push({ name: 'settings' })"
         >
-          <i class="fas fa-chevron-circle-left fa-fw" aria-hidden />
+          <i class="fas fa-angle-left fa-fw" aria-hidden />
         </b-button>
 
         Releases
