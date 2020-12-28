@@ -6,19 +6,18 @@
     no-caret
     boundary="viewport"
     v-b-tooltip.hover.right
-    variant="transparent"
+    :variant="nightMode ? 'dark' : null"
     :title="$t('navMenu.changeBoard')"
     :menu-class="nightMode ? 'bg-dark' : ''"
   >
     <template v-slot:button-content>
-      <i class="fas fa-retweet" aria-hidden></i>
+      <i class="fas fa-retweet fa-fw" aria-hidden />
     </template>
 
     <b-dropdown-item
       :to="`/board/${id}`"
       :key="id"
       v-for="{ name, id } in sortedBoards"
-      :variant="nightMode ? 'white' : 'transparent'"
       :active="board.id === id"
     >
       {{ name }}
@@ -26,9 +25,7 @@
 
     <b-dropdown-divider />
 
-    <b-dropdown-item-button>
-      <create-board />
-    </b-dropdown-item-button>
+    <create-board />
   </b-dropdown>
 </template>
 

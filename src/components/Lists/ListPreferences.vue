@@ -1,7 +1,7 @@
 <template lang="html">
   <b-dropdown-item-button
     v-b-modal="modalId"
-    :variant="nightMode ? 'light' : null"
+    :variant="nightMode ? 'secondary' : null"
   >
     <i class="fas fa-cogs fa-fw" aria-hidden />
     {{ $t('board.list.settings') }}

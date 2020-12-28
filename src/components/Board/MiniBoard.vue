@@ -12,13 +12,13 @@
       <div
         v-for="list in board.lists"
         :key="list.name"
-        class="bg-light rounded list"
+        class="rounded overflow-hidden list"
       >
         <div v-if="list.games.length" :title="list.name">
           <div
             v-for="game in list.games"
             :key="game"
-            class="border-bottom rounded"
+            class="bg-light border-bottom"
           >
             <i
               class="fas fa-ellipsis-h text-secondary ml-1"

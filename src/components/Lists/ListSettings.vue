@@ -3,9 +3,9 @@
     size="sm"
     class="m-1"
     right
-    :variant="nightMode ? 'dark' : 'transparent'"
-    :menu-class="nightMode ? 'bg-dark text-white' : ''"
     no-caret
+    :variant="nightMode ? 'dark' : 'transparent'"
+    :menu-class="nightMode ? 'bg-dark' : ''"
   >
     <template v-slot:button-content>
       <i class="fas fa-caret-down fa-fw" aria-hidden />
@@ -26,7 +26,6 @@
             v-b-tooltip.hover
             :title="$t('board.list.moveLeft')"
             :disabled="isFirst"
-            :variant="nightMode ? 'dark' : 'light'"
             @click="moveList(listIndex, listIndex - 1)"
           >
             <!-- :variant="nightMode ? 'dark' : 'light'" -->
@@ -37,7 +36,6 @@
             v-b-tooltip.hover
             :title="$t('board.list.moveRight')"
             :disabled="isLast"
-            variant="light"
             @click="moveList(listIndex, listIndex + 1)"
           >
             <!-- variant="light" -->
@@ -50,7 +48,7 @@
     <b-dropdown-divider />
 
     <b-dropdown-item
-      variant="outline-danger"
+      variant="danger"
       @click="promptDeleteList"
     >
       <i class="fas fa-trash-alt fa-fw" aria-hidden />
