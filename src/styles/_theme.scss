@@ -930,8 +930,8 @@ $toast-header-background-color: $black !default;
 // // Margin between elements in footer, must be lower than or equal to 2 * $modal-inner-padding
 // $modal-footer-margin-between:       .5rem !default;
 //
-// $modal-dialog-margin:               .5rem !default;
-// $modal-dialog-margin-y-sm-up:       1.75rem !default;
+$modal-dialog-margin:               0 !default;
+$modal-dialog-margin-y-sm-up:       0 !default;
 //
 // $modal-title-line-height:           $line-height-base !default;
 //
@@ -1124,5 +1124,4 @@ $modal-header-padding: 1rem 1rem 0 !default;
 //
 // $print-page-size:                   a3 !default;
 // $print-body-min-width:              map-get($grid-breakpoints, "lg") !default;
-//
 //

@@ -23,7 +23,6 @@
       >
         <b-button-group v-if="hasMultipleGames">
           <b-button
-            size="sm"
             :variant="nightMode ? 'dark' : 'light'"
             :disabled="prevDisabled"
             @click="previousGame"
@@ -32,7 +31,6 @@
           </b-button>
 
           <b-button
-            size="sm"
             :variant="nightMode ? 'dark' : 'light'"
             :disabled="nextDisabled"
             @click="nextGame"
@@ -77,7 +75,7 @@
             :value="progress"
             variant="success"
             height="8px"
-            class="my-1 w-50"
+            class="my-1 w-50 mx-auto mx-md-0"
           />
 
           <b-form-rating

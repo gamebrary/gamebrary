@@ -11,7 +11,6 @@
 
       <b-button
         :variant="nightMode ? 'dark' : 'light'"
-        size="sm"
         class="ml-auto"
         @click="$emit('close')"
       >

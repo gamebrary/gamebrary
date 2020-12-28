@@ -1,10 +1,8 @@
 <!-- TODO: make it more portable, put trigger in slot -->
-<!-- TODO: translate -->
-
 <template lang="html">
   <b-button
     v-b-modal.notes
-    variant="info"
+    variant="warning"
     v-b-tooltip.hover
     title="Game notes"
    >
