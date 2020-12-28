@@ -5,7 +5,10 @@
   >
     <small>
       {{ board.name }}
-      {{ board.platforms.length }} {{ $t('boards.platforms') }}
+
+      <template v-if="board.platforms.length > 1">
+        ({{ board.platforms.length }} {{ $t('boards.platforms') }})
+      </template>
     </small>
 
     <div class="lists rounded overflow-hidden">
