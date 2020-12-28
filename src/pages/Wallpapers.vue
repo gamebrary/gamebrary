@@ -20,9 +20,6 @@
     />
 
     <template v-else>
-      <!-- TODO: translate "browse" -->
-      <!-- TODO: add skeleton -->
-      <!-- TODO: add progress bar -->
       <!-- TODO: sort by -->
       <!-- TODO: add wallpaper preview carousel -->
       <div class="d-flex justify-content-between align-items-center mb-3">
@@ -48,7 +45,7 @@
           />
           <span v-else>
             <i class="fas fa-upload fa-fw" aria-hidden />
-            Upload wallpaper
+            <span class="d-none d-sm-block">Upload wallpaper</span>
           </span>
         </b-button>
       </div>

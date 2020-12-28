@@ -32,7 +32,7 @@
 
       <form ref="boardSettingsForm" @submit.stop.prevent="submit">
         <b-row>
-          <b-col>
+          <b-col lg="6">
             <b-form-group
               :label="$t('board.settings.nameLabel')"
               label-for="name"
@@ -100,10 +100,9 @@
 
               <platform-picker v-model="board.platforms" />
             </b-modal>
-
           </b-col>
 
-          <b-col>
+          <b-col class="mt-4 mt-lg-0">
             <b-form-group
               :label="$t('board.settings.wallpaper')"
               class="mb-0"

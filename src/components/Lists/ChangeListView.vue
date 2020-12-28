@@ -25,7 +25,6 @@
       </template>
 
       <form class="list-view" ref="renameListForm" @submit.prevent="save">
-        <!-- TODO: use named components and for loop -->
         <h6>{{ $t('board.list.views.single') }}</h6>
 
         <game-card-default
