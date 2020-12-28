@@ -8,7 +8,7 @@
     size="sm"
     ref="addList"
   >
-    <i class="fas fa-cog"></i>
+    <i class="fas fa-cog fa-fw" aria-hidden />
 
     <b-modal
       id="board-settings"

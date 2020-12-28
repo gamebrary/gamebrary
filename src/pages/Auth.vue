@@ -2,7 +2,7 @@
   <b-overlay show no-center no-wrap>
     <template v-slot:overlay>
       <div class="text-center p-4">
-        <i class="fas fa-sync fa-spin" aria-hidden></i>
+        <i class="fas fa-sync fa-spin fa-fw" aria-hidden />
         <p>Please wait...</p>
       </div>
     </template>

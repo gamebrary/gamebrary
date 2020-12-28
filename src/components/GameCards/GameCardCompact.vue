@@ -25,7 +25,7 @@
             {{ game.name }}
 
             <b-badge variant="warning" v-if="gameNotes">
-              <i class="far fa-sticky-note"></i>
+              <i class="far fa-sticky-note fa-fw" />
             </b-badge>
           </b-card-title>
 

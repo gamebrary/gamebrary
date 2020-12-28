@@ -32,7 +32,7 @@
             :variant="nightMode ? 'dark' : 'light'"
             @click="$router.push({ name: 'settings' })"
           >
-            <i class="fas fa-chevron-circle-left" aria-hidden></i>
+            <i class="fas fa-chevron-circle-left fa-fw" aria-hidden />
           </b-button>
 
           {{ $t('wallpapers.title') }}
@@ -48,7 +48,7 @@
             v-if="saving"
           />
           <span v-else>
-            <i class="fas fa-upload"></i>
+            <i class="fas fa-upload fa-fw" aria-hidden />
             Upload wallpaper
           </span>
         </b-button>
@@ -97,7 +97,7 @@
           size="sm"
           @click="confirmDeleteWallpaper(wallpaper)"
         >
-          <i class="fas fa-trash-alt" aria-hidden></i>
+          <i class="fas fa-trash-alt fa-fw" aria-hidden />
         </b-button>
       </b-card>
 

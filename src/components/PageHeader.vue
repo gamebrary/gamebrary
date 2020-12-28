@@ -24,7 +24,7 @@
         :to="{ name: 'tags' }"
         v-b-tooltip.hover.right
       >
-        <i class="fas fa-tags fa-fw"></i>
+        <i class="fas fa-tags fa-fw" aria-hidden />
       </b-button>
 
       <b-button
@@ -34,7 +34,7 @@
         :to="{ name: 'notes' }"
         v-b-tooltip.hover.right
       >
-        <i class="far fa-sticky-note fa-fw"></i>
+        <i class="far fa-sticky-note fa-fw" aria-hidden />
       </b-button>
 
       <b-button
@@ -44,7 +44,7 @@
         :to="{ name: 'settings' }"
         v-b-tooltip.hover.right
       >
-        <i class="fas fa-cog"></i>
+        <i class="fas fa-cog fa-fw" aria-hidden />
       </b-button>
 
       <hr class="m-0">
@@ -58,7 +58,7 @@
         :class="nightMode ? 'text-white' : 'text-dark'"
         v-b-tooltip.hover.right
       >
-        <i class="fas fa-star" aria-hidden></i>
+        <i class="fas fa-star fa-fw" aria-hidden />
       </b-button> -->
     </div>
   </nav>

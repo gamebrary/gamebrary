@@ -3,7 +3,7 @@
     :variant="nightMode ? 'light' : null"
     @click="$bvModal.show(`game-modal-${list.name}`)"
   >
-    <i class="fas fa-plus fa-fw"></i>
+    <i class="fas fa-plus fa-fw" />
     {{ $t('board.addGame.title') }}
 
     <b-modal

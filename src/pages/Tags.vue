@@ -61,14 +61,14 @@
                   variant="primary"
                   @click="editTag(name)"
                 >
-                  <i class="fas fa-pencil-alt" aria-hidden></i>
+                  <i class="fas fa-pencil-alt fa-fw" aria-hidden />
                 </b-button>
 
                 <b-button
                   variant="danger"
                   @click="promptDeleteTag(name)"
                 >
-                  <i class="fas fa-trash-alt" aria-hidden></i>
+                  <i class="fas fa-trash-alt fa-fw" aria-hidden />
                 </b-button>
               </b-col>
             </b-form-row>

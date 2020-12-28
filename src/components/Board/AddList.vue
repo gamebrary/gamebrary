@@ -7,7 +7,7 @@
     v-b-tooltip.hover.left
     ref="addList"
   >
-    <i class="fas fa-plus" />
+    <i class="fas fa-plus fa-fw" aria-hidden />
 
     <b-modal
       :id="modalId"

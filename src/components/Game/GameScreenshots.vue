@@ -24,7 +24,7 @@
       @click="openModal(maxThumbnails)"
     >
       {{ screenshots.length }}
-      <i class="fas fa-images fa-fw" aria-hidden></i>
+      <i class="fas fa-images fa-fw" aria-hidden />
     </b-col>
 
     <b-modal

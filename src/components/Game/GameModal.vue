@@ -28,7 +28,7 @@
             :disabled="prevDisabled"
             @click="previousGame"
           >
-            <i class="fas fa-caret-left fa-fw" aria-hidden></i>
+            <i class="fas fa-caret-left fa-fw" aria-hidden />
           </b-button>
 
           <b-button
@@ -37,7 +37,7 @@
             :disabled="nextDisabled"
             @click="nextGame"
           >
-            <i class="fas fa-caret-right fa-fw" aria-hidden></i>
+            <i class="fas fa-caret-right fa-fw" aria-hidden />
           </b-button>
         </b-button-group>
       </modal-header>

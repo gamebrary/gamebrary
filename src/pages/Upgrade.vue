@@ -36,7 +36,7 @@
           <tr>
             <td class="text-right">Filters</td>
             <td>
-              <i class="fas fa-times" aria-hidden></i>
+              <i class="fas fa-times fa-fw" aria-hidden />
             </td>
 
             <td>
@@ -48,7 +48,7 @@
           <tr>
             <td class="text-right">Search</td>
             <td>
-              <i class="fas fa-times" aria-hidden></i>
+              <i class="fas fa-times fa-fw" aria-hidden />
             </td>
 
             <td>
@@ -83,15 +83,15 @@
 
           <tr>
             <td class="text-right">Custom boards</td>
-            <td><i class="fas fa-times" aria-hidden></i></td>
+            <td><i class="fas fa-times fa-fw" aria-hidden /></td>
             <td>Custom wallpaper</td>
           </tr>
 
           <tr>
             <td class="text-right">Public profile</td>
-            <td><i class="fas fa-times" aria-hidden></i></td>
+            <td><i class="fas fa-times fa-fw" aria-hidden /></td>
             <td>
-              <i class="fas fa-check" aria-hidden></i>
+              <i class="fas fa-check fa-fw" aria-hidden />
               Claim your profile
             </td>
           </tr>
@@ -104,9 +104,9 @@
 
           <tr>
             <td class="text-right">Public profile</td>
-            <td><i class="fas fa-times" aria-hidden></i></td>
+            <td><i class="fas fa-times fa-fw" aria-hidden /></td>
             <td>
-              <i class="fas fa-check" aria-hidden></i>
+              <i class="fas fa-check fa-fw" aria-hidden />
               Claim your profile
             </td>
           </tr>
@@ -117,7 +117,7 @@
               Basic
             </td>
             <td>
-              <i class="fas fa-check" aria-hidden></i>
+              <i class="fas fa-check fa-fw" aria-hidden />
               Advanced:
 
               Claim your profile
@@ -131,7 +131,7 @@
               x
             </td>
             <td>
-              <i class="fas fa-check" aria-hidden></i>
+              <i class="fas fa-check fa-fw" aria-hidden />
             </td>
           </tr>
 
@@ -142,7 +142,7 @@
               x
             </td>
             <td>
-              <i class="fas fa-check" aria-hidden></i>
+              <i class="fas fa-check fa-fw" aria-hidden />
             </td>
           </tr>
 
@@ -152,14 +152,14 @@
               x
             </td>
             <td>
-              <i class="fas fa-check" aria-hidden></i>
+              <i class="fas fa-check fa-fw" aria-hidden />
             </td>
           </tr>
 
           <tr>
             <td class="text-right">Track game progress</td>
-            <td><i class="fas fa-times" aria-hidden></i></td>
-            <td><i class="fas fa-check" aria-hidden></i></td>
+            <td><i class="fas fa-times fa-fw" aria-hidden /></td>
+            <td><i class="fas fa-check fa-fw" aria-hidden /></td>
           </tr>
 
           <tr>

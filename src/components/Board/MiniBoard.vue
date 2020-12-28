@@ -27,11 +27,15 @@
           </div>
         </div>
 
-        <i
+        <div
           v-else
-          class="fas fa-ellipsis-h text-secondary ml-1"
-          aria-hidden
-        />
+          class="rounded overflow-hidden list"
+        >
+          <i
+            class="fas fa-ellipsis-h text-secondary ml-1"
+            aria-hidden
+          />
+        </div>
       </div>
     </div>
   </div>
