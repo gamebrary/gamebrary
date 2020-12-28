@@ -4,7 +4,7 @@
 <template lang="html">
   <b-button
     v-b-modal.notes
-    variant="warning"
+    variant="info"
     v-b-tooltip.hover
     title="Game notes"
    >

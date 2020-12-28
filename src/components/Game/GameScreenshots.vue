@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-form-row v-if="screenshots" class="mt-2">
+  <b-form-row v-if="screenshots" class="mt-2 justify-content-center">
     <b-col
       v-for="(thumbnail, index) in thumbnails"
       :key="index"

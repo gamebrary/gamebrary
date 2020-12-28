@@ -45,7 +45,7 @@
 
     <b-container v-if="game.name" class="m-0 p-0">
       <b-row>
-        <b-col cols="12" md="4">
+        <b-col cols="12" md="5">
           <b-skeleton-img
             v-if="loading"
             width="100%"
@@ -69,7 +69,7 @@
           <!-- <pre>{{ game.genres.map(({ id }) => id) }}</pre> -->
         </b-col>
 
-        <b-col cols="12" md="8" class="mt-md-0 mt-3 text-md-left text-center">
+        <b-col cols="12" md="7" class="mt-md-0 mt-3 text-md-left text-center">
           <h3 class="mb-0">{{ game.name }}</h3>
 
           <b-progress
@@ -328,11 +328,11 @@ export default {
     width: 100%;
     height: auto;
 
-    @media(max-width: 780px) {
-      max-height: 40vh;
-      width: auto;
-      display: block;
-      margin: 0 auto;
-    }
+    // @media(max-width: 780px) {
+    //   max-height: 40vh;
+    //   width: auto;
+    //   display: block;
+    //   margin: 0 auto;
+    // }
   }
 </style>
