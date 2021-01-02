@@ -6,25 +6,22 @@
       cols="2"
       md="6"
       lg="4"
+      class="position-relative thumb"
+      @click="openModal(index)"
     >
       <b-img
         :src="thumbnail"
         rounded
         class="w-100 h-auto mb-2"
-        @click="openModal(index)"
       />
-    </b-col>
 
-    <b-col
-      v-if="screenshots.length > maxThumbnails"
-      cols="2"
-      md="6"
-      lg="4"
-      class="rounded mb-2 text-center pt-4"
-      @click="openModal(maxThumbnails)"
-    >
-      {{ screenshots.length }}
-      <i class="fas fa-images fa-fw" aria-hidden />
+      <span
+        v-if="index === maxThumbnails - 1 && screenshots.length > maxThumbnails"
+        class="more-images rounded text-white"
+      >
+        <small>{{ screenshots.length }}</small>
+        <i class="fas fa-images fa-fw" aria-hidden />
+      </span>
     </b-col>
 
     <b-modal
@@ -85,7 +82,7 @@ export default {
   data() {
     return {
       activeImage: 0,
-      maxThumbnails: 5,
+      maxThumbnails: 6,
     };
   },
 
@@ -124,3 +121,39 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+.thumb {
+  cursor: pointer;
+}
+
+.more-images {
+  position: absolute;
+  left: 5px;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: calc(100% - 10px);
+  height: calc(100% - .5rem);
+  // padding-top: 1rem;
+  background-color: rgba(0, 0, 0, .5);
+
+  > small {
+    margin: 0 2px;
+  }
+
+  > i {
+    margin: 0 2px;
+  }
+
+  > span {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: auto;
+    text-align: center;
+  }
+}
+</style>
