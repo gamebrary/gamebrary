@@ -19,7 +19,8 @@
     >
       <template v-slot:modal-header="{ close }">
         <modal-header
-          :title="$t('board.addGame.title')"
+          title="Add games"
+          :subtitle="`${board.name} > ${list.name}`"
           @close="close"
         />
       </template>
