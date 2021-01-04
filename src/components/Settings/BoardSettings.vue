@@ -1,14 +1,6 @@
 <template lang="html">
-  <b-button
-    v-b-modal:board-settings
-    v-b-tooltip.hover.left
-    title="Board settings"
-    class="mt-3"
-    variant="light"
-    size="sm"
-    ref="addList"
-  >
-    <i class="fas fa-cog fa-fw" aria-hidden />
+  <b-dropdown-item v-b-modal:board-settings>
+    <i class="fas fa-pencil-alt fa-fw" aria-hidden /> Edit board
 
     <b-modal
       id="board-settings"
@@ -25,7 +17,7 @@
     >
       <template v-slot:modal-header="{ close }">
         <modal-header
-          :title="$t('board.settings.title')"
+          title="Edit board"
           @close="close"
         />
       </template>
@@ -194,7 +186,7 @@
         </div>
       </template>
     </b-modal>
-  </b-button>
+  </b-dropdown-item>
 </template>
 
 <script>

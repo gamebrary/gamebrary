@@ -15,10 +15,24 @@
 
       <empty-board v-if="isEmptyBoard" class="mr-3" />
 
-      <div :class="['board-actions', { 'pr-3': !isEmptyBoard }]">
+      <b-dropdown
+        right
+        no-caret
+        size="sm"
+        variant="light"
+        :class="[{ 'pr-3': !isEmptyBoard }]"
+      >
+        <template v-slot:button-content>
+          <i class="fas fa-ellipsis-v fa-fw" aria-hidden />
+        </template>
+
+        <b-dropdown-header id="dropdown-header-label">
+          {{ board.name }}
+        </b-dropdown-header>
+
         <add-list />
         <board-settings />
-      </div>
+      </b-dropdown>
     </template>
   </div>
 </template>
@@ -221,9 +235,5 @@ export default {
 
 .list-placeholder {
   opacity: 0.25;
-}
-
-.board-actions {
-  width: 56px;
 }
 </style>

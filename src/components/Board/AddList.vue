@@ -1,13 +1,6 @@
 <template lang="html">
-  <b-button
-    v-b-modal="modalId"
-    :title="$t('board.addList.title')"
-    size="sm"
-    variant="light"
-    v-b-tooltip.hover.left
-    ref="addList"
-  >
-    <i class="fas fa-plus fa-fw" aria-hidden />
+  <b-dropdown-item v-b-modal="modalId">
+    <i class="fas fa-plus fa-fw" aria-hidden /> Add list
 
     <b-modal
       :id="modalId"
@@ -24,6 +17,7 @@
       <template v-slot:modal-header="{ close }">
         <modal-header
           :title="$t('board.addList.title')"
+          :subtitle="board.name"
           @close="close"
         />
       </template>
@@ -50,17 +44,27 @@
           {{ $t('global.cancel') }}
         </b-button>
 
-        <b-button
-          variant="primary"
-          :disabled="saving || isDuplicate"
-          @click="submit"
-        >
-          <b-spinner small v-if="saving" />
-          <span v-else>{{ $t('global.save') }}</span>
-        </b-button>
+        <div>
+          <b-button
+            :disabled="saving || isDuplicate"
+            @click="submit"
+          >
+            <b-spinner small v-if="saving" />
+            <span v-else>{{ $t('global.save') }}</span>
+          </b-button>
+
+          <b-button
+            variant="primary"
+            :disabled="saving || isDuplicate"
+            @click="saveAndAddGame"
+          >
+            <b-spinner small v-if="saving" />
+            <span v-else>Save and add games</span>
+          </b-button>
+        </div>
       </template>
     </b-modal>
-  </b-button>
+  </b-dropdown-item>
 </template>
 
 <script>
@@ -71,6 +75,7 @@ export default {
     return {
       listName: '',
       saving: false,
+      addAfterSave: false,
       modalId: 'add-list',
     };
   },
@@ -99,7 +104,14 @@ export default {
   },
 
   methods: {
+    saveAndAddGame(e) {
+      this.addAfterSave = true;
+
+      this.submit(e);
+    },
+
     reset() {
+      this.addAfterSave = false;
       this.listName = '';
     },
 
@@ -132,6 +144,10 @@ export default {
       this.saving = false;
       this.$bvModal.hide(this.modalId);
       this.scroll();
+
+      if (this.addAfterSave) {
+        this.$bvModal.show(`game-modal-${this.listName}`);
+      }
     },
 
     scroll() {
