@@ -77,6 +77,7 @@
         :img-src="wallpaper.url"
         :img-alt="wallpaper.name"
         img-left
+        bg-variant="transparent"
         img-width="180"
         class="mb-3 overflow-hidden word-wrap"
       >

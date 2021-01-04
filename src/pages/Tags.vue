@@ -168,6 +168,10 @@
     <b-modal
       id="addTag"
       hide-footer
+      :header-bg-variant="nightMode ? 'dark' : null"
+      :header-text-variant="nightMode ? 'white' : null"
+      :body-bg-variant="nightMode ? 'dark' : null"
+      :body-text-variant="nightMode ? 'white' : null"
       @show="open"
     >
       <template v-slot:modal-header="{ close }">
@@ -389,6 +393,12 @@ export default {
         cancelTitle: this.$t('global.cancel'),
         headerClass: 'pb-0 border-0',
         footerClass: 'pt-0 border-0',
+        headerBgVariant: this.nightMode ? 'dark' : null,
+        headerTextVariant: this.nightMode ? 'white' : null,
+        bodyBgVariant: this.nightMode ? 'dark' : null,
+        bodyTextVariant: this.nightMode ? 'white' : null,
+        footerBgVariant: this.nightMode ? 'dark' : null,
+        footerTextVariant: this.nightMode ? 'white' : null,
       })
         .then((value) => {
           if (value) {

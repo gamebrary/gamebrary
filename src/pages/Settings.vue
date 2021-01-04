@@ -5,7 +5,7 @@
     </div>
 
     <b-list-group>
-      <b-list-group-item tag="a" @click="toggleTheme">
+      <b-list-group-item tag="a" @click="toggleTheme" class="cursor-pointer">
         <i :class="`fas fa-${nightMode ? 'sun' : 'moon'} fa-fw`" aria-hidden />
         Toggle dark theme (Beta)
       </b-list-group-item>

@@ -6,6 +6,12 @@
       id="account-settings"
       hide-footer
       title="Delete account"
+      :header-bg-variant="nightMode ? 'dark' : null"
+      :header-text-variant="nightMode ? 'white' : null"
+      :body-bg-variant="nightMode ? 'dark' : null"
+      :body-text-variant="nightMode ? 'white' : null"
+      :footer-bg-variant="nightMode ? 'dark' : null"
+      :footer-text-variant="nightMode ? 'white' : null"
     >
       <b-alert show variant="success" v-if="deleting && progress === 5">
         Account deleted
@@ -42,7 +48,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import firebase from 'firebase/app';
 
 export default {
@@ -55,6 +61,7 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['nightMode']),
     ...mapState([
       'user',
       'tags',
@@ -72,6 +79,12 @@ export default {
         title: 'Are you sure you want to delete your account?',
         okVariant: 'danger',
         okTitle: 'Yes, delete account',
+        headerBgVariant: this.nightMode ? 'dark' : null,
+        headerTextVariant: this.nightMode ? 'white' : null,
+        bodyBgVariant: this.nightMode ? 'dark' : null,
+        bodyTextVariant: this.nightMode ? 'white' : null,
+        footerBgVariant: this.nightMode ? 'dark' : null,
+        footerTextVariant: this.nightMode ? 'white' : null,
       })
         .then((value) => {
           if (value) {

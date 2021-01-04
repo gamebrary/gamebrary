@@ -109,6 +109,12 @@ export default {
         cancelTitle: this.$t('global.cancel'),
         headerClass: 'pb-0 border-0',
         footerClass: 'pt-0 border-0',
+        headerBgVariant: this.nightMode ? 'dark' : null,
+        headerTextVariant: this.nightMode ? 'white' : null,
+        bodyBgVariant: this.nightMode ? 'dark' : null,
+        bodyTextVariant: this.nightMode ? 'white' : null,
+        footerBgVariant: this.nightMode ? 'dark' : null,
+        footerTextVariant: this.nightMode ? 'white' : null,
       })
         .then((value) => {
           if (value) {

@@ -137,19 +137,6 @@ export default {
       this.$router.push({ name: 'board', params: { id } });
     },
 
-    confirmDelete(id) {
-      this.$bvModal.msgBoxConfirm('Are you sure you want to delete this board?', {
-        title: 'Delete board',
-        okVariant: 'danger',
-        okTitle: 'Yes, delete board',
-      })
-        .then((value) => {
-          if (value) {
-            this.deleteBoard(id);
-          }
-        });
-    },
-
     async deleteBoard(id) {
       this.loading = true;
 

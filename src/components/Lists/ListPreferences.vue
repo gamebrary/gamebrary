@@ -9,6 +9,12 @@
     <b-modal
       :id="modalId"
       footer-class="d-flex justify-content-between pt-0"
+      :header-bg-variant="nightMode ? 'dark' : null"
+      :header-text-variant="nightMode ? 'white' : null"
+      :body-bg-variant="nightMode ? 'dark' : null"
+      :body-text-variant="nightMode ? 'white' : null"
+      :footer-bg-variant="nightMode ? 'dark' : null"
+      :footer-text-variant="nightMode ? 'white' : null"
       @show="getSettings"
     >
       <template v-slot:modal-header="{ close }">
