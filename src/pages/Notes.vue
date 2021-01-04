@@ -30,6 +30,8 @@
         v-for="(note, gameId) in notes"
         :key="gameId"
         class="mb-3 w-100 note"
+        bg-variant="dark"
+        text-variant="white"
         body-class="p-2"
         @click="openGame(gameId)"
       >

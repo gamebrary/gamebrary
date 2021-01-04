@@ -6,7 +6,7 @@
     no-caret
     boundary="viewport"
     v-b-tooltip.hover.right
-    :variant="nightMode ? 'dark' : null"
+    :variant="nightMode ? 'dark' : 'transparent'"
     :title="$t('navMenu.changeBoard')"
     :menu-class="nightMode ? 'bg-dark' : ''"
   >
@@ -20,7 +20,9 @@
       v-for="{ name, id } in sortedBoards"
       :active="board.id === id"
     >
-      {{ name }}
+      <span :class="`${nightMode ? 'text-light' : null }`">
+        {{ name }}
+      </span>
     </b-dropdown-item>
 
     <b-dropdown-divider />

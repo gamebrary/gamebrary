@@ -71,11 +71,10 @@
         </b-form-text>
       </b-form>
 
-      <b-card
+      <div
         v-if="filteredResults.length > 0"
         ref="searchResults"
         body-class="p-1 pb-0 search-results"
-        bg-variant="light"
       >
         <game-card-search
           v-for="{ id } in filteredResults"
@@ -83,7 +82,7 @@
           :game-id="id"
           :list="list"
         />
-      </b-card>
+      </div>
 
       <b-alert :show="noResults" variant="warning" class="mt-2 mb-0">
         {{ $t('board.addGame.noResults') }}
