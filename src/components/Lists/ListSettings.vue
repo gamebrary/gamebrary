@@ -18,9 +18,10 @@
     <change-list-view :list="list" :list-index="listIndex" />
     <list-preferences :list="list" :list-index="listIndex" />
 
-    <template v-if="board.lists.length > 1">
+    <template >
       <b-dropdown-divider />
-      <b-dropdown-item>
+      <b-dropdown-text>
+        <small class="text-muted d-flex justify-content-center">Move list</small>
         <b-button-group size="sm" class="w-100">
           <b-button
             v-b-tooltip.hover
@@ -42,7 +43,7 @@
             <i class="fas fa-angle-right fa-fw" aria-hidden />
           </b-button>
         </b-button-group>
-      </b-dropdown-item>
+      </b-dropdown-text>
     </template>
 
     <b-dropdown-divider />
