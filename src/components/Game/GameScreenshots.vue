@@ -4,8 +4,7 @@
       v-for="(thumbnail, index) in thumbnails"
       :key="index"
       cols="2"
-      md="6"
-      lg="4"
+      md="4"
       class="position-relative thumb"
       @click="openModal(index)"
     >
@@ -19,7 +18,6 @@
         v-if="index === maxThumbnails - 1 && screenshots.length > maxThumbnails"
         class="more-images rounded text-white"
       >
-        <small>{{ screenshots.length }}</small>
         <i class="fas fa-images fa-fw" aria-hidden />
       </span>
     </b-col>

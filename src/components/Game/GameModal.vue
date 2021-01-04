@@ -4,14 +4,13 @@
     scrollable
     size="lg"
     footer-class="p-2 justify-content-center"
-    header-class="align-items-center pb-0 border-0"
-    body-class="pt-1"
+    header-class="align-items-center border-0 pb-2"
+    hide-footer
+    body-class="pt-0"
     :header-bg-variant="nightMode ? 'dark' : null"
     :header-text-variant="nightMode ? 'white' : null"
     :body-bg-variant="nightMode ? 'dark' : null"
     :body-text-variant="nightMode ? 'white' : null"
-    :footer-bg-variant="nightMode ? 'dark' : null"
-    :footer-text-variant="nightMode ? 'white' : null"
     @show="load"
     @hidden="reset"
   >
@@ -41,9 +40,17 @@
       </modal-header>
     </template>
 
-    <b-container v-if="game.name" class="m-0 p-0">
+    <b-container
+      v-if="game.name"
+      fluid
+      class="m-0 p-0"
+    >
       <b-row>
-        <b-col cols="12" md="5">
+        <b-col
+          cols="12"
+          md="5"
+          lg="4"
+        >
           <b-skeleton-img
             v-if="loading"
             width="100%"
@@ -67,7 +74,14 @@
           <!-- <pre>{{ game.genres.map(({ id }) => id) }}</pre> -->
         </b-col>
 
-        <b-col cols="12" md="7" class="mt-md-0 mt-3 text-md-left text-center">
+        <!-- cols="12"
+        md="7"  -->
+        <b-col
+          cols="12"
+          md="7"
+          lg="8"
+          class="text-md-left text-center pl-md-0"
+        >
           <h3 class="mb-0">{{ game.name }}</h3>
 
           <b-progress
@@ -134,12 +148,10 @@
             <game-videos :game="game" />
           </template>
         </b-col>
+
+        <igdb-logo />
       </b-row>
     </b-container>
-
-    <template v-slot:modal-footer>
-      <igdb-logo />
-    </template>
   </b-modal>
 </template>
 
