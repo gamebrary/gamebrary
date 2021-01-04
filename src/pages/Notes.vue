@@ -30,17 +30,26 @@
         v-for="(note, gameId) in notes"
         :key="gameId"
         class="mb-3 w-100 note"
-        :img-src="getCoverUrl(gameId)"
-        :img-alt="games[gameId].name"
-        img-left
+        body-class="p-2"
         @click="openGame(gameId)"
       >
-        <div v-if="games[gameId]">
-          <h5>{{ games[gameId] && games[gameId].name ? games[gameId].name : '' }}</h5>
+        <div class="d-flex">
+          <b-img
+            :src="getCoverUrl(gameId)"
+            :alt="games[gameId].name"
+            class="rounded"
+            width="70"
+          />
 
-          <b-alert show variant="warning" class="mt-2">
-            <vue-markdown :source="note" />
-          </b-alert>
+          <div class="ml-2">
+            <h5 v-if="games[gameId]">
+              {{ games[gameId] && games[gameId].name ? games[gameId].name : '' }}
+            </h5>
+
+            <b-alert show variant="warning" class="m-0">
+              <vue-markdown :source="note" />
+            </b-alert>
+          </div>
         </div>
       </b-card>
     </template>
@@ -134,7 +143,7 @@ export default {
 </style>
 
 <style lang="scss" rel="stylesheet/scss">
-img {
+img, pre {
   max-width: 100%;
 }
 </style>

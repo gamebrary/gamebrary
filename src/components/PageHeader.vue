@@ -34,7 +34,7 @@
         :to="{ name: 'notes' }"
         v-b-tooltip.hover.right
       >
-        <i class="far fa-sticky-note fa-fw" aria-hidden />
+        <i class="fas fa-sticky-note fa-fw" aria-hidden />
       </b-button>
 
       <b-button
