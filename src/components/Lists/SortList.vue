@@ -14,6 +14,7 @@
       :body-text-variant="nightMode ? 'white' : null"
       :footer-bg-variant="nightMode ? 'dark' : null"
       :footer-text-variant="nightMode ? 'white' : null"
+      size="sm"
       footer-class="d-flex justify-content-between"
       @show="getSortValue"
     >

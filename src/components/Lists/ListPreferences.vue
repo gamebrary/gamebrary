@@ -15,6 +15,7 @@
       :body-text-variant="nightMode ? 'white' : null"
       :footer-bg-variant="nightMode ? 'dark' : null"
       :footer-text-variant="nightMode ? 'white' : null"
+      size="sm"
       @show="getSettings"
     >
       <template v-slot:modal-header="{ close }">
