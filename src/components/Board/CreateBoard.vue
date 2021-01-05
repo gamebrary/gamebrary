@@ -1,6 +1,7 @@
 <template lang="html">
   <b-button
-    :variant="nightMode ? 'light' : 'primary'"
+    :variant="nightMode ? 'dark' : 'light'"
+    :class="buttonClass"
     v-b-modal:create-board
   >
     {{ $t('boards.create') }}
@@ -156,6 +157,10 @@ import { mapGetters } from 'vuex';
 export default {
   components: {
     PlatformPicker,
+  },
+
+  props: {
+    buttonClass: String,
   },
 
   data() {

@@ -27,7 +27,9 @@
 
     <b-dropdown-divider />
 
-    <create-board />
+    <div class="mx-1 d-flex">
+      <create-board button-class="w-100" />
+    </div>
   </b-dropdown>
 </template>
 
