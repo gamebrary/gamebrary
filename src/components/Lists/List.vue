@@ -1,6 +1,6 @@
 <template lang="html">
   <div
-    :class="['list mr-3', viewClass, { dragging, 'unique': singleList }]"
+    :class="['list rounded mr-3', viewClass, { dragging, 'unique': singleList }]"
     :id="listIndex"
   >
     <b-card
@@ -51,7 +51,7 @@
         />
 
         <b-button
-          variant="light"
+          :variant="nightMode ? 'dark' : 'light'"
           block
           v-if="isEmpty"
           class="mb-2"
@@ -241,7 +241,6 @@ export default {
   cursor: default;
   position: relative;
   width: 300px;
-  border-radius: 3px;
 
   &.unique {
     @media(max-width: 780px) {

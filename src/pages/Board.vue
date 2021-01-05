@@ -19,7 +19,7 @@
         right
         no-caret
         size="sm"
-        variant="light"
+        :variant="nightMode ? 'dark' : 'transparent'"
         :class="[{ 'pr-3': !isEmptyBoard }]"
       >
         <template v-slot:button-content>

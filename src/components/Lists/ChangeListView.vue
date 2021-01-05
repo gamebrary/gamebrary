@@ -25,8 +25,10 @@
         />
       </template>
 
-      <form class="list-view" ref="renameListForm" @submit.prevent="save">
-        <h6>{{ $t('board.list.views.single') }}</h6>
+      <form ref="renameListForm" @submit.prevent="save">
+        <h6 class="m-0">
+          {{ $t('board.list.views.single') }}
+        </h6>
 
         <game-card-default
           :game-id="randomGameId"
@@ -35,10 +37,12 @@
           @click.native="view = 'single'"
         />
 
-        <h6>{{ $t('board.list.views.grid') }}</h6>
+        <h6 class="m-0">
+          {{ $t('board.list.views.grid') }}
+        </h6>
 
         <b-form-row>
-          <b-col cols="6">
+          <b-col>
             <game-card-grid
               :game-id="randomGameId"
               :list="list"
@@ -47,10 +51,19 @@
             />
           </b-col>
 
-          <b-col cols="6" />
+          <b-col>
+            <game-card-grid
+              :game-id="randomGameId"
+              :list="list"
+              :class="{ 'rounded border border-success': view === 'grid'}"
+              @click.native="view = 'grid'"
+            />
+          </b-col>
         </b-form-row>
 
-        <h6>{{ $t('board.list.views.compact') }}</h6>
+        <h6 class="m-0">
+          {{ $t('board.list.views.compact') }}
+        </h6>
         <game-card-compact
           :game-id="randomGameId"
           :list="list"
@@ -58,7 +71,9 @@
           @click.native="view = 'compact'"
         />
 
-        <h6>{{ $t('board.list.views.text') }}</h6>
+        <h6 class="m-0">
+          {{ $t('board.list.views.text') }}
+        </h6>
         <game-card-text
           :game-id="randomGameId"
           :list="list"
@@ -171,9 +186,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-  .list-view {
-    width: 300px;
-  }
-</style>
