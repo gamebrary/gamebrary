@@ -243,9 +243,8 @@ export default {
   width: 300px;
 
   &.unique {
-    @media(max-width: 780px) {
-      width: calc(100vw - 140px);
-      background: #ccf;
+    @media(max-width: 480px) {
+      width: calc(100vw - 144px);
     }
   }
 
