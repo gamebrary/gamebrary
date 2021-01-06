@@ -12,42 +12,10 @@
     </template>
 
     <add-game-modal :list="list" />
-    <b-dropdown-divider />
     <sort-list :list="list" :list-index="listIndex" />
     <rename-list :list="list" :list-index="listIndex" />
     <change-list-view :list="list" :list-index="listIndex" />
     <list-preferences :list="list" :list-index="listIndex" />
-
-    <template >
-      <b-dropdown-divider />
-      <b-dropdown-text>
-        <small class="text-muted d-flex justify-content-center">Move list</small>
-        <b-button-group size="sm" class="w-100">
-          <b-button
-            v-b-tooltip.hover
-            :title="$t('board.list.moveLeft')"
-            :disabled="isFirst"
-            @click="moveList(listIndex, listIndex - 1)"
-          >
-            <!-- :variant="nightMode ? 'dark' : 'light'" -->
-            <i class="fas fa-angle-left fa-fw" aria-hidden />
-          </b-button>
-
-          <b-button
-            v-b-tooltip.hover
-            :title="$t('board.list.moveRight')"
-            :disabled="isLast"
-            @click="moveList(listIndex, listIndex + 1)"
-          >
-            <!-- variant="light" -->
-            <i class="fas fa-angle-right fa-fw" aria-hidden />
-          </b-button>
-        </b-button-group>
-      </b-dropdown-text>
-    </template>
-
-    <b-dropdown-divider />
-
     <b-dropdown-item
       variant="danger"
       @click="promptDeleteList"
@@ -55,6 +23,31 @@
       <i class="fas fa-trash-alt fa-fw" aria-hidden />
       {{ $t('board.list.delete') }}
     </b-dropdown-item>
+    <b-dropdown-divider />
+    <b-dropdown-text>
+      <small class="text-muted d-flex justify-content-center">Move list</small>
+      <b-button-group size="sm" class="w-100">
+        <b-button
+          v-b-tooltip.hover
+          :title="$t('board.list.moveLeft')"
+          :disabled="isFirst"
+          :variant="nightMode ? 'dark' : null"
+          @click="moveList(listIndex, listIndex - 1)"
+        >
+          <i class="fas fa-angle-left fa-fw" aria-hidden />
+        </b-button>
+
+        <b-button
+          v-b-tooltip.hover
+          :title="$t('board.list.moveRight')"
+          :disabled="isLast"
+          :variant="nightMode ? 'dark' : null"
+          @click="moveList(listIndex, listIndex + 1)"
+        >
+          <i class="fas fa-angle-right fa-fw" aria-hidden />
+        </b-button>
+      </b-button-group>
+    </b-dropdown-text>
   </b-dropdown>
 </template>
 
