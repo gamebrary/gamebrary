@@ -74,7 +74,7 @@ export default {
     },
 
     isBoard() {
-      return this.$route.name === 'board';
+      return ['public-board', 'board'].includes(this.$route.name);
     },
   },
 
