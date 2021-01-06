@@ -1,22 +1,21 @@
-<!-- TODO: border overlaps close button in dark mode -->
 <template lang="html">
-  <header>
+  <header :class="{ 'has-action': hasSlot}">
     <div>
       <h5 class="mb-0 text-wrap">{{ title }}</h5>
       <small class="d-block text-muted">{{ subtitle }}</small>
     </div>
 
-    <div class="actions">
+    <div class="actions" v-if="hasSlot">
       <slot />
-
-      <b-button
-        :variant="nightMode ? 'dark' : 'light'"
-        class="ml-auto"
-        @click="$emit('close')"
-      >
-        <i class="fas fa-times fa-fw" aria-hidden />
-      </b-button>
     </div>
+
+    <b-button
+      :variant="nightMode ? 'dark' : 'light'"
+      class="align-self-baseline"
+      @click="$emit('close')"
+    >
+      <i class="fas fa-times fa-fw" aria-hidden />
+    </b-button>
   </header>
 </template>
 
@@ -31,6 +30,10 @@ export default {
 
   computed: {
     ...mapGetters(['nightMode']),
+
+    hasSlot() {
+      return Object.keys(this.$slots).length > 0;
+    },
   },
 };
 </script>
@@ -40,7 +43,12 @@ header {
   display: grid;
   width: 100%;
   align-items: center;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto 46px;
+  grid-gap: .5rem;
+
+  &.has-action {
+    grid-template-columns: auto auto 46px;
+  }
 }
 
 h5 {
