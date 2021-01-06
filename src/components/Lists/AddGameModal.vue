@@ -1,7 +1,7 @@
 <template lang="html">
   <b-dropdown-item-button
     @click="$bvModal.show(`game-modal-${list.name}`)"
-    :variant="nightMode ? 'secondary' : null"
+    :variant="nightMode ? 'primary' : null"
   >
     <i class="fas fa-plus fa-fw" />
     {{ $t('board.addGame.title') }}

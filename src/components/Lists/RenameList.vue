@@ -1,7 +1,7 @@
 <template lang="html">
   <b-dropdown-item-button
     v-b-modal="modalId"
-    :variant="nightMode ? 'secondary' : null"
+    :variant="nightMode ? 'primary' : null"
   >
     <i class="fas fa-pencil-alt fa-fw" aria-hidden />
     {{ $t('board.list.renameList') }}
