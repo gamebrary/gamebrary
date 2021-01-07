@@ -1,25 +1,28 @@
 <template lang="html">
-  <b-tab v-if="game.videos">
-    <template v-slot:title>
-      Videos
-      <b-badge>{{ game.videos.length }}</b-badge>
-    </template>
-
+  <div class="videos">
     <b-embed
-      v-for="{ video_id } in game.videos"
+      v-for="{ video_id } in videos"
+      class="rounded mb-2"
       :key="video_id"
       type="iframe"
       aspect="16by9"
       :src="`https://www.youtube.com/embed/${video_id}`"
       allowfullscreen
     />
-  </b-tab>
+  </div>
 </template>
 
 <script>
 export default {
   props: {
-    game: Object,
+    videos: Array,
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+.videos {
+  display: grid;
+  grid-gap: 1rem;
+}
+</style>

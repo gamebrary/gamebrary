@@ -66,6 +66,7 @@
             />
 
             <game-screenshots :game="game" />
+            <game-videos :videos="game.videos" v-if="game.videos" />
           </template>
 
           <game-notes :game="game" />
@@ -145,7 +146,6 @@
             <p class="text-left">{{ game.summary }}</p>
             <game-details :game="game" />
             <game-websites :game="game" />
-            <game-videos :game="game" />
           </template>
         </b-col>
 
