@@ -144,6 +144,18 @@
 
           <template v-else>
             <p class="text-left">{{ game.summary }}</p>
+
+            <b-alert show variant="secondary" v-if="game.alternative_names">
+              <strong>Also known as:</strong>
+              <ul>
+                <li
+                  v-for="alternativeName in game.alternative_names"
+                  :key="alternativeName.id"
+                >
+                  {{ alternativeName.name }} ({{ alternativeName.comment }})
+                </li>
+              </ul>
+            </b-alert>
             <game-details :game="game" />
             <game-websites :game="game" />
           </template>

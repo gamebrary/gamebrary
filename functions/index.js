@@ -170,6 +170,7 @@ exports.game = functions.https.onRequest((req, res) => {
   release_dates.date,
   websites.category,
   websites.url,
+  alternative_names.*,
   age_ratings.*,
   videos.video_id,
   rating,
