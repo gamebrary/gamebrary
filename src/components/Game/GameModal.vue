@@ -38,7 +38,14 @@
           </b-button>
         </b-button-group>
 
-        <b-dropdown right text="Edit">
+        <b-dropdown
+          right
+          no-caret
+        >
+          <template v-slot:button-content>
+            <i class="fas fa-ellipsis-h fa-fw" aria-hidden></i>
+          </template>
+
           <game-progress :game="game" />
           <game-notes-modal :game="game" />
           <game-tags :game="game" />
@@ -73,7 +80,7 @@
             />
 
             <game-screenshots :game="game" />
-            <game-videos :videos="game.videos" v-if="game.videos" />
+            <!-- <game-videos :videos="game.videos" v-if="game.videos" /> -->
           </template>
 
           <game-notes :game="game" />
