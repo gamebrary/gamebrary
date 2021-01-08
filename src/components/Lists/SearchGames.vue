@@ -51,9 +51,21 @@
 </template>
 
 <script>
+import GameCardSearch from '@/components/GameCards/GameCardSearch';
 import { mapState } from 'vuex';
 
 export default {
+  components: {
+    GameCardSearch,
+  },
+
+  props: {
+    list: {
+      type: Object,
+      required: true,
+    },
+  },
+
   data() {
     return {
       searchText: '',

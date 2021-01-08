@@ -37,7 +37,6 @@
 </template>
 
 <script>
-import GameCardSearch from '@/components/GameCards/GameCardSearch';
 import RecentGames from '@/components/Lists/RecentGames';
 import SearchGames from '@/components/Lists/SearchGames';
 import IgdbLogo from '@/components/IgdbLogo';
@@ -45,7 +44,6 @@ import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
-    GameCardSearch,
     RecentGames,
     SearchGames,
     IgdbLogo,
