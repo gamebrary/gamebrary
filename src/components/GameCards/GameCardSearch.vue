@@ -62,18 +62,17 @@ export default {
 
       const vNodesMsg = h(
         'div', { class: 'image-toast' }, [
-          h('b-card-img', {
-            class: 'toast-image',
+          h('b-img', {
             props: {
               src: this.coverUrl,
               alt: this.game.name,
               width: 80,
             },
           }),
-          h('p', `${this.game.name} added`),
+          h('small', `${this.game.name} added`),
         ],
       );
-      // Pass the VNodes as an array for message and title
+
       this.$bvToast.toast([vNodesMsg], {
         title: this.list.name,
         solid: true,
@@ -87,12 +86,7 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
 .image-toast {
   display: grid;
-    grid-gap: 1rem;
-    grid-template-columns: 80px auto;
-}
-
-.toast-image {
-  width: 80px !important;
+  grid-gap: .5rem;
 }
 
 .game-card {
