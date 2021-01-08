@@ -2,7 +2,7 @@
 
 export default {
   BToast: {
-    toaster: 'b-toaster-top-center',
+    toaster: 'b-toaster-top-right',
     autoHideDelay: 1000,
     bodyClass: 'text-center',
   },
