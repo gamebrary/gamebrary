@@ -1,23 +1,11 @@
 <template lang="html">
-  <b-button
-    v-if="game && !list.games.includes(game.id)"
-    :title="$t('board.list.addGame')"
-    variant="success"
-    v-b-tooltip.hover
-    @click="addGame"
+  <b-dropdown-item
+    :variant="gameInList ? 'danger' : 'success'"
+    @click="handleClick"
   >
-    <i class="fas fa-plus fa-fw" aria-hidden />
-  </b-button>
-
-  <b-button
-    v-else
-    variant="danger"
-    v-b-tooltip.hover
-    :title="$t('board.gameModal.removeFromList')"
-    @click="removeGame"
-  >
-    <i class="fas fa-trash-alt fa-fw" aria-hidden />
-  </b-button>
+    <i :class="`fas fa-${gameInList ? 'trash-alt' : 'plus'} fa-fw`" aria-hidden />
+    {{ label }}
+  </b-dropdown-item>
 </template>
 
 <script>
@@ -31,9 +19,27 @@ export default {
 
   computed: {
     ...mapState(['board']),
+
+    gameInList() {
+      return this.game && this.list.games.includes(this.game.id);
+    },
+
+    label() {
+      return this.gameInList
+        ? this.$t('board.gameModal.removeFromList')
+        : this.$t('board.list.addGame');
+    },
   },
 
   methods: {
+    handleClick() {
+      if (this.gameInList) {
+        this.removeGame();
+      } else {
+        this.addGame();
+      }
+    },
+
     async addGame() {
       const { list, game, board } = this;
 

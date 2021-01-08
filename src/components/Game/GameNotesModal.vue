@@ -1,12 +1,6 @@
-<!-- TODO: make it more portable, put trigger in slot -->
 <template lang="html">
-  <b-button
-    v-b-modal.notes
-    variant="warning"
-    v-b-tooltip.hover
-    title="Game notes"
-   >
-    <i class="far fa-sticky-note fa-fw" />
+  <b-dropdown-item v-b-modal.notes>
+    <i class="far fa-sticky-note fa-fw" /> Game notes
 
     <b-modal
       id="notes"
@@ -70,7 +64,7 @@
         </div>
       </template>
     </b-modal>
-  </b-button>
+  </b-dropdown-item>
 </template>
 
 <script>

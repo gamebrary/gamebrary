@@ -1,22 +1,20 @@
 <template lang="html">
-  <b-button
-    id="tags-popover"
-    variant="primary"
-    v-b-tooltip.hover
-    title="Apply tags"
-   >
-    <i class="far fa-tags fa-fw" />
+  <b-dropdown-item v-b-modal.tags>
+    <i class="far fa-tags fa-fw" /> Tags
 
-    <b-popover
-      target="tags-popover"
-      title="Apply tags"
-      placement="auto"
-      triggers="click blur"
+    <b-modal
+      id="tags"
+      :header-bg-variant="nightMode ? 'dark' : null"
+      :header-text-variant="nightMode ? 'white' : null"
+      :body-bg-variant="nightMode ? 'dark' : null"
+      :body-text-variant="nightMode ? 'white' : null"
+      hide-footer
     >
-      <template v-slot:title>
-        <div class="py-0 pr-0 pl-2 d-flex justify-content-between align-items-center">
-          Apply tags
-        </div>
+      <template v-slot:modal-header="{ close }">
+        <modal-header
+          title="Tags"
+          @close="close"
+        />
       </template>
 
       <b-list-group>
@@ -59,12 +57,12 @@
           </b-button>
         </b-list-group-item>
       </b-list-group>
-    </b-popover>
-  </b-button>
+    </b-modal>
+  </b-dropdown-item>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   props: {
@@ -73,6 +71,7 @@ export default {
 
   computed: {
     ...mapState(['tags']),
+    ...mapGetters(['nightMode']),
 
     empty() {
       return Object.keys(this.tags).length === 0;

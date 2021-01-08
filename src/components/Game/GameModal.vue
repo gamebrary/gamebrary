@@ -37,6 +37,13 @@
             <i class="fas fa-caret-right fa-fw" aria-hidden />
           </b-button>
         </b-button-group>
+
+        <b-dropdown right text="Edit">
+          <game-progress :game="game" />
+          <game-notes-modal :game="game" />
+          <game-tags :game="game" />
+          <add-remove-game v-if="list" :game="game" :list="list" />
+        </b-dropdown>
       </modal-header>
     </template>
 
@@ -117,26 +124,6 @@
           >
             {{ name }}
           </b-badge>
-
-          <div
-            v-if="loading"
-            class="my-2 d-flex justify-content-md-start justify-content-center"
-          >
-            <b-skeleton
-              v-for="n in 4"
-              :key="n"
-              type="button"
-              width="45px"
-              class="mr-1"
-            />
-          </div>
-
-          <div v-else class="my-2">
-            <game-progress :game="game" />
-            <game-notes-modal :game="game" />
-            <game-tags :game="game" />
-            <add-remove-game v-if="list" :game="game" :list="list" />
-          </div>
 
           <template v-if="loading">
             <b-skeleton v-for="n in 3" :key="n" />

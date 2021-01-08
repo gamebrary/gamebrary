@@ -1,11 +1,6 @@
 <template lang="html">
-  <b-button
-    v-b-modal.progress
-    v-b-tooltip.hover
-    variant="info"
-    :title="$t('progresses.modalTitle')"
-  >
-    <i class="fas fa-stopwatch fa-fw" />
+  <b-dropdown-item v-b-modal.progress>
+    <i class="fas fa-stopwatch fa-fw" /> {{ $t('progresses.modalTitle') }}
 
     <b-modal
       id="progress"
@@ -55,7 +50,7 @@
         </b-button>
       </template>
     </b-modal>
-  </b-button>
+  </b-dropdown-item>
 </template>
 
 <script>
