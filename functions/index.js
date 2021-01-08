@@ -15,6 +15,39 @@ admin.initializeApp({
   messagingSenderId: '324529217902',
 });
 
+exports.customSearch = functions.https.onRequest((req, res) => {
+  res.set('Access-Control-Allow-Origin', "*");
+
+  if (!req.query.token) {
+    return res.status(400).json({ error: 'missing searchText or token' });
+  }
+
+  // TODO: exclude games? & id != (${excludedGames});
+
+  const query = req.query.platforms
+    ? `where platforms = (${req.query.platforms}) & rating != null;`
+    : '';
+
+  const data = `
+    fields id,name,slug,rating,name,cover.image_id;
+    limit 50;
+    ${query}
+  `;
+
+  axios({
+    url: 'https://api.igdb.com/v4/games',
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Client-ID': functions.config().twitch.clientid,
+      'Authorization': `Bearer ${req.query.token}`,
+    },
+    data,
+  })
+    .then(({ data }) => res.status(200).send(data))
+    .catch((error) => res.status(400).send(error));
+});
+
 exports.search = functions.https.onRequest((req, res) => {
   res.set('Access-Control-Allow-Origin', "*")
 

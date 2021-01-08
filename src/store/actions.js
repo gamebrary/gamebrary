@@ -273,6 +273,17 @@ export default {
     });
   },
 
+  CUSTOM_SEARCH({ commit, state }, { platforms }) {
+    return new Promise((resolve, reject) => {
+      axios.get(`${API_BASE}/customSearch?platforms=${platforms}&token=${state.twitchToken.access_token}`)
+        .then(({ data }) => {
+          commit('CACHE_GAME_DATA', data);
+
+          resolve(data);
+        }).catch(reject);
+    });
+  },
+
   // SEARCH_GAMES({ commit, state }, { searchText, platforms, sortField, sortOrder }) {
   SEARCH_GAMES({ commit, state }, { searchText, platforms }) {
     return new Promise((resolve, reject) => {
