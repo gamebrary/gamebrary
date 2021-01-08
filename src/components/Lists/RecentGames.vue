@@ -3,8 +3,52 @@
 
 <template lang="html">
   <b-tab title="Recent games">
+    <b-button
+      v-if="board.platforms.length > 1"
+      v-b-modal.recentGamesPlatforms
+      class="mb-2 ml-auto"
+    >
+      <i class="fas fa-sliders-h fa-fw" aria-hidden />
+    </b-button>
+
+    <b-modal
+      id="recentGamesPlatforms"
+      :header-bg-variant="nightMode ? 'dark' : null"
+      :header-text-variant="nightMode ? 'white' : null"
+      :body-bg-variant="nightMode ? 'dark' : null"
+      :body-text-variant="nightMode ? 'white' : null"
+      hide-footer
+    >
+      <template v-slot:modal-header="{ close }">
+        <modal-header
+          title="Change platforms to display"
+          :subtitle="board.name"
+          @close="close"
+        />
+      </template>
+
+      <platform-toggle-field @change="reload" />
+
+      <b-alert
+        show
+        class="mt-2 mb-0"
+      >
+        Missing something?
+
+        <b-button variant="link" v-b-modal:board-settings>
+          Edit board
+        </b-button>
+      </b-alert>
+
+      <template v-slot:modal-footer="{ cancel }">
+        <b-button @click="cancel" variant="light">
+          {{ $t('global.cancel') }}
+        </b-button>
+      </template>
+    </b-modal>
+
     <game-card-search
-      v-for="{ id } in testData"
+      v-for="{ id } in recentGames"
       :key="id"
       :game-id="id"
       :list="list"
@@ -14,11 +58,13 @@
 
 <script>
 import GameCardSearch from '@/components/GameCards/GameCardSearch';
-import { mapState } from 'vuex';
+import PlatformToggleField from '@/components/PlatformToggleField';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
     GameCardSearch,
+    PlatformToggleField,
   },
 
   props: {
@@ -30,12 +76,14 @@ export default {
 
   data() {
     return {
-      testData: null,
+      recentGames: null,
+      platforms: [],
     };
   },
 
   computed: {
     ...mapState(['results', 'board']),
+    ...mapGetters(['nightMode']),
 
     noResults() {
       return !this.loading
@@ -57,14 +105,26 @@ export default {
   },
 
   mounted() {
-    this.loadPopularGames();
+    this.platforms = JSON.parse(JSON.stringify(this.board.platforms));
+
+    this.loadRecentGames();
   },
 
   methods: {
-    loadPopularGames() {
-      this.$store.dispatch('CUSTOM_SEARCH', { platforms: this.board.platforms.join(',') })
+    reload(updatedPlatforms) {
+      this.platforms = JSON.parse(JSON.stringify(updatedPlatforms));
+      this.loadRecentGames();
+    },
+
+    loadRecentGames() {
+      const payload = {
+        sortQuery: 'first_release_date desc',
+        platforms: this.platforms.join(','),
+      };
+
+      this.$store.dispatch('CUSTOM_SEARCH', payload)
         .then((data) => {
-          this.testData = data;
+          this.recentGames = data;
         })
         .catch(() => {});
     },

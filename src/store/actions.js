@@ -273,9 +273,9 @@ export default {
     });
   },
 
-  CUSTOM_SEARCH({ commit, state }, { platforms }) {
+  CUSTOM_SEARCH({ commit, state }, { platforms, sortQuery }) {
     return new Promise((resolve, reject) => {
-      axios.get(`${API_BASE}/customSearch?platforms=${platforms}&token=${state.twitchToken.access_token}`)
+      axios.get(`${API_BASE}/customSearch?platforms=${platforms}&sortQuery=${sortQuery}&token=${state.twitchToken.access_token}`)
         .then(({ data }) => {
           commit('CACHE_GAME_DATA', data);
 

@@ -24,7 +24,7 @@
         />
       </template>
 
-      <b-tabs content-class="pt-3">
+      <b-tabs content-class="pt-2">
         <search-games :list="list" />
         <recent-games :list="list" />
       </b-tabs>
