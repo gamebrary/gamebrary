@@ -24,7 +24,9 @@ export default {
 
     options() {
       return this.board.platforms.map((value) => {
-        const text = `${this.platformNames[value].name}`;
+        const text = this.platformNames[value] && this.platformNames[value].name
+          ? `${this.platformNames[value].name}`
+          : `N/A Missing label for platform ${value}`;
 
         return { text, value };
       });
