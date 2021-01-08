@@ -28,9 +28,22 @@ exports.customSearch = functions.https.onRequest((req, res) => {
     ? `where platforms = (${req.query.platforms}) & rating != null;`
     : '';
 
+  const sort = req.query.sortQuery
+    ? `sort ${req.query.sortQuery};`
+    : '';
+
+  const limit = req.query.limit
+    ? `limit ${req.query.limit};`
+    : 'limit 50;';
+
+  const fields = req.query.fields
+    ? `fields ${req.query.fields};`
+    : 'fields id,name,slug,rating,name,cover.image_id,first_release_date;';
+
   const data = `
-    fields id,name,slug,rating,name,cover.image_id;
-    limit 50;
+    ${fields}
+    ${sort}
+    ${limit}
     ${query}
   `;
 
