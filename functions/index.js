@@ -203,6 +203,9 @@ exports.game = functions.https.onRequest((req, res) => {
     res.status(400).send('missing gameId');
   }
 
+  // TODO: add collection
+  // collection.*,
+  // collection.games.*,
   const data = `fields
   name,
   summary,
