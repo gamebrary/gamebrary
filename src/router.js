@@ -2,7 +2,6 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Board from '@/pages/Board';
 import About from '@/pages/About';
-import Languages from '@/pages/Languages';
 import Wallpapers from '@/pages/Wallpapers';
 import Tags from '@/pages/Tags';
 import Notes from '@/pages/Notes';
@@ -72,14 +71,6 @@ export default new Router({
       component: Notes,
       meta: {
         title: 'Notes',
-      },
-    },
-    {
-      name: 'language',
-      path: '/language',
-      component: Languages,
-      meta: {
-        title: 'Languages',
       },
     },
     {
