@@ -1,19 +1,6 @@
 <template lang="html">
-  <b-container class="pt-3">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h3 class="m-0">
-        <b-button
-          :variant="nightMode ? 'dark' : 'light'"
-          @click="$router.push({ name: 'settings' })"
-        >
-          <i class="fas fa-angle-left fa-fw" aria-hidden />
-        </b-button>
-
-        Language
-      </h3>
-    </div>
-
-    <b-form-select v-model="language" class="mb-2 w-50">
+  <b-form-group label="Language">
+    <b-form-select v-model="language" class="w-50">
       <b-form-select-option
         v-for="{ name, value } in SUPPORTED_LANGUAGES"
         :key="value"
@@ -23,17 +10,17 @@
       </b-form-select-option>
     </b-form-select>
 
-    <br>
-
     <b-button
-      :disabled="saving"
+      v-if="settings.language !== language"
       variant="primary"
+      class="mx-2"
+      :disabled="saving"
       @click="saveSettings"
     >
       <b-spinner small v-if="saving" />
       <span v-else>{{ $t('languages.save') }}</span>
     </b-button>
-  </b-container>
+  </b-form-group>
 </template>
 
 <script>
