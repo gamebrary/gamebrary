@@ -1,6 +1,6 @@
 <template lang="html">
   <b-button
-    :variant="nightMode ? 'dark' : 'light'"
+    :variant="nightMode ? 'dark' : 'primary'"
     :class="buttonClass"
     v-b-modal:create-board
   >

@@ -1,5 +1,5 @@
 <template lang="html">
-  <div v-if="game.websites" class="text-left">
+  <div v-if="game.websites">
     <dl v-for="link in game.websites" :key="link.id">
       <!-- TODO: research which links can be leveraged to get API data,
        e.g. wikipedia article, wikia, etc -->
