@@ -3,7 +3,7 @@
     id="app"
     :dir="dir"
   >
-    <page-header v-if="user" />
+    <dock v-if="user" />
 
     <main
       :class="{ 'authorizing': !user,
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import PageHeader from '@/components/PageHeader';
+import Dock from '@/components/Dock';
 import SessionExpired from '@/components/SessionExpired';
 import GameModal from '@/components/Game/GameModal';
 import firebase from 'firebase/app';
@@ -42,7 +42,7 @@ export default {
   name: 'App',
 
   components: {
-    PageHeader,
+    Dock,
     GameModal,
     SessionExpired,
   },
