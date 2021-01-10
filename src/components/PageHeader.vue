@@ -20,26 +20,6 @@
       <b-button
         variant="transparent"
         :class="nightMode ? 'text-white' : 'text-dark'"
-        :title="$t('navMenu.tags')"
-        :to="{ name: 'tags' }"
-        v-b-tooltip.hover.right
-      >
-        <i class="fas fa-tags fa-fw" aria-hidden />
-      </b-button>
-
-      <b-button
-        variant="transparent"
-        :class="nightMode ? 'text-white' : 'text-dark'"
-        :title="$t('navMenu.notes')"
-        :to="{ name: 'notes' }"
-        v-b-tooltip.hover.right
-      >
-        <i class="fas fa-sticky-note fa-fw" aria-hidden />
-      </b-button>
-
-      <b-button
-        variant="transparent"
-        :class="nightMode ? 'text-white' : 'text-dark'"
         title="Settings"
         :to="{ name: 'settings' }"
         v-b-tooltip.hover.right
