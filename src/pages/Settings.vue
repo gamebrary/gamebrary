@@ -4,20 +4,25 @@
       <h3 class="m-0">Settings</h3>
     </div>
 
-    <b-list-group>
-      <b-list-group-item tag="a" @click="toggleTheme" class="cursor-pointer">
-        <i :class="`fas fa-${nightMode ? 'sun' : 'moon'} fa-fw`" aria-hidden />
-        Toggle dark theme (Beta)
-      </b-list-group-item>
+    <languages />
+    <theme-selector />
 
+    <hr />
+
+    <b-list-group>
       <b-list-group-item :to="{ name: 'wallpapers' }">
         <i class="fas fa-image fa-fw" aria-hidden />
         Wallpapers
       </b-list-group-item>
 
-      <b-list-group-item :to="{ name: 'language' }">
-        <i class="fas fa-language fa-fw" aria-hidden />
-        Language
+      <b-list-group-item :to="{ name: 'notes' }">
+        <i class="fas fa-sticky-note fa-fw" aria-hidden />
+        Notes
+      </b-list-group-item>
+
+      <b-list-group-item :to="{ name: 'tags' }">
+        <i class="fas fa-sticky-note fa-fw" aria-hidden />
+        {{ $t('navMenu.tags') }}
       </b-list-group-item>
 
       <b-list-group-item :to="{ name: 'about' }">
@@ -48,23 +53,18 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import Languages from '@/components/Settings/Languages';
+import ThemeSelector from '@/components/Settings/ThemeSelector';
+import { mapState } from 'vuex';
 
 export default {
-  computed: {
-    ...mapGetters(['nightMode']),
-    ...mapState(['settings', 'user']),
+  components: {
+    Languages,
+    ThemeSelector,
   },
 
-  methods: {
-    toggleTheme() {
-      this.$store.commit('UPDATE_SETTING', { key: 'nightMode', value: !this.nightMode });
-
-      this.$store.dispatch('SAVE_SETTINGS', this.settings)
-        .catch(() => {
-          this.$bvToast.toast('There was an error saving your settings', { variant: 'danger' });
-        });
-    },
+  computed: {
+    ...mapState(['settings', 'user']),
   },
 };
 </script>
