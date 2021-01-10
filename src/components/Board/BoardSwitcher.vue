@@ -5,9 +5,7 @@
     right
     no-caret
     boundary="viewport"
-    v-b-tooltip.hover.right
     :variant="nightMode ? 'dark' : 'transparent'"
-    :title="$t('navMenu.changeBoard')"
     :menu-class="nightMode ? 'bg-dark' : ''"
   >
     <template v-slot:button-content>
