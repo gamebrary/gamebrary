@@ -95,10 +95,11 @@ export default {
 
       const { id } = this.game;
 
-      // TODO: use optional chaining
-      this.localNote = this.notes[id] && typeof this.notes[id] === 'object' && this.notes[id].text
-        ? this.notes[id].text
-        : JSON.parse(JSON.stringify(this.notes[id]));
+      if (this.notes[id]) {
+        this.localNote = typeof this.notes[id] === 'object' && this.notes[id].text
+          ? this.notes[id].text
+          : JSON.parse(JSON.stringify(this.notes[id]));
+      }
     },
 
     async saveNote() {
