@@ -64,6 +64,7 @@
           cols="12"
           md="5"
           lg="4"
+          class="sidebar"
         >
           <b-skeleton-img
             v-if="loading"
@@ -95,7 +96,6 @@
           cols="12"
           md="7"
           lg="8"
-          class="text-md-left text-center pl-md-0"
         >
           <h3 class="mb-0">{{ game.name }}</h3>
 
@@ -137,7 +137,7 @@
           </template>
 
           <template v-else>
-            <p class="text-left">{{ game.summary }}</p>
+            <p>{{ game.summary }}</p>
 
             <b-alert show variant="secondary" v-if="game.alternative_names">
               <strong>Also known as:</strong>
@@ -350,5 +350,13 @@ export default {
     //   display: block;
     //   margin: 0 auto;
     // }
+  }
+
+  .sidebar {
+    @media(min-width: 768px) {
+      position: sticky;
+      top: 0;
+      align-self: baseline;
+    }
   }
 </style>
