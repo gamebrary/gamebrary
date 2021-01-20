@@ -41,6 +41,7 @@
         <b-dropdown
           right
           no-caret
+          :variant="nightMode ? 'dark' : 'light'"
         >
           <template v-slot:button-content>
             <i class="fas fa-ellipsis-h fa-fw" aria-hidden></i>
@@ -118,6 +119,8 @@
             no-border
           />
 
+          <amazon-links :game="game" />
+
           <br />
 
           <b-badge
@@ -166,6 +169,7 @@ import { mapState, mapGetters } from 'vuex';
 import GameDetails from '@/components/Game/GameDetails';
 import GameNotes from '@/components/Game/GameNotes';
 import GameScreenshots from '@/components/Game/GameScreenshots';
+import AmazonLinks from '@/components/Game/AmazonLinks';
 import GameVideos from '@/components/Game/GameVideos';
 import GameWebsites from '@/components/Game/GameWebsites';
 import GameNotesModal from '@/components/Game/GameNotesModal';
@@ -181,6 +185,7 @@ export default {
     GameDetails,
     GameNotes,
     GameScreenshots,
+    AmazonLinks,
     GameVideos,
     GameWebsites,
     GameNotesModal,
