@@ -2,13 +2,12 @@
 <template lang="html">
   <nav
     class="rounded position-fixed d-flex flex-column p-0 m-2 text-center"
-    :class="{ 'bg-dark text-white': nightMode, 'border': !nightMode }"
+    :class="{ 'bg-dark text-white': nightMode, 'border': !nightMode && isBoard }"
   >
     <router-link
       :to="{ name: 'dashboard' }"
       title="Dashboard"
       class="my-2"
-      v-b-tooltip.hover.right
     >
       <img
         :src="`/static/gamebrary-logo${nightMode ? '' : '-dark'}.png`"
@@ -32,6 +31,10 @@ export default {
   computed: {
     ...mapState(['board', 'notification', 'settings']),
     ...mapGetters(['nightMode']),
+
+    isBoard() {
+      return ['public-board', 'board'].includes(this.$route.name);
+    },
   },
 };
 </script>
