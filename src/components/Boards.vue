@@ -1,25 +1,16 @@
 <template lang="html">
-  <b-container class="pt-3">
+  <b-container>
     <!-- TODO: allow board settings to be accessed here -->
-    <template v-if="showPlaceholder">
+    <div v-if="showPlaceholder" class="boards">
       <b-card
         v-for="n in 3"
         :key="n"
         no-body
-        img-left
-        class="w-100 mb-3 p-2 mt-3"
+        class="mb-3 p-1 mt-3"
       >
-      <b-skeleton-img
-        card-img="left"
-        width="210px"
-      />
-
-      <div class="w-50 ml-3">
-        <b-skeleton class="w-50" />
-        <b-skeleton class="w-25" />
-      </div>
+        <b-skeleton-img />
       </b-card>
-    </template>
+    </div>
 
     <empty-state
       v-else-if="!boards.length"
@@ -29,30 +20,28 @@
       <create-board />
     </empty-state>
 
-    <b-row v-else>
-      <div class="d-flex w-100 justify-content-between align-items-center mb-3">
-        <h3 class="m-0 mr-a">{{ $t('boards.title') }}</h3>
+    <div v-else class="d-flex w-100 justify-content-between align-items-center mb-3">
+      <h3 class="m-0 mr-a">{{ $t('boards.title') }}</h3>
 
-        <create-board />
-      </div>
+      <create-board />
+    </div>
 
-      <div class="boards">
-        <b-card
-          v-for="board in sortedBoards"
-          :key="board.id"
-          no-body
-          :bg-variant="nightMode ? 'dark' : null"
-          :text-variant="nightMode ?  'white' : null"
-          class="overflow-hidden clickable"
-          @click="viewBoard(board.id)"
-        >
-          <mini-board
-            :board="board"
-            :background-image="getWallpaper(board)"
-          />
-        </b-card>
-      </div>
-    </b-row>
+    <div class="boards">
+      <b-card
+        v-for="board in sortedBoards"
+        :key="board.id"
+        no-body
+        :bg-variant="nightMode ? 'dark' : null"
+        :text-variant="nightMode ?  'white' : null"
+        class="overflow-hidden clickable"
+        @click="viewBoard(board.id)"
+      >
+        <mini-board
+          :board="board"
+          :background-image="getWallpaper(board)"
+        />
+      </b-card>
+    </div>
   </b-container>
 </template>
 
