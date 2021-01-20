@@ -1,15 +1,5 @@
 <template lang="html">
-  <!-- TODO: allow to apply wallpaper to board from here -->
-  <b-container class="pt-3">
-    <b-form-file
-      class="d-none file-input"
-      v-model="file"
-      accept="image/*"
-      :browse-text="$t('wallpapers.form.upload')"
-      :placeholder="$t('wallpapers.form.placeholder')"
-      @input="uploadWallpaper"
-    />
-
+  <b-container>
     <empty-state
       v-if="showEmptyState"
       :title="$t('wallpapers.title')"
@@ -20,8 +10,6 @@
     />
 
     <template v-else>
-      <!-- TODO: sort by -->
-      <!-- TODO: add wallpaper preview carousel -->
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h3 class="m-0">
           {{ $t('wallpapers.title') }}
@@ -32,14 +20,12 @@
           :disabled="outOfSpace"
           @click="triggerFileUpload"
         >
-          <b-spinner
-            small
-            v-if="saving"
-          />
-          <span v-else>
+          <b-spinner small v-if="saving" />
+
+          <template v-else>
             <i class="fas fa-upload fa-fw" aria-hidden />
-            <span class="d-none d-sm-block">Upload wallpaper</span>
-          </span>
+            <span class="d-none d-sm-inline">Upload</span>
+          </template>
         </b-button>
       </div>
 
@@ -93,6 +79,15 @@
 
       <b-alert show v-else>You don't have any wallpapers.</b-alert>
     </template>
+
+    <b-form-file
+      class="d-none file-input"
+      v-model="file"
+      accept="image/*"
+      :browse-text="$t('wallpapers.form.upload')"
+      :placeholder="$t('wallpapers.form.placeholder')"
+      @input="uploadWallpaper"
+    />
   </b-container>
 </template>
 
