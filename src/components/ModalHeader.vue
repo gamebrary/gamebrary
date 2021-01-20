@@ -47,7 +47,7 @@ header {
   grid-gap: .5rem;
 
   &.has-action {
-    grid-template-columns: auto auto 46px;
+    grid-template-columns: 1fr auto 46px;
   }
 }
 
