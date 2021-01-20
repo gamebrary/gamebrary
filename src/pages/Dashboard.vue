@@ -16,12 +16,16 @@
 
     <b-tabs content-class="mt-3" align="center">
       <b-tab
-        v-for="{ name, title } in tabs"
+        v-for="{ name, title, icon } in tabs"
         :key="name"
-        :title="title"
         :active="$route.name === name"
         @click="$router.push({ name })"
-      />
+      >
+        <template #title>
+          <i :class="`${icon} fa-fw`" aria-hidden />
+          <span class="d-none d-sm-inline">{{ title }}</span>
+        </template>
+      </b-tab>
     </b-tabs>
 
     <b-row>
@@ -47,26 +51,32 @@ export default {
         {
           name: 'boards',
           title: 'Boards',
+          icon: 'fas fa-columns',
         },
         {
           name: 'tags',
           title: 'Tags',
+          icon: 'fas fa-tags',
         },
         {
           name: 'notes',
           title: 'Notes',
+          icon: 'fas fa-sticky-note',
         },
         {
           name: 'wallpapers',
           title: 'Wallpapers',
+          icon: 'fas fa-images',
         },
         {
           name: 'account',
           title: 'Account',
+          icon: 'fas fa-user',
         },
         {
           name: 'settings',
           title: 'Settings',
+          icon: 'fas fa-cog',
         },
       ],
     };
