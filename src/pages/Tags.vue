@@ -1,8 +1,5 @@
-<!-- TODO: show games assigned to tag -->
-<!-- TODO: warning if deleting, when has games -->
-
 <template lang="html">
-  <b-container class="pt-3">
+  <b-container>
     <empty-state
       v-if="showEmptyState"
       :title="$t('tags.title')"
@@ -29,10 +26,7 @@
       </div>
 
       <b-row>
-
         <b-col cols="12" lg="6" v-if="gameTags && localTags">
-          <h6>{{ $t('tags.list.title') }}</h6>
-
           <b-card
             class="mb-3"
             :bg-variant="nightMode ? 'dark' : null"

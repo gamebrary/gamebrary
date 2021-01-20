@@ -4,7 +4,7 @@
 <!-- TODO: open notes from game modal on click? -->
 
 <template lang="html">
-  <b-container class="pt-3">
+  <b-container>
     <empty-state
       v-if="showEmptyState"
       :title="$t('notes.title')"

@@ -8,7 +8,6 @@
     <main
       :class="{ 'authorizing': !user,
         'bg-dark text-white': nightMode,
-        'offset': !isBoard,
         }"
     >
       <router-view />

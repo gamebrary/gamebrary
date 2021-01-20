@@ -1,22 +1,7 @@
 <template lang="html">
-  <b-container class="pt-3">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h3 class="m-0">
-        Account
-      </h3>
-    </div>
-
+  <b-container>
     <b-list-group flush>
       <b-list-group-item>
-        <b-avatar
-          v-if="user && user.photoURL"
-          size="xl"
-          variant="info"
-          :src="user.photoURL"
-        />
-
-        <br />
-
         <strong>{{ user.displayName }}</strong>
         <p class="text-muted m-0">{{ user.email }}</p>
       </b-list-group-item>

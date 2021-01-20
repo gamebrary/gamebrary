@@ -6,7 +6,7 @@
   >
     <router-link
       :to="{ name: 'dashboard' }"
-      title="Boards"
+      title="Dashboard"
       class="my-2"
       v-b-tooltip.hover.right
     >
@@ -16,31 +16,7 @@
       />
     </router-link>
 
-    <div class="mt-auto">
-      <b-button
-        variant="transparent"
-        :class="nightMode ? 'text-white' : 'text-dark'"
-        title="Settings"
-        :to="{ name: 'settings' }"
-        v-b-tooltip.hover.right
-      >
-        <i class="fas fa-cog fa-fw" aria-hidden />
-      </b-button>
-
-      <hr class="m-0">
-
-      <board-switcher />
-
-      <!-- <b-button
-        :title="$t('navMenu.upgrade')"
-        :to="{ name: 'upgrade' }"
-        variant="transparent"
-        :class="nightMode ? 'text-white' : 'text-dark'"
-        v-b-tooltip.hover.right
-      >
-        <i class="fas fa-star fa-fw" aria-hidden />
-      </b-button> -->
-    </div>
+    <board-switcher />
   </nav>
 </template>
 

@@ -9,6 +9,7 @@ import Account from '@/pages/Account';
 import Releases from '@/pages/Releases';
 import Auth from '@/pages/Auth';
 import Dashboard from '@/pages/Dashboard';
+import Boards from '@/components/Boards';
 import Settings from '@/pages/Settings';
 import Upgrade from '@/pages/Upgrade';
 import NotFound from '@/pages/NotFound';
@@ -24,6 +25,57 @@ export default new Router({
       meta: {
         title: 'Dashboard',
       },
+      redirect: { name: 'boards' },
+      children: [
+        {
+          name: 'boards',
+          path: '/boards',
+          component: Boards,
+          meta: {
+            title: 'Board',
+          },
+        },
+        {
+          name: 'wallpapers',
+          path: '/wallpapers',
+          component: Wallpapers,
+          meta: {
+            title: 'Wallpapers',
+          },
+        },
+        {
+          name: 'tags',
+          path: '/tags',
+          component: Tags,
+          meta: {
+            title: 'Tags',
+          },
+        },
+        {
+          name: 'notes',
+          path: '/notes',
+          component: Notes,
+          meta: {
+            title: 'Notes',
+          },
+        },
+        {
+          name: 'account',
+          path: '/account',
+          component: Account,
+          meta: {
+            title: 'Account',
+          },
+        },
+        {
+          path: '/settings',
+          name: 'settings',
+          component: Settings,
+          meta: {
+            title: 'Settings',
+          },
+        },
+      ],
     },
     {
       name: 'upgrade',
@@ -34,51 +86,11 @@ export default new Router({
       },
     },
     {
-      name: 'boards',
-      path: '/boards',
-      component: Dashboard,
-      meta: {
-        title: 'Dashboard',
-      },
-    },
-    {
       name: 'about',
       path: '/about',
       component: About,
       meta: {
         title: 'About',
-      },
-    },
-    {
-      name: 'wallpapers',
-      path: '/wallpapers',
-      component: Wallpapers,
-      meta: {
-        title: 'Wallpapers',
-      },
-    },
-    {
-      name: 'tags',
-      path: '/tags',
-      component: Tags,
-      meta: {
-        title: 'Tags',
-      },
-    },
-    {
-      name: 'notes',
-      path: '/notes',
-      component: Notes,
-      meta: {
-        title: 'Notes',
-      },
-    },
-    {
-      name: 'account',
-      path: '/account',
-      component: Account,
-      meta: {
-        title: 'Account',
       },
     },
     {
@@ -109,11 +121,6 @@ export default new Router({
       meta: {
         public: true,
       },
-    },
-    {
-      path: '/settings',
-      name: 'settings',
-      component: Settings,
     },
     {
       path: '*',
