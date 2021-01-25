@@ -26,14 +26,16 @@ export default {
     state.board = {};
   },
 
-  SET_BOARD(state, board) {
+  SET_ACTIVE_BOARD(state, board) {
     state.board = board;
   },
 
-  UPDATE_BOARD_NAME(state, updatedBoard) {
-    const board = state.boards.find(({ id }) => updatedBoard.id === id);
+  UPDATE_BOARDS(state, updatedBoard) {
+    const boardIndex = state.boards.findIndex(({ id }) => updatedBoard.id === id);
 
-    board.name = updatedBoard.name;
+    if (!boardIndex) return;
+
+    Vue.set(state.boards, boardIndex, updatedBoard);
   },
 
   SET_GAME_BOARD(state, board) {

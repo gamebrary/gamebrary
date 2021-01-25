@@ -59,7 +59,7 @@ export default {
             return reject();
           }
 
-          commit('SET_BOARD', {
+          commit('SET_ACTIVE_BOARD', {
             ...board,
             id: doc.id,
           });
@@ -79,7 +79,7 @@ export default {
         .then((doc) => {
           const board = doc.data();
 
-          commit('SET_BOARD', {
+          commit('SET_ACTIVE_BOARD', {
             ...board,
             id: doc.id,
           });
