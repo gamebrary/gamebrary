@@ -1,21 +1,18 @@
 <template lang="html">
   <b-dropdown-item v-b-modal.notes>
-    <i class="far fa-sticky-note fa-fw" /> Game notes
+    <i class="far fa-sticky-note fa-fw" /> {{ localNote ? 'Edit note' : 'Add note' }}
 
     <b-modal
       id="notes"
-      :header-bg-variant="nightMode ? 'dark' : null"
-      :header-text-variant="nightMode ? 'white' : null"
       :body-bg-variant="nightMode ? 'dark' : null"
       :body-text-variant="nightMode ? 'white' : null"
-      :footer-bg-variant="nightMode ? 'dark' : null"
-      :footer-text-variant="nightMode ? 'white' : null"
       footer-class="d-flex justify-content-between"
       @show="show"
     >
       <template v-slot:modal-header="{ close }">
         <modal-header
           title="Game notes"
+          :subtitle="game.name"
           @close="close"
         />
       </template>
@@ -29,6 +26,7 @@
 
       <b-form-text id="input-live-help">
         <a href="https://www.markdownguide.org/cheat-sheet/" target="_blank">
+          <i class="fab fa-markdown"></i>
           Markdown supported
         </a>
       </b-form-text>
