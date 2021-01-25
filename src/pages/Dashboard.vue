@@ -18,6 +18,7 @@
       <b-tab
         v-for="{ name, title, icon } in tabs"
         :key="name"
+        small
         :active="$route.name === name"
         @click="$router.push({ name })"
       >
