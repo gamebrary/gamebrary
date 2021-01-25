@@ -106,6 +106,7 @@
             :value="progress"
             variant="success"
             height="8px"
+            v-b-modal.progress
             class="my-1 w-50 mx-auto mx-md-0"
           />
 
