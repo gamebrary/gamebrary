@@ -24,7 +24,7 @@
       >
         <template #title>
           <i :class="`${icon} fa-fw`" aria-hidden />
-          <span class="d-none d-sm-inline">{{ title }}</span>
+          <span class="d-none d-md-inline">{{ title }}</span>
         </template>
       </b-tab>
     </b-tabs>
