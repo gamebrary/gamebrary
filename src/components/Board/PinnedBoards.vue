@@ -7,15 +7,17 @@
       <b-avatar
         v-if="board.name !== name"
         rounded
-        :text="getBoardInitials(name)"
         class="mb-1 cursor-pointer pinned-board"
         :title="name"
+        v-b-tooltip.hover.right
         @click.native="viewBoard(id)"
         :style="`
         ${backgroundColor ? `background-color: ${backgroundColor};` : null }
         ${getWallpaperUrl(wallpaper) }
         `"
-      />
+      >
+        <span class="board-initials text-uppercase">{{ getBoardInitials(name) }}</span>
+      </b-avatar>
 
       <b-dropdown
         v-else
@@ -27,13 +29,15 @@
         <template #button-content>
           <b-avatar
             rounded
+            :title="board.name"
+            v-b-tooltip.hover.right
             class="pinned-board"
             :style="`
             ${board.backgroundColor ? ` background-color: ${board.backgroundColor};` : null }
             ${getWallpaperUrl(wallpaper) }
             `"
           >
-            <span class="text-uppercase mr-1">{{ getBoardInitials(board.name) }}</span>
+            <span class="board-initials text-uppercase mr-1">{{ getBoardInitials(board.name) }}</span>
             <i class="fas fa-caret-down" aria-hidden />
           </b-avatar>
         </template>
@@ -52,37 +56,42 @@
 
     <hr class="mt-1 mb-2">
 
-    <b-dropdown
-      dropright
-      no-caret
-      toggle-class="p-0 mb-1"
-      toggle-tag="span"
-      v-if="isBoard && !board.pinned"
-    >
-      <template #button-content>
-        <b-avatar
-          rounded
-          class="pinned-board"
-          :style="`${board.backgroundColor
-            ? `background-color: ${board.backgroundColor};`
-            : null };
-            ${getWallpaperUrl(board.wallpaper)}
-            `"
-        >
-          <span class="text-uppercase mr-1">{{ getBoardInitials(board.name) }}</span>
-          <i class="fas fa-caret-down" aria-hidden />
-        </b-avatar>
-      </template>
+    <template v-if="isBoard && !board.pinned">
+      <b-dropdown
+        dropright
+        no-caret
+        toggle-class="p-0 mb-1"
+        toggle-tag="span"
+      >
+        <template #button-content>
+          <b-avatar
+            rounded
+            class="pinned-board"
+            :title="board.name"
+            v-b-tooltip.hover.right
+            :style="`${board.backgroundColor
+              ? `background-color: ${board.backgroundColor};`
+              : null };
+              ${getWallpaperUrl(board.wallpaper)}
+              `"
+          >
+            <span class="board-initials text-uppercase mr-1">{{ getBoardInitials(board.name) }}</span>
+            <i class="fas fa-caret-down" aria-hidden />
+          </b-avatar>
+        </template>
 
-      <b-dropdown-header id="dropdown-header-label">
-        {{ board.name }}
-      </b-dropdown-header>
-      <b-dropdown-item v-b-modal:board-settings>Edit board</b-dropdown-item>
-      <b-dropdown-item v-b-modal:add-list>Add list</b-dropdown-item>
-      <b-dropdown-item @click="pinBoard">
-        {{ board.pinned ? 'Unpin from dock' : 'Pin to dock' }}
-      </b-dropdown-item>
-    </b-dropdown>
+        <b-dropdown-header id="dropdown-header-label">
+          {{ board.name }}
+        </b-dropdown-header>
+        <b-dropdown-item v-b-modal:board-settings>Edit board</b-dropdown-item>
+        <b-dropdown-item v-b-modal:add-list>Add list</b-dropdown-item>
+        <b-dropdown-item @click="pinBoard">
+          {{ board.pinned ? 'Unpin from dock' : 'Pin to dock' }}
+        </b-dropdown-item>
+      </b-dropdown>
+
+      <hr class="my-1">
+    </template>
   </div>
 </template>
 
