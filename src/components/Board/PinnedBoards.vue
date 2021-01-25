@@ -114,8 +114,6 @@ export default {
         ? this.wallpapers.find(({ fullPath }) => fullPath === wallpaper)
         : null;
 
-      console.log(wallpaperObject);
-
       return wallpaperObject && wallpaperObject.url
         ? `background-image: url(${wallpaperObject.url});`
         : null;
