@@ -1,34 +1,40 @@
 <template lang="html">
-  <b-dropdown-item v-b-modal.tags>
-    <i class="far fa-tags fa-fw" /> Tags
+  <b-modal
+    id="tags"
+    size="sm"
+    :header-bg-variant="nightMode ? 'dark' : null"
+    :header-text-variant="nightMode ? 'white' : null"
+    :body-bg-variant="nightMode ? 'dark' : null"
+    :body-text-variant="nightMode ? 'white' : null"
+    hide-footer
+  >
+    <template v-slot:modal-header="{ close }">
+      <modal-header
+        title="Tags"
+        :subtitle="game.name"
+        @close="close"
+      />
+    </template>
 
-    <b-modal
-      id="tags"
-      :header-bg-variant="nightMode ? 'dark' : null"
-      :header-text-variant="nightMode ? 'white' : null"
-      :body-bg-variant="nightMode ? 'dark' : null"
-      :body-text-variant="nightMode ? 'white' : null"
-      hide-footer
+    <empty-state
+      v-if="empty"
+      class="mb-4"
+      message="Looks like you don't have any tags yet."
     >
-      <template v-slot:modal-header="{ close }">
-        <modal-header
-          title="Tags"
-          :subtitle="game.name"
-          @close="close"
-        />
-      </template>
+      <b-button @click="manageTags">Manage tags</b-button>
+    </empty-state>
+
+    <template v-else>
+      <p>Click on tag to add or remove tag from game</p>
 
       <b-list-group>
-        <div v-if="empty">
-          <b-alert show class="mb-2">
-            No tags
-          </b-alert>
-        </div>
-
         <b-list-group-item
           v-for="({ games, hex, tagTextColor }, name) in sortedTags"
           :key="name"
-          class="p-2 d-flex align-items-center justify-content-between"
+          class="d-flex justify-content-between"
+          button
+          :variant="games.includes(game.id) ? 'success' : ''"
+          @click="games.includes(game.id) ? removeTag(name) : addTag(name)"
         >
           <b-badge
             pill
@@ -39,33 +45,22 @@
             {{ name }}
           </b-badge>
 
-          <b-button
-            v-if="games.includes(game.id)"
-            variant="outline-danger"
-            size="sm"
-            @click="removeTag(name)"
-          >
-            <i class="fas fa-minus fa-fw" aria-hidden />
-          </b-button>
-
-          <b-button
-            v-else
-            variant="outline-success"
-            size="sm"
-            @click="addTag(name)"
-          >
-            <i class="fas fa-plus fa-fw" />
-          </b-button>
+          <b-badge variant="light">{{ games.length }} games</b-badge>
         </b-list-group-item>
       </b-list-group>
-    </b-modal>
-  </b-dropdown-item>
+    </template>
+  </b-modal>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import EmptyState from '@/components/EmptyState';
 
 export default {
+  components: {
+    EmptyState,
+  },
+
   props: {
     game: Object,
   },
@@ -81,6 +76,7 @@ export default {
     sortedTags() {
       return Object.keys(this.tags)
         .sort()
+        // eslint-disable-next-line
         .reduce((res, key) => (res[key] = this.tags[key], res), {});
     },
   },
@@ -109,6 +105,12 @@ export default {
         .catch(() => {
           this.$store.commit('SET_SESSION_EXPIRED', true);
         });
+    },
+
+    manageTags() {
+      this.$bvModal.hide('tags');
+      this.$bvModal.hide('game-modal');
+      this.$router.push({ name: 'tags' });
     },
   },
 };
