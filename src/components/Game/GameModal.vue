@@ -49,7 +49,13 @@
 
           <game-progress :game="game" />
           <game-notes-modal :game="game" />
-          <game-tags :game="game" />
+
+          <b-dropdown-item v-b-modal.tags>
+            <i class="far fa-tags fa-fw" /> Tags
+
+            <game-tags-modal :game="game" />
+          </b-dropdown-item>
+
           <add-remove-game v-if="list" :game="game" :list="list" />
         </b-dropdown>
       </modal-header>
@@ -182,12 +188,12 @@ import GameWebsites from '@/components/Game/GameWebsites';
 import GameNotesModal from '@/components/Game/GameNotesModal';
 import GameProgress from '@/components/Game/GameProgress';
 import AddRemoveGame from '@/components/Game/AddRemoveGame';
-import GameTags from '@/components/Game/GameTags';
+import GameTagsModal from '@/components/Game/GameTagsModal';
 import IgdbLogo from '@/components/IgdbLogo';
 
 export default {
   components: {
-    GameTags,
+    GameTagsModal,
     IgdbLogo,
     GameDetails,
     GameNotes,
