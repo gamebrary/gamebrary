@@ -32,7 +32,7 @@ export default new Router({
           path: '/boards',
           component: Boards,
           meta: {
-            title: 'Board',
+            title: 'Boards',
           },
         },
         {
