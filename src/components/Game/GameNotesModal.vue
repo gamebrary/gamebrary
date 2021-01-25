@@ -33,26 +33,18 @@
         </a>
       </b-form-text>
 
-      <template v-slot:modal-footer="{ cancel }">
+      <template v-slot:modal-footer>
         <b-button
           variant="danger"
-          :disabled="deleting || !notes[game.id]"
+          v-if="notes[game.id]"
+          :disabled="deleting"
           @click="deleteNote"
         >
           <b-spinner small v-if="deleting" />
           <span v-else>{{ $t('global.delete') }}</span>
         </b-button>
 
-        <div>
-          <b-button
-            variant="light"
-            class="mx-2"
-            :disabled="saving"
-            @click="cancel"
-          >
-            {{ $t('global.cancel') }}
-          </b-button>
-
+        <div :class="!notes[game.id] ? 'ml-auto' : ''">
           <b-button
             variant="primary"
             :disabled="saving"
