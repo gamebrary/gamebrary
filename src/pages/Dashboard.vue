@@ -14,13 +14,13 @@
     </div>
 
 
-    <b-tabs content-class="mt-3" align="center">
+    <b-tabs content-class="mt-3" align="center" small>
       <b-tab
         v-for="{ name, title, icon } in tabs"
         :key="name"
         small
         :active="$route.name === name"
-        @click="$router.push({ name })"
+        @click="handleClick(name)"
       >
         <template #title>
           <i :class="`${icon} fa-fw`" aria-hidden />
@@ -89,6 +89,14 @@ export default {
 
     routeName() {
       return this.$route.name;
+    },
+  },
+
+  methods: {
+    handleClick(name) {
+      if (this.$route.name !== name) {
+        this.$router.push({ name });
+      }
     },
   },
 };
