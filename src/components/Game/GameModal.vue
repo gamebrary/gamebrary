@@ -83,6 +83,7 @@
 
             <game-screenshots :game="game" />
             <!-- <game-videos :videos="game.videos" v-if="game.videos" /> -->
+            <amazon-links :game="game" class="d-none d-md-inline" />
           </template>
 
           <game-notes :game="game" />
@@ -119,8 +120,6 @@
             no-border
           />
 
-          <amazon-links :game="game" />
-
           <br />
 
           <b-badge
@@ -141,6 +140,12 @@
 
           <template v-else>
             <p>{{ game.summary }}</p>
+
+            <amazon-links
+              :game="game"
+              class="d-md-none"
+              modal-id="mobile-amazon"
+            />
 
             <b-alert show variant="secondary" v-if="game.alternative_names">
               <strong>Also known as:</strong>

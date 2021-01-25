@@ -1,9 +1,8 @@
 <template lang="html">
   <div>
     <b-button
-      v-b-modal.amazon
+      v-b-modal="modalId"
       variant="warning"
-      class="mt-2"
       v-if="amazonLinks.length"
     >
       <i class="fab fa-amazon fa-fw" aria-hidden />
@@ -11,7 +10,7 @@
     </b-button>
 
     <b-modal
-      id="amazon"
+      :id="modalId"
       hide-footer
     >
       <template v-slot:modal-header="{ close }">
@@ -45,6 +44,10 @@
 export default {
   props: {
     game: Object,
+    modalId: {
+      type: String,
+      default: 'amazon',
+    },
   },
 
   computed: {
