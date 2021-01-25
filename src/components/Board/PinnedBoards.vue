@@ -37,7 +37,9 @@
             ${getWallpaperUrl(wallpaper) }
             `"
           >
-            <span class="board-initials text-uppercase mr-1">{{ getBoardInitials(board.name) }}</span>
+            <span class="board-initials text-uppercase mr-1">
+              {{ getBoardInitials(board.name) }}
+            </span>
             <i class="fas fa-caret-down" aria-hidden />
           </b-avatar>
         </template>
@@ -75,7 +77,9 @@
               ${getWallpaperUrl(board.wallpaper)}
               `"
           >
-            <span class="board-initials text-uppercase mr-1">{{ getBoardInitials(board.name) }}</span>
+            <span class="board-initials text-uppercase mr-1">
+              {{ getBoardInitials(board.name) }}
+            </span>
             <i class="fas fa-caret-down" aria-hidden />
           </b-avatar>
         </template>
