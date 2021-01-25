@@ -131,6 +131,7 @@
             tag="small"
             class="mr-1 mb-2"
             :style="`background-color: ${hex}; color: ${tagTextColor}`"
+            v-b-modal.tags
           >
             {{ name }}
           </b-badge>
