@@ -13,6 +13,7 @@
       <template v-slot:modal-header="{ close }">
         <modal-header
           title="Tags"
+          :subtitle="game.name"
           @close="close"
         />
       </template>
