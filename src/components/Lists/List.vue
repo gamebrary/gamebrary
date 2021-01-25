@@ -1,6 +1,13 @@
 <template lang="html">
   <div
-    :class="['list rounded mr-3', viewClass, { dragging, 'unique': singleList }]"
+    :class="[
+      'list rounded pr-3',
+      viewClass,
+      {
+        dragging,
+        'unique': singleList,
+      }
+      ]"
     :id="listIndex"
   >
     <b-card
@@ -240,7 +247,7 @@ export default {
   flex-shrink: 0;
   cursor: default;
   position: relative;
-  width: 300px;
+  width: calc(300px + 1rem);
 
   &.unique {
     @media(max-width: 480px) {
@@ -251,7 +258,7 @@ export default {
   .games {
     height: 100%;
     overflow: hidden;
-    max-height: calc(100vh - 80px);
+    max-height: calc(100vh - 100px);
     overflow-y: auto;
     padding: .5rem .5rem 0;
     width: 100%;
