@@ -16,6 +16,7 @@
       <template v-slot:modal-header="{ close }">
         <modal-header
           :title="$t('progresses.modalTitle')"
+          :subtitle="game.name"
           @close="close"
         />
       </template>
