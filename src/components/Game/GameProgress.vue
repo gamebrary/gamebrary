@@ -1,15 +1,13 @@
 <template lang="html">
   <b-dropdown-item v-b-modal.progress>
-    <i class="fas fa-stopwatch fa-fw" /> {{ $t('progresses.modalTitle') }}
+    <i class="fas fa-stopwatch fa-fw" />
+
+    {{ title }}
 
     <b-modal
       id="progress"
-      :header-bg-variant="nightMode ? 'dark' : null"
-      :header-text-variant="nightMode ? 'white' : null"
       :body-bg-variant="nightMode ? 'dark' : null"
       :body-text-variant="nightMode ? 'white' : null"
-      :footer-bg-variant="nightMode ? 'dark' : null"
-      :footer-text-variant="nightMode ? 'white' : null"
       footer-class="d-flex justify-content-between pt-0"
       @show="show"
     >
@@ -38,17 +36,27 @@
           @click="deleteProgress"
         >
           <b-spinner small v-if="deleting" />
-          <span v-else>{{ $t('global.delete') }}</span>
+          <span v-else>Remove progress</span>
         </b-button>
 
-        <b-button
-          variant="primary"
-          :disabled="saving"
-          @click="saveProgress"
-        >
-          <b-spinner small v-if="saving" />
-          <span v-else>{{ $t('global.save') }}</span>
-        </b-button>
+        <div>
+          <b-button
+            v-if="!saving"
+            variant="success"
+            @click="markAsCompleted"
+          >
+            Mark as completed
+          </b-button>
+
+          <b-button
+            variant="primary"
+            :disabled="saving"
+            @click="saveProgress"
+          >
+            <b-spinner small v-if="saving" />
+            <span v-else>{{ $t('global.save') }}</span>
+          </b-button>
+        </div>
       </template>
     </b-modal>
   </b-dropdown-item>
@@ -64,7 +72,7 @@ export default {
 
   data() {
     return {
-      localProgress: '0',
+      localProgress: 0,
       saving: false,
       deleting: false,
     };
@@ -73,18 +81,37 @@ export default {
   computed: {
     ...mapState(['progresses']),
     ...mapGetters(['nightMode']),
+
+    title() {
+      return Boolean(this.localProgress)
+        ? 'Update progress'
+        : 'Set progress';
+    },
+  },
+
+  mounted() {
+    this.setGameProgress();
   },
 
   methods: {
+    markAsCompleted() {
+      this.localProgress = 100;
+
+      this.saveProgress();
+    },
+
     show() {
+      this.setGameProgress();
+      this.saving = false;
+      this.deleting = false;
+    },
+
+    setGameProgress() {
       const { id } = this.game;
 
       this.localProgress = this.progresses[id]
         ? JSON.parse(JSON.stringify(this.progresses[id]))
-        : '0';
-
-      this.saving = false;
-      this.deleting = false;
+        : 0;
     },
 
     async deleteProgress() {
