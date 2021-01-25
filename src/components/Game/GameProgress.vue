@@ -83,7 +83,7 @@ export default {
     ...mapGetters(['nightMode']),
 
     title() {
-      return Boolean(this.localProgress)
+      return this.localProgress
         ? 'Update progress'
         : 'Set progress';
     },
