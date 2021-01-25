@@ -1,4 +1,4 @@
-@import "_theme";
+@import "_bootstrap-theme";
 @import 'node_modules/bootstrap/scss/bootstrap';
 @import 'node_modules/bootstrap-vue/src/index.scss';
 @import "_utilities";
@@ -9,4 +9,8 @@
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.modal {
+  backdrop-filter: blur(1px);
 }
