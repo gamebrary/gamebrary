@@ -115,6 +115,7 @@ export default {
 
     async deleteNote() {
       this.deleting = true;
+      this.localNote = '';
 
       this.$store.commit('REMOVE_GAME_NOTE', this.game.id);
 
