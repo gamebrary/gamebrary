@@ -64,11 +64,10 @@
           rounded
           class="pinned-board"
           :style="`${board.backgroundColor
-            ? `
-              background-color: ${board.backgroundColor};
-              ${getWallpaperUrl(board.wallpaper) }
-              `
-            : null }`"
+            ? `background-color: ${board.backgroundColor};`
+            : null };
+            ${getWallpaperUrl(board.wallpaper)}
+            `"
         >
           <span class="text-uppercase mr-1">{{ getBoardInitials(board.name) }}</span>
           <i class="fas fa-caret-down" aria-hidden />
