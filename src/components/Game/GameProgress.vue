@@ -26,7 +26,7 @@
           v-model="localProgress"
           type="range"
           max="100"
-          step="5"
+          step="1"
         />
       </b-input-group>
 
