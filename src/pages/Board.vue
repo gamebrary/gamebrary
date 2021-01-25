@@ -15,24 +15,8 @@
 
       <empty-board v-if="isEmptyBoard" class="mr-3" />
 
-      <b-dropdown
-        right
-        no-caret
-        size="sm"
-        :variant="nightMode ? 'dark' : 'light'"
-        :class="[{ 'pr-3': !isEmptyBoard }]"
-      >
-        <template v-slot:button-content>
-          <i class="fas fa-ellipsis-v fa-fw" aria-hidden />
-        </template>
-
-        <b-dropdown-header id="dropdown-header-label">
-          {{ board.name }}
-        </b-dropdown-header>
-
-        <add-list />
-        <board-settings />
-      </b-dropdown>
+      <add-list-modal />
+      <board-settings />
     </template>
   </div>
 </template>
@@ -41,7 +25,7 @@
 import BoardSettings from '@/components/Settings/BoardSettings';
 import BoardPlaceholder from '@/components/Board/BoardPlaceholder';
 import EmptyBoard from '@/components/Board/EmptyBoard';
-import AddList from '@/components/Board/AddList';
+import AddListModal from '@/components/Board/AddListModal';
 import List from '@/components/Lists/List';
 import chunk from 'lodash.chunk';
 import { mapState, mapGetters } from 'vuex';
@@ -53,7 +37,7 @@ export default {
     List,
     BoardPlaceholder,
     EmptyBoard,
-    AddList,
+    AddListModal,
     BoardSettings,
   },
 
