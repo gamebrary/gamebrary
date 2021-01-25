@@ -1,192 +1,192 @@
 <template lang="html">
-  <b-dropdown-item v-b-modal:board-settings>
-    <i class="fas fa-pencil-alt fa-fw" aria-hidden /> Edit board
+  <b-modal
+    id="board-settings"
+    size="lg"
+    :header-bg-variant="nightMode ? 'dark' : null"
+    :header-text-variant="nightMode ? 'white' : null"
+    :body-bg-variant="nightMode ? 'dark' : null"
+    :body-text-variant="nightMode ? 'white' : null"
+    :footer-bg-variant="nightMode ? 'dark' : null"
+    :footer-text-variant="nightMode ? 'white' : null"
+    footer-class="d-flex justify-content-between"
+    @show="init"
+    @hide="hide"
+  >
+    <template v-slot:modal-header="{ close }">
+      <modal-header
+        title="Edit board"
+        @close="close"
+      />
+    </template>
 
-    <b-modal
-      id="board-settings"
-      size="lg"
-      :header-bg-variant="nightMode ? 'dark' : null"
-      :header-text-variant="nightMode ? 'white' : null"
-      :body-bg-variant="nightMode ? 'dark' : null"
-      :body-text-variant="nightMode ? 'white' : null"
-      :footer-bg-variant="nightMode ? 'dark' : null"
-      :footer-text-variant="nightMode ? 'white' : null"
-      footer-class="d-flex justify-content-between"
-      @show="init"
-      @hide="hide"
-    >
-      <template v-slot:modal-header="{ close }">
-        <modal-header
-          title="Edit board"
-          @close="close"
-        />
-      </template>
+    <form ref="boardSettingsForm" @submit.stop.prevent="submit">
+      <b-row>
+        <b-col lg="6">
+          <b-form-group
+            :label="$t('board.settings.nameLabel')"
+            label-for="name"
+          >
+            <b-form-input
+              id="name"
+              v-model="name"
+              required
+            />
+          </b-form-group>
 
-      <form ref="boardSettingsForm" @submit.stop.prevent="submit">
-        <b-row>
-          <b-col lg="6">
-            <b-form-group
-              :label="$t('board.settings.nameLabel')"
-              label-for="name"
-            >
-              <b-form-input
-                id="name"
-                v-model="name"
-                required
-              />
-            </b-form-group>
+          <b-form-group
+            :label="$t('board.settings.descriptionLabel')"
+            label-for="description"
+          >
+            <b-form-textarea
+              id="description"
+              v-model="description"
+              maxlength="280"
+              rows="3"
+            />
+          </b-form-group>
 
-            <b-form-group
-              :label="$t('board.settings.descriptionLabel')"
-              label-for="description"
-            >
-              <b-form-textarea
-                id="description"
-                v-model="description"
-                maxlength="280"
-                rows="3"
-              />
-            </b-form-group>
+          <b-form-checkbox v-model="pinned" switch>
+            Pinned to dock
+          </b-form-checkbox>
 
-            <b-form-group
-              label="Board background color"
-              label-for="backgroundColor"
-            >
-              <b-form-input
-                id="backgroundColor"
-                class="color-picker"
-                v-model="backgroundColor"
-                type="color"
-              />
-
-              <b-form-text
-                v-if="backgroundColor"
-                id="input-live-help"
-              >
-                {{ backgroundColor }}
-              </b-form-text>
-            </b-form-group>
-
-
-            <b-button
-              v-b-modal.editPlatforms
-              :variant="noPlatformsSelected ? 'warning' : 'secondary'"
-            >
-              Platforms {{ noPlatformsSelected ? null : `(${board.platforms.length})` }}
-            </b-button>
-
-            <b-modal
-              id="editPlatforms"
-              :header-bg-variant="nightMode ? 'dark' : null"
-              :header-text-variant="nightMode ? 'white' : null"
-              :body-bg-variant="nightMode ? 'dark' : null"
-              :body-text-variant="nightMode ? 'white' : null"
-              :footer-bg-variant="nightMode ? 'dark' : null"
-              :footer-text-variant="nightMode ? 'white' : null"
-              hide-footer
-            >
-              <template v-slot:modal-header="{ close }">
-                <modal-header
-                  title="Board platforms"
-                  @close="close"
-                />
-              </template>
-
-              <b-alert :show="noPlatformsSelected" variant="warning">
-                Please select at least 1 platform
-              </b-alert>
-
-              <platform-picker v-model="board.platforms" />
-            </b-modal>
-          </b-col>
-
-          <b-col class="mt-4 mt-lg-0">
-            <b-form-group
-              :label="$t('board.settings.wallpaper')"
-              class="mb-0"
+          <b-form-group
+            label="Board background color"
+            label-for="backgroundColor"
+          >
+            <b-form-input
+              id="backgroundColor"
+              class="color-picker"
+              v-model="backgroundColor"
+              type="color"
             />
 
-            <b-dropdown
-              id="wallpaper"
-              v-if="wallpapers.length"
-              text="Select wallpaper"
-              boundary="viewport"
+            <b-form-text
+              v-if="backgroundColor"
+              id="input-live-help"
             >
-              <b-dropdown-item
-                v-for="file in wallpapers"
-                :key="file.name"
-                @click="setWallpaper(file.fullPath)"
-              >
-                <b-img
-                  thumbnail
-                  :src="file.url"
-                  :alt="file.name"
-                  width="200"
-                  fluid
-                />
-              </b-dropdown-item>
-            </b-dropdown>
+              {{ backgroundColor }}
+            </b-form-text>
+          </b-form-group>
 
-            <b-button
-              v-if="wallpaper"
-              variant="danger"
-              class="mx-2"
-              @click="removeWallpaper"
-            >
-              {{ $t('board.settings.removeWallpaper') }}
-            </b-button>
 
-            <b-alert :show="!wallpapers.length">
-              {{ $t('board.settings.noWallpapers') }}
+          <b-button
+            v-b-modal.editPlatforms
+            :variant="noPlatformsSelected ? 'warning' : 'secondary'"
+          >
+            Platforms {{ noPlatformsSelected ? null : `(${board.platforms.length})` }}
+          </b-button>
 
-              <br />
+          <b-modal
+            id="editPlatforms"
+            :header-bg-variant="nightMode ? 'dark' : null"
+            :header-text-variant="nightMode ? 'white' : null"
+            :body-bg-variant="nightMode ? 'dark' : null"
+            :body-text-variant="nightMode ? 'white' : null"
+            :footer-bg-variant="nightMode ? 'dark' : null"
+            :footer-text-variant="nightMode ? 'white' : null"
+            hide-footer
+          >
+            <template v-slot:modal-header="{ close }">
+              <modal-header
+                title="Board platforms"
+                @close="close"
+              />
+            </template>
 
-              <b-button :to="{ name: 'wallpapers' }" class="mt-3">
-                {{ $t('board.settings.uploadWallpaper') }}
-              </b-button>
+            <b-alert :show="noPlatformsSelected" variant="warning">
+              Please select at least 1 platform
             </b-alert>
 
-            <b-img
-              v-if="wallpaperUrl"
-              thumbnail
-              class="my-3"
-              :src="wallpaperUrl"
-              fluid
-            />
-          </b-col>
-        </b-row>
-      </form>
+            <platform-picker v-model="board.platforms" />
+          </b-modal>
+        </b-col>
 
-      <template v-slot:modal-footer="{ cancel }">
+        <b-col class="mt-4 mt-lg-0">
+          <b-form-group
+            :label="$t('board.settings.wallpaper')"
+            class="mb-0"
+          />
+
+          <b-dropdown
+            id="wallpaper"
+            v-if="wallpapers.length"
+            text="Select wallpaper"
+            boundary="viewport"
+          >
+            <b-dropdown-item
+              v-for="file in wallpapers"
+              :key="file.name"
+              @click="setWallpaper(file.fullPath)"
+            >
+              <b-img
+                thumbnail
+                :src="file.url"
+                :alt="file.name"
+                width="200"
+                fluid
+              />
+            </b-dropdown-item>
+          </b-dropdown>
+
+          <b-button
+            v-if="wallpaper"
+            variant="danger"
+            class="mx-2"
+            @click="removeWallpaper"
+          >
+            {{ $t('board.settings.removeWallpaper') }}
+          </b-button>
+
+          <b-alert :show="!wallpapers.length">
+            {{ $t('board.settings.noWallpapers') }}
+
+            <br />
+
+            <b-button :to="{ name: 'wallpapers' }" class="mt-3">
+              {{ $t('board.settings.uploadWallpaper') }}
+            </b-button>
+          </b-alert>
+
+          <b-img
+            v-if="wallpaperUrl"
+            thumbnail
+            class="my-3"
+            :src="wallpaperUrl"
+            fluid
+          />
+        </b-col>
+      </b-row>
+    </form>
+
+    <template v-slot:modal-footer="{ cancel }">
+      <b-button
+        variant="danger"
+        @click="confirmDelete"
+      >
+        {{ $t('board.settings.deleteBoard') }}
+      </b-button>
+
+      <div>
         <b-button
-          variant="danger"
-          @click="confirmDelete"
+          variant="light"
+          :disabled="saving"
+          class="mx-2"
+          @click="cancel"
         >
-          {{ $t('board.settings.deleteBoard') }}
+          {{ $t('global.cancel') }}
         </b-button>
 
-        <div>
-          <b-button
-            variant="light"
-            :disabled="saving"
-            class="mx-2"
-            @click="cancel"
-          >
-            {{ $t('global.cancel') }}
-          </b-button>
-
-          <b-button
-            variant="primary"
-            :disabled="saving || noPlatformsSelected"
-            @click="saveSettings"
-          >
-            <b-spinner small v-if="saving" />
-            <span v-else>{{ $t('global.save') }}</span>
-          </b-button>
-        </div>
-      </template>
-    </b-modal>
-  </b-dropdown-item>
+        <b-button
+          variant="primary"
+          :disabled="saving || noPlatformsSelected"
+          @click="saveSettings"
+        >
+          <b-spinner small v-if="saving" />
+          <span v-else>{{ $t('global.save') }}</span>
+        </b-button>
+      </div>
+    </template>
+  </b-modal>
 </template>
 
 <script>
@@ -203,6 +203,7 @@ export default {
       saving: false,
       description: null,
       backgroundColor: null,
+      pinned: false,
       name: null,
       platforms: null,
       theme: null,
@@ -259,6 +260,7 @@ export default {
       this.description = board.description;
       this.name = board.name;
       this.platforms = board.platforms;
+      this.pinned = board.pinned || false;
       this.backgroundColor = board.backgroundColor || null;
       this.theme = board.theme || 'default';
       this.wallpaper = board.wallpaper;
@@ -312,16 +314,14 @@ export default {
         description: this.description,
         name: this.name,
         platforms: this.platforms,
+        pinned: this.pinned,
         backgroundColor: this.backgroundColor,
         theme: this.theme,
         wallpaper: this.wallpaper,
       };
 
-      this.$store.commit('SET_BOARD', payload);
-
-      if (board.name !== this.name) {
-        this.$store.commit('UPDATE_BOARD_NAME', payload);
-      }
+      this.$store.commit('SET_ACTIVE_BOARD', payload);
+      this.$store.commit('UPDATE_BOARDS', payload);
 
       await this.$store.dispatch('SAVE_BOARD')
         .catch(() => {

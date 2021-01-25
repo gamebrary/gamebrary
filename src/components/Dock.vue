@@ -15,6 +15,7 @@
       />
     </router-link>
 
+    <pinned-boards v-if="$route.name === 'board'" />
     <board-switcher />
   </nav>
 </template>
@@ -22,10 +23,12 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import BoardSwitcher from '@/components/Board/BoardSwitcher';
+import PinnedBoards from '@/components/Board/PinnedBoards';
 
 export default {
   components: {
     BoardSwitcher,
+    PinnedBoards,
   },
 
   computed: {
