@@ -26,7 +26,7 @@
         </div>
 
         <b-list-group-item
-          v-for="({ games, hex, tagTextColor }, name) in tags"
+          v-for="({ games, hex, tagTextColor }, name) in sortedTags"
           :key="name"
           class="p-2 d-flex align-items-center justify-content-between"
         >
@@ -76,6 +76,12 @@ export default {
 
     empty() {
       return Object.keys(this.tags).length === 0;
+    },
+
+    sortedTags() {
+      return Object.keys(this.tags)
+        .sort()
+        .reduce((res, key) => (res[key] = this.tags[key], res), {});
     },
   },
 
