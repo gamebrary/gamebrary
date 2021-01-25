@@ -158,4 +158,9 @@ export default {
   .pinned-board {
     background-size: cover;
   }
+
+  .board-initials {
+    color: white;
+    text-shadow: 1px 1px black;
+  }
 </style>
