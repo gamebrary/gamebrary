@@ -23,7 +23,7 @@
 
     <dt class="w-100">{{ $t('board.gameModal.releaseDate') }}</dt>
     <dd class="text-wrap">
-      <div v-for="releaseDate in releaseDates">
+      <div v-for="releaseDate in releaseDates" :key="releaseDate">
         {{ releaseDate }}
       </div>
     </dd>
