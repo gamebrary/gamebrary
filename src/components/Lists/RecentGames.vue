@@ -39,12 +39,6 @@
           Edit board
         </b-button>
       </b-alert>
-
-      <template v-slot:modal-footer="{ cancel }">
-        <b-button @click="cancel" variant="light">
-          {{ $t('global.cancel') }}
-        </b-button>
-      </template>
     </b-modal>
 
     <game-card-search

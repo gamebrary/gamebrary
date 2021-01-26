@@ -43,16 +43,10 @@
         </b-alert>
       </form>
 
-      <template v-slot:modal-footer="{ cancel }">
-        <b-button
-          variant="light"
-          @click="cancel"
-        >
-          {{ $t('global.cancel') }}
-        </b-button>
-
+      <template v-slot:modal-footer>
         <b-button
           variant="primary"
+          class="ml-auto"
           :disabled="saving || !dirtied || isDuplicate"
           @click="submit"
         >
