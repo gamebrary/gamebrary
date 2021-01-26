@@ -147,9 +147,7 @@ export default {
     },
 
     getRandomGameId() {
-      // TODO: clean this up
       const { games } = this;
-
       const gameKeys = Object.keys(games);
       const randomNumber = Math.floor(Math.random() * gameKeys.length);
       const randomGame = games[gameKeys[randomNumber]];
@@ -167,20 +165,16 @@ export default {
       const { listIndex, view } = this;
 
       this.saving = true;
-
       this.$store.commit('SET_LIST_VIEW', { listIndex, view });
 
       await this.$store.dispatch('SAVE_BOARD')
         .catch(() => {
           this.saving = false;
-
           this.$bvToast.toast('There was an error saving list view', { variant: 'danger' });
         });
 
       this.saving = false;
-
       this.$bvToast.toast('List view saved');
-
       this.$bvModal.hide(this.modalId);
     },
   },
