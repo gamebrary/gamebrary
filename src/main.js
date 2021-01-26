@@ -32,7 +32,7 @@ Vue.use(VueFire);
 Vue.use(VueI18n);
 Vue.component('modal-header', ModalHeader);
 
-if (process.env.NODE_ENV !== 'development') {
+if (window.location.hostname.includes('gamebrary')) {
   Raven
     .config('https://15928bc58e7b45ac93878da6d8146064@sentry.io/1315568')
     .addPlugin(RavenVue, Vue)
