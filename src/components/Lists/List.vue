@@ -54,6 +54,7 @@
           :key="game"
           :list="list"
           :game-id="game"
+          class="mb-2"
           @click.native="openGame(game, list)"
         />
 

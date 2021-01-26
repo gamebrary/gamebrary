@@ -1,7 +1,7 @@
 <template lang="html">
   <b-card
     no-body
-    class="clickable mb-2"
+    class="clickable"
     :img-src="coverUrl"
     :bg-variant="nightMode ? 'dark' : ''"
     :text-variant="nightMode ? 'white' : ''"

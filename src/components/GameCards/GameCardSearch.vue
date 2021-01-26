@@ -1,7 +1,7 @@
 <template lang="html">
   <b-card
     no-body
-    class="game-card mb-2"
+    class="game-card"
     :bg-variant="nightMode ? 'dark' : ''"
     :text-variant="nightMode ? 'white' : ''"
     @click="addGame"
