@@ -55,7 +55,6 @@ export default {
           this.$bvToast.toast(`There was an error adding "${this.game.name}"`, { title: list.name, variant: 'danger' });
         });
 
-      // TODO: CUSTOMIZE TO SHOW GAME COVER
       this.$bvToast.toast(`${this.game.name} added`, { title: list.name, variant: 'success' });
 
       // this.$ga.event({
