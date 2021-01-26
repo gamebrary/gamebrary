@@ -4,8 +4,8 @@
     <b-list-group-item
       v-for="platform in filteredPlatforms"
       :key="platform.id"
+      :variant="value.includes(platform.id) ? 'success' : ''"
       button
-      :active="value.includes(platform.id)"
       @click="handleClick(platform.id)"
     >
       <b-img
