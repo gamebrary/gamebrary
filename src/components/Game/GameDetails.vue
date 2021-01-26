@@ -21,13 +21,18 @@
     <dt class="w-100">{{ $t('board.gameModal.ageRatings') }}</dt>
     <dd class="text-wrap">{{ ageRatings }}</dd>
 
-    <!-- TODO: add release dates -->
-    <!-- {{ $t('board.gameModal.releaseDate') }} -->
-    <!-- <pre>{{ game.release_dates }}</pre> -->
+    <dt class="w-100">{{ $t('board.gameModal.releaseDate') }}</dt>
+    <dd class="text-wrap">
+      <div v-for="releaseDate in releaseDates">
+        {{ releaseDate }}
+      </div>
+    </dd>
   </dl>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   props: {
     game: Object,
@@ -59,6 +64,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['platformNames']),
+
     genres() {
       return this.game && this.game.genres
         ? this.game.genres.map(({ name }) => name).join(', ')
@@ -103,6 +110,20 @@ export default {
       return this.game && this.game.age_ratings
         ? this.game.age_ratings.map(({ category, rating }) => `${this.ageRating.categories[category]}: ${this.ageRating.values[rating]}`).join(', ')
         : 'N/A';
+    },
+
+    releaseDates() {
+      const hasReleaseDates = this.game && this.game.release_dates;
+
+      if (!hasReleaseDates) {
+        return 'N/A';
+      }
+
+      return this.game.release_dates.map(({ platform, date }) => {
+        const formattedDate = new Date(date).toLocaleDateString('en-US');
+
+        return `${this.platformNames[platform].name}: ${formattedDate}`;
+      });
     },
   },
 };
