@@ -12,8 +12,7 @@
       :header-text-variant="nightMode ? 'white' : null"
       :body-bg-variant="nightMode ? 'dark' : null"
       :body-text-variant="nightMode ? 'white' : null"
-      :footer-bg-variant="nightMode ? 'dark' : null"
-      :footer-text-variant="nightMode ? 'white' : null"
+      hide-footer
       size="sm"
       footer-class="d-flex justify-content-between"
       @show="load"
@@ -22,22 +21,37 @@
         <modal-header
           :title="$t('board.list.view')"
           @close="close"
-        />
+        >
+          <b-button
+            variant="primary"
+            :disabled="saving"
+            class="d-flex ml-auto"
+            @click="save"
+          >
+            <b-spinner small v-if="saving" />
+            <span v-else>{{ $t('global.save') }}</span>
+          </b-button>
+        </modal-header>
       </template>
 
       <form ref="renameListForm" @submit.prevent="save">
-        <h6 class="m-0">
+        <h6
+          :class="!view || view === 'single' ? 'text-success' : ''"
+        >
           {{ $t('board.list.views.single') }}
         </h6>
 
         <game-card-default
           :game-id="randomGameId"
           :list="list"
-          :class="{ 'border-2 border-success': !view || view === 'single'}"
+          :class="{ 'border-2 border-success': !view || view === 'single' }"
           @click.native="view = 'single'"
         />
 
-        <h6 class="m-0">
+        <h6
+          class="mt-4"
+          :class="view === 'grid' ? 'text-success' : ''"
+        >
           {{ $t('board.list.views.grid') }}
         </h6>
 
@@ -61,9 +75,13 @@
           </b-col>
         </b-form-row>
 
-        <h6 class="m-0">
+        <h6
+          class="mt-4"
+          :class="view === 'compact' ? 'text-success' : ''"
+        >
           {{ $t('board.list.views.compact') }}
         </h6>
+
         <game-card-compact
           :game-id="randomGameId"
           :list="list"
@@ -71,9 +89,13 @@
           @click.native="view = 'compact'"
         />
 
-        <h6 class="m-0">
+        <h6
+          class="mt-4"
+          :class="view === 'text' ? 'text-success' : ''"
+        >
           {{ $t('board.list.views.text') }}
         </h6>
+
         <game-card-text
           :game-id="randomGameId"
           :list="list"
@@ -81,24 +103,6 @@
           @click.native="view = 'text'"
         />
       </form>
-
-      <template v-slot:modal-footer="{ cancel }">
-        <b-button
-          variant="light"
-          @click="cancel"
-        >
-          {{ $t('global.cancel') }}
-        </b-button>
-
-        <b-button
-          variant="primary"
-          :disabled="saving"
-          @click="save"
-        >
-          <b-spinner small v-if="saving" />
-          <span v-else>{{ $t('global.save') }}</span>
-        </b-button>
-      </template>
     </b-modal>
   </b-dropdown-item-button>
 </template>
