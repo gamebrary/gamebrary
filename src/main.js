@@ -53,7 +53,7 @@ const vuexStorage = localStorage && localStorage.vuex
   ? JSON.parse(localStorage.vuex)
   : {};
 
-if (vuexStorage && vuexStorage.user && window.FS && window.location.origin.indexOf('localhost') === -1) {
+if (vuexStorage && vuexStorage.user && window.FS && window.location.hostname.includes('gamebrary')) {
   const { displayName, email, dateJoined } = vuexStorage.user;
 
   window.FS.identify(vuexStorage.user.uid, { displayName, email, dateJoined });
