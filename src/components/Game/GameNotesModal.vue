@@ -6,11 +6,9 @@
       id="notes"
       :header-bg-variant="nightMode ? 'dark' : null"
       :header-text-variant="nightMode ? 'white' : null"
-      :footer-bg-variant="nightMode ? 'dark' : null"
-      :footer-text-variant="nightMode ? 'white' : null"
       :body-bg-variant="nightMode ? 'dark' : null"
       :body-text-variant="nightMode ? 'white' : null"
-      footer-class="d-flex justify-content-between"
+      hide-footer
       @show="show"
     >
       <template v-slot:modal-header="{ close }">
@@ -18,7 +16,26 @@
           title="Game notes"
           :subtitle="game.name"
           @close="close"
-        />
+        >
+          <b-button
+            variant="danger"
+            v-if="notes[game.id]"
+            :disabled="deleting"
+            @click="deleteNote"
+          >
+            <b-spinner small v-if="deleting" />
+            <span v-else>{{ $t('global.delete') }}</span>
+          </b-button>
+
+          <b-button
+            variant="primary"
+            :disabled="saving"
+            @click="saveNote"
+          >
+            <b-spinner small v-if="saving" />
+            <span v-else>{{ $t('global.save') }}</span>
+          </b-button>
+        </modal-header>
       </template>
 
       <b-form-textarea
@@ -34,29 +51,6 @@
           Markdown supported
         </a>
       </b-form-text>
-
-      <template v-slot:modal-footer>
-        <b-button
-          variant="danger"
-          v-if="notes[game.id]"
-          :disabled="deleting"
-          @click="deleteNote"
-        >
-          <b-spinner small v-if="deleting" />
-          <span v-else>{{ $t('global.delete') }}</span>
-        </b-button>
-
-        <div :class="!notes[game.id] ? 'ml-auto' : ''">
-          <b-button
-            variant="primary"
-            :disabled="saving"
-            @click="saveNote"
-          >
-            <b-spinner small v-if="saving" />
-            <span v-else>{{ $t('global.save') }}</span>
-          </b-button>
-        </div>
-      </template>
     </b-modal>
   </b-dropdown-item>
 </template>

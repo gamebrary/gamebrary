@@ -12,8 +12,7 @@
       :header-text-variant="nightMode ? 'white' : null"
       :body-bg-variant="nightMode ? 'dark' : null"
       :body-text-variant="nightMode ? 'white' : null"
-      :footer-bg-variant="nightMode ? 'dark' : null"
-      :footer-text-variant="nightMode ? 'white' : null"
+      hide-footer
       size="sm"
       footer-class="d-flex justify-content-between"
       @show="getListName"
@@ -22,7 +21,17 @@
         <modal-header
           :title="$t('board.list.renameList')"
           @close="close"
-        />
+        >
+          <b-button
+            variant="primary"
+            class="ml-auto"
+            :disabled="saving || !dirtied || isDuplicate"
+            @click="submit"
+          >
+            <b-spinner small v-if="saving" />
+            <span v-else>{{ $t('global.save') }}</span>
+          </b-button>
+        </modal-header>
       </template>
 
       <form ref="renameListForm" @submit.stop.prevent="submit">
@@ -42,18 +51,6 @@
           {{ $t('board.list.duplicateWarning') }}
         </b-alert>
       </form>
-
-      <template v-slot:modal-footer>
-        <b-button
-          variant="primary"
-          class="ml-auto"
-          :disabled="saving || !dirtied || isDuplicate"
-          @click="submit"
-        >
-          <b-spinner small v-if="saving" />
-          <span v-else>{{ $t('global.save') }}</span>
-        </b-button>
-      </template>
     </b-modal>
   </b-dropdown-item-button>
 </template>

@@ -13,8 +13,7 @@
       :header-text-variant="nightMode ? 'white' : null"
       :body-bg-variant="nightMode ? 'dark' : null"
       :body-text-variant="nightMode ? 'white' : null"
-      :footer-bg-variant="nightMode ? 'dark' : null"
-      :footer-text-variant="nightMode ? 'white' : null"
+      hide-footer
       size="sm"
       @show="getSettings"
     >
@@ -22,7 +21,16 @@
         <modal-header
           :title="$t('board.list.settings')"
           @close="close"
-        />
+        >
+          <b-button
+            variant="primary"
+            :disabled="saving"
+            @click="save"
+          >
+            <b-spinner small v-if="saving" />
+            <span v-else>Save</span>
+          </b-button>
+        </modal-header>
       </template>
 
       <form ref="renameListForm" @submit.stop.prevent="save">
@@ -88,24 +96,6 @@
           {{ $t('board.list.showGameCount') }}
         </b-form-checkbox>
       </form>
-
-      <template v-slot:modal-footer="{ cancel }">
-        <b-button
-          variant="light"
-          @click="cancel"
-        >
-          Cancel
-        </b-button>
-
-        <b-button
-          variant="primary"
-          :disabled="saving"
-          @click="save"
-        >
-          <b-spinner small v-if="saving" />
-          <span v-else>Save</span>
-        </b-button>
-      </template>
     </b-modal>
   </b-dropdown-item-button>
 </template>

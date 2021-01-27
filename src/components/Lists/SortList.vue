@@ -12,48 +12,53 @@
       :header-text-variant="nightMode ? 'white' : null"
       :body-bg-variant="nightMode ? 'dark' : null"
       :body-text-variant="nightMode ? 'white' : null"
-      :footer-bg-variant="nightMode ? 'dark' : null"
-      :footer-text-variant="nightMode ? 'white' : null"
       size="sm"
-      footer-class="d-flex justify-content-between"
+      hide-footer
       @show="getSortValue"
     >
       <template v-slot:modal-header="{ close }">
         <modal-header
           :title="$t('board.list.sortList')"
+          :subtitle="list.name"
           @close="close"
-        />
+        >
+          <b-button
+            variant="primary"
+            class="ml-auto"
+            :disabled="saving"
+            @click="save"
+          >
+            <b-spinner small v-if="saving" />
+            <span v-else>{{ $t('global.save') }}</span>
+          </b-button>
+        </modal-header>
       </template>
 
       <form ref="renameListForm" @submit.stop.prevent="save">
         <b-form-radio-group
           v-model="sortOrder"
-          buttons
           variant="primary"
           :options="sortingOptions"
         />
 
         <b-alert
-          v-if="sortOrder !== 'sortByCustom'"
+          class="mb-0 mt-2"
           show
-          variant="warning"
-          class="m-0 mt-3"
+          :variant="sortOrder !== 'sortByCustom' ? 'warning' : 'info'"
         >
-          {{ $t('board.list.sortWarning') }}
+          <span v-if="sortOrder === 'sortByCustom'">
+            Games will be added to end of list, drag games to re-order.
+          </span>
+
+          <span v-else>
+            Games will be sorted by
+
+            <span class="text-lowercase">
+              {{ $t(`board.list.${sortOrder}`)}}
+            </span>
+          </span>
         </b-alert>
       </form>
-
-      <template v-slot:modal-footer>
-        <b-button
-          variant="primary"
-          class="ml-auto"
-          :disabled="saving"
-          @click="save"
-        >
-          <b-spinner small v-if="saving" />
-          <span v-else>{{ $t('global.save') }}</span>
-        </b-button>
-      </template>
     </b-modal>
   </b-dropdown-item-button>
 </template>
