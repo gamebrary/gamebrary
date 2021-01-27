@@ -9,7 +9,6 @@
         rounded
         class="mb-1 cursor-pointer pinned-board"
         :title="name"
-        v-b-tooltip.hover.right
         @click.native="viewBoard(id)"
         :style="`
         ${backgroundColor ? `background-color: ${backgroundColor};` : null }
@@ -30,7 +29,6 @@
           <b-avatar
             rounded
             :title="board.name"
-            v-b-tooltip.hover.right
             class="pinned-board"
             :style="`
             ${board.backgroundColor ? ` background-color: ${board.backgroundColor};` : null }
@@ -70,7 +68,6 @@
             rounded
             class="pinned-board"
             :title="board.name"
-            v-b-tooltip.hover.right
             :style="`${board.backgroundColor
               ? `background-color: ${board.backgroundColor};`
               : null };
