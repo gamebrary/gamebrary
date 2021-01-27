@@ -122,10 +122,6 @@ export default {
       const formattedReleaseDates = this.game.release_dates.map(({ platform, date }) => {
         const formattedDate = new Date(date).toLocaleDateString('en-US');
 
-        const platformName = platform && this.platformNames && this.platformNames[platform] && this.platformNames[platform].name
-          ? this.platformNames[platform].name
-          : null;
-
         return `${this.platformNames[platform].name}: ${formattedDate}`;
       });
 
