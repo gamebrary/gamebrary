@@ -38,7 +38,7 @@
             <span class="board-initials text-uppercase mr-1">
               {{ getBoardInitials(board.name) }}
             </span>
-            <i class="fas fa-caret-down" aria-hidden />
+            <i class="fas fa-caret-down board-initials" aria-hidden />
           </b-avatar>
         </template>
 
@@ -77,7 +77,7 @@
             <span class="board-initials text-uppercase mr-1">
               {{ getBoardInitials(board.name) }}
             </span>
-            <i class="fas fa-caret-down" aria-hidden />
+            <i class="fas fa-caret-down board-initials" aria-hidden />
           </b-avatar>
         </template>
 
