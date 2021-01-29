@@ -3,6 +3,7 @@
     <b-button
       v-b-modal="modalId"
       variant="warning"
+      class="mb-3"
       v-if="amazonLinks.length"
     >
       <i class="fab fa-amazon fa-fw" aria-hidden />
