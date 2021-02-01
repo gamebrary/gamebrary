@@ -4,16 +4,17 @@
     class="rounded position-fixed d-flex flex-column p-0 m-2 text-center"
     :class="{ 'bg-dark text-white': nightMode, 'border': !nightMode }"
   >
-    <router-link
-      :to="{ name: 'dashboard' }"
+    <b-button
       title="Dashboard"
-      class="my-2"
+      variant="transparent"
+      class="my-2 p-0"
+      @click="handleLogoClick"
     >
       <img
         :src="`/static/gamebrary-logo${nightMode ? '' : '-dark'}.png`"
         width="32"
       />
-    </router-link>
+    </b-button>
 
     <pinned-boards v-if="$route.name === 'board'" />
 
@@ -30,6 +31,26 @@
       <template v-slot:button-content>
         <i class="fas fa-ellipsis-h fa-fw" aria-hidden />
       </template>
+
+      <b-dropdown-header id="dropdown-header-label">
+        {{ board.name }}
+      </b-dropdown-header>
+
+      <b-dropdown-item v-b-modal:board-settings>Edit board</b-dropdown-item>
+      <b-dropdown-item v-b-modal:add-list>Add list</b-dropdown-item>
+
+      <b-dropdown-item @click="pinBoard">
+        {{ board.pinned ? 'Unpin from dock' : 'Pin to dock' }}
+      </b-dropdown-item>
+
+      <b-dd-divider />
+
+      <b-dropdown-item v-b-modal:create-board>
+        <i class="fas fa-cog fa-fw" aria-hidden />
+        Create board
+      </b-dropdown-item>
+
+      <b-dd-divider />
 
       <b-dropdown-item :to="{ name: 'boards' }">
         <i class="fas fa-columns fa-fw" aria-hidden />
@@ -60,13 +81,6 @@
         <i class="fas fa-cog fa-fw" aria-hidden />
         Settings
       </b-dropdown-item>
-
-      <b-dd-divider />
-
-      <b-dropdown-item v-b-modal:create-board>
-        <i class="fas fa-cog fa-fw" aria-hidden />
-        Create board
-      </b-dropdown-item>
     </b-dropdown>
   </nav>
 </template>
@@ -81,11 +95,37 @@ export default {
   },
 
   computed: {
-    ...mapState(['board', 'notification', 'settings']),
+    ...mapState(['board', 'notification', 'settings', 'user']),
     ...mapGetters(['nightMode']),
 
     isBoard() {
       return ['public-board', 'board'].includes(this.$route.name);
+    },
+  },
+
+  methods: {
+    handleLogoClick() {
+      if (this.user && this.$route.name !== 'boards') {
+        this.$router.push({ name: 'boards' });
+      }
+      // TODO: show login modal / test
+    },
+
+    async pinBoard() {
+      const payload = {
+        ...this.board,
+        pinned: !this.board.pinned,
+      };
+
+      this.$store.commit('SET_ACTIVE_BOARD', payload);
+      this.$store.commit('UPDATE_BOARDS', payload);
+
+      await this.$store.dispatch('SAVE_BOARD')
+        .catch(() => {
+          this.$bvToast.toast('There was an error renaming list', { variant: 'danger' });
+        });
+
+      this.$bvToast.toast('Board settings saved');
     },
   },
 };
