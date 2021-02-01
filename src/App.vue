@@ -4,23 +4,18 @@
     :dir="dir"
   >
     <dock v-if="user" />
+    <global-modals />
 
-    <main
-      :class="{ 'authorizing': !user,
-        'bg-dark text-white': nightMode,
-        }"
-    >
+    <main :class="{ 'authorizing': !user, 'bg-dark text-white': nightMode }">
       <router-view />
     </main>
-    <session-expired v-if="user" />
-    <game-modal />
+    <session-expired-modal v-if="user" />
   </div>
 </template>
 
 <script>
 import Dock from '@/components/Dock';
-import SessionExpired from '@/components/SessionExpired';
-import GameModal from '@/components/Game/GameModal';
+import GlobalModals from '@/components/GlobalModals';
 import firebase from 'firebase/app';
 import { mapState, mapGetters } from 'vuex';
 import 'firebase/firestore';
@@ -42,8 +37,7 @@ export default {
 
   components: {
     Dock,
-    GameModal,
-    SessionExpired,
+    GlobalModals,
   },
 
   data() {
