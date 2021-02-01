@@ -27,7 +27,7 @@
 
           <br />
 
-          <small v-if="showGameCount">
+          <small v-if="showGameCount" class="text-muted">
               {{ list.games.length }} {{ $t('global.games') }}
           </small>
 
