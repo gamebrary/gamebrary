@@ -16,6 +16,7 @@
       :text-variant="nightMode ? 'white' : null"
     >
       <b-card-header
+        v-if="user"
         class="py-0 pr-0 pl-2 d-flex justify-content-between align-items-center"
         :header-bg-variant="showDuplicateWarning ? 'warning' : null"
       >
@@ -35,7 +36,11 @@
           </small>
         </p>
 
-        <list-settings :list="list" :list-index="listIndex" />
+        <list-settings
+          v-if="user"
+          :list="list"
+          :list-index="listIndex"
+        />
       </b-card-header>
 
       <draggable
@@ -129,7 +134,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['games', 'dragging', 'progresses', 'board', 'duplicatedGame']),
+    ...mapState(['games', 'dragging', 'progresses', 'board', 'duplicatedGame', 'user']),
     ...mapGetters(['nightMode']),
 
     autoSortEnabled() {
