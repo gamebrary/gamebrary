@@ -9,6 +9,7 @@ import axios from 'axios';
 import VueAnalytics from 'vue-analytics';
 import Raven from 'raven-js';
 import RavenVue from 'raven-js/plugins/vue';
+import VueObserveVisibility from 'vue-observe-visibility';
 import App from '@/App';
 import messages from '@/i18n/';
 import store from '@/store/';
@@ -25,6 +26,7 @@ Object.defineProperties(Vue.prototype, {
   },
 });
 
+Vue.use(VueObserveVisibility);
 Vue.use(BootstrapVue, bootstrapSettings);
 Vue.use(VueAnalytics, { id: 'UA-120053966-1', router });
 Vue.use(VueAxios, axios);
