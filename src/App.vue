@@ -9,7 +9,6 @@
     <main :class="{ 'authorizing': !user, 'bg-dark text-white': nightMode }">
       <router-view />
     </main>
-    <session-expired-modal v-if="user" />
   </div>
 </template>
 
