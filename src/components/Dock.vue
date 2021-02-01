@@ -16,6 +16,58 @@
     </router-link>
 
     <pinned-boards v-if="$route.name === 'board'" />
+
+    <b-dropdown
+      id="dropdown-1"
+      text="Dropdown Button"
+      dropright
+      right
+      no-caret
+      boundary="viewport"
+      :variant="nightMode ? 'dark' : 'transparent'"
+      :menu-class="nightMode ? 'bg-dark' : ''"
+    >
+      <template v-slot:button-content>
+        <i class="fas fa-ellipsis-h fa-fw" aria-hidden />
+      </template>
+
+      <b-dropdown-item :to="{ name: 'boards' }">
+        <i class="fas fa-columns fa-fw" aria-hidden />
+        Boards
+      </b-dropdown-item>
+
+      <b-dropdown-item :to="{ name: 'tags' }">
+        <i class="fas fa-tags fa-fw" aria-hidden />
+        Tags
+      </b-dropdown-item>
+
+      <b-dropdown-item :to="{ name: 'notes' }">
+        <i class="fas fa-sticky-note fa-fw" aria-hidden />
+        Notes
+      </b-dropdown-item>
+
+      <b-dropdown-item :to="{ name: 'wallpapers' }">
+        <i class="fas fa-images fa-fw" aria-hidden />
+        Wallpapers
+      </b-dropdown-item>
+
+      <b-dropdown-item :to="{ name: 'account' }">
+        <i class="fas fa-user fa-fw" aria-hidden />
+        Account
+      </b-dropdown-item>
+
+      <b-dropdown-item :to="{ name: 'settings' }">
+        <i class="fas fa-cog fa-fw" aria-hidden />
+        Settings
+      </b-dropdown-item>
+
+      <b-dd-divider />
+
+      <b-dropdown-item v-b-modal:create-board>
+        <i class="fas fa-cog fa-fw" aria-hidden />
+        Create board
+      </b-dropdown-item>
+    </b-dropdown>
   </nav>
 </template>
 
