@@ -17,13 +17,23 @@
       title="Boards"
       message="Use boards to easily organize your video game collections"
     >
-      <create-board />
+      <b-button
+        :variant="nightMode ? 'dark' : 'primary'"
+        v-b-modal:create-board
+      >
+        {{ $t('boards.create') }}
+      </b-button>
     </empty-state>
 
     <div v-else class="d-flex w-100 justify-content-between align-items-center mb-3">
       <h3 class="m-0 mr-a">{{ $t('boards.title') }}</h3>
 
-      <create-board />
+      <b-button
+        :variant="nightMode ? 'dark' : 'primary'"
+        v-b-modal:create-board
+      >
+        {{ $t('boards.create') }}
+      </b-button>
     </div>
 
     <div class="boards">
@@ -46,15 +56,12 @@
 </template>
 
 <script>
-import CreateBoard from '@/components/Board/CreateBoard';
 import MiniBoard from '@/components/Board/MiniBoard';
 import EmptyState from '@/components/EmptyState';
-
 import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
-    CreateBoard,
     MiniBoard,
     EmptyState,
   },
