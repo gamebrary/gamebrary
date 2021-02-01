@@ -44,8 +44,9 @@
         />
 
         <b-alert
+          v-if="isDuplicate && listName.length > 0"
           class="mt-3 mb-0"
-          :show="isDuplicate"
+          show
           variant="warning"
         >
           {{ $t('board.list.duplicateWarning') }}
@@ -66,7 +67,7 @@ export default {
 
   data() {
     return {
-      listName: null,
+      listName: '',
       saving: false,
     };
   },
