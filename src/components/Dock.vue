@@ -32,21 +32,23 @@
         <i class="fas fa-ellipsis-h fa-fw" aria-hidden />
       </template>
 
-      <b-dropdown-header id="dropdown-header-label">
-        {{ board.name }}
-      </b-dropdown-header>
+      <template v-if="$route.name === 'board'">
+        <b-dropdown-header id="dropdown-header-label">
+          {{ board.name }}
+        </b-dropdown-header>
 
-      <b-dropdown-item v-b-modal:board-settings>Edit board</b-dropdown-item>
-      <b-dropdown-item v-b-modal:add-list>Add list</b-dropdown-item>
+        <b-dropdown-item v-b-modal:board-settings>Edit board</b-dropdown-item>
+        <b-dropdown-item v-b-modal:add-list>Add list</b-dropdown-item>
 
-      <b-dropdown-item @click="pinBoard">
-        {{ board.pinned ? 'Unpin from dock' : 'Pin to dock' }}
-      </b-dropdown-item>
+        <b-dropdown-item @click="pinBoard">
+          {{ board.pinned ? 'Unpin from dock' : 'Pin to dock' }}
+        </b-dropdown-item>
 
-      <b-dd-divider />
+        <b-dd-divider />
+      </template>
 
       <b-dropdown-item v-b-modal:create-board>
-        <i class="fas fa-cog fa-fw" aria-hidden />
+        <i class="fas fa-plus fa-fw" aria-hidden />
         Create board
       </b-dropdown-item>
 
