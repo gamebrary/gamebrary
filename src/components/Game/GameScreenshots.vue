@@ -29,17 +29,24 @@
     >
       <template v-slot:modal-header="{ close }">
         <modal-header
-          :title="game.name"
+          title="Screenshots"
+          :subtitle="game.name"
           @close="close"
-        />
+        >
+          <b-button @click="previous">
+            <i class="fas fa-angle-left fa-fw" aria-hidden />
+          </b-button>
+
+          <b-button @click="next">
+            <i class="fas fa-angle-right fa-fw" aria-hidden />
+          </b-button>
+        </modal-header>
       </template>
 
       <b-carousel
         ref="screenshots"
-        v-model="activeImage"
-        controls
-        indicators
         fade
+        v-model="activeImage"
       >
         <b-carousel-slide
           v-for="(screenshot, index) in slides"
@@ -55,18 +62,6 @@
           </template>
         </b-carousel-slide>
       </b-carousel>
-
-      <!-- <div class="d-flex overflow-auto mt-2">
-        <b-img
-          v-for="(screenshot, index) in slides"
-          :key="index"
-          :src="screenshot"
-          rounded
-          width="100"
-          :class="['border mr-2', { 'border-primary': activeImage === index }]"
-          @click="setSlide(index)"
-        />
-      </div> -->
     </b-modal>
   </b-form-row>
 </template>
@@ -107,6 +102,14 @@ export default {
   },
 
   methods: {
+    previous() {
+      this.$refs.screenshots.prev();
+    },
+
+    next() {
+      this.$refs.screenshots.next();
+    },
+
     setSlide(index) {
       this.$refs.screenshots.setSlide(index);
     },

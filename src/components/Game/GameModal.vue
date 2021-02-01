@@ -20,24 +20,6 @@
         :subtitle="gameModalData.list ? gameModalData.list.name : null"
         @close="close"
       >
-        <b-button-group v-if="hasMultipleGames">
-          <b-button
-            :variant="nightMode ? 'dark' : 'light'"
-            :disabled="prevDisabled"
-            @click="previousGame"
-          >
-            <i class="fas fa-caret-left fa-fw" aria-hidden />
-          </b-button>
-
-          <b-button
-            :variant="nightMode ? 'dark' : 'light'"
-            :disabled="nextDisabled"
-            @click="nextGame"
-          >
-            <i class="fas fa-caret-right fa-fw" aria-hidden />
-          </b-button>
-        </b-button-group>
-
         <b-dropdown
           right
           no-caret
@@ -55,6 +37,21 @@
 
             <game-tags-modal :game="game" />
           </b-dropdown-item>
+
+          <b-dropdown-item-button
+            v-if="!prevDisabled"
+            @click="previousGame"
+          >
+            <i class="fas fa-caret-left fa-fw" aria-hidden /> Previous game
+
+          </b-dropdown-item-button>
+
+          <b-dropdown-item-button
+            v-if="!nextDisabled"
+            @click="nextGame"
+          >
+            <i class="fas fa-caret-right fa-fw" aria-hidden /> Next game
+          </b-dropdown-item-button>
 
           <add-remove-game v-if="list" :game="game" :list="list" />
         </b-dropdown>
