@@ -7,7 +7,7 @@
       <b-avatar
         v-if="board.name !== name"
         rounded
-        class="mb-1 cursor-pointer pinned-board"
+        class="mb-1 cursor-pointer pinned-board dimmed"
         :title="name"
         @click.native="viewBoard(id)"
         :style="`
@@ -172,5 +172,9 @@ export default {
   .board-initials {
     color: white;
     text-shadow: 1px 1px black;
+  }
+
+  .dimmed {
+    filter: grayscale(100%);
   }
 </style>
