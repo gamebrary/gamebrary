@@ -1,11 +1,12 @@
 <template lang="html">
-  <header :class="{ 'has-action': hasSlot}">
+  <header :class="{ 'has-action': slots.includes('default') }">
     <div>
+      <slot name="header" v-if="slots.includes('header')" />
       <h5 class="mb-0 text-wrap">{{ title }}</h5>
       <small class="d-block text-muted">{{ subtitle }}</small>
     </div>
 
-    <div class="actions" v-if="hasSlot">
+    <div class="actions" v-if="slots.includes('default')">
       <slot />
     </div>
 
@@ -31,8 +32,8 @@ export default {
   computed: {
     ...mapGetters(['nightMode']),
 
-    hasSlot() {
-      return Object.keys(this.$slots).length > 0;
+    slots() {
+      return Object.keys(this.$slots);
     },
   },
 };
