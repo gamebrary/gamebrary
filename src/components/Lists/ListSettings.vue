@@ -12,6 +12,12 @@
     </template>
 
     <add-game-modal :list="list" />
+
+    <b-dropdown-item v-b-modal:add-list>
+      <i class="fas fa-folder-plus"></i>
+      Add list
+    </b-dropdown-item>
+
     <sort-list :list="list" :list-index="listIndex" />
     <rename-list :list="list" :list-index="listIndex" />
     <change-list-view :list="list" :list-index="listIndex" />
