@@ -63,7 +63,7 @@
         <h6>
           {{ wallpaper.name }}
 
-          <b-badge v-if="wallpaper.metadata">
+          <b-badge v-if="wallpaper.metadata && wallpaper.metadata.size">
             {{ bytesToSize(wallpaper.metadata.size) }}
           </b-badge>
         </h6>
@@ -136,7 +136,7 @@ export default {
     },
 
     spaceUsed() {
-      return this.wallpapers.reduce((total, file) => total + file.metadata.size, 0);
+      return this.wallpapers.reduce((total, file) => total + file.metadata.size || 0, 0);
     },
 
     outOfSpace() {
