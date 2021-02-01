@@ -26,6 +26,10 @@
       id="screenshots"
       size="xl"
       hide-footer
+      :header-bg-variant="nightMode ? 'dark' : null"
+      :header-text-variant="nightMode ? 'white' : null"
+      :body-bg-variant="nightMode ? 'dark' : null"
+      :body-text-variant="nightMode ? 'white' : null"
     >
       <template v-slot:modal-header="{ close }">
         <modal-header
@@ -67,6 +71,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   props: {
     game: Object,
@@ -80,6 +86,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['nightMode']),
+
     thumbnails() {
       // eslint-disable-next-line
       return this.trimmedScreenshots.map(({ image_id }) => `https://images.igdb.com/igdb/image/upload/t_thumb/${image_id}.jpg`)
