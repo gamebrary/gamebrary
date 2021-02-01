@@ -41,9 +41,11 @@
       </b-alert>
     </b-modal>
 
-    <game-card-search
+    <game-card-recent
       v-for="{ id } in recentGames"
       :key="id"
+      v-if="!list.games.includes(id)"
+      class="mb-2"
       :game-id="id"
       :list="list"
     />
@@ -51,13 +53,14 @@
 </template>
 
 <script>
-import GameCardSearch from '@/components/GameCards/GameCardSearch';
+// TODO: use array filter OR filter results using endpoint
+import GameCardRecent from '@/components/GameCards/GameCardRecent';
 import PlatformToggleField from '@/components/PlatformToggleField';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
-    GameCardSearch,
+    GameCardRecent,
     PlatformToggleField,
   },
 
@@ -76,26 +79,8 @@ export default {
   },
 
   computed: {
-    ...mapState(['results', 'board']),
+    ...mapState(['board']),
     ...mapGetters(['nightMode']),
-
-    noResults() {
-      return !this.loading
-        && this.filteredResults.length === 0
-        && this.searchText.trim().length > 0;
-    },
-
-    filteredResults() {
-      return this.results
-        ? this.results.filter(({ id }) => !this.list.games.includes(id))
-        : [];
-    },
-
-    gamesInList() {
-      return this.results
-        ? this.results.filter(({ id }) => this.list.games.includes(id))
-        : [];
-    },
   },
 
   mounted() {
