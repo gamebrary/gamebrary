@@ -6,9 +6,7 @@
     :header-text-variant="nightMode ? 'white' : null"
     :body-bg-variant="nightMode ? 'dark' : null"
     :body-text-variant="nightMode ? 'white' : null"
-    :footer-bg-variant="nightMode ? 'dark' : null"
-    :footer-text-variant="nightMode ? 'white' : null"
-    footer-class="d-flex justify-content-between"
+    hide-footer
     @show="init"
     @hide="hide"
   >
@@ -16,7 +14,16 @@
       <modal-header
         title="Edit board"
         @close="close"
-      />
+      >
+        <b-button
+          variant="primary"
+          :disabled="saving || noPlatformsSelected"
+          @click="saveSettings"
+        >
+          <b-spinner small v-if="saving" />
+          <span v-else>{{ $t('global.save') }}</span>
+        </b-button>
+      </modal-header>
     </template>
 
     <form ref="boardSettingsForm" @submit.stop.prevent="submit">
@@ -156,36 +163,17 @@
           />
         </b-col>
       </b-row>
-    </form>
 
-    <template v-slot:modal-footer="{ cancel }">
+      <hr class="my-3">
+
       <b-button
-        variant="danger"
+        variant="link"
+        class="text-danger px-0"
         @click="confirmDelete"
       >
         {{ $t('board.settings.deleteBoard') }}
       </b-button>
-
-      <div>
-        <b-button
-          variant="light"
-          :disabled="saving"
-          class="mx-2"
-          @click="cancel"
-        >
-          {{ $t('global.cancel') }}
-        </b-button>
-
-        <b-button
-          variant="primary"
-          :disabled="saving || noPlatformsSelected"
-          @click="saveSettings"
-        >
-          <b-spinner small v-if="saving" />
-          <span v-else>{{ $t('global.save') }}</span>
-        </b-button>
-      </div>
-    </template>
+    </form>
   </b-modal>
 </template>
 

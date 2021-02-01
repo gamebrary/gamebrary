@@ -6,9 +6,7 @@
     :header-text-variant="nightMode ? 'white' : null"
     :body-bg-variant="nightMode ? 'dark' : null"
     :body-text-variant="nightMode ? 'white' : null"
-    :footer-bg-variant="nightMode ? 'dark' : null"
-    :footer-text-variant="nightMode ? 'white' : null"
-    footer-class="d-flex justify-content-between"
+    hide-footer
     @show="reset"
   >
     <template v-slot:modal-header="{ close }">
@@ -16,16 +14,39 @@
         :title="$t('board.addList.title')"
         :subtitle="board.name"
         @close="close"
-      />
+      >
+        <b-button
+          :disabled="saving || isDuplicate || !listName"
+          @click="saveAndAddGame"
+        >
+          <b-spinner small v-if="saving" />
+          <span v-else>Save and add games</span>
+        </b-button>
+
+        <b-button
+          :disabled="saving || isDuplicate || !listName"
+          variant="primary"
+          @click="submit"
+        >
+          <b-spinner small v-if="saving" />
+          <span v-else>{{ $t('global.save') }}</span>
+        </b-button>
+      </modal-header>
     </template>
 
     <form ref="addListForm" @submit.stop.prevent="submit">
-      <b-form-input
-        autofocus
-        v-model="listName"
-        :placeholder="$t('board.addList.placeholder')"
-        required
-      />
+      <b-form-group
+        label="List name:"
+        label-for="listName"
+      >
+        <b-form-input
+          id="listName"
+          autofocus
+          v-model="listName"
+          :placeholder="$t('board.addList.placeholder')"
+          required
+        />
+      </b-form-group>
 
       <b-alert
         class="mt-3 mb-0"
@@ -35,27 +56,6 @@
         {{ $t('board.list.duplicateWarning') }}
       </b-alert>
     </form>
-
-    <template v-slot:modal-footer>
-      <div class="ml-auto">
-        <b-button
-          :disabled="saving || isDuplicate"
-          @click="submit"
-        >
-          <b-spinner small v-if="saving" />
-          <span v-else>{{ $t('global.save') }}</span>
-        </b-button>
-
-        <b-button
-          variant="primary"
-          :disabled="saving || isDuplicate"
-          @click="saveAndAddGame"
-        >
-          <b-spinner small v-if="saving" />
-          <span v-else>Save and add games</span>
-        </b-button>
-      </div>
-    </template>
   </b-modal>
 </template>
 

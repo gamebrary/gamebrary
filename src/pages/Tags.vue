@@ -76,15 +76,22 @@
             :header-text-variant="nightMode ? 'white' : null"
             :body-bg-variant="nightMode ? 'dark' : null"
             :body-text-variant="nightMode ? 'white' : null"
-            :footer-bg-variant="nightMode ? 'dark' : null"
-            :footer-text-variant="nightMode ? 'white' : null"
-            footer-class="d-flex justify-content-between"
+            hide-footer
           >
             <template v-slot:modal-header="{ close }">
               <modal-header
                 :title="$t('tags.edit.title')"
                 @close="close"
-              />
+              >
+                <b-button
+                  variant="primary"
+                  :disabled="isEditedNameDuplicate || !Boolean(editingTagName) || saving"
+                  @click="saveTag"
+                >
+                  <b-spinner small v-if="saving" />
+                  <span v-else>Save</span>
+                </b-button>
+              </modal-header>
             </template>
 
             <form
@@ -129,24 +136,6 @@
                 </b-badge>
               </template>
             </form>
-
-            <template v-slot:modal-footer="{ cancel }">
-              <b-button
-                variant="light"
-                @click="cancel"
-              >
-                Cancel
-              </b-button>
-
-              <b-button
-                variant="primary"
-                :disabled="isEditedNameDuplicate || !Boolean(editingTagName) || saving"
-                @click="saveTag"
-              >
-                <b-spinner small v-if="saving" />
-                <span v-else>Save</span>
-              </b-button>
-            </template>
 
             <b-alert
               class="mt-3 mb-0"

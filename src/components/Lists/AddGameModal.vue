@@ -12,26 +12,22 @@
       :header-text-variant="nightMode ? 'white' : null"
       :body-bg-variant="nightMode ? 'dark' : null"
       :body-text-variant="nightMode ? 'white' : null"
-      :footer-bg-variant="nightMode ? 'dark' : null"
-      :footer-text-variant="nightMode ? 'white' : null"
-      footer-class="justify-content-center"
+      hide-footer
     >
       <template v-slot:modal-header="{ close }">
         <modal-header
           title="Add games"
           :subtitle="`${board.name} > ${list.name}`"
           @close="close"
-        />
+        >
+          <igdb-logo class="mt-2" />
+        </modal-header>
       </template>
 
       <b-tabs content-class="pt-2">
         <search-games :list="list" />
         <recent-games :list="list" />
       </b-tabs>
-
-      <template v-slot:modal-footer>
-        <igdb-logo />
-      </template>
     </b-modal>
   </b-dropdown-item-button>
 </template>
