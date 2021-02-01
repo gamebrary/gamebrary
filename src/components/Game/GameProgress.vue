@@ -8,10 +8,9 @@
       id="progress"
       :header-bg-variant="nightMode ? 'dark' : null"
       :header-text-variant="nightMode ? 'white' : null"
-      :footer-bg-variant="nightMode ? 'dark' : null"
-      :footer-text-variant="nightMode ? 'white' : null"
       :body-bg-variant="nightMode ? 'dark' : null"
       :body-text-variant="nightMode ? 'white' : null"
+      hide-footer
       footer-class="d-flex justify-content-between pt-0"
       @show="show"
     >
@@ -20,7 +19,35 @@
           :title="$t('progresses.modalTitle')"
           :subtitle="game.name"
           @close="close"
-        />
+        >
+          <b-button
+            variant="danger"
+            :disabled="deleting"
+            @click="deleteProgress"
+          >
+            <b-spinner small v-if="deleting" />
+            <span v-else>
+              <i class="fas fa-trash fa-fw" aria-hidden />
+            </span>
+          </b-button>
+
+          <b-button
+            v-if="!saving"
+            variant="success"
+            @click="markAsCompleted"
+          >
+            Completed
+          </b-button>
+
+          <b-button
+            variant="primary"
+            :disabled="saving"
+            @click="saveProgress"
+          >
+            <b-spinner small v-if="saving" />
+            <span v-else>{{ $t('global.save') }}</span>
+          </b-button>
+        </modal-header>
       </template>
 
       <b-input-group :prepend="`${localProgress}%`" size="lg">
@@ -32,36 +59,6 @@
           step="1"
         />
       </b-input-group>
-
-      <template v-slot:modal-footer>
-        <b-button
-          variant="danger"
-          :disabled="deleting"
-          @click="deleteProgress"
-        >
-          <b-spinner small v-if="deleting" />
-          <span v-else>Remove progress</span>
-        </b-button>
-
-        <div>
-          <b-button
-            v-if="!saving"
-            variant="success"
-            @click="markAsCompleted"
-          >
-            Mark as completed
-          </b-button>
-
-          <b-button
-            variant="primary"
-            :disabled="saving"
-            @click="saveProgress"
-          >
-            <b-spinner small v-if="saving" />
-            <span v-else>{{ $t('global.save') }}</span>
-          </b-button>
-        </div>
-      </template>
     </b-modal>
   </b-dropdown-item>
 </template>
