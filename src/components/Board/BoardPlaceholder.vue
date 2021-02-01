@@ -36,6 +36,17 @@
             </b-card-body>
           </b-card>
 
+          <div
+            v-else-if="list.settings.view === 'covers'"
+            class="covers-grid"
+          >
+            <b-skeleton-img
+              v-for="n in 3"
+              :key="n"
+              height="120px"
+            />
+          </div>
+
           <b-card
             v-else-if="!list.settings.view || list.settings.view === 'single'"
             no-body
@@ -157,5 +168,11 @@ export default {
       grid-template-columns: 1fr 1fr;
       grid-gap: .25rem;
     }
+  }
+
+  .covers-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: .5rem;
   }
 </style>
