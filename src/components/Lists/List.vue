@@ -76,6 +76,7 @@
 import draggable from 'vuedraggable';
 import ListSettings from '@/components/Lists/ListSettings';
 import GameCardDefault from '@/components/GameCards/GameCardDefault';
+import GameCardCovers from '@/components/GameCards/GameCardCovers';
 import GameCardGrid from '@/components/GameCards/GameCardGrid';
 import GameCardCompact from '@/components/GameCards/GameCardCompact';
 import GameCardText from '@/components/GameCards/GameCardText';
@@ -86,6 +87,7 @@ import { mapState, mapGetters } from 'vuex';
 export default {
   components: {
     GameCardDefault,
+    GameCardCovers,
     GameCardGrid,
     GameCardCompact,
     GameCardText,
@@ -118,6 +120,7 @@ export default {
       },
       gameCardComponents: {
         single: 'GameCardDefault',
+        covers: 'GameCardCovers',
         grid: 'GameCardGrid',
         compact: 'GameCardCompact',
         text: 'GameCardText',
@@ -280,6 +283,19 @@ export default {
         margin-top: -1px;
         width: 100%;
         grid-column: span 2;
+      }
+    }
+  }
+
+  &.covers {
+    .games {
+      display: grid;
+      padding: .5rem .5rem 0;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-column-gap: .5rem;
+
+      img {
+        width: 100%;
       }
     }
   }

@@ -146,7 +146,8 @@
                 "single": "Default",
                 "compact": "Compact",
                 "text": "Text only",
-                "grid": "Grid"
+                "grid": "Grid",
+                "covers": "Covers"
             },
             "deleteWarning": {
                 "title": "Are you sure you want to delete this list?",

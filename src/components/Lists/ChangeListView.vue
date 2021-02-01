@@ -50,6 +50,36 @@
 
         <h6
           class="mt-4"
+          :class="view === 'covers' ? 'text-success' : ''"
+        >
+          {{ $t('board.list.views.covers') }}
+        </h6>
+
+        <div class="covers">
+          <game-card-covers
+            :game-id="randomGameId"
+            :list="list"
+            :class="['w-100 border', { 'border-success': view === 'covers' }]"
+            @click.native="view = 'covers'"
+          />
+
+          <game-card-covers
+            :game-id="randomGameId2"
+            :list="list"
+            :class="['w-100 border', { 'border-success': view === 'covers' }]"
+            @click.native="view = 'covers'"
+          />
+
+          <game-card-covers
+            :game-id="randomGameId3"
+            :list="list"
+            :class="['w-100 border', { 'border-success': view === 'covers' }]"
+            @click.native="view = 'covers'"
+          />
+        </div>
+
+        <h6
+          class="mt-4"
           :class="view === 'grid' ? 'text-success' : ''"
         >
           {{ $t('board.list.views.grid') }}
@@ -67,7 +97,7 @@
 
           <b-col>
             <game-card-grid
-              :game-id="randomGameId"
+              :game-id="randomGameId2"
               :list="list"
               :class="{ 'rounded border border-success': view === 'grid'}"
               @click.native="view = 'grid'"
@@ -110,6 +140,7 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import GameCardDefault from '@/components/GameCards/GameCardDefault';
+import GameCardCovers from '@/components/GameCards/GameCardCovers';
 import GameCardGrid from '@/components/GameCards/GameCardGrid';
 import GameCardCompact from '@/components/GameCards/GameCardCompact';
 import GameCardText from '@/components/GameCards/GameCardText';
@@ -117,6 +148,7 @@ import GameCardText from '@/components/GameCards/GameCardText';
 export default {
   components: {
     GameCardDefault,
+    GameCardCovers,
     GameCardGrid,
     GameCardCompact,
     GameCardText,
@@ -132,6 +164,8 @@ export default {
       view: null,
       saving: false,
       randomGameId: null,
+      randomGameId2: null,
+      randomGameId3: null,
     };
   },
 
@@ -146,7 +180,9 @@ export default {
 
   methods: {
     load() {
-      this.getRandomGameId();
+      this.randomGameId = this.getRandomGameId();
+      this.randomGameId2 = this.getRandomGameId();
+      this.randomGameId3 = this.getRandomGameId();
       this.getView();
     },
 
@@ -156,7 +192,7 @@ export default {
       const randomNumber = Math.floor(Math.random() * gameKeys.length);
       const randomGame = games[gameKeys[randomNumber]];
 
-      this.randomGameId = randomGame.id;
+      return randomGame.id;
     },
 
     getView() {
@@ -184,3 +220,12 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+.covers {
+  display: grid;
+  padding: .5rem .5rem 0;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: .5rem;
+}
+</style>
