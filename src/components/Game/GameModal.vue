@@ -20,7 +20,18 @@
         :subtitle="gameModalData.list ? gameModalData.list.name : null"
         @close="close"
       >
+        <template v-slot:header>
+          <b-img
+            :src="coverUrl"
+            :alt="game.name"
+            v-if="!coverVisible"
+            class="mini-cover mr-2"
+            rounded
+          />
+        </template>
+
         <b-dropdown
+          v-if="user"
           right
           no-caret
           :variant="nightMode ? 'dark' : 'light'"
@@ -81,6 +92,7 @@
               :src="coverUrl"
               :alt="game.name"
               class="game-cover"
+              v-observe-visibility="toggleCoverVisible"
               rounded
             />
 
@@ -206,6 +218,7 @@ export default {
   data() {
     return {
       gameId: null,
+      coverVisible: true,
       game: {},
       loading: true,
     };
@@ -213,7 +226,7 @@ export default {
 
   computed: {
     // TODO: rename gameModalData
-    ...mapState(['gameModalData', 'games', 'platform', 'progresses', 'tags']),
+    ...mapState(['gameModalData', 'games', 'platform', 'progresses', 'tags', 'user']),
     ...mapGetters(['nightMode']),
 
     hasMultipleGames() {
@@ -262,6 +275,10 @@ export default {
   },
 
   methods: {
+    toggleCoverVisible(value) {
+      this.coverVisible = value;
+    },
+
     previousGame() {
       // TODO: account for list sorting when getting previous game
       this.loading = true;
@@ -358,13 +375,11 @@ export default {
   .game-cover {
     width: 100%;
     height: auto;
+  }
 
-    // @media(max-width: 780px) {
-    //   max-height: 40vh;
-    //   width: auto;
-    //   display: block;
-    //   margin: 0 auto;
-    // }
+  .mini-cover {
+    height: 40px;
+    float: left;
   }
 
   .sidebar {
