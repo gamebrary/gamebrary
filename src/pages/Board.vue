@@ -5,7 +5,7 @@
   >
     <board-placeholder v-if="loading" />
 
-    <template v-else>
+    <template v-else-if="showBoard">
       <list
         v-for="(list, listIndex) in board.lists"
         :list="list"
@@ -18,6 +18,14 @@
       <add-list-modal />
       <board-settings />
     </template>
+
+    <b-alert
+      v-else
+      variant="warning"
+      show
+    >
+      <span>Private Board</span>
+    </b-alert>
   </div>
 </template>
 
@@ -53,6 +61,13 @@ export default {
     ...mapState(['user', 'dragging', 'board', 'wallpapers']),
     ...mapGetters(['nightMode']),
 
+    showBoard() {
+      const { isPublicRoute, board } = this;
+      const isPublicBoard = isPublicRoute && board.isPublic;
+
+      return this.user || isPublicBoard;
+    },
+
     boardStyles() {
       if (this.wallpaperUrl) {
         return `background-image: url('${this.wallpaperUrl}');`;
@@ -73,7 +88,7 @@ export default {
       return this.board && this.board.lists && this.board.lists.length === 0;
     },
 
-    isPublicBoard() {
+    isPublicRoute() {
       // TODO: use optional chaining
       return this.$route.meta && this.$route.meta.public;
     },
@@ -98,11 +113,13 @@ export default {
   },
 
   async mounted() {
-    if (this.isPublicBoard) {
+    if (this.isPublicRoute) {
       await this.loadPublicBoard(this.boardId);
 
-      this.loadBoardGames();
-      this.setWallpaper();
+      if (this.showBoard) {
+        this.loadBoardGames();
+        this.setWallpaper();
+      }
     } else {
       this.load();
     }
