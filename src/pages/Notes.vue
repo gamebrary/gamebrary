@@ -18,42 +18,39 @@
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h3 class="m-0">{{ $t('notes.title') }}</h3>
 
-        <b-button
+        <!-- <b-button
           variant="primary"
           disabled
         >
           Add note
-        </b-button>
+        </b-button> -->
       </div>
 
-      <b-card
-        v-for="(note, gameId) in notes"
-        :key="gameId"
-        class="mb-3 w-100 note"
-        :bg-variant="nightMode ? 'dark' : null"
-        :text-variant="nightMode ? 'white' : null"
-        body-class="p-2"
-        @click="openGame(gameId)"
-      >
-        <div class="d-flex">
-          <b-img
-            :src="getCoverUrl(gameId)"
-            :alt="games[gameId].name"
-            class="rounded"
-            width="70"
-          />
+      <div class="notes">
+        <div
+          v-for="(note, gameId) in notes"
+          class="note mb-2 p-2 rounded border d-inline-block w-100"
+          :key="gameId"
+        >
+          <div class="d-flex align-items-center mb-2">
+            <b-img
+              @click="openGame(gameId)"
+              :src="getCoverUrl(gameId)"
+              :alt="games[gameId].name"
+              class="rounded"
+              height="60"
+            />
 
-          <div class="ml-2">
-            <h5 v-if="games[gameId]">
+            <small v-if="games[gameId]" class="ml-2">
               {{ games[gameId] && games[gameId].name ? games[gameId].name : '' }}
-            </h5>
-
-            <b-alert show variant="warning" class="m-0">
-              <vue-markdown :source="note" />
-            </b-alert>
+            </small>
           </div>
+
+          <b-alert show variant="warning" class="m-0">
+            <vue-markdown :source="note" />
+          </b-alert>
         </div>
-      </b-card>
+      </div>
     </template>
 
     <!-- TODO: finish search, include game title? -->
@@ -137,11 +134,18 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-.note {
-  img {
-    align-self: baseline;
-  }
+
+.notes {
+  column-count: 4;
+  column-gap: .5rem;
 }
+
+// .note {
+//   // background-color: #eee;
+//   display: inline-block;
+//   width: 100%;
+// }
+
 </style>
 
 <style lang="scss" rel="stylesheet/scss">
