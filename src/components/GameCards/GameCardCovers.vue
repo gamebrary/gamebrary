@@ -1,6 +1,6 @@
 <template lang="html">
   <b-img
-    class="clickable rounded align-self-end border"
+    class="clickable rounded align-self-end"
     :src="coverUrl"
   />
 </template>
