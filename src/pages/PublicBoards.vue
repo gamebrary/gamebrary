@@ -1,5 +1,7 @@
 <template lang="html">
-  <div>
+  <b-container>
+    <h2 class="my-2">Boards</h2>
+
     <div class="boards">
       <b-card
         v-for="board in publicBoards"
@@ -14,9 +16,13 @@
           :board="board"
           :background-image="getWallpaper(board)"
         />
+
+        <div class="px-2">
+          {{ board.name }} by {{ board.owner }}
+        </div>
       </b-card>
     </div>
-  </div>
+  </b-container>
 </template>
 
 <script>

@@ -84,6 +84,7 @@ export default new Router({
       component: PublicBoards,
       meta: {
         title: 'PublicBoards',
+        public: true,
       },
     },
     {
