@@ -13,12 +13,15 @@
       <h5 class="mt-2">{{ user.displayName }}</h5>
     </div>
 
-
-    <b-tabs content-class="mt-3" align="center" small>
+    <b-tabs
+      content-class="mt-3"
+      align="center"
+      small
+      pills
+    >
       <b-tab
         v-for="{ name, title, icon } in tabs"
         :key="name"
-        small
         :active="$route.name === name"
         @click="handleClick(name)"
       >
