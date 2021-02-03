@@ -147,7 +147,11 @@ export default {
   methods: {
     handleLogoClick() {
       if (!this.user) {
-        this.$bvModal.show('authModal');
+        if (this.$route.name === 'public-boards') {
+          this.$bvModal.show('authModal');
+        } else {
+          this.$router.push({ name: 'public-boards' });
+        }
       }
 
       if (this.user && this.$route.name !== 'boards') {
