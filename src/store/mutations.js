@@ -31,7 +31,6 @@ export default {
   },
 
   SET_PUBLIC_BOARDS(state, publicBoards) {
-    console.log(publicBoards);
     state.publicBoards = publicBoards;
   },
 
