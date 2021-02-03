@@ -3,7 +3,7 @@
     id="app"
     :dir="dir"
   >
-    <dock v-if="user" />
+    <dock />
     <global-modals />
 
     <main :class="{ 'authorizing': !user, 'bg-dark text-white': nightMode }">
