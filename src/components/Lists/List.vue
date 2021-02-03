@@ -266,8 +266,8 @@ export default {
   width: calc(300px + 1rem);
 
   &.unique {
-    @media(max-width: 480px) {
-      width: calc(100vw - 144px);
+    @media(max-width: 400px) {
+      width: calc(100vw - calc(58px + .5rem));
     }
   }
 
