@@ -3,6 +3,7 @@
     <session-expired-modal v-if="user" />
     <create-board-modal />
     <game-modal />
+    <auth-modal />
   </div>
 </template>
 
@@ -12,10 +13,12 @@ import { mapState } from 'vuex';
 import SessionExpiredModal from '@/components/SessionExpiredModal';
 import GameModal from '@/components/Game/GameModal';
 import CreateBoardModal from '@/components/Board/CreateBoardModal';
+import AuthModal from '@/components/AuthModal';
 
 export default {
   components: {
     SessionExpiredModal,
+    AuthModal,
     CreateBoardModal,
     GameModal,
   },
