@@ -15,13 +15,6 @@
         @close="close"
       >
         <b-button
-          v-b-modal.editPlatforms
-          :variant="noPlatformsSelected ? 'warning' : 'secondary'"
-        >
-          Platforms {{ noPlatformsSelected ? null : `(${board.platforms.length})` }}
-        </b-button>
-
-        <b-button
           variant="primary"
           :disabled="saving || noPlatformsSelected"
           @click="saveSettings"
@@ -56,6 +49,14 @@
         />
       </b-form-group>
 
+      <b-button
+        v-b-modal.editPlatforms
+        class="mb-3"
+        :variant="noPlatformsSelected ? 'warning' : 'info'"
+      >
+        Edit platforms {{ noPlatformsSelected ? null : `(${board.platforms.length})` }}
+      </b-button>
+
       <b-form-checkbox v-model="pinned" switch>
         Pinned to dock
       </b-form-checkbox>
@@ -69,25 +70,6 @@
         <br>
         <small>{{ `https://app.gamebrary.com/#/b/${board.id}` }}</small>
       </b-alert>
-
-      <b-form-group
-        label="Board background color"
-        label-for="backgroundColor"
-      >
-        <b-form-input
-          id="backgroundColor"
-          class="color-picker"
-          v-model="backgroundColor"
-          type="color"
-        />
-
-        <b-form-text
-          v-if="backgroundColor"
-          id="input-live-help"
-        >
-          {{ backgroundColor }}
-        </b-form-text>
-      </b-form-group>
 
       <b-modal
         id="editPlatforms"
@@ -114,7 +96,28 @@
       </b-modal>
 
       <b-form-group
-        :label="$t('board.settings.wallpaper')"
+        label="Board background color"
+        class="mb-0"
+      />
+
+      <b-input-group class="w-50 mb-3">
+        <b-input-group-prepend>
+          <b-form-input v-model="backgroundColor" />
+        </b-input-group-prepend>
+
+        <b-input-group-append>
+          <b-form-input
+            style="width: 40px;"
+            id="backgroundColor"
+            class="color-picker"
+            v-model="backgroundColor"
+            type="color"
+          />
+        </b-input-group-append>
+      </b-input-group>
+
+      <b-form-group
+        label="Board background image"
         class="mb-0"
       />
 
@@ -145,7 +148,7 @@
         class="mx-2"
         @click="removeWallpaper"
       >
-        {{ $t('board.settings.removeWallpaper') }}
+        <i class="fas fa-trash fa-fw" aria-hidden />
       </b-button>
 
       <b-alert :show="!wallpapers.length">
