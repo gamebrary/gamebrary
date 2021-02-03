@@ -1,8 +1,8 @@
 <!-- TODO: only make transparent when x-scrolled -->
 <template lang="html">
   <nav
-    class="rounded position-fixed d-flex flex-column p-0 m-2 text-center"
-    :class="{ 'bg-dark text-white': nightMode }"
+    class="rounded position-fixed d-flex flex-column p-0 m-2 text-center border"
+    :class="{ 'bg-dark text-white border-dark': nightMode }"
   >
     <b-button
       title="Dashboard"
