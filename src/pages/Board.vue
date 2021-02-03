@@ -70,7 +70,7 @@ export default {
 
     boardStyles() {
       if (!this.showBoard) {
-        return;
+        return '';
       }
 
       if (this.wallpaperUrl) {
