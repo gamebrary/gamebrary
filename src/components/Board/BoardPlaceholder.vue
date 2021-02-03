@@ -149,7 +149,7 @@ export default {
     overflow: hidden;
     position: relative;
     width: 300px;
-    margin-right: 1rem;
+    margin-right: .5rem;
     max-height: calc(100vh - 81px);
   }
 
