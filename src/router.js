@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Board from '@/pages/Board';
 import About from '@/pages/About';
 import Wallpapers from '@/pages/Wallpapers';
+import PublicBoards from '@/pages/PublicBoards';
 import Tags from '@/pages/Tags';
 import Notes from '@/pages/Notes';
 import Account from '@/pages/Account';
@@ -76,6 +77,14 @@ export default new Router({
           },
         },
       ],
+    },
+    {
+      name: 'public-boards',
+      path: '/public-boards',
+      component: PublicBoards,
+      meta: {
+        title: 'PublicBoards',
+      },
     },
     {
       name: 'upgrade',

@@ -90,6 +90,25 @@ export default {
     });
   },
 
+  LOAD_PUBIC_BOARDS({ commit }) {
+    // TODO: paginate
+    return new Promise((resolve, reject) => {
+      const db = firebase.firestore();
+
+      db.collection('boards')
+        .where('isPublic', '==', true)
+        .get()
+        .then((querySnapshot) => {
+          const boards = querySnapshot.docs.map(doc => doc.data());
+
+          commit('SET_PUBLIC_BOARDS', boards);
+
+          return resolve(boards);
+        })
+        .catch(reject);
+    });
+  },
+
   CREATE_BOARD({ state, commit }, board) {
     return new Promise((resolve, reject) => {
       const db = firebase.firestore();

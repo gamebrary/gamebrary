@@ -30,6 +30,11 @@ export default {
     state.board = board;
   },
 
+  SET_PUBLIC_BOARDS(state, publicBoards) {
+    console.log(publicBoards);
+    state.publicBoards = publicBoards;
+  },
+
   UPDATE_BOARDS(state, updatedBoard) {
     const boardIndex = state.boards.findIndex(({ id }) => updatedBoard.id === id);
 

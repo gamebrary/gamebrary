@@ -10,6 +10,7 @@ export default {
   results: [],
   games: {},
   boards: [],
+  publicBoards: [],
   board: {},
   boardGames: [],
   gameModalData: {
