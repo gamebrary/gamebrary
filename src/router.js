@@ -6,7 +6,7 @@ import Wallpapers from '@/pages/Wallpapers';
 import PublicBoards from '@/pages/PublicBoards';
 import Tags from '@/pages/Tags';
 import Notes from '@/pages/Notes';
-import Account from '@/pages/Account';
+import Profile from '@/pages/Profile';
 import Releases from '@/pages/Releases';
 import Auth from '@/pages/Auth';
 import Dashboard from '@/pages/Dashboard';
@@ -61,11 +61,11 @@ export default new Router({
           },
         },
         {
-          name: 'account',
-          path: '/account',
-          component: Account,
+          name: 'profile',
+          path: '/profile',
+          component: Profile,
           meta: {
-            title: 'Account',
+            title: 'Profile',
           },
         },
         {

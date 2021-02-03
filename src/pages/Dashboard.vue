@@ -73,8 +73,8 @@ export default {
           icon: 'fas fa-images',
         },
         {
-          name: 'account',
-          title: 'Account',
+          name: 'profile',
+          title: 'Profile',
           icon: 'fas fa-user',
         },
         {
