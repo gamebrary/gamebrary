@@ -31,7 +31,7 @@
         </template>
 
         <b-dropdown
-          v-if="user"
+          v-if="user && user.uid === board.owner"
           right
           no-caret
           :variant="nightMode ? 'dark' : 'light'"
@@ -232,7 +232,7 @@ export default {
 
   computed: {
     // TODO: rename gameModalData
-    ...mapState(['gameModalData', 'games', 'platform', 'progresses', 'tags', 'user']),
+    ...mapState(['board', 'gameModalData', 'games', 'platform', 'progresses', 'tags', 'user']),
     ...mapGetters(['nightMode']),
 
     hasMultipleGames() {
