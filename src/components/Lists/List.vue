@@ -36,10 +36,18 @@
         </p>
 
         <list-settings
-          v-if="user"
+          v-if="user && user.uid === board.owner"
           :list="list"
           :list-index="listIndex"
         />
+
+        <b-button
+          v-else-if="user.uid !== board.owner"
+          @click="$bvToast.toast('No write access')"
+          :variant="nightMode ? 'dark' : 'transparent'"
+        >
+          <i class="fas fa-caret-down fa-fw" aria-hidden />
+        </b-button>
 
         <b-button
           v-else
