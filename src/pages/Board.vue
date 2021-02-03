@@ -16,7 +16,7 @@
       <empty-board v-if="isEmptyBoard" class="mr-3" />
 
       <add-list-modal />
-      <board-settings />
+      <edit-board-modal />
     </template>
 
     <b-alert
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import BoardSettings from '@/components/Settings/BoardSettings';
+import EditBoardModal from '@/components/Settings/EditBoardModal';
 import BoardPlaceholder from '@/components/Board/BoardPlaceholder';
 import EmptyBoard from '@/components/Board/EmptyBoard';
 import AddListModal from '@/components/Board/AddListModal';
@@ -46,7 +46,7 @@ export default {
     BoardPlaceholder,
     EmptyBoard,
     AddListModal,
-    BoardSettings,
+    EditBoardModal,
   },
 
   data() {

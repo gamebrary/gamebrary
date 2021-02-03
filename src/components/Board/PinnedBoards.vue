@@ -29,6 +29,7 @@
       ${board.backgroundColor ? ` background-color: ${board.backgroundColor};` : null }
       ${getWallpaperUrl(board.wallpaper) }
       `"
+      @click.native="$bvModal.show('edit-board')"
     >
       <span class="board-initials text-uppercase mr-1">
         {{ getBoardInitials(board.name) }}
@@ -72,6 +73,8 @@ export default {
     viewBoard(id) {
       if (this.board.id !== id) {
         this.$router.push({ name: 'board', params: { id } });
+      } else {
+        this.$bvModal.show('edit-board');
       }
     },
 

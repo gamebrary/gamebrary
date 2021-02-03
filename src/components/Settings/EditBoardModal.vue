@@ -1,6 +1,6 @@
 <template lang="html">
   <b-modal
-    id="board-settings"
+    id="edit-board"
     :header-bg-variant="nightMode ? 'dark' : null"
     :header-text-variant="nightMode ? 'white' : null"
     :body-bg-variant="nightMode ? 'dark' : null"
@@ -328,7 +328,7 @@ export default {
 
       this.saving = false;
       this.$bvToast.toast('Board settings saved');
-      this.$bvModal.hide('board-settings');
+      this.$bvModal.hide('edit-board');
 
       if (wallpaperChanged) {
         this.$bus.$emit('RELOAD_WALLPAPER');
