@@ -286,16 +286,6 @@ export default {
       padding: .5rem .5rem 0;
       grid-template-columns: 1fr 1fr;
       grid-column-gap: .5rem;
-
-      // https://github.com/w3c/csswg-drafts/issues/129
-      &::after {
-        content: '';
-        display: block;
-        height: 1px;
-        margin-top: -1px;
-        width: 100%;
-        grid-column: span 2;
-      }
     }
   }
 
