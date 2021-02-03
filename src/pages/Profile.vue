@@ -1,6 +1,10 @@
 <template lang="html">
-  <b-container>
-    <b-list-group flush>
+  <b-container class="pt-3">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h3 class="m-0">Profile</h3>
+    </div>
+
+    <b-list-group>
       <b-list-group-item :variant="nightMode ? 'dark' : null">
         <strong>{{ user.displayName }}</strong>
         <p class="text-muted m-0">{{ user.email }}</p>
