@@ -1,12 +1,12 @@
 <template lang="html">
   <b-container class="pt-3">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h3 class="m-0">
-        About Gamebrary
-      </h3>
-    </div>
+    <vue-markdown
+      class="w-100"
+      v-if="readme"
+      :source="readme"
+    />
 
-    <div v-if="repo">
+    <div v-if="repo" class="mb-4">
       <b-button
         size="sm"
         href="https://github.com/romancm/gamebrary/subscription"
@@ -39,12 +39,6 @@
         {{ $t('gitHub.issues') }} <b-badge variant="light">{{ repo.open_issues }}</b-badge>
       </b-button>
     </div>
-
-    <vue-markdown
-      class="w-100"
-      v-if="readme"
-      :source="readme"
-    />
   </b-container>
 </template>
 
