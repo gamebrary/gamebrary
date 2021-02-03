@@ -24,7 +24,7 @@
         </modal-header>
       </template>
 
-      <b-tabs content-class="pt-2">
+      <b-tabs content-class="pt-2" pills small>
         <search-games :list="list" />
         <recent-games :list="list" />
       </b-tabs>
