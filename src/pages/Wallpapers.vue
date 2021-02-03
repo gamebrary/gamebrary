@@ -15,6 +15,19 @@
           {{ $t('wallpapers.title') }}
         </h3>
 
+        <div class="space-used ml-auto mr-3 pt-3">
+          <small class="d-block text-center" :class="{ 'text-danger': outOfSpace }">
+            {{ formattedSpaceUsed }} of {{ bytesToSize(maxSpace) }} used
+          </small>
+
+          <b-progress
+            :value="spaceUsed"
+            :max="maxSpace"
+            :variant="outOfSpace ? 'danger' : 'success'"
+            class="mb-3"
+          />
+        </div>
+
         <b-button
           variant="primary"
           :disabled="outOfSpace"
@@ -38,44 +51,37 @@
         {{ $t('wallpapers.form.duplicateMessage', { fileName: file.name }) }}
       </b-alert>
 
-      <small class="d-block text-center" :class="{ 'text-danger': outOfSpace }">
-        {{ formattedSpaceUsed }} of {{ bytesToSize(maxSpace) }} used
-      </small>
-
-      <b-progress
-        :value="spaceUsed"
-        :max="maxSpace"
-        :variant="outOfSpace ? 'danger' : 'success'"
-        class="mb-3"
-      />
-
-      <b-card
+      <div
         v-if="wallpapers.length"
-        v-for="wallpaper in wallpapers"
-        :key="wallpaper.name"
-        :img-src="wallpaper.url"
-        :img-alt="wallpaper.name"
-        img-left
-        bg-variant="transparent"
-        img-width="180"
-        class="mb-3 overflow-hidden word-wrap"
+        class="wallpapers"
       >
-        <h6>
-          {{ wallpaper.name }}
-
-          <b-badge v-if="wallpaper.metadata && wallpaper.metadata.size">
-            {{ bytesToSize(wallpaper.metadata.size) }}
-          </b-badge>
-        </h6>
-
-        <b-button
-          variant="danger"
-          size="sm"
-          @click="confirmDeleteWallpaper(wallpaper)"
+        <b-card
+          v-for="wallpaper in wallpapers"
+          :key="wallpaper.name"
+          :img-src="wallpaper.url"
+          :img-alt="wallpaper.name"
+          img-top
+          bg-variant="transparent"
+          img-width="180"
+          class="mb-3 overflow-hidden word-wrap"
         >
-          <i class="fas fa-trash-alt fa-fw" aria-hidden />
-        </b-button>
-      </b-card>
+          <h6>
+            {{ wallpaper.name }}
+
+            <b-badge v-if="wallpaper.metadata && wallpaper.metadata.size">
+              {{ bytesToSize(wallpaper.metadata.size) }}
+            </b-badge>
+          </h6>
+
+          <b-button
+            variant="danger"
+            size="sm"
+            @click="confirmDeleteWallpaper(wallpaper)"
+          >
+            <i class="fas fa-trash-alt fa-fw" aria-hidden />
+          </b-button>
+        </b-card>
+      </div>
 
       <b-alert show v-else>You don't have any wallpapers.</b-alert>
     </template>
@@ -218,5 +224,23 @@ export default {
 .delete-file {
   bottom: .5rem;
   right: .5rem;
+}
+
+.space-used {
+  width: 120px;
+}
+
+.wallpapers {
+  display: grid;
+  grid-column-gap: 1rem;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+
+  @media(max-width: 1024px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  @media(max-width: 720px) {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 </style>
