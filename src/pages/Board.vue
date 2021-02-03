@@ -69,6 +69,10 @@ export default {
     },
 
     boardStyles() {
+      if (!this.showBoard) {
+        return;
+      }
+
       if (this.wallpaperUrl) {
         return `background-image: url('${this.wallpaperUrl}');`;
       }
