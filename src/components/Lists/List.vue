@@ -1,7 +1,7 @@
 <template lang="html">
   <div
     :class="[
-      'list rounded pr-3',
+      'list rounded pr-2',
       viewClass,
       {
         dragging,

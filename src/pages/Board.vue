@@ -211,7 +211,7 @@ export default {
   align-items: flex-start;
   height: 100vh;
   width: 100%;
-  padding-left: 75px;
+  padding-left: calc(58px + .5rem);
   box-sizing: border-box;
   overflow-x: auto;
   overflow-x: overlay;
