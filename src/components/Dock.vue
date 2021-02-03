@@ -1,7 +1,6 @@
-<!-- TODO: only make transparent when x-scrolled -->
 <template lang="html">
   <nav
-    class="rounded position-fixed d-flex flex-column p-0 m-2 text-center border"
+    class="bg-white rounded position-fixed d-flex flex-column p-0 m-2 text-center border"
     :class="{ 'bg-dark text-white border-dark': nightMode }"
   >
     <b-button
@@ -20,8 +19,6 @@
 
     <b-dropdown
       v-if="user"
-      id="dropdown-1"
-      text="Dropdown Button"
       dropright
       right
       no-caret
@@ -39,7 +36,7 @@
         </b-dropdown-header>
 
         <b-dropdown-item
-          v-b-modal:board-settings
+          v-b-modal:edit-board
           :variant="nightMode ? 'secondary' : null"
         >
           <i class="fas fa-edit fa-fw" aria-hidden />
@@ -183,10 +180,5 @@ export default {
 nav {
   width: 50px;
   z-index: 1;
-  background: rgba(255, 255, 255, 0.9);
-
-  &:hover {
-    background: white;
-  }
 }
 </style>
