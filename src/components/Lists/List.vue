@@ -265,6 +265,10 @@ export default {
   position: relative;
   width: calc(300px + 1rem);
 
+  @media(max-width: 400px) {
+    width: calc(100vw - calc(68px + .5rem));
+  }
+
   &.unique {
     @media(max-width: 400px) {
       width: calc(100vw - calc(58px + .5rem));
