@@ -16,7 +16,7 @@
       />
     </b-button>
 
-    <pinned-boards v-if="$route.name === 'board'" />
+    <pinned-boards v-if="user" />
 
     <b-dropdown
       v-if="user"
