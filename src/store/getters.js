@@ -39,6 +39,10 @@ export default {
   platformNames: (state) => {
     const formattedPlatforms = {};
 
+    if (!state.platforms) {
+      return [];
+    }
+
     state.platforms.forEach(({ id, slug, logoFormat, name }) => {
       formattedPlatforms[id] = {
         name,
