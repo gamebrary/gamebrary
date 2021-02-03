@@ -6,7 +6,12 @@
     <dock />
     <global-modals />
 
-    <main :class="{ 'authorizing': !user, 'bg-dark text-white': nightMode }">
+    <main :class="{
+      'authorizing': !user,
+      'bg-dark text-white': nightMode,
+      'offset': !isBoard,
+      }"
+    >
       <router-view />
     </main>
   </div>
@@ -173,7 +178,7 @@ export default {
     }
 
     &.offset {
-      padding-left: 55px;
+      padding-left: calc(58px + .5rem);
     }
   }
 </style>
