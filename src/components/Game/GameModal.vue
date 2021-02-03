@@ -35,6 +35,7 @@
           right
           no-caret
           :variant="nightMode ? 'dark' : 'light'"
+          :menu-class="nightMode ? 'bg-dark' : ''"
         >
           <template v-slot:button-content>
             <i class="fas fa-ellipsis-h fa-fw" aria-hidden></i>
@@ -43,7 +44,10 @@
           <game-progress :game="game" />
           <game-notes-modal :game="game" />
 
-          <b-dropdown-item v-b-modal.tags>
+          <b-dropdown-item
+            v-b-modal.tags
+            :variant="nightMode ? 'secondary' : null"
+          >
             <i class="far fa-tags fa-fw" /> Tags
 
             <game-tags-modal :game="game" />
@@ -51,6 +55,7 @@
 
           <b-dropdown-item-button
             v-if="!prevDisabled"
+            :variant="nightMode ? 'secondary' : null"
             @click="previousGame"
           >
             <i class="fas fa-caret-left fa-fw" aria-hidden /> Previous game
@@ -59,6 +64,7 @@
 
           <b-dropdown-item-button
             v-if="!nextDisabled"
+            :variant="nightMode ? 'secondary' : null"
             @click="nextGame"
           >
             <i class="fas fa-caret-right fa-fw" aria-hidden /> Next game

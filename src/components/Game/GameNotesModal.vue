@@ -1,5 +1,8 @@
 <template lang="html">
-  <b-dropdown-item v-b-modal.notes>
+  <b-dropdown-item
+    v-b-modal.notes
+    :variant="nightMode ? 'secondary' : null"
+  >
     <i class="far fa-sticky-note fa-fw" /> {{ localNote ? 'Edit note' : 'Add note' }}
 
     <b-modal
@@ -47,7 +50,7 @@
 
       <b-form-text id="input-live-help">
         <a href="https://www.markdownguide.org/cheat-sheet/" target="_blank">
-          <i class="fab fa-markdown"></i>
+          <i class="fab fa-markdown fa-fw" />
           Markdown supported
         </a>
       </b-form-text>

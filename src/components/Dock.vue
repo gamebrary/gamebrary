@@ -2,7 +2,7 @@
 <template lang="html">
   <nav
     class="rounded position-fixed d-flex flex-column p-0 m-2 text-center"
-    :class="{ 'bg-dark text-white': nightMode, 'border': !nightMode }"
+    :class="{ 'bg-dark text-white': nightMode }"
   >
     <b-button
       title="Dashboard"
@@ -38,17 +38,26 @@
           {{ board.name }}
         </b-dropdown-header>
 
-        <b-dropdown-item v-b-modal:board-settings>
+        <b-dropdown-item
+          v-b-modal:board-settings
+          :variant="nightMode ? 'secondary' : null"
+        >
           <i class="fas fa-edit fa-fw" aria-hidden />
           Edit board
         </b-dropdown-item>
 
-        <b-dropdown-item v-b-modal:add-list>
+        <b-dropdown-item
+          v-b-modal:add-list
+          :variant="nightMode ? 'secondary' : null"
+        >
           <i class="fas fa-folder-plus fa-fw" />
           Add list
         </b-dropdown-item>
 
-        <b-dropdown-item @click="pinBoard">
+        <b-dropdown-item
+          @click="pinBoard"
+          :variant="nightMode ? 'secondary' : null"
+        >
           <i class="fas fa-thumbtack fa-fw" />
           {{ board.pinned ? 'Unpin from dock' : 'Pin to dock' }}
         </b-dropdown-item>
@@ -56,39 +65,60 @@
         <b-dd-divider />
       </template>
 
-      <b-dropdown-item v-b-modal:create-board>
+      <b-dropdown-item
+        v-b-modal:create-board
+        :variant="nightMode ? 'secondary' : null"
+      >
         <i class="fas fa-plus fa-fw" aria-hidden />
         Create board
       </b-dropdown-item>
 
       <b-dd-divider />
 
-      <b-dropdown-item :to="{ name: 'boards' }">
+      <b-dropdown-item
+        :to="{ name: 'boards' }"
+        :variant="nightMode ? 'secondary' : null"
+      >
         <i class="fas fa-columns fa-fw" aria-hidden />
         Boards
       </b-dropdown-item>
 
-      <b-dropdown-item :to="{ name: 'tags' }">
+      <b-dropdown-item
+        :to="{ name: 'tags' }"
+        :variant="nightMode ? 'secondary' : null"
+      >
         <i class="fas fa-tags fa-fw" aria-hidden />
         Tags
       </b-dropdown-item>
 
-      <b-dropdown-item :to="{ name: 'notes' }">
+      <b-dropdown-item
+        :to="{ name: 'notes' }"
+        :variant="nightMode ? 'secondary' : null"
+      >
         <i class="fas fa-sticky-note fa-fw" aria-hidden />
         Notes
       </b-dropdown-item>
 
-      <b-dropdown-item :to="{ name: 'wallpapers' }">
+      <b-dropdown-item
+        :to="{ name: 'wallpapers' }"
+        :variant="nightMode ? 'secondary' : null"
+      >
         <i class="fas fa-images fa-fw" aria-hidden />
         Wallpapers
       </b-dropdown-item>
 
-      <b-dropdown-item :to="{ name: 'account' }">
+      <b-dropdown-item
+        :to="{ name: 'account' }"
+        :variant="nightMode ? 'secondary' : null"
+      >
         <i class="fas fa-user fa-fw" aria-hidden />
         Account
       </b-dropdown-item>
 
-      <b-dropdown-item :to="{ name: 'settings' }">
+      <b-dropdown-item
+        :to="{ name: 'settings' }"
+        :variant="nightMode ? 'secondary' : null"
+      >
         <i class="fas fa-cog fa-fw" aria-hidden />
         Settings
       </b-dropdown-item>
@@ -116,10 +146,12 @@ export default {
 
   methods: {
     handleLogoClick() {
+      if (!this.user) {
+        this.$bvModal.show('authModal');
+      }
+
       if (this.user && this.$route.name !== 'boards') {
         this.$router.push({ name: 'boards' });
-      } else {
-        this.$bvModal.show('authModal');
       }
     },
 

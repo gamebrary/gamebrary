@@ -13,8 +13,11 @@
 
     <add-game-modal :list="list" />
 
-    <b-dropdown-item v-b-modal:add-list>
-      <i class="fas fa-folder-plus"></i>
+    <b-dropdown-item
+      v-b-modal:add-list
+      :variant="nightMode ? 'secondary' : null"
+    >
+      <i class="fas fa-folder-plus fa-fw" />
       Add list
     </b-dropdown-item>
 

@@ -1,5 +1,8 @@
 <template lang="html">
-  <b-dropdown-item v-b-modal.progress>
+  <b-dropdown-item
+    v-b-modal.progress
+    :variant="nightMode ? 'secondary' : null"
+  >
     <i class="fas fa-stopwatch fa-fw" />
 
     {{ title }}
