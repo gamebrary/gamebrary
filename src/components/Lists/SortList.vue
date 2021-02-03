@@ -50,7 +50,7 @@
             Games will be added to end of list, drag games to re-order.
           </span>
 
-          <span v-else>
+          <span v-else-if="sortOrder">
             Games will be sorted by
 
             <span class="text-lowercase">
