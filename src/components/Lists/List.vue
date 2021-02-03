@@ -16,7 +16,6 @@
       :text-variant="nightMode ? 'white' : null"
     >
       <b-card-header
-        v-if="user"
         class="py-0 pr-0 pl-2 d-flex justify-content-between align-items-center"
         :header-bg-variant="showDuplicateWarning ? 'warning' : null"
       >
@@ -41,6 +40,14 @@
           :list="list"
           :list-index="listIndex"
         />
+
+        <b-button
+          v-else
+          v-b-modal:authModal
+          :variant="nightMode ? 'dark' : 'transparent'"
+        >
+          <i class="fas fa-caret-down fa-fw" aria-hidden />
+        </b-button>
       </b-card-header>
 
       <draggable
