@@ -37,10 +37,18 @@
           {{ board.name }}
         </b-dropdown-header>
 
-        <b-dropdown-item v-b-modal:board-settings>Edit board</b-dropdown-item>
-        <b-dropdown-item v-b-modal:add-list>Add list</b-dropdown-item>
+        <b-dropdown-item v-b-modal:board-settings>
+          <i class="fas fa-edit fa-fw" aria-hidden />
+          Edit board
+        </b-dropdown-item>
+
+        <b-dropdown-item v-b-modal:add-list>
+          <i class="fas fa-folder-plus fa-fw" />
+          Add list
+        </b-dropdown-item>
 
         <b-dropdown-item @click="pinBoard">
+          <i class="fas fa-thumbtack fa-fw" />
           {{ board.pinned ? 'Unpin from dock' : 'Pin to dock' }}
         </b-dropdown-item>
 
