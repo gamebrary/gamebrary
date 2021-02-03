@@ -19,6 +19,7 @@
     <pinned-boards v-if="$route.name === 'board'" />
 
     <b-dropdown
+      v-if="user"
       id="dropdown-1"
       text="Dropdown Button"
       dropright
@@ -117,8 +118,9 @@ export default {
     handleLogoClick() {
       if (this.user && this.$route.name !== 'boards') {
         this.$router.push({ name: 'boards' });
+      } else {
+        this.$bvModal.show('authModal');
       }
-      // TODO: show login modal / test
     },
 
     async pinBoard() {
