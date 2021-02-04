@@ -1,7 +1,10 @@
 <template lang="html">
   <nav
-    class="bg-white rounded position-fixed d-flex flex-column p-0 m-2 text-center border"
-    :class="{ 'bg-dark text-white border-dark': nightMode }"
+    class=" rounded position-fixed d-flex flex-column p-0 m-2 text-center border"
+    :class="{
+      'bg-dark text-white border-dark': nightMode,
+      'bg-white': !nightMode,
+      }"
   >
     <b-button
       title="Dashboard"
