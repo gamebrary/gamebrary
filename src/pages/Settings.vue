@@ -9,6 +9,15 @@
 
     <hr />
 
+    <b-button href="https://accounts.google.com/" target="_blank" variant="secondary">
+      Manage Google Account
+    </b-button>
+
+    <delete-account />
+    <sign-out />
+
+    <hr />
+
     <b-list-group>
       <b-list-group-item :to="{ name: 'about' }">
         <i class="fas fa-info fa-fw" aria-hidden />
@@ -26,12 +35,16 @@
 <script>
 import Languages from '@/components/Settings/Languages';
 import ThemeSelector from '@/components/Settings/ThemeSelector';
+import SignOut from '@/components/Settings/SignOut';
+import DeleteAccount from '@/components/Settings/DeleteAccount';
 import { mapState } from 'vuex';
 
 export default {
   components: {
     Languages,
     ThemeSelector,
+    SignOut,
+    DeleteAccount,
   },
 
   computed: {

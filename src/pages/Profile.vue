@@ -1,5 +1,18 @@
 <template lang="html">
   <b-container class="pt-3">
+    <div class="text-center my-4">
+      <b-avatar
+        v-if="user && user.photoURL"
+        v-b-tooltip.hover.right
+        variant="info"
+        badge-variant="danger"
+        :title="$t('navMenu.account')"
+        :src="user.photoURL"
+      />
+
+      <h5 class="mt-2">{{ user.displayName }}</h5>
+    </div>
+
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h3 class="m-0">Profile</h3>
     </div>
@@ -31,34 +44,14 @@
 
         <b-alert show>You can safely share this id when reporting bugs</b-alert>
       </b-list-group-item>
-
-      <b-list-group-item :variant="nightMode ? 'dark' : null">
-        <b-button href="https://accounts.google.com/" target="_blank" variant="secondary">
-          Manage Google Account
-        </b-button>
-      </b-list-group-item>
-
-      <b-list-group-item :variant="nightMode ? 'dark' : null">
-        <delete-account />
-      </b-list-group-item>
-
-      <b-list-group-item :variant="nightMode ? 'dark' : null">
-        <sign-out />
-      </b-list-group-item>
     </b-list-group>
   </b-container>
 </template>
 
 <script>
-import SignOut from '@/components/Settings/SignOut';
-import DeleteAccount from '@/components/Settings/DeleteAccount';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
-  components: {
-    SignOut,
-    DeleteAccount,
-  },
 
   computed: {
     ...mapState(['user']),
