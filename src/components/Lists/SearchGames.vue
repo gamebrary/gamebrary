@@ -41,6 +41,7 @@
         :key="id"
         :game-id="id"
         :list="list"
+        class="mb-2"
       />
     </div>
 
