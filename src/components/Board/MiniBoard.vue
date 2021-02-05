@@ -3,7 +3,7 @@
     class="mini-board p-1 rounded"
     :style="miniBoardStyles"
   >
-    <small>
+    <small :class="{ 'has-background' : miniBoardStyles }">
       {{ board.name }}
 
       <template v-if="board.platforms.length > 1">
@@ -74,6 +74,11 @@ $boardHeight: 180px;
   background-size: cover;
   background-color: #ccc;
   height: $boardHeight;
+
+  .has-background {
+    text-shadow: 1px 1px black;
+    color: white;
+  }
 }
 
 .lists {
