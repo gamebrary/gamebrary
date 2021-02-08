@@ -128,7 +128,7 @@
             variant="success"
             height="8px"
             v-b-modal.progress
-            class="my-1 w-50 mx-auto mx-md-0"
+            class="my-1 w-25 mx-auto mx-md-0"
           />
 
           <b-form-rating
