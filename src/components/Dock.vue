@@ -108,11 +108,19 @@
       </b-dropdown-item>
 
       <b-dropdown-item
-        :to="{ name: 'account' }"
+        :to="{ name: 'profile' }"
         :variant="nightMode ? 'secondary' : null"
       >
         <i class="fas fa-user fa-fw" aria-hidden />
-        Account
+        Profile
+      </b-dropdown-item>
+
+      <b-dropdown-item
+        :variant="nightMode ? 'secondary' : null"
+        v-b-modal:keyboard-shortcuts
+      >
+        <i class="fas fa-keyboard fa-fw" aria-hidden />
+        Keyboard shortcuts
       </b-dropdown-item>
 
       <b-dropdown-item
