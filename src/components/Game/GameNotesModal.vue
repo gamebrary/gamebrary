@@ -20,6 +20,17 @@
           :subtitle="game.name"
           @close="close"
         >
+          <template v-slot:header>
+            <b-img
+              :src="activeGameCoverUrl"
+              :alt="game.name"
+              v-if="!coverVisible"
+              class="float-left mr-2"
+              height="40"
+              rounded
+            />
+          </template>
+
           <b-button
             variant="danger"
             v-if="notes[game.id]"
@@ -76,7 +87,7 @@ export default {
 
   computed: {
     ...mapState(['notes']),
-    ...mapGetters(['nightMode']),
+    ...mapGetters(['nightMode', 'activeGameCoverUrl']),
   },
 
   methods: {

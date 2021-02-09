@@ -23,6 +23,16 @@
           :subtitle="game.name"
           @close="close"
         >
+          <template v-slot:header>
+            <b-img
+              :src="activeGameCoverUrl"
+              :alt="game.name"
+              class="float-left mr-2"
+              height="40"
+              rounded
+            />
+          </template>
+
           <b-button
             variant="danger"
             :disabled="deleting"
@@ -84,7 +94,7 @@ export default {
 
   computed: {
     ...mapState(['progresses']),
-    ...mapGetters(['nightMode']),
+    ...mapGetters(['nightMode', 'activeGameCoverUrl']),
 
     title() {
       return this.localProgress

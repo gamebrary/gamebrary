@@ -13,7 +13,17 @@
         title="Tags"
         :subtitle="game.name"
         @close="close"
-      />
+      >
+        <template v-slot:header>
+          <b-img
+            :src="activeGameCoverUrl"
+            :alt="game.name"
+            class="float-left mr-2"
+            height="40"
+            rounded
+          />
+        </template>
+      </modal-header>
     </template>
 
     <empty-state
@@ -67,7 +77,7 @@ export default {
 
   computed: {
     ...mapState(['tags']),
-    ...mapGetters(['nightMode']),
+    ...mapGetters(['nightMode', 'activeGameCoverUrl']),
 
     empty() {
       return Object.keys(this.tags).length === 0;

@@ -22,10 +22,11 @@
       >
         <template v-slot:header>
           <b-img
-            :src="coverUrl"
+            :src="activeGameCoverUrl"
             :alt="game.name"
             v-if="!coverVisible"
-            class="mini-cover mr-2"
+            class="float-left mr-2"
+            height="40"
             rounded
           />
         </template>
@@ -95,7 +96,7 @@
 
           <template v-else>
             <b-img
-              :src="coverUrl"
+              :src="activeGameCoverUrl"
               :alt="game.name"
               class="game-cover"
               v-observe-visibility="toggleCoverVisible"
@@ -233,7 +234,7 @@ export default {
   computed: {
     // TODO: rename gameModalData
     ...mapState(['board', 'gameModalData', 'games', 'platform', 'progresses', 'tags', 'user']),
-    ...mapGetters(['nightMode']),
+    ...mapGetters(['nightMode', 'activeGameCoverUrl']),
 
     hasMultipleGames() {
       // TODO: use optional chaining
@@ -247,14 +248,6 @@ export default {
       const { gameId, progresses } = this;
 
       return progresses[gameId] || null;
-    },
-
-    coverUrl() {
-      return this.game
-        && this.game.cover
-        && this.game.cover.image_id
-        ? `https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${this.game.cover.image_id}.jpg`
-        : '/static/no-image.jpg';
     },
 
     rating() {
@@ -381,11 +374,6 @@ export default {
   .game-cover {
     width: 100%;
     height: auto;
-  }
-
-  .mini-cover {
-    height: 40px;
-    float: left;
   }
 
   .sidebar {
