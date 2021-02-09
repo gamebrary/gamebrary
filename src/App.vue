@@ -2,6 +2,8 @@
   <div
     id="app"
     :dir="dir"
+    v-shortkey="KEYBOARD_SHORTCUTS"
+    @shortkey="handleShortcutAction"
   >
     <dock />
     <global-modals />
@@ -22,6 +24,7 @@ import Dock from '@/components/Dock';
 import GlobalModals from '@/components/GlobalModals';
 import firebase from 'firebase/app';
 import { mapState, mapGetters } from 'vuex';
+import { KEYBOARD_SHORTCUTS } from '@/constants';
 import 'firebase/firestore';
 
 // TODO: store in env vars
@@ -47,6 +50,7 @@ export default {
   data() {
     return {
       debugUserId: null,
+      KEYBOARD_SHORTCUTS,
     };
   },
 
@@ -81,6 +85,10 @@ export default {
   },
 
   methods: {
+    handleShortcutAction(data) {
+      this.$bus.$emit('HANDLE_SHORTCUT', data);
+    },
+
     init() {
       if (this.isPublicBoard) {
         return;

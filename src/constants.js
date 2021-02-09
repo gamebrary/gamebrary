@@ -11,6 +11,17 @@ export const PLATFORM_CATEGORIES = {
   6: 'computer',
 };
 
+export const KEYBOARD_SHORTCUTS = {
+  'MODAL_keyboard-shortcuts': ['shift', '?'],
+  'MODAL_create-board': ['shift', 'c'],
+  ROUTE_boards: ['shift', 'b'],
+  ROUTE_tags: ['shift', 't'],
+  ROUTE_notes: ['shift', 'n'],
+  ROUTE_wallpapers: ['shift', 'w'],
+  ROUTE_profile: ['shift', 'p'],
+  ROUTE_settings: ['shift', 's'],
+};
+
 export const PLATFORM_FILTER_FIELDS = [
   null,
   'all',

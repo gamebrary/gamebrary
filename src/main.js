@@ -2,6 +2,7 @@ import Vue from 'vue';
 import { BootstrapVue } from 'bootstrap-vue';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import VueAxios from 'vue-axios';
+import VueShortKey from 'vue-shortkey';
 import Dayjs from 'vue-dayjs';
 import VueFire from 'vuefire';
 import VueI18n from 'vue-i18n';
@@ -27,6 +28,7 @@ Object.defineProperties(Vue.prototype, {
   },
 });
 
+Vue.use(VueShortKey, { prevent: ['input', 'textarea'] });
 Vue.use(Dayjs);
 Vue.use(VueObserveVisibility);
 Vue.use(BootstrapVue, bootstrapSettings);
