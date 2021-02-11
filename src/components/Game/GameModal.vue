@@ -47,6 +47,8 @@
 
           <b-dropdown-item
             v-b-modal.tags
+            v-shortkey="['t']"
+            @shortkey.native="$bvModal.show('tags');"
             :variant="nightMode ? 'secondary' : null"
           >
             <i class="far fa-tags fa-fw" /> Tags
@@ -57,6 +59,8 @@
           <b-dropdown-item-button
             v-if="!prevDisabled"
             :variant="nightMode ? 'secondary' : null"
+            v-shortkey="['arrowleft']"
+            @shortkey.native="previousGame"
             @click="previousGame"
           >
             <i class="fas fa-caret-left fa-fw" aria-hidden /> Previous game
@@ -65,6 +69,8 @@
 
           <b-dropdown-item-button
             v-if="!nextDisabled"
+            v-shortkey="['arrowright']"
+            @shortkey.native="nextGame"
             :variant="nightMode ? 'secondary' : null"
             @click="nextGame"
           >

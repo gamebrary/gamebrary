@@ -2,6 +2,8 @@
   <b-dropdown-item
     v-b-modal.notes
     :variant="nightMode ? 'secondary' : null"
+    v-shortkey="['n']"
+    @shortkey.native="$bvModal.show('notes');"
   >
     <i class="far fa-sticky-note fa-fw" /> {{ localNote ? 'Edit note' : 'Add note' }}
 

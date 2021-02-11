@@ -1,6 +1,8 @@
 <template lang="html">
   <b-dropdown-item
     v-b-modal.progress
+    v-shortkey="['p']"
+    @shortkey.native="$bvModal.show('progress');"
     :variant="nightMode ? 'secondary' : null"
   >
     <i class="fas fa-stopwatch fa-fw" />
