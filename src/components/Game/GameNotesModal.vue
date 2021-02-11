@@ -26,7 +26,6 @@
             <b-img
               :src="activeGameCoverUrl"
               :alt="game.name"
-              v-if="!coverVisible"
               class="float-left mr-2"
               height="40"
               rounded
