@@ -54,7 +54,10 @@
             <i class="fas fa-angle-left fa-fw" aria-hidden />
           </b-button>
 
-          <b-button @click="next">
+          <b-button
+            :variant="nightMode ? 'dark' : 'light'"
+            @click="next"
+          >
             <i class="fas fa-angle-right fa-fw" aria-hidden />
           </b-button>
         </modal-header>
