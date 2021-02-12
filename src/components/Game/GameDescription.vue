@@ -60,6 +60,10 @@ export default {
     };
   },
 
+  mounted() {
+      this.descriptionExpanded = false;
+  },
+
   computed: {
     gameDescription() {
       const wikipediaDescription = this.wikipediaArticle && this.wikipediaArticle.extract
