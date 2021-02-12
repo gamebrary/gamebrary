@@ -17,6 +17,21 @@ export default {
     });
   },
 
+  LOAD_WIKIPEDIA_ARTICLE(context, articleTitle) {
+    return new Promise((resolve, reject) => {
+      axios.get(`https://en.wikipedia.org/w/api.php?origin=*&action=query&prop=extracts|images|links|linkshere|imageinfo&titles=${articleTitle}&inprop=url&format=json`)
+        .then(({ data: { query } }) => {
+          const pageIds = Object.keys(query.pages);
+
+          const article = pageIds.length
+            ? query.pages[pageIds[0]]
+            : null;
+
+          resolve(article);
+        }).catch(reject);
+    });
+  },
+
   LOAD_BOARDS({ state, commit }) {
     return new Promise((resolve, reject) => {
       const db = firebase.firestore();
