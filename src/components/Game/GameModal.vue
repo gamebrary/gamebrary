@@ -21,6 +21,7 @@
         @close="close"
       >
         <template v-slot:header>
+          <!-- TODO: Open gallery from cover, also include cover in screenshots carousel -->
           <b-img
             :src="activeGameCoverUrl"
             :alt="game.name"
@@ -118,6 +119,9 @@
           <!-- TODO: add related games -->
           <!-- More games like {{ game.name }} -->
           <!-- <pre>{{ game.genres.map(({ id }) => id) }}</pre> -->
+
+          <!-- TODO: add bundles to game detail? -->
+          <!-- {{ game.bundles ? `Found in ${game.bundles.length} compilations.` : null }} -->
         </b-col>
 
         <!-- cols="12"
