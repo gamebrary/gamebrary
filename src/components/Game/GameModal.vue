@@ -169,7 +169,7 @@
           </template>
 
           <template v-else>
-            <p>{{ game.summary }}</p>
+            <game-description :game="game" />
 
             <amazon-links
               :game="game"
@@ -202,6 +202,7 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import GameDetails from '@/components/Game/GameDetails';
+import GameDescription from '@/components/Game/GameDescription';
 import GameNotes from '@/components/Game/GameNotes';
 import GameScreenshots from '@/components/Game/GameScreenshots';
 import AmazonLinks from '@/components/Game/AmazonLinks';
@@ -218,6 +219,7 @@ export default {
     GameTagsModal,
     IgdbLogo,
     GameDetails,
+    GameDescription,
     GameNotes,
     GameScreenshots,
     AmazonLinks,
