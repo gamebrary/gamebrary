@@ -1,3 +1,5 @@
+<!-- TODO: allow to save screenshot as board wallpaper -->
+<!-- TODO: Mix media from other sources (e.g. instagram, wikipedia, youtube, twitter, etc... ) -->
 <template lang="html">
   <b-form-row v-if="screenshots" class="mt-2 justify-content-center">
     <b-col
