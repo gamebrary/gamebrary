@@ -37,7 +37,20 @@
           :subtitle="game.name"
           @close="close"
         >
-          <b-button @click="previous">
+          <template v-slot:header>
+            <b-img
+              :src="activeGameCoverUrl"
+              :alt="game.name"
+              class="float-left mr-2"
+              height="40"
+              rounded
+            />
+          </template>
+
+          <b-button
+            :variant="nightMode ? 'dark' : 'light'"
+            @click="previous"
+          >
             <i class="fas fa-angle-left fa-fw" aria-hidden />
           </b-button>
 
@@ -86,7 +99,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['nightMode']),
+    ...mapGetters(['nightMode', 'activeGameCoverUrl']),
 
     thumbnails() {
       // eslint-disable-next-line
