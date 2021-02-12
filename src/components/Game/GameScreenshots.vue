@@ -97,7 +97,7 @@ export default {
   data() {
     return {
       activeImage: 0,
-      maxThumbnails: 6,
+      maxThumbnails: 3,
     };
   },
 
