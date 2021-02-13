@@ -13,5 +13,9 @@
 
 .modal {
   backdrop-filter: blur(1px);
-  padding-left: 0 !important;
+  padding: 1rem 0 !important;
+
+  @media(max-width: 600px) {
+    padding: 0 !important;
+  }
 }
