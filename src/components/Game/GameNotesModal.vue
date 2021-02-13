@@ -6,6 +6,7 @@
     @shortkey.native="$bvModal.show('notes');"
   >
     <i class="far fa-sticky-note fa-fw" /> {{ localNote ? 'Edit note' : 'Add note' }}
+    <!-- TODO: decouple -->
 
     <b-modal
       id="notes"
