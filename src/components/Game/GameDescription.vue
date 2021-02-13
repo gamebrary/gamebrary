@@ -60,10 +60,6 @@ export default {
     };
   },
 
-  mounted() {
-      this.descriptionExpanded = false;
-  },
-
   computed: {
     gameDescription() {
       const wikipediaDescription = this.wikipediaArticle && this.wikipediaArticle.extract
@@ -75,7 +71,6 @@ export default {
         : null;
 
       // Default to wikipedia article, fall back to igdb's desc
-      console.log(igdbDescription);
       return wikipediaDescription || igdbDescription;
     },
 
@@ -93,6 +88,8 @@ export default {
   },
 
   mounted() {
+    this.descriptionExpanded = false;
+
     this.loadWikipediaArticle();
   },
 
