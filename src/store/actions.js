@@ -19,7 +19,7 @@ export default {
 
   LOAD_WIKIPEDIA_ARTICLE(context, articleTitle) {
     return new Promise((resolve, reject) => {
-      axios.get(`https://en.wikipedia.org/w/api.php?origin=*&action=query&prop=extracts|images|links|linkshere|imageinfo&titles=${articleTitle}&inprop=url&format=json`)
+      axios.get(`https://en.wikipedia.org/w/api.php?origin=*&action=query&prop=extracts&titles=${articleTitle}&format=json`)
         .then(({ data: { query } }) => {
           const pageIds = Object.keys(query.pages);
 
