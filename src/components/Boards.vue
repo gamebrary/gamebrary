@@ -29,7 +29,7 @@
       <h3 class="m-0 mr-a">{{ $t('boards.title') }}</h3>
 
       <b-button
-        :variant="nightMode ? 'dark' : 'primary'"
+        variant="primary"
         v-b-modal:create-board
       >
         {{ $t('boards.create') }}
