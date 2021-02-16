@@ -187,7 +187,8 @@
                   v-for="alternativeName in game.alternative_names"
                   :key="alternativeName.id"
                 >
-                  {{ alternativeName.name }} {{ alternativeName.comment ? `(${alternativeName.comment})` : null }}
+                  {{ alternativeName.name }}
+                  {{ alternativeName.comment ? `(${alternativeName.comment})` : null }}
                 </li>
               </ul>
             </b-alert>
