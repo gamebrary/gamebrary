@@ -115,12 +115,6 @@
             <amazon-links :game="game" class="d-none d-md-inline" />
           </template>
 
-          <game-details
-            v-if="!loading"
-            class="d-none d-md-block"
-            :game="game"
-          />
-
           <!-- <pre>{{ game.genres.map(({ id }) => id) }}</pre> -->
           <!-- TODO: add bundles to game detail? -->
           <!-- {{ game.bundles ? `Found in ${game.bundles.length} compilations.` : null }} -->
@@ -183,22 +177,7 @@
 
             <game-description :game="game" />
             <game-notes :game="game" />
-
-            <b-alert show variant="secondary" v-if="game.alternative_names">
-              <strong>Also known as:</strong>
-              <ul>
-                <li
-                  v-for="alternativeName in game.alternative_names"
-                  :key="alternativeName.id"
-                >
-                  {{ alternativeName.name }}
-                  {{ alternativeName.comment ? `(${alternativeName.comment})` : null }}
-                </li>
-              </ul>
-            </b-alert>
-
-            <game-details class="d-md-none" :game="game" />
-
+            <game-details :game="game" />
             <game-websites :game="game" />
 
             <similar-games

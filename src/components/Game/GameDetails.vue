@@ -1,33 +1,60 @@
 <template lang="html">
-  <dl>
-    <dt class="w-100">{{ $t('board.gameModal.platforms') }}</dt>
-    <dd class="text-wrap">{{ platforms }}</dd>
+  <b-alert show variant="secondary" class="game-details">
+    <div v-if="platforms">
+      <strong>{{ $t('board.gameModal.platforms') }}:</strong>
+      <span class="text-wrap">{{ platforms }}</span>
+    </div>
 
-    <dt class="w-100">{{ $t('board.gameModal.genres') }}</dt>
-    <dd class="text-wrap">{{ genres }}</dd>
+    <div v-if="genres">
+      <strong>{{ $t('board.gameModal.genres') }}:</strong>
+      <span class="text-wrap">{{ genres }}</span>
+    </div>
 
-    <dt class="w-100">{{ $t('board.gameModal.gameModes') }}</dt>
-    <dd class="text-wrap">{{ gameModes }}</dd>
+    <div v-if="gameModes">
+      <strong>{{ $t('board.gameModal.gameModes') }}:</strong>
+      <span class="text-wrap">{{ gameModes }}</span>
+    </div>
 
-    <dt class="w-100">{{ $t('board.gameModal.developers') }}</dt>
-    <dd class="text-wrap">{{ gameDevelopers }}</dd>
+    <div v-if="gameDevelopers">
+      <strong>{{ $t('board.gameModal.developers') }}:</strong>
+      <span class="text-wrap">{{ gameDevelopers }}</span>
+    </div>
 
-    <dt class="w-100">{{ $t('board.gameModal.publishers') }}</dt>
-    <dd class="text-wrap">{{ gamePublishers }}</dd>
+    <div v-if="gamePublishers">
+      <strong>{{ $t('board.gameModal.publishers') }}:</strong>
+      <span class="text-wrap">{{ gamePublishers }}</span>
+    </div>
 
-    <dt class="w-100">{{ $t('board.gameModal.perspective') }}</dt>
-    <dd class="text-wrap">{{ playerPerspectives }}</dd>
+    <div v-if="playerPerspectives">
+      <strong>{{ $t('board.gameModal.perspective') }}:</strong>
+      <span class="text-wrap">{{ playerPerspectives }}</span>
+    </div>
 
-    <dt class="w-100">{{ $t('board.gameModal.ageRatings') }}</dt>
-    <dd class="text-wrap">{{ ageRatings }}</dd>
+    <div v-if="ageRatings">
+      <strong>{{ $t('board.gameModal.ageRatings') }}:</strong>
+      <span class="text-wrap">{{ ageRatings }}</span>
+    </div>
 
-    <dt class="w-100">{{ $t('board.gameModal.releaseDate') }}</dt>
-    <dd class="text-wrap">
+    <div v-if="game.alternative_names">
+      <strong>Also known as:</strong>
+      <ul>
+        <li
+          v-for="alternativeName in game.alternative_names"
+          :key="alternativeName.id"
+        >
+          {{ alternativeName.name }}
+          {{ alternativeName.comment ? `(${alternativeName.comment})` : null }}
+        </li>
+      </ul>
+    </div>
+
+    <strong>{{ $t('board.gameModal.releaseDate') }}:</strong>
+    <span class="text-wrap">
       <div v-for="releaseDate in releaseDates" :key="releaseDate">
         {{ releaseDate }}
       </div>
-    </dd>
-  </dl>
+    </span>
+  </b-alert>
 </template>
 
 <script>
@@ -69,13 +96,13 @@ export default {
     genres() {
       return this.game && this.game.genres
         ? this.game.genres.map(({ name }) => name).join(', ')
-        : 'N/A';
+        : null;
     },
 
     platforms() {
       return this.game && this.game.platforms
         ? this.game.platforms.map(({ name }) => name).join(', ')
-        : 'N/A';
+        : null;
     },
 
     gameDevelopers() {
@@ -83,7 +110,7 @@ export default {
         ? this.game.involved_companies
           .filter(({ developer }) => developer)
           .map(({ company }) => company.name).join(', ')
-        : 'N/A';
+        : null;
     },
 
     gamePublishers() {
@@ -91,25 +118,25 @@ export default {
         ? this.game.involved_companies
           .filter(({ publisher }) => publisher)
           .map(({ company }) => company.name).join(', ')
-        : 'N/A';
+        : null;
     },
 
     gameModes() {
       return this.game && this.game.game_modes
         ? this.game.game_modes.map(({ name }) => name).join(', ')
-        : 'N/A';
+        : null;
     },
 
     playerPerspectives() {
       return this.game && this.game.player_perspectives
         ? this.game.player_perspectives.map(({ name }) => name).join(', ')
-        : 'N/A';
+        : null;
     },
 
     ageRatings() {
       return this.game && this.game.age_ratings
         ? this.game.age_ratings.map(({ category, rating }) => `${this.ageRating.categories[category]}: ${this.ageRating.values[rating]}`).join(', ')
-        : 'N/A';
+        : null;
     },
 
     releaseDates() {
@@ -132,3 +159,10 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+.game-details {
+  font-size: small;
+}
+</style>
+
