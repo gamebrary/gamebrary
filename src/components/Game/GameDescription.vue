@@ -22,7 +22,7 @@
             size="sm"
             @click="descriptionExpanded = true"
           >
-            Read more.
+            Read more
           </b-button>
         </template>
 
@@ -130,8 +130,23 @@ h2 {
 
 <style lang="scss" rel="stylesheet/scss">
 .game-description {
+  h2, h3 {
+    margin-bottom: 0;
+    padding-bottom: .5rem;
+  }
+
   h2 {
-    font-size: 2px;
+    font-size: 24px;
+    top: 0;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  h4, h5, h6 {
+    font-size: 16px;
+    font-weight: bold;
   }
 }
 .mw-empty-elt {
