@@ -1,7 +1,6 @@
-<!-- TODO: allow to save screenshot as board wallpaper -->
 <!-- TODO: Mix media from other sources (e.g. instagram, wikipedia, youtube, twitter, etc... ) -->
 <template lang="html">
-  <b-form-row v-if="screenshots" class="mt-2 justify-content-center">
+  <b-form-row v-if="screenshots" class="mt-2">
     <b-col
       v-for="(thumbnail, index) in thumbnails"
       :key="index"
@@ -48,6 +47,9 @@
               rounded
             />
           </template>
+
+          <!-- TODO: allow to save screenshot as board wallpaper -->
+          <!-- <b-button @click="test">Set as board wallpaper</b-button> -->
 
           <b-button
             :variant="nightMode ? 'dark' : 'light'"
