@@ -18,10 +18,13 @@
             v-html="trimmedDescription"
           />
 
+          <!-- TODO: open entire article in other modal -->
+
           <b-button
             size="sm"
             @click="descriptionExpanded = true"
           >
+            <i class="fab fa-wikipedia-w" aria-hidden />
             Read more
           </b-button>
         </template>
