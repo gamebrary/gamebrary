@@ -224,6 +224,7 @@ exports.game = functions.https.onRequest((req, res) => {
   age_ratings.*,
   videos.video_id,
   external_games.*,
+  similar_games,
   rating,
   genres.name,
   platforms.name,
