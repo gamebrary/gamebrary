@@ -115,8 +115,11 @@
             <amazon-links :game="game" class="d-none d-md-inline" />
           </template>
 
-          <game-notes :game="game" />
-          <game-details class="d-none d-md-inline" :game="game" />
+          <game-details
+            v-if="!loading"
+            class="d-none d-md-block"
+            :game="game"
+          />
 
           <!-- <pre>{{ game.genres.map(({ id }) => id) }}</pre> -->
           <!-- TODO: add bundles to game detail? -->
@@ -179,6 +182,7 @@
             />
 
             <game-description :game="game" />
+            <game-notes :game="game" />
 
             <b-alert show variant="secondary" v-if="game.alternative_names">
               <strong>Also known as:</strong>
