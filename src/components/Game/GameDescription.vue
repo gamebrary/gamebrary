@@ -21,7 +21,7 @@
           <!-- TODO: open entire article in other modal -->
 
           <b-button
-            size="sm"
+            variant="secondary"
             @click="descriptionExpanded = true"
           >
             <i class="fab fa-wikipedia-w" aria-hidden />
