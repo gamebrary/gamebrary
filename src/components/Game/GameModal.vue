@@ -93,7 +93,7 @@
           cols="12"
           md="5"
           lg="4"
-          class="sidebar pr-1"
+          class="sidebar pr-md-1"
         >
           <b-skeleton-img
             v-if="loading"
