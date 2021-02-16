@@ -4,7 +4,7 @@
     variant="warning"
     show
     v-b-modal.notes
-    class="mt-3"
+    class="mt-2 mt-md-0"
   >
     <vue-markdown :source="gameNotes" />
   </b-alert>
