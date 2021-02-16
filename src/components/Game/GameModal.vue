@@ -93,7 +93,7 @@
           cols="12"
           md="5"
           lg="4"
-          class="sidebar"
+          class="sidebar pr-1"
         >
           <b-skeleton-img
             v-if="loading"
@@ -138,10 +138,10 @@
             variant="success"
             height="8px"
             v-b-modal.progress
-            class="my-1 w-25 mx-auto mx-md-0"
+            class="my-1 w-25"
           />
 
-          <b-form-rating
+          <!-- <b-form-rating
             v-if="rating"
             :value="rating"
             :class="['p-0 mt-1', { 'bg-dark': nightMode }]"
@@ -152,7 +152,7 @@
             no-border
           />
 
-          <br />
+          <br /> -->
 
           <b-badge
             v-for="({ games, hex, tagTextColor }, name) in tags"
@@ -172,19 +172,13 @@
           </template>
 
           <template v-else>
-            <game-description :game="game" />
-
-            <similar-games
-              :game="game"
-              :loading="loading"
-              class="mb-2"
-            />
-
             <amazon-links
               :game="game"
               class="d-md-none"
               modal-id="mobile-amazon"
             />
+
+            <game-description :game="game" />
 
             <b-alert show variant="secondary" v-if="game.alternative_names">
               <strong>Also known as:</strong>
@@ -193,12 +187,20 @@
                   v-for="alternativeName in game.alternative_names"
                   :key="alternativeName.id"
                 >
-                  {{ alternativeName.name }} ({{ alternativeName.comment }})
+                  {{ alternativeName.name }} {{ alternativeName.comment ? `(${alternativeName.comment})` : null }}
                 </li>
               </ul>
             </b-alert>
+
             <game-details class="d-md-none" :game="game" />
+
             <game-websites :game="game" />
+
+            <similar-games
+              :game="game"
+              :loading="loading"
+              class="mb-2"
+            />
           </template>
         </b-col>
 
