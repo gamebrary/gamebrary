@@ -75,8 +75,8 @@ export default {
     },
 
     trimmedDescription() {
-      return this.gameDescription && this.gameDescription.length > 1000
-        ? `${this.gameDescription.substr(0, 1000)}...`
+      return this.gameDescription && this.gameDescription.length > 600
+        ? `${this.gameDescription.substr(0, 600)}...`
         : null;
     },
 
