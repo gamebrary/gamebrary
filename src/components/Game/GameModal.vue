@@ -116,10 +116,9 @@
           </template>
 
           <game-notes :game="game" />
-          <!-- TODO: add related games -->
-          <!-- More games like {{ game.name }} -->
-          <!-- <pre>{{ game.genres.map(({ id }) => id) }}</pre> -->
+          <similar-games :game="game" />
 
+          <!-- <pre>{{ game.genres.map(({ id }) => id) }}</pre> -->
           <!-- TODO: add bundles to game detail? -->
           <!-- {{ game.bundles ? `Found in ${game.bundles.length} compilations.` : null }} -->
         </b-col>
@@ -207,6 +206,7 @@
 import { mapState, mapGetters } from 'vuex';
 import GameDetails from '@/components/Game/GameDetails';
 import GameDescription from '@/components/Game/GameDescription';
+import SimilarGames from '@/components/Game/SimilarGames';
 import GameNotes from '@/components/Game/GameNotes';
 import GameScreenshots from '@/components/Game/GameScreenshots';
 import AmazonLinks from '@/components/Game/AmazonLinks';
@@ -224,6 +224,7 @@ export default {
     IgdbLogo,
     GameDetails,
     GameDescription,
+    SimilarGames,
     GameNotes,
     GameScreenshots,
     AmazonLinks,
@@ -285,6 +286,14 @@ export default {
     },
   },
 
+  watch: {
+    gameModalData(value) {
+      if (value) {
+        this.load();
+      }
+    },
+  },
+
   methods: {
     toggleCoverVisible(value) {
       this.coverVisible = value;
@@ -304,8 +313,6 @@ export default {
         gameId: prevGameId,
         list,
       });
-
-      this.load();
     },
 
     nextGame() {
@@ -322,8 +329,6 @@ export default {
         gameId: nextGameId,
         list,
       });
-
-      this.load();
     },
 
     load() {
