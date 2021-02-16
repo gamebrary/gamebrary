@@ -6,6 +6,7 @@
     v-b-modal.notes
     class="mt-2 mt-md-0"
   >
+    <strong>Notes:</strong>
     <vue-markdown :source="gameNotes" />
   </b-alert>
 </template>
