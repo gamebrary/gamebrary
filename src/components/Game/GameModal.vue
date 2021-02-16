@@ -116,7 +116,7 @@
           </template>
 
           <game-notes :game="game" />
-          <similar-games :game="game" />
+          <game-details class="d-none d-md-inline" :game="game" />
 
           <!-- <pre>{{ game.genres.map(({ id }) => id) }}</pre> -->
           <!-- TODO: add bundles to game detail? -->
@@ -174,6 +174,12 @@
           <template v-else>
             <game-description :game="game" />
 
+            <similar-games
+              :game="game"
+              :loading="loading"
+              class="mb-2"
+            />
+
             <amazon-links
               :game="game"
               class="d-md-none"
@@ -191,7 +197,7 @@
                 </li>
               </ul>
             </b-alert>
-            <game-details :game="game" />
+            <game-details class="d-md-none" :game="game" />
             <game-websites :game="game" />
           </template>
         </b-col>
