@@ -1,5 +1,9 @@
 <template lang="html">
-  <b-alert show v-if="game.websites">
+  <b-alert
+    v-if="game.websites"
+    show
+    variant="primary"
+  >
     <strong>External links</strong>
 
     <br>
