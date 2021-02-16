@@ -1,15 +1,28 @@
 <template lang="html">
-  <div v-if="game.websites">
-    <dl v-for="link in game.websites" :key="link.id">
+  <b-alert show v-if="game.websites">
+    <strong>External links</strong>
+
+    <br>
+
+    <b-button
+      v-for="link in game.websites"
+      :href="link.url"
+      :key="link.id"
+      variant="link"
+      class="px-0 mr-2"
+      target="_blank"
+    >
+      {{ linkTypes[link.category]}}
       <!-- TODO: research which links can be leveraged to get API data,
        e.g. wikipedia article, wikia, etc -->
-      <dt class="w-100">{{ linkTypes[link.category]}}</dt>
-      <dd class="text-truncate d-block"><a :href="link.url" target="_blank">{{ link.url }}</a></dd>
-    </dl>
-  </div>
+    </b-button>
+  </b-alert>
 </template>
 
 <script>
+// TODO: use constants
+// import { LINKS_CATEGORIES } from '@/constants';
+
 export default {
   props: {
     game: Object,
@@ -17,7 +30,6 @@ export default {
 
   data() {
     return {
-      // TODO: GET THIS FROM https://api-v3.igdb.com/igdbapi.proto?
       linkTypes: {
         1: 'Official site',
         2: 'Wikia',
