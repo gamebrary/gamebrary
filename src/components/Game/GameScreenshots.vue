@@ -49,7 +49,9 @@
           </template>
 
           <!-- TODO: allow to save screenshot as board wallpaper -->
-          <!-- <b-button @click="test">Set as board wallpaper</b-button> -->
+          <b-button @click="setAsWallpaper">
+            Set as wallpaper
+          </b-button>
 
           <b-button
             :variant="nightMode ? 'dark' : 'light'"
@@ -130,6 +132,11 @@ export default {
   },
 
   methods: {
+    setAsWallpaper() {
+      console.log(this.slides[this.activeImage]);
+      console.log(this.activeImage);
+    },
+
     previous() {
       this.$refs.screenshots.prev();
     },
