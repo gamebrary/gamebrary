@@ -95,6 +95,70 @@
         <platform-picker v-model="board.platforms" />
       </b-modal>
 
+      <b-button v-b-modal.boardBackground>
+        <i class="fas fa-images fa-fw" aria-hidden />
+        <br />
+        Change background
+      </b-button>
+
+      <b-button>Launch demo modal</b-button>
+      <!-- TODO: add move modal to component -->
+
+      <b-modal id="boardBackground" title="Board background">
+        <b-form-group
+          label="Board background image"
+          class="mb-0"
+        />
+
+        <b-dropdown
+          id="wallpaper"
+          v-if="wallpapers.length"
+          text="Select wallpaper"
+          boundary="viewport"
+        >
+          <b-dropdown-item
+            v-for="file in wallpapers"
+            :key="file.name"
+            @click="setWallpaper(file.fullPath)"
+          >
+            <b-img
+              thumbnail
+              :src="file.url"
+              :alt="file.name"
+              width="200"
+              fluid
+            />
+          </b-dropdown-item>
+        </b-dropdown>
+
+        <b-button
+          v-if="wallpaper"
+          variant="danger"
+          class="mx-2"
+          @click="removeWallpaper"
+        >
+          <i class="fas fa-trash fa-fw" aria-hidden />
+        </b-button>
+
+        <b-alert :show="!wallpapers.length">
+          {{ $t('board.settings.noWallpapers') }}
+
+          <br />
+
+          <b-button :to="{ name: 'wallpapers' }" class="mt-3">
+            {{ $t('board.settings.uploadWallpaper') }}
+          </b-button>
+        </b-alert>
+
+        <b-img
+          v-if="wallpaperUrl"
+          thumbnail
+          class="my-3"
+          :src="wallpaperUrl"
+          fluid
+        />
+      </b-modal>
+
       <b-form-group
         label="Board background color"
         class="mb-0"
@@ -115,59 +179,6 @@
           />
         </b-input-group-append>
       </b-input-group>
-
-      <b-form-group
-        label="Board background image"
-        class="mb-0"
-      />
-
-      <b-dropdown
-        id="wallpaper"
-        v-if="wallpapers.length"
-        text="Select wallpaper"
-        boundary="viewport"
-      >
-        <b-dropdown-item
-          v-for="file in wallpapers"
-          :key="file.name"
-          @click="setWallpaper(file.fullPath)"
-        >
-          <b-img
-            thumbnail
-            :src="file.url"
-            :alt="file.name"
-            width="200"
-            fluid
-          />
-        </b-dropdown-item>
-      </b-dropdown>
-
-      <b-button
-        v-if="wallpaper"
-        variant="danger"
-        class="mx-2"
-        @click="removeWallpaper"
-      >
-        <i class="fas fa-trash fa-fw" aria-hidden />
-      </b-button>
-
-      <b-alert :show="!wallpapers.length">
-        {{ $t('board.settings.noWallpapers') }}
-
-        <br />
-
-        <b-button :to="{ name: 'wallpapers' }" class="mt-3">
-          {{ $t('board.settings.uploadWallpaper') }}
-        </b-button>
-      </b-alert>
-
-      <b-img
-        v-if="wallpaperUrl"
-        thumbnail
-        class="my-3"
-        :src="wallpaperUrl"
-        fluid
-      />
 
       <hr class="my-3">
 
