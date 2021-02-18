@@ -1,4 +1,5 @@
 <!-- TODO: Mix media from other sources (e.g. instagram, wikipedia, youtube, twitter, etc... ) -->
+<!-- TODO: Show meta data -->
 <template lang="html">
   <b-form-row v-if="screenshots" class="mt-2">
     <b-col
@@ -50,7 +51,12 @@
 
           <!-- TODO: allow to save screenshot as board wallpaper -->
           <b-button @click="setAsWallpaper">
-            Set as wallpaper
+            <i
+              v-if="saving"
+              class="fas fa-sync fa-spin fa-fw"
+              aria-hidden
+            />
+            <span v-else>Set as wallpaper</span>
           </b-button>
 
           <b-button
@@ -93,7 +99,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 export default {
   props: {
@@ -104,11 +110,13 @@ export default {
     return {
       activeImage: 0,
       maxThumbnails: 3,
+      saving: false,
     };
   },
 
   computed: {
-    ...mapGetters(['nightMode', 'activeGameCoverUrl']),
+    ...mapGetters(['nightMode', 'activeGameCoverUrl', 'board']),
+    ...mapState(['board']),
 
     thumbnails() {
       // eslint-disable-next-line
@@ -132,9 +140,25 @@ export default {
   },
 
   methods: {
-    setAsWallpaper() {
-      console.log(this.slides[this.activeImage]);
-      console.log(this.activeImage);
+    async setAsWallpaper() {
+      this.saving = true;
+
+      const payload = {
+        ...this.board,
+        backgroundUrl: this.slides[this.activeImage],
+      };
+
+      this.$store.commit('SET_ACTIVE_BOARD', payload);
+
+      await this.$store.dispatch('SAVE_BOARD')
+        .catch(() => {
+          this.saving = false;
+
+          this.$bvToast.toast('There was an error renaming list', { variant: 'danger' });
+        });
+
+      this.saving = false;
+      this.$bvToast.toast('Wallpaper set');
     },
 
     previous() {

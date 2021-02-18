@@ -73,6 +73,10 @@ export default {
         return '';
       }
 
+      if (this.board.backgroundUrl) {
+        return `background-image: url('${this.board.backgroundUrl}');`;
+      }
+
       if (this.wallpaperUrl) {
         return `background-image: url('${this.wallpaperUrl}');`;
       }
@@ -138,7 +142,6 @@ export default {
 
   methods: {
     load() {
-      // TODO: handle loading public board
       if (this.boardId && this.user) {
         this.loadBoard(this.boardId);
       } else {
@@ -167,6 +170,7 @@ export default {
         });
 
       this.loadBoardGames();
+      // TODO: null check, define backgrounds priority
       this.setWallpaper();
     },
 
