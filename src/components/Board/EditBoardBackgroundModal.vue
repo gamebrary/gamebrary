@@ -65,7 +65,7 @@
 
         <mini-board
           :board="board"
-          :background-image="wallpaperUrl"
+          :background-image="board.backgroundUrl || wallpaperUrl"
         />
       </b-col>
     </b-row>
