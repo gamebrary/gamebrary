@@ -175,7 +175,7 @@ export default {
         });
 
       this.saving = false;
-      this.$bvToast.toast('<CHANGE>ME</CHANGE>Board settings saved');
+      this.$bvToast.toast('Board background saved');
       this.$bvModal.hide('boardBackground');
 
       if (wallpaperChanged) {
