@@ -24,20 +24,10 @@ import Dock from '@/components/Dock';
 import GlobalModals from '@/components/GlobalModals';
 import firebase from 'firebase/app';
 import { mapState, mapGetters } from 'vuex';
-import { KEYBOARD_SHORTCUTS } from '@/constants';
+import { KEYBOARD_SHORTCUTS, FIREBASE_CONFIG } from '@/constants';
 import 'firebase/firestore';
 
-// TODO: store in env vars
-firebase.initializeApp({
-  apiKey: 'AIzaSyA6MsmnLtqT4b11r-j15wwreRypO3AodcA',
-  authDomain: 'gamebrary.com',
-  databaseURL: 'https://gamebrary-8c736.firebaseio.com',
-  projectId: 'gamebrary-8c736',
-  storageBucket: 'gamebrary-8c736.appspot.com',
-  messagingSenderId: '324529217902',
-});
-
-const db = firebase.firestore();
+firebase.initializeApp(FIREBASE_CONFIG);
 
 export default {
   name: 'App',
@@ -109,6 +99,8 @@ export default {
     },
 
     load() {
+      const db = firebase.firestore();
+
       // TODO: move logic to actions
       this.$store.dispatch('LOAD_RELEASES')
         .then((releases) => {

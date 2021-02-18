@@ -11,6 +11,15 @@ export const PLATFORM_CATEGORIES = {
   6: 'computer',
 };
 
+export const FIREBASE_CONFIG = {
+  apiKey: 'AIzaSyA6MsmnLtqT4b11r-j15wwreRypO3AodcA',
+  authDomain: 'gamebrary.com',
+  databaseURL: 'https://gamebrary-8c736.firebaseio.com',
+  projectId: 'gamebrary-8c736',
+  storageBucket: 'gamebrary-8c736.appspot.com',
+  messagingSenderId: '324529217902',
+};
+
 export const LINKS_CATEGORIES = {
   official: 1,
   wikia: 2,
