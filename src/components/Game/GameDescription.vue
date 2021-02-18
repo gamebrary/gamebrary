@@ -34,6 +34,7 @@
     <b-modal
       id="wikipediaArticle"
       scrollable
+      hide-footer
       :header-bg-variant="nightMode ? 'dark' : null"
       :header-text-variant="nightMode ? 'white' : null"
       :body-bg-variant="nightMode ? 'dark' : null"
