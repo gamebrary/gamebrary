@@ -4,7 +4,6 @@
       <b-avatar
         v-if="user && user.photoURL"
         v-b-tooltip.hover.right
-        variant="info"
         badge-variant="danger"
         :title="$t('navMenu.account')"
         :src="user.photoURL"
@@ -22,12 +21,14 @@
       <b-tab
         v-for="{ name, title, icon } in tabs"
         :key="name"
-        :active="$route.name === name"
+        title-link-class="p-0 mx-1"
         @click="handleClick(name)"
       >
         <template #title>
-          <i :class="`${icon} fa-fw`" aria-hidden />
-          <span class="d-none d-md-inline">{{ title }}</span>
+          <b-button :variant="$route.name === name ? 'dark' : 'light'">
+            <i :class="`${icon} fa-fw`" aria-hidden />
+            <span class="d-none d-md-inline">{{ title }}</span>
+          </b-button>
         </template>
       </b-tab>
     </b-tabs>
