@@ -9,7 +9,11 @@
 
     <hr />
 
-    <b-button href="https://accounts.google.com/" target="_blank" variant="secondary">
+    <b-button
+      href="https://accounts.google.com/"
+      target="_blank"
+      variant="info"
+    >
       Manage Google Account
     </b-button>
 
