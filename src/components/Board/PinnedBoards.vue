@@ -6,13 +6,7 @@
     >
       <b-avatar
         rounded
-        :class="[
-          'mb-1 cursor-pointer pinned-board',
-          {
-            dimmed: board.name !== name,
-            'border-success' : board.name === name,
-          }
-        ]"
+        :class="[ 'mb-1 cursor-pointer pinned-board', { active: board.name === name }]"
         :title="name"
         @click.native="viewBoard(id)"
         :style="`
@@ -29,7 +23,7 @@
     <b-avatar
       v-if="isBoard && !board.pinned"
       rounded
-      class="pinned-board border-success"
+      class="active pinned-board"
       :title="board.name"
       :style="`
       ${board.backgroundColor ? ` background-color: ${board.backgroundColor};` : null }
@@ -100,11 +94,9 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
   .pinned-board {
     background-size: cover;
-    border-right: 2px solid;
 
-    &.dimmed {
-      border: none;
-      filter: grayscale(80%);
+    &.active {
+      box-shadow: inset 0 0 0 2px black;
     }
   }
 
