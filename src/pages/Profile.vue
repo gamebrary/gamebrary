@@ -1,6 +1,6 @@
 <template lang="html">
   <b-container class="pt-3">
-    <div class="text-center my-4">
+    <!-- <div class="text-center my-4">
       <b-avatar
         v-if="user && user.photoURL"
         v-b-tooltip.hover.right
@@ -11,7 +11,7 @@
       />
 
       <h5 class="mt-2">{{ user.displayName }}</h5>
-    </div>
+    </div> -->
 
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h3 class="m-0">Profile</h3>
