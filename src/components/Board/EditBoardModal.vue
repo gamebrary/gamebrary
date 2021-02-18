@@ -15,7 +15,7 @@
       >
         <b-button
           variant="primary"
-          :disabled="saving || noPlatformsSelected"
+          :disabled="saving"
           @click="saveSettings"
         >
           <b-spinner small v-if="saving" />
@@ -62,55 +62,28 @@
         <small>{{ `https://app.gamebrary.com/#/b/${board.id}` }}</small>
       </b-alert>
 
-      <!-- TODO: move to a separate file -->
-      <b-modal
-        id="editPlatforms"
-        :header-bg-variant="nightMode ? 'dark' : null"
-        :header-text-variant="nightMode ? 'white' : null"
-        :body-bg-variant="nightMode ? 'dark' : null"
-        :body-text-variant="nightMode ? 'white' : null"
-        :footer-bg-variant="nightMode ? 'dark' : null"
-        :footer-text-variant="nightMode ? 'white' : null"
-        hide-footer
-      >
-        <template v-slot:modal-header="{ close }">
-          <modal-header
-            title="Board platforms"
-            @close="close"
-          />
-        </template>
+      <hr class="my-3">
 
-        <b-alert :show="noPlatformsSelected" variant="warning">
-          Please select at least 1 platform
-        </b-alert>
-
-        <platform-picker v-model="board.platforms" />
-      </b-modal>
-
-      <hr>
-
-      <b-button
-        v-b-modal.editPlatforms
-        :variant="noPlatformsSelected ? 'warning' : 'info'"
-      >
+      <b-button v-b-modal.editPlatforms variant="dark">
         <i class="fas fa-gamepad fa-fw" aria-hidden />
         <br />
         Edit platforms
       </b-button>
 
-      <b-button v-b-modal.boardBackground>
+      <edit-board-platforms-modal />
+
+      <b-button v-b-modal.boardBackground variant="dark">
         <i class="fas fa-images fa-fw" aria-hidden />
         <br />
         Change background
       </b-button>
 
-      <board-background-modal />
+      <edit-board-background-modal />
 
       <hr class="my-3">
 
       <b-button
-        variant="link"
-        class="text-danger px-0"
+        variant="danger"
         @click="confirmDelete"
       >
         {{ $t('board.settings.deleteBoard') }}
@@ -121,13 +94,13 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import BoardBackgroundModal from '@/components/Board/BoardBackgroundModal';
-import PlatformPicker from '@/components/Board/PlatformPicker';
+import EditBoardBackgroundModal from '@/components/Board/EditBoardBackgroundModal';
+import EditBoardPlatformsModal from '@/components/Board/EditBoardPlatformsModal';
 
 export default {
   components: {
-    PlatformPicker,
-    BoardBackgroundModal,
+    EditBoardBackgroundModal,
+    EditBoardPlatformsModal,
   },
 
   data() {
@@ -145,10 +118,6 @@ export default {
   computed: {
     ...mapState(['board', 'user']),
     ...mapGetters(['nightMode']),
-
-    noPlatformsSelected() {
-      return this.board.platforms.length === 0;
-    },
   },
 
   methods: {
