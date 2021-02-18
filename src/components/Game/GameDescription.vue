@@ -12,42 +12,61 @@
       <small>Source: {{ source }}</small>
 
       <p>
-        <template v-if="trimmedDescription && !descriptionExpanded">
-          <span
-            :class="{'break-spaces': source === 'IGDB' }"
-            v-html="trimmedDescription"
-          />
+        <span
+          :class="{'break-spaces': source === 'IGDB' }"
+          v-html="description"
+        />
 
-          <!-- TODO: open entire article in other modal -->
+        <b-button v-b-modal.wikipediaArticle>
+          <i class="fab fa-wikipedia-w" aria-hidden />
+          Read more
+        </b-button>
 
-          <b-button
-            variant="secondary"
-            @click="descriptionExpanded = true"
-          >
-            <i class="fab fa-wikipedia-w" aria-hidden />
-            Read more
-          </b-button>
-        </template>
-
-        <template v-if="!trimmedDescription">
+        <!-- <template v-if="!trimmedDescription">
           <div
             v-html="gameDescription"
             :class="{'break-spaces': source === 'IGDB' }"
           />
-        </template>
+        </template> -->
       </p>
-
-      <b-collapse v-model="descriptionExpanded">
-        <p
-          :class="{'break-spaces': source === 'IGDB' }"
-          v-html="gameDescription"
-        />
-      </b-collapse>
     </template>
+
+    <b-modal
+      id="wikipediaArticle"
+      scrollable
+      :header-bg-variant="nightMode ? 'dark' : null"
+      :header-text-variant="nightMode ? 'white' : null"
+      :body-bg-variant="nightMode ? 'dark' : null"
+      :body-text-variant="nightMode ? 'white' : null"
+    >
+      <template v-slot:modal-header="{ close }">
+        <modal-header
+          :title="game.name"
+          subtitle="Wikipedia article"
+          @close="close"
+        >
+          <template v-slot:header>
+            <b-img
+              :src="activeGameCoverUrl"
+              :alt="game.name"
+              class="float-left mr-2"
+              height="40"
+              rounded
+            />
+          </template>
+        </modal-header>
+      </template>
+
+      <p
+        :class="{'break-spaces': source === 'IGDB' }"
+        v-html="gameDescription"
+      />
+    </b-modal>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import { LINKS_CATEGORIES } from '@/constants';
 
 export default {
@@ -57,13 +76,20 @@ export default {
 
   data() {
     return {
-      descriptionExpanded: false,
       wikipediaArticle: {},
       loading: true,
     };
   },
 
   computed: {
+    ...mapGetters(['nightMode', 'activeGameCoverUrl']),
+
+    description() {
+      return this.trimmedDescription
+        ? this.trimmedDescription
+        : this.gameDescription;
+    },
+
     gameDescription() {
       const wikipediaDescription = this.wikipediaArticle && this.wikipediaArticle.extract
         ? this.wikipediaArticle.extract
@@ -91,8 +117,6 @@ export default {
   },
 
   mounted() {
-    this.descriptionExpanded = false;
-
     this.loadWikipediaArticle();
   },
 
