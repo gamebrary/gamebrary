@@ -166,7 +166,6 @@ export default {
       };
 
       this.$store.commit('SET_ACTIVE_BOARD', payload);
-      this.$store.commit('UPDATE_BOARDS', payload);
 
       await this.$store.dispatch('SAVE_BOARD')
         .catch(() => {
