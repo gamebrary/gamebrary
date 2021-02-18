@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import EditBoardModal from '@/components/Settings/EditBoardModal';
+import EditBoardModal from '@/components/Board/EditBoardModal';
 import BoardPlaceholder from '@/components/Board/BoardPlaceholder';
 import EmptyBoard from '@/components/Board/EmptyBoard';
 import AddListModal from '@/components/Board/AddListModal';
