@@ -23,7 +23,7 @@
           v-if="activeStep === 1"
           @click="activeStep = activeStep + 1"
         >
-          Next: choose platforms
+          Next
         </b-button>
 
         <b-dropdown
