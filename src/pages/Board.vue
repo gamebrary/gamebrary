@@ -13,6 +13,25 @@
         :key="list.name"
       />
 
+      <div class="d-flex flex-column pr-2">
+        <b-button
+          :variant="nightMode ? 'dark' : 'light'"
+          size="sm"
+          class="mb-2"
+          v-b-modal:add-list
+        >
+          <i class="fas fa-plus fa-fw" aria-hidden />
+        </b-button>
+
+        <b-button
+          :variant="nightMode ? 'dark' : 'light'"
+          size="sm"
+          v-b-modal:edit-board
+        >
+          <i class="fas fa-cog fa-fw" aria-hidden />
+        </b-button>
+      </div>
+
       <empty-board v-if="isEmptyBoard" class="mr-3" />
 
       <add-list-modal />
