@@ -3,7 +3,7 @@
   <nav
     class="rounded position-fixed d-flex flex-column p-0 m-2 text-center border dock"
     :class="{
-      'bg-dark text-white border-dark': nightMode,
+      'bg-dark text-white border-info': nightMode,
       'bg-white': !nightMode,
       }"
   >
@@ -24,8 +24,7 @@
     <b-collapse id="moreMenu" v-model="moreMenuOpen">
       <b-button
         :to="{ name: 'boards' }"
-        :variant="nightMode ? 'primary' : 'light'"
-        class="mt-1"
+        :variant="nightMode ? 'dark' : 'light'"
         size="sm"
         title="Boards"
       >
@@ -34,7 +33,7 @@
 
       <b-button
         :to="{ name: 'tags' }"
-        :variant="nightMode ? 'primary' : 'light'"
+        :variant="nightMode ? 'dark' : 'light'"
         class="mt-1"
         size="sm"
         title="Tags"
@@ -44,7 +43,7 @@
 
       <b-button
         :to="{ name: 'notes' }"
-        :variant="nightMode ? 'primary' : 'light'"
+        :variant="nightMode ? 'dark' : 'light'"
         class="mt-1"
         size="sm"
         title="Notes"
@@ -54,7 +53,7 @@
 
       <b-button
         :to="{ name: 'wallpapers' }"
-        :variant="nightMode ? 'primary' : 'light'"
+        :variant="nightMode ? 'dark' : 'light'"
         class="mt-1"
         size="sm"
         title="Wallpapers"
@@ -64,7 +63,7 @@
 
       <b-button
         :to="{ name: 'profile' }"
-        :variant="nightMode ? 'primary' : 'light'"
+        :variant="nightMode ? 'dark' : 'light'"
         class="mt-1"
         size="sm"
         title="Profile"
@@ -73,7 +72,7 @@
       </b-button>
 
       <b-button
-        :variant="nightMode ? 'primary' : 'light'"
+        :variant="nightMode ? 'dark' : 'light'"
         class="mt-1"
         size="sm"
         v-b-modal:keyboard-shortcuts
@@ -82,11 +81,11 @@
         <i class="fas fa-keyboard fa-fw" aria-hidden />
       </b-button>
 
-      <hr class="my-2">
+      <hr class="my-1">
 
       <b-button
         :to="{ name: 'settings' }"
-        :variant="nightMode ? 'primary' : 'light'"
+        :variant="nightMode ? 'dark' : 'light'"
         size="sm"
         title="Settings"
       >
@@ -95,7 +94,7 @@
 
       <b-button
         :to="{ name: 'about' }"
-        :variant="nightMode ? 'primary' : 'light'"
+        :variant="nightMode ? 'dark' : 'light'"
         class="mt-1"
         size="sm"
         title="About"
@@ -105,7 +104,7 @@
 
       <b-button
         :to="{ name: 'releases' }"
-        :variant="nightMode ? 'primary' : 'light'"
+        :variant="nightMode ? 'dark' : 'light'"
         class="my-1"
         size="sm"
         title="Releases"
@@ -117,8 +116,8 @@
     <!-- TODO: persist value -->
     <b-button
       v-b-toggle.moreMenu
-      :variant="nightMode ? 'primary' : 'light'"
-      class="mx-1 mb-1"
+      :variant="nightMode ? 'dark' : 'light'"
+      class="mx-1 mb-1 py-0"
       size="sm"
     >
       <i :class="`fas fa-angle-double-${moreMenuOpen ? 'up' : 'down'} fa-fw`" />
