@@ -11,28 +11,17 @@
 
     <b-button
       href="https://accounts.google.com/"
+      class="mb-2"
       target="_blank"
       variant="info"
     >
       Manage Google Account
     </b-button>
 
-    <delete-account />
+    <br />
+    <delete-account class="mb-2" />
+    <br />
     <sign-out />
-
-    <hr />
-
-    <b-list-group>
-      <b-list-group-item :to="{ name: 'about' }">
-        <i class="fas fa-info fa-fw" aria-hidden />
-        About
-      </b-list-group-item>
-
-      <b-list-group-item :to="{ name: 'releases' }">
-        <i class="fas fa-bullhorn fa-fw" aria-hidden />
-        Releases
-      </b-list-group-item>
-    </b-list-group>
   </b-container>
 </template>
 

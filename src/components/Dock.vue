@@ -1,6 +1,7 @@
+<!-- TODO: auto hide dock on scroll -->
 <template lang="html">
   <nav
-    class=" rounded position-fixed d-flex flex-column p-0 m-2 text-center border"
+    class="rounded position-fixed d-flex flex-column p-0 m-2 text-center border dock"
     :class="{
       'bg-dark text-white border-dark': nightMode,
       'bg-white': !nightMode,
@@ -20,117 +21,108 @@
 
     <pinned-boards v-if="user" />
 
-    <b-dropdown
-      v-if="user"
-      dropright
-      right
-      no-caret
-      boundary="viewport"
-      :variant="nightMode ? 'dark' : 'transparent'"
-      :menu-class="nightMode ? 'bg-dark' : ''"
-    >
-      <template v-slot:button-content>
-        <i class="fas fa-ellipsis-h fa-fw" aria-hidden />
-      </template>
-
-      <template v-if="$route.name === 'board'">
-        <b-dropdown-header id="dropdown-header-label">
-          {{ board.name }}
-        </b-dropdown-header>
-
-        <b-dropdown-item
-          v-b-modal:edit-board
-          :variant="nightMode ? 'secondary' : null"
-        >
-          <i class="fas fa-edit fa-fw" aria-hidden />
-          Edit board
-        </b-dropdown-item>
-
-        <b-dropdown-item
-          v-b-modal:add-list
-          :variant="nightMode ? 'secondary' : null"
-        >
-          <i class="fas fa-folder-plus fa-fw" />
-          Add list
-        </b-dropdown-item>
-
-        <b-dropdown-item
-          @click="pinBoard"
-          :variant="nightMode ? 'secondary' : null"
-        >
-          <i class="fas fa-thumbtack fa-fw" />
-          {{ board.pinned ? 'Unpin from dock' : 'Pin to dock' }}
-        </b-dropdown-item>
-
-        <b-dd-divider />
-      </template>
-
-      <b-dropdown-item
-        v-b-modal:create-board
-        :variant="nightMode ? 'secondary' : null"
-      >
-        <i class="fas fa-plus fa-fw" aria-hidden />
-        Create board
-      </b-dropdown-item>
-
-      <b-dd-divider />
-
-      <b-dropdown-item
+    <b-collapse id="moreMenu" v-model="moreMenuOpen">
+      <b-button
         :to="{ name: 'boards' }"
-        :variant="nightMode ? 'secondary' : null"
+        :variant="nightMode ? 'primary' : 'light'"
+        class="mt-1"
+        size="sm"
+        title="Boards"
       >
         <i class="fas fa-columns fa-fw" aria-hidden />
-        Boards
-      </b-dropdown-item>
+      </b-button>
 
-      <b-dropdown-item
+      <b-button
         :to="{ name: 'tags' }"
-        :variant="nightMode ? 'secondary' : null"
+        :variant="nightMode ? 'primary' : 'light'"
+        class="mt-1"
+        size="sm"
+        title="Tags"
       >
         <i class="fas fa-tags fa-fw" aria-hidden />
-        Tags
-      </b-dropdown-item>
+      </b-button>
 
-      <b-dropdown-item
+      <b-button
         :to="{ name: 'notes' }"
-        :variant="nightMode ? 'secondary' : null"
+        :variant="nightMode ? 'primary' : 'light'"
+        class="mt-1"
+        size="sm"
+        title="Notes"
       >
         <i class="fas fa-sticky-note fa-fw" aria-hidden />
-        Notes
-      </b-dropdown-item>
+      </b-button>
 
-      <b-dropdown-item
+      <b-button
         :to="{ name: 'wallpapers' }"
-        :variant="nightMode ? 'secondary' : null"
+        :variant="nightMode ? 'primary' : 'light'"
+        class="mt-1"
+        size="sm"
+        title="Wallpapers"
       >
         <i class="fas fa-images fa-fw" aria-hidden />
-        Wallpapers
-      </b-dropdown-item>
+      </b-button>
 
-      <b-dropdown-item
+      <b-button
         :to="{ name: 'profile' }"
-        :variant="nightMode ? 'secondary' : null"
+        :variant="nightMode ? 'primary' : 'light'"
+        class="mt-1"
+        size="sm"
+        title="Profile"
       >
         <i class="fas fa-user fa-fw" aria-hidden />
-        Profile
-      </b-dropdown-item>
+      </b-button>
 
-      <b-dropdown-item
-        :variant="nightMode ? 'secondary' : null"
+      <b-button
+        :variant="nightMode ? 'primary' : 'light'"
+        class="mt-1"
+        size="sm"
         v-b-modal:keyboard-shortcuts
+        title="Keyboard shortcuts"
       >
         <i class="fas fa-keyboard fa-fw" aria-hidden />
-        Keyboard shortcuts
-      </b-dropdown-item>
+      </b-button>
 
-      <b-dropdown-item
+      <hr class="my-2">
+
+      <b-button
         :to="{ name: 'settings' }"
-        :variant="nightMode ? 'secondary' : null"
+        :variant="nightMode ? 'primary' : 'light'"
+        size="sm"
+        title="Settings"
       >
         <i class="fas fa-cog fa-fw" aria-hidden />
-        Settings
-      </b-dropdown-item>
-    </b-dropdown>
+      </b-button>
+
+      <b-button
+        :to="{ name: 'about' }"
+        :variant="nightMode ? 'primary' : 'light'"
+        class="mt-1"
+        size="sm"
+        title="About"
+      >
+        <i class="fas fa-info fa-fw" aria-hidden />
+      </b-button>
+
+      <b-button
+        :to="{ name: 'releases' }"
+        :variant="nightMode ? 'primary' : 'light'"
+        class="my-1"
+        size="sm"
+        title="Releases"
+      >
+        <i class="fas fa-bullhorn fa-fw" aria-hidden />
+      </b-button>
+    </b-collapse>
+
+    <!-- TODO: persist value -->
+    <b-button
+      v-b-toggle.moreMenu
+      :variant="nightMode ? 'primary' : 'light'"
+      class="mx-1 mb-1"
+      size="sm"
+    >
+      <i :class="`fas fa-angle-double-${moreMenuOpen ? 'up' : 'down'} fa-fw`" />
+    </b-button>
   </nav>
 </template>
 
@@ -141,6 +133,12 @@ import PinnedBoards from '@/components/Board/PinnedBoards';
 export default {
   components: {
     PinnedBoards,
+  },
+
+  data() {
+    return {
+      moreMenuOpen: false,
+    };
   },
 
   computed: {
@@ -167,27 +165,27 @@ export default {
       }
     },
 
-    async pinBoard() {
-      const payload = {
-        ...this.board,
-        pinned: !this.board.pinned,
-      };
-
-      this.$store.commit('SET_ACTIVE_BOARD', payload);
-
-      await this.$store.dispatch('SAVE_BOARD')
-        .catch(() => {
-          this.$bvToast.toast('There was an error renaming list', { variant: 'danger' });
-        });
-
-      this.$bvToast.toast('Board settings saved');
-    },
+    // async pinBoard() {
+    //   const payload = {
+    //     ...this.board,
+    //     pinned: !this.board.pinned,
+    //   };
+    //
+    //   this.$store.commit('SET_ACTIVE_BOARD', payload);
+    //
+    //   await this.$store.dispatch('SAVE_BOARD')
+    //     .catch(() => {
+    //       this.$bvToast.toast('There was an error renaming list', { variant: 'danger' });
+    //     });
+    //
+    //   this.$bvToast.toast('Board settings saved');
+    // },
   },
 };
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-nav {
+.dock {
   width: 50px;
   z-index: 1;
 }
