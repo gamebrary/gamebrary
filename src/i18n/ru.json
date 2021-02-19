@@ -1,23 +1,33 @@
 {
     "global": {
         "back": "Назад",
-        "save": "Сохранить",
+        "save": "Сохранять",
         "cancel": "Отмена",
-        "delete": "удалять",
-        "create": "Создайте",
+        "delete": "Удалить",
+        "create": "Создавать",
         "filter": "Фильтр",
-        "by": "по",
+        "by": "к",
         "no": "нет",
         "yes": "да",
-        "or": "или",
+        "or": "или же",
         "pageNotFound": "Страница не найдена",
         "poweredByIgdb": "Питаться от",
         "signOut": "выход",
-        "donateMessage": "Gamebrary бесплатна и имеет открытый исходный код, рассмотрите возможность оказания помощи в ее разработке путем",
+        "donateMessage": "Gamebrary бесплатна и имеет открытый исходный код, рассмотрите возможность оказания помощи в ее разработке,",
         "donating": "пожертвование",
         "reportBugs": "сообщать об ошибках",
         "games": "игры",
         "submitFeedback": "отправка отзыва"
+    },
+    "shortcuts": {
+        "keyboard-shortcuts": "Откройте это модальное окно",
+        "create-board": "Создать новую доску",
+        "boards": "Перейти к доскам",
+        "tags": "Перейти к тегам",
+        "notes": "Перейти к заметкам",
+        "wallpapers": "Перейти к обоям",
+        "profile": "Перейти в профиль",
+        "settings": "Перейдите в настройки"
     },
     "navMenu": {
         "changeBoard": "Сменить доску",
@@ -25,8 +35,11 @@
         "wallpapers": "Обои",
         "language": "Язык",
         "releases": "Релизы",
-        "about": "Около",
-        "account": "Счет"
+        "about": "О",
+        "upgrade": "Обновление",
+        "notes": "Примечания",
+        "account": "Счет",
+        "theme": "Сменить тему"
     },
     "gitHub": {
         "watch": "Смотреть",
@@ -45,10 +58,10 @@
     },
     "board": {
         "gameModal": {
-            "videos": "Видео",
+            "videos": "Ролики",
             "screenshots": "Скриншоты",
             "perspective": "Перспектива",
-            "releaseDate": "Дата выпуска",
+            "releaseDate": "Дата выхода",
             "timeToBeat": "Время бить",
             "gameModes": "Игровой режим",
             "genres": "Жанр",
@@ -56,7 +69,7 @@
             "platforms": "Платформы",
             "developers": "Разработчик",
             "publishers": "Издатели",
-            "removeFromList": "Удалить",
+            "removeFromList": "Удалять",
             "links": {
                 "official": "Официальный сайт",
                 "wikia": "Фэндом",
@@ -85,7 +98,7 @@
             "changePlatform": "Сменить платформу доски",
             "noWallpapers": "Обои еще не загружены.",
             "descriptionLabel": "Описание платы",
-            "nameLabel": "Название платы",
+            "nameLabel": "Название доски",
             "wallpaper": "Настольные обои",
             "removeWallpaper": "Удалить обои",
             "uploadWallpaper": "Загрузить обои",
@@ -114,15 +127,15 @@
             "emptyListButton": "Щелкните здесь или перетащите игры сюда",
             "getStarted": "Начать!",
             "addFirstTime": "Добро пожаловать, добавьте свой первый список!",
-            "sortByName": "имя",
+            "sortByName": "Имя",
             "sortByProgress": "Прогресс",
-            "sortByRating": "Гол",
+            "sortByRating": "Счет",
             "sortByReleaseDate": "Дата",
-            "sortByCustom": "На заказ",
+            "sortByCustom": "Обычай",
             "sortedBy": "Отсортировано по",
             "delete": "Удалить список",
-            "moveLeft": "Двигай влево",
-            "moveRight": "Двигаться вправо",
+            "moveLeft": "Движение влево",
+            "moveRight": "Переместить вправо",
             "emptyList": "Этот список пуст",
             "addGame": "Добавить игру",
             "addGames": "Добавить игры в {listName}",
@@ -140,10 +153,11 @@
             "showGameTags": "Показать теги игры",
             "showGameCount": "Показать количество игр",
             "views": {
-                "single": "По умолчанию",
+                "single": "Дефолт",
                 "compact": "Компактный",
                 "text": "Только текст",
-                "grid": "Сетка"
+                "grid": "Сетка",
+                "covers": "Охватывает"
             },
             "deleteWarning": {
                 "title": "Вы уверены, что хотите удалить этот список?",
@@ -166,7 +180,7 @@
         "language": "Язык",
         "themes": "Темы",
         "releases": "Релизы",
-        "about": "Около",
+        "about": "О",
         "account": "Счет"
     },
     "tags": {
@@ -215,14 +229,12 @@
         "subtitle": "Readme с Github"
     },
     "progresses": {
-        "modalTitle": "Установить прогресс игры",
+        "modalTitle": "Прогресс игры",
         "addProgress": "Добавить прогресс",
-        "save": "Сохранить прогресс",
-        "deleteProgress": "Удалить прогресс",
         "progresses": "Прогресс"
     },
     "platforms": {
-        "donateMessage": "Gamebrary бесплатна и имеет открытый исходный код, рассмотрите возможность оказания помощи в ее разработке путем",
+        "donateMessage": "Gamebrary бесплатна и имеет открытый исходный код, рассмотрите возможность оказания помощи в ее разработке,",
         "donating": "пожертвование",
         "reportBugs": "сообщать об ошибках",
         "submitFeedback": "отправка отзыва",
@@ -237,5 +249,13 @@
         "name": "По алфавиту",
         "generation": "Генерация / Дата выпуска",
         "type": "Тип"
+    },
+    "upgrade": {
+        "title": "Перейти на Gamebrary Pro",
+        "subtitle": "..."
+    },
+    "notes": {
+        "title": "Примечания",
+        "subtitle": "↑↑ ↓↓ ← → ← → БА"
     }
 }

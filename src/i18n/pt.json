@@ -1,12 +1,12 @@
 {
     "global": {
-        "back": "Costas",
+        "back": "Voltar",
         "save": "Salve ",
         "cancel": "Cancelar",
         "delete": "Excluir",
         "create": "Crio",
         "filter": "Filtro",
-        "by": "por",
+        "by": "de",
         "no": "não",
         "yes": "sim",
         "or": "ou",
@@ -19,6 +19,16 @@
         "games": "jogos",
         "submitFeedback": "enviando feedback"
     },
+    "shortcuts": {
+        "keyboard-shortcuts": "Abra este modal",
+        "create-board": "Criar novo tabuleiro",
+        "boards": "Vá para os painéis",
+        "tags": "Ir para as tags",
+        "notes": "Vá para as notas",
+        "wallpapers": "Vá para papéis de parede",
+        "profile": "Vá para o perfil",
+        "settings": "Vá para as configurações"
+    },
     "navMenu": {
         "changeBoard": "Mudança de quadro",
         "tags": "Tag",
@@ -26,12 +36,15 @@
         "language": "Língua",
         "releases": "Lançamentos",
         "about": "Sobre",
-        "account": "Conta"
+        "upgrade": "Melhoria",
+        "notes": "Notas",
+        "account": "Conta",
+        "theme": "Mudar de tema"
     },
     "gitHub": {
-        "watch": "Ver",
+        "watch": "Assistir",
         "star": "Estrela",
-        "fork": "Garfo",
+        "fork": "Forquilha",
         "issues": "Problemas"
     },
     "dashboard": {
@@ -61,11 +74,11 @@
                 "official": "Site oficial",
                 "wikia": "Fã-clube",
                 "wikipedia": "Wikipedia",
-                "facebook": "Facebook",
+                "facebook": "o Facebook",
                 "twitter": "Twitter",
                 "twitch": "Contração muscular",
                 "instagram": "Instagram",
-                "youtube": "Youtube",
+                "youtube": "você tubo",
                 "iphone": "iOS",
                 "ipad": "iPad",
                 "android": "Loja de jogos",
@@ -82,7 +95,7 @@
         "settings": {
             "title": "Configurações do tabuleiro",
             "deleteBoard": "Excluir placa",
-            "changePlatform": "Mudar as plataformas do tabuleiro",
+            "changePlatform": "Mudar plataformas de tabuleiro",
             "noWallpapers": "Nenhum papel de parede carregado ainda.",
             "descriptionLabel": "Descrição do tabuleiro",
             "nameLabel": "Nome do tabuleiro",
@@ -108,7 +121,7 @@
             "settings": "Configurações da lista",
             "placeholder": "Digite o nome da sua lista aqui",
             "wishlist": "Lista de Desejos",
-            "input": "Digite o seu",
+            "input": "Insira o seu",
             "add": "Adicionar lista",
             "duplicateWarning": "Você já tem uma lista com este nome",
             "emptyListButton": "Clique aqui ou arraste os jogos aqui",
@@ -116,12 +129,12 @@
             "addFirstTime": "Bem-vindo, adicione sua primeira lista!",
             "sortByName": "Nome",
             "sortByProgress": "Progresso",
-            "sortByRating": "Ponto",
+            "sortByRating": "Pontuação",
             "sortByReleaseDate": "Encontro",
-            "sortByCustom": "personalizadas",
+            "sortByCustom": "Personalizado",
             "sortedBy": "Ordenado por",
             "delete": "Excluir lista",
-            "moveLeft": "Mova para a esquerda",
+            "moveLeft": "Vire à esquerda",
             "moveRight": "Mover para a direita",
             "emptyList": "Esta lista está vazia",
             "addGame": "Adicionar jogo",
@@ -130,20 +143,21 @@
             "moveList": "Mover lista",
             "renameList": "Renomear",
             "renameListPlaceholder": "Digite seu nome",
-            "sortList": "Ordenar",
+            "sortList": "Organizar",
             "sortWarning": "A lista de classificação automática afetará o funcionamento de arrastar e soltar",
             "coversSizeTitle": "Cobre toda",
-            "showReleaseDates": "Mostrar data de lançamento para jogos não lançados",
+            "showReleaseDates": "Mostrar data de lançamento para jogos inéditos",
             "showGameRatings": "Mostrar classificações de jogos",
             "showGameProgress": "Mostrar o progresso do jogo",
             "showGameNotes": "Mostrar notas do jogo",
             "showGameTags": "Mostrar tags do jogo",
             "showGameCount": "Mostrar contagem de jogos",
             "views": {
-                "single": "Padrão",
+                "single": "Predefinição",
                 "compact": "Compactar",
                 "text": "Somente texto",
-                "grid": "Rede"
+                "grid": "Rede",
+                "covers": "Capas"
             },
             "deleteWarning": {
                 "title": "Tem certeza de que deseja excluir esta lista?",
@@ -197,7 +211,7 @@
         "form": {
             "label": "Carregar papel de parede",
             "placeholder": "Escolha um arquivo ou solte-o aqui ...",
-            "browse": "Squeaky toy",
+            "browse": "Navegar",
             "helperText": "Somente arquivos de imagem",
             "upload": "Envio",
             "duplicateMessage": "Você já tem um arquivo chamado {fileName}"
@@ -215,10 +229,8 @@
         "subtitle": "Leia-me do Github"
     },
     "progresses": {
-        "modalTitle": "Definir o progresso do jogo",
+        "modalTitle": "Progresso do jogo",
         "addProgress": "Adicionar progresso",
-        "save": "Salvar progresso",
-        "deleteProgress": "Excluir progresso",
         "progresses": "Progresso"
     },
     "platforms": {
@@ -226,7 +238,7 @@
         "donating": "doando",
         "reportBugs": "reportando bugs",
         "submitFeedback": "enviando feedback",
-        "all": "Tudo",
+        "all": "Todo",
         "console": "Consoles",
         "platform": "Digital",
         "operating_system": "PC / Outro",
@@ -236,6 +248,14 @@
         "releaseYear": "Ano de lançamento",
         "name": "Alfabeticamente",
         "generation": "Geração / Data de lançamento",
-        "type": "Tipo"
+        "type": "Modelo"
+    },
+    "upgrade": {
+        "title": "Atualize para Gamebrary Pro",
+        "subtitle": "..."
+    },
+    "notes": {
+        "title": "Notas",
+        "subtitle": "↑↑ ↓↓ ← → ← → BA"
     }
 }

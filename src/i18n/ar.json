@@ -1,8 +1,8 @@
 {
     "global": {
-        "back": "عودة",
-        "save": "حفظ",
-        "cancel": "إلغاء",
+        "back": "خلف",
+        "save": "يحفظ",
+        "cancel": "يلغي",
         "delete": "حذف",
         "create": "خلق",
         "filter": "منقي",
@@ -13,11 +13,21 @@
         "pageNotFound": "الصفحة غير موجودة",
         "poweredByIgdb": "مشغل بواسطة",
         "signOut": "خروج",
-        "donateMessage": "Gamebrary مجاني ومفتوح المصدر ، ففكر في المساعدة في تطويره من خلال",
+        "donateMessage": "Gamebrary مجاني ومفتوح المصدر ، ففكر في المساعدة في تطويره عن طريق",
         "donating": "التبرع",
         "reportBugs": "الإبلاغ عن الأخطاء",
         "games": "ألعاب",
         "submitFeedback": "إرسال التعليقات"
+    },
+    "shortcuts": {
+        "keyboard-shortcuts": "افتح هذا المشروط",
+        "create-board": "إنشاء لوحة جديدة",
+        "boards": "اذهب إلى المجالس",
+        "tags": "انتقل إلى العلامات",
+        "notes": "اذهب إلى الملاحظات",
+        "wallpapers": "انتقل إلى الخلفيات",
+        "profile": "انتقل إلى الملف الشخصي",
+        "settings": "اذهب للاعدادات"
     },
     "navMenu": {
         "changeBoard": "تغيير اللوحة",
@@ -26,13 +36,16 @@
         "language": "لغة",
         "releases": "إطلاق",
         "about": "حول",
-        "account": "الحساب"
+        "upgrade": "تطوير",
+        "notes": "ملاحظات",
+        "account": "حساب",
+        "theme": "تبديل الموضوع"
     },
     "gitHub": {
         "watch": "راقب",
         "star": "نجمة",
-        "fork": "فرع",
-        "issues": "مسائل"
+        "fork": "شوكة",
+        "issues": "مشاكل"
     },
     "dashboard": {
         "subtitle": "أداة إدارة مجموعة ألعاب الفيديو مفتوحة المصدر."
@@ -47,16 +60,16 @@
         "gameModal": {
             "videos": "أشرطة فيديو",
             "screenshots": "لقطات",
-            "perspective": "إنطباع",
+            "perspective": "وجهة نظر",
             "releaseDate": "يوم الاصدار",
             "timeToBeat": "الوقت يداهمك",
-            "gameModes": "وضع اللعب",
+            "gameModes": "نوع اللعبة",
             "genres": "النوع",
             "ageRatings": "تصنيفات العمر",
             "platforms": "المنصات",
             "developers": "مطور",
             "publishers": "الناشرون",
-            "removeFromList": "إزالة",
+            "removeFromList": "يزيل",
             "links": {
                 "official": "موقع رسمي",
                 "wikia": "فاندوم",
@@ -115,8 +128,8 @@
             "getStarted": "البدء!",
             "addFirstTime": "مرحبًا ، أضف قائمتك الأولى!",
             "sortByName": "اسم",
-            "sortByProgress": "التقدم",
-            "sortByRating": "أحرز هدفا",
+            "sortByProgress": "تقدم",
+            "sortByRating": "نتيجة",
             "sortByReleaseDate": "تاريخ",
             "sortByCustom": "مخصص",
             "sortedBy": "مرتبة حسب",
@@ -136,14 +149,15 @@
             "showReleaseDates": "عرض تاريخ الإصدار للألعاب التي لم يتم طرحها",
             "showGameRatings": "عرض تقييمات اللعبة",
             "showGameProgress": "إظهار تقدم اللعبة",
-            "showGameNotes": "إظهار ملاحظات اللعبة",
+            "showGameNotes": "عرض ملاحظات اللعبة",
             "showGameTags": "إظهار بطاقات اللعبة",
-            "showGameCount": "عرض عدد الألعاب",
+            "showGameCount": "إظهار عدد الألعاب",
             "views": {
-                "single": "إفتراضي",
+                "single": "تقصير",
                 "compact": "المدمج",
                 "text": "نص فقط",
-                "grid": "جريد"
+                "grid": "شبكة",
+                "covers": "أغلفة"
             },
             "deleteWarning": {
                 "title": "هل أنت متأكد أنك تريد حذف هذه القائمة؟",
@@ -167,7 +181,7 @@
         "themes": "ثيمات",
         "releases": "إطلاق",
         "about": "حول",
-        "account": "الحساب"
+        "account": "حساب"
     },
     "tags": {
         "title": "العلامات",
@@ -199,7 +213,7 @@
             "placeholder": "اختر ملفًا أو أسقطه هنا ...",
             "browse": "تصفح",
             "helperText": "ملفات الصور فقط",
-            "upload": "رفع",
+            "upload": "تحميل",
             "duplicateMessage": "لديك بالفعل ملف باسم {fileName}"
         },
         "list": {
@@ -215,18 +229,16 @@
         "subtitle": "التمهيدي من جيثب"
     },
     "progresses": {
-        "modalTitle": "ضبط تقدم اللعبة",
+        "modalTitle": "تقدم اللعبة",
         "addProgress": "أضف التقدم",
-        "save": "احفظ التقدم",
-        "deleteProgress": "حذف التقدم",
-        "progresses": "التقدم"
+        "progresses": "تقدم"
     },
     "platforms": {
-        "donateMessage": "Gamebrary مجاني ومفتوح المصدر ، ففكر في المساعدة في تطويره من خلال",
+        "donateMessage": "Gamebrary مجاني ومفتوح المصدر ، ففكر في المساعدة في تطويره عن طريق",
         "donating": "التبرع",
         "reportBugs": "الإبلاغ عن الأخطاء",
         "submitFeedback": "إرسال التعليقات",
-        "all": "الكل",
+        "all": "الجميع",
         "console": "لوحات المفاتيح",
         "platform": "رقمي",
         "operating_system": "الكمبيوتر / أخرى",
@@ -236,6 +248,14 @@
         "releaseYear": "صدر عام",
         "name": "أبجديا",
         "generation": "جيل / تاريخ relased",
-        "type": "نوع"
+        "type": "اكتب"
+    },
+    "upgrade": {
+        "title": "قم بالترقية إلى Gamebrary Pro",
+        "subtitle": "..."
+    },
+    "notes": {
+        "title": "ملاحظات",
+        "subtitle": "↑↑ ↓↓ ← ← ← ← با"
     }
 }

@@ -1,7 +1,7 @@
 {
     "global": {
         "back": "バック",
-        "save": "保存する",
+        "save": "セーブ",
         "cancel": "キャンセル",
         "delete": "削除",
         "create": "作成する",
@@ -19,6 +19,16 @@
         "games": "ゲーム",
         "submitFeedback": "フィードバックの送信"
     },
+    "shortcuts": {
+        "keyboard-shortcuts": "このモーダルを開く",
+        "create-board": "新しいボードを作成する",
+        "boards": "ボードに移動",
+        "tags": "タグに移動",
+        "notes": "メモに移動",
+        "wallpapers": "壁紙に移動",
+        "profile": "プロフィールはこちら",
+        "settings": "設定に移動"
+    },
     "navMenu": {
         "changeBoard": "ボードを変更します",
         "tags": "タグ",
@@ -26,13 +36,16 @@
         "language": "言語",
         "releases": "リリース",
         "about": "約",
-        "account": "アカウント"
+        "upgrade": "アップグレード",
+        "notes": "ノート",
+        "account": "アカウント",
+        "theme": "テーマを切り替える"
     },
     "gitHub": {
         "watch": "見る",
         "star": "星",
         "fork": "フォーク",
-        "issues": "問題"
+        "issues": "問題点"
     },
     "dashboard": {
         "subtitle": "オープンソースのビデオゲームコレクション管理ツール。"
@@ -52,13 +65,13 @@
             "timeToBeat": "勝つ時間",
             "gameModes": "ゲームモード",
             "genres": "ジャンル",
-            "ageRatings": "年齢評価",
+            "ageRatings": "年齢レーティング",
             "platforms": "プラットフォーム",
             "developers": "開発者",
             "publishers": "出版社",
             "removeFromList": "削除する",
             "links": {
-                "official": "公式サイト",
+                "official": "オフィシャルサイト",
                 "wikia": "ファンダム",
                 "wikipedia": "ウィキペディア",
                 "facebook": "フェイスブック",
@@ -111,7 +124,7 @@
             "input": "あなた自身を入力してください",
             "add": "リストを追加",
             "duplicateWarning": "あなたはすでにこの名前のリストを持っています",
-            "emptyListButton": "ここをクリックするか、ゲームをここにドラッグします",
+            "emptyListButton": "ここをクリックするか、ゲームをここにドラッグしてください",
             "getStarted": "始めましょう！",
             "addFirstTime": "ようこそ、最初のリストを追加してください！",
             "sortByName": "名前",
@@ -128,7 +141,7 @@
             "addGames": "{listName}にゲームを追加する",
             "view": "リストビュー",
             "moveList": "リストを移動",
-            "renameList": "名前を変更",
+            "renameList": "名前を変更する",
             "renameListPlaceholder": "あなたの名前を入力してください",
             "sortList": "ソート",
             "sortWarning": "自動並べ替えリストは、ドラッグアンドドロップの動作に影響します",
@@ -143,7 +156,8 @@
                 "single": "デフォルト",
                 "compact": "コンパクト",
                 "text": "テキストのみ",
-                "grid": "グリッド"
+                "grid": "グリッド",
+                "covers": "カバー"
             },
             "deleteWarning": {
                 "title": "このリストを削除してもよろしいですか？",
@@ -188,7 +202,7 @@
             "buttonLabel": "はい、タグを削除します"
         },
         "edit": {
-            "title": "タグを編集"
+            "title": "タグを編集する"
         }
     },
     "wallpapers": {
@@ -215,10 +229,8 @@
         "subtitle": "GithubからのReadme"
     },
     "progresses": {
-        "modalTitle": "ゲームの進行状況を設定する",
+        "modalTitle": "ゲームの進行状況",
         "addProgress": "進捗状況を追加",
-        "save": "進行状況を保存する",
-        "deleteProgress": "進行状況を削除する",
         "progresses": "進捗"
     },
     "platforms": {
@@ -237,5 +249,13 @@
         "name": "アルファベット順",
         "generation": "世代/リリース日",
         "type": "タイプ"
+    },
+    "upgrade": {
+        "title": "GamebraryProにアップグレードする",
+        "subtitle": "..。"
+    },
+    "notes": {
+        "title": "ノート",
+        "subtitle": "↑↑↓↓←→←→BA"
     }
 }

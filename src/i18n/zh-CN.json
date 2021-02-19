@@ -1,16 +1,16 @@
 {
     "global": {
-        "back": "背部",
+        "back": "后退",
         "save": "救",
         "cancel": "取消",
         "delete": "删除",
-        "create": "创造",
-        "filter": "过滤",
-        "by": "通过",
-        "no": "没有",
-        "yes": "是",
-        "or": "要么",
-        "pageNotFound": "找不到网页",
+        "create": "创建",
+        "filter": "筛选",
+        "by": "经过",
+        "no": "不",
+        "yes": "是的",
+        "or": "或者",
+        "pageNotFound": "网页未找到",
         "poweredByIgdb": "供电",
         "signOut": "登出",
         "donateMessage": "Gamebrary是免费和开源的，请考虑通过以下方式帮助其发展",
@@ -19,6 +19,16 @@
         "games": "游戏",
         "submitFeedback": "提交反馈"
     },
+    "shortcuts": {
+        "keyboard-shortcuts": "打开这个模态",
+        "create-board": "创建新板",
+        "boards": "进入董事会",
+        "tags": "转到标签",
+        "notes": "转到笔记",
+        "wallpapers": "转到墙纸",
+        "profile": "转到个人资料",
+        "settings": "前往设置"
+    },
     "navMenu": {
         "changeBoard": "更换板",
         "tags": "标签",
@@ -26,12 +36,15 @@
         "language": "语言",
         "releases": "发布",
         "about": "关于",
-        "account": "帐户"
+        "upgrade": "升级",
+        "notes": "笔记",
+        "account": "帐户",
+        "theme": "切换主题"
     },
     "gitHub": {
-        "watch": "看",
-        "star": "星",
-        "fork": "叉子",
+        "watch": "手表",
+        "star": "星星",
+        "fork": "叉",
         "issues": "问题"
     },
     "dashboard": {
@@ -47,7 +60,7 @@
         "gameModal": {
             "videos": "影片",
             "screenshots": "屏幕截图",
-            "perspective": "透视",
+            "perspective": "看法",
             "releaseDate": "发布日期",
             "timeToBeat": "时间到了",
             "gameModes": "游戏模式",
@@ -56,16 +69,16 @@
             "platforms": "平台类",
             "developers": "开发者",
             "publishers": "出版商",
-            "removeFromList": "去掉",
+            "removeFromList": "消除",
             "links": {
                 "official": "官方网站",
                 "wikia": "粉丝",
                 "wikipedia": "维基百科",
-                "facebook": "脸书",
+                "facebook": "Facebook",
                 "twitter": "推特",
                 "twitch": "抽搐",
                 "instagram": "Instagram的",
-                "youtube": "优酷",
+                "youtube": "YouTube",
                 "iphone": "的iOS",
                 "ipad": "的iPad",
                 "android": "应用商店",
@@ -114,11 +127,11 @@
             "emptyListButton": "单击此处或将游戏拖到此处",
             "getStarted": "开始吧！",
             "addFirstTime": "欢迎，添加您的第一个列表！",
-            "sortByName": "名称",
-            "sortByProgress": "进展",
-            "sortByRating": "得分了",
+            "sortByName": "姓名",
+            "sortByProgress": "进步",
+            "sortByRating": "分数",
             "sortByReleaseDate": "日期",
-            "sortByCustom": "自订",
+            "sortByCustom": "风俗",
             "sortedBy": "排序",
             "delete": "删除清单",
             "moveLeft": "向左移动",
@@ -130,9 +143,9 @@
             "moveList": "移动清单",
             "renameList": "改名",
             "renameListPlaceholder": "输入你的名字",
-            "sortList": "分类",
+            "sortList": "种类",
             "sortWarning": "自动排序列表将影响拖放的工作方式",
-            "coversSizeTitle": "覆盖整个",
+            "coversSizeTitle": "涵盖整个",
             "showReleaseDates": "显示未发布游戏的发布日期",
             "showGameRatings": "显示游戏等级",
             "showGameProgress": "显示游戏进度",
@@ -141,9 +154,10 @@
             "showGameCount": "显示游戏数",
             "views": {
                 "single": "默认",
-                "compact": "紧凑",
+                "compact": "袖珍的",
                 "text": "纯文本",
-                "grid": "格"
+                "grid": "网格",
+                "covers": "盖子"
             },
             "deleteWarning": {
                 "title": "您确定要删除此列表吗？",
@@ -175,7 +189,7 @@
         "form": {
             "title": "新增标签",
             "inputPlaceholder": "标签名",
-            "preview": "预习：",
+            "preview": "预览：",
             "addTag": "添加标签",
             "duplicateMessage": "您已经有一个名为{tagName}的标签"
         },
@@ -215,27 +229,33 @@
         "subtitle": "Github的自述文件"
     },
     "progresses": {
-        "modalTitle": "设定游戏进度",
+        "modalTitle": "游戏进度",
         "addProgress": "增加进度",
-        "save": "保存进度",
-        "deleteProgress": "删除进度",
-        "progresses": "进展"
+        "progresses": "进步"
     },
     "platforms": {
         "donateMessage": "Gamebrary是免费和开源的，请考虑通过以下方式帮助其发展",
         "donating": "捐赠",
         "reportBugs": "报告错误",
         "submitFeedback": "提交反馈",
-        "all": "所有",
+        "all": "全部",
         "console": "游戏机",
-        "platform": "数字",
+        "platform": "数字的",
         "operating_system": "电脑/其他",
         "portable_console": "掌上电脑",
         "computer": "家用电脑",
-        "popular": "流行",
+        "popular": "受欢迎的",
         "releaseYear": "发行年份",
         "name": "按字母顺序",
         "generation": "产生/发布日期",
         "type": "类型"
+    },
+    "upgrade": {
+        "title": "升级到Gamebrary Pro",
+        "subtitle": "..."
+    },
+    "notes": {
+        "title": "笔记",
+        "subtitle": "↑↑↓↓←→→←→BA"
     }
 }

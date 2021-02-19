@@ -20,14 +20,14 @@
         "submitFeedback": "submitting feedback"
     },
     "shortcuts": {
-      "keyboard-shortcuts": "Open this modal",
-      "create-board": "Create new board",
-      "boards": "Go to boards",
-      "tags": "Go to tags",
-      "notes": "Go to notes",
-      "wallpapers": "Go to wallpapers",
-      "profile": "Go to profile",
-      "settings": "Go to settings"
+        "keyboard-shortcuts": "Open this modal",
+        "create-board": "Create new board",
+        "boards": "Go to boards",
+        "tags": "Go to tags",
+        "notes": "Go to notes",
+        "wallpapers": "Go to wallpapers",
+        "profile": "Go to profile",
+        "settings": "Go to settings"
     },
     "navMenu": {
         "changeBoard": "Change board",
@@ -251,11 +251,11 @@
         "type": "Type"
     },
     "upgrade": {
-      "title": "Upgrade to Gamebrary Pro",
-      "subtitle": "..."
+        "title": "Upgrade to Gamebrary Pro",
+        "subtitle": "..."
     },
     "notes": {
-      "title": "Notes",
-      "subtitle": "↑↑↓↓←→←→BA"
+        "title": "Notes",
+        "subtitle": "↑↑↓↓←→←→BA"
     }
 }

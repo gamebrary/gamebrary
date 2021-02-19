@@ -19,6 +19,16 @@
         "games": "Giochi",
         "submitFeedback": "inviare feedback"
     },
+    "shortcuts": {
+        "keyboard-shortcuts": "Apri questo modale",
+        "create-board": "Crea una nuova bacheca",
+        "boards": "Vai alle bacheche",
+        "tags": "Vai ai tag",
+        "notes": "Vai alle note",
+        "wallpapers": "Vai agli sfondi",
+        "profile": "Vai al profilo",
+        "settings": "Vai alle impostazioni"
+    },
     "navMenu": {
         "changeBoard": "Cambia scheda",
         "tags": "Tag",
@@ -26,7 +36,10 @@
         "language": "linguaggio",
         "releases": "Rilasci",
         "about": "Di",
-        "account": "account"
+        "upgrade": "Upgrade",
+        "notes": "Appunti",
+        "account": "account",
+        "theme": "Cambia tema"
     },
     "gitHub": {
         "watch": "Orologio",
@@ -83,7 +96,7 @@
             "title": "Impostazioni della scheda",
             "deleteBoard": "Elimina scheda",
             "changePlatform": "Cambia piattaforme di bordo",
-            "noWallpapers": "Nessun sfondo caricato ancora.",
+            "noWallpapers": "Nessuno sfondo caricato ancora.",
             "descriptionLabel": "Descrizione della scheda",
             "nameLabel": "Nome della scheda",
             "wallpaper": "Carta da parati a bordo",
@@ -137,13 +150,14 @@
             "showGameRatings": "Mostra le valutazioni del gioco",
             "showGameProgress": "Mostra l'avanzamento del gioco",
             "showGameNotes": "Mostra note di gioco",
-            "showGameTags": "Mostra tag di gioco",
+            "showGameTags": "Mostra i tag di gioco",
             "showGameCount": "Mostra il conteggio delle partite",
             "views": {
                 "single": "Predefinito",
                 "compact": "Compatto",
                 "text": "Solo testo",
-                "grid": "Griglia"
+                "grid": "Griglia",
+                "covers": "Copertine"
             },
             "deleteWarning": {
                 "title": "Sei sicuro di voler eliminare questo elenco?",
@@ -215,10 +229,8 @@
         "subtitle": "Leggimi da Github"
     },
     "progresses": {
-        "modalTitle": "Imposta l'avanzamento del gioco",
+        "modalTitle": "Avanzamento del gioco",
         "addProgress": "Aggiungi progresso",
-        "save": "Salva i progressi",
-        "deleteProgress": "Elimina progresso",
         "progresses": "Progresso"
     },
     "platforms": {
@@ -237,5 +249,13 @@
         "name": "In ordine alfabetico",
         "generation": "Generazione / data di rilascio",
         "type": "genere"
+    },
+    "upgrade": {
+        "title": "Aggiorna a Gamebrary Pro",
+        "subtitle": "..."
+    },
+    "notes": {
+        "title": "Appunti",
+        "subtitle": "↑↑ ↓↓ ← → ← → BA"
     }
 }

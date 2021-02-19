@@ -3,12 +3,12 @@
         "back": "atrás",
         "save": "Salvar",
         "cancel": "Cancelar",
-        "delete": "Eliminar",
+        "delete": "Borrar",
         "create": "Crear",
         "filter": "Filtrar",
         "by": "por",
         "no": "No",
-        "yes": "si",
+        "yes": "sí",
         "or": "o",
         "pageNotFound": "Página no encontrada",
         "poweredByIgdb": "Energizado por",
@@ -19,14 +19,27 @@
         "games": "juegos",
         "submitFeedback": "enviar comentarios"
     },
+    "shortcuts": {
+        "keyboard-shortcuts": "Abre este modal",
+        "create-board": "Crear tablero nuevo",
+        "boards": "Ir a tableros",
+        "tags": "Ir a las etiquetas",
+        "notes": "Ir a notas",
+        "wallpapers": "Ir a fondos de pantalla",
+        "profile": "Ir al perfil",
+        "settings": "Ir a la configuración"
+    },
     "navMenu": {
         "changeBoard": "Cambiar tablero",
         "tags": "Etiquetas",
         "wallpapers": "Fondos de pantalla",
         "language": "Idioma",
         "releases": "Lanzamientos",
-        "about": "Acerca de",
-        "account": "Cuenta"
+        "about": "Sobre",
+        "upgrade": "Mejora",
+        "notes": "Notas",
+        "account": "Cuenta",
+        "theme": "Cambiar tema"
     },
     "gitHub": {
         "watch": "Reloj",
@@ -49,7 +62,7 @@
             "screenshots": "Capturas de pantalla",
             "perspective": "Perspectiva",
             "releaseDate": "Fecha de lanzamiento",
-            "timeToBeat": "Hora de vencer",
+            "timeToBeat": "Tiempo de batir",
             "gameModes": "Modo de juego",
             "genres": "Género",
             "ageRatings": "Clasificaciones de edad",
@@ -116,7 +129,7 @@
             "addFirstTime": "¡Bienvenido, agrega tu primera lista!",
             "sortByName": "Nombre",
             "sortByProgress": "Progreso",
-            "sortByRating": "Puntuación",
+            "sortByRating": "Puntaje",
             "sortByReleaseDate": "Fecha",
             "sortByCustom": "Personalizado",
             "sortedBy": "Ordenado por",
@@ -130,9 +143,9 @@
             "moveList": "Mover lista",
             "renameList": "Rebautizar",
             "renameListPlaceholder": "Introduzca su nombre",
-            "sortList": "Ordenar",
+            "sortList": "Clasificar",
             "sortWarning": "La lista de clasificación automática afectará el funcionamiento de arrastrar y soltar",
-            "coversSizeTitle": "Cubre todo",
+            "coversSizeTitle": "Cubre a través",
             "showReleaseDates": "Mostrar la fecha de lanzamiento de los juegos inéditos",
             "showGameRatings": "Mostrar calificaciones de juegos",
             "showGameProgress": "Muestra el progreso del juego",
@@ -143,7 +156,8 @@
                 "single": "Defecto",
                 "compact": "Compacto",
                 "text": "Solo texto",
-                "grid": "Cuadrícula"
+                "grid": "Cuadrícula",
+                "covers": "Cubiertas"
             },
             "deleteWarning": {
                 "title": "¿Está seguro de que desea eliminar esta lista?",
@@ -166,7 +180,7 @@
         "language": "Idioma",
         "themes": "Temas",
         "releases": "Lanzamientos",
-        "about": "Acerca de",
+        "about": "Sobre",
         "account": "Cuenta"
     },
     "tags": {
@@ -197,7 +211,7 @@
         "form": {
             "label": "Subir fondo de pantalla",
             "placeholder": "Elija un archivo o suéltelo aquí ...",
-            "browse": "Vistazo",
+            "browse": "Navegar",
             "helperText": "Solo archivos de imagen",
             "upload": "Subir",
             "duplicateMessage": "Ya tienes un archivo llamado {fileName}"
@@ -215,10 +229,8 @@
         "subtitle": "Léame de Github"
     },
     "progresses": {
-        "modalTitle": "Establecer el progreso del juego",
+        "modalTitle": "Progreso del juego",
         "addProgress": "Agregar progreso",
-        "save": "Guardar progreso",
-        "deleteProgress": "Eliminar progreso",
         "progresses": "Progreso"
     },
     "platforms": {
@@ -236,6 +248,14 @@
         "releaseYear": "Año de lanzamiento",
         "name": "Alfabéticamente",
         "generation": "Generación / Fecha liberada",
-        "type": "Tipo"
+        "type": "Escribe"
+    },
+    "upgrade": {
+        "title": "Actualiza a Gamebrary Pro",
+        "subtitle": "..."
+    },
+    "notes": {
+        "title": "Notas",
+        "subtitle": "↑↑ ↓↓ ← → ← → BA"
     }
 }

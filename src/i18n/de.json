@@ -19,6 +19,16 @@
         "games": "Spiele",
         "submitFeedback": "Feedback senden"
     },
+    "shortcuts": {
+        "keyboard-shortcuts": "Öffnen Sie dieses Modal",
+        "create-board": "Neues Board erstellen",
+        "boards": "Gehe zu Brettern",
+        "tags": "Gehen Sie zu Tags",
+        "notes": "Gehe zu Notizen",
+        "wallpapers": "Gehe zu Hintergrundbildern",
+        "profile": "Zum Profil gehen",
+        "settings": "Gehe zu den Einstellungen"
+    },
     "navMenu": {
         "changeBoard": "Karte wechseln",
         "tags": "Stichworte",
@@ -26,7 +36,10 @@
         "language": "Sprache",
         "releases": "Veröffentlichungen",
         "about": "Über",
-        "account": "Konto"
+        "upgrade": "Aktualisierung",
+        "notes": "Anmerkungen",
+        "account": "Konto",
+        "theme": "Thema wechseln"
     },
     "gitHub": {
         "watch": "Sehen",
@@ -143,7 +156,8 @@
                 "single": "Standard",
                 "compact": "Kompakt",
                 "text": "Nur Text",
-                "grid": "Gitter"
+                "grid": "Gitter",
+                "covers": "Abdeckungen"
             },
             "deleteWarning": {
                 "title": "Möchten Sie diese Liste wirklich löschen?",
@@ -193,7 +207,7 @@
     },
     "wallpapers": {
         "title": "Hintergrundbilder",
-        "subtitle": "Verwalten Sie Board Wallpaper",
+        "subtitle": "Verwalten von Board-Hintergrundbildern",
         "form": {
             "label": "Hintergrundbild hochladen",
             "placeholder": "Wählen Sie eine Datei oder legen Sie sie hier ab ...",
@@ -215,10 +229,8 @@
         "subtitle": "Readme von Github"
     },
     "progresses": {
-        "modalTitle": "Spielfortschritt einstellen",
+        "modalTitle": "Spielfortschritt",
         "addProgress": "Fortschritt hinzufügen",
-        "save": "Fortschritt speichern",
-        "deleteProgress": "Fortschritt löschen",
         "progresses": "Fortschritt"
     },
     "platforms": {
@@ -237,5 +249,13 @@
         "name": "Alphabetisch",
         "generation": "Generierung / Datum veröffentlicht",
         "type": "Art"
+    },
+    "upgrade": {
+        "title": "Upgrade auf Gamebrary Pro",
+        "subtitle": "..."
+    },
+    "notes": {
+        "title": "Anmerkungen",
+        "subtitle": "↑↑ ↓↓ ← → ← → BA"
     }
 }

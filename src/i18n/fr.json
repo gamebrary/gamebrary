@@ -1,7 +1,7 @@
 {
     "global": {
         "back": "Retour",
-        "save": "sauvegarder",
+        "save": "Sauvegarder",
         "cancel": "Annuler",
         "delete": "Effacer",
         "create": "Créer",
@@ -19,20 +19,33 @@
         "games": "Jeux",
         "submitFeedback": "soumission de commentaires"
     },
+    "shortcuts": {
+        "keyboard-shortcuts": "Ouvrez ce modal",
+        "create-board": "Créer un nouveau tableau",
+        "boards": "Aller aux tableaux",
+        "tags": "Aller aux balises",
+        "notes": "Aller aux notes",
+        "wallpapers": "Aller aux fonds d'écran",
+        "profile": "Aller au profil",
+        "settings": "Aller aux paramètres"
+    },
     "navMenu": {
         "changeBoard": "Changer de plateau",
         "tags": "Mots clés",
         "wallpapers": "Fonds d'écran",
         "language": "Langue",
         "releases": "Communiqués",
-        "about": "Sur",
-        "account": "Compte"
+        "about": "À propos de",
+        "upgrade": "Améliorer",
+        "notes": "Remarques",
+        "account": "Compte",
+        "theme": "Changer de thème"
     },
     "gitHub": {
-        "watch": "Regarder",
-        "star": "Étoile",
+        "watch": "Regardez",
+        "star": "Star",
         "fork": "Fourchette",
-        "issues": "Problèmes"
+        "issues": "Questions"
     },
     "dashboard": {
         "subtitle": "L'outil de gestion de collection de jeux vidéo open source."
@@ -56,7 +69,7 @@
             "platforms": "Plateformes",
             "developers": "Développeur",
             "publishers": "Éditeurs",
-            "removeFromList": "Retirer",
+            "removeFromList": "Supprimer",
             "links": {
                 "official": "Site officiel",
                 "wikia": "Fandom",
@@ -118,7 +131,7 @@
             "sortByProgress": "Le progrès",
             "sortByRating": "But",
             "sortByReleaseDate": "Date",
-            "sortByCustom": "Douane",
+            "sortByCustom": "Personnalisé",
             "sortedBy": "Trié par",
             "delete": "Supprimer la liste",
             "moveLeft": "Se déplacer à gauche",
@@ -143,10 +156,11 @@
                 "single": "Défaut",
                 "compact": "Compact",
                 "text": "Texte seulement",
-                "grid": "la grille"
+                "grid": "Grille",
+                "covers": "Couvertures"
             },
             "deleteWarning": {
-                "title": "Voulez-vous vraiment supprimer cette liste?",
+                "title": "Êtes-vous sûr de vouloir supprimer cette liste?",
                 "message": "Cette action ne peut pas être annulée",
                 "buttonLabel": "Oui, supprimer la liste"
             }
@@ -166,7 +180,7 @@
         "language": "Langue",
         "themes": "Thèmes",
         "releases": "Communiqués",
-        "about": "Sur",
+        "about": "À propos de",
         "account": "Compte"
     },
     "tags": {
@@ -197,7 +211,7 @@
         "form": {
             "label": "Télécharger un fond d'écran",
             "placeholder": "Choisissez un fichier ou déposez-le ici ...",
-            "browse": "Feuilleter",
+            "browse": "Parcourir",
             "helperText": "Fichiers image uniquement",
             "upload": "Télécharger",
             "duplicateMessage": "Vous avez déjà un fichier nommé {fileName}"
@@ -215,10 +229,8 @@
         "subtitle": "Lisez-moi depuis Github"
     },
     "progresses": {
-        "modalTitle": "Définir la progression du jeu",
+        "modalTitle": "Progression du jeu",
         "addProgress": "Ajouter une progression",
-        "save": "Enregistrer la progression",
-        "deleteProgress": "Supprimer la progression",
         "progresses": "Le progrès"
     },
     "platforms": {
@@ -236,6 +248,14 @@
         "releaseYear": "Année de sortie",
         "name": "Alphabétiquement",
         "generation": "Génération / Date relâchée",
-        "type": "Type"
+        "type": "Taper"
+    },
+    "upgrade": {
+        "title": "Passer à Gamebrary Pro",
+        "subtitle": "..."
+    },
+    "notes": {
+        "title": "Remarques",
+        "subtitle": "↑↑ ↓↓ ← → ← → BA"
     }
 }
