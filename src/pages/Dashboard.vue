@@ -25,7 +25,7 @@
         @click="handleClick(name)"
       >
         <template #title>
-          <b-button :variant="$route.name === name ? 'dark' : 'light'">
+          <b-button :variant="tabButtonVariant(name)">
             <i :class="`${icon} fa-fw`" aria-hidden />
             <span class="d-none d-md-inline">{{ title }}</span>
           </b-button>
@@ -97,6 +97,13 @@ export default {
   },
 
   methods: {
+    tabButtonVariant(name) {
+      const dark = this.$route.name === name ? 'secondary' : 'info';
+      const light = this.$route.name === name ? 'info' : 'light';
+
+      return this.nightMode ? dark : light;
+    },
+
     handleClick(name) {
       if (this.$route.name !== name) {
         this.$router.push({ name });
