@@ -1,3 +1,4 @@
+<!-- TODO: only show save button when data has changed -->
 <template>
   <div
     id="app"

@@ -40,7 +40,7 @@
           :menu-class="nightMode ? 'bg-dark' : ''"
         >
           <template v-slot:button-content>
-            <i class="fas fa-ellipsis-h fa-fw" aria-hidden></i>
+            <i class="fas fa-ellipsis-h fa-fw" aria-hidden />
           </template>
 
           <game-progress :game="game" />
