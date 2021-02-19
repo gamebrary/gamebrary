@@ -17,7 +17,7 @@
           v-html="description"
         />
 
-        <b-button v-b-modal.wikipediaArticle>
+        <b-button v-b-modal.wikipediaArticle v-if="source === 'Wikipedia'">
           <i class="fab fa-wikipedia-w" aria-hidden />
           Read more
         </b-button>
