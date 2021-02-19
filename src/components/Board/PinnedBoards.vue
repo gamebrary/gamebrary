@@ -1,40 +1,45 @@
 <template lang="html">
   <div>
-    <span
-      v-for="{ id, name, backgroundColor, wallpaper } in pinnedBoards"
-      :key="id"
-    >
+    <template v-if="pinnedBoards.length">
+      <span
+        v-for="{ id, name, backgroundColor, wallpaper } in pinnedBoards"
+        :key="id"
+      >
+        <b-avatar
+          rounded
+          :class="['mb-1 cursor-pointer pinned-board', { active: board.name === name }]"
+          :title="name"
+          @click.native="viewBoard(id)"
+          :style="`
+          ${backgroundColor ? `background-color: ${backgroundColor};` : null }
+          ${getWallpaperUrl(wallpaper) }
+          `"
+        >
+          <span class="board-initials text-uppercase">{{ getBoardInitials(name) }}</span>
+        </b-avatar>
+      </span>
+
+      <hr class="mb-1 mt-0">
+    </template>
+
+    <template v-if="isBoard && !board.pinned">
       <b-avatar
         rounded
-        :class="[ 'mb-1 cursor-pointer pinned-board', { active: board.name === name }]"
-        :title="name"
-        @click.native="viewBoard(id)"
+        class="active pinned-board"
+        :title="board.name"
         :style="`
-        ${backgroundColor ? `background-color: ${backgroundColor};` : null }
-        ${getWallpaperUrl(wallpaper) }
+        ${board.backgroundColor ? ` background-color: ${board.backgroundColor};` : null }
+        ${getWallpaperUrl(board.wallpaper) }
         `"
+        @click.native="$bvModal.show('edit-board')"
       >
-        <span class="board-initials text-uppercase">{{ getBoardInitials(name) }}</span>
+        <span class="board-initials text-uppercase mr-1">
+          {{ getBoardInitials(board.name) }}
+        </span>
       </b-avatar>
-    </span>
 
-    <hr class="mt-1 mb-2">
-
-    <b-avatar
-      v-if="isBoard && !board.pinned"
-      rounded
-      class="active pinned-board"
-      :title="board.name"
-      :style="`
-      ${board.backgroundColor ? ` background-color: ${board.backgroundColor};` : null }
-      ${getWallpaperUrl(board.wallpaper) }
-      `"
-      @click.native="$bvModal.show('edit-board')"
-    >
-      <span class="board-initials text-uppercase mr-1">
-        {{ getBoardInitials(board.name) }}
-      </span>
-    </b-avatar>
+      <hr class="my-1">
+    </template>
   </div>
 </template>
 
