@@ -1,14 +1,14 @@
 <template lang="html">
   <b-dropdown
     size="sm"
-    class="m-1"
     right
     no-caret
-    :variant="nightMode ? 'dark' : 'transparent'"
+    :variant="nightMode ? 'dark' : 'light'"
     :menu-class="nightMode ? 'bg-dark' : ''"
+    toggle-class="px-2 py-1 m-1"
   >
     <template v-slot:button-content>
-      <i class="fas fa-caret-down fa-fw" aria-hidden />
+      <i class="fas fa-ellipsis-h fa-fw" aria-hidden />
     </template>
 
     <add-game-modal :list="list" />
@@ -40,7 +40,7 @@
           v-b-tooltip.hover
           :title="$t('board.list.moveLeft')"
           :disabled="isFirst"
-          :variant="nightMode ? 'dark' : null"
+          :variant="nightMode ? 'dark' : 'light'"
           @click="moveList(listIndex, listIndex - 1)"
         >
           <i class="fas fa-angle-left fa-fw" aria-hidden />
@@ -50,7 +50,7 @@
           v-b-tooltip.hover
           :title="$t('board.list.moveRight')"
           :disabled="isLast"
-          :variant="nightMode ? 'dark' : null"
+          :variant="nightMode ? 'dark' : 'light'"
           @click="moveList(listIndex, listIndex + 1)"
         >
           <i class="fas fa-angle-right fa-fw" aria-hidden />
