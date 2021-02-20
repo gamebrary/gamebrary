@@ -9,29 +9,20 @@
         :src="user.photoURL"
       />
 
-      <h5 class="mt-2">{{ user.displayName }}</h5>
+      <h5 class="mt-2">Welcome, {{ user.displayName }}!</h5>
     </div>
 
-    <b-tabs
-      content-class="mt-3"
-      align="center"
-      small
-      pills
-    >
-      <b-tab
+    <b-button-group class="mb-4">
+      <b-button
         v-for="{ name, title, icon } in tabs"
         :key="name"
-        title-link-class="p-0 mx-1"
+        :variant="tabButtonVariant(name)"
         @click="handleClick(name)"
       >
-        <template #title>
-          <b-button :variant="tabButtonVariant(name)">
-            <i :class="`${icon} fa-fw`" aria-hidden />
-            <span class="d-none d-md-inline">{{ title }}</span>
-          </b-button>
-        </template>
-      </b-tab>
-    </b-tabs>
+        <i :class="`${icon} fa-fw`" aria-hidden />
+        <span class="d-none d-md-inline">{{ title }}</span>
+      </b-button>
+    </b-button-group>
 
     <b-row>
       <router-view />
