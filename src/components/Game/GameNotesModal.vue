@@ -1,74 +1,67 @@
 <template lang="html">
-  <b-dropdown-item
-    v-b-modal.notes
-    :variant="nightMode ? 'secondary' : null"
-    v-shortkey="['n']"
-    @shortkey.native="$bvModal.show('notes');"
+  <b-modal
+    id="notes"
+    :header-bg-variant="nightMode ? 'dark' : null"
+    :header-text-variant="nightMode ? 'white' : null"
+    :body-bg-variant="nightMode ? 'dark' : null"
+    :body-text-variant="nightMode ? 'white' : null"
+    hide-footer
+    @show="show"
   >
-    <i class="far fa-sticky-note fa-fw" /> {{ localNote ? 'Edit note' : 'Add note' }}
-    <!-- TODO: decouple -->
+    <template v-slot:modal-header="{ close }">
+      <modal-header
+        title="Game notes"
+        :subtitle="game.name"
+        @close="close"
+      >
+        <template v-slot:header>
+          <b-img
+            :src="activeGameCoverUrl"
+            :alt="game.name"
+            class="float-left mr-2"
+            height="40"
+            rounded
+          />
+        </template>
 
-    <b-modal
-      id="notes"
-      :header-bg-variant="nightMode ? 'dark' : null"
-      :header-text-variant="nightMode ? 'white' : null"
-      :body-bg-variant="nightMode ? 'dark' : null"
-      :body-text-variant="nightMode ? 'white' : null"
-      hide-footer
-      @show="show"
-    >
-      <template v-slot:modal-header="{ close }">
-        <modal-header
-          title="Game notes"
-          :subtitle="game.name"
-          @close="close"
+        <b-button
+          variant="danger"
+          class="mr-1"
+          v-if="notes[game.id] && !saving"
+          :disabled="deleting"
+          @click="deleteNote"
         >
-          <template v-slot:header>
-            <b-img
-              :src="activeGameCoverUrl"
-              :alt="game.name"
-              class="float-left mr-2"
-              height="40"
-              rounded
-            />
-          </template>
+          <b-spinner small v-if="deleting" />
 
-          <b-button
-            variant="danger"
-            v-if="notes[game.id]"
-            :disabled="deleting"
-            @click="deleteNote"
-          >
-            <b-spinner small v-if="deleting" />
-            <span v-else>{{ $t('global.delete') }}</span>
-          </b-button>
+          <i class="d-sm-none fas fa-trash fa-fw" aria-hidden />
+          <span class="d-none d-sm-inline">{{ $t('global.delete') }}</span>
+        </b-button>
 
-          <b-button
-            variant="primary"
-            :disabled="saving"
-            @click="saveNote"
-          >
-            <b-spinner small v-if="saving" />
-            <span v-else>{{ $t('global.save') }}</span>
-          </b-button>
-        </modal-header>
-      </template>
+        <b-button
+          variant="primary"
+          :disabled="saving || !dirtied"
+          @click="saveNote"
+        >
+          <b-spinner small v-if="saving" />
+          <span v-else>{{ $t('global.save') }}</span>
+        </b-button>
+      </modal-header>
+    </template>
 
-      <b-form-textarea
-        v-model.trim="localNote"
-        placeholder="Type note here"
-        rows="3"
-        max-rows="20"
-      />
+    <b-form-textarea
+      v-model.trim="localNote"
+      placeholder="Type note here"
+      rows="3"
+      max-rows="20"
+    />
 
-      <b-form-text id="input-live-help">
-        <a href="https://www.markdownguide.org/cheat-sheet/" target="_blank">
-          <i class="fab fa-markdown fa-fw" />
-          Markdown supported
-        </a>
-      </b-form-text>
-    </b-modal>
-  </b-dropdown-item>
+    <b-form-text id="input-live-help">
+      <a href="https://www.markdownguide.org/cheat-sheet/" target="_blank">
+        <i class="fab fa-markdown fa-fw" />
+        Markdown supported
+      </a>
+    </b-form-text>
+  </b-modal>
 </template>
 
 <script>
@@ -90,6 +83,22 @@ export default {
   computed: {
     ...mapState(['notes']),
     ...mapGetters(['nightMode', 'activeGameCoverUrl']),
+
+    note() {
+      const { id } = this.game;
+
+      if (typeof this.notes[id] === 'object' && this.notes[id].text) {
+        return this.notes[id].text;
+      }
+
+      return this.notes[id]
+        ? JSON.parse(JSON.stringify(this.notes[id]))
+        : '';
+    },
+
+    dirtied() {
+      return this.note !== this.localNote;
+    },
   },
 
   methods: {
@@ -97,12 +106,8 @@ export default {
       this.deleting = false;
       this.saving = false;
 
-      const { id } = this.game;
-
-      if (this.notes[id]) {
-        this.localNote = typeof this.notes[id] === 'object' && this.notes[id].text
-          ? this.notes[id].text
-          : JSON.parse(JSON.stringify(this.notes[id]));
+      if (this.note) {
+        this.localNote = this.note;
       }
     },
 

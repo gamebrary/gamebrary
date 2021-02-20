@@ -44,6 +44,17 @@
           </template>
 
           <game-progress :game="game" />
+
+          <b-dropdown-item
+            v-b-modal.notes
+            :variant="nightMode ? 'secondary' : null"
+            v-shortkey="['n']"
+            @shortkey.native="$bvModal.show('notes');"
+          >
+            <i class="far fa-sticky-note fa-fw" /> {{ notes[game.id] ? 'Edit note' : 'Add note' }}
+            <!-- TODO: decouple -->
+          </b-dropdown-item>
+
           <game-notes-modal :game="game" />
 
           <b-dropdown-item
@@ -238,7 +249,7 @@ export default {
 
   computed: {
     // TODO: rename gameModalData
-    ...mapState(['board', 'gameModalData', 'games', 'platform', 'progresses', 'tags', 'user']),
+    ...mapState(['board', 'notes', 'gameModalData', 'games', 'platform', 'progresses', 'tags', 'user']),
     ...mapGetters(['nightMode', 'activeGameCoverUrl']),
 
     hasMultipleGames() {
