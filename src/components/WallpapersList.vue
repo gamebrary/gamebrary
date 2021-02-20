@@ -1,5 +1,5 @@
 <template lang="html">
-  <div :class="['wallpapers', { page }]">
+  <div class="wallpapers">
     <b-card
       v-for="wallpaper in wallpapers"
       :key="wallpaper.name"
@@ -48,7 +48,6 @@ import { mapState } from 'vuex';
 export default {
   props: {
     selectable: Boolean,
-    page: Boolean,
     saving: Boolean,
   },
 
@@ -110,14 +109,6 @@ export default {
   display: grid;
   grid-column-gap: 1rem;
   grid-template-columns: 1fr 1fr 1fr;
-
-  &.page {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-
-    @media(max-width: 1024px) {
-      grid-template-columns: 1fr 1fr 1fr;
-    }
-  }
 
   @media(max-width: 720px) {
     grid-template-columns: 1fr 1fr;
