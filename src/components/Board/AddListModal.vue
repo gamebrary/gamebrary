@@ -17,6 +17,7 @@
       >
         <b-button
           :disabled="saving || isDuplicate || !listName"
+          class="d-none d-sm-inline"
           @click="saveAndAddGame"
         >
           <b-spinner small v-if="saving" />
