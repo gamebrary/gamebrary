@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container class="pt-3">
+  <b-container>
     <!-- <div class="text-center my-4">
       <b-avatar
         v-if="user && user.photoURL"
