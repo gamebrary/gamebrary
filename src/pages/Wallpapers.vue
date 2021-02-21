@@ -15,7 +15,7 @@
           {{ $t('wallpapers.title') }}
         </h3>
 
-        <div class="space-used ml-auto mr-3 pt-3">
+        <div class="space-used d-none d-sm-inline ml-auto mr-3 pt-3">
           <small
             class="d-block text-center"
             :class="{ 'text-danger': outOfSpace }"
@@ -53,7 +53,7 @@
         {{ $t('wallpapers.form.duplicateMessage', { fileName: file.name }) }}
       </b-alert>
 
-      <wallpapers-list page v-if="wallpapers.length" />
+      <wallpapers-list v-if="wallpapers.length" />
 
       <b-alert show v-else>You don't have any wallpapers.</b-alert>
     </template>
