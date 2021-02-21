@@ -2,7 +2,7 @@
 import orderby from 'lodash.orderby';
 
 export default {
-  nightMode: state => Boolean(state.settings && state.settings.nightMode),
+  nightMode: ({ settings }) => settings && settings.theme && settings.theme === 'dark',
   sortedBoards: ({ boards }) => orderby(boards, 'name'),
 
   filteredPlatforms: (state) => {
