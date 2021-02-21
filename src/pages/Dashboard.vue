@@ -10,19 +10,19 @@
       />
 
       <h5 class="mt-2">Welcome, {{ user.displayName }}!</h5>
-    </div>
 
-    <b-button-group class="mb-4">
-      <b-button
-        v-for="{ name, title, icon } in tabs"
-        :key="name"
-        :variant="tabButtonVariant(name)"
-        @click="handleClick(name)"
-      >
-        <i :class="`${icon} fa-fw`" aria-hidden />
-        <span class="d-none d-md-inline">{{ title }}</span>
-      </b-button>
-    </b-button-group>
+      <b-button-group class="mb-4">
+        <b-button
+          v-for="{ name, title, icon } in tabs"
+          :key="name"
+          :variant="tabButtonVariant(name)"
+          @click="handleClick(name)"
+        >
+          <i :class="`${icon} fa-fw`" aria-hidden />
+          <span class="d-none d-md-inline">{{ title }}</span>
+        </b-button>
+      </b-button-group>
+    </div>
 
     <b-row>
       <router-view />
@@ -63,11 +63,6 @@ export default {
           name: 'wallpapers',
           title: 'Wallpapers',
           icon: 'fas fa-images',
-        },
-        {
-          name: 'profile',
-          title: 'Profile',
-          icon: 'fas fa-user',
         },
         {
           name: 'settings',
