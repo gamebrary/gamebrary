@@ -11,14 +11,17 @@
     </b-form-select>
 
     <b-button
-      v-if="settings.language !== language"
+      v-if="settings.language && settings.language !== language"
       variant="primary"
       class="mx-2"
       :disabled="saving"
       @click="saveSettings"
     >
       <b-spinner small v-if="saving" />
-      <span v-else>{{ $t('languages.save') }}</span>
+      <template v-else>
+        <span class="d-none d-sm-inline">{{ $t('languages.save') }}</span>
+        <i class="d-sm-none fas fa-sync" aria-hidden />
+      </template>
     </b-button>
   </b-form-group>
 </template>
