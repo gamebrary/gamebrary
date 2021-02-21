@@ -7,6 +7,35 @@
     <languages />
     <theme-selector />
 
+    <b-list-group>
+      <b-list-group-item :variant="darkTheme ? 'dark' : null">
+        <strong>{{ user.displayName }}</strong>
+        <p class="text-muted m-0">{{ user.email }}</p>
+      </b-list-group-item>
+
+      <b-list-group-item :variant="darkTheme ? 'dark' : null">
+        <strong>Date Joined</strong>
+        <p class="text-muted m-0">{{ formatDate(user.dateJoined) }}</p>
+      </b-list-group-item>
+
+      <b-list-group-item :variant="darkTheme ? 'dark' : null">
+        <strong>Last login</strong>
+        <p class="text-muted m-0">{{ formatDate(user.lastLogin) }}</p>
+      </b-list-group-item>
+
+      <b-list-group-item :variant="darkTheme ? 'dark' : null">
+        <strong>Email Verified</strong>
+        <p class="text-muted m-0">{{ user.emailVerified ? 'Yes' : 'No' }}</p>
+      </b-list-group-item>
+
+      <b-list-group-item :variant="darkTheme ? 'dark' : null">
+        <strong>ID</strong>
+        <p class="text-muted m-0 mb-2">{{ user.uid }}</p>
+
+        <b-alert show>You can safely share this id when reporting bugs</b-alert>
+      </b-list-group-item>
+    </b-list-group>
+
     <hr />
 
     <b-button
@@ -42,6 +71,12 @@ export default {
 
   computed: {
     ...mapState(['settings', 'user']),
+  },
+
+  methods: {
+    formatDate(date) {
+      return new Intl.DateTimeFormat().format(new Date(date));
+    },
   },
 };
 </script>

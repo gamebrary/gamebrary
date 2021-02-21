@@ -62,16 +62,6 @@
       </b-button>
 
       <b-button
-        :to="{ name: 'profile' }"
-        :variant="darkTheme ? 'dark' : 'light'"
-        class="mt-1"
-        size="sm"
-        title="Profile"
-      >
-        <i class="fas fa-user fa-fw" aria-hidden />
-      </b-button>
-
-      <b-button
         :variant="darkTheme ? 'dark' : 'light'"
         class="mt-1"
         size="sm"

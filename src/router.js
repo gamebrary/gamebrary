@@ -6,7 +6,6 @@ import Wallpapers from '@/pages/Wallpapers';
 import PublicBoards from '@/pages/PublicBoards';
 import Tags from '@/pages/Tags';
 import Notes from '@/pages/Notes';
-import Profile from '@/pages/Profile';
 import Releases from '@/pages/Releases';
 import Auth from '@/pages/Auth';
 import Dashboard from '@/pages/Dashboard';
@@ -58,14 +57,6 @@ export default new Router({
           component: Notes,
           meta: {
             title: 'Notes',
-          },
-        },
-        {
-          name: 'profile',
-          path: '/profile',
-          component: Profile,
-          meta: {
-            title: 'Profile',
           },
         },
         {
