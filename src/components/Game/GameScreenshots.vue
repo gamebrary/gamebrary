@@ -159,6 +159,7 @@ export default {
 
       this.saving = false;
       this.$bvToast.toast('Wallpaper set');
+      this.$bvModal.hide('screenshots');
     },
 
     previous() {
