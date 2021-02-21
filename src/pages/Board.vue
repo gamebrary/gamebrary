@@ -16,7 +16,6 @@
       <div class="d-flex flex-column pr-2">
         <b-button
           :variant="darkTheme ? 'dark' : 'light'"
-          size="sm"
           class="mb-2"
           v-b-modal:add-list
         >
@@ -25,7 +24,6 @@
 
         <b-button
           :variant="darkTheme ? 'dark' : 'light'"
-          size="sm"
           v-b-modal:edit-board
         >
           <i class="fas fa-cog fa-fw" aria-hidden />
