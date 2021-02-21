@@ -1,13 +1,13 @@
 <template lang="html">
   <div class="wallpapers">
     <preview-wallpaper-modal
-      v-if="activeWallpaper"
       :wallpaper="activeWallpaper"
+      :selectable="selectable"
+      @selected="selected"
     />
 
     <b-card
       v-for="wallpaper in wallpapers"
-      @click="openModal(wallpaper)"
       :key="wallpaper.name"
       :img-src="wallpaper.url"
       :img-alt="wallpaper.name"
@@ -15,6 +15,7 @@
       bg-variant="transparent"
       img-width="180"
       class="mb-3 overflow-hidden word-wrap clickable"
+      @click="openModal(wallpaper)"
     >
       <h6>
         {{ wallpaper.name }}
@@ -26,7 +27,7 @@
 
       <b-button
         variant="danger"
-        @click="confirmDeleteWallpaper(wallpaper)"
+        @click.stop="confirmDeleteWallpaper(wallpaper)"
       >
         <i class="fas fa-trash-alt fa-fw" aria-hidden />
       </b-button>
@@ -34,7 +35,7 @@
       <b-button
         v-if="selectable"
         variant="primary"
-        @click="handleClick(wallpaper)"
+        @click.stop="selected(wallpaper)"
       >
         <i
           v-if="saving"
@@ -78,7 +79,7 @@ export default {
       this.$bvModal.show('previewWallpaper');
     },
 
-    handleClick(wallpaper) {
+    selected(wallpaper) {
       if (this.selectable) {
         this.$emit('selected', wallpaper);
       }
