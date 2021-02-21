@@ -17,7 +17,7 @@
         v-if="game.cover"
         :key="game.id"
         :src="getCoverUrl(game.cover)"
-        class="rounded my-2 mr-2 w-100 cursor-pointer"
+        class="rounded my-2 mr-2 cursor-pointer"
         height="80"
         @click="loadGame(game.id)"
       />
