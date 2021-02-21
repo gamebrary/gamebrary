@@ -1,14 +1,17 @@
 <template lang="html">
   <div class="wallpapers">
+    <preview-wallpaper-modal :wallpaper="activeWallpaper" />
+
     <b-card
       v-for="wallpaper in wallpapers"
+      @click="openModal(wallpaper)"
       :key="wallpaper.name"
       :img-src="wallpaper.url"
       :img-alt="wallpaper.name"
       img-top
       bg-variant="transparent"
       img-width="180"
-      class="mb-3 overflow-hidden word-wrap"
+      class="mb-3 overflow-hidden word-wrap clickable"
     >
       <h6>
         {{ wallpaper.name }}
@@ -43,12 +46,23 @@
 </template>
 
 <script>
+import PreviewWallpaperModal from '@/components/Wallpapers/PreviewWallpaperModal';
 import { mapState } from 'vuex';
 
 export default {
+  components: {
+    PreviewWallpaperModal,
+  },
+
   props: {
     selectable: Boolean,
     saving: Boolean,
+  },
+
+  data() {
+    return {
+      activeWallpaper: false,
+    };
   },
 
   computed: {
@@ -56,6 +70,11 @@ export default {
   },
 
   methods: {
+    openModal(wallpaper) {
+      this.activeWallpaper = wallpaper;
+      this.$bvModal.show('previewWallpaper');
+    },
+
     handleClick(wallpaper) {
       if (this.selectable) {
         this.$emit('selected', wallpaper);
