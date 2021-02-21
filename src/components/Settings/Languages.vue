@@ -1,6 +1,6 @@
 <template lang="html">
   <b-form-group label="Language">
-    <b-form-select v-model="language" class="w-50">
+    <b-form-select v-model="language" style="max-width: 200px">
       <b-form-select-option
         v-for="{ name, value } in SUPPORTED_LANGUAGES"
         :key="value"
