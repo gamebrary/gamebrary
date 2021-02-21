@@ -1,6 +1,9 @@
 <template lang="html">
   <div class="wallpapers">
-    <preview-wallpaper-modal :wallpaper="activeWallpaper" />
+    <preview-wallpaper-modal
+      v-if="activeWallpaper"
+      :wallpaper="activeWallpaper"
+    />
 
     <b-card
       v-for="wallpaper in wallpapers"
