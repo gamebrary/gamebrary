@@ -18,7 +18,7 @@
       message="Use boards to easily organize your video game collections"
     >
       <b-button
-        :variant="nightMode ? 'dark' : 'primary'"
+        :variant="darkTheme ? 'dark' : 'primary'"
         v-b-modal:create-board
       >
         {{ $t('boards.create') }}
@@ -41,8 +41,8 @@
         v-for="board in sortedBoards"
         :key="board.id"
         no-body
-        :bg-variant="nightMode ? 'dark' : null"
-        :text-variant="nightMode ?  'white' : null"
+        :bg-variant="darkTheme ? 'dark' : null"
+        :text-variant="darkTheme ?  'white' : null"
         class="overflow-hidden clickable"
         @click="viewBoard(board.id)"
       >
@@ -74,7 +74,7 @@ export default {
 
   computed: {
     ...mapState(['boards', 'wallpapers', 'gameLists', 'settings']),
-    ...mapGetters(['platformNames', 'sortedBoards', 'nightMode']),
+    ...mapGetters(['platformNames', 'sortedBoards', 'darkTheme']),
 
     hasLists() {
       return Object.keys(this.gameLists).length > 0;

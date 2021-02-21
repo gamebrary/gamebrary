@@ -30,8 +30,8 @@
         <b-col cols="12" lg="6" v-if="gameTags && localTags">
           <b-card
             class="mb-3"
-            :bg-variant="nightMode ? 'dark' : null"
-            :text-variant="nightMode ?  'white' : null"
+            :bg-variant="darkTheme ? 'dark' : null"
+            :text-variant="darkTheme ?  'white' : null"
             no-body
             v-for="({ games, hex, tagTextColor }, name) in localTags"
             :key="name"
@@ -72,10 +72,10 @@
           <!-- TODO: move to component -->
           <b-modal
             id="editTag"
-            :header-bg-variant="nightMode ? 'dark' : null"
-            :header-text-variant="nightMode ? 'white' : null"
-            :body-bg-variant="nightMode ? 'dark' : null"
-            :body-text-variant="nightMode ? 'white' : null"
+            :header-bg-variant="darkTheme ? 'dark' : null"
+            :header-text-variant="darkTheme ? 'white' : null"
+            :body-bg-variant="darkTheme ? 'dark' : null"
+            :body-text-variant="darkTheme ? 'white' : null"
             hide-footer
           >
             <template v-slot:modal-header="{ close }">
@@ -152,10 +152,10 @@
     <b-modal
       id="addTag"
       hide-footer
-      :header-bg-variant="nightMode ? 'dark' : null"
-      :header-text-variant="nightMode ? 'white' : null"
-      :body-bg-variant="nightMode ? 'dark' : null"
-      :body-text-variant="nightMode ? 'white' : null"
+      :header-bg-variant="darkTheme ? 'dark' : null"
+      :header-text-variant="darkTheme ? 'white' : null"
+      :body-bg-variant="darkTheme ? 'dark' : null"
+      :body-text-variant="darkTheme ? 'white' : null"
       @show="open"
     >
       <template v-slot:modal-header="{ close }">
@@ -261,7 +261,7 @@ export default {
 
   computed: {
     ...mapState(['tags', 'platform']),
-    ...mapGetters(['nightMode']),
+    ...mapGetters(['darkTheme']),
 
     showEmptyState() {
       return Object.keys(this.tags).length === 0;
@@ -377,12 +377,12 @@ export default {
         cancelTitle: this.$t('global.cancel'),
         headerClass: 'pb-0 border-0',
         footerClass: 'pt-0 border-0',
-        headerBgVariant: this.nightMode ? 'dark' : null,
-        headerTextVariant: this.nightMode ? 'white' : null,
-        bodyBgVariant: this.nightMode ? 'dark' : null,
-        bodyTextVariant: this.nightMode ? 'white' : null,
-        footerBgVariant: this.nightMode ? 'dark' : null,
-        footerTextVariant: this.nightMode ? 'white' : null,
+        headerBgVariant: this.darkTheme ? 'dark' : null,
+        headerTextVariant: this.darkTheme ? 'white' : null,
+        bodyBgVariant: this.darkTheme ? 'dark' : null,
+        bodyTextVariant: this.darkTheme ? 'white' : null,
+        footerBgVariant: this.darkTheme ? 'dark' : null,
+        footerTextVariant: this.darkTheme ? 'white' : null,
       })
         .then((value) => {
           if (value) {

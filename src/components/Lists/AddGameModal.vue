@@ -1,17 +1,17 @@
 <template lang="html">
   <b-dropdown-item-button
     @click="$bvModal.show(`game-modal-${list.name}`)"
-    :variant="nightMode ? 'secondary' : null"
+    :variant="darkTheme ? 'secondary' : null"
   >
     <i class="fas fa-plus fa-fw" />
     {{ $t('board.addGame.title') }}
 
     <b-modal
       :id="`game-modal-${list.name}`"
-      :header-bg-variant="nightMode ? 'dark' : null"
-      :header-text-variant="nightMode ? 'white' : null"
-      :body-bg-variant="nightMode ? 'dark' : null"
-      :body-text-variant="nightMode ? 'white' : null"
+      :header-bg-variant="darkTheme ? 'dark' : null"
+      :header-text-variant="darkTheme ? 'white' : null"
+      :body-bg-variant="darkTheme ? 'dark' : null"
+      :body-text-variant="darkTheme ? 'white' : null"
       hide-footer
     >
       <template v-slot:modal-header="{ close }">
@@ -54,7 +54,7 @@ export default {
 
   computed: {
     ...mapState(['board']),
-    ...mapGetters(['nightMode']),
+    ...mapGetters(['darkTheme']),
   },
 };
 </script>

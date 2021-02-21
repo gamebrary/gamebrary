@@ -3,9 +3,9 @@
     <b-jumbotron
       :header="$t('upgrade.title')"
       :lead="$t('upgrade.subtitle')"
-      :bg-variant="nightMode ? 'dark' : ''"
-      :text-variant="nightMode ? 'white' : ''"
-      :border-variant="nightMode ? 'dark' : ''"
+      :bg-variant="darkTheme ? 'dark' : ''"
+      :text-variant="darkTheme ? 'white' : ''"
+      :border-variant="darkTheme ? 'dark' : ''"
       header-level="5"
       fluid
     />
@@ -246,7 +246,7 @@ import { mapGetters } from 'vuex';
 
 export default {
   computed: {
-    ...mapGetters(['nightMode']),
+    ...mapGetters(['darkTheme']),
   },
 };
 </script>

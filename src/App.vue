@@ -11,7 +11,7 @@
 
     <main :class="{
       'authorizing': !user,
-      'bg-dark text-white': nightMode,
+      'bg-dark text-white': darkTheme,
       'offset': !isBoard,
       }"
     >
@@ -47,7 +47,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'wallpaperUrl', 'settings', 'sessionExpired']),
-    ...mapGetters(['nightMode']),
+    ...mapGetters(['darkTheme']),
 
     userId() {
       return this.debugUserId || this.user.uid;

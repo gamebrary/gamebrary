@@ -1,7 +1,7 @@
 <template lang="html">
   <b-dropdown-item-button
     v-b-modal="modalId"
-    :variant="nightMode ? 'secondary' : null"
+    :variant="darkTheme ? 'secondary' : null"
   >
     <i class="fas fa-cogs fa-fw" aria-hidden />
     {{ $t('board.list.settings') }}
@@ -9,10 +9,10 @@
     <b-modal
       :id="modalId"
       footer-class="d-flex justify-content-between pt-0"
-      :header-bg-variant="nightMode ? 'dark' : null"
-      :header-text-variant="nightMode ? 'white' : null"
-      :body-bg-variant="nightMode ? 'dark' : null"
-      :body-text-variant="nightMode ? 'white' : null"
+      :header-bg-variant="darkTheme ? 'dark' : null"
+      :header-text-variant="darkTheme ? 'white' : null"
+      :body-bg-variant="darkTheme ? 'dark' : null"
+      :body-text-variant="darkTheme ? 'white' : null"
       hide-footer
       size="sm"
       @show="getSettings"
@@ -123,7 +123,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['nightMode']),
+    ...mapGetters(['darkTheme']),
 
     modalId() {
       return `list-tweaks-${this.listIndex}`;

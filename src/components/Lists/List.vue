@@ -12,8 +12,8 @@
   >
     <b-card
       no-body
-      :bg-variant="nightMode ? 'dark' : null"
-      :text-variant="nightMode ? 'white' : null"
+      :bg-variant="darkTheme ? 'dark' : null"
+      :text-variant="darkTheme ? 'white' : null"
     >
       <b-card-header
         class="py-0 pr-0 pl-2 d-flex justify-content-between align-items-center"
@@ -44,7 +44,7 @@
         <b-button
           v-else-if="user.uid !== board.owner"
           @click="$bvToast.toast('No write access')"
-          :variant="nightMode ? 'dark' : 'transparent'"
+          :variant="darkTheme ? 'dark' : 'transparent'"
         >
           <i class="fas fa-caret-down fa-fw" aria-hidden />
         </b-button>
@@ -52,7 +52,7 @@
         <b-button
           v-else
           v-b-modal:authModal
-          :variant="nightMode ? 'dark' : 'transparent'"
+          :variant="darkTheme ? 'dark' : 'transparent'"
         >
           <i class="fas fa-caret-down fa-fw" aria-hidden />
         </b-button>
@@ -79,7 +79,7 @@
         />
 
         <b-button
-          :variant="nightMode ? 'dark' : 'light'"
+          :variant="darkTheme ? 'dark' : 'light'"
           block
           v-if="isEmpty"
           class="mb-2"
@@ -150,7 +150,7 @@ export default {
 
   computed: {
     ...mapState(['games', 'dragging', 'progresses', 'board', 'duplicatedGame', 'user']),
-    ...mapGetters(['nightMode']),
+    ...mapGetters(['darkTheme']),
 
     autoSortEnabled() {
       const { settings } = this.list;

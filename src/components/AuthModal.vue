@@ -13,7 +13,7 @@
         <template v-slot:header>
           <img
             class="logo mr-2"
-            :src="`/static/gamebrary-logo${nightMode ? '' : '-dark'}.png`"
+            :src="`/static/gamebrary-logo${darkTheme ? '' : '-dark'}.png`"
           />
         </template>
       </modal-header>
@@ -46,7 +46,7 @@ import { mapGetters } from 'vuex';
 
 export default {
   computed: {
-    ...mapGetters(['nightMode']),
+    ...mapGetters(['darkTheme']),
   },
 };
 </script>

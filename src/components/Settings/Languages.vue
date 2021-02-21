@@ -41,7 +41,7 @@ export default {
 
   computed: {
     ...mapState(['settings']),
-    ...mapGetters(['nightMode']),
+    ...mapGetters(['darkTheme']),
   },
 
   mounted() {

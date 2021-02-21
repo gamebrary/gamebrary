@@ -9,8 +9,8 @@
     <b-card
       v-for="release in releases"
       :key="release.id"
-      :bg-variant="nightMode ? 'dark' : null"
-      :text-variant="nightMode ? 'white' : null"
+      :bg-variant="darkTheme ? 'dark' : null"
+      :text-variant="darkTheme ? 'white' : null"
       hide-footer
       class="mb-3"
     >
@@ -43,7 +43,7 @@ export default {
 
   computed: {
     ...mapState(['releases', 'notification', 'settings']),
-    ...mapGetters(['nightMode']),
+    ...mapGetters(['darkTheme']),
   },
 
   mounted() {

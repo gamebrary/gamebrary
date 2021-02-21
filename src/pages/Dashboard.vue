@@ -80,7 +80,7 @@ export default {
 
   computed: {
     ...mapState(['user']),
-    ...mapGetters(['nightMode']),
+    ...mapGetters(['darkTheme']),
 
     routeName() {
       return this.$route.name;
@@ -92,7 +92,7 @@ export default {
       const dark = this.$route.name === name ? 'secondary' : 'info';
       const light = this.$route.name === name ? 'info' : 'light';
 
-      return this.nightMode ? dark : light;
+      return this.darkTheme ? dark : light;
     },
 
     handleClick(name) {

@@ -28,10 +28,10 @@
       id="screenshots"
       size="xl"
       hide-footer
-      :header-bg-variant="nightMode ? 'dark' : null"
-      :header-text-variant="nightMode ? 'white' : null"
-      :body-bg-variant="nightMode ? 'dark' : null"
-      :body-text-variant="nightMode ? 'white' : null"
+      :header-bg-variant="darkTheme ? 'dark' : null"
+      :header-text-variant="darkTheme ? 'white' : null"
+      :body-bg-variant="darkTheme ? 'dark' : null"
+      :body-text-variant="darkTheme ? 'white' : null"
     >
       <template v-slot:modal-header="{ close }">
         <modal-header
@@ -60,14 +60,14 @@
           </b-button>
 
           <b-button
-            :variant="nightMode ? 'dark' : 'light'"
+            :variant="darkTheme ? 'dark' : 'light'"
             @click="previous"
           >
             <i class="fas fa-angle-left fa-fw" aria-hidden />
           </b-button>
 
           <b-button
-            :variant="nightMode ? 'dark' : 'light'"
+            :variant="darkTheme ? 'dark' : 'light'"
             @click="next"
           >
             <i class="fas fa-angle-right fa-fw" aria-hidden />
@@ -115,7 +115,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['nightMode', 'activeGameCoverUrl', 'board']),
+    ...mapGetters(['darkTheme', 'activeGameCoverUrl', 'board']),
     ...mapState(['board']),
 
     thumbnails() {

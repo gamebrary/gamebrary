@@ -3,7 +3,7 @@
     v-b-modal.progress
     v-shortkey="['p']"
     @shortkey.native="$bvModal.show('progress');"
-    :variant="nightMode ? 'secondary' : null"
+    :variant="darkTheme ? 'secondary' : null"
   >
     <i class="fas fa-stopwatch fa-fw" />
 
@@ -11,10 +11,10 @@
 
     <b-modal
       id="progress"
-      :header-bg-variant="nightMode ? 'dark' : null"
-      :header-text-variant="nightMode ? 'white' : null"
-      :body-bg-variant="nightMode ? 'dark' : null"
-      :body-text-variant="nightMode ? 'white' : null"
+      :header-bg-variant="darkTheme ? 'dark' : null"
+      :header-text-variant="darkTheme ? 'white' : null"
+      :body-bg-variant="darkTheme ? 'dark' : null"
+      :body-text-variant="darkTheme ? 'white' : null"
       hide-footer
       footer-class="d-flex justify-content-between pt-0"
       @show="show"
@@ -96,7 +96,7 @@ export default {
 
   computed: {
     ...mapState(['progresses']),
-    ...mapGetters(['nightMode', 'activeGameCoverUrl']),
+    ...mapGetters(['darkTheme', 'activeGameCoverUrl']),
 
     title() {
       return this.localProgress

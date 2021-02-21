@@ -2,10 +2,10 @@
   <b-modal
     :id="modalId"
     :title="$t('board.addList.title')"
-    :header-bg-variant="nightMode ? 'dark' : null"
-    :header-text-variant="nightMode ? 'white' : null"
-    :body-bg-variant="nightMode ? 'dark' : null"
-    :body-text-variant="nightMode ? 'white' : null"
+    :header-bg-variant="darkTheme ? 'dark' : null"
+    :header-text-variant="darkTheme ? 'white' : null"
+    :body-bg-variant="darkTheme ? 'dark' : null"
+    :body-text-variant="darkTheme ? 'white' : null"
     hide-footer
     @show="reset"
   >
@@ -75,7 +75,7 @@ export default {
 
   computed: {
     ...mapState(['platform', 'board']),
-    ...mapGetters(['nightMode']),
+    ...mapGetters(['darkTheme']),
 
     existingListNames() {
       return this.board.lists

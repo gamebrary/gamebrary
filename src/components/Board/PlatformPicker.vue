@@ -31,7 +31,7 @@ export default {
 
   computed: {
     ...mapState(['platforms', 'settings']),
-    ...mapGetters(['filteredPlatforms', 'nightMode']),
+    ...mapGetters(['filteredPlatforms', 'darkTheme']),
 
     buttonLabel() {
       return this.value.length

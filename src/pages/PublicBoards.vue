@@ -7,8 +7,8 @@
         v-for="board in publicBoards"
         :key="board.id"
         no-body
-        :bg-variant="nightMode ? 'dark' : null"
-        :text-variant="nightMode ?  'white' : null"
+        :bg-variant="darkTheme ? 'dark' : null"
+        :text-variant="darkTheme ?  'white' : null"
         class="overflow-hidden clickable"
         @click="viewBoard(board.id)"
       >
@@ -36,7 +36,7 @@ export default {
 
   computed: {
     ...mapState(['publicBoards', 'wallpapers']),
-    ...mapGetters(['nightMode']),
+    ...mapGetters(['darkTheme']),
   },
 
   mounted() {

@@ -1,10 +1,10 @@
 <template lang="html">
   <b-modal
     id="boardBackground"
-    :header-bg-variant="nightMode ? 'dark' : null"
-    :header-text-variant="nightMode ? 'white' : null"
-    :body-bg-variant="nightMode ? 'dark' : null"
-    :body-text-variant="nightMode ? 'white' : null"
+    :header-bg-variant="darkTheme ? 'dark' : null"
+    :header-text-variant="darkTheme ? 'white' : null"
+    :body-bg-variant="darkTheme ? 'dark' : null"
+    :body-text-variant="darkTheme ? 'white' : null"
     hide-footer
     scrollable
     @hide="hide"
@@ -113,7 +113,7 @@ export default {
 
   computed: {
     ...mapState(['board', 'wallpapers']),
-    ...mapGetters(['nightMode']),
+    ...mapGetters(['darkTheme']),
   },
 
   async mounted() {

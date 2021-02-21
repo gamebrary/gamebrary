@@ -7,8 +7,8 @@
     >
     <b-card
       no-body
-      :bg-variant="nightMode ? 'dark' : null"
-      :text-variant="nightMode ? 'white' : null"
+      :bg-variant="darkTheme ? 'dark' : null"
+      :text-variant="darkTheme ? 'white' : null"
     >
       <b-card-header class="pt-2 pb-1 px-2">
         <b-skeleton />
@@ -22,8 +22,8 @@
           <b-card
             no-body
             img-top
-            :bg-variant="nightMode ? 'dark' : null"
-            :text-variant="nightMode ? 'white' : null"
+            :bg-variant="darkTheme ? 'dark' : null"
+            :text-variant="darkTheme ? 'white' : null"
             v-if="list.settings.view === 'grid'"
           >
             <b-skeleton-img
@@ -50,8 +50,8 @@
           <b-card
             v-else-if="!list.settings.view || list.settings.view === 'single'"
             no-body
-            :bg-variant="nightMode ? 'dark' : null"
-            :text-variant="nightMode ? 'white' : null"
+            :bg-variant="darkTheme ? 'dark' : null"
+            :text-variant="darkTheme ? 'white' : null"
             img-left
           >
             <b-skeleton-img
@@ -66,8 +66,8 @@
           </b-card>
 
           <b-card
-            :bg-variant="nightMode ? 'dark' : null"
-            :text-variant="nightMode ? 'white' : null"
+            :bg-variant="darkTheme ? 'dark' : null"
+            :text-variant="darkTheme ? 'white' : null"
             v-else-if="list.settings.view === 'compact'"
             no-body
             img-left
@@ -85,8 +85,8 @@
 
           <b-card
             v-else-if="list.settings.view === 'text'"
-            :bg-variant="nightMode ? 'dark' : null"
-            :text-variant="nightMode ? 'white' : null"
+            :bg-variant="darkTheme ? 'dark' : null"
+            :text-variant="darkTheme ? 'white' : null"
             no-body
             img-left
           >
@@ -123,7 +123,7 @@ export default {
 
   computed: {
     ...mapState(['boards']),
-    ...mapGetters(['nightMode']),
+    ...mapGetters(['darkTheme']),
   },
 
   mounted() {

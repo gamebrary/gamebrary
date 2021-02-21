@@ -1,9 +1,8 @@
 <template lang="html">
   <b-form-checkbox
-    v-model="nightMode"
-    name="check-button"
-    @input="toggleTheme"
+    v-model="darkTheme"
     switch
+    @input="toggleTheme"
   >
     Dark theme
   </b-form-checkbox>
@@ -15,7 +14,7 @@ import { mapState } from 'vuex';
 export default {
   data() {
     return {
-      nightMode: null,
+      darkTheme: null,
     };
   },
 
@@ -24,12 +23,14 @@ export default {
   },
 
   mounted() {
-    this.nightMode = Boolean(this.settings && this.settings.nightMode);
+    this.darkTheme = this.settings && this.settings.theme && this.settings.theme === 'dark';
   },
 
   methods: {
     toggleTheme() {
-      this.$store.commit('UPDATE_SETTING', { key: 'nightMode', value: this.nightMode });
+      const value = this.darkTheme ? 'dark' : 'light';
+
+      this.$store.commit('UPDATE_SETTING', { key: 'theme', value });
 
       this.$store.dispatch('SAVE_SETTINGS', this.settings)
         .catch(() => {

@@ -3,8 +3,8 @@
     size="sm"
     right
     no-caret
-    :variant="nightMode ? 'dark' : 'light'"
-    :menu-class="nightMode ? 'bg-dark' : ''"
+    :variant="darkTheme ? 'dark' : 'light'"
+    :menu-class="darkTheme ? 'bg-dark' : ''"
     toggle-class="px-2 py-1 m-1"
   >
     <template v-slot:button-content>
@@ -15,7 +15,7 @@
 
     <b-dropdown-item
       v-b-modal:add-list
-      :variant="nightMode ? 'secondary' : null"
+      :variant="darkTheme ? 'secondary' : null"
     >
       <i class="fas fa-folder-plus fa-fw" />
       Add list
@@ -40,7 +40,7 @@
           v-b-tooltip.hover
           :title="$t('board.list.moveLeft')"
           :disabled="isFirst"
-          :variant="nightMode ? 'dark' : 'light'"
+          :variant="darkTheme ? 'dark' : 'light'"
           @click="moveList(listIndex, listIndex - 1)"
         >
           <i class="fas fa-angle-left fa-fw" aria-hidden />
@@ -50,7 +50,7 @@
           v-b-tooltip.hover
           :title="$t('board.list.moveRight')"
           :disabled="isLast"
-          :variant="nightMode ? 'dark' : 'light'"
+          :variant="darkTheme ? 'dark' : 'light'"
           @click="moveList(listIndex, listIndex + 1)"
         >
           <i class="fas fa-angle-right fa-fw" aria-hidden />
@@ -90,7 +90,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'platform', 'board']),
-    ...mapGetters(['nightMode']),
+    ...mapGetters(['darkTheme']),
 
     isFirst() {
       return this.listIndex === 0;
@@ -112,12 +112,12 @@ export default {
         cancelTitle: this.$t('global.cancel'),
         headerClass: 'pb-0 border-0',
         footerClass: 'pt-0 border-0',
-        headerBgVariant: this.nightMode ? 'dark' : null,
-        headerTextVariant: this.nightMode ? 'white' : null,
-        bodyBgVariant: this.nightMode ? 'dark' : null,
-        bodyTextVariant: this.nightMode ? 'white' : null,
-        footerBgVariant: this.nightMode ? 'dark' : null,
-        footerTextVariant: this.nightMode ? 'white' : null,
+        headerBgVariant: this.darkTheme ? 'dark' : null,
+        headerTextVariant: this.darkTheme ? 'white' : null,
+        bodyBgVariant: this.darkTheme ? 'dark' : null,
+        bodyTextVariant: this.darkTheme ? 'white' : null,
+        footerBgVariant: this.darkTheme ? 'dark' : null,
+        footerTextVariant: this.darkTheme ? 'white' : null,
       })
         .then((value) => {
           if (value) {

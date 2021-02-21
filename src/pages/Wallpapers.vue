@@ -94,7 +94,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'board', 'wallpapers']),
-    ...mapGetters(['nightMode']),
+    ...mapGetters(['darkTheme']),
 
     usedSpaceText() {
       return `${this.formattedSpaceUsed} of ${bytesToSize(this.maxSpace)} used`;

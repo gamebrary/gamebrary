@@ -59,7 +59,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['nightMode']),
+    ...mapGetters(['darkTheme']),
 
     currentYear() {
       return new Date().getFullYear();

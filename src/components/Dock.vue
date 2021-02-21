@@ -3,8 +3,8 @@
   <nav
     class="rounded position-fixed d-flex flex-column p-0 m-2 text-center border dock"
     :class="{
-      'bg-dark text-white border-info': nightMode,
-      'bg-white': !nightMode,
+      'bg-dark text-white border-info': darkTheme,
+      'bg-white': !darkTheme,
       }"
   >
     <b-button
@@ -14,7 +14,7 @@
       @click="handleLogoClick"
     >
       <img
-        :src="`/static/gamebrary-logo${nightMode ? '' : '-dark'}.png`"
+        :src="`/static/gamebrary-logo${darkTheme ? '' : '-dark'}.png`"
         width="32"
       />
     </b-button>
@@ -24,7 +24,7 @@
     <b-collapse id="moreMenu" v-model="moreMenuOpen">
       <b-button
         :to="{ name: 'boards' }"
-        :variant="nightMode ? 'dark' : 'light'"
+        :variant="darkTheme ? 'dark' : 'light'"
         size="sm"
         title="Boards"
       >
@@ -33,7 +33,7 @@
 
       <b-button
         :to="{ name: 'tags' }"
-        :variant="nightMode ? 'dark' : 'light'"
+        :variant="darkTheme ? 'dark' : 'light'"
         class="mt-1"
         size="sm"
         title="Tags"
@@ -43,7 +43,7 @@
 
       <b-button
         :to="{ name: 'notes' }"
-        :variant="nightMode ? 'dark' : 'light'"
+        :variant="darkTheme ? 'dark' : 'light'"
         class="mt-1"
         size="sm"
         title="Notes"
@@ -53,7 +53,7 @@
 
       <b-button
         :to="{ name: 'wallpapers' }"
-        :variant="nightMode ? 'dark' : 'light'"
+        :variant="darkTheme ? 'dark' : 'light'"
         class="mt-1"
         size="sm"
         title="Wallpapers"
@@ -63,7 +63,7 @@
 
       <b-button
         :to="{ name: 'profile' }"
-        :variant="nightMode ? 'dark' : 'light'"
+        :variant="darkTheme ? 'dark' : 'light'"
         class="mt-1"
         size="sm"
         title="Profile"
@@ -72,7 +72,7 @@
       </b-button>
 
       <b-button
-        :variant="nightMode ? 'dark' : 'light'"
+        :variant="darkTheme ? 'dark' : 'light'"
         class="mt-1"
         size="sm"
         v-b-modal:keyboard-shortcuts
@@ -85,7 +85,7 @@
 
       <b-button
         :to="{ name: 'settings' }"
-        :variant="nightMode ? 'dark' : 'light'"
+        :variant="darkTheme ? 'dark' : 'light'"
         size="sm"
         title="Settings"
       >
@@ -94,7 +94,7 @@
 
       <b-button
         :to="{ name: 'about' }"
-        :variant="nightMode ? 'dark' : 'light'"
+        :variant="darkTheme ? 'dark' : 'light'"
         class="mt-1"
         size="sm"
         title="About"
@@ -104,7 +104,7 @@
 
       <b-button
         :to="{ name: 'releases' }"
-        :variant="nightMode ? 'dark' : 'light'"
+        :variant="darkTheme ? 'dark' : 'light'"
         class="my-1"
         size="sm"
         title="Releases"
@@ -116,7 +116,7 @@
     <!-- TODO: persist value -->
     <b-button
       v-b-toggle.moreMenu
-      :variant="nightMode ? 'dark' : 'light'"
+      :variant="darkTheme ? 'dark' : 'light'"
       class="mx-1 mb-1 py-0"
       size="sm"
     >
@@ -142,7 +142,7 @@ export default {
 
   computed: {
     ...mapState(['board', 'notification', 'settings', 'user']),
-    ...mapGetters(['nightMode']),
+    ...mapGetters(['darkTheme']),
 
     isBoard() {
       return ['public-board', 'board'].includes(this.$route.name);

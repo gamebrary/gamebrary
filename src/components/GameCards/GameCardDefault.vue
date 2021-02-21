@@ -2,8 +2,8 @@
   <b-card
     no-body
     class="clickable"
-    :bg-variant="nightMode ? 'dark' : ''"
-    :text-variant="nightMode ? 'white' : ''"
+    :bg-variant="darkTheme ? 'dark' : ''"
+    :text-variant="darkTheme ? 'white' : ''"
   >
     <b-row
       no-gutters
@@ -44,7 +44,7 @@
 
           <b-form-rating
             v-if="gameRating"
-            :class="['p-0', { 'bg-dark': nightMode }]"
+            :class="['p-0', { 'bg-dark': darkTheme }]"
             inline
             :value="gameRating"
             readonly

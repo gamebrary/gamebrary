@@ -1,12 +1,12 @@
 <template lang="html">
   <b-modal
     id="editPlatforms"
-    :header-bg-variant="nightMode ? 'dark' : null"
-    :header-text-variant="nightMode ? 'white' : null"
-    :body-bg-variant="nightMode ? 'dark' : null"
-    :body-text-variant="nightMode ? 'white' : null"
-    :footer-bg-variant="nightMode ? 'dark' : null"
-    :footer-text-variant="nightMode ? 'white' : null"
+    :header-bg-variant="darkTheme ? 'dark' : null"
+    :header-text-variant="darkTheme ? 'white' : null"
+    :body-bg-variant="darkTheme ? 'dark' : null"
+    :body-text-variant="darkTheme ? 'white' : null"
+    :footer-bg-variant="darkTheme ? 'dark' : null"
+    :footer-text-variant="darkTheme ? 'white' : null"
     scrollable
     hide-footer
     @show="show"
@@ -52,7 +52,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['nightMode']),
+    ...mapGetters(['darkTheme']),
     ...mapState(['board']),
 
     noPlatformsSelected() {

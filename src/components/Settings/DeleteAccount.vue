@@ -6,12 +6,12 @@
       id="account-settings"
       hide-footer
       title="Delete account"
-      :header-bg-variant="nightMode ? 'dark' : null"
-      :header-text-variant="nightMode ? 'white' : null"
-      :body-bg-variant="nightMode ? 'dark' : null"
-      :body-text-variant="nightMode ? 'white' : null"
-      :footer-bg-variant="nightMode ? 'dark' : null"
-      :footer-text-variant="nightMode ? 'white' : null"
+      :header-bg-variant="darkTheme ? 'dark' : null"
+      :header-text-variant="darkTheme ? 'white' : null"
+      :body-bg-variant="darkTheme ? 'dark' : null"
+      :body-text-variant="darkTheme ? 'white' : null"
+      :footer-bg-variant="darkTheme ? 'dark' : null"
+      :footer-text-variant="darkTheme ? 'white' : null"
     >
       <b-alert show variant="success" v-if="deleting && progress === 5">
         Account deleted
@@ -61,7 +61,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['nightMode']),
+    ...mapGetters(['darkTheme']),
     ...mapState([
       'user',
       'tags',
@@ -79,12 +79,12 @@ export default {
         title: 'Are you sure you want to delete your account?',
         okVariant: 'danger',
         okTitle: 'Yes, delete account',
-        headerBgVariant: this.nightMode ? 'dark' : null,
-        headerTextVariant: this.nightMode ? 'white' : null,
-        bodyBgVariant: this.nightMode ? 'dark' : null,
-        bodyTextVariant: this.nightMode ? 'white' : null,
-        footerBgVariant: this.nightMode ? 'dark' : null,
-        footerTextVariant: this.nightMode ? 'white' : null,
+        headerBgVariant: this.darkTheme ? 'dark' : null,
+        headerTextVariant: this.darkTheme ? 'white' : null,
+        bodyBgVariant: this.darkTheme ? 'dark' : null,
+        bodyTextVariant: this.darkTheme ? 'white' : null,
+        footerBgVariant: this.darkTheme ? 'dark' : null,
+        footerTextVariant: this.darkTheme ? 'white' : null,
       })
         .then((value) => {
           if (value) {

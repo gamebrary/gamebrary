@@ -15,7 +15,7 @@
 
       <div class="d-flex flex-column pr-2">
         <b-button
-          :variant="nightMode ? 'dark' : 'light'"
+          :variant="darkTheme ? 'dark' : 'light'"
           size="sm"
           class="mb-2"
           v-b-modal:add-list
@@ -24,7 +24,7 @@
         </b-button>
 
         <b-button
-          :variant="nightMode ? 'dark' : 'light'"
+          :variant="darkTheme ? 'dark' : 'light'"
           size="sm"
           v-b-modal:edit-board
         >
@@ -78,7 +78,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'dragging', 'board', 'wallpapers']),
-    ...mapGetters(['nightMode']),
+    ...mapGetters(['darkTheme']),
 
     showBoard() {
       const { isPublicRoute, board } = this;
@@ -125,7 +125,7 @@ export default {
         return null;
       }
 
-      return this.nightMode
+      return this.darkTheme
         ? 'bg-dark'
         : 'bg-light';
     },

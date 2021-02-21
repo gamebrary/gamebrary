@@ -84,7 +84,7 @@ export default {
 
   computed: {
     ...mapState(['notes', 'games']),
-    ...mapGetters(['nightMode']),
+    ...mapGetters(['darkTheme']),
 
     showEmptyState() {
       return this.loaded && !Object.keys(this.notes).length;

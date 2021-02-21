@@ -1,14 +1,14 @@
 <template lang="html">
   <b-jumbotron
     class="empty-board w-100 text-center"
-    :bg-variant="nightMode ? 'dark' : ''"
-    :text-variant="nightMode ? 'white' : ''"
-    :border-variant="nightMode ? 'light' : ''"
+    :bg-variant="darkTheme ? 'dark' : ''"
+    :text-variant="darkTheme ? 'white' : ''"
+    :border-variant="darkTheme ? 'light' : ''"
   >
     <p>This board is empty</p>
 
     <b-button
-      :variant="nightMode ? 'light' : 'primary'"
+      :variant="darkTheme ? 'light' : 'primary'"
       @click="openAddListModal"
     >
       Add list
@@ -21,7 +21,7 @@ import { mapGetters } from 'vuex';
 
 export default {
   computed: {
-    ...mapGetters(['nightMode']),
+    ...mapGetters(['darkTheme']),
   },
 
   methods: {

@@ -1,10 +1,10 @@
 <template lang="html">
   <b-modal
     id="edit-board"
-    :header-bg-variant="nightMode ? 'dark' : null"
-    :header-text-variant="nightMode ? 'white' : null"
-    :body-bg-variant="nightMode ? 'dark' : null"
-    :body-text-variant="nightMode ? 'white' : null"
+    :header-bg-variant="darkTheme ? 'dark' : null"
+    :header-text-variant="darkTheme ? 'white' : null"
+    :body-bg-variant="darkTheme ? 'dark' : null"
+    :body-text-variant="darkTheme ? 'white' : null"
     hide-footer
     @show="init"
   >
@@ -117,7 +117,7 @@ export default {
 
   computed: {
     ...mapState(['board', 'user']),
-    ...mapGetters(['nightMode']),
+    ...mapGetters(['darkTheme']),
   },
 
   methods: {
@@ -143,12 +143,12 @@ export default {
       this.$bvModal.msgBoxConfirm('Are you sure you want to delete this board?', {
         title: 'Delete board',
         okVariant: 'danger',
-        headerBgVariant: this.nightMode ? 'dark' : null,
-        headerTextVariant: this.nightMode ? 'white' : null,
-        bodyBgVariant: this.nightMode ? 'dark' : null,
-        bodyTextVariant: this.nightMode ? 'white' : null,
-        footerBgVariant: this.nightMode ? 'dark' : null,
-        footerTextVariant: this.nightMode ? 'white' : null,
+        headerBgVariant: this.darkTheme ? 'dark' : null,
+        headerTextVariant: this.darkTheme ? 'white' : null,
+        bodyBgVariant: this.darkTheme ? 'dark' : null,
+        bodyTextVariant: this.darkTheme ? 'white' : null,
+        footerBgVariant: this.darkTheme ? 'dark' : null,
+        footerTextVariant: this.darkTheme ? 'white' : null,
         okTitle: 'Yes, delete board',
       })
         .then((value) => {

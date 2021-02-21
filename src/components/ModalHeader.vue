@@ -11,7 +11,7 @@
     </div>
 
     <b-button
-      :variant="nightMode ? 'dark' : 'light'"
+      :variant="darkTheme ? 'dark' : 'light'"
       class="align-self-baseline"
       @click="$emit('close')"
     >
@@ -30,7 +30,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['nightMode']),
+    ...mapGetters(['darkTheme']),
 
     slots() {
       return Object.keys(this.$slots);
