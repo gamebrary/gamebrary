@@ -141,7 +141,7 @@
             "addGames": "Add games to {listName}",
             "view": "List view",
             "moveList": "Move list",
-            "renameList": "Rename",
+            "renameList": "Rename list",
             "renameListPlaceholder": "Enter your name",
             "sortList": "Sort",
             "sortWarning": "Auto sorting list will affect how drag and drop works",
