@@ -6,7 +6,7 @@ export default {
   progresses: {},
   dragging: false,
   gameLists: {},
-  settings: null,
+  settings: {},
   results: [],
   games: {},
   boards: [],

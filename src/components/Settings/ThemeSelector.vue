@@ -23,7 +23,9 @@ export default {
   },
 
   mounted() {
-    this.darkTheme = this.settings && this.settings.theme && this.settings.theme === 'dark';
+    const { settings } = this;
+
+    this.darkTheme = settings.theme && settings.theme === 'dark';
   },
 
   methods: {

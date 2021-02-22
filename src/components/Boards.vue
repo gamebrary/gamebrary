@@ -73,7 +73,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['boards', 'wallpapers', 'gameLists', 'settings']),
+    ...mapState(['boards', 'wallpapers', 'gameLists']),
     ...mapGetters(['platformNames', 'sortedBoards', 'darkTheme']),
 
     hasLists() {

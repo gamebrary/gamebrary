@@ -54,10 +54,9 @@ export default {
     },
 
     dir() {
-      // TODO: find out all rtl languages and store in const
-      return this.settings && this.settings.language === 'ar'
-        ? 'rtl'
-        : 'ltr';
+      const { language } = this.settings;
+
+      return language === 'ar' ? 'rtl' : 'ltr';
     },
 
     isPublicBoard() {

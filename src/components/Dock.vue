@@ -131,7 +131,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['board', 'notification', 'settings', 'user']),
+    ...mapState(['board', 'notification', 'user']),
     ...mapGetters(['darkTheme']),
 
     isBoard() {
