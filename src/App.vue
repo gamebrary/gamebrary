@@ -116,9 +116,6 @@ export default {
         });
 
       this.loadWallpapers();
-      // TODO: remove onSnapshot? May get costly $$$
-      // TODO: track progresses as well
-
       // TODO: move to actions
       db.collection('settings').doc(this.userId)
         .onSnapshot((doc) => {

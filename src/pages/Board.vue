@@ -98,7 +98,7 @@ export default {
         return `background-image: url('${this.wallpaperUrl}');`;
       }
 
-      // TODO: use optional chaining
+      // OPTIMIZE: use optional chaining
       return this.board && this.board.backgroundColor
         ? `background-color: ${this.board.backgroundColor};`
         : null;
@@ -109,12 +109,12 @@ export default {
     },
 
     isEmptyBoard() {
-      // TODO: use optional chaining
+      // OPTIMIZE: use optional chaining
       return this.board && this.board.lists && this.board.lists.length === 0;
     },
 
     isPublicRoute() {
-      // TODO: use optional chaining
+      // OPTIMIZE: use optional chaining
       return this.$route.meta && this.$route.meta.public;
     },
 

@@ -57,7 +57,7 @@ export default {
         return `background-image: url(${this.backgroundImage});`;
       }
 
-      // TODO: use optional chaining
+      // OPTIMIZE: use optional chaining
       return this.board && this.board.backgroundColor
         ? `background-color: ${this.board.backgroundColor};`
         : null;
