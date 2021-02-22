@@ -51,7 +51,7 @@
         />
 
         <b-button
-          class="po sition-absolute edit-board-button"
+          class="position-absolute edit-board-button"
           :variant="darkTheme ?  'info' : 'light'"
           size="sm"
           @click.stop="editBoard(board)"
