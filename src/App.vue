@@ -6,7 +6,7 @@
     v-shortkey="KEYBOARD_SHORTCUTS"
     @shortkey="handleShortcutAction"
   >
-    <dock />
+    <dock v-if="user || isPublicRoute" />
     <global-modals />
 
     <main :class="{
@@ -54,12 +54,12 @@ export default {
     },
 
     dir() {
-      const { language } = this.settings;
+      const { settings } = this;
 
-      return language === 'ar' ? 'rtl' : 'ltr';
+      return settings && settings.language === 'ar' ? 'rtl' : 'ltr';
     },
 
-    isPublicBoard() {
+    isPublicRoute() {
       return this.$route.meta && this.$route.meta.public;
     },
 
@@ -80,7 +80,7 @@ export default {
     },
 
     init() {
-      if (this.isPublicBoard) {
+      if (this.isPublicRoute) {
         return;
       }
 
