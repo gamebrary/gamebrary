@@ -27,7 +27,7 @@ import Languages from '@/components/Settings/Languages';
 import ThemeSelector from '@/components/Settings/ThemeSelector';
 import SignOut from '@/components/Settings/SignOut';
 import DeleteAccount from '@/components/Settings/DeleteAccount';
-import { mapState, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
