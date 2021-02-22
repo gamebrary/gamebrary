@@ -35,24 +35,38 @@
             />
           </template>
 
-          <b-button
-            variant="danger"
-            :disabled="deleting"
-            @click="deleteProgress"
+          <b-dropdown
+            id="dropdown-1"
+            text="Dropdown Button"
+            right
+            no-caret
+            :variant="darkTheme ? 'dark' : 'light'"
+            :menu-class="darkTheme ? 'bg-dark' : ''"
           >
-            <b-spinner small v-if="deleting" />
-            <span v-else>
-              <i class="fas fa-trash fa-fw" aria-hidden />
-            </span>
-          </b-button>
+            <template v-slot:button-content>
+              <i class="fas fa-ellipsis-h fa-fw" aria-hidden />
+            </template>
 
-          <b-button
-            v-if="!saving"
-            variant="success"
-            @click="markAsCompleted"
-          >
-            Completed
-          </b-button>
+            <b-dropdown-item
+              v-if="!saving"
+              variant="success"
+              @click="markAsCompleted"
+            >
+              <i class="fas fa-check fa-fw" aria-hidden />
+              Mark as completed
+            </b-dropdown-item>
+
+            <b-dropdown-divider></b-dropdown-divider>
+
+            <b-dropdown-item-button
+              :disabled="deleting"
+              variant="danger"
+              @click="deleteProgress"
+            >
+              <i class="fas fa-trash fa-fw" aria-hidden />
+              Remove progress
+            </b-dropdown-item-button>
+          </b-dropdown>
 
           <b-button
             variant="primary"
