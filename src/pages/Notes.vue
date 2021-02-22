@@ -1,8 +1,6 @@
 <!-- TODO: create add a note modal -->
-<!-- TODO: add note search -->
 <!-- TODO: pagination? -->
 <!-- TODO: open notes from game modal on click? -->
-
 <template lang="html">
   <b-container>
     <empty-state
@@ -26,9 +24,18 @@
         </b-button> -->
       </div>
 
+      <div class="mb-4">
+        <b-form-input
+          type="search"
+          style="max-width: 300px"
+          placeholder="Filter notes"
+          v-model="search"
+        />
+      </div>
+
       <div class="notes">
         <div
-          v-for="(note, gameId) in notes"
+          v-for="{ note, gameName, gameId } in filteredNotes"
           class="note mb-2 p-2 rounded border d-inline-block w-100"
           :key="gameId"
         >
@@ -36,13 +43,13 @@
             <b-img
               @click="openGame(gameId)"
               :src="getCoverUrl(gameId)"
-              :alt="gameGameName(gameId)"
+              :alt="gameName"
               class="rounded"
               height="60"
             />
 
-            <small v-if="games[gameId]" class="ml-2">
-              {{ gameGameName(gameId) }}
+            <small v-if="gameName" class="ml-2">
+              {{ gameName }}
             </small>
           </div>
 
@@ -52,15 +59,6 @@
         </div>
       </div>
     </template>
-
-    <!-- TODO: finish search, include game title? -->
-    <!-- <b-row class="mb-3">
-      <b-form-input
-        type="search"
-        placeholder="Search notes"
-        v-model="search"
-      />
-    </b-row> -->
   </b-container>
 </template>
 
@@ -88,6 +86,32 @@ export default {
 
     showEmptyState() {
       return this.loaded && !Object.keys(this.notes).length;
+    },
+
+    filteredNotes() {
+      return Object.values(this.notes)
+        .map((note, index) => {
+          const gameId = Object.keys(this.notes)[index];
+          const game = gameId && this.games && this.games[gameId];
+
+          return {
+            note,
+            gameName: game && game.name,
+            gameId: game && game.id,
+          };
+        })
+        .filter(({ gameName, note }) => {
+          if (!this.search) {
+            return true;
+          }
+
+          const noteIsMatch = note && note.toLowerCase().includes(this.search.toLowerCase());
+          const titleIsMatch = gameName
+            && gameName.toLowerCase()
+              .includes(this.search.toLowerCase());
+
+          return noteIsMatch || titleIsMatch;
+        });
     },
   },
 
@@ -128,10 +152,6 @@ export default {
       return game && game.cover && game.cover.image_id
         ? `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${game.cover.image_id}.jpg`
         : '/static/no-image.jpg';
-    },
-
-    gameGameName(gameId) {
-      return this.games && this.games[gameId] && this.games[gameId].name;
     },
   },
 };
