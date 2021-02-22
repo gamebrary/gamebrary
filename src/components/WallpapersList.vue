@@ -21,7 +21,7 @@
         {{ wallpaper.name }}
 
         <b-badge v-if="wallpaper.metadata && wallpaper.metadata.size">
-          {{ bytesToSize(wallpaper.metadata.size) }}
+          {{ formatSize(wallpaper) }}
         </b-badge>
       </h6>
 
@@ -51,6 +51,7 @@
 
 <script>
 import PreviewWallpaperModal from '@/components/Wallpapers/PreviewWallpaperModal';
+import { bytesToSize } from '@/utils';
 import { mapState } from 'vuex';
 
 export default {
@@ -85,15 +86,12 @@ export default {
       }
     },
 
-    bytesToSize(bytes) {
-      // TODO: put in util
-      const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    formatSize(wallpaper) {
+      const size = wallpaper && wallpaper.metadata && wallpaper.metadata.size
+        ? wallpaper.metadata.size
+        : 0;
 
-      if (bytes === 0) return '0 Byte';
-
-      const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 0);
-
-      return `${Math.round(bytes / (1024 ** i), 2)} ${sizes[i]}`;
+      return bytesToSize(size);
     },
 
     confirmDeleteWallpaper(file) {
