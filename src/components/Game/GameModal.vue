@@ -17,7 +17,7 @@
     <template v-slot:modal-header="{ close }">
       <modal-header
         :title="game.name"
-        :subtitle="gameModalData.list ? gameModalData.list.name : null"
+        :subtitle="activeGame.list ? activeGame.list.name : null"
         @close="close"
       >
         <template v-slot:header>
@@ -248,16 +248,15 @@ export default {
   },
 
   computed: {
-    // TODO: rename gameModalData
-    ...mapState(['board', 'notes', 'gameModalData', 'games', 'platform', 'progresses', 'tags', 'user']),
+    ...mapState(['board', 'notes', 'activeGame', 'games', 'platform', 'progresses', 'tags', 'user']),
     ...mapGetters(['darkTheme', 'activeGameCoverUrl']),
 
     hasMultipleGames() {
       // TODO: use optional chaining
-      return this.gameModalData
-        && this.gameModalData.list
-        && this.gameModalData.list.games
-        && this.gameModalData.list.games.length > 1;
+      return this.activeGame
+        && this.activeGame.list
+        && this.activeGame.list.games
+        && this.activeGame.list.games.length > 1;
     },
 
     progress() {
@@ -273,7 +272,7 @@ export default {
     },
 
     gameIndex() {
-      const { gameId, list } = this.gameModalData;
+      const { gameId, list } = this.activeGame;
 
       return list && list.games.indexOf(gameId);
     },
@@ -283,14 +282,14 @@ export default {
     },
 
     nextDisabled() {
-      const { list } = this.gameModalData;
+      const { list } = this.activeGame;
 
       return this.list && list.games && this.gameIndex === list.games.length - 1;
     },
   },
 
   watch: {
-    gameModalData(value) {
+    activeGame(value) {
       if (value) {
         this.load();
       }
@@ -306,7 +305,7 @@ export default {
       // TODO: account for list sorting when getting previous game
       this.loading = true;
 
-      const { gameId, list } = this.gameModalData;
+      const { gameId, list } = this.activeGame;
 
       const index = list.games.indexOf(gameId);
 
@@ -322,7 +321,7 @@ export default {
       // TODO: account for list sorting when getting next game
       this.loading = true;
 
-      const { gameId, list } = this.gameModalData;
+      const { gameId, list } = this.activeGame;
 
       const index = list.games.indexOf(gameId);
 
@@ -335,7 +334,7 @@ export default {
     },
 
     load() {
-      const { gameId, list } = this.gameModalData;
+      const { gameId, list } = this.activeGame;
 
       this.gameId = gameId;
       this.list = list;
@@ -347,7 +346,7 @@ export default {
     async loadGame() {
       this.loading = true;
 
-      const { gameId } = this.gameModalData;
+      const { gameId } = this.activeGame;
 
       const game = await this.$store.dispatch('LOAD_GAME', gameId)
         .catch(() => {

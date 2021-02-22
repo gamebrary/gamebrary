@@ -46,7 +46,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['games', 'gameModalData']),
+    ...mapState(['games', 'activeGame']),
 
     similarGameIds() {
       return this.game && this.game.similar_games;
@@ -67,7 +67,7 @@ export default {
     },
 
     loadGame(gameId) {
-      const { list } = this.gameModalData;
+      const { list } = this.activeGame;
 
       this.$store.commit('SET_GAME_MODAL_DATA', { gameId, list });
     },

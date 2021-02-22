@@ -36,8 +36,8 @@ export default {
     //   : sortedPlatforms;
   },
 
-  activeGameCoverUrl: ({ gameModalData, games }) => {
-    const gameId = gameModalData && gameModalData.gameId;
+  activeGameCoverUrl: ({ activeGame, games }) => {
+    const gameId = activeGame && activeGame.gameId;
     const game = games[gameId];
     const hasImageId = game && game.cover && game.cover.image_id;
 
