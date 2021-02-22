@@ -1,4 +1,3 @@
-<!-- TODO: auto hide dock on scroll -->
 <template lang="html">
   <nav
     class="rounded position-fixed d-flex flex-column p-0 m-2 text-center border dock"
