@@ -63,7 +63,7 @@
 
       <b-button
         :variant="darkTheme ? 'dark' : 'light'"
-        class="mt-1"
+        class="mt-1 d-none d-sm-inline"
         size="sm"
         v-b-modal:keyboard-shortcuts
         title="Keyboard shortcuts"
