@@ -278,13 +278,15 @@ export default {
     },
 
     prevDisabled() {
-      return this.gameIndex === 0;
+      return !this.activeGame.list || this.gameIndex === 0;
     },
 
     nextDisabled() {
       const { list } = this.activeGame;
 
-      return this.list && list.games && this.gameIndex === list.games.length - 1;
+      const isLast = this.list && list.games && this.gameIndex === list.games.length - 1;
+
+      return !this.list || isLast;
     },
   },
 
