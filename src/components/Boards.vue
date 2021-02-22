@@ -1,6 +1,5 @@
 <template lang="html">
   <b-container>
-    <!-- TODO: allow board settings to be accessed here -->
     <div v-if="showPlaceholder" class="boards">
       <b-card
         v-for="n in 3"
@@ -43,26 +42,39 @@
         no-body
         :bg-variant="darkTheme ? 'dark' : null"
         :text-variant="darkTheme ?  'white' : null"
-        class="overflow-hidden clickable"
+        class="overflow-hidden clickable position-relative"
         @click="viewBoard(board.id)"
       >
         <mini-board
           :board="board"
           :background-image="getWallpaper(board)"
         />
+
+        <b-button
+          class="po sition-absolute edit-board-button"
+          :variant="darkTheme ?  'info' : 'light'"
+          size="sm"
+          @click.stop="editBoard(board)"
+        >
+          <i class="fas fa-edit fa-fw" aria-hidden />
+        </b-button>
       </b-card>
+
+      <edit-board-modal />
     </div>
   </b-container>
 </template>
 
 <script>
 import MiniBoard from '@/components/Board/MiniBoard';
+import EditBoardModal from '@/components/Board/EditBoardModal';
 import EmptyState from '@/components/EmptyState';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
     MiniBoard,
+    EditBoardModal,
     EmptyState,
   },
 
@@ -92,6 +104,11 @@ export default {
   methods: {
     load() {
       this.loadPlatforms();
+    },
+
+    editBoard(board) {
+      this.$store.commit('SET_ACTIVE_BOARD', board);
+      this.$bvModal.show('edit-board');
     },
 
     getWallpaper({ wallpaper }) {
@@ -165,5 +182,10 @@ export default {
   @media(max-width: 480px) {
     grid-template-columns: 1fr;
   }
+}
+
+.edit-board-button {
+  right: .5rem;
+  bottom: .5rem;
 }
 </style>
