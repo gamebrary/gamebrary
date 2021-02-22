@@ -26,7 +26,7 @@
     <b-img
       v-if="wallpaper && wallpaper.url"
       :src="wallpaper.url"
-      class="w-100"
+      class="w-100 rounded"
     />
   </b-modal>
 </template>
