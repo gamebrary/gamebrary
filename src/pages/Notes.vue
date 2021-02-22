@@ -36,13 +36,13 @@
             <b-img
               @click="openGame(gameId)"
               :src="getCoverUrl(gameId)"
-              :alt="games[gameId].name"
+              :alt="gameGameName(gameId)"
               class="rounded"
               height="60"
             />
 
             <small v-if="games[gameId]" class="ml-2">
-              {{ games[gameId] && games[gameId].name ? games[gameId].name : '' }}
+              {{ gameGameName(gameId) }}
             </small>
           </div>
 
@@ -128,6 +128,10 @@ export default {
       return game && game.cover && game.cover.image_id
         ? `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${game.cover.image_id}.jpg`
         : '/static/no-image.jpg';
+    },
+
+    gameGameName(gameId) {
+      return this.games && this.games[gameId] && this.games[gameId].name;
     },
   },
 };
