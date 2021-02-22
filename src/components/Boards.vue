@@ -97,7 +97,9 @@ export default {
     getWallpaper({ wallpaper }) {
       const boardWallpaper = this.wallpapers.find(({ fullPath }) => fullPath === wallpaper);
 
-      return this.wallpapers.length && boardWallpaper && boardWallpaper.url;
+      return this.wallpapers.length > 0 && boardWallpaper && boardWallpaper.url
+        ? boardWallpaper.url
+        : null;
     },
 
     getPlatformImage(id) {
