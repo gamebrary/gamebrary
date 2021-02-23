@@ -28,7 +28,13 @@
 
       <b-row>
         <b-col cols="12" lg="6" v-if="gameTags && localTags">
-          <b-card
+          <tags-list
+            @selected="editTag"
+          />
+
+          <!-- TODO: handle delete -->
+
+          <!-- <b-card
             class="mb-3"
             :bg-variant="darkTheme ? 'dark' : null"
             :text-variant="darkTheme ?  'white' : null"
@@ -67,7 +73,7 @@
                 </b-button>
               </b-col>
             </b-form-row>
-          </b-card>
+          </b-card> -->
 
           <!-- TODO: move to component -->
           <b-modal
@@ -231,10 +237,12 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import EmptyState from '@/components/EmptyState';
+import TagsList from '@/components/Tags/TagsList';
 
 export default {
   components: {
     EmptyState,
+    TagsList,
   },
 
   data() {
@@ -298,6 +306,7 @@ export default {
 
   methods: {
     init() {
+      console.log(this.tags);
       this.localTags = JSON.parse(JSON.stringify(this.tags));
     },
 
