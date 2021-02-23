@@ -6,6 +6,7 @@
       @click="$emit('selected', name)"
       :key="name"
     >
+      <!-- <pre>{{ games }}</pre> -->
       <div class="rounded d-flex justify-content-center overflow-auto no-scrollbar clickable">
         <b-img
           v-for="gameId in games"
@@ -13,8 +14,8 @@
           :src="getCoverUrl(gameId)"
           class="rounded ml-n4"
           width="60"
-          @click.stop="openGame(gameId)"
         />
+        <!-- @click.stop="openGame(gameId)" -->
       </div>
 
       <b-badge
@@ -49,10 +50,10 @@ export default {
         : '/static/no-image.jpg';
     },
 
-    openGame(gameId) {
-      this.$store.commit('SET_GAME_MODAL_DATA', { gameId });
-      this.$bvModal.show('game-modal');
-    },
+    // openGame(gameId) {
+    //   this.$store.commit('SET_GAME_MODAL_DATA', { gameId });
+    //   this.$bvModal.show('game-modal');
+    // },
   },
 };
 </script>
