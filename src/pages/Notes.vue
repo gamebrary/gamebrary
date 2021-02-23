@@ -8,26 +8,15 @@
       :title="$t('notes.title')"
       message="Looks like you don't have any notes yet."
     />
-    <!-- TODO: update text once add note modal is ready v -->
-    <!-- message="All your video game notes, in one place." -->
     <!-- actionText="Add a note" -->
 
     <template v-else>
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h3 class="m-0">{{ $t('notes.title') }}</h3>
 
-        <!-- <b-button
-          variant="primary"
-          disabled
-        >
-          Add note
-        </b-button> -->
-      </div>
-
-      <div class="mb-4">
         <b-form-input
           type="search"
-          style="max-width: 300px"
+          style="max-width: 200px"
           placeholder="Filter notes"
           v-model="search"
         />
