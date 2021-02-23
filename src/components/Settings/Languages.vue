@@ -11,7 +11,7 @@
     </b-form-select>
 
     <b-button
-      v-if="settings.language !== language"
+      v-if="settings && settings.language !== language"
       variant="primary"
       class="mx-2"
       :disabled="saving"
