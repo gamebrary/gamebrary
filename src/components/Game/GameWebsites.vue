@@ -22,6 +22,7 @@
         <b-img
           v-else-if="svg"
           width="24"
+          class="mr-1"
           :src="`/static/company-logos/${id}.svg`"
         />
 

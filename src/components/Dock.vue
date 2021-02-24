@@ -1,7 +1,7 @@
 <template lang="html">
   <nav class="position-fixed">
     <div
-      class="rounded d-flex flex-column p-0 m-2 text-center border dock"
+      class="rounded d-flex flex-column p-0 mt-2 mx-2 mb-0 text-center border dock"
       :class="{
         'bg-dark text-white border-info': darkTheme,
         'bg-white': !darkTheme,
@@ -111,7 +111,7 @@
       variant="transparent"
       size="sm"
     >
-      <small>{{ latestRelease }}</small>
+      <small class="text-muted">{{ latestRelease }}</small>
     </b-button>
   </nav>
 </template>
