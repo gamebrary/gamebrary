@@ -68,7 +68,6 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { LINKS_CATEGORIES } from '@/constants';
 
 export default {
   props: {
@@ -100,7 +99,7 @@ export default {
         ? this.game.summary
         : null;
 
-      // Default to wikipedia article, fall back to igdb's desc
+      // Default to wikipedia, fall back to igdb
       return wikipediaDescription || igdbDescription;
     },
 
@@ -124,7 +123,11 @@ export default {
   methods: {
     async loadWikipediaArticle() {
       const wikiData = this.game && this.game.websites
-        ? this.game.websites.find(({ category, url }) => url.includes('/wiki/') && category === LINKS_CATEGORIES.wikipedia)
+        ? this.game.websites.find(({ url, category }) => {
+          const wikipediaIgdbCategory = 3;
+
+          return url.includes('/wiki/') && category === wikipediaIgdbCategory;
+        })
         : null;
 
       if (!wikiData) {

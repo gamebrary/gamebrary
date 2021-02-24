@@ -2,58 +2,71 @@
   <b-alert
     v-if="game.websites"
     show
-    variant="primary"
+    variant="light"
+    class="border"
   >
-    <strong>External links</strong>
+    <strong class="mb-1 d-block">External links</strong>
 
-    <br>
+    <div class="links">
+      <b-button
+        v-for="{ url, id, icon, svg } in links"
+        :href="url"
+        :key="id"
+        target="_blank"
+        class="text-left p-1 m-0"
+        variant="light"
+      >
+        <template v-if="icon">
+          <i
+            :class="`${icon} fa-fw`"
+            aria-hidden
+          />
 
-    <b-button
-      v-for="link in game.websites"
-      :href="link.url"
-      :key="link.id"
-      variant="link"
-      class="px-0 mr-2"
-      target="_blank"
-    >
-      {{ linkTypes[link.category]}}
-      <!-- TODO: research which links can be leveraged to get API data,
-       e.g. wikipedia article, wikia, etc -->
-    </b-button>
+        </template>
+
+        <b-img
+          v-else-if="svg"
+          width="24"
+          :src="`/static/company-logos/${id}.svg`"
+        />
+
+        <small>{{ $t(`board.gameModal.links.${id}`) }}</small>
+      </b-button>
+    </div>
   </b-alert>
 </template>
 
 <script>
-// TODO: use constants
-// import { LINKS_CATEGORIES } from '@/constants';
+import { LINKS_CATEGORIES } from '@/constants';
 
 export default {
   props: {
     game: Object,
   },
 
-  data() {
-    return {
-      linkTypes: {
-        1: 'Official site',
-        2: 'Wikia',
-        3: 'Wikipedia',
-        4: 'Facebook',
-        5: 'Twitter',
-        6: 'Twitch',
-        8: 'Instagram',
-        9: 'YouTube',
-        10: 'iPhone',
-        11: 'iPad',
-        12: 'Android',
-        13: 'Steam',
-        14: 'Reddit',
-        15: 'Itch',
-        16: 'Epic Games',
-        17: 'GOG',
-        18: 'Discord',
-      },
-    };
+  computed: {
+    links() {
+      return this.game.websites.map(({ url, category }) => {
+        const link = {
+          url,
+          ...LINKS_CATEGORIES[category],
+        };
+
+        return link;
+      });
+    },
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+.links {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: .5rem;
+
+  @media(max-width: 780px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+</style>
