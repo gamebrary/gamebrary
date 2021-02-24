@@ -1,11 +1,6 @@
 <template lang="html">
-  <b-alert
-    v-if="game.websites"
-    show
-    variant="light"
-    class="border"
-  >
-    <strong class="mb-1 d-block">External links</strong>
+  <div v-if="game.websites" class="my-4">
+    External links:
 
     <div class="links">
       <b-button
@@ -33,7 +28,7 @@
         <small>{{ $t(`board.gameModal.links.${id}`) }}</small>
       </b-button>
     </div>
-  </b-alert>
+  </div>
 </template>
 
 <script>
