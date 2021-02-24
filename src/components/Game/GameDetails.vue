@@ -147,7 +147,9 @@ export default {
       }
 
       const formattedReleaseDates = this.game.release_dates.map(({ platform, date }) => {
-        const formattedDate = this.$dayjs.unix(date).format('MMMM D, YYYY');
+        const formattedDate = date
+          ? this.$dayjs.unix(date).format('MMMM D, YYYY')
+          : 'N/A';
 
         return this.platformNames[platform]
           ? `${this.platformNames[platform].name}: ${formattedDate}`
