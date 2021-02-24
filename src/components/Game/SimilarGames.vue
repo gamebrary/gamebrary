@@ -11,13 +11,13 @@
   <div v-else-if="similarGames.length">
     You may also like:
 
-    <div class="games">
+    <div class="games no-scrollbar">
       <b-img
         v-for="game in similarGames"
         v-if="game.cover"
         :key="game.id"
         :src="getCoverUrl(game.cover)"
-        class="rounded my-2 mr-2 cursor-pointer"
+        class="rounded mr-2 cursor-pointer"
         height="80"
         @click="loadGame(game.id)"
       />
