@@ -1,7 +1,7 @@
 <template lang="html">
   <b-card
     no-body
-    class="clickable"
+    class="card clickable"
     :bg-variant="darkTheme ? 'dark' : ''"
     :text-variant="darkTheme ? 'white' : ''"
   >
