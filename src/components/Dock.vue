@@ -20,7 +20,11 @@
 
     <pinned-boards v-if="user" />
 
-    <b-collapse id="moreMenu" v-model="moreMenuOpen">
+    <b-collapse
+      v-if="user"
+      id="moreMenu"
+      v-model="moreMenuOpen"
+    >
       <b-button
         :to="{ name: 'boards' }"
         :variant="darkTheme ? 'dark' : 'light'"
@@ -95,6 +99,7 @@
 
     <!-- TODO: persist value -->
     <b-button
+      v-if="user"
       v-b-toggle.moreMenu
       :variant="darkTheme ? 'dark' : 'light'"
       class="mx-1 mb-1 py-0"

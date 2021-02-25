@@ -42,7 +42,7 @@
         />
 
         <b-button
-          v-else-if="user.uid !== board.owner"
+          v-else-if="user && user.uid !== board.owner"
           @click="$bvToast.toast('No write access')"
           :variant="darkTheme ? 'dark' : 'transparent'"
         >
