@@ -63,7 +63,12 @@
         :list="list.games"
         :id="listIndex"
         :move="validateMove"
-        v-bind="gameDraggableOptions"
+        handle=".card"
+        ghost-class="card-placeholder"
+        filter=".drag-filter"
+        delay="0"
+        animation="300"
+        :group="{ name: 'games' }"
         @end="dragEnd"
         @start="dragStart"
       >
@@ -127,17 +132,6 @@ export default {
   data() {
     return {
       draggingId: null,
-      gameDraggableOptions: {
-        handle: '.card',
-        ghostClass: 'card-placeholder',
-        filter: '.drag-filter',
-        delay: 100,
-        delayOnTouchOnly: true,
-        animation: 500,
-        group: {
-          name: 'games',
-        },
-      },
       gameCardComponents: {
         single: 'GameCardDefault',
         covers: 'GameCardCovers',
