@@ -135,10 +135,10 @@ export default {
 
     latestRelease() {
       // eslint-disable-next-line
-      const [{ tag_name }] = this.releases;
+      const [latestRelease] = this.releases;
 
       // eslint-disable-next-line
-      return tag_name;
+      return latestRelease && latestRelease.tag_name;
     },
 
     isBoard() {
