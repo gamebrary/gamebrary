@@ -1,113 +1,111 @@
 <template lang="html">
-  <nav class="position-fixed">
-    <div
-      class="rounded d-flex flex-column p-0 mt-2 mx-2 mb-0 text-center border dock"
-      :class="{
-        'bg-dark text-white border-info': darkTheme,
-        'bg-white': !darkTheme,
-        }"
+  <nav
+    class="rounded position-fixed d-flex flex-column p-0 mt-2 mx-2 mb-0 text-center border dock"
+    :class="{
+      'bg-dark text-white border-info': darkTheme,
+      'bg-white': !darkTheme,
+      }"
+  >
+    <b-button
+      title="Dashboard"
+      variant="transparent"
+      class="my-2 p-0"
+      @click="handleLogoClick"
     >
+      <img
+        :src="`/static/gamebrary-logo${darkTheme ? '' : '-dark'}.png`"
+        width="32"
+      />
+    </b-button>
+
+    <pinned-boards v-if="user" />
+
+    <b-collapse id="moreMenu" v-model="moreMenuOpen">
       <b-button
-        title="Dashboard"
-        variant="transparent"
-        class="my-2 p-0"
-        @click="handleLogoClick"
-      >
-        <img
-          :src="`/static/gamebrary-logo${darkTheme ? '' : '-dark'}.png`"
-          width="32"
-        />
-      </b-button>
-
-      <pinned-boards v-if="user" />
-
-      <b-collapse id="moreMenu" v-model="moreMenuOpen">
-        <b-button
-          :to="{ name: 'boards' }"
-          :variant="darkTheme ? 'dark' : 'light'"
-          size="sm"
-          title="Boards"
-        >
-          <i class="fas fa-columns fa-fw" aria-hidden />
-        </b-button>
-
-        <b-button
-          :to="{ name: 'tags' }"
-          :variant="darkTheme ? 'dark' : 'light'"
-          class="mt-1"
-          size="sm"
-          title="Tags"
-        >
-          <i class="fas fa-tags fa-fw" aria-hidden />
-        </b-button>
-
-        <b-button
-          :to="{ name: 'notes' }"
-          :variant="darkTheme ? 'dark' : 'light'"
-          class="mt-1"
-          size="sm"
-          title="Notes"
-        >
-          <i class="fas fa-sticky-note fa-fw" aria-hidden />
-        </b-button>
-
-        <b-button
-          :to="{ name: 'wallpapers' }"
-          :variant="darkTheme ? 'dark' : 'light'"
-          class="mt-1"
-          size="sm"
-          title="Wallpapers"
-        >
-          <i class="fas fa-images fa-fw" aria-hidden />
-        </b-button>
-
-        <b-button
-          :variant="darkTheme ? 'dark' : 'light'"
-          class="mt-1 d-none d-sm-inline"
-          size="sm"
-          v-b-modal:keyboard-shortcuts
-          title="Keyboard shortcuts"
-        >
-          <i class="fas fa-keyboard fa-fw" aria-hidden />
-        </b-button>
-
-        <hr class="my-1">
-
-        <b-button
-          :to="{ name: 'settings' }"
-          :variant="darkTheme ? 'dark' : 'light'"
-          class="mb-1"
-          size="sm"
-          title="Settings"
-        >
-          <i class="fas fa-cog fa-fw" aria-hidden />
-        </b-button>
-
-        <b-button
-          :to="{ name: 'about' }"
-          :variant="darkTheme ? 'dark' : 'light'"
-          class="mx-1 mb-1"
-          size="sm"
-          title="About"
-        >
-          <i class="fas fa-info fa-fw" aria-hidden />
-        </b-button>
-      </b-collapse>
-
-      <!-- TODO: persist value -->
-      <b-button
-        v-b-toggle.moreMenu
+        :to="{ name: 'boards' }"
         :variant="darkTheme ? 'dark' : 'light'"
-        class="mx-1 mb-1 py-0"
         size="sm"
+        title="Boards"
       >
-        <i :class="`fas fa-angle-double-${moreMenuOpen ? 'up' : 'down'} fa-fw`" />
+        <i class="fas fa-columns fa-fw" aria-hidden />
       </b-button>
-    </div>
+
+      <b-button
+        :to="{ name: 'tags' }"
+        :variant="darkTheme ? 'dark' : 'light'"
+        class="mt-1"
+        size="sm"
+        title="Tags"
+      >
+        <i class="fas fa-tags fa-fw" aria-hidden />
+      </b-button>
+
+      <b-button
+        :to="{ name: 'notes' }"
+        :variant="darkTheme ? 'dark' : 'light'"
+        class="mt-1"
+        size="sm"
+        title="Notes"
+      >
+        <i class="fas fa-sticky-note fa-fw" aria-hidden />
+      </b-button>
+
+      <b-button
+        :to="{ name: 'wallpapers' }"
+        :variant="darkTheme ? 'dark' : 'light'"
+        class="mt-1"
+        size="sm"
+        title="Wallpapers"
+      >
+        <i class="fas fa-images fa-fw" aria-hidden />
+      </b-button>
+
+      <b-button
+        :variant="darkTheme ? 'dark' : 'light'"
+        class="mt-1 d-none d-sm-inline"
+        size="sm"
+        v-b-modal:keyboard-shortcuts
+        title="Keyboard shortcuts"
+      >
+        <i class="fas fa-keyboard fa-fw" aria-hidden />
+      </b-button>
+
+      <hr class="my-1">
+
+      <b-button
+        :to="{ name: 'settings' }"
+        :variant="darkTheme ? 'dark' : 'light'"
+        class="mb-1"
+        size="sm"
+        title="Settings"
+      >
+        <i class="fas fa-cog fa-fw" aria-hidden />
+      </b-button>
+
+      <b-button
+        :to="{ name: 'about' }"
+        :variant="darkTheme ? 'dark' : 'light'"
+        class="mx-1 mb-1"
+        size="sm"
+        title="About"
+      >
+        <i class="fas fa-info fa-fw" aria-hidden />
+      </b-button>
+    </b-collapse>
+
+    <!-- TODO: persist value -->
+    <b-button
+      v-b-toggle.moreMenu
+      :variant="darkTheme ? 'dark' : 'light'"
+      class="mx-1 mb-1 py-0"
+      size="sm"
+    >
+      <i :class="`fas fa-angle-double-${moreMenuOpen ? 'up' : 'down'} fa-fw`" />
+    </b-button>
 
     <b-button
       :to="{ name: 'releases' }"
-      class="dock mx-2 py-0"
+      class="latest-release mx-2 py-0 position-fixed"
       variant="transparent"
       size="sm"
     >
@@ -186,5 +184,12 @@ export default {
 .dock {
   width: 50px;
   z-index: 1;
+}
+
+.latest-release {
+  bottom: .5rem;
+  padding: 0;
+  width: 40px;
+  left: .33rem;
 }
 </style>
