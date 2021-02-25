@@ -8,7 +8,7 @@
       cols="2"
       md="4"
       class="position-relative thumb"
-      @click="openModal(index)"
+      @click="openModal(index + 1)"
     >
       <b-img
         :src="thumbnail"
@@ -124,8 +124,11 @@ export default {
     },
 
     slides() {
-      // eslint-disable-next-line
-      return this.screenshots.map(({ image_id }) => `https://images.igdb.com/igdb/image/upload/t_screenshot_huge_2x/${image_id}.jpg`);
+      return [
+        this.activeGameCoverUrl,
+        // eslint-disable-next-line
+        ...this.screenshots.map(({ image_id }) => `https://images.igdb.com/igdb/image/upload/t_screenshot_huge_2x/${image_id}.jpg`),
+      ];
     },
 
     screenshots() {
