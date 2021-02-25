@@ -54,11 +54,9 @@ import AddListModal from '@/components/Board/AddListModal';
 import List from '@/components/Lists/List';
 import chunk from 'lodash.chunk';
 import { mapState, mapGetters } from 'vuex';
-import draggable from 'vuedraggable';
 
 export default {
   components: {
-    draggable,
     List,
     BoardPlaceholder,
     EmptyBoard,
