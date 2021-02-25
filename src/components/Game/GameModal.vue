@@ -119,6 +119,7 @@
               class="game-cover"
               v-observe-visibility="toggleCoverVisible"
               rounded
+              @click="$bvModal.show('screenshots')"
             />
 
             <game-screenshots :game="game" />
