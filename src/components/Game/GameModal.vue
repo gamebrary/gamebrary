@@ -139,7 +139,7 @@
           md="7"
           lg="8"
         >
-          <h3 class="mb-0">{{ game.name }}</h3>
+          <h3 class="mb-2">{{ game.name }}</h3>
 
           <b-progress
             v-if="progress"

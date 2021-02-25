@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="game-description">
-    <div v-if="loading">
+    <div v-if="loading" class="mb-4">
       <b-skeleton
         v-for="n in 3"
         :key="n"
