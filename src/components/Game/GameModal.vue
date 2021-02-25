@@ -119,10 +119,10 @@
               class="game-cover"
               v-observe-visibility="toggleCoverVisible"
               rounded
-              @click="$bvModal.show('screenshots')"
+              @click="$bvModal.show('game-images')"
             />
 
-            <game-screenshots :game="game" />
+            <game-images :game="game" />
             <!-- <game-videos :videos="game.videos" v-if="game.videos" /> -->
             <amazon-links :game="game" class="d-none d-md-inline" />
           </template>
@@ -212,7 +212,7 @@ import GameDetails from '@/components/Game/GameDetails';
 import GameDescription from '@/components/Game/GameDescription';
 import SimilarGames from '@/components/Game/SimilarGames';
 import GameNotes from '@/components/Game/GameNotes';
-import GameScreenshots from '@/components/Game/GameScreenshots';
+import GameImages from '@/components/Game/GameImages';
 import AmazonLinks from '@/components/Game/AmazonLinks';
 import GameVideos from '@/components/Game/GameVideos';
 import GameWebsites from '@/components/Game/GameWebsites';
@@ -230,7 +230,7 @@ export default {
     GameDescription,
     SimilarGames,
     GameNotes,
-    GameScreenshots,
+    GameImages,
     AmazonLinks,
     GameVideos,
     GameWebsites,

@@ -25,7 +25,7 @@
     </b-col>
 
     <b-modal
-      id="screenshots"
+      id="game-images"
       size="xl"
       hide-footer
       :header-bg-variant="darkTheme ? 'dark' : null"
@@ -162,7 +162,7 @@ export default {
 
       this.saving = false;
       this.$bvToast.toast('Wallpaper set');
-      this.$bvModal.hide('screenshots');
+      this.$bvModal.hide('game-images');
     },
 
     previous() {
@@ -180,7 +180,7 @@ export default {
     openModal(index = 0) {
       this.activeImage = index;
 
-      this.$bvModal.show('screenshots');
+      this.$bvModal.show('game-images');
     },
   },
 };
