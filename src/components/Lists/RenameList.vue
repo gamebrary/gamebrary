@@ -14,7 +14,6 @@
       :body-text-variant="darkTheme ? 'white' : null"
       hide-footer
       size="sm"
-      footer-class="d-flex justify-content-between"
       @show="getListName"
     >
       <template v-slot:modal-header="{ close }">
