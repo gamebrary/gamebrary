@@ -175,7 +175,8 @@ export default {
         name: '',
         description: '',
         theme: null,
-        wallpaper: null,
+        backgroundUrl: null,
+        backgroundColor: null,
         platforms: [],
         lists: [],
       };
