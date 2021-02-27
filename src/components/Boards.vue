@@ -113,20 +113,18 @@ export default {
 
     getWallpaperUrl(url) {
       if (!url) {
-        return false;
+        return '';
       }
 
       if (url && url.includes('igdb.com')) {
         return url;
       }
 
-      const wallpaperObject = this.wallpapers.find(({ fullPath }) => {
-        return fullPath === url;
-      });
+      const wallpaperObject = this.wallpapers.find(({ fullPath }) => fullPath === url);
 
-      return wallpaperObject &&  wallpaperObject.url
+      return wallpaperObject && wallpaperObject.url
         ? wallpaperObject.url
-        : null;
+        : '';
     },
 
     getPlatformImage(id) {

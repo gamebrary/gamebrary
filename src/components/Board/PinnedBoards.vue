@@ -67,20 +67,18 @@ export default {
   methods: {
     getWallpaperUrl(url) {
       if (!url) {
-        return false;
+        return '';
       }
 
       if (url && url.includes('igdb.com')) {
         return `background-image: url(${url});`;
       }
 
-      const wallpaperObject = this.wallpapers.find(({ fullPath }) => {
-        return fullPath === url;
-      });
+      const wallpaperObject = this.wallpapers.find(({ fullPath }) => fullPath === url);
 
-      return wallpaperObject &&  wallpaperObject.url
+      return wallpaperObject && wallpaperObject.url
         ? `background-image: url(${wallpaperObject.url});`
-        : null;
+        : '';
     },
 
     viewBoard(id) {

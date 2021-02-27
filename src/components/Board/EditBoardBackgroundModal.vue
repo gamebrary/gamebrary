@@ -160,10 +160,8 @@ export default {
       this.saving = true;
       const wallpaperChanged = this.board.backgroundUrl !== this.localBackgroundUrl;
 
-      const { board } = this;
-
       const payload = {
-        ...board,
+        ...this.board,
         backgroundColor: this.backgroundColor,
         backgroundUrl: this.localBackgroundUrl,
       };
@@ -174,7 +172,7 @@ export default {
         .catch(() => {
           this.saving = false;
 
-          this.$bvToast.toast('There was an error renaming list', { variant: 'danger' });
+          this.$bvToast.toast('There was an saving board settings', { variant: 'danger' });
         });
 
       this.saving = false;

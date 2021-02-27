@@ -196,10 +196,11 @@ export default {
       this.$store.commit('SET_ACTIVE_BOARD', payload);
 
       await this.$store.dispatch('SAVE_BOARD')
-        .catch(() => {
+        .catch((e) => {
+          console.log(e);
           this.saving = false;
 
-          this.$bvToast.toast('There was an error renaming list', { variant: 'danger' });
+          this.$bvToast.toast('There was an saving board settings', { variant: 'danger' });
         });
 
       this.saving = false;
