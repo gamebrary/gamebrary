@@ -4,6 +4,12 @@
     :style="miniBoardStyles"
   >
     <small :class="{ 'has-background' : miniBoardStyles }">
+      <i
+        v-if="board.isPublic"
+        class="fas fa-users fa-fw"
+        aria-hidden
+      />
+
       {{ board.name }}
 
       <template v-if="board.platforms.length > 1">
