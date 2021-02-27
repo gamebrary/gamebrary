@@ -51,7 +51,7 @@
         </div>
 
         <b-button
-          v-if="localWallpaper"
+          v-if="localBackgroundUrl"
           class="mt-2"
           variant="danger"
           @click="removeWallpaper"
@@ -65,7 +65,7 @@
 
         <mini-board
           :board="board"
-          :background-image="board.backgroundUrl || wallpaperUrl"
+          :background-image="backgroundUrl"
         />
       </b-col>
     </b-row>
@@ -104,8 +104,8 @@ export default {
   data() {
     return {
       backgroundColor: null,
-      localWallpaper: null,
-      wallpaperUrl: null,
+      localBackgroundUrl: null,
+      backgroundUrl: null,
       loading: false,
       saving: false,
     };
@@ -121,10 +121,12 @@ export default {
 
     const { board } = this;
 
-    this.localWallpaper = board.wallpaper;
+    this.localBackgroundUrl = board.backgroundUrl;
 
-    if (this.localWallpaper) {
-      this.wallpaperUrl = await this.$store.dispatch('LOAD_WALLPAPER', this.localWallpaper);
+    if (this.localBackgroundUrl) {
+      this.backgroundUrl = this.localBackgroundUrl.includes('igdb.com')
+        ? this.localBackgroundUrl
+        : await this.$store.dispatch('LOAD_WALLPAPER', this.localBackgroundUrl);
     }
 
     this.backgroundColor = board.backgroundColor || null;
@@ -143,26 +145,27 @@ export default {
     },
 
     removeWallpaper() {
-      this.localWallpaper = null;
-      this.wallpaperUrl = null;
+      this.localBackgroundUrl = null;
+      this.backgroundUrl = null;
+      this.$bus.$emit('LOAD_BOARD_BACKGROUND');
     },
 
     async setWallpaper({ fullPath }) {
-      this.localWallpaper = fullPath;
-      this.wallpaperUrl = await this.$store.dispatch('LOAD_WALLPAPER', fullPath);
-      this.$bus.$emit('RELOAD_WALLPAPER');
+      this.localBackgroundUrl = fullPath;
+      this.backgroundUrl = await this.$store.dispatch('LOAD_WALLPAPER', fullPath);
+      this.$bus.$emit('LOAD_BOARD_BACKGROUND');
     },
 
     async saveSettings() {
       this.saving = true;
-      const wallpaperChanged = this.board.wallpaper !== this.localWallpaper;
+      const wallpaperChanged = this.board.backgroundUrl !== this.localBackgroundUrl;
 
       const { board } = this;
 
       const payload = {
         ...board,
         backgroundColor: this.backgroundColor,
-        wallpaper: this.localWallpaper,
+        backgroundUrl: this.localBackgroundUrl,
       };
 
       this.$store.commit('SET_ACTIVE_BOARD', payload);
@@ -179,7 +182,7 @@ export default {
       this.$bvModal.hide('boardBackground');
 
       if (wallpaperChanged) {
-        this.$bus.$emit('RELOAD_WALLPAPER');
+        this.$bus.$emit('LOAD_BOARD_BACKGROUND');
       }
     },
   },

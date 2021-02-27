@@ -1,6 +1,10 @@
 <template lang="html">
   <div
-    :class="['board py-2', boardBackground, { dragging, 'empty': isEmptyBoard }]"
+    :class="[
+      'board py-2',
+      boardClasses,
+      { dragging, empty },
+    ]"
     :style="boardStyles"
   >
     <board-placeholder v-if="loading" />
@@ -13,7 +17,10 @@
         :key="list.name"
       />
 
-      <div class="d-flex flex-column pr-2">
+      <div
+        v-if="user && user.uid && user.uid === board.owner"
+        class="d-flex flex-column pr-2"
+      >
         <b-button
           :variant="darkTheme ? 'dark' : 'light'"
           class="mb-2"
@@ -30,7 +37,7 @@
         </b-button>
       </div>
 
-      <empty-board v-if="isEmptyBoard" class="mr-3" />
+      <empty-board v-if="empty" class="mr-3" />
 
       <add-list-modal />
       <edit-board-modal />
@@ -68,13 +75,18 @@ export default {
     return {
       loading: true,
       queryLimit: 500,
-      wallpaperUrl: null,
+      backgroundUrl: null,
     };
   },
 
   computed: {
     ...mapState(['user', 'dragging', 'board', 'wallpapers']),
     ...mapGetters(['darkTheme']),
+
+    isPublicRoute() {
+      // OPTIMIZE: use optional chaining
+      return this.$route.meta && this.$route.meta.public;
+    },
 
     showBoard() {
       const { isPublicRoute, board } = this;
@@ -84,21 +96,22 @@ export default {
     },
 
     boardStyles() {
-      if (!this.showBoard) {
-        return '';
-      }
+      const backgroundImage = this.backgroundUrl
+        ? `background-image: url('${this.backgroundUrl}');`
+        : null;
 
-      if (this.board.backgroundUrl) {
-        return `background-image: url('${this.board.backgroundUrl}');`;
-      }
-
-      if (this.wallpaperUrl) {
-        return `background-image: url('${this.wallpaperUrl}');`;
-      }
-
-      // OPTIMIZE: use optional chaining
-      return this.board && this.board.backgroundColor
+      const backgroundColor = this.board && this.board.backgroundColor
         ? `background-color: ${this.board.backgroundColor};`
+        : null;
+
+      return [backgroundImage, backgroundColor].join('');
+    },
+
+    boardClasses() {
+      const defaultBackgroundClass = this.darkTheme ? 'bg-dark' : 'bg-light';
+
+      return !this.board.backgroundColor
+        ? defaultBackgroundClass
         : null;
     },
 
@@ -106,24 +119,9 @@ export default {
       return this.$route.params.id;
     },
 
-    isEmptyBoard() {
+    empty() {
       // OPTIMIZE: use optional chaining
       return this.board && this.board.lists && this.board.lists.length === 0;
-    },
-
-    isPublicRoute() {
-      // OPTIMIZE: use optional chaining
-      return this.$route.meta && this.$route.meta.public;
-    },
-
-    boardBackground() {
-      if (this.board.backgroundColor) {
-        return null;
-      }
-
-      return this.darkTheme
-        ? 'bg-dark'
-        : 'bg-light';
     },
   },
 
@@ -141,18 +139,18 @@ export default {
 
       if (this.showBoard) {
         this.loadBoardGames();
-        this.setWallpaper();
+        this.loadBoardBackground();
       }
     } else {
       this.load();
     }
 
-    this.$bus.$on('RELOAD_WALLPAPER', this.setWallpaper);
+    this.$bus.$on('LOAD_BOARD_BACKGROUND', this.loadBoardBackground);
   },
 
   destroyed() {
     this.$store.commit('CLEAR_BOARD');
-    this.$bus.$off('RELOAD_WALLPAPER');
+    this.$bus.$off('LOAD_BOARD_BACKGROUND');
   },
 
   methods: {
@@ -173,7 +171,7 @@ export default {
         });
 
       this.loadBoardGames();
-      this.setWallpaper();
+      this.loadBoardBackground();
     },
 
     async loadPublicBoard(id) {
@@ -185,20 +183,19 @@ export default {
         });
 
       this.loadBoardGames();
-      // TODO: null check, define backgrounds priority
-      this.setWallpaper();
+      this.loadBoardBackground();
     },
 
-    async setWallpaper() {
-      const { wallpaper } = this.board;
+    async loadBoardBackground() {
+      const url = this.board && this.board.backgroundUrl;
 
-      const wallpaperObject = wallpaper && this.wallpapers.length
-        ? this.wallpapers.find(({ fullPath }) => fullPath === wallpaper)
-        : null;
-
-      this.wallpaperUrl = wallpaperObject && wallpaperObject.url
-        ? wallpaperObject.url
-        : null;
+      if (url) {
+        this.backgroundUrl = url.includes('igdb')
+          ? url
+          : await this.$store.dispatch('LOAD_WALLPAPER', url);
+      } else {
+        this.backgroundUrl = null;
+      }
     },
 
     loadBoardGames() {

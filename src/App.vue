@@ -46,7 +46,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['user', 'wallpaperUrl', 'settings', 'sessionExpired']),
+    ...mapState(['user', 'settings', 'sessionExpired']),
     ...mapGetters(['darkTheme']),
 
     userId() {

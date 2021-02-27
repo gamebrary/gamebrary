@@ -118,7 +118,7 @@ export default {
       // const { board } = this;
       // TODO: handle wallpapers in use
       // if (board.wallpaper && this.board.wallpaper === file.path) {
-      //   this.$bus.$emit('RELOAD_WALLPAPER');
+      //   this.$bus.$emit('LOAD_BOARD_BACKGROUND');
       // }
     },
   },
