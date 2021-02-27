@@ -47,7 +47,7 @@
       >
         <mini-board
           :board="board"
-          :background-image="getWallpaper(board)"
+          :background-image="getWallpaperUrl(board.backgroundUrl)"
         />
 
         <b-button
@@ -111,11 +111,21 @@ export default {
       this.$bvModal.show('edit-board');
     },
 
-    getWallpaper({ wallpaper }) {
-      const boardWallpaper = this.wallpapers.find(({ fullPath }) => fullPath === wallpaper);
+    getWallpaperUrl(url) {
+      if (!url) {
+        return false;
+      }
 
-      return this.wallpapers.length > 0 && boardWallpaper && boardWallpaper.url
-        ? boardWallpaper.url
+      if (url && url.includes('igdb.com')) {
+        return url;
+      }
+
+      const wallpaperObject = this.wallpapers.find(({ fullPath }) => {
+        return fullPath === url;
+      });
+
+      return wallpaperObject &&  wallpaperObject.url
+        ? wallpaperObject.url
         : null;
     },
 
