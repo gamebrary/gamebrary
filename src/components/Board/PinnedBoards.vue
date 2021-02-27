@@ -2,7 +2,7 @@
   <div>
     <template v-if="pinnedBoards.length">
       <span
-        v-for="{ id, name, backgroundColor, wallpaper } in pinnedBoards"
+        v-for="{ id, name, backgroundColor, backgroundUrl } in pinnedBoards"
         :key="id"
       >
         <b-avatar
@@ -12,7 +12,7 @@
           @click.native="viewBoard(id)"
           :style="`
           ${backgroundColor ? `background-color: ${backgroundColor};` : null }
-          ${getWallpaperUrl(wallpaper) }
+          ${getWallpaperUrl(backgroundUrl)}
           `"
         >
           <span class="board-initials text-uppercase">{{ getBoardInitials(name) }}</span>
@@ -29,7 +29,7 @@
         :title="board.name"
         :style="`
         ${board.backgroundColor ? ` background-color: ${board.backgroundColor};` : null }
-        ${getWallpaperUrl(board.wallpaper) }
+        ${getWallpaperUrl(board.backgroundUrl) }
         `"
         @click.native="$bvModal.show('edit-board')"
       >
@@ -65,12 +65,20 @@ export default {
   },
 
   methods: {
-    getWallpaperUrl(wallpaper) {
-      const wallpaperObject = wallpaper && this.wallpapers.length
-        ? this.wallpapers.find(({ fullPath }) => fullPath === wallpaper)
-        : null;
+    getWallpaperUrl(url) {
+      if (!url) {
+        return false;
+      }
 
-      return wallpaperObject && wallpaperObject.url
+      if (url && url.includes('igdb.com')) {
+        return `background-image: url(${url});`;
+      }
+
+      const wallpaperObject = this.wallpapers.find(({ fullPath }) => {
+        return fullPath === url;
+      });
+
+      return wallpaperObject &&  wallpaperObject.url
         ? `background-image: url(${wallpaperObject.url});`
         : null;
     },
