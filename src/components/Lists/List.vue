@@ -17,11 +17,10 @@
     >
       <b-card-header
         class="py-0 pr-0 pl-2 d-flex justify-content-between align-items-center"
-        :header-bg-variant="showDuplicateWarning ? 'warning' : null"
       >
         <p class="list-name p-0 m-0">
           <span v-b-modal="`rename-list-${listIndex}`">
-            {{ showDuplicateWarning ? 'Game already in list' : list.name }}
+            {{ list.name }}
           </span>
 
           <br />
@@ -143,7 +142,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['games', 'dragging', 'progresses', 'board', 'duplicatedGame', 'user']),
+    ...mapState(['games', 'dragging', 'progresses', 'board', 'user']),
     ...mapGetters(['darkTheme']),
 
     autoSortEnabled() {
@@ -154,13 +153,6 @@ export default {
       }
 
       return ['sortByName', 'sortByRating', 'sortByReleaseDate', 'sortByProgress'].includes(settings.sortOrder);
-    },
-
-    showDuplicateWarning() {
-      return this.duplicatedGame
-        && this.duplicatedGame.originListId !== this.listIndex
-        && this.duplicatedGame.listId === this.listIndex
-        && this.list.games.includes(this.duplicatedGame.gameId);
     },
 
     sortedGames() {
@@ -222,14 +214,6 @@ export default {
       const isDifferentList = from.id !== to.id;
       const isDuplicate = this.board.lists[to.id].games.includes(Number(this.draggingId));
 
-      if (isDuplicate) {
-        this.$store.commit('SET_DUPLICATED_GAME', {
-          gameId: Number(this.draggingId),
-          listId: Number(to.id),
-          originListId: Number(from.id) },
-        );
-      }
-
       if (isDuplicate && isDifferentList) {
         return false;
       }
@@ -244,7 +228,6 @@ export default {
 
     dragEnd() {
       this.$store.commit('SET_DRAGGING_STATUS', false);
-      this.$store.commit('SET_DUPLICATED_GAME', null);
       this.saveBoard();
     },
 

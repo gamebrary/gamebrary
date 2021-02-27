@@ -229,10 +229,6 @@ export default {
     state.dragging = status;
   },
 
-  SET_DUPLICATED_GAME(state, data) {
-    state.duplicatedGame = data;
-  },
-
   REMOVE_GAME_NOTE(state, gameId) {
     if (state.notes[gameId]) {
       Vue.delete(state.notes, gameId);

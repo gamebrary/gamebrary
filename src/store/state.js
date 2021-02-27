@@ -19,7 +19,6 @@ export default {
   },
   wallpapers: [],
   platform: null,
-  duplicatedGame: null,
   sessionExpired: false,
   twitchToken: null,
   notification: false,
