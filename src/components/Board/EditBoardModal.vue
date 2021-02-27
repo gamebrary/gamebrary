@@ -196,8 +196,7 @@ export default {
       this.$store.commit('SET_ACTIVE_BOARD', payload);
 
       await this.$store.dispatch('SAVE_BOARD')
-        .catch((e) => {
-          console.log(e);
+        .catch(() => {
           this.saving = false;
 
           this.$bvToast.toast('There was an saving board settings', { variant: 'danger' });
