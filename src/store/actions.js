@@ -148,6 +148,36 @@ export default {
     });
   },
 
+  SAVE_PROFILE({ commit, state }, profile) {
+    const db = firebase.firestore();
+
+    return new Promise((resolve, reject) => {
+      db.collection('profiles')
+        .doc(state.user.uid)
+        .set(profile)
+        .then(() => {
+          commit('SET_PROFILE', profile);
+          resolve();
+        })
+        .catch(reject);
+    });
+  },
+
+  CHECK_PROFILE_USERNAME_AVAILABILITY(context, userName) {
+    const db = firebase.firestore();
+
+    return new Promise((resolve, reject) => {
+      db.collection('profiles')
+        .where('userName', '==', userName)
+        .get()
+        .then(({ docs }) => {
+          const available = !docs || Object.keys(docs).length === 0;
+
+          resolve(available);
+        })
+        .catch(reject);
+    });
+  },
 
   DELETE_WALLPAPER({ commit }, { fullPath }) {
     return new Promise((resolve, reject) => {
