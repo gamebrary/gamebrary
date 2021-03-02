@@ -36,7 +36,8 @@ export default {
     return new Promise((resolve, reject) => {
       const db = firebase.firestore();
 
-      db.collection('boards').where('owner', '==', state.user.uid)
+      db.collection('boards')
+        .where('owner', '==', state.user.uid)
         .get()
         .then(({ docs }) => {
           const boards = docs.length
@@ -133,7 +134,8 @@ export default {
         owner: state.user.uid,
       };
 
-      db.collection('boards').add(payload)
+      db.collection('boards')
+        .add(payload)
         .then(({ id }) => {
           const newBoard = {
             ...payload,
@@ -151,7 +153,9 @@ export default {
 
   DELETE_WALLPAPER({ commit }, { fullPath }) {
     return new Promise((resolve, reject) => {
-      firebase.storage().ref(fullPath).delete()
+      firebase.storage()
+        .ref(fullPath)
+        .delete()
         .then(() => {
           commit('REMOVE_WALLPAPER', fullPath);
           resolve();
@@ -161,10 +165,11 @@ export default {
   },
 
   LOAD_WALLPAPER(context, path) {
-    const storage = firebase.storage().ref();
-
     return new Promise((resolve, reject) => {
-      storage.child(path).getDownloadURL()
+      firebase.storage()
+        .ref()
+        .child(path)
+        .getDownloadURL()
         .then((url) => {
           resolve(url);
         })
@@ -173,10 +178,10 @@ export default {
   },
 
   LOAD_WALLPAPERS({ state, commit }) {
-    const storage = firebase.storage().ref(`${state.user.uid}/wallpapers`);
-
     return new Promise((resolve, reject) => {
       storage
+        firebase.storage()
+        .ref(`${state.user.uid}/wallpapers`)
         .listAll()
         .then(({ items }) => {
           const wallpapers = items.map(({ fullPath, name }) => {
@@ -195,7 +200,8 @@ export default {
           wallpapers.forEach(({ fullPath }, index) => {
             firebase.storage()
               .ref()
-              .child(fullPath).getDownloadURL()
+              .child(fullPath)
+              .getDownloadURL()
               .then((url) => {
                 fetchedUrls.push(url);
 
@@ -205,17 +211,18 @@ export default {
                   const fetchedMetadatas = [];
 
                   wallpapers.forEach((wallpaper, i) => {
-                    const forestRef = firebase.storage().ref(wallpaper.fullPath);
+                    firebase.storage()
+                      .ref(wallpaper.fullPath)
+                      .getMetadata()
+                      .then((metadata) => {
+                        fetchedMetadatas.push(metadata);
 
-                    forestRef.getMetadata().then((metadata) => {
-                      fetchedMetadatas.push(metadata);
+                        wallpapers[i].metadata = metadata;
 
-                      wallpapers[i].metadata = metadata;
-
-                      if (fetchedMetadatas.length === wallpapers.length) {
-                        commit('SET_WALLPAPERS', wallpapers);
-                        resolve();
-                      }
+                        if (fetchedMetadatas.length === wallpapers.length) {
+                          commit('SET_WALLPAPERS', wallpapers);
+                          resolve();
+                        }
                     });
                   });
                 }
@@ -238,7 +245,8 @@ export default {
 
             firebase.storage()
               .ref()
-              .child(fullPath).getDownloadURL()
+              .child(fullPath)
+              .getDownloadURL()
               .then((url) => {
                 const wallpaper = {
                   fullPath,
@@ -275,7 +283,9 @@ export default {
     return new Promise((resolve, reject) => {
       const db = firebase.firestore();
 
-      db.collection('boards').doc(id).delete()
+      db.collection('boards')
+        .doc(id)
+        .delete()
         .then(() => {
           commit('REMOVE_BOARD', id);
           resolve();
@@ -312,13 +322,13 @@ export default {
       axios.get(`${API_BASE}/customSearch?platforms=${platforms}&sortQuery=${sortQuery}&token=${state.twitchToken.access_token}`)
         .then(({ data }) => {
           commit('CACHE_GAME_DATA', data);
-
           resolve(data);
         }).catch(reject);
     });
   },
 
   // SEARCH_GAMES({ commit, state }, { searchText, platforms, sortField, sortOrder }) {
+  // TODO: user CUSTOM_SEARCH
   SEARCH_GAMES({ commit, state }, { searchText, platforms }) {
     return new Promise((resolve, reject) => {
       axios.get(`${API_BASE}/search?search=${searchText}&platform=${platforms}&token=${state.twitchToken.access_token}`)
@@ -334,7 +344,9 @@ export default {
     const db = firebase.firestore();
 
     return new Promise((resolve, reject) => {
-      db.collection('tags').doc(state.user.uid).set(tags, { merge: true })
+      db.collection('tags')
+        .doc(state.user.uid)
+        .set(tags, { merge: true })
         .then(() => resolve())
         .catch(reject);
     });
@@ -359,7 +371,9 @@ export default {
     const db = firebase.firestore();
 
     return new Promise((resolve, reject) => {
-      db.collection('tags').doc(state.user.uid).set(tags, { merge: false })
+      db.collection('tags')
+        .doc(state.user.uid)
+        .set(tags, { merge: false })
         .then(() => resolve())
         .catch(reject);
     });
@@ -369,7 +383,9 @@ export default {
     const db = firebase.firestore();
 
     return new Promise((resolve, reject) => {
-      db.collection('settings').doc(state.user.uid).set(settings, { merge: true })
+      db.collection('settings')
+        .doc(state.user.uid)
+        .set(settings, { merge: true })
         .then(() => {
           commit('SET_SETTINGS', settings);
           resolve();
@@ -383,7 +399,9 @@ export default {
     return new Promise((resolve, reject) => {
       const db = firebase.firestore();
 
-      db.collection('notes').doc(state.user.uid).set(state.notes, { merge: true })
+      db.collection('notes')
+        .doc(state.user.uid)
+        .set(state.notes, { merge: true })
         .then(() => resolve())
         .catch(reject);
     });
@@ -393,7 +411,9 @@ export default {
     return new Promise((resolve, reject) => {
       const db = firebase.firestore();
 
-      db.collection('notes').doc(state.user.uid).set(state.notes, { merge: false })
+      db.collection('notes')
+        .doc(state.user.uid)
+        .set(state.notes, { merge: false })
         .then(() => resolve())
         .catch(reject);
     });
@@ -404,7 +424,9 @@ export default {
     return new Promise((resolve, reject) => {
       const db = firebase.firestore();
 
-      db.collection('progresses').doc(state.user.uid).set(state.progresses, { merge: false })
+      db.collection('progresses')
+        .doc(state.user.uid)
+        .set(state.progresses, { merge: false })
         .then(() => resolve())
         .catch(reject);
     });
@@ -414,7 +436,9 @@ export default {
     return new Promise((resolve, reject) => {
       const db = firebase.firestore();
 
-      db.collection('progresses').doc(state.user.uid).set(state.progresses, { merge: true })
+      db.collection('progresses')
+        .doc(state.user.uid)
+        .set(state.progresses, { merge: true })
         .then(() => resolve())
         .catch(reject);
     });
