@@ -8,7 +8,7 @@ export default {
   dragging: false,
   gameLists: {},
   settings: {},
-  results: [],
+  results: [], // TODO: remove from store
   games: {},
   boards: [],
   publicBoards: [],
