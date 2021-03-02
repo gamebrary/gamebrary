@@ -12,6 +12,7 @@ import Dashboard from '@/pages/Dashboard';
 import Boards from '@/components/Boards';
 import Settings from '@/pages/Settings';
 import Upgrade from '@/pages/Upgrade';
+import Profile from '@/pages/Profile';
 import NotFound from '@/pages/NotFound';
 
 Vue.use(Router);
@@ -84,6 +85,14 @@ export default new Router({
       component: Upgrade,
       meta: {
         title: 'Upgrade',
+      },
+    },
+    {
+      name: 'profile',
+      path: '/profile',
+      component: Profile,
+      meta: {
+        title: 'Profile',
       },
     },
     {

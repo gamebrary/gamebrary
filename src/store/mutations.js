@@ -45,6 +45,10 @@ export default {
     state.board = board;
   },
 
+  SET_PROFILE(state, profile) {
+    state.profile = profile;
+  },
+
   SET_PLATFORMS(state, platforms) {
     state.platforms = platforms
       .filter(({ id }) => !EXCLUDED_PLATFORMS.includes(id))
