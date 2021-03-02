@@ -17,7 +17,7 @@
         <b-form-input
           type="search"
           style="max-width: 200px"
-          placeholder="Filter notes"
+          placeholder="Search notes"
           v-model="search"
         />
       </div>
