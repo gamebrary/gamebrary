@@ -13,6 +13,7 @@ import Boards from '@/components/Boards';
 import Settings from '@/pages/Settings';
 import Upgrade from '@/pages/Upgrade';
 import Profile from '@/pages/Profile';
+import EditProfile from '@/pages/Profile/EditProfile';
 import NotFound from '@/pages/NotFound';
 
 Vue.use(Router);
@@ -93,6 +94,14 @@ export default new Router({
       component: Profile,
       meta: {
         title: 'Profile',
+      },
+    },
+    {
+      name: 'edit-profile',
+      path: '/profile/edit',
+      component: EditProfile,
+      meta: {
+        title: 'Edit profile',
       },
     },
     {

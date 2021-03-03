@@ -1,27 +1,6 @@
 <template lang="html">
-  <b-modal
-    id="edit-profile"
-    :header-bg-variant="darkTheme ? 'dark' : null"
-    :header-text-variant="darkTheme ? 'white' : null"
-    :body-bg-variant="darkTheme ? 'dark' : null"
-    :body-text-variant="darkTheme ? 'white' : null"
-    hide-footer
-  >
-    <template v-slot:modal-header="{ close }">
-      <modal-header
-        title="Edit profile"
-        @close="close"
-      >
-        <b-button
-          variant="primary"
-          @click="save"
-        >
-          <b-spinner small v-if="saving" />
-          <span v-else>{{ $t('global.save') }}</span>
-        </b-button>
-      </modal-header>
-    </template>
-
+  <b-container>
+    <h1>Edit profile</h1>
     <b-button @click="checkUserNameAvailability">
       Check availability
     </b-button>
@@ -35,6 +14,7 @@
     >
       <b-form-input
         id="userName"
+        disabled
         v-model="profile.userName"
         placeholder=""
       />
@@ -69,7 +49,7 @@
 
     <pre>{{ user }}</pre>
 
-  </b-modal>
+  </b-container>
 </template>
 
 <script>
@@ -87,8 +67,10 @@ export default {
         followers: [],
         following: [],
         dateJoined: [],
-        // profilePicture: '',
-        // backdrop: '',
+        friendCode: '',
+        onlineId: '',
+        gamerTag: '',
+        profilePicture: '',
         location: 'Chandler, AZ',
         website: 'https://gamebrary.com',
         twitter: 'romancm',
