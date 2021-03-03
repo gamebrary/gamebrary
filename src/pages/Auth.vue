@@ -38,31 +38,16 @@ export default {
 
         return this.handleAuthRedirect();
       }).catch(() => {});
-
-    // TODO: handle issue when viewing site in incognito mode
   },
 
   methods: {
     initUser(user) {
       this.$store.commit('SET_SESSION_EXPIRED', false);
       this.$store.commit('SET_USER', user);
-      this.loadSettings();
+      this.$store.dispatch('LOAD_SETTINGS');
       this.loadTags();
       this.load();
       this.$router.replace({ name: 'dashboard' });
-    },
-
-    loadSettings() {
-      // TODO: move to actions
-      const docRef = db.collection('settings').doc(this.user.uid);
-
-      docRef.get().then((doc) => {
-        const settings = doc.data();
-
-        this.$store.commit('SET_SETTINGS', settings);
-      }).catch(() => {
-        this.$store.commit('SET_SESSION_EXPIRED', true);
-      });
     },
 
     loadTags() {

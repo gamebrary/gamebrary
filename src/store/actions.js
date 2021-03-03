@@ -492,6 +492,27 @@ export default {
     });
   },
 
+  LOAD_SETTINGS({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      const db = firebase.firestore();
+
+      db.collection('settings')
+        .doc(state.user.uid)
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            const settings = doc.data();
+
+            commit('SET_SETTINGS', settings);
+            resolve();
+          } else {
+            commit('SET_SESSION_EXPIRED', true);
+            reject();
+          }
+        });
+    });
+  },
+
   SYNC_LOAD_TAGS({ commit, state }) {
     return new Promise((resolve, reject) => {
       const db = firebase.firestore();
