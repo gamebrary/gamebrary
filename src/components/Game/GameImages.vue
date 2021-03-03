@@ -78,7 +78,7 @@
 
       <b-carousel
         ref="screenshots"
-        fade
+        no-animation
         v-model="activeImage"
       >
         <b-carousel-slide
