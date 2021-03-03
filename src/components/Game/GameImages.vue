@@ -1,5 +1,4 @@
 <!-- TODO: Mix media from other sources (e.g. instagram, wikipedia, youtube, twitter, etc... ) -->
-<!-- TODO: Show meta data -->
 <template lang="html">
   <b-form-row v-if="screenshots" class="mt-2">
     <b-col
