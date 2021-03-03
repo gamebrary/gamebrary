@@ -34,7 +34,7 @@
     >
       <template v-slot:modal-header="{ close }">
         <modal-header
-          title="Screenshots"
+          title="Images"
           :subtitle="game.name"
           @close="close"
         >
@@ -48,8 +48,10 @@
             />
           </template>
 
-          <!-- TODO: allow to save screenshot as board wallpaper -->
-          <b-button @click="setAsWallpaper">
+          <b-button
+            variant="light"
+            @click="setAsWallpaper"
+          >
             <i
               v-if="saving"
               class="fas fa-sync fa-spin fa-fw"
@@ -87,7 +89,7 @@
           <template #img>
             <b-img
               rounded
-              class="w-100"
+              class="mw-100 d-block ml-auto mr-auto"
               :src="screenshot"
             />
           </template>
