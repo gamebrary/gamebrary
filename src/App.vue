@@ -26,7 +26,6 @@ import GlobalModals from '@/components/GlobalModals';
 import firebase from 'firebase/app';
 import { mapState, mapGetters } from 'vuex';
 import { KEYBOARD_SHORTCUTS, FIREBASE_CONFIG } from '@/constants';
-import 'firebase/firestore';
 
 firebase.initializeApp(FIREBASE_CONFIG);
 
@@ -91,70 +90,13 @@ export default {
       }
     },
 
-    loadWallpapers() {
-      this.$store.dispatch('LOAD_WALLPAPERS')
-        .catch(() => {
-          this.$bvToast.toast('There was an error loading wallpapers', { variant: 'danger' });
-        });
-    },
-
     load() {
-      const db = firebase.firestore();
-
-      // TODO: move logic to actions
-      this.$store.dispatch('LOAD_RELEASES')
-        .then((releases) => {
-          const [latestRelease] = releases;
-
-          const latestReleaseVersion = latestRelease && latestRelease.tag_name;
-
-          const lastReleaseSeenByUser = (this.settings && this.settings.release) || null;
-
-          if (latestReleaseVersion !== lastReleaseSeenByUser) {
-            this.$store.commit('SET_NOTIFICATION', true);
-          }
-        });
-
-      this.loadWallpapers();
-      // TODO: move to actions
-      db.collection('settings').doc(this.userId)
-        .onSnapshot((doc) => {
-          if (doc.exists) {
-            const settings = doc.data();
-
-            this.$store.commit('SET_SETTINGS', settings);
-          }
-        });
-
-      // TODO: move to actions
-      db.collection('tags').doc(this.userId)
-        .onSnapshot((doc) => {
-          if (doc.exists) {
-            const tags = doc.data();
-
-            this.$store.commit('SET_TAGS', tags);
-          }
-        });
-
-      // TODO: move to actions
-      db.collection('notes').doc(this.userId)
-        .onSnapshot((doc) => {
-          if (doc.exists) {
-            const notes = doc.data();
-
-            this.$store.commit('SET_NOTES', notes);
-          }
-        });
-
-      // TODO: move to actions
-      db.collection('progresses').doc(this.userId)
-        .onSnapshot((doc) => {
-          if (doc.exists) {
-            const progresses = doc.data();
-
-            this.$store.commit('SET_PROGRESSES', progresses);
-          }
-        });
+      this.$store.dispatch('LOAD_RELEASES');
+      this.$store.dispatch('LOAD_WALLPAPERS');
+      this.$store.dispatch('SYNC_LOAD_SETTINGS');
+      this.$store.dispatch('SYNC_LOAD_TAGS');
+      this.$store.dispatch('SYNC_LOAD_NOTES');
+      this.$store.dispatch('SYNC_LOAD_PROGRESSES');
     },
   },
 };

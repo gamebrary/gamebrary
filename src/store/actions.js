@@ -473,6 +473,82 @@ export default {
     });
   },
 
+  SYNC_LOAD_SETTINGS({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      const db = firebase.firestore();
+
+      db.collection('settings')
+        .doc(state.user.uid)
+        .onSnapshot((doc) => {
+          if (doc.exists) {
+            const settings = doc.data();
+
+            commit('SET_SETTINGS', settings);
+            resolve();
+          } else {
+            reject();
+          }
+        });
+    });
+  },
+
+  SYNC_LOAD_TAGS({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      const db = firebase.firestore();
+
+      db.collection('tags')
+        .doc(state.user.uid)
+        .onSnapshot((doc) => {
+          if (doc.exists) {
+            const tags = doc.data();
+
+            commit('SET_TAGS', tags);
+            resolve();
+          } else {
+            reject();
+          }
+        });
+    });
+  },
+
+  SYNC_LOAD_NOTES({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      const db = firebase.firestore();
+
+      db.collection('notes')
+        .doc(state.user.uid)
+        .onSnapshot((doc) => {
+          if (doc.exists) {
+            const notes = doc.data();
+
+            commit('SET_NOTES', notes);
+            resolve();
+          } else {
+            reject();
+          }
+        });
+    });
+  },
+
+  SYNC_LOAD_PROGRESSES({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      const db = firebase.firestore();
+
+      db.collection('progresses')
+        .doc(state.user.uid)
+        .onSnapshot((doc) => {
+          if (doc.exists) {
+            const progresses = doc.data();
+
+            commit('SET_PROGRESSES', progresses);
+            resolve();
+          } else {
+            reject();
+          }
+        });
+    });
+  },
+
   // TODO: use firebase email extension instead
   SEND_WELCOME_EMAIL(context, additionalUserInfo) {
     return new Promise((resolve, reject) => {
@@ -489,6 +565,16 @@ export default {
     return new Promise((resolve, reject) => {
       axios.get('https://api.github.com/repos/romancm/gamebrary/releases')
         .then(({ data }) => {
+          const [latestRelease] = data;
+
+          const latestReleaseVersion = latestRelease && latestRelease.tag_name;
+
+          const lastReleaseSeenByUser = (this.settings && this.settings.release) || null;
+
+          if (latestReleaseVersion !== lastReleaseSeenByUser) {
+            commit('SET_NOTIFICATION', true);
+          }
+
           commit('SET_RELEASES', data);
           resolve(data);
         }).catch(reject);
