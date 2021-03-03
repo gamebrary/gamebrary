@@ -179,8 +179,7 @@ export default {
 
   LOAD_WALLPAPERS({ state, commit }) {
     return new Promise((resolve, reject) => {
-      storage
-        firebase.storage()
+      firebase.storage()
         .ref(`${state.user.uid}/wallpapers`)
         .listAll()
         .then(({ items }) => {
@@ -223,7 +222,7 @@ export default {
                           commit('SET_WALLPAPERS', wallpapers);
                           resolve();
                         }
-                    });
+                      });
                   });
                 }
               })
