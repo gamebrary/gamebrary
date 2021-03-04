@@ -52,7 +52,6 @@
             @shortkey.native="$bvModal.show('notes');"
           >
             <i class="far fa-sticky-note fa-fw" /> {{ notes[game.id] ? 'Edit note' : 'Add note' }}
-            <!-- TODO: decouple -->
           </b-dropdown-item>
 
           <game-notes-modal :game="game" />

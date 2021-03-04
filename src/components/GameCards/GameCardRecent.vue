@@ -20,8 +20,6 @@
             {{ game.name }}
           </b-card-title>
 
-          <!-- TODO: add release date -->
-
           <b-form-rating
             v-if="gameRating"
             :class="['p-0', { 'bg-dark': darkTheme }]"

@@ -114,7 +114,8 @@ export default {
     async search() {
       await this.$store.dispatch('SEARCH_BOARD_GAMES', this.searchText)
         .catch(() => {
-          // TODO toast error
+          this.$bvToast.toast('Error', { variant: 'danger' });
+
           this.loading = false;
         });
 

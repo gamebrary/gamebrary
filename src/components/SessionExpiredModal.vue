@@ -1,4 +1,3 @@
-<!-- TODO: translate -->
 <template lang="html">
   <b-modal
     centered
