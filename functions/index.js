@@ -203,33 +203,32 @@ exports.game = functions.https.onRequest((req, res) => {
     res.status(400).send('missing gameId');
   }
 
-  // TODO: add collection
-  // collection.*,
-  // collection.games.*,
   const data = `fields
-  name,
-  summary,
+  age_ratings.*,
+  alternative_names.*,
+  bundles.*,
+  collection.*,
+  collection.games.*,
   cover.image_id,
-  screenshots.image_id,
-  player_perspectives.name,
+  external_games.*,
+  game_modes.name,
+  genres.name,
   involved_companies.company.name,
   involved_companies.developer,
   involved_companies.publisher,
-  release_dates.platform,
-  release_dates.date,
-  websites.category,
-  websites.url,
-  bundles.*,
-  alternative_names.*,
-  age_ratings.*,
-  videos.video_id,
-  external_games.*,
-  similar_games,
-  rating,
-  genres.name,
-  platforms.name,
+  name,
   platforms.id,
-  game_modes.name;
+  platforms.name,
+  player_perspectives.name,
+  rating,
+  release_dates.date,
+  release_dates.platform,
+  screenshots.image_id,
+  similar_games,
+  summary,
+  videos.video_id,
+  websites.category,
+  websites.url;
 
   where id = ${ gameId };`;
 
