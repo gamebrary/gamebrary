@@ -45,23 +45,9 @@ export default {
       this.$store.commit('SET_SESSION_EXPIRED', false);
       this.$store.commit('SET_USER', user);
       this.$store.dispatch('LOAD_SETTINGS');
-      this.loadTags();
+      this.$store.dispatch('LOAD_TAGS');
       this.load();
       this.$router.replace({ name: 'dashboard' });
-    },
-
-    loadTags() {
-      // TODO: move to actions
-      db.collection('tags').doc(this.user.uid).get()
-        .then((doc) => {
-          if (doc.exists) {
-            const data = doc.data();
-            this.$store.commit('SET_TAGS', data);
-          }
-        })
-        .catch(() => {
-          this.$store.commit('SET_SESSION_EXPIRED', true);
-        });
     },
 
     handleAuthRedirect() {
