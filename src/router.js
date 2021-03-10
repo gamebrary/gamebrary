@@ -14,7 +14,7 @@ import Settings from '@/pages/Settings';
 import Upgrade from '@/pages/Upgrade';
 import Profile from '@/pages/Profile';
 import EditProfile from '@/pages/Profile/EditProfile';
-import NotFound from '@/pages/NotFound';
+import PublicProfile from '@/pages/PublicProfile';
 
 Vue.use(Router);
 
@@ -143,8 +143,8 @@ export default new Router({
     },
     {
       path: '*',
-      name: 'not-found',
-      component: NotFound,
+      name: 'public-profile',
+      component: PublicProfile,
     },
   ],
 });
