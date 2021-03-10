@@ -1,16 +1,6 @@
 <template lang="html">
   <b-container class="pt-2" v-if="user">
     <div class="text-center my-4">
-      <b-avatar
-        v-if="user && user.photoURL"
-        v-b-tooltip.hover.right
-        badge-variant="danger"
-        :title="$t('navMenu.account')"
-        :src="user.photoURL"
-      />
-
-      <h5 class="mt-2">Welcome, {{ user.displayName }}!</h5>
-
       <b-button-group class="mb-4">
         <b-button
           v-for="{ name, title, icon } in tabs"

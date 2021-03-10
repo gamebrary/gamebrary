@@ -116,7 +116,8 @@ export default {
     }
 
     &.offset {
-      padding-left: calc(58px + .5rem);
+      // padding-left: calc(58px + .5rem);
+      padding-top: 50px;
     }
   }
 </style>

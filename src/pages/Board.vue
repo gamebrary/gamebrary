@@ -1,7 +1,7 @@
 <template lang="html">
   <div
     :class="[
-      'board py-2',
+      'board px-2',
       boardClasses,
       { dragging, empty },
     ]"
@@ -248,7 +248,8 @@ export default {
   align-items: flex-start;
   height: 100vh;
   width: 100%;
-  padding-left: calc(58px + .5rem);
+  // padding: calc(58px + .5rem);
+  padding-top: 50px;
   box-sizing: border-box;
   overflow-x: auto;
   overflow-x: overlay;
