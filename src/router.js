@@ -8,11 +8,11 @@ import Tags from '@/pages/Tags';
 import Notes from '@/pages/Notes';
 import Releases from '@/pages/Releases';
 import Auth from '@/pages/Auth';
-import Dashboard from '@/pages/Dashboard';
 import Boards from '@/components/Boards';
 import Settings from '@/pages/Settings';
 import Upgrade from '@/pages/Upgrade';
 import Profile from '@/pages/Profile';
+import Preferences from '@/pages/Preferences';
 import EditProfile from '@/pages/Profile/EditProfile';
 import PublicProfile from '@/pages/PublicProfile';
 
@@ -23,23 +23,31 @@ export default new Router({
     {
       name: 'dashboard',
       path: '/',
-      component: Dashboard,
+      component: Boards,
       meta: {
-        title: 'Dashboard',
+        title: 'Boards',
       },
-      redirect: { name: 'boards' },
+    },
+    {
+      name: 'settings',
+      path: '/settings',
+      component: Settings,
+      meta: {
+        title: 'Settings',
+      },
+      redirect: { name: 'preferences' },
       children: [
         {
-          name: 'boards',
-          path: '/boards',
-          component: Boards,
+          name: 'preferences',
+          path: '/settings/preferences',
+          component: Preferences,
           meta: {
-            title: 'Boards',
+            title: 'Settings',
           },
         },
         {
           name: 'wallpapers',
-          path: '/wallpapers',
+          path: '/settings/wallpapers',
           component: Wallpapers,
           meta: {
             title: 'Wallpapers',
@@ -47,7 +55,7 @@ export default new Router({
         },
         {
           name: 'tags',
-          path: '/tags',
+          path: '/settings/tags',
           component: Tags,
           meta: {
             title: 'Tags',
@@ -55,18 +63,10 @@ export default new Router({
         },
         {
           name: 'notes',
-          path: '/notes',
+          path: '/settings/notes',
           component: Notes,
           meta: {
             title: 'Notes',
-          },
-        },
-        {
-          path: '/settings',
-          name: 'settings',
-          component: Settings,
-          meta: {
-            title: 'Settings',
           },
         },
       ],

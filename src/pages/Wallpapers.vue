@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container>
+  <div>
     <empty-state
       v-if="showEmptyState"
       :title="$t('wallpapers.title')"
@@ -10,39 +10,36 @@
     />
 
     <template v-else>
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3 class="m-0">
-          {{ $t('wallpapers.title') }}
-        </h3>
+      <portal to="dock">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="space-used d-none d-sm-inline ml-auto mr-3">
+            <small
+              class="d-block text-center"
+              :class="{ 'text-danger': outOfSpace }"
+              v-text="usedSpaceText"
+            />
 
-        <div class="space-used d-none d-sm-inline ml-auto mr-3 pt-3">
-          <small
-            class="d-block text-center"
-            :class="{ 'text-danger': outOfSpace }"
-            v-text="usedSpaceText"
-          />
+            <b-progress
+              :value="spaceUsed"
+              :max="maxSpace"
+              :variant="outOfSpace ? 'danger' : 'success'"
+            />
+          </div>
 
-          <b-progress
-            :value="spaceUsed"
-            :max="maxSpace"
-            :variant="outOfSpace ? 'danger' : 'success'"
-            class="mb-3"
-          />
+          <b-button
+            variant="primary"
+            :disabled="outOfSpace"
+            @click="triggerFileUpload"
+          >
+            <b-spinner small v-if="saving" />
+
+            <template v-else>
+              <i class="fas fa-upload fa-fw" aria-hidden />
+              <span>Upload</span>
+            </template>
+          </b-button>
         </div>
-
-        <b-button
-          variant="primary"
-          :disabled="outOfSpace"
-          @click="triggerFileUpload"
-        >
-          <b-spinner small v-if="saving" />
-
-          <template v-else>
-            <i class="fas fa-upload fa-fw" aria-hidden />
-            <span class="d-none d-sm-inline">Upload</span>
-          </template>
-        </b-button>
-      </div>
+      </portal>
 
       <b-alert
         v-if="isDuplicate && !saving && file && file.name"
@@ -66,7 +63,7 @@
       :placeholder="$t('wallpapers.form.placeholder')"
       @input="uploadWallpaper"
     />
-  </b-container>
+  </div>
 </template>
 
 <script>

@@ -11,7 +11,7 @@
     <main :class="{
       'authorizing': !user,
       'bg-dark text-white': darkTheme,
-      'offset': !isBoard,
+      'is-board': isBoard,
       }"
     >
       <router-view />
@@ -106,18 +106,23 @@ export default {
 </style>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
+  #app {
+    background-color: #eae3d9;
+  }
+
   main {
-    height: 100vh;
     overflow-y: auto;
+    height: calc(100vh - 54px);
 
     &.authorizing {
       width: 100%;
       left: 0;
     }
 
-    &.offset {
-      // padding-left: calc(58px + .5rem);
-      padding-top: 50px;
+    &.is-board {
+      height: 100vh;
+      // height: calc(100vh - 54px);
+      // padding-top: 54px;
     }
   }
 </style>

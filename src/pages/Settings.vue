@@ -1,50 +1,93 @@
 <template lang="html">
-  <b-container>
-    <h3 class="m-0">Settings</h3>
-
-    <div class="d-inline-flex flex-column align-items-start">
-      <languages />
-
-      <theme-selector class="mb-2" />
-
+  <div class="settings mx-2">
+    <aside>
       <b-button
-        href="https://accounts.google.com/"
-        class="mb-2 mt-4"
-        target="_blank"
-        variant="info"
+        v-for="{ name, title, icon } in settingsSections"
+        :key="name"
+        :variant="tabButtonVariant(name)"
+        size="sm"
+        class="w-100 text-left mb-2"
+        @click="handleClick(name)"
       >
-        Manage Google Account
+        <i :class="`${icon} fa-fw`" aria-hidden />
+        <span>{{ title }}</span>
       </b-button>
+    </aside>
 
-      <sign-out class="mb-2" />
-      <delete-account />
-    </div>
-  </b-container>
+    <router-view />
+  </div>
 </template>
 
 <script>
-import Languages from '@/components/Settings/Languages';
-import ThemeSelector from '@/components/Settings/ThemeSelector';
-import SignOut from '@/components/Settings/SignOut';
-import DeleteAccount from '@/components/Settings/DeleteAccount';
 import { mapGetters } from 'vuex';
 
 export default {
-  components: {
-    Languages,
-    ThemeSelector,
-    SignOut,
-    DeleteAccount,
+  data() {
+    return {
+      settingsSections: [
+        {
+          name: 'preferences',
+          title: 'Settings',
+          icon: 'fas fa-sliders-h',
+        },
+        {
+          name: 'tags',
+          title: 'Tags',
+          icon: 'fas fa-tags',
+        },
+        {
+          name: 'notes',
+          title: 'Notes',
+          icon: 'fas fa-sticky-note',
+        },
+        {
+          name: 'wallpapers',
+          title: 'Wallpapers',
+          icon: 'fas fa-images',
+        },
+      ],
+    };
   },
 
   computed: {
     ...mapGetters(['darkTheme']),
+
+    routeName() {
+      return this.$route.name;
+    },
   },
 
   methods: {
     formatDate(date) {
       return new Intl.DateTimeFormat().format(new Date(date));
     },
+
+    tabButtonVariant(name) {
+      const dark = this.$route.name === name ? 'secondary' : 'info';
+      const light = this.$route.name === name ? 'info' : 'light';
+
+      return this.darkTheme ? dark : light;
+    },
+
+    handleClick(name) {
+      if (this.$route.name !== name) {
+        this.$router.push({ name });
+      }
+    },
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+$sidebarWidth: 108px;
+
+.settings {
+  display: grid;
+  grid-template-columns: $sidebarWidth 1fr;
+  grid-gap: .5rem;
+
+  @media(max-width: 780px) {
+    grid-template-columns: minmax(0, $sidebarWidth) calc(100% - .5rem - $sidebarWidth);
+  }
+}
+</style>

@@ -1,6 +1,7 @@
 <template lang="html">
   <nav
-    :class="['bg-danger p-0 d-flex justify-content-between position-absolute dock']"
+    :class="['dock d-flex align-items-center justify-content-between w-100',
+      { 'position-fixed': isBoard }]"
   >
   <!-- :class="{
     'bg-dark text-white border-info': darkTheme,
@@ -11,23 +12,37 @@
         title="Dashboard"
         squared
         variant="transparent"
-        class="m-0 p-1"
+        class="p-0 ml-2"
         @click="handleLogoClick"
       >
         <img
           :src="`/static/gamebrary-logo${darkTheme || board.backgroundUrl ? '' : '-dark'}.png`"
-          width="32"
+          width="40"
         />
       </b-button>
 
+      <small v-if="pageTitle">{{ pageTitle }}</small>
+
       <b-dropdown
-        v-if="Object.keys(board).length"
+        v-if="user && showBoardsDropdown"
         :toggle-class="['p-0', { 'text-white': darkTheme || board.backgroundUrl }]"
         variant="transparent"
       >
         <template #button-content>
           <small>{{ board.name }}</small>
         </template>
+
+        <b-dropdown-item>
+          <span
+            :variant="darkTheme ? 'dark' : 'primary'"
+            v-b-modal:edit-board
+          >
+            <i class="fas fa-pencil-alt fa-fw" aria-hidden />
+            Edit board
+          </span>
+        </b-dropdown-item>
+
+        <b-dropdown-divider />
 
         <b-dropdown-header>
           My boards
@@ -52,42 +67,11 @@
           <!-- TODO: create array map with url already fetched -->
 
           {{ name }}
-
-          <pre>{{ getWallpaperUrl(backgroundUrl) }}</pre>
         </b-dropdown-item>
 
 
-        <!-- <b-dropdown-item>Second Action</b-dropdown-item>
-        <b-dropdown-item>Third Action</b-dropdown-item>
-        <b-dropdown-divider></b-dropdown-divider>
-        <b-dropdown-item active>Active action</b-dropdown-item>
-        <b-dropdown-item disabled>Disabled action</b-dropdown-item> -->
-
             <!-- <b-collapse
               v-if="user"
-              id="moreMenu"
-              v-model="moreMenuOpen"
-            >
-
-              <b-button
-                :to="{ name: 'notes' }"
-                :variant="darkTheme ? 'dark' : 'light'"
-                class="mt-1"
-                size="sm"
-                title="Notes"
-              >
-                <i class="fas fa-sticky-note fa-fw" aria-hidden />
-              </b-button>
-
-              <b-button
-                :to="{ name: 'wallpapers' }"
-                :variant="darkTheme ? 'dark' : 'light'"
-                class="mt-1"
-                size="sm"
-                title="Wallpapers"
-              >
-                <i class="fas fa-images fa-fw" aria-hidden />
-              </b-button>
 
               <b-button
                 :variant="darkTheme ? 'dark' : 'light'"
@@ -101,26 +85,16 @@
 
               <hr class="my-1">
 
-              <b-button
-                :to="{ name: 'about' }"
-                :variant="darkTheme ? 'dark' : 'light'"
-                class="mx-1 mb-1"
-                size="sm"
-                title="About"
-              >
-                <i class="fas fa-info fa-fw" aria-hidden />
-              </b-button>
+
             </b-collapse> -->
 
             <!-- TODO: persist value -->
             <!-- <b-button
               v-if="user"
-              v-b-toggle.moreMenu
               :variant="darkTheme ? 'dark' : 'light'"
               class="mx-1 mb-1 py-0"
               size="sm"
             >
-              <i :class="`fas fa-angle-double-${moreMenuOpen ? 'up' : 'down'} fa-fw`" />
             </b-button> -->
 
             <!-- <b-button
@@ -134,35 +108,39 @@
       </b-dropdown>
     </div>
 
-    <b-dropdown
-      right
-      no-caret
-      variant="transparent"
-      toggle-class="p-0"
-    >
-      <template #button-content>
-        <b-avatar
-          v-if="user && user.photoURL"
-          rounded
-          size="32"
-          :src="user.photoURL"
-        />
-      </template>
+    <div class="d-flex">
+      <portal-target name="dock" />
 
-      <b-dropdown-header>
-        Hi, {{ user.displayName }}!
-      </b-dropdown-header>
+      <b-dropdown
+        right
+        no-caret
+        variant="transparent"
+        toggle-class="p-0 mx-2 border-0"
+      >
+        <template #button-content>
+          <b-avatar
+            v-if="user && user.photoURL"
+            rounded
+            size="38"
+            :src="user.photoURL"
+          />
+        </template>
 
-      <b-dropdown-item :to="{ name: 'profile' }">
-        <i class="fas fa-user fa-fw" aria-hidden /> Profile
-      </b-dropdown-item>
+        <b-dropdown-header>
+          Hi, {{ user.displayName }}!
+        </b-dropdown-header>
 
-      <b-dropdown-item :to="{ name: 'settings' }">
-        <i class="fas fa-cog fa-fw" aria-hidden /> Settings
-      </b-dropdown-item>
-      <b-dropdown-divider></b-dropdown-divider>
-      <b-dropdown-item>Log out</b-dropdown-item>
-    </b-dropdown>
+        <b-dropdown-item :to="{ name: 'profile' }">
+          <i class="fas fa-user fa-fw" aria-hidden /> Profile
+        </b-dropdown-item>
+
+        <b-dropdown-item :to="{ name: 'settings' }">
+          <i class="fas fa-cog fa-fw" aria-hidden /> Settings
+        </b-dropdown-item>
+        <b-dropdown-divider></b-dropdown-divider>
+        <b-dropdown-item>Log out</b-dropdown-item>
+      </b-dropdown>
+    </div>
   </nav>
 </template>
 
@@ -173,13 +151,6 @@ import PinnedBoards from '@/components/Board/PinnedBoards';
 export default {
   components: {
     PinnedBoards,
-  },
-
-  data() {
-    return {
-      moreMenuOpen: false,
-      postion: 'bottom',
-    };
   },
 
   computed: {
@@ -196,6 +167,14 @@ export default {
 
     isBoard() {
       return ['public-board', 'board'].includes(this.$route.name);
+    },
+
+    showBoardsDropdown() {
+      return Object.keys(this.board).length > 1;
+    },
+
+    pageTitle() {
+      return this.$route.meta && this.$route.meta.title;
     },
   },
 
@@ -221,7 +200,6 @@ export default {
     },
 
     viewBoard(id) {
-      console.log(id);
       if (this.board.id !== id) {
         this.$router.push({ name: 'board', params: { id } });
       } else {
@@ -238,8 +216,8 @@ export default {
         }
       }
 
-      if (this.user && this.$route.name !== 'boards') {
-        this.$router.push({ name: 'boards' });
+      if (this.user && this.$route.name !== 'dashboard') {
+        this.$router.push({ name: 'dashboard' });
       }
     },
 
@@ -272,11 +250,7 @@ export default {
 
 .dock {
   z-index: 1;
-  width: calc(100% - calc(100vw - 100%));
-
-  &.bottom {
-    position: fixed;
-  }
+  height: 54px;
 }
 
 .board {

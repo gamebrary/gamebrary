@@ -2,7 +2,7 @@
 <!-- TODO: pagination? -->
 <!-- TODO: open notes from game modal on click? -->
 <template lang="html">
-  <b-container>
+  <div>
     <empty-state
       v-if="showEmptyState"
       :title="$t('notes.title')"
@@ -11,21 +11,19 @@
     <!-- actionText="Add a note" -->
 
     <template v-else>
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3 class="m-0">{{ $t('notes.title') }}</h3>
-
+      <portal to="dock">
         <b-form-input
           type="search"
           style="max-width: 200px"
           placeholder="Search notes"
           v-model="search"
         />
-      </div>
+      </portal>
 
       <div class="notes">
         <div
           v-for="{ note, gameName, gameId } in filteredNotes"
-          class="note mb-2 p-2 rounded border d-inline-block w-100"
+          class="note mb-2 p-2 rounded bg-white border d-inline-block w-100"
           :key="gameId"
         >
           <div class="d-flex align-items-center mb-2">
@@ -48,7 +46,7 @@
         </div>
       </div>
     </template>
-  </b-container>
+  </div>
 </template>
 
 <script>

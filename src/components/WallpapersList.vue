@@ -12,9 +12,8 @@
       :img-src="wallpaper.url"
       :img-alt="wallpaper.name"
       img-top
-      bg-variant="transparent"
       img-width="180"
-      class="mb-3 overflow-hidden word-wrap clickable"
+      class="mb-3 mx-0 p-0 overflow-hidden word-wrap clickable"
       @click="openModal(wallpaper)"
     >
       <h6>
@@ -132,7 +131,7 @@ export default {
   grid-template-columns: 1fr 1fr 1fr;
 
   @media(max-width: 720px) {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
 }
 </style>

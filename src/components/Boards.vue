@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container>
+  <div class="mx-2 mb-2">
     <div v-if="showPlaceholder" class="boards">
       <b-card
         v-for="n in 3"
@@ -24,16 +24,14 @@
       </b-button>
     </empty-state>
 
-    <div v-else class="d-flex w-100 justify-content-between align-items-center mb-3">
-      <h3 class="m-0 mr-a">{{ $t('boards.title') }}</h3>
-
+    <portal to="dock">
       <b-button
         variant="primary"
         v-b-modal:create-board
       >
         {{ $t('boards.create') }}
       </b-button>
-    </div>
+    </portal>
 
     <div class="boards">
       <b-card
@@ -62,7 +60,7 @@
 
       <edit-board-modal />
     </div>
-  </b-container>
+  </div>
 </template>
 
 <script>

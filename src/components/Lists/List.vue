@@ -263,7 +263,7 @@ export default {
   .games {
     height: 100%;
     overflow: hidden;
-    max-height: calc(100vh - 100px);
+    max-height: calc(100vh - 200px);
     overflow-y: auto;
     padding: .5rem .5rem 0;
     width: 100%;

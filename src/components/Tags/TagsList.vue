@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="tags-list">
-    <div
+    <b-card
       v-for="({ games, hex, tagTextColor }, name) in tags"
       class="border rounded p-2 overflow-hidden text-center cursor-pointer"
       @click="$emit('selected', name)"
@@ -29,7 +29,7 @@
       <br>
 
       <small>{{ games.length }} Games</small>
-    </div>
+    </b-card>
   </div>
 </template>
 
@@ -63,5 +63,9 @@ export default {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: .5rem;
+
+  @media(max-width: 780px) {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

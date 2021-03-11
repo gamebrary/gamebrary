@@ -28,13 +28,6 @@
         >
           <i class="fas fa-plus fa-fw" aria-hidden />
         </b-button>
-
-        <b-button
-          :variant="darkTheme ? 'dark' : 'light'"
-          v-b-modal:edit-board
-        >
-          <i class="fas fa-cog fa-fw" aria-hidden />
-        </b-button>
       </div>
 
       <empty-board v-if="empty" class="mr-3" />
@@ -107,13 +100,13 @@ export default {
       return [backgroundImage, backgroundColor].join('');
     },
 
-    boardClasses() {
-      const defaultBackgroundClass = this.darkTheme ? 'bg-dark' : 'bg-light';
-
-      return !this.board.backgroundColor
-        ? defaultBackgroundClass
-        : null;
-    },
+    // boardClasses() {
+    //   const defaultBackgroundClass = this.darkTheme ? 'bg-dark' : 'bg-light';
+    //
+    //   return !this.board.backgroundColor
+    //     ? defaultBackgroundClass
+    //     : null;
+    // },
 
     boardId() {
       return this.$route.params.id;
@@ -247,9 +240,8 @@ export default {
   background-size: cover;
   align-items: flex-start;
   height: 100vh;
+  padding-top: 54px;
   width: 100%;
-  // padding: calc(58px + .5rem);
-  padding-top: 50px;
   box-sizing: border-box;
   overflow-x: auto;
   overflow-x: overlay;
