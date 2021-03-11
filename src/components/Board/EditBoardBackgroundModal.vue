@@ -1,3 +1,4 @@
+<!-- TODO: FIX this mess, auto save on selection -->
 <template lang="html">
   <b-modal
     id="boardBackground"

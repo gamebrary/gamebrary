@@ -17,6 +17,16 @@
         :key="list.name"
       />
 
+      <portal to="dock">
+        <b-button
+          :variant="darkTheme ? 'dark' : 'light'"
+          v-b-modal:edit-board
+        >
+          <i class="fas fa-pencil-alt fa-fw" aria-hidden />
+          Edit board
+        </b-button>
+      </portal>
+
       <div
         v-if="user && user.uid && user.uid === board.owner"
         class="d-flex flex-column pr-2"

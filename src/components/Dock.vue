@@ -22,33 +22,14 @@
         />
       </b-button>
 
-      <small v-if="pageTitle">{{ pageTitle }}</small>
+      <span v-if="pageTitle">{{ pageTitle }}</span>
 
       <b-dropdown
         v-if="user && showBoardsDropdown"
         :toggle-class="['p-0', { 'text-white': darkTheme || board.backgroundUrl }]"
         variant="transparent"
+        :text="board.name"
       >
-        <template #button-content>
-          <small>{{ board.name }}</small>
-        </template>
-
-        <b-dropdown-item>
-          <span
-            :variant="darkTheme ? 'dark' : 'primary'"
-            v-b-modal:edit-board
-          >
-            <i class="fas fa-pencil-alt fa-fw" aria-hidden />
-            Edit board
-          </span>
-        </b-dropdown-item>
-
-        <b-dropdown-divider />
-
-        <b-dropdown-header>
-          My boards
-        </b-dropdown-header>
-
         <b-dropdown-item
           v-for="{ id, name, backgroundColor, backgroundUrl } in boards"
           :key="id"
