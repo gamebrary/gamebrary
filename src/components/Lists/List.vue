@@ -65,7 +65,7 @@
         handle=".card"
         ghost-class="card-placeholder"
         filter=".drag-filter"
-        delay="0"
+        delay="50"
         animation="300"
         :group="{ name: 'games' }"
         @end="dragEnd"
