@@ -100,13 +100,13 @@ export default {
       return [backgroundImage, backgroundColor].join('');
     },
 
-    // boardClasses() {
-    //   const defaultBackgroundClass = this.darkTheme ? 'bg-dark' : 'bg-light';
-    //
-    //   return !this.board.backgroundColor
-    //     ? defaultBackgroundClass
-    //     : null;
-    // },
+    boardClasses() {
+      const defaultBackgroundClass = this.darkTheme ? 'bg-dark' : 'bg-light';
+
+      return !this.board.backgroundColor
+        ? defaultBackgroundClass
+        : null;
+    },
 
     boardId() {
       return this.$route.params.id;

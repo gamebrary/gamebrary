@@ -1,3 +1,4 @@
+<!-- TODO: trim logo -->
 <template lang="html">
   <nav
     :class="['dock d-flex align-items-center justify-content-between w-100',
@@ -190,13 +191,9 @@ export default {
 
       const wallpaperObject = this.wallpapers.find(({ fullPath }) => fullPath === url);
 
-      const test = wallpaperObject && wallpaperObject.url
+      return wallpaperObject && wallpaperObject.url
         ? `background-image: url(${decodeURI(wallpaperObject.url)});`
         : '';
-
-      console.log(test);
-
-      return test;
     },
 
     viewBoard(id) {
