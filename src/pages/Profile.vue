@@ -19,8 +19,8 @@
       Edit
     </b-button>
 
-    <p><b-badge>{{ profile.followers.length }}</b-badge> Followers</p>
-    <p><b-badge>{{ profile.following.length }}</b-badge> Followers</p>
+    <!-- <p><b-badge>{{ profile.followers.length }}</b-badge> Followers</p> -->
+    <!-- <p><b-badge>{{ profile.following.length }}</b-badge> Followers</p> -->
 
     <a :href="profile.website" target="_blank">Website</a>
 
