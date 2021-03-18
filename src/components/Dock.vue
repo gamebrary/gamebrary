@@ -18,7 +18,7 @@
       >
         <img
           :src="`/static/gamebrary-logo${darkTheme || board.backgroundUrl ? '' : '-dark'}.png`"
-          width="40"
+          width="32"
         />
       </b-button>
 
