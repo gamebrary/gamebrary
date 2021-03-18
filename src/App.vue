@@ -2,6 +2,7 @@
   <div
     id="app"
     :dir="dir"
+    :class="{ 'bg-dark text-white': darkTheme }"
     v-shortkey="KEYBOARD_SHORTCUTS"
     @shortkey="handleShortcutAction"
   >
@@ -10,7 +11,6 @@
 
     <main :class="{
       'authorizing': !user,
-      'bg-dark text-white': darkTheme,
       'is-board': isBoard,
       }"
     >
