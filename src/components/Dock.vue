@@ -50,8 +50,6 @@
 
           {{ name }}
         </b-dropdown-item>
-
-
             <!-- <b-collapse
               v-if="user"
 
@@ -112,15 +110,15 @@
           Hi, {{ user.displayName }}!
         </b-dropdown-header>
 
-        <b-dropdown-item :to="{ name: 'profile' }">
+        <!-- <b-dropdown-item :to="{ name: 'profile' }">
           <i class="fas fa-user fa-fw" aria-hidden /> Profile
-        </b-dropdown-item>
+        </b-dropdown-item> -->
 
         <b-dropdown-item :to="{ name: 'settings' }">
           <i class="fas fa-cog fa-fw" aria-hidden /> Settings
         </b-dropdown-item>
-        <b-dropdown-divider></b-dropdown-divider>
-        <b-dropdown-item>Log out</b-dropdown-item>
+        <!-- <b-dropdown-divider></b-dropdown-divider>
+        <b-dropdown-item>Log out</b-dropdown-item> -->
       </b-dropdown>
     </div>
   </nav>
