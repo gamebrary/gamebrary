@@ -107,7 +107,7 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
   #app {
-    background-color: #eae3d9;
+    background-color: #f0f0f0;
   }
 
   main {

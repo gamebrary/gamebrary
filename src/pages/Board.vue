@@ -111,7 +111,7 @@ export default {
     },
 
     boardClasses() {
-      const defaultBackgroundClass = this.darkTheme ? 'bg-dark' : 'bg-light';
+      const defaultBackgroundClass = this.darkTheme ? 'bg-dark' : '';
 
       return !this.board.backgroundColor
         ? defaultBackgroundClass
@@ -247,6 +247,7 @@ export default {
 .board {
   user-select: none;
   display: flex;
+  background-color: #f0f0f0;
   background-size: cover;
   align-items: flex-start;
   height: 100vh;
