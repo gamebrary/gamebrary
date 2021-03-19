@@ -178,16 +178,8 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
 .boards {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 1rem;
-
-  @media(max-width: 780px) {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  @media(max-width: 480px) {
-    grid-template-columns: 1fr;
-  }
+  grid-template-columns: repeat(auto-fit, 320px);
 }
 
 .edit-board-button {
