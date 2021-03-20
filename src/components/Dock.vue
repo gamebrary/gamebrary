@@ -150,7 +150,7 @@ export default {
     },
 
     showBoardsDropdown() {
-      return Object.keys(this.board).length > 1;
+      return this.isBoard && Object.keys(this.board).length > 1;
     },
 
     pageTitle() {
