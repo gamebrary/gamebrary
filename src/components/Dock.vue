@@ -117,8 +117,14 @@
         <b-dropdown-item :to="{ name: 'settings' }">
           <i class="fas fa-cog fa-fw" aria-hidden /> Settings
         </b-dropdown-item>
-        <!-- <b-dropdown-divider></b-dropdown-divider>
-        <b-dropdown-item>Log out</b-dropdown-item> -->
+        <b-dropdown-divider></b-dropdown-divider>
+
+        <b-dropdown-item-button
+          @click="session_signOut"
+        >
+
+          {{ $t('global.signOut') }}
+        </b-dropdown-item-button>
       </b-dropdown>
     </div>
   </nav>
@@ -126,12 +132,15 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import SessionMixin from '@/mixins/SessionMixin';
 import PinnedBoards from '@/components/Board/PinnedBoards';
 
 export default {
   components: {
     PinnedBoards,
   },
+
+  mixins: [SessionMixin],
 
   computed: {
     ...mapState(['board', 'boards', 'notification', 'user', 'releases', 'wallpapers']),

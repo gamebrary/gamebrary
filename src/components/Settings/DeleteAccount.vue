@@ -50,8 +50,11 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import firebase from 'firebase/app';
+import SessionMixin from '@/mixins/SessionMixin';
 
 export default {
+  mixins: [SessionMixin],
+
   data() {
     return {
       progress: 0,
@@ -122,11 +125,7 @@ export default {
       user.delete().then(() => {
         this.$bvToast.toast('Account deleted');
 
-        const exitUrl = process.env.NODE_ENV === 'development'
-          ? 'http://localhost:3000'
-          : 'https://gamebrary.com';
-
-        window.location.href = exitUrl;
+        window.location.href = this.session_publicSiteUrl;
 
         this.$store.commit('CLEAR_SESSION');
       })
