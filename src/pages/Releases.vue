@@ -1,10 +1,21 @@
 <template lang="html">
-  <b-container class="pt-3">
+  <div class="mx-2">
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h3 class="m-0">
         Releases
       </h3>
     </div>
+
+    <portal to="dock">
+      <b-button
+        href="https://github.com/romancm/gamebrary"
+        target="_blank"
+        :variant="darkTheme ? 'dark' : 'primary'"
+      >
+        <i class="fab fa-github fa-fw" aria-hidden />
+        View in GitHub
+      </b-button>
+    </portal>
 
     <b-card
       v-for="release in releases"
@@ -29,7 +40,7 @@
         <vue-markdown :source="release.body" class="w-100 releases" />
       </b-card-text>
     </b-card>
-  </b-container>
+  </div>
 </template>
 
 <script>
