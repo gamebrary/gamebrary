@@ -76,15 +76,6 @@
               size="sm"
             >
             </b-button> -->
-
-            <!-- <b-button
-              :to="{ name: 'releases' }"
-              class="latest-release mx-2 py-0 position-fixed"
-              variant="transparent"
-              size="sm"
-            >
-              <small class="text-muted">{{ latestRelease }}</small>
-            </b-button> -->
       </b-dropdown>
     </div>
 
@@ -109,6 +100,11 @@
         <b-dropdown-header>
           Hi, {{ user.displayName }}!
         </b-dropdown-header>
+
+        <b-dropdown-item :to="{ name: 'releases' }">
+          <i class="fas fa-rocket fa-fw" aria-hidden />
+          Releases
+        </b-dropdown-item>
 
         <!-- <b-dropdown-item :to="{ name: 'profile' }">
           <i class="fas fa-user fa-fw" aria-hidden /> Profile
@@ -143,16 +139,8 @@ export default {
   mixins: [SessionMixin],
 
   computed: {
-    ...mapState(['board', 'boards', 'notification', 'user', 'releases', 'wallpapers']),
+    ...mapState(['board', 'boards', 'notification', 'user', 'wallpapers']),
     ...mapGetters(['darkTheme']),
-
-    latestRelease() {
-      // eslint-disable-next-line
-      const [latestRelease] = this.releases;
-
-      // eslint-disable-next-line
-      return latestRelease && latestRelease.tag_name;
-    },
 
     isBoard() {
       return ['public-board', 'board'].includes(this.$route.name);
@@ -226,13 +214,6 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-.latest-release {
-  bottom: .5rem;
-  padding: 0;
-  width: 40px;
-  left: .33rem;
-}
-
 .dock {
   z-index: 1;
   height: 54px;
