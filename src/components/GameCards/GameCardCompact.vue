@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import GameCardMixin from '@/components/GameCards/GameCardMixin';
+import GameCardMixin from '@/mixins/GameCardMixin';
 
 export default {
   mixins: [GameCardMixin],
