@@ -1,4 +1,3 @@
-<!-- TODO: trim logo -->
 <template lang="html">
   <nav
     :class="['dock d-flex align-items-center justify-content-between w-100',
@@ -68,7 +67,6 @@
 
             </b-collapse> -->
 
-            <!-- TODO: persist value -->
             <!-- <b-button
               v-if="user"
               :variant="darkTheme ? 'dark' : 'light'"
