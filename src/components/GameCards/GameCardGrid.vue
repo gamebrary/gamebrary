@@ -65,9 +65,9 @@
 </template>
 
 <script>
-import GameCardUtils from '@/components/GameCards/GameCard';
+import GameCardMixin from '@/components/GameCards/GameCardMixin';
 
 export default {
-  mixins: [GameCardUtils],
+  mixins: [GameCardMixin],
 };
 </script>
