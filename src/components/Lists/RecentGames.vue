@@ -84,7 +84,7 @@ export default {
       return this.recentGames
         ? this.recentGames.filter(({ id }) => !this.list.games.includes(id))
         : [];
-    }
+    },
   },
 
   mounted() {
