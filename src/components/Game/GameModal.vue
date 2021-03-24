@@ -21,7 +21,6 @@
         @close="close"
       >
         <template v-slot:header>
-          <!-- TODO: Open gallery from cover, also include cover in screenshots carousel -->
           <b-img
             :src="activeGameCoverUrl"
             :alt="game.name"
@@ -115,7 +114,7 @@
             <b-img
               :src="activeGameCoverUrl"
               :alt="game.name"
-              class="game-cover"
+              class="game-cover cursor-pointer"
               v-observe-visibility="toggleCoverVisible"
               rounded
               @click="$bvModal.show('game-images')"
