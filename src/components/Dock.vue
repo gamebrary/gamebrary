@@ -113,10 +113,8 @@
         </b-dropdown-item>
         <b-dropdown-divider></b-dropdown-divider>
 
-        <b-dropdown-item-button
-          @click="session_signOut"
-        >
-
+        <b-dropdown-item-button @click="session_signOut">
+          <i class="fas fa-sign-out-alt fa-fw" aria-hidden />
           {{ $t('global.signOut') }}
         </b-dropdown-item-button>
       </b-dropdown>
