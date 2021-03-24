@@ -113,12 +113,6 @@ export default {
         });
 
       this.$bvToast.toast('File deleted');
-
-      // const { board } = this;
-      // TODO: handle wallpapers in use
-      // if (board.wallpaper && this.board.wallpaper === file.path) {
-      //   this.$bus.$emit('LOAD_BOARD_BACKGROUND');
-      // }
     },
   },
 };
