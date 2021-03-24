@@ -42,9 +42,8 @@
     </b-modal>
 
     <game-card-recent
-      v-for="{ id } in recentGames"
+      v-for="{ id } in filteredRecentGames"
       :key="id"
-      v-if="!list.games.includes(id)"
       class="mb-2"
       :game-id="id"
       :list="list"
@@ -53,7 +52,6 @@
 </template>
 
 <script>
-// TODO: use array filter OR filter results using endpoint
 import GameCardRecent from '@/components/GameCards/GameCardRecent';
 import PlatformToggleField from '@/components/PlatformToggleField';
 import { mapState, mapGetters } from 'vuex';
@@ -81,6 +79,12 @@ export default {
   computed: {
     ...mapState(['board']),
     ...mapGetters(['darkTheme']),
+
+    filteredRecentGames() {
+      return this.recentGames
+        ? this.recentGames.filter(({ id }) => !this.list.games.includes(id))
+        : [];
+    }
   },
 
   mounted() {
