@@ -1,11 +1,5 @@
 <template lang="html">
   <div class="mx-2">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h3 class="m-0">
-        Releases
-      </h3>
-    </div>
-
     <portal to="dock">
       <b-button
         href="https://github.com/romancm/gamebrary"
