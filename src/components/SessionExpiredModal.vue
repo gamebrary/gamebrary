@@ -24,38 +24,27 @@
 
 <script>
 import { mapState } from 'vuex';
+import SessionMixin from '@/mixins/SessionMixin';
 
 export default {
+  mixins: [SessionMixin],
+
   computed: {
     ...mapState(['sessionExpired']),
-
-    publicPageUrl() {
-      // TODO: move to getter and replace other instances
-      return process.env.NODE_ENV === 'development'
-        ? 'http://localhost:3000'
-        : 'https://gamebrary.com';
-    },
-
-    authUrl() {
-      // TODO: move to getter and replace other instances
-      return process.env.NODE_ENV === 'development'
-        ? 'http://localhost:4000'
-        : 'https://app.gamebrary.com';
-    },
   },
 
   methods: {
     login() {
       this.$store.commit('CLEAR_SESSION');
       this.$store.commit('SET_SESSION_EXPIRED', false);
-      window.location.href = this.authUrl;
+      window.location.href = this.session_authUrl;
     },
 
     logout() {
       this.$store.commit('CLEAR_SESSION');
       this.$store.commit('SET_SESSION_EXPIRED', false);
 
-      window.location.href = this.publicPageUrl;
+      window.location.href = this.session_publicSiteUrl;
     },
   },
 };

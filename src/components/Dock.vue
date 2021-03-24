@@ -1,4 +1,3 @@
-<!-- TODO: trim logo -->
 <template lang="html">
   <nav
     :class="['dock d-flex align-items-center justify-content-between w-100',
@@ -68,22 +67,12 @@
 
             </b-collapse> -->
 
-            <!-- TODO: persist value -->
             <!-- <b-button
               v-if="user"
               :variant="darkTheme ? 'dark' : 'light'"
               class="mx-1 mb-1 py-0"
               size="sm"
             >
-            </b-button> -->
-
-            <!-- <b-button
-              :to="{ name: 'releases' }"
-              class="latest-release mx-2 py-0 position-fixed"
-              variant="transparent"
-              size="sm"
-            >
-              <small class="text-muted">{{ latestRelease }}</small>
             </b-button> -->
       </b-dropdown>
     </div>
@@ -110,6 +99,11 @@
           Hi, {{ user.displayName }}!
         </b-dropdown-header>
 
+        <b-dropdown-item :to="{ name: 'releases' }">
+          <i class="fas fa-rocket fa-fw" aria-hidden />
+          Releases
+        </b-dropdown-item>
+
         <!-- <b-dropdown-item :to="{ name: 'profile' }">
           <i class="fas fa-user fa-fw" aria-hidden /> Profile
         </b-dropdown-item> -->
@@ -117,8 +111,14 @@
         <b-dropdown-item :to="{ name: 'settings' }">
           <i class="fas fa-cog fa-fw" aria-hidden /> Settings
         </b-dropdown-item>
-        <!-- <b-dropdown-divider></b-dropdown-divider>
-        <b-dropdown-item>Log out</b-dropdown-item> -->
+        <b-dropdown-divider></b-dropdown-divider>
+
+        <b-dropdown-item-button
+          @click="session_signOut"
+        >
+
+          {{ $t('global.signOut') }}
+        </b-dropdown-item-button>
       </b-dropdown>
     </div>
   </nav>
@@ -126,6 +126,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import SessionMixin from '@/mixins/SessionMixin';
 import PinnedBoards from '@/components/Board/PinnedBoards';
 
 export default {
@@ -133,17 +134,11 @@ export default {
     PinnedBoards,
   },
 
+  mixins: [SessionMixin],
+
   computed: {
-    ...mapState(['board', 'boards', 'notification', 'user', 'releases', 'wallpapers']),
+    ...mapState(['board', 'boards', 'notification', 'user', 'wallpapers']),
     ...mapGetters(['darkTheme']),
-
-    latestRelease() {
-      // eslint-disable-next-line
-      const [latestRelease] = this.releases;
-
-      // eslint-disable-next-line
-      return latestRelease && latestRelease.tag_name;
-    },
 
     isBoard() {
       return ['public-board', 'board'].includes(this.$route.name);
@@ -217,13 +212,6 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-.latest-release {
-  bottom: .5rem;
-  padding: 0;
-  width: 40px;
-  left: .33rem;
-}
-
 .dock {
   z-index: 1;
   height: 54px;

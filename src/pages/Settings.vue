@@ -84,7 +84,7 @@ $sidebarWidth: 108px;
 .settings {
   display: grid;
   grid-template-columns: $sidebarWidth 1fr;
-  grid-gap: .5rem;
+  grid-gap: 1rem;
 
   @media(max-width: 780px) {
     grid-template-columns: minmax(0, $sidebarWidth) calc(100% - .5rem - $sidebarWidth);

@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="mx-2 mb-2">
+  <div class="mx-2 mb-2" v-if="user">
     <div v-if="showPlaceholder" class="boards">
       <b-card
         v-for="n in 3"
@@ -12,7 +12,7 @@
     </div>
 
     <empty-state
-      v-else-if="!boards.length"
+      v-if="!loading && sortedBoards.length === 0"
       title="Boards"
       message="Use boards to easily organize your video game collections"
     >
@@ -83,7 +83,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['boards', 'wallpapers', 'gameLists']),
+    ...mapState(['user', 'boards', 'wallpapers', 'gameLists']),
     ...mapGetters(['platformNames', 'sortedBoards', 'darkTheme']),
 
     hasLists() {

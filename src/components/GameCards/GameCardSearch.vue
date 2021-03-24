@@ -37,10 +37,10 @@
 </template>
 
 <script>
-import GameCardUtils from '@/components/GameCards/GameCard';
+import GameCardMixin from '@/mixins/GameCardMixin';
 
 export default {
-  mixins: [GameCardUtils],
+  mixins: [GameCardMixin],
 
   methods: {
     async addGame() {

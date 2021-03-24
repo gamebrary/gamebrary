@@ -14,7 +14,14 @@
         Manage Google Account
       </b-button>
 
-      <sign-out class="mb-2" />
+      <b-button
+        @click="session_signOut"
+        variant="info"
+        class="mb-2"
+      >
+        {{ $t('global.signOut') }}
+      </b-button>
+
       <delete-account />
     </div>
   </div>
@@ -23,16 +30,17 @@
 <script>
 import Languages from '@/components/Settings/Languages';
 import ThemeSelector from '@/components/Settings/ThemeSelector';
-import SignOut from '@/components/Settings/SignOut';
 import DeleteAccount from '@/components/Settings/DeleteAccount';
+import SessionMixin from '@/mixins/SessionMixin';
 
 export default {
   components: {
     Languages,
     ThemeSelector,
-    SignOut,
     DeleteAccount,
   },
+
+  mixins: [SessionMixin],
 };
 </script>
 
