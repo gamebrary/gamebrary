@@ -208,7 +208,9 @@ export default {
         this.$bvModal.show('add-list');
       }
 
-      const boardGames = Array.from(new Set(lists.map(({ games }) => games).flat()));
+      const boardGames = lists.length
+        ? Array.from(new Set(lists.map(({ games }) => games).flat()))
+        : [];
 
       if (boardGames.length === 0) {
         this.loading = false;
