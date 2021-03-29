@@ -2,7 +2,7 @@
   <div v-if="game.websites" class="my-4">
     External links:
 
-    <div class="links">
+    <div :class="['links', { grid }]">
       <b-button
         v-for="{ url, id, icon, svg } in links"
         :href="url"
@@ -38,6 +38,7 @@ import { LINKS_CATEGORIES } from '@/constants';
 export default {
   props: {
     game: Object,
+    grid: Boolean,
   },
 
   computed: {
@@ -58,11 +59,13 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
 .links {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: .5rem;
+  // grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 5px;
 
-  @media(max-width: 780px) {
-    grid-template-columns: 1fr 1fr;
+  &.grid {
+    grid-template-columns: 1fr 1fr 1fr;
   }
+  // @media(max-width: 780px) {
+  // }
 }
 </style>
