@@ -122,7 +122,7 @@
 
             <game-images :game="game" />
             <!-- <game-videos :videos="game.videos" v-if="game.videos" /> -->
-            <amazon-links :game="game" class="d-none d-md-inline" />
+            <game-websites :game="game" class="d-none d-md-inline" />
           </template>
 
           <!-- <pre>{{ game.genres.map(({ id }) => id) }}</pre> -->
@@ -179,21 +179,21 @@
           </template>
 
           <template v-else>
-            <amazon-links
-              :game="game"
-              class="d-md-none"
-              modal-id="mobile-amazon"
-            />
-
             <game-description :game="game" />
+            <amazon-links :game="game" />
             <game-notes :game="game" />
             <game-details :game="game" />
-            <game-websites :game="game" />
 
             <similar-games
               :game="game"
               :loading="loading"
               class="mb-2"
+            />
+
+            <game-websites
+              :game="game"
+              grid
+              class="d-md-none"
             />
           </template>
         </b-col>
