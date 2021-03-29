@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="platform-picker">
-    <div class="d-flex mb-2">
+    <!-- <div class="d-flex mb-2">
       <div class="filter mr-2">
         <small class="d-block text-muted">Show:</small>
         <b-button size="sm">All</b-button>
@@ -15,9 +15,9 @@
         <b-button size="sm">All</b-button>
         <b-button size="sm">All</b-button>
       </div>
-    </div>
+    </div> -->
 
-    <pre>{{ filteredPlatforms }}</pre>
+    <!-- <pre>{{ filteredPlatforms }}</pre> -->
 
     <b-list-group class="platforms mb-3">
       <b-list-group-item
