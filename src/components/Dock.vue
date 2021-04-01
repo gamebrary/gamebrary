@@ -3,10 +3,6 @@
     :class="['dock d-flex align-items-center justify-content-between w-100',
       { 'position-fixed': isBoard }]"
   >
-  <!-- :class="{
-    'bg-dark text-white border-info': darkTheme,
-    'bg-white': !darkTheme,
-  }" -->
     <div>
       <b-button
         title="Dashboard"
@@ -27,25 +23,28 @@
         v-if="user && showBoardsDropdown"
         :toggle-class="['p-0', { 'text-white': darkTheme || board.backgroundUrl }]"
         variant="transparent"
+        :menu-class="darkTheme ? 'bg-dark' : ''"
         :text="board.name"
       >
+        <!-- TODO: create array map with url already fetched -->
         <b-dropdown-item
           v-for="{ id, name, backgroundColor, backgroundUrl } in boards"
           :key="id"
           :active="board.name === name"
+          :variant="darkTheme ? 'primary' : ''"
           @click.native="viewBoard(id)"
         >
           <b-avatar
             rounded
-            class="board"
+            class="board mr-2"
             :title="name"
+            :variant="darkTheme ? 'dark' : 'info'"
             text=" "
             :style="`
-            ${backgroundColor ? `background-color: ${backgroundColor};` : null }
             ${getWallpaperUrl(backgroundUrl)}
+            ${backgroundColor ? `background-color: ${backgroundColor};` : '' }
             `"
           />
-          <!-- TODO: create array map with url already fetched -->
 
           {{ name }}
         </b-dropdown-item>
@@ -83,7 +82,8 @@
       <b-dropdown
         right
         no-caret
-        variant="transparent"
+        :variant="darkTheme ? 'dark' : 'light'"
+        :menu-class="darkTheme ? 'bg-dark' : ''"
         toggle-class="p-0 mx-2 border-0"
       >
         <template #button-content>
@@ -99,7 +99,10 @@
           Hi, {{ user.displayName }}!
         </b-dropdown-header>
 
-        <b-dropdown-item :to="{ name: 'releases' }">
+        <b-dropdown-item
+          :to="{ name: 'releases' }"
+          :variant="darkTheme ? 'primary' : ''"
+        >
           <i class="fas fa-rocket fa-fw" aria-hidden />
           Releases
         </b-dropdown-item>
@@ -108,12 +111,20 @@
           <i class="fas fa-user fa-fw" aria-hidden /> Profile
         </b-dropdown-item> -->
 
-        <b-dropdown-item :to="{ name: 'settings' }">
-          <i class="fas fa-cog fa-fw" aria-hidden /> Settings
+        <b-dropdown-item
+          :variant="darkTheme ? 'primary' : ''"
+          :to="{ name: 'settings' }"
+        >
+          <i class="fas fa-cog fa-fw" aria-hidden />
+          Settings
         </b-dropdown-item>
+
         <b-dropdown-divider></b-dropdown-divider>
 
-        <b-dropdown-item-button @click="session_signOut">
+        <b-dropdown-item-button
+          :variant="darkTheme ? 'primary' : ''"
+          @click="session_signOut"
+        >
           <i class="fas fa-sign-out-alt fa-fw" aria-hidden />
           {{ $t('global.signOut') }}
         </b-dropdown-item-button>
