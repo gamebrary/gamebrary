@@ -3,47 +3,42 @@
 <!-- TODO: open notes from game modal on click? -->
 <template lang="html">
   <div>
-    <empty-state
-      v-if="showEmptyState"
-      :title="$t('notes.title')"
-      message="Looks like you don't have any notes yet."
-    />
-    <!-- actionText="Add a note" -->
-
-    <template v-else>
-      <portal to="dock">
+    <portal to="dock">
+      <div class="d-flex">
         <b-form-input
           type="search"
           style="max-width: 200px"
           placeholder="Search notes"
           v-model="search"
         />
-      </portal>
 
-      <div class="notes">
-        <div
+        <b-button variant="warning" class="ml-2" style="width: 120px;">
+          Add note
+        </b-button>
+      </div>
+    </portal>
+
+    <empty-state
+      v-if="showEmptyState"
+      :title="$t('notes.title')"
+      message="Looks like you don't have any notes yet."
+    />
+
+    <template v-else>
+      <div class="notes mb-2">
+        <b-alert
+          show
           v-for="{ note, gameName, gameId } in filteredNotes"
-          class="note mb-2 p-2 rounded bg-white border d-inline-block w-100"
+          class="border note"
+          variant="warning"
           :key="gameId"
         >
-          <div class="d-flex align-items-center mb-2">
-            <b-img
-              @click="openGame(gameId)"
-              :src="getCoverUrl(gameId)"
-              :alt="gameName"
-              class="rounded"
-              height="60"
-            />
+          <strong v-if="gameName">
+            {{ gameName }} ({{ note.length }})
+          </strong>
 
-            <small v-if="gameName" class="ml-2">
-              {{ gameName }}
-            </small>
-          </div>
-
-          <b-alert show variant="warning" class="m-0">
-            <vue-markdown :source="note" />
-          </b-alert>
-        </div>
+          <vue-markdown :source="note" />
+        </b-alert>
       </div>
     </template>
   </div>
@@ -107,6 +102,18 @@ export default {
   },
 
   methods: {
+    getNoteHeight(noteLength) {
+      if (noteLength < 50) {
+        return 100;
+      }
+
+      if (noteLength < 200) {
+        return 300;
+      }
+
+      return 200;
+    },
+
     async loadGames() {
       const gamesList = Object.keys(this.notes).length
         ? Object.keys(this.notes).toString()
@@ -147,24 +154,16 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
 
 .notes {
-  column-count: 4;
-  column-gap: .5rem;
-
-  @media(max-width: 1024px) {
-    column-count: 2;
-  }
-
-  @media(max-width: 720px) {
-    column-count: 1;
-  }
+  column-width: 320px;
+  column-gap: 15px;
+  column-fill: auto;
 }
 
-// .note {
-//   // background-color: #eee;
-//   display: inline-block;
-//   width: 100%;
-// }
-
+.note {
+  -webkit-transform: translateX(0);
+  -moz-transform: translateX(0);
+  transform: translateX(0);
+}
 </style>
 
 <style lang="scss" rel="stylesheet/scss">
