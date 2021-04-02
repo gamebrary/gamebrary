@@ -38,6 +38,13 @@
               <span>Upload</span>
             </template>
           </b-button>
+
+          <b-button
+            variant="warning"
+            class="ml-2"
+          >
+            Toggle View
+          </b-button>
         </div>
       </portal>
 

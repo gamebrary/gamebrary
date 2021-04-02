@@ -25,6 +25,13 @@
           <i class="fas fa-pencil-alt fa-fw" aria-hidden />
           Edit board
         </b-button>
+
+        <b-button
+          variant="warning"
+        >
+          <i class="fas fa-filter fa-fw" aria-hidden />
+          Filter
+        </b-button>
       </portal>
 
       <div
