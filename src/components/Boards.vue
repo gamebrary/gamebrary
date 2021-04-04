@@ -1,8 +1,8 @@
 <template lang="html">
   <div class="mx-2 mb-2" v-if="user">
-    <pre>[ADD ISOTOPE LAYOUT]</pre>
-    <pre>[ALLOW REORGANIZING AND SAVE]</pre>
-    <pre>[SHOW PUBLIC BOARDS]</pre>
+    <!-- TODO: add isotope layout -->
+    <!-- TODO: allow reorganizing and save -->
+    <!-- TODO: show public boards -->
     <div v-if="showPlaceholder" class="boards">
       <b-card
         v-for="n in 3"

@@ -39,12 +39,12 @@
             </template>
           </b-button>
 
-          <b-button
+          <!-- <b-button
             variant="warning"
             class="ml-2"
           >
             Toggle View
-          </b-button>
+          </b-button> -->
         </div>
       </portal>
 

@@ -1,4 +1,3 @@
-<!-- TODO: create add a note modal -->
 <!-- TODO: pagination? -->
 <!-- TODO: open notes from game modal on click? -->
 <template lang="html">
@@ -12,9 +11,10 @@
           v-model="search"
         />
 
-        <b-button variant="warning" class="ml-2" style="width: 120px;">
+        <!-- TODO: create add a note modal -->
+        <!-- <b-button variant="warning" class="ml-2" style="width: 120px;">
           Add note
-        </b-button>
+        </b-button> -->
       </div>
     </portal>
 

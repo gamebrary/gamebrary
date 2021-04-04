@@ -26,12 +26,13 @@
           Edit board
         </b-button>
 
-        <b-button
+        <!-- TODO: add board filtering -->
+        <!-- <b-button
           variant="warning"
         >
           <i class="fas fa-filter fa-fw" aria-hidden />
           Filter
-        </b-button>
+        </b-button> -->
       </portal>
 
       <div
