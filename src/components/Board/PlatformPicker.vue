@@ -28,7 +28,7 @@
         @click="handleClick(platform.id)"
       >
         <b-img
-          :src="`/static/platform-logos/${platform.slug}.${platform.logoFormat}`"
+          :src="`/static/logos/platforms/${platform.slug}.${platform.logoFormat}`"
           :alt="platform.name"
           width="60"
           thumbnail

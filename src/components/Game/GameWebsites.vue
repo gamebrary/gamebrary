@@ -11,19 +11,17 @@
         class="text-left p-1 m-0"
         variant="light"
       >
-        <template v-if="icon">
-          <i
-            :class="`${icon} fa-fw`"
-            aria-hidden
-          />
-
-        </template>
+        <i
+          v-if="icon"
+          :class="`${icon} fa-fw`"
+          aria-hidden
+        />
 
         <b-img
           v-else-if="svg"
           width="24"
           class="mr-1"
-          :src="`/static/company-logos/${id}.svg`"
+          :src="`/static/logos/companies/${id}.svg`"
         />
 
         <small>{{ $t(`board.gameModal.links.${id}`) }}</small>

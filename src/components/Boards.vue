@@ -132,7 +132,7 @@ export default {
       const { platformNames } = this;
 
       return id && platformNames && platformNames[id] && platformNames[id].logoFormat
-        ? `/static/platform-logos/${platformNames[id].slug}.${platformNames[id].logoFormat}`
+        ? `/static/logos/platforms/${platformNames[id].slug}.${platformNames[id].logoFormat}`
         : '';
     },
 
