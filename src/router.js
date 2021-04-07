@@ -127,6 +127,13 @@ export default new Router({
       meta: {
         title: 'Auth',
       },
+      children: [
+        {
+          name: 'auth-provider',
+          path: ':provider',
+          component: Auth,
+        },
+      ],
     },
     {
       path: '/board/:id',

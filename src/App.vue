@@ -84,7 +84,8 @@ export default {
 
       if (this.user) {
         this.load();
-      } else if (this.$route.name !== 'auth') {
+      } else if (this.$route.name !== 'auth' && !this.$route.params.providerId) {
+        // TODO: null check ^
         this.$router.replace({ name: 'auth' });
       }
     },
@@ -115,6 +116,7 @@ export default {
     height: calc(100vh - 54px);
 
     &.authorizing {
+      height: 100vh;
       width: 100%;
       left: 0;
     }
