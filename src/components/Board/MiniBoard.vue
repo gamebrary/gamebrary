@@ -1,7 +1,8 @@
 <template lang="html">
   <div
-    class="mini-board p-1 rounded"
+    class="mini-board p-1 rounded cursor-pointer"
     :style="miniBoardStyles"
+    @click="$emit('view-board', board.id)"
   >
     <small :class="{ 'has-background' : miniBoardStyles }">
       <i
@@ -17,24 +18,23 @@
       </template>
     </small>
 
+    <slot />
+
     <div class="lists rounded overflow-hidden">
       <div
         v-for="list in board.lists"
         :key="list.name"
         class="rounded overflow-hidden list"
       >
-        <div v-if="list.games.length" :title="list.name">
+        <template v-if="list.games.length">
           <div
-            v-for="game in list.games"
+            v-for="(game, index) in list.games"
             :key="game"
-            class="bg-light border-bottom"
+            :class="['bg-light border-bottom ', { 'rounded-bottom': index === list.games.length - 1 }]"
           >
-            <i
-              class="fas fa-ellipsis-h text-secondary ml-1"
-              aria-hidden
-            />
+            <i class="fas fa-square fa-fw text-muted" style="margin-left: 1px;" aria-hidden />
           </div>
-        </div>
+        </template>
 
         <div
           v-else
@@ -73,13 +73,16 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-$boardHeight: 180px;
+$boardHeight: 216px;
+$boardWidth: 374.5px;
 
 .mini-board {
   background-repeat: no-repeat;
   background-size: cover;
   background-color: #ccc;
   height: $boardHeight;
+  width: $boardWidth;
+  max-width: 100%;
 
   .has-background {
     text-shadow: 1px 1px black;

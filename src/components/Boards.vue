@@ -1,18 +1,7 @@
 <template lang="html">
   <div class="mx-2 mb-2" v-if="user">
-    <!-- TODO: add isotope layout -->
     <!-- TODO: allow reorganizing and save -->
     <!-- TODO: show public boards -->
-    <div v-if="showPlaceholder" class="boards">
-      <b-card
-        v-for="n in 3"
-        :key="n"
-        no-body
-        class="mb-3 p-1 mt-3"
-      >
-        <b-skeleton-img />
-      </b-card>
-    </div>
 
     <empty-state
       v-if="!loading && sortedBoards.length === 0"
@@ -36,33 +25,41 @@
       </b-button>
     </portal>
 
-    <div class="boards">
-      <b-card
+    <div class="packery-grid">
+      <div v-if="showPlaceholder">
+        Loading
+      </div>
+      <!-- <div v-if="">
+        <b-card
+          v-for="n in 3"
+          :key="n"
+          no-body
+          class="mb-3 p-1 mt-3"
+        >
+          <b-skeleton-img />
+        </b-card>
+      </div> -->
+
+      <mini-board
         v-for="board in sortedBoards"
         :key="board.id"
-        no-body
-        :bg-variant="darkTheme ? 'dark' : null"
-        :text-variant="darkTheme ?  'white' : null"
-        class="overflow-hidden clickable position-relative"
-        @click="viewBoard(board.id)"
+        :board="board"
+        :background-image="getWallpaperUrl(board.backgroundUrl)"
+        class="p-relative"
+        @view-board="viewBoard(board.id)"
       >
-        <mini-board
-          :board="board"
-          :background-image="getWallpaperUrl(board.backgroundUrl)"
-        />
-
         <b-button
           class="position-absolute edit-board-button"
-          :variant="darkTheme ?  'info' : 'light'"
+          :variant="darkTheme ?  'info' : 'outline-light'"
           size="sm"
           @click.stop="editBoard(board)"
         >
-          <i class="fas fa-edit fa-fw" aria-hidden />
+          <i class="fas fa-pencil-alt fa-fw" aria-hidden />
         </b-button>
-      </b-card>
-
-      <edit-board-modal />
+      </mini-board>
     </div>
+
+    <edit-board-modal />
   </div>
 </template>
 
@@ -70,6 +67,7 @@
 import MiniBoard from '@/components/Board/MiniBoard';
 import EditBoardModal from '@/components/Board/EditBoardModal';
 import EmptyState from '@/components/EmptyState';
+import Packery from 'packery';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
@@ -82,6 +80,7 @@ export default {
   data() {
     return {
       loading: false,
+      packery: null,
     };
   },
 
@@ -104,6 +103,7 @@ export default {
 
   methods: {
     load() {
+      this.renderGrid();
       this.loadPlatforms();
     },
 
@@ -155,6 +155,13 @@ export default {
         });
 
       this.loading = false;
+      this.renderGrid();
+    },
+
+    renderGrid() {
+      this.packery = this.showPlaceholder && this.user
+        ? null
+        : new Packery('.packery-grid', { itemSelector: '.mini-board', gutter: 8 });
     },
 
     viewBoard(id) {
@@ -179,14 +186,8 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-.boards {
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fit, 320px);
-}
-
 .edit-board-button {
   right: .5rem;
-  bottom: .5rem;
+  top: .5rem;
 }
 </style>

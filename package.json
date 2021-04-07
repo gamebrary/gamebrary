@@ -28,6 +28,7 @@
         "lodash.orderby": "^4.6.0",
         "lodash.sortby": "^4.7.0",
         "node-sass": "^4.8.3",
+        "packery": "^2.1.2",
         "portal-vue": "^2.1.7",
         "raven-js": "^3.27.0",
         "sass-loader": "^7.0.1",
