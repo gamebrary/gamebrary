@@ -11,6 +11,7 @@
     <template v-slot:modal-header="{ close }">
       <modal-header
         title="Edit board"
+        :subtitle="board.name"
         @close="close"
       >
         <b-button
