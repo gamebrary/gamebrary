@@ -27,7 +27,7 @@ export default {
       settingsSections: [
         {
           name: 'preferences',
-          title: 'Settings',
+          title: 'General',
           icon: 'fas fa-sliders-h',
         },
         {
