@@ -30,7 +30,8 @@
           <div
             v-for="(game, index) in list.games"
             :key="game"
-            :class="['bg-light border-bottom ', { 'rounded-bottom': index === list.games.length - 1 }]"
+            :class="['bg-light border-bottom ',
+              { 'rounded-bottom': index === list.games.length - 1 }]"
           >
             <i class="fas fa-square fa-fw text-muted" style="margin-left: 1px;" aria-hidden />
           </div>
