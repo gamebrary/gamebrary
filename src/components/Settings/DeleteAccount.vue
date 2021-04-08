@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-button variant="danger" v-b-modal:account-settings>
+  <b-button variant="outline-danger" size="sm" v-b-modal:account-settings>
     Delete Account
 
     <b-modal
