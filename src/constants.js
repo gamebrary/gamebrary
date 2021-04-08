@@ -11,6 +11,12 @@ export const PLATFORM_CATEGORIES = {
   6: 'computer',
 };
 
+export const AUTH_PROVIDERS = {
+  'google.com': { name: 'Google', id: 'google' },
+  'twitter.com': { name: 'Twitter', id: 'twitter' },
+  password: { name: 'Gamebrary (Email)', id: 'gamebrary' },
+};
+
 export const FIREBASE_CONFIG = {
   apiKey: 'AIzaSyA6MsmnLtqT4b11r-j15wwreRypO3AodcA',
   authDomain: 'gamebrary.com',
