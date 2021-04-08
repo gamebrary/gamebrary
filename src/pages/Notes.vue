@@ -5,6 +5,7 @@
     <portal to="dock">
       <div class="d-flex">
         <b-form-input
+          v-if="!showEmptyState"
           type="search"
           style="max-width: 200px"
           placeholder="Search notes"
