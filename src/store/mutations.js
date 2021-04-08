@@ -146,6 +146,8 @@ export default {
   },
 
   SET_USER(state, data) {
+    const [{ providerId }] = data.providerData;
+
     state.user = {
       lastLogin: data.metadata.lastSignInTime,
       uid: data.uid,
@@ -154,6 +156,7 @@ export default {
       emailVerified: data.emailVerified,
       dateJoined: data.metadata.creationTime,
       photoURL: data.photoURL,
+      providerId,
     };
   },
 

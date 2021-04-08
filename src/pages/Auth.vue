@@ -24,23 +24,7 @@
 
         <h1 class="lead my-3">Welcome to Gamebrary!</h1>
 
-        <b-button
-          v-for="provider in AUTH_PROVIDERS"
-          variant="light"
-          block
-          :to="{ name: 'auth-provider', params: { provider }}"
-          :key="`provider-${provider}`"
-        >
-          <img
-            :src="`static/logos/companies/${provider}.svg`"
-            alt="Google"
-            height="26"
-          />
-
-          <span class="text-capitalize">Login with {{ provider }}</span>
-        </b-button>
-
-        <p class="mt-3 small">More providers coming soon...</p>
+        <section id="auth" />
       </div>
     </div>
   </div>
@@ -49,20 +33,15 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import firebase from 'firebase/app';
-import { AUTH_PROVIDERS } from '@/constants';
+import * as firebaseui from 'firebaseui';
+import 'firebaseui/dist/firebaseui.css';
 import 'firebase/auth';
 
 const db = firebase.firestore();
 
 export default {
-  data() {
-    return {
-      AUTH_PROVIDERS,
-    };
-  },
-
   computed: {
-    ...mapState(['user']),
+    ...mapState(['user', 'sessionExpired']),
     ...mapGetters(['darkTheme']),
 
     provider() {
@@ -70,74 +49,54 @@ export default {
     },
   },
 
-  watch: {
-    provider(value) {
-      if (value) {
-        this.redirect(value);
-      }
-    },
-  },
-
   mounted() {
     if (this.user && this.user.uid) {
       this.$router.replace({ name: 'dashboard' });
     } else {
-      this.checkAuthRedirectResult();
+      this.startAuthUI();
     }
   },
 
   methods: {
-    checkAuthRedirectResult() {
-      firebase.auth().getRedirectResult()
-        .then(({ additionalUserInfo, user }) => {
-          if (additionalUserInfo && additionalUserInfo.isNewUser) {
-            this.$store.dispatch('SEND_WELCOME_EMAIL', additionalUserInfo);
-          }
+    startAuthUI() {
+      const vm = this;
+      const authUI = new firebaseui.auth.AuthUI(firebase.auth());
 
-          // console.log(additionalUserInfo);
-          // console.log('save this?');
+      authUI.start('#auth', {
+        callbacks: {
+          signInSuccessWithAuthResult(authResult) {
+            vm.signInSuccess(authResult);
 
-          if (user) {
-            this.initUser(user);
-          } else {
-            this.redirect(additionalUserInfo.providerId);
-          }
-        }).catch(() => {});
+            return false;
+          },
+          signInFailure(message) {
+            vm.$bvToast.toast(message, { title: 'Error', variant: 'danger' });
+          },
+        },
+        signInOptions: [
+          firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+          firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+          firebase.auth.EmailAuthProvider.PROVIDER_ID,
+          // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+          // firebase.auth.GithubAuthProvider.PROVIDER_ID,
+        ],
+        tosUrl: 'https://gamebrary.com/terms/',
+        privacyPolicyUrl: 'https://gamebrary.com/privacy-policy/',
+      });
     },
 
-    redirect(provider) {
-      switch (provider) {
-      case 'google': this.loginWithGoogle(); break;
-      // case 'github': this.loginWithGithub(); break;
-      default: this.$router.replace({ name: 'auth' }); break;
+    signInSuccess({ additionalUserInfo, user }) {
+      if (additionalUserInfo && additionalUserInfo.isNewUser) {
+        this.$store.dispatch('SEND_WELCOME_EMAIL', additionalUserInfo);
       }
-    },
 
-    initUser(user) {
-      this.$store.commit('SET_SESSION_EXPIRED', false);
+      if (this.sessionExpired) {
+        this.$store.commit('SET_SESSION_EXPIRED', false);
+      }
+
       this.$store.commit('SET_USER', user);
-      this.$store.dispatch('LOAD_SETTINGS');
-      this.$store.dispatch('LOAD_TAGS');
-      this.load();
       this.$router.replace({ name: 'dashboard' });
-    },
-
-    loginWithGoogle() {
-      const firebaseAuthProvider = new firebase.auth.GoogleAuthProvider();
-
-      firebase.auth().signInWithRedirect(firebaseAuthProvider)
-        .catch((message) => {
-          this.$bvToast.toast(message, { title: 'Error', variant: 'danger' });
-        });
-    },
-
-    loginWithGithub() {
-      const firebaseAuthProvider = new firebase.auth.GithubAuthProvider();
-
-      firebase.auth().signInWithRedirect(firebaseAuthProvider)
-        .catch((message) => {
-          this.$bvToast.toast(message, { title: 'Error', variant: 'danger' });
-        });
+      this.load();
     },
 
     loadWallpapers() {
@@ -150,6 +109,7 @@ export default {
     load() {
       this.$store.dispatch('LOAD_RELEASES')
         .then((releases) => {
+          // TODO: move this logic to the action
           const [latestRelease] = releases;
 
           const latestReleaseVersion = latestRelease && latestRelease.tag_name;
@@ -163,8 +123,7 @@ export default {
 
       this.loadWallpapers();
 
-      // TODO: track progresses as well
-      // TODO: move to actions
+      // TODO: move all to actions, consider making live update optional? if it gets expensive $$$
       db.collection('settings').doc(this.user.uid)
         .onSnapshot((doc) => {
           if (doc.exists) {
@@ -174,7 +133,6 @@ export default {
           }
         });
 
-      // TODO: move to actions
       db.collection('tags').doc(this.user.uid)
         .onSnapshot((doc) => {
           if (doc.exists) {
@@ -184,7 +142,6 @@ export default {
           }
         });
 
-      // TODO: move to actions
       db.collection('notes').doc(this.user.uid)
         .onSnapshot((doc) => {
           if (doc.exists) {
@@ -194,7 +151,6 @@ export default {
           }
         });
 
-      // TODO: move to actions
       db.collection('progresses').doc(this.user.uid)
         .onSnapshot((doc) => {
           if (doc.exists) {

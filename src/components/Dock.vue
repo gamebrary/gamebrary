@@ -80,6 +80,7 @@
       <portal-target name="dock" />
 
       <b-dropdown
+        v-if="user"
         right
         no-caret
         :variant="darkTheme ? 'dark' : 'light'"
@@ -88,10 +89,10 @@
       >
         <template #button-content>
           <b-avatar
-            v-if="user && user.photoURL"
             rounded
             size="38"
-            :src="user.photoURL"
+            :text="user.photoURL ? user.displayName : null"
+            :src="user.photoURL ? user.photoURL : null"
           />
         </template>
 
