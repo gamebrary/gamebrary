@@ -4,30 +4,35 @@
 <!-- TODO: Profile public page -->
 <template lang="html">
   <b-container>
-    <h1>{{ profile.name }}</h1>
-    <p class="lead">{{ profile.bio }}</p>
-    <pre>gamebrary.com/{{ profile.userName }}</pre>
-
     <empty-state
-      title="Profile"
-      message="Create a public profile now!"
-      action-text="Get Started!"
+      title="Profiles"
+      message="Share boards with other users, get your own shareable URL, and more!"
+      action-text="Create profile"
       @action="createProfile"
-    />
+    >
+    </empty-state>
 
     <b-button :to="{ name: 'edit-profile' }">
       Edit
     </b-button>
 
+    <div>
+      <b-alert show variant="warning">
+        Profiles are public. Boards can be public or private.
+      </b-alert>
+
+      create form here
+    </div>
+
     <!-- <p><b-badge>{{ profile.followers.length }}</b-badge> Followers</p> -->
     <!-- <p><b-badge>{{ profile.following.length }}</b-badge> Followers</p> -->
 
-    <a :href="profile.website" target="_blank">Website</a>
+    <!-- <a :href="profile.website" target="_blank">Website</a> -->
 
-    <b-button :href="profile.twitter" target="_blank">
+    <!-- <b-button :href="profile.twitter" target="_blank">
       <i class="fab fa-twitter fa-fw" aria-hidden />
     </b-button>
-    <pre>{{ profile }}</pre>
+    <pre>{{ profile }}</pre> -->
   </b-container>
 </template>
 
@@ -42,12 +47,11 @@ export default {
 
   computed: {
     ...mapGetters(['darkTheme']),
-    ...mapState(['profile']),
+    ...mapState(['profile', 'boards']),
   },
 
   methods: {
     createProfile() {
-      // console.log('boom');
     },
   },
 };
