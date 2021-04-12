@@ -18,6 +18,7 @@
 
     <portal to="dock">
       <b-button
+        v-if="!showPlaceholder"
         variant="primary"
         v-b-modal:create-board
       >
