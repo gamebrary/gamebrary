@@ -91,7 +91,6 @@
           <b-avatar
             rounded
             size="38"
-            :text="user.photoURL ? user.displayName : null"
             :src="user.photoURL ? user.photoURL : null"
           />
         </template>
@@ -108,9 +107,10 @@
           Releases
         </b-dropdown-item>
 
-        <!-- <b-dropdown-item :to="{ name: 'profile' }">
-          <i class="fas fa-user fa-fw" aria-hidden /> Profile
-        </b-dropdown-item> -->
+        <b-dropdown-item :to="{ name: 'profile' }">
+          <i class="fas fa-user fa-fw" aria-hidden />
+          Profile
+        </b-dropdown-item>
 
         <b-dropdown-item
           :variant="darkTheme ? 'primary' : ''"
