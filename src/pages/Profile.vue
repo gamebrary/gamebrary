@@ -1,57 +1,136 @@
-<!-- TODO: create profile modal -->
-<!-- TODO: load profile on initial load -->
-<!-- TODO: Profile in settings  -->
-<!-- TODO: Profile public page -->
 <template lang="html">
   <b-container>
+    <div v-if="loading">
+
+    </div>
+
     <empty-state
+      v-else-if="isEmpty"
       title="Profiles"
       message="Share boards with other users, get your own shareable URL, and more!"
       action-text="Create profile"
-      @action="createProfile"
     >
+      <b-input />
     </empty-state>
 
-    <b-button :to="{ name: 'edit-profile' }">
-      Edit
-    </b-button>
+    <div v-else>
+      <profile />
 
-    <div>
-      <b-alert show variant="warning">
-        Profiles are public. Boards can be public or private.
-      </b-alert>
-
-      create form here
+      <b-button variant="danger" @click="deleteProfile">
+        Delete profile
+      </b-button>
     </div>
+    <!-- @action="createProfile" -->
 
-    <!-- <p><b-badge>{{ profile.followers.length }}</b-badge> Followers</p> -->
-    <!-- <p><b-badge>{{ profile.following.length }}</b-badge> Followers</p> -->
-
-    <!-- <a :href="profile.website" target="_blank">Website</a> -->
-
-    <!-- <b-button :href="profile.twitter" target="_blank">
-      <i class="fab fa-twitter fa-fw" aria-hidden />
+    <!-- <h1>Edit profile</h1>
+    <b-button @click="checkUserNameAvailability">
+      Check availability
     </b-button>
-    <pre>{{ profile }}</pre> -->
+
+    <b-form-group
+      label="Pick a user name"
+      label-for="userName"
+      valid-feedback="Available"
+      invalid-feedback="User name taken"
+      :state="available"
+    >
+      <b-form-input
+        id="userName"
+        disabled
+        v-model="profile.userName"
+        placeholder=""
+      />
+    </b-form-group>
+
+    <b-form-input
+      v-model="profile.name"
+      placeholder="name"
+    />
+
+    <b-form-input
+      v-model="profile.bio"
+      placeholder="bio"
+    />
+
+    <b-form-input
+      v-model="profile.location"
+      placeholder="location"
+    />
+
+    <b-form-input
+      v-model="profile.website"
+      placeholder="website"
+    />
+
+    <b-form-input
+      v-model="profile.twitter"
+      placeholder="twitter"
+    /> -->
   </b-container>
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
 import EmptyState from '@/components/EmptyState';
+import Profile from '@/components/Profile';
+import { mapGetters, mapState } from 'vuex';
 
 export default {
   components: {
     EmptyState,
+    Profile,
+  },
+
+  data() {
+    return {
+      saving: false,
+      loading: true,
+      available: null,
+    };
   },
 
   computed: {
     ...mapGetters(['darkTheme']),
-    ...mapState(['profile', 'boards']),
+    ...mapState(['user', 'profile']),
+
+    isEmpty() {
+      return Object.keys(this.profile).length === 0;
+    },
+  },
+
+  mounted() {
+    this.load();
   },
 
   methods: {
-    createProfile() {
+    deleteProfile() {
+      this.$store.dispatch('DELETE_PROFILE');
+    },
+
+    async load() {
+      this.loading = true;
+
+      await this.$store.dispatch('LOAD_PROFILE')
+        .catch(() => {
+          this.loading = false;
+        });
+
+      this.loading = false;
+    },
+
+    async save() {
+      this.saving = true;
+
+      await this.$store.dispatch('SAVE_PROFILE', this.profile);
+
+      this.saving = false;
+      this.$bvModal.hide('edit-profile');
+    },
+
+    checkUserNameAvailability() {
+      this.$store.dispatch('CHECK_PROFILE_USERNAME_AVAILABILITY', this.profile.userName)
+        .then((test) => {
+          this.available = test;
+        });
     },
   },
 };
@@ -59,17 +138,3 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
 </style>
-
-<!-- {
-  userName: '',
-  name: '',
-  bio: '',
-  followers: [],
-  following: [],
-  dateJoined: [],
-  profilePicture: '', // rename?
-  backdrop: '', // rename?
-  location: '',
-  website: '',
-  twitter: '',
-} -->

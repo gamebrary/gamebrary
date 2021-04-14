@@ -49,6 +49,10 @@ export default {
     state.profile = profile;
   },
 
+  REMOVE_PROFILE(state) {
+    state.profile = {};
+  },
+
   SET_PLATFORMS(state, platforms) {
     state.platforms = platforms
       .filter(({ id }) => !EXCLUDED_PLATFORMS.includes(id))

@@ -150,6 +150,42 @@ export default {
     });
   },
 
+  LOAD_PROFILE({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      const db = firebase.firestore();
+
+      db.collection('profiles')
+        .doc(state.user.uid)
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            const profile = doc.data();
+
+            commit('SET_PROFILE', profile);
+            resolve();
+          } else {
+            reject();
+          }
+        })
+        .catch(reject);
+    });
+  },
+
+  DELETE_PROFILE({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      const db = firebase.firestore();
+
+      db.collection('profiles')
+        .doc(state.user.uid)
+        .delete()
+        .then(() => {
+          commit('REMOVE_PROFILE');
+          resolve();
+        })
+        .catch(reject);
+    });
+  },
+
   SAVE_PROFILE({ commit, state }, profile) {
     const db = firebase.firestore();
 
