@@ -74,6 +74,10 @@
             >
             </b-button> -->
       </b-dropdown>
+
+      <span v-else>
+        {{ board.name }}
+      </span>
     </div>
 
     <div class="d-flex">
@@ -148,14 +152,14 @@ export default {
 
   computed: {
     ...mapState(['board', 'boards', 'notification', 'user', 'wallpapers']),
-    ...mapGetters(['darkTheme']),
+    ...mapGetters(['darkTheme', 'isBoardOwner']),
 
     isBoard() {
       return ['public-board', 'board'].includes(this.$route.name);
     },
 
     showBoardsDropdown() {
-      return this.isBoard && Object.keys(this.board).length > 1;
+      return this.isBoard && this.isBoardOwner;
     },
 
     pageTitle() {

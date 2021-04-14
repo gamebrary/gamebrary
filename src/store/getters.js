@@ -14,6 +14,13 @@ export default {
       : '/static/no-image.jpg';
   },
 
+  isBoardOwner: ({ board, user }) => {
+    const boardOwner = board && board.owner;
+    const userId = user && user.uid;
+
+    return boardOwner === userId;
+  },
+
   platformNames: (state) => {
     const formattedPlatforms = {};
 

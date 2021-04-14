@@ -19,6 +19,7 @@
 
       <portal to="dock">
         <b-button
+          v-if="isBoardOwner"
           :variant="darkTheme ? 'dark' : 'light'"
           v-b-modal:edit-board
         >
@@ -92,7 +93,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'dragging', 'board', 'wallpapers']),
-    ...mapGetters(['darkTheme']),
+    ...mapGetters(['isBoardOwner', 'darkTheme']),
 
     isPublicRoute() {
       // OPTIMIZE: use optional chaining
