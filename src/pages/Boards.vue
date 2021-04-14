@@ -17,7 +17,7 @@
 
     <portal to="dock">
       <b-button
-        v-if="!showPlaceholder"
+        v-if="showCreateBoard"
         variant="primary"
         v-b-modal:create-board
       >
@@ -109,6 +109,10 @@ export default {
 
     showPlaceholder() {
       return this.loading && Object.keys(this.boards).length === 0;
+    },
+
+    showCreateBoard() {
+      return !this.loading && Object.keys(this.boards).length;
     },
 
     allBoards() {
