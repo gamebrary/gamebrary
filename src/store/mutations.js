@@ -200,7 +200,6 @@ export default {
     state.notes = {};
     state.progresses = {};
     state.dragging = false;
-    state.gameLists = {};
     state.settings = null;
     state.platform = null;
     state.platforms = [];

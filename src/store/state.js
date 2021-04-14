@@ -6,7 +6,6 @@ export default {
   releases: [],
   progresses: {},
   dragging: false,
-  gameLists: {},
   settings: {},
   results: [], // TODO: remove from store
   games: {},

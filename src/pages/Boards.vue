@@ -104,12 +104,8 @@ export default {
   },
 
   computed: {
-    ...mapState(['publicBoards', 'user', 'boards', 'wallpapers', 'gameLists']),
+    ...mapState(['publicBoards', 'user', 'boards', 'wallpapers']),
     ...mapGetters(['isBoardOwner', 'platformNames', 'sortedBoards', 'darkTheme']),
-
-    hasLists() {
-      return Object.keys(this.gameLists).length > 0;
-    },
 
     showPlaceholder() {
       return this.loading && Object.keys(this.boards).length === 0;
