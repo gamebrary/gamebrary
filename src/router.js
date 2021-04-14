@@ -8,7 +8,7 @@ import Tags from '@/pages/Tags';
 import Notes from '@/pages/Notes';
 import Releases from '@/pages/Releases';
 import Auth from '@/pages/Auth';
-import Boards from '@/components/Boards';
+import Boards from '@/pages/Boards';
 import Settings from '@/pages/Settings';
 import Upgrade from '@/pages/Upgrade';
 import Profile from '@/pages/Profile';

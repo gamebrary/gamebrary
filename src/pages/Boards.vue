@@ -2,7 +2,6 @@
   <div class="mx-2 mb-2" v-if="user">
     <!-- TODO: allow reorganizing and save -->
     <!-- TODO: show public boards -->
-
     <empty-state
       v-if="!loading && sortedBoards.length === 0"
       title="Boards"
@@ -58,6 +57,25 @@
           <i class="fas fa-pencil-alt fa-fw" aria-hidden />
         </b-button>
       </mini-board>
+
+      <!-- TODO: show public boards -->
+      <!-- <mini-board
+        v-for="board in publicBoards"
+        :key="board.id"
+        :board="board"
+        :background-image="getWallpaperUrl(board.backgroundUrl)"
+        class="p-relative"
+        @view-board="viewPublicBoard(board.id)"
+      >
+        <b-button
+          class="position-absolute edit-board-button"
+          :variant="darkTheme ?  'info' : 'outline-light'"
+          size="sm"
+          @click.stop="editBoard(board)"
+        >
+          <i class="fas fa-pencil-alt fa-fw" aria-hidden />
+        </b-button>
+      </mini-board> -->
     </div>
 
     <edit-board-modal />
@@ -86,8 +104,8 @@ export default {
   },
 
   computed: {
-    ...mapState(['user', 'boards', 'wallpapers', 'gameLists']),
-    ...mapGetters(['platformNames', 'sortedBoards', 'darkTheme']),
+    ...mapState(['publicBoards', 'user', 'boards', 'wallpapers', 'gameLists']),
+    ...mapGetters(['isBoardOwner', 'platformNames', 'sortedBoards', 'darkTheme']),
 
     hasLists() {
       return Object.keys(this.gameLists).length > 0;
@@ -95,6 +113,14 @@ export default {
 
     showPlaceholder() {
       return this.loading && Object.keys(this.boards).length === 0;
+    },
+
+    allBoards() {
+      // return this.publicBoards
+      return [
+        ...this.sortedBoards,
+        ...this.publicBoards,
+      ];
     },
   },
 
@@ -144,6 +170,8 @@ export default {
         });
 
       this.loadBoards();
+
+      this.$store.dispatch('LOAD_PUBIC_BOARDS');
     },
 
     async loadBoards() {
@@ -167,6 +195,10 @@ export default {
 
     viewBoard(id) {
       this.$router.push({ name: 'board', params: { id } });
+    },
+
+    viewPublicBoard(id) {
+      this.$router.push({ name: 'public-board', params: { id } });
     },
 
     async deleteBoard(id) {
