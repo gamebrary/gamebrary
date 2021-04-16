@@ -149,7 +149,7 @@ export default new Router({
       },
     },
     {
-      path: '*',
+      path: '/:userName',
       name: 'public-profile',
       component: PublicProfile,
     },
