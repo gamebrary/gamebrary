@@ -1,6 +1,9 @@
 <template lang="html">
   <b-container>
     gamebrary.com/{{profile.userName}}
+    <b-button variant="danger" @click="deleteProfile">
+      Delete profile
+    </b-button>
 
     <!-- @action="createProfile" -->
 
@@ -58,6 +61,11 @@ export default {
   computed: {
     ...mapGetters(['darkTheme']),
     ...mapState(['profile']),
+  },
+  methods: {
+    deleteProfile() {
+      this.$store.dispatch('DELETE_PROFILE');
+    },
   },
 };
 </script>

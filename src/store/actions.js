@@ -171,6 +171,8 @@ export default {
     });
   },
 
+  // TODO: add LOAD_PUBLIC_PROFILE
+
   DELETE_PROFILE({ commit, state }) {
     return new Promise((resolve, reject) => {
       const db = firebase.firestore();

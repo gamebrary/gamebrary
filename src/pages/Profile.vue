@@ -8,18 +8,11 @@
       v-else-if="isEmpty"
       title="Profiles"
       message="Share boards with other users, get your own shareable URL, and more!"
-      action-text="Create profile"
     >
-      <b-input />
+      <profile-name-check-field />
     </empty-state>
 
-    <div v-else>
-      <profile />
-
-      <b-button variant="danger" @click="deleteProfile">
-        Delete profile
-      </b-button>
-    </div>
+    <profile v-else />
     <!-- @action="createProfile" -->
 
     <!-- <h1>Edit profile</h1>
@@ -71,12 +64,14 @@
 
 <script>
 import EmptyState from '@/components/EmptyState';
+import ProfileNameCheckField from '@/components/Profile/ProfileNameCheckField';
 import Profile from '@/components/Profile';
 import { mapGetters, mapState } from 'vuex';
 
 export default {
   components: {
     EmptyState,
+    ProfileNameCheckField,
     Profile,
   },
 
@@ -102,10 +97,6 @@ export default {
   },
 
   methods: {
-    deleteProfile() {
-      this.$store.dispatch('DELETE_PROFILE');
-    },
-
     async load() {
       this.loading = true;
 
