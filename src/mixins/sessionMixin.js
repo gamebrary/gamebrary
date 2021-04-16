@@ -8,12 +8,6 @@ export default {
         ? 'http://localhost:3000'
         : 'https://gamebrary.com';
     },
-
-    session_authUrl() {
-      return process.env.NODE_ENV === 'development'
-        ? 'http://localhost:4000'
-        : 'https://app.gamebrary.com';
-    },
   },
 
   methods: {
@@ -21,11 +15,16 @@ export default {
       firebase.auth().signOut()
         .then(() => {
           this.$store.commit('CLEAR_SESSION');
-          window.location.href = this.session_publicSiteUrl;
+          this.$router.replace({ name: 'auth' });
         })
         .catch((error) => {
           this.$bvToast.toast(error, { title: 'Error', variant: 'danger' });
         });
+    },
+
+    session_handleExpiredSession() {
+      this.$store.commit('CLEAR_SESSION');
+      this.$router.replace({ name: 'auth' });
     },
   },
 };

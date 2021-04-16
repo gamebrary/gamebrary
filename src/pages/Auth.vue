@@ -4,12 +4,18 @@
     <h1 class="lead my-3">Welcome to Gamebrary!</h1>
 
     <b-alert
+      v-if="showExpiredAlert"
       variant="warning"
       class="my-2 px-4"
-      :show="showExpiredAlert"
+      show
     >
       Your session expired!
     </b-alert>
+
+    <b-spinner
+      v-if="loading"
+      label="Spinning"
+    />
 
     <section id="auth" />
   </div>
@@ -29,6 +35,7 @@ export default {
   data() {
     return {
       showExpiredAlert: false,
+      loading: false,
     };
   },
   computed: {
@@ -36,19 +43,25 @@ export default {
   },
 
   mounted() {
-    if (this.sessionExpired) {
-      this.showExpiredAlert = true;
-      this.$store.commit('SET_SESSION_EXPIRED', false);
-    }
-
-    if (this.user && this.user.uid) {
-      this.$router.replace({ name: 'dashboard' });
-    } else {
-      this.startAuthUI();
-    }
+    this.init();
   },
 
   methods: {
+    init() {
+      this.loading = authUI.isPendingRedirect();
+
+      if (this.sessionExpired) {
+        this.showExpiredAlert = true;
+        this.$store.commit('SET_SESSION_EXPIRED', false);
+      }
+
+      if (this.user && this.user.uid) {
+        this.$router.replace({ name: 'dashboard' });
+      } else {
+        this.startAuthUI();
+      }
+    },
+
     startAuthUI() {
       const vm = this;
 
@@ -80,6 +93,8 @@ export default {
     },
 
     signInSuccess({ additionalUserInfo, user }) {
+      this.loading = true;
+
       if (additionalUserInfo && additionalUserInfo.isNewUser) {
         this.$store.dispatch('SEND_WELCOME_EMAIL', additionalUserInfo);
       }

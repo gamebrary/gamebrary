@@ -135,7 +135,7 @@ export default {
   mixins: [sessionMixin],
 
   computed: {
-    ...mapState(['board', 'boards', 'notification', 'user', 'wallpapers']),
+    ...mapState(['board', 'boards', 'notification', 'user', 'wallpapers', 'sessionExpired']),
     ...mapGetters(['isBoardOwner']),
 
     isBoard() {

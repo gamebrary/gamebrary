@@ -22,6 +22,7 @@
 <script>
 import Dock from '@/components/Dock';
 import GlobalModals from '@/components/GlobalModals';
+import sessionMixin from '@/mixins/sessionMixin';
 import firebase from 'firebase/app';
 import { mapState } from 'vuex';
 import { KEYBOARD_SHORTCUTS, FIREBASE_CONFIG } from '@/constants';
@@ -35,6 +36,8 @@ export default {
     Dock,
     GlobalModals,
   },
+
+  mixins: [sessionMixin],
 
   data() {
     return {
@@ -62,6 +65,12 @@ export default {
 
     isBoard() {
       return ['public-board', 'board'].includes(this.$route.name);
+    },
+  },
+
+  watch: {
+    sessionExpired(expired) {
+      if (expired) this.session_handleExpiredSession();
     },
   },
 
