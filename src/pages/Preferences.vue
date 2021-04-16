@@ -25,7 +25,7 @@
 
       <b-button
         @click="session_signOut"
-        variant="outline-info"
+        variant="info"
         size="sm"
         class="my-2"
       >
