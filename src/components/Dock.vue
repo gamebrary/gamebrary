@@ -12,7 +12,7 @@
         @click="handleLogoClick"
       >
         <img
-          :src="`/static/gamebrary-logo${darkTheme || board.backgroundUrl ? '' : '-dark'}.png`"
+          src="/static/gamebrary-logo.png"
           width="32"
         />
       </b-button>
@@ -21,9 +21,8 @@
 
       <b-dropdown
         v-if="user && showBoardsDropdown"
-        :toggle-class="['p-0', { 'text-white': darkTheme || board.backgroundUrl }]"
+        toggle-class="p-0"
         variant="transparent"
-        :menu-class="darkTheme ? 'bg-dark' : ''"
         :text="board.name"
       >
         <!-- TODO: create array map with url already fetched -->
@@ -31,14 +30,12 @@
           v-for="{ id, name, backgroundColor, backgroundUrl } in boards"
           :key="id"
           :active="board.name === name"
-          :variant="darkTheme ? 'primary' : ''"
           @click.native="viewBoard(id)"
         >
           <b-avatar
             rounded
             class="board mr-2"
             :title="name"
-            :variant="darkTheme ? 'dark' : 'info'"
             text=" "
             :style="`
             ${getWallpaperUrl(backgroundUrl)}
@@ -52,7 +49,6 @@
               v-if="user"
 
               <b-button
-                :variant="darkTheme ? 'dark' : 'light'"
                 class="mt-1 d-none d-sm-inline"
                 size="sm"
                 v-b-modal:keyboard-shortcuts
@@ -68,7 +64,6 @@
 
             <!-- <b-button
               v-if="user"
-              :variant="darkTheme ? 'dark' : 'light'"
               class="mx-1 mb-1 py-0"
               size="sm"
             >
@@ -87,8 +82,6 @@
         v-if="user"
         right
         no-caret
-        :variant="darkTheme ? 'dark' : 'light'"
-        :menu-class="darkTheme ? 'bg-dark' : ''"
         toggle-class="p-0 mx-2 border-0"
       >
         <template #button-content>
@@ -103,10 +96,7 @@
           Hi, {{ user.displayName }}!
         </b-dropdown-header>
 
-        <b-dropdown-item
-          :to="{ name: 'releases' }"
-          :variant="darkTheme ? 'primary' : ''"
-        >
+        <b-dropdown-item :to="{ name: 'releases' }">
           <i class="fas fa-rocket fa-fw" aria-hidden />
           Releases
         </b-dropdown-item>
@@ -116,20 +106,14 @@
           Profile
         </b-dropdown-item>
 
-        <b-dropdown-item
-          :variant="darkTheme ? 'primary' : ''"
-          :to="{ name: 'settings' }"
-        >
+        <b-dropdown-item :to="{ name: 'settings' }">
           <i class="fas fa-cog fa-fw" aria-hidden />
           Settings
         </b-dropdown-item>
 
         <b-dropdown-divider></b-dropdown-divider>
 
-        <b-dropdown-item-button
-          :variant="darkTheme ? 'primary' : ''"
-          @click="session_signOut"
-        >
+        <b-dropdown-item-button @click="session_signOut">
           <i class="fas fa-sign-out-alt fa-fw" aria-hidden />
           {{ $t('global.signOut') }}
         </b-dropdown-item-button>
@@ -152,7 +136,7 @@ export default {
 
   computed: {
     ...mapState(['board', 'boards', 'notification', 'user', 'wallpapers']),
-    ...mapGetters(['darkTheme', 'isBoardOwner']),
+    ...mapGetters(['isBoardOwner']),
 
     isBoard() {
       return ['public-board', 'board'].includes(this.$route.name);

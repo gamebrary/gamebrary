@@ -2,7 +2,6 @@
   <div
     :class="[
       'board px-2',
-      boardClasses,
       { dragging, empty },
     ]"
     :style="boardStyles"
@@ -20,7 +19,6 @@
       <portal to="dock">
         <b-button
           v-if="isBoardOwner"
-          :variant="darkTheme ? 'dark' : 'light'"
           v-b-modal:edit-board
         >
           <i class="fas fa-pencil-alt fa-fw" aria-hidden />
@@ -41,7 +39,6 @@
         class="d-flex flex-column pr-2"
       >
         <b-button
-          :variant="darkTheme ? 'dark' : 'light'"
           class="mb-2"
           v-b-modal:add-list
         >
@@ -93,7 +90,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'dragging', 'board', 'wallpapers']),
-    ...mapGetters(['isBoardOwner', 'darkTheme']),
+    ...mapGetters(['isBoardOwner']),
 
     isPublicRoute() {
       // OPTIMIZE: use optional chaining
@@ -117,14 +114,6 @@ export default {
         : null;
 
       return [backgroundImage, backgroundColor].join('');
-    },
-
-    boardClasses() {
-      const defaultBackgroundClass = this.darkTheme ? 'bg-dark' : '';
-
-      return !this.board.backgroundColor
-        ? defaultBackgroundClass
-        : null;
     },
 
     boardId() {
@@ -258,7 +247,7 @@ export default {
 .board {
   user-select: none;
   display: flex;
-  background-color: #f0f0f0;
+  // background-color: #f0f0f0;
   background-size: cover;
   align-items: flex-start;
   height: 100vh;

@@ -4,7 +4,6 @@
       <b-button
         href="https://github.com/romancm/gamebrary"
         target="_blank"
-        :variant="darkTheme ? 'dark' : 'primary'"
       >
         <i class="fab fa-github fa-fw" aria-hidden />
         View in GitHub
@@ -14,8 +13,6 @@
     <b-card
       v-for="release in releases"
       :key="release.id"
-      :bg-variant="darkTheme ? 'dark' : null"
-      :text-variant="darkTheme ? 'white' : null"
       hide-footer
       class="mb-3"
     >
@@ -38,7 +35,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import VueMarkdown from 'vue-markdown';
 
 export default {
@@ -48,7 +45,6 @@ export default {
 
   computed: {
     ...mapState(['releases', 'notification', 'settings']),
-    ...mapGetters(['darkTheme']),
   },
 
   mounted() {

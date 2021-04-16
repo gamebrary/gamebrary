@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import orderby from 'lodash.orderby';
 
 export default {
@@ -59,7 +59,6 @@ export default {
 
   computed: {
     ...mapState(['platforms', 'settings']),
-    ...mapGetters(['darkTheme']),
 
     buttonLabel() {
       return this.value.length

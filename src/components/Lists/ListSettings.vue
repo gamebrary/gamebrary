@@ -3,8 +3,6 @@
     size="sm"
     right
     no-caret
-    :variant="darkTheme ? 'dark' : 'light'"
-    :menu-class="darkTheme ? 'bg-dark' : ''"
     toggle-class="px-2 py-1 m-1"
   >
     <template v-slot:button-content>
@@ -32,7 +30,6 @@
           v-b-tooltip.hover
           :title="$t('board.list.moveLeft')"
           :disabled="isFirst"
-          :variant="darkTheme ? 'dark' : 'light'"
           @click="moveList(listIndex, listIndex - 1)"
         >
           <i class="fas fa-angle-left fa-fw" aria-hidden />
@@ -42,7 +39,6 @@
           v-b-tooltip.hover
           :title="$t('board.list.moveRight')"
           :disabled="isLast"
-          :variant="darkTheme ? 'dark' : 'light'"
           @click="moveList(listIndex, listIndex + 1)"
         >
           <i class="fas fa-angle-right fa-fw" aria-hidden />
@@ -58,7 +54,7 @@ import RenameList from '@/components/Lists/RenameList';
 import ListPreferences from '@/components/Lists/ListPreferences';
 import SortList from '@/components/Lists/SortList';
 import AddGameModal from '@/components/Lists/AddGameModal';
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -82,7 +78,6 @@ export default {
 
   computed: {
     ...mapState(['user', 'platform', 'board']),
-    ...mapGetters(['darkTheme']),
 
     isFirst() {
       return this.listIndex === 0;
@@ -104,12 +99,6 @@ export default {
         cancelTitle: this.$t('global.cancel'),
         headerClass: 'pb-0 border-0',
         footerClass: 'pt-0 border-0',
-        headerBgVariant: this.darkTheme ? 'dark' : null,
-        headerTextVariant: this.darkTheme ? 'white' : null,
-        bodyBgVariant: this.darkTheme ? 'dark' : null,
-        bodyTextVariant: this.darkTheme ? 'white' : null,
-        footerBgVariant: this.darkTheme ? 'dark' : null,
-        footerTextVariant: this.darkTheme ? 'white' : null,
       })
         .then((value) => {
           if (value) {

@@ -1,10 +1,6 @@
 <template lang="html">
   <b-modal
     id="create-board"
-    :header-bg-variant="darkTheme ? 'dark' : null"
-    :header-text-variant="darkTheme ? 'white' : null"
-    :body-bg-variant="darkTheme ? 'dark' : null"
-    :body-text-variant="darkTheme ? 'white' : null"
     hide-footer
     scrollable
     @show="init"
@@ -114,7 +110,6 @@
 
 <script>
 import PlatformPicker from '@/components/Board/PlatformPicker';
-import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -159,7 +154,6 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['darkTheme']),
 
     modalSubtitle() {
       return this.stepTitles[this.activeStep];

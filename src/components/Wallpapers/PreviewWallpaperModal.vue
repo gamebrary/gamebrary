@@ -1,10 +1,6 @@
 <template lang="html">
   <b-modal
     id="previewWallpaper"
-    :header-bg-variant="darkTheme ? 'dark' : null"
-    :header-text-variant="darkTheme ? 'white' : null"
-    :body-bg-variant="darkTheme ? 'dark' : null"
-    :body-text-variant="darkTheme ? 'white' : null"
     hide-footer
     size="xl"
   >
@@ -32,8 +28,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
   props: {
     selectable: Boolean,
@@ -41,10 +35,6 @@ export default {
       type: [Object, Boolean],
       default: () => {},
     },
-  },
-
-  computed: {
-    ...mapGetters(['darkTheme']),
   },
 
   methods: {

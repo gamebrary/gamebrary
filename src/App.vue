@@ -2,7 +2,7 @@
   <div
     id="app"
     :dir="dir"
-    :class="{ 'bg-dark text-white': darkTheme }"
+    class="bg-dark text-white"
     v-shortkey="KEYBOARD_SHORTCUTS"
     @shortkey="handleShortcutAction"
   >
@@ -23,7 +23,7 @@
 import Dock from '@/components/Dock';
 import GlobalModals from '@/components/GlobalModals';
 import firebase from 'firebase/app';
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import { KEYBOARD_SHORTCUTS, FIREBASE_CONFIG } from '@/constants';
 
 firebase.initializeApp(FIREBASE_CONFIG);
@@ -45,7 +45,6 @@ export default {
 
   computed: {
     ...mapState(['user', 'settings', 'sessionExpired']),
-    ...mapGetters(['darkTheme']),
 
     userId() {
       return this.debugUserId || this.user.uid;

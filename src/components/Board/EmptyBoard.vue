@@ -1,31 +1,18 @@
 <template lang="html">
-  <b-jumbotron
-    class="empty-board w-100 text-center"
-    :bg-variant="darkTheme ? 'dark' : ''"
-    :text-variant="darkTheme ? 'white' : ''"
-    :border-variant="darkTheme ? 'light' : ''"
-  >
+  <b-jumbotron class="empty-board w-100 text-center">
     <p>This board is empty</p>
 
-    <b-button
-      :variant="darkTheme ? 'light' : 'primary'"
-      @click="openAddListModal"
-    >
+    <b-button @click="openAddListModal">
       Add list
     </b-button>
   </b-jumbotron>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
-  computed: {
-    ...mapGetters(['darkTheme']),
-  },
-
   methods: {
     openAddListModal() {
+      // TODO: use directive instead
       this.$bvModal.show('add-list');
     },
   },

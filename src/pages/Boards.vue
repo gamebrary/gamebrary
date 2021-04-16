@@ -7,10 +7,7 @@
       title="Boards"
       message="Use boards to easily organize your video game collections"
     >
-      <b-button
-        :variant="darkTheme ? 'dark' : 'primary'"
-        v-b-modal:create-board
-      >
+      <b-button v-b-modal:create-board>
         {{ $t('boards.create') }}
       </b-button>
     </empty-state>
@@ -50,7 +47,6 @@
       >
         <b-button
           class="position-absolute edit-board-button"
-          :variant="darkTheme ?  'info' : 'outline-light'"
           size="sm"
           @click.stop="editBoard(board)"
         >
@@ -69,7 +65,6 @@
       >
         <b-button
           class="position-absolute edit-board-button"
-          :variant="darkTheme ?  'info' : 'outline-light'"
           size="sm"
           @click.stop="editBoard(board)"
         >
@@ -105,7 +100,7 @@ export default {
 
   computed: {
     ...mapState(['publicBoards', 'user', 'boards', 'wallpapers']),
-    ...mapGetters(['isBoardOwner', 'platformNames', 'sortedBoards', 'darkTheme']),
+    ...mapGetters(['isBoardOwner', 'platformNames', 'sortedBoards']),
 
     showPlaceholder() {
       return this.loading && Object.keys(this.boards).length === 0;

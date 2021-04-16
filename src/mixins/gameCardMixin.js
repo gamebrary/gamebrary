@@ -11,7 +11,7 @@ export default {
 
   computed: {
     ...mapState(['settings', 'games', 'tags', 'notes', 'progresses', 'board']),
-    ...mapGetters(['gameTags', 'darkTheme']),
+    ...mapGetters(['gameTags']),
 
     highlightCompletedGame() {
       const { settings } = this.list;

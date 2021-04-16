@@ -1,17 +1,10 @@
 <template lang="html">
-  <b-dropdown-item-button
-    v-b-modal="modalId"
-    :variant="darkTheme ? 'secondary' : null"
-  >
+  <b-dropdown-item-button v-b-modal="modalId">
     <i class="fas fa-sort fa-fw" aria-hidden />
     {{ $t('board.list.sortList') }}
 
     <b-modal
       :id="modalId"
-      :header-bg-variant="darkTheme ? 'dark' : null"
-      :header-text-variant="darkTheme ? 'white' : null"
-      :body-bg-variant="darkTheme ? 'dark' : null"
-      :body-text-variant="darkTheme ? 'white' : null"
       size="sm"
       hide-footer
       @show="getSortValue"
@@ -64,8 +57,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
   props: {
     listIndex: Number,
@@ -87,8 +78,6 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['darkTheme']),
-
     modalId() {
       return `sort-list-${this.listIndex}`;
     },

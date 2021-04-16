@@ -1,10 +1,6 @@
 <template lang="html">
   <b-modal
     id="edit-board"
-    :header-bg-variant="darkTheme ? 'dark' : null"
-    :header-text-variant="darkTheme ? 'white' : null"
-    :body-bg-variant="darkTheme ? 'dark' : null"
-    :body-text-variant="darkTheme ? 'white' : null"
     hide-footer
     @show="init"
   >
@@ -100,7 +96,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import EditBoardBackgroundModal from '@/components/Board/EditBoardBackgroundModal';
 import EditBoardPlatformsModal from '@/components/Board/EditBoardPlatformsModal';
 
@@ -124,7 +120,6 @@ export default {
 
   computed: {
     ...mapState(['board', 'user']),
-    ...mapGetters(['darkTheme']),
   },
 
   methods: {
@@ -150,12 +145,6 @@ export default {
       this.$bvModal.msgBoxConfirm('Are you sure you want to delete this board?', {
         title: 'Delete board',
         okVariant: 'danger',
-        headerBgVariant: this.darkTheme ? 'dark' : null,
-        headerTextVariant: this.darkTheme ? 'white' : null,
-        bodyBgVariant: this.darkTheme ? 'dark' : null,
-        bodyTextVariant: this.darkTheme ? 'white' : null,
-        footerBgVariant: this.darkTheme ? 'dark' : null,
-        footerTextVariant: this.darkTheme ? 'white' : null,
         okTitle: 'Yes, delete board',
       })
         .then((value) => {

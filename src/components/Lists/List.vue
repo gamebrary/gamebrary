@@ -12,8 +12,6 @@
   >
     <b-card
       no-body
-      :bg-variant="darkTheme ? 'dark' : null"
-      :text-variant="darkTheme ? 'white' : null"
     >
       <b-card-header
         class="py-0 pr-0 pl-2 d-flex justify-content-between align-items-center"
@@ -43,7 +41,6 @@
         <b-button
           v-else-if="user && user.uid !== board.owner"
           @click="$bvToast.toast('No write access')"
-          :variant="darkTheme ? 'dark' : 'transparent'"
         >
           <i class="fas fa-caret-down fa-fw" aria-hidden />
         </b-button>
@@ -51,7 +48,6 @@
         <b-button
           v-else
           v-b-modal:authModal
-          :variant="darkTheme ? 'dark' : 'transparent'"
         >
           <i class="fas fa-caret-down fa-fw" aria-hidden />
         </b-button>
@@ -83,7 +79,6 @@
         />
 
         <b-button
-          :variant="darkTheme ? 'dark' : 'light'"
           block
           v-if="isEmpty"
           class="mb-2"
@@ -106,7 +101,7 @@ import GameCardCompact from '@/components/GameCards/GameCardCompact';
 import GameCardText from '@/components/GameCards/GameCardText';
 import orderby from 'lodash.orderby';
 import { DEFAULT_LIST_VIEW } from '@/constants';
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -143,7 +138,6 @@ export default {
 
   computed: {
     ...mapState(['games', 'dragging', 'progresses', 'board', 'user']),
-    ...mapGetters(['darkTheme']),
 
     autoSortEnabled() {
       const { settings } = this.list;

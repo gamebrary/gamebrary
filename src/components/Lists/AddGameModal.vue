@@ -1,17 +1,10 @@
 <template lang="html">
-  <b-dropdown-item-button
-    @click="$bvModal.show(`game-modal-${list.name}`)"
-    :variant="darkTheme ? 'secondary' : null"
-  >
+  <b-dropdown-item-button v-b-modal="`game-modal-${list.name}`">
     <i class="fas fa-plus fa-fw" />
     {{ $t('board.addGame.title') }}
 
     <b-modal
       :id="`game-modal-${list.name}`"
-      :header-bg-variant="darkTheme ? 'dark' : null"
-      :header-text-variant="darkTheme ? 'white' : null"
-      :body-bg-variant="darkTheme ? 'dark' : null"
-      :body-text-variant="darkTheme ? 'white' : null"
       hide-footer
     >
       <template v-slot:modal-header="{ close }">
@@ -36,7 +29,7 @@
 import RecentGames from '@/components/Lists/RecentGames';
 import SearchGames from '@/components/Lists/SearchGames';
 import IgdbLogo from '@/components/IgdbLogo';
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -54,7 +47,6 @@ export default {
 
   computed: {
     ...mapState(['board']),
-    ...mapGetters(['darkTheme']),
   },
 };
 </script>

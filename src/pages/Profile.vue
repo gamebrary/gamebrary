@@ -66,7 +66,7 @@
 import EmptyState from '@/components/EmptyState';
 import ProfileNameCheckField from '@/components/Profile/ProfileNameCheckField';
 import Profile from '@/components/Profile';
-import { mapGetters, mapState } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -84,7 +84,6 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['darkTheme']),
     ...mapState(['user', 'profile']),
 
     isEmpty() {

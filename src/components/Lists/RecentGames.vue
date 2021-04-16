@@ -13,10 +13,6 @@
 
     <b-modal
       id="recentGamesPlatforms"
-      :header-bg-variant="darkTheme ? 'dark' : null"
-      :header-text-variant="darkTheme ? 'white' : null"
-      :body-bg-variant="darkTheme ? 'dark' : null"
-      :body-text-variant="darkTheme ? 'white' : null"
       hide-footer
     >
       <template v-slot:modal-header="{ close }">
@@ -54,7 +50,7 @@
 <script>
 import GameCardRecent from '@/components/GameCards/GameCardRecent';
 import PlatformToggleField from '@/components/PlatformToggleField';
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -78,7 +74,6 @@ export default {
 
   computed: {
     ...mapState(['board']),
-    ...mapGetters(['darkTheme']),
 
     filteredRecentGames() {
       return this.recentGames

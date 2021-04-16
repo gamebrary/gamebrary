@@ -33,10 +33,6 @@
     <!-- TODO: move to component -->
     <b-modal
       id="editTag"
-      :header-bg-variant="darkTheme ? 'dark' : null"
-      :header-text-variant="darkTheme ? 'white' : null"
-      :body-bg-variant="darkTheme ? 'dark' : null"
-      :body-text-variant="darkTheme ? 'white' : null"
       hide-footer
     >
       <template v-slot:modal-header="{ close }">
@@ -117,10 +113,6 @@
     <b-modal
       id="addTag"
       hide-footer
-      :header-bg-variant="darkTheme ? 'dark' : null"
-      :header-text-variant="darkTheme ? 'white' : null"
-      :body-bg-variant="darkTheme ? 'dark' : null"
-      :body-text-variant="darkTheme ? 'white' : null"
       @show="open"
     >
       <template v-slot:modal-header="{ close }">
@@ -194,7 +186,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import EmptyState from '@/components/EmptyState';
 import TagsList from '@/components/Tags/TagsList';
 
@@ -228,7 +220,6 @@ export default {
 
   computed: {
     ...mapState(['tags', 'platform']),
-    ...mapGetters(['darkTheme']),
 
     showEmptyState() {
       return Object.keys(this.tags).length === 0;
@@ -344,12 +335,6 @@ export default {
         cancelTitle: this.$t('global.cancel'),
         headerClass: 'pb-0 border-0',
         footerClass: 'pt-0 border-0',
-        headerBgVariant: this.darkTheme ? 'dark' : null,
-        headerTextVariant: this.darkTheme ? 'white' : null,
-        bodyBgVariant: this.darkTheme ? 'dark' : null,
-        bodyTextVariant: this.darkTheme ? 'white' : null,
-        footerBgVariant: this.darkTheme ? 'dark' : null,
-        footerTextVariant: this.darkTheme ? 'white' : null,
       })
         .then((value) => {
           if (value) {

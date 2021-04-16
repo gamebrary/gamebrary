@@ -7,8 +7,6 @@
         v-for="board in publicBoards"
         :key="board.id"
         no-body
-        :bg-variant="darkTheme ? 'dark' : null"
-        :text-variant="darkTheme ?  'white' : null"
         class="overflow-hidden clickable"
         @click="viewBoard(board.id)"
       >
@@ -26,7 +24,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import MiniBoard from '@/components/Board/MiniBoard';
 
 export default {
@@ -36,7 +34,6 @@ export default {
 
   computed: {
     ...mapState(['publicBoards', 'wallpapers']),
-    ...mapGetters(['darkTheme']),
   },
 
   mounted() {

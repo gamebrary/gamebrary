@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import firebase from 'firebase/app';
 import * as firebaseui from 'firebaseui';
 import 'firebaseui/dist/firebaseui.css';
@@ -42,7 +42,6 @@ const db = firebase.firestore();
 export default {
   computed: {
     ...mapState(['user', 'sessionExpired']),
-    ...mapGetters(['darkTheme']),
 
     provider() {
       return this.$route.params && this.$route.params.provider;

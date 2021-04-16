@@ -48,7 +48,7 @@
 <script>
 import VueMarkdown from 'vue-markdown';
 import EmptyState from '@/components/EmptyState';
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -65,7 +65,6 @@ export default {
 
   computed: {
     ...mapState(['notes', 'games']),
-    ...mapGetters(['darkTheme']),
 
     showEmptyState() {
       return this.loaded && !Object.keys(this.notes).length;

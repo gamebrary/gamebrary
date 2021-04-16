@@ -2,7 +2,6 @@
   <div>
     <div class="d-inline-flex flex-column align-items-start">
       <languages />
-      <theme-selector class="mb-2" />
 
       <br>
 
@@ -40,7 +39,6 @@
 
 <script>
 import Languages from '@/components/Settings/Languages';
-import ThemeSelector from '@/components/Settings/ThemeSelector';
 import ProviderCard from '@/components/ProviderCard';
 import DeleteAccount from '@/components/Settings/DeleteAccount';
 import sessionMixin from '@/mixins/sessionMixin';
@@ -49,7 +47,6 @@ import { mapState } from 'vuex';
 export default {
   components: {
     Languages,
-    ThemeSelector,
     ProviderCard,
     DeleteAccount,
   },

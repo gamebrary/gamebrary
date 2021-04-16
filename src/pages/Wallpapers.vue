@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import EmptyState from '@/components/EmptyState';
 import { bytesToSize } from '@/utils';
 import WallpapersList from '@/components/WallpapersList';
@@ -98,7 +98,6 @@ export default {
 
   computed: {
     ...mapState(['user', 'board', 'wallpapers']),
-    ...mapGetters(['darkTheme']),
 
     usedSpaceText() {
       return `${this.formattedSpaceUsed} of ${bytesToSize(this.maxSpace)} used`;

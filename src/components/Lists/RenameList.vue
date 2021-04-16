@@ -1,17 +1,12 @@
 <template lang="html">
   <b-dropdown-item-button
     v-b-modal="modalId"
-    :variant="darkTheme ? 'secondary' : null"
   >
     <i class="fas fa-pencil-alt fa-fw" aria-hidden />
     {{ $t('board.list.renameList') }}
 
     <b-modal
       :id="modalId"
-      :header-bg-variant="darkTheme ? 'dark' : null"
-      :header-text-variant="darkTheme ? 'white' : null"
-      :body-bg-variant="darkTheme ? 'dark' : null"
-      :body-text-variant="darkTheme ? 'white' : null"
       hide-footer
       size="sm"
       @show="getListName"
@@ -56,7 +51,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   props: {
@@ -73,7 +68,6 @@ export default {
 
   computed: {
     ...mapState(['board']),
-    ...mapGetters(['darkTheme']),
 
     modalId() {
       return `rename-list-${this.listIndex}`;

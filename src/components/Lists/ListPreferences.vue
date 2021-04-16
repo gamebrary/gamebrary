@@ -1,7 +1,6 @@
 <template lang="html">
   <b-dropdown-item-button
     v-b-modal="modalId"
-    :variant="darkTheme ? 'secondary' : null"
   >
     <i class="fas fa-cogs fa-fw" aria-hidden />
     {{ $t('board.list.settings') }}
@@ -9,10 +8,6 @@
     <b-modal
       :id="modalId"
       footer-class="d-flex justify-content-between pt-0"
-      :header-bg-variant="darkTheme ? 'dark' : null"
-      :header-text-variant="darkTheme ? 'white' : null"
-      :body-bg-variant="darkTheme ? 'dark' : null"
-      :body-text-variant="darkTheme ? 'white' : null"
       hide-footer
       size="sm"
       @show="getSettings"
@@ -101,8 +96,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
   props: {
     listIndex: Number,
@@ -123,8 +116,6 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['darkTheme']),
-
     modalId() {
       return `list-tweaks-${this.listIndex}`;
     },

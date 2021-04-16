@@ -2,10 +2,6 @@
   <b-modal
     :id="modalId"
     :title="$t('board.addList.title')"
-    :header-bg-variant="darkTheme ? 'dark' : null"
-    :header-text-variant="darkTheme ? 'white' : null"
-    :body-bg-variant="darkTheme ? 'dark' : null"
-    :body-text-variant="darkTheme ? 'white' : null"
     hide-footer
     @show="reset"
   >
@@ -61,7 +57,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   data() {
@@ -75,7 +71,6 @@ export default {
 
   computed: {
     ...mapState(['platform', 'board']),
-    ...mapGetters(['darkTheme']),
 
     existingListNames() {
       return this.board.lists

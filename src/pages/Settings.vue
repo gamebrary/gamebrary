@@ -4,7 +4,7 @@
       <b-button
         v-for="{ name, title, icon } in settingsSections"
         :key="name"
-        :variant="tabButtonVariant(name)"
+        :variant="name === routeName ? 'primary' : 'light'"
         size="sm"
         class="w-100 text-left mb-2"
         @click="handleClick(name)"
@@ -19,8 +19,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
   data() {
     return {
@@ -50,8 +48,6 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['darkTheme']),
-
     routeName() {
       return this.$route.name;
     },
@@ -63,10 +59,7 @@ export default {
     },
 
     tabButtonVariant(name) {
-      const dark = this.$route.name === name ? 'secondary' : 'info';
-      const light = this.$route.name === name ? 'info' : 'light';
-
-      return this.darkTheme ? dark : light;
+      return this.$route.name === name ? 'danger' : 'success';
     },
 
     handleClick(name) {

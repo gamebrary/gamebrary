@@ -35,10 +35,6 @@
       id="wikipediaArticle"
       scrollable
       hide-footer
-      :header-bg-variant="darkTheme ? 'dark' : null"
-      :header-text-variant="darkTheme ? 'white' : null"
-      :body-bg-variant="darkTheme ? 'dark' : null"
-      :body-text-variant="darkTheme ? 'white' : null"
     >
       <template v-slot:modal-header="{ close }">
         <modal-header
@@ -82,7 +78,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['darkTheme', 'activeGameCoverUrl']),
+    ...mapGetters(['activeGameCoverUrl']),
 
     description() {
       return this.trimmedDescription

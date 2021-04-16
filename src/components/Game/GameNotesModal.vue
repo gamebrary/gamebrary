@@ -1,10 +1,6 @@
 <template lang="html">
   <b-modal
     id="notes"
-    :header-bg-variant="darkTheme ? 'dark' : null"
-    :header-text-variant="darkTheme ? 'white' : null"
-    :body-bg-variant="darkTheme ? 'dark' : null"
-    :body-text-variant="darkTheme ? 'white' : null"
     hide-footer
     @show="show"
   >
@@ -82,7 +78,7 @@ export default {
 
   computed: {
     ...mapState(['notes']),
-    ...mapGetters(['darkTheme', 'activeGameCoverUrl']),
+    ...mapGetters(['activeGameCoverUrl']),
 
     note() {
       const { id } = this.game;

@@ -1,3 +1,4 @@
+<!-- TODO: remove, redirect to auth page and show banner instead -->
 <template lang="html">
   <b-modal
     id="authModal"
@@ -13,7 +14,7 @@
         <template v-slot:header>
           <img
             class="logo mr-2"
-            :src="`/static/gamebrary-logo${darkTheme ? '' : '-dark'}.png`"
+            src="/static/gamebrary-logo.png"
           />
         </template>
       </modal-header>
@@ -40,16 +41,6 @@
     </div>
   </b-modal>
 </template>
-
-<script>
-import { mapGetters } from 'vuex';
-
-export default {
-  computed: {
-    ...mapGetters(['darkTheme']),
-  },
-};
-</script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
 .logo {

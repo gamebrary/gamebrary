@@ -2,10 +2,6 @@
 <template lang="html">
   <b-modal
     id="boardBackground"
-    :header-bg-variant="darkTheme ? 'dark' : null"
-    :header-text-variant="darkTheme ? 'white' : null"
-    :body-bg-variant="darkTheme ? 'dark' : null"
-    :body-text-variant="darkTheme ? 'white' : null"
     hide-footer
     scrollable
     @hide="hide"
@@ -102,7 +98,7 @@
 <script>
 import MiniBoard from '@/components/Board/MiniBoard';
 import WallpapersList from '@/components/WallpapersList';
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -122,7 +118,6 @@ export default {
 
   computed: {
     ...mapState(['board', 'wallpapers']),
-    ...mapGetters(['darkTheme']),
   },
 
   async mounted() {

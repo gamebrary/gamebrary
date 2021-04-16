@@ -11,10 +11,6 @@
     </b-button>
 
     <b-modal
-      :header-bg-variant="darkTheme ? 'dark' : null"
-      :header-text-variant="darkTheme ? 'white' : null"
-      :body-bg-variant="darkTheme ? 'dark' : null"
-      :body-text-variant="darkTheme ? 'white' : null"
       :id="modalId"
       hide-footer
     >
@@ -47,8 +43,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
   props: {
     game: Object,
@@ -59,8 +53,6 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['darkTheme']),
-
     amazonLinks() {
       return this.game && this.game.external_games
         ? this.game.external_games.filter(({ category }) => category === 20)

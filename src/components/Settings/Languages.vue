@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import { SUPPORTED_LANGUAGES } from '@/constants';
 
 export default {
@@ -41,7 +41,6 @@ export default {
 
   computed: {
     ...mapState(['settings']),
-    ...mapGetters(['darkTheme']),
   },
 
   mounted() {

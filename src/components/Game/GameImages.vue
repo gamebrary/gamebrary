@@ -27,10 +27,6 @@
       id="game-images"
       size="xl"
       hide-footer
-      :header-bg-variant="darkTheme ? 'dark' : null"
-      :header-text-variant="darkTheme ? 'white' : null"
-      :body-bg-variant="darkTheme ? 'dark' : null"
-      :body-text-variant="darkTheme ? 'white' : null"
     >
       <template v-slot:modal-header="{ close }">
         <modal-header
@@ -61,14 +57,12 @@
           </b-button>
 
           <b-button
-            :variant="darkTheme ? 'dark' : 'light'"
             @click="previous"
           >
             <i class="fas fa-angle-left fa-fw" aria-hidden />
           </b-button>
 
           <b-button
-            :variant="darkTheme ? 'dark' : 'light'"
             @click="next"
           >
             <i class="fas fa-angle-right fa-fw" aria-hidden />
@@ -116,7 +110,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['darkTheme', 'activeGameCoverUrl', 'board']),
+    ...mapGetters(['activeGameCoverUrl', 'board']),
     ...mapState(['board']),
 
     thumbnails() {

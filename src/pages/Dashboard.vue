@@ -15,7 +15,6 @@ export default {
 
   computed: {
     ...mapState(['user']),
-    ...mapGetters(['darkTheme']),
   },
 };
 </script>

@@ -44,7 +44,6 @@
 
 <script>
 import VueMarkdown from 'vue-markdown';
-import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -59,8 +58,6 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['darkTheme']),
-
     currentYear() {
       return new Date().getFullYear();
     },

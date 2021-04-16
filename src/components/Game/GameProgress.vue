@@ -3,7 +3,6 @@
     v-b-modal.progress
     v-shortkey="['p']"
     @shortkey.native="$bvModal.show('progress');"
-    :variant="darkTheme ? 'secondary' : null"
   >
     <i class="fas fa-stopwatch fa-fw" />
 
@@ -11,10 +10,6 @@
 
     <b-modal
       id="progress"
-      :header-bg-variant="darkTheme ? 'dark' : null"
-      :header-text-variant="darkTheme ? 'white' : null"
-      :body-bg-variant="darkTheme ? 'dark' : null"
-      :body-text-variant="darkTheme ? 'white' : null"
       hide-footer
       footer-class="d-flex justify-content-between pt-0"
       @show="show"
@@ -40,8 +35,6 @@
             text="Dropdown Button"
             right
             no-caret
-            :variant="darkTheme ? 'dark' : 'light'"
-            :menu-class="darkTheme ? 'bg-dark' : ''"
           >
             <template v-slot:button-content>
               <i class="fas fa-ellipsis-h fa-fw" aria-hidden />
@@ -110,7 +103,7 @@ export default {
 
   computed: {
     ...mapState(['progresses']),
-    ...mapGetters(['darkTheme', 'activeGameCoverUrl']),
+    ...mapGetters(['activeGameCoverUrl']),
 
     title() {
       return this.localProgress

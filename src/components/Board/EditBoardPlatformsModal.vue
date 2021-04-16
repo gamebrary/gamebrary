@@ -1,12 +1,6 @@
 <template lang="html">
   <b-modal
     id="editPlatforms"
-    :header-bg-variant="darkTheme ? 'dark' : null"
-    :header-text-variant="darkTheme ? 'white' : null"
-    :body-bg-variant="darkTheme ? 'dark' : null"
-    :body-text-variant="darkTheme ? 'white' : null"
-    :footer-bg-variant="darkTheme ? 'dark' : null"
-    :footer-text-variant="darkTheme ? 'white' : null"
     scrollable
     hide-footer
     @show="show"
@@ -37,7 +31,7 @@
 
 <script>
 import PlatformPicker from '@/components/Board/PlatformPicker';
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -52,7 +46,6 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['darkTheme']),
     ...mapState(['board']),
 
     noPlatformsSelected() {

@@ -2,7 +2,6 @@
 import orderby from 'lodash.orderby';
 
 export default {
-  darkTheme: ({ settings }) => settings && settings.theme && settings.theme === 'dark',
   sortedBoards: ({ boards }) => orderby(boards, 'name'),
   activeGameCoverUrl: ({ activeGame, games }) => {
     const gameId = activeGame && activeGame.gameId;

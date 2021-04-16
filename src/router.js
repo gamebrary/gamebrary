@@ -10,7 +10,6 @@ import Releases from '@/pages/Releases';
 import Auth from '@/pages/Auth';
 import Boards from '@/pages/Boards';
 import Settings from '@/pages/Settings';
-import Upgrade from '@/pages/Upgrade';
 import Profile from '@/pages/Profile';
 import Preferences from '@/pages/Preferences';
 import EditProfile from '@/pages/Profile/EditProfile';
@@ -78,14 +77,6 @@ export default new Router({
       meta: {
         title: 'PublicBoards',
         public: true,
-      },
-    },
-    {
-      name: 'upgrade',
-      path: '/upgrade',
-      component: Upgrade,
-      meta: {
-        title: 'Upgrade',
       },
     },
     {

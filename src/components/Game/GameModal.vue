@@ -7,10 +7,6 @@
     header-class="align-items-center border-0 pb-2"
     hide-footer
     body-class="pt-0"
-    :header-bg-variant="darkTheme ? 'dark' : null"
-    :header-text-variant="darkTheme ? 'white' : null"
-    :body-bg-variant="darkTheme ? 'dark' : null"
-    :body-text-variant="darkTheme ? 'white' : null"
     @show="load"
     @hidden="reset"
   >
@@ -35,8 +31,6 @@
           v-if="user && user.uid === board.owner"
           right
           no-caret
-          :variant="darkTheme ? 'dark' : 'light'"
-          :menu-class="darkTheme ? 'bg-dark' : ''"
         >
           <template v-slot:button-content>
             <i class="fas fa-ellipsis-h fa-fw" aria-hidden />
@@ -46,7 +40,6 @@
 
           <b-dropdown-item
             v-b-modal.notes
-            :variant="darkTheme ? 'secondary' : null"
             v-shortkey="['n']"
             @shortkey.native="$bvModal.show('notes');"
           >
@@ -59,7 +52,6 @@
             v-b-modal.tags
             v-shortkey="['t']"
             @shortkey.native="$bvModal.show('tags');"
-            :variant="darkTheme ? 'secondary' : null"
           >
             <i class="far fa-tags fa-fw" /> Tags
 
@@ -68,7 +60,6 @@
 
           <b-dropdown-item-button
             v-if="!prevDisabled"
-            :variant="darkTheme ? 'secondary' : null"
             v-shortkey="['arrowleft']"
             @shortkey.native="previousGame"
             @click="previousGame"
@@ -81,7 +72,6 @@
             v-if="!nextDisabled"
             v-shortkey="['arrowright']"
             @shortkey.native="nextGame"
-            :variant="darkTheme ? 'secondary' : null"
             @click="nextGame"
           >
             <i class="fas fa-caret-right fa-fw" aria-hidden /> Next game
@@ -151,7 +141,6 @@
           <!-- <b-form-rating
             v-if="rating"
             :value="rating"
-            :class="['p-0 mt-1', { 'bg-dark': darkTheme }]"
             inline
             readonly
             variant="warning"
@@ -248,7 +237,7 @@ export default {
 
   computed: {
     ...mapState(['board', 'notes', 'activeGame', 'games', 'platform', 'progresses', 'tags', 'user']),
-    ...mapGetters(['darkTheme', 'activeGameCoverUrl']),
+    ...mapGetters(['activeGameCoverUrl']),
 
     hasMultipleGames() {
       // TODO: use optional chaining

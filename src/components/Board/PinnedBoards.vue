@@ -49,7 +49,7 @@ import { mapGetters, mapState } from 'vuex';
 export default {
   computed: {
     ...mapState(['board', 'boards', 'wallpapers']),
-    ...mapGetters(['sortedBoards', 'darkTheme']),
+    ...mapGetters(['sortedBoards']),
 
     isBoard() {
       return ['public-board', 'board'].includes(this.$route.name);

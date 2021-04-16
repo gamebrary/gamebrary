@@ -6,12 +6,6 @@
       id="account-settings"
       hide-footer
       title="Delete account"
-      :header-bg-variant="darkTheme ? 'dark' : null"
-      :header-text-variant="darkTheme ? 'white' : null"
-      :body-bg-variant="darkTheme ? 'dark' : null"
-      :body-text-variant="darkTheme ? 'white' : null"
-      :footer-bg-variant="darkTheme ? 'dark' : null"
-      :footer-text-variant="darkTheme ? 'white' : null"
     >
       <b-alert show variant="success" v-if="deleting && progress === 5">
         Account deleted
@@ -48,7 +42,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import firebase from 'firebase/app';
 import sessionMixin from '@/mixins/sessionMixin';
 
@@ -64,7 +58,6 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['darkTheme']),
     ...mapState([
       'user',
       'tags',
@@ -82,12 +75,6 @@ export default {
         title: 'Are you sure you want to delete your account?',
         okVariant: 'danger',
         okTitle: 'Yes, delete account',
-        headerBgVariant: this.darkTheme ? 'dark' : null,
-        headerTextVariant: this.darkTheme ? 'white' : null,
-        bodyBgVariant: this.darkTheme ? 'dark' : null,
-        bodyTextVariant: this.darkTheme ? 'white' : null,
-        footerBgVariant: this.darkTheme ? 'dark' : null,
-        footerTextVariant: this.darkTheme ? 'white' : null,
       })
         .then((value) => {
           if (value) {

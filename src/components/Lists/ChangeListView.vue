@@ -1,17 +1,10 @@
 <template lang="html">
-  <b-dropdown-item-button
-    v-b-modal="modalId"
-    :variant="darkTheme ? 'secondary' : null"
-  >
+  <b-dropdown-item-button v-b-modal="modalId">
     <i class="fas fa-list fa-fw" aria-hidden />
     {{ $t('board.list.view') }}
 
     <b-modal
       :id="modalId"
-      :header-bg-variant="darkTheme ? 'dark' : null"
-      :header-text-variant="darkTheme ? 'white' : null"
-      :body-bg-variant="darkTheme ? 'dark' : null"
-      :body-text-variant="darkTheme ? 'white' : null"
       hide-footer
       size="sm"
       @show="load"
@@ -137,7 +130,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import GameCardDefault from '@/components/GameCards/GameCardDefault';
 import GameCardCovers from '@/components/GameCards/GameCardCovers';
 import GameCardGrid from '@/components/GameCards/GameCardGrid';
@@ -170,7 +163,6 @@ export default {
 
   computed: {
     ...mapState(['games']),
-    ...mapGetters(['darkTheme']),
 
     modalId() {
       return `add-game-${this.listIndex}`;
