@@ -5,19 +5,19 @@
 
       <br>
 
-      Open games in:
+      <!-- Open games in:
       <b-form-select v-model="gameDetailView" class="mb-3">
         <b-form-select-option value="modal">Modal</b-form-select-option>
         <b-form-select-option value="side">Side panel</b-form-select-option>
         <b-form-select-option value="new">New page</b-form-select-option>
-      </b-form-select>
+      </b-form-select> -->
 
-      Dock position:
+      <!-- Dock position:
       <b-form-select v-model="gameDetailView" class="mb-3">
         <b-form-select-option value="top">Top</b-form-select-option>
         <b-form-select-option value="left">Left</b-form-select-option>
         <b-form-select-option value="bottom">Bottom</b-form-select-option>
-      </b-form-select>
+      </b-form-select> -->
 
       <div class="border-top w-100 mt-3 mb-4" />
 
