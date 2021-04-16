@@ -32,15 +32,26 @@
       <p>Gamebrary is an open source tool to organize video game collections.</p>
 
       <b-button
-        :to="{ name: 'auth' }"
-        variant="primary"
+        @click="getStarted"
+        variant="success"
       >
-        <i class="fab fa-google fa-fw" aria-hidden />
-        Authenticate with Google
+        <i class="fas fa-rocket fa-fw" aria-hidden />
+        Get started!
       </b-button>
     </div>
   </b-modal>
 </template>
+
+<script>
+export default {
+  methods: {
+    getStarted() {
+      this.$bvModal.hide('authModal');
+      this.$router.push({ name: 'auth' });
+    },
+  },
+};
+</script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
 .logo {
