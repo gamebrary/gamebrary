@@ -43,7 +43,7 @@ import Languages from '@/components/Settings/Languages';
 import ThemeSelector from '@/components/Settings/ThemeSelector';
 import ProviderCard from '@/components/ProviderCard';
 import DeleteAccount from '@/components/Settings/DeleteAccount';
-import SessionMixin from '@/mixins/SessionMixin';
+import sessionMixin from '@/mixins/sessionMixin';
 import { mapState } from 'vuex';
 
 export default {
@@ -54,7 +54,7 @@ export default {
     DeleteAccount,
   },
 
-  mixins: [SessionMixin],
+  mixins: [sessionMixin],
 
   computed: {
     ...mapState(['user']),

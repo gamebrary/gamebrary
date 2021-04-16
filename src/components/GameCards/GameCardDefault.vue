@@ -81,9 +81,9 @@
 </template>
 
 <script>
-import GameCardMixin from '@/mixins/GameCardMixin';
+import gameCardMixin from '@/mixins/gameCardMixin';
 
 export default {
-  mixins: [GameCardMixin],
+  mixins: [gameCardMixin],
 };
 </script>

@@ -140,7 +140,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import SessionMixin from '@/mixins/SessionMixin';
+import sessionMixin from '@/mixins/sessionMixin';
 import PinnedBoards from '@/components/Board/PinnedBoards';
 
 export default {
@@ -148,7 +148,7 @@ export default {
     PinnedBoards,
   },
 
-  mixins: [SessionMixin],
+  mixins: [sessionMixin],
 
   computed: {
     ...mapState(['board', 'boards', 'notification', 'user', 'wallpapers']),

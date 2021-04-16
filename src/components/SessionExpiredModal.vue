@@ -24,10 +24,10 @@
 
 <script>
 import { mapState } from 'vuex';
-import SessionMixin from '@/mixins/SessionMixin';
+import sessionMixin from '@/mixins/sessionMixin';
 
 export default {
-  mixins: [SessionMixin],
+  mixins: [sessionMixin],
 
   computed: {
     ...mapState(['sessionExpired']),

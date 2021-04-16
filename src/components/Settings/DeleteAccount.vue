@@ -50,10 +50,10 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import firebase from 'firebase/app';
-import SessionMixin from '@/mixins/SessionMixin';
+import sessionMixin from '@/mixins/sessionMixin';
 
 export default {
-  mixins: [SessionMixin],
+  mixins: [sessionMixin],
 
   data() {
     return {
