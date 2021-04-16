@@ -1,32 +1,17 @@
 <template lang="html">
-  <div class="auth">
-    <div class="loading text-white">
-      <div v-if="provider">
-        <img
-          src="/static/gamebrary-logo.png"
-          width="32"
-        />
+  <div class="auth text-white">
+    <img src="/static/gamebrary-logo.png" />
+    <h1 class="lead my-3">Welcome to Gamebrary!</h1>
 
-        <i
-          class="fas fa-cog fa-spin fa-fw mt-4 mb-2"
-          aria-hidden
-        />
+    <b-alert
+      variant="warning"
+      class="my-2 px-4"
+      :show="showExpiredAlert"
+    >
+      Your session expired!
+    </b-alert>
 
-        <img
-          :src="`static/logos/companies/${provider}.svg`"
-          alt="Google"
-          height="32"
-        />
-      </div>
-
-      <div v-else>
-        <img src="/static/gamebrary-logo.png" />
-
-        <h1 class="lead my-3">Welcome to Gamebrary!</h1>
-
-        <section id="auth" />
-      </div>
-    </div>
+    <section id="auth" />
   </div>
 </template>
 
@@ -38,17 +23,24 @@ import 'firebaseui/dist/firebaseui.css';
 import 'firebase/auth';
 
 const db = firebase.firestore();
+const authUI = new firebaseui.auth.AuthUI(firebase.auth());
 
 export default {
+  data() {
+    return {
+      showExpiredAlert: false,
+    };
+  },
   computed: {
     ...mapState(['user', 'sessionExpired']),
-
-    provider() {
-      return this.$route.params && this.$route.params.provider;
-    },
   },
 
   mounted() {
+    if (this.sessionExpired) {
+      this.showExpiredAlert = true;
+      this.$store.commit('SET_SESSION_EXPIRED', false);
+    }
+
     if (this.user && this.user.uid) {
       this.$router.replace({ name: 'dashboard' });
     } else {
@@ -59,7 +51,6 @@ export default {
   methods: {
     startAuthUI() {
       const vm = this;
-      const authUI = new firebaseui.auth.AuthUI(firebase.auth());
 
       authUI.start('#auth', {
         callbacks: {
@@ -168,19 +159,13 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-.auth, .loading {
+.auth {
   height: 100vh;
-  width: 100vw;
-}
-.loading {
-  // height: 100vh;
+  margin: 5rem auto 0;
   color: white;
+  flex-direction: column;
   text-align: center;
   display: flex;
   align-items: center;
-  justify-content: center;
-  background: #0F2027;
-  background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);
-  background: linear-gradient(to right, #2C5364, #203A43, #0F2027);
 }
 </style>
