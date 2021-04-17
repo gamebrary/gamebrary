@@ -1,9 +1,8 @@
 <template lang="html">
   <b-modal
+    id="devTools"
     centered
     hide-footer
-    no-close-on-backdrop
-    v-model="open"
   >
     <template v-slot:modal-header="{ close }">
       <modal-header title="Dev tools" @close="close" />
@@ -20,7 +19,6 @@
           Expire session
         </b-button>
       </b-tab>
-      <b-tab title="Disabled" disabled><p>I'm a disabled tab!</p></b-tab>
     </b-tabs>
 
   </b-modal>

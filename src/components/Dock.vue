@@ -101,6 +101,11 @@
           Releases
         </b-dropdown-item>
 
+        <b-dropdown-item v-b-modal.devTools v-if="showDevTools">
+          <i class="fas fa-rocket fa-fw" aria-hidden />
+          Dev
+        </b-dropdown-item>
+
         <b-dropdown-item :to="{ name: 'profile' }">
           <i class="fas fa-user fa-fw" aria-hidden />
           Profile
@@ -148,6 +153,10 @@ export default {
 
     pageTitle() {
       return this.$route.meta && this.$route.meta.title;
+    },
+
+    showDevTools() {
+      return process.env.NODE_ENV === 'development';
     },
   },
 
