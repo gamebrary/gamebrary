@@ -3,85 +3,11 @@
     id="game-modal"
     scrollable
     size="lg"
-    footer-class="p-2 justify-content-center"
-    header-class="align-items-center border-0 pb-2"
     hide-footer
-    body-class="pt-0"
+    hide-header
     @show="load"
     @hidden="reset"
   >
-    <template v-slot:modal-header="{ close }">
-      <modal-header
-        :title="game.name"
-        :subtitle="activeGame.list ? activeGame.list.name : null"
-        @close="close"
-      >
-        <template v-slot:header>
-          <b-img
-            :src="activeGameCoverUrl"
-            :alt="game.name"
-            v-if="!coverVisible"
-            class="float-left mr-2"
-            height="40"
-            rounded
-          />
-        </template>
-
-        <b-dropdown
-          v-if="user && user.uid === board.owner"
-          right
-          no-caret
-        >
-          <template v-slot:button-content>
-            <i class="fas fa-ellipsis-h fa-fw" aria-hidden />
-          </template>
-
-          <game-progress :game="game" />
-
-          <b-dropdown-item
-            v-b-modal.notes
-            v-shortkey="['n']"
-            @shortkey.native="$bvModal.show('notes');"
-          >
-            <i class="far fa-sticky-note fa-fw" /> {{ notes[game.id] ? 'Edit note' : 'Add note' }}
-          </b-dropdown-item>
-
-          <game-notes-modal :game="game" />
-
-          <b-dropdown-item
-            v-b-modal.tags
-            v-shortkey="['t']"
-            @shortkey.native="$bvModal.show('tags');"
-          >
-            <i class="far fa-tags fa-fw" /> Tags
-
-            <game-tags-modal :game="game" />
-          </b-dropdown-item>
-
-          <b-dropdown-item-button
-            v-if="!prevDisabled"
-            v-shortkey="['arrowleft']"
-            @shortkey.native="previousGame"
-            @click="previousGame"
-          >
-            <i class="fas fa-caret-left fa-fw" aria-hidden /> Previous game
-
-          </b-dropdown-item-button>
-
-          <b-dropdown-item-button
-            v-if="!nextDisabled"
-            v-shortkey="['arrowright']"
-            @shortkey.native="nextGame"
-            @click="nextGame"
-          >
-            <i class="fas fa-caret-right fa-fw" aria-hidden /> Next game
-          </b-dropdown-item-button>
-
-          <add-remove-game v-if="list" :game="game" :list="list" />
-        </b-dropdown>
-      </modal-header>
-    </template>
-
     <b-container
       v-if="game.name"
       fluid
@@ -127,7 +53,78 @@
           md="7"
           lg="8"
         >
-          <h3 class="mb-2">{{ game.name }}</h3>
+          <modal-header
+            :title="game.name"
+            :subtitle="activeGame.list ? activeGame.list.name : null"
+            @close="$bvModal.hide('game-modal')"
+          >
+            <template v-slot:header>
+              <b-img
+                :src="activeGameCoverUrl"
+                :alt="game.name"
+                v-if="!coverVisible"
+                class="float-left mr-2"
+                height="40"
+                rounded
+              />
+            </template>
+
+            <b-dropdown
+              v-if="user && user.uid === board.owner"
+              right
+              no-caret
+            >
+              <template v-slot:button-content>
+                <i class="fas fa-ellipsis-h fa-fw" aria-hidden />
+              </template>
+
+              <game-progress :game="game" />
+
+              <b-dropdown-item
+                v-b-modal.notes
+                v-shortkey="['n']"
+                @shortkey.native="$bvModal.show('notes');"
+              >
+                <i class="far fa-sticky-note fa-fw" />
+                {{ notes[game.id] ? 'Edit note' : 'Add note' }}
+              </b-dropdown-item>
+
+              <game-notes-modal :game="game" />
+
+              <b-dropdown-item
+                v-b-modal.tags
+                v-shortkey="['t']"
+                @shortkey.native="$bvModal.show('tags');"
+              >
+                <i class="far fa-tags fa-fw" /> Tags
+
+                <game-tags-modal :game="game" />
+              </b-dropdown-item>
+
+              <b-dropdown-item-button
+                v-if="!prevDisabled"
+                v-shortkey="['arrowleft']"
+                @shortkey.native="previousGame"
+                @click="previousGame"
+              >
+                <i class="fas fa-caret-left fa-fw" aria-hidden /> Previous game
+
+              </b-dropdown-item-button>
+
+              <b-dropdown-item-button
+                v-if="!nextDisabled"
+                v-shortkey="['arrowright']"
+                @shortkey.native="nextGame"
+                @click="nextGame"
+              >
+                <i class="fas fa-caret-right fa-fw" aria-hidden /> Next game
+              </b-dropdown-item-button>
+
+              <add-remove-game v-if="list" :game="game" :list="list" />
+            </b-dropdown>
+          </modal-header>
+
+          <!-- <h3 class="mb-2">{{ game.name }}</h3> -->
 
           <b-progress
             v-if="progress"
