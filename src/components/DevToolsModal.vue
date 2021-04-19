@@ -8,12 +8,26 @@
       <modal-header title="Dev tools" @close="close" />
     </template>
 
+    <!-- TODO: add page version as well -->
     <b-tabs content-class="mt-3">
       <b-tab title="Buttons">
-        <b-button v-for="variant in variants" :variant="variant" :key="variant">
-          {{ variant }}
-        </b-button>
+        <div
+          v-for="variant in variants"
+          :key="variant"
+          class="mb-3"
+        >
+          <b-button
+            v-for="size in ['sm', '', 'lg']"
+            :variant="variant"
+            :key="size"
+            :size="size"
+            class="mr-2"
+          >
+            {{ variant }}
+          </b-button>
+        </div>
       </b-tab>
+
       <b-tab title="Session">
         <b-button @click="$store.commit('SET_SESSION_EXPIRED', true)">
           Expire session
@@ -38,6 +52,7 @@ export default {
         'info',
         'light',
         'dark',
+        'link',
       ],
     };
   },

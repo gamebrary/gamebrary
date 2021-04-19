@@ -49,6 +49,7 @@ export const LINKS_CATEGORIES = {
 export const KEYBOARD_SHORTCUTS = {
   'MODAL_keyboard-shortcuts': ['shift', '?'],
   'MODAL_create-board': ['shift', 'c'],
+  MODAL_devTools: ['shift', 'd'],
   ROUTE_boards: ['shift', 'b'],
   ROUTE_tags: ['shift', 't'],
   ROUTE_notes: ['shift', 'n'],
