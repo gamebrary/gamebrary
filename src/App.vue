@@ -2,7 +2,6 @@
   <div
     id="app"
     :dir="dir"
-    class="bg-dark text-white"
     v-shortkey="KEYBOARD_SHORTCUTS"
     @shortkey="handleShortcutAction"
   >
@@ -115,10 +114,6 @@ export default {
 </style>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  #app {
-    background-color: #f0f0f0;
-  }
-
   main {
     overflow-y: auto;
     height: calc(100vh - 54px);

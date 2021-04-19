@@ -1,19 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Signika:wght@300;400;500;600;700&display=swap');
 
-$white:    #fff !default;
-$black:    #000 !default;
+// Colors
+$primary: #1387f9 !default;
+$secondary: #37474f !default;
+$white: #e4e6eb !default;
+$black: #0e1111 !default;
+$success: #28a745 !default;
+$info: #3d3d3d !default;
+$warning: #ffc107 !default;
+$danger: #dc3545 !default;
+$light: #484847 !default;
+$dark: #242526 !default;
 
 $theme-colors: () !default;
 $theme-colors: map-merge(
   (
-    "primary":    #007bff,
-    "secondary":  #407ec4,
-    "success":    #28a745,
-    "info":       #434a54,
-    "warning":    #ffc107,
-    "danger":     #dc3545,
-    "light":      #f8f9fa,
-    "dark":       #3d3d3d,
+    "primary": $primary,
+    "secondary": $secondary,
+    "success": $success,
+    "info": $info,
+    "warning": $warning,
+    "danger": $danger,
+    "light": $light,
+    "dark": $dark,
   ),
   $theme-colors
 );
@@ -95,8 +104,8 @@ $spacer: 1rem !default;
 // //
 // // Settings for the `<body>` element.
 //
-// $body-bg:                   $white !default;
-// $body-color:                $gray-900 !default;
+$body-bg: $dark !default;
+$body-color: $light !default;
 //
 //
 // // Links
@@ -164,12 +173,11 @@ $spacer: 1rem !default;
 // $line-height-lg:              1.5 !default;
 // $line-height-sm:              1.5 !default;
 //
-// $border-width:                1px !default;
+$border-width:                1px !default;
 // $border-color:                $gray-300 !default;
-//
-// $border-radius:               .25rem !default;
-// $border-radius-lg:            .3rem !default;
-// $border-radius-sm:            .2rem !default;
+$border-radius:               .25rem !default;
+$border-radius-lg:            .3rem !default;
+$border-radius-sm:            .2rem !default;
 //
 // $rounded-pill:                50rem !default;
 //
@@ -245,7 +253,7 @@ $h6-font-size: $font-size-base !default;
 //
 // $small-font-size:             80% !default;
 //
-// $text-muted:                  $gray-600 !default;
+$text-muted: $light !default;
 //
 // $blockquote-small-color:      $gray-600 !default;
 // $blockquote-small-font-size:  $small-font-size !default;
@@ -341,8 +349,8 @@ $h6-font-size: $font-size-base !default;
 // $btn-line-height:             $input-btn-line-height !default;
 // $btn-white-space:             null !default; // Set to `nowrap` to prevent text wrapping
 //
-// $btn-padding-y-sm:            $input-btn-padding-y-sm !default;
-// $btn-padding-x-sm:            $input-btn-padding-x-sm !default;
+$btn-padding-y-sm: .25rem !default;
+$btn-padding-x-sm: .5rem !default;
 // $btn-font-size-sm:            $input-btn-font-size-sm !default;
 // $btn-line-height-sm:          $input-btn-line-height-sm !default;
 //
@@ -673,41 +681,6 @@ $h6-font-size: $font-size-base !default;
 // $navbar-dark-brand-color:                 $navbar-dark-active-color !default;
 // $navbar-dark-brand-hover-color:           $navbar-dark-active-color !default;
 //
-//
-// // Dropdowns
-// //
-// // Dropdown menu container and contents.
-//
-// $dropdown-min-width:                10rem !default;
-$dropdown-padding-y:                $spacer / 4 !default;
-// $dropdown-spacer:                   .125rem !default;
-$dropdown-font-size:                $font-size-sm !default;
-// $dropdown-color:                    $body-color !default;
-// $dropdown-bg:                       $white !default;
-// $dropdown-border-color:             rgba($black, .15) !default;
-// $dropdown-border-radius:            $border-radius !default;
-// $dropdown-border-width:             $border-width !default;
-// $dropdown-inner-border-radius:      subtract($dropdown-border-radius, $dropdown-border-width) !default;
-// $dropdown-divider-bg:               $gray-200 !default;
-$dropdown-divider-margin-y:          $spacer / 4 !default;
-// $dropdown-box-shadow:               0 .5rem 1rem rgba($black, .175) !default;
-//
-// $dropdown-link-color:               $gray-900 !default;
-// $dropdown-link-hover-color:         darken($gray-900, 5%) !default;
-// $dropdown-link-hover-bg:            $gray-100 !default;
-//
-// $dropdown-link-active-color:        $component-active-color !default;
-// $dropdown-link-active-bg:           $component-active-bg !default;
-//
-// $dropdown-link-disabled-color:      $gray-600 !default;
-//
-$dropdown-item-padding-y:           .25rem !default;
-$dropdown-item-padding-x:           .5rem !default;
-//
-// $dropdown-header-color:             $gray-600 !default;
-// $dropdown-header-padding:           $dropdown-padding-y $dropdown-item-padding-x !default;
-//
-//
 // // Pagination
 //
 // $pagination-padding-y:              .5rem !default;
@@ -870,8 +843,8 @@ $modal-dialog-margin-y-sm-up:       0 !default;
 //
 // $modal-title-line-height:           $line-height-base !default;
 //
-// $modal-content-color:               null !default;
-// $modal-content-bg:                  $white !default;
+$modal-content-color: $light !default;
+$modal-content-bg: $info !default;
 // $modal-content-border-color:        rgba($black, .2) !default;
 // $modal-content-border-width:        $border-width !default;
 // $modal-content-border-radius:       $border-radius-lg !default;
@@ -1056,3 +1029,27 @@ $alert-padding-x: .5rem !default;
 // $print-page-size:                   a3 !default;
 // $print-body-min-width:              map-get($grid-breakpoints, "lg") !default;
 //
+
+// DROPDOWNS
+// $dropdown-min-width: 10rem !default;
+// $dropdown-padding-y: $spacer / 4 !default;
+// $dropdown-font-size: $font-size-sm !default;
+$dropdown-color: $white !default;
+$dropdown-bg: $light !default;
+$dropdown-border-color: rgba($black, .15) !default;
+$dropdown-border-radius: $border-radius !default;
+$dropdown-border-width: $border-width !default;
+// $dropdown-inner-border-radius: subtract($dropdown-border-radius, $dropdown-border-width) !default;
+$dropdown-divider-bg: $light !default;
+$dropdown-divider-margin-y: $spacer / 4 !default;
+// $dropdown-box-shadow: 0 .5rem 1rem rgba($black, .175) !default;
+$dropdown-link-color: $white !default;
+// $dropdown-link-hover-color: darken($gray-900, 5%) !default;
+// $dropdown-link-hover-bg: $gray-100 !default;
+// $dropdown-link-active-color: $component-active-color !default;
+// $dropdown-link-active-bg: $component-active-bg !default;
+// $dropdown-link-disabled-color: $gray-600 !default;
+$dropdown-item-padding-y: .5rem !default;
+$dropdown-item-padding-x: .5rem !default;
+// $dropdown-header-color: $gray-600 !default;
+// $dropdown-header-padding: $dropdown-padding-y $dropdown-item-padding-x !default;

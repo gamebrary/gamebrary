@@ -2,8 +2,8 @@
   <header :class="{ 'has-action': slots.includes('default') }">
     <div>
       <slot name="header" v-if="slots.includes('header')" />
-      <h5 class="mb-0 text-wrap">{{ title }}</h5>
-      <small class="d-block text-muted">{{ subtitle }}</small>
+      <h5 class="mb-0 text-wrap text-white">{{ title }}</h5>
+      <small class="d-block text-light">{{ subtitle }}</small>
     </div>
 
     <div class="actions" v-if="slots.includes('default')">
@@ -12,6 +12,7 @@
 
     <b-button
       class="align-self-baseline"
+      variant="light"
       @click="$emit('close')"
     >
       <i class="fas fa-times fa-fw" aria-hidden />

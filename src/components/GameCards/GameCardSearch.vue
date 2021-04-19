@@ -1,6 +1,7 @@
 <template lang="html">
   <b-card
     no-body
+    bg-variant="dark"
     class="game-card"
     @click="addGame"
   >

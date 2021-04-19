@@ -1,10 +1,10 @@
 <template lang="html">
-  <div v-if="provider" class="d-flex flex-column border rounded bg-white py-2 px-3">
+  <div v-if="provider" class="d-flex flex-column border border-light rounded p-2">
     <p class="lead mb-0">{{ user.displayName }}</p>
     <small>Member since {{ dateJoined }}</small>
     <small>Last login {{ lastLogin }}</small>
 
-    <small class="text-muted mt-2 pt-2 border-top">
+    <small class="text-success mt-2 pt-2 border-top">
       Logged in with <strong>{{ provider.name }}</strong>
     </small>
   </div>

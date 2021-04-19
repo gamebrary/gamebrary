@@ -63,7 +63,7 @@
 
       <b-button
         v-b-modal.editPlatforms
-        variant="info"
+        variant="secondary"
       >
         <i class="fas fa-gamepad fa-fw" aria-hidden />
         <br />
@@ -74,7 +74,7 @@
 
       <b-button
         v-b-modal.boardBackground
-        variant="info"
+        variant="secondary"
       >
         <i class="fas fa-images fa-fw" aria-hidden />
         <br />

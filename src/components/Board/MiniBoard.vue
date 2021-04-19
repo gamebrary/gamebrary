@@ -1,6 +1,6 @@
 <template lang="html">
   <div
-    class="mini-board p-1 rounded cursor-pointer"
+    class="mini-board p-1 rounded cursor-pointer bg-light"
     :style="miniBoardStyles"
     @click="$emit('view-board', board.id)"
   >

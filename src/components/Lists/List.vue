@@ -12,8 +12,10 @@
   >
     <b-card
       no-body
+      bg-variant="light"
     >
       <b-card-header
+        header-bg-variant="light"
         class="py-0 pr-0 pl-2 d-flex justify-content-between align-items-center"
       >
         <p class="list-name p-0 m-0">
@@ -61,7 +63,6 @@
         handle=".card"
         ghost-class="card-placeholder"
         filter=".drag-filter"
-        delay="50"
         animation="300"
         :group="{ name: 'games' }"
         @end="dragEnd"
@@ -82,6 +83,7 @@
           block
           v-if="isEmpty"
           class="mb-2"
+          variant="secondary"
           v-b-modal="`game-modal-${list.name}`"
         >
           {{ $t('board.list.emptyListButton') }}

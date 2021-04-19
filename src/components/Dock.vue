@@ -7,7 +7,7 @@
       <b-button
         title="Dashboard"
         squared
-        variant="transparent"
+        variant="light"
         class="p-0 ml-2"
         @click="handleLogoClick"
       >
@@ -17,12 +17,12 @@
         />
       </b-button>
 
-      <span v-if="pageTitle">{{ pageTitle }}</span>
+      <span v-if="pageTitle" class="text-light">{{ pageTitle }}</span>
 
+      <!-- TODO: move to board page and use portal -->
       <b-dropdown
         v-if="user && showBoardsDropdown"
-        toggle-class="p-0"
-        variant="transparent"
+        variant="dark"
         :text="board.name"
       >
         <!-- TODO: create array map with url already fetched -->
@@ -140,7 +140,7 @@ export default {
   mixins: [sessionMixin],
 
   computed: {
-    ...mapState(['board', 'boards', 'notification', 'user', 'wallpapers', 'sessionExpired']),
+    ...mapState(['board', 'boards', 'notification', 'user', 'wallpapers', 'sessionExpired', 'publicBoards']),
     ...mapGetters(['isBoardOwner']),
 
     isBoard() {
@@ -148,7 +148,7 @@ export default {
     },
 
     showBoardsDropdown() {
-      return this.isBoard && this.isBoardOwner;
+      return this.isBoard && this.boards.length && this.isBoardOwner;
     },
 
     pageTitle() {

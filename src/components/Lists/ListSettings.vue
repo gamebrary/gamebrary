@@ -4,6 +4,7 @@
     right
     no-caret
     toggle-class="px-2 py-1 m-1"
+    variant="light"
   >
     <template v-slot:button-content>
       <i class="fas fa-ellipsis-h fa-fw" aria-hidden />

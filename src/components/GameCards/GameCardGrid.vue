@@ -2,6 +2,7 @@
   <b-card
     no-body
     class="clickable"
+    bg-variant="dark"
     :img-src="coverUrl"
     img-top
   >

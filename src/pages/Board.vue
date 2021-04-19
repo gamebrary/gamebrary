@@ -39,6 +39,7 @@
         class="d-flex flex-column pr-2"
       >
         <b-button
+          variant="light"
           class="mb-2"
           v-b-modal:add-list
         >
@@ -247,7 +248,6 @@ export default {
 .board {
   user-select: none;
   display: flex;
-  // background-color: #f0f0f0;
   background-size: cover;
   align-items: flex-start;
   height: 100vh;
