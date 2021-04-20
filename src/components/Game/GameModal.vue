@@ -72,7 +72,6 @@
             <b-dropdown
               v-if="user && user.uid === board.owner"
               right
-              no-caret
             >
               <template v-slot:button-content>
                 <i class="fas fa-ellipsis-h fa-fw" aria-hidden />

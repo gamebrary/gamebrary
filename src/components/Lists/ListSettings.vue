@@ -2,7 +2,6 @@
   <b-dropdown
     size="sm"
     right
-    no-caret
     toggle-class="px-2 py-1 m-1"
     variant="light"
   >

@@ -1,7 +1,7 @@
 <template lang="html">
   <b-card
     no-body
-    bg-variant="dark"
+    bg-variant="secondary"
     class="card clickable"
   >
     <b-row

@@ -11,8 +11,8 @@
     </portal>
 
     <b-card
-      bg-variant="dark"
-      header-bg-variant="light"
+      bg-variant="light"
+      header-bg-variant="secondary"
       v-for="release in releases"
       :key="release.id"
       hide-footer

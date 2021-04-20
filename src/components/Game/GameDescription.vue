@@ -9,7 +9,7 @@
 
     <!-- TODO: get images from article and add them to screenshots -->
     <template v-else>
-      <small>Source: {{ source }}</small>
+      <small class="text-muted">Source: {{ source }}</small>
 
       <p>
         <span

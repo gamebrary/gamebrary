@@ -34,7 +34,6 @@
             id="dropdown-1"
             text="Dropdown Button"
             right
-            no-caret
           >
             <template v-slot:button-content>
               <i class="fas fa-ellipsis-h fa-fw" aria-hidden />
