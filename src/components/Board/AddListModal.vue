@@ -1,7 +1,6 @@
 <template lang="html">
   <b-modal
     :id="modalId"
-    :title="$t('board.addList.title')"
     hide-footer
     @show="reset"
   >
@@ -12,21 +11,14 @@
         @close="close"
       >
         <b-button
-          :disabled="saving || isDuplicate || !listName"
-          class="d-none d-sm-inline"
-          @click="saveAndAddGame"
-        >
-          <b-spinner small v-if="saving" />
-          <span v-else>Save and add games</span>
-        </b-button>
-
-        <b-button
-          :disabled="saving || isDuplicate || !listName"
+          split
           variant="primary"
+          :disabled="saving || isDuplicate || !listName"
           @click="submit"
         >
           <b-spinner small v-if="saving" />
           <span v-else>{{ $t('global.save') }}</span>
+
         </b-button>
       </modal-header>
     </template>
@@ -64,7 +56,6 @@ export default {
     return {
       listName: '',
       saving: false,
-      addAfterSave: false,
       modalId: 'add-list',
     };
   },
@@ -92,14 +83,7 @@ export default {
   },
 
   methods: {
-    saveAndAddGame(e) {
-      this.addAfterSave = true;
-
-      this.submit(e);
-    },
-
     reset() {
-      this.addAfterSave = false;
       this.listName = '';
     },
 
@@ -132,10 +116,6 @@ export default {
       this.saving = false;
       this.$bvModal.hide(this.modalId);
       this.scroll();
-
-      if (this.addAfterSave) {
-        this.$bvModal.show(`game-modal-${this.listName}`);
-      }
     },
 
     scroll() {
