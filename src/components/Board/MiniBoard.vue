@@ -30,7 +30,7 @@
           <div
             v-for="(game, index) in list.games"
             :key="game"
-            :class="['bg-light border-bottom ',
+            :class="['bg-secondary border-bottom',
               { 'rounded-bottom': index === list.games.length - 1 }]"
           >
             <i class="fas fa-square fa-fw text-muted" style="margin-left: 1px;" aria-hidden />
@@ -80,7 +80,6 @@ $boardWidth: 374.5px;
 .mini-board {
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: #ccc;
   height: $boardHeight;
   width: $boardWidth;
   max-width: 100%;
