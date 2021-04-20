@@ -9,6 +9,7 @@
   </div>
 
   <div v-else-if="similarGames.length">
+    <!-- TODO: limit to fewer games, increase game cover, add modal to view all -->
     You may also like:
 
     <div class="games no-scrollbar">
@@ -18,7 +19,7 @@
         :key="game.id"
         :src="getCoverUrl(game.cover)"
         class="rounded mr-2 cursor-pointer"
-        height="80"
+        height="120"
         @click="loadGame(game.id)"
       />
     </div>
