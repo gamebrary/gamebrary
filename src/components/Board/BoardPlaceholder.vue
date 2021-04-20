@@ -5,96 +5,101 @@
       :class="`list ${list.settings.view || 'single'}`"
       :key="list.name"
     >
-    <b-card no-body>
-      <b-card-header class="pt-2 pb-1 px-2">
-        <b-skeleton />
-      </b-card-header>
+      <b-card no-body bg-variant="dark">
+        <b-card-header class="pt-2 pb-1 px-2">
+          <b-skeleton />
+        </b-card-header>
 
-      <div
-        v-if="list.games.length"
-        :class="['games', list.settings.view]"
-      >
-        <div v-for="n in list.games.length" :key="n">
-          <b-card
-            no-body
-            img-top
-            v-if="list.settings.view === 'grid'"
-          >
-            <b-skeleton-img
-              card-img="top"
-              height="180px"
-            />
+        <div
+          v-if="list.games.length"
+          :class="['games', list.settings.view]"
+        >
+          <div v-for="n in list.games.length" :key="n">
+            <b-card
+              no-body
+              img-top
+              bg-variant="dark"
+              v-if="list.settings.view === 'grid'"
+            >
+              <b-skeleton-img
+                card-img="top"
+                height="180px"
+              />
 
-            <b-card-body class="p-2">
-              <b-skeleton class="mt-2" />
-            </b-card-body>
-          </b-card>
+              <b-card-body class="p-2">
+                <b-skeleton class="mt-2" />
+              </b-card-body>
+            </b-card>
 
-          <div
-            v-else-if="list.settings.view === 'covers'"
-            class="covers-grid"
-          >
-            <b-skeleton-img
-              v-for="n in 3"
-              :key="n"
-              height="120px"
-            />
+            <div
+              v-else-if="list.settings.view === 'covers'"
+              bg-variant="dark"
+              class="covers-grid"
+            >
+              <b-skeleton-img
+                v-for="n in 3"
+                :key="n"
+                height="120px"
+              />
+            </div>
+
+            <b-card
+              v-else-if="!list.settings.view || list.settings.view === 'single'"
+              no-body
+              bg-variant="dark"
+              img-left
+            >
+              <b-skeleton-img
+                card-img="left"
+                width="94px"
+                height="124px"
+              />
+
+              <b-card-body class="p-2">
+                <b-skeleton />
+              </b-card-body>
+            </b-card>
+
+            <b-card
+              v-else-if="list.settings.view === 'compact'"
+              no-body
+              bg-variant="dark"
+              img-left
+            >
+              <b-skeleton-img
+                card-img="left"
+                width="70px"
+                height="93px"
+              />
+
+              <b-card-body class="p-2">
+                <b-skeleton />
+              </b-card-body>
+            </b-card>
+
+            <b-card
+              v-else
+              no-body
+              bg-variant="dark"
+              img-left
+            >
+              <b-card-body class="p-2">
+                <b-skeleton />
+              </b-card-body>
+            </b-card>
           </div>
-
-          <b-card
-            v-else-if="!list.settings.view || list.settings.view === 'single'"
-            no-body
-            img-left
-          >
-            <b-skeleton-img
-              card-img="left"
-              width="94px"
-              height="124px"
-            />
-
-            <b-card-body class="p-2">
-              <b-skeleton />
-            </b-card-body>
-          </b-card>
-
-          <b-card
-            v-else-if="list.settings.view === 'compact'"
-            no-body
-            img-left
-          >
-            <b-skeleton-img
-              card-img="left"
-              width="70px"
-              height="93px"
-            />
-
-            <b-card-body class="p-2">
-              <b-skeleton />
-            </b-card-body>
-          </b-card>
-
-          <b-card
-            v-else-if="list.settings.view === 'text'"
-            no-body
-            img-left
-          >
-            <b-card-body class="p-2">
-              <b-skeleton />
-            </b-card-body>
-          </b-card>
         </div>
-      </div>
 
-      <b-button
-        v-else
-        variant="light"
-        block
-        class="mb-2"
-        disabled
-      >
-        Click here or drag games here
-      </b-button>
-    </b-card>
+        <b-button
+          v-else
+          variant="light"
+          block
+          class="mb-2"
+          disabled
+        >
+          Click here or drag games here
+        </b-button>
+      </b-card>
     </div>
   </div>
 </template>
@@ -131,8 +136,6 @@ export default {
   .list {
     flex-shrink: 0;
     cursor: default;
-    border-radius: var(--border-radius);
-    background: var(--list-background);
     overflow: hidden;
     position: relative;
     width: 300px;
