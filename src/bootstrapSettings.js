@@ -6,5 +6,5 @@ export default {
     autoHideDelay: 1000,
     bodyClass: 'text-center',
   },
-  BButton: { variant: 'primary' },
+  BButton: { variant: 'light' },
 };
