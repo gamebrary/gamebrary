@@ -11,6 +11,8 @@
       />
     </template>
 
+    <!-- TODO: use table? -->
+
     <p>
       <kbd class="mr-1">Esc </kbd>
       Close modal
@@ -31,7 +33,7 @@
       {{ $t(`shortcuts.${name.substr(6)}`) }}
     </p>
 
-    <b-card>
+    <div class="bg-secondary p-2 rounded">
       <p>Game modal shortucts</p>
 
       <p>
@@ -68,7 +70,7 @@
         </kbd>
         Game progress
       </p>
-    </b-card>
+    </div>
   </b-modal>
 </template>
 
