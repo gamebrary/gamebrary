@@ -19,7 +19,7 @@
 
       <portal-target name="logo" />
 
-      <span v-if="pageTitle && !isBoard" class="d-sm-none">{{ pageTitle }}</span>
+      <span v-if="pageTitle && !isBoard" class="d-sm-none m-2">{{ pageTitle }}</span>
     </div>
 
     <portal-target name="dock" />
