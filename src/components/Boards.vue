@@ -10,32 +10,16 @@
       <b-button v-b-modal:create-board>
         {{ $t('boards.create') }}
       </b-button>
-    </empty-state>
 
-    <portal to="dock">
-      <b-button
-        v-if="showCreateBoard"
-        variant="primary"
-        v-b-modal:create-board
-      >
-        {{ $t('boards.create') }}
+      <b-button :to="{ name: 'public-boards' }">
+        View public boards
       </b-button>
-    </portal>
+    </empty-state>
 
     <div class="packery-grid">
       <div v-if="showPlaceholder">
         Loading
       </div>
-      <!-- <div v-if="">
-        <b-card
-          v-for="n in 3"
-          :key="n"
-          no-body
-          class="mb-3 p-1 mt-3"
-        >
-          <b-skeleton-img />
-        </b-card>
-      </div> -->
 
       <mini-board
         v-for="board in sortedBoards"
@@ -48,6 +32,7 @@
         <b-button
           class="position-absolute edit-board-button"
           size="sm"
+          variant="secondary"
           @click.stop="editBoard(board)"
         >
           <i class="fas fa-pencil-alt fa-fw" aria-hidden />

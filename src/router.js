@@ -8,7 +8,7 @@ import Tags from '@/pages/Tags';
 import Notes from '@/pages/Notes';
 import Releases from '@/pages/Releases';
 import Auth from '@/pages/Auth';
-import Dashboard from '@/pages/Dashboard';
+import BoardsPage from '@/pages/BoardsPage';
 import DevToolsPage from '@/pages/DevToolsPage';
 import Home from '@/pages/Home';
 import Settings from '@/pages/Settings';
@@ -21,11 +21,11 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
-      name: 'dashboard',
-      path: '/dashboard',
-      component: Dashboard,
+      name: 'boards',
+      path: '/boards',
+      component: BoardsPage,
       meta: {
-        title: 'Dashboard',
+        title: 'BoardsPage',
       },
     },
     {
