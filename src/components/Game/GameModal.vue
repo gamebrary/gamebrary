@@ -182,8 +182,6 @@
             />
           </template>
         </b-col>
-
-        <igdb-logo />
       </b-row>
     </b-container>
   </b-modal>
@@ -203,12 +201,10 @@ import GameNotesModal from '@/components/Game/GameNotesModal';
 import GameProgress from '@/components/Game/GameProgress';
 import AddRemoveGame from '@/components/Game/AddRemoveGame';
 import GameTagsModal from '@/components/Game/GameTagsModal';
-import IgdbLogo from '@/components/IgdbLogo';
 
 export default {
   components: {
     GameTagsModal,
-    IgdbLogo,
     GameDetails,
     GameDescription,
     SimilarGames,

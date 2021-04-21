@@ -19,8 +19,6 @@
         <search-games :list="list" />
         <recent-games :list="list" />
       </b-tabs>
-
-      <igdb-logo class="mt-2" />
     </b-modal>
   </b-dropdown-item-button>
 </template>
@@ -28,14 +26,12 @@
 <script>
 import RecentGames from '@/components/Lists/RecentGames';
 import SearchGames from '@/components/Lists/SearchGames';
-import IgdbLogo from '@/components/IgdbLogo';
 import { mapState } from 'vuex';
 
 export default {
   components: {
     RecentGames,
     SearchGames,
-    IgdbLogo,
   },
 
   props: {
