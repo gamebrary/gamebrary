@@ -18,16 +18,6 @@
           <b-card-title class="mb-2" title-tag="h6">
             {{ game.name }}
           </b-card-title>
-
-          <b-form-rating
-            v-if="gameRating"
-            inline
-            :value="gameRating"
-            readonly
-            variant="warning"
-            size="sm"
-            no-border
-          />
         </b-card-body>
       </b-col>
     </b-row>

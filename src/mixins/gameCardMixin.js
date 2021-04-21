@@ -31,14 +31,6 @@ export default {
       return settings && settings.showGameTags && this.gameTags;
     },
 
-    gameRating() {
-      const { settings } = this.list;
-
-      return settings && settings.showGameRatings && this.game.rating
-        ? Math.round((this.game.rating / 20) * 2) / 2
-        : false;
-    },
-
     gameProgress() {
       const { gameId, progresses, list: { settings } } = this;
 

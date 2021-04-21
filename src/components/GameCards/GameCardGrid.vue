@@ -22,25 +22,6 @@
         height="6px"
       />
 
-      <!-- <b-badge
-        v-if="releaseDate"
-        variant="secondary"
-        class="mb-2"
-      >
-        Releases in
-        {{ releaseDate }}
-      </b-badge> -->
-
-      <b-form-rating
-        v-if="gameRating"
-        inline
-        :value="gameRating"
-        readonly
-        variant="warning"
-        size="sm"
-        no-border
-      />
-
       <template v-if="showGameTags">
         <b-badge
           v-for="({ games, hex, tagTextColor }, name) in tags"

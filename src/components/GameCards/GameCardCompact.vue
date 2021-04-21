@@ -30,26 +30,6 @@
 
           <br />
 
-          <!-- <b-badge
-            v-if="releaseDate"
-            variant="secondary"
-            class="mb-2"
-          >
-            Releases in
-            {{ releaseDate }}
-          </b-badge> -->
-
-          <b-form-rating
-            v-if="gameRating"
-            class="p-0"
-            inline
-            :value="gameRating"
-            readonly
-            variant="warning"
-            size="sm"
-            no-border
-          />
-
           <b-progress
             v-if="showGameProgress"
             :value="gameProgress"
@@ -57,7 +37,6 @@
             variant="success"
             height="6px"
           />
-
 
           <div v-if="showGameTags">
             <b-badge
