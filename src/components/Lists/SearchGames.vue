@@ -75,6 +75,7 @@ export default {
   },
 
   computed: {
+    // TODO: stop storing this in store?
     ...mapState(['results', 'board']),
 
     noResults() {

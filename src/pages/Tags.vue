@@ -1,6 +1,6 @@
 <!-- TODO: break this up into components -->
 <template lang="html">
-  <div>
+  <b-container>
     <empty-state
       v-if="showEmptyState"
       :title="$t('tags.title')"
@@ -15,14 +15,11 @@
      </empty-state>
 
     <template v-else>
-      <portal to="dock">
-        <b-button
-          variant="primary"
-          v-b-modal.addTag
-        >
-          Add tag
-        </b-button>
-      </portal>
+      <page-title
+        title="Tags"
+        action-text="Add tag"
+        @action="$bvModal.show('addTag')"
+      />
 
       <tags-list
         v-if="gameTags && localTags"
@@ -182,7 +179,7 @@
         </b-alert>
       </form>
     </b-modal>
-  </div>
+  </b-container>
 </template>
 
 <script>

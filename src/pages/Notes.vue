@@ -1,7 +1,7 @@
 <!-- TODO: pagination? -->
 <!-- TODO: open notes from game modal on click? -->
 <template lang="html">
-  <div>
+  <b-container>
     <portal to="dock">
       <div class="d-flex">
         <b-form-input
@@ -18,6 +18,11 @@
         </b-button> -->
       </div>
     </portal>
+    <page-title
+      title="Notes"
+      action-text="Add tag"
+      @action="$bvModal.show('addTag')"
+    />
 
     <empty-state
       v-if="showEmptyState"
@@ -42,7 +47,7 @@
         </b-alert>
       </div>
     </template>
-  </div>
+  </b-container>
 </template>
 
 <script>

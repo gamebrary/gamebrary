@@ -1,9 +1,9 @@
 <template lang="html">
-  <header :class="{ 'has-action': slots.includes('default') }">
+  <header :class="{ 'has-action': slots.includes('default'), sticky }">
     <div>
       <slot name="header" v-if="slots.includes('header')" />
-      <h5 class="mb-0 text-wrap text-white">{{ title }}</h5>
-      <small class="d-block text-light">{{ subtitle }}</small>
+      <h5 class="mb-0 text-wrap">{{ title }}</h5>
+      <small class="d-block text-info">{{ subtitle }}</small>
     </div>
 
     <div class="actions" v-if="slots.includes('default')">
@@ -25,6 +25,7 @@ export default {
   props: {
     title: String,
     subtitle: String,
+    sticky: Boolean,
   },
 
   computed: {

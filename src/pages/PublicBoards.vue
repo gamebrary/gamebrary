@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container>
+  <div>
     <h2 class="my-2">Boards</h2>
 
     <div class="boards">
@@ -20,7 +20,7 @@
         </div>
       </b-card>
     </div>
-  </b-container>
+  </div>
 </template>
 
 <script>

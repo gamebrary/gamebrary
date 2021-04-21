@@ -1,5 +1,5 @@
 <template lang="html">
-  <div>
+  <b-container>
     <empty-state
       v-if="showEmptyState"
       :title="$t('wallpapers.title')"
@@ -57,6 +57,8 @@
         {{ $t('wallpapers.form.duplicateMessage', { fileName: file.name }) }}
       </b-alert>
 
+      <h1 class="d-none d-sm-block">Wallpapers</h1>
+
       <wallpapers-list v-if="wallpapers.length" />
 
       <b-alert show v-else>You don't have any wallpapers.</b-alert>
@@ -70,7 +72,7 @@
       :placeholder="$t('wallpapers.form.placeholder')"
       @input="uploadWallpaper"
     />
-  </div>
+  </b-container>
 </template>
 
 <script>

@@ -39,7 +39,7 @@
         class="d-flex flex-column pr-2"
       >
         <b-button
-          variant="light"
+          variant="dark"
           class="mb-2"
           v-b-modal:add-list
         >
