@@ -41,17 +41,12 @@
         />
 
         <b-button
-          v-else-if="user && user.uid !== board.owner"
-          @click="$bvToast.toast('No write access')"
-        >
-          <i class="fas fa-caret-down fa-fw" aria-hidden />
-        </b-button>
-
-        <b-button
           v-else
+          size="sm"
+          class="m-1"
           v-b-modal:authModal
         >
-          <i class="fas fa-caret-down fa-fw" aria-hidden />
+          <i class="fas fa-ellipsis-h fa-fw" aria-hidden />
         </b-button>
       </b-card-header>
 
@@ -62,6 +57,7 @@
         :move="validateMove"
         handle=".card"
         ghost-class="card-placeholder"
+        :disabled="!user || !isBoardOwner"
         filter=".drag-filter"
         animation="300"
         :group="{ name: 'games' }"
@@ -103,7 +99,7 @@ import GameCardCompact from '@/components/GameCards/GameCardCompact';
 import GameCardText from '@/components/GameCards/GameCardText';
 import orderby from 'lodash.orderby';
 import { DEFAULT_LIST_VIEW } from '@/constants';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -140,6 +136,7 @@ export default {
 
   computed: {
     ...mapState(['games', 'dragging', 'progresses', 'board', 'user']),
+    ...mapGetters(['isBoardOwner']),
 
     autoSortEnabled() {
       const { settings } = this.list;
