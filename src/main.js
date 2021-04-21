@@ -7,6 +7,7 @@ import Dayjs from 'vue-dayjs';
 import VueFire from 'vuefire';
 import VueI18n from 'vue-i18n';
 import ModalHeader from '@/components/ModalHeader';
+import PageTitle from '@/components/PageTitle';
 import axios from 'axios';
 import VueAnalytics from 'vue-analytics';
 import Raven from 'raven-js';
@@ -39,6 +40,7 @@ Vue.use(VueAxios, axios);
 Vue.use(VueFire);
 Vue.use(VueI18n);
 Vue.component('modal-header', ModalHeader);
+Vue.component('page-title', PageTitle);
 
 if (window.location.hostname.includes('gamebrary')) {
   Raven
