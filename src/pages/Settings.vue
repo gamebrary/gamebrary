@@ -1,86 +1,53 @@
 <template lang="html">
-  <div class="settings mx-2">
-    <aside>
-      <b-button
-        v-for="{ name, title, icon } in settingsSections"
-        :key="name"
-        :variant="name === routeName ? 'primary' : 'light'"
-        size="sm"
-        class="w-100 text-left mb-2"
-        @click="handleClick(name)"
-      >
-        <i :class="`${icon} fa-fw`" aria-hidden />
-        <span>{{ title }}</span>
-      </b-button>
-    </aside>
+  <b-container>
+    <h1 class="d-none d-sm-block">Settings</h1>
 
-    <router-view />
-  </div>
+    <div class="d-inline-flex flex-column align-items-start">
+      <languages />
+
+      Open games in:
+      <b-form-select v-model="gameDetailView" class="mb-3">
+        <b-form-select-option value="modal">Modal</b-form-select-option>
+        <b-form-select-option value="side">Side panel</b-form-select-option>
+        <b-form-select-option value="new">New page</b-form-select-option>
+      </b-form-select>
+
+      <div class="border-top w-100 mt-3 mb-4" />
+
+      <!-- <provider-card /> -->
+
+      <b-button
+        @click="session_signOut"
+        variant="secondary"
+        size="sm"
+        class="my-2"
+      >
+        {{ $t('global.signOut') }}
+      </b-button>
+
+      <delete-account />
+    </div>
+  </b-container>
 </template>
 
 <script>
+import Languages from '@/components/Settings/Languages';
+// import ProviderCard from '@/components/ProviderCard';
+import DeleteAccount from '@/components/Settings/DeleteAccount';
+import sessionMixin from '@/mixins/sessionMixin';
+import { mapState } from 'vuex';
+
 export default {
-  data() {
-    return {
-      settingsSections: [
-        {
-          name: 'preferences',
-          title: 'General',
-          icon: 'fas fa-sliders-h',
-        },
-        {
-          name: 'tags',
-          title: 'Tags',
-          icon: 'fas fa-tags',
-        },
-        {
-          name: 'notes',
-          title: 'Notes',
-          icon: 'fas fa-sticky-note',
-        },
-        {
-          name: 'wallpapers',
-          title: 'Wallpapers',
-          icon: 'fas fa-images',
-        },
-      ],
-    };
+  components: {
+    Languages,
+    // ProviderCard,
+    DeleteAccount,
   },
+
+  mixins: [sessionMixin],
 
   computed: {
-    routeName() {
-      return this.$route.name;
-    },
-  },
-
-  methods: {
-    formatDate(date) {
-      return new Intl.DateTimeFormat().format(new Date(date));
-    },
-
-    tabButtonVariant(name) {
-      return this.$route.name === name ? 'danger' : 'success';
-    },
-
-    handleClick(name) {
-      if (this.$route.name !== name) {
-        this.$router.push({ name });
-      }
-    },
+    ...mapState(['user']),
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-$sidebarWidth: 108px;
-
-.settings {
-  display: grid;
-  grid-template-columns: #{$sidebarWidth} 1fr;
-  grid-gap: 1rem;
-
-  @media(max-width: 780px) {
-    grid-template-columns: minmax(0, #{$sidebarWidth}) calc(100% - .5rem - #{$sidebarWidth});
-  }
-}
-</style>
