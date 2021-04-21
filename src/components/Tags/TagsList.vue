@@ -1,23 +1,10 @@
 <template lang="html">
-  <div class="tags-list">
-    <b-card
+  <div>
+    <div
       v-for="({ games, hex, tagTextColor }, name) in tags"
-      class="border rounded p-2 overflow-hidden text-center cursor-pointer"
-      @click="$emit('selected', name)"
       :key="name"
+      class="border-bottom border-light pb-4 mb-4"
     >
-      <!-- <pre>{{ games }}</pre> -->
-      <div class="rounded d-flex justify-content-center overflow-auto no-scrollbar clickable">
-        <b-img
-          v-for="gameId in games"
-          :key="gameId"
-          :src="getCoverUrl(gameId)"
-          class="rounded ml-n4"
-          width="60"
-        />
-        <!-- @click.stop="openGame(gameId)" -->
-      </div>
-
       <b-badge
         pill
         tag="small"
@@ -26,10 +13,27 @@
         {{ name }}
       </b-badge>
 
-      <br>
+      <br />
 
-      <small>{{ games.length }} Games</small>
-    </b-card>
+      <small class="text-muted">{{ games.length }} Games</small>
+
+      <br />
+
+      <b-button @click="$emit('selected', name)">
+        Edit
+      </b-button>
+
+      <div class="d-flex overflow-auto no-scrollbar clickable">
+        <b-img
+          v-for="gameId in games"
+          :key="gameId"
+          :src="getCoverUrl(gameId)"
+          class="rounded ml-n4"
+          @click.stop="openGame(gameId)"
+          width="60"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -50,22 +54,10 @@ export default {
         : '/static/no-image.jpg';
     },
 
-    // openGame(gameId) {
-    //   this.$store.commit('SET_GAME_MODAL_DATA', { gameId });
-    //   this.$bvModal.show('game-modal');
-    // },
+    openGame(gameId) {
+      this.$store.commit('SET_GAME_MODAL_DATA', { gameId });
+      this.$bvModal.show('game-modal');
+    },
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-.tags-list {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: .5rem;
-
-  @media(max-width: 780px) {
-    grid-template-columns: 1fr;
-  }
-}
-</style>
