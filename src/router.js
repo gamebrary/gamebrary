@@ -25,7 +25,7 @@ export default new Router({
       path: '/boards',
       component: BoardsPage,
       meta: {
-        title: 'BoardsPage',
+        title: 'Boards',
       },
     },
     {
