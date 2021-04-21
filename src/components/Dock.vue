@@ -3,7 +3,7 @@
     class="dock p-2 d-flex align-items-center justify-content-between w-100"
     :class="{ 'position-fixed': isBoard }"
   >
-    <div>
+    <div class="d-flex">
       <b-button
         title="Dashboard"
         squared
@@ -17,45 +17,14 @@
         />
       </b-button>
 
-      <span v-if="pageTitle" class="d-sm-none">{{ pageTitle }}</span>
-      <sidebar />
+      <portal-target name="logo" />
 
-      <!-- TODO: move to board page and use portal -->
-      <b-dropdown
-        v-if="user && showBoardsDropdown && boards.length > 1"
-        variant="transparent"
-        :text="board.name"
-      >
-        <!-- TODO: create array map with url already fetched -->
-        <b-dropdown-item
-          v-for="{ id, name, backgroundColor, backgroundUrl } in boards"
-          :key="id"
-          :active="board.name === name"
-          @click.native="viewBoard(id)"
-        >
-          <b-avatar
-            rounded
-            class="board mr-2"
-            :title="name"
-            text=" "
-            :style="`
-            ${getWallpaperUrl(backgroundUrl)}
-            ${backgroundColor ? `background-color: ${backgroundColor};` : '' }
-            `"
-          />
-
-          {{ name }}
-        </b-dropdown-item>
-      </b-dropdown>
-
-      <span v-else>
-        {{ board.name }}
-      </span>
+      <span v-if="pageTitle && !isBoard" class="d-sm-none">{{ pageTitle }}</span>
     </div>
 
-    <div class="d-flex">
-      <portal-target name="dock" />
-    </div>
+    <portal-target name="dock" />
+
+    <sidebar />
   </nav>
 </template>
 
@@ -71,51 +40,19 @@ export default {
   },
 
   computed: {
-    ...mapState(['board', 'boards', 'notification', 'user', 'wallpapers', 'sessionExpired', 'publicBoards']),
+    ...mapState(['board', 'user', 'publicBoards']),
     ...mapGetters(['isBoardOwner']),
 
     isBoard() {
       return ['public-board', 'board'].includes(this.$route.name);
     },
 
-    showBoardsDropdown() {
-      return this.isBoard && this.boards.length && this.isBoardOwner;
-    },
-
     pageTitle() {
       return this.$route.meta && this.$route.meta.title;
-    },
-
-    showDevTools() {
-      return process.env.NODE_ENV === 'development';
     },
   },
 
   methods: {
-    getWallpaperUrl(url) {
-      if (!url) {
-        return '';
-      }
-
-      if (url && url.includes('igdb.com')) {
-        return `background-image: url(${url});`;
-      }
-
-      const wallpaperObject = this.wallpapers.find(({ fullPath }) => fullPath === url);
-
-      return wallpaperObject && wallpaperObject.url
-        ? `background-image: url(${decodeURI(wallpaperObject.url)});`
-        : '';
-    },
-
-    viewBoard(id) {
-      if (this.board.id !== id) {
-        this.$router.push({ name: 'board', params: { id } });
-      } else {
-        this.$bvModal.show('edit-board');
-      }
-    },
-
     // handleLogoClick() {
     //   if (!this.user) {
     //     if (this.$route.name === 'public-boards') {
@@ -153,10 +90,5 @@ export default {
 .dock {
   z-index: 1;
   height: 54px;
-}
-
-.board {
-  background-size: cover;
-  background-position: center;
 }
 </style>

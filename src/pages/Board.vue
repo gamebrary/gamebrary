@@ -6,6 +6,8 @@
     ]"
     :style="boardStyles"
   >
+    <boards-dropdown />
+
     <board-placeholder v-if="loading" />
 
     <template v-else-if="showBoard">
@@ -66,6 +68,7 @@
 <script>
 import EditBoardModal from '@/components/Board/EditBoardModal';
 import BoardPlaceholder from '@/components/Board/BoardPlaceholder';
+import BoardsDropdown from '@/components/BoardsDropdown';
 import EmptyBoard from '@/components/Board/EmptyBoard';
 import AddListModal from '@/components/Board/AddListModal';
 import List from '@/components/Lists/List';
@@ -76,6 +79,7 @@ export default {
   components: {
     List,
     BoardPlaceholder,
+    BoardsDropdown,
     EmptyBoard,
     AddListModal,
     EditBoardModal,
