@@ -39,15 +39,6 @@
         </b-form-checkbox>
 
         <b-form-checkbox
-          v-model="showGameRatings"
-          name="check-button"
-          class="mb-2"
-          switch
-        >
-          {{ $t('board.list.showGameRatings') }}
-        </b-form-checkbox>
-
-        <b-form-checkbox
           v-model="showGameProgress"
           name="check-button"
           class="mb-2"
@@ -105,7 +96,6 @@ export default {
   data() {
     return {
       showReleaseDates: false,
-      showGameRatings: false,
       showGameProgress: false,
       highlightCompletedGames: false,
       showGameNotes: false,
@@ -129,7 +119,6 @@ export default {
     getSettings() {
       const {
         showReleaseDates,
-        showGameRatings,
         showGameProgress,
         showGameNotes,
         highlightCompletedGames,
@@ -139,7 +128,6 @@ export default {
 
       this.highlightCompletedGames = highlightCompletedGames || false;
       this.showReleaseDates = showReleaseDates || false;
-      this.showGameRatings = showGameRatings || false;
       this.showGameProgress = showGameProgress || false;
       this.showGameNotes = showGameNotes || false;
       this.showGameTags = showGameTags || false;
@@ -151,7 +139,6 @@ export default {
       this.saving = true;
 
       settings.showReleaseDates = this.showReleaseDates;
-      settings.showGameRatings = this.showGameRatings;
       settings.showGameProgress = this.showGameProgress;
       settings.highlightCompletedGames = this.highlightCompletedGames;
       settings.showGameNotes = this.showGameNotes;
