@@ -12,15 +12,15 @@
           title="Add games"
           :subtitle="`${board.name} > ${list.name}`"
           @close="close"
-        >
-          <igdb-logo class="mt-2" />
-        </modal-header>
+        />
       </template>
 
       <b-tabs content-class="pt-2" pills small>
         <search-games :list="list" />
         <recent-games :list="list" />
       </b-tabs>
+
+      <igdb-logo class="mt-2" />
     </b-modal>
   </b-dropdown-item-button>
 </template>
