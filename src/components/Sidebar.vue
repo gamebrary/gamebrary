@@ -17,7 +17,7 @@
         <!-- TODO: close modal if already in dashboard -->
         <b-button
           title="Dashboard"
-          :to="{ name: 'dashboard' }"
+          :to="{ name: 'home' }"
           class="p-0"
         >
           <img
@@ -84,7 +84,11 @@
           :src="user.photoURL ? user.photoURL : null"
         />
 
-        Profile
+        <span v-if="profile.userName">
+          @{{ profile.userName }}
+        </span>
+
+        <span v-else>Profile</span>
       </b-button>
 
       <hr>
@@ -167,7 +171,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['user']),
+    ...mapState(['user', 'profile']),
 
     showDevTools() {
       return process.env.NODE_ENV === 'development';

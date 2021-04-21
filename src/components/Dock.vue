@@ -1,15 +1,15 @@
 <template lang="html">
   <nav
-    :class="['dock d-flex align-items-center justify-content-between w-100',
-      { 'position-fixed': isBoard }]"
+    class="dock p-2 d-flex align-items-center justify-content-between w-100"
+    :class="{ 'position-fixed': isBoard }"
   >
     <div>
       <b-button
         title="Dashboard"
         squared
-        variant="light"
+        variant="transparent"
+        v-b-toggle.menu
         class="p-0 ml-2"
-        @click="handleLogoClick"
       >
         <img
           src="/static/gamebrary-logo.png"
@@ -17,12 +17,13 @@
         />
       </b-button>
 
-      <span v-if="pageTitle" class="text-light">{{ pageTitle }}</span>
+      <span v-if="pageTitle" class="d-sm-none">{{ pageTitle }}</span>
+      <sidebar />
 
       <!-- TODO: move to board page and use portal -->
       <b-dropdown
-        v-if="user && showBoardsDropdown"
-        variant="dark"
+        v-if="user && showBoardsDropdown && boards.length > 1"
+        variant="transparent"
         :text="board.name"
       >
         <!-- TODO: create array map with url already fetched -->
@@ -45,29 +46,6 @@
 
           {{ name }}
         </b-dropdown-item>
-            <!-- <b-collapse
-              v-if="user"
-
-              <b-button
-                class="mt-1 d-none d-sm-inline"
-                size="sm"
-                v-b-modal:keyboard-shortcuts
-                title="Keyboard shortcuts"
-              >
-                <i class="fas fa-keyboard fa-fw" aria-hidden />
-              </b-button>
-
-              <hr class="my-1">
-
-
-            </b-collapse> -->
-
-            <!-- <b-button
-              v-if="user"
-              class="mx-1 mb-1 py-0"
-              size="sm"
-            >
-            </b-button> -->
       </b-dropdown>
 
       <span v-else>
@@ -77,67 +55,20 @@
 
     <div class="d-flex">
       <portal-target name="dock" />
-
-      <b-dropdown
-        v-if="user"
-        right
-        no-caret
-        toggle-class="p-0 mx-2 border-0"
-      >
-        <template #button-content>
-          <b-avatar
-            rounded
-            size="38"
-            :src="user.photoURL ? user.photoURL : null"
-          />
-        </template>
-
-        <b-dropdown-header>
-          Hi, {{ user.displayName }}!
-        </b-dropdown-header>
-
-        <b-dropdown-item :to="{ name: 'releases' }">
-          <i class="fas fa-rocket fa-fw" aria-hidden />
-          Releases
-        </b-dropdown-item>
-
-        <b-dropdown-item v-b-modal.devTools v-if="showDevTools">
-          <i class="fas fa-rocket fa-fw" aria-hidden />
-          Dev
-        </b-dropdown-item>
-
-        <b-dropdown-item :to="{ name: 'profile' }">
-          <i class="fas fa-user fa-fw" aria-hidden />
-          Profile
-        </b-dropdown-item>
-
-        <b-dropdown-item :to="{ name: 'settings' }">
-          <i class="fas fa-cog fa-fw" aria-hidden />
-          Settings
-        </b-dropdown-item>
-
-        <b-dropdown-divider></b-dropdown-divider>
-
-        <b-dropdown-item-button @click="session_signOut">
-          <i class="fas fa-sign-out-alt fa-fw" aria-hidden />
-          {{ $t('global.signOut') }}
-        </b-dropdown-item-button>
-      </b-dropdown>
     </div>
   </nav>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import sessionMixin from '@/mixins/sessionMixin';
 import PinnedBoards from '@/components/Board/PinnedBoards';
+import Sidebar from '@/components/Sidebar';
 
 export default {
   components: {
     PinnedBoards,
+    Sidebar,
   },
-
-  mixins: [sessionMixin],
 
   computed: {
     ...mapState(['board', 'boards', 'notification', 'user', 'wallpapers', 'sessionExpired', 'publicBoards']),
@@ -185,19 +116,19 @@ export default {
       }
     },
 
-    handleLogoClick() {
-      if (!this.user) {
-        if (this.$route.name === 'public-boards') {
-          this.$bvModal.show('authModal');
-        } else {
-          this.$router.push({ name: 'public-boards' });
-        }
-      }
-
-      if (this.user && this.$route.name !== 'dashboard') {
-        this.$router.push({ name: 'dashboard' });
-      }
-    },
+    // handleLogoClick() {
+    //   if (!this.user) {
+    //     if (this.$route.name === 'public-boards') {
+    //       this.$bvModal.show('authModal');
+    //     } else {
+    //       this.$router.push({ name: 'public-boards' });
+    //     }
+    //   }
+    //
+    //   if (this.user && this.$route.name !== 'dashboard') {
+    //     this.$router.push({ name: 'dashboard' });
+    //   }
+    // },
 
     // async pinBoard() {
     //   const payload = {
