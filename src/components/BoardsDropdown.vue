@@ -1,10 +1,13 @@
 <template lang="html">
   <portal to="logo" v-if="boards.length">
-    <span v-if="boards.length === 1">{{ board.name }}</span>
+    <b-button v-if="boards.length === 1">
+      {{ board.name }}
+    </b-button>
 
     <b-dropdown
-      v-if="boards.length > 1"
+      class="ml-2"
       variant="transparent"
+      toggle-class="p-1 px-2"
       :text="board.name"
     >
       <!-- TODO: create array map with url already fetched -->
@@ -26,6 +29,12 @@
         />
 
         {{ name }}
+        <small
+          v-if="board.id === id"
+          class="text-muted mx-2"
+        >
+          Edit
+        </small>
       </b-dropdown-item>
     </b-dropdown>
   </portal>
