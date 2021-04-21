@@ -4,7 +4,6 @@
     title="Sidebar"
     shadow
     backdrop
-    visible
     bg-variant="light"
     text-variant="white"
     header-class="px-2 pt-2 d-flex align-items-center justify-content-between"
