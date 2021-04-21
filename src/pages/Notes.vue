@@ -20,8 +20,6 @@
     </portal>
     <page-title
       title="Notes"
-      action-text="Add tag"
-      @action="$bvModal.show('addTag')"
     />
 
     <empty-state
