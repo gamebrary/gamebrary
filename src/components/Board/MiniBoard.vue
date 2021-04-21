@@ -74,8 +74,9 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
+// TODO: calculate this
 $boardHeight: 216px;
-$boardWidth: 374.5px;
+$boardWidth: 359.5px;
 
 .mini-board {
   background-repeat: no-repeat;
