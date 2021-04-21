@@ -11,10 +11,10 @@
       :key="wallpaper.name"
       :img-src="wallpaper.url"
       :img-alt="wallpaper.name"
-      img-top
+      img-left
       img-width="180"
-      class="mb-3 mx-0 p-0 overflow-hidden word-wrap clickable"
-      @click="openModal(wallpaper)"
+      bg-variant="light"
+      class="mb-3 mx-0 p-0 overflow-hidden word-wrap"
     >
       <h6>
         {{ wallpaper.name }}
@@ -25,8 +25,15 @@
       </h6>
 
       <b-button
+        variant="secondary"
+        @click="openModal(wallpaper)"
+      >
+        Preview
+      </b-button>
+
+      <b-button
         variant="danger"
-        @click.stop="confirmDeleteWallpaper(wallpaper)"
+        @click="confirmDeleteWallpaper(wallpaper)"
       >
         <i class="fas fa-trash-alt fa-fw" aria-hidden />
       </b-button>
@@ -34,7 +41,7 @@
       <b-button
         v-if="selectable"
         variant="primary"
-        @click.stop="selected(wallpaper)"
+        @click="selected(wallpaper)"
       >
         <i
           v-if="saving"
@@ -117,15 +124,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-.wallpapers {
-  display: grid;
-  grid-column-gap: 1rem;
-  grid-template-columns: 1fr 1fr 1fr;
-
-  @media(max-width: 720px) {
-    grid-template-columns: 1fr;
-  }
-}
-</style>
