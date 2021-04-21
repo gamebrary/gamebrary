@@ -1,5 +1,9 @@
 <template lang="html">
-  <div class="mx-2">
+  <b-container>
+    <page-title
+      title="Releases"
+    />
+
     <portal to="dock">
       <b-button
         href="https://github.com/romancm/gamebrary"
@@ -33,7 +37,7 @@
         <vue-markdown :source="release.body" class="w-100 releases" />
       </b-card-text>
     </b-card>
-  </div>
+  </b-container>
 </template>
 
 <script>
