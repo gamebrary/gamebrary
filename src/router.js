@@ -8,10 +8,11 @@ import Tags from '@/pages/Tags';
 import Notes from '@/pages/Notes';
 import Releases from '@/pages/Releases';
 import Auth from '@/pages/Auth';
-import Boards from '@/pages/Boards';
+import Dashboard from '@/pages/Dashboard';
+import DevToolsPage from '@/pages/DevToolsPage';
+import Home from '@/pages/Home';
 import Settings from '@/pages/Settings';
 import Profile from '@/pages/Profile';
-import Preferences from '@/pages/Preferences';
 import EditProfile from '@/pages/Profile/EditProfile';
 import PublicProfile from '@/pages/PublicProfile';
 
@@ -21,10 +22,26 @@ export default new Router({
   routes: [
     {
       name: 'dashboard',
-      path: '/',
-      component: Boards,
+      path: '/dashboard',
+      component: Dashboard,
       meta: {
-        title: 'Boards',
+        title: 'Dashboard',
+      },
+    },
+    {
+      name: 'home',
+      path: '/',
+      component: Home,
+      meta: {
+        title: 'Home',
+      },
+    },
+    {
+      name: 'dev-tools',
+      path: '/dev-tools',
+      component: DevToolsPage,
+      meta: {
+        title: 'DevTools',
       },
     },
     {
@@ -34,41 +51,30 @@ export default new Router({
       meta: {
         title: 'Settings',
       },
-      redirect: { name: 'preferences' },
-      children: [
-        {
-          name: 'preferences',
-          path: '/settings/preferences',
-          component: Preferences,
-          meta: {
-            title: 'Settings',
-          },
-        },
-        {
-          name: 'wallpapers',
-          path: '/settings/wallpapers',
-          component: Wallpapers,
-          meta: {
-            title: 'Wallpapers',
-          },
-        },
-        {
-          name: 'tags',
-          path: '/settings/tags',
-          component: Tags,
-          meta: {
-            title: 'Tags',
-          },
-        },
-        {
-          name: 'notes',
-          path: '/settings/notes',
-          component: Notes,
-          meta: {
-            title: 'Notes',
-          },
-        },
-      ],
+    },
+    {
+      name: 'wallpapers',
+      path: '/wallpapers',
+      component: Wallpapers,
+      meta: {
+        title: 'Wallpapers',
+      },
+    },
+    {
+      name: 'tags',
+      path: '/tags',
+      component: Tags,
+      meta: {
+        title: 'Tags',
+      },
+    },
+    {
+      name: 'notes',
+      path: '/notes',
+      component: Notes,
+      meta: {
+        title: 'Notes',
+      },
     },
     {
       name: 'public-boards',
