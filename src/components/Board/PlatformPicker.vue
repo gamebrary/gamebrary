@@ -1,5 +1,23 @@
+<!-- TODO: relayout on change, watcher? -->
 <template lang="html">
-  <div class="platform-picker">
+  <div>
+    <b-button-toolbar aria-label="Toolbar with button groups and dropdown menu">
+      <b-button-group class="mx-1">
+        <b-button>New</b-button>
+        <b-button>Edit</b-button>
+        <b-button>Undo</b-button>
+      </b-button-group>
+      <b-dropdown class="mx-1" right text="menu">
+        <b-dropdown-item>Item 1</b-dropdown-item>
+        <b-dropdown-item>Item 2</b-dropdown-item>
+        <b-dropdown-item>Item 3</b-dropdown-item>
+      </b-dropdown>
+      <b-button-group class="mx-1">
+        <b-button>Save</b-button>
+        <b-button>Cancel</b-button>
+      </b-button-group>
+    </b-button-toolbar>
+
     <!-- <div class="d-flex mb-2">
       <div class="filter mr-2">
         <small class="d-block text-muted">Show:</small>
@@ -17,32 +35,31 @@
       </div>
     </div> -->
 
-    <!-- <pre>{{ filteredPlatforms }}</pre> -->
-
-    <b-list-group class="platforms mb-3">
-      <b-list-group-item
+    <div class="platform-picker">
+      <b-button
         v-for="platform in filteredPlatforms"
+        class="platform"
+        :variant="value.includes(platform.id) ? 'primary' : 'secondary'"
         :key="platform.id"
-        :variant="value.includes(platform.id) ? 'success' : ''"
-        button
         @click="handleClick(platform.id)"
       >
         <b-img
           :src="`/static/logos/platforms/${platform.slug}.${platform.logoFormat}`"
           :alt="platform.name"
-          width="60"
-          thumbnail
-          class="pr-2"
+          class="platform-logo pr-2"
         />
 
-        {{ platform.name }}
-      </b-list-group-item>
-    </b-list-group>
+        <small :class="value.includes(platform.id) ? '' : 'text-muted'">
+          {{ platform.name }}
+        </small>
+      </b-button>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import Packery from 'packery';
 import orderby from 'lodash.orderby';
 
 export default {
@@ -52,6 +69,7 @@ export default {
 
   data() {
     return {
+      packery: null,
       // sort: ,
       // filter: ,
     };
@@ -71,6 +89,10 @@ export default {
 
       return sortedPlatforms.reverse();
     },
+  },
+
+  mounted() {
+    this.packery = new Packery('.platform-picker', { itemSelector: '.platform', gutter: 8 });
   },
 
   methods: {
@@ -94,3 +116,20 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+.platforms {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.platform {
+  width: 135.5px;
+}
+
+.platform-logo {
+  height: auto;
+  max-height: 80px;
+  width: 100%;
+}
+</style>
