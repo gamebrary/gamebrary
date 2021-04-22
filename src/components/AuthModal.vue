@@ -1,4 +1,4 @@
-<!-- TODO: remove, redirect to auth page and show banner instead -->
+<!-- TODO: add actions, e.g. clone board, clone list, add to favorites, like board, etc... -->
 <template lang="html">
   <b-modal
     id="authModal"
@@ -7,8 +7,7 @@
   >
     <template v-slot:modal-header="{ close }">
       <modal-header
-        title="Gamebrary"
-        subtitle="Ditch the spreadsheet. Organize your games with Gamebrary!"
+        :title="user ? 'Forbidden' : 'Gamebrary'"
         @close="close"
       >
         <template v-slot:header>
@@ -20,7 +19,11 @@
       </modal-header>
     </template>
 
-    <div class="text-center">
+    <b-alert v-if="user" show variant="warning">
+      Not allowed
+    </b-alert>
+
+    <div class="text-center" v-else>
       <b-img
         src="/static/img/screenshot-1.jpg"
         class="rounded shadow w-75 ml-auto mr-auto mt-2 mb-3"
@@ -43,7 +46,13 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
+  computed: {
+    ...mapState(['user']),
+  },
+
   methods: {
     getStarted() {
       this.$bvModal.hide('authModal');
