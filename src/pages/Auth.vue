@@ -56,7 +56,7 @@ export default {
       }
 
       if (this.user && this.user.uid) {
-        this.$router.replace({ name: 'dashboard' });
+        this.$router.replace({ name: 'home' });
       } else {
         this.startAuthUI();
       }
@@ -104,7 +104,7 @@ export default {
       }
 
       this.$store.commit('SET_USER', user);
-      this.$router.replace({ name: 'dashboard' });
+      this.$router.replace({ name: 'home' });
       this.load();
     },
 
