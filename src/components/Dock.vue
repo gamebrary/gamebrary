@@ -63,7 +63,7 @@ export default {
     //   }
     //
     //   if (this.user && this.$route.name !== 'dashboard') {
-    //     this.$router.push({ name: 'dashboard' });
+    //     this.$router.push({ name: 'home' });
     //   }
     // },
 
