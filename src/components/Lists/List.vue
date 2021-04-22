@@ -57,7 +57,7 @@
         :move="validateMove"
         handle=".card"
         ghost-class="card-placeholder"
-        :disabled="!user || !isBoardOwner"
+        :disabled="draggingDisabled"
         filter=".drag-filter"
         animation="300"
         :group="{ name: 'games' }"
@@ -137,6 +137,10 @@ export default {
   computed: {
     ...mapState(['games', 'dragging', 'progresses', 'board', 'user']),
     ...mapGetters(['isBoardOwner']),
+
+    draggingDisabled() {
+      return !this.user || !this.isBoardOwner || this.autoSortEnabled;
+    },
 
     autoSortEnabled() {
       const { settings } = this.list;
