@@ -7,9 +7,25 @@
     :style="boardStyles"
   >
     <boards-dropdown />
+    <portal to="dock">
+      <b-button
+        v-if="isBoardOwner"
+        v-b-modal:edit-board
+      >
+        <i class="fas fa-pencil-alt fa-fw" aria-hidden />
+        Edit board
+      </b-button>
+
+      <!-- TODO: add board filtering -->
+      <!-- <b-button
+        variant="warning"
+      >
+        <i class="fas fa-filter fa-fw" aria-hidden />
+        Filter
+      </b-button> -->
+    </portal>
 
     <board-placeholder v-if="loading" />
-
     <template v-else-if="showBoard">
       <list
         v-for="(list, listIndex) in board.lists"
@@ -17,24 +33,6 @@
         :listIndex="listIndex"
         :key="list.name"
       />
-
-      <portal to="dock">
-        <b-button
-          v-if="isBoardOwner"
-          v-b-modal:edit-board
-        >
-          <i class="fas fa-pencil-alt fa-fw" aria-hidden />
-          Edit board
-        </b-button>
-
-        <!-- TODO: add board filtering -->
-        <!-- <b-button
-          variant="warning"
-        >
-          <i class="fas fa-filter fa-fw" aria-hidden />
-          Filter
-        </b-button> -->
-      </portal>
 
       <div
         v-if="user && user.uid && user.uid === board.owner"
@@ -164,7 +162,7 @@ export default {
       if (this.boardId && this.user) {
         this.loadBoard(this.boardId);
       } else {
-        this.$router.push({ name: 'dashboard' });
+        this.$router.push({ name: 'boards' });
       }
     },
 
