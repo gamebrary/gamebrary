@@ -45,6 +45,7 @@
           </template>
 
           <b-button
+            v-if="isBoardOwner"
             variant="light"
             @click="setAsWallpaper"
           >
@@ -110,7 +111,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['activeGameCoverUrl', 'board']),
+    ...mapGetters(['activeGameCoverUrl', 'isBoardOwner']),
     ...mapState(['board']),
 
     thumbnails() {
