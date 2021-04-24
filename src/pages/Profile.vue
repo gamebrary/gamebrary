@@ -33,7 +33,6 @@ export default {
     return {
       saving: false,
       loading: true,
-      available: null,
     };
   },
 
