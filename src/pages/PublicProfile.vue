@@ -1,12 +1,23 @@
 <template lang="html">
   <div>
     <pre>{{ userName }}</pre>
+    <b-alert show variant="danger" v-if="error">
+      user not found
+    </b-alert>
+
+    <pre class="bg-info">{{ profile }}</pre>
     <!-- TODO: load profile and display it -->
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      error: false,
+      profile: null,
+    };
+  },
   computed: {
     userName() {
       return this.$route.params.userName;
@@ -19,13 +30,13 @@ export default {
 
   methods: {
     load() {
-      // load public profile
-      // console.log(this.userName);
-      // this.$store.dispatch('LOAD_PROFILE', this.userName)
-      //   .then((data) => {
-      //     console.log('boom');
-      //     console.log(data);
-      //   })
+      this.$store.dispatch('LOAD_PUBLIC_PROFILE', this.userName)
+        .then((data) => {
+          this.profile = data;
+        })
+        .catch(() => {
+          this.error = true;
+        });
     },
   },
 };

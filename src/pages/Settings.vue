@@ -6,7 +6,6 @@
       <languages />
 
       Open games in:
-      <b-form-select v-model="gameDetailView" class="mb-3">
       <!-- Open games in:
       <b-form-select class="mb-3">
         <b-form-select-option value="modal">Modal</b-form-select-option>

@@ -164,7 +164,7 @@ export default {
             commit('SET_PROFILE', profile);
             resolve();
           } else {
-            commit('SET_PROFILE', {});
+            commit('REMOVE_PROFILE');
             reject();
           }
         })
@@ -172,7 +172,43 @@ export default {
     });
   },
 
-  // TODO: add LOAD_PUBLIC_PROFILE
+  LOAD_PROFILES({ commit }) {
+    // TODO: paginate
+    return new Promise((resolve, reject) => {
+      const db = firebase.firestore();
+
+      db.collection('profiles')
+        .get()
+        .then((querySnapshot) => {
+          const profiles = querySnapshot.docs.map(doc => doc.data());
+
+          commit('SET_PROFILES', profiles);
+
+          return resolve(profiles);
+        })
+        .catch(reject);
+    });
+  },
+
+  LOAD_PUBLIC_PROFILE(context, userName) {
+    return new Promise((resolve, reject) => {
+      const db = firebase.firestore();
+
+      db.collection('profiles')
+        .where('userName', '==', userName)
+        .get()
+        .then((docs) => {
+          const [profile] = docs.docs.map(doc => doc.data());
+
+          if (profile) {
+            resolve(profile);
+          } else {
+            reject();
+          }
+        })
+        .catch(reject);
+    });
+  },
 
   DELETE_PROFILE({ commit, state }) {
     return new Promise((resolve, reject) => {

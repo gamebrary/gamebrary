@@ -3,6 +3,7 @@ export default {
   tags: {},
   notes: {},
   profile: {},
+  profiles: [],
   releases: [],
   progresses: {},
   dragging: false,

@@ -53,6 +53,10 @@ export default {
     state.profile = {};
   },
 
+  SET_PROFILES(state, profiles) {
+    state.profiles = profiles;
+  },
+
   SET_PLATFORMS(state, platforms) {
     state.platforms = platforms
       .filter(({ id }) => !EXCLUDED_PLATFORMS.includes(id))
@@ -200,6 +204,7 @@ export default {
     state.notes = {};
     state.progresses = {};
     state.profile = {};
+    state.profiles = [];
     state.dragging = false;
     state.settings = null;
     state.platform = null;

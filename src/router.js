@@ -9,6 +9,7 @@ import Notes from '@/pages/Notes';
 import Releases from '@/pages/Releases';
 import Auth from '@/pages/Auth';
 import BoardsPage from '@/pages/BoardsPage';
+import ProfilesPage from '@/pages/ProfilesPage';
 import DevToolsPage from '@/pages/DevToolsPage';
 import Home from '@/pages/Home';
 import Settings from '@/pages/Settings';
@@ -24,6 +25,14 @@ export default new Router({
       name: 'boards',
       path: '/boards',
       component: BoardsPage,
+      meta: {
+        title: 'Boards',
+      },
+    },
+    {
+      name: 'profiles',
+      path: '/profiles',
+      component: ProfilesPage,
       meta: {
         title: 'Boards',
       },
@@ -149,6 +158,9 @@ export default new Router({
       path: '/:userName',
       name: 'public-profile',
       component: PublicProfile,
+      meta: {
+        public: true,
+      },
     },
   ],
 });

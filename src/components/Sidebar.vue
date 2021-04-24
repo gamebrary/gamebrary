@@ -134,6 +134,11 @@ export default {
           icon: 'fas fa-th-large',
         },
         {
+          name: 'profiles',
+          title: 'Profiles',
+          icon: 'fas fa-th-large',
+        },
+        {
           name: 'tags',
           title: 'Tags',
           icon: 'fas fa-tags',
