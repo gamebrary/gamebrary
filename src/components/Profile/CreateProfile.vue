@@ -125,6 +125,8 @@ export default {
 
       this.available = await this.$store.dispatch('CHECK_PROFILE_USERNAME_AVAILABILITY', userName);
 
+      this.errorMessage = this.available ? null : 'User name not available';
+
       this.loading = false;
     },
   },
