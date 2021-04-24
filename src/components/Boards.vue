@@ -151,7 +151,7 @@ export default {
 
       this.loadBoards();
 
-      this.$store.dispatch('LOAD_PUBIC_BOARDS');
+      this.$store.dispatch('LOAD_PUBLIC_BOARDS');
     },
 
     async loadBoards() {

@@ -106,7 +106,7 @@ export default {
     });
   },
 
-  LOAD_PUBIC_BOARDS({ commit }) {
+  LOAD_PUBLIC_BOARDS({ commit }) {
     // TODO: paginate
     return new Promise((resolve, reject) => {
       const db = firebase.firestore();

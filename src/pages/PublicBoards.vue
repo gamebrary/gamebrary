@@ -42,7 +42,7 @@ export default {
 
   methods: {
     load() {
-      this.$store.dispatch('LOAD_PUBIC_BOARDS');
+      this.$store.dispatch('LOAD_PUBLIC_BOARDS');
     },
 
     getWallpaper({ wallpaper }) {
