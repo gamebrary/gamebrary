@@ -199,6 +199,7 @@ export default {
     state.tags = {};
     state.notes = {};
     state.progresses = {};
+    state.profile = {};
     state.dragging = false;
     state.settings = null;
     state.platform = null;
