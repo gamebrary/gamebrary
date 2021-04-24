@@ -1,7 +1,7 @@
 <template lang="html">
   <b-container>
     <div v-if="loading">
-
+      loading...
     </div>
 
     <empty-state
@@ -9,69 +9,23 @@
       title="Profiles"
       message="Share boards with other users, get your own shareable URL, and more!"
     >
-      <profile-name-check-field />
+      <create-profile />
     </empty-state>
 
     <profile v-else />
-    <!-- @action="createProfile" -->
-
-    <!-- <h1>Edit profile</h1>
-    <b-button @click="checkUserNameAvailability">
-      Check availability
-    </b-button>
-
-    <b-form-group
-      label="Pick a user name"
-      label-for="userName"
-      valid-feedback="Available"
-      invalid-feedback="User name taken"
-      :state="available"
-    >
-      <b-form-input
-        id="userName"
-        disabled
-        v-model="profile.userName"
-        placeholder=""
-      />
-    </b-form-group>
-
-    <b-form-input
-      v-model="profile.name"
-      placeholder="name"
-    />
-
-    <b-form-input
-      v-model="profile.bio"
-      placeholder="bio"
-    />
-
-    <b-form-input
-      v-model="profile.location"
-      placeholder="location"
-    />
-
-    <b-form-input
-      v-model="profile.website"
-      placeholder="website"
-    />
-
-    <b-form-input
-      v-model="profile.twitter"
-      placeholder="twitter"
-    /> -->
   </b-container>
 </template>
 
 <script>
 import EmptyState from '@/components/EmptyState';
-import ProfileNameCheckField from '@/components/Profile/ProfileNameCheckField';
+import CreateProfile from '@/components/Profile/CreateProfile';
 import Profile from '@/components/Profile';
 import { mapState } from 'vuex';
 
 export default {
   components: {
     EmptyState,
-    ProfileNameCheckField,
+    CreateProfile,
     Profile,
   },
 
@@ -91,37 +45,13 @@ export default {
     },
   },
 
-  mounted() {
-    this.load();
-  },
+  async mounted() {
+    await this.$store.dispatch('LOAD_PROFILE')
+      .catch(() => {
+        this.loading = false;
+      });
 
-  methods: {
-    async load() {
-      this.loading = true;
-
-      await this.$store.dispatch('LOAD_PROFILE')
-        .catch(() => {
-          this.loading = false;
-        });
-
-      this.loading = false;
-    },
-
-    async save() {
-      this.saving = true;
-
-      await this.$store.dispatch('SAVE_PROFILE', this.profile);
-
-      this.saving = false;
-      this.$bvModal.hide('edit-profile');
-    },
-
-    checkUserNameAvailability() {
-      this.$store.dispatch('CHECK_PROFILE_USERNAME_AVAILABILITY', this.profile.userName)
-        .then((test) => {
-          this.available = test;
-        });
-    },
+    this.loading = false;
   },
 };
 </script>
