@@ -164,6 +164,7 @@ export default {
             commit('SET_PROFILE', profile);
             resolve();
           } else {
+            commit('SET_PROFILE', {});
             reject();
           }
         })
