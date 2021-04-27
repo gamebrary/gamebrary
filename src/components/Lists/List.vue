@@ -25,11 +25,11 @@
 
           <br />
 
-          <small v-if="showGameCount" class="text-muted">
+          <small v-if="showGameCount" class="text-info">
               {{ list.games.length }} {{ $t('global.games') }}
           </small>
 
-          <small v-if="autoSortEnabled" class="text-muted" v-b-modal="`sort-list-${listIndex}`">
+          <small v-if="autoSortEnabled" class="text-info" v-b-modal="`sort-list-${listIndex}`">
             {{ `${$t('board.list.sortedBy')} ${$t(`board.list.${list.settings.sortOrder}`)}` }}
           </small>
         </p>
