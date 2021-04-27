@@ -1,25 +1,26 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Board from '@/pages/Board';
-import About from '@/pages/About';
-import Wallpapers from '@/pages/Wallpapers';
-import PublicBoards from '@/pages/PublicBoards';
-import Tags from '@/pages/Tags';
-import Notes from '@/pages/Notes';
-import Releases from '@/pages/Releases';
-import Auth from '@/pages/Auth';
+import BoardPage from '@/pages/BoardPage';
+import AboutPage from '@/pages/AboutPage';
+import WallpapersPage from '@/pages/WallpapersPage';
+import PublicBoardsPage from '@/pages/PublicBoardsPage';
+import TagsPage from '@/pages/TagsPage';
+import NotesPage from '@/pages/NotesPage';
+import ReleasesPage from '@/pages/ReleasesPage';
+import AuthPage from '@/pages/AuthPage';
 import BoardsPage from '@/pages/BoardsPage';
 import ProfilesPage from '@/pages/ProfilesPage';
 import DevToolsPage from '@/pages/DevToolsPage';
-import Home from '@/pages/Home';
-import Settings from '@/pages/Settings';
-import Profile from '@/pages/Profile';
-import EditProfile from '@/pages/Profile/EditProfile';
-import PublicProfile from '@/pages/PublicProfile';
+import HomePage from '@/pages/HomePage';
+import SettingsPage from '@/pages/SettingsPage';
+import ProfilePage from '@/pages/ProfilePage';
+import EditProfilePage from '@/pages/EditProfilePage';
+import PublicProfilePage from '@/pages/PublicProfilePage';
 
 Vue.use(Router);
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       name: 'boards',
@@ -35,12 +36,13 @@ export default new Router({
       component: ProfilesPage,
       meta: {
         title: 'Boards',
+        public: true,
       },
     },
     {
       name: 'home',
       path: '/',
-      component: Home,
+      component: HomePage,
       meta: {
         title: 'Home',
       },
@@ -56,7 +58,7 @@ export default new Router({
     {
       name: 'settings',
       path: '/settings',
-      component: Settings,
+      component: SettingsPage,
       meta: {
         title: 'Settings',
       },
@@ -64,7 +66,7 @@ export default new Router({
     {
       name: 'wallpapers',
       path: '/wallpapers',
-      component: Wallpapers,
+      component: WallpapersPage,
       meta: {
         title: 'Wallpapers',
       },
@@ -72,7 +74,7 @@ export default new Router({
     {
       name: 'tags',
       path: '/tags',
-      component: Tags,
+      component: TagsPage,
       meta: {
         title: 'Tags',
       },
@@ -80,7 +82,7 @@ export default new Router({
     {
       name: 'notes',
       path: '/notes',
-      component: Notes,
+      component: NotesPage,
       meta: {
         title: 'Notes',
       },
@@ -88,7 +90,7 @@ export default new Router({
     {
       name: 'public-boards',
       path: '/public-boards',
-      component: PublicBoards,
+      component: PublicBoardsPage,
       meta: {
         title: 'PublicBoards',
         public: true,
@@ -97,15 +99,15 @@ export default new Router({
     {
       name: 'profile',
       path: '/profile',
-      component: Profile,
+      component: ProfilePage,
       meta: {
         title: 'Profile',
       },
     },
     {
       name: 'edit-profile',
-      path: '/profile/edit',
-      component: EditProfile,
+      path: '/EditProfilePage',
+      component: EditProfilePage,
       meta: {
         title: 'Edit profile',
       },
@@ -113,7 +115,7 @@ export default new Router({
     {
       name: 'about',
       path: '/about',
-      component: About,
+      component: AboutPage,
       meta: {
         title: 'About',
       },
@@ -121,7 +123,7 @@ export default new Router({
     {
       name: 'releases',
       path: '/releases',
-      component: Releases,
+      component: ReleasesPage,
       meta: {
         title: 'Releases',
       },
@@ -129,7 +131,7 @@ export default new Router({
     {
       name: 'auth',
       path: '/auth',
-      component: Auth,
+      component: AuthPage,
       meta: {
         title: 'Auth',
       },
@@ -137,19 +139,19 @@ export default new Router({
         {
           name: 'auth-provider',
           path: ':provider',
-          component: Auth,
+          component: AuthPage,
         },
       ],
     },
     {
       path: '/board/:id',
       name: 'board',
-      component: Board,
+      component: BoardPage,
     },
     {
       path: '/b/:id',
       name: 'public-board',
-      component: Board,
+      component: BoardPage,
       meta: {
         public: true,
       },
@@ -157,7 +159,7 @@ export default new Router({
     {
       path: '/:userName',
       name: 'public-profile',
-      component: PublicProfile,
+      component: PublicProfilePage,
       meta: {
         public: true,
       },

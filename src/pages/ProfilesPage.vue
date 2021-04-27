@@ -10,7 +10,8 @@
       v-for="profile in profiles"
       :key="profile.userName"
     >
-      <small>{{ profile.userName }}</small>
+      <img :src="profile.profileImage" :alt="profile.userName" width="50">
+      <small>{{ `@${profile.userName}` }}</small>
     </router-link>
   </b-container>
 </template>
