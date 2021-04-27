@@ -1,44 +1,40 @@
 <template lang="html">
-  <b-button variant="danger" size="sm" v-b-modal:account-settings>
-    Delete Account
+  <b-modal
+    id="account-settings"
+    hide-footer
+    title="Delete account"
+  >
+    <b-alert show variant="success" v-if="deleting && progress === 5">
+      Account deleted
+    </b-alert>
 
-    <b-modal
-      id="account-settings"
-      hide-footer
-      title="Delete account"
+    <template v-else-if="deleting">
+      {{ message }}
+      <b-progress :value="progress" :max="5" class="mb-3"  />
+    </template>
+
+    <div v-else>
+      The following database entries will be deleted FOREVER.
+
+      <ul>
+        <li>User</li>
+        <li>Tags</li>
+        <li>Notes</li>
+        <li>Game Progresses</li>
+        <li>Settings</li>
+        <li>Boards</li>
+        <!-- <li>Wallpapers </li> -->
+      </ul>
+    </div>
+
+    <b-button
+      variant="danger"
+      @click="promptDeleteAccount"
+      :disabled="deleting"
     >
-      <b-alert show variant="success" v-if="deleting && progress === 5">
-        Account deleted
-      </b-alert>
-
-      <template v-else-if="deleting">
-        {{ message }}
-        <b-progress :value="progress" :max="5" class="mb-3"  />
-      </template>
-
-      <div v-else>
-        The following database entries will be deleted FOREVER.
-
-        <ul>
-          <li>User</li>
-          <li>Tags</li>
-          <li>Notes</li>
-          <li>Game Progresses</li>
-          <li>Settings</li>
-          <li>Boards</li>
-          <!-- <li>Wallpapers </li> -->
-        </ul>
-      </div>
-
-      <b-button
-        variant="danger"
-        @click="promptDeleteAccount"
-        :disabled="deleting"
-      >
-        Delete Account
-      </b-button>
-    </b-modal>
-  </b-button>
+      Delete Account
+    </b-button>
+  </b-modal>
 </template>
 
 <script>

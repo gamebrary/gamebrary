@@ -20,10 +20,16 @@
       <b-button
         @click="session_signOut"
         variant="secondary"
-        size="sm"
         class="my-2"
       >
         {{ $t('global.signOut') }}
+      </b-button>
+
+      <b-button
+        variant="danger"
+        v-b-modal:account-settings
+      >
+        Delete Account
       </b-button>
 
       <delete-account />
@@ -34,7 +40,7 @@
 <script>
 import Languages from '@/components/Settings/Languages';
 // import ProviderCard from '@/components/ProviderCard';
-import DeleteAccount from '@/components/Settings/DeleteAccount';
+import DeleteAccountModal from '@/components/Settings/DeleteAccountModal';
 import sessionMixin from '@/mixins/sessionMixin';
 import { mapState } from 'vuex';
 
@@ -42,7 +48,7 @@ export default {
   components: {
     Languages,
     // ProviderCard,
-    DeleteAccount,
+    DeleteAccountModal,
   },
 
   mixins: [sessionMixin],
