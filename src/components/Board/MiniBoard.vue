@@ -5,11 +5,15 @@
     @click="$emit('view-board', board.id)"
   >
     <small :class="{ 'has-background' : miniBoardStyles }">
-      <i
+      <b-button
         v-if="board.isPublic"
-        class="fas fa-users fa-fw"
-        aria-hidden
-      />
+        variant="outline-success"
+        class="p-0 px-1 mb-1"
+        size="sm"
+      >
+        <i class="fas fa-users fa-fw" aria-hidden />
+        Public
+      </b-button>
 
       {{ board.name }}
 
