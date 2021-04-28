@@ -1,16 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Signika:wght@300;400;500;600;700&display=swap');
 
 // Colors
-$primary: #1387f9 !default;
-$secondary: #3d3d3d !default;
-$white: #e6e6e6 !default;
-$black: #0e1111 !default;
-$success: #28a745 !default;
-$info: #ffe7b1 !default;
-$warning: #ffc107 !default;
-$danger: #dc3545 !default;
-$light: #484847 !default;
-$dark: #242526 !default;
+$light: #33364a !default;
+$dark: #2b2e43 !default;
+$muted: #7d7f8c !default;
+$danger: #fa5455 !default;
+$warning: #fbbd34 !default;
+$secondary: #595969 !default;
+$info: #ee00ff !default;
+$primary: #0073ff !default;
+$white: #fff !default;
+$black: #0b0b18 !default;
+
+$success: #23cd69 !default;
 
 $theme-colors: () !default;
 $theme-colors: map-merge(
@@ -177,7 +179,7 @@ $h6-font-size: $font-size-base !default;
 //
 // $small-font-size:             80% !default;
 //
-$text-muted: lighten($light, 10%) !default;
+$text-muted: $muted !default;
 //
 // $blockquote-small-color:      $gray-600 !default;
 // $blockquote-small-font-size:  $small-font-size !default;
@@ -655,7 +657,7 @@ $btn-padding-x-sm: .5rem !default;
 // $card-cap-color:                    null !default;
 // $card-height:                       null !default;
 // $card-color:                        null !default;
-// $card-bg:                           $white !default;
+$card-bg: $dark !default;
 //
 // $card-img-overlay-padding:          1.25rem !default;
 //
@@ -768,7 +770,7 @@ $modal-dialog-margin-y-sm-up:       0 !default;
 // $modal-title-line-height:           $line-height-base !default;
 //
 $modal-content-color: $white !default;
-$modal-content-bg: $light !default;
+$modal-content-bg: $dark !default;
 // $modal-content-border-color:        rgba($black, .2) !default;
 // $modal-content-border-width:        $border-width !default;
 // $modal-content-border-radius:       $border-radius-lg !default;
@@ -936,7 +938,7 @@ $alert-padding-x: .5rem !default;
 // $kbd-color:                         $white !default;
 // $kbd-bg:                            $gray-900 !default;
 //
-// $pre-color:                         $gray-900 !default;
+$pre-color: $white !default;
 // $pre-scrollable-max-height:         340px !default;
 //
 // // Printing
