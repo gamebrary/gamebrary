@@ -24,6 +24,8 @@
 
     <portal-target name="dock" />
 
+    <global-search />
+
     <sidebar />
   </nav>
 </template>
@@ -32,11 +34,13 @@
 import { mapState, mapGetters } from 'vuex';
 import PinnedBoards from '@/components/Board/PinnedBoards';
 import Sidebar from '@/components/Sidebar';
+import GlobalSearch from '@/components/GlobalSearch';
 
 export default {
   components: {
     PinnedBoards,
     Sidebar,
+    GlobalSearch,
   },
 
   computed: {
