@@ -34,6 +34,8 @@
       <span v-else>Create profile</span>
     </b-button>
 
+    <pre>{{ user }}</pre>
+
     <!-- TODO: Add something about public profiles in terms and require this checkbox -->
     <!-- <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0">Accept Terms</b-form-checkbox> -->
   </div>
@@ -79,9 +81,18 @@ export default {
   methods: {
     async createProfile() {
       this.saving = true;
-      const { userName } = this;
 
-      await this.$store.dispatch('SAVE_PROFILE', { userName });
+      const { userName, user: { displayName, dateJoined, uid, photoURL } } = this;
+
+      const payload = {
+        userName,
+        displayName,
+        dateJoined,
+        uid,
+        profilePic: photoURL,
+      };
+
+      await this.$store.dispatch('SAVE_PROFILE', payload);
 
       this.saving = false;
     },

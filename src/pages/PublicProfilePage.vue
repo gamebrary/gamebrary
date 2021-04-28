@@ -9,10 +9,26 @@
         <img :src="profile.profileImage" :alt="userName" class="rounded" />
 
         <h2>{{ profile.userName }}</h2>
+
+        <p>{{ profile.bio }}</p>
+        <p>{{ profile.friendCode }}</p>
+
+        <a :href="profile.twitter" v-if="profile.twitter">
+          <i class="fab fa-twitter fa-fw" aria-hidden />
+        </a>
+
+        <p class="text-info">
+          <i class="fas fa-map-marker fa-fw" aria-hidden />
+          {{ profile.location }}</p>
+        <p>{{ profile }}</p>
       </div>
 
       <b-button v-if="canEdit" :to="{ name: 'profile' }">
         Edit
+      </b-button>
+
+      <b-button :to="{ name: 'profiles' }">
+        View other profiles
       </b-button>
 
       <mini-board
@@ -56,8 +72,8 @@ export default {
     ...mapState(['user']),
 
     canEdit() {
-      return this.profile && this.profile.userId
-        ? this.user && this.user.uid === this.profile.userId
+      return this.profile && this.profile.uid
+        ? this.user && this.user.uid === this.profile.uid
         : false;
     },
 
@@ -98,7 +114,7 @@ export default {
         return;
       }
 
-      this.userBoards = await this.$store.dispatch('LOAD_USER_PUBLIC_BOARDS', this.profile.userId)
+      this.userBoards = await this.$store.dispatch('LOAD_USER_PUBLIC_BOARDS', this.profile.uid)
         .catch(() => {
           this.error = true;
         });

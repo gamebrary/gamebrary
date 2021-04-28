@@ -1,8 +1,8 @@
 <template lang="html">
   <b-container class="text-white">
     <h1>Edit profile</h1>
-
-    Username
+    <pre>{{ localProfile }}</pre>
+    userName
     <b-form-input
       v-model="localProfile.userName"
       disabled
@@ -18,9 +18,9 @@
       v-model="localProfile.twitter"
     />
 
-    gamerTag
+    friendCode
     <b-form-input
-      v-model="localProfile.gamerTag"
+      v-model="localProfile.friendCode"
     />
 
     location
@@ -48,11 +48,18 @@
       <span v-else>Save profile</span>
     </b-button>
 
+    <b-button
+      class="ml-1"
+      variant="success"
+      :to="{ name: 'public-profile', params: { userName: localProfile.userName } }"
+    >
+      View profile
+    </b-button>
+
     <!-- TODO: warn before deleting -->
     <b-button class="ml-1" variant="danger" @click="deleteProfile">
       Delete profile
     </b-button>
-
   </b-container>
 </template>
 

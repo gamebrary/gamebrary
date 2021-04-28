@@ -4,15 +4,29 @@
       title="Profiles"
     />
 
-    <router-link
-      class="bg-white p-3 mb-2"
+    <b-button
       :to="{ name: 'public-profile', params: { userName: profile.userName } }"
+      block
+      class="profile-button p-2"
       v-for="profile in profiles"
       :key="profile.userName"
     >
-      <img :src="profile.profileImage" :alt="profile.userName" width="50">
-      <small>{{ `@${profile.userName}` }}</small>
-    </router-link>
+      <img
+        :src="profile.profileImage"
+        :alt="profile.userName"
+        class="rounded"
+        width="50"
+      >
+
+      <div>
+        <h3 class="m-0">{{ profile.displayName }}</h3>
+        <small class="text-info">{{ `@${profile.userName}` }}</small>
+        <p>{{ profile.bio }}</p>
+        <!-- <b-button variant="primary">
+          Follow
+        </b-button> -->
+      </div>
+    </b-button>
   </b-container>
 </template>
 
@@ -37,4 +51,10 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
+.profile-button {
+  text-align: left;
+  display: grid;
+  grid-template-columns: 48px auto;
+  grid-gap: .75rem;
+}
 </style>
