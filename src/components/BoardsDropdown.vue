@@ -6,7 +6,6 @@
 
     <b-dropdown
       class="ml-2"
-      variant="light"
     >
       <template v-slot:button-content>
         {{ board.name }}

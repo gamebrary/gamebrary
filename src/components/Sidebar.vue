@@ -4,7 +4,7 @@
     title="Sidebar"
     shadow
     backdrop
-    bg-variant="light"
+    bg-variant="dark"
     text-variant="white"
     header-class="px-2 pt-2 d-flex align-items-center justify-content-between"
     footer-class="text-center p-2"
@@ -30,7 +30,6 @@
 
       <b-button
         class="align-self-baseline"
-        variant="light"
         @click="hide"
       >
         <i class="fas fa-times fa-fw" aria-hidden />
@@ -41,7 +40,7 @@
       <b-button
         v-for="{ name, title, icon } in menuButtons"
         :key="name"
-        :variant="name === routeName ? 'primary' : 'light'"
+        :variant="name === routeName ? 'primary' : 'dark'"
         block
         class="text-left"
         :to="{ name }"
@@ -63,7 +62,7 @@
       <b-button
         v-for="{ name, title, icon } in secondaryButtons"
         :key="name"
-        :variant="name === routeName ? 'primary' : 'light'"
+        :variant="name === routeName ? 'primary' : 'dark'"
         block
         class="text-left"
         :to="{ name }"
@@ -72,7 +71,7 @@
       </b-button>
 
       <b-button
-        :variant="routeName === 'profile' ? 'primary' : 'light'"
+        :variant="routeName === 'profile' ? 'primary' : 'dark'"
         block
         class="text-left"
         :to="{ name: 'profile' }"

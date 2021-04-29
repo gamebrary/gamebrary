@@ -49,7 +49,6 @@
           <b-button
             @click="backgroundColor = null"
             class="ml-1"
-            variant="light"
           >
             <i class="fas fa-trash fa-fw" aria-hidden />
           </b-button>

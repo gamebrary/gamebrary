@@ -9,7 +9,6 @@
         :key="id"
         target="_blank"
         class="text-left p-1 m-0"
-        variant="light"
       >
         <i
           v-if="icon"

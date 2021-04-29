@@ -46,7 +46,6 @@
 
           <b-button
             v-if="isBoardOwner"
-            variant="light"
             @click="setAsWallpaper"
           >
             <i

@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="mx-2 mb-2" v-if="user">
+  <div class="mb-5" v-if="user">
     <!-- TODO: allow reorganizing and save -->
     <!-- TODO: show public boards -->
     <empty-state

@@ -92,7 +92,6 @@
 
         <b-button
           v-else
-          variant="light"
           block
           class="mb-2"
           disabled

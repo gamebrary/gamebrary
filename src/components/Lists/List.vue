@@ -10,12 +10,8 @@
       ]"
     :id="listIndex"
   >
-    <b-card
-      no-body
-      bg-variant="light"
-    >
+    <b-card no-body>
       <b-card-header
-        header-bg-variant="light"
         class="py-0 pr-0 pl-2 d-flex justify-content-between align-items-center"
       >
         <p class="list-name p-0 m-0">
