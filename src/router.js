@@ -40,14 +40,6 @@ export default new Router({
       },
     },
     {
-      name: 'home',
-      path: '/',
-      component: HomePage,
-      meta: {
-        title: 'Home',
-      },
-    },
-    {
       name: 'dev-tools',
       path: '/dev-tools',
       component: DevToolsPage,
@@ -161,6 +153,15 @@ export default new Router({
       name: 'public-profile',
       component: PublicProfilePage,
       meta: {
+        public: true,
+      },
+    },
+    {
+      name: 'home',
+      path: '/',
+      component: HomePage,
+      meta: {
+        title: 'Home',
         public: true,
       },
     },
