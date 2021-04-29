@@ -1,9 +1,9 @@
 <template lang="html">
-  <header :class="{ 'has-action': slots.includes('default'), sticky }">
+  <header :class="{ 'has-action': slots.includes('default') }">
     <div>
       <slot name="header" v-if="slots.includes('header')" />
-      <h5 class="mb-0 text-wrap">{{ title }}</h5>
-      <small class="d-block text-info">{{ subtitle }}</small>
+      <h4 class="mb-0 text-wrap">{{ title }}</h4>
+      <small class="d-block text-muted">{{ subtitle }}</small>
     </div>
 
     <div class="actions" v-if="slots.includes('default')">
@@ -12,7 +12,7 @@
 
     <b-button
       class="align-self-baseline"
-      variant="light"
+      variant="dark"
       @click="$emit('close')"
     >
       <i class="fas fa-times fa-fw" aria-hidden />
@@ -25,7 +25,6 @@ export default {
   props: {
     title: String,
     subtitle: String,
-    sticky: Boolean,
   },
 
   computed: {
