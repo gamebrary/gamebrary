@@ -30,7 +30,6 @@
         @view-board="viewBoard(board.id)"
       >
         <b-button
-          class="position-absolute edit-board-button"
           size="sm"
           variant="secondary"
           @click.stop="editBoard(board)"
@@ -197,10 +196,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-.edit-board-button {
-  right: .5rem;
-  top: .5rem;
-}
-</style>
