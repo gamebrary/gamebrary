@@ -2,6 +2,7 @@
   <header class="d-flex align-items-center justify-content-between">
     <h1 class="d-none d-sm-block">{{ title }}</h1>
 
+    <slot />
     <b-button
       v-if="actionText"
       variant="primary"
@@ -12,15 +13,16 @@
     </b-button>
 
     <portal to="dock">
+
       <div class="d-sm-none" v-if="actionText">
+        <slot />
+
         <b-button
           variant="primary"
           @click="$emit('action')"
         >
           {{ actionText }}
         </b-button>
-
-        <slot />
       </div>
     </portal>
   </header>
