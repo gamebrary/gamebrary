@@ -4,22 +4,15 @@
     :style="miniBoardStyles"
     @click="$emit('view-board', board.id)"
   >
-    <small :class="{ 'has-background' : miniBoardStyles }">
-      <b-button
-        v-if="board.isPublic"
-        variant="outline-success"
-        class="p-0 px-1 mb-1"
-        size="sm"
-      >
-        <i class="fas fa-users fa-fw" aria-hidden />
-        Public
-      </b-button>
-
+    <small>
       {{ board.name }}
 
-      <template v-if="board.platforms.length > 1">
-        ({{ board.platforms.length }} {{ $t('boards.platforms') }})
-      </template>
+      <small
+        v-if="board.isPublic"
+        class="text-success"
+      >
+        (Public)
+      </small>
     </small>
 
     <slot />
@@ -88,11 +81,6 @@ $boardWidth: 359.5px;
   height: $boardHeight;
   width: $boardWidth;
   max-width: 100%;
-
-  .has-background {
-    text-shadow: 1px 1px black;
-    color: white;
-  }
 }
 
 .lists {
