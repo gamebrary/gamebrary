@@ -6,37 +6,50 @@
       @selected="selected"
     />
 
+    <!-- TODO: put actions in dropdown -->
+    <!-- TODO: open preview when clicking on image -->
+    <!-- TODO: view toggle -->
+
     <b-card
       v-for="wallpaper in wallpapers"
       :key="wallpaper.name"
-      :img-src="wallpaper.url"
-      :img-alt="wallpaper.name"
-      img-left
-      img-width="180"
-      bg-variant="light"
-      class="mb-3 mx-0 p-0 overflow-hidden word-wrap"
+      class="mb-3 mx-0 p-0 word-wrap d-flex position-relative d-flex align-items-start"
+      body-class="w-100"
     >
-      <h6>
-        {{ wallpaper.name }}
+      <b-img
+        :src="wallpaper.url"
+        :alt="wallpaper.name"
+        width="180"
+        rounded
+        class="mr-3 cursor-pointer"
+        @click="openPreview(wallpaper)"
+      />
 
-        <b-badge v-if="wallpaper.metadata && wallpaper.metadata.size">
-          {{ formatSize(wallpaper) }}
-        </b-badge>
-      </h6>
+      {{ wallpaper.name }}
 
-      <b-button
-        variant="secondary"
-        @click="openModal(wallpaper)"
-      >
-        Preview
-      </b-button>
+      <b-badge v-if="wallpaper.metadata && wallpaper.metadata.size">
+        {{ formatSize(wallpaper) }}
+      </b-badge>
 
-      <b-button
-        variant="danger"
-        @click="confirmDeleteWallpaper(wallpaper)"
-      >
-        <i class="fas fa-trash-alt fa-fw" aria-hidden />
-      </b-button>
+      <b-dropdown class="float-right" right variant="dark">
+        <template v-slot:button-content>
+          <i class="fas fa-ellipsis-h fa-fw" aria-hidden />
+        </template>
+
+        <b-dropdown-item
+          @click="openPreview(wallpaper)"
+        >
+          Preview
+        </b-dropdown-item>
+        <b-dropdown-divider></b-dropdown-divider>
+        <b-dropdown-item
+          variant="danger"
+          @click="confirmDeleteWallpaper(wallpaper)"
+        >
+          Delete file
+        </b-dropdown-item>
+      </b-dropdown>
+
 
       <b-button
         v-if="selectable"
@@ -81,7 +94,7 @@ export default {
   },
 
   methods: {
-    openModal(wallpaper) {
+    openPreview(wallpaper) {
       this.activeWallpaper = wallpaper;
       this.$bvModal.show('previewWallpaper');
     },
