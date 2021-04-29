@@ -4,8 +4,8 @@
     :style="miniBoardStyles"
     @click="$emit('view-board', board.id)"
   >
-    <small>
-      {{ board.name }}
+    <header class="text-small">
+      <span class="mr-1">{{ board.name }}</span>
 
       <small
         v-if="board.isPublic"
@@ -13,9 +13,11 @@
       >
         (Public)
       </small>
-    </small>
 
-    <slot />
+      <div class="ml-auto">
+        <slot />
+      </div>
+    </header>
 
     <div class="lists rounded overflow-hidden">
       <div
@@ -36,13 +38,9 @@
 
         <div
           v-else
-          class="rounded overflow-hidden list"
-        >
-          <i
-            class="fas fa-ellipsis-h text-secondary ml-1"
-            aria-hidden
-          />
-        </div>
+          class="rounded overflow-hidden list bg-secondary"
+          style="height: 22px;"
+        />
       </div>
     </div>
   </div>
@@ -95,5 +93,11 @@ $boardWidth: 359.5px;
   width: 60px;
   flex-shrink: 0;
   margin-right: 5px;
+}
+
+header {
+  height: 32px;
+  display: flex;
+  align-items: center;
 }
 </style>
