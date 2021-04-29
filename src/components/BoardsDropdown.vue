@@ -6,10 +6,12 @@
 
     <b-dropdown
       class="ml-2"
-      variant="transparent"
-      toggle-class="p-1 px-2"
-      :text="board.name"
+      variant="light"
     >
+      <template v-slot:button-content>
+        {{ board.name }}
+        <i class="fas fa-caret-down fa-fw" aria-hidden />
+      </template>
       <!-- TODO: create array map with url already fetched -->
       <b-dropdown-item
         v-for="{ id, name, backgroundColor, backgroundUrl } in boards"
