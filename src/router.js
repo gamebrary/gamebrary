@@ -20,7 +20,7 @@ import PublicProfilePage from '@/pages/PublicProfilePage';
 Vue.use(Router);
 
 export default new Router({
-  mode: 'history',
+  // mode: 'history',
   routes: [
     {
       name: 'boards',
