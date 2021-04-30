@@ -1,16 +1,13 @@
 <template lang="html">
   <div
-    class="mini-board p-1 rounded cursor-pointer bg-light"
+    class="mini-board p-1 rounded cursor-pointer bg-secondary"
     :style="miniBoardStyles"
     @click="$emit('view-board', board.id)"
   >
-    <header class="text-small">
+    <header class="text-small d-flex align-items-center">
       <span class="mr-1">{{ board.name }}</span>
 
-      <small
-        v-if="board.isPublic"
-        class="text-success"
-      >
+      <small v-if="board.isPublic" class="text-info">
         (Public)
       </small>
 
@@ -23,14 +20,13 @@
       <div
         v-for="list in board.lists"
         :key="list.name"
-        class="rounded overflow-hidden list"
+        class="list rounded overflow-hidden mr-1 border align-self-start"
       >
         <template v-if="list.games.length">
           <div
             v-for="(game, index) in list.games"
             :key="game"
-            :class="['bg-secondary border-bottom',
-              { 'rounded-bottom': index === list.games.length - 1 }]"
+            :class="['bg-secondary', { 'border-bottom': index !== list.games.length - 1 }]"
           >
             <i class="fas fa-square fa-fw text-muted" style="margin-left: 1px;" aria-hidden />
           </div>
@@ -91,13 +87,5 @@ $boardWidth: 359.5px;
 
 .list {
   width: 60px;
-  flex-shrink: 0;
-  margin-right: 5px;
-}
-
-header {
-  height: 32px;
-  display: flex;
-  align-items: center;
 }
 </style>
