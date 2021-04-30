@@ -10,54 +10,43 @@
     />
 
     <template v-else>
-      <portal to="dock">
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="space-used d-none d-sm-inline ml-auto mr-3">
-            <small
-              class="d-block text-center"
-              :class="{ 'text-danger': outOfSpace }"
-              v-text="usedSpaceText"
-            />
+      <page-title
+        title="Wallpapers"
+      >
+        <div class="space-used ml-auto mr-3">
+          <small
+            class="d-block text-center"
+            :class="{ 'text-danger': outOfSpace }"
+            v-text="usedSpaceText"
+          />
 
-            <b-progress
-              :value="spaceUsed"
-              :max="maxSpace"
-              :variant="outOfSpace ? 'danger' : 'success'"
-            />
-          </div>
-
-          <b-button
-            variant="primary"
-            :disabled="outOfSpace"
-            @click="triggerFileUpload"
-          >
-            <b-spinner small v-if="saving" />
-
-            <template v-else>
-              <i class="fas fa-upload fa-fw" aria-hidden />
-              <span>Upload</span>
-            </template>
-          </b-button>
-
-          <!-- <b-button
-            variant="warning"
-            class="ml-2"
-          >
-            Toggle View
-          </b-button> -->
+          <b-progress
+            :value="spaceUsed"
+            :max="maxSpace"
+            :variant="outOfSpace ? 'danger' : 'success'"
+          />
         </div>
-      </portal>
+
+        <b-button
+          :disabled="outOfSpace"
+          @click="triggerFileUpload"
+        >
+          <b-spinner small v-if="saving" />
+
+          <template v-else>
+            <i class="fas fa-upload fa-fw" aria-hidden />
+            <span class="d-none d-sm-inline">Upload</span>
+          </template>
+        </b-button>
+      </page-title>
 
       <b-alert
         v-if="isDuplicate && !saving && file && file.name"
         show
-        dismissible
         variant="warning"
       >
         {{ $t('wallpapers.form.duplicateMessage', { fileName: file.name }) }}
       </b-alert>
-
-      <h1 class="d-none d-sm-block">Wallpapers</h1>
 
       <wallpapers-list v-if="wallpapers.length" />
 
@@ -126,7 +115,13 @@ export default {
     },
 
     spaceUsed() {
-      return this.wallpapers.reduce((total, file) => total + file.metadata.size || 0, 0);
+      return this.wallpapers.reduce((total, { metadata }) => {
+        const size = metadata && metadata.size
+          ? metadata.size
+          : 0;
+
+        return total + size;
+      }, 0);
     },
 
     outOfSpace() {
