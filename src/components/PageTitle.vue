@@ -3,6 +3,7 @@
     <h1 class="d-none d-sm-block">{{ title }}</h1>
 
     <slot />
+
     <b-button
       v-if="actionText"
       variant="primary"
