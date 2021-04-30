@@ -6,12 +6,35 @@
 
     <b-dropdown
       class="ml-2"
+      toggle-class="px-0"
+      variant="transparent"
     >
       <template v-slot:button-content>
         {{ board.name }}
         <i class="fas fa-caret-down fa-fw" aria-hidden />
       </template>
+
+      <div class="d-flex align-items-center justify-content-between">
+        <span class="ml-2 bg-danger">
+          {{ board.name }}
+        </span>
+
+        <div>
+          <b-button>
+            <i class="fas fa-pencil-alt" aria-hidden></i>
+          </b-button>
+          <b-button>
+            <i class="fas fa-share-alt fa-fw" aria-hidden />
+          </b-button>
+        </div>
+      </div>
+
       <!-- TODO: create array map with url already fetched -->
+      <!-- TODO: filter out current board -->
+      <b-dropdown-divider />
+
+      Other boards
+
       <b-dropdown-item
         v-for="{ id, name, backgroundColor, backgroundUrl } in boards"
         :key="id"
@@ -25,7 +48,7 @@
           text=" "
           :style="`
           ${getWallpaperUrl(backgroundUrl)}
-          ${backgroundColor ? `background-color: ${backgroundColor};` : '' }
+          ${backgroundColor ? `background-color: ${backgroundColor};` : '#ccc' }
           `"
         />
 
