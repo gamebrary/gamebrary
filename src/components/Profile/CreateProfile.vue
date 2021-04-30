@@ -82,14 +82,13 @@ export default {
     async createProfile() {
       this.saving = true;
 
-      const { userName, user: { displayName, dateJoined, uid, photoURL } } = this;
+      const { userName, user: { displayName, dateJoined, uid } } = this;
 
       const payload = {
         userName,
         displayName,
         dateJoined,
         uid,
-        profilePic: photoURL,
       };
 
       await this.$store.dispatch('SAVE_PROFILE', payload);
