@@ -5,7 +5,6 @@
     <div class="d-inline-flex flex-column align-items-start">
       <languages />
 
-      Open games in:
       <!-- Open games in:
       <b-form-select class="mb-3">
         <b-form-select-option value="modal">Modal</b-form-select-option>
@@ -13,14 +12,12 @@
         <b-form-select-option value="new">New page</b-form-select-option>
       </b-form-select> -->
 
-      <div class="border-top w-100 mt-3 mb-4" />
-
       <!-- <provider-card /> -->
 
       <b-button
         @click="session_signOut"
         variant="secondary"
-        class="my-2"
+        class="mb-2 mt-2"
       >
         {{ $t('global.signOut') }}
       </b-button>
