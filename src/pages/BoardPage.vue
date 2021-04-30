@@ -11,6 +11,7 @@
     <portal to="dock">
       <b-button
         v-if="isBoardOwner"
+        variant="transparent"
         v-b-modal:edit-board
       >
         <i class="fas fa-pencil-alt fa-fw" aria-hidden />
@@ -41,7 +42,7 @@
         class="d-flex flex-column pr-2"
       >
         <b-button
-          variant="dark"
+          variant="transparent"
           class="mb-2"
           v-b-modal:add-list
         >
