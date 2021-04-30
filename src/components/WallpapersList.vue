@@ -31,7 +31,7 @@
         {{ formatSize(wallpaper) }}
       </b-badge>
 
-      <b-dropdown class="float-right" right variant="dark">
+      <b-dropdown class="float-right" right>
         <template v-slot:button-content>
           <i class="fas fa-ellipsis-h fa-fw" aria-hidden />
         </template>

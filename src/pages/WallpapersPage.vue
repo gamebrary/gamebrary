@@ -29,6 +29,7 @@
 
         <b-button
           :disabled="outOfSpace"
+          variant="primary"
           @click="triggerFileUpload"
         >
           <b-spinner small v-if="saving" />
