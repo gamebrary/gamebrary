@@ -20,27 +20,27 @@
           lg="4"
           class="sidebar pr-md-1"
         >
+          <b-img
+            :src="activeGameCoverUrl"
+            :alt="game.name"
+            class="game-cover cursor-pointer"
+            v-observe-visibility="toggleCoverVisible"
+            rounded
+            @click="$bvModal.show('game-images')"
+          />
+
           <b-skeleton-img
             v-if="loading"
-            width="100%"
-            height="200px"
+            width="100px"
+            height="100px"
           />
 
           <template v-else>
-            <b-img
-              :src="activeGameCoverUrl"
-              :alt="game.name"
-              class="game-cover cursor-pointer"
-              v-observe-visibility="toggleCoverVisible"
-              rounded
-              @click="$bvModal.show('game-images')"
-            />
-
             <game-images :game="game" />
             <!-- <game-videos :videos="game.videos" v-if="game.videos" /> -->
-            <game-websites :game="game" class="d-none d-md-inline" />
           </template>
 
+          <game-websites :game="game" class="d-none d-md-inline" />
           <!-- <pre>{{ game.genres.map(({ id }) => id) }}</pre> -->
           <!-- TODO: add bundles to game detail? -->
           <!-- {{ game.bundles ? `Found in ${game.bundles.length} compilations.` : null }} -->
