@@ -7,6 +7,7 @@
     :style="boardStyles"
   >
     <boards-dropdown />
+
     <portal to="dock">
       <b-button
         v-if="isBoardOwner"
@@ -26,6 +27,7 @@
     </portal>
 
     <board-placeholder v-if="loading" />
+
     <template v-else-if="showBoard">
       <list
         v-for="(list, listIndex) in board.lists"
