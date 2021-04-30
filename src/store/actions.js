@@ -210,6 +210,23 @@ export default {
     });
   },
 
+  LOAD_USER_PUBLIC_BOARDS(context, userId) {
+    return new Promise((resolve, reject) => {
+      const db = firebase.firestore();
+
+      db.collection('boards')
+        .where('owner', '==', userId)
+        .where('isPublic', '==', true)
+        .get()
+        .then((querySnapshot) => {
+          const boards = querySnapshot.docs.map(doc => doc.data());
+
+          resolve(boards);
+        })
+        .catch(reject);
+    });
+  },
+
   DELETE_PROFILE({ commit, state }) {
     return new Promise((resolve, reject) => {
       const db = firebase.firestore();
