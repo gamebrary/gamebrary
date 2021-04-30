@@ -1,13 +1,24 @@
 <template lang="html">
-  <b-container v-if="user">
+  <b-container>
     <!-- TODO: show more stuff, public boards -->
-    <page-title
-      title="Boards"
-      action-text="Create board"
-      @action="$bvModal.show('create-board')"
-    />
+    <template v-if="user">
+      <page-title
+        title="Boards"
+        action-text="Create board"
+        @action="$bvModal.show('create-board')"
+      />
 
-    <boards />
+      <boards />
+    </template>
+
+    <div v-else>
+      <portal to="dock">
+        <b-button>
+          Login
+        </b-button>
+      </portal>
+      Welcome!
+    </div>
     <!-- public boards -->
     <!-- news feeds -->
     <!-- deals -->
