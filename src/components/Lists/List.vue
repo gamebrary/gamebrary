@@ -1,3 +1,5 @@
+<!-- TODO: actually sort array when adding a game, list array should be unique source of truth -->
+<!-- TODO: ^^ that would fix issues when jumping to next game on a sorted list -->
 <template lang="html">
   <div
     :class="[
