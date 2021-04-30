@@ -22,3 +22,23 @@
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: $secondary;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $dark;
+  border-radius: 20px;
+  border: 6px solid $secondary;
+  background-clip: content-box;
+
+  &:hover {
+    background-color: $light;
+  }
+}
