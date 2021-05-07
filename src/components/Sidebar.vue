@@ -71,6 +71,19 @@
       </b-button>
 
       <b-button
+        v-if="dev"
+        v-for="{ name, title, icon } in betaFeatures"
+        :key="name"
+        :variant="name === routeName ? 'primary' : 'dark'"
+        block
+        class="text-left"
+        :to="{ name }"
+      >
+        <i :class="`${icon} fa-fw`" aria-hidden /> {{ title }}
+      </b-button>
+
+      <b-button
+        v-if="dev"
         :variant="routeName === 'profile' ? 'primary' : 'dark'"
         block
         class="text-left"
@@ -133,11 +146,6 @@ export default {
           icon: 'fas fa-th-large',
         },
         {
-          name: 'profiles',
-          title: 'Profiles',
-          icon: 'fas fa-th-large',
-        },
-        {
           name: 'tags',
           title: 'Tags',
           icon: 'fas fa-tags',
@@ -164,6 +172,13 @@ export default {
           title: 'Releases',
           icon: 'fas fa-rocket',
         },
+      ],
+      betaFeatures: [
+        {
+          name: 'profiles',
+          title: 'Profiles',
+          icon: 'fas fa-th-large',
+        },
         {
           name: 'dev-tools',
           title: 'Dev tools',
@@ -176,7 +191,7 @@ export default {
   computed: {
     ...mapState(['user', 'profile']),
 
-    showDevTools() {
+    dev() {
       return process.env.NODE_ENV === 'development';
     },
 
