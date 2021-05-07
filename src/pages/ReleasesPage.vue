@@ -15,7 +15,7 @@
     </portal>
 
     <b-card
-      bg-variant="light"
+      bg-variant="secondary"
       header-bg-variant="secondary"
       v-for="release in releases"
       :key="release.id"
