@@ -9,15 +9,6 @@
     <boards-dropdown />
 
     <portal to="dock">
-      <b-button
-        v-if="isBoardOwner"
-        variant="transparent"
-        v-b-modal:edit-board
-      >
-        <i class="fas fa-pencil-alt fa-fw" aria-hidden />
-        Edit board
-      </b-button>
-
       <!-- TODO: add board filtering -->
       <!-- <b-button
         variant="warning"
@@ -42,7 +33,8 @@
         class="d-flex flex-column pr-2"
       >
         <b-button
-          variant="transparent"
+          variant="secondary"
+          size="sm"
           class="mb-2"
           v-b-modal:add-list
         >

@@ -15,25 +15,24 @@
       </template>
 
       <div class="d-flex align-items-center justify-content-between">
-        <span class="ml-2 bg-danger">
+        <span class="ml-2">
           {{ board.name }}
         </span>
 
-        <div>
-          <b-button>
-            <i class="fas fa-pencil-alt" aria-hidden></i>
-          </b-button>
-          <b-button>
-            <i class="fas fa-share-alt fa-fw" aria-hidden />
-          </b-button>
-        </div>
+        <b-button
+          variant="secondary"
+          size="sm"
+          v-b-modal:edit-board
+        >
+          <i class="fas fa-pencil-alt fa-fw" aria-hidden />
+        </b-button>
       </div>
 
       <!-- TODO: create array map with url already fetched -->
       <!-- TODO: filter out current board -->
       <b-dropdown-divider />
 
-      Other boards
+      <span class="m-2">Other boards</span>
 
       <b-dropdown-item
         v-for="{ id, name, backgroundColor, backgroundUrl } in boards"
@@ -43,22 +42,16 @@
       >
         <b-avatar
           rounded
-          class="board-thumbnail mr-2"
+          :class="['board-thumbnail mr-2', { 'bg-dark' : !backgroundColor }]"
           :title="name"
           text=" "
           :style="`
-          ${getWallpaperUrl(backgroundUrl)}
-          ${backgroundColor ? `background-color: ${backgroundColor};` : '#ccc' }
-          `"
+            ${getWallpaperUrl(backgroundUrl)}
+            background-color: ${backgroundColor ? backgroundColor : ''}
+            `"
         />
 
         {{ name }}
-        <small
-          v-if="board.id === id"
-          class="text-muted mx-2"
-        >
-          Edit
-        </small>
       </b-dropdown-item>
     </b-dropdown>
   </portal>
@@ -82,6 +75,7 @@ export default {
     },
 
     getWallpaperUrl(url) {
+      // TODO: only return url, not css.
       if (!url) {
         return '';
       }
@@ -104,5 +98,12 @@ export default {
 .board-thumbnail {
   background-size: cover;
   background-position: center;
+}
+
+.board-actions {
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto 70px;
+  grid-gap: .5rem;
 }
 </style>

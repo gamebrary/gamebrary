@@ -1,6 +1,7 @@
 <template lang="html">
   <b-dropdown
     right
+    size="sm"
     toggle-class="m-1"
   >
     <template v-slot:button-content>
