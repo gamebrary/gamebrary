@@ -1,6 +1,6 @@
 <template lang="html">
   <div
-    class="mini-board p-1 rounded cursor-pointer bg-secondary"
+    class="mini-board overflow-hidden p-1 rounded cursor-pointer bg-secondary"
     :style="miniBoardStyles"
     @click="$emit('view-board', board.id)"
   >
@@ -67,14 +67,19 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
 // TODO: calculate this
 $boardHeight: 216px;
-$boardWidth: 359.5px;
+// $boardWidth: (100% / 3) - 8px;
 
 .mini-board {
   background-repeat: no-repeat;
   background-size: cover;
   height: $boardHeight;
-  width: $boardWidth;
+  width: calc(1094px / 3);
   max-width: 100%;
+
+  @media(max-width: 768px) {
+    width: 320px;
+    height: 180px;
+  }
 }
 
 .lists {
