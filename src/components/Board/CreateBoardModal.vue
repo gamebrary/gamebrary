@@ -6,6 +6,8 @@
     @show="init"
     @hidden="init"
   >
+    <!-- TODO: dont require platform to create board -->
+    <!-- TODO: handle boards without platforms -->
     <template v-slot:modal-header="{ close }">
       <modal-header
         :title="$t('boards.create')"
