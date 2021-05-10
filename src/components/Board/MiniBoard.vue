@@ -65,15 +65,14 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-// TODO: calculate this
 $boardHeight: 216px;
-// $boardWidth: (100% / 3) - 8px;
+$boardWidth: calc(1094px / 3);
 
 .mini-board {
   background-repeat: no-repeat;
   background-size: cover;
   height: $boardHeight;
-  width: calc(1094px / 3);
+  width: $boardWidth;
   max-width: 100%;
 
   @media(max-width: 768px) {
@@ -84,10 +83,7 @@ $boardHeight: 216px;
 
 .lists {
   max-height: $boardHeight - 40px;
-  overflow-y: hidden;
   display: flex;
-  flex-basis: 80px;
-  flex-wrap: nowrap;
 }
 
 .list {
