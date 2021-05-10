@@ -213,3 +213,9 @@ export const SUPPORTED_LANGUAGES = [
   { name: 'Russian', nativeName: 'Русский', value: 'ru' },
   { name: 'Spanish', nativeName: 'Español', value: 'es' },
 ];
+
+export const GAME_DETAIL_VIEWS = [
+  { name: 'Modal', value: null },
+  { name: 'Side panel', value: 'side' },
+  { name: 'New page', value: 'new' },
+];
