@@ -438,9 +438,18 @@ export default {
     });
   },
 
-  CUSTOM_SEARCH({ commit, state }, { platforms, sortQuery }) {
+  CUSTOM_SEARCH({ commit, state }, { platforms = '', sortQuery = '', searchText = '' }) {
     return new Promise((resolve, reject) => {
-      axios.get(`${API_BASE}/customSearch?platforms=${platforms}&sortQuery=${sortQuery}&token=${state.twitchToken.access_token}`)
+      const params = {
+        token: state.twitchToken.access_token,
+        platforms,
+        sortQuery,
+        searchText,
+      };
+
+      const query = new URLSearchParams(params).toString();
+
+      axios.get(`${API_BASE}/customSearch?${query}`)
         .then(({ data }) => {
           commit('CACHE_GAME_DATA', data);
           resolve(data);
