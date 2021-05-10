@@ -1,7 +1,6 @@
 <template lang="html">
   <div class="mb-5" v-if="user">
     <!-- TODO: allow reorganizing and save -->
-    <!-- TODO: show public boards -->
     <empty-state
       v-if="!loading && sortedBoards.length === 0"
       title="Boards"
