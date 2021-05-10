@@ -11,8 +11,6 @@
       />
     </template>
 
-    <!-- TODO: use table? -->
-
     <p>
       <kbd class="mr-1">Esc </kbd>
       Close modal
