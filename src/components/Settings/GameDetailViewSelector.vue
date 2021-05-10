@@ -1,7 +1,5 @@
 <template lang="html">
   <b-form-group label="Open games in:">
-    <pre>s {{ gameDetailView }}</pre>
-
     <b-form-select
       v-model="gameDetailView"
       style="max-width: 200px"
@@ -57,8 +55,6 @@ export default {
           this.$bvToast.toast('There was an error saving your settings', { variant: 'danger' });
           this.saving = false;
         });
-
-      this.$bvToast.toast('Boom, bitch!');
     },
   },
 };
