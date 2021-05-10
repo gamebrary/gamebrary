@@ -92,7 +92,6 @@ export default {
       if (this.user) {
         this.load();
       } else if (this.$route.name !== 'auth' && !this.$route.params.providerId) {
-        // TODO: null check ^
         this.$router.replace({ name: 'auth' });
       }
     },
