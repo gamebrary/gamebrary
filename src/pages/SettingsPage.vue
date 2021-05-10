@@ -28,7 +28,7 @@
         Delete Account
       </b-button>
 
-      <delete-account />
+      <delete-account-modal />
     </div>
   </b-container>
 </template>
