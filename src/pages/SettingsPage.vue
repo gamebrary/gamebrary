@@ -4,7 +4,7 @@
 
     <div class="d-inline-flex flex-column align-items-start">
       <language-selector />
-      <game-detail-view-selector />
+      <!-- <game-detail-view-selector /> -->
 
       <!-- <provider-card /> -->
       <!-- Open games in:
@@ -35,7 +35,7 @@
 
 <script>
 import LanguageSelector from '@/components/Settings/LanguageSelector';
-import GameDetailViewSelector from '@/components/Settings/GameDetailViewSelector';
+// import GameDetailViewSelector from '@/components/Settings/GameDetailViewSelector';
 // import ProviderCard from '@/components/ProviderCard';
 import DeleteAccountModal from '@/components/Settings/DeleteAccountModal';
 import sessionMixin from '@/mixins/sessionMixin';
@@ -44,7 +44,7 @@ import { mapState } from 'vuex';
 export default {
   components: {
     LanguageSelector,
-    GameDetailViewSelector,
+    // GameDetailViewSelector,
     // ProviderCard,
     DeleteAccountModal,
   },
