@@ -216,7 +216,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['tags', 'platform']),
+    ...mapState(['tags', 'platform', 'games']),
 
     showEmptyState() {
       return Object.keys(this.tags).length === 0;
@@ -248,12 +248,29 @@ export default {
   },
 
   mounted() {
-    this.init();
+    this.localTags = JSON.parse(JSON.stringify(this.tags));
+
+    this.load();
   },
 
   methods: {
-    init() {
-      this.localTags = JSON.parse(JSON.stringify(this.tags));
+    async load() {
+      const gamesInTags = Object.values(this.localTags)
+        .map(({ games }) => games.map(gameId => String(gameId)))
+        .reduce((entireList, games) => entireList.concat(games), []);
+
+      const cachedGameList = Object.keys(this.games);
+      const deDupedGameList = [...new Set(gamesInTags)];
+      const gamesToLoad = deDupedGameList
+        .filter(gameId => !cachedGameList.includes(gameId))
+        .toString();
+
+      if (gamesToLoad.length === 0) return;
+
+      await this.$store.dispatch('LOAD_GAMES', gamesToLoad)
+        .catch(() => {
+          this.$bvToast.toast('Error loading games', { variant: 'error' });
+        });
     },
 
     open() {
