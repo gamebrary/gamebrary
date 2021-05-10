@@ -1,6 +1,10 @@
 <template lang="html">
   <b-form-group label="Language">
-    <b-form-select v-model="language" style="max-width: 200px">
+    <b-form-select
+      v-model="language"
+      style="max-width: 200px"
+      @change="saveLanguage"
+    >
       <b-form-select-option
         v-for="{ name, value } in SUPPORTED_LANGUAGES"
         :key="value"
@@ -9,20 +13,6 @@
         {{ name }}
       </b-form-select-option>
     </b-form-select>
-
-    <b-button
-      v-if="settings && settings.language !== language"
-      variant="primary"
-      class="mx-2"
-      :disabled="saving"
-      @click="saveSettings"
-    >
-      <b-spinner small v-if="saving" />
-      <template v-else>
-        <span class="d-none d-sm-inline">{{ $t('languages.save') }}</span>
-        <i class="d-sm-none fas fa-sync" aria-hidden />
-      </template>
-    </b-button>
   </b-form-group>
 </template>
 
@@ -52,8 +42,9 @@ export default {
   },
 
   methods: {
-    async saveSettings() {
+    async saveLanguage() {
       const { language, settings } = this;
+      this.$i18n.locale = language;
 
       const payload = {
         ...settings,
@@ -65,9 +56,6 @@ export default {
           this.$bvToast.toast('There was an error saving your settings', { variant: 'danger' });
           this.saving = false;
         });
-
-      this.$bvToast.toast('Settings saved');
-      location.reload();
     },
   },
 };
