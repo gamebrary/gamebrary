@@ -33,6 +33,8 @@ export default {
     async addGame() {
       const { list, game, board } = this;
 
+      if (!list) return;
+
       const listIndex = board.lists.findIndex(({ name }) => name === list.name);
 
       this.$store.commit('ADD_GAME_TO_LIST', { listIndex, game });
