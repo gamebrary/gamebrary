@@ -2,25 +2,21 @@
 <!-- TODO: open notes from game modal on click? -->
 <template lang="html">
   <b-container>
-    <portal to="dock">
-      <div class="d-flex">
-        <b-form-input
-          v-if="!showEmptyState"
-          type="search"
-          style="max-width: 200px"
-          placeholder="Search notes"
-          v-model="search"
-        />
-
-        <!-- TODO: create add a note modal -->
-        <!-- <b-button variant="warning" class="ml-2" style="width: 120px;">
-          Add note
-        </b-button> -->
-      </div>
-    </portal>
     <page-title
       title="Notes"
-    />
+    >
+      <b-form-input
+        v-if="!showEmptyState"
+        type="search"
+        style="max-width: 200px"
+        placeholder="Search notes"
+        v-model="search"
+      />
+
+      <!-- <b-button>
+        Add note
+      </b-button> -->
+    </page-title>
 
     <empty-state
       v-if="showEmptyState"
@@ -86,14 +82,10 @@ export default {
           };
         })
         .filter(({ gameName, note }) => {
-          if (!this.search) {
-            return true;
-          }
+          if (!this.search) return true;
 
           const noteIsMatch = note && note.toLowerCase().includes(this.search.toLowerCase());
-          const titleIsMatch = gameName
-            && gameName.toLowerCase()
-              .includes(this.search.toLowerCase());
+          const titleIsMatch = gameName && gameName.toLowerCase().includes(this.search.toLowerCase());
 
           return noteIsMatch || titleIsMatch;
         });
