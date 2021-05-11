@@ -36,16 +36,20 @@ exports.customSearch = functions.https.onRequest((req, res) => {
     ? `limit ${req.query.limit};`
     : 'limit 50;';
 
+  const search = req.query.searchText
+    ? `search "${req.query.searchText}";`
+    : '';
+
   const fields = req.query.fields
     ? `fields ${req.query.fields};`
     : 'fields id,name,slug,rating,name,cover.image_id,first_release_date;';
 
   const data = `
+    ${search}
     ${fields}
     ${sort}
     ${limit}
-    ${query}
-  `;
+    ${query}`;
 
   axios({
     url: 'https://api.igdb.com/v4/games',
@@ -122,7 +126,7 @@ exports.refreshToken = functions.pubsub.schedule('0 0 * * 0')
   });
 
 exports.platforms = functions.https.onRequest((req, res) => {
-  res.set('Access-Control-Allow-Origin', "*")
+  res.set('Access-Control-Allow-Origin', "*");
 
   const { token } = req.query;
 

@@ -1,39 +1,46 @@
 <template lang="html">
-  <div>
-    <div
+  <div class="tags-list">
+    <b-card
       v-for="({ games, hex, tagTextColor }, name) in tags"
       :key="name"
-      class="border-bottom border-light pb-4 mb-4"
+      class="mb-3 mx-0 p-0 word-wrap d-flex position-relative d-flex align-items-start justify-content-between"
+      body-class="w-100"
     >
-      <b-badge
-        pill
-        tag="small"
-        :style="`background-color: ${hex}; color: ${tagTextColor}`"
-      >
-        {{ name }}
-      </b-badge>
+      <div>
+        <b-dropdown class="float-right" right>
+          <template v-slot:button-content>
+            <i class="fas fa-ellipsis-h fa-fw" aria-hidden />
+          </template>
 
-      <br />
+          <b-dropdown-item @click="$emit('selected', name)">
+            Edit
+          </b-dropdown-item>
+        </b-dropdown>
 
-      <small class="text-muted">{{ games.length }} Games</small>
+        <b-badge
+          pill
+          tag="small"
+          :style="`background-color: ${hex}; color: ${tagTextColor}`"
+        >
+          {{ name }}
+        </b-badge>
 
-      <br />
+        <p class="small text-muted">
+          {{ games.length }} Games
+        </p>
+      </div>
 
-      <b-button @click="$emit('selected', name)">
-        Edit
-      </b-button>
-
-      <div class="d-flex overflow-auto no-scrollbar clickable">
+      <div class="d-flex align-items-center overflow-auto">
         <b-img
           v-for="gameId in games"
           :key="gameId"
           :src="getCoverUrl(gameId)"
-          class="rounded ml-n4"
+          width="80"
+          class="rounded cursor-pointer mr-2"
           @click.stop="openGame(gameId)"
-          width="60"
         />
       </div>
-    </div>
+    </b-card>
   </div>
 </template>
 

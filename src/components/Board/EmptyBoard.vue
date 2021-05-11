@@ -1,23 +1,12 @@
 <template lang="html">
-  <b-jumbotron class="empty-board w-100 text-center">
+  <div class="m-2 bg-secondary p-4 rounded text-center">
     <p>This board is empty</p>
 
-    <b-button @click="openAddListModal">
+    <b-button v-b-modal.add-list variant="primary">
       Add list
     </b-button>
-  </b-jumbotron>
+  </div>
 </template>
-
-<script>
-export default {
-  methods: {
-    openAddListModal() {
-      // TODO: use directive instead
-      this.$bvModal.show('add-list');
-    },
-  },
-};
-</script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
 .empty-board {

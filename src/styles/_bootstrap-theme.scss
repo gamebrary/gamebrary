@@ -661,7 +661,7 @@ $card-bg: $secondary !default;
 // // Popovers
 //
 // $popover-font-size:                 $font-size-sm !default;
-// $popover-bg:                        $white !default;
+$popover-bg: $dark !default;
 // $popover-max-width:                 276px !default;
 // $popover-border-width:              $border-width !default;
 // $popover-border-color:              rgba($black, .2) !default;
@@ -691,8 +691,8 @@ $toast-max-width: 100px !default;
 $toast-padding-x: .5rem !default;
 $toast-padding-y: .5rem !default;
 $toast-font-size: .875rem !default;
-$toast-color: $white !default;
-$toast-background-color: $black;
+$toast-color: $dark !default;
+$toast-background-color: $success;
 $toast-border-width: 0 !default;
 $toast-no-close-button: true !default;
 // $toast-border-color: rgba(0, 0, 0, .1) !default;

@@ -1,24 +1,26 @@
 <template lang="html">
-  <header class="d-flex align-items-center justify-content-between">
-    <h1 class="d-none d-sm-block">{{ title }}</h1>
+  <header>
+    <div class="d-none d-sm-flex align-items-center justify-content-between">
+      <h1>{{ title }}</h1>
 
-    <slot />
+      <slot />
 
-    <b-button
-      v-if="actionText"
-      variant="primary"
-      class="d-none d-sm-block"
-      @click="$emit('action')"
-    >
-      {{ actionText }}
-    </b-button>
+      <b-button
+        v-if="actionText"
+        variant="primary"
+        class="d-none d-sm-block"
+        @click="$emit('action')"
+      >
+        {{ actionText }}
+      </b-button>
+    </div>
 
     <portal to="dock">
-
-      <div class="d-sm-none" v-if="actionText">
+      <div class="d-sm-none">
         <slot />
 
         <b-button
+          v-if="actionText"
           variant="primary"
           @click="$emit('action')"
         >

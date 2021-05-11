@@ -28,8 +28,10 @@
         :key="list.name"
       />
 
+      <empty-board v-if="empty" class="mr-3" />
+
       <div
-        v-if="user && user.uid && user.uid === board.owner"
+        v-else-if="user && user.uid && user.uid === board.owner"
         class="d-flex flex-column pr-2"
       >
         <b-button
@@ -41,8 +43,6 @@
           <i class="fas fa-plus fa-fw" aria-hidden />
         </b-button>
       </div>
-
-      <empty-board v-if="empty" class="mr-3" />
 
       <add-list-modal />
       <edit-board-modal />

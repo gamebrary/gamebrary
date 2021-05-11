@@ -1,7 +1,7 @@
 <!-- TODO: relayout on change, watcher? -->
 <template lang="html">
   <div>
-    <b-button-toolbar aria-label="Toolbar with button groups and dropdown menu">
+    <!-- <b-button-toolbar aria-label="Toolbar with button groups and dropdown menu">
       <b-button-group class="mx-1">
         <b-button>New</b-button>
         <b-button>Edit</b-button>
@@ -16,7 +16,7 @@
         <b-button>Save</b-button>
         <b-button>Cancel</b-button>
       </b-button-group>
-    </b-button-toolbar>
+    </b-button-toolbar> -->
 
     <!-- <div class="d-flex mb-2">
       <div class="filter mr-2">
@@ -39,7 +39,7 @@
       <b-button
         v-for="platform in filteredPlatforms"
         class="platform"
-        :variant="value.includes(platform.id) ? 'primary' : 'secondary'"
+        :variant="value.includes(platform.id) ? 'primary' : 'dark'"
         :key="platform.id"
         @click="handleClick(platform.id)"
       >
@@ -124,7 +124,7 @@ export default {
 }
 
 .platform {
-  width: 135.5px;
+  width: 130px;
 }
 
 .platform-logo {

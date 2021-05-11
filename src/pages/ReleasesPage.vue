@@ -2,9 +2,7 @@
   <b-container>
     <page-title
       title="Releases"
-    />
-
-    <portal to="dock">
+    >
       <b-button
         href="https://github.com/romancm/gamebrary"
         target="_blank"
@@ -12,11 +10,9 @@
         <i class="fab fa-github fa-fw" aria-hidden />
         View in GitHub
       </b-button>
-    </portal>
+    </page-title>
 
     <b-card
-      bg-variant="secondary"
-      header-bg-variant="secondary"
       v-for="release in releases"
       :key="release.id"
       hide-footer

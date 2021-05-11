@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="games" v-if="loading">
+  <div class="d-flex align-items-center overflow-auto" v-if="loading">
     <b-skeleton-img
       v-for="game in similarGames"
       :key="game.id"
@@ -12,7 +12,8 @@
     <!-- TODO: limit to fewer games, increase game cover, add modal to view all -->
     You may also like:
 
-    <div class="games no-scrollbar">
+    <div class="d-flex align-items-center overflow-auto">
+      <!-- TODO: use array map instead -->
       <b-img
         v-for="game in similarGames"
         v-if="game.cover"
@@ -87,11 +88,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-.games {
-  display: flex;
-  align-items: center;
-  overflow-x: auto;
-}
-</style>
