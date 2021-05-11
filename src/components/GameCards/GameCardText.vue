@@ -16,7 +16,7 @@
           <br />
 
           <b-progress
-            v-if="showGameProgress"
+            v-if="gameProgress > 0"
             :value="gameProgress"
             class="my-1"
             variant="success"

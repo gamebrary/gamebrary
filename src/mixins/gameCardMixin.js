@@ -14,15 +14,11 @@ export default {
     ...mapGetters(['gameTags']),
 
     highlightCompletedGame() {
-      const { settings } = this.list;
-
-      return settings.highlightCompletedGames
-        && this.gameProgress
-        && Number(this.gameProgress) === 100;
+      return this.gameProgress && Number(this.gameProgress) === 100;
     },
 
     showGameProgress() {
-      return this.gameProgress && Number(this.gameProgress) < 100;
+      return this.gameProgress > 0;
     },
 
     showGameTags() {
@@ -32,11 +28,11 @@ export default {
     },
 
     gameProgress() {
-      const { gameId, progresses, list: { settings } } = this;
+      const { gameId, progresses } = this;
 
-      return settings && settings.showGameProgress && gameId && progresses[gameId]
+      return gameId && progresses[gameId]
         ? progresses[gameId]
-        : null;
+        : 0;
     },
 
     gameNotes() {

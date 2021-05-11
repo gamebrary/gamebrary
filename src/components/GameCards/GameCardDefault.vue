@@ -26,21 +26,33 @@
             title-tag="h6"
           >
             {{ game.name }}
-
-            <b-badge variant="warning" v-if="gameNotes">
-              <i class="far fa-sticky-note fa-fw" />
-            </b-badge>
           </b-card-title>
 
-          <b-progress
-            v-if="showGameProgress"
+          <div class="game-info bg-dark">
+            <small class="text-muted" v-if="gameProgress > 0">
+              <i v-if="gameProgress == 100" class="fas fa-check fa-fw" aria-hidden />
+              <span v-else>{{ gameProgress }}%</span>
+            </small>
+          </div>
+
+          <b-badge variant="warning" v-if="gameNotes">
+            <i class="far fa-sticky-note fa-fw" />
+          </b-badge>
+
+          <!-- <b-progress
+            v-if="gameProgress > 0"
             :value="gameProgress"
             class="my-2"
             variant="success"
             height="6px"
-          />
+          /> -->
 
-          <div v-if="showGameTags">
+          <b-badge variant="primary" v-if="showGameTags">
+            <i class="fas fa-tags fa-fw" aria-hidden />
+          </b-badge>
+
+          <!-- TODO: use array filter instead of mixing v-for and v-if -->
+          <!-- <div v-if="showGameTags">
             <b-badge
               v-for="({ games, hex, tagTextColor }, name) in tags"
               v-if="games.includes(game.id)"
@@ -52,7 +64,7 @@
             >
               {{ name }}
             </b-badge>
-          </div>
+          </div> -->
         </b-card-body>
       </b-col>
     </b-row>
