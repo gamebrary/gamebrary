@@ -1,4 +1,3 @@
-<!-- TODO: add actions, e.g. clone board, clone list, add to favorites, like board, etc... -->
 <template lang="html">
   <b-modal
     id="authModal"

@@ -49,7 +49,6 @@ export default {
       return this.games[this.gameId];
     },
 
-    // TODO: move to utils file
     coverUrl() {
       const game = this.games[this.gameId];
 

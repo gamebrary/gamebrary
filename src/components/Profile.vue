@@ -96,7 +96,6 @@ export default {
     async saveProfile() {
       this.saving = true;
 
-      // TODO: toast on success
       // TODO: catch error
       await this.$store.dispatch('SAVE_PROFILE', this.localProfile);
 

@@ -13,7 +13,6 @@
   >
     <template #header="{ hide }">
       <h6>
-        <!-- TODO: close modal if already in dashboard -->
         <b-button
           title="Dashboard"
           :to="{ name: 'home' }"
