@@ -22,9 +22,10 @@
       <span v-if="pageTitle && !isBoard" class="d-sm-none m-2">{{ pageTitle }}</span>
     </div>
 
-    <portal-target name="dock" multiple />
-
-    <global-search />
+    <div class="d-flex">
+      <portal-target name="dock" multiple />
+      <global-search class="ml-2" />
+    </div>
 
     <sidebar />
   </nav>
