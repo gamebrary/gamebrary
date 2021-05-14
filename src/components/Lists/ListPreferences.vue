@@ -1,3 +1,5 @@
+<!-- DEPRECATED -->
+<!-- TODO: remove/merge with list settings -->
 <template lang="html">
   <b-dropdown-item-button
     v-b-modal="modalId"

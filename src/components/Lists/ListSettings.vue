@@ -13,7 +13,7 @@
     <sort-list :list="list" :list-index="listIndex" />
     <rename-list :list="list" :list-index="listIndex" />
     <change-list-view :list="list" :list-index="listIndex" />
-    <list-preferences :list="list" :list-index="listIndex" />
+    <!-- <list-preferences :list="list" :list-index="listIndex" /> -->
     <b-dropdown-item
       variant="danger"
       @click="promptDeleteList"
@@ -50,7 +50,7 @@
 <script>
 import ChangeListView from '@/components/Lists/ChangeListView';
 import RenameList from '@/components/Lists/RenameList';
-import ListPreferences from '@/components/Lists/ListPreferences';
+// import ListPreferences from '@/components/Lists/ListPreferences';
 import SortList from '@/components/Lists/SortList';
 import AddGameModal from '@/components/Lists/AddGameModal';
 import { mapState } from 'vuex';
@@ -59,7 +59,7 @@ export default {
   components: {
     ChangeListView,
     RenameList,
-    ListPreferences,
+    // ListPreferences,
     AddGameModal,
     SortList,
   },
