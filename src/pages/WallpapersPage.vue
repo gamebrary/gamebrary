@@ -13,7 +13,7 @@
       <page-title
         title="Wallpapers"
       >
-        <div class="space-used ml-auto mr-3">
+        <!-- <div class="space-used ml-auto mr-3">
           <small
             class="d-block text-center"
             :class="{ 'text-danger': outOfSpace }"
@@ -25,7 +25,7 @@
             :max="maxSpace"
             :variant="outOfSpace ? 'danger' : 'success'"
           />
-        </div>
+        </div> -->
 
         <b-button
           :disabled="outOfSpace"
