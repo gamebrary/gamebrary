@@ -1,7 +1,7 @@
 <template lang="html">
   <b-container class="text-white">
     <h1>Edit profile</h1>
-    <pre>{{ localProfile }}</pre>
+
     userName
     <b-form-input
       v-model="localProfile.userName"
@@ -37,8 +37,6 @@
     <b-form-input
       v-model="localProfile.bio"
     />
-
-    <pre class="bg-info">{{ localProfile }}</pre>
 
     <b-button
       @click="saveProfile"

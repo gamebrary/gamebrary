@@ -9,7 +9,7 @@ import NotesPage from '@/pages/NotesPage';
 import ReleasesPage from '@/pages/ReleasesPage';
 import AuthPage from '@/pages/AuthPage';
 import BoardsPage from '@/pages/BoardsPage';
-import ProfilesPage from '@/pages/ProfilesPage';
+import PublicProfilesPage from '@/pages/PublicProfilesPage';
 import DevToolsPage from '@/pages/DevToolsPage';
 import HomePage from '@/pages/HomePage';
 import SettingsPage from '@/pages/SettingsPage';
@@ -33,7 +33,7 @@ export default new Router({
     {
       name: 'profiles',
       path: '/profiles',
-      component: ProfilesPage,
+      component: PublicProfilesPage,
       meta: {
         title: 'Boards',
         public: true,

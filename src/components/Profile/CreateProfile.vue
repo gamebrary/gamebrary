@@ -34,8 +34,6 @@
       <span v-else>Create profile</span>
     </b-button>
 
-    <pre>{{ user }}</pre>
-
     <!-- TODO: Add something about public profiles in terms and require this checkbox -->
     <!-- <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0">Accept Terms</b-form-checkbox> -->
   </div>

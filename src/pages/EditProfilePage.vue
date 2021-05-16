@@ -1,6 +1,7 @@
 <template lang="html">
   <b-container>
     <h1>Edit profile</h1>
+
     <b-button @click="checkUserNameAvailability">
       Check availability
     </b-button>
