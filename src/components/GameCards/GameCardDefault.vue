@@ -9,11 +9,10 @@
       v-if="game && game.name"
     >
       <b-col cols="4">
-        <!-- TODO: handle rtl -->
         <b-img
           fluid
           blank-color="#ccc"
-          rounded="left"
+          :rounded="isRTL ? 'left' : 'right'"
           :src="coverUrl"
           :alt="game.name"
         />

@@ -11,7 +11,7 @@ export default {
 
   computed: {
     ...mapState(['settings', 'games', 'tags', 'notes', 'progresses', 'board']),
-    ...mapGetters(['gameTags']),
+    ...mapGetters(['gameTags', 'isRTL']),
 
     highlightCompletedGame() {
       return this.gameProgress && Number(this.gameProgress) === 100;

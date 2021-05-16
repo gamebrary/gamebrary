@@ -4,6 +4,7 @@
     title="Sidebar"
     shadow
     backdrop
+    :right="!isRTL"
     bg-variant="dark"
     text-variant="white"
     header-class="px-2 pt-2 d-flex align-items-center justify-content-between"
@@ -133,7 +134,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -189,6 +190,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'profile']),
+    ...mapGetters(['isRTL']),
 
     dev() {
       return process.env.NODE_ENV === 'development';

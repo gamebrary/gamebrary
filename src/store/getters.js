@@ -20,6 +20,9 @@ export default {
     return boardOwner === userId;
   },
 
+  // Arabic is the only ltr language supported at the moment
+  isRTL: ({ settings }) => settings && settings.language !== 'ar',
+
   platformNames: (state) => {
     const formattedPlatforms = {};
 
