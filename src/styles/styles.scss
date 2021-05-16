@@ -21,17 +21,19 @@
 
 /* custom scrollbar */
 ::-webkit-scrollbar {
-  width: 20px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: $secondary;
+  background-color: $dark;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: $dark;
-  border-radius: 20px;
-  border: 6px solid $secondary;
+  background-color: $secondary;
+  border-radius: $border-radius;
+  padding: 10px;
+  margin: 10px;
   background-clip: content-box;
 
   &:hover {
