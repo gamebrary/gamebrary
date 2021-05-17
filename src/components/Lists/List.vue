@@ -57,7 +57,6 @@
         ghost-class="card-placeholder"
         :disabled="draggingDisabled"
         filter=".drag-filter"
-        animation="300"
         :group="{ name: 'games' }"
         @end="dragEnd"
         @start="dragStart"
