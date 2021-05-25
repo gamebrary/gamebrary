@@ -91,8 +91,13 @@ export default {
     },
   },
 
-  mounted() {
+  async mounted() {
     this.packery = new Packery('.platform-picker', { itemSelector: '.platform', gutter: 8 });
+
+    await this.$nextTick();
+    await this.$nextTick();
+
+    this.packery.layout();
   },
 
   methods: {
