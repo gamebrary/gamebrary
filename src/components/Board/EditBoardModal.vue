@@ -164,6 +164,7 @@ export default {
         });
 
       this.loading = false;
+      this.$bvModal.hide('edit-board');
       this.$bvToast.toast('Board removed');
       this.$router.push({ name: 'home' });
     },
