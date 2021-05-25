@@ -70,7 +70,7 @@ exports.search = functions.https.onRequest((req, res) => {
 
   const { search, platform, token } = req.query;
 
-  const missingFields = [search, platform, token].filter((field) => !field).length > 0;
+  const missingFields = [search, token].filter((field) => !field).length > 0;
 
   if (missingFields) {
     return res.status(400).json({ error: 'missing required params (search OR platform OR token)' });
@@ -80,7 +80,7 @@ exports.search = functions.https.onRequest((req, res) => {
     search "${search}";
     fields id,name,slug,rating,release_dates.*,name,cover.image_id;
     limit 50;
-    where platforms = (${platform});
+    ${platform ? `where platforms = (${platform});` : ''}
   `
 
   axios({
