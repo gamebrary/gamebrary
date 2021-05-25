@@ -1,9 +1,5 @@
 <template lang="html">
   <portal to="logo" v-if="boards.length">
-    <b-button v-if="boards.length === 1">
-      {{ board.name }}
-    </b-button>
-
     <b-dropdown
       class="ml-2"
       toggle-class="px-0"
