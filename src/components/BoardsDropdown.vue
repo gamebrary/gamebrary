@@ -28,9 +28,6 @@
         Create new board
       </b-dropdown-item-button>
 
-      <!-- TODO: create array map with url already fetched -->
-      <!-- TODO: filter out current board -->
-
       <template v-if="filteredBoards.length">
         <b-dropdown-divider />
 
@@ -48,7 +45,7 @@
             :title="name"
             text=" "
             :style="`
-              ${getWallpaperUrl(backgroundUrl)}
+              background-image: url(${backgroundUrl ? backgroundUrl : ''});
               background-color: ${backgroundColor ? backgroundColor : ''}
               `"
           />
@@ -66,6 +63,19 @@ import { mapState } from 'vuex';
 export default {
   computed: {
     ...mapState(['board', 'wallpapers', 'boards']),
+
+    filteredBoards() {
+      return this.boards
+        .filter(({ id }) => id !== this.board.id)
+        .map((board) => {
+          const backgroundUrl = this.getWallpaperUrl(board.backgroundUrl);
+
+          return {
+            ...board,
+            backgroundUrl,
+          };
+        });
+    },
   },
 
   methods: {
@@ -78,20 +88,12 @@ export default {
     },
 
     getWallpaperUrl(url) {
-      // TODO: only return url, not css.
-      if (!url) {
-        return '';
-      }
+      if (!url) return '';
+      if (url && url.includes('igdb.com')) return url;
 
-      if (url && url.includes('igdb.com')) {
-        return `background-image: url(${url});`;
-      }
+      const wallpaper = this.wallpapers.find(({ fullPath }) => fullPath === url);
 
-      const wallpaperObject = this.wallpapers.find(({ fullPath }) => fullPath === url);
-
-      return wallpaperObject && wallpaperObject.url
-        ? `background-image: url(${decodeURI(wallpaperObject.url)});`
-        : '';
+      return wallpaper && wallpaper.url ? decodeURI(wallpaper.url) : '';
     },
   },
 };
