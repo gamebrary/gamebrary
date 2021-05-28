@@ -157,9 +157,16 @@ export default {
       this.saving = true;
 
       try {
-        const { id } = await this.$store.dispatch('CREATE_BOARD', this.board);
+        const payload = {
+          ...this.board,
+          lists: [{
+            name: 'List name here',
+            games: [],
+            settings: {},
+          }],
+        };
 
-        console.log('this is the id', id);
+        const { id } = await this.$store.dispatch('CREATE_BOARD', payload);
 
         this.$bvToast.toast('Board crated');
         this.$bvModal.hide('create-board');
