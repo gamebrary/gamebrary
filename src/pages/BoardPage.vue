@@ -38,7 +38,6 @@
       >
         <b-button
           variant="secondary"
-          size="sm"
           class="mb-2"
           v-b-modal:add-list
         >
