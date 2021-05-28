@@ -22,7 +22,11 @@
     </template>
 
     <b-alert :show="noPlatformsSelected" variant="warning">
-      Please select at least 1 platform
+      No platforms selected, game search will include all platforms.
+    </b-alert>
+
+    <b-alert :show="noPlatformsSelected" variant="success">
+      Select platforms to limit search results.
     </b-alert>
 
     <platform-picker v-model="platforms" />

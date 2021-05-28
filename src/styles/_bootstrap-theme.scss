@@ -7,7 +7,7 @@ $muted: #7d7f8c !default;
 $danger: #fa5455 !default;
 $warning: #fbbd34 !default;
 $secondary: #3a3d5a !default;
-$info: #ee00ff !default;
+$info: #794bc4 !default;
 $primary: #0073ff !default;
 $white: #fff !default;
 $black: #0b0b18 !default;
@@ -139,13 +139,13 @@ $font-family-base:            $font-family-sans-serif !default;
 $font-size-base:              1rem !default;
 $font-size-lg:                $font-size-base * 1.25 !default;
 $font-size-sm:                $font-size-base * .875 !default;
-//
-// $font-weight-lighter:         lighter !default;
-// $font-weight-light:           300 !default;
-// $font-weight-normal:          400 !default;
-// $font-weight-bold:            700 !default;
-// $font-weight-bolder:          bolder !default;
-//
+
+$font-weight-lighter:         lighter !default;
+$font-weight-light:           300 !default;
+$font-weight-normal:          400 !default;
+$font-weight-bold:            700 !default;
+$font-weight-bolder:          bolder !default;
+
 // $font-weight-base:            $font-weight-normal !default;
 // $line-height-base:            1.5 !default;
 //
@@ -734,7 +734,7 @@ $modal-dialog-margin-y-sm-up:       0 !default;
 // $modal-title-line-height:           $line-height-base !default;
 //
 $modal-content-color: $white !default;
-$modal-content-bg: $secondary !default;
+$modal-content-bg: $dark !default;
 // $modal-content-border-color:        rgba($black, .2) !default;
 // $modal-content-border-width:        $border-width !default;
 // $modal-content-border-radius:       $border-radius-lg !default;
@@ -762,14 +762,13 @@ $modal-sm: 400px !default;
 // Alerts
 $alert-padding-y: .5rem !default;
 $alert-padding-x: .5rem !default;
-// $alert-margin-bottom:               1rem !default;
-// $alert-border-radius:               $border-radius !default;
-// $alert-link-font-weight:            $font-weight-bold !default;
-// $alert-border-width:                $border-width !default;
-//
-// $alert-bg-level:                    -10 !default;
-// $alert-border-level:                -9 !default;
-// $alert-color-level:                 6 !default;
+$alert-margin-bottom: 1rem !default;
+$alert-border-radius: $border-radius !default;
+$alert-link-font-weight: $font-weight-bold !default;
+$alert-border-width: $border-width !default;
+$alert-bg-level: -3 !default;
+$alert-border-level: -5 !default;
+$alert-color-level: 5 !default;
 //
 //
 // // Progress bars

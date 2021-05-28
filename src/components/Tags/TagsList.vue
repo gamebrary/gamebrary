@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="tags-list">
+  <div>
     <b-card
       v-for="({ games, hex, tagTextColor }, name) in tags"
       :key="name"

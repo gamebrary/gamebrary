@@ -426,10 +426,12 @@ export default {
   },
 
   SEARCH_BOARD_GAMES({ commit, state }, searchText) {
-    const platforms = state.board.platforms.join(',');
+    const platforms = state.board.platforms.length > 0
+      ? `&platform=${state.board.platforms.join(',')}`
+      : '';
 
     return new Promise((resolve, reject) => {
-      axios.get(`${API_BASE}/search?search=${searchText}&platform=${platforms}&token=${state.twitchToken.access_token}`)
+      axios.get(`${API_BASE}/search?search=${searchText}${platforms}&token=${state.twitchToken.access_token}`)
         .then(({ data }) => {
           commit('SET_SEARCH_RESULTS', data);
           commit('CACHE_GAME_DATA', data);

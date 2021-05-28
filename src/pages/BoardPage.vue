@@ -30,7 +30,7 @@
         :key="list.name"
       />
 
-      <empty-board v-if="empty" class="mr-3" />
+      <empty-board v-if="empty" />
 
       <div
         v-else-if="user && user.uid && user.uid === board.owner"
@@ -38,7 +38,6 @@
       >
         <b-button
           variant="secondary"
-          size="sm"
           class="mb-2"
           v-b-modal:add-list
         >

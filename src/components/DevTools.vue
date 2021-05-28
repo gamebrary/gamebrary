@@ -25,6 +25,15 @@
       <b-dropdown-item disabled>Disabled action</b-dropdown-item>
     </b-dropdown>
 
+    <b-alert show variant="primary">Primary Alert</b-alert>
+    <b-alert show variant="secondary">Secondary Alert</b-alert>
+    <b-alert show variant="success">Success Alert</b-alert>
+    <b-alert show variant="danger">Danger Alert</b-alert>
+    <b-alert show variant="warning">Warning Alert</b-alert>
+    <b-alert show variant="info">Info Alert</b-alert>
+    <b-alert show variant="light">Light Alert</b-alert>
+    <b-alert show variant="dark">Dark Alert</b-alert>
+
     <b-button
       @click="$store.commit('SET_SESSION_EXPIRED', true)"
       variant="warning"
