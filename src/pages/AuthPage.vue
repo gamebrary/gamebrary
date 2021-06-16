@@ -104,7 +104,7 @@ export default {
       }
 
       this.$store.commit('SET_USER', user);
-      this.$router.replace({ name: 'home' });
+      this.$router.replace({ name: 'boards' });
       this.load();
     },
 
