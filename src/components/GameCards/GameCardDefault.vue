@@ -27,12 +27,12 @@
             {{ game.name }}
           </b-card-title>
 
-          <div class="game-info bg-dark">
+          <!-- <div class="game-info bg-dark">
             <small class="text-muted" v-if="gameProgress > 0">
               <i v-if="gameProgress == 100" class="fas fa-check fa-fw" aria-hidden />
               <span v-else>{{ gameProgress }}%</span>
             </small>
-          </div>
+          </div> -->
 
           <b-badge variant="warning" v-if="gameNotes">
             <i class="far fa-sticky-note fa-fw" />
