@@ -10,15 +10,6 @@
 
       <boards />
     </template>
-
-    <div v-else>
-      <portal to="dock">
-        <b-button>
-          Login
-        </b-button>
-      </portal>
-      Welcome!
-    </div>
     <!-- public boards -->
     <!-- news feeds -->
     <!-- deals -->
