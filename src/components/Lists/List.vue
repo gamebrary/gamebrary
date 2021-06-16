@@ -50,13 +50,17 @@
 
       <draggable
         class="games"
+        handle=".card"
+        ghost-class="card-placeholder"
+        drag-class="border-success"
+        chosen-class="border-primary"
+        filter=".drag-filter"
+        delay="50"
+        animation="500"
         :list="list.games"
         :id="listIndex"
         :move="validateMove"
-        handle=".card"
-        ghost-class="card-placeholder"
         :disabled="draggingDisabled"
-        filter=".drag-filter"
         :group="{ name: 'games' }"
         @end="dragEnd"
         @start="dragStart"
@@ -297,6 +301,11 @@ export default {
     visibility: hidden !important;
   }
 
+  img {
+    display: none !important;
+  }
+
+  height: 100px;
   opacity: .1;
   background: #000;
 }
