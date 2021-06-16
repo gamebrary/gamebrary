@@ -92,7 +92,7 @@
         <b-avatar
           rounded
           size="38"
-          :src="user.photoURL ? user.photoURL : null"
+          :src="user && user.photoURL ? user.photoURL : null"
         />
 
         <span v-if="profile.userName">
