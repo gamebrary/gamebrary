@@ -12,8 +12,15 @@
             <i class="fas fa-ellipsis-h fa-fw" aria-hidden />
           </template>
 
-          <b-dropdown-item @click="$emit('selected', name)">
+          <b-dropdown-item @click="$emit('edit', name)">
             Edit
+          </b-dropdown-item>
+
+          <b-dropdown-item
+            variant="danger"
+            @click="$emit('delete', name)"
+          >
+            Delete
           </b-dropdown-item>
         </b-dropdown>
 
