@@ -23,7 +23,8 @@
 
       <tags-list
         v-if="gameTags && localTags"
-        @selected="editTag"
+        @edit="editTag"
+        @delete="promptDeleteTag"
       />
     </template>
 
