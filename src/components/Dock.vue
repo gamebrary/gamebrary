@@ -24,7 +24,7 @@
 
     <div class="d-flex">
       <portal-target name="dock" multiple />
-      <global-search class="ml-2" />
+      <!-- <global-search class="ml-2" /> -->
     </div>
 
     <sidebar />
