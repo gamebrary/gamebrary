@@ -10,9 +10,9 @@
         {{ $t('boards.create') }}
       </b-button>
 
-      <b-button :to="{ name: 'public-boards' }">
+      <!-- <b-button :to="{ name: 'public-boards' }">
         View public boards
-      </b-button>
+      </b-button> -->
     </empty-state>
 
     <div class="packery-grid">
