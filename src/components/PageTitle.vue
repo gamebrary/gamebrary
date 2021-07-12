@@ -1,22 +1,9 @@
 <template lang="html">
   <header>
-    <div class="d-none d-sm-flex align-items-center justify-content-between">
-      <h1>{{ title }}</h1>
-
-      <slot />
-
-      <b-button
-        v-if="actionText"
-        variant="primary"
-        class="d-none d-sm-block"
-        @click="$emit('action')"
-      >
-        {{ actionText }}
-      </b-button>
-    </div>
+    <portal to="pageTitle">{{ title }}</portal>
 
     <portal to="dock">
-      <div class="d-sm-none">
+      <div class="d-flex align-items-center justify-content-between">
         <slot />
 
         <b-button
