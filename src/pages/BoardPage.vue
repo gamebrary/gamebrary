@@ -11,6 +11,13 @@
     <boards-dropdown />
 
     <portal to="dock">
+      <b-button
+        variant="secondary"
+        v-b-modal:edit-board
+      >
+        <i class="fas fa-pencil-alt fa-fw" aria-hidden />
+        Edit board
+      </b-button>
       <!-- TODO: add board filtering -->
       <!-- <b-button
         variant="warning"
