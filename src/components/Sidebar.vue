@@ -115,6 +115,13 @@
     </template>
 
     <template #footer="{ hide }">
+      <b-button
+        variant="transparent"
+        href="https://github.com/romancm/gamebrary"
+        target="_blank"
+      >
+        <i class="fab fa-github"></i>
+      </b-button>
       <small>&copy; 2021 Gamebrary</small>
       <!-- {{ $t('global.donateMessage') }}
       <a href="https://www.paypal.me/RomanCervantes/5" target="_blank">
