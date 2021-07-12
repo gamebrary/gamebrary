@@ -17,7 +17,7 @@
         <b-button
           title="Dashboard"
           :to="{ name: 'home' }"
-          class="p-0"
+          class="p-0 mr-1"
         >
           <img
             src="/static/gamebrary-logo.png"
@@ -30,6 +30,7 @@
 
       <b-button
         class="align-self-baseline"
+        variant="dark"
         @click="hide"
       >
         <i class="fas fa-times fa-fw" aria-hidden />

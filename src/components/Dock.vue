@@ -9,7 +9,7 @@
         squared
         variant="transparent"
         v-b-toggle.menu
-        class="p-0 ml-2"
+        class="p-0 ml-0"
       >
         <img
           src="/static/gamebrary-logo.png"
@@ -19,7 +19,9 @@
 
       <portal-target name="logo" />
 
-      <span v-if="pageTitle && !isBoard" class="d-sm-none m-2">{{ pageTitle }}</span>
+      <span v-if="!isBoard" class="m-2">
+        <portal-target name="pageTitle" />
+      </span>
     </div>
 
     <div class="d-flex">

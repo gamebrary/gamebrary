@@ -13,7 +13,7 @@
     :id="listIndex"
   >
     <b-card no-body>
-      <b-card-header
+      <div
         class="py-0 pr-0 pl-2 d-flex justify-content-between align-items-center"
       >
         <p class="list-name p-0 m-0">
@@ -46,7 +46,7 @@
         >
           <i class="fas fa-ellipsis-h fa-fw" aria-hidden />
         </b-button>
-      </b-card-header>
+      </div>
 
       <draggable
         class="games"
@@ -72,7 +72,7 @@
           :key="game"
           :list="list"
           :game-id="game"
-          class="mb-2"
+          :class="{ 'mb-2': view !== 'covers'}"
           @click.native="openGame(game, list)"
         />
 
@@ -263,14 +263,13 @@ export default {
     overflow: hidden;
     max-height: calc(100vh - 200px);
     overflow-y: auto;
-    padding: .5rem .5rem 0;
+    padding: 0 .5rem;
     width: 100%;
   }
 
   &.grid {
     .games {
       display: grid;
-      padding: .5rem .5rem 0;
       grid-template-columns: 1fr 1fr;
       grid-column-gap: .5rem;
     }
@@ -279,12 +278,12 @@ export default {
   &.covers {
     .games {
       display: grid;
-      padding: .5rem .5rem 0;
       grid-template-columns: 1fr 1fr 1fr;
       grid-column-gap: .5rem;
 
       img {
         width: 100%;
+        padding-bottom: .5rem;
       }
     }
   }
