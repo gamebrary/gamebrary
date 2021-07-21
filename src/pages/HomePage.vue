@@ -29,5 +29,11 @@ export default {
   computed: {
     ...mapState(['user']),
   },
+
+  mounted() {
+    if (this.user === null) {
+      this.$router.push('auth');
+    }
+  },
 };
 </script>
