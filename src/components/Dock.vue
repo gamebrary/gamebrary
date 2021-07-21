@@ -1,7 +1,6 @@
 <template lang="html">
   <nav
-    class="dock p-2 d-flex align-items-center justify-content-between w-100"
-    :class="{ 'position-fixed': isBoard }"
+    :class="[{ 'position-fixed': isBoard }, 'd-flex align-items-center justify-content-between w-100 py-2 px-3 z-index-1']"
   >
     <div class="d-flex">
       <b-button
@@ -92,10 +91,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-.dock {
-  z-index: 1;
-  height: 54px;
-}
-</style>
