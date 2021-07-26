@@ -66,7 +66,7 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
 $boardHeight: 216px;
-$boardWidth: calc(1094px / 3);
+$boardWidth: calc(1070px / 3);
 
 .mini-board {
   background-repeat: no-repeat;

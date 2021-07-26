@@ -168,7 +168,7 @@ export default {
     renderGrid() {
       this.packery = this.showPlaceholder && this.user
         ? null
-        : new Packery('.packery-grid', { itemSelector: '.mini-board', gutter: 8 });
+        : new Packery('.packery-grid', { itemSelector: '.mini-board', gutter: 16 });
     },
 
     viewBoard(id) {

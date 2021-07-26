@@ -3,7 +3,7 @@
 <template lang="html">
   <div
     :class="[
-      'board px-2',
+      'board px-3',
       { dragging, empty },
     ]"
     :style="boardStyles"

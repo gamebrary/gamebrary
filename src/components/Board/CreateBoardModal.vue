@@ -7,6 +7,7 @@
     @hidden="init"
   >
     <!-- TODO: handle boards without platforms -->
+    <!-- TODO: Show loading spinner when creating -->
     <template v-slot:modal-header="{ close }">
       <modal-header
         :title="$t('boards.create')"
