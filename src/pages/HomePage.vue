@@ -31,6 +31,7 @@ export default {
   },
 
   mounted() {
+    // TODO: remove once public stuff is available / pages are merged
     if (this.user === null) {
       this.$router.push('auth');
     }
