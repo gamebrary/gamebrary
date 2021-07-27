@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container v-if="user">
+  <b-container fluid v-if="user">
     <page-title
       title="Boards"
       action-text="Create board"
