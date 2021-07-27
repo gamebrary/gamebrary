@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container fluid v-if="user">
+  <div v-if="user" class="ml-3">
     <page-title
       title="Boards"
       action-text="Create board"
@@ -7,7 +7,7 @@
     />
 
     <boards />
-  </b-container>
+  </div>
 </template>
 
 <script>
