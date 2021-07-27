@@ -65,20 +65,18 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-$boardHeight: 216px;
-$boardWidth: calc(1070px / 3);
+// TODO: allow to toggle expanded width (remove width from mini-board)
+$boardHeight: 180px;
 
 .mini-board {
   background-repeat: no-repeat;
   background-size: cover;
   height: $boardHeight;
-  width: $boardWidth;
-  max-width: 100%;
+  width: 363.2px;
 
-  @media(max-width: 768px) {
-    width: 320px;
-    height: 180px;
-  }
+  @media(max-width: 1024px) { width: 320px; }
+  @media(max-width: 768px) { width: 360px; }
+  @media(max-width: 480px) { width: calc(100% - 8px); }
 }
 
 .lists {
