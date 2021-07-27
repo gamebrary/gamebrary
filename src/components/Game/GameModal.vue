@@ -181,7 +181,6 @@
 
           <template v-else>
             <game-description :game="game" />
-            <amazon-links :game="game" />
             <game-notes :game="game" />
             <game-details :game="game" />
 
@@ -210,7 +209,6 @@ import GameDescription from '@/components/Game/GameDescription';
 import SimilarGames from '@/components/Game/SimilarGames';
 import GameNotes from '@/components/Game/GameNotes';
 import GameImages from '@/components/Game/GameImages';
-import AmazonLinks from '@/components/Game/AmazonLinks';
 import GameVideos from '@/components/Game/GameVideos';
 import GameWebsites from '@/components/Game/GameWebsites';
 import GameNotesModal from '@/components/Game/GameNotesModal';
@@ -226,7 +224,6 @@ export default {
     SimilarGames,
     GameNotes,
     GameImages,
-    AmazonLinks,
     GameVideos,
     GameWebsites,
     GameNotesModal,
