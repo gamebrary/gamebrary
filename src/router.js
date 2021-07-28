@@ -11,7 +11,8 @@ import AuthPage from '@/pages/AuthPage';
 import BoardsPage from '@/pages/BoardsPage';
 import PublicProfilesPage from '@/pages/PublicProfilesPage';
 import DevToolsPage from '@/pages/DevToolsPage';
-import HomePage from '@/pages/HomePage';
+// TODO: finish homepage
+// import HomePage from '@/pages/HomePage';
 import SettingsPage from '@/pages/SettingsPage';
 import ProfilePage from '@/pages/ProfilePage';
 import EditProfilePage from '@/pages/EditProfilePage';
