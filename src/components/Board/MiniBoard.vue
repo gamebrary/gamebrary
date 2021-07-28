@@ -76,8 +76,8 @@ $boardHeight: 200px;
 
   @media(max-width: 1024px) { width: 320px; }
   @media(max-width: 768px) { width: 360px; }
-  @media(max-width: 500px) { width: 222px; }
-  @media(max-width: 320px) { width: calc(100% - 8px); }
+  @media(width: 500px) { width: 222px; }
+  @media(max-width: 500px) { width: calc(100% - 8px); }
 }
 
 .lists {
