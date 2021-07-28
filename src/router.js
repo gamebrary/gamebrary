@@ -159,7 +159,7 @@ export default new Router({
     {
       name: 'home',
       path: '/',
-      component: HomePage,
+      component: BoardsPage,
       meta: {
         title: 'Home',
         public: true,
