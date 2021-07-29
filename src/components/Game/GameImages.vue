@@ -46,11 +46,12 @@
 
           <b-button
             v-if="isBoardOwner"
+            class="d-none d-sm-inline"
             @click="setAsWallpaper"
           >
             <i
               v-if="saving"
-              class="fas fa-sync fa-spin fa-fw"
+              class="d-sm-fas fa-sync fa-spin fa-fw"
               aria-hidden
             />
             <span v-else>Set as wallpaper</span>
