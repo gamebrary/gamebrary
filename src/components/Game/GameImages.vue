@@ -31,7 +31,7 @@
       <template v-slot:modal-header="{ close }">
         <modal-header
           title="Images"
-          :subtitle="game.name"
+          :subtitle="subtitle"
           @close="close"
         >
           <template v-slot:header>
@@ -73,7 +73,7 @@
       <b-carousel
         ref="screenshots"
         no-animation
-        v-model="activeImage"
+        v-model="activeIndex"
       >
         <b-carousel-slide
           v-for="(screenshot, index) in slides"
@@ -103,7 +103,7 @@ export default {
 
   data() {
     return {
-      activeImage: 0,
+      activeIndex: 0,
       maxThumbnails: 3,
       saving: false,
     };
@@ -135,6 +135,14 @@ export default {
         ? this.screenshots.slice(0, this.maxThumbnails)
         : this.screenshots;
     },
+
+    subtitle() {
+      if (this.activeIndex === 0) {
+        return 'Game cover';
+      }
+
+      return `Screenshot (${this.activeIndex} of ${this.slides.length - 1})`;
+    },
   },
 
   methods: {
@@ -143,7 +151,7 @@ export default {
 
       const payload = {
         ...this.board,
-        backgroundUrl: this.slides[this.activeImage],
+        backgroundUrl: this.slides[this.activeIndex],
       };
 
       this.$store.commit('SET_ACTIVE_BOARD', payload);
@@ -174,7 +182,7 @@ export default {
     },
 
     openModal(index = 0) {
-      this.activeImage = index;
+      this.activeIndex = index;
 
       this.$bvModal.show('game-images');
     },
