@@ -142,7 +142,7 @@ export default {
         return 'Game cover';
       }
 
-      return `Screenshot (${this.activeIndex} of ${this.slides.length - 1})`;
+      return `Screenshot ${this.activeIndex} of ${this.slides.length - 1}`;
     },
   },
 
