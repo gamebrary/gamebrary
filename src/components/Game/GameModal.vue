@@ -29,7 +29,7 @@
           />
         </template>
 
-        <b-dropdown right v-if="user && user.uid">
+        <b-dropdown right v-if="user && user.uid && user.uid === board.owner">
           <template v-slot:button-content>
             <i class="fas fa-ellipsis-h fa-fw" aria-hidden />
           </template>
@@ -181,6 +181,16 @@
 
           <template v-else>
             <game-description :game="game" />
+
+            <img
+              v-for="rating in ageRatings"
+              :src="`/static/img/age-ratings/${rating}.png`"
+              :alt="rating"
+              :key="rating"
+              class="mr-2 mb-2"
+              style="height: 60px"
+            />
+
             <game-notes :game="game" />
             <game-details :game="game" />
 
@@ -237,6 +247,27 @@ export default {
       coverVisible: true,
       game: {},
       loading: true,
+      // TODO: move to constants
+      ageRating: {
+        categories: {
+          1: 'ESRB',
+          2: 'PEGI',
+        },
+        values: {
+          1: '3',
+          2: '7',
+          3: '12',
+          4: '16',
+          5: '18',
+          6: 'RP',
+          7: 'EC',
+          8: 'E',
+          9: 'E10',
+          10: 'T',
+          11: 'M',
+          12: 'AO',
+        },
+      },
     };
   },
 
@@ -250,6 +281,12 @@ export default {
         && this.activeGame.list
         && this.activeGame.list.games
         && this.activeGame.list.games.length > 1;
+    },
+
+    ageRatings() {
+      return this.game && this.game.age_ratings
+        ? this.game.age_ratings.map(({ rating }) => this.ageRating.values[rating])
+        : null;
     },
 
     standalone() {

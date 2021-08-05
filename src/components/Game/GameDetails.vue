@@ -30,11 +30,6 @@
       <span class="text-wrap">{{ playerPerspectives }}</span>
     </div>
 
-    <div v-if="ageRatings">
-      <strong>{{ $t('board.gameModal.ageRatings') }}:</strong>
-      <span class="text-wrap">{{ ageRatings }}</span>
-    </div>
-
     <div v-if="game.alternative_names">
       <strong>Also known as:</strong>
       <ul>
@@ -63,31 +58,6 @@ import { mapGetters } from 'vuex';
 export default {
   props: {
     game: Object,
-  },
-
-  data() {
-    return {
-      ageRating: {
-        categories: {
-          1: 'ESRB',
-          2: 'PEGI',
-        },
-        values: {
-          1: '3',
-          2: '7',
-          3: '12',
-          4: '16',
-          5: '18',
-          6: 'RP',
-          7: 'EC',
-          8: 'E',
-          9: 'E10',
-          10: 'T',
-          11: 'M',
-          12: 'AO',
-        },
-      },
-    };
   },
 
   computed: {
@@ -130,12 +100,6 @@ export default {
     playerPerspectives() {
       return this.game && this.game.player_perspectives
         ? this.game.player_perspectives.map(({ name }) => name).join(', ')
-        : null;
-    },
-
-    ageRatings() {
-      return this.game && this.game.age_ratings
-        ? this.game.age_ratings.map(({ category, rating }) => `${this.ageRating.categories[category]}: ${this.ageRating.values[rating]}`).join(', ')
         : null;
     },
 
