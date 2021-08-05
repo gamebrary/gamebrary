@@ -1,3 +1,4 @@
+<!-- TODO: get route source in param -->
 <template lang="html">
   <div class="auth text-white">
     <img src="/static/gamebrary-logo.png" />

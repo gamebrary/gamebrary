@@ -38,6 +38,8 @@
           :list-index="listIndex"
         />
 
+        <!-- TODO: consolidate public/private actions -->
+
         <b-button
           v-else
           size="sm"
