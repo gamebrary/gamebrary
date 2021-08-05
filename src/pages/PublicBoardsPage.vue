@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <h2 class="my-2">Boards</h2>
+    <h2 class="my-2">Explore</h2>
 
     <div class="boards">
       <b-card

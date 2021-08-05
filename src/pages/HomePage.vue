@@ -1,40 +1,23 @@
 <template lang="html">
-  <b-container>
-    <!-- TODO: show more stuff, public boards -->
-    <template v-if="user">
-      <page-title
-        title="Boards"
-        action-text="Create board"
-        @action="$bvModal.show('create-board')"
-      />
-
-      <boards />
-    </template>
-    <!-- public boards -->
-    <!-- news feeds -->
-    <!-- deals -->
-    <!-- newsletter signup -->
-  </b-container>
+  <dashboard-page v-if="user" />
+  <public-home-page v-else />
 </template>
 
 <script>
 import Boards from '@/components/Boards';
+import DashboardPage from '@/pages/DashboardPage';
+import PublicHomePage from '@/pages/PublicHomePage';
 import { mapState } from 'vuex';
 
 export default {
   components: {
     Boards,
+    DashboardPage,
+    PublicHomePage,
   },
 
   computed: {
     ...mapState(['user']),
-  },
-
-  mounted() {
-    // TODO: remove once public stuff is available / pages are merged
-    if (this.user === null) {
-      this.$router.push('auth');
-    }
   },
 };
 </script>
