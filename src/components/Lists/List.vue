@@ -41,10 +41,10 @@
         <!-- TODO: consolidate public/private actions -->
 
         <b-button
-          v-else
+          disabled
           size="sm"
+          variant="secondary"
           class="m-1"
-          v-b-modal:authModal
         >
           <i class="fas fa-ellipsis-h fa-fw" aria-hidden />
         </b-button>

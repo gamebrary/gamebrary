@@ -12,6 +12,7 @@
 
     <portal to="dock">
       <b-button
+        v-if="user && user.uid && user.uid === board.owner"
         variant="secondary"
         v-b-modal:edit-board
       >
