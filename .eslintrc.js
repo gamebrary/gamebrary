@@ -61,7 +61,8 @@ module.exports = {
       vue: 'never'
     }],
     "indent": ["error", 2],
-    "max-len": ["error", { "code": 180 }],
+    // "max-len": ["error", { "code": 180 }],
+    "max-len": "off",
     'no-param-reassign': ['error', {
       props: true,
       ignorePropertyModificationsFor: [
