@@ -1,6 +1,6 @@
 <template lang="html">
   <b-container>
-    <h1 class="d-none d-sm-block">Settings</h1>
+    <page-title title="Settings" />
 
     <div class="d-inline-flex flex-column align-items-start">
       <language-selector />
