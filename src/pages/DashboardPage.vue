@@ -7,6 +7,8 @@
       @action="$bvModal.show('create-board')"
     />
 
+    <boards />
+
     <h5>public boards</h5>
     <h5>news feeds</h5>
     <h5>deals</h5>
@@ -15,7 +17,13 @@
 </template>
 
 <script>
+import Boards from '@/components/Boards';
+
+
 export default {
+  components: {
+    Boards,
+  },
 };
 </script>
 

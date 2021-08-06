@@ -31,6 +31,7 @@
     <board-placeholder v-if="loading" />
 
     <template v-else-if="showBoard">
+      <!-- TODO: put board in component -->
       <list
         v-for="(list, listIndex) in board.lists"
         :list="list"

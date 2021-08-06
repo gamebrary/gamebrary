@@ -4,11 +4,11 @@ import BoardPage from '@/pages/BoardPage';
 import BoardsPage from '@/pages/BoardsPage';
 import DevToolsPage from '@/pages/DevToolsPage';
 import EditProfilePage from '@/pages/EditProfilePage';
-// import HomePage from '@/pages/HomePage';
+import HomePage from '@/pages/HomePage';
 import NotFoundPage from '@/pages/NotFoundPage';
 import NotesPage from '@/pages/NotesPage';
 import ProfilePage from '@/pages/ProfilePage';
-import PublicBoardsPage from '@/pages/PublicBoardsPage';
+import ExplorePage from '@/pages/ExplorePage';
 import PublicProfilePage from '@/pages/PublicProfilePage';
 import PublicProfilesPage from '@/pages/PublicProfilesPage';
 import PrivacyPolicyPage from '@/pages/PrivacyPolicyPage';
@@ -77,9 +77,9 @@ const routes = [
     },
   },
   {
-    name: 'public-boards',
-    path: '/public-boards',
-    component: PublicBoardsPage,
+    name: 'explore',
+    path: '/explore',
+    component: ExplorePage,
     meta: {
       title: 'PublicBoards',
       public: true,
@@ -173,7 +173,7 @@ const routes = [
   {
     name: 'home',
     path: '/',
-    component: BoardsPage,
+    component: HomePage,
     meta: {
       title: 'Home',
       public: true,

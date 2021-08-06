@@ -1,5 +1,5 @@
 <template lang="html">
-  <div>
+  <b-container fluid>
     Gamebrary!
     <p>Open source tool to organize video game collections.</p>
     <p>Gamebrary is free, but powered by your support</p>
@@ -10,10 +10,10 @@
 
     <section>
       Browse boards:
-      <public-boards-page />
+      <!-- <public-boards-page /> -->
     </section>
 
-    <section class="bg-danger py-4">
+    <section class="bg-danger py-4" id="features">
       <b-container>
         <h5 class="text-center">Features</h5>
 
@@ -30,16 +30,16 @@
     </section>
 
     <public-page-footer />
-  </div>
+  </b-container>
 </template>
 
 <script>
-import PublicBoardsPage from '@/pages/PublicBoardsPage';
+// import PublicBoardsPage from '@/pages/PublicBoardsPage';
 import PublicPageFooter from '@/components/PublicPageFooter';
 
 export default {
   components: {
-    PublicBoardsPage,
+    // PublicBoardsPage,
     PublicPageFooter,
   },
 
