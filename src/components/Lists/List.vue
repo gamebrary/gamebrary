@@ -41,6 +41,7 @@
         <!-- TODO: consolidate public/private actions -->
 
         <b-button
+          v-else
           disabled
           size="sm"
           variant="secondary"
