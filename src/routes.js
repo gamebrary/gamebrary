@@ -25,6 +25,7 @@ const routes = [
     component: BoardsPage,
     meta: {
       title: 'Boards',
+      public: true,
     },
   },
   {
@@ -32,7 +33,7 @@ const routes = [
     path: '/profiles',
     component: PublicProfilesPage,
     meta: {
-      title: 'Boards',
+      title: 'profiles',
       public: true,
     },
   },

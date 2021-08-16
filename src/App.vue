@@ -5,8 +5,7 @@
     v-shortkey="KEYBOARD_SHORTCUTS"
     @shortkey="handleShortcutAction"
   >
-    <dock v-if="user" />
-    <public-page-header v-else />
+    <dock />
 
     <global-modals />
 
@@ -23,7 +22,6 @@
 <script>
 import Dock from '@/components/Dock';
 import GlobalModals from '@/components/GlobalModals';
-import PublicPageHeader from '@/components/PublicPageHeader';
 import sessionMixin from '@/mixins/sessionMixin';
 import firebase from 'firebase/app';
 import { mapState } from 'vuex';
@@ -37,7 +35,6 @@ export default {
   components: {
     Dock,
     GlobalModals,
-    PublicPageHeader,
   },
 
   mixins: [sessionMixin],

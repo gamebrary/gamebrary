@@ -2,7 +2,7 @@
   <div class="mb-5" v-if="user">
     <!-- TODO: allow reorganizing and save -->
     <empty-state
-      v-if="!loading && sortedBoards.length === 0"
+      v-if="!user || !loading && sortedBoards.length === 0"
       title="Boards"
       message="Use boards to easily organize your video game collections"
     >
@@ -108,8 +108,10 @@ export default {
 
   methods: {
     load() {
-      this.renderGrid();
-      this.loadPlatforms();
+      if (this.user) {
+        this.renderGrid();
+        this.loadPlatforms();
+      }
     },
 
     editBoard(board) {

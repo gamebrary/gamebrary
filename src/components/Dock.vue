@@ -3,17 +3,22 @@
     :class="[{ 'position-fixed': isBoard }, 'd-flex align-items-center justify-content-between w-100 py-2 px-3 z-index-1']"
   >
     <div class="d-flex">
+      <router-link :to="{ name: 'home' }">
+        <img
+          src="/static/gamebrary-logo.png"
+          width="32"
+        />
+      </router-link>
+
+      <!-- Gamebrary -->
+
       <b-button
-        title="Dashboard"
         squared
         variant="transparent"
         v-b-toggle.menu
         class="p-0 ml-0"
       >
-        <img
-          src="/static/gamebrary-logo.png"
-          width="32"
-        />
+
       </b-button>
 
       <portal-target name="logo" />
@@ -24,24 +29,28 @@
     </div>
 
     <div class="d-flex">
-      <portal-target name="dock" multiple />
-      <!-- <global-search class="ml-2" /> -->
-    </div>
 
-    <sidebar />
+      <!-- <global-search class="ml-2" /> -->
+      <portal-target name="dock" multiple />
+
+      <user-menu v-if="user" />
+      <public-menu v-else />
+    </div>
   </nav>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
 import PinnedBoards from '@/components/Board/PinnedBoards';
-import Sidebar from '@/components/Sidebar';
+import UserMenu from '@/components/UserMenu';
+import PublicMenu from '@/components/PublicMenu';
 import GlobalSearch from '@/components/GlobalSearch';
 
 export default {
   components: {
     PinnedBoards,
-    Sidebar,
+    UserMenu,
+    PublicMenu,
     GlobalSearch,
   },
 

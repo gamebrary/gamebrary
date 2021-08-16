@@ -1,19 +1,11 @@
 <template lang="html">
   <b-container fluid>
-    Gamebrary!
     <p>Open source tool to organize video game collections.</p>
     <p>Gamebrary is free, but powered by your support</p>
 
-    <div class="bg-white">
-      teest
-    </div>
+    <img src="static/img/screenshot.png" alt="">
 
-    <section>
-      Browse boards:
-      <!-- <public-boards-page /> -->
-    </section>
-
-    <section class="bg-danger py-4" id="features">
+    <section class="bg-light py-4" id="features">
       <b-container>
         <h5 class="text-center">Features</h5>
 
@@ -34,12 +26,10 @@
 </template>
 
 <script>
-// import PublicBoardsPage from '@/pages/PublicBoardsPage';
 import PublicPageFooter from '@/components/PublicPageFooter';
 
 export default {
   components: {
-    // PublicBoardsPage,
     PublicPageFooter,
   },
 

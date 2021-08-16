@@ -2,6 +2,8 @@
   <div>
     <h2 class="my-2">Explore</h2>
 
+    USERS | BOARDS | NEWS (TWITTER)
+
     <div class="boards">
       <b-card
         v-for="board in publicBoards"

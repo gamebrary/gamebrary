@@ -1,4 +1,5 @@
 <template lang="html">
+  <!-- TODO: split into their own route -->
   <dashboard-page v-if="user" />
   <public-home-page v-else />
 </template>
