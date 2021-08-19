@@ -3,6 +3,7 @@
     <h2 class="my-2">Explore</h2>
 
     USERS | BOARDS | NEWS (TWITTER)
+    <a class="twitter-timeline" href="https://twitter.com/Wario64?ref_src=twsrc%5Etfw">Tweets by Wario64</a>
 
     <div class="boards">
       <b-card
@@ -40,6 +41,11 @@ export default {
 
   mounted() {
     this.load();
+
+    const plugin = document.createElement("script");
+    plugin.setAttribute('src', 'https://platform.twitter.com/widgets.js');
+    plugin.async = true;
+    document.head.appendChild(plugin);
   },
 
   methods: {

@@ -1,17 +1,16 @@
-<!-- TODO: get route source in param -->
 <template lang="html">
-  <div class="auth text-white">
-    <img src="/static/gamebrary-logo.png" />
-    <h1 class="lead my-3">Welcome to Gamebrary!</h1>
-
+  <b-container>
     <b-alert
-      v-if="showExpiredAlert"
-      variant="warning"
-      class="my-2 px-4"
       show
+      variant="danger"
+      dismissible
     >
       Your session expired!
     </b-alert>
+
+    <!-- <b-alert v-if="!showExpiredAlert">
+
+    </b-alert> -->
 
     <b-spinner
       v-if="loading"
@@ -19,7 +18,7 @@
     />
 
     <section id="auth" />
-  </div>
+  </b-container>
 </template>
 
 <script>
@@ -173,15 +172,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-.auth {
-  height: 100vh;
-  margin: 5rem auto 0;
-  color: white;
-  flex-direction: column;
-  text-align: center;
-  display: flex;
-  align-items: center;
-}
-</style>
