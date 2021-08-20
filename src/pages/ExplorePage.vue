@@ -1,10 +1,5 @@
 <template lang="html">
-  <div>
-    <h2 class="my-2">Explore</h2>
-
-    USERS | BOARDS | NEWS (TWITTER)
-    <a class="twitter-timeline" href="https://twitter.com/Wario64?ref_src=twsrc%5Etfw">Tweets by Wario64</a>
-
+  <b-container fluid class="explore-page">
     <div class="boards">
       <b-card
         v-for="board in publicBoards"
@@ -17,22 +12,22 @@
           :board="board"
           :background-image="getWallpaper(board)"
         />
-
-        <div class="px-2">
-          {{ board.name }} by {{ board.owner }}
-        </div>
       </b-card>
     </div>
-  </div>
+
+  <twitter-feed twitter-user="wario64" />
+</b-container>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 import MiniBoard from '@/components/Board/MiniBoard';
+import TwitterFeed from '@/components/TwitterFeed';
 
 export default {
   components: {
     MiniBoard,
+    TwitterFeed,
   },
 
   computed: {
@@ -41,11 +36,6 @@ export default {
 
   mounted() {
     this.load();
-
-    const plugin = document.createElement("script");
-    plugin.setAttribute('src', 'https://platform.twitter.com/widgets.js');
-    plugin.async = true;
-    document.head.appendChild(plugin);
   },
 
   methods: {
@@ -67,8 +57,17 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
+.explore-page {
+  background: #cf0;
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  grid-gap: 1rem;
+  // overflow-y: auto;
+}
+
 .boards {
   display: grid;
+  background: #ccf;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 1rem;
 
