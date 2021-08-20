@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-dropdown>
+  <b-dropdown right toggle-class="p-0">
     <template #button-content>
       <b-avatar
         rounded
