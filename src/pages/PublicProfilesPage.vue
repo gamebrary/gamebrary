@@ -11,20 +11,10 @@
       v-for="profile in profiles"
       :key="profile.userName"
     >
-      <img
-        :src="profile.profileImage"
-        :alt="profile.userName"
-        class="rounded"
-        width="50"
-      >
-
       <div>
-        <h3 class="m-0">{{ profile.displayName }}</h3>
+        <h5 class="m-0">{{ profile.displayName }}</h5>
         <small class="text-info">{{ `@${profile.userName}` }}</small>
-        <p>{{ profile.bio }}</p>
-        <!-- <b-button variant="primary">
-          Follow
-        </b-button> -->
+        <p v-if="profile.bio">{{ profile.bio }}</p>
       </div>
     </b-button>
   </b-container>

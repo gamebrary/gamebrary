@@ -15,7 +15,9 @@
       </b-card>
     </div>
 
-  <twitter-feed twitter-user="wario64" />
+  <div class="game-deals">
+    <twitter-feed twitter-user="wario64" />
+  </div>
 </b-container>
 </template>
 
@@ -58,16 +60,13 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
 .explore-page {
-  background: #cf0;
   display: grid;
   grid-template-columns: 1fr 300px;
   grid-gap: 1rem;
-  // overflow-y: auto;
 }
 
 .boards {
   display: grid;
-  background: #ccf;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 1rem;
 
@@ -78,5 +77,11 @@ export default {
   @media(max-width: 480px) {
     grid-template-columns: 1fr;
   }
+}
+
+.game-deals {
+  background-color: #fc0;
+  height: calc(100vh - 200px);
+  overflow-y: auto;
 }
 </style>

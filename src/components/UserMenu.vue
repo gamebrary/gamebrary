@@ -1,8 +1,9 @@
 <template lang="html">
-  <b-dropdown right toggle-class="p-0">
+  <b-dropdown right toggle-class="p-0 ml-2">
     <template #button-content>
       <b-avatar
         rounded
+        size="36"
         :src="user && user.photoURL ? user.photoURL : null"
       />
       <!-- <b-button
@@ -39,7 +40,7 @@
       {{ title }}
     </b-dropdown-item>
 
-    <b-button
+    <b-dropdown-item
       v-for="{ name, title, icon } in secondaryButtons"
       :key="name"
       :variant="name === routeName ? 'primary' : ''"
@@ -48,9 +49,9 @@
       :to="{ name }"
     >
       <i :class="`${icon} fa-fw`" aria-hidden /> {{ title }}
-    </b-button>
+    </b-dropdown-item>
 
-    <b-button
+    <b-dropdown-item
       v-if="dev"
       v-for="{ name, title, icon } in betaFeatures"
       :key="name"
@@ -60,26 +61,26 @@
       :to="{ name }"
     >
       <i :class="`${icon} fa-fw`" aria-hidden /> {{ title }}
-    </b-button>
+    </b-dropdown-item>
 
-    <hr>
+    <b-dd-divider />
 
-    <b-button
+    <b-dropdown-item
       v-b-modal.keyboard-shortcuts
       block
       class="d-none d-sm-block"
       size="sm"
     >
       Keyboard shortcuts
-    </b-button>
+    </b-dropdown-item>
 
-    <b-button
+    <b-dropdown-item
       variant="transparent"
       href="https://github.com/romancm/gamebrary"
       target="_blank"
     >
       <i class="fab fa-github"></i>
-    </b-button>
+    </b-dropdown-item>
     <small>&copy; 2021 Gamebrary</small>
     <div>
 

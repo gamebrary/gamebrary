@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container>
+  <b-container fluid>
     <page-title title="Settings" />
 
     <div class="d-inline-flex flex-column align-items-start">
