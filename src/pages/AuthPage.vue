@@ -1,16 +1,13 @@
 <template lang="html">
   <b-container>
     <b-alert
+      v-if="!showExpiredAlert"
       show
       variant="danger"
       dismissible
     >
       Your session expired!
     </b-alert>
-
-    <!-- <b-alert v-if="!showExpiredAlert">
-
-    </b-alert> -->
 
     <b-spinner
       v-if="loading"
