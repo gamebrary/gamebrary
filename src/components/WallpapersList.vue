@@ -1,20 +1,16 @@
 <template lang="html">
-  <div class="wallpapers">
+  <div>
     <preview-wallpaper-modal
       :wallpaper="activeWallpaper"
       :selectable="selectable"
       @selected="selected"
     />
 
-    <!-- TODO: put actions in dropdown -->
-    <!-- TODO: open preview when clicking on image -->
-    <!-- TODO: view toggle -->
-
     <b-card
       v-for="wallpaper in wallpapers"
       :key="wallpaper.name"
-      class="mb-3 mx-0 p-0 word-wrap d-flex position-relative d-flex align-items-start"
-      body-class="w-100"
+      class="mb-3"
+      body-class="wallpaper-card"
     >
       <b-img
         :src="wallpaper.url"
@@ -25,45 +21,36 @@
         @click="openPreview(wallpaper)"
       />
 
-      {{ wallpaper.name }}
+      <div class="d-flex align-items-start flex-column">
+        <b-button @click="openPreview(wallpaper)" variant="link" class="p-0 mb-3">
+          {{ wallpaper.name }}
 
-      <b-badge v-if="wallpaper.metadata && wallpaper.metadata.size">
-        {{ formatSize(wallpaper) }}
-      </b-badge>
+          <b-badge variant="light" v-if="wallpaper.metadata && wallpaper.metadata.size">
+            {{ formatSize(wallpaper) }}
+          </b-badge>
+        </b-button>
 
-      <b-dropdown class="float-right" right>
-        <template v-slot:button-content>
-          <i class="fas fa-ellipsis-h fa-fw" aria-hidden />
-        </template>
-
-        <b-dropdown-item
-          @click="openPreview(wallpaper)"
-        >
-          Preview
-        </b-dropdown-item>
-        <b-dropdown-divider></b-dropdown-divider>
-        <b-dropdown-item
+        <b-button
           variant="danger"
           @click="confirmDeleteWallpaper(wallpaper)"
         >
           Delete file
-        </b-dropdown-item>
-      </b-dropdown>
+        </b-button>
 
+        <b-button
+          v-if="selectable"
+          variant="primary"
+          @click="selected(wallpaper)"
+        >
+          <i
+            v-if="saving"
+            class="fas fa-sync fa-spin fa-fw"
+            aria-hidden
+          />
 
-      <b-button
-        v-if="selectable"
-        variant="primary"
-        @click="selected(wallpaper)"
-      >
-        <i
-          v-if="saving"
-          class="fas fa-sync fa-spin fa-fw"
-          aria-hidden
-        />
-
-        <span v-else>Select</span>
-      </b-button>
+          <span v-else>Select</span>
+        </b-button>
+      </div>
     </b-card>
   </div>
 </template>
@@ -137,3 +124,12 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+  .wallpaper-card {
+    display: grid;
+    grid-template-columns: 200px auto;
+    margin-bottom: 1rem;
+  }
+</style>
+
