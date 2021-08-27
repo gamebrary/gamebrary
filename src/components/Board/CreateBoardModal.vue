@@ -90,7 +90,8 @@
       :disabled="!board.name"
       @click="createBoard"
     >
-      Create board
+        <b-spinner small v-if="saving" />
+        <template v-else>Create board</template>
     </b-button>
   </b-modal>
 </template>
@@ -142,6 +143,7 @@ export default {
   methods: {
     init() {
       this.showOptionalFields = false;
+      this.saving = false;
 
       this.board = {
         name: '',
@@ -174,8 +176,6 @@ export default {
         this.$router.push({ name: 'board', params: { id } });
       } catch (e) {
         this.$bvToast.toast('There was an error creating board', { variant: 'error' });
-      } finally {
-        this.saving = false;
       }
     },
   },
