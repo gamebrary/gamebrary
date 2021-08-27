@@ -12,15 +12,6 @@
 
       <!-- Gamebrary -->
 
-      <b-button
-        squared
-        variant="transparent"
-        v-b-toggle.menu
-        class="p-0 ml-0"
-      >
-
-      </b-button>
-
       <portal-target name="logo" />
 
       <span v-if="!isBoard" class="m-2">
