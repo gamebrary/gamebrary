@@ -139,7 +139,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['games', 'dragging', 'progresses', 'board', 'user']),
+    ...mapState(['games', 'dragging', 'progresses', 'board', 'user', 'settings']),
     ...mapGetters(['isBoardOwner']),
 
     draggingDisabled() {
@@ -207,8 +207,14 @@ export default {
 
   methods: {
     openGame(gameId, list) {
-      this.$store.commit('SET_GAME_MODAL_DATA', { gameId, list });
-      this.$bvModal.show('game-modal');
+      const gameDetailView = this.settings && this.settings.gameDetailView;
+
+      if (gameDetailView === 'new') {
+        this.$store.commit('SET_GAME_MODAL_DATA', { gameId, list });
+        this.$router.push({ name: 'game', params: { gameId } });
+      } else {
+        this.$bvModal.show('game-modal');
+      }
     },
 
     validateMove({ from, to }) {

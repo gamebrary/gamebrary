@@ -216,6 +216,13 @@ export const SUPPORTED_LANGUAGES = [
 
 export const GAME_DETAIL_VIEWS = [
   { name: 'Modal', value: null },
-  { name: 'Side panel', value: 'side' },
+  // { name: 'Side panel', value: 'side' },
+  // { name: 'popup', value: 'popup' },
   { name: 'New page', value: 'new' },
+];
+
+export const GAME_DETAIL_RATING = [
+  { name: 'Show all', value: null },
+  { name: 'ESRB', value: 'esrb' },
+  { name: 'PEGI', value: 'pegi' },
 ];

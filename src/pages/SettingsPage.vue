@@ -4,15 +4,11 @@
 
     <div class="d-inline-flex flex-column align-items-start">
       <language-selector />
+      <game-detail-settings />
       <!-- <game-detail-view-selector /> -->
 
       <!-- <provider-card /> -->
-      <!-- Open games in:
-      <b-form-select class="mb-3">
-        <b-form-select-option value="modal">Modal</b-form-select-option>
-        <b-form-select-option value="side">Side panel</b-form-select-option>
-        <b-form-select-option value="new">New page</b-form-select-option>
-      </b-form-select> -->
+
       <b-button
         @click="session_signOut"
         variant="secondary"
@@ -35,15 +31,17 @@
 
 <script>
 import LanguageSelector from '@/components/Settings/LanguageSelector';
+import GameDetailSettings from '@/components/Settings/GameDetailSettings';
 // import GameDetailViewSelector from '@/components/Settings/GameDetailViewSelector';
 // import ProviderCard from '@/components/ProviderCard';
 import DeleteAccountModal from '@/components/Settings/DeleteAccountModal';
 import sessionMixin from '@/mixins/sessionMixin';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
     LanguageSelector,
+    GameDetailSettings,
     // GameDetailViewSelector,
     // ProviderCard,
     DeleteAccountModal,
