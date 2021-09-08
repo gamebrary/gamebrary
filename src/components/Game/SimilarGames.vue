@@ -21,7 +21,7 @@
         :src="getCoverUrl(game.cover)"
         class="rounded mr-2 cursor-pointer"
         height="120"
-        @click="loadGame(game.id)"
+        @click="openGame(game)"
       />
     </div>
   </div>
@@ -48,7 +48,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['games', 'activeGame']),
+    ...mapState(['games', 'activeGame', 'settings']),
 
     similarGameIds() {
       return this.game && this.game.similar_games;
@@ -62,6 +62,18 @@ export default {
   },
 
   methods: {
+    openGame(game) {
+      // TODO: use optional chaining
+      const gameDetailView = this.settings && this.settings.gameDetailView;
+
+      // TODO: store value in constant
+      if (gameDetailView === 'new') {
+        this.$router.push({ name: 'game', params: { gameId: game.id, gameSlug: game.slug } });
+      } else {
+        this.loadGame(game.id);
+      }
+    },
+
     getCoverUrl(cover) {
       return cover && cover.image_id
         ? `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${cover.image_id}.jpg`

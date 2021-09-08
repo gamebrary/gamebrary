@@ -5,6 +5,7 @@ import BoardsPage from '@/pages/BoardsPage';
 import DevToolsPage from '@/pages/DevToolsPage';
 import EditProfilePage from '@/pages/EditProfilePage';
 import ExplorePage from '@/pages/ExplorePage';
+import GamePage from '@/pages/GamePage';
 import HomePage from '@/pages/HomePage';
 import NotFoundPage from '@/pages/NotFoundPage';
 import NotesPage from '@/pages/NotesPage';
@@ -52,6 +53,11 @@ const routes = [
     meta: {
       title: 'Settings',
     },
+  },
+  {
+    name: 'game',
+    path: '/game/:gameId/:gameSlug?',
+    component: GamePage,
   },
   {
     name: 'wallpapers',

@@ -209,8 +209,9 @@ export default {
     openGame(gameId, list) {
       const gameDetailView = this.settings && this.settings.gameDetailView;
 
+      this.$store.commit('SET_GAME_MODAL_DATA', { gameId, list });
+
       if (gameDetailView === 'new') {
-        this.$store.commit('SET_GAME_MODAL_DATA', { gameId, list });
         this.$router.push({ name: 'game', params: { gameId } });
       } else {
         this.$bvModal.show('game-modal');
@@ -270,7 +271,9 @@ export default {
   .games {
     height: 100%;
     overflow: hidden;
-    max-height: calc(100vh - 200px);
+    max-height: calc(100vh - 116px);
+    // TODO: detect mobile and use variable height
+    // max-height: calc(100vh - 200px);
     overflow-y: auto;
     padding: 0 .5rem;
     width: 100%;

@@ -1,3 +1,16 @@
+<!-- TODO: add bundles to game detail? -->
+<!-- {{ game.bundles ? `Found in ${game.bundles.length} compilations.` : null }} -->
+<!-- <b-form-rating
+  v-if="rating"
+  :value="rating"
+  inline
+  readonly
+  variant="warning"
+  size="lg"
+  no-border
+/>
+
+<br /> -->
 <template lang="html">
   <b-modal
     id="game-modal"
@@ -8,13 +21,11 @@
     @show="load"
     @hidden="reset"
   >
-    <b-container
+    <div
       v-if="game.name"
-      fluid
-      class="m-0 p-0"
     >
       <modal-header
-        :title="game.name"
+        title="Game detail"
         :subtitle="activeGame.list ? activeGame.list.name : null"
         @close="$bvModal.hide('game-modal')"
       >
@@ -99,128 +110,15 @@
           </template>
         </b-dropdown>
       </modal-header>
-      <b-row>
-        <b-col
-          cols="12"
-          md="5"
-          lg="4"
-          class="sidebar pr-md-1"
-        >
-          <b-img
-            :src="activeGameCoverUrl"
-            :alt="game.name"
-            class="game-cover cursor-pointer"
-            v-observe-visibility="toggleCoverVisible"
-            rounded
-            @click="$bvModal.show('game-images')"
-          />
 
-          <b-skeleton-img
-            v-if="loading"
-            width="100px"
-            height="100px"
-          />
-
-          <template v-else>
-            <game-images :game="game" />
-            <!-- <game-videos :videos="game.videos" v-if="game.videos" /> -->
-          </template>
-
-          <game-websites :game="game" class="d-none d-md-inline" />
-          <!-- <pre>{{ game.genres.map(({ id }) => id) }}</pre> -->
-          <!-- TODO: add bundles to game detail? -->
-          <!-- {{ game.bundles ? `Found in ${game.bundles.length} compilations.` : null }} -->
-        </b-col>
-
-        <!-- cols="12"
-        md="7"  -->
-        <b-col
-          cols="12"
-          md="7"
-          lg="8"
-        >
-          <!-- <h3 class="mb-2">{{ game.name }}</h3> -->
-
-          <b-progress
-            v-if="progress"
-            :value="progress"
-            variant="success"
-            height="8px"
-            v-b-modal.progress
-            class="my-1 w-25"
-          />
-
-          <!-- <b-form-rating
-            v-if="rating"
-            :value="rating"
-            inline
-            readonly
-            variant="warning"
-            size="lg"
-            no-border
-          />
-
-          <br /> -->
-
-          <b-badge
-            v-for="({ games, hex, tagTextColor }, name) in tags"
-            v-if="games.includes(game.id)"
-            :key="name"
-            pill
-            tag="small"
-            class="mr-1 mb-2"
-            :style="`background-color: ${hex}; color: ${tagTextColor}`"
-            v-b-modal.tags
-          >
-            {{ name }}
-          </b-badge>
-
-          <template v-if="loading">
-            <b-skeleton v-for="n in 3" :key="n" />
-          </template>
-
-          <template v-else>
-            <game-description :game="game" />
-
-            <img
-              v-for="rating in ageRatings"
-              :src="`/static/img/age-ratings/${rating}.png`"
-              :alt="rating"
-              :key="rating"
-              class="mr-2 mb-2"
-              style="height: 60px"
-            />
-
-            <game-notes :game="game" />
-            <game-details :game="game" />
-
-            <similar-games
-              :game="game"
-              :loading="loading"
-              class="mb-2"
-            />
-
-            <game-websites
-              :game="game"
-              grid
-              class="d-md-none"
-            />
-          </template>
-        </b-col>
-      </b-row>
-    </b-container>
+      <game :game="game" :loading="loading" />
+    </div>
   </b-modal>
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
-import GameDetails from '@/components/Game/GameDetails';
-import GameDescription from '@/components/Game/GameDescription';
-import SimilarGames from '@/components/Game/SimilarGames';
-import GameNotes from '@/components/Game/GameNotes';
-import GameImages from '@/components/Game/GameImages';
-import GameVideos from '@/components/Game/GameVideos';
-import GameWebsites from '@/components/Game/GameWebsites';
+import { mapState } from 'vuex';
+import Game from '@/components/Game';
 import GameNotesModal from '@/components/Game/GameNotesModal';
 import GameProgress from '@/components/Game/GameProgress';
 import AddRemoveGame from '@/components/Game/AddRemoveGame';
@@ -228,14 +126,8 @@ import GameTagsModal from '@/components/Game/GameTagsModal';
 
 export default {
   components: {
+    Game,
     GameTagsModal,
-    GameDetails,
-    GameDescription,
-    SimilarGames,
-    GameNotes,
-    GameImages,
-    GameVideos,
-    GameWebsites,
     GameNotesModal,
     GameProgress,
     AddRemoveGame,
@@ -247,33 +139,11 @@ export default {
       coverVisible: true,
       game: {},
       loading: true,
-      // TODO: move to constants
-      ageRating: {
-        categories: {
-          1: 'ESRB',
-          2: 'PEGI',
-        },
-        values: {
-          1: '3',
-          2: '7',
-          3: '12',
-          4: '16',
-          5: '18',
-          6: 'RP',
-          7: 'EC',
-          8: 'E',
-          9: 'E10',
-          10: 'T',
-          11: 'M',
-          12: 'AO',
-        },
-      },
     };
   },
 
   computed: {
-    ...mapState(['board', 'notes', 'activeGame', 'games', 'platform', 'progresses', 'tags', 'user']),
-    ...mapGetters(['activeGameCoverUrl']),
+    ...mapState(['board', 'notes', 'activeGame', 'games', 'platform', 'user', 'settings']),
 
     hasMultipleGames() {
       // TODO: use optional chaining
@@ -283,20 +153,8 @@ export default {
         && this.activeGame.list.games.length > 1;
     },
 
-    ageRatings() {
-      return this.game && this.game.age_ratings
-        ? this.game.age_ratings.map(({ rating }) => this.ageRating.values[rating])
-        : null;
-    },
-
     standalone() {
       return this.activeGame && !this.activeGame.list;
-    },
-
-    progress() {
-      const { gameId, progresses } = this;
-
-      return progresses[gameId] || null;
     },
 
     rating() {
@@ -424,11 +282,6 @@ export default {
   .b-rating {
     line-height: normal !important;
     height: auto !important;
-  }
-
-  .game-cover {
-    width: 100%;
-    height: auto;
   }
 
   .sidebar {
