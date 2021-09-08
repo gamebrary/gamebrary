@@ -52,7 +52,7 @@
     </b-dropdown-item>
 
     <b-dropdown-item
-      v-if="dev"
+      v-if="isDev"
       v-for="{ name, title, icon } in betaFeatures"
       :key="name"
       :variant="name === routeName ? 'primary' : ''"
@@ -159,12 +159,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'profile']),
-    ...mapGetters(['isRTL']),
-
-    dev() {
-      // TODO: put in getter or util
-      return process.env.NODE_ENV === 'development';
-    },
+    ...mapGetters(['isRTL', 'isDev']),
 
     routeName() {
       return this.$route.name;
