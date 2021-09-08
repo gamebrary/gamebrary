@@ -1,5 +1,6 @@
 <template lang="html">
   <div>
+    <!-- TODO: hook up settings -->
     <img
       v-for="rating in ageRatings"
       :src="`/static/img/age-ratings/${rating}.png`"
