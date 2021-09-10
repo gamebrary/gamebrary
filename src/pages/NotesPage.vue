@@ -1,7 +1,8 @@
 <!-- TODO: pagination? -->
 <!-- TODO: open notes from game modal on click? -->
 <template lang="html">
-  <b-container>
+  <b-container fluid>
+    <pre>{{ notes }}</pre>
     <page-title
       title="Notes"
     >
@@ -26,33 +27,26 @@
 
     <template v-else>
       <div class="notes mb-2">
-        <b-alert
+        <note
           show
-          v-for="{ note, gameName, gameId } in filteredNotes"
-          class="border note"
-          variant="warning"
-          :key="gameId"
-        >
-          <strong v-if="gameName">
-            {{ gameName }} ({{ note.length }})
-          </strong>
-
-          <vue-markdown :source="note" />
-        </b-alert>
+          v-for="(note, index) in filteredNotes"
+          :key="index"
+          :note="note"
+        />
       </div>
     </template>
   </b-container>
 </template>
 
 <script>
-import VueMarkdown from 'vue-markdown';
 import EmptyState from '@/components/EmptyState';
+import Note from '@/components/Note';
 import { mapState } from 'vuex';
 
 export default {
   components: {
-    VueMarkdown,
     EmptyState,
+    Note,
   },
 
   data() {
@@ -148,17 +142,11 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
 
-.notes {
-  column-width: 320px;
-  column-gap: 15px;
-  column-fill: auto;
-}
-
-.note {
-  -webkit-transform: translateX(0);
-  -moz-transform: translateX(0);
-  transform: translateX(0);
-}
+// .notes {
+//   column-width: 320px;
+//   column-gap: 15px;
+//   column-fill: auto;
+// }
 </style>
 
 <style lang="scss" rel="stylesheet/scss">
