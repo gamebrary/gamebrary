@@ -1,7 +1,5 @@
 <template lang="html">
-  <footer class="text-white container ml-auto mr-auto">
-    <h3>© {{ year }} Gamebrary</h3>
-
+  <footer class="text-muted text-center container ml-auto mr-auto">
     <div class="pt-4 pb-24 flex items-center justify-center">
       <ul>
         <a class="px-1" href="/about">About</a>
@@ -14,7 +12,9 @@
       </ul>
     </div>
 
-    <small>
+    <small class="text-muted">
+      <small>©{{ year }} Gamebrary</small>
+
       {{ $t('global.donateMessage') }}
       <a href="https://www.paypal.me/RomanCervantes/5" target="_blank">
         {{ $t('global.donating') }}

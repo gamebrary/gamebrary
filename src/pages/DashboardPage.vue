@@ -1,6 +1,5 @@
 <template lang="html">
   <b-container fluid>
-    Dashboard
     <page-title
       title="Boards"
       action-text="Create board"
@@ -8,11 +7,6 @@
     />
 
     <boards />
-
-    <h5>public boards</h5>
-    <h5>news feeds</h5>
-    <h5>deals</h5>
-    <h5>newsletter signup</h5>
   </b-container>
 </template>
 

@@ -1,53 +1,44 @@
 <template lang="html">
-  <nav
-    :class="[{ 'position-fixed': isBoard }, 'd-flex align-items-center justify-content-between w-100 py-2 px-3 z-index-1']"
-  >
-    <div class="d-flex">
-      <router-link :to="{ name: 'home' }">
-        <img
-          src="/static/gamebrary-logo.png"
-          width="32"
-        />
-      </router-link>
+  <component
+    v-if="user"
+    :is="userDockComponent"
+  />
 
-      <!-- Gamebrary -->
-
-      <portal-target name="logo" />
-
-      <span v-if="!isBoard" class="m-2">
-        <portal-target name="pageTitle" />
-      </span>
-    </div>
-
-    <div class="d-flex">
-
-      <!-- <global-search class="ml-2" /> -->
-      <portal-target name="dock" multiple />
-
-      <user-menu v-if="user" />
-      <public-menu v-else />
-    </div>
-  </nav>
+  <public-dock v-else />
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
 import PinnedBoards from '@/components/Board/PinnedBoards';
-import UserMenu from '@/components/UserMenu';
+import PublicDock from '@/components/Dock/PublicDock';
+import HorizontalDock from '@/components/Dock/HorizontalDock';
+import VerticalDock from '@/components/Dock/VerticalDock';
 import PublicMenu from '@/components/PublicMenu';
 import GlobalSearch from '@/components/GlobalSearch';
 
 export default {
   components: {
     PinnedBoards,
-    UserMenu,
+    PublicDock,
+    HorizontalDock,
+    VerticalDock,
     PublicMenu,
     GlobalSearch,
   },
 
   computed: {
-    ...mapState(['board', 'user', 'publicBoards']),
+    ...mapState(['board', 'user', 'publicBoards', 'settings']),
     ...mapGetters(['isBoardOwner']),
+
+    dockPosition() {
+      return this.settings && this.settings.dockPosition;
+    },
+
+    userDockComponent() {
+      const isVertical = ['left', 'right'].includes(this.dockPosition);
+
+      return isVertical ? 'VerticalDock' : 'HorizontalDock';
+    },
 
     isBoard() {
       return ['public-board', 'board'].includes(this.$route.name);
@@ -91,3 +82,19 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+.dock {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: .25rem 1rem;
+  align-items: center;
+  background: #ccf;
+
+  &.left {
+    flex-direction: column;
+  }
+}
+</style>
+

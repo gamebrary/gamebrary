@@ -1,7 +1,7 @@
 <template lang="html">
   <b-container>
     <b-alert
-      v-if="!showExpiredAlert"
+      v-if="showExpiredAlert"
       show
       variant="danger"
       dismissible

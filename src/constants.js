@@ -226,3 +226,10 @@ export const GAME_DETAIL_RATING = [
   { name: 'ESRB', value: 'esrb' },
   { name: 'PEGI', value: 'pegi' },
 ];
+
+export const DOCK_POSITIONS = [
+  { name: 'Top', value: null },
+  { name: 'Left', value: 'left' },
+  { name: 'Bottom', value: 'bottom' },
+  { name: 'Right', value: 'right' },
+];

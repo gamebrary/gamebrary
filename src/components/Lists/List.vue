@@ -213,7 +213,13 @@ export default {
       this.$store.commit('SET_GAME_MODAL_DATA', { gameId, list });
 
       if (gameDetailView === 'new') {
-        this.$router.push({ name: 'game', params: { gameId } });
+        this.$router.push({
+          name: 'game',
+          params: {
+            gameId,
+            gameSlug: 'molesta-la-bresta',
+          },
+        });
       } else if (gameDetailView === 'side') {
         // TODO: find a way to open sidebar programatically, open defect in gh?
       } else {
@@ -274,9 +280,7 @@ export default {
   .games {
     height: 100%;
     overflow: hidden;
-    max-height: calc(100vh - 116px);
-    // TODO: detect mobile and use variable height
-    // max-height: calc(100vh - 200px);
+    max-height: 80vh;
     overflow-y: auto;
     padding: 0 .5rem;
     width: 100%;

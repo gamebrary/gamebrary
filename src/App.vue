@@ -2,18 +2,18 @@
   <div
     id="app"
     :dir="dir"
+    :class="`dock-${dockPosition}`"
     v-shortkey="KEYBOARD_SHORTCUTS"
     @shortkey="handleShortcutAction"
   >
     <dock />
-
-    <global-modals />
 
     <main :class="{
       'authorizing': !user,
       'is-board': isBoard,
       }"
     >
+      <global-modals />
       <router-view />
     </main>
   </div>
@@ -57,6 +57,10 @@ export default {
       const { settings } = this;
 
       return settings && settings.language === 'ar' ? 'rtl' : 'ltr';
+    },
+
+    dockPosition() {
+      return this.settings && this.settings.dockPosition;
     },
 
     isPublicRoute() {
@@ -116,16 +120,36 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
   main {
     overflow-y: auto;
-    height: calc(100vh - 54px);
+    height: calc(100vh - 46px);
 
     &.authorizing {
       height: 100vh;
       width: 100%;
       left: 0;
     }
+  }
 
-    &.is-board {
-      height: 100vh;
+  .dock-left,
+  .dock-right {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 54px auto;
+  }
+
+  .dock-right {
+    grid-template-columns: auto 54px;
+
+    main {
+      grid-row: 1;
+    }
+  }
+
+  .dock-bottom {
+    display: flex;
+    flex-direction: column-reverse;
+
+    main {
+      justify-content: flex-end;
     }
   }
 </style>

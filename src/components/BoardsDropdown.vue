@@ -1,13 +1,22 @@
 <template lang="html">
   <portal to="logo" v-if="boards.length">
     <b-dropdown
-      class="ml-2"
+      :class="{ 'ml-2': isHorizontal }"
       toggle-class="px-0"
       variant="transparent"
     >
       <template v-slot:button-content>
-        {{ board.name }}
-        <i class="fas fa-caret-down fa-fw" aria-hidden />
+        <template v-if="isHorizontal">
+          {{ board.name }}
+          <i class="fas fa-caret-down fa-fw" aria-hidden />
+        </template>
+
+        <b-avatar
+          v-else
+          variant="primary"
+          :text="boardInitials"
+          rounded
+        />
       </template>
 
       <b-dropdown-item-button
@@ -62,7 +71,7 @@ import { mapState } from 'vuex';
 
 export default {
   computed: {
-    ...mapState(['board', 'wallpapers', 'boards']),
+    ...mapState(['board', 'wallpapers', 'boards', 'settings']),
 
     filteredBoards() {
       return this.boards
@@ -75,6 +84,18 @@ export default {
             backgroundUrl,
           };
         });
+    },
+
+    dockPosition() {
+      return this.settings && this.settings.dockPosition;
+    },
+
+    boardInitials() {
+      return this.board.name.split(' ').map(n => n[0]).join('').slice(0, 2);
+    },
+
+    isHorizontal() {
+      return !this.dockPosition || this.dockPosition === 'bottom';
     },
   },
 

@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container v-if="game.name">
+  <b-container v-if="game.name" fluid>
     <b-row>
       <b-col cols="12" md="4" lg="4">
         <b-img

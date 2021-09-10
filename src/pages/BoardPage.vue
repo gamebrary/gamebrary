@@ -3,7 +3,7 @@
 <template lang="html">
   <div
     :class="[
-      'board px-3',
+      'board p-3',
       { dragging, empty },
     ]"
     :style="boardStyles"
@@ -11,14 +11,14 @@
     <boards-dropdown />
 
     <portal to="dock">
-      <b-button
+      <!-- <b-button
         v-if="user && user.uid && user.uid === board.owner"
         variant="secondary"
         v-b-modal:edit-board
       >
         <i class="fas fa-pencil-alt fa-fw" aria-hidden />
         Edit board
-      </b-button>
+      </b-button> -->
       <!-- TODO: add board filtering -->
       <!-- <b-button
         variant="warning"
@@ -43,7 +43,7 @@
 
       <div
         v-else-if="user && user.uid && user.uid === board.owner"
-        class="d-flex flex-column pr-2"
+        class="d-flex flex-column"
       >
         <b-button
           variant="secondary"
@@ -257,8 +257,7 @@ export default {
   display: flex;
   background-size: cover;
   align-items: flex-start;
-  height: 100vh;
-  padding-top: 54px;
+  height: 100%;
   width: 100%;
   box-sizing: border-box;
   overflow-x: auto;
