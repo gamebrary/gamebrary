@@ -36,7 +36,7 @@ import GameDetailSettings from '@/components/Settings/GameDetailSettings';
 // import ProviderCard from '@/components/ProviderCard';
 import DeleteAccountModal from '@/components/Settings/DeleteAccountModal';
 import sessionMixin from '@/mixins/sessionMixin';
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   components: {

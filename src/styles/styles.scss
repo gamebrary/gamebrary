@@ -19,6 +19,12 @@
   }
 }
 
+.b-sidebar {
+  width: 500px;
+
+  max-width: calc(100% - 1rem);
+}
+
 /* custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

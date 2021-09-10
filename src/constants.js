@@ -215,9 +215,9 @@ export const SUPPORTED_LANGUAGES = [
 ];
 
 export const GAME_DETAIL_VIEWS = [
-  { name: 'Modal', value: null },
-  // { name: 'Side panel', value: 'side' },
   // { name: 'popup', value: 'popup' },
+  { name: 'Modal', value: null },
+  { name: 'Side panel', value: 'side' },
   { name: 'New page', value: 'new' },
 ];
 

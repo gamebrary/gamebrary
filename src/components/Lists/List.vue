@@ -76,6 +76,7 @@
           :list="list"
           :game-id="game"
           :class="{ 'mb-2': view !== 'covers'}"
+          v-b-toggle.game-sidebar
           @click.native="openGame(game, list)"
         />
 
@@ -213,6 +214,8 @@ export default {
 
       if (gameDetailView === 'new') {
         this.$router.push({ name: 'game', params: { gameId } });
+      } else if (gameDetailView === 'side') {
+        // TODO: find a way to open sidebar programatically, open defect in gh?
       } else {
         this.$bvModal.show('game-modal');
       }
