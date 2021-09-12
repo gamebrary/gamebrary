@@ -1,6 +1,7 @@
 import AboutPage from '@/pages/AboutPage';
 import AuthPage from '@/pages/AuthPage';
 import BoardPage from '@/pages/BoardPage';
+import EditBoardPage from '@/pages/EditBoardPage';
 import BoardsPage from '@/pages/BoardsPage';
 import DevToolsPage from '@/pages/DevToolsPage';
 import EditProfilePage from '@/pages/EditProfilePage';
@@ -144,6 +145,11 @@ const routes = [
     path: '/board/:id',
     name: 'board',
     component: BoardPage,
+  },
+  {
+    path: '/board/:id/edit',
+    name: 'edit-board',
+    component: EditBoardPage,
   },
   {
     path: '/b/:id',
