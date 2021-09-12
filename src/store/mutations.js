@@ -65,6 +65,7 @@ export default {
   },
 
   SET_PLATFORMS(state, platforms) {
+    // TODO: use getter instead to get fresh data right away instead of once per session
     state.platforms = platforms
       .filter(({ id }) => !EXCLUDED_PLATFORMS.includes(id))
       .map((platform) => {

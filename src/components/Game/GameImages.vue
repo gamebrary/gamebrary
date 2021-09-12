@@ -34,6 +34,7 @@
           :subtitle="subtitle"
           @close="close"
         >
+          <!-- TODO Display image source igdb, instagram, etc... -->
           <template v-slot:header>
             <b-img
               :src="activeGameCoverUrl"
