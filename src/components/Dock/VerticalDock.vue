@@ -1,39 +1,88 @@
 <template lang="html">
-  <nav class="bg-danger py-2">
-    <router-link :to="{ name: 'home' }">
+  <nav class="rounded d-flex flex-column p-1 mt-2 mx-2 mb-0 text-center border dock bg-secondary">
+    <b-button
+      title="Dashboard"
+      variant="transparent"
+      class="my-2 p-0"
+      @click="handleLogoClick"
+    >
       <img
         src="/static/gamebrary-logo.png"
         width="32"
       />
-    </router-link>
+    </b-button>
 
-    <aside>
-      <portal-target name="logo" />
-      <!-- <global-search class="ml-2" /> -->
-      <portal-target name="dock" multiple />
-      <user-menu vertical />
-      <span v-if="!isBoard" class="m-2">
-        <portal-target name="pageTitle" />
-      </span>
-    </aside>
+    <pinned-boards />
+    <user-menu />
   </nav>
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex';
+import PinnedBoards from '@/components/Board/PinnedBoards';
 import UserMenu from '@/components/UserMenu';
 
 export default {
   components: {
+    PinnedBoards,
     UserMenu,
+  },
+
+  computed: {
+    ...mapState(['board', 'notification', 'user', 'releases']),
+    ...mapGetters(['darkTheme']),
+
+    latestRelease() {
+      // eslint-disable-next-line
+      const [latestRelease] = this.releases;
+
+      // eslint-disable-next-line
+      return latestRelease && latestRelease.tag_name;
+    },
+
+    isBoard() {
+      return ['public-board', 'board'].includes(this.$route.name);
+    },
+  },
+
+  methods: {
+    handleLogoClick() {
+      if (!this.user) {
+        if (this.$route.name === 'public-boards') {
+          this.$bvModal.show('authModal');
+        } else {
+          this.$router.push({ name: 'public-boards' });
+        }
+      }
+
+      if (this.user && this.$route.name !== 'boards') {
+        this.$router.push({ name: 'boards' });
+      }
+    },
+
+    // async pinBoard() {
+    //   const payload = {
+    //     ...this.board,
+    //     pinned: !this.board.pinned,
+    //   };
+    //
+    //   this.$store.commit('SET_ACTIVE_BOARD', payload);
+    //
+    //   await this.$store.dispatch('SAVE_BOARD')
+    //     .catch(() => {
+    //       this.$bvToast.toast('There was an error renaming list', { variant: 'danger' });
+    //     });
+    //
+    //   this.$bvToast.toast('Board settings saved');
+    // },
   },
 };
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-direction: column;
+.dock {
+  width: 50px;
+  z-index: 1;
+  max-height: calc(100vh - 24px);
 }
 </style>

@@ -1,5 +1,5 @@
 <template lang="html">
-  <nav class="d-flex align-items-center justify-content-between p-2">
+  <nav class="p-1 rounded bg-secondary d-flex align-items-center justify-content-between p-0 mt-2 mx-2 mb-0">
     <div class="d-flex">
       <router-link :to="{ name: 'home' }">
         <img
@@ -12,7 +12,7 @@
     </div>
 
     <div class="d-flex">
-      <global-search class="ml-2" />
+      <!-- <global-search class="ml-2" /> -->
       <portal-target name="dock" multiple />
       <user-menu />
     </div>

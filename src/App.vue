@@ -120,7 +120,7 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
   main {
     overflow-y: auto;
-    height: calc(100vh - 46px);
+    height: calc(100vh - 54px);
 
     &.authorizing {
       height: 100vh;
@@ -133,11 +133,11 @@ export default {
   .dock-right {
     height: 100vh;
     display: grid;
-    grid-template-columns: 54px auto;
+    grid-template-columns: 66px auto;
   }
 
   .dock-right {
-    grid-template-columns: auto 54px;
+    grid-template-columns: auto 66px;
 
     main {
       grid-row: 1;

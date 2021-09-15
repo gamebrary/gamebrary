@@ -87,10 +87,8 @@ export default {
 .dock {
   display: flex;
   justify-content: space-between;
-  width: 100%;
-  padding: .25rem 1rem;
+  // padding: .25rem 1rem;
   align-items: center;
-  background: #ccf;
 
   &.left {
     flex-direction: column;
