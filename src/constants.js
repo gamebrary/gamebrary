@@ -103,6 +103,7 @@ export const PLATFORM_LOGO_FORMAT = {
   163: 'png',
   161: 'png',
   165: 'png',
+  380: 'png',
   150: 'png',
 };
 
