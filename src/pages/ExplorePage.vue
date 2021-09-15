@@ -45,10 +45,12 @@ export default {
       this.$store.dispatch('LOAD_PUBLIC_BOARDS');
     },
 
+    // eslint-disable-next-line
     getWallpaper({ wallpaper }) {
-      const boardWallpaper = this.wallpapers.find(({ fullPath }) => fullPath === wallpaper);
+      if (!wallpaper) return '';
 
-      return this.wallpapers.length && boardWallpaper && boardWallpaper.url;
+      this.$store.dispatch('LOAD_WALLPAPER', wallpaper)
+        .then(url => url);
     },
 
     viewBoard(id) {
