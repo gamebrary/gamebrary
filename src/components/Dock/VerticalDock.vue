@@ -1,5 +1,5 @@
 <template lang="html">
-  <nav class="rounded d-flex flex-column p-1 mt-2 mx-2 mb-0 text-center border dock bg-secondary">
+  <nav class="rounded d-flex flex-column m-2 text-center dock">
     <b-button
       title="Dashboard"
       variant="transparent"
@@ -7,7 +7,7 @@
       @click="handleLogoClick"
     >
       <img
-        src="/static/gamebrary-logo.png"
+        src="/static/gamebrary-logo-dark.png"
         width="32"
       />
     </b-button>
@@ -81,7 +81,7 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
 .dock {
-  width: 50px;
+  // width: 50px;
   z-index: 1;
   max-height: calc(100vh - 24px);
 }

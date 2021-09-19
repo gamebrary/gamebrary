@@ -1,5 +1,5 @@
 <template lang="html">
-  <div>
+  <div class="mt-3">
     <!-- TODO: add  -->
     <!-- <b-button>Back to board</b-button> -->
     <game :game="game" :loading="loading" />

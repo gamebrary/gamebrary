@@ -1,10 +1,9 @@
 <template lang="html">
-  <component
-    v-if="user"
-    :is="userDockComponent"
-  />
-
-  <public-dock v-else />
+  <div class="bg-warning">
+    <component
+      :is="userDockComponent"
+    />
+  </div>
 </template>
 
 <script>
@@ -35,6 +34,8 @@ export default {
     },
 
     userDockComponent() {
+      if (!this.user) return 'PublicDock';
+
       const isVertical = ['left', 'right'].includes(this.dockPosition);
 
       return isVertical ? 'VerticalDock' : 'HorizontalDock';

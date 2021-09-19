@@ -127,6 +127,10 @@ export default {
       width: 100%;
       left: 0;
     }
+
+    &.is-board {
+      height: 100vh;
+    }
   }
 
   .dock-left,

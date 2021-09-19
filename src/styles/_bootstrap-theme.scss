@@ -2,30 +2,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Signika:wght@300;400;500;600;700&display=swap');
 
 // Colors
-$light: #7d81a5 !default;
-$dark: #212529 !default;
+// $light: #7d81a5 !default;
+$dark: #7d7f8c !default;
 $muted: #7d7f8c !default;
-$danger: #ad1035 !default;
-$warning: #ffc107 !default;
-$secondary: #363c42 !default;
-$info: #794bc4 !default;
-$primary: #000 !default;
+// $danger: #ad1035 !default;
+$warning: #ffc500 !default;
+$secondary: #c0c0c0 !default;
+// $info: #794bc4 !default;
+// $primary: #000 !default;
 $white: #fff !default;
 $black: #0b0b18 !default;
-
 $success: #23cd69 !default;
 
 $theme-colors: () !default;
 $theme-colors: map-merge(
   (
-    "primary": $primary,
+    // "primary": $primary,
     "secondary": $secondary,
-    "success": $success,
-    "info": $info,
+    // "success": $success,
+    // "info": $info,
     "warning": $warning,
-    "danger": $danger,
-    "light": $light,
-    "dark": $dark,
+    // "danger": $danger,
+    // "light": $light,
+    // "dark": $dark,
   ),
   $theme-colors
 );
@@ -35,7 +34,7 @@ $theme-colors: map-merge(
 // // Quickly modify global styling by enabling or disabling optional features.
 //
 $enable-caret: false !default;
-$link-color: #fff;
+// $link-color: #fff;
 //
 // // Spacing
 // //
@@ -48,8 +47,8 @@ $link-color: #fff;
 // //
 // // Settings for the `<body>` element.
 //
-$body-bg: $dark !default;
-$body-color: $white !default;
+$body-bg: #eeecdd !default;
+// $body-color: $secondary !default;
 
 // Links
 //

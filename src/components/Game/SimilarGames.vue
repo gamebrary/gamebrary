@@ -1,3 +1,4 @@
+<!-- TODO: BUG: Changing games doesn't update similar games -->
 <template lang="html">
   <div class="d-flex align-items-center overflow-auto" v-if="loading">
     <b-skeleton-img
@@ -12,15 +13,14 @@
     <!-- TODO: limit to fewer games, increase game cover, add modal to view all -->
     You may also like:
 
-    <div class="d-flex align-items-center overflow-auto">
+    <div class="">
       <!-- TODO: use array map instead -->
       <b-img
         v-for="game in similarGames"
         v-if="game.cover"
         :key="game.id"
         :src="getCoverUrl(game.cover)"
-        class="rounded mr-2 cursor-pointer"
-        height="120"
+        class="rounded mr-2 mb-2 cursor-pointer"
         @click="openGame(game)"
       />
     </div>
