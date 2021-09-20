@@ -1,5 +1,5 @@
 <template lang="html">
-  <div>
+  <b-container fluid>
     <page-title
       title="Boards"
       action-text="Create board"
@@ -20,7 +20,7 @@
         Explore boards
       </b-button>
     </empty-state>
-  </div>
+</b-container>
 </template>
 
 <script>

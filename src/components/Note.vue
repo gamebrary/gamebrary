@@ -1,6 +1,5 @@
 <template lang="html">
   <div>
-    <pre>{{ note }}</pre>
     <strong v-if="gameName">
       {{ gameName }} ({{ note.length }})
     </strong>

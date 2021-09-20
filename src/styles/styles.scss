@@ -1,52 +1,5 @@
-@import "_bootstrap-theme";
+@import "theme";
 @import 'node_modules/bootstrap/scss/bootstrap';
 @import 'node_modules/bootstrap-vue/src/index.scss';
-@import "_utilities";
-
-.toast-header {
-  display: none;
-}
-
-.cursor-pointer {
-  cursor: pointer;
-}
-
-.modal {
-  padding: 1rem 0 !important;
-
-  @media(max-width: 600px) {
-    padding: 0 !important;
-  }
-}
-
-.b-sidebar {
-  width: 500px;
-
-  max-width: calc(100% - 1rem);
-}
-
-/* custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background-color: $dark;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: $secondary;
-  border-radius: $border-radius;
-  padding: 10px;
-  margin: 10px;
-  background-clip: content-box;
-
-  &:hover {
-    background-color: $light;
-  }
-}
-
-.z-index-1 {
-  z-index: 1;
-}
+@import "helpers";
+@import "overrides";

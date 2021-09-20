@@ -1,0 +1,39 @@
+.modal {
+  padding: 1rem 0 !important;
+
+  @media(max-width: 600px) {
+    padding: 0 !important;
+  }
+}
+
+.b-sidebar {
+  width: 500px;
+
+  max-width: calc(100% - 1rem);
+}
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: $dark;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $secondary;
+  border-radius: $border-radius;
+  padding: 10px;
+  margin: 10px;
+  background-clip: content-box;
+
+  &:hover {
+    background-color: $light;
+  }
+}
+
+.toast-header {
+  display: none;
+}

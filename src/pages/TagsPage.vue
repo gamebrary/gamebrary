@@ -1,6 +1,6 @@
 <!-- TODO: break this up into components -->
 <template lang="html">
-  <b-container>
+  <b-container fluid>
     <empty-state
       v-if="showEmptyState"
       :title="$t('tags.title')"

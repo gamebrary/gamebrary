@@ -2,7 +2,6 @@
 <!-- TODO: open notes from game modal on click? -->
 <template lang="html">
   <b-container fluid>
-    <pre>{{ notes }}</pre>
     <page-title
       title="Notes"
     >
@@ -147,10 +146,4 @@ export default {
 //   column-gap: 15px;
 //   column-fill: auto;
 // }
-</style>
-
-<style lang="scss" rel="stylesheet/scss">
-img, pre {
-  max-width: 100%;
-}
 </style>

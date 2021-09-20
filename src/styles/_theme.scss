@@ -1,33 +1,6 @@
 // TODO: organize file, break it up by sections
 @import url('https://fonts.googleapis.com/css2?family=Signika:wght@300;400;500;600;700&display=swap');
-
-// Colors
-// $light: #7d81a5 !default;
-$dark: #7d7f8c !default;
-$muted: #7d7f8c !default;
-// $danger: #ad1035 !default;
-$warning: #ffc500 !default;
-$secondary: #c0c0c0 !default;
-// $info: #794bc4 !default;
-// $primary: #000 !default;
-$white: #fff !default;
-$black: #0b0b18 !default;
-$success: #23cd69 !default;
-
-$theme-colors: () !default;
-$theme-colors: map-merge(
-  (
-    // "primary": $primary,
-    "secondary": $secondary,
-    // "success": $success,
-    // "info": $info,
-    "warning": $warning,
-    // "danger": $danger,
-    // "light": $light,
-    // "dark": $dark,
-  ),
-  $theme-colors
-);
+@import "colors";
 
 // // Options
 // //
