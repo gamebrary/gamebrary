@@ -1,0 +1,23 @@
+// DROPDOWNS
+// $dropdown-min-width: 10rem !default;
+$dropdown-padding-y: .25rem !default;
+$dropdown-font-size: $font-size-sm !default;
+$dropdown-color: $white !default;
+$dropdown-bg: $secondary !default;
+$dropdown-border-color: lighten($secondary, 10%) !default;
+$dropdown-border-radius: $border-radius !default;
+$dropdown-border-width: $border-width !default;
+// $dropdown-inner-border-radius: subtract($dropdown-border-radius, $dropdown-border-width) !default;
+$dropdown-divider-bg: lighten($secondary, 10%) !default;
+$dropdown-divider-margin-y: .25rem !default;
+$dropdown-box-shadow: 0 .5rem 1rem red !default;
+$dropdown-link-color: $white !default;
+$dropdown-link-hover-color: $white !default;
+$dropdown-link-hover-bg: lighten($secondary, 5%) !default;
+$dropdown-link-active-color: $white !default;
+$dropdown-link-active-bg: darken($secondary, 10%)  !default;
+$dropdown-link-disabled-color: red !default;
+$dropdown-item-padding-y: .25rem !default;
+$dropdown-item-padding-x: .25rem !default;
+$dropdown-header-color: $white !default;
+$dropdown-header-padding: $dropdown-padding-y $dropdown-item-padding-x !default;
