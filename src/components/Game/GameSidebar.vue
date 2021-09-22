@@ -1,8 +1,6 @@
 <template lang="html">
   <b-sidebar
     :id="gameDetailView === 'side' ? 'game-sidebar' : ''"
-    bg-variant="dark"
-    text-variant="white"
     right
     backdrop
     @shown="load"
