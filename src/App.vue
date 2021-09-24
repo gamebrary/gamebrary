@@ -138,6 +138,11 @@ export default {
     height: 100vh;
     display: grid;
     grid-template-columns: 66px auto;
+    height: 100vh;
+
+    main {
+      height: 100vh;
+    }
   }
 
   .dock-right {
