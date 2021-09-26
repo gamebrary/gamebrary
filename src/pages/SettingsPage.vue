@@ -5,6 +5,7 @@
     <div class="d-inline-flex flex-column align-items-start">
       <language-selector />
       <game-detail-settings />
+      <steam-settings />
       <dock-settings />
 
       <!-- <provider-card /> -->
@@ -32,6 +33,7 @@
 <script>
 import LanguageSelector from '@/components/Settings/LanguageSelector';
 import GameDetailSettings from '@/components/Settings/GameDetailSettings';
+import SteamSettings from '@/components/Settings/SteamSettings';
 import DockSettings from '@/components/Settings/DockSettings';
 // import GameDetailViewSelector from '@/components/Settings/GameDetailViewSelector';
 // import ProviderCard from '@/components/ProviderCard';
@@ -43,6 +45,7 @@ export default {
   components: {
     LanguageSelector,
     GameDetailSettings,
+    SteamSettings,
     DockSettings,
     // GameDetailViewSelector,
     // ProviderCard,
