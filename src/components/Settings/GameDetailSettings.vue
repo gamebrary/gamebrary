@@ -1,5 +1,6 @@
 <template lang="html">
   <div>
+    <!-- TODO: use PEGI/ESRB logos -->
     <b-form-group label="Game rating system:">
       <b-form-select
         v-model="gameRatingSystem"

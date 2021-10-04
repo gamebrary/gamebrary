@@ -2,9 +2,10 @@
   <div class="pt-3 game-page" ref="gamePage">
     <!-- TODO: add  -->
     <!-- <b-button>Back to board</b-button> -->
-    <game :game="game" :loading="loading" />
+    <b-skeleton v-if="loading" />
+    <game v-else-if="game" :game="game" />
 
-    <div class="game-backdrop" :style="`background-image: url(${backdropUrl})`" />
+    <!-- <div class="game-backdrop" :style="`background-image: url(${backdropUrl})`" /> -->
   </div>
 </template>
 

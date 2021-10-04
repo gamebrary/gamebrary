@@ -15,6 +15,8 @@ admin.initializeApp({
   messagingSenderId: '324529217902',
 });
 
+exports.steam = require('./steam');
+
 exports.customSearch = functions.https.onRequest((req, res) => {
   res.set('Access-Control-Allow-Origin', "*");
 
@@ -275,24 +277,6 @@ exports.email = functions.https.onRequest((req, res) => {
       'Authorization': functions.config().sparkpost.key,
     },
     data,
-  })
-    .then(({ data }) => { res.status(200).send(data) })
-    .catch((error) => { res.send(error) });
-});
-
-exports.news = functions.https.onRequest((req, res) => {
-  res.set('Access-Control-Allow-Origin', "*")
-  const { appId } = req.query;
-
-  if (!appId) res.send(400);
-
-  axios({
-    url: `https://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/?appid=${appId}`,
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Accept': 'application/json',
-    },
   })
     .then(({ data }) => { res.status(200).send(data) })
     .catch((error) => { res.send(error) });

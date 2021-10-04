@@ -129,11 +129,11 @@ export default {
           title: 'Wallpapers',
           icon: 'fas fa-images',
         },
-        {
-          name: 'settings',
-          title: 'Settings',
-          icon: 'fas fa-cog',
-        },
+        // {
+        //   name: 'settings',
+        //   title: 'Settings',
+        //   icon: 'fas fa-cog',
+        // },
       ],
       secondaryButtons: [
         {

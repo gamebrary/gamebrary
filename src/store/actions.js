@@ -32,6 +32,19 @@ export default {
     });
   },
 
+  LOAD_STEAM_GAME_NEWS(context, steamGameId) {
+    return new Promise((resolve, reject) => {
+      axios.get(`${API_BASE}/steam-news?appId=${steamGameId}`)
+        .then(({ data }) => {
+          const gameNews = data && data.appnews && data.appnews.newsitems
+            ? data.appnews.newsitems
+            : null;
+
+          resolve(gameNews);
+        }).catch(reject);
+    });
+  },
+
   LOAD_BOARDS({ state, commit }) {
     return new Promise((resolve, reject) => {
       const db = firebase.firestore();

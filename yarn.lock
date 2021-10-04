@@ -6264,6 +6264,11 @@ js-base64@^2.1.8, js-base64@^2.1.9:
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.6.4.tgz#f4e686c5de1ea1f867dbcad3d46d969428df98c4"
   integrity sha512-pZe//GGmwJndub7ZghVHz7vjb2LgC1m8B07Au3eYqeqv9emhESByMXxaEgkUkEqJe87oBbSniGYoQNIBklc7IQ==
 
+js-bbcode-parser@^3.0.5:
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/js-bbcode-parser/-/js-bbcode-parser-3.0.5.tgz#c8cef49fe41f6a11d5550db482c4bbb1a4de2014"
+  integrity sha512-443YN6jukBNthfiJm3pA9pUAmpiyiK51L0uecsIySb2aNLpF4xz+lQH0CN+E0DyTEy9J0SafX9FAU0JJOQyRyg==
+
 js-tokens@^3.0.0, js-tokens@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.2.tgz#9866df395102130e38f7f996bceb65443209c25b"

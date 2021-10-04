@@ -34,7 +34,7 @@
           variant="danger"
           @click="confirmDeleteWallpaper(wallpaper)"
         >
-          Delete file
+          <i class="fas fa-trash fa-fw" aria-hidden />
         </b-button>
 
         <b-button

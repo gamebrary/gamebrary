@@ -45,6 +45,7 @@
           class="my-1 w-25"
         />
         <game-description :game="game" />
+        <game-news :game="game" />
         <game-details :game="game" />
 
         <similar-games
@@ -95,6 +96,7 @@
 
 <script>
 import GameNotes from '@/components/Game/GameNotes';
+import GameNews from '@/components/Game/GameNews';
 import GameDetails from '@/components/Game/GameDetails';
 import GameRating from '@/components/Game/GameRating';
 import GameDescription from '@/components/Game/GameDescription';
@@ -111,6 +113,7 @@ export default {
     GameRating,
     GameImages,
     GameNotes,
+    GameNews,
     GameVideos,
     GameWebsites,
     SimilarGames,
