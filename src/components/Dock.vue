@@ -1,69 +1,72 @@
 <template lang="html">
-  <div class="bg-warning">
-    <component
-      :is="userDockComponent"
-    />
-  </div>
+  <nav class="rounded d-flex flex-column m-2 text-center dock bg-white">
+    <b-button
+      title="Dashboard"
+      variant="transparent"
+      class="my-2 p-0"
+      @click="handleLogoClick"
+    >
+      <img
+        src="/static/gamebrary-logo-dark.png"
+        width="32"
+      />
+    </b-button>
+
+    <pinned-boards />
+    <user-menu />
+
+    <b-button :to="{ name: 'settings' }">
+      <i class="fas fa-cog" />
+    </b-button>
+
+    <global-search class="ml-2" />
+  </nav>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
 import PinnedBoards from '@/components/Board/PinnedBoards';
-import PublicDock from '@/components/Dock/PublicDock';
-import HorizontalDock from '@/components/Dock/HorizontalDock';
-import VerticalDock from '@/components/Dock/VerticalDock';
-import PublicMenu from '@/components/PublicMenu';
 import GlobalSearch from '@/components/GlobalSearch';
+import UserMenu from '@/components/UserMenu';
 
 export default {
   components: {
     PinnedBoards,
-    PublicDock,
-    HorizontalDock,
-    VerticalDock,
-    PublicMenu,
     GlobalSearch,
+    UserMenu,
   },
 
   computed: {
-    ...mapState(['board', 'user', 'publicBoards', 'settings']),
-    ...mapGetters(['isBoardOwner']),
+    ...mapState(['board', 'notification', 'user', 'releases']),
+    ...mapGetters(['darkTheme']),
 
-    dockPosition() {
-      return this.settings && this.settings.dockPosition;
-    },
+    latestRelease() {
+      // eslint-disable-next-line
+      const [latestRelease] = this.releases;
 
-    userDockComponent() {
-      if (!this.user) return 'PublicDock';
-
-      const isVertical = ['left', 'right'].includes(this.dockPosition);
-
-      return isVertical ? 'VerticalDock' : 'HorizontalDock';
+      // eslint-disable-next-line
+      return latestRelease && latestRelease.tag_name;
     },
 
     isBoard() {
       return ['public-board', 'board'].includes(this.$route.name);
     },
-
-    pageTitle() {
-      return this.$route.meta && this.$route.meta.title;
-    },
   },
 
   methods: {
-    // handleLogoClick() {
-    //   if (!this.user) {
-    //     if (this.$route.name === 'public-boards') {
-    //       this.$bvModal.show('authModal');
-    //     } else {
-    //       this.$router.push({ name: 'public-boards' });
-    //     }
-    //   }
-    //
-    //   if (this.user && this.$route.name !== 'dashboard') {
-    //     this.$router.push({ name: 'home' });
-    //   }
-    // },
+    handleLogoClick() {
+      if (!this.user) {
+        if (this.$route.name === 'public-boards') {
+          this.$bvModal.show('authModal');
+        } else {
+          this.$router.push({ name: 'public-boards' });
+        }
+      }
+
+      if (this.user && this.$route.name !== 'boards') {
+        this.$router.push({ name: 'boards' });
+      }
+    },
 
     // async pinBoard() {
     //   const payload = {
@@ -86,14 +89,7 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
 .dock {
-  display: flex;
-  justify-content: space-between;
-  // padding: .25rem 1rem;
-  align-items: center;
-
-  &.left {
-    flex-direction: column;
-  }
+  z-index: 1;
+  max-height: calc(100vh - 16px);
 }
 </style>
-
