@@ -6,7 +6,8 @@
     v-shortkey="KEYBOARD_SHORTCUTS"
     @shortkey="handleShortcutAction"
   >
-    <dock />
+    <dock v-if="user" />
+    <public-dock v-else />
 
     <main :class="{
       'authorizing': !user,
@@ -21,6 +22,7 @@
 
 <script>
 import Dock from '@/components/Dock';
+import PublicDock from '@/components/PublicDock';
 import GlobalModals from '@/components/GlobalModals';
 import sessionMixin from '@/mixins/sessionMixin';
 import firebase from 'firebase/app';
@@ -34,6 +36,7 @@ export default {
 
   components: {
     Dock,
+    PublicDock,
     GlobalModals,
   },
 

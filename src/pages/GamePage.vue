@@ -1,7 +1,11 @@
 <template lang="html">
   <div class="pt-3 game-page" ref="gamePage">
-    <!-- TODO: add  -->
-    <!-- <b-button>Back to board</b-button> -->
+    <!-- <mini-board :board="board" v-if="board" /> -->
+
+    <div class="mb-3">
+      <b-button variant="primary">Back to {{ board.name }}</b-button>
+    </div>
+
     <b-skeleton v-if="loading" />
     <game v-else-if="game" :game="game" />
 
@@ -11,11 +15,13 @@
 
 <script>
 import Game from '@/components/Game';
+// import MiniBoard from '@/components/Board/MiniBoard';
 import { mapState } from 'vuex';
 
 export default {
   components: {
     Game,
+    // MiniBoard,
   },
 
   data() {
@@ -26,7 +32,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['board']),
+    ...mapState(['board', 'boards']),
 
     gameId() {
       return this.$route.params.gameId;

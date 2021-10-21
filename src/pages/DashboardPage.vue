@@ -5,6 +5,12 @@
       action-text="Create board"
       @action="$bvModal.show('create-board')"
     />
+    moar stuff here
+    - profiles
+    - news
+      - Gather all news available and create custom object
+    - releases / gamebrary news
+    - Developer info. repo, free
 
     <boards />
   </b-container>
