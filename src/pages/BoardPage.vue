@@ -143,6 +143,8 @@ export default {
   },
 
   async mounted() {
+    this.$store.commit('CLEAR_BOARD');
+
     if (this.isPublicRoute) {
       await this.loadPublicBoard(this.boardId);
 
@@ -158,7 +160,6 @@ export default {
   },
 
   destroyed() {
-    this.$store.commit('CLEAR_BOARD');
     this.$bus.$off('LOAD_BOARD_BACKGROUND');
   },
 
