@@ -14,17 +14,25 @@
 
     <pinned-boards />
     <user-menu />
+
+    <b-button :to="{ name: 'settings' }">
+      <i class="fas fa-cog" />
+    </b-button>
+
+    <global-search class="ml-2" />
   </nav>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
 import PinnedBoards from '@/components/Board/PinnedBoards';
+import GlobalSearch from '@/components/GlobalSearch';
 import UserMenu from '@/components/UserMenu';
 
 export default {
   components: {
     PinnedBoards,
+    GlobalSearch,
     UserMenu,
   },
 

@@ -2,13 +2,26 @@
   <b-container fluid>
     <page-title title="Settings" />
 
-    <div class="d-inline-flex flex-column align-items-start">
+    <b-list-group>
+      <b-list-group-item :to="{ name: 'general-settings' }">
+        <i class="fas fa-sliders-h fa-fw" aria-hidden />
+        General
+      </b-list-group-item>
+      <b-list-group-item :to="{ name: 'steam-settings' }">
+        <i class="fab fa-steam fa-fw" aria-hidden></i>
+        Steam
+      </b-list-group-item>
+    </b-list-group>
+
+    <router-view />
+
+    <!-- <div class="d-inline-flex flex-column align-items-start">
       <language-selector />
       <game-detail-settings />
       <steam-settings />
       <dock-settings />
 
-      <!-- <provider-card /> -->
+      <provider-card />
 
       <b-button
         @click="session_signOut"
@@ -26,7 +39,7 @@
       </b-button>
 
       <delete-account-modal />
-    </div>
+    </div> -->
   </b-container>
 </template>
 
@@ -36,7 +49,7 @@ import GameDetailSettings from '@/components/Settings/GameDetailSettings';
 import SteamSettings from '@/components/Settings/SteamSettings';
 import DockSettings from '@/components/Settings/DockSettings';
 // import GameDetailViewSelector from '@/components/Settings/GameDetailViewSelector';
-// import ProviderCard from '@/components/ProviderCard';
+import ProviderCard from '@/components/ProviderCard';
 import DeleteAccountModal from '@/components/Settings/DeleteAccountModal';
 import sessionMixin from '@/mixins/sessionMixin';
 import { mapState } from 'vuex';
@@ -48,7 +61,7 @@ export default {
     SteamSettings,
     DockSettings,
     // GameDetailViewSelector,
-    // ProviderCard,
+    ProviderCard,
     DeleteAccountModal,
   },
 

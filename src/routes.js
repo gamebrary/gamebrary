@@ -16,6 +16,8 @@ import PublicProfilePage from '@/pages/PublicProfilePage';
 import PublicProfilesPage from '@/pages/PublicProfilesPage';
 import ReleasesPage from '@/pages/ReleasesPage';
 import SettingsPage from '@/pages/SettingsPage';
+import SteamSettingsPage from '@/pages/SteamSettingsPage';
+import GeneralSettingsPage from '@/pages/GeneralSettingsPage';
 import TagsPage from '@/pages/TagsPage';
 import TermsPage from '@/pages/TermsPage';
 import WallpapersPage from '@/pages/WallpapersPage';
@@ -54,6 +56,18 @@ const routes = [
     meta: {
       title: 'Settings',
     },
+    children: [
+      {
+        name: 'steam-settings',
+        path: 'steam',
+        component: SteamSettingsPage,
+      },
+      {
+        name: 'general-settings',
+        path: '',
+        component: GeneralSettingsPage,
+      },
+    ],
   },
   {
     name: 'game',
