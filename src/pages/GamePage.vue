@@ -3,7 +3,13 @@
     <!-- <mini-board :board="board" v-if="board" /> -->
 
     <div class="mb-3">
-      <b-button variant="primary">Back to {{ board.name }}</b-button>
+      <b-button
+        v-if="board && board.id"
+        variant="primary"
+        :to="{ name: 'board', params: { id: board.id }}"
+      >
+        Back to {{ board.name }}
+      </b-button>
     </div>
 
     <b-skeleton v-if="loading" />
