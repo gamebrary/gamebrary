@@ -23,7 +23,7 @@ export default {
   // Arabic is the only ltr language supported at the moment
   isRTL: ({ settings }) => settings && settings.language !== 'ar',
 
-  isDev: () => process.env.NODE_ENV === 'development',
+  isPro: ({ user }) => user.isPaid || process.env.NODE_ENV === 'development',
 
   platformNames: (state) => {
     const formattedPlatforms = {};
