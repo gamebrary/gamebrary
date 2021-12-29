@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="mb-5" v-if="user">
+  <div v-if="user">
     <!-- TODO: allow reorganizing and save -->
     <empty-state
       v-if="!user || !loading && sortedBoards.length === 0"
