@@ -2,7 +2,13 @@
   <b-container fluid>
     <page-title title="Settings" />
 
-    <b-row no-gutters>
+    <game-detail-settings />
+    <profile-settings-page />
+    <account-settings-page />
+    <steam-settings-page />
+    <general-settings-page />
+
+    <!-- <b-row no-gutters>
       <b-col cols="2">
         <b-list-group>
           <b-list-group-item :to="{ name: 'general-settings' }">
@@ -47,7 +53,28 @@
 
       <b-col>
         <router-view />
-      </b-col>
+      </b-col> -->
     </b-row>
   </b-container>
 </template>
+
+<script>
+import ProfileSettingsPage from '@/pages/ProfileSettingsPage';
+import AccountSettingsPage from '@/pages/AccountSettingsPage';
+import SteamSettingsPage from '@/pages/SteamSettingsPage';
+import GeneralSettingsPage from '@/pages/GeneralSettingsPage';
+import GameDetailSettings from '@/components/settings/GameDetailSettings';
+
+export default {
+  components: {
+    ProfileSettingsPage,
+    AccountSettingsPage,
+    SteamSettingsPage,
+    GeneralSettingsPage,
+    GameDetailSettings,
+  },
+};
+</script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+</style>

@@ -1,32 +1,24 @@
-// COLORS
-// Shared
+// Colors
+$primary: #3d6692 !default;
 $muted: #7d7f8c !default;
 $danger: #ad1035 !default;
 $warning: #ffc500 !default;
 $success: #23cd69 !default;
 $white: #f8f8ff !default;
-$black: #0b0b18 !default;
-$info: #794bc4 !default;
-
-// Light theme
-$light: #e2e2e2 !default;
-$primary: #3d6692 !default;
-
-// Dark theme
-$dark: #7d7f8c !default;
-$secondary: #c0c0c0 !default;
+$black: #222222 !default;
+$info: #0071bc !default;
+$light: #dee4e7 !default;
+$dark: #37474f !default;
+$secondary: #b0bec5 !default;
 
 $theme-colors: () !default;
-$theme-colors: map-merge(
-  (
-    // "primary": $primary,
+$theme-colors: map-merge((
+    "primary": $primary,
     "secondary": $secondary,
-    // "success": $success,
-    // "info": $info,
+    "success": $success,
+    "info": $info,
     "warning": $warning,
-    // "danger": $danger,
-    // "light": $light,
-    // "dark": $dark,
-  ),
-  $theme-colors
-);
+    "danger": $danger,
+    "light": $light,
+    "dark": $dark,
+  ), $theme-colors);

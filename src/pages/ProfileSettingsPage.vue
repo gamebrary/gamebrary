@@ -1,7 +1,5 @@
 <template lang="html">
-  <b-container>
-    <h1>Edit profile</h1>
-
+  <div>
     <b-button @click="checkUserNameAvailability">
       Check availability
     </b-button>
@@ -46,11 +44,9 @@
       placeholder="twitter"
     />
 
-    <pre>{{ profile }}</pre>
-
-    <pre>{{ user }}</pre>
-
-  </b-container>
+    <!-- <pre>{{ profile }}</pre> -->
+    <!-- <pre>{{ user }}</pre> -->
+  </div>
 </template>
 
 <script>

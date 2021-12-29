@@ -5,7 +5,6 @@
       v-for="(thumbnail, index) in thumbnails"
       :key="index"
       cols="2"
-      md="4"
       class="position-relative thumb"
       @click="openModal(index + 1)"
     >

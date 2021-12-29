@@ -43,6 +43,90 @@
       </ul>
     </div>
 
+    <!-- Latest update -->
+    <vue-timeline-update
+      :date="new Date('2017-02-26')"
+      title="v2.2.0 - Initial D"
+      description="Today I am thrilled to announce the release of Vue.js 2.2.0."
+      thumbnail="/images/vuetimeline/initial_d.jpg"
+      category="announcement"
+      icon="code"
+      color="red"
+    />
+
+    <!-- Another update -->
+    <vue-timeline-update
+      :date="new Date('2016-11-22')"
+      title="v2.1.0 - Hunter X Hunter"
+      description="Today I am thrilled to announce the release of Vue.js 2.1.0."
+      thumbnail="/images/vuetimeline/hunter_x_hunter.jpg"
+      category="announcement"
+      icon="code"
+      color="turquoise"
+    />
+
+    <!-- Yet another update -->
+    <vue-timeline-update
+      :date="new Date('2016-09-30')"
+      title="v2.0.0 - Ghost in the Shell"
+      description="Today I am thrilled to announce the release of Vue.js 2.0.0"
+      thumbnail="/images/vuetimeline/ghost_in_the_shell.jpg"
+      category="announcement"
+      icon="code"
+      color="white"
+      is-last
+    />
+
+
+    <ul class="list-unstyled">
+      <b-media tag="li">
+        <template #aside>
+          <b-img blank blank-color="#abc" width="64" alt="placeholder"></b-img>
+        </template>
+        <h5 class="mt-0 mb-1">List-based media object</h5>
+        <p class="mb-0">
+          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
+          Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc
+          ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+        </p>
+      </b-media>
+
+      <b-media tag="li" class="my-4">
+        <template #aside>
+          <b-img blank blank-color="#cba" width="64" alt="placeholder"></b-img>
+        </template>
+
+        <h5 class="mt-0 mb-1">List-based media object</h5>
+        <p class="mb-0">
+          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
+          Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc
+          ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+        </p>
+      </b-media>
+
+      <b-media tag="li">
+        <template #aside>
+          <b-img blank blank-color="#bac" width="64" alt="placeholder"></b-img>
+        </template>
+
+        <h5 class="mt-0 mb-1">List-based media object</h5>
+        <p class="mb-0">
+          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
+          Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc
+          ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+        </p>
+      </b-media>
+    </ul>
+
+
+    <b-list-group>
+      <b-list-group-item>Cras justo odio</b-list-group-item>
+      <b-list-group-item>Dapibus ac facilisis in</b-list-group-item>
+      <b-list-group-item>Morbi leo risus</b-list-group-item>
+      <b-list-group-item>Porta ac consectetur ac</b-list-group-item>
+      <b-list-group-item>Vestibulum at eros</b-list-group-item>
+    </b-list-group>
+
     <strong>{{ $t('board.gameModal.releaseDate') }}:</strong>
     <span class="text-wrap">
       <div v-for="releaseDate in releaseDates" :key="releaseDate">

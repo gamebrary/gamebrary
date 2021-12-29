@@ -1,4 +1,5 @@
 <template lang="html">
+  <!-- TODO: agregar Classificação Indicativa -->
   <div>
     <b-form-group label="Steam ID:">
       <b-form-input

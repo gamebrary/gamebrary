@@ -1,97 +1,94 @@
 <template lang="html">
-  <b-container v-if="game.name" fluid>
-    <b-row>
-      <b-col cols="12" md="4" lg="4">
+  <div class="game">
+    <aside>
+      <div class="position-relative">
         <b-img
           :src="gameCoverUrl"
           :alt="game.name"
-          class="game-cover cursor-pointer"
-          rounded
+          class="cursor-pointer game-cover"
+          fluid-grow
           @click="$bvModal.show('game-images')"
         />
 
-        <b-skeleton-img
-          v-if="loading"
-          width="100px"
-          height="100px"
-        />
-
-        <template v-else>
+        <div class="game-info">
           <game-rating :game="game" />
-          <game-images :game="game" />
-          <game-videos :videos="game.videos" v-if="game.videos" />
-        </template>
+        </div>
+      </div>
 
-        <game-websites :game="game" class="d-none d-md-inline" />
-        <!-- <pre>{{ game.genres.map(({ id }) => id) }}</pre> -->
-        <!-- TODO: add bundles to game detail? -->
-        <!-- {{ game.bundles ? `Found in ${game.bundles.length} compilations.` : null }} -->
-      </b-col>
+      <b-skeleton-img
+        v-if="loading"
+        width="100px"
+        height="100px"
+      />
 
-      <!-- cols="12"
-      md="7"  -->
-      <b-col
-        cols="12"
-        md="7"
-        lg="8"
+      <template v-else>
+        <game-images :game="game" />
+        <game-videos :videos="game.videos" v-if="game.videos" />
+      </template>
+
+      <game-websites :game="game" class="d-none d-md-inline" />
+      <!-- <pre>{{ game.genres.map(({ id }) => id) }}</pre> -->
+      <!-- TODO: add bundles to game detail? -->
+      <!-- {{ game.bundles ? `Found in ${game.bundles.length} compilations.` : null }} -->
+    </aside>
+
+    <article>
+      <h3 class="mb-2">{{ game.name }}</h3>
+      <b-progress
+        v-if="progress"
+        :value="progress"
+        variant="success"
+        height="8px"
+        v-b-modal.progress
+        class="my-1 w-25"
+      />
+      <game-description :game="game" />
+      <game-news :game="game" />
+      <game-details :game="game" />
+
+      <similar-games
+        :game="game"
+        :loading="loading"
+        class="mb-2"
+      />
+
+      <game-websites
+        :game="game"
+        grid
+        class="d-md-none"
+      />
+
+      <b-badge
+        v-for="({ games, hex, tagTextColor }, name) in tags"
+        v-if="games.includes(game.id)"
+        :key="name"
+        pill
+        tag="small"
+        class="mr-1 mb-2"
+        :style="`background-color: ${hex}; color: ${tagTextColor}`"
+        v-b-modal.tags
       >
-        <h3 class="mb-2">{{ game.name }}</h3>
-        <b-progress
-          v-if="progress"
-          :value="progress"
-          variant="success"
-          height="8px"
-          v-b-modal.progress
-          class="my-1 w-25"
-        />
-        <game-description :game="game" />
-        <game-news :game="game" />
-        <game-details :game="game" />
+        {{ name }}
+      </b-badge>
 
-        <similar-games
-          :game="game"
-          :loading="loading"
-          class="mb-2"
-        />
+      <!-- <template v-if="!loading">
+        <b-skeleton v-for="n in 3" :key="n" />
+      </template> -->
 
-        <game-websites
-          :game="game"
-          grid
-          class="d-md-none"
-        />
+      <game-notes :game="game" />
+      <!-- <b-form-rating
+        v-if="rating"
+        :value="rating"
+        inline
+        readonly
+        variant="warning"
+        size="lg"
+        no-border
+      />
 
-        <b-badge
-          v-for="({ games, hex, tagTextColor }, name) in tags"
-          v-if="games.includes(game.id)"
-          :key="name"
-          pill
-          tag="small"
-          class="mr-1 mb-2"
-          :style="`background-color: ${hex}; color: ${tagTextColor}`"
-          v-b-modal.tags
-        >
-          {{ name }}
-        </b-badge>
-
-        <!-- <template v-if="!loading">
-          <b-skeleton v-for="n in 3" :key="n" />
-        </template> -->
-
-        <game-notes :game="game" />
-        <!-- <b-form-rating
-          v-if="rating"
-          :value="rating"
-          inline
-          readonly
-          variant="warning"
-          size="lg"
-          no-border
-        />
-
-        <br /> -->
-      </b-col>
-    </b-row>
-  </b-container>
+      <br /> -->
+    </article>
+  </div>
 </template>
 
 <script>
@@ -149,8 +146,34 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
+.game {
+  width: calc(100% - .5rem);
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: 1rem;
+
+  @media(max-width: 1280px) {
+    grid-template-columns: 360px auto;
+  }
+
+  @media(max-width: 1024px) {
+    grid-template-columns: 320px auto;
+  }
+
+  @media(max-width: 768px) {
+    grid-template-columns: 100%;
+  }
+}
+
 .game-cover {
-  width: 100%;
+  max-width: 100%;
+  // position: relative;
   height: auto;
+}
+
+.game-info {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
 }
 </style>

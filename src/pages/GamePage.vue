@@ -2,7 +2,7 @@
   <div class="pt-3 game-page" ref="gamePage">
     <!-- <mini-board :board="board" v-if="board" /> -->
 
-    <div class="mb-3">
+    <div class="mb-2">
       <b-button
         v-if="board && board.id"
         variant="primary"

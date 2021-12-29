@@ -1,15 +1,17 @@
 <template lang="html">
-  <nav class="rounded d-flex flex-column m-2 text-center dock bg-white">
+  <nav class="rounded d-flex flex-column m-2 text-center dock">
     <b-button
       title="Dashboard"
       variant="transparent"
       class="my-2 p-0"
       @click="handleLogoClick"
     >
-      <img
+      <!-- <img
         src="/static/gamebrary-logo-dark.png"
         width="32"
-      />
+      /> -->
+      <i class="fas fa-gamepad" />
+      <!-- TODO: move back button to here when viewing a game that's part of a board -->
     </b-button>
 
     <pinned-boards />
@@ -19,7 +21,7 @@
       <i class="fas fa-cog" />
     </b-button>
 
-    <global-search class="ml-2" />
+    <global-search />
   </nav>
 </template>
 
@@ -89,6 +91,7 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
 .dock {
+  background: rgba(0, 0, 0, 0.5);
   z-index: 1;
   max-height: calc(100vh - 16px);
 }

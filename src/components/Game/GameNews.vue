@@ -1,8 +1,24 @@
 <template lang="html">
   <div class="game-news">
-    <pre>{{ articles.length }}</pre>
+    Latest news about {{ game.name }}
+
+    <ul class="list-unstyled">
+      <b-media tag="li" v-for ="article in articles" :key="article.id">
+        <template #aside>
+          <b-img blank blank-color="#abc" width="64" alt="placeholder"></b-img>
+        </template>
+        <h5 class="mt-0 mb-1">{{ article.title }}</h5>
+        <p class="mb-0">
+          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
+          Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc
+          ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+        </p>
+      </b-media>
+    </ul>
+
     <b-card v-for ="article in articles" :key="article.id" class="mb-3">
-      <h5 class="mb-0">
+      <pre>{{ article }}</pre>
+      <!-- <h5 class="mb-0">
         <pre>{{ article.id }}</pre>
         {{ article.title }}
 
@@ -16,7 +32,7 @@
 
       <p v-html="getformattedContent(article)" />
 
-      <b-button :href="article.url" variant="info" target="_blank">Read article</b-button>
+      <b-button :href="article.url" variant="info" target="_blank">Read article</b-button> -->
       <!-- TODO: add pc gamer logo /#/game/12597/owlboy -->
 
       <!-- <vue-markdown v-html="parseBBcode(article.contents)" /> -->

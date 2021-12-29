@@ -2,6 +2,7 @@ import Vue from 'vue';
 import { BootstrapVue } from 'bootstrap-vue';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import VueAxios from 'vue-axios';
+import VueTimeline from "@growthbunker/vuetimeline";
 import VueShortKey from 'vue-shortkey';
 import Dayjs from 'vue-dayjs';
 import VueFire from 'vuefire';
@@ -30,6 +31,7 @@ Object.defineProperties(Vue.prototype, {
   },
 });
 
+Vue.use(VueTimeline);
 Vue.use(VueShortKey, { prevent: ['input', 'textarea'] });
 Vue.use(Dayjs);
 Vue.use(PortalVue);
