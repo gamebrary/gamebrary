@@ -1,3 +1,4 @@
+<!-- TODO: add speedruns -->
 <template lang="html">
   <div class="game">
     <aside>
