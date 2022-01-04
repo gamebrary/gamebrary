@@ -1,29 +1,18 @@
-<!-- TODO: BUG: Changing games doesn't update similar games -->
 <template lang="html">
-  <div class="d-flex align-items-center overflow-auto" v-if="loading">
-    <b-skeleton-img
-      v-for="game in similarGames"
-      :key="game.id"
-      v-if="game.cover"
-      height="100px"
-    />
-  </div>
-
-  <div v-else-if="similarGames.length">
+  <div class="games" v-if="similarGames.length">
+    <!-- <pre>{{ similarGameIds }}</pre> -->
     <!-- TODO: limit to fewer games, increase game cover, add modal to view all -->
-    You may also like:
+    <!-- You may also like: -->
 
-    <div class="">
-      <!-- TODO: use array map instead -->
-      <b-img
-        v-for="game in similarGames"
-        v-if="game.cover"
-        :key="game.id"
-        :src="getCoverUrl(game.cover)"
-        class="rounded mr-2 mb-2 cursor-pointer"
-        @click="openGame(game)"
-      />
-    </div>
+    <!-- TODO: use array map instead -->
+    <b-img
+      v-for="game in similarGames"
+      v-if="game.cover"
+      :key="game.id"
+      :src="getCoverUrl(game.cover)"
+      class="rounded mr-2 mb-2 cursor-pointer"
+      @click="openGame(game)"
+    />
   </div>
 </template>
 
@@ -74,6 +63,7 @@ export default {
       }
     },
 
+    // TODO: move to util
     getCoverUrl(cover) {
       return cover && cover.image_id
         ? `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${cover.image_id}.jpg`
@@ -89,6 +79,7 @@ export default {
     async loadGames() {
       this.similarGames = [];
 
+      // TODO: use try catch
       await this.$store.dispatch('LOAD_GAMES', this.similarGameIds.toString());
 
       this.similarGames = this.similarGameIds ?
@@ -100,3 +91,13 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+.games {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  align-items: center;
+  width: 90vw;
+}
+</style>

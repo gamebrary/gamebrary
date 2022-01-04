@@ -1,44 +1,45 @@
 <template lang="html">
-  <div class="game-news">
-    Latest news about {{ game.name }}
+  <div class="game-news" v-if="articles.length">
+    Latest news about {{ game.name }} <b-badge>{{ articles.length }}</b-badge>
 
     <ul class="list-unstyled">
-      <b-media tag="li" v-for ="article in articles" :key="article.id">
+      <b-media tag="li" v-for ="article in articles" :key="article.id" class="mb-2">
         <template #aside>
-          <b-img blank blank-color="#abc" width="64" alt="placeholder"></b-img>
+          <b-avatar
+            variant="primary"
+            :text="article.feedlabel"
+            :title="article.feedlabel || article.author"
+            v-b-tooltip.hover
+          />
+          <!-- <b-img blank blank-color="#abc" width="64" alt="placeholder"></b-img> -->
+          <!-- <b-badge variant="info">{{ article.feedlabel }}</b-badge> -->
         </template>
-        <h5 class="mt-0 mb-1">{{ article.title }}</h5>
-        <p class="mb-0">
-          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
-          Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc
-          ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-        </p>
+
+        <h5 class="mt-0 mb-1">
+          {{ article.title }}
+        </h5>
+
+        <!-- <div>
+          <p class="mb-0 w-100" v-text="article.contents" />
+        </div> -->
+
+
+          <!-- <vue-markdown v-html="parseBBcode(article.contents)" /> -->
+          <!-- <vue-markdown v-html="article.contents" /> -->
+        <!-- </p> -->
       </b-media>
     </ul>
 
-    <b-card v-for ="article in articles" :key="article.id" class="mb-3">
-      <pre>{{ article }}</pre>
-      <!-- <h5 class="mb-0">
-        <pre>{{ article.id }}</pre>
-        {{ article.title }}
-
-        <b-badge variant="info">{{ article.feedlabel }}</b-badge>
-      </h5>
-
-      <small>
-        By {{ article.author }} on
-        {{ $dayjs.unix(article.date).format('MMMM D, YYYY') }}
-      </small>
-
+    <!-- <b-card v-for ="article in articles" :key="article.id" class="mb-3"> -->
+      <!-- <pre>{{ article }}</pre> -->
+      <!--
       <p v-html="getformattedContent(article)" />
 
       <b-button :href="article.url" variant="info" target="_blank">Read article</b-button> -->
       <!-- TODO: add pc gamer logo /#/game/12597/owlboy -->
 
-      <!-- <vue-markdown v-html="parseBBcode(article.contents)" /> -->
-      <!-- <vue-markdown v-html="article.contents" /> -->
       <!-- https://cdn.akamai.steamstatic.com/steamcommunity/public/images -->
-    </b-card>
+    <!-- </b-card> -->
   </div>
 </template>
 

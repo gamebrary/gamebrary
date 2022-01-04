@@ -54,7 +54,6 @@
       <b-col>
         <router-view />
       </b-col> -->
-    </b-row>
   </b-container>
 </template>
 
@@ -63,7 +62,7 @@ import ProfileSettingsPage from '@/pages/ProfileSettingsPage';
 import AccountSettingsPage from '@/pages/AccountSettingsPage';
 import SteamSettingsPage from '@/pages/SteamSettingsPage';
 import GeneralSettingsPage from '@/pages/GeneralSettingsPage';
-import GameDetailSettings from '@/components/settings/GameDetailSettings';
+import GameDetailSettings from '@/components/Settings/GameDetailSettings';
 
 export default {
   components: {

@@ -1,6 +1,6 @@
 <template lang="html">
   <section class="d-flex align-items-end">
-    <!-- <pre>{{ game.age_ratings }}</pre> -->
+    <pre>{{ game.age_ratings }}</pre>
     <!-- TODO: add CERO images -->
     <!-- TODO: add USK images -->
     <!-- TODO: add GRAC images -->
@@ -12,8 +12,14 @@
       :src="`/static/img/age-ratings/${rating}.png`"
       :alt="rating"
       :key="rating"
+      v-b-tooltip.hover
+      :title="rating"
       class="ml-2 rating"
     />
+
+    <!-- <pre class="text-dark">
+      {{ ratings }}
+    </pre> -->
   </section>
 </template>
 

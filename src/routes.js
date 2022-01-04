@@ -16,6 +16,7 @@ import PublicProfilePage from '@/pages/PublicProfilePage';
 import PublicProfilesPage from '@/pages/PublicProfilesPage';
 import ReleasesPage from '@/pages/ReleasesPage';
 import SettingsPage from '@/pages/SettingsPage';
+import SearchPage from '@/pages/SearchPage';
 import AccountSettingsPage from '@/pages/AccountSettingsPage';
 import SteamSettingsPage from '@/pages/SteamSettingsPage';
 import GeneralSettingsPage from '@/pages/GeneralSettingsPage';
@@ -64,14 +65,6 @@ const routes = [
         component: AccountSettingsPage,
       },
       {
-        name: 'wallpapers-settings',
-        path: 'wallpapers',
-        component: WallpapersPage,
-        meta: {
-          title: 'Wallpapers',
-        },
-      },
-      {
         name: 'steam-settings',
         path: 'steam',
         component: SteamSettingsPage,
@@ -111,6 +104,11 @@ const routes = [
     name: 'game',
     path: '/game/:gameId/:gameSlug?',
     component: GamePage,
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: SearchPage,
   },
   {
     name: 'explore',

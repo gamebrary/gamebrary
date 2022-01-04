@@ -1,11 +1,11 @@
 <template lang="html">
-  <div class="gameboard-placeholder" v-if="placeholderBoard && placeholderBoard.lists">
+  <div class="board-placeholder" v-if="placeholderBoard && placeholderBoard.lists">
     <div
       v-for="list in placeholderBoard.lists"
       :class="`list ${list.settings.view || 'single'}`"
       :key="list.name"
     >
-      <b-card no-body bg-variant="dark">
+      <b-card no-body>
         <b-card-header class="pt-2 pb-1 px-2">
           <b-skeleton />
         </b-card-header>
@@ -18,7 +18,6 @@
             <b-card
               no-body
               img-top
-              bg-variant="dark"
               v-if="list.settings.view === 'grid'"
             >
               <b-skeleton-img
@@ -33,7 +32,6 @@
 
             <div
               v-else-if="list.settings.view === 'covers'"
-              bg-variant="dark"
               class="covers-grid"
             >
               <b-skeleton-img
@@ -46,7 +44,6 @@
             <b-card
               v-else-if="!list.settings.view || list.settings.view === 'single'"
               no-body
-              bg-variant="dark"
               img-left
             >
               <b-skeleton-img
@@ -63,7 +60,6 @@
             <b-card
               v-else-if="list.settings.view === 'compact'"
               no-body
-              bg-variant="dark"
               img-left
             >
               <b-skeleton-img
@@ -80,7 +76,6 @@
             <b-card
               v-else
               no-body
-              bg-variant="dark"
               img-left
             >
               <b-card-body class="p-2">
@@ -126,7 +121,7 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  .gameboard-placeholder {
+  .board-placeholder {
     user-select: none;
     display: flex;
     align-items: flex-start;

@@ -252,8 +252,36 @@ exports.game = functions.https.onRequest((req, res) => {
     .catch((error) => { res.status(400).send(error) });
 });
 
+exports.igdb = functions.https.onRequest((req, res) => {
+  // TODO: restrict to our domains
+  res.set('Access-Control-Allow-Origin', '*');
+
+  const { path, data, token } = req.query;
+
+  if (!token) return res.status(400).send('missing token');
+  if (!path) return res.status(400).send('missing path');
+  if (!data) return res.status(400).send('missing data');
+
+  axios({
+    url: `https://api.igdb.com/v4/${path}`,
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+      'Client-ID': functions.config().twitch.clientid,
+    },
+    data,
+  })
+    .then((response) => {
+      res.status(200).send(response.data);
+    })
+    .catch((error) => {
+      res.status(400).send(error);
+    });
+});
+
 exports.email = functions.https.onRequest((req, res) => {
-  res.set('Access-Control-Allow-Origin', "*")
+  res.set('Access-Control-Allow-Origin', "*");
 
   const { template_id, address } = req.query;
 

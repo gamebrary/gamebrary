@@ -61,10 +61,7 @@
 
       <hr class="my-3">
 
-      <b-button
-        v-b-modal.editPlatforms
-        variant="secondary"
-      >
+      <b-button v-b-modal.editPlatforms>
         <i class="fas fa-gamepad fa-fw" aria-hidden />
         <br />
         Edit platforms
@@ -72,10 +69,7 @@
 
       <edit-board-platforms-modal />
 
-      <b-button
-        v-b-modal.boardBackground
-        variant="secondary"
-      >
+      <b-button v-b-modal.boardBackground>
         <i class="fas fa-images fa-fw" aria-hidden />
         <br />
         Change background

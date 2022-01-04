@@ -1,3 +1,4 @@
+// TODO: use proxy endpoint
 import axios from 'axios';
 import firebase from 'firebase/app';
 import 'firebase/storage';
@@ -12,6 +13,17 @@ export default {
       axios.get(`${API_BASE}/platforms?token=${state.twitchToken.access_token}`)
         .then(({ data }) => {
           commit('SET_PLATFORMS', data);
+          resolve(data);
+        }).catch(reject);
+    });
+  },
+
+  IGDB({ state }, { path, data }) {
+    return new Promise((resolve, reject) => {
+      axios.get(`${API_BASE}/igdb?token=${state.twitchToken.access_token}&path=${path}&data=${data}`)
+        .then((res) => {
+          console.log(res);
+
           resolve(data);
         }).catch(reject);
     });

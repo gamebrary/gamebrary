@@ -2,6 +2,7 @@
   <b-dropdown
     right
     size="sm"
+    variant="transparent"
     toggle-class="m-1"
   >
     <template v-slot:button-content>

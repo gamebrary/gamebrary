@@ -9,7 +9,6 @@
       title="Sidebar"
       shadow
       backdrop
-      bg-variant="dark"
       text-variant="white"
       right
       header-class="px-2 pt-2 d-flex align-items-center justify-content-between"

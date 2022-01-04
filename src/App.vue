@@ -1,3 +1,4 @@
+<!-- TODO: use navigator.onLine -->
 <template>
   <div
     id="app"

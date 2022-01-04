@@ -23,6 +23,7 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
 .videos {
   display: grid;
+  grid-template-columns: auto auto auto auto;
   grid-gap: 1rem;
 }
 </style>

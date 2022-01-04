@@ -47,12 +47,6 @@
       <game-news :game="game" />
       <game-details :game="game" />
 
-      <similar-games
-        :game="game"
-        :loading="loading"
-        class="mb-2"
-      />
-
       <game-websites
         :game="game"
         grid
@@ -89,6 +83,14 @@
 
       <br /> -->
     </article>
+
+    <footer>
+      <similar-games
+        :game="game"
+        :loading="loading"
+        class="mb-2"
+      />
+    </footer>
   </div>
 </template>
 
@@ -176,5 +178,9 @@ export default {
   position: absolute;
   bottom: 1rem;
   right: 1rem;
+}
+
+footer {
+  grid-column: 1 / -1;
 }
 </style>

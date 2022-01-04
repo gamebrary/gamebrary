@@ -46,8 +46,7 @@
         class="d-flex flex-column"
       >
         <b-button
-          variant="secondary"
-          class="mb-2"
+          variant="light"
           v-b-modal:add-list
         >
           <i class="fas fa-plus fa-fw" aria-hidden />
