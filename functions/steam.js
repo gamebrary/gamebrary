@@ -1,6 +1,6 @@
 const functions = require('firebase-functions');
 const axios = require('axios');
-const BASE_URL =
+// const BASE_URL =
 // TODO: put base url in constant
 
 exports.news = functions.https.onRequest((req, res) => {
