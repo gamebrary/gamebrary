@@ -18,13 +18,12 @@ export default {
     });
   },
 
+  // TODO: use endpoint for everything?
   IGDB({ state }, { path, data }) {
     return new Promise((resolve, reject) => {
       axios.get(`${API_BASE}/igdb?token=${state.twitchToken.access_token}&path=${path}&data=${data}`)
         .then((res) => {
-          console.log(res);
-
-          resolve(data);
+          resolve(res);
         }).catch(reject);
     });
   },

@@ -1,25 +1,31 @@
 <template lang="html">
   <div>
     <template v-if="pinnedBoards.length">
-      <span
-        v-for="{ id, name, backgroundColor, backgroundUrl } in pinnedBoards"
+      <!-- v-for="{ id, name, backgroundColor, backgroundUrl } in pinnedBoards" -->
+      <b-button
+        v-for="{ id, name } in pinnedBoards"
         :key="id"
+        block
+        :title="name"
+        :variant="board.name === name ? 'warning' : null"
+        :class="['mb-1 p-0 cursor-pointer pinned-board', { active: board.name === name }]"
+        @click="viewBoard(id)"
       >
-        <b-avatar
+        <!-- <b-avatar
           rounded
-          :class="['mb-1 cursor-pointer pinned-board', { active: board.name === name }]"
-          :title="name"
-          @click.native="viewBoard(id)"
           :style="`
           ${backgroundColor ? `background-color: ${backgroundColor};` : null }
           ${getWallpaperUrl(backgroundUrl)}
           `"
         >
-          <span class="board-initials text-uppercase">{{ getBoardInitials(name) }}</span>
-        </b-avatar>
-      </span>
+          <span class="board-initials text-uppercase"></span>
+        </b-avatar> -->
+        <!-- {{ backgroundColor }} -->
+        <!-- <pre>{{ backgroundUrl }}</pre> -->
+        {{ getBoardInitials(name) }}
+      </b-button>
 
-      <hr class="mb-1 mt-0">
+      <hr class="mb-2 mt-0">
     </template>
 
     <template v-if="isBoard && !board.pinned">

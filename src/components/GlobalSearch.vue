@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="global-search">
-    <b-button v-b-toggle.global-search>
+    <b-button v-b-toggle.global-search block>
       <i class="fas fa-search fa-fw" aria-hidden />
     </b-button>
 

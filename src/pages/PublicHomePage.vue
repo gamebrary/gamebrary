@@ -1,6 +1,7 @@
 <template lang="html">
   <b-container fluid>
-    <p>Open source tool to organize video game collections.</p>
+    [homepage]
+    <!-- <p>Open source tool to organize video game collections.</p>
     <p>Gamebrary is free, but powered by your support</p>
 
     <img src="static/img/screenshot.png" alt="">
@@ -19,7 +20,7 @@
           </b-card>
         </div>
       </b-container>
-    </section>
+    </section> -->
 
     <public-page-footer />
   </b-container>

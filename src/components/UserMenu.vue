@@ -1,9 +1,9 @@
 <template lang="html">
-  <b-dropdown right toggle-class="p-0">
+  <b-dropdown right toggle-class="p-0 mb-2">
     <template #button-content>
       <b-avatar
+        size="48"
         rounded
-        size="36"
         :src="user && user.photoURL ? user.photoURL : null"
       />
       <!-- <b-button

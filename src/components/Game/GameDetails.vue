@@ -1,5 +1,24 @@
 <template lang="html">
   <b-alert show variant="secondary" class="game-details">
+    <div v-if="game.alternative_names">
+      <strong>Also known as:</strong>
+      <div
+        class="mb-1"
+        rounded
+        v-for="alternativeName in game.alternative_names"
+        :key="alternativeName.id"
+      >
+        <b-avatar
+          v-b-tooltip.hover
+          :title="alternativeName.comment || null"
+          size="sm"
+          :src="`/static/img/country-flags/${getCountryCode(alternativeName.comment)}.svg`"
+        />
+
+        {{ alternativeName.name }}
+      </div>
+    </div>
+
     <div v-if="platforms">
       <strong>{{ $t('board.gameModal.platforms') }}:</strong>
       <span class="text-wrap">{{ platforms }}</span>
@@ -28,19 +47,6 @@
     <div v-if="playerPerspectives">
       <strong>{{ $t('board.gameModal.perspective') }}:</strong>
       <span class="text-wrap">{{ playerPerspectives }}</span>
-    </div>
-
-    <div v-if="game.alternative_names">
-      <strong>Also known as:</strong>
-      <ul>
-        <li
-          v-for="alternativeName in game.alternative_names"
-          :key="alternativeName.id"
-        >
-          {{ alternativeName.name }}
-          {{ alternativeName.comment ? `(${alternativeName.comment})` : null }}
-        </li>
-      </ul>
     </div>
 
     {{ $t('board.gameModal.releaseDate') }}
@@ -141,6 +147,31 @@ export default {
       });
 
       return [...new Set(formattedReleaseDates)];
+    },
+  },
+
+  methods: {
+    getCountryCode(alternateTitleDescription) {
+      if (!alternateTitleDescription) return 'un';
+
+      const description = alternateTitleDescription.toLowerCase();
+
+      if (description.includes('japanese')) return 'jp';
+      if (description.includes('korean')) return 'kr';
+      if (description.includes('portuguese')) return 'pt';
+      if (description.includes('brazilian')) return 'br';
+      if (description.includes('spanish')) return 'es';
+      if (description.includes('french')) return 'fr';
+      if (description.includes('italian')) return 'it';
+      if (description.includes('arabic')) return 'sa';
+      if (description.includes('polish')) return 'pl';
+      if (description.includes('russian')) return 'ru';
+      if (description.includes('chinese')) return 'cn';
+      if (description.includes('german')) return 'de';
+      if (description.includes('dutch')) return 'nl';
+      if (description.includes('european')) return 'eu';
+
+      return 'un';
     },
   },
 };

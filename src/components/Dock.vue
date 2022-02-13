@@ -1,23 +1,22 @@
 <template lang="html">
-  <nav class="rounded d-flex flex-column m-2 text-center dock">
+  <nav class="d-flex flex-column text-center dock p-2">
     <b-button
       title="Dashboard"
-      variant="transparent"
-      class="my-2 p-0"
+      class="mb-2"
       @click="handleLogoClick"
     >
       <!-- <img
         src="/static/gamebrary-logo-dark.png"
         width="32"
       /> -->
-      <i class="fas fa-gamepad" />
+      <i class="fas fa-home" />
       <!-- TODO: move back button to here when viewing a game that's part of a board -->
     </b-button>
 
     <pinned-boards />
     <user-menu />
 
-    <b-button :to="{ name: 'settings' }">
+    <b-button :to="{ name: 'settings' }" class="mb-2">
       <i class="fas fa-cog" />
     </b-button>
 
@@ -65,8 +64,8 @@ export default {
         }
       }
 
-      if (this.user && this.$route.name !== 'boards') {
-        this.$router.push({ name: 'boards' });
+      if (this.user && this.$route.name !== 'home') {
+        this.$router.push({ name: 'home' });
       }
     },
 
@@ -93,6 +92,6 @@ export default {
 .dock {
   // background: rgba(0, 0, 0, 0.5);
   z-index: 1;
-  max-height: calc(100vh - 16px);
+  max-height: 100vh;
 }
 </style>

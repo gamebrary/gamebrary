@@ -1,4 +1,5 @@
 // import { PLATFORM_FILTER_FIELDS } from '@/constants';
+import { AGE_RATING_SYSTEMS } from '@/constants';
 import orderby from 'lodash.orderby';
 
 export default {
@@ -41,6 +42,18 @@ export default {
     });
 
     return formattedPlatforms;
+  },
+
+  gameAgeRatings: () => (game) => {
+    const ageRatings = game && game.age_ratings;
+
+    if (!ageRatings) return null;
+
+    return ageRatings.map(({ category, rating }) => {
+      const { name, ratings } = AGE_RATING_SYSTEMS.find(({ id }) => id === category);
+
+      return { name, rating: ratings[rating] };
+    });
   },
 
   gameTags: state => Object.keys(state.tags) && Object.keys(state.tags).length > 0,

@@ -1,4 +1,12 @@
+<!-- TODO: add optional chaining -->
 <!-- TODO: use navigator.onLine -->
+<!-- TODO: integrate itch.io -->
+<!-- TODO: integrate fandom/wikia -->
+<!-- TODO: https://zelda.fandom.com/api/v1/Articles/List?expand=1&category=Characters&limit=10000 -->
+<!-- TODO: parse wikipedia article into sections, get article images, links, etc... -->
+<!-- TODO: itch.io referral https://itch.io/register?return_to=https%3A%2F%2Fitch.io%2Fpartners%2Fapplication -->
+<!-- TODO: GOG api https://embed.gog.com//games/ajax/filtered?mediaType=game&slug=Little%20Big%20Adventure -->
+<!-- use name to search, make sure it matches slug -->
 <template>
   <div
     id="app"

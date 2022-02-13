@@ -1,5 +1,6 @@
 <template lang="html">
   <div>
+    <game-detail-settings />
     <dock-settings />
     <language-settings />
   </div>
@@ -8,10 +9,12 @@
 <script>
 import DockSettings from '@/components/Settings/DockSettings';
 import LanguageSettings from '@/components/Settings/LanguageSettings';
+import GameDetailSettings from '@/components/Settings/GameDetailSettings';
 
 export default {
   components: {
     DockSettings,
+    GameDetailSettings,
     LanguageSettings,
   },
 };

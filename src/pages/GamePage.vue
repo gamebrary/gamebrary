@@ -1,13 +1,13 @@
 <template lang="html">
-  <div class="pt-3 game-page" ref="gamePage">
+  <div class="mt-2 game-page" ref="gamePage">
     <!-- <mini-board :board="board" v-if="board" /> -->
 
     <div class="mb-2">
       <b-button
         v-if="board && board.id"
-        variant="primary"
         :to="{ name: 'board', params: { id: board.id }}"
       >
+        <i class="fas fa-arrow-left fa-fw" aria-hidden />
         Back to {{ board.name }}
       </b-button>
     </div>

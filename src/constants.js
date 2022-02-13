@@ -222,10 +222,102 @@ export const GAME_DETAIL_VIEWS = [
   { name: 'New page', value: 'new' },
 ];
 
-export const GAME_DETAIL_RATING = [
-  { name: 'Show all', value: null },
-  { name: 'ESRB', value: 'esrb' },
-  { name: 'PEGI', value: 'pegi' },
+// Source: https://api-docs.igdb.com/#age-rating
+export const AGE_RATING_SYSTEMS = [
+  {
+    name: 'ESRB',
+    value: 'ESRB',
+    id: 1,
+    logo: 'esrb.svg',
+    ratings: {
+      6: 'RP',
+      7: 'EC',
+      8: 'E',
+      9: 'E10',
+      10: 'T',
+      11: 'M',
+      12: 'AO',
+    },
+  },
+  {
+    name: 'PEGI',
+    value: 'PEGI',
+    id: 2,
+    logo: 'pegi.svg',
+    ratings: {
+      1: '3',
+      2: '7',
+      3: '12',
+      4: '16',
+      5: '18',
+    },
+  },
+  {
+    name: 'CERO',
+    value: 'CERO',
+    id: 3,
+    logo: 'cero.png',
+    ratings: {
+      13: 'CERO_A',
+      14: 'CERO_B',
+      15: 'CERO_C',
+      16: 'CERO_D',
+      17: 'CERO_Z',
+    },
+  },
+  {
+    name: 'USK',
+    value: 'USK',
+    id: 4,
+    logo: 'usk.svg',
+    ratings: {
+      18: 'USK_0',
+      19: 'USK_6',
+      20: 'USK_12',
+      21: 'USK_18',
+    },
+  },
+  {
+    name: 'GRAC',
+    value: 'GRAC',
+    id: 5,
+    logo: '',
+    ratings: {
+      22: 'GRAC_ALL',
+      23: 'GRAC_Twelve',
+      24: 'GRAC_Fifteen',
+      25: 'GRAC_Eighteen',
+      26: 'GRAC_TESTING',
+    },
+  },
+  {
+    name: 'ClassInd',
+    value: 'CLASS_IND',
+    id: 6,
+    logo: 'classind.png',
+    ratings: {
+      27: 'ClassInd-L',
+      28: 'ClassInd-10',
+      29: 'ClassInd-12',
+      30: 'ClassInd-14',
+      31: 'ClassInd-16',
+      32: 'ClassInd-18',
+    },
+  },
+  {
+    name: 'ACB',
+    value: 'ACB',
+    id: 7,
+    logo: 'acb.png',
+    ratings: {
+      33: 'ACB_G',
+      34: 'ACB_PG',
+      35: 'ACB_M',
+      36: 'ACB_MA15',
+      37: 'ACB_R18',
+      38: 'ACB_RC',
+    },
+  },
 ];
 
 export const DOCK_POSITIONS = [

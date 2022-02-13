@@ -2,7 +2,6 @@ import AboutPage from '@/pages/AboutPage';
 import AuthPage from '@/pages/AuthPage';
 import BoardPage from '@/pages/BoardPage';
 import EditBoardPage from '@/pages/EditBoardPage';
-import BoardsPage from '@/pages/BoardsPage';
 import DevToolsPage from '@/pages/DevToolsPage';
 import ProfileSettingsPage from '@/pages/ProfileSettingsPage';
 import ExplorePage from '@/pages/ExplorePage';
@@ -25,15 +24,6 @@ import TermsPage from '@/pages/TermsPage';
 import WallpapersPage from '@/pages/WallpapersPage';
 
 const routes = [
-  {
-    name: 'boards',
-    path: '/boards',
-    component: BoardsPage,
-    meta: {
-      title: 'Boards',
-      public: true,
-    },
-  },
   {
     name: 'profiles',
     path: '/profiles',
@@ -96,6 +86,14 @@ const routes = [
         component: NotesPage,
         meta: {
           title: 'Tags',
+        },
+      },
+      {
+        name: 'wallpapers-settings',
+        path: '/wallpapers',
+        component: WallpapersPage,
+        meta: {
+          title: 'Wallpapers',
         },
       },
     ],
