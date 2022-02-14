@@ -8,7 +8,7 @@
           :alt="game.name"
           class="cursor-pointer game-cover"
           fluid-grow
-          @click="$bvModal.show('game-images')"
+          @click.stop="openGameCover"
         />
 
         <div class="game-info">
@@ -23,7 +23,7 @@
       />
 
       <template v-else>
-        <game-images :game="game" />
+        <game-images ref="gameImages" :game="game" />
         <game-videos :videos="game.videos" v-if="game.videos" />
       </template>
 
@@ -143,6 +143,12 @@ export default {
       const { gameId, progresses } = this;
 
       return progresses[gameId] || null;
+    },
+  },
+
+  methods: {
+    openGameCover() {
+      this.$refs.gameImages.openModal();
     },
   },
 };

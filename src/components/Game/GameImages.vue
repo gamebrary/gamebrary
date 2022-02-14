@@ -6,7 +6,7 @@
       :key="index"
       cols="2"
       class="position-relative thumb"
-      @click="openModal(index + 1)"
+      @click.stop="openModal(index + 1)"
     >
       <b-img
         :src="thumbnail"
