@@ -1,40 +1,68 @@
 <template lang="html">
-  <b-container fluid class="mt-2">
-    <page-title
-      title="Search"
+  <div class="search-page p-3">
+    <b-form-input
+      v-model="searchText"
+      type="search"
+      autofocus
+      debounce="500"
+      class="mb-4"
+      :placeholder="$t('board.addGame.inputPlaceholder')"
+      @update="search"
     />
 
-    <b-form inline>
-      <label class="sr-only" for="inline-form-input-name">Name</label>
-      <b-form-input
-        v-model="text"
-        placeholder="Search"
-        type="search"
-        trim
+    <b-list-group
+      v-for="{ id } in searchResults"
+      :key="id"
+      @click="openGame(id)"
+    >
+      <game-card-search
+        :game-id="id"
+        class="mb-2"
       />
-
-      <label class="sr-only" for="inline-form-input-username">Username</label>
-      <b-input-group prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
-        <b-form-input id="inline-form-input-username" placeholder="Username"></b-form-input>
-      </b-input-group>
-
-      <!-- <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0">Remember me</b-form-checkbox> -->
-
-      <b-button variant="light">Search</b-button>
-    </b-form>
-
-    <div>
-      results here
-    </div>
-  </b-container>
+    </b-list-group>
+  </div>
 </template>
 
 <script>
+import GameCardSearch from '@/components/GameCards/GameCardSearch';
+
 export default {
+  components: {
+    GameCardSearch,
+  },
+
   data() {
     return {
-      text: '',
+      searchText: '',
+      searchResults: [],
     };
+  },
+
+  methods: {
+    openGame(gameId) {
+      // TODO: handle game detail view setting
+      // this.$store.commit('SET_GAME_MODAL_DATA', { gameId });
+      // this.$bvModal.show('game-modal');
+      this.$store.commit('SET_GAME_MODAL_DATA', { gameId });
+
+      this.$router.push({
+        name: 'game',
+        params: {
+          gameId,
+          // gameSlug: this.games[gameId].slug,
+        },
+      });
+    },
+
+    async search(searchText) {
+      if (!searchText) {
+        this.searchResults = [];
+
+        return;
+      }
+
+      this.searchResults = await this.$store.dispatch('CUSTOM_SEARCH', { searchText });
+    },
   },
 };
 </script>

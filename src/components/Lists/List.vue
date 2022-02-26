@@ -3,7 +3,7 @@
 <template lang="html">
   <div
     :class="[
-      'list rounded pr-2',
+      'list rounded pr-3',
       viewClass,
       {
         dragging,
@@ -14,7 +14,7 @@
   >
     <b-card no-body>
       <div
-        class="py-0 pr-0 pl-2 d-flex justify-content-between align-items-center"
+        class="p-1 pl-2 d-flex justify-content-between align-items-center"
       >
         <p class="list-name p-0 m-0">
           <span v-b-modal="`rename-list-${listIndex}`">

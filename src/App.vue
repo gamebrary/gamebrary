@@ -15,8 +15,12 @@
     v-shortkey="KEYBOARD_SHORTCUTS"
     @shortkey="handleShortcutAction"
   >
-    <dock v-if="user" />
-    <public-dock v-else />
+    <page-header />
+
+    <aside>
+      <dock v-if="user" />
+      <public-dock v-else />
+    </aside>
 
     <main :class="{
       'authorizing': !user,
@@ -32,6 +36,7 @@
 <script>
 import Dock from '@/components/Dock';
 import PublicDock from '@/components/PublicDock';
+import PageHeader from '@/components/PageHeader';
 import GlobalModals from '@/components/GlobalModals';
 import sessionMixin from '@/mixins/sessionMixin';
 import firebase from 'firebase/app';
@@ -46,6 +51,7 @@ export default {
   components: {
     Dock,
     PublicDock,
+    PageHeader,
     GlobalModals,
   },
 
@@ -102,6 +108,8 @@ export default {
     },
 
     init() {
+      this.$store.dispatch('LOAD_IGDB_PLATFORMS');
+
       if (this.isPublicRoute) {
         return;
       }
@@ -130,47 +138,62 @@ export default {
 </style>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  main {
-    overflow-y: auto;
-    height: calc(100vh - 54px);
-
-    &.authorizing {
-      height: 100vh;
-      width: 100%;
-      left: 0;
-    }
-
-    &.is-board {
-      height: 100vh;
-    }
-  }
-
-  .dock-left,
-  .dock-right {
+  #app {
     height: 100vh;
     display: grid;
-    grid-template-columns: 66px auto;
-    height: 100vh;
-
-    main {
-      height: 100vh;
-    }
+    grid-template-rows: 46px 1fr;
+    grid-template-columns: 65px 1fr;
   }
 
-  .dock-right {
-    grid-template-columns: auto 66px;
-
-    main {
-      grid-row: 1;
-    }
+  header {
+    grid-column: 1/-1;
   }
 
-  .dock-bottom {
-    display: flex;
-    flex-direction: column-reverse;
-
-    main {
-      justify-content: flex-end;
-    }
+  main {
+    overflow-y: auto;
+    border-radius: .5rem 0 0 0;
+    height: calc(100vh - 46px);
   }
+
+  // main {
+  //
+  //   &.authorizing {
+  //     height: 100vh;
+  //     width: 100%;
+  //     left: 0;
+  //   }
+  //
+  //   &.is-board {
+  //     height: 100vh;
+  //   }
+  // }
+  //
+  // .dock-left,
+  // .dock-right {
+  //   height: 100vh;
+  //   display: grid;
+  //   grid-template-columns: 66px auto;
+  //   height: 100vh;
+  //
+  //   main {
+  //     height: 100vh;
+  //   }
+  // }
+  //
+  // .dock-right {
+  //   grid-template-columns: auto 66px;
+  //
+  //   main {
+  //     grid-row: 1;
+  //   }
+  // }
+  //
+  // .dock-bottom {
+  //   display: flex;
+  //   flex-direction: column-reverse;
+  //
+  //   main {
+  //     justify-content: flex-end;
+  //   }
+  // }
 </style>

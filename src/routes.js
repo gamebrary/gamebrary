@@ -7,6 +7,8 @@ import ProfileSettingsPage from '@/pages/ProfileSettingsPage';
 import ExplorePage from '@/pages/ExplorePage';
 import GamePage from '@/pages/GamePage';
 import HomePage from '@/pages/HomePage';
+import PlatformsPage from '@/pages/PlatformsPage';
+import PlatformPage from '@/pages/PlatformPage';
 import NotFoundPage from '@/pages/NotFoundPage';
 import NotesPage from '@/pages/NotesPage';
 import PrivacyPolicyPage from '@/pages/PrivacyPolicyPage';
@@ -40,6 +42,19 @@ const routes = [
     meta: {
       title: 'DevTools',
     },
+  },
+  {
+    name: 'platforms',
+    path: '/platforms',
+    component: PlatformsPage,
+    meta: {
+      title: 'Platforms',
+    },
+  },
+  {
+    path: '/platforms/:slug',
+    name: 'platform-page',
+    component: PlatformPage,
   },
   {
     name: 'settings',
@@ -107,6 +122,9 @@ const routes = [
     path: '/search',
     name: 'search',
     component: SearchPage,
+    meta: {
+      title: 'Search',
+    },
   },
   {
     name: 'explore',

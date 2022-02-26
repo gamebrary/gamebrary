@@ -43,6 +43,7 @@
         :key="platform.id"
         @click="handleClick(platform.id)"
       >
+        <!-- <pre>{{ platform }}</pre> -->
         <b-img
           :src="`/static/logos/platforms/${platform.slug}.${platform.logoFormat}`"
           :alt="platform.name"

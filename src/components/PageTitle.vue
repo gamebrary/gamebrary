@@ -1,6 +1,6 @@
 <template lang="html">
   <header class="my-3 d-flex align-items-center justify-content-between">
-    <h3 class="m-0">{{ title }}</h3>
+    <h5 class="m-0">{{ title }}</h5>
 
     <b-button
       v-if="actionText"

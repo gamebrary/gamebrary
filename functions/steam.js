@@ -3,8 +3,27 @@ const axios = require('axios');
 // const BASE_URL =
 // TODO: put base url in constant
 
+exports.game = functions.https.onRequest((req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+
+  const { gameId } = req.query;
+
+  if (!gameId) res.status(400).send('Missing steam gameId');
+
+  axios({
+    url: `https://store.steampowered.com/api/appdetails?appids=${gameId}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Accept: 'application/json',
+    },
+  })
+    .then(({ data }) => res.status(200).send(data))
+    .catch(error => res.send(error));
+});
+
 exports.news = functions.https.onRequest((req, res) => {
-  res.set('Access-Control-Allow-Origin', "*")
+  res.set('Access-Control-Allow-Origin', '*');
   const { appId } = req.query;
 
   if (!appId) res.send(400);
@@ -14,15 +33,15 @@ exports.news = functions.https.onRequest((req, res) => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Accept': 'application/json',
+      Accept: 'application/json',
     },
   })
     .then(({ data }) => res.status(200).send(data))
-    .catch((error) => res.send(error));
+    .catch(error => res.send(error));
 });
 
 exports.friends = functions.https.onRequest((req, res) => {
-  res.set('Access-Control-Allow-Origin', "*")
+  res.set('Access-Control-Allow-Origin', '*');
   const { appId } = req.query;
 
   if (!appId) res.send(400);
@@ -32,15 +51,15 @@ exports.friends = functions.https.onRequest((req, res) => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Accept': 'application/json',
+      Accept: 'application/json',
     },
   })
     .then(({ data }) => res.status(200).send(data))
-    .catch((error) => res.send(error));
+    .catch(error => res.send(error));
 });
 
 exports.ownedGames = functions.https.onRequest((req, res) => {
-  res.set('Access-Control-Allow-Origin', "*")
+  res.set('Access-Control-Allow-Origin', '*');
   const { appId } = req.query;
 
   if (!appId) res.send(400);
@@ -50,15 +69,15 @@ exports.ownedGames = functions.https.onRequest((req, res) => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Accept': 'application/json',
+      Accept: 'application/json',
     },
   })
     .then(({ data }) => res.status(200).send(data))
-    .catch((error) => res.send(error));
+    .catch(error => res.send(error));
 });
 
 exports.gameList = functions.https.onRequest((req, res) => {
-  res.set('Access-Control-Allow-Origin', "*")
+  res.set('Access-Control-Allow-Origin', '*');
   const { appId } = req.query;
 
   if (!appId) res.send(400);
@@ -68,9 +87,9 @@ exports.gameList = functions.https.onRequest((req, res) => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Accept': 'application/json',
+      Accept: 'application/json',
     },
   })
     .then(({ data }) => res.status(200).send(data))
-    .catch((error) => res.send(error));
+    .catch(error => res.send(error));
 });

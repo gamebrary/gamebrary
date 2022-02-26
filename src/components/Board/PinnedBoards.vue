@@ -1,36 +1,26 @@
 <template lang="html">
   <div>
     <template v-if="pinnedBoards.length">
-      <!-- v-for="{ id, name, backgroundColor, backgroundUrl } in pinnedBoards" -->
       <b-button
-        v-for="{ id, name } in pinnedBoards"
+        v-for="{ id, name, backgroundColor, backgroundUrl } in pinnedBoards"
         :key="id"
         block
         :title="name"
-        :variant="board.name === name ? 'warning' : null"
-        :class="['mb-1 p-0 cursor-pointer pinned-board', { active: board.name === name }]"
+        :style="`
+        ${backgroundColor ? `background-color: ${backgroundColor};` : '' }
+        ${getWallpaperUrl(backgroundUrl)}
+        `"
+        :class="['mb-1 pinned-board', { active: board.name === name }]"
         @click="viewBoard(id)"
       >
-        <!-- <b-avatar
-          rounded
-          :style="`
-          ${backgroundColor ? `background-color: ${backgroundColor};` : null }
-          ${getWallpaperUrl(backgroundUrl)}
-          `"
-        >
-          <span class="board-initials text-uppercase"></span>
-        </b-avatar> -->
-        <!-- {{ backgroundColor }} -->
-        <!-- <pre>{{ backgroundUrl }}</pre> -->
-        {{ getBoardInitials(name) }}
+        <span class="board-initials text-uppercase">{{ getBoardInitials(name) }}</span>
       </b-button>
 
       <hr class="mb-2 mt-0">
     </template>
 
     <template v-if="isBoard && !board.pinned">
-      <b-avatar
-        rounded
+      <b-button
         class="active pinned-board"
         :title="board.name"
         :style="`
@@ -42,7 +32,7 @@
         <span class="board-initials text-uppercase mr-1">
           {{ getBoardInitials(board.name) }}
         </span>
-      </b-avatar>
+      </b-button>
 
       <hr class="my-1">
     </template>
@@ -72,13 +62,8 @@ export default {
 
   methods: {
     getWallpaperUrl(url) {
-      if (!url) {
-        return '';
-      }
-
-      if (url && url.includes('igdb.com')) {
-        return `background-image: url(${url});`;
-      }
+      if (!url) return '';
+      if (url && url.includes('igdb.com')) return `background-image: url(${url});`;
 
       const wallpaperObject = this.wallpapers.find(({ fullPath }) => fullPath === url);
 
@@ -88,10 +73,10 @@ export default {
     },
 
     viewBoard(id) {
-      if (this.board.id !== id) {
-        this.$router.push({ name: 'board', params: { id } });
-      } else {
+      if (this.$route.name === 'board' && this.board.id === id) {
         this.$bvModal.show('edit-board');
+      } else {
+        this.$router.push({ name: 'board', params: { id } });
       }
     },
 
@@ -113,7 +98,7 @@ export default {
     background-size: cover;
 
     &.active {
-      box-shadow: inset 0 0 0 2px black;
+      box-shadow: inset 0 0 0 2px yellow;
     }
   }
 

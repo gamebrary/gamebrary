@@ -1,19 +1,8 @@
 <template lang="html">
-  <div class="mt-2 game-page" ref="gamePage">
-    <!-- <mini-board :board="board" v-if="board" /> -->
-
-    <div class="mb-2">
-      <b-button
-        v-if="board && board.id"
-        :to="{ name: 'board', params: { id: board.id }}"
-      >
-        <i class="fas fa-arrow-left fa-fw" aria-hidden />
-        Back to {{ board.name }}
-      </b-button>
-    </div>
-
+  <div class="p-3 game-page" ref="gamePage">
+    <!-- <pre>{{ speedruns }}</pre> -->
     <b-skeleton v-if="loading" />
-    <game v-else-if="game" :game="game" />
+    <game v-else-if="game" :game="game" :gog="gog" :steam-game="steamGame" />
 
     <!-- <div class="game-backdrop" :style="`background-image: url(${backdropUrl})`" /> -->
   </div>
@@ -21,25 +10,23 @@
 
 <script>
 import Game from '@/components/Game';
-// import MiniBoard from '@/components/Board/MiniBoard';
-import { mapState } from 'vuex';
 
 export default {
   components: {
     Game,
-    // MiniBoard,
   },
 
   data() {
     return {
       game: {},
+      gog: null,
+      speedruns: null,
+      steamGame: null,
       loading: false,
     };
   },
 
   computed: {
-    ...mapState(['board', 'boards']),
-
     gameId() {
       return this.$route.params.gameId;
     },
@@ -79,6 +66,34 @@ export default {
         });
 
       this.loading = false;
+      this.loadSupplementalData();
+    },
+
+    async loadSupplementalData() {
+      // TODO: put in constants
+      const gogCategoryId = 17;
+      const steamCategoryId = 13;
+
+      const gogPage = this.game.websites.find(({ category }) => category === gogCategoryId);
+      const steamPage = this.game.websites.find(({ category }) => category === steamCategoryId);
+      // const hasGog =
+
+      [this.speedruns] = (await this.$store.dispatch('LOAD_GAME_SPEEDRUNS', this.game.name)).data;
+
+      this.gog = gogPage
+        ? await this.$store.dispatch('LOAD_GOG_GAME', this.game.name)
+        : null;
+
+      // console.log(steamPage);
+
+      // TODO: use regex or more elegant way to get id from url
+      const steamGameId = steamPage
+        ? steamPage.url.split('app/')[1].split('/')[0]
+        : null;
+
+      this.steamGame = steamGameId
+        ? await this.$store.dispatch('LOAD_STEAM_GAME', steamGameId)
+        : null;
     },
   },
 };
@@ -87,7 +102,6 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
 .game-page {
   z-index: 1;
-  // position: fixed;
 }
 
 .game-backdrop {

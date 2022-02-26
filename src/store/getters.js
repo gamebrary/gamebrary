@@ -1,5 +1,5 @@
-// import { PLATFORM_FILTER_FIELDS } from '@/constants';
 import { AGE_RATING_SYSTEMS } from '@/constants';
+import { PLATFORM_CATEGORIES, EXCLUDED_PLATFORMS, PLATFORM_OVERRIDES } from '@/constants/platforms';
 import orderby from 'lodash.orderby';
 
 export default {
@@ -42,6 +42,22 @@ export default {
     });
 
     return formattedPlatforms;
+  },
+
+  platforms: (state) => {
+    const platforms = state.platforms
+      .filter(({ id }) => !EXCLUDED_PLATFORMS.includes(id))
+      .map(platform => ({
+        // ...platform,
+        id: platform.id,
+        generation: platform.generation,
+        name: platform.name,
+        slug: platform.slug,
+        category: PLATFORM_CATEGORIES[platform.category],
+        ...PLATFORM_OVERRIDES[platform.id],
+      }));
+
+    return platforms;
   },
 
   gameAgeRatings: () => (game) => {

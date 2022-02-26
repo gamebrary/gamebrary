@@ -18,7 +18,7 @@ admin.initializeApp({
 exports.steam = require('./steam');
 
 exports.customSearch = functions.https.onRequest((req, res) => {
-  res.set('Access-Control-Allow-Origin', "*");
+  res.set('Access-Control-Allow-Origin', '*');
 
   if (!req.query.token) {
     return res.status(400).json({ error: 'missing searchText or token' });
@@ -53,13 +53,13 @@ exports.customSearch = functions.https.onRequest((req, res) => {
     ${limit}
     ${query}`;
 
-  axios({
+  return axios({
     url: 'https://api.igdb.com/v4/games',
     method: 'POST',
     headers: {
-      'Accept': 'application/json',
+      Accept: 'application/json',
       'Client-ID': functions.config().twitch.clientid,
-      'Authorization': `Bearer ${req.query.token}`,
+      Authorization: `Bearer ${req.query.token}`,
     },
     data,
   })
@@ -308,4 +308,23 @@ exports.email = functions.https.onRequest((req, res) => {
   })
     .then(({ data }) => { res.status(200).send(data) })
     .catch((error) => { res.send(error) });
+});
+
+// https://gogapidocs.readthedocs.io/en/latest/listing.html
+exports.gog = functions.https.onRequest((req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+
+  const { search } = req.query;
+  if (!search) return res.status(400).send('Missing search param');
+
+  axios({
+    url: `https://embed.gog.com/games/ajax/filtered?mediaType=game&search=${search}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Accept: 'application/json',
+    },
+  })
+    .then(({ data }) => res.status(200).send(data))
+    .catch(error => res.send(error));
 });

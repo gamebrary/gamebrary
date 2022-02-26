@@ -1,6 +1,6 @@
 <template lang="html">
   <section class="d-flex align-items-end">
-    <pre class="bg-white text-dark ml-4 position-fixed text-small">{{ gameAgeRatings }}</pre>
+    <!-- <pre class="bg-white text-dark ml-4 position-fixed text-small">{{ gameAgeRatings }}</pre> -->
     <!-- <pre class="bg-white text-dark ml-4 position-fixed text-small">{{ game.age_ratings }}</pre> -->
     <!-- TODO: add CERO images -->
     <!-- TODO: add USK images -->
@@ -8,7 +8,7 @@
     <!-- TODO: add CLASS_IND images -->
     <!-- TODO: add ACB images -->
     <!-- TODO: hook up settings -->
-    <img
+    <!-- <img
       v-for="rating in gameAgeRatings"
       :src="`/static/img/age-ratings/${rating.rating}`"
       :alt="rating.name"
@@ -16,7 +16,7 @@
       v-b-tooltip.hover
       :title="rating.name"
       class="ml-2 rating"
-    />
+    /> -->
 
     <!-- <pre class="text-dark">
       {{ ratings }}

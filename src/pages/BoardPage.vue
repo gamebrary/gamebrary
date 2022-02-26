@@ -2,10 +2,7 @@
 
 <template lang="html">
   <div
-    :class="[
-      'board p-3',
-      { dragging, empty },
-    ]"
+    :class="['board p-3', { dragging, empty }]"
     :style="boardStyles"
   >
     <boards-dropdown />
@@ -258,7 +255,7 @@ export default {
   background-size: cover;
   align-items: flex-start;
   height: 100%;
-  width: 100%;
+  width: calc(100vw - 66px);
   box-sizing: border-box;
   overflow-x: auto;
   overflow-x: overlay;

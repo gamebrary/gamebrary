@@ -8,6 +8,15 @@ const API_BASE = 'https://us-central1-gamebrary-8c736.cloudfunctions.net';
 // const API_BASE = 'http://localhost:5001/gamebrary-8c736/us-central1';
 
 export default {
+  LOAD_GAME_SPEEDRUNS(context, gameName) {
+    return new Promise((resolve, reject) => {
+      axios.get(`https://www.speedrun.com/api/v1/games?name=${gameName}`)
+        .then(({ data }) => {
+          resolve(data);
+        }).catch(reject);
+    });
+  },
+
   LOAD_IGDB_PLATFORMS({ state, commit }) {
     return new Promise((resolve, reject) => {
       axios.get(`${API_BASE}/platforms?token=${state.twitchToken.access_token}`)
@@ -52,6 +61,24 @@ export default {
             : null;
 
           resolve(gameNews);
+        }).catch(reject);
+    });
+  },
+
+  LOAD_STEAM_GAME(context, steamGameId) {
+    return new Promise((resolve, reject) => {
+      // axios.get(`${API_BASE}/steam-game?gameId=${steamGameId}`)
+      axios.get(`http://localhost:5001/gamebrary-8c736/us-central1/steam-game?gameId=${steamGameId}`)
+        .then(({ data }) => {
+          const steamGameData = data[steamGameId];
+
+          const gameData = steamGameData.success
+            ? steamGameData.data
+            : null;
+
+          console.log(gameData);
+
+          resolve(gameData);
         }).catch(reject);
     });
   },
@@ -445,6 +472,19 @@ export default {
         .then(({ data }) => {
           commit('CACHE_GAME_DATA', data);
           resolve();
+        }).catch(reject);
+    });
+  },
+
+  LOAD_GOG_GAME(context, search) {
+    return new Promise((resolve, reject) => {
+      axios.get(`http://localhost:5001/gamebrary-8c736/us-central1/gog?search=${search}`)
+        .then(({ data }) => {
+          const game = data.totalGamesFound
+            ? data.products[0]
+            : null;
+
+          resolve(game);
         }).catch(reject);
     });
   },

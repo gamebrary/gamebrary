@@ -1,9 +1,8 @@
 <template lang="html">
   <b-dropdown
     right
-    size="sm"
     variant="transparent"
-    toggle-class="m-1"
+    toggle-class="m-0"
   >
     <template v-slot:button-content>
       <i class="fas fa-ellipsis-h fa-fw" aria-hidden />

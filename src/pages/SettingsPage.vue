@@ -1,7 +1,5 @@
 <template lang="html">
   <b-container fluid>
-    <page-title title="Settings" />
-
     <b-row no-gutters>
       <b-col cols="2">
         <b-list-group>

@@ -22,6 +22,7 @@
           Read more
         </b-button>
 
+
         <!-- <template v-if="!trimmedDescription">
           <div
             v-html="gameDescription"
@@ -68,6 +69,7 @@ import { mapGetters } from 'vuex';
 export default {
   props: {
     game: Object,
+    steamGame: Object,
   },
 
   data() {
@@ -87,6 +89,10 @@ export default {
     },
 
     gameDescription() {
+      const steamDescription = this.steamGame && this.steamGame.short_description
+        ? this.steamGame.short_description
+        : null;
+
       const wikipediaDescription = this.wikipediaArticle && this.wikipediaArticle.extract
         ? this.wikipediaArticle.extract
         : null;
@@ -95,8 +101,7 @@ export default {
         ? this.game.summary
         : null;
 
-      // Default to wikipedia, fall back to igdb
-      return wikipediaDescription || igdbDescription;
+      return steamDescription || wikipediaDescription || igdbDescription;
     },
 
     trimmedDescription() {
@@ -106,6 +111,10 @@ export default {
     },
 
     source() {
+      if (this.steamGame && this.steamGame.short_description) {
+        return 'Steam';
+      }
+
       return this.wikipediaArticle && this.wikipediaArticle.extract
         ? 'Wikipedia'
         : 'IGDB';

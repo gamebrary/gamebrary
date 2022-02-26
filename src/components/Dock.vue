@@ -1,38 +1,28 @@
 <template lang="html">
-  <nav class="d-flex flex-column text-center dock p-2">
-    <b-button
-      title="Dashboard"
-      class="mb-2"
-      @click="handleLogoClick"
-    >
-      <!-- <img
-        src="/static/gamebrary-logo-dark.png"
-        width="32"
-      /> -->
-      <i class="fas fa-home" />
-      <!-- TODO: move back button to here when viewing a game that's part of a board -->
-    </b-button>
-
+  <nav class="d-flex flex-column text-center dock px-2">
+    <home-button class="mb-2 d-block d-sm-none" />
     <pinned-boards />
     <user-menu />
 
-    <b-button :to="{ name: 'settings' }" class="mb-2">
+    <b-button :to="{ name: 'settings' }" class="d-block d-sm-none mb-2">
       <i class="fas fa-cog" />
     </b-button>
 
-    <global-search />
+    <global-search class="d-block d-sm-none" />
   </nav>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
 import PinnedBoards from '@/components/Board/PinnedBoards';
+import HomeButton from '@/components/Shared/HomeButton';
 import GlobalSearch from '@/components/GlobalSearch';
 import UserMenu from '@/components/UserMenu';
 
 export default {
   components: {
     PinnedBoards,
+    HomeButton,
     GlobalSearch,
     UserMenu,
   },
@@ -55,20 +45,6 @@ export default {
   },
 
   methods: {
-    handleLogoClick() {
-      if (!this.user) {
-        if (this.$route.name === 'public-boards') {
-          this.$bvModal.show('authModal');
-        } else {
-          this.$router.push({ name: 'public-boards' });
-        }
-      }
-
-      if (this.user && this.$route.name !== 'home') {
-        this.$router.push({ name: 'home' });
-      }
-    },
-
     // async pinBoard() {
     //   const payload = {
     //     ...this.board,
