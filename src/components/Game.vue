@@ -33,7 +33,11 @@
       <!-- <pre>{{ game.genres.map(({ id }) => id) }}</pre> -->
       <!-- TODO: add bundles to game detail? -->
       <!-- {{ game.bundles ? `Found in ${game.bundles.length} compilations.` : null }} -->
-      <timeline id="hellogames" sourceType="profile">
+      <timeline
+        v-if="twitterHandle"
+        :id="twitterHandle"
+        sourceType="profile"
+      >
         loading...
       </timeline>
 
@@ -152,6 +156,21 @@ export default {
   computed: {
     ...mapGetters(['activeGameCoverUrl']),
     ...mapState(['progresses', 'tags']),
+
+    twitterHandle() {
+      // TODO: put in constant
+      const twitterCategory = 5;
+
+      // TODO: use optional chaining
+      const twitterUrl = this.game && this.game.websites
+        ? this.game.websites.find(({ category }) => category === twitterCategory)
+        : '';
+
+      // TODO: use optional chaining
+      return twitterUrl && twitterUrl.url
+        ? twitterUrl.url.split('twitter.com/')[1]
+        : null;
+    },
 
     gameCoverUrl() {
       const imageId = this.game && this.game.cover && this.game.cover.image_id;

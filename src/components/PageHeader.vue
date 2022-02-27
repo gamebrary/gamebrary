@@ -77,6 +77,7 @@ export default {
     overflow-y: hidden;
     height: 46px;
     grid-template-columns: 65px 1fr;
+    // background-color: #1c1c27;
   }
 
   .toolbar {

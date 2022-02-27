@@ -67,7 +67,9 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
 .dock {
   // background: rgba(0, 0, 0, 0.5);
+  // background-color: #1c1c27;
   z-index: 1;
   max-height: 100vh;
+  height: calc(100vh -45px);
 }
 </style>
