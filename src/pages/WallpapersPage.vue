@@ -82,7 +82,6 @@ export default {
       file: null,
       saving: false,
       loading: false,
-      isPaid: true,
       maxSpace: '67108864', // 64mb storage limit
       wallpaperUrls: [],
     };

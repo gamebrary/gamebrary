@@ -48,9 +48,32 @@
             Profiles
           </b-list-group-item>
 
-          <a href="#">Keyboard shortcuts</a>
-          <a href="#">Releases</a>
+          <router-link to="dev-tools">Dev tools</router-link>
+          <router-link to="releases">Releases</router-link>
+          <a
+            href="https://github.com/romancm/gamebrary"
+            target="_blank"
+          >
+            <i class="fab fa-github"></i>
+          </a>
+
+          <a v-b-modal.keyboard-shortcuts>Keyboard shortcuts</a>
+
+          {{ $t('global.donateMessage') }}
+          <a href="https://www.paypal.me/RomanCervantes/5" target="_blank">
+            {{ $t('global.donating') }}
+          </a>
+
+          <a href="https://github.com/romancm/gamebrary/issues" target="_blank">
+            {{ $t('global.reportBugs') }}
+          </a>
+
+          <a href="https://goo.gl/forms/r0juBCsZaUtJ03qb2" target="_blank">
+            {{ $t('global.submitFeedback') }}
+          </a>
         </b-list-group>
+
+        <small>&copy; 2021 Gamebrary</small>
       </b-col>
 
       <b-col>

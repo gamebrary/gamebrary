@@ -2,7 +2,6 @@
   <nav class="d-flex flex-column text-center dock px-2">
     <home-button class="mb-2 d-block d-sm-none" />
     <pinned-boards />
-    <user-menu />
 
     <b-button :to="{ name: 'settings' }" class="d-block d-sm-none mb-2">
       <i class="fas fa-cog" />
@@ -17,14 +16,12 @@ import { mapState, mapGetters } from 'vuex';
 import PinnedBoards from '@/components/Board/PinnedBoards';
 import HomeButton from '@/components/Shared/HomeButton';
 import GlobalSearch from '@/components/GlobalSearch';
-import UserMenu from '@/components/UserMenu';
 
 export default {
   components: {
     PinnedBoards,
     HomeButton,
     GlobalSearch,
-    UserMenu,
   },
 
   computed: {

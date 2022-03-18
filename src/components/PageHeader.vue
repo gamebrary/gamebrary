@@ -28,7 +28,6 @@
 
         <b-button
           :to="{ name: 'search' }"
-          size="sm"
         >
           <i class="fas fa-search fa-fw" aria-hidden />
         </b-button>
@@ -36,10 +35,16 @@
         <b-button
           :to="{ name: 'settings' }"
           class="ml-1"
-          size="sm"
         >
           <i class="fas fa-cog fa-fw" />
         </b-button>
+
+        <b-avatar
+          size="38"
+          class="ml-2"
+          rounded
+          :src="user && user.photoURL ? user.photoURL : null"
+        />
       </div>
     </div>
   </header>
@@ -57,7 +62,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['board', 'boards']),
+    ...mapState(['board', 'boards', 'user']),
 
     showBackButton() {
       return this.$route.name === 'game' && this.board && this.board.id;
