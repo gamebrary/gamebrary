@@ -63,16 +63,16 @@ exports.customSearch = functions.https.onRequest((req, res) => {
     },
     data,
   })
-    .then(({ data }) => res.status(200).send(data))
-    .catch((error) => res.status(400).send(error));
+    .then(({ data: response }) => res.status(200).send(response))
+    .catch(error => res.status(400).send(error));
 });
 
 exports.search = functions.https.onRequest((req, res) => {
-  res.set('Access-Control-Allow-Origin', "*")
+  res.set('Access-Control-Allow-Origin', '*')
 
   const { search, platform, token } = req.query;
 
-  const missingFields = [search, token].filter((field) => !field).length > 0;
+  const missingFields = [search, token].filter(field => !field).length > 0;
 
   if (missingFields) {
     return res.status(400).json({ error: 'missing required params (search OR platform OR token)' });
@@ -83,7 +83,7 @@ exports.search = functions.https.onRequest((req, res) => {
     fields id,name,slug,rating,release_dates.*,name,cover.image_id;
     limit 50;
     ${platform ? `where platforms = (${platform});` : ''}
-  `
+  `;
 
   axios({
     url: 'https://api.igdb.com/v4/games',
