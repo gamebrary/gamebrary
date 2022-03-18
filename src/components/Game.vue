@@ -126,11 +126,11 @@ import GameWebsites from '@/components/Game/GameWebsites';
 import GameImages from '@/components/Game/GameImages';
 import GameVideos from '@/components/Game/GameVideos';
 import { mapGetters, mapState } from 'vuex';
-import { Timeline } from 'vue-tweet-embed'
+// import { Timeline } from 'vue-tweet-embed'
 
 export default {
   components: {
-    Timeline,
+    // Timeline,
     GameDescription,
     GameDetails,
     GamePlatforms,

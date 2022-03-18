@@ -76,7 +76,7 @@ export default {
             ? steamGameData.data
             : null;
 
-          console.log(gameData);
+          // console.log(gameData);
 
           resolve(gameData);
         }).catch(reject);

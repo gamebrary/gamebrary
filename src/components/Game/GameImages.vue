@@ -183,7 +183,6 @@ export default {
     },
 
     openModal(index = 0) {
-      console.log('open');
       this.activeIndex = index;
 
       this.$bvModal.show('game-images');
