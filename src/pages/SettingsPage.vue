@@ -9,33 +9,43 @@
           </b-list-group-item>
 
           <b-list-group-item :to="{ name: 'wallpapers-settings' }">
-            <i class="fas fa-sliders-h fa-fw" aria-hidden />
+            <i class="fa-solid fa-images fa-fw" aria-hidden />
             Wallpapers
           </b-list-group-item>
 
           <b-list-group-item :to="{ name: 'profile-settings' }">
-            <i class="fas fa-sliders-h fa-fw" aria-hidden />
+            <i class="fa-solid fa-user fa-fw" aria-hidden />
             Profile
           </b-list-group-item>
 
           <b-list-group-item :to="{ name: 'notes-settings' }">
-            <i class="fas fa-sliders-h fa-fw" aria-hidden />
+            <i class="fa-solid fa-note-sticky fa-fw" aria-hidden />
             Notes
           </b-list-group-item>
 
           <b-list-group-item :to="{ name: 'tags-settings' }">
-            <i class="fas fa-sliders-h fa-fw" aria-hidden />
+            <i class="fa-solid fa-tags fa-fw" aria-hidden />
             Tags
           </b-list-group-item>
 
           <b-list-group-item :to="{ name: 'account-settings' }">
-            <i class="fas fa-sliders-h fa-fw" aria-hidden />
+            <i class="fa-solid fa-user-shield fa-fw" aria-hidden />
             Account
           </b-list-group-item>
 
           <b-list-group-item :to="{ name: 'steam-settings' }">
             <i class="fab fa-steam fa-fw" aria-hidden></i>
             Steam
+          </b-list-group-item>
+
+          <b-list-group-item :to="{ name: 'releases' }">
+            <i class="fas fa-rocket fa-fw" aria-hidden></i>
+            Releases
+          </b-list-group-item>
+
+          <b-list-group-item :to="{ name: 'profiles' }">
+            <i class="fa-solid fa-people-group fa-fw" aria-hidden />
+            Profiles
           </b-list-group-item>
 
           <a href="#">Keyboard shortcuts</a>
