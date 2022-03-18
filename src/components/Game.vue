@@ -33,13 +33,13 @@
       <!-- <pre>{{ game.genres.map(({ id }) => id) }}</pre> -->
       <!-- TODO: add bundles to game detail? -->
       <!-- {{ game.bundles ? `Found in ${game.bundles.length} compilations.` : null }} -->
-      <timeline
+      <!-- <timeline
         v-if="twitterHandle"
         :id="twitterHandle"
         sourceType="profile"
       >
         loading...
-      </timeline>
+      </timeline> -->
 
     </aside>
 
@@ -205,7 +205,7 @@ export default {
 .game {
   width: calc(100% - .5rem);
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 360px 2fr;
   grid-gap: 1rem;
 
   @media(max-width: 1280px) {
