@@ -27,7 +27,7 @@
         ${board.backgroundColor ? ` background-color: ${board.backgroundColor};` : null }
         ${getWallpaperUrl(board.backgroundUrl) }
         `"
-        @click.native="$bvModal.show('edit-board')"
+        @click="$bvModal.show('edit-board')"
       >
         <span class="board-initials text-uppercase mr-1">
           {{ getBoardInitials(board.name) }}

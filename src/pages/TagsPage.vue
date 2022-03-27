@@ -1,6 +1,6 @@
 <!-- TODO: break this up into components -->
 <template lang="html">
-  <b-container fluid>
+  <div>
     <empty-state
       v-if="showEmptyState"
       :title="$t('tags.title')"
@@ -180,7 +180,7 @@
         </b-alert>
       </form>
     </b-modal>
-  </b-container>
+  </div>
 </template>
 
 <script>

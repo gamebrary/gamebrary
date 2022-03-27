@@ -1,7 +1,7 @@
 <template lang="html">
-  <b-container fluid>
+  <b-container fluid class="p-2">
     <b-row no-gutters>
-      <b-col cols="2">
+      <b-col cols="3">
         <b-list-group>
           <b-list-group-item :to="{ name: 'general-settings' }">
             <i class="fas fa-sliders-h fa-fw" aria-hidden />
@@ -76,7 +76,7 @@
         <small>&copy; 2021 Gamebrary</small>
       </b-col>
 
-      <b-col>
+      <b-col cols="9">
         <router-view />
       </b-col>
     </b-row>

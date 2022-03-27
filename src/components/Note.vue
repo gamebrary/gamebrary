@@ -1,7 +1,7 @@
 <template lang="html">
   <div>
-    <strong v-if="gameName">
-      {{ gameName }} ({{ note.length }})
+    <strong v-if="note.gameName">
+      {{ note.gameName }} ({{ note.note.length }})
     </strong>
 
     <vue-markdown :source="note.note" />

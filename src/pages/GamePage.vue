@@ -1,6 +1,6 @@
 <template lang="html">
-  <div class="p-3 game-page" ref="gamePage">
-    <pre>{{ steamGame }}</pre>
+  <div class="p-2 game-page" ref="gamePage">
+    <!-- <pre>{{ steamGame }}</pre> -->
     <!-- <pre>{{ speedruns }}</pre> -->
     <b-skeleton v-if="loading" />
     <game v-else-if="game" :game="game" :gog="gog" :steam-game="steamGame" />

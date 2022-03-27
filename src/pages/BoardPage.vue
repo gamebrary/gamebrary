@@ -2,7 +2,7 @@
 
 <template lang="html">
   <div
-    :class="['board p-3', { dragging, empty }]"
+    :class="['board p-3 pr-5', { dragging, empty }]"
     :style="boardStyles"
   >
     <boards-dropdown />
@@ -131,10 +131,8 @@ export default {
   },
 
   watch: {
-    boardId(value) {
-      if (value) {
-        this.load();
-      }
+    boardId(boardId) {
+      if (boardId) this.load();
     },
   },
 
@@ -161,6 +159,8 @@ export default {
 
   methods: {
     load() {
+      this.backgroundUrl = null;
+
       if (this.boardId && this.user) {
         this.loadBoard(this.boardId);
       } else {

@@ -81,7 +81,7 @@ const routes = [
       },
       {
         name: 'tags-settings',
-        path: '/tags',
+        path: 'tags',
         component: TagsPage,
         meta: {
           title: 'Tags',
@@ -97,7 +97,7 @@ const routes = [
       },
       {
         name: 'notes-settings',
-        path: '/notes',
+        path: 'notes',
         component: NotesPage,
         meta: {
           title: 'Tags',
@@ -105,7 +105,7 @@ const routes = [
       },
       {
         name: 'wallpapers-settings',
-        path: '/wallpapers',
+        path: 'wallpapers',
         component: WallpapersPage,
         meta: {
           title: 'Wallpapers',

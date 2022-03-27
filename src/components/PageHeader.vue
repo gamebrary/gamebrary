@@ -3,30 +3,32 @@
     <home-button />
 
     <div class="toolbar pl-3">
-      <template v-if="$route.meta.title">
-        {{ $route.meta.title }}
-      </template>
-
-      <portal-target v-else name="pageTitle" />
-
       <b-button
         v-if="showBackButton"
-        size="sm"
+        variant="outline-light"
+        :title="`Back to ${board.name}`"
         :to="{ name: 'board', params: { id: board.id }}"
       >
         <i class="fas fa-arrow-left fa-fw" aria-hidden />
-        Back to {{ board.name }}
       </b-button>
 
-      <template v-if="showBoardName">
-        {{ board.name }}
-      </template>
+      <span class="text-light" v-if="$route.meta.title">
+        {{ $route.meta.title }}
+      </span>
 
+      <portal-target v-else name="pageTitle" />
+
+      <span class="text-light" v-if="showBoardName">
+        {{ board.name }}
+      </span>
 
       <div class="global-actions">
         <portal-target name="headerActions" />
 
+        <search-box class="d-none d-md-block" />
+
         <b-button
+          class="d-block d-md-none"
           :to="{ name: 'search' }"
         >
           <i class="fas fa-search fa-fw" aria-hidden />
@@ -41,7 +43,7 @@
 
         <b-avatar
           size="38"
-          class="ml-2"
+          class="ml-1"
           rounded
           :src="user && user.photoURL ? user.photoURL : null"
         />
@@ -52,12 +54,15 @@
 
 <script>
 import GlobalSearch from '@/components/GlobalSearch';
+import SearchBox from '@/components/SearchBox';
 import HomeButton from '@/components/Shared/HomeButton';
+
 import { mapState } from 'vuex';
 
 export default {
   components: {
     GlobalSearch,
+    SearchBox,
     HomeButton,
   },
 

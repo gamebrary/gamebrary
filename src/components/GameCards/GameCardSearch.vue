@@ -1,10 +1,24 @@
 <template lang="html">
+  <!-- no-body -->
   <b-card
-    no-body
+    :title="game.name"
+    title-tag="span"
+    body-class="p-2"
+    :img-src="coverUrl"
     class="game-card"
-    @click="addGame"
   >
-    <b-row no-gutters v-if="game && game.name">
+  <!-- <b-card
+
+
+    img-alt="Image"
+    img-top
+  >
+    <b-card-text>
+      This is a wider card with supporting text below as a natural lead-in to additional content.
+      This content is a little bit longer.
+    </b-card-text>
+  </b-card> -->
+    <!-- <b-row no-gutters v-if="game && game.name">
       <b-col cols="2">
         <b-card-img
           :src="coverUrl"
@@ -19,7 +33,7 @@
           </b-card-title>
         </b-card-body>
       </b-col>
-    </b-row>
+    </b-row> -->
   </b-card>
 </template>
 

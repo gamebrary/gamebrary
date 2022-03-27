@@ -9,15 +9,15 @@
     <b-card
       v-for="wallpaper in wallpapers"
       :key="wallpaper.name"
-      class="mb-3"
-      body-class="wallpaper-card"
+      class="mb-2"
+      body-class="wallpaper-card p-2"
     >
       <b-img
         :src="wallpaper.url"
         :alt="wallpaper.name"
         width="180"
         rounded
-        class="mr-3 cursor-pointer"
+        class="mr-2 cursor-pointer"
         @click="openPreview(wallpaper)"
       />
 
@@ -129,7 +129,6 @@ export default {
   .wallpaper-card {
     display: grid;
     grid-template-columns: 200px auto;
-    margin-bottom: 1rem;
   }
 </style>
 

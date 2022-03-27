@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container fluid>
+  <b-container fluid class="p-2">
     <portal to="header">
       <page-title
         title="Boards"

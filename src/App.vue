@@ -10,7 +10,7 @@
   <div
     id="app"
     :dir="dir"
-    :class="`dock-${dockPosition}`"
+    :class="`dock-${dockPosition} bg-dark`"
     v-shortkey="KEYBOARD_SHORTCUTS"
     @shortkey="handleShortcutAction"
   >
@@ -19,10 +19,10 @@
     <dock v-if="user" />
     <public-dock v-else />
 
-    <main :class="{
+    <main :class="[{
       'authorizing': !user,
       'is-board': isBoard,
-      }"
+      }, 'bg-light']"
     >
       <global-modals />
       <router-view />
@@ -172,9 +172,6 @@ export default {
   //   grid-template-columns: 66px auto;
   //   height: 100vh;
   //
-  //   main {
-  //     height: 100vh;
-  //   }
   // }
   //
   // .dock-right {

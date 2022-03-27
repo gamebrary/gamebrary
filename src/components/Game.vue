@@ -46,7 +46,6 @@
     <article>
       <portal to="pageTitle">{{ game.name }}</portal>
 
-
       <h3 class="mb-2">
         {{ game.name }}
         <b-badge variant="success" v-if="steamGame && steamGame.metacritic">{{ steamGame.metacritic.score }}</b-badge>
@@ -217,6 +216,7 @@ export default {
   }
 
   @media(max-width: 768px) {
+    width: 100%;
     grid-template-columns: 100%;
   }
 }
