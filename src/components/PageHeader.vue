@@ -2,7 +2,7 @@
   <header class="p-2 d-flex">
     <home-button />
 
-    <div class="toolbar pl-3">
+    <div class="toolbar text-light pl-3">
       <b-button
         v-if="showBackButton"
         variant="outline-light"
@@ -12,13 +12,13 @@
         <i class="fas fa-arrow-left fa-fw" aria-hidden />
       </b-button>
 
-      <span class="text-light" v-if="$route.meta.title">
+      <span v-if="$route.meta.title">
         {{ $route.meta.title }}
       </span>
 
       <portal-target v-else name="pageTitle" />
 
-      <span class="text-light" v-if="showBoardName">
+      <span v-if="showBoardName">
         {{ board.name }}
       </span>
 

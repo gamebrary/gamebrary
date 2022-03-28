@@ -10,7 +10,7 @@
   <div
     id="app"
     :dir="dir"
-    :class="`dock-${dockPosition} bg-dark`"
+    :class="`dock-${dockPosition}`"
     v-shortkey="KEYBOARD_SHORTCUTS"
     @shortkey="handleShortcutAction"
   >
@@ -136,6 +136,7 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
   #app {
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,212,255,1) 100%);
     height: 100vh;
     display: grid;
     grid-template-rows: 46px 1fr;

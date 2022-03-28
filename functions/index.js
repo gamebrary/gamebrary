@@ -232,19 +232,21 @@ exports.game = functions.https.onRequest((req, res) => {
   screenshots.image_id,
   similar_games,
   summary,
+  slug,
   videos.video_id,
   websites.category,
   websites.url;
 
-  where id = ${ gameId };`;
+  where id = ${gameId};`;
+  // TODO: deploy
 
   axios({
     url: 'https://api.igdb.com/v4/games',
     method: 'POST',
     headers: {
-      'Accept': 'application/json',
+      Accept: 'application/json',
       'Client-ID': functions.config().twitch.clientid,
-      'Authorization': `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
     data,
   })

@@ -122,6 +122,10 @@ export default {
     state.activeGame = activeGame;
   },
 
+  SET_GAME(state, game) {
+    state.game = game;
+  },
+
   CLEAR_GAME_MODAL_DATA(state) {
     state.activeGame = null;
   },

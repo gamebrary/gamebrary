@@ -143,10 +143,11 @@ export default {
   },
 
   props: {
-    game: {
-      type: Object,
-      required: true,
-    },
+    // TODO: replace with game from state
+    // game: {
+    //   type: Object,
+    //   required: true,
+    // },
     gog: Object,
     steamGame: Object,
     loading: Boolean,
@@ -154,7 +155,7 @@ export default {
 
   computed: {
     ...mapGetters(['activeGameCoverUrl']),
-    ...mapState(['progresses', 'tags']),
+    ...mapState(['game', 'progresses', 'tags']),
 
     twitterHandle() {
       // TODO: put in constant
@@ -194,7 +195,13 @@ export default {
 
   methods: {
     openGameCover() {
-      this.$refs.gameImages.openModal();
+      this.$router.push({
+        name: 'game-media-page',
+        params: {
+          gameId: this.game.id,
+          gameSlug: this.game.slug,
+        },
+      });
     },
   },
 };

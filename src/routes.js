@@ -6,6 +6,7 @@ import DevToolsPage from '@/pages/DevToolsPage';
 import ProfileSettingsPage from '@/pages/ProfileSettingsPage';
 import ExplorePage from '@/pages/ExplorePage';
 import GamePage from '@/pages/GamePage';
+import GameMediaPage from '@/pages/game/GameMediaPage';
 import HomePage from '@/pages/HomePage';
 import PlatformsPage from '@/pages/PlatformsPage';
 import PlatformPage from '@/pages/PlatformPage';
@@ -117,6 +118,11 @@ const routes = [
     name: 'game',
     path: '/game/:gameId/:gameSlug?',
     component: GamePage,
+  },
+  {
+    name: 'game-media-page',
+    path: '/game/:gameId/:gameSlug/media',
+    component: GameMediaPage,
   },
   {
     path: '/search',

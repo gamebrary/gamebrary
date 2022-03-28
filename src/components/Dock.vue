@@ -65,6 +65,7 @@ export default {
 .dock {
   // background: rgba(0, 0, 0, 0.5);
   // background-color: #1c1c27;
+  background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(0,212,255,1) 100%);
   z-index: 1;
   max-height: 100vh;
   height: calc(100vh -45px);

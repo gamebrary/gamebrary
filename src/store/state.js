@@ -13,6 +13,7 @@ export default {
   boards: [],
   publicBoards: [],
   board: {},
+  game: {},
   boardGames: [],
   activeGame: {
     gameId: null,

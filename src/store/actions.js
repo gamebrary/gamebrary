@@ -808,11 +808,13 @@ export default {
     });
   },
 
-  LOAD_GAME({ state }, gameId) {
+  LOAD_GAME({ state, commit }, gameId) {
     return new Promise((resolve, reject) => {
       axios.get(`${API_BASE}/game?gameId=${gameId}&token=${state.twitchToken.access_token}`)
         .then(({ data }) => {
           const [game] = data;
+
+          commit('SET_GAME', game);
 
           resolve(game);
         }).catch(reject);

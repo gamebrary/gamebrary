@@ -84,7 +84,7 @@
           block
           v-if="isEmpty"
           class="mb-2"
-          variant="secondary"
+          variant="light"
           v-b-modal="`game-modal-${list.name}`"
         >
           {{ $t('board.list.emptyListButton') }}
