@@ -60,6 +60,7 @@
           v-for="releaseDate in timeline"
         >
           {{ releaseDate.platform }}
+          <pre>{{ releaseDate.date }}</pre>
         </li>
       </ul>
     </b-alert>

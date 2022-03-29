@@ -10,7 +10,10 @@
       />
 
       <b-input-group-append>
-        <b-button @click="search">
+        <b-button
+          variant="light"
+          @click="search"
+        >
           <i class="fa-solid fa-magnifying-glass" />
           Search
         </b-button>

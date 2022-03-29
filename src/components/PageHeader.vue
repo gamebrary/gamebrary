@@ -25,6 +25,11 @@
       <div class="global-actions">
         <portal-target name="headerActions" />
 
+        <b-button class="mr-2" variant="success">
+          <i class="fa-solid fa-crown" />
+          Upgrade
+        </b-button>
+
         <search-box class="d-none d-md-block" />
 
         <b-button
@@ -36,17 +41,11 @@
 
         <b-button
           :to="{ name: 'settings' }"
+          variant="transparent"
           class="ml-1"
         >
           <i class="fas fa-cog fa-fw" />
         </b-button>
-
-        <b-avatar
-          size="38"
-          class="ml-1"
-          rounded
-          :src="user && user.photoURL ? user.photoURL : null"
-        />
       </div>
     </div>
   </header>
@@ -67,7 +66,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['board', 'boards', 'user']),
+    ...mapState(['board', 'boards']),
 
     showBackButton() {
       return this.$route.name === 'game' && this.board && this.board.id;

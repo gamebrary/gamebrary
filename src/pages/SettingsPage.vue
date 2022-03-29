@@ -1,5 +1,17 @@
 <template lang="html">
   <b-container fluid class="p-2">
+    <div>
+      <b-avatar
+        size="38"
+        class="ml-1"
+        rounded
+        :src="user && user.photoURL ? user.photoURL : null"
+      />
+
+      <pre>{{ user }}</pre>
+
+    </div>
+
     <b-row no-gutters>
       <b-col cols="3">
         <b-list-group>
@@ -88,6 +100,7 @@ import ProfileSettingsPage from '@/pages/ProfileSettingsPage';
 import AccountSettingsPage from '@/pages/AccountSettingsPage';
 import SteamSettingsPage from '@/pages/SteamSettingsPage';
 import GeneralSettingsPage from '@/pages/GeneralSettingsPage';
+import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -95,6 +108,10 @@ export default {
     AccountSettingsPage,
     SteamSettingsPage,
     GeneralSettingsPage,
+  },
+
+  computed: {
+    ...mapState(['user']),
   },
 };
 </script>
