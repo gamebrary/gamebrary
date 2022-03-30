@@ -1,18 +1,27 @@
 <template lang="html">
-  <div class="games" v-if="similarGames.length">
-    <!-- <pre>{{ similarGameIds }}</pre> -->
-    <!-- TODO: limit to fewer games, increase game cover, add modal to view all -->
-    <!-- You may also like: -->
+  <div v-if="similarGames.length">
+    You may also like:
 
-    <!-- TODO: use array map instead -->
-    <b-img
+    <b-card
       v-for="game in similarGames"
-      v-if="game.cover"
       :key="game.id"
-      :src="getCoverUrl(game.cover)"
-      class="rounded mr-2 mb-2 cursor-pointer"
-      @click="openGame(game)"
-    />
+      no-body
+      class="overflow-hidden mb-2"
+    >
+      <b-row no-gutters>
+        <b-col md="6">
+          <b-card-img
+            :src="getCoverUrl(game.cover)"
+            class="rounded m-2"
+            @click="openGame(game)"
+          />
+          <!-- <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img> -->
+        </b-col>
+        <b-col md="6">
+          <div class="p-2">{{ game.name }}</div>
+        </b-col>
+      </b-row>
+    </b-card>
   </div>
 </template>
 
@@ -84,7 +93,7 @@ export default {
 
       this.similarGames = this.similarGameIds ?
         this.similarGameIds
-          .filter(game => this.games && this.games[game])
+          .filter(game => this.games && this.games[game] && this.games[game].cover)
           .map(game => this.games && this.games[game])
         : [];
     },
@@ -93,11 +102,4 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-.games {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  align-items: center;
-  width: 90vw;
-}
 </style>

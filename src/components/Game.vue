@@ -1,120 +1,134 @@
 <!-- TODO: add speedruns -->
 <!-- TODO: use v-observe-visibility -->
 <template lang="html">
-  <div class="game">
-    <aside>
-      <div class="position-relative">
-        <b-img
-          :src="gameCoverUrl"
-          :alt="game.name"
-          class="cursor-pointer game-cover"
-          fluid-grow
-          rounded
-          @click.stop="openGameCover"
+  <b-container fluid>
+    <b-row>
+      <b-col cols="3">
+        <div class="position-relative">
+          <b-img
+            :src="gameCoverUrl"
+            :alt="game.name"
+            class="cursor-pointer game-cover"
+            fluid-grow
+            rounded
+            @click.stop="openGameCover"
+          />
+
+          <div class="game-info">
+            <game-rating :game="game" />
+          </div>
+        </div>
+
+        <b-skeleton-img
+          v-if="loading"
+          width="100px"
+          height="100px"
         />
 
-        <div class="game-info">
-          <game-rating :game="game" />
-        </div>
-      </div>
+        <template v-else>
+          <game-images ref="gameImages" :game="game" />
+          <!-- <game-videos :videos="game.videos" v-if="game.videos" /> -->
+        </template>
 
-      <b-skeleton-img
-        v-if="loading"
-        width="100px"
-        height="100px"
-      />
+        <game-websites :game="game" class="d-none d-md-inline" />
+        <!-- <pre>{{ game.genres.map(({ id }) => id) }}</pre> -->
+        <!-- TODO: add bundles to game detail? -->
+        <!-- {{ game.bundles ? `Found in ${game.bundles.length} compilations.` : null }} -->
+        <!-- <timeline
+          v-if="twitterHandle"
+          :id="twitterHandle"
+          sourceType="profile"
+        >
+          loading...
+        </timeline> -->
+      </b-col>
 
-      <template v-else>
-        <game-images ref="gameImages" :game="game" />
-        <game-videos :videos="game.videos" v-if="game.videos" />
-      </template>
+      <b-col cols="7">
+        <h3 class="mb-2">
+          {{ game.name }}
+          <b-badge variant="success" v-if="steamGame && steamGame.metacritic">{{ steamGame.metacritic.score }}</b-badge>
+        </h3>
+        <small>
+          <pre class="text-dark">{{ steamGame }}</pre>
+        </small>
+        <small v-if="gog && gog.isPriceVisible">{{gog.price.symbol}}{{ gog.price.amount }}</small>
+        <small><pre class="text-dark">{{ gog }}</pre></small>
+        <!-- <pre class="small text-dark">{{ steamGame }}</pre> -->
+        <b-progress
+          v-if="progress"
+          :value="progress"
+          variant="success"
+          height="8px"
+          v-b-modal.progress
+          class="my-1 w-25"
+        />
 
-      <game-websites :game="game" class="d-none d-md-inline" />
-      <!-- <pre>{{ game.genres.map(({ id }) => id) }}</pre> -->
-      <!-- TODO: add bundles to game detail? -->
-      <!-- {{ game.bundles ? `Found in ${game.bundles.length} compilations.` : null }} -->
-      <!-- <timeline
-        v-if="twitterHandle"
-        :id="twitterHandle"
-        sourceType="profile"
-      >
-        loading...
-      </timeline> -->
+        <!-- TODO: add icons for game modes:
+        single-player
+        multiplayer
+        co-operative
+        split-screen
+        massively-multiplayer-online-mmo
+        battle-royale -->
 
-    </aside>
+        <game-genres :game="game" />
+        <game-description :game="game" :steam-game="steamGame" />
 
-    <article>
-      <portal to="pageTitle">{{ game.name }}</portal>
+        <game-platforms :game="game" />
+        <!-- <game-news :game="game" /> -->
+        <game-details :game="game" />
 
-      <h3 class="mb-2">
-        {{ game.name }}
-        <b-badge variant="success" v-if="steamGame && steamGame.metacritic">{{ steamGame.metacritic.score }}</b-badge>
-      </h3>
-      <small v-if="gog && gog.isPriceVisible">{{gog.price.symbol}}{{ gog.price.amount }}</small>
-      <small><pre class="text-dark">{{ gog }}</pre></small>
-      <!-- <pre class="small text-dark">{{ steamGame }}</pre> -->
-      <b-progress
-        v-if="progress"
-        :value="progress"
-        variant="success"
-        height="8px"
-        v-b-modal.progress
-        class="my-1 w-25"
-      />
-      <game-description :game="game" :steam-game="steamGame" />
-      <game-platforms :game="game" />
-      <!-- <game-news :game="game" /> -->
-      <game-details :game="game" />
+        <game-websites
+          :game="game"
+          grid
+          class="d-md-none"
+        />
 
-      <game-websites
-        :game="game"
-        grid
-        class="d-md-none"
-      />
+        <b-badge
+          v-for="({ games, hex, tagTextColor }, name) in tags"
+          v-if="games.includes(game.id)"
+          :key="name"
+          pill
+          tag="small"
+          class="mr-1 mb-2"
+          :style="`background-color: ${hex}; color: ${tagTextColor}`"
+          v-b-modal.tags
+        >
+          {{ name }}
+        </b-badge>
 
-      <b-badge
-        v-for="({ games, hex, tagTextColor }, name) in tags"
-        v-if="games.includes(game.id)"
-        :key="name"
-        pill
-        tag="small"
-        class="mr-1 mb-2"
-        :style="`background-color: ${hex}; color: ${tagTextColor}`"
-        v-b-modal.tags
-      >
-        {{ name }}
-      </b-badge>
+        <!-- <template v-if="!loading">
+          <b-skeleton v-for="n in 3" :key="n" />
+        </template> -->
 
-      <!-- <template v-if="!loading">
-        <b-skeleton v-for="n in 3" :key="n" />
-      </template> -->
+        <game-notes :game="game" />
+        <!-- <b-form-rating
+          v-if="rating"
+          :value="rating"
+          inline
+          readonly
+          variant="warning"
+          size="lg"
+          no-border
+        />
 
-      <game-notes :game="game" />
-      <!-- <b-form-rating
-        v-if="rating"
-        :value="rating"
-        inline
-        readonly
-        variant="warning"
-        size="lg"
-        no-border
-      />
+        <br /> -->
+      </b-col>
 
-      <br /> -->
-    </article>
-
-    <footer>
-      <similar-games
-        :game="game"
-        :loading="loading"
-        class="mb-2"
-      />
-    </footer>
-  </div>
+      <b-col cols="2" sm="12" md="2">
+        <similar-games
+          :game="game"
+          :loading="loading"
+          class="mb-2"
+        />
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
 import GameNotes from '@/components/Game/GameNotes';
+import GameGenres from '@/components/Game/GameGenres';
 // import GameNews from '@/components/Game/GameNews';
 import GameDetails from '@/components/Game/GameDetails';
 import GamePlatforms from '@/components/Game/GamePlatforms';
@@ -123,7 +137,7 @@ import GameDescription from '@/components/Game/GameDescription';
 import SimilarGames from '@/components/Game/SimilarGames';
 import GameWebsites from '@/components/Game/GameWebsites';
 import GameImages from '@/components/Game/GameImages';
-import GameVideos from '@/components/Game/GameVideos';
+// import GameVideos from '@/components/Game/GameVideos';
 import { mapGetters, mapState } from 'vuex';
 // import { Timeline } from 'vue-tweet-embed'
 
@@ -136,8 +150,9 @@ export default {
     GameRating,
     GameImages,
     GameNotes,
+    GameGenres,
     // GameNews,
-    GameVideos,
+    // GameVideos,
     GameWebsites,
     SimilarGames,
   },
@@ -208,39 +223,39 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-.game {
-  width: calc(100% - .5rem);
-  display: grid;
-  grid-template-columns: 360px 2fr;
-  grid-gap: 1rem;
-
-  @media(max-width: 1280px) {
-    grid-template-columns: 360px 1fr;
-  }
-
-  @media(max-width: 1024px) {
-    grid-template-columns: 320px 1fr;
-  }
-
-  @media(max-width: 768px) {
-    width: 100%;
-    grid-template-columns: 100%;
-  }
-}
-
-.game-cover {
-  max-width: 100%;
-  // position: relative;
-  height: auto;
-}
-
-.game-info {
-  position: absolute;
-  bottom: 1rem;
-  right: 1rem;
-}
-
-footer {
-  grid-column: 1 / -1;
-}
+// .game {
+//   width: calc(100% - .5rem);
+//   display: grid;
+//   grid-template-columns: 360px 2fr;
+//   grid-gap: 1rem;
+//
+//   @media(max-width: 1280px) {
+//     grid-template-columns: 360px 1fr;
+//   }
+//
+//   @media(max-width: 1024px) {
+//     grid-template-columns: 320px 1fr;
+//   }
+//
+//   @media(max-width: 768px) {
+//     width: 100%;
+//     grid-template-columns: 100%;
+//   }
+// }
+//
+// .game-cover {
+//   max-width: 100%;
+//   // position: relative;
+//   height: auto;
+// }
+//
+// .game-info {
+//   position: absolute;
+//   bottom: 1rem;
+//   right: 1rem;
+// }
+//
+// footer {
+//   grid-column: 1 / -1;
+// }
 </style>

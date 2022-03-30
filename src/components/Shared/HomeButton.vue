@@ -1,15 +1,15 @@
 <template lang="html">
   <b-button
     title="Dashboard"
-    size="sm"
     class="home-button"
+    variant="transparent"
     @click="handleLogoClick"
   >
-    <!-- <img
-      src="/static/gamebrary-logo-dark.png"
-      width="32"
-    /> -->
-    <i class="fas fa-home" />
+    <img
+      class="py-2"
+      src="/static/logo.png"
+      width="24"
+    />
     <!-- TODO: move back button to here when viewing a game that's part of a board -->
   </b-button>
 </template>
@@ -40,7 +40,4 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-.home-button {
-  width: 50px;
-}
 </style>

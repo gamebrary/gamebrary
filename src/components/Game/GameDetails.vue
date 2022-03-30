@@ -25,11 +25,6 @@
         <span class="text-wrap">{{ platforms }}</span>
       </div>
 
-      <div v-if="genres">
-        <strong>{{ $t('board.gameModal.genres') }}:</strong>
-        <span class="text-wrap">{{ genres }}</span>
-      </div>
-
       <div v-if="gameModes">
         <strong>{{ $t('board.gameModal.gameModes') }}:</strong>
         <span class="text-wrap">{{ gameModes }}</span>
@@ -77,12 +72,6 @@ export default {
 
   computed: {
     ...mapGetters(['platformNames']),
-
-    genres() {
-      return this.game && this.game.genres
-        ? this.game.genres.map(({ name }) => name).join(', ')
-        : null;
-    },
 
     platforms() {
       return this.game && this.game.platforms

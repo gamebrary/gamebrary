@@ -68,7 +68,7 @@ export default {
   LOAD_STEAM_GAME(context, steamGameId) {
     return new Promise((resolve, reject) => {
       // axios.get(`${API_BASE}/steam-game?gameId=${steamGameId}`)
-      axios.get(`http://localhost:5001/gamebrary-8c736/us-central1/steam-game?gameId=${steamGameId}`)
+      axios.get(`${API_BASE}/steam-game?gameId=${steamGameId}`)
         .then(({ data }) => {
           const steamGameData = data[steamGameId];
 
@@ -478,7 +478,7 @@ export default {
 
   LOAD_GOG_GAME(context, search) {
     return new Promise((resolve, reject) => {
-      axios.get(`http://localhost:5001/gamebrary-8c736/us-central1/gog?search=${search}`)
+      axios.get(`${API_BASE}/gog?search=${search}`)
         .then(({ data }) => {
           const game = data.totalGamesFound
             ? data.products[0]

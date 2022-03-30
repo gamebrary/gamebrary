@@ -7,29 +7,13 @@
       />
     </div>
 
-    <!-- TODO: get images from article and add them to screenshots -->
     <template v-else>
       <small class="text-muted">Source: {{ source }}</small>
 
-      <p>
-        <span
-          :class="{'break-spaces': source === 'IGDB' }"
-          v-html="description"
-        />
-
-        <b-button v-b-modal.wikipediaArticle v-if="source === 'Wikipedia'">
-          <i class="fab fa-wikipedia-w" aria-hidden />
-          Read more
-        </b-button>
-
-
-        <!-- <template v-if="!trimmedDescription">
-          <div
-            v-html="gameDescription"
-            :class="{'break-spaces': source === 'IGDB' }"
-          />
-        </template> -->
-      </p>
+      <p
+        :class="{'break-spaces': source === 'IGDB' }"
+        v-html="gameDescription"
+      />
     </template>
 
     <b-modal

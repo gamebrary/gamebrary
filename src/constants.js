@@ -47,6 +47,105 @@ export const LINKS_CATEGORIES = {
   18: { id: 'discord', svg: true },
 };
 
+export const GENRE_ICONS = {
+  2: 'fa-solid fa-computer-mouse',
+  4: 'fa-solid fa-hand-fist',
+  5: 'fa-solid fa-person-rifle',
+  7: 'fa-solid fa-music',
+  8: 'fa-solid fa-person-running',
+  9: 'fa-solid fa-puzzle-piece',
+  10: 'fa-solid fa-flag-checkered',
+  12: 'fa-solid fa-shield',
+  13: 'fa-solid fa-cube',
+  14: 'fa-solid fa-futbol',
+  15: 'fa-solid fa-chess',
+  16: 'fa-solid fa-arrows-turn-to-dots',
+  24: 'fa-solid fa-user-ninja',
+  26: 'fa-solid fa-person-circle-question',
+  30: 'fa-solid fa-table-tennis-paddle-ball',
+  31: 'fa-solid fa-mountain-sun',
+  32: 'fa-solid fa-gamepad',
+  33: 'fa-solid fa-asterisk',
+  35: 'fa-solid fa-chess-board',
+  34: 'fa-solid fa-comments',
+  36: 'fa-solid fa-network-wired',
+};
+
+// 1.4	Beat 'em up games
+// 3.4	Interactive movie
+// 3.5	Real-time 3D adventures
+// 4	Puzzle
+// 4.1	Breakout clone game
+// 4.2	Logical game
+// 4.2.1	Physics game
+// 4.2.2	Coding game
+// 4.3	Trial-and-error / exploration
+// 4.4	Hidden object game
+// 4.5	Reveal the picture game
+// 4.6	Tile-matching game
+// 4.7	Traditional puzzle game
+// 5	Role-playing
+// 5.1	Action RPG
+// 5.2	MMORPG
+// 5.3	Roguelikes
+// 5.4	Tactical RPG
+// 5.5	Sandbox RPG
+// 5.6	First-person party-based RPG
+// 5.7	JRPG
+// 5.8	Monster Tamer
+// 6	Simulation
+// 6.1	Construction and management simulation
+// 6.2	Life simulation
+// 6.3	Vehicle simulation
+// 7	Strategy
+// 7.1	4X game
+// 7.2	Artillery game
+// 7.3	Auto battler (Auto chess)
+// 7.4	Multiplayer online battle arena (MOBA)
+// 7.5	Real-time strategy (RTS)
+// 7.6	Real-time tactics (RTT)
+// 7.7	Tower defense
+// 7.8	Turn-based strategy (TBS)
+// 7.9	Turn-based tactics (TBT)
+// 7.10	Wargame
+// 7.11	Grand strategy wargame
+// 8	Sports
+// 8.1	Racing
+// 8.2	Sports game
+// 8.3	Competitive
+// 8.4	Sports-based fighting
+// 9	MMO
+// 10	Other notable genres
+// 10.1	Board game or card game
+// 10.2	Casino game
+// 10.3	Casual games
+// 10.4	Digital collectible card game
+// 10.5	Gacha game
+// 10.6	Horror game
+// 10.7	Idle game
+// 10.8	Logic game
+// 10.9	Party game
+// 10.10	Photography game
+// 10.11	Programming game
+// 10.12	Social deduction game
+// 10.13	Trivia game
+// 10.14	Typing game
+// 11	Video game genres by purpose
+// 11.1	Advergame
+// 11.2	Art game
+// 11.3	Casual game
+// 11.4	Christian game
+// 11.5	Educational game
+// 11.6	Esports
+// 11.7	Exergame
+// 11.8	Personalized game
+// 11.9	Serious game
+// 12	Sandbox / open world games
+// 12.1	Sandbox
+// 12.2	Creative
+// 12.3	Open world
+// 13
+
 export const KEYBOARD_SHORTCUTS = {
   'MODAL_keyboard-shortcuts': ['shift', '?'],
   'MODAL_create-board': ['shift', 'c'],

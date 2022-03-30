@@ -52,6 +52,8 @@ export default {
 
   mounted() {
     this.loadGame();
+
+    this.$store.dispatch('IGDB', { path: 'game_modes', data: 'fields *;' });
   },
 
   methods: {
