@@ -19,7 +19,7 @@
         {{ $t('boards.create') }}
       </b-button>
 
-      <b-button :to="{ name: 'home' }">
+      <b-button :to="{ name: 'explore' }">
         Explore boards
       </b-button>
     </empty-state>

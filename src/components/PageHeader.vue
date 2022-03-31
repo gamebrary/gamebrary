@@ -40,6 +40,7 @@
         </b-button>
 
         <b-button
+          v-if="user"
           :to="{ name: 'settings' }"
           variant="transparent"
           class="ml-1"
@@ -66,7 +67,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['board', 'boards']),
+    ...mapState(['board', 'boards', 'user']),
 
     showBackButton() {
       return this.$route.name === 'game' && this.board && this.board.id;

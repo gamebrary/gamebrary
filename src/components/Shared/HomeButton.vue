@@ -6,9 +6,8 @@
     @click="handleLogoClick"
   >
     <img
-      class="py-2"
       src="/static/logo.png"
-      width="24"
+      width="20"
     />
     <!-- TODO: move back button to here when viewing a game that's part of a board -->
   </b-button>
@@ -23,17 +22,17 @@ export default {
   },
   methods: {
     handleLogoClick() {
-      if (!this.user) {
-        if (this.$route.name === 'public-boards') {
-          this.$bvModal.show('authModal');
-        } else {
-          this.$router.push({ name: 'public-boards' });
-        }
-      }
-
-      if (this.user && this.$route.name !== 'home') {
-        this.$router.push({ name: 'home' });
-      }
+      // if (!this.user) {
+      //   if (this.$route.name === 'public-boards') {
+      //     this.$bvModal.show('authModal');
+      //   } else {
+      //     this.$router.push({ name: 'public-boards' });
+      //   }
+      // }
+      //
+      // if (this.user && this.$route.name !== 'home') {
+      // }
+      this.$router.push({ name: 'home' });
     },
   },
 };

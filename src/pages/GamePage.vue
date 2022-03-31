@@ -77,8 +77,13 @@ export default {
       const gogCategoryId = 17;
       const steamCategoryId = 13;
 
-      const gogPage = this.game.websites.find(({ category }) => category === gogCategoryId);
-      const steamPage = this.game.websites.find(({ category }) => category === steamCategoryId);
+      const gogPage = this.game && this.game.websites
+        ? this.game.websites.find(({ category }) => category === gogCategoryId)
+        : null;
+
+      const steamPage = this.game && this.game.websites
+        ? this.game.websites.find(({ category }) => category === steamCategoryId)
+        : null;
       // const hasGog =
 
       [this.speedruns] = (await this.$store.dispatch('LOAD_GAME_SPEEDRUNS', this.game.name)).data;

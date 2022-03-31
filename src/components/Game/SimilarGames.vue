@@ -46,7 +46,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['games', 'activeGame', 'settings']),
+    ...mapState(['games', 'activeGame']),
 
     similarGameIds() {
       return this.game && this.game.similar_games;
@@ -61,15 +61,7 @@ export default {
 
   methods: {
     openGame(game) {
-      // TODO: use optional chaining
-      const gameDetailView = this.settings && this.settings.gameDetailView;
-
-      // TODO: store value in constant
-      if (gameDetailView === 'new') {
-        this.$router.push({ name: 'game', params: { gameId: game.id, gameSlug: game.slug } });
-      } else {
-        this.loadGame(game.id);
-      }
+      this.$router.push({ name: 'game', params: { gameId: game.id, gameSlug: game.slug } });
     },
 
     // TODO: move to util

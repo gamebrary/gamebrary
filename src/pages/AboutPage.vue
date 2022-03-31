@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container class="pt-3">
+  <b-container class="py-3">
     <vue-markdown
       class="w-100"
       v-if="readme"

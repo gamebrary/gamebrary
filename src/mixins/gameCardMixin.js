@@ -49,7 +49,7 @@ export default {
       const game = this.games[this.gameId];
 
       return game && game.cover && game.cover.image_id
-        ? `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${game.cover.image_id}.jpg`
+        ? `https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.cover.image_id}.jpg`
         : '/static/no-image.jpg';
     },
   },

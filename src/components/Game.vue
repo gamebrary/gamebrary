@@ -76,7 +76,7 @@
 
         <game-platforms :game="game" />
         <!-- <game-news :game="game" /> -->
-        <game-details :game="game" />
+        <game-details />
 
         <game-websites
           :game="game"

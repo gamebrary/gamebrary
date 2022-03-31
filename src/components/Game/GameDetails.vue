@@ -63,15 +63,12 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 export default {
-  props: {
-    game: Object,
-  },
-
   computed: {
     ...mapGetters(['platformNames']),
+    ...mapState(['game']),
 
     platforms() {
       return this.game && this.game.platforms

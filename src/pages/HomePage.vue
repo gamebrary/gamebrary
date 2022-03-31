@@ -20,5 +20,9 @@ export default {
   computed: {
     ...mapState(['user']),
   },
+
+  mounted() {
+    if (this.user) this.$store.dispatch('LOAD_BOARDS');
+  },
 };
 </script>

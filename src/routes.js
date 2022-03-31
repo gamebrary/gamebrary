@@ -118,11 +118,17 @@ const routes = [
     name: 'game',
     path: '/game/:gameId/:gameSlug?',
     component: GamePage,
+    meta: {
+      public: true,
+    },
   },
   {
     name: 'game-media-page',
     path: '/game/:gameId/:gameSlug/media',
     component: GameMediaPage,
+    meta: {
+      public: true,
+    },
   },
   {
     path: '/search',
@@ -130,6 +136,7 @@ const routes = [
     component: SearchPage,
     meta: {
       title: 'Search',
+      public: true,
     },
   },
   {
@@ -209,7 +216,7 @@ const routes = [
   },
   {
     path: '/privacy-policy',
-    name: 'privacy-policy-page',
+    name: 'privacy-policy',
     component: PrivacyPolicyPage,
     meta: {
       public: true,

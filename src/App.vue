@@ -10,14 +10,14 @@
   <div
     id="app"
     :dir="dir"
-    :class="`dock-${dockPosition}`"
+    :class="`dock-${dockPosition} ${user ? 'authed' : ''}`"
     v-shortkey="KEYBOARD_SHORTCUTS"
     @shortkey="handleShortcutAction"
   >
     <page-header />
 
     <dock v-if="user" />
-    <public-dock v-else />
+    <!-- <public-dock v-else /> -->
 
     <main :class="[{
       'authorizing': !user,
@@ -32,7 +32,7 @@
 
 <script>
 import Dock from '@/components/Dock';
-import PublicDock from '@/components/PublicDock';
+// import PublicDock from '@/components/PublicDock';
 import PageHeader from '@/components/PageHeader';
 import GlobalModals from '@/components/GlobalModals';
 import sessionMixin from '@/mixins/sessionMixin';
@@ -47,7 +47,7 @@ export default {
 
   components: {
     Dock,
-    PublicDock,
+    // PublicDock,
     PageHeader,
     GlobalModals,
   },
@@ -119,6 +119,7 @@ export default {
     },
 
     load() {
+      this.$store.dispatch('LOAD_BOARDS');
       this.$store.dispatch('LOAD_RELEASES');
       this.$store.dispatch('LOAD_WALLPAPERS');
       this.$store.dispatch('SYNC_LOAD_SETTINGS');
@@ -139,8 +140,11 @@ export default {
     background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,212,255,1) 100%);
     height: 100vh;
     display: grid;
-    grid-template-rows: 46px 1fr;
-    grid-template-columns: 65px 1fr;
+
+    &.authed {
+      grid-template-rows: 46px 1fr;
+      grid-template-columns: 65px 1fr;
+    }
   }
 
   header {
