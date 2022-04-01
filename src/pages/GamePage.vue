@@ -51,6 +51,7 @@ export default {
   },
 
   mounted() {
+    // TODO: wait for access token
     this.loadGame();
 
     this.$store.dispatch('IGDB', { path: 'game_modes', data: 'fields *;' });

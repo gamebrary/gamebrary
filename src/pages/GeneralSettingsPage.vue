@@ -1,9 +1,10 @@
 <template lang="html">
-  <div>
+  <b-container fluid>
+    <page-title title="General settings" />
     <game-detail-settings />
-    <dock-settings />
+    <!-- <dock-settings /> -->
     <language-settings />
-  </div>
+  </b-container>
 </template>
 
 <script>

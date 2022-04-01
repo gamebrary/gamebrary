@@ -1,5 +1,7 @@
 <template lang="html">
-  <b-container>
+  <b-container class="p-2">
+    <page-title title="Profile settings" />
+
     <div v-if="loading">
       loading...
     </div>

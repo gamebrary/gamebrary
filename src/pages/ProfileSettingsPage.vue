@@ -1,5 +1,9 @@
 <template lang="html">
-  <div>
+  <b-container fluid>
+    <header class="my-3 d-flex align-items-center justify-content-between">
+      <h5 class="m-0">Profile</h5>
+    </header>
+
     <b-button @click="checkUserNameAvailability">
       Check availability
     </b-button>
@@ -46,7 +50,7 @@
 
     <!-- <pre>{{ profile }}</pre> -->
     <!-- <pre>{{ user }}</pre> -->
-  </div>
+  </b-container>
 </template>
 
 <script>

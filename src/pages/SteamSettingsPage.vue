@@ -1,5 +1,11 @@
 <template lang="html">
-  <div>
+  <b-container fluid>
+    <page-title title="Steam settings" />
+
+    <!-- <b-alert show>
+      Explain how steam id is used
+    </b-alert> -->
+
     <b-form-group label="Steam ID:">
       <b-form-input
         v-model="steamId"
@@ -7,7 +13,7 @@
         @change="save"
       />
     </b-form-group>
-  </div>
+  </b-container>
 </template>
 
 <script>

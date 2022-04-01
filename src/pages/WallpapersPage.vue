@@ -10,36 +10,36 @@
     />
 
     <template v-else>
-      <page-title
-        title="Wallpapers"
-      />
+      <header class="my-3 d-flex align-items-center justify-content-between">
+        <h5 class="m-0">Wallpapers</h5>
 
-      <div class="space-used ml-auto mr-3">
-        <small
-          class="d-block text-center"
-          :class="{ 'text-danger': outOfSpace }"
-          v-text="usedSpaceText"
-        />
+        <!-- <div class="space-used ml-auto mr-3">
+          <small
+            class="d-block text-center"
+            :class="{ 'text-danger': outOfSpace }"
+            v-text="usedSpaceText"
+          />
 
-        <b-progress
-          :value="spaceUsed"
-          :max="maxSpace"
-          :variant="outOfSpace ? 'danger' : 'success'"
-        />
-      </div>
+          <b-progress
+            :value="spaceUsed"
+            :max="maxSpace"
+            :variant="outOfSpace ? 'danger' : 'success'"
+          />
+        </div> -->
 
-      <b-button
-        :disabled="outOfSpace"
-        variant="primary"
-        @click="triggerFileUpload"
-      >
-        <b-spinner small v-if="saving" />
+        <b-button
+          :disabled="outOfSpace"
+          variant="primary"
+          @click="triggerFileUpload"
+        >
+          <b-spinner small v-if="saving" />
 
-        <template v-else>
-          <i class="fas fa-upload fa-fw" aria-hidden />
-          <span class="d-none d-sm-inline">Upload</span>
-        </template>
-      </b-button>
+          <template v-else>
+            <i class="fas fa-upload fa-fw" aria-hidden />
+            <span class="d-none d-sm-inline">Upload</span>
+          </template>
+        </b-button>
+      </header>
 
       <b-alert
         v-if="isDuplicate && !saving && file && file.name"

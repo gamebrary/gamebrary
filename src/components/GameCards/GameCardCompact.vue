@@ -1,7 +1,7 @@
 <template lang="html">
   <b-card
     no-body
-    class="clickable"
+    class="cursor-pointer"
   >
     <b-row no-gutters v-if="game && game.name">
       <b-col cols="3">

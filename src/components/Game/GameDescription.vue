@@ -1,4 +1,5 @@
 <template lang="html">
+  <!-- TODO: break up wikipedia description into chunks -->
   <div class="game-description">
     <div v-if="loading" class="mb-4">
       <b-skeleton
@@ -12,7 +13,7 @@
 
       <p
         :class="{'break-spaces': source === 'IGDB' }"
-        v-html="gameDescription"
+        v-html="description"
       />
     </template>
 
@@ -89,8 +90,8 @@ export default {
     },
 
     trimmedDescription() {
-      return this.gameDescription && this.gameDescription.length > 600
-        ? `${this.gameDescription.substr(0, 600)}...`
+      return this.gameDescription && this.gameDescription.length > 1200
+        ? `${this.gameDescription.substr(0, 1200)}...`
         : null;
     },
 

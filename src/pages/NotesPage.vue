@@ -1,22 +1,15 @@
 <!-- TODO: pagination? -->
-<!-- TODO: open notes from game modal on click? -->
 <template lang="html">
   <b-container fluid>
-    <page-title
-      title="Notes"
-    >
-      <b-form-input
-        v-if="!showEmptyState"
-        type="search"
-        style="max-width: 200px"
-        placeholder="Search notes"
-        v-model="search"
-      />
-
-      <!-- <b-button>
-        Add note
-      </b-button> -->
-    </page-title>
+    <page-title title="Notes" />
+    <!-- TODO: add 'add note' -->
+    <b-form-input
+      v-if="!showEmptyState"
+      type="search"
+      style="max-width: 200px"
+      placeholder="Search notes"
+      v-model="search"
+    />
 
     <empty-state
       v-if="showEmptyState"
@@ -27,7 +20,6 @@
     <template v-else>
       <div class="notes mb-2">
         <note
-          show
           v-for="(note, index) in filteredNotes"
           :key="index"
           :note="note"
@@ -62,6 +54,7 @@ export default {
       return this.loaded && !Object.keys(this.notes).length;
     },
 
+    // TODO: move to getter?
     filteredNotes() {
       return Object.values(this.notes)
         .map((note, index) => {
@@ -71,6 +64,7 @@ export default {
           return {
             note,
             gameName: game && game.name,
+            gameSlug: game && game.slug,
             gameId: game && game.id,
           };
         })

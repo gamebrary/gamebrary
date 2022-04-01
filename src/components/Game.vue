@@ -48,11 +48,11 @@
           {{ game.name }}
           <b-badge variant="success" v-if="steamGame && steamGame.metacritic">{{ steamGame.metacritic.score }}</b-badge>
         </h3>
-        <small>
+        <!-- <small>
           <pre class="text-dark">{{ steamGame }}</pre>
-        </small>
+        </small> -->
         <small v-if="gog && gog.isPriceVisible">{{gog.price.symbol}}{{ gog.price.amount }}</small>
-        <small><pre class="text-dark">{{ gog }}</pre></small>
+        <!-- <small><pre class="text-dark">{{ gog }}</pre></small> -->
         <!-- <pre class="small text-dark">{{ steamGame }}</pre> -->
         <b-progress
           v-if="progress"
@@ -74,7 +74,7 @@
         <game-genres :game="game" />
         <game-description :game="game" :steam-game="steamGame" />
 
-        <game-platforms :game="game" />
+        <game-platforms />
         <!-- <game-news :game="game" /> -->
         <game-details />
 
@@ -101,7 +101,7 @@
           <b-skeleton v-for="n in 3" :key="n" />
         </template> -->
 
-        <game-notes :game="game" />
+        <!-- <game-notes :game="game" /> -->
         <!-- <b-form-rating
           v-if="rating"
           :value="rating"
@@ -115,7 +115,7 @@
         <br /> -->
       </b-col>
 
-      <b-col cols="2" sm="12" md="2">
+      <b-col cols="12" lg="2">
         <similar-games
           :game="game"
           :loading="loading"
@@ -127,7 +127,7 @@
 </template>
 
 <script>
-import GameNotes from '@/components/Game/GameNotes';
+// import GameNotes from '@/components/Game/GameNotes';
 import GameGenres from '@/components/Game/GameGenres';
 // import GameNews from '@/components/Game/GameNews';
 import GameDetails from '@/components/Game/GameDetails';
@@ -149,7 +149,7 @@ export default {
     GamePlatforms,
     GameRating,
     GameImages,
-    GameNotes,
+    // GameNotes,
     GameGenres,
     // GameNews,
     // GameVideos,

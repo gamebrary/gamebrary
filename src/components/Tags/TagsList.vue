@@ -69,8 +69,9 @@ export default {
     },
 
     openGame(gameId) {
-      this.$store.commit('SET_GAME_MODAL_DATA', { gameId });
-      this.$bvModal.show('game-modal');
+      const { id, slug } = this.games[gameId];
+
+      this.$router.push({ name: 'game', params: { gameId: id, gameSlug: slug } });
     },
   },
 };

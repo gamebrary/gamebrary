@@ -18,8 +18,8 @@
           v-for="(thumbnail, index) in thumbnails"
           :key="index"
           :src="thumbnail"
-          overlay
           img-alt="Image"
+          width="200"
           img-top
           rounded
           @click.stop="openModal(index)"

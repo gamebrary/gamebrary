@@ -1,94 +1,91 @@
 <template lang="html">
   <b-container fluid class="p-2">
-    <div>
-      <b-avatar
-        size="38"
-        class="ml-1"
-        rounded
-        :src="user && user.photoURL ? user.photoURL : null"
-      />
-
-      <pre>{{ user }}</pre>
-
-    </div>
-
     <b-row no-gutters>
-      <b-col cols="3">
+      <b-col cols="4" sm="3" lg="2">
         <b-list-group>
           <b-list-group-item :to="{ name: 'general-settings' }">
             <i class="fas fa-sliders-h fa-fw" aria-hidden />
-            General
+            <small>General</small>
           </b-list-group-item>
 
           <b-list-group-item :to="{ name: 'wallpapers-settings' }">
             <i class="fa-solid fa-images fa-fw" aria-hidden />
-            Wallpapers
+            <small>Wallpapers</small>
           </b-list-group-item>
 
           <b-list-group-item :to="{ name: 'profile-settings' }">
             <i class="fa-solid fa-user fa-fw" aria-hidden />
-            Profile
+            <small>Profile</small>
           </b-list-group-item>
 
           <b-list-group-item :to="{ name: 'notes-settings' }">
             <i class="fa-solid fa-note-sticky fa-fw" aria-hidden />
-            Notes
+            <small>Notes</small>
           </b-list-group-item>
 
           <b-list-group-item :to="{ name: 'tags-settings' }">
             <i class="fa-solid fa-tags fa-fw" aria-hidden />
-            Tags
+            <small>Tags</small>
           </b-list-group-item>
 
           <b-list-group-item :to="{ name: 'account-settings' }">
             <i class="fa-solid fa-user-shield fa-fw" aria-hidden />
-            Account
+            <small>Account</small>
           </b-list-group-item>
 
           <b-list-group-item :to="{ name: 'steam-settings' }">
             <i class="fab fa-steam fa-fw" aria-hidden></i>
-            Steam
+            <small>Steam</small>
           </b-list-group-item>
 
           <b-list-group-item :to="{ name: 'releases' }">
             <i class="fas fa-rocket fa-fw" aria-hidden></i>
-            Releases
+            <small>Releases</small>
           </b-list-group-item>
+
+
+          <hr />
 
           <b-list-group-item :to="{ name: 'profiles' }">
             <i class="fa-solid fa-people-group fa-fw" aria-hidden />
-            Profiles
+            <small>Profiles</small>
           </b-list-group-item>
 
-          <router-link to="dev-tools">Dev tools</router-link>
-          <router-link to="releases">Releases</router-link>
-          <a
+          <b-list-group-item :to="{ name: 'dev-tools' }">
+            <i class="fa-solid fa-code fa-fw" aria-hidden />
+
+            <small>Dev tools</small>
+          </b-list-group-item>
+
+          <!-- <a
             href="https://github.com/romancm/gamebrary"
             target="_blank"
           >
             <i class="fab fa-github"></i>
-          </a>
+          </a> -->
 
-          <a v-b-modal.keyboard-shortcuts>Keyboard shortcuts</a>
+          <small class="my-2">
+            <a v-b-modal.keyboard-shortcuts>Keyboard shortcuts</a>
+          </small>
 
-          {{ $t('global.donateMessage') }}
-          <a href="https://www.paypal.me/RomanCervantes/5" target="_blank">
+          <!-- {{ $t('global.donateMessage') }} -->
+          <!-- <a href="https://www.paypal.me/RomanCervantes/5" target="_blank">
             {{ $t('global.donating') }}
-          </a>
+          </a> -->
 
-          <a href="https://github.com/romancm/gamebrary/issues" target="_blank">
+          <!-- <a href="https://github.com/romancm/gamebrary/issues" target="_blank">
             {{ $t('global.reportBugs') }}
-          </a>
+          </a> -->
 
-          <a href="https://goo.gl/forms/r0juBCsZaUtJ03qb2" target="_blank">
+          <!-- <a href="https://goo.gl/forms/r0juBCsZaUtJ03qb2" target="_blank">
             {{ $t('global.submitFeedback') }}
-          </a>
+          </a> -->
         </b-list-group>
 
         <small>&copy; 2021 Gamebrary</small>
       </b-col>
 
-      <b-col cols="9">
+      <b-col cols="8" sm="9" lg="10">
         <router-view />
       </b-col>
     </b-row>

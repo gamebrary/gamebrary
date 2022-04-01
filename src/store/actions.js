@@ -1,3 +1,4 @@
+// TODO: break up into smaller files and import them here
 // TODO: use proxy endpoint
 import axios from 'axios';
 import firebase from 'firebase/app';
@@ -65,18 +66,21 @@ export default {
     });
   },
 
-  LOAD_STEAM_GAME(context, steamGameId) {
+  LOAD_STEAM_GAME({ state }, steamGameId) {
     return new Promise((resolve, reject) => {
-      // axios.get(`${API_BASE}/steam-game?gameId=${steamGameId}`)
       axios.get(`${API_BASE}/steam-game?gameId=${steamGameId}`)
         .then(({ data }) => {
+          // TODO: move this logic to cloud function
           const steamGameData = data[steamGameId];
 
           const gameData = steamGameData.success
             ? steamGameData.data
             : null;
 
-          // console.log(gameData);
+          // console.log('steam', gameData);
+          // console.log(state.game);
+          // TODO: finish mutation logic
+          // commit('APPEND_STEAM_GAME_DATA', gameData)
 
           resolve(gameData);
         }).catch(reject);

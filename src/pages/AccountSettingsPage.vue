@@ -1,5 +1,7 @@
 <template lang="html">
-  <div>
+  <b-container fluid>
+    <page-title title="Account settings" />
+
     <provider-card />
 
     <b-button
@@ -18,7 +20,7 @@
     </b-button>
 
     <delete-account-modal />
-  </div>
+  </b-container>
 </template>
 
 <script>

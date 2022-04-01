@@ -126,6 +126,12 @@ export default {
     state.game = game;
   },
 
+  // APPEND_STEAM_GAME_DATA(state, steamGameData) {
+  //   // TODO: finish this, merge data
+  //   // console.log(steamGameData);
+  //   // state.game = steamGameData;
+  // },
+
   CLEAR_GAME_MODAL_DATA(state) {
     state.activeGame = null;
   },

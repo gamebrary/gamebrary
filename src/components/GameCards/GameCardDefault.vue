@@ -2,7 +2,7 @@
   <b-card
     no-body
     bg-variant="transparent"
-    class="card clickable"
+    class="card cursor-pointer"
   >
     <b-row
       no-gutters

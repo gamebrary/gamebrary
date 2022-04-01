@@ -1,22 +1,20 @@
 <template lang="html">
-  <b-alert
-    v-if="notes[game.id]"
-    variant="warning"
-    show
-    v-b-modal.notes
-    class="mt-2 mt-md-0"
-  >
-    <strong>Notes:</strong>
-    <vue-markdown :source="gameNotes" />
-  </b-alert>
+  <div>
+    <note
+      :note="notes[this.game.id]"
+    />
+
+  </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import Note from '@/components/Note';
 import VueMarkdown from 'vue-markdown';
 
 export default {
   components: {
+    Note,
     VueMarkdown,
   },
 
@@ -26,12 +24,6 @@ export default {
 
   computed: {
     ...mapState(['notes']),
-
-    gameNotes() {
-      return typeof this.notes[this.game.id] === 'object' && this.notes[this.game.id].text
-        ? this.notes[this.game.id].text
-        : this.notes[this.game.id];
-    },
   },
 };
 </script>

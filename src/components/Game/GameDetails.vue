@@ -20,11 +20,6 @@
         </div>
       </div>
 
-      <div v-if="platforms">
-        <strong>{{ $t('board.gameModal.platforms') }}:</strong>
-        <span class="text-wrap">{{ platforms }}</span>
-      </div>
-
       <div v-if="gameModes">
         <strong>{{ $t('board.gameModal.gameModes') }}:</strong>
         <span class="text-wrap">{{ gameModes }}</span>
@@ -47,7 +42,7 @@
 
       {{ $t('board.gameModal.releaseDate') }}
 
-      <ul class="timeline">
+      <!-- <ul class="timeline">
         <li
           class="event pb-2"
           :data-date="releaseDate.date"
@@ -57,7 +52,7 @@
           {{ releaseDate.platform }}
           <pre>{{ releaseDate.date }}</pre>
         </li>
-      </ul>
+      </ul> -->
     </b-alert>
   </div>
 </template>
@@ -69,12 +64,6 @@ export default {
   computed: {
     ...mapGetters(['platformNames']),
     ...mapState(['game']),
-
-    platforms() {
-      return this.game && this.game.platforms
-        ? this.game.platforms.map(({ name }) => name).join(', ')
-        : null;
-    },
 
     gameDevelopers() {
       return this.game && this.game.involved_companies
@@ -104,19 +93,23 @@ export default {
         : null;
     },
 
-    timeline() {
-      const releaseDates = this.game && this.game.release_dates;
-      const sortedActivities = releaseDates
-        ? releaseDates.sort((a, b) => b.date - a.date)
-        : [];
-
-      return sortedActivities.length ? sortedActivities.map(releaseDate => ({
-        ...releaseDate,
-        platform: this.platformNames[releaseDate.platform] ? this.platformNames[releaseDate.platform].name : null,
-        date: releaseDate.date ? this.$dayjs.unix(releaseDate.date).format('MMMM D, YYYY') : 'N/A',
-      }))
-        : null;
-    },
+    // TODO: fix infinite loop
+    // timeline() {
+    //   const releaseDates = this.game && this.game.release_dates;
+    //
+    //   const sortedActivities = releaseDates
+    //     ? releaseDates.sort((a, b) => b.date - a.date)
+    //     : [];
+    //
+    //   console.log(sortedActivities);
+    //
+    //   return sortedActivities.length ? sortedActivities.map(releaseDate => ({
+    //     ...releaseDate,
+    //     platform: releaseDate.platform && this.platformNames[releaseDate.platform] ? this.platformNames[releaseDate.platform].name : null,
+    //     date: releaseDate && releaseDate.date ? this.$dayjs.unix(releaseDate.date).format('MMMM D, YYYY') : 'N/A',
+    //   }))
+    //     : null;
+    // },
 
     releaseDates() {
       const hasReleaseDates = this.game && this.game.release_dates;

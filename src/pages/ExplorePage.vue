@@ -5,7 +5,7 @@
         v-for="board in publicBoards"
         :key="board.id"
         no-body
-        class="overflow-hidden clickable"
+        class="overflow-hidden cursor-pointer"
         @click="viewBoard(board.id)"
       >
         <mini-board

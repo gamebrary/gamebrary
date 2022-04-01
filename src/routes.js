@@ -112,6 +112,14 @@ const routes = [
           title: 'Wallpapers',
         },
       },
+      {
+        name: 'releases',
+        path: 'releases',
+        component: ReleasesPage,
+        meta: {
+          title: 'Releases',
+        },
+      },
     ],
   },
   {
@@ -162,14 +170,6 @@ const routes = [
     component: AboutPage,
     meta: {
       title: 'About',
-    },
-  },
-  {
-    name: 'releases',
-    path: '/releases',
-    component: ReleasesPage,
-    meta: {
-      title: 'Releases',
     },
   },
   {
