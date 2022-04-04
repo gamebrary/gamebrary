@@ -1,6 +1,10 @@
 <!-- TODO: break this up into components -->
 <template lang="html">
+<<<<<<< Updated upstream
   <b-container fluid>
+=======
+  <b-container>
+>>>>>>> Stashed changes
     <empty-state
       v-if="showEmptyState"
       :title="$t('tags.title')"

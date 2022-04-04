@@ -17,6 +17,7 @@
         "deploy": "firebase deploy"
     },
     "dependencies": {
+        "@vue-stripe/vue-stripe": "^4.4.2",
         "axios": "^0.21.1",
         "bootstrap": "^4.5.2",
         "bootstrap-vue": "^2.21.2",

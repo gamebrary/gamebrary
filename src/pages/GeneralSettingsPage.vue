@@ -1,6 +1,10 @@
 <template lang="html">
+<<<<<<< Updated upstream
   <b-container fluid>
     <page-title title="General settings" />
+=======
+  <b-container>
+>>>>>>> Stashed changes
     <game-detail-settings />
     <!-- <dock-settings /> -->
     <language-settings />

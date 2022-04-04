@@ -1,6 +1,7 @@
 import AboutPage from '@/pages/AboutPage';
 import AuthPage from '@/pages/AuthPage';
 import BoardPage from '@/pages/BoardPage';
+import UpgradePage from '@/pages/UpgradePage';
 import EditBoardPage from '@/pages/EditBoardPage';
 import DevToolsPage from '@/pages/DevToolsPage';
 import ProfileSettingsPage from '@/pages/ProfileSettingsPage';
@@ -64,6 +65,7 @@ const routes = [
     meta: {
       title: 'Settings',
     },
+    redirect: { name: 'general-settings' },
     children: [
       {
         name: 'account-settings',
@@ -162,6 +164,14 @@ const routes = [
     component: ProfilePage,
     meta: {
       title: 'Profile',
+    },
+  },
+  {
+    name: 'upgrade',
+    path: '/upgrade',
+    component: UpgradePage,
+    meta: {
+      title: 'Upgrade to PRO!',
     },
   },
   {
