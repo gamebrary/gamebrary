@@ -45,7 +45,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['game', 'games', 'activeGame']),
+    ...mapState(['game', 'games']),
 
     similarGameIds() {
       return this.game && this.game.similar_games;
@@ -66,12 +66,6 @@ export default {
       return cover && cover.image_id
         ? `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${cover.image_id}.jpg`
         : '/static/no-image.jpg';
-    },
-
-    loadGame(gameId) {
-      const { list } = this.activeGame;
-
-      this.$store.commit('SET_GAME_MODAL_DATA', { gameId, list });
     },
 
     async loadGames() {

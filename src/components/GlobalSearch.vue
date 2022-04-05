@@ -69,11 +69,6 @@ export default {
 
   methods: {
     openGame(gameId) {
-      // TODO: handle game detail view setting
-      // this.$store.commit('SET_GAME_MODAL_DATA', { gameId });
-      // this.$bvModal.show('game-modal');
-      this.$store.commit('SET_GAME_MODAL_DATA', { gameId });
-
       this.$router.push({
         name: 'game',
         params: {

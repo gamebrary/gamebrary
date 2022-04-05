@@ -46,7 +46,35 @@
         <!-- <pre class="text-dark small">{{ game.gog.price }}</pre> -->
         <h3 class="mb-2">
           {{ game.name }}
+          <b-button v-b-toggle.my-collapse>Toggle Collapse</b-button>
+
+          <b-collapse id="my-collapse">
+            <b-card title="Collapsible card">
+              <pre>{{ game }}</pre>
+              <!-- <div
+                class="mb-1"
+                rounded
+                v-for="alternativeName in game.alternative_names"
+                :key="alternativeName.id"
+              >
+                <b-avatar
+                  v-b-tooltip.hover
+                  :title="alternativeName.comment || null"
+                  size="sm"
+                  :src="`/static/img/country-flags/${getCountryCode(alternativeName.comment)}.svg`"
+                />
+
+                {{ alternativeName.name }}
+              </div> -->
+            </b-card>
+          </b-collapse>
+          <b-badge variant="success" v-if="game && game.steam && game.steam.metacritic">{{ game.steam.metacritic.score }}</b-badge>
+          <br />
           <!-- <b-badge variant="success" v-if="steamGame && steamGame.metacritic">{{ steamGame.metacritic.score }}</b-badge> -->
+
+          <b-badge v-b-modal.altNames>
+            <strong>Also known as:</strong>
+          </b-badge>
         </h3>
         <!-- <small>
           <pre class="text-dark">{{ steamGame }}</pre>
