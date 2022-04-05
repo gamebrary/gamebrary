@@ -35,7 +35,6 @@ export default {
   },
 
   props: {
-    game: Object,
     loading: Boolean,
   },
 
@@ -46,7 +45,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['games', 'activeGame']),
+    ...mapState(['game', 'games', 'activeGame']),
 
     similarGameIds() {
       return this.game && this.game.similar_games;
@@ -54,9 +53,7 @@ export default {
   },
 
   mounted() {
-    if (this.similarGameIds) {
-      this.loadGames();
-    }
+    if (this.similarGameIds) this.loadGames();
   },
 
   methods: {

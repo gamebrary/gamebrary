@@ -1,8 +1,8 @@
 <template lang="html">
-  <div>
-    <template v-if="pinnedBoards.length">
+  <nav>
+    <template v-if="boards.length">
       <b-button
-        v-for="{ id, name, backgroundColor, backgroundUrl } in pinnedBoards"
+        v-for="{ id, name, backgroundColor, backgroundUrl } in boards"
         :key="id"
         block
         :title="name"
@@ -36,7 +36,7 @@
 
       <hr class="my-1">
     </template>
-  </div>
+  </nav>
 </template>
 
 <script>
@@ -94,6 +94,12 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
+  nav {
+    overflow-y: auto;
+    max-height: calc(100vh - 100px);
+
+  }
+
   .pinned-board {
     background-size: cover;
 

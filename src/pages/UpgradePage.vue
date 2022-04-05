@@ -1,6 +1,5 @@
 <template lang="html">
   <div>
-    <pre>{{ loading }}</pre>
     <stripe-checkout
       ref="checkoutRef"
       mode="subscription"
@@ -35,8 +34,9 @@ export default {
   },
 
   methods: {
-    load(status) {
-      console.log(status);
+    // load(status) {
+    load() {
+      // console.log(status);
     },
   },
 };

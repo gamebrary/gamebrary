@@ -1,5 +1,6 @@
 <!-- TODO: Mix media from other sources (e.g. instagram, wikipedia, youtube, twitter, etc... ) -->
 <!-- TODO: get images from article and add them to media page -->
+<!-- TODO: add loading placeholder -->
 <template lang="html">
   <b-container fluid class="p-2">
     <b-form-row>
@@ -14,20 +15,27 @@
       </b-col>
 
       <b-col cols="9">
+        {{ game.name }}
+        <b-button
+          @click="openGame"
+          class="mb-2"
+        >
+          Back to Game
+        </b-button>
+
+        <hr />
+
         <b-img
-          v-for="(thumbnail, index) in thumbnails"
+          v-for="(thumbnail, index) in gameThumbnails"
           :key="index"
           :src="thumbnail"
-          img-alt="Image"
           width="200"
-          img-top
+          class="m-2"
           rounded
           @click.stop="openModal(index)"
         />
       </b-col>
     </b-form-row>
-
-    <b-button @click="openGame">Back to Game</b-button>
 
     <b-modal
       id="game-images"
@@ -40,10 +48,9 @@
           :subtitle="subtitle"
           @close="close"
         >
-          <!-- TODO Display image source igdb, instagram, etc... -->
           <template v-slot:header>
             <b-img
-              :src="activeGameCoverUrl"
+              :src="gameCoverThumbUrl"
               :alt="game.name"
               class="float-left mr-2"
               height="40"
@@ -54,6 +61,7 @@
           <b-button
             v-if="isBoardOwner"
             class="d-none d-sm-inline"
+            variant="light"
             @click="setAsWallpaper"
           >
             <i
@@ -65,12 +73,14 @@
           </b-button>
 
           <b-button
+            variant="transparent"
             @click="previous"
           >
             <i class="fas fa-angle-left fa-fw" aria-hidden />
           </b-button>
 
           <b-button
+            variant="transparent"
             @click="next"
           >
             <i class="fas fa-angle-right fa-fw" aria-hidden />
@@ -84,7 +94,7 @@
         v-model="activeIndex"
       >
         <b-carousel-slide
-          v-for="(screenshot, index) in slides"
+          v-for="(screenshot, index) in gameImages"
           :key="index"
           content-tag="rounded"
         >
@@ -129,6 +139,12 @@ export default {
         : '/static/no-image.jpg';
     },
 
+    gameCoverThumbUrl() {
+      return this.game.cover
+        ? `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${this.game.cover.image_id}.jpg`
+        : '/static/no-image.jpg';
+    },
+
     slides() {
       return [
         // eslint-disable-next-line
@@ -141,11 +157,65 @@ export default {
     },
 
     subtitle() {
-      if (this.activeIndex === 0) {
-        return 'Game cover';
-      }
+      return `Screenshot ${this.activeIndex} of ${this.gameImages.length - 1}`;
+    },
 
-      return `Screenshot ${this.activeIndex} of ${this.slides.length - 1}`;
+    gameThumbnails() {
+      const gogImages = this.game.gog && this.game.gog.gallery
+        // eslint-disable-next-line
+        ? this.game.gog.gallery.map((image) => {
+          const imageId = image.split('.com/')[1];
+
+          return imageId
+            ? `https://images.gog-statics.com/${imageId}.jpg`
+            : null;
+        })
+        : [];
+
+      const steamImages = this.game.steam && this.game.steam.screenshots
+        // eslint-disable-next-line
+        ? this.game.steam.screenshots.map(({ path_thumbnail }) => path_thumbnail)
+        : [];
+
+      const igdbImages = this.game && this.game.screenshots
+        // eslint-disable-next-line
+        ? this.game.screenshots.map(({ image_id }) => `https://images.igdb.com/igdb/image/upload/t_screenshot_med_2x/${image_id}.jpg`)
+        : [];
+
+      return [
+        ...gogImages,
+        ...steamImages,
+        ...igdbImages,
+      ];
+    },
+
+    gameImages() {
+      const gogImages = this.game.gog && this.game.gog.gallery
+        // eslint-disable-next-line
+        ? this.game.gog.gallery.map((image) => {
+          const imageId = image.split('.com/')[1];
+
+          return imageId
+            ? `https://images.gog-statics.com/${imageId}.jpg`
+            : null;
+        })
+        : [];
+
+      const steamImages = this.game.steam && this.game.steam.screenshots
+        // eslint-disable-next-line
+        ? this.game.steam.screenshots.map(({ path_full }) => path_full)
+        : [];
+
+      const igdbImages = this.game && this.game.screenshots
+        // eslint-disable-next-line
+        ? this.game.screenshots.map(({ image_id }) => `https://images.igdb.com/igdb/image/upload/t_screenshot_huge_2x/${image_id}.jpg`)
+        : [];
+
+      return [
+        ...gogImages,
+        ...steamImages,
+        ...igdbImages,
+      ];
     },
   },
 
@@ -203,39 +273,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-.thumb {
-  cursor: pointer;
-}
-
-.more-images {
-  position: absolute;
-  left: 5px;
-  top: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  width: calc(100% - 10px);
-  height: calc(100% - .5rem);
-  // padding-top: 1rem;
-  background-color: rgba(0, 0, 0, .5);
-
-  > small {
-    margin: 0 2px;
-  }
-
-  > i {
-    margin: 0 2px;
-  }
-
-  > span {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-top: auto;
-    text-align: center;
-  }
-}
-</style>

@@ -43,14 +43,9 @@
             <small>Releases</small>
           </b-list-group-item>
 
-<<<<<<< Updated upstream
-
           <hr />
 
           <b-list-group-item :to="{ name: 'profiles' }">
-=======
-          <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'profiles' }">
->>>>>>> Stashed changes
             <i class="fa-solid fa-people-group fa-fw" aria-hidden />
             <small>Profiles</small>
           </b-list-group-item>

@@ -126,11 +126,13 @@ export default {
     state.game = game;
   },
 
-  // APPEND_STEAM_GAME_DATA(state, steamGameData) {
-  //   // TODO: finish this, merge data
-  //   // console.log(steamGameData);
-  //   // state.game = steamGameData;
-  // },
+  APPEND_STEAM_GAME_DATA(state, data) {
+    state.game.steam = data;
+  },
+
+  APPEND_GOG_GAME_DATA(state, data) {
+    state.game.gog = data;
+  },
 
   CLEAR_GAME_MODAL_DATA(state) {
     state.activeGame = null;

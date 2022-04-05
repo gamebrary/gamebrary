@@ -1,17 +1,5 @@
 <!-- TODO: pagination? -->
 <template lang="html">
-<<<<<<< Updated upstream
-  <b-container fluid>
-    <page-title title="Notes" />
-    <!-- TODO: add 'add note' -->
-    <b-form-input
-      v-if="!showEmptyState"
-      type="search"
-      style="max-width: 200px"
-      placeholder="Search notes"
-      v-model="search"
-    />
-=======
   <b-container>
     <page-title
       title="Notes"
@@ -28,7 +16,6 @@
         Add note
       </b-button> -->
     </page-title>
->>>>>>> Stashed changes
 
     <empty-state
       v-if="showEmptyState"

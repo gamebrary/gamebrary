@@ -66,7 +66,7 @@ export default {
     });
   },
 
-  LOAD_STEAM_GAME({ state }, steamGameId) {
+  LOAD_STEAM_GAME({ commit }, steamGameId) {
     return new Promise((resolve, reject) => {
       axios.get(`${API_BASE}/steam-game?gameId=${steamGameId}`)
         .then(({ data }) => {
@@ -77,10 +77,7 @@ export default {
             ? steamGameData.data
             : null;
 
-          // console.log('steam', gameData);
-          // console.log(state.game);
-          // TODO: finish mutation logic
-          // commit('APPEND_STEAM_GAME_DATA', gameData)
+          commit('APPEND_STEAM_GAME_DATA', gameData);
 
           resolve(gameData);
         }).catch(reject);
@@ -480,7 +477,7 @@ export default {
     });
   },
 
-  LOAD_GOG_GAME(context, search) {
+  LOAD_GOG_GAME({ commit }, search) {
     return new Promise((resolve, reject) => {
       axios.get(`${API_BASE}/gog?search=${search}`)
         .then(({ data }) => {
@@ -488,7 +485,9 @@ export default {
             ? data.products[0]
             : null;
 
-          resolve(game);
+          console.log('gog', game);
+
+          commit('APPEND_GOG_GAME_DATA', game);
         }).catch(reject);
     });
   },

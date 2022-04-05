@@ -1,7 +1,7 @@
 <!-- TODO: add speedruns -->
 <!-- TODO: use v-observe-visibility -->
 <template lang="html">
-  <b-container fluid>
+  <b-container fluid class="p-0">
     <b-row>
       <b-col cols="3">
         <div class="position-relative">
@@ -26,7 +26,6 @@
         />
 
         <template v-else>
-          <game-images ref="gameImages" :game="game" />
           <!-- <game-videos :videos="game.videos" v-if="game.videos" /> -->
         </template>
 
@@ -44,14 +43,16 @@
       </b-col>
 
       <b-col cols="7">
+        <!-- <pre class="text-dark small">{{ game.gog.price }}</pre> -->
         <h3 class="mb-2">
           {{ game.name }}
-          <b-badge variant="success" v-if="steamGame && steamGame.metacritic">{{ steamGame.metacritic.score }}</b-badge>
+          <!-- <b-badge variant="success" v-if="steamGame && steamGame.metacritic">{{ steamGame.metacritic.score }}</b-badge> -->
         </h3>
         <!-- <small>
           <pre class="text-dark">{{ steamGame }}</pre>
         </small> -->
-        <small v-if="gog && gog.isPriceVisible">{{gog.price.symbol}}{{ gog.price.amount }}</small>
+        <!-- TODO: get from {{game}} -->
+        <!-- <small v-if="gog && gog.isPriceVisible">{{gog.price.symbol}}{{ gog.price.amount }}</small> -->
         <!-- <small><pre class="text-dark">{{ gog }}</pre></small> -->
         <!-- <pre class="small text-dark">{{ steamGame }}</pre> -->
         <b-progress
@@ -72,7 +73,7 @@
         battle-royale -->
 
         <game-genres :game="game" />
-        <game-description :game="game" :steam-game="steamGame" />
+        <!-- <game-description :game="game" :steam-game="steamGame" /> -->
 
         <game-platforms />
         <!-- <game-news :game="game" /> -->
@@ -117,7 +118,6 @@
 
       <b-col cols="12" lg="2">
         <similar-games
-          :game="game"
           :loading="loading"
           class="mb-2"
         />
@@ -136,9 +136,9 @@ import GameRating from '@/components/Game/GameRating';
 import GameDescription from '@/components/Game/GameDescription';
 import SimilarGames from '@/components/Game/SimilarGames';
 import GameWebsites from '@/components/Game/GameWebsites';
-import GameImages from '@/components/Game/GameImages';
+// import GameImages from '@/components/Game/GameImages';
 // import GameVideos from '@/components/Game/GameVideos';
-import { mapGetters, mapState } from 'vuex';
+import { mapState } from 'vuex';
 // import { Timeline } from 'vue-tweet-embed'
 
 export default {
@@ -148,7 +148,7 @@ export default {
     GameDetails,
     GamePlatforms,
     GameRating,
-    GameImages,
+    // GameImages,
     // GameNotes,
     GameGenres,
     // GameNews,
@@ -163,13 +163,12 @@ export default {
     //   type: Object,
     //   required: true,
     // },
-    gog: Object,
-    steamGame: Object,
+    // gog: Object,
+    // steamGame: Object,
     loading: Boolean,
   },
 
   computed: {
-    ...mapGetters(['activeGameCoverUrl']),
     ...mapState(['game', 'progresses', 'tags']),
 
     twitterHandle() {
