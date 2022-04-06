@@ -3,13 +3,18 @@
     <stripe-checkout
       ref="checkoutRef"
       mode="subscription"
-      pk="pk_live_5160DvBGpsgtQXdlaEzH237I6JOkwRhfO5s6nbrK9IG9erzIbkpW610yu7qE4PUjEQAc2GXbM20egr82H1mkRN5rn00qDa5dw1L"
+      pk="pk_test_Plr6zbTURKQbfRUkcXYP58hl"
       :line-items="lineItems"
-      success-url="http://localhost:4000/#/upgrade"
-      cancel-url="http://localhost:4000/#/upgrade"
+      success-url="http://localhost:4000/#/upgrade?state=success"
+      cancel-url="http://localhost:4000/#/upgrade?state=cancel"
       @loading="load"
     />
 
+    <pre>{{ lineItems }}</pre>
+    <pre>{{ loading }}</pre>
+
+    <b-button @click="planSelected = 'monthly'">Monthly</b-button>
+    <b-button @click="planSelected = 'yearly'">Yearly</b-button>
   </div>
 </template>
 
@@ -24,18 +29,39 @@ export default {
   data() {
     return {
       loading: false,
-      lineItems: [
-        {
-          price: 'prod_LQ5kl5sCkdI7Kr',
-          quantity: 1,
-        },
-      ],
+      planSelected: null,
+      monthlyPlan: {
+        price: 'price_1KjFY4GpsgtQXdlaWZa44Gbj',
+        quantity: 1,
+      },
+      yearlyPlan: {
+        price: 'price_1KjFYeGpsgtQXdlajXFxtkDN',
+        quantity: 1,
+      },
     };
+  },
+
+  computed: {
+    lineItems() {
+      if (this.planSelected === 'monthly') return [this.monthlyPlan];
+      if (this.planSelected === 'yearly') return [this.yearlyPlan];
+
+      return [{}];
+    },
+  },
+
+  watch: {
+    planSelected(value) {
+      this.$refs.checkoutRef.redirectToCheckout();
+    },
   },
 
   methods: {
     // load(status) {
-    load() {
+    load(value) {
+      console.log(value);
+      this.loading = value;
+      console.log('load');
       // console.log(status);
     },
   },

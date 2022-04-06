@@ -25,6 +25,7 @@
 
     <template v-else>
       <div class="notes mb-2">
+        <pre>{{ filteredNotes[0] }}</pre>
         <note
           v-for="(note, index) in filteredNotes"
           :key="index"

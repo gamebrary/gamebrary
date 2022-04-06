@@ -40,15 +40,9 @@ export default {
 
   LOAD_WIKIPEDIA_ARTICLE(context, articleTitle) {
     return new Promise((resolve, reject) => {
-      axios.get(`https://en.wikipedia.org/w/api.php?origin=*&action=query&prop=extracts&titles=${articleTitle}&format=json`)
-        .then(({ data: { query } }) => {
-          const pageIds = Object.keys(query.pages);
-
-          const article = pageIds.length
-            ? query.pages[pageIds[0]]
-            : null;
-
-          resolve(article);
+      axios.get(`https://en.wikipedia.org/api/rest_v1/page/mobile-sections/${articleTitle}`)
+        .then(({ data }) => {
+          resolve(data);
         }).catch(reject);
     });
   },

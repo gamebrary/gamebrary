@@ -44,38 +44,25 @@
 
       <b-col cols="7">
         <!-- <pre class="text-dark small">{{ game.gog.price }}</pre> -->
-        <h3 class="mb-2">
+        <h3 class="m-0">
           {{ game.name }}
-          <b-button v-b-toggle.my-collapse>Toggle Collapse</b-button>
-
-          <b-collapse id="my-collapse">
-            <b-card title="Collapsible card">
-              <pre>{{ game }}</pre>
-              <!-- <div
-                class="mb-1"
-                rounded
-                v-for="alternativeName in game.alternative_names"
-                :key="alternativeName.id"
-              >
-                <b-avatar
-                  v-b-tooltip.hover
-                  :title="alternativeName.comment || null"
-                  size="sm"
-                  :src="`/static/img/country-flags/${getCountryCode(alternativeName.comment)}.svg`"
-                />
-
-                {{ alternativeName.name }}
-              </div> -->
-            </b-card>
-          </b-collapse>
           <b-badge variant="success" v-if="game && game.steam && game.steam.metacritic">{{ game.steam.metacritic.score }}</b-badge>
-          <br />
-          <!-- <b-badge variant="success" v-if="steamGame && steamGame.metacritic">{{ steamGame.metacritic.score }}</b-badge> -->
-
-          <b-badge v-b-modal.altNames>
-            <strong>Also known as:</strong>
-          </b-badge>
         </h3>
+
+        <game-alternative-titles />
+        <b-badge
+          v-for="({ games, hex, tagTextColor }, name) in tags"
+          v-if="games.includes(game.id)"
+          :key="name"
+          pill
+          tag="small"
+          class="mr-1 mb-2"
+          :style="`background-color: ${hex}; color: ${tagTextColor}`"
+          v-b-modal.tags
+        >
+          {{ name }}
+        </b-badge>
+
         <!-- <small>
           <pre class="text-dark">{{ steamGame }}</pre>
         </small> -->
@@ -101,7 +88,7 @@
         battle-royale -->
 
         <game-genres :game="game" />
-        <!-- <game-description :game="game" :steam-game="steamGame" /> -->
+        <game-description />
 
         <game-platforms />
         <!-- <game-news :game="game" /> -->
@@ -112,19 +99,6 @@
           grid
           class="d-md-none"
         />
-
-        <b-badge
-          v-for="({ games, hex, tagTextColor }, name) in tags"
-          v-if="games.includes(game.id)"
-          :key="name"
-          pill
-          tag="small"
-          class="mr-1 mb-2"
-          :style="`background-color: ${hex}; color: ${tagTextColor}`"
-          v-b-modal.tags
-        >
-          {{ name }}
-        </b-badge>
 
         <!-- <template v-if="!loading">
           <b-skeleton v-for="n in 3" :key="n" />
@@ -159,6 +133,7 @@
 import GameGenres from '@/components/Game/GameGenres';
 // import GameNews from '@/components/Game/GameNews';
 import GameDetails from '@/components/Game/GameDetails';
+import GameAlternativeTitles from '@/components/Game/GameAlternativeTitles';
 import GamePlatforms from '@/components/Game/GamePlatforms';
 import GameRating from '@/components/Game/GameRating';
 import GameDescription from '@/components/Game/GameDescription';
@@ -174,6 +149,7 @@ export default {
     // Timeline,
     GameDescription,
     GameDetails,
+    GameAlternativeTitles,
     GamePlatforms,
     GameRating,
     // GameImages,

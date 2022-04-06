@@ -9,54 +9,31 @@
     </div>
 
     <template v-else>
-      <small class="text-muted">Source: {{ source }}</small>
-
+      <!-- <small class="text-muted">Source: {{ source }}</small> -->
       <p
         :class="{'break-spaces': source === 'IGDB' }"
         v-html="description"
       />
     </template>
 
-    <b-modal
-      id="wikipediaArticle"
-      scrollable
-      hide-footer
-    >
-      <template v-slot:modal-header="{ close }">
-        <modal-header
-          :title="game.name"
-          subtitle="Wikipedia article"
-          @close="close"
+    <b-card no-body>
+      <b-tabs pills card>
+        <b-tab
+          v-for="section in wikipediaArticle.remaining.sections"
+          :key="section.id"
+          :title='section.line'
         >
-          <template v-slot:header>
-            <b-img
-              :src="activeGameCoverUrl"
-              :alt="game.name"
-              class="float-left mr-2"
-              height="40"
-              rounded
-            />
-          </template>
-        </modal-header>
-      </template>
-
-      <p
-        :class="{'break-spaces': source === 'IGDB' }"
-        v-html="gameDescription"
-      />
-    </b-modal>
+          <b-card-text class="wiki-content" v-html="section.text" />
+        </b-tab>
+      </b-tabs>
+    </b-card>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 export default {
-  props: {
-    game: Object,
-    steamGame: Object,
-  },
-
   data() {
     return {
       wikipediaArticle: {},
@@ -66,6 +43,7 @@ export default {
 
   computed: {
     ...mapGetters(['activeGameCoverUrl']),
+    ...mapState(['game']),
 
     description() {
       return this.trimmedDescription
@@ -74,19 +52,20 @@ export default {
     },
 
     gameDescription() {
-      const steamDescription = this.steamGame && this.steamGame.short_description
-        ? this.steamGame.short_description
+      const steamDescription = this.game && this.game.steam && this.game.steam.short_description
+        ? this.game.steam.short_description
         : null;
 
-      const wikipediaDescription = this.wikipediaArticle && this.wikipediaArticle.extract
-        ? this.wikipediaArticle.extract
-        : null;
+
+      // const wikipediaDescription = this.wikipediaArticle && this.wikipediaArticle.lead && this.wikipediaArticle.lead.sections[0]
+      //   ? this.wikipediaArticle.lead.sections[0].text
+      //   : null;
 
       const igdbDescription = this.game && this.game.summary
         ? this.game.summary
         : null;
 
-      return steamDescription || wikipediaDescription || igdbDescription;
+      return steamDescription || igdbDescription;
     },
 
     trimmedDescription() {
@@ -96,11 +75,11 @@ export default {
     },
 
     source() {
-      if (this.steamGame && this.steamGame.short_description) {
+      if (this.game.steam && this.game.steam.short_description) {
         return 'Steam';
       }
 
-      return this.wikipediaArticle && this.wikipediaArticle.extract
+      return this.wikipediaArticle && this.wikipediaArticle.lead && this.wikipediaArticle.lead[0]
         ? 'Wikipedia'
         : 'IGDB';
     },
@@ -172,5 +151,12 @@ h2 {
 }
 .mw-empty-elt {
   display: none;
+}
+
+.wiki-content img {
+  float: left;
+  // border-radius: 1rem;
+  padding-right: 1rem;
+  width: auto;
 }
 </style>
