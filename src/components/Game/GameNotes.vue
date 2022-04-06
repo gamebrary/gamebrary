@@ -1,10 +1,19 @@
 <template lang="html">
-  <div>
-    <note
-      :note="notes[this.game.id]"
-    />
+  <!-- TODO: get game cover, make getter for game cover url -->
+  <note
+    v-if="note"
+    :note="note"
+  />
 
-  </div>
+  <portal to="headerActions" v-else-if="isGamePage">
+    <b-button
+      variant="warning"
+      name='game-notes'
+      :to="{ name: 'game-notes', params: { gameId: game.id, gameSlug: game.slug } }"
+    >
+      Add note
+    </b-button>
+  </portal>
 </template>
 
 <script>
@@ -18,12 +27,16 @@ export default {
     VueMarkdown,
   },
 
-  props: {
-    game: Object,
-  },
-
   computed: {
-    ...mapState(['notes']),
+    ...mapState(['notes', 'game']),
+
+    isGamePage() {
+      return this.$route.name === 'game'
+    },
+
+    note() {
+      return this.notes[this.game.id] || null;
+    },
   },
 };
 </script>

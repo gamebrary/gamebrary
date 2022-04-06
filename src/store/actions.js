@@ -1,9 +1,10 @@
-// TODO: break up into smaller files and import them here
-// TODO: use proxy endpoint
 import axios from 'axios';
-import firebase from 'firebase/app';
+import { firestore, storage } from 'firebase/app';
 import 'firebase/storage';
 import 'firebase/firestore';
+
+// TODO: break up into smaller files and import them here
+// TODO: use proxy endpoint
 
 const API_BASE = 'https://us-central1-gamebrary-8c736.cloudfunctions.net';
 // const API_BASE = 'http://localhost:5001/gamebrary-8c736/us-central1';
@@ -80,7 +81,7 @@ export default {
 
   LOAD_BOARDS({ state, commit }) {
     return new Promise((resolve, reject) => {
-      const db = firebase.firestore();
+      const db = firestore();
 
       db.collection('boards')
         .where('owner', '==', state.user.uid)
@@ -109,7 +110,7 @@ export default {
 
   LOAD_BOARD({ state, commit }, id) {
     return new Promise((resolve, reject) => {
-      const db = firebase.firestore();
+      const db = firestore();
 
       db.collection('boards')
         .doc(id)
@@ -133,7 +134,7 @@ export default {
 
   LOAD_PUBIC_BOARD({ commit }, id) {
     return new Promise((resolve, reject) => {
-      const db = firebase.firestore();
+      const db = firestore();
 
       db.collection('boards')
         .doc(id)
@@ -155,7 +156,7 @@ export default {
   LOAD_PUBLIC_BOARDS({ commit }) {
     // TODO: paginate
     return new Promise((resolve, reject) => {
-      const db = firebase.firestore();
+      const db = firestore();
 
       db.collection('boards')
         .where('isPublic', '==', true)
@@ -173,7 +174,7 @@ export default {
 
   CREATE_BOARD({ state, commit }, board) {
     return new Promise((resolve, reject) => {
-      const db = firebase.firestore();
+      const db = firestore();
 
       const payload = {
         ...board,
@@ -198,7 +199,7 @@ export default {
 
   LOAD_PROFILE({ commit, state }) {
     return new Promise((resolve, reject) => {
-      const db = firebase.firestore();
+      const db = firestore();
 
       db.collection('profiles')
         .doc(state.user.uid)
@@ -221,7 +222,7 @@ export default {
   LOAD_PROFILES({ commit }) {
     // TODO: paginate
     return new Promise((resolve, reject) => {
-      const db = firebase.firestore();
+      const db = firestore();
 
       db.collection('profiles')
         .get()
@@ -238,7 +239,7 @@ export default {
 
   LOAD_PUBLIC_PROFILE(context, userName) {
     return new Promise((resolve, reject) => {
-      const db = firebase.firestore();
+      const db = firestore();
 
       db.collection('profiles')
         .where('userName', '==', userName)
@@ -258,7 +259,7 @@ export default {
 
   LOAD_USER_PUBLIC_BOARDS(context, userId) {
     return new Promise((resolve, reject) => {
-      const db = firebase.firestore();
+      const db = firestore();
 
       db.collection('boards')
         .where('owner', '==', userId)
@@ -273,9 +274,16 @@ export default {
     });
   },
 
+  // db.collection("users")
+  // .doc("3P86VJxcpBK0D0lsAyYx")
+  // .set({
+  //   name: "Lee Kuan",
+  // });
+
+
   DELETE_PROFILE({ commit, state }) {
     return new Promise((resolve, reject) => {
-      const db = firebase.firestore();
+      const db = firestore();
 
       db.collection('profiles')
         .doc(state.user.uid)
@@ -289,7 +297,7 @@ export default {
   },
 
   SAVE_PROFILE({ commit, state }, profile) {
-    const db = firebase.firestore();
+    const db = firestore();
 
     return new Promise((resolve, reject) => {
       db.collection('profiles')
@@ -304,7 +312,7 @@ export default {
   },
 
   CHECK_PROFILE_USERNAME_AVAILABILITY(context, userName) {
-    const db = firebase.firestore();
+    const db = firestore();
 
     return new Promise((resolve, reject) => {
       db.collection('profiles')
@@ -321,7 +329,7 @@ export default {
 
   DELETE_WALLPAPER({ commit }, { fullPath }) {
     return new Promise((resolve, reject) => {
-      firebase.storage()
+      storage()
         .ref(fullPath)
         .delete()
         .then(() => {
@@ -334,7 +342,7 @@ export default {
 
   LOAD_WALLPAPER(context, path) {
     return new Promise((resolve, reject) => {
-      firebase.storage()
+      storage()
         .ref()
         .child(path)
         .getDownloadURL()
@@ -347,7 +355,7 @@ export default {
 
   LOAD_WALLPAPERS({ state, commit }) {
     return new Promise((resolve, reject) => {
-      firebase.storage()
+      storage()
         .ref(`${state.user.uid}/wallpapers`)
         .listAll()
         .then(({ items }) => {
@@ -365,7 +373,7 @@ export default {
           const fetchedUrls = [];
 
           wallpapers.forEach(({ fullPath }, index) => {
-            firebase.storage()
+            storage()
               .ref()
               .child(fullPath)
               .getDownloadURL()
@@ -378,7 +386,7 @@ export default {
                   const fetchedMetadatas = [];
 
                   wallpapers.forEach((wallpaper, i) => {
-                    firebase.storage()
+                    storage()
                       .ref(wallpaper.fullPath)
                       .getMetadata()
                       .then((metadata) => {
@@ -403,14 +411,14 @@ export default {
 
   UPLOAD_WALLPAPER({ state, commit }, file) {
     return new Promise((resolve, reject) => {
-      firebase.storage()
+      storage()
         .ref(`${state.user.uid}/wallpapers/${file.name}`)
         .put(file)
         .then((response) => {
           if (response.state === 'success') {
             const { metadata: { fullPath, name } } = response;
 
-            firebase.storage()
+            storage()
               .ref()
               .child(fullPath)
               .getDownloadURL()
@@ -433,7 +441,7 @@ export default {
 
   // set merge to true when deleting lists
   SAVE_BOARD({ state }, merge = false) {
-    const db = firebase.firestore();
+    const db = firestore();
 
     return new Promise((resolve, reject) => {
       db.collection('boards')
@@ -448,7 +456,7 @@ export default {
 
   DELETE_BOARD({ commit }, id) {
     return new Promise((resolve, reject) => {
-      const db = firebase.firestore();
+      const db = firestore();
 
       db.collection('boards')
         .doc(id)
@@ -534,7 +542,7 @@ export default {
   },
 
   SAVE_TAGS({ state }, tags) {
-    const db = firebase.firestore();
+    const db = firestore();
 
     return new Promise((resolve, reject) => {
       db.collection('tags')
@@ -546,7 +554,7 @@ export default {
   },
 
   GET_TWITCH_TOKEN({ commit }) {
-    const db = firebase.firestore();
+    const db = firestore();
 
     return new Promise((resolve, reject) => {
       db.collection('app')
@@ -561,7 +569,7 @@ export default {
   },
 
   SAVE_TAGS_NO_MERGE({ state }, tags) {
-    const db = firebase.firestore();
+    const db = firestore();
 
     return new Promise((resolve, reject) => {
       db.collection('tags')
@@ -573,7 +581,7 @@ export default {
   },
 
   SAVE_SETTINGS({ commit, state }, settings) {
-    const db = firebase.firestore();
+    const db = firestore();
 
     return new Promise((resolve, reject) => {
       db.collection('settings')
@@ -590,7 +598,7 @@ export default {
   // TODO: combine into single action
   SAVE_NOTES({ state }) {
     return new Promise((resolve, reject) => {
-      const db = firebase.firestore();
+      const db = firestore();
 
       db.collection('notes')
         .doc(state.user.uid)
@@ -602,7 +610,7 @@ export default {
 
   SAVE_NOTES_NO_MERGE({ state }) {
     return new Promise((resolve, reject) => {
-      const db = firebase.firestore();
+      const db = firestore();
 
       db.collection('notes')
         .doc(state.user.uid)
@@ -615,7 +623,7 @@ export default {
   // TODO: combine into single action
   SAVE_PROGRESSES_NO_MERGE({ state }) {
     return new Promise((resolve, reject) => {
-      const db = firebase.firestore();
+      const db = firestore();
 
       db.collection('progresses')
         .doc(state.user.uid)
@@ -627,7 +635,7 @@ export default {
 
   SAVE_PROGRESSES({ state }) {
     return new Promise((resolve, reject) => {
-      const db = firebase.firestore();
+      const db = firestore();
 
       db.collection('progresses')
         .doc(state.user.uid)
@@ -639,7 +647,7 @@ export default {
 
   SYNC_LOAD_SETTINGS({ commit, state }) {
     return new Promise((resolve, reject) => {
-      const db = firebase.firestore();
+      const db = firestore();
 
       db.collection('settings')
         .doc(state.user.uid)
@@ -658,7 +666,7 @@ export default {
 
   LOAD_SETTINGS({ commit, state }) {
     return new Promise((resolve, reject) => {
-      const db = firebase.firestore();
+      const db = firestore();
 
       db.collection('settings')
         .doc(state.user.uid)
@@ -679,7 +687,7 @@ export default {
 
   LOAD_TAGS({ commit, state }) {
     return new Promise((resolve, reject) => {
-      const db = firebase.firestore();
+      const db = firestore();
 
       db.collection('tags')
         .doc(state.user.uid)
@@ -700,7 +708,7 @@ export default {
 
   SYNC_LOAD_TAGS({ commit, state }) {
     return new Promise((resolve, reject) => {
-      const db = firebase.firestore();
+      const db = firestore();
 
       db.collection('tags')
         .doc(state.user.uid)
@@ -719,7 +727,7 @@ export default {
 
   SYNC_LOAD_NOTES({ commit, state }) {
     return new Promise((resolve, reject) => {
-      const db = firebase.firestore();
+      const db = firestore();
 
       db.collection('notes')
         .doc(state.user.uid)
@@ -738,7 +746,7 @@ export default {
 
   SYNC_LOAD_PROGRESSES({ commit, state }) {
     return new Promise((resolve, reject) => {
-      const db = firebase.firestore();
+      const db = firestore();
 
       db.collection('progresses')
         .doc(state.user.uid)

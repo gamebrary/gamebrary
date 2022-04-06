@@ -25,7 +25,6 @@
 
     <template v-else>
       <div class="notes mb-2">
-        <pre>{{ filteredNotes[0] }}</pre>
         <note
           v-for="(note, index) in filteredNotes"
           :key="index"
@@ -122,11 +121,6 @@ export default {
         });
 
       this.loaded = true;
-    },
-
-    openGame(gameId) {
-      this.$store.commit('SET_GAME_MODAL_DATA', { gameId });
-      this.$bvModal.show('game-modal');
     },
 
     getCoverUrl(gameId) {

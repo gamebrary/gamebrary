@@ -30,6 +30,7 @@
         </template>
 
         <game-websites :game="game" class="d-none d-md-inline" />
+        <game-notes />
         <!-- <pre>{{ game.genres.map(({ id }) => id) }}</pre> -->
         <!-- TODO: add bundles to game detail? -->
         <!-- {{ game.bundles ? `Found in ${game.bundles.length} compilations.` : null }} -->
@@ -88,7 +89,6 @@
         battle-royale -->
 
         <game-genres :game="game" />
-        <game-notes :game="game" />
         <game-description />
 
         <game-platforms />

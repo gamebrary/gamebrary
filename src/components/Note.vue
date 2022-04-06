@@ -37,7 +37,8 @@ export default {
 .note {
   font-family: 'Gochi Hand', cursive;
   max-width: 100%;
-  height: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
   background-color: #fdf5ad;
   display: flex;
   flex-direction: column;
@@ -48,8 +49,10 @@ header {
   background-image: linear-gradient(90deg, transparent 79px, #ec7063 79px, #ec7063 81px, transparent 81px);
   background-size: 100% 1.2em;
   padding-left: 5.5rem;
+  padding-right: 1rem;
   padding-top: 1rem;
-  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
 }
 
 .note-content {

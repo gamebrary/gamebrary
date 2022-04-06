@@ -89,14 +89,14 @@ exports.search = functions.https.onRequest((req, res) => {
     url: 'https://api.igdb.com/v4/games',
     method: 'POST',
     headers: {
-      'Accept': 'application/json',
+      Accept: 'application/json',
       'Client-ID': functions.config().twitch.clientid,
-      'Authorization': `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
     data,
   })
-    .then(({ data }) => { res.status(200).send(data) })
-    .catch((error) => { res.send(error) });
+    .then(({ data }) => { res.status(200).send(data); })
+    .catch((error) => { res.send(error); });
 });
 
 // TODO: update to run once a month instead of once a week
@@ -110,7 +110,7 @@ exports.refreshToken = functions.pubsub.schedule('0 0 * * 0')
       url,
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
       },
     })
       .then(({ data }) => {
@@ -128,7 +128,7 @@ exports.refreshToken = functions.pubsub.schedule('0 0 * * 0')
   });
 
 exports.platforms = functions.https.onRequest((req, res) => {
-  res.set('Access-Control-Allow-Origin', "*");
+  res.set('Access-Control-Allow-Origin', '*');
 
   const { token } = req.query;
 
@@ -154,7 +154,7 @@ exports.platforms = functions.https.onRequest((req, res) => {
     .then(({ data }) => {
       res.status(200).send(data)
     })
-    .catch((error) => { res.send(error) });
+    .catch((error) => { res.send(error); });
 });
 
 exports.games = functions.https.onRequest((req, res) => {
