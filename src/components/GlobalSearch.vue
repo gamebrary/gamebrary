@@ -73,7 +73,7 @@ export default {
         name: 'game',
         params: {
           gameId,
-          // gameSlug: this.games[gameId].slug,
+          gameSlug: this.games[gameId].slug,
         },
       });
     },

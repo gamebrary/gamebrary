@@ -88,6 +88,7 @@
         battle-royale -->
 
         <game-genres :game="game" />
+        <game-notes :game="game" />
         <game-description />
 
         <game-platforms />
@@ -104,7 +105,6 @@
           <b-skeleton v-for="n in 3" :key="n" />
         </template> -->
 
-        <!-- <game-notes :game="game" /> -->
         <!-- <b-form-rating
           v-if="rating"
           :value="rating"
@@ -129,7 +129,7 @@
 </template>
 
 <script>
-// import GameNotes from '@/components/Game/GameNotes';
+import GameNotes from '@/components/Game/GameNotes';
 import GameGenres from '@/components/Game/GameGenres';
 // import GameNews from '@/components/Game/GameNews';
 import GameDetails from '@/components/Game/GameDetails';
@@ -153,7 +153,7 @@ export default {
     GamePlatforms,
     GameRating,
     // GameImages,
-    // GameNotes,
+    GameNotes,
     GameGenres,
     // GameNews,
     // GameVideos,

@@ -13,6 +13,7 @@ import PlatformsPage from '@/pages/PlatformsPage';
 import PlatformPage from '@/pages/PlatformPage';
 import NotFoundPage from '@/pages/NotFoundPage';
 import NotesPage from '@/pages/NotesPage';
+import GameNotes from '@/pages/GameNotes';
 import PrivacyPolicyPage from '@/pages/PrivacyPolicyPage';
 import ProfilePage from '@/pages/ProfilePage';
 import PublicProfilePage from '@/pages/PublicProfilePage';
@@ -139,6 +140,11 @@ const routes = [
     meta: {
       public: true,
     },
+  },
+  {
+    name: 'game-notes',
+    path: '/game/:gameId/:gameSlug/notes',
+    component: GameNotes,
   },
   {
     path: '/search',
