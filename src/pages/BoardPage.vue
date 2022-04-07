@@ -7,18 +7,19 @@
   >
     <boards-dropdown />
 
-    <portal to="dock">
-      <!-- <b-button
+    <portal v-if="isBoardPage" to="headerActions">
+      <b-button
         v-if="user && user.uid && user.uid === board.owner"
-        variant="secondary"
-        v-b-modal:edit-board
+        variant="light"
+        class="mr-2"
+        :to="{ name: 'edit-board', params: { id: board.id } }"
       >
-        <i class="fas fa-pencil-alt fa-fw" aria-hidden />
-        Edit board
-      </b-button> -->
-      <!-- TODO: add board filtering -->
+        Edit
+      </b-button>
+
       <!-- <b-button
         variant="warning"
+        class="mr-2"
       >
         <i class="fas fa-filter fa-fw" aria-hidden />
         Filter
@@ -51,7 +52,6 @@
       </div>
 
       <add-list-modal />
-      <edit-board-modal />
     </template>
 
     <b-alert
@@ -65,7 +65,6 @@
 </template>
 
 <script>
-import EditBoardModal from '@/components/Board/EditBoardModal';
 import BoardPlaceholder from '@/components/Board/BoardPlaceholder';
 import BoardsDropdown from '@/components/BoardsDropdown';
 import EmptyBoard from '@/components/Board/EmptyBoard';
@@ -81,7 +80,6 @@ export default {
     BoardsDropdown,
     EmptyBoard,
     AddListModal,
-    EditBoardModal,
   },
 
   data() {
@@ -95,6 +93,10 @@ export default {
   computed: {
     ...mapState(['user', 'dragging', 'board', 'wallpapers']),
     ...mapGetters(['isBoardOwner']),
+
+    isBoardPage() {
+      return this.$route.name === 'board';
+    },
 
     isPublicRoute() {
       // OPTIMIZE: use optional chaining

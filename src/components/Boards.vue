@@ -55,14 +55,11 @@
         </b-button>
       </mini-board> -->
     </div>
-
-    <edit-board-modal />
   </div>
 </template>
 
 <script>
 import MiniBoard from '@/components/Board/MiniBoard';
-import EditBoardModal from '@/components/Board/EditBoardModal';
 import EmptyState from '@/components/EmptyState';
 import Packery from 'packery';
 import { mapState, mapGetters } from 'vuex';
@@ -70,7 +67,6 @@ import { mapState, mapGetters } from 'vuex';
 export default {
   components: {
     MiniBoard,
-    EditBoardModal,
     EmptyState,
   },
 

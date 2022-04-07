@@ -1,22 +1,7 @@
 <template lang="html">
-  <b-form>
-    <!-- <template v-slot:modal-header="{ close }">
-      <modal-header
-        title="Edit board"
-        :subtitle="board.name"
-        @close="close"
-      >
-        <b-button
-          variant="primary"
-          :disabled="saving"
-          @click="saveSettings"
-        >
-          <b-spinner small v-if="saving" />
-          <span v-else>{{ $t('global.save') }}</span>
-        </b-button>
-      </modal-header>
-    </template> -->
-
+  <!-- TODO: Add back button -->
+  <!-- TODO: refactor platforms and wallpapers -->
+  <b-container fluid class="p-2">
     <form ref="boardSettingsForm" @submit.stop.prevent="submit">
       <b-form-group
         :label="$t('board.settings.nameLabel')"
@@ -57,9 +42,7 @@
 
       <hr class="my-3">
 
-      <b-button
-        v-b-modal.editPlatforms
-      >
+      <b-button v-b-modal.editPlatforms>
         <i class="fas fa-gamepad fa-fw" aria-hidden />
         <br />
         Edit platforms
@@ -67,9 +50,7 @@
 
       <edit-board-platforms-modal />
 
-      <b-button
-        v-b-modal.boardBackground
-      >
+      <b-button v-b-modal.boardBackground>
         <i class="fas fa-images fa-fw" aria-hidden />
         <br />
         Change background
@@ -85,8 +66,17 @@
       >
         {{ $t('board.settings.deleteBoard') }}
       </b-button>
+
+      <b-button
+        variant="primary"
+        :disabled="saving"
+        @click="saveSettings"
+      >
+        <b-spinner small v-if="saving" />
+        <span v-else>{{ $t('global.save') }}</span>
+      </b-button>
     </form>
-  </b-form>
+  </b-container>
 </template>
 
 <script>
