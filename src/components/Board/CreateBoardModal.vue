@@ -97,13 +97,7 @@
 </template>
 
 <script>
-import PlatformPicker from '@/components/Board/PlatformPicker';
-
 export default {
-  components: {
-    PlatformPicker,
-  },
-
   data() {
     return {
       board: {

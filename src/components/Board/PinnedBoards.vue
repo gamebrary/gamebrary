@@ -29,6 +29,7 @@
         `"
         @click="$bvModal.show('edit-board')"
       >
+        <!-- TODO: replace with route -->
         <span class="board-initials text-uppercase mr-1">
           {{ getBoardInitials(board.name) }}
         </span>

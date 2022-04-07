@@ -31,7 +31,7 @@ export default {
     ...mapState(['notes', 'game']),
 
     isGamePage() {
-      return this.$route.name === 'game'
+      return this.$route.name === 'game';
     },
 
     note() {

@@ -2,6 +2,7 @@
   <div class="empty-board text-center rounded p-3 mx-auto my-2 bg-secondary">
     <p class="lead">This board is empty!</p>
 
+    <!-- TODO: use route to page -->
     <b-button
       v-b-modal.edit-board
       block

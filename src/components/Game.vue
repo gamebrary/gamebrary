@@ -2,7 +2,7 @@
 <!-- TODO: use v-observe-visibility -->
 <template lang="html">
   <b-container fluid class="p-0">
-    <b-row>
+    <b-form-row>
       <b-col cols="3">
         <div class="position-relative">
           <b-img
@@ -124,7 +124,7 @@
           class="mb-2"
         />
       </b-col>
-    </b-row>
+    </b-form-row>
   </b-container>
 </template>
 

@@ -12,6 +12,7 @@
 
     <pre>{{ lineItems }}</pre>
     <pre>{{ loading }}</pre>
+    <!-- TODO: finish UI, set loading spinner -->
 
     <b-button @click="planSelected = 'monthly'">Monthly</b-button>
     <b-button @click="planSelected = 'yearly'">Yearly</b-button>
@@ -51,18 +52,14 @@ export default {
   },
 
   watch: {
-    planSelected(value) {
+    planSelected() {
       this.$refs.checkoutRef.redirectToCheckout();
     },
   },
 
   methods: {
-    // load(status) {
     load(value) {
-      console.log(value);
       this.loading = value;
-      console.log('load');
-      // console.log(status);
     },
   },
 };
