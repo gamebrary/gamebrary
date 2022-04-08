@@ -26,7 +26,6 @@
         <portal-target name="headerActions" />
 
         <b-button class="mr-2" variant="success" :to="{ name: 'upgrade' }">
-          <i class="fa-solid fa-crown" />
           Upgrade
         </b-button>
 

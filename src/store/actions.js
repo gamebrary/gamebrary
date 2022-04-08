@@ -487,8 +487,6 @@ export default {
             ? data.products[0]
             : null;
 
-          console.log('gog', game);
-
           commit('APPEND_GOG_GAME_DATA', game);
         }).catch(reject);
     });

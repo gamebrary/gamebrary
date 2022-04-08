@@ -7,33 +7,36 @@
       <b-col cols="3">
         <b-img
           :src="gameCoverUrl"
-          :alt="game.name"
-          class="cursor-pointer game-cover"
-          fluid-grow
           rounded
+          fluid-grow
+          @click.stop="openModal(index)"
         />
       </b-col>
 
-      <b-col cols="9">
-        {{ game.name }}
-        <b-button
-          @click="openGame"
-          class="mb-2"
-        >
-          Back to Game
+      <b-col cols="7">
+        <div>
+          <h2>{{ game.name }}</h2>
+          <p class="text-muted">
+            Images
+          </p>
+
+        </div>
+
+        <b-button @click="openGame" class="mb-2">
+          Back
         </b-button>
 
-        <hr />
-
-        <b-img
-          v-for="(thumbnail, index) in gameThumbnails"
-          :key="index"
-          :src="thumbnail"
-          width="200"
-          class="m-2"
-          rounded
-          @click.stop="openModal(index)"
-        />
+        <div class="packery-grid">
+          <b-img
+            v-for="(thumbnail, index) in gameThumbnails"
+            :key="index"
+            :src="thumbnail"
+            width="200"
+            :class="index === 0 ? 'd-none' : 'image'"
+            rounded
+            @click.stop="openModal(index)"
+          />
+        </div>
       </b-col>
     </b-form-row>
 
@@ -113,11 +116,13 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
+import Packery from 'packery';
 
 // TODO: load game if not loaded
 export default {
   data() {
     return {
+      packery: null,
       activeIndex: 0,
       maxThumbnails: 3,
       saving: false,
@@ -157,7 +162,9 @@ export default {
     },
 
     subtitle() {
-      return `Screenshot ${this.activeIndex} of ${this.gameImages.length - 1}`;
+      return this.activeIndex === 0
+        ? 'Game cover'
+        : `Screenshot ${this.activeIndex} of ${this.gameImages.length - 1}`;
     },
 
     gameThumbnails() {
@@ -183,6 +190,7 @@ export default {
         : [];
 
       return [
+        ...[this.gameCoverUrl],
         ...gogImages,
         ...steamImages,
         ...igdbImages,
@@ -212,11 +220,16 @@ export default {
         : [];
 
       return [
+        ...[this.gameCoverUrl],
         ...gogImages,
         ...steamImages,
         ...igdbImages,
       ];
     },
+  },
+
+  mounted() {
+    this.packery = new Packery('.packery-grid', { itemSelector: '.image', gutter: 16 });
   },
 
   methods: {
