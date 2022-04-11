@@ -230,9 +230,17 @@ export default {
 
   mounted() {
     this.packery = new Packery('.packery-grid', { itemSelector: '.image', gutter: 16 });
+
+    this.$nextTick(() => {
+      setTimeout(() => { this.layout(); }, 1000);
+    });
   },
 
   methods: {
+    layout() {
+      this.packery.layout();
+    },
+
     openGame() {
       this.$router.push({
         name: 'game',

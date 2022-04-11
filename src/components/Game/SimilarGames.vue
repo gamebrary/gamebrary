@@ -2,26 +2,17 @@
   <div v-if="similarGames.length">
     You may also like:
 
-    <b-card
-      v-for="game in similarGames"
-      :key="game.id"
-      no-body
-      class="overflow-hidden mb-2"
-    >
-      <b-row no-gutters>
-        <b-col md="6">
-          <b-card-img
-            :src="getCoverUrl(game.cover)"
-            class="rounded m-2"
-            @click="openGame(game)"
-          />
-          <!-- <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img> -->
-        </b-col>
-        <b-col md="6">
-          <div class="p-2">{{ game.name }}</div>
-        </b-col>
-      </b-row>
-    </b-card>
+    <b-card-group columns>
+      <b-card
+        v-for="game in similarGames"
+        :key="game.id"
+        :title="game.name"
+        :img-src="getCoverUrl(game.cover)"
+        :img-alt="game.name"
+        img-top
+        @click="openGame(game)"
+      />
+    </b-card-group>
   </div>
 </template>
 

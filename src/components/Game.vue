@@ -118,7 +118,7 @@
         <br /> -->
       </b-col>
 
-      <b-col cols="12" lg="2">
+      <b-col cols="12">
         <similar-games
           :loading="loading"
           class="mb-2"

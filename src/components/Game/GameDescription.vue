@@ -16,7 +16,7 @@
       />
     </template>
 
-    <b-card no-body>
+    <b-card no-body v-if="wikipediaArticle && wikipediaArticle.remaining">
       <b-tabs pills card>
         <b-tab
           v-for="section in wikipediaArticle.remaining.sections"
