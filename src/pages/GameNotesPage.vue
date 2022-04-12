@@ -29,7 +29,7 @@
       </b-col>
 
       <b-col>
-        <note v-if="note" :note="{ note }" />
+        <game-note v-if="note" :note="{ note }" />
       </b-col>
     </b-form-row>
   </b-container>
@@ -37,12 +37,12 @@
 
 <script>
 import { mapState } from 'vuex';
-import Note from '@/components/Note';
+import GameNote from '@/components/GameNote';
 import MarkdownCheatsheet from '@/components/MarkdownCheatsheet';
 
 export default {
   components: {
-    Note,
+    GameNote,
     MarkdownCheatsheet,
   },
 

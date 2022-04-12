@@ -5,14 +5,14 @@
 </template>
 
 <script>
-import Boards from '@/components/Boards';
+// import GameBoards from '@/components/GameBoards';
 import DashboardPage from '@/pages/DashboardPage';
 import PublicHomePage from '@/pages/PublicHomePage';
 import { mapState } from 'vuex';
 
 export default {
   components: {
-    Boards,
+    // GameBoards,
     DashboardPage,
     PublicHomePage,
   },

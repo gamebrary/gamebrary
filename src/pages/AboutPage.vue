@@ -1,10 +1,10 @@
 <template lang="html">
   <b-container class="py-3">
-    <vue-markdown
+    <!-- <vue-markdown
       class="w-100"
       v-if="readme"
       :source="readme"
-    />
+    /> -->
 
     <div v-if="repo" class="mb-4">
       <b-button
@@ -43,11 +43,11 @@
 </template>
 
 <script>
-import VueMarkdown from 'vue-markdown';
+// import VueMarkdown from 'vue-markdown';
 
 export default {
   components: {
-    VueMarkdown,
+    // VueMarkdown,
   },
 
   data() {

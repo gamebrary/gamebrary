@@ -10,7 +10,7 @@
     <!-- TODO: hook up settings -->
     <!-- <img
       v-for="rating in gameAgeRatings"
-      :src="`/static/img/age-ratings/${rating.rating}`"
+      :src="`/img/age-ratings/${rating.rating}`"
       :alt="rating.name"
       :key="rating.name"
       v-b-tooltip.hover

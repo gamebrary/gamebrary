@@ -21,7 +21,8 @@
         height="6px"
       />
 
-      <template v-if="showGameTags">
+      <!-- TODO: use array map/filter -->
+      <!-- <template v-if="showGameTags">
         <b-badge
           v-for="({ games, hex, tagTextColor }, name) in tags"
           v-if="games.includes(game.id)"
@@ -33,7 +34,7 @@
         >
           {{ name }}
         </b-badge>
-      </template>
+      </template> -->
 
       <b-badge variant="warning" v-if="gameNotes">
         <i class="far fa-sticky-note fa-fw" />

@@ -14,21 +14,21 @@
       <create-profile />
     </empty-state>
 
-    <profile v-else />
+    <public-profile v-else />
   </b-container>
 </template>
 
 <script>
 import EmptyState from '@/components/EmptyState';
 import CreateProfile from '@/components/Profile/CreateProfile';
-import Profile from '@/components/Profile';
+import PublicProfile from '@/components/PublicProfile';
 import { mapState } from 'vuex';
 
 export default {
   components: {
     EmptyState,
     CreateProfile,
-    Profile,
+    PublicProfile,
   },
 
   data() {

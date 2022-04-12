@@ -92,18 +92,18 @@
 </template>
 
 <script>
-import ProfileSettingsPage from '@/pages/ProfileSettingsPage';
-import AccountSettingsPage from '@/pages/AccountSettingsPage';
-import SteamSettingsPage from '@/pages/SteamSettingsPage';
-import GeneralSettingsPage from '@/pages/GeneralSettingsPage';
+// import ProfileSettingsPage from '@/pages/ProfileSettingsPage';
+// import AccountSettingsPage from '@/pages/AccountSettingsPage';
+// import SteamSettingsPage from '@/pages/SteamSettingsPage';
+// import GeneralSettingsPage from '@/pages/GeneralSettingsPage';
 import { mapState } from 'vuex';
 
 export default {
   components: {
-    ProfileSettingsPage,
-    AccountSettingsPage,
-    SteamSettingsPage,
-    GeneralSettingsPage,
+    // ProfileSettingsPage,
+    // AccountSettingsPage,
+    // SteamSettingsPage,
+    // GeneralSettingsPage,
   },
 
   computed: {

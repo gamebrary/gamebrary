@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import GlobalSearch from '@/components/GlobalSearch';
+// import GlobalSearch from '@/components/GlobalSearch';
 import SearchBox from '@/components/SearchBox';
 import HomeButton from '@/components/Shared/HomeButton';
 
@@ -60,7 +60,7 @@ import { mapState } from 'vuex';
 
 export default {
   components: {
-    GlobalSearch,
+    // GlobalSearch,
     SearchBox,
     HomeButton,
   },

@@ -37,7 +37,8 @@
             height="6px"
           />
 
-          <div v-if="showGameTags">
+          <!-- TODO: use array map/filter -->
+          <!-- <div v-if="showGameTags">
             <b-badge
               v-for="({ games, hex, tagTextColor }, name) in tags"
               v-if="games.includes(game.id)"
@@ -49,7 +50,7 @@
             >
               {{ name }}
             </b-badge>
-          </div>
+          </div> -->
         </b-card-body>
       </b-col>
     </b-row>

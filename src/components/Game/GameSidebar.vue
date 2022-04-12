@@ -7,25 +7,25 @@
     @hidden="reset"
   >
     <!-- TODO: restrict usage of sidebar when setting is set -->
-    <game :game="game" :loading="loading" />
+    <game-detail :game="game" :loading="loading" />
   </b-sidebar>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import Game from '@/components/Game';
-import GameNotesModal from '@/components/Game/GameNotesModal';
-import GameProgress from '@/components/Game/GameProgress';
-import AddRemoveGame from '@/components/Game/AddRemoveGame';
-import GameTagsModal from '@/components/Game/GameTagsModal';
+import GameDetail from '@/components/GameDetail';
+// import GameNotesModal from '@/components/Game/GameNotesModal';
+// import GameProgress from '@/components/Game/GameProgress';
+// import AddRemoveGame from '@/components/Game/AddRemoveGame';
+// import GameTagsModal from '@/components/Game/GameTagsModal';
 
 export default {
   components: {
-    Game,
-    GameTagsModal,
-    GameNotesModal,
-    GameProgress,
-    AddRemoveGame,
+    GameDetail,
+    // GameTagsModal,
+    // GameNotesModal,
+    // GameProgress,
+    // AddRemoveGame,
   },
 
   data() {

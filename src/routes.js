@@ -28,12 +28,15 @@ import GeneralSettingsPage from '@/pages/GeneralSettingsPage';
 import TagsPage from '@/pages/TagsPage';
 import TermsPage from '@/pages/TermsPage';
 import WallpapersPage from '@/pages/WallpapersPage';
+// TODO: use chunks and import directly
+// TODO: separate into different files
 
 const routes = [
   {
     name: 'profiles',
     path: '/profiles',
     component: PublicProfilesPage,
+    // component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue'),
     meta: {
       title: 'profiles',
       public: true,

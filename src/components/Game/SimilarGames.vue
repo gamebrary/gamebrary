@@ -17,12 +17,12 @@
 </template>
 
 <script>
-import GameCardCompact from '@/components/GameCards/GameCardCompact';
+// import GameCardCompact from '@/components/GameCards/GameCardCompact';
 import { mapState } from 'vuex';
 
 export default {
   components: {
-    GameCardCompact,
+    // GameCardCompact,
   },
 
   props: {
@@ -56,7 +56,7 @@ export default {
     getCoverUrl(cover) {
       return cover && cover.image_id
         ? `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${cover.image_id}.jpg`
-        : '/static/no-image.jpg';
+        : '/no-image.jpg';
     },
 
     async loadGames() {

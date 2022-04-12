@@ -30,7 +30,7 @@
           {{ $t('releases.published') }} {{ formatDate(release.published_at) }}
         </small>
 
-        <vue-markdown :source="release.body" class="w-100 releases" />
+        <!-- <vue-markdown :source="release.body" class="w-100 releases" /> -->
       </b-card-text>
     </b-card>
   </b-container>
@@ -38,11 +38,11 @@
 
 <script>
 import { mapState } from 'vuex';
-import VueMarkdown from 'vue-markdown';
+// import VueMarkdown from 'vue-markdown';
 
 export default {
   components: {
-    VueMarkdown,
+    // VueMarkdown,
   },
 
   computed: {

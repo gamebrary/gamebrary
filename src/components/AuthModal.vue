@@ -12,7 +12,7 @@
         <template v-slot:header>
           <img
             class="logo mr-2"
-            src="/static/gamebrary-logo.png"
+            src="/gamebrary-logo.png"
           />
         </template>
       </modal-header>
@@ -24,7 +24,7 @@
 
     <div class="text-center" v-else>
       <b-img
-        src="/static/img/screenshot-1.jpg"
+        src="/img/screenshot-1.jpg"
         class="rounded shadow w-75 ml-auto mr-auto mt-2 mb-3"
         block
       />

@@ -1,9 +1,11 @@
+<!-- TODO: fix background hex not rendering -->
 <template lang="html">
   <div
     class="mini-board overflow-hidden p-1 rounded cursor-pointer bg-secondary"
     :style="miniBoardStyles"
     @click="$emit('view-board', board.id)"
   >
+    <pre>{{ backgroundImage }}</pre>
     <header class="text-small d-flex align-items-center">
       <span class="mr-1">{{ board.name }}</span>
 
@@ -55,8 +57,7 @@ export default {
         return `background-image: url(${this.backgroundImage});`;
       }
 
-      // OPTIMIZE: use optional chaining
-      return this.board && this.board.backgroundColor
+      return this.board?.backgroundColor
         ? `background-color: ${this.board.backgroundColor};`
         : null;
     },

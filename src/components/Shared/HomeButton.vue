@@ -6,7 +6,7 @@
     @click="handleLogoClick"
   >
     <img
-      src="/static/logo.png"
+      src="/logo.png"
       width="20"
     />
     <!-- TODO: move back button to here when viewing a game that's part of a board -->

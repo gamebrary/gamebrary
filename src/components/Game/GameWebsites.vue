@@ -20,7 +20,7 @@
         v-else-if="svg"
         width="24"
         class="mr-1"
-        :src="`/static/logos/companies/${id}.svg`"
+        :src="`/logos/companies/${id}.svg`"
       />
 
       <!-- <small>{{ $t(`board.gameModal.links.${id}`) }}</small> -->

@@ -15,6 +15,7 @@ import PortalVue from 'portal-vue';
 import RavenVue from 'raven-js/plugins/vue';
 import VueObserveVisibility from 'vue-observe-visibility';
 import App from '@/App';
+import './registerServiceWorker';
 import messages from '@/i18n/';
 import store from '@/store/';
 import router from '@/router';
@@ -75,13 +76,10 @@ const locale = vuexStorage && vuexStorage.settings && vuexStorage.settings.langu
 
 const i18n = new VueI18n({ locale, messages });
 
-/* eslint-disable no-new */
 new Vue({
-  el: '#app',
   router,
   i18n,
   store,
-  components: { App },
-  template: '<App/>',
-});
+  render: (h) => h(App),
+}).$mount('#app');
 

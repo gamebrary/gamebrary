@@ -2,7 +2,7 @@
   <nav>
     <router-link :to="{ name: 'home' }">
       <img
-        src="/static/gamebrary-logo.png"
+        src="/gamebrary-logo.png"
         width="32"
       />
     </router-link>

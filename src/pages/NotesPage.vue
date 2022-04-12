@@ -25,7 +25,7 @@
 
     <template v-else>
       <div class="notes mb-2">
-        <note
+        <game-note
           v-for="(note, index) in filteredNotes"
           :key="index"
           :note="note"
@@ -37,13 +37,13 @@
 
 <script>
 import EmptyState from '@/components/EmptyState';
-import Note from '@/components/Note';
+import GameNote from '@/components/GameNote';
 import { mapState } from 'vuex';
 
 export default {
   components: {
     EmptyState,
-    Note,
+    GameNote,
   },
 
   data() {
@@ -128,7 +128,7 @@ export default {
 
       return game && game.cover && game.cover.image_id
         ? `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${game.cover.image_id}.jpg`
-        : '/static/no-image.jpg';
+        : '/no-image.jpg';
     },
   },
 };

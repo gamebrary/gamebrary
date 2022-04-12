@@ -1,15 +1,15 @@
 {
     "database": {
-        "rules": "config/firebase/database.rules.json"
+        "rules": "firebase/database.rules.json"
     },
     "firestore": {
-        "rules": "config/firebase/firestore.rules",
-        "indexes": "config/firebase/firestore.indexes.json"
+        "rules": "firebase/firestore.rules",
+        "indexes": "firebase/firestore.indexes.json"
     },
     "hosting": {
         "public": "dist",
         "ignore": [
-            "config/firebase/firebase.json",
+            "firebase/firebase.json",
             "**/.*",
             "**/node_modules/**"
         ],
@@ -21,6 +21,6 @@
         ]
     },
     "storage": {
-        "rules": "config/firebase/storage.rules"
+        "rules": "firebase/storage.rules"
     }
 }

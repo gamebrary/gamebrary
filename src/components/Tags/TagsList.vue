@@ -65,7 +65,7 @@ export default {
 
       return game && game.cover && game.cover.image_id
         ? `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${game.cover.image_id}.jpg`
-        : '/static/no-image.jpg';
+        : '/no-image.jpg';
     },
 
     openGame(gameId) {

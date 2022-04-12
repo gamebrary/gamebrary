@@ -2,19 +2,19 @@
   <b-container fluid class="p-2">
     <!-- <pre>{{ speedruns }}</pre> -->
     <b-skeleton v-if="loading" />
-    <game v-else-if="game" :game="game" />
+    <game-detail v-else-if="game" :game="game" />
 
     <!-- <div class="game-backdrop" :style="`background-image: url(${backdropUrl})`" /> -->
   </b-container>
 </template>
 
 <script>
-import Game from '@/components/Game';
+import GameDetail from '@/components/GameDetail';
 import { mapState } from 'vuex';
 
 export default {
   components: {
-    Game,
+    GameDetail,
   },
 
   data() {

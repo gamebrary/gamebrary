@@ -1,6 +1,6 @@
 <template lang="html">
   <!-- TODO: get game cover, make getter for game cover url -->
-  <note
+  <game-note
     v-if="note"
     :note="note"
   />
@@ -18,13 +18,13 @@
 
 <script>
 import { mapState } from 'vuex';
-import Note from '@/components/Note';
-import VueMarkdown from 'vue-markdown';
+import GameNote from '@/components/GameNote';
+// import VueMarkdown from 'vue-markdown';
 
 export default {
   components: {
-    Note,
-    VueMarkdown,
+    GameNote,
+    // VueMarkdown,
   },
 
   computed: {

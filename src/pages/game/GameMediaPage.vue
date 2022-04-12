@@ -141,13 +141,13 @@ export default {
     gameCoverUrl() {
       return this.game.cover
         ? `https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${this.game.cover.image_id}.jpg`
-        : '/static/no-image.jpg';
+        : '/no-image.jpg';
     },
 
     gameCoverThumbUrl() {
       return this.game.cover
         ? `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${this.game.cover.image_id}.jpg`
-        : '/static/no-image.jpg';
+        : '/no-image.jpg';
     },
 
     slides() {

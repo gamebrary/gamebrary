@@ -42,15 +42,28 @@ $ yarn dev
 # Compiles and minifies for production
 $ yarn build
 
-# Run tests
-$ yarn test
 
-# Run linter
-$ yarn lint
+### Run your unit tests
+```
+yarn test:unit
+```
+
+### Run your end-to-end tests
+```
+yarn test:e2e
+```
+
+### Lints and fixes files
+```
+yarn lint
+```
 
 # Translate strings (requires google API key)
 $ yarn translate
 ```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## Contributors
 

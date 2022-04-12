@@ -14,7 +14,7 @@
 
       <b-button @click="$router.push({ name: 'create-board' })">Create board</b-button>
 
-      <boards class="mb-3" />
+      <game-boards class="mb-3" />
     </div>
 
     <empty-state
@@ -35,12 +35,12 @@
 
 <script>
 import EmptyState from '@/components/EmptyState';
-import Boards from '@/components/Boards';
+import GameBoards from '@/components/GameBoards';
 import { mapState } from 'vuex';
 
 export default {
   components: {
-    Boards,
+    GameBoards,
     EmptyState,
   },
 

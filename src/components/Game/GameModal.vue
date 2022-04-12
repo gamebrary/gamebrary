@@ -111,14 +111,14 @@
         </b-dropdown>
       </modal-header>
 
-      <game :game="game" :loading="loading" />
+      <game-detail :game="game" :loading="loading" />
     </div>
   </b-modal>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import Game from '@/components/Game';
+import GameDetail from '@/components/GameDetail';
 import GameNotesModal from '@/components/Game/GameNotesModal';
 import GameProgress from '@/components/Game/GameProgress';
 import AddRemoveGame from '@/components/Game/AddRemoveGame';
@@ -126,7 +126,7 @@ import GameTagsModal from '@/components/Game/GameTagsModal';
 
 export default {
   components: {
-    Game,
+    GameDetail,
     GameTagsModal,
     GameNotesModal,
     GameProgress,

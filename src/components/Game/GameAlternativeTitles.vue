@@ -14,7 +14,7 @@
           v-b-tooltip.hover
           :title="alternativeName.comment || null"
           size="sm"
-          :src="`/static/img/country-flags/${getCountryCode(alternativeName.comment)}.svg`"
+          :src="`/img/country-flags/${getCountryCode(alternativeName.comment)}.svg`"
         />
 
         {{ alternativeName.name }}

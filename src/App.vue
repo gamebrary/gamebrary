@@ -1,4 +1,4 @@
-<!-- TODO: add optional chaining -->
+<!-- TODO: update email template, update logo, etc... -->
 <!-- TODO: use navigator.onLine -->
 <!-- TODO: integrate itch.io -->
 <!-- TODO: integrate fandom/wikia -->
@@ -16,7 +16,7 @@
   >
     <page-header />
 
-    <dock v-if="user" />
+    <page-dock v-if="user" />
     <!-- <public-dock v-else /> -->
 
     <main :class="[{
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import Dock from '@/components/Dock';
+import PageDock from '@/components/PageDock';
 // import PublicDock from '@/components/PublicDock';
 import PageHeader from '@/components/PageHeader';
 import GlobalModals from '@/components/GlobalModals';
@@ -46,7 +46,7 @@ export default {
   name: 'App',
 
   components: {
-    Dock,
+    PageDock,
     // PublicDock,
     PageHeader,
     GlobalModals,

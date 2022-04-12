@@ -22,7 +22,10 @@ export default {
     title: String,
     message: String,
     actionText: String,
-    busy: false,
+    busy: {
+      type: Boolean,
+      default: () => false,
+    },
   },
 };
 </script>

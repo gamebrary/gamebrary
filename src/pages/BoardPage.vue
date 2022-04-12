@@ -30,7 +30,7 @@
 
     <template v-else-if="showBoard">
       <!-- TODO: put board in component -->
-      <list
+      <game-list
         v-for="(list, listIndex) in board.lists"
         :list="list"
         :listIndex="listIndex"
@@ -69,13 +69,13 @@ import BoardPlaceholder from '@/components/Board/BoardPlaceholder';
 import BoardsDropdown from '@/components/BoardsDropdown';
 import EmptyBoard from '@/components/Board/EmptyBoard';
 import AddListModal from '@/components/Board/AddListModal';
-import List from '@/components/Lists/List';
+import GameList from '@/components/Lists/GameList';
 import chunk from 'lodash.chunk';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
-    List,
+    GameList,
     BoardPlaceholder,
     BoardsDropdown,
     EmptyBoard,
