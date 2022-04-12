@@ -1,6 +1,5 @@
 <template lang="html">
   <div>
-    <create-board-modal />
     <game-modal />
     <game-sidebar />
     <auth-modal />
@@ -18,7 +17,6 @@ import { mapState } from 'vuex';
 import DevToolsModal from '@/components/DevToolsModal';
 import GameModal from '@/components/Game/GameModal';
 import GameSidebar from '@/components/Game/GameSidebar';
-import CreateBoardModal from '@/components/Board/CreateBoardModal';
 import AuthModal from '@/components/AuthModal';
 import KeyboardShortcutsModal from '@/components/KeyboardShortcutsModal';
 
@@ -27,7 +25,6 @@ export default {
     DevToolsModal,
     AuthModal,
     KeyboardShortcutsModal,
-    CreateBoardModal,
     GameModal,
     GameSidebar,
   },

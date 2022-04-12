@@ -1,19 +1,6 @@
 <template lang="html">
-  <b-modal
-    id="create-board"
-    hide-footer
-    scrollable
-    @show="init"
-    @hidden="init"
-  >
-    <!-- TODO: handle boards without platforms -->
-    <!-- TODO: Show loading spinner when creating -->
-    <template v-slot:modal-header="{ close }">
-      <modal-header
-        :title="$t('boards.create')"
-        @close="close"
-      />
-    </template>
+  <b-container fluid>
+    {{ $t('boards.create') }}
 
     <b-form-group label="Board name:" label-for="boardName">
       <b-form-input
@@ -26,7 +13,11 @@
       />
     </b-form-group>
 
-    <!-- <b-button
+
+      <!-- TODO: handle boards without platforms -->
+      <!-- TODO: Show loading spinner when creating -->
+
+    <b-button
       v-if="!showOptionalFields"
       variant="link"
       class="px-0"
@@ -34,9 +25,9 @@
       @click="showOptionalFields = !showOptionalFields"
     >
       Show more fields
-    </b-button> -->
+    </b-button>
 
-    <!-- <b-collapse v-model="showOptionalFields">
+    <b-collapse v-model="showOptionalFields">
       <b-form-group
         label="Board description"
         label-for="boardDescription"
@@ -83,7 +74,11 @@
           </b-col>
         </b-row>
       </b-form-group>
-    </b-collapse> -->
+    </b-collapse>
+
+    <b-button @click="$router.push({ name: 'home' })">
+      Cancel
+    </b-button>
 
     <b-button
       variant="primary"
@@ -93,7 +88,7 @@
         <b-spinner small v-if="saving" />
         <template v-else>Create board</template>
     </b-button>
-  </b-modal>
+  </b-container>
 </template>
 
 <script>
@@ -103,6 +98,11 @@ export default {
       board: {
         name: '',
         description: '',
+        theme: null,
+        backgroundUrl: null,
+        backgroundColor: null,
+        platforms: [],
+        lists: [],
       },
       stepTitles: {
         1: 'Name your board',
@@ -135,21 +135,6 @@ export default {
   },
 
   methods: {
-    init() {
-      this.showOptionalFields = false;
-      this.saving = false;
-
-      this.board = {
-        name: '',
-        description: '',
-        theme: null,
-        backgroundUrl: null,
-        backgroundColor: null,
-        platforms: [],
-        lists: [],
-      };
-    },
-
     async createBoard() {
       this.saving = true;
 

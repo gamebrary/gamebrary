@@ -4,11 +4,18 @@
       <page-title
         title="Boards"
         action-text="Create board"
-        @action="$bvModal.show('create-board')"
+        @action="$router.push({ name: 'create-board' })"
       />
     </portal>
 
-    <boards v-if="boards.length" class="mb-3" />
+
+    <div v-if="boards.length">
+      Boards
+
+      <b-button @click="$router.push({ name: 'create-board' })">Create board</b-button>
+
+      <boards class="mb-3" />
+    </div>
 
     <empty-state
       v-else

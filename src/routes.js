@@ -3,6 +3,7 @@ import AuthPage from '@/pages/AuthPage';
 import BoardPage from '@/pages/BoardPage';
 import UpgradePage from '@/pages/UpgradePage';
 import EditBoardPage from '@/pages/EditBoardPage';
+import CreateBoardPage from '@/pages/CreateBoardPage';
 import DevToolsPage from '@/pages/DevToolsPage';
 import ProfileSettingsPage from '@/pages/ProfileSettingsPage';
 import ExplorePage from '@/pages/ExplorePage';
@@ -203,6 +204,11 @@ const routes = [
         component: AuthPage,
       },
     ],
+  },
+  {
+    path: '/board/create',
+    name: 'create-board',
+    component: CreateBoardPage,
   },
   {
     path: '/board/:id',
