@@ -75,11 +75,11 @@ export default {
     },
 
     dockPosition() {
-      return this.settings && this.settings.dockPosition;
+      return this.settings?.dockPosition;
     },
 
     isPublicRoute() {
-      return this.$route.meta && this.$route.meta.public;
+      return this.$route.meta?.public;
     },
 
     isBoard() {

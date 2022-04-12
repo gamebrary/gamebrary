@@ -61,10 +61,9 @@ export default {
 
   computed: {
     steamAppId() {
-      const websites = (this.game && this.game.websites) || [];
-
+      const websites = this.game?.websites || [];
       const steamData = websites.find(({ category }) => category === 13);
-      const steamUrl = steamData && steamData.url;
+      const steamUrl = steamData?.url;
       const steamAppId = steamUrl ? steamUrl.split('/')[4] : null;
 
       return steamAppId;

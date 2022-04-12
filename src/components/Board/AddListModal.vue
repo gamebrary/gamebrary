@@ -74,7 +74,7 @@ export default {
     },
 
     isEmptyBoard() {
-      return this.board.lists && this.board.lists.length === 0;
+      return this.board?.lists?.length === 0;
     },
 
     disabled() {

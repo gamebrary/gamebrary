@@ -39,7 +39,7 @@ export default {
     ...mapState(['game', 'games']),
 
     similarGameIds() {
-      return this.game && this.game.similar_games;
+      return this.game?.similar_games;
     },
   },
 

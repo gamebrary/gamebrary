@@ -52,7 +52,7 @@ export default {
         this.$store.commit('SET_SESSION_EXPIRED', false);
       }
 
-      if (this.user && this.user.uid) {
+      if (this.user?.uid) {
         this.$router.replace({ name: 'home' });
       } else {
         this.startAuthUI();
@@ -118,9 +118,8 @@ export default {
           // TODO: move this logic to the action
           const [latestRelease] = releases;
 
-          const latestReleaseVersion = latestRelease && latestRelease.tag_name;
-
-          const lastReleaseSeenByUser = (this.settings && this.settings.release) || null;
+          const latestReleaseVersion = latestRelease?.tag_name;
+          const lastReleaseSeenByUser = this.settings?.release || null;
 
           if (latestReleaseVersion !== lastReleaseSeenByUser) {
             this.$store.commit('SET_NOTIFICATION', true);

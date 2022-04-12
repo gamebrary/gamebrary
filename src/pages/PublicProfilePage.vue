@@ -72,9 +72,7 @@ export default {
     ...mapState(['user']),
 
     canEdit() {
-      return this.profile && this.profile.uid
-        ? this.user && this.user.uid === this.profile.uid
-        : false;
+      return this.user?.uid === this.profile?.uid;
     },
 
     userName() {

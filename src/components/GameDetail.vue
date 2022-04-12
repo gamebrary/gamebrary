@@ -181,19 +181,17 @@ export default {
       // TODO: put in constant
       const twitterCategory = 5;
 
-      // TODO: use optional chaining
-      const twitterUrl = this.game && this.game.websites
+      const twitterUrl = this.game?.websites
         ? this.game.websites.find(({ category }) => category === twitterCategory)
         : '';
 
-      // TODO: use optional chaining
-      return twitterUrl && twitterUrl.url
+      return twitterUrl?.url
         ? twitterUrl.url.split('twitter.com/')[1]
         : null;
     },
 
     gameCoverUrl() {
-      const imageId = this.game && this.game.cover && this.game.cover.image_id;
+      const imageId = this.game?.cover?.image_id;
 
       return imageId
         ? `https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${imageId}.jpg`

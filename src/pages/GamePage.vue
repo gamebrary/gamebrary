@@ -34,9 +34,9 @@ export default {
     },
 
     // backdropUrl() {
-    //   const screenshots = this.game && this.game.screenshots;
+    //   const screenshots = this.game?.screenshots;
     //
-    //   return screenshots && screenshots.length
+    //   return screenshots.length > 0
     //     ? `https://images.igdb.com/igdb/image/upload/t_screenshot_huge_2x/${screenshots[0].image_id}.jpg`
     //     : '';
     // },
@@ -60,7 +60,7 @@ export default {
 
   methods: {
     async loadGame() {
-      const gameCached = this.game.id && this.game.id === this.gameId;
+      const gameCached = this.game?.id === this.gameId;
 
       if (!this.gameId || gameCached) return;
 
@@ -81,7 +81,7 @@ export default {
       const gogCategoryId = 17;
       const steamCategoryId = 13;
 
-      const steamPage = this.game && this.game.websites
+      const steamPage = this.game?.websites
         ? this.game.websites.find(({ category }) => category === steamCategoryId)
         : null;
 
@@ -93,7 +93,7 @@ export default {
         : null;
 
 
-      const gogPage = this.game && this.game.websites
+      const gogPage = this.game?.websites
         ? this.game.websites.find(({ category }) => category === gogCategoryId)
         : null;
 

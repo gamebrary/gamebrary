@@ -24,7 +24,7 @@ export default {
     showGameTags() {
       const { settings } = this.list;
 
-      return settings && settings.showGameTags && this.gameTags;
+      return settings?.showGameTags && this.gameTags;
     },
 
     gameProgress() {
@@ -38,7 +38,7 @@ export default {
     gameNotes() {
       const { settings } = this.list;
 
-      return settings && settings.showGameNotes && this.notes[this.gameId];
+      return settings?.showGameNotes && this.notes[this.gameId];
     },
 
     game() {

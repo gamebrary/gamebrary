@@ -69,11 +69,11 @@ export default {
     ...mapState(['board', 'boards', 'user']),
 
     showBackButton() {
-      return this.$route.name === 'game' && this.board && this.board.id;
+      return this.$route.name === 'game' && this.board?.id;
     },
 
     showBoardName() {
-      return this.$route.name === 'board' && this.board && this.board.name;
+      return this.$route.name === 'board' && this.board?.name;
     },
   },
 };

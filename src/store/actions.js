@@ -781,7 +781,7 @@ export default {
 
           const latestReleaseVersion = latestRelease && latestRelease.tag_name;
 
-          const lastReleaseSeenByUser = (this.settings && this.settings.release) || null;
+          const lastReleaseSeenByUser = this.settings?.release || null;
 
           if (latestReleaseVersion !== lastReleaseSeenByUser) {
             commit('SET_NOTIFICATION', true);

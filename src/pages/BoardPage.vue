@@ -99,8 +99,7 @@ export default {
     },
 
     isPublicRoute() {
-      // OPTIMIZE: use optional chaining
-      return this.$route.meta && this.$route.meta.public;
+      return this.$route.meta?.public;
     },
 
     showBoard() {
@@ -115,7 +114,7 @@ export default {
         ? `background-image: url('${this.backgroundUrl}');`
         : null;
 
-      const backgroundColor = this.board && this.board.backgroundColor
+      const backgroundColor = this.board?.backgroundColor
         ? `background-color: ${this.board.backgroundColor};`
         : null;
 
@@ -123,12 +122,11 @@ export default {
     },
 
     boardId() {
-      return this.$route.params.id;
+      return this.$route.params?.id;
     },
 
     empty() {
-      // OPTIMIZE: use optional chaining
-      return this.board && this.board.lists && this.board.lists.length === 0;
+      return this.board?.lists?.length === 0;
     },
   },
 
@@ -195,7 +193,7 @@ export default {
     },
 
     async loadBoardBackground() {
-      const url = this.board && this.board.backgroundUrl;
+      const url = this.board?.backgroundUrl;
 
       if (url) {
         this.backgroundUrl = url.includes('igdb')

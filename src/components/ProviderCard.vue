@@ -23,13 +23,13 @@ export default {
     },
 
     dateJoined() {
-      return this.user && this.user.dateJoined
+      return this.user?.dateJoined
         ? this.$dayjs(this.user.dateJoined).format('M/D/YYYY')
         : null;
     },
 
     lastLogin() {
-      return this.user && this.user.lastLogin
+      return this.user?.lastLogin
         ? this.$dayjs(this.user.lastLogin).format('M/D/YYYY')
         : null;
     },

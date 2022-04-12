@@ -41,15 +41,11 @@ export default {
     ...mapState(['board', 'notes', 'activeGame', 'games', 'platform', 'user', 'settings']),
 
     gameDetailView() {
-      return this.settings && this.settings.gameDetailView;
+      return this.settings?.gameDetailView;
     },
 
     hasMultipleGames() {
-      // TODO: use optional chaining
-      return this.activeGame
-        && this.activeGame.list
-        && this.activeGame.list.games
-        && this.activeGame.list.games.length > 1;
+      return this.activeGame?.list?.games?.length > 1;
     },
 
     standalone() {
@@ -57,7 +53,7 @@ export default {
     },
 
     rating() {
-      return this.game && this.game.rating
+      return this.game?.rating
         ? Math.round((this.game.rating / 20) * 2) / 2
         : false;
     },
@@ -75,7 +71,7 @@ export default {
     nextDisabled() {
       const { list } = this.activeGame;
 
-      const isLast = this.list && list.games && this.gameIndex === list.games.length - 1;
+      const isLast = this.list?.games && this.gameIndex === list.games.length - 1;
 
       return !this.list || isLast;
     },

@@ -21,7 +21,7 @@ export default {
     ...mapState(['board']),
 
     gameInList() {
-      return this.game && this.list.games.includes(this.game.id);
+      return this.game && this.list?.games.includes(this.game?.id);
     },
 
     label() {

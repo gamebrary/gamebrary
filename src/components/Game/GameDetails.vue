@@ -47,7 +47,7 @@ export default {
     ...mapState(['game']),
 
     gameDevelopers() {
-      return this.game && this.game.involved_companies
+      return this.game?.involved_companies
         ? this.game.involved_companies
           .filter(({ developer }) => developer)
           .map(({ company }) => company.name).join(', ')
@@ -55,7 +55,7 @@ export default {
     },
 
     gamePublishers() {
-      return this.game && this.game.involved_companies
+      return this.game?.involved_companies
         ? this.game.involved_companies
           .filter(({ publisher }) => publisher)
           .map(({ company }) => company.name).join(', ')
@@ -63,20 +63,20 @@ export default {
     },
 
     gameModes() {
-      return this.game && this.game.game_modes
+      return this.game?.game_modes
         ? this.game.game_modes.map(({ name }) => name).join(', ')
         : null;
     },
 
     playerPerspectives() {
-      return this.game && this.game.player_perspectives
+      return this.game?.player_perspectives
         ? this.game.player_perspectives.map(({ name }) => name).join(', ')
         : null;
     },
 
     // TODO: fix infinite loop
     // timeline() {
-    //   const releaseDates = this.game && this.game.release_dates;
+    //   const releaseDates = this.game?.release_dates;
     //
     //   const sortedActivities = releaseDates
     //     ? releaseDates.sort((a, b) => b.date - a.date)

@@ -210,7 +210,7 @@ export default {
 
   methods: {
     openGame(gameId, list) {
-      const gameDetailView = this.settings && this.settings.gameDetailView;
+      const gameDetailView = this.settings?.gameDetailView;
 
       // TODO: rename and make it more generic e.g. active_game_data
       this.$store.commit('SET_GAME_MODAL_DATA', { gameId, list });

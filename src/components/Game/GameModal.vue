@@ -146,11 +146,7 @@ export default {
     ...mapState(['board', 'notes', 'activeGame', 'games', 'platform', 'user', 'settings']),
 
     hasMultipleGames() {
-      // TODO: use optional chaining
-      return this.activeGame
-        && this.activeGame.list
-        && this.activeGame.list.games
-        && this.activeGame.list.games.length > 1;
+      return this.activeGame?.list?.games?.length > 1;
     },
 
     standalone() {
@@ -158,7 +154,7 @@ export default {
     },
 
     rating() {
-      return this.game && this.game.rating
+      return this.game?.rating
         ? Math.round((this.game.rating / 20) * 2) / 2
         : false;
     },

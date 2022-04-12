@@ -87,7 +87,7 @@ export default {
     },
 
     dockPosition() {
-      return this.settings && this.settings.dockPosition;
+      return this.settings?.dockPosition;
     },
 
     boardInitials() {

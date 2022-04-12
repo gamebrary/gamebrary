@@ -52,32 +52,24 @@ export default {
     },
 
     gameDescription() {
-      const steamDescription = this.game && this.game.steam && this.game.steam.short_description
-        ? this.game.steam.short_description
-        : null;
-
-
-      // const wikipediaDescription = this.wikipediaArticle && this.wikipediaArticle.lead && this.wikipediaArticle.lead.sections[0]
+      // const wikipediaDescription = this.wikipediaArticle?.lead?.sections[0]?.text
       //   ? this.wikipediaArticle.lead.sections[0].text
       //   : null;
 
-      const igdbDescription = this.game && this.game.summary
-        ? this.game.summary
-        : null;
+      const steamDescription = this.game?.steam?.short_description || null;
+      const igdbDescription = this.game?.summary || null;
 
       return steamDescription || igdbDescription;
     },
 
     trimmedDescription() {
-      return this.gameDescription && this.gameDescription.length > 1200
+      return this.gameDescription?.length > 1200
         ? `${this.gameDescription.substr(0, 1200)}...`
         : null;
     },
 
     source() {
-      if (this.game.steam && this.game.steam.short_description) {
-        return 'Steam';
-      }
+      if (this.game?.steam?.short_description) return 'Steam';
 
       return this.wikipediaArticle && this.wikipediaArticle.lead && this.wikipediaArticle.lead[0]
         ? 'Wikipedia'
@@ -91,8 +83,9 @@ export default {
 
   methods: {
     async loadWikipediaArticle() {
-      const wikiData = this.game && this.game.websites
+      const wikiData = this.game?.websites
         ? this.game.websites.find(({ url, category }) => {
+          // TODO: put in constant
           const wikipediaIgdbCategory = 3;
 
           return url.includes('/wiki/') && category === wikipediaIgdbCategory;

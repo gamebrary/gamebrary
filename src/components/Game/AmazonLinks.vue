@@ -54,7 +54,8 @@ export default {
 
   computed: {
     amazonLinks() {
-      return this.game && this.game.external_games
+      // TODO: put link category in constant
+      return this.game?.external_games
         ? this.game.external_games.filter(({ category }) => category === 20)
         : [];
     },

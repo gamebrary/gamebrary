@@ -24,9 +24,7 @@ export default {
     ...mapState(['game']),
 
     gameGenres() {
-      const gameGenres = this.game && this.game.genres
-        ? this.game.genres
-        : null;
+      const gameGenres = this.game?.genres || [];
 
       return gameGenres.map(genre => ({
         ...genre,
