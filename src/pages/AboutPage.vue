@@ -1,5 +1,6 @@
 <template lang="html">
   <b-container class="py-3">
+    <div v-html="formattedReadme" />
     <!-- <vue-markdown
       class="w-100"
       v-if="readme"
@@ -43,13 +44,9 @@
 </template>
 
 <script>
-// import VueMarkdown from 'vue-markdown';
+import { marked } from 'marked';
 
 export default {
-  components: {
-    // VueMarkdown,
-  },
-
   data() {
     return {
       readme: null,
@@ -60,6 +57,12 @@ export default {
   computed: {
     currentYear() {
       return new Date().getFullYear();
+    },
+
+    formattedReadme() {
+      return this.readme
+        ? marked(this.readme)
+        : null;
     },
   },
 

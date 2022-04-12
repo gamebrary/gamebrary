@@ -24,6 +24,7 @@
         </div> -->
 
 
+          <!-- TODO: update to use marked -->
           <!-- <vue-markdown v-html="parseBBcode(article.contents)" /> -->
           <!-- <vue-markdown v-html="article.contents" /> -->
         <!-- </p> -->
@@ -44,14 +45,10 @@
 </template>
 
 <script>
-import VueMarkdown from 'vue-markdown';
+// import { marked } from 'marked';
 import bbCodeParser from 'js-bbcode-parser';
 
 export default {
-  components: {
-    VueMarkdown,
-  },
-
   props: {
     game: Object,
   },

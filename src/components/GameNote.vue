@@ -12,23 +12,25 @@
       <span v-else>Note:</span>
     </header>
 
-    <!-- <vue-markdown
-      :source="note.note || note"
+    <div
       class="note-content"
-    /> -->
+      v-html="formattedNote"
+    />
   </div>
 </template>
 
 <script>
-// import VueMarkdown from 'vue-markdown';
+import { marked } from 'marked';
 
 export default {
-  components: {
-    // VueMarkdown,
-  },
-
   props: {
     note: Object,
+  },
+
+  computed: {
+    formattedNote() {
+      return marked(this.note?.note || this.note);
+    },
   },
 };
 </script>

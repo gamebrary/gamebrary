@@ -1,109 +1,110 @@
 {
-    "name": "Gamebrary",
-    "version": "1.0.0",
-    "description": "Open source tool to organize video game collections.",
-    "author": "Roman Cervantes",
-    "license": "MIT",
-    "private": true,
-    "scripts": {
-      "dev": "vue-cli-service serve --port 4000",
-      "build": "vue-cli-service build",
-      "test:unit": "vue-cli-service test:unit",
-      "test:e2e": "vue-cli-service test:e2e",
-      "lint": "vue-cli-service lint",
-      "deploy": "firebase deploy"
+  "name": "Gamebrary",
+  "version": "1.0.0",
+  "description": "Open source tool to organize video game collections.",
+  "author": "Roman Cervantes",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "vue-cli-service serve --port 4000",
+    "build": "vue-cli-service build",
+    "test:unit": "vue-cli-service test:unit",
+    "test:e2e": "vue-cli-service test:e2e",
+    "lint": "vue-cli-service lint",
+    "deploy": "firebase deploy"
+  },
+  "dependencies": {
+    "@vue-stripe/vue-stripe": "^4.4.2",
+    "axios": "^0.21.1",
+    "bootstrap": "^4.5.2",
+    "bootstrap-vue": "^2.21.2",
+    "core-js": "^3.8.3",
+    "firebase": "^7.23.0",
+    "firebase-admin": "^9.2.0",
+    "firebase-functions": "^3.11.0",
+    "firebaseui": "^4.8.0",
+    "js-bbcode-parser": "^3.0.5",
+    "lodash.chunk": "^4.2.0",
+    "lodash.groupby": "^4.6.0",
+    "lodash.orderby": "^4.6.0",
+    "lodash.sortby": "^4.7.0",
+    "marked": "^4.0.14",
+    "packery": "^2.1.2",
+    "portal-vue": "^2.1.7",
+    "raven-js": "^3.27.0",
+    "register-service-worker": "^1.7.2",
+    "translate-json-object": "^2.3.3",
+    "vue": "^2.6.14",
+    "vue-analytics": "^5.16.0",
+    "vue-axios": "^2.1.1",
+    "vue-dayjs": "^1.0.2",
+    "vue-i18n": "^8.0.0",
+    "vue-observe-visibility": "^1.0.0",
+    "vue-raven": "^1.0.0",
+    "vue-router": "^3.5.1",
+    "vue-shortkey": "^3.1.7",
+    "vue-tweet-embed": "^2.4.0",
+    "vuedraggable": "^2.24.3",
+    "vuefire": "^1.4.5",
+    "vuex": "^3.6.2",
+    "vuex-persist": "^1.2.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-e2e-cypress": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-plugin-pwa": "~5.0.0",
+    "@vue/cli-plugin-router": "~5.0.0",
+    "@vue/cli-plugin-unit-jest": "~5.0.0",
+    "@vue/cli-plugin-vuex": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "@vue/eslint-config-airbnb": "^6.0.0",
+    "@vue/test-utils": "^1.1.3",
+    "@vue/vue2-jest": "^27.0.0-alpha.2",
+    "babel-jest": "^27.0.6",
+    "babel-loader": "^7.1.1",
+    "cypress": "^8.3.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-vue": "^8.0.3",
+    "eslint-plugin-vuejs-accessibility": "^1.1.0",
+    "jest": "^27.0.5",
+    "sass": "^1.32.7",
+    "sass-loader": "^12.0.0",
+    "vue-template-compiler": "^2.6.14"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
     },
-    "dependencies": {
-        "core-js": "^3.8.3",
-        "register-service-worker": "^1.7.2",
-        "vue": "^2.6.14",
-        "vue-router": "^3.5.1",
-        "vuex": "^3.6.2",
-        "@vue-stripe/vue-stripe": "^4.4.2",
-        "axios": "^0.21.1",
-        "bootstrap": "^4.5.2",
-        "bootstrap-vue": "^2.21.2",
-        "firebase": "^7.23.0",
-        "firebase-admin": "^9.2.0",
-        "firebase-functions": "^3.11.0",
-        "firebaseui": "^4.8.0",
-        "js-bbcode-parser": "^3.0.5",
-        "lodash.chunk": "^4.2.0",
-        "lodash.groupby": "^4.6.0",
-        "lodash.orderby": "^4.6.0",
-        "lodash.sortby": "^4.7.0",
-        "packery": "^2.1.2",
-        "portal-vue": "^2.1.7",
-        "raven-js": "^3.27.0",
-        "translate-json-object": "^2.3.3",
-        "vue-analytics": "^5.16.0",
-        "vue-axios": "^2.1.1",
-        "vue-dayjs": "^1.0.2",
-        "vue-i18n": "^8.0.0",
-        "vue-observe-visibility": "^1.0.0",
-        "vue-raven": "^1.0.0",
-        "vue-shortkey": "^3.1.7",
-        "vue-tweet-embed": "^2.4.0",
-        "vuedraggable": "^2.24.3",
-        "vuefire": "^1.4.5",
-        "vuex-persist": "^1.2.2"
-    },
-    "devDependencies": {
-      "babel-loader": "^7.1.1",
-      "@babel/core": "^7.12.16",
-      "@babel/eslint-parser": "^7.12.16",
-      "@vue/cli-plugin-babel": "~5.0.0",
-      "@vue/cli-plugin-e2e-cypress": "~5.0.0",
-      "@vue/cli-plugin-eslint": "~5.0.0",
-      "@vue/cli-plugin-pwa": "~5.0.0",
-      "@vue/cli-plugin-router": "~5.0.0",
-      "@vue/cli-plugin-unit-jest": "~5.0.0",
-      "@vue/cli-plugin-vuex": "~5.0.0",
-      "@vue/cli-service": "~5.0.0",
-      "@vue/eslint-config-airbnb": "^6.0.0",
-      "@vue/test-utils": "^1.1.3",
-      "@vue/vue2-jest": "^27.0.0-alpha.2",
-      "babel-jest": "^27.0.6",
-      "cypress": "^8.3.0",
-      "eslint": "^7.32.0",
-      "eslint-plugin-import": "^2.25.3",
-      "eslint-plugin-vue": "^8.0.3",
-      "eslint-plugin-vuejs-accessibility": "^1.1.0",
-      "jest": "^27.0.5",
-      "sass": "^1.32.7",
-      "sass-loader": "^12.0.0",
-      "vue-template-compiler": "^2.6.14"
-    },
-    "eslintConfig": {
-      "root": true,
-      "env": {
-        "node": true
-      },
-      "extends": [
-        "plugin:vue/essential"
-      ],
-      "parserOptions": {
-        "parser": "@babel/eslint-parser"
-      },
-      "rules": {},
-      "overrides": [
-        {
-          "files": [
-            "**/__tests__/*.{j,t}s?(x)",
-            "**/tests/unit/**/*.spec.{j,t}s?(x)"
-          ],
-          "env": {
-            "jest": true
-          }
-        }
-      ]
-    },
-    "browserslist": [
-      "> 1%",
-      "last 2 versions",
-      "not dead"
+    "extends": [
+      "plugin:vue/essential"
     ],
-    "jest": {
-      "preset": "@vue/cli-plugin-unit-jest"
-    }
+    "parserOptions": {
+      "parser": "@babel/eslint-parser"
+    },
+    "rules": {},
+    "overrides": [
+      {
+        "files": [
+          "**/__tests__/*.{j,t}s?(x)",
+          "**/tests/unit/**/*.spec.{j,t}s?(x)"
+        ],
+        "env": {
+          "jest": true
+        }
+      }
+    ]
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "jest": {
+    "preset": "@vue/cli-plugin-unit-jest"
+  }
 }

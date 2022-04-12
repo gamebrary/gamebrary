@@ -19,12 +19,10 @@
 <script>
 import { mapState } from 'vuex';
 import GameNote from '@/components/GameNote';
-// import VueMarkdown from 'vue-markdown';
 
 export default {
   components: {
     GameNote,
-    // VueMarkdown,
   },
 
   computed: {
