@@ -1,16 +1,31 @@
 <template lang="html">
-  <b-dropdown
-    right
-    variant="transparent"
-    toggle-class="m-0"
-  >
-    <template v-slot:button-content>
-      <i class="fas fa-ellipsis-h fa-fw" aria-hidden />
-    </template>
-
+  <div class="game-list-settings">
     <add-game-modal :list="list" />
 
-    <sort-list :list="list" :list-index="listIndex" />
+    <!-- <sort-list :list="list" :list-index="listIndex" /> -->
+    <b-form-radio-group
+      v-model="sortOrder"
+      variant="primary"
+      :options="sortingOptions"
+    />
+
+    <b-alert
+      class="mb-0 mt-2"
+      show
+      :variant="sortOrder !== 'sortByCustom' ? 'warning' : 'info'"
+    >
+      <span v-if="sortOrder === 'sortByCustom'">
+        Games will be added to end of list, drag games to re-order.
+      </span>
+
+      <span v-else-if="sortOrder">
+        Games will be sorted by
+
+        <span class="text-lowercase">
+          {{ $t(`board.list.${sortOrder}`)}}
+        </span>
+      </span>
+    </b-alert>
     <rename-list :list="list" :list-index="listIndex" />
     <change-list-view :list="list" :list-index="listIndex" />
     <!-- <list-preferences :list="list" :list-index="listIndex" /> -->
@@ -21,7 +36,9 @@
       <i class="fas fa-trash-alt fa-fw" aria-hidden />
       {{ $t('board.list.delete') }}
     </b-dropdown-item>
+
     <b-dropdown-divider />
+
     <b-dropdown-text>
       <small class="text-muted d-flex justify-content-center">Move list</small>
       <b-button-group size="sm" class="w-100">
@@ -44,14 +61,17 @@
         </b-button>
       </b-button-group>
     </b-dropdown-text>
-  </b-dropdown>
+    <b-button>Save</b-button>
+    <b-button @click="$emit('close')">Cancel</b-button>
+    boom boom boom
+  </div>
 </template>
 
 <script>
 import ChangeListView from '@/components/Lists/ChangeListView';
 import RenameList from '@/components/Lists/RenameList';
 // import ListPreferences from '@/components/Lists/ListPreferences';
-import SortList from '@/components/Lists/SortList';
+// import SortList from '@/components/Lists/SortList';
 import AddGameModal from '@/components/Lists/AddGameModal';
 import { mapState } from 'vuex';
 
@@ -61,7 +81,7 @@ export default {
     RenameList,
     // ListPreferences,
     AddGameModal,
-    SortList,
+    // SortList,
   },
 
   props: {
@@ -138,3 +158,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+.game-list-settings {
+  min-height: 50vh;
+}
+</style>

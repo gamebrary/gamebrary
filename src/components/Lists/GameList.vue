@@ -13,90 +13,98 @@
     :id="listIndex"
   >
     <b-card no-body>
-      <div
-        class="p-1 pl-2 d-flex justify-content-between align-items-center"
-      >
-        <p class="list-name p-0 m-0">
-          <span v-b-modal="`rename-list-${listIndex}`">
-            {{ list.name }}
-          </span>
+      <game-list-settings
+        v-if="editing && user && user.uid === board.owner"
+        :list="list"
+        :list-index="listIndex"
+        @close="editing = false"
+      />
 
-          <br />
+      <template v-else>
+        <header class="p-1 pl-2 d-flex justify-content-between align-items-start">
+          <h6 class="p-0 m-0">
+            <span v-b-modal="`rename-list-${listIndex}`">
+              <b-badge>{{ list.games.length }}</b-badge>
+              {{ list.name }}
+            </span>
 
-          <small v-if="showGameCount" class="text-muted">
-              {{ list.games.length }} {{ $t('global.games') }}
-          </small>
+            <small v-if="showGameCount" class="text-muted">
+                {{ list.games.length }} {{ $t('global.games') }}
+            </small>
 
-          <small v-if="autoSortEnabled" class="text-muted" v-b-modal="`sort-list-${listIndex}`">
-            {{ `${$t('board.list.sortedBy')} ${$t(`board.list.${list.settings.sortOrder}`)}` }}
-          </small>
-        </p>
+            <small v-if="autoSortEnabled" class="text-muted" v-b-modal="`sort-list-${listIndex}`">
+              {{ `${$t('board.list.sortedBy')} ${$t(`board.list.${list.settings.sortOrder}`)}` }}
+            </small>
+          </h6>
 
-        <list-settings
-          v-if="user && user.uid === board.owner"
-          :list="list"
-          :list-index="listIndex"
-        />
+          <b-button
+            v-if="user && user.uid === board.owner"
+            size="sm"
+            variant="transparent"
+            @click="editing = true"
+          >
+            <i class="fa fa-pencil-alt fa-fw text-secondary" />
+          </b-button>
 
-        <!-- TODO: consolidate public/private actions -->
+          <!-- TODO: consolidate public/private actions -->
+          <b-button
+            v-else
+            disabled
+            size="sm"
+            variant="secondary"
+            class="m-1"
+          >
+            <i class="fas fa-ellipsis-h fa-fw" aria-hidden />
+          </b-button>
+        </header>
 
-        <b-button
-          v-else
-          disabled
-          size="sm"
-          variant="secondary"
-          class="m-1"
+        <draggable
+          class="games"
+          handle=".card"
+          ghost-class="card-placeholder"
+          drag-class="border-success"
+          chosen-class="border-primary"
+          filter=".drag-filter"
+          delay="50"
+          animation="500"
+          :list="list.games"
+          :id="listIndex"
+          :move="validateMove"
+          :disabled="draggingDisabled"
+          :group="{ name: 'games' }"
+          @end="dragEnd"
+          @start="dragStart"
         >
-          <i class="fas fa-ellipsis-h fa-fw" aria-hidden />
-        </b-button>
-      </div>
+          <component
+            v-for="game in sortedGames"
+            :id="game"
+            :is="gameCardComponent"
+            :key="game"
+            :list="list"
+            :game-id="game"
+            :class="{ 'mb-2': view !== 'covers'}"
+            v-b-toggle.game-sidebar
+            @click.native="openGame(game, list)"
+          />
 
-      <draggable
-        class="games"
-        handle=".card"
-        ghost-class="card-placeholder"
-        drag-class="border-success"
-        chosen-class="border-primary"
-        filter=".drag-filter"
-        delay="50"
-        animation="500"
-        :list="list.games"
-        :id="listIndex"
-        :move="validateMove"
-        :disabled="draggingDisabled"
-        :group="{ name: 'games' }"
-        @end="dragEnd"
-        @start="dragStart"
-      >
-        <component
-          v-for="game in sortedGames"
-          :id="game"
-          :is="gameCardComponent"
-          :key="game"
-          :list="list"
-          :game-id="game"
-          :class="{ 'mb-2': view !== 'covers'}"
-          v-b-toggle.game-sidebar
-          @click.native="openGame(game, list)"
-        />
-
-        <b-button
-          block
-          v-if="isEmpty"
-          class="mb-2"
-          variant="light"
-          v-b-modal="`game-modal-${list.name}`"
-        >
-          {{ $t('board.list.emptyListButton') }}
-        </b-button>
-      </draggable>
+          <b-button
+            block
+            v-if="isEmpty"
+            class="mb-2"
+            variant="light"
+            v-b-modal="`game-modal-${list.name}`"
+          >
+            {{ $t('board.list.emptyListButton') }}
+          </b-button>
+        </draggable>
+      </template>
     </b-card>
   </div>
 </template>
 
 <script>
 import draggable from 'vuedraggable';
-import ListSettings from '@/components/Lists/ListSettings';
+import GameListSettings from '@/components/Lists/GameListSettings';
 import GameCardDefault from '@/components/GameCards/GameCardDefault';
 import GameCardCovers from '@/components/GameCards/GameCardCovers';
 import GameCardGrid from '@/components/GameCards/GameCardGrid';
@@ -113,7 +121,7 @@ export default {
     GameCardGrid,
     GameCardCompact,
     GameCardText,
-    ListSettings,
+    GameListSettings,
     draggable,
   },
 
@@ -131,6 +139,7 @@ export default {
   data() {
     return {
       draggingId: null,
+      editing: false,
       gameCardComponents: {
         single: 'GameCardDefault',
         covers: 'GameCardCovers',
@@ -182,15 +191,11 @@ export default {
     },
 
     view() {
-      const { settings } = this.list;
-
-      return settings && settings.view;
+      return this.list?.settings?.view;
     },
 
     showGameCount() {
-      const { settings } = this.list;
-
-      return settings && settings.showGameCount;
+      return this.list?.settings?.showGameCount;
     },
 
     gameCardComponent() {
@@ -268,6 +273,8 @@ export default {
   flex-shrink: 0;
   cursor: default;
   position: relative;
+  height: auto;
+  min-height: 200px;
   width: calc(300px + 1rem);
 
   @media(max-width: 400px) {
@@ -329,9 +336,5 @@ export default {
   height: 100px;
   opacity: .1;
   background: #000;
-}
-
-.list-name {
-  line-height: 0.9rem;
 }
 </style>

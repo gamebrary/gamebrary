@@ -14,7 +14,7 @@
         class="mr-2"
         :to="{ name: 'edit-board', params: { id: board.id } }"
       >
-        Edit
+        Edit board
       </b-button>
 
       <!-- <b-button

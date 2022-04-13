@@ -27,31 +27,7 @@
         </modal-header>
       </template>
 
-      <form ref="renameListForm" @submit.stop.prevent="save">
-        <b-form-radio-group
-          v-model="sortOrder"
-          variant="primary"
-          :options="sortingOptions"
-        />
 
-        <b-alert
-          class="mb-0 mt-2"
-          show
-          :variant="sortOrder !== 'sortByCustom' ? 'warning' : 'info'"
-        >
-          <span v-if="sortOrder === 'sortByCustom'">
-            Games will be added to end of list, drag games to re-order.
-          </span>
-
-          <span v-else-if="sortOrder">
-            Games will be sorted by
-
-            <span class="text-lowercase">
-              {{ $t(`board.list.${sortOrder}`)}}
-            </span>
-          </span>
-        </b-alert>
-      </form>
     </b-modal>
   </b-dropdown-item-button>
 </template>
@@ -65,15 +41,6 @@ export default {
 
   data() {
     return {
-      sortOrder: null,
-      saving: false,
-      sortingOptions: [
-        { text: this.$t('board.list.sortByCustom'), value: 'sortByCustom' },
-        { text: this.$t('board.list.sortByName'), value: 'sortByName' },
-        { text: this.$t('board.list.sortByRating'), value: 'sortByRating' },
-        { text: this.$t('board.list.sortByProgress'), value: 'sortByProgress' },
-        // { text: 'Release date', value: 'sortByReleaseDate' },
-      ],
     };
   },
 
