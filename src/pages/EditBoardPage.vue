@@ -132,7 +132,24 @@
             />
           </b-form-group> -->
 
-          <pre>{{ platforms }}</pre>
+          <b-dropdown
+            text="Select platforms"
+            class="platforms-dropdown"
+          >
+            <b-dropdown-item
+              v-for="platform in platforms"
+              :key="platform.id"
+            >
+              {{ platform.name }}
+            </b-dropdown-item>
+            <!-- <pre>{{ platforms }}</pre> -->
+            <!-- <b-dropdown-item>Second Action</b-dropdown-item> -->
+            <!-- <b-dropdown-item>Third Action</b-dropdown-item> -->
+            <!-- <b-dropdown-divider></b-dropdown-divider> -->
+            <!-- <b-dropdown-item active>Active action</b-dropdown-item> -->
+            <!-- <b-dropdown-item disabled>Disabled action</b-dropdown-item> -->
+          </b-dropdown>
+
 
           <!-- <b-button
             v-for="platform in sortedPlatforms"
@@ -289,3 +306,10 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss">
+.platforms-dropdown .dropdown-menu {
+  max-height: 300px;
+  overflow-y: auto;
+}
+</style>
