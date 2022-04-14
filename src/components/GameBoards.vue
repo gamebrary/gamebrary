@@ -30,8 +30,8 @@
       >
         <b-button
           size="sm"
-          variant="secondary"
-          @click.stop="editBoard(board)"
+          variant="transparent"
+          @click.stop="editBoard(board.id)"
         >
           <i class="fas fa-pencil-alt fa-fw" aria-hidden />
         </b-button>
@@ -110,9 +110,8 @@ export default {
       }
     },
 
-    editBoard(board) {
-      this.$store.commit('SET_ACTIVE_BOARD', board);
-      this.$bvModal.show('edit-board');
+    editBoard(id) {
+      this.$router.push({ name: 'edit-board', params: { id } });
     },
 
     getWallpaperUrl(url) {

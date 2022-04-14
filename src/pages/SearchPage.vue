@@ -2,6 +2,10 @@
   <div class="search-page bg-white p-2">
     <search-box class="d-md-none mb-2" />
 
+    <b-alert show variant="success">
+      Custom search controls go here!
+    </b-alert>
+
     <b-skeleton v-if="loading" />
 
     <b-card-group columns v-else-if="searchResults.length > 0">

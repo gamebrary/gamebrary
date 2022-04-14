@@ -8,12 +8,17 @@
       />
     </portal>
 
+    <portal to="headerActions">
+      <b-button
+        variant="primary"
+        class="mr-2"
+        @click="$router.push({ name: 'create-board' })"
+      >
+        Create board
+      </b-button>
+    </portal>
 
     <div v-if="boards.length">
-      Boards
-
-      <b-button @click="$router.push({ name: 'create-board' })">Create board</b-button>
-
       <game-boards class="mb-3" />
     </div>
 

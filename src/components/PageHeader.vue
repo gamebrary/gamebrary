@@ -12,11 +12,12 @@
         <i class="fas fa-arrow-left fa-fw" aria-hidden />
       </b-button>
 
+      <portal-target name="pageTitle" />
+
       <span v-if="$route.meta.title">
         {{ $route.meta.title }}
       </span>
 
-      <portal-target v-else name="pageTitle" />
 
       <span v-if="showBoardName">
         {{ board.name }}

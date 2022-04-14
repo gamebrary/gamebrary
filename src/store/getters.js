@@ -14,6 +14,12 @@ export default {
       : '/no-image.jpg';
   },
 
+  gameCoverUrl: ({ game }) => {
+    return game?.cover?.image_id
+      ? `https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.cover.image_id}.jpg`
+      : '/no-image.jpg';
+  },
+
   isBoardOwner: ({ board, user }) => {
     const boardOwner = board && board.owner;
     const userId = user && user.uid;

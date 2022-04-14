@@ -1,6 +1,6 @@
 <!-- TODO: pagination? -->
 <template lang="html">
-  <b-container>
+  <b-container fluid>
     <page-title
       title="Notes"
     >

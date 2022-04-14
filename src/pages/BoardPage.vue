@@ -10,7 +10,7 @@
     <portal v-if="isBoardPage" to="headerActions">
       <b-button
         v-if="user && user.uid && user.uid === board.owner"
-        variant="light"
+        variant="primary"
         class="mr-2"
         :to="{ name: 'edit-board', params: { id: board.id } }"
       >

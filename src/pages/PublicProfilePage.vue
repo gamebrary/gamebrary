@@ -1,12 +1,17 @@
 <template lang="html">
-  <b-container>
+  <b-container fluid>
     <div v-if="loading">
       Loading...
     </div>
 
     <template v-else-if="profile">
       <div>
-        <img :src="profile.profileImage" :alt="userName" class="rounded" />
+        <img
+          v-if="avatar"
+          :src="avatar"
+          :alt="userName"
+          class="rounded"
+        />
 
         <h2>{{ profile.userName }}</h2>
 
@@ -77,6 +82,10 @@ export default {
 
     userName() {
       return this.$route.params.userName;
+    },
+
+    avatar() {
+      return this.profile?.profilePic || this.user?.photoURL || null;
     },
   },
 

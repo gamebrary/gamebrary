@@ -1,5 +1,4 @@
 <template lang="html">
-  <!-- TODO: break up wikipedia description into chunks -->
   <div class="game-description">
     <div v-if="loading" class="mb-4">
       <b-skeleton

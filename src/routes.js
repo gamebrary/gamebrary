@@ -76,16 +76,25 @@ const routes = [
         name: 'account-settings',
         path: 'account',
         component: AccountSettingsPage,
+        meta: {
+          title: "Account",
+        },
       },
       {
         name: 'steam-settings',
         path: 'steam',
         component: SteamSettingsPage,
+        meta: {
+          title: "Steam",
+        },
       },
       {
         name: 'general-settings',
         path: '',
         component: GeneralSettingsPage,
+        meta: {
+          title: 'Settings',
+        }
       },
       {
         name: 'tags-settings',
@@ -108,7 +117,7 @@ const routes = [
         path: 'notes',
         component: NotesPage,
         meta: {
-          title: 'Tags',
+          title: 'Notes',
         },
       },
       {
@@ -181,7 +190,7 @@ const routes = [
     path: '/upgrade',
     component: UpgradePage,
     meta: {
-      title: 'Upgrade to PRO!',
+      title: 'Upgrade',
     },
   },
   {
@@ -212,6 +221,9 @@ const routes = [
     path: '/board/create',
     name: 'create-board',
     component: CreateBoardPage,
+    meta: {
+      title: 'Create board',
+    }
   },
   {
     path: '/board/:id',
@@ -260,7 +272,7 @@ const routes = [
     path: '/',
     component: HomePage,
     meta: {
-      title: 'Home',
+      title: 'Dashboard',
       public: true,
     },
   },
