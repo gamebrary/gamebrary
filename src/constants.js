@@ -349,3 +349,8 @@ export const DOCK_POSITIONS = [
   { name: 'Bottom', value: 'bottom' },
   { name: 'Right', value: 'right' },
 ];
+
+export const WEBSITE_CATEGORIES = {
+  WIKIPEDIA: 3,
+  AMAZON: 20,
+};

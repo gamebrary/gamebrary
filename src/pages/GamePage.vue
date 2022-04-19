@@ -1,6 +1,5 @@
 <template lang="html">
   <b-container fluid class="p-2">
-    <!-- <pre>{{ speedruns }}</pre> -->
     <b-skeleton v-if="loading" />
     <game-detail v-else-if="game" :game="game" />
 
@@ -11,6 +10,7 @@
 <script>
 import GameDetail from '@/components/GameDetail';
 import { mapState } from 'vuex';
+import { WEBSITE_CATEGORIES } from '@/constants';
 
 export default {
   components: {
@@ -20,7 +20,6 @@ export default {
   data() {
     return {
       gog: null,
-      speedruns: null,
       steamGame: null,
       loading: false,
     };
@@ -40,6 +39,9 @@ export default {
     //     ? `https://images.igdb.com/igdb/image/upload/t_screenshot_huge_2x/${screenshots[0].image_id}.jpg`
     //     : '';
     // },
+    wikipediaData() {
+      return this.game?.websites?.find(({ url, category }) => url && category === WEBSITE_CATEGORIES.WIKIPEDIA);
+    },
   },
 
   watch: {
@@ -85,20 +87,21 @@ export default {
         ? this.game.websites.find(({ category }) => category === steamCategoryId)
         : null;
 
-      // [this.speedruns] = (await this.$store.dispatch('LOAD_GAME_SPEEDRUNS', this.game.name)).data;
-
       // TODO: use regex or more elegant way to get id from url
       const steamGameId = steamPage
         ? steamPage.url.split('app/')[1].split('/')[0]
         : null;
 
-
       const gogPage = this.game?.websites
         ? this.game.websites.find(({ category }) => category === gogCategoryId)
         : null;
 
+      const wikipediaSlug = this.wikipediaData?.url?.split('/wiki/')[1];
+
+      if (wikipediaSlug) await this.$store.dispatch('LOAD_WIKIPEDIA_ARTICLE', wikipediaSlug).catch((e) => {});
       if (steamGameId) await this.$store.dispatch('LOAD_STEAM_GAME', steamGameId);
       if (gogPage) await this.$store.dispatch('LOAD_GOG_GAME', this.game.name);
+      await this.$store.dispatch('LOAD_GAME_SPEEDRUNS', this.game.name);
     },
   },
 };

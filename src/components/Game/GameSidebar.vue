@@ -6,7 +6,6 @@
     @shown="load"
     @hidden="reset"
   >
-    <!-- TODO: restrict usage of sidebar when setting is set -->
     <game-detail :game="game" :loading="loading" />
   </b-sidebar>
 </template>

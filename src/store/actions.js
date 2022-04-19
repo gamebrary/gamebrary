@@ -10,10 +10,12 @@ const API_BASE = 'https://us-central1-gamebrary-8c736.cloudfunctions.net';
 // const API_BASE = 'http://localhost:5001/gamebrary-8c736/us-central1';
 
 export default {
-  LOAD_GAME_SPEEDRUNS(context, gameName) {
+  LOAD_GAME_SPEEDRUNS({ commit }, gameName) {
     return new Promise((resolve, reject) => {
       axios.get(`https://www.speedrun.com/api/v1/games?name=${gameName}`)
         .then(({ data }) => {
+          console.log('speedruns?', data.data);
+          commit('APPEND_GAME_SPEEDRUNS', data);
           resolve(data);
         }).catch(reject);
     });
@@ -39,9 +41,22 @@ export default {
     });
   },
 
-  LOAD_WIKIPEDIA_ARTICLE(context, articleTitle) {
+  LOAD_WIKIPEDIA_ARTICLE({ commit }, articleTitle) {
+    console.log('boom!');
+    console.log('articleTitle', articleTitle);
     return new Promise((resolve, reject) => {
       axios.get(`https://en.wikipedia.org/api/rest_v1/page/mobile-sections/${articleTitle}`)
+        .then(({ data }) => {
+          commit('APPEND_WIKIPEDIA_GAME_DATA', data);
+
+          resolve(data);
+        }).catch(reject);
+    });
+  },
+
+  LOAD_WIKIPEDIA_DESCRIPTION(context, articleTitle) {
+    return new Promise((resolve, reject) => {
+      axios.get(`https://en.wikipedia.org/w/api.php?action=query&format=json&titles=${articleTitle}&prop=extracts&exintro&origin=*`)
         .then(({ data }) => {
           resolve(data);
         }).catch(reject);
@@ -777,15 +792,13 @@ export default {
     return new Promise((resolve, reject) => {
       axios.get('https://api.github.com/repos/romancm/gamebrary/releases')
         .then(({ data }) => {
-          const [latestRelease] = data;
-
-          const latestReleaseVersion = latestRelease && latestRelease.tag_name;
-
-          const lastReleaseSeenByUser = this.settings?.release || null;
-
-          if (latestReleaseVersion !== lastReleaseSeenByUser) {
-            commit('SET_NOTIFICATION', true);
-          }
+          // const [latestRelease] = data;
+          // const latestReleaseVersion = latestRelease && latestRelease.tag_name;
+          // const lastReleaseSeenByUser = this.settings?.release || null;
+          //
+          // if (latestReleaseVersion !== lastReleaseSeenByUser) {
+          //   commit('SET_NOTIFICATION', true);
+          // }
 
           commit('SET_RELEASES', data);
           resolve(data);

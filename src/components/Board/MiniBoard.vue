@@ -1,4 +1,3 @@
-<!-- TODO: fix background hex not rendering -->
 <template lang="html">
   <div
     :class="['mini-board overflow-hidden p-1 rounded cursor-pointer', { 'bg-secondary': !board.backgroundColor }]"
@@ -63,7 +62,6 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-// TODO: allow to toggle expanded width (remove width from mini-board)
 $boardHeight: 200px;
 
 .mini-board {

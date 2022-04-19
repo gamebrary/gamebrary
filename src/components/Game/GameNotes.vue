@@ -3,6 +3,8 @@
   <game-note
     v-if="note"
     :note="note"
+    class="cursor-pointer"
+    @click.native="$router.push({ name: 'game-notes', params: { id: game.id } })"
   />
 
   <portal to="headerActions" v-else-if="isGamePage">

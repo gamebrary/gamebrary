@@ -112,19 +112,8 @@ export default {
         });
     },
 
-    load() {
-      this.$store.dispatch('LOAD_RELEASES')
-        .then((releases) => {
-          // TODO: move this logic to the action
-          const [latestRelease] = releases;
-
-          const latestReleaseVersion = latestRelease?.tag_name;
-          const lastReleaseSeenByUser = this.settings?.release || null;
-
-          if (latestReleaseVersion !== lastReleaseSeenByUser) {
-            this.$store.commit('SET_NOTIFICATION', true);
-          }
-        });
+    async load() {
+      await this.$store.dispatch('LOAD_RELEASES');
 
       this.loadWallpapers();
 

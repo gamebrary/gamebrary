@@ -14,6 +14,9 @@
             @click.stop="openGameCover"
           />
 
+          <amazon-links class="mt-2" />
+          <pre>{{ game.speedruns || 'nain!' }}</pre>
+
           <div class="game-info">
             <game-rating :game="game" />
           </div>
@@ -131,6 +134,7 @@
 </template>
 
 <script>
+import AmazonLinks from '@/components/Game/AmazonLinks';
 import GameNotes from '@/components/Game/GameNotes';
 import GameGenres from '@/components/Game/GameGenres';
 // import GameNews from '@/components/Game/GameNews';
@@ -149,6 +153,7 @@ import { mapState } from 'vuex';
 export default {
   components: {
     // Timeline,
+    AmazonLinks,
     GameDescription,
     GameDetails,
     GameAlternativeTitles,

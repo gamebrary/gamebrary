@@ -2,7 +2,7 @@
   <div class="py-2">
     <small>Available for:</small>
 
-    <p>{{ platforms }}</p>
+    <!-- <p>{{ platforms }}</p> -->
   </div>
 </template>
 
@@ -13,9 +13,9 @@ export default {
   computed: {
     ...mapState(['game']),
 
-    platforms() {
-      return this.game.platforms.map(platform => platform.name).join(', ');
-    },
+    // platforms() {
+    //   return this.game.platforms.map(platform => platform.name).join(', ');
+    // },
   },
 };
 </script>

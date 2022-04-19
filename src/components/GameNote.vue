@@ -21,7 +21,6 @@
 
 <script>
 import { marked } from 'marked';
-import { mapGetters } from 'vuex';
 
 export default {
   props: {
@@ -29,8 +28,6 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['gameCoverUrl']),
-
     formattedNote() {
       return marked(this.note?.note || this.note);
     },

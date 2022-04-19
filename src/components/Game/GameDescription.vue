@@ -8,14 +8,18 @@
     </div>
 
     <template v-else>
-      <!-- <small class="text-muted">Source: {{ source }}</small> -->
-      <p
+      <!-- <pre>{{ wikipediaExtract }}</pre> -->
+      <!-- <div v-html="wikipediaExtract" /> -->
+      <div v-html="description" />
+      <small class="text-muted">Source: {{ source }}</small>
+      <!-- <div v-html="description" /> -->
+      <!-- <p
         :class="{'break-spaces': source === 'IGDB' }"
         v-html="description"
-      />
+      /> -->
     </template>
 
-    <b-card no-body v-if="wikipediaArticle && wikipediaArticle.remaining">
+    <!-- <b-card no-body v-if="wikipediaArticle && wikipediaArticle.remaining">
       <b-tabs pills card>
         <b-tab
           v-for="section in wikipediaArticle.remaining.sections"
@@ -25,86 +29,90 @@
           <b-card-text class="wiki-content" v-html="section.text" />
         </b-tab>
       </b-tabs>
-    </b-card>
+    </b-card> -->
+
+    <footer v-if="legalNotice">
+      <small class="text-muted" v-html="legalNotice" />
+    </footer>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { mapState } from 'vuex';
+import { WEBSITE_CATEGORIES } from '@/constants';
 
 export default {
   data() {
     return {
-      wikipediaArticle: {},
+      // wikipediaArticle: {},
+      wikipediaDescription: null,
       loading: true,
+      // descriptionSource: null,
     };
   },
 
   computed: {
-    ...mapGetters(['activeGameCoverUrl']),
     ...mapState(['game']),
 
     description() {
-      return this.trimmedDescription
-        ? this.trimmedDescription
-        : this.gameDescription;
-    },
-
-    gameDescription() {
-      // const wikipediaDescription = this.wikipediaArticle?.lead?.sections[0]?.text
-      //   ? this.wikipediaArticle.lead.sections[0].text
-      //   : null;
-
-      const steamDescription = this.game?.steam?.short_description || null;
-      const igdbDescription = this.game?.summary || null;
-
-      return steamDescription || igdbDescription;
-    },
-
-    trimmedDescription() {
-      return this.gameDescription?.length > 1200
-        ? `${this.gameDescription.substr(0, 1200)}...`
-        : null;
+      return this.wikipediaExtract || this.steamDescription || this.igdbDescription;
     },
 
     source() {
-      if (this.game?.steam?.short_description) return 'Steam';
+      if (this.wikipediaExtract) return 'Wikipedia';
+      if (this.steamDescription) return 'Steam';
 
-      return this.wikipediaArticle && this.wikipediaArticle.lead && this.wikipediaArticle.lead[0]
-        ? 'Wikipedia'
-        : 'IGDB';
+      return 'IGDB';
+
+      // if (this.game?.steam?.short_description) return 'Steam';
+      //
+      // return this.wikipediaArticle && this.wikipediaArticle.lead && this.wikipediaArticle.lead[0]
+      //   ? 'Wikipedia'
+      //   : 'IGDB';
+    },
+
+    steamDescription() {
+      return this.game?.steam?.about_the_game;
+    },
+
+    igdbDescription() {
+      return this.game?.summary;
+    },
+
+    wikipediaExtract() {
+      const pages = this.wikipediaDescription?.query?.pages;
+
+      if (!pages) return;
+
+      const [key] = Object.keys(pages);
+      const { extract } = pages[key];
+
+      return extract || null;
+    },
+
+    wikipediaData() {
+      return this.game?.websites?.find(({ url, category }) => url && category === WEBSITE_CATEGORIES.WIKIPEDIA);
+    },
+
+    legalNotice() {
+      return this.game?.steam?.legal_notice;
     },
   },
 
   mounted() {
-    this.loadWikipediaArticle();
+    this.load();
   },
 
   methods: {
-    async loadWikipediaArticle() {
-      const wikiData = this.game?.websites
-        ? this.game.websites.find(({ url, category }) => {
-          // TODO: put in constant
-          const wikipediaIgdbCategory = 3;
+    async load() {
+      if (this.wikipediaData) {
+        const slug = this.wikipediaData?.url?.split('/wiki/')[1];
 
-          return url.includes('/wiki/') && category === wikipediaIgdbCategory;
-        })
-        : null;
-
-      if (!wikiData) {
+        this.wikipediaDescription = await this.$store.dispatch('LOAD_WIKIPEDIA_DESCRIPTION', slug).catch((e) => {});
         this.loading = false;
-
-        return;
+      } else {
+        this.loading = false;
       }
-
-      const articleTitle = wikiData.url.split('/wiki/')[1];
-
-      this.wikipediaArticle = await this.$store.dispatch('LOAD_WIKIPEDIA_ARTICLE', articleTitle)
-        .catch(() => {
-          this.loading = false;
-        });
-
-      this.loading = false;
     },
   },
 };

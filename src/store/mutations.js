@@ -130,6 +130,15 @@ export default {
     state.game.steam = data;
   },
 
+  APPEND_WIKIPEDIA_GAME_DATA(state, data) {
+    state.game.wikipedia = data;
+  },
+
+  APPEND_GAME_SPEEDRUNS(state, data) {
+    console.log('speedrus?', data);
+    state.game.speedruns = data;
+  },
+
   APPEND_GOG_GAME_DATA(state, data) {
     state.game.gog = data;
   },

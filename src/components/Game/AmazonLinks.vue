@@ -1,16 +1,18 @@
 <template lang="html">
   <div>
     <b-button
-      v-b-modal="modalId"
+      v-if="amazonLink"
       variant="warning"
       class="mb-3"
-      v-if="amazonLinks.length"
+      :href="amazonLink"
+      target="_blank"
     >
       <i class="fab fa-amazon fa-fw" aria-hidden />
       Available on Amazon
     </b-button>
 
-    <b-modal
+
+    <!-- <b-modal
       :id="modalId"
       hide-footer
     >
@@ -26,10 +28,9 @@
       </b-alert>
 
       <a
-        v-if="link.uid && link.url"
         v-for="link in amazonLinks"
         :key="link.url"
-        :href="`https://amazon.com/dp/${link.uid}?tag=gamebrary0e-20`"
+        :href="`https://amazon.com/dp/${link.uid}`"
         target="_blank"
         class="mr-2 mb-2"
       >
@@ -38,26 +39,29 @@
           thumbnail
         />
       </a>
-    </b-modal>
+    </b-modal> -->
   </div>
 </template>
 
 <script>
-export default {
-  props: {
-    game: Object,
-    modalId: {
-      type: String,
-      default: 'amazon',
-    },
-  },
+import { WEBSITE_CATEGORIES } from '@/constants';
+import { mapState } from 'vuex';
 
+
+export default {
   computed: {
-    amazonLinks() {
-      // TODO: put link category in constant
-      return this.game?.external_games
-        ? this.game.external_games.filter(({ category }) => category === 20)
-        : [];
+    ...mapState(['game']),
+
+    amazonLink() {
+      return this.amazonAsins
+        ? `https://www.amazon.com/s?k=${this.amazonAsins}?tag=gamebrary0e-20`
+        : null;
+    },
+
+    amazonAsins() {
+      return this.game?.external_games?.filter(({ category, uid }) => uid && category === WEBSITE_CATEGORIES.AMAZON)
+        .map(({ uid }) => uid)
+        .join('|');
     },
   },
 };

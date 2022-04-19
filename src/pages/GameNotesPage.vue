@@ -1,7 +1,10 @@
+<!-- TODO: finish layout -->
 <template lang="html">
   <b-container fluid class="p-2">
     <b-form-row>
       <b-col>
+        <b-img :src="gameCoverUrl" width="200" rounded class="mb-2 mr-2" />
+
         <b-button
           variant="primary"
           :disabled="saving || !dirtied"
@@ -36,7 +39,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
+
 import GameNote from '@/components/GameNote';
 import MarkdownCheatsheet from '@/components/MarkdownCheatsheet';
 
@@ -55,6 +59,7 @@ export default {
 
   computed: {
     ...mapState(['notes', 'game']),
+    ...mapGetters(['gameCoverUrl']),
 
     dirtied() {
       return this.note !== this.notes[this.game.id];
