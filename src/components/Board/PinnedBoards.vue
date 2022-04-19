@@ -27,9 +27,8 @@
         ${board.backgroundColor ? ` background-color: ${board.backgroundColor};` : null }
         ${getWallpaperUrl(board.backgroundUrl) }
         `"
-        @click="$bvModal.show('edit-board')"
+        @click="$router.push({ name: 'edit-board', params: { id: board.id } })"
       >
-        <!-- TODO: replace with route -->
         <span class="board-initials text-uppercase mr-1">
           {{ getBoardInitials(board.name) }}
         </span>
