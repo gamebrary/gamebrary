@@ -1,69 +1,68 @@
+<!-- TODO: use or trash? -->
 <template lang="html">
-  <portal to="logo" v-if="boards.length">
-    <b-dropdown
-      :class="{ 'ml-2': isHorizontal }"
-      toggle-class="px-0"
-      variant="transparent"
-    >
-      <template v-slot:button-content>
-        <template v-if="isHorizontal">
-          {{ board.name }}
-          <i class="fas fa-caret-down fa-fw" aria-hidden />
-        </template>
-
-        <b-avatar
-          v-else
-          variant="primary"
-          :text="boardInitials"
-          rounded
-        />
+  <b-dropdown
+    :class="{ 'ml-2': isHorizontal }"
+    toggle-class="px-0"
+    variant="transparent"
+  >
+    <template v-slot:button-content>
+      <template v-if="isHorizontal">
+        {{ board.name }}
+        <i class="fas fa-caret-down fa-fw" aria-hidden />
       </template>
 
-      <b-dropdown-item-button
-        size="sm"
-        v-b-modal:edit-board
-      >
-        <i class="fas fa-pencil-alt fa-fw" aria-hidden />
-        Edit board
-      </b-dropdown-item-button>
+      <b-avatar
+        v-else
+        variant="primary"
+        :text="boardInitials"
+        rounded
+      />
+    </template>
 
+    <b-dropdown-item-button
+      size="sm"
+      v-b-modal:edit-board
+    >
+      <i class="fas fa-pencil-alt fa-fw" aria-hidden />
+      Edit board
+    </b-dropdown-item-button>
+
+    <b-dropdown-divider />
+
+    <b-dropdown-item-button
+      size="sm"
+      v-b-modal:create-board
+    >
+      <i class="fas fa-plus fa-fw" aria-hidden></i>
+      Create new board
+    </b-dropdown-item-button>
+
+    <template v-if="filteredBoards.length">
       <b-dropdown-divider />
 
+      <span class="m-2 text-muted">Other boards:</span>
+
       <b-dropdown-item-button
-        size="sm"
-        v-b-modal:create-board
+        v-for="{ id, name, backgroundColor, backgroundUrl } in filteredBoards"
+        :key="id"
+        :active="board.name === name"
+        @click="viewBoard(id)"
       >
-        <i class="fas fa-plus fa-fw" aria-hidden></i>
-        Create new board
+        <b-avatar
+          rounded
+          :class="['board-thumbnail mr-2', { 'bg-dark' : !backgroundColor }]"
+          :title="name"
+          text=" "
+          :style="`
+            background-image: url(${backgroundUrl ? backgroundUrl : ''});
+            background-color: ${backgroundColor ? backgroundColor : ''}
+            `"
+        />
+
+        {{ name }}
       </b-dropdown-item-button>
-
-      <template v-if="filteredBoards.length">
-        <b-dropdown-divider />
-
-        <span class="m-2 text-muted">Other boards:</span>
-
-        <b-dropdown-item-button
-          v-for="{ id, name, backgroundColor, backgroundUrl } in filteredBoards"
-          :key="id"
-          :active="board.name === name"
-          @click="viewBoard(id)"
-        >
-          <b-avatar
-            rounded
-            :class="['board-thumbnail mr-2', { 'bg-dark' : !backgroundColor }]"
-            :title="name"
-            text=" "
-            :style="`
-              background-image: url(${backgroundUrl ? backgroundUrl : ''});
-              background-color: ${backgroundColor ? backgroundColor : ''}
-              `"
-          />
-
-          {{ name }}
-        </b-dropdown-item-button>
-      </template>
-    </b-dropdown>
-  </portal>
+    </template>
+  </b-dropdown>
 </template>
 
 <script>

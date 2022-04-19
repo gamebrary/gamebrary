@@ -5,8 +5,6 @@
     :class="['board p-3 pr-5', { dragging, empty }]"
     :style="boardStyles"
   >
-    <boards-dropdown />
-
     <portal v-if="isBoardPage" to="headerActions">
       <b-button
         v-if="user && user.uid && user.uid === board.owner"
@@ -66,7 +64,6 @@
 
 <script>
 import BoardPlaceholder from '@/components/Board/BoardPlaceholder';
-import BoardsDropdown from '@/components/BoardsDropdown';
 import EmptyBoard from '@/components/Board/EmptyBoard';
 import AddListModal from '@/components/Board/AddListModal';
 import GameList from '@/components/Lists/GameList';
@@ -77,7 +74,6 @@ export default {
   components: {
     GameList,
     BoardPlaceholder,
-    BoardsDropdown,
     EmptyBoard,
     AddListModal,
   },
