@@ -9,6 +9,7 @@
     <b-button
       variant="warning"
       name='game-notes'
+      class="mr-2"
       :to="{ name: 'game-notes', params: { gameId: game.id, gameSlug: game.slug } }"
     >
       Add note
