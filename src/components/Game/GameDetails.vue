@@ -21,19 +21,17 @@
         <span class="text-wrap">{{ playerPerspectives }}</span>
       </div>
 
-      {{ $t('board.gameModal.releaseDate') }}
 
-      <!-- <ul class="timeline">
+      <ul class="timeline" v-if="releaseDates">
+        {{ $t('board.gameModal.releaseDate') }}
         <li
+          v-for="{ id, platform, date } in releaseDates"
+          :key="id"
           class="event pb-2"
-          :data-date="releaseDate.date"
-          :key="releaseDate.id"
-          v-for="releaseDate in timeline"
         >
-          {{ releaseDate.platform }}
-          <pre>{{ releaseDate.date }}</pre>
+          {{ date }} - {{ platform || 'N/A' }}
         </li>
-      </ul> -->
+      </ul>
     </b-alert>
   </div>
 </template>
@@ -74,42 +72,18 @@ export default {
         : null;
     },
 
-    // TODO: fix infinite loop
-    // timeline() {
-    //   const releaseDates = this.game?.release_dates;
-    //
-    //   const sortedActivities = releaseDates
-    //     ? releaseDates.sort((a, b) => b.date - a.date)
-    //     : [];
-    //
-    //   console.log(sortedActivities);
-    //
-    //   return sortedActivities.length ? sortedActivities.map(releaseDate => ({
-    //     ...releaseDate,
-    //     platform: releaseDate.platform && this.platformNames[releaseDate.platform] ? this.platformNames[releaseDate.platform].name : null,
-    //     date: releaseDate && releaseDate.date ? this.$dayjs.unix(releaseDate.date).format('MMMM D, YYYY') : 'N/A',
-    //   }))
-    //     : null;
-    // },
-
     releaseDates() {
-      const hasReleaseDates = this.game && this.game.release_dates;
+      const releaseDates = this.game?.release_dates?.slice();
 
-      if (!hasReleaseDates) {
-        return 'N/A';
-      }
+      const sortedActivities = releaseDates?.sort((a, b) => a.date - b.date);
 
-      const formattedReleaseDates = this.game.release_dates.map(({ platform, date }) => {
-        const formattedDate = date
-          ? this.$dayjs.unix(date).format('MMMM D, YYYY')
-          : 'N/A';
-
-        return this.platformNames[platform]
-          ? `${this.platformNames[platform].name}: ${formattedDate}`
-          : null;
+      return sortedActivities?.map(({ platform, date, id }) => {
+        return {
+          id,
+          platform: this.platformNames[platform].name,
+          date: this.$dayjs.unix(date).format('MMMM D, YYYY'),
+        };
       });
-
-      return [...new Set(formattedReleaseDates)];
     },
   },
 };
