@@ -1,91 +1,70 @@
-<!-- DEPRECATED -->
-<!-- TODO: remove/merge with list settings -->
 <template lang="html">
-  <b-dropdown-item-button
-    v-b-modal="modalId"
-  >
-    <i class="fas fa-cogs fa-fw" aria-hidden />
-    {{ $t('board.list.settings') }}
+  <form ref="renameListForm" @submit.stop.prevent="save">
+    <b-list-group-item>
+      <b-form-checkbox
+        v-model="showReleaseDates"
+        name="check-button"
+        class="mb-2"
+        switch
+      >
+        {{ $t('board.list.showReleaseDates') }}
+      </b-form-checkbox>
+    </b-list-group-item>
 
-    <b-modal
-      :id="modalId"
-      footer-class="d-flex justify-content-between pt-0"
-      hide-footer
-      size="sm"
-      @show="getSettings"
-    >
-      <template v-slot:modal-header="{ close }">
-        <modal-header
-          :title="$t('board.list.settings')"
-          @close="close"
-        >
-          <b-button
-            variant="primary"
-            :disabled="saving"
-            @click="save"
-          >
-            <b-spinner small v-if="saving" />
-            <span v-else>Save</span>
-          </b-button>
-        </modal-header>
-      </template>
+    <b-list-group-item>
+      <b-form-checkbox
+        v-model="showGameProgress"
+        name="check-button"
+        class="mb-2"
+        switch
+      >
+        {{ $t('board.list.showGameProgress') }}
+      </b-form-checkbox>
+    </b-list-group-item>
 
-      <form ref="renameListForm" @submit.stop.prevent="save">
-        <b-form-checkbox
-          v-model="showReleaseDates"
-          name="check-button"
-          class="mb-2"
-          switch
-        >
-          {{ $t('board.list.showReleaseDates') }}
-        </b-form-checkbox>
+    <b-list-group-item>
+      <b-form-checkbox
+        v-model="highlightCompletedGames"
+        name="check-button"
+        class="mb-2"
+        switch
+      >
+        Highlight completed games
+      </b-form-checkbox>
+    </b-list-group-item>
 
-        <b-form-checkbox
-          v-model="showGameProgress"
-          name="check-button"
-          class="mb-2"
-          switch
-        >
-          {{ $t('board.list.showGameProgress') }}
-        </b-form-checkbox>
+    <b-list-group-item>
+      <b-form-checkbox
+        v-model="showGameNotes"
+        name="check-button"
+        class="mb-2"
+        switch
+      >
+        {{ $t('board.list.showGameNotes') }}
+      </b-form-checkbox>
+    </b-list-group-item>
 
-        <b-form-checkbox
-          v-model="highlightCompletedGames"
-          name="check-button"
-          class="mb-2"
-          switch
-        >
-          Highlight completed games
-        </b-form-checkbox>
+    <b-list-group-item>
+      <b-form-checkbox
+        v-model="showGameTags"
+        name="check-button"
+        class="mb-2"
+        switch
+      >
+        {{ $t('board.list.showGameTags') }}
+      </b-form-checkbox>
+    </b-list-group-item>
 
-        <b-form-checkbox
-          v-model="showGameNotes"
-          name="check-button"
-          class="mb-2"
-          switch
-        >
-          {{ $t('board.list.showGameNotes') }}
-        </b-form-checkbox>
-
-        <b-form-checkbox
-          v-model="showGameTags"
-          name="check-button"
-          class="mb-2"
-          switch
-        >
-          {{ $t('board.list.showGameTags') }}
-        </b-form-checkbox>
-
-        <b-form-checkbox
-          v-model="showGameCount"
-          name="check-button"
-          switch
-        >
-          {{ $t('board.list.showGameCount') }}
-        </b-form-checkbox>
-      </form>
-    </b-modal>
-  </b-dropdown-item-button>
+    <b-list-group-item>
+      <b-form-checkbox
+        v-model="showGameCount"
+        name="check-button"
+        switch
+      >
+        {{ $t('board.list.showGameCount') }}
+      </b-form-checkbox>
+    </b-list-group-item>
+  </form>
 </template>
 
 <script>
@@ -103,7 +82,6 @@ export default {
       showGameNotes: false,
       showGameTags: false,
       showGameCount: false,
-      saving: false,
     };
   },
 
@@ -115,6 +93,10 @@ export default {
     isDuplicate() {
       return this.listName && this.existingListNames.includes(this.listName.toLowerCase());
     },
+  },
+
+  mounted() {
+    this.getSettings();
   },
 
   methods: {

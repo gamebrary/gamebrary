@@ -1,35 +1,56 @@
 <template lang="html">
-  <b-dropdown-item-button v-b-modal="modalId">
-    <i class="fas fa-sort fa-fw" aria-hidden />
-    {{ $t('board.list.sortList') }}
-
-    <b-modal
-      :id="modalId"
-      size="sm"
-      hide-footer
-      @show="getSortValue"
+  <form ref="renameListForm" @submit.stop.prevent="save">
+    <b-form-group
+      id="list-sorting"
+      label="Sort list by:"
+      label-for="sortField"
+      description="We'll never share your email with anyone else."
     >
-      <template v-slot:modal-header="{ close }">
-        <modal-header
-          :title="$t('board.list.sortList')"
-          :subtitle="list.name"
-          @close="close"
-        >
-          <b-button
-            variant="primary"
-            class="ml-auto"
-            :disabled="saving"
-            @click="save"
-          >
-            <b-spinner small v-if="saving" />
-            <span v-else>{{ $t('global.save') }}</span>
-          </b-button>
-        </modal-header>
-      </template>
+      <b-form-select
+        id="sortField"
+        :options="sortingOptions"
+        v-model="sortOrder"
+        placeholder="Enter email"
+        required
+      />
+    </b-form-group>
 
+    <!-- <b-form-radio-group
+      v-model="sortOrder"
+      stacked
+      variant="primary"
+      :options="sortingOptions"
+    /> -->
 
-    </b-modal>
-  </b-dropdown-item-button>
+    <!-- TODO: move to computed -->
+    <b-alert
+      class="mb-0 mt-2 small"
+      show
+      :variant="sortOrder !== 'sortByCustom' ? 'warning' : 'info'"
+    >
+      <span v-if="sortOrder === 'sortByCustom'">
+        Games will be added to end of list, drag games to re-order.
+      </span>
+
+      <span v-else-if="sortOrder">
+        Games will be sorted by
+
+        <span class="text-lowercase">
+          {{ $t(`board.list.${sortOrder}`)}}
+        </span>
+      </span>
+    </b-alert>
+
+    <b-button
+      variant="primary"
+      class="ml-auto"
+      :disabled="saving"
+      @click="save"
+    >
+      <b-spinner small v-if="saving" />
+      <span v-else>{{ $t('global.save') }}</span>
+    </b-button>
+  </form>
 </template>
 
 <script>
@@ -41,13 +62,20 @@ export default {
 
   data() {
     return {
+      sortOrder: null,
+      saving: false,
+      sortingOptions: [
+        { text: this.$t('board.list.sortByCustom'), value: 'sortByCustom' },
+        { text: this.$t('board.list.sortByName'), value: 'sortByName' },
+        { text: this.$t('board.list.sortByRating'), value: 'sortByRating' },
+        { text: this.$t('board.list.sortByProgress'), value: 'sortByProgress' },
+        // { text: 'Release date', value: 'sortByReleaseDate' },
+      ],
     };
   },
 
-  computed: {
-    modalId() {
-      return `sort-list-${this.listIndex}`;
-    },
+  mounted() {
+    this.getSortValue();
   },
 
   methods: {

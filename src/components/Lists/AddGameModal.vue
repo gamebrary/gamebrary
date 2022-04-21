@@ -1,5 +1,8 @@
 <template lang="html">
-  <b-dropdown-item-button v-b-modal="`game-modal-${list.name}`">
+  <b-button
+    variant="success"
+    v-b-modal="`game-modal-${list.name}`"
+  >
     <i class="fas fa-plus fa-fw" />
     {{ $t('board.addGame.title') }}
 
@@ -20,7 +23,7 @@
         <recent-games :list="list" />
       </b-tabs>
     </b-modal>
-  </b-dropdown-item-button>
+  </b-button>
 </template>
 
 <script>

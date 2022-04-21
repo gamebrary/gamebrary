@@ -21,7 +21,7 @@
       />
 
       <template v-else>
-        <header class="p-1 pl-2 d-flex justify-content-between align-items-start">
+        <header class="p-1 pl-2 d-flex justify-content-between align-items-center">
           <h6 class="p-0 m-0">
             <span v-b-modal="`rename-list-${listIndex}`">
               <b-badge>{{ list.games.length }}</b-badge>
@@ -39,11 +39,10 @@
 
           <b-button
             v-if="user && user.uid === board.owner"
-            size="sm"
             variant="transparent"
             @click="editing = true"
           >
-            <i class="fa fa-pencil-alt fa-fw text-secondary" />
+            <i class="fa fa-pencil-alt fa-fw" />
           </b-button>
 
           <!-- TODO: consolidate public/private actions -->

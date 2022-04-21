@@ -1,53 +1,32 @@
 <template lang="html">
-  <b-dropdown-item-button
-    v-b-modal="modalId"
-  >
-    <i class="fas fa-pencil-alt fa-fw" aria-hidden />
-    {{ $t('board.list.renameList') }}
+  <form ref="renameListForm" @submit.stop.prevent="submit">
+    <b-form-input
+      ref="listNameField"
+      autofocus
+      v-model.trim="listName"
+      :placeholder="$t('board.list.renameListPlaceholder')"
+      required
+    />
 
-    <b-modal
-      :id="modalId"
-      hide-footer
-      size="sm"
-      @show="getListName"
+    <b-alert
+      v-if="isDuplicate && listName.length > 0"
+      class="mt-3 mb-0"
+      show
+      variant="warning"
     >
-      <template v-slot:modal-header="{ close }">
-        <modal-header
-          :title="$t('board.list.renameList')"
-          @close="close"
-        >
-          <b-button
-            variant="primary"
-            class="ml-auto"
-            :disabled="saving || !dirtied || isDuplicate"
-            @click="submit"
-          >
-            <b-spinner small v-if="saving" />
-            <span v-else>{{ $t('global.save') }}</span>
-          </b-button>
-        </modal-header>
-      </template>
+      {{ $t('board.list.duplicateWarning') }}
+    </b-alert>
 
-      <form ref="renameListForm" @submit.stop.prevent="submit">
-        <b-form-input
-          ref="listNameField"
-          autofocus
-          v-model.trim="listName"
-          :placeholder="$t('board.list.renameListPlaceholder')"
-          required
-        />
-
-        <b-alert
-          v-if="isDuplicate && listName.length > 0"
-          class="mt-3 mb-0"
-          show
-          variant="warning"
-        >
-          {{ $t('board.list.duplicateWarning') }}
-        </b-alert>
-      </form>
-    </b-modal>
-  </b-dropdown-item-button>
+    <b-button
+      variant="primary"
+      class="ml-auto"
+      :disabled="saving || !dirtied || isDuplicate"
+      @click="submit"
+    >
+      <b-spinner small v-if="saving" />
+      <span v-else>{{ $t('global.save') }}</span>
+    </b-button>
+  </form>
 </template>
 
 <script>
@@ -69,10 +48,6 @@ export default {
   computed: {
     ...mapState(['board']),
 
-    modalId() {
-      return `rename-list-${this.listIndex}`;
-    },
-
     dirtied() {
       const { name } = this.list;
 
@@ -89,6 +64,10 @@ export default {
     isDuplicate() {
       return this.listName && this.existingListNames.includes(this.listName.toLowerCase());
     },
+  },
+
+  mounted() {
+    this.getListName();
   },
 
   methods: {

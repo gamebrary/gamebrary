@@ -15,7 +15,6 @@
           />
 
           <amazon-links class="mt-2" />
-          <pre>{{ game.speedruns || 'nain!' }}</pre>
 
           <div class="game-info">
             <game-rating :game="game" />

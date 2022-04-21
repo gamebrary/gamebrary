@@ -1,77 +1,81 @@
 <template lang="html">
   <div class="game-list-settings">
-    <add-game-modal :list="list" />
+    <header class="p-1 pl-2 d-flex justify-content-between align-items-center">
+      <h6 class="p-0 m-0">
+        List settings
+      </h6>
 
-    <!-- <sort-list :list="list" :list-index="listIndex" /> -->
-    <b-form-radio-group
-      v-model="sortOrder"
-      variant="primary"
-      :options="sortingOptions"
-    />
+      <add-game-modal :list="list" />
 
-    <b-alert
-      class="mb-0 mt-2"
-      show
-      :variant="sortOrder !== 'sortByCustom' ? 'warning' : 'info'"
-    >
-      <span v-if="sortOrder === 'sortByCustom'">
-        Games will be added to end of list, drag games to re-order.
-      </span>
+      <b-button
+        variant="transparent"
+        @click="$emit('close')"
+      >
+        <i class="fas fa-times fa-fw" aria-hidden />
 
-      <span v-else-if="sortOrder">
-        Games will be sorted by
+      </b-button>
+    </header>
 
-        <span class="text-lowercase">
-          {{ $t(`board.list.${sortOrder}`)}}
-        </span>
-      </span>
-    </b-alert>
-    <rename-list :list="list" :list-index="listIndex" />
-    <change-list-view :list="list" :list-index="listIndex" />
-    <!-- <list-preferences :list="list" :list-index="listIndex" /> -->
-    <b-dropdown-item
-      variant="danger"
-      @click="promptDeleteList"
-    >
-      <i class="fas fa-trash-alt fa-fw" aria-hidden />
-      {{ $t('board.list.delete') }}
-    </b-dropdown-item>
+    <b-list-group class="p-2">
+      <b-list-group-item>
+        <rename-list :list="list" :list-index="listIndex" />
+      </b-list-group-item>
 
-    <b-dropdown-divider />
+      <b-list-group-item>
+        <sort-list :list="list" :list-index="listIndex" />
+      </b-list-group-item>
 
-    <b-dropdown-text>
-      <small class="text-muted d-flex justify-content-center">Move list</small>
-      <b-button-group size="sm" class="w-100">
+      <b-list-group-item>
+        <change-list-view :list="list" :list-index="listIndex" />
+      </b-list-group-item>
+
+      <list-preferences :list="list" :list-index="listIndex" />
+
+      <b-list-group-item>
+        <b-button>Save</b-button>
+      </b-list-group-item>
+
+      <b-list-group-item>
         <b-button
-          v-b-tooltip.hover
-          :title="$t('board.list.moveLeft')"
-          :disabled="isFirst"
-          @click="moveList(listIndex, listIndex - 1)"
+          variant="warning"
+          @click="promptDeleteList"
         >
-          <i class="fas fa-angle-left fa-fw" aria-hidden />
+          <i class="fas fa-trash-alt fa-fw" aria-hidden />
+          {{ $t('board.list.delete') }}
         </b-button>
+      </b-list-group-item>
 
-        <b-button
-          v-b-tooltip.hover
-          :title="$t('board.list.moveRight')"
-          :disabled="isLast"
-          @click="moveList(listIndex, listIndex + 1)"
-        >
-          <i class="fas fa-angle-right fa-fw" aria-hidden />
-        </b-button>
-      </b-button-group>
-    </b-dropdown-text>
-    <b-button>Save</b-button>
-    <b-button @click="$emit('close')">Cancel</b-button>
-    boom boom boom
+      <b-list-group-item>
+        <small class="text-muted d-flex justify-content-center">Move list</small>
+        <b-button-group size="sm" class="w-100">
+          <b-button
+            v-b-tooltip.hover
+            :title="$t('board.list.moveLeft')"
+            :disabled="isFirst"
+            @click="moveList(listIndex, listIndex - 1)"
+          >
+            <i class="fas fa-angle-left fa-fw" aria-hidden />
+          </b-button>
+
+          <b-button
+            v-b-tooltip.hover
+            :title="$t('board.list.moveRight')"
+            :disabled="isLast"
+            @click="moveList(listIndex, listIndex + 1)"
+          >
+            <i class="fas fa-angle-right fa-fw" aria-hidden />
+          </b-button>
+        </b-button-group>
+      </b-list-group-item>
+    </b-list-group>
   </div>
 </template>
 
 <script>
 import ChangeListView from '@/components/Lists/ChangeListView';
 import RenameList from '@/components/Lists/RenameList';
-// import ListPreferences from '@/components/Lists/ListPreferences';
-// import SortList from '@/components/Lists/SortList';
+import ListPreferences from '@/components/Lists/ListPreferences';
+import SortList from '@/components/Lists/SortList';
 import AddGameModal from '@/components/Lists/AddGameModal';
 import { mapState } from 'vuex';
 
@@ -79,9 +83,9 @@ export default {
   components: {
     ChangeListView,
     RenameList,
-    // ListPreferences,
+    ListPreferences,
     AddGameModal,
-    // SortList,
+    SortList,
   },
 
   props: {
@@ -107,6 +111,10 @@ export default {
 
       return this.listIndex === lastListIndex;
     },
+  },
+
+  mounted() {
+    this.localList = JSON.parse(JSON.stringify(this.list));
   },
 
   methods: {
