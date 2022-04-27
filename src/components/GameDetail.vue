@@ -96,7 +96,7 @@
         <game-description />
 
         <game-platforms />
-        <!-- <game-news :game="game" /> -->
+        <game-news />
         <game-details />
 
         <game-websites
@@ -136,7 +136,7 @@
 import AmazonLinks from '@/components/Game/AmazonLinks';
 import GameNotes from '@/components/Game/GameNotes';
 import GameGenres from '@/components/Game/GameGenres';
-// import GameNews from '@/components/Game/GameNews';
+import GameNews from '@/components/Game/GameNews';
 import GameDetails from '@/components/Game/GameDetails';
 import GameAlternativeTitles from '@/components/Game/GameAlternativeTitles';
 import GamePlatforms from '@/components/Game/GamePlatforms';
@@ -161,7 +161,7 @@ export default {
     // GameImages,
     GameNotes,
     GameGenres,
-    // GameNews,
+    GameNews,
     // GameVideos,
     GameWebsites,
     SimilarGames,
