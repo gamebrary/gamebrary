@@ -1,5 +1,7 @@
 <!-- TODO: add speedruns -->
+<!-- TODO: add pricecharting info -->
 <!-- TODO: use v-observe-visibility -->
+<!-- TODO: show GOG buy button -->
 <template lang="html">
   <b-container fluid class="p-0">
     <b-form-row>
@@ -33,6 +35,10 @@
 
         <game-websites :game="game" class="d-none d-md-inline" />
         <game-notes />
+        <b-button variant="info" @click="openGameNews">
+          <!-- <b-badge>3</b-badge> -->
+          News about {{ game.name }}
+        </b-button>
         <!-- <pre>{{ game.genres.map(({ id }) => id) }}</pre> -->
         <!-- TODO: add bundles to game detail? -->
         <!-- {{ game.bundles ? `Found in ${game.bundles.length} compilations.` : null }} -->
@@ -71,7 +77,6 @@
         <!-- <small>
           <pre class="text-dark">{{ steamGame }}</pre>
         </small> -->
-        <!-- TODO: get from {{game}} -->
         <!-- <small v-if="gog && gog.isPriceVisible">{{gog.price.symbol}}{{ gog.price.amount }}</small> -->
         <!-- <small><pre class="text-dark">{{ gog }}</pre></small> -->
         <!-- <pre class="small text-dark">{{ steamGame }}</pre> -->
@@ -94,9 +99,7 @@
 
         <game-genres :game="game" />
         <game-description />
-
         <game-platforms />
-        <game-news />
         <game-details />
 
         <game-websites
@@ -136,7 +139,6 @@
 import AmazonLinks from '@/components/Game/AmazonLinks';
 import GameNotes from '@/components/Game/GameNotes';
 import GameGenres from '@/components/Game/GameGenres';
-import GameNews from '@/components/Game/GameNews';
 import GameDetails from '@/components/Game/GameDetails';
 import GameAlternativeTitles from '@/components/Game/GameAlternativeTitles';
 import GamePlatforms from '@/components/Game/GamePlatforms';
@@ -144,8 +146,6 @@ import GameRating from '@/components/Game/GameRating';
 import GameDescription from '@/components/Game/GameDescription';
 import SimilarGames from '@/components/Game/SimilarGames';
 import GameWebsites from '@/components/Game/GameWebsites';
-// import GameImages from '@/components/Game/GameImages';
-// import GameVideos from '@/components/Game/GameVideos';
 import { mapState } from 'vuex';
 // import { Timeline } from 'vue-tweet-embed'
 
@@ -158,23 +158,13 @@ export default {
     GameAlternativeTitles,
     GamePlatforms,
     GameRating,
-    // GameImages,
     GameNotes,
     GameGenres,
-    GameNews,
-    // GameVideos,
     GameWebsites,
     SimilarGames,
   },
 
   props: {
-    // TODO: replace with game from state
-    // game: {
-    //   type: Object,
-    //   required: true,
-    // },
-    // gog: Object,
-    // steamGame: Object,
     loading: Boolean,
   },
 
@@ -219,6 +209,16 @@ export default {
     openGameCover() {
       this.$router.push({
         name: 'game-media-page',
+        params: {
+          gameId: this.game.id,
+          gameSlug: this.game.slug,
+        },
+      });
+    },
+
+    openGameNews() {
+      this.$router.push({
+        name: 'game-news-page',
         params: {
           gameId: this.game.id,
           gameSlug: this.game.slug,

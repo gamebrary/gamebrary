@@ -9,6 +9,7 @@ import ProfileSettingsPage from '@/pages/ProfileSettingsPage';
 import ExplorePage from '@/pages/ExplorePage';
 import GamePage from '@/pages/GamePage';
 import GameMediaPage from '@/pages/game/GameMediaPage';
+import GameNewsPage from '@/pages/game/GameNewsPage';
 import HomePage from '@/pages/HomePage';
 import PlatformsPage from '@/pages/PlatformsPage';
 import PlatformPage from '@/pages/PlatformPage';
@@ -150,6 +151,14 @@ const routes = [
     name: 'game-media-page',
     path: '/game/:gameId/:gameSlug/media',
     component: GameMediaPage,
+    meta: {
+      public: true,
+    },
+  },
+  {
+    name: 'game-news-page',
+    path: '/game/:gameId/:gameSlug/news',
+    component: GameNewsPage,
     meta: {
       public: true,
     },
