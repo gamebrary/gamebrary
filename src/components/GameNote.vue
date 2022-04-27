@@ -24,7 +24,9 @@ import { marked } from 'marked';
 
 export default {
   props: {
-    note: Object,
+    note: {
+      type: [Object, String],
+    },
   },
 
   computed: {
