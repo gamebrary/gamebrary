@@ -1,6 +1,12 @@
 <!-- TODO: finish layout -->
 <template lang="html">
   <b-container fluid class="p-2">
+    <b-button
+      :to="{ name: 'game', params: { gameId: game.id, gameSlug: game.slug } }"
+    >
+      Back
+    </b-button>
+
     <b-form-row>
       <b-col>
         <b-img :src="gameCoverUrl" width="200" rounded class="mb-2 mr-2" />
