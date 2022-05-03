@@ -14,8 +14,7 @@ export default {
     session_signOut() {
       firebase.auth().signOut()
         .then(() => {
-          this.$store.commit('CLEAR_SESSION');
-          this.$router.replace({ name: 'auth' });
+          this.session_handleExpiredSession();
         })
         .catch((error) => {
           this.$bvToast.toast(error, { title: 'Error', variant: 'danger' });
