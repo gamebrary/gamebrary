@@ -26,9 +26,9 @@
       <div class="global-actions">
         <portal-target name="headerActions" />
 
-        <b-button v-if="user" class="mr-2" variant="success" :to="{ name: 'upgrade' }">
+        <!-- <b-button v-if="user" class="mr-2" variant="success" :to="{ name: 'upgrade' }">
           Upgrade
-        </b-button>
+        </b-button> -->
 
         <search-box class="d-none d-md-block" />
 

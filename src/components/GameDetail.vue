@@ -23,22 +23,22 @@
           </div>
         </div>
 
-        <b-skeleton-img
+        <!-- <b-skeleton-img
           v-if="loading"
           width="100px"
           height="100px"
-        />
+        /> -->
 
-        <template v-else>
-          <!-- <game-videos :videos="game.videos" v-if="game.videos" /> -->
-        </template>
+        <!-- <template v-else>
+          <game-videos :videos="game.videos" v-if="game.videos" />
+        </template> -->
 
         <game-websites :game="game" class="d-none d-md-inline" />
         <game-notes />
-        <b-button variant="info" @click="openGameNews">
-          <!-- <b-badge>3</b-badge> -->
+        <!-- <b-button variant="info" @click="openGameNews">
+          <b-badge>3</b-badge>
           News about {{ game.name }}
-        </b-button>
+        </b-button> -->
         <!-- <pre>{{ game.genres.map(({ id }) => id) }}</pre> -->
         <!-- TODO: add bundles to game detail? -->
         <!-- {{ game.bundles ? `Found in ${game.bundles.length} compilations.` : null }} -->

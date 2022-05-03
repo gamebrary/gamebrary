@@ -4,68 +4,68 @@
       <b-col cols="4" sm="3" lg="2">
         <b-list-group>
           <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'general-settings' }">
-            <i class="fas fa-sliders-h fa-fw" aria-hidden />
+            <i class="mr-2 fas fa-sliders-h fa-fw" aria-hidden />
             <small>General</small>
           </b-list-group-item>
 
           <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'wallpapers-settings' }">
-            <i class="fa-solid fa-images fa-fw" aria-hidden />
+            <i class="mr-2 fa-solid fa-images fa-fw" aria-hidden />
             <small>Wallpapers</small>
           </b-list-group-item>
 
-          <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'profile-settings' }">
-            <i class="fa-solid fa-user fa-fw" aria-hidden />
+          <!-- <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'profile-settings' }">
+            <i class="mr-2 fa-solid fa-user fa-fw" aria-hidden />
             <small>Profile</small>
-          </b-list-group-item>
+          </b-list-group-item> -->
 
           <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'notes-settings' }">
-            <i class="fa-solid fa-note-sticky fa-fw" aria-hidden />
+            <i class="mr-2 fa-solid fa-note-sticky fa-fw" aria-hidden />
             <small>Notes</small>
           </b-list-group-item>
 
           <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'tags-settings' }">
-            <i class="fa-solid fa-tags fa-fw" aria-hidden />
+            <i class="mr-2 fa-solid fa-tags fa-fw" aria-hidden />
             <small>Tags</small>
           </b-list-group-item>
 
           <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'account-settings' }">
-            <i class="fa-solid fa-user-shield fa-fw" aria-hidden />
+            <i class="mr-2 fa-solid fa-user-shield fa-fw" aria-hidden />
             <small>Account</small>
           </b-list-group-item>
 
-          <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'steam-settings' }">
-            <i class="fab fa-steam fa-fw" aria-hidden></i>
+          <!-- <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'steam-settings' }">
+            <i class="mr-2 fab fa-steam fa-fw" aria-hidden></i>
             <small>Steam</small>
-          </b-list-group-item>
+          </b-list-group-item> -->
 
           <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'releases' }">
-            <i class="fas fa-rocket fa-fw" aria-hidden></i>
+            <i class="mr-2 fas fa-rocket fa-fw" aria-hidden></i>
             <small>Releases</small>
           </b-list-group-item>
 
-          <hr />
+          <!-- <hr /> -->
 
-          <b-list-group-item :to="{ name: 'profiles' }">
-            <i class="fa-solid fa-people-group fa-fw" aria-hidden />
+          <!-- <b-list-group-item :to="{ name: 'profiles' }">
+            <i class="mr-2 fa-solid fa-people-group fa-fw" aria-hidden />
             <small>Profiles</small>
-          </b-list-group-item>
+          </b-list-group-item> -->
 
-          <b-list-group-item :to="{ name: 'dev-tools' }">
-            <i class="fa-solid fa-code fa-fw" aria-hidden />
+          <!-- <b-list-group-item :to="{ name: 'dev-tools' }">
+            <i class="mr-2 fa-solid fa-code fa-fw" aria-hidden />
 
             <small>Dev tools</small>
-          </b-list-group-item>
+          </b-list-group-item> -->
 
           <!-- <a
             href="https://github.com/romancm/gamebrary"
             target="_blank"
           >
-            <i class="fab fa-github"></i>
+            <i class="mr-2 fab fa-github"></i>
           </a> -->
 
-          <small class="my-2">
+          <!-- <small class="my-2">
             <a v-b-modal.keyboard-shortcuts>Keyboard shortcuts</a>
-          </small>
+          </small> -->
 
           <!-- {{ $t('global.donateMessage') }} -->
           <!-- <a href="https://www.paypal.me/RomanCervantes/5" target="_blank">
@@ -111,6 +111,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-</style>

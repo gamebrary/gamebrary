@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container>
+  <div class="auth-page d-flex align-items-start">
     <b-alert
       class="mt-2 mx-auto text-center"
       :show="showExpiredAlert"
@@ -9,8 +9,10 @@
       Session expired
     </b-alert>
 
-    <section id="auth" class="mt-3" />
-  </b-container>
+    <b-card class="mx-auto mt-5">
+      <section id="auth" />
+    </b-card>
+  </div>
 </template>
 
 <script>
@@ -156,3 +158,10 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+.auth-page {
+  background-image: url('~/public/bg-tile.png');
+  height: calc(100vh - 46px);
+}
+</style>

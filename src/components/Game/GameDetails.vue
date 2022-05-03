@@ -2,27 +2,27 @@
   <div>
     <b-alert show variant="secondary" class="game-details">
       <div v-if="gameModes">
-        <strong>{{ $t('board.gameModal.gameModes') }}:</strong>
+        <strong>{{ $t('board.gameModal.gameModes') }}: </strong>
         <span class="text-wrap">{{ gameModes }}</span>
       </div>
 
       <div v-if="gameDevelopers">
-        <strong>{{ $t('board.gameModal.developers') }}:</strong>
+        <strong>{{ $t('board.gameModal.developers') }}: </strong>
         <span class="text-wrap">{{ gameDevelopers }}</span>
       </div>
 
       <div v-if="gamePublishers">
-        <strong>{{ $t('board.gameModal.publishers') }}:</strong>
+        <strong>{{ $t('board.gameModal.publishers') }}: </strong>
         <span class="text-wrap">{{ gamePublishers }}</span>
       </div>
 
       <div v-if="playerPerspectives">
-        <strong>{{ $t('board.gameModal.perspective') }}:</strong>
+        <strong>{{ $t('board.gameModal.perspective') }}: </strong>
         <span class="text-wrap">{{ playerPerspectives }}</span>
       </div>
 
-
-      <ul class="timeline" v-if="releaseDates">
+      <!-- TODO: add timeline -->
+      <!-- <ul class="timeline" v-if="releaseDates">
         {{ $t('board.gameModal.releaseDate') }}
         <li
           v-for="{ id, platform, date } in releaseDates"
@@ -31,7 +31,7 @@
         >
           {{ date }} - {{ platform || 'N/A' }}
         </li>
-      </ul>
+      </ul> -->
     </b-alert>
   </div>
 </template>

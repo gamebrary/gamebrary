@@ -6,8 +6,8 @@
 
     <b-button
       @click="session_signOut"
-      variant="secondary"
-      class="mb-2 mt-2"
+      variant="light"
+      class="mb-2 mt-2 mr-2"
     >
       {{ $t('global.signOut') }}
     </b-button>
