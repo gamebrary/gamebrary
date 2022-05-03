@@ -1,3 +1,7 @@
+<!-- TODO: button things up and prepare for deploy -->
+<!-- TODO: focus on affiliate stuff -->
+<!-- TODO: put focus on open source -->
+<!-- TODO: restore game actions and clean up everything -->
 <!-- TODO: update email template, update logo, etc... -->
 <!-- TODO: use navigator.onLine -->
 <!-- TODO: integrate itch.io -->
