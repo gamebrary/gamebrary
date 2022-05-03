@@ -215,7 +215,7 @@ const routes = [
     path: '/auth',
     component: AuthPage,
     meta: {
-      title: 'Auth',
+      title: 'Welcome to Gamebrary',
       public: true,
     },
     children: [
