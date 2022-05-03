@@ -1,20 +1,15 @@
 <template lang="html">
   <b-container>
     <b-alert
-      v-if="showExpiredAlert"
-      show
-      variant="danger"
-      dismissible
+      class="mt-2 mx-auto text-center"
+      :show="showExpiredAlert"
+      style="width: 220px"
+      variant="warning"
     >
-      Your session expired!
+      Session expired
     </b-alert>
 
-    <b-spinner
-      v-if="loading"
-      label="Spinning"
-    />
-
-    <section id="auth" />
+    <section id="auth" class="mt-3" />
   </b-container>
 </template>
 
@@ -90,15 +85,19 @@ export default {
     },
 
     signInSuccess({ additionalUserInfo, user }) {
+      console.log('signInSuccess');
       this.loading = true;
 
-      if (additionalUserInfo && additionalUserInfo.isNewUser) {
+      if (additionalUserInfo?.isNewUser) {
         this.$store.dispatch('SEND_WELCOME_EMAIL', additionalUserInfo);
       }
 
       if (this.sessionExpired) {
         this.$store.commit('SET_SESSION_EXPIRED', false);
       }
+
+      console.log(user);
+      console.log(additionalUserInfo);
 
       this.$store.commit('SET_USER', user);
       this.$router.replace({ name: 'home' });
