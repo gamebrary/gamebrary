@@ -26,7 +26,7 @@
       <div class="global-actions">
         <portal-target name="headerActions" />
 
-        <b-button class="mr-2" variant="success" :to="{ name: 'upgrade' }">
+        <b-button v-if="user" class="mr-2" variant="success" :to="{ name: 'upgrade' }">
           Upgrade
         </b-button>
 
@@ -46,6 +46,14 @@
           class="ml-1"
         >
           <i class="fas fa-cog fa-fw" />
+        </b-button>
+
+        <b-button
+          v-else
+          class="ml-2"
+          :to="{ name: 'auth' }"
+        >
+          Login
         </b-button>
       </div>
     </div>
