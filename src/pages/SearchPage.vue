@@ -2,20 +2,24 @@
   <div class="search-page bg-white p-2">
     <search-box class="d-md-none mb-2" />
 
-    <b-alert show variant="success">
+    <!-- <b-alert show variant="success">
       Custom search controls go here!
-    </b-alert>
+    </b-alert> -->
 
     <b-skeleton v-if="loading" />
 
-    <b-card-group columns v-else-if="searchResults.length > 0">
-      <game-card-search
-        v-for="game in searchResults"
-        :key="game.id"
-        @click.native="openGame(game)"
-        :game-id="game.id"
-      />
-    </b-card-group>
+    <div v-else-if="searchResults.length > 0">
+      <h5>Search results</h5>
+
+      <b-card-group columns>
+        <game-card-search
+          v-for="game in searchResults"
+          :key="game.id"
+          @click.native="openGame(game)"
+          :game-id="game.id"
+        />
+      </b-card-group>
+    </div>
 
     <b-container v-else-if="query.length > 0">
       <b-alert show variant="info" class="mt-5">
