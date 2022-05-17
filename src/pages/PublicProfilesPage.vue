@@ -5,7 +5,7 @@
     />
 
     <b-button
-      :to="{ name: 'public-profile', params: { userName: profile.userName } }"
+      :to="{ name: 'public.profile', params: { userName: profile.userName } }"
       block
       class="profile-button p-2"
       v-for="profile in profiles"

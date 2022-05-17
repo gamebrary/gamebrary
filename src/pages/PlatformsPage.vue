@@ -3,7 +3,7 @@
     <b-button
       variant="link"
       v-for="platform in platforms"
-      :to="{ name: 'platform-page', params: { slug: platform.slug } }"
+      :to="{ name: 'platform.page', params: { slug: platform.slug } }"
       :key="platform.id"
     >
       <img :src="`static/logos/platforms-new/${platform.slug}.png`" />

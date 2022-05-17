@@ -16,6 +16,9 @@ import PlatformPage from '@/pages/PlatformPage';
 import NotFoundPage from '@/pages/NotFoundPage';
 import NotesPage from '@/pages/NotesPage';
 import GameNotesPage from '@/pages/GameNotesPage';
+import EditListPage from '@/pages/EditListPage';
+import GameTagsPage from '@/pages/GameTagsPage';
+import GameProgressPage from '@/pages/GameProgressPage';
 import PrivacyPolicyPage from '@/pages/PrivacyPolicyPage';
 import ProfilePage from '@/pages/ProfilePage';
 import PublicProfilePage from '@/pages/PublicProfilePage';
@@ -44,7 +47,7 @@ const routes = [
     },
   },
   {
-    name: 'dev-tools',
+    name: 'dev.tools',
     path: '/dev-tools',
     component: DevToolsPage,
     meta: {
@@ -61,7 +64,7 @@ const routes = [
   },
   {
     path: '/platforms/:slug',
-    name: 'platform-page',
+    name: 'platform.page',
     component: PlatformPage,
   },
   {
@@ -71,10 +74,10 @@ const routes = [
     meta: {
       title: 'Settings',
     },
-    redirect: { name: 'general-settings' },
+    redirect: { name: 'general.settings' },
     children: [
       {
-        name: 'account-settings',
+        name: 'account.settings',
         path: 'account',
         component: AccountSettingsPage,
         meta: {
@@ -82,7 +85,7 @@ const routes = [
         },
       },
       {
-        name: 'steam-settings',
+        name: 'steam.settings',
         path: 'steam',
         component: SteamSettingsPage,
         meta: {
@@ -90,7 +93,7 @@ const routes = [
         },
       },
       {
-        name: 'general-settings',
+        name: 'general.settings',
         path: '',
         component: GeneralSettingsPage,
         meta: {
@@ -98,7 +101,7 @@ const routes = [
         }
       },
       {
-        name: 'tags-settings',
+        name: 'team.settings',
         path: 'tags',
         component: TagsPage,
         meta: {
@@ -106,7 +109,7 @@ const routes = [
         },
       },
       {
-        name: 'profile-settings',
+        name: 'profile.settings',
         path: 'profile',
         component: ProfileSettingsPage,
         meta: {
@@ -114,7 +117,7 @@ const routes = [
         },
       },
       {
-        name: 'notes-settings',
+        name: 'notes.settings',
         path: 'notes',
         component: NotesPage,
         meta: {
@@ -122,51 +125,61 @@ const routes = [
         },
       },
       {
-        name: 'wallpapers-settings',
+        name: 'wallpapers.settings',
         path: 'wallpapers',
         component: WallpapersPage,
         meta: {
           title: 'Wallpapers',
         },
       },
-      {
-        name: 'releases',
-        path: 'releases',
-        component: ReleasesPage,
-        meta: {
-          title: 'Releases',
-        },
-      },
     ],
   },
   {
+    name: 'releases',
+    path: '/releases',
+    component: ReleasesPage,
+    meta: {
+      title: 'Releases',
+    },
+  },
+  {
     name: 'game',
-    path: '/game/:gameId/:gameSlug?',
+    path: '/game/:id/:slug',
     component: GamePage,
     meta: {
       public: true,
     },
   },
   {
-    name: 'game-media-page',
-    path: '/game/:gameId/:gameSlug/media',
+    name: 'game.media',
+    path: '/game/:id/:slug/media',
     component: GameMediaPage,
     meta: {
       public: true,
     },
   },
   {
-    name: 'game-news-page',
-    path: '/game/:gameId/:gameSlug/news',
+    name: 'game.news',
+    path: '/game/:id/:slug/news',
     component: GameNewsPage,
     meta: {
       public: true,
     },
   },
   {
-    name: 'game-notes',
-    path: '/game/:gameId/:gameSlug/notes',
+    name: 'game.notes',
+    path: '/game/:id/:slug/notes',
     component: GameNotesPage,
+  },
+  {
+    name: 'game.tags',
+    path: '/game/:id/:slug/tags',
+    component: GameTagsPage,
+  },
+  {
+    name: 'game.progress',
+    path: '/game/:id/:slug/progress',
+    component: GameProgressPage,
   },
   {
     path: '/search',
@@ -218,17 +231,17 @@ const routes = [
       title: 'Welcome to Gamebrary',
       public: true,
     },
-    children: [
-      {
-        name: 'auth-provider',
-        path: ':provider',
-        component: AuthPage,
-      },
-    ],
+    // children: [
+    //   {
+    //     name: 'auth-provider',
+    //     path: ':provider',
+    //     component: AuthPage,
+    //   },
+    // ],
   },
   {
     path: '/board/create',
-    name: 'create-board',
+    name: 'create.board',
     component: CreateBoardPage,
     meta: {
       title: 'Create board',
@@ -241,12 +254,17 @@ const routes = [
   },
   {
     path: '/board/:id/edit',
-    name: 'edit-board',
+    name: 'board.edit',
     component: EditBoardPage,
   },
   {
+    path: '/board/:id/edit/:listIndex',
+    name: 'board.list.edit',
+    component: EditListPage,
+  },
+  {
     path: '/b/:id',
-    name: 'public-board',
+    name: 'public.board',
     component: BoardPage,
     meta: {
       public: true,
@@ -254,7 +272,7 @@ const routes = [
   },
   {
     path: '/:userName',
-    name: 'public-profile',
+    name: 'public.profile',
     component: PublicProfilePage,
     meta: {
       public: true,
@@ -262,7 +280,7 @@ const routes = [
   },
   {
     path: '/privacy-policy',
-    name: 'privacy-policy',
+    name: 'privacy.policy',
     component: PrivacyPolicyPage,
     meta: {
       public: true,

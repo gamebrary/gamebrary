@@ -3,7 +3,7 @@
 <!-- TODO: add loading placeholder -->
 <template lang="html">
   <b-container fluid class="p-2">
-    <b-form-row>
+    <b-row>
       <b-col cols="3">
         <b-img
           :src="gameCoverUrl"
@@ -22,10 +22,6 @@
 
         </div>
 
-        <b-button @click="openGame" class="mb-2">
-          Back
-        </b-button>
-
         <div class="packery-grid">
           <b-img
             v-for="(thumbnail, index) in gameThumbnails"
@@ -38,7 +34,7 @@
           />
         </div>
       </b-col>
-    </b-form-row>
+    </b-row>
 
     <b-modal
       id="game-images"
@@ -67,6 +63,7 @@
             variant="light"
             @click="setAsWallpaper"
           >
+            <!-- TODO: fix set as wallpaper, using wrong index -->
             <i
               v-if="saving"
               class="d-sm-fas fa-sync fa-spin fa-fw"
@@ -93,7 +90,8 @@
 
       <b-carousel
         ref="screenshots"
-        no-animation
+        controls
+        indicators
         v-model="activeIndex"
       >
         <b-carousel-slide
@@ -239,16 +237,6 @@ export default {
   methods: {
     layout() {
       this.packery.layout();
-    },
-
-    openGame() {
-      this.$router.push({
-        name: 'game',
-        params: {
-          gameId: this.game.id,
-          gameSlug: this.game.slug,
-        },
-      });
     },
 
     async setAsWallpaper() {

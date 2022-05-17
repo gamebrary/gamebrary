@@ -103,7 +103,7 @@ export default {
 
   methods: {
     viewPublicBoard(id) {
-      this.$router.push({ name: 'public-board', params: { id } });
+      this.$router.push({ name: 'public.board', params: { id } });
     },
 
     async loadProfile() {

@@ -1,6 +1,6 @@
 <template lang="html">
   <b-modal
-    id="account-settings"
+    id="deleteAccount"
     hide-footer
     title="Delete account"
   >

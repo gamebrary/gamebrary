@@ -1,3 +1,4 @@
+<!-- TODO: Refactor tags architecture -->
 <!-- TODO: button things up and prepare for deploy -->
 <!-- TODO: focus on affiliate stuff -->
 <!-- TODO: put focus on open source -->
@@ -20,14 +21,10 @@
   >
     <page-header />
 
-    <page-dock v-if="user" />
+    <!-- <page-dock v-if="user" /> -->
     <!-- <public-dock v-else /> -->
 
-    <main :class="[{
-      'authorizing': !user,
-      'is-board': isBoard,
-      }, 'bg-light']"
-    >
+    <main :class="[{ 'authorizing': !user }, 'bg-light']">
       <global-modals />
       <router-view />
     </main>
@@ -35,7 +32,7 @@
 </template>
 
 <script>
-import PageDock from '@/components/PageDock';
+// import PageDock from '@/components/PageDock';
 // import PublicDock from '@/components/PublicDock';
 import PageHeader from '@/components/PageHeader';
 import GlobalModals from '@/components/GlobalModals';
@@ -50,7 +47,7 @@ export default {
   name: 'App',
 
   components: {
-    PageDock,
+    // PageDock,
     // PublicDock,
     PageHeader,
     GlobalModals,
@@ -87,7 +84,7 @@ export default {
     },
 
     isBoard() {
-      return ['public-board', 'board'].includes(this.$route.name);
+      return ['public.board', 'board'].includes(this.$route.name);
     },
   },
 
@@ -144,11 +141,6 @@ export default {
     background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,212,255,1) 100%);
     height: 100vh;
     display: grid;
-
-    &.authed {
-      grid-template-rows: 46px 1fr;
-      grid-template-columns: 65px 1fr;
-    }
   }
 
   header {
@@ -157,46 +149,6 @@ export default {
 
   main {
     overflow-y: auto;
-    border-radius: .5rem 0 0 0;
-    height: calc(100vh - 46px);
+    height: calc(100vh - 54px);
   }
-
-  // main {
-  //
-  //   &.authorizing {
-  //     height: 100vh;
-  //     width: 100%;
-  //     left: 0;
-  //   }
-  //
-  //   &.is-board {
-  //     height: 100vh;
-  //   }
-  // }
-  //
-  // .dock-left,
-  // .dock-right {
-  //   height: 100vh;
-  //   display: grid;
-  //   grid-template-columns: 66px auto;
-  //   height: 100vh;
-  //
-  // }
-  //
-  // .dock-right {
-  //   grid-template-columns: auto 66px;
-  //
-  //   main {
-  //     grid-row: 1;
-  //   }
-  // }
-  //
-  // .dock-bottom {
-  //   display: flex;
-  //   flex-direction: column-reverse;
-  //
-  //   main {
-  //     justify-content: flex-end;
-  //   }
-  // }
 </style>

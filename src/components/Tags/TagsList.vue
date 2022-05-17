@@ -71,7 +71,7 @@ export default {
     openGame(gameId) {
       const { id, slug } = this.games[gameId];
 
-      this.$router.push({ name: 'game', params: { gameId: id, gameSlug: slug } });
+      this.$router.push({ name: 'game', params: { id, slug } });
     },
   },
 };

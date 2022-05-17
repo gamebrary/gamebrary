@@ -1,12 +1,6 @@
 <!-- TODO: finish layout -->
 <template lang="html">
   <b-container fluid class="p-2">
-    <b-button
-      :to="{ name: 'game', params: { gameId: game.id, gameSlug: game.slug } }"
-    >
-      Back
-    </b-button>
-
     <b-form-row>
       <b-col>
         <b-img :src="gameCoverUrl" width="200" rounded class="mb-2 mr-2" />
@@ -18,6 +12,19 @@
         >
           <b-spinner small v-if="saving" />
           <span v-else>{{ $t('global.save') }}</span>
+        </b-button>
+
+        <b-button
+          variant="danger"
+          class="mr-1"
+          v-if="notes[game.id] && !saving"
+          :disabled="deleting"
+          @click="deleteNote"
+        >
+          <b-spinner small v-if="deleting" />
+
+          <i class="d-sm-none fas fa-trash fa-fw" aria-hidden />
+          <span class="d-none d-sm-inline">{{ $t('global.delete') }}</span>
         </b-button>
 
         <b-form-textarea
@@ -100,8 +107,8 @@ export default {
       this.$router.push({
         name: 'game',
         params: {
-          gameId: this.game.id,
-          gameSlug: this.game.slug,
+          id: this.game.id,
+          slug: this.game.slug,
         },
       });
     },
@@ -123,8 +130,8 @@ export default {
       this.$router.push({
         name: 'game',
         params: {
-          gameId: this.game.id,
-          gameSlug: this.game.slug,
+          id: this.game.id,
+          slug: this.game.slug,
         },
       });
     },

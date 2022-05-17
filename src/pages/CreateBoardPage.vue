@@ -151,7 +151,6 @@ export default {
         const { id } = await this.$store.dispatch('CREATE_BOARD', payload);
 
         this.$bvToast.toast('Board crated');
-        this.$bvModal.hide('create-board');
         this.$router.push({ name: 'board', params: { id } });
       } catch (e) {
         this.$bvToast.toast('There was an error creating board', { variant: 'error' });

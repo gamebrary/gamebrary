@@ -14,7 +14,7 @@
 
     <b-button
       variant="danger"
-      v-b-modal:account-settings
+      v-b-modal:deleteAccount
     >
       Delete Account
     </b-button>

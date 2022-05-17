@@ -1,7 +1,5 @@
 <template lang="html">
   <div class="search-page bg-white p-2">
-    <search-box class="d-md-none mb-2" />
-
     <!-- <b-alert show variant="success">
       Custom search controls go here!
     </b-alert> -->
@@ -35,12 +33,10 @@
 
 <script>
 import GameCardSearch from '@/components/GameCards/GameCardSearch';
-import SearchBox from '@/components/SearchBox';
 
 export default {
   components: {
     GameCardSearch,
-    SearchBox,
   },
 
   data() {
@@ -73,8 +69,8 @@ export default {
       this.$router.push({
         name: 'game',
         params: {
-          gameId: game.id,
-          gameSlug: game.slug,
+          id: game.id,
+          slug: game.slug,
         },
       });
     },

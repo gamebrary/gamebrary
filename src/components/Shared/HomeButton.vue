@@ -1,7 +1,8 @@
 <template lang="html">
   <b-button
     title="Dashboard"
-    class="home-button"
+    size="sm"
+    class="mr-2"
     variant="transparent"
     @click="handleLogoClick"
   >
@@ -23,10 +24,10 @@ export default {
   methods: {
     handleLogoClick() {
       // if (!this.user) {
-      //   if (this.$route.name === 'public-boards') {
+      //   if (this.$route.name === 'public.boards') {
       //     this.$bvModal.show('authModal');
       //   } else {
-      //     this.$router.push({ name: 'public-boards' });
+      //     this.$router.push({ name: 'public.boards' });
       //   }
       // }
       //

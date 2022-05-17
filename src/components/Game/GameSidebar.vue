@@ -6,23 +6,20 @@
     @shown="load"
     @hidden="reset"
   >
-    <game-detail :game="game" :loading="loading" />
+    Load game here?
+    <!-- <game :game="game" :loading="loading" /> -->
   </b-sidebar>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import GameDetail from '@/components/GameDetail';
-// import GameNotesModal from '@/components/Game/GameNotesModal';
+// import Game from '@/components/Game';
 // import GameProgress from '@/components/Game/GameProgress';
 // import AddRemoveGame from '@/components/Game/AddRemoveGame';
-// import GameTagsModal from '@/components/Game/GameTagsModal';
 
 export default {
   components: {
-    GameDetail,
-    // GameTagsModal,
-    // GameNotesModal,
+    // Game,
     // GameProgress,
     // AddRemoveGame,
   },

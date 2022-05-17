@@ -4,15 +4,6 @@ import orderby from 'lodash.orderby';
 
 export default {
   sortedBoards: ({ boards }) => orderby(boards, 'name'),
-  activeGameCoverUrl: ({ activeGame, games }) => {
-    const gameId = activeGame && activeGame.gameId;
-    const game = games[gameId];
-    const hasImageId = game && game.cover && game.cover.image_id;
-
-    return hasImageId
-      ? `https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.cover.image_id}.jpg`
-      : '/no-image.jpg';
-  },
 
   gameCoverUrl: ({ game }) => {
     return game?.cover?.image_id

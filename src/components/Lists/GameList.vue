@@ -13,97 +13,88 @@
     :id="listIndex"
   >
     <b-card no-body>
-      <game-list-settings
-        v-if="editing && user && user.uid === board.owner"
-        :list="list"
-        :list-index="listIndex"
-        @close="editing = false"
-      />
+      <header class="p-1 pl-2 d-flex justify-content-between align-items-center">
+        <h6 class="p-0 m-0">
+          <span v-b-modal="`rename-list-${listIndex}`">
+            <b-badge>{{ list.games.length }}</b-badge>
+            {{ list.name }}
+          </span>
 
-      <template v-else>
-        <header class="p-1 pl-2 d-flex justify-content-between align-items-center">
-          <h6 class="p-0 m-0">
-            <span v-b-modal="`rename-list-${listIndex}`">
-              <b-badge>{{ list.games.length }}</b-badge>
-              {{ list.name }}
-            </span>
+          <small v-if="showGameCount" class="text-muted">
+              {{ list.games.length }} {{ $t('global.games') }}
+          </small>
 
-            <small v-if="showGameCount" class="text-muted">
-                {{ list.games.length }} {{ $t('global.games') }}
-            </small>
+          <small v-if="autoSortEnabled" class="text-muted" v-b-modal="`sort-list-${listIndex}`">
+            <!-- {{ `${$t('board.list.sortedBy')} ${$t(`board.list.${list.settings.sortOrder}`)}` }} -->
+          </small>
+        </h6>
 
-            <small v-if="autoSortEnabled" class="text-muted" v-b-modal="`sort-list-${listIndex}`">
-              {{ `${$t('board.list.sortedBy')} ${$t(`board.list.${list.settings.sortOrder}`)}` }}
-            </small>
-          </h6>
-
-          <b-button
-            v-if="user && user.uid === board.owner"
-            variant="transparent"
-            @click="editing = true"
-          >
-            <i class="fa fa-pencil-alt fa-fw" />
-          </b-button>
-
-          <!-- TODO: consolidate public/private actions -->
-          <b-button
-            v-else
-            disabled
-            size="sm"
-            variant="secondary"
-            class="m-1"
-          >
-            <i class="fas fa-ellipsis-h fa-fw" aria-hidden />
-          </b-button>
-        </header>
-
-        <draggable
-          class="games"
-          handle=".card"
-          ghost-class="card-placeholder"
-          drag-class="border-success"
-          chosen-class="border-primary"
-          filter=".drag-filter"
-          delay="50"
-          animation="500"
-          :list="list.games"
-          :id="listIndex"
-          :move="validateMove"
-          :disabled="draggingDisabled"
-          :group="{ name: 'games' }"
-          @end="dragEnd"
-          @start="dragStart"
+        <b-button
+          v-if="user && user.uid === board.owner"
+          variant="transparent"
+          :disabled="preview"
+          :to="{ name: 'board.list.edit', params: { id: board.id, listIndex } }"
         >
-          <component
-            v-for="game in sortedGames"
-            :id="game"
-            :is="gameCardComponent"
-            :key="game"
-            :list="list"
-            :game-id="game"
-            :class="{ 'mb-2': view !== 'covers'}"
-            v-b-toggle.game-sidebar
-            @click.native="openGame(game, list)"
-          />
+          <i class="fa fa-pencil-alt fa-fw" />
+        </b-button>
 
-          <b-button
-            block
-            v-if="isEmpty"
-            class="mb-2"
-            variant="light"
-            v-b-modal="`game-modal-${list.name}`"
-          >
-            {{ $t('board.list.emptyListButton') }}
-          </b-button>
-        </draggable>
-      </template>
+        <!-- TODO: consolidate public/private actions -->
+        <b-button
+          v-else
+          disabled
+          size="sm"
+          variant="secondary"
+          class="m-1"
+        >
+          <i class="fas fa-ellipsis-h fa-fw" aria-hidden />
+        </b-button>
+      </header>
+
+      <draggable
+        class="games"
+        handle=".card"
+        ghost-class="card-placeholder"
+        drag-class="border-success"
+        chosen-class="border-primary"
+        filter=".drag-filter"
+        delay="50"
+        animation="500"
+        :list="list.games"
+        :id="listIndex"
+        :move="validateMove"
+        :disabled="draggingDisabled"
+        :group="{ name: 'games' }"
+        @end="dragEnd"
+        @start="dragStart"
+      >
+        <component
+          v-for="gameId in sortedGames"
+          :id="gameId"
+          :is="gameCardComponent"
+          :key="gameId"
+          :list="list"
+          :game-id="gameId"
+          :class="{ 'mb-2': view !== 'covers'}"
+          v-b-toggle.game-sidebar
+          @click.native="openGame(gameId, list)"
+        />
+
+        <b-button
+          block
+          v-if="isEmpty"
+          class="mb-2"
+          variant="light"
+          v-b-modal="`game-modal-${list.name}`"
+        >
+          {{ $t('board.list.emptyListButton') }}
+        </b-button>
+      </draggable>
     </b-card>
   </div>
 </template>
 
 <script>
 import draggable from 'vuedraggable';
-import GameListSettings from '@/components/Lists/GameListSettings';
 import GameCardDefault from '@/components/GameCards/GameCardDefault';
 import GameCardCovers from '@/components/GameCards/GameCardCovers';
 import GameCardGrid from '@/components/GameCards/GameCardGrid';
@@ -120,7 +111,6 @@ export default {
     GameCardGrid,
     GameCardCompact,
     GameCardText,
-    GameListSettings,
     draggable,
   },
 
@@ -129,10 +119,8 @@ export default {
       type: Object,
       default: () => {},
     },
-    listIndex: {
-      type: Number,
-      required: true,
-    },
+    listIndex: Number,
+    preview: Boolean,
   },
 
   data() {
@@ -213,25 +201,14 @@ export default {
   },
 
   methods: {
-    openGame(gameId, list) {
-      const gameDetailView = this.settings?.gameDetailView;
-
-      // TODO: rename and make it more generic e.g. active_game_data
-      this.$store.commit('SET_GAME_MODAL_DATA', { gameId, list });
-
-      if (gameDetailView === 'new') {
-        this.$router.push({
-          name: 'game',
-          params: {
-            gameId,
-            gameSlug: this.games[gameId].slug,
-          },
-        });
-      } else if (gameDetailView === 'side') {
-        // TODO: find a way to open sidebar programatically, open defect in gh?
-      } else {
-        this.$bvModal.show('game-modal');
-      }
+    openGame(id, list) {
+      this.$router.push({
+        name: 'game',
+        params: {
+          id,
+          slug: this.games[id].slug,
+        },
+      });
     },
 
     validateMove({ from, to }) {

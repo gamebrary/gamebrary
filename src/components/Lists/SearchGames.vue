@@ -36,12 +36,13 @@
       ref="searchResults"
       body-class="p-1 pb-0 search-results"
     >
-      <game-card-search
+      <game-card-compact
         v-for="{ id } in filteredResults"
         :key="id"
         :game-id="id"
         :list="list"
         class="mb-2"
+        @click.native="addGame(id)"
       />
     </div>
 
@@ -52,12 +53,12 @@
 </template>
 
 <script>
-import GameCardSearch from '@/components/GameCards/GameCardSearch';
+import GameCardCompact from '@/components/GameCards/GameCardCompact';
 import { mapState } from 'vuex';
 
 export default {
   components: {
-    GameCardSearch,
+    GameCardCompact,
   },
 
   props: {
@@ -112,6 +113,22 @@ export default {
   },
 
   methods: {
+    async addGame() {
+      const { list, game, board } = this;
+
+      if (!list) return;
+
+      const listIndex = board.lists.findIndex(({ name }) => name === list.name);
+
+      this.$store.commit('ADD_GAME_TO_LIST', { listIndex, game });
+      await this.$store.dispatch('SAVE_BOARD')
+        .catch(() => {
+          this.$bvToast.toast(`There was an error adding ${this.game.name}`, { title: list.name, variant: 'danger' });
+        });
+
+      this.showGameToast();
+    },
+
     async search() {
       await this.$store.dispatch('SEARCH_BOARD_GAMES', this.searchText)
         .catch(() => {

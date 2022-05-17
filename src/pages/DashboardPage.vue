@@ -1,18 +1,10 @@
 <template lang="html">
   <b-container fluid class="p-2">
-    <portal to="header">
-      <page-title
-        title="Boards"
-        action-text="Create board"
-        @action="$router.push({ name: 'create-board' })"
-      />
-    </portal>
-
     <portal to="headerActions">
       <b-button
         variant="primary"
         class="mr-2"
-        @click="$router.push({ name: 'create-board' })"
+        @click="$router.push({ name: 'create.board' })"
       >
         Create board
       </b-button>
@@ -27,15 +19,16 @@
       title="Boards"
       message="Use boards to easily organize your video game collections"
     >
-      <b-button v-b-modal:create-board variant="info">
+      <b-button :to="{ name: 'create.board' }" variant="info">
         {{ $t('boards.create') }}
       </b-button>
 
-      <b-button :to="{ name: 'explore' }">
+      <!-- TODO: enable once public boards are ready -->
+      <!-- <b-button :to="{ name: 'explore' }">
         Explore boards
-      </b-button>
+      </b-button> -->
     </empty-state>
-</b-container>
+  </b-container>
 </template>
 
 <script>

@@ -1,9 +1,5 @@
 <template lang="html">
   <b-container fluid class="p-2">
-    <b-button @click="openGame" class="mb-2">
-      Back
-    </b-button>
-
     <div class="game-news" v-if="articles.length">
       Latest news about {{ game.name }} <b-badge>{{ articles.length }}</b-badge>
 
@@ -66,16 +62,6 @@ export default {
   methods: {
     async loadNews() {
       this.articles = await this.$store.dispatch('LOAD_STEAM_GAME_NEWS', this.steamAppId);
-    },
-
-    openGame() {
-      this.$router.push({
-        name: 'game',
-        params: {
-          gameId: this.game.id,
-          gameSlug: this.game.slug,
-        },
-      });
     },
   },
 };

@@ -1,6 +1,15 @@
 <template lang="html">
-  <div v-if="game.alternative_names">
-    <strong class="small link" v-b-toggle.altTitles variant="light">{{ game.alternative_names.length }} Alternative titles</strong>
+  <div>
+    <h3
+      v-if="game.alternative_names"
+      class="cursor-pointer m-0"
+      v-b-toggle.altTitles
+    >
+      {{ game.name }}
+      <!-- {{ game.alternative_names.length }} Alternative titles <i class="fa-solid fa-caret-down" /> -->
+    </h3>
+
+    <h3 v-else>{{ game.name }}</h3>
 
     <b-collapse id="altTitles">
       <div

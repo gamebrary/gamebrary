@@ -238,6 +238,7 @@ export default {
     },
 
     async init() {
+      // TODO: load board if cached board id does not match route board id
       const { board } = this;
       this.description = board.description;
       this.name = board.name;
@@ -270,7 +271,6 @@ export default {
         });
 
       this.loading = false;
-      this.$bvModal.hide('edit-board');
       this.$bvToast.toast('Board removed');
       this.$router.push({ name: 'home' });
     },
@@ -284,16 +284,19 @@ export default {
         ...board,
         description: this.description,
         name: this.name,
-        platforms: this.platforms,
+        // platforms: this.platforms,
         pinned: this.pinned,
         isPublic: this.isPublic,
         theme: this.theme,
       };
 
+      console.log(payload);
+
       this.$store.commit('SET_ACTIVE_BOARD', payload);
 
       await this.$store.dispatch('SAVE_BOARD')
-        .catch(() => {
+        .catch((e) => {
+          console.log(e);
           this.saving = false;
 
           this.$bvToast.toast('There was an saving board settings', { variant: 'danger' });
@@ -301,7 +304,7 @@ export default {
 
       this.saving = false;
       this.$bvToast.toast('Board settings saved');
-      this.$bvModal.hide('edit-board');
+      // TODO: route back to board
     },
   },
 };

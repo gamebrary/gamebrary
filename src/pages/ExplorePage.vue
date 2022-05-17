@@ -54,7 +54,7 @@ export default {
     },
 
     viewBoard(id) {
-      this.$router.push({ name: 'public-board', params: { id } });
+      this.$router.push({ name: 'public.board', params: { id } });
     },
   },
 };

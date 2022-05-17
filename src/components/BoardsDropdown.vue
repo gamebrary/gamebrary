@@ -1,47 +1,73 @@
-<!-- TODO: use or trash? -->
 <template lang="html">
   <b-dropdown
-    :class="{ 'ml-2': isHorizontal }"
-    toggle-class="px-0"
-    variant="transparent"
+    split
+    class="mr-2 boards-dropdown"
+    variant="dark"
+    split-class="p-0"
+    v-b-tooltip.hover
+    right
+    :title="board.name"
+    :split-to="{ name: 'board', params: { id: board.id } }"
   >
-    <template v-slot:button-content>
-      <template v-if="isHorizontal">
-        {{ board.name }}
-        <i class="fas fa-caret-down fa-fw" aria-hidden />
-      </template>
-
+    <template #button-content>
+      <!-- <b-avatar
+        variant="primary"
+        :text="boardInitials"
+        rounded
+      /> -->
+      <!-- :class="['board-thumbnail mr-2', { 'bg-dark' : !backgroundColor }]" -->
       <b-avatar
-        v-else
+        rounded
+        class="board-thumbnail"
+        :title="board.name"
+        text=" "
+        :style="`
+          background-image: url(${boardBackgroundUrl});
+          `"
+      />
+
+      <small class="px-2">{{ board.name }}</small>
+      <!-- background-color: ${backgroundColor ? backgroundColor : ''} -->
+    </template>
+
+    <!-- <b-dropdown-item href="#">
+      <b-avatar
         variant="primary"
         :text="boardInitials"
         rounded
       />
-    </template>
 
-    <b-dropdown-item-button
+      {{ board.name }}
+      <i class="fas fa-caret-down fa-fw" aria-hidden />
+    </b-dropdown-item> -->
+
+    <b-dropdown-item
       size="sm"
-      v-b-modal:edit-board
+      :to="{ name: 'board.edit', params: { id: board.id } }"
     >
       <i class="fas fa-pencil-alt fa-fw" aria-hidden />
       Edit board
-    </b-dropdown-item-button>
+    </b-dropdown-item>
 
+    <!-- TODO: Clone board -->
+    <!-- TODO: like/favorite board -->
+    <!-- TODO: Fork board -->
     <b-dropdown-divider />
 
-    <b-dropdown-item-button
+    <b-dropdown-item
       size="sm"
-      v-b-modal:create-board
+      :to="{ name: 'create.board' }"
     >
       <i class="fas fa-plus fa-fw" aria-hidden></i>
       Create new board
-    </b-dropdown-item-button>
+    </b-dropdown-item>
 
     <template v-if="filteredBoards.length">
       <b-dropdown-divider />
 
       <span class="m-2 text-muted">Other boards:</span>
 
+      <!-- TODO: use route directly -->
       <b-dropdown-item-button
         v-for="{ id, name, backgroundColor, backgroundUrl } in filteredBoards"
         :key="id"
@@ -93,18 +119,18 @@ export default {
       return this.board.name.split(' ').map(n => n[0]).join('').slice(0, 2);
     },
 
-    isHorizontal() {
-      return !this.dockPosition || this.dockPosition === 'bottom';
+    boardBackgroundUrl() {
+      return this.getWallpaperUrl(this.board?.backgroundUrl);
     },
+
+    // isHorizontal() {
+    //   return !this.dockPosition || this.dockPosition === 'bottom';
+    // },
   },
 
   methods: {
     viewBoard(id) {
-      if (this.board.id !== id) {
-        this.$router.push({ name: 'board', params: { id } });
-      } else {
-        this.$bvModal.show('edit-board');
-      }
+      this.$router.push({ name: 'board', params: { id } });
     },
 
     getWallpaperUrl(url) {
@@ -130,5 +156,12 @@ export default {
   align-items: center;
   grid-template-columns: auto 70px;
   grid-gap: .5rem;
+}
+</style>
+
+<style lang="scss" rel="stylesheet/scss">
+.boards-dropdown .dropdown-menu {
+  max-height: 60vh;
+  overflow-y: auto;
 }
 </style>

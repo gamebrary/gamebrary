@@ -1,9 +1,10 @@
 <template lang="html">
   <div class="note mb-3 rounded" role="main">
     <header>
+      <!-- TODO: fix discrepancies -->
       <router-link
         v-if="note.gameName"
-        :to="{ name: 'game', params: { gameId: note.gameId, gameSlug: note.gameSlug } }"
+        :to="{ name: 'game', params: { id: note.gameId, slug: note.gameSlug } }"
         class="cursor-pointer"
       >
         {{ note.gameName }}

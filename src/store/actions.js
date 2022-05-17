@@ -10,16 +10,16 @@ const API_BASE = 'https://us-central1-gamebrary-8c736.cloudfunctions.net';
 // const API_BASE = 'http://localhost:5001/gamebrary-8c736/us-central1';
 
 export default {
-  LOAD_GAME_SPEEDRUNS({ commit }, gameName) {
-    return new Promise((resolve, reject) => {
-      axios.get(`https://www.speedrun.com/api/v1/games?name=${gameName}`)
-        .then(({ data }) => {
-          console.log('speedruns?', data.data);
-          commit('APPEND_GAME_SPEEDRUNS', data);
-          resolve(data);
-        }).catch(reject);
-    });
-  },
+  // LOAD_GAME_SPEEDRUNS({ commit }, gameName) {
+  //   return new Promise((resolve, reject) => {
+  //     axios.get(`https://www.speedrun.com/api/v1/games?name=${gameName}`)
+  //       .then(({ data }) => {
+  //         console.log('speedruns?', data.data);
+  //         commit('APPEND_GAME_SPEEDRUNS', data);
+  //         resolve(data);
+  //       }).catch(reject);
+  //   });
+  // },
 
   LOAD_IGDB_PLATFORMS({ state, commit }) {
     return new Promise((resolve, reject) => {

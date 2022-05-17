@@ -6,11 +6,11 @@
       title="Boards"
       message="Use boards to easily organize your video game collections"
     >
-      <b-button v-b-modal:create-board>
+      <b-button :to="{ name: 'create.board' }">
         {{ $t('boards.create') }}
       </b-button>
 
-      <!-- <b-button :to="{ name: 'public-boards' }">
+      <!-- <b-button :to="{ name: 'public.boards' }">
         View public boards
       </b-button> -->
     </empty-state>
@@ -28,13 +28,13 @@
         class="p-relative"
         @view-board="viewBoard(board.id)"
       >
-        <b-button
+        <!-- <b-button
           size="sm"
           variant="transparent"
           @click.stop="editBoard(board.id)"
         >
           <i class="fas fa-pencil-alt fa-fw" aria-hidden />
-        </b-button>
+        </b-button> -->
       </mini-board>
 
       <!-- TODO: show public boards -->
@@ -111,7 +111,8 @@ export default {
     },
 
     editBoard(id) {
-      this.$router.push({ name: 'edit-board', params: { id } });
+      // TODO: restore once load board logic is simplified
+      this.$router.push({ name: 'board.edit', params: { id } });
     },
 
     getWallpaperUrl(url) {
@@ -165,7 +166,7 @@ export default {
     },
 
     viewPublicBoard(id) {
-      this.$router.push({ name: 'public-board', params: { id } });
+      this.$router.push({ name: 'public.board', params: { id } });
     },
 
     async deleteBoard(id) {

@@ -2,11 +2,13 @@
   <div v-if="similarGames.length">
     You may also like:
 
-    <b-card-group columns>
+    <b-card-group>
       <b-card
         v-for="game in similarGames"
         :key="game.id"
         :title="game.name"
+        title-tag="small"
+        body-class="p-1 px-2"
         :img-src="getCoverUrl(game.cover)"
         :img-alt="game.name"
         img-top
@@ -49,7 +51,7 @@ export default {
 
   methods: {
     openGame(game) {
-      this.$router.push({ name: 'game', params: { gameId: game.id, gameSlug: game.slug } });
+      this.$router.push({ name: 'game', params: { id: game.id, slug: game.slug } });
     },
 
     // TODO: move to util

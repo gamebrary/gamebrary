@@ -49,7 +49,7 @@
     <b-button
       class="ml-1"
       variant="success"
-      :to="{ name: 'public-profile', params: { userName: localProfile.userName } }"
+      :to="{ name: 'public.profile', params: { userName: localProfile.userName } }"
     >
       View profile
     </b-button>

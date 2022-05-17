@@ -1,67 +1,64 @@
 <template lang="html">
-  <header class="p-2 d-flex">
+  <header class="py-1 px-2 d-flex">
     <home-button />
+    <boards-dropdown v-if="isBoardPage || isGamePage" />
+    <game-dropdown v-if="isGamePage" />
 
-    <div class="toolbar text-light pl-3">
-      <b-button
-        v-if="showBackButton"
-        variant="outline-light"
-        :title="`Back to ${board.name}`"
-        :to="{ name: 'board', params: { id: board.id }}"
+    <div class="global-actions">
+      <portal-target name="headerActions" />
+
+      <!-- <b-button v-if="user" class="mr-2" variant="success" :to="{ name: 'upgrade' }">
+        Upgrade
+      </b-button> -->
+
+      <search-box />
+
+      <b-dropdown
+        v-if="user"
+        boundary="viewport"
+        variant="link"
+        class="p-0"
+        toggle-class="p-0"
+        no-caret
       >
-        <i class="fas fa-arrow-left fa-fw" aria-hidden />
-      </b-button>
-
-      <portal-target name="pageTitle" />
-
-      <span v-if="$route.meta.title">
-        {{ $route.meta.title }}
-      </span>
-
-
-      <span v-if="showBoardName">
-        {{ board.name }}
-      </span>
-
-      <div class="global-actions">
-        <portal-target name="headerActions" />
-
-        <!-- <b-button v-if="user" class="mr-2" variant="success" :to="{ name: 'upgrade' }">
-          Upgrade
-        </b-button> -->
-
-        <search-box class="d-none d-md-block" />
-
-        <b-button
-          class="d-block d-md-none"
-          :to="{ name: 'search' }"
-        >
-          <i class="fas fa-search fa-fw" aria-hidden />
-        </b-button>
-
-        <b-button
-          v-if="user"
+        <template #button-content>
+          <b-avatar rounded variant="info" :src="user.photoURL" />
+        </template>
+        <b-dropdown-item
           :to="{ name: 'settings' }"
-          variant="transparent"
-          class="ml-1"
         >
-          <i class="fas fa-cog fa-fw" />
-        </b-button>
+          <i class="fas fa-cog fa-fw" /> Settings
+        </b-dropdown-item>
 
-        <b-button
-          v-else
-          class="ml-2"
-          :to="{ name: 'auth' }"
+        <b-dropdown-item
+          :to="{ name: 'releases' }"
         >
-          Login
-        </b-button>
-      </div>
+          <i class="fas fa-rocket fa-fw" aria-hidden></i>
+          Releases
+        </b-dropdown-item>
+
+        <b-dropdown-divider />
+
+        <b-dropdown-item href="#">
+          <i class="fa-solid fa-arrow-right-from-bracket" />
+          Log out
+        </b-dropdown-item>
+      </b-dropdown>
+
+      <b-button
+        v-else
+        class="ml-2"
+        :to="{ name: 'auth' }"
+      >
+        Login
+      </b-button>
     </div>
   </header>
 </template>
 
 <script>
-// import GlobalSearch from '@/components/GlobalSearch';
+import GameDropdown from '@/components/Game/GameDropdown';
+import BoardsDropdown from '@/components/BoardsDropdown';
 import SearchBox from '@/components/SearchBox';
 import HomeButton from '@/components/Shared/HomeButton';
 
@@ -69,16 +66,21 @@ import { mapState } from 'vuex';
 
 export default {
   components: {
-    // GlobalSearch,
+    GameDropdown,
+    BoardsDropdown,
     SearchBox,
     HomeButton,
   },
 
   computed: {
-    ...mapState(['board', 'boards', 'user']),
+    ...mapState(['board', 'boards', 'user', 'game']),
 
-    showBackButton() {
-      return this.$route.name === 'game' && this.board?.id;
+    isBoardPage() {
+      return this.$route.name.startsWith('board');
+    },
+
+    isGamePage() {
+      return this.$route.name.startsWith('game');
     },
 
     showBoardName() {
@@ -92,8 +94,8 @@ export default {
   header {
     display: grid;
     align-items: center;
-    overflow-y: hidden;
-    height: 46px;
+    // overflow-y: hidden;
+    // height: 46px;
     grid-template-columns: 65px 1fr;
     // background-color: #1c1c27;
   }

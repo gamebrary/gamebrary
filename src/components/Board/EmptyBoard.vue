@@ -5,7 +5,7 @@
     <b-button
       block
       variant="light"
-      :to="{ name: 'edit-board', params: { id: board.id } }"
+      :to="{ name: 'board.edit', params: { id: board.id } }"
     >
       Edit board
     </b-button>

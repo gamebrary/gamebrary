@@ -1,29 +1,8 @@
-<!-- TODO: add actions, e.g. clone board, clone list, add to favorites, like board, etc... -->
-
 <template lang="html">
   <div
-    :class="['board p-3 pr-5', { dragging, empty }]"
+    :class="['board p-3', { dragging, empty }]"
     :style="boardStyles"
   >
-    <portal v-if="isBoardPage" to="headerActions">
-      <b-button
-        v-if="user && user.uid && user.uid === board.owner"
-        variant="primary"
-        class="mr-2"
-        :to="{ name: 'edit-board', params: { id: board.id } }"
-      >
-        Edit board
-      </b-button>
-
-      <!-- <b-button
-        variant="warning"
-        class="mr-2"
-      >
-        <i class="fas fa-filter fa-fw" aria-hidden />
-        Filter
-      </b-button> -->
-    </portal>
-
     <board-placeholder v-if="loading" />
 
     <template v-else-if="showBoard">
@@ -133,6 +112,8 @@ export default {
   },
 
   async mounted() {
+    // TODO: only clear board if not already cached
+
     this.$store.commit('CLEAR_BOARD');
 
     if (this.isPublicRoute) {
@@ -146,6 +127,7 @@ export default {
       this.load();
     }
 
+    // TODO: is this needed? remove if not!
     this.$bus.$on('LOAD_BOARD_BACKGROUND', this.loadBoardBackground);
   },
 
@@ -160,10 +142,12 @@ export default {
       if (this.boardId && this.user) {
         this.loadBoard(this.boardId);
       } else {
+        // TODO: show board not found message?
         this.$router.push({ name: 'boards' });
       }
     },
 
+    // TODO: handle all extra logic in store
     async loadBoard(id) {
       this.loading = true;
 
@@ -251,7 +235,7 @@ export default {
   background-size: cover;
   align-items: flex-start;
   height: 100%;
-  width: calc(100vw - 66px);
+  width: 100vw;
   box-sizing: border-box;
   overflow-x: auto;
   overflow-x: overlay;

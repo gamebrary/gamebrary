@@ -1,27 +1,6 @@
+<!-- TODO: finish layout -->
 <template lang="html">
-  <b-modal
-    id="tags"
-    size="sm"
-    hide-footer
-  >
-    <template v-slot:modal-header="{ close }">
-      <modal-header
-        title="Tags"
-        :subtitle="game.name"
-        @close="close"
-      >
-        <template v-slot:header>
-          <b-img
-            :src="activeGameCoverUrl"
-            :alt="game.name"
-            class="float-left mr-2"
-            height="40"
-            rounded
-          />
-        </template>
-      </modal-header>
-    </template>
-
+  <b-container class="p-2">
     <empty-state
       v-if="empty"
       class="mb-4"
@@ -31,31 +10,42 @@
     </empty-state>
 
     <template v-else>
+      <h3>Tags</h3>
       <p>Click on tag to add or remove tag from game</p>
 
-      <b-list-group>
-        <b-list-group-item
-          v-for="({ games, hex, tagTextColor }, name) in sortedTags"
-          :key="name"
-          class="d-flex justify-content-between"
-          button
-          :variant="games.includes(game.id) ? 'success' : ''"
-          @click="games.includes(game.id) ? removeTag(name) : addTag(name)"
-        >
-          <b-badge
-            pill
-            tag="small"
-            class="mr-3"
-            :style="`background-color: ${hex}; color: ${tagTextColor}`"
-          >
-            {{ name }}
-          </b-badge>
+      <b-row>
+        <!-- TODO: Show current games in tag -->
+        <!-- TODO: Filter tag option if tags > too many -->
+        <b-col cols="12" md="auto">
+          <b-list-group>
+            <b-list-group-item
+              v-for="({ games, hex, tagTextColor }, name) in sortedTags"
+              :key="name"
+              class="d-flex justify-content-between"
+              button
+              :variant="games.includes(game.id) ? 'success' : ''"
+              @click="games.includes(game.id) ? removeTag(name) : addTag(name)"
+            >
+              <b-badge
+                pill
+                tag="small"
+                class="mr-3"
+                :style="`background-color: ${hex}; color: ${tagTextColor}`"
+              >
+                {{ name }}
+              </b-badge>
 
-          <b-badge variant="light">{{ games.length }} games</b-badge>
-        </b-list-group-item>
-      </b-list-group>
+              <b-badge variant="light">{{ games.length }} games</b-badge>
+            </b-list-group-item>
+          </b-list-group>
+        </b-col>
+      </b-row>
     </template>
-  </b-modal>
+
+    <b-button :to="{ name: 'team.settings' }">Manage tags</b-button>
+    <br />
+    <b-button :to="{ name: 'team.settings' }">Create new tag</b-button>
+  </b-container>
 </template>
 
 <script>
@@ -67,13 +57,14 @@ export default {
     EmptyState,
   },
 
-  props: {
-    game: Object,
+  data() {
+    return {
+    };
   },
 
   computed: {
-    ...mapState(['tags']),
-    ...mapGetters(['activeGameCoverUrl']),
+    ...mapState(['tags', 'game']),
+    ...mapGetters(['gameCoverUrl']),
 
     empty() {
       return Object.keys(this.tags).length === 0;
@@ -85,6 +76,9 @@ export default {
         // eslint-disable-next-line
         .reduce((res, key) => (res[key] = this.tags[key], res), {});
     },
+  },
+
+  mounted() {
   },
 
   methods: {
@@ -121,3 +115,6 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+</style>

@@ -126,6 +126,10 @@ export default {
     state.game = game;
   },
 
+  CLEAR_GAME(state) {
+    state.game = {};
+  },
+
   APPEND_STEAM_GAME_DATA(state, data) {
     state.game.steam = data;
   },
@@ -134,10 +138,10 @@ export default {
     state.game.wikipedia = data;
   },
 
-  APPEND_GAME_SPEEDRUNS(state, data) {
-    console.log('speedrus?', data);
-    state.game.speedruns = data;
-  },
+  // APPEND_GAME_SPEEDRUNS(state, data) {
+  //   console.log('speedrus?', data);
+  //   state.game.speedruns = data;
+  // },
 
   APPEND_GOG_GAME_DATA(state, data) {
     state.game.gog = data;
@@ -165,22 +169,6 @@ export default {
     const cutOut = state.board.lists.splice(from, 1)[0];
 
     state.board.lists.splice(to, 0, cutOut);
-  },
-
-  SET_LIST_SORT_ORDER(state, { listIndex, sortOrder }) {
-    Vue.set(state.board.lists[listIndex].settings, 'sortOrder', sortOrder);
-  },
-
-  SET_LIST_VIEW(state, { listIndex, view }) {
-    Vue.set(state.board.lists[listIndex].settings, 'view', view);
-  },
-
-  SET_LIST_SETTINGS(state, { listIndex, settings }) {
-    Vue.set(state.board.lists[listIndex], 'settings', settings);
-  },
-
-  RENAME_LIST(state, { listIndex, listName }) {
-    state.board.lists[listIndex].name = listName;
   },
 
   SET_USER(state, data) {

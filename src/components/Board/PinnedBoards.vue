@@ -1,20 +1,21 @@
 <template lang="html">
   <nav>
     <template v-if="boards.length">
-      <b-button
+      <b-avatar
         v-for="{ id, name, backgroundColor, backgroundUrl } in boards"
         :key="id"
         block
+        rounded
         :title="name"
         :style="`
         ${backgroundColor ? `background-color: ${backgroundColor};` : '' }
         ${getWallpaperUrl(backgroundUrl)}
         `"
-        :class="['mb-1 pinned-board', { active: board.name === name }]"
-        @click="viewBoard(id)"
+        :class="['mb-1 cursor-pointer pinned-board', { active: board.id === id }]"
+        @click.native="viewBoard(id)"
       >
         <span class="board-initials text-uppercase">{{ getBoardInitials(name) }}</span>
-      </b-button>
+      </b-avatar>
 
       <hr class="mb-2 mt-0">
     </template>
@@ -27,7 +28,7 @@
         ${board.backgroundColor ? ` background-color: ${board.backgroundColor};` : null }
         ${getWallpaperUrl(board.backgroundUrl) }
         `"
-        @click="$router.push({ name: 'edit-board', params: { id: board.id } })"
+        @click="$router.push({ name: 'board.edit', params: { id: board.id } })"
       >
         <span class="board-initials text-uppercase mr-1">
           {{ getBoardInitials(board.name) }}
@@ -48,7 +49,7 @@ export default {
     ...mapGetters(['sortedBoards']),
 
     isBoard() {
-      return ['public-board', 'board'].includes(this.$route.name);
+      return ['public.board', 'board'].includes(this.$route.name);
     },
 
     hasMultipleBoards() {
@@ -73,11 +74,7 @@ export default {
     },
 
     viewBoard(id) {
-      if (this.$route.name === 'board' && this.board.id === id) {
-        this.$bvModal.show('edit-board');
-      } else {
-        this.$router.push({ name: 'board', params: { id } });
-      }
+      this.$router.push({ name: 'board', params: { id } });
     },
 
     getBoardInitials(boardName) {
@@ -104,7 +101,7 @@ export default {
     background-size: cover;
 
     &.active {
-      box-shadow: inset 0 0 0 2px yellow;
+      box-shadow: inset 0 0 0 1px yellow;
     }
   }
 

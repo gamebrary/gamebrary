@@ -3,45 +3,40 @@
     <b-row no-gutters>
       <b-col cols="4" sm="3" lg="2">
         <b-list-group>
-          <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'general-settings' }">
+          <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'general.settings' }">
             <i class="mr-2 fas fa-sliders-h fa-fw" aria-hidden />
             <small>General</small>
           </b-list-group-item>
 
-          <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'wallpapers-settings' }">
+          <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'wallpapers.settings' }">
             <i class="mr-2 fa-solid fa-images fa-fw" aria-hidden />
             <small>Wallpapers</small>
           </b-list-group-item>
 
-          <!-- <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'profile-settings' }">
+          <!-- <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'profile.settings' }">
             <i class="mr-2 fa-solid fa-user fa-fw" aria-hidden />
             <small>Profile</small>
           </b-list-group-item> -->
 
-          <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'notes-settings' }">
+          <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'notes.settings' }">
             <i class="mr-2 fa-solid fa-note-sticky fa-fw" aria-hidden />
             <small>Notes</small>
           </b-list-group-item>
 
-          <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'tags-settings' }">
+          <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'team.settings' }">
             <i class="mr-2 fa-solid fa-tags fa-fw" aria-hidden />
             <small>Tags</small>
           </b-list-group-item>
 
-          <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'account-settings' }">
+          <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'account.settings' }">
             <i class="mr-2 fa-solid fa-user-shield fa-fw" aria-hidden />
             <small>Account</small>
           </b-list-group-item>
 
-          <!-- <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'steam-settings' }">
+          <!-- <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'steam.settings' }">
             <i class="mr-2 fab fa-steam fa-fw" aria-hidden></i>
             <small>Steam</small>
           </b-list-group-item> -->
-
-          <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'releases' }">
-            <i class="mr-2 fas fa-rocket fa-fw" aria-hidden></i>
-            <small>Releases</small>
-          </b-list-group-item>
 
           <!-- <hr /> -->
 
@@ -50,7 +45,7 @@
             <small>Profiles</small>
           </b-list-group-item> -->
 
-          <!-- <b-list-group-item :to="{ name: 'dev-tools' }">
+          <!-- <b-list-group-item :to="{ name: 'dev.tools' }">
             <i class="mr-2 fa-solid fa-code fa-fw" aria-hidden />
 
             <small>Dev tools</small>

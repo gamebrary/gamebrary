@@ -3,7 +3,7 @@
     <div class="pt-4 pb-24 flex items-center justify-center">
       <ul>
         <router-link :to="{ name: 'about' }">About</router-link>
-        <router-link :to="{ name: 'privacy-policy' }">Privacy policy</router-link>
+        <router-link :to="{ name: 'privacy.policy' }">Privacy policy</router-link>
         <router-link :to="{ name: 'terms' }">Terms</router-link>
         <a class="px-1" href="https://github.com/romancm/gamebrary/releases" target="_blank">Releases</a>
         <a class="px-1" href="https://github.com/romancm/gamebrary/" target="_blank">

@@ -1,4 +1,6 @@
 <!-- TODO: break this up into components -->
+<!-- TODO: Move add tag to page -->
+<!-- TODO: Move edit tag to page -->
 <template lang="html">
   <b-container fluid>
     <empty-state
