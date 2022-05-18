@@ -23,11 +23,11 @@
         text=" "
         :style="`
           background-image: url(${boardBackgroundUrl});
+          background-color: ${board.backgroundColor || ''}
           `"
       />
 
       <small class="px-2">{{ board.name }}</small>
-      <!-- background-color: ${backgroundColor ? backgroundColor : ''} -->
     </template>
 
     <!-- <b-dropdown-item href="#">
