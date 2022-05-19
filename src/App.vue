@@ -1,3 +1,4 @@
+<!-- TODO: add mega search shift + k -->
 <!-- TODO: re-translate strings -->
 <!-- TODO: upgrade firebase to latest -->
 <!-- TODO: Refactor tags architecture -->

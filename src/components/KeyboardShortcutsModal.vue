@@ -4,6 +4,7 @@
     title="BootstrapVue"
     hide-footer
   >
+    <!-- TODO: update shortcuts -->
     <template v-slot:modal-header="{ close }">
       <modal-header
         title="Keyboard Shortcuts"
