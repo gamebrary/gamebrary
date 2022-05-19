@@ -1,29 +1,28 @@
+<!-- TODO: get inspiration from polygon -->
 <template lang="html">
   <b-container fluid class="p-2">
     <div class="game-news" v-if="articles.length">
       Latest news about {{ game.name }} <b-badge>{{ articles.length }}</b-badge>
 
       <ul class="list-unstyled">
-        <b-media tag="li" v-for ="article in articles" :key="article.id" class="mb-2">
-          <template #aside>
-            <b-avatar
-              variant="primary"
-              :text="article.feedlabel"
-              :title="article.feedlabel || article.author"
-              v-b-tooltip.hover
-            />
-          </template>
+        <b-card v-for="article in articles" :key="article.id" class="mb-2">
+          <b-avatar
+            variant="primary"
+            :text="article.feedlabel"
+            :title="article.feedlabel || article.author"
+            v-b-tooltip.hover
+          />
 
-          <h5 class="mt-0 mb-1">
+          <h2>
             {{ article.title }}
             <br />
             <b-badge variant="info">{{ article.feedlabel }}</b-badge>
-          </h5>
+          </h2>
 
           <div>
             <p class="mb-0 w-100" v-html="$options.marked(article.contents)" />
           </div>
-        </b-media>
+        </b-card>
       </ul>
     </div>
   </b-container>

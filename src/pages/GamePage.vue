@@ -53,6 +53,24 @@
           News about {{ game.name }}
         </b-button>
         <!-- TODO: restore prev/next game -->
+        <!-- <b-dropdown-item-button
+          v-if="!prevDisabled"
+          v-shortkey="['arrowleft']"
+          @shortkey.native="previousGame"
+          @click="previousGame"
+        >
+          <i class="fas fa-caret-left fa-fw" aria-hidden /> Previous game
+
+        </b-dropdown-item-button>
+
+        <b-dropdown-item-button
+          v-if="!nextDisabled"
+          v-shortkey="['arrowright']"
+          @shortkey.native="nextGame"
+          @click="nextGame"
+        >
+          <i class="fas fa-caret-right fa-fw" aria-hidden /> Next game
+        </b-dropdown-item-button> -->
         <!-- <pre>{{ game.genres.map(({ id }) => id) }}</pre> -->
         <!-- TODO: add bundles to game detail? -->
         <!-- {{ game.bundles ? `Found in ${game.bundles.length} compilations.` : null }} -->
@@ -158,7 +176,7 @@
 
 <script>
 
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import { WEBSITE_CATEGORIES } from '@/constants';
 import AmazonLinks from '@/components/Game/AmazonLinks';
 import GameNotes from '@/components/Game/GameNotes';
@@ -203,19 +221,17 @@ export default {
 
   computed: {
     ...mapState(['game', 'progresses', 'tags']),
+    ...mapGetters(['gameTags']),
 
-    gameTags() {
-      // TODO: refactor architecture, don't use tag name as key
-      // TODO: fix other instances
-      const tagsArray = Object.entries(this.tags);
-      const filteredTags = tagsArray.filter(([key, value]) => {
-        return value.games.includes(this.game.id);
-      });
-
-      const filteredTagsObject = Object.fromEntries(filteredTags);
-
-      return filteredTagsObject;
-    },
+    // prevDisabled() {
+    //   return this.gameIndex === 0;
+    // },
+    //
+    // nextDisabled() {
+    //   const isLast = this.gameIndex === list.games.length - 1;
+    //
+    //   return !this.list || isLast;
+    // },
 
     twitterHandle() {
       // TODO: put in constant
@@ -316,6 +332,29 @@ export default {
       this.loading = false;
       this.loadSupplementalData();
     },
+
+    // previousGame() {
+    //   // TODO: account for list sorting when getting previous game
+    //   this.loading = true;
+    //
+    //   const index = list.games.indexOf(gameId);
+    //
+    //   const prevGameId = list.games[index - 1];
+    //
+    // TODO: push route
+    // },
+
+    // nextGame() {
+    //   // TODO: account for list sorting when getting next game
+    //   this.loading = true;
+    //
+    //
+    //   const index = list.games.indexOf(gameId);
+    //
+    //   const nextGameId = list.games[index + 1];
+    //
+    // TODO: push route
+    // },
 
     async loadSupplementalData() {
       // TODO: put in constants

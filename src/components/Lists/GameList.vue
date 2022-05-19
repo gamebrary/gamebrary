@@ -71,15 +71,25 @@
           @click.native="openGame(gameId, list)"
         />
 
-        <b-button
+        <!-- TODO: route to search and default to add to list? -->
+        <!-- <b-button
           block
           v-if="isEmpty"
           class="mb-2"
           variant="light"
-          v-b-modal="`game-modal-${list.name}`"
+          :to="{ name: 'search' }"
         >
           {{ $t('board.list.emptyListButton') }}
-        </b-button>
+        </b-button> -->
+
+        <b-alert
+          v-if="isEmpty"
+          variant="light"
+          show
+          class="text-center"
+        >
+          [Empty]
+        </b-alert>
       </draggable>
     </b-card>
   </div>
