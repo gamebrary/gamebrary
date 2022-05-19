@@ -73,7 +73,6 @@ export default {
     sortedTags() {
       return Object.keys(this.tags)
         .sort()
-        // eslint-disable-next-line
         .reduce((res, key) => (res[key] = this.tags[key], res), {});
     },
   },
