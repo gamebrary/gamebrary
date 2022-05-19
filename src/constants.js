@@ -343,13 +343,6 @@ export const AGE_RATING_SYSTEMS = [
   },
 ];
 
-export const DOCK_POSITIONS = [
-  { name: 'Top', value: null },
-  { name: 'Left', value: 'left' },
-  { name: 'Bottom', value: 'bottom' },
-  { name: 'Right', value: 'right' },
-];
-
 export const WEBSITE_CATEGORIES = {
   WIKIPEDIA: 3,
   AMAZON: 20,

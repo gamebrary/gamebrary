@@ -111,10 +111,6 @@ export default {
         });
     },
 
-    dockPosition() {
-      return this.settings?.dockPosition;
-    },
-
     boardInitials() {
       return this.board.name.split(' ').map(n => n[0]).join('').slice(0, 2);
     },
@@ -122,10 +118,6 @@ export default {
     boardBackgroundUrl() {
       return this.getWallpaperUrl(this.board?.backgroundUrl);
     },
-
-    // isHorizontal() {
-    //   return !this.dockPosition || this.dockPosition === 'bottom';
-    // },
   },
 
   methods: {

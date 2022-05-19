@@ -34,10 +34,6 @@
             />
           </b-form-group>
 
-          <b-form-checkbox v-model="pinned" switch>
-            Pinned to dock
-          </b-form-checkbox>
-
           <b-form-checkbox v-model="isPublic" switch class="mb-2">
             Make board public (beta)
           </b-form-checkbox>
@@ -191,7 +187,6 @@ export default {
     return {
       saving: false,
       description: null,
-      pinned: false,
       isPublic: false,
       name: null,
       selectedPlatforms: [],
@@ -245,7 +240,6 @@ export default {
       this.description = board.description;
       this.name = board.name;
       this.selectedPlatforms = board.platforms;
-      this.pinned = board.pinned || false;
       this.isPublic = board.isPublic || false;
       this.theme = board.theme || 'default';
     },
@@ -287,7 +281,6 @@ export default {
         description: this.description,
         name: this.name,
         // platforms: this.platforms,
-        pinned: this.pinned,
         isPublic: this.isPublic,
         theme: this.theme,
       };

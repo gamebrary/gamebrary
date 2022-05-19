@@ -17,7 +17,6 @@
   <div
     id="app"
     :dir="dir"
-    :class="`dock-${dockPosition} ${user ? 'authed' : ''}`"
     v-shortkey="KEYBOARD_SHORTCUTS"
     @shortkey="handleShortcutAction"
   >
@@ -68,10 +67,6 @@ export default {
       const { settings } = this;
 
       return settings && settings.language === 'ar' ? 'rtl' : 'ltr';
-    },
-
-    dockPosition() {
-      return this.settings?.dockPosition;
     },
 
     isPublicRoute() {

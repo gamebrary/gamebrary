@@ -224,19 +224,6 @@
 
           <tr>
             <td>
-              Dock
-              (Quickly access all your boards, pin them, organize them, group them, etc...)
-            </td>
-            <td>
-              <i class="fa-solid fa-times text-muted" />
-            </td>
-            <td>
-              <i class="fa-solid fa-check text-success" />
-            </td>
-          </tr>
-
-          <tr>
-            <td>
               Import/Export
             </td>
             <td>
