@@ -1,3 +1,5 @@
+<!-- TODO: re-translate strings -->
+<!-- TODO: upgrade firebase to latest -->
 <!-- TODO: Refactor tags architecture -->
 <!-- TODO: button things up and prepare for deploy -->
 <!-- TODO: focus on affiliate stuff -->
@@ -21,9 +23,6 @@
   >
     <page-header />
 
-    <!-- <page-dock v-if="user" /> -->
-    <!-- <public-dock v-else /> -->
-
     <main :class="[{ 'authorizing': !user }, 'bg-light']">
       <global-modals />
       <router-view />
@@ -32,8 +31,6 @@
 </template>
 
 <script>
-// import PageDock from '@/components/PageDock';
-// import PublicDock from '@/components/PublicDock';
 import PageHeader from '@/components/PageHeader';
 import GlobalModals from '@/components/GlobalModals';
 import sessionMixin from '@/mixins/sessionMixin';
@@ -47,8 +44,6 @@ export default {
   name: 'App',
 
   components: {
-    // PageDock,
-    // PublicDock,
     PageHeader,
     GlobalModals,
   },
