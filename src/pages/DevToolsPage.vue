@@ -20,6 +20,13 @@
       </b-button>
     </div>
 
+    <h1>Axiom Verge</h1>
+    <h2>Axiom Verge</h2>
+    <h3>Axiom Verge</h3>
+    <h4>Axiom Verge</h4>
+    <h5>Axiom Verge</h5>
+    <h6>Axiom Verge</h6>
+
     <div class="p-3 mb-2 bg-primary text-white">.bg-primary</div>
     <div class="p-3 mb-2 bg-secondary text-white">.bg-secondary</div>
     <div class="p-3 mb-2 bg-success text-white">.bg-success</div>
