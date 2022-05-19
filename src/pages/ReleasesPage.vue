@@ -19,10 +19,10 @@
       class="mb-3"
     >
       <template v-slot:header>
-        <h6 class="mb-0">
+        <h3 class="mb-0">
           <b-badge>{{ release.tag_name }}</b-badge>
           {{ release.name }}
-        </h6>
+        </h3>
       </template>
 
       <b-card-text>

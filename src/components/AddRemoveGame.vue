@@ -18,7 +18,7 @@
           />
         </b-link>
 
-        <h6 class="text-center">Add {{ game.name }} to a list</h6>
+        <h4 class="text-center">Add {{ game.name }} to a list</h4>
       </header>
 
       <!-- TODO: show active board at top -->

@@ -1,4 +1,5 @@
 <!-- TODO: FIX this mess, auto save on selection -->
+<!-- TODO: flatten, put it in single edit board page -->
 <template lang="html">
   <b-modal
     id="boardBackground"
@@ -74,7 +75,7 @@
       </b-col>
     </b-row>
 
-    <h6>My Wallpapers</h6>
+    <h3>My Wallpapers</h3>
     <!-- <b-button>Upload wallpaper</b-button> -->
 
     <wallpapers-list

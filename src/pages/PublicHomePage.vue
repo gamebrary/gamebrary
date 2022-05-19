@@ -17,14 +17,14 @@
 
     <section class="bg-light py-4" id="features">
       <b-container>
-        <h5 class="text-center">Features</h5>
+        <h1 class="text-center">Features</h1>
 
         <div class="features">
           <b-card
             v-for="{ title, message } in features"
             :key="title"
           >
-            <h6>{{ title }}</h6>
+            <h4>{{ title }}</h4>
             <small v-html="message" />
           </b-card>
         </div>

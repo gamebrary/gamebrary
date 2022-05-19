@@ -1,7 +1,7 @@
 <template lang="html">
   <b-container fluid>
     <header class="my-3 d-flex align-items-center justify-content-between">
-      <h5 class="m-0">Profile</h5>
+      <h1 class="m-0">Profile</h1>
     </header>
 
     <b-button @click="checkUserNameAvailability">

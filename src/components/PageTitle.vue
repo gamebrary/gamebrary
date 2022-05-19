@@ -1,6 +1,6 @@
 <template lang="html">
   <header class="mb-2 d-flex align-items-center justify-content-between">
-    <h5 class="m-0">{{ title }}</h5>
+    <h1 class="m-0">{{ title }}</h1>
 
     <div v-if="$slots.default || actionText">
       <slot />

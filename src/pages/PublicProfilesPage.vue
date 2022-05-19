@@ -1,3 +1,4 @@
+<!-- TODO: finish this -->
 <template lang="html">
   <b-container fluid>
     <page-title
@@ -12,7 +13,7 @@
       :key="profile.userName"
     >
       <div>
-        <h5 class="m-0">{{ profile.displayName }}</h5>
+        <h1>{{ profile.displayName }}</h1>
         <small class="text-info">{{ `@${profile.userName}` }}</small>
         <p v-if="profile.bio">{{ profile.bio }}</p>
       </div>

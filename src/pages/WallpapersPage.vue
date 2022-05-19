@@ -11,7 +11,7 @@
 
     <template v-else>
       <header class="my-3 d-flex align-items-center justify-content-between">
-        <h5 class="m-0">Wallpapers</h5>
+        <h1>Wallpapers</h1>
 
         <!-- <div class="space-used ml-auto mr-3">
           <small
