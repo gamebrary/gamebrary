@@ -1,32 +1,30 @@
 <template lang="html">
-  <div v-if="similarGames.length">
-    You may also like:
+  <b-card v-if="similarGames.length" class="mx-2">
+    <h4 class="text-center">You may also like:</h4>
 
-    <b-card-group>
+    <div class="d-flex overflow-auto">
       <b-card
         v-for="game in similarGames"
         :key="game.id"
         :title="game.name"
         title-tag="small"
+        class="flex-shrink-0 mr-2 cursor-pointer"
+        style="max-width: 120px;"
         body-class="p-1 px-2"
-        :img-src="getCoverUrl(game.cover)"
+        :img-src="getCoverUrl(game)"
         :img-alt="game.name"
         img-top
         @click="openGame(game)"
       />
-    </b-card-group>
-  </div>
+    </div>
+  </b-card>
 </template>
 
 <script>
-// import GameCardCompact from '@/components/GameCards/GameCardCompact';
 import { mapState } from 'vuex';
+import { getGameCoverUrl } from '@/utils';
 
 export default {
-  components: {
-    // GameCardCompact,
-  },
-
   props: {
     loading: Boolean,
   },
@@ -54,22 +52,19 @@ export default {
       this.$router.push({ name: 'game', params: { id: game.id, slug: game.slug } });
     },
 
-    // TODO: move to util
-    getCoverUrl(cover) {
-      return cover && cover.image_id
-        ? `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${cover.image_id}.jpg`
-        : '/no-image.jpg';
+    getCoverUrl(game) {
+      return getGameCoverUrl(game);
     },
 
     async loadGames() {
       this.similarGames = [];
 
       // TODO: use try catch
+      // TODO: append cover url directly here
       await this.$store.dispatch('LOAD_GAMES', this.similarGameIds.toString());
 
       this.similarGames = this.similarGameIds ?
         this.similarGameIds
-          .filter(game => this.games && this.games[game] && this.games[game].cover)
           .map(game => this.games && this.games[game])
         : [];
     },
