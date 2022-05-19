@@ -144,17 +144,6 @@ export default {
     state.game.gog = data;
   },
 
-
-  ADD_GAME_TO_LIST({ board }, { listIndex, game }) {
-    board.lists[listIndex].games.push(game.id);
-  },
-
-  REMOVE_GAME_FROM_LIST({ board }, { listIndex, game }) {
-    const currentList = board.lists[listIndex];
-
-    currentList.games.splice(currentList.games.indexOf(game.id), 1);
-  },
-
   REMOVE_LIST(state, index) {
     state.board.lists.splice(index, 1);
   },
