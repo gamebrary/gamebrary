@@ -15,10 +15,6 @@ export default {
   board: {},
   game: {},
   boardGames: [],
-  activeGame: {
-    gameId: null,
-    list: null,
-  },
   wallpapers: [],
   platform: null,
   sessionExpired: false,

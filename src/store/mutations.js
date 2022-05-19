@@ -119,10 +119,6 @@ export default {
     state.boards.splice(boardIndex, 1);
   },
 
-  SET_GAME_MODAL_DATA(state, activeGame) {
-    state.activeGame = activeGame;
-  },
-
   SET_GAME(state, game) {
     state.game = game;
   },
@@ -148,9 +144,6 @@ export default {
     state.game.gog = data;
   },
 
-  CLEAR_GAME_MODAL_DATA(state) {
-    state.activeGame = null;
-  },
 
   ADD_GAME_TO_LIST({ board }, { listIndex, game }) {
     board.lists[listIndex].games.push(game.id);
@@ -233,7 +226,6 @@ export default {
     state.boards = [];
     state.board = {};
     state.boardGames = [];
-    state.activeGame = null;
     state.wallpaperUrl = null;
     state.wallpapers = [];
   },
