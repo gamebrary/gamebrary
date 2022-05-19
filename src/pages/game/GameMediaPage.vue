@@ -132,7 +132,6 @@ export default {
     ...mapState(['board', 'game']),
 
     thumbnails() {
-      // eslint-disable-next-line
       return this.screenshots.map(({ image_id }) => `https://images.igdb.com/igdb/image/upload/t_screenshot_med/${image_id}.jpg`)
     },
 
@@ -150,7 +149,6 @@ export default {
 
     slides() {
       return [
-        // eslint-disable-next-line
         ...this.screenshots.map(({ image_id }) => `https://images.igdb.com/igdb/image/upload/t_screenshot_huge_2x/${image_id}.jpg`),
       ];
     },
@@ -167,7 +165,6 @@ export default {
 
     gameThumbnails() {
       const gogImages = this.game?.gog?.gallery
-        // eslint-disable-next-line
         ? this.game.gog.gallery.map((image) => {
           const imageId = image.split('.com/')[1];
 
@@ -178,12 +175,10 @@ export default {
         : [];
 
       const steamImages = this.game?.steam?.screenshots
-        // eslint-disable-next-line
         ? this.game.steam.screenshots.map(({ path_thumbnail }) => path_thumbnail)
         : [];
 
       const igdbImages = this.game?.screenshots
-        // eslint-disable-next-line
         ? this.game.screenshots.map(({ image_id }) => `https://images.igdb.com/igdb/image/upload/t_screenshot_med_2x/${image_id}.jpg`)
         : [];
 
@@ -197,7 +192,6 @@ export default {
 
     gameImages() {
       const gogImages = this.game?.gog?.gallery
-        // eslint-disable-next-line
         ? this.game.gog.gallery.map((image) => {
           const imageId = image.split('.com/')[1];
 
@@ -208,12 +202,10 @@ export default {
         : [];
 
       const steamImages = this.game?.steam?.screenshots
-        // eslint-disable-next-line
         ? this.game.steam.screenshots.map(({ path_full }) => path_full)
         : [];
 
       const igdbImages = this.game?.screenshots
-        // eslint-disable-next-line
         ? this.game.screenshots.map(({ image_id }) => `https://images.igdb.com/igdb/image/upload/t_screenshot_huge_2x/${image_id}.jpg`)
         : [];
 

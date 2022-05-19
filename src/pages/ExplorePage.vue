@@ -45,7 +45,6 @@ export default {
       this.$store.dispatch('LOAD_PUBLIC_BOARDS');
     },
 
-    // eslint-disable-next-line
     getWallpaper({ wallpaper }) {
       if (!wallpaper) return '';
 
