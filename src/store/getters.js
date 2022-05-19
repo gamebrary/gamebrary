@@ -5,12 +5,6 @@ import orderby from 'lodash.orderby';
 export default {
   sortedBoards: ({ boards }) => orderby(boards, 'name'),
 
-  gameCoverUrl: ({ game }) => {
-    return game?.cover?.image_id
-      ? `https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.cover.image_id}.jpg`
-      : '/no-image.jpg';
-  },
-
   isBoardOwner: ({ board, user }) => {
     return board?.owner === user?.uid;
   },

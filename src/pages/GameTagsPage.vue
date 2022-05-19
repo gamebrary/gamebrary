@@ -1,6 +1,8 @@
 <!-- TODO: finish layout -->
 <template lang="html">
   <b-container class="p-2">
+    <b-img :src="gameCoverUrl" width="200" rounded class="mb-2 mr-2" />
+
     <empty-state
       v-if="empty"
       class="mb-4"
@@ -49,7 +51,8 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
+import { getGameCoverUrl } from '@/utils';
 import EmptyState from '@/components/EmptyState';
 
 export default {
@@ -64,7 +67,10 @@ export default {
 
   computed: {
     ...mapState(['tags', 'game']),
-    ...mapGetters(['gameCoverUrl']),
+
+    gameCoverUrl() {
+      return getGameCoverUrl(this.game);
+    },
 
     empty() {
       return Object.keys(this.tags).length === 0;

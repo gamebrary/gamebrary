@@ -60,12 +60,16 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { getGameCoverUrl } from '@/utils';
+import { mapState } from 'vuex';
 
 export default {
   computed: {
     ...mapState(['game']),
-    ...mapGetters(['gameCoverUrl']),
+
+    gameCoverUrl() {
+      return getGameCoverUrl(this.game);
+    }
   },
 };
 </script>

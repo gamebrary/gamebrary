@@ -1,6 +1,5 @@
 <template lang="html">
   <div>
-    <!-- TODO: get game cover, make getter for game cover url -->
     <game-note
       v-if="note"
       :note="note"
@@ -21,10 +20,6 @@ export default {
 
   computed: {
     ...mapState(['notes', 'game']),
-
-    isGamePage() {
-      return this.$route.name === 'game';
-    },
 
     note() {
       return this.notes[this.game.id] || null;

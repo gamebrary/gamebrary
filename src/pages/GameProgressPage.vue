@@ -1,5 +1,6 @@
 <template lang="html">
   <div>
+    <b-img :src="gameCoverUrl" width="200" rounded class="mb-2 mr-2" />
     {{ title }}
 
     <b-progress
@@ -52,7 +53,8 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
+import { getGameCoverUrl } from '@/utils';
 
 export default {
   data() {
@@ -67,7 +69,10 @@ export default {
 
   computed: {
     ...mapState(['progresses', 'game']),
-    ...mapGetters(['gameCoverUrl']),
+
+    gameCoverUrl() {
+      return getGameCoverUrl(this.game);
+    },
 
     title() {
       return this.localProgress

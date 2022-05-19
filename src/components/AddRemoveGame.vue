@@ -84,6 +84,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import { getGameCoverUrl } from '@/utils';
 
 export default {
   data() {
@@ -118,9 +119,7 @@ export default {
     },
 
     coverUrl() {
-      return this.game?.cover?.image_id
-        ? `https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${this.game.cover.image_id}.jpg`
-        : '/no-image.jpg';
+      return getGameCoverUrl(this.game);
     },
   },
 

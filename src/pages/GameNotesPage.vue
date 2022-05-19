@@ -52,10 +52,11 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 import GameNote from '@/components/GameNote';
 import MarkdownCheatsheet from '@/components/MarkdownCheatsheet';
+import { getGameCoverUrl } from '@/utils';
 
 export default {
   components: {
@@ -67,12 +68,16 @@ export default {
     return {
       saving: false,
       note: '',
+      deleting: false,
     };
   },
 
   computed: {
     ...mapState(['notes', 'game']),
-    ...mapGetters(['gameCoverUrl']),
+
+    gameCoverUrl() {
+      return getGameCoverUrl(this.game);
+    },
 
     dirtied() {
       return this.note !== this.notes[this.game.id];
