@@ -2,7 +2,7 @@
   <!-- TODO: show list preview in full page view -->
   <!-- TODO: show search inline, allow to go full screen (search page) -->
   <b-container fluid>
-    <b-row v-if="list">
+    <b-form-row v-if="list">
       <b-col sm="12" md="6">
         <div :style="boardStyles" class="p-3 list-preview d-flex justify-content-center">
           <game-list :list="list" preview />
@@ -12,12 +12,10 @@
       <b-col>
         <b-card>
           <header class="p-1 pl-2 d-flex justify-content-between align-items-center">
-            <h5 class="p-0 m-0">
-              Edit list
-            </h5>
+            <h1>Edit list</h1>
           </header>
 
-          <form ref="renameListForm" @submit.stop.prevent="saveList">
+          <form ref="renameListForm" @submit.stop.prevent="saveChanges">
             <b-form-input
               autofocus
               v-model.trim="list.name"
@@ -68,6 +66,7 @@
               </span>
             </b-alert>
 
+            <!-- TODO: add another view that uses avatar for game cover (tiny) -->
             <b-form-group
               id="list-view"
               label="List view:"
@@ -90,6 +89,8 @@
             >
               {{ $t('board.list.showReleaseDates') }}
             </b-form-checkbox>
+
+            <!-- TODO: add release date styles: countdown/simple date -->
 
             <b-form-checkbox
               v-model="list.settings.showGameProgress"
@@ -135,58 +136,56 @@
               {{ $t('board.list.showGameCount') }}
             </b-form-checkbox>
 
-            <!-- <b-button
+            <b-list-group class="p-2">
+              <!-- TODO: Clone list -->
+              <!-- TODO: Move within board -->
+              <!-- TODO: Move list to different board -->
+              <!-- TODO: edit lists order goes in board settings -->
+              <b-list-group-item>
+                <small class="text-muted d-flex justify-content-center">Move list</small>
+                <b-button-group size="sm" class="w-100">
+                  <b-button
+                    v-b-tooltip.hover
+                    :title="$t('board.list.moveLeft')"
+                    :disabled="isFirst"
+                    @click="moveList(listIndex, listIndex - 1)"
+                  >
+                    <i class="fas fa-angle-left fa-fw" aria-hidden />
+                  </b-button>
+
+                  <b-button
+                    v-b-tooltip.hover
+                    :title="$t('board.list.moveRight')"
+                    :disabled="isLast"
+                    @click="moveList(listIndex, listIndex + 1)"
+                  >
+                    <i class="fas fa-angle-right fa-fw" aria-hidden />
+                  </b-button>
+                </b-button-group>
+              </b-list-group-item>
+            </b-list-group>
+
+            <b-button
               variant="primary"
               class="ml-auto"
-              :disabled="saving || !dirtied || isDuplicate"
-              @click="submit"
+              type="submit"
+              :disabled="saving || isDuplicate"
             >
               <b-spinner small v-if="saving" />
               <span v-else>{{ $t('global.save') }}</span>
-            </b-button> -->
+            </b-button>
+
+            <b-button
+              variant="warning"
+              @click="promptDeleteList"
+            >
+              <i class="fas fa-trash-alt fa-fw" aria-hidden />
+              {{ $t('board.list.delete') }}
+            </b-button>
           </form>
-
-          <b-list-group class="p-2">
-            <!-- TODO: Clone list -->
-            <!-- TODO: Move within board -->
-            <!-- TODO: Move list to different board -->
-            <!-- TODO: edit lists order goes in board settings -->
-            <b-list-group-item>
-              <small class="text-muted d-flex justify-content-center">Move list</small>
-              <b-button-group size="sm" class="w-100">
-                <b-button
-                  v-b-tooltip.hover
-                  :title="$t('board.list.moveLeft')"
-                  :disabled="isFirst"
-                  @click="moveList(listIndex, listIndex - 1)"
-                >
-                  <i class="fas fa-angle-left fa-fw" aria-hidden />
-                </b-button>
-
-                <b-button
-                  v-b-tooltip.hover
-                  :title="$t('board.list.moveRight')"
-                  :disabled="isLast"
-                  @click="moveList(listIndex, listIndex + 1)"
-                >
-                  <i class="fas fa-angle-right fa-fw" aria-hidden />
-                </b-button>
-              </b-button-group>
-            </b-list-group-item>
-          </b-list-group>
-
-          <b-button :disabled="isDuplicate">Save</b-button>
-
-          <b-button
-            variant="warning"
-            @click="promptDeleteList"
-          >
-            <i class="fas fa-trash-alt fa-fw" aria-hidden />
-            {{ $t('board.list.delete') }}
-          </b-button>
         </b-card>
       </b-col>
-    </b-row>
+    </b-form-row>
   </b-container>
 </template>
 
@@ -275,6 +274,8 @@ export default {
       this.loading = true;
 
       await this.$store.dispatch('LOAD_BOARD', this.$route.params.id)
+
+      // TODO: set default values
       this.list = JSON.parse(JSON.stringify(this.board.lists[this.$route.params.listIndex]));
 
       const hasGames = this.list?.games?.length > 0;
@@ -334,8 +335,17 @@ export default {
       this.$bvToast.toast('List saved');
     },
 
-    saveList() {
-      console.log('save list');
+    async saveChanges() {
+      const board = { ...this.board };
+      board.lists[this.listIndex] = this.list;
+
+      this.saving = true;
+
+      await this.$store.dispatch('SAVE_GAME_BOARD', board);
+
+      this.saving = false;
+
+      this.$router.push({ name: 'board', params: { id: board.id }});
     },
   },
 };
@@ -344,9 +354,10 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
   .list-preview {
     background-size: cover;
+    height: calc(100vh - 54px);
 
     @media(max-width: 780px) {
-      max-height: 40vh;
+      height: 40vh;
     }
   }
 </style>
