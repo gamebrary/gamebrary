@@ -13,40 +13,32 @@
     :id="listIndex"
   >
     <b-card no-body>
-      <header class="p-1 pl-2 d-flex justify-content-between align-items-center">
-        <h6 class="p-0 m-0">
-          <span v-b-modal="`rename-list-${listIndex}`">
-            <b-badge>{{ list.games.length }}</b-badge>
+      <header class="p-2">
+        <b-button
+          block
+          variant="outline-light"
+          class="text-dark d-flex justify-content-between align-items-center px-2 border-0"
+          :disabled="preview || (user && user.uid !== board.owner)"
+          :to="{ name: 'board.list.edit', params: { id: board.id, listIndex } }"
+        >
+          <span>
+            <b-badge
+              v-if="showGameCount"
+              variant="light"
+            >
+              {{ list.games.length }}
+            </b-badge>
             {{ list.name }}
           </span>
 
-          <small v-if="showGameCount" class="text-muted">
-              {{ list.games.length }} {{ $t('global.games') }}
-          </small>
-
-          <small v-if="autoSortEnabled" class="text-muted" v-b-modal="`sort-list-${listIndex}`">
-            <!-- {{ `${$t('board.list.sortedBy')} ${$t(`board.list.${list.settings.sortOrder}`)}` }} -->
-          </small>
-        </h6>
-
-        <b-button
-          v-if="user && user.uid === board.owner"
-          variant="transparent"
-          :disabled="preview"
-          :to="{ name: 'board.list.edit', params: { id: board.id, listIndex } }"
-        >
-          <i class="fa fa-pencil-alt fa-fw" />
-        </b-button>
-
-        <!-- TODO: consolidate public/private actions -->
-        <b-button
-          v-else
-          disabled
-          size="sm"
-          variant="secondary"
-          class="m-1"
-        >
-          <i class="fas fa-ellipsis-h fa-fw" aria-hidden />
+          <b-badge
+            v-if="autoSortEnabled"
+            variant="light"
+            v-b-tooltip.hover
+            :title="`${$t('board.list.sortedBy')} ${$t(`board.list.${list.settings.sortOrder}`)}`"
+          >
+            <i class="fa-solid fa-sort fa-fw" />
+          </b-badge>
         </b-button>
       </header>
 
