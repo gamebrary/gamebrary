@@ -2,10 +2,7 @@
   <b-container fluid>
     <page-title title="Steam settings" />
 
-    <!-- <b-alert show>
-      Explain how steam id is used
-    </b-alert> -->
-
+    <!-- TODO: Explain how steam id is used -->
     <b-form-group label="Steam ID:">
       <b-form-input
         v-model="steamId"
@@ -18,13 +15,11 @@
 
 <script>
 import { mapState } from 'vuex';
-import { GAME_DETAIL_VIEWS } from '@/constants';
 
 export default {
   data() {
     return {
       saving: false,
-      GAME_DETAIL_VIEWS,
       steamId: null,
     };
   },

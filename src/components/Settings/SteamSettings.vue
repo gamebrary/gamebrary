@@ -15,13 +15,11 @@
 
 <script>
 import { mapState } from 'vuex';
-import { GAME_DETAIL_VIEWS } from '@/constants';
 
 export default {
   data() {
     return {
       saving: false,
-      GAME_DETAIL_VIEWS,
       steamId: null,
     };
   },

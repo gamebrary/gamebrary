@@ -23,36 +23,18 @@
         </b-form-select-option>
       </b-form-select>
     </b-form-group>
-
-    <b-form-group label="Open games in:">
-      <b-form-select
-        v-model="gameDetailView"
-        style="max-width: 200px"
-        @change="save"
-      >
-        <b-form-select-option
-          v-for="{ name, value } in GAME_DETAIL_VIEWS"
-          :key="value"
-          :value="value"
-        >
-          {{ name }}
-        </b-form-select-option>
-      </b-form-select>
-    </b-form-group>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import { GAME_DETAIL_VIEWS, AGE_RATING_SYSTEMS } from '@/constants';
+import { AGE_RATING_SYSTEMS } from '@/constants';
 
 export default {
   data() {
     return {
       saving: false,
-      GAME_DETAIL_VIEWS,
       AGE_RATING_SYSTEMS,
-      gameDetailView: null,
       gameRatingSystem: null,
     };
   },
@@ -64,10 +46,6 @@ export default {
   mounted() {
     const { settings } = this;
 
-    this.gameDetailView = settings && settings.gameDetailView
-      ? settings.gameDetailView
-      : null;
-
     this.gameRatingSystem = settings && settings.gameRatingSystem
       ? settings.gameRatingSystem
       : null;
@@ -75,11 +53,10 @@ export default {
 
   methods: {
     async save() {
-      const { gameDetailView, gameRatingSystem, settings } = this;
+      const { gameRatingSystem, settings } = this;
 
       const payload = {
         ...settings,
-        gameDetailView,
         gameRatingSystem,
       };
 

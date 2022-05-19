@@ -238,13 +238,6 @@ export const SUPPORTED_LANGUAGES = [
   { name: 'Spanish', nativeName: 'Español', value: 'es' },
 ];
 
-export const GAME_DETAIL_VIEWS = [
-  // { name: 'popup', value: 'popup' },
-  { name: 'Modal', value: null },
-  { name: 'Side panel', value: 'side' },
-  { name: 'New page', value: 'new' },
-];
-
 // Source: https://api-docs.igdb.com/#age-rating
 export const AGE_RATING_SYSTEMS = [
   {
