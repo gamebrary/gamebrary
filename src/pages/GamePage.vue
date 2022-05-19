@@ -1,7 +1,10 @@
+<!-- TODO: add bundles to game detail? -->
+<!-- {{ game.bundles ? `Found in ${game.bundles.length} compilations.` : null }} -->
 <!-- TODO: add speedruns -->
 <!-- TODO: add pricecharting info -->
 <!-- TODO: use v-observe-visibility -->
 <!-- TODO: show GOG buy button -->
+<!-- TODO: Show lists/boards that the game belongs to -->
 
 <template lang="html">
   <b-container fluid class="p-2">
@@ -49,6 +52,7 @@
           <b-badge>3</b-badge>
           News about {{ game.name }}
         </b-button>
+        <!-- TODO: restore prev/next game -->
         <!-- <pre>{{ game.genres.map(({ id }) => id) }}</pre> -->
         <!-- TODO: add bundles to game detail? -->
         <!-- {{ game.bundles ? `Found in ${game.bundles.length} compilations.` : null }} -->

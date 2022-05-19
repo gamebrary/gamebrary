@@ -33,6 +33,7 @@ export default {
     state.board = {};
   },
 
+  // TODO: remove, deprecated
   SET_ACTIVE_BOARD(state, board) {
     state.board = board;
 

@@ -3,13 +3,16 @@
     <!-- <b-alert show variant="success">
       Custom search controls go here!
     </b-alert> -->
-
+    <!-- TODO: add filters -->
+    <!-- TODO: add empty state with predefined searches -->
+    <!-- TODO: add pagination -->
     <b-skeleton v-if="loading" />
 
     <div v-else-if="searchResults.length > 0">
       <h5>Search results</h5>
 
       <b-card-group columns>
+        <!-- TODO: move open method to card itself -->
         <game-card-search
           v-for="game in searchResults"
           :key="game.id"

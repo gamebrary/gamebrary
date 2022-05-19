@@ -1,6 +1,8 @@
 <template lang="html">
   <!-- TODO: Add back button -->
   <!-- TODO: refactor platforms and wallpapers -->
+  <!-- TODO: add board preview-->
+  <!-- TODO: use board placeholder for preview / disable placeholder animation -->
   <b-container fluid class="p-2">
     <form ref="boardSettingsForm" @submit.stop.prevent="submit">
       <b-row>
