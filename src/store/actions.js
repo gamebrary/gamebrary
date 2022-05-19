@@ -469,6 +469,21 @@ export default {
     });
   },
 
+  SAVE_GAME_BOARD({ state }, board) {
+    const db = firestore();
+
+    // TODO: commit mutation if we ever allow to add game directly from board
+    return new Promise((resolve, reject) => {
+      db.collection('boards')
+        .doc(board.id)
+        .set(board, { merge: true })
+        .then(() => {
+          resolve();
+        })
+        .catch(reject);
+    });
+  },
+
   DELETE_BOARD({ commit }, id) {
     return new Promise((resolve, reject) => {
       const db = firestore();
