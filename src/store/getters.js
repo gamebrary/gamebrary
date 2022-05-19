@@ -59,11 +59,9 @@ export default {
   },
 
   gameAgeRatings: () => (game) => {
-    const ageRatings = game && game.age_ratings;
+    if (!game?.age_ratings) return null;
 
-    if (!ageRatings) return null;
-
-    return ageRatings.map(({ category, rating }) => {
+    return game?.age_ratings.map(({ category, rating }) => {
       const { name, ratings } = AGE_RATING_SYSTEMS.find(({ id }) => id === category);
 
       return { name, rating: ratings[rating] };
