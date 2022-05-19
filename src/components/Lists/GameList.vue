@@ -146,13 +146,7 @@ export default {
     },
 
     autoSortEnabled() {
-      const { settings } = this.list;
-
-      if (!settings) {
-        return false;
-      }
-
-      return ['sortByName', 'sortByRating', 'sortByReleaseDate', 'sortByProgress'].includes(settings.sortOrder);
+      return ['sortByName', 'sortByRating', 'sortByReleaseDate', 'sortByProgress'].includes(this.list?.settings?.sortOrder);
     },
 
     sortedGames() {
