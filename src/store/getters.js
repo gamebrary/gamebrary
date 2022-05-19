@@ -12,10 +12,19 @@ export default {
   },
 
   isBoardOwner: ({ board, user }) => {
-    const boardOwner = board && board.owner;
-    const userId = user && user.uid;
+    return board?.owner === user?.uid;
+  },
 
-    return boardOwner === userId;
+  gameTags: ({ tags, game }) => {
+    // TODO: refactor architecture, don't use tag name as key
+    const tagsArray = Object.entries(tags);
+    const filteredTags = tagsArray.filter(([key, value]) => {
+      return value.games.includes(game.id);
+    });
+
+    const filteredTagsObject = Object.fromEntries(filteredTags);
+
+    return filteredTagsObject;
   },
 
   // Arabic is the only ltr language supported at the moment
@@ -66,6 +75,4 @@ export default {
       return { name, rating: ratings[rating] };
     });
   },
-
-  gameTags: state => Object.keys(state.tags) && Object.keys(state.tags).length > 0,
 };

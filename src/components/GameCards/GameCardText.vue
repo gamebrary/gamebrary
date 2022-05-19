@@ -23,21 +23,18 @@
             height="6px"
           />
 
-
-          <!-- TODO: use array map/filter -->
-          <!-- <div v-if="showGameTags">
+          <template v-if="showGameTags">
             <b-badge
-              v-for="({ games, hex, tagTextColor }, name) in tags"
-              v-if="games.includes(game.id)"
+              v-for="({ hex, tagTextColor }, name) in gameTags"
               :key="name"
               pill
               variant="primary"
-              tag="small"
+              class="mr-1"
               :style="`background-color: ${hex}; color: ${tagTextColor}`"
             >
-              {{ name }}
+              <small class="font-weight-bold">{{ name }}</small>
             </b-badge>
-          </div> -->
+          </template>
         </b-card-body>
     </b-row>
   </b-card>

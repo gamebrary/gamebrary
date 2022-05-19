@@ -11,10 +11,21 @@ export default {
 
   computed: {
     ...mapState(['settings', 'games', 'tags', 'notes', 'progresses', 'board']),
-    ...mapGetters(['gameTags', 'isRTL']),
+    ...mapGetters(['isRTL']),
 
     highlightCompletedGame() {
       return this.gameProgress && Number(this.gameProgress) === 100;
+    },
+
+    gameTags() {
+      const tagsArray = Object.entries(this.tags);
+      const filteredTags = tagsArray.filter(([key, value]) => {
+        return value.games.includes(this.gameId);
+      });
+
+      const filteredTagsObject = Object.fromEntries(filteredTags);
+
+      return filteredTagsObject;
     },
 
     showGameProgress() {
@@ -22,9 +33,7 @@ export default {
     },
 
     showGameTags() {
-      const { settings } = this.list;
-
-      return settings?.showGameTags && this.gameTags;
+      return this.list?.settings?.showGameTags && this.gameTags;
     },
 
     gameProgress() {

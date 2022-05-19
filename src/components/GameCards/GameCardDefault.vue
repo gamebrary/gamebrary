@@ -46,24 +46,18 @@
             height="6px"
           /> -->
 
-          <b-badge variant="primary" v-if="showGameTags">
-            <i class="fas fa-tags fa-fw" aria-hidden />
-          </b-badge>
-
-          <!-- TODO: use array filter instead of mixing v-for and v-if -->
-          <!-- <div v-if="showGameTags">
+          <template v-if="showGameTags">
             <b-badge
-              v-for="({ games, hex, tagTextColor }, name) in tags"
-              v-if="games.includes(game.id)"
+              v-for="({ hex, tagTextColor }, name) in gameTags"
               :key="name"
               pill
               class="mr-1"
               variant="primary"
               :style="`background-color: ${hex}; color: ${tagTextColor}`"
             >
-              {{ name }}
+              <small>{{ name }}</small>
             </b-badge>
-          </div> -->
+          </template>
         </b-card-body>
       </b-col>
     </b-row>
