@@ -27,6 +27,11 @@
       </b-button>
     </b-button-group> -->
 
+    <b-dropdown-item @click="$bus.$emit('ADD_GAME', game.id)">
+      <i class="fa-solid fa-plus fa-fw" />
+      Add to list
+    </b-dropdown-item>
+
     <b-dropdown-item :to="{ name: 'game.tags', params: { id: game.id, slug: game.slug } }">
       <i class="fa-solid fa-tags fa-fw" />
       Tags
