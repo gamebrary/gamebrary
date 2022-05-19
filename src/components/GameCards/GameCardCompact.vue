@@ -18,7 +18,7 @@
         <b-card-body body-class="p-2">
           <b-card-title
             :class="`mb-0 ${highlightCompletedGame ? 'text-success' : ''}`"
-            title-tag="small"
+            title-tag="h5"
           >
             {{ game.name }}
 

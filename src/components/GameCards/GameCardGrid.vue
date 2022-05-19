@@ -8,7 +8,7 @@
     <b-card-body body-class="p-2" v-if="game && game.name">
       <b-card-title
         :class="`mb-0 ${highlightCompletedGame ? 'text-success' : ''}`"
-        title-tag="h6"
+        title-tag="h4"
       >
         {{ game.name }}
       </b-card-title>

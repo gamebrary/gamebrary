@@ -1,15 +1,15 @@
 <template lang="html">
   <div>
-    <h3
+    <h1
       v-if="game.alternative_names"
       class="cursor-pointer m-0"
       v-b-toggle.altTitles
     >
       {{ game.name }}
       <!-- {{ game.alternative_names.length }} Alternative titles <i class="fa-solid fa-caret-down" /> -->
-    </h3>
+    </h1>
 
-    <h3 v-else>{{ game.name }}</h3>
+    <h1 v-else>{{ game.name }}</h1>
 
     <b-collapse id="altTitles">
       <div
