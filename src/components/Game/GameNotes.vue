@@ -22,7 +22,7 @@ export default {
     ...mapState(['notes', 'game']),
 
     note() {
-      return this.notes[this.game.id] || null;
+      return this.notes[this.game?.id] || null;
     },
   },
 };
