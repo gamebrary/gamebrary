@@ -1,18 +1,19 @@
 <template lang="html">
-  <div class="genres" v-if="gameGenres">
-    <b-button
+  <b-list-group-item v-if="gameGenres" class="p-2 small">
+    <strong>Genres:</strong>
+    <b-avatar
       v-for="genre in gameGenres"
       :key="genre.id"
+      rounded
+      button
       variant="transparent"
+      class="mr-1"
+      v-b-tooltip.hover
+      :title="genre.name"
     >
       <i v-if="genre.icon" :class="`${genre.icon} p-0`" />
-      <span v-else>{{ genre.id }}</span>
-      <br />
-      <small>{{ genre.name }}</small>
-    </b-button>
-    <!-- <pre class="text-dark">{{ genres }}</pre> -->
-    <!-- <pre class="text-dark">{{ game.genres }}</pre> -->
-  </div>
+    </b-avatar>
+  </b-list-group-item>
 </template>
 
 <script>
