@@ -9,16 +9,9 @@
   <b-container fluid class="p-2">
     <b-skeleton v-if="loading" />
 
-    <b-row v-else-if="game">
-      <b-col
-        cols="10"
-        offset="1"
-        offset-sm="0"
-        sm="5"
-        md="4"
-        lg="3"
-      >
-        <div class="position-relative">
+    <template v-else-if="game">
+      <b-row>
+        <b-col>
           <b-img
             :src="gameCoverUrl"
             :alt="game.name"
@@ -27,86 +20,121 @@
             rounded
             @click.stop="openGameCover"
           />
+          <!-- <b-skeleton-img
+            v-if="loading"
+            width="100px"
+            height="100px"
+          /> -->
 
+          <!-- <template v-else>
+            <game-videos :videos="game.videos" v-if="game.videos" />
+          </template> -->
           <amazon-links class="mt-2" />
 
           <div class="game-info">
             <game-rating :game="game" />
           </div>
+        </b-col>
+
+        <b-col>
+          <game-titles />
+          <b-progress
+            v-if="progress"
+            :value="progress"
+            variant="success"
+            height="8px"
+            v-b-modal.progress
+            class="my-1 w-25"
+            @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
+          />
+          <b-badge variant="success" v-if="game && game.steam && game.steam.metacritic">{{ game.steam.metacritic.score }}</b-badge>
+
+          <b-badge
+            v-for="({ hex, tagTextColor }, name) in gameTags"
+            :key="name"
+            pill
+            tag="small"
+            class="mr-1 mb-2"
+            :style="`background-color: ${hex}; color: ${tagTextColor}`"
+            @click="$router.push({ name: 'game.tags', params: { id: game.id, slug: game.slug } })"
+            v-b-modal.tags
+          >
+            {{ name }}
+          </b-badge>
+          <game-description />
+
+          <game-notes />
+        </b-col>
+
+        <b-col>
+          <b-card
+            no-body
+            style="max-width: 20rem;"
+          >
+            <b-link :to="{ name: 'game.media', params: { id: game.id, slug: game.slug } }">
+              <b-card-img :src="gameScrenshot" top />
+            </b-link>
+            <b-button
+              class="m-1"
+              variant="light"
+              :to="{ name: 'game.media', params: { id: game.id, slug: game.slug } }"
+            >
+              <i class="fa-solid fa-photo-film" />
+              Videos & Screenshots
+            </b-button>
+
+            <game-details />
+            <game-websites
+              :game="game"
+            />
+
+            <b-card-footer v-if="legalNotice">
+              <small class="text-muted" v-html="legalNotice" />
+            </b-card-footer>
+
+            <!-- TODO: use speedrun logo -->
+            <!-- <pre>{{ game}}</pre> -->
+            <!-- <b-card-img src="https://placekitten.com/480/210" alt="Image" bottom></b-card-img> -->
+          </b-card>
+        </b-col>
+      </b-row>
+
+      <b-row>
+        <b-col>
+          <similar-games
+            :loading="loading"
+            class="mb-2"
+          />
+        </b-col>
+        <b-col>
+          <!-- Bundles -->
+          <game-speedruns v-if="game" />
+          <!-- <pre>{{ game.speedruns }}</pre> -->
+          <!-- TODO: add bundles to game detail? -->
+          {{ game.bundles ? `Found in ${game.bundles.length} compilations.` : null }}
+        </b-col>
+      </b-row>
+    </template>
+
+    <div class="pt-5" v-else>
+      <div class="d-flex justify-content-center align-items-center" id="main">
+        <h1 class="mr-3 pr-3 align-top border-right inline-block align-content-center">404</h1>
+        <div class="inline-block align-middle">
+          <h2 class="font-weight-normal lead" id="desc">Game was not found.</h2>
         </div>
+      </div>
+    </div>
 
-        <!-- <b-skeleton-img
-          v-if="loading"
-          width="100px"
-          height="100px"
-        /> -->
-
-        <!-- <template v-else>
-          <game-videos :videos="game.videos" v-if="game.videos" />
-        </template> -->
-
-        <game-websites :game="game" class="d-none d-md-inline" />
-        <game-notes />
-        <b-button variant="info" @click="openGameNews">
-          <b-badge>3</b-badge>
-          News about {{ game.name }}
-        </b-button>
-        <!-- TODO: restore prev/next game -->
-        <!-- <b-dropdown-item-button
-          v-if="!prevDisabled"
-          v-shortkey="['arrowleft']"
-          @shortkey.native="previousGame"
-          @click="previousGame"
-        >
-          <i class="fas fa-caret-left fa-fw" aria-hidden /> Previous game
-
-        </b-dropdown-item-button>
-
-        <b-dropdown-item-button
-          v-if="!nextDisabled"
-          v-shortkey="['arrowright']"
-          @shortkey.native="nextGame"
-          @click="nextGame"
-        >
-          <i class="fas fa-caret-right fa-fw" aria-hidden /> Next game
-        </b-dropdown-item-button> -->
-        <!-- <pre>{{ game.genres.map(({ id }) => id) }}</pre> -->
-        <!-- TODO: add bundles to game detail? -->
-        <!-- {{ game.bundles ? `Found in ${game.bundles.length} compilations.` : null }} -->
-        <!-- <timeline
-          v-if="twitterHandle"
-          :id="twitterHandle"
-          sourceType="profile"
-        >
-          loading...
-        </timeline> -->
-      </b-col>
-
+    <b-row>
       <b-col
         cols="10"
         sm="6"
         md="7"
         offset="1"
         offset-sm="0"
-        lg="8"
+        lg="6"
       >
         <!-- <pre class="text-dark small">{{ game.gog.price }}</pre> -->
-
-        <game-titles />
-        <b-badge variant="success" v-if="game && game.steam && game.steam.metacritic">{{ game.steam.metacritic.score }}</b-badge>
-
-        <b-badge
-          v-for="({ hex, tagTextColor }, name) in gameTags"
-          :key="name"
-          pill
-          tag="small"
-          class="mr-1 mb-2"
-          :style="`background-color: ${hex}; color: ${tagTextColor}`"
-          @click="$router.push({ name: 'game.tags', params: { id: game.id, slug: game.slug } })"
-          v-b-modal.tags
-        >
-          {{ name }}
-        </b-badge>
 
         <!-- <small>
           <pre class="text-dark">{{ steamGame }}</pre>
@@ -114,15 +142,7 @@
         <!-- <small v-if="gog && gog.isPriceVisible">{{gog.price.symbol}}{{ gog.price.amount }}</small> -->
         <!-- <small><pre class="text-dark">{{ gog }}</pre></small> -->
         <!-- <pre class="small text-dark">{{ steamGame }}</pre> -->
-        <b-progress
-          v-if="progress"
-          :value="progress"
-          variant="success"
-          height="8px"
-          v-b-modal.progress
-          class="my-1 w-25"
-          @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
-        />
+
         <!-- TODO: use percentage instead? -->
 
         <!-- TODO: add icons for game modes:
@@ -132,17 +152,6 @@
         split-screen
         massively-multiplayer-online-mmo
         battle-royale -->
-
-        <game-genres :game="game" />
-        <game-description />
-        <game-platforms />
-        <game-details />
-
-        <game-websites
-          :game="game"
-          grid
-          class="d-md-none"
-        />
 
         <!-- <template v-if="!loading">
           <b-skeleton v-for="n in 3" :key="n" />
@@ -160,16 +169,41 @@
 
         <br /> -->
       </b-col>
-
-      <b-col cols="12">
-        <similar-games
-          :loading="loading"
-          class="mb-2"
-        />
-      </b-col>
     </b-row>
+    <!-- <b-button variant="info" @click="openGameNews">
+      <b-badge>3</b-badge>
+      News about {{ game.name }}
+    </b-button> -->
+    <!-- TODO: restore prev/next game -->
+    <!-- <b-dropdown-item-button
+      v-if="!prevDisabled"
+      v-shortkey="['arrowleft']"
+      @shortkey.native="previousGame"
+      @click="previousGame"
+    >
+      <i class="fas fa-caret-left fa-fw" aria-hidden /> Previous game
 
-    <!-- <div class="game-backdrop" :style="`background-image: url(${backdropUrl})`" /> -->
+    </b-dropdown-item-button>
+
+    <b-dropdown-item-button
+      v-if="!nextDisabled"
+      v-shortkey="['arrowright']"
+      @shortkey.native="nextGame"
+      @click="nextGame"
+    >
+      <i class="fas fa-caret-right fa-fw" aria-hidden /> Next game
+    </b-dropdown-item-button> -->
+    <!-- <pre>{{ game.genres.map(({ id }) => id) }}</pre> -->
+
+    <!-- <timeline
+      v-if="twitterHandle"
+      :id="twitterHandle"
+      sourceType="profile"
+    >
+      loading...
+    </timeline> -->
+
+    <!-- <div class="game-backdrop" :style="`background-image: url(${gameScrenshot})`" /> -->
   </b-container>
 </template>
 
@@ -179,14 +213,13 @@ import { mapState, mapGetters } from 'vuex';
 import { WEBSITE_CATEGORIES } from '@/constants';
 import AmazonLinks from '@/components/Game/AmazonLinks';
 import GameNotes from '@/components/Game/GameNotes';
-import GameGenres from '@/components/Game/GameGenres';
 import GameDetails from '@/components/Game/GameDetails';
 import GameTitles from '@/components/Game/GameTitles';
-import GamePlatforms from '@/components/Game/GamePlatforms';
 import GameRating from '@/components/Game/GameRating';
 import GameDescription from '@/components/Game/GameDescription';
 import SimilarGames from '@/components/Game/SimilarGames';
 import GameWebsites from '@/components/Game/GameWebsites';
+import GameSpeedruns from '@/components/Game/GameSpeedruns';
 
 export default {
   components: {
@@ -195,11 +228,10 @@ export default {
     GameDescription,
     GameDetails,
     GameTitles,
-    GamePlatforms,
     GameRating,
     GameNotes,
-    GameGenres,
     GameWebsites,
+    GameSpeedruns,
     SimilarGames,
   },
 
@@ -221,6 +253,10 @@ export default {
   computed: {
     ...mapState(['game', 'progresses', 'tags']),
     ...mapGetters(['gameTags']),
+
+    legalNotice() {
+      return this.game?.steam?.legal_notice;
+    },
 
     // prevDisabled() {
     //   return this.gameIndex === 0;
@@ -263,13 +299,13 @@ export default {
       return this.$route.params.id;
     },
 
-    // backdropUrl() {
-    //   const screenshots = this.game?.screenshots;
-    //
-    //   return screenshots.length > 0
-    //     ? `https://images.igdb.com/igdb/image/upload/t_screenshot_huge_2x/${screenshots[0].image_id}.jpg`
-    //     : '';
-    // },
+    gameScrenshot() {
+      const screenshots = this.game?.screenshots;
+
+      return screenshots?.length > 0
+        ? `https://images.igdb.com/igdb/image/upload/t_screenshot_huge_2x/${screenshots[0].image_id}.jpg`
+        : null;
+    },
 
     wikipediaData() {
       return this.game?.websites?.find(({ url, category }) => url && category === WEBSITE_CATEGORIES.WIKIPEDIA);
@@ -318,17 +354,20 @@ export default {
 
       if (!this.gameId || gameCached) return;
 
+      this.loading = true;
       this.$store.commit('CLEAR_GAME');
 
-      this.loading = true;
 
       await this.$store.dispatch('LOAD_GAME', this.gameId)
         .catch(() => {
           this.loading = false;
-          this.$bvToast.toast('Error loading game', { variant: 'error' });
+
+          return;
+          // this.$bvToast.toast('Error loading game', { variant: 'error' });
         });
 
       this.loading = false;
+      console.log('loadSupplementalData');
       this.loadSupplementalData();
     },
 
@@ -376,9 +415,8 @@ export default {
       const wikipediaSlug = this.wikipediaData?.url?.split('/wiki/')[1];
 
       if (wikipediaSlug) await this.$store.dispatch('LOAD_WIKIPEDIA_ARTICLE', wikipediaSlug).catch((e) => {});
-      if (steamGameId) await this.$store.dispatch('LOAD_STEAM_GAME', steamGameId);
-      if (gogPage) await this.$store.dispatch('LOAD_GOG_GAME', this.game.name);
-      // await this.$store.dispatch('LOAD_GAME_SPEEDRUNS', this.game.name);
+      if (steamGameId) await this.$store.dispatch('LOAD_STEAM_GAME', steamGameId).catch((e) => {});
+      if (gogPage) await this.$store.dispatch('LOAD_GOG_GAME', this.game.name).catch((e) => {});
     },
   },
 };

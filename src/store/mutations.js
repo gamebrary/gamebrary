@@ -135,10 +135,10 @@ export default {
     state.game.wikipedia = data;
   },
 
-  // APPEND_GAME_SPEEDRUNS(state, data) {
-  //   console.log('speedrus?', data);
-  //   state.game.speedruns = data;
-  // },
+  APPEND_GAME_SPEEDRUNS(state, data) {
+    console.log('game', state.game);
+    Vue.set(state.game, 'speedruns', data);
+  },
 
   APPEND_GOG_GAME_DATA(state, data) {
     state.game.gog = data;
