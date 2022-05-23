@@ -1,8 +1,8 @@
 <template lang="html">
   <!-- TODO: show list preview in full page view -->
   <!-- TODO: show search inline, allow to go full screen (search page) -->
-  <b-container fluid>
-    <b-form-row v-if="list">
+  <b-container fluid class="p-0">
+    <b-row v-if="list" no-gutters>
       <b-col sm="12" md="6">
         <div :style="boardStyles" class="p-3 list-preview d-flex justify-content-center">
           <game-list :list="list" preview />
@@ -185,7 +185,7 @@
           </form>
         </b-card>
       </b-col>
-    </b-form-row>
+    </b-row>
   </b-container>
 </template>
 
