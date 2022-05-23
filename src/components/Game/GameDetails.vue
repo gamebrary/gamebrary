@@ -1,48 +1,68 @@
 <template lang="html">
-  <div>
-    <b-alert show variant="secondary" class="game-details">
-      <div v-if="gameModes">
-        <strong>{{ $t('board.gameModal.gameModes') }}: </strong>
-        <span class="text-wrap">{{ gameModes }}</span>
-      </div>
+  <b-list-group flush>
+    <game-genres />
 
-      <div v-if="gameDevelopers">
-        <strong>{{ $t('board.gameModal.developers') }}: </strong>
-        <span class="text-wrap">{{ gameDevelopers }}</span>
-      </div>
+    <b-list-group-item v-if="gameModes" class="p-2 small">
+      <strong>{{ $t('board.gameModal.gameModes') }}: </strong>
+      <span class="text-wrap">{{ gameModes }}</span>
+    </b-list-group-item>
 
-      <div v-if="gamePublishers">
-        <strong>{{ $t('board.gameModal.publishers') }}: </strong>
-        <span class="text-wrap">{{ gamePublishers }}</span>
-      </div>
+    <b-list-group-item v-if="gameDevelopers" class="p-2 small">
+      <strong>{{ $t('board.gameModal.developers') }}: </strong>
+      <span class="text-wrap">{{ gameDevelopers }}</span>
+    </b-list-group-item>
 
-      <div v-if="playerPerspectives">
-        <strong>{{ $t('board.gameModal.perspective') }}: </strong>
-        <span class="text-wrap">{{ playerPerspectives }}</span>
-      </div>
+    <b-list-group-item v-if="gamePublishers" class="p-2 small">
+      <strong>{{ $t('board.gameModal.publishers') }}: </strong>
+      <span class="text-wrap">{{ gamePublishers }}</span>
+    </b-list-group-item>
 
-      <!-- TODO: add timeline -->
-      <!-- <ul class="timeline" v-if="releaseDates">
-        {{ $t('board.gameModal.releaseDate') }}
+    <b-list-group-item v-if="playerPerspectives" class="p-2 small">
+      <strong>{{ $t('board.gameModal.perspective') }}: </strong>
+      <span class="text-wrap">{{ playerPerspectives }}</span>
+    </b-list-group-item>
+
+    <b-list-group-item class="p-2 small">
+      <strong>Available for: </strong>
+
+      <span class="text-wrap">{{ gamePlatforms || 'N/A' }}</span>
+    </b-list-group-item>
+
+    <b-list-group-item class="p-2 small">
+      <strong>{{ $t('board.gameModal.releaseDate') }}</strong>
+      <ol v-if="releaseDates" class="list-unstyled mb-0">
         <li
           v-for="{ id, platform, date } in releaseDates"
           :key="id"
-          class="event pb-2"
         >
-          {{ date }} - {{ platform || 'N/A' }}
+          {{ date }} <span class="text-muted">{{ platform || 'N/A' }}</span>
         </li>
-      </ul> -->
-    </b-alert>
-  </div>
+      </ol>
+
+      <div v-else>
+        Not released yet
+      </div>
+    </b-list-group-item>
+  </b-list-group>
 </template>
 
 <script>
+import GameGenres from '@/components/Game/GameGenres';
+
 import { mapGetters, mapState } from 'vuex';
 
 export default {
+  components: {
+    GameGenres,
+  },
+
   computed: {
     ...mapGetters(['platformNames']),
     ...mapState(['game']),
+
+    gamePlatforms() {
+      return this.game?.platforms?.map(({ name }) => name).join(', ');
+    },
 
     gameDevelopers() {
       return this.game?.involved_companies
