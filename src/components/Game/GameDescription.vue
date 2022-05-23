@@ -1,22 +1,15 @@
 <template lang="html">
   <div class="game-description">
-    <div v-if="loading" class="mb-4">
+    <template v-if="loading">
       <b-skeleton
         v-for="n in 3"
         :key="n"
       />
-    </div>
+    </template>
 
     <template v-else>
-      <!-- <pre>{{ wikipediaExtract }}</pre> -->
-      <!-- <div v-html="wikipediaExtract" /> -->
       <div v-html="description" />
       <small class="text-muted">Source: {{ source }}</small>
-      <!-- <div v-html="description" /> -->
-      <!-- <p
-        :class="{'break-spaces': source === 'IGDB' }"
-        v-html="description"
-      /> -->
     </template>
 
     <!-- <b-card no-body v-if="wikipediaArticle && wikipediaArticle.remaining">
@@ -30,10 +23,6 @@
         </b-tab>
       </b-tabs>
     </b-card> -->
-
-    <footer v-if="legalNotice">
-      <small class="text-muted" v-html="legalNotice" />
-    </footer>
   </div>
 </template>
 
@@ -92,10 +81,6 @@ export default {
 
     wikipediaData() {
       return this.game?.websites?.find(({ url, category }) => url && category === WEBSITE_CATEGORIES.WIKIPEDIA);
-    },
-
-    legalNotice() {
-      return this.game?.steam?.legal_notice;
     },
   },
 
