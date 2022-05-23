@@ -13,7 +13,6 @@ import VueAnalytics from 'vue-analytics';
 import Raven from 'raven-js';
 import PortalVue from 'portal-vue';
 import RavenVue from 'raven-js/plugins/vue';
-import VueObserveVisibility from 'vue-observe-visibility';
 import App from '@/App';
 import './registerServiceWorker';
 import messages from '@/i18n/';
@@ -34,7 +33,6 @@ Object.defineProperties(Vue.prototype, {
 Vue.use(VueShortKey, { prevent: ['input', 'textarea'] });
 Vue.use(Dayjs);
 Vue.use(PortalVue);
-Vue.use(VueObserveVisibility);
 Vue.use(BootstrapVue, bootstrapSettings);
 Vue.use(VueAnalytics, { id: 'UA-120053966-1', router });
 Vue.use(VueAxios, axios);

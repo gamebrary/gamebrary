@@ -2,7 +2,6 @@
 <!-- {{ game.bundles ? `Found in ${game.bundles.length} compilations.` : null }} -->
 <!-- TODO: add speedruns -->
 <!-- TODO: add pricecharting info -->
-<!-- TODO: use v-observe-visibility -->
 <!-- TODO: show GOG buy button -->
 <!-- TODO: Show lists/boards that the game belongs to -->
 

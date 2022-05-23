@@ -39,7 +39,6 @@
     "vue-axios": "^2.1.1",
     "vue-dayjs": "^1.0.2",
     "vue-i18n": "^8.0.0",
-    "vue-observe-visibility": "^1.0.0",
     "vue-raven": "^1.0.0",
     "vue-router": "^3.5.1",
     "vue-shortkey": "^3.1.7",
