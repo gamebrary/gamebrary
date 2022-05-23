@@ -10,6 +10,7 @@ export default {
   },
 
   gameTags: ({ tags, game }) => {
+    if (!game?.id) return [];
     // TODO: refactor architecture, don't use tag name as key
     const tagsArray = Object.entries(tags);
     const filteredTags = tagsArray.filter(([key, value]) => {

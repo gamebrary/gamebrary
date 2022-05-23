@@ -13,7 +13,7 @@ export default {
   boards: [],
   publicBoards: [],
   board: {},
-  game: {},
+  game: null,
   boardGames: [],
   wallpapers: [],
   platform: null,

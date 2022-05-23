@@ -124,7 +124,7 @@ export default {
   },
 
   CLEAR_GAME(state) {
-    state.game = {};
+    state.game = null;
   },
 
   APPEND_STEAM_GAME_DATA(state, data) {

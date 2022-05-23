@@ -1,5 +1,5 @@
 <template lang="html">
-  <div v-if="game.websites" class="mt-4 d-block">
+  <div v-if="game" class="mt-4 d-block">
     <b-button
       v-for="{ url, id, icon, svg } in links"
       :href="url"
@@ -38,7 +38,7 @@ export default {
 
   computed: {
     links() {
-      return this.game.websites.map(({ url, category }) => {
+      return this.game?.websites?.map(({ url, category }) => {
         const link = {
           url,
           ...LINKS_CATEGORIES[category],

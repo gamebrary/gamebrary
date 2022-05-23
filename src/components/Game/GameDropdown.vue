@@ -1,6 +1,6 @@
 <template lang="html">
   <b-dropdown
-    v-if="game.id"
+    v-if="game"
     split
     :split-to="{ name: 'game', params: { id: game.id, slug: game.slug }}"
     split-class="p-0"
