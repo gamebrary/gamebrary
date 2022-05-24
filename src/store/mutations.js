@@ -144,10 +144,6 @@ export default {
     state.game.gog = data;
   },
 
-  REMOVE_LIST(state, index) {
-    state.board.lists.splice(index, 1);
-  },
-
   MOVE_LIST(state, { from, to }) {
     const cutOut = state.board.lists.splice(from, 1)[0];
 

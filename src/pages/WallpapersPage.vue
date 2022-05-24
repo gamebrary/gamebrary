@@ -10,23 +10,7 @@
     />
 
     <template v-else>
-      <header class="my-3 d-flex align-items-center justify-content-between">
-        <h1>Wallpapers</h1>
-
-        <!-- <div class="space-used ml-auto mr-3">
-          <small
-            class="d-block text-center"
-            :class="{ 'text-danger': outOfSpace }"
-            v-text="usedSpaceText"
-          />
-
-          <b-progress
-            :value="spaceUsed"
-            :max="maxSpace"
-            :variant="outOfSpace ? 'danger' : 'success'"
-          />
-        </div> -->
-
+      <page-title title="Wallpapers">
         <b-button
           :disabled="outOfSpace"
           variant="primary"
@@ -39,7 +23,7 @@
             <span class="d-none d-sm-inline">Upload</span>
           </template>
         </b-button>
-      </header>
+      </page-title>
 
       <b-alert
         v-if="isDuplicate && !saving && file && file.name"

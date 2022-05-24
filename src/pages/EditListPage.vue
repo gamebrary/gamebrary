@@ -1,4 +1,6 @@
 <template lang="html">
+  <!-- TODO: finish this -->
+  <!-- TODO: move move arrows to next to list preview -->
   <!-- TODO: show list preview in full page view -->
   <!-- TODO: show search inline, allow to go full screen (search page) -->
   <b-container fluid class="p-0">
@@ -11,8 +13,12 @@
 
       <b-col>
         <b-card>
-          <header class="p-1 pl-2 d-flex justify-content-between align-items-center">
-            <h1>Edit list</h1>
+          <header class="p-1 mb-3 pl-2 d-flex justify-content-between align-items-center">
+            <h1 class="mb-0">Edit list</h1>
+
+            <b-button variant="success">
+              Add games
+            </b-button>
           </header>
 
           <form ref="renameListForm" @submit.stop.prevent="saveChanges">
@@ -165,23 +171,25 @@
               </b-list-group-item>
             </b-list-group>
 
-            <b-button
-              variant="primary"
-              class="ml-auto"
-              type="submit"
-              :disabled="saving || isDuplicate"
-            >
-              <b-spinner small v-if="saving" />
-              <span v-else>{{ $t('global.save') }}</span>
-            </b-button>
+            <footer class="mt-2 d-flex justify-content-between align-items-center">
+              <b-button
+                variant="primary"
+                type="submit"
+                :disabled="saving || isDuplicate"
+              >
+                <b-spinner small v-if="saving" />
+                <span v-else>{{ $t('global.save') }}</span>
+              </b-button>
 
-            <b-button
-              variant="warning"
-              @click="promptDeleteList"
-            >
-              <i class="fas fa-trash-alt fa-fw" aria-hidden />
-              {{ $t('board.list.delete') }}
-            </b-button>
+              <b-button
+                variant="link"
+                class="text-danger"
+                @click="promptDeleteList"
+              >
+                <i class="fas fa-trash-alt fa-fw" aria-hidden />
+                {{ $t('board.list.delete') }}
+              </b-button>
+            </footer>
           </form>
         </b-card>
       </b-col>
@@ -244,8 +252,8 @@ export default {
     existingListNames() {
       const originalListName = this.board?.lists[this.listIndex]?.name;
 
-      return this.board?.lists.map(({ name }) => name.toLowerCase())
-        .filter(name => name !== originalListName.toLowerCase());
+      return this.board?.lists.map(({ name }) => name?.toLowerCase())
+        .filter(name => originalListName?.toLowerCase() !== name);
     },
 
     isDuplicate() {
@@ -312,16 +320,13 @@ export default {
     },
 
     async deleteList() {
-      // this.$store.commit('REMOVE_LIST', this.listIndex);
+      const board = { ...this.board };
 
-      await this.$store.dispatch('SAVE_BOARD', true)
-        .catch(() => {
-          this.$store.commit('SET_SESSION_EXPIRED', true);
-        });
+      board.lists.splice(this.listIndex, 1);
 
-      this.$bvToast.toast('List deleted', {
-        variant: 'warning',
-      });
+      await this.$store.dispatch('SAVE_GAME_BOARD', board);
+
+      this.$router.push({ name: 'board', params: { id: this.board.id } });
     },
 
     async moveList(from, to) {

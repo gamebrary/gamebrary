@@ -2,9 +2,7 @@
 <!-- TODO: pagination? -->
 <template lang="html">
   <b-container fluid>
-    <page-title
-      title="Notes"
-    >
+    <page-title title="Notes">
       <b-form-input
         v-if="!showEmptyState"
         type="search"
@@ -12,10 +10,6 @@
         placeholder="Search notes"
         v-model="search"
       />
-
-      <!-- <b-button>
-        Add note
-      </b-button> -->
     </page-title>
 
     <empty-state

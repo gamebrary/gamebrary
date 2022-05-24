@@ -1,7 +1,6 @@
 <template lang="html">
   <div>
     <pre>{{ gameLogo }}</pre>
-    <!-- <pre>{{ speedruns }}</pre> -->
   </div>
 </template>
 
