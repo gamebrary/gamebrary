@@ -27,24 +27,20 @@
             {{ game.name }}
           </b-card-title>
 
-          <!-- <div class="game-info bg-dark">
-            <small class="text-muted" v-if="gameProgress > 0">
-              <i v-if="gameProgress == 100" class="fas fa-check fa-fw" aria-hidden />
-              <span v-else>{{ gameProgress }}%</span>
-            </small>
-          </div> -->
-
-          <b-badge variant="warning" v-if="gameNotes">
+          <b-badge variant="warning" v-if="gameNotes" class="mr-1">
             <i class="far fa-sticky-note fa-fw" />
           </b-badge>
 
-          <!-- <b-progress
+          <b-badge
             v-if="gameProgress > 0"
-            :value="gameProgress"
-            class="my-2"
+            rounded
             variant="success"
-            height="6px"
-          /> -->
+            class="mr-1"
+            size="sm"
+          >
+            <i v-if="gameProgress == 100" class="fas fa-check fa-fw" aria-hidden />
+            <small v-else>{{ gameProgress }}%</small>
+          </b-badge>
 
           <template v-if="showGameTags">
             <b-badge
@@ -58,6 +54,8 @@
               <small>{{ name }}</small>
             </b-badge>
           </template>
+
+          <!-- TODO: show release dates -->
         </b-card-body>
       </b-col>
     </b-row>

@@ -198,7 +198,6 @@
 </template>
 
 <script>
-// import ListPreferences from '@/components/Lists/ListPreferences';
 import GameList from '@/components/Lists/GameList';
 
 import { mapState } from 'vuex';
@@ -206,7 +205,6 @@ import { mapState } from 'vuex';
 export default {
   components: {
     GameList,
-    // ListPreferences,
   },
 
   data() {
