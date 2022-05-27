@@ -5,14 +5,6 @@
     <provider-card />
 
     <b-button
-      @click="session_signOut"
-      variant="light"
-      class="mb-2 mt-2 mr-2"
-    >
-      {{ $t('global.signOut') }}
-    </b-button>
-
-    <b-button
       variant="danger"
       v-b-modal:deleteAccount
     >
@@ -26,7 +18,6 @@
 <script>
 import DeleteAccountModal from '@/components/Settings/DeleteAccountModal';
 import ProviderCard from '@/components/ProviderCard';
-import sessionMixin from '@/mixins/sessionMixin';
 import { mapState } from 'vuex';
 
 export default {
@@ -35,7 +26,6 @@ export default {
     DeleteAccountModal,
   },
 
-  mixins: [sessionMixin],
 
   computed: {
     ...mapState(['user']),

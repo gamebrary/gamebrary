@@ -39,7 +39,7 @@
 
         <b-dropdown-divider />
 
-        <b-dropdown-item href="#">
+        <b-dropdown-item @click="session_signOut">
           <i class="fa-solid fa-arrow-right-from-bracket" />
           Log out
         </b-dropdown-item>
@@ -61,10 +61,12 @@ import GameDropdown from '@/components/Game/GameDropdown';
 import BoardsDropdown from '@/components/BoardsDropdown';
 import SearchBox from '@/components/SearchBox';
 import HomeButton from '@/components/Shared/HomeButton';
-
+import sessionMixin from '@/mixins/sessionMixin';
 import { mapState } from 'vuex';
 
 export default {
+  mixins: [sessionMixin],
+
   components: {
     GameDropdown,
     BoardsDropdown,
