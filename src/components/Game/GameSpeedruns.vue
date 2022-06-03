@@ -1,7 +1,8 @@
 <template lang="html">
-  <div>
-    <pre>{{ gameLogo }}</pre>
-  </div>
+  <b-card class="bg-info">
+    [SPEEDRUNS]
+    <!-- <pre>{{ gameLogo }}</pre> -->
+  </b-card>
 </template>
 
 <script>

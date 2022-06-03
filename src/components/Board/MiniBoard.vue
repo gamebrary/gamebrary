@@ -1,6 +1,6 @@
 <template lang="html">
   <div
-    :class="['mini-board overflow-hidden p-1 rounded cursor-pointer', { 'bg-secondary': !board.backgroundColor }]"
+    :class="['mini-board overflow-hidden p-1 rounded cursor-pointer m-0', { 'bg-secondary': !board.backgroundColor }]"
     :style="miniBoardStyles"
     @click="$emit('view-board', board.id)"
   >
@@ -10,10 +10,6 @@
       <small v-if="board.isPublic" class="text-info">
         (Public)
       </small>
-
-      <div class="ml-auto">
-        <slot />
-      </div>
     </header>
 
     <div class="lists rounded overflow-hidden">
@@ -68,12 +64,13 @@ $boardHeight: 200px;
   background-repeat: no-repeat;
   background-size: cover;
   height: $boardHeight;
-  width: 363.2px;
+  width: 100%;
+  // width: 363.2px;
 
-  @media(max-width: 1024px) { width: 320px; }
-  @media(max-width: 768px) { width: 360px; }
-  @media(width: 500px) { width: 222px; }
-  @media(max-width: 500px) { width: calc(100% - 8px); }
+  // @media(max-width: 1024px) { width: 320px; }
+  // @media(max-width: 768px) { width: 360px; }
+  // @media(width: 500px) { width: 222px; }
+  // @media(max-width: 500px) { width: calc(100% - 8px); }
 }
 
 .lists {

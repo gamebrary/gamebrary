@@ -11,7 +11,14 @@
 
     <template v-else-if="game">
       <b-row>
-        <b-col>
+        <b-col
+          offset="2"
+          offset-sm="0"
+          cols="8"
+          sm="4"
+          md="4"
+          xl="3"
+        >
           <b-img
             :src="gameCoverUrl"
             :alt="game.name"
@@ -26,9 +33,6 @@
             height="100px"
           /> -->
 
-          <!-- <template v-else>
-            <game-videos :videos="game.videos" v-if="game.videos" />
-          </template> -->
           <amazon-links class="mt-2" />
 
           <div class="game-info">
@@ -36,82 +40,124 @@
           </div>
         </b-col>
 
-        <b-col>
-          <game-titles />
-          <b-progress
-            v-if="progress"
-            :value="progress"
-            variant="success"
-            height="8px"
-            v-b-modal.progress
-            class="my-1 w-25"
-            @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
-          />
-          <b-badge variant="success" v-if="game && game.steam && game.steam.metacritic">{{ game.steam.metacritic.score }}</b-badge>
-
-          <b-badge
-            v-for="({ hex, tagTextColor }, name) in gameTags"
-            :key="name"
-            pill
-            tag="small"
-            class="mr-1 mb-2"
-            :style="`background-color: ${hex}; color: ${tagTextColor}`"
-            @click="$router.push({ name: 'game.tags', params: { id: game.id, slug: game.slug } })"
-            v-b-modal.tags
-          >
-            {{ name }}
-          </b-badge>
-          <game-description />
-
-          <game-notes />
-        </b-col>
-
-        <b-col>
-          <b-card
-            no-body
-            style="max-width: 20rem;"
-          >
-            <b-link :to="{ name: 'game.media', params: { id: game.id, slug: game.slug } }">
-              <b-card-img :src="gameScrenshot" top />
-            </b-link>
-            <b-button
-              class="m-1"
-              variant="light"
-              :to="{ name: 'game.media', params: { id: game.id, slug: game.slug } }"
+        <b-col
+          cols="12"
+          sm="8"
+          md="8"
+          lg="8"
+          xl="9"
+        >
+          <b-row>
+            <b-col
+              offset="12"
+              offset-sm="0"
+              cols="12"
+              sm="12"
+              md="7"
+              xl="8"
             >
-              <i class="fa-solid fa-photo-film" />
-              Videos & Screenshots
-            </b-button>
+              <game-titles />
+              <b-progress
+                v-if="progress"
+                :value="progress"
+                variant="success"
+                height="8px"
+                v-b-modal.progress
+                class="my-1 w-25"
+                @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
+              />
+              <b-badge variant="success" v-if="game && game.steam && game.steam.metacritic">{{ game.steam.metacritic.score }}</b-badge>
 
-            <game-details />
-            <game-websites
-              :game="game"
-            />
+              <b-badge
+                v-for="({ hex, tagTextColor }, name) in gameTags"
+                :key="name"
+                pill
+                tag="small"
+                class="mr-1 mb-2"
+                :style="`background-color: ${hex}; color: ${tagTextColor}`"
+                @click="$router.push({ name: 'game.tags', params: { id: game.id, slug: game.slug } })"
+                v-b-modal.tags
+              >
+                {{ name }}
+              </b-badge>
+              <game-description />
 
-            <b-card-footer v-if="legalNotice">
-              <small class="text-muted" v-html="legalNotice" />
-            </b-card-footer>
+              <game-notes />
+            </b-col>
 
-            <!-- TODO: use speedrun logo -->
-            <!-- <pre>{{ game}}</pre> -->
-            <!-- <b-card-img src="https://placekitten.com/480/210" alt="Image" bottom></b-card-img> -->
-          </b-card>
+            <b-col
+              offset="1"
+              offset-sm="0"
+              cols="10"
+              sm="12"
+              md="5"
+              xl="4"
+            >
+              <b-card
+                no-body
+              >
+                <b-link :to="{ name: 'game.media', params: { id: game.id, slug: game.slug } }">
+                  <b-card-img :src="gameScrenshot" top />
+                </b-link>
+                <b-button
+                  class="m-1"
+                  variant="light"
+                  :to="{ name: 'game.media', params: { id: game.id, slug: game.slug } }"
+                >
+                  <i class="fa-solid fa-photo-film" />
+                  Videos & Screenshots
+                </b-button>
+
+                <game-details />
+                <game-websites
+                  :game="game"
+                />
+
+                <b-card-footer v-if="legalNotice">
+                  <small class="text-muted" v-html="legalNotice" />
+                </b-card-footer>
+
+                <!-- TODO: use speedrun logo -->
+                <!-- <pre>{{ game}}</pre> -->
+                <!-- <b-card-img src="https://placekitten.com/480/210" alt="Image" bottom></b-card-img> -->
+              </b-card>
+            </b-col>
+          </b-row>
         </b-col>
-      </b-row>
 
-      <b-row>
-        <b-col>
+        <b-col
+          cols="12"
+          sm="12"
+          md="6"
+          xl="6"
+          class="mt-3"
+        >
           <similar-games
             :loading="loading"
-            class="mb-2"
           />
         </b-col>
-        <b-col>
-          <!-- Bundles -->
+
+        <b-col
+          cols="12"
+          sm="12"
+          md="6"
+          xl="6"
+          class="mt-3"
+        >
           <game-speedruns v-if="game" />
           <!-- <pre>{{ game.speedruns }}</pre> -->
           <!-- TODO: add bundles to game detail? -->
-          {{ game.bundles ? `Found in ${game.bundles.length} compilations.` : null }}
+        </b-col>
+
+        <b-col
+          cols="12"
+          class="mt-3"
+        >
+          <b-card>
+            <h4>[BUNDLES]</h4>
+          </b-card>
+          <!-- <pre>{{ game }}</pre> -->
+          <!-- {{ game.bundles ? `Found in ${game.bundles.length} compilations.` : null }} -->
         </b-col>
       </b-row>
     </template>

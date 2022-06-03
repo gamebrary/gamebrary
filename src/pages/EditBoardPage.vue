@@ -1,185 +1,208 @@
+<!-- TODO: Add back button -->
+<!-- TODO: refactor platforms and wallpapers -->
+<!-- TODO: add board preview-->
+<!-- TODO: use board placeholder for preview / disable placeholder animation -->
 <template lang="html">
-  <!-- TODO: Add back button -->
-  <!-- TODO: refactor platforms and wallpapers -->
-  <!-- TODO: add board preview-->
-  <!-- TODO: use board placeholder for preview / disable placeholder animation -->
-  <b-container fluid class="p-2">
-    <form ref="boardSettingsForm" @submit.stop.prevent="submit">
-      <b-row>
-        <b-col>
-          <b-button @click="goToBoard">
-            Back to board
-          </b-button>
+  <b-container fluid class="p-0">
+    <b-row v-if="board" no-gutters>
+      <b-col sm="12" md="6">
+        <div class="p-3 list-preview d-flex justify-content-center">
+          <!-- <game-list :list="list" preview /> -->
+          <board-placeholder />
+        </div>
+      </b-col>
 
-          <b-form-group
-            :label="$t('board.settings.nameLabel')"
-            label-for="name"
-          >
-            <b-form-input
-              id="name"
-              v-model="name"
-              required
-            />
-          </b-form-group>
+      <b-col>
+        <b-card>
+          <header class="p-1 mb-3 pl-2 d-flex justify-content-between align-items-center">
+            <h1 class="mb-0">Edit board</h1>
 
-          <b-form-group
-            :label="$t('board.settings.descriptionLabel')"
-            label-for="description"
-          >
-            <b-form-textarea
-              id="description"
-              v-model="description"
-              maxlength="280"
-              rows="3"
-            />
-          </b-form-group>
+            <b-button variant="success">
+              Add games
+            </b-button>
+          </header>
 
-          <b-form-checkbox v-model="isPublic" switch class="mb-2">
-            Make board public (beta)
-          </b-form-checkbox>
+          <form ref="boardSettingsForm" @submit.stop.prevent="submit">
+            <b-row>
+              <b-col>
+                <b-button @click="goToBoard">
+                  Back to board
+                </b-button>
 
-          <b-alert show variant="info" v-if="isPublic" class="m-0">
-            <strong>Public Board URL</strong>
-            <br>
-            <small>{{ `https://app.gamebrary.com/#/b/${board.id}` }}</small>
-          </b-alert>
+                <b-form-group
+                  :label="$t('board.settings.nameLabel')"
+                  label-for="name"
+                >
+                  <b-form-input
+                    id="name"
+                    v-model="name"
+                    required
+                  />
+                </b-form-group>
 
-          <hr class="my-3">
+                <b-form-group
+                  :label="$t('board.settings.descriptionLabel')"
+                  label-for="description"
+                >
+                  <b-form-textarea
+                    id="description"
+                    v-model="description"
+                    maxlength="280"
+                    rows="3"
+                  />
+                </b-form-group>
 
-          <hr class="my-3">
+                <b-form-checkbox v-model="isPublic" switch class="mb-2">
+                  Make board public (beta)
+                </b-form-checkbox>
 
-          <b-button
-            variant="danger"
-            @click="confirmDelete"
-          >
-            {{ $t('board.settings.deleteBoard') }}
-          </b-button>
+                <b-alert show variant="info" v-if="isPublic" class="m-0">
+                  <strong>Public Board URL</strong>
+                  <br>
+                  <small>{{ `https://app.gamebrary.com/#/b/${board.id}` }}</small>
+                </b-alert>
 
-          <b-button
-            variant="primary"
-            :disabled="saving"
-            @click="saveSettings"
-          >
-            <b-spinner small v-if="saving" />
-            <span v-else>{{ $t('global.save') }}</span>
-          </b-button>
-        </b-col>
+                <hr class="my-3">
 
-        <b-col>
-          <!-- <b-button
-            variant="primary"
-            :disabled="saving"
-            @click="saveSettings"
-          >
-            <b-spinner small v-if="saving" />
-            <span v-else>{{ $t('global.save') }}</span>
-          </b-button> -->
+                <hr class="my-3">
 
-          <b-alert :show="noPlatformsSelected" variant="warning">
-            No platforms selected, game search will include all platforms.
-          </b-alert>
+                <b-button
+                  variant="danger"
+                  @click="confirmDelete"
+                >
+                  {{ $t('board.settings.deleteBoard') }}
+                </b-button>
 
-          <b-alert :show="noPlatformsSelected" variant="success">
-            Select platforms to limit search results.
-          </b-alert>
+                <b-button
+                  variant="primary"
+                  :disabled="saving"
+                  @click="saveSettings"
+                >
+                  <b-spinner small v-if="saving" />
+                  <span v-else>{{ $t('global.save') }}</span>
+                </b-button>
+              </b-col>
 
-          <!-- <platform-picker v-model="platforms" /> -->
-          <!-- <b-button-toolbar aria-label="Toolbar with button groups and dropdown menu">
-            <b-button-group class="mx-1">
-              <b-button>New</b-button>
-              <b-button>Edit</b-button>
-              <b-button>Undo</b-button>
-            </b-button-group>
-            <b-dropdown class="mx-1" right text="menu">
-              <b-dropdown-item>Item 1</b-dropdown-item>
-              <b-dropdown-item>Item 2</b-dropdown-item>
-              <b-dropdown-item>Item 3</b-dropdown-item>
-            </b-dropdown>
-            <b-button-group class="mx-1">
-              <b-button>Save</b-button>
-              <b-button>Cancel</b-button>
-            </b-button-group>
-          </b-button-toolbar> -->
+              <b-col>
+                <!-- <b-button
+                  variant="primary"
+                  :disabled="saving"
+                  @click="saveSettings"
+                >
+                  <b-spinner small v-if="saving" />
+                  <span v-else>{{ $t('global.save') }}</span>
+                </b-button> -->
 
-          <!-- <div class="d-flex mb-2">
-            <div class="filter mr-2">
-              <small class="d-block text-muted">Show:</small>
-              <b-button size="sm">All</b-button>
-              <b-button size="sm">Consoles</b-button>
-              <b-button size="sm">Handhelds</b-button>
-              <b-button size="sm">PC</b-button>
-            </div>
+                <b-alert :show="noPlatformsSelected" variant="warning">
+                  No platforms selected, game search will include all platforms.
+                </b-alert>
 
-            <div class="sort">
-              <small class="d-block text-muted">Sort by:</small>
-              <b-button size="sm">All</b-button>
-              <b-button size="sm">All</b-button>
-              <b-button size="sm">All</b-button>
-            </div>
-          </div> -->
-          <!-- <b-form-group
-            label="Stacked (vertical) switch style checkboxes"
-            v-slot="{ ariaDescribedby }"
-          >
-            <b-form-checkbox-group
-              v-model="selected"
-              :options="options"
-              :aria-describedby="ariaDescribedby"
-              switches
-              stacked
-            />
-          </b-form-group> -->
+                <b-alert :show="noPlatformsSelected" variant="success">
+                  Select platforms to limit search results.
+                </b-alert>
 
-          <b-dropdown
-            text="Select platforms"
-            class="platforms-dropdown"
-          >
-            <b-dropdown-item
-              v-for="platform in platforms"
-              :key="platform.id"
-            >
-              {{ platform.name }}
-            </b-dropdown-item>
-            <!-- <pre>{{ platforms }}</pre> -->
-            <!-- <b-dropdown-item>Second Action</b-dropdown-item> -->
-            <!-- <b-dropdown-item>Third Action</b-dropdown-item> -->
-            <!-- <b-dropdown-divider></b-dropdown-divider> -->
-            <!-- <b-dropdown-item active>Active action</b-dropdown-item> -->
-            <!-- <b-dropdown-item disabled>Disabled action</b-dropdown-item> -->
-          </b-dropdown>
+                <!-- <platform-picker v-model="platforms" /> -->
+                <!-- <b-button-toolbar aria-label="Toolbar with button groups and dropdown menu">
+                  <b-button-group class="mx-1">
+                    <b-button>New</b-button>
+                    <b-button>Edit</b-button>
+                    <b-button>Undo</b-button>
+                  </b-button-group>
+                  <b-dropdown class="mx-1" right text="menu">
+                    <b-dropdown-item>Item 1</b-dropdown-item>
+                    <b-dropdown-item>Item 2</b-dropdown-item>
+                    <b-dropdown-item>Item 3</b-dropdown-item>
+                  </b-dropdown>
+                  <b-button-group class="mx-1">
+                    <b-button>Save</b-button>
+                    <b-button>Cancel</b-button>
+                  </b-button-group>
+                </b-button-toolbar> -->
+
+                <!-- <div class="d-flex mb-2">
+                  <div class="filter mr-2">
+                    <small class="d-block text-muted">Show:</small>
+                    <b-button size="sm">All</b-button>
+                    <b-button size="sm">Consoles</b-button>
+                    <b-button size="sm">Handhelds</b-button>
+                    <b-button size="sm">PC</b-button>
+                  </div>
+
+                  <div class="sort">
+                    <small class="d-block text-muted">Sort by:</small>
+                    <b-button size="sm">All</b-button>
+                    <b-button size="sm">All</b-button>
+                    <b-button size="sm">All</b-button>
+                  </div>
+                </div> -->
+                <!-- <b-form-group
+                  label="Stacked (vertical) switch style checkboxes"
+                  v-slot="{ ariaDescribedby }"
+                >
+                  <b-form-checkbox-group
+                    v-model="selected"
+                    :options="options"
+                    :aria-describedby="ariaDescribedby"
+                    switches
+                    stacked
+                  />
+                </b-form-group> -->
+
+                <b-dropdown
+                  text="Select platforms"
+                  class="platforms-dropdown"
+                >
+                  <b-dropdown-item
+                    v-for="platform in platforms"
+                    :key="platform.id"
+                  >
+                    {{ platform.name }}
+                  </b-dropdown-item>
+                  <!-- <pre>{{ platforms }}</pre> -->
+                  <!-- <b-dropdown-item>Second Action</b-dropdown-item> -->
+                  <!-- <b-dropdown-item>Third Action</b-dropdown-item> -->
+                  <!-- <b-dropdown-divider></b-dropdown-divider> -->
+                  <!-- <b-dropdown-item active>Active action</b-dropdown-item> -->
+                  <!-- <b-dropdown-item disabled>Disabled action</b-dropdown-item> -->
+                </b-dropdown>
 
 
-          <!-- <b-button
-            v-for="platform in sortedPlatforms"
-            :variant="value.includes(platform.id) ? 'primary' : 'dark'"
-            :key="platform.id"
-          >
-            <small :class="value.includes(platform.id) ? '' : 'text-muted'">
-              {{ platform.name }}
-            </small>
-          </b-button> -->
-        </b-col>
+                <!-- <b-button
+                  v-for="platform in sortedPlatforms"
+                  :variant="value.includes(platform.id) ? 'primary' : 'dark'"
+                  :key="platform.id"
+                >
+                  <small :class="value.includes(platform.id) ? '' : 'text-muted'">
+                    {{ platform.name }}
+                  </small>
+                </b-button> -->
+              </b-col>
 
-        <b-col>
-          <edit-board-background-modal />
-          <b-button v-b-modal.boardBackground>
-            <i class="fas fa-images fa-fw" aria-hidden />
-            <br />
-            Change background
-          </b-button>
-        </b-col>
-      </b-row>
-    </form>
+              <b-col>
+                <edit-board-background-modal />
+                <b-button v-b-modal.boardBackground>
+                  <i class="fas fa-images fa-fw" aria-hidden />
+                  <br />
+                  Change background
+                </b-button>
+              </b-col>
+            </b-row>
+          </form>
+        </b-card>
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
 import EditBoardBackgroundModal from '@/components/Board/EditBoardBackgroundModal';
+import BoardPlaceholder from '@/components/Board/BoardPlaceholder';
 import orderby from 'lodash.orderby';
 
 export default {
   components: {
+    BoardPlaceholder,
     EditBoardBackgroundModal,
   },
 

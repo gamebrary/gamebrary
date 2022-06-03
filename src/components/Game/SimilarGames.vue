@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-card v-if="similarGames.length" class="mx-2">
+  <b-card v-if="similarGames.length">
     <h4 class="text-center">You may also like:</h4>
 
     <div class="d-flex overflow-auto">

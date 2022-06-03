@@ -48,6 +48,7 @@
       <b-button
         v-else
         class="ml-2"
+        variant="primary"
         :to="{ name: 'auth' }"
       >
         Login

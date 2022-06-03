@@ -1,5 +1,5 @@
 <template lang="html">
-  <div v-if="user">
+  <b-row v-if="user" class="p-1">
     <!-- TODO: allow reorganizing and save -->
     <empty-state
       v-if="!user || !loading && sortedBoards.length === 0"
@@ -15,47 +15,28 @@
       </b-button> -->
     </empty-state>
 
-    <div class="packery-grid">
-      <div v-if="showPlaceholder">
-        Loading
-      </div>
+    <template v-if="showPlaceholder">
+      Loading
+    </template>
 
-      <mini-board
+    <template v-else>
+      <b-col
         v-for="board in sortedBoards"
         :key="board.id"
-        :board="board"
-        :background-image="getWallpaperUrl(board.backgroundUrl)"
-        class="p-relative"
-        @view-board="viewBoard(board.id)"
+        cols="6"
+        sm="6"
+        md="4"
+        lg="3"
+        class="p-1"
       >
-        <!-- <b-button
-          size="sm"
-          variant="transparent"
-          @click.stop="editBoard(board.id)"
-        >
-          <i class="fas fa-pencil-alt fa-fw" aria-hidden />
-        </b-button> -->
-      </mini-board>
-
-      <!-- TODO: show public boards -->
-      <!-- <mini-board
-        v-for="board in publicBoards"
-        :key="board.id"
-        :board="board"
-        :background-image="getWallpaperUrl(board.backgroundUrl)"
-        class="p-relative"
-        @view-board="viewPublicBoard(board.id)"
-      >
-        <b-button
-          class="position-absolute edit-board-button"
-          size="sm"
-          @click.stop="editBoard(board)"
-        >
-          <i class="fas fa-pencil-alt fa-fw" aria-hidden />
-        </b-button>
-      </mini-board> -->
-    </div>
-  </div>
+        <mini-board
+          :board="board"
+          :background-image="getWallpaperUrl(board.backgroundUrl)"
+          @view-board="viewBoard(board.id)"
+        />
+      </b-col>
+    </template>
+  </b-row>
 </template>
 
 <script>
@@ -104,10 +85,7 @@ export default {
 
   methods: {
     load() {
-      if (this.user) {
-        this.renderGrid();
-        this.loadPlatforms();
-      }
+      if (this.user) this.loadPlatforms();
     },
 
     editBoard(id) {
@@ -152,13 +130,6 @@ export default {
         });
 
       this.loading = false;
-      this.renderGrid();
-    },
-
-    renderGrid() {
-      this.packery = this.showPlaceholder && this.user
-        ? null
-        : new Packery('.packery-grid', { itemSelector: '.mini-board', gutter: 16 });
     },
 
     viewBoard(id) {

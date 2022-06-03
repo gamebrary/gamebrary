@@ -4,18 +4,18 @@
       <b-col cols="3">
         <!-- TODO: add filters -->
         <!-- TODO: add view toggle -->
-        <!-- Filter -->
+        Filter
 
-        <!-- <h3>Sort by</h3> -->
-        <!-- Latest -->
-        <!-- Oldest -->
-        <!-- Relevance -->
+        <h3>Sort by</h3>
+        Latest
+        Oldest
+        Relevance
 
-        <!-- <h3>Filters</h3> -->
-        <!-- Tags -->
-        <!-- Genre -->
-        <!-- Platform -->
-        <!-- Year released -->
+        <h3>Filters</h3>
+        Tags
+        Genre
+        Platform
+        Year released
       </b-col>
 
       <b-col cols="9">
@@ -79,21 +79,20 @@ export default {
 
   watch: {
     query(value) {
+      // todo: Avoid search if new/old values are same
       this.search(value);
     },
   },
 
   mounted() {
-    if (this.query) this.search();
+    this.search();
   },
 
   methods: {
     async search() {
       this.loading = true;
 
-      this.searchResults = this.query
-        ? await this.$store.dispatch('CUSTOM_SEARCH', { searchText: this.query })
-        : [];
+      this.searchResults = await this.$store.dispatch('CUSTOM_SEARCH', { searchText: 'mario' })
 
       this.loading = false;
     },

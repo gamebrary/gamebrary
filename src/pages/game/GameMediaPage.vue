@@ -3,38 +3,61 @@
 <!-- TODO: add loading placeholder -->
 <template lang="html">
   <b-container fluid class="p-2">
-    <b-row>
+    <b-form-row>
       <b-col cols="3">
         <b-img
           :src="gameCoverUrl"
           rounded
           fluid-grow
-          @click.stop="openModal(index)"
+          @click.stop="openModal"
         />
       </b-col>
 
-      <b-col cols="7">
-        <div>
-          <h2>{{ game.name }}</h2>
-          <p class="text-muted">
-            Images
-          </p>
+      <b-col cols="9">
+        <h2>{{ game.name }}</h2>
+        <h4>Screenshots</h4>
 
-        </div>
-
-        <div class="packery-grid">
-          <b-img
+        <b-form-row no-gutters>
+          <b-col
+            cols="4"
+            sm="4"
+            md="3"
+            xl="2"
             v-for="(thumbnail, index) in gameThumbnails"
+            v-show="index > 1"
+            class="p-1"
             :key="index"
-            :src="thumbnail"
-            width="200"
-            :class="index === 0 ? 'd-none' : 'image'"
-            rounded
-            @click.stop="openModal(index)"
-          />
-        </div>
+          >
+            <b-img
+              :src="thumbnail"
+              rounded
+              fluid
+              @click.stop="openModal(index)"
+            />
+          </b-col>
+
+          <template v-if="game.videos">
+            <b-col
+              cols="4"
+              sm="4"
+              md="3"
+              xl="2"
+              v-for="{ video_id } in game.videos"
+              :key="video_id"
+              class="p-1"
+            >
+              <b-embed
+                class="rounded"
+                type="iframe"
+                aspect="16by9"
+                :src="`https://www.youtube.com/embed/${video_id}`"
+                allowfullscreen
+              />
+            </b-col>
+          </template>
+        </b-form-row>
       </b-col>
-    </b-row>
+    </b-form-row>
 
     <b-modal
       id="game-images"
@@ -114,13 +137,11 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import Packery from 'packery';
 
 // TODO: load game if not loaded
 export default {
   data() {
     return {
-      packery: null,
       activeIndex: 0,
       maxThumbnails: 3,
       saving: false,
@@ -218,19 +239,7 @@ export default {
     },
   },
 
-  mounted() {
-    this.packery = new Packery('.packery-grid', { itemSelector: '.image', gutter: 16 });
-
-    this.$nextTick(() => {
-      setTimeout(() => { this.layout(); }, 1000);
-    });
-  },
-
   methods: {
-    layout() {
-      this.packery.layout();
-    },
-
     async setAsWallpaper() {
       this.saving = true;
 

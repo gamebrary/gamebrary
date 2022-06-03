@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container fluid class="p-2">
+  <b-container fluid>
     <portal to="headerActions">
       <b-button
         variant="primary"
@@ -10,9 +10,7 @@
       </b-button>
     </portal>
 
-    <div v-if="boards.length">
-      <game-boards class="mb-3" />
-    </div>
+    <game-boards v-if="boards.length" class="mb-3" />
 
     <empty-state
       v-else
