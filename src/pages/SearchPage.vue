@@ -92,7 +92,7 @@ export default {
     async search() {
       this.loading = true;
 
-      this.searchResults = await this.$store.dispatch('CUSTOM_SEARCH', { searchText: 'mario' })
+      this.searchResults = await this.$store.dispatch('CUSTOM_SEARCH', { searchText: this.query })
 
       this.loading = false;
     },
