@@ -28,34 +28,61 @@
             class="p-1"
             :key="index"
           >
-            <b-img
-              :src="thumbnail"
-              rounded
-              fluid
-              @click.stop="openModal(index)"
-            />
-          </b-col>
-
-          <template v-if="game.videos">
-            <b-col
-              cols="4"
-              sm="4"
-              md="3"
-              xl="2"
-              v-for="{ video_id } in game.videos"
-              :key="video_id"
-              class="p-1"
-            >
-              <b-embed
-                class="rounded"
-                type="iframe"
-                aspect="16by9"
-                :src="`https://www.youtube.com/embed/${video_id}`"
-                allowfullscreen
+            <b-link>
+              <b-img
+                :src="thumbnail"
+                rounded
+                fluid
+                @click.stop="openModal(index)"
               />
-            </b-col>
-          </template>
+            </b-link>
+          </b-col>
         </b-form-row>
+
+        <h4 class="mt-3">Videos</h4>
+
+        <b-form-row v-if="game.videos">
+          <b-col
+            cols="4"
+            sm="4"
+            md="3"
+            xl="2"
+            v-for="{ video_id } in game.videos"
+            :key="video_id"
+            class="p-1"
+            @click.stop="openVideoModal(video_id)"
+          >
+            <b-link>
+              <b-img
+                fluid
+                rounded
+                :src="` https://img.youtube.com/vi/${video_id}/sddefault.jpg`"
+              />
+            </b-link>
+          </b-col>
+        </b-form-row>
+
+        <b-modal
+          id="videoModal"
+          centered
+          hide-footer
+          size="lg"
+        >
+          <template v-slot:modal-header="{ close }">
+            <modal-header
+              title="Video"
+              @close="close"
+            />
+          </template>
+
+          <b-embed
+            type="iframe"
+            aspect="16by9"
+            :src="`https://www.youtube.com/embed/${selectedVideoId}?rel=0&autoplay=1`"
+            autoplay
+            allowfullscreen
+          />
+        </b-modal>
       </b-col>
     </b-form-row>
 
@@ -143,6 +170,7 @@ export default {
   data() {
     return {
       activeIndex: 0,
+      selectedVideoId: null,
       maxThumbnails: 3,
       saving: false,
     };
@@ -240,6 +268,11 @@ export default {
   },
 
   methods: {
+    openVideoModal(videoId) {
+      this.$bvModal.show('videoModal');
+      this.selectedVideoId = videoId;
+    },
+
     async setAsWallpaper() {
       this.saving = true;
 
