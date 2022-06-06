@@ -18,6 +18,38 @@
       >
         {{ variant }}
       </b-button>
+
+      <b-button
+        v-for="size in ['sm', '', 'lg']"
+        :variant="`outline-${variant}`"
+        :key="size"
+        :size="size"
+        class="mr-2"
+      >
+        {{ variant }}
+      </b-button>
+
+      <b-button
+        v-for="size in ['sm', '', 'lg']"
+        :variant="`${variant}`"
+        pill
+        :key="size"
+        :size="size"
+        class="mr-2"
+      >
+        {{ variant }}
+      </b-button>
+      
+      <b-button
+        v-for="size in ['sm', '', 'lg']"
+        :variant="`${variant}`"
+        squared
+        :key="size"
+        :size="size"
+        class="mr-2"
+      >
+        {{ variant }}
+      </b-button>
     </div>
 
     <h1>Axiom Verge</h1>

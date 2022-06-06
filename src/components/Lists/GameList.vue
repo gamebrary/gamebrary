@@ -16,15 +16,16 @@
       <header class="p-2">
         <b-button
           block
+          size="sm"
           variant="outline-light"
-          class="text-dark d-flex justify-content-between align-items-center px-2 border-0"
+          class="text-dark d-flex justify-content-between align-items-center px-2"
           :disabled="preview || (user && user.uid !== board.owner)"
           :to="{ name: 'board.list.edit', params: { id: board.id, listIndex } }"
         >
           <span>
             <b-badge
               v-if="showGameCount"
-              variant="light"
+              variant="info"
             >
               {{ list.games.length }}
             </b-badge>

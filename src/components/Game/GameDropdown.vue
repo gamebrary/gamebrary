@@ -10,7 +10,8 @@
     <template #button-content>
       <b-avatar variant="transparent" :src="gameCoverUrl" rounded />
 
-      <small class="text-white px-2 text-decoration-none">{{ game.name }}</small>
+      <!-- <small class="text-white px-2 text-decoration-none">{{ game.name }}</small> -->
+      <small class="px-2 d-none d-md-inline text-nowrap">{{ game.name }}</small>
     </template>
 
     <!-- <b-button-group class="mx-1">
