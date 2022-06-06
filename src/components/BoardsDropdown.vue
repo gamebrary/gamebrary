@@ -27,7 +27,7 @@
           `"
       />
 
-      <small class="px-2">{{ board.name }}</small>
+      <small class="px-2 d-none d-md-inline text-nowrap">{{ board.name }}</small>
     </template>
 
     <!-- <b-dropdown-item href="#">

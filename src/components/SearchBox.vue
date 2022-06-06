@@ -7,8 +7,9 @@
           type="search"
           autofocus
           debounce="500"
-          :placeholder="$t('board.addGame.inputPlaceholder')"
+          placeholder="Search"
         />
+        <!-- TODO: auto search if already in search page -->
 
         <b-input-group-append>
           <b-button
@@ -58,6 +59,6 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
   .search-box {
     max-width: 100%;
-    width: 240px;
+    width: 200px;
   }
 </style>
