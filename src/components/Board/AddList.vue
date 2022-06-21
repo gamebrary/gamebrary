@@ -1,5 +1,12 @@
 <template lang="html">
-  <b-modal
+  <b-button
+    variant="light"
+    v-if="!active"
+    @click="active = true"
+  >
+    <i class="fas fa-plus fa-fw" aria-hidden />
+  </b-button>
+  <!-- <b-modal
     :id="modalId"
     hide-footer
     @show="reset"
@@ -10,42 +17,56 @@
         :subtitle="board.name"
         @close="close"
       >
-        <b-button
-          split
-          variant="primary"
-          :disabled="saving || isDuplicate || !listName"
-          @click="submit"
-        >
-          <b-spinner small v-if="saving" />
-          <span v-else>{{ $t('global.save') }}</span>
 
-        </b-button>
       </modal-header>
     </template>
-
-    <form ref="addListForm" @submit.stop.prevent="submit">
-      <b-form-group
-        label="List name:"
-        label-for="listName"
-      >
+  </b-modal> -->
+  <b-card
+    v-else
+    class="flex-shrink-0"
+    no-body
+  >
+    <form
+      ref="addListForm"
+      class="p-2"
+      @submit.stop.prevent="submit"
+    >
+      <b-input-group>
         <b-form-input
           id="listName"
           autofocus
+          placeholder="List name"
           v-model="listName"
-          :placeholder="$t('board.addList.placeholder')"
           required
         />
-      </b-form-group>
+
+        <b-input-group-append>
+          <b-button
+            split
+            variant="primary"
+            :disabled="saving || isDuplicate || !listName"
+            @click="submit"
+          >
+            <b-spinner small v-if="saving" />
+            <span v-else>Add</span>
+
+          </b-button>
+          <!-- <b-button variant="outline-success">Button</b-button> -->
+          <!-- <b-button variant="info">Button</b-button> -->
+        </b-input-group-append>
+      </b-input-group>
+
+
 
       <b-alert
-        class="mt-3 mb-0"
+        class="mb-2"
         :show="isDuplicate && !saving"
         variant="warning"
       >
         {{ $t('board.list.duplicateWarning') }}
       </b-alert>
     </form>
-  </b-modal>
+  </b-card>
 </template>
 
 <script>
@@ -55,8 +76,8 @@ export default {
   data() {
     return {
       listName: '',
+      active: false,
       saving: false,
-      modalId: 'add-list',
     };
   },
 
@@ -112,9 +133,10 @@ export default {
         });
 
       this.$forceUpdate();
-      this.$bvToast.toast('List added');
+      // this.$bvToast.toast('List added');
+      this.reset();
       this.saving = false;
-      this.$bvModal.hide(this.modalId);
+      // this.$bvModal.hide(this.modalId);
       this.scroll();
     },
 
