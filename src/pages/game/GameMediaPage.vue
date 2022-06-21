@@ -3,88 +3,74 @@
 <!-- TODO: add loading placeholder -->
 <template lang="html">
   <b-container fluid class="p-2">
-    <b-form-row>
-      <b-col cols="3">
-        <b-img
-          :src="gameCoverUrl"
-          rounded
-          fluid-grow
-          @click.stop="openModal"
-        />
-      </b-col>
+    <h2>{{ game.name }}</h2>
+    <h4>Screenshots</h4>
 
-      <b-col cols="9">
-        <h2>{{ game.name }}</h2>
-        <h4>Screenshots</h4>
-
-        <b-form-row no-gutters>
-          <b-col
-            cols="4"
-            sm="4"
-            md="3"
-            xl="2"
-            v-for="(thumbnail, index) in gameThumbnails"
-            v-show="index > 1"
-            class="p-1"
-            :key="index"
-          >
-            <b-link>
-              <b-img
-                :src="thumbnail"
-                rounded
-                fluid
-                @click.stop="openModal(index)"
-              />
-            </b-link>
-          </b-col>
-        </b-form-row>
-
-        <h4 class="mt-3">Videos</h4>
-
-        <b-form-row v-if="game.videos">
-          <b-col
-            cols="4"
-            sm="4"
-            md="3"
-            xl="2"
-            v-for="{ video_id } in game.videos"
-            :key="video_id"
-            class="p-1"
-            @click.stop="openVideoModal(video_id)"
-          >
-            <b-link>
-              <b-img
-                fluid
-                rounded
-                :src="` https://img.youtube.com/vi/${video_id}/sddefault.jpg`"
-              />
-            </b-link>
-          </b-col>
-        </b-form-row>
-
-        <b-modal
-          id="videoModal"
-          centered
-          hide-footer
-          size="lg"
-        >
-          <template v-slot:modal-header="{ close }">
-            <modal-header
-              title="Video"
-              @close="close"
-            />
-          </template>
-
-          <b-embed
-            type="iframe"
-            aspect="16by9"
-            :src="`https://www.youtube.com/embed/${selectedVideoId}?rel=0&autoplay=1`"
-            autoplay
-            allowfullscreen
+    <b-form-row no-gutters>
+      <b-col
+        cols="4"
+        sm="4"
+        md="3"
+        xl="2"
+        v-for="(thumbnail, index) in gameThumbnails"
+        class="p-1"
+        :key="index"
+      >
+        <b-link>
+          <b-img
+            :src="thumbnail"
+            rounded
+            fluid
+            @click.stop="openModal(index)"
           />
-        </b-modal>
+        </b-link>
       </b-col>
     </b-form-row>
+
+    <h4 class="mt-3">Videos</h4>
+
+    <b-form-row v-if="game.videos">
+      <b-col
+        cols="4"
+        sm="4"
+        md="3"
+        xl="2"
+        v-for="{ video_id } in game.videos"
+        :key="video_id"
+        class="p-1"
+        @click.stop="openVideoModal(video_id)"
+      >
+        <b-link>
+          <b-img
+            fluid
+            rounded
+            :src="` https://img.youtube.com/vi/${video_id}/sddefault.jpg`"
+          />
+        </b-link>
+      </b-col>
+    </b-form-row>
+
+    <b-modal
+      id="videoModal"
+      centered
+      hide-footer
+      size="lg"
+    >
+      <template v-slot:modal-header="{ close }">
+        <modal-header
+          title="Video"
+          @close="close"
+        />
+      </template>
+
+      <b-embed
+        type="iframe"
+        aspect="16by9"
+        :src="`https://www.youtube.com/embed/${selectedVideoId}?rel=0&autoplay=1`"
+        autoplay
+        allowfullscreen
+      />
+    </b-modal>
 
     <b-modal
       id="game-images"
@@ -113,7 +99,6 @@
             variant="light"
             @click="setAsWallpaper"
           >
-            <!-- TODO: fix set as wallpaper, using wrong index -->
             <i
               v-if="saving"
               class="d-sm-fas fa-sync fa-spin fa-fw"
@@ -140,8 +125,7 @@
 
       <b-carousel
         ref="screenshots"
-        controls
-        indicators
+        size="xl"
         v-model="activeIndex"
       >
         <b-carousel-slide
@@ -152,7 +136,7 @@
           <template #img>
             <b-img
               rounded
-              class="mw-100 d-block ml-auto mr-auto"
+              class="d-block ml-auto mr-auto image"
               :src="screenshot"
             />
           </template>
@@ -278,7 +262,7 @@ export default {
 
       const payload = {
         ...this.board,
-        backgroundUrl: this.slides[this.activeIndex],
+        backgroundUrl: this.slides[this.activeIndex - 1],
       };
 
       this.$store.commit('SET_ACTIVE_BOARD', payload);
@@ -316,3 +300,10 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss">
+.image {
+  max-height: calc(100vh - 122px);
+  max-width: 100%;
+}
+</style>
