@@ -1,23 +1,22 @@
 <template lang="html">
-  <b-card v-if="similarGames.length">
-    <h4 class="text-center">You may also like:</h4>
+  <div v-if="similarGames.length">
+    <h4 class="text-center text-muted">You may also like</h4>
 
     <div class="d-flex overflow-auto">
       <b-card
         v-for="game in similarGames"
         :key="game.id"
         :title="game.name"
-        title-tag="small"
         class="flex-shrink-0 mr-2 cursor-pointer"
-        style="max-width: 120px;"
-        body-class="p-1 px-2"
+        style="max-width: 180px;"
+        body-class="p-2 text-center text-muted"
         :img-src="getCoverUrl(game)"
         :img-alt="game.name"
         img-top
         @click="openGame(game)"
       />
     </div>
-  </b-card>
+  </div>
 </template>
 
 <script>
@@ -71,6 +70,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-</style>

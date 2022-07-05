@@ -1,5 +1,5 @@
 <template lang="html">
-  <div v-if="game" class="mt-4 d-block">
+  <div v-if="game">
     <b-button
       v-for="{ url, id, icon, svg } in links"
       :href="url"

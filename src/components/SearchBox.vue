@@ -1,6 +1,6 @@
 <template lang="html">
-  <div class="search-box mr-2">
-    <b-form @submit.prevent="search" :class="isSearchPage ? '' : 'd-none d-md-block'">
+  <div class="search-box">
+    <b-form @submit.prevent="search">
       <b-input-group>
         <b-form-input
           v-model="searchText"
@@ -16,13 +16,20 @@
             type="submit"
             variant="info"
           >
-            <i class="fas fa-search fa-fw" aria-hidden />
+            <i
+              class="fas fa-search fa-fw"
+              aria-hidden
+            />
           </b-button>
         </b-input-group-append>
       </b-input-group>
     </b-form>
 
-    <b-button :class="isSearchPage ? 'd-none' : 'd-md-none'" variant="primary" :to="{ name: 'search' }">
+    <b-button
+      :class="isSearchPage ? 'd-none' : 'd-md-none'"
+      variant="primary"
+      :to="{ name: 'search' }"
+    >
       <i class="fas fa-search fa-fw" aria-hidden />
     </b-button>
   </div>

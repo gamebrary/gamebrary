@@ -6,11 +6,28 @@
 <!-- TODO: Show lists/boards that the game belongs to -->
 
 <template lang="html">
-  <b-container fluid class="p-2">
+  <b-container fluid class="game-page p-2">
     <b-skeleton v-if="loading" />
 
     <template v-else-if="game">
-      <b-row>
+      <b-row class="game-backdrop" :style="`background-image: url(${gameScrenshot})`">
+        <b-col
+          cols="12"
+        >
+          <div class="vh-100">
+            <!-- <b-img
+              :src="gameCoverUrl"
+              :alt="game.name"
+              class="cursor-pointer game-cover"
+              width="200"
+              rounded
+              @click.stop="openGameCover"
+            /> -->
+          </div>
+        </b-col>
+      </b-row>
+
+      <b-row class="game">
         <b-col
           offset="2"
           offset-sm="0"
@@ -46,6 +63,7 @@
           md="8"
           lg="8"
           xl="9"
+          class="bg-white rounded p-5"
         >
           <b-row>
             <b-col
@@ -127,9 +145,6 @@
 
         <b-col
           cols="12"
-          sm="12"
-          md="6"
-          xl="6"
           class="mt-3"
         >
           <similar-games
@@ -144,21 +159,21 @@
           xl="6"
           class="mt-3"
         >
-          <game-speedruns v-if="game" />
+          <!-- <game-speedruns v-if="game" /> -->
           <!-- <pre>{{ game.speedruns }}</pre> -->
           <!-- TODO: add bundles to game detail? -->
         </b-col>
 
-        <b-col
+        <!-- <b-col
           cols="12"
           class="mt-3"
         >
           <b-card>
             <h4>[BUNDLES]</h4>
           </b-card>
-          <!-- <pre>{{ game }}</pre> -->
-          <!-- {{ game.bundles ? `Found in ${game.bundles.length} compilations.` : null }} -->
-        </b-col>
+          <pre>{{ game }}</pre>
+          {{ game.bundles ? `Found in ${game.bundles.length} compilations.` : null }}
+        </b-col> -->
       </b-row>
     </template>
 
@@ -248,8 +263,6 @@
     >
       loading...
     </timeline> -->
-
-    <!-- <div class="game-backdrop" :style="`background-image: url(${gameScrenshot})`" /> -->
   </b-container>
 </template>
 
@@ -265,7 +278,7 @@ import GameRating from '@/components/Game/GameRating';
 import GameDescription from '@/components/Game/GameDescription';
 import SimilarGames from '@/components/Game/SimilarGames';
 import GameWebsites from '@/components/Game/GameWebsites';
-import GameSpeedruns from '@/components/Game/GameSpeedruns';
+// import GameSpeedruns from '@/components/Game/GameSpeedruns';
 
 export default {
   components: {
@@ -277,7 +290,7 @@ export default {
     GameRating,
     GameNotes,
     GameWebsites,
-    GameSpeedruns,
+    // GameSpeedruns,
     SimilarGames,
   },
 
@@ -360,7 +373,7 @@ export default {
 
   watch: {
     gameId(gameId) {
-      document.getElementsByTagName('main')[0].scrollTop = 0;
+      // document.getElementsByTagName('main')[0].scrollTop = 0;
 
       if (gameId) this.loadGame();
       // TODO: handle missing id, redirect? 404? search?
@@ -469,15 +482,17 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
+// .game-page {
+//   // z-index: 0;
+// }
+
+.game {
+  margin-top: -50vh;
+}
+
 .game-backdrop {
-  width: 100%;
-  height: 100vw;
-  // position: fixed;
-  // top: 0;
   backdrop-filter: grayscale(0.5) opacity(0.8) /* ...and on and on... */;
   background-repeat: no-repeat;
   background-size: contain;
-  // opacity: 0.1;
-  z-index: 0;
 }
 </style>

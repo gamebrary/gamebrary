@@ -17,8 +17,8 @@
         <b-button
           block
           size="sm"
-          variant="outline-light"
-          class="text-dark d-flex justify-content-between align-items-center px-2"
+          variant="transparent"
+          class="text-dark d-flex justify-content-between align-items-center pl-0"
           :disabled="preview || (user && user.uid !== board.owner)"
           :to="{ name: 'board.list.edit', params: { id: board.id, listIndex } }"
         >

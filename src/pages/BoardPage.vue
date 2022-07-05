@@ -1,6 +1,6 @@
 <template lang="html">
   <div
-    :class="['board p-3', { dragging, empty }]"
+    :class="['board px-3 pb-3', { dragging, empty }]"
     :style="boardStyles"
   >
     <board-placeholder v-if="loading" />
@@ -16,19 +16,7 @@
 
       <empty-board v-if="empty" />
 
-      <div
-        v-else-if="user && user.uid && user.uid === board.owner"
-        class="d-flex flex-column"
-      >
-        <b-button
-          variant="light"
-          v-b-modal:add-list
-        >
-          <i class="fas fa-plus fa-fw" aria-hidden />
-        </b-button>
-      </div>
-
-      <add-list-modal />
+      <add-list v-else-if="user && user.uid && user.uid === board.owner" />
     </template>
 
     <b-alert
@@ -44,7 +32,7 @@
 <script>
 import BoardPlaceholder from '@/components/Board/BoardPlaceholder';
 import EmptyBoard from '@/components/Board/EmptyBoard';
-import AddListModal from '@/components/Board/AddListModal';
+import AddList from '@/components/Board/AddList';
 import GameList from '@/components/Lists/GameList';
 import chunk from 'lodash.chunk';
 import { mapState, mapGetters } from 'vuex';
@@ -54,7 +42,7 @@ export default {
     GameList,
     BoardPlaceholder,
     EmptyBoard,
-    AddListModal,
+    AddList,
   },
 
   data() {
@@ -188,7 +176,7 @@ export default {
       const { lists } = this.board;
 
       if (lists && lists.length === 0) {
-        this.$bvModal.show('add-list');
+        // TODO: toggle add list
       }
 
       const boardGames = lists.length

@@ -1,26 +1,29 @@
 <template lang="html">
   <b-container>
     <b-row>
-      <b-col cols="3">
-        <!-- TODO: add filters -->
-        <!-- TODO: add view toggle -->
-        Filter
+      <b-col cols="3" class="position-sticky mt-2">
+        <b-card>
+          test
+          <!-- TODO: add filters -->
+          <!-- TODO: add view toggle -->
+          Filter
 
-        <h3>Sort by</h3>
-        Latest
-        Oldest
-        Relevance
+          <h3>Sort by</h3>
+          Latest
+          Oldest
+          Relevance
 
-        <h3>Filters</h3>
-        Tags
-        Genre
-        Platform
-        Year released
+          <h3>Filters</h3>
+          Tags
+          Genre
+          Platform
+          Year released
+        </b-card>
       </b-col>
 
       <b-col cols="9">
-        <div class="search-page bg-white p-2">
-
+        <div class="search-page p-2">
+          <search-box />
           <!-- <b-alert show variant="success">
             Custom search controls go here!
           </b-alert> -->
@@ -30,13 +33,38 @@
           <b-skeleton v-if="loading" />
 
           <div v-else-if="searchResults.length > 0">
-            <h3>Search results</h3>
+            <header class="my-2 d-flex align-items-center justify-content-between">
+              <h3>Search results</h3>
 
-            <game-card-search
-              v-for="game in searchResults"
-              :key="game.id"
-              :game="game"
-            />
+              <b-button-toolbar key-nav aria-label="Toolbar with button groups">
+                <b-button-group class="mx-1">
+                  <b-button :variant="listView ? 'primary' : 'secondary'" @click="listView = true">
+                    <i class="fa-solid fa-list fa-fw" aria-hidden />
+                  </b-button>
+
+                  <b-button :variant="listView ? 'secondary' : 'primary'" @click="listView = false">
+                    <i class="fa-solid fa-grip fa-fw" aria-hidden />
+                  </b-button>
+                </b-button-group>
+              </b-button-toolbar>
+            </header>
+
+            <template v-if="listView">
+              <game-card-search
+                v-for="game in searchResults"
+                :key="game.id"
+                :game="game"
+              />
+            </template>
+
+            <div v-else class="masonry-container">
+              <game-card-search-vertical
+                v-for="game in searchResults"
+                class="masonry-item"
+                :key="game.id"
+                :game="game"
+              />
+            </div>
           </div>
 
           <b-container v-else-if="query.length > 0">
@@ -56,16 +84,21 @@
 
 <script>
 import GameCardSearch from '@/components/GameCards/GameCardSearch';
+import SearchBox from '@/components/SearchBox';
+import GameCardSearchVertical from '@/components/GameCards/GameCardSearchVertical';
 
 export default {
   components: {
     GameCardSearch,
+    SearchBox,
+    GameCardSearchVertical,
   },
 
   data() {
     return {
       searchResults: [],
       loading: false,
+      listView: true,
     };
   },
 
@@ -103,5 +136,15 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
 .search-page {
   min-height: calc(100vh - 46px);
+}
+
+.masonry-container {
+ column-count: 5;
+ column-gap: 1rem;
+}
+
+.masonry-item {
+ display: inline-block;
+ width: 100%;
 }
 </style>

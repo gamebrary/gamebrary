@@ -22,7 +22,7 @@
       </header>
 
       <!-- TODO: show active board at top -->
-      Boards:
+      <h4 class="mx-2">Boards:</h4>
       <b-list-group flush>
         <b-list-group-item
           v-for="board in formattedBoards"
@@ -32,7 +32,7 @@
           @click="expandedBoard = board.id === expandedBoard ? null : board.id"
         >
           <header class="p-2 d-flex justify-content-between align-items-center">
-            <aside>
+            <aside class="d-flex">
               <b-avatar
                 rounded
                 :class="['board-thumbnail mr-2', { 'bg-dark' : !board.backgroundColor }]"
@@ -44,7 +44,12 @@
                   `"
                 :to="{ name: 'board', params: { id: board.id } }"
               />
-              {{ board.name }}
+
+              <div class="d-flex flex-column">
+                {{ board.name }}
+                <br />
+                <small>{{ board.lists.length }} Lists</small>
+              </div>
               <!-- TODO: show "In XX lists" -->
             </aside>
 

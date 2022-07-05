@@ -1,3 +1,4 @@
+<!-- TODO: Use moment? or use dayjs without wrapper -->
 <!-- TODO: remove toasts -->
 <!-- TODO: add mega search shift + k -->
 <!-- TODO: re-translate strings -->
@@ -23,17 +24,18 @@
     @shortkey="handleShortcutAction"
   >
     <page-header />
-
-    <main :class="[{ 'authorizing': !user }, 'bg-light']">
-      <global-modals />
-      <router-view />
-    </main>
+    <router-view class="viewport" />
+    <auth-modal />
+    <keyboard-shortcuts-modal />
+    <add-remove-game />
   </div>
 </template>
 
 <script>
+import AuthModal from '@/components/AuthModal';
+import AddRemoveGame from '@/components/AddRemoveGame';
+import KeyboardShortcutsModal from '@/components/KeyboardShortcutsModal';
 import PageHeader from '@/components/PageHeader';
-import GlobalModals from '@/components/GlobalModals';
 import sessionMixin from '@/mixins/sessionMixin';
 import firebase from 'firebase/app';
 import { mapState } from 'vuex';
@@ -46,7 +48,9 @@ export default {
 
   components: {
     PageHeader,
-    GlobalModals,
+    AuthModal,
+    AddRemoveGame,
+    KeyboardShortcutsModal,
   },
 
   mixins: [sessionMixin],
@@ -130,17 +134,14 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
   #app {
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,212,255,1) 100%);
-    height: 100vh;
+    // background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,212,255,1) 100%);
+    min-height: 100vh;
     display: grid;
   }
 
-  header {
-    grid-column: 1/-1;
-  }
-
-  main {
+  .viewport {
+    // padding-top: 54px !important;
     overflow-y: auto;
-    height: calc(100vh - 54px);
+    // height: calc(100vh - 54px);
   }
 </style>

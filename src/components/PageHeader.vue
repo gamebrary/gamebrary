@@ -1,8 +1,8 @@
 <template lang="html">
-  <header class="py-1 px-2 d-flex">
+  <header class="py-1 px-2 d-flex position-fixed">
     <home-button />
-    <boards-dropdown v-if="isBoardPage || isGamePage" />
-    <game-dropdown v-if="isGamePage" />
+    <boards-dropdown v-if="board.id && (isBoardPage || isGamePage)" />
+    <!-- <game-dropdown v-if="isGamePage" /> -->
 
     <div class="global-actions">
       <portal-target name="headerActions" />
@@ -11,7 +11,12 @@
         Upgrade
       </b-button> -->
 
-      <search-box />
+      <b-button
+        variant="primary"
+        :to="{ name: 'search' }"
+      >
+        <i class="fas fa-search fa-fw" aria-hidden />
+      </b-button>
 
       <b-dropdown
         v-if="user"
@@ -24,6 +29,7 @@
         <template #button-content>
           <b-avatar rounded variant="info" :src="user.photoURL" />
         </template>
+
         <b-dropdown-item
           :to="{ name: 'settings' }"
         >
@@ -58,9 +64,8 @@
 </template>
 
 <script>
-import GameDropdown from '@/components/Game/GameDropdown';
+// import GameDropdown from '@/components/Game/GameDropdown';
 import BoardsDropdown from '@/components/BoardsDropdown';
-import SearchBox from '@/components/SearchBox';
 import HomeButton from '@/components/Shared/HomeButton';
 import sessionMixin from '@/mixins/sessionMixin';
 import { mapState } from 'vuex';
@@ -69,9 +74,8 @@ export default {
   mixins: [sessionMixin],
 
   components: {
-    GameDropdown,
+    // GameDropdown,
     BoardsDropdown,
-    SearchBox,
     HomeButton,
   },
 
@@ -101,6 +105,7 @@ export default {
     // height: 46px;
     grid-template-columns: 65px 1fr;
     // background-color: #574c4f;
+    z-index: 1;
   }
 
   .toolbar {

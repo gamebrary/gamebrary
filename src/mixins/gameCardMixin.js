@@ -36,6 +36,10 @@ export default {
       return this.list?.settings?.showGameTags && this.gameTags;
     },
 
+    showReleaseDates() {
+      return this.list?.settings?.showReleaseDates;
+    },
+
     gameProgress() {
       const { gameId, progresses } = this;
 

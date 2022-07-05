@@ -10,13 +10,12 @@
       Edit board
     </b-button>
 
-    <b-button
-      v-b-modal.add-list
+    <!-- <b-button
       block
       variant="primary"
     >
       Add list
-    </b-button>
+    </b-button> -->
   </div>
 </template>
 
