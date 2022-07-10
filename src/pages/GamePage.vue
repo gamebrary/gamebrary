@@ -38,6 +38,29 @@
           <div class="game-info">
             <game-rating :game="game" />
           </div>
+
+          <b-card body-class="p-3" class="mt-2">
+            <h4>Game found in these boards:</h4>
+
+            <b-badge
+              v-for="board in boardsWithGame"
+              :to="{ name: 'board', params: { id: board.id } }"
+              :key="board.id"
+              class="mr-2"
+            >
+              <b-avatar
+                rounded
+                :class="['board-thumbnail mr-2', { 'bg-dark' : !board.backgroundColor }]"
+                :title="board.name"
+                text=" "
+                :style="`
+                  background-image: url(${board.backgroundUrl || ''});
+                  background-color: ${board.backgroundColor || ''}
+                  `"
+              />
+              {{ board.name }}
+            </b-badge>
+          </b-card>
         </b-col>
 
         <b-col
@@ -294,8 +317,20 @@ export default {
   },
 
   computed: {
-    ...mapState(['game', 'progresses', 'tags']),
+    ...mapState(['game', 'progresses', 'tags', 'boards']),
     ...mapGetters(['gameTags']),
+
+    boardsWithGame() {
+      return this.boards
+        .filter(({ lists }) => lists.some(({ games }) => games.includes(this.game.id)))
+        .map((board) => {
+          return {
+            ...board,
+            backgroundUrl: this.getWallpaperUrl(board.backgroundUrl),
+          };
+        });
+
+    },
 
     legalNotice() {
       return this.game?.steam?.legal_notice;
@@ -376,6 +411,15 @@ export default {
   },
 
   methods: {
+    getWallpaperUrl(url) {
+      if (!url) return '';
+      if (url && url.includes('igdb.com')) return url;
+
+      const wallpaper = this.wallpapers?.find(({ fullPath }) => fullPath === url);
+
+      return wallpaper && wallpaper.url ? decodeURI(wallpaper.url) : '';
+    },
+
     openGameCover() {
       this.$router.push({
         name: 'game.media',
@@ -470,4 +514,8 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
+.board-thumbnail {
+  background-size: cover;
+  background-position: center;
+}
 </style>

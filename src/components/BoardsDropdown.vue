@@ -1,6 +1,7 @@
 <template lang="html">
   <div>
     <b-button
+      variant="light"
       :to="{ name: 'board.edit', params: { id: board.id } }"
     >
       {{ board.name }}
