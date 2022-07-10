@@ -1,13 +1,18 @@
 <template lang="html">
-  <div v-if="provider">
-    <p>{{ user.displayName }}</p>
-    <p>Member since {{ dateJoined }}</p>
-    <p>Last login {{ lastLogin }}</p>
+  <b-card v-if="provider" style="max-width: 100%; width: 400px;">
+    <b-media right-align vertical-align="center">
+      <template #aside>
+        <b-img
+          :src="`/logos/companies/${provider.id}.svg`"
+          width="60"
+          alt="Provider"
+        />
+      </template>
+      <h3 class="mt-0 mb-1">{{ user.displayName }}</h3>
 
-    <p>
-      Logged in with <strong>{{ provider.name }}</strong>
-    </p>
-  </div>
+      <p>Logged in {{ lastLogin }} using <strong>{{ provider.name }}</strong>.</p>
+    </b-media>
+  </b-card>
 </template>
 
 <script>

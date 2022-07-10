@@ -5,7 +5,8 @@
     <provider-card />
 
     <b-button
-      variant="outline-danger"
+      class="mt-3"
+      variant="danger"
       v-b-modal:deleteAccount
     >
       Delete Account
