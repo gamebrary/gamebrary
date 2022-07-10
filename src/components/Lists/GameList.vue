@@ -83,14 +83,16 @@
           {{ $t('board.list.emptyListButton') }}
         </b-button> -->
 
-        <b-alert
+        <b-button
           v-if="isEmpty"
           variant="light"
-          show
-          class="text-center"
+          block
+          class="mb-2"
+          :to="{ name: 'search' }"
         >
-          [Empty]
-        </b-alert>
+          <!-- TODO: add board id in params -->
+          Add games
+        </b-button>
       </draggable>
     </b-card>
   </div>

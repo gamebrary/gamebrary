@@ -160,8 +160,7 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-.auth-page {
-  background-image: url('~/public/bg-tile.png');
+.auth-page {  
   height: calc(100vh - 46px);
 }
 </style>

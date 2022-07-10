@@ -6,27 +6,10 @@
 <!-- TODO: Show lists/boards that the game belongs to -->
 
 <template lang="html">
-  <b-container fluid class="game-page p-2">
+  <b-container fluid class="px-2 pb-2">
     <b-skeleton v-if="loading" />
 
     <template v-else-if="game">
-      <b-row class="game-backdrop" :style="`background-image: url(${gameScrenshot})`">
-        <b-col
-          cols="12"
-        >
-          <div class="vh-100">
-            <!-- <b-img
-              :src="gameCoverUrl"
-              :alt="game.name"
-              class="cursor-pointer game-cover"
-              width="200"
-              rounded
-              @click.stop="openGameCover"
-            /> -->
-          </div>
-        </b-col>
-      </b-row>
-
       <b-row class="game">
         <b-col
           offset="2"
@@ -303,6 +286,7 @@ export default {
   },
 
   beforeDestroy() {
+    this.$bus.$emit('UPDATE_WALLPAPER', null);
     // TODO: only clear board if game being viewed is not in current board
     // if (!['game', 'board'].includes(this.$route.name)) {
       // this.$store.commit('CLEAR_BOARD');
@@ -377,6 +361,10 @@ export default {
 
       if (gameId) this.loadGame();
       // TODO: handle missing id, redirect? 404? search?
+    },
+
+    gameScrenshot(value) {
+      if (value) this.$bus.$emit('UPDATE_WALLPAPER', value);
     },
   },
 
@@ -482,17 +470,4 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-// .game-page {
-//   // z-index: 0;
-// }
-
-.game {
-  margin-top: -50vh;
-}
-
-.game-backdrop {
-  backdrop-filter: grayscale(0.5) opacity(0.8) /* ...and on and on... */;
-  background-repeat: no-repeat;
-  background-size: contain;
-}
 </style>

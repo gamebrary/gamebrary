@@ -21,6 +21,8 @@
     id="app"
     :dir="dir"
     v-shortkey="KEYBOARD_SHORTCUTS"
+    :style="style"
+    :class="{ 'no-repeat': style.length > 0 }"
     @shortkey="handleShortcutAction"
   >
     <page-header />
@@ -58,12 +60,26 @@ export default {
   data() {
     return {
       debugUserId: null,
+      backgroundImageUrl: null,
+      backgroundColor: null,
       KEYBOARD_SHORTCUTS,
     };
   },
 
   computed: {
     ...mapState(['user', 'settings', 'sessionExpired']),
+
+    style() {
+      const backgroundImage = this.backgroundImageUrl
+        ? `background-image: url('${this.backgroundImageUrl}');`
+        : null;
+
+      const backgroundColor = this.backgroundColor
+        ? `background-color: ${this.backgroundColor};`
+        : null;
+
+      return [backgroundImage, backgroundColor].join('');
+    },
 
     userId() {
       return this.debugUserId || this.user.uid;
@@ -91,12 +107,23 @@ export default {
   },
 
   async mounted() {
+    this.$bus.$on('UPDATE_WALLPAPER', this.updateWallpaperUrl);
+    this.$bus.$on('UPDATE_BACKGROUND_COLOR', this.updateBackgroundColor);
+
     await this.$store.dispatch('GET_TWITCH_TOKEN');
 
     this.init();
   },
 
   methods: {
+    updateWallpaperUrl(value) {
+      this.backgroundImageUrl = value;
+    },
+
+    updateBackgroundColor(value) {
+      this.backgroundColor = value;
+    },
+
     handleShortcutAction(data) {
       this.$bus.$emit('HANDLE_SHORTCUT', data);
     },
@@ -134,14 +161,20 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
   #app {
-    // background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,212,255,1) 100%);
     min-height: 100vh;
+    background-image: url('~/public/bg-tile.png');
     display: grid;
+
+    &.no-repeat {
+      background-repeat: no-repeat;
+      // background-size: contain;
+      // background-size: cover;
+      background-size: contain;
+    }
   }
 
   .viewport {
-    // padding-top: 54px !important;
-    overflow-y: auto;
-    // height: calc(100vh - 54px);
+    min-height: calc(100vh - 62px);
+    // overflow-y: auto;
   }
 </style>

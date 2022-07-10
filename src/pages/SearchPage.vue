@@ -22,7 +22,7 @@
       </b-col>
 
       <b-col cols="9">
-        <div class="search-page p-2">
+        <div class="p-2">
           <search-box />
           <!-- <b-alert show variant="success">
             Custom search controls go here!
@@ -134,10 +134,6 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-.search-page {
-  min-height: calc(100vh - 46px);
-}
-
 .masonry-container {
  column-count: 5;
  column-gap: 1rem;

@@ -114,7 +114,6 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
 .create-board-page {
-  background-image: url('~/public/bg-tile.png');
   height: calc(100vh - 56px);
 }
 

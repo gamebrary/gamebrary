@@ -1,7 +1,7 @@
 <template lang="html">
   <b-card
     no-body
-    class="cursor-pointer"
+    class="cursor-pointer text-center"
     :img-src="coverUrl"
     img-top
   >

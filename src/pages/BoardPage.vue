@@ -1,7 +1,6 @@
 <template lang="html">
   <div
     :class="['board px-3 pb-3', { dragging, empty }]"
-    :style="boardStyles"
   >
     <board-placeholder v-if="loading" />
 
@@ -72,18 +71,6 @@ export default {
       return this.user || isPublicBoard;
     },
 
-    boardStyles() {
-      const backgroundImage = this.backgroundUrl
-        ? `background-image: url('${this.backgroundUrl}');`
-        : null;
-
-      const backgroundColor = this.board?.backgroundColor
-        ? `background-color: ${this.board.backgroundColor};`
-        : null;
-
-      return [backgroundImage, backgroundColor].join('');
-    },
-
     boardId() {
       return this.$route.params?.id;
     },
@@ -94,6 +81,10 @@ export default {
   },
 
   watch: {
+    backgroundUrl(value) {
+      if (value) this.$bus.$emit('UPDATE_WALLPAPER', value);
+    },
+
     boardId(boardId) {
       if (boardId) this.load();
     },
@@ -121,6 +112,8 @@ export default {
 
   destroyed() {
     this.$bus.$off('LOAD_BOARD_BACKGROUND');
+    this.$bus.$emit('UPDATE_WALLPAPER', null);
+    this.$bus.$emit('UPDATE_BACKGROUND_COLOR', null);
   },
 
   methods: {
@@ -162,6 +155,8 @@ export default {
 
     async loadBoardBackground() {
       const url = this.board?.backgroundUrl;
+
+      if (this.board?.backgroundColor) this.$bus.$emit('UPDATE_BACKGROUND_COLOR', this.board?.backgroundColor);
 
       if (url) {
         this.backgroundUrl = url.includes('igdb')
@@ -220,9 +215,8 @@ export default {
 .board {
   user-select: none;
   display: flex;
-  background-size: cover;
   align-items: flex-start;
-  height: 100%;
+  min-height: calc(100vh - 62px);
   width: 100vw;
   box-sizing: border-box;
   overflow-x: auto;

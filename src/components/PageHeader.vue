@@ -1,7 +1,7 @@
 <template lang="html">
-  <header class="py-1 px-2 d-flex position-fixed">
+  <header class="p-2 d-flex">
     <home-button />
-    <boards-dropdown v-if="board.id && (isBoardPage || isGamePage)" />
+    <boards-dropdown v-if="board.id && isBoardPage" />
     <!-- <game-dropdown v-if="isGamePage" /> -->
 
     <div class="global-actions">

@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-row v-if="user" class="p-1">
+  <b-row v-if="user" class="p-1 boards">
     <!-- TODO: allow reorganizing and save -->
     <empty-state
       v-if="!user || !loading && sortedBoards.length === 0"
@@ -156,3 +156,8 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+.boards {
+}
+</style>
