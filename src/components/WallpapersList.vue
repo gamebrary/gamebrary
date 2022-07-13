@@ -6,7 +6,61 @@
       @selected="selected"
     />
 
-    <b-card
+    <div class="wallpapers">
+      <b-card
+        :img-src="wallpaper.url"
+        img-alt="Image"
+        img-top
+        overlay
+        footer-class="p-2"
+        tag="article"
+        v-for="wallpaper in wallpapers"
+        :key="wallpaper.name"
+        @click="openPreview(wallpaper)"
+      >
+        <b-button
+          variant="danger"
+          size="sm"
+          class="position-absolute delete-button"
+          @click="confirmDeleteWallpaper(wallpaper)"
+        >
+          <i class="fas fa-trash fa-fw" aria-hidden />
+        </b-button>
+
+        <template #footer>
+          <div class="d-flex align-items-start flex-column justify-content-between">
+            <b-button
+              @click="openPreview(wallpaper)"
+              variant="link"
+              class="p-0 mb-3 text-truncate"
+              block
+            >
+              {{ wallpaper.name }}
+
+              <b-badge variant="light" v-if="wallpaper.metadata && wallpaper.metadata.size">
+                {{ formatSize(wallpaper) }}
+              </b-badge>
+            </b-button>
+
+            <b-button
+              v-if="selectable"
+              variant="outline-primary"
+              class="border-0"
+              @click="selected(wallpaper)"
+            >
+              <i
+                v-if="saving"
+                class="fas fa-sync fa-spin fa-fw"
+                aria-hidden
+              />
+
+              <span v-else>Select</span>
+            </b-button>
+          </div>
+        </template>
+      </b-card>
+    </div>
+    <!-- <b-card
       v-for="wallpaper in wallpapers"
       :key="wallpaper.name"
       class="mb-2"
@@ -21,37 +75,7 @@
         @click="openPreview(wallpaper)"
       />
 
-      <div class="d-flex align-items-start flex-column">
-        <b-button @click="openPreview(wallpaper)" variant="link" class="p-0 mb-3">
-          {{ wallpaper.name }}
-
-          <b-badge variant="light" v-if="wallpaper.metadata && wallpaper.metadata.size">
-            {{ formatSize(wallpaper) }}
-          </b-badge>
-        </b-button>
-
-        <b-button
-          variant="danger"
-          @click="confirmDeleteWallpaper(wallpaper)"
-        >
-          <i class="fas fa-trash fa-fw" aria-hidden />
-        </b-button>
-
-        <b-button
-          v-if="selectable"
-          variant="primary"
-          @click="selected(wallpaper)"
-        >
-          <i
-            v-if="saving"
-            class="fas fa-sync fa-spin fa-fw"
-            aria-hidden
-          />
-
-          <span v-else>Select</span>
-        </b-button>
-      </div>
-    </b-card>
+    </b-card> -->
   </div>
 </template>
 
@@ -126,9 +150,27 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  .wallpaper-card {
+  .wallpapers {
     display: grid;
-    grid-template-columns: 200px auto;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 1rem;
+
+    @media(max-width: 1200px) {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    @media(max-width: 780px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media(max-width: 500px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .delete-button {
+    top: 1rem;
+    right: 1rem;
   }
 </style>
 
