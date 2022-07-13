@@ -41,6 +41,22 @@ Vue.use(VueI18n);
 Vue.component('modal-header', ModalHeader);
 Vue.component('page-title', PageTitle);
 
+Vue.directive('click-outside', {
+  bind: function (el, binding, vnode) {
+    el.clickOutsideEvent = function (event) {
+      // here I check that click was outside the el and his children
+      if (!(el == event.target || el.contains(event.target))) {
+        // and if it did, call method provided in attribute value
+        vnode.context[binding.expression](event);
+      }
+    };
+    document.body.addEventListener('click', el.clickOutsideEvent)
+  },
+  unbind: function (el) {
+    document.body.removeEventListener('click', el.clickOutsideEvent)
+  },
+});
+
 if (window.location.hostname.includes('gamebrary')) {
   Raven
     .config('https://15928bc58e7b45ac93878da6d8146064@sentry.io/1315568')

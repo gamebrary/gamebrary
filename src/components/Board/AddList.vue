@@ -1,30 +1,9 @@
 <template lang="html">
-  <b-button
-    variant="light"
-    v-if="!active"
-    @click="active = true"
-  >
-    <i class="fas fa-plus fa-fw" aria-hidden />
-  </b-button>
-  <!-- <b-modal
-    :id="modalId"
-    hide-footer
-    @show="reset"
-  >
-    <template v-slot:modal-header="{ close }">
-      <modal-header
-        :title="$t('board.addList.title')"
-        :subtitle="board.name"
-        @close="close"
-      >
-
-      </modal-header>
-    </template>
-  </b-modal> -->
   <b-card
-    v-else
+    v-if="active"
     class="flex-shrink-0"
     no-body
+    v-click-outside="reset"
   >
     <form
       ref="addListForm"
@@ -45,7 +24,7 @@
             split
             variant="primary"
             :disabled="saving || isDuplicate || !listName"
-            @click="submit"
+            @click.stop="submit"
           >
             <b-spinner small v-if="saving" />
             <span v-else>Add</span>
@@ -67,6 +46,14 @@
       </b-alert>
     </form>
   </b-card>
+
+  <b-button
+    v-else
+    variant="light"
+    @click.stop="showForm"
+  >
+    <i class="fas fa-plus fa-fw" aria-hidden />
+  </b-button>
 </template>
 
 <script>
@@ -106,6 +93,13 @@ export default {
   methods: {
     reset() {
       this.listName = '';
+      this.active = false;
+    },
+
+    showForm() {
+      this.active = true;
+
+      this.scroll();
     },
 
     submit(e) {
