@@ -1,6 +1,7 @@
 <!-- TODO: add bundles to game detail? -->
 <!-- {{ game.bundles ? `Found in ${game.bundles.length} compilations.` : null }} -->
 <!-- TODO: add speedruns -->
+<!-- TODO: Highlight exclusive games (e.g. only for NSW) -->
 <!-- TODO: add pricecharting info -->
 <!-- TODO: show GOG buy button -->
 <!-- TODO: Show lists/boards that the game belongs to -->

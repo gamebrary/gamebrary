@@ -1,3 +1,6 @@
+<!-- TODO: Clone board -->
+<!-- TODO: like/favorite board -->
+<!-- TODO: Fork board -->
 <!-- TODO: Add back button -->
 <!-- TODO: refactor platforms and wallpapers -->
 <!-- TODO: add board preview-->
