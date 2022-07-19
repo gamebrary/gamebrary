@@ -10,20 +10,26 @@
     />
 
     <template v-else>
-      <page-title title="Wallpapers">
-        <b-button
-          :disabled="outOfSpace"
-          variant="primary"
-          @click="triggerFileUpload"
-        >
-          <b-spinner small v-if="saving" />
+      <portal to="headerTitle">
+        <div class="d-flex">
+          <b-button>Back</b-button>
 
-          <template v-else>
-            <i class="fas fa-upload fa-fw" aria-hidden />
-            <span class="d-none d-sm-inline">Upload</span>
-          </template>
-        </b-button>
-      </page-title>
+          <page-title title="Wallpapers">
+            <b-button
+              :disabled="outOfSpace"
+              variant="primary"
+              @click="triggerFileUpload"
+            >
+              <b-spinner small v-if="saving" />
+
+              <template v-else>
+                <i class="fas fa-upload fa-fw" aria-hidden />
+                <span class="d-none d-sm-inline">Upload</span>
+              </template>
+            </b-button>
+          </page-title>
+        </div>
+      </portal>
 
       <b-alert
         v-if="isDuplicate && !saving && file && file.name"

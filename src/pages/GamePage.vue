@@ -7,10 +7,44 @@
 <!-- TODO: Show lists/boards that the game belongs to -->
 
 <template lang="html">
-  <b-container fluid class="px-2 pb-2">
+  <b-container fluid>
     <b-skeleton v-if="loading" />
 
     <template v-else-if="game">
+      <portal to="headerTitle">
+        <b-button-group>
+          <b-button @click="$bus.$emit('ADD_GAME', game.id)">
+            <i class="fa-solid fa-plus fa-fw" />
+            Add to list
+          </b-button>
+
+          <b-button :to="{ name: 'game.tags', params: { id: game.id, slug: game.slug } }">
+            <i class="fa-solid fa-tags fa-fw" />
+            Tags
+          </b-button>
+
+          <b-button :to="{ name: 'game.progress', params: { id: game.id, slug: game.slug } }">
+            <i class="fa-solid fa-bars-progress fa-fw" />
+            Track progress
+          </b-button>
+
+          <b-button :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug } }">
+            <i class="fa-solid fa-note-sticky fa-fw" />
+            Notes
+          </b-button>
+
+          <b-button :to="{ name: 'game.news', params: { id: game.id, slug: game.slug } }">
+            <i class="fa-solid fa-newspaper fa-fw" />
+            News
+          </b-button>
+
+          <b-button :to="{ name: 'game.media', params: { id: game.id, slug: game.slug } }">
+            <i class="fa-solid fa-photo-film fa-fw" />
+            Images / Videos
+          </b-button>
+        </b-button-group>
+      </portal>
+
       <b-row class="game">
         <b-col
           offset="2"
@@ -40,10 +74,32 @@
             <game-rating :game="game" />
           </div>
 
-          <b-card body-class="p-3" class="mt-2">
+          <b-card body-class="p-3" class="mt-2 ml-n3">
             <h4>Game found in these boards:</h4>
 
-            <b-badge
+            <b-list-group>
+              <b-list-group-item
+                v-for="board in boardsWithGame"
+                :to="{ name: 'board', params: { id: board.id } }"
+                :key="board.id"
+                button
+              >
+                <b-avatar
+                  rounded
+                  :class="['board-thumbnail mr-2', { 'bg-dark' : !board.backgroundColor }]"
+                  :title="board.name"
+                  text=" "
+                  :style="`
+                    background-image: url(${board.backgroundUrl || ''});
+                    background-color: ${board.backgroundColor || ''}
+                    `"
+                />
+
+                {{ board.name }}
+              </b-list-group-item>
+            </b-list-group>
+
+            <!-- <b-badge
               v-for="board in boardsWithGame"
               :to="{ name: 'board', params: { id: board.id } }"
               :key="board.id"
@@ -60,7 +116,7 @@
                   `"
               />
               {{ board.name }}
-            </b-badge>
+            </b-badge> -->
           </b-card>
         </b-col>
 

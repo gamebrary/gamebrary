@@ -1,16 +1,16 @@
 <template lang="html">
-  <b-card v-if="provider" style="max-width: 100%; width: 400px;">
-    <b-media right-align vertical-align="center">
+  <b-card v-if="provider" style="max-width: 100%; width: 400px;" class="mb-3">
+    <b-media>
       <template #aside>
         <b-img
           :src="`/logos/companies/${provider.id}.svg`"
-          width="60"
+          width="40"
           alt="Provider"
         />
       </template>
-      <h3 class="mt-0 mb-1">{{ user.displayName }}</h3>
+      <h4>{{ user.displayName }}</h4>
 
-      <p>Logged in {{ lastLogin }} using <strong>{{ provider.name }}</strong>.</p>
+      <p class="m-0">Logged in {{ lastLogin }} using <strong>{{ provider.name }}</strong>.</p>
     </b-media>
   </b-card>
 </template>

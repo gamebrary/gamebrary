@@ -1,9 +1,15 @@
 <!-- TODO: finish layout -->
 <template lang="html">
   <b-container fluid class="p-2">
-    <b-form-row>
+    <div v-if="loading">
+      Loading...
+    </div>
+
+    <b-form-row v-else>
       <b-col>
-        <b-img :src="gameCoverUrl" width="200" rounded class="mb-2 mr-2" />
+        <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}">
+          <b-img :src="gameCoverUrl" width="200" rounded class="mb-2 mr-2" />
+        </router-link>
 
         <b-button
           variant="primary"
@@ -88,8 +94,36 @@ export default {
     this.loadNote();
   },
 
+data() {
+  return {
+    loading: true,
+  }
+},
+
   methods: {
     loadNote() {
+      if (this.game.id !== this.$route.params.id) {
+        this.loadGame();
+      } else {
+        this.loading = false;
+        this.setNote();
+      }
+    },
+
+    async loadGame() {
+      this.loading = true;
+      this.$store.commit('CLEAR_GAME');
+
+      try {
+        await this.$store.dispatch('LOAD_GAME', this.$route.params.id);
+
+        this.setNote();
+      } catch (e) {}
+
+      this.loading = false;
+    },
+
+    setNote() {
       this.note = this.notes[this.game.id] || '';
     },
 

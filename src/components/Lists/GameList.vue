@@ -80,7 +80,6 @@
           variant="light"
           :to="{ name: 'search' }"
         >
-          {{ $t('board.list.emptyListButton') }}
         </b-button> -->
 
         <b-button
@@ -88,10 +87,9 @@
           variant="light"
           block
           class="mb-2"
-          :to="{ name: 'search' }"
+          :to="{ name: 'search', query: { boardId: board.id, listIndex: listIndex } }"
         >
-          <!-- TODO: add board id in params -->
-          Add games
+          {{ $t('board.list.emptyListButton') }}
         </b-button>
       </draggable>
     </b-card>

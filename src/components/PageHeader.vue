@@ -1,6 +1,7 @@
 <template lang="html">
   <header class="p-2 d-flex">
     <home-button />
+    <portal-target name="headerTitle" />
     <boards-dropdown v-if="board.id && isBoardPage" />
     <!-- <game-dropdown v-if="isGamePage" /> -->
 
@@ -12,44 +13,20 @@
       </b-button> -->
 
       <b-button
-        variant="primary"
+        variant="light"
+        class="mr-2"
         :to="{ name: 'search' }"
       >
         <i class="fas fa-search fa-fw" aria-hidden />
       </b-button>
 
-      <b-dropdown
+      <router-link
         v-if="user"
-        boundary="viewport"
-        variant="link"
-        class="p-0"
-        toggle-class="p-0"
-        no-caret
+        variant="primary"
+        :to="{ name: 'settings' }"
       >
-        <template #button-content>
-          <b-avatar rounded variant="info" :src="user.photoURL" />
-        </template>
-
-        <b-dropdown-item
-          :to="{ name: 'settings' }"
-        >
-          <i class="fas fa-cog fa-fw" /> Settings
-        </b-dropdown-item>
-
-        <b-dropdown-item
-          :to="{ name: 'releases' }"
-        >
-          <i class="fas fa-rocket fa-fw" aria-hidden></i>
-          Releases
-        </b-dropdown-item>
-
-        <b-dropdown-divider />
-
-        <b-dropdown-item @click="session_signOut">
-          <i class="fa-solid fa-arrow-right-from-bracket" />
-          Log out
-        </b-dropdown-item>
-      </b-dropdown>
+        <b-avatar size="38" rounded variant="info" :src="user.photoURL" />
+      </router-link>
 
       <b-button
         v-else
@@ -67,11 +44,9 @@
 // import GameDropdown from '@/components/Game/GameDropdown';
 import BoardsDropdown from '@/components/BoardsDropdown';
 import HomeButton from '@/components/Shared/HomeButton';
-import sessionMixin from '@/mixins/sessionMixin';
 import { mapState } from 'vuex';
 
 export default {
-  mixins: [sessionMixin],
 
   components: {
     // GameDropdown,

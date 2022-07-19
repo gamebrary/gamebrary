@@ -17,11 +17,13 @@
      </empty-state>
 
     <template v-else>
-      <page-title
-        title="Tags"
-        action-text="Add tag"
-        @action="$bvModal.show('addTag')"
-      />
+      <portal to="headerTitle">
+        <page-title
+          title="Tags"
+          action-text="Add tag"
+          @action="$bvModal.show('addTag')"
+        />
+      </portal>
 
       <tags-list
         v-if="gameTags && localTags"

@@ -1,6 +1,7 @@
 <template lang="html">
   <b-row v-if="user" class="p-1 boards">
     <!-- TODO: allow reorganizing and save -->
+    <!-- TODO: add sorting -->
     <empty-state
       v-if="!user || !loading && sortedBoards.length === 0"
       title="Boards"
@@ -27,7 +28,7 @@
         sm="6"
         md="4"
         lg="3"
-        class="p-1"
+        class="p-2"
       >
         <mini-board
           :board="board"

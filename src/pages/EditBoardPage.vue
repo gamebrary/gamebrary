@@ -8,13 +8,6 @@
 <template lang="html">
   <b-container fluid class="p-0">
     <b-row v-if="board" no-gutters>
-      <b-col sm="12" md="6">
-        <div class="p-3 list-preview d-flex justify-content-center">
-          <!-- <game-list :list="list" preview /> -->
-          <board-placeholder />
-        </div>
-      </b-col>
-
       <b-col>
         <b-card>
           <header class="p-1 mb-3 pl-2 d-flex justify-content-between align-items-center">
@@ -70,13 +63,6 @@
             </b-button>
 
             <hr class="my-3">
-
-            <b-button
-              variant="danger"
-              @click="confirmDelete"
-            >
-              {{ $t('board.settings.deleteBoard') }}
-            </b-button>
 
             <!-- <b-button
               variant="primary"
@@ -173,6 +159,13 @@
               <b-spinner small v-if="saving" />
               <span v-else>{{ $t('global.save') }}</span>
             </b-button>
+
+            <b-button
+              variant="link"
+              @click="confirmDelete"
+            >
+              {{ $t('board.settings.deleteBoard') }}
+            </b-button>
           </form>
         </b-card>
       </b-col>
@@ -183,12 +176,12 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import EditBoardBackgroundModal from '@/components/Board/EditBoardBackgroundModal';
-import BoardPlaceholder from '@/components/Board/BoardPlaceholder';
+// import BoardPlaceholder from '@/components/Board/BoardPlaceholder';
 import orderby from 'lodash.orderby';
 
 export default {
   components: {
-    BoardPlaceholder,
+    // BoardPlaceholder,
     EditBoardBackgroundModal,
   },
 

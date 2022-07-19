@@ -16,7 +16,10 @@
           <header class="p-1 mb-3 pl-2 d-flex justify-content-between align-items-center">
             <h1 class="mb-0">Edit list</h1>
 
-            <b-button variant="success">
+            <b-button
+              variant="success"
+              :to="{ name: 'search', query: { boardId: board.id, listIndex } }"
+            >
               Add games
             </b-button>
           </header>

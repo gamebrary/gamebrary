@@ -13,6 +13,14 @@
       <b-col cols="10">
         <b-card-body :title="game.name" title-tag="h4">
           <b-button
+            v-if="activeList"
+            @click="$emit('addToActiveList', game.id)"
+          >
+            Add
+          </b-button>
+
+          <b-button
+            v-else
             @click="addGameToList"
             variant="primary"
           >
@@ -34,6 +42,7 @@ export default {
       type: Object,
       required: true,
     },
+    activeList: Boolean,
   },
 
   computed: {

@@ -1,102 +1,119 @@
 <template lang="html">
-  <b-container fluid class="p-2">
-    <b-row no-gutters>
-      <b-col cols="4" sm="3" lg="2">
-        <b-list-group>
-          <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'general.settings' }">
-            <i class="mr-2 fas fa-sliders-h fa-fw" aria-hidden />
-            <small>General</small>
-          </b-list-group-item>
+  <b-container>
+    <div style="width: 400px; max-width: 100%">
+      <language-settings />
 
-          <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'wallpapers.settings' }">
-            <i class="mr-2 fa-solid fa-images fa-fw" aria-hidden />
-            <small>Wallpapers</small>
-          </b-list-group-item>
+      <settings-card
+        title="Wallpapers"
+        description="Manage your wallpapers"
+        icon="fa-images"
+        @click.native="$router.push({ name: 'wallpapers.settings' })"
+      />
 
-          <!-- <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'profile.settings' }">
-            <i class="mr-2 fa-solid fa-user fa-fw" aria-hidden />
-            <small>Profile</small>
-          </b-list-group-item> -->
+      <settings-card
+        title="Notes"
+        description="View all your notes"
+        icon="fa-note-sticky"
+        @click.native="$router.push({ name: 'notes.settings' })"
+      />
 
-          <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'notes.settings' }">
-            <i class="mr-2 fa-solid fa-note-sticky fa-fw" aria-hidden />
-            <small>Notes</small>
-          </b-list-group-item>
+      <settings-card
+        title="Tags"
+        description="View all your tags"
+        icon="fa-tags"
+        @click.native="$router.push({ name: 'tags.settings' })"
+      />
 
-          <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'team.settings' }">
-            <i class="mr-2 fa-solid fa-tags fa-fw" aria-hidden />
-            <small>Tags</small>
-          </b-list-group-item>
+      <settings-card
+        title="Account"
+        description="Manage your Gamebrary account"
+        icon="fa-user"
+        @click.native="$router.push({ name: 'account.settings' })"
+      />
 
-          <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'account.settings' }">
-            <i class="mr-2 fa-solid fa-user-shield fa-fw" aria-hidden />
-            <small>Account</small>
-          </b-list-group-item>
+      <!-- TODO: fix -->
+      <b-button
+        block
+        variant="secondary"
+        v-b-modal.keyboard-shortcuts
+      >
+        Keyboard shortcuts
+      </b-button>
 
-          <!-- <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'steam.settings' }">
-            <i class="mr-2 fab fa-steam fa-fw" aria-hidden></i>
-            <small>Steam</small>
-          </b-list-group-item> -->
+      <b-button
+        block
+        variant="secondary"
+        :to="{ name: 'dev.tools' }"
+      >
+        Dev tools
+      </b-button>
 
-          <!-- <hr /> -->
+      <b-button
+        href="https://github.com/romancm/gamebrary"
+        target="_blank"
+        block
+        variant="secondary"
+      >
+        <i class="fab fa-github fa-fw" />
+        GitHub
+      </b-button>
 
-          <!-- <b-list-group-item :to="{ name: 'profiles' }">
-            <i class="mr-2 fa-solid fa-people-group fa-fw" aria-hidden />
-            <small>Profiles</small>
-          </b-list-group-item> -->
+      <b-button
+        block
+        variant="secondary"
+        href="https://goo.gl/forms/r0juBCsZaUtJ03qb2"
+        target="_blank"
+      >
+        Submit feedback
+      </b-button>
 
-          <!-- <b-list-group-item :to="{ name: 'dev.tools' }">
-            <i class="mr-2 fa-solid fa-code fa-fw" aria-hidden />
+      <hr />
 
-            <small>Dev tools</small>
-          </b-list-group-item> -->
+      <!-- <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'profile.settings' }">
+        <i class="mr-2 fa-solid fa-user fa-fw" aria-hidden />
+        <small>Profile</small>
+      </b-list-group-item> -->
 
-          <!-- <a
-            href="https://github.com/romancm/gamebrary"
-            target="_blank"
-          >
-            <i class="mr-2 fab fa-github"></i>
-          </a> -->
+      <!-- <game-detail-settings /> -->
 
-          <!-- <small class="my-2">
-            <a v-b-modal.keyboard-shortcuts>Keyboard shortcuts</a>
-          </small> -->
+      <account-settings />
+      <!-- <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'steam.settings' }">
+        <i class="mr-2 fab fa-steam fa-fw" aria-hidden></i>
+        <small>Steam</small>
+      </b-list-group-item> -->
 
-          <!-- {{ $t('global.donateMessage') }} -->
-          <!-- <a href="https://www.paypal.me/RomanCervantes/5" target="_blank">
-            {{ $t('global.donating') }}
-          </a> -->
+      <!-- <hr /> -->
 
-          <!-- <a href="https://github.com/romancm/gamebrary/issues" target="_blank">
-            {{ $t('global.reportBugs') }}
-          </a> -->
+      <!-- <b-list-group-item :to="{ name: 'profiles' }">
+        <i class="mr-2 fa-solid fa-people-group fa-fw" aria-hidden />
+        <small>Profiles</small>
+      </b-list-group-item> -->
 
-          <!-- <a href="https://goo.gl/forms/r0juBCsZaUtJ03qb2" target="_blank">
-            {{ $t('global.submitFeedback') }}
-          </a> -->
-        </b-list-group>
+      <!-- {{ $t('global.donateMessage') }} -->
+      <!-- <a href="https://www.paypal.me/RomanCervantes/5" target="_blank">
+        {{ $t('global.donating') }}
+      </a> -->
 
-        <small>&copy; 2021 Gamebrary</small>
-      </b-col>
-
-      <b-col cols="8" sm="9" lg="10">
-        <router-view />
-      </b-col>
-    </b-row>
+      <small>&copy; 2022 Gamebrary</small>
+    </div>
   </b-container>
 </template>
 
 <script>
 // import ProfileSettingsPage from '@/pages/ProfileSettingsPage';
-// import AccountSettingsPage from '@/pages/AccountSettingsPage';
+import SettingsCard from '@/components/Settings/SettingsCard';
 // import SteamSettingsPage from '@/pages/SteamSettingsPage';
 // import GeneralSettingsPage from '@/pages/GeneralSettingsPage';
+// import GameDetailSettings from '@/components/Settings/GameDetailSettings';
+import LanguageSettings from '@/components/Settings/LanguageSettings';
 import { mapState } from 'vuex';
 
 export default {
   components: {
+    LanguageSettings,
+    // GameDetailSettings,
     // ProfileSettingsPage,
-    // AccountSettingsPage,
+    SettingsCard,
     // SteamSettingsPage,
     // GeneralSettingsPage,
   },

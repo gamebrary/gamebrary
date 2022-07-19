@@ -1,21 +1,27 @@
 <!-- TODO: finish layout -->
 <template lang="html">
   <b-container class="p-2">
-    <b-img :src="gameCoverUrl" width="200" rounded class="mb-2 mr-2" />
-
-    <empty-state
-      v-if="empty"
-      class="mb-4"
-      message="Looks like you don't have any tags yet."
-    >
-      <b-button @click="manageTags">Manage tags</b-button>
-    </empty-state>
+    <template v-if="loading">
+      loading
+    </template>
 
     <template v-else>
+      <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}">
+        <b-img :src="gameCoverUrl" width="200" rounded class="mb-2 mr-2" />
+      </router-link>
+
       <h3>Tags</h3>
       <p>Click on tag to add or remove tag from game</p>
 
-      <b-row>
+      <empty-state
+        v-if="empty"
+        class="mb-4"
+        message="Looks like you don't have any tags yet."
+      >
+        <b-button @click="manageTags">Manage tags</b-button>
+      </empty-state>
+
+      <b-row v-else>
         <!-- TODO: Show current games in tag -->
         <!-- TODO: Filter tag option if tags > too many -->
         <b-col cols="12" md="auto">
@@ -62,6 +68,7 @@ export default {
 
   data() {
     return {
+      loading: true,
     };
   },
 
@@ -84,9 +91,26 @@ export default {
   },
 
   mounted() {
+    if (this.game.id !== this.$route.params.id) {
+      this.loadGame();
+    } else {
+      this.loading = false;
+    }
   },
 
   methods: {
+    async loadGame() {
+      this.loading = true;
+      this.$store.commit('CLEAR_GAME');
+
+      await this.$store.dispatch('LOAD_GAME', this.$route.params.id)
+        .catch(() => {
+          this.loading = false;
+        });
+
+      this.loading = false;
+    },
+
     async addTag(tagName) {
       const gameId = this.game.id;
 

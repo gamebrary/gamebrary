@@ -2,15 +2,17 @@
 <!-- TODO: pagination? -->
 <template lang="html">
   <b-container fluid>
-    <page-title title="Notes">
-      <b-form-input
-        v-if="!showEmptyState"
-        type="search"
-        style="max-width: 200px"
-        placeholder="Search notes"
-        v-model="search"
-      />
-    </page-title>
+    <portal to="headerTitle">
+      <page-title title="Notes">
+        <b-form-input
+          v-if="!showEmptyState"
+          type="search"
+          style="max-width: 200px"
+          placeholder="Search notes"
+          v-model="search"
+        />
+      </page-title>
+    </portal>
 
     <empty-state
       v-if="showEmptyState"
@@ -19,7 +21,7 @@
     />
 
     <template v-else>
-      <div class="notes mb-2">
+      <div class="notes">
         <game-note
           v-for="(note, index) in filteredNotes"
           :key="index"
@@ -131,9 +133,21 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
 
-// .notes {
-//   column-width: 320px;
-//   column-gap: 15px;
-//   column-fill: auto;
-// }
+.notes {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 1rem;
+
+  @media(max-width: 1200px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  @media(max-width: 780px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media(max-width: 500px) {
+    grid-template-columns: 1fr;
+  }
+}
 </style>

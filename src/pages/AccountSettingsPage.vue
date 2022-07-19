@@ -1,18 +1,24 @@
 <template lang="html">
-  <b-container fluid>
-    <page-title title="Account settings" />
-
+  <b-container>
     <provider-card />
-
-    <b-button
-      class="mt-3"
-      variant="danger"
-      v-b-modal:deleteAccount
-    >
-      Delete Account
-    </b-button>
-
     <delete-account-modal />
+
+    <div class="mb-3">
+      <b-button
+        class="mr-3"
+        variant="danger"
+        v-b-modal:deleteAccount
+      >
+        Delete Account
+      </b-button>
+
+      <b-button
+        @click="session_signOut"
+      >
+        <i class="fa-solid fa-arrow-right-from-bracket" />
+        Log out
+      </b-button>
+    </div>
   </b-container>
 </template>
 
@@ -20,6 +26,7 @@
 import DeleteAccountModal from '@/components/Settings/DeleteAccountModal';
 import ProviderCard from '@/components/ProviderCard';
 import { mapState } from 'vuex';
+import sessionMixin from '@/mixins/sessionMixin';
 
 export default {
   components: {
@@ -27,6 +34,7 @@ export default {
     DeleteAccountModal,
   },
 
+  mixins: [sessionMixin],
 
   computed: {
     ...mapState(['user']),
@@ -36,4 +44,3 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
 </style>
-

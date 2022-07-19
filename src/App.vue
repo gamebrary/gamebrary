@@ -167,9 +167,8 @@ export default {
 
     &.no-repeat {
       background-repeat: no-repeat;
+      background-size: cover;
       // background-size: contain;
-      // background-size: cover;
-      background-size: contain;
     }
   }
 

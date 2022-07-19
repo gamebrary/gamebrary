@@ -1,7 +1,11 @@
+// TODO: use chunks and import directly
+// TODO: separate into different files
+// TODO: make naming consistent
 import AboutPage from '@/pages/AboutPage';
 import AuthPage from '@/pages/AuthPage';
 import BoardPage from '@/pages/BoardPage';
 import UpgradePage from '@/pages/UpgradePage';
+import AccountSettingsPage from '@/pages/AccountSettingsPage';
 import EditBoardPage from '@/pages/EditBoardPage';
 import CreateBoardPage from '@/pages/CreateBoardPage';
 import DevToolsPage from '@/pages/DevToolsPage';
@@ -26,14 +30,11 @@ import PublicProfilesPage from '@/pages/PublicProfilesPage';
 import ReleasesPage from '@/pages/ReleasesPage';
 import SettingsPage from '@/pages/SettingsPage';
 import SearchPage from '@/pages/SearchPage';
-import AccountSettingsPage from '@/pages/AccountSettingsPage';
 import SteamSettingsPage from '@/pages/SteamSettingsPage';
-import GeneralSettingsPage from '@/pages/GeneralSettingsPage';
+// import GeneralSettingsPage from '@/pages/GeneralSettingsPage';
 import TagsPage from '@/pages/TagsPage';
 import TermsPage from '@/pages/TermsPage';
 import WallpapersPage from '@/pages/WallpapersPage';
-// TODO: use chunks and import directly
-// TODO: separate into different files
 
 const routes = [
   {
@@ -74,65 +75,54 @@ const routes = [
     meta: {
       title: 'Settings',
     },
-    redirect: { name: 'general.settings' },
-    children: [
-      {
-        name: 'account.settings',
-        path: 'account',
-        component: AccountSettingsPage,
-        meta: {
-          title: "Account",
-        },
-      },
-      {
-        name: 'steam.settings',
-        path: 'steam',
-        component: SteamSettingsPage,
-        meta: {
-          title: "Steam",
-        },
-      },
-      {
-        name: 'general.settings',
-        path: '',
-        component: GeneralSettingsPage,
-        meta: {
-          title: 'Settings',
-        }
-      },
-      {
-        name: 'team.settings',
-        path: 'tags',
-        component: TagsPage,
-        meta: {
-          title: 'Tags',
-        },
-      },
-      {
-        name: 'profile.settings',
-        path: 'profile',
-        component: ProfileSettingsPage,
-        meta: {
-          title: 'Edit profile',
-        },
-      },
-      {
-        name: 'notes.settings',
-        path: 'notes',
-        component: NotesPage,
-        meta: {
-          title: 'Notes',
-        },
-      },
-      {
-        name: 'wallpapers.settings',
-        path: 'wallpapers',
-        component: WallpapersPage,
-        meta: {
-          title: 'Wallpapers',
-        },
-      },
-    ],
+  },
+  {
+    name: 'steam.settings',
+    path: '/settings/steam',
+    component: SteamSettingsPage,
+    meta: {
+      title: "Steam",
+    },
+  },
+  {
+    name: 'account.settings',
+    path: '/settings/account',
+    component: AccountSettingsPage,
+    meta: {
+      title: "Steam",
+    },
+  },
+  {
+    name: 'tags.settings',
+    path: '/settings/tags',
+    component: TagsPage,
+    meta: {
+      title: 'Tags',
+    },
+  },
+  {
+    name: 'profile.settings',
+    path: '/settings/profile',
+    component: ProfileSettingsPage,
+    meta: {
+      title: 'Edit profile',
+    },
+  },
+  {
+    name: 'notes.settings',
+    path: '/settings/notes',
+    component: NotesPage,
+    meta: {
+      title: 'Notes',
+    },
+  },
+  {
+    name: 'wallpapers.settings',
+    path: '/settings/wallpapers',
+    component: WallpapersPage,
+    meta: {
+      title: 'Wallpapers',
+    },
   },
   {
     name: 'releases',
