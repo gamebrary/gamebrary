@@ -162,7 +162,7 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
   #app {
     min-height: 100vh;
-    background-image: url('~/public/bg-tile.png');
+    // background-image: url('~/public/bg-tile.png');
     display: grid;
 
     &.no-repeat {

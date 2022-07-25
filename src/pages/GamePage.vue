@@ -505,7 +505,6 @@ export default {
       this.loading = true;
       this.$store.commit('CLEAR_GAME');
 
-
       await this.$store.dispatch('LOAD_GAME', this.gameId)
         .catch(() => {
           this.loading = false;
@@ -515,7 +514,6 @@ export default {
         });
 
       this.loading = false;
-      console.log('loadSupplementalData');
       this.loadSupplementalData();
     },
 

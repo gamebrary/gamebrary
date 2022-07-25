@@ -1,5 +1,5 @@
 <template lang="html">
-  <div>
+  <div class="bg-warning">
     <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}">
       <b-img :src="gameCoverUrl" width="200" rounded class="mb-2 mr-2" />
     </router-link>

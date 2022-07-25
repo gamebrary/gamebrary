@@ -133,6 +133,8 @@ export default {
     },
 
     activeBoardList() {
+      if (!this.boardListIndex) return [];
+
       return this.board?.lists[this.boardListIndex];
     },
   },

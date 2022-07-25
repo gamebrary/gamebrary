@@ -8,81 +8,98 @@
     @hidden="hidden"
   >
     <template #default>
-      <header class="p-2">
+      <div class="p-2">
         <b-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}">
           <b-img
             :src="coverUrl"
             fluid
             rounded
-            class="mb-2"
           />
         </b-link>
 
-        <h4 class="text-center">Add {{ game.name }} to a list</h4>
-      </header>
-
-      <!-- TODO: show active board at top -->
-      <h4 class="mx-2">Boards:</h4>
-      <b-list-group flush>
-        <b-list-group-item
-          v-for="board in formattedBoards"
-          :key="board.id"
-          class="p-0"
-          button
-          @click="expandedBoard = board.id === expandedBoard ? null : board.id"
+        <b-button
+          block
+          variant="success"
+          class="mt-2"
+          :to="{ name: 'game', params: { id: game.id, slug: game.slug }}"
         >
-          <header class="p-2 d-flex justify-content-between align-items-center">
-            <aside class="d-flex">
-              <b-avatar
-                rounded
-                :class="['board-thumbnail mr-2', { 'bg-dark' : !board.backgroundColor }]"
-                :title="board.name"
-                text=" "
-                :style="`
-                  background-image: url(${board.backgroundUrl ? board.backgroundUrl : ''});
-                  background-color: ${board.backgroundColor ? board.backgroundColor : ''}
-                  `"
-                :to="{ name: 'board', params: { id: board.id } }"
-              />
+          {{ game.name }}
+        </b-button>
 
-              <div class="d-flex flex-column">
-                {{ board.name }}
-                <br />
-                <small>{{ board.lists.length }} Lists</small>
-              </div>
-              <!-- TODO: show "In XX lists" -->
-            </aside>
+        <template v-if="user">
+          <!-- TODO: show active board at top -->
+          <h4 class="mx-2">Boards:</h4>
+          <b-list-group flush>
+            <b-list-group-item
+              v-for="board in formattedBoards"
+              :key="board.id"
+              class="p-0"
+              button
+              @click="expandedBoard = board.id === expandedBoard ? null : board.id"
+            >
+              <header class="p-2 d-flex justify-content-between align-items-center">
+                <aside class="d-flex">
+                  <b-avatar
+                    rounded
+                    :class="['board-thumbnail mr-2', { 'bg-dark' : !board.backgroundColor }]"
+                    :title="board.name"
+                    text=" "
+                    :style="`
+                      background-image: url(${board.backgroundUrl ? board.backgroundUrl : ''});
+                      background-color: ${board.backgroundColor ? board.backgroundColor : ''}
+                      `"
+                    :to="{ name: 'board', params: { id: board.id } }"
+                  />
 
-            <b-badge variant="primary" pill>{{ board.lists.length }}</b-badge>
-          </header>
+                  <div class="d-flex flex-column">
+                    {{ board.name }}
+                    <br />
+                    <small>{{ board.lists.length }} Lists</small>
+                  </div>
+                  <!-- TODO: show "In XX lists" -->
+                </aside>
 
-          <b-collapse
-            :id="board.id"
-            :visible="expandedBoard === board.id"
-            accordion="my-accordion"
-            role="tabpanel"
-          >
-            <b-list-group flush>
-              <b-list-group-item
-                class="d-flex justify-content-between align-items-center"
-                v-for="(list, listIndex) in board.lists"
-                :key="`${board.id}-${list.name}`"
-                :variant="isGameInList({ list, gameId }) ? 'success' : 'transparent'"
-                button
-                @click.stop="handleClick({ list, listIndex, board })"
+                <b-badge variant="primary" pill>{{ board.lists.length }}</b-badge>
+              </header>
+
+              <b-collapse
+                :id="board.id"
+                :visible="expandedBoard === board.id"
+                accordion="my-accordion"
+                role="tabpanel"
               >
-                <span>
-                  {{ list.name }}
-                  <br />
-                  <small class="text-muted">{{ list.games.length }} games in list</small>
-                </span>
+                <b-list-group flush>
+                  <b-list-group-item
+                    class="d-flex justify-content-between align-items-center"
+                    v-for="(list, listIndex) in board.lists"
+                    :key="`${board.id}-${list.name}`"
+                    :variant="isGameInList({ list, gameId }) ? 'success' : 'transparent'"
+                    button
+                    @click.stop="handleClick({ list, listIndex, board })"
+                  >
+                    <span>
+                      {{ list.name }}
+                      <br />
+                      <small class="text-muted">{{ list.games.length }} games in list</small>
+                    </span>
 
-                <i :class="`fa-solid ${isGameInList({ list, gameId }) ? 'fa-minus' : 'fa-plus' }`" />
-              </b-list-group-item>
-            </b-list-group>
-          </b-collapse>
-        </b-list-group-item>
-      </b-list-group>
+                    <i :class="`fa-solid ${isGameInList({ list, gameId }) ? 'fa-minus' : 'fa-plus' }`" />
+                  </b-list-group-item>
+                </b-list-group>
+              </b-collapse>
+            </b-list-group-item>
+          </b-list-group>
+        </template>
+
+        <b-button
+          v-else
+          block
+          :to="{ name: 'auth' }"
+          variant="primary"
+        >
+          Add to list
+        </b-button>
+      </div>
     </template>
   </b-sidebar>
 </template>
@@ -104,7 +121,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['games', 'boards', 'wallpapers']),
+    ...mapState(['games', 'boards', 'wallpapers', 'user']),
 
     // TODO: handle this at action/mutation level OR use getter at least
     formattedBoards() {
@@ -190,16 +207,6 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  .search-results {
-    max-height: calc(100vh - 400px);
-    overflow-y: auto;
-    display: grid;
-
-    @media(max-width: 780px) {
-      max-height: calc(100vh - 200px);
-    }
-  }
-
   .board-thumbnail {
     background-size: cover;
     background-position: center;
