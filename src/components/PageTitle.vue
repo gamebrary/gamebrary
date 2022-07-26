@@ -7,6 +7,7 @@
 
       <b-button
         v-if="actionText"
+        :href="url"
         variant="primary"
         @click="$emit('action')"
       >
@@ -20,6 +21,7 @@
 export default {
   props: {
     title: String,
+    url: String,
     actionText: String,
   },
 };

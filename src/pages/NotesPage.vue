@@ -3,15 +3,18 @@
 <template lang="html">
   <b-container fluid>
     <portal to="headerTitle">
-      <page-title title="Notes">
+      <div class="w-100 d-flex align-items-center justify-content-between">
+        <h3 class="m-0">Notes</h3>
+
         <b-form-input
           v-if="!showEmptyState"
           type="search"
           style="max-width: 200px"
+          class="mr-3"
           placeholder="Search notes"
           v-model="search"
         />
-      </page-title>
+      </div>
     </portal>
 
     <empty-state

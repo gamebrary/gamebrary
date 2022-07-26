@@ -6,53 +6,49 @@
     </div>
 
     <b-form-row v-else>
-      <b-col>
-        <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}">
-          <b-img :src="gameCoverUrl" width="200" rounded class="mb-2 mr-2" />
-        </router-link>
+      <game-sub-page>
+        <b-col>
+          <game-note v-if="note" :note="{ note }" />
 
-        <b-button
-          variant="primary"
-          :disabled="saving || !dirtied"
-          @click="saveNote"
-        >
-          <b-spinner small v-if="saving" />
-          <span v-else>{{ $t('global.save') }}</span>
-        </b-button>
+          <b-button
+            variant="primary"
+            :disabled="saving || !dirtied"
+            @click="saveNote"
+          >
+            <b-spinner small v-if="saving" />
+            <span v-else>{{ $t('global.save') }}</span>
+          </b-button>
 
-        <b-button
-          variant="danger"
-          class="mr-1"
-          v-if="notes[game.id] && !saving"
-          :disabled="deleting"
-          @click="deleteNote"
-        >
-          <b-spinner small v-if="deleting" />
+          <b-button
+            variant="danger"
+            class="mr-1"
+            v-if="notes[game.id] && !saving"
+            :disabled="deleting"
+            @click="deleteNote"
+          >
+            <b-spinner small v-if="deleting" />
 
-          <i class="d-sm-none fas fa-trash fa-fw" aria-hidden />
-          <span class="d-none d-sm-inline">{{ $t('global.delete') }}</span>
-        </b-button>
+            <i class="d-sm-none fas fa-trash fa-fw" aria-hidden />
+            <span class="d-none d-sm-inline">{{ $t('global.delete') }}</span>
+          </b-button>
 
-        <b-form-textarea
-          v-model.trim="note"
-          placeholder="Type note here"
-          rows="3"
-          max-rows="20"
-        />
+          <b-form-textarea
+            v-model.trim="note"
+            placeholder="Type note here"
+            rows="3"
+            max-rows="20"
+          />
 
-        <b-form-text id="input-live-help" v-b-modal.markdown-cheatsheet>
-          <i class="fab fa-markdown fa-fw" />
-          Markdown supported
-        </b-form-text>
+          <b-form-text id="input-live-help" v-b-modal.markdown-cheatsheet>
+            <i class="fab fa-markdown fa-fw" />
+            Markdown supported
+          </b-form-text>
 
-        <b-modal id="markdown-cheatsheet" title="BootstrapVue">
-          <markdown-cheatsheet />
-        </b-modal>
-      </b-col>
-
-      <b-col>
-        <game-note v-if="note" :note="{ note }" />
-      </b-col>
+          <b-modal id="markdown-cheatsheet" title="BootstrapVue">
+            <markdown-cheatsheet />
+          </b-modal>
+        </b-col>
+      </game-sub-page>
     </b-form-row>
   </b-container>
 </template>
@@ -61,12 +57,14 @@
 import { mapState } from 'vuex';
 
 import GameNote from '@/components/GameNote';
+import GameSubPage from '@/components/Game/GameSubPage';
 import MarkdownCheatsheet from '@/components/MarkdownCheatsheet';
 import { getGameCoverUrl } from '@/utils';
 
 export default {
   components: {
     GameNote,
+    GameSubPage,
     MarkdownCheatsheet,
   },
 

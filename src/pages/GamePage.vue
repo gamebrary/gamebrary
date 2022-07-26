@@ -11,7 +11,7 @@
     <b-skeleton v-if="loading" />
 
     <template v-else-if="game">
-      <portal to="headerTitle">
+      <portal v-if="user" to="headerTitle">
         <b-button-group>
           <b-button @click="$bus.$emit('ADD_GAME', game.id)">
             <i class="fa-solid fa-plus fa-fw" />
@@ -74,36 +74,18 @@
             <game-rating :game="game" />
           </div>
 
-          <b-card body-class="p-3" class="mt-2 ml-n3">
+          <b-card
+            v-if="boardsWithGame.length"
+            body-class="p-3"
+            class="mt-2 ml-n3"
+          >
             <h4>Game found in these boards:</h4>
 
-            <b-list-group>
-              <b-list-group-item
-                v-for="board in boardsWithGame"
-                :to="{ name: 'board', params: { id: board.id } }"
-                :key="board.id"
-                button
-              >
-                <b-avatar
-                  rounded
-                  :class="['board-thumbnail mr-2', { 'bg-dark' : !board.backgroundColor }]"
-                  :title="board.name"
-                  text=" "
-                  :style="`
-                    background-image: url(${board.backgroundUrl || ''});
-                    background-color: ${board.backgroundColor || ''}
-                    `"
-                />
-
-                {{ board.name }}
-              </b-list-group-item>
-            </b-list-group>
-
-            <!-- <b-badge
+            <b-button
               v-for="board in boardsWithGame"
               :to="{ name: 'board', params: { id: board.id } }"
               :key="board.id"
-              class="mr-2"
+              block
             >
               <b-avatar
                 rounded
@@ -115,8 +97,9 @@
                   background-color: ${board.backgroundColor || ''}
                   `"
               />
+
               {{ board.name }}
-            </b-badge> -->
+            </b-button>
           </b-card>
         </b-col>
 
@@ -374,7 +357,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['game', 'progresses', 'tags', 'boards']),
+    ...mapState(['game', 'progresses', 'tags', 'boards', 'user']),
     ...mapGetters(['gameTags']),
 
     boardsWithGame() {

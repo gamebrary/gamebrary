@@ -25,11 +25,13 @@
     :class="{ 'no-repeat': style.length > 0 }"
     @shortkey="handleShortcutAction"
   >
-    <page-header />
-    <router-view class="viewport" />
-    <auth-modal />
-    <keyboard-shortcuts-modal />
-    <add-remove-game />
+    <div :class="{ 'blurred': isGamePage }">
+      <page-header />
+      <router-view class="viewport" />
+      <auth-modal />
+      <keyboard-shortcuts-modal />
+      <add-remove-game />
+    </div>
   </div>
 </template>
 
@@ -95,6 +97,10 @@ export default {
       return this.$route.meta?.public;
     },
 
+    isGamePage() {
+      return this.$route.name === 'game';
+    },
+
     isBoard() {
       return ['public.board', 'board'].includes(this.$route.name);
     },
@@ -157,23 +163,24 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss">
   @import "~styles/styles";
+
+  .blurred {
+    backdrop-filter: blur(25px);
+  }
 </style>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
   #app {
     min-height: 100vh;
-    // background-image: url('~/public/bg-tile.png');
     display: grid;
 
     &.no-repeat {
       background-repeat: no-repeat;
       background-size: cover;
-      // background-size: contain;
     }
   }
 
   .viewport {
     min-height: calc(100vh - 62px);
-    // overflow-y: auto;
   }
 </style>

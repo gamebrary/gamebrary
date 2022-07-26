@@ -42,8 +42,6 @@ export default {
   },
 
   LOAD_WIKIPEDIA_ARTICLE({ commit }, articleTitle) {
-    console.log('boom!');
-    console.log('articleTitle', articleTitle);
     return new Promise((resolve, reject) => {
       axios.get(`https://en.wikipedia.org/api/rest_v1/page/mobile-sections/${articleTitle}`)
         .then(({ data }) => {

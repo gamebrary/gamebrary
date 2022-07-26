@@ -18,11 +18,16 @@
 
     <template v-else>
       <portal to="headerTitle">
-        <page-title
-          title="Tags"
-          action-text="Add tag"
-          @action="$bvModal.show('addTag')"
-        />
+        <div class="w-100 d-flex align-items-center justify-content-between">
+          <h3 class="m-0">Tags</h3>
+
+          <b-button
+            class="mr-3"
+            @click="$bvModal.show('addTag')"
+          >
+            Add tag
+          </b-button>
+        </div>
       </portal>
 
       <tags-list

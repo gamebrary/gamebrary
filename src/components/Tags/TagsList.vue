@@ -1,10 +1,9 @@
 <template lang="html">
-  <div>
+  <b-container fluid>
     <b-card
       v-for="({ games, hex, tagTextColor }, name) in tags"
+      class="tags-list"
       :key="name"
-      class="mb-3 mx-0 p-0 word-wrap d-flex position-relative d-flex align-items-start justify-content-between"
-      body-class="w-100"
     >
       <div>
         <b-dropdown class="float-right" right>
@@ -48,7 +47,7 @@
         />
       </div>
     </b-card>
-  </div>
+  </b-container>
 </template>
 
 <script>
@@ -76,3 +75,10 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+.tags-list {
+  background: #fc0;
+  max-width: 100%;
+}
+</style>

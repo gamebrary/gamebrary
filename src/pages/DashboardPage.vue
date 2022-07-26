@@ -1,18 +1,10 @@
 <template lang="html">
   <b-container fluid>
-    <b-row>
-      <search-box />
-    </b-row>
-    <header>
-      My Boards
+    <portal to="headerTitle">
+      test
+    </portal>
 
-      <b-button
-        variant="primary"
-        class="mr-2"
-        :to="{ name: 'create.board' }"
-      >
-        Create board
-      </b-button>
+    <header>
     </header>
 
     <b-button
@@ -31,10 +23,23 @@
       Tags
     </b-button>
 
-    <game-boards v-if="boards.length" class="mb-3" />
+    <div>
+      My Boards
+
+      <b-button
+        variant="primary"
+        class="mr-2"
+        :to="{ name: 'create.board' }"
+      >
+        Create board
+      </b-button>
+
+      <game-boards class="mb-3" />
+    </div>
+
 
     <empty-state
-      v-else
+      v-if="boards.length === 0"
       title="Boards"
       message="Use boards to easily organize your video game collections"
     >
@@ -63,12 +68,10 @@
 <script>
 import EmptyState from '@/components/EmptyState';
 import GameBoards from '@/components/GameBoards';
-import SearchBox from '@/components/SearchBox';
 import { mapState } from 'vuex';
 
 export default {
   components: {
-    SearchBox,
     GameBoards,
     EmptyState,
   },

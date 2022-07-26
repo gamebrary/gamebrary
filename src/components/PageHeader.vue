@@ -1,7 +1,7 @@
 <template lang="html">
   <header class="p-2 d-flex">
     <home-button />
-    <portal-target name="headerTitle" />
+    <portal-target name="headerTitle" slim />
     <boards-dropdown v-if="board.id && isBoardPage" />
     <!-- <game-dropdown v-if="isGamePage" /> -->
 
@@ -14,7 +14,7 @@
 
       <b-button
         variant="light"
-        class="mr-2"
+        class="mr-3"
         :to="{ name: 'search' }"
       >
         <i class="fas fa-search fa-fw" aria-hidden />
@@ -23,6 +23,7 @@
       <router-link
         v-if="user"
         variant="primary"
+        class="mr-1"
         :to="{ name: 'settings' }"
       >
         <b-avatar size="38" rounded variant="info" :src="user.photoURL" />
@@ -76,10 +77,7 @@ export default {
   header {
     display: grid;
     align-items: center;
-    // overflow-y: hidden;
-    // height: 46px;
     grid-template-columns: 65px 1fr;
-    // background-color: #574c4f;
     z-index: 1;
   }
 

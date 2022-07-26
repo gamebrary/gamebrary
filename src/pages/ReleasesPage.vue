@@ -1,15 +1,23 @@
 <template lang="html">
   <b-container fluid>
+    <portal to="headerTitle">
+      <div class="w-100 d-flex align-items-center justify-content-between">
+        <h3 class="m-0">Releases</h3>
+
+        <b-button
+          url="https://github.com/romancm/gamebrary"
+          target="_blank"
+          class="mr-3"
+        >
+          <i class="fab fa-github fa-fw" aria-hidden />
+          View in GitHub
+        </b-button>
+      </div>
+    </portal>
     <page-title
-      title="Releases"
+
     >
-      <b-button
-        href="https://github.com/romancm/gamebrary"
-        target="_blank"
-      >
-        <i class="fab fa-github fa-fw" aria-hidden />
-        View in GitHub
-      </b-button>
+
     </page-title>
 
     <b-card
@@ -44,13 +52,15 @@ export default {
   marked,
 
   computed: {
-    ...mapState(['releases', 'notification', 'settings']),
+    ...mapState(['releases', 'notification', 'settings', 'user']),
   },
 
-  mounted() {
+  async mounted() {
+    if (!this.user) await this.$store.dispatch('LOAD_RELEASES');
+
     const [latestRelease] = this.releases;
 
-    if (this.notification && latestRelease && latestRelease.tag_name) {
+    if (this.notification && latestRelease?.tag_name) {
       this.$store.commit('UPDATE_SETTING', { key: 'release', value: latestRelease.tag_name });
 
       this.$store.dispatch('SAVE_SETTINGS', this.settings)

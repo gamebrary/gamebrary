@@ -21,7 +21,7 @@
 
           <b-button
             v-else
-            @click="addGameToList"
+            @click="handleGameClick"
             variant="primary"
           >
             <i class="fa fa-plus fa-fw" aria-hidden="true" />
@@ -35,6 +35,7 @@
 
 <script>
 import { getGameCoverUrl } from '@/utils';
+import { mapState } from 'vuex';
 
 export default {
   props: {
@@ -46,14 +47,18 @@ export default {
   },
 
   computed: {
+    ...mapState(['user']),
+
     coverUrl() {
       return getGameCoverUrl(this.game);
-    }
+    },
   },
 
   methods: {
-    addGameToList() {
-      this.$bus.$emit('ADD_GAME', this.game.id);
+    handleGameClick() {
+      console.log(this.user);
+
+      // this.$bus.$emit('ADD_GAME', this.game.id);
     },
   },
 };

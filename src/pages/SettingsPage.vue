@@ -7,21 +7,21 @@
         title="Wallpapers"
         description="Manage your wallpapers"
         icon="fa-images"
-        @click.native="$router.push({ name: 'wallpapers.settings' })"
+        @click.native="$router.push({ name: 'wallpapers' })"
       />
 
       <settings-card
         title="Notes"
         description="View all your notes"
         icon="fa-note-sticky"
-        @click.native="$router.push({ name: 'notes.settings' })"
+        @click.native="$router.push({ name: 'notes' })"
       />
 
       <settings-card
         title="Tags"
         description="View all your tags"
         icon="fa-tags"
-        @click.native="$router.push({ name: 'tags.settings' })"
+        @click.native="$router.push({ name: 'tags' })"
       />
 
       <settings-card
@@ -67,14 +67,22 @@
         Submit feedback
       </b-button>
 
+      <!-- TODO: hide for paid users -->
+      <b-button
+        block
+        variant="outline-primary"
+        href="https://www.paypal.me/RomanCervantes/5"
+        target="_blank"
+      >
+        Buy me a coffee
+      </b-button>
+
       <hr />
 
       <!-- <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'profile.settings' }">
         <i class="mr-2 fa-solid fa-user fa-fw" aria-hidden />
         <small>Profile</small>
       </b-list-group-item> -->
-
-      <!-- <game-detail-settings /> -->
 
       <account-settings />
       <!-- <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'steam.settings' }">

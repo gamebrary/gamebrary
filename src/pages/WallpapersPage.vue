@@ -11,23 +11,22 @@
 
     <template v-else>
       <portal to="headerTitle">
-        <div class="d-flex">
-          <b-button>Back</b-button>
+        <div class="w-100 d-flex align-items-center justify-content-between">
+          <h3 class="m-0">Wallpapers</h3>
 
-          <page-title title="Wallpapers">
-            <b-button
-              :disabled="outOfSpace"
-              variant="primary"
-              @click="triggerFileUpload"
-            >
-              <b-spinner small v-if="saving" />
+          <b-button
+            :disabled="outOfSpace"
+            variant="primary"
+            class="mr-3"
+            @click="triggerFileUpload"
+          >
+            <b-spinner small v-if="saving" />
 
-              <template v-else>
-                <i class="fas fa-upload fa-fw" aria-hidden />
-                <span class="d-none d-sm-inline">Upload</span>
-              </template>
-            </b-button>
-          </page-title>
+            <template v-else>
+              <i class="fas fa-upload fa-fw" aria-hidden />
+              <span class="d-none d-sm-inline">Upload</span>
+            </template>
+          </b-button>
         </div>
       </portal>
 

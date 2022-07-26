@@ -33,6 +33,7 @@ import SearchPage from '@/pages/SearchPage';
 import SteamSettingsPage from '@/pages/SteamSettingsPage';
 // import GeneralSettingsPage from '@/pages/GeneralSettingsPage';
 import TagsPage from '@/pages/TagsPage';
+import TagEditPage from '@/pages/TagEditPage';
 import TermsPage from '@/pages/TermsPage';
 import WallpapersPage from '@/pages/WallpapersPage';
 
@@ -93,11 +94,19 @@ const routes = [
     },
   },
   {
-    name: 'tags.settings',
-    path: '/settings/tags',
+    name: 'tags',
+    path: '/tags',
     component: TagsPage,
     meta: {
       title: 'Tags',
+    },
+  },
+  {
+    name: 'tag.edit',
+    path: '/tags/:id',
+    component: TagEditPage,
+    meta: {
+      title: 'Edit tag',
     },
   },
   {
@@ -109,16 +118,16 @@ const routes = [
     },
   },
   {
-    name: 'notes.settings',
-    path: '/settings/notes',
+    name: 'notes',
+    path: '/notes',
     component: NotesPage,
     meta: {
       title: 'Notes',
     },
   },
   {
-    name: 'wallpapers.settings',
-    path: '/settings/wallpapers',
+    name: 'wallpapers',
+    path: '/wallpapers',
     component: WallpapersPage,
     meta: {
       title: 'Wallpapers',
@@ -130,6 +139,7 @@ const routes = [
     component: ReleasesPage,
     meta: {
       title: 'Releases',
+      public: true,
     },
   },
   {

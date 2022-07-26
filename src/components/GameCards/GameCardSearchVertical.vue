@@ -21,6 +21,7 @@
 
 <script>
 import { getGameCoverUrl } from '@/utils';
+import { mapState } from 'vuex';
 
 export default {
   props: {
@@ -31,6 +32,8 @@ export default {
   },
 
   computed: {
+    ...mapState(['user']),
+
     coverUrl() {
       return getGameCoverUrl(this.game);
     }
@@ -38,7 +41,9 @@ export default {
 
   methods: {
     addGameToList() {
-      this.$bus.$emit('ADD_GAME', this.game.id);
+      return this.user
+        ? this.$bus.$emit('ADD_GAME', this.game.id)
+        : this.$router.push({ name: 'game', params: { id: this.game.id, slug: this.game.slug }});
     },
   },
 };
