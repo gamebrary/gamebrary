@@ -2,7 +2,7 @@
   <header class="p-2 d-flex">
     <home-button />
     <portal-target name="headerTitle" slim />
-    <boards-dropdown v-if="board.id && isBoardPage" />
+    <!-- <boards-dropdown v-if="board.id && isBoardPage" /> -->
     <!-- <game-dropdown v-if="isGamePage" /> -->
 
     <div class="global-actions">
@@ -14,7 +14,7 @@
 
       <b-button
         variant="light"
-        class="mr-3"
+        class="mr-2"
         :to="{ name: 'search' }"
       >
         <i class="fas fa-search fa-fw" aria-hidden />
@@ -43,7 +43,6 @@
 
 <script>
 // import GameDropdown from '@/components/Game/GameDropdown';
-import BoardsDropdown from '@/components/BoardsDropdown';
 import HomeButton from '@/components/Shared/HomeButton';
 import { mapState } from 'vuex';
 
@@ -51,7 +50,6 @@ export default {
 
   components: {
     // GameDropdown,
-    BoardsDropdown,
     HomeButton,
   },
 
