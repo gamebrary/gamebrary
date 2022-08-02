@@ -1,7 +1,7 @@
 <template lang="html">
   <b-container>
     <b-row>
-      <b-col>
+      <b-col cols="12" sm="10" md="8" lg="6">
         <language-settings />
 
         <settings-card
