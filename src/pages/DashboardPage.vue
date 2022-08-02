@@ -1,31 +1,10 @@
 <template lang="html">
   <b-container fluid>
     <portal to="headerTitle">
-      test
+      My Boards
     </portal>
 
-    <header>
-    </header>
-
-    <b-button
-      variant="primary"
-      class="mr-2"
-      :to="{ name: 'notes.settings' }"
-    >
-      Notes
-    </b-button>
-
-    <b-button
-      variant="primary"
-      class="mr-2"
-      :to="{ name: 'tags.settings' }"
-    >
-      Tags
-    </b-button>
-
-    <div>
-      My Boards
-
+    <portal to="headerActions">
       <b-button
         variant="primary"
         class="mr-2"
@@ -33,10 +12,9 @@
       >
         Create board
       </b-button>
+    </portal>
 
-      <game-boards class="mb-3" />
-    </div>
-
+    <game-boards class="mb-3" />
 
     <empty-state
       v-if="boards.length === 0"

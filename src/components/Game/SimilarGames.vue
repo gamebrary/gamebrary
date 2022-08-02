@@ -56,7 +56,7 @@ export default {
     },
 
     async loadGames() {
-      this.similarGames = [];
+      // this.similarGames = [];
 
       // TODO: use try catch
       // TODO: append cover url directly here

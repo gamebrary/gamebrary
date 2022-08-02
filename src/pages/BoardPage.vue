@@ -5,6 +5,20 @@
     <board-placeholder v-if="loading" />
 
     <template v-else-if="showBoard">
+      <portal to="headerTitle">
+        <div class="w-100 d-flex align-items-center justify-content-between">
+          <h3 class="m-0">{{ board.name }}</h3>
+
+          <b-button
+            :to="{ name: 'board.edit', params: { id: board.id } }"
+            variant="primary"
+            class="mr-2"
+          >
+            Edit
+          </b-button>
+        </div>
+      </portal>
+
       <!-- TODO: put board in component -->
       <game-list
         v-for="(list, listIndex) in board.lists"

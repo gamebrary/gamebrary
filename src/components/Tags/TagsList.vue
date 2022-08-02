@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container fluid>
+  <div>
     <b-card
       v-for="({ games, hex, tagTextColor }, name) in tags"
       class="tags-list"
@@ -47,7 +47,7 @@
         />
       </div>
     </b-card>
-  </b-container>
+  </div>
 </template>
 
 <script>
@@ -79,6 +79,5 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
 .tags-list {
   background: #fc0;
-  max-width: 100%;
 }
 </style>

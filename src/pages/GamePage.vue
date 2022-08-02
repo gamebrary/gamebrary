@@ -11,41 +11,9 @@
     <b-skeleton v-if="loading" />
 
     <template v-else-if="game">
-      <portal v-if="user" to="headerTitle">
-        <b-button-group>
-          <b-button @click="$bus.$emit('ADD_GAME', game.id)">
-            <i class="fa-solid fa-plus fa-fw" />
-            Add to list
-          </b-button>
+      <game-actions />
 
-          <b-button :to="{ name: 'game.tags', params: { id: game.id, slug: game.slug } }">
-            <i class="fa-solid fa-tags fa-fw" />
-            Tags
-          </b-button>
-
-          <b-button :to="{ name: 'game.progress', params: { id: game.id, slug: game.slug } }">
-            <i class="fa-solid fa-bars-progress fa-fw" />
-            Track progress
-          </b-button>
-
-          <b-button :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug } }">
-            <i class="fa-solid fa-note-sticky fa-fw" />
-            Notes
-          </b-button>
-
-          <b-button :to="{ name: 'game.news', params: { id: game.id, slug: game.slug } }">
-            <i class="fa-solid fa-newspaper fa-fw" />
-            News
-          </b-button>
-
-          <b-button :to="{ name: 'game.media', params: { id: game.id, slug: game.slug } }">
-            <i class="fa-solid fa-photo-film fa-fw" />
-            Images / Videos
-          </b-button>
-        </b-button-group>
-      </portal>
-
-      <b-row class="game">
+      <b-row>
         <b-col
           offset="2"
           offset-sm="0"
@@ -57,7 +25,7 @@
           <b-img
             :src="gameCoverUrl"
             :alt="game.name"
-            class="cursor-pointer game-cover"
+            class="cursor-pointer"
             fluid-grow
             rounded
             @click.stop="openGameCover"
@@ -77,7 +45,7 @@
           <b-card
             v-if="boardsWithGame.length"
             body-class="p-3"
-            class="mt-2 ml-n3"
+            class="mt-2"
           >
             <h4>Game found in these boards:</h4>
 
@@ -85,7 +53,6 @@
               v-for="board in boardsWithGame"
               :to="{ name: 'board', params: { id: board.id } }"
               :key="board.id"
-              block
             >
               <b-avatar
                 rounded
@@ -121,6 +88,7 @@
               xl="8"
             >
               <game-titles />
+
               <b-progress
                 v-if="progress"
                 :value="progress"
@@ -146,7 +114,13 @@
               </b-badge>
               <game-description />
 
-              <game-notes />
+              <game-note
+                v-if="note"
+                :note="note"
+                class="cursor-pointer"
+                @click.native="$router.push({ name: 'game.notes', params: { id: game.id } })"
+              />
+
             </b-col>
 
             <b-col
@@ -317,24 +291,26 @@
 import { mapState, mapGetters } from 'vuex';
 import { WEBSITE_CATEGORIES } from '@/constants';
 import AmazonLinks from '@/components/Game/AmazonLinks';
-import GameNotes from '@/components/Game/GameNotes';
 import GameDetails from '@/components/Game/GameDetails';
+import GameActions from '@/components/Game/GameActions';
 import GameTitles from '@/components/Game/GameTitles';
 import GameRating from '@/components/Game/GameRating';
 import GameDescription from '@/components/Game/GameDescription';
 import SimilarGames from '@/components/Game/SimilarGames';
 import GameWebsites from '@/components/Game/GameWebsites';
 // import GameSpeedruns from '@/components/Game/GameSpeedruns';
+import GameNote from '@/components/GameNote';
 
 export default {
   components: {
     // Timeline,
     AmazonLinks,
+    GameNote,
     GameDescription,
     GameDetails,
+    GameActions,
     GameTitles,
     GameRating,
-    GameNotes,
     GameWebsites,
     // GameSpeedruns,
     SimilarGames,
@@ -357,8 +333,12 @@ export default {
   },
 
   computed: {
-    ...mapState(['game', 'progresses', 'tags', 'boards', 'user']),
+    ...mapState(['game', 'progresses', 'tags', 'boards', 'user', 'notes']),
     ...mapGetters(['gameTags']),
+
+    note() {
+      return this.notes[this.game?.id] || null;
+    },
 
     boardsWithGame() {
       return this.boards
@@ -487,6 +467,7 @@ export default {
 
       this.loading = true;
       this.$store.commit('CLEAR_GAME');
+      this.$bus.$emit('UPDATE_WALLPAPER', null);
 
       await this.$store.dispatch('LOAD_GAME', this.gameId)
         .catch(() => {

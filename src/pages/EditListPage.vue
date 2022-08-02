@@ -46,7 +46,6 @@
               label="Sort list by:"
               label-for="sortField"
             >
-              <!-- description="We'll never share your email with anyone else." -->
               <b-form-select
                 id="sortField"
                 :options="sortOptions"
@@ -284,8 +283,9 @@ export default {
 
       await this.$store.dispatch('LOAD_BOARD', this.$route.params.id)
 
-      // TODO: set default values
       this.list = JSON.parse(JSON.stringify(this.board.lists[this.$route.params.listIndex]));
+      if (this.list.settings.sortOrder === undefined) this.list.settings.sortOrder = 'sortByCustom';
+      if (this.list.settings.view === undefined) this.list.settings.view = 'single';
 
       const hasGames = this.list?.games?.length > 0;
 
