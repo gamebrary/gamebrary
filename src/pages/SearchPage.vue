@@ -59,8 +59,7 @@
 
         <div v-else-if="searchResults.length > 0">
           <header class="my-2 d-flex align-items-center justify-content-between">
-            <h3 v-if="activeBoardList">
-              <pre>{{ activeBoardList }}</pre>
+            <h3 v-if="activeBoardList.length">
               Add games to <strong>{{ activeBoardList.name }}</strong>
             </h3>
             <h3>Search results</h3>
