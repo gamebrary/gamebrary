@@ -3,8 +3,12 @@
 <!-- TODO: add loading placeholder -->
 <template lang="html">
   <b-container fluid class="p-2">
-    <h2>{{ game.name }}</h2>
-    <h4>Screenshots</h4>
+    <portal to="headerTitle">
+      <h3 class="m-0">
+        {{ game.name }}
+        <small class="text-muted">Screenshots</small>
+      </h3>
+    </portal>
 
     <b-form-row no-gutters>
       <b-col

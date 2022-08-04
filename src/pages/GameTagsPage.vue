@@ -6,6 +6,13 @@
     </template>
 
     <template v-else>
+      <portal to="headerTitle">
+        <h3 class="m-0">
+          {{ game.name }}
+          <small class="text-muted">Tags</small>
+        </h3>
+      </portal>
+
       <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}">
         <b-img :src="gameCoverUrl" width="200" rounded class="mb-2 mr-2" />
       </router-link>

@@ -1,8 +1,10 @@
 <template lang="html">
-  <b-container>
+  <b-container fluid>
+    <portal to="headerTitle">Settings</portal>
+
     <b-row>
       <b-col cols="12" sm="10" md="8" lg="6">
-        <language-settings />
+        <!-- <language-settings /> -->
 
         <settings-card
           title="Wallpapers"
@@ -114,12 +116,12 @@ import SettingsCard from '@/components/Settings/SettingsCard';
 // import SteamSettingsPage from '@/pages/SteamSettingsPage';
 // import GeneralSettingsPage from '@/pages/GeneralSettingsPage';
 // import GameDetailSettings from '@/components/Settings/GameDetailSettings';
-import LanguageSettings from '@/components/Settings/LanguageSettings';
+// import LanguageSettings from '@/components/Settings/LanguageSettings';
 import { mapState } from 'vuex';
 
 export default {
   components: {
-    LanguageSettings,
+    // LanguageSettings,
     // GameDetailSettings,
     // ProfileSettingsPage,
     SettingsCard,

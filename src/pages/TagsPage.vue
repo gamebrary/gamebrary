@@ -3,192 +3,194 @@
 <!-- TODO: Move edit tag to page -->
 <template lang="html">
   <b-container fluid>
-    <empty-state
-      v-if="showEmptyState"
-      :title="$t('tags.title')"
-      message="Tags are a great way to organize your collection"
-     >
-       <b-button
-         variant="primary"
-         v-b-modal.addTag
+    <b-row>
+      <empty-state
+        v-if="showEmptyState"
+        :title="$t('tags.title')"
+        message="Tags are a great way to organize your collection"
        >
-         Add tag
-       </b-button>
-     </empty-state>
+         <b-button
+           variant="primary"
+           v-b-modal.addTag
+         >
+           Add tag
+         </b-button>
+       </empty-state>
 
-    <template v-else>
-      <portal to="headerTitle">
-        <div class="w-100 d-flex align-items-center justify-content-between">
-          <h3 class="m-0">Tags</h3>
+       <b-col v-else>
+         <portal to="headerTitle">
+           <div class="w-100 d-flex align-items-center justify-content-between">
+             <h3 class="m-0">Tags</h3>
 
-          <b-button
-            class="mr-3"
-            @click="$bvModal.show('addTag')"
-          >
-            Add tag
-          </b-button>
-        </div>
-      </portal>
+             <b-button
+               class="mr-3"
+               @click="$bvModal.show('addTag')"
+             >
+               Add tag
+             </b-button>
+           </div>
+         </portal>
 
-      <tags-list
-        v-if="gameTags && localTags"
-        @edit="editTag"
-        @delete="promptDeleteTag"
-      />
-    </template>
+         <tags-list
+           v-if="gameTags && localTags"
+           @edit="editTag"
+           @delete="promptDeleteTag"
+         />
+       </b-col>
 
-    <!-- TODO: move to component -->
-    <b-modal
-      id="editTag"
-      hide-footer
-    >
-      <template v-slot:modal-header="{ close }">
-        <modal-header
-          :title="$t('tags.edit.title')"
-          @close="close"
-        >
-          <b-button
-            variant="danger"
-            @click="promptDeleteTag(editingTagName)"
-          >
-            <i class="fas fa-trash-alt fa-fw" aria-hidden />
-          </b-button>
+       <!-- TODO: move to component -->
+       <b-modal
+         id="editTag"
+         hide-footer
+       >
+         <template v-slot:modal-header="{ close }">
+           <modal-header
+             :title="$t('tags.edit.title')"
+             @close="close"
+           >
+             <b-button
+               variant="danger"
+               @click="promptDeleteTag(editingTagName)"
+             >
+               <i class="fas fa-trash-alt fa-fw" aria-hidden />
+             </b-button>
 
-          <b-button
-            variant="primary"
-            :disabled="isEditedNameDuplicate || !Boolean(editingTagName) || saving"
-            @click="saveTag"
-          >
-            <b-spinner small v-if="saving" />
-            <span v-else>Save</span>
-          </b-button>
-        </modal-header>
-      </template>
+             <b-button
+               variant="primary"
+               :disabled="isEditedNameDuplicate || !Boolean(editingTagName) || saving"
+               @click="saveTag"
+             >
+               <b-spinner small v-if="saving" />
+               <span v-else>Save</span>
+             </b-button>
+           </modal-header>
+         </template>
 
-      <form
-        ref="editTagForm"
-        @submit.stop.prevent="saveTag"
-      >
-        <b-form-row class="mb-3" v-if="editingTag">
-          <b-col cols="8" md="9">
-            <b-form-input
-              label="test"
-              maxlength="20"
-              :placeholder="$t('tags.form.inputPlaceholder')"
-              required
-              v-model.trim="editingTagName"
-            />
-          </b-col>
+         <form
+           ref="editTagForm"
+           @submit.stop.prevent="saveTag"
+         >
+           <b-form-row class="mb-3" v-if="editingTag">
+             <b-col cols="8" md="9">
+               <b-form-input
+                 label="test"
+                 maxlength="20"
+                 :placeholder="$t('tags.form.inputPlaceholder')"
+                 required
+                 v-model.trim="editingTagName"
+               />
+             </b-col>
 
-          <b-col cols="4" md="3">
-            <b-input-group>
-              <b-form-input
-                v-model="editingTag.hex"
-                type="color"
-                required
-              />
+             <b-col cols="4" md="3">
+               <b-input-group>
+                 <b-form-input
+                   v-model="editingTag.hex"
+                   type="color"
+                   required
+                 />
 
-              <b-form-input
-                v-model="editingTag.tagTextColor"
-                type="color"
-                required
-              />
-            </b-input-group>
-          </b-col>
-        </b-form-row>
+                 <b-form-input
+                   v-model="editingTag.tagTextColor"
+                   type="color"
+                   required
+                 />
+               </b-input-group>
+             </b-col>
+           </b-form-row>
 
-        <template v-if="editingTagName">
-          Preview:
+           <template v-if="editingTagName">
+             Preview:
 
-          <b-badge
-            :style="`background-color: ${editingTag.hex}; color: ${editingTag.tagTextColor}`"
-          >
-            {{ editingTagName }}
-          </b-badge>
-        </template>
-      </form>
+             <b-badge
+               :style="`background-color: ${editingTag.hex}; color: ${editingTag.tagTextColor}`"
+             >
+               {{ editingTagName }}
+             </b-badge>
+           </template>
+         </form>
 
-      <b-alert
-        class="mt-3 mb-0"
-        :show="isEditedNameDuplicate && !saving"
-        variant="warning"
-      >
-        You already have a tag named <strong>{{ editingTagName }}</strong>
-      </b-alert>
-    </b-modal>
+         <b-alert
+           class="mt-3 mb-0"
+           :show="isEditedNameDuplicate && !saving"
+           variant="warning"
+         >
+           You already have a tag named <strong>{{ editingTagName }}</strong>
+         </b-alert>
+       </b-modal>
 
-    <b-modal
-      id="addTag"
-      hide-footer
-      @show="open"
-    >
-      <template v-slot:modal-header="{ close }">
-        <modal-header
-          :title="$t('Add tag')"
-          @close="close"
-        />
-      </template>
+       <b-modal
+         id="addTag"
+         hide-footer
+         @show="open"
+       >
+         <template v-slot:modal-header="{ close }">
+           <modal-header
+             :title="$t('Add tag')"
+             @close="close"
+           />
+         </template>
 
-      <form
-        ref="newTagForm"
-        @submit.stop.prevent="submit"
-      >
-        <b-form-row class="mb-3">
-          <b-col cols="8" md="9">
-            <b-form-input
-              label="test"
-              maxlength="20"
-              :placeholder="$t('tags.form.inputPlaceholder')"
-              required
-              v-model.trim="tagName"
-            />
+         <form
+           ref="newTagForm"
+           @submit.stop.prevent="submit"
+         >
+           <b-form-row class="mb-3">
+             <b-col cols="8" md="9">
+               <b-form-input
+                 label="test"
+                 maxlength="20"
+                 :placeholder="$t('tags.form.inputPlaceholder')"
+                 required
+                 v-model.trim="tagName"
+               />
 
-            <b-form-text v-if="tagName" tag="span">
-              {{ $t('tags.form.preview') }}
+               <b-form-text v-if="tagName" tag="span">
+                 {{ $t('tags.form.preview') }}
 
-              <b-badge :style="`background-color: ${hex}; color: ${tagTextColor}`">
-                {{ tagName }}
-              </b-badge>
-            </b-form-text>
-          </b-col>
+                 <b-badge :style="`background-color: ${hex}; color: ${tagTextColor}`">
+                   {{ tagName }}
+                 </b-badge>
+               </b-form-text>
+             </b-col>
 
-          <b-col cols="4" md="3">
-            <b-input-group>
-              <b-form-input
-                v-model="hex"
-                type="color"
-                required
-              />
+             <b-col cols="4" md="3">
+               <b-input-group>
+                 <b-form-input
+                   v-model="hex"
+                   type="color"
+                   required
+                 />
 
-              <b-form-input
-                v-model="tagTextColor"
-                type="color"
-                required
-              />
-            </b-input-group>
-          </b-col>
-        </b-form-row>
+                 <b-form-input
+                   v-model="tagTextColor"
+                   type="color"
+                   required
+                 />
+               </b-input-group>
+             </b-col>
+           </b-form-row>
 
-        <b-button
-          variant="primary"
-          class="d-flex ml-auto"
-          :disabled="isDuplicate || saving || !Boolean(tagName)"
-          @click="submit"
-        >
-          <b-spinner small v-if="saving" />
-          <span v-else>{{ $t('tags.form.addTag')}}</span>
-        </b-button>
+           <b-button
+             variant="primary"
+             class="d-flex ml-auto"
+             :disabled="isDuplicate || saving || !Boolean(tagName)"
+             @click="submit"
+           >
+             <b-spinner small v-if="saving" />
+             <span v-else>{{ $t('tags.form.addTag')}}</span>
+           </b-button>
 
-        <b-alert
-          class="mt-3 mb-0"
-          :show="isDuplicate"
-          variant="warning"
-        >
-          {{ $t('tags.form.duplicateMessage', { tagName }) }}
-           <strong>{{ tagName }}</strong>
-        </b-alert>
-      </form>
-    </b-modal>
+           <b-alert
+             class="mt-3 mb-0"
+             :show="isDuplicate"
+             variant="warning"
+           >
+             {{ $t('tags.form.duplicateMessage', { tagName }) }}
+              <strong>{{ tagName }}</strong>
+           </b-alert>
+         </form>
+       </b-modal>
+    </b-row>
   </b-container>
 </template>
 

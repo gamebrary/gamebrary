@@ -22,7 +22,7 @@
           variant="danger"
           size="sm"
           class="position-absolute delete-button"
-          @click="confirmDeleteWallpaper(wallpaper)"
+          @click.stop="confirmDeleteWallpaper(wallpaper)"
         >
           <i class="fas fa-trash fa-fw" aria-hidden />
         </b-button>
