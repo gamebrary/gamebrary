@@ -2,21 +2,7 @@
   <b-container>
     <b-row>
       <portal to="headerTitle">
-        <div class="w-100 d-flex align-items-center justify-content-between">
-          <h3 class="m-0">Search</h3>
-
-          <b-button-toolbar key-nav aria-label="Toolbar with button groups" class="mr-1">
-            <b-button-group class="mx-1">
-              <b-button :variant="listView ? 'primary' : 'light'" @click="listView = true">
-                <i class="fa-solid fa-list fa-fw" aria-hidden />
-              </b-button>
-
-              <b-button :variant="listView ? 'light' : 'primary'" @click="listView = false">
-                <i class="fa-solid fa-grip fa-fw" aria-hidden />
-              </b-button>
-            </b-button-group>
-          </b-button-toolbar>
-        </div>
+        <h3 class="m-0">Search</h3>
       </portal>
       <!-- TODO: add filters -->
       <!-- TODO: add view toggle -->
@@ -62,9 +48,19 @@
             <h3 v-if="activeBoardList.length">
               Add games to <strong>{{ activeBoardList.name }}</strong>
             </h3>
-            <h3>Search results</h3>
+            <!-- <h3>Search results</h3> -->
 
+            <b-button-toolbar key-nav aria-label="Toolbar with button groups" class="mr-1">
+              <b-button-group class="mx-1">
+                <b-button :variant="listView ? 'primary' : 'light'" @click="listView = true">
+                  <i class="fa-solid fa-list fa-fw" aria-hidden />
+                </b-button>
 
+                <b-button :variant="listView ? 'light' : 'primary'" @click="listView = false">
+                  <i class="fa-solid fa-grip fa-fw" aria-hidden />
+                </b-button>
+              </b-button-group>
+            </b-button-toolbar>
           </header>
 
           <template v-if="listView">
@@ -118,7 +114,7 @@ export default {
     return {
       searchResults: [],
       loading: false,
-      listView: false,
+      listView: true,
     };
   },
 

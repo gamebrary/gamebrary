@@ -6,7 +6,7 @@
 
     <portal to="headerActions">
       <b-button
-        variant="primary"
+        variant="light"
         class="mr-2"
         :to="{ name: 'create.board' }"
       >

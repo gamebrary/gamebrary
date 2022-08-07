@@ -15,9 +15,7 @@
 
       <b-row>
         <b-col
-          offset="2"
-          offset-sm="0"
-          cols="8"
+          cols="12"
           sm="4"
           md="4"
           xl="3"
@@ -26,8 +24,8 @@
             :src="gameCoverUrl"
             :alt="game.name"
             class="cursor-pointer"
-            fluid-grow
             rounded
+            fluid
             @click.stop="openGameCover"
           />
           <!-- <b-skeleton-img
@@ -36,13 +34,13 @@
             height="100px"
           /> -->
 
-          <amazon-links class="mt-2" />
+          <!-- <amazon-links class="mt-2" /> -->
 
-          <div class="game-info">
+          <!-- <div class="game-info">
             <game-rating :game="game" />
-          </div>
+          </div> -->
 
-          <b-card
+          <!-- <b-card
             v-if="boardsWithGame.length"
             body-class="p-3"
             class="mt-2"
@@ -67,7 +65,7 @@
 
               {{ board.name }}
             </b-button>
-          </b-card>
+          </b-card> -->
         </b-col>
 
         <b-col
@@ -290,11 +288,11 @@
 
 import { mapState, mapGetters } from 'vuex';
 import { WEBSITE_CATEGORIES } from '@/constants';
-import AmazonLinks from '@/components/Game/AmazonLinks';
+// import AmazonLinks from '@/components/Game/AmazonLinks';
 import GameDetails from '@/components/Game/GameDetails';
 import GameActions from '@/components/Game/GameActions';
 import GameTitles from '@/components/Game/GameTitles';
-import GameRating from '@/components/Game/GameRating';
+// import GameRating from '@/components/Game/GameRating';
 import GameDescription from '@/components/Game/GameDescription';
 import SimilarGames from '@/components/Game/SimilarGames';
 import GameWebsites from '@/components/Game/GameWebsites';
@@ -304,13 +302,13 @@ import GameNote from '@/components/GameNote';
 export default {
   components: {
     // Timeline,
-    AmazonLinks,
+    // AmazonLinks,
     GameNote,
     GameDescription,
     GameDetails,
     GameActions,
     GameTitles,
-    GameRating,
+    // GameRating,
     GameWebsites,
     // GameSpeedruns,
     SimilarGames,

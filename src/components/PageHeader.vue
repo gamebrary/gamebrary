@@ -22,11 +22,10 @@
 
       <router-link
         v-if="user"
-        variant="primary"
         class="mr-1"
         :to="{ name: 'settings' }"
       >
-        <b-avatar size="38" rounded variant="info" :src="user.photoURL" />
+        <b-avatar size="38" rounded :src="user.photoURL" />
       </router-link>
 
       <b-button

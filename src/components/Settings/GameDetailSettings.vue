@@ -1,13 +1,6 @@
 <template lang="html">
   <div>
     <!-- TODO: use PEGI/ESRB logos -->
-    <!-- <pre>{{ AGE_RATING_SYSTEMS }}</pre> -->
-    <!-- <div>
-      <b-card v-for="rating in AGE_RATING_SYSTEMS" :key="rating.name">
-        <pre class="text-dark">{{ rating }}</pre>
-      </b-card>
-    </div> -->
-
     <b-form-group label="Game rating system:">
       <b-form-select
         v-model="gameRatingSystem"

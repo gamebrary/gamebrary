@@ -6,6 +6,8 @@
       @selected="selected"
     />
 
+    <!-- TODO: sort by metadata.timeCreated -->
+
     <div class="wallpapers">
       <b-card
         :img-src="wallpaper.url"
@@ -14,7 +16,7 @@
         overlay
         footer-class="p-2"
         tag="article"
-        v-for="wallpaper in wallpapers"
+        v-for="wallpaper in sortedWallpapers"
         :key="wallpaper.name"
         @click="openPreview(wallpaper)"
       >
@@ -60,8 +62,8 @@
         </template>
       </b-card>
     </div>
-    <!-- <b-card
-      v-for="wallpaper in wallpapers"
+    <b-card
+      v-for="wallpaper in sortedWallpapers"
       :key="wallpaper.name"
       class="mb-2"
       body-class="wallpaper-card p-2"
@@ -75,7 +77,7 @@
         @click="openPreview(wallpaper)"
       />
 
-    </b-card> -->
+    </b-card>
   </div>
 </template>
 
@@ -102,6 +104,12 @@ export default {
 
   computed: {
     ...mapState(['wallpapers']),
+
+    sortedWallpapers() {
+      const wallpapers = this.wallpapers;
+
+      return wallpapers.reverse();
+    },
   },
 
   methods: {

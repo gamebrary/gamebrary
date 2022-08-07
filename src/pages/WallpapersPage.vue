@@ -16,8 +16,8 @@
 
           <b-button
             :disabled="outOfSpace"
-            variant="primary"
-            class="mr-3"
+            variant="light"
+            class="mr-2"
             @click="triggerFileUpload"
           >
             <b-spinner small v-if="saving" />
@@ -123,28 +123,21 @@ export default {
       document.querySelector('.file-input input').click();
     },
 
-    uploadWallpaper() {
-      if (this.isDuplicate) {
-        return this.$bvToast.toast('File already exists', { variant: 'warning' });
-      }
-
-      if (!this.file) {
-        return false;
-      }
+    async uploadWallpaper() {
+      if (this.isDuplicate) return this.$bvToast.toast('File already exists', { variant: 'warning' });
+      if (!this.file) return false;
 
       this.saving = true;
 
-      return this.$store.dispatch('UPLOAD_WALLPAPER', this.file)
-        .then(() => {
-          this.$bvToast.toast('File uploaded');
-          this.file = null;
-          this.saving = false;
-          this.$bus.$emit('WALLPAPER_UPLOADED');
-        })
-        .catch(() => {
-          this.saving = false;
-          this.$bvToast.toast('There was an error uploading wallpaper', { variant: 'danger' });
-        });
+      try {
+        await this.$store.dispatch('UPLOAD_WALLPAPER', this.file);
+      } catch (e) {
+        this.$bvToast.toast('There was an error uploading wallpaper', { variant: 'danger' });
+      }
+
+      this.file = null;
+      this.saving = false;
+      this.$bus.$emit('WALLPAPER_UPLOADED');
     },
   },
 };

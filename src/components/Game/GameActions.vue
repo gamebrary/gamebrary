@@ -3,34 +3,34 @@
   <div>
     <portal v-if="user" to="headerActions">
       <b-button-group class="mr-2">
-        <b-button @click="$bus.$emit('ADD_GAME', game.id)">
+        <b-button variant="light" @click="$bus.$emit('ADD_GAME', game.id)">
           <i class="fa-solid fa-plus fa-fw" />
-          Add to list
+          <span class="d-none d-lg-inline">Add to list</span>
         </b-button>
 
-        <b-button :to="{ name: 'game.tags', params: { id: game.id, slug: game.slug } }">
+        <b-button variant="light" :to="{ name: 'game.tags', params: { id: game.id, slug: game.slug } }">
           <i class="fa-solid fa-tags fa-fw" />
-          Tags
+          <span class="d-none d-lg-inline">Tags</span>
         </b-button>
 
-        <b-button :to="{ name: 'game.progress', params: { id: game.id, slug: game.slug } }">
+        <b-button variant="light" :to="{ name: 'game.progress', params: { id: game.id, slug: game.slug } }">
           <i class="fa-solid fa-bars-progress fa-fw" />
-          Track progress
+          <span class="d-none d-lg-inline">Track progress</span>
         </b-button>
 
-        <b-button :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug } }">
+        <b-button variant="light" :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug } }">
           <i class="fa-solid fa-note-sticky fa-fw" />
-          Notes
+          <span class="d-none d-lg-inline">Notes</span>
         </b-button>
 
-        <b-button :to="{ name: 'game.news', params: { id: game.id, slug: game.slug } }">
+        <b-button variant="light" :to="{ name: 'game.news', params: { id: game.id, slug: game.slug } }">
           <i class="fa-solid fa-newspaper fa-fw" />
-          News
+          <span class="d-none d-lg-inline">News</span>
         </b-button>
 
-        <b-button :to="{ name: 'game.media', params: { id: game.id, slug: game.slug } }">
+        <b-button variant="light" :to="{ name: 'game.media', params: { id: game.id, slug: game.slug } }">
           <i class="fa-solid fa-photo-film fa-fw" />
-          Images / Videos
+          <span class="d-none d-lg-inline">Images / Videos</span>
         </b-button>
       </b-button-group>
     </portal>

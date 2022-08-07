@@ -1,7 +1,11 @@
 <template lang="html">
-  <div class="auth-page d-flex align-items-start">
+  <b-container>
+    <portal to="headerTitle">
+      Login
+    </portal>
+
     <b-alert
-      class="mt-2 mx-auto text-center"
+      class="mx-auto text-center"
       :show="showExpiredAlert"
       style="width: 220px"
       variant="warning"
@@ -9,10 +13,8 @@
       Session expired
     </b-alert>
 
-    <b-card class="mx-auto mt-5">
-      <section id="auth" />
-    </b-card>
-  </div>
+    <section id="auth" />
+  </b-container>
 </template>
 
 <script>
@@ -158,9 +160,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-.auth-page {  
-  height: calc(100vh - 46px);
-}
-</style>

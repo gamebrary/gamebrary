@@ -11,7 +11,7 @@
 
           <b-button
             :to="{ name: 'board.edit', params: { id: board.id } }"
-            variant="primary"
+            variant="light"
             class="mr-2"
           >
             Edit
