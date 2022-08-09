@@ -1,5 +1,12 @@
 <template lang="html">
-  <div class="bg-warning">
+  <b-container>
+    <portal to="headerTitle">
+      <span>
+        {{ game.name }} |
+        <span class="text-muted">Track progress</span>
+      </span>
+    </portal>
+
     <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}">
       <b-img :src="gameCoverUrl" width="200" rounded class="mb-2 mr-2" />
     </router-link>
@@ -52,7 +59,7 @@
         step="1"
       />
     </b-input-group>
-  </div>
+  </b-container>
 </template>
 
 <script>

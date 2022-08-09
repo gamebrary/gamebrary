@@ -40,9 +40,9 @@
             <game-rating :game="game" />
           </div> -->
 
-          <!-- <b-card
+          <b-card
             v-if="boardsWithGame.length"
-            body-class="p-3"
+            body-class="p-2"
             class="mt-2"
           >
             <h4>Game found in these boards:</h4>
@@ -65,100 +65,78 @@
 
               {{ board.name }}
             </b-button>
-          </b-card> -->
+          </b-card>
         </b-col>
 
         <b-col
           cols="12"
           sm="8"
-          md="8"
-          lg="8"
           xl="9"
-          class="bg-white rounded p-5"
         >
-          <b-row>
-            <b-col
-              offset="12"
-              offset-sm="0"
-              cols="12"
-              sm="12"
-              md="7"
-              xl="8"
+          <div class="bg-white p-4 rounded">
+            <game-titles />
+
+            <b-progress
+              v-if="progress"
+              :value="progress"
+              variant="success"
+              height="8px"
+              v-b-modal.progress
+              class="my-1 w-25"
+              @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
+            />
+            <b-badge variant="success" v-if="game && game.steam && game.steam.metacritic">{{ game.steam.metacritic.score }}</b-badge>
+
+            <b-badge
+              v-for="({ hex, tagTextColor }, name) in gameTags"
+              :key="name"
+              pill
+              tag="small"
+              class="mr-1 mb-2"
+              :style="`background-color: ${hex}; color: ${tagTextColor}`"
+              @click="$router.push({ name: 'game.tags', params: { id: game.id, slug: game.slug } })"
+              v-b-modal.tags
             >
-              <game-titles />
+              {{ name }}
+            </b-badge>
+            <game-description />
 
-              <b-progress
-                v-if="progress"
-                :value="progress"
-                variant="success"
-                height="8px"
-                v-b-modal.progress
-                class="my-1 w-25"
-                @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
-              />
-              <b-badge variant="success" v-if="game && game.steam && game.steam.metacritic">{{ game.steam.metacritic.score }}</b-badge>
+            <game-note
+              v-if="note"
+              :note="note"
+              class="cursor-pointer"
+              @click.native="$router.push({ name: 'game.notes', params: { id: game.id } })"
+            />
 
-              <b-badge
-                v-for="({ hex, tagTextColor }, name) in gameTags"
-                :key="name"
-                pill
-                tag="small"
-                class="mr-1 mb-2"
-                :style="`background-color: ${hex}; color: ${tagTextColor}`"
-                @click="$router.push({ name: 'game.tags', params: { id: game.id, slug: game.slug } })"
-                v-b-modal.tags
-              >
-                {{ name }}
-              </b-badge>
-              <game-description />
-
-              <game-note
-                v-if="note"
-                :note="note"
-                class="cursor-pointer"
-                @click.native="$router.push({ name: 'game.notes', params: { id: game.id } })"
-              />
-
-            </b-col>
-
-            <b-col
-              offset="1"
-              offset-sm="0"
-              cols="10"
-              sm="12"
-              md="5"
-              xl="4"
+            <b-card
+              no-body
             >
-              <b-card
-                no-body
+              <b-link :to="{ name: 'game.media', params: { id: game.id, slug: game.slug } }">
+                <b-card-img :src="gameScrenshot" top />
+              </b-link>
+              <b-button
+                class="m-1"
+                variant="light"
+                :to="{ name: 'game.media', params: { id: game.id, slug: game.slug } }"
               >
-                <b-link :to="{ name: 'game.media', params: { id: game.id, slug: game.slug } }">
-                  <b-card-img :src="gameScrenshot" top />
-                </b-link>
-                <b-button
-                  class="m-1"
-                  variant="light"
-                  :to="{ name: 'game.media', params: { id: game.id, slug: game.slug } }"
-                >
-                  <i class="fa-solid fa-photo-film" />
-                  Videos & Screenshots
-                </b-button>
+                <i class="fa-solid fa-photo-film" />
+                Videos & Screenshots
+              </b-button>
 
-                <game-details />
-                <game-websites
-                  :game="game"
-                />
+              <game-details />
+              <game-websites
+                :game="game"
+              />
 
-                <b-card-footer v-if="legalNotice">
-                  <small class="text-muted" v-html="legalNotice" />
-                </b-card-footer>
+              <b-card-footer v-if="legalNotice">
+                <small class="text-muted" v-html="legalNotice" />
+              </b-card-footer>
 
-                <!-- TODO: use speedrun logo -->
-                <!-- <pre>{{ game}}</pre> -->
-                <!-- <b-card-img src="https://placekitten.com/480/210" alt="Image" bottom></b-card-img> -->
-              </b-card>
-            </b-col>
-          </b-row>
+              <!-- TODO: use speedrun logo -->
+              <!-- <pre>{{ game}}</pre> -->
+              <!-- <b-card-img src="https://placekitten.com/480/210" alt="Image" bottom></b-card-img> -->
+            </b-card>
+          </div>
         </b-col>
 
         <b-col

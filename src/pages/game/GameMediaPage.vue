@@ -4,10 +4,10 @@
 <template lang="html">
   <b-container fluid class="p-2">
     <portal to="headerTitle">
-      <h3 class="m-0">
-        {{ game.name }}
-        <small class="text-muted">Screenshots</small>
-      </h3>
+      <span>
+        {{ game.name }} |
+        <span class="text-muted">Screenshots</span>
+      </span>
     </portal>
 
     <b-form-row no-gutters>

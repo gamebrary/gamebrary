@@ -1,24 +1,18 @@
 <template lang="html">
   <b-container fluid>
-    <portal to="headerTitle">
-      <div class="w-100 d-flex align-items-center justify-content-between">
-        <h3 class="m-0">Releases</h3>
+    <portal to="headerTitle">Releases</portal>
 
-        <b-button
-          url="https://github.com/romancm/gamebrary"
-          target="_blank"
-          class="mr-3"
-        >
-          <i class="fab fa-github fa-fw" aria-hidden />
-          View in GitHub
-        </b-button>
-      </div>
+    <portal to="headerActions">
+      <b-button
+        url="https://github.com/romancm/gamebrary"
+        variant="light"
+        target="_blank"
+        class="mr-2"
+      >
+        <i class="fab fa-github fa-fw" aria-hidden />
+        View in GitHub
+      </b-button>
     </portal>
-    <page-title
-
-    >
-
-    </page-title>
 
     <b-card
       v-for="release in releases"

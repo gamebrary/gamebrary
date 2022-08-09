@@ -14,7 +14,7 @@
         <b-input-group-append>
           <b-button
             type="submit"
-            variant="info"
+            variant="light"
           >
             <i
               class="fas fa-search fa-fw"

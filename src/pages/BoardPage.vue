@@ -6,17 +6,19 @@
 
     <template v-else-if="showBoard">
       <portal to="headerTitle">
-        <div class="w-100 d-flex align-items-center justify-content-between">
-          <h3 class="m-0">{{ board.name }}</h3>
+        <b-button variant="light" disabled>
+          {{ board.name }}
+        </b-button>
+      </portal>
 
-          <b-button
-            :to="{ name: 'board.edit', params: { id: board.id } }"
-            variant="light"
-            class="mr-2"
-          >
-            Edit
-          </b-button>
-        </div>
+      <portal to="headerActions">
+        <b-button
+          :to="{ name: 'board.edit', params: { id: board.id } }"
+          variant="light"
+          class="mr-2"
+        >
+          Edit
+        </b-button>
       </portal>
 
       <!-- TODO: put board in component -->

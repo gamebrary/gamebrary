@@ -18,17 +18,16 @@
        </empty-state>
 
        <b-col v-else>
-         <portal to="headerTitle">
-           <div class="w-100 d-flex align-items-center justify-content-between">
-             <h3 class="m-0">Tags</h3>
+         <portal to="headerTitle">Tags</portal>
 
-             <b-button
-               class="mr-3"
-               @click="$bvModal.show('addTag')"
-             >
-               Add tag
-             </b-button>
-           </div>
+         <portal to="headerActions">
+           <b-button
+             class="mr-2"
+             variant="light"
+             @click="$bvModal.show('addTag')"
+           >
+             Add tag
+           </b-button>
          </portal>
 
          <tags-list

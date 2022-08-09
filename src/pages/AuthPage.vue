@@ -1,8 +1,6 @@
 <template lang="html">
   <b-container>
-    <portal to="headerTitle">
-      Login
-    </portal>
+    <portal to="headerTitle">Login</portal>
 
     <b-alert
       class="mx-auto text-center"

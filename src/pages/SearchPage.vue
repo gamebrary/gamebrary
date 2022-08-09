@@ -1,9 +1,7 @@
 <template lang="html">
   <b-container>
     <b-row>
-      <portal to="headerTitle">
-        <h3 class="m-0">Search</h3>
-      </portal>
+      <portal to="headerTitle">Search</portal>
       <!-- TODO: add filters -->
       <!-- TODO: add view toggle -->
         <!-- <b-col cols="3" class="position-sticky mt-2">
@@ -34,7 +32,10 @@
         >
           Back to board
         </b-button>
-        <search-box />
+
+        <portal to="headerActions">
+          <search-box class="mr-2" />
+        </portal>
         <!-- <b-alert show variant="success">
           Custom search controls go here!
         </b-alert> -->
@@ -45,6 +46,7 @@
 
         <div v-else-if="searchResults.length > 0">
           <header class="my-2 d-flex align-items-center justify-content-between">
+            <pre>{{ activeBoardList }}</pre>
             <h3 v-if="activeBoardList.length">
               Add games to <strong>{{ activeBoardList.name }}</strong>
             </h3>
@@ -150,7 +152,7 @@ export default {
   },
 
   mounted() {
-    this.search();
+    if (this.query.length) this.search();
   },
 
   methods: {

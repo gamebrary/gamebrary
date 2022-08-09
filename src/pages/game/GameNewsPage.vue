@@ -1,10 +1,15 @@
 <!-- TODO: get inspiration from polygon -->
 <template lang="html">
   <b-container fluid class="p-2">
-    <div class="game-news" v-if="articles.length">
-      Latest news about {{ game.name }} <b-badge>{{ articles.length }}</b-badge>
+    <portal to="headerTitle">
+      <span>
+        {{ game.name }} |
+        <span class="text-muted">News</span>
+      </span>
+    </portal>
 
-      <ul class="list-unstyled">
+    <div class="game-news">
+      <ul v-if="articles.length" class="list-unstyled">
         <b-card v-for="article in articles" :key="article.id" class="mb-2">
           <b-avatar
             variant="primary"

@@ -1,9 +1,5 @@
 <template lang="html">
   <b-container fluid>
-    <portal to="headerTitle">
-      My Boards
-    </portal>
-
     <portal to="headerActions">
       <b-button
         variant="light"

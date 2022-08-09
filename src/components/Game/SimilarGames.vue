@@ -1,5 +1,5 @@
 <template lang="html">
-  <div v-if="similarGames.length">
+  <div class="d-none d-lg-inline" v-if="similarGames.length">
     <h4 class="text-center text-muted">You may also like</h4>
 
     <div class="d-flex overflow-auto">

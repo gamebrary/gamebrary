@@ -13,6 +13,7 @@
       </b-button> -->
 
       <b-button
+        v-if="!isSearchPage"
         variant="light"
         class="mr-2"
         :to="{ name: 'search' }"
@@ -22,7 +23,7 @@
 
       <router-link
         v-if="user"
-        class="mr-1"
+        class="mr-2"
         :to="{ name: 'settings' }"
       >
         <b-avatar size="38" rounded :src="user.photoURL" />
@@ -30,7 +31,7 @@
 
       <b-button
         v-else
-        class="ml-2"
+        class="mr-3"
         variant="primary"
         :to="{ name: 'auth' }"
       >
@@ -61,6 +62,10 @@ export default {
 
     isGamePage() {
       return this.$route.name.startsWith('game');
+    },
+
+    isSearchPage() {
+      return this.$route.name === 'search';
     },
 
     showBoardName() {

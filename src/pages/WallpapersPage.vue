@@ -10,24 +10,22 @@
     />
 
     <template v-else>
-      <portal to="headerTitle">
-        <div class="w-100 d-flex align-items-center justify-content-between">
-          <h3 class="m-0">Wallpapers</h3>
+      <portal to="headerTitle">Wallpapers</portal>
 
-          <b-button
-            :disabled="outOfSpace"
-            variant="light"
-            class="mr-2"
-            @click="triggerFileUpload"
-          >
-            <b-spinner small v-if="saving" />
+      <portal to="headerActions">
+        <b-button
+          :disabled="outOfSpace"
+          variant="light"
+          class="mr-2"
+          @click="triggerFileUpload"
+        >
+          <b-spinner small v-if="saving" />
 
-            <template v-else>
-              <i class="fas fa-upload fa-fw" aria-hidden />
-              <span class="d-none d-sm-inline">Upload</span>
-            </template>
-          </b-button>
-        </div>
+          <template v-else>
+            <i class="fas fa-upload fa-fw" aria-hidden />
+            <span class="d-none d-sm-inline">Upload</span>
+          </template>
+        </b-button>
       </portal>
 
       <b-alert

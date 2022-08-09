@@ -2,19 +2,17 @@
 <!-- TODO: pagination? -->
 <template lang="html">
   <b-container fluid>
-    <portal to="headerTitle">
-      <div class="w-100 d-flex align-items-center justify-content-between">
-        <h3 class="m-0">Notes</h3>
+    <portal to="headerTitle">Notes</portal>
 
-        <b-form-input
-          v-if="!showEmptyState"
-          type="search"
-          style="max-width: 200px"
-          class="mr-3"
-          placeholder="Search notes"
-          v-model="search"
-        />
-      </div>
+    <portal to="headerActions">
+      <b-form-input
+        v-if="!showEmptyState"
+        type="search"
+        style="max-width: 200px"
+        class="mr-3"
+        placeholder="Search notes"
+        v-model="search"
+      />
     </portal>
 
     <empty-state
