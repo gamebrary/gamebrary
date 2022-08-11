@@ -22,6 +22,7 @@ import NotesPage from '@/pages/NotesPage';
 import GameNotesPage from '@/pages/GameNotesPage';
 import EditListPage from '@/pages/EditListPage';
 import GameTagsPage from '@/pages/GameTagsPage';
+import CreateTagPage from '@/pages/CreateTagPage';
 import GameProgressPage from '@/pages/GameProgressPage';
 import PrivacyPolicyPage from '@/pages/PrivacyPolicyPage';
 import ProfilePage from '@/pages/ProfilePage';
@@ -33,7 +34,7 @@ import SearchPage from '@/pages/SearchPage';
 import SteamSettingsPage from '@/pages/SteamSettingsPage';
 // import GeneralSettingsPage from '@/pages/GeneralSettingsPage';
 import TagsPage from '@/pages/TagsPage';
-import TagEditPage from '@/pages/TagEditPage';
+import EditTagPage from '@/pages/EditTagPage';
 import TermsPage from '@/pages/TermsPage';
 import WallpapersPage from '@/pages/WallpapersPage';
 
@@ -102,9 +103,17 @@ const routes = [
     },
   },
   {
+    name: 'tag.create',
+    path: '/tags/create',
+    component: CreateTagPage,
+    meta: {
+      title: 'Edit tag',
+    },
+  },
+  {
     name: 'tag.edit',
     path: '/tags/:id',
-    component: TagEditPage,
+    component: EditTagPage,
     meta: {
       title: 'Edit tag',
     },

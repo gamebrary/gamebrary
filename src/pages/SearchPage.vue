@@ -46,37 +46,16 @@
 
         <div v-else-if="searchResults.length > 0">
           <header class="my-2 d-flex align-items-center justify-content-between">
-            <pre>{{ activeBoardList }}</pre>
+            <!-- <pre>{{ activeBoardList }}</pre> -->
             <h3 v-if="activeBoardList.length">
               Add games to <strong>{{ activeBoardList.name }}</strong>
             </h3>
             <!-- <h3>Search results</h3> -->
 
-            <b-button-toolbar key-nav aria-label="Toolbar with button groups" class="mr-1">
-              <b-button-group class="mx-1">
-                <b-button :variant="listView ? 'primary' : 'light'" @click="listView = true">
-                  <i class="fa-solid fa-list fa-fw" aria-hidden />
-                </b-button>
-
-                <b-button :variant="listView ? 'light' : 'primary'" @click="listView = false">
-                  <i class="fa-solid fa-grip fa-fw" aria-hidden />
-                </b-button>
-              </b-button-group>
-            </b-button-toolbar>
           </header>
 
-          <template v-if="listView">
+          <div class="masonry-container">
             <game-card-search
-              v-for="game in searchResults"
-              :key="game.id"
-              :game="game"
-              :active-list="Boolean(activeBoardList)"
-              @addToActiveList="addToActiveList"
-            />
-          </template>
-
-          <div v-else class="masonry-container">
-            <game-card-search-vertical
               v-for="game in searchResults"
               class="masonry-item"
               :key="game.id"
@@ -100,23 +79,20 @@
 </template>
 
 <script>
-import GameCardSearch from '@/components/GameCards/GameCardSearch';
 import SearchBox from '@/components/SearchBox';
-import GameCardSearchVertical from '@/components/GameCards/GameCardSearchVertical';
+import GameCardSearch from '@/components/GameCards/GameCardSearch';
 import { mapState } from 'vuex';
 
 export default {
   components: {
-    GameCardSearch,
     SearchBox,
-    GameCardSearchVertical,
+    GameCardSearch,
   },
 
   data() {
     return {
       searchResults: [],
       loading: false,
-      listView: true,
     };
   },
 

@@ -4,6 +4,10 @@
   <!-- TODO: show list preview in full page view -->
   <!-- TODO: show search inline, allow to go full screen (search page) -->
   <b-container fluid class="p-0">
+    <portal to="headerTitle">
+      Edit list
+    </portal>
+
     <b-row v-if="list" no-gutters>
       <b-col sm="12" md="6">
         <div :style="boardStyles" class="p-3 list-preview d-flex justify-content-center">

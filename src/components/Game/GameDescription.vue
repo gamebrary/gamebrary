@@ -1,11 +1,7 @@
+<!-- TODO: restore wikipedia -->
 <template lang="html">
   <div class="game-description">
-    <template v-if="loading">
-      <b-skeleton
-        v-for="n in 3"
-        :key="n"
-      />
-    </template>
+    <b-spinner v-if="loading" class="spinner-centered" />
 
     <template v-else>
       <div v-html="description" />
@@ -51,9 +47,10 @@ export default {
       if (this.wikipediaExtract) return 'Wikipedia';
       if (this.steamDescription) return 'Steam';
 
-      return 'IGDB';
 
-      // if (this.game?.steam?.short_description) return 'Steam';
+      if (this.game?.steam?.short_description) return 'Steam';
+
+      return 'IGDB';
       //
       // return this.wikipediaArticle && this.wikipediaArticle.lead && this.wikipediaArticle.lead[0]
       //   ? 'Wikipedia'

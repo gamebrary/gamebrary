@@ -1,34 +1,34 @@
 <template lang="html">
-  <b-list-group flush>
+  <div class="mt-3">
     <game-genres />
 
-    <b-list-group-item v-if="gameModes" class="p-2 small">
+    <div v-if="gameModes" class="pr-2 pb-3 small">
       <strong>{{ $t('board.gameModal.gameModes') }}: </strong>
       <span class="text-wrap">{{ gameModes }}</span>
-    </b-list-group-item>
+    </div>
 
-    <b-list-group-item v-if="gameDevelopers" class="p-2 small">
+    <div v-if="gameDevelopers" class="pr-2 pb-3 small">
       <strong>{{ $t('board.gameModal.developers') }}: </strong>
       <span class="text-wrap">{{ gameDevelopers }}</span>
-    </b-list-group-item>
+    </div>
 
-    <b-list-group-item v-if="gamePublishers" class="p-2 small">
+    <div v-if="gamePublishers" class="pr-2 pb-3 small">
       <strong>{{ $t('board.gameModal.publishers') }}: </strong>
       <span class="text-wrap">{{ gamePublishers }}</span>
-    </b-list-group-item>
+    </div>
 
-    <b-list-group-item v-if="playerPerspectives" class="p-2 small">
+    <div v-if="playerPerspectives" class="pr-2 pb-3 small">
       <strong>{{ $t('board.gameModal.perspective') }}: </strong>
       <span class="text-wrap">{{ playerPerspectives }}</span>
-    </b-list-group-item>
+    </div>
 
-    <b-list-group-item class="p-2 small">
+    <div class="pr-2 pb-3 small">
       <strong>Available for: </strong>
 
       <span class="text-wrap">{{ gamePlatforms || 'N/A' }}</span>
-    </b-list-group-item>
+    </div>
 
-    <b-list-group-item class="p-2 small">
+    <div class="pr-2 pb-3 small">
       <strong>{{ $t('board.gameModal.releaseDate') }}</strong>
       <ol v-if="releaseDates" class="list-unstyled mb-0">
         <li
@@ -42,8 +42,8 @@
       <div v-else>
         Not released yet
       </div>
-    </b-list-group-item>
-  </b-list-group>
+    </div>
+  </div>
 </template>
 
 <script>

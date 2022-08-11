@@ -19,6 +19,7 @@ import messages from '@/i18n/';
 import store from '@/store/';
 import router from '@/router';
 import bootstrapSettings from '@/bootstrapSettings';
+import 'vue-swatches/dist/vue-swatches.css'
 
 const EventBus = new Vue();
 

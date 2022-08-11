@@ -72,7 +72,7 @@ export default {
     ...mapState(['user', 'settings', 'sessionExpired']),
 
     style() {
-      const backgroundImage = this.backgroundImageUrl
+      const backgroundImage = this.$route.name === 'game' && this.backgroundImageUrl
         ? `background-image: url('${this.backgroundImageUrl}');`
         : null;
 
@@ -142,18 +142,18 @@ export default {
       }
 
       if (this.user) {
-        this.load();
+        this.boot();
       } else if (this.$route.name !== 'auth' && !this.$route.params.providerId) {
         this.$router.replace({ name: 'auth' });
       }
     },
 
-    load() {
+    boot() {
       this.$store.dispatch('LOAD_BOARDS');
       this.$store.dispatch('LOAD_RELEASES');
       this.$store.dispatch('LOAD_WALLPAPERS');
       this.$store.dispatch('SYNC_LOAD_SETTINGS');
-      this.$store.dispatch('SYNC_LOAD_TAGS');
+      this.$store.dispatch('LOAD_TAGS');
       this.$store.dispatch('SYNC_LOAD_NOTES');
       this.$store.dispatch('SYNC_LOAD_PROGRESSES');
     },

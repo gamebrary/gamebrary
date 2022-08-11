@@ -1,72 +1,50 @@
 <template lang="html">
-  <div>
-    <b-card
-      v-for="({ games, hex, tagTextColor }, name) in tags"
-      class="tags-list"
+  <b-row>
+    <b-col
+      v-for="({ hex, tagTextColor, name }, index) in tags"
+      @click="$router.push({ name: 'tag.edit', params: { id: index } })"
+      cols="6"
+      xl="4"
+      class="mb-3"
       :key="name"
     >
-      <div>
-        <b-dropdown class="float-right" right>
-          <template v-slot:button-content>
-            <i class="fas fa-ellipsis-h fa-fw" aria-hidden />
-          </template>
-
-          <b-dropdown-item @click="$emit('edit', name)">
-            Edit
-          </b-dropdown-item>
-
-          <b-dropdown-item
-            variant="danger"
-            @click="$emit('delete', name)"
-          >
-            Delete
-          </b-dropdown-item>
-        </b-dropdown>
-
-        <b-badge
-          pill
-          tag="small"
-          :style="`background-color: ${hex}; color: ${tagTextColor}`"
-        >
-          {{ name }}
-        </b-badge>
-
-        <p class="small text-muted">
-          {{ games.length }} Games
-        </p>
-      </div>
-
-      <div class="d-flex align-items-center overflow-auto">
-        <b-img
-          v-for="gameId in games"
-          :key="gameId"
-          :src="getCoverUrl(gameId)"
-          width="80"
-          class="rounded cursor-pointer mr-2"
-          @click.stop="openGame(gameId)"
-        />
-      </div>
-    </b-card>
-  </div>
+      <b-button
+        rounded
+        block
+        variant="outline-light"
+        :style="`background-color: ${hex}; color: ${tagTextColor}`"
+      >
+        {{ name }}
+      </b-button>
+    </b-col>
+  </b-row>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
+  data() {
+    return {
+      loading: true,
+    }
+  },
+
   computed: {
-    ...mapState(['tags', 'games']),
+    ...mapState(['tags']),
+  },
+
+  async mounted() {
+    this.loading = true;
+
+    await this.$store.dispatch('LOAD_TAGS').catch(() => {
+      this.loading = false;
+    });
+
+    this.loading = false;
   },
 
   methods: {
-    getCoverUrl(gameId) {
-      const game = this.games[gameId];
-
-      return game && game.cover && game.cover.image_id
-        ? `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${game.cover.image_id}.jpg`
-        : '/no-image.jpg';
-    },
-
     openGame(gameId) {
       const { id, slug } = this.games[gameId];
 
@@ -75,9 +53,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-.tags-list {
-  background: #fc0;
-}
-</style>

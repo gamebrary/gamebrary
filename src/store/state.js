@@ -1,6 +1,6 @@
 export default {
   user: null,
-  tags: {},
+  tags: [],
   notes: {},
   profile: {},
   profiles: [],

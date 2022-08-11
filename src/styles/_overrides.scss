@@ -1,29 +1,9 @@
-.card-columns {
-  @media(min-width: 420px) {
-    column-count: 3;
-  }
-
-  @media(min-width: 680px) {
-    column-count: 4;
-  }
-
-  @media(min-width: 1024px) {
-    column-count: 5;
-  }
-
-  @media(min-width: 1280px) {
-    column-count: 7;
-  }
+.field {
+  width: 320px;
+  max-width: 100%;
 }
 
-.modal {
-  padding: 1rem 0 !important;
-
-  @media(max-width: 600px) {
-    padding: 0 !important;
-  }
-}
-
-.toast-header {
-  display: none;
+.spinner-centered {
+  position: absolute;
+  left: calc(50% - 16px);
 }

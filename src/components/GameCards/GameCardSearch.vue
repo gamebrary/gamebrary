@@ -1,35 +1,23 @@
 <template lang="html">
-  <b-card no-body class="mb-2">
-    <b-row no-gutters>
-      <b-col cols="2">
-        <b-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}">
-          <b-card-img
-            :src="coverUrl"
-            alt="Image"
-          />
-        </b-link>
-      </b-col>
+  <b-card
+    no-body
+    :title="game.name"
+    :img-src="coverUrl"
+    :img-alt="game.name"
+    img-top
+    class="mb-2"
+    footer-class="p-0 text-center font-weight-bold bold strong"
+    @click="$router.push({ name: 'game', params: { id: game.id, slug: game.slug }})"
+  >
+  <!-- :to="{ name: 'game', params: { id: game.id, slug: game.slug }}" -->
 
-      <b-col cols="10">
-        <b-card-body :title="game.name" title-tag="h4">
-          <b-button
-            v-if="activeList"
-            @click="$emit('addToActiveList', game.id)"
-          >
-            Add
-          </b-button>
-
-          <b-button
-            v-else
-            @click="handleGameClick"
-            variant="primary"
-          >
-            <i class="fa fa-plus fa-fw" aria-hidden="true" />
-            Add to list
-          </b-button>
-        </b-card-body>
-      </b-col>
-    </b-row>
+    <template #footer>
+      <small class="text-muted">
+        <!-- <pre>{{ selectedBoard }}</pre> -->
+        <!-- <pre>{{ selectedList }}</pre> -->
+        <strong>{{ game.name }}</strong>
+      </small>
+    </template>
   </b-card>
 </template>
 
@@ -43,22 +31,71 @@ export default {
       type: Object,
       required: true,
     },
-    activeList: Boolean,
   },
 
   computed: {
-    ...mapState(['user']),
+    ...mapState(['user', 'boards']),
 
     coverUrl() {
       return getGameCoverUrl(this.game);
     },
+
+    selectedBoard() {
+      const { boardId } = this.$route.query;
+
+      return this.boards.find(({ id }) => id === boardId);
+    },
+
+    selectedList() {
+      const { listIndex } = this.$route.query;
+
+      return this.selectedBoard.lists[listIndex];
+    },
   },
 
   methods: {
-    handleGameClick() {
-      console.log(this.user);
+    // handleClick() {
+    //   const { listIndex, boardId } = this.$route.query;
+    //
+    //   if (listIndex && boardId) return this.addGameToList();
+    //
+    //   return this.user
+    //     ? this.$bus.$emit('ADD_GAME', this.game.id)
+    //     : this.$router.push({ name: 'game', params: { id: this.game.id, slug: this.game.slug }});
+    // },
 
-      // this.$bus.$emit('ADD_GAME', this.game.id);
+    addGameToList() {
+      return this.selectedList.games.includes(this.game.id)
+        ? this.removeGame()
+        : this.addGame();
+    },
+
+    async addGame() {
+      const boardIndex = this.boards.findIndex(({ id }) => id === this.selectedBoard.id);
+      const board = this.boards[boardIndex];
+      console.log(board);
+
+      // board.lists[listIndex].games.push(this.game.id);
+
+      // try {
+      //   await this.$store.dispatch('SAVE_GAME_BOARD', board);
+      // } catch (e) {
+      //   // this.$bvToast.toast(`There was an error adding "${this.game.name}"`, { title: list.name, variant: 'danger' });
+      // }
+    },
+
+    async removeGame({ listIndex, boardId }) {
+      // const boardIndex = this.boards.findIndex(({ id }) => id === boardId);
+      // const board = this.boards[boardIndex];
+      // const gameIndex = board.lists[listIndex].games.indexOf(this.gameId);
+      //
+      // board.lists[listIndex].games.splice(gameIndex, 1);
+      //
+      // try {
+      //   await this.$store.dispatch('SAVE_GAME_BOARD', board);
+      // } catch (e) {
+      //   // this.$bvToast.toast(`There was an error removing "${this.game.name}"`, { title: list.name, variant: 'danger' });
+      // }
     },
   },
 };

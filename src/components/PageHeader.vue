@@ -1,11 +1,13 @@
 <template lang="html">
   <header class="p-2 d-flex">
     <home-button />
+    <!-- TODO: rename target -->
     <portal-target name="headerTitle" slim />
     <!-- <boards-dropdown v-if="board.id && isBoardPage" /> -->
     <!-- <game-dropdown v-if="isGamePage" /> -->
 
     <div class="global-actions">
+      <!-- TODO: rename target -->
       <portal-target name="headerActions" />
 
       <!-- <b-button v-if="user" class="mr-2" variant="success" :to="{ name: 'upgrade' }">

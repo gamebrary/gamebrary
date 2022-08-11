@@ -2,8 +2,19 @@
 <!-- TODO: pagination? -->
 <template lang="html">
   <b-container fluid>
-    <portal to="headerTitle">Notes</portal>
+    <portal to="headerTitle">
+      <div>
+        <b-button
+          :to="{ name: 'settings' }"
+          variant="light"
+          class="mr-2"
+          >
+          <i class="fa-solid fa-chevron-left" />
+        </b-button>
 
+        Notes
+      </div>
+    </portal>
     <portal to="headerActions">
       <b-form-input
         v-if="!showEmptyState"

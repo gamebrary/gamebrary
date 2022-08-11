@@ -13,11 +13,6 @@
           <span class="d-none d-lg-inline">Tags</span>
         </b-button>
 
-        <b-button variant="light" :to="{ name: 'game.progress', params: { id: game.id, slug: game.slug } }">
-          <i class="fa-solid fa-bars-progress fa-fw" />
-          <span class="d-none d-lg-inline">Track progress</span>
-        </b-button>
-
         <b-button variant="light" :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug } }">
           <i class="fa-solid fa-note-sticky fa-fw" />
           <span class="d-none d-lg-inline">Notes</span>

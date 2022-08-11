@@ -1,17 +1,7 @@
 <template lang="html">
-  <div class="text-center pt-5">
+  <div class="text-center pt-5 ml-auto mr-auto">
     <h2 v-if="title">{{ title }}</h2>
     <p v-if="message">{{ message }}</p>
-
-    <b-button
-      v-if="actionText"
-      variant="primary"
-      @click="$emit('action')"
-    >
-      <b-spinner small v-if="busy" />
-      <span v-else>{{ actionText }}</span>
-    </b-button>
-
     <slot />
   </div>
 </template>

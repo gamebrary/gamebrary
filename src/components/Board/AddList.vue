@@ -26,16 +26,11 @@
             :disabled="saving || isDuplicate || !listName"
             @click.stop="submit"
           >
-            <b-spinner small v-if="saving" />
+            <b-spinner v-if="saving" small />
             <span v-else>Add</span>
-
           </b-button>
-          <!-- <b-button variant="outline-success">Button</b-button> -->
-          <!-- <b-button variant="info">Button</b-button> -->
         </b-input-group-append>
       </b-input-group>
-
-
 
       <b-alert
         class="mb-2"

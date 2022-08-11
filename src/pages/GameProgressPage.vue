@@ -2,8 +2,14 @@
   <b-container>
     <portal to="headerTitle">
       <span>
-        {{ game.name }} |
-        <span class="text-muted">Track progress</span>
+        <b-button
+          :to="{ name: 'game', params: { id: game.id, slug: game.slug }}"
+          variant="light"
+          >
+          {{ game.name }}
+        </b-button>
+
+        Track progress
       </span>
     </portal>
 

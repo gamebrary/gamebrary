@@ -10,7 +10,19 @@
     />
 
     <template v-else>
-      <portal to="headerTitle">Wallpapers</portal>
+      <portal to="headerTitle">
+        <div>
+          <b-button
+            :to="{ name: 'settings' }"
+            variant="light"
+            class="mr-2"
+            >
+            <i class="fa-solid fa-chevron-left" />
+          </b-button>
+
+          Wallpapers
+        </div>
+      </portal>
 
       <portal to="headerActions">
         <b-button

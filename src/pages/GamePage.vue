@@ -8,7 +8,9 @@
 
 <template lang="html">
   <b-container fluid>
-    <b-skeleton v-if="loading" />
+    <div v-if="loading" class="text-center mt-5 ml-auto">
+      <b-spinner/>
+    </div>
 
     <template v-else-if="game">
       <game-actions />
@@ -73,33 +75,56 @@
           sm="8"
           xl="9"
         >
-          <div class="bg-white p-4 rounded">
-            <game-titles />
+          <article class="bg-white p-4 rounded">
+            <header class="d-flex align-items-start justify-content-between pb-2">
+              <game-titles />
 
-            <b-progress
-              v-if="progress"
-              :value="progress"
-              variant="success"
-              height="8px"
-              v-b-modal.progress
-              class="my-1 w-25"
-              @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
-            />
-            <b-badge variant="success" v-if="game && game.steam && game.steam.metacritic">{{ game.steam.metacritic.score }}</b-badge>
+              <aside>
+                <b-button
+                  variant="light"
+                  pill
+                  @click="$router.push({ name: 'game.progress', params: { id: game.id, slug: game.slug } })"
+                >
+                  {{ progress || 0 }}%
+                </b-button>
 
-            <b-badge
-              v-for="({ hex, tagTextColor }, name) in gameTags"
+                <!-- <b-button :href="metacriticScore.url" variant="success" v-if="metacriticScore.url">
+                  {{ metacriticScore.score }}
+
+                </b-button> -->
+              </aside>
+            </header>
+
+            <b-button
+              v-for="({ hex, tagTextColor, name }) in tags"
               :key="name"
-              pill
-              tag="small"
-              class="mr-1 mb-2"
+              rounded
+              size="sm"
+              variant="outline-light"
+              class="mr-1 my-2"
+              :disabled="saving"
               :style="`background-color: ${hex}; color: ${tagTextColor}`"
               @click="$router.push({ name: 'game.tags', params: { id: game.id, slug: game.slug } })"
-              v-b-modal.tags
             >
               {{ name }}
-            </b-badge>
+            </b-button>
+
+            <aside class="bg-white float-right pl-2 pb-2">
+              <b-link
+                :to="{ name: 'game.media', params: { id: game.id, slug: game.slug } }"
+              >
+                <b-img
+                  :src="gameScrenshot"
+                  thumbnail
+                  width="300"
+                />
+              </b-link>
+
+              <game-websites :game="game" />
+            </aside>
+
             <game-description />
+            <game-details />
 
             <game-note
               v-if="note"
@@ -108,35 +133,14 @@
               @click.native="$router.push({ name: 'game.notes', params: { id: game.id } })"
             />
 
-            <b-card
-              no-body
-            >
-              <b-link :to="{ name: 'game.media', params: { id: game.id, slug: game.slug } }">
-                <b-card-img :src="gameScrenshot" top />
-              </b-link>
-              <b-button
-                class="m-1"
-                variant="light"
-                :to="{ name: 'game.media', params: { id: game.id, slug: game.slug } }"
-              >
-                <i class="fa-solid fa-photo-film" />
-                Videos & Screenshots
-              </b-button>
+            <b-card-footer v-if="legalNotice">
+              <small class="text-muted" v-html="legalNotice" />
+            </b-card-footer>
 
-              <game-details />
-              <game-websites
-                :game="game"
-              />
-
-              <b-card-footer v-if="legalNotice">
-                <small class="text-muted" v-html="legalNotice" />
-              </b-card-footer>
-
-              <!-- TODO: use speedrun logo -->
-              <!-- <pre>{{ game}}</pre> -->
-              <!-- <b-card-img src="https://placekitten.com/480/210" alt="Image" bottom></b-card-img> -->
-            </b-card>
-          </div>
+            <!-- TODO: use speedrun logo -->
+            <!-- <pre>{{ game}}</pre> -->
+            <!-- <b-card-img src="https://placekitten.com/480/210" alt="Image" bottom></b-card-img> -->
+          </article>
         </b-col>
 
         <b-col
@@ -301,7 +305,7 @@ export default {
   },
 
   beforeDestroy() {
-    this.$bus.$emit('UPDATE_WALLPAPER', null);
+    // this.$bus.$emit('UPDATE_WALLPAPER', null);
     // TODO: only clear board if game being viewed is not in current board
     // if (!['game', 'board'].includes(this.$route.name)) {
       // this.$store.commit('CLEAR_BOARD');
@@ -310,7 +314,10 @@ export default {
 
   computed: {
     ...mapState(['game', 'progresses', 'tags', 'boards', 'user', 'notes']),
-    ...mapGetters(['gameTags']),
+
+    metacriticScore() {
+      return this.game?.steam?.metacritic || {};
+    },
 
     note() {
       return this.notes[this.game?.id] || null;
@@ -444,6 +451,7 @@ export default {
       this.loading = true;
       this.$store.commit('CLEAR_GAME');
       this.$bus.$emit('UPDATE_WALLPAPER', null);
+      this.$store.dispatch('LOAD_TAGS');
 
       await this.$store.dispatch('LOAD_GAME', this.gameId)
         .catch(() => {
@@ -512,5 +520,10 @@ export default {
 .board-thumbnail {
   background-size: cover;
   background-position: center;
+}
+
+article {
+  background: red;
+  min-height: 50vh;
 }
 </style>

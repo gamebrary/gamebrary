@@ -142,8 +142,4 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-.field {
-  width: 340px;
-  margin: 0 auto;
-}
 </style>

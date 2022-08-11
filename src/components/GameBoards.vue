@@ -2,40 +2,42 @@
   <b-row v-if="user" class="p-1 boards">
     <!-- TODO: allow reorganizing and save -->
     <!-- TODO: add sorting -->
-    <empty-state
-      v-if="!user || !loading && sortedBoards.length === 0"
-      title="Boards"
-      message="Use boards to easily organize your video game collections"
-    >
-      <b-button :to="{ name: 'create.board' }">
-        {{ $t('boards.create') }}
-      </b-button>
-
-      <!-- <b-button :to="{ name: 'public.boards' }">
-        View public boards
-      </b-button> -->
-    </empty-state>
-
     <template v-if="showPlaceholder">
       Loading
     </template>
 
     <template v-else>
-      <b-col
-        v-for="board in sortedBoards"
-        :key="board.id"
-        cols="6"
-        sm="6"
-        md="4"
-        lg="3"
-        class="p-2"
+      <empty-state
+        v-if="!user || !loading && sortedBoards.length === 0"
+        title="Boards"
+        message="Use boards to easily organize your video game collections"
       >
-        <mini-board
-          :board="board"
-          :background-image="getWallpaperUrl(board.backgroundUrl)"
-          @view-board="viewBoard(board.id)"
-        />
-      </b-col>
+        <b-button :to="{ name: 'create.board' }">
+          {{ $t('boards.create') }}
+        </b-button>
+
+        <!-- <b-button :to="{ name: 'public.boards' }">
+          View public boards
+        </b-button> -->
+      </empty-state>
+
+      <template v-else>
+        <b-col
+          v-for="board in sortedBoards"
+          :key="board.id"
+          cols="6"
+          sm="6"
+          md="4"
+          lg="3"
+          class="p-2"
+        >
+          <mini-board
+            :board="board"
+            :background-image="getWallpaperUrl(board.backgroundUrl)"
+            @view-board="viewBoard(board.id)"
+          />
+        </b-col>
+      </template>
     </template>
   </b-row>
 </template>

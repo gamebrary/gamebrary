@@ -1,65 +1,97 @@
-<!-- TODO: finish layout -->
 <template lang="html">
-  <b-container class="p-2">
+  <b-container fluid>
     <portal to="headerTitle">
-      <span>
-        {{ game.name }} |
-        <span class="text-muted">Tags</span>
-      </span>
+      <div>
+        <b-button
+          :to="gamePage"
+          variant="light"
+          class="mr-2"
+          >
+          <i v-if="showBackIcon" class="fa-solid fa-chevron-left" />
+          <template v-else-if="game">
+            {{ game.name }}
+          </template>
+        </b-button>
+
+        Tags
+      </div>
     </portal>
 
-    <template v-if="loading">
-      loading
-    </template>
-
-    <template v-else>
-      <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}">
-        <b-img :src="gameCoverUrl" width="200" rounded class="mb-2 mr-2" />
-      </router-link>
-
-      <h3>Tags</h3>
-      <p>Click on tag to add or remove tag from game</p>
-
-      <empty-state
-        v-if="empty"
-        class="mb-4"
-        message="Looks like you don't have any tags yet."
+    <portal to="headerActions">
+      <b-button
+        :to="{ name: 'tags' }"
+        variant="light"
+        class="mr-2"
       >
-        <b-button @click="manageTags">Manage tags</b-button>
-      </empty-state>
+        Manage tags
+      </b-button>
+    </portal>
 
-      <b-row v-else>
-        <!-- TODO: Show current games in tag -->
-        <!-- TODO: Filter tag option if tags > too many -->
-        <b-col cols="12" md="auto">
-          <b-list-group>
-            <b-list-group-item
-              v-for="({ games, hex, tagTextColor }, name) in sortedTags"
-              :key="name"
-              class="d-flex justify-content-between"
-              button
-              :variant="games.includes(game.id) ? 'success' : ''"
-              @click="games.includes(game.id) ? removeTag(name) : addTag(name)"
+    <div v-if="loading" class="text-center mt-5 ml-auto">
+      <b-spinner/>
+    </div>
+
+    <b-row v-else>
+      <b-col cols="6">
+        <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}" class="float-right">
+          <b-img :src="gameCoverUrl" fluid rounded class="mb-2 mr-2 field" />
+        </router-link>
+      </b-col>
+
+      <b-col>
+        <empty-state
+          v-if="empty"
+          class="mb-4"
+          message="Looks like you don't have any tags yet."
+        >
+          <b-button @click="manageTags">Manage tags</b-button>
+        </empty-state>
+
+        <section class="field">
+          <section>
+            <h3 class="mb-3">Tags applied to {{ game.name }}</h3>
+
+            <b-alert
+              v-if="tagsSelected.length === 0"
+              show
+              variant="light"
             >
-              <b-badge
-                pill
-                tag="small"
-                class="mr-3"
-                :style="`background-color: ${hex}; color: ${tagTextColor}`"
-              >
-                {{ name }}
-              </b-badge>
+              No tags applied
+            </b-alert>
 
-              <b-badge variant="light">{{ games.length }} games</b-badge>
-            </b-list-group-item>
-          </b-list-group>
-        </b-col>
-      </b-row>
-    </template>
+            <b-button
+              v-for="{ name, hex, tagTextColor } in tags"
+              :key="name"
+              rounded
+              block
+              variant="outline-light"
+              :style="`background-color: ${hex}; color: ${tagTextColor}`"
+              @click="removeTag"
+            >
+              {{ name }}
+            </b-button>
+          </section>
 
-    <b-button :to="{ name: 'team.settings' }">Manage tags</b-button>
-    <br />
-    <b-button :to="{ name: 'team.settings' }">Create new tag</b-button>
+          <hr />
+
+          <h3 class="my-3">Tags available</h3>
+
+          <pre>{{ tags }}</pre>
+          <!-- <b-button
+            v-for="({ name, hex, tagTextColor }, index) in tags"
+            :key="name"
+            rounded
+            block
+            variant="outline-light"
+            :disabled="saving"
+            :style="`background-color: ${hex}; color: ${tagTextColor}`"
+            @click="addTag(index)"
+          >
+            {{ name }}
+          </b-button> -->
+        </section>
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
@@ -76,6 +108,7 @@ export default {
   data() {
     return {
       loading: true,
+      saving: false,
     };
   },
 
@@ -86,19 +119,38 @@ export default {
       return getGameCoverUrl(this.game);
     },
 
+    showBackIcon() {
+      return this.game?.name.length > 25;
+    },
+
+    gamePage() {
+      return { name: 'game', params: { id: this.game?.id, slug: this.game?.slug }};
+    },
+
     empty() {
       return Object.keys(this.tags).length === 0;
     },
 
-    sortedTags() {
-      return Object.keys(this.tags)
-        .sort()
-        .reduce((res, key) => (res[key] = this.tags[key], res), {});
+    tagsSelected() {
+      return this.tags?.filter(({ games }) => {
+        return games?.includes(this.game?.id);
+      })
+    },
+
+    tagsAvailable() {
+      return Object.entries(this.tags).map((t) => {
+        const [name, tag] = t;
+
+        return { name: name, ...tag };
+      })
+      .filter(({ games }) => {
+        return !games.includes(this.game.id);
+      })
     },
   },
 
   mounted() {
-    if (this.game.id !== this.$route.params.id) {
+    if (this.game?.id !== this.$route.params.id) {
       this.loadGame();
     } else {
       this.loading = false;
@@ -110,7 +162,8 @@ export default {
       this.loading = true;
       this.$store.commit('CLEAR_GAME');
 
-      await this.$store.dispatch('LOAD_GAME', this.$route.params.id)
+      await this.$store.dispatch('LOAD_GAME', this.$route.params.id);
+      await this.$store.dispatch('LOAD_TAGS')
         .catch(() => {
           this.loading = false;
         });
@@ -118,39 +171,43 @@ export default {
       this.loading = false;
     },
 
-    async addTag(tagName) {
-      const gameId = this.game.id;
+    async addTag(index) {
+      console.log('add this tag');
+      // TODO: use commit instead?
+      // const gameId = this.game.id;
+      //
+      // if (!gameId) return;
+      //
+      // const tags = JSON.parse(JSON.stringify(this.tags)) ;
+      //
+      // tags[index].games.push(gameId)
+      //
+      // console.log(`game id ${gameId} should be included`, tags[index].games);
 
-      this.$store.commit('ADD_GAME_TAG', { tagName, gameId });
-      await this.saveTags();
+      // this.saving = true;
 
-      this.$bvToast.toast(`Tag "${tagName}" added`, { title: this.game.name, variant: 'success' });
+      // await this.$store.dispatch('SAVE_TAGS', tags)
+      //   .catch((e) => {
+      //     console.log(e);
+      //   });
+
+      // this.saving = false;
+
+      // this.$store.commit('ADD_GAME_TAG', { tagName, gameId });
+      // await this.saveTags();
     },
 
     async removeTag(tagName) {
       const gameId = this.game.id;
 
-      this.$store.commit('REMOVE_GAME_TAG', { tagName, gameId });
-      await this.saveTags();
-
-      this.$bvToast.toast(`Tag "${tagName}" removed`, { title: this.game.name, variant: 'success' });
-    },
-
-    saveTags() {
-      this.$store.dispatch('SAVE_TAGS', this.tags)
-        .catch(() => {
-          this.$store.commit('SET_SESSION_EXPIRED', true);
-        });
+      // this.$store.commit('REMOVE_GAME_TAG', { tagName, gameId });
+      // await this.saveTags();
     },
 
     manageTags() {
       this.$bvModal.hide('tags');
-      this.$bvModal.hide('game-modal');
       this.$router.push({ name: 'tags' });
     },
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-</style>

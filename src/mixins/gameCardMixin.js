@@ -66,20 +66,4 @@ export default {
         : '/no-image.jpg';
     },
   },
-
-  methods: {
-    removeTag(tagName) {
-      this.$store.commit('REMOVE_GAME_TAG', { tagName, gameId: this.gameId });
-      this.saveTags();
-    },
-
-    async saveTags() {
-      await this.$store.dispatch('SAVE_TAGS', this.tags)
-        .catch(() => {
-          this.$store.commit('SET_SESSION_EXPIRED', true);
-        });
-
-      this.$bvToast.toast('Tags updated');
-    },
-  },
 };

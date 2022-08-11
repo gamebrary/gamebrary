@@ -1,19 +1,17 @@
 <template lang="html">
-  <b-list-group-item v-if="gameGenres" class="p-2 small">
+  <div v-if="gameGenres" class="pr-2 pb-3 small">
     <strong>Genres:</strong>
-    <b-avatar
+
+    {{ gameGenres }}
+
+    <!-- <span
       v-for="genre in gameGenres"
       :key="genre.id"
-      rounded
-      button
-      variant="transparent"
       class="mr-1"
-      v-b-tooltip.hover
-      :title="genre.name"
     >
-      <i v-if="genre.icon" :class="`${genre.icon} p-0`" />
-    </b-avatar>
-  </b-list-group-item>
+      {{ genre.name }}
+    </span> -->
+  </div>
 </template>
 
 <script>
@@ -27,10 +25,7 @@ export default {
     gameGenres() {
       const gameGenres = this.game?.genres || [];
 
-      return gameGenres.map(genre => ({
-        ...genre,
-        icon: GENRE_ICONS[genre.id] || null,
-      }));
+      return gameGenres.map((genre) => genre.name).join(', ');
     },
   },
 };
