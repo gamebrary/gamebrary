@@ -4,7 +4,7 @@
   <!-- TODO: show list preview in full page view -->
   <!-- TODO: show search inline, allow to go full screen (search page) -->
   <b-container fluid class="p-0">
-    <portal to="headerTitle">
+    <portal to="pageTitle">
       Edit list
     </portal>
 

@@ -1,7 +1,7 @@
 <!-- TODO: get inspiration from polygon -->
 <template lang="html">
   <b-container fluid class="p-2">
-    <portal to="headerTitle">
+    <portal to="pageTitle">
       <span>
         {{ game.name }} |
         <span class="text-muted">News</span>

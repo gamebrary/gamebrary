@@ -1,8 +1,7 @@
 <template lang="html">
   <header class="p-2 d-flex">
     <home-button />
-    <!-- TODO: rename target -->
-    <portal-target name="headerTitle" slim />
+    <portal-target name="pageTitle" slim />
     <!-- <boards-dropdown v-if="board.id && isBoardPage" /> -->
     <!-- <game-dropdown v-if="isGamePage" /> -->
 

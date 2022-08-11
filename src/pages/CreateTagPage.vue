@@ -1,6 +1,6 @@
 <template lang="html">
   <b-container fluid>
-    <portal to="headerTitle">
+    <portal to="pageTitle">
       Create tag
     </portal>
 

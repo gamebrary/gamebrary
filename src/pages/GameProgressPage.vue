@@ -1,6 +1,6 @@
 <template lang="html">
   <b-container>
-    <portal to="headerTitle">
+    <portal to="pageTitle">
       <span>
         <b-button
           :to="{ name: 'game', params: { id: game.id, slug: game.slug }}"

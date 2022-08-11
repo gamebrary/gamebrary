@@ -1,6 +1,6 @@
 <template lang="html">
   <b-container fluid>
-    <portal to="headerTitle">Releases</portal>
+    <portal to="pageTitle">Releases</portal>
 
     <portal to="headerActions">
       <b-button

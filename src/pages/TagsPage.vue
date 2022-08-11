@@ -3,7 +3,7 @@
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <b-row v-else>
-      <portal to="headerTitle">Tags</portal>
+      <portal to="pageTitle">Tags</portal>
 
       <portal to="headerActions">
         <b-button

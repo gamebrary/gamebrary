@@ -10,7 +10,7 @@
     />
 
     <template v-else>
-      <portal to="headerTitle">
+      <portal to="pageTitle">
         <div>
           <b-button
             :to="{ name: 'settings' }"

@@ -1,6 +1,6 @@
 <template lang="html">
   <b-container fluid>
-    <portal to="headerTitle">Settings</portal>
+    <portal to="pageTitle">Settings</portal>
 
     <b-row>
       <b-col>

@@ -5,7 +5,7 @@
     <board-placeholder v-if="loading" />
 
     <template v-else-if="showBoard">
-      <portal to="headerTitle">
+      <portal to="pageTitle">
         <b-button variant="light" disabled>
           {{ board.name }}
         </b-button>

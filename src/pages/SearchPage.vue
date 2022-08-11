@@ -1,7 +1,7 @@
 <template lang="html">
   <b-container>
     <b-row>
-      <portal to="headerTitle">Search</portal>
+      <portal to="pageTitle">Search</portal>
       <!-- TODO: add filters -->
       <!-- TODO: add view toggle -->
         <!-- <b-col cols="3" class="position-sticky mt-2">

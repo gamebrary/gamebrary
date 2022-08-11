@@ -2,7 +2,7 @@
 <!-- TODO: pagination? -->
 <template lang="html">
   <b-container fluid>
-    <portal to="headerTitle">
+    <portal to="pageTitle">
       <div>
         <b-button
           :to="{ name: 'settings' }"
