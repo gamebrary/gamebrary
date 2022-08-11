@@ -72,7 +72,7 @@ export default {
     ...mapState(['user', 'settings', 'sessionExpired']),
 
     style() {
-      const backgroundImage = this.$route.name === 'game' && this.backgroundImageUrl
+      const backgroundImage = ['game', 'board'].includes(this.$route?.name) && this.backgroundImageUrl
         ? `background-image: url('${this.backgroundImageUrl}');`
         : null;
 
