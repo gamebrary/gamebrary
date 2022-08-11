@@ -2,11 +2,8 @@
   <header class="p-2 d-flex">
     <home-button />
     <portal-target name="pageTitle" slim />
-    <!-- <boards-dropdown v-if="board.id && isBoardPage" /> -->
-    <!-- <game-dropdown v-if="isGamePage" /> -->
 
-    <div class="global-actions">
-      <!-- TODO: rename target -->
+    <div class="align-items-center d-flex ml-auto">
       <portal-target name="headerActions" />
 
       <!-- <b-button v-if="user" class="mr-2" variant="success" :to="{ name: 'upgrade' }">
@@ -14,7 +11,7 @@
       </b-button> -->
 
       <b-button
-        v-if="!isSearchPage"
+        v-if="showSearchButton"
         variant="light"
         class="mr-2"
         :to="{ name: 'search' }"
@@ -33,7 +30,7 @@
       <b-button
         v-else
         class="mr-3"
-        variant="primary"
+        variant="dark"
         :to="{ name: 'auth' }"
       >
         Login
@@ -43,34 +40,20 @@
 </template>
 
 <script>
-// import GameDropdown from '@/components/Game/GameDropdown';
 import HomeButton from '@/components/Shared/HomeButton';
 import { mapState } from 'vuex';
 
 export default {
 
   components: {
-    // GameDropdown,
     HomeButton,
   },
 
   computed: {
     ...mapState(['board', 'boards', 'user', 'game']),
 
-    isBoardPage() {
-      return this.$route.name.startsWith('board');
-    },
-
-    isGamePage() {
-      return this.$route.name.startsWith('game');
-    },
-
-    isSearchPage() {
-      return this.$route.name === 'search';
-    },
-
-    showBoardName() {
-      return this.$route.name === 'board' && this.board?.name;
+    showSearchButton() {
+      return this.$route.name !== 'search';
     },
   },
 };
@@ -82,17 +65,5 @@ export default {
     align-items: center;
     grid-template-columns: 65px 1fr;
     z-index: 1;
-  }
-
-  .toolbar {
-    display: flex;
-    width: 100%;
-    align-items: center;
-  }
-
-  .global-actions {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
   }
 </style>
