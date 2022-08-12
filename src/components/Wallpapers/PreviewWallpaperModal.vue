@@ -16,6 +16,13 @@
         >
           Select
         </b-button>
+
+        <b-button
+          variant="danger"
+          @click.stop="confirmDeleteWallpaper(wallpaper)"
+        >
+          <i class="fas fa-trash fa-fw" aria-hidden />
+        </b-button>
       </modal-header>
     </template>
 
@@ -40,6 +47,28 @@ export default {
   methods: {
     select() {
       this.$emit('selected', this.wallpaper);
+
+      this.$bvModal.hide('previewWallpaper');
+    },
+
+    confirmDeleteWallpaper(file) {
+      this.$bvModal.msgBoxConfirm('Wallpaper will be permanently removed', {
+        title: 'Are you sure you want to delete this file?',
+        okVariant: 'danger',
+        okTitle: 'Yes',
+      })
+        .then((value) => {
+          if (value) {
+            this.deleteFile(file);
+          }
+        });
+    },
+
+    async deleteFile(file) {
+      await this.$store.dispatch('DELETE_WALLPAPER', file)
+        .catch(() => {
+          this.$bvToast.toast('There was an error deleting wallpaper', { variant: 'danger' });
+        });
 
       this.$bvModal.hide('previewWallpaper');
     },

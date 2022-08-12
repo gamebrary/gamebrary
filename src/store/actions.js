@@ -567,32 +567,6 @@ export default {
     });
   },
 
-  SAVE_TAGS({ state }, tags) {
-    const db = firestore();
-
-    return new Promise((resolve, reject) => {
-      console.log(tags);
-      console.log(state.user.uid);
-      db.collection('tags')
-        .doc(state.user.uid)
-        .set({ tags }, { merge: false })
-        .then(() => resolve())
-        .catch(reject);
-    });
-  },
-
-  SAVE_GAME_TAGS({ state }) {
-    const db = firestore();
-
-    return new Promise((resolve, reject) => {
-      db.collection('tags')
-        .doc(state.user.uid)
-        .set({ tags: state.tags }, { merge: false })
-        .then(() => resolve())
-        .catch(reject);
-    });
-  },
-
   GET_TWITCH_TOKEN({ commit }) {
     const db = firestore();
 
@@ -607,18 +581,6 @@ export default {
         .catch(reject);
     });
   },
-
-  // SAVE_TAGS_NO_MERGE({ state }, tags) {
-  //   const db = firestore();
-  //
-  //   return new Promise((resolve, reject) => {
-  //     db.collection('tags')
-  //       .doc(state.user.uid)
-  //       .set(tags, { merge: false })
-  //       .then(() => resolve())
-  //       .catch(reject);
-  //   });
-  // },
 
   SAVE_SETTINGS({ commit, state }, settings) {
     const db = firestore();
@@ -725,60 +687,6 @@ export default {
     });
   },
 
-  LOAD_TAGS({ commit, state }) {
-    return new Promise((resolve, reject) => {
-      const db = firestore();
-
-      db.collection('tags')
-        .doc(state.user.uid)
-        .get()
-        .then((doc) => {
-          if (!doc.exists) return reject();
-
-          const { tags } = doc.data();
-
-          if (typeof tags === 'object') {
-            // console.warn('Legacy tag detected');
-            const formattedTags = Object.entries(tags).map(([ ,tag]) => ({ ...tag }));
-
-            commit('SET_TAGS', formattedTags);
-            resolve(formattedTags);
-          } else {
-            // console.log('is type', typeof tags);
-          }
-        });
-    });
-  },
-
-  // SYNC_LOAD_TAGS({ commit, state }) {
-  //   return new Promise((resolve, reject) => {
-  //     const db = firestore();
-  //
-  //     db.collection('tags')
-  //       .doc(state.user.uid)
-  //       .onSnapshot((doc) => {
-  //         if (doc.exists) {
-  //           const tags = doc.data();
-  //
-  //           const sortedTags = Object.keys(tags)
-  //             .sort()
-  //             .reduce((res, key) => (res[key] = tags[key], res), {});
-  //
-  //           const mappedTags = Object.entries(sortedTags).map((t) => {
-  //             const [name, tag] = t;
-  //
-  //             return { name, ...tag };
-  //           })
-  //
-  //           commit('SET_TAGS', mappedTags);
-  //           resolve();
-  //         } else {
-  //           reject();
-  //         }
-  //       });
-  //   });
-  // },
-
   SYNC_LOAD_NOTES({ commit, state }) {
     return new Promise((resolve, reject) => {
       const db = firestore();
@@ -875,6 +783,73 @@ export default {
 
           resolve(game);
         }).catch(reject);
+    });
+  },
+
+  // TAGS
+  SAVE_TAGS({ state }) {
+    const db = firestore();
+
+    return new Promise((resolve, reject) => {
+      db.collection('tags')
+        .doc(state.user.uid)
+        .set({ tags: state.tags }, { merge: false })
+        .then(() => resolve())
+        .catch(reject);
+    });
+  },
+
+  // SYNC_LOAD_TAGS({ commit, state }) {
+  //   return new Promise((resolve, reject) => {
+  //     const db = firestore();
+  //
+  //     db.collection('tags')
+  //       .doc(state.user.uid)
+  //       .onSnapshot((doc) => {
+  //         if (doc.exists) {
+  //           const tags = doc.data();
+  //
+  //           const sortedTags = Object.keys(tags)
+  //             .sort()
+  //             .reduce((res, key) => (res[key] = tags[key], res), {});
+  //
+  //           const mappedTags = Object.entries(sortedTags).map((t) => {
+  //             const [name, tag] = t;
+  //
+  //             return { name, ...tag };
+  //           })
+  //
+  //           commit('SET_TAGS', mappedTags);
+  //           resolve();
+  //         } else {
+  //           reject();
+  //         }
+  //       });
+  //   });
+  // },
+
+  LOAD_TAGS({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      const db = firestore();
+
+      db.collection('tags')
+        .doc(state.user.uid)
+        .get()
+        .then((doc) => {
+          if (!doc.exists) return reject();
+
+          const { tags } = doc.data();
+
+          if (typeof tags === 'object') {
+            // console.warn('Legacy tag detected');
+            const formattedTags = Object.entries(tags).map(([ ,tag]) => ({ ...tag }));
+
+            commit('SET_TAGS', formattedTags);
+            resolve(formattedTags);
+          } else {
+            // console.log('is type', typeof tags);
+          }
+        });
     });
   },
 };

@@ -20,15 +20,6 @@
         :key="wallpaper.name"
         @click="openPreview(wallpaper)"
       >
-        <b-button
-          variant="danger"
-          size="sm"
-          class="position-absolute delete-button"
-          @click.stop="confirmDeleteWallpaper(wallpaper)"
-        >
-          <i class="fas fa-trash fa-fw" aria-hidden />
-        </b-button>
-
         <template #footer>
           <div class="d-flex align-items-start flex-column justify-content-between">
             <b-button
@@ -62,22 +53,6 @@
         </template>
       </b-card>
     </div>
-    <b-card
-      v-for="wallpaper in sortedWallpapers"
-      :key="wallpaper.name"
-      class="mb-2"
-      body-class="wallpaper-card p-2"
-    >
-      <b-img
-        :src="wallpaper.url"
-        :alt="wallpaper.name"
-        width="180"
-        rounded
-        class="mr-2 cursor-pointer"
-        @click="openPreview(wallpaper)"
-      />
-
-    </b-card>
   </div>
 </template>
 
@@ -131,28 +106,6 @@ export default {
 
       return bytesToSize(size);
     },
-
-    confirmDeleteWallpaper(file) {
-      this.$bvModal.msgBoxConfirm('Wallpaper will be permanently removed', {
-        title: 'Are you sure you want to delete this file?',
-        okVariant: 'danger',
-        okTitle: 'Yes',
-      })
-        .then((value) => {
-          if (value) {
-            this.deleteFile(file);
-          }
-        });
-    },
-
-    async deleteFile(file) {
-      await this.$store.dispatch('DELETE_WALLPAPER', file)
-        .catch(() => {
-          this.$bvToast.toast('There was an error deleting wallpaper', { variant: 'danger' });
-        });
-
-      this.$bvToast.toast('File deleted');
-    },
   },
 };
 </script>
@@ -174,11 +127,6 @@ export default {
     @media(max-width: 500px) {
       grid-template-columns: 1fr;
     }
-  }
-
-  .delete-button {
-    top: 1rem;
-    right: 1rem;
   }
 </style>
 

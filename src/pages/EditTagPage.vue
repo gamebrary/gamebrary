@@ -30,8 +30,7 @@
 
     <form
       v-else
-      ref="form"
-      @submit="saveTag"
+      @submit.prevent="saveTag"
     >
       <label for="tagName">Tag name:</label>
 
@@ -78,23 +77,21 @@
 
       <p>Games tagged</p>
 
+      <!-- TODO: add quick game picker -->
       <b-alert :show="tag.games.length === 0" variant="light" class="field">
         No games tagged
       </b-alert>
-      <!-- TODO: add quick game picker -->
 
-      <div class="tagged-games">
+      <div class="tagged-games mb-4">
         <b-img
           v-for="game in tag.games"
           :key="game"
           :src="getCoverUrl(game)"
           class="cursor-pointer"
           thumbnail
-          @click="$router.push({ name: 'game', params: { id: games[game].id, slug: games[game].slug }})"
+          @click="$router.push({ name: 'game.tags', params: { id: games[game].id, slug: games[game].slug }})"
         />
       </div>
-
-      <hr />
 
       <b-button
         variant="primary"
@@ -117,7 +114,6 @@ export default {
     return {
       tag: {},
       loading: true,
-      localTags: {},
       saving: false,
     }
   },
@@ -179,22 +175,16 @@ export default {
       // this.saveTags(true);
     },
 
-    async saveTag(e) {
-      // TODO: clean up and refactor
-      e.preventDefault();
+    async saveTag() {
+      this.saving = true;
+      const { tag, tagIndex } = this;
+      this.$store.commit('UPDATE_TAG', { tagIndex, tag });
 
-      if (this.$refs.form.checkValidity()) {
-        const { tag, tags } = this;
+      await this.$store.dispatch('SAVE_TAGS')
+        .catch(() => {});
 
-        tags[this.tagIndex] = tag;
-
-        console.log(tags);
-
-        // await this.$store.dispatch('SAVE_TAGS', tags)
-        //   .catch(() => {
-        //     this.$store.commit('SET_SESSION_EXPIRED', true);
-        //   });
-      }
+      this.saving = false;
+      this.$router.push({ name: 'tags' })
     },
   },
 };

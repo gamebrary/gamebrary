@@ -1,35 +1,32 @@
 <template lang="html">
   <b-container fluid>
+    <portal to="pageTitle">Tags</portal>
+
+    <portal v-if="!loading && tags.length > 0" to="headerActions">
+      <b-button
+        class="mr-2"
+        variant="light"
+        :to="{ name: 'tag.create' }"
+      >
+        Add tag
+      </b-button>
+    </portal>
+
     <b-spinner v-if="loading" class="spinner-centered" />
 
-    <b-row v-else>
-      <portal to="pageTitle">Tags</portal>
-
-      <portal to="headerActions">
-        <b-button
-          v-if="!showEmptyState"
-          class="mr-2"
-          variant="light"
-          :to="{ name: 'tag.create' }"
-        >
-          Add tag
-        </b-button>
-      </portal>
-
-      <empty-state
-        v-if="showEmptyState"
-        message="Tags are a great way to organize your collection"
+    <empty-state
+      v-else-if="tags.length === 0"
+      message="Tags are a great way to organize your collection"
+     >
+       <b-button
+         variant="light"
+         :to="{ name: 'tag.create' }"
        >
-         <b-button
-           variant="light"
-           :to="{ name: 'tag.create' }"
-         >
-           Create a tag
-         </b-button>
-       </empty-state>
+         Create a tag
+       </b-button>
+     </empty-state>
 
-       <tags-list v-else />
-    </b-row>
+    <tags-list v-else />
   </b-container>
 </template>
 
@@ -52,10 +49,6 @@ export default {
 
   computed: {
     ...mapState(['tags']),
-
-    showEmptyState() {
-      return !this.loading && this.tags?.length === 0;
-    },
   },
 
   mounted() {

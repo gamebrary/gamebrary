@@ -162,7 +162,7 @@ export default {
       this.$store.commit('APPLY_TAG_TO_GAME', index);
       this.saving = true;
 
-      await this.$store.dispatch('SAVE_GAME_TAGS')
+      await this.$store.dispatch('SAVE_TAGS')
         .catch(() => {
           this.saving = false;
         });
@@ -171,11 +171,11 @@ export default {
     },
 
     async removeTag(index) {
-      this.$store.commit('REMOVE_GAME_TAG', index);
+      this.$store.commit('REMOVE_GAME_FROM_TAG', index);
 
       this.saving = true;
 
-      await this.$store.dispatch('SAVE_GAME_TAGS')
+      await this.$store.dispatch('SAVE_TAGS')
         .catch(() => {
           this.saving = false;
         });

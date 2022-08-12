@@ -12,7 +12,7 @@
 
     <b-button
       class="align-self-baseline"
-      variant="transparent"
+      variant="light"
       @click="$emit('close')"
     >
       <i class="fas fa-times fa-fw" aria-hidden />

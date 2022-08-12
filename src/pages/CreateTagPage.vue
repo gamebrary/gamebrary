@@ -87,7 +87,7 @@ export default {
       this.$store.commit('CREATE_TAG', this.tag);
       this.saving = true;
 
-      await this.$store.dispatch('SAVE_GAME_TAGS')
+      await this.$store.dispatch('SAVE_TAGS')
         .catch(() => {});
 
       this.saving = true;
