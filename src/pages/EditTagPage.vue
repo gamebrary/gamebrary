@@ -14,7 +14,6 @@
       </div>
     </portal>
 
-
     <portal to="headerActions">
       <b-button
         variant="light"
@@ -181,6 +180,7 @@ export default {
     },
 
     async saveTag(e) {
+      // TODO: clean up and refactor
       e.preventDefault();
 
       if (this.$refs.form.checkValidity()) {
