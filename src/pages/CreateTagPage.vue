@@ -1,7 +1,17 @@
 <template lang="html">
   <b-container fluid>
     <portal to="pageTitle">
-      Create tag
+      <div>
+        <b-button
+          variant="light"
+          class="mr-2"
+          :to="{ name: 'tags' }"
+        >
+          <i class="fa-solid fa-chevron-left" />
+        </b-button>
+
+        Create tag
+      </div>
     </portal>
 
     <form @submit.prevent="submit">
