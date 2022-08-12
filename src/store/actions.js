@@ -581,6 +581,18 @@ export default {
     });
   },
 
+  SAVE_GAME_TAGS({ state }) {
+    const db = firestore();
+
+    return new Promise((resolve, reject) => {
+      db.collection('tags')
+        .doc(state.user.uid)
+        .set({ tags: state.tags }, { merge: false })
+        .then(() => resolve())
+        .catch(reject);
+    });
+  },
+
   GET_TWITCH_TOKEN({ commit }) {
     const db = firestore();
 
@@ -726,14 +738,13 @@ export default {
           const { tags } = doc.data();
 
           if (typeof tags === 'object') {
-            console.warn('Legacy tag detected');
-
+            // console.warn('Legacy tag detected');
             const formattedTags = Object.entries(tags).map(([ ,tag]) => ({ ...tag }));
 
             commit('SET_TAGS', formattedTags);
             resolve(formattedTags);
           } else {
-            console.log('is type', typeof tags);
+            // console.log('is type', typeof tags);
           }
         });
     });

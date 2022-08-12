@@ -51,22 +51,20 @@
           <section>
             <h3 class="mb-3">Tags applied to {{ game.name }}</h3>
 
-            <b-alert
-              v-if="tagsSelected.length === 0"
-              show
-              variant="light"
-            >
+            <b-alert :show="noneSelected" variant="light">
               No tags applied
             </b-alert>
-
+            <!-- TODO: use correct tags -->
             <b-button
-              v-for="{ name, hex, tagTextColor } in tags"
+              v-for="({ selected, name, bgColor, textColor }, index) in formattedTags"
               :key="name"
               rounded
               block
               variant="outline-light"
-              :style="`background-color: ${hex}; color: ${tagTextColor}`"
-              @click="removeTag"
+              :class="{ 'd-none': !selected }"
+              :disabled="saving"
+              :style="`background-color: ${bgColor}; color: ${textColor}`"
+              @click="removeTag(index)"
             >
               {{ name }}
             </b-button>
@@ -76,19 +74,19 @@
 
           <h3 class="my-3">Tags available</h3>
 
-          <pre>{{ tags }}</pre>
-          <!-- <b-button
-            v-for="({ name, hex, tagTextColor }, index) in tags"
+          <b-button
+            v-for="({ selected, name, bgColor, textColor }, index) in formattedTags"
             :key="name"
             rounded
             block
             variant="outline-light"
+            :class="{ 'd-none': selected }"
             :disabled="saving"
-            :style="`background-color: ${hex}; color: ${tagTextColor}`"
+            :style="`background-color: ${bgColor}; color: ${textColor}`"
             @click="addTag(index)"
           >
             {{ name }}
-          </b-button> -->
+          </b-button>
         </section>
       </b-col>
     </b-row>
@@ -131,36 +129,25 @@ export default {
       return Object.keys(this.tags).length === 0;
     },
 
-    tagsSelected() {
-      return this.tags?.filter(({ games }) => {
-        return games?.includes(this.game?.id);
-      })
+    formattedTags() {
+      return this.tags.map((tag) => ({
+        ...tag,
+        selected: tag.games.includes(Number(this.$route.params.id)),
+      }));
     },
 
-    tagsAvailable() {
-      return Object.entries(this.tags).map((t) => {
-        const [name, tag] = t;
-
-        return { name: name, ...tag };
-      })
-      .filter(({ games }) => {
-        return !games.includes(this.game.id);
-      })
+    noneSelected() {
+      return !this.formattedTags.some(({ selected }) => Boolean(selected));
     },
   },
 
   mounted() {
-    if (this.game?.id !== this.$route.params.id) {
-      this.loadGame();
-    } else {
-      this.loading = false;
-    }
+    this.load();
   },
 
   methods: {
-    async loadGame() {
+    async load() {
       this.loading = true;
-      this.$store.commit('CLEAR_GAME');
 
       await this.$store.dispatch('LOAD_GAME', this.$route.params.id);
       await this.$store.dispatch('LOAD_TAGS')
@@ -172,36 +159,28 @@ export default {
     },
 
     async addTag(index) {
-      console.log('add this tag');
-      // TODO: use commit instead?
-      // const gameId = this.game.id;
-      //
-      // if (!gameId) return;
-      //
-      // const tags = JSON.parse(JSON.stringify(this.tags)) ;
-      //
-      // tags[index].games.push(gameId)
-      //
-      // console.log(`game id ${gameId} should be included`, tags[index].games);
+      this.$store.commit('APPLY_TAG_TO_GAME', index);
+      this.saving = true;
 
-      // this.saving = true;
+      await this.$store.dispatch('SAVE_GAME_TAGS')
+        .catch(() => {
+          this.saving = false;
+        });
 
-      // await this.$store.dispatch('SAVE_TAGS', tags)
-      //   .catch((e) => {
-      //     console.log(e);
-      //   });
-
-      // this.saving = false;
-
-      // this.$store.commit('ADD_GAME_TAG', { tagName, gameId });
-      // await this.saveTags();
+      this.saving = false;
     },
 
-    async removeTag(tagName) {
-      const gameId = this.game.id;
+    async removeTag(index) {
+      this.$store.commit('REMOVE_GAME_TAG', index);
 
-      // this.$store.commit('REMOVE_GAME_TAG', { tagName, gameId });
-      // await this.saveTags();
+      this.saving = true;
+
+      await this.$store.dispatch('SAVE_GAME_TAGS')
+        .catch(() => {
+          this.saving = false;
+        });
+
+      this.saving = false;
     },
 
     manageTags() {

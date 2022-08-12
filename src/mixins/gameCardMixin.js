@@ -17,23 +17,8 @@ export default {
       return this.gameProgress && Number(this.gameProgress) === 100;
     },
 
-    gameTags() {
-      const tagsArray = Object.entries(this.tags);
-      const filteredTags = tagsArray.filter(([key, value]) => {
-        return value.games.includes(this.gameId);
-      });
-
-      const filteredTagsObject = Object.fromEntries(filteredTags);
-
-      return filteredTagsObject;
-    },
-
     showGameProgress() {
       return this.gameProgress > 0;
-    },
-
-    showGameTags() {
-      return this.list?.settings?.showGameTags && this.gameTags;
     },
 
     showReleaseDates() {
@@ -46,6 +31,10 @@ export default {
       return gameId && progresses[gameId]
         ? progresses[gameId]
         : 0;
+    },
+
+    tagsApplied() {
+      return this.tags?.filter((tag) => tag?.games?.includes(this.game?.id))
     },
 
     gameNotes() {

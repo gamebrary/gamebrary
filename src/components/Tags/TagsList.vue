@@ -1,22 +1,16 @@
 <template lang="html">
-  <b-row>
-    <b-col
-      v-for="({ hex, tagTextColor, name }, index) in tags"
+  <b-row class="p-3">
+    <b-button
+      v-for="({ textColor, bgColor, name }, index) in tags"
       @click="$router.push({ name: 'tag.edit', params: { id: index } })"
-      cols="6"
-      xl="4"
-      class="mb-3"
+      rounded
+      block
+      variant="outline-light"
+      :style="`background-color: ${bgColor}; color: ${textColor}`"
       :key="name"
     >
-      <b-button
-        rounded
-        block
-        variant="outline-light"
-        :style="`background-color: ${hex}; color: ${tagTextColor}`"
-      >
-        {{ name }}
-      </b-button>
-    </b-col>
+      {{ name }}
+    </b-button>
   </b-row>
 </template>
 
@@ -42,14 +36,6 @@ export default {
     });
 
     this.loading = false;
-  },
-
-  methods: {
-    openGame(gameId) {
-      const { id, slug } = this.games[gameId];
-
-      this.$router.push({ name: 'game.tags', params: { id, slug } })
-    },
   },
 };
 </script>

@@ -37,19 +37,19 @@
             height="6px"
           />
 
-          <template v-if="showGameTags">
-            <b-badge
-              v-for="({ hex, tagTextColor }, name) in gameTags"
-              :key="name"
-              pill
-              class="mr-1"
-              variant="primary"
-              tag="small"
-              :style="`background-color: ${hex}; color: ${tagTextColor}`"
-            >
-              <small>{{ name }}</small>
-            </b-badge>
-          </template>
+          <!-- TODO: use correct tags -->
+          <!-- <pre>{{ gameTags }}</pre> -->
+          <!-- <b-badge
+            v-for="({ hex, tagTextColor }, name) in gameTags"
+            :key="name"
+            pill
+            class="mr-1"
+            variant="primary"
+            tag="small"
+            :style="`background-color: ${hex}; color: ${tagTextColor}`"
+          >
+            <small>{{ name }}</small>
+          </b-badge> -->
         </b-card-body>
       </b-col>
     </b-row>

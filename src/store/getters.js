@@ -9,19 +9,6 @@ export default {
     return board?.owner === user?.uid;
   },
 
-  gameTags: ({ tags, game }) => {
-    if (!game?.id) return [];
-    // TODO: refactor architecture, don't use tag name as key
-    const tagsArray = Object.entries(tags);
-    const filteredTags = tagsArray.filter(([key, value]) => {
-      return value.games.includes(game.id);
-    });
-
-    const filteredTagsObject = Object.fromEntries(filteredTags);
-
-    return filteredTagsObject;
-  },
-
   // Arabic is the only ltr language supported at the moment
   isRTL: ({ settings }) => settings && settings.language !== 'ar',
 

@@ -100,10 +100,6 @@ export default {
     isGamePage() {
       return this.$route.name === 'game';
     },
-
-    isBoard() {
-      return ['public.board', 'board'].includes(this.$route.name);
-    },
   },
 
   watch: {

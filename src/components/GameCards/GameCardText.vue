@@ -23,7 +23,8 @@
             height="6px"
           />
 
-          <template v-if="showGameTags">
+          <!-- TODO: use correct tags -->
+          <!-- <template v-if="showGameTags">
             <b-badge
               v-for="({ hex, tagTextColor }, name) in gameTags"
               :key="name"
@@ -34,7 +35,7 @@
             >
               <small class="font-weight-bold">{{ name }}</small>
             </b-badge>
-          </template>
+          </template> -->
         </b-card-body>
     </b-row>
   </b-card>

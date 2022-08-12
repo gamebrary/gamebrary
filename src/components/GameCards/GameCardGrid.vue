@@ -21,7 +21,8 @@
         height="6px"
       />
 
-      <template v-if="showGameTags">
+      <!-- TODO: use correct tags -->
+      <!-- <template v-if="showGameTags">
         <b-badge
           v-for="({ hex, tagTextColor }, name) in gameTags"
           :key="name"
@@ -32,7 +33,7 @@
         >
           <small>{{ name }}</small>
         </b-badge>
-      </template>
+      </template> -->
 
       <b-badge variant="warning" v-if="gameNotes">
         <i class="far fa-sticky-note fa-fw" />

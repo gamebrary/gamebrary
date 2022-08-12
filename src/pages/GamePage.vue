@@ -96,14 +96,12 @@
             </header>
 
             <b-button
-              v-for="({ hex, tagTextColor, name }) in tags"
+              v-for="({ bgColor, textColor, name }) in tagsApplied"
               :key="name"
               rounded
               size="sm"
-              variant="outline-light"
               class="mr-1 my-2"
-              :disabled="saving"
-              :style="`background-color: ${hex}; color: ${tagTextColor}`"
+              :style="`background-color: ${bgColor}; color: ${textColor}`"
               @click="$router.push({ name: 'game.tags', params: { id: game.id, slug: game.slug } })"
             >
               {{ name }}
@@ -333,6 +331,10 @@ export default {
           };
         });
 
+    },
+
+    tagsApplied() {
+      return this.tags?.filter((tag) => tag?.games?.includes(this.game?.id))
     },
 
     legalNotice() {

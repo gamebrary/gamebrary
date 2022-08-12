@@ -7,6 +7,7 @@
 
       <portal to="headerActions">
         <b-button
+          v-if="!showEmptyState"
           class="mr-2"
           variant="light"
           :to="{ name: 'tag.create' }"
@@ -27,9 +28,7 @@
          </b-button>
        </empty-state>
 
-       <b-col v-else>
-         <tags-list />
-       </b-col>
+       <tags-list v-else />
     </b-row>
   </b-container>
 </template>

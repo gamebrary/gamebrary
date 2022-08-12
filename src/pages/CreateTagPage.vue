@@ -4,112 +4,85 @@
       Create tag
     </portal>
 
-    <form
-      ref="newTagForm"
-      @submit.stop.prevent="submit"
-    >
-      <b-form-row class="mb-3">
-        <b-col cols="8" md="9">
-          <b-form-input
-            maxlength="20"
-            :placeholder="$t('tags.form.inputPlaceholder')"
-            required
-            v-model.trim="tagName"
-          />
+    <form @submit.prevent="submit">
+      <label for="tagName">Tag name:</label>
+      <b-form-input
+        id="tagName"
+        v-model.trim="tag.name"
+        class="mb-3 field"
+        maxlength="20"
+        :placeholder="$t('tags.form.inputPlaceholder')"
+        required
+        trim
+      />
 
-          <b-form-text v-if="tagName" tag="span">
-            {{ $t('tags.form.preview') }}
+      <p>Background color</p>
+      <v-swatches v-model="tag.bgColor" show-fallback />
 
-            <b-badge :style="`background-color: ${hex}; color: ${tagTextColor}`">
-              {{ tagName }}
-            </b-badge>
-          </b-form-text>
-        </b-col>
+      <p>Text color</p>
+      <v-swatches v-model="tag.textColor" show-fallback />
 
-        <b-col cols="4" md="3">
-          <b-input-group>
-            <b-form-input
-              v-model="hex"
-              type="color"
-              required
-            />
+      <p>Preview</p>
 
-            <b-form-input
-              v-model="tagTextColor"
-              type="color"
-              required
-            />
-          </b-input-group>
-        </b-col>
-      </b-form-row>
+      <b-button
+        rounded
+        block
+        size="sm"
+        class="mr-2 mb-2 field"
+        variant="outline-light"
+        :style="`background-color: ${tag.bgColor}; color: ${tag.textColor}`"
+      >
+        {{ tag.name || 'Tag preview' }}
+      </b-button>
 
       <b-button
         variant="primary"
-        class="d-flex ml-auto"
-        :disabled="isDuplicate || saving || !Boolean(tagName)"
-        @click="submit"
+        :disabled="saving"
+        type="submit"
       >
         <b-spinner small v-if="saving" />
-        <span v-else>{{ $t('tags.form.addTag')}}</span>
+        <span v-else>Create</span>
       </b-button>
-
-      <b-alert
-        class="mt-3 mb-0"
-        :show="isDuplicate"
-        variant="warning"
-      >
-        {{ $t('tags.form.duplicateMessage', { tagName }) }}
-         <strong>{{ tagName }}</strong>
-      </b-alert>
     </form>
   </b-container>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import VSwatches from 'vue-swatches'
 
 export default {
   data() {
     return {
-      colorCombinations: [
-        ['#0d1137', '#e52165'],
-        ['#ffffff', '#000000'],
-        ['#101820', '#FEE715'],
-        ['#F2AA4C', '#101820'],
-        ['#F93822', '#FDD20E'],
-      ],
-      tagTextColor: '#F4B41A',
-      tagName: '',
+      tag: {
+        name: '',
+        textColor: '#DDE6E8',
+        bgColor: '#1FBC9C',
+        games: [],
+      },
+      saving: false,
     }
   },
 
-  mounted() {
-      this.setRandomColors();
+  components: {
+    VSwatches,
   },
 
   computed: {
-    ...mapState(['tags', 'platform', 'games']),
-    // isDuplicate() {
-    //   const { tagName, localTags } = this;
-    //
-    //   const tagNames = Object.keys(localTags)
-    //     .filter(name => name !== tagName)
-    //     .map(name => name.toLowerCase());
-    //
-    //   return tagNames.includes(tagName.toLowerCase());
-    // },
+    ...mapState(['tags']),
   },
 
   methods: {
-    setRandomColors() {
-      const { colorCombinations } = this;
+    async submit() {
+      this.$store.commit('CREATE_TAG', this.tag);
+      this.saving = true;
 
-      const randomNumber = Math.floor(Math.random() * colorCombinations.length);
+      await this.$store.dispatch('SAVE_GAME_TAGS')
+        .catch(() => {});
 
-      this.tagTextColor = colorCombinations[randomNumber][0];
-      this.hex = colorCombinations[randomNumber][1];
+      this.saving = true;
+      this.$router.push({ name: 'tags' })
     },
-
   },
 };
 </script>

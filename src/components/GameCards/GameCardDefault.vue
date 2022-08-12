@@ -42,14 +42,14 @@
             <small v-else>{{ gameProgress }}%</small>
           </b-badge>
 
-          <template v-if="showGameTags">
+          <template v-if="tagsApplied.length">
             <b-badge
-              v-for="({ hex, tagTextColor }, name) in gameTags"
+              v-for="({ bgColor, textColor, name }) in tagsApplied"
               :key="name"
               pill
               class="mr-1"
               variant="primary"
-              :style="`background-color: ${hex}; color: ${tagTextColor}`"
+              :style="`background-color: ${bgColor}; color: ${textColor}`"
             >
               <small>{{ name }}</small>
             </b-badge>

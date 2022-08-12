@@ -34,14 +34,6 @@
       ref="form"
       @submit="saveTag"
     >
-      <b-alert
-        class="mt-3 mb-0"
-        :show="isEditedNameDuplicate && !saving"
-        variant="warning"
-      >
-        You already have a tag named <strong>{{ tag.name }}</strong>
-      </b-alert>
-
       <label for="tagName">Tag name:</label>
 
       <b-form-input
@@ -57,15 +49,14 @@
       <p>Background color</p>
 
       <v-swatches
-        v-model="tag.hex"
+        v-model="tag.bgColor"
         show-fallback
         popover-x="left"
       />
-
       <p>Text color</p>
 
       <v-swatches
-        v-model="tag.tagTextColor"
+        v-model="tag.textColor"
         show-fallback
         popover-x="left"
       />
@@ -79,7 +70,7 @@
         size="sm"
         class="mr-2 mb-2 field"
         variant="outline-light"
-        :style="`background-color: ${tag.hex}; color: ${tag.tagTextColor}`"
+        :style="`background-color: ${tag.bgColor}; color: ${tag.textColor}`"
       >
         {{ tag.name }}
       </b-button>
@@ -87,6 +78,11 @@
       <hr />
 
       <p>Games tagged</p>
+
+      <b-alert :show="tag.games.length === 0" variant="light" class="field">
+        No games tagged
+      </b-alert>
+      <!-- TODO: add quick game picker -->
 
       <div class="tagged-games">
         <b-img
@@ -103,7 +99,7 @@
 
       <b-button
         variant="primary"
-        :disabled="isEditedNameDuplicate || saving"
+        :disabled="saving"
         type="submit"
       >
         <b-spinner small v-if="saving" />
@@ -122,7 +118,6 @@ export default {
     return {
       tag: {},
       loading: true,
-      originalTagName: '',
       localTags: {},
       saving: false,
     }
@@ -134,18 +129,6 @@ export default {
 
   computed: {
     ...mapState(['tags', 'games']),
-
-    tagNames() {
-      const sanitizedNames = this.tags?.map(({ name }) => name.toLowerCase());
-
-      return sanitizedNames.length > 0
-        ? sanitizedNames.filter(name => name?.toLowerCase() !== this.originalTagName?.toLowerCase())
-        : [];
-    },
-
-    isEditedNameDuplicate() {
-      return this.tagNames?.includes(this.tag?.name?.toLowerCase());
-    },
 
     tagIndex() {
       return this.$route?.params?.id;
@@ -172,7 +155,6 @@ export default {
       const { tags, tagIndex } = this;
 
       this.tag = JSON.parse(JSON.stringify(tags[tagIndex]));
-      this.originalTagName = JSON.parse(JSON.stringify(this.tag.name));
 
       this.loading = false;
     },
@@ -194,20 +176,15 @@ export default {
     },
 
     deleteTag(tagName) {
-      this.$delete(this.localTags, tagName);
-      this.saveTags(true);
-    },
-
-    removeTag(tagName) {
-      this.$store.commit('REMOVE_GAME_TAG', { tagName, gameId: this.gameId });
-      this.saveTags();
+      // TODO: call mutation to remove tag and save tags
+      // this.saveTags(true);
     },
 
     async saveTag(e) {
       e.preventDefault();
 
       if (this.$refs.form.checkValidity()) {
-        const { tag, tags, originalTagName } = this;
+        const { tag, tags } = this;
 
         tags[this.tagIndex] = tag;
 

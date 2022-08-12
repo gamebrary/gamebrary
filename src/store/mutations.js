@@ -175,21 +175,21 @@ export default {
     state.settings = settings;
   },
 
-  UPDATE_TAG(state, { tagName, tagHex, tempTag }) {
-    const updatedTag = {
-      ...state.tags[tempTag.tagName],
-      hex: tagHex,
-    };
-
-    const renaming = tagName !== tempTag.tagName;
-
-    if (renaming) {
-      Vue.set(state.tags, tagName, updatedTag);
-      Vue.delete(state.tags, tempTag.tagName);
-    } else {
-      state.tags[tempTag.tagName] = updatedTag;
-    }
-  },
+  // UPDATE_TAG(state, { tagName, tagHex, tempTag }) {
+  //   const updatedTag = {
+  //     ...state.tags[tempTag.tagName],
+  //     hex: tagHex,
+  //   };
+  //
+  //   const renaming = tagName !== tempTag.tagName;
+  //
+  //   if (renaming) {
+  //     Vue.set(state.tags, tagName, updatedTag);
+  //     Vue.delete(state.tags, tempTag.tagName);
+  //   } else {
+  //     state.tags[tempTag.tagName] = updatedTag;
+  //   }
+  // },
 
   SET_TAGS(state, tags) {
     state.tags = tags;
@@ -247,12 +247,18 @@ export default {
     }
   },
 
-  ADD_GAME_TAG(state, { tagName, gameId }) {
-    state.tags[tagName].games.push(gameId);
+  APPLY_TAG_TO_GAME(state, tagIndex) {
+    state.tags[tagIndex].games.push(state.game.id);
   },
 
-  REMOVE_GAME_TAG(state, { tagName, gameId }) {
-    state.tags[tagName].games.splice(state.tags[tagName].games.indexOf(gameId), 1);
+  CREATE_TAG(state, tag) {
+    state.tags.push(tag);
+  },
+
+  REMOVE_GAME_TAG(state, tagIndex) {
+    const gameIndex = state.tags[tagIndex].games.indexOf(state.game.id);
+
+    state.tags[tagIndex].games.splice(gameIndex, 1);
   },
 
   SET_SEARCH_RESULTS(state, results) {
