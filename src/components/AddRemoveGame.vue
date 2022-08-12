@@ -27,7 +27,6 @@
         </b-button>
 
         <template v-if="user">
-          <!-- TODO: show active board at top -->
           <h4 class="my-2">Add to list:</h4>
 
           <b-list-group flush>

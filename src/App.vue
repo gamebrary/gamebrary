@@ -1,3 +1,4 @@
+<!-- TODO: allow board sorting -->
 <!-- TODO: Use moment? or use dayjs without wrapper -->
 <!-- TODO: remove toasts -->
 <!-- TODO: add mega search shift + k -->

@@ -64,7 +64,7 @@ $boardHeight: 200px;
   background-repeat: no-repeat;
   background-size: cover;
   height: $boardHeight;
-  width: 100%;
+  // width: 100%;
   // width: 363.2px;
 
   // @media(max-width: 1024px) { width: 320px; }
@@ -79,6 +79,6 @@ $boardHeight: 200px;
 }
 
 .list {
-  width: 60px;
+  // width: 60px;
 }
 </style>

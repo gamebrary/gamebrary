@@ -1,7 +1,5 @@
 <template lang="html">
   <b-row v-if="user" class="p-1 boards">
-    <!-- TODO: allow reorganizing and save -->
-    <!-- TODO: add sorting -->
     <template v-if="showPlaceholder">
       Loading
     </template>

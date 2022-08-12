@@ -6,13 +6,11 @@ import routes from '@/routes';
 Vue.use(VueRouter);
 
 const router = new VueRouter({
-  // TODO: enable history mode
-  // mode: 'history',
+  mode: 'history',
   routes,
 });
 
-// TODO: add navigation guards when trying to access private routes.
-
+// TODO: restore and update navigation guards
 // router.beforeEach((to, from, next) => {
 //   if (to.meta.public || store.state.user) next();
 //
