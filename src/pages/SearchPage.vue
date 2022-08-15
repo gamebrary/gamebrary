@@ -3,7 +3,7 @@
 <!-- TODO: add empty state with predefined searches -->
 <!-- TODO: add pagination -->
 <template lang="html">
-  <b-container>
+  <b-container fluid>
     <portal to="pageTitle">Search</portal>
 
     <portal to="headerActions">
@@ -14,7 +14,9 @@
 
     <b-row v-else-if="searchResults.length">
       <b-col
-        cols="4"
+        cols="6"
+        md="4"
+        lg="2"
         v-for="game in searchResults"
         :key="game.id"
       >
