@@ -1,15 +1,6 @@
 <template lang="html">
   <div>
-    <h1
-      v-if="game.alternative_names"
-      class="cursor-pointer m-0"
-      v-b-toggle.altTitles
-    >
-      {{ game.name }}
-      <!-- {{ game.alternative_names.length }} Alternative titles <i class="fa-solid fa-caret-down" /> -->
-    </h1>
-
-    <h1 v-else>{{ game.name }}</h1>
+    <h2 v-b-toggle.altTitles>{{ game.name }}</h2>
 
     <b-collapse id="altTitles">
       <div
@@ -46,6 +37,7 @@ export default {
 
       const description = alternateTitleDescription.toLowerCase();
 
+      // TODO: store in constant and reference it
       if (description.includes('japanese')) return 'jp';
       if (description.includes('korean')) return 'kr';
       if (description.includes('portuguese')) return 'pt';

@@ -61,7 +61,7 @@ export default {
     });
   },
 
-  LOAD_STEAM_GAME_NEWS(context, steamGameId) {
+  LOAD_STEAM_GAME_NEWS({ commit }, steamGameId) {
     return new Promise((resolve, reject) => {
       axios.get(`${API_BASE}/steam-news?appId=${steamGameId}`)
         .then(({ data }) => {
@@ -69,6 +69,7 @@ export default {
             ? data.appnews.newsitems
             : null;
 
+          commit('APPEND_GAME_NEWS', gameNews);
           resolve(gameNews);
         }).catch(reject);
     });
@@ -511,11 +512,12 @@ export default {
     return new Promise((resolve, reject) => {
       axios.get(`${API_BASE}/gog?search=${search}`)
         .then(({ data }) => {
-          const game = data.totalGamesFound
+          const gogGame = data?.products?.length > 0
             ? data.products[0]
             : null;
 
-          commit('APPEND_GOG_GAME_DATA', game);
+          if (gogGame) commit('APPEND_GOG_GAME_DATA', gogGame);
+          resolve()
         }).catch(reject);
     });
   },

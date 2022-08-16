@@ -9,6 +9,7 @@
         <b-button variant="light" disabled>
           {{ board.name }}
         </b-button>
+        <!-- TODO: show back button to board, store in memory only -->
       </portal>
 
       <portal to="headerActions">

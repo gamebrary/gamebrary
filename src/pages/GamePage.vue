@@ -8,23 +8,23 @@
 
 <template lang="html">
   <b-container fluid>
-    <portal to="pageTitle">{{ game.name }}</portal>
+    <portal to="pageTitle" v-if="game">{{ game.name }}</portal>
 
     <div v-if="loading" class="text-center mt-5 ml-auto">
       <b-spinner/>
     </div>
 
     <template v-else-if="game">
-      <game-actions />
+      <game-media-modal />
 
       <b-row>
         <b-col
           cols="12"
-          sm="4"
+          sm="6"
           md="4"
           xl="3"
         >
-          <div class="position-relative cursor-pointer" @click.stop="openGameCover">
+          <div class="position-relative cursor-pointer" v-b-modal.mediaModal>
             <i class="fa-solid fa-play play-button color-white text-white font-size-xl" />
 
             <b-img
@@ -35,17 +35,48 @@
             />
           </div>
 
-          <!-- <b-skeleton-img
-            v-if="loading"
-            width="100px"
-            height="100px"
-          /> -->
+          <pre>{{ game.news }}</pre>
 
           <!-- <amazon-links class="mt-2" /> -->
 
           <!-- <div class="game-info">
             <game-rating :game="game" />
           </div> -->
+
+          <!-- <pre class="text-dark small">{{ game.gog.price }}</pre> -->
+
+          <!-- <small>
+            <pre class="text-dark">{{ steamGame }}</pre>
+          </small> -->
+          <!-- <small v-if="gog && gog.isPriceVisible">{{gog.price.symbol}}{{ gog.price.amount }}</small> -->
+          <!-- <small><pre class="text-dark">{{ gog }}</pre></small> -->
+          <!-- <pre class="small text-dark">{{ steamGame }}</pre> -->
+
+          <!-- TODO: use percentage instead? -->
+
+          <!-- TODO: add icons for game modes:
+          single-player
+          multiplayer
+          co-operative
+          split-screen
+          massively-multiplayer-online-mmo
+          battle-royale -->
+
+          <!-- <template v-if="!loading">
+            <b-skeleton v-for="n in 3" :key="n" />
+          </template> -->
+
+          <!-- <b-form-rating
+            v-if="rating"
+            :value="rating"
+            inline
+            readonly
+            variant="warning"
+            size="lg"
+            no-border
+          />
+
+          <br /> -->
 
           <div class="notes mt-3">
             <game-note
@@ -56,8 +87,24 @@
             />
           </div>
 
-          <b-button variant="warning" :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug } }">
+          <b-button
+            variant="warning" :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug } }"
+            class="mr-2"
+          >
             <i class="fa-solid fa-note-sticky fa-fw" />
+          </b-button>
+
+          <b-button
+            variant="light" @click="$bus.$emit('ADD_GAME', game.id)"
+            class="mr-2"
+          >
+            <i class="fa-solid fa-plus fa-fw" />
+            <span class="d-none d-lg-inline">Add to list</span>
+          </b-button>
+
+          <b-button variant="light" :to="{ name: 'game.news', params: { id: game.id, slug: game.slug } }">
+            <i class="fa-solid fa-newspaper fa-fw" />
+            <span class="d-none d-lg-inline">News</span>
           </b-button>
 
           <game-in-list />
@@ -65,10 +112,10 @@
 
         <b-col
           cols="12"
-          sm="8"
+          sm="6"
           xl="9"
         >
-          <article class="bg-white p-4 rounded">
+          <article class="bg-white rounded">
             <header class="d-flex align-items-start justify-content-between pb-2">
               <game-titles />
 
@@ -111,15 +158,12 @@
             </b-button>
 
             <aside class="bg-white float-right pl-2 pb-2">
-              <b-link
-                :to="{ name: 'game.media', params: { id: game.id, slug: game.slug } }"
-              >
-                <b-img
-                  :src="gameScrenshot"
-                  thumbnail
-                  width="300"
-                />
-              </b-link>
+              <b-img
+                v-b-modal.mediaModal
+                :src="gameScrenshot"
+                thumbnail
+                width="320"
+              />
 
               <game-websites :game="game" />
             </aside>
@@ -135,15 +179,6 @@
             <!-- <pre>{{ game}}</pre> -->
             <!-- <b-card-img src="https://placekitten.com/480/210" alt="Image" bottom></b-card-img> -->
           </article>
-        </b-col>
-
-        <b-col
-          cols="12"
-          class="mt-3"
-        >
-          <similar-games
-            :loading="loading"
-          />
         </b-col>
 
         <b-col
@@ -169,6 +204,12 @@
           {{ game.bundles ? `Found in ${game.bundles.length} compilations.` : null }}
         </b-col> -->
       </b-row>
+
+      <b-row>
+        <b-col>
+          <similar-games />
+        </b-col>
+      </b-row>
     </template>
 
     <div class="pt-5" v-else>
@@ -180,51 +221,6 @@
       </div>
     </div>
 
-    <b-row>
-      <b-col
-        cols="10"
-        sm="6"
-        md="7"
-        offset="1"
-        offset-sm="0"
-        lg="6"
-      >
-        <!-- <pre class="text-dark small">{{ game.gog.price }}</pre> -->
-
-        <!-- <small>
-          <pre class="text-dark">{{ steamGame }}</pre>
-        </small> -->
-        <!-- <small v-if="gog && gog.isPriceVisible">{{gog.price.symbol}}{{ gog.price.amount }}</small> -->
-        <!-- <small><pre class="text-dark">{{ gog }}</pre></small> -->
-        <!-- <pre class="small text-dark">{{ steamGame }}</pre> -->
-
-        <!-- TODO: use percentage instead? -->
-
-        <!-- TODO: add icons for game modes:
-        single-player
-        multiplayer
-        co-operative
-        split-screen
-        massively-multiplayer-online-mmo
-        battle-royale -->
-
-        <!-- <template v-if="!loading">
-          <b-skeleton v-for="n in 3" :key="n" />
-        </template> -->
-
-        <!-- <b-form-rating
-          v-if="rating"
-          :value="rating"
-          inline
-          readonly
-          variant="warning"
-          size="lg"
-          no-border
-        />
-
-        <br /> -->
-      </b-col>
-    </b-row>
     <!-- <b-button variant="info" @click="openGameNews">
       <b-badge>3</b-badge>
       News about {{ game.name }}
@@ -266,14 +262,16 @@ import { mapState, mapGetters } from 'vuex';
 import { WEBSITE_CATEGORIES } from '@/constants';
 // import AmazonLinks from '@/components/Game/AmazonLinks';
 import GameDetails from '@/components/Game/GameDetails';
-import GameActions from '@/components/Game/GameActions';
+import GameMediaModal from '@/components/Game/GameMediaModal';
 import GameTitles from '@/components/Game/GameTitles';
 // import GameRating from '@/components/Game/GameRating';
 import GameDescription from '@/components/Game/GameDescription';
 import SimilarGames from '@/components/Game/SimilarGames';
+import GameInList from '@/components/Game/GameInList';
 import GameWebsites from '@/components/Game/GameWebsites';
 // import GameSpeedruns from '@/components/Game/GameSpeedruns';
 import GameNote from '@/components/GameNote';
+import { STEAM_CATEGORY_ID, GOG_CATEGORY_ID } from '@/constants';
 
 export default {
   components: {
@@ -282,18 +280,17 @@ export default {
     GameNote,
     GameDescription,
     GameDetails,
-    GameActions,
     GameTitles,
+    GameMediaModal,
     // GameRating,
     GameWebsites,
     // GameSpeedruns,
     SimilarGames,
+    GameInList,
   },
 
   data() {
     return {
-      gog: null,
-      steamGame: null,
       loading: false,
     };
   },
@@ -315,18 +312,6 @@ export default {
 
     note() {
       return this.notes[this.game?.id] || null;
-    },
-
-    boardsWithGame() {
-      return this.boards
-        .filter(({ lists }) => lists.some(({ games }) => games.includes(this.game.id)))
-        .map((board) => {
-          return {
-            ...board,
-            backgroundUrl: this.getWallpaperUrl(board.backgroundUrl),
-          };
-        });
-
     },
 
     tagsApplied() {
@@ -385,10 +370,6 @@ export default {
         ? `https://images.igdb.com/igdb/image/upload/t_screenshot_huge_2x/${screenshots[0].image_id}.jpg`
         : null;
     },
-
-    wikipediaData() {
-      return this.game?.websites?.find(({ url, category }) => url && category === WEBSITE_CATEGORIES.WIKIPEDIA);
-    },
   },
 
   watch: {
@@ -421,16 +402,6 @@ export default {
       return wallpaper && wallpaper.url ? decodeURI(wallpaper.url) : '';
     },
 
-    openGameCover() {
-      this.$router.push({
-        name: 'game.media',
-        params: {
-          id: this.game.id,
-          slug: this.game.slug,
-        },
-      });
-    },
-
     openGameNews() {
       this.$router.push({
         name: 'game.news',
@@ -459,8 +430,30 @@ export default {
           // this.$bvToast.toast('Error loading game', { variant: 'error' });
         });
 
+      const steamData = this.game?.websites?.find(({ category }) => category === STEAM_CATEGORY_ID);
+
+      // TODO: use regex or more elegant way to get id from url
+      const steamGameId = steamData?.url?.split('app/')[1]?.split('/')[0];
+      if (steamGameId) await this.$store.dispatch('LOAD_STEAM_GAME', steamGameId).catch((e) => {});
+
+      console.log('steamGameId', steamGameId);
+      console.log(this.game.steam);
+
+      // TODO: find more precise way to load GOG game, based on id?
+      const gogPage = this.game?.websites?.find(({ category }) => category !== GOG_CATEGORY_ID);
+      if (gogPage) await this.$store.dispatch('LOAD_GOG_GAME', this.game.name).catch((e) => {});
+
+      // const wikipediaData = this.game?.websites?.find(({ url, category }) => url && category === WEBSITE_CATEGORIES.WIKIPEDIA);
+      const wikipediaSlug = this.game?.websites
+        ?.find(({ url, category }) => url && category === WEBSITE_CATEGORIES.WIKIPEDIA)
+        ?.url
+        ?.split('/wiki/')[1];
+
+      if (wikipediaSlug) await this.$store.dispatch('LOAD_WIKIPEDIA_ARTICLE', wikipediaSlug).catch((e) => {});
+      if (steamGameId) await this.$store.dispatch('LOAD_STEAM_GAME_NEWS', steamGameId).catch((e) => {});
+
+
       this.loading = false;
-      this.loadSupplementalData();
     },
 
     // previousGame() {
@@ -485,31 +478,6 @@ export default {
     //
     // TODO: push route
     // },
-
-    async loadSupplementalData() {
-      // TODO: put in constants
-      const gogCategoryId = 17;
-      const steamCategoryId = 13;
-
-      const steamPage = this.game?.websites
-        ? this.game.websites.find(({ category }) => category === steamCategoryId)
-        : null;
-
-      // TODO: use regex or more elegant way to get id from url
-      const steamGameId = steamPage
-        ? steamPage.url.split('app/')[1].split('/')[0]
-        : null;
-
-      const gogPage = this.game?.websites
-        ? this.game.websites.find(({ category }) => category === gogCategoryId)
-        : null;
-
-      const wikipediaSlug = this.wikipediaData?.url?.split('/wiki/')[1];
-
-      if (wikipediaSlug) await this.$store.dispatch('LOAD_WIKIPEDIA_ARTICLE', wikipediaSlug).catch((e) => {});
-      if (steamGameId) await this.$store.dispatch('LOAD_STEAM_GAME', steamGameId).catch((e) => {});
-      if (gogPage) await this.$store.dispatch('LOAD_GOG_GAME', this.game.name).catch((e) => {});
-    },
   },
 };
 </script>

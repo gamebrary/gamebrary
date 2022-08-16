@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="d-none d-lg-inline" v-if="similarGames.length">
+  <div v-if="similarGames.length">
     <h4 class="text-center text-muted">You may also like</h4>
 
     <div class="d-flex overflow-auto">
@@ -24,10 +24,6 @@ import { mapState } from 'vuex';
 import { getGameCoverUrl } from '@/utils';
 
 export default {
-  props: {
-    loading: Boolean,
-  },
-
   data() {
     return {
       similarGames: [],

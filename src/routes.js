@@ -12,7 +12,6 @@ import DevToolsPage from '@/pages/DevToolsPage';
 import ProfileSettingsPage from '@/pages/ProfileSettingsPage';
 import ExplorePage from '@/pages/ExplorePage';
 import GamePage from '@/pages/GamePage';
-import GameMediaPage from '@/pages/game/GameMediaPage';
 import GameNewsPage from '@/pages/game/GameNewsPage';
 import HomePage from '@/pages/HomePage';
 import PlatformsPage from '@/pages/PlatformsPage';
@@ -155,14 +154,6 @@ const routes = [
     name: 'game',
     path: '/game/:id/:slug',
     component: GamePage,
-    meta: {
-      public: true,
-    },
-  },
-  {
-    name: 'game.media',
-    path: '/game/:id/:slug/media',
-    component: GameMediaPage,
     meta: {
       public: true,
     },

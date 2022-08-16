@@ -131,6 +131,10 @@ export default {
     state.game.steam = data;
   },
 
+  APPEND_GAME_NEWS(state, news) {
+    state.game.news = news;
+  },
+
   APPEND_WIKIPEDIA_GAME_DATA(state, data) {
     state.game.wikipedia = data;
   },
