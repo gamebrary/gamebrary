@@ -1,7 +1,6 @@
 <!-- TODO: finish layout -->
 <template lang="html">
-<<<<<<< Updated upstream
-  <b-container fluid class="p-2">
+  <b-container fluid>
     <portal to="pageTitle">
       <div>
         <b-button
@@ -16,21 +15,6 @@
       </div>
     </portal>
 
-    <div v-if="loading">
-      Loading...
-    </div>
-
-    <b-row>
-      <b-col cols="6">
-        <b-img
-          v-if="game && game.id"
-          :src="getCoverUrl(game.id)"
-          class="cursor-pointer"
-          thumbnail
-          @click="selectedNote = filteredNotes[index]"
-        />
-=======
-  <b-container fluid>
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <b-row v-else>
@@ -66,14 +50,11 @@
         <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}" class="float-right">
           <b-img :src="gameCoverUrl" fluid rounded />
         </router-link>
->>>>>>> Stashed changes
       </b-col>
 
       <b-col>
         <game-note v-if="note" :note="{ note }" />
 
-<<<<<<< Updated upstream
-=======
         <b-form-textarea
           v-model.trim="note"
           placeholder="Type note here"
@@ -86,7 +67,6 @@
           Markdown supported
         </b-form-text>
 
->>>>>>> Stashed changes
         <b-button
           variant="primary"
           :disabled="saving || !dirtied"
@@ -98,11 +78,7 @@
 
         <b-button
           variant="danger"
-<<<<<<< Updated upstream
-          class="mr-1"
-=======
           class="ml-2"
->>>>>>> Stashed changes
           v-if="notes[game.id] && !saving"
           :disabled="deleting"
           @click="deleteNote"
@@ -112,25 +88,10 @@
           <i class="d-sm-none fas fa-trash fa-fw" aria-hidden />
           <span class="d-none d-sm-inline">{{ $t('global.delete') }}</span>
         </b-button>
-<<<<<<< Updated upstream
-
-        <b-form-textarea
-          v-model.trim="note"
-          placeholder="Type note here"
-          rows="3"
-          max-rows="20"
-        />
-
-        <b-form-text id="input-live-help" v-b-modal.markdown-cheatsheet>
-          <i class="fab fa-markdown fa-fw" />
-          Markdown supported
-        </b-form-text>
 
         <b-modal id="markdown-cheatsheet" title="BootstrapVue">
           <markdown-cheatsheet />
         </b-modal>
-=======
->>>>>>> Stashed changes
       </b-col>
     </b-row>
   </b-container>
