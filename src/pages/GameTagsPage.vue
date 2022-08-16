@@ -27,9 +27,7 @@
       </b-button>
     </portal>
 
-    <div v-if="loading" class="text-center mt-5 ml-auto">
-      <b-spinner/>
-    </div>
+    <b-spinner v-if="loading" class="spinner-centered" />
 
     <b-row v-else>
       <b-col cols="6">

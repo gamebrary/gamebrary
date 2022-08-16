@@ -1,51 +1,77 @@
 <!-- TODO: finish layout -->
 <template lang="html">
   <b-container fluid class="p-2">
+    <portal to="pageTitle">
+      <div>
+        <b-button
+          :to="{ name: 'settings' }"
+          variant="light"
+          class="mr-2"
+          >
+          <i class="fa-solid fa-chevron-left" />
+        </b-button>
+
+        Notes
+      </div>
+    </portal>
+
     <div v-if="loading">
       Loading...
     </div>
 
-    <game-sub-page v-else>
-      <game-note v-if="note" :note="{ note }" />
+    <b-row>
+      <b-col cols="6">
+        <b-img
+          v-if="game && game.id"
+          :src="getCoverUrl(game.id)"
+          class="cursor-pointer"
+          thumbnail
+          @click="selectedNote = filteredNotes[index]"
+        />
+      </b-col>
 
-      <b-button
-        variant="primary"
-        :disabled="saving || !dirtied"
-        @click="saveNote"
-      >
-        <b-spinner small v-if="saving" />
-        <span v-else>{{ $t('global.save') }}</span>
-      </b-button>
+      <b-col>
+        <game-note v-if="note" :note="{ note }" />
 
-      <b-button
-        variant="danger"
-        class="mr-1"
-        v-if="notes[game.id] && !saving"
-        :disabled="deleting"
-        @click="deleteNote"
-      >
-        <b-spinner small v-if="deleting" />
+        <b-button
+          variant="primary"
+          :disabled="saving || !dirtied"
+          @click="saveNote"
+        >
+          <b-spinner small v-if="saving" />
+          <span v-else>{{ $t('global.save') }}</span>
+        </b-button>
 
-        <i class="d-sm-none fas fa-trash fa-fw" aria-hidden />
-        <span class="d-none d-sm-inline">{{ $t('global.delete') }}</span>
-      </b-button>
+        <b-button
+          variant="danger"
+          class="mr-1"
+          v-if="notes[game.id] && !saving"
+          :disabled="deleting"
+          @click="deleteNote"
+        >
+          <b-spinner small v-if="deleting" />
 
-      <b-form-textarea
-        v-model.trim="note"
-        placeholder="Type note here"
-        rows="3"
-        max-rows="20"
-      />
+          <i class="d-sm-none fas fa-trash fa-fw" aria-hidden />
+          <span class="d-none d-sm-inline">{{ $t('global.delete') }}</span>
+        </b-button>
 
-      <b-form-text id="input-live-help" v-b-modal.markdown-cheatsheet>
-        <i class="fab fa-markdown fa-fw" />
-        Markdown supported
-      </b-form-text>
+        <b-form-textarea
+          v-model.trim="note"
+          placeholder="Type note here"
+          rows="3"
+          max-rows="20"
+        />
 
-      <b-modal id="markdown-cheatsheet" title="BootstrapVue">
-        <markdown-cheatsheet />
-      </b-modal>
-    </game-sub-page>
+        <b-form-text id="input-live-help" v-b-modal.markdown-cheatsheet>
+          <i class="fab fa-markdown fa-fw" />
+          Markdown supported
+        </b-form-text>
+
+        <b-modal id="markdown-cheatsheet" title="BootstrapVue">
+          <markdown-cheatsheet />
+        </b-modal>
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
@@ -53,14 +79,13 @@
 import { mapState } from 'vuex';
 
 import GameNote from '@/components/GameNote';
-import GameSubPage from '@/components/Game/GameSubPage';
 import MarkdownCheatsheet from '@/components/MarkdownCheatsheet';
+// TODO: consolidate getGameCoverUrl
 import { getGameCoverUrl } from '@/utils';
 
 export default {
   components: {
     GameNote,
-    GameSubPage,
     MarkdownCheatsheet,
   },
 
@@ -73,7 +98,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['notes', 'game']),
+    ...mapState(['notes', 'game', 'games']),
 
     gameCoverUrl() {
       return getGameCoverUrl(this.game);
@@ -95,6 +120,14 @@ data() {
 },
 
   methods: {
+    getCoverUrl(gameId) {
+      const game = this.games[gameId];
+
+      return game && game.cover && game.cover.image_id
+        ? `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${game.cover.image_id}.jpg`
+        : '/no-image.jpg';
+    },
+
     loadNote() {
       if (this.game.id !== this.$route.params.id) {
         this.loadGame();

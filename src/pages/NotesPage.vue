@@ -15,6 +15,7 @@
         Notes
       </div>
     </portal>
+
     <portal to="headerActions">
       <b-form-input
         v-if="!showEmptyState"
@@ -32,15 +33,34 @@
       message="Looks like you don't have any notes yet."
     />
 
-    <template v-else>
-      <div class="notes">
-        <game-note
-          v-for="(note, index) in filteredNotes"
+    <b-row v-else>
+      <b-col cols="6" v-if="noteGames.length">
+        <!-- TODO: make computed for note selector -->
+        <div
+          v-for="(game, index) in noteGames"
           :key="index"
-          :note="note"
-        />
-      </div>
-    </template>
+        >
+          <b-img
+            v-if="game && game.id"
+            :src="getCoverUrl(game.id)"
+            class="cursor-pointer"
+            thumbnail
+            @click="selectedNote = filteredNotes[index]"
+          />
+
+          <b-button
+            v-if="game && game.name"
+            @click="selectedNote = filteredNotes[index]"
+          >
+            {{ game.name }}
+          </b-button>
+        </div>
+      </b-col>
+
+      <b-col>
+        <game-note :note="selectedNote" v-if="selectedNote" />
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
@@ -57,6 +77,7 @@ export default {
 
   data() {
     return {
+      selectedNote: null,
       loaded: false,
       search: '',
     };
@@ -67,6 +88,10 @@ export default {
 
     showEmptyState() {
       return this.loaded && !Object.keys(this.notes).length;
+    },
+
+    noteGames() {
+      return Object.keys(this.notes).map((id) => this.games[id]);
     },
 
     // TODO: move to getter?
@@ -96,21 +121,11 @@ export default {
 
   mounted() {
     this.loadGames();
+
+    if (this.filteredNotes.length > 0) this.selectedNote = this.filteredNotes[0];
   },
 
   methods: {
-    getNoteHeight(noteLength) {
-      if (noteLength < 50) {
-        return 100;
-      }
-
-      if (noteLength < 200) {
-        return 300;
-      }
-
-      return 200;
-    },
-
     async loadGames() {
       const gamesList = Object.keys(this.notes).length
         ? Object.keys(this.notes).toString()
@@ -142,24 +157,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-
-.notes {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-gap: 1rem;
-
-  @media(max-width: 1200px) {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-
-  @media(max-width: 780px) {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  @media(max-width: 500px) {
-    grid-template-columns: 1fr;
-  }
-}
-</style>
