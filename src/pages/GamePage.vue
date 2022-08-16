@@ -89,6 +89,7 @@
             </header>
 
             <b-button
+              v-if="!tagsApplied.length"
               rounded
               variant="light"
               class="mb-2"
