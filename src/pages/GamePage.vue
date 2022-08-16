@@ -8,6 +8,8 @@
 
 <template lang="html">
   <b-container fluid>
+    <portal to="pageTitle">{{ game.name }}</portal>
+
     <div v-if="loading" class="text-center mt-5 ml-auto">
       <b-spinner/>
     </div>
@@ -22,14 +24,17 @@
           md="4"
           xl="3"
         >
-          <b-img
-            :src="gameCoverUrl"
-            :alt="game.name"
-            class="cursor-pointer"
-            rounded
-            fluid
-            @click.stop="openGameCover"
-          />
+          <div class="position-relative cursor-pointer" @click.stop="openGameCover">
+            <i class="fa-solid fa-play play-button color-white text-white font-size-xl" />
+
+            <b-img
+              :src="gameCoverUrl"
+              :alt="game.name"
+              rounded
+              fluid
+            />
+          </div>
+
           <!-- <b-skeleton-img
             v-if="loading"
             width="100px"
@@ -42,32 +47,20 @@
             <game-rating :game="game" />
           </div> -->
 
-          <b-card
-            v-if="boardsWithGame.length"
-            body-class="p-2"
-            class="mt-2"
-          >
-            <h4>Game found in these boards:</h4>
+          <div class="notes mt-3">
+            <game-note
+              v-if="note"
+              :note="note"
+              class="cursor-pointer"
+              @click.native="$router.push({ name: 'game.notes', params: { id: game.id } })"
+            />
+          </div>
 
-            <b-button
-              v-for="board in boardsWithGame"
-              :to="{ name: 'board', params: { id: board.id } }"
-              :key="board.id"
-            >
-              <b-avatar
-                rounded
-                :class="['board-thumbnail mr-2', { 'bg-dark' : !board.backgroundColor }]"
-                :title="board.name"
-                text=" "
-                :style="`
-                  background-image: url(${board.backgroundUrl || ''});
-                  background-color: ${board.backgroundColor || ''}
-                  `"
-              />
+          <b-button variant="warning" :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug } }">
+            <i class="fa-solid fa-note-sticky fa-fw" />
+          </b-button>
 
-              {{ board.name }}
-            </b-button>
-          </b-card>
+          <game-in-list />
         </b-col>
 
         <b-col
@@ -94,6 +87,15 @@
                 </b-button> -->
               </aside>
             </header>
+
+            <b-button
+              rounded
+              variant="light"
+              class="mb-2"
+              @click="$router.push({ name: 'game.tags', params: { id: game.id, slug: game.slug } })"
+            >
+              Tag
+            </b-button>
 
             <b-button
               v-for="({ bgColor, textColor, name }) in tagsApplied"
@@ -123,13 +125,6 @@
 
             <game-description />
             <game-details />
-
-            <game-note
-              v-if="note"
-              :note="note"
-              class="cursor-pointer"
-              @click.native="$router.push({ name: 'game.notes', params: { id: game.id } })"
-            />
 
             <b-card-footer v-if="legalNotice">
               <small class="text-muted" v-html="legalNotice" />
@@ -403,9 +398,9 @@ export default {
       // TODO: handle missing id, redirect? 404? search?
     },
 
-    gameScrenshot(value) {
-      if (value) this.$bus.$emit('UPDATE_WALLPAPER', value);
-    },
+    // gameScrenshot(value) {
+    //   if (value) this.$bus.$emit('UPDATE_WALLPAPER', value);
+    // },
   },
 
   mounted() {
@@ -527,5 +522,18 @@ export default {
 article {
   background: red;
   min-height: 50vh;
+}
+
+.play-button {
+  background-color:rgba(0, 0, 0, 0.3);
+  position: absolute;
+  width: 100px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: calc(50% - 50px);
+  font-size: 2rem;
+  top: calc(50% - 25px);
 }
 </style>

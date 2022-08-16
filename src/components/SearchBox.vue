@@ -9,7 +9,6 @@
           debounce="500"
           placeholder="Search"
         />
-        <!-- TODO: auto search if already in search page -->
 
         <b-input-group-append>
           <b-button

@@ -9,7 +9,7 @@
         :title="game.name"
         class="flex-shrink-0 mr-2 cursor-pointer"
         style="max-width: 180px;"
-        body-class="p-2 text-center text-muted"
+        body-class="p-2 text-center text-muted text-truncate"
         :img-src="getCoverUrl(game)"
         :img-alt="game.name"
         img-top

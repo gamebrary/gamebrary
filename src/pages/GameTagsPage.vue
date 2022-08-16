@@ -7,10 +7,7 @@
           variant="light"
           class="mr-2"
           >
-          <i v-if="showBackIcon" class="fa-solid fa-chevron-left" />
-          <template v-else-if="game">
-            {{ game.name }}
-          </template>
+            <i class="fa-solid fa-chevron-left" />
         </b-button>
 
         Tags

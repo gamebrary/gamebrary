@@ -6,8 +6,6 @@
       @selected="selected"
     />
 
-    <!-- TODO: sort by metadata.timeCreated -->
-
     <div class="wallpapers">
       <b-card
         :img-src="wallpaper.url"
@@ -15,42 +13,38 @@
         img-top
         overlay
         footer-class="p-2"
+        class="bg-light"
         tag="article"
         v-for="wallpaper in sortedWallpapers"
         :key="wallpaper.name"
         @click="openPreview(wallpaper)"
       >
-        <template #footer>
-          <div class="d-flex align-items-start flex-column justify-content-between">
-            <b-button
-              @click="openPreview(wallpaper)"
-              variant="link"
-              class="p-0 mb-3 text-truncate"
-              block
-            >
-              {{ wallpaper.name }}
+        <b-button
+          @click="openPreview(wallpaper)"
+          class="text-truncate text-white"
+          variant="transparent"
+          block
+        >
+          {{ wallpaper.name }}
+        </b-button>
 
-              <b-badge variant="light" v-if="wallpaper.metadata && wallpaper.metadata.size">
-                {{ formatSize(wallpaper) }}
-              </b-badge>
-            </b-button>
+        <b-button
+          v-if="selectable"
+          variant="outline-primary"
+          class="border-0"
+          @click="selected(wallpaper)"
+        >
+          <i
+            v-if="saving"
+            class="fas fa-sync fa-spin fa-fw"
+            aria-hidden
+          />
 
-            <b-button
-              v-if="selectable"
-              variant="outline-primary"
-              class="border-0"
-              @click="selected(wallpaper)"
-            >
-              <i
-                v-if="saving"
-                class="fas fa-sync fa-spin fa-fw"
-                aria-hidden
-              />
-
-              <span v-else>Select</span>
-            </b-button>
-          </div>
-        </template>
+          <span v-else>Select</span>
+        </b-button>
+      <!-- <b-badge variant="light">
+        {{ formatSize(wallpaper) }}
+      </b-badge> -->
       </b-card>
     </div>
   </div>
@@ -100,9 +94,7 @@ export default {
     },
 
     formatSize(wallpaper) {
-      const size = wallpaper && wallpaper.metadata && wallpaper.metadata.size
-        ? wallpaper.metadata.size
-        : 0;
+      const size = wallpaper?.metadata?.size || 0;
 
       return bytesToSize(size);
     },

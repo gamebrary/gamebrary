@@ -4,36 +4,48 @@
 <template lang="html">
   <b-container fluid class="p-2">
     <portal to="pageTitle">
-      <span>
-        {{ game.name }} |
-        <span class="text-muted">Screenshots</span>
-      </span>
+      <div>
+        <b-button
+          :to="{ name: 'game', params: { id: game.id, slug: game.slug } }"
+          variant="light"
+          class="mr-2"
+          >
+            <i class="fa-solid fa-chevron-left" />
+        </b-button>
+
+        Media
+      </div>
     </portal>
 
-    <b-form-row no-gutters>
-      <b-col
-        cols="4"
-        sm="4"
-        md="3"
-        xl="2"
-        v-for="(thumbnail, index) in gameThumbnails"
-        class="p-1"
-        :key="index"
-      >
-        <b-link>
-          <b-img
-            :src="thumbnail"
-            rounded
-            fluid
-            @click.stop="openModal(index)"
-          />
-        </b-link>
+    <p v-if="loading"></p>
+
+    <b-row v-else>
+      <b-col cols="6">
+        <b-img
+          :src="gameCoverUrl"
+          :alt="game.name"
+          class="cursor-pointer"
+          rounded
+          fluid
+          @click.stop="openGameCover"
+        />
       </b-col>
-    </b-form-row>
 
-    <h4 class="mt-3">Videos</h4>
+      <b-col>
+        <b-img
+          v-for="(thumbnail, index) in gameThumbnails"
+          :key="index"
+          :src="thumbnail"
+          rounded
+          fluid
+          width="120"
+          @click.stop="openModal(index)"
+        />
+      </b-col>
+    </b-row>
 
-    <b-form-row v-if="game.videos">
+    <!-- <h4 class="mt-3">Videos</h4> -->
+    <!-- <b-form-row v-if="game.videos">
       <b-col
         cols="4"
         sm="4"
@@ -52,7 +64,7 @@
           />
         </b-link>
       </b-col>
-    </b-form-row>
+    </b-form-row> -->
 
     <b-modal
       id="videoModal"
@@ -161,6 +173,7 @@ export default {
       selectedVideoId: null,
       maxThumbnails: 3,
       saving: false,
+      loading: false,
     };
   },
 

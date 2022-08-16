@@ -6,7 +6,7 @@
   >
     <template v-slot:modal-header="{ close }">
       <modal-header
-        title="Wallpaper preview"
+        title="Wallpaper"
         :subtitle="wallpaper.name"
         @close="close"
       >
