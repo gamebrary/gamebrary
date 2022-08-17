@@ -5,7 +5,17 @@
   <!-- TODO: show search inline, allow to go full screen (search page) -->
   <b-container fluid class="p-0">
     <portal to="pageTitle">
-      Edit list
+      <div>
+        <b-button
+          :to="{ name: 'board', params: { id: board.id } }"
+          variant="light"
+          class="mr-2"
+        >
+          <i class="fa-solid fa-chevron-left" />
+        </b-button>
+
+        Edit list
+      </div>
     </portal>
 
     <b-row v-if="list" no-gutters>
