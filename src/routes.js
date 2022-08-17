@@ -152,7 +152,7 @@ const routes = [
   },
   {
     name: 'game',
-    path: '/game/:id/:slug',
+    path: '/g/:id/:slug',
     component: GamePage,
     meta: {
       public: true,
@@ -160,7 +160,7 @@ const routes = [
   },
   {
     name: 'game.news',
-    path: '/game/:id/:slug/news',
+    path: '/g/:id/:slug/news',
     component: GameNewsPage,
     meta: {
       public: true,
@@ -168,17 +168,17 @@ const routes = [
   },
   {
     name: 'game.notes',
-    path: '/game/:id/:slug/notes',
+    path: '/g/:id/:slug/notes',
     component: GameNotesPage,
   },
   {
     name: 'game.tags',
-    path: '/game/:id/:slug/tags',
+    path: '/g/:id/:slug/tags',
     component: GameTagsPage,
   },
   {
     name: 'game.progress',
-    path: '/game/:id/:slug/progress',
+    path: '/g/:id/:slug/progress',
     component: GameProgressPage,
   },
   {
@@ -240,7 +240,7 @@ const routes = [
     // ],
   },
   {
-    path: '/board/create',
+    path: '/b/create',
     name: 'create.board',
     component: CreateBoardPage,
     meta: {
@@ -248,27 +248,19 @@ const routes = [
     }
   },
   {
-    path: '/board/:id',
+    path: '/b/:id',
     name: 'board',
     component: BoardPage,
   },
   {
-    path: '/board/:id/edit',
+    path: '/b/:id/edit',
     name: 'board.edit',
     component: EditBoardPage,
   },
   {
-    path: '/board/:id/edit/:listIndex',
+    path: '/b/:id/edit/:listIndex',
     name: 'board.list.edit',
     component: EditListPage,
-  },
-  {
-    path: '/b/:id',
-    name: 'public.board',
-    component: BoardPage,
-    meta: {
-      public: true,
-    },
   },
   {
     path: '/:userName',
