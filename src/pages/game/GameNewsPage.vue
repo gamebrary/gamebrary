@@ -1,6 +1,7 @@
 <!-- TODO: get inspiration from polygon -->
+<!-- TODO: restore bbparser -->
 <template lang="html">
-  <b-container fluid class="p-2">
+  <b-container>
     <portal to="pageTitle">
       <div>
         <b-button
@@ -15,42 +16,48 @@
       </div>
     </portal>
 
-    <div v-if="loading" class="text-center mt-5 ml-auto">
-      <b-spinner/>
-    </div>
+    <b-spinner v-if="loading" class="spinner-centered" />
 
     <div v-else-if="!articles.length">
       no news found
     </div>
 
-    <div class="game-news" v-else>
-      <ul class="list-unstyled">
-        <b-card v-for="article in articles" :key="article.id" class="mb-2">
-          <b-avatar
+    <b-row class="game-news" v-else>
+      <b-col cols="6">
+        <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}" class="float-right">
+          <b-img :src="gameCoverUrl" fluid rounded />
+        </router-link>
+      </b-col>
+
+      <b-col cols="6">
+        <b-alert
+          v-for="article in articles"
+          :key="article.id"
+          show
+          variant="secondary"
+          class="mb-3"
+        >
+          <!-- <b-avatar
             variant="primary"
             :text="article.feedlabel"
             :title="article.feedlabel || article.author"
             v-b-tooltip.hover
-          />
+          /> -->
 
-          <h2>
-            {{ article.title }}
-            <br />
-            <b-badge variant="info">{{ article.feedlabel }}</b-badge>
-          </h2>
-
-          <div>
-            <p class="mb-0 w-100" v-html="$options.marked(article.contents)" />
-          </div>
-        </b-card>
-      </ul>
-    </div>
+          <strong>{{ article.title }}</strong>
+          <!-- <pre>{{ article }}</pre> -->
+          <!-- <b-badge variant="info">{{ article.feedlabel }}</b-badge> -->
+          <div class="mb-0 w-100" v-html="$options.marked(article.contents)" />
+        </b-alert>
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 import { marked } from 'marked';
+import { getGameCoverUrl } from '@/utils';
 // import bbCodeParser from 'js-bbcode-parser';
 
 export default {
@@ -65,6 +72,10 @@ export default {
 
   computed: {
     ...mapState(['game']),
+
+    gameCoverUrl() {
+      return getGameCoverUrl(this.game);
+    },
 
     steamAppId() {
       const steamData = this.game?.websites?.find(({ category }) => category === 13);

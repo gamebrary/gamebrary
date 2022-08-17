@@ -128,6 +128,7 @@ export default {
   },
 
   APPEND_STEAM_GAME_DATA(state, data) {
+    console.log('data', data);
     state.game.steam = data;
   },
 

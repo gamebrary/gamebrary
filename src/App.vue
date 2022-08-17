@@ -160,10 +160,6 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss">
   @import "~styles/styles";
-
-  .blurred {
-    backdrop-filter: blur(25px);
-  }
 </style>
 
 <style lang="scss" rel="stylesheet/scss" scoped>

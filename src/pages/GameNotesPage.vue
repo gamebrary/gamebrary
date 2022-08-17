@@ -1,6 +1,6 @@
 <!-- TODO: finish layout -->
 <template lang="html">
-  <b-container fluid>
+  <b-container>
     <portal to="pageTitle">
       <div>
         <b-button
@@ -52,7 +52,7 @@
         </router-link>
       </b-col>
 
-      <b-col>
+      <b-col cols="6">
         <game-note v-if="note" :note="{ note }" />
 
         <b-form-textarea
@@ -67,27 +67,29 @@
           Markdown supported
         </b-form-text>
 
-        <b-button
-          variant="primary"
-          :disabled="saving || !dirtied"
-          @click="saveNote"
-        >
-          <b-spinner small v-if="saving" />
-          <span v-else>{{ $t('global.save') }}</span>
-        </b-button>
+        <footer class="mt-2">
+          <b-button
+            variant="primary"
+            :disabled="saving"
+            @click="saveNote"
+          >
+            <b-spinner small v-if="saving" />
+            <span v-else>{{ $t('global.save') }}</span>
+          </b-button>
 
-        <b-button
-          variant="danger"
-          class="ml-2"
-          v-if="notes[game.id] && !saving"
-          :disabled="deleting"
-          @click="deleteNote"
-        >
-          <b-spinner small v-if="deleting" />
+          <b-button
+            variant="danger"
+            class="ml-2"
+            v-if="!saving"
+            :disabled="deleting"
+            @click="deleteNote"
+          >
+            <b-spinner small v-if="deleting" />
 
-          <i class="d-sm-none fas fa-trash fa-fw" aria-hidden />
-          <span class="d-none d-sm-inline">{{ $t('global.delete') }}</span>
-        </b-button>
+            <i class="d-sm-none fas fa-trash fa-fw" aria-hidden />
+            <span class="d-none d-sm-inline">{{ $t('global.delete') }}</span>
+          </b-button>
+        </footer>
 
         <b-modal id="markdown-cheatsheet" title="BootstrapVue">
           <markdown-cheatsheet />
@@ -115,6 +117,7 @@ export default {
     return {
       saving: false,
       note: '',
+      loading: false,
       deleting: false,
     };
   },
@@ -125,21 +128,11 @@ export default {
     gameCoverUrl() {
       return getGameCoverUrl(this.game);
     },
-
-    dirtied() {
-      return this.note !== this.notes[this.game.id];
-    },
   },
 
   mounted() {
     this.loadNote();
   },
-
-data() {
-  return {
-    loading: true,
-  }
-},
 
   methods: {
     getCoverUrl(gameId) {
@@ -151,12 +144,12 @@ data() {
     },
 
     loadNote() {
-      if (this.game.id !== this.$route.params.id) {
-        this.loadGame();
-      } else {
-        this.loading = false;
-        this.setNote();
-      }
+      // if (this.game.id !== this.$route.params.id &&) {
+      //   this.loading = true;
+      // } else {
+      //   this.setNote();
+      // }
+      this.loadGame();
     },
 
     async loadGame() {
@@ -173,6 +166,7 @@ data() {
     },
 
     setNote() {
+      console.log(this.notes[this.game.id]);
       this.note = this.notes[this.game.id] || '';
     },
 

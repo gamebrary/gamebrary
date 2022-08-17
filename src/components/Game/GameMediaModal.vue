@@ -92,6 +92,7 @@ export default {
     ...mapState(['board', 'game']),
 
     gameMedia() {
+      // TODO: add steam movies
       // TODO: also handle thumbnails
       // TODO: do all of this in mutation after loading game
       const igdbVideos = this.game?.videos?.map((video) => {

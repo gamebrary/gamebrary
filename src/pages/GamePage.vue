@@ -35,7 +35,11 @@
             />
           </div>
 
-          <pre>{{ game.news }}</pre>
+          <b-img
+            v-b-modal.mediaModal
+            :src="gameHeaderImage"
+            fluid
+          />
 
           <!-- <amazon-links class="mt-2" /> -->
 
@@ -88,26 +92,20 @@
           </div>
 
           <b-button
-            variant="warning" :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug } }"
-            class="mr-2"
+            v-if="gameNews.length"
+            :to="{ name: 'game.news', params: { id: game.id, slug: game.slug } }"
+            variant="light"
           >
-            <i class="fa-solid fa-note-sticky fa-fw" />
-          </b-button>
-
-          <b-button
-            variant="light" @click="$bus.$emit('ADD_GAME', game.id)"
-            class="mr-2"
-          >
-            <i class="fa-solid fa-plus fa-fw" />
-            <span class="d-none d-lg-inline">Add to list</span>
-          </b-button>
-
-          <b-button variant="light" :to="{ name: 'game.news', params: { id: game.id, slug: game.slug } }">
             <i class="fa-solid fa-newspaper fa-fw" />
             <span class="d-none d-lg-inline">News</span>
           </b-button>
 
           <game-in-list />
+
+          <!-- <div v-if="gameAchievements"> -->
+            <!-- TODO: add steam achievements -->
+            <!-- <pre>{{ gameAchievements }}</pre> -->
+          <!-- </div> -->
         </b-col>
 
         <b-col
@@ -115,7 +113,7 @@
           sm="6"
           xl="9"
         >
-          <article class="bg-white rounded">
+          <article class="bg-light rounded p-3">
             <header class="d-flex align-items-start justify-content-between pb-2">
               <game-titles />
 
@@ -127,6 +125,22 @@
                 >
                   {{ progress || 0 }}%
                 </b-button>
+
+                <b-button
+                  variant="warning" :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug } }"
+                  class="mr-2"
+                >
+                  <i class="fa-solid fa-note-sticky fa-fw" />
+                </b-button>
+
+                <b-button
+                  variant="light" @click="$bus.$emit('ADD_GAME', game.id)"
+                  class="mr-2"
+                >
+                  <i class="fa-solid fa-plus fa-fw" />
+                  <span class="d-none d-lg-inline">Add to list</span>
+                </b-button>
+
 
                 <!-- <b-button :href="metacriticScore.url" variant="success" v-if="metacriticScore.url">
                   {{ metacriticScore.score }}
@@ -165,11 +179,12 @@
                 width="320"
               />
 
-              <game-websites :game="game" />
+              <game-websites />
             </aside>
 
             <game-description />
             <game-details />
+
 
             <b-card-footer v-if="legalNotice">
               <small class="text-muted" v-html="legalNotice" />
@@ -221,10 +236,6 @@
       </div>
     </div>
 
-    <!-- <b-button variant="info" @click="openGameNews">
-      <b-badge>3</b-badge>
-      News about {{ game.name }}
-    </b-button> -->
     <!-- TODO: restore prev/next game -->
     <!-- <b-dropdown-item-button
       v-if="!prevDisabled"
@@ -296,7 +307,6 @@ export default {
   },
 
   beforeDestroy() {
-    // this.$bus.$emit('UPDATE_WALLPAPER', null);
     // TODO: only clear board if game being viewed is not in current board
     // if (!['game', 'board'].includes(this.$route.name)) {
       // this.$store.commit('CLEAR_BOARD');
@@ -309,6 +319,14 @@ export default {
     metacriticScore() {
       return this.game?.steam?.metacritic || {};
     },
+
+    gameNews() {
+      return this.game?.news || [];
+    },
+
+    // gameAchievements() {
+    //   return this.game?.steam?.achievements || [];
+    // },
 
     note() {
       return this.notes[this.game?.id] || null;
@@ -370,6 +388,10 @@ export default {
         ? `https://images.igdb.com/igdb/image/upload/t_screenshot_huge_2x/${screenshots[0].image_id}.jpg`
         : null;
     },
+
+    gameHeaderImage() {
+      return this.game?.steam?.header_image;
+    },
   },
 
   watch: {
@@ -379,14 +401,11 @@ export default {
       if (gameId) this.loadGame();
       // TODO: handle missing id, redirect? 404? search?
     },
-
-    // gameScrenshot(value) {
-    //   if (value) this.$bus.$emit('UPDATE_WALLPAPER', value);
-    // },
   },
 
   mounted() {
     // TODO: wait for access token
+    this.$bus.$emit('UPDATE_WALLPAPER', null);
     this.loadGame();
 
     this.$store.dispatch('IGDB', { path: 'game_modes', data: 'fields *;' });
@@ -400,16 +419,6 @@ export default {
       const wallpaper = this.wallpapers?.find(({ fullPath }) => fullPath === url);
 
       return wallpaper && wallpaper.url ? decodeURI(wallpaper.url) : '';
-    },
-
-    openGameNews() {
-      this.$router.push({
-        name: 'game.news',
-        params: {
-          id: this.game.id,
-          slug: this.game.slug,
-        },
-      });
     },
 
     async loadGame() {
@@ -436,9 +445,6 @@ export default {
       const steamGameId = steamData?.url?.split('app/')[1]?.split('/')[0];
       if (steamGameId) await this.$store.dispatch('LOAD_STEAM_GAME', steamGameId).catch((e) => {});
 
-      console.log('steamGameId', steamGameId);
-      console.log(this.game.steam);
-
       // TODO: find more precise way to load GOG game, based on id?
       const gogPage = this.game?.websites?.find(({ category }) => category !== GOG_CATEGORY_ID);
       if (gogPage) await this.$store.dispatch('LOAD_GOG_GAME', this.game.name).catch((e) => {});
@@ -452,6 +458,9 @@ export default {
       if (wikipediaSlug) await this.$store.dispatch('LOAD_WIKIPEDIA_ARTICLE', wikipediaSlug).catch((e) => {});
       if (steamGameId) await this.$store.dispatch('LOAD_STEAM_GAME_NEWS', steamGameId).catch((e) => {});
 
+      console.log('this.game?.steam?.background', this.game?.steam?.background);
+
+      if (this.game?.steam?.background) this.$bus.$emit('UPDATE_WALLPAPER', this.game?.steam?.background);
 
       this.loading = false;
     },
