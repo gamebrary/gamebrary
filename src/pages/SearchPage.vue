@@ -9,14 +9,36 @@
       <search-box class="mr-2" />
     </portal>
 
-    <b-skeleton v-if="loading" />
+    <b-spinner v-if="loading" class="spinner-centered" />
 
     <b-row v-else-if="searchResults.length">
-      <b-col cols="12" class="bg-light py-2 mb-3">
-        <!-- TODO: allow to toggle boards -->
-        <b-button v-if="activeBoard" :to="{ name: 'board', params: { id: boardId } }">
+      <b-col cols="12" class="bg-light py-2 mb-3" v-if="activeBoard">
+        <pre>{{ activeBoard }}</pre>
+
+        <!-- <b-button
+          v-if="activeBoard"
+          variant="light"
+
+        >
           {{ activeBoard.name }}
-        </b-button>
+        </b-button> -->
+
+        <b-dropdown
+          v-if="activeBoard"
+          split
+          :split-to="{ name: 'board', params: { id: boardId } }"
+          :text="activeBoard.name"
+          class="m-2"
+        >
+          <b-dropdown-item
+            v-for="board in boards"
+            :key="board.id"
+            :to="{ name: 'search', query: { boardId: board.id, listIndex: boardListIndex } }"
+          >
+            {{ board.name }}
+          </b-dropdown-item>
+        </b-dropdown>
+
 
         <!-- TODO: allow to toggle lists -->
         <b-button v-if="activeBoard">

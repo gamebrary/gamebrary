@@ -7,7 +7,19 @@
 <!-- TODO: use board placeholder for preview / disable placeholder animation -->
 <template lang="html">
   <b-container fluid>
-    <portal to="pageTitle">Edit board</portal>
+    <portal to="pageTitle">
+      <div>
+        <b-button
+          :to="{ name: 'board', params: { id: board.id } }"
+          variant="light"
+          class="mr-2"
+        >
+          <i class="fa-solid fa-chevron-left" />
+        </b-button>
+
+        Edit board
+      </div>
+    </portal>
 
     <b-row>
       <b-col>

@@ -6,20 +6,14 @@
 
     <template v-else-if="showBoard">
       <portal to="pageTitle">
-        <b-button variant="light" disabled>
-          {{ board.name }}
-        </b-button>
-        <!-- TODO: show back button to board, store in memory only -->
-      </portal>
-
-      <portal to="headerActions">
         <b-button
           :to="{ name: 'board.edit', params: { id: board.id } }"
           variant="light"
           class="mr-2"
         >
-          Edit
+          {{ board.name }}
         </b-button>
+        <!-- TODO: show back button to board, store in memory only -->
       </portal>
 
       <!-- TODO: put board in component -->
