@@ -128,7 +128,6 @@ export default {
   },
 
   APPEND_STEAM_GAME_DATA(state, data) {
-    console.log('data', data);
     state.game.steam = data;
   },
 
@@ -140,8 +139,7 @@ export default {
     state.game.wikipedia = data;
   },
 
-  APPEND_GAME_SPEEDRUNS(state, data) {
-    console.log('game', state.game);
+  APPEND_GAME_SPEEDRUNS(state, { data }) {
     Vue.set(state.game, 'speedruns', data);
   },
 

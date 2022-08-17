@@ -240,13 +240,11 @@ export const SUPPORTED_LANGUAGES = [
   { name: 'Spanish', nativeName: 'Español', value: 'es' },
 ];
 
-// Source: https://api-docs.igdb.com/#age-rating
-export const AGE_RATING_SYSTEMS = [
-  {
-    name: 'ESRB',
-    value: 'ESRB',
-    id: 1,
-    logo: 'esrb.svg',
+// TODO: verify and udpate if needed
+// https://api-docs.igdb.com/#age-rating-enums
+export const AGE_RATING_SYSTEMS = {
+  1: {
+    id: 'ESRB',
     ratings: {
       6: 'RP',
       7: 'EC',
@@ -257,11 +255,8 @@ export const AGE_RATING_SYSTEMS = [
       12: 'AO',
     },
   },
-  {
-    name: 'PEGI',
-    value: 'PEGI',
-    id: 2,
-    logo: 'pegi.svg',
+  2: {
+    id: 'PEGI',
     ratings: {
       1: '3',
       2: '7',
@@ -270,11 +265,8 @@ export const AGE_RATING_SYSTEMS = [
       5: '18',
     },
   },
-  {
-    name: 'CERO',
-    value: 'CERO',
-    id: 3,
-    logo: 'cero.png',
+  3: {
+    id: 'CERO',
     ratings: {
       13: 'CERO_A',
       14: 'CERO_B',
@@ -283,11 +275,8 @@ export const AGE_RATING_SYSTEMS = [
       17: 'CERO_Z',
     },
   },
-  {
-    name: 'USK',
-    value: 'USK',
-    id: 4,
-    logo: 'usk.svg',
+  4: {
+    id: 'USK',
     ratings: {
       18: 'USK_0',
       19: 'USK_6',
@@ -295,11 +284,8 @@ export const AGE_RATING_SYSTEMS = [
       21: 'USK_18',
     },
   },
-  {
-    name: 'GRAC',
-    value: 'GRAC',
-    id: 5,
-    logo: '',
+  5: {
+    id: 'GRAC',
     ratings: {
       22: 'GRAC_ALL',
       23: 'GRAC_Twelve',
@@ -308,11 +294,8 @@ export const AGE_RATING_SYSTEMS = [
       26: 'GRAC_TESTING',
     },
   },
-  {
-    name: 'ClassInd',
-    value: 'CLASS_IND',
-    id: 6,
-    logo: 'classind.png',
+  6: {
+    id: 'ClassInd',
     ratings: {
       27: 'ClassInd-L',
       28: 'ClassInd-10',
@@ -322,11 +305,8 @@ export const AGE_RATING_SYSTEMS = [
       32: 'ClassInd-18',
     },
   },
-  {
-    name: 'ACB',
-    value: 'ACB',
-    id: 7,
-    logo: 'acb.png',
+  7: {
+    id: 'ACB',
     ratings: {
       33: 'ACB_G',
       34: 'ACB_PG',
@@ -336,7 +316,7 @@ export const AGE_RATING_SYSTEMS = [
       38: 'ACB_RC',
     },
   },
-];
+};
 
 export const WEBSITE_CATEGORIES = {
   WIKIPEDIA: 3,

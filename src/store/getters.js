@@ -45,14 +45,4 @@ export default {
 
     return platforms;
   },
-
-  gameAgeRatings: () => (game) => {
-    if (!game?.age_ratings) return null;
-
-    return game?.age_ratings.map(({ category, rating }) => {
-      const { name, ratings } = AGE_RATING_SYSTEMS.find(({ id }) => id === category);
-
-      return { name, rating: ratings[rating] };
-    });
-  },
 };

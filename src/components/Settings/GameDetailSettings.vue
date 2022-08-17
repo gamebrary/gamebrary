@@ -7,13 +7,13 @@
         style="max-width: 200px"
         @change="save"
       >
-        <b-form-select-option
+        <!-- <b-form-select-option
           v-for="{ name, value } in AGE_RATING_SYSTEMS"
           :key="value"
           :value="value"
         >
           {{ name }}
-        </b-form-select-option>
+        </b-form-select-option> -->
       </b-form-select>
     </b-form-group>
   </div>
@@ -21,13 +21,13 @@
 
 <script>
 import { mapState } from 'vuex';
-import { AGE_RATING_SYSTEMS } from '@/constants';
+// import { AGE_RATING_SYSTEMS } from '@/constants';
 
 export default {
   data() {
     return {
       saving: false,
-      AGE_RATING_SYSTEMS,
+      // AGE_RATING_SYSTEMS,
       gameRatingSystem: null,
     };
   },

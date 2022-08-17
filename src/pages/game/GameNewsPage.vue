@@ -35,18 +35,11 @@
           :key="article.id"
           show
           variant="secondary"
-          class="mb-3"
+          class="mb-3 small"
         >
-          <!-- <b-avatar
-            variant="primary"
-            :text="article.feedlabel"
-            :title="article.feedlabel || article.author"
-            v-b-tooltip.hover
-          /> -->
 
           <strong>{{ article.title }}</strong>
-          <!-- <pre>{{ article }}</pre> -->
-          <!-- <b-badge variant="info">{{ article.feedlabel }}</b-badge> -->
+
           <div class="mb-0 w-100" v-html="$options.marked(article.contents)" />
         </b-alert>
       </b-col>

@@ -1,18 +1,6 @@
 <template lang="html">
   <div class="note mb-3 rounded" role="main">
-    <header>
-      <!-- TODO: fix discrepancies -->
-      <!-- TODO: ^ take better notes -->
-      <router-link
-        v-if="note.gameName"
-        :to="{ name: 'game.notes', params: { id: note.gameId, slug: note.gameSlug } }"
-        class="cursor-pointer"
-      >
-        {{ note.gameName }}
-      </router-link>
-
-      <span v-else>Note:</span>
-    </header>
+    <header />
 
     <div
       class="note-content"
@@ -52,9 +40,9 @@ export default {
 }
 
 header {
-  background-image: linear-gradient(90deg, transparent 79px, #ec7063 79px, #ec7063 81px, transparent 81px);
+  background-image: linear-gradient(90deg, transparent 30px, #ec7063 30px, #ec7063 33px, transparent 33px);
   background-size: 100% 1.2em;
-  padding-left: 5.5rem;
+  padding-left: 2.5rem;
   padding-right: 1rem;
   padding-top: 1rem;
   display: flex;
@@ -62,12 +50,12 @@ header {
 }
 
 .note-content {
-  background-image: linear-gradient(90deg, transparent 79px, #ec7063 79px, #ec7063 81px, transparent 81px), linear-gradient(#85c1e9 .1em, transparent .1em);
+  background-image: linear-gradient(90deg, transparent 30px, #ec7063 30px, #ec7063 33px, transparent 33px), linear-gradient(#85c1e9 .1em, transparent .1em);
   background-size: 100% 1.2em;
   padding-bottom: 1rem;
   flex-grow: 8;
   padding-top: .2rem;
-  padding-left: 6rem;
+  padding-left: 3rem;
   line-height: 1.3;
 }
 </style>

@@ -100,7 +100,7 @@ export default {
 
   data() {
     return {
-      loading: true,
+      loading: false,
       saving: false,
     };
   },
@@ -142,13 +142,18 @@ export default {
 
   methods: {
     async load() {
-      this.loading = true;
+      const hasGameChanged = this.game.id !== this.$route.params.id;
 
-      await this.$store.dispatch('LOAD_GAME', this.$route.params.id);
-      await this.$store.dispatch('LOAD_TAGS')
-        .catch(() => {
-          this.loading = false;
-        });
+      if (!hasGameChanged && this.game?.id && this.tags?.length > 0) return;
+
+      try {
+        this.loading = true;
+
+        await this.$store.dispatch('LOAD_GAME', this.$route.params.id);
+        await this.$store.dispatch('LOAD_TAGS')
+      } catch (e) {
+        this.loading = false;
+      }
 
       this.loading = false;
     },

@@ -1,34 +1,38 @@
 <template lang="html">
   <div class="mt-3">
-    <game-genres />
+    <div v-if="gameGenres" class="pr-2 pb-2 small">
+      <strong>Genres:</strong>
 
-    <div v-if="gameModes" class="pr-2 pb-3 small">
+      {{ gameGenres }}
+    </div>
+
+    <div v-if="gameModes" class="pr-2 pb-2 small">
       <strong>{{ $t('board.gameModal.gameModes') }}: </strong>
       <span class="text-wrap">{{ gameModes }}</span>
     </div>
 
-    <div v-if="gameDevelopers" class="pr-2 pb-3 small">
+    <div v-if="gameDevelopers" class="pr-2 pb-2 small">
       <strong>{{ $t('board.gameModal.developers') }}: </strong>
       <span class="text-wrap">{{ gameDevelopers }}</span>
     </div>
 
-    <div v-if="gamePublishers" class="pr-2 pb-3 small">
+    <div v-if="gamePublishers" class="pr-2 pb-2 small">
       <strong>{{ $t('board.gameModal.publishers') }}: </strong>
       <span class="text-wrap">{{ gamePublishers }}</span>
     </div>
 
-    <div v-if="playerPerspectives" class="pr-2 pb-3 small">
+    <div v-if="playerPerspectives" class="pr-2 pb-2 small">
       <strong>{{ $t('board.gameModal.perspective') }}: </strong>
       <span class="text-wrap">{{ playerPerspectives }}</span>
     </div>
 
-    <div class="pr-2 pb-3 small">
+    <div class="pr-2 pb-2 small">
       <strong>Available for: </strong>
 
       <span class="text-wrap">{{ gamePlatforms || 'N/A' }}</span>
     </div>
 
-    <div class="pr-2 pb-3 small">
+    <div class="pr-2 pb-2 small">
       <strong>{{ $t('board.gameModal.releaseDate') }}</strong>
       <ol v-if="releaseDates" class="list-unstyled mb-0">
         <li
@@ -47,15 +51,9 @@
 </template>
 
 <script>
-import GameGenres from '@/components/Game/GameGenres';
-
 import { mapGetters, mapState } from 'vuex';
 
 export default {
-  components: {
-    GameGenres,
-  },
-
   computed: {
     ...mapGetters(['platformNames']),
     ...mapState(['game']),
@@ -90,6 +88,12 @@ export default {
       return this.game?.player_perspectives
         ? this.game.player_perspectives.map(({ name }) => name).join(', ')
         : null;
+    },
+
+    gameGenres() {
+      const gameGenres = this.game?.genres || [];
+
+      return gameGenres.map((genre) => genre.name).join(', ');
     },
 
     releaseDates() {

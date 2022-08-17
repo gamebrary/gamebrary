@@ -1,17 +1,16 @@
 <template lang="html">
-  <div v-if="similarGames.length">
+  <div v-if="similarGames.length" class="similar-games mt-2">
     <h4 class="text-center text-muted">You may also like</h4>
 
-    <div class="d-flex overflow-auto">
-      <b-card
+    <div class="d-flex overflow-auto mb-5 justify-content-center">
+      <b-img
         v-for="game in similarGames"
         :key="game.id"
-        :title="game.name"
         class="flex-shrink-0 mr-2 cursor-pointer"
-        style="max-width: 180px;"
-        body-class="p-2 text-center text-muted text-truncate"
-        :img-src="getCoverUrl(game)"
-        :img-alt="game.name"
+        style="max-width: 100px;"
+        rounded
+        :src="getCoverUrl(game)"
+        :alt="game.name"
         img-top
         @click="openGame(game)"
       />
@@ -66,3 +65,10 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+.similar-games {
+  max-width: 90vw;
+  margin: 0 auto;
+}
+</style>

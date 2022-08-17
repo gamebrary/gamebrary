@@ -1,14 +1,15 @@
-<!-- TODO: add bundles to game detail? -->
-<!-- {{ game.bundles ? `Found in ${game.bundles.length} compilations.` : null }} -->
-<!-- TODO: add speedruns -->
 <!-- TODO: Highlight exclusive games (e.g. only for NSW) -->
 <!-- TODO: add pricecharting info -->
 <!-- TODO: show GOG buy button -->
-<!-- TODO: Show lists/boards that the game belongs to -->
-
 <template lang="html">
   <b-container fluid>
-    <portal to="pageTitle" v-if="game">{{ game.name }}</portal>
+    <!-- <portal to="pageTitle" v-if="game">{{ game.name }}</portal> -->
+
+    <!-- <portal to="pageTitle" v-if="game">
+      <b-button>
+        boom
+      </b-button>
+    </portal> -->
 
     <div v-if="loading" class="text-center mt-5 ml-auto">
       <b-spinner/>
@@ -17,7 +18,7 @@
     <template v-else-if="game">
       <game-media-modal />
 
-      <b-row>
+      <b-form-row>
         <b-col
           cols="12"
           sm="6"
@@ -35,23 +36,35 @@
             />
           </div>
 
-          <b-img
-            v-b-modal.mediaModal
-            :src="gameHeaderImage"
-            fluid
-          />
+          <section
+            v-if="gameNews.length"
+            tag="a"
+            class="bg-light rounded px-2 mt-2 d-flex flex-column"
+          >
+            <h5 class="pt-2">Latest news:</h5>
+
+            <router-link
+              v-for="article in gameNews"
+              :key="article.gid"
+              :to="{ name: 'game.news', params: { id: game.id, slug: game.slug } }"
+              class="d-flex mb-2"
+            >
+              <b-img
+                :src="article.imageUrl"
+                width="100"
+                :blank="!article.imageUrl"
+                rounded
+                class="float-left mr-2"
+              />
+
+              <small class="pr-2">{{ article.title }}</small>
+            </router-link>
+          </section>
 
           <!-- <amazon-links class="mt-2" /> -->
 
-          <!-- <div class="game-info">
-            <game-rating :game="game" />
-          </div> -->
-
           <!-- <pre class="text-dark small">{{ game.gog.price }}</pre> -->
 
-          <!-- <small>
-            <pre class="text-dark">{{ steamGame }}</pre>
-          </small> -->
           <!-- <small v-if="gog && gog.isPriceVisible">{{gog.price.symbol}}{{ gog.price.amount }}</small> -->
           <!-- <small><pre class="text-dark">{{ gog }}</pre></small> -->
           <!-- <pre class="small text-dark">{{ steamGame }}</pre> -->
@@ -87,20 +100,13 @@
               v-if="note"
               :note="note"
               class="cursor-pointer"
-              @click.native="$router.push({ name: 'game.notes', params: { id: game.id } })"
+              @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
             />
           </div>
 
-          <b-button
-            v-if="gameNews.length"
-            :to="{ name: 'game.news', params: { id: game.id, slug: game.slug } }"
-            variant="light"
-          >
-            <i class="fa-solid fa-newspaper fa-fw" />
-            <span class="d-none d-lg-inline">News</span>
-          </b-button>
-
           <game-in-list />
+
+          <!-- <game-speedruns /> -->
 
           <!-- <div v-if="gameAchievements"> -->
             <!-- TODO: add steam achievements -->
@@ -111,36 +117,49 @@
         <b-col
           cols="12"
           sm="6"
+          md="8"
           xl="9"
         >
-          <article class="bg-light rounded p-3">
+          <article class="bg-white rounded px-3 pt-3 pb-1">
             <header class="d-flex align-items-start justify-content-between pb-2">
               <game-titles />
 
               <aside>
                 <b-button
+                  v-if="!tagsApplied.length"
+                  rounded
                   variant="light"
-                  pill
+                  size="sm"
+                  class="mr-1"
+                  @click="$router.push({ name: 'game.tags', params: { id: game.id, slug: game.slug } })"
+                >
+                  Tag
+                </b-button>
+
+                <b-button
+                  variant="light"
+                  size="sm"
+                  class="mr-1"
                   @click="$router.push({ name: 'game.progress', params: { id: game.id, slug: game.slug } })"
                 >
                   {{ progress || 0 }}%
                 </b-button>
 
                 <b-button
+                  size="sm"
                   variant="warning" :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug } }"
-                  class="mr-2"
+                  class="mr-1"
                 >
                   <i class="fa-solid fa-note-sticky fa-fw" />
                 </b-button>
 
                 <b-button
+                  size="sm"
                   variant="light" @click="$bus.$emit('ADD_GAME', game.id)"
-                  class="mr-2"
+                  class="mr-1"
                 >
                   <i class="fa-solid fa-plus fa-fw" />
-                  <span class="d-none d-lg-inline">Add to list</span>
                 </b-button>
-
 
                 <!-- <b-button :href="metacriticScore.url" variant="success" v-if="metacriticScore.url">
                   {{ metacriticScore.score }}
@@ -148,16 +167,6 @@
                 </b-button> -->
               </aside>
             </header>
-
-            <b-button
-              v-if="!tagsApplied.length"
-              rounded
-              variant="light"
-              class="mb-2"
-              @click="$router.push({ name: 'game.tags', params: { id: game.id, slug: game.slug } })"
-            >
-              Tag
-            </b-button>
 
             <b-button
               v-for="({ bgColor, textColor, name }) in tagsApplied"
@@ -184,48 +193,27 @@
             </aside>
 
             <game-description />
+
+            <b-img
+              v-b-modal.mediaModal
+              :src="gameHeaderImage"
+              fluid
+            />
+
             <game-details />
+            <game-ratings />
 
-
-            <b-card-footer v-if="legalNotice">
-              <small class="text-muted" v-html="legalNotice" />
-            </b-card-footer>
-
-            <!-- TODO: use speedrun logo -->
-            <!-- <pre>{{ game}}</pre> -->
-            <!-- <b-card-img src="https://placekitten.com/480/210" alt="Image" bottom></b-card-img> -->
           </article>
-        </b-col>
 
-        <b-col
-          cols="12"
-          sm="12"
-          md="6"
-          xl="6"
-          class="mt-3"
-        >
-          <!-- <game-speedruns v-if="game" /> -->
-          <!-- <pre>{{ game.speedruns }}</pre> -->
-          <!-- TODO: add bundles to game detail? -->
+          <small
+            v-if="legalNotice"
+            class="text-muted"
+            v-html="legalNotice"
+          />
         </b-col>
+      </b-form-row>
 
-        <!-- <b-col
-          cols="12"
-          class="mt-3"
-        >
-          <b-card>
-            <h4>[BUNDLES]</h4>
-          </b-card>
-          <pre>{{ game }}</pre>
-          {{ game.bundles ? `Found in ${game.bundles.length} compilations.` : null }}
-        </b-col> -->
-      </b-row>
-
-      <b-row>
-        <b-col>
-          <similar-games />
-        </b-col>
-      </b-row>
+      <similar-games />
     </template>
 
     <div class="pt-5" v-else>
@@ -236,27 +224,6 @@
         </div>
       </div>
     </div>
-
-    <!-- TODO: restore prev/next game -->
-    <!-- <b-dropdown-item-button
-      v-if="!prevDisabled"
-      v-shortkey="['arrowleft']"
-      @shortkey.native="previousGame"
-      @click="previousGame"
-    >
-      <i class="fas fa-caret-left fa-fw" aria-hidden /> Previous game
-
-    </b-dropdown-item-button>
-
-    <b-dropdown-item-button
-      v-if="!nextDisabled"
-      v-shortkey="['arrowright']"
-      @shortkey.native="nextGame"
-      @click="nextGame"
-    >
-      <i class="fas fa-caret-right fa-fw" aria-hidden /> Next game
-    </b-dropdown-item-button> -->
-    <!-- <pre>{{ game.genres.map(({ id }) => id) }}</pre> -->
 
     <!-- <timeline
       v-if="twitterHandle"
@@ -276,7 +243,7 @@ import { WEBSITE_CATEGORIES } from '@/constants';
 import GameDetails from '@/components/Game/GameDetails';
 import GameMediaModal from '@/components/Game/GameMediaModal';
 import GameTitles from '@/components/Game/GameTitles';
-// import GameRating from '@/components/Game/GameRating';
+import GameRatings from '@/components/Game/GameRatings';
 import GameDescription from '@/components/Game/GameDescription';
 import SimilarGames from '@/components/Game/SimilarGames';
 import GameInList from '@/components/Game/GameInList';
@@ -287,14 +254,13 @@ import { STEAM_CATEGORY_ID, GOG_CATEGORY_ID } from '@/constants';
 
 export default {
   components: {
-    // Timeline,
     // AmazonLinks,
     GameNote,
     GameDescription,
     GameDetails,
     GameTitles,
     GameMediaModal,
-    // GameRating,
+    GameRatings,
     GameWebsites,
     // GameSpeedruns,
     SimilarGames,
@@ -322,7 +288,20 @@ export default {
     },
 
     gameNews() {
-      return this.game?.news || [];
+      const news = this.game?.news?.map((article) => {
+        const imageUrlExpression = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/g;
+        const regex = new RegExp(imageUrlExpression);
+        const imageUrl = article?.contents?.match(regex)?.[0];
+
+        return {
+          title: article.title,
+          imageUrl,
+        }
+      }) || [];
+
+      return news.length > 3
+        ? news.splice(0, 3)
+        : news;
     },
 
     // gameAchievements() {
@@ -340,16 +319,6 @@ export default {
     legalNotice() {
       return this.game?.steam?.legal_notice;
     },
-
-    // prevDisabled() {
-    //   return this.gameIndex === 0;
-    // },
-    //
-    // nextDisabled() {
-    //   const isLast = this.gameIndex === list.games.length - 1;
-    //
-    //   return !this.list || isLast;
-    // },
 
     twitterHandle() {
       // TODO: put in constant
@@ -406,7 +375,6 @@ export default {
 
   mounted() {
     // TODO: wait for access token
-    this.$bus.$emit('UPDATE_WALLPAPER', null);
     this.loadGame();
 
     this.$store.dispatch('IGDB', { path: 'game_modes', data: 'fields *;' });
@@ -427,17 +395,14 @@ export default {
 
       if (!this.gameId || gameCached) return;
 
+      this.$bus.$emit('UPDATE_WALLPAPER', null);
       this.loading = true;
       this.$store.commit('CLEAR_GAME');
-      this.$bus.$emit('UPDATE_WALLPAPER', null);
       this.$store.dispatch('LOAD_TAGS');
 
       await this.$store.dispatch('LOAD_GAME', this.gameId)
         .catch(() => {
-          this.loading = false;
-
-          return;
-          // this.$bvToast.toast('Error loading game', { variant: 'error' });
+          return this.loading = false;
         });
 
       const steamData = this.game?.websites?.find(({ category }) => category === STEAM_CATEGORY_ID);
@@ -458,49 +423,17 @@ export default {
 
       if (wikipediaSlug) await this.$store.dispatch('LOAD_WIKIPEDIA_ARTICLE', wikipediaSlug).catch((e) => {});
       if (steamGameId) await this.$store.dispatch('LOAD_STEAM_GAME_NEWS', steamGameId).catch((e) => {});
-
-      console.log('this.game?.steam?.background', this.game?.steam?.background);
-
       if (this.game?.steam?.background) this.$bus.$emit('UPDATE_WALLPAPER', this.game?.steam?.background);
 
       this.loading = false;
     },
-
-    // previousGame() {
-    //   // TODO: account for list sorting when getting previous game
-    //   this.loading = true;
-    //
-    //   const index = list.games.indexOf(gameId);
-    //
-    //   const prevGameId = list.games[index - 1];
-    //
-    // TODO: push route
-    // },
-
-    // nextGame() {
-    //   // TODO: account for list sorting when getting next game
-    //   this.loading = true;
-    //
-    //
-    //   const index = list.games.indexOf(gameId);
-    //
-    //   const nextGameId = list.games[index + 1];
-    //
-    // TODO: push route
-    // },
   },
 };
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-.board-thumbnail {
-  background-size: cover;
-  background-position: center;
-}
-
-article {
-  background: red;
-  min-height: 50vh;
+.game-cover {
+  width: 100%;
 }
 
 .play-button {

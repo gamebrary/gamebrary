@@ -1,6 +1,6 @@
 <template lang="html">
   <b-card class="bg-info">
-    [SPEEDRUNS]
+    <!-- <pre>{{ speedruns }}</pre> -->
     <!-- <pre>{{ gameLogo }}</pre> -->
   </b-card>
 </template>
@@ -16,27 +16,26 @@ export default {
   },
 
   async mounted() {
-    await this.$store.dispatch('LOAD_GAME_SPEEDRUNS', this.game.name);
-    this.loadRuns();
-
-    this.loaded = true;
+    this.loadSpeedruns();
   },
   computed: {
     ...mapState(['game']),
 
     speedruns() {
-      // TODO: load runs / categories /
-      return this.game?.speedruns?.data?.[0];
-    },
-
-    gameLogo() {
-      return this.speedruns?.assets;
+      return this.game?.speedruns;
     },
   },
 
   methods: {
-    loadRuns() {
-      console.log(this.speedruns?.links);
+    async loadSpeedruns() {
+      const speedRunGame = await this.$store.dispatch('LOAD_SPEEDRUN_GAME', this.game.name);
+
+      const game = speedRunGame?.data?.[0];
+      const runsLink = game.links.find(({ rel }) => rel === 'runs')?.uri;
+
+      await this.$store.dispatch('LOAD_GAME_SPEEDRUN_RUNS', runsLink)
+
+      this.loaded = true;
     },
   },
 };

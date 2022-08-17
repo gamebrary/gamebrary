@@ -1,20 +1,6 @@
 <!-- TODO: finish layout -->
 <template lang="html">
   <b-container>
-    <portal to="pageTitle">
-      <div>
-        <b-button
-          :to="{ name: 'settings' }"
-          variant="light"
-          class="mr-2"
-          >
-          <i class="fa-solid fa-chevron-left" />
-        </b-button>
-
-        Notes
-      </div>
-    </portal>
-
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <b-row v-else>
@@ -53,47 +39,52 @@
       </b-col>
 
       <b-col cols="6">
-        <game-note v-if="note" :note="{ note }" />
+        <div class="note-split">
+          <game-note v-if="note" :note="{ note }" />
 
-        <b-form-textarea
-          v-model.trim="note"
-          placeholder="Type note here"
-          rows="3"
-          max-rows="20"
-        />
+          <form>
+            <b-form-textarea
+              v-model.trim="note"
+              placeholder="Type note here"
+              rows="3"
+              max-rows="20"
+            />
 
-        <b-form-text id="input-live-help" v-b-modal.markdown-cheatsheet>
-          <i class="fab fa-markdown fa-fw" />
-          Markdown supported
-        </b-form-text>
+            <b-form-text id="input-live-help" v-b-modal.markdown-cheatsheet>
+              <i class="fab fa-markdown fa-fw" />
+              Markdown supported
+            </b-form-text>
 
-        <footer class="mt-2">
-          <b-button
-            variant="primary"
-            :disabled="saving"
-            @click="saveNote"
-          >
-            <b-spinner small v-if="saving" />
-            <span v-else>{{ $t('global.save') }}</span>
-          </b-button>
+            <b-modal id="markdown-cheatsheet" title="BootstrapVue">
+              <markdown-cheatsheet />
+            </b-modal>
 
-          <b-button
-            variant="danger"
-            class="ml-2"
-            v-if="!saving"
-            :disabled="deleting"
-            @click="deleteNote"
-          >
-            <b-spinner small v-if="deleting" />
+            <footer class="mt-2">
+              <b-button
+                variant="primary"
+                :disabled="saving"
+                @click="saveNote"
+              >
+                <b-spinner small v-if="saving" />
+                <span v-else>{{ $t('global.save') }}</span>
+              </b-button>
 
-            <i class="d-sm-none fas fa-trash fa-fw" aria-hidden />
-            <span class="d-none d-sm-inline">{{ $t('global.delete') }}</span>
-          </b-button>
-        </footer>
+              <b-button
+                variant="danger"
+                class="ml-2"
+                v-if="!saving"
+                :disabled="deleting"
+                @click="deleteNote"
+              >
+                <b-spinner small v-if="deleting" />
 
-        <b-modal id="markdown-cheatsheet" title="BootstrapVue">
-          <markdown-cheatsheet />
-        </b-modal>
+                <i class="d-sm-none fas fa-trash fa-fw" aria-hidden />
+                <span class="d-none d-sm-inline">{{ $t('global.delete') }}</span>
+              </b-button>
+            </footer>
+
+          </form>
+        </div>
       </b-col>
     </b-row>
   </b-container>
@@ -131,30 +122,13 @@ export default {
   },
 
   mounted() {
-    this.loadNote();
+    this.loadGame();
   },
 
   methods: {
-    getCoverUrl(gameId) {
-      const game = this.games[gameId];
-
-      return game && game.cover && game.cover.image_id
-        ? `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${game.cover.image_id}.jpg`
-        : '/no-image.jpg';
-    },
-
-    loadNote() {
-      // if (this.game.id !== this.$route.params.id &&) {
-      //   this.loading = true;
-      // } else {
-      //   this.setNote();
-      // }
-      this.loadGame();
-    },
-
     async loadGame() {
-      this.loading = true;
       this.$store.commit('CLEAR_GAME');
+      this.loading = true;
 
       try {
         await this.$store.dispatch('LOAD_GAME', this.$route.params.id);
@@ -166,25 +140,17 @@ export default {
     },
 
     setNote() {
-      console.log(this.notes[this.game.id]);
-      this.note = this.notes[this.game.id] || '';
+      this.note = this.notes[this.$route.params?.id] || '';
     },
 
     async saveNote() {
       this.saving = true;
 
-      await this.$store.dispatch('SAVE_NOTES')
-        .catch(() => {
-          this.saving = false;
-          this.$bvToast.toast('There was an error saving your note', { variant: 'danger' });
-        });
+      this.$store.commit('SET_GAME_NOTE', { note: this.note, gameId: this.$route.params?.id });
+
+      await this.$store.dispatch('SAVE_NOTES').catch(() => {});
 
       this.saving = false;
-      this.$bvToast.toast('Note saved');
-      this.$store.commit('SET_GAME_NOTE', {
-        note: this.note,
-        gameId: this.game.id,
-      });
 
       this.$router.push({
         name: 'game',
@@ -196,26 +162,26 @@ export default {
     },
 
     async deleteNote() {
-      this.deleting = true;
-
-      this.$store.commit('REMOVE_GAME_NOTE', this.game.id);
-
-      await this.$store.dispatch('SAVE_NOTES_NO_MERGE')
-        .catch(() => {
-          this.deleting = false;
-          this.$bvToast.toast('There was an error deleting your note', { variant: 'danger' });
-        });
-
-      this.note = '';
-      this.$bvToast.toast('Note deleted');
-
-      this.$router.push({
-        name: 'game',
-        params: {
-          id: this.game.id,
-          slug: this.game.slug,
-        },
-      });
+      // this.deleting = true;
+      //
+      // this.$store.commit('REMOVE_GAME_NOTE', this.game.id);
+      //
+      // await this.$store.dispatch('SAVE_NOTES_NO_MERGE')
+      //   .catch(() => {
+      //     this.deleting = false;
+      //     this.$bvToast.toast('There was an error deleting your note', { variant: 'danger' });
+      //   });
+      //
+      // this.note = '';
+      // this.$bvToast.toast('Note deleted');
+      //
+      // this.$router.push({
+      //   name: 'game',
+      //   params: {
+      //     id: this.game.id,
+      //     slug: this.game.slug,
+      //   },
+      // });
     },
   },
 };
