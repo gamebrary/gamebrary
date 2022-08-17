@@ -56,7 +56,7 @@ export default {
     search() {
       if (this.$route.query?.q === this.searchText) return;
 
-      this.$router.push({ name: 'search', query: { q: this.searchText } });
+      this.$router.push({ name: 'search', query: { ...this.$route.query, q: this.searchText } });
     },
   },
 };

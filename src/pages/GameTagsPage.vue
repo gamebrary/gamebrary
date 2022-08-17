@@ -55,7 +55,7 @@
               :key="name"
               rounded
               block
-              variant="outline-light"
+              variant="transparent"
               :class="{ 'd-none': !selected }"
               :disabled="saving"
               :style="`background-color: ${bgColor}; color: ${textColor}`"
@@ -74,7 +74,7 @@
             :key="name"
             rounded
             block
-            variant="outline-light"
+            variant="transparent"
             :class="{ 'd-none': selected }"
             :disabled="saving"
             :style="`background-color: ${bgColor}; color: ${textColor}`"

@@ -1,5 +1,4 @@
 <!-- TODO: add filters -->
-<!-- TODO: add view toggle -->
 <!-- TODO: add empty state with predefined searches -->
 <!-- TODO: add pagination -->
 <template lang="html">
@@ -13,6 +12,18 @@
     <b-skeleton v-if="loading" />
 
     <b-row v-else-if="searchResults.length">
+      <b-col cols="12" class="bg-light py-2 mb-3">
+        <!-- TODO: allow to toggle boards -->
+        <b-button v-if="activeBoard" :to="{ name: 'board', params: { id: boardId } }">
+          {{ activeBoard.name }}
+        </b-button>
+
+        <!-- TODO: allow to toggle lists -->
+        <b-button v-if="activeBoard">
+          {{ activeBoardList.name }}
+        </b-button>
+      </b-col>
+
       <b-col
         cols="6"
         md="4"
@@ -59,7 +70,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['board']),
+    ...mapState(['boards']),
 
     query() {
       return this.$route.query.q
@@ -75,10 +86,18 @@ export default {
       return this.$route.query?.listIndex;
     },
 
+    selectable() {
+      return Boolean(this.boardListIndex >= 0 && this.boardId);
+    },
+
+    activeBoard() {
+      return this.boards.find(({ id }) => id === this.boardId);
+    },
+
     activeBoardList() {
       if (this.boardListIndex === undefined) return [];
 
-      return this.board?.lists[this.boardListIndex];
+      return this.activeBoard?.lists[this.boardListIndex];
     },
   },
 

@@ -164,6 +164,7 @@
               :key="name"
               rounded
               size="sm"
+              variant="transparent"
               class="mr-1 my-2"
               :style="`background-color: ${bgColor}; color: ${textColor}`"
               @click="$router.push({ name: 'game.tags', params: { id: game.id, slug: game.slug } })"

@@ -2,19 +2,20 @@
   <b-card
     no-body
     :title="game.name"
-    :img-src="coverUrl"
-    :img-alt="game.name"
-    img-top
-    class="mb-2"
-    footer-class="p-0 text-center font-weight-bold bold strong"
-    @click="$router.push({ name: 'game', params: { id: game.id, slug: game.slug }})"
+    class="mb-3"
+    :footer-class="['p-1 text-center font-weight-bold bold strong', selected ? 'bg-success' : 'text-muted']"
+    @click="handleClick"
   >
-  <!-- :to="{ name: 'game', params: { id: game.id, slug: game.slug }}" -->
+    <!-- :to="{ name: 'game', params: { id: game.id, slug: game.slug }}" -->
+
+    <b-card-img
+      :src="coverUrl"
+      :img-alt="game.name"
+      :alt="game.name"
+    />
 
     <template #footer>
-      <small class="text-muted">
-        <!-- <pre>{{ selectedBoard }}</pre> -->
-        <!-- <pre>{{ selectedList }}</pre> -->
+      <small :class="[selected ? 'text-white' : 'text-muted']">
         <strong>{{ game.name }}</strong>
       </small>
     </template>
@@ -46,6 +47,10 @@ export default {
       return this.boards.find(({ id }) => id === boardId);
     },
 
+    selected() {
+      return this.selectedList?.games?.includes(this.game.id)
+    },
+
     selectedList() {
       const { listIndex } = this.$route.query;
 
@@ -54,48 +59,64 @@ export default {
   },
 
   methods: {
-    // handleClick() {
-    //   const { listIndex, boardId } = this.$route.query;
+    // isGameSelected(game.id)
+    // isGameSelected(gameId) {
+    //   console.log(this.activeBoardList?.games?.includes(gameId));
     //
-    //   if (listIndex && boardId) return this.addGameToList();
-    //
-    //   return this.user
-    //     ? this.$bus.$emit('ADD_GAME', this.game.id)
-    //     : this.$router.push({ name: 'game', params: { id: this.game.id, slug: this.game.slug }});
+    //   return this.activeBoardList?.games?.includes(gameId);
     // },
 
+    handleClick() {
+      // const activeBoardList = boards
+      const { boardId, listIndex } = this.$route?.query;
+      const hasActiveBoard = boardId && listIndex >= 0;
+
+      if (hasActiveBoard) {
+        this.addGameToList();
+      } else {
+        const { id, slug } = this.game;
+
+        this.$router.push({ name: 'game', params: { id, slug }});
+      }
+
+      // TODO: put guards when unauthed
+      // return this.user
+      //   ? this.$bus.$emit('ADD_GAME', this.game.id)
+      //   : this.$router.push({ name: 'game', params: { id: this.game.id, slug: this.game.slug }});
+    },
+
     addGameToList() {
-      return this.selectedList.games.includes(this.game.id)
+      return this.selected
         ? this.removeGame()
         : this.addGame();
     },
 
     async addGame() {
-      const boardIndex = this.boards.findIndex(({ id }) => id === this.selectedBoard.id);
+      const { boardId, listIndex } = this.$route?.query;
+      const boardIndex = this.boards.findIndex(({ id }) => id === boardId);
       const board = this.boards[boardIndex];
-      console.log(board);
 
-      // board.lists[listIndex].games.push(this.game.id);
+      board.lists[listIndex].games.push(this.game.id);
 
-      // try {
-      //   await this.$store.dispatch('SAVE_GAME_BOARD', board);
-      // } catch (e) {
-      //   // this.$bvToast.toast(`There was an error adding "${this.game.name}"`, { title: list.name, variant: 'danger' });
-      // }
+      try {
+        await this.$store.dispatch('SAVE_GAME_BOARD', board);
+      } catch (e) {
+        // this.$bvToast.toast(`There was an error adding "${this.game.name}"`, { title: list.name, variant: 'danger' });
+      }
     },
 
-    async removeGame({ listIndex, boardId }) {
-      // const boardIndex = this.boards.findIndex(({ id }) => id === boardId);
-      // const board = this.boards[boardIndex];
-      // const gameIndex = board.lists[listIndex].games.indexOf(this.gameId);
-      //
-      // board.lists[listIndex].games.splice(gameIndex, 1);
-      //
-      // try {
-      //   await this.$store.dispatch('SAVE_GAME_BOARD', board);
-      // } catch (e) {
-      //   // this.$bvToast.toast(`There was an error removing "${this.game.name}"`, { title: list.name, variant: 'danger' });
-      // }
+    async removeGame() {
+      const { boardId, listIndex } = this.$route?.query;
+      const boardIndex = this.boards.findIndex(({ id }) => id === boardId);
+      const board = this.boards[boardIndex];
+
+      board.lists[listIndex].games.splice(gameIndex, 1);
+
+      try {
+        await this.$store.dispatch('SAVE_GAME_BOARD', board);
+      } catch (e) {
+        // this.$bvToast.toast(`There was an error removing "${this.game.name}"`, { title: list.name, variant: 'danger' });
+      }
     },
   },
 };

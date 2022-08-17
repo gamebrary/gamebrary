@@ -44,7 +44,7 @@
         @click="$router.push({ name: 'tag.edit', params: { id: index } })"
         rounded
         block
-        variant="outline-light"
+        variant="transparent"
         :style="`background-color: ${bgColor}; color: ${textColor}`"
         :key="name"
       >

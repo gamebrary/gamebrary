@@ -46,9 +46,9 @@
             <b-badge
               v-for="({ bgColor, textColor, name }) in tagsApplied"
               :key="name"
-              pill
+              rounded
               class="mr-1"
-              variant="primary"
+              variant="transparent"
               :style="`background-color: ${bgColor}; color: ${textColor}`"
             >
               <small>{{ name }}</small>

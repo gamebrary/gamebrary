@@ -64,10 +64,9 @@
       <b-button
         v-if="tag.name"
         rounded
-        block
         size="sm"
-        class="mr-2 mb-2 field"
-        variant="outline-light"
+        class="mr-2 mb-2"
+        variant="transparent"
         :style="`background-color: ${tag.bgColor}; color: ${tag.textColor}`"
       >
         {{ tag.name }}
