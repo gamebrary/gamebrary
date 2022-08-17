@@ -54,7 +54,7 @@ export default {
     selectedList() {
       const { listIndex } = this.$route.query;
 
-      return this.selectedBoard.lists[listIndex];
+      return this.selectedBoard?.lists?.[listIndex];
     },
   },
 
@@ -96,7 +96,7 @@ export default {
       const boardIndex = this.boards.findIndex(({ id }) => id === boardId);
       const board = this.boards[boardIndex];
 
-      board.lists[listIndex].games.push(this.game.id);
+      board?.lists?.[listIndex]?.games.push(this.game.id);
 
       try {
         await this.$store.dispatch('SAVE_GAME_BOARD', board);
