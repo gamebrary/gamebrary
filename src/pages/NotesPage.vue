@@ -1,7 +1,7 @@
 <!-- TODO: allow notes to be public -->
 <!-- TODO: pagination? -->
 <template lang="html">
-  <b-container fluid>
+  <b-container>
     <portal to="pageTitle">
       <div>
         <b-button
@@ -33,51 +33,47 @@
       message="Looks like you don't have any notes yet."
     />
 
-    <b-row v-else>
-      <b-col cols="6" v-if="noteGames.length">
-        <!-- TODO: make computed for note selector -->
-        <div
-          v-for="(game, index) in noteGames"
-          :key="index"
-        >
+    <b-form-row v-else-if="noteGames.length">
+      <b-col
+        v-for="(game, index) in noteGames"
+        :key="index"
+        cols="8"
+      >
+        <aside v-if="game">
           <b-img
-            v-if="game && game.id"
             :src="getCoverUrl(game.id)"
-            class="cursor-pointer"
-            thumbnail
-            @click="selectedNote = filteredNotes[index]"
+            class="cursor-pointer "
+            width="40"
           />
 
           <b-button
-            v-if="game && game.name"
-            @click="selectedNote = filteredNotes[index]"
+            v-if="game.name"
+            variant="link"
           >
-            {{ game.name }}
+          {{ game.name }}
           </b-button>
-        </div>
-      </b-col>
 
-      <b-col>
-        <game-note :note="selectedNote" v-if="selectedNote" />
+          <p class="text-muited small" v-if="filteredNotes[index]">
+            {{ filteredNotes[index].note }}
+          </p>
+
+        </aside>
       </b-col>
-    </b-row>
+    </b-form-row>
   </b-container>
 </template>
 
 <script>
 import EmptyState from '@/components/EmptyState';
-import GameNote from '@/components/GameNote';
 import { mapState } from 'vuex';
 
 export default {
   components: {
     EmptyState,
-    GameNote,
   },
 
   data() {
     return {
-      selectedNote: null,
       loaded: false,
       search: '',
     };
@@ -121,8 +117,6 @@ export default {
 
   mounted() {
     this.loadGames();
-
-    if (this.filteredNotes.length > 0) this.selectedNote = this.filteredNotes[0];
   },
 
   methods: {

@@ -16,12 +16,18 @@ export default {
   props: {
     note: {
       type: [Object, String],
+      default: '',
     },
   },
 
   computed: {
     formattedNote() {
-      return marked(this.note?.note || this.note);
+      // TODO: remove legacy checks once fully migrated
+      const note = this.note?.note || this.note;
+
+      return typeof note === 'object'
+        ? marked(note.note)
+        : marked(note);
     },
   },
 };
