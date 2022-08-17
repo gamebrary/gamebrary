@@ -1,14 +1,10 @@
 <template lang="html">
-  <div
-    class="d-flex align-items-center justify-content-center"
-    :style="`height: calc(100vh - 58px)`"
-    >
-    <b-card
-      class="sw-100 w-30"
-      body-class="text-center"
-      sub-title="404"
-      :title="$t('global.pageNotFound')"
-    >
-    </b-card>
+  <div class="text-center">
+      <h1 class="display-1 m-0">404</h1>
+      <p class="text-muted">Page not found</p>
+
+      <b-button variant="primary" :to="{ name: 'home' }">
+        Go home
+      </b-button>
   </div>
 </template>
