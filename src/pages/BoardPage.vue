@@ -117,7 +117,6 @@ export default {
       this.load();
     }
 
-    // TODO: is this needed? remove if not!
     this.$bus.$on('LOAD_BOARD_BACKGROUND', this.loadBoardBackground);
   },
 
