@@ -233,7 +233,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['game', 'progresses', 'tags', 'boards', 'user', 'notes']),
+    ...mapState(['game', 'progresses', 'tags', 'boards', 'user', 'notes', 'twitchToken']),
 
     metacriticScore() {
       return this.game?.steam?.metacritic || {};
@@ -320,11 +320,23 @@ export default {
   },
 
   mounted() {
-    // TODO: wait for access token
+    if (!this.twitchToken) return this.waitAndLoadGame();
     this.loadGame();
   },
 
   methods: {
+    waitAndLoadGame() {
+      this.loading = true;
+
+      setTimeout(() => {
+        if (!this.twitchToken) {
+          this.waitAndLoadGame();
+        } else {
+          this.loadGame();
+        }
+      }, 500);
+    },
+
     getWallpaperUrl(url) {
       if (!url) return '';
       if (url && url.includes('igdb.com')) return url;
@@ -344,7 +356,6 @@ export default {
       this.$bus.$emit('UPDATE_WALLPAPER', null);
       this.loading = true;
       this.$store.commit('CLEAR_GAME');
-      this.$store.dispatch('LOAD_TAGS');
 
       await this.$store.dispatch('LOAD_GAME', this.gameId)
         .catch(() => {
@@ -355,6 +366,7 @@ export default {
 
       // TODO: use regex or more elegant way to get id from url
       const steamGameId = steamData?.url?.split('app/')[1]?.split('/')[0];
+
       if (steamGameId) await this.$store.dispatch('LOAD_STEAM_GAME', steamGameId).catch((e) => {});
 
       // TODO: find more precise way to load GOG game, based on id?
