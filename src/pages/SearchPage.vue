@@ -27,7 +27,8 @@
             <b-dropdown-item
               v-for="board in boards"
               :key="board.id"
-              :to="{ name: 'search', query: { boardId: board.id, listIndex: boardListIndex } }"
+              :disabled="!board.lists.length"
+              :to="{ name: 'search', query: { boardId: board.id, listIndex: 0 } }"
             >
               {{ board.name }}
             </b-dropdown-item>
@@ -41,11 +42,10 @@
             :text="activeBoardList.name"
           >
             <b-dropdown-item
-              v-for="(list, index) in activeBoard.lists"
+              v-for="(list, listIndex) in activeBoard.lists"
               :key="list.id"
-              :to="{ name: 'search', query: { boardId: activeBoard.id, listIndex: index } }"
+              :to="{ name: 'search', query: { boardId: activeBoard.id, listIndex } }"
             >
-              <!-- :to="{ name: 'search', query: { boardId: board.id, listIndex: boardListIndex } }" -->
               {{ list.name }}
             </b-dropdown-item>
           </b-dropdown>
@@ -137,10 +137,6 @@ export default {
   watch: {
     query(value) {
       this.search(value);
-    },
-
-    boardId(value) {
-      console.log('board changed', value);
     },
   },
 
