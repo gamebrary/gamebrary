@@ -1,70 +1,58 @@
 <template lang="html">
   <b-container>
     <portal to="pageTitle">
-      <span>
+      <div>
         <b-button
-          :to="{ name: 'game', params: { id: game.id, slug: game.slug }}"
+          :to="{ name: 'game', params: { id: game.id, slug: game.slug } }"
           variant="light"
+          class="mr-2"
           >
-          {{ game.name }}
+            <i class="fa-solid fa-chevron-left" />
         </b-button>
 
         Track progress
-      </span>
+      </div>
     </portal>
 
-    <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}">
-      <b-img :src="gameCoverUrl" width="200" rounded class="mb-2 mr-2" />
-    </router-link>
 
-    {{ title }}
+    <b-row>
+      <b-col cols="6">
+        <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}" class="float-right">
+          <b-img :src="gameCoverUrl" fluid rounded />
+        </router-link>
+      </b-col>
 
-    <b-progress
-      :value="localProgress"
-      :max="100"
-      show-progress
-      variant="success"
-      striped
-      height="2rem"
-    />
-    <!-- TODO: animate when saving! -->
-    <!-- animated -->
-    <b-button
-      v-if="!saving"
-      variant="success"
-      @click="markAsCompleted"
-    >
-      <i class="fas fa-check fa-fw" aria-hidden />
-      Mark as completed
-    </b-button>
+      <b-col>
+        <b-input-group :prepend="`${localProgress}%`" class="field mb-2">
+          <b-form-input
+            size="lg"
+            v-model="localProgress"
+            type="range"
+            max="100"
+            step="1"
+          />
+        </b-input-group>
 
-    <b-button
-      :disabled="deleting"
-      variant="danger"
-      @click="deleteProgress"
-    >
-      <i class="fas fa-trash fa-fw" aria-hidden />
-      Remove progress
-    </b-button>
+        <b-button
+          variant="primary"
+          :disabled="saving"
+          class="mr-2"
+          @click="saveProgress"
+        >
+          <b-spinner small v-if="saving" />
+          <span v-else>{{ $t('global.save') }}</span>
+        </b-button>
 
-    <b-button
-      variant="primary"
-      :disabled="saving"
-      @click="saveProgress"
-    >
-      <b-spinner small v-if="saving" />
-      <span v-else>{{ $t('global.save') }}</span>
-    </b-button>
-
-    <b-input-group :prepend="`${localProgress}%`" size="lg">
-      <b-form-input
-        size="lg"
-        v-model="localProgress"
-        type="range"
-        max="100"
-        step="1"
-      />
-    </b-input-group>
+        <b-button
+          :disabled="deleting"
+          variant="danger"
+          @click="deleteProgress"
+        >
+          <b-spinner small v-if="deleting" />
+          <i v-else class="fas fa-trash fa-fw" aria-hidden />
+        </b-button>
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
@@ -102,12 +90,6 @@ export default {
   },
 
   methods: {
-    markAsCompleted() {
-      this.localProgress = 100;
-
-      this.saveProgress();
-    },
-
     show() {
       this.setGameProgress();
       this.saving = false;
@@ -135,8 +117,8 @@ export default {
           this.deleting = false;
         });
 
-      this.$bvToast.toast('Progress deleted', { title: `${name} progress`, variant: 'success' });
-      this.$bvModal.hide('progress');
+      this.deleting = false;
+      this.$router.push({ name: 'game', params: { id: this.game.id, slug: this.game.slug }});
     },
 
     async saveProgress() {
@@ -155,8 +137,8 @@ export default {
           this.$bvToast.toast('There was an error saving your progress', { variant: 'error' });
         });
 
-      this.$bvToast.toast('Progress updated', { title: `${name} progress`, variant: 'success' });
-      this.$bvModal.hide('progress');
+      this.saving = false;
+      this.$router.push({ name: 'game', params: { id: this.game.id, slug: this.game.slug }});
     },
   },
 };

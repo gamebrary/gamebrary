@@ -2,13 +2,14 @@
   <b-sidebar
     id="addGame"
     no-header
+    right
     :visible="Boolean(gameId)"
     backdrop
     shadow
     @hidden="hidden"
   >
     <template #default>
-      <div class="p-2">
+      <div class="p-2 bg-white">
         <b-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}">
           <b-img
             :src="coverUrl"
@@ -17,78 +18,75 @@
           />
         </b-link>
 
-        <b-button
-          block
-          variant="success"
-          class="mt-2"
-          :to="{ name: 'game', params: { id: game.id, slug: game.slug }}"
-        >
-          {{ game.name }}
-        </b-button>
-
         <template v-if="user">
-          <h4 class="my-2">Add to list:</h4>
+          <h4 class="my-3 text-center">Add to list:</h4>
 
-          <b-list-group flush>
-            <b-list-group-item
-              v-for="board in formattedBoards"
-              :key="board.id"
-              class="p-0"
-              button
-              @click="expandedBoard = board.id === expandedBoard ? null : board.id"
+          <div
+            v-for="board in formattedBoards"
+            :key="board.id"
+            class="p-2 bg-light mb-2"
+          >
+            <header class="mb-2 d-flex align-items-center">
+              <b-avatar
+                rounded
+                :class="['board-thumbnail mr-2', { 'bg-dark' : !board.backgroundColor }]"
+                :title="board.name"
+                text=" "
+                size="32"
+                :style="`
+                  background-image: url(${board.backgroundUrl ? board.backgroundUrl : ''});
+                  background-color: ${board.backgroundColor ? board.backgroundColor : ''}
+                  `"
+                :to="{ name: 'board', params: { id: board.id } }"
+              />
+
+              {{ board.name }}
+            </header>
+
+            <b-button
+              v-for="(list, listIndex) in board.lists"
+              :key="`${board.id}-${list.name}`"
+              :variant="isGameInList({ list, gameId }) ? 'success' : 'info'"
+              block
+              clas
+              size="sm"
+              @click.stop="handleClick({ list, listIndex, board })"
             >
-              <header class="p-2 d-flex justify-content-between align-items-center">
-                <aside class="d-flex">
-                  <b-avatar
-                    rounded
-                    :class="['board-thumbnail mr-2', { 'bg-dark' : !board.backgroundColor }]"
-                    :title="board.name"
-                    text=" "
-                    :style="`
-                      background-image: url(${board.backgroundUrl ? board.backgroundUrl : ''});
-                      background-color: ${board.backgroundColor ? board.backgroundColor : ''}
-                      `"
-                    :to="{ name: 'board', params: { id: board.id } }"
-                  />
+              {{ list.name }}
 
-                  <div class="d-flex flex-column">
-                    {{ board.name }}
+              <b-badge variant="light" class="mr-2">
+                {{ list.games.length }}
+              </b-badge>
+
+              <i :class="`fa-solid ${isGameInList({ list, gameId }) ? 'fa-minus' : 'fa-plus' }`" />
+            </b-button>
+
+            <!-- <b-collapse
+              :id="board.id"
+              :visible="expandedBoard === board.id"
+              accordion="my-accordion"
+              role="tabpanel"
+            >
+              <b-list-group flush>
+                <div
+                  class="d-flex justify-content-between align-items-center"
+                  v-for="(list, listIndex) in board.lists"
+                  :key="`${board.id}-${list.name}`"
+                  :variant="isGameInList({ list, gameId }) ? 'success' : 'transparent'"
+                  button
+                  @click.stop="handleClick({ list, listIndex, board })"
+                >
+                  <span>
+                    {{ list.name }}
                     <br />
-                    <small>{{ board.lists.length }} Lists</small>
-                  </div>
-                  <!-- TODO: show "In XX lists" -->
-                </aside>
+                    <small class="text-muted">{{ list.games.length }} games in list</small>
+                  </span>
 
-                <b-badge variant="primary" pill>{{ board.lists.length }}</b-badge>
-              </header>
-
-              <b-collapse
-                :id="board.id"
-                :visible="expandedBoard === board.id"
-                accordion="my-accordion"
-                role="tabpanel"
-              >
-                <b-list-group flush>
-                  <b-list-group-item
-                    class="d-flex justify-content-between align-items-center"
-                    v-for="(list, listIndex) in board.lists"
-                    :key="`${board.id}-${list.name}`"
-                    :variant="isGameInList({ list, gameId }) ? 'success' : 'transparent'"
-                    button
-                    @click.stop="handleClick({ list, listIndex, board })"
-                  >
-                    <span>
-                      {{ list.name }}
-                      <br />
-                      <small class="text-muted">{{ list.games.length }} games in list</small>
-                    </span>
-
-                    <i :class="`fa-solid ${isGameInList({ list, gameId }) ? 'fa-minus' : 'fa-plus' }`" />
-                  </b-list-group-item>
-                </b-list-group>
-              </b-collapse>
-            </b-list-group-item>
-          </b-list-group>
+                  <i :class="`fa-solid ${isGameInList({ list, gameId }) ? 'fa-minus' : 'fa-plus' }`" />
+                </div>
+              </b-list-group>
+            </b-collapse> -->
+          </div>
         </template>
 
         <b-button
@@ -118,6 +116,8 @@ export default {
 
   mounted() {
     this.$bus.$on('ADD_GAME', this.setGame);
+
+    this.setGame(1026);
   },
 
   computed: {

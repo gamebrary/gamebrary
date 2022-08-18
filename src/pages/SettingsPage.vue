@@ -26,12 +26,13 @@
             @click.native="$router.push({ name: 'tags' })"
           />
 
-          <settings-card
-            title="Account"
-            description="Manage your Gamebrary account"
-            icon="fa-user"
-            @click.native="$router.push({ name: 'account.settings' })"
-          />
+          <b-button
+            block
+            @click="session_signOut"
+          >
+            <i class="fa-solid fa-arrow-right-from-bracket" />
+            Log out
+          </b-button>
 
           <!-- TODO: fix and reenable -->
           <!-- <b-button
@@ -49,6 +50,8 @@
           >
             Dev tools
           </b-button> -->
+
+          <delete-account-modal />
 
           <b-button
             href="https://github.com/romancm/gamebrary"
@@ -119,9 +122,12 @@ import SettingsCard from '@/components/Settings/SettingsCard';
 // import GameDetailSettings from '@/components/Settings/GameDetailSettings';
 // import LanguageSettings from '@/components/Settings/LanguageSettings';
 import { mapState } from 'vuex';
+import sessionMixin from '@/mixins/sessionMixin';
+import DeleteAccountModal from '@/components/Settings/DeleteAccountModal';
 
 export default {
   components: {
+    DeleteAccountModal,
     // LanguageSettings,
     // GameDetailSettings,
     // ProfileSettingsPage,
@@ -129,6 +135,8 @@ export default {
     // SteamSettingsPage,
     // GeneralSettingsPage,
   },
+
+  mixins: [sessionMixin],
 
   computed: {
     ...mapState(['user']),

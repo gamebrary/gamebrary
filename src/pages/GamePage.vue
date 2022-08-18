@@ -16,6 +16,43 @@
     </div>
 
     <template v-else-if="game">
+      <portal to="headerActions">
+        <b-button
+          v-if="!tagsApplied.length"
+          rounded
+          variant="light"
+          class="mr-2"
+          @click="$router.push({ name: 'game.tags', params: { id: game.id, slug: game.slug } })"
+        >
+          <i class="fa-solid fa-tags" />
+        </b-button>
+
+        <b-button
+          variant="light"
+          class="mr-2"
+          @click="$router.push({ name: 'game.progress', params: { id: game.id, slug: game.slug } })"
+        >
+          <template v-if="progress">
+            {{ progress }}%
+          </template>
+          <i v-else class="fa-solid fa-stopwatch" />
+        </b-button>
+
+        <b-button
+          :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug } }"
+          variant="light"
+          class="mr-2"
+        >
+          <i class="fa-solid fa-note-sticky fa-fw" />
+        </b-button>
+
+        <b-button
+          variant="light" @click="$bus.$emit('ADD_GAME', game.id)"
+          class="mr-2"
+        >
+          <i class="fa-solid fa-plus fa-fw" />
+        </b-button>
+      </portal>
       <game-media-modal />
 
       <b-form-row>
@@ -125,42 +162,6 @@
               <game-titles />
 
               <aside>
-                <b-button
-                  v-if="!tagsApplied.length"
-                  rounded
-                  variant="light"
-                  size="sm"
-                  class="mr-1"
-                  @click="$router.push({ name: 'game.tags', params: { id: game.id, slug: game.slug } })"
-                >
-                  Tag
-                </b-button>
-
-                <b-button
-                  variant="light"
-                  size="sm"
-                  class="mr-1"
-                  @click="$router.push({ name: 'game.progress', params: { id: game.id, slug: game.slug } })"
-                >
-                  {{ progress || 0 }}%
-                </b-button>
-
-                <b-button
-                  size="sm"
-                  variant="warning" :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug } }"
-                  class="mr-1"
-                >
-                  <i class="fa-solid fa-note-sticky fa-fw" />
-                </b-button>
-
-                <b-button
-                  size="sm"
-                  variant="light" @click="$bus.$emit('ADD_GAME', game.id)"
-                  class="mr-1"
-                >
-                  <i class="fa-solid fa-plus fa-fw" />
-                </b-button>
-
                 <!-- <b-button :href="metacriticScore.url" variant="success" v-if="metacriticScore.url">
                   {{ metacriticScore.score }}
 

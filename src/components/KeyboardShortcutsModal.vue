@@ -31,45 +31,6 @@
 
       {{ $t(`shortcuts.${name.substr(6)}`) }}
     </p>
-
-    <div class="bg-secondary p-2 rounded">
-      <p>Game modal shortucts</p>
-
-      <p>
-        <kbd class="mr-1">
-          <i class="fas fa-angle-left fa-fw" aria-hidden />
-        </kbd>
-        Previous game
-      </p>
-
-      <p>
-        <kbd class="mr-1">
-          <i class="fas fa-angle-right fa-fw" aria-hidden />
-        </kbd>
-        Next game
-      </p>
-
-      <p>
-        <kbd class="mr-1">
-          T
-        </kbd>
-        Game Tags
-      </p>
-
-      <p>
-        <kbd class="mr-1">
-          N
-        </kbd>
-        Game notes
-      </p>
-
-      <p>
-        <kbd class="mr-1">
-          P
-        </kbd>
-        Game progress
-      </p>
-    </div>
   </b-modal>
 </template>
 

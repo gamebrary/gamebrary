@@ -13,7 +13,7 @@
 
     <b-row v-else-if="searchResults.length">
       <b-col cols="12" class="bg-light py-2 mb-3" v-if="activeBoard">
-        <pre>{{ activeBoard }}</pre>
+        <!-- <pre>{{ activeBoard }}</pre> -->
 
         <!-- <b-button
           v-if="activeBoard"
@@ -43,6 +43,11 @@
         <!-- TODO: allow to toggle lists -->
         <b-button v-if="activeBoard">
           {{ activeBoardList.name }}
+        </b-button>
+
+        <b-button :to="{ name: 'search' }">
+          <i class="fas fa-times fa-fw" aria-hidden />
+          Clear
         </b-button>
       </b-col>
 

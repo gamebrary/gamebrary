@@ -21,7 +21,8 @@
     },
     "shortcuts": {
         "keyboard-shortcuts": "Open this modal",
-        "create-board": "Create new board",
+        "home": "Go to home",
+        "search": "Go to search",
         "boards": "Go to boards",
         "tags": "Go to tags",
         "notes": "Go to notes",

@@ -39,25 +39,25 @@
         :key="index"
         cols="8"
       >
-        <aside v-if="game">
+        <router-link
+          v-if="game"
+          tag="div"
+          class="d-flex rounded bg-light p-2 mb-2 cursor-pointer"
+          :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug }}"
+        >
           <b-img
             :src="getCoverUrl(game.id)"
             class="cursor-pointer "
             width="40"
           />
 
-          <b-button
-            v-if="game.name"
-            variant="link"
-          >
-          {{ game.name }}
-          </b-button>
-
-          <p class="text-muited small" v-if="filteredNotes[index]">
-            {{ filteredNotes[index].note }}
-          </p>
-
-        </aside>
+          <div class="ml-2">
+            <h5>{{ game.name }}</h5>
+            <p class="text-muted small" v-if="filteredNotes[index]">
+              {{ filteredNotes[index].note }}
+            </p>
+          </div>
+        </router-link>
       </b-col>
     </b-form-row>
   </b-container>

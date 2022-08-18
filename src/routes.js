@@ -5,7 +5,6 @@ import AboutPage from '@/pages/AboutPage';
 import AuthPage from '@/pages/AuthPage';
 import BoardPage from '@/pages/BoardPage';
 import UpgradePage from '@/pages/UpgradePage';
-import AccountSettingsPage from '@/pages/AccountSettingsPage';
 import EditBoardPage from '@/pages/EditBoardPage';
 import CreateBoardPage from '@/pages/CreateBoardPage';
 import DevToolsPage from '@/pages/DevToolsPage';
@@ -81,14 +80,6 @@ const routes = [
     name: 'steam.settings',
     path: '/settings/steam',
     component: SteamSettingsPage,
-    meta: {
-      title: "Steam",
-    },
-  },
-  {
-    name: 'account.settings',
-    path: '/settings/account',
-    component: AccountSettingsPage,
     meta: {
       title: "Steam",
     },

@@ -1,9 +1,9 @@
 <template lang="html">
-  <b-container fluid>
+  <b-container>
     <portal to="pageTitle">
       <div>
         <b-button
-          :to="gamePage"
+          :to="{ name: 'game', params: { id: game.id, slug: game.slug } }"
           variant="light"
           class="mr-2"
           >
@@ -29,7 +29,7 @@
     <b-row v-else>
       <b-col cols="6">
         <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}" class="float-right">
-          <b-img :src="gameCoverUrl" fluid rounded class="mb-2 mr-2 field" />
+          <b-img :src="gameCoverUrl" fluid rounded />
         </router-link>
       </b-col>
 
@@ -114,10 +114,6 @@ export default {
 
     showBackIcon() {
       return this.game?.name.length > 25;
-    },
-
-    gamePage() {
-      return { name: 'game', params: { id: this.game?.id, slug: this.game?.slug }};
     },
 
     empty() {

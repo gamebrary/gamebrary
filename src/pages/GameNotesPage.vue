@@ -77,9 +77,7 @@
                 @click="deleteNote"
               >
                 <b-spinner small v-if="deleting" />
-
-                <i class="d-sm-none fas fa-trash fa-fw" aria-hidden />
-                <span class="d-none d-sm-inline">{{ $t('global.delete') }}</span>
+                <i v-else class="fas fa-trash fa-fw" aria-hidden />
               </b-button>
             </footer>
 
@@ -162,26 +160,19 @@ export default {
     },
 
     async deleteNote() {
-      // this.deleting = true;
-      //
-      // this.$store.commit('REMOVE_GAME_NOTE', this.game.id);
-      //
-      // await this.$store.dispatch('SAVE_NOTES_NO_MERGE')
-      //   .catch(() => {
-      //     this.deleting = false;
-      //     this.$bvToast.toast('There was an error deleting your note', { variant: 'danger' });
-      //   });
-      //
-      // this.note = '';
-      // this.$bvToast.toast('Note deleted');
-      //
-      // this.$router.push({
-      //   name: 'game',
-      //   params: {
-      //     id: this.game.id,
-      //     slug: this.game.slug,
-      //   },
-      // });
+      this.deleting = true;
+
+      this.$store.commit('REMOVE_GAME_NOTE', this.game.id);
+
+      await this.$store.dispatch('SAVE_NOTES_NO_MERGE')
+        .catch(() => {
+          this.deleting = false;
+          this.$bvToast.toast('There was an error deleting your note', { variant: 'danger' });
+        });
+
+      this.note = '';
+
+      this.$router.push({ name: 'game', params: { id: this.game.id, slug: this.game.slug } });
     },
   },
 };

@@ -75,9 +75,9 @@ export const GENRE_ICONS = {
 
 export const KEYBOARD_SHORTCUTS = {
   'MODAL_keyboard-shortcuts': ['shift', '?'],
-  'MODAL_create-board': ['shift', 'c'],
   // MODAL_devTools: ['shift', 'd'],
-  ROUTE_boards: ['shift', 'b'],
+  ROUTE_home: ['shift', 'h'],
+  ROUTE_search: ['shift', 'k'],
   ROUTE_tags: ['shift', 't'],
   ROUTE_notes: ['shift', 'n'],
   ROUTE_wallpapers: ['shift', 'w'],

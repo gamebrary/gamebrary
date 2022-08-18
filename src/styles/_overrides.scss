@@ -7,3 +7,8 @@
   position: absolute;
   left: calc(50% - 16px);
 }
+
+.dropdown-menu {
+    height: 320px;
+    overflow-y: auto;
+}

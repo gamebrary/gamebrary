@@ -2,8 +2,8 @@
   <b-card
     no-body
     :title="game.name"
-    class="mb-3"
-    :footer-class="['p-1 text-center font-weight-bold bold strong', selected ? 'bg-success' : 'text-muted']"
+    class="mb-3 cursor-pointer"
+    :footer-class="['p-1 text-center \ font-weight-bold bold strong', selected ? 'bg-success' : 'text-muted']"
     @click="handleClick"
   >
     <!-- :to="{ name: 'game', params: { id: game.id, slug: game.slug }}" -->
