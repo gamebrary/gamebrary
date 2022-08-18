@@ -89,11 +89,6 @@ export default {
       if (this.user) this.loadPlatforms();
     },
 
-    editBoard(id) {
-      // TODO: restore once load board logic is simplified
-      this.$router.push({ name: 'board.edit', params: { id } });
-    },
-
     getWallpaperUrl(url) {
       if (!url) {
         return '';

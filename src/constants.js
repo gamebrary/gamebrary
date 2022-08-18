@@ -4,6 +4,7 @@ export const MIN_PROFILE_LENGTH = 6;
 export const MAX_PROFILE_LENGTH = 32;
 export const STEAM_CATEGORY_ID = 13;
 export const GOG_CATEGORY_ID = 17;
+export const TWITTER_CATEGORY_ID = 5;
 
 export const PLATFORM_CATEGORIES = {
   1: 'console',

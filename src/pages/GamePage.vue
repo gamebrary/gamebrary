@@ -209,7 +209,7 @@ import GameInList from '@/components/Game/GameInList';
 import GameWebsites from '@/components/Game/GameWebsites';
 // import GameSpeedruns from '@/components/Game/GameSpeedruns';
 import GameNote from '@/components/GameNote';
-import { STEAM_CATEGORY_ID, GOG_CATEGORY_ID } from '@/constants';
+import { STEAM_CATEGORY_ID, GOG_CATEGORY_ID, TWITTER_CATEGORY_ID } from '@/constants';
 
 export default {
   components: {
@@ -230,13 +230,6 @@ export default {
     return {
       loading: false,
     };
-  },
-
-  beforeDestroy() {
-    // TODO: only clear board if game being viewed is not in current board
-    // if (!['game', 'board'].includes(this.$route.name)) {
-      // this.$store.commit('CLEAR_BOARD');
-    // }
   },
 
   computed: {
@@ -280,11 +273,8 @@ export default {
     },
 
     twitterHandle() {
-      // TODO: put in constant
-      const twitterCategory = 5;
-
       const twitterUrl = this.game?.websites
-        ? this.game.websites.find(({ category }) => category === twitterCategory)
+        ? this.game.websites.find(({ category }) => category === TWITTER_CATEGORY_ID)
         : '';
 
       return twitterUrl?.url

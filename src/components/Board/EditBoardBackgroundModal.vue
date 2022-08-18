@@ -1,5 +1,4 @@
 <!-- TODO: FIX this mess, auto save on selection -->
-<!-- TODO: flatten, put it in single edit board page -->
 <template lang="html">
   <b-modal
     id="boardBackground"

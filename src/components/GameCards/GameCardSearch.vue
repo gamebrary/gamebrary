@@ -59,15 +59,7 @@ export default {
   },
 
   methods: {
-    // isGameSelected(game.id)
-    // isGameSelected(gameId) {
-    //   console.log(this.activeBoardList?.games?.includes(gameId));
-    //
-    //   return this.activeBoardList?.games?.includes(gameId);
-    // },
-
     handleClick() {
-      // const activeBoardList = boards
       const { boardId, listIndex } = this.$route?.query;
       const hasActiveBoard = boardId && listIndex >= 0;
 
@@ -78,11 +70,6 @@ export default {
 
         this.$router.push({ name: 'game', params: { id, slug }});
       }
-
-      // TODO: put guards when unauthed
-      // return this.user
-      //   ? this.$bus.$emit('ADD_GAME', this.game.id)
-      //   : this.$router.push({ name: 'game', params: { id: this.game.id, slug: this.game.slug }});
     },
 
     addGameToList() {

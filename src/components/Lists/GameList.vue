@@ -70,25 +70,16 @@
           @click.native="openGame(gameId, list)"
         />
 
-        <!-- TODO: route to search and default to add to list? -->
-        <!-- <b-button
-          block
-          v-if="isEmpty"
-          class="mb-2"
-          variant="light"
-          :to="{ name: 'search' }"
-        >
-        </b-button> -->
-
-        <b-button
-          v-if="isEmpty"
-          variant="light"
-          block
-          class="mb-2"
-          :to="{ name: 'search', query: { boardId: board.id, listIndex: listIndex } }"
-        >
-          {{ $t('board.list.emptyListButton') }}
-        </b-button>
+        <div v-if="isEmpty">
+          <b-button
+            variant="light"
+            block
+            class="mb-2"
+            :to="{ name: 'search', query: { boardId: board.id, listIndex: listIndex } }"
+          >
+            Add games
+          </b-button>
+        </div>
       </draggable>
     </b-card>
   </div>

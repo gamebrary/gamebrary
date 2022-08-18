@@ -1,4 +1,3 @@
-<!-- TODO: restore wikipedia -->
 <template lang="html">
   <div class="game-description">
     <b-spinner v-if="loading" class="spinner-centered" />

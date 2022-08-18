@@ -1,5 +1,4 @@
 <!-- TODO: Mix media from other sources (e.g. instagram, wikipedia, youtube, twitter, etc... ) -->
-<!-- TODO: get images from article and add them to media page -->
 <template lang="html">
   <b-modal
     id="mediaModal"

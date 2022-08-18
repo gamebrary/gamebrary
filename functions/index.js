@@ -188,7 +188,6 @@ exports.game = functions.https.onRequest((req, res) => {
   websites.url;
 
   where id = ${gameId};`;
-  // TODO: deploy
 
   axios({
     url: 'https://api.igdb.com/v4/games',
