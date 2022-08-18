@@ -1,3 +1,4 @@
+<!-- TODO: improve board and game caching -->
 <!-- TODO: GOG, steam, and amazon affiliate links -->
 <!-- TODO: allow board sorting -->
 <!-- TODO: Use moment? or use dayjs without wrapper -->

@@ -122,10 +122,8 @@ export default {
         });
 
       this.$forceUpdate();
-      // this.$bvToast.toast('List added');
       this.reset();
       this.saving = false;
-      // this.$bvModal.hide(this.modalId);
       this.scroll();
     },
 

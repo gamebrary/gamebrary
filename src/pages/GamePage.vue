@@ -315,10 +315,7 @@ export default {
 
   watch: {
     gameId(gameId) {
-      // document.getElementsByTagName('main')[0].scrollTop = 0;
-
       if (gameId) this.loadGame();
-      // TODO: handle missing id, redirect? 404? search?
     },
   },
 
@@ -338,6 +335,8 @@ export default {
     },
 
     async loadGame() {
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
+
       const gameCached = this.game?.id === this.gameId;
 
       if (!this.gameId || gameCached) return;

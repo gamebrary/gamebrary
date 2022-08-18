@@ -117,12 +117,6 @@ export default {
 
   computed: {
     ...mapState(['board', 'user']),
-
-    buttonLabel() {
-      return this.value.length
-        ? this.$t('board.settings.platformLabel', { platformCount: this.value.length })
-        : this.$t('board.settings.platformPlaceholder');
-    },
   },
 
   mounted() {
@@ -139,7 +133,6 @@ export default {
       const { board } = this;
       this.description = board.description;
       this.name = board.name;
-      this.selectedPlatforms = board.platforms;
       this.isPublic = board.isPublic || false;
       this.theme = board.theme || 'default';
     },
@@ -180,18 +173,14 @@ export default {
         ...board,
         description: this.description,
         name: this.name,
-        // platforms: this.platforms,
         isPublic: this.isPublic,
         theme: this.theme,
       };
 
-      console.log(payload);
-
       this.$store.commit('SET_ACTIVE_BOARD', payload);
 
       await this.$store.dispatch('SAVE_BOARD')
-        .catch((e) => {
-          console.log(e);
+        .catch(() => {
           this.saving = false;
 
           this.$bvToast.toast('There was an saving board settings', { variant: 'danger' });
@@ -199,15 +188,8 @@ export default {
 
       this.saving = false;
       this.$bvToast.toast('Board settings saved');
-      // TODO: route back to board
+      this.$router.push({ name: 'board', params: { id: board.id } });
     },
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss">
-.platforms-dropdown .dropdown-menu {
-  max-height: 300px;
-  overflow-y: auto;
-}
-</style>

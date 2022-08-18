@@ -180,9 +180,7 @@ export default {
     },
 
     viewClass() {
-      const { settings } = this.list;
-
-      return settings.view || DEFAULT_LIST_VIEW;
+      return this.list?.settings?.view || DEFAULT_LIST_VIEW;
     },
   },
 
@@ -223,8 +221,6 @@ export default {
         .catch(() => {
           this.$store.commit('SET_SESSION_EXPIRED', true);
         });
-
-      this.$bvToast.toast('List saved');
     },
   },
 };

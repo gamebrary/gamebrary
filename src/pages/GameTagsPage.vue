@@ -29,10 +29,10 @@
           class="mb-4"
           message="Looks like you don't have any tags yet."
         >
-          <b-button @click="manageTags">Manage tags</b-button>
+          <b-button :to="{ name: 'tags' }">Manage tags</b-button>
         </empty-state>
 
-        <section class="field">
+        <section v-else class="field">
           <section>
             <h4 class="my-3">Tags applied to {{ game.name }}</h4>
 
@@ -167,11 +167,6 @@ export default {
         });
 
       this.saving = false;
-    },
-
-    manageTags() {
-      this.$bvModal.hide('tags');
-      this.$router.push({ name: 'tags' });
     },
   },
 };

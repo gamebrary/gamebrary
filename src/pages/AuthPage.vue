@@ -87,7 +87,6 @@ export default {
     },
 
     signInSuccess({ additionalUserInfo, user }) {
-      console.log('signInSuccess');
       this.loading = true;
 
       if (additionalUserInfo?.isNewUser) {
@@ -97,9 +96,6 @@ export default {
       if (this.sessionExpired) {
         this.$store.commit('SET_SESSION_EXPIRED', false);
       }
-
-      console.log(user);
-      console.log(additionalUserInfo);
 
       this.$store.commit('SET_USER', user);
       this.$router.replace({ name: 'home' });

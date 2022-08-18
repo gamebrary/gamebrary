@@ -34,7 +34,7 @@ export default {
     },
 
     tagsApplied() {
-      return this.tags?.filter((tag) => tag?.games?.includes(this.game?.id))
+      return this.tags?.filter((tag) => tag?.games?.includes(this.game?.id)) || [];
     },
 
     gameNotes() {
