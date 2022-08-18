@@ -1,3 +1,4 @@
+<!-- TODO: GOG, steam, and amazon affiliate links -->
 <!-- TODO: allow board sorting -->
 <!-- TODO: Use moment? or use dayjs without wrapper -->
 <!-- TODO: remove toasts -->

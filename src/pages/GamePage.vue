@@ -2,7 +2,7 @@
 <!-- TODO: add pricecharting info -->
 <!-- TODO: show GOG buy button -->
 <template lang="html">
-  <b-container fluid>
+  <b-container>
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <template v-else-if="game">
@@ -89,38 +89,6 @@
           </section>
 
           <!-- <amazon-links class="mt-2" /> -->
-
-          <!-- <pre class="text-dark small">{{ game.gog.price }}</pre> -->
-
-          <!-- <small v-if="gog && gog.isPriceVisible">{{gog.price.symbol}}{{ gog.price.amount }}</small> -->
-          <!-- <small><pre class="text-dark">{{ gog }}</pre></small> -->
-          <!-- <pre class="small text-dark">{{ steamGame }}</pre> -->
-
-          <!-- TODO: use percentage instead? -->
-
-          <!-- TODO: add icons for game modes:
-          single-player
-          multiplayer
-          co-operative
-          split-screen
-          massively-multiplayer-online-mmo
-          battle-royale -->
-
-          <!-- <template v-if="!loading">
-            <b-skeleton v-for="n in 3" :key="n" />
-          </template> -->
-
-          <!-- <b-form-rating
-            v-if="rating"
-            :value="rating"
-            inline
-            readonly
-            variant="warning"
-            size="lg"
-            no-border
-          />
-
-          <br /> -->
 
           <div class="notes mt-3">
             <game-note
