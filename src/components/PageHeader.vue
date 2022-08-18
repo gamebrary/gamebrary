@@ -1,6 +1,18 @@
 <template lang="html">
   <header class="p-2 d-flex">
-    <home-button />
+    <b-button
+      title="Dashboard"
+      size="sm"
+      class="mr-2"
+      variant="transparent"
+      :to="{ name: 'home' }"
+    >
+      <img
+        src="/logo.png"
+        width="20"
+      />
+    </b-button>
+
     <portal-target name="pageTitle" slim />
 
     <div class="align-items-center d-flex ml-auto">
@@ -40,15 +52,9 @@
 </template>
 
 <script>
-import HomeButton from '@/components/Shared/HomeButton';
 import { mapState } from 'vuex';
 
 export default {
-
-  components: {
-    HomeButton,
-  },
-
   computed: {
     ...mapState(['board', 'boards', 'user', 'game']),
 

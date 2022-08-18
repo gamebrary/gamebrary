@@ -21,19 +21,18 @@
         height="6px"
       />
 
-      <!-- TODO: use correct tags -->
-      <!-- <template v-if="showGameTags">
+      <template v-if="tagsApplied.length">
         <b-badge
-          v-for="({ hex, tagTextColor }, name) in gameTags"
+          v-for="({ bgColor, textColor, name }) in tagsApplied"
           :key="name"
-          pill
+          rounded
           class="mr-1"
-          variant="primary"
-          :style="`background-color: ${hex}; color: ${tagTextColor}`"
+          variant="transparent"
+          :style="`background-color: ${bgColor}; color: ${textColor}`"
         >
           <small>{{ name }}</small>
         </b-badge>
-      </template> -->
+      </template>
 
       <b-badge variant="warning" v-if="gameNotes">
         <i class="far fa-sticky-note fa-fw" />

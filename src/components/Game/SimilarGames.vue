@@ -51,10 +51,6 @@ export default {
     },
 
     async loadGames() {
-      // this.similarGames = [];
-
-      // TODO: use try catch
-      // TODO: append cover url directly here
       await this.$store.dispatch('LOAD_GAMES', this.similarGameIds.toString());
 
       this.similarGames = this.similarGameIds ?
