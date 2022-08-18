@@ -5,20 +5,13 @@
 <!-- TODO: remove toasts -->
 <!-- TODO: add mega search shift + k -->
 <!-- TODO: re-translate strings -->
-<!-- TODO: upgrade firebase to latest -->
-<!-- TODO: Refactor tags architecture -->
-<!-- TODO: button things up and prepare for deploy -->
 <!-- TODO: focus on affiliate stuff -->
-<!-- TODO: put focus on open source -->
-<!-- TODO: restore game actions and clean up everything -->
 <!-- TODO: update email template, update logo, etc... -->
 <!-- TODO: use navigator.onLine -->
 <!-- TODO: integrate itch.io -->
 <!-- TODO: integrate fandom/wikia -->
 <!-- TODO: https://zelda.fandom.com/api/v1/Articles/List?expand=1&category=Characters&limit=10000 -->
-<!-- TODO: parse wikipedia article into sections, get article images, links, etc... -->
 <!-- TODO: itch.io referral https://itch.io/register?return_to=https%3A%2F%2Fitch.io%2Fpartners%2Fapplication -->
-<!-- use name to search, make sure it matches slug -->
 <template>
   <div
     id="app"

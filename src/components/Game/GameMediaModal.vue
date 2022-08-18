@@ -74,7 +74,6 @@
 <script>
 import { mapGetters, mapState } from 'vuex';
 
-// TODO: load game if not loaded
 export default {
   data() {
     return {
@@ -136,10 +135,6 @@ export default {
         : '/no-image.jpg';
     },
   },
-
-  // mounted() {
-  //   this.$bvModal.show('mediaModal');
-  // },
 
   methods: {
     open() {
