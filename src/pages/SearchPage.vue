@@ -6,46 +6,52 @@
     <portal to="pageTitle">Search</portal>
 
     <portal to="headerActions">
-      <search-box class="mr-2" />
+      <search-box class="mr-2 d-none d-sm-block" />
     </portal>
 
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <b-row v-else-if="searchResults.length">
+      <b-col cols="12">
+        <search-box class="field mb-3 d-sm-none" />
+      </b-col>
+
       <b-col cols="12" class="bg-light py-2 mb-3" v-if="activeBoard">
-        <!-- <pre>{{ activeBoard }}</pre> -->
-
-        <!-- <b-button
-          v-if="activeBoard"
-          variant="light"
-
-        >
-          {{ activeBoard.name }}
-        </b-button> -->
-
-        <b-dropdown
-          v-if="activeBoard"
-          split
-          :split-to="{ name: 'board', params: { id: boardId } }"
-          :text="activeBoard.name"
-          class="m-2"
-        >
-          <b-dropdown-item
-            v-for="board in boards"
-            :key="board.id"
-            :to="{ name: 'search', query: { boardId: board.id, listIndex: boardListIndex } }"
+        <b-button-group>
+          <b-dropdown
+            split
+            variant="light"
+            :split-to="{ name: 'board', params: { id: boardId } }"
+            :text="activeBoard.name"
           >
-            {{ board.name }}
-          </b-dropdown-item>
-        </b-dropdown>
+            <b-dropdown-item
+              v-for="board in boards"
+              :key="board.id"
+              :to="{ name: 'search', query: { boardId: board.id, listIndex: boardListIndex } }"
+            >
+              {{ board.name }}
+            </b-dropdown-item>
+          </b-dropdown>
 
+          <b-dropdown
+            v-if="activeBoardList"
+            split
+            variant="light"
+            :split-to="{ name: 'board', params: { id: boardId } }"
+            :text="activeBoardList.name"
+          >
+            <b-dropdown-item
+              v-for="(list, index) in activeBoard.lists"
+              :key="list.id"
+              :to="{ name: 'search', query: { boardId: activeBoard.id, listIndex: index } }"
+            >
+              <!-- :to="{ name: 'search', query: { boardId: board.id, listIndex: boardListIndex } }" -->
+              {{ list.name }}
+            </b-dropdown-item>
+          </b-dropdown>
+        </b-button-group>
 
-        <!-- TODO: allow to toggle lists -->
-        <b-button v-if="activeBoard">
-          {{ activeBoardList.name }}
-        </b-button>
-
-        <b-button :to="{ name: 'search' }">
+        <b-button :to="{ name: 'search' }" class="ml-auto" variant="outline-dark">
           <i class="fas fa-times fa-fw" aria-hidden />
           Clear
         </b-button>
@@ -130,20 +136,29 @@ export default {
 
   watch: {
     query(value) {
-      // TODO: Avoid search if new/old values are same
       this.search(value);
+    },
+
+    boardId(value) {
+      console.log('board changed', value);
     },
   },
 
-  mounted() {
-    if (this.query.length) this.search();
+  async mounted() {
+    this.search();
   },
 
   methods: {
     async search() {
       this.loading = true;
 
-      this.searchResults = await this.$store.dispatch('CUSTOM_SEARCH', { searchText: this.query })
+      const search = this.query
+        ? `search "${this.query}";`
+        : '';
+
+      const data = `${search} fields *,cover.*; limit 50;`;
+
+      this.searchResults = await this.$store.dispatch('IGDB', { path: 'games', data });
 
       this.loading = false;
     },

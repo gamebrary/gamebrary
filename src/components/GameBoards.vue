@@ -23,7 +23,7 @@
         <b-col
           v-for="board in sortedBoards"
           :key="board.id"
-          cols="6"
+          cols="12"
           sm="6"
           md="4"
           lg="3"

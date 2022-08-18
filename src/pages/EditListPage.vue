@@ -18,26 +18,25 @@
       </div>
     </portal>
 
+    <portal to="headerActions">
+      <b-button
+        variant="success"
+        class="mr-2"
+        :to="{ name: 'search', query: { boardId: board.id, listIndex } }"
+      >
+        Add games
+      </b-button>
+    </portal>
+
     <b-row v-if="list" no-gutters>
-      <b-col sm="12" md="6">
+      <b-col cols="6">
         <div :style="boardStyles" class="p-3 list-preview d-flex justify-content-center">
           <game-list :list="list" preview />
         </div>
       </b-col>
 
-      <b-col>
-        <header class="p-1 mb-3 pl-2 d-flex justify-content-between align-items-center">
-          <h1 class="mb-0">Edit list</h1>
-
-          <b-button
-            variant="success"
-            :to="{ name: 'search', query: { boardId: board.id, listIndex } }"
-          >
-            Add games
-          </b-button>
-        </header>
-
-        <form ref="renameListForm" @submit.stop.prevent="saveChanges">
+      <b-col cols="6">
+        <form ref="renameListForm" @submit.stop.prevent="saveChanges" class="p-3">
           <b-form-input
             autofocus
             v-model.trim="list.name"

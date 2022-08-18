@@ -1,6 +1,10 @@
 .field {
   width: 320px;
   max-width: 100%;
+
+  @media(max-width: 480px) {
+    width: 100%;
+  }
 }
 
 .spinner-centered {
@@ -9,6 +13,6 @@
 }
 
 .dropdown-menu {
-    height: 320px;
+    max-height: 320px;
     overflow-y: auto;
 }

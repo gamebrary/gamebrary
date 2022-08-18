@@ -20,8 +20,7 @@
       <b-form-input
         v-if="!showEmptyState"
         type="search"
-        style="max-width: 200px"
-        class="mr-3"
+        class="mr-3 d-none d-sm-block"
         placeholder="Search notes"
         v-model="search"
       />
@@ -34,15 +33,25 @@
     />
 
     <b-form-row v-else-if="noteGames.length">
+      <b-col cols="12">
+        <b-form-input
+          v-if="!showEmptyState"
+          type="search"
+          class="d-sm-none field mb-3"
+          placeholder="Search notes"
+          v-model="search"
+        />
+      </b-col>
+
       <b-col
         v-for="(game, index) in noteGames"
         :key="index"
-        cols="8"
+        cols="12"
       >
         <router-link
           v-if="game"
           tag="div"
-          class="d-flex rounded bg-light p-2 mb-2 cursor-pointer"
+          class="d-flex field rounded bg-light p-2 mb-2 cursor-pointer"
           :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug }}"
         >
           <b-img

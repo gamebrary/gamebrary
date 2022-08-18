@@ -43,8 +43,8 @@ export default {
   IGDB({ state }, { path, data }) {
     return new Promise((resolve, reject) => {
       axios.get(`${API_BASE}/igdb?token=${state.twitchToken.access_token}&path=${path}&data=${data}`)
-        .then((res) => {
-          resolve(res);
+        .then(({ data }) => {
+          resolve(data);
         }).catch(reject);
     });
   },
@@ -545,27 +545,8 @@ export default {
     });
   },
 
-  CUSTOM_SEARCH({ commit, state }, { platforms = '', sortQuery = '', searchText = '' }) {
-    return new Promise((resolve, reject) => {
-      const params = {
-        token: state.twitchToken.access_token,
-        platforms,
-        sortQuery,
-        searchText,
-      };
-
-      const query = new URLSearchParams(params).toString();
-
-      axios.get(`${API_BASE}/customSearch?${query}`)
-        .then(({ data }) => {
-          commit('CACHE_GAME_DATA', data);
-          resolve(data);
-        }).catch(reject);
-    });
-  },
-
   // SEARCH_GAMES({ commit, state }, { searchText, platforms, sortField, sortOrder }) {
-  // TODO: user CUSTOM_SEARCH
+  // TODO: remove?
   SEARCH_GAMES({ commit, state }, { searchText, platforms }) {
     return new Promise((resolve, reject) => {
       axios.get(`${API_BASE}/search?search=${searchText}&platform=${platforms}&token=${state.twitchToken.access_token}`)

@@ -66,5 +66,9 @@ export default {
   .search-box {
     max-width: 100%;
     width: 200px;
+
+    @media(max-width: 480px) {
+      width: 100%;
+    }
   }
 </style>

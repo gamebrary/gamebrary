@@ -16,13 +16,13 @@
 
 
     <b-row>
-      <b-col cols="6">
+      <b-col cols="12" sm="6">
         <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}" class="float-right">
           <b-img :src="gameCoverUrl" fluid rounded />
         </router-link>
       </b-col>
 
-      <b-col>
+      <b-col cols="12" sm="6" class="mt-3 mt-sm-0 mb-3">
         <b-input-group :prepend="`${localProgress}%`" class="field mb-2">
           <b-form-input
             size="lg"

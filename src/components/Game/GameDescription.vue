@@ -96,6 +96,11 @@ export default {
     font-size: 16px;
     font-weight: bold;
   }
+
+  img {
+    max-width: 100%;
+    border-radius: .25rem;
+  }
 }
 .mw-empty-elt {
   display: none;

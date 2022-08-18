@@ -7,41 +7,39 @@
 
     <template v-else-if="game">
       <portal to="headerActions" v-if="user">
-        <b-button
-          v-if="!tagsApplied.length"
-          rounded
-          variant="light"
-          class="mr-2"
-          @click="$router.push({ name: 'game.tags', params: { id: game.id, slug: game.slug } })"
-        >
-          <i class="fa-solid fa-tags" />
-        </b-button>
+        <b-button-group class="mr-2">
+          <b-button
+            v-if="!tagsApplied.length"
+            rounded
+            variant="light"
+            @click="$router.push({ name: 'game.tags', params: { id: game.id, slug: game.slug } })"
+          >
+            <i class="fa-solid fa-tags" />
+          </b-button>
 
-        <b-button
-          variant="light"
-          class="mr-2"
-          @click="$router.push({ name: 'game.progress', params: { id: game.id, slug: game.slug } })"
-        >
-          <template v-if="progress">
-            {{ progress }}%
-          </template>
-          <i v-else class="fa-solid fa-stopwatch" />
-        </b-button>
+          <b-button
+            variant="light"
+            @click="$router.push({ name: 'game.progress', params: { id: game.id, slug: game.slug } })"
+          >
+            <template v-if="progress">
+              {{ progress }}%
+            </template>
+            <i v-else class="fa-solid fa-stopwatch" />
+          </b-button>
 
-        <b-button
-          :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug } }"
-          variant="light"
-          class="mr-2"
-        >
-          <i class="fa-solid fa-note-sticky fa-fw" />
-        </b-button>
+          <b-button
+            :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug } }"
+            variant="light"
+          >
+            <i class="fa-solid fa-note-sticky fa-fw" />
+          </b-button>
 
-        <b-button
-          variant="light" @click="$bus.$emit('ADD_GAME', game.id)"
-          class="mr-2"
-        >
-          <i class="fa-solid fa-plus fa-fw" />
-        </b-button>
+          <b-button
+            variant="light" @click="$bus.$emit('ADD_GAME', game.id)"
+          >
+            <i class="fa-solid fa-plus fa-fw" />
+          </b-button>
+        </b-button-group>
       </portal>
       <game-media-modal />
 
@@ -62,6 +60,8 @@
               fluid
             />
           </div>
+
+          <game-titles class="d-sm-none mt-2" />
 
           <section
             v-if="gameNews.length"
@@ -90,14 +90,12 @@
 
           <!-- <amazon-links class="mt-2" /> -->
 
-          <div class="notes mt-3">
-            <game-note
-              v-if="note"
-              :note="note"
-              class="cursor-pointer"
-              @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
-            />
-          </div>
+          <game-note
+            v-if="note"
+            :note="note"
+            class="cursor-pointer"
+            @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
+          />
 
           <game-in-list />
 
@@ -115,9 +113,9 @@
           md="8"
           xl="9"
         >
-          <article class="bg-white rounded px-3 pt-3 pb-1">
+          <article class="bg-white rounded px-sm-3 pt-3 pb-1 px-0">
             <header class="d-flex align-items-start justify-content-between pb-2">
-              <game-titles />
+              <game-titles class="d-none d-sm-block" />
 
               <aside>
                 <!-- <b-button :href="metacriticScore.url" variant="success" v-if="metacriticScore.url">
@@ -130,7 +128,7 @@
                   rounded
                   size="sm"
                   variant="transparent"
-                  class="mr-1"
+                  class="mr-1 mb-2"
                   :style="`background-color: ${bgColor}; color: ${textColor}`"
                   @click="$router.push({ name: 'game.tags', params: { id: game.id, slug: game.slug } })"
                 >
@@ -140,28 +138,30 @@
               </aside>
             </header>
 
-            <aside class="bg-white float-right pl-2 pb-2">
+            <aside class="bg-white field float-right ml-5 pb-2">
               <b-img
+                v-if="gameHeaderImage"
+                v-b-modal.mediaModal
+                :src="gameHeaderImage"
+                class="mb-2"
+                rounded
+                fluid
+              />
+
+              <b-img
+                v-if="gameScrenshot"
                 v-b-modal.mediaModal
                 :src="gameScrenshot"
-                thumbnail
-                width="320"
+                rounded
+                fluid
               />
 
               <game-websites />
             </aside>
 
             <game-description />
-
-            <b-img
-              v-b-modal.mediaModal
-              :src="gameHeaderImage"
-              fluid
-            />
-
             <game-details />
             <game-ratings />
-
           </article>
 
           <small
@@ -335,8 +335,6 @@ export default {
   mounted() {
     // TODO: wait for access token
     this.loadGame();
-
-    this.$store.dispatch('IGDB', { path: 'game_modes', data: 'fields *;' });
   },
 
   methods: {

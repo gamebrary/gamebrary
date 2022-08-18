@@ -32,57 +32,58 @@
         <markdown-cheatsheet />
       </b-modal>
 
-      <b-col cols="6">
+      <b-col cols="12" sm="6">
         <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}" class="float-right">
           <b-img :src="gameCoverUrl" fluid rounded />
         </router-link>
       </b-col>
 
-      <b-col cols="6">
-        <div class="note-split">
-          <game-note v-if="note" :note="{ note }" />
+      <b-col cols="12" sm="6">
+        <game-note
+          v-if="note"
+          :note="{ note }"
+          class="mt-3 mt-sm-0"
+        />
 
-          <form>
-            <b-form-textarea
-              v-model.trim="note"
-              placeholder="Type note here"
-              rows="3"
-              max-rows="20"
-            />
+        <form class="mt-3 mt-sm-0 mb-3">
+          <b-form-textarea
+            v-model.trim="note"
+            placeholder="Type note here"
+            rows="3"
+            max-rows="20"
+          />
 
-            <b-form-text id="input-live-help" v-b-modal.markdown-cheatsheet>
-              <i class="fab fa-markdown fa-fw" />
-              Markdown supported
-            </b-form-text>
+          <b-form-text id="input-live-help" v-b-modal.markdown-cheatsheet>
+            <i class="fab fa-markdown fa-fw" />
+            Markdown supported
+          </b-form-text>
 
-            <b-modal id="markdown-cheatsheet" title="BootstrapVue">
-              <markdown-cheatsheet />
-            </b-modal>
+          <b-modal id="markdown-cheatsheet" title="BootstrapVue">
+            <markdown-cheatsheet />
+          </b-modal>
 
-            <footer class="mt-2">
-              <b-button
-                variant="primary"
-                :disabled="saving"
-                @click="saveNote"
-              >
-                <b-spinner small v-if="saving" />
-                <span v-else>{{ $t('global.save') }}</span>
-              </b-button>
+          <footer class="mt-2">
+            <b-button
+              variant="primary"
+              :disabled="saving"
+              @click="saveNote"
+            >
+              <b-spinner small v-if="saving" />
+              <span v-else>{{ $t('global.save') }}</span>
+            </b-button>
 
-              <b-button
-                variant="danger"
-                class="ml-2"
-                v-if="!saving"
-                :disabled="deleting"
-                @click="deleteNote"
-              >
-                <b-spinner small v-if="deleting" />
-                <i v-else class="fas fa-trash fa-fw" aria-hidden />
-              </b-button>
-            </footer>
-
-          </form>
-        </div>
+            <b-button
+              variant="danger"
+              class="ml-2"
+              v-if="!saving"
+              :disabled="deleting"
+              @click="deleteNote"
+            >
+              <b-spinner small v-if="deleting" />
+              <i v-else class="fas fa-trash fa-fw" aria-hidden />
+            </b-button>
+          </footer>
+        </form>
       </b-col>
     </b-row>
   </b-container>

@@ -1,21 +1,17 @@
 <template lang="html">
-  <b-card
-    v-if="boardsWithGame.length"
-    class="mt-2 ml-auto mr-auto text-center"
-    body-class="p-2"
-  >
-    <p class="mb-2 text-muted small">Found in:</p>
+  <div v-if="boardsWithGame.length">
+    <small>Found in:</small>
 
-    <b-button
-      v-for="board in boardsWithGame"
+    <router-link
+      v-for="(board, index) in boardsWithGame"
       :to="{ name: 'board', params: { id: board.id } }"
       :key="board.id"
       variant="link"
-      size="sm"
+      class="small"
     >
-      {{ board.name }}
-    </b-button>
-  </b-card>
+      {{ board.name }}{{ boardsWithGame.length - 1 === index ? '' : ',' }}
+    </router-link>
+  </div>
 </template>
 
 <script>

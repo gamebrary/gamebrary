@@ -16,7 +16,7 @@
 
     <portal to="headerActions">
       <b-button
-        variant="light"
+        variant="danger"
         class="mr-2"
         @click="promptDeleteTag(tag.name)"
       >

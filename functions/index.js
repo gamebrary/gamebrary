@@ -17,56 +17,6 @@ admin.initializeApp({
 
 exports.steam = require('./steam');
 
-exports.customSearch = functions.https.onRequest((req, res) => {
-  res.set('Access-Control-Allow-Origin', '*');
-
-  if (!req.query.token) {
-    return res.status(400).json({ error: 'missing searchText or token' });
-  }
-
-  // TODO: exclude games? & id != (${excludedGames});
-
-  const query = req.query.platforms
-    ? `where platforms = (${req.query.platforms}) & rating != null;`
-    : '';
-
-  const sort = req.query.sortQuery
-    ? `sort ${req.query.sortQuery};`
-    : '';
-
-  const limit = req.query.limit
-    ? `limit ${req.query.limit};`
-    : 'limit 50;';
-
-  const search = req.query.searchText
-    ? `search "${req.query.searchText}";`
-    : '';
-
-  const fields = req.query.fields
-    ? `fields ${req.query.fields};`
-    : 'fields id,name,slug,rating,name,cover.image_id,first_release_date;';
-
-  const data = `
-    ${search}
-    ${fields}
-    ${sort}
-    ${limit}
-    ${query}`;
-
-  return axios({
-    url: 'https://api.igdb.com/v4/games',
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Client-ID': functions.config().twitch.clientid,
-      Authorization: `Bearer ${req.query.token}`,
-    },
-    data,
-  })
-    .then(({ data: response }) => res.status(200).send(response))
-    .catch(error => res.status(400).send(error));
-});
-
 exports.search = functions.https.onRequest((req, res) => {
   res.set('Access-Control-Allow-Origin', '*')
 

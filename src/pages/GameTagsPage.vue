@@ -14,20 +14,10 @@
       </div>
     </portal>
 
-    <portal to="headerActions">
-      <b-button
-        :to="{ name: 'tags' }"
-        variant="light"
-        class="mr-2"
-      >
-        Manage tags
-      </b-button>
-    </portal>
-
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <b-row v-else>
-      <b-col cols="6">
+      <b-col cols="12" sm="6">
         <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}" class="float-right">
           <b-img :src="gameCoverUrl" fluid rounded />
         </router-link>
@@ -44,7 +34,7 @@
 
         <section class="field">
           <section>
-            <h3 class="mb-3">Tags applied to {{ game.name }}</h3>
+            <h4 class="my-3">Tags applied to {{ game.name }}</h4>
 
             <b-alert :show="noneSelected" variant="light">
               No tags applied
@@ -67,7 +57,7 @@
 
           <hr />
 
-          <h3 class="my-3">Tags available</h3>
+          <h4 class="my-3">Tags available</h4>
 
           <b-button
             v-for="({ selected, name, bgColor, textColor }, index) in formattedTags"

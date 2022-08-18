@@ -3,7 +3,7 @@
     <portal to="pageTitle">Settings</portal>
 
     <b-row>
-      <b-col>
+      <b-col cols="12">
         <div class="field">
           <settings-card
             title="Wallpapers"
@@ -107,6 +107,14 @@
           </a> -->
 
           <small>&copy; 2022 Gamebrary</small>
+
+          <b-button
+            :to="{ name: 'releases' }"
+            size="sm"
+            variant="link"
+          >
+            {{ latestRelease }}
+          </b-button>
         </div>
         <!-- <language-settings /> -->
       </b-col>
@@ -139,7 +147,11 @@ export default {
   mixins: [sessionMixin],
 
   computed: {
-    ...mapState(['user']),
+    ...mapState(['user', 'releases']),
+
+    latestRelease() {
+      return this.releases?.[0]?.tag_name;
+    },
   },
 };
 </script>
