@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container fluid>
+  <b-container>
     <page-title title="General settings" />
     <!-- <game-detail-settings /> -->
     <language-settings />

@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container fluid>
+  <b-container>
     <empty-state
       v-if="showEmptyState"
       :title="$t('wallpapers.title')"

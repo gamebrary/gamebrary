@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container fluid>
+  <b-container>
     <portal to="pageTitle">
       <div>
         <b-button
@@ -15,9 +15,7 @@
     </portal>
 
     <form @submit.prevent="submit">
-      <label for="tagName">Tag name:</label>
       <b-form-input
-        id="tagName"
         v-model.trim="tag.name"
         class="mb-3 field"
         maxlength="20"

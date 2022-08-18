@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container fluid>
+  <b-container>
     <page-title
       title="Dev tools"
     />
@@ -39,7 +39,7 @@
       >
         {{ variant }}
       </b-button>
-      
+
       <b-button
         v-for="size in ['sm', '', 'lg']"
         :variant="`${variant}`"

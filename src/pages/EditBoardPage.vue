@@ -1,12 +1,11 @@
 <!-- TODO: Clone board -->
 <!-- TODO: like/favorite board -->
 <!-- TODO: Fork board -->
-<!-- TODO: Add back button -->
 <!-- TODO: refactor platforms and wallpapers -->
 <!-- TODO: add board preview-->
 <!-- TODO: use board placeholder for preview / disable placeholder animation -->
 <template lang="html">
-  <b-container fluid>
+  <b-container>
     <portal to="pageTitle">
       <div>
         <b-button
@@ -23,7 +22,11 @@
 
     <b-row>
       <b-col>
-        <form ref="boardSettingsForm" @submit.stop.prevent="saveSettings">
+        <form
+          ref="boardSettingsForm"
+          class="field"
+          @submit.stop.prevent="saveSettings"
+        >
           <b-form-group
             :label="$t('board.settings.nameLabel')"
             label-for="name"
@@ -51,7 +54,7 @@
             Make board public (beta)
           </b-form-checkbox>
 
-          <b-alert show variant="info" v-if="isPublic" class="m-0">
+          <b-alert show variant="info" v-if="isPublic" class="m-0 text-truncate">
             <strong>Public Board URL</strong>
             <br>
             <small>{{ `https://app.gamebrary.com/#/b/${board.id}` }}</small>

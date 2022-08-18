@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container fluid>
+  <b-container>
     <portal to="pageTitle">
       <div>
         <b-button
@@ -71,8 +71,6 @@
       >
         {{ tag.name }}
       </b-button>
-
-      <hr />
 
       <p>Games tagged</p>
 

@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container fluid>
+  <b-container>
     <portal to="pageTitle">Create board</portal>
     <b-form @submit.prevent="createBoard" class="field">
       <b-form-group label="Board name:" label-for="boardName">

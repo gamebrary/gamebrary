@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container fluid class="explore-page">
+  <b-container class="explore-page">
     <div class="boards">
       <b-card
         v-for="board in publicBoards"

@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container fluid>
+  <b-container>
     <portal to="pageTitle">
       <div>
         <b-button

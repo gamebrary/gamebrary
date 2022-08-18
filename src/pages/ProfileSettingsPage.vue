@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container fluid>
+  <b-container>
     <header class="my-3 d-flex align-items-center justify-content-between">
       <h1 class="m-0">Profile</h1>
     </header>

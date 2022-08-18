@@ -116,8 +116,6 @@ export default {
 
   mounted() {
     this.$bus.$on('ADD_GAME', this.setGame);
-
-    this.setGame(1026);
   },
 
   computed: {

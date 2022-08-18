@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container fluid>
+  <b-container>
     <portal to="headerActions">
       <b-button
         variant="light"

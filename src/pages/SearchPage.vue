@@ -2,7 +2,7 @@
 <!-- TODO: add empty state with predefined searches -->
 <!-- TODO: add pagination -->
 <template lang="html">
-  <b-container fluid>
+  <b-container>
     <portal to="pageTitle">Search</portal>
 
     <portal to="headerActions">
