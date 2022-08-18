@@ -6,7 +6,7 @@
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <template v-else-if="game">
-      <portal to="headerActions">
+      <portal to="headerActions" v-if="user">
         <b-button
           v-if="!tagsApplied.length"
           rounded

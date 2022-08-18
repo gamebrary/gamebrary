@@ -10,10 +10,8 @@
       <b-card
         :img-src="wallpaper.url"
         img-alt="Image"
-        img-top
         overlay
         footer-class="p-2"
-        class="bg-light"
         tag="article"
         v-for="wallpaper in sortedWallpapers"
         :key="wallpaper.name"

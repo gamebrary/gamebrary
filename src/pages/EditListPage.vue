@@ -26,188 +26,187 @@
       </b-col>
 
       <b-col>
-        <b-card>
-          <header class="p-1 mb-3 pl-2 d-flex justify-content-between align-items-center">
-            <h1 class="mb-0">Edit list</h1>
+        <header class="p-1 mb-3 pl-2 d-flex justify-content-between align-items-center">
+          <h1 class="mb-0">Edit list</h1>
 
-            <b-button
-              variant="success"
-              :to="{ name: 'search', query: { boardId: board.id, listIndex } }"
-            >
-              Add games
-            </b-button>
-          </header>
+          <b-button
+            variant="success"
+            :to="{ name: 'search', query: { boardId: board.id, listIndex } }"
+          >
+            Add games
+          </b-button>
+        </header>
 
-          <form ref="renameListForm" @submit.stop.prevent="saveChanges">
-            <b-form-input
-              autofocus
-              v-model.trim="list.name"
-              :placeholder="$t('board.list.renameListPlaceholder')"
+        <form ref="renameListForm" @submit.stop.prevent="saveChanges">
+          <b-form-input
+            autofocus
+            v-model.trim="list.name"
+            :placeholder="$t('board.list.renameListPlaceholder')"
+            required
+          />
+
+          <b-alert
+            v-if="isDuplicate"
+            class="mt-3 mb-0"
+            show
+            variant="warning"
+          >
+            {{ $t('board.list.duplicateWarning') }}
+          </b-alert>
+
+          <b-form-group
+            id="list-sorting"
+            label="Sort list by:"
+            label-for="sortField"
+          >
+            <b-form-select
+              id="sortField"
+              :options="sortOptions"
+              v-model="list.settings.sortOrder"
               required
             />
+          </b-form-group>
 
-            <b-alert
-              v-if="isDuplicate"
-              class="mt-3 mb-0"
-              show
-              variant="warning"
-            >
-              {{ $t('board.list.duplicateWarning') }}
-            </b-alert>
+          <!-- TODO: limit field width -->
+          <!-- TODO: move to computed, use help text -->
+          <b-alert
+            class="mb-0 mt-2 small"
+            show
+            :variant="list.settings.sortOrder !== 'sortByCustom' ? 'warning' : 'info'"
+          >
+            <span v-if="list.settings.sortOrder === 'sortByCustom'">
+              Games will be added to end of list, drag games to re-order.
+            </span>
 
-            <b-form-group
-              id="list-sorting"
-              label="Sort list by:"
-              label-for="sortField"
-            >
-              <b-form-select
-                id="sortField"
-                :options="sortOptions"
-                v-model="list.settings.sortOrder"
-                required
-              />
-            </b-form-group>
+            <span v-else-if="list.settings.sortOrder">
+              Games will be sorted by
 
-            <!-- TODO: limit field width -->
-            <!-- TODO: move to computed, use help text -->
-            <b-alert
-              class="mb-0 mt-2 small"
-              show
-              :variant="list.settings.sortOrder !== 'sortByCustom' ? 'warning' : 'info'"
-            >
-              <span v-if="list.settings.sortOrder === 'sortByCustom'">
-                Games will be added to end of list, drag games to re-order.
+              <span class="text-lowercase">
+                {{ $t(`board.list.${list.settings.sortOrder}`)}}
               </span>
+            </span>
+          </b-alert>
 
-              <span v-else-if="list.settings.sortOrder">
-                Games will be sorted by
+          <!-- TODO: add another view that uses avatar for game cover (tiny) -->
+          <b-form-group
+            id="list-view"
+            label="List view:"
+            label-for="viewField"
+          >
+            <!-- description="We'll never share your email with anyone else." -->
+            <b-form-select
+              id="viewField"
+              :options="viewOptions"
+              v-model="list.settings.view"
+              required
+            />
+          </b-form-group>
 
-                <span class="text-lowercase">
-                  {{ $t(`board.list.${list.settings.sortOrder}`)}}
-                </span>
-              </span>
-            </b-alert>
+          <b-form-checkbox
+            v-model="list.settings.showReleaseDates"
+            name="check-button"
+            class="mb-2"
+            switch
+          >
+            {{ $t('board.list.showReleaseDates') }}
+          </b-form-checkbox>
 
-            <!-- TODO: add another view that uses avatar for game cover (tiny) -->
-            <b-form-group
-              id="list-view"
-              label="List view:"
-              label-for="viewField"
+          <!-- TODO: add release date styles: countdown/simple date -->
+
+          <b-form-checkbox
+            v-model="list.settings.showGameProgress"
+            name="check-button"
+            class="mb-2"
+            switch
+          >
+            {{ $t('board.list.showGameProgress') }}
+          </b-form-checkbox>
+
+          <b-form-checkbox
+            v-model="list.settings.highlightCompletedGames"
+            name="check-button"
+            class="mb-2"
+            switch
+          >
+            Highlight completed games
+          </b-form-checkbox>
+
+          <b-form-checkbox
+            v-model="list.settings.showGameNotes"
+            name="check-button"
+            class="mb-2"
+            switch
+          >
+            {{ $t('board.list.showGameNotes') }}
+          </b-form-checkbox>
+
+          <b-form-checkbox
+            v-model="list.settings.showGameTags"
+            name="check-button"
+            class="mb-2"
+            switch
+          >
+            {{ $t('board.list.showGameTags') }}
+          </b-form-checkbox>
+
+          <b-form-checkbox
+            v-model="list.settings.showGameCount"
+            name="check-button"
+            switch
+          >
+            {{ $t('board.list.showGameCount') }}
+          </b-form-checkbox>
+
+          <b-list-group class="p-2">
+            <!-- TODO: Clone list -->
+            <!-- TODO: Move within board -->
+            <!-- TODO: Move list to different board -->
+            <!-- TODO: edit lists order goes in board settings -->
+            <!-- TODO: restore move list -->
+            <!-- <b-list-group-item>
+              <small class="text-muted d-flex justify-content-center">Move list</small>
+              <b-button-group size="sm" class="w-100">
+                <b-button
+                  v-b-tooltip.hover
+                  :title="$t('board.list.moveLeft')"
+                  :disabled="isFirst"
+                  @click="moveList(listIndex, listIndex - 1)"
+                >
+                  <i class="fas fa-angle-left fa-fw" aria-hidden />
+                </b-button>
+
+                <b-button
+                  v-b-tooltip.hover
+                  :title="$t('board.list.moveRight')"
+                  :disabled="isLast"
+                  @click="moveList(listIndex, listIndex + 1)"
+                >
+                  <i class="fas fa-angle-right fa-fw" aria-hidden />
+                </b-button>
+              </b-button-group>
+            </b-list-group-item> -->
+          </b-list-group>
+
+          <footer class="mt-2 d-flex justify-content-between align-items-center">
+            <b-button
+              variant="primary"
+              type="submit"
+              :disabled="saving || isDuplicate"
             >
-              <!-- description="We'll never share your email with anyone else." -->
-              <b-form-select
-                id="viewField"
-                :options="viewOptions"
-                v-model="list.settings.view"
-                required
-              />
-            </b-form-group>
+              <b-spinner small v-if="saving" />
+              <span v-else>{{ $t('global.save') }}</span>
+            </b-button>
 
-            <b-form-checkbox
-              v-model="list.settings.showReleaseDates"
-              name="check-button"
-              class="mb-2"
-              switch
+            <b-button
+              variant="link"
+              class="text-danger"
+              @click="promptDeleteList"
             >
-              {{ $t('board.list.showReleaseDates') }}
-            </b-form-checkbox>
-
-            <!-- TODO: add release date styles: countdown/simple date -->
-
-            <b-form-checkbox
-              v-model="list.settings.showGameProgress"
-              name="check-button"
-              class="mb-2"
-              switch
-            >
-              {{ $t('board.list.showGameProgress') }}
-            </b-form-checkbox>
-
-            <b-form-checkbox
-              v-model="list.settings.highlightCompletedGames"
-              name="check-button"
-              class="mb-2"
-              switch
-            >
-              Highlight completed games
-            </b-form-checkbox>
-
-            <b-form-checkbox
-              v-model="list.settings.showGameNotes"
-              name="check-button"
-              class="mb-2"
-              switch
-            >
-              {{ $t('board.list.showGameNotes') }}
-            </b-form-checkbox>
-
-            <b-form-checkbox
-              v-model="list.settings.showGameTags"
-              name="check-button"
-              class="mb-2"
-              switch
-            >
-              {{ $t('board.list.showGameTags') }}
-            </b-form-checkbox>
-
-            <b-form-checkbox
-              v-model="list.settings.showGameCount"
-              name="check-button"
-              switch
-            >
-              {{ $t('board.list.showGameCount') }}
-            </b-form-checkbox>
-
-            <b-list-group class="p-2">
-              <!-- TODO: Clone list -->
-              <!-- TODO: Move within board -->
-              <!-- TODO: Move list to different board -->
-              <!-- TODO: edit lists order goes in board settings -->
-              <b-list-group-item>
-                <small class="text-muted d-flex justify-content-center">Move list</small>
-                <b-button-group size="sm" class="w-100">
-                  <b-button
-                    v-b-tooltip.hover
-                    :title="$t('board.list.moveLeft')"
-                    :disabled="isFirst"
-                    @click="moveList(listIndex, listIndex - 1)"
-                  >
-                    <i class="fas fa-angle-left fa-fw" aria-hidden />
-                  </b-button>
-
-                  <b-button
-                    v-b-tooltip.hover
-                    :title="$t('board.list.moveRight')"
-                    :disabled="isLast"
-                    @click="moveList(listIndex, listIndex + 1)"
-                  >
-                    <i class="fas fa-angle-right fa-fw" aria-hidden />
-                  </b-button>
-                </b-button-group>
-              </b-list-group-item>
-            </b-list-group>
-
-            <footer class="mt-2 d-flex justify-content-between align-items-center">
-              <b-button
-                variant="primary"
-                type="submit"
-                :disabled="saving || isDuplicate"
-              >
-                <b-spinner small v-if="saving" />
-                <span v-else>{{ $t('global.save') }}</span>
-              </b-button>
-
-              <b-button
-                variant="link"
-                class="text-danger"
-                @click="promptDeleteList"
-              >
-                <i class="fas fa-trash-alt fa-fw" aria-hidden />
-                {{ $t('board.list.delete') }}
-              </b-button>
-            </footer>
-          </form>
-        </b-card>
+              <i class="fas fa-trash-alt fa-fw" aria-hidden />
+              {{ $t('board.list.delete') }}
+            </b-button>
+          </footer>
+        </form>
       </b-col>
     </b-row>
   </b-container>

@@ -1,23 +1,9 @@
 <template lang="html">
   <div>
-    <header>
-      <b-container>
-        <b-row>
-          <b-col cols="6">
-            <div class="mb-5 mb-lg-0 text-center text-lg-start align-items-center">
-              <h1 class="display-4 mb-3">Organize your video games beautifully.</h1>
-              <p class="lead text-muted mb-5">Learn about games, take notes, organize, customize, discover and more with Gamebrary</p>
-            </div>
-          </b-col>
+    <h1 class="display-5 mb-3 text-center">Organize your video games beautifully.</h1>
+    <p class="lead text-muted mb-5 field ml-auto mr-auto text-center">Learn about games, take notes, organize, customize, discover and more with Gamebrary</p>
 
-          <b-col cols="6">
-            <div class="px-5 px-sm-0"><img class="img-fluid rounded-circle" src="https://source.unsplash.com/u8Jn2rzYIps/900x900" alt="..." /></div>
-          </b-col>
-        </b-row>
-      </b-container>
-    </header>
-
-    <section class="p-5 bg-light">
+    <!-- <section class="p-5 bg-light">
       <div class="row align-items-center">
         <div class="col-lg-8 order-lg-1 mb-5 mb-lg-0">
           <div class="container-fluid px-5">
@@ -64,9 +50,9 @@
 
         </div>
       </div>
-    </section>
+    </section> -->
 
-    <section class="bg-success text-center py-4">
+    <!-- <section class="bg-success text-center py-4">
       <h2 class="text-white display-4 mb-4">
         Get started.
         <br />
@@ -74,7 +60,7 @@
       </h2>
 
       <a class="btn btn-outline-light py-3 px-4 rounded-pill" href="https://startbootstrap.com/theme/new-age" target="_blank">Download for free</a>
-    </section>
+    </section> -->
 
     <public-page-footer />
   </div>

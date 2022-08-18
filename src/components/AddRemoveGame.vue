@@ -24,7 +24,7 @@
           <div
             v-for="board in formattedBoards"
             :key="board.id"
-            class="p-2 bg-light mb-2"
+            class="p-2 bg-white mb-2"
           >
             <header class="mb-2 d-flex align-items-center">
               <b-avatar
@@ -46,7 +46,7 @@
             <b-button
               v-for="(list, listIndex) in board.lists"
               :key="`${board.id}-${list.name}`"
-              :variant="isGameInList({ list, gameId }) ? 'success' : 'info'"
+              :variant="isGameInList({ list, gameId }) ? 'success' : 'light'"
               block
               clas
               size="sm"
@@ -60,32 +60,6 @@
 
               <i :class="`fa-solid ${isGameInList({ list, gameId }) ? 'fa-minus' : 'fa-plus' }`" />
             </b-button>
-
-            <!-- <b-collapse
-              :id="board.id"
-              :visible="expandedBoard === board.id"
-              accordion="my-accordion"
-              role="tabpanel"
-            >
-              <b-list-group flush>
-                <div
-                  class="d-flex justify-content-between align-items-center"
-                  v-for="(list, listIndex) in board.lists"
-                  :key="`${board.id}-${list.name}`"
-                  :variant="isGameInList({ list, gameId }) ? 'success' : 'transparent'"
-                  button
-                  @click.stop="handleClick({ list, listIndex, board })"
-                >
-                  <span>
-                    {{ list.name }}
-                    <br />
-                    <small class="text-muted">{{ list.games.length }} games in list</small>
-                  </span>
-
-                  <i :class="`fa-solid ${isGameInList({ list, gameId }) ? 'fa-minus' : 'fa-plus' }`" />
-                </div>
-              </b-list-group>
-            </b-collapse> -->
           </div>
         </template>
 

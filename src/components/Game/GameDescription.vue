@@ -5,7 +5,7 @@
 
     <template v-else>
       <div class="small" v-html="description" />
-      <small class="text-muted">Source: {{ source }}</small>
+      <small class="text-muted mt-n3">Source: {{ source }}</small>
     </template>
   </div>
 </template>
@@ -58,9 +58,7 @@ export default {
     wikipediaSlug() {
       const wikipediaData = this.game?.websites?.find(({ url, category }) => url && category === WEBSITE_CATEGORIES.WIKIPEDIA);
 
-      const slug = wikipediaData?.url?.split('/wiki/')?.[1];
-
-      return slug;
+      return wikipediaData?.url?.split('/wiki/')?.[1];
     },
   },
 
