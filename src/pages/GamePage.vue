@@ -3,17 +3,7 @@
 <!-- TODO: show GOG buy button -->
 <template lang="html">
   <b-container fluid>
-    <!-- <portal to="pageTitle" v-if="game">{{ game.name }}</portal> -->
-
-    <!-- <portal to="pageTitle" v-if="game">
-      <b-button>
-        boom
-      </b-button>
-    </portal> -->
-
-    <div v-if="loading" class="text-center mt-5 ml-auto">
-      <b-spinner/>
-    </div>
+    <b-spinner v-if="loading" class="spinner-centered" />
 
     <template v-else-if="game">
       <portal to="headerActions">
@@ -166,21 +156,21 @@
                   {{ metacriticScore.score }}
 
                 </b-button> -->
+                <b-button
+                  v-for="({ bgColor, textColor, name }) in tagsApplied"
+                  :key="name"
+                  rounded
+                  size="sm"
+                  variant="transparent"
+                  class="mr-1"
+                  :style="`background-color: ${bgColor}; color: ${textColor}`"
+                  @click="$router.push({ name: 'game.tags', params: { id: game.id, slug: game.slug } })"
+                >
+                  <i class="fa-solid fa-tag mr-1" />
+                  {{ name }}
+                </b-button>
               </aside>
             </header>
-
-            <b-button
-              v-for="({ bgColor, textColor, name }) in tagsApplied"
-              :key="name"
-              rounded
-              size="sm"
-              variant="transparent"
-              class="mr-1 my-2"
-              :style="`background-color: ${bgColor}; color: ${textColor}`"
-              @click="$router.push({ name: 'game.tags', params: { id: game.id, slug: game.slug } })"
-            >
-              {{ name }}
-            </b-button>
 
             <aside class="bg-white float-right pl-2 pb-2">
               <b-img
