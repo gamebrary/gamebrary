@@ -136,35 +136,14 @@ export default {
         .then((doc) => {
           const board = doc.data();
 
-          if (state.user.uid !== board.owner) {
-            return reject();
-          }
+          // if (state.user.uid !== board.owner) {
+          //   return reject();
+          // }
 
           commit('SET_ACTIVE_BOARD', {
             ...board,
             id: doc.id,
           });
-          return resolve();
-        })
-        .catch(reject);
-    });
-  },
-
-  LOAD_PUBIC_BOARD({ commit }, id) {
-    return new Promise((resolve, reject) => {
-      const db = firestore();
-
-      db.collection('boards')
-        .doc(id)
-        .get()
-        .then((doc) => {
-          const board = doc.data();
-
-          commit('SET_ACTIVE_BOARD', {
-            ...board,
-            id: doc.id,
-          });
-
           return resolve();
         })
         .catch(reject);
