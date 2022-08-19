@@ -1,5 +1,3 @@
-<!-- TODO: allow notes to be public -->
-<!-- TODO: pagination? -->
 <template lang="html">
   <b-container>
     <portal to="pageTitle">

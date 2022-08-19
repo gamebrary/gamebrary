@@ -1,6 +1,3 @@
-<!-- TODO: Highlight exclusive games (e.g. only for NSW) -->
-<!-- TODO: add pricecharting info -->
-<!-- TODO: show GOG buy button -->
 <template lang="html">
   <b-container>
     <b-spinner v-if="loading" class="spinner-centered" />
@@ -102,7 +99,6 @@
           <!-- <game-speedruns /> -->
 
           <!-- <div v-if="gameAchievements"> -->
-            <!-- TODO: add steam achievements -->
             <!-- <pre>{{ gameAchievements }}</pre> -->
           <!-- </div> -->
         </b-col>

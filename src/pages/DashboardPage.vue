@@ -10,7 +10,7 @@
       </b-button>
     </portal>
 
-    <game-boards class="mb-3" />
+    <game-boards />
   </b-container>
 </template>
 

@@ -1,17 +1,3 @@
-<!-- TODO: improve board and game caching -->
-<!-- TODO: GOG, steam, and amazon affiliate links -->
-<!-- TODO: allow board sorting -->
-<!-- TODO: Use moment? or use dayjs without wrapper -->
-<!-- TODO: remove toasts -->
-<!-- TODO: add mega search shift + k -->
-<!-- TODO: re-translate strings -->
-<!-- TODO: focus on affiliate stuff -->
-<!-- TODO: update email template, update logo, etc... -->
-<!-- TODO: use navigator.onLine -->
-<!-- TODO: integrate itch.io -->
-<!-- TODO: integrate fandom/wikia -->
-<!-- TODO: https://zelda.fandom.com/api/v1/Articles/List?expand=1&category=Characters&limit=10000 -->
-<!-- TODO: itch.io referral https://itch.io/register?return_to=https%3A%2F%2Fitch.io%2Fpartners%2Fapplication -->
 <template>
   <div
     id="app"

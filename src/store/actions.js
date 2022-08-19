@@ -3,9 +3,6 @@ import { firestore, storage } from 'firebase/app';
 import 'firebase/storage';
 import 'firebase/firestore';
 
-// TODO: break up into smaller files and import them here
-// TODO: use proxy endpoint
-
 const API_BASE = 'https://us-central1-gamebrary-8c736.cloudfunctions.net';
 // const API_BASE = 'http://localhost:5001/gamebrary-8c736/us-central1';
 
@@ -39,7 +36,6 @@ export default {
     });
   },
 
-  // TODO: use endpoint for everything?
   IGDB({ state }, { path, data }) {
     return new Promise((resolve, reject) => {
       axios.get(`${API_BASE}/igdb?token=${state.twitchToken.access_token}&path=${path}&data=${data}`)
@@ -176,7 +172,6 @@ export default {
   },
 
   LOAD_PUBLIC_BOARDS({ commit }) {
-    // TODO: paginate
     return new Promise((resolve, reject) => {
       const db = firestore();
 

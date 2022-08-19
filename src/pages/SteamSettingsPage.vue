@@ -2,7 +2,6 @@
   <b-container fluid>
     <page-title title="Steam settings" />
 
-    <!-- TODO: Explain how steam id is used -->
     <b-form-group label="Steam ID:">
       <b-form-input
         v-model="steamId"

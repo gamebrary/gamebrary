@@ -1,8 +1,6 @@
 <template lang="html">
   <b-row v-if="user" class="p-1 boards">
-    <template v-if="showPlaceholder">
-      Loading
-    </template>
+    <b-spinner v-if="loading" class="spinner-centered" />
 
     <template v-else>
       <empty-state
@@ -27,7 +25,7 @@
           sm="6"
           md="4"
           lg="3"
-          class="p-2"
+          class="px-2 pb-2"
         >
           <mini-board
             :board="board"
@@ -62,10 +60,6 @@ export default {
   computed: {
     ...mapState(['publicBoards', 'user', 'boards', 'wallpapers']),
     ...mapGetters(['isBoardOwner', 'platformNames', 'sortedBoards']),
-
-    showPlaceholder() {
-      return this.loading && Object.keys(this.boards).length === 0;
-    },
 
     showCreateBoard() {
       return !this.loading && Object.keys(this.boards).length;
@@ -152,8 +146,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-.boards {
-}
-</style>

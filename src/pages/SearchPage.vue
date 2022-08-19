@@ -1,6 +1,3 @@
-<!-- TODO: add filters -->
-<!-- TODO: add empty state with predefined searches -->
-<!-- TODO: add pagination -->
 <template lang="html">
   <b-container>
     <portal to="pageTitle">Search</portal>

@@ -1,4 +1,3 @@
-<!-- TODO: finish layout -->
 <template lang="html">
   <b-container>
     <b-spinner v-if="loading" class="spinner-centered" />

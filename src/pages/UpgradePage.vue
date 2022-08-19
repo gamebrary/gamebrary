@@ -10,7 +10,6 @@
       @loading="load"
     />
 
-    <!-- TODO: finish UI, set loading spinner -->
     <b-card class="text-center">
       <h2>Level up your video game collection!</h2>
       <p class="lead-text">

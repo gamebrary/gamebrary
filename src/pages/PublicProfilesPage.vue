@@ -1,4 +1,3 @@
-<!-- TODO: finish this -->
 <template lang="html">
   <b-container fluid>
     <page-title
