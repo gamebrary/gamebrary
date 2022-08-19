@@ -242,6 +242,9 @@ const routes = [
     path: '/b/:id',
     name: 'board',
     component: BoardPage,
+    meta: {
+      public: true,
+    },
   },
   {
     path: '/b/:id/edit',
