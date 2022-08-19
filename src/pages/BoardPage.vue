@@ -8,15 +8,15 @@
       <portal to="pageTitle">
         <b-button
           :to="{ name: 'board.edit', params: { id: board.id } }"
+          :disabled="!isBoardOwner"
           variant="light"
           class="mr-2"
         >
-          {{ board.name }}
+          {{ board.name }} <template v-if="!isBoardOwner">by <strong>{{ board.owner }}</strong></template>
         </b-button>
         <!-- TODO: show back button to board, store in memory only -->
       </portal>
 
-      <!-- TODO: put board in component -->
       <game-list
         v-for="(list, listIndex) in board.lists"
         :list="list"
@@ -71,15 +71,8 @@ export default {
       return this.$route.name === 'board';
     },
 
-    isPublicRoute() {
-      return this.$route.meta?.public;
-    },
-
     showBoard() {
-      const { isPublicRoute, board } = this;
-      const isPublicBoard = isPublicRoute && board.isPublic;
-
-      return this.user || isPublicBoard;
+      return this.user || this.board?.isPublic;
     },
 
     boardId() {
@@ -97,26 +90,16 @@ export default {
     },
 
     boardId(boardId) {
-      if (boardId) this.load();
+      if (boardId) {
+        this.backgroundUrl = null;
+        this.loadBoard();
+      }
     },
   },
 
   async mounted() {
-    // TODO: only clear board if not already cached
-
-    this.$store.commit('CLEAR_BOARD');
-
-    if (this.isPublicRoute) {
-      await this.loadPublicBoard(this.boardId);
-
-      if (this.showBoard) {
-        this.loadBoardGames();
-        this.loadBoardBackground();
-      }
-    } else {
-      this.load();
-    }
-
+    this.loadBoard();
+    this.$store.commit('CLEAR_BOARD'); // TODO: only clear board if not already cached
     this.$bus.$on('LOAD_BOARD_BACKGROUND', this.loadBoardBackground);
   },
 
@@ -127,40 +110,21 @@ export default {
   },
 
   methods: {
-    load() {
-      this.backgroundUrl = null;
-
-      if (this.boardId && this.user) {
-        this.loadBoard(this.boardId);
-      } else {
-        // TODO: show board not found message?
-        this.$router.push({ name: 'boards' });
-      }
-    },
-
-    // TODO: handle all extra logic in store
-    async loadBoard(id) {
+    async loadBoard() {
       this.loading = true;
 
-      await this.$store.dispatch('LOAD_BOARD', id)
+      await this.$store.dispatch('LOAD_BOARD', this.boardId)
         .catch(() => {
           this.$router.replace({ path: '/' });
         });
 
-      this.loadBoardGames();
-      this.loadBoardBackground();
-    },
-
-    async loadPublicBoard(id) {
-      this.loading = true;
-
-      await this.$store.dispatch('LOAD_PUBIC_BOARD', id)
-        .catch(() => {
-          // this.$router.replace({ path: '/' });
-        });
-
-      this.loadBoardGames();
-      this.loadBoardBackground();
+        if (this.showBoard) {
+          this.loadBoardGames();
+          this.loadBoardBackground();
+        } else {
+          // TODO: handle non-public boards, show error?
+          this.$router.push({ name: 'explore' });
+        }
     },
 
     async loadBoardBackground() {
@@ -180,11 +144,11 @@ export default {
     loadBoardGames() {
       const { lists } = this.board;
 
-      if (lists && lists.length === 0) {
-        // TODO: toggle add list
+      if (lists?.length === 0) {
+        // TODO: handle empty boards?
       }
 
-      const boardGames = lists.length
+      const boardGames = lists?.length
         ? Array.from(new Set(lists.map(({ games }) => games).flat()))
         : [];
 
