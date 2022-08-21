@@ -1,5 +1,4 @@
 <template lang="html">
-  <!-- TODO: finish this -->
   <!-- TODO: move move arrows to next to list preview -->
   <!-- TODO: show list preview in full page view -->
   <!-- TODO: show search inline, allow to go full screen (search page) -->
@@ -18,10 +17,10 @@
       </div>
     </portal>
 
-    <portal to="headerActions">
+    <portal to="headerActions" >
       <b-button
         variant="success"
-        class="mr-2"
+        class="mr-2 d-none d-sm-block"
         :to="{ name: 'search', query: { boardId: board.id, listIndex } }"
       >
         Add games
@@ -29,13 +28,13 @@
     </portal>
 
     <b-row v-if="list" no-gutters>
-      <b-col cols="6">
+      <b-col cols="6" class="d-none d-sm-block">
         <div :style="boardStyles" class="p-3 list-preview d-flex justify-content-center">
           <game-list :list="list" preview />
         </div>
       </b-col>
 
-      <b-col cols="6">
+      <b-col cols="12" sm="6">
         <form ref="renameListForm" @submit.stop.prevent="saveChanges" class="p-3">
           <b-form-input
             autofocus
