@@ -11,7 +11,7 @@
     :id="listIndex"
   >
     <b-card no-body>
-      <header class="p-2">
+      <header class="p-2 pr-0 d-flex justify-content-between">
         <b-button
           block
           size="sm"
@@ -38,6 +38,15 @@
           >
             <i class="fa-solid fa-sort fa-fw" />
           </b-badge>
+        </b-button>
+
+        <b-button
+          title="Add games"
+          size="sm"
+          variant="transparent"
+          :to="{ name: 'search', query: { boardId: board.id, listIndex } }"
+        >
+          <i class="fa-solid fa-plus fa-fw" />
         </b-button>
       </header>
 
