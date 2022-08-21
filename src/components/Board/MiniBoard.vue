@@ -1,30 +1,30 @@
 <template lang="html">
   <div
-    :class="['mini-board overflow-hidden p-1 rounded cursor-pointer m-0', { 'bg-secondary': !board.backgroundColor }]"
+    :class="['mini-board overflow-hidden rounded cursor-pointer m-0', { 'bg-light': !board.backgroundColor }]"
     :style="miniBoardStyles"
     @click="$emit('view-board', board.id)"
   >
-    <header class="text-small d-flex align-items-center">
-      <span class="mr-1">{{ board.name }}</span>
+    <header class="text-small py-1 px-2 d-flex align-items-center justify-content-between">
+      <span class="mr-1 text-muted mb-1">{{ board.name }}</span>
 
-      <small v-if="board.isPublic" class="text-info">
-        (Public)
-      </small>
+      <b-button v-if="board.isPublic" class="bg-warning text-white p-0 px-1" size="sm">
+        Public
+      </b-button>
     </header>
 
     <div class="lists rounded overflow-hidden">
       <div
         v-for="list in board.lists"
         :key="list.name"
-        class="list rounded overflow-hidden mr-1 border align-self-start"
+        class="list rounded overflow-hidden mr-2 border align-self-start"
       >
         <template v-if="list.games.length">
           <div
             v-for="(game, index) in list.games"
             :key="game"
-            :class="['bg-secondary', { 'border-bottom': index !== list.games.length - 1 }]"
+            :class="['list bg-light', { 'border-bottom': index !== list.games.length - 1 }]"
           >
-            <i class="fas fa-square fa-fw text-muted" style="margin-left: 1px;" aria-hidden />
+            <i class="fas fa-square fa-fw text-white" style="margin-left: 1px;" aria-hidden />
           </div>
         </template>
 
@@ -64,21 +64,16 @@ $boardHeight: 200px;
   background-repeat: no-repeat;
   background-size: cover;
   height: $boardHeight;
-  // width: 100%;
-  // width: 363.2px;
-
-  // @media(max-width: 1024px) { width: 320px; }
-  // @media(max-width: 768px) { width: 360px; }
-  // @media(width: 500px) { width: 222px; }
-  // @media(max-width: 500px) { width: calc(100% - 8px); }
 }
 
 .lists {
   max-height: $boardHeight - 40px;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .list {
-  // width: 60px;
+  width: 60px;
+  max-height: 160px;
 }
 </style>
