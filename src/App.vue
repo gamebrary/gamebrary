@@ -10,7 +10,6 @@
     <div :class="{ 'blurred': isGamePage }">
       <page-header />
       <router-view class="viewport" />
-      <auth-modal />
       <keyboard-shortcuts-modal />
       <add-remove-game />
     </div>
@@ -18,7 +17,6 @@
 </template>
 
 <script>
-import AuthModal from '@/components/AuthModal';
 import AddRemoveGame from '@/components/AddRemoveGame';
 import KeyboardShortcutsModal from '@/components/KeyboardShortcutsModal';
 import PageHeader from '@/components/PageHeader';
@@ -34,7 +32,6 @@ export default {
 
   components: {
     PageHeader,
-    AuthModal,
     AddRemoveGame,
     KeyboardShortcutsModal,
   },
