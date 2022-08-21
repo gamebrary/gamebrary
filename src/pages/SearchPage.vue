@@ -14,44 +14,47 @@
       </b-col>
 
       <b-col cols="12" class="bg-light py-2 mb-3" v-if="activeBoard">
-        <b-button-group>
-          <b-dropdown
-            split
-            variant="light"
-            :split-to="{ name: 'board', params: { id: boardId } }"
-            :text="activeBoard.name"
-          >
-            <b-dropdown-item
-              v-for="board in boards"
-              :key="board.id"
-              :disabled="!board.lists.length"
-              :to="{ name: 'search', query: { boardId: board.id, listIndex: 0 } }"
+        <div class="d-flex align-items-center">
+          Add games to:
+          <b-button-group class="ml-2">
+            <b-dropdown
+              split
+              variant="info"
+              :split-to="{ name: 'board', params: { id: boardId } }"
+              :text="activeBoard.name"
             >
-              {{ board.name }}
-            </b-dropdown-item>
-          </b-dropdown>
+              <b-dropdown-item
+                v-for="board in boards"
+                :key="board.id"
+                :disabled="!board.lists.length"
+                :to="{ name: 'search', query: { boardId: board.id, listIndex: 0 } }"
+              >
+                {{ board.name }}
+              </b-dropdown-item>
+            </b-dropdown>
 
-          <b-dropdown
-            v-if="activeBoardList"
-            split
-            variant="light"
-            :split-to="{ name: 'board', params: { id: boardId } }"
-            :text="activeBoardList.name"
-          >
-            <b-dropdown-item
-              v-for="(list, listIndex) in activeBoard.lists"
-              :key="list.id"
-              :to="{ name: 'search', query: { boardId: activeBoard.id, listIndex } }"
+            <b-dropdown
+              v-if="activeBoardList"
+              split
+              variant="info"
+              :split-to="{ name: 'board', params: { id: boardId } }"
+              :text="activeBoardList.name"
             >
-              {{ list.name }}
-            </b-dropdown-item>
-          </b-dropdown>
-        </b-button-group>
+              <b-dropdown-item
+                v-for="(list, listIndex) in activeBoard.lists"
+                :key="list.id"
+                :to="{ name: 'search', query: { boardId: activeBoard.id, listIndex } }"
+              >
+                {{ list.name }}
+              </b-dropdown-item>
+            </b-dropdown>
+          </b-button-group>
 
-        <b-button :to="{ name: 'search' }" class="ml-auto" variant="outline-dark">
-          <i class="fas fa-times fa-fw" aria-hidden />
-          Clear
-        </b-button>
+          <b-button :to="{ name: 'search' }" class="ml-auto" variant="outline-danger">
+            <i class="fas fa-times fa-fw" aria-hidden />
+            Clear
+          </b-button>
+        </div>
       </b-col>
 
       <b-col
