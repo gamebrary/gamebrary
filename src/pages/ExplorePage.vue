@@ -1,5 +1,8 @@
 <template lang="html">
   <b-container>
+    <portal to="pageTitle">
+      Explore public game boards
+    </portal>
     <game-boards />
 
     <!-- <div class="game-deals">
