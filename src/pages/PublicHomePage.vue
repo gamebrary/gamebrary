@@ -1,5 +1,14 @@
 <template lang="html">
   <div>
+    <portal to="headerActions">
+      <b-button
+        class="mr-2"
+        variant="light"
+        :to="{ name: 'explore' }"
+      >
+        Explore
+      </b-button>
+    </portal>
     <h1 class="display-5 mb-3 text-center">Organize your video games beautifully.</h1>
     <p class="lead text-muted mb-5 field ml-auto mr-auto text-center">Learn about games, take notes, organize, customize, discover and more with Gamebrary</p>
 

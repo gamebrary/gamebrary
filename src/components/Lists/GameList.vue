@@ -75,9 +75,11 @@
             variant="light"
             block
             class="mb-2"
+            :disabled="!isBoardOwner"
             :to="{ name: 'search', query: { boardId: board.id, listIndex: listIndex } }"
           >
-            Add games
+            <template v-if="isBoardOwner">Add games</template>
+            <template else>Empty list</template>
           </b-button>
         </div>
       </draggable>

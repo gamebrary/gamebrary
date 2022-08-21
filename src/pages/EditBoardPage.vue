@@ -51,13 +51,13 @@
           </b-form-group>
 
           <b-form-checkbox v-model="isPublic" switch class="mb-2">
-            Make board public (beta)
+            Make board public
           </b-form-checkbox>
 
           <b-alert show variant="info" v-if="isPublic" class="m-0 text-truncate">
             <strong>Public Board URL</strong>
             <br>
-            <small>{{ `https://app.gamebrary.com/#/b/${board.id}` }}</small>
+            <small>{{ `https://gamebrary.com/b/${board.id}` }}</small>
           </b-alert>
 
           <hr class="my-3">

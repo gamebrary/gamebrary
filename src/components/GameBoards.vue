@@ -1,25 +1,21 @@
 <template lang="html">
-  <b-row v-if="user" class="p-1 boards">
+  <b-row class="p-1 boards">
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <template v-else>
       <empty-state
-        v-if="!user || !loading && sortedBoards.length === 0"
+        v-if="isEmpty"
         title="Boards"
         message="Use boards to easily organize your video game collections"
       >
         <b-button :to="{ name: 'create.board' }">
           {{ $t('boards.create') }}
         </b-button>
-
-        <!-- <b-button :to="{ name: 'public.boards' }">
-          View public boards
-        </b-button> -->
       </empty-state>
 
       <template v-else>
         <b-col
-          v-for="board in sortedBoards"
+          v-for="board in gameBoards"
           :key="board.id"
           cols="12"
           sm="6"
@@ -61,16 +57,18 @@ export default {
     ...mapState(['publicBoards', 'user', 'boards', 'wallpapers']),
     ...mapGetters(['isBoardOwner', 'platformNames', 'sortedBoards']),
 
-    showCreateBoard() {
-      return !this.loading && Object.keys(this.boards).length;
+    gameBoards() {
+      return this.isPublicBoard
+        ? this.publicBoards
+        : this.sortedBoards;
     },
 
-    allBoards() {
-      // return this.publicBoards
-      return [
-        ...this.sortedBoards,
-        ...this.publicBoards,
-      ];
+    isEmpty() {
+      return !this.loading && this.gameBoards.length === 0;
+    },
+
+    isPublicBoard() {
+      return this.$route.name === 'explore';
     },
   },
 
@@ -80,7 +78,11 @@ export default {
 
   methods: {
     load() {
-      if (this.user) this.loadPlatforms();
+      if (this.isPublicBoard) {
+        this.loadPublicBoards();
+      } else {
+        this.loadBoards()
+      }
     },
 
     getWallpaperUrl(url) {
@@ -99,17 +101,6 @@ export default {
         : '';
     },
 
-    async loadPlatforms() {
-      await this.$store.dispatch('LOAD_IGDB_PLATFORMS')
-        .catch(() => {
-          this.$bvToast.toast('There was an error loading platforms', { variant: 'error' });
-        });
-
-      this.loadBoards();
-
-      this.$store.dispatch('LOAD_PUBLIC_BOARDS');
-    },
-
     async loadBoards() {
       this.loading = true;
 
@@ -121,6 +112,20 @@ export default {
 
       this.loading = false;
     },
+
+    async loadPublicBoards() {
+      this.loading = true;
+
+      await this.$store.dispatch('LOAD_PUBLIC_BOARDS')
+        .catch(() => {
+          this.loading = false;
+          this.$store.commit('SET_SESSION_EXPIRED', true);
+        });
+
+      this.loading = false;
+    },
+
+
 
     viewBoard(id) {
       this.$router.push({ name: 'board', params: { id } });
