@@ -202,6 +202,7 @@ export default {
         params: {
           id,
           slug: this.games[id].slug,
+          boardId: this.board.id,
         },
       });
     },

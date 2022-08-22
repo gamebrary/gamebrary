@@ -3,6 +3,16 @@
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <template v-else-if="game">
+      <portal to="pageTitle">
+        <b-button
+          v-if="originBoardId"
+          :to="{ name: 'board', params: { id: originBoardId } }"
+          variant="light"
+          class="mr-2"
+        >
+          <i class="fa-solid fa-chevron-left" />
+        </b-button>
+      </portal>
       <portal to="headerActions" v-if="user">
         <b-button-group class="mr-2">
           <b-button
@@ -250,6 +260,10 @@ export default {
       return news.length > 3
         ? news.splice(0, 3)
         : news;
+    },
+
+    originBoardId() {
+      return this.$route?.params?.boardId;
     },
 
     // gameAchievements() {
