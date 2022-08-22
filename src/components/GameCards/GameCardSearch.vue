@@ -96,6 +96,7 @@ export default {
       const { boardId, listIndex } = this.$route?.query;
       const boardIndex = this.boards.findIndex(({ id }) => id === boardId);
       const board = this.boards[boardIndex];
+      const gameIndex = board?.lists?.[listIndex]?.games?.indexOf(this.gameId);
 
       board.lists[listIndex].games.splice(gameIndex, 1);
 
