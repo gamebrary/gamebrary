@@ -84,9 +84,9 @@
               class="d-flex mb-2"
             >
               <b-img
+                v-if="article.imageUrl"
                 :src="article.imageUrl"
                 width="100"
-                :blank="!article.imageUrl"
                 rounded
                 class="float-left mr-2"
               />
