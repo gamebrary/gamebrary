@@ -68,12 +68,10 @@
             />
           </div>
 
-          <game-titles class="d-sm-none mt-2" />
-
           <section
             v-if="gameNews.length"
             tag="a"
-            class="bg-light rounded px-2 mt-2 d-flex flex-column"
+            class="bg-light d-none d-sm-flex rounded px-2 mt-2 flex-column"
           >
             <h5 class="pt-2">Latest news:</h5>
 
@@ -100,11 +98,11 @@
           <game-note
             v-if="note"
             :note="note"
-            class="cursor-pointer"
+            class="cursor-pointer mt-3"
             @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
           />
 
-          <game-in-list />
+          <game-in-list :class="{ 'text-white': steamBackground }" />
 
           <!-- <game-speedruns /> -->
 
@@ -119,9 +117,9 @@
           md="8"
           xl="9"
         >
-          <article class="bg-white rounded px-sm-3 pt-3 pb-1 px-0">
+          <article class="bg-white rounded p-3">
             <header class="d-flex align-items-start justify-content-between pb-2">
-              <game-titles class="d-none d-sm-block" />
+              <game-titles />
 
               <aside>
                 <!-- <b-button :href="metacriticScore.url" variant="success" v-if="metacriticScore.url">
@@ -321,6 +319,10 @@ export default {
     gameHeaderImage() {
       return this.game?.steam?.header_image;
     },
+
+    steamBackground() {
+      return this.game?.steam?.background;
+    },
   },
 
   watch: {
@@ -391,7 +393,7 @@ export default {
 
       if (wikipediaSlug) await this.$store.dispatch('LOAD_WIKIPEDIA_ARTICLE', wikipediaSlug).catch((e) => {});
       if (steamGameId) await this.$store.dispatch('LOAD_STEAM_GAME_NEWS', steamGameId).catch((e) => {});
-      if (this.game?.steam?.background) this.$bus.$emit('UPDATE_WALLPAPER', this.game?.steam?.background);
+      if (this.steamBackground) this.$bus.$emit('UPDATE_WALLPAPER', this.game?.steam?.background);
 
       this.loading = false;
     },

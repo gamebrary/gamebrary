@@ -37,7 +37,6 @@
           variant="secondary"
           class="mb-3 small"
         >
-
           <strong>{{ article.title }}</strong>
 
           <div class="mb-0 w-100" v-html="$options.marked(article.contents)" />
