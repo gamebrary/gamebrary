@@ -209,6 +209,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "donwilson",
+      "name": "Don Wilson",
+      "avatar_url": "https://avatars.githubusercontent.com/u/422444?v=4",
+      "profile": "https://www.pyxol.com",
+      "contributions": [
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
