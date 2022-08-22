@@ -97,6 +97,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/vman88"><img src="https://avatars1.githubusercontent.com/u/8726593?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Vikas</b></sub></a><br /><a href="#ideas-vman88" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/romancm/gamebrary/issues?q=author%3Avman88" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://github.com/game220"><img src="https://avatars1.githubusercontent.com/u/71243360?v=4?s=100" width="100px;" alt=""/><br /><sub><b>game220</b></sub></a><br /><a href="https://github.com/romancm/gamebrary/issues?q=author%3Agame220" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://github.com/rllaquet"><img src="https://avatars.githubusercontent.com/u/22679382?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Rubén Llaquet</b></sub></a><br /><a href="https://github.com/romancm/gamebrary/issues?q=author%3Arllaquet" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/Dinth"><img src="https://avatars.githubusercontent.com/u/313674?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Michal</b></sub></a><br /><a href="https://github.com/romancm/gamebrary/issues?q=author%3ADinth" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 
