@@ -3,7 +3,7 @@
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <template v-else>
-      <div class="small" v-html="description" />
+      <div v-html="description" />
       <small class="text-muted mt-n3">Source: {{ source }}</small>
     </template>
   </div>
