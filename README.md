@@ -100,6 +100,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/Dinth"><img src="https://avatars.githubusercontent.com/u/313674?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Michal</b></sub></a><br /><a href="https://github.com/romancm/gamebrary/issues?q=author%3ADinth" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://erbilnas.com"><img src="https://avatars.githubusercontent.com/u/15656271?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Erbil Nas</b></sub></a><br /><a href="https://github.com/romancm/gamebrary/issues?q=author%3Aerbilnas" title="Bug reports">🐛</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/lindyhop"><img src="https://avatars.githubusercontent.com/u/2474927?v=4?s=100" width="100px;" alt=""/><br /><sub><b>alex.</b></sub></a><br /><a href="https://github.com/romancm/gamebrary/issues?q=author%3Alindyhop" title="Bug reports">🐛</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-restore -->
