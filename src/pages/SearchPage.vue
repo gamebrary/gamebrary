@@ -15,8 +15,10 @@
 
       <b-col cols="12" class="bg-light py-2 mb-3" v-if="activeBoard">
         <div class="d-flex align-items-center">
-          Add games to:
-          <b-button-group class="ml-2">
+          <span class="d-none d-sm-block">
+            Add games to:
+          </span>
+          <b-button-group class="ml-sm-2">
             <b-dropdown
               split
               variant="info"
@@ -50,9 +52,12 @@
             </b-dropdown>
           </b-button-group>
 
-          <b-button :to="{ name: 'search' }" class="ml-auto" variant="outline-danger">
+          <b-button :to="{ name: 'search' }" class="ml-auto" variant="light">
             <i class="fas fa-times fa-fw" aria-hidden />
-            Clear
+
+            <span class="d-none d-sm-block">
+              Clear
+            </span>
           </b-button>
         </div>
       </b-col>
