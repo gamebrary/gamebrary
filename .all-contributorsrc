@@ -191,6 +191,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "erbilnas",
+      "name": "Erbil Nas",
+      "avatar_url": "https://avatars.githubusercontent.com/u/15656271?v=4",
+      "profile": "https://erbilnas.com",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
