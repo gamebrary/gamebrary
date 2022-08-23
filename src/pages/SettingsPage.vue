@@ -126,8 +126,6 @@
 // import ProfileSettingsPage from '@/pages/ProfileSettingsPage';
 import SettingsCard from '@/components/Settings/SettingsCard';
 // import SteamSettingsPage from '@/pages/SteamSettingsPage';
-// import GeneralSettingsPage from '@/pages/GeneralSettingsPage';
-// import GameDetailSettings from '@/components/Settings/GameDetailSettings';
 // import LanguageSettings from '@/components/Settings/LanguageSettings';
 import { mapState } from 'vuex';
 import sessionMixin from '@/mixins/sessionMixin';
@@ -137,11 +135,9 @@ export default {
   components: {
     DeleteAccountModal,
     // LanguageSettings,
-    // GameDetailSettings,
     // ProfileSettingsPage,
     SettingsCard,
     // SteamSettingsPage,
-    // GeneralSettingsPage,
   },
 
   mixins: [sessionMixin],

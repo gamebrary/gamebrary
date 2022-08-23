@@ -1,4 +1,4 @@
-// TODO: use chunks and import directly
+// TODO: Use chunks and split into different files
 // TODO: separate into different files
 // TODO: make naming consistent
 import AboutPage from '@/pages/AboutPage';
@@ -30,7 +30,6 @@ import ReleasesPage from '@/pages/ReleasesPage';
 import SettingsPage from '@/pages/SettingsPage';
 import SearchPage from '@/pages/SearchPage';
 import SteamSettingsPage from '@/pages/SteamSettingsPage';
-// import GeneralSettingsPage from '@/pages/GeneralSettingsPage';
 import TagsPage from '@/pages/TagsPage';
 import EditTagPage from '@/pages/EditTagPage';
 import TermsPage from '@/pages/TermsPage';
