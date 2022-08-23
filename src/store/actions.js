@@ -26,6 +26,16 @@ export default {
     });
   },
 
+  SUBSCRIBE_TO_NEWSLETTER({ commit }) {
+    return new Promise((resolve, reject) => {
+      axios.post('https://forms.keapapis.com/api/v1/public/forms/5330437182324736/submissions')
+        .then(({ data }) => {
+          // commit('APPEND_GAME_SPEEDRUNS', data);
+          resolve(data);
+        }).catch(reject);
+    });
+  },
+
   LOAD_IGDB_PLATFORMS({ state, commit }) {
     return new Promise((resolve, reject) => {
       axios.get(`${API_BASE}/platforms?token=${state.twitchToken.access_token}`)

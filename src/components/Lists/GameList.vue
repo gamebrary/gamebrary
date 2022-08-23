@@ -79,7 +79,7 @@
           @click.native="openGame(gameId, list)"
         />
 
-        <div v-if="isEmpty">
+        <div v-if="isEmpty && isBoardOwner">
           <b-button
             variant="light"
             block

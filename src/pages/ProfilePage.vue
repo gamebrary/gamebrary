@@ -1,20 +1,28 @@
 <template lang="html">
-  <b-container class="p-2">
+  <b-container>
     <page-title title="Profile settings" />
 
-    <div v-if="loading">
-      loading...
-    </div>
+    <b-row>
+      <b-col cols="6">
+        <div v-if="loading">
+          loading...
+        </div>
 
-    <empty-state
-      v-else-if="isEmpty"
-      title="Profiles"
-      message="Share boards with other users, get your own shareable URL, and more!"
-    >
-      <create-profile />
-    </empty-state>
+        <empty-state
+          v-else-if="isEmpty"
+          title="Profiles"
+          message="Share boards with other users, get your own shareable URL, and more!"
+        >
+          <create-profile />
+        </empty-state>
 
-    <public-profile v-else />
+        <public-profile v-else />
+      </b-col>
+
+      <b-col>
+
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 

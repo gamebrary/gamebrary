@@ -109,7 +109,7 @@ const routes = [
   },
   {
     name: 'profile.settings',
-    path: '/settings/profile',
+    path: '/profile',
     component: ProfileSettingsPage,
     meta: {
       title: 'Edit profile',

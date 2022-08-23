@@ -13,6 +13,13 @@
           />
 
           <settings-card
+            title="Profile"
+            description="Public profile"
+            icon="fa-user"
+            @click.native="$router.push({ name: 'profile.settings' })"
+          />
+
+          <settings-card
             title="Notes"
             description="View all your notes"
             icon="fa-note-sticky"
@@ -26,30 +33,28 @@
             @click.native="$router.push({ name: 'tags' })"
           />
 
+          <!-- <div
+            data-form-slug="6148881969433360"
+            data-env="production"
+            data-path="contact-us/6148881969433360"
+            class="keap-custom-form"
+          /> -->
+
           <b-button
             block
-            @click="session_signOut"
-          >
-            <i class="fa-solid fa-arrow-right-from-bracket" />
-            Log out
-          </b-button>
-
-          <!-- TODO: fix and reenable -->
-          <!-- <b-button
-            block
-            variant="secondary"
+            variant="light"
             v-b-modal.keyboard-shortcuts
           >
             Keyboard shortcuts
-          </b-button> -->
+          </b-button>
 
-          <!-- <b-button
+          <b-button
             block
-            variant="secondary"
+            variant="light"
             :to="{ name: 'dev.tools' }"
           >
             Dev tools
-          </b-button> -->
+          </b-button>
 
           <delete-account-modal />
 
@@ -57,15 +62,15 @@
             href="https://github.com/romancm/gamebrary"
             target="_blank"
             block
-            variant="secondary"
+            variant="light"
           >
-            <i class="fab fa-github fa-fw" />
+            <!-- <i class="fab fa-github fa-fw" /> -->
             GitHub
           </b-button>
 
           <b-button
             block
-            variant="secondary"
+            variant="light"
             href="https://goo.gl/forms/r0juBCsZaUtJ03qb2"
             target="_blank"
           >
@@ -84,10 +89,13 @@
 
           <hr />
 
-          <!-- <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'profile.settings' }">
-            <i class="mr-2 fa-solid fa-user fa-fw" aria-hidden />
-            <small>Profile</small>
-          </b-list-group-item> -->
+          <b-button
+            block
+            variant="light"
+            @click="session_signOut"
+          >
+            Log out
+          </b-button>
 
           <!-- <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'steam.settings' }">
             <i class="mr-2 fab fa-steam fa-fw" aria-hidden></i>
@@ -100,11 +108,6 @@
             <i class="mr-2 fa-solid fa-people-group fa-fw" aria-hidden />
             <small>Profiles</small>
           </b-list-group-item> -->
-
-          <!-- {{ $t('global.donateMessage') }} -->
-          <!-- <a href="https://www.paypal.me/RomanCervantes/5" target="_blank">
-            {{ $t('global.donating') }}
-          </a> -->
 
           <small>&copy; 2022 Gamebrary</small>
 
@@ -141,6 +144,22 @@ export default {
   },
 
   mixins: [sessionMixin],
+
+  mounted() {
+    (function(a, b) {
+      var c = a.keapForms || {
+          SNIPPET_VERSION: "1.1.0",
+          appId: "qa317"
+        },
+        d = b.createElement("script");
+      d.type = "text/javascript", d.crossOrigin = "anonymous", d.defer = !0, d.src = "https://forms.keap.app/lib/public-form-embed.js?appId=qa317&version=1.1.0", d.onload = function() {
+        var b = a.keapForms;
+        b.renderAllForms ? !b.invoked && (b.invoked = !0, b.renderAllForms()) : console.error("[Keap Forms] Error: could not load")
+      };
+      var e = b.getElementsByTagName("script")[0];
+      e.parentNode.insertBefore(d, e), a.keapForms = c
+    })(window, document);
+  },
 
   computed: {
     ...mapState(['user', 'releases']),
