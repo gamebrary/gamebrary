@@ -6,13 +6,17 @@
 
     <template v-else-if="showBoard">
       <portal to="pageTitle">
+        {{ board.name }}
+        <!-- <template v-if="!isBoardOwner">by <strong>{{ board.owner }}</strong></template> -->
+      </portal>
+      <portal to="headerActions">
         <b-button
           :to="{ name: 'board.edit', params: { id: board.id } }"
           :disabled="!isBoardOwner"
           variant="light"
           class="mr-2"
         >
-          {{ board.name }} <template v-if="!isBoardOwner">by <strong>{{ board.owner }}</strong></template>
+          Edit board
         </b-button>
         <!-- TODO: show back button to board, store in memory only -->
       </portal>
