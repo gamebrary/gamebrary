@@ -88,7 +88,7 @@
             :to="{ name: 'search', query: { boardId: board.id, listIndex: listIndex } }"
           >
             <template v-if="isBoardOwner">Add games</template>
-            <template else>Empty list</template>
+            <template v-else>Empty list</template>
           </b-button>
         </div>
       </draggable>
