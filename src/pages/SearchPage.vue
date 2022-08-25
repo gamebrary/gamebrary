@@ -55,7 +55,7 @@
           <b-button :to="{ name: 'search' }" class="ml-auto" variant="light">
             <i class="fas fa-times fa-fw" aria-hidden />
 
-            <span class="d-none d-sm-block">
+            <span class="d-none d-sm-inline">
               Clear
             </span>
           </b-button>
