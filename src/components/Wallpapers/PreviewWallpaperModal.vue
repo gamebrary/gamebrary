@@ -54,6 +54,7 @@
           @click.stop="confirmDeleteWallpaper(wallpaper)"
         >
           <i class="fas fa-trash fa-fw" aria-hidden />
+          <!-- TODO: show loading spinner -->
         </b-button>
       </modal-header>
     </template>
