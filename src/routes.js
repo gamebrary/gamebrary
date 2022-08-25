@@ -17,6 +17,7 @@ import PlatformsPage from '@/pages/PlatformsPage';
 import PlatformPage from '@/pages/PlatformPage';
 import NotFoundPage from '@/pages/NotFoundPage';
 import NotesPage from '@/pages/NotesPage';
+import CreateNotePage from '@/pages/CreateNotePage';
 import GameNotesPage from '@/pages/GameNotesPage';
 import EditListPage from '@/pages/EditListPage';
 import GameTagsPage from '@/pages/GameTagsPage';
@@ -121,6 +122,14 @@ const routes = [
     component: NotesPage,
     meta: {
       title: 'Notes',
+    },
+  },
+  {
+    name: 'notes.create',
+    path: '/notes/create',
+    component: CreateNotePage,
+    meta: {
+      title: 'Create note',
     },
   },
   {

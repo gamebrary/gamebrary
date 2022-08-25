@@ -28,7 +28,11 @@
       v-if="showEmptyState"
       :title="$t('notes.title')"
       message="Looks like you don't have any notes yet."
-    />
+    >
+      <b-button :to="{ name: 'notes.create' }">
+        Add note
+      </b-button>
+    </empty-state>
 
     <b-form-row v-else-if="noteGames.length">
       <b-col cols="12">
