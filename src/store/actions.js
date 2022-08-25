@@ -146,9 +146,10 @@ export default {
         .then((doc) => {
           const board = doc.data();
 
-          // if (state.user.uid !== board.owner) {
-          //   return reject();
-          // }
+          const boardNotFound = !doc.exists;
+          const forbiddenTenant = !board?.isPublic && board?.owner !== state?.user?.uid;
+
+          if (boardNotFound || forbiddenTenant) return reject();
 
           commit('SET_ACTIVE_BOARD', {
             ...board,
