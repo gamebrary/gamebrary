@@ -1,3 +1,4 @@
+<!-- TODO: update to match board -->
 <template lang="html">
   <div class="board-placeholder" v-if="placeholderBoard && placeholderBoard.lists">
     <div

@@ -43,7 +43,7 @@
         v-model="search"
       />
 
-      <b-col
+      <div
         v-for="(game, index) in noteGames"
         :key="index"
         cols="12"
@@ -51,7 +51,7 @@
         <router-link
           v-if="game"
           tag="div"
-          class="d-flex field rounded bg-light p-2 mb-2 cursor-pointer"
+          class="d-flex rounded bg-light p-2 mb-2 cursor-pointer"
           :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug }}"
         >
           <b-img
@@ -67,7 +67,7 @@
             </p>
           </div>
         </router-link>
-      </b-col>
+      </div>
     </div>
   </b-container>
 </template>
