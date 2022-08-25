@@ -10,19 +10,17 @@ const router = new VueRouter({
   routes,
 });
 
-// TODO: restore and update navigation guards
-// router.beforeEach((to, from, next) => {
-//   if (to.meta.public || store.state.user) next();
-//
-//   if (!to.meta.public && !store.state.user) {
-//     console.log('not allowed');
-//
-//     next({ name: 'auth' });
-//   }
-//
-//   next();
-//   // if (to.name !== 'Login' && !isAuthenticated) next({ name: 'Login' })
-//   // else next()
-// });
+// TODO: remove
+router.beforeEach((to, from, next) => {
+  // if (to.meta.public || store.state.user) next();
+
+  // if (!to.meta.public && !store.state.user) {
+  //   next({ name: 'auth' });
+  // }
+
+  if (to?.meta?.title) document.title = `${to.meta.title} - Gamebrary`;
+
+  next();
+});
 
 export default router;
