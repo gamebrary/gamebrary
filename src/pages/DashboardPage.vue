@@ -1,15 +1,5 @@
 <template lang="html">
   <b-container>
-    <portal to="headerActions">
-      <b-button
-        variant="light"
-        class="mr-2"
-        :to="{ name: 'create.board' }"
-      >
-        Create board
-      </b-button>
-    </portal>
-
     <game-boards />
   </b-container>
 </template>
