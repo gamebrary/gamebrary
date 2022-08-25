@@ -1,5 +1,35 @@
 <template lang="html">
   <b-container>
+    <portal to="pageTitle">
+      <div>
+        <b-button
+          :to="{ name: 'settings' }"
+          variant="light"
+          class="mr-2"
+          >
+          <i class="fa-solid fa-chevron-left" />
+        </b-button>
+
+        Wallpapers
+      </div>
+    </portal>
+
+    <portal to="headerActions">
+      <b-button
+        :disabled="outOfSpace"
+        variant="light"
+        class="mr-2"
+        @click="triggerFileUpload"
+      >
+        <b-spinner small v-if="saving" />
+
+        <template v-else>
+          <i class="fas fa-upload fa-fw" aria-hidden />
+          <span class="d-none d-sm-inline">Upload</span>
+        </template>
+      </b-button>
+    </portal>
+
     <empty-state
       v-if="showEmptyState"
       :title="$t('wallpapers.title')"
@@ -10,36 +40,6 @@
     />
 
     <template v-else>
-      <portal to="pageTitle">
-        <div>
-          <b-button
-            :to="{ name: 'settings' }"
-            variant="light"
-            class="mr-2"
-            >
-            <i class="fa-solid fa-chevron-left" />
-          </b-button>
-
-          Wallpapers
-        </div>
-      </portal>
-
-      <portal to="headerActions">
-        <b-button
-          :disabled="outOfSpace"
-          variant="light"
-          class="mr-2"
-          @click="triggerFileUpload"
-        >
-          <b-spinner small v-if="saving" />
-
-          <template v-else>
-            <i class="fas fa-upload fa-fw" aria-hidden />
-            <span class="d-none d-sm-inline">Upload</span>
-          </template>
-        </b-button>
-      </portal>
-
       <b-alert
         v-if="isDuplicate && !saving && file && file.name"
         show
