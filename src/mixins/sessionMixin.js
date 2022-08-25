@@ -2,14 +2,6 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 
 export default {
-  computed: {
-    session_publicSiteUrl() {
-      return process.env.NODE_ENV === 'development'
-        ? 'http://localhost:3000'
-        : 'https://gamebrary.com';
-    },
-  },
-
   methods: {
     session_signOut() {
       firebase.auth().signOut()

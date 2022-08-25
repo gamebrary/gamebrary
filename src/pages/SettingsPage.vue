@@ -97,6 +97,14 @@
             Log out
           </b-button>
 
+          <b-button
+            block
+            variant="light"
+            @click="$bvModal.show('deleteAccount');"
+          >
+            Delete account
+          </b-button>
+
           <!-- <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'steam.settings' }">
             <i class="mr-2 fab fa-steam fa-fw" aria-hidden></i>
             <small>Steam</small>

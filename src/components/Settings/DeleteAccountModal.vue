@@ -107,10 +107,8 @@ export default {
 
       user.delete().then(() => {
         this.$bvToast.toast('Account deleted');
-
-        window.location.href = this.session_publicSiteUrl;
-
         this.$store.commit('CLEAR_SESSION');
+        this.$router.replace({ name: 'home' });
       })
         .catch(() => {
           this.$store.commit('SET_SESSION_EXPIRED', true);
