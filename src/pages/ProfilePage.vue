@@ -1,6 +1,6 @@
 <template lang="html">
   <b-container>
-    <page-title title="Profile settings" />
+    <portal to="pageTitle">Profile settings</portal>
 
     <b-row>
       <b-col cols="6">

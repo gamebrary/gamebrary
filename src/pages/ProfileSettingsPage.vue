@@ -1,55 +1,74 @@
 <template lang="html">
   <b-container>
-    <header class="my-3 d-flex align-items-center justify-content-between">
-      <h1 class="m-0">Profile</h1>
-    </header>
+    <portal to="pageTitle">Profile</portal>
 
-    <b-button @click="checkUserNameAvailability">
-      Check availability
-    </b-button>
+    <div class="field centered">
+      <b-button @click="checkUserNameAvailability">
+        Check availability
+      </b-button>
 
-    <b-form-group
-      label="Pick a user name"
-      label-for="userName"
-      valid-feedback="Available"
-      invalid-feedback="User name taken"
-      :state="available"
-    >
-      <b-form-input
-        id="userName"
-        disabled
-        v-model="profile.userName"
-        placeholder=""
-      />
-    </b-form-group>
+      <b-form-group
+        label="Pick a user name"
+        label-for="userName"
+        valid-feedback="Available"
+        invalid-feedback="User name taken"
+        :state="available"
+      >
+        <b-form-input
+          id="userName"
+          v-model="profile.userName"
+          placeholder="User name"
+        />
+      </b-form-group>
+      <!-- TODO: use regex to validate user name, trim, etc... -->
+      <!-- TODO: use debounce to search availability -->
+      <!-- TODO: show additional fields when user name is accepted -->
 
-    <b-form-input
-      v-model="profile.name"
-      placeholder="name"
-    />
+      <template v-if="available">
+        <b-form-input
+          v-model="profile.name"
+          placeholder="Name"
+        />
 
-    <b-form-input
-      v-model="profile.bio"
-      placeholder="bio"
-    />
+        <b-form-input
+          v-model="profile.bio"
+          placeholder="About me"
+        />
 
-    <b-form-input
-      v-model="profile.location"
-      placeholder="location"
-    />
+        <b-form-input
+          v-model="profile.location"
+          placeholder="Location"
+        />
 
-    <b-form-input
-      v-model="profile.website"
-      placeholder="website"
-    />
+        <b-form-input
+          v-model="profile.website"
+          placeholder="Website"
+        />
 
-    <b-form-input
-      v-model="profile.twitter"
-      placeholder="twitter"
-    />
+        <b-form-input
+          v-model="profile.twitter"
+          placeholder="Twitter"
+        />
 
-    <!-- <pre>{{ profile }}</pre> -->
-    <!-- <pre>{{ user }}</pre> -->
+        <b-form-input
+          v-model="profile.twitter"
+          placeholder="friendCode"
+        />
+
+        <b-form-input
+          v-model="profile.twitter"
+          placeholder="onlineId"
+        />
+
+        <b-form-input
+          v-model="profile.twitter"
+          placeholder="gamerTag"
+        />
+      </template>
+
+      <pre>{{ profile }}</pre>
+      <pre>{{ user }}</pre>
+    </div>
   </b-container>
 </template>
 
@@ -62,9 +81,9 @@ export default {
       saving: false,
       available: null,
       profile: {
-        userName: 'romancm',
-        name: 'Roman Cervantes',
-        bio: 'Software Developer from Mexico',
+        userName: '',
+        name: '',
+        bio: '',
         followers: [],
         following: [],
         dateJoined: [],
@@ -72,9 +91,9 @@ export default {
         onlineId: '',
         gamerTag: '',
         profilePicture: '',
-        location: 'Chandler, AZ',
-        website: 'https://gamebrary.com',
-        twitter: 'romancm',
+        location: '',
+        website: '',
+        twitter: '',
       },
     };
   },
@@ -97,11 +116,8 @@ export default {
       this.$bvModal.hide('edit-profile');
     },
 
-    checkUserNameAvailability() {
-      this.$store.dispatch('CHECK_PROFILE_USERNAME_AVAILABILITY', this.profile.userName)
-        .then((test) => {
-          this.available = test;
-        });
+    async checkUserNameAvailability() {
+      this.available = await this.$store.dispatch('CHECK_PROFILE_USERNAME_AVAILABILITY', this.profile.userName);
     },
   },
 };
