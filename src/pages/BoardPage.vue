@@ -11,8 +11,8 @@
       </portal>
       <portal to="headerActions">
         <b-button
+          v-if="isBoardOwner"
           :to="{ name: 'board.edit', params: { id: board.id } }"
-          :disabled="!isBoardOwner"
           variant="light"
           class="mr-2"
         >
