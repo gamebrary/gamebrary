@@ -14,7 +14,12 @@
       </div>
     </portal>
 
-    <portal to="headerActions">
+    <empty-state
+      v-if="showEmptyState"
+      :title="$t('wallpapers.title')"
+      message="Upload a wallpaper to customize your boards"
+      @action="triggerFileUpload"
+    >
       <b-button
         :disabled="outOfSpace"
         variant="light"
@@ -24,22 +29,28 @@
         <b-spinner small v-if="saving" />
 
         <template v-else>
-          <i class="fas fa-upload fa-fw" aria-hidden />
-          <span class="d-none d-sm-inline">Upload</span>
+          Upload wallpaper
         </template>
       </b-button>
-    </portal>
-
-    <empty-state
-      v-if="showEmptyState"
-      :title="$t('wallpapers.title')"
-      message="Upload a wallpaper to customize your boards"
-      action-text="Upload a wallpaper"
-      :busy="saving"
-      @action="triggerFileUpload"
-    />
+    </empty-state>
 
     <template v-else>
+      <portal to="headerActions">
+        <b-button
+          :disabled="outOfSpace"
+          variant="light"
+          class="mr-2"
+          @click="triggerFileUpload"
+        >
+          <b-spinner small v-if="saving" />
+
+          <template v-else>
+            <i class="fas fa-upload fa-fw" aria-hidden />
+            <span class="d-none d-sm-inline">Upload</span>
+          </template>
+        </b-button>
+      </portal>
+
       <b-alert
         v-if="isDuplicate && !saving && file && file.name"
         show
