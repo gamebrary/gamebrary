@@ -39,7 +39,7 @@
             <b-alert :show="noneSelected" variant="light">
               No tags applied
             </b-alert>
-            <!-- TODO: use correct tags -->
+
             <b-button
               v-for="({ selected, name, bgColor, textColor }, index) in formattedTags"
               :key="name"
