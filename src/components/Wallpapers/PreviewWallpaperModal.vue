@@ -10,6 +10,10 @@
         :subtitle="wallpaper.name"
         @close="close"
       >
+        <!-- <b-badge variant="light" class="float-left">
+          {{ formatSize(wallpaper) }}
+        </b-badge> -->
+
         <b-button
           v-if="selectable"
           @click="select"
@@ -69,6 +73,7 @@
 
 <script>
 import { mapState } from 'vuex';
+// import { bytesToSize } from '@/utils';
 
 export default {
   data() {
@@ -97,6 +102,10 @@ export default {
   },
 
   methods: {
+    // formatSize(wallpaper) {
+    //   return bytesToSize(wallpaper?.metadata?.size || 0);
+    // },
+
     getWallpaperUrl(url) {
       if (!url) return null;
       if (url?.includes('igdb.com')) return url;

@@ -67,14 +67,6 @@ if (window.location.hostname.includes('gamebrary')) {
 
 Vue.config.productionTip = false;
 
-router.beforeEach((to, from, next) => {
-  if (to.meta && to.meta.title) {
-    document.title = `${to.meta.title} - Gamebrary`;
-  }
-
-  next();
-});
-
 const vuexStorage = localStorage && localStorage.vuex
   ? JSON.parse(localStorage.vuex)
   : {};

@@ -1,3 +1,4 @@
+<!-- TODO: finish or kill it -->
 <template lang="html">
   <div>
     <b-button
