@@ -16,7 +16,7 @@
       <div
         v-for="list in board.lists"
         :key="list.name"
-        class="list rounded overflow-hidden mr-2 border align-self-start"
+        class="list rounded overflow-hidden ml-2 border align-self-start"
       >
         <template v-if="list.games.length">
           <div
