@@ -119,16 +119,15 @@ export default {
 
       await this.$store.dispatch('LOAD_BOARD', this.boardId)
         .catch(() => {
-          this.$router.replace({ path: '/' });
+          return this.$router.replace({ name: 'home' });
         });
 
-        if (this.showBoard) {
-          this.loadBoardGames();
-          this.loadBoardBackground();
-        } else {
-          // TODO: handle non-public boards, show error?
-          this.$router.push({ name: 'explore' });
-        }
+      if (this.showBoard) {
+        this.loadBoardGames();
+        this.loadBoardBackground();
+      } else {
+        this.$router.push({ name: 'explore' });
+      }
     },
 
     async loadBoardBackground() {
