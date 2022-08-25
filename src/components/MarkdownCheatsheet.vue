@@ -1,12 +1,21 @@
 <template lang="html">
-  <div>
-    <table class="table table-bordered">
-      <thead class="thead-light">
+  <b-modal scrollable id="markdown-cheatsheet" hide-footer>
+    <template v-slot:modal-header="{ close }">
+      <modal-header
+        title="Markdown syntax"
+        subtitle="The simple and easy-to-use markup language"
+        @close="close"
+      />
+    </template>
+
+    <table class="table table-bordered small table-sm table-striped">
+      <thead>
         <tr>
           <th>Element</th>
           <th>Markdown Syntax</th>
         </tr>
       </thead>
+
       <tbody>
         <tr>
           <td><a href="/basic-syntax/#headings">Heading</a></td>
@@ -63,12 +72,12 @@
         </tbody>
       </table>
 
-      <h2 id="extended-syntax">Extended Syntax<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#extended-syntax" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h2>
+      <h4>Extended Syntax</h4>
 
       <p>These elements extend the basic syntax by adding additional features. Not all Markdown applications support these elements.</p>
 
-      <table class="table table-bordered">
-        <thead class="thead-light">
+      <table class="table table-bordered small table-sm table-striped">
+        <thead>
           <tr>
             <th>Element</th>
             <th>Markdown Syntax</th>
@@ -151,5 +160,5 @@
           </tr>
         </tbody>
       </table>
-  </div>
+  </b-modal>
 </template>

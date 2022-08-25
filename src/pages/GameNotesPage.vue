@@ -27,23 +27,23 @@
         </b-button>
       </portal>
 
-      <b-modal id="markdown-cheatsheet">
-        <markdown-cheatsheet />
-      </b-modal>
-
       <b-col cols="12" sm="6">
-        <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}" class="float-right">
+        <game-note
+          v-if="showPreview"
+          :note="{ note }"
+          class="mt-3 mt-sm-0"
+        />
+
+        <router-link
+          v-else-if="game"
+          :to="{ name: 'game', params: { id: game.id, slug: game.slug }}"
+          class="float-right"
+        >
           <b-img :src="gameCoverUrl" fluid rounded />
         </router-link>
       </b-col>
 
       <b-col cols="12" sm="6">
-        <game-note
-          v-if="note"
-          :note="{ note }"
-          class="mt-3 mt-sm-0"
-        />
-
         <form class="mt-3 mt-sm-0 mb-3">
           <b-form-textarea
             v-model.trim="note"
@@ -52,16 +52,16 @@
             max-rows="20"
           />
 
-          <b-form-text id="input-live-help" v-b-modal.markdown-cheatsheet>
+          <b-link
+            class="small"
+            variant="link"
+            v-b-modal.markdown-cheatsheet
+          >
             <i class="fab fa-markdown fa-fw" />
             Markdown supported
-          </b-form-text>
+          </b-link>
 
-          <b-modal id="markdown-cheatsheet" title="BootstrapVue">
-            <markdown-cheatsheet />
-          </b-modal>
-
-          <footer class="mt-2">
+          <footer class="mt-2 d-flex">
             <b-button
               variant="primary"
               :disabled="saving"
@@ -81,6 +81,15 @@
               <b-spinner small v-if="deleting" />
               <i v-else class="fas fa-trash fa-fw" aria-hidden />
             </b-button>
+
+            <b-button
+              variant="light"
+              class="ml-auto"
+              @click="showPreview = !showPreview"
+            >
+              <i class="fas fa-eye fa-fw" aria-hidden />
+              Toggle preview
+            </b-button>
           </footer>
         </form>
       </b-col>
@@ -92,14 +101,12 @@
 import { mapState } from 'vuex';
 
 import GameNote from '@/components/GameNote';
-import MarkdownCheatsheet from '@/components/MarkdownCheatsheet';
 // TODO: consolidate getGameCoverUrl
 import { getGameCoverUrl } from '@/utils';
 
 export default {
   components: {
     GameNote,
-    MarkdownCheatsheet,
   },
 
   data() {
@@ -108,6 +115,7 @@ export default {
       note: '',
       loading: false,
       deleting: false,
+      showPreview: false,
     };
   },
 
@@ -177,6 +185,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-</style>
