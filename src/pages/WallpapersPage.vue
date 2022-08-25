@@ -59,9 +59,9 @@
         {{ $t('wallpapers.form.duplicateMessage', { fileName: file.name }) }}
       </b-alert>
 
-      <wallpapers-list v-if="wallpapers.length" />
+      <wallpapers-list />
 
-      <b-alert show v-else>You don't have any wallpapers.</b-alert>
+      <b-alert :show="showEmptyState">You don't have any wallpapers.</b-alert>
     </template>
 
     <b-form-file
@@ -109,7 +109,7 @@ export default {
     },
 
     showEmptyState() {
-      return this.wallpapers.length === 0;
+      return this.wallpapers?.length === 0;
     },
 
     isDuplicate() {
