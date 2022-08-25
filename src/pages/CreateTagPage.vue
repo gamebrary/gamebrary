@@ -14,7 +14,7 @@
       </div>
     </portal>
 
-    <form @submit.prevent="submit">
+    <form @submit.prevent="submit" class="field centered">
       <b-form-input
         v-model.trim="tag.name"
         class="mb-3 field"

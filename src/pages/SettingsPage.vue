@@ -4,7 +4,7 @@
 
     <b-row>
       <b-col cols="12">
-        <div class="field">
+        <div class="field centered">
           <settings-card
             title="Wallpapers"
             description="Manage your wallpapers"
@@ -12,12 +12,12 @@
             @click.native="$router.push({ name: 'wallpapers' })"
           />
 
-          <settings-card
+          <!-- <settings-card
             title="Profile"
             description="Public profile"
             icon="fa-user"
             @click.native="$router.push({ name: 'profile.settings' })"
-          />
+          /> -->
 
           <settings-card
             title="Notes"
@@ -48,13 +48,13 @@
             Keyboard shortcuts
           </b-button>
 
-          <b-button
+          <!-- <b-button
             block
             variant="light"
             :to="{ name: 'dev.tools' }"
           >
             Dev tools
-          </b-button>
+          </b-button> -->
 
           <delete-account-modal />
 

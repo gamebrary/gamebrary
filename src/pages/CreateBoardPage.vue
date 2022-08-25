@@ -1,7 +1,8 @@
 <template lang="html">
   <b-container>
     <portal to="pageTitle">Create board</portal>
-    <b-form @submit.prevent="createBoard" class="field">
+
+    <b-form @submit.prevent="createBoard" class="field centered">
       <b-form-group label="Board name:" label-for="boardName">
         <b-form-input
           id="boardName"

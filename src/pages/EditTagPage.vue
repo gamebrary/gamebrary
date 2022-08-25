@@ -30,6 +30,7 @@
 
     <form
       v-else
+      class="field centered"
       @submit.prevent="saveTag"
     >
       <label for="tagName">Tag name:</label>

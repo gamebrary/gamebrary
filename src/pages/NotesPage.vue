@@ -34,16 +34,14 @@
       </b-button>
     </empty-state>
 
-    <b-form-row v-else-if="noteGames.length">
-      <b-col cols="12">
-        <b-form-input
-          v-if="!showEmptyState"
-          type="search"
-          class="d-sm-none field mb-3"
-          placeholder="Search notes"
-          v-model="search"
-        />
-      </b-col>
+    <div v-else-if="noteGames.length" class="field centered">
+      <b-form-input
+        v-if="!showEmptyState"
+        type="search"
+        class="d-sm-none field mb-3"
+        placeholder="Search notes"
+        v-model="search"
+      />
 
       <b-col
         v-for="(game, index) in noteGames"
@@ -70,7 +68,7 @@
           </div>
         </router-link>
       </b-col>
-    </b-form-row>
+    </div>
   </b-container>
 </template>
 
