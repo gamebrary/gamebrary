@@ -6,9 +6,12 @@
       <empty-state
         v-if="isEmpty"
         title="Boards"
-        message="Use boards to easily organize your video game collections"
+        message="Use boards to organize your video games"
       >
-        <b-button :to="{ name: 'create.board' }">
+        <b-button
+          :to="{ name: 'create.board' }"
+          variant="light"
+        >
           {{ $t('boards.create') }}
         </b-button>
       </empty-state>
