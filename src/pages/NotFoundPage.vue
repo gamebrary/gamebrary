@@ -1,10 +1,20 @@
 <template lang="html">
-  <div class="text-center">
-      <h1 class="display-1 m-0">404</h1>
-      <p class="text-muted">Page not found</p>
-
-      <b-button variant="primary" :to="{ name: 'home' }">
-        Go home
-      </b-button>
-  </div>
+  <empty-state
+    title="Page not found"
+    illustration="404.png"
+    message="404"
+  />
 </template>
+
+<script>
+import EmptyState from '@/components/EmptyState';
+
+export default {
+  components: {
+    EmptyState,
+  },
+};
+</script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+</style>

@@ -2,7 +2,7 @@
   <div class="text-center pt-5 ml-auto mr-auto">
     <img
       v-if="illustration"
-      :src="`illustrations/${illustration}`"
+      :src="`/illustrations/${illustration}`"
       width="240"
     />
     <h2 v-if="title">{{ title }}</h2>

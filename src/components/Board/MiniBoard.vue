@@ -44,12 +44,6 @@ export default {
     board: Object,
   },
 
-  watch: {
-    board(value) {
-      console.log('value', value);
-    },
-  },
-
   data() {
     return {
       backgroundUrl: '',
