@@ -28,31 +28,6 @@
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <b-row v-else>
-      <b-col cols="6">
-        <p>Games tagged</p>
-
-        <!-- TODO: add quick game picker -->
-        <b-alert :show="tag.games.length === 0" variant="light" class="field">
-          No games tagged
-        </b-alert>
-
-        <div
-          class="mb-4"
-          v-for="game in tag.games"
-          :key="game"
-        >
-          <b-img
-            :src="getCoverUrl(game)"
-            class="cursor-pointer"
-            thumbnail
-            @click="$router.push({ name: 'game.tags', params: { id: games[game].id, slug: games[game].slug }})"
-          />
-
-          <pre>{{ game }}</pre>
-        </div>
-
-      </b-col>
-
       <b-col>
         <form
           class="field centered"
@@ -91,12 +66,15 @@
             v-if="tag.name"
             rounded
             size="sm"
-            class="mr-2 mb-2"
+            class="mr-2 mb-4"
             variant="transparent"
             :style="`background-color: ${tag.bgColor}; color: ${tag.textColor}`"
           >
             {{ tag.name }}
           </b-button>
+
+          <hr />
+          <!-- TODO: Put games tagged in collapsible and lazy load images -->
 
           <b-button
             variant="primary"
@@ -106,6 +84,24 @@
             <b-spinner small v-if="saving" />
             <span v-else>Save</span>
           </b-button>
+
+          <hr />
+
+          <p>Games tagged</p>
+
+          <!-- TODO: add quick game picker -->
+          <b-alert :show="tag.games.length === 0" variant="light" class="field">
+            No games tagged
+          </b-alert>
+
+          <b-img
+            v-for="game in tag.games"
+            :key="game"
+            :src="getCoverUrl(game)"
+            class="cursor-pointer rounded mr-2 mb-2"
+            width="80"
+            @click="$router.push({ name: 'game.tags', params: { id: games[game].id, slug: games[game].slug }})"
+          />
         </form>
       </b-col>
     </b-row>
