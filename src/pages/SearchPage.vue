@@ -8,6 +8,11 @@
 
     <b-spinner v-if="loading" class="spinner-centered" />
 
+    <div v-else-if="noQuery">
+      empty state!
+      showEmptyState
+    </div>
+
     <b-row v-else-if="searchResults.length">
       <b-col cols="12">
         <search-box class="field mb-3 d-sm-none" />
@@ -18,6 +23,7 @@
           <span class="d-none d-sm-block">
             Add games to:
           </span>
+
           <b-button-group class="ml-sm-2">
             <b-dropdown
               split
@@ -137,6 +143,10 @@ export default {
 
       return this.activeBoard?.lists[this.boardListIndex];
     },
+
+    noQuery() {
+      return !Object.keys(this.$route.query).length;
+    },
   },
 
   watch: {
@@ -146,7 +156,12 @@ export default {
   },
 
   async mounted() {
-    this.search();
+    if (this.noQuery) {
+      console.log('empty state');
+    } else {
+      this.search();
+      console.log('search');
+    }
   },
 
   methods: {

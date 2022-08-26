@@ -12,6 +12,7 @@
 
         <b-input-group-append>
           <b-button
+            :disabled="!searchText"
             type="submit"
             variant="light"
           >
