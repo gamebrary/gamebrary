@@ -48,6 +48,7 @@
     <empty-state
       v-else
       title="404 Not Found"
+      illustration="404.png"
       message="Page not found!"
     />
   </b-container>

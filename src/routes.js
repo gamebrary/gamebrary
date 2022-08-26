@@ -265,14 +265,6 @@ const routes = [
     component: EditListPage,
   },
   {
-    path: '/:userName',
-    name: 'public.profile',
-    component: PublicProfilePage,
-    meta: {
-      public: true,
-    },
-  },
-  {
     path: '/privacy-policy',
     name: 'privacy.policy',
     component: PrivacyPolicyPage,
@@ -294,6 +286,14 @@ const routes = [
     component: HomePage,
     meta: {
       title: 'Dashboard',
+      public: true,
+    },
+  },
+  {
+    path: '/:userName',
+    name: 'public.profile',
+    component: PublicProfilePage,
+    meta: {
       public: true,
     },
   },
