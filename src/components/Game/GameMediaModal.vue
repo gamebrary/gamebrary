@@ -90,9 +90,21 @@ export default {
     ...mapState(['board', 'game']),
 
     gameMedia() {
-      // TODO: add steam movies
       // TODO: also handle thumbnails
       // TODO: do all of this in mutation after loading game
+      const steamVideos = this.game?.steam?.movies?.map((video) => {
+        const hiQuality = video?.mp4?.max;
+        const lowQuality = video?.mp4?.[480];
+
+        return {
+          imageUrl: video.thumbnail,
+          videoUrl: hiQuality || lowQuality,
+          video: true,
+          source: 'steam',
+        }
+      }) || [];
+      console.log(steamVideos);
+
       const igdbVideos = this.game?.videos?.map((video) => {
         return {
           imageUrl: `https://img.youtube.com/vi/${video.video_id}/sddefault.jpg`,
@@ -121,6 +133,7 @@ export default {
 
       return [
         ...igdbVideos,
+        ...steamVideos,
         ...gogImages,
         ...steamScreenshots,
         ...igdbScreenshots,
