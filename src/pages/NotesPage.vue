@@ -15,60 +15,72 @@
     </portal>
 
     <portal to="headerActions">
-      <b-form-input
-        v-if="!showEmptyState"
-        type="search"
-        class="mr-3 d-none d-sm-block"
-        placeholder="Search notes"
-        v-model="search"
-      />
+      <div class="mr-2">
+        <b-form-input
+          v-if="!showEmptyState"
+          type="search"
+          class="d-none d-sm-block"
+          placeholder="Search notes"
+          v-model="search"
+        />
+      </div>
     </portal>
 
+    <b-spinner v-if="loading" class="spinner-centered" />
+
     <empty-state
-      v-if="showEmptyState"
+      v-else-if="showEmptyState"
+      illustration="notes.png"
       :title="$t('notes.title')"
       message="Looks like you don't have any notes yet."
     >
-      <b-button :to="{ name: 'notes.create' }">
+      <b-button variant="light" :to="{ name: 'notes.create' }">
         Add note
       </b-button>
     </empty-state>
 
-    <div v-else-if="noteGames.length" class="field centered">
-      <b-form-input
-        v-if="!showEmptyState"
-        type="search"
-        class="d-sm-none field mb-3"
-        placeholder="Search notes"
-        v-model="search"
-      />
+    <b-row v-else-if="noteGames.length">
+      <b-col>
+        <b-form-input
+          v-if="!showEmptyState"
+          type="search"
+          class="d-sm-none field mb-3"
+          placeholder="Search notes"
+          v-model="search"
+        />
 
-      <div
-        v-for="(game, index) in noteGames"
-        :key="index"
-        cols="12"
-      >
-        <router-link
-          v-if="game"
-          tag="div"
-          class="d-flex rounded bg-light p-2 mb-2 cursor-pointer"
-          :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug }}"
-        >
-          <b-img
-            :src="getCoverUrl(game.id)"
-            class="cursor-pointer "
-            width="40"
-          />
+        <b-card-group columns>
+          <b-card
+            v-for="(game, index) in noteGames"
+            :key="index"
+          >
+            <b-card-text>
+              <b-button
+                v-if="game"
+                variant="light"
+                size="sm"
+                class="d-flex p-2 mb-2 align-items-center"
+                :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug }}"
+              >
+                <b-img
+                  :src="getCoverUrl(game.id)"
+                  class="cursor-pointer rounded"
+                  width="30"
+                />
 
-          <div class="ml-2">
-            <h5>{{ game.name }}</h5>
-            <p class="text-muted small" v-if="filteredNotes[index]">
-              {{ filteredNotes[index].note }}
-            </p>
-          </div>
-        </router-link>
-      </div>
-    </div>
+                <div class="ml-2 overflow-hidden">
+                  <h5>{{ game.name }}</h5>
+                </div>
+              </b-button>
+
+              <p class="note-text text-muted small" v-if="filteredNotes[index]">
+                {{ filteredNotes[index].note }}
+              </p>
+            </b-card-text>
+          </b-card>
+        </b-card-group>
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
@@ -83,8 +95,8 @@ export default {
 
   data() {
     return {
-      loaded: false,
       search: '',
+      loading: false,
     };
   },
 
@@ -92,7 +104,7 @@ export default {
     ...mapState(['notes', 'games']),
 
     showEmptyState() {
-      return this.loaded && !Object.keys(this.notes).length;
+      return !this.loading && !Object.keys(this.notes).length;
     },
 
     noteGames() {
@@ -130,17 +142,9 @@ export default {
 
   methods: {
     async loadGames() {
-      const gamesList = Object.keys(this.notes).length
-        ? Object.keys(this.notes).toString()
-        : null;
+      const gamesList = Object.keys(this.notes);
 
-      if (!gamesList) {
-        this.loaded = true;
-
-        return;
-      }
-
-      // TODO: get list of games that aren't currently cached
+      if (!gamesList) return;
 
       await this.$store.dispatch('LOAD_GAMES', gamesList)
         .catch(() => {
@@ -160,3 +164,14 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+.note-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+</style>
+
