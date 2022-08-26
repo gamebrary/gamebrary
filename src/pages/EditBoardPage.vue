@@ -1,9 +1,6 @@
-<!-- TODO: Clone board -->
+<!-- TODO: clone board -->
 <!-- TODO: like/favorite board -->
-<!-- TODO: Fork board -->
-<!-- TODO: refactor platforms and wallpapers -->
-<!-- TODO: add board preview-->
-<!-- TODO: use board placeholder for preview / disable placeholder animation -->
+<!-- TODO: fork board -->
 <template lang="html">
   <b-container>
     <portal to="pageTitle">
@@ -22,9 +19,20 @@
 
     <b-row>
       <b-col>
+        <b-modal id="boardWallpaper" size="xl">
+          <template v-slot:modal-header="{ close }">
+            <modal-header
+              title="Wallpaper"
+              @close="close"
+            />
+          </template>
+
+          <wallpapers-list selectable @select="selectWallpaper" :selected="board.backgroundUrl" />
+        </b-modal>
+
         <form
           ref="boardSettingsForm"
-          class="field"
+          class="field centered"
           @submit.stop.prevent="saveBoard"
         >
           <b-form-group
@@ -33,7 +41,7 @@
           >
             <b-form-input
               id="name"
-              v-model="name"
+              v-model="board.name"
               required
             />
           </b-form-group>
@@ -44,17 +52,17 @@
           >
             <b-form-textarea
               id="description"
-              v-model="description"
+              v-model="board.description"
               maxlength="280"
               rows="3"
             />
           </b-form-group>
 
-          <b-form-checkbox v-model="isPublic" switch class="mb-2">
-            Make board public
+          <b-form-checkbox v-model="board.isPublic" switch class="mb-2">
+            Public
           </b-form-checkbox>
 
-          <b-alert show variant="info" v-if="isPublic" class="m-0 text-truncate">
+          <b-alert show variant="info" v-if="board.isPublic" class="m-0 text-truncate">
             <strong>Public Board URL</strong>
             <br>
             <small>{{ `https://gamebrary.com/b/${board.id}` }}</small>
@@ -62,13 +70,53 @@
 
           <hr class="my-3">
 
-          <edit-board-background-modal />
+          <b-form-group
+            label="Board background"
+            class="m-0"
+          />
 
-          <b-button v-b-modal.boardBackground>
-            <i class="fas fa-images fa-fw" aria-hidden />
-            <br />
-            Change background
+          <div class="d-flex align-items-start">
+            <v-swatches
+              v-model="board.backgroundColor"
+              show-fallback
+              popover-x="left"
+            />
+
+            <b-button
+              v-if="board.backgroundColor"
+              @click="board.backgroundColor = null"
+              variant="light"
+              class="ml-2"
+            >
+              <!-- <i class="fas fa-trash fa-fw" aria-hidden /> -->
+              <i class="fas fa-times fa-fw" aria-hidden></i>
+            </b-button>
+          </div>
+
+          <b-button
+            v-b-modal.boardWallpaper
+            variant="light"
+            class="mb-2"
+            block
+          >
+            Choose background image
           </b-button>
+
+          <b-button
+            v-if="board.backgroundUrl"
+            variant="link"
+            class="mb-2"
+            block
+            @click="board.backgroundUrl = null"
+          >
+            <i class="fas fa-trash fa-fw" aria-hidden /> Remove background image
+          </b-button>
+
+          <mini-board
+            v-if="board.backgroundUrl || board.backgroundColor"
+            v-b-modal.boardWallpaper
+            :board="board"
+          />
 
           <hr class="my-3">
 
@@ -95,46 +143,46 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import EditBoardBackgroundModal from '@/components/Board/EditBoardBackgroundModal';
-// import BoardPlaceholder from '@/components/Board/BoardPlaceholder';
+import WallpapersList from '@/components/WallpapersList';
+import VSwatches from 'vue-swatches'
+import MiniBoard from '@/components/Board/MiniBoard';
 import orderby from 'lodash.orderby';
 
 export default {
   components: {
-    // BoardPlaceholder,
-    EditBoardBackgroundModal,
+    WallpapersList,
+    VSwatches,
+    MiniBoard,
   },
 
   data() {
     return {
+      board: {},
+      loading: false,
       saving: false,
-      description: null,
-      isPublic: false,
-      name: null,
-      theme: null,
     };
   },
 
   computed: {
-    ...mapState(['board', 'user']),
+    ...mapState(['user']),
+
+    boardId() {
+      return this.$route?.params?.id;
+    },
   },
 
   mounted() {
-    this.init();
+    this.loadBoard();
   },
 
   methods: {
-    goToBoard() {
-      this.$router.push({ name: 'board', params: { id: this.$route.params.id } });
-    },
+    async loadBoard() {
+      this.loading = true;
 
-    async init() {
-      // TODO: load board if cached board id does not match route board id
-      const { board } = this;
-      this.description = board.description;
-      this.name = board.name;
-      this.isPublic = board.isPublic || false;
-      this.theme = board.theme || 'default';
+      this.board = await this.$store.dispatch('LOAD_BOARD', this.boardId);
+
+
+      this.loading = false;
     },
 
     confirmDelete() {
@@ -164,20 +212,25 @@ export default {
       this.$router.push({ name: 'home' });
     },
 
+    selectWallpaper(wallpaper) {
+      this.board.backgroundUrl = wallpaper;
+      this.$forceUpdate()
+    },
+
     async saveBoard() {
       this.saving = true;
 
-      const { board } = this;
+      // const { board } = this;
+      //
+      // const payload = {
+      //   ...board,
+      //   description: this.description,
+      //   name: this.name,
+      //   isPublic: this.isPublic,
+      //   theme: this.theme,
+      // };
 
-      const payload = {
-        ...board,
-        description: this.description,
-        name: this.name,
-        isPublic: this.isPublic,
-        theme: this.theme,
-      };
-
-      this.$store.commit('SET_ACTIVE_BOARD', payload);
+      // this.$store.commit('SET_ACTIVE_BOARD', this.board);
 
       await this.$store.dispatch('SAVE_BOARD')
         .catch(() => {
@@ -187,8 +240,7 @@ export default {
         });
 
       this.saving = false;
-      this.$bvToast.toast('Board settings saved');
-      this.$router.push({ name: 'board', params: { id: board.id } });
+      this.$router.push({ name: 'board', params: { id: this.board.id } });
     },
   },
 };

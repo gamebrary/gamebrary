@@ -1,56 +1,25 @@
 <template lang="html">
   <div>
-    <preview-wallpaper-modal
-      :wallpaper="activeWallpaper"
-      :selectable="selectable"
-      @selected="selected"
-    />
+    <preview-wallpaper-modal :wallpaper="activeWallpaper" />
 
-    <div class="wallpapers">
+    <div :class="['wallpapers', { selectable }]">
       <b-card
         :img-src="wallpaper.url"
         img-alt="Image"
         overlay
         footer-class="p-2"
+        :class="{ 'cursor-pointer': selectable, 'bg-success p-1': wallpaper.fullPath === selected }"
         tag="article"
         v-for="wallpaper in sortedWallpapers"
         :key="wallpaper.name"
-        @click="openPreview(wallpaper)"
-      >
-        <b-button
-          @click="openPreview(wallpaper)"
-          class="text-truncate text-white"
-          variant="transparent"
-          block
-        >
-          {{ wallpaper.name }}
-        </b-button>
-
-        <b-button
-          v-if="selectable"
-          variant="outline-primary"
-          class="border-0"
-          @click="selected(wallpaper)"
-        >
-          <i
-            v-if="saving"
-            class="fas fa-sync fa-spin fa-fw"
-            aria-hidden
-          />
-
-          <span v-else>Select</span>
-        </b-button>
-      <!-- <b-badge variant="light">
-        {{ formatSize(wallpaper) }}
-      </b-badge> -->
-      </b-card>
+        @click="handleClick(wallpaper)"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import PreviewWallpaperModal from '@/components/Wallpapers/PreviewWallpaperModal';
-import { bytesToSize } from '@/utils';
 import { mapState } from 'vuex';
 
 export default {
@@ -60,6 +29,7 @@ export default {
 
   props: {
     selectable: Boolean,
+    selected: String,
     saving: Boolean,
   },
 
@@ -80,21 +50,18 @@ export default {
   },
 
   methods: {
-    openPreview(wallpaper) {
-      this.activeWallpaper = wallpaper;
-      this.$bvModal.show('previewWallpaper');
-    },
-
-    selected(wallpaper) {
-      if (this.selectable) {
-        this.$emit('selected', wallpaper);
+    handleClick(wallpaper) {
+      if (this.selectable && wallpaper?.fullPath) {
+        this.$emit('select', wallpaper.fullPath);
+        this.$bvModal.hide('boardWallpaper');
+      } else {
+        this.openPreview(wallpaper);
       }
     },
 
-    formatSize(wallpaper) {
-      const size = wallpaper?.metadata?.size || 0;
-
-      return bytesToSize(size);
+    openPreview(wallpaper) {
+      this.activeWallpaper = wallpaper;
+      this.$bvModal.show('previewWallpaper');
     },
   },
 };
@@ -117,6 +84,10 @@ export default {
     @media(max-width: 500px) {
       grid-template-columns: 1fr;
     }
+
+    // &.selectable {
+    //   grid-template-columns: 1fr 1fr !important;
+    // }
   }
 </style>
 

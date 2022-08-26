@@ -1,3 +1,4 @@
+<!-- TODO: use getter to get tags with game info added to it -->
 <template lang="html">
   <b-container>
     <portal to="pageTitle">
@@ -24,82 +25,90 @@
       </b-button>
     </portal>
 
-    <div v-if="loading" class="text-center mt-5 ml-auto">
-      <b-spinner/>
-    </div>
+    <b-spinner v-if="loading" class="spinner-centered" />
 
-    <form
-      v-else
-      class="field centered"
-      @submit.prevent="saveTag"
-    >
-      <label for="tagName">Tag name:</label>
+    <b-row v-else>
+      <b-col cols="6">
+        <p>Games tagged</p>
 
-      <b-form-input
-        id="tagName"
-        v-model.trim="tag.name"
-        class="mb-3 field"
-        maxlength="20"
-        :placeholder="$t('tags.form.inputPlaceholder')"
-        required
-        trim
-      />
+        <!-- TODO: add quick game picker -->
+        <b-alert :show="tag.games.length === 0" variant="light" class="field">
+          No games tagged
+        </b-alert>
 
-      <p>Background color</p>
-
-      <v-swatches
-        v-model="tag.bgColor"
-        show-fallback
-        popover-x="left"
-      />
-      <p>Text color</p>
-
-      <v-swatches
-        v-model="tag.textColor"
-        show-fallback
-        popover-x="left"
-      />
-
-      <p>Preview</p>
-
-      <b-button
-        v-if="tag.name"
-        rounded
-        size="sm"
-        class="mr-2 mb-2"
-        variant="transparent"
-        :style="`background-color: ${tag.bgColor}; color: ${tag.textColor}`"
-      >
-        {{ tag.name }}
-      </b-button>
-
-      <p>Games tagged</p>
-
-      <!-- TODO: add quick game picker -->
-      <b-alert :show="tag.games.length === 0" variant="light" class="field">
-        No games tagged
-      </b-alert>
-
-      <div class="tagged-games mb-4">
-        <b-img
+        <div
+          class="mb-4"
           v-for="game in tag.games"
           :key="game"
-          :src="getCoverUrl(game)"
-          class="cursor-pointer"
-          thumbnail
-          @click="$router.push({ name: 'game.tags', params: { id: games[game].id, slug: games[game].slug }})"
-        />
-      </div>
+        >
+          <b-img
+            :src="getCoverUrl(game)"
+            class="cursor-pointer"
+            thumbnail
+            @click="$router.push({ name: 'game.tags', params: { id: games[game].id, slug: games[game].slug }})"
+          />
 
-      <b-button
-        variant="primary"
-        :disabled="saving"
-        type="submit"
-      >
-        <b-spinner small v-if="saving" />
-        <span v-else>Save</span>
-      </b-button>
-    </form>
+          <pre>{{ game }}</pre>
+        </div>
+
+      </b-col>
+
+      <b-col>
+        <form
+          class="field centered"
+          @submit.prevent="saveTag"
+        >
+          <label for="tagName">Tag name:</label>
+
+          <b-form-input
+            id="tagName"
+            v-model.trim="tag.name"
+            class="mb-3 field"
+            maxlength="20"
+            :placeholder="$t('tags.form.inputPlaceholder')"
+            required
+            trim
+          />
+
+          <p>Background color</p>
+
+          <v-swatches
+            v-model="tag.bgColor"
+            show-fallback
+            popover-x="left"
+          />
+          <p>Text color</p>
+
+          <v-swatches
+            v-model="tag.textColor"
+            show-fallback
+            popover-x="left"
+          />
+
+          <p>Preview</p>
+
+          <b-button
+            v-if="tag.name"
+            rounded
+            size="sm"
+            class="mr-2 mb-2"
+            variant="transparent"
+            :style="`background-color: ${tag.bgColor}; color: ${tag.textColor}`"
+          >
+            {{ tag.name }}
+          </b-button>
+
+          <b-button
+            variant="primary"
+            :disabled="saving"
+            type="submit"
+          >
+            <b-spinner small v-if="saving" />
+            <span v-else>Save</span>
+          </b-button>
+        </form>
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
@@ -187,15 +196,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-.tagged-games {
-  display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(80px, 1fr));
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(80px, 1fr);
-  grid-gap: .5rem;
-  overflow-x: auto;
-  max-width: calc(100vw - 32px);
-}
-</style>

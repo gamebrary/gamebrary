@@ -10,17 +10,6 @@
         :subtitle="wallpaper.name"
         @close="close"
       >
-        <!-- <b-badge variant="light" class="float-left">
-          {{ formatSize(wallpaper) }}
-        </b-badge> -->
-
-        <b-button
-          v-if="selectable"
-          @click="select"
-        >
-          Select
-        </b-button>
-
         <b-dropdown
           variant="light"
           class="mr-2"
@@ -82,7 +71,6 @@ export default {
     };
   },
   props: {
-    selectable: Boolean,
     wallpaper: {
       type: [Object, Boolean],
       default: () => {},
@@ -113,12 +101,6 @@ export default {
       const wallpaper = this.wallpapers?.find(({ fullPath }) => fullPath === url);
 
       return wallpaper?.url;
-    },
-
-    select() {
-      this.$emit('selected', this.wallpaper);
-
-      this.$bvModal.hide('previewWallpaper');
     },
 
     confirmDeleteWallpaper(file) {

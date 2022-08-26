@@ -17,7 +17,7 @@
           size="sm"
           variant="transparent"
           class="text-dark d-flex justify-content-between align-items-center pl-0"
-          :disabled="preview || (user && user.uid !== board.owner)"
+          :disabled="preview || !isBoardOwner"
           :to="{ name: 'board.list.edit', params: { id: board.id, listIndex } }"
         >
           <span>
@@ -41,6 +41,7 @@
         </b-button>
 
         <b-button
+          v-if="isBoardOwner"
           title="Add games"
           size="sm"
           variant="transparent"

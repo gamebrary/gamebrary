@@ -159,7 +159,6 @@ export default {
       //     this.$bvToast.toast('There was an error renaming list', { variant: 'danger' });
       //   });
       //
-      // this.$bus.$emit('LOAD_BOARD_BACKGROUND');
       // this.saving = false;
       // this.$bvToast.toast('Wallpaper set');
     },

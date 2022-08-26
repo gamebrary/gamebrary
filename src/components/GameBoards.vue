@@ -35,8 +35,7 @@
         >
           <mini-board
             :board="board"
-            :background-image="getWallpaperUrl(board.backgroundUrl)"
-            @view-board="viewBoard(board.id)"
+            @click.native="$router.push({ name: 'board', params: { id: board.id } })"
           />
         </b-col>
       </template>
@@ -95,22 +94,6 @@ export default {
       }
     },
 
-    getWallpaperUrl(url) {
-      if (!url) {
-        return '';
-      }
-
-      if (url && url.includes('igdb.com')) {
-        return url;
-      }
-
-      const wallpaperObject = this.wallpapers.find(({ fullPath }) => fullPath === url);
-
-      return wallpaperObject && wallpaperObject.url
-        ? wallpaperObject.url
-        : '';
-    },
-
     async loadBoards() {
       this.loading = true;
 
@@ -133,12 +116,6 @@ export default {
         });
 
       this.loading = false;
-    },
-
-
-
-    viewBoard(id) {
-      this.$router.push({ name: 'board', params: { id } });
     },
 
     viewPublicBoard(id) {

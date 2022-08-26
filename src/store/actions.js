@@ -144,18 +144,17 @@ export default {
         .doc(id)
         .get()
         .then((doc) => {
-          const board = doc.data();
+          const boardData = doc.data();
 
           const boardNotFound = !doc.exists;
-          const forbiddenTenant = !board?.isPublic && board?.owner !== state?.user?.uid;
+          const forbiddenTenant = !boardData?.isPublic && boardData?.owner !== state?.user?.uid;
 
           if (boardNotFound || forbiddenTenant) return reject();
 
-          commit('SET_ACTIVE_BOARD', {
-            ...board,
-            id: doc.id,
-          });
-          return resolve();
+          const board = { ...boardData, id: doc.id };
+
+          commit('SET_ACTIVE_BOARD', board);
+          return resolve(board);
         })
         .catch(reject);
     });

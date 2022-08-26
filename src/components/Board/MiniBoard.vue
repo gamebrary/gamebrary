@@ -42,16 +42,41 @@
 export default {
   props: {
     board: Object,
-    backgroundImage: String,
+  },
+
+  watch: {
+    board(value) {
+      console.log('value', value);
+    },
+  },
+
+  data() {
+    return {
+      backgroundUrl: '',
+    };
   },
 
   computed: {
     miniBoardStyles() {
-      if (this.backgroundImage) return `background-image: url(${this.backgroundImage});`
+      if (this.backgroundUrl) return `background-image: url(${this.backgroundUrl});`
 
       return this.board?.backgroundColor
         ? `background-color: ${this.board.backgroundColor};`
         : null;
+    },
+  },
+
+  mounted() {
+    this.loadWallpaper();
+  },
+
+  methods: {
+    async loadWallpaper() {
+      if (this.board?.backgroundUrl) {
+        this.backgroundUrl = this.board?.backgroundUrl?.includes('igdb')
+          ? this.board?.backgroundUrl
+          : await this.$store.dispatch('LOAD_WALLPAPER', this.board?.backgroundUrl);
+      }
     },
   },
 };

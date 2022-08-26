@@ -18,7 +18,6 @@
         >
           Edit board
         </b-button>
-        <!-- TODO: show back button to board, store in memory only -->
       </portal>
 
       <game-list
@@ -104,11 +103,9 @@ export default {
   async mounted() {
     this.loadBoard();
     this.$store.commit('CLEAR_BOARD'); // TODO: only clear board if not already cached
-    this.$bus.$on('LOAD_BOARD_BACKGROUND', this.loadBoardBackground);
   },
 
   destroyed() {
-    this.$bus.$off('LOAD_BOARD_BACKGROUND');
     this.$bus.$emit('UPDATE_WALLPAPER', null);
     this.$bus.$emit('UPDATE_BACKGROUND_COLOR', null);
   },
