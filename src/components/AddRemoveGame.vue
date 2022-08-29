@@ -1,79 +1,70 @@
 <template lang="html">
-  <b-sidebar
-    id="addGame"
-    no-header
+  <!-- TODO: use lazy prop for dropdown -->
+  <b-dropdown
+    id="dropdown-grouped"
+    variant="light"
     right
-    :visible="Boolean(gameId)"
-    backdrop
-    shadow
-    @hidden="hidden"
+    no-caret
   >
-    <template #default>
-      <div class="p-2 bg-white">
-        <b-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}">
-          <b-img
-            :src="coverUrl"
-            fluid
-            rounded
-          />
-        </b-link>
-
-        <template v-if="user">
-          <h4 class="my-3 text-center">Add to list:</h4>
-
-          <div
-            v-for="board in formattedBoards"
-            :key="board.id"
-            class="p-2 bg-white mb-2"
-          >
-            <header class="mb-2 d-flex align-items-center">
-              <b-avatar
-                rounded
-                :class="['board-thumbnail mr-2', { 'bg-dark' : !board.backgroundColor }]"
-                :title="board.name"
-                text=" "
-                size="32"
-                :style="`
-                  background-image: url(${board.backgroundUrl ? board.backgroundUrl : ''});
-                  background-color: ${board.backgroundColor ? board.backgroundColor : ''}
-                  `"
-                :to="{ name: 'board', params: { id: board.id } }"
-              />
-
-              {{ board.name }}
-            </header>
-
-            <b-button
-              v-for="(list, listIndex) in board.lists"
-              :key="`${board.id}-${list.name}`"
-              :variant="isGameInList({ list, gameId }) ? 'success' : 'light'"
-              block
-              clas
-              size="sm"
-              @click.stop="handleClick({ list, listIndex, board })"
-            >
-              {{ list.name }}
-
-              <b-badge variant="light" class="mr-2">
-                {{ list.games.length }}
-              </b-badge>
-
-              <i :class="`fa-solid ${isGameInList({ list, gameId }) ? 'fa-minus' : 'fa-plus' }`" />
-            </b-button>
-          </div>
-        </template>
-
-        <b-button
-          v-else
-          block
-          :to="{ name: 'auth' }"
-          variant="primary"
-        >
-          Add to list
-        </b-button>
-      </div>
+    <template #button-content>
+      <i class="fa-solid fa-plus fa-fw" />
     </template>
-  </b-sidebar>
+
+    <p class=" mx-2 my-0 text-center text-muted">
+      Add to list
+    </p>
+
+    <b-dropdown-divider />
+
+    <pre>{{ gameId }}</pre>
+
+    <section
+      v-for="board in formattedBoards"
+      :key="board.id"
+      class="p-2 bg-white mb-2 field"
+    >
+      <div class="text-center">
+        <b-avatar
+          rounded
+          :class="['board-thumbnail', { 'bg-dark' : !board.backgroundColor }]"
+          :title="board.name"
+          text=" "
+          size="32"
+          :style="`
+            background-image: url(${board.backgroundUrl ? board.backgroundUrl : ''});
+            background-color: ${board.backgroundColor ? board.backgroundColor : ''}
+            `"
+          :to="{ name: 'board', params: { id: board.id } }"
+        />
+
+        <br />
+
+        <span class="text-muted">{{ board.name }}</span>
+      </div>
+
+      <section
+        v-for="(list, listIndex) in board.lists"
+        :key="`${board.id}-${list.name}`"
+        class="d-flex align-items-center justify-content-between mb-2"
+      >
+        <b-badge variant="light" class="mr-2">
+          {{ list.games.length }}
+        </b-badge>
+
+        {{ list.name }}
+
+        <b-form-checkbox
+          id="checkbox-1"
+          name="checkbox-1"
+          :checked="isGameInList({ list })"
+          switch
+          @change="handleClick({ list, listIndex, board })"
+          unchecked-value="not_accepted"
+        />
+      </section>
+    </section>
+    <b-dropdown-divider />
+  </b-dropdown>
 </template>
 
 <script>
@@ -81,16 +72,6 @@ import { mapState } from 'vuex';
 import { getGameCoverUrl } from '@/utils';
 
 export default {
-  data() {
-    return {
-      expandedBoard: null,
-      gameId: null,
-    }
-  },
-
-  mounted() {
-    this.$bus.$on('ADD_GAME', this.setGame);
-  },
 
   computed: {
     ...mapState(['games', 'boards', 'wallpapers', 'user']),
@@ -112,14 +93,20 @@ export default {
       return this.games[this.gameId] || {};
     },
 
+    gameId() {
+      return this.$route.params.id
+    },
+
     coverUrl() {
       return getGameCoverUrl(this.game);
     },
   },
 
   methods: {
-    isGameInList({ list, gameId }) {
-      return list.games.includes(Number(gameId));
+    isGameInList({ list }) {
+      console.log('list', list);
+      console.log('gameId', this.gameId);
+      return list.games.includes(Number(this.gameId));
     },
 
     getWallpaperUrl(url) {
@@ -131,19 +118,15 @@ export default {
       return wallpaper && wallpaper.url ? decodeURI(wallpaper.url) : '';
     },
 
-    setGame(gameId) {
-      this.gameId = gameId;
-    },
-
-    hidden() {
-      this.gameId = null;
-      this.expandedBoard = null;
-    },
-
     handleClick({ list, listIndex, board }) {
+      console.log('list', list);
+      console.log('listIndex', listIndex);
+      console.log('board', board);
       if (this.isGameInList({ list, gameId: this.game.id })) {
+        console.log('removeGame');
         this.removeGame({ listIndex, boardId: board.id, list });
       } else {
+        console.log('addGame');
         this.addGame({ list, listIndex, boardId: board.id });
       }
     },
