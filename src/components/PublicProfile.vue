@@ -55,9 +55,7 @@
     </b-button>
 
     <!-- TODO: warn before deleting -->
-    <b-button class="ml-1" variant="danger" @click="deleteProfile">
-      Delete profile
-    </b-button>
+
   </b-container>
 </template>
 
@@ -98,10 +96,6 @@ export default {
       await this.$store.dispatch('SAVE_PROFILE', this.localProfile);
 
       this.saving = false;
-    },
-
-    deleteProfile() {
-      this.$store.dispatch('DELETE_PROFILE');
     },
   },
 };

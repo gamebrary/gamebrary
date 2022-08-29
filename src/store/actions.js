@@ -215,7 +215,7 @@ export default {
             const profile = doc.data();
 
             commit('SET_PROFILE', profile);
-            resolve();
+            resolve(profile);
           } else {
             commit('REMOVE_PROFILE');
             reject();
