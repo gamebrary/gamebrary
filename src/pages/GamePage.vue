@@ -13,6 +13,7 @@
           <i class="fa-solid fa-chevron-left" />
         </b-button>
       </portal>
+
       <portal to="headerActions" v-if="user">
         <b-button-group class="mr-2">
           <b-button
@@ -112,8 +113,9 @@
           sm="6"
           md="8"
           xl="9"
+          :class="steamBackground ? 'mt-3' : ''"
         >
-          <article class="bg-white rounded p-3">
+          <article :class="['bg-white rounded', steamBackground ? 'p-3' : 'my-2']">
             <header class="d-flex align-items-start justify-content-between pb-2">
               <game-titles />
 
@@ -138,7 +140,7 @@
               </aside>
             </header>
 
-            <aside class="bg-white field float-right ml-5 pb-2">
+            <aside class="supplemental-info bg-white field float-right ml-5 pb-2">
               <b-img
                 v-if="gameHeaderImage"
                 v-b-modal.mediaModal
@@ -415,5 +417,11 @@ export default {
   left: calc(50% - 50px);
   font-size: 2rem;
   top: calc(50% - 25px);
+}
+
+.supplemental-info {
+  @media(max-width: 780px) {
+    width: 50%;
+  }
 }
 </style>
