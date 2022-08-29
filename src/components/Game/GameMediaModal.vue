@@ -10,18 +10,20 @@
     <template v-slot:modal-header="{ close }">
       <modal-header
         title="Screenshots and videos"
-        :subtitle="selectedMedia.source"
+        :subtitle="`Source: ${selectedMedia.source}`"
         @close="close"
       >
-        <!-- <template v-slot:header>
+        <template v-slot:header>
           <b-img
-            :src="gameCoverThumbUrl"
+            :src="gameCoverUrl"
             :alt="game.name"
             class="float-left mr-2"
             height="40"
             rounded
           />
-        </template> -->
+        </template>
+
+        <!-- TODO: restore set as wallpaper -->
 
         <!-- <b-button
           v-if="isBoardOwner"
@@ -51,18 +53,17 @@
       <b-img
         v-else
         rounded
-        class="align-center align-self-center justify-self-center mw-100 mh-100"
+        class="selected-image align-center align-self-center mw-100 mh-100"
         :src="selectedMedia.imageUrl"
       />
 
       <footer class="mt-2 d-flex overflow-auto pb-2">
-        <b-img
+        <img
           v-for="media in gameMedia"
           :key="media.imageUrl"
           :src="media.imageUrl"
-          width="120"
           rounded
-          fluid
+          style="height: 80px"
           class="mr-2 align-self-start"
           @click="selectedMedia = media"
         />
@@ -90,9 +91,20 @@ export default {
     ...mapState(['board', 'game']),
 
     gameMedia() {
-      // TODO: add steam movies
       // TODO: also handle thumbnails
       // TODO: do all of this in mutation after loading game
+      const steamVideos = this.game?.steam?.movies?.map((video) => {
+        const hiQuality = video?.mp4?.max;
+        const lowQuality = video?.mp4?.[480];
+
+        return {
+          imageUrl: video.thumbnail,
+          videoUrl: hiQuality || lowQuality,
+          video: true,
+          source: 'steam',
+        }
+      }) || [];
+
       const igdbVideos = this.game?.videos?.map((video) => {
         return {
           imageUrl: `https://img.youtube.com/vi/${video.video_id}/sddefault.jpg`,
@@ -121,6 +133,7 @@ export default {
 
       return [
         ...igdbVideos,
+        ...steamVideos,
         ...gogImages,
         ...steamScreenshots,
         ...igdbScreenshots,
@@ -171,5 +184,9 @@ export default {
   display: grid;
   grid-gap: 1rem;
   grid-template-rows: 50vh auto;
+}
+
+.selected-image {
+  justify-self: center;
 }
 </style>

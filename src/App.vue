@@ -11,14 +11,12 @@
       <page-header />
       <router-view class="viewport" />
       <keyboard-shortcuts-modal />
-      <add-remove-game />
       <markdown-cheatsheet />
     </div>
   </div>
 </template>
 
 <script>
-import AddRemoveGame from '@/components/AddRemoveGame';
 import MarkdownCheatsheet from '@/components/MarkdownCheatsheet';
 import KeyboardShortcutsModal from '@/components/KeyboardShortcutsModal';
 import PageHeader from '@/components/PageHeader';
@@ -34,7 +32,6 @@ export default {
 
   components: {
     PageHeader,
-    AddRemoveGame,
     MarkdownCheatsheet,
     KeyboardShortcutsModal,
   },

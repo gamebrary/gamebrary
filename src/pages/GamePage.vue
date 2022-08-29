@@ -41,11 +41,7 @@
             <i class="fa-solid fa-note-sticky fa-fw" />
           </b-button>
 
-          <b-button
-            variant="light" @click="$bus.$emit('ADD_GAME', game.id)"
-          >
-            <i class="fa-solid fa-plus fa-fw" />
-          </b-button>
+          <add-remove-game />
         </b-button-group>
       </portal>
       <game-media-modal />
@@ -213,10 +209,12 @@ import GameInList from '@/components/Game/GameInList';
 import GameWebsites from '@/components/Game/GameWebsites';
 // import GameSpeedruns from '@/components/Game/GameSpeedruns';
 import GameNote from '@/components/GameNote';
+import AddRemoveGame from '@/components/AddRemoveGame';
 import { STEAM_CATEGORY_ID, GOG_CATEGORY_ID, TWITTER_CATEGORY_ID } from '@/constants';
 
 export default {
   components: {
+    AddRemoveGame,
     // AmazonLinks,
     GameNote,
     GameDescription,
