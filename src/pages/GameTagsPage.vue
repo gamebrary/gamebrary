@@ -24,55 +24,38 @@
       </b-col>
 
       <b-col>
-        <empty-state
-          v-if="empty"
-          class="mb-4"
-          message="Looks like you don't have any tags yet."
-        >
-          <b-button :to="{ name: 'tags' }">Manage tags</b-button>
-        </empty-state>
+        <div class="field">
+          <empty-state
+            v-if="empty"
+            class="mb-4"
+            message="Looks like you don't have any tags yet."
+          >
+            <b-button :to="{ name: 'tags' }">Manage tags</b-button>
+          </empty-state>
 
-        <section v-else class="field">
-          <section>
-            <h4 class="my-3">Tags applied to {{ game.name }}</h4>
-
-            <b-alert :show="noneSelected" variant="light">
-              No tags applied
-            </b-alert>
-
+          <section v-else>
             <b-button
-              v-for="({ selected, name, bgColor, textColor }, index) in formattedTags"
+              v-for="({ name, bgColor, textColor, games }, index) in tags"
               :key="name"
               rounded
               block
               variant="transparent"
-              :class="{ 'd-none': !selected }"
-              :disabled="saving"
               :style="`background-color: ${bgColor}; color: ${textColor}`"
-              @click="removeTag(index)"
+              @click="handleClick(games.includes(Number(game.id)), index)"
             >
+              <i
+                v-if="games.includes(Number(game.id))"
+                class="fa-solid text-white fa-check bg-success p-1 rounded mr-1"
+              />
+
               {{ name }}
             </b-button>
+
+            <hr />
+
+            <b-button block :to="{ name: 'tags' }">Manage tags</b-button>
           </section>
-
-          <hr />
-
-          <h4 class="my-3">Tags available</h4>
-
-          <b-button
-            v-for="({ selected, name, bgColor, textColor }, index) in formattedTags"
-            :key="name"
-            rounded
-            block
-            variant="transparent"
-            :class="{ 'd-none': selected }"
-            :disabled="saving"
-            :style="`background-color: ${bgColor}; color: ${textColor}`"
-            @click="addTag(index)"
-          >
-            {{ name }}
-          </b-button>
-        </section>
+        </div>
       </b-col>
     </b-row>
   </b-container>
@@ -110,13 +93,6 @@ export default {
       return Object.keys(this.tags).length === 0;
     },
 
-    formattedTags() {
-      return this.tags.map((tag) => ({
-        ...tag,
-        selected: tag.games.includes(Number(this.$route.params.id)),
-      }));
-    },
-
     noneSelected() {
       return !this.formattedTags.some(({ selected }) => Boolean(selected));
     },
@@ -142,6 +118,14 @@ export default {
       }
 
       this.loading = false;
+    },
+
+    handleClick(selected, index) {
+      if (selected) {
+        this.removeTag(index);
+      } else {
+        this.addTag(index);
+      }
     },
 
     async addTag(index) {
