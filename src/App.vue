@@ -152,6 +152,7 @@ export default {
   }
 
   .viewport {
-    min-height: calc(100vh - 62px);
+    height: calc(100vh - 62px);
+    overflow-y: auto;
   }
 </style>

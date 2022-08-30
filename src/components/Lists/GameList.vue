@@ -23,7 +23,7 @@
           <span>
             <b-badge
               v-if="showGameCount"
-              variant="info"
+              variant="dark"
             >
               {{ list.games.length }}
             </b-badge>

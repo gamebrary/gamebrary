@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container>
+  <b-container class="pb-3">
     <portal to="pageTitle">
       <div>
         <b-button
@@ -163,9 +163,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-.space-used {
-  width: 120px;
-}
-</style>

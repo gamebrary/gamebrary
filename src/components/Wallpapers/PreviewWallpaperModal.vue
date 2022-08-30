@@ -2,6 +2,7 @@
   <b-modal
     id="previewWallpaper"
     hide-footer
+    scrollable
     size="xl"
   >
     <template v-slot:modal-header="{ close }">

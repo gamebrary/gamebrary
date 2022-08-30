@@ -20,7 +20,7 @@
     <portal to="headerActions" >
       <b-button
         variant="success"
-        class="mr-2 d-none d-sm-block"
+        class="mr-2"
         :to="{ name: 'search', query: { boardId: board.id, listIndex } }"
       >
         Add games
@@ -35,13 +35,22 @@
       </b-col>
 
       <b-col cols="12" sm="6">
-        <form ref="renameListForm" @submit.stop.prevent="saveChanges" class="p-3">
-          <b-form-input
-            autofocus
-            v-model.trim="list.name"
-            :placeholder="$t('board.list.renameListPlaceholder')"
-            required
-          />
+        <form
+          ref="renameListForm"
+          @submit.stop.prevent="saveChanges"
+          class="p-3 field centered"
+        >
+          <b-form-group
+            label="List name"
+            label-for="name"
+          >
+            <b-form-input
+              id="name"
+              autofocus
+              v-model.trim="list.name"
+              required
+            />
+          </b-form-group>
 
           <b-alert
             v-if="isDuplicate"
@@ -68,7 +77,7 @@
           <!-- TODO: limit field width -->
           <!-- TODO: move to computed, use help text -->
           <b-alert
-            class="mb-0 mt-2 small"
+            class="my-2"
             show
             :variant="list.settings.sortOrder !== 'sortByCustom' ? 'warning' : 'info'"
           >
@@ -156,7 +165,6 @@
           </b-form-checkbox>
 
           <b-list-group class="p-2">
-            <!-- TODO: Clone list -->
             <!-- TODO: Move within board -->
             <!-- TODO: Move list to different board -->
             <!-- TODO: edit lists order goes in board settings -->

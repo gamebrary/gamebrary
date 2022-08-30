@@ -1,6 +1,5 @@
-<!-- TODO: update to match board -->
 <template lang="html">
-  <div class="board-placeholder" v-if="placeholderBoard && placeholderBoard.lists">
+  <div class="board-placeholder">
     <div
       v-for="list in placeholderBoard.lists"
       :class="`list ${list.settings.view || 'single'}`"
@@ -19,10 +18,12 @@
             <b-card
               no-body
               img-top
+              class="mb-1 p-1"
               v-if="list.settings.view === 'grid'"
             >
               <b-skeleton-img
                 card-img="top"
+                class="rounded"
                 height="180px"
               />
 
@@ -38,6 +39,7 @@
               <b-skeleton-img
                 v-for="n in 3"
                 :key="n"
+                class="rounded"
                 height="120px"
               />
             </div>
@@ -50,6 +52,7 @@
               <b-skeleton-img
                 card-img="left"
                 width="94px"
+                class="rounded m-1"
                 height="124px"
               />
 
@@ -65,6 +68,7 @@
             >
               <b-skeleton-img
                 card-img="left"
+                class="rounded m-1"
                 width="70px"
                 height="93px"
               />
@@ -78,22 +82,21 @@
               v-else
               no-body
               img-left
+
             >
               <b-card-body class="p-2">
-                <b-skeleton />
+                <b-skeleton class="m-0" />
               </b-card-body>
             </b-card>
           </div>
         </div>
 
-        <b-button
+        <div
+          class="p-2"
           v-else
-          block
-          class="mb-2"
-          disabled
         >
-          Click here or drag games here
-        </b-button>
+          <b-skeleton height="2rem" />
+        </div>
       </b-card>
     </div>
   </div>
