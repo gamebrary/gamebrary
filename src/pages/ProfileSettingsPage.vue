@@ -9,15 +9,10 @@
       class="field centered"
       @submit.prevent="save"
     >
-      <!-- TODO: use regex to validate user name, trim, etc... -->
-      <!-- TODO: use debounce to search availability -->
-      <b-alert show>
-        Never share sensitive information publicly
-      </b-alert>
-
       <p class="text-muted">{{ `gamebrary.com/${profile.userName}` }}</p>
 
       <b-form-group
+        label-class="m-0 text-muted"
         label="Name"
         label-for="name"
       >
@@ -29,95 +24,105 @@
       </b-form-group>
 
       <b-form-group
+        label-class="m-0 text-muted"
         label="About you"
         label-for="bio"
       >
         <b-form-input
           id="bio"
           v-model="profile.bio"
-          placeholder="About me"
           class="mb-3"
         />
       </b-form-group>
 
-
       <b-form-group
+        label-class="m-0 text-muted"
         label="Location"
         label-for="location"
       >
         <b-form-input
           id="location"
           v-model="profile.location"
-          placeholder="Location"
           class="mb-3"
         />
       </b-form-group>
 
-
       <b-form-group
+        label-class="m-0 text-muted"
         label="Website"
         label-for="website"
       >
+        <!-- TODO: autoformat website with protocol -->
         <b-form-input
           id="website"
           v-model="profile.website"
-          placeholder="Website"
           class="mb-3"
         />
       </b-form-group>
 
-
       <b-form-group
+        label-class="m-0 text-muted"
         label="Twitter"
         label-for="twitter"
       >
         <b-form-input
           id="twitter"
           v-model="profile.twitter"
-          placeholder="Twitter"
           class="mb-3"
         />
       </b-form-group>
 
 
       <b-form-group
-        label="Friend Code"
+        label-class="m-0 text-muted"
+        label="Nintendo Friend Code"
         label-for="friendCode"
       >
         <b-form-input
           id="friendCode"
           v-model="profile.friendCode"
-          placeholder="friendCode"
           class="mb-3"
         />
       </b-form-group>
 
 
       <b-form-group
-        label="Online ID"
-        label-for="onlineId"
+        label-class="m-0 text-muted"
+        label="Playstation online ID"
+        label-for="psnId"
       >
         <b-form-input
-          id="onlineId"
-          v-model="profile.onlineId"
-          placeholder="onlineId"
+          id="psnId"
+          v-model="profile.psnId"
           class="mb-3"
         />
       </b-form-group>
 
-
       <b-form-group
-        label="List name"
-        label-for="name"
+        label-class="m-0 text-muted"
+        label="Steam friend code"
+        label-for="steamFriendCode"
       >
         <b-form-input
+          id="steamFriendCode"
+          v-model="profile.steamFriendCode"
+          class="mb-3"
+        />
+      </b-form-group>
+
+      <b-form-group
+        label-class="m-0 text-muted"
+        label="Xbox Gamertag"
+        label-for="gamerTag"
+      >
+        <b-form-input
+          id="gamerTag"
           v-model="profile.gamerTag"
-          placeholder="gamerTag"
+          class="mb-3"
         />
-
       </b-form-group>
 
-      <footer class="mt-3">
+      <footer class="mt-3 mb-5">
         <b-button
           variant="primary"
           type="submit"
@@ -143,10 +148,7 @@
       class="field centered"
       @submit.prevent="checkUserNameAvailability"
     >
-      <p class="text-muted text-center">
-        Looks like you don't have a profile setup.
-        Choose a user name and get started!
-      </p>
+      <p class="text-muted text-center">Choose a user name to get started!</p>
 
       <b-input-group class="mb-3">
         <b-form-input
@@ -154,19 +156,21 @@
           autocomplete="off"
           v-model.trim="userName"
           size="lg"
-          maxlength="32"
-          placeholder="User name"
+          :minlength="$options.MIN_PROFILE_LENGTH"
+          :maxlength="$options.MAX_PROFILE_LENGTH"
           required
           :state="available"
+          @input="formatUserName"
         />
 
         <template #append>
           <b-button
-            variant="primary"
             type="submit"
           >
             <b-spinner small v-if="checkingAvailability" />
-            <template v-else>Go</template>
+            <template v-else>
+              <i class="fa-solid fa-magnifying-glass" />
+            </template>
           </b-button>
         </template>
       </b-input-group>
@@ -177,10 +181,10 @@
           show
           variant="success"
         >
-          Great, your user name is available!
+          Great, <strong>{{ userName }}</strong> is available!
         </b-alert>
 
-        <b-button @click="createProfile">
+        <b-button block variant="success" @click="createProfile">
           <b-spinner small v-if="saving" />
           <template v-else>Create profile</template>
         </b-button>
@@ -195,8 +199,12 @@
 
 <script>
 import { mapState } from 'vuex';
+import { MIN_PROFILE_LENGTH, MAX_PROFILE_LENGTH } from '@/constants';
 
 export default {
+  MIN_PROFILE_LENGTH,
+  MAX_PROFILE_LENGTH,
+
   data() {
     return {
       saving: false,
@@ -231,19 +239,30 @@ export default {
         location: '',
         website: '',
         twitter: '',
+        psnId: '',
+        steamFriendCode: '',
+        gamerTag: '',
+        friendCode: '',
         userName,
       }
 
-      this.save();
+      this.save(false);
     },
 
-    async save() {
+    async save(redirect = true) {
       this.saving = true;
 
       await this.$store.dispatch('SAVE_PROFILE', this.profile);
 
       this.saving = false;
-      this.$router.push({ name: 'public.profile', params: { userName : this.profile?.userName }});
+
+      if (redirect) {
+        this.$router.push({ name: 'public.profile', params: { userName : this.profile?.userName }});
+      }
+    },
+
+    formatUserName() {
+      this.userName = this.userName.replace(/\W/g, '');
     },
 
     async checkUserNameAvailability() {

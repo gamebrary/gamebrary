@@ -24,7 +24,6 @@ import GameTagsPage from '@/pages/GameTagsPage';
 import CreateTagPage from '@/pages/CreateTagPage';
 import GameProgressPage from '@/pages/GameProgressPage';
 import PrivacyPolicyPage from '@/pages/PrivacyPolicyPage';
-import ProfilePage from '@/pages/ProfilePage';
 import PublicProfilePage from '@/pages/PublicProfilePage';
 import PublicProfilesPage from '@/pages/PublicProfilesPage';
 import ReleasesPage from '@/pages/ReleasesPage';
@@ -196,14 +195,6 @@ const routes = [
     meta: {
       title: 'PublicBoards',
       public: true,
-    },
-  },
-  {
-    name: 'profile',
-    path: '/profile',
-    component: ProfilePage,
-    meta: {
-      title: 'Profile',
     },
   },
   {

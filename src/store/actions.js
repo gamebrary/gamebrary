@@ -243,16 +243,20 @@ export default {
     });
   },
 
-  LOAD_PUBLIC_PROFILE(context, userName) {
+  LOAD_PUBLIC_PROFILE_BY_USERNAME(context, userName) {
     return new Promise((resolve, reject) => {
       const db = firestore();
 
-      // TODO: user user id instead, create separate actions for loading any public user
       db.collection('profiles')
         .where('userName', '==', userName)
         .get()
         .then((docs) => {
-          const [profile] = docs.docs.map(doc => doc.data());
+          const [profile] = docs.docs.map((doc) => {
+            return {
+              ...doc.data(),
+              uid: doc.id,
+            }
+          });
 
           if (profile) {
             resolve(profile);

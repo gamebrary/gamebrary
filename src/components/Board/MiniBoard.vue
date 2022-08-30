@@ -2,7 +2,6 @@
   <div
     :class="['mini-board overflow-hidden rounded cursor-pointer m-0', { 'bg-light': !board.backgroundColor }]"
     :style="miniBoardStyles"
-    @click="$emit('view-board', board.id)"
   >
     <header class="text-small py-1 px-2 d-flex align-items-center justify-content-between">
       <span class="mr-1 text-muted mb-1">{{ board.name }}</span>

@@ -1,44 +1,68 @@
 <template lang="html">
-  <b-container fluid>
+  <b-container>
     <b-spinner v-if="loading" class="spinner-centered" />
 
-    <template v-else-if="profile">
-      <pre>{{ profile }}</pre>
-      <div>
-        <!-- <img
-          v-if="avatar"
-          :src="avatar"
-          :alt="userName"
-          class="rounded"
-        /> -->
+    <div
+      v-else-if="profile"
+    >
+      <portal to="headerActions">
+        <b-button
+          v-if="isProfileOwner"
+          class="mr-2"
+          :to="{ name: 'profile.settings' }"
+        >
+          Edit
+        </b-button>
+      </portal>
+      <div class="profile field centered text-center">
+        <b-avatar
+          src="https://placekitten.com/300/300"
+          size="6rem"
+          class="mb-2"
+        />
 
-        <h2>{{ profile.userName }}</h2>
+        <!-- <pre>{{ profile }}</pre> -->
+        <h1 class="m-0">{{ profile.userName }}</h1>
+        <p class="text-lead text-muted m-0">{{ profile.name }}</p>
+        <p>{{ profile.bio }}</p>
 
-        <!-- <a :href="profile.twitter" v-if="profile.twitter">
+        <p>
+          <i class="fa fa-globe" aria-hidden="true" />
+          {{ profile.location }}
+        </p>
+
+        <b-button :href="profile.twitter" v-if="profile.twitter" class="mr-2">
           <i class="fab fa-twitter fa-fw" aria-hidden />
-        </a> -->
+          {{ profile.twitter }}
+        </b-button>
 
-        <p class="text-info">
-          <i class="fas fa-map-marker fa-fw" aria-hidden />
-          {{ profile.location }}</p>
+        <b-button v-if="profile.website" :href="profile.website">
+          {{ profile.website }}
+        </b-button>
+
       </div>
-
-      <b-button v-if="canEdit" :to="{ name: 'profile' }">
-        Edit
-      </b-button>
 
       <!-- <b-button :to="{ name: 'profiles' }">
         View other profiles
       </b-button> -->
-
-      <mini-board
-        v-for="board in userBoards"
-        :key="board.id"
-        :board="board"
-        @view-board="viewPublicBoard(board.id)"
-        class="p-relative"
-      />
-    </template>
+      <b-row class="mt-4">
+        <b-col
+          v-for="board in userBoards"
+          :key="board.id"
+          cols="12"
+          sm="6"
+          md="4"
+          lg="3"
+          class="px-2"
+        >
+          <mini-board
+            :board="board"
+            @click.native="$router.push({ name: 'board', params: { id: board.id } })"
+            class="p-relative mb-3"
+          />
+        </b-col>
+      </b-row>
+    </div>
 
     <empty-state
       v-else
@@ -76,9 +100,11 @@ export default {
       return this.$route.params.userName;
     },
 
-    // avatar() {
-    //   return this.profile?.profilePic || this.user?.photoURL || null;
-    // },
+    isProfileOwner() {
+      if (!this.user?.uid) return false;
+
+      return this.user?.uid === this.profile?.uid;
+    },
   },
 
   watch: {
@@ -102,7 +128,7 @@ export default {
       this.error = false;
       this.loading = true;
 
-      this.profile = await this.$store.dispatch('LOAD_PUBLIC_PROFILE', this.userName)
+      this.profile = await this.$store.dispatch('LOAD_PUBLIC_PROFILE_BY_USERNAME', this.userName)
         .catch(() => {
           this.error = true;
         });
