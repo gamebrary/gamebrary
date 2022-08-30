@@ -209,14 +209,10 @@ export default {
     },
 
     validateMove({ from, to }) {
-      const isDifferentList = from.id !== to.id;
-      const isDuplicate = this.board.lists[to.id].games.includes(Number(this.draggingId));
+      const sameList = from.id === to.id;
+      const notInList = !this.board?.lists?.[to.id]?.games?.includes(Number(this.draggingId));
 
-      if (isDuplicate && isDifferentList) {
-        return false;
-      }
-
-      return true;
+      return sameList || notInList && !sameList;
     },
 
     dragStart({ item }) {
