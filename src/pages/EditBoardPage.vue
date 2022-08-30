@@ -16,7 +16,7 @@
 
     <b-row>
       <b-col>
-        <b-modal id="boardWallpaper" size="xl">
+        <b-modal id="boardWallpaper" size="xl" scrollable hide-footer>
           <template v-slot:modal-header="{ close }">
             <modal-header
               title="Wallpaper"
