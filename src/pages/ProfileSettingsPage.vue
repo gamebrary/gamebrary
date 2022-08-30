@@ -4,63 +4,139 @@
 
     <b-spinner v-if="loading" class="spinner-centered" />
 
-    <div v-else-if="profile" class="field centered">
-      <b-button
-        variant="link"
-        class="text-danger"
-        :disabled="deleting"
-        @click="confirmDeleteProfile"
-      >
-        <b-spinner small v-if="deleting" />
-        <template v-else>Delete profile</template>
-      </b-button>
-
+    <form
+      v-else-if="profile"
+      class="field centered"
+      @submit.prevent="save"
+    >
       <!-- TODO: use regex to validate user name, trim, etc... -->
       <!-- TODO: use debounce to search availability -->
-      <!-- TODO: show additional fields when user name is accepted -->
+      <b-alert show>
+        Never share sensitive information publicly
+      </b-alert>
 
-      <!-- <template v-if="available">
+      <p class="text-muted">{{ `gamebrary.com/${profile.userName}` }}</p>
+
+      <b-form-group
+        label="Name"
+        label-for="name"
+      >
         <b-form-input
+          id="name"
           v-model="profile.name"
-          placeholder="Name"
+          class="mb-3"
         />
+      </b-form-group>
 
+      <b-form-group
+        label="About you"
+        label-for="bio"
+      >
         <b-form-input
+          id="bio"
           v-model="profile.bio"
           placeholder="About me"
+          class="mb-3"
         />
+      </b-form-group>
 
+
+      <b-form-group
+        label="Location"
+        label-for="location"
+      >
         <b-form-input
+          id="location"
           v-model="profile.location"
           placeholder="Location"
+          class="mb-3"
         />
+      </b-form-group>
 
+
+      <b-form-group
+        label="Website"
+        label-for="website"
+      >
         <b-form-input
+          id="website"
           v-model="profile.website"
           placeholder="Website"
+          class="mb-3"
         />
+      </b-form-group>
 
+
+      <b-form-group
+        label="Twitter"
+        label-for="twitter"
+      >
         <b-form-input
+          id="twitter"
           v-model="profile.twitter"
           placeholder="Twitter"
+          class="mb-3"
         />
+      </b-form-group>
 
+
+      <b-form-group
+        label="Friend Code"
+        label-for="friendCode"
+      >
         <b-form-input
-          v-model="profile.twitter"
+          id="friendCode"
+          v-model="profile.friendCode"
           placeholder="friendCode"
+          class="mb-3"
         />
+      </b-form-group>
 
+
+      <b-form-group
+        label="Online ID"
+        label-for="onlineId"
+      >
         <b-form-input
-          v-model="profile.twitter"
+          id="onlineId"
+          v-model="profile.onlineId"
           placeholder="onlineId"
+          class="mb-3"
         />
+      </b-form-group>
 
+
+      <b-form-group
+        label="List name"
+        label-for="name"
+      >
         <b-form-input
-          v-model="profile.twitter"
+          v-model="profile.gamerTag"
           placeholder="gamerTag"
         />
-      </template> -->
-    </div>
+
+      </b-form-group>
+
+      <footer class="mt-3">
+        <b-button
+          variant="primary"
+          type="submit"
+        >
+          <b-spinner small v-if="saving" />
+          <template v-else>Save</template>
+        </b-button>
+
+        <b-button
+          variant="link"
+          class="text-danger"
+          :disabled="deleting"
+          @click="confirmDeleteProfile"
+        >
+          <b-spinner small v-if="deleting" />
+          <template v-else>Delete profile</template>
+        </b-button>
+      </footer>
+    </form>
 
     <form
       v-else
@@ -73,12 +149,6 @@
       </p>
 
       <b-input-group class="mb-3">
-        <!-- <template #prepend>
-          <b-input-group-text>
-            <small>gamebrary.com/</small>
-          </b-input-group-text>
-        </template> -->
-
         <b-form-input
           id="userName"
           autocomplete="off"
@@ -95,21 +165,13 @@
             variant="primary"
             type="submit"
           >
-            Go
+            <b-spinner small v-if="checkingAvailability" />
+            <template v-else>Go</template>
           </b-button>
         </template>
       </b-input-group>
 
-
-      <!-- This is a form text block (formerly known as help block) -->
-
-      <b-spinner v-if="checkingAvailability" class="ml-3 spinner-centered" />
-
-      <div v-else-if="available === false">
-        User name not available
-      </div>
-
-      <template v-else-if="available">
+      <template v-if="available">
         <b-alert
           class="mt-3"
           show
@@ -118,10 +180,15 @@
           Great, your user name is available!
         </b-alert>
 
-        <b-button>
-          Create profile
+        <b-button @click="createProfile">
+          <b-spinner small v-if="saving" />
+          <template v-else>Create profile</template>
         </b-button>
       </template>
+
+      <div v-else-if="!checkingAvailability && available === false">
+        User name not available
+      </div>
     </form>
   </b-container>
 </template>
@@ -155,12 +222,28 @@ export default {
       this.loading = false;
     },
 
+    createProfile() {
+      const { userName } = this;
+
+      this.profile = {
+        name: '',
+        bio: '',
+        location: '',
+        website: '',
+        twitter: '',
+        userName,
+      }
+
+      this.save();
+    },
+
     async save() {
       this.saving = true;
 
       await this.$store.dispatch('SAVE_PROFILE', this.profile);
 
       this.saving = false;
+      this.$router.push({ name: 'public.profile', params: { userName : this.profile?.userName }});
     },
 
     async checkUserNameAvailability() {

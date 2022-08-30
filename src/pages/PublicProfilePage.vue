@@ -1,40 +1,35 @@
 <template lang="html">
   <b-container fluid>
-    <div v-if="loading">
-      Loading...
-    </div>
+    <b-spinner v-if="loading" class="spinner-centered" />
 
     <template v-else-if="profile">
+      <pre>{{ profile }}</pre>
       <div>
-        <img
+        <!-- <img
           v-if="avatar"
           :src="avatar"
           :alt="userName"
           class="rounded"
-        />
+        /> -->
 
         <h2>{{ profile.userName }}</h2>
 
-        <p>{{ profile.bio }}</p>
-        <p>{{ profile.friendCode }}</p>
-
-        <a :href="profile.twitter" v-if="profile.twitter">
+        <!-- <a :href="profile.twitter" v-if="profile.twitter">
           <i class="fab fa-twitter fa-fw" aria-hidden />
-        </a>
+        </a> -->
 
         <p class="text-info">
           <i class="fas fa-map-marker fa-fw" aria-hidden />
           {{ profile.location }}</p>
-        <p>{{ profile }}</p>
       </div>
 
       <b-button v-if="canEdit" :to="{ name: 'profile' }">
         Edit
       </b-button>
 
-      <b-button :to="{ name: 'profiles' }">
+      <!-- <b-button :to="{ name: 'profiles' }">
         View other profiles
-      </b-button>
+      </b-button> -->
 
       <mini-board
         v-for="board in userBoards"
@@ -77,17 +72,13 @@ export default {
   computed: {
     ...mapState(['user']),
 
-    canEdit() {
-      return this.user?.uid === this.profile?.uid;
-    },
-
     userName() {
       return this.$route.params.userName;
     },
 
-    avatar() {
-      return this.profile?.profilePic || this.user?.photoURL || null;
-    },
+    // avatar() {
+    //   return this.profile?.profilePic || this.user?.photoURL || null;
+    // },
   },
 
   watch: {

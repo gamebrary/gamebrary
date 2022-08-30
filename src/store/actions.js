@@ -247,6 +247,7 @@ export default {
     return new Promise((resolve, reject) => {
       const db = firestore();
 
+      // TODO: user user id instead, create separate actions for loading any public user
       db.collection('profiles')
         .where('userName', '==', userName)
         .get()

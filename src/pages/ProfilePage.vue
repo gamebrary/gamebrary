@@ -16,7 +16,7 @@
           <create-profile />
         </empty-state>
 
-        <public-profile v-else />
+        <public-profile />
       </b-col>
 
       <b-col>
