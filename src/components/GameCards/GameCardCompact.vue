@@ -3,14 +3,14 @@
     no-body
     class="cursor-pointer"
   >
-    <b-row no-gutters v-if="game && game.name">
+    <b-form-row v-if="game && game.name">
       <b-col cols="3">
         <b-img
           fluid
           blank-color="#ccc"
           :src="coverUrl"
           :alt="game.name"
-          class="rounded-0"
+          class="rounded m-1"
         />
       </b-col>
 
@@ -51,7 +51,7 @@
           </template>
         </b-card-body>
       </b-col>
-    </b-row>
+    </b-form-row>
   </b-card>
 </template>
 

@@ -2,9 +2,16 @@
   <b-card
     no-body
     class="cursor-pointer text-center"
-    :img-src="coverUrl"
     img-top
   >
+    <div class="m-1">
+      <b-card-img
+        :src="coverUrl"
+        alt="Image"
+        class="rounded"
+      />
+    </div>
+
     <b-card-body body-class="p-2" v-if="game && game.name">
       <b-card-title
         :class="`mb-0 ${highlightCompletedGame ? 'text-success' : ''}`"

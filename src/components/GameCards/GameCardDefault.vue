@@ -4,15 +4,15 @@
     bg-variant="transparent"
     class="cursor-pointer"
   >
-    <b-row
-      no-gutters
+    <b-form-row
       v-if="game && game.name"
     >
       <b-col cols="4">
         <b-img
           fluid
           blank-color="#ccc"
-          :rounded="isRTL ? 'left' : 'right'"
+          class="m-1"
+          rounded
           :src="coverUrl"
           :alt="game.name"
         />
@@ -58,7 +58,7 @@
           <!-- TODO: show release dates -->
         </b-card-body>
       </b-col>
-    </b-row>
+    </b-form-row>
   </b-card>
 </template>
 
