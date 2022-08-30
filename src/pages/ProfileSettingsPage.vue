@@ -4,78 +4,125 @@
 
     <b-spinner v-if="loading" class="spinner-centered" />
 
-    <div v-else class="field centered">
-      <pre>{{ profile }}</pre>
+    <div v-else-if="profile" class="field centered">
+      <b-button
+        variant="link"
+        class="text-danger"
+        :disabled="deleting"
+        @click="confirmDeleteProfile"
+      >
+        <b-spinner small v-if="deleting" />
+        <template v-else>Delete profile</template>
+      </b-button>
 
-      <div v-if="profile.username">
-        <b-button class="ml-1" variant="danger" @click="deleteProfile">
-          Delete profile
-        </b-button>
+      <!-- TODO: use regex to validate user name, trim, etc... -->
+      <!-- TODO: use debounce to search availability -->
+      <!-- TODO: show additional fields when user name is accepted -->
 
-        <b-button @click="checkUserNameAvailability">
-          Check availability
-        </b-button>
+      <!-- <template v-if="available">
+        <b-form-input
+          v-model="profile.name"
+          placeholder="Name"
+        />
 
-        <b-form-group
-          label="Pick a user name"
-          label-for="userName"
-          valid-feedback="Available"
-          invalid-feedback="User name taken"
-          :state="available"
-        >
-          <b-form-input
-            id="userName"
-            v-model="profile.userName"
-            placeholder="User name"
-          />
-        </b-form-group>
-        <!-- TODO: use regex to validate user name, trim, etc... -->
-        <!-- TODO: use debounce to search availability -->
-        <!-- TODO: show additional fields when user name is accepted -->
+        <b-form-input
+          v-model="profile.bio"
+          placeholder="About me"
+        />
 
-        <!-- <template v-if="available">
-          <b-form-input
-            v-model="profile.name"
-            placeholder="Name"
-          />
+        <b-form-input
+          v-model="profile.location"
+          placeholder="Location"
+        />
 
-          <b-form-input
-            v-model="profile.bio"
-            placeholder="About me"
-          />
+        <b-form-input
+          v-model="profile.website"
+          placeholder="Website"
+        />
 
-          <b-form-input
-            v-model="profile.location"
-            placeholder="Location"
-          />
+        <b-form-input
+          v-model="profile.twitter"
+          placeholder="Twitter"
+        />
 
-          <b-form-input
-            v-model="profile.website"
-            placeholder="Website"
-          />
+        <b-form-input
+          v-model="profile.twitter"
+          placeholder="friendCode"
+        />
 
-          <b-form-input
-            v-model="profile.twitter"
-            placeholder="Twitter"
-          />
+        <b-form-input
+          v-model="profile.twitter"
+          placeholder="onlineId"
+        />
 
-          <b-form-input
-            v-model="profile.twitter"
-            placeholder="friendCode"
-          />
-
-          <b-form-input
-            v-model="profile.twitter"
-            placeholder="onlineId"
-          />
-
-          <b-form-input
-            v-model="profile.twitter"
-            placeholder="gamerTag"
-          />
-        </template> -->
-      </div>
+        <b-form-input
+          v-model="profile.twitter"
+          placeholder="gamerTag"
+        />
+      </template> -->
     </div>
+
+    <form
+      v-else
+      class="field centered"
+      @submit.prevent="checkUserNameAvailability"
+    >
+      <p class="text-muted text-center">
+        Looks like you don't have a profile setup.
+        Choose a user name and get started!
+      </p>
+
+      <b-input-group class="mb-3">
+        <!-- <template #prepend>
+          <b-input-group-text>
+            <small>gamebrary.com/</small>
+          </b-input-group-text>
+        </template> -->
+
+        <b-form-input
+          id="userName"
+          autocomplete="off"
+          v-model.trim="userName"
+          size="lg"
+          maxlength="32"
+          placeholder="User name"
+          required
+          :state="available"
+        />
+
+        <template #append>
+          <b-button
+            variant="primary"
+            type="submit"
+          >
+            Go
+          </b-button>
+        </template>
+      </b-input-group>
+
+
+      <!-- This is a form text block (formerly known as help block) -->
+
+      <b-spinner v-if="checkingAvailability" class="ml-3 spinner-centered" />
+
+      <div v-else-if="available === false">
+        User name not available
+      </div>
+
+      <template v-else-if="available">
+        <b-alert
+          class="mt-3"
+          show
+          variant="success"
+        >
+          Great, your user name is available!
+        </b-alert>
+
+        <b-button>
+          Create profile
+        </b-button>
+      </template>
+    </form>
   </b-container>
 </template>
 
@@ -86,14 +133,13 @@ export default {
   data() {
     return {
       saving: false,
-      available: null,
+      available: undefined,
+      checkingAvailability: false,
       loading: false,
+      deleting: false,
       profile: null,
+      userName: '',
     };
-  },
-
-  computed: {
-    ...mapState(['profile']),
   },
 
   mounted() {
@@ -104,7 +150,7 @@ export default {
     async load() {
       this.loading = true;
 
-      this.profile = await this.$store.dispatch('LOAD_PROFILE')
+      this.profile = await this.$store.dispatch('LOAD_PROFILE').catch(() => null);
 
       this.loading = false;
     },
@@ -118,11 +164,24 @@ export default {
     },
 
     async checkUserNameAvailability() {
-      this.available = await this.$store.dispatch('CHECK_PROFILE_USERNAME_AVAILABILITY', this.profile.userName);
+      this.checkingAvailability = true;
+
+      this.available = await this.$store.dispatch('CHECK_PROFILE_USERNAME_AVAILABILITY', this.userName);
+
+      this.checkingAvailability = false;
     },
 
-    deleteProfile() {
-      this.$store.dispatch('DELETE_PROFILE');
+    async confirmDeleteProfile() {
+      this.deleting = true;
+      const confirmed = await this.$bvModal.msgBoxConfirm('Are you sure?')
+        .catch(() => {});
+
+      if (confirmed) {
+        this.$store.dispatch('DELETE_PROFILE');
+        this.profile = null;
+      }
+
+      this.deleting = false;
     },
   },
 };

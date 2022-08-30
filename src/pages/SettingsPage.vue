@@ -12,12 +12,12 @@
             @click.native="$router.push({ name: 'wallpapers' })"
           />
 
-          <!-- <settings-card
+          <settings-card
             title="Profile"
             description="Public profile"
             icon="fa-user"
             @click.native="$router.push({ name: 'profile.settings' })"
-          /> -->
+          />
 
           <settings-card
             title="Notes"
