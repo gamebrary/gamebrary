@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="board-placeholder">
     <div
-      v-for="list in placeholderBoard.lists"
+      v-for="list in board.lists"
       :class="`list ${list.settings.view || 'single'}`"
       :key="list.name"
     >
@@ -11,7 +11,7 @@
         </b-card-header>
 
         <div
-          v-if="list.games.length"
+          v-if="list && list.games.length"
           :class="['games', list.settings.view]"
         >
           <div v-for="n in list.games.length" :key="n">
@@ -106,20 +106,8 @@
 import { mapState } from 'vuex';
 
 export default {
-  data() {
-    return {
-      placeholderBoard: {},
-    };
-  },
-
   computed: {
-    ...mapState(['boards']),
-  },
-
-  mounted() {
-    const boardId = this.$route.params.id;
-
-    this.placeholderBoard = this.boards.find(({ id }) => id === boardId);
+    ...mapState(['board']),
   },
 };
 </script>
