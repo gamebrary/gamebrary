@@ -2,7 +2,7 @@
   <div
     :class="[
       'list rounded pr-3',
-      viewClass,
+      listView,
       {
         dragging,
         'unique': singleList,
@@ -191,7 +191,7 @@ export default {
         : 'GameCardDefault';
     },
 
-    viewClass() {
+    listView() {
       return this.list?.settings?.view || DEFAULT_LIST_VIEW;
     },
   },
