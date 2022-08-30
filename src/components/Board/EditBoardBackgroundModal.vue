@@ -1,4 +1,3 @@
-<!-- TODO: FIX this mess, auto save on selection -->
 <template lang="html">
   <div>
     <b-row class="mb-3">
@@ -8,8 +7,6 @@
 
       <b-col class="mt-3 mt-sm-0" cols="12" sm="6">
         Preview
-
-
       </b-col>
     </b-row>
 

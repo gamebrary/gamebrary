@@ -1,6 +1,3 @@
-<!-- TODO: clone board -->
-<!-- TODO: like/favorite board -->
-<!-- TODO: fork board -->
 <template lang="html">
   <b-container>
     <portal to="pageTitle">
