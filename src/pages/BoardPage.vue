@@ -190,7 +190,6 @@ export default {
   user-select: none;
   display: flex;
   align-items: flex-start;
-  min-height: calc(100vh - 62px);
   width: 100vw;
   box-sizing: border-box;
   overflow-x: auto;
