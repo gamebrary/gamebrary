@@ -35,7 +35,7 @@
                 v-for="board in boards"
                 :key="board.id"
                 :disabled="!board.lists.length"
-                :to="{ name: 'search', query: { boardId: board.id, listIndex: 0 } }"
+                :to="{ name: 'search', query: { boardId: board.id, listIndex: 0, q: query } }"
               >
                 {{ board.name }}
               </b-dropdown-item>
@@ -51,7 +51,7 @@
               <b-dropdown-item
                 v-for="(list, listIndex) in activeBoard.lists"
                 :key="list.id"
-                :to="{ name: 'search', query: { boardId: activeBoard.id, listIndex } }"
+                :to="{ name: 'search', query: { boardId: activeBoard.id, listIndex, q: query } }"
               >
                 {{ list.name }}
               </b-dropdown-item>
