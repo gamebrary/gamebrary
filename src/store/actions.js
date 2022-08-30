@@ -268,6 +268,31 @@ export default {
     });
   },
 
+
+  LOAD_PUBLIC_PROFILE_BY_USER_ID({ commit, state }, userId) {
+    return new Promise((resolve, reject) => {
+      const db = firestore();
+
+      db.collection('profiles')
+        .doc(userId)
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            const profile = doc.data();
+
+            console.log(profile);
+
+            // commit('SET_PROFILE', profile);
+            resolve(profile);
+          } else {
+            // commit('REMOVE_PROFILE');
+            reject();
+          }
+        })
+        .catch(reject);
+    });
+  },
+
   LOAD_USER_PUBLIC_BOARDS(context, userId) {
     return new Promise((resolve, reject) => {
       const db = firestore();

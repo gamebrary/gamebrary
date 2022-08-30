@@ -9,9 +9,17 @@
 
     <template v-else-if="showBoard">
       <portal to="pageTitle">
-        {{ board.name }}
-        <!-- <template v-if="!isBoardOwner">by <strong>{{ board.owner }}</strong></template> -->
+        <p :class="['mb-0', { 'text-white': backgroundUrl }]">
+          {{ board.name }}
+
+          <template v-if="boardOwner">
+            by {{ boardOwner.userName }}
+          </template>
+
+          <template v-else>by Anonymous</template>
+        </p>
       </portal>
+
       <portal to="headerActions">
         <b-button
           v-if="isBoardOwner"
@@ -66,6 +74,7 @@ export default {
       loading: true,
       queryLimit: 500,
       backgroundUrl: null,
+      boardOwner: null,
     };
   },
 
@@ -123,6 +132,7 @@ export default {
         });
 
       if (this.showBoard) {
+        if (this.board?.isPublic && !this.isBoardOwner) this.loadPublicProfile();
         this.loadBoardGames();
         this.loadBoardBackground();
       } else {
@@ -144,12 +154,13 @@ export default {
       }
     },
 
+    async loadPublicProfile() {
+      this.boardOwner = await this.$store.dispatch('LOAD_PUBLIC_PROFILE_BY_USER_ID', this.board.owner)
+        .catch(() => {});
+    },
+
     loadBoardGames() {
       const { lists } = this.board;
-
-      if (lists?.length === 0) {
-        // TODO: handle empty boards?
-      }
 
       const boardGames = lists?.length
         ? Array.from(new Set(lists.map(({ games }) => games).flat()))
