@@ -8,7 +8,6 @@ export default {
   progresses: {},
   dragging: false,
   settings: {},
-  results: [], // TODO: remove from store
   games: {},
   boards: [],
   publicBoards: [],

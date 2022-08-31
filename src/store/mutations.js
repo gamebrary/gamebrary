@@ -189,7 +189,6 @@ export default {
     state.settings = null;
     state.platform = null;
     state.platforms = [];
-    state.results = [];
     state.games = {};
     state.boards = [];
     state.board = {};
@@ -228,14 +227,6 @@ export default {
     if (state.notes[gameId]) {
       Vue.delete(state.notes, gameId);
     }
-  },
-
-  SET_SEARCH_RESULTS(state, results) {
-    state.results = results;
-  },
-
-  CLEAR_SEARCH_RESULTS(state) {
-    state.results = [];
   },
 
   UPDATE_SETTING(state, { key, value }) {
