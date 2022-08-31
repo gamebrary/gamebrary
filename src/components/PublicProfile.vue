@@ -53,9 +53,6 @@
     >
       View profile
     </b-button>
-
-    <!-- TODO: warn before deleting -->
-
   </b-container>
 </template>
 
@@ -92,8 +89,8 @@ export default {
     async saveProfile() {
       this.saving = true;
 
-      // TODO: catch error
-      await this.$store.dispatch('SAVE_PROFILE', this.localProfile);
+      await this.$store.dispatch('SAVE_PROFILE', this.localProfile)
+        .catch(() => {});
 
       this.saving = false;
     },
