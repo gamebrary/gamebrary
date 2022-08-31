@@ -47,8 +47,8 @@
           variant="danger"
           @click.stop="confirmDeleteWallpaper(wallpaper)"
         >
-          <i class="fas fa-trash fa-fw" aria-hidden />
-          <!-- TODO: show loading spinner -->
+          <b-spinner v-if="deleting" small />
+          <i v-else class="fas fa-trash fa-fw" aria-hidden />
         </b-button>
       </modal-header>
     </template>
@@ -69,6 +69,7 @@ export default {
   data() {
     return {
       saving: false,
+      deleting: false,
     };
   },
   props: {
@@ -104,25 +105,26 @@ export default {
       return wallpaper?.url;
     },
 
-    confirmDeleteWallpaper(file) {
-      this.$bvModal.msgBoxConfirm('Wallpaper will be permanently removed', {
-        title: 'Are you sure you want to delete this file?',
+    async confirmDeleteWallpaper(file) {
+      const confirmed = await this.$bvModal.msgBoxConfirm('Wallpaper will be permanently removed', {
         okVariant: 'danger',
-        okTitle: 'Yes',
-      })
-        .then((value) => {
-          if (value) {
-            this.deleteFile(file);
-          }
-        });
+        okTitle: 'Delete',
+      });
+
+      if (confirmed) {
+        this.deleteFile(file);
+      }
     },
 
     async deleteFile(file) {
+      this.deleting = true;
+
       await this.$store.dispatch('DELETE_WALLPAPER', file)
         .catch(() => {
           this.$bvToast.toast('There was an error deleting wallpaper', { variant: 'danger' });
         });
 
+      this.deleting = false;
       this.$bvModal.hide('previewWallpaper');
     },
 
