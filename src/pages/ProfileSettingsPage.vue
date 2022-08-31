@@ -61,11 +61,11 @@
         label="Website"
         label-for="website"
       >
-        <!-- TODO: autoformat website with protocol -->
         <b-form-input
           id="website"
           v-model="profile.website"
           class="mb-3"
+          @blur="autoformatWebsite"
         />
       </b-form-group>
 
@@ -231,6 +231,14 @@ export default {
   },
 
   methods: {
+    autoformatWebsite() {
+      const website = this.profile?.website;
+
+      if (website && !/^https?:\/\//i.test(website)) {
+        this.profile.website = `https://${website}`;
+      }
+    },
+
     async load() {
       this.loading = true;
 
