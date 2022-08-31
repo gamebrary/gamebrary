@@ -6,6 +6,7 @@
       <portal to="pageTitle">
         <div>
           <b-button
+            v-if="game"
             :to="{ name: 'game', params: { id: game.id, slug: game.slug } }"
             variant="light"
             class="mr-2"
@@ -133,14 +134,18 @@ export default {
 
   methods: {
     async loadGame() {
-      this.$store.commit('CLEAR_GAME');
-      this.loading = true;
+      const gameCached = this.game?.id == this.$route?.params?.id;
 
-      try {
-        await this.$store.dispatch('LOAD_GAME', this.$route.params.id);
+      if (!gameCached) {
+        this.$store.commit('CLEAR_GAME');
+        this.loading = true;
 
-        this.setNote();
-      } catch (e) {}
+        try {
+          await this.$store.dispatch('LOAD_GAME', this.$route.params.id);
+
+          this.setNote();
+        } catch (e) {}
+      }
 
       this.loading = false;
     },
