@@ -45,7 +45,7 @@
       </b-col>
 
       <b-col cols="12" sm="6">
-        <form class="mt-3 mt-sm-0 mb-3">
+        <form class="mt-3 mt-sm-0 mb-3 field">
           <b-form-textarea
             v-model.trim="note"
             placeholder="Type note here"
@@ -145,6 +145,8 @@ export default {
 
           this.setNote();
         } catch (e) {}
+      } else {
+        this.setNote();
       }
 
       this.loading = false;
