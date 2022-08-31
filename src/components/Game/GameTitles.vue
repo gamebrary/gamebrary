@@ -37,7 +37,6 @@ export default {
 
       const description = alternateTitleDescription.toLowerCase();
 
-      // TODO: store in constant and reference it
       if (description.includes('japanese')) return 'jp';
       if (description.includes('korean')) return 'kr';
       if (description.includes('portuguese')) return 'pt';
@@ -58,6 +57,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-</style>
