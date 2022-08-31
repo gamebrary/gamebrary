@@ -2,18 +2,17 @@
   <b-container>
     <portal to="pageTitle">Search</portal>
 
-    <portal to="headerActions">
-      <search-box class="mr-2 d-none d-sm-block" />
-    </portal>
-
     <b-spinner v-if="loading" class="spinner-centered" />
 
-    <div v-else-if="noQuery">
-      empty state!
-      showEmptyState
+    <div v-else-if="showEmptyState" class="field centered">
+      <search-box />
     </div>
 
     <b-row v-else-if="searchResults.length">
+      <portal to="headerActions">
+        <search-box class="mr-2" />
+      </portal>
+
       <b-col cols="12">
         <search-box class="field mb-3 d-sm-none" />
       </b-col>
@@ -81,16 +80,11 @@
 
     <div
       v-else-if="query.length > 0"
-      class="text-center mt-5 ml-auto mr-auto"
+      class="field centered text-center mt-5"
     >
       <p>No results found</p>
 
-      <b-button
-        :to="{ name: 'search' }"
-        variant="light"
-      >
-        Clear search
-      </b-button>
+      <search-box />
     </div>
   </b-container>
 </template>
@@ -144,8 +138,8 @@ export default {
       return this.activeBoard?.lists[this.boardListIndex];
     },
 
-    noQuery() {
-      return !Object.keys(this.$route.query).length;
+    showEmptyState() {
+      return this.$route?.query?.q === undefined;
     },
   },
 
@@ -156,7 +150,7 @@ export default {
   },
 
   async mounted() {
-    if (this.noQuery) {
+    if (this.showEmptyState) {
       console.log('empty state');
     } else {
       this.search();

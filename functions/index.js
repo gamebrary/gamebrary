@@ -49,7 +49,7 @@ exports.search = functions.https.onRequest((req, res) => {
     .catch((error) => { res.send(error); });
 });
 
-// TODO: update to run once a month instead of once a week
+// Twitch token gets refreshed once a week
 exports.refreshToken = functions.pubsub.schedule('0 0 * * 0')
   .onRun((context) => {
     const id = functions.config().twitch.clientid;

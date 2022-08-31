@@ -6,6 +6,7 @@
       <portal to="pageTitle">
         <div>
           <b-button
+            v-if="game"
             :to="{ name: 'game', params: { id: game.id, slug: game.slug } }"
             variant="light"
             class="mr-2"
@@ -44,7 +45,7 @@
       </b-col>
 
       <b-col cols="12" sm="6">
-        <form class="mt-3 mt-sm-0 mb-3">
+        <form class="mt-3 mt-sm-0 mb-3 field">
           <b-form-textarea
             v-model.trim="note"
             placeholder="Type note here"
@@ -133,14 +134,20 @@ export default {
 
   methods: {
     async loadGame() {
-      this.$store.commit('CLEAR_GAME');
-      this.loading = true;
+      const gameCached = this.game?.id == this.$route?.params?.id;
 
-      try {
-        await this.$store.dispatch('LOAD_GAME', this.$route.params.id);
+      if (!gameCached) {
+        this.$store.commit('CLEAR_GAME');
+        this.loading = true;
 
+        try {
+          await this.$store.dispatch('LOAD_GAME', this.$route.params.id);
+
+          this.setNote();
+        } catch (e) {}
+      } else {
         this.setNote();
-      } catch (e) {}
+      }
 
       this.loading = false;
     },

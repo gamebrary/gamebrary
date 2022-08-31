@@ -23,10 +23,10 @@
       </b-col>
 
       <b-col cols="12" sm="6" class="mt-3 mt-sm-0 mb-3">
-        <b-input-group :prepend="`${localProgress}%`" class="field mb-2">
+        <b-input-group :prepend="`${progress}%`" class="field mb-2">
           <b-form-input
             size="lg"
-            v-model="localProgress"
+            v-model="progress"
             type="range"
             max="100"
             step="1"
@@ -63,11 +63,9 @@ import { getGameCoverUrl } from '@/utils';
 export default {
   data() {
     return {
-      localProgress: 0,
+      progress: 0,
       saving: false,
       deleting: false,
-      value: 45,
-      max: 100,
     };
   },
 
@@ -77,33 +75,15 @@ export default {
     gameCoverUrl() {
       return getGameCoverUrl(this.game);
     },
-
-    title() {
-      return this.localProgress
-        ? 'Update progress'
-        : 'Set progress';
-    },
   },
 
   mounted() {
-    this.setGameProgress();
+    this.progress = this.progresses?.[this.game?.id]
+      ? JSON.parse(JSON.stringify(this.progresses?.[this.game?.id]))
+      : 0;
   },
 
   methods: {
-    show() {
-      this.setGameProgress();
-      this.saving = false;
-      this.deleting = false;
-    },
-
-    setGameProgress() {
-      const { id } = this.game;
-
-      this.localProgress = this.progresses[id]
-        ? JSON.parse(JSON.stringify(this.progresses[id]))
-        : 0;
-    },
-
     async deleteProgress() {
       const { id, name } = this.game;
 
@@ -122,13 +102,11 @@ export default {
     },
 
     async saveProgress() {
-      const { id, name } = this.game;
-
       this.saving = true;
 
       this.$store.commit('SET_GAME_PROGRESS', {
-        progress: this.localProgress,
-        gameId: id,
+        progress: this.progress,
+        gameId: this.game?.id,
       });
 
       await this.$store.dispatch('SAVE_PROGRESSES')

@@ -22,7 +22,6 @@ export default {
 
   computed: {
     formattedNote() {
-      // TODO: remove legacy checks once fully migrated
       const note = this.note?.note || this.note;
 
       return typeof note === 'object'

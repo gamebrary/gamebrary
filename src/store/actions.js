@@ -93,7 +93,6 @@ export default {
     return new Promise((resolve, reject) => {
       axios.get(`${API_BASE}/steam-game?gameId=${steamGameId}`)
         .then(({ data }) => {
-          // TODO: move this logic to cloud function
           const steamGameData = data[steamGameId];
 
           const gameData = steamGameData.success
@@ -404,8 +403,7 @@ export default {
             return wallpaper;
           });
 
-          // TODO: refactor? there's gotta be a better way to do this
-          // TODO: for real, refactor this crap, use promise.all or something better
+          // TODO: only store refs, load images as needed, lazily.
           const fetchedUrls = [];
 
           wallpapers.forEach(({ fullPath }, index) => {
@@ -544,34 +542,6 @@ export default {
     });
   },
 
-  SEARCH_BOARD_GAMES({ commit, state }, searchText) {
-    const platforms = state.board.platforms.length > 0
-      ? `&platform=${state.board.platforms.join(',')}`
-      : '';
-
-    return new Promise((resolve, reject) => {
-      axios.get(`${API_BASE}/search?search=${searchText}${platforms}&token=${state.twitchToken.access_token}`)
-        .then(({ data }) => {
-          commit('SET_SEARCH_RESULTS', data);
-          commit('CACHE_GAME_DATA', data);
-          resolve();
-        }).catch(reject);
-    });
-  },
-
-  // SEARCH_GAMES({ commit, state }, { searchText, platforms, sortField, sortOrder }) {
-  // TODO: remove?
-  SEARCH_GAMES({ commit, state }, { searchText, platforms }) {
-    return new Promise((resolve, reject) => {
-      axios.get(`${API_BASE}/search?search=${searchText}&platform=${platforms}&token=${state.twitchToken.access_token}`)
-        .then(({ data }) => {
-          commit('SET_SEARCH_RESULTS', data);
-          commit('CACHE_GAME_DATA', data);
-          resolve();
-        }).catch(reject);
-    });
-  },
-
   GET_TWITCH_TOKEN({ commit }) {
     const db = firestore();
 
@@ -602,7 +572,6 @@ export default {
     });
   },
 
-  // TODO: combine into single action
   SAVE_NOTES({ state }) {
     return new Promise((resolve, reject) => {
       const db = firestore();
@@ -627,7 +596,6 @@ export default {
     });
   },
 
-  // TODO: combine into single action
   SAVE_PROGRESSES_NO_MERGE({ state }) {
     return new Promise((resolve, reject) => {
       const db = firestore();
