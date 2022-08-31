@@ -75,16 +75,12 @@ export default {
     gameCoverUrl() {
       return getGameCoverUrl(this.game);
     },
-
-    title() {
-      return this.progress
-        ? 'Update progress'
-        : 'Set progress';
-    },
   },
 
   mounted() {
-    this.progress = JSON.parse(JSON.stringify(this.progresses?.[this.game?.id])) || 0;
+    this.progress = this.progresses?.[this.game?.id]
+      ? JSON.parse(JSON.stringify(this.progresses?.[this.game?.id]))
+      : 0;
   },
 
   methods: {
