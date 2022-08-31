@@ -9,8 +9,15 @@
       class="field centered"
       @submit.prevent="save"
     >
-      <!-- TODO: use regex to validate user name, trim, etc... -->
-      <!-- TODO: use debounce to search availability -->
+      <portal to="headerActions">
+        <b-button
+          :to="{ name: 'public.profile', params: { userName: profile.userName } }"
+          class="mr-2"
+        >
+          View profile
+        </b-button>
+      </portal>
+
       <b-alert show>
         Never share sensitive information publicly
       </b-alert>
