@@ -20,7 +20,6 @@ import NotesPage from '@/pages/NotesPage';
 import CreateNotePage from '@/pages/CreateNotePage';
 import GameNotesPage from '@/pages/GameNotesPage';
 import EditListPage from '@/pages/EditListPage';
-import GameTagsPage from '@/pages/GameTagsPage';
 import CreateTagPage from '@/pages/CreateTagPage';
 import GameProgressPage from '@/pages/GameProgressPage';
 import PrivacyPolicyPage from '@/pages/PrivacyPolicyPage';
@@ -168,11 +167,6 @@ const routes = [
     name: 'game.notes',
     path: '/g/:id/:slug/notes',
     component: GameNotesPage,
-  },
-  {
-    name: 'game.tags',
-    path: '/g/:id/:slug/tags',
-    component: GameTagsPage,
   },
   {
     name: 'game.progress',
