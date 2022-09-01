@@ -77,14 +77,12 @@
             Submit feedback
           </b-button>
 
-          <!-- TODO: hide for paid users -->
           <b-button
             block
-            variant="outline-primary"
             href="https://www.paypal.me/RomanCervantes/5"
             target="_blank"
           >
-            Buy me a coffee
+            Donate
           </b-button>
 
           <hr />
