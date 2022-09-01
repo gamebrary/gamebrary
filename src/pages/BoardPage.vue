@@ -113,8 +113,16 @@ export default {
   },
 
   async mounted() {
+    const isBoardCached = this.board.id === this.boardId;
+
+    if (isBoardCached) {
+      this.loadBoardBackground();
+
+      return this.loading = false;
+    }
+
+    this.$store.commit('CLEAR_BOARD');
     this.loadBoard();
-    this.$store.commit('CLEAR_BOARD'); // TODO: only clear board if not already cached
   },
 
   destroyed() {
@@ -142,6 +150,8 @@ export default {
 
     async loadBoardBackground() {
       const url = this.board?.backgroundUrl;
+
+      if (!url) return;
 
       if (this.board?.backgroundColor) this.$bus.$emit('UPDATE_BACKGROUND_COLOR', this.board?.backgroundColor);
 

@@ -25,6 +25,8 @@
             <i class="fa-solid fa-tags" />
           </b-button>
 
+          <game-tags-dropdown />
+
           <b-button
             variant="light"
             @click="$router.push({ name: 'game.progress', params: { id: game.id, slug: game.slug } })"
@@ -202,6 +204,7 @@ import { mapState, mapGetters } from 'vuex';
 import { WEBSITE_CATEGORIES } from '@/constants';
 // import AmazonLinks from '@/components/Game/AmazonLinks';
 import GameDetails from '@/components/Game/GameDetails';
+import GameTagsDropdown from '@/components/Game/GameTagsDropdown';
 import GameMediaModal from '@/components/Game/GameMediaModal';
 import GameTitles from '@/components/Game/GameTitles';
 import GameRatings from '@/components/Game/GameRatings';
@@ -221,6 +224,7 @@ export default {
     GameNote,
     GameDescription,
     GameDetails,
+    GameTagsDropdown,
     GameTitles,
     GameMediaModal,
     GameRatings,
