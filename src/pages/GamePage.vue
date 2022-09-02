@@ -16,15 +16,6 @@
 
       <portal to="headerActions" v-if="user">
         <b-button-group class="mr-2">
-          <b-button
-            v-if="!tagsApplied.length"
-            rounded
-            variant="light"
-            @click="$router.push({ name: 'game.tags', params: { id: game.id, slug: game.slug } })"
-          >
-            <i class="fa-solid fa-tags" />
-          </b-button>
-
           <game-tags-dropdown />
 
           <b-button

@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-dropdown right no-caret>
+  <b-dropdown right no-caret variant="light">
     <template #button-content>
       <i class="fa-solid fa-tags fa-fw" />
     </template>

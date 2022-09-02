@@ -16,7 +16,7 @@
             by {{ boardOwner.userName }}
           </template>
 
-          <template v-else>by Anonymous</template>
+          <!-- <template v-else>by Anonymous</template> -->
         </p>
       </portal>
 
