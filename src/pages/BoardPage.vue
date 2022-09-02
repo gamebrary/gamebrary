@@ -9,7 +9,7 @@
 
     <template v-else-if="showBoard">
       <portal to="pageTitle">
-        <p :class="['mb-0', { 'text-white': backgroundUrl }]">
+        <p :class="['mb-0', { 'text-white': backgroundUrl, 'text-outlined': backgroundUrl }]">
           {{ board.name }}
 
           <template v-if="boardOwner">
@@ -222,5 +222,9 @@ export default {
 
 .list-placeholder {
   opacity: 0.25;
+}
+
+.text-outlined {
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 </style>
