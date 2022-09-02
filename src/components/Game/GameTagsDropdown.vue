@@ -13,22 +13,33 @@
     </div>
 
     <section class="mx-2" v-else-if="game">
-      <b-button
+      <div
         v-for="({ name, bgColor, textColor, games }, index) in tags"
         :key="name"
-        rounded
-        block
-        variant="transparent"
-        :style="`background-color: ${bgColor}; color: ${textColor}`"
-        @click="handleClick(games.includes(Number(game.id)), index)"
+        class="d-flex mb-2 align-items-center"
       >
-        <i
-          v-if="games.includes(Number(game.id))"
-          class="fa-solid text-white fa-check bg-success p-1 rounded mr-1"
-        />
+        <b-button
+          rounded
+          block
+          variant="transparent"
+          class="mr-2"
+          :style="`background-color: ${bgColor}; color: ${textColor}`"
+          :to="{ name: 'tag.edit', params: { id: index } }"
+        >
+          {{ name }}
+        </b-button>
 
-        {{ name }}
-      </b-button>
+        <b-button
+          v-if="games.includes(Number(game.id))"
+          @click="removeTag(index)"
+        >
+          <i class="fa fa-minus" aria-hidden="true" />
+        </b-button>
+
+        <b-button v-else @click="addTag(index)">
+          <i class="fa fa-plus" aria-hidden="true" />
+        </b-button>
+      </div>
 
       <hr />
 

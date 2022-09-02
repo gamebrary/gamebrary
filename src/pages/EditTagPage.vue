@@ -100,7 +100,7 @@
             :src="getCoverUrl(game)"
             class="cursor-pointer rounded mr-2 mb-2"
             width="80"
-            @click="$router.push({ name: 'game.tags', params: { id: games[game].id, slug: games[game].slug }})"
+            @click="$router.push({ name: 'game', params: { id: games[game].id, slug: games[game].slug }})"
           />
         </form>
       </b-col>
