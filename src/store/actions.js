@@ -279,8 +279,6 @@ export default {
           if (doc.exists) {
             const profile = doc.data();
 
-            console.log(profile);
-
             // commit('SET_PROFILE', profile);
             resolve(profile);
           } else {
