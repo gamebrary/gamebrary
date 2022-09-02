@@ -122,6 +122,7 @@ export default {
 
     if (isBoardCached) {
       this.loadBoardBackground();
+      if (this.board?.isPublic && !this.isBoardOwner) this.loadPublicProfile();
 
       return this.loading = false;
     }
