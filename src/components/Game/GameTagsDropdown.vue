@@ -13,6 +13,7 @@
     </div>
 
     <section class="mx-2" v-else-if="game">
+      <small class="d-block mb-2 text-center text-muted">Edit game tags</small>
       <div
         v-for="({ name, bgColor, textColor, games }, index) in tags"
         :key="name"
