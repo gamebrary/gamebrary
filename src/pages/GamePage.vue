@@ -118,14 +118,14 @@
 
                 </b-button> -->
                 <b-button
-                  v-for="({ bgColor, textColor, name }) in tagsApplied"
+                  v-for="({ bgColor, textColor, name, index }) in tagsApplied"
                   :key="name"
                   rounded
                   size="sm"
                   variant="transparent"
                   class="mr-1 mb-2"
                   :style="`background-color: ${bgColor}; color: ${textColor}`"
-                  @click="$router.push({ name: 'game.tags', params: { id: game.id, slug: game.slug } })"
+                  :to="{ name: 'tag.edit', params: { id: index } }"
                 >
                   <i class="fa-solid fa-tag mr-1" />
                   {{ name }}
@@ -268,7 +268,8 @@ export default {
     },
 
     tagsApplied() {
-      return this.tags?.filter((tag) => tag?.games?.includes(this.game?.id))
+      return this.tags?.map((tag, index) => ({ ...tag, index }))
+        .filter((tag) => tag?.games?.includes(this.game?.id));
     },
 
     legalNotice() {
