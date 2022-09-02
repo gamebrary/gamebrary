@@ -18,8 +18,6 @@
         </b-button>
       </portal>
 
-      <p class="text-muted">{{ `gamebrary.com/${profile.userName}` }}</p>
-
       <b-form-group
         label-class="m-0 text-muted"
         label="Name"

@@ -151,10 +151,8 @@ export default {
 
   async mounted() {
     if (this.showEmptyState) {
-      console.log('empty state');
     } else {
       this.search();
-      console.log('search');
     }
   },
 
