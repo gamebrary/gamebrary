@@ -49,7 +49,7 @@
       </portal>
       <game-media-modal />
 
-      <b-form-row>
+      <b-row>
         <b-col
           cols="12"
           sm="6"
@@ -115,9 +115,9 @@
           sm="6"
           md="8"
           xl="9"
-          :class="steamBackground ? 'mt-3' : ''"
         >
-          <article :class="['bg-white rounded', steamBackground ? 'p-3' : 'my-2']">
+          <!-- bg-white -->
+          <article :class="[' rounded', steamBackground ? 'bg-white mt-2 mt-md-0 p-3' : 'px-sm-3 p-0']">
             <header class="d-flex align-items-start justify-content-between pb-2">
               <game-titles />
 
@@ -174,7 +174,7 @@
             v-html="legalNotice"
           />
         </b-col>
-      </b-form-row>
+      </b-row>
 
       <similar-games />
     </template>
