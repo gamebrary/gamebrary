@@ -1,6 +1,7 @@
 <template lang="html">
   <div class="position-relative cursor-pointer rounded align-self-end card overflow-hidden border-0 mb-2">
     <b-img
+      fluid
       :src="coverUrl"
     />
 
