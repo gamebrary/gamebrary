@@ -11,16 +11,21 @@
       <portal to="pageTitle">
         <p :class="['mb-0', { 'text-white': backgroundUrl, 'text-outlined': backgroundUrl }]">
           {{ board.name }}
-
-          <template v-if="boardOwner">
-            by {{ boardOwner.userName }}
-          </template>
-
-          <!-- <template v-else>by Anonymous</template> -->
         </p>
       </portal>
 
       <portal to="headerActions">
+        <b-button
+          v-if="boardOwner"
+          class="mr-2"
+          variant="light"
+          :to="{ name: 'public.profile', params: { userName: boardOwner.userName }}"
+        >
+          <!-- TODO: use avatar -->
+          <i class="fa fa-user" aria-hidden="true"></i>
+          {{ boardOwner.userName }}
+        </b-button>
+
         <b-button
           v-if="isBoardOwner"
           :to="{ name: 'board.edit', params: { id: board.id } }"
