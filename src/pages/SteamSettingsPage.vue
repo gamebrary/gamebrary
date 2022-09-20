@@ -1,15 +1,17 @@
 <template lang="html">
-  <b-container fluid>
-    <page-title title="Steam settings" />
+  <section>
+    <b-container>
+      <page-title title="Steam settings" />
 
-    <b-form-group label="Steam ID:">
-      <b-form-input
-        v-model="steamId"
-        style="max-width: 200px"
-        @change="save"
-      />
-    </b-form-group>
-  </b-container>
+      <b-form-group label="Steam ID:">
+        <b-form-input
+          v-model="steamId"
+          style="max-width: 200px"
+          @change="save"
+        />
+      </b-form-group>
+    </b-container>
+  </section>
 </template>
 
 <script>

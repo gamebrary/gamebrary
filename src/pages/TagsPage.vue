@@ -1,57 +1,59 @@
 <template lang="html">
-  <b-container>
-    <portal to="pageTitle">
-      <div>
+  <section>
+    <b-container>
+      <portal to="pageTitle">
+        <div>
+          <b-button
+            variant="light"
+            class="mr-2"
+            :to="{ name: 'settings' }"
+          >
+            <i class="fa-solid fa-chevron-left" />
+          </b-button>
+
+          Tags
+        </div>
+      </portal>
+
+      <portal v-if="!loading && tags.length > 0" to="headerActions">
         <b-button
-          variant="light"
           class="mr-2"
-          :to="{ name: 'settings' }"
+          variant="light"
+          :to="{ name: 'tag.create' }"
         >
-          <i class="fa-solid fa-chevron-left" />
+          Add tag
         </b-button>
+      </portal>
 
-        Tags
-      </div>
-    </portal>
+      <b-spinner v-if="loading" class="spinner-centered" />
 
-    <portal v-if="!loading && tags.length > 0" to="headerActions">
-      <b-button
-        class="mr-2"
-        variant="light"
-        :to="{ name: 'tag.create' }"
-      >
-        Add tag
-      </b-button>
-    </portal>
-
-    <b-spinner v-if="loading" class="spinner-centered" />
-
-    <empty-state
-      v-else-if="tags.length === 0"
-      message="Tags are a great way to organize your collection"
-     >
-       <b-button
-         variant="light"
-         :to="{ name: 'tag.create' }"
+      <empty-state
+        v-else-if="tags.length === 0"
+        message="Tags are a great way to organize your collection"
        >
-         Create a tag
-       </b-button>
-     </empty-state>
+         <b-button
+           variant="light"
+           :to="{ name: 'tag.create' }"
+         >
+           Create a tag
+         </b-button>
+       </empty-state>
 
-    <div class="field mr-auto ml-auto" v-else>
-      <b-button
-        v-for="({ textColor, bgColor, name, games }, index) in tags"
-        @click="$router.push({ name: 'tag.edit', params: { id: index } })"
-        rounded
-        block
-        variant="transparent"
-        :style="`background-color: ${bgColor}; color: ${textColor}`"
-        :key="name"
-      >
-        {{ name }} {{ games.length ? `(${games.length})` : '' }}
-      </b-button>
-    </div>
-  </b-container>
+      <div class="field mr-auto ml-auto" v-else>
+        <b-button
+          v-for="({ textColor, bgColor, name, games }, index) in tags"
+          @click="$router.push({ name: 'tag.edit', params: { id: index } })"
+          rounded
+          block
+          variant="transparent"
+          :style="`background-color: ${bgColor}; color: ${textColor}`"
+          :key="name"
+        >
+          {{ name }} {{ games.length ? `(${games.length})` : '' }}
+        </b-button>
+      </div>
+    </b-container>
+  </section>
 </template>
 
 <script>

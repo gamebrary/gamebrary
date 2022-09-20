@@ -1,6 +1,6 @@
 <template lang="html">
   <b-card
-    v-if="active"
+    v-if="active || empty"
     class="flex-shrink-0"
     no-body
     v-click-outside="reset"
@@ -55,6 +55,10 @@
 import { mapState } from 'vuex';
 
 export default {
+  props: {
+    empty: Boolean,
+  },
+
   data() {
     return {
       listName: '',

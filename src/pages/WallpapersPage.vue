@@ -1,41 +1,26 @@
 <template lang="html">
-  <b-container class="pb-3">
-    <portal to="pageTitle">
-      <div>
-        <b-button
-          :to="{ name: 'settings' }"
-          variant="light"
-          class="mr-2"
-          >
-          <i class="fa-solid fa-chevron-left" />
-        </b-button>
+  <section>
+    <b-container class="pb-3">
+      <portal to="pageTitle">
+        <div>
+          <b-button
+            :to="{ name: 'settings' }"
+            variant="light"
+            class="mr-2"
+            >
+            <i class="fa-solid fa-chevron-left" />
+          </b-button>
 
-        Wallpapers
-      </div>
-    </portal>
+          Wallpapers
+        </div>
+      </portal>
 
-    <empty-state
-      v-if="showEmptyState"
-      :title="$t('wallpapers.title')"
-      message="Upload a wallpaper to customize your boards"
-      @action="triggerFileUpload"
-    >
-      <b-button
-        :disabled="outOfSpace"
-        variant="light"
-        class="mr-2"
-        @click="triggerFileUpload"
+      <empty-state
+        v-if="showEmptyState"
+        :title="$t('wallpapers.title')"
+        message="Upload a wallpaper to customize your boards"
+        @action="triggerFileUpload"
       >
-        <b-spinner small v-if="saving" />
-
-        <template v-else>
-          Upload wallpaper
-        </template>
-      </b-button>
-    </empty-state>
-
-    <template v-else>
-      <portal to="headerActions">
         <b-button
           :disabled="outOfSpace"
           variant="light"
@@ -45,34 +30,51 @@
           <b-spinner small v-if="saving" />
 
           <template v-else>
-            <i class="fas fa-upload fa-fw" aria-hidden />
-            <span class="d-none d-sm-inline">Upload</span>
+            Upload wallpaper
           </template>
         </b-button>
-      </portal>
+      </empty-state>
 
-      <b-alert
-        v-if="isDuplicate && !saving && file && file.name"
-        show
-        variant="warning"
-      >
-        {{ $t('wallpapers.form.duplicateMessage', { fileName: file.name }) }}
-      </b-alert>
+      <template v-else>
+        <portal to="headerActions">
+          <b-button
+            :disabled="outOfSpace"
+            variant="light"
+            class="mr-2"
+            @click="triggerFileUpload"
+          >
+            <b-spinner small v-if="saving" />
 
-      <wallpapers-list />
+            <template v-else>
+              <i class="fas fa-upload fa-fw" aria-hidden />
+              <span class="d-none d-sm-inline">Upload</span>
+            </template>
+          </b-button>
+        </portal>
 
-      <b-alert :show="showEmptyState">You don't have any wallpapers.</b-alert>
-    </template>
+        <b-alert
+          v-if="isDuplicate && !saving && file && file.name"
+          show
+          variant="warning"
+        >
+          {{ $t('wallpapers.form.duplicateMessage', { fileName: file.name }) }}
+        </b-alert>
 
-    <b-form-file
-      class="d-none file-input"
-      v-model="file"
-      accept="image/*"
-      :browse-text="$t('wallpapers.form.upload')"
-      :placeholder="$t('wallpapers.form.placeholder')"
-      @input="uploadWallpaper"
-    />
-  </b-container>
+        <wallpapers-list />
+
+        <b-alert :show="showEmptyState">You don't have any wallpapers.</b-alert>
+      </template>
+
+      <b-form-file
+        class="d-none file-input"
+        v-model="file"
+        accept="image/*"
+        :browse-text="$t('wallpapers.form.upload')"
+        :placeholder="$t('wallpapers.form.placeholder')"
+        @input="uploadWallpaper"
+      />
+    </b-container>
+  </section>
 </template>
 
 <script>

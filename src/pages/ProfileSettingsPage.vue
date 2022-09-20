@@ -1,207 +1,209 @@
 <template lang="html">
-  <b-container>
-    <portal to="pageTitle">Profile</portal>
+  <section>
+    <b-container>
+      <portal to="pageTitle">Profile</portal>
 
-    <b-spinner v-if="loading" class="spinner-centered" />
+      <b-spinner v-if="loading" class="spinner-centered" />
 
-    <form
-      v-else-if="profile"
-      class="field centered"
-      @submit.prevent="save"
-    >
-      <portal to="headerActions">
-        <b-button
-          :to="{ name: 'public.profile', params: { userName: profile.userName } }"
-          class="mr-2"
-        >
-          View profile
-        </b-button>
-      </portal>
-
-      <b-form-group
-        label-class="m-0 text-muted"
-        label="Name"
-        label-for="name"
+      <form
+        v-else-if="profile"
+        class="field centered"
+        @submit.prevent="save"
       >
-        <b-form-input
-          id="name"
-          v-model="profile.name"
-          class="mb-3"
-        />
-      </b-form-group>
-
-      <b-form-group
-        label-class="m-0 text-muted"
-        label="About you"
-        label-for="bio"
-      >
-        <b-form-input
-          id="bio"
-          v-model="profile.bio"
-          class="mb-3"
-        />
-      </b-form-group>
-
-      <b-form-group
-        label-class="m-0 text-muted"
-        label="Location"
-        label-for="location"
-      >
-        <b-form-input
-          id="location"
-          v-model="profile.location"
-          class="mb-3"
-        />
-      </b-form-group>
-
-      <b-form-group
-        label-class="m-0 text-muted"
-        label="Website"
-        label-for="website"
-      >
-        <b-form-input
-          id="website"
-          v-model="profile.website"
-          class="mb-3"
-          @blur="autoformatWebsite"
-        />
-      </b-form-group>
-
-      <b-form-group
-        label-class="m-0 text-muted"
-        label="Twitter"
-        label-for="twitter"
-      >
-        <b-form-input
-          id="twitter"
-          v-model="profile.twitter"
-          class="mb-3"
-        />
-      </b-form-group>
-
-
-      <b-form-group
-        label-class="m-0 text-muted"
-        label="Nintendo Friend Code"
-        label-for="friendCode"
-      >
-        <b-form-input
-          id="friendCode"
-          v-model="profile.friendCode"
-          class="mb-3"
-        />
-      </b-form-group>
-
-
-      <b-form-group
-        label-class="m-0 text-muted"
-        label="Playstation online ID"
-        label-for="psnId"
-      >
-        <b-form-input
-          id="psnId"
-          v-model="profile.psnId"
-          class="mb-3"
-        />
-      </b-form-group>
-
-      <b-form-group
-        label-class="m-0 text-muted"
-        label="Steam friend code"
-        label-for="steamFriendCode"
-      >
-        <b-form-input
-          id="steamFriendCode"
-          v-model="profile.steamFriendCode"
-          class="mb-3"
-        />
-      </b-form-group>
-
-      <b-form-group
-        label-class="m-0 text-muted"
-        label="Xbox Gamertag"
-        label-for="gamerTag"
-      >
-        <b-form-input
-          id="gamerTag"
-          v-model="profile.gamerTag"
-          class="mb-3"
-        />
-      </b-form-group>
-
-      <footer class="mt-3 mb-5">
-        <b-button
-          variant="primary"
-          type="submit"
-        >
-          <b-spinner small v-if="saving" />
-          <template v-else>Save</template>
-        </b-button>
-
-        <b-button
-          variant="link"
-          class="text-danger"
-          :disabled="deleting"
-          @click="confirmDeleteProfile"
-        >
-          <b-spinner small v-if="deleting" />
-          <template v-else>Delete profile</template>
-        </b-button>
-      </footer>
-    </form>
-
-    <form
-      v-else
-      class="field centered"
-      @submit.prevent="checkUserNameAvailability"
-    >
-      <p class="text-muted text-center">Choose a user name to get started!</p>
-
-      <b-input-group class="mb-3">
-        <b-form-input
-          id="userName"
-          autocomplete="off"
-          v-model.trim="userName"
-          size="lg"
-          :minlength="$options.MIN_PROFILE_LENGTH"
-          :maxlength="$options.MAX_PROFILE_LENGTH"
-          required
-          :state="available"
-          @input="formatUserName"
-        />
-
-        <template #append>
+        <portal to="headerActions">
           <b-button
+            :to="{ name: 'public.profile', params: { userName: profile.userName } }"
+            class="mr-2"
+          >
+            View profile
+          </b-button>
+        </portal>
+
+        <b-form-group
+          label-class="m-0 text-muted"
+          label="Name"
+          label-for="name"
+        >
+          <b-form-input
+            id="name"
+            v-model="profile.name"
+            class="mb-3"
+          />
+        </b-form-group>
+
+        <b-form-group
+          label-class="m-0 text-muted"
+          label="About you"
+          label-for="bio"
+        >
+          <b-form-input
+            id="bio"
+            v-model="profile.bio"
+            class="mb-3"
+          />
+        </b-form-group>
+
+        <b-form-group
+          label-class="m-0 text-muted"
+          label="Location"
+          label-for="location"
+        >
+          <b-form-input
+            id="location"
+            v-model="profile.location"
+            class="mb-3"
+          />
+        </b-form-group>
+
+        <b-form-group
+          label-class="m-0 text-muted"
+          label="Website"
+          label-for="website"
+        >
+          <b-form-input
+            id="website"
+            v-model="profile.website"
+            class="mb-3"
+            @blur="autoformatWebsite"
+          />
+        </b-form-group>
+
+        <b-form-group
+          label-class="m-0 text-muted"
+          label="Twitter"
+          label-for="twitter"
+        >
+          <b-form-input
+            id="twitter"
+            v-model="profile.twitter"
+            class="mb-3"
+          />
+        </b-form-group>
+
+
+        <b-form-group
+          label-class="m-0 text-muted"
+          label="Nintendo Friend Code"
+          label-for="friendCode"
+        >
+          <b-form-input
+            id="friendCode"
+            v-model="profile.friendCode"
+            class="mb-3"
+          />
+        </b-form-group>
+
+
+        <b-form-group
+          label-class="m-0 text-muted"
+          label="Playstation online ID"
+          label-for="psnId"
+        >
+          <b-form-input
+            id="psnId"
+            v-model="profile.psnId"
+            class="mb-3"
+          />
+        </b-form-group>
+
+        <b-form-group
+          label-class="m-0 text-muted"
+          label="Steam friend code"
+          label-for="steamFriendCode"
+        >
+          <b-form-input
+            id="steamFriendCode"
+            v-model="profile.steamFriendCode"
+            class="mb-3"
+          />
+        </b-form-group>
+
+        <b-form-group
+          label-class="m-0 text-muted"
+          label="Xbox Gamertag"
+          label-for="gamerTag"
+        >
+          <b-form-input
+            id="gamerTag"
+            v-model="profile.gamerTag"
+            class="mb-3"
+          />
+        </b-form-group>
+
+        <footer class="mt-3 mb-5">
+          <b-button
+            variant="primary"
             type="submit"
           >
-            <b-spinner small v-if="checkingAvailability" />
-            <template v-else>
-              <i class="fa-solid fa-magnifying-glass" />
-            </template>
+            <b-spinner small v-if="saving" />
+            <template v-else>Save</template>
+          </b-button>
+
+          <b-button
+            variant="link"
+            class="text-danger"
+            :disabled="deleting"
+            @click="confirmDeleteProfile"
+          >
+            <b-spinner small v-if="deleting" />
+            <template v-else>Delete profile</template>
+          </b-button>
+        </footer>
+      </form>
+
+      <form
+        v-else
+        class="field centered"
+        @submit.prevent="checkUserNameAvailability"
+      >
+        <p class="text-muted text-center">Choose a user name to get started!</p>
+
+        <b-input-group class="mb-3">
+          <b-form-input
+            id="userName"
+            autocomplete="off"
+            v-model.trim="userName"
+            size="lg"
+            :minlength="$options.MIN_PROFILE_LENGTH"
+            :maxlength="$options.MAX_PROFILE_LENGTH"
+            required
+            :state="available"
+            @input="formatUserName"
+          />
+
+          <template #append>
+            <b-button
+              type="submit"
+            >
+              <b-spinner small v-if="checkingAvailability" />
+              <template v-else>
+                <i class="fa-solid fa-magnifying-glass" />
+              </template>
+            </b-button>
+          </template>
+        </b-input-group>
+
+        <template v-if="available">
+          <b-alert
+            class="mt-3"
+            show
+            variant="success"
+          >
+            Great, <strong>{{ userName }}</strong> is available!
+          </b-alert>
+
+          <b-button block variant="success" @click="createProfile">
+            <b-spinner small v-if="saving" />
+            <template v-else>Create profile</template>
           </b-button>
         </template>
-      </b-input-group>
 
-      <template v-if="available">
-        <b-alert
-          class="mt-3"
-          show
-          variant="success"
-        >
-          Great, <strong>{{ userName }}</strong> is available!
-        </b-alert>
-
-        <b-button block variant="success" @click="createProfile">
-          <b-spinner small v-if="saving" />
-          <template v-else>Create profile</template>
-        </b-button>
-      </template>
-
-      <div v-else-if="!checkingAvailability && available === false">
-        User name not available
-      </div>
-    </form>
-  </b-container>
+        <div v-else-if="!checkingAvailability && available === false">
+          User name not available
+        </div>
+      </form>
+    </b-container>
+  </section>
 </template>
 
 <script>

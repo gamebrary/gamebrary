@@ -1,134 +1,136 @@
 <template lang="html">
-  <b-container>
-    <portal to="pageTitle">Settings</portal>
+  <section>
+    <b-container>
+      <portal to="pageTitle">Settings</portal>
 
-    <b-row>
-      <b-col cols="12">
-        <div class="field centered">
-          <settings-card
-            title="Wallpapers"
-            description="Manage your wallpapers"
-            icon="fa-images"
-            @click.native="$router.push({ name: 'wallpapers' })"
-          />
+      <b-row>
+        <b-col cols="12">
+          <div class="field centered">
+            <settings-card
+              title="Wallpapers"
+              description="Manage your wallpapers"
+              icon="fa-images"
+              @click.native="$router.push({ name: 'wallpapers' })"
+            />
 
-          <settings-card
-            title="Profile"
-            description="Public profile"
-            icon="fa-user"
-            @click.native="$router.push({ name: 'profile.settings' })"
-          />
+            <settings-card
+              title="Profile"
+              description="Public profile"
+              icon="fa-user"
+              @click.native="$router.push({ name: 'profile.settings' })"
+            />
 
-          <settings-card
-            title="Notes"
-            description="View all your notes"
-            icon="fa-note-sticky"
-            @click.native="$router.push({ name: 'notes' })"
-          />
+            <settings-card
+              title="Notes"
+              description="View all your notes"
+              icon="fa-note-sticky"
+              @click.native="$router.push({ name: 'notes' })"
+            />
 
-          <settings-card
-            title="Tags"
-            description="View all your tags"
-            icon="fa-tags"
-            @click.native="$router.push({ name: 'tags' })"
-          />
+            <settings-card
+              title="Tags"
+              description="View all your tags"
+              icon="fa-tags"
+              @click.native="$router.push({ name: 'tags' })"
+            />
 
-          <!-- <div
-            data-form-slug="6148881969433360"
-            data-env="production"
-            data-path="contact-us/6148881969433360"
-            class="keap-custom-form"
-          /> -->
+            <!-- <div
+              data-form-slug="6148881969433360"
+              data-env="production"
+              data-path="contact-us/6148881969433360"
+              class="keap-custom-form"
+            /> -->
 
-          <b-button
-            block
-            variant="light"
-            v-b-modal.keyboard-shortcuts
-          >
-            Keyboard shortcuts
-          </b-button>
+            <b-button
+              block
+              variant="light"
+              v-b-modal.keyboard-shortcuts
+            >
+              Keyboard shortcuts
+            </b-button>
 
-          <!-- <b-button
-            block
-            variant="light"
-            :to="{ name: 'dev.tools' }"
-          >
-            Dev tools
-          </b-button> -->
+            <!-- <b-button
+              block
+              variant="light"
+              :to="{ name: 'dev.tools' }"
+            >
+              Dev tools
+            </b-button> -->
 
-          <delete-account-modal />
+            <delete-account-modal />
 
-          <b-button
-            href="https://github.com/romancm/gamebrary"
-            target="_blank"
-            block
-            variant="light"
-          >
-            <!-- <i class="fab fa-github fa-fw" /> -->
-            GitHub
-          </b-button>
+            <b-button
+              href="https://github.com/romancm/gamebrary"
+              target="_blank"
+              block
+              variant="light"
+            >
+              <!-- <i class="fab fa-github fa-fw" /> -->
+              GitHub
+            </b-button>
 
-          <b-button
-            block
-            variant="light"
-            href="https://goo.gl/forms/r0juBCsZaUtJ03qb2"
-            target="_blank"
-          >
-            Submit feedback
-          </b-button>
+            <b-button
+              block
+              variant="light"
+              href="https://goo.gl/forms/r0juBCsZaUtJ03qb2"
+              target="_blank"
+            >
+              Submit feedback
+            </b-button>
 
-          <b-button
-            block
-            href="https://www.paypal.me/RomanCervantes/5"
-            target="_blank"
-          >
-            Donate
-          </b-button>
+            <b-button
+              block
+              href="https://www.paypal.me/RomanCervantes/5"
+              target="_blank"
+            >
+              Donate
+            </b-button>
 
-          <hr />
+            <hr />
 
-          <b-button
-            block
-            variant="light"
-            @click="session_signOut"
-          >
-            Log out
-          </b-button>
+            <b-button
+              block
+              variant="light"
+              @click="session_signOut"
+            >
+              Log out
+            </b-button>
 
-          <b-button
-            block
-            variant="light"
-            @click="$bvModal.show('deleteAccount');"
-          >
-            Delete account
-          </b-button>
+            <b-button
+              block
+              variant="light"
+              @click="$bvModal.show('deleteAccount');"
+            >
+              Delete account
+            </b-button>
 
-          <!-- <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'steam.settings' }">
-            <i class="mr-2 fab fa-steam fa-fw" aria-hidden></i>
-            <small>Steam</small>
-          </b-list-group-item> -->
+            <!-- <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'steam.settings' }">
+              <i class="mr-2 fab fa-steam fa-fw" aria-hidden></i>
+              <small>Steam</small>
+            </b-list-group-item> -->
 
-          <!-- <hr /> -->
+            <!-- <hr /> -->
 
-          <!-- <b-list-group-item :to="{ name: 'profiles' }">
-            <i class="mr-2 fa-solid fa-people-group fa-fw" aria-hidden />
-            <small>Profiles</small>
-          </b-list-group-item> -->
+            <!-- <b-list-group-item :to="{ name: 'profiles' }">
+              <i class="mr-2 fa-solid fa-people-group fa-fw" aria-hidden />
+              <small>Profiles</small>
+            </b-list-group-item> -->
 
-          <small>&copy; 2022 Gamebrary</small>
+            <small>&copy; 2022 Gamebrary</small>
 
-          <b-button
-            :to="{ name: 'releases' }"
-            size="sm"
-            variant="link"
-          >
-            {{ latestRelease }}
-          </b-button>
-        </div>
-        <!-- <language-settings /> -->
-      </b-col>
-    </b-row>
-  </b-container>
+            <b-button
+              :to="{ name: 'releases' }"
+              size="sm"
+              variant="link"
+            >
+              {{ latestRelease }}
+            </b-button>
+          </div>
+          <!-- <language-settings /> -->
+        </b-col>
+      </b-row>
+    </b-container>
+  </section>
 </template>
 
 <script>

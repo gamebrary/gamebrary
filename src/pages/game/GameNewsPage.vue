@@ -1,56 +1,79 @@
-<!-- TODO: get inspiration from polygon -->
-<!-- TODO: restore bbparser -->
 <template lang="html">
-  <b-container>
-    <portal to="pageTitle">
-      <div>
-        <b-button
-          :to="{ name: 'game', params: { id: game.id, slug: game.slug } }"
-          variant="light"
-          class="mr-2"
-          >
-            <i class="fa-solid fa-chevron-left" />
-        </b-button>
+  <section>
+    <b-container>
+      <portal to="pageTitle">
+        <div>
+          <b-button
+            :to="{ name: 'game', params: { id: game.id, slug: game.slug } }"
+            variant="light"
+            class="mr-2"
+            >
+              <i class="fa-solid fa-chevron-left" />
+          </b-button>
 
-        News
+          News
+        </div>
+      </portal>
+
+      <b-spinner v-if="loading" class="spinner-centered" />
+
+      <div v-else-if="!articles.length">
+        no news found
       </div>
-    </portal>
 
-    <b-spinner v-if="loading" class="spinner-centered" />
+      <b-row v-else>
+        <b-col cols="12" sm="4">
+          <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}" class="float-right">
+            <b-img :src="gameCoverUrl" fluid rounded />
+          </router-link>
+        </b-col>
 
-    <div v-else-if="!articles.length">
-      no news found
-    </div>
+        <b-col cols="12" sm="8">
+          <!-- <pre>{{ articles }}</pre> -->
+          <b-card
+            v-for="article in articles"
+            class="mb-3"
+            :key="article.id"
+          >
+            <strong>{{ article.title }}</strong>
+            <p class="text-muted small">By {{ article.author }} | {{ article.date }}</p>
 
-    <b-row class="game-news" v-else>
-      <b-col cols="6">
-        <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}" class="float-right">
-          <b-img :src="gameCoverUrl" fluid rounded />
-        </router-link>
-      </b-col>
+            <div v-html="parseBBCode(article.contents)" />
 
-      <b-col cols="6">
-        <b-alert
-          v-for="article in articles"
-          :key="article.id"
-          show
-          variant="secondary"
-          class="mb-3 small"
-        >
-          <strong>{{ article.title }}</strong>
+            feedlabel
+            <pre>{{ article.feedlabel }}</pre>
+            feedname
+            <pre>{{ article.feedname }}</pre>
+            <!-- <b-badge v-for="tag in article.tags" :key="tag">{{ tag }}</b-badge> -->
 
-          <div class="mb-0 w-100" v-html="$options.marked(article.contents)" />
-        </b-alert>
-      </b-col>
-    </b-row>
-  </b-container>
+            <!-- <div class="mb-0 w-100" v-html="$options.marked(article.contents)" /> -->
+          </b-card>
+        </b-col>
+      </b-row>
+
+      <!-- <b-row class="game-news" v-else>
+        <b-col cols="6">
+          <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}" class="float-right">
+            <b-img :src="gameCoverUrl" fluid rounded />
+          </router-link>
+        </b-col>
+
+        <b-col cols="6">
+
+        </b-col>
+      </b-row> -->
+    </b-container>
+  </section>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 import { marked } from 'marked';
 import { getGameCoverUrl } from '@/utils';
-// import bbCodeParser from 'js-bbcode-parser';
+import bbobHTML from '@bbob/html'
+import presetHTML5 from '@bbob/preset-html5'
+import bbCodeParser from 'js-bbcode-parser';
+import BBCodeParser from 'js-bbcode-parser/src/index.js';
 
 export default {
   marked,
@@ -82,6 +105,10 @@ export default {
   },
 
   methods: {
+    parseBBCode(contents) {
+      return bbobHTML(contents, presetHTML5())
+    },
+
     async loadNews() {
       this.loading = true;
 

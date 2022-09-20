@@ -1,7 +1,9 @@
 <template lang="html">
-  <b-container>
-    <game-boards />
-  </b-container>
+  <section>
+    <b-container>
+      <game-boards />
+    </b-container>
+  </section>
 </template>
 
 <script>

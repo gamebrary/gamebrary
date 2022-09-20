@@ -1,58 +1,60 @@
 <template lang="html">
-  <b-container>
-    <portal to="pageTitle">
-      <div>
+  <section>
+    <b-container>
+      <portal to="pageTitle">
+        <div>
+          <b-button
+            variant="light"
+            class="mr-2"
+            :to="{ name: 'tags' }"
+          >
+            <i class="fa-solid fa-chevron-left" />
+          </b-button>
+
+          Create tag
+        </div>
+      </portal>
+
+      <form @submit.prevent="submit" class="field centered">
+        <b-form-input
+          v-model.trim="tag.name"
+          class="mb-3 field"
+          maxlength="20"
+          :placeholder="$t('tags.form.inputPlaceholder')"
+          required
+          trim
+        />
+
+        <p>Background color</p>
+        <v-swatches v-model="tag.bgColor" show-fallback />
+
+        <p>Text color</p>
+        <v-swatches v-model="tag.textColor" show-fallback />
+
+        <p>Preview</p>
+
         <b-button
-          variant="light"
-          class="mr-2"
-          :to="{ name: 'tags' }"
+          rounded
+          block
+          size="sm"
+          class="mr-2 mb-2 field"
+          variant="outline-light"
+          :style="`background-color: ${tag.bgColor}; color: ${tag.textColor}`"
         >
-          <i class="fa-solid fa-chevron-left" />
+          {{ tag.name || 'Tag preview' }}
         </b-button>
 
-        Create tag
-      </div>
-    </portal>
-
-    <form @submit.prevent="submit" class="field centered">
-      <b-form-input
-        v-model.trim="tag.name"
-        class="mb-3 field"
-        maxlength="20"
-        :placeholder="$t('tags.form.inputPlaceholder')"
-        required
-        trim
-      />
-
-      <p>Background color</p>
-      <v-swatches v-model="tag.bgColor" show-fallback />
-
-      <p>Text color</p>
-      <v-swatches v-model="tag.textColor" show-fallback />
-
-      <p>Preview</p>
-
-      <b-button
-        rounded
-        block
-        size="sm"
-        class="mr-2 mb-2 field"
-        variant="outline-light"
-        :style="`background-color: ${tag.bgColor}; color: ${tag.textColor}`"
-      >
-        {{ tag.name || 'Tag preview' }}
-      </b-button>
-
-      <b-button
-        variant="primary"
-        :disabled="saving"
-        type="submit"
-      >
-        <b-spinner small v-if="saving" />
-        <span v-else>Create</span>
-      </b-button>
-    </form>
-  </b-container>
+        <b-button
+          variant="primary"
+          :disabled="saving"
+          type="submit"
+        >
+          <b-spinner small v-if="saving" />
+          <span v-else>Create</span>
+        </b-button>
+      </form>
+    </b-container>
+  </section>
 </template>
 
 <script>

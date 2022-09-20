@@ -1,101 +1,103 @@
 <template lang="html">
-  <b-container>
-    <b-spinner v-if="loading" class="spinner-centered" />
+  <section>
+    <b-container>
+      <b-spinner v-if="loading" class="spinner-centered" />
 
-    <b-row v-else>
-      <portal to="pageTitle">
-        <div>
+      <b-row v-else>
+        <portal to="pageTitle">
+          <div>
+            <b-button
+              v-if="game"
+              :to="{ name: 'game', params: { id: game.id, slug: game.slug } }"
+              variant="light"
+              class="mr-2"
+              >
+                <i class="fa-solid fa-chevron-left" />
+            </b-button>
+
+            Notes
+          </div>
+        </portal>
+
+        <portal to="headerActions">
           <b-button
-            v-if="game"
-            :to="{ name: 'game', params: { id: game.id, slug: game.slug } }"
+            :to="{ name: 'notes' }"
             variant="light"
             class="mr-2"
-            >
-              <i class="fa-solid fa-chevron-left" />
+          >
+            All notes
           </b-button>
+        </portal>
 
-          Notes
-        </div>
-      </portal>
-
-      <portal to="headerActions">
-        <b-button
-          :to="{ name: 'notes' }"
-          variant="light"
-          class="mr-2"
-        >
-          All notes
-        </b-button>
-      </portal>
-
-      <b-col cols="12" sm="6">
-        <game-note
-          v-if="showPreview"
-          :note="{ note }"
-          class="mt-3 mt-sm-0"
-        />
-
-        <router-link
-          v-else-if="game"
-          :to="{ name: 'game', params: { id: game.id, slug: game.slug }}"
-          class="float-right"
-        >
-          <b-img :src="gameCoverUrl" fluid rounded />
-        </router-link>
-      </b-col>
-
-      <b-col cols="12" sm="6">
-        <form class="mt-3 mt-sm-0 mb-3 field">
-          <b-form-textarea
-            v-model.trim="note"
-            placeholder="Type note here"
-            rows="3"
-            max-rows="20"
+        <b-col cols="12" sm="6">
+          <game-note
+            v-if="showPreview"
+            :note="{ note }"
+            class="mt-3 mt-sm-0"
           />
 
-          <b-link
-            class="small"
-            variant="link"
-            v-b-modal.markdown-cheatsheet
+          <router-link
+            v-else-if="game"
+            :to="{ name: 'game', params: { id: game.id, slug: game.slug }}"
+            class="float-right"
           >
-            <i class="fab fa-markdown fa-fw" />
-            Markdown supported
-          </b-link>
+            <b-img :src="gameCoverUrl" fluid rounded />
+          </router-link>
+        </b-col>
 
-          <footer class="mt-2 d-flex">
-            <b-button
-              variant="primary"
-              :disabled="saving"
-              @click="saveNote"
-            >
-              <b-spinner small v-if="saving" />
-              <span v-else>{{ $t('global.save') }}</span>
-            </b-button>
+        <b-col cols="12" sm="6">
+          <form class="mt-3 mt-sm-0 mb-3 field">
+            <b-form-textarea
+              v-model.trim="note"
+              placeholder="Type note here"
+              rows="3"
+              max-rows="20"
+            />
 
-            <b-button
-              variant="danger"
-              class="ml-2"
-              v-if="!saving"
-              :disabled="deleting"
-              @click="deleteNote"
+            <b-link
+              class="small"
+              variant="link"
+              v-b-modal.markdown-cheatsheet
             >
-              <b-spinner small v-if="deleting" />
-              <i v-else class="fas fa-trash fa-fw" aria-hidden />
-            </b-button>
+              <i class="fab fa-markdown fa-fw" />
+              Markdown supported
+            </b-link>
 
-            <b-button
-              variant="light"
-              class="ml-auto"
-              @click="showPreview = !showPreview"
-            >
-              <i class="fas fa-eye fa-fw" aria-hidden />
-              Toggle preview
-            </b-button>
-          </footer>
-        </form>
-      </b-col>
-    </b-row>
-  </b-container>
+            <footer class="mt-2 d-flex">
+              <b-button
+                variant="primary"
+                :disabled="saving"
+                @click="saveNote"
+              >
+                <b-spinner small v-if="saving" />
+                <span v-else>{{ $t('global.save') }}</span>
+              </b-button>
+
+              <b-button
+                variant="danger"
+                class="ml-2"
+                v-if="!saving"
+                :disabled="deleting"
+                @click="deleteNote"
+              >
+                <b-spinner small v-if="deleting" />
+                <i v-else class="fas fa-trash fa-fw" aria-hidden />
+              </b-button>
+
+              <b-button
+                variant="light"
+                class="ml-auto"
+                @click="showPreview = !showPreview"
+              >
+                <i class="fas fa-eye fa-fw" aria-hidden />
+                Toggle preview
+              </b-button>
+            </footer>
+          </form>
+        </b-col>
+      </b-row>
+    </b-container>
+  </section>
 </template>
 
 <script>

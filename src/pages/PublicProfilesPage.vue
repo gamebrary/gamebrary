@@ -1,23 +1,25 @@
 <template lang="html">
-  <b-container fluid>
-    <page-title
-      title="Profiles"
-    />
+  <section>
+    <b-container>
+      <page-title
+        title="Profiles"
+      />
 
-    <b-button
-      :to="{ name: 'public.profile', params: { userName: profile.userName } }"
-      block
-      class="profile-button p-2"
-      v-for="profile in profiles"
-      :key="profile.userName"
-    >
-      <div>
-        <h1>{{ profile.displayName }}</h1>
-        <small class="text-info">{{ `@${profile.userName}` }}</small>
-        <p v-if="profile.bio">{{ profile.bio }}</p>
-      </div>
-    </b-button>
-  </b-container>
+      <b-button
+        :to="{ name: 'public.profile', params: { userName: profile.userName } }"
+        block
+        class="profile-button p-2"
+        v-for="profile in profiles"
+        :key="profile.userName"
+      >
+        <div>
+          <h1>{{ profile.displayName }}</h1>
+          <small class="text-info">{{ `@${profile.userName}` }}</small>
+          <p v-if="profile.bio">{{ profile.bio }}</p>
+        </div>
+      </b-button>
+    </b-container>
+  </section>
 </template>
 
 <script>

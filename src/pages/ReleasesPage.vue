@@ -1,41 +1,43 @@
 <template lang="html">
-  <b-container>
-    <portal to="pageTitle">Releases</portal>
+  <section>
+    <b-container>
+      <portal to="pageTitle">Releases</portal>
 
-    <portal to="headerActions">
-      <b-button
-        url="https://github.com/romancm/gamebrary"
-        variant="light"
-        target="_blank"
-        class="mr-2"
+      <portal to="headerActions">
+        <b-button
+          url="https://github.com/romancm/gamebrary"
+          variant="light"
+          target="_blank"
+          class="mr-2"
+        >
+          <i class="fab fa-github fa-fw" aria-hidden />
+          View in GitHub
+        </b-button>
+      </portal>
+
+      <b-card
+        v-for="release in releases"
+        :key="release.id"
+        hide-footer
+        class="mb-3"
       >
-        <i class="fab fa-github fa-fw" aria-hidden />
-        View in GitHub
-      </b-button>
-    </portal>
+        <template v-slot:header>
+          <h3 class="mb-0">
+            <b-badge>{{ release.tag_name }}</b-badge>
+            {{ release.name }}
+          </h3>
+        </template>
 
-    <b-card
-      v-for="release in releases"
-      :key="release.id"
-      hide-footer
-      class="mb-3"
-    >
-      <template v-slot:header>
-        <h3 class="mb-0">
-          <b-badge>{{ release.tag_name }}</b-badge>
-          {{ release.name }}
-        </h3>
-      </template>
+        <b-card-text>
+          <small class="text-muted">
+            {{ $t('releases.published') }} {{ formatDate(release.published_at) }}
+          </small>
 
-      <b-card-text>
-        <small class="text-muted">
-          {{ $t('releases.published') }} {{ formatDate(release.published_at) }}
-        </small>
-
-        <div class="w-100 releases" v-html="$options.marked(release.body)" />
-      </b-card-text>
-    </b-card>
-  </b-container>
+          <div class="w-100 releases" v-html="$options.marked(release.body)" />
+        </b-card-text>
+      </b-card>
+    </b-container>
+  </section>
 </template>
 
 <script>

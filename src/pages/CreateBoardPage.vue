@@ -1,62 +1,64 @@
 <template lang="html">
-  <b-container>
-    <portal to="pageTitle">Create board</portal>
+  <section>
+    <b-container>
+      <portal to="pageTitle">Create board</portal>
 
-    <b-form @submit.prevent="createBoard" class="field centered">
-      <b-form-group label="Board name:" label-for="boardName">
-        <b-form-input
-          id="boardName"
-          v-model.trim="board.name"
-          placeholder="PS4 collection, Nintendo Switch, etc..."
-          autofocus
-          required
-        />
-      </b-form-group>
+      <b-form @submit.prevent="createBoard" class="field centered">
+        <b-form-group label="Board name:" label-for="boardName">
+          <b-form-input
+            id="boardName"
+            v-model.trim="board.name"
+            placeholder="PS4 collection, Nintendo Switch, etc..."
+            autofocus
+            required
+          />
+        </b-form-group>
 
-      <b-form-group
-        label="Board description"
-        label-for="boardDescription"
-      >
-        <b-form-textarea
-          id="boardDescription"
-          v-model="board.description"
-          maxlength="280"
-          rows="2"
-        />
-      </b-form-group>
+        <b-form-group
+          label="Board description"
+          label-for="boardDescription"
+        >
+          <b-form-textarea
+            id="boardDescription"
+            v-model="board.description"
+            maxlength="280"
+            rows="2"
+          />
+        </b-form-group>
 
-      <!-- <b-form-group
-        label="Board template"
-      >
-        <b-form-radio-group
-          v-model="selectedTemplate"
-          :options="boardTemplatesOptions"
-          name="radios-btn-default"
-          description="Optional"
-        />
+        <!-- <b-form-group
+          label="Board template"
+        >
+          <b-form-radio-group
+            v-model="selectedTemplate"
+            :options="boardTemplatesOptions"
+            name="radios-btn-default"
+            description="Optional"
+          />
 
-        <b-row v-if="selectedTemplate" class="mt-3">
-          <b-col v-for="column in boardTemplates[selectedTemplate]" :key="column">
-            <b-card
-              :header="column"
-              header-tag="header"
-              header-class="p-1 pl-2"
-              hide-footer
-            />
-          </b-col>
-        </b-row>
-      </b-form-group> -->
+          <b-row v-if="selectedTemplate" class="mt-3">
+            <b-col v-for="column in boardTemplates[selectedTemplate]" :key="column">
+              <b-card
+                :header="column"
+                header-tag="header"
+                header-class="p-1 pl-2"
+                hide-footer
+              />
+            </b-col>
+          </b-row>
+        </b-form-group> -->
 
-      <b-button
-        variant="primary"
-        loading
-        type="submit"
-      >
-        <b-spinner small v-if="saving" />
-        <template v-else>Create board</template>
-      </b-button>
-    </b-form>
-  </b-container>
+        <b-button
+          variant="primary"
+          loading
+          type="submit"
+        >
+          <b-spinner small v-if="saving" />
+          <template v-else>Create board</template>
+        </b-button>
+      </b-form>
+    </b-container>
+  </section>
 </template>
 
 <script>

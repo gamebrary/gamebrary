@@ -43,9 +43,10 @@
         :key="list.name"
       />
 
-      <empty-board v-if="empty" />
-
-      <add-list v-else-if="user && user.uid && user.uid === board.owner" />
+      <add-list
+        v-if="isBoardOwner"
+        :empty="empty"
+      />
     </template>
 
     <b-alert
@@ -60,7 +61,6 @@
 
 <script>
 import BoardPlaceholder from '@/components/Board/BoardPlaceholder';
-import EmptyBoard from '@/components/Board/EmptyBoard';
 import AddList from '@/components/Board/AddList';
 import GameList from '@/components/Lists/GameList';
 import chunk from 'lodash.chunk';
@@ -70,7 +70,6 @@ export default {
   components: {
     GameList,
     BoardPlaceholder,
-    EmptyBoard,
     AddList,
   },
 

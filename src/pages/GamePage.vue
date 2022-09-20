@@ -1,192 +1,194 @@
 <template lang="html">
-  <b-container>
-    <b-spinner v-if="loading" class="spinner-centered" />
+  <section>
+    <b-container>
+      <b-spinner v-if="loading" class="spinner-centered" />
 
-    <template v-else-if="game">
-      <portal to="pageTitle">
-        <b-button
-          v-if="originBoardId"
-          :to="{ name: 'board', params: { id: originBoardId } }"
-          variant="light"
-          class="mr-2"
-        >
-          <i class="fa-solid fa-chevron-left" />
-        </b-button>
-      </portal>
-
-      <portal to="headerActions" v-if="user">
-        <b-button-group class="mr-2">
-          <game-tags-dropdown />
-
+      <template v-else-if="game">
+        <portal to="pageTitle">
           <b-button
+            v-if="originBoardId"
+            :to="{ name: 'board', params: { id: originBoardId } }"
             variant="light"
-            @click="$router.push({ name: 'game.progress', params: { id: game.id, slug: game.slug } })"
+            class="mr-2"
           >
-            <template v-if="progress">
-              {{ progress }}%
-            </template>
-            <i v-else class="fa-solid fa-stopwatch" />
+            <i class="fa-solid fa-chevron-left" />
           </b-button>
+        </portal>
 
-          <b-button
-            :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug } }"
-            variant="light"
-          >
-            <i class="fa-solid fa-note-sticky fa-fw" />
-          </b-button>
+        <portal to="headerActions" v-if="user">
+          <b-button-group class="mr-2">
+            <game-tags-dropdown />
 
-          <add-remove-game />
-        </b-button-group>
-      </portal>
-      <game-media-modal />
-
-      <b-row>
-        <b-col
-          cols="12"
-          sm="6"
-          md="4"
-          xl="3"
-        >
-          <div class="position-relative cursor-pointer" v-b-modal.mediaModal>
-            <i class="fa-solid fa-play play-button color-white text-white font-size-xl" />
-
-            <b-img
-              :src="gameCoverUrl"
-              :alt="game.name"
-              rounded
-              fluid
-            />
-          </div>
-
-          <section
-            v-if="gameNews.length"
-            tag="a"
-            class="bg-light d-none d-sm-flex rounded px-2 mt-2 flex-column"
-          >
-            <h5 class="pt-2">Latest news:</h5>
-
-            <router-link
-              v-for="article in gameNews"
-              :key="article.gid"
-              :to="{ name: 'game.news', params: { id: game.id, slug: game.slug } }"
-              class="d-flex mb-2"
+            <b-button
+              variant="light"
+              @click="$router.push({ name: 'game.progress', params: { id: game.id, slug: game.slug } })"
             >
+              <template v-if="progress">
+                {{ progress }}%
+              </template>
+              <i v-else class="fa-solid fa-stopwatch" />
+            </b-button>
+
+            <b-button
+              :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug } }"
+              variant="light"
+            >
+              <i class="fa-solid fa-note-sticky fa-fw" />
+            </b-button>
+
+            <add-remove-game />
+          </b-button-group>
+        </portal>
+        <game-media-modal />
+
+        <b-row>
+          <b-col
+            cols="12"
+            sm="6"
+            md="4"
+            xl="3"
+          >
+            <div class="position-relative cursor-pointer" v-b-modal.mediaModal>
+              <i class="fa-solid fa-play play-button color-white text-white font-size-xl" />
+
               <b-img
-                v-if="article.imageUrl"
-                :src="article.imageUrl"
-                width="100"
+                :src="gameCoverUrl"
+                :alt="game.name"
                 rounded
-                class="float-left mr-2"
+                fluid
               />
+            </div>
 
-              <small class="pr-2">{{ article.title }}</small>
-            </router-link>
-          </section>
+            <section
+              v-if="gameNews.length"
+              tag="a"
+              class="bg-light d-none d-sm-flex rounded px-2 mt-2 flex-column"
+            >
+              <h5 class="pt-2">Latest news:</h5>
 
-          <!-- <amazon-links class="mt-2" /> -->
-
-          <game-note
-            v-if="note"
-            :note="note"
-            class="cursor-pointer mt-3"
-            @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
-          />
-
-          <game-in-list :class="{ 'text-white': steamBackground }" />
-
-          <!-- <game-speedruns /> -->
-
-          <!-- <div v-if="gameAchievements"> -->
-            <!-- <pre>{{ gameAchievements }}</pre> -->
-          <!-- </div> -->
-        </b-col>
-
-        <b-col
-          cols="12"
-          sm="6"
-          md="8"
-          xl="9"
-        >
-          <!-- bg-white -->
-          <article :class="[' rounded', steamBackground ? 'bg-white mt-2 mt-md-0 p-3' : 'px-sm-3 p-0']">
-            <header class="d-flex align-items-start justify-content-between pb-2">
-              <game-titles />
-
-              <aside>
-                <!-- <b-button :href="metacriticScore.url" variant="success" v-if="metacriticScore.url">
-                  {{ metacriticScore.score }}
-
-                </b-button> -->
-                <b-button
-                  v-for="({ bgColor, textColor, name, index }) in tagsApplied"
-                  :key="name"
+              <router-link
+                v-for="article in gameNews"
+                :key="article.gid"
+                :to="{ name: 'game.news', params: { id: game.id, slug: game.slug } }"
+                class="d-flex mb-2"
+              >
+                <b-img
+                  v-if="article.imageUrl"
+                  :src="article.imageUrl"
+                  width="100"
                   rounded
-                  size="sm"
-                  variant="transparent"
-                  class="mr-1 mb-2"
-                  :style="`background-color: ${bgColor}; color: ${textColor}`"
-                  :to="{ name: 'tag.edit', params: { id: index } }"
-                >
-                  <i class="fa-solid fa-tag mr-1" />
-                  {{ name }}
-                </b-button>
+                  class="float-left mr-2"
+                />
+
+                <small class="pr-2">{{ article.title }}</small>
+              </router-link>
+            </section>
+
+            <!-- <amazon-links class="mt-2" /> -->
+
+            <game-note
+              v-if="note"
+              :note="note"
+              class="cursor-pointer mt-3"
+              @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
+            />
+
+            <game-in-list :class="{ 'text-white': steamBackground }" />
+
+            <!-- <game-speedruns /> -->
+
+            <!-- <div v-if="gameAchievements"> -->
+              <!-- <pre>{{ gameAchievements }}</pre> -->
+            <!-- </div> -->
+          </b-col>
+
+          <b-col
+            cols="12"
+            sm="6"
+            md="8"
+            xl="9"
+          >
+            <!-- bg-white -->
+            <article :class="[' rounded', steamBackground ? 'bg-white mt-2 mt-md-0 p-3' : 'px-sm-3 p-0']">
+              <header class="d-flex align-items-start justify-content-between pb-2">
+                <game-titles />
+
+                <aside>
+                  <!-- <b-button :href="metacriticScore.url" variant="success" v-if="metacriticScore.url">
+                    {{ metacriticScore.score }}
+
+                  </b-button> -->
+                  <b-button
+                    v-for="({ bgColor, textColor, name, index }) in tagsApplied"
+                    :key="name"
+                    rounded
+                    size="sm"
+                    variant="transparent"
+                    class="mr-1 mb-2"
+                    :style="`background-color: ${bgColor}; color: ${textColor}`"
+                    :to="{ name: 'tag.edit', params: { id: index } }"
+                  >
+                    <i class="fa-solid fa-tag mr-1" />
+                    {{ name }}
+                  </b-button>
+                </aside>
+              </header>
+
+              <aside class="supplemental-info bg-white field float-right ml-5 pb-2">
+                <b-img
+                  v-if="gameHeaderImage"
+                  v-b-modal.mediaModal
+                  :src="gameHeaderImage"
+                  class="mb-2"
+                  rounded
+                  fluid
+                />
+
+                <b-img
+                  v-if="gameScrenshot"
+                  v-b-modal.mediaModal
+                  :src="gameScrenshot"
+                  rounded
+                  fluid
+                />
+
+                <game-websites />
               </aside>
-            </header>
 
-            <aside class="supplemental-info bg-white field float-right ml-5 pb-2">
-              <b-img
-                v-if="gameHeaderImage"
-                v-b-modal.mediaModal
-                :src="gameHeaderImage"
-                class="mb-2"
-                rounded
-                fluid
-              />
+              <game-description />
+              <game-details />
+              <game-ratings />
+            </article>
 
-              <b-img
-                v-if="gameScrenshot"
-                v-b-modal.mediaModal
-                :src="gameScrenshot"
-                rounded
-                fluid
-              />
+            <small
+              v-if="legalNotice"
+              class="text-muted"
+              v-html="legalNotice"
+            />
+          </b-col>
+        </b-row>
 
-              <game-websites />
-            </aside>
+        <similar-games />
+      </template>
 
-            <game-description />
-            <game-details />
-            <game-ratings />
-          </article>
-
-          <small
-            v-if="legalNotice"
-            class="text-muted"
-            v-html="legalNotice"
-          />
-        </b-col>
-      </b-row>
-
-      <similar-games />
-    </template>
-
-    <div class="pt-5" v-else>
-      <div class="d-flex justify-content-center align-items-center" id="main">
-        <h1 class="mr-3 pr-3 align-top border-right inline-block align-content-center">404</h1>
-        <div class="inline-block align-middle">
-          <h2 class="font-weight-normal lead" id="desc">Game was not found.</h2>
+      <div class="pt-5" v-else>
+        <div class="d-flex justify-content-center align-items-center" id="main">
+          <h1 class="mr-3 pr-3 align-top border-right inline-block align-content-center">404</h1>
+          <div class="inline-block align-middle">
+            <h2 class="font-weight-normal lead" id="desc">Game was not found.</h2>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- <timeline
-      v-if="twitterHandle"
-      :id="twitterHandle"
-      sourceType="profile"
-    >
-      loading...
-    </timeline> -->
-  </b-container>
+      <!-- <timeline
+        v-if="twitterHandle"
+        :id="twitterHandle"
+        sourceType="profile"
+      >
+        loading...
+      </timeline> -->
+    </b-container>
+  </section>
 </template>
 
 <script>

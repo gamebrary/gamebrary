@@ -1,59 +1,61 @@
 <template lang="html">
-  <b-container>
-    <portal to="pageTitle">
-      <div>
-        <b-button
-          :to="{ name: 'game', params: { id: game.id, slug: game.slug } }"
-          variant="light"
-          class="mr-2"
+  <section>
+    <b-container>
+      <portal to="pageTitle">
+        <div>
+          <b-button
+            :to="{ name: 'game', params: { id: game.id, slug: game.slug } }"
+            variant="light"
+            class="mr-2"
+            >
+              <i class="fa-solid fa-chevron-left" />
+          </b-button>
+
+          Track progress
+        </div>
+      </portal>
+
+
+      <b-row>
+        <b-col cols="12" sm="6">
+          <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}" class="float-right">
+            <b-img :src="gameCoverUrl" fluid rounded />
+          </router-link>
+        </b-col>
+
+        <b-col cols="12" sm="6" class="mt-3 mt-sm-0 mb-3">
+          <b-input-group :prepend="`${progress}%`" class="field mb-2">
+            <b-form-input
+              size="lg"
+              v-model="progress"
+              type="range"
+              max="100"
+              step="1"
+            />
+          </b-input-group>
+
+          <b-button
+            variant="primary"
+            :disabled="saving"
+            class="mr-2"
+            @click="saveProgress"
           >
-            <i class="fa-solid fa-chevron-left" />
-        </b-button>
+            <b-spinner small v-if="saving" />
+            <span v-else>{{ $t('global.save') }}</span>
+          </b-button>
 
-        Track progress
-      </div>
-    </portal>
-
-
-    <b-row>
-      <b-col cols="12" sm="6">
-        <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}" class="float-right">
-          <b-img :src="gameCoverUrl" fluid rounded />
-        </router-link>
-      </b-col>
-
-      <b-col cols="12" sm="6" class="mt-3 mt-sm-0 mb-3">
-        <b-input-group :prepend="`${progress}%`" class="field mb-2">
-          <b-form-input
-            size="lg"
-            v-model="progress"
-            type="range"
-            max="100"
-            step="1"
-          />
-        </b-input-group>
-
-        <b-button
-          variant="primary"
-          :disabled="saving"
-          class="mr-2"
-          @click="saveProgress"
-        >
-          <b-spinner small v-if="saving" />
-          <span v-else>{{ $t('global.save') }}</span>
-        </b-button>
-
-        <b-button
-          :disabled="deleting"
-          variant="danger"
-          @click="deleteProgress"
-        >
-          <b-spinner small v-if="deleting" />
-          <i v-else class="fas fa-trash fa-fw" aria-hidden />
-        </b-button>
-      </b-col>
-    </b-row>
-  </b-container>
+          <b-button
+            :disabled="deleting"
+            variant="danger"
+            @click="deleteProgress"
+          >
+            <b-spinner small v-if="deleting" />
+            <i v-else class="fas fa-trash fa-fw" aria-hidden />
+          </b-button>
+        </b-col>
+      </b-row>
+    </b-container>
+  </section>
 </template>
 
 <script>

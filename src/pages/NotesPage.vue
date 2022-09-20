@@ -1,87 +1,90 @@
 <template lang="html">
-  <b-container>
-    <portal to="pageTitle">
-      <div>
-        <b-button
-          :to="{ name: 'settings' }"
-          variant="light"
-          class="mr-2"
-          >
-          <i class="fa-solid fa-chevron-left" />
+  <section>
+    <b-container>
+      <portal to="pageTitle">
+        <div>
+          <b-button
+            :to="{ name: 'settings' }"
+            variant="light"
+            class="mr-2"
+            >
+            <i class="fa-solid fa-chevron-left" />
+          </b-button>
+
+          Notes
+        </div>
+      </portal>
+
+      <portal to="headerActions">
+        <div class="mr-2">
+          <b-form-input
+            v-if="!showEmptyState"
+            type="search"
+            class="d-none d-sm-block"
+            placeholder="Search notes"
+            v-model="search"
+          />
+        </div>
+      </portal>
+
+      <b-spinner v-if="loading" class="spinner-centered" />
+
+      <empty-state
+        v-else-if="showEmptyState"
+        illustration="notes.png"
+        :title="$t('notes.title')"
+        message="Looks like you don't have any notes yet."
+      >
+        <b-button variant="light" :to="{ name: 'notes.create' }">
+          Add note
         </b-button>
+      </empty-state>
 
-        Notes
-      </div>
-    </portal>
+      <b-row v-else-if="noteGames.length">
+        <b-col>
+          <b-form-input
+            v-if="!showEmptyState"
+            type="search"
+            class="d-sm-none field mb-3"
+            placeholder="Search notes"
+            v-model="search"
+          />
 
-    <portal to="headerActions">
-      <div class="mr-2">
-        <b-form-input
-          v-if="!showEmptyState"
-          type="search"
-          class="d-none d-sm-block"
-          placeholder="Search notes"
-          v-model="search"
-        />
-      </div>
-    </portal>
+          <b-card-group columns>
+            <b-card
+              v-for="(game, index) in noteGames"
+              body-class="p-2"
+              :key="index"
+            >
+              <b-card-text>
+                <b-button
+                  v-if="game"
+                  variant="light"
+                  size="sm"
+                  class="d-flex p-2 mb-2 align-items-center"
+                  :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug }}"
+                >
+                  <b-img
+                    :src="getCoverUrl(game.id)"
+                    class="cursor-pointer rounded"
+                    width="30"
+                  />
 
-    <b-spinner v-if="loading" class="spinner-centered" />
+                  <div class="ml-2 overflow-hidden">
+                    <h5>{{ game.name }}</h5>
+                  </div>
+                </b-button>
 
-    <empty-state
-      v-else-if="showEmptyState"
-      illustration="notes.png"
-      :title="$t('notes.title')"
-      message="Looks like you don't have any notes yet."
-    >
-      <b-button variant="light" :to="{ name: 'notes.create' }">
-        Add note
-      </b-button>
-    </empty-state>
-
-    <b-row v-else-if="noteGames.length">
-      <b-col>
-        <b-form-input
-          v-if="!showEmptyState"
-          type="search"
-          class="d-sm-none field mb-3"
-          placeholder="Search notes"
-          v-model="search"
-        />
-
-        <b-card-group columns>
-          <b-card
-            v-for="(game, index) in noteGames"
-            :key="index"
-          >
-            <b-card-text>
-              <b-button
-                v-if="game"
-                variant="light"
-                size="sm"
-                class="d-flex p-2 mb-2 align-items-center"
-                :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug }}"
-              >
-                <b-img
-                  :src="getCoverUrl(game.id)"
-                  class="cursor-pointer rounded"
-                  width="30"
-                />
-
-                <div class="ml-2 overflow-hidden">
-                  <h5>{{ game.name }}</h5>
-                </div>
-              </b-button>
-
-              <p class="note-text text-muted small" v-if="filteredNotes[index]">
-                {{ filteredNotes[index].note }}
-              </p>
-            </b-card-text>
-          </b-card>
-        </b-card-group>
-      </b-col>
-    </b-row>
-  </b-container>
+                <p class="note-text text-muted small" v-if="filteredNotes[index]">
+                  {{ filteredNotes[index].note }}
+                </p>
+              </b-card-text>
+            </b-card>
+          </b-card-group>
+        </b-col>
+      </b-row>
+    </b-container>
+  </section>
 </template>
 
 <script>

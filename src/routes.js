@@ -270,7 +270,6 @@ const routes = [
     path: '/',
     component: HomePage,
     meta: {
-      title: 'Dashboard',
       public: true,
     },
   },

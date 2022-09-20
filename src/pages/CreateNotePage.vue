@@ -1,3 +1,4 @@
+<!-- TODO: finish -->
 <template lang="html">
   <b-container>
     Create note

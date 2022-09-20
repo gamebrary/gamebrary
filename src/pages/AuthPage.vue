@@ -1,18 +1,20 @@
 <template lang="html">
-  <b-container>
-    <portal to="pageTitle">Login</portal>
+  <section>
+    <b-container>
+      <portal to="pageTitle">Login</portal>
 
-    <b-alert
-      class="mx-auto text-center"
-      :show="showExpiredAlert"
-      style="width: 220px"
-      variant="warning"
-    >
-      Session expired
-    </b-alert>
+      <b-alert
+        class="mx-auto text-center"
+        :show="showExpiredAlert"
+        style="width: 220px"
+        variant="warning"
+      >
+        Session expired
+      </b-alert>
 
-    <section id="auth" />
-  </b-container>
+      <section id="auth" />
+    </b-container>
+  </section>
 </template>
 
 <script>
