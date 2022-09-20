@@ -1,8 +1,5 @@
 <template lang="html">
   <b-container>
-    <portal to="pageTitle">
-      Explore public game boards
-    </portal>
     <game-boards />
 
     <!-- <div class="game-deals">
@@ -23,15 +20,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-// .explore-page {
-//   display: grid;
-//   grid-template-columns: 1fr 300px;
-//   grid-gap: 1rem;
-// }
-// .game-deals {
-//   height: calc(100vh - 200px);
-//   overflow-y: auto;
-// }
-</style>

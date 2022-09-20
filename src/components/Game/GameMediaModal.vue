@@ -107,7 +107,7 @@ export default {
 
       const igdbVideos = this.game?.videos?.map((video) => {
         return {
-          imageUrl: `https://img.youtube.com/vi/${video.video_id}/sddefault.jpg`,
+          imageUrl: `https://img.youtube.com/vi/${video.video_id}/default.jpg`,
           videoUrl: `https://www.youtube.com/embed/${video.video_id}?rel=0&autoplay=1`,
           video: true,
           source: 'youtube',

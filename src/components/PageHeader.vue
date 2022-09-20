@@ -41,7 +41,7 @@
 
       <b-button
         v-else
-        class="mr-3"
+        class="mr-2"
         variant="dark"
         :to="{ name: 'auth' }"
       >

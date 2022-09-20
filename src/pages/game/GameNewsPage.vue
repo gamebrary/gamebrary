@@ -39,7 +39,10 @@
         >
           <strong>{{ article.title }}</strong>
 
-          <div class="mb-0 w-100" v-html="$options.marked(article.contents)" />
+          <!-- <pre>{{ article }}</pre> -->
+
+          <!-- <div class="mb-0 w-100" v-html="$options.marked(article.contents)" /> -->
+          <bbob-bbcode container="div" :plugins="plugins">{{ article.contents }}</bbob-bbcode>
         </b-alert>
       </b-col>
     </b-row>
@@ -50,6 +53,7 @@
 import { mapState } from 'vuex';
 import { marked } from 'marked';
 import { getGameCoverUrl } from '@/utils';
+import preset from '@bbob/preset-vue'
 // import bbCodeParser from 'js-bbcode-parser';
 
 export default {
@@ -59,6 +63,7 @@ export default {
     return {
       loading: false,
       articles: [],
+      plugins: [preset()],
     };
   },
 

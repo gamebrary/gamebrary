@@ -11,6 +11,7 @@ import PageTitle from '@/components/PageTitle';
 import axios from 'axios';
 import VueAnalytics from 'vue-analytics';
 import Raven from 'raven-js';
+import VueBbob from '@bbob/vue2';
 import PortalVue from 'portal-vue';
 import RavenVue from 'raven-js/plugins/vue';
 import App from '@/App';
@@ -31,6 +32,7 @@ Object.defineProperties(Vue.prototype, {
   },
 });
 
+Vue.use(VueBbob);
 Vue.use(VueShortKey, { prevent: ['input', 'textarea'] });
 Vue.use(Dayjs);
 Vue.use(PortalVue);

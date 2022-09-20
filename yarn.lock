@@ -980,6 +980,62 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
+"@bbob/core@^2.8.1":
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/@bbob/core/-/core-2.8.1.tgz#2952483f11ed6a1137468606984e4a6fa44ac3c3"
+  integrity sha512-1z+sw/hyRyN05NgxFCuFzq5GP1SrLU+Z3KO0ivIkO1E/M+4ae5dURwMICq2bzJEEHNfPwQsnj/Hk6m2qYmnBTQ==
+  dependencies:
+    "@bbob/parser" "^2.8.1"
+
+"@bbob/html@^2.8.1":
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/@bbob/html/-/html-2.8.1.tgz#7bb2e9cff021646d4cfb647de74844e876e76b54"
+  integrity sha512-AmX38Ow45D6VQSWa0msH6CR7iEpbuWt+ZCTs1aiHoRSQxgLwll09Pc9UxoFkvWH1EnOux/nhxJjc8sM8+94PkA==
+  dependencies:
+    "@bbob/core" "^2.8.1"
+    "@bbob/plugin-helper" "^2.8.1"
+
+"@bbob/parser@^2.8.1":
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/@bbob/parser/-/parser-2.8.1.tgz#3ec149ca2cad597269390ab8d68e5eccc119a038"
+  integrity sha512-iRj7dbSLnuPvV46Lo1KeTFMoo4ux1jYmQ3rHYK7iUe8vUFAQvwEfHs/K9/1cE7ktrBpObIyepZD7PvN0QXw6Gw==
+  dependencies:
+    "@bbob/plugin-helper" "^2.8.1"
+
+"@bbob/plugin-helper@^2.8.1":
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/@bbob/plugin-helper/-/plugin-helper-2.8.1.tgz#b63a0ca359fb5810c081d0587e26ca2ca5b994fa"
+  integrity sha512-u7DlTdj1QcbFyKDKlmPXDCvSmDrUM+hBY8NTQ/Y6EhC4y5jvRhau2bsKlMB454uuzkbE44qRsxF6ZpIhpTCLOw==
+
+"@bbob/preset-html5@^2.8.1":
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/@bbob/preset-html5/-/preset-html5-2.8.1.tgz#3bfa0f94a4ea8f5b564ddf2928423b693fea22d0"
+  integrity sha512-ufXUvJqy3v7kwAPUwSr9zeOLSqS5uZ5okN09AhAD8W858u4UasAi5b+ski5RxADOU2Wu2RBPQ7uaJIlUinVbCg==
+  dependencies:
+    "@bbob/plugin-helper" "^2.8.1"
+    "@bbob/preset" "^2.8.1"
+
+"@bbob/preset-vue@^2.8.1":
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/@bbob/preset-vue/-/preset-vue-2.8.1.tgz#9e66a310e2176c9dd1424b45bfc18dcabd2b0b68"
+  integrity sha512-TbwrDnh/jH8mr4Gms+aCh3bXyc4VGz8PV8IbiE0KLBB/90eHtcjowcAZX3a0hrTNOg33NzWV6krX7r54EkZuBg==
+  dependencies:
+    "@bbob/preset-html5" "^2.8.1"
+
+"@bbob/preset@^2.8.1":
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/@bbob/preset/-/preset-2.8.1.tgz#f316045749ccb696c5e660f982e211abce67bd33"
+  integrity sha512-h7xRNEZ8gAmoJn0qXSUu6b/csZJ03wB5AbXeFCIZWYkb9miGClF0sU0o93nRvnSo9MhOAsahYLhG62roHPX1Ng==
+
+"@bbob/vue2@^2.8.1":
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/@bbob/vue2/-/vue2-2.8.1.tgz#9e8d70d4831a049734be04706d568aa3cf53f50b"
+  integrity sha512-SMRaSl0QK7uhWh1C5wxy86vrQfaWL3DK4jcPM7fFxK3l2LcT8MUHcYdmimEhEiCyB9UqM1K0MgBxqBEtLldc+A==
+  dependencies:
+    "@bbob/core" "^2.8.1"
+    "@bbob/html" "^2.8.1"
+    "@bbob/plugin-helper" "^2.8.1"
+
 "@bcoe/v8-coverage@^0.2.3":
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
