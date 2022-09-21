@@ -101,6 +101,10 @@ export default {
     empty() {
       return this.board?.lists?.length === 0;
     },
+
+    isBoardCached() {
+      return this.board.id === this.boardId;
+    },
   },
 
   watch: {
@@ -117,16 +121,8 @@ export default {
   },
 
   async mounted() {
-    const isBoardCached = this.board.id === this.boardId;
+    if (!this.isBoardCached) this.$store.commit('CLEAR_BOARD');
 
-    if (isBoardCached) {
-      this.loadBoardBackground();
-      if (this.board?.isPublic && !this.isBoardOwner) this.loadPublicProfile();
-
-      return this.loading = false;
-    }
-
-    this.$store.commit('CLEAR_BOARD');
     this.loadBoard();
   },
 
@@ -137,7 +133,7 @@ export default {
 
   methods: {
     async loadBoard() {
-      this.loading = true;
+      this.loading = !this.isBoardCached;
 
       await this.$store.dispatch('LOAD_BOARD', this.boardId)
         .catch(() => {
@@ -193,8 +189,6 @@ export default {
     },
 
     async loadGames(gameList) {
-      this.loading = true;
-
       await this.$store.dispatch('LOAD_GAMES', gameList.toString())
         .catch(() => {
           this.$bvToast.toast('Error loading games', { variant: 'error' });
