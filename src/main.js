@@ -3,7 +3,6 @@ import { BootstrapVue } from 'bootstrap-vue';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import VueAxios from 'vue-axios';
 import VueShortKey from 'vue-shortkey';
-import Dayjs from 'vue-dayjs';
 import VueFire from 'vuefire';
 import VueI18n from 'vue-i18n';
 import ModalHeader from '@/components/ModalHeader';
@@ -32,7 +31,6 @@ Object.defineProperties(Vue.prototype, {
 });
 
 Vue.use(VueShortKey, { prevent: ['input', 'textarea'] });
-Vue.use(Dayjs);
 Vue.use(PortalVue);
 Vue.use(BootstrapVue, bootstrapSettings);
 Vue.use(VueAnalytics, { id: 'UA-120053966-1', router });

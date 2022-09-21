@@ -4142,7 +4142,7 @@ date-and-time@^2.0.0:
   resolved "https://registry.yarnpkg.com/date-and-time/-/date-and-time-2.3.1.tgz#006675ec4943a0a5f85810e3a3fd6aa96f6130c9"
   integrity sha512-OaIRmSJXifwEN21rMVVDs0Kz8uhJ3wWPYd86atkRiqN54liaMQYEbbrgjZQea75YXOBWL4ZFb3rG/waenw1TEg==
 
-dayjs@^1.10.4, dayjs@^1.5.24:
+dayjs@^1.10.4:
   version "1.11.0"
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.0.tgz#009bf7ef2e2ea2d5db2e6583d2d39a4b5061e805"
   integrity sha512-JLC809s6Y948/FuCZPm5IX8rRhQwOiyMb2TfVVQEixG7P8Lm/gt5S7yoQZmC8x1UehI9Pb7sksEt4xx14m+7Ug==
@@ -10031,13 +10031,6 @@ vue-coerce-props@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/vue-coerce-props/-/vue-coerce-props-1.0.0.tgz#af3d00aa419f0de79c2b020824c6c0387070d66e"
   integrity sha512-4fdRMXO6FHzmE7H4soAph6QmPg3sL/RiGdd+axuxuU07f02LNMns0jMM88fmt1bvSbN+2Wyd8raho6p6nXUzag==
-
-vue-dayjs@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/vue-dayjs/-/vue-dayjs-1.0.2.tgz#0fb3fc072d0ec8edf0f2bc0ba51a0b3a03a8dc45"
-  integrity sha512-rYvbpjZ6ZZ2MyQPpyltQmPBqd4+2RRfcFZb5/Fa6VsmBCmeSXTl6RHrHSOY72y5NJOrrxTpBg6VnP556gNSU7w==
-  dependencies:
-    dayjs "^1.5.24"
 
 vue-eslint-parser@^8.0.0, vue-eslint-parser@^8.0.1:
   version "8.3.0"

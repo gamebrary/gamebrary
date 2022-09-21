@@ -105,7 +105,7 @@ export default {
         return {
           id,
           platform: this.platformNames[platform].name,
-          date: this.$dayjs.unix(date).format('MMMM D, YYYY'),
+          date: new Date(date * 1000).toLocaleDateString('en-US', { dateStyle: 'medium' }),
         };
       });
     },
