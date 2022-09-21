@@ -72,8 +72,6 @@ import { marked } from 'marked';
 import { getGameCoverUrl } from '@/utils';
 import bbobHTML from '@bbob/html'
 import presetHTML5 from '@bbob/preset-html5'
-import bbCodeParser from 'js-bbcode-parser';
-import BBCodeParser from 'js-bbcode-parser/src/index.js';
 
 export default {
   marked,

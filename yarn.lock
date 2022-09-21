@@ -6778,11 +6778,6 @@ jose@^2.0.5:
   dependencies:
     "@panva/asn1.js" "^1.0.0"
 
-js-bbcode-parser@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/js-bbcode-parser/-/js-bbcode-parser-4.0.0.tgz#ca4b8de5c1b52f382f525802b6918071653cb869"
-  integrity sha512-3uoQJBMhhaJQhFY+KeR99MNCUxLjTaacHf930Ln6DQd13yD+EXqtHovhlaN5Jb+J058hx1F0l64rF0rLGM7dJA==
-
 js-beautify@^1.6.12:
   version "1.14.3"
   resolved "https://registry.yarnpkg.com/js-beautify/-/js-beautify-1.14.3.tgz#3dd11c949178de7f3bdf3f6f752778d3bed95150"
