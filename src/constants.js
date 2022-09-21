@@ -50,6 +50,23 @@ export const LINKS_CATEGORIES = {
   18: { id: 'discord', svg: true },
 };
 
+export const NEWS_SOURCES = {
+  eurogamer: { img: 'eurogamer.png', url: 'https://www.eurogamer.net/', name: 'Eurogamer' },
+  vg247: { img: 'vg247.svg', url: 'https://www.vg247.com/', name: 'VG247' },
+  rps: { img: 'rps.svg', url: 'https://www.rockpapershotgun.com/', name: 'Rock Paper Shotgun' },
+  rockpapershotgun: { img: 'rps.svg', url: 'https://www.rockpapershotgun.com/', name: 'Rock Paper Shotgun' },
+  pcgamer: { img: 'pcgamer.png', url: 'https://www.pcgamer.com/', name: 'PC Gamer' },
+  pressakeycom: { img: 'pressakey.png', url: 'https://pressakey.com/', name: 'Pressakey.com' },
+  pcgamesn: { img: 'pcgamesn.svg', url: 'https://www.pcgamesn.com/', name: 'PCGamesN' },
+  steamcommunityannouncements: { img: 'steam.png', url: 'https://steamcommunity.com/', name: 'Steam' },
+  shacknews: { img: 'shacknews.png', url: 'https://www.shacknews.com/', name: 'Shacknews' },
+  steamdb: { img: 'steamdb.svg', url: 'https://steamdb.info/', name: 'Steam' },
+  gamemagru: { img: 'gamemagru.png', url: 'https://gamemag.ru/', name: 'GameMAG' },
+  steamrelease: { img: 'steam.png', url: 'https://store.steampowered.com/', name: 'Steam' },
+  steamannounce: { img: 'steam.png', url: 'https://store.steampowered.com/', name: 'Steam' },
+  gamingonlinux: { img: 'gamingonlinux.svg', url: 'https://www.gamingonlinux.com/', name: 'GamingOnLinux' },
+};
+
 export const GENRE_ICONS = {
   2: 'fa-solid fa-computer-mouse',
   4: 'fa-solid fa-hand-fist',
