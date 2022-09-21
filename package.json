@@ -35,6 +35,7 @@
     "portal-vue": "^2.1.7",
     "raven-js": "^3.27.0",
     "register-service-worker": "^1.7.2",
+    "slugify": "^1.6.5",
     "translate-json-object": "^2.3.3",
     "vue": "^2.6.14",
     "vue-analytics": "^5.16.0",
