@@ -1,3 +1,4 @@
+<!-- TODO: Cache last search -->
 <template lang="html">
   <section>
     <b-container>

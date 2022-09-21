@@ -1,3 +1,7 @@
+<!-- TODO: show game right away, load steam and GOG in background -->
+<!-- TODO: improve caching -->
+<!-- TODO: maintain background image in subpages -->
+<!-- TODO: maintain game actions in subpages -->
 <template lang="html">
   <section>
     <b-container>
@@ -59,6 +63,9 @@
               />
             </div>
 
+            <!-- TODO: put in component -->
+            <!-- TODO: show news source logo -->
+            <!-- TODO: link to actual article -->
             <section
               v-if="gameNews.length"
               tag="a"

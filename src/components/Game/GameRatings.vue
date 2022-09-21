@@ -1,5 +1,4 @@
 <template lang="html">
-  <!-- TODO: fix grac_eighteen and check all options -->
   <section class="my-3">
     <b-img
       v-for="{ rating, id, logoFormat } in ageRatings"

@@ -488,6 +488,7 @@ export default {
 
   SAVE_GAME_BOARD({ state }, board) {
     const db = firestore();
+    // TODO: sanitize list games, remove undefined and null game ids
 
     // TODO: commit mutation if we ever allow to add game directly from board
     return new Promise((resolve, reject) => {

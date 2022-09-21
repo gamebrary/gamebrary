@@ -1,3 +1,4 @@
+<!-- TODO: add text filtering/search -->
 <template lang="html">
   <b-dropdown
     variant="light"
