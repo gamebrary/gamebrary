@@ -1,3 +1,5 @@
+<!-- TODO: integrate with twitch -->
+<!-- TODO: show bundles -->
 <!-- TODO: show game right away, load steam and GOG in background -->
 <!-- TODO: improve caching -->
 <!-- TODO: maintain background image in subpages -->

@@ -1,4 +1,5 @@
 <!-- TODO: Mix media from other sources (e.g. instagram, wikipedia, youtube, twitter, etc... ) -->
+<!-- TODO: add GOG 'movies' http://localhost:4000/g/8485/secret-agent -->
 <template lang="html">
   <b-modal
     id="mediaModal"
