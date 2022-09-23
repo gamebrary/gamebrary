@@ -13,3 +13,9 @@ export const getGameCoverUrl = (game) => {
     ? `https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.cover.image_id}.jpg`
     : '/no-image.jpg';
 };
+
+export const getThumbnailUrl = (game) => {
+  return game?.cover?.image_id
+    ? `https://images.igdb.com/igdb/image/upload/t_cover_med_2x/${game.cover.image_id}.jpg`
+    : '/no-image.jpg';
+};

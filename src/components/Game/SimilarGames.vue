@@ -1,28 +1,32 @@
 <template lang="html">
-  <div v-if="similarGames.length" class="similar-games mt-2">
-    <h4 class="text-center text-muted">You may also like</h4>
+  <section v-if="similarGames.length" class="my-5">
+    <h4 class="text-center text-white">You may also like</h4>
 
-    <div class="d-flex overflow-auto mb-5 justify-content-center">
-      <b-img
+    <div class="similar-games">
+      <router-link
         v-for="game in similarGames"
         :key="game.id"
-        class="flex-shrink-0 mr-2 cursor-pointer"
-        style="max-width: 100px;"
-        rounded
-        :src="getCoverUrl(game)"
-        :alt="game.name"
-        img-top
-        @click="openGame(game)"
-      />
+        :to="{ name: 'game', params: { id: game.id, slug: game.slug } }"
+      >
+        <b-img
+          fluid
+          rounded
+          :src="$options.getThumbnailUrl(game)"
+          :alt="game.name"
+          img-top
+        />
+      </router-link>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import { getGameCoverUrl } from '@/utils';
+import { getThumbnailUrl } from '@/utils';
 
 export default {
+  getThumbnailUrl,
+
   data() {
     return {
       similarGames: [],
@@ -43,20 +47,12 @@ export default {
 
   methods: {
     openGame(game) {
-      this.$router.push({ name: 'game', params: { id: game.id, slug: game.slug } });
-    },
-
-    getCoverUrl(game) {
-      return getGameCoverUrl(game);
     },
 
     async loadGames() {
       await this.$store.dispatch('LOAD_GAMES', this.similarGameIds.toString());
 
-      this.similarGames = this.similarGameIds ?
-        this.similarGameIds
-          .map(game => this.games && this.games[game])
-        : [];
+      this.similarGames = this.similarGameIds?.map(game => this.games?.[game]);
     },
   },
 };
@@ -64,7 +60,8 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
 .similar-games {
-  max-width: 90vw;
-  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 1rem;
 }
 </style>
