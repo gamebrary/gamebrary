@@ -19,6 +19,7 @@
       <template v-else>
         <portal to="headerActions">
           <b-button
+            v-if="user"
             variant="light"
             class="mr-2"
             :to="{ name: 'create.board' }"
