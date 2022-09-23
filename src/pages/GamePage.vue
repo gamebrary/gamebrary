@@ -1,4 +1,22 @@
 <!-- TODO: integrate with twitch -->
+<!--
+Twitch API 0oo6dw5f0y8frai8l31koyq8egcu17
+Client Secret gn5ghshpva7fs5dv3o24otl6tz7ijy
+curl -X POST 'https://id.twitch.tv/oauth2/token' \
+-H 'Content-Type: application/x-www-form-urlencoded' \
+-d 'client_id=0oo6dw5f0y8frai8l31koyq8egcu17&client_secret=gn5ghshpva7fs5dv3o24otl6tz7ijy&grant_type=client_credentials'
+
+{"access_token":"t451n2mh1ar29s5uuyzbzcvedqyle5","expires_in":5240223,"token_type":"bearer"}
+
+curl -X GET 'https://api.twitch.tv/helix/videos?id=335921245' \
+-H 'Authorization: Bearer gn5ghshpva7fs5dv3o24otl6tz7ijy' \
+-H 'Client-Id: 0oo6dw5f0y8frai8l31koyq8egcu17'
+
+curl -X GET 'https://api.twitch.tv/helix/games?id=493057' \
+-H 'Authorization: Bearer t451n2mh1ar29s5uuyzbzcvedqyle5' \
+-H 'Client-Id: 0oo6dw5f0y8frai8l31koyq8egcu17'
+
+ -->
 <!-- TODO: show bundles -->
 <!-- TODO: show game right away, load steam and GOG in background -->
 <!-- TODO: improve caching -->
@@ -287,15 +305,13 @@ export default {
       return this.game?.steam?.legal_notice;
     },
 
-    twitterHandle() {
-      const twitterUrl = this.game?.websites
-        ? this.game.websites.find(({ category }) => category === TWITTER_CATEGORY_ID)
-        : '';
-
-      return twitterUrl?.url
-        ? twitterUrl.url.split('twitter.com/')[1]
-        : null;
-    },
+    // twitterHandle() {
+    //   const twitterUrl = this.game?.websites?.find(({ category }) => category === TWITTER_CATEGORY_ID);
+    //
+    //   return twitterUrl?.url
+    //     ? twitterUrl.url.split('twitter.com/')[1]
+    //     : null;
+    // },
 
     gameCoverUrl() {
       const imageId = this.game?.cover?.image_id;

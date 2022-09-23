@@ -342,10 +342,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-.price {
-  font-family: 'Gochi Hand', cursive;
-}
-</style>
-

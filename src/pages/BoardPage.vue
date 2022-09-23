@@ -1,3 +1,4 @@
+<!-- TODO: Add tier board type https://tiermaker.com/ -->
 <!-- TODO: clone board -->
 <!-- TODO: like/favorite board -->
 <!-- TODO: fork board -->
