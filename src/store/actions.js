@@ -373,7 +373,7 @@ export default {
     });
   },
 
-  LOAD_WALLPAPER(context, path) {
+  LOAD_FIREBASE_IMAGE(context, path) {
     return new Promise((resolve, reject) => {
       storage()
         .ref()
@@ -466,6 +466,20 @@ export default {
               })
               .catch(reject);
           }
+        })
+        .catch(reject);
+    });
+  },
+
+  UPLOAD_PROFILE_AVATAR({ state, commit }, file) {
+    return new Promise((resolve, reject) => {
+      storage()
+        .ref(`${state.user.uid}/avatars/${file.name}`)
+        .put(file)
+        .then(({ state, metadata }) => {
+          return state === 'success'
+            ? resolve(metadata.fullPath)
+            : reject();
         })
         .catch(reject);
     });

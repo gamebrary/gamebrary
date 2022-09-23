@@ -1,3 +1,4 @@
+<!-- TODO: use board thumbnails -->
 <template lang="html">
   <div
     :class="['mini-board overflow-hidden rounded cursor-pointer m-0', { 'bg-light': !board.backgroundColor }]"
@@ -68,7 +69,7 @@ export default {
       if (this.board?.backgroundUrl) {
         this.backgroundUrl = this.board?.backgroundUrl?.includes('igdb')
           ? this.board?.backgroundUrl
-          : await this.$store.dispatch('LOAD_WALLPAPER', this.board?.backgroundUrl);
+          : await this.$store.dispatch('LOAD_FIREBASE_IMAGE', this.board?.backgroundUrl);
       }
     },
   },

@@ -160,7 +160,7 @@ export default {
       if (url) {
         this.backgroundUrl = url.includes('igdb')
           ? url
-          : await this.$store.dispatch('LOAD_WALLPAPER', url);
+          : await this.$store.dispatch('LOAD_FIREBASE_IMAGE', url);
       } else {
         this.backgroundUrl = null;
       }

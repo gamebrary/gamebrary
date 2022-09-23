@@ -63,7 +63,7 @@ export default {
     if (this.localBackgroundUrl) {
       this.backgroundUrl = this.localBackgroundUrl.includes('igdb.com')
         ? this.localBackgroundUrl
-        : await this.$store.dispatch('LOAD_WALLPAPER', this.localBackgroundUrl);
+        : await this.$store.dispatch('LOAD_FIREBASE_IMAGE', this.localBackgroundUrl);
     }
 
     this.backgroundColor = board.backgroundColor || null;
@@ -83,7 +83,7 @@ export default {
 
     async setWallpaper({ fullPath }) {
       this.localBackgroundUrl = fullPath;
-      this.backgroundUrl = await this.$store.dispatch('LOAD_WALLPAPER', fullPath);
+      this.backgroundUrl = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', fullPath);
     },
 
     // async saveSettings() {

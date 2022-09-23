@@ -15,32 +15,56 @@
             Edit
           </b-button>
         </portal>
+
         <div class="profile field centered text-center">
           <b-avatar
-            src="https://placekitten.com/300/300"
-            size="6rem"
+            :src="avatarImage"
             class="mb-2"
+            rounded
+            size="200px"
           />
 
-          <!-- <pre>{{ profile }}</pre> -->
-          <h1 class="m-0">{{ profile.userName }}</h1>
-          <p class="text-lead text-muted m-0">{{ profile.name }}</p>
-          <p>{{ profile.bio }}</p>
+          <p v-if="profile.name">
+            @{{ profile.userName }}
+            <br />
+            <small class="text-lead text-muted m-0">({{ profile.name }})</small>
+          </p>
+
+          <h1 v-else class="m-0">{{ profile.userName }}</h1>
+
+          <figcaption class="blockquote-footer">
+            {{ profile.bio }}
+          </figcaption>
 
           <p>
-            <i class="fa fa-globe" aria-hidden="true" />
+            <i class="fa fa-map-location fa-fw" aria-hidden="true" />
             {{ profile.location }}
           </p>
 
-          <b-button :href="profile.twitter" v-if="profile.twitter" class="mr-2">
+          <b-button
+            v-if="profile.twitter"
+            :href="`https://twitter.com/${profile.twitter}`"
+            target="_blank"
+            variant="transparent"
+            style="color: #00acee"
+            v-b-tooltip.hover
+            title="Twitter"
+            class="mr-2"
+          >
             <i class="fab fa-twitter fa-fw" aria-hidden />
-            {{ profile.twitter }}
           </b-button>
 
-          <b-button v-if="profile.website" :href="profile.website">
-            {{ profile.website }}
+          <b-button
+            v-if="profile.twitter"
+            :href="`https://twitter.com/${profile.website}`"
+            target="_blank"
+            variant="transparent"
+            v-b-tooltip.hover
+            title="Website"
+            class="mr-2"
+          >
+            <i class="fa-solid fa-link fa-fw" />
           </b-button>
-
         </div>
 
         <!-- <b-button :to="{ name: 'profiles' }">
@@ -79,6 +103,7 @@
 import { mapState } from 'vuex';
 import MiniBoard from '@/components/Board/MiniBoard';
 import EmptyState from '@/components/EmptyState';
+import { getImageThumbnail } from '@/utils';
 
 export default {
   components: {
@@ -92,6 +117,7 @@ export default {
       loading: false,
       userBoards: [],
       profile: null,
+      avatarImage: null,
     };
   },
 
@@ -107,6 +133,8 @@ export default {
 
       return this.user?.uid === this.profile?.uid;
     },
+
+
   },
 
   watch: {
@@ -145,6 +173,13 @@ export default {
         .catch(() => {
           this.error = true;
         });
+
+      if (this.profile?.avatar) {
+        const thumbnailRef = getImageThumbnail(this.profile?.avatar);
+
+        this.avatarImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', thumbnailRef)
+          .catch((e) => {});
+      }
 
       this.loading = false;
     },

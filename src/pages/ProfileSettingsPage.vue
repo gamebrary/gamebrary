@@ -19,6 +19,27 @@
           </b-button>
         </portal>
 
+        <b-spinner v-if="uploading" />
+
+        <b-avatar
+          v-else
+          class="d-flex ml-auto mr-auto mb-3"
+          rounded
+          :src="avatarImage"
+          size="200px"
+          @click.native="triggerFileUpload"
+        />
+
+        <!-- TODO: add delete option -->
+        <!-- TODO: replace when uploading? -->
+
+        <b-form-file
+          class="d-none file-input"
+          v-model="file"
+          accept="image/*"
+          @input="uploadProfileAvatar"
+        />
+
         <b-form-group
           label-class="m-0 text-muted"
           label="Name"
@@ -89,10 +110,17 @@
           <b-form-input
             id="friendCode"
             v-model="profile.friendCode"
+            placeholder="SW-8496-9128-4205"
             class="mb-3"
           />
         </b-form-group>
 
+
+        <!-- Validate -->
+        <!-- Between 3 and 16 characters -->
+        <!-- Starts with a letter -->
+        <!-- No spaces -->
+        <!-- Only letters, digits, underscores & hyphens -->
 
         <b-form-group
           label-class="m-0 text-muted"
@@ -209,6 +237,7 @@
 <script>
 import { mapState } from 'vuex';
 import { MIN_PROFILE_LENGTH, MAX_PROFILE_LENGTH } from '@/constants';
+import { getImageThumbnail } from '@/utils';
 
 export default {
   MIN_PROFILE_LENGTH,
@@ -217,17 +246,24 @@ export default {
   data() {
     return {
       saving: false,
+      avatarImage: null,
       available: undefined,
       checkingAvailability: false,
       loading: false,
       deleting: false,
+      uploading: false,
       profile: null,
+      file: null,
       userName: '',
     };
   },
 
   mounted() {
     this.load();
+  },
+
+  computed: {
+      ...mapState(['user']),
   },
 
   methods: {
@@ -244,7 +280,43 @@ export default {
 
       this.profile = await this.$store.dispatch('LOAD_PROFILE').catch(() => null);
 
+      if (this.profile?.avatar) this.loadAvatarImage();
+
       this.loading = false;
+    },
+
+    async loadAvatarImage() {
+      try {
+        const thumbnailRef = getImageThumbnail(this.profile?.avatar);
+
+        this.avatarImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', thumbnailRef);
+      } catch (e) {
+        this.profile.avatar = null;
+        this.save(false);
+      }
+    },
+
+    triggerFileUpload() {
+      document.querySelector('.file-input input').click();
+    },
+
+    async uploadProfileAvatar() {
+      if (!this.file) return;
+
+      this.uploading = true;
+
+      try {
+        this.profile.avatar = await this.$store.dispatch('UPLOAD_PROFILE_AVATAR', this.file);
+
+        this.save(false);
+
+        this.avatarImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', this.profile.avatar);
+      } catch (e) {
+        this.$bvToast.toast('There was an error uploading wallpaper', { variant: 'danger' });
+      }
+
+      this.uploading = false;
+      this.file = null;
     },
 
     createProfile() {
@@ -261,6 +333,7 @@ export default {
         gamerTag: '',
         friendCode: '',
         userName,
+        avatar: null,
       }
 
       this.save(false);

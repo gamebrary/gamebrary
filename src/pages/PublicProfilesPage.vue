@@ -13,6 +13,9 @@
         :key="profile.userName"
       >
         <div>
+          <!-- TODO: put profile card in component -->
+          <!-- TODO: show avatar -->
+          <b-avatar></b-avatar>
           <h1>{{ profile.displayName }}</h1>
           <small class="text-info">{{ `@${profile.userName}` }}</small>
           <p v-if="profile.bio">{{ profile.bio }}</p>

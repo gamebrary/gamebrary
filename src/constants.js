@@ -1,6 +1,7 @@
 export const POPULAR_PLATFORMS = [169, 167, 130, 48, 49, 41];
 export const DEFAULT_LIST_VIEW = 'single';
 export const MIN_PROFILE_LENGTH = 6;
+export const THUMBNAIL_PREFIX = '_300x300';
 export const MAX_PROFILE_LENGTH = 20;
 export const STEAM_CATEGORY_ID = 13;
 export const GOG_CATEGORY_ID = 17;
