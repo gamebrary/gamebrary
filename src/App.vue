@@ -1,3 +1,4 @@
+<!-- TODO: fix bacgkround color -->
 <template>
   <div
     id="app"
