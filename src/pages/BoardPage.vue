@@ -1,7 +1,6 @@
 <!-- TODO: Add tier board type https://tiermaker.com/ -->
-<!-- TODO: clone board -->
+<!-- TODO: clone/fork board -->
 <!-- TODO: like/favorite board -->
-<!-- TODO: fork board -->
 <template lang="html">
   <div
     :class="['board px-3 pb-3', { dragging, empty }]"
