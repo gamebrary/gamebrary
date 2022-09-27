@@ -217,10 +217,6 @@ export default {
   overflow-x: overlay;
 }
 
-.list-placeholder {
-  opacity: 0.25;
-}
-
 .text-outlined {
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }

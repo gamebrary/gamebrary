@@ -19,7 +19,7 @@
           <search-box class="field mb-3 d-sm-none" />
         </b-col>
 
-        <b-col cols="12" class="bg-light py-2 mb-3" v-if="activeBoard">
+        <b-col cols="12" class="py-2 mb-2" v-if="activeBoard">
           <div class="d-flex align-items-center">
             <span class="d-none d-sm-block">
               Add games to:
@@ -28,7 +28,7 @@
             <b-button-group class="ml-sm-2">
               <b-dropdown
                 split
-                variant="info"
+                variant="light"
                 :split-to="{ name: 'board', params: { id: boardId } }"
                 :text="activeBoard.name"
               >
@@ -45,7 +45,7 @@
               <b-dropdown
                 v-if="activeBoardList"
                 split
-                variant="info"
+                variant="light"
                 :split-to="{ name: 'board', params: { id: boardId } }"
                 :text="activeBoardList.name"
               >
