@@ -152,8 +152,6 @@ export default {
     async loadBoardBackground() {
       const url = this.board?.backgroundUrl;
 
-      if (!url) return;
-
       if (this.board?.backgroundColor) this.$bus.$emit('UPDATE_BACKGROUND_COLOR', this.board?.backgroundColor);
 
       if (url) {
@@ -217,10 +215,6 @@ export default {
   box-sizing: border-box;
   overflow-x: auto;
   overflow-x: overlay;
-}
-
-.list-placeholder {
-  opacity: 0.25;
 }
 
 .text-outlined {

@@ -95,12 +95,12 @@
           </b-alert>
 
           <!-- TODO: add another view that uses avatar for game cover (tiny) -->
+          <!-- TODO: fix list not updating -->
           <b-form-group
             id="list-view"
             label="List view:"
             label-for="viewField"
           >
-            <!-- description="We'll never share your email with anyone else." -->
             <b-form-select
               id="viewField"
               :options="viewOptions"

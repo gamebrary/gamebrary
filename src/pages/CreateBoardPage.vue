@@ -91,12 +91,22 @@ export default {
       this.saving = true;
 
       try {
+        // TODO: put default board in constant
         const payload = {
           ...this.board,
           lists: [{
-            name: 'List name here',
-            games: [],
-            settings: {},
+            name: 'Click to rename',
+            games: [358],
+            settings: {
+              showReleaseDates: false,
+              sortOrder: 'sortByCustom',
+              showGameTags: false,
+              showGameNotes: false,
+              showGameProgress: false,
+              highlightCompletedGames: false,
+              showGameCount: false,
+              view: 'single'
+            },
           }],
         };
 
