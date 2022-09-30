@@ -1,19 +1,7 @@
 <template lang="html">
   <section>
     <b-container class="pb-3">
-      <portal to="pageTitle">
-        <div>
-          <b-button
-            :to="{ name: 'settings' }"
-            variant="light"
-            class="mr-2"
-            >
-            <i class="fa-solid fa-chevron-left" />
-          </b-button>
-
-          Wallpapers
-        </div>
-      </portal>
+      <portal to="pageTitle">Wallpapers</portal>
 
       <empty-state
         v-if="showEmptyState"

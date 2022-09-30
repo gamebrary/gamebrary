@@ -22,25 +22,10 @@
         Upgrade
       </b-button> -->
 
-      <b-button
-        v-if="showSearchButton"
-        variant="light"
-        class="mr-2"
-        :to="{ name: 'search' }"
-      >
-        <i class="fas fa-search fa-fw" aria-hidden />
-      </b-button>
-
-      <router-link
-        v-if="user"
-        class="mr-2"
-        :to="{ name: 'settings' }"
-      >
-        <b-avatar size="38" rounded :src="user.photoURL" />
-      </router-link>
+      <search-box />
 
       <b-button
-        v-else
+        v-if="!user"
         class="mr-2"
         variant="dark"
         :to="{ name: 'auth' }"
@@ -53,8 +38,13 @@
 
 <script>
 import { mapState } from 'vuex';
+import SearchBox from '@/components/SearchBox';
 
 export default {
+  components: {
+    SearchBox,
+  },
+
   computed: {
     ...mapState(['board', 'boards', 'user', 'game']),
 

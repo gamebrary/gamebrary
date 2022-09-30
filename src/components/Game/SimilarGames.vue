@@ -1,5 +1,5 @@
 <template lang="html">
-  <section v-if="similarGames.length" class="my-5">
+  <section v-if="similarGames.length" class="mt-5">
     <h4 class="text-center text-white">You may also like</h4>
 
     <div class="similar-games">
@@ -63,5 +63,10 @@ export default {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-gap: 1rem;
+  margin-bottom: 20vh;
+
+  @media(max-width: 780px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 </style>

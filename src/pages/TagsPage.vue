@@ -6,7 +6,7 @@
           <b-button
             variant="light"
             class="mr-2"
-            :to="{ name: 'settings' }"
+            :to="{ name: 'home' }"
           >
             <i class="fa-solid fa-chevron-left" />
           </b-button>

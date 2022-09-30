@@ -6,20 +6,8 @@
 
       <b-spinner v-if="loading" class="spinner-centered" />
 
-      <div v-else-if="showEmptyState" class="field centered p-2">
-        <search-box />
-      </div>
-
       <b-form-row v-else-if="searchResults.length">
-        <portal to="headerActions">
-          <search-box class="mr-2" />
-        </portal>
-
-        <b-col cols="12">
-          <search-box class="field mb-3 d-sm-none" />
-        </b-col>
-
-        <b-col cols="12" class="py-2 mb-2" v-if="activeBoard">
+        <b-col cols="12" class="bg-light py-2 mb-3" v-if="activeBoard">
           <div class="d-flex align-items-center">
             <span class="d-none d-sm-block">
               Add games to:

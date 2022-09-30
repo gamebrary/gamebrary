@@ -1,22 +1,4 @@
 <!-- TODO: integrate with twitch -->
-<!--
-Twitch API 0oo6dw5f0y8frai8l31koyq8egcu17
-Client Secret gn5ghshpva7fs5dv3o24otl6tz7ijy
-curl -X POST 'https://id.twitch.tv/oauth2/token' \
--H 'Content-Type: application/x-www-form-urlencoded' \
--d 'client_id=0oo6dw5f0y8frai8l31koyq8egcu17&client_secret=gn5ghshpva7fs5dv3o24otl6tz7ijy&grant_type=client_credentials'
-
-{"access_token":"t451n2mh1ar29s5uuyzbzcvedqyle5","expires_in":5240223,"token_type":"bearer"}
-
-curl -X GET 'https://api.twitch.tv/helix/videos?id=335921245' \
--H 'Authorization: Bearer gn5ghshpva7fs5dv3o24otl6tz7ijy' \
--H 'Client-Id: 0oo6dw5f0y8frai8l31koyq8egcu17'
-
-curl -X GET 'https://api.twitch.tv/helix/games?id=493057' \
--H 'Authorization: Bearer t451n2mh1ar29s5uuyzbzcvedqyle5' \
--H 'Client-Id: 0oo6dw5f0y8frai8l31koyq8egcu17'
-
- -->
 <!-- TODO: show bundles -->
 <!-- TODO: show game right away, load steam and GOG in background -->
 <!-- TODO: improve caching -->
@@ -39,40 +21,14 @@ curl -X GET 'https://api.twitch.tv/helix/games?id=493057' \
           </b-button>
         </portal>
 
-        <portal to="headerActions" v-if="user">
-          <b-button-group class="mr-2">
-            <game-tags-dropdown />
 
-            <b-button
-              variant="light"
-              @click="$router.push({ name: 'game.progress', params: { id: game.id, slug: game.slug } })"
-            >
-              <template v-if="progress">
-                {{ progress }}%
-              </template>
-              <i v-else class="fa-solid fa-stopwatch" />
-            </b-button>
-
-            <b-button
-              :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug } }"
-              variant="light"
-            >
-              <i class="fa-solid fa-note-sticky fa-fw" />
-            </b-button>
-
-            <add-remove-game />
-          </b-button-group>
-        </portal>
-        <game-media-modal />
-
-        <b-row>
+        <b-form-row>
           <b-col
             cols="12"
-            sm="6"
             md="4"
             xl="3"
           >
-            <div class="position-relative cursor-pointer" v-b-modal.mediaModal>
+            <div class="position-relative cursor-pointer text-center" v-b-modal.mediaModal>
               <i class="fa-solid fa-play play-button color-white text-white font-size-xl" />
 
               <b-img
@@ -89,7 +45,7 @@ curl -X GET 'https://api.twitch.tv/helix/games?id=493057' \
             <section
               v-if="gameNews.length"
               tag="a"
-              class="bg-light d-none d-sm-flex rounded px-2 mt-2 flex-column"
+              class="bg-light d-flex rounded px-2 mt-2 flex-column"
             >
               <h5 class="pt-2">Latest news:</h5>
 
@@ -131,35 +87,50 @@ curl -X GET 'https://api.twitch.tv/helix/games?id=493057' \
 
           <b-col
             cols="12"
-            sm="6"
             md="8"
             xl="9"
           >
-            <!-- bg-white -->
             <article :class="[' rounded', steamBackground ? 'bg-white mt-2 mt-md-0 p-3' : 'px-sm-3 p-0']">
-              <header class="d-flex align-items-start justify-content-between pb-2">
-                <game-titles />
+              <header v-if="user">
+                <b-button-group class="mr-2">
+                  <game-tags-dropdown />
 
-                <aside>
-                  <!-- <b-button :href="metacriticScore.url" variant="success" v-if="metacriticScore.url">
-                    {{ metacriticScore.score }}
-
-                  </b-button> -->
                   <b-button
-                    v-for="({ bgColor, textColor, name, index }) in tagsApplied"
-                    :key="name"
-                    rounded
-                    size="sm"
-                    variant="transparent"
-                    class="mr-1 mb-2"
-                    :style="`background-color: ${bgColor}; color: ${textColor}`"
-                    :to="{ name: 'tag.edit', params: { id: index } }"
+                    variant="light"
+                    @click="$router.push({ name: 'game.progress', params: { id: game.id, slug: game.slug } })"
                   >
-                    <i class="fa-solid fa-tag mr-1" />
-                    {{ name }}
+                    <template v-if="progress">
+                      {{ progress }}%
+                    </template>
+                    <i v-else class="fa-solid fa-stopwatch" />
                   </b-button>
-                </aside>
+
+                  <b-button
+                    :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug } }"
+                    variant="light"
+                  >
+                    <i class="fa-solid fa-note-sticky fa-fw" />
+                  </b-button>
+
+                  <add-remove-game />
+                </b-button-group>
               </header>
+
+              <game-titles />
+
+              <b-button
+                v-for="({ bgColor, textColor, name, index }) in tagsApplied"
+                :key="name"
+                rounded
+                size="sm"
+                variant="transparent"
+                class="mr-1 mb-2"
+                :style="`background-color: ${bgColor}; color: ${textColor}`"
+                :to="{ name: 'tag.edit', params: { id: index } }"
+              >
+                <i class="fa-solid fa-tag mr-1" />
+                {{ name }}
+              </b-button>
 
               <aside class="supplemental-info bg-white field float-right ml-5 pb-2">
                 <b-img
@@ -183,6 +154,7 @@ curl -X GET 'https://api.twitch.tv/helix/games?id=493057' \
               </aside>
 
               <game-description />
+              <game-media-viewer />
               <game-details />
               <game-ratings />
             </article>
@@ -193,7 +165,7 @@ curl -X GET 'https://api.twitch.tv/helix/games?id=493057' \
               v-html="legalNotice"
             />
           </b-col>
-        </b-row>
+        </b-form-row>
 
         <similar-games />
       </template>
@@ -206,6 +178,8 @@ curl -X GET 'https://api.twitch.tv/helix/games?id=493057' \
           </div>
         </div>
       </div>
+
+      <pre>{{ metacriticScore }}</pre>
 
       <!-- <timeline
         v-if="twitterHandle"
@@ -225,7 +199,7 @@ import { WEBSITE_CATEGORIES } from '@/constants';
 // import AmazonLinks from '@/components/Game/AmazonLinks';
 import GameDetails from '@/components/Game/GameDetails';
 import GameTagsDropdown from '@/components/Game/GameTagsDropdown';
-import GameMediaModal from '@/components/Game/GameMediaModal';
+import GameMediaViewer from '@/components/Game/GameMediaViewer';
 import GameTitles from '@/components/Game/GameTitles';
 import GameRatings from '@/components/Game/GameRatings';
 import GameDescription from '@/components/Game/GameDescription';
@@ -246,7 +220,7 @@ export default {
     GameDetails,
     GameTagsDropdown,
     GameTitles,
-    GameMediaModal,
+    GameMediaViewer,
     GameRatings,
     GameWebsites,
     // GameSpeedruns,
@@ -261,10 +235,11 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['gameMedia']),
     ...mapState(['game', 'progresses', 'tags', 'boards', 'user', 'notes', 'twitchToken']),
 
     metacriticScore() {
-      return this.game?.steam?.metacritic || {};
+      return this.game?.steam?.metacritic;
     },
 
     gameNews() {
@@ -382,20 +357,16 @@ export default {
     },
 
     async loadGame() {
-      document.body.scrollTop = document.documentElement.scrollTop = 0;
-
       const gameCached = this.game?.id === this.gameId;
 
       if (!this.gameId || gameCached) return;
-
-      this.$bus.$emit('UPDATE_WALLPAPER', null);
       this.loading = true;
+      this.$bus.$emit('CLEAR_WALLPAPER');
       this.$store.commit('CLEAR_GAME');
 
-      await this.$store.dispatch('LOAD_GAME', this.gameId)
-        .catch(() => {
-          return this.loading = false;
-        });
+      await this.$store.dispatch('LOAD_GAME', this.gameId).catch(() => {});
+
+      this.loading = false;
 
       const steamData = this.game?.websites?.find(({ category }) => category === STEAM_CATEGORY_ID);
 
@@ -416,7 +387,7 @@ export default {
 
       if (wikipediaSlug) await this.$store.dispatch('LOAD_WIKIPEDIA_ARTICLE', wikipediaSlug).catch((e) => {});
       if (steamGameId) await this.$store.dispatch('LOAD_STEAM_GAME_NEWS', steamGameId).catch((e) => {});
-      if (this.steamBackground) this.$bus.$emit('UPDATE_WALLPAPER', this.game?.steam?.background);
+      if (this.steamBackground) this.$bus.$emit('UPDATE_WALLPAPER', this.steamBackground);
 
       this.loading = false;
     },
@@ -443,8 +414,10 @@ export default {
 }
 
 .supplemental-info {
+  width: 40%;
+
   @media(max-width: 780px) {
-    width: 50%;
+    width: 100%;
   }
 }
 </style>

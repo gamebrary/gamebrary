@@ -4,7 +4,7 @@
 
     <template v-else>
       <div v-html="description" />
-      <small class="text-muted mt-n3">Source: {{ source }}</small>
+      <span class="text-muted mt-n3 mb-3">Source: {{ source }}</span>
     </template>
   </div>
 </template>

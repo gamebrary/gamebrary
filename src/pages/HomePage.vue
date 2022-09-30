@@ -1,16 +1,16 @@
 <template lang="html">
-  <dashboard-page v-if="user" />
+  <settings-page v-if="user" />
   <public-home-page v-else />
 </template>
 
 <script>
-import DashboardPage from '@/pages/DashboardPage';
+import SettingsPage from '@/pages/SettingsPage';
 import PublicHomePage from '@/pages/PublicHomePage';
 import { mapState } from 'vuex';
 
 export default {
   components: {
-    DashboardPage,
+    SettingsPage,
     PublicHomePage,
   },
 

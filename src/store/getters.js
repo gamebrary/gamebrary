@@ -1,6 +1,7 @@
 import { AGE_RATING_SYSTEMS } from '@/constants';
 import { PLATFORM_CATEGORIES, EXCLUDED_PLATFORMS, PLATFORM_OVERRIDES } from '@/constants/platforms';
 import { NEWS_SOURCES } from '@/constants';
+import { getGameCoverUrl } from '@/utils';
 import slugify from 'slugify'
 import bbobHTML from '@bbob/html'
 import presetHTML5 from '@bbob/preset-html5'
@@ -23,7 +24,7 @@ export default {
       return [];
     }
 
-    state.platforms.forEach(({ id, slug, logoFormat, name }) => {
+    state.platforms?.forEach(({ id, slug, logoFormat, name }) => {
       formattedPlatforms[id] = {
         name,
         slug,
@@ -73,5 +74,55 @@ export default {
       }));
 
     return platforms;
+  },
+
+  gameMedia: (state) => {
+    const steamVideos = state.game?.steam?.movies?.map((video) => {
+      const hiQuality = video?.mp4?.max;
+      const lowQuality = video?.mp4?.[480];
+
+      return {
+        imageUrl: video.thumbnail,
+        videoUrl: hiQuality || lowQuality,
+        video: true,
+        source: 'steam',
+      }
+    }) || [];
+
+    const igdbVideos = state.game?.videos?.map((video) => {
+      return {
+        imageUrl: `https://img.youtube.com/vi/${video.video_id}/default.jpg`,
+        videoUrl: `https://www.youtube.com/embed/${video.video_id}?rel=0&autoplay=1`,
+        video: true,
+        source: 'youtube',
+      }
+    }) || [];
+
+    const igdbScreenshots = state.game?.screenshots?.map(({ image_id }) => ({ imageUrl: `https://images.igdb.com/igdb/image/upload/t_screenshot_med/${image_id}.jpg`, source: 'igdb', })) || [];
+    const steamScreenshots = state.game?.steam?.screenshots.map(({ path_full }) => ({ imageUrl: path_full, source: 'steam' })) || [];
+    const gameCover = { imageUrl: getGameCoverUrl(state.game), source: 'igdb' }
+
+    const wikipediaImages = state.game?.wikipedia?.lead?.image?.urls
+      ? [{ imageUrl: Object.values(state.game?.wikipedia?.lead?.image?.urls)?.[0], source: 'wikipedia' }]
+      : [];
+
+    const gogImages = state.game?.gog?.gallery.map((image) => {
+      const imageId = image.split('.com/')[1];
+
+      return {
+        imageUrl: imageId ? `https://images.gog-statics.com/${imageId}.jpg` : null,
+        source: 'gog',
+      };
+    }) || [];
+
+    return [
+      ...steamScreenshots,
+      ...igdbScreenshots,
+      ...gogImages,
+      ...wikipediaImages,
+      gameCover,
+      ...igdbVideos,
+      ...steamVideos,
+    ];
   },
 };

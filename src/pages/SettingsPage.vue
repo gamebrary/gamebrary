@@ -7,6 +7,13 @@
         <b-col cols="12">
           <div class="field centered">
             <settings-card
+              title="Boards"
+              description="View all your boards"
+              icon="fa-images"
+              @click.native="$router.push({ name: 'boards' })"
+            />
+
+            <settings-card
               title="Wallpapers"
               description="Manage your wallpapers"
               icon="fa-images"

@@ -130,7 +130,7 @@ export default {
 }
 
 .news-source-logo {
-  width: 60px;
+  width: 40px;
   height: auto;
   max-width: 100%;
 }

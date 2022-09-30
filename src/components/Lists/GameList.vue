@@ -55,7 +55,7 @@
         class="games"
         handle=".card"
         ghost-class="card-placeholder"
-        drag-class="border-success"
+        drag-class="border-selected"
         chosen-class="border-primary"
         filter=".drag-filter"
         delay="50"
@@ -104,6 +104,7 @@ import GameCardCovers from '@/components/GameCards/GameCardCovers';
 import GameCardGrid from '@/components/GameCards/GameCardGrid';
 import GameCardCompact from '@/components/GameCards/GameCardCompact';
 import GameCardText from '@/components/GameCards/GameCardText';
+import slugify from 'slugify'
 import orderby from 'lodash.orderby';
 import { DEFAULT_LIST_VIEW } from '@/constants';
 import { mapState, mapGetters } from 'vuex';
@@ -198,11 +199,13 @@ export default {
 
   methods: {
     openGame(id, list) {
+      const slug = slugify(this.games[id].slug, { lower: true });
+
       this.$router.push({
         name: 'game',
         params: {
           id,
-          slug: this.games[id].slug,
+          slug,
           boardId: this.board.id,
         },
       });

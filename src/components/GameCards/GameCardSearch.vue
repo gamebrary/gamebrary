@@ -1,32 +1,33 @@
 <template lang="html">
+  <!-- v-if="game"
+  no-body
+  overlay
+  :img-src="coverUrl"
+  :img-alt="game.name"
+  :title="game.name"
+  @click="handleClick" -->
   <b-card
-    no-body
-    :title="game.name"
-    class="mb-3 cursor-pointer"
-    :footer-class="['p-1 text-center \ font-weight-bold bold strong', selected ? 'bg-success' : 'text-muted']"
+    v-if="game"
+    :img-src="$options.getGameCoverUrl(game)"
+    :img-alt="game.name"
+    :class="['mb-3 cursor-pointer', { 'border-selected': selected }]"
+    overlay
     @click="handleClick"
   >
-    <!-- :to="{ name: 'game', params: { id: game.id, slug: game.slug }}" -->
-
-    <b-card-img
-      :src="coverUrl"
-      :img-alt="game.name"
-      :alt="game.name"
-    />
-
-    <template #footer>
-      <small :class="[selected ? 'text-white' : 'text-muted']">
-        <strong>{{ game.name }}</strong>
-      </small>
-    </template>
+    <div v-if="selected" class="selected-indicator rounded bg-success text-white">
+      <i class="fa fa-check"></i>
+    </div>
   </b-card>
 </template>
 
 <script>
 import { getGameCoverUrl } from '@/utils';
 import { mapState } from 'vuex';
+import slugify from 'slugify'
 
 export default {
+  getGameCoverUrl,
+
   props: {
     game: {
       type: Object,
@@ -36,10 +37,6 @@ export default {
 
   computed: {
     ...mapState(['user', 'boards']),
-
-    coverUrl() {
-      return getGameCoverUrl(this.game);
-    },
 
     selectedBoard() {
       const { boardId } = this.$route.query;
@@ -66,7 +63,8 @@ export default {
       if (hasActiveBoard) {
         this.addGameToList();
       } else {
-        const { id, slug } = this.game;
+        const { id } = this.game;
+        const slug = slugify(this.game.slug, { lower: true });
 
         this.$router.push({ name: 'game', params: { id, slug }});
       }
@@ -109,3 +107,16 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+.selected-indicator {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>

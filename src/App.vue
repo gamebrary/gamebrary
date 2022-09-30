@@ -1,10 +1,11 @@
+<!-- TODO: Remove settings page, merge with dashboard -->
+<!-- TODO: fix bacgkround color -->
 <template>
   <div
     id="app"
     :dir="dir"
     v-shortkey="KEYBOARD_SHORTCUTS"
     :style="style"
-    :class="{ 'no-repeat': style.length > 0 }"
     @shortkey="handleShortcutAction"
   >
     <div :class="{ 'blurred': isGamePage }">
@@ -88,6 +89,7 @@ export default {
   },
 
   async mounted() {
+    this.$bus.$on('CLEAR_WALLPAPER', this.clearWallpaperUrl);
     this.$bus.$on('UPDATE_WALLPAPER', this.updateWallpaperUrl);
     this.$bus.$on('UPDATE_BACKGROUND_COLOR', this.updateBackgroundColor);
 
@@ -97,6 +99,10 @@ export default {
   },
 
   methods: {
+    clearWallpaperUrl() {
+      this.backgroundImageUrl = null;
+    },
+
     updateWallpaperUrl(value) {
       this.backgroundImageUrl = value;
     },
@@ -144,11 +150,7 @@ export default {
   #app {
     min-height: 100vh;
     display: grid;
-
-    &.no-repeat {
-      background-repeat: no-repeat;
-      background-size: cover;
-    }
+    background-size: cover;
   }
 
   .viewport {

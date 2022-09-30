@@ -16,55 +16,58 @@
           </b-button>
         </portal>
 
-        <div class="profile field centered text-center">
-          <b-avatar
-            :src="avatarImage"
-            class="mb-2"
-            rounded
-            size="200px"
-          />
+        <div>
+          <b-card>
+            <b-avatar
+              :src="avatarImage"
+              class="mr-3 float-left"
+              size="200"
+              rounded
+            />
 
-          <p v-if="profile.name">
-            @{{ profile.userName }}
-            <br />
-            <small class="text-lead text-muted m-0">({{ profile.name }})</small>
-          </p>
+            <h1 class="m-0">
+              @{{ profile.userName }}
+              <p v-if="profile.name" class="text-lead m-0">({{ profile.name }})</p>
+            </h1>
+            <div>
 
-          <h1 v-else class="m-0">{{ profile.userName }}</h1>
 
-          <figcaption class="blockquote-footer">
-            {{ profile.bio }}
-          </figcaption>
+            </div>
 
-          <p>
-            <i class="fa fa-map-location fa-fw" aria-hidden="true" />
-            {{ profile.location }}
-          </p>
+            <figcaption class="blockquote-footer">
+              {{ profile.bio }}
+            </figcaption>
 
-          <b-button
-            v-if="profile.twitter"
-            :href="`https://twitter.com/${profile.twitter}`"
-            target="_blank"
-            variant="transparent"
-            style="color: #00acee"
-            v-b-tooltip.hover
-            title="Twitter"
-            class="mr-2"
-          >
-            <i class="fab fa-twitter fa-fw" aria-hidden />
-          </b-button>
+            <p>
+              <i class="fa fa-map-location fa-fw" aria-hidden="true" />
+              {{ profile.location }}
+            </p>
 
-          <b-button
-            v-if="profile.twitter"
-            :href="`https://twitter.com/${profile.website}`"
-            target="_blank"
-            variant="transparent"
-            v-b-tooltip.hover
-            title="Website"
-            class="mr-2"
-          >
-            <i class="fa-solid fa-link fa-fw" />
-          </b-button>
+            <b-button
+              v-if="profile.twitter"
+              :href="`https://twitter.com/${profile.twitter}`"
+              target="_blank"
+              variant="transparent"
+              style="color: #00acee"
+              v-b-tooltip.hover
+              title="Twitter"
+              class="mr-2"
+            >
+              <i class="fab fa-twitter fa-fw" aria-hidden />
+            </b-button>
+
+            <b-button
+              v-if="profile.twitter"
+              :href="`https://twitter.com/${profile.website}`"
+              target="_blank"
+              variant="transparent"
+              v-b-tooltip.hover
+              title="Website"
+              class="mr-2"
+            >
+              <i class="fa-solid fa-link fa-fw" />
+            </b-button>
+          </b-card>
         </div>
 
         <!-- <b-button :to="{ name: 'profiles' }">
@@ -186,7 +189,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-</style>
-

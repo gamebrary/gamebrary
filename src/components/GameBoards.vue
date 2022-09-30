@@ -20,7 +20,7 @@
         <portal to="headerActions">
           <b-button
             v-if="user"
-            variant="light"
+            variant="primary"
             class="mr-2"
             :to="{ name: 'create.board' }"
           >

@@ -1,38 +1,28 @@
 <template lang="html">
-  <div class="search-box">
-    <b-form @submit.prevent="search">
-      <b-input-group>
-        <b-form-input
-          v-model="searchText"
-          type="search"
-          autofocus
-          debounce="500"
-          placeholder="Search"
-        />
+  <b-form @submit.prevent="search" class="mw-100" style="width: 180px">
+    <b-input-group>
+      <b-form-input
+        v-model="searchText"
+        type="search"
+        autofocus
+        debounce="500"
+        placeholder="Search"
+      />
 
-        <b-input-group-append>
-          <b-button
-            :disabled="!searchText"
-            type="submit"
-            variant="light"
-          >
-            <i
-              class="fas fa-search fa-fw"
-              aria-hidden
-            />
-          </b-button>
-        </b-input-group-append>
-      </b-input-group>
-    </b-form>
-
-    <b-button
-      :class="isSearchPage ? 'd-none' : 'd-md-none'"
-      variant="primary"
-      :to="{ name: 'search' }"
-    >
-      <i class="fas fa-search fa-fw" aria-hidden />
-    </b-button>
-  </div>
+      <b-input-group-append>
+        <b-button
+          :disabled="!searchText"
+          type="submit"
+          variant="light"
+        >
+          <i
+            class="fas fa-search fa-fw"
+            aria-hidden
+          />
+        </b-button>
+      </b-input-group-append>
+    </b-input-group>
+  </b-form>
 </template>
 
 <script>
@@ -62,14 +52,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-  .search-box {
-    max-width: 100%;
-    width: 200px;
-
-    @media(max-width: 480px) {
-      width: 100%;
-    }
-  }
-</style>

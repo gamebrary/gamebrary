@@ -1,19 +1,7 @@
 <template lang="html">
   <section>
     <b-container>
-      <portal to="pageTitle">
-        <div>
-          <b-button
-            :to="{ name: 'settings' }"
-            variant="light"
-            class="mr-2"
-            >
-            <i class="fa-solid fa-chevron-left" />
-          </b-button>
-
-          Notes
-        </div>
-      </portal>
+      <portal to="pageTitle">Notes</portal>
 
       <portal to="headerActions">
         <div class="mr-2">

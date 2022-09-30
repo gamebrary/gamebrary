@@ -108,8 +108,8 @@ export default {
   },
 
   watch: {
-    backgroundUrl(value) {
-      if (value) this.$bus.$emit('UPDATE_WALLPAPER', value);
+    backgroundUrl(wallpaperUrl) {
+      if (wallpaperUrl) this.$bus.$emit('UPDATE_WALLPAPER', wallpaperUrl);
     },
 
     boardId(boardId) {
@@ -127,7 +127,7 @@ export default {
   },
 
   destroyed() {
-    this.$bus.$emit('UPDATE_WALLPAPER', null);
+    this.$bus.$emit('CLEAR_WALLPAPER');
     this.$bus.$emit('UPDATE_BACKGROUND_COLOR', null);
   },
 

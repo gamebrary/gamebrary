@@ -4,6 +4,7 @@
 import AboutPage from '@/pages/AboutPage';
 import AuthPage from '@/pages/AuthPage';
 import BoardPage from '@/pages/BoardPage';
+import BoardsPage from '@/pages/BoardsPage';
 import UpgradePage from '@/pages/UpgradePage';
 import EditBoardPage from '@/pages/EditBoardPage';
 import CreateBoardPage from '@/pages/CreateBoardPage';
@@ -205,6 +206,14 @@ const routes = [
     component: AboutPage,
     meta: {
       title: 'About',
+    },
+  },
+  {
+    name: 'boards',
+    path: '/boards',
+    component: BoardsPage,
+    meta: {
+      title: 'Boards',
     },
   },
   {

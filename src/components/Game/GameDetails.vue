@@ -1,5 +1,6 @@
 <template lang="html">
-  <div class="mt-3">
+  <b-card class="mt-3">
+    <!-- TODO: merge release Dates and platofmrs -->
     <div v-if="gameGenres" class="pr-2 pb-2">
       <strong>Genres:</strong>
 
@@ -47,7 +48,7 @@
         Not released yet
       </div>
     </div>
-  </div>
+  </b-card>
 </template>
 
 <script>
