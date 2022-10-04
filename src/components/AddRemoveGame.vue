@@ -1,24 +1,22 @@
-<!-- TODO: add text filtering/search -->
 <template lang="html">
   <b-dropdown
-    variant="light"
-    right
     no-caret
+    toggle-class="p-0 px-2 mt-n2"
+    size="sm"
   >
     <template #button-content>
-      <i class="fa-solid fa-plus fa-fw" />
+      <i class="fa fa-plus small pr-1" aria-hidden="true" />
+      <small>Add to list</small>
     </template>
 
-    <small class="d-block mx-2 my-0 text-center text-muted">
-      Add to list
-    </small>
-
-    <b-form-input
-      v-model.trim="searchText"
-      placeholder="Enter your name"
-    />
-
-    <pre>{{ searchText }}</pre>
+    <div class="m-2 d-flex">
+      <b-form-input
+        v-if="boards.length > 10"
+        v-model.trim="searchText"
+        size="sm"
+        placeholder="Search boards"
+      />
+    </div>
 
     <b-dropdown-divider />
 
@@ -27,44 +25,30 @@
       :key="board.id"
       class="board p-2 bg-white mb-2"
     >
-      <aside class="d-flex flex-column">
-        <b-avatar
-          rounded
-          :class="['mr-2 mb-2 board-thumbnail', { 'bg-dark' : !board.backgroundColor }]"
-          :title="board.name"
-          text=" "
-          size="80"
-          :style="`
-            background-image: url(${board.backgroundUrl ? board.backgroundUrl : ''});
-            background-color: ${board.backgroundColor ? board.backgroundColor : ''}
-            `"
-          :to="{ name: 'board', params: { id: board.id } }"
-        />
+      <strong class="small">{{ board.name }}</strong>
 
-        <small class="text-muted">{{ board.name }}</small>
-      </aside>
-
-      <aside class="float-left">
+      <div
+        v-for="(list, listIndex) in board.lists"
+        class="d-flex mb-1"
+        :key="`${board.id}-${list.name}`"
+        @click="handleClick({ list, listIndex, board })"
+      >
+        <small class="mr-auto">{{ list.name }}</small>
         <b-button
-          v-for="(list, listIndex) in board.lists"
-          :key="`${board.id}-${list.name}`"
-          :variant="isGameInList({ list }) ? 'success' : 'light'"
-          @click="handleClick({ list, listIndex, board })"
-          block
+          v-if="isGameInList({ list })"
           size="sm"
         >
-          <i
-            v-if="isGameInList({ list })"
-            class="fa-solid fa-check"
-          />
-
-          <small class="text-truncate">
-            {{ list.name }}
-          </small>
+          <i class="fa fa-minus" aria-hidden="true" />
         </b-button>
-      </aside>
+
+        <b-button
+          v-else
+          size="sm"
+        >
+          <i class="fa fa-plus" aria-hidden="true" />
+        </b-button>
+      </div>
     </div>
-    <b-dropdown-divider />
   </b-dropdown>
 </template>
 
@@ -85,8 +69,7 @@ export default {
     // TODO: handle this at action/mutation level OR use getter at least
     filteredBoards() {
       return this.boards
-        .filter(({ name }) => name.toLowerCase().includes(this.searchText.toLowerCase()))
-        .map((board) => ({ ...board, backgroundUrl: this.getWallpaperUrl(board.backgroundUrl) }));
+        .filter(({ name }) => name.toLowerCase().includes(this.searchText.toLowerCase()));
     },
 
     game() {
@@ -156,10 +139,8 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
   .board {
-    width: 300px;
+    width: 180px;
     max-width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 2fr;
   }
 
   .board-thumbnail {

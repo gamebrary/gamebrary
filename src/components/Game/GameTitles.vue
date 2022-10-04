@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <h2 v-b-toggle.altTitles>{{ game.name }}</h2>
+    <h2 v-b-toggle.altTitles class="mb-2">{{ game.name }}</h2>
 
     <b-collapse id="altTitles">
       <div

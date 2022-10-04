@@ -104,6 +104,7 @@ export default {
     },
 
     updateWallpaperUrl(value) {
+      console.log(value);
       this.backgroundImageUrl = value;
     },
 

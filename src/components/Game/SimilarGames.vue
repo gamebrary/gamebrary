@@ -1,6 +1,6 @@
 <template lang="html">
   <section v-if="similarGames.length" class="mt-5">
-    <h4 class="text-center text-white">You may also like</h4>
+    <h4 class="text-center">You may also like</h4>
 
     <div class="similar-games">
       <router-link

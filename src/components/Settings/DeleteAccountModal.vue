@@ -2,8 +2,14 @@
   <b-modal
     id="deleteAccount"
     hide-footer
-    title="Delete account"
   >
+    <template v-slot:modal-header="{ close }">
+      <modal-header
+        title="Delete account"
+        @close="close"
+      />
+    </template>
+
     <b-alert show variant="success" v-if="deleting && progress === 5">
       Account deleted
     </b-alert>
@@ -14,7 +20,16 @@
     </template>
 
     <div v-else>
-      The following database entries will be deleted FOREVER.
+      <p>We're sorry to see you go. Please consider submitting feedback before deleting your account.</p>
+      <b-button
+        variant="primary"
+        href="https://goo.gl/forms/r0juBCsZaUtJ03qb2"
+        target="_blank"
+      >
+        Submit feedback
+      </b-button>
+
+      <p class="mt-3">The following database entries will be deleted FOREVER.</p>
 
       <ul>
         <li>User</li>
@@ -23,6 +38,7 @@
         <li>Game Progresses</li>
         <li>Settings</li>
         <li>Boards</li>
+        <!-- TODO: profile -->
         <!-- <li>Wallpapers </li> -->
       </ul>
     </div>

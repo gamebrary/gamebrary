@@ -35,7 +35,7 @@
           sm="6"
           md="4"
           lg="3"
-          class="px-2 pb-2"
+          class="px-3 pb-4"
         >
           <mini-board
             :board="board"

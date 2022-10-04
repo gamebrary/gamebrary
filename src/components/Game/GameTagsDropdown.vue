@@ -1,14 +1,15 @@
 <template lang="html">
-  <b-dropdown right no-caret variant="light">
+  <b-dropdown right no-caret variant="light" size="sm" toggle-class="mr-1 mb-2">
     <template #button-content>
-      <i class="fa-solid fa-tags fa-fw" />
+      <i class="fa-solid fa-plus fa-fw" />
+      <template v-if="noTagsApplied">Add tag</template>
     </template>
 
-    <div class="p-2 text-center" v-if="empty">
+    <div class="p-2 text-center" v-if="isEmpty">
       <p>No tags available</p>
 
       <b-button :to="{ name: 'tags' }">
-        Manage tags
+        Create tag
       </b-button>
     </div>
 
@@ -17,12 +18,14 @@
       <div
         v-for="({ name, bgColor, textColor, games }, index) in tags"
         :key="name"
+        style="width: 200px"
         class="d-flex mb-2 align-items-center"
       >
         <b-button
           rounded
           block
           variant="transparent"
+          size="sm"
           class="mr-2"
           :style="`background-color: ${bgColor}; color: ${textColor}`"
           :to="{ name: 'tag.edit', params: { id: index } }"
@@ -32,19 +35,24 @@
 
         <b-button
           v-if="games.includes(Number(game.id))"
+          size="sm"
           @click="removeTag(index)"
         >
           <i class="fa fa-minus" aria-hidden="true" />
         </b-button>
 
-        <b-button v-else @click="addTag(index)">
+        <b-button
+          v-else
+          size="sm"
+          @click="addTag(index)"
+        >
           <i class="fa fa-plus" aria-hidden="true" />
         </b-button>
       </div>
 
       <hr />
 
-      <b-button block :to="{ name: 'tags' }">
+      <b-button size="sm" block :to="{ name: 'tags' }">
         Manage tags
       </b-button>
     </section>
@@ -58,7 +66,6 @@ import { getGameCoverUrl } from '@/utils';
 export default {
   data() {
     return {
-      saving: false,
     };
   },
 
@@ -73,8 +80,12 @@ export default {
       return this.game?.name.length > 25;
     },
 
-    empty() {
-      return Object.keys(this.tags).length === 0;
+    noTagsApplied() {
+      return !this.tags?.some((tag) => tag?.games?.includes(this.game?.id));
+    },
+
+    isEmpty() {
+      return this.tags.length === 0;
     },
 
     noneSelected() {
@@ -92,28 +103,17 @@ export default {
     },
 
     async addTag(index) {
-      this.$store.commit('APPLY_TAG_TO_GAME', index);
-      this.saving = true;
+      try {
+        this.$store.commit('APPLY_TAG_TO_GAME', index);
+        await this.$store.dispatch('SAVE_TAGS');
+      } catch (e) {}
 
-      await this.$store.dispatch('SAVE_TAGS')
-        .catch(() => {
-          this.saving = false;
-        });
-
-      this.saving = false;
     },
 
     async removeTag(index) {
-      this.$store.commit('REMOVE_GAME_FROM_TAG', index);
-
-      this.saving = true;
-
-      await this.$store.dispatch('SAVE_TAGS')
-        .catch(() => {
-          this.saving = false;
-        });
-
-      this.saving = false;
+      try {
+        this.$store.commit('REMOVE_GAME_FROM_TAG', index);
+      } catch (e) {}
     },
   },
 };

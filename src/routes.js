@@ -11,6 +11,7 @@ import CreateBoardPage from '@/pages/CreateBoardPage';
 import DevToolsPage from '@/pages/DevToolsPage';
 import ProfileSettingsPage from '@/pages/ProfileSettingsPage';
 import ExplorePage from '@/pages/ExplorePage';
+import AccountPage from '@/pages/AccountPage';
 import GamePage from '@/pages/GamePage';
 import GameNewsPage from '@/pages/game/GameNewsPage';
 import HomePage from '@/pages/HomePage';
@@ -27,7 +28,7 @@ import PrivacyPolicyPage from '@/pages/PrivacyPolicyPage';
 import PublicProfilePage from '@/pages/PublicProfilePage';
 import PublicProfilesPage from '@/pages/PublicProfilesPage';
 import ReleasesPage from '@/pages/ReleasesPage';
-import SettingsPage from '@/pages/SettingsPage';
+import DashboardPage from '@/pages/DashboardPage';
 import SearchPage from '@/pages/SearchPage';
 import SteamSettingsPage from '@/pages/SteamSettingsPage';
 import TagsPage from '@/pages/TagsPage';
@@ -68,11 +69,11 @@ const routes = [
     component: PlatformPage,
   },
   {
-    name: 'settings',
-    path: '/settings',
-    component: SettingsPage,
+    name: 'dashboard',
+    path: '/',
+    component: DashboardPage,
     meta: {
-      title: 'Settings',
+      title: 'Dashboard',
     },
   },
   {
@@ -190,6 +191,14 @@ const routes = [
     meta: {
       title: 'PublicBoards',
       public: true,
+    },
+  },
+  {
+    name: 'account',
+    path: '/account',
+    component: AccountPage,
+    meta: {
+      title: 'Account',
     },
   },
   {

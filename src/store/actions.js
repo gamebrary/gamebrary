@@ -116,6 +116,7 @@ export default {
         .then(({ docs }) => {
           const boards = docs.length
             ? docs.map((doc) => {
+              console.log(doc);
               const board = doc.data();
 
               return {
@@ -143,6 +144,8 @@ export default {
         .doc(id)
         .get()
         .then((doc) => {
+          console.log(doc);
+          console.log(doc.data());
           const boardData = doc.data();
 
           const boardNotFound = !doc.exists;

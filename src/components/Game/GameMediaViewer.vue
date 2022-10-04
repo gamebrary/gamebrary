@@ -1,16 +1,27 @@
-<!-- TODO: only show two rows, then show total count -->
 <template lang="html">
-  <div class="mt-3">
-    <img
-      v-for="({ imageUrl }, index) in gameMedia"
+  <div class="mt-3 d-flex flex-wrap">
+    <div
+      v-for="({ imageUrl, isVideo, isCover }, index) in gameMedia"
       v-show="index > 0"
       :key="index"
-      :src="imageUrl"
-      rounded
-      height="80"
-      class="mr-2 align-self-start mb-2 rounded cursor-pointer"
-      @click="viewMedia(index)"
-    />
+      class="mr-2 align-items-center text-center mb-2 rounded cursor-pointer position-relative"
+    >
+      <i
+        v-if="isVideo"
+        class="fa-solid fa-play video-indicator position-absolute text-white"
+      />
+
+      <div v-if="isCover" class="position-absolute cover-indicator text-light small w-100 bg-dark rounded-bottom">
+        Cover
+      </div>
+
+      <b-img
+        :src="imageUrl"
+        rounded
+        height="80"
+        @click="viewMedia(index)"
+      />
+    </div>
 
     <b-modal
       id="mediaModal"
@@ -45,7 +56,7 @@
 
       <div v-if="selectedMedia && gameMedia.length" class="game-media">
         <b-embed
-          v-if="selectedMedia && selectedMedia.video"
+          v-if="selectedMedia && selectedMedia.isVideo"
           type="iframe"
           aspect="16by9"
           :src="selectedMedia.videoUrl"
@@ -152,5 +163,14 @@ export default {
 
 .selected-image {
   justify-self: center;
+}
+
+.video-indicator {
+  left: calc(50% - 6px);
+  top: calc(50% - 8px);
+}
+
+.cover-indicator {
+  bottom: 0;
 }
 </style>

@@ -15,7 +15,7 @@
 
     <portal-target name="pageTitle" slim />
 
-    <div class="align-items-center d-flex ml-auto">
+    <div class="align-items-center d-flex ml-auto mr-2">
       <portal-target name="headerActions" />
 
       <!-- <b-button v-if="user" class="mr-2" variant="success" :to="{ name: 'upgrade' }">

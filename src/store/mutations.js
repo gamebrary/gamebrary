@@ -128,23 +128,23 @@ export default {
   },
 
   APPEND_STEAM_GAME_DATA(state, data) {
-    state.game.steam = data;
+    Vue.set(state.game, 'steam', data);
   },
 
   APPEND_GAME_NEWS(state, news) {
-    state.game.news = news;
+    Vue.set(state.game, 'news', news);
   },
 
   APPEND_WIKIPEDIA_GAME_DATA(state, data) {
-    state.game.wikipedia = data;
+    Vue.set(state.game, 'wikipedia', data);
   },
 
   APPEND_GAME_SPEEDRUNS(state, { data }) {
     Vue.set(state.game, 'speedruns', data);
   },
 
-  APPEND_GOG_GAME_DATA(state, data) {
-    state.game.gog = data;
+  APPEND_GOG_GAME_DATA(state, data) {s
+    Vue.set(state.game, 'gog', data);
   },
 
   MOVE_LIST(state, { from, to }) {

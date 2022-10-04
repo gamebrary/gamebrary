@@ -1,23 +1,31 @@
 <template lang="html">
-  <div v-if="boardsWithGame.length">
-    <small>Found in:</small>
+  <div v-if="boardsWithGame.length" class="mt-4">
+    <p class="small mb-2">Found in</p>
 
-    <router-link
-      v-for="(board, index) in boardsWithGame"
+    <b-button
+      v-for="board in boardsWithGame"
       :to="{ name: 'board', params: { id: board.id } }"
       :key="board.id"
-      variant="link"
-      class="small"
+      variant="light"
+      size="sm"
+      class="mr-2 py-0 mb-2"
     >
-      {{ board.name }}{{ boardsWithGame.length - 1 === index ? '' : ',' }}
-    </router-link>
+      <small>{{ board.name }}</small>
+    </b-button>
+
+    <add-remove-game />
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import AddRemoveGame from '@/components/AddRemoveGame';
 
 export default {
+  components: {
+    AddRemoveGame,
+  },
+
   computed: {
     ...mapState(['board', 'game', 'boards']),
 

@@ -1,3 +1,5 @@
+<!-- TODO: add sorting -->
+<!-- TODO: change default call -->
 <!-- TODO: Cache last search -->
 <template lang="html">
   <section>
@@ -73,21 +75,17 @@
         class="field centered text-center mt-5"
       >
         <p>No results found</p>
-
-        <search-box />
       </div>
     </b-container>
   </section>
 </template>
 
 <script>
-import SearchBox from '@/components/SearchBox';
 import GameCardSearch from '@/components/GameCards/GameCardSearch';
 import { mapState } from 'vuex';
 
 export default {
   components: {
-    SearchBox,
     GameCardSearch,
   },
 

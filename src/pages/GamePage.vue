@@ -21,62 +21,52 @@
           </b-button>
         </portal>
 
-
         <b-form-row>
           <b-col
             cols="12"
             md="4"
             xl="3"
           >
-            <div class="position-relative cursor-pointer text-center" v-b-modal.mediaModal>
-              <i class="fa-solid fa-play play-button color-white text-white font-size-xl" />
-
-              <b-img
-                :src="gameCoverUrl"
-                :alt="game.name"
-                rounded
-                fluid
-              />
-            </div>
+            <b-img
+              :src="gameCoverUrl"
+              :alt="game.name"
+              rounded
+              fluid
+            />
 
             <!-- TODO: put in component -->
             <!-- TODO: show news source logo -->
             <!-- TODO: link to actual article -->
-            <section
-              v-if="gameNews.length"
-              tag="a"
-              class="bg-light d-flex rounded px-2 mt-2 flex-column"
-            >
-              <h5 class="pt-2">Latest news:</h5>
-
-              <router-link
-                v-for="article in gameNews"
-                :key="article.gid"
-                :to="{ name: 'game.news', params: { id: game.id, slug: game.slug } }"
-                class="d-flex mb-2"
-              >
-                <b-img
-                  v-if="article.imageUrl"
-                  :src="article.imageUrl"
-                  width="100"
-                  rounded
-                  class="float-left mr-2"
-                />
-
-                <small class="pr-2">{{ article.title }}</small>
-              </router-link>
-            </section>
-
-            <!-- <amazon-links class="mt-2" /> -->
-
             <game-note
               v-if="note"
               :note="note"
-              class="cursor-pointer mt-3"
+              class="cursor-pointer mt-3 d-none d-md-block"
               @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
             />
 
-            <game-in-list :class="{ 'text-white': steamBackground }" />
+            <b-button
+              v-else
+              size="sm"
+              variant="warning"
+              :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug } }"
+              class="mt-2"
+            >
+              Add note
+            </b-button>
+
+            <b-button
+              v-if="gameNews.length"
+              size="sm"
+              class="mt-2 ml-2"
+              :to="{ name: 'game.news', params: { id: game.id, slug: game.slug } }"
+            >
+              <b-badge>{{ gameNews.length }}</b-badge>
+              Latest news
+            </b-button>
+
+            <!-- <amazon-links class="mt-2" /> -->
+
+            <game-in-list :class="{ 'text-white': hasWallpaper }" />
 
             <!-- <game-speedruns /> -->
 
@@ -90,72 +80,49 @@
             md="8"
             xl="9"
           >
-            <article :class="[' rounded', steamBackground ? 'bg-white mt-2 mt-md-0 p-3' : 'px-sm-3 p-0']">
-              <header v-if="user">
-                <b-button-group class="mr-2">
-                  <game-tags-dropdown />
+            <article :class="[' rounded', hasWallpaper ? 'bg-white mt-2 mt-md-0 p-3' : 'px-sm-3 p-0']">
+              <div class="d-flex justify-content-between">
+                <game-titles />
 
-                  <b-button
-                    variant="light"
-                    @click="$router.push({ name: 'game.progress', params: { id: game.id, slug: game.slug } })"
-                  >
-                    <template v-if="progress">
-                      {{ progress }}%
-                    </template>
-                    <i v-else class="fa-solid fa-stopwatch" />
-                  </b-button>
+                <b-link
+                  class="align-self-end ml-2 small"
+                  :to="{ name: 'game.progress', params: { id: game.id, slug: game.slug } }"
+                >
+                  <template v-if="progress > 0">
+                    {{ progress }}% completed
+                  </template>
 
-                  <b-button
-                    :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug } }"
-                    variant="light"
-                  >
-                    <i class="fa-solid fa-note-sticky fa-fw" />
-                  </b-button>
+                  <template v-else>
+                    Set progress
+                  </template>
+                </b-link>
+              </div>
 
-                  <add-remove-game />
-                </b-button-group>
-              </header>
+              <template v-if="tagsApplied.length">
+                <b-button
+                  v-for="({ bgColor, textColor, name, index }) in tagsApplied"
+                  :key="name"
+                  rounded
+                  size="sm"
+                  variant="transparent"
+                  class="mr-1 mb-2"
+                  :style="`background-color: ${bgColor}; color: ${textColor}`"
+                  :to="{ name: 'tag.edit', params: { id: index } }"
+                >
+                  <i class="fa-solid fa-tag mr-1" />
+                  {{ name }}
+                </b-button>
 
-              <game-titles />
+              </template>
 
-              <b-button
-                v-for="({ bgColor, textColor, name, index }) in tagsApplied"
-                :key="name"
-                rounded
-                size="sm"
-                variant="transparent"
-                class="mr-1 mb-2"
-                :style="`background-color: ${bgColor}; color: ${textColor}`"
-                :to="{ name: 'tag.edit', params: { id: index } }"
-              >
-                <i class="fa-solid fa-tag mr-1" />
-                {{ name }}
-              </b-button>
+              <game-tags-dropdown v-if="user" />
 
               <aside class="supplemental-info bg-white field float-right ml-5 pb-2">
-                <b-img
-                  v-if="gameHeaderImage"
-                  v-b-modal.mediaModal
-                  :src="gameHeaderImage"
-                  class="mb-2"
-                  rounded
-                  fluid
-                />
-
-                <b-img
-                  v-if="gameScrenshot"
-                  v-b-modal.mediaModal
-                  :src="gameScrenshot"
-                  rounded
-                  fluid
-                />
-
-                <game-websites />
+                <game-details />
               </aside>
 
               <game-description />
               <game-media-viewer />
-              <game-details />
               <game-ratings />
             </article>
 
@@ -178,8 +145,6 @@
           </div>
         </div>
       </div>
-
-      <pre>{{ metacriticScore }}</pre>
 
       <!-- <timeline
         v-if="twitterHandle"
@@ -205,15 +170,12 @@ import GameRatings from '@/components/Game/GameRatings';
 import GameDescription from '@/components/Game/GameDescription';
 import SimilarGames from '@/components/Game/SimilarGames';
 import GameInList from '@/components/Game/GameInList';
-import GameWebsites from '@/components/Game/GameWebsites';
 // import GameSpeedruns from '@/components/Game/GameSpeedruns';
 import GameNote from '@/components/GameNote';
-import AddRemoveGame from '@/components/AddRemoveGame';
 import { STEAM_CATEGORY_ID, GOG_CATEGORY_ID, TWITTER_CATEGORY_ID } from '@/constants';
 
 export default {
   components: {
-    AddRemoveGame,
     // AmazonLinks,
     GameNote,
     GameDescription,
@@ -222,7 +184,6 @@ export default {
     GameTitles,
     GameMediaViewer,
     GameRatings,
-    GameWebsites,
     // GameSpeedruns,
     SimilarGames,
     GameInList,
@@ -231,11 +192,11 @@ export default {
   data() {
     return {
       loading: false,
+      hasWallpaper: false,
     };
   },
 
   computed: {
-    ...mapGetters(['gameMedia']),
     ...mapState(['game', 'progresses', 'tags', 'boards', 'user', 'notes', 'twitchToken']),
 
     metacriticScore() {
@@ -272,6 +233,8 @@ export default {
     },
 
     tagsApplied() {
+      if (!this.tags) return [];
+
       return this.tags?.map((tag, index) => ({ ...tag, index }))
         .filter((tag) => tag?.games?.includes(this.game?.id));
     },
@@ -317,10 +280,6 @@ export default {
     gameHeaderImage() {
       return this.game?.steam?.header_image;
     },
-
-    steamBackground() {
-      return this.game?.steam?.background;
-    },
   },
 
   watch: {
@@ -329,8 +288,12 @@ export default {
     },
   },
 
-  mounted() {
+  async mounted() {
     if (!this.twitchToken) return this.waitAndLoadGame();
+
+    if (!this.tags) {
+      await this.$store.dispatch('LOAD_TAGS');
+    }
     this.loadGame();
   },
 
@@ -357,11 +320,11 @@ export default {
     },
 
     async loadGame() {
-      const gameCached = this.game?.id === this.gameId;
+      // const gameCached = this.game?.id === this.gameId;
 
-      if (!this.gameId || gameCached) return;
+      // if (!this.gameId || gameCached) return;
       this.loading = true;
-      this.$bus.$emit('CLEAR_WALLPAPER');
+      // this.$bus.$emit('CLEAR_WALLPAPER');
       this.$store.commit('CLEAR_GAME');
 
       await this.$store.dispatch('LOAD_GAME', this.gameId).catch(() => {});
@@ -387,7 +350,10 @@ export default {
 
       if (wikipediaSlug) await this.$store.dispatch('LOAD_WIKIPEDIA_ARTICLE', wikipediaSlug).catch((e) => {});
       if (steamGameId) await this.$store.dispatch('LOAD_STEAM_GAME_NEWS', steamGameId).catch((e) => {});
-      if (this.steamBackground) this.$bus.$emit('UPDATE_WALLPAPER', this.steamBackground);
+      if (this.game?.steam?.background) {
+        this.$bus.$emit('UPDATE_WALLPAPER', this.game?.steam?.background)
+        this.hasWallpaper = Boolean(this.game?.steam?.background);
+      };
 
       this.loading = false;
     },

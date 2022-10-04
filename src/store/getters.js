@@ -1,6 +1,6 @@
 import { AGE_RATING_SYSTEMS } from '@/constants';
 import { PLATFORM_CATEGORIES, EXCLUDED_PLATFORMS, PLATFORM_OVERRIDES } from '@/constants/platforms';
-import { NEWS_SOURCES } from '@/constants';
+import { NEWS_SOURCES, LINKS_CATEGORIES } from '@/constants';
 import { getGameCoverUrl } from '@/utils';
 import slugify from 'slugify'
 import bbobHTML from '@bbob/html'
@@ -12,6 +12,10 @@ export default {
 
   isBoardOwner: ({ board, user }) => {
     return board?.owner === user?.uid;
+  },
+
+  gameLinks: ({ game }) => {
+    return game?.websites?.map(({ url, category }) => ({ url, ...LINKS_CATEGORIES[category] }));
   },
 
   // Arabic is the only ltr language supported at the moment
@@ -84,7 +88,7 @@ export default {
       return {
         imageUrl: video.thumbnail,
         videoUrl: hiQuality || lowQuality,
-        video: true,
+        isVideo: true,
         source: 'steam',
       }
     }) || [];
@@ -93,14 +97,19 @@ export default {
       return {
         imageUrl: `https://img.youtube.com/vi/${video.video_id}/default.jpg`,
         videoUrl: `https://www.youtube.com/embed/${video.video_id}?rel=0&autoplay=1`,
-        video: true,
+        isVideo: true,
         source: 'youtube',
       }
     }) || [];
 
     const igdbScreenshots = state.game?.screenshots?.map(({ image_id }) => ({ imageUrl: `https://images.igdb.com/igdb/image/upload/t_screenshot_med/${image_id}.jpg`, source: 'igdb', })) || [];
     const steamScreenshots = state.game?.steam?.screenshots.map(({ path_full }) => ({ imageUrl: path_full, source: 'steam' })) || [];
-    const gameCover = { imageUrl: getGameCoverUrl(state.game), source: 'igdb' }
+
+    const gameCover = {
+      imageUrl: getGameCoverUrl(state.game),
+      source: 'igdb',
+      isCover: true,
+    };
 
     const wikipediaImages = state.game?.wikipedia?.lead?.image?.urls
       ? [{ imageUrl: Object.values(state.game?.wikipedia?.lead?.image?.urls)?.[0], source: 'wikipedia' }]

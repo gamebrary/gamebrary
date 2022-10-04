@@ -1,13 +1,15 @@
 <!-- TODO: use getter to get tags with game info added to it -->
+<!-- TODO: allow to tag games from here -->
 <template lang="html">
   <section>
     <b-container>
       <portal to="pageTitle">
         <div>
+
           <b-button
             variant="light"
             class="mr-2"
-            :to="{ name: 'tags' }"
+            :to="{ path: prevRoute }"
           >
             <i class="fa-solid fa-chevron-left" />
           </b-button>
@@ -120,6 +122,7 @@ export default {
       tag: {},
       loading: true,
       saving: false,
+      prevRoute: null,
     }
   },
 
@@ -137,6 +140,10 @@ export default {
 
   async mounted() {
     this.load();
+  },
+
+  beforeRouteEnter(to, from, next) {
+      next(vm => vm.prevRoute = from?.path);
   },
 
   methods: {
