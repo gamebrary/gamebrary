@@ -321,7 +321,7 @@ export default {
 
       // if (!this.gameId || gameCached) return;
       this.loading = true;
-      // this.$bus.$emit('CLEAR_WALLPAPER');
+      this.$bus.$emit('CLEAR_WALLPAPER');
       this.$store.commit('CLEAR_GAME');
 
       await this.$store.dispatch('LOAD_GAME', this.gameId).catch(() => {});
