@@ -7,8 +7,6 @@
         @change="save"
       />
     </b-form-group>
-
-    <!-- TODO: Load games -->
   </div>
 </template>
 

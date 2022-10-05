@@ -14,7 +14,6 @@ export default {
   },
 
   mounted() {
-    // TODO: check if script has been loaded prior to appending
     const plugin = document.createElement('script');
     plugin.setAttribute('src', 'https://platform.twitter.com/widgets.js');
     plugin.async = true;

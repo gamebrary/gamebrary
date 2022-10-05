@@ -34,9 +34,6 @@
               fluid
             />
 
-            <!-- TODO: put in component -->
-            <!-- TODO: show news source logo -->
-            <!-- TODO: link to actual article -->
             <game-note
               v-if="note"
               :note="note"

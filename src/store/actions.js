@@ -228,7 +228,6 @@ export default {
   },
 
   LOAD_PROFILES({ commit }) {
-    // TODO: paginate
     return new Promise((resolve, reject) => {
       const db = firestore();
 

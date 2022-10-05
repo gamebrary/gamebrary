@@ -47,8 +47,6 @@ export default {
         strict: true,
       });
 
-      // TODO: fix broken images from rockpapershotgun
-
       return {
         title: article.title,
         id: article.gid,

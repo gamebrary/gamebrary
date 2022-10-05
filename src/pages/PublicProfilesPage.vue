@@ -43,7 +43,6 @@ export default {
 
   methods: {
     async loadProfiles() {
-      // TODO: add loader
       try {
         this.loading = true;
         await this.$store.dispatch('LOAD_PROFILES');
