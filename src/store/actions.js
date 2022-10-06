@@ -144,8 +144,6 @@ export default {
         .doc(id)
         .get()
         .then((doc) => {
-          console.log(doc);
-          console.log(doc.data());
           const boardData = doc.data();
 
           const boardNotFound = !doc.exists;

@@ -1,3 +1,4 @@
+<!-- TODO: fix error loading games on public board -->
 <!-- TODO: Add tier board type https://tiermaker.com/ -->
 <!-- TODO: clone/fork board -->
 <!-- TODO: like/favorite board -->

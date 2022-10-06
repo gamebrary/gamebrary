@@ -44,11 +44,20 @@
             size="140px"
           />
 
-          <!-- TODO: empty state -->
-
-          <router-link :to="{ name: 'public.profile', params: { userName: profile.userName } }">
+          <router-link
+            v-if="profile.userName"
+            :to="{ name: 'public.profile', params: { userName: profile.userName } }"
+          >
             @{{ profile.userName }}
           </router-link>
+
+          <b-button
+            v-else
+            :to="{ name: 'profile.settings' }"
+            variant="success"
+          >
+            Create profile <b-badge>New!</b-badge>
+          </b-button>
         </b-col>
       </b-row>
 
