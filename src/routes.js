@@ -10,12 +10,12 @@ import notesRoutes from '@/notes/notes.routes';
 const routes = [
   ...gameRoutes,
   ...tagsRoutes,
-  ...profileRoutes,
   ...platformsRoutes,
   ...settingsRoutes,
   ...boardsRoutes,
   ...notesRoutes,
   ...publicRoutes,
+  ...profileRoutes,
 ];
 
 export default routes;
