@@ -1,3 +1,4 @@
+<!-- TODO: switch to modal or dropdown -->
 <template lang="html">
   <section>
     <b-container>

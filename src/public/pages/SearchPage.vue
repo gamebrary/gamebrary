@@ -2,6 +2,10 @@
 <!-- TODO: change default call -->
 <!-- TODO: Cache last search -->
 <!-- TODO: clear filter if selected platform is not available -->
+<!-- TODO: Add platform filtering by text -->
+<!-- TODO: user route params for filtering values -->
+<!-- TODO: use pills with close button to remove filter -->
+<!-- TODO: do proper backend filtering -->
 <template lang="html">
   <section>
     <b-container>
