@@ -1,11 +1,4 @@
 <template lang="html">
-  <!-- v-if="game"
-  no-body
-  overlay
-  :img-src="coverUrl"
-  :img-alt="game.name"
-  :title="game.name"
-  @click="handleClick" -->
   <b-card
     v-if="game"
     :img-src="$options.getGameCoverUrl(game)"

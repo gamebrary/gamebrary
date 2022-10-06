@@ -1,6 +1,7 @@
 <!-- TODO: add sorting -->
 <!-- TODO: change default call -->
 <!-- TODO: Cache last search -->
+<!-- TODO: clear filter if selected platform is not available -->
 <template lang="html">
   <section>
     <b-container>
@@ -9,6 +10,37 @@
       <b-spinner v-if="loading" class="spinner-centered" />
 
       <b-form-row v-else-if="searchResults.length">
+        <portal to="headerActions">
+          <b-dropdown
+            id="dropdown-1"
+            variant="light"
+            class="mr-2"
+            right
+          >
+            <template #button-content>
+              Filter <template v-if="selectedPlatforms.length">({{ selectedPlatforms.length }})</template>
+            </template>
+
+            <b-dropdown-item
+              v-for="{ id, count, name } in platformsAvailable"
+              v-show="Boolean(name)"
+              :key="id"
+              :active="selectedPlatforms.includes(id)"
+              @click="selectPlatform(id)"
+            >
+              {{ name }} ({{ count }})
+            </b-dropdown-item>
+
+            <template v-if="selectedPlatforms.length">
+              <b-dd-divider />
+
+              <b-dropdown-item @click="selectedPlatforms = []">
+                Clear filters
+              </b-dropdown-item>
+            </template>
+          </b-dropdown>
+        </portal>
+
         <b-col cols="12" class="bg-light py-2 mb-3" v-if="activeBoard">
           <div class="d-flex align-items-center">
             <span class="d-none d-sm-block">
@@ -63,7 +95,7 @@
           cols="6"
           md="4"
           lg="2"
-          v-for="game in searchResults"
+          v-for="game in formattedSearchResults"
           :key="game.id"
         >
           <game-card-search :game="game" />
@@ -82,7 +114,7 @@
 
 <script>
 import GameCardSearch from '@/components/GameCards/GameCardSearch';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -92,12 +124,44 @@ export default {
   data() {
     return {
       searchResults: [],
+      selectedPlatforms: [],
       loading: false,
     };
   },
 
   computed: {
     ...mapState(['boards']),
+    ...mapGetters(['platformNames']),
+
+    platformsAvailable() {
+      const platformsInResults = this.searchResults?.map((game) => game?.platforms).flat();
+
+      const occurrences = platformsInResults.reduce((acc, curr) => {
+        return acc[curr] ? ++acc[curr] : acc[curr] = 1, acc
+      }, {});
+
+      return Object.entries(occurrences).map(([id, count]) => {
+        return {
+          ...this.platformNames[id],
+          count,
+          id,
+        };
+      })
+    },
+
+    filteredResults() {
+      return this.selectedPlatforms.length > 0
+        ? this.searchResults.filter(({ platforms }) => platforms?.some((id) => this.selectedPlatforms?.includes(String(id))))
+        : this.searchResults;
+    },
+
+    formattedSearchResults() {
+      return this.filteredResults?.map((game) => {
+        const platforms = game?.platforms?.map((id) => ({ id, ...this.platformNames?.[id] }));
+
+        return { ...game, platforms };
+      });
+    },
 
     query() {
       return this.$route.query.q
@@ -153,11 +217,21 @@ export default {
         ? `search "${this.query}";`
         : '';
 
-      const data = `${search} fields *,cover.*; limit 50;`;
+      const data = `${search} fields platforms,slug,cover.image_id; limit 50;`;
 
       this.searchResults = await this.$store.dispatch('IGDB', { path: 'games', data });
 
       this.loading = false;
+    },
+
+    selectPlatform(id) {
+      if (this.selectedPlatforms.includes(id)) {
+        const index = this.selectedPlatforms.indexOf(id);
+
+        this.selectedPlatforms.splice(index, 1);
+      } else {
+        this.selectedPlatforms.push(id);
+      }
     },
   },
 };

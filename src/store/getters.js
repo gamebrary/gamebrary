@@ -26,11 +26,10 @@ export default {
       return [];
     }
 
-    state.platforms?.forEach(({ id, slug, logoFormat, name }) => {
+    state.platforms?.forEach(({ id, slug, name }) => {
       formattedPlatforms[id] = {
         name,
         slug,
-        logoFormat,
       };
     });
 
