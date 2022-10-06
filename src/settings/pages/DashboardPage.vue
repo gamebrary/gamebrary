@@ -2,21 +2,6 @@
   <section>
     <b-container>
       <b-row>
-        <b-col cols="4">
-          <b-avatar
-            class="d-flex ml-auto mr-auto mb-3"
-            rounded
-            :src="avatarImage"
-            size="200px"
-          />
-
-          @{{ profile.userName }}
-
-          <b-button :to="{ name: 'profile.settings' }">
-            Edit profile
-          </b-button>
-        </b-col>
-
         <b-col cols="8">
           <div class="d-flex align-items-center justify-content-between mb-2">
             Boards
@@ -49,6 +34,21 @@
               />
             </b-col>
           </b-row>
+        </b-col>
+
+        <b-col cols="3 offset-1" class="text-center">
+          <b-avatar
+            class="d-flex ml-auto mr-auto mb-3 mt-5"
+            rounded
+            :src="avatarImage"
+            size="140px"
+          />
+
+          <!-- TODO: empty state -->
+
+          <router-link :to="{ name: 'public.profile', params: { userName: profile.userName } }">
+            @{{ profile.userName }}
+          </router-link>
         </b-col>
       </b-row>
 

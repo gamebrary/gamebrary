@@ -1,3 +1,4 @@
+<!-- TODO: fix favicon broken link -->
 <template>
   <div
     id="app"

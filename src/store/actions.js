@@ -1,3 +1,4 @@
+// TODO: split into chunks, match routes groups
 import axios from 'axios';
 import { firestore, storage } from 'firebase/app';
 import 'firebase/storage';
@@ -116,7 +117,6 @@ export default {
         .then(({ docs }) => {
           const boards = docs.length
             ? docs.map((doc) => {
-              console.log(doc);
               const board = doc.data();
 
               return {

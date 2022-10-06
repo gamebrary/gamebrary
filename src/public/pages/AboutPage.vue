@@ -1,3 +1,4 @@
+<!-- TODO: add proper about page -->
 <template lang="html">
   <section>
     <b-container class="py-3">

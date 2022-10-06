@@ -1,6 +1,4 @@
-import { AGE_RATING_SYSTEMS } from '@/constants';
-import { PLATFORM_CATEGORIES, EXCLUDED_PLATFORMS, PLATFORM_OVERRIDES } from '@/constants/platforms';
-import { NEWS_SOURCES, LINKS_CATEGORIES } from '@/constants';
+import { NEWS_SOURCES, LINKS_CATEGORIES, PLATFORM_CATEGORIES, EXCLUDED_PLATFORMS, PLATFORM_OVERRIDES } from '@/constants';
 import { getGameCoverUrl } from '@/utils';
 import slugify from 'slugify'
 import bbobHTML from '@bbob/html'

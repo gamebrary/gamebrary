@@ -1,3 +1,4 @@
+<!-- TODO: Fix delete tag -->
 <!-- TODO: use getter to get tags with game info added to it -->
 <!-- TODO: allow to tag games from here -->
 <template lang="html">

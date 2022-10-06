@@ -4,8 +4,8 @@
 </template>
 
 <script>
-import DashboardPage from '@/pages/DashboardPage';
-import PublicHomePage from '@/pages/PublicHomePage';
+import DashboardPage from '@/settings/pages/DashboardPage';
+import PublicHomePage from '@/public/pages/PublicHomePage';
 import { mapState } from 'vuex';
 
 export default {

@@ -71,7 +71,7 @@
 <script>
 import { mapGetters, mapState } from 'vuex';
 import { getGameCoverUrl } from '@/utils';
-import { NEWS_SOURCES } from '@/constants/platforms';
+import { NEWS_SOURCES } from '@/constants';
 
 export default {
 

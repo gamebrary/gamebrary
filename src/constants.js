@@ -350,3 +350,9 @@ export const WEBSITE_CATEGORIES = {
   WIKIPEDIA: 3,
   AMAZON: 20,
 };
+
+export const PLATFORM_OVERRIDES = {
+  12: {
+    slug: 'xbox-360',
+  },
+};

@@ -1,3 +1,4 @@
+<!-- TODO: use custom login page -->
 <template lang="html">
   <section>
     <b-container>
