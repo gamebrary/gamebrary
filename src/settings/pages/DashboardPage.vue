@@ -84,35 +84,38 @@
         </b-col>
 
         <b-col cols="12" sm="6" md="3">
-          <settings-card
-            title="Account"
-            description="Manage your account"
-            icon="fa-user"
-            @click.native="$router.push({ name: 'account' })"
-          />
+          <settings-card @click.native="$router.push({ name: 'account' })">
+            <b-avatar
+              rounded
+              v-if="avatarImage"
+              :src="avatarImage"
+              v-b-tooltip.hover
+              :title="`@${profile.userName}`"
+            />
 
-          <b-avatar
-            class="d-flex ml-auto mr-auto mb-3 mt-5"
-            rounded
-            :src="avatarImage"
-            size="120px"
-          />
+            <i
+              v-else
+              class="fa-2x fa-solid fa-user fa-fw"
+              aria-hidden
+            />
 
-          <b-button
-            v-if="profile.userName"
-            variant="secondary"
-            :to="{ name: 'public.profile', params: { userName: profile.userName } }"
-          >
-            @{{ profile.userName }}
-          </b-button>
 
-          <b-button
-            v-else
-            :to="{ name: 'profile.settings' }"
-            variant="success"
-          >
-            Create profile <b-badge>New!</b-badge>
-          </b-button>
+            <aside>
+              <h4 class="mb-0 strong">Account</h4>
+              <small class="text-muted">
+                <b-link
+                  v-if="profile.userName"
+                  :to="{ name: 'public.profile', params: { userName: profile.userName } }"
+                >
+                  @{{ profile.userName }}
+                </b-link>
+
+                <template v-else>
+                  Manage your account, create your profile.
+                </template>
+              </small>
+            </aside>
+          </settings-card>
         </b-col>
       </b-row>
 

@@ -3,38 +3,46 @@
     <b-container>
       <portal to="pageTitle">Account</portal>
 
-      <p>Logged in as {{ user.displayName }} / {{ user.email }}</p>
+      <profile-form />
 
-      <b-alert show class="field" variant="light">
-        <small>
-          <strong>User ID:</strong>
-          {{ user.uid }}
-        </small>
-      </b-alert>
 
-      <b-button
-        variant="light"
-        @click="session_signOut"
-      >
-        Log out
-      </b-button>
+      <div class="field">
+        <hr class="py-2" />
+        <p>Logged in as {{ user.displayName }} / {{ user.email }}</p>
 
-      <hr />
+        <b-alert show class="field" variant="light">
+          <small>
+            <strong>User ID:</strong>
+            {{ user.uid }}
+          </small>
+        </b-alert>
 
-      <b-button
-        variant="outline-dark"
-        @click="$bvModal.show('deleteAccount');"
-      >
-        Delete account
-      </b-button>
+        <b-button
+          variant="light"
+          @click="session_signOut"
+        >
+          Log out
+        </b-button>
 
-      <delete-account-modal />
+        <hr class="py-2" />
+
+        <b-button
+          variant="outline-dark"
+          class="mb-5"
+          @click="$bvModal.show('deleteAccount');"
+        >
+          Delete account
+        </b-button>
+
+        <delete-account-modal />
+      </div>
     </b-container>
   </section>
 </template>
 
 <script>
 import sessionMixin from '@/mixins/sessionMixin';
+import ProfileForm from '@/components/ProfileForm'
 import { mapState } from 'vuex';
 
 import DeleteAccountModal from '@/components/Settings/DeleteAccountModal';
@@ -44,6 +52,7 @@ export default {
 
   components: {
     DeleteAccountModal,
+    ProfileForm,
   },
 
   computed: {

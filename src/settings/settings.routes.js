@@ -16,14 +16,6 @@ const routes = [
     },
   },
   {
-    name: 'profile.settings',
-    path: '/profile',
-    component: () => import(/* webpackChunkName: "settings" */ '@/profile/pages/ProfileSettingsPage'),
-    meta: {
-      title: 'Edit profile',
-    },
-  },
-  {
     name: 'wallpapers',
     path: '/wallpapers',
     component: () => import(/* webpackChunkName: "settings" */ '@/settings/pages/WallpapersPage'),

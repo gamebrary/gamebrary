@@ -3,12 +3,14 @@
     body-class="settings-card field"
     class="cursor-pointer mb-3"
   >
-    <i :class="`fa-2x fa-solid ${icon} fa-fw`" aria-hidden />
+    <i v-if="icon" :class="`fa-2x fa-solid ${icon} fa-fw`" aria-hidden />
 
-    <aside>
+    <aside v-if="title || description">
       <h4 class="mb-0 strong">{{ title }}</h4>
       <small class="text-muted">{{ description }}</small>
     </aside>
+
+    <slot />
   </b-card>
 </template>
 
