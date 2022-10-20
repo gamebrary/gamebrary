@@ -1,3 +1,4 @@
+<!-- TODO: fix add to list, refactor -->
 <template lang="html">
   <b-card
     v-if="active || empty"
