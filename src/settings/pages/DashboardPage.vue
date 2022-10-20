@@ -2,22 +2,21 @@
   <section>
     <b-container>
       <b-row>
-        <b-col cols="8">
-          <div class="d-flex align-items-center justify-content-between mb-2">
-            Boards
+        <b-col>
+          <div class="d-flex align-items-center justify-content-between mb-2 pt-2">
+            Recent boards
 
             <b-button
-              v-if="boards.length > 10"
+              v-if="sortedBoards.length > 10"
               size="sm"
               title="Boards"
-              variant="link"
               :to="{ name: 'boards' }"
             >
               View all boards
             </b-button>
           </div>
 
-          <b-row>
+          <b-form-row>
             <b-col
               v-for="board in recentBoards"
               :key="board.id"
@@ -25,44 +24,20 @@
               sm="6"
               md="4"
               lg="3"
-              class="mb-4"
             >
               <mini-board
                 :board="board"
-                style="height: 140px"
+                class="mb-3"
+                style="height: 180px"
                 @click.native="$router.push({ name: 'board', params: { id: board.id } })"
               />
             </b-col>
-          </b-row>
-        </b-col>
-
-        <b-col cols="3 offset-1" class="text-center">
-          <b-avatar
-            class="d-flex ml-auto mr-auto mb-3 mt-5"
-            rounded
-            :src="avatarImage"
-            size="140px"
-          />
-
-          <router-link
-            v-if="profile.userName"
-            :to="{ name: 'public.profile', params: { userName: profile.userName } }"
-          >
-            @{{ profile.userName }}
-          </router-link>
-
-          <b-button
-            v-else
-            :to="{ name: 'profile.settings' }"
-            variant="success"
-          >
-            Create profile <b-badge>New!</b-badge>
-          </b-button>
+          </b-form-row>
         </b-col>
       </b-row>
 
       <b-row class="mt-3">
-        <b-col cols="6" md="3">
+        <b-col cols="12" sm="6" md="3">
           <settings-card
             title="Wallpapers"
             description="Manage your wallpapers"
@@ -70,7 +45,7 @@
             @click.native="$router.push({ name: 'wallpapers' })"
           />
         </b-col>
-        <b-col cols="6" md="3">
+        <b-col cols="12" sm="6" md="3">
           <settings-card
             title="Notes"
             description="View all your notes"
@@ -79,22 +54,65 @@
           />
         </b-col>
 
-        <b-col cols="6" md="3">
+        <!-- <b-col cols="12" sm="6" md="3">
+          <b-card>
+            <h4>Tags</h4>
+
+            <b-button
+              v-for="({ textColor, bgColor, name, games }, index) in tags"
+              @click="$router.push({ name: 'tag.edit', params: { id: index } })"
+              rounded
+              size="sm"
+              class="mr-1 mb-1"
+              variant="transparent"
+              :style="`background-color: ${bgColor}; color: ${textColor}`"
+              :key="name"
+            >
+              {{ name }} {{ games.length ? `(${games.length})` : '' }}
+            </b-button>
+          </b-card>
+        </b-col> -->
+
+
+        <b-col cols="12" sm="6" md="3">
           <settings-card
             title="Tags"
-            description="View all your tags"
+            description="Manage your tags"
             icon="fa-tags"
             @click.native="$router.push({ name: 'tags' })"
           />
         </b-col>
 
-        <b-col cols="6" md="3">
+        <b-col cols="12" sm="6" md="3">
           <settings-card
             title="Account"
             description="Manage your account"
             icon="fa-user"
             @click.native="$router.push({ name: 'account' })"
           />
+
+          <b-avatar
+            class="d-flex ml-auto mr-auto mb-3 mt-5"
+            rounded
+            :src="avatarImage"
+            size="120px"
+          />
+
+          <b-button
+            v-if="profile.userName"
+            variant="secondary"
+            :to="{ name: 'public.profile', params: { userName: profile.userName } }"
+          >
+            @{{ profile.userName }}
+          </b-button>
+
+          <b-button
+            v-else
+            :to="{ name: 'profile.settings' }"
+            variant="success"
+          >
+            Create profile <b-badge>New!</b-badge>
+          </b-button>
         </b-col>
       </b-row>
 
@@ -178,7 +196,7 @@ import MiniBoard from '@/components/Board/MiniBoard';
 // import SteamSettingsPage from '@/pages/SteamSettingsPage';
 // import LanguageSettings from '@/components/Settings/LanguageSettings';
 import { getImageThumbnail } from '@/utils';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -192,7 +210,9 @@ export default {
 
   data() {
     return {
+      popularGames: [115, 125174],
       profile: {},
+      recentBoards: [],
       avatarImage: null,
     }
   },
@@ -216,11 +236,8 @@ export default {
   },
 
   computed: {
-    ...mapState(['user', 'releases', 'boards']),
-
-    recentBoards() {
-      return this.boards.slice(0, 8);
-    },
+    ...mapState(['user', 'releases', 'tags']),
+    ...mapGetters(['sortedBoards']),
 
     latestRelease() {
       return this.releases?.[0]?.tag_name;
@@ -229,6 +246,11 @@ export default {
 
   methods: {
     async load() {
+      await this.$store.dispatch('LOAD_BOARDS');
+      await this.$store.dispatch('LOAD_TAGS');
+
+      this.recentBoards = this.sortedBoards.slice(0, 8);
+
       this.profile = await this.$store.dispatch('LOAD_PROFILE').catch(() => null);
       if (this.profile?.avatar) this.loadAvatarImage();
     },

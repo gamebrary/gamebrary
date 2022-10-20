@@ -1,5 +1,4 @@
 // firebase emulators:start --only functions
-// TODO: Inject token using axios middleware
 // Add json object in .runtimeconfig.json to use env variables locally
 
 const functions = require('firebase-functions');

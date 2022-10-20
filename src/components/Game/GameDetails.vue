@@ -1,8 +1,8 @@
-<template lang="html">
+d<template lang="html">
   <b-card class="mt-3 small">
-    <!-- TODO: merge release Dates and platofmrs -->
+
     <div v-if="gameGenres" class="pr-2 pb-2">
-      <strong>Genres:</strong>
+      <strong class="text-muted">Genres:</strong>
 
       {{ gameGenres }}
     </div>
@@ -30,11 +30,18 @@
     <div class="pr-2 pb-2">
       <strong class="text-muted">Available for: </strong>
 
-      <span class="text-wrap">{{ gamePlatforms || 'N/A' }}</span>
+      <span
+        v-for="(platform, index) in gamePlatforms"
+        :key="platform.id"
+      >
+        <b-link :to="{ name: 'platform', params: { id: platform.id }}">{{ platform.name }}</b-link>
+        <template v-if="index < gamePlatforms.length - 1">, </template>
+      </span>
     </div>
 
-    <div class="pr-2 pb-2">
-      <strong>{{ $t('board.gameModal.releaseDate') }}</strong>
+    <!-- TODO: merge release Dates and platforms -->
+    <!-- <div class="pr-2 pb-2">
+      <strong class="text-muted">{{ $t('board.gameModal.releaseDate') }}</strong>
       <ol v-if="releaseDates" class="list-unstyled mb-0">
         <li
           v-for="{ id, platform, date } in releaseDates"
@@ -47,7 +54,32 @@
       <div v-else>
         Not released yet
       </div>
+    </div> -->
+
+    <div class="pr-2 pb-2">
+      <strong class="text-muted">Tags</strong>
+
+      <br />
+
+      <b-button
+        v-for="({ bgColor, textColor, name, index }) in tagsApplied"
+        :key="index"
+        rounded
+        size="sm"
+        variant="transparent"
+        class="mr-1 mb-2"
+        :style="`background-color: ${bgColor}; color: ${textColor}`"
+        :to="{ name: 'tag.edit', params: { id: index } }"
+      >
+        <i class="fa-solid fa-tag mr-1" />
+        {{ name }}
+      </b-button>
+
+      <game-tags-dropdown v-if="user" />
     </div>
+
+    <strong class="text-muted">Other links</strong>
+    <br>
 
     <b-button
       v-for="{ url, id, icon, svg } in gameLinks"
@@ -77,14 +109,34 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
+import GameTagsDropdown from '@/components/Game/GameTagsDropdown';
 
 export default {
+  components: {
+    GameTagsDropdown,
+  },
+
+  data() {
+    return {
+      progress: 0,
+      saving: false,
+      deleting: false,
+    }
+  },
+
   computed: {
     ...mapGetters(['platformNames', 'gameLinks']),
-    ...mapState(['game']),
+    ...mapState(['game', 'tags', 'user', 'progresses']),
+
+    tagsApplied() {
+      if (!this.tags) return [];
+
+      return this.tags?.map((tag, index) => ({ ...tag, index }))
+        .filter((tag) => tag?.games?.includes(this.game?.id));
+    },
 
     gamePlatforms() {
-      return this.game?.platforms?.map(({ name }) => name).join(', ');
+      return this.game?.platforms;
     },
 
     gameDevelopers() {
@@ -133,6 +185,51 @@ export default {
           date: new Date(date * 1000).toLocaleDateString('en-US', { dateStyle: 'medium' }),
         };
       });
+    },
+  },
+
+  async mounted() {
+    if (!this.tags) {
+      await this.$store.dispatch('LOAD_TAGS');
+    }
+
+    this.progress = this.progresses?.[this.game?.id]
+      ? JSON.parse(JSON.stringify(this.progresses?.[this.game?.id]))
+      : 0;
+  },
+
+  methods: {
+    async deleteProgress() {
+      const { id, name } = this.game;
+
+      this.deleting = true;
+
+      this.$store.commit('REMOVE_GAME_PROGRESS', id);
+
+      await this.$store.dispatch('SAVE_PROGRESSES_NO_MERGE')
+        .catch(() => {
+          this.$bvToast.toast('There was an error deleting your progress', { title: `${name} progress`, variant: 'error' });
+          this.deleting = false;
+        });
+
+      this.deleting = false;
+    },
+
+    async saveProgress() {
+      this.saving = true;
+
+      this.$store.commit('SET_GAME_PROGRESS', {
+        progress: this.progress,
+        gameId: this.game?.id,
+      });
+
+      await this.$store.dispatch('SAVE_PROGRESSES')
+        .catch(() => {
+          this.saving = false;
+          this.$bvToast.toast('There was an error saving your progress', { variant: 'error' });
+        });
+
+      this.saving = false;
     },
   },
 };

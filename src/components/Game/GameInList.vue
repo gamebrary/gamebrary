@@ -1,13 +1,10 @@
 <template lang="html">
-  <div v-if="boardsWithGame.length" class="mt-4">
-    <p class="small mb-2">Found in</p>
-
+  <div class="mt-4">
     <b-button
       v-for="board in boardsWithGame"
-      :to="{ name: 'board', params: { id: board.id } }"
       :key="board.id"
-      variant="light"
-      size="sm"
+      :to="{ name: 'board', params: { id: board.id } }"
+      variant="outline-primary"
       class="mr-2 py-0 mb-2"
     >
       <small>{{ board.name }}</small>
@@ -30,8 +27,9 @@ export default {
     ...mapState(['board', 'game', 'boards']),
 
     boardsWithGame() {
-      return this.boards
-        ?.filter(({ lists }) => lists.some(({ games }) => games.includes(this.game.id))) || [];
+      const filteredBoards = this.boards?.filter(({ lists }) => lists.some(({ games }) => games.includes(this.game.id))) || [];
+
+      return filteredBoards;
     },
   },
 };

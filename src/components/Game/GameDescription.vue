@@ -1,10 +1,13 @@
+<!-- TODO: make steam description match standard desc -->
+<!-- TODO: http://localhost:4000/g/114146/angry-video-game-nerd-i-and-ii-deluxe -->
 <template lang="html">
-  <div class="game-description">
+  <div :class="['game-description', source]">
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <template v-else>
       <div v-html="description" />
-      <span class="text-muted mt-n3 mb-3">Source: {{ source }}</span>
+      <!-- TODO: link to source -->
+      <span class="text-muted mt-n3 mb-3 text-capitalize">Source: {{ source }}</span>
     </template>
   </div>
 </template>
@@ -29,8 +32,8 @@ export default {
     },
 
     source() {
-      if (this.wikipediaExtract) return 'Wikipedia';
-      if (this.steamDescription) return 'Steam';
+      if (this.wikipediaExtract) return 'wikipedia';
+      if (this.steamDescription) return 'steam';
 
       return 'IGDB';
     },
@@ -78,6 +81,10 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss">
 .game-description {
+  &.steam {
+    // Steam overrides
+  }
+
   h2, h3 {
     margin: 0;
   }

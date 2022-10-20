@@ -26,8 +26,9 @@ $modal-header-border-width: 0;
 $modal-footer-border-width: 0 !default;
 $modal-footer-padding: 0 !default;
 $modal-header-padding: 1rem 1rem 0 !default;
-//
-// $modal-xl:                          1140px !default;
+
+// TODO: make xl modal take most of the screen
+// $modal-xl: 100vw !default;
 // $modal-lg:                          800px !default;
 $modal-md: 600px !default;
 $modal-sm: 400px !default;

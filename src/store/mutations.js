@@ -2,7 +2,6 @@ import Vue from 'vue';
 // import {
 //   // PLATFORM_CATEGORIES,
 //   // EXCLUDED_PLATFORMS,
-//   // PLATFORM_BG_HEX,
 //   // PLATFORM_LOGO_FORMAT,
 //   // PLATFORM_NAME_OVERRIDES,
 //   // POPULAR_PLATFORMS,
@@ -63,28 +62,6 @@ export default {
 
   SET_PROFILES(state, profiles) {
     state.profiles = profiles;
-  },
-
-  SET_PLATFORMS(state, platforms) {
-    // TODO: use getter instead to get fresh data right away instead of once per session
-    state.platforms = platforms;
-    // state.platforms = platforms
-    //   .filter(({ id }) => !EXCLUDED_PLATFORMS.includes(id))
-    //   .map((platform) => {
-    //     const formattedPlatform = {
-    //       id: platform.id,
-    //       name: PLATFORM_NAME_OVERRIDES[platform.id] || platform.name,
-    //       slug: platform.slug,
-    //       category: PLATFORM_CATEGORIES[platform.category],
-    //       popular: POPULAR_PLATFORMS.includes(platform.id),
-    //       // categoryId: platform.category,
-    //       generation: platform.generation || 0,
-    //       bgHex: PLATFORM_BG_HEX[platform.id] || null,
-    //       logoFormat: PLATFORM_LOGO_FORMAT[platform.id] || 'svg',
-    //     };
-    //
-    //     return formattedPlatform;
-    //   });
   },
 
   SET_BOARD_GAMES(state, boardGames) {

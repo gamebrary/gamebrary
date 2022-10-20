@@ -41,7 +41,6 @@ export default {
     return new Promise((resolve, reject) => {
       axios.get(`${API_BASE}/platforms?token=${state.twitchToken.access_token}`)
         .then(({ data }) => {
-          commit('SET_PLATFORMS', data);
           resolve(data);
         }).catch(reject);
     });
@@ -120,8 +119,9 @@ export default {
               const board = doc.data();
 
               return {
-                id: doc.id,
                 ...board,
+                id: doc.id,
+                lastUpdated: board?.lastUpdated || 0,
               };
             })
             : null;

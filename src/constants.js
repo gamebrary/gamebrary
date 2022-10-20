@@ -112,30 +112,6 @@ export const KEYBOARD_SHORTCUTS = {
   ROUTE_settings: ['shift', 's'],
 };
 
-export const PLATFORM_FILTER_FIELDS = [
-  null,
-  'all',
-  'console',
-  // 'arcade',
-  // 'platform',
-  'operating_system',
-  'portable_console',
-  'computer',
-];
-
-export const PLATFORM_SORT_FILEDS = [
-  'generation',
-  'name',
-];
-
-export const PLATFORM_BG_HEX = {
-  167: '#222',
-  166: '#000',
-  48: '#2e6db4',
-  49: '#177d3e',
-  130: '#ce181e',
-};
-
 export const LIST_VIEWS = {
   single: 'Single',
   grid: 'Grid',

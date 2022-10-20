@@ -16,14 +16,6 @@ const routes = [
     },
   },
   {
-    name: 'game.progress',
-    path: '/g/:id/:slug/progress',
-    component: () => import(/* webpackChunkName: "game" */ '@/game/pages/GameProgressPage'),
-    meta: {
-      title: 'Track game progress'
-    },
-  },
-  {
     name: 'game',
     path: '/g/:id/:slug',
     component: () => import(/* webpackChunkName: "game" */ '@/game/pages/GamePage'),

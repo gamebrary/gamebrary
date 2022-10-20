@@ -30,6 +30,8 @@
         </portal>
 
         <b-col cols="12" sm="6">
+          <div ref="editor" />
+
           <game-note
             v-if="showPreview"
             :note="{ note }"

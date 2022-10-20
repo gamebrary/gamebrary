@@ -1,4 +1,4 @@
-<!-- TODO: use custom login page -->
+<!-- TODO: use custom login page, modal? -->
 <template lang="html">
   <section>
     <b-container>

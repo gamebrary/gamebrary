@@ -20,9 +20,14 @@
             variant="light"
             class="mr-2"
             right
+            no-caret
           >
             <template #button-content>
-              Filter <template v-if="selectedPlatforms.length">({{ selectedPlatforms.length }})</template>
+              <i class="fa-solid fa-filter fa-fw" />
+
+              <b-badge v-if="selectedPlatforms.length">
+                {{ selectedPlatforms.length }}
+              </b-badge>
             </template>
 
             <b-dropdown-item
@@ -45,45 +50,47 @@
           </b-dropdown>
         </portal>
 
-        <b-col cols="12" class="bg-light py-2 mb-3" v-if="activeBoard">
+        <b-col cols="12" class="py-2 mb-3" v-if="activeBoard">
           <div class="d-flex align-items-center">
             <span class="d-none d-sm-block">
               Add games to:
             </span>
 
-            <b-button-group class="ml-sm-2">
-              <b-dropdown
-                split
-                variant="light"
-                :split-to="{ name: 'board', params: { id: boardId } }"
-                :text="activeBoard.name"
+            <b-dropdown
+              split
+              variant="light"
+              size="sm"
+              class="ml-2"
+              :split-to="{ name: 'board', params: { id: boardId } }"
+              :text="activeBoard.name"
+            >
+              <b-dropdown-item
+                v-for="board in boards"
+                :key="board.id"
+                :disabled="!board.lists.length"
+                :to="{ name: 'search', query: { boardId: board.id, listIndex: 0, q: query } }"
               >
-                <b-dropdown-item
-                  v-for="board in boards"
-                  :key="board.id"
-                  :disabled="!board.lists.length"
-                  :to="{ name: 'search', query: { boardId: board.id, listIndex: 0, q: query } }"
-                >
-                  {{ board.name }}
-                </b-dropdown-item>
-              </b-dropdown>
+                {{ board.name }}
+              </b-dropdown-item>
+            </b-dropdown>
 
-              <b-dropdown
-                v-if="activeBoardList"
-                split
-                variant="light"
-                :split-to="{ name: 'board', params: { id: boardId } }"
-                :text="activeBoardList.name"
+            <b-dropdown
+              v-if="activeBoardList"
+              split
+              variant="light"
+              size="sm"
+              class="ml-2"
+              :split-to="{ name: 'board', params: { id: boardId } }"
+              :text="activeBoardList.name"
+            >
+              <b-dropdown-item
+                v-for="(list, listIndex) in activeBoard.lists"
+                :key="list.id"
+                :to="{ name: 'search', query: { boardId: activeBoard.id, listIndex, q: query } }"
               >
-                <b-dropdown-item
-                  v-for="(list, listIndex) in activeBoard.lists"
-                  :key="list.id"
-                  :to="{ name: 'search', query: { boardId: activeBoard.id, listIndex, q: query } }"
-                >
-                  {{ list.name }}
-                </b-dropdown-item>
-              </b-dropdown>
-            </b-button-group>
+                {{ list.name }}
+              </b-dropdown-item>
+            </b-dropdown>
 
             <b-button :to="{ name: 'search' }" class="ml-auto" variant="light">
               <i class="fas fa-times fa-fw" aria-hidden />
@@ -104,6 +111,10 @@
         >
           <game-card-search :game="game" />
         </b-col>
+
+        <b-button @click="loadMoreResults">
+          load more
+        </b-button>
       </b-form-row>
 
       <div
@@ -207,10 +218,10 @@ export default {
   },
 
   async mounted() {
-    if (this.showEmptyState) {
-    } else {
-      this.search();
-    }
+    this.search();
+    // if (this.showEmptyState) {
+    // } else {
+    // }
   },
 
   methods: {
@@ -221,7 +232,10 @@ export default {
         ? `search "${this.query}";`
         : '';
 
-      const data = `${search} fields platforms,slug,cover.image_id; limit 50;`;
+      const filter = !this.query
+        ? 'where rating >= 80;'
+        : '';
+      const data = `${search} fields platforms,slug,rating,cover.image_id; limit 50; ${filter}`;
 
       this.searchResults = await this.$store.dispatch('IGDB', { path: 'games', data });
 

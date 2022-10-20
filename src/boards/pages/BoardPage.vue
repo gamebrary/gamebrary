@@ -3,9 +3,7 @@
 <!-- TODO: clone/fork board -->
 <!-- TODO: like/favorite board -->
 <template lang="html">
-  <div
-    :class="['board px-3 pb-3', { dragging, empty }]"
-  >
+  <div>
     <board-placeholder v-if="loading" />
 
     <template v-else-if="showBoard">
@@ -37,17 +35,8 @@
         </b-button>
       </portal>
 
-      <game-list
-        v-for="(list, listIndex) in board.lists"
-        :list="list"
-        :listIndex="listIndex"
-        :key="list.name"
-      />
-
-      <add-list
-        v-if="isBoardOwner"
-        :empty="empty"
-      />
+      <basic-board v-if="board.type === 'basic'" />
+      <kanban-board v-else />
     </template>
 
     <b-alert
@@ -62,16 +51,16 @@
 
 <script>
 import BoardPlaceholder from '@/components/Board/BoardPlaceholder';
-import AddList from '@/components/Board/AddList';
-import GameList from '@/components/Lists/GameList';
+import KanbanBoard from '@/components/Board/KanbanBoard';
+import BasicBoard from '@/components/Board/BasicBoard';
 import chunk from 'lodash.chunk';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
-    GameList,
     BoardPlaceholder,
-    AddList,
+    KanbanBoard,
+    BasicBoard,
   },
 
   data() {
@@ -97,10 +86,6 @@ export default {
 
     boardId() {
       return this.$route.params?.id;
-    },
-
-    empty() {
-      return this.board?.lists?.length === 0;
     },
 
     isBoardCached() {

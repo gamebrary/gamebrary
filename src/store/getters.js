@@ -6,7 +6,7 @@ import presetHTML5 from '@bbob/preset-html5'
 import orderby from 'lodash.orderby';
 
 export default {
-  sortedBoards: ({ boards }) => orderby(boards, 'name'),
+  sortedBoards: ({ boards }) => orderby(boards, 'lastUpdated', 'desc'),
 
   isBoardOwner: ({ board, user }) => {
     return board?.owner === user?.uid;

@@ -8,8 +8,8 @@ const routes = [
     },
   },
   {
-    path: '/platforms/:slug',
-    name: 'platform.page',
+    path: '/p/:id',
+    name: 'platform',
     component: () => import(/* webpackChunkName: "platforms" */ '@/platforms/pages/PlatformPage'),
   },
 ];

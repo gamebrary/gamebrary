@@ -120,14 +120,14 @@
 
           <!-- TODO: add release date styles: countdown/simple date -->
 
-          <b-form-checkbox
+          <!-- <b-form-checkbox
             v-model="list.settings.showGameProgress"
             name="check-button"
             class="mb-2"
             switch
           >
             {{ $t('board.list.showGameProgress') }}
-          </b-form-checkbox>
+          </b-form-checkbox> -->
 
           <b-form-checkbox
             v-model="list.settings.highlightCompletedGames"

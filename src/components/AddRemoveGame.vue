@@ -2,7 +2,6 @@
   <b-dropdown
     no-caret
     toggle-class="p-0 px-2 mt-n2"
-    size="sm"
   >
     <template #button-content>
       <i class="fa fa-plus small pr-1" aria-hidden="true" />
@@ -66,7 +65,6 @@ export default {
   computed: {
     ...mapState(['games', 'boards', 'wallpapers']),
 
-    // TODO: handle this at action/mutation level OR use getter at least
     filteredBoards() {
       return this.boards
         .filter(({ name }) => name.toLowerCase().includes(this.searchText.toLowerCase()));

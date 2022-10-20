@@ -1,11 +1,13 @@
 <template lang="html">
-  <b-container>
-    <game-boards />
+  <section class="pb-5">
+    <b-container>
+      <game-boards />
 
-    <!-- <div class="game-deals">
-      <twitter-feed twitter-user="wario64" />
-    </div> -->
-  </b-container>
+      <!-- <div class="game-deals">
+        <twitter-feed twitter-user="wario64" />
+      </div> -->
+    </b-container>
+  </section>
 </template>
 
 <script>

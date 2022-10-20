@@ -18,11 +18,11 @@
     <div class="align-items-center d-flex ml-auto mr-2">
       <portal-target name="headerActions" />
 
-      <!-- <b-button v-if="user" class="mr-2" variant="success" :to="{ name: 'upgrade' }">
-        Upgrade
-      </b-button> -->
+      <b-button :to="{ name: 'search' }" class="d-sm-none">
+        <i class="fa fa-search" aria-hidden="true"></i>
+      </b-button>
 
-      <search-box />
+      <search-box class="d-none d-sm-block" />
 
       <b-button
         v-if="!user"

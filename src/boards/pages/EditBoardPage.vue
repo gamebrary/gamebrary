@@ -1,3 +1,4 @@
+<!-- TODO: refactor saving, create payload locally -->
 <template lang="html">
   <section>
     <b-container>
@@ -42,6 +43,17 @@
                 v-model="board.name"
                 required
               />
+            </b-form-group>
+
+            <b-form-group
+              label="Board type"
+              label-for="name"
+            >
+              <b-dropdown id="dropdown-1" :text="board.type">
+                <b-dropdown-item @click="setBoardType('kanban')">Kanban</b-dropdown-item>
+                <!-- <b-dropdown-item @click="setBoardType('tiers')">Tiers</b-dropdown-item> -->
+                <b-dropdown-item @click="setBoardType('basic')">Basic</b-dropdown-item>
+              </b-dropdown>
             </b-form-group>
 
             <b-form-group
@@ -145,7 +157,6 @@ import { mapState, mapGetters } from 'vuex';
 import WallpapersList from '@/components/WallpapersList';
 import VSwatches from 'vue-swatches'
 import MiniBoard from '@/components/Board/MiniBoard';
-import orderby from 'lodash.orderby';
 
 export default {
   components: {
@@ -180,8 +191,15 @@ export default {
 
       this.board = await this.$store.dispatch('LOAD_BOARD', this.boardId);
 
+      if (!this.board.type) this.board.type = 'kanban';
 
       this.loading = false;
+    },
+
+    setBoardType(type) {
+      console.log('type', type);
+      // TODO: check if switching to basic while having more than 1 list
+      this.board.type = type;
     },
 
     confirmDelete() {
@@ -208,7 +226,7 @@ export default {
 
       this.loading = false;
       this.$bvToast.toast('Board removed');
-      this.$router.push({ name: 'home' });
+      this.$router.push({ name: 'boards' });
     },
 
     selectWallpaper(wallpaper) {
@@ -219,17 +237,7 @@ export default {
     async saveBoard() {
       this.saving = true;
 
-      // const { board } = this;
-      //
-      // const payload = {
-      //   ...board,
-      //   description: this.description,
-      //   name: this.name,
-      //   isPublic: this.isPublic,
-      //   theme: this.theme,
-      // };
-
-      // this.$store.commit('SET_ACTIVE_BOARD', this.board);
+      this.board.lastUpdated = Date.now();
 
       await this.$store.dispatch('SAVE_BOARD')
         .catch(() => {

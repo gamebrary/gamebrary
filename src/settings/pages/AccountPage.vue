@@ -3,7 +3,15 @@
     <b-container>
       <portal to="pageTitle">Account</portal>
 
-      <p>Your account</p>
+      <p>Logged in as {{ user.displayName }} / {{ user.email }}</p>
+
+      <b-alert show class="field" variant="light">
+        <small>
+          <strong>User ID:</strong>
+          {{ user.uid }}
+        </small>
+      </b-alert>
+
       <b-button
         variant="light"
         @click="session_signOut"
@@ -11,10 +19,10 @@
         Log out
       </b-button>
 
-      <p class="mt-2">Delete account</p>
+      <hr />
 
       <b-button
-        variant="warning"
+        variant="outline-dark"
         @click="$bvModal.show('deleteAccount');"
       >
         Delete account

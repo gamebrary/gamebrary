@@ -26,27 +26,9 @@
           />
         </b-form-group>
 
-        <!-- <b-form-group
-          label="Board template"
-        >
-          <b-form-radio-group
-            v-model="selectedTemplate"
-            :options="boardTemplatesOptions"
-            name="radios-btn-default"
-            description="Optional"
-          />
-
-          <b-row v-if="selectedTemplate" class="mt-3">
-            <b-col v-for="column in boardTemplates[selectedTemplate]" :key="column">
-              <b-card
-                :header="column"
-                header-tag="header"
-                header-class="p-1 pl-2"
-                hide-footer
-              />
-            </b-col>
-          </b-row>
-        </b-form-group> -->
+        <pre>
+          {{ board.type }}
+        </pre>
 
         <b-button
           variant="primary"
@@ -69,20 +51,10 @@ export default {
         name: '',
         description: '',
         lists: [],
+        type: 'kanban',
       },
       saving: false,
       selectedTemplate: null,
-      // boardTemplatesOptions: [
-      //   { value: null, text: 'Blank' },
-      //   { value: 'standard', text: 'Standard' },
-      //   { value: 'detailed', text: 'Detailed' },
-      //   { value: 'completionist', text: 'Completionist' },
-      // ],
-      // boardTemplates: {
-      //   standard: ['Owned', 'Wishlist'],
-      //   detailed: ['Physical', 'Digital', 'Wishlist'],
-      //   completionist: ['Owned', 'Playing', 'Completed'],
-      // },
     };
   },
 
@@ -94,16 +66,17 @@ export default {
         // TODO: put default board in constant
         const payload = {
           ...this.board,
+          // TODO: set default lists based on board type
+          games: [],
+          lastUpdated: Date.now(),
           lists: [{
             name: 'Click to rename',
-            games: [358],
+            games: [],
             settings: {
               showReleaseDates: false,
               sortOrder: 'sortByCustom',
               showGameTags: false,
               showGameNotes: false,
-              showGameProgress: false,
-              highlightCompletedGames: false,
               showGameCount: false,
               view: 'single'
             },

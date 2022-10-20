@@ -61,12 +61,12 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
 .similar-games {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(10, 1fr);
   grid-gap: 1rem;
   margin-bottom: 20vh;
 
   @media(max-width: 780px) {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(5, 1fr);
   }
 }
 </style>

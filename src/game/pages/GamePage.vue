@@ -26,6 +26,7 @@
             cols="12"
             md="4"
             xl="3"
+            class="text-center"
           >
             <b-img
               :src="gameCoverUrl"
@@ -34,27 +35,12 @@
               fluid
             />
 
-            <game-note
-              v-if="note"
-              :note="note"
-              class="cursor-pointer mt-3 d-none d-md-block"
-              @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
-            />
-
-            <b-button
-              v-else
-              size="sm"
-              variant="warning"
-              :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug } }"
-              class="mt-2"
-            >
-              Add note
-            </b-button>
+            <game-media />
 
             <b-button
               v-if="gameNews.length"
               size="sm"
-              class="mt-2 ml-2"
+              class="mt-2 ml-2 d-none d-md-block"
               :to="{ name: 'game.news', params: { id: game.id, slug: game.slug } }"
             >
               <b-badge>{{ gameNews.length }}</b-badge>
@@ -62,14 +48,8 @@
             </b-button>
 
             <!-- <amazon-links class="mt-2" /> -->
-
-            <game-in-list :class="{ 'text-white': hasWallpaper }" />
-
             <!-- <game-speedruns /> -->
-
-            <!-- <div v-if="gameAchievements"> -->
-              <!-- <pre>{{ gameAchievements }}</pre> -->
-            <!-- </div> -->
+            <!-- <pre>{{ gameAchievements }}</pre> -->
           </b-col>
 
           <b-col
@@ -80,46 +60,30 @@
             <article :class="[' rounded', hasWallpaper ? 'bg-white mt-2 mt-md-0 p-3' : 'px-sm-3 p-0']">
               <div class="d-flex justify-content-between">
                 <game-titles />
-
-                <b-link
-                  class="align-self-end ml-2 small"
-                  :to="{ name: 'game.progress', params: { id: game.id, slug: game.slug } }"
-                >
-                  <template v-if="progress > 0">
-                    {{ progress }}% completed
-                  </template>
-
-                  <template v-else>
-                    Set progress
-                  </template>
-                </b-link>
               </div>
-
-              <template v-if="tagsApplied.length">
-                <b-button
-                  v-for="({ bgColor, textColor, name, index }) in tagsApplied"
-                  :key="name"
-                  rounded
-                  size="sm"
-                  variant="transparent"
-                  class="mr-1 mb-2"
-                  :style="`background-color: ${bgColor}; color: ${textColor}`"
-                  :to="{ name: 'tag.edit', params: { id: index } }"
-                >
-                  <i class="fa-solid fa-tag mr-1" />
-                  {{ name }}
-                </b-button>
-
-              </template>
-
-              <game-tags-dropdown v-if="user" />
 
               <aside class="supplemental-info bg-white field float-right ml-5 pb-2">
                 <game-details />
+                <game-note
+                  v-if="note"
+                  :note="note"
+                  class="cursor-pointer mt-3 d-none d-md-block"
+                  @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
+                />
+
+                <b-button
+                  v-else
+                  size="sm"
+                  variant="warning"
+                  :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug } }"
+                  class="mt-2"
+                >
+                  Add note
+                </b-button>
               </aside>
 
               <game-description />
-              <game-media-viewer />
+              <game-in-list :class="{ 'text-white': hasWallpaper }" />
               <game-ratings />
             </article>
 
@@ -160,8 +124,7 @@ import { mapState, mapGetters } from 'vuex';
 import { WEBSITE_CATEGORIES } from '@/constants';
 // import AmazonLinks from '@/components/Game/AmazonLinks';
 import GameDetails from '@/components/Game/GameDetails';
-import GameTagsDropdown from '@/components/Game/GameTagsDropdown';
-import GameMediaViewer from '@/components/Game/GameMediaViewer';
+import GameMedia from '@/components/Game/GameMedia';
 import GameTitles from '@/components/Game/GameTitles';
 import GameRatings from '@/components/Game/GameRatings';
 import GameDescription from '@/components/Game/GameDescription';
@@ -177,9 +140,8 @@ export default {
     GameNote,
     GameDescription,
     GameDetails,
-    GameTagsDropdown,
     GameTitles,
-    GameMediaViewer,
+    GameMedia,
     GameRatings,
     // GameSpeedruns,
     SimilarGames,
@@ -219,6 +181,7 @@ export default {
 
     originBoardId() {
       return this.$route?.params?.boardId;
+      return this.$route?.params?.boardId;
     },
 
     // gameAchievements() {
@@ -227,13 +190,6 @@ export default {
 
     note() {
       return this.notes[this.game?.id] || null;
-    },
-
-    tagsApplied() {
-      if (!this.tags) return [];
-
-      return this.tags?.map((tag, index) => ({ ...tag, index }))
-        .filter((tag) => tag?.games?.includes(this.game?.id));
     },
 
     legalNotice() {
@@ -254,12 +210,6 @@ export default {
       return imageId
         ? `https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${imageId}.jpg`
         : '/no-image.jpg';
-    },
-
-    progress() {
-      const { gameId, progresses } = this;
-
-      return progresses[gameId] || null;
     },
 
     gameId() {
@@ -288,9 +238,6 @@ export default {
   async mounted() {
     if (!this.twitchToken) return this.waitAndLoadGame();
 
-    if (!this.tags) {
-      await this.$store.dispatch('LOAD_TAGS');
-    }
     this.loadGame();
   },
 
@@ -337,7 +284,7 @@ export default {
 
       // TODO: find more precise way to load GOG game, based on id?
       const gogPage = this.game?.websites?.find(({ category }) => category !== GOG_CATEGORY_ID);
-      if (gogPage) await this.$store.dispatch('LOAD_GOG_GAME', this.game.name).catch((e) => {});
+      if (gogPage) await this.$store.dispatch('LOAD_GOG_GAME', this.game?.name).catch((e) => {});
 
       // const wikipediaData = this.game?.websites?.find(({ url, category }) => url && category === WEBSITE_CATEGORIES.WIKIPEDIA);
       const wikipediaSlug = this.game?.websites

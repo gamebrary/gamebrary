@@ -1,3 +1,9 @@
+<!-- TODO: translate strings -->
+<!-- TODO: allow for anonymous boards, prompt to sign up -->
+<!-- TODO: switch toggle -->
+<!-- TODO: add markdown wysiwyg -->
+<!-- TODO: add help section -->
+<!-- TODO: bring notifications back! -->
 <!-- TODO: fix favicon broken link -->
 <template>
   <div
@@ -103,7 +109,6 @@ export default {
     },
 
     updateWallpaperUrl(value) {
-      console.log(value);
       this.backgroundImageUrl = value;
     },
 
@@ -116,7 +121,7 @@ export default {
     },
 
     init() {
-      this.$store.dispatch('LOAD_IGDB_PLATFORMS');
+      // TODO: get platforms from constants
 
       if (this.isPublicRoute) {
         return;

@@ -1,33 +1,45 @@
 <template lang="html">
-  <div class="mt-3 d-flex flex-wrap">
-    <div
-      v-for="({ imageUrl, isVideo, isCover }, index) in gameMedia"
-      v-show="index > 0"
-      :key="index"
-      class="mr-2 align-items-center text-center mb-2 rounded cursor-pointer position-relative"
-    >
-      <i
-        v-if="isVideo"
-        class="fa-solid fa-play video-indicator position-absolute text-white"
-      />
+  <div class="mt-3">
+    <b-row no-gutters>
+      <b-col
+        v-for="({ imageUrl, isVideo, isCover }, index) in previewThumbs"
+        :key="index"
+        cols="3"
+      >
+        <div
+          class="mr-2 align-items-center text-center mb-2 rounded cursor-pointer position-relative"
+        >
+          <i
+            v-if="isVideo"
+            class="fa-solid fa-play video-indicator position-absolute text-white"
+          />
 
-      <div v-if="isCover" class="position-absolute cover-indicator text-light small w-100 bg-dark rounded-bottom">
-        Cover
-      </div>
+          <div v-if="isCover" class="position-absolute cover-indicator text-light small w-100 bg-dark rounded-bottom">
+            Cover
+          </div>
 
-      <b-img
-        :src="imageUrl"
-        rounded
-        height="80"
-        @click="viewMedia(index)"
-      />
-    </div>
+          <b-img
+            :src="imageUrl"
+            rounded
+            fluid
+            @click="viewMedia(index)"
+          />
+        </div>
+      </b-col>
+
+      <b-button
+        v-if="totalMedia > 3"
+        @click="viewMedia(3)"
+      >
+        <i class="fa-solid fa-photo-film" />
+        {{ totalMedia - 3 }} more
+      </b-button>
+    </b-row>
 
     <b-modal
       id="mediaModal"
       centered
       hide-footer
-      size="xl"
       :visible="visible"
       @show="open"
       @hidden="close"
@@ -56,7 +68,7 @@
 
       <div v-if="selectedMedia && gameMedia.length" class="game-media">
         <b-embed
-          v-if="selectedMedia && selectedMedia.isVideo"
+          v-if="isSelectedMediaVideo"
           type="iframe"
           aspect="16by9"
           :src="selectedMedia.videoUrl"
@@ -71,7 +83,6 @@
         />
 
         <footer class="mt-2 d-flex overflow-auto pb-2">
-          <pre class="bg-success">{{ activeIndex }}</pre>
           <b-img
             v-for="(media, index) in gameMedia"
             :key="media.imageUrl"
@@ -97,7 +108,7 @@ export default {
   data() {
     return {
       activeIndex: null,
-      maxThumbnails: 3,
+      maxThumbnails: 4,
       saving: false,
     };
   },
@@ -106,8 +117,22 @@ export default {
     ...mapGetters(['isBoardOwner', 'gameMedia']),
     ...mapState(['board', 'game']),
 
+    previewThumbs() {
+      const previewThumbs = this.gameMedia.slice(0, this.maxThumbnails);
+
+      return previewThumbs;
+    },
+
+    isSelectedMediaVideo() {
+      return this.selectedMedia?.isVideo;
+    },
+
     selectedMedia() {
       return this.gameMedia?.[this.activeIndex];
+    },
+
+    totalMedia() {
+      return this.gameMedia?.length || 0;
     },
 
     visible() {
@@ -158,7 +183,7 @@ export default {
 .game-media {
   display: grid;
   grid-gap: 1rem;
-  grid-template-rows: 50vh auto;
+  grid-template-rows: 1fr auto;
 }
 
 .selected-image {
@@ -172,5 +197,10 @@ export default {
 
 .cover-indicator {
   bottom: 0;
+}
+
+.media-button {
+  padding: 21px 16px;
+  height: 100%;
 }
 </style>
