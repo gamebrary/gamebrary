@@ -1,5 +1,11 @@
 <template lang="html">
-  <b-dropdown right no-caret variant="light" size="sm" toggle-class="mr-1 mb-2">
+  <b-dropdown
+    right
+    no-caret
+    variant="light"
+    size="sm"
+    toggle-class="mr-1 mb-2"
+  >
     <template #button-content>
       <i class="fa-solid fa-plus fa-fw" />
       <template v-if="noTagsApplied">Add tag</template>

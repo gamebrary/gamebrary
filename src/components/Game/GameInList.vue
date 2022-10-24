@@ -1,14 +1,17 @@
 <template lang="html">
-  <div class="mt-4">
-    <b-button
-      v-for="board in boardsWithGame"
+  <div>
+    <strong class="text-muted">Found in</strong>
+
+    <br />
+
+    <b-link
+      v-for="(board, index) in boardsWithGame"
       :key="board.id"
       :to="{ name: 'board', params: { id: board.id } }"
-      variant="outline-primary"
-      class="mr-2 py-0 mb-2"
     >
-      <small>{{ board.name }}</small>
-    </b-button>
+      {{ board.name }}
+      <template v-if="index !== boardsWithGame.length - 1">,</template>
+    </b-link>
 
     <add-remove-game />
   </div>

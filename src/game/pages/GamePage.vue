@@ -83,7 +83,6 @@
               </aside>
 
               <game-description />
-              <game-in-list :class="{ 'text-white': hasWallpaper }" />
               <game-ratings />
             </article>
 
@@ -129,7 +128,6 @@ import GameTitles from '@/components/Game/GameTitles';
 import GameRatings from '@/components/Game/GameRatings';
 import GameDescription from '@/components/Game/GameDescription';
 import SimilarGames from '@/components/Game/SimilarGames';
-import GameInList from '@/components/Game/GameInList';
 // import GameSpeedruns from '@/components/Game/GameSpeedruns';
 import GameNote from '@/components/GameNote';
 import { STEAM_CATEGORY_ID, GOG_CATEGORY_ID, TWITTER_CATEGORY_ID } from '@/constants';
@@ -145,7 +143,6 @@ export default {
     GameRatings,
     // GameSpeedruns,
     SimilarGames,
-    GameInList,
   },
 
   data() {

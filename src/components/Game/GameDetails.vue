@@ -78,6 +78,8 @@ d<template lang="html">
       <game-tags-dropdown v-if="user" />
     </div>
 
+    <game-in-list />
+
     <strong class="text-muted">Other links</strong>
     <br>
 
@@ -109,11 +111,13 @@ d<template lang="html">
 
 <script>
 import { mapGetters, mapState } from 'vuex';
+import GameInList from '@/components/Game/GameInList';
 import GameTagsDropdown from '@/components/Game/GameTagsDropdown';
 
 export default {
   components: {
     GameTagsDropdown,
+    GameInList,
   },
 
   data() {
