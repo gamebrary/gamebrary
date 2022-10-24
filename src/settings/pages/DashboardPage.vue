@@ -64,26 +64,6 @@
           />
         </b-col>
 
-        <!-- <b-col cols="12" sm="6" md="3">
-          <b-card>
-            <h4>Tags</h4>
-
-            <b-button
-              v-for="({ textColor, bgColor, name, games }, index) in tags"
-              @click="$router.push({ name: 'tag.edit', params: { id: index } })"
-              rounded
-              size="sm"
-              class="mr-1 mb-1"
-              variant="transparent"
-              :style="`background-color: ${bgColor}; color: ${textColor}`"
-              :key="name"
-            >
-              {{ name }} {{ games.length ? `(${games.length})` : '' }}
-            </b-button>
-          </b-card>
-        </b-col> -->
-
-
         <b-col cols="12" sm="6" md="3">
           <settings-card
             title="Tags"
