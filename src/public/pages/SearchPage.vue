@@ -14,7 +14,8 @@
       <b-spinner v-if="loading" class="spinner-centered" />
 
       <b-form-row v-else-if="searchResults.length">
-        <portal to="headerActions">
+        <!-- TODO: put platforms in constants and restore this -->
+        <!-- <portal to="headerActions">
           <b-dropdown
             id="dropdown-1"
             variant="light"
@@ -48,49 +49,54 @@
               </b-dropdown-item>
             </template>
           </b-dropdown>
-        </portal>
+        </portal> -->
 
         <b-col cols="12" class="py-2 mb-3" v-if="activeBoard">
           <div class="d-flex align-items-center">
             <span class="d-none d-sm-block">
-              Add games to:
+              Add games to
+              <strong v-if="activeBoard.type === 'list'">
+                {{ activeBoard.name }}
+              </strong>
             </span>
 
-            <b-dropdown
-              split
-              variant="light"
-              size="sm"
-              class="ml-2"
-              :split-to="{ name: 'board', params: { id: boardId } }"
-              :text="activeBoard.name"
-            >
-              <b-dropdown-item
-                v-for="board in boards"
-                :key="board.id"
-                :disabled="!board.lists.length"
-                :to="{ name: 'search', query: { boardId: board.id, listIndex: 0, q: query } }"
+            <template v-if="activeBoard.type !== 'list'">
+              <b-dropdown
+                split
+                variant="light"
+                size="sm"
+                class="ml-2"
+                :split-to="{ name: 'board', params: { id: boardId } }"
+                :text="activeBoard.name"
               >
-                {{ board.name }}
-              </b-dropdown-item>
-            </b-dropdown>
+                <b-dropdown-item
+                  v-for="board in boards"
+                  :key="board.id"
+                  :disabled="!board.lists.length"
+                  :to="{ name: 'search', query: { boardId: board.id, listIndex: 0, q: query } }"
+                >
+                  {{ board.name }}
+                </b-dropdown-item>
+              </b-dropdown>
 
-            <b-dropdown
-              v-if="activeBoardList"
-              split
-              variant="light"
-              size="sm"
-              class="ml-2"
-              :split-to="{ name: 'board', params: { id: boardId } }"
-              :text="activeBoardList.name"
-            >
-              <b-dropdown-item
-                v-for="(list, listIndex) in activeBoard.lists"
-                :key="list.id"
-                :to="{ name: 'search', query: { boardId: activeBoard.id, listIndex, q: query } }"
+              <b-dropdown
+                v-if="activeBoardList"
+                split
+                variant="light"
+                size="sm"
+                class="ml-2"
+                :split-to="{ name: 'board', params: { id: boardId } }"
+                :text="activeBoardList.name"
               >
-                {{ list.name }}
-              </b-dropdown-item>
-            </b-dropdown>
+                <b-dropdown-item
+                  v-for="(list, listIndex) in activeBoard.lists"
+                  :key="list.id"
+                  :to="{ name: 'search', query: { boardId: activeBoard.id, listIndex, q: query } }"
+                >
+                  {{ list.name }}
+                </b-dropdown-item>
+              </b-dropdown>
+            </template>
 
             <b-button :to="{ name: 'search' }" class="ml-auto" variant="light">
               <i class="fas fa-times fa-fw" aria-hidden />
@@ -112,9 +118,9 @@
           <game-card-search :game="game" />
         </b-col>
 
-        <b-button @click="loadMoreResults">
+        <!-- <b-button @click="loadMoreResults">
           load more
-        </b-button>
+        </b-button> -->
       </b-form-row>
 
       <div
