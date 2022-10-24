@@ -19,7 +19,7 @@
       <portal-target name="headerActions" />
 
       <b-button :to="{ name: 'search' }" class="d-sm-none">
-        <i class="fa fa-search" aria-hidden="true"></i>
+        <i class="fa fa-search" aria-hidden="true" />
       </b-button>
 
       <search-box class="d-none d-sm-block" />

@@ -8,7 +8,7 @@
     @click="handleClick"
   >
     <div v-if="selected" class="selected-indicator rounded bg-success text-white">
-      <i class="fa fa-check"></i>
+      <i class="fa fa-check" />
     </div>
   </b-card>
 </template>

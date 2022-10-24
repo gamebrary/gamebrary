@@ -102,7 +102,7 @@
                 class="ml-2"
               >
                 <!-- <i class="fas fa-trash fa-fw" aria-hidden /> -->
-                <i class="fas fa-times fa-fw" aria-hidden></i>
+                <i class="fas fa-times fa-fw" aria-hidden />
               </b-button>
             </div>
 
