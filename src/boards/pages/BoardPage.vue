@@ -8,23 +8,35 @@
 
     <template v-else-if="showBoard">
       <portal to="pageTitle">
-        <p :class="['mb-0', { 'text-white': backgroundUrl, 'text-outlined': backgroundUrl }]">
-          {{ board.name }}
-        </p>
+        <div :class="{ 'd-flex align-items-baseline': publicProfile.userName }">
+          <p :class="['mb-0', { 'text-white': backgroundUrl, 'text-outlined': backgroundUrl }]">
+            {{ board.name }}
+
+            <small
+              v-if="publicProfile.userName"
+            >
+              by
+
+              <b-link
+                class="mr-2"
+                :to="{ name: 'public.profile', params: { userName: publicProfile.userName }}"
+              >
+                <b-avatar
+                  rounded
+                  v-if="avatarImage"
+                  :src="avatarImage"
+                  v-b-tooltip.hover
+                  :title="`@${publicProfile.userName}`"
+                />
+
+                @{{ publicProfile.userName }}
+              </b-link>
+            </small>
+          </p>
+        </div>
       </portal>
 
       <portal to="headerActions">
-        <b-button
-          v-if="boardOwner"
-          class="mr-2"
-          variant="light"
-          :to="{ name: 'public.profile', params: { userName: boardOwner.userName }}"
-        >
-          <!-- TODO: use avatar -->
-          <i class="fa fa-user" aria-hidden="true"></i>
-          {{ boardOwner.userName }}
-        </b-button>
-
         <b-button
           v-if="isBoardOwner"
           :to="{ name: 'board.edit', params: { id: board.id } }"
@@ -70,8 +82,9 @@ export default {
     return {
       loading: true,
       queryLimit: 500,
+      avatarImage: null,
       backgroundUrl: null,
-      boardOwner: null,
+      publicProfile: {},
     };
   },
 
@@ -153,8 +166,14 @@ export default {
     },
 
     async loadPublicProfile() {
-      this.boardOwner = await this.$store.dispatch('LOAD_PUBLIC_PROFILE_BY_USER_ID', this.board.owner)
+      this.publicProfile = await this.$store.dispatch('LOAD_PUBLIC_PROFILE_BY_USER_ID', this.board.owner)
         .catch(() => {});
+
+      const avatar = getImageThumbnail(this.profile?.avatar);
+
+      this.avatarImage = avatar
+        ? await this.$store.dispatch('LOAD_FIREBASE_IMAGE', avatar)
+        : null;
     },
 
     loadBoardGames() {
