@@ -8,12 +8,12 @@
 
     <template v-else-if="showBoard">
       <portal to="pageTitle">
-        <div :class="{ 'd-flex align-items-baseline': publicProfile.userName }">
+        <div :class="{ 'd-flex align-items-baseline': publicProfile && publicProfile.userName }">
           <p :class="['mb-0', { 'text-white': backgroundUrl, 'text-outlined': backgroundUrl }]">
             {{ board.name }}
 
             <small
-              v-if="publicProfile.userName"
+              v-if="publicProfile && publicProfile.userName"
             >
               by
 
@@ -66,6 +66,7 @@ import BoardPlaceholder from '@/components/Board/BoardPlaceholder';
 import KanbanBoard from '@/components/Board/KanbanBoard';
 import BasicBoard from '@/components/Board/BasicBoard';
 import chunk from 'lodash.chunk';
+import { getImageThumbnail } from '@/utils';
 import { BOARD_TYPE_LIST } from '@/constants';
 import { mapState, mapGetters } from 'vuex';
 
@@ -168,6 +169,8 @@ export default {
     async loadPublicProfile() {
       this.publicProfile = await this.$store.dispatch('LOAD_PUBLIC_PROFILE_BY_USER_ID', this.board.owner)
         .catch(() => {});
+
+      if (!this.profile?.avatar) return;
 
       const avatar = getImageThumbnail(this.profile?.avatar);
 
