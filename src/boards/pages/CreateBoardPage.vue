@@ -97,6 +97,7 @@ export default {
           // TODO: set default lists based on board type
           games: [],
           lastUpdated: Date.now(),
+          ranked: false,
           lists: [{
             name: 'Click to rename',
             games: [],
