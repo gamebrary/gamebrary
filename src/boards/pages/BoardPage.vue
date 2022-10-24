@@ -35,7 +35,7 @@
         </b-button>
       </portal>
 
-      <basic-board v-if="board.type === 'basic'" />
+      <basic-board v-if="board.type === $options.BOARD_TYPE_LIST" />
       <kanban-board v-else />
     </template>
 
@@ -54,9 +54,12 @@ import BoardPlaceholder from '@/components/Board/BoardPlaceholder';
 import KanbanBoard from '@/components/Board/KanbanBoard';
 import BasicBoard from '@/components/Board/BasicBoard';
 import chunk from 'lodash.chunk';
+import { BOARD_TYPE_LIST } from '@/constants';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
+  BOARD_TYPE_LIST,
+
   components: {
     BoardPlaceholder,
     KanbanBoard,

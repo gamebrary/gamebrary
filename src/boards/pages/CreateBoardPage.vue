@@ -38,7 +38,7 @@
         </b-form-group>
 
         <b-form-checkbox
-          v-if="board.type === 'list'"
+          v-if="board.type === $options.BOARD_TYPE_LIST"
           v-model="board.ranked"
           name="check-button"
           class="mb-3"
@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import { BOARD_TYPES } from '@/constants';
+import { BOARD_TYPES, BOARD_TYPE_LIST } from '@/constants';
 
 export default {
   BOARD_TYPES,
