@@ -197,15 +197,7 @@ export default {
 
       this.board = await this.$store.dispatch('LOAD_BOARD', this.boardId);
 
-      if (!this.board.type) this.board.type = 'kanban';
-
       this.loading = false;
-    },
-
-    setBoardType(type) {
-      console.log('type', type);
-      // TODO: check if switching to basic while having more than 1 list
-      this.board.type = type;
     },
 
     confirmDelete() {
