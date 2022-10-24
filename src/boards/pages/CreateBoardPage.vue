@@ -26,9 +26,33 @@
           />
         </b-form-group>
 
-        <pre>
-          {{ board.type }}
-        </pre>
+        <b-form-group
+          label="Board type"
+          label-for="boardType"
+        >
+          <b-form-select
+            id="boardType"
+            v-model="board.type"
+            :options="boardTypes"
+          />
+        </b-form-group>
+
+        <b-form-checkbox
+          v-if="board.type === 'list'"
+          v-model="board.ranked"
+          name="check-button"
+          class="mb-3"
+          switch
+        >
+          Ranked
+        </b-form-checkbox>
+
+        <b-form-checkbox v-model="board.isPublic" switch class="mb-2">
+          Public
+        </b-form-checkbox>
+
+
+        <!-- TODO: if list type is list, ask if ranked or not -->
 
         <b-button
           variant="primary"
@@ -53,6 +77,11 @@ export default {
         lists: [],
         type: 'kanban',
       },
+      boardTypes: [
+        { text: 'Kanban', value: 'kanban' },
+        { text: 'List', value: 'list' },
+        { text: 'Tier', value: 'tier' },
+      ],
       saving: false,
       selectedTemplate: null,
     };
