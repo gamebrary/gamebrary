@@ -72,6 +72,8 @@
               Public
             </b-form-checkbox>
 
+            <!-- TODO: when converting from kanban to basic, ask if wants to merge, or create separate boards -->
+
             <b-alert show variant="info" v-if="board.isPublic" class="m-0 text-truncate">
               <strong>Public Board URL</strong>
               <br>
