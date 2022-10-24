@@ -56,6 +56,15 @@
               />
             </b-form-group>
 
+            <b-form-checkbox
+              v-if="board.type === $options.BOARD_TYPE_LIST"
+              v-model="board.ranked"
+              name="check-button"
+              class="mb-3"
+              switch
+            >
+              Ranked
+            </b-form-checkbox>
 
             <b-form-group
               :label="$t('board.settings.descriptionLabel')"
@@ -157,7 +166,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import { BOARD_TYPES } from '@/constants';
+import { BOARD_TYPES, BOARD_TYPE_LIST } from '@/constants';
 import WallpapersList from '@/components/WallpapersList';
 import VSwatches from 'vue-swatches'
 import MiniBoard from '@/components/Board/MiniBoard';
