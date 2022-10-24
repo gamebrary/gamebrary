@@ -7,7 +7,7 @@
     <header class="text-small py-1 px-2 d-flex align-items-center justify-content-between">
       <span class="mr-1 text-muted mb-1">{{ board.name }}</span>
 
-      <b-button v-if="board.isPublic" class="bg-warning text-white p-0 px-1" size="sm">
+      <b-button v-if="showPublicIndicator" class="bg-warning text-white p-0 px-1" size="sm">
         Public
       </b-button>
     </header>
@@ -75,6 +75,10 @@ export default {
   },
 
   computed: {
+    showPublicIndicator() {
+      return this.$route.name !== 'explore' && this.board?.isPublic;
+    },
+
     isListType() {
       return this.board?.type === BOARD_TYPE_LIST;
     },
