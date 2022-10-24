@@ -34,15 +34,6 @@
       <h2 class="d-flex w-100 justify-content-center mr-2">{{ games[gameId].name }}</h2>
     </b-card>
 
-    <b-button
-      v-if="isBoardOwner"
-      title="Add games"
-      block
-      :to="{ name: 'search', query: { boardId: board.id, listIndex: 0 } }"
-    >
-      <i class="fa-solid fa-plus fa-fw" /> Add games
-    </b-button>
-
     <div v-if="isEmpty && isBoardOwner">
       <b-button
         variant="light"
@@ -55,6 +46,15 @@
         <template v-else>Empty list</template>
       </b-button>
     </div>
+
+    <b-button
+      v-else-if="isBoardOwner"
+      title="Add games"
+      block
+      :to="{ name: 'search', query: { boardId: board.id, listIndex: 0 } }"
+    >
+      <i class="fa-solid fa-plus fa-fw" /> Add games
+    </b-button>
   </draggable>
 </template>
 
