@@ -12,7 +12,29 @@
       </b-button>
     </header>
 
-    <div class="lists rounded overflow-hidden">
+    <div v-if="isListType" class="lists rounded overflow-hidden justify-content-center">
+      <div
+        class="list basic rounded overflow-hidden border align-self-start"
+      >
+        <template v-if="firstList.games.length">
+          <div
+            v-for="(game, index) in firstList.games"
+            :key="game"
+            :class="['bg-light', { 'border-bottom': index !== firstList.games.length - 1 }]"
+          >
+            <i class="fas fa-square fa-fw text-white" style="margin-left: 1px;" aria-hidden />
+          </div>
+        </template>
+
+        <div
+          v-else
+          class="rounded overflow-hidden list bg-secondary"
+          style="height: 22px;"
+        />
+      </div>
+    </div>
+
+    <div v-else class="lists rounded overflow-hidden">
       <div
         v-for="list in board.lists"
         :key="list.name"
@@ -39,6 +61,8 @@
 </template>
 
 <script>
+import { BOARD_TYPE_LIST } from '@/constants';
+
 export default {
   props: {
     board: Object,
@@ -51,6 +75,16 @@ export default {
   },
 
   computed: {
+    isListType() {
+      return this.board?.type === BOARD_TYPE_LIST;
+    },
+
+    firstList() {
+      const [firstList] = this.board?.lists;
+
+      return firstList;
+    },
+
     miniBoardStyles() {
       if (this.backgroundUrl) return `background-image: url(${this.backgroundUrl});`
 
@@ -94,5 +128,9 @@ $boardHeight: 200px;
 .list {
   width: 60px;
   max-height: 160px;
+
+  &.basic {
+    width: 80px;
+  }
 }
 </style>
