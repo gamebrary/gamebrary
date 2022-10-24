@@ -6,14 +6,24 @@
           <div class="d-flex align-items-center justify-content-between mb-2 pt-2">
             Recent boards
 
-            <b-button
-              v-if="sortedBoards.length > 10"
-              size="sm"
-              title="Boards"
-              :to="{ name: 'boards' }"
-            >
-              View all boards
-            </b-button>
+            <div>
+              <b-button
+                class="mr-2"
+                size="sm"
+                :to="{ name: 'create.board' }"
+              >
+                <i class="fa fa-plus" aria-hidden="true" />
+              </b-button>
+
+              <b-button
+                v-if="sortedBoards.length > 10"
+                size="sm"
+                title="Boards"
+                :to="{ name: 'boards' }"
+              >
+                View all boards
+              </b-button>
+            </div>
           </div>
 
           <b-form-row>
