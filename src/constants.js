@@ -7,6 +7,12 @@ export const STEAM_CATEGORY_ID = 13;
 export const GOG_CATEGORY_ID = 17;
 export const TWITTER_CATEGORY_ID = 5;
 
+export const BOARD_TYPES = [
+  { text: 'Kanban', value: 'kanban' },
+  { text: 'List', value: 'list' },
+  // { text: 'Tier', value: 'tier' },
+];
+
 export const PLATFORM_CATEGORIES = {
   1: 'console',
   2: 'arcade',

@@ -33,7 +33,7 @@
           <b-form-select
             id="boardType"
             v-model="board.type"
-            :options="boardTypes"
+            :options="$options.BOARD_TYPES"
           />
         </b-form-group>
 
@@ -68,7 +68,11 @@
 </template>
 
 <script>
+import { BOARD_TYPES } from '@/constants';
+
 export default {
+  BOARD_TYPES,
+
   data() {
     return {
       board: {
@@ -77,11 +81,6 @@ export default {
         lists: [],
         type: 'kanban',
       },
-      boardTypes: [
-        { text: 'Kanban', value: 'kanban' },
-        { text: 'List', value: 'list' },
-        { text: 'Tier', value: 'tier' },
-      ],
       saving: false,
       selectedTemplate: null,
     };

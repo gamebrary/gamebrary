@@ -47,14 +47,15 @@
 
             <b-form-group
               label="Board type"
-              label-for="name"
+              label-for="boardType"
             >
-              <b-dropdown id="dropdown-1" :text="board.type">
-                <b-dropdown-item @click="setBoardType('kanban')">Kanban</b-dropdown-item>
-                <!-- <b-dropdown-item @click="setBoardType('tiers')">Tiers</b-dropdown-item> -->
-                <b-dropdown-item @click="setBoardType('basic')">Basic</b-dropdown-item>
-              </b-dropdown>
+              <b-form-select
+                id="boardType"
+                v-model="board.type"
+                :options="$options.BOARD_TYPES"
+              />
             </b-form-group>
+
 
             <b-form-group
               :label="$t('board.settings.descriptionLabel')"
@@ -156,11 +157,14 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import { BOARD_TYPES } from '@/constants';
 import WallpapersList from '@/components/WallpapersList';
 import VSwatches from 'vue-swatches'
 import MiniBoard from '@/components/Board/MiniBoard';
 
 export default {
+  BOARD_TYPES,
+
   components: {
     WallpapersList,
     VSwatches,
