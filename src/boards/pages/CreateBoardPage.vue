@@ -51,9 +51,6 @@
           Public
         </b-form-checkbox>
 
-
-        <!-- TODO: if list type is list, ask if ranked or not -->
-
         <b-button
           variant="primary"
           loading

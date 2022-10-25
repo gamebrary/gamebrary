@@ -37,6 +37,14 @@
 
             <game-media />
 
+            <ins class="adsbygoogle"
+              style="display:block"
+              data-ad-client="ca-pub-6973051121553624"
+              data-ad-slot="8993171340"
+              data-ad-format="auto"
+              data-full-width-responsive="true"
+            />
+
             <b-button
               v-if="gameNews.length"
               size="sm"
