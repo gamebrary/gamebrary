@@ -13,7 +13,7 @@
     <b-modal hide-footer v-model="selecting">
       <template v-slot:modal-header="{ close }">
         <modal-header
-          title="Select game"
+          :title="title"
           @close="close"
         />
       </template>
@@ -72,6 +72,10 @@ export default {
     variant: {
       type: String,
       default: 'light',
+    },
+    title: {
+      type: String,
+      default: 'Select a game',
     },
     filter: {
       type: Array,
