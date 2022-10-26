@@ -30,7 +30,7 @@
     <b-row v-if="list" no-gutters>
       <b-col cols="6" class="d-none d-sm-block">
         <div :style="boardStyles" class="p-3 list-preview d-flex justify-content-center">
-          <game-list :list="list" preview />
+          <kanban-list :list="list" preview />
         </div>
       </b-col>
 
@@ -219,13 +219,13 @@
 </template>
 
 <script>
-import GameList from '@/components/Lists/GameList';
+import KanbanList from '@/components/Lists/KanbanList';
 
 import { mapState } from 'vuex';
 
 export default {
   components: {
-    GameList,
+    KanbanList,
   },
 
   data() {
