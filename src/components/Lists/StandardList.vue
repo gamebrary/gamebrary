@@ -15,6 +15,7 @@
     @end="dragEnd"
     @start="dragStart"
   >
+    <h3 v-if="hasMultipleLists">{{ list.name }}</h3>
     <b-card
       no-body
       class="mb-2 flex-row align-items-center cursor-pointer"
@@ -97,6 +98,10 @@ export default {
   computed: {
     ...mapState(['games', 'dragging', 'progresses', 'board', 'user', 'settings']),
     ...mapGetters(['isBoardOwner']),
+
+    hasMultipleLists() {
+      return this.board?.lists?.length > 1;
+    },
 
     filter() {
       return this.list?.games || [];
@@ -196,10 +201,9 @@ export default {
   width: 120px;
 }
 .standard-list {
-  background: #ccf;
   width: 500px;
 
-  @media(max-width: 480px) {
+  @media(max-width: 500px) {
     width: 100%;
   }
 }
