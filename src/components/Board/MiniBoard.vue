@@ -5,11 +5,17 @@
     :style="miniBoardStyles"
   >
     <header class="text-small py-1 px-2 d-flex align-items-center justify-content-between">
-      <span class="mr-1 text-muted mb-1">{{ board.name }}</span>
+      <span :class="['mr-1 mb-1', { 'text-outlined text-white': backgroundUrl }]">
+        {{ board.name }}
+      </span>
 
-      <b-button v-if="showPublicIndicator" class="bg-warning text-white p-0 px-1" size="sm">
+      <b-badge
+        v-if="showPublicIndicator"
+        class="bg-warning"
+        size="sm"
+      >
         Public
-      </b-button>
+      </b-badge>
     </header>
 
     <div v-if="isStandardBoard" class="lists rounded overflow-hidden justify-content-center">
@@ -22,8 +28,8 @@
             :key="game"
             :class="['bg-light', { 'border-bottom': index !== firstList.games.length - 1 }]"
           >
-            <small class="mx-1 text-dark">{{ index + 1 }}</small>
             <i class="fas fa-square fa-fw text-white" style="margin-left: 1px;" aria-hidden />
+            <small v-if="board.ranked" class="mx-1">{{ index + 1 }}</small>
           </div>
         </template>
 
