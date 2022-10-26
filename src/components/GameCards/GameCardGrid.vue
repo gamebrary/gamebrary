@@ -4,18 +4,25 @@
     class="cursor-pointer text-center"
     img-top
   >
-    <div class="m-1">
-      <b-card-img
+    <div class="position-relative cursor-pointer rounded align-self-end card overflow-hidden border-0 m-1">
+      <b-img
+        fluid
         :src="coverUrl"
-        alt="Image"
-        class="rounded"
+      />
+
+      <i
+        v-if="tagsApplied.length"
+        class="fas fa-tags position-absolute text-white tag-icon"
+        v-b-tooltip.hover
+        :title="`${tagsApplied.length} tags applied.`"
+        aria-hidden
       />
     </div>
 
     <b-card-body body-class="p-2" v-if="game && game.name">
       <b-card-title
         :class="`mb-0 ${highlightCompletedGame ? 'text-success' : ''}`"
-        title-tag="h4"
+        title-tag="h5"
       >
         {{ game.name }}
       </b-card-title>
@@ -27,19 +34,6 @@
         variant="success"
         height="6px"
       />
-
-      <template v-if="tagsApplied.length">
-        <b-badge
-          v-for="({ bgColor, textColor, name }) in tagsApplied"
-          :key="name"
-          rounded
-          class="mr-1"
-          variant="transparent"
-          :style="`background-color: ${bgColor}; color: ${textColor}`"
-        >
-          <small>{{ name }}</small>
-        </b-badge>
-      </template>
 
       <b-badge variant="warning" v-if="gameNotes">
         <i class="far fa-sticky-note fa-fw" />
@@ -55,3 +49,10 @@ export default {
   mixins: [gameCardMixin],
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+.tag-icon {
+  bottom: .25rem;
+  right: .25rem;
+}
+</style>
