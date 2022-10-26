@@ -59,6 +59,7 @@
 
     <game-selector
       :filter="filter"
+      :title="`Add games to ${list.name}`"
       @select-game="selectGame"
     />
   </draggable>
