@@ -229,8 +229,4 @@ export default {
   overflow-x: auto;
   overflow-x: overlay;
 }
-
-.text-outlined {
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-}
 </style>
