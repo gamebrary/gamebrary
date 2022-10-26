@@ -15,18 +15,6 @@
         </b-form-group>
 
         <b-form-group
-          label="Board description"
-          label-for="boardDescription"
-        >
-          <b-form-textarea
-            id="boardDescription"
-            v-model="board.description"
-            maxlength="280"
-            rows="2"
-          />
-        </b-form-group>
-
-        <b-form-group
           label="Board type"
           label-for="boardType"
         >
@@ -69,14 +57,15 @@ import { BOARD_TYPES, BOARD_TYPE_STANDARD } from '@/constants';
 
 export default {
   BOARD_TYPES,
+  BOARD_TYPE_STANDARD,
 
   data() {
     return {
       board: {
         name: '',
-        description: '',
         lists: [],
-        type: 'kanban',
+        type: BOARD_TYPE_STANDARD,
+        ranked: false,
       },
       saving: false,
       selectedTemplate: null,
@@ -94,9 +83,8 @@ export default {
           // TODO: set default lists based on board type
           games: [],
           lastUpdated: Date.now(),
-          ranked: false,
           lists: [{
-            name: 'Click to rename',
+            name: '',
             games: [],
             settings: {
               showReleaseDates: false,

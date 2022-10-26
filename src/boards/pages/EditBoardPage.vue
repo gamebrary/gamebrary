@@ -1,4 +1,3 @@
-<!-- TODO: refactor saving, create payload locally -->
 <template lang="html">
   <section>
     <b-container>
@@ -38,7 +37,7 @@
             @submit.stop.prevent="saveBoard"
           >
             <b-form-group
-              :label="$t('board.settings.nameLabel')"
+              label="Board name"
               label-for="name"
             >
               <b-form-input
@@ -60,7 +59,7 @@
             </b-form-group>
 
             <b-form-checkbox
-              v-if="board.type === $options.BOARD_TYPE_LIST"
+              v-if="board.type === $options.BOARD_TYPE_STANDARD"
               v-model="board.ranked"
               name="check-button"
               class="mb-3"
@@ -69,29 +68,20 @@
               Ranked
             </b-form-checkbox>
 
-            <b-form-group
-              :label="$t('board.settings.descriptionLabel')"
-              label-for="description"
-            >
-              <b-form-textarea
-                id="description"
-                v-model="board.description"
-                maxlength="280"
-                rows="3"
-              />
-            </b-form-group>
+            <div class="d-flex">
+              <b-form-checkbox v-model="board.isPublic" switch class="mb-2">
+                Public
+              </b-form-checkbox>
 
-            <b-form-checkbox v-model="board.isPublic" switch class="mb-2">
-              Public
-            </b-form-checkbox>
-
-            <!-- TODO: when converting from kanban to basic, ask if wants to merge, or create separate boards -->
-
-            <b-alert show variant="info" v-if="board.isPublic" class="m-0 text-truncate">
-              <strong>Public Board URL</strong>
-              <br>
-              <small>{{ `https://gamebrary.com/b/${board.id}` }}</small>
-            </b-alert>
+              <b-link
+                v-if="board.isPublic"
+                class="ml-2"
+                target="_blank"
+                :href="`https://gamebrary.com/b/${board.id}`"
+              >
+                Open board
+              </b-link>
+            </div>
 
             <hr class="my-3">
 
@@ -100,23 +90,28 @@
               class="m-0"
             />
 
-            <div class="d-flex align-items-start">
-              <v-swatches
-                v-model="board.backgroundColor"
-                show-fallback
-                popover-x="left"
-              />
+            <v-swatches
+              v-model="board.backgroundColor"
+              show-fallback
+              popover-x="left"
+            />
 
-              <b-button
-                v-if="board.backgroundColor"
-                @click="board.backgroundColor = null"
-                variant="light"
-                class="ml-2"
-              >
-                <!-- <i class="fas fa-trash fa-fw" aria-hidden /> -->
-                <i class="fas fa-times fa-fw" aria-hidden />
-              </b-button>
-            </div>
+            <b-button
+              v-if="board.backgroundColor"
+              @click="board.backgroundColor = null"
+              class="ml-2"
+            >
+              <i class="fas fa-times fa-fw" aria-hidden />
+            </b-button>
+
+            <b-button
+              v-if="board.backgroundUrl"
+              class="mb-2"
+              block
+              @click="board.backgroundUrl = null"
+            >
+              <i class="fas fa-times fa-fw" aria-hidden />
+            </b-button>
 
             <b-button
               v-b-modal.boardWallpaper
@@ -125,16 +120,6 @@
               block
             >
               Choose background image
-            </b-button>
-
-            <b-button
-              v-if="board.backgroundUrl"
-              variant="link"
-              class="mb-2"
-              block
-              @click="board.backgroundUrl = null"
-            >
-              <i class="fas fa-trash fa-fw" aria-hidden /> Remove background image
             </b-button>
 
             <mini-board
@@ -169,7 +154,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import { BOARD_TYPES, BOARD_TYPE_LIST } from '@/constants';
+import { BOARD_TYPES, BOARD_TYPE_STANDARD } from '@/constants';
 import WallpapersList from '@/components/WallpapersList';
 import UploadWallpaperButton from '@/components/UploadWallpaperButton';
 import VSwatches from 'vue-swatches'
@@ -177,7 +162,7 @@ import MiniBoard from '@/components/Board/MiniBoard';
 
 export default {
   BOARD_TYPES,
-  BOARD_TYPE_LIST,
+  BOARD_TYPE_STANDARD,
 
   components: {
     WallpapersList,
