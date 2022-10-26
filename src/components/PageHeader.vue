@@ -1,28 +1,28 @@
 <template lang="html">
-  <header class="p-2 d-flex">
+  <header class="py-2 px-3 d-flex">
     <b-button
       title="Dashboard"
       size="sm"
-      class="mr-2"
+      class="p-0 mr-3"
       variant="transparent"
       :to="{ name: 'home' }"
     >
       <img
         src="/logo.png"
-        width="20"
+        class="logo"
       />
     </b-button>
 
     <portal-target name="pageTitle" slim />
 
-    <div class="align-items-center d-flex ml-auto mr-2">
+    <div class="align-items-center d-flex ml-auto">
       <portal-target name="headerActions" />
 
-      <b-button :to="{ name: 'search' }" class="d-sm-none">
+      <b-button v-if="!isSearchPage" :to="{ name: 'search' }" class="d-sm-none">
         <i class="fa fa-search" aria-hidden="true" />
       </b-button>
 
-      <search-box class="d-none d-sm-block" />
+      <search-box :class="[{ 'd-none d-sm-block': !isSearchPage }]" />
 
       <b-button
         v-if="!user"
@@ -48,8 +48,8 @@ export default {
   computed: {
     ...mapState(['board', 'boards', 'user', 'game']),
 
-    showSearchButton() {
-      return this.$route.name !== 'search';
+    isSearchPage() {
+      return this.$route.name === 'search';
     },
   },
 };
@@ -61,5 +61,9 @@ export default {
     align-items: center;
     grid-template-columns: 65px 1fr;
     z-index: 1;
+  }
+
+  .logo {
+    height: 36px;
   }
 </style>

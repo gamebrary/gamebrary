@@ -1,31 +1,32 @@
 <template lang="html">
   <section>
     <b-container>
+      <portal to="pageTitle">
+        Recent boards
+      </portal>
+
+      <portal to="headerActions">
+        <div class="d-none d-sm-flex">
+          <b-button
+            class="mr-2"
+            :to="{ name: 'create.board' }"
+          >
+            <i class="fa fa-plus" aria-hidden="true" />
+          </b-button>
+
+          <b-button
+            v-if="sortedBoards.length > 10"
+            title="Boards"
+            class="mr-2"
+            :to="{ name: 'boards' }"
+          >
+            View all
+          </b-button>
+        </div>
+      </portal>
+
       <b-row>
         <b-col>
-          <div class="d-flex align-items-center justify-content-between mb-2 pt-2">
-            Recent boards
-
-            <div>
-              <b-button
-                class="mr-2"
-                size="sm"
-                :to="{ name: 'create.board' }"
-              >
-                <i class="fa fa-plus" aria-hidden="true" />
-              </b-button>
-
-              <b-button
-                v-if="sortedBoards.length > 10"
-                size="sm"
-                title="Boards"
-                :to="{ name: 'boards' }"
-              >
-                View all boards
-              </b-button>
-            </div>
-          </div>
-
           <b-form-row>
             <b-col
               v-for="board in recentBoards"
@@ -42,6 +43,16 @@
                 @click.native="$router.push({ name: 'board', params: { id: board.id } })"
               />
             </b-col>
+
+            <b-button
+              v-if="sortedBoards.length > 10"
+              title="Boards"
+              block
+              class="d-sm-none"
+              :to="{ name: 'boards' }"
+            >
+              View all
+            </b-button>
           </b-form-row>
         </b-col>
       </b-row>
@@ -116,7 +127,7 @@
         class="keap-custom-form"
       /> -->
 
-      <footer class="d-flex justify-content-between">
+      <footer class="d-flex justify-content-between pb-5">
         <div class="footer-links">
           <b-button
             variant="transparent"
@@ -160,6 +171,15 @@
             <i class="fa-solid fa-circle-dollar-to-slot fa-fw" />
           </b-button>
 
+          <b-button
+            size="sm"
+            variant="transparent"
+            v-b-tooltip.hover
+            title="Donate"
+          >
+            <i class="fa-solid fa-language fa-fw" />
+          </b-button>
+
 
           <!-- <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'steam.settings' }">
             <i class="mr-2 fab fa-steam fa-fw" aria-hidde fa-fwn />
@@ -183,7 +203,6 @@
 </template>
 
 <script>
-// import ProfileSettingsPage from '@/pages/ProfileSettingsPage';
 import SettingsCard from '@/components/Settings/SettingsCard';
 import MiniBoard from '@/components/Board/MiniBoard';
 // import SteamSettingsPage from '@/pages/SteamSettingsPage';
@@ -195,7 +214,6 @@ export default {
   components: {
     MiniBoard,
     // LanguageSettings,
-    // ProfileSettingsPage,
     SettingsCard,
     // SteamSettingsPage,
   },

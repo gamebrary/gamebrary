@@ -7,10 +7,17 @@
 
       <template v-else>
         <portal to="headerActions">
-          <div class="mr-2">
+          <div class="d-flex">
+            <!-- <b-button
+              class="mr-2"
+              :to="{ name: 'notes.create' }"
+            >
+              New note
+            </b-button> -->
+
             <b-form-input
               type="search"
-              class="d-none d-sm-block"
+              class="d-none d-sm-block mr-2"
               placeholder="Search notes"
               v-model="searchText"
             />

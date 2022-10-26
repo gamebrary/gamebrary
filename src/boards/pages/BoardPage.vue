@@ -43,11 +43,12 @@
           variant="light"
           class="mr-2"
         >
-          Edit board
+          <span class="d-none d-sm-block">Edit board</span>
+          <i class="fa fa-pen d-sm-none" aria-hidden="true" />
         </b-button>
       </portal>
 
-      <basic-board v-if="board.type === $options.BOARD_TYPE_LIST" />
+      <list-board v-if="board.type === $options.BOARD_TYPE_LIST" />
       <kanban-board v-else />
     </template>
 
@@ -64,7 +65,7 @@
 <script>
 import BoardPlaceholder from '@/components/Board/BoardPlaceholder';
 import KanbanBoard from '@/components/Board/KanbanBoard';
-import BasicBoard from '@/components/Board/BasicBoard';
+import ListBoard from '@/components/Board/ListBoard';
 import chunk from 'lodash.chunk';
 import { getImageThumbnail } from '@/utils';
 import { BOARD_TYPE_LIST } from '@/constants';
@@ -76,7 +77,7 @@ export default {
   components: {
     BoardPlaceholder,
     KanbanBoard,
-    BasicBoard,
+    ListBoard,
   },
 
   data() {

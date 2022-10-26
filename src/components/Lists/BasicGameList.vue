@@ -1,6 +1,7 @@
+<!-- TODO: rename -->
 <template lang="html">
   <draggable
-    class="games centered"
+    class="mx-2 mx-sm-auto"
     handle=".card"
     ghost-class="card-placeholder"
     drag-class="border-selected"
@@ -18,7 +19,7 @@
     <b-card
       no-body
       class="mb-2 flex-row align-items-center cursor-pointer"
-      v-for="gameId in sortedGames"
+      v-for="(gameId, index) in sortedGames"
       :key="gameId"
       @click="openGame(gameId, list)"
     >
@@ -31,7 +32,17 @@
         width="160"
       />
 
-      <h2 class="d-flex w-100 justify-content-center mr-2">{{ games[gameId].name }}</h2>
+      <h3 class="d-flex mr-2 w-100 px-3">
+        <b-badge
+          v-if="board.ranked"
+          variant="light"
+          class="mr-1"
+        >
+          {{ index + 1 }}
+        </b-badge>
+        {{ games[gameId].name }}
+      </h3>
+
     </b-card>
 
     <div v-if="isEmpty && isBoardOwner">
@@ -47,14 +58,7 @@
       </b-button>
     </div>
 
-    <b-button
-      v-else-if="isBoardOwner"
-      title="Add games"
-      block
-      :to="{ name: 'search', query: { boardId: board.id, listIndex: 0 } }"
-    >
-      <i class="fa-solid fa-plus fa-fw" /> Add games
-    </b-button>
+    <game-selector @select-game="selectGame" />
   </draggable>
 </template>
 
@@ -62,6 +66,7 @@
 import draggable from 'vuedraggable';
 import slugify from 'slugify'
 import orderby from 'lodash.orderby';
+import GameSelector from '@/components/GameSelector';
 import { DEFAULT_LIST_VIEW } from '@/constants';
 import { mapState, mapGetters } from 'vuex';
 import { getThumbnailUrl } from '@/utils';
@@ -71,6 +76,7 @@ export default {
 
   components: {
     draggable,
+    GameSelector,
   },
 
   props: {
@@ -123,6 +129,32 @@ export default {
   },
 
   methods: {
+    selectGame(gameId) {
+      if (this.list.games.includes(gameId)) {
+        console.log('remove');
+      } else {
+        this.addGame(gameId);
+        // this.list.games.push(gameId);
+        // this.saveBoard();
+        // console.log('add');
+        // console.log('select gameId', gameId);
+        // console.log(this.list);
+      }
+    },
+
+    async addGame(gameId) {
+      const board = JSON.parse(JSON.stringify(this.board));
+
+      board?.lists?.[0]?.games.push(gameId);
+
+      try {
+        await this.$store.dispatch('SAVE_GAME_BOARD', board);
+        await this.$store.dispatch('LOAD_BOARD', board.id);
+      } catch (e) {
+        // this.$bvToast.toast(`There was an error adding "${this.game.name}"`, { title: list.name, variant: 'danger' });
+      }
+    },
+
     openGame(id, list) {
       const slug = slugify(this.games[id].slug, { lower: true });
 

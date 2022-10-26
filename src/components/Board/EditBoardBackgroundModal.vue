@@ -11,6 +11,7 @@
     </b-row>
 
     <h3>My Wallpapers</h3>
+    <!-- TODO: restore upload wallpaper -->
     <!-- <b-button>Upload wallpaper</b-button> -->
 
     <wallpapers-list

@@ -7,60 +7,19 @@
         v-if="showEmptyState"
         :title="$t('wallpapers.title')"
         message="Upload a wallpaper to customize your boards"
-        @action="triggerFileUpload"
       >
-        <b-button
-          :disabled="outOfSpace"
-          variant="light"
-          class="mr-2"
-          @click="triggerFileUpload"
-        >
-          <b-spinner small v-if="saving" />
-
-          <template v-else>
-            Upload wallpaper
-          </template>
-        </b-button>
+        <upload-wallpaper-button />
       </empty-state>
 
       <template v-else>
         <portal to="headerActions">
-          <b-button
-            :disabled="outOfSpace"
-            variant="light"
-            class="mr-2"
-            @click="triggerFileUpload"
-          >
-            <b-spinner small v-if="saving" />
-
-            <template v-else>
-              <i class="fas fa-upload fa-fw" aria-hidden />
-              <span class="d-none d-sm-inline">Upload</span>
-            </template>
-          </b-button>
+          <upload-wallpaper-button />
         </portal>
-
-        <b-alert
-          v-if="isDuplicate && !saving && file && file.name"
-          show
-          variant="warning"
-        >
-          {{ $t('wallpapers.form.duplicateMessage', { fileName: file.name }) }}
-        </b-alert>
 
         <wallpapers-list />
 
         <b-alert :show="showEmptyState">You don't have any wallpapers.</b-alert>
       </template>
-
-      <b-form-file
-        class="d-none file-input"
-        v-model="file"
-        accept="image/*"
-        :browse-text="$t('wallpapers.form.upload')"
-        :placeholder="$t('wallpapers.form.placeholder')"
-        @input="uploadWallpaper"
-      />
     </b-container>
   </section>
 </template>
@@ -68,12 +27,14 @@
 <script>
 import { mapState } from 'vuex';
 import EmptyState from '@/components/EmptyState';
+import UploadWallpaperButton from '@/components/UploadWallpaperButton';
 import { bytesToSize } from '@/utils';
 import WallpapersList from '@/components/WallpapersList';
 
 export default {
   components: {
     EmptyState,
+    UploadWallpaperButton,
     WallpapersList,
   },
 
@@ -132,23 +93,6 @@ export default {
   methods: {
     triggerFileUpload() {
       document.querySelector('.file-input input').click();
-    },
-
-    async uploadWallpaper() {
-      if (this.isDuplicate) return this.$bvToast.toast('File already exists', { variant: 'warning' });
-      if (!this.file) return false;
-
-      this.saving = true;
-
-      try {
-        await this.$store.dispatch('UPLOAD_WALLPAPER', this.file);
-      } catch (e) {
-        this.$bvToast.toast('There was an error uploading wallpaper', { variant: 'danger' });
-      }
-
-      this.file = null;
-      this.saving = false;
-      this.$bus.$emit('WALLPAPER_UPLOADED');
     },
   },
 };

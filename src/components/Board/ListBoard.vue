@@ -1,7 +1,9 @@
 <template lang="html">
-  <div class="basic-board my-3">
-    <basic-game-list :list="list" />
-  </div>
+  <b-container class="my-3">
+    <b-row>
+      <basic-game-list :list="list" />
+    </b-row>
+  </b-container>
 </template>
 
 <script>
@@ -24,11 +26,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-.basic-board {
-  width: 600px;
-  max-width: 100%;
-  margin: 0 auto;
-}
-</style>

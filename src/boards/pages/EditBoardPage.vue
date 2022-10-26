@@ -23,7 +23,10 @@
               <modal-header
                 title="Wallpaper"
                 @close="close"
-              />
+              >
+                <upload-wallpaper-button />
+              </modal-header>
+
             </template>
 
             <wallpapers-list selectable @select="selectWallpaper" :selected="board.backgroundUrl" />
@@ -168,15 +171,18 @@
 import { mapState, mapGetters } from 'vuex';
 import { BOARD_TYPES, BOARD_TYPE_LIST } from '@/constants';
 import WallpapersList from '@/components/WallpapersList';
+import UploadWallpaperButton from '@/components/UploadWallpaperButton';
 import VSwatches from 'vue-swatches'
 import MiniBoard from '@/components/Board/MiniBoard';
 
 export default {
   BOARD_TYPES,
+  BOARD_TYPE_LIST,
 
   components: {
     WallpapersList,
     VSwatches,
+    UploadWallpaperButton,
     MiniBoard,
   },
 
@@ -238,7 +244,8 @@ export default {
 
     selectWallpaper(wallpaper) {
       this.board.backgroundUrl = wallpaper;
-      this.$forceUpdate()
+      this.saveBoard();
+      this.$forceUpdate();
     },
 
     async saveBoard() {

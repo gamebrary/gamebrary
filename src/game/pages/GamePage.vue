@@ -11,6 +11,10 @@
 
       <template v-else-if="game">
         <portal to="pageTitle">
+          <span class="d-sm-none">
+            {{ game.name }}
+          </span>
+
           <b-button
             v-if="originBoardId"
             :to="{ name: 'board', params: { id: originBoardId } }"

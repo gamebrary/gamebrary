@@ -13,13 +13,17 @@
       v-model.trim="note"
       placeholder="Type note here"
       rows="3"
+      class="mb-3"
       max-rows="20"
     />
+
+    <game-selector />
   </b-container>
 </template>
 
 <script>
 import GameNote from '@/components/GameNote';
+import GameSelector from '@/components/GameSelector';
 
 export default {
   data() {
@@ -30,9 +34,7 @@ export default {
 
   components: {
     GameNote,
+    GameSelector,
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-</style>

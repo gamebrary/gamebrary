@@ -500,7 +500,7 @@ export default {
     });
   },
 
-  SAVE_GAME_BOARD({ state }, board) {
+  SAVE_GAME_BOARD({ commit }, board) {
     const db = firestore();
     // TODO: sanitize list games, remove undefined and null game ids
 
@@ -510,6 +510,7 @@ export default {
         .doc(board.id)
         .set(board, { merge: true })
         .then(() => {
+          commit('SET_GAME_BOARD', board);
           resolve();
         })
         .catch(reject);

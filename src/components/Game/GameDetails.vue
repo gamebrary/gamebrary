@@ -1,6 +1,12 @@
 d<template lang="html">
   <b-card class="mt-3 small">
 
+    <div class="pr-2 pb-2">
+      <strong class="text-muted">Progress:</strong>
+
+      {{ progress }}%
+    </div>
+
     <div v-if="gameGenres" class="pr-2 pb-2">
       <strong class="text-muted">Genres:</strong>
 
