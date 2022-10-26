@@ -6,7 +6,7 @@
   <div>
     <board-placeholder v-if="loading" />
 
-    <template v-else-if="showBoard">
+    <template v-else-if="hasAccess">
       <portal to="pageTitle">
         <div :class="{ 'd-flex align-items-baseline': publicProfile && publicProfile.userName }">
           <p :class="['mb-0', { 'text-white': backgroundUrl, 'text-outlined': backgroundUrl }]">
@@ -98,7 +98,7 @@ export default {
       return this.$route.name === 'board';
     },
 
-    showBoard() {
+    hasAccess() {
       return this.user || this.board?.isPublic;
     },
 
@@ -145,7 +145,7 @@ export default {
           return this.$router.replace({ name: 'home' });
         });
 
-      if (this.showBoard) {
+      if (this.hasAccess) {
         if (this.board?.isPublic && !this.isBoardOwner) this.loadPublicProfile();
         this.loadBoardGames();
         this.loadBoardBackground();
