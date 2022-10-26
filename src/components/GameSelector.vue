@@ -2,9 +2,12 @@
   <div>
     <b-button
       @click="selecting = true"
+      :variant="variant"
+      size="sm"
       block
     >
-      Add games
+      <slot v-if="$slots.default" />
+      <span v-else>Add games</span>
     </b-button>
 
     <b-modal hide-footer v-model="selecting">
@@ -24,9 +27,9 @@
 
       <b-spinner v-if="loading" class="spinner-centered" />
 
-      <div v-else-if="searchResults.length > 0" class="search-results">
+      <div v-else-if="filteredSearchResults.length > 0" class="search-results">
         <b-card
-          v-for="game in searchResults"
+          v-for="game in filteredSearchResults"
           class="cursor-pointer mt-2"
           body-class="p-1"
           :key="game.id"
@@ -65,6 +68,17 @@ import { getThumbnailUrl } from '@/utils';
 export default {
   getThumbnailUrl,
 
+  props: {
+    variant: {
+      type: String,
+      default: 'light',
+    },
+    filter: {
+      type: Array,
+      default: () => [],
+    },
+  },
+
   data() {
     return {
       searchText: '',
@@ -81,6 +95,10 @@ export default {
   computed: {
     ...mapState(['board']),
     ...mapGetters(['isBoardOwner']),
+
+    filteredSearchResults() {
+      return this.searchResults.filter(({ id }) => !this.filter?.includes(id));
+    },
   },
 
   methods: {

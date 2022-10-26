@@ -8,12 +8,13 @@ export const GOG_CATEGORY_ID = 17;
 export const TWITTER_CATEGORY_ID = 5;
 
 export const BOARD_TYPE_KANBAN = 'kanban';
-export const BOARD_TYPE_LIST = 'list';
+export const BOARD_TYPE_STANDARD = 'list';
+export const BOARD_TYPE_TIER = 'tier';
 
 export const BOARD_TYPES = [
   { text: 'Kanban', value: BOARD_TYPE_KANBAN },
-  { text: 'List', value: BOARD_TYPE_LIST },
-  // { text: 'Tier', value: 'tier' },
+  { text: 'Standard', value: BOARD_TYPE_STANDARD },
+  { text: 'Tier', value: BOARD_TYPE_TIER },
 ];
 
 export const PLATFORM_CATEGORIES = {

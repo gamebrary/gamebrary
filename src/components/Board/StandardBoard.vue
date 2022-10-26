@@ -1,18 +1,23 @@
 <template lang="html">
   <b-container class="my-3">
-    <b-row>
-      <basic-game-list :list="list" />
+    <b-row
+      v-for="list in board.lists"
+      :key="list.id"
+    >
+      <standard-list
+        :list="list"
+      />
     </b-row>
   </b-container>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import BasicGameList from '@/components/Lists/BasicGameList';
+import StandardList from '@/components/Lists/StandardList';
 
 export default {
   components: {
-    BasicGameList,
+    StandardList,
   },
 
   computed: {

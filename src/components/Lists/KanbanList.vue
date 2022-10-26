@@ -40,15 +40,25 @@
           </b-badge>
         </b-button>
 
-        <b-button
-          v-if="isBoardOwner"
-          title="Add games"
+        <!-- <b-button
+
           size="sm"
           variant="transparent"
           :to="{ name: 'search', query: { boardId: board.id, listIndex } }"
         >
           <i class="fa-solid fa-plus fa-fw" />
-        </b-button>
+        </b-button> -->
+
+        <game-selector
+          v-if="isBoardOwner"
+          class="mb-2"
+          title="Add games"
+          variant="transparent"
+          :filter="list.games"
+          @select-game="selectGame"
+        >
+          <i class="fa-solid fa-plus fa-fw" />
+        </game-selector>
       </header>
 
       <draggable
@@ -80,18 +90,12 @@
           @click.native="openGame(gameId, list)"
         />
 
-        <div v-if="isEmpty && isBoardOwner">
-          <b-button
-            variant="light"
-            block
-            class="mb-2"
-            :disabled="!isBoardOwner"
-            :to="{ name: 'search', query: { boardId: board.id, listIndex: listIndex } }"
-          >
-            <template v-if="isBoardOwner">Add games</template>
-            <template v-else>Empty list</template>
-          </b-button>
-        </div>
+        <game-selector
+          v-if="isEmpty && isBoardOwner"
+          class="mb-2"
+          :filter="list.games"
+          @select-game="selectGame"
+        />
       </draggable>
     </b-card>
   </div>
@@ -99,6 +103,7 @@
 
 <script>
 import draggable from 'vuedraggable';
+import GameSelector from '@/components/GameSelector';
 import GameCardDefault from '@/components/GameCards/GameCardDefault';
 import GameCardCovers from '@/components/GameCards/GameCardCovers';
 import GameCardGrid from '@/components/GameCards/GameCardGrid';
@@ -111,6 +116,7 @@ import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
+    GameSelector,
     GameCardDefault,
     GameCardCovers,
     GameCardGrid,
@@ -198,6 +204,40 @@ export default {
   },
 
   methods: {
+    selectGame(gameId) {
+      return this.list.games.includes(gameId)
+        ? this.removeGame(gameId)
+        : this.addGame(gameId);
+    },
+
+    async addGame(gameId) {
+      const board = JSON.parse(JSON.stringify(this.board));
+
+      board?.lists?.[this.listIndex]?.games.push(gameId);
+
+      try {
+        await this.$store.dispatch('SAVE_GAME_BOARD', board);
+      } catch (e) {
+        // this.$bvToast.toast(`There was an error adding "${this.game.name}"`, { title: list.name, variant: 'danger' });
+      }
+    },
+
+    async removeGame() {
+      const { boardId, listIndex } = this.$route?.query;
+      const boardIndex = this.boards.findIndex(({ id }) => id === boardId);
+      const board = this.boards[boardIndex];
+      const gameIndex = board?.lists?.[listIndex]?.games?.indexOf(this.gameId);
+
+      board.lists[listIndex].games.splice(gameIndex, 1);
+
+      try {
+        await this.$store.dispatch('SAVE_GAME_BOARD', board);
+        await this.$store.dispatch('LOAD_BOARD', board.id)
+      } catch (e) {
+        // this.$bvToast.toast(`There was an error removing "${this.game.name}"`, { title: list.name, variant: 'danger' });
+      }
+    },
+
     openGame(id, list) {
       const slug = slugify(this.games[id].slug, { lower: true });
 

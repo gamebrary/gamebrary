@@ -1,7 +1,6 @@
-<!-- TODO: rename -->
 <template lang="html">
   <draggable
-    class="mx-2 mx-sm-auto"
+    class="mx-2 mx-sm-auto standard-list"
     handle=".card"
     ghost-class="card-placeholder"
     drag-class="border-selected"
@@ -19,17 +18,16 @@
     <b-card
       no-body
       class="mb-2 flex-row align-items-center cursor-pointer"
-      v-for="(gameId, index) in sortedGames"
-      :key="gameId"
-      @click="openGame(gameId, list)"
+      v-for="(game, index) in listGames"
+      :key="game.id"
+      @click="openGame(game.id, list)"
     >
       <b-img
-        :src="$options.getThumbnailUrl(games[gameId])"
-        alt="Image"
-        class="m-2"
+        :src="$options.getThumbnailUrl(game)"
+        :alt="game.name"
+        class="m-2 game-cover"
         rounded
         fluid
-        width="160"
       />
 
       <h3 class="d-flex mr-2 w-100 px-3">
@@ -40,7 +38,7 @@
         >
           {{ index + 1 }}
         </b-badge>
-        {{ games[gameId].name }}
+        {{ game.name }}
       </h3>
 
     </b-card>
@@ -58,7 +56,10 @@
       </b-button>
     </div>
 
-    <game-selector @select-game="selectGame" />
+    <game-selector
+      :filter="filter"
+      @select-game="selectGame"
+    />
   </draggable>
 </template>
 
@@ -97,6 +98,10 @@ export default {
     ...mapState(['games', 'dragging', 'progresses', 'board', 'user', 'settings']),
     ...mapGetters(['isBoardOwner']),
 
+    filter() {
+      return this.list?.games || [];
+    },
+
     draggingDisabled() {
       return !this.user || !this.isBoardOwner;
     },
@@ -105,18 +110,8 @@ export default {
       return ['sortByName', 'sortByRating', 'sortByReleaseDate', 'sortByProgress'].includes(this.list?.settings?.sortOrder);
     },
 
-    sortedGames() {
-      const { settings, games } = this.list;
-      const sortOrder = settings.sortOrder || 'sortByCustom';
-
-      switch (sortOrder) {
-      case 'sortByCustom': return this.list.games;
-      case 'sortByProgress': return orderby(games, [game => this.progresses[game] || 0], ['desc']);
-      case 'sortByRating': return orderby(games, [game => this.games[game].rating || 0], ['desc']);
-      case 'sortByName': return orderby(games, [game => this.games[game].name]);
-      default:
-        return this.list.games;
-      }
+    listGames() {
+      return this.list.games.map((id) => this.games?.[id]);
     },
 
     isEmpty() {
@@ -194,3 +189,18 @@ export default {
   },
 };
 </script>
+
+
+<style lang="scss" rel="stylesheet/scss">
+.game-cover {
+  width: 120px;
+}
+.standard-list {
+  background: #ccf;
+  width: 500px;
+
+  @media(max-width: 480px) {
+    width: 100%;
+  }
+}
+</style>

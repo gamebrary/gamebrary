@@ -1,4 +1,4 @@
-<!-- TODO: use board thumbnails -->
+<!-- TODO: use board thumbnail once fully migrated -->
 <template lang="html">
   <div
     :class="['mini-board overflow-hidden rounded cursor-pointer m-0', { 'bg-light': !board.backgroundColor }]"
@@ -12,7 +12,7 @@
       </b-button>
     </header>
 
-    <div v-if="isListType" class="lists rounded overflow-hidden justify-content-center">
+    <div v-if="isStandardBoard" class="lists rounded overflow-hidden justify-content-center">
       <div
         class="list basic rounded overflow-hidden border align-self-start"
       >
@@ -22,6 +22,7 @@
             :key="game"
             :class="['bg-light', { 'border-bottom': index !== firstList.games.length - 1 }]"
           >
+            <small class="mx-1 text-dark">{{ index + 1 }}</small>
             <i class="fas fa-square fa-fw text-white" style="margin-left: 1px;" aria-hidden />
           </div>
         </template>
@@ -61,7 +62,7 @@
 </template>
 
 <script>
-import { BOARD_TYPE_LIST } from '@/constants';
+import { BOARD_TYPE_STANDARD } from '@/constants';
 
 export default {
   props: {
@@ -79,8 +80,8 @@ export default {
       return this.$route.name !== 'explore' && this.board?.isPublic;
     },
 
-    isListType() {
-      return this.board?.type === BOARD_TYPE_LIST;
+    isStandardBoard() {
+      return this.board?.type === BOARD_TYPE_STANDARD;
     },
 
     firstList() {

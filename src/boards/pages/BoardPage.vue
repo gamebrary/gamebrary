@@ -48,7 +48,7 @@
         </b-button>
       </portal>
 
-      <list-board v-if="board.type === $options.BOARD_TYPE_LIST" />
+      <standard-board v-if="board.type === $options.BOARD_TYPE_STANDARD" />
       <kanban-board v-else />
     </template>
 
@@ -65,19 +65,19 @@
 <script>
 import BoardPlaceholder from '@/components/Board/BoardPlaceholder';
 import KanbanBoard from '@/components/Board/KanbanBoard';
-import ListBoard from '@/components/Board/ListBoard';
+import StandardBoard from '@/components/Board/StandardBoard';
 import chunk from 'lodash.chunk';
 import { getImageThumbnail } from '@/utils';
-import { BOARD_TYPE_LIST } from '@/constants';
+import { BOARD_TYPE_STANDARD } from '@/constants';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
-  BOARD_TYPE_LIST,
+  BOARD_TYPE_STANDARD,
 
   components: {
     BoardPlaceholder,
     KanbanBoard,
-    ListBoard,
+    StandardBoard,
   },
 
   data() {
@@ -137,6 +137,7 @@ export default {
 
   methods: {
     async loadBoard() {
+      // TODO: use IGDB action to get game data
       this.loading = !this.isBoardCached;
 
       await this.$store.dispatch('LOAD_BOARD', this.boardId)

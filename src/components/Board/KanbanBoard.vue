@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="board px-3 pb-3">
-    <game-list
+    <kanban-list
       v-for="(list, listIndex) in board.lists"
       :list="list"
       :listIndex="listIndex"
@@ -17,11 +17,11 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import AddList from '@/components/Board/AddList';
-import GameList from '@/components/Lists/GameList';
+import KanbanList from '@/components/Lists/KanbanList';
 
 export default {
   components: {
-    GameList,
+    KanbanList,
     AddList,
   },
 
