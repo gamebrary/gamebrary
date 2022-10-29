@@ -27,7 +27,6 @@
       <router-link class="px-1" :to="{ name: 'about' }">About</router-link>
       <router-link class="px-1" :to="{ name: 'privacy.policy' }">Privacy</router-link>
       <router-link class="px-1" :to="{ name: 'terms' }">Terms</router-link>
-      <router-link class="px-1" :to="{ name: 'releases' }">Releases</router-link>
       <br />
       ©{{ year }} Gamebrary
     </footer>
