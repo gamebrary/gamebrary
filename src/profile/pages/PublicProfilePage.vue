@@ -16,58 +16,44 @@
           </b-button>
         </portal>
 
-        <div>
-          <b-card>
-            <b-avatar
-              :src="avatarImage"
-              class="mr-3 float-left"
-              size="200"
-              rounded
-            />
+        <div class="d-flex">
+          <b-avatar
+            :src="avatarImage"
+            class="mr-3 float-left"
+            size="200"
+            rounded
+          />
 
-            <h1 class="m-0">
-              @{{ profile.userName }}
-              <p v-if="profile.name" class="text-lead m-0">({{ profile.name }})</p>
-            </h1>
+          <div class="d-flex flex-column">
+            <template v-if="profile.name">{{ profile.name }} / </template>@{{ profile.userName }}
+            <p class="text-info mb-0">{{ profile.bio }}</p>
+            <p class="mb-0">{{ profile.location }}</p>
+
             <div>
+              <b-button
+                v-if="profile.twitter"
+                :href="`https://twitter.com/${profile.twitter}`"
+                target="_blank"
+                style="color: #00acee"
+                v-b-tooltip.hover
+                title="Twitter"
+                class="mr-2"
+              >
+                <i class="fab fa-twitter fa-fw" aria-hidden />
+              </b-button>
 
-
+              <b-button
+                v-if="profile.twitter"
+                :href="`https://twitter.com/${profile.website}`"
+                target="_blank"
+                v-b-tooltip.hover
+                title="Website"
+                class="mr-2"
+              >
+                <i class="fa-solid fa-link fa-fw" />
+              </b-button>
             </div>
-
-            <figcaption class="blockquote-footer">
-              {{ profile.bio }}
-            </figcaption>
-
-            <p>
-              <i class="fa fa-map-location fa-fw" aria-hidden="true" />
-              {{ profile.location }}
-            </p>
-
-            <b-button
-              v-if="profile.twitter"
-              :href="`https://twitter.com/${profile.twitter}`"
-              target="_blank"
-              variant="transparent"
-              style="color: #00acee"
-              v-b-tooltip.hover
-              title="Twitter"
-              class="mr-2"
-            >
-              <i class="fab fa-twitter fa-fw" aria-hidden />
-            </b-button>
-
-            <b-button
-              v-if="profile.twitter"
-              :href="`https://twitter.com/${profile.website}`"
-              target="_blank"
-              variant="transparent"
-              v-b-tooltip.hover
-              title="Website"
-              class="mr-2"
-            >
-              <i class="fa-solid fa-link fa-fw" />
-            </b-button>
-          </b-card>
+          </div>
         </div>
 
         <!-- <b-button :to="{ name: 'profiles' }">
