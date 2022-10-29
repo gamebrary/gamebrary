@@ -105,17 +105,8 @@ export default {
       this.load();
     },
 
-    loadWallpapers() {
-      this.$store.dispatch('LOAD_WALLPAPERS')
-        .catch(() => {
-          this.$bvToast.toast('There was an error loading wallpapers', { variant: 'danger' });
-        });
-    },
-
     async load() {
       await this.$store.dispatch('LOAD_RELEASES');
-
-      this.loadWallpapers();
 
       // TODO: move all to actions, consider making live update optional? if it gets expensive $$$
       db.collection('settings').doc(this.user.uid)
