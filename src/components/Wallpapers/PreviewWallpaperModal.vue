@@ -7,8 +7,7 @@
   >
     <template v-slot:modal-header="{ close }">
       <modal-header
-        title="Wallpaper"
-        :subtitle="wallpaper.name"
+        :title="wallpaper.name"
         @close="close"
       >
         <b-dropdown
@@ -56,7 +55,7 @@
     <b-img
       v-if="wallpaperUrl"
       :src="wallpaperUrl"
-      class="w-100 rounded"
+      class="mw-100 rounded"
     />
   </b-modal>
 </template>
