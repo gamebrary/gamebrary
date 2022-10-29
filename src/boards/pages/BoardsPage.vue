@@ -1,7 +1,7 @@
 <template lang="html">
   <section>
     <b-container>
-      <portal to="pageTitle">My Boards</portal>
+      <portal to="pageTitle">Boards</portal>
 
       <game-boards />
     </b-container>
