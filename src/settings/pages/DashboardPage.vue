@@ -27,9 +27,9 @@
 
       <b-row>
         <b-col>
-          <b-form-row>
+          <b-form-row class="boards scrollbox">
             <b-col
-              v-for="board in recentBoards"
+              v-for="board in sortedBoards"
               :key="board.id"
               cols="12"
               sm="6"
@@ -57,69 +57,6 @@
         </b-col>
       </b-row>
 
-      <b-row class="mt-3">
-        <b-col cols="12" sm="6" md="3">
-          <settings-card
-            title="Wallpapers"
-            description="Manage your wallpapers"
-            icon="fa-images"
-            @click.native="$router.push({ name: 'wallpapers' })"
-          />
-        </b-col>
-        <b-col cols="12" sm="6" md="3">
-          <settings-card
-            title="Notes"
-            description="View all your notes"
-            icon="fa-note-sticky"
-            @click.native="$router.push({ name: 'notes' })"
-          />
-        </b-col>
-
-        <b-col cols="12" sm="6" md="3">
-          <settings-card
-            title="Tags"
-            description="Manage your tags"
-            icon="fa-tags"
-            @click.native="$router.push({ name: 'tags' })"
-          />
-        </b-col>
-
-        <b-col cols="12" sm="6" md="3">
-          <settings-card @click.native="$router.push({ name: 'account' })">
-            <b-avatar
-              rounded
-              v-if="avatarImage"
-              :src="avatarImage"
-              v-b-tooltip.hover
-              :title="`@${profile.userName}`"
-            />
-
-            <i
-              v-else
-              class="fa-2x fa-solid fa-user fa-fw"
-              aria-hidden
-            />
-
-
-            <aside>
-              <h4 class="mb-0 strong">Account</h4>
-              <small class="text-muted">
-                <b-link
-                  v-if="profile.userName"
-                  :to="{ name: 'public.profile', params: { userName: profile.userName } }"
-                >
-                  @{{ profile.userName }}
-                </b-link>
-
-                <template v-else>
-                  Manage your account, create your profile.
-                </template>
-              </small>
-            </aside>
-          </settings-card>
-        </b-col>
-      </b-row>
-
       <!-- <div
         data-form-slug="6148881969433360"
         data-env="production"
@@ -127,83 +64,135 @@
         class="keap-custom-form"
       /> -->
 
-      <footer class="d-flex justify-content-between pb-5">
-        <div class="footer-links">
-          <b-button
-            variant="transparent"
-            size="sm"
-            v-b-modal.keyboard-shortcuts
+      <footer class="d-flex align-items-center mt-2 pb-5">
+        <b-button
+          :to="{ name: 'wallpapers' }"
+          class="mr-2">
+          <i class="fa fa-images" aria-hidden="true" />
+          Wallpapers
+        </b-button>
+
+        <b-button :to="{ name: 'notes' }" class="mr-2" id="notes">
+          <i class="fa fa-note-sticky" aria-hidden="true" />
+          Notes
+        </b-button>
+
+        <b-button :to="{ name: 'tags' }" class="mr-2" id="tags">
+          <i class="fa fa-tags" aria-hidden="true" />
+          Tags
+        </b-button>
+
+        <b-button
+          :to="{ name: 'account' }"
+          v-b-tooltip.hover
+          title="Tooltip content"
+        >
+          <b-avatar
+            rounded
+            v-if="avatarImage"
+            :src="avatarImage"
             v-b-tooltip.hover
-            title="Keyboard shortcuts"
-          >
-            <i class="fa-solid fa-keyboard fa-fw" />
-          </b-button>
+            size="22"
+            class="mr-1"
+            :title="`@${profile.userName}`"
+          />
 
-          <b-button
-            href="https://github.com/romancm/gamebrary"
-            target="_blank"
-            size="sm"
-            v-b-tooltip.hover
-            title="Gamebrary on GitHub"
-            variant="transparent"
-          >
-            <i class="fab fa-github fa-fw" />
-          </b-button>
-
-          <b-button
-            variant="transparent"
-            href="https://goo.gl/forms/r0juBCsZaUtJ03qb2"
-            target="_blank"
-            title="Submit feedback"
-            v-b-tooltip.hover
-          >
-            <i class="fa-regular fa-comment-dots fa-fw" />
-          </b-button>
-
-          <b-button
-            href="https://www.paypal.me/RomanCervantes/5"
-            target="_blank"
-            size="sm"
-            variant="transparent"
-            v-b-tooltip.hover
-            title="Donate"
-          >
-            <i class="fa-solid fa-circle-dollar-to-slot fa-fw" />
-          </b-button>
-
-          <b-button
-            size="sm"
-            variant="transparent"
-            v-b-tooltip.hover
-            title="Donate"
-          >
-            <i class="fa-solid fa-language fa-fw" />
-          </b-button>
-
-
-          <!-- <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'steam.settings' }">
-            <i class="mr-2 fab fa-steam fa-fw" aria-hidde fa-fwn />
-            <small>Steam</small>
-          </b-list-group-item> -->
-        </div>
-
-        <div>
-          <small>&copy; 2022 Gamebrary</small>
+          <i
+            v-else
+            class="fa fa-solid fa-user"
+            aria-hidden
+          />
 
           <b-link
-            :to="{ name: 'releases' }"
-            class="px-1 text-dark"
+            v-if="profile.userName"
+            :to="{ name: 'public.profile', params: { userName: profile.userName } }"
           >
-            <small>{{ latestRelease }}</small>
+            @{{ profile.userName }}
           </b-link>
-        </div>
+
+          <template v-else>
+            Account
+          </template>
+        </b-button>
+
+        <b-button
+          class="ml-2"
+          v-b-modal.keyboard-shortcuts
+          id="shortcuts"
+        >
+          <i class="fa-solid fa-keyboard" />
+        </b-button>
+
+        <b-button
+          class="ml-2"
+          href="https://github.com/romancm/gamebrary"
+          target="_blank"
+          v-b-tooltip.hover
+          title="Gamebrary on GitHub"
+        >
+          <i class="fab fa-github" />
+        </b-button>
+
+        <b-button
+          class="ml-2"
+          href="https://goo.gl/forms/r0juBCsZaUtJ03qb2"
+          target="_blank"
+          title="Submit feedback"
+          v-b-tooltip.hover
+        >
+          <i class="fa-regular fa-comment-dots" />
+        </b-button>
+
+        <b-button
+          class="ml-2"
+          title="Toggle theme"
+          @click="toggleTheme"
+          v-b-tooltip.hover
+        >
+          <i v-if="settings.darkTheme" class="fa-solid fa-sun" />
+          <i v-else class="fa-solid fa-moon" />
+        </b-button>
+
+        <b-button
+          class="ml-2"
+          href="https://www.paypal.me/RomanCervantes/5"
+          target="_blank"
+          v-b-tooltip.hover
+          title="Donate"
+        >
+          <i class="fa-solid fa-circle-dollar-to-slot" />
+        </b-button>
+
+        <!-- <b-button
+          class="ml-2"
+          v-b-tooltip.hover
+          title="Change language"
+        >
+          <i class="fa-solid fa-language" />
+        </b-button> -->
+
+        <!-- <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'steam.settings' }">
+          <i class="mr-2 fab fa-steam" aria-hidden />
+          <small>Steam</small>
+        </b-list-group-item> -->
+
+        <small class="ml-auto">
+          &copy; 2022 Gamebrary
+
+          <b-link
+            href="https://github.com/romancm/gamebrary/releases"
+            target="_blank"
+            :class="darkTheme ? 'text-light' : 'text-dark'"
+          >
+            {{ latestRelease }}
+          </b-link>
+        </small>
       </footer>
     </b-container>
   </section>
 </template>
 
 <script>
-import SettingsCard from '@/components/Settings/SettingsCard';
 import MiniBoard from '@/components/Board/MiniBoard';
 // import SteamSettingsPage from '@/pages/SteamSettingsPage';
 // import LanguageSettings from '@/components/Settings/LanguageSettings';
@@ -214,7 +203,6 @@ export default {
   components: {
     MiniBoard,
     // LanguageSettings,
-    SettingsCard,
     // SteamSettingsPage,
   },
 
@@ -247,20 +235,31 @@ export default {
   },
 
   computed: {
-    ...mapState(['user', 'releases', 'tags']),
-    ...mapGetters(['sortedBoards']),
-
-    latestRelease() {
-      return this.releases?.[0]?.tag_name;
-    },
+    ...mapState(['user', 'tags', 'settings']),
+    ...mapGetters(['sortedBoards', 'darkTheme', 'latestRelease']),
   },
 
   methods: {
+    async toggleTheme() {
+      const { settings } = this;
+      const darkTheme = settings?.darkTheme || false;
+
+      const payload = {
+        ...settings,
+        darkTheme: !darkTheme,
+      };
+
+      await this.$store.dispatch('SAVE_SETTINGS', payload)
+        .catch(() => {
+          this.$bvToast.toast('There was an error saving your settings', { variant: 'danger' });
+          this.saving = false;
+        });
+
+    },
+
     async load() {
       await this.$store.dispatch('LOAD_BOARDS');
       await this.$store.dispatch('LOAD_TAGS');
-
-      this.recentBoards = this.sortedBoards.slice(0, 8);
 
       this.profile = await this.$store.dispatch('LOAD_PROFILE').catch(() => null);
       if (this.profile?.avatar) this.loadAvatarImage();
@@ -274,3 +273,10 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+.boards {
+  max-height: calc(100vh - 300px);
+  overflow-y: auto;
+}
+</style>
