@@ -1,10 +1,13 @@
+<!-- TODO: get all refs at first, paginate and render as needed -->
 <template lang="html">
   <section>
-    <b-container class="pb-3">
+    <b-container class="pb-5 px-0">
       <portal to="pageTitle">Wallpapers</portal>
 
+      <b-spinner v-if="loading" class="spinner-centered" />
+
       <empty-state
-        v-if="showEmptyState"
+        v-else-if="showEmptyState"
         :title="$t('wallpapers.title')"
         message="Upload a wallpaper to customize your boards"
       >
@@ -90,7 +93,19 @@ export default {
     },
   },
 
+  mounted() {
+    this.loadWallpapers();
+  },
+
   methods: {
+    async loadWallpapers() {
+      this.loading = true;
+
+      await this.$store.dispatch('LOAD_WALLPAPERS');
+
+      this.loading = false;
+    },
+
     triggerFileUpload() {
       document.querySelector('.file-input input').click();
     },
