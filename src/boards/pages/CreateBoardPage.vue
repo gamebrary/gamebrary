@@ -4,6 +4,7 @@
       <portal to="pageTitle">Create board</portal>
 
       <b-form @submit.prevent="createBoard" class="field centered">
+        <small><pre>{{ payload }}</pre></small>
         <b-form-group label="Board name:" label-for="boardName">
           <b-form-input
             id="boardName"
@@ -53,23 +54,50 @@
 </template>
 
 <script>
-import { BOARD_TYPES, BOARD_TYPE_STANDARD } from '@/constants';
+import {
+  BOARD_TYPES,
+  BOARD_TYPE_KANBAN,
+  BOARD_TYPE_STANDARD,
+  BOARD_TYPE_TIER,
+  DEFAULT_BOARD_KANBAN,
+  DEFAULT_BOARD_STANDARD,
+  DEFAULT_BOARD_TIER,
+} from '@/constants';
 
 export default {
   BOARD_TYPES,
+  BOARD_TYPE_TIER,
   BOARD_TYPE_STANDARD,
 
   data() {
     return {
-      board: {
-        name: '',
-        lists: [],
-        type: BOARD_TYPE_STANDARD,
-        ranked: false,
-      },
+      board: {},
       saving: false,
       selectedTemplate: null,
     };
+  },
+
+  mounted() {
+    this.board = {
+      ...this.defaultBoard,
+      type: BOARD_TYPE_STANDARD,
+    }
+  },
+
+  computed: {
+    defaultBoard() {
+      if (this.board.type === BOARD_TYPE_TIER) return DEFAULT_BOARD_TIER;
+      if (this.board.type === BOARD_TYPE_KANBAN) return DEFAULT_BOARD_KANBAN;
+
+      return DEFAULT_BOARD_STANDARD;
+    },
+
+    payload() {
+      return {
+        ...this.defaultBoard,
+        ...this.board,
+      }
+    },
   },
 
   methods: {
@@ -77,27 +105,9 @@ export default {
       this.saving = true;
 
       try {
-        // TODO: put default board in constant
-        const payload = {
-          ...this.board,
-          // TODO: set default lists based on board type
-          games: [],
-          lastUpdated: Date.now(),
-          lists: [{
-            name: '',
-            games: [],
-            settings: {
-              showReleaseDates: false,
-              sortOrder: 'sortByCustom',
-              showGameTags: false,
-              showGameNotes: false,
-              showGameCount: false,
-              view: 'single'
-            },
-          }],
-        };
+        console.log(this.payload);
 
-        const { id } = await this.$store.dispatch('CREATE_BOARD', payload);
+        const { id } = await this.$store.dispatch('CREATE_BOARD', this.payload);
 
         this.$router.push({ name: 'board', params: { id } });
       } catch (e) {

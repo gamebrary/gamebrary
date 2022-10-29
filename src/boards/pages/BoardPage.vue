@@ -8,28 +8,26 @@
 
     <template v-else-if="hasAccess">
       <portal to="pageTitle">
-        <div :class="{ 'd-flex align-items-baseline': publicProfile && publicProfile.userName }">
-          <p :class="['mb-0', { 'text-white': backgroundUrl, 'text-outlined': backgroundUrl }]">
+        <div :class="{ 'd-flex align-items-baseline': publicUserName }">
+          <p :class="['mb-0', { 'text-outlined': backgroundUrl }]">
             {{ board.name }}
 
-            <small
-              v-if="publicProfile && publicProfile.userName"
-            >
+            <small v-if="publicUserName">
               by
 
               <b-link
                 class="mr-2"
-                :to="{ name: 'public.profile', params: { userName: publicProfile.userName }}"
+                :to="{ name: 'public.profile', params: { userName: publicUserName }}"
               >
                 <b-avatar
                   rounded
                   v-if="avatarImage"
                   :src="avatarImage"
+                  :title="`@${publicUserName}`"
                   v-b-tooltip.hover
-                  :title="`@${publicProfile.userName}`"
                 />
 
-                @{{ publicProfile.userName }}
+                @{{ publicUserName }}
               </b-link>
             </small>
           </p>
@@ -49,6 +47,7 @@
       </portal>
 
       <standard-board v-if="board.type === $options.BOARD_TYPE_STANDARD" />
+      <tier-board v-else-if="board.type === $options.BOARD_TYPE_TIER" />
       <kanban-board v-else />
     </template>
 
@@ -65,18 +64,21 @@
 <script>
 import BoardPlaceholder from '@/components/Board/BoardPlaceholder';
 import KanbanBoard from '@/components/Board/KanbanBoard';
+import TierBoard from '@/components/Board/TierBoard';
 import StandardBoard from '@/components/Board/StandardBoard';
 import chunk from 'lodash.chunk';
 import { getImageThumbnail } from '@/utils';
-import { BOARD_TYPE_STANDARD } from '@/constants';
+import { BOARD_TYPE_STANDARD, BOARD_TYPE_TIER } from '@/constants';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
   BOARD_TYPE_STANDARD,
+  BOARD_TYPE_TIER,
 
   components: {
     BoardPlaceholder,
     KanbanBoard,
+    TierBoard,
     StandardBoard,
   },
 
@@ -100,6 +102,10 @@ export default {
 
     hasAccess() {
       return this.user || this.board?.isPublic;
+    },
+
+    publicUserName() {
+      return this.publicProfile?.userName;
     },
 
     boardId() {

@@ -7,13 +7,13 @@ export const STEAM_CATEGORY_ID = 13;
 export const GOG_CATEGORY_ID = 17;
 export const TWITTER_CATEGORY_ID = 5;
 
+export const BOARD_TYPE_STANDARD = 'standard';
 export const BOARD_TYPE_KANBAN = 'kanban';
-export const BOARD_TYPE_STANDARD = 'list';
 export const BOARD_TYPE_TIER = 'tier';
 
 export const BOARD_TYPES = [
-  { text: 'Kanban', value: BOARD_TYPE_KANBAN },
   { text: 'Standard', value: BOARD_TYPE_STANDARD },
+  { text: 'Kanban', value: BOARD_TYPE_KANBAN },
   { text: 'Tier', value: BOARD_TYPE_TIER },
 ];
 
@@ -26,13 +26,46 @@ export const PLATFORM_CATEGORIES = {
   6: 'computer',
 };
 
-export const DEFAULT_BOARD = {
-  1: 'console',
-  2: 'arcade',
-  3: 'platform',
-  4: 'operating_system',
-  5: 'portable_console',
-  6: 'computer',
+export const DEFAULT_BOARD_BASE = {
+  name: '',
+  ranked: false,
+  isPublic: false,
+}
+
+export const DEFAULT_BOARD_TIER = {
+  ...DEFAULT_BOARD_BASE,
+  type: BOARD_TYPE_TIER,
+  lists: [
+    { name: 'S', games: [], backgroundColor: '#C0382B' },
+    { name: 'A', games: [], backgroundColor: '#E84B3C'},
+    { name: 'B', games: [], backgroundColor: '#F39C19' },
+    { name: 'C', games: [], backgroundColor: '#F2C511' },
+    { name: 'D', games: [], backgroundColor: '#27AF60' },
+  ],
+};
+
+export const DEFAULT_BOARD_STANDARD = {
+  ...DEFAULT_BOARD_BASE,
+  type: BOARD_TYPE_STANDARD,
+  lists: [
+    {
+      games: [],
+    }
+  ],
+};
+
+export const DEFAULT_BOARD_KANBAN = {
+  ...DEFAULT_BOARD_BASE,
+  type: BOARD_TYPE_KANBAN,
+  lists: [{
+    name: 'Click to edit',
+    games: [],
+    sortBy: null,
+    showTags: false,
+    showNotes: false,
+    showCount: false,
+    view: null,
+  }],
 };
 
 export const AUTH_PROVIDERS = {

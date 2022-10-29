@@ -18,12 +18,15 @@
     <h3 v-if="hasMultipleLists">{{ list.name }}</h3>
     <b-card
       no-body
+      :bg-variant="darkTheme ? 'info' : 'white'"
+      :text-variant="darkTheme ? 'white' : 'dark'"
       class="mb-2 flex-row align-items-center cursor-pointer"
       v-for="(game, index) in listGames"
       :key="game.id"
       @click="openGame(game.id, list)"
     >
       <b-img
+        v-if="game"
         :src="$options.getThumbnailUrl(game)"
         :alt="game.name"
         class="m-2 game-cover"
@@ -31,35 +34,22 @@
         fluid
       />
 
-      <h3 class="d-flex mr-2 w-100 px-3">
-        <b-badge
+      <h3 class="d-flex mr-2 w-100 px-3 align-items-center">
+        <b-avatar
           v-if="board.ranked"
           variant="light"
-          class="mr-1"
+          class="mr-2"
         >
           {{ index + 1 }}
-        </b-badge>
+        </b-avatar>
         {{ game.name }}
       </h3>
-
     </b-card>
-
-    <div v-if="isEmpty && isBoardOwner">
-      <b-button
-        variant="light"
-        block
-        class="mb-2"
-        :disabled="!isBoardOwner"
-        :to="{ name: 'search', query: { boardId: board.id, listIndex: 0 } }"
-      >
-        <template v-if="isBoardOwner">Add games</template>
-        <template v-else>Empty list</template>
-      </b-button>
-    </div>
 
     <game-selector
       :filter="filter"
-      :title="`Add games to ${list.name}`"
+      title="Add games"
+      size="lg"
       @select-game="selectGame"
     />
   </draggable>
@@ -98,7 +88,7 @@ export default {
 
   computed: {
     ...mapState(['games', 'dragging', 'progresses', 'board', 'user', 'settings']),
-    ...mapGetters(['isBoardOwner']),
+    ...mapGetters(['isBoardOwner', 'darkTheme']),
 
     hasMultipleLists() {
       return this.board?.lists?.length > 1;
@@ -117,7 +107,7 @@ export default {
     },
 
     listGames() {
-      return this.list.games.map((id) => this.games?.[id]);
+      return this.list?.games?.map((id) => this.games?.[id]);
     },
 
     isEmpty() {
@@ -150,7 +140,7 @@ export default {
 
       try {
         await this.$store.dispatch('SAVE_GAME_BOARD', board);
-        await this.$store.dispatch('LOAD_BOARD', board.id);
+        await this.$store.dispatch('LOAD_BOARD', board?.id);
       } catch (e) {
         // this.$bvToast.toast(`There was an error adding "${this.game.name}"`, { title: list.name, variant: 'danger' });
       }

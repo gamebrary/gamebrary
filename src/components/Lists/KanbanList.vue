@@ -10,50 +10,46 @@
       ]"
     :id="listIndex"
   >
-    <b-card no-body>
+    <b-card
+      no-body
+      :bg-variant="darkTheme ? 'info' : 'light'"
+      :text-variant="darkTheme ? 'light' : 'dark'"
+    >
       <header class="p-2 pr-0 d-flex justify-content-between">
         <b-button
           block
           size="sm"
-          variant="transparent"
-          class="text-dark d-flex justify-content-between align-items-center pl-0"
+          :variant="darkTheme ? 'info' : 'transparent'"
+          class="d-flex justify-content-between align-items-center pl-0"
           :disabled="preview || !isBoardOwner"
-          :to="{ name: 'board.list.edit', params: { id: board.id, listIndex } }"
+          :to="{ name: 'board.edit', params: { id: board.id } }"
         >
           <span>
             <b-badge
-              v-if="showGameCount"
-              variant="dark"
+              v-if="!showGameCount"
+              :variant="darkTheme ? 'dark' : 'info'"
             >
               {{ list.games.length }}
             </b-badge>
+
             {{ list.name }}
           </span>
 
           <b-badge
             v-if="autoSortEnabled"
-            variant="light"
+            :variant="darkTheme ? 'danger' : 'warning'"
             v-b-tooltip.hover
-            :title="`${$t('board.list.sortedBy')} ${$t(`board.list.${list.settings.sortOrder}`)}`"
+            :title="`${$t('board.list.sortedBy')} ${$t(`board.list.${sortOrder}`)}`"
           >
             <i class="fa-solid fa-sort fa-fw" />
           </b-badge>
         </b-button>
 
-        <!-- <b-button
-
-          size="sm"
-          variant="transparent"
-          :to="{ name: 'search', query: { boardId: board.id, listIndex } }"
-        >
-          <i class="fa-solid fa-plus fa-fw" />
-        </b-button> -->
-
         <game-selector
           v-if="isBoardOwner"
           class="mb-2"
           title="Add games"
-          variant="transparent"
+          :variant="darkTheme ? 'info' : 'transparent'"
           :filter="list.games"
           @select-game="selectGame"
         >
@@ -93,6 +89,7 @@
         <game-selector
           v-if="isEmpty && isBoardOwner"
           class="mb-2"
+          :variant="darkTheme ? 'secondary' : 'warning'"
           :filter="list.games"
           @select-game="selectGame"
         />
@@ -150,19 +147,23 @@ export default {
 
   computed: {
     ...mapState(['games', 'dragging', 'progresses', 'board', 'user', 'settings']),
-    ...mapGetters(['isBoardOwner']),
+    ...mapGetters(['isBoardOwner', 'darkTheme']),
 
     draggingDisabled() {
       return !this.user || !this.isBoardOwner;
     },
 
     autoSortEnabled() {
-      return ['sortByName', 'sortByRating', 'sortByReleaseDate', 'sortByProgress'].includes(this.list?.settings?.sortOrder);
+      return ['sortByName', 'sortByRating', 'sortByReleaseDate', 'sortByProgress'].includes(this.sortOrder);
+    },
+
+    sortOrder() {
+      return this.list?.settings?.sortOrder;
     },
 
     sortedGames() {
       const { settings, games } = this.list;
-      const sortOrder = settings.sortOrder || 'sortByCustom';
+      const sortOrder = settings?.sortOrder || 'sortByCustom';
 
       switch (sortOrder) {
       case 'sortByCustom': return this.list.games;

@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="board-placeholder">
     <b-spinner
-      v-if="board.type === 'list'"
+      v-if="useSpinner"
       class="spinner-centered mt-5"
     />
 
@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import { BOARD_TYPE_STANDARD, BOARD_TYPE_TIER } from '@/constants';
 import KanbanBoardPlaceholder from '@/components/Board/KanbanBoardPlaceholder'
 import { mapState } from 'vuex';
 
@@ -20,6 +21,10 @@ export default {
 
   computed: {
     ...mapState(['board']),
+
+    useSpinner() {
+      return [BOARD_TYPE_STANDARD, BOARD_TYPE_TIER].includes(this.board?.type)
+    },
   },
 };
 </script>
