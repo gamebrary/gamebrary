@@ -36,7 +36,14 @@ d<template lang="html">
 
     <div v-if="playerPerspectives" class="pr-2 pb-2">
       <strong class="text-muted">{{ $t('board.gameModal.perspective') }}: </strong>
-      <span class="text-wrap">{{ playerPerspectives }}</span>
+
+      <b-link
+        v-for="({ id, name }, index) in playerPerspectives"
+        :key="id"
+      >
+        <b-link :to="{ name: 'search', query: { perspective: id }}">{{ name }}</b-link>
+        <template v-if="index < playerPerspectives.length - 1">, </template>
+      </b-link>
     </div>
 
     <div class="pr-2 pb-2">
@@ -172,9 +179,7 @@ export default {
     },
 
     playerPerspectives() {
-      return this.game?.player_perspectives
-        ? this.game.player_perspectives.map(({ name }) => name).join(', ')
-        : null;
+      return this.game?.player_perspectives;
     },
 
     gameGenres() {

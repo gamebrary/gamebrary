@@ -65,6 +65,7 @@
         <portal to="headerActions">
           <b-badge v-if="platformsFilter">Platform</b-badge>
           <b-badge v-if="genresFilter">Genres</b-badge>
+          <b-badge v-if="perspectiveFilter">Perspective {{ perspectiveFilter }}</b-badge>
         </portal>
 
         <b-col cols="12" class="py-2 mb-3" v-if="activeBoard">
@@ -201,6 +202,10 @@ export default {
       return this.$route.query?.genres;
     },
 
+    perspectiveFilter() {
+      return this.$route.query?.perspective;
+    },
+
     formattedSearchResults() {
       return this.filteredResults?.map((game) => {
         const platforms = game?.platforms?.map((id) => ({ id, ...this.platformNames?.[id] }));
@@ -272,8 +277,12 @@ export default {
         ? `where platforms = ${this.platformsFilter};`
         : null;
 
-      const genres = this.$route.query?.genres
-        ? `where genres = ${this.$route.query.genres};`
+      const genres = this.genresFilter
+        ? `where genres = ${this.genresFilter};`
+        : null;
+
+      const perspectiveFilter = this.perspectiveFilter
+        ? `where player_perspectives = ${this.perspectiveFilter};`
         : null;
 
       console.log('platforms', platforms);
@@ -283,7 +292,7 @@ export default {
 
       // console.log('hasBoth', hasBoth);
 
-      const filter = genres || platforms || '';
+      const filter = genres || platforms || perspectiveFilter || '';
 
       console.log('filter', filter);
 
