@@ -53,12 +53,14 @@
               <b-card
                 v-for="({ note, game }, index) in filteredNotes"
                 body-class="p-2"
+                :bg-variant="darkTheme ? 'info' : 'light'"
+                :text-variant="darkTheme ? 'light' : 'dark'"
                 :key="index"
               >
                 <b-card-text>
                   <b-button
                     v-if="game"
-                    variant="light"
+                    :variant="darkTheme ? 'secondary' : 'light'"
                     size="sm"
                     class="d-flex p-2 mb-2 align-items-center"
                     :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug }}"
@@ -89,7 +91,7 @@
 
 <script>
 import EmptyState from '@/components/EmptyState';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -105,6 +107,7 @@ export default {
 
   computed: {
     ...mapState(['notes', 'games']),
+    ...mapGetters(['darkTheme']),
 
     showEmptyState() {
       return !Object.keys(this.notes).length;

@@ -29,7 +29,7 @@
       <div
         v-for="(list, listIndex) in board.lists"
         class="d-flex mb-1"
-        :key="`${board.id}-${list.name}`"
+        :key="listIndex"
         @click="handleClick({ list, listIndex, board })"
       >
         <small class="mr-auto">{{ list.name }}</small>

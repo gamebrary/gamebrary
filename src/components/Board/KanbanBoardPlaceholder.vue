@@ -1,9 +1,9 @@
 <template lang="html">
   <div class="d-flex mx-2">
     <div
-      v-for="list in board.lists"
-      :class="`ml-2 list ${list.settings.view || 'single'}`"
-      :key="list.name"
+      v-for="(list, index) in board.lists"
+      :class="`ml-2 list ${listView}`"
+      :key="index"
     >
       <b-card no-body>
         <b-card-header class="pt-2 pb-1 px-2">
@@ -12,14 +12,14 @@
 
         <div
           v-if="list && list.games.length"
-          :class="['games', list.settings.view]"
+          :class="['games', listView]"
         >
           <div v-for="n in list.games.length" :key="n">
             <b-card
               no-body
               img-top
               class="mb-1 p-1"
-              v-if="list.settings.view === 'grid'"
+              v-if="listView === 'grid'"
             >
               <b-skeleton-img
                 card-img="top"
@@ -33,7 +33,7 @@
             </b-card>
 
             <div
-              v-else-if="list.settings.view === 'covers'"
+              v-else-if="listView === 'covers'"
               class="covers-grid"
             >
               <b-skeleton-img
@@ -45,7 +45,7 @@
             </div>
 
             <b-card
-              v-else-if="!list.settings.view || list.settings.view === 'single'"
+              v-else-if="listView === 'single'"
               no-body
               img-left
             >
@@ -62,7 +62,7 @@
             </b-card>
 
             <b-card
-              v-else-if="list.settings.view === 'compact'"
+              v-else-if="listView === 'compact'"
               no-body
               img-left
             >
@@ -108,6 +108,10 @@ import { mapState } from 'vuex';
 export default {
   computed: {
     ...mapState(['board']),
+
+    listView() {
+      return this.list?.settings?.view || 'single';
+    },
   },
 };
 </script>

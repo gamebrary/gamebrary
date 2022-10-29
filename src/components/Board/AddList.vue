@@ -34,14 +34,6 @@
           </b-button>
         </b-input-group-append>
       </b-input-group>
-
-      <b-alert
-        class="mb-2"
-        :show="isDuplicate && !saving"
-        variant="warning"
-      >
-        {{ $t('board.list.duplicateWarning') }}
-      </b-alert>
     </form>
   </b-card>
 
@@ -80,16 +72,8 @@ export default {
         : [];
     },
 
-    isDuplicate() {
-      return this.existingListNames.includes(this.listName.toLowerCase());
-    },
-
     isEmptyBoard() {
       return this.board?.lists?.length === 0;
-    },
-
-    disabled() {
-      return this.isDuplicate || !this.listName;
     },
   },
 

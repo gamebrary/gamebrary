@@ -4,7 +4,7 @@
       v-for="(list, listIndex) in board.lists"
       :list="list"
       :listIndex="listIndex"
-      :key="list.name"
+      :key="listIndex"
     />
 
     <add-list

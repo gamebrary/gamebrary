@@ -13,7 +13,7 @@ export default {
 
   computed: {
     ...mapState(['settings', 'games', 'tags', 'notes', 'progresses', 'board']),
-    ...mapGetters(['isRTL']),
+    ...mapGetters(['isRTL', 'darkTheme']),
 
     highlightCompletedGame() {
       return this.gameProgress && Number(this.gameProgress) === 100;
