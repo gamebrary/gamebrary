@@ -1,13 +1,14 @@
 <!-- TODO: use board thumbnail once fully migrated -->
 <template lang="html">
   <div
-    :class="['mini-board overflow-hidden rounded cursor-pointer m-0', { 'bg-light': !board.backgroundColor }]"
+    :class="['mini-board overflow-hidden rounded cursor-pointer m-0', miniBoardClass]"
     :style="miniBoardStyles"
   >
     <header class="text-small py-1 px-2 d-flex align-items-center justify-content-between">
-      <span :class="['mr-1 mb-1', { 'text-outlined text-white': backgroundUrl }]">
+      <span :class="['mr-1 mb-1', { 'text-outlined': hasCustomBackground || darkTheme } ]">
         {{ board.name }}
       </span>
+
 
       <b-badge
         v-if="showPublicIndicator"
@@ -18,7 +19,19 @@
       </b-badge>
     </header>
 
-    <div v-if="isStandardBoard" class="lists rounded overflow-hidden justify-content-center">
+    <div v-if="isTierBoard">
+      <div
+        class="tier d-flex mx-2"
+        v-for="tier in board.lists"
+        style="margin-bottom: 1px;"
+        :key="tier.id"
+      >
+        <b-avatar :style="`background-color: ${tier.backgroundColor}`" square text=" " size="20" />
+        <b-avatar v-for="game in tier.games" :key="game" square text=" " style="margin-right: 1px;" size="20" />
+      </div>
+    </div>
+
+    <div v-else-if="isStandardBoard" class="lists rounded overflow-hidden justify-content-center">
       <div
         class="list basic rounded overflow-hidden border align-self-start"
       >
@@ -43,8 +56,8 @@
 
     <div v-else class="lists rounded overflow-hidden">
       <div
-        v-for="list in board.lists"
-        :key="list.name"
+        v-for="(list, listIndex) in board.lists"
+        :key="listIndex"
         class="list rounded overflow-hidden ml-2 border align-self-start"
       >
         <template v-if="list.games.length">
@@ -68,7 +81,8 @@
 </template>
 
 <script>
-import { BOARD_TYPE_STANDARD } from '@/constants';
+import { BOARD_TYPE_STANDARD, BOARD_TYPE_TIER } from '@/constants';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   props: {
@@ -82,12 +96,29 @@ export default {
   },
 
   computed: {
+    ...mapState(['settings']),
+    ...mapGetters(['darkTheme']),
+
+    hasCustomBackground() {
+      return this.board?.backgroundColor || this.board?.backgroundUrl;
+    },
+
+    miniBoardClass() {
+      if (this.hasCustomBackground) return;
+
+      return this.darkTheme ? 'bg-info' : 'bg-light';
+    },
+
     showPublicIndicator() {
       return this.$route.name !== 'explore' && this.board?.isPublic;
     },
 
     isStandardBoard() {
       return this.board?.type === BOARD_TYPE_STANDARD;
+    },
+
+    isTierBoard() {
+      return this.board?.type === BOARD_TYPE_TIER;
     },
 
     firstList() {
@@ -122,7 +153,7 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-$boardHeight: 200px;
+$boardHeight: 220px;
 
 .mini-board {
   background-repeat: no-repeat;

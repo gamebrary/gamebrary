@@ -2,6 +2,8 @@
   <b-card
     no-body
     class="cursor-pointer text-center"
+    :bg-variant="darkTheme ? 'info' : 'white'"
+    :text-variant="darkTheme ? 'white' : 'dark'"
     img-top
   >
     <div class="position-relative cursor-pointer rounded align-self-end card overflow-hidden border-0 m-1">

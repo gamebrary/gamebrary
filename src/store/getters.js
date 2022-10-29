@@ -6,6 +6,7 @@ import presetHTML5 from '@bbob/preset-html5'
 import orderby from 'lodash.orderby';
 
 export default {
+  darkTheme: ({ settings }) => settings?.darkTheme || false,
   sortedBoards: ({ boards }) => orderby(boards, 'lastUpdated', 'desc'),
 
   isBoardOwner: ({ board, user }) => {

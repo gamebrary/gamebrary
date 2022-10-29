@@ -1,7 +1,8 @@
 <template lang="html">
   <b-card
     no-body
-    bg-variant="transparent"
+    :bg-variant="darkTheme ? 'info' : 'white'"
+    :text-variant="darkTheme ? 'white' : 'dark'"
     class="cursor-pointer"
   >
     <b-form-row
@@ -22,7 +23,7 @@
         <b-card-body body-class="p-2">
           <b-card-title
             :class="`mb-0 ${highlightCompletedGame ? 'text-success' : ''}`"
-            title-tag="h4"
+            title-tag="p"
           >
             {{ game.name }}
           </b-card-title>

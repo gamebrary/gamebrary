@@ -3,6 +3,8 @@
   <b-card
     v-if="active || empty"
     class="flex-shrink-0"
+    :bg-variant="darkTheme ? 'info' : 'light'"
+    :text-variant="darkTheme ? 'light' : 'dark'"
     no-body
     v-click-outside="reset"
   >
@@ -24,7 +26,7 @@
           <b-button
             split
             variant="primary"
-            :disabled="saving || isDuplicate || !listName"
+            :disabled="saving || !listName"
             @click.stop="submit"
           >
             <b-spinner v-if="saving" small />
@@ -45,7 +47,7 @@
 
   <b-button
     v-else
-    variant="light"
+    :variant="darkTheme ? 'dark' : 'light'"
     @click.stop="showForm"
   >
     <i class="fas fa-plus fa-fw" aria-hidden />
@@ -53,7 +55,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   props: {
@@ -70,6 +72,7 @@ export default {
 
   computed: {
     ...mapState(['platform', 'board']),
+    ...mapGetters(['darkTheme']),
 
     existingListNames() {
       return this.board.lists

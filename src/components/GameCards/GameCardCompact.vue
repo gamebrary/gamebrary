@@ -1,6 +1,8 @@
 <template lang="html">
   <b-card
     no-body
+    :bg-variant="darkTheme ? 'info' : 'light'"
+    :text-variant="darkTheme ? 'light' : 'dark'"
     class="cursor-pointer"
   >
     <b-form-row v-if="game && game.name">
