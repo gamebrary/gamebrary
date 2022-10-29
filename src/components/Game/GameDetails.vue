@@ -8,9 +8,15 @@ d<template lang="html">
     </div>
 
     <div v-if="gameGenres" class="pr-2 pb-2">
-      <strong class="text-muted">Genres:</strong>
+      <strong class="text-muted">Genres: </strong>
 
-      {{ gameGenres }}
+      <b-link
+        v-for="(genre, index) in gameGenres"
+        :key="genre.id"
+      >
+        <b-link :to="{ name: 'search', query: { genres: genre.id }}">{{ genre.name }}</b-link>
+        <template v-if="index < gameGenres.length - 1">, </template>
+      </b-link>
     </div>
 
     <div v-if="gameModes" class="pr-2 pb-2">
@@ -36,13 +42,13 @@ d<template lang="html">
     <div class="pr-2 pb-2">
       <strong class="text-muted">Available for: </strong>
 
-      <span
+      <b-link
         v-for="(platform, index) in gamePlatforms"
         :key="platform.id"
       >
-        <b-link :to="{ name: 'platform', params: { id: platform.id }}">{{ platform.name }}</b-link>
+        <b-link :to="{ name: 'search', query: { platforms: platform.id }}">{{ platform.name }}</b-link>
         <template v-if="index < gamePlatforms.length - 1">, </template>
-      </span>
+      </b-link>
     </div>
 
     <!-- TODO: merge release Dates and platforms -->

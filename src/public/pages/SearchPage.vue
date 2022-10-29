@@ -15,8 +15,8 @@
 
       <b-form-row v-else-if="searchResults.length">
         <!-- TODO: put platforms in constants and restore this -->
-        <!-- <portal to="headerActions">
-          <b-dropdown
+        <portal to="headerActions">
+          <!-- <b-dropdown
             id="dropdown-1"
             variant="light"
             class="mr-2"
@@ -30,6 +30,17 @@
                 {{ selectedPlatforms.length }}
               </b-badge>
             </template>
+
+            <pre>{{ allGenres }}</pre>
+
+            <b-dropdown-item
+              v-for="{ id, name } in allGenres"
+              :key="id"
+            >
+              :active="selectedPlatforms.includes(id)"
+              @click="selectPlatform(id)"
+              {{ name }}
+            </b-dropdown-item>
 
             <b-dropdown-item
               v-for="{ id, count, name } in platformsAvailable"
@@ -48,8 +59,13 @@
                 Clear filters
               </b-dropdown-item>
             </template>
-          </b-dropdown>
-        </portal> -->
+          </b-dropdown> -->
+        </portal>
+
+        <portal to="headerActions">
+          <b-badge v-if="platformsFilter">Platform</b-badge>
+          <b-badge v-if="genresFilter">Genres</b-badge>
+        </portal>
 
         <b-col cols="12" class="py-2 mb-3" v-if="activeBoard">
           <div class="d-flex align-items-center">
@@ -145,13 +161,14 @@ export default {
   data() {
     return {
       searchResults: [],
+      allGenres: [],
       selectedPlatforms: [],
       loading: false,
     };
   },
 
   computed: {
-    ...mapState(['boards']),
+    ...mapState(['boards', 'platforms']),
     ...mapGetters(['platformNames']),
 
     platformsAvailable() {
@@ -174,6 +191,14 @@ export default {
       return this.selectedPlatforms.length > 0
         ? this.searchResults.filter(({ platforms }) => platforms?.some((id) => this.selectedPlatforms?.includes(String(id))))
         : this.searchResults;
+    },
+
+    platformsFilter() {
+      return this.$route.query?.platforms;
+    },
+
+    genresFilter() {
+      return this.$route.query?.genres;
     },
 
     formattedSearchResults() {
@@ -225,9 +250,9 @@ export default {
 
   async mounted() {
     this.search();
-    // if (this.showEmptyState) {
-    // } else {
-    // }
+
+    const data = `fields checksum,created_at,name,slug,updated_at,url; limit 500;`;
+    this.allGenres = await this.$store.dispatch('IGDB', { path: 'genres', data });
   },
 
   methods: {
@@ -238,9 +263,35 @@ export default {
         ? `search "${this.query}";`
         : '';
 
-      const filter = !this.query
-        ? 'where rating >= 80;'
-        : '';
+      // TODO: finetune default results
+      // const filter = !this.query
+      //   ? 'where rating >= 80;'
+      //   : '';
+
+      const platforms = this.platformsFilter
+        ? `where platforms = ${this.platformsFilter};`
+        : null;
+
+      const genres = this.$route.query?.genres
+        ? `where genres = ${this.$route.query.genres};`
+        : null;
+
+      console.log('platforms', platforms);
+      console.log('genres', genres);
+
+      // const hasBoth = Boolean(platforms && genres);
+
+      // console.log('hasBoth', hasBoth);
+
+      const filter = genres || platforms || '';
+
+      console.log('filter', filter);
+
+      // where (platforms = [6,48] & genres = 13);
+      // const filter = ' where genres = 4;';
+
+      // TODO: add filtering by
+      // const data = `${search} fields platforms,slug,rating,cover.image_id; limit 50; ${filter}`;
       const data = `${search} fields platforms,slug,rating,cover.image_id; limit 50; ${filter}`;
 
       this.searchResults = await this.$store.dispatch('IGDB', { path: 'games', data });
