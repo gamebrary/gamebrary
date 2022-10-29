@@ -1,24 +1,31 @@
 <template lang="html">
-  <div>
-    <preview-wallpaper-modal :wallpaper="activeWallpaper" />
+  <section>
+    <b-container class="pr-0">
+      <preview-wallpaper-modal :wallpaper="activeWallpaper" />
 
-    <div :class="['wallpapers', { selectable }]">
-      <b-card
-        :img-src="wallpaper.url"
-        img-alt="Image"
-        overlay
-        footer-class="p-2"
-        :class="{ 'cursor-pointer': selectable, 'bg-success p-1': wallpaper.fullPath === selected }"
-        tag="article"
-        v-for="wallpaper in sortedWallpapers"
-        :key="wallpaper.name"
-        @click="handleClick(wallpaper)"
-      />
-    </div>
-  </div>
+      <b-row no-gutters>
+        <b-col
+          v-for="wallpaper in sortedWallpapers"
+          cols="6"
+          sm=".fullPath.includes('_300x3006"
+          md="3"
+          lg="2"
+          class="pb-2 pr-3"
+          :key="wallpaper.name"
+        >
+          <div
+            :style="`background-image: url(${wallpaper.url})`"
+            class="wallpaper-card rounded w-100"
+            @click="handleClick(wallpaper)"
+          />
+        </b-col>
+      </b-row>
+    </b-container>
+  </section>
 </template>
 
 <script>
+import { THUMBNAIL_PREFIX } from '@/constants';
 import PreviewWallpaperModal from '@/components/Wallpapers/PreviewWallpaperModal';
 import { mapState } from 'vuex';
 
@@ -43,7 +50,8 @@ export default {
     ...mapState(['wallpapers']),
 
     sortedWallpapers() {
-      const wallpapers = this.wallpapers;
+      // TODO: sort by recent first
+      const wallpapers = this.wallpapers.filter((wallpaper) => !wallpaper.fullPath.includes(THUMBNAIL_PREFIX));
 
       return wallpapers.reverse();
     },
@@ -67,27 +75,12 @@ export default {
 };
 </script>
 
+
 <style lang="scss" rel="stylesheet/scss" scoped>
-  .wallpapers {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: 1rem;
-
-    @media(max-width: 1200px) {
-      grid-template-columns: 1fr 1fr 1fr;
-    }
-
-    @media(max-width: 780px) {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    @media(max-width: 500px) {
-      grid-template-columns: 1fr;
-    }
-
-    // &.selectable {
-    //   grid-template-columns: 1fr 1fr !important;
-    // }
-  }
+.wallpaper-card {
+  height: 140px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
 </style>
-
