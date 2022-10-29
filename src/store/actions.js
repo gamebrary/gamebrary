@@ -490,6 +490,11 @@ export default {
   SAVE_BOARD({ state }, merge = false) {
     const db = firestore();
 
+    const board = {
+      ...state.board,
+      lastUpdated: Date.now(),
+    };
+
     return new Promise((resolve, reject) => {
       db.collection('boards')
         .doc(state.board.id)
@@ -501,9 +506,14 @@ export default {
     });
   },
 
-  SAVE_GAME_BOARD({ commit }, board) {
+  SAVE_GAME_BOARD({ commit }, payload) {
     const db = firestore();
     // TODO: sanitize list games, remove undefined and null game ids
+
+    const board = {
+      ...payload,
+      lastUpdated: Date.now(),
+    };
 
     // TODO: commit mutation if we ever allow to add game directly from board
     return new Promise((resolve, reject) => {
