@@ -1,3 +1,6 @@
+<!-- TODO: move move arrows to next to list preview -->
+<!-- TODO: show list preview in full page view -->
+<!-- TODO: show search inline, allow to go full screen (search page) -->
 <template lang="html">
   <section>
     <b-container>
@@ -15,25 +18,28 @@
         </div>
       </portal>
 
+      <b-modal id="boardWallpaper" size="xl" scrollable hide-footer>
+        <template v-slot:modal-header="{ close }">
+          <modal-header
+            title="Choose wallpaper"
+            @close="close"
+          >
+            <upload-wallpaper-button />
+          </modal-header>
+        </template>
+
+        <wallpapers-list
+          selectable
+          :selected="board.backgroundUrl"
+          @select="selectWallpaper"
+        />
+      </b-modal>
+
       <b-row>
         <b-col>
-          <b-modal id="boardWallpaper" size="xl" scrollable hide-footer>
-            <template v-slot:modal-header="{ close }">
-              <modal-header
-                title="Wallpaper"
-                @close="close"
-              >
-                <upload-wallpaper-button />
-              </modal-header>
-
-            </template>
-
-            <wallpapers-list selectable @select="selectWallpaper" :selected="board.backgroundUrl" />
-          </b-modal>
-
           <form
             ref="boardSettingsForm"
-            class="field centered"
+            class="field centered mb-5"
             @submit.stop.prevent="saveBoard"
           >
             <b-form-group
@@ -90,43 +96,227 @@
               class="m-0"
             />
 
-            <v-swatches
-              v-model="board.backgroundColor"
-              show-fallback
-              popover-x="left"
-            />
+            <div class="d-flex">
+              <div class="d-flex align-items-start">
+                <v-swatches
+                  v-model="board.backgroundColor"
+                  show-fallback
+                  :trigger-style="{ height: '38px' }"
+                  popover-x="left"
+                />
 
-            <b-button
-              v-if="board.backgroundColor"
-              @click="board.backgroundColor = null"
-              class="ml-2"
-            >
-              <i class="fas fa-times fa-fw" aria-hidden />
-            </b-button>
+                <b-button
+                  v-if="board.backgroundColor"
+                  @click="board.backgroundColor = null"
+                  variant="link"
+                  class="ml-2"
+                >
+                  <i class="fas fa-times" aria-hidden />
+                </b-button>
+              </div>
 
-            <b-button
-              v-if="board.backgroundUrl"
-              class="mb-2"
-              block
-              @click="board.backgroundUrl = null"
-            >
-              <i class="fas fa-times fa-fw" aria-hidden />
-            </b-button>
+              <div class="ml-2 d-flex align-items-start">
+                <b-button
+                  v-b-modal.boardWallpaper
+                  variant="light"
+                >
+                  <i class="fa fa-image" aria-hidden="true"></i>
+                </b-button>
 
-            <b-button
-              v-b-modal.boardWallpaper
-              variant="light"
-              class="mb-2"
-              block
-            >
-              Choose background image
-            </b-button>
+                <b-button
+                  v-if="board.backgroundUrl"
+                  variant="link"
+                  @click="board.backgroundUrl = null"
+                >
+                  <i class="fas fa-times fa-fw" aria-hidden />
+                </b-button>
+              </div>
+            </div>
 
             <mini-board
               v-if="board.backgroundUrl || board.backgroundColor"
+              class="mb-3"
               v-b-modal.boardWallpaper
               :board="board"
             />
+
+            <!-- TODO: limit field width -->
+            <!-- TODO: move to computed, use help text -->
+            <!-- TODO: add another view that uses avatar for game cover (tiny) -->
+            <!-- TODO: fix list not updating -->
+            <!-- TODO: add release date styles: countdown/simple date -->
+
+            <div class="accordion" role="tablist">
+              <b-card
+                v-for="(list, index) in board.lists"
+                :key="index"
+                no-body
+                class="mb-1"
+              >
+                <b-card-header header-tag="header" class="p-1" role="tab">
+                  <b-button
+                    block
+                    v-b-toggle="`list-${index}`"
+                  >
+                    {{ list.name || '(Unnamed list)' }}
+                  </b-button>
+                </b-card-header>
+
+                <!-- TODO: restore list settings -->
+
+                <b-collapse :id="`list-${index}`" role="tabpanel">
+                  <b-card-body>
+                    <b-form-group
+                      label="List name"
+                      label-for="name"
+                    >
+                      <b-form-input
+                        id="name"
+                        autofocus
+                        v-model.trim="board.lists[index].name"
+                      />
+                    </b-form-group>
+
+                    <template v-if="board.type === 'tier'">
+                      <v-swatches
+                        v-model="board.lists[index].backgroundColor"
+                        show-fallback
+                        :trigger-style="{ height: '38px' }"
+                        popover-x="left"
+                      />
+                    </template>
+
+                    <template v-if="board.type === 'kanban' || !board.type">
+                      <b-form-group
+                        id="list-sorting"
+                        label="Sort list by:"
+                        label-for="sortField"
+                      >
+                        <b-form-select
+                          id="sortField"
+                          :options="sortOptions"
+                          v-model="board.lists[index].sortOrder"
+                          required
+                        />
+                      </b-form-group>
+
+                      <b-list-group class="p-2">
+                        <!-- TODO: Move within board -->
+                        <!-- TODO: Move list to different board -->
+                        <!-- TODO: edit lists order goes in board settings -->
+                        <!-- TODO: restore move list -->
+                        <b-list-group-item>
+                          <small class="text-muted d-flex justify-content-center">Move list</small>
+                          <b-button-group size="sm" class="w-100">
+                            <b-button
+                              v-b-tooltip.hover
+                              :title="$t('board.list.moveLeft')"
+                              :disabled="isFirst"
+                              @click="moveList(listIndex, listIndex - 1)"
+                            >
+                              <i class="fas fa-angle-left fa-fw" aria-hidden />
+                            </b-button>
+
+                            <b-button
+                              v-b-tooltip.hover
+                              :title="$t('board.list.moveRight')"
+                              :disabled="isLast"
+                              @click="moveList(listIndex, listIndex + 1)"
+                            >
+                              <i class="fas fa-angle-right fa-fw" aria-hidden />
+                            </b-button>
+                          </b-button-group>
+                        </b-list-group-item>
+                      </b-list-group>
+
+                      <b-alert
+                        class="my-2"
+                        show
+                        :variant="board.lists[index].sortOrder !== 'sortByCustom' ? 'warning' : 'info'"
+                      >
+                        <span v-if="board.lists[index].sortOrder === 'sortByCustom'">
+                          Games will be added to end of list, drag games to re-order.
+                        </span>
+
+                        <span v-else-if="board.lists[index].sortOrder">
+                          Games will be sorted by
+
+                          <span class="text-lowercase">
+                            {{ $t(`board.list.${board.lists[index].sortOrder}`)}}
+                          </span>
+                        </span>
+                      </b-alert>
+
+                      <b-form-group
+                        id="list-view"
+                        label="List view:"
+                        label-for="viewField"
+                      >
+                        <b-form-select
+                          id="viewField"
+                          :options="viewOptions"
+                          v-model="board.lists[index].view"
+                          required
+                        />
+                      </b-form-group>
+
+                      <b-form-checkbox
+                        v-model="board.lists[index].showReleaseDates"
+                        name="check-button"
+                        class="mb-2"
+                        switch
+                      >
+                        {{ $t('board.list.showReleaseDates') }}
+                      </b-form-checkbox>
+
+                      <b-form-checkbox
+                        v-model="board.lists[index].showGameProgress"
+                        name="check-button"
+                        class="mb-2"
+                        switch
+                      >
+                        {{ $t('board.list.showGameProgress') }}
+                      </b-form-checkbox>
+
+                      <b-form-checkbox
+                        v-model="board.lists[index].highlightCompletedGames"
+                        name="check-button"
+                        class="mb-2"
+                        switch
+                      >
+                        Highlight completed games
+                      </b-form-checkbox>
+
+                      <b-form-checkbox
+                        v-model="board.lists[index].showGameNotes"
+                        name="check-button"
+                        class="mb-2"
+                        switch
+                      >
+                        {{ $t('board.list.showGameNotes') }}
+                      </b-form-checkbox>
+
+                      <b-form-checkbox
+                        v-model="board.lists[index].showGameTags"
+                        name="check-button"
+                        class="mb-2"
+                        switch
+                      >
+                        {{ $t('board.list.showGameTags') }}
+                      </b-form-checkbox>
+
+                      <b-form-checkbox
+                        v-model="board.lists[index].showGameCount"
+                        name="check-button"
+                        switch
+                      >
+                        {{ $t('board.list.showGameCount') }}
+                      </b-form-checkbox>
+                    </template>
+                  </b-card-body>
+                </b-collapse>
+              </b-card>
+            </div>
 
             <hr class="my-3">
 
@@ -176,6 +366,20 @@ export default {
       board: {},
       loading: false,
       saving: false,
+      // TODO: put in constants
+      sortOptions: [
+        { text: 'Custom', value: null },
+        { text: 'Alphabetically', value: 'alphabetically' },
+        { text: 'Rating', value: 'rating' },
+        { text: 'Progress', value: 'progress' },
+      ],
+      viewOptions: [
+        { text: this.$t('board.list.views.single'), value: 'single' },
+        { text: this.$t('board.list.views.covers'), value: 'covers' },
+        { text: this.$t('board.list.views.grid'), value: 'grid' },
+        { text: this.$t('board.list.views.compact'), value: 'compact' },
+        { text: this.$t('board.list.views.text'), value: 'text' },
+      ],
     };
   },
 
