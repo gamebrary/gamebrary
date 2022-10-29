@@ -36,15 +36,6 @@ const routes = [
     },
   },
   {
-    name: 'releases',
-    path: '/releases',
-    component: () => import(/* webpackChunkName: "public" */ '@/public/pages/ReleasesPage'),
-    meta: {
-      title: 'Releases',
-      public: true,
-    },
-  },
-  {
     name: 'auth',
     path: '/auth',
     component: () => import(/* webpackChunkName: "public" */ '@/public/pages/AuthPage'),
