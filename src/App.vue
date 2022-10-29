@@ -1,3 +1,4 @@
+<!-- TODO: restore rtl -->
 <!-- TODO: translate strings -->
 <!-- TODO: allow for anonymous boards, prompt to sign up -->
 <!-- TODO: switch toggle -->
@@ -6,20 +7,28 @@
 <!-- TODO: bring notifications back! -->
 <!-- TODO: fix favicon broken link -->
 <template>
-  <div
+  <main
     id="app"
-    :dir="dir"
+    :class="darkTheme ? 'dark' : 'light'"
     v-shortkey="KEYBOARD_SHORTCUTS"
     :style="style"
     @shortkey="handleShortcutAction"
   >
-    <div :class="{ 'blurred': isGamePage }">
-      <page-header />
-      <router-view class="viewport" />
-      <keyboard-shortcuts-modal />
-      <markdown-cheatsheet />
-    </div>
-  </div>
+    <page-header />
+    <router-view class="viewport" />
+    <keyboard-shortcuts-modal />
+    <markdown-cheatsheet />
+    <b-button
+      class="position-fixed"
+      style="bottom: 10px;"
+      title="Toggle theme"
+      @click="toggleTheme"
+      v-b-tooltip.hover
+    >
+      <i v-if="darkTheme" class="fa-solid fa-sun" />
+      <i v-else class="fa-solid fa-moon" />
+    </b-button>
+  </main>
 </template>
 
 <script>
@@ -28,7 +37,7 @@ import KeyboardShortcutsModal from '@/components/KeyboardShortcutsModal';
 import PageHeader from '@/components/PageHeader';
 import sessionMixin from '@/mixins/sessionMixin';
 import firebase from 'firebase/app';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import { KEYBOARD_SHORTCUTS, FIREBASE_CONFIG } from '@/constants';
 
 firebase.initializeApp(FIREBASE_CONFIG);
@@ -55,6 +64,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'settings', 'sessionExpired']),
+    ...mapGetters(['darkTheme']),
 
     style() {
       const backgroundImage = ['game', 'board'].includes(this.$route?.name) && this.backgroundImageUrl
@@ -68,22 +78,8 @@ export default {
       return [backgroundImage, backgroundColor].join('');
     },
 
-    userId() {
-      return this.debugUserId || this.user.uid;
-    },
-
-    dir() {
-      const { settings } = this;
-
-      return settings && settings.language === 'ar' ? 'rtl' : 'ltr';
-    },
-
     isPublicRoute() {
       return this.$route.meta?.public;
-    },
-
-    isGamePage() {
-      return this.$route.name === 'game';
     },
   },
 
@@ -104,6 +100,23 @@ export default {
   },
 
   methods: {
+    async toggleTheme() {
+      const { settings } = this;
+      const darkTheme = settings?.darkTheme || false;
+
+      const payload = {
+        ...settings,
+        darkTheme: !darkTheme,
+      };
+
+      await this.$store.dispatch('SAVE_SETTINGS', payload)
+        .catch(() => {
+          this.$bvToast.toast('There was an error saving your settings', { variant: 'danger' });
+          this.saving = false;
+        });
+
+    },
+
     clearWallpaperUrl() {
       this.backgroundImageUrl = null;
     },
@@ -122,7 +135,6 @@ export default {
 
     init() {
       // TODO: get platforms from constants
-
       if (this.isPublicRoute) {
         return;
       }
