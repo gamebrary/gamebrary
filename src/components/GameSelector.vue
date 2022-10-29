@@ -3,14 +3,17 @@
     <b-button
       @click="selecting = true"
       :variant="variant"
-      size="sm"
+      :size="size"
       block
     >
       <slot v-if="$slots.default" />
       <span v-else>Add games</span>
     </b-button>
 
-    <b-modal hide-footer v-model="selecting">
+    <b-modal
+      hide-footer
+      v-model="selecting"
+    >
       <template v-slot:modal-header="{ close }">
         <modal-header
           :title="title"
@@ -21,11 +24,14 @@
       <b-form-input
        v-model="searchText"
        debounce="500"
-       placeholder=""
+       placeholder="Type here"
+       type="search"
        @update="search"
       />
 
-      <b-spinner v-if="loading" class="spinner-centered" />
+      <div v-if="loading" style="height: 80px" class="mt-5">
+        <b-spinner class="spinner-centered" />
+      </div>
 
       <div v-else-if="filteredSearchResults.length > 0" class="search-results">
         <b-card
@@ -69,6 +75,10 @@ export default {
   getThumbnailUrl,
 
   props: {
+    size: {
+      type: String,
+      default: 'sm',
+    },
     variant: {
       type: String,
       default: 'light',
