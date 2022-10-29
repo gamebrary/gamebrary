@@ -4,7 +4,7 @@ d<template lang="html">
     <div class="pr-2 pb-2">
       <strong class="text-muted">Progress:</strong>
 
-      {{ progress }}%
+      <game-progress />
     </div>
 
     <div v-if="gameGenres" class="pr-2 pb-2">
@@ -124,25 +124,19 @@ d<template lang="html">
 <script>
 import { mapGetters, mapState } from 'vuex';
 import GameInList from '@/components/Game/GameInList';
+import GameProgress from '@/components/Game/GameProgress';
 import GameTagsDropdown from '@/components/Game/GameTagsDropdown';
 
 export default {
   components: {
     GameTagsDropdown,
     GameInList,
-  },
-
-  data() {
-    return {
-      progress: 0,
-      saving: false,
-      deleting: false,
-    }
+    GameProgress,
   },
 
   computed: {
     ...mapGetters(['platformNames', 'gameLinks']),
-    ...mapState(['game', 'tags', 'user', 'progresses']),
+    ...mapState(['game', 'tags', 'user']),
 
     tagsApplied() {
       if (!this.tags) return [];
@@ -184,9 +178,7 @@ export default {
     },
 
     gameGenres() {
-      const gameGenres = this.game?.genres || [];
-
-      return gameGenres.map((genre) => genre.name).join(', ');
+      return this.game?.genres;
     },
 
     releaseDates() {
@@ -208,45 +200,6 @@ export default {
     if (!this.tags) {
       await this.$store.dispatch('LOAD_TAGS');
     }
-
-    this.progress = this.progresses?.[this.game?.id]
-      ? JSON.parse(JSON.stringify(this.progresses?.[this.game?.id]))
-      : 0;
-  },
-
-  methods: {
-    async deleteProgress() {
-      const { id, name } = this.game;
-
-      this.deleting = true;
-
-      this.$store.commit('REMOVE_GAME_PROGRESS', id);
-
-      await this.$store.dispatch('SAVE_PROGRESSES_NO_MERGE')
-        .catch(() => {
-          this.$bvToast.toast('There was an error deleting your progress', { title: `${name} progress`, variant: 'error' });
-          this.deleting = false;
-        });
-
-      this.deleting = false;
-    },
-
-    async saveProgress() {
-      this.saving = true;
-
-      this.$store.commit('SET_GAME_PROGRESS', {
-        progress: this.progress,
-        gameId: this.game?.id,
-      });
-
-      await this.$store.dispatch('SAVE_PROGRESSES')
-        .catch(() => {
-          this.saving = false;
-          this.$bvToast.toast('There was an error saving your progress', { variant: 'error' });
-        });
-
-      this.saving = false;
-    },
   },
 };
 </script>

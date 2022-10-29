@@ -32,7 +32,62 @@
 </template>
 
 <script>
+import { mapGetters, mapState } from 'vuex';
+
+
 export default {
+  data() {
+    return {
+      progress: 0,
+      saving: false,
+      deleting: false,
+    }
+  },
+
+  computed: {
+    ...mapState(['progresses']),
+  },
+
+  mounted() {
+    this.progress = this.progresses?.[this.game?.id]
+      ? JSON.parse(JSON.stringify(this.progresses?.[this.game?.id]))
+      : 0;
+  },
+
+  methods: {
+    async deleteProgress() {
+      const { id, name } = this.game;
+
+      this.deleting = true;
+
+      this.$store.commit('REMOVE_GAME_PROGRESS', id);
+
+      await this.$store.dispatch('SAVE_PROGRESSES_NO_MERGE')
+        .catch(() => {
+          this.$bvToast.toast('There was an error deleting your progress', { title: `${name} progress`, variant: 'error' });
+          this.deleting = false;
+        });
+
+      this.deleting = false;
+    },
+
+    async saveProgress() {
+      this.saving = true;
+
+      this.$store.commit('SET_GAME_PROGRESS', {
+        progress: this.progress,
+        gameId: this.game?.id,
+      });
+
+      await this.$store.dispatch('SAVE_PROGRESSES')
+        .catch(() => {
+          this.saving = false;
+          this.$bvToast.toast('There was an error saving your progress', { variant: 'error' });
+        });
+
+      this.saving = false;
+    },
+  },
 };
 </script>
 
