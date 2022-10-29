@@ -8,11 +8,6 @@ const routes = [
     }
   },
   {
-    path: '/b/:id/edit/:listIndex',
-    name: 'board.list.edit',
-    component: () => import(/* webpackChunkName: "boards" */ '@/boards/pages/EditListPage'),
-  },
-  {
     path: '/b/:id/edit',
     name: 'board.edit',
     component: () => import(/* webpackChunkName: "boards" */ '@/boards/pages/EditBoardPage'),
