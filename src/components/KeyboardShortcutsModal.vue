@@ -58,17 +58,12 @@ export default {
 
   methods: {
     handleShortcut({ srcKey }) {
-      const name = srcKey.substr(6);
+      if (!srcKey) return;
 
-      if (srcKey.includes('MODAL')) {
-        this.$bvModal.show(name);
-      }
+      const name = srcKey?.substr(6);
 
-      if (srcKey.includes('ROUTE')) {
-        if (this.$route.name !== name) {
-          this.$router.push({ name });
-        }
-      }
+      if (srcKey.includes('MODAL')) this.$bvModal.show(name);
+      if (srcKey.includes('ROUTE') && this.$route.name !== name) this.$router.push({ name });
     },
   },
 };
