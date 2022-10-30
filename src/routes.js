@@ -16,6 +16,14 @@ const routes = [
   ...notesRoutes,
   ...publicRoutes,
   ...profileRoutes,
+  {
+    name: 'company',
+    path: '/company/:id',
+    component: () => import(/* webpackChunkName: "notes" */ '@/companies/pages/CompanyPage'),
+    meta: {
+      title: 'Company',
+    },
+  },
 ];
 
 export default routes;

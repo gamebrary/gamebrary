@@ -10,6 +10,7 @@ export const bytesToSize = (bytes) => {
   return `${Math.round(bytes / (1024 ** i), 2)} ${sizes[i]}`;
 };
 
+// TODO: rename to something more generic, this also works for companies
 export const getGameCoverUrl = (game) => {
   return game?.cover?.image_id
     ? `https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.cover.image_id}.jpg`
