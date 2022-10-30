@@ -1,8 +1,8 @@
 <template lang="html">
-  <div class="d-flex align-items-center">
+  <div class="d-flex align-items-center mb-2">
     <game-selector
       title="Add games"
-      class="mr-3"
+      class="mr-3 "
       :filter="allGames"
       @select-game="selectGame"
     >
@@ -13,7 +13,7 @@
       variant="primary"
       :text="list.name"
       :to="{ name: 'board.edit', params: { id: board.id } }"
-      square
+      rounded
       :style="`background-color: ${list.backgroundColor}`"
       size="100"
     />
@@ -38,7 +38,7 @@
       <b-img
         v-for="gameId in list.games"
         :key="gameId"
-        class="game cursor-pointer"
+        class="game cursor-pointer rounded ml-2"
         fluid
         :src="$options.getThumbnailUrl(games[gameId])"
         @click="openGame(gameId)"
