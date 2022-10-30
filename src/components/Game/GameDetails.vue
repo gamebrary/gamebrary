@@ -21,17 +21,38 @@ d<template lang="html">
 
     <div v-if="gameModes" class="pr-2 pb-2">
       <strong class="text-muted">{{ $t('board.gameModal.gameModes') }}: </strong>
-      <span class="text-wrap">{{ gameModes }}</span>
+
+      <b-link
+        v-for="(gameMode, index) in gameModes"
+        :key="gameMode.id"
+      >
+        <b-link :to="{ name: 'search', query: { gameMode: gameMode.id }}">{{ gameMode.name }}</b-link>
+        <template v-if="index < gameModes.length - 1">, </template>
+      </b-link>
     </div>
 
     <div v-if="gameDevelopers" class="pr-2 pb-2">
       <strong class="text-muted">{{ $t('board.gameModal.developers') }}: </strong>
-      <span class="text-wrap">{{ gameDevelopers }}</span>
+
+      <b-link
+        v-for="({ company }, index) in gameDevelopers"
+        :key="company.id"
+      >
+        <b-link :to="{ name: 'company', params: { id: company.id }}">{{ company.name }}</b-link>
+        <template v-if="index < gameDevelopers.length - 1">, </template>
+      </b-link>
     </div>
 
     <div v-if="gamePublishers" class="pr-2 pb-2">
       <strong class="text-muted">{{ $t('board.gameModal.publishers') }}: </strong>
-      <span class="text-wrap">{{ gamePublishers }}</span>
+
+      <b-link
+        v-for="({ company }, index) in gamePublishers"
+        :key="company.id"
+      >
+        <b-link :to="{ name: 'company', params: { id: company.id }}">{{ company.name }}</b-link>
+        <template v-if="index < gamePublishers.length - 1">, </template>
+      </b-link>
     </div>
 
     <div v-if="playerPerspectives" class="pr-2 pb-2">
@@ -157,25 +178,15 @@ export default {
     },
 
     gameDevelopers() {
-      return this.game?.involved_companies
-        ? this.game.involved_companies
-          .filter(({ developer }) => developer)
-          .map(({ company }) => company?.name).join(', ')
-        : null;
+      return this.game?.involved_companies?.filter(({ developer }) => developer);
     },
 
     gamePublishers() {
-      return this.game?.involved_companies
-        ? this.game.involved_companies
-          .filter(({ publisher }) => publisher)
-          .map(({ company }) => company?.name).join(', ')
-        : null;
+      return this.game?.involved_companies?.filter(({ publisher }) => publisher);
     },
 
     gameModes() {
-      return this.game?.game_modes
-        ? this.game.game_modes.map(({ name }) => name).join(', ')
-        : null;
+      return this.game?.game_modes;
     },
 
     playerPerspectives() {

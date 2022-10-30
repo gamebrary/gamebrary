@@ -206,6 +206,10 @@ export default {
       return this.$route.query?.perspective;
     },
 
+    gameModeFilter() {
+      return this.$route.query?.gameMode;
+    },
+
     formattedSearchResults() {
       return this.filteredResults?.map((game) => {
         const platforms = game?.platforms?.map((id) => ({ id, ...this.platformNames?.[id] }));
@@ -274,34 +278,29 @@ export default {
       //   : '';
 
       const platforms = this.platformsFilter
-        ? `where platforms = ${this.platformsFilter};`
+        ? `where platforms = (${this.platformsFilter});`
         : null;
 
       const genres = this.genresFilter
-        ? `where genres = ${this.genresFilter};`
+        ? `where genres = (${this.genresFilter});`
         : null;
 
       const perspectiveFilter = this.perspectiveFilter
-        ? `where player_perspectives = ${this.perspectiveFilter};`
+        ? `where player_perspectives = (${this.perspectiveFilter});`
         : null;
 
-      console.log('platforms', platforms);
-      console.log('genres', genres);
+      const gameModeFilter = this.gameModeFilter
+        ? `where game_modes = (${this.gameModeFilter});`
+        : null;
 
-      // const hasBoth = Boolean(platforms && genres);
-
-      // console.log('hasBoth', hasBoth);
-
-      const filter = genres || platforms || perspectiveFilter || '';
-
-      console.log('filter', filter);
+      const filter = genres || platforms || perspectiveFilter || gameModeFilter || '';
 
       // where (platforms = [6,48] & genres = 13);
       // const filter = ' where genres = 4;';
 
-      // TODO: add filtering by
       // const data = `${search} fields platforms,slug,rating,cover.image_id; limit 50; ${filter}`;
-      const data = `${search} fields platforms,slug,rating,cover.image_id; limit 50; ${filter}`;
+      // TODO: paginate
+      const data = `${search} fields platforms,slug,rating,cover.image_id; limit 100; ${filter}`;
 
       this.searchResults = await this.$store.dispatch('IGDB', { path: 'games', data });
 
