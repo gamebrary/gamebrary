@@ -11,6 +11,12 @@
     <b-container>
       <portal to="pageTitle">Search</portal>
 
+      <portal to="headerActions">
+        <b-badge v-if="platformsFilter">Platform</b-badge>
+        <b-badge v-if="genresFilter">Genres</b-badge>
+        <b-badge v-if="perspectiveFilter">Perspective {{ perspectiveFilter }}</b-badge>
+      </portal>
+
       <b-spinner v-if="loading" class="spinner-centered" />
 
       <b-form-row v-else-if="searchResults.length">
@@ -60,12 +66,6 @@
               </b-dropdown-item>
             </template>
           </b-dropdown> -->
-        </portal>
-
-        <portal to="headerActions">
-          <b-badge v-if="platformsFilter">Platform</b-badge>
-          <b-badge v-if="genresFilter">Genres</b-badge>
-          <b-badge v-if="perspectiveFilter">Perspective {{ perspectiveFilter }}</b-badge>
         </portal>
 
         <b-col cols="12" class="py-2 mb-3" v-if="activeBoard">

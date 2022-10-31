@@ -25,7 +25,7 @@
           </b-button>
         </portal>
 
-        <b-form-row>
+        <b-row>
           <b-col
             cols="12"
             md="4"
@@ -69,13 +69,14 @@
             md="8"
             xl="9"
           >
-            <article :class="[' rounded', hasWallpaper ? 'bg-white mt-2 mt-md-0 p-3' : 'px-sm-3 p-0']">
+            <article :class="darkTheme || hasWallpaper ? 'text-light' : ''">
               <div class="d-flex justify-content-between">
                 <game-titles />
               </div>
 
-              <aside class="supplemental-info bg-white field float-right ml-5 pb-2">
+              <aside class="supplemental-info field float-right ml-5 pb-2">
                 <game-details />
+
                 <game-note
                   v-if="note"
                   :note="note"
@@ -104,7 +105,7 @@
               v-html="legalNotice"
             />
           </b-col>
-        </b-form-row>
+        </b-row>
 
         <similar-games />
       </template>
@@ -166,6 +167,7 @@ export default {
 
   computed: {
     ...mapState(['game', 'progresses', 'tags', 'boards', 'user', 'notes', 'twitchToken']),
+    ...mapGetters(['darkTheme']),
 
     metacriticScore() {
       return this.game?.steam?.metacritic;

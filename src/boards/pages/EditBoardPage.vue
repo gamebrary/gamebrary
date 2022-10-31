@@ -140,12 +140,6 @@
               :board="board"
             />
 
-            <!-- TODO: limit field width -->
-            <!-- TODO: move to computed, use help text -->
-            <!-- TODO: add another view that uses avatar for game cover (tiny) -->
-            <!-- TODO: fix list not updating -->
-            <!-- TODO: add release date styles: countdown/simple date -->
-
             <div class="accordion" role="tablist">
               <b-card
                 v-for="(list, index) in board.lists"
@@ -162,7 +156,7 @@
                   </b-button>
                 </b-card-header>
 
-                <!-- TODO: restore list settings -->
+                <!-- TODO: UPDATE settings, look at default board constants for reference -->
 
                 <b-collapse :id="`list-${index}`" role="tabpanel">
                   <b-card-body>

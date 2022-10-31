@@ -42,9 +42,7 @@ export default {
     },
 
     gameNotes() {
-      const { settings } = this.list;
-
-      return settings?.showGameNotes && this.notes[this.gameId];
+      return this.list?.settings?.showGameNotes && this.notes?.[this.gameId];
     },
 
     game() {

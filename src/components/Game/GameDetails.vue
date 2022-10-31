@@ -1,11 +1,6 @@
-d<template lang="html">
-  <b-card class="mt-3 small">
-
-    <div class="pr-2 pb-2">
-      <strong class="text-muted">Progress:</strong>
-
-      <game-progress />
-    </div>
+<template lang="html">
+  <b-card class="small">
+    <game-progress />
 
     <div v-if="gameGenres" class="pr-2 pb-2">
       <strong class="text-muted">Genres: </strong>

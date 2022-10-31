@@ -4,15 +4,14 @@
       <b-spinner v-if="loading" class="spinner-centered" />
 
       <div v-else-if="company">
-        <h1>{{ company.name }}</h1>
+        <portal to="pageTitle">{{ company.name }}</portal>
         <p>{{ company.description }}</p>
         <img
           v-if="company.logo"
           :src="$options.getGameCoverUrl({ cover: { image_id: company.logo.image_id } })"
-          alt=""
+          alt="company.name"
           width="100"
         />
-
 
         <b-form-row no-gutters>
           <h3 class="w-100 my-3">Games developed by {{ company.name }}</h3>

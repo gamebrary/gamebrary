@@ -1,33 +1,36 @@
 <template lang="html">
-  <div>
-    <strong class="text-muted">Completed: {{ progress }}</strong>
+  <div class="pr-2 pb-2">
+    <strong class="text-muted">Progress: </strong>
+    <b-link @click="editing = true">{{ progress }}%</b-link>
 
-    <b-form-input
-      size="lg"
-      v-model="progress"
-      type="range"
-      max="100"
-      step="1"
-    />
+    <b-form v-if="editing">
+      <b-form-input
+        size="lg"
+        v-model="progress"
+        type="range"
+        max="100"
+        step="1"
+      />
 
-    <b-button
-      variant="primary"
-      :disabled="saving"
-      class="mr-2"
-      @click="saveProgress"
-    >
-      <b-spinner small v-if="saving" />
-      <span v-else>{{ $t('global.save') }}</span>
-    </b-button>
+      <b-button
+        variant="primary"
+        :disabled="saving"
+        class="mr-2"
+        @click="saveProgress"
+      >
+        <b-spinner small v-if="saving" />
+        <span v-else>{{ $t('global.save') }}</span>
+      </b-button>
 
-    <b-button
-      :disabled="deleting"
-      variant="danger"
-      @click="deleteProgress"
-    >
-      <b-spinner small v-if="deleting" />
-      <i v-else class="fas fa-trash fa-fw" aria-hidden />
-    </b-button>
+      <b-button
+        :disabled="deleting"
+        variant="danger"
+        @click="deleteProgress"
+      >
+        <b-spinner small v-if="deleting" />
+        <i v-else class="fas fa-trash fa-fw" aria-hidden />
+      </b-button>
+    </b-form>
   </div>
 </template>
 
@@ -39,13 +42,14 @@ export default {
   data() {
     return {
       progress: 0,
+      editing: false,
       saving: false,
       deleting: false,
     }
   },
 
   computed: {
-    ...mapState(['progresses']),
+    ...mapState(['progresses', 'game']),
   },
 
   mounted() {
@@ -85,6 +89,7 @@ export default {
           this.$bvToast.toast('There was an error saving your progress', { variant: 'error' });
         });
 
+      this.editing = false;
       this.saving = false;
     },
   },
