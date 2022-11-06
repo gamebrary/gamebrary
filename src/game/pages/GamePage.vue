@@ -1,3 +1,4 @@
+<!-- TODO: improve text contrast when dark theme or bg is on -->
 <!-- TODO: integrate with twitch -->
 <!-- TODO: show bundles -->
 <!-- TODO: show game right away, load steam and GOG in background -->
@@ -11,7 +12,7 @@
 
       <template v-else-if="game">
         <portal to="pageTitle">
-          <span>
+          <span :class="darkTheme || hasWallpaper ? 'text-light text-outlined' : ''">
             {{ game.name }}
           </span>
 
