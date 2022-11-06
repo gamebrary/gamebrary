@@ -1,3 +1,4 @@
+<!-- TODO: hide progress if game is not yet released -->
 <template lang="html">
   <div class="pr-2 pb-2">
     <strong class="text-muted">Progress: </strong>
