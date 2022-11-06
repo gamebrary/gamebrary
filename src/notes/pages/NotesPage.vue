@@ -25,7 +25,7 @@
         </portal>
 
         <empty-state
-          v-if="showEmptyState"
+          v-if="isEmpty"
           illustration="notes.png"
           :title="$t('notes.title')"
           message="Looks like you don't have any notes yet."
@@ -109,7 +109,7 @@ export default {
     ...mapState(['notes', 'games']),
     ...mapGetters(['darkTheme']),
 
-    showEmptyState() {
+    isEmpty() {
       return !Object.keys(this.notes).length;
     },
 
@@ -140,10 +140,11 @@ export default {
 
   methods: {
     async loadGames() {
-      this.loading = true;
+      if (this.isEmpty) return;
+
       const gamesList = Object.keys(this.notes);
 
-      if (!gamesList) return;
+      this.loading = true;
 
       try {
         await this.$store.dispatch('LOAD_GAMES', gamesList);

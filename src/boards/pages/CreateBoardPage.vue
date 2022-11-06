@@ -4,7 +4,6 @@
       <portal to="pageTitle">Create board</portal>
 
       <b-form @submit.prevent="createBoard" class="field centered">
-        <small><pre>{{ payload }}</pre></small>
         <b-form-group label="Board name:" label-for="boardName">
           <b-form-input
             id="boardName"

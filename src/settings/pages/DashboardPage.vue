@@ -1,7 +1,7 @@
 <template lang="html">
   <section>
-    <b-container>
-      <portal to="pageTitle">
+    <b-container class="d-flex flex-column h-100">
+      <portal to="pageTitle" v-if="sortedBoards.length">
         Recent boards
       </portal>
 
@@ -25,9 +25,8 @@
         </div>
       </portal>
 
-      <b-row>
+      <b-row v-if="sortedBoards.length">
         <b-col>
-          <!-- TODO: add empty state -->
           <b-form-row class="boards scrollbox">
             <b-col
               v-for="board in sortedBoards"
@@ -58,6 +57,20 @@
         </b-col>
       </b-row>
 
+      <empty-state
+        v-else
+        title="Welcome to Gamebrary"
+        message="Get started by creating your first board!"
+        class="my-5"
+      >
+        <b-button
+          :to="{ name: 'create.board' }"
+          variant="light"
+        >
+          {{ $t('boards.create') }}
+        </b-button>
+      </empty-state>
+
       <!-- <div
         data-form-slug="6148881969433360"
         data-env="production"
@@ -65,7 +78,7 @@
         class="keap-custom-form"
       /> -->
 
-      <footer class="d-flex align-items-center pb-5 flex-wrap">
+      <footer class="d-flex align-items-center pb-5 flex-wrap mt-auto">
         <b-button
           :to="{ name: 'wallpapers' }"
           class="mr-2 mt-2"
@@ -95,7 +108,6 @@
             :src="avatarImage"
             v-b-tooltip.hover
             size="22"
-            :title="`@${profile.userName}`"
           />
 
           <i
@@ -105,13 +117,7 @@
           />
 
           <span class="d-none d-sm-inline mr-2">
-            <template v-if="profile.userName">
-              @{{ profile.userName }}
-            </template>
-
-            <template v-else>
-              Account
-            </template>
+            Account
           </span>
         </b-button>
 
@@ -149,7 +155,7 @@
           @click="toggleTheme"
           v-b-tooltip.hover
         >
-          <i v-if="settings.darkTheme" class="fa-solid fa-sun" />
+          <i v-if="darkTheme" class="fa-solid fa-sun" />
           <i v-else class="fa-solid fa-moon" />
         </b-button>
 
@@ -194,6 +200,7 @@
 
 <script>
 import MiniBoard from '@/components/Board/MiniBoard';
+import EmptyState from '@/components/EmptyState';
 // import SteamSettingsPage from '@/pages/SteamSettingsPage';
 // import LanguageSettings from '@/components/Settings/LanguageSettings';
 import { getImageThumbnail } from '@/utils';
@@ -202,6 +209,7 @@ import { mapState, mapGetters } from 'vuex';
 export default {
   components: {
     MiniBoard,
+    EmptyState,
     // LanguageSettings,
     // SteamSettingsPage,
   },
@@ -258,10 +266,10 @@ export default {
     },
 
     async load() {
-      await this.$store.dispatch('LOAD_BOARDS');
-      await this.$store.dispatch('LOAD_TAGS');
+      await this.$store.dispatch('LOAD_BOARDS').catch(() => {});
+      await this.$store.dispatch('LOAD_TAGS').catch(() => {});
+      this.profile = await this.$store.dispatch('LOAD_PROFILE').catch(() => {});
 
-      this.profile = await this.$store.dispatch('LOAD_PROFILE').catch(() => null);
       if (this.profile?.avatar) this.loadAvatarImage();
     },
 
@@ -278,5 +286,9 @@ export default {
 .boards {
   max-height: calc(100vh - 164px);
   overflow-y: auto;
+}
+
+.dashboard {
+  background: #ccf;
 }
 </style>

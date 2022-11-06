@@ -1,5 +1,6 @@
 <template lang="html">
   <section v-if="similarGames.length" class="mt-5">
+    <!-- TODO: make white if bg is on -->
     <h4 class="text-center">You may also like</h4>
 
     <div class="similar-games">

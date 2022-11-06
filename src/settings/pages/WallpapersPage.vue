@@ -20,8 +20,6 @@
         </portal>
 
         <wallpapers-list />
-
-        <b-alert :show="showEmptyState">You don't have any wallpapers.</b-alert>
       </template>
     </b-container>
   </section>
@@ -99,9 +97,12 @@ export default {
 
   methods: {
     async loadWallpapers() {
-      this.loading = true;
-
-      await this.$store.dispatch('LOAD_WALLPAPERS');
+      try {
+        this.loading = true;
+        await this.$store.dispatch('LOAD_WALLPAPERS');
+      } catch (e) {
+        // 
+      }
 
       this.loading = false;
     },
