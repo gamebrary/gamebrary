@@ -82,7 +82,7 @@ export default {
     this.$bus.$on('UPDATE_BACKGROUND_COLOR', this.updateBackgroundColor);
 
     await this.$store.dispatch('GET_TWITCH_TOKEN');
-
+    await this.$store.dispatch('LOAD_RELEASES');
     this.init();
   },
 

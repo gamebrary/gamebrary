@@ -106,8 +106,6 @@ export default {
     },
 
     async load() {
-      await this.$store.dispatch('LOAD_RELEASES');
-
       // TODO: move all to actions, consider making live update optional? if it gets expensive $$$
       db.collection('settings').doc(this.user.uid)
         .onSnapshot((doc) => {
