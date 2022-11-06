@@ -17,10 +17,12 @@
     >
       <b-spinner small v-if="saving" />
 
-      <template v-else>
-        <i class="fas fa-upload fa-fw" aria-hidden />
-        <span class="d-none d-sm-inline">Upload</span>
-      </template>
+      <span
+        v-else
+        class="d-none d-sm-inline"
+      >
+        Upload
+      </span>
     </b-button>
 
     <b-alert

@@ -78,35 +78,31 @@ export default {
 
   mounted() {
     this.board = {
-      ...this.defaultBoard,
+      ...this.getDefaultBoard(),
       type: BOARD_TYPE_STANDARD,
     }
   },
 
-  computed: {
-    defaultBoard() {
+  methods: {
+    getDefaultBoard() {
       if (this.board.type === BOARD_TYPE_TIER) return DEFAULT_BOARD_TIER;
       if (this.board.type === BOARD_TYPE_KANBAN) return DEFAULT_BOARD_KANBAN;
 
       return DEFAULT_BOARD_STANDARD;
     },
 
-    payload() {
-      return {
-        ...this.defaultBoard,
-        ...this.board,
-      }
-    },
-  },
-
-  methods: {
     async createBoard() {
       this.saving = true;
+      const defaultBoard = this.getDefaultBoard();
+
+      const payload = {
+        ...defaultBoard,
+        ...this.board,
+        lists: defaultBoard.lists,
+      }
 
       try {
-        console.log(this.payload);
-
-        const { id } = await this.$store.dispatch('CREATE_BOARD', this.payload);
+        const { id } = await this.$store.dispatch('CREATE_BOARD', payload);
 
         this.$router.push({ name: 'board', params: { id } });
       } catch (e) {

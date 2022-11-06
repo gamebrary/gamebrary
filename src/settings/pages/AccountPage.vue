@@ -5,9 +5,10 @@
 
       <profile-form />
 
-      <div class="field" v-if="user">
+      <div class="field centered" v-if="user">
         <hr class="py-2" />
-        <p>Logged in as {{ user.displayName }} / {{ user.email }}</p>
+        <p>Logged in as:</p>
+        <p>{{ user.displayName }} / {{ user.email }}</p>
 
         <b-alert show class="field" variant="light">
           <small>

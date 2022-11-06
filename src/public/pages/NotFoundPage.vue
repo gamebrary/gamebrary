@@ -1,7 +1,7 @@
 <template lang="html">
   <empty-state
-    title="Page not found"
-    message="404"
+    title="404 Error"
+    message="Page not found"
   />
 </template>
 

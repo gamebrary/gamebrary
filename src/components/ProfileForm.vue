@@ -4,7 +4,7 @@
 
   <form
     v-else-if="profile"
-    class="field"
+    class="field centered"
     @submit.prevent="save"
   >
     <portal to="headerActions">

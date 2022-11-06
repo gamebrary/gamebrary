@@ -81,7 +81,6 @@ export default {
 
     [this.company] = await this.$store.dispatch('IGDB', { path: 'companies', data })
 
-    console.log(this.company);
     // TODO: get larger image url
 
     this.loading = false;

@@ -22,7 +22,7 @@
       :text-variant="darkTheme ? 'white' : 'dark'"
       class="mb-2 flex-row align-items-center cursor-pointer"
       v-for="(game, index) in listGames"
-      :key="game.id"
+      :key="index"
       @click="openGame(game.id, list)"
     >
       <b-img
@@ -122,7 +122,7 @@ export default {
   methods: {
     selectGame(gameId) {
       if (this.list.games.includes(gameId)) {
-        console.log('remove');
+        // console.log('remove');
       } else {
         this.addGame(gameId);
         // this.list.games.push(gameId);
@@ -143,6 +143,22 @@ export default {
         await this.$store.dispatch('LOAD_BOARD', board?.id);
       } catch (e) {
         // this.$bvToast.toast(`There was an error adding "${this.game.name}"`, { title: list.name, variant: 'danger' });
+      }
+    },
+
+    async removeGame() {
+      const { boardId, listIndex } = this.$route?.query;
+      const boardIndex = this.boards.findIndex(({ id }) => id === boardId);
+      const board = this.boards[boardIndex];
+      const gameIndex = board?.lists?.[listIndex]?.games?.indexOf(this.gameId);
+
+      board.lists[listIndex].games.splice(gameIndex, 1);
+
+      try {
+        await this.$store.dispatch('SAVE_GAME_BOARD', board);
+        await this.$store.dispatch('LOAD_BOARD', board.id)
+      } catch (e) {
+        // this.$bvToast.toast(`There was an error removing "${this.game.name}"`, { title: list.name, variant: 'danger' });
       }
     },
 

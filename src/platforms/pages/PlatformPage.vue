@@ -73,21 +73,12 @@ export default {
       where release_dates.platform = ${this.platform.id};
       `;
 
-      console.log('this.offset', this.offset);
-
       if (this.offset === 0) {
         this.platformGames = await this.$store.dispatch('IGDB', { path: 'games', data });
       } else {
         const games = await this.$store.dispatch('IGDB', { path: 'games', data });
 
-        console.log('games', games.length);
-        console.log(typeof games);
-        console.log('platformGames', this.platformGames);
-        console.log(typeof this.platformGames);
-
         this.platformGames = merge(this.platformGames, games);
-
-        console.log('this.platformGames', this.platformGames);
       }
 
       this.loading = false;
