@@ -26,7 +26,6 @@
 
         <empty-state
           v-if="isEmpty"
-          illustration="notes.png"
           :title="$t('notes.title')"
           message="Looks like you don't have any notes yet."
         >

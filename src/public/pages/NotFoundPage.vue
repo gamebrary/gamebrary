@@ -1,7 +1,6 @@
 <template lang="html">
   <empty-state
     title="Page not found"
-    illustration="404.png"
     message="404"
   />
 </template>
