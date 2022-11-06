@@ -123,8 +123,16 @@
           @click.native="$router.push({ name: 'board', params: { id: board.id } })"
         />
       </b-col>
-    </b-form-row>
 
+      <b-button
+        variant="secondary"
+        class="mt-3 ml-auto mr-auto"
+        size="lg"
+        :to="{ name: 'explore' }"
+      >
+        More boards
+      </b-button>
+    </b-form-row>
 
     <footer class="text-muted text-center py-5">
       <router-link class="px-1" :to="{ name: 'about' }">About</router-link>
