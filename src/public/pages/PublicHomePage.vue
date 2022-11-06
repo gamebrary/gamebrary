@@ -119,7 +119,7 @@
       >
         <mini-board
           :board="board"
-          :class="['mb-3', { 'd-none d-sm-inline': index > 2 }]"
+          class="mb-3"
           @click.native="$router.push({ name: 'board', params: { id: board.id } })"
         />
       </b-col>

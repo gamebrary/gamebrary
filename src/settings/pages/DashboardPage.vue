@@ -65,25 +65,27 @@
         class="keap-custom-form"
       /> -->
 
-      <footer class="d-flex align-items-center mt-2 pb-5">
+      <footer class="d-flex align-items-center pb-5 flex-wrap">
         <b-button
           :to="{ name: 'wallpapers' }"
-          class="mr-2">
+          class="mr-2 mt-2"
+        >
           <i class="fa fa-images" aria-hidden="true" />
-          Wallpapers
+          <span class="d-none d-sm-inline ml-2">Wallpapers</span>
         </b-button>
 
-        <b-button :to="{ name: 'notes' }" class="mr-2" id="notes">
+        <b-button :to="{ name: 'notes' }" class="mr-2 mt-2" id="notes">
           <i class="fa fa-note-sticky" aria-hidden="true" />
-          Notes
+          <span class="d-none d-sm-inline ml-2">Notes</span>
         </b-button>
 
-        <b-button :to="{ name: 'tags' }" class="mr-2" id="tags">
+        <b-button :to="{ name: 'tags' }" class="mr-2 mt-2" id="tags">
           <i class="fa fa-tags" aria-hidden="true" />
-          Tags
+          <span class="d-none d-sm-inline ml-2">Tags</span>
         </b-button>
 
         <b-button
+          class="mt-2 mr-2"
           :to="{ name: 'account' }"
           v-b-tooltip.hover
         >
@@ -102,17 +104,19 @@
             aria-hidden
           />
 
-          <template v-if="profile.userName">
-            @{{ profile.userName }}
-          </template>
+          <span class="d-none d-sm-inline mr-2">
+            <template v-if="profile.userName">
+              @{{ profile.userName }}
+            </template>
 
-          <template v-else>
-            Account
-          </template>
+            <template v-else>
+              Account
+            </template>
+          </span>
         </b-button>
 
         <b-button
-          class="ml-2"
+          class="mr-2 mt-2"
           v-b-modal.keyboard-shortcuts
           id="shortcuts"
         >
@@ -120,7 +124,7 @@
         </b-button>
 
         <b-button
-          class="ml-2"
+          class="mr-2 mt-2"
           href="https://github.com/romancm/gamebrary"
           target="_blank"
           v-b-tooltip.hover
@@ -130,7 +134,7 @@
         </b-button>
 
         <b-button
-          class="ml-2"
+          class="mr-2 mt-2"
           href="https://goo.gl/forms/r0juBCsZaUtJ03qb2"
           target="_blank"
           title="Submit feedback"
@@ -140,7 +144,7 @@
         </b-button>
 
         <b-button
-          class="ml-2"
+          class="mr-2 mt-2"
           title="Toggle theme"
           @click="toggleTheme"
           v-b-tooltip.hover
@@ -150,7 +154,7 @@
         </b-button>
 
         <b-button
-          class="ml-2"
+          class="mr-2 mt-2"
           href="https://www.paypal.me/RomanCervantes/5"
           target="_blank"
           v-b-tooltip.hover
@@ -160,7 +164,7 @@
         </b-button>
 
         <!-- <b-button
-          class="ml-2"
+          class="mr-2"
           v-b-tooltip.hover
           title="Change language"
         >
@@ -172,7 +176,7 @@
           <small>Steam</small>
         </b-list-group-item> -->
 
-        <small class="ml-auto">
+        <small class="ml-auto pl-2 mt-2">
           &copy; 2022 Gamebrary
 
           <b-link
