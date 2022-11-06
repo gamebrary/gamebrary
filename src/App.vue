@@ -82,7 +82,6 @@ export default {
     this.$bus.$on('UPDATE_BACKGROUND_COLOR', this.updateBackgroundColor);
 
     await this.$store.dispatch('GET_TWITCH_TOKEN');
-    await this.$store.dispatch('LOAD_RELEASES');
     this.init();
   },
 
@@ -131,13 +130,13 @@ export default {
     },
 
     boot() {
-      this.$store.dispatch('LOAD_BOARDS');
-      this.$store.dispatch('LOAD_RELEASES');
-      this.$store.dispatch('LOAD_WALLPAPERS');
-      this.$store.dispatch('SYNC_LOAD_SETTINGS');
-      this.$store.dispatch('LOAD_TAGS');
-      this.$store.dispatch('SYNC_LOAD_NOTES');
-      this.$store.dispatch('SYNC_LOAD_PROGRESSES');
+      this.$store.dispatch('LOAD_BOARDS').catch(() => {});
+      this.$store.dispatch('LOAD_RELEASES').catch(() => {});
+      this.$store.dispatch('LOAD_WALLPAPERS').catch(() => {});
+      this.$store.dispatch('SYNC_LOAD_SETTINGS').catch(() => {});
+      this.$store.dispatch('LOAD_TAGS').catch(() => {});
+      this.$store.dispatch('SYNC_LOAD_NOTES').catch(() => {});
+      this.$store.dispatch('SYNC_LOAD_PROGRESSES').catch(() => {});
     },
   },
 };
