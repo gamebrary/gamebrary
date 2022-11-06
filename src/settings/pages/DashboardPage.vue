@@ -14,14 +14,14 @@
             <i class="fa fa-plus" aria-hidden="true" />
           </b-button>
 
-          <b-button
+          <!-- <b-button
             v-if="sortedBoards.length > 10"
             title="Boards"
             class="mr-2"
             :to="{ name: 'boards' }"
           >
             View all
-          </b-button>
+          </b-button> -->
         </div>
       </portal>
 
