@@ -1,8 +1,12 @@
+import { FEATURED_BOARDS } from '@/constants';
 // TODO: split into chunks, match routes groups
+// TODO: remove axios, use fetch
 import axios from 'axios';
 import { firestore, storage } from 'firebase/app';
 import 'firebase/storage';
 import 'firebase/firestore';
+
+// TODO: use env variable in command to determine environment
 
 const API_BASE = 'https://us-central1-gamebrary-8c736.cloudfunctions.net';
 // const API_BASE = 'http://localhost:5001/gamebrary-8c736/us-central1';
@@ -221,6 +225,22 @@ export default {
             commit('REMOVE_PROFILE');
             reject();
           }
+        })
+        .catch(reject);
+    });
+  },
+
+  LOAD_FEATURED_BOARDS({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      const db = firestore();
+
+      db.collection('boards')
+        .where('id', 'in', FEATURED_BOARDS)
+        .get()
+        .then((querySnapshot) => {
+          const boards = querySnapshot.docs.map(doc => doc.data());
+
+          resolve(boards);
         })
         .catch(reject);
     });
@@ -548,7 +568,7 @@ export default {
       axios.get(`${API_BASE}/games?games=${gameList}&token=${state.twitchToken.access_token}`)
         .then(({ data }) => {
           commit('CACHE_GAME_DATA', data);
-          resolve();
+          resolve(data);
         }).catch(reject);
     });
   },
