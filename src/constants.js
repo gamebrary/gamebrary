@@ -17,6 +17,22 @@ export const BOARD_TYPES = [
   { text: 'Tier', value: BOARD_TYPE_TIER },
 ];
 
+export const FEATURED_BOARDS = [
+  'wGZ8chO5VK4jOaqG1373',
+  'raHXfbMSJtQ9xNT8T6yC',
+  'NSmHnEtQbjblUcwNKN0T',
+  '022E7O53f6XpvO5VIz8D',
+];
+
+export const TRENDING_GAMES = [
+  '112875',
+  '200165',
+  '119388',
+  '96437',
+  '191692',
+  '125165',
+];
+
 export const PLATFORM_CATEGORIES = {
   1: 'console',
   2: 'arcade',

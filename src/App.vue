@@ -1,11 +1,8 @@
 <!-- TODO: restore rtl -->
 <!-- TODO: translate strings -->
-<!-- TODO: allow for anonymous boards, prompt to sign up -->
-<!-- TODO: switch toggle -->
 <!-- TODO: add markdown wysiwyg -->
 <!-- TODO: add help section -->
 <!-- TODO: bring notifications back! -->
-<!-- TODO: fix favicon broken link -->
 <template>
   <main
     id="app"
@@ -18,16 +15,6 @@
     <router-view class="viewport" />
     <keyboard-shortcuts-modal />
     <markdown-cheatsheet />
-    <b-button
-      class="position-fixed"
-      style="bottom: 10px;"
-      title="Toggle theme"
-      @click="toggleTheme"
-      v-b-tooltip.hover
-    >
-      <i v-if="darkTheme" class="fa-solid fa-sun" />
-      <i v-else class="fa-solid fa-moon" />
-    </b-button>
   </main>
 </template>
 
@@ -134,14 +121,11 @@ export default {
     },
 
     init() {
-      // TODO: get platforms from constants
-      if (this.isPublicRoute) {
-        return;
-      }
+      if (this.isPublicRoute) return;
 
       if (this.user) {
         this.boot();
-      } else if (this.$route.name !== 'auth' && !this.$route.params.providerId) {
+      } else if (this.$route.name !== 'auth') {
         this.$router.replace({ name: 'auth' });
       }
     },
@@ -171,7 +155,7 @@ export default {
   }
 
   .viewport {
-    height: calc(100vh - 62px);
     overflow-y: auto;
+    min-height: calc(100vh - 62px);
   }
 </style>

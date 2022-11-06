@@ -11,7 +11,7 @@
 
       <template v-else-if="game">
         <portal to="pageTitle">
-          <span class="d-sm-none">
+          <span>
             {{ game.name }}
           </span>
 

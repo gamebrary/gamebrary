@@ -85,7 +85,6 @@
         <b-button
           :to="{ name: 'account' }"
           v-b-tooltip.hover
-          title="Tooltip content"
         >
           <b-avatar
             rounded
@@ -93,7 +92,6 @@
             :src="avatarImage"
             v-b-tooltip.hover
             size="22"
-            class="mr-1"
             :title="`@${profile.userName}`"
           />
 
@@ -103,12 +101,9 @@
             aria-hidden
           />
 
-          <b-link
-            v-if="profile.userName"
-            :to="{ name: 'public.profile', params: { userName: profile.userName } }"
-          >
+          <template v-if="profile.userName">
             @{{ profile.userName }}
-          </b-link>
+          </template>
 
           <template v-else>
             Account
@@ -276,7 +271,7 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
 .boards {
-  max-height: calc(100vh - 300px);
+  max-height: calc(100vh - 164px);
   overflow-y: auto;
 }
 </style>

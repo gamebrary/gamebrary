@@ -16,7 +16,7 @@
               by
 
               <b-link
-                class="mr-2"
+                :class="['mr-2', { 'text-white': backgroundUrl } ]"
                 :to="{ name: 'public.profile', params: { userName: publicUserName }}"
               >
                 <b-avatar
@@ -231,6 +231,7 @@ export default {
   display: flex;
   align-items: flex-start;
   width: 100vw;
+  min-height: calc(100vh - 62px);
   box-sizing: border-box;
   overflow-x: auto;
   overflow-x: overlay;

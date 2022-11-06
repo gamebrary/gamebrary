@@ -26,7 +26,7 @@
 
       <b-button
         v-if="!user"
-        class="mr-2"
+        class="ml-2"
         variant="dark"
         :to="{ name: 'auth' }"
       >

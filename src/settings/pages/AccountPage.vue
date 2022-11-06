@@ -5,8 +5,7 @@
 
       <profile-form />
 
-
-      <div class="field">
+      <div class="field" v-if="user">
         <hr class="py-2" />
         <p>Logged in as {{ user.displayName }} / {{ user.email }}</p>
 

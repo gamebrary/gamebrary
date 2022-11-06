@@ -1,14 +1,5 @@
 const routes = [
   {
-    name: 'upgrade',
-    path: '/upgrade',
-    component: () => import(/* webpackChunkName: "public" */ '@/public/pages/UpgradePage'),
-    meta: {
-      title: 'Upgrade',
-      public: true,
-    },
-  },
-  {
     name: 'explore',
     path: '/explore',
     component: () => import(/* webpackChunkName: "public" */ '@/public/pages/ExplorePage'),

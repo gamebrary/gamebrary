@@ -295,12 +295,8 @@ export default {
 
       const filter = genres || platforms || perspectiveFilter || gameModeFilter || '';
 
-      // where (platforms = [6,48] & genres = 13);
-      // const filter = ' where genres = 4;';
-
-      // const data = `${search} fields platforms,slug,rating,cover.image_id; limit 50; ${filter}`;
       // TODO: paginate
-      const data = `${search} fields platforms,slug,rating,cover.image_id; limit 100; ${filter}`;
+      const data = `${search} fields *,platforms,slug,rating,cover.image_id; limit 100; ${filter};`;
 
       this.searchResults = await this.$store.dispatch('IGDB', { path: 'games', data });
 

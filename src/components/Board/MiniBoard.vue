@@ -9,7 +9,6 @@
         {{ board.name }}
       </span>
 
-
       <b-badge
         v-if="showPublicIndicator"
         class="bg-warning"
