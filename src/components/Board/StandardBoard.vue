@@ -1,14 +1,16 @@
 <template lang="html">
-  <b-container class="my-3">
-    <b-row
-      v-for="list in board.lists"
-      :key="list.id"
-    >
-      <standard-list
-        :list="list"
-      />
-    </b-row>
-  </b-container>
+  <section class="standard-board pb-5">
+    <b-container>
+      <b-row
+        v-for="list in board.lists"
+        :key="list.id"
+      >
+        <standard-list
+          :list="list"
+        />
+      </b-row>
+    </b-container>
+  </section>
 </template>
 
 <script>
@@ -31,3 +33,11 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+.standard-board {
+  height: calc(100vh - 54px);
+  overflow-y: auto;
+}
+</style>
+
