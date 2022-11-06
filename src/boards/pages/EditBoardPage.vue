@@ -1,3 +1,4 @@
+<!-- TODO: add background options (position, repeat, etc...) -->
 <!-- TODO: move move arrows to next to list preview -->
 <!-- TODO: show list preview in full page view -->
 <!-- TODO: show search inline, allow to go full screen (search page) -->

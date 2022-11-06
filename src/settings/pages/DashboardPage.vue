@@ -27,6 +27,7 @@
 
       <b-row>
         <b-col>
+          <!-- TODO: add empty state -->
           <b-form-row class="boards scrollbox">
             <b-col
               v-for="board in sortedBoards"
