@@ -91,6 +91,7 @@
       </b-col>
     </b-form-row> -->
 
+    <!-- TODO: put in components -->
     <b-form-row class="bg-secondary px-3 py-5">
       <b-col cols="12">
         <h3 class="text-center text-light text-outlined py-2 mt-2">Trending games</h3>
