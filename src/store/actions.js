@@ -457,6 +457,8 @@ export default {
               })
               .catch(reject);
           });
+
+          resolve(wallpapers);
         })
         .catch(reject);
     });
