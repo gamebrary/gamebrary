@@ -97,6 +97,7 @@
               </aside>
 
               <game-description />
+              <!-- TODO: show thumbnails if description is too short or missing -->
               <game-ratings />
             </article>
 
