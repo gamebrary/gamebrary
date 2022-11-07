@@ -195,11 +195,11 @@
                         />
                       </b-form-group>
 
-                      <b-list-group class="p-2">
-                        <!-- TODO: Move within board -->
-                        <!-- TODO: Move list to different board -->
-                        <!-- TODO: edit lists order goes in board settings -->
-                        <!-- TODO: restore move list -->
+                      <!-- TODO: Move within board -->
+                      <!-- TODO: Move list to different board -->
+                      <!-- TODO: edit lists order goes in board settings -->
+                      <!-- TODO: restore move list -->
+                      <!-- <b-list-group class="p-2">
                         <b-list-group-item>
                           <small class="text-muted d-flex justify-content-center">Move list</small>
                           <b-button-group size="sm" class="w-100">
@@ -222,7 +222,7 @@
                             </b-button>
                           </b-button-group>
                         </b-list-group-item>
-                      </b-list-group>
+                      </b-list-group> -->
 
                       <b-alert
                         class="my-2"

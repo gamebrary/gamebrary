@@ -16,6 +16,7 @@
     @start="dragStart"
   >
     <h3 v-if="hasMultipleLists">{{ list.name }}</h3>
+    
     <b-card
       no-body
       :bg-variant="darkTheme ? 'info' : 'white'"
@@ -107,7 +108,7 @@ export default {
     },
 
     listGames() {
-      return this.list?.games?.map((id) => this.games?.[id]);
+      return this.list?.games?.map((id) => this.games?.[id]) || [];
     },
 
     isEmpty() {
