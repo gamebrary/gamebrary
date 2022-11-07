@@ -27,8 +27,8 @@
         <hr class="py-2" />
 
         <b-button
-          variant="outline-dark"
-          class="mb-5"
+          variant="link"
+          class="text-danger mb-5"
           @click="$bvModal.show('deleteAccount');"
         >
           Delete account
