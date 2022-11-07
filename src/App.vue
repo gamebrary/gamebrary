@@ -11,10 +11,14 @@
     :style="style"
     @shortkey="handleShortcutAction"
   >
-    <page-header />
-    <router-view class="viewport" />
-    <keyboard-shortcuts-modal />
-    <markdown-cheatsheet />
+    <b-spinner v-if="loading" class="spinner-centered mt-5" />
+
+    <template v-else>
+      <page-header />
+      <router-view class="viewport" />
+      <keyboard-shortcuts-modal />
+      <markdown-cheatsheet />
+    </template>
   </main>
 </template>
 
@@ -42,6 +46,7 @@ export default {
 
   data() {
     return {
+      loading: false,
       debugUserId: null,
       backgroundImageUrl: null,
       backgroundColor: null,
@@ -80,6 +85,8 @@ export default {
     this.$bus.$on('CLEAR_WALLPAPER', this.clearWallpaperUrl);
     this.$bus.$on('UPDATE_WALLPAPER', this.updateWallpaperUrl);
     this.$bus.$on('UPDATE_BACKGROUND_COLOR', this.updateBackgroundColor);
+
+    this.loading = true;
 
     await this.$store.dispatch('GET_TWITCH_TOKEN');
     this.init();
@@ -120,7 +127,11 @@ export default {
     },
 
     init() {
-      if (this.isPublicRoute) return;
+      if (this.isPublicRoute && !this.user) {
+        this.loading = false;
+        
+        return;
+      }
 
       if (this.user) {
         this.boot();
@@ -129,14 +140,18 @@ export default {
       }
     },
 
-    boot() {
-      this.$store.dispatch('LOAD_BOARDS').catch(() => {});
-      this.$store.dispatch('LOAD_RELEASES').catch(() => {});
-      this.$store.dispatch('LOAD_WALLPAPERS').catch(() => {});
-      this.$store.dispatch('SYNC_LOAD_SETTINGS').catch(() => {});
-      this.$store.dispatch('LOAD_TAGS').catch(() => {});
-      this.$store.dispatch('SYNC_LOAD_NOTES').catch(() => {});
-      this.$store.dispatch('SYNC_LOAD_PROGRESSES').catch(() => {});
+    async boot() {
+      const BOARDS = this.$store.dispatch('LOAD_BOARDS').catch(() => {});
+      const RELEASES = this.$store.dispatch('LOAD_RELEASES').catch(() => {});
+      const WALLPAPERS = this.$store.dispatch('LOAD_WALLPAPERS').catch(() => {});
+      const SETTINGS = this.$store.dispatch('SYNC_LOAD_SETTINGS').catch(() => {});
+      const TAGS = this.$store.dispatch('LOAD_TAGS').catch(() => {});
+      const NOTES = this.$store.dispatch('SYNC_LOAD_NOTES').catch(() => {});
+      const PROGRESSES = this.$store.dispatch('SYNC_LOAD_PROGRESSES').catch(() => {});
+      
+      await Promise.allSettled([BOARDS, RELEASES, WALLPAPERS, SETTINGS, TAGS, NOTES, PROGRESSES]);
+
+      this.loading = false;
     },
   },
 };
