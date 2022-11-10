@@ -5,7 +5,6 @@
       :src="`/img/age-ratings/${rating}.${logoFormat || 'png'}`"
       :alt="rating"
       :key="id"
-      rounded
       height="60"
       class="mr-2 border"
     />
