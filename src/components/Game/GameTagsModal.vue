@@ -1,0 +1,93 @@
+<template lang="html">
+  <b-modal
+    id="gameTagsModal"
+    hide-footer
+    centered
+    size="sm"
+  >
+    <template v-slot:modal-header="{ close }">
+      <modal-header
+        title="Edit tags"
+        :subtitle="game.name"
+        @close="close"
+      />
+    </template>
+
+    <div v-if="isEmpty">
+      <p>No tags available</p>
+
+      <b-button :to="{ name: 'tags' }">
+        Create tag
+      </b-button>
+    </div>
+
+    <template v-else>
+      <div
+        v-for="({ name, bgColor, textColor, games }, index) in tags"
+        :key="index"
+        class="tag mb-2"
+      >
+        <b-button
+          v-if="name"
+          rounded
+          variant="transparent"
+          class="text-left"
+          :to="{ name: 'tag.edit', params: { id: index } }"
+          :style="`background-color: ${bgColor}; color: ${textColor}`"
+        >
+          <b-badge>{{ games.length }}</b-badge>
+          {{ name }}
+        </b-button>
+
+        <b-button @click="selectTag(index, games)">
+          <i v-if="games.includes(Number(game.id))" class="fa fa-minus" aria-hidden="true" />
+          <i v-else class="fa fa-plus" aria-hidden="true" />
+        </b-button>
+      </div>
+
+      <b-button :to="{ name: 'tag.create' }">Create tag</b-button>
+    </template>
+  </b-modal>
+</template>
+
+<script>
+import { mapState } from 'vuex';
+import { getGameCoverUrl } from '@/utils';
+
+export default {
+  computed: {
+    ...mapState(['tags', 'game']),
+
+    gameCoverUrl() {
+      return getGameCoverUrl(this.game);
+    },
+
+    isEmpty() {
+      return this.tags.length === 0 || !this.game;
+    },
+  },
+
+  methods: {
+    async selectTag(index, games) {
+      const selected = games?.includes(Number(this.game?.id));
+
+      const mutation = selected
+        ? 'REMOVE_GAME_FROM_TAG'
+        : 'APPLY_TAG_TO_GAME';
+
+      this.$store.commit(mutation, index);
+
+      await this.$store.dispatch('SAVE_TAGS').catch(() => {});
+    },
+  },
+};
+</script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+.tag {
+  display: grid;
+  grid-template-columns: auto 42px;
+  grid-gap: .5rem;
+}
+
+</style>

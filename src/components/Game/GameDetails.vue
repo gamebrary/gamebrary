@@ -92,7 +92,11 @@
     </div> -->
 
     <div v-if="user" class="pr-2 pb-2">
-      <strong class="text-muted">Tags</strong>
+      <strong class="text-muted">Tags: </strong>
+
+      <b-link v-if="!tagsApplied.length" v-b-modal.gameTagsModal>
+        Add tag
+      </b-link>
 
       <br />
 
@@ -104,13 +108,13 @@
         variant="transparent"
         class="mr-1 mb-2"
         :style="`background-color: ${bgColor}; color: ${textColor}`"
-        :to="{ name: 'tag.edit', params: { id: index } }"
+        v-b-modal.gameTagsModal
       >
         <i class="fa-solid fa-tag mr-1" />
         {{ name }}
       </b-button>
 
-      <game-tags-dropdown />
+      <game-tags-modal />
     </div>
 
     <game-in-list v-if="user" />
@@ -148,11 +152,11 @@
 import { mapGetters, mapState } from 'vuex';
 import GameInList from '@/components/Game/GameInList';
 import GameProgress from '@/components/Game/GameProgress';
-import GameTagsDropdown from '@/components/Game/GameTagsDropdown';
+import GameTagsModal from '@/components/Game/GameTagsModal';
 
 export default {
   components: {
-    GameTagsDropdown,
+    GameTagsModal,
     GameInList,
     GameProgress,
   },
