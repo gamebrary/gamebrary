@@ -1,9 +1,13 @@
 <template>
-  <b-card class="small">
+  <b-card
+    class="small"
+    bg-variant="light"
+    text-variant="dark"
+  >
     <game-progress />
 
     <div v-if="gameGenres" class="pr-2 pb-2">
-      <strong class="text-muted">Genres: </strong>
+      <strong>Genres: </strong>
 
       <b-link
         v-for="(genre, index) in gameGenres"
@@ -15,7 +19,7 @@
     </div>
 
     <div v-if="gameModes" class="pr-2 pb-2">
-      <strong class="text-muted">{{ $t('board.gameModal.gameModes') }}: </strong>
+      <strong>{{ $t('board.gameModal.gameModes') }}: </strong>
 
       <b-link
         v-for="(gameMode, index) in gameModes"
@@ -27,7 +31,7 @@
     </div>
 
     <div v-if="gameDevelopers" class="pr-2 pb-2">
-      <strong class="text-muted">{{ $t('board.gameModal.developers') }}: </strong>
+      <strong>{{ $t('board.gameModal.developers') }}: </strong>
 
       <b-link
         v-for="({ company }, index) in gameDevelopers"
@@ -39,7 +43,7 @@
     </div>
 
     <div v-if="gamePublishers" class="pr-2 pb-2">
-      <strong class="text-muted">{{ $t('board.gameModal.publishers') }}: </strong>
+      <strong>{{ $t('board.gameModal.publishers') }}: </strong>
 
       <b-link
         v-for="({ company }, index) in gamePublishers"
@@ -51,7 +55,7 @@
     </div>
 
     <div v-if="playerPerspectives" class="pr-2 pb-2">
-      <strong class="text-muted">{{ $t('board.gameModal.perspective') }}: </strong>
+      <strong>{{ $t('board.gameModal.perspective') }}: </strong>
 
       <b-link
         v-for="({ id, name }, index) in playerPerspectives"
@@ -63,7 +67,7 @@
     </div>
 
     <div class="pr-2 pb-2">
-      <strong class="text-muted">Available for: </strong>
+      <strong>Available for: </strong>
 
       <span
         v-for="(platform, index) in gamePlatforms"
@@ -76,13 +80,13 @@
 
     <!-- TODO: merge release Dates and platforms -->
     <!-- <div class="pr-2 pb-2">
-      <strong class="text-muted">{{ $t('board.gameModal.releaseDate') }}</strong>
+      <strong>{{ $t('board.gameModal.releaseDate') }}</strong>
       <ol v-if="releaseDates" class="list-unstyled mb-0">
         <li
           v-for="{ id, platform, date } in releaseDates"
           :key="id"
         >
-          {{ date }} <span class="text-muted">{{ platform || 'N/A' }}</span>
+          {{ date }} <span>{{ platform || 'N/A' }}</span>
         </li>
       </ol>
 
@@ -136,9 +140,7 @@
       <game-tags-modal />
     </div>
 
-    <game-in-list v-if="user" />
-
-    <strong class="text-muted">Other links</strong>
+    <strong>Other links</strong>
     <br>
 
     <b-button
