@@ -24,7 +24,7 @@
     "@vue-stripe/vue-stripe": "^4.4.2",
     "axios": "^0.21.1",
     "bootstrap": "^4.5.2",
-    "bootstrap-vue": "^2.22.0",
+    "bootstrap-vue": "^2.23.0",
     "core-js": "^3.8.3",
     "firebase": "^7.23.0",
     "firebase-admin": "^9.2.0",
