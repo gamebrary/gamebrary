@@ -10,7 +10,7 @@
           sm=".fullPath.includes('_300x3006"
           md="3"
           lg="2"
-          class="pb-2 pr-3"
+          class="pb-3 pr-3"
           :key="wallpaper.name"
         >
           <div
