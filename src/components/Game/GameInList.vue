@@ -1,8 +1,6 @@
 <template lang="html">
   <div>
-    <strong class="text-muted">Found in</strong>
-
-    <br />
+    <strong class="text-muted">Found in: </strong>
 
     <b-link
       v-for="(board, index) in boardsWithGame"

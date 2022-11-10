@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <b-card class="small">
     <game-progress />
 
@@ -65,13 +65,13 @@
     <div class="pr-2 pb-2">
       <strong class="text-muted">Available for: </strong>
 
-      <b-link
+      <span
         v-for="(platform, index) in gamePlatforms"
         :key="platform.id"
       >
         <b-link :to="{ name: 'search', query: { platforms: platform.id }}">{{ platform.name }}</b-link>
         <template v-if="index < gamePlatforms.length - 1">, </template>
-      </b-link>
+      </span>
     </div>
 
     <!-- TODO: merge release Dates and platforms -->
