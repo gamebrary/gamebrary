@@ -26,6 +26,16 @@
           </span>
         </portal>
 
+        <portal to="headerActions">
+          <b-dropdown id="dropdown-1" text="+" class="m-md-2">
+            <b-dropdown-item-button @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })">
+              Add note
+            </b-dropdown-item-button>
+            <b-dropdown-item v-b-modal.gameTagsModal>Edit tags</b-dropdown-item>
+            <b-dropdown-item v-b-modal.addRemoveGameModal>Add to list</b-dropdown-item>
+          </b-dropdown>
+        </portal>
+
         <b-row>
           <b-col
             cols="12"
@@ -84,16 +94,6 @@
                   class="cursor-pointer mt-3 d-none d-md-block"
                   @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
                 />
-
-                <b-button
-                  v-else
-                  size="sm"
-                  variant="warning"
-                  :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug } }"
-                  class="mt-2"
-                >
-                  Add note
-                </b-button>
               </aside>
 
               <game-description />
