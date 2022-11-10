@@ -15,7 +15,7 @@
     @end="dragEnd"
     @start="dragStart"
   >
-    <h3 v-if="hasMultipleLists">{{ list.name }}</h3>
+    <h3 v-if="hasMultipleLists && list">{{ list.name }}</h3>
     
     <b-card
       no-body
@@ -29,11 +29,11 @@
       <b-img
         v-if="game"
         :src="$options.getThumbnailUrl(game)"
-        :alt="game.name"
         class="m-2 game-cover"
         rounded
         fluid
-      />
+        />
+      <!-- :alt="game.name" -->
 
       <h3 class="d-flex mr-2 w-100 px-3 align-items-center">
         <b-avatar
@@ -43,7 +43,7 @@
         >
           {{ index + 1 }}
         </b-avatar>
-        {{ game.name }}
+        <!-- {{ game.name }} -->
       </h3>
     </b-card>
 
@@ -142,6 +142,7 @@ export default {
       try {
         await this.$store.dispatch('SAVE_GAME_BOARD', board);
         await this.$store.dispatch('LOAD_BOARD', board?.id);
+        await this.$store.dispatch('LOAD_GAMES', [gameId]);
       } catch (e) {
         // this.$bvToast.toast(`There was an error adding "${this.game.name}"`, { title: list.name, variant: 'danger' });
       }

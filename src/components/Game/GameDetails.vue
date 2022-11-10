@@ -91,7 +91,7 @@
       </div>
     </div> -->
 
-    <div class="pr-2 pb-2">
+    <div v-if="user" class="pr-2 pb-2">
       <strong class="text-muted">Tags</strong>
 
       <br />
@@ -110,10 +110,10 @@
         {{ name }}
       </b-button>
 
-      <game-tags-dropdown v-if="user" />
+      <game-tags-dropdown />
     </div>
 
-    <game-in-list />
+    <game-in-list v-if="user" />
 
     <strong class="text-muted">Other links</strong>
     <br>

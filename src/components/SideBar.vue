@@ -4,7 +4,6 @@
     :bg-variant="darkTheme ? 'dark' : 'light'"
     :text-variant="darkTheme ? 'light' : 'dark'"
     aria-labelledby="sidebar-title"
-    visible
     shadow
     backdrop
   >

@@ -5,13 +5,29 @@
 
 <template lang="html">
   <header class="py-2 px-3 d-flex">
-    <side-bar />
+    <side-bar v-if="user" />
+
     <b-button
+      v-if="user"
       title="Dashboard"
       size="sm"
       class="p-0 mr-3"
       variant="transparent"
       v-b-toggle.sidebar
+    >
+      <img
+        src="/logo.png"
+        class="logo"
+      />
+    </b-button>
+    
+    <b-button
+      v-else
+      title="Dashboard"
+      size="sm"
+      class="p-0 mr-3"
+      variant="transparent"
+      :to="{ name: 'home' }"
     >
       <img
         src="/logo.png"
