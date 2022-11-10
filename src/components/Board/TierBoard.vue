@@ -60,9 +60,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-.board {
-  min-height: calc(100vh - 62px);
-}
-</style>

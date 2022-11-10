@@ -16,7 +16,7 @@
 
     <template v-else>
       <page-header />
-      <router-view class="viewport" />
+      <router-view class="viewport pb-5" />
       <keyboard-shortcuts-modal />
       <markdown-cheatsheet />
     </template>
@@ -171,6 +171,6 @@ export default {
 
   .viewport {
     overflow-y: auto;
-    height: calc(100vh - 62px);
+    height: calc(100vh - 54px);
   }
 </style>

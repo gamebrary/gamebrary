@@ -1,5 +1,5 @@
 <template lang="html">
-  <section class="standard-board pb-5">
+  <section class="standard-board">
     <b-container>
       <b-row
         v-for="list in board.lists"
@@ -33,11 +33,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-.standard-board {
-  height: calc(100vh - 54px);
-  overflow-y: auto;
-}
-</style>
-

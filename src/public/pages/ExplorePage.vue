@@ -1,5 +1,5 @@
 <template lang="html">
-  <section class="pb-5">
+  <section>
     <b-container>
       <game-boards />
 
