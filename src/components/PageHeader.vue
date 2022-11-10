@@ -20,7 +20,7 @@
         class="logo"
       />
     </b-button>
-    
+
     <b-button
       v-else
       title="Dashboard"
@@ -35,7 +35,7 @@
       />
     </b-button>
 
-    <portal-target name="pageTitle" slim />
+    <portal-target name="pageTitle" multiple />
 
     <div class="align-items-center d-flex ml-auto">
       <portal-target name="headerActions" />
