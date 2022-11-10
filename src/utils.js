@@ -32,3 +32,7 @@ export const getThumbnailUrl = (game) => {
     ? `https://images.igdb.com/igdb/image/upload/t_cover_med_2x/${game.cover.image_id}.jpg`
     : '/no-image.jpg';
 };
+
+export const setPageTitle = (title) => {
+  document.title = `${title} - Gamebrary`;
+};

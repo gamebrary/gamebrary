@@ -12,10 +12,6 @@
 
       <template v-else-if="game">
         <portal to="pageTitle">
-          <span :class="darkTheme || hasWallpaper ? 'text-light text-outlined' : ''">
-            {{ game.name }}
-          </span>
-
           <b-button
             v-if="originBoardId"
             :to="{ name: 'board', params: { id: originBoardId } }"
@@ -24,6 +20,10 @@
           >
             <i class="fa-solid fa-chevron-left" />
           </b-button>
+
+          <span :class="darkTheme || hasWallpaper ? 'text-light text-outlined' : ''">
+            {{ game.name }}
+          </span>
         </portal>
 
         <b-row>
@@ -133,7 +133,7 @@
 </template>
 
 <script>
-
+import { setPageTitle } from '@/utils';
 import { mapState, mapGetters } from 'vuex';
 import { WEBSITE_CATEGORIES } from '@/constants';
 // import AmazonLinks from '@/components/Game/AmazonLinks';
@@ -285,6 +285,8 @@ export default {
       this.$store.commit('CLEAR_GAME');
 
       await this.$store.dispatch('LOAD_GAME', this.gameId).catch(() => {});
+
+      setPageTitle(this.game?.name);
 
       this.loading = false;
 
