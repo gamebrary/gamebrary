@@ -1,30 +1,23 @@
 <template lang="html">
-  <b-dropdown
-    no-caret
-    toggle-class="p-0 px-2 mt-n2"
+  <b-modal
+    id="addRemoveGameModal"
+    hide-footer
+    centered
+    scrollable
+    size="sm"
   >
-    <template #button-content>
-      <i class="fa fa-plus small pr-1" aria-hidden="true" />
-      <small>Add to list</small>
-    </template>
-
-    <div class="m-2 d-flex">
-      <b-form-input
-        v-if="boards.length > 10"
-        v-model.trim="searchText"
-        size="sm"
-        placeholder="Search boards"
-      />
-    </div>
-
-    <b-dropdown-divider />
+    <b-form-input
+      v-if="boards.length > 10"
+      v-model.trim="searchText"
+      size="sm"
+      placeholder="Search boards"
+    />
 
     <div
       v-for="board in filteredBoards"
       :key="board.id"
-      class="board p-2 bg-white mb-2"
     >
-      <strong class="small">{{ board.name }}</strong>
+      <h4>{{ board.name }}</h4>
 
       <div
         v-for="(list, listIndex) in board.lists"
@@ -48,7 +41,7 @@
         </b-button>
       </div>
     </div>
-  </b-dropdown>
+  </b-modal>
 </template>
 
 <script>

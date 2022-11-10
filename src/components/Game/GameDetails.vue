@@ -92,7 +92,26 @@
     </div> -->
 
     <div v-if="user" class="pr-2 pb-2">
-      <strong class="text-muted">Tags: </strong>
+      <strong>Found in: </strong>
+
+      <b-link v-if="!boardsWithGame.length" v-b-modal.addRemoveGameModal>
+        Add to list
+      </b-link>
+
+      <span
+        v-for="(board, index) in boardsWithGame"
+        :key="board.id"
+      >
+        <b-link :to="{ name: 'board', params: { id: board.id } }">{{ board.name }}</b-link>
+        <template v-if="index !== boardsWithGame.length - 1">, </template>
+      </span>
+
+
+      <add-remove-game />
+    </div>
+
+    <div v-if="user" class="pr-2 pb-2">
+      <strong>Tags: </strong>
 
       <b-link v-if="!tagsApplied.length" v-b-modal.gameTagsModal>
         Add tag
@@ -150,26 +169,30 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import GameInList from '@/components/Game/GameInList';
 import GameProgress from '@/components/Game/GameProgress';
 import GameTagsModal from '@/components/Game/GameTagsModal';
+import AddRemoveGame from '@/components/AddRemoveGame';
 
 export default {
   components: {
+    AddRemoveGame,
     GameTagsModal,
-    GameInList,
     GameProgress,
   },
 
   computed: {
-    ...mapGetters(['platformNames', 'gameLinks']),
-    ...mapState(['game', 'tags', 'user']),
+    ...mapGetters(['platformNames', 'gameLinks', 'darkTheme']),
+    ...mapState(['game', 'tags', 'user', 'board', 'boards']),
 
     tagsApplied() {
       if (!this.tags) return [];
 
       return this.tags?.map((tag, index) => ({ ...tag, index }))
         .filter((tag) => tag?.games?.includes(this.game?.id));
+    },
+
+    boardsWithGame() {
+      return this.boards?.filter(({ lists }) => lists?.some(({ games }) => games?.includes(this.game?.id))) || [];
     },
 
     gamePlatforms() {
