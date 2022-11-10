@@ -17,10 +17,7 @@
     >
       <b-spinner small v-if="saving" />
 
-      <span
-        v-else
-        class="d-none d-sm-inline"
-      >
+      <span v-else>
         Upload
       </span>
     </b-button>
