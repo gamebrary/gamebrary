@@ -1,4 +1,3 @@
-<!-- TODO: make steam description match standard desc -->
 <!-- TODO: http://localhost:4000/g/114146/angry-video-game-nerd-i-and-ii-deluxe -->
 <template lang="html">
   <div :class="['game-description', source]">

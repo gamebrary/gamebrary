@@ -1,11 +1,17 @@
+<!-- // LanguageSettings,
+// SteamSettingsPage,
+// import SteamSettingsPage from '@/pages/SteamSettingsPage';
+// import LanguageSettings from '@/components/Settings/LanguageSettings'; -->
+
 <template lang="html">
   <header class="py-2 px-3 d-flex">
+    <side-bar />
     <b-button
       title="Dashboard"
       size="sm"
       class="p-0 mr-3"
       variant="transparent"
-      :to="{ name: 'home' }"
+      v-b-toggle.sidebar
     >
       <img
         src="/logo.png"
@@ -39,14 +45,16 @@
 <script>
 import { mapState } from 'vuex';
 import SearchBox from '@/components/SearchBox';
+import SideBar from '@/components/SideBar';
 
 export default {
   components: {
     SearchBox,
+    SideBar,
   },
 
   computed: {
-    ...mapState(['board', 'boards', 'user', 'game']),
+    ...mapState(['user']),
 
     isSearchPage() {
       return this.$route.name === 'search';

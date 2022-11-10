@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-row class="p-1 boards">
+  <b-row class="px-2">
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <template v-else>
@@ -35,7 +35,7 @@
           sm="6"
           md="4"
           lg="3"
-          class="px-1 pb-2"
+          class="px-2 pb-3"
         >
           <mini-board
             :board="board"
@@ -108,6 +108,8 @@ export default {
         });
 
       this.loading = false;
+
+      if(!this.boards?.length) this.$emit('empty');
     },
 
     async loadPublicBoards() {

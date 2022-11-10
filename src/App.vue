@@ -1,3 +1,4 @@
+<!-- TODO: auto scroll to bottom after adding product -->
 <!-- TODO: restore rtl -->
 <!-- TODO: translate strings -->
 <!-- TODO: add markdown wysiwyg -->
@@ -170,6 +171,6 @@ export default {
 
   .viewport {
     overflow-y: auto;
-    min-height: calc(100vh - 62px);
+    height: calc(100vh - 62px);
   }
 </style>

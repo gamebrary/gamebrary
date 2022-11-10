@@ -17,7 +17,6 @@
         <b-button
           :disabled="!searchText"
           type="submit"
-          variant="light"
         >
           <i
             class="fas fa-search fa-fw"
