@@ -403,6 +403,9 @@ export default {
       this.$bvModal.msgBoxConfirm('Are you sure you want to delete this board?', {
         title: 'Delete board',
         okVariant: 'danger',
+        hideHeader: true,
+        size: 'sm',
+        cancelTitle: 'No',
         okTitle: 'Yes, delete board',
       })
         .then((value) => {
