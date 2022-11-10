@@ -45,7 +45,7 @@
           class="w-100 text-left mb-1"
         >
           <i class="fa-regular fa-rectangle-list fa-fw" />
-          <span class="d-none d-sm-inline ml-2">Boards</span>
+          <span class="ml-2">Boards</span>
         </b-button>
 
         <b-button
@@ -54,7 +54,7 @@
           class="w-100 text-left mb-1"
         >
           <i class="fa fa-images fa-fw" aria-hidden="true" />
-          <span class="d-none d-sm-inline ml-2">Wallpapers</span>
+          <span class="ml-2">Wallpapers</span>
         </b-button>
 
         <b-button
@@ -64,7 +64,7 @@
           id="notes"
         >
           <i class="fa fa-note-sticky" aria-hidden="true" />
-          <span class="d-none d-sm-inline ml-2">Notes</span>
+          <span class="ml-2">Notes</span>
         </b-button>
 
         <b-button
@@ -74,7 +74,7 @@
           id="tags"
         >
           <i class="fa fa-tags" aria-hidden="true" />
-          <span class="d-none d-sm-inline ml-2">Tags</span>
+          <span class="ml-2">Tags</span>
         </b-button>
 
         <b-button
@@ -95,7 +95,7 @@
             aria-hidden
           />
 
-          <span class="d-none d-sm-inline mr-2">
+          <span class="mr-2">
             Account
           </span>
         </b-button>
