@@ -29,21 +29,22 @@
       <b-img
         v-if="game"
         :src="$options.getThumbnailUrl(game)"
+        :alt="game.name"
         class="m-2 game-cover"
         rounded
         fluid
         />
-      <!-- :alt="game.name" -->
 
       <h3 class="d-flex mr-2 w-100 px-3 align-items-center">
         <b-avatar
           v-if="board.ranked"
           variant="light"
           class="mr-2"
-        >
+          >
           {{ index + 1 }}
         </b-avatar>
-        <!-- {{ game.name }} -->
+      
+        {{ game.name }}
       </h3>
     </b-card>
 
