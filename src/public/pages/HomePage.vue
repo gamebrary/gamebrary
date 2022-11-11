@@ -2,41 +2,36 @@
   <section>
     <portal to="pageTitle">Gamebrary</portal>
 
-    <h1 class="display-5 mt-5 mb-3 mx-5 text-center">
-      Gamebrary
-    </h1>
+    <div v-if="user" class="text-center py-5">
+      Welcome back, {{ user.displayName }}
+    </div>
 
-    <div class="mb-5 pb-5 field ml-auto mr-auto text-center mb-auto">
-      <div class="lead text-primary">
-        <p>Organize</p>
-        <p>Track progress</p>
-        <p>Take notes</p>
-        <p>Learn</p>
-        <p>Read news</p>
-        <p>Discover</p>
-        <p class="text-info">Free and open source!</p>
+    <template v-else>
+      <h1 class="display-5 mt-5 mb-3 mx-5 text-center">
+        Gamebrary
+      </h1>
+
+      <div class="mb-5 pb-5 field ml-auto mr-auto text-center mb-auto">
+        <div class="lead text-primary">
+          <p>Organize</p>
+          <p>Track progress</p>
+          <p>Take notes</p>
+          <p>Learn</p>
+          <p>Read news</p>
+          <p>Discover</p>
+          <p class="text-info">Free and open source!</p>
+        </div>
+
+        <b-button
+          variant="success"
+          class="mt-3"
+          size="lg"
+          :to="{ name: 'auth' }"
+        >
+          Get started!
+        </b-button>
       </div>
-
-      <b-button
-        variant="success"
-        class="mt-3"
-        size="lg"
-        :to="{ name: 'auth' }"
-      >
-        Get started!
-      </b-button>
-    </div>
-    <div>
-      <!-- <b-button
-        variant="info"
-        class="mt-3"
-        :to="{ name: 'explore' }"
-      >
-        Check it out
-      </b-button> -->
-
-      <!-- <p class="small mt-2 text-muted">Free and open source!</p> -->
-    </div>
+    </template>
 
     <!-- <b-form-row class="bg-secondary px-3 py-5">
       Organize your game library your way!
@@ -149,6 +144,7 @@
 import { TRENDING_GAMES } from '@/constants';
 import MiniBoard from '@/components/Board/MiniBoard';
 import GameCardSearch from '@/components/GameCards/GameCardSearch';
+import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -164,6 +160,8 @@ export default {
   },
 
   computed: {
+    ...mapState(['user']),
+
     year() {
       return new Date().getFullYear();
     },
