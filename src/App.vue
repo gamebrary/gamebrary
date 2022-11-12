@@ -130,7 +130,7 @@ export default {
     init() {
       if (this.isPublicRoute && !this.user) {
         this.loading = false;
-        
+
         return;
       }
 
@@ -149,7 +149,7 @@ export default {
       const TAGS = this.$store.dispatch('LOAD_TAGS').catch(() => {});
       const NOTES = this.$store.dispatch('SYNC_LOAD_NOTES').catch(() => {});
       const PROGRESSES = this.$store.dispatch('SYNC_LOAD_PROGRESSES').catch(() => {});
-      
+
       await Promise.allSettled([BOARDS, RELEASES, WALLPAPERS, SETTINGS, TAGS, NOTES, PROGRESSES]);
 
       this.loading = false;

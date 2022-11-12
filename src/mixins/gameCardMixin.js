@@ -1,5 +1,3 @@
-// TODO: make one game card component, use props for type
-// TODO: disolve
 import { mapState, mapGetters } from 'vuex';
 
 export default {

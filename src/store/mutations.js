@@ -1,11 +1,4 @@
 import Vue from 'vue';
-// import {
-//   // PLATFORM_CATEGORIES,
-//   // EXCLUDED_PLATFORMS,
-//   // PLATFORM_LOGO_FORMAT,
-//   // PLATFORM_NAME_OVERRIDES,
-//   // POPULAR_PLATFORMS,
-// } from '@/constants';
 
 export default {
   SET_BOARDS(state, boards) {

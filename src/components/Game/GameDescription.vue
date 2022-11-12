@@ -1,11 +1,9 @@
-<!-- TODO: http://localhost:4000/g/114146/angry-video-game-nerd-i-and-ii-deluxe -->
 <template lang="html">
   <div :class="['game-description', source]">
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <template v-else>
       <div v-html="description" />
-      <!-- TODO: link to source -->
       <span class="text-muted mt-n3 mb-3 text-capitalize">Source: {{ source }}</span>
     </template>
   </div>

@@ -79,9 +79,7 @@ export default {
     this.loading = true;
     const data = `fields id,description,developed.name,developed.slug,developed.cover.*,logo.*,name,published.name,published.slug,published.cover.*,websites.*,slug; where id = ${this.$route.params.id};`;
 
-    [this.company] = await this.$store.dispatch('IGDB', { path: 'companies', data })
-
-    // TODO: get larger image url
+    [this.company] = await this.$store.dispatch('IGDB', { path: 'companies', data });
 
     this.loading = false;
   },

@@ -277,9 +277,6 @@ export default {
     },
 
     async loadGame() {
-      // const gameCached = this.game?.id === this.gameId;
-
-      // if (!this.gameId || gameCached) return;
       this.loading = true;
       this.$bus.$emit('CLEAR_WALLPAPER');
       this.$store.commit('CLEAR_GAME');
@@ -289,6 +286,11 @@ export default {
       setPageTitle(this.game?.name);
 
       this.loading = false;
+
+      // TODO: load artworks
+      // const data = `fields *; where game = 1020;`;
+      //
+      // const games = await this.$store.dispatch('IGDB', { path: 'artworks', data });
 
       const steamData = this.game?.websites?.find(({ category }) => category === STEAM_CATEGORY_ID);
 
@@ -301,11 +303,7 @@ export default {
       const gogPage = this.game?.websites?.find(({ category }) => category !== GOG_CATEGORY_ID);
       if (gogPage) await this.$store.dispatch('LOAD_GOG_GAME', this.game?.name).catch((e) => {});
 
-      // const wikipediaData = this.game?.websites?.find(({ url, category }) => url && category === WEBSITE_CATEGORIES.WIKIPEDIA);
-      const wikipediaSlug = this.game?.websites
-        ?.find(({ url, category }) => url && category === WEBSITE_CATEGORIES.WIKIPEDIA)
-        ?.url
-        ?.split('/wiki/')[1];
+      const wikipediaSlug = this.game?.websites?.find(({ url, category }) => url && category === WEBSITE_CATEGORIES.WIKIPEDIA)?.url?.split('/wiki/')[1];
 
       if (wikipediaSlug) await this.$store.dispatch('LOAD_WIKIPEDIA_ARTICLE', wikipediaSlug).catch((e) => {});
       if (steamGameId) await this.$store.dispatch('LOAD_STEAM_GAME_NEWS', steamGameId).catch((e) => {});

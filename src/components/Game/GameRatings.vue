@@ -1,10 +1,10 @@
 <template lang="html">
   <section class="my-3">
     <b-img
-      v-for="{ rating, id, logoFormat } in ageRatings"
+      v-for="{ rating, logoFormat } in ageRatings"
       :src="`/img/age-ratings/${rating}.${logoFormat || 'png'}`"
       :alt="rating"
-      :key="id"
+      :key="rating"
       height="60"
       class="mr-2 border"
     />

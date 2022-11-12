@@ -1,4 +1,3 @@
-export const POPULAR_PLATFORMS = [169, 167, 130, 48, 49, 41];
 export const DEFAULT_LIST_VIEW = 'single';
 export const MIN_PROFILE_LENGTH = 6;
 export const THUMBNAIL_PREFIX = '_300x300';
@@ -176,23 +175,6 @@ export const LIST_VIEWS = {
   grid: 'Grid',
   compact: 'Compact',
   text: 'Text',
-};
-
-export const PLATFORM_LOGO_FORMAT = {
-  164: 'png',
-  51: 'png',
-  47: 'png',
-  36: 'png',
-  45: 'png',
-  124: 'png',
-  123: 'png',
-  132: 'png',
-  160: 'png',
-  163: 'png',
-  161: 'png',
-  165: 'png',
-  380: 'png',
-  150: 'png',
 };
 
 export const PLATFORM_NAME_OVERRIDES = {

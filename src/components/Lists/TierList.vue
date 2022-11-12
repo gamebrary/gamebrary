@@ -104,7 +104,6 @@ export default {
     },
 
     async addGame(gameId) {
-      console.log(gameId);
       const board = JSON.parse(JSON.stringify(this.board));
 
       board?.lists?.[this.listIndex]?.games.push(gameId);
@@ -112,6 +111,7 @@ export default {
       try {
         await this.$store.dispatch('SAVE_GAME_BOARD', board);
         await this.$store.dispatch('LOAD_BOARD', board.id);
+        await this.$store.dispatch('LOAD_GAMES', [gameId]);
       } catch (e) {
         // this.$bvToast.toast(`There was an error adding "${this.game.name}"`, { title: list.name, variant: 'danger' });
       }

@@ -35,6 +35,8 @@
           <b-card
             v-for="article in gameNews"
             class="mb-3"
+            :bg-variant="darkTheme ? 'info' : 'light'"
+            :text-variant="darkTheme ? 'light' : 'info'"
             :key="article.id"
           >
             <div class="d-flex align-items-start justify-content-between">
@@ -83,7 +85,7 @@ export default {
 
   computed: {
     ...mapState(['game']),
-    ...mapGetters(['gameNews']),
+    ...mapGetters(['gameNews', 'darkTheme']),
 
     gameCoverUrl() {
       return getGameCoverUrl(this.game);
