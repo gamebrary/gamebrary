@@ -26,7 +26,7 @@
         >
           <span>
             <b-badge
-              v-if="!showGameCount"
+              v-if="showGameCount"
               :variant="darkTheme ? 'dark' : 'info'"
             >
               {{ list.games.length }}
@@ -82,14 +82,13 @@
           :list="list"
           :game-id="gameId"
           :class="{ 'mb-2': view !== 'covers'}"
-          v-b-toggle.game-sidebar
           @click.native="openGame(gameId, list)"
         />
 
         <game-selector
           v-if="isEmpty && isBoardOwner"
           class="mb-2"
-          :variant="darkTheme ? 'secondary' : 'warning'"
+          :variant="darkTheme ? 'secondary' : 'primary'"
           :filter="list.games"
           @select-game="selectGame"
         />
