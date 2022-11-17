@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import sortby from 'lodash.sortby';
 import { THUMBNAIL_PREFIX } from '@/constants';
 import PreviewWallpaperModal from '@/components/Wallpapers/PreviewWallpaperModal';
 import { mapState } from 'vuex';
@@ -50,10 +51,9 @@ export default {
     ...mapState(['wallpapers']),
 
     sortedWallpapers() {
-      // TODO: sort by recent first
       const wallpapers = this.wallpapers.filter((wallpaper) => !wallpaper.fullPath.includes(THUMBNAIL_PREFIX));
 
-      return wallpapers.reverse();
+      return sortby(wallpapers, 'updated').reverse();
     },
   },
 
