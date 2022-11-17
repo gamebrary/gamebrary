@@ -231,7 +231,5 @@ export default {
   align-items: flex-start;
   width: 100vw;
   box-sizing: border-box;
-  overflow-x: auto;
-  overflow-x: overlay;
 }
 </style>

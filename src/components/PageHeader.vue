@@ -4,7 +4,7 @@
 // import LanguageSettings from '@/components/Settings/LanguageSettings'; -->
 
 <template lang="html">
-  <header class="py-2 px-3 d-flex">
+  <header class="py-2 px-3 d-flex position-fixed w-100">
     <side-bar v-if="user" />
 
     <b-button
