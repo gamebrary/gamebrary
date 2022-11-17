@@ -445,7 +445,10 @@ export default {
                       .then((metadata) => {
                         fetchedMetadatas.push(metadata);
 
-                        wallpapers[i].metadata = metadata;
+                        wallpapers[i] = {
+                          ...metadata,
+                          ...wallpapers[i],
+                        };
 
                         if (fetchedMetadatas.length === wallpapers.length) {
                           commit('SET_WALLPAPERS', wallpapers);
