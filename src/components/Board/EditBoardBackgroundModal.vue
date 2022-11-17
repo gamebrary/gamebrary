@@ -11,8 +11,8 @@
     </b-row>
 
     <h3>My Wallpapers</h3>
-    <!-- TODO: restore upload wallpaper -->
-    <!-- <b-button>Upload wallpaper</b-button> -->
+
+    <upload-wallpaper-button />
 
     <wallpapers-list
       selectable
@@ -33,10 +33,12 @@
 
 <script>
 import WallpapersList from '@/components/WallpapersList';
+import UploadWallpaperButton from '@/components/UploadWallpaperButton';
 import { mapState } from 'vuex';
 
 export default {
   components: {
+    UploadWallpaperButton,
     WallpapersList,
   },
 
