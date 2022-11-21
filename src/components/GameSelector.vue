@@ -102,10 +102,6 @@ export default {
     }
   },
 
-  mounted() {
-      this.search();
-  },
-
   computed: {
     ...mapState(['board']),
     ...mapGetters(['isBoardOwner']),
