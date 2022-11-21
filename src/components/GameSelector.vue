@@ -60,7 +60,7 @@
         </b-button>
       </div>
 
-      <div v-else>
+      <div v-else-if="searchText">
         No results
       </div>
     </b-modal>
