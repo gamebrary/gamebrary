@@ -1,3 +1,6 @@
+<!-- TODO: use https://github.com/twitchtv/igdb-api-node -->
+<!-- TODO: create button component that handles loading and showing feedback -->
+<!-- TODO: create tag component and standardize all instances -->
 <!-- TODO: auto scroll to bottom after adding product -->
 <!-- TODO: restore rtl -->
 <!-- TODO: translate strings -->
