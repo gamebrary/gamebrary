@@ -1,5 +1,8 @@
 <template>
   <b-card
+    :img-src="gameHeaderImage"
+    img-alt="Image"
+    img-top
     class="small"
     bg-variant="light"
     text-variant="dark"
@@ -233,6 +236,10 @@ export default {
 
     boardsWithGame() {
       return this.boards?.filter(({ lists }) => lists?.some(({ games }) => games?.includes(this.game?.id))) || [];
+    },
+
+    gameHeaderImage() {
+      return this.game?.steam?.header_image;
     },
 
     officialWebsiteUrl() {
