@@ -166,6 +166,44 @@
         :src="`/logos/companies/${id}.svg`"
       />
     </b-button>
+
+    <b-button
+      v-if="officialWebsiteUrl"
+      class="mt-3"
+      v-b-modal.officialWebsite
+      block
+      :title="officialWebsiteUrl"
+      variant="secondary"
+    >
+      Official website
+    </b-button>
+
+    <b-modal
+      id="officialWebsite"
+      size="xl"
+      hide-footer
+    >
+      <template v-slot:modal-header="{ close }">
+        <modal-header
+          title="Official website"
+          :subtitle="game.name"
+          @close="close"
+        >
+          <b-button :href="officialWebsiteUrl" target="_blank">
+            Open in new tab
+          </b-button>
+        </modal-header>
+      </template>
+
+      <b-embed
+        type="iframe"
+        aspect="16by9"
+        class="official-site-modal rounded"
+        :src="officialWebsiteUrl"
+        allowfullscreen
+      />
+    </b-modal>
+
   </b-card>
 </template>
 
@@ -195,6 +233,10 @@ export default {
 
     boardsWithGame() {
       return this.boards?.filter(({ lists }) => lists?.some(({ games }) => games?.includes(this.game?.id))) || [];
+    },
+
+    officialWebsiteUrl() {
+      return this.gameLinks?.find(({ id }) => id === 'official')?.url;
     },
 
     gamePlatforms() {
@@ -243,3 +285,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.official-site-modal {
+  height: calc(100vh - 8rem);
+}
+</style>
