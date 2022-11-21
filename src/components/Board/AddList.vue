@@ -1,4 +1,3 @@
-<!-- TODO: fix add to list, refactor -->
 <template lang="html">
   <b-card
     v-if="active || empty"
@@ -65,16 +64,6 @@ export default {
   computed: {
     ...mapState(['platform', 'board']),
     ...mapGetters(['darkTheme']),
-
-    existingListNames() {
-      return this.board.lists
-        ? this.board.lists.map(({ name }) => name.toLowerCase())
-        : [];
-    },
-
-    isEmptyBoard() {
-      return this.board?.lists?.length === 0;
-    },
   },
 
   methods: {

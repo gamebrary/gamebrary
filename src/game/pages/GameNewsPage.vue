@@ -20,8 +20,8 @@
 
       <b-spinner v-if="loading" class="spinner-centered" />
 
-      <div v-else-if="!gameNews.length">
-        no news found
+      <div v-else-if="!gameNews" class="text-center">
+        No news found
       </div>
 
       <b-row v-else>
@@ -91,12 +91,10 @@ export default {
       return getGameCoverUrl(this.game);
     },
 
-    // TODO: put in getter
     steamAppId() {
-      const steamData = this.game?.websites?.find(({ category }) => category === 13);
-      const steamUrl = steamData?.url;
+      const steamUrl = this.game?.websites?.find(({ category }) => category === 13)?.url;
 
-      return  steamUrl ? steamUrl.split('/')[4] : null;
+      return steamUrl?.split('/')?.[4];
     },
   },
 

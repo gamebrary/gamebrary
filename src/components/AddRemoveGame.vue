@@ -28,14 +28,13 @@
         <small class="mr-auto">{{ list.name }}</small>
         <b-button
           v-if="isGameInList({ list })"
-          size="sm"
+          variant="danger"
         >
-          <i class="fa fa-minus" aria-hidden="true" />
+          <i class="fa fa-trash" aria-hidden="true" />
         </b-button>
 
         <b-button
           v-else
-          size="sm"
         >
           <i class="fa fa-plus" aria-hidden="true" />
         </b-button>
