@@ -8,19 +8,20 @@
       <template v-else>
         <portal to="headerActions">
           <div class="d-flex">
-            <!-- <b-button
+            <game-selector
+              title="Select game to add a note"
+              trigger-text="Create note"
+              size="md"
               class="mr-2"
-              :to="{ name: 'notes.create' }"
-            >
-              New note
-            </b-button> -->
+              @select-game="createNote"
+            />
 
-            <b-form-input
+            <!-- <b-form-input
               type="search"
               class="d-none d-sm-block mr-2"
               placeholder="Search notes"
               v-model="searchText"
-            />
+            /> -->
           </div>
         </portal>
 
@@ -90,11 +91,13 @@
 
 <script>
 import EmptyState from '@/components/EmptyState';
+import GameSelector from '@/components/GameSelector';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
     EmptyState,
+    GameSelector,
   },
 
   data() {
@@ -138,6 +141,12 @@ export default {
   },
 
   methods: {
+    createNote(gameId) {
+      const game = this.games[gameId];
+
+      this.$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } });
+    },
+
     async loadGames() {
       if (this.isEmpty) return;
 

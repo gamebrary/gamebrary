@@ -7,14 +7,6 @@ const routes = [
       title: 'Notes',
     },
   },
-  {
-    name: 'notes.create',
-    path: '/notes/create',
-    component: () => import(/* webpackChunkName: "notes" */ '@/notes/pages/CreateNotePage'),
-    meta: {
-      title: 'Create note',
-    },
-  },
 ];
 
 export default routes;
