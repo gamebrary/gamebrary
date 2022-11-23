@@ -1,6 +1,6 @@
 <!-- TODO: add sorting -->
 <!-- TODO: change default call -->
-<!-- TODO: Cache last search -->
+<!-- TODO: cache last search -->
 <!-- TODO: clear filter if selected platform is not available -->
 <!-- TODO: Add platform filtering by text -->
 <!-- TODO: user route params for filtering values -->
@@ -296,7 +296,7 @@ export default {
       const filter = genres || platforms || perspectiveFilter || gameModeFilter || '';
 
       // TODO: paginate
-      const data = `${search} fields *,platforms,slug,rating,cover.image_id; limit 100; ${filter};`;
+      const data = `${search} fields *,platforms,slug,rating,cover.image_id; limit 100; ${filter}`;
 
       this.searchResults = await this.$store.dispatch('IGDB', { path: 'games', data });
 
