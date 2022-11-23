@@ -10,7 +10,7 @@
           <b-button
             v-if="isProfileOwner"
             class="mr-2"
-            :to="{ name: 'profile.settings' }"
+            :to="{ name: 'account' }"
           >
             Edit
           </b-button>
