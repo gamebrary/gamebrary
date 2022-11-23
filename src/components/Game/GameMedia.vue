@@ -1,4 +1,3 @@
-<!-- TODO: use https://github.com/KitchenStories/vue-gallery-slideshow -->
 <template lang="html">
   <div class="mt-3">
     <b-row no-gutters>
