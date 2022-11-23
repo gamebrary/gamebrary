@@ -113,7 +113,7 @@ export default {
     Vue.set(state.game, 'speedruns', data);
   },
 
-  APPEND_GOG_GAME_DATA(state, data) {s
+  APPEND_GOG_GAME_DATA(state, data) {
     Vue.set(state.game, 'gog', data);
   },
 

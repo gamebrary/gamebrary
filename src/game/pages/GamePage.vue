@@ -5,29 +5,31 @@
 <!-- TODO: improve caching -->
 <!-- TODO: maintain background image in subpages -->
 <!-- TODO: maintain game actions in subpages -->
+<!-- TODO: mine data from GOG -->
 <template lang="html">
   <section>
+    <div v-if="backdrop" class="backdrop d-none d-sm-block" :style="`background-image: url('${backdrop}'); height: 500px; margin-top: ${backdrop ? '-54px' : 0}`" />
+
     <b-container>
       <b-spinner v-if="loading" class="spinner-centered" />
 
       <template v-else-if="game">
         <portal to="pageTitle">
-          <b-button
-            v-if="originBoardId"
-            :to="{ name: 'board', params: { id: originBoardId } }"
-            variant="light"
-            class="mr-2"
-          >
-            <i class="fa-solid fa-chevron-left" />
-          </b-button>
-
           <span :class="darkTheme || hasWallpaper ? 'text-light text-outlined' : ''">
             {{ game.name }}
           </span>
         </portal>
 
         <portal to="headerActions">
-          <b-dropdown id="dropdown-1" text="+" class="m-md-2">
+          <b-dropdown
+            class="mr-2"
+            variant="success"
+            no-caret
+          >
+            <template #button-content>
+              <i class="fa-solid fa-ellipsis fa-fw" />
+            </template>
+
             <b-dropdown-item-button @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })">
               Add note
             </b-dropdown-item-button>
@@ -41,7 +43,7 @@
             cols="12"
             md="4"
             xl="3"
-            class="text-center"
+            :class="['text-center', { 'has-backdrop': backdrop }]"
           >
             <b-img
               :src="gameCoverUrl"
@@ -164,6 +166,8 @@ export default {
     return {
       loading: false,
       hasWallpaper: false,
+      backdrop: null,
+      backdropHeight: null,
     };
   },
 
@@ -236,10 +240,6 @@ export default {
         ? `https://images.igdb.com/igdb/image/upload/t_screenshot_huge_2x/${screenshots[0].image_id}.jpg`
         : null;
     },
-
-    gameHeaderImage() {
-      return this.game?.steam?.header_image;
-    },
   },
 
   watch: {
@@ -277,6 +277,8 @@ export default {
     },
 
     async loadGame() {
+      this.backdropHeight = null;
+      this.backdrop = null;
       this.loading = true;
       this.$bus.$emit('CLEAR_WALLPAPER');
       this.$store.commit('CLEAR_GAME');
@@ -287,10 +289,7 @@ export default {
 
       this.loading = false;
 
-      // TODO: load artworks
-      // const data = `fields *; where game = 1020;`;
-      //
-      // const games = await this.$store.dispatch('IGDB', { path: 'artworks', data });
+      this.loadArtworks();
 
       const steamData = this.game?.websites?.find(({ category }) => category === STEAM_CATEGORY_ID);
 
@@ -313,6 +312,16 @@ export default {
       };
 
       this.loading = false;
+    },
+
+    async loadArtworks() {
+      const [artworks] = await this.$store.dispatch('IGDB', { path: 'artworks', data: `fields *; where game = ${this.game.id};` });
+
+      if (artworks?.image_id) {
+        console.log(artworks);
+        this.backdropHeight = artworks.height;
+        this.backdrop = `https://images.igdb.com/igdb/image/upload/t_screenshot_med_2x/${artworks?.image_id}.jpg`;
+      }
     },
   },
 };
@@ -341,6 +350,17 @@ export default {
 
   @media(max-width: 780px) {
     width: 100%;
+  }
+}
+
+.backdrop {
+  height: 300px;
+  background-size: cover;
+}
+
+.has-backdrop {
+  @media(min-width: 781px) {
+    margin-top: -150px;
   }
 }
 </style>
