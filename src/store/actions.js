@@ -1,6 +1,5 @@
 import { FEATURED_BOARDS } from '@/constants';
 // TODO: split into chunks, match routes groups
-// TODO: remove axios, use fetch
 import axios from 'axios';
 import { firestore, storage } from 'firebase/app';
 import 'firebase/storage';
