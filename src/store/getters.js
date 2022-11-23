@@ -39,7 +39,7 @@ export default {
   },
 
   gameNews: (state) => {
-    const gameNews = state.game?.news.map((article) => {
+    const gameNews = state.game?.news?.map((article) => {
       const feedSlug = slugify(article?.feedname, {
         replacement: '',
         lower: true,
