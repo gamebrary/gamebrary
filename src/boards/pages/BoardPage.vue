@@ -223,13 +223,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-.board {
-  user-select: none;
-  display: flex;
-  align-items: flex-start;
-  width: 100vw;
-  box-sizing: border-box;
-}
-</style>

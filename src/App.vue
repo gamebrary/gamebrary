@@ -2,11 +2,8 @@
 <!-- TODO: create button component that handles loading and showing feedback -->
 <!-- TODO: create tag component and standardize all instances -->
 <!-- TODO: auto scroll to bottom after adding product -->
-<!-- TODO: restore rtl -->
-<!-- TODO: translate strings -->
 <!-- TODO: add markdown wysiwyg -->
 <!-- TODO: add help section -->
-<!-- TODO: bring notifications back! -->
 <template>
   <main
     id="app"
