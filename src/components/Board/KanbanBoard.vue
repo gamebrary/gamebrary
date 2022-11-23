@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="board px-3 pb-3">
+  <div class="kanban-board">
     <kanban-list
       v-for="(list, listIndex) in board.lists"
       :list="list"
@@ -7,7 +7,7 @@
       :key="listIndex"
     />
 
-    <add-list
+    <add-kanban-list
       v-if="isBoardOwner"
       :empty="empty"
     />
@@ -16,13 +16,13 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import AddList from '@/components/Board/AddList';
+import AddKanbanList from '@/components/Board/AddKanbanList';
 import KanbanList from '@/components/Lists/KanbanList';
 
 export default {
   components: {
     KanbanList,
-    AddList,
+    AddKanbanList,
   },
 
   computed: {
@@ -35,3 +35,11 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+.kanban-board {
+  user-select: none;
+  display: flex;
+  align-items: flex-start;
+}
+</style>

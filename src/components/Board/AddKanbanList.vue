@@ -40,6 +40,7 @@
     v-else
     :variant="darkTheme ? 'dark' : 'light'"
     @click.stop="showForm"
+    class="mr-3"
   >
     <i class="fas fa-plus fa-fw" aria-hidden />
   </b-button>
