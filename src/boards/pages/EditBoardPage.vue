@@ -90,8 +90,6 @@
               </b-link>
             </div>
 
-            <hr class="my-3">
-
             <b-form-group
               label="Board background"
               class="m-0"
@@ -134,6 +132,8 @@
               </div>
             </div>
 
+            <hr class="my-3">
+
             <mini-board
               v-if="board.backgroundUrl || board.backgroundColor"
               class="mb-3"
@@ -141,7 +141,34 @@
               :board="board"
             />
 
-            <div class="accordion" role="tablist">
+            <template v-if="board.type === 'tier'">
+              <h4>Tiers</h4>
+
+              <div
+                v-for="(tier, index) in board.lists"
+                :key="index"
+                class="d-flex justify-content-between align-items-start"
+              >
+                <v-swatches
+                  v-model="board.lists[index].backgroundColor"
+                  show-fallback
+                  :trigger-style="{ height: '38px' }"
+                  popover-x="left"
+                />
+
+                <b-form-input
+                  id="name"
+                  class="ml-2"
+                  v-model.trim="board.lists[index].name"
+                />
+
+                <b-button class="ml-2" @click="confirmDeleteList(index)">
+                  <i class="fa fa-trash" aria-hidden="true" />
+                </b-button>
+              </div>
+            </template>
+
+            <div v-else class="accordion" role="tablist">
               <b-card
                 v-for="(list, index) in board.lists"
                 :key="index"
@@ -413,6 +440,27 @@ export default {
             this.deleteBoard();
           }
         });
+    },
+
+    confirmDeleteList(index) {
+      this.$bvModal.msgBoxConfirm('Are you sure you want to delete this list?', {
+        title: 'Delete list',
+        okVariant: 'danger',
+        hideHeader: true,
+        size: 'sm',
+        cancelTitle: 'No',
+        okTitle: 'Yes, delete list',
+      })
+        .then((value) => {
+          if (value) {
+            this.deleteList(index);
+          }
+        });
+    },
+
+    deleteList(index) {
+      this.board.lists.splice(index, 1);
+      this.saveBoard();
     },
 
     async deleteBoard() {
