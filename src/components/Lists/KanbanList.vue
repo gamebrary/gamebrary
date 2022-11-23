@@ -1,7 +1,7 @@
 <template lang="html">
   <div
     :class="[
-      'list rounded pr-3',
+      'list rounded pl-3',
       listView,
       {
         dragging,
@@ -49,6 +49,7 @@
           v-if="isBoardOwner"
           class="mb-2"
           title="Add games"
+          size="sm"
           :variant="darkTheme ? 'info' : 'transparent'"
           :filter="list.games"
           @select-game="selectGame"
@@ -88,7 +89,9 @@
         <game-selector
           v-if="isEmpty && isBoardOwner"
           class="mb-2"
-          :variant="darkTheme ? 'secondary' : 'primary'"
+          block
+          trigger-text="Add games"
+          :variant="darkTheme ? 'secondary' : 'success'"
           :filter="list.games"
           @select-game="selectGame"
         />

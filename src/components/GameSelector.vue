@@ -1,14 +1,16 @@
 <template lang="html">
   <div>
-    <b-button
-      @click="selecting = true"
+    <component
+      :is="triggerComponent"
+      trigger-text="Add games to tier"
       :variant="variant"
       :size="size"
-      block
+      :block="block"
+      @click="selecting = true"
     >
-      <slot v-if="$slots.default" />
-      <span v-else>Add games</span>
-    </b-button>
+      <template v-if="triggerText">{{ triggerText }}</template>
+      <slot />
+    </component>
 
     <b-modal
       hide-footer
@@ -75,13 +77,19 @@ export default {
   getThumbnailUrl,
 
   props: {
-    size: {
+    block: Boolean,
+    triggerComponent: {
       type: String,
-      default: 'sm',
+      default: 'b-button',
     },
+    triggerText: {
+      type: String,
+      default: '',
+    },
+    size: String,
     variant: {
       type: String,
-      default: 'light',
+      default: '',
     },
     title: {
       type: String,

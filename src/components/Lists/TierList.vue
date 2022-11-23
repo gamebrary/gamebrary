@@ -1,22 +1,30 @@
 <template lang="html">
   <div class="d-flex align-items-center mb-2">
-    <game-selector
-      title="Add games"
-      class="mr-3 "
-      :filter="allGames"
-      @select-game="selectGame"
-    >
-      <i class="fa fa-plus" aria-hidden="true" />
-    </game-selector>
+    <b-dropdown size="lg"  variant="link" toggle-class="text-decoration-none p-0 pl-3" no-caret>
+      <template #button-content>
+        <b-avatar
+          variant="primary"
+          :text="list.name"
+          rounded
+          :style="`background-color: ${list.backgroundColor}`"
+          size="100"
+        />
+      </template>
 
-    <b-avatar
-      variant="primary"
-      :text="list.name"
-      :to="{ name: 'board.edit', params: { id: board.id } }"
-      rounded
-      :style="`background-color: ${list.backgroundColor}`"
-      size="100"
-    />
+      <game-selector
+        title="Add games"
+        :filter="allGames"
+        trigger-text="Add games"
+        trigger-component="b-dropdown-item"
+        @select-game="selectGame"
+      />
+
+      <b-dropdown-item :to="{ name: 'board.edit', params: { id: board.id } }">
+        Edit list
+      </b-dropdown-item>
+    </b-dropdown>
+
+
 
     <draggable
       handle=".game"
@@ -175,7 +183,6 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
 .tier-list {
-  width: calc(100vw - 180px);
   height: 100px;
   overflow-y: hidden;
   overflow-x: auto;

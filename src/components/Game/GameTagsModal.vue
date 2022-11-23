@@ -39,8 +39,15 @@
           {{ name }}
         </b-button>
 
-        <b-button @click="selectTag(index, games)">
-          <i v-if="games.includes(Number(game.id))" class="fa fa-minus" aria-hidden="true" />
+        <b-button
+          @click="selectTag(index, games)"
+          :variant="games.includes(Number(game.id)) ? 'danger' : 'info'"
+        >
+          <i
+            v-if="games.includes(Number(game.id))"
+            class="fa fa-trash"
+            aria-hidden="true"
+          />
           <i v-else class="fa fa-plus" aria-hidden="true" />
         </b-button>
       </div>
@@ -68,14 +75,14 @@ export default {
   },
 
   methods: {
-    async selectTag(index, games) {
+    async selectTag(tagIndex, games) {
       const selected = games?.includes(Number(this.game?.id));
 
       const mutation = selected
         ? 'REMOVE_GAME_FROM_TAG'
         : 'APPLY_TAG_TO_GAME';
 
-      this.$store.commit(mutation, index);
+      this.$store.commit(mutation, { tagIndex, gameId: Number(this.game?.id) });
 
       await this.$store.dispatch('SAVE_TAGS').catch(() => {});
     },

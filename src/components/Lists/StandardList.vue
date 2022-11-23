@@ -16,12 +16,23 @@
     @start="dragStart"
   >
     <h3 v-if="hasMultipleLists && list">{{ list.name }}</h3>
-    
-    <b-card
+
+    <game-card-standard
+      v-for="(game, index) in listGames"
+      :key="index"
+      :list="list"
+      :game-id="game.id"
+      :ranked="board.ranked"
+      :rank="index + 1"
+      class="mb-2"
+      @click.native="openGame(game.id, list)"
+    />
+
+    <!-- <b-card
       no-body
       :bg-variant="darkTheme ? 'info' : 'white'"
       :text-variant="darkTheme ? 'white' : 'dark'"
-      class="mb-2 flex-row align-items-center cursor-pointer"
+      class=" flex-row align-items-center cursor-pointer"
       v-for="(game, index) in listGames"
       :key="index"
       @click="openGame(game.id, list)"
@@ -43,14 +54,16 @@
           >
           {{ index + 1 }}
         </b-avatar>
-      
+
         {{ game.name }}
       </h3>
-    </b-card>
+    </b-card> -->
 
     <game-selector
       :filter="filter"
       title="Add games"
+      trigger-text="Add games"
+      block
       size="lg"
       @select-game="selectGame"
     />
@@ -65,12 +78,15 @@ import GameSelector from '@/components/GameSelector';
 import { DEFAULT_LIST_VIEW } from '@/constants';
 import { mapState, mapGetters } from 'vuex';
 import { getThumbnailUrl } from '@/utils';
+import GameCardStandard from '@/components/GameCards/GameCardStandard';
+
 
 export default {
   getThumbnailUrl,
 
   components: {
     draggable,
+    GameCardStandard,
     GameSelector,
   },
 
@@ -109,7 +125,8 @@ export default {
     },
 
     listGames() {
-      return this.list?.games?.map((id) => this.games?.[id]) || [];
+      return this.list?.games?.map((id) => this.games?.[id]) || []
+        .filter(({ id }) => Boolean(id));
     },
 
     isEmpty() {
@@ -159,7 +176,7 @@ export default {
 
       try {
         await this.$store.dispatch('SAVE_GAME_BOARD', board);
-        await this.$store.dispatch('LOAD_BOARD', board.id)
+        await this.$store.dispatch('LOAD_BOARD', board?.id)
       } catch (e) {
         // this.$bvToast.toast(`There was an error removing "${this.game.name}"`, { title: list.name, variant: 'danger' });
       }
@@ -173,7 +190,7 @@ export default {
         params: {
           id,
           slug,
-          boardId: this.board.id,
+          boardId: this.board?.id,
         },
       });
     },
