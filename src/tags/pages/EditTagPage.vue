@@ -1,38 +1,14 @@
-<!-- TODO: Fix delete tag -->
-<!-- TODO: use getter to get tags with game info added to it -->
-<!-- TODO: allow to tag games from here -->
 <template lang="html">
   <section>
     <b-container>
       <portal to="pageTitle">
-        <div>
-
-          <b-button
-            variant="light"
-            class="mr-2"
-            :to="{ path: prevRoute }"
-          >
-            <i class="fa-solid fa-chevron-left" />
-          </b-button>
-
-          Edit tag
-        </div>
-      </portal>
-
-      <portal to="headerActions">
-        <b-button
-          variant="danger"
-          class="mr-2"
-          @click="promptDeleteTag(tag.name)"
-        >
-          <i class="fas fa-trash-alt fa-fw" aria-hidden />
-        </b-button>
+        Edit tag
       </portal>
 
       <b-spinner v-if="loading" class="spinner-centered" />
 
       <b-row v-else>
-        <b-col>
+        <b-col cols="12" sm="6">
           <form
             class="field centered"
             @submit.prevent="saveTag"
@@ -78,7 +54,6 @@
             </b-button>
 
             <hr />
-            <!-- TODO: Put games tagged in collapsible and lazy load images -->
 
             <b-button
               variant="primary"
@@ -89,24 +64,39 @@
               <span v-else>Save</span>
             </b-button>
 
-            <hr />
+            <b-button
+              variant="danger"
+              class="ml-2"
+              @click="promptDeleteTag"
+            >
+              <i class="fas fa-trash-alt fa-fw" aria-hidden />
+            </b-button>
+          </form>
+        </b-col>
 
+        <b-col cols="12" sm="6">
+          <header class="d-flex justify-content-between">
             <p>Games tagged</p>
 
-            <!-- TODO: add quick game picker -->
-            <b-alert :show="tag.games.length === 0" variant="light" class="field">
-              No games tagged
-            </b-alert>
-
-            <b-img
-              v-for="game in tag.games"
-              :key="game"
-              :src="getCoverUrl(game)"
-              class="cursor-pointer rounded mr-2 mb-2"
-              width="80"
-              @click="$router.push({ name: 'game', params: { id: games[game].id, slug: games[game].slug }})"
+            <game-selector
+              :filter="tag.games"
+              title="Tag game"
+              trigger-text="Tag game"
+              @select-game="selectGame"
             />
-          </form>
+          </header>
+
+          <b-alert :show="tag.games.length === 0" variant="light" class="field">
+            No games tagged
+          </b-alert>
+
+          <b-img
+            v-for="game in tag.games"
+            :key="game"
+            :src="getCoverUrl(game)"
+            class="cursor-pointer rounded mr-2 mb-2"
+            @click="$router.push({ name: 'game', params: { id: games[game].id, slug: games[game].slug }})"
+          />
         </b-col>
       </b-row>
     </b-container>
@@ -115,6 +105,7 @@
 
 <script>
 import VSwatches from 'vue-swatches'
+import GameSelector from '@/components/GameSelector';
 import { mapState } from 'vuex';
 
 export default {
@@ -129,6 +120,7 @@ export default {
 
   components: {
     VSwatches,
+    GameSelector,
   },
 
   computed: {
@@ -148,6 +140,17 @@ export default {
   },
 
   methods: {
+    async selectGame(gameId) {
+      const { tagIndex, tags } = this;
+
+      this.$store.commit('APPLY_TAG_TO_GAME', { tagIndex, gameId });
+
+      await this.$store.dispatch('SAVE_TAGS').catch(() => {});
+      await this.$store.dispatch('LOAD_GAMES', [gameId]);
+
+      this.tag = JSON.parse(JSON.stringify(tags[tagIndex]));
+    },
+
     getCoverUrl(gameId) {
       const game = this.games[gameId];
 
@@ -164,28 +167,30 @@ export default {
 
       this.tag = JSON.parse(JSON.stringify(tags[tagIndex]));
 
+      await this.$store.dispatch('LOAD_GAMES', this.tag.games);
+
       this.loading = false;
     },
 
-    promptDeleteTag(tagName) {
-      this.$bvModal.msgBoxConfirm(this.$t('tags.delete.message'), {
+    async promptDeleteTag() {
+      const confirmed = await this.$bvModal.msgBoxConfirm(this.$t('tags.delete.message'), {
         title: this.$t('tags.delete.title'),
         okVariant: 'danger',
         okTitle: this.$t('tags.delete.buttonLabel'),
         cancelTitle: this.$t('global.cancel'),
         headerClass: 'pb-0 border-0',
         footerClass: 'pt-0 border-0',
-      })
-        .then((value) => {
-          if (value) {
-            this.deleteTag(tagName);
-          }
-        });
+      });
+
+      if (confirmed) this.deleteTag();
     },
 
-    deleteTag(tagName) {
-      // TODO: call mutation to remove tag and save tags
-      // this.saveTags(true);
+    async deleteTag() {
+      this.$store.commit('REMOVE_TAG', this.tagIndex);
+
+      await this.$store.dispatch('SAVE_TAGS').catch(() => {});
+
+      this.$router.replace({ name: 'tags' });
     },
 
     async saveTag() {

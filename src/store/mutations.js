@@ -208,12 +208,12 @@ export default {
   },
 
   // TAGS
-  APPLY_TAG_TO_GAME(state, tagIndex) {
-    state.tags[tagIndex].games.push(state.game.id);
+  APPLY_TAG_TO_GAME(state, { tagIndex, gameId }) {
+    state.tags[tagIndex].games.push(gameId);
   },
 
-  REMOVE_GAME_FROM_TAG(state, tagIndex) {
-    const gameIndex = state.tags[tagIndex].games.indexOf(state.game.id);
+  REMOVE_GAME_FROM_TAG(state, { tagIndex, gameId }) {
+    const gameIndex = state.tags[tagIndex].games.indexOf(gameId);
 
     state.tags[tagIndex].games.splice(gameIndex, 1);
   },
@@ -224,6 +224,10 @@ export default {
 
   SET_TAGS(state, tags) {
     state.tags = tags;
+  },
+
+  REMOVE_TAG(state, tagIndex) {
+    state.tags.splice(tagIndex, 1);
   },
 
   // TAGS v2
