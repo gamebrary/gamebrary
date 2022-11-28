@@ -1,10 +1,9 @@
 <template lang="html">
   <div class="mt-3">
     <b-row no-gutters>
-      <b-col
-        v-for="({ imageUrl, isVideo, isCover }, index) in previewThumbs"
+      <div
+        v-for="({ imageUrl, isVideo, isCover }, index) in gameMedia"
         :key="index"
-        cols="3"
       >
         <div
           class="mr-2 align-items-center text-center mb-2 rounded cursor-pointer position-relative"
@@ -21,25 +20,18 @@
           <b-img
             :src="imageUrl"
             rounded
-            fluid
+            style="height: 180px"
             @click="viewMedia(index)"
           />
         </div>
-      </b-col>
-
-      <b-button
-        v-if="totalMedia > 3"
-        @click="viewMedia(3)"
-      >
-        <i class="fa-solid fa-photo-film" />
-        {{ totalMedia - 3 }} more
-      </b-button>
+      </div>
     </b-row>
 
     <b-modal
       id="mediaModal"
       centered
       hide-footer
+      size="xl"
       :visible="visible"
       @show="open"
       @hidden="close"
@@ -83,7 +75,31 @@
         />
 
         <footer class="mt-2 d-flex overflow-auto pb-2">
-          <b-img
+          <div
+            v-for="({ imageUrl, isVideo, isCover }, index) in gameMedia"
+            :key="index"
+          >
+            <div
+              class="mr-2 align-items-center text-center mb-2 rounded cursor-pointer position-relative"
+            >
+              <i
+                v-if="isVideo"
+                class="fa-solid fa-play video-indicator position-absolute text-white"
+              />
+
+              <div v-if="isCover" class="position-absolute cover-indicator text-light small w-100 bg-dark rounded-bottom">
+                Cover
+              </div>
+
+              <b-img
+                :src="imageUrl"
+                rounded
+                style="height: 80px"
+                @click="viewMedia(index)"
+              />
+            </div>
+          </div>
+          <!-- <b-img
             v-for="(media, index) in gameMedia"
             :key="media.imageUrl"
             :src="media.imageUrl"
@@ -91,7 +107,7 @@
             style="height: 80px"
             :class="['cursor-pointer mr-2 align-self-start', { 'border-selected': activeIndex === index}]"
             @click="viewMedia(index)"
-          />
+          /> -->
         </footer>
       </div>
     </b-modal>
@@ -108,7 +124,6 @@ export default {
   data() {
     return {
       activeIndex: null,
-      maxThumbnails: 4,
       saving: false,
     };
   },
@@ -116,12 +131,6 @@ export default {
   computed: {
     ...mapGetters(['isBoardOwner', 'gameMedia']),
     ...mapState(['board', 'game']),
-
-    previewThumbs() {
-      const previewThumbs = this.gameMedia.slice(0, this.maxThumbnails);
-
-      return previewThumbs;
-    },
 
     isSelectedMediaVideo() {
       return this.selectedMedia?.isVideo;
