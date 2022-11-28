@@ -87,9 +87,22 @@
             xl="9"
           >
             <article :class="darkTheme || hasWallpaper ? 'text-light' : ''">
+              <aside class="supplemental-info field float-right ml-5 pb-2">
+                <game-details />
+
+                <game-note
+                  v-if="note"
+                  :note="note"
+                  class="cursor-pointer mt-3 d-none d-md-block"
+                  @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
+                />
+              </aside>
+
               <div class="d-flex justify-content-between" v-b-visible="visibleHandler">
                 <h2 :class="{ 'mt-3': backdrop }">{{ game.name }}</h2>
               </div>
+
+              <game-description />
 
               <p>Alternative names:</p>
 
@@ -110,20 +123,6 @@
                 {{ name }}
               </div>
               <game-ratings />
-
-              <aside class="supplemental-info field float-right ml-5 pb-2">
-                <game-details />
-
-                <game-note
-                  v-if="note"
-                  :note="note"
-                  class="cursor-pointer mt-3 d-none d-md-block"
-                  @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
-                />
-              </aside>
-
-              <game-description />
-              <!-- TODO: show thumbnails if description is too short or missing -->
             </article>
 
             <small

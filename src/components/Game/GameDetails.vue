@@ -3,7 +3,7 @@
     :img-src="gameHeaderImage"
     img-alt="Image"
     img-top
-    class="small"
+    class="small mt-3"
     bg-variant="light"
     text-variant="dark"
   >
