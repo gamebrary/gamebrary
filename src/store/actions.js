@@ -1,3 +1,4 @@
+// TODO: use Fandom/Wikia API https://pokemon.fandom.com/api/v1/Articles/List?expand=2&category=characters&limit=10000
 import { FEATURED_BOARDS } from '@/constants';
 // TODO: split into chunks, match routes groups
 import axios from 'axios';

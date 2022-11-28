@@ -1,3 +1,4 @@
+<!-- TODO: use this to animate features https://michalsnik.github.io/aos/ -->
 <template lang="html">
   <section>
     <portal to="pageTitle">Gamebrary</portal>
