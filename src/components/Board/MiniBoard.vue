@@ -30,9 +30,9 @@
       </div>
     </div>
 
-    <div v-else-if="isStandardBoard" class="lists rounded overflow-hidden justify-content-center">
+    <div v-else-if="isStandardBoard" class="lists rounded overflow-hidden w-100 justify-content-center">
       <div
-        class="list basic rounded overflow-hidden border align-self-start"
+        class="list basic rounded overflow-hidden border"
       >
         <template v-if="firstList.games.length">
           <div
@@ -63,6 +63,7 @@
           <div
             v-for="(game, index) in list.games"
             :key="game"
+            style="width: 60px"
             :class="['list bg-light', { 'border-bottom': index !== list.games.length - 1 }]"
           >
             <i class="fas fa-square fa-fw text-white" style="margin-left: 1px;" aria-hidden />
@@ -162,8 +163,7 @@ $boardHeight: 220px;
 
 .lists {
   max-height: $boardHeight - 40px;
-  display: flex;
-  flex-wrap: wrap;
+  display: inline-flex;
 }
 
 .list {
