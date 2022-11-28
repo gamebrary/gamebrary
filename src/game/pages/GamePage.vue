@@ -16,7 +16,10 @@
 
       <template v-else-if="game">
         <portal to="pageTitle">
-          <span :class="darkTheme || hasWallpaper ? 'text-light text-outlined' : ''">
+          <span
+            v-if="showHeaderTitle"
+            :class="darkTheme || hasWallpaper ? 'text-light text-outlined' : ''"
+          >
             {{ game.name }}
           </span>
         </portal>
@@ -84,8 +87,8 @@
             xl="9"
           >
             <article :class="darkTheme || hasWallpaper ? 'text-light' : ''">
-              <div class="d-flex justify-content-between">
-                <game-titles />
+              <div class="d-flex justify-content-between" v-b-visible="visibleHandler">
+                <h2 :class="{ 'mt-3': backdrop }">{{ game.name }}</h2>
               </div>
 
               <p>Alternative names:</p>
@@ -183,6 +186,7 @@ export default {
   data() {
     return {
       loading: false,
+      showHeaderTitle: false,
       hasWallpaper: false,
     };
   },
@@ -336,6 +340,10 @@ export default {
       const wallpaper = this.wallpapers?.find(({ fullPath }) => fullPath === url);
 
       return wallpaper && wallpaper.url ? decodeURI(wallpaper.url) : '';
+    },
+
+    visibleHandler(visible) {
+      this.showHeaderTitle = !visible;
     },
 
     async loadGame() {
