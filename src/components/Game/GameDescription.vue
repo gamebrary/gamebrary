@@ -4,6 +4,7 @@
 
     <template v-else>
       <div v-html="description" />
+      <!-- TODO: use logos for listing all sources -->
       <span class="text-muted mt-n3 mb-3 text-capitalize">Source: {{ source }}</span>
     </template>
   </div>
