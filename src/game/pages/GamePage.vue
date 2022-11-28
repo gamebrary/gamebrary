@@ -52,6 +52,7 @@
             <b-img
               :src="gameCoverUrl"
               :alt="game.name"
+              v-b-modal.mediaModal
               rounded
               fluid
             />
