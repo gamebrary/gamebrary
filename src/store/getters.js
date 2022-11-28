@@ -123,11 +123,14 @@ export default {
       };
     }) || [];
 
+    const igdbArtworks = state?.game?.artworks?.map(({ image_id }) => ({ imageUrl: `https://images.igdb.com/igdb/image/upload/t_screenshot_huge/${image_id}.jpg`, source: 'igdb', })) || [];
+
     return [
+      ...gogImages,
       ...steamScreenshots,
       ...igdbScreenshots,
-      ...gogImages,
       ...wikipediaImages,
+      ...igdbArtworks,
       gameCover,
       ...igdbVideos,
       ...steamVideos,
