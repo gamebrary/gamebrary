@@ -511,19 +511,13 @@ export default {
     });
   },
 
-  // set merge to true when deleting lists
-  SAVE_BOARD({ state }, merge = false) {
+  SAVE_BOARD({ state }, board) {
     const db = firestore();
-
-    const board = {
-      ...state.board,
-      lastUpdated: Date.now(),
-    };
 
     return new Promise((resolve, reject) => {
       db.collection('boards')
         .doc(state.board.id)
-        .set(state.board, { merge })
+        .set({ ...updatedBoard, lastUpdated: Date.now() })
         .then(() => {
           resolve();
         })

@@ -1,7 +1,5 @@
+<!-- TODO: copy/move list to different board -->
 <!-- TODO: add background options (position, repeat, etc...) -->
-<!-- TODO: move move arrows to next to list preview -->
-<!-- TODO: show list preview in full page view -->
-<!-- TODO: show search inline, allow to go full screen (search page) -->
 <template lang="html">
   <section>
     <b-container>
@@ -36,347 +34,320 @@
         />
       </b-modal>
 
-      <b-row>
-        <b-col>
-          <form
-            ref="boardSettingsForm"
-            class="field centered mb-5"
-            @submit.stop.prevent="saveBoard"
-          >
-            <b-form-group
-              label="Board name"
-              label-for="name"
-            >
-              <b-form-input
-                id="name"
-                v-model="board.name"
-                required
-              />
-            </b-form-group>
-
-            <b-form-group
-              label="Board type"
-              label-for="boardType"
-            >
-              <b-form-select
-                id="boardType"
-                v-model="board.type"
-                :options="$options.BOARD_TYPES"
-              />
-            </b-form-group>
-
-            <b-form-checkbox
-              v-if="board.type === $options.BOARD_TYPE_STANDARD"
-              v-model="board.ranked"
-              name="check-button"
-              class="mb-3"
-              switch
-            >
-              Ranked
-            </b-form-checkbox>
-
-            <div class="d-flex">
-              <b-form-checkbox v-model="board.isPublic" switch class="mb-2">
-                Public
-              </b-form-checkbox>
-
-              <b-link
-                v-if="board.isPublic"
-                class="ml-2"
-                target="_blank"
-                :href="`https://gamebrary.com/b/${board.id}`"
+      <form
+        ref="boardSettingsForm"
+        class="mb-5"
+        @submit.stop.prevent="saveBoard"
+      >
+        <b-row>
+          <b-col cols="4" offset="2">
+              <b-form-group
+                label="Board name"
+                label-for="name"
               >
-                Open board
-              </b-link>
-            </div>
-
-            <b-form-group
-              label="Board background"
-              class="m-0"
-            />
-
-            <div class="d-flex">
-              <div class="d-flex align-items-start">
-                <v-swatches
-                  v-model="board.backgroundColor"
-                  show-fallback
-                  :trigger-style="{ height: '38px' }"
-                  popover-x="left"
-                />
-
-                <b-button
-                  v-if="board.backgroundColor"
-                  @click="board.backgroundColor = null"
-                  variant="link"
-                  class="ml-2"
-                >
-                  <i class="fas fa-times" aria-hidden />
-                </b-button>
-              </div>
-
-              <div class="ml-2 d-flex align-items-start">
-                <b-button
-                  v-b-modal.boardWallpaper
-                  variant="light"
-                >
-                  <i class="fa fa-image" aria-hidden="true"></i>
-                </b-button>
-
-                <b-button
-                  v-if="board.backgroundUrl"
-                  variant="link"
-                  @click="board.backgroundUrl = null"
-                >
-                  <i class="fas fa-times fa-fw" aria-hidden />
-                </b-button>
-              </div>
-            </div>
-
-            <hr class="my-3">
-
-            <mini-board
-              v-if="board.backgroundUrl || board.backgroundColor"
-              class="mb-3"
-              v-b-modal.boardWallpaper
-              :board="board"
-            />
-
-            <template v-if="board.type === 'tier'">
-              <h4>Tiers</h4>
-
-              <div
-                v-for="(tier, index) in board.lists"
-                :key="index"
-                class="d-flex justify-content-between align-items-start"
-              >
-                <v-swatches
-                  v-model="board.lists[index].backgroundColor"
-                  show-fallback
-                  :trigger-style="{ height: '38px' }"
-                  popover-x="left"
-                />
-
                 <b-form-input
                   id="name"
-                  class="ml-2"
-                  v-model.trim="board.lists[index].name"
+                  v-model="board.name"
+                  required
                 />
+              </b-form-group>
 
-                <b-button class="ml-2" @click="confirmDeleteList(index)">
-                  <i class="fa fa-trash" aria-hidden="true" />
-                </b-button>
-              </div>
-            </template>
-
-            <div v-else class="accordion" role="tablist">
-              <b-card
-                v-for="(list, index) in board.lists"
-                :key="index"
-                no-body
-                class="mb-1"
+              <b-form-group
+                label="Board type"
+                label-for="boardType"
               >
-                <b-card-header header-tag="header" class="p-1" role="tab">
+                <b-form-select
+                  id="boardType"
+                  v-model="board.type"
+                  :options="$options.BOARD_TYPES"
+                />
+              </b-form-group>
+
+              <b-form-checkbox
+                v-if="board.type === $options.BOARD_TYPE_STANDARD"
+                v-model="board.ranked"
+                name="check-button"
+                class="mb-3"
+                switch
+              >
+                Ranked
+              </b-form-checkbox>
+
+              <div class="d-flex">
+                <b-form-checkbox v-model="board.isPublic" switch class="mb-2">
+                  Public
+                </b-form-checkbox>
+
+                <b-link
+                  v-if="board.isPublic"
+                  class="ml-2"
+                  target="_blank"
+                  :href="`https://gamebrary.com/b/${board.id}`"
+                >
+                  Open board
+                </b-link>
+              </div>
+
+              <b-form-group
+                label="Board background"
+                class="m-0"
+              />
+
+              <div class="d-flex">
+                <div class="d-flex align-items-start">
+                  <v-swatches
+                    v-model="board.backgroundColor"
+                    show-fallback
+                    :trigger-style="{ height: '38px' }"
+                    popover-x="left"
+                  />
+
                   <b-button
-                    block
-                    v-b-toggle="`list-${index}`"
+                    v-if="board.backgroundColor"
+                    @click="board.backgroundColor = null"
+                    variant="link"
+                    class="ml-2"
                   >
-                    {{ list.name || '(Unnamed list)' }}
+                    <i class="fas fa-times" aria-hidden />
                   </b-button>
-                </b-card-header>
+                </div>
 
-                <!-- TODO: UPDATE settings, look at default board constants for reference -->
+                <div class="ml-2 d-flex align-items-start">
+                  <b-button
+                    v-b-modal.boardWallpaper
+                    variant="light"
+                  >
+                    <i class="fa fa-image" aria-hidden="true"></i>
+                  </b-button>
 
-                <b-collapse :id="`list-${index}`" role="tabpanel">
-                  <b-card-body>
-                    <b-form-group
-                      label="List name"
-                      label-for="name"
-                    >
-                      <b-form-input
-                        id="name"
-                        autofocus
-                        v-model.trim="board.lists[index].name"
-                      />
-                    </b-form-group>
+                  <b-button
+                    v-if="board.backgroundUrl"
+                    variant="link"
+                    @click="board.backgroundUrl = null"
+                  >
+                    <i class="fas fa-times fa-fw" aria-hidden />
+                  </b-button>
+                </div>
+              </div>
 
-                    <template v-if="board.type === 'tier'">
-                      <v-swatches
-                        v-model="board.lists[index].backgroundColor"
-                        show-fallback
-                        :trigger-style="{ height: '38px' }"
-                        popover-x="left"
-                      />
-                    </template>
+              <hr class="my-3">
 
-                    <template v-if="board.type === 'kanban' || !board.type">
-                      <b-form-group
-                        id="list-sorting"
-                        label="Sort list by:"
-                        label-for="sortField"
-                      >
-                        <b-form-select
-                          id="sortField"
-                          :options="sortOptions"
-                          v-model="board.lists[index].sortOrder"
-                          required
-                        />
-                      </b-form-group>
+              <mini-board
+                v-if="board.backgroundUrl || board.backgroundColor"
+                class="mb-3"
+                v-b-modal.boardWallpaper
+                :board="board"
+              />
 
-                      <!-- TODO: Move within board -->
-                      <!-- TODO: Move list to different board -->
-                      <!-- TODO: edit lists order goes in board settings -->
-                      <!-- TODO: restore move list -->
-                      <!-- <b-list-group class="p-2">
-                        <b-list-group-item>
-                          <small class="text-muted d-flex justify-content-center">Move list</small>
-                          <b-button-group size="sm" class="w-100">
-                            <b-button
-                              v-b-tooltip.hover
-                              :title="$t('board.list.moveLeft')"
-                              :disabled="isFirst"
-                              @click="moveList(listIndex, listIndex - 1)"
-                            >
-                              <i class="fas fa-angle-left fa-fw" aria-hidden />
-                            </b-button>
+              <b-button
+                variant="primary"
+                :disabled="saving"
+                type="submit"
+              >
+                <b-spinner small v-if="saving" />
+                <span v-else>{{ $t('global.save') }}</span>
+              </b-button>
 
-                            <b-button
-                              v-b-tooltip.hover
-                              :title="$t('board.list.moveRight')"
-                              :disabled="isLast"
-                              @click="moveList(listIndex, listIndex + 1)"
-                            >
-                              <i class="fas fa-angle-right fa-fw" aria-hidden />
-                            </b-button>
-                          </b-button-group>
-                        </b-list-group-item>
-                      </b-list-group> -->
+              <b-button
+                variant="link"
+                @click="confirmDeleteBoard"
+              >
+                {{ $t('board.settings.deleteBoard') }}
+              </b-button>
+            </b-col>
 
-                      <b-alert
-                        class="my-2"
-                        show
-                        :variant="board.lists[index].sortOrder !== 'sortByCustom' ? 'warning' : 'info'"
-                      >
-                        <span v-if="board.lists[index].sortOrder === 'sortByCustom'">
-                          Games will be added to end of list, drag games to re-order.
-                        </span>
+            <b-col cols="4">
+              <template v-if="board.type === 'tier'">
+                <h4>Tiers</h4>
 
-                        <span v-else-if="board.lists[index].sortOrder">
-                          Games will be sorted by
+                <div
+                  v-for="(list, index) in lists"
+                  :key="index"
+                  class="d-flex justify-content-between align-items-start"
+                >
+                  <v-swatches
+                    v-model="list.backgroundColor"
+                    show-fallback
+                    :trigger-style="{ height: '38px' }"
+                    popover-x="left"
+                  />
 
-                          <span class="text-lowercase">
-                            {{ $t(`board.list.${board.lists[index].sortOrder}`)}}
-                          </span>
-                        </span>
-                      </b-alert>
+                  <b-form-input
+                    id="name"
+                    class="ml-2"
+                    v-model.trim="list.name"
+                  />
 
-                      <b-form-group
-                        id="list-view"
-                        label="List view:"
-                        label-for="viewField"
-                      >
-                        <b-form-select
-                          id="viewField"
-                          :options="viewOptions"
-                          v-model="board.lists[index].view"
-                          required
-                        />
-                      </b-form-group>
+                  <b-button class="ml-2" @click="confirmDeleteList(index)">
+                    <i class="fa fa-trash" aria-hidden="true" />
+                  </b-button>
+                </div>
+              </template>
 
-                      <b-form-checkbox
-                        v-model="board.lists[index].showReleaseDates"
-                        name="check-button"
-                        class="mb-2"
-                        switch
-                      >
-                        {{ $t('board.list.showReleaseDates') }}
-                      </b-form-checkbox>
+              <template v-else>
+                Lists
 
-                      <b-form-checkbox
-                        v-model="board.lists[index].showGameProgress"
-                        name="check-button"
-                        class="mb-2"
-                        switch
-                      >
-                        {{ $t('board.list.showGameProgress') }}
-                      </b-form-checkbox>
+                <div
+                  v-for="(list, index) in lists"
+                  class="mb-2 list"
+                  :key="index"
+                >
+                  <b-input-group class="mt-3">
+                    <b-form-input
+                      id="name"
+                      v-model.trim="list.name"
+                    />
 
-                      <b-form-checkbox
-                        v-model="board.lists[index].highlightCompletedGames"
-                        name="check-button"
-                        class="mb-2"
-                        switch
-                      >
-                        Highlight completed games
-                      </b-form-checkbox>
+                    <b-input-group-append>
+                      <b-dropdown id="list-settings" no-caret variant="light">
+                        <template #button-content>
+                          <i class="fa-solid fa-ellipsis-vertical fa-fw" />
+                        </template>
 
-                      <b-form-checkbox
-                        v-model="board.lists[index].showGameNotes"
-                        name="check-button"
-                        class="mb-2"
-                        switch
-                      >
-                        {{ $t('board.list.showGameNotes') }}
-                      </b-form-checkbox>
+                        <b-dropdown-group id="dropdown-group-1" header="Sort">
+                          <b-dropdown-item-button
+                            v-for="option in $options.LIST_SORT_OPTIONS"
+                            :key="option.value"
+                            :bg-variant="option.value === list.sortOrder ? 'success' : ''"
+                            @click="setListSorting(index, option.value)"
+                          >
+                            {{ option.text }}
+                          </b-dropdown-item-button>
+                        </b-dropdown-group>
 
-                      <b-form-checkbox
-                        v-model="board.lists[index].showGameTags"
-                        name="check-button"
-                        class="mb-2"
-                        switch
-                      >
-                        {{ $t('board.list.showGameTags') }}
-                      </b-form-checkbox>
+                        <b-dropdown-group id="dropdown-group-2" header="List view">
+                          <b-dropdown-item-button
+                            v-for="option in $options.LIST_VIEW_OPTIONS"
+                            :key="option.value"
+                            :bg-variant="option.value === list.view ? 'success' : ''"
+                            @click="setListView(index, option.value)"
+                          >
+                            {{ option.text }}
+                          </b-dropdown-item-button>
+                        </b-dropdown-group>
 
-                      <b-form-checkbox
-                        v-model="board.lists[index].showGameCount"
-                        name="check-button"
-                        switch
-                      >
-                        {{ $t('board.list.showGameCount') }}
-                      </b-form-checkbox>
-                    </template>
-                  </b-card-body>
-                </b-collapse>
-              </b-card>
-            </div>
+                        <b-dropdown-divider />
 
-            <hr class="my-3">
+                        <div class="p-2">
+                          <b-form-checkbox
+                            v-model="list.showReleaseDates"
+                            class="mb-2"
+                            switch
+                          >
+                            {{ $t('board.list.showReleaseDates') }}
+                          </b-form-checkbox>
 
-            <b-button
-              variant="primary"
-              :disabled="saving"
-              type="submit"
-            >
-              <b-spinner small v-if="saving" />
-              <span v-else>{{ $t('global.save') }}</span>
-            </b-button>
+                          <b-form-checkbox
+                            v-model="list.showGameProgress"
+                            class="mb-2"
+                            switch
+                          >
+                            {{ $t('board.list.showGameProgress') }}
+                          </b-form-checkbox>
 
-            <b-button
-              variant="link"
-              @click="confirmDelete"
-            >
-              {{ $t('board.settings.deleteBoard') }}
-            </b-button>
-          </form>
-        </b-col>
-      </b-row>
+                          <b-form-checkbox
+                            v-model="list.highlightCompletedGames"
+                            class="mb-2"
+                            switch
+                          >
+                            Highlight completed games
+                          </b-form-checkbox>
+
+                          <b-form-checkbox
+                            v-model="list.showGameNotes"
+                            class="mb-2"
+                            switch
+                          >
+                            {{ $t('board.list.showGameNotes') }}
+                          </b-form-checkbox>
+
+                          <b-form-checkbox
+                            v-model="list.showGameTags"
+                            class="mb-2"
+                            switch
+                          >
+                            {{ $t('board.list.showGameTags') }}
+                          </b-form-checkbox>
+
+                          <b-form-checkbox
+                            v-model="list.showGameCount"
+                            name="check-button"
+                            switch
+                          >
+                            {{ $t('board.list.showGameCount') }}
+                          </b-form-checkbox>
+                        </div>
+
+                        <b-dropdown-divider />
+
+                        <b-dropdown-item-button @click="confirmDeleteList(index)">
+                          Delete list
+                        </b-dropdown-item-button>
+                      </b-dropdown>
+                    </b-input-group-append>
+                  </b-input-group>
+                </div>
+              </template>
+
+              <b-button
+                v-b-modal.editListsOrder
+                block
+                variant="info"
+              >
+                Edit lists order
+              </b-button>
+
+              <b-modal
+                id="editListsOrder"
+                title="BootstrapVue"
+                hide-footer
+              >
+                <template v-slot:modal-header="{ close }">
+                  <modal-header
+                    title="Change lists order"
+                    subtitle=""
+                    @close="close"
+                  />
+                </template>
+
+                <draggable
+                  :list="lists"
+                  animation="500"
+                >
+                  <div
+                    v-for="(list, index) in lists"
+                    class="mb-2"
+                    :key="index"
+                  >
+                    <i class="fa-solid fa-grip-vertical fa-fw" />
+                    {{ list.name }}
+                  </div>
+                </draggable>
+              </b-modal>
+          </b-col>
+        </b-row>
+      </form>
     </b-container>
   </section>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import { BOARD_TYPES, BOARD_TYPE_STANDARD } from '@/constants';
+import { BOARD_TYPES, BOARD_TYPE_STANDARD, LIST_SORT_OPTIONS, LIST_VIEW_OPTIONS } from '@/constants';
 import WallpapersList from '@/components/WallpapersList';
 import UploadWallpaperButton from '@/components/UploadWallpaperButton';
 import VSwatches from 'vue-swatches'
 import MiniBoard from '@/components/Board/MiniBoard';
+import draggable from 'vuedraggable';
 
 export default {
   BOARD_TYPES,
   BOARD_TYPE_STANDARD,
+  LIST_SORT_OPTIONS,
+  LIST_VIEW_OPTIONS,
 
   components: {
+    draggable,
     WallpapersList,
     VSwatches,
     UploadWallpaperButton,
@@ -388,20 +359,7 @@ export default {
       board: {},
       loading: false,
       saving: false,
-      // TODO: put in constants
-      sortOptions: [
-        { text: 'Custom', value: null },
-        { text: 'Alphabetically', value: 'alphabetically' },
-        { text: 'Rating', value: 'rating' },
-        { text: 'Progress', value: 'progress' },
-      ],
-      viewOptions: [
-        { text: this.$t('board.list.views.single'), value: 'single' },
-        { text: this.$t('board.list.views.covers'), value: 'covers' },
-        { text: this.$t('board.list.views.grid'), value: 'grid' },
-        { text: this.$t('board.list.views.compact'), value: 'compact' },
-        { text: this.$t('board.list.views.text'), value: 'text' },
-      ],
+      lists: [],
     };
   },
 
@@ -423,11 +381,23 @@ export default {
 
       this.board = await this.$store.dispatch('LOAD_BOARD', this.boardId);
 
+      this.lists = JSON.parse(JSON.stringify(this.board.lists));
+
       this.loading = false;
     },
 
-    confirmDelete() {
-      this.$bvModal.msgBoxConfirm('Are you sure you want to delete this board?', {
+    setListSorting(index, value) {
+      this.lists[index].sortOrder = value;
+      this.$forceUpdate();
+    },
+
+    setListView(index, value) {
+      this.lists[index].view = value;
+      this.$forceUpdate();
+    },
+
+    async confirmDeleteBoard() {
+      const confirmed = await this.$bvModal.msgBoxConfirm('Are you sure you want to delete this board?', {
         title: 'Delete board',
         okVariant: 'danger',
         hideHeader: true,
@@ -435,31 +405,25 @@ export default {
         cancelTitle: 'No',
         okTitle: 'Yes, delete board',
       })
-        .then((value) => {
-          if (value) {
-            this.deleteBoard();
-          }
-        });
+
+      if (confirmed) this.deleteBoard();
     },
 
-    confirmDeleteList(index) {
-      this.$bvModal.msgBoxConfirm('Are you sure you want to delete this list?', {
+    async confirmDeleteList(index) {
+      const confirmed = await this.$bvModal.msgBoxConfirm('Are you sure you want to delete this list?', {
         title: 'Delete list',
         okVariant: 'danger',
         hideHeader: true,
         size: 'sm',
         cancelTitle: 'No',
         okTitle: 'Yes, delete list',
-      })
-        .then((value) => {
-          if (value) {
-            this.deleteList(index);
-          }
-        });
+      });
+
+      if (confirmed) this.deleteList(index);
     },
 
     deleteList(index) {
-      this.board.lists.splice(index, 1);
+      this.lists.splice(index, 1);
       this.saveBoard();
     },
 
@@ -486,7 +450,15 @@ export default {
     async saveBoard() {
       this.saving = true;
 
-      this.board.lastUpdated = Date.now();
+      const { board, lists } = this;
+
+      const payload = {
+        ...board,
+        lastUpdated: Date.now(),
+        lists,
+      }
+
+      this.$store.commit('SET_GAME_BOARD', payload);
 
       await this.$store.dispatch('SAVE_BOARD')
         .catch(() => {

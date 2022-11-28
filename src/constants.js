@@ -10,10 +10,29 @@ export const BOARD_TYPE_STANDARD = 'standard';
 export const BOARD_TYPE_KANBAN = 'kanban';
 export const BOARD_TYPE_TIER = 'tier';
 
+export const SORT_TYPE_ALPHABETICALLY = 'alphabetically';
+export const SORT_TYPE_RATING = 'rating';
+export const SORT_TYPE_PROGRESS = 'progress';
+
 export const BOARD_TYPES = [
   { text: 'Standard', value: BOARD_TYPE_STANDARD },
   { text: 'Kanban', value: BOARD_TYPE_KANBAN },
   { text: 'Tier', value: BOARD_TYPE_TIER },
+];
+
+export const LIST_SORT_OPTIONS = [
+  { text: 'Custom', value: null },
+  { text: 'Alphabetically', value: SORT_TYPE_ALPHABETICALLY },
+  { text: 'Rating', value: SORT_TYPE_RATING },
+  { text: 'Progress', value: SORT_TYPE_PROGRESS },
+];
+
+export const LIST_VIEW_OPTIONS = [
+  { text: 'Default', value: 'single' },
+  { text: 'Covers', value: 'covers' },
+  { text: 'Grid', value: 'grid' },
+  { text: 'Compact', value: 'compact' },
+  { text: 'Text', value: 'text' },
 ];
 
 export const FEATURED_BOARDS = [
@@ -168,13 +187,6 @@ export const KEYBOARD_SHORTCUTS = {
   ROUTE_notes: ['shift', 'n'],
   ROUTE_wallpapers: ['shift', 'w'],
   ROUTE_settings: ['shift', 's'],
-};
-
-export const LIST_VIEWS = {
-  single: 'Single',
-  grid: 'Grid',
-  compact: 'Compact',
-  text: 'Text',
 };
 
 export const PLATFORM_NAME_OVERRIDES = {
