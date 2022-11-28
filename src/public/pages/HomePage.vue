@@ -93,14 +93,16 @@
         <h3 class="text-center text-light text-outlined py-2 mt-2">Trending games</h3>
       </b-col>
 
-      <b-col
-        v-for="game in trendingGames"
-        :key="game.id"
-        cols="4"
-        lg="2"
-      >
-        <game-card-search :game="game" />
-      </b-col>
+      <div class="d-flex overflow-auto">
+        <b-col
+          v-for="game in trendingGames"
+          :key="game.id"
+          cols="4"
+          lg="2"
+        >
+          <game-card-search :game="game" />
+        </b-col>
+      </div>
     </b-form-row>
 
     <b-form-row class="bg-info px-3 py-5">

@@ -42,7 +42,11 @@ export const FEATURED_BOARDS = [
   '022E7O53f6XpvO5VIz8D',
 ];
 
+// TODO: get games dynamically
 export const TRENDING_GAMES = [
+  '112875',
+  '144054',
+  '17269',
   '112875',
   '200165',
   '119388',
