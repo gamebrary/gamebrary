@@ -87,6 +87,26 @@
                 <game-titles />
               </div>
 
+              <p>Alternative names:</p>
+
+              <div
+                class="mb-1 small"
+                rounded
+                variant="light"
+                v-for="{ comment, id, name, imgUrl } in alternativeNames"
+                :key="id"
+              >
+                <b-avatar
+                  v-b-tooltip.hover
+                  :title="comment || null"
+                  size="sm"
+                  :src="imgUrl"
+                />
+
+                {{ name }}
+              </div>
+              <game-ratings />
+
               <aside class="supplemental-info field float-right ml-5 pb-2">
                 <game-details />
 
@@ -100,7 +120,6 @@
 
               <game-description />
               <!-- TODO: show thumbnails if description is too short or missing -->
-              <game-ratings />
             </article>
 
             <small
@@ -141,7 +160,6 @@ import { WEBSITE_CATEGORIES } from '@/constants';
 // import AmazonLinks from '@/components/Game/AmazonLinks';
 import GameDetails from '@/components/Game/GameDetails';
 import GameMedia from '@/components/Game/GameMedia';
-import GameTitles from '@/components/Game/GameTitles';
 import GameRatings from '@/components/Game/GameRatings';
 import GameDescription from '@/components/Game/GameDescription';
 import SimilarGames from '@/components/Game/SimilarGames';
@@ -155,7 +173,6 @@ export default {
     GameNote,
     GameDescription,
     GameDetails,
-    GameTitles,
     GameMedia,
     GameRatings,
     // GameSpeedruns,
@@ -177,6 +194,18 @@ export default {
 
     metacriticScore() {
       return this.game?.steam?.metacritic;
+    },
+
+    alternativeNames() {
+      return this.game?.alternative_names?.map(({ comment, name, id }) => {
+
+        return {
+          comment,
+          imgUrl: `/img/country-flags/${this.getCountryCode(comment)}.svg`,
+          name,
+          id,
+        }
+      });
     },
 
     gameNews() {
@@ -255,6 +284,29 @@ export default {
   },
 
   methods: {
+    getCountryCode(alternateTitleDescription) {
+      if (!alternateTitleDescription) return 'un';
+
+      const description = alternateTitleDescription.toLowerCase();
+
+      if (description.includes('japanese')) return 'jp';
+      if (description.includes('korean')) return 'kr';
+      if (description.includes('portuguese')) return 'pt';
+      if (description.includes('brazilian')) return 'br';
+      if (description.includes('spanish')) return 'es';
+      if (description.includes('french')) return 'fr';
+      if (description.includes('italian')) return 'it';
+      if (description.includes('arabic')) return 'sa';
+      if (description.includes('polish')) return 'pl';
+      if (description.includes('russian')) return 'ru';
+      if (description.includes('chinese')) return 'cn';
+      if (description.includes('german')) return 'de';
+      if (description.includes('dutch')) return 'nl';
+      if (description.includes('european')) return 'eu';
+
+      return 'un';
+    },
+
     waitAndLoadGame() {
       this.loading = true;
 
