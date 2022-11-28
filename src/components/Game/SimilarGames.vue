@@ -1,7 +1,6 @@
 <template lang="html">
-  <section v-if="similarGames.length" class="mt-5">
-    <!-- TODO: make white if bg is on -->
-    <h4 class="text-center">You may also like</h4>
+  <section v-if="similarGames.length" class="my-5 bg-secondary rounded p-3">
+    <h2 class="text-center mb-3">You may also like</h2>
 
     <div class="similar-games">
       <router-link
@@ -62,12 +61,11 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
 .similar-games {
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-gap: 1rem;
-  margin-bottom: 20vh;
 
   @media(max-width: 780px) {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 </style>
