@@ -22,7 +22,7 @@ export default {
     },
 
     showReleaseDates() {
-      return this.list?.settings?.showReleaseDates;
+      return this.list?.showReleaseDates;
     },
 
     gameProgress() {
@@ -40,7 +40,7 @@ export default {
     },
 
     gameNotes() {
-      return this.list?.settings?.showGameNotes && this.notes?.[this.gameId];
+      return this.list?.showGameNotes && this.notes?.[this.gameId];
     },
 
     game() {

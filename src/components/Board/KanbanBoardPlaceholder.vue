@@ -104,13 +104,14 @@
 
 <script>
 import { mapState } from 'vuex';
+import { LIST_VIEW_SINGLE } from '@/constants';
 
 export default {
   computed: {
     ...mapState(['board']),
 
     listView() {
-      return this.list?.settings?.view || 'single';
+      return this.list?.view || LIST_VIEW_SINGLE;
     },
   },
 };

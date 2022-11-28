@@ -1,10 +1,15 @@
-export const DEFAULT_LIST_VIEW = 'single';
 export const MIN_PROFILE_LENGTH = 6;
 export const THUMBNAIL_PREFIX = '_300x300';
 export const MAX_PROFILE_LENGTH = 20;
 export const STEAM_CATEGORY_ID = 13;
 export const GOG_CATEGORY_ID = 17;
 export const TWITTER_CATEGORY_ID = 5;
+
+export const LIST_VIEW_SINGLE = 'single';
+export const LIST_VIEW_COVERS = 'covers';
+export const LIST_VIEW_GRID = 'grid';
+export const LIST_VIEW_COMPACT = 'compact';
+export const LIST_VIEW_TEXT = 'text';
 
 export const BOARD_TYPE_STANDARD = 'standard';
 export const BOARD_TYPE_KANBAN = 'kanban';
@@ -28,11 +33,11 @@ export const LIST_SORT_OPTIONS = [
 ];
 
 export const LIST_VIEW_OPTIONS = [
-  { text: 'Default', value: 'single' },
-  { text: 'Covers', value: 'covers' },
-  { text: 'Grid', value: 'grid' },
-  { text: 'Compact', value: 'compact' },
-  { text: 'Text', value: 'text' },
+  { text: 'Default', value: LIST_VIEW_SINGLE },
+  { text: 'Covers', value: LIST_VIEW_COVERS },
+  { text: 'Grid', value: LIST_VIEW_GRID },
+  { text: 'Compact', value: LIST_VIEW_COMPACT },
+  { text: 'Text', value: LIST_VIEW_TEXT },
 ];
 
 export const FEATURED_BOARDS = [

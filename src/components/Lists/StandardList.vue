@@ -75,7 +75,6 @@ import draggable from 'vuedraggable';
 import slugify from 'slugify'
 import orderby from 'lodash.orderby';
 import GameSelector from '@/components/GameSelector';
-import { DEFAULT_LIST_VIEW } from '@/constants';
 import { mapState, mapGetters } from 'vuex';
 import { getThumbnailUrl } from '@/utils';
 import GameCardStandard from '@/components/GameCards/GameCardStandard';
@@ -121,7 +120,7 @@ export default {
     },
 
     autoSortEnabled() {
-      return ['sortByName', 'sortByRating', 'sortByReleaseDate', 'sortByProgress'].includes(this.list?.settings?.sortOrder);
+      return ['sortByName', 'sortByRating', 'sortByReleaseDate', 'sortByProgress'].includes(this.list?.sortOrder);
     },
 
     listGames() {

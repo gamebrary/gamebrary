@@ -1,15 +1,10 @@
+<!-- TODO: test all settings -->
 <template lang="html">
   <div
-    :class="[
-      'list rounded pl-3',
-      listView,
-      {
-        dragging,
-        'unique': singleList,
-      }
-      ]"
+    :class="['list rounded pl-3', listView, { dragging, 'unique': singleList }]"
     :id="listIndex"
   >
+    <pre class="text-light">{{ list.view }}</pre>
     <b-card
       no-body
       :bg-variant="darkTheme ? 'info' : 'light'"
@@ -36,7 +31,7 @@
           </span>
 
           <b-badge
-            v-if="autoSortEnabled"
+            v-if="sortingEnabled"
             :variant="darkTheme ? 'danger' : 'warning'"
             v-b-tooltip.hover
             :title="`${$t('board.list.sortedBy')} ${$t(`board.list.${sortOrder}`)}`"
@@ -82,7 +77,7 @@
           :key="gameId"
           :list="list"
           :game-id="gameId"
-          :class="{ 'mb-2': view !== 'covers'}"
+          :class="{ 'mb-2': listView !== 'covers'}"
           @click.native="openGame(gameId, list)"
         />
 
@@ -110,7 +105,7 @@ import GameCardCompact from '@/components/GameCards/GameCardCompact';
 import GameCardText from '@/components/GameCards/GameCardText';
 import slugify from 'slugify'
 import orderby from 'lodash.orderby';
-import { DEFAULT_LIST_VIEW } from '@/constants';
+import { LIST_VIEW_SINGLE, SORT_TYPE_ALPHABETICALLY, SORT_TYPE_RATING, SORT_TYPE_PROGRESS } from '@/constants';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
@@ -155,25 +150,22 @@ export default {
       return !this.user || !this.isBoardOwner;
     },
 
-    autoSortEnabled() {
-      return ['sortByName', 'sortByRating', 'sortByReleaseDate', 'sortByProgress'].includes(this.sortOrder);
+    sortingEnabled() {
+      return [SORT_TYPE_PROGRESS, SORT_TYPE_RATING, SORT_TYPE_ALPHABETICALLY].includes(this.sortOrder);
     },
 
     sortOrder() {
-      return this.list?.settings?.sortOrder;
+      return this.list?.sortOrder;
     },
 
     sortedGames() {
-      const { settings, games } = this.list;
-      const sortOrder = settings?.sortOrder || 'sortByCustom';
+      const { sortOrder, games } = this.list;
 
       switch (sortOrder) {
-      case 'sortByCustom': return this.list.games;
-      case 'sortByProgress': return orderby(games, [game => this.progresses[game] || 0], ['desc']);
-      case 'sortByRating': return orderby(games, [game => this.games[game].rating || 0], ['desc']);
-      case 'sortByName': return orderby(games, [game => this.games[game].name]);
-      default:
-        return this.list.games;
+        case SORT_TYPE_PROGRESS: return orderby(games, [game => this.progresses[game] || 0], ['desc']);
+        case SORT_TYPE_RATING: return orderby(games, [game => this.games[game].rating || 0], ['desc']);
+        case SORT_TYPE_ALPHABETICALLY: return orderby(games, [game => this.games[game].name]);
+        default: return this.list.games;
       }
     },
 
@@ -185,24 +177,25 @@ export default {
       return this.board.lists.length === 1;
     },
 
-    view() {
-      return this.list?.settings?.view;
-    },
-
     showGameCount() {
-      return this.list?.settings?.showGameCount;
+      return this.list?.showGameCount;
     },
 
     gameCardComponent() {
+      // TODO: use values from constant
       const availableViews = Object.keys(this.gameCardComponents);
 
-      return this.view && availableViews.includes(this.view)
-        ? this.gameCardComponents[this.view]
+      console.log('view', this.listView);
+
+      return availableViews?.includes(this.listView)
+        ? this.gameCardComponents[this.listView]
         : 'GameCardDefault';
     },
 
     listView() {
-      return this.list?.settings?.view || DEFAULT_LIST_VIEW;
+      console.log(this.list);
+
+      return this.list?.view || LIST_VIEW_SINGLE;
     },
   },
 

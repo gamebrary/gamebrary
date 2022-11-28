@@ -511,13 +511,13 @@ export default {
     });
   },
 
-  SAVE_BOARD({ state }, board) {
+  SAVE_BOARD({ state }) {
     const db = firestore();
 
     return new Promise((resolve, reject) => {
       db.collection('boards')
         .doc(state.board.id)
-        .set({ ...updatedBoard, lastUpdated: Date.now() })
+        .set({ ...state.board, lastUpdated: Date.now() })
         .then(() => {
           resolve();
         })
