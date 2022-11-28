@@ -9,21 +9,18 @@
   >
     <template #header>
       <header class="d-flex align-items-center justify-content-between w-100">
-        <div>
-          <b-button
-            title="Dashboard"
-            size="sm"
-            variant="transparent"
-            :to="{ name: 'home' }"
-          >
-            <img
-              src="/logo.png"
-              class="logo mr-2"
-            />
-          </b-button>
-
-          <span class="lead">Gamebrary</span>
-        </div>
+        <b-button
+          title="Dashboard"
+          size="sm"
+          class="p-0"
+          variant="transparent"
+          :to="{ name: 'home' }"
+        >
+          <img
+            src="/logo.png"
+            class="logo"
+          />
+        </b-button>
 
         <b-button
           v-b-toggle.sidebar
@@ -33,7 +30,7 @@
         </b-button>
       </header>
     </template>
-    
+
     <template #default>
       <div class="px-3">
         <search-box class="mb-3 w-100" />
@@ -59,25 +56,25 @@
         <b-button
           :to="{ name: 'notes' }"
           :variant="darkTheme ? 'info' : 'light'"
-          class="w-100 text-left mb-1 fa-fw"
+          class="w-100 text-left mb-1"
           id="notes"
         >
-          <i class="fa fa-note-sticky" aria-hidden="true" />
+          <i class="fa fa-note-sticky fa-fw" aria-hidden="true" />
           <span class="ml-2">Notes</span>
         </b-button>
 
         <b-button
           :to="{ name: 'tags' }"
           :variant="darkTheme ? 'info' : 'light'"
-          class="w-100 text-left mb-1 fa-fw"
+          class="w-100 text-left mb-1"
           id="tags"
         >
-          <i class="fa fa-tags" aria-hidden="true" />
+          <i class="fa fa-tags fa-fw" aria-hidden="true" />
           <span class="ml-2">Tags</span>
         </b-button>
 
         <b-button
-          class="w-100 text-left mb-1 fa-fw"
+          class="w-100 text-left mb-1"
           :to="{ name: 'account' }"
           :variant="darkTheme ? 'info' : 'light'"
         >
@@ -90,7 +87,7 @@
 
           <i
             v-else
-            class="fa fa-solid fa-user"
+            class="fa fa-solid fa-user fa-fw"
             aria-hidden
           />
 
@@ -222,8 +219,6 @@ export default {
     },
 
     async load() {
-      // await this.$store.dispatch('LOAD_BOARDS').catch(() => {});
-      // await this.$store.dispatch('LOAD_TAGS').catch(() => {});
       this.profile = await this.$store.dispatch('LOAD_PROFILE').catch(() => {});
 
       if (this.profile?.avatar) this.loadAvatarImage();
