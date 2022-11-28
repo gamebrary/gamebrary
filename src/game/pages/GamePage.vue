@@ -57,8 +57,6 @@
               fluid
             />
 
-            <game-media />
-
             <ins class="adsbygoogle"
               style="display:block"
               data-ad-client="ca-pub-6973051121553624"
@@ -134,6 +132,7 @@
           </b-col>
         </b-row>
 
+        <game-media />
         <similar-games />
       </template>
 
@@ -383,23 +382,15 @@ export default {
     },
 
     async loadArtworks() {
-      const [artworks] = await this.$store.dispatch('IGDB', { path: 'artworks', data: `fields *; where game = ${this.game.id};` });
+      const artworks = await this.$store.dispatch('IGDB', { path: 'artworks', data: `fields *; where game = ${this.game.id}; limit 20;` });
 
-      if (artworks?.image_id) {
-        console.log(artworks);
-        this.backdropHeight = artworks.height;
-        this.backdrop = `https://images.igdb.com/igdb/image/upload/t_screenshot_med_2x/${artworks?.image_id}.jpg`;
-      }
+      if (artworks) this.$store.commit('APPEND_GAME_ARTWORKS', artworks);
     },
   },
 };
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-.game-cover {
-  width: 100%;
-}
-
 .play-button {
   background-color:rgba(0, 0, 0, 0.3);
   position: absolute;
