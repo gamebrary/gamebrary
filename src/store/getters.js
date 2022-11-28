@@ -46,13 +46,15 @@ export default {
         strict: true,
       });
 
+      const contents = article?.contents?.replaceAll('{STEAM_CLAN_IMAGE}', 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/clans/');
+
       return {
         title: article.title,
         id: article.gid,
         url: article.url,
         author: article?.author || null,
         date: new Date(article.date * 1000).toLocaleDateString("en-US", { dateStyle: 'short' }),
-        contents: bbobHTML(article.contents, presetHTML5()),
+        contents: bbobHTML(contents, presetHTML5()),
         source: NEWS_SOURCES?.[feedSlug] || `MISING: ${article?.feedname} | ${feedSlug}`,
         tags: article.tags,
       };
