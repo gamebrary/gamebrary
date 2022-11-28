@@ -101,7 +101,7 @@ export default {
       }
     }) || [];
 
-    const igdbScreenshots = state.game?.screenshots?.map(({ image_id }) => ({ imageUrl: `https://images.igdb.com/igdb/image/upload/t_screenshot_med/${image_id}.jpg`, source: 'igdb', })) || [];
+    const igdbScreenshots = state.game?.screenshots?.map(({ image_id }) => ({ imageUrl: `https://images.igdb.com/igdb/image/upload/t_screenshot_huge/${image_id}.jpg`, source: 'igdb', })) || [];
     const steamScreenshots = state.game?.steam?.screenshots.map(({ path_full }) => ({ imageUrl: path_full, source: 'steam' })) || [];
 
     const gameCover = {
