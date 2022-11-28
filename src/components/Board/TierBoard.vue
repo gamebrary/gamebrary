@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="board px-3 pb-3 d-flex flex-column">
+  <div class="pb-3 d-flex flex-column align-items-start">
     <tier-list
       v-for="(list, listIndex) in board.lists"
       :list="list"
@@ -8,23 +8,19 @@
       :key="listIndex"
     />
 
-    <!-- TODO: create different component for adding tier -->
-    <!-- <add-list
-      v-if="isBoardOwner"
-      :empty="empty"
-    /> -->
+    <add-tier v-if="isBoardOwner" />
   </div>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-// import AddList from '@/components/Board/AddList';
+import AddTier from '@/components/Board/AddTier';
 import TierList from '@/components/Lists/TierList';
 
 export default {
   components: {
     TierList,
-    // AddList,
+    AddTier,
   },
 
   computed: {
