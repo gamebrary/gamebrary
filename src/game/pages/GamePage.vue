@@ -77,7 +77,27 @@
 
             <!-- <amazon-links class="mt-2" /> -->
             <!-- <game-speedruns /> -->
-            <!-- <pre>{{ gameAchievements }}</pre> -->
+            <template v-if="highlightedAchievements">
+              <h4 class="mt-3">Achievements</h4>
+
+              <b-list-group>
+                <b-list-group-item
+                  class="d-flex align-items-center"
+                  v-for="achievement in highlightedAchievements"
+                  :key="achievement.name"
+                >
+                  <b-avatar
+                    variant="info"
+                    :src="achievement.path"
+                    square
+                    class="mr-2"
+                  />
+
+                  {{ achievement.name }}
+                </b-list-group-item>
+              </b-list-group>
+              <!-- TODO: load all achievements -->
+            </template>
           </b-col>
 
           <b-col
@@ -227,9 +247,9 @@ export default {
       return this.$route?.params?.boardId;
     },
 
-    // gameAchievements() {
-    //   return this.game?.steam?.achievements || [];
-    // },
+    highlightedAchievements() {
+      return this.game?.steam?.achievements?.highlighted;
+    },
 
     note() {
       return this.notes[this.game?.id] || null;

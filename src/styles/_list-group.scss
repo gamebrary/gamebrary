@@ -1,13 +1,13 @@
-// // List group
+// List group
 //
-// $list-group-color:                  null !default;
+$list-group-color: $dark !default;
 // $list-group-bg:                     $white !default;
-// $list-group-border-color:           rgba($black, .125) !default;
+$list-group-border-color: $dark !default;
 // $list-group-border-width:           $border-width !default;
 // $list-group-border-radius:          $border-radius !default;
 //
-// $list-group-item-padding-y:         .75rem !default;
-// $list-group-item-padding-x:         1.25rem !default;
+$list-group-item-padding-y:         .5rem !default;
+$list-group-item-padding-x:         .5rem !default;
 //
 // $list-group-hover-bg:               $gray-100 !default;
 // $list-group-active-color:           $component-active-color !default;
