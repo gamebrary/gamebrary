@@ -66,9 +66,9 @@
             />
 
             <b-button
-              v-if="gameNews.length"
-              size="sm"
-              class="mt-2 ml-2 d-none d-md-block"
+              v-if="gameNews"
+              variant="info"
+              class="my-3 d-none d-md-block"
               :to="{ name: 'game.news', params: { id: game.id, slug: game.slug } }"
             >
               <b-badge>{{ gameNews.length }}</b-badge>
@@ -192,7 +192,8 @@ export default {
 
   computed: {
     ...mapState(['game', 'progresses', 'tags', 'boards', 'user', 'notes', 'twitchToken']),
-    ...mapGetters(['darkTheme']),
+    ...mapGetters(['darkTheme', 'gameNews']),
+
     backdrop() {
       const artwork = this.game?.artworks?.[0];
 
@@ -219,23 +220,6 @@ export default {
           id,
         }
       });
-    },
-
-    gameNews() {
-      const news = this.game?.news?.map((article) => {
-        const imageUrlExpression = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/g;
-        const regex = new RegExp(imageUrlExpression);
-        const imageUrl = article?.contents?.match(regex)?.[0];
-
-        return {
-          title: article.title,
-          imageUrl,
-        }
-      }) || [];
-
-      return news.length > 3
-        ? news.splice(0, 3)
-        : news;
     },
 
     originBoardId() {
