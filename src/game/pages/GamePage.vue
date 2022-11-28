@@ -6,9 +6,10 @@
 <!-- TODO: maintain background image in subpages -->
 <!-- TODO: maintain game actions in subpages -->
 <!-- TODO: mine data from GOG -->
+<!-- TODO: optimize backdrop styling -->
 <template lang="html">
   <section>
-    <div v-if="backdrop" class="backdrop d-none d-sm-block" :style="`background-image: url('${backdrop}'); height: 500px; margin-top: ${backdrop ? '-54px' : 0}`" />
+    <div v-if="backdrop" class="backdrop d-none d-sm-block" :style="`background-image: url('${backdrop.url}'); height: 500px; margin-top: -54px`" />
 
     <b-container>
       <b-spinner v-if="loading" class="spinner-centered" />
@@ -183,14 +184,23 @@ export default {
     return {
       loading: false,
       hasWallpaper: false,
-      backdrop: null,
-      backdropHeight: null,
     };
   },
 
   computed: {
     ...mapState(['game', 'progresses', 'tags', 'boards', 'user', 'notes', 'twitchToken']),
     ...mapGetters(['darkTheme']),
+    backdrop() {
+      const artwork = this.game?.artworks?.[0];
+
+      if (!artwork) return null;
+
+      return {
+        height: artwork.height,
+        width: artwork.width,
+        url: `https://images.igdb.com/igdb/image/upload/t_screenshot_huge_2x/${artwork.image_id}.jpg`,
+      }
+    },
 
     metacriticScore() {
       return this.game?.steam?.metacritic;
@@ -329,8 +339,6 @@ export default {
     },
 
     async loadGame() {
-      this.backdropHeight = null;
-      this.backdrop = null;
       this.loading = true;
       this.$bus.$emit('CLEAR_WALLPAPER');
       this.$store.commit('CLEAR_GAME');

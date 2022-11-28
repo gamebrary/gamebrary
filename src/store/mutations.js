@@ -117,6 +117,10 @@ export default {
     Vue.set(state.game, 'gog', data);
   },
 
+  APPEND_GAME_ARTWORKS(state, artworks) {
+    Vue.set(state.game, 'artworks', artworks);
+  },
+
   MOVE_LIST(state, { from, to }) {
     const cutOut = state.board.lists.splice(from, 1)[0];
 
