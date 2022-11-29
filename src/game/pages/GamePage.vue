@@ -355,7 +355,6 @@ export default {
       this.$bus.$emit('CLEAR_WALLPAPER');
       this.$store.commit('CLEAR_GAME');
 
-      // TODO: use IGDB action instead
       await this.$store.dispatch('LOAD_GAME', this.gameId).catch(() => {});
 
       setPageTitle(this.game?.name);
