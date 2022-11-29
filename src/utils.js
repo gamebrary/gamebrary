@@ -27,5 +27,5 @@ export const getImageThumbnail = (image) => {
 };
 
 export const setPageTitle = (title) => {
-  document.title = `${title} - Gamebrary`;
+  if (title) document.title = `${title} - Gamebrary`;
 };
