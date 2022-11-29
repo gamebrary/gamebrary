@@ -16,38 +16,6 @@ admin.initializeApp({
 
 exports.steam = require('./steam');
 
-exports.search = functions.https.onRequest((req, res) => {
-  res.set('Access-Control-Allow-Origin', '*')
-
-  const { search, platform, token } = req.query;
-
-  const missingFields = [search, token].filter(field => !field).length > 0;
-
-  if (missingFields) {
-    return res.status(400).json({ error: 'missing required params (search OR platform OR token)' });
-  }
-
-  const data = `
-    search "${search}";
-    fields id,name,slug,rating,release_dates.*,name,cover.image_id;
-    limit 50;
-    ${platform ? `where platforms = (${platform});` : ''}
-  `;
-
-  axios({
-    url: 'https://api.igdb.com/v4/games',
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Client-ID': functions.config().twitch.clientid,
-      Authorization: `Bearer ${token}`,
-    },
-    data,
-  })
-    .then(({ data }) => { res.status(200).send(data); })
-    .catch((error) => { res.send(error); });
-});
-
 // Twitch token gets refreshed once a week
 exports.refreshToken = functions.pubsub.schedule('0 0 * * 0')
   .onRun((context) => {
