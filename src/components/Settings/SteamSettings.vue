@@ -1,3 +1,4 @@
+<!-- TODO: finish steam integration -->
 <template lang="html">
   <div>
     <b-form-group label="Steam ID:">
@@ -28,9 +29,7 @@ export default {
   mounted() {
     const { settings } = this;
 
-    this.steamId = settings && settings.steamId
-      ? settings.steamId
-      : null;
+    this.steamId = this.settings?.steamId || '';
   },
 
   methods: {

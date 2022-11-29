@@ -745,7 +745,7 @@ export default {
   // TODO: use firebase email extension instead
   SEND_WELCOME_EMAIL(context, additionalUserInfo) {
     return new Promise((resolve, reject) => {
-      if (additionalUserInfo && additionalUserInfo.profile) {
+      if (additionalUserInfo?.profile) {
         axios.get(`${API_BASE}/email?address=${additionalUserInfo.profile.email}&template_id=welcome`)
           .catch(reject);
       } else {

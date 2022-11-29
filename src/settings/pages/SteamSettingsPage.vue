@@ -30,11 +30,7 @@ export default {
   },
 
   mounted() {
-    const { settings } = this;
-
-    this.steamId = settings && settings.steamId
-      ? settings.steamId
-      : null;
+    this.steamId = this.settings?.steamId || null;
   },
 
   methods: {

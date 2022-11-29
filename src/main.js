@@ -65,20 +65,7 @@ if (window.location.hostname.includes('gamebrary')) {
 
 Vue.config.productionTip = false;
 
-const vuexStorage = localStorage && localStorage.vuex
-  ? JSON.parse(localStorage.vuex)
-  : {};
-
-if (vuexStorage && vuexStorage.user && window.FS && window.location.hostname.includes('gamebrary')) {
-  const { displayName, email, dateJoined } = vuexStorage.user;
-
-  window.FS.identify(vuexStorage.user.uid, { displayName, email, dateJoined });
-}
-
-const locale = vuexStorage && vuexStorage.settings && vuexStorage.settings.language
-  ? vuexStorage.settings.language
-  : 'en';
-
+const locale = localStorage?.vuex?.settings?.language || 'en';
 const i18n = new VueI18n({ locale, messages });
 
 new Vue({

@@ -82,11 +82,11 @@ export default {
 
     getWallpaperUrl(url) {
       if (!url) return '';
-      if (url && url.includes('igdb.com')) return url;
+      if (url?.includes('igdb.com')) return url;
 
       const wallpaper = this.wallpapers.find(({ fullPath }) => fullPath === url);
 
-      return wallpaper && wallpaper.url ? decodeURI(wallpaper.url) : '';
+      return wallpaper?.url ? decodeURI(wallpaper.url) : '';
     },
 
     handleClick({ list, listIndex, board }) {

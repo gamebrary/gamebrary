@@ -65,9 +65,7 @@ export default {
     },
 
     isDuplicate() {
-      const { file, existingFiles } = this;
-
-      return file && file.name && existingFiles.includes(file.name);
+      return this.file?.name && this.existingFiles.includes(this.file?.name);
     },
 
     formattedSpaceUsed() {
@@ -78,9 +76,7 @@ export default {
 
     spaceUsed() {
       return this.wallpapers.reduce((total, { metadata }) => {
-        const size = metadata && metadata.size
-          ? metadata.size
-          : 0;
+        const size = metadata?.size || 0;
 
         return total + size;
       }, 0);
@@ -101,7 +97,7 @@ export default {
         this.loading = true;
         await this.$store.dispatch('LOAD_WALLPAPERS');
       } catch (e) {
-        // 
+        //
       }
 
       this.loading = false;

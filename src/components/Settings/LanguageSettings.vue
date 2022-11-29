@@ -34,11 +34,7 @@ export default {
   },
 
   mounted() {
-    const { settings } = this;
-
-    this.language = settings && settings.language
-      ? settings.language
-      : 'en';
+    this.language = this.settings?.language || 'en';
   },
 
   methods: {
