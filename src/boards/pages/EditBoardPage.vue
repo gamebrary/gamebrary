@@ -40,7 +40,7 @@
         @submit.stop.prevent="saveBoard"
       >
         <b-row>
-          <b-col cols="4" offset="2">
+          <b-col cols="12" sm="6" md="4" offset-md="2">
               <b-form-group
                 label="Board name"
                 label-for="name"
@@ -130,8 +130,6 @@
                 </div>
               </div>
 
-              <hr class="my-3">
-
               <mini-board
                 v-if="board.backgroundUrl || board.backgroundColor"
                 class="mb-3"
@@ -139,24 +137,27 @@
                 :board="board"
               />
 
-              <b-button
-                variant="primary"
-                :disabled="saving"
-                type="submit"
-              >
-                <b-spinner small v-if="saving" />
-                <span v-else>{{ $t('global.save') }}</span>
-              </b-button>
+              <div class="mt-2 d-none d-sm-inline">
+                <b-button
+                  variant="primary"
+                  :disabled="saving"
+                  type="submit"
+                >
+                  <b-spinner small v-if="saving" />
+                  <span v-else>{{ $t('global.save') }}</span>
+                </b-button>
 
-              <b-button
-                variant="link"
-                @click="confirmDeleteBoard"
-              >
-                {{ $t('board.settings.deleteBoard') }}
-              </b-button>
+                <b-button
+                  variant="outline-danger"
+                  class="mx-2"
+                  @click="confirmDeleteBoard"
+                >
+                  {{ $t('board.settings.deleteBoard') }}
+                </b-button>
+              </div>
             </b-col>
 
-            <b-col cols="4">
+            <b-col cols="12" sm="6" md="4">
               <template v-if="board.type === 'tier'">
                 <h4>Tiers</h4>
 
@@ -185,7 +186,16 @@
               </template>
 
               <template v-else>
-                Lists
+                <div class="mt-2 d-flex justify-content-between align-items-center">
+                  Lists
+
+                  <b-button
+                    v-if="lists.length > 1"
+                    v-b-modal.editListsOrder
+                  >
+                    Edit list order
+                  </b-button>
+                </div>
 
                 <div
                   v-for="(list, index) in lists"
@@ -289,14 +299,6 @@
                 </div>
               </template>
 
-              <b-button
-                v-b-modal.editListsOrder
-                block
-                variant="info"
-              >
-                Edit lists order
-              </b-button>
-
               <b-modal
                 id="editListsOrder"
                 title="BootstrapVue"
@@ -304,28 +306,48 @@
               >
                 <template v-slot:modal-header="{ close }">
                   <modal-header
-                    title="Change lists order"
+                    title="Change list order"
                     subtitle=""
                     @close="close"
                   />
                 </template>
 
-                <draggable
-                  :list="lists"
-                  animation="500"
-                >
-                  <div
-                    v-for="(list, index) in lists"
-                    class="mb-2"
-                    :key="index"
+                <b-list-group>
+                  <draggable
+                    :list="lists"
+                    animation="500"
                   >
-                    <i class="fa-solid fa-grip-vertical fa-fw" />
-                    {{ list.name }}
-                  </div>
-                </draggable>
+                    <b-list-group-item
+                      v-for="(list, index) in lists"
+                      :key="index"
+                    >
+                      <i class="fa-solid fa-grip-vertical fa-fw" />
+                      {{ list.name }}
+                    </b-list-group-item>
+                  </draggable>
+                </b-list-group>
               </b-modal>
           </b-col>
         </b-row>
+
+        <div class="mt-2 d-sm-none">
+          <b-button
+            variant="primary"
+            :disabled="saving"
+            type="submit"
+          >
+            <b-spinner small v-if="saving" />
+            <span v-else>{{ $t('global.save') }}</span>
+          </b-button>
+
+          <b-button
+            variant="outline-danger"
+            class="mx-2"
+            @click="confirmDeleteBoard"
+          >
+            {{ $t('board.settings.deleteBoard') }}
+          </b-button>
+        </div>
       </form>
     </b-container>
   </section>
