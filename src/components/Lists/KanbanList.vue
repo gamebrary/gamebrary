@@ -71,12 +71,13 @@
       >
         <component
           v-for="gameId in sortedGames"
+          :ref="gameId"
           :id="gameId"
           :is="gameCardComponent"
           :key="gameId"
           :list="list"
           :game-id="gameId"
-          :class="{ 'mb-2': listView !== 'covers'}"
+          :class="{ 'mb-2': listView !== 'covers', 'border-success': highlightedGame == gameId }"
           @click.native="openGame(gameId, list)"
         />
 
@@ -130,6 +131,7 @@ export default {
   data() {
     return {
       draggingId: null,
+      highlightedGame: null,
       editing: false,
       gameCardComponents: {
         single: 'GameCardDefault',
@@ -212,6 +214,20 @@ export default {
       } catch (e) {
         // this.$bvToast.toast(`There was an error adding "${this.game.name}"`, { title: list.name, variant: 'danger' });
       }
+
+      this.highlightGame(gameId);
+    },
+
+    highlightGame(gameId) {
+      this.highlightedGame = gameId;
+
+      const [gameRef] = this.$refs[gameId];
+
+      gameRef.$el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      setTimeout(() => {
+        this.highlightedGame = null;
+      }, 2000);
     },
 
     async removeGame() {
