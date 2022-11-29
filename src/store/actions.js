@@ -562,10 +562,13 @@ export default {
     });
   },
 
-  LOAD_GAMES({ state, commit }, gameList) {
+  LOAD_GAMES({ state, commit }, games) {
     return new Promise((resolve, reject) => {
-      axios.get(`${API_BASE}/games?games=${gameList}&token=${state.twitchToken.access_token}`)
+      const data = `fields id,name,slug,rating,release_dates.*,name,cover.image_id; where id = (${ games }); limit 500;`;
+
+      axios.get(`${API_BASE}/igdb?token=${state.twitchToken.access_token}&path=games&data=${data}`)
         .then(({ data }) => {
+          console.log('data from IGDB', data);
           commit('CACHE_GAME_DATA', data);
           resolve(data);
         }).catch(reject);

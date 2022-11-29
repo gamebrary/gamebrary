@@ -106,45 +106,6 @@ exports.platforms = functions.https.onRequest((req, res) => {
     .catch((error) => { res.send(error); });
 });
 
-exports.games = functions.https.onRequest((req, res) => {
-  res.set('Access-Control-Allow-Origin', "*")
-
-  const { games, token } = req.query;
-
-  if (!token) {
-    return res.status(400).send('missing token');
-  }
-
-  if (!games) {
-    return res.status(400).send('missing games');
-  }
-
-  const data = `fields
-  id,
-  name,
-  slug,
-  rating,
-  release_dates.*,
-  name,
-  cover.image_id;
-
-  where id = (${ games });
-  limit 500;`;
-
-  axios({
-    url: 'https://api.igdb.com/v4/games',
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Client-ID': functions.config().twitch.clientid,
-      'Authorization': `Bearer ${token}`,
-    },
-    data,
-  })
-    .then(({ data }) => { res.status(200).send(data) })
-    .catch((error) => { res.send(error) });
-});
-
 exports.game = functions.https.onRequest((req, res) => {
   res.set('Access-Control-Allow-Origin', "*")
 

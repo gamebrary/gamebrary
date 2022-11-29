@@ -140,7 +140,6 @@ export default {
 
   methods: {
     async loadBoard() {
-      // TODO: use IGDB action to get game data
       this.loading = !this.isBoardCached;
 
       await this.$store.dispatch('LOAD_BOARD', this.boardId)
