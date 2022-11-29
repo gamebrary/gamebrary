@@ -67,22 +67,6 @@ export default {
     return gameNews;
   },
 
-  platforms: (state) => {
-    const platforms = state.platforms
-      .filter(({ id }) => !EXCLUDED_PLATFORMS.includes(id))
-      .map(platform => ({
-        // ...platform,
-        id: platform.id,
-        generation: platform.generation,
-        name: platform.name,
-        slug: platform.slug,
-        category: PLATFORM_CATEGORIES[platform.category],
-        ...PLATFORM_OVERRIDES[platform.id],
-      }));
-
-    return platforms;
-  },
-
   gameMedia: (state) => {
     const steamVideos = state.game?.steam?.movies?.map((video) => {
       const hiQuality = video?.mp4?.max;
