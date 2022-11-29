@@ -4,7 +4,6 @@
     :class="['list rounded pl-3', listView, { dragging, 'unique': singleList }]"
     :id="listIndex"
   >
-    <pre class="text-light">{{ list.view }}</pre>
     <b-card
       no-body
       :bg-variant="darkTheme ? 'info' : 'light'"
@@ -170,7 +169,7 @@ export default {
     },
 
     isEmpty() {
-      return this.list.games.length === 0;
+      return this.list?.games?.length === 0;
     },
 
     singleList() {
@@ -185,16 +184,12 @@ export default {
       // TODO: use values from constant
       const availableViews = Object.keys(this.gameCardComponents);
 
-      console.log('view', this.listView);
-
       return availableViews?.includes(this.listView)
         ? this.gameCardComponents[this.listView]
         : 'GameCardDefault';
     },
 
     listView() {
-      console.log(this.list);
-
       return this.list?.view || LIST_VIEW_SINGLE;
     },
   },
