@@ -142,8 +142,8 @@ export default {
     };
   },
 
-  CACHE_GAME_DATA(state, data) {
-    data.forEach((game) => {
+  CACHE_GAME_DATA(state, games) {
+    games.forEach((game) => {
       Vue.set(state.games, game.id, { ...game });
     });
   },
