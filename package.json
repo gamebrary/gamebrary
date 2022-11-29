@@ -30,6 +30,8 @@
     "firebase-admin": "^9.2.0",
     "firebase-functions": "^3.11.0",
     "firebaseui": "^4.8.0",
+    "linkify-html": "^4.0.2",
+    "linkifyjs": "^4.0.2",
     "lodash.chunk": "^4.2.0",
     "lodash.groupby": "^4.6.0",
     "lodash.merge": "^4.6.2",

@@ -1,4 +1,3 @@
-<!-- TODO: use linkify https://github.com/Hypercontext/linkifyjs / http://localhost:4000/g/144072/hot-wheels-unleashed/news -->
 <!-- TODO: find out all possible news sources and add constant entries -->
 <!-- TODO: make game cover sticky -->
 <template lang="html">

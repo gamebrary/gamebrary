@@ -4,6 +4,8 @@ import slugify from 'slugify'
 import bbobHTML from '@bbob/html'
 import presetHTML5 from '@bbob/preset-html5'
 import orderby from 'lodash.orderby';
+import * as linkify from 'linkifyjs';
+import linkifyHtml from 'linkify-html';
 
 export default {
   latestRelease: ({ releases }) => releases?.[0]?.tag_name || 'v1',
@@ -47,6 +49,7 @@ export default {
       });
 
       const contents = article?.contents?.replaceAll('{STEAM_CLAN_IMAGE}', 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/clans/');
+      const formattedContent = linkifyHtml(contents, { defaultProtocol: 'https', target: '_blank' });
 
       return {
         title: article.title,
@@ -54,7 +57,7 @@ export default {
         url: article.url,
         author: article?.author || null,
         date: new Date(article.date * 1000).toLocaleDateString("en-US", { dateStyle: 'short' }),
-        contents: bbobHTML(contents, presetHTML5()),
+        contents: bbobHTML(formattedContent, presetHTML5()),
         source: NEWS_SOURCES?.[feedSlug] || `MISING: ${article?.feedname} | ${feedSlug}`,
         tags: article.tags,
       };
