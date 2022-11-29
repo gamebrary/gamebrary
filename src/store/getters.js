@@ -48,8 +48,9 @@ export default {
         strict: true,
       });
 
-      const contents = article?.contents?.replaceAll('{STEAM_CLAN_IMAGE}', 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/clans/');
-      const formattedContent = linkifyHtml(contents, { defaultProtocol: 'https', target: '_blank' });
+      const sanitizedContents = article?.contents?.replaceAll('{STEAM_CLAN_IMAGE}', 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/clans/');
+      const html = bbobHTML(sanitizedContents, presetHTML5());
+      const contents = linkifyHtml(html, { defaultProtocol: 'https', target: '_blank' });
 
       return {
         title: article.title,
@@ -57,7 +58,7 @@ export default {
         url: article.url,
         author: article?.author || null,
         date: new Date(article.date * 1000).toLocaleDateString("en-US", { dateStyle: 'short' }),
-        contents: bbobHTML(formattedContent, presetHTML5()),
+        contents,
         source: NEWS_SOURCES?.[feedSlug] || `MISING: ${article?.feedname} | ${feedSlug}`,
         tags: article.tags,
       };
