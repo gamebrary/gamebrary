@@ -8,7 +8,7 @@
         <p>{{ company.description }}</p>
         <img
           v-if="company.logo"
-          :src="$options.getGameCoverUrl({ cover: { image_id: company.logo.image_id } })"
+          :src="$options.getGameCoverUrl(company.logo.image_id)"
           alt="company.name"
           width="100"
         />
@@ -25,7 +25,7 @@
             lg="2"
           >
             <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}">
-              <b-img :src="$options.getGameCoverUrl(game)" alt="" fluid class="rounded" />
+              <b-img :src="$options.getGameCoverUrl(game.cover.image_id)" alt="" fluid class="rounded" />
               <br />
               <small>{{ game.name }}</small>
             </router-link>
@@ -44,7 +44,7 @@
             lg="2"
           >
             <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}">
-              <b-img :src="$options.getGameCoverUrl(game)" alt="" fluid class="rounded" />
+              <b-img :src="$options.getGameCoverUrl(game.cover.image_id)" alt="" fluid class="rounded" />
               <br />
               <small>{{ game.name }}</small>
             </router-link>

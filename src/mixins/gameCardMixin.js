@@ -1,6 +1,9 @@
 import { mapState, mapGetters } from 'vuex';
+import { getGameCoverUrl } from '@/utils';
 
 export default {
+  getGameCoverUrl,
+
   props: {
     list: {
       type: Object,
@@ -45,14 +48,6 @@ export default {
 
     game() {
       return this.games[this.gameId];
-    },
-
-    coverUrl() {
-      const game = this.games[this.gameId];
-
-      return game?.cover?.image_id
-        ? `https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.cover.image_id}.jpg`
-        : '/no-image.jpg';
     },
   },
 };

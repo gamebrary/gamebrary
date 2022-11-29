@@ -51,7 +51,7 @@
             :class="['text-center', { 'has-backdrop': backdrop }]"
           >
             <b-img
-              :src="gameCoverUrl"
+              :src="$options.getGameCoverUrl(game.cover.image_id)"
               :alt="game.name"
               v-b-modal.mediaModal
               rounded
@@ -190,8 +190,11 @@ import SimilarGames from '@/components/Game/SimilarGames';
 // import GameSpeedruns from '@/components/Game/GameSpeedruns';
 import GameNote from '@/components/GameNote';
 import { STEAM_CATEGORY_ID, GOG_CATEGORY_ID, TWITTER_CATEGORY_ID } from '@/constants';
+import { getGameCoverUrl } from '@/utils';
 
 export default {
+  getGameCoverUrl,
+
   components: {
     // AmazonLinks,
     GameNote,
@@ -223,7 +226,7 @@ export default {
       return {
         height: artwork.height,
         width: artwork.width,
-        url: `https://images.igdb.com/igdb/image/upload/t_screenshot_huge_2x/${artwork.image_id}.jpg`,
+        url: getGameCoverUrl(artwork.image_id, 't_screenshot_huge_2x'),
       }
     },
 
@@ -267,14 +270,6 @@ export default {
     //     ? twitterUrl.url.split('twitter.com/')[1]
     //     : null;
     // },
-
-    gameCoverUrl() {
-      const imageId = this.game?.cover?.image_id;
-
-      return imageId
-        ? `https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${imageId}.jpg`
-        : '/no-image.jpg';
-    },
 
     gameId() {
       return this.$route.params.id;

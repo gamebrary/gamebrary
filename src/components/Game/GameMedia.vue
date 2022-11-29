@@ -99,15 +99,6 @@
               />
             </div>
           </div>
-          <!-- <b-img
-            v-for="(media, index) in gameMedia"
-            :key="media.imageUrl"
-            :src="media.imageUrl"
-            rounded
-            style="height: 80px"
-            :class="['cursor-pointer mr-2 align-self-start', { 'border-selected': activeIndex === index}]"
-            @click="viewMedia(index)"
-          /> -->
         </footer>
       </div>
     </b-modal>
@@ -116,11 +107,8 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import { getGameCoverUrl } from '@/utils';
 
 export default {
-  getGameCoverUrl,
-
   data() {
     return {
       activeIndex: null,

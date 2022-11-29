@@ -44,7 +44,8 @@
           @click="selectGame(game.id)"
         >
           <b-card-img
-            :src="$options.getThumbnailUrl(game)"
+            v-if="game.cover"
+            :src="$options.getGameCoverUrl(game.cover.image_id, 't_cover_small_2x')"
             alt="Image"
             class="game-thumbnail rounded"
           />
@@ -71,10 +72,10 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import { getThumbnailUrl } from '@/utils';
+import { getGameCoverUrl } from '@/utils';
 
 export default {
-  getThumbnailUrl,
+  getGameCoverUrl,
 
   props: {
     block: Boolean,

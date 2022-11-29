@@ -48,7 +48,7 @@
         :key="gameId"
         class="game cursor-pointer rounded ml-2"
         fluid
-        :src="$options.getThumbnailUrl(games[gameId])"
+        :src="$options.getGameCoverUrl(games[gameId].cover.image_id, 't_cover_med_2x')"
         @click="openGame(gameId)"
       />
     </draggable>
@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { getThumbnailUrl } from '@/utils';
+import { getGameCoverUrl } from '@/utils';
 import draggable from 'vuedraggable';
 import slugify from 'slugify'
 import orderby from 'lodash.orderby';
@@ -65,7 +65,7 @@ import gameCardMixin from '@/mixins/gameCardMixin';
 import GameSelector from '@/components/GameSelector';
 
 export default {
-  getThumbnailUrl,
+  getGameCoverUrl,
 
   mixins: [gameCardMixin],
 

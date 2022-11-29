@@ -28,37 +28,6 @@
       @click.native="openGame(game.id, list)"
     />
 
-    <!-- <b-card
-      no-body
-      :bg-variant="darkTheme ? 'info' : 'white'"
-      :text-variant="darkTheme ? 'white' : 'dark'"
-      class=" flex-row align-items-center cursor-pointer"
-      v-for="(game, index) in listGames"
-      :key="index"
-      @click="openGame(game.id, list)"
-    >
-      <b-img
-        v-if="game"
-        :src="$options.getThumbnailUrl(game)"
-        :alt="game.name"
-        class="m-2 game-cover"
-        rounded
-        fluid
-        />
-
-      <h3 class="d-flex mr-2 w-100 px-3 align-items-center">
-        <b-avatar
-          v-if="board.ranked"
-          variant="light"
-          class="mr-2"
-          >
-          {{ index + 1 }}
-        </b-avatar>
-
-        {{ game.name }}
-      </h3>
-    </b-card> -->
-
     <game-selector
       :filter="filter"
       title="Add games"
@@ -76,13 +45,10 @@ import slugify from 'slugify'
 import orderby from 'lodash.orderby';
 import GameSelector from '@/components/GameSelector';
 import { mapState, mapGetters } from 'vuex';
-import { getThumbnailUrl } from '@/utils';
 import GameCardStandard from '@/components/GameCards/GameCardStandard';
 
 
 export default {
-  getThumbnailUrl,
-
   components: {
     draggable,
     GameCardStandard,

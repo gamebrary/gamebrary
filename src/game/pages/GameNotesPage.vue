@@ -43,7 +43,7 @@
             :to="{ name: 'game', params: { id: game.id, slug: game.slug }}"
             class="float-right"
           >
-            <b-img :src="gameCoverUrl" fluid rounded />
+            <b-img :src="$options.getGameCoverUrl(game.cover.image_id, 't_cover_small_2x')" fluid rounded />
           </router-link>
         </b-col>
 
@@ -106,10 +106,11 @@
 import { mapState } from 'vuex';
 
 import GameNote from '@/components/GameNote';
-// TODO: consolidate getGameCoverUrl
 import { getGameCoverUrl } from '@/utils';
 
 export default {
+  getGameCoverUrl,
+
   components: {
     GameNote,
   },
@@ -126,10 +127,6 @@ export default {
 
   computed: {
     ...mapState(['notes', 'game', 'games']),
-
-    gameCoverUrl() {
-      return getGameCoverUrl(this.game);
-    },
   },
 
   mounted() {

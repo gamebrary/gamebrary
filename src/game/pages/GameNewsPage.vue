@@ -26,7 +26,7 @@
       <b-row v-else>
         <b-col cols="12" sm="4">
           <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}" class="float-right">
-            <b-img :src="gameCoverUrl" fluid rounded />
+            <b-img :src="$options.getGameCoverUrl(game.cover.image_id)" fluid rounded />
           </router-link>
         </b-col>
 
@@ -75,6 +75,7 @@ import { getGameCoverUrl } from '@/utils';
 import { NEWS_SOURCES } from '@/constants';
 
 export default {
+  getGameCoverUrl,
 
   data() {
     return {
@@ -85,10 +86,6 @@ export default {
   computed: {
     ...mapState(['game']),
     ...mapGetters(['gameNews', 'darkTheme']),
-
-    gameCoverUrl() {
-      return getGameCoverUrl(this.game);
-    },
 
     steamAppId() {
       const steamUrl = this.game?.websites?.find(({ category }) => category === 13)?.url;

@@ -66,7 +66,7 @@
                     :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug }}"
                   >
                     <b-img
-                      :src="getCoverUrl(game.id)"
+                      :src="$options.getGameCoverUrl(game.cover.image_id, 't_cover_small_2x')"
                       class="cursor-pointer rounded"
                       width="30"
                     />
@@ -93,8 +93,11 @@
 import EmptyState from '@/components/EmptyState';
 import GameSelector from '@/components/GameSelector';
 import { mapState, mapGetters } from 'vuex';
+import { getGameCoverUrl } from '@/utils';
 
 export default {
+  getGameCoverUrl,
+
   components: {
     EmptyState,
     GameSelector,
@@ -161,14 +164,6 @@ export default {
       }
 
       this.loading = false;
-    },
-
-    getCoverUrl(gameId) {
-      const game = this.games[gameId];
-
-      return game?.cover?.image_id
-        ? `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${game.cover.image_id}.jpg`
-        : '/no-image.jpg';
     },
   },
 };

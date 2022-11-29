@@ -59,15 +59,10 @@
 
 <script>
 import { mapState } from 'vuex';
-import { getGameCoverUrl } from '@/utils';
 
 export default {
   computed: {
     ...mapState(['tags', 'game']),
-
-    gameCoverUrl() {
-      return getGameCoverUrl(this.game);
-    },
 
     isEmpty() {
       return this.tags.length === 0 || !this.game;

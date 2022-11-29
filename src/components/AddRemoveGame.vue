@@ -45,7 +45,6 @@
 
 <script>
 import { mapState } from 'vuex';
-import { getGameCoverUrl } from '@/utils';
 
 export default {
   data() {
@@ -68,10 +67,6 @@ export default {
 
     gameId() {
       return this.$route.params.id
-    },
-
-    coverUrl() {
-      return getGameCoverUrl(this.game);
     },
   },
 

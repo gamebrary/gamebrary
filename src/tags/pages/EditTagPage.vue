@@ -93,7 +93,7 @@
           <b-img
             v-for="game in tag.games"
             :key="game"
-            :src="getCoverUrl(game)"
+            :src="$options.getGameCoverUrl(games[game].cover.image_id, 't_cover_small_2x')"
             class="cursor-pointer rounded mr-2 mb-2"
             @click="$router.push({ name: 'game', params: { id: games[game].id, slug: games[game].slug }})"
           />
@@ -106,9 +106,12 @@
 <script>
 import VSwatches from 'vue-swatches'
 import GameSelector from '@/components/GameSelector';
+import { getGameCoverUrl } from '@/utils';
 import { mapState } from 'vuex';
 
 export default {
+  getGameCoverUrl,
+
   data() {
     return {
       tag: {},
@@ -149,14 +152,6 @@ export default {
       await this.$store.dispatch('LOAD_GAMES', [gameId]);
 
       this.tag = JSON.parse(JSON.stringify(tags[tagIndex]));
-    },
-
-    getCoverUrl(gameId) {
-      const game = this.games[gameId];
-
-      return game?.cover?.image_id
-        ? `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${game.cover.image_id}.jpg`
-        : '/no-image.jpg';
     },
 
     async load() {

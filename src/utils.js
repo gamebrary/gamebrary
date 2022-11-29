@@ -10,11 +10,10 @@ export const bytesToSize = (bytes) => {
   return `${Math.round(bytes / (1024 ** i), 2)} ${sizes[i]}`;
 };
 
-// TODO: rename to something more generic, this also works for companies
-export const getGameCoverUrl = (game) => {
-  return game?.cover?.image_id
-    ? `https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.cover.image_id}.jpg`
-    : '/no-image.jpg';
+export const getGameCoverUrl = (imageId, size = 't_cover_big_2x') => {
+  return imageId
+    ? `https://images.igdb.com/igdb/image/upload/${size}/${imageId}.jpg`
+    : '/placeholder.gif';
 };
 
 export const getFileExtension = (fileName) => {
@@ -25,12 +24,6 @@ export const getImageThumbnail = (image) => {
   const fileExtension = getFileExtension(image);
 
   return image?.replace(`.${fileExtension}`, `${THUMBNAIL_PREFIX}.${fileExtension}`);
-};
-
-export const getThumbnailUrl = (game) => {
-  return game?.cover?.image_id
-    ? `https://images.igdb.com/igdb/image/upload/t_cover_med_2x/${game.cover.image_id}.jpg`
-    : '/no-image.jpg';
 };
 
 export const setPageTitle = (title) => {
