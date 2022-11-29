@@ -66,7 +66,7 @@ import TierBoard from '@/components/Board/TierBoard';
 import StandardBoard from '@/components/Board/StandardBoard';
 import chunk from 'lodash.chunk';
 import { getImageThumbnail } from '@/utils';
-import { BOARD_TYPE_STANDARD, BOARD_TYPE_TIER } from '@/constants';
+import { BOARD_TYPE_STANDARD, BOARD_TYPE_TIER, MAX_QUERY_LIMIT } from '@/constants';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
@@ -83,7 +83,6 @@ export default {
   data() {
     return {
       loading: true,
-      queryLimit: 500,
       avatarImage: null,
       backgroundUrl: null,
       publicProfile: {},
@@ -198,7 +197,7 @@ export default {
         return boardGames;
       }
 
-      return boardGames.length > this.queryLimit
+      return boardGames.length > MAX_QUERY_LIMIT
         ? this.loadGamesInChunks(boardGames)
         : this.loadGames(boardGames);
     },
@@ -213,10 +212,10 @@ export default {
     },
 
     loadGamesInChunks(gameList) {
-      const chunkedGameList = chunk(gameList, this.queryLimit);
+      const chunkedGameList = chunk(gameList, MAX_QUERY_LIMIT);
 
-      chunkedGameList.forEach((gameListChunk) => {
-        this.loadGames(gameListChunk);
+      chunkedGameList.forEach((gameList) => {
+        this.loadGames(gameList);
       });
     },
   },

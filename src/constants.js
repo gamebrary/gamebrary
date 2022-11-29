@@ -19,6 +19,8 @@ export const SORT_TYPE_ALPHABETICALLY = 'alphabetically';
 export const SORT_TYPE_RATING = 'rating';
 export const SORT_TYPE_PROGRESS = 'progress';
 
+export const MAX_QUERY_LIMIT = 500;
+
 export const BOARD_TYPES = [
   { text: 'Standard', value: BOARD_TYPE_STANDARD },
   { text: 'Kanban', value: BOARD_TYPE_KANBAN },
