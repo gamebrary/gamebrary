@@ -50,7 +50,7 @@ export default {
     },
 
     async loadGames() {
-      await this.$store.dispatch('LOAD_GAMES', this.similarGameIds.toString());
+      await this.$store.dispatch('LOAD_GAMES', this.similarGameIds);
 
       this.similarGames = this.similarGameIds?.map(game => this.games?.[game]);
     },
