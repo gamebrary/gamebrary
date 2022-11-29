@@ -53,7 +53,7 @@ export default {
       }
 
       if (this.user?.uid) {
-        this.$router.replace({ name: 'home' });
+        this.$router.replace({ name: 'boards' });
       } else {
         this.startAuthUI();
       }
