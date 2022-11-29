@@ -57,7 +57,9 @@ export default {
   },
 
   async mounted() {
-    this.platforms = await this.$store.dispatch('LOAD_IGDB_PLATFORMS');
+    const data = `fields category,generation,name,alternative_name,slug; limit 200;`;
+    this.platforms = await this.$store.dispatch('IGDB', { path: 'platforms', data });
+
     this.loadGames();
   },
 

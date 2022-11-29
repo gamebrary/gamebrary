@@ -41,15 +41,6 @@ export default {
     });
   },
 
-  LOAD_IGDB_PLATFORMS({ state, commit }) {
-    return new Promise((resolve, reject) => {
-      axios.get(`${API_BASE}/platforms?token=${state.twitchToken.access_token}`)
-        .then(({ data }) => {
-          resolve(data);
-        }).catch(reject);
-    });
-  },
-
   IGDB({ state }, { path, data }) {
     return new Promise((resolve, reject) => {
       axios.get(`${API_BASE}/igdb?token=${state.twitchToken.access_token}&path=${path}&data=${data}`)

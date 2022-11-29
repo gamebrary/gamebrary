@@ -76,36 +76,6 @@ exports.refreshToken = functions.pubsub.schedule('0 0 * * 0')
       .catch(() => {});
   });
 
-exports.platforms = functions.https.onRequest((req, res) => {
-  res.set('Access-Control-Allow-Origin', '*');
-
-  const { token } = req.query;
-
-  if (!token) {
-    return res.status(400).send('missing token');
-  }
-
-  const data = `
-    fields category,generation,name,alternative_name,slug;
-    limit 200;
-  `;
-
-  axios({
-    url: 'https://api.igdb.com/v4/platforms',
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Client-ID': functions.config().twitch.clientid,
-      'Authorization': `Bearer ${token}`,
-    },
-    data,
-  })
-    .then(({ data }) => {
-      res.status(200).send(data)
-    })
-    .catch((error) => { res.send(error); });
-});
-
 exports.igdb = functions.https.onRequest((req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
 

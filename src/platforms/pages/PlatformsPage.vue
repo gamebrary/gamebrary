@@ -29,12 +29,14 @@ export default {
 
   methods: {
     async loadPlatforms() {
-      const platforms = await this.$store.dispatch('LOAD_IGDB_PLATFORMS')
-        .catch(() => {
-          this.$bvToast.toast('There was an error loading platforms', { variant: 'error' });
-        });
+      try {
+        const data = `fields category,generation,name,alternative_name,slug; limit 200;`;
+        const platforms = await this.$store.dispatch('IGDB', { path: 'platforms', data });
 
-      this.platforms = orderby(platforms, 'name');
+        this.platforms = orderby(platforms, 'name');
+      } catch (e) {
+        this.$bvToast.toast('There was an error loading platforms', { variant: 'error' });
+      }
     },
   },
 };
