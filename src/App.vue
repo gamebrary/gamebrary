@@ -16,6 +16,7 @@
 
     <template v-else>
       <page-header />
+      <side-bar v-if="user" />
       <router-view class="viewport" />
       <keyboard-shortcuts-modal />
       <markdown-cheatsheet />
@@ -27,6 +28,7 @@
 import MarkdownCheatsheet from '@/components/MarkdownCheatsheet';
 import KeyboardShortcutsModal from '@/components/KeyboardShortcutsModal';
 import PageHeader from '@/components/PageHeader';
+import SideBar from '@/components/SideBar';
 import sessionMixin from '@/mixins/sessionMixin';
 import firebase from 'firebase/app';
 import { mapState, mapGetters } from 'vuex';
@@ -41,6 +43,7 @@ export default {
     PageHeader,
     MarkdownCheatsheet,
     KeyboardShortcutsModal,
+    SideBar,
   },
 
   mixins: [sessionMixin],

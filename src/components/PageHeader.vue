@@ -4,8 +4,7 @@
 // import LanguageSettings from '@/components/Settings/LanguageSettings'; -->
 
 <template lang="html">
-  <header class="py-2 px-3 d-flex position-fixed w-100">
-    <side-bar v-if="user" />
+  <header class="py-2 px-3 d-flex position-fixed w-100">    
 
     <b-button
       v-if="user"
@@ -61,12 +60,10 @@
 <script>
 import { mapState } from 'vuex';
 import SearchBox from '@/components/SearchBox';
-import SideBar from '@/components/SideBar';
 
 export default {
   components: {
     SearchBox,
-    SideBar,
   },
 
   computed: {
