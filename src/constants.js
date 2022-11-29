@@ -306,8 +306,6 @@ export const SUPPORTED_LANGUAGES = [
   { name: 'Spanish', nativeName: 'Español', value: 'es' },
 ];
 
-// TODO: verify and udpate if needed
-// https://api-docs.igdb.com/#age-rating-enums
 export const AGE_RATING_SYSTEMS = {
   1: {
     id: 'ESRB',
