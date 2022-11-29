@@ -1,4 +1,3 @@
-<!-- TODO: fix error loading games on public board -->
 <!-- TODO: clone/fork board -->
 <!-- TODO: like/favorite board -->
 <template lang="html">
