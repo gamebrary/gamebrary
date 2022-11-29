@@ -46,9 +46,6 @@ export default {
   },
 
   methods: {
-    openGame(game) {
-    },
-
     async loadGames() {
       await this.$store.dispatch('LOAD_GAMES', this.similarGameIds);
 
