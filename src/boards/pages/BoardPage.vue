@@ -202,10 +202,11 @@ export default {
     },
 
     async loadGames(gameList) {
-      await this.$store.dispatch('LOAD_GAMES', gameList.toString())
-        .catch(() => {
-          this.$bvToast.toast('Error loading games', { variant: 'error' });
-        });
+      try {
+        await this.$store.dispatch('LOAD_GAMES', gameList)
+      } catch (e) {
+        this.$bvToast.toast('Error loading games', { variant: 'error' });
+      }
 
       this.loading = false;
     },
