@@ -1,4 +1,5 @@
 <!-- TODO: improve text contrast when dark theme or bg is on -->
+<!-- TODO: load game franchises -->
 <!-- TODO: integrate with twitch -->
 <!-- TODO: show bundles -->
 <!-- TODO: show game right away, load steam and GOG in background -->
@@ -354,6 +355,7 @@ export default {
       this.$bus.$emit('CLEAR_WALLPAPER');
       this.$store.commit('CLEAR_GAME');
 
+      // TODO: use IGDB action instead
       await this.$store.dispatch('LOAD_GAME', this.gameId).catch(() => {});
 
       setPageTitle(this.game?.name);

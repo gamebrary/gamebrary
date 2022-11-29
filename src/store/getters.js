@@ -24,6 +24,7 @@ export default {
   isRTL: ({ settings }) => settings?.language !== 'ar',
 
   platformNames: (state) => {
+    // TODO: use array map
     const formattedPlatforms = {};
 
     if (!state.platforms) {
