@@ -1,5 +1,5 @@
 import { NEWS_SOURCES, LINKS_CATEGORIES, PLATFORM_CATEGORIES, EXCLUDED_PLATFORMS, PLATFORM_OVERRIDES } from '@/constants';
-import { getGameCoverUrl } from '@/utils';
+import { getImageUrl } from '@/utils';
 import slugify from 'slugify'
 import bbobHTML from '@bbob/html'
 import presetHTML5 from '@bbob/preset-html5'
@@ -90,11 +90,11 @@ export default {
       }
     }) || [];
 
-    const igdbScreenshots = state.game?.screenshots?.map(({ image_id }) => ({ imageUrl: getGameCoverUrl(image_id, 't_screenshot_huge'), source: 'igdb', })) || [];
+    const igdbScreenshots = state.game?.screenshots?.map(({ image_id }) => ({ imageUrl: getImageUrl(image_id, 't_screenshot_huge'), source: 'igdb', })) || [];
     const steamScreenshots = state.game?.steam?.screenshots.map(({ path_full }) => ({ imageUrl: path_full, source: 'steam' })) || [];
 
     const gameCover = {
-      imageUrl: getGameCoverUrl(state.game?.cover?.image_id),
+      imageUrl: getImageUrl(state.game?.cover?.image_id),
       source: 'igdb',
       isCover: true,
     };
@@ -112,7 +112,7 @@ export default {
       };
     }) || [];
 
-    const igdbArtworks = state?.game?.artworks?.map(({ image_id }) => ({ imageUrl: getGameCoverUrl(image_id, 't_screenshot_huge'), source: 'igdb', })) || [];
+    const igdbArtworks = state?.game?.artworks?.map(({ image_id }) => ({ imageUrl: getImageUrl(image_id, 't_screenshot_huge'), source: 'igdb', })) || [];
 
     return [
       ...gogImages,

@@ -66,7 +66,7 @@
                     :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug }}"
                   >
                     <b-img
-                      :src="$options.getGameCoverUrl(game.cover.image_id, 't_cover_small_2x')"
+                      :src="$options.getImageUrl(game.cover.image_id, 't_cover_small_2x')"
                       class="cursor-pointer rounded"
                       width="30"
                     />
@@ -93,10 +93,10 @@
 import EmptyState from '@/components/EmptyState';
 import GameSelector from '@/components/GameSelector';
 import { mapState, mapGetters } from 'vuex';
-import { getGameCoverUrl } from '@/utils';
+import { getImageUrl } from '@/utils';
 
 export default {
-  getGameCoverUrl,
+  getImageUrl,
 
   components: {
     EmptyState,

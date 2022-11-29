@@ -11,7 +11,7 @@
         <b-img
           fluid
           rounded
-          :src="$options.getGameCoverUrl(game.cover.image_id, 't_cover_small_2x')"
+          :src="$options.getImageUrl(game.cover.image_id, 't_cover_small_2x')"
           :alt="game.name"
           img-top
         />
@@ -22,10 +22,10 @@
 
 <script>
 import { mapState } from 'vuex';
-import { getGameCoverUrl } from '@/utils';
+import { getImageUrl } from '@/utils';
 
 export default {
-  getGameCoverUrl,
+  getImageUrl,
 
   data() {
     return {

@@ -1,8 +1,8 @@
 import { mapState, mapGetters } from 'vuex';
-import { getGameCoverUrl } from '@/utils';
+import { getImageUrl } from '@/utils';
 
 export default {
-  getGameCoverUrl,
+  getImageUrl,
 
   props: {
     list: {

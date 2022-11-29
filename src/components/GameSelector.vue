@@ -45,7 +45,7 @@
         >
           <b-card-img
             v-if="game.cover"
-            :src="$options.getGameCoverUrl(game.cover.image_id, 't_cover_small_2x')"
+            :src="$options.getImageUrl(game.cover.image_id, 't_cover_small_2x')"
             alt="Image"
             class="game-thumbnail rounded"
           />
@@ -72,10 +72,10 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import { getGameCoverUrl } from '@/utils';
+import { getImageUrl } from '@/utils';
 
 export default {
-  getGameCoverUrl,
+  getImageUrl,
 
   props: {
     block: Boolean,

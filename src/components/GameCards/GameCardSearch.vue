@@ -1,7 +1,7 @@
 <template lang="html">
   <b-card
     v-if="game"
-    :img-src="$options.getGameCoverUrl(coverId)"
+    :img-src="$options.getImageUrl(coverId)"
     :img-alt="game.name"
     :class="['mb-3 cursor-pointer', { 'border-selected': selected }]"
     overlay
@@ -14,12 +14,12 @@
 </template>
 
 <script>
-import { getGameCoverUrl } from '@/utils';
+import { getImageUrl } from '@/utils';
 import { mapState } from 'vuex';
 import slugify from 'slugify'
 
 export default {
-  getGameCoverUrl,
+  getImageUrl,
 
   props: {
     game: {

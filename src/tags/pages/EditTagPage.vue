@@ -93,7 +93,7 @@
           <b-img
             v-for="game in tag.games"
             :key="game"
-            :src="$options.getGameCoverUrl(games[game].cover.image_id, 't_cover_small_2x')"
+            :src="$options.getImageUrl(games[game].cover.image_id, 't_cover_small_2x')"
             class="cursor-pointer rounded mr-2 mb-2"
             @click="$router.push({ name: 'game', params: { id: games[game].id, slug: games[game].slug }})"
           />
@@ -106,11 +106,11 @@
 <script>
 import VSwatches from 'vue-swatches'
 import GameSelector from '@/components/GameSelector';
-import { getGameCoverUrl } from '@/utils';
+import { getImageUrl } from '@/utils';
 import { mapState } from 'vuex';
 
 export default {
-  getGameCoverUrl,
+  getImageUrl,
 
   data() {
     return {

@@ -51,7 +51,7 @@
             :class="['text-center', { 'has-backdrop': backdrop }]"
           >
             <b-img
-              :src="$options.getGameCoverUrl(game.cover.image_id)"
+              :src="$options.getImageUrl(game.cover.image_id)"
               :alt="game.name"
               v-b-modal.mediaModal
               rounded
@@ -190,10 +190,10 @@ import SimilarGames from '@/components/Game/SimilarGames';
 // import GameSpeedruns from '@/components/Game/GameSpeedruns';
 import GameNote from '@/components/GameNote';
 import { STEAM_CATEGORY_ID, GOG_CATEGORY_ID, TWITTER_CATEGORY_ID } from '@/constants';
-import { getGameCoverUrl } from '@/utils';
+import { getImageUrl } from '@/utils';
 
 export default {
-  getGameCoverUrl,
+  getImageUrl,
 
   components: {
     // AmazonLinks,
@@ -226,7 +226,7 @@ export default {
       return {
         height: artwork.height,
         width: artwork.width,
-        url: getGameCoverUrl(artwork.image_id, 't_screenshot_huge_2x'),
+        url: getImageUrl(artwork.image_id, 't_screenshot_huge_2x'),
       }
     },
 

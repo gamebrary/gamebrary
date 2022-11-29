@@ -10,7 +10,7 @@ export const bytesToSize = (bytes) => {
   return `${Math.round(bytes / (1024 ** i), 2)} ${sizes[i]}`;
 };
 
-export const getGameCoverUrl = (imageId, size = 't_cover_big_2x') => {
+export const getImageUrl = (imageId, size = 't_cover_big_2x') => {
   return imageId
     ? `https://images.igdb.com/igdb/image/upload/${size}/${imageId}.jpg`
     : '/placeholder.gif';
