@@ -203,7 +203,6 @@ exports.game = functions.https.onRequest((req, res) => {
 });
 
 exports.igdb = functions.https.onRequest((req, res) => {
-  // TODO: restrict to our domains
   res.set('Access-Control-Allow-Origin', '*');
 
   const { path, data, token } = req.query;
