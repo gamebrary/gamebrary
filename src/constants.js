@@ -47,6 +47,8 @@ export const FEATURED_BOARDS = [
   'raHXfbMSJtQ9xNT8T6yC',
   'NSmHnEtQbjblUcwNKN0T',
   '022E7O53f6XpvO5VIz8D',
+  'xCIeZA1xXOXPM72IBgLo',
+  'LeOgZdJHmThKMEOzLn6g'
 ];
 
 // TODO: get games dynamically
