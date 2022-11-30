@@ -75,15 +75,6 @@ export const TRENDING_GAMES = [
   '125165',
 ];
 
-export const PLATFORM_CATEGORIES = {
-  1: 'console',
-  2: 'arcade',
-  3: 'platform',
-  4: 'operating_system',
-  5: 'portable_console',
-  6: 'computer',
-};
-
 export const DEFAULT_BOARD_BASE = {
   name: '',
   ranked: false,
