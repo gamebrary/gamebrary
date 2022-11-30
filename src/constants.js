@@ -204,19 +204,6 @@ export const KEYBOARD_SHORTCUTS = {
   ROUTE_settings: ['shift', 's'],
 };
 
-export const PLATFORM_NAME_OVERRIDES = {
-  6: 'Windows',
-  18: 'NES',
-  19: 'SNES',
-  21: 'GameCube',
-  150: 'PC Engine CD',
-  38: 'PSP',
-  163: 'Steam VR',
-  50: '3D0',
-  99: 'FAMICOM',
-  51: 'FAMICOM Disk System',
-};
-
 export const SUPPORTED_LANGUAGES = [
   { name: 'Arabic', nativeName: 'عربي', value: 'ar' },
   { name: 'Chinese (Simplified)', nativeName: '中文简体', value: 'zh-CN' },
@@ -309,10 +296,4 @@ export const AGE_RATING_SYSTEMS = {
 export const WEBSITE_CATEGORIES = {
   WIKIPEDIA: 3,
   AMAZON: 20,
-};
-
-export const PLATFORM_OVERRIDES = {
-  12: {
-    slug: 'xbox-360',
-  },
 };

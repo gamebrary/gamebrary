@@ -1,4 +1,4 @@
-import { NEWS_SOURCES, LINKS_CATEGORIES, EXCLUDED_PLATFORMS, PLATFORM_OVERRIDES } from '@/constants';
+import { NEWS_SOURCES, LINKS_CATEGORIES, EXCLUDED_PLATFORMS } from '@/constants';
 import { getImageUrl } from '@/utils';
 import slugify from 'slugify'
 import bbobHTML from '@bbob/html'
