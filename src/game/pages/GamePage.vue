@@ -121,30 +121,34 @@
                 v-if="note"
                 v-html="note"
                 show
-                class="cursor-pointer"
+                class="cursor-pointer mt-3"
                 variant="warning"
                 @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
               />
 
-              <game-details />
-              <p>Alternative names:</p>
+              <div class="mt-3" v-if="alternativeNames.length">
+                <p>Alternative names:</p>
 
-              <div
-                class="mb-1 small"
-                rounded
-                variant="light"
-                v-for="{ comment, id, name, imgUrl } in alternativeNames"
-                :key="id"
-              >
-                <b-avatar
-                  v-b-tooltip.hover
-                  :title="comment || null"
-                  size="sm"
-                  :src="imgUrl"
-                />
+                <div
+                  class="mb-1 small"
+                  variant="light"
+                  v-for="{ comment, id, name, imgUrl } in alternativeNames"
+                  :key="id"
+                >
+                  <b-avatar
+                    v-b-tooltip.hover
+                    :title="comment || null"
+                    size="sm"
+                    class="mr-1"
+                    :src="imgUrl"
+                  />
 
-                {{ name }}
+                  {{ name }}
+                </div>
               </div>
+
+              <game-details />
+
               <game-ratings />
             </article>
 
