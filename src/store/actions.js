@@ -1,6 +1,5 @@
 // TODO: use Fandom/Wikia API https://pokemon.fandom.com/api/v1/Articles/List?expand=2&category=characters&limit=10000
 import { FEATURED_BOARDS } from '@/constants';
-// TODO: split into chunks, match routes groups
 import axios from 'axios';
 import { firestore, storage } from 'firebase/app';
 import 'firebase/storage';
@@ -319,13 +318,6 @@ export default {
     });
   },
 
-  // db.collection("users")
-  // .doc("3P86VJxcpBK0D0lsAyYx")
-  // .set({
-  //   name: "Lee Kuan",
-  // });
-
-
   DELETE_PROFILE({ commit, state }) {
     return new Promise((resolve, reject) => {
       const db = firestore();
@@ -525,7 +517,6 @@ export default {
       lastUpdated: Date.now(),
     };
 
-    // TODO: commit mutation if we ever allow to add game directly from board
     return new Promise((resolve, reject) => {
       db.collection('boards')
         .doc(board.id)

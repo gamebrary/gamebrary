@@ -25,11 +25,9 @@ export default {
     state.board = {};
   },
 
-  // TODO: remove, deprecated
   SET_ACTIVE_BOARD(state, board) {
     state.board = board;
 
-    // Update board in boards
     const boardIndex = state.boards.findIndex(({ id }) => board.id === id);
 
     if (boardIndex) {
