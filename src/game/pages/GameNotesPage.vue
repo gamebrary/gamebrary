@@ -39,6 +39,8 @@
               rounded
             />
           </router-link>
+
+          <h3 class="mt-2">{{ game.name }}</h3>
         </b-col>
 
         <b-col cols="12" sm="9">
