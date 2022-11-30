@@ -191,7 +191,7 @@ import GameRatings from '@/components/Game/GameRatings';
 import GameDescription from '@/components/Game/GameDescription';
 import SimilarGames from '@/components/Game/SimilarGames';
 // import GameSpeedruns from '@/components/Game/GameSpeedruns';
-import { STEAM_CATEGORY_ID, GOG_CATEGORY_ID, TWITTER_CATEGORY_ID } from '@/constants';
+import { STEAM_CATEGORY_ID, GOG_CATEGORY_ID, TWITTER_CATEGORY_ID, IMAGE_SIZE_SCREENSHOT_HUGE } from '@/constants';
 import { getImageUrl } from '@/utils';
 
 export default {
@@ -227,7 +227,7 @@ export default {
       return {
         height: artwork.height,
         width: artwork.width,
-        url: getImageUrl(artwork.image_id, 't_screenshot_huge_2x'),
+        url: getImageUrl(artwork.image_id, IMAGE_SIZE_SCREENSHOT_HUGE),
       }
     },
 
@@ -274,14 +274,6 @@ export default {
 
     gameId() {
       return this.$route.params.id;
-    },
-
-    gameScrenshot() {
-      const screenshots = this.game?.screenshots;
-
-      return screenshots?.length > 0
-        ? `https://images.igdb.com/igdb/image/upload/t_screenshot_huge_2x/${screenshots[0].image_id}.jpg`
-        : null;
     },
   },
 

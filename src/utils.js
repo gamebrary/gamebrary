@@ -1,4 +1,4 @@
-import { THUMBNAIL_PREFIX } from '@/constants';
+import { THUMBNAIL_PREFIX, IMAGE_SIZE_COVER_BIG } from '@/constants';
 
 export const bytesToSize = (bytes) => {
   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
@@ -10,7 +10,7 @@ export const bytesToSize = (bytes) => {
   return `${Math.round(bytes / (1024 ** i), 2)} ${sizes[i]}`;
 };
 
-export const getImageUrl = (imageId, size = 't_cover_big_2x') => {
+export const getImageUrl = (imageId, size = IMAGE_SIZE_COVER_BIG) => {
   return imageId
     ? `https://images.igdb.com/igdb/image/upload/${size}/${imageId}.jpg`
     : '/placeholder.gif';

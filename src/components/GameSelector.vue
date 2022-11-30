@@ -45,7 +45,7 @@
         >
           <b-card-img
             v-if="game.cover"
-            :src="$options.getImageUrl(game.cover.image_id, 't_cover_small_2x')"
+            :src="$options.getImageUrl(game.cover.image_id, IMAGE_SIZE_COVER_SMALL)"
             alt="Image"
             class="game-thumbnail rounded"
           />
@@ -73,6 +73,7 @@
 <script>
 import { mapGetters, mapState } from 'vuex';
 import { getImageUrl } from '@/utils';
+import { IMAGE_SIZE_COVER_SMALL } from '@/constants';
 
 export default {
   getImageUrl,

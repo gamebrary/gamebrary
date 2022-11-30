@@ -1,3 +1,14 @@
+export const IMAGE_SIZE_1080P = 't_1080p_2x'; // 1920 x 1080	fit, center gravity
+export const IMAGE_SIZE_720P = 't_720p_2x'; // 1280 x 720	fit, center gravity
+export const IMAGE_SIZE_COVER_BIG = 't_cover_big_2x'; // 264 x 374	fit
+export const IMAGE_SIZE_COVER_SMALL = 't_cover_small_2x'; // 90 x 128	fit
+export const IMAGE_SIZE_LOGO_MED = 't_logo_med_2x'; // 284 x 160	fit
+export const IMAGE_SIZE_MICRO = 't_micro_2x'; // 35 x 35	thumb, center gravity
+export const IMAGE_SIZE_SCREENSHOT_BIG = 't_screenshot_big_2x'; // 889 x 500	lfill, center gravity
+export const IMAGE_SIZE_SCREENSHOT_HUGE = 't_screenshot_huge_2x'; // 1280 x 720	lfill, center gravity
+export const IMAGE_SIZE_SCREENSHOT_MED = 't_screenshot_med_2x'; // 569 x 320	lfill, center gravity
+export const IMAGE_SIZE_THUMB = 't_thumb_2x'; // 90 x 90	thumb, center gravity
+
 export const MIN_PROFILE_LENGTH = 6;
 export const THUMBNAIL_PREFIX = '_300x300';
 export const MAX_PROFILE_LENGTH = 20;
