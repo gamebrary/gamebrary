@@ -4,8 +4,7 @@
 // import LanguageSettings from '@/components/Settings/LanguageSettings'; -->
 
 <template lang="html">
-  <header class="py-2 px-3 d-flex position-fixed w-100">    
-
+  <header :class="['py-2 px-3 d-flex position-fixed w-100', darkTheme ? 'dark' : 'light', { blurred: !isBoardPage }]">
     <b-button
       v-if="user"
       title="Dashboard"
@@ -58,7 +57,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import SearchBox from '@/components/SearchBox';
 
 export default {
@@ -68,9 +67,14 @@ export default {
 
   computed: {
     ...mapState(['user']),
+    ...mapGetters(['darkTheme']),
 
     isSearchPage() {
       return this.$route.name === 'search';
+    },
+
+    isBoardPage() {
+      return ['board', 'game'].includes(this.$route.name);
     },
   },
 };
@@ -82,6 +86,18 @@ export default {
     align-items: center;
     grid-template-columns: 65px 1fr;
     z-index: 1;
+
+    &.blurred {
+      backdrop-filter: blur(12px);
+
+      &.light {
+        background-color: rgba(248, 248, 255, 0.7);
+      }
+
+      &.dark {
+        background-color: rgba(53, 54, 58, 0.7);
+      }
+    }
   }
 
   .logo {
