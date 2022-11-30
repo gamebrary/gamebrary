@@ -15,13 +15,6 @@
               class="mr-2"
               @select-game="createNote"
             />
-
-            <!-- <b-form-input
-              type="search"
-              class="d-none d-sm-block mr-2"
-              placeholder="Search notes"
-              v-model="searchText"
-            /> -->
           </div>
         </portal>
 
@@ -36,15 +29,18 @@
         </empty-state>
 
         <div v-else-if="searchText.length && !filteredNotes.length">
-          <!-- TODO: handle no results, clear search -->
-          no results
+          <p>No results</p>
+
+          <b-button @click="searchText = ''">
+            Clear search
+          </b-button>
         </div>
 
         <b-row v-else>
           <b-col>
             <b-form-input
               type="search"
-              class="d-sm-none field mb-3"
+              class="field mb-3"
               placeholder="Search notes"
               v-model="searchText"
             />
@@ -56,25 +52,19 @@
                 :bg-variant="darkTheme ? 'info' : 'light'"
                 :text-variant="darkTheme ? 'light' : 'dark'"
                 :key="index"
+                class="cursor-pointer"
+                @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug }})"
               >
-                <b-card-text>
-                  <b-button
-                    v-if="game"
-                    :variant="darkTheme ? 'secondary' : 'light'"
-                    size="sm"
-                    class="d-flex p-2 mb-2 align-items-center"
-                    :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug }}"
-                  >
-                    <b-img
-                      :src="$options.getImageUrl(game.cover.image_id, 't_cover_small_2x')"
-                      class="cursor-pointer rounded"
-                      width="30"
-                    />
+                <b-card-text v-if="game">
+                  <b-img
+                    :src="$options.getImageUrl(game.cover.image_id, $options.IMAGE_SIZE_COVER_SMALL)"
+                    height="80"
+                    class="cursor-pointer rounded float-left mr-3 mb-2"
+                  />
 
-                    <div class="ml-2 overflow-hidden">
-                      <h5>{{ game.name }}</h5>
-                    </div>
-                  </b-button>
+                  <div class="ml-2 overflow-hidden">
+                    <h5>{{ game.name }}</h5>
+                  </div>
 
                   <p class="note-text text-muted small" v-if="note" v-html="note" />
                 </b-card-text>
@@ -92,8 +82,10 @@ import EmptyState from '@/components/EmptyState';
 import GameSelector from '@/components/GameSelector';
 import { mapState, mapGetters } from 'vuex';
 import { getImageUrl } from '@/utils';
+import { IMAGE_SIZE_COVER_SMALL } from '@/constants';
 
 export default {
+  IMAGE_SIZE_COVER_SMALL,
   getImageUrl,
 
   components: {
