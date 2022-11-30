@@ -81,7 +81,7 @@
       </span>
     </div>
 
-    <!-- TODO: merge release Dates and platforms -->
+    <!-- TODO: restore release dates -->
     <!-- <div class="pr-2 pb-2">
       <strong>{{ $t('board.gameModal.releaseDate') }}</strong>
       <ol v-if="releaseDates" class="list-unstyled mb-0">

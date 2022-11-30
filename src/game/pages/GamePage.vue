@@ -1,3 +1,6 @@
+<!-- TODO: add ports -->
+<!-- TODO: add franchises -->
+<!-- TODO: add bundles -->
 <!-- TODO: improve text contrast when dark theme or bg is on -->
 <!-- TODO: load game franchises -->
 <!-- TODO: integrate with twitch -->
@@ -10,12 +13,12 @@
 <!-- TODO: optimize backdrop styling -->
 <template lang="html">
   <section>
-    <div v-if="backdrop" class="backdrop d-none d-sm-block" :style="`background-image: url('${backdrop.url}'); height: 500px; margin-top: -54px`" />
+    <b-spinner v-if="loading" class="spinner-centered" />
 
-    <b-container>
-      <b-spinner v-if="loading" class="spinner-centered" />
+    <template v-else-if="game">
+      <div v-if="backdrop" class="backdrop d-none d-sm-block" :style="`background-image: url('${backdrop.url}'); height: 500px; margin-top: -54px`" />
 
-      <template v-else-if="game">
+      <b-container>
         <portal to="pageTitle">
           <span
             v-if="showHeaderTitle"
@@ -107,16 +110,6 @@
             xl="9"
           >
             <article :class="darkTheme || hasWallpaper ? 'text-light' : ''">
-              <aside class="supplemental-info field float-right ml-5 pb-2">
-                <game-details />
-
-                <game-note
-                  v-if="note"
-                  :note="note"
-                  class="cursor-pointer mt-3 d-none d-md-block"
-                  @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
-                />
-              </aside>
 
               <div class="d-flex justify-content-between" v-b-visible="visibleHandler">
                 <h2 :class="{ 'mt-3': backdrop }">{{ game.name }}</h2>
@@ -124,6 +117,16 @@
 
               <game-description />
 
+              <b-alert
+                v-if="note"
+                v-html="note"
+                show
+                class="cursor-pointer"
+                variant="warning"
+                @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
+              />
+
+              <game-details />
               <p>Alternative names:</p>
 
               <div
@@ -154,26 +157,26 @@
         </b-row>
 
         <game-media />
-        <similar-games />
-      </template>
+        <!-- <timeline
+          v-if="twitterHandle"
+          :id="twitterHandle"
+          sourceType="profile"
+        >
+          loading...
+        </timeline> -->
+      </b-container>
 
-      <div class="pt-5" v-else>
-        <div class="d-flex justify-content-center align-items-center" id="main">
-          <h1 class="mr-3 pr-3 align-top border-right inline-block align-content-center">404</h1>
-          <div class="inline-block align-middle">
-            <h2 class="font-weight-normal lead" id="desc">Game was not found.</h2>
-          </div>
+      <similar-games />
+    </template>
+
+    <div class="pt-5" v-else>
+      <div class="d-flex justify-content-center align-items-center" id="main">
+        <h1 class="mr-3 pr-3 align-top border-right inline-block align-content-center">404</h1>
+        <div class="inline-block align-middle">
+          <h2 class="font-weight-normal lead" id="desc">Game was not found.</h2>
         </div>
       </div>
-
-      <!-- <timeline
-        v-if="twitterHandle"
-        :id="twitterHandle"
-        sourceType="profile"
-      >
-        loading...
-      </timeline> -->
-    </b-container>
+    </div>
   </section>
 </template>
 
@@ -188,7 +191,6 @@ import GameRatings from '@/components/Game/GameRatings';
 import GameDescription from '@/components/Game/GameDescription';
 import SimilarGames from '@/components/Game/SimilarGames';
 // import GameSpeedruns from '@/components/Game/GameSpeedruns';
-import GameNote from '@/components/GameNote';
 import { STEAM_CATEGORY_ID, GOG_CATEGORY_ID, TWITTER_CATEGORY_ID } from '@/constants';
 import { getImageUrl } from '@/utils';
 
@@ -197,7 +199,6 @@ export default {
 
   components: {
     // AmazonLinks,
-    GameNote,
     GameDescription,
     GameDetails,
     GameMedia,
@@ -402,14 +403,6 @@ export default {
   left: calc(50% - 50px);
   font-size: 2rem;
   top: calc(50% - 25px);
-}
-
-.supplemental-info {
-  width: 40%;
-
-  @media(max-width: 780px) {
-    width: 100%;
-  }
 }
 
 .backdrop {

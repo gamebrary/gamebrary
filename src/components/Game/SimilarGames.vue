@@ -1,6 +1,6 @@
 <template lang="html">
-  <section v-if="similarGames.length" class="my-5 bg-secondary rounded p-3">
-    <h2 class="text-center mb-3">You may also like</h2>
+  <section v-if="similarGames.length" class="my-5 bg-light p-3">
+    <h4 class="text-center mb-3">You may also like</h4>
 
     <div class="similar-games">
       <router-link
@@ -11,7 +11,7 @@
         <b-img
           fluid
           rounded
-          :src="$options.getImageUrl(game.cover.image_id, 't_cover_small_2x')"
+          :src="$options.getImageUrl(game.cover.image_id, 't_cover_big_2x')"
           :alt="game.name"
           img-top
         />
@@ -58,8 +58,12 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
 .similar-games {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(10, 1fr);
   grid-gap: 1rem;
+
+  @media(max-width: 1024px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
 
   @media(max-width: 780px) {
     grid-template-columns: repeat(3, 1fr);

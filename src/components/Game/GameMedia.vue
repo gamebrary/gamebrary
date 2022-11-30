@@ -5,15 +5,16 @@
         v-for="({ imageUrl, isVideo, isCover }, index) in gameMedia"
         :key="index"
       >
-        <div
-          class="mr-2 align-items-center text-center mb-2 rounded cursor-pointer position-relative"
-        >
+        <div class="mr-2 align-items-center text-center mb-2 rounded cursor-pointer position-relative">
           <i
             v-if="isVideo"
             class="fa-solid fa-play video-indicator position-absolute text-white"
           />
 
-          <div v-if="isCover" class="position-absolute cover-indicator text-light small w-100 bg-dark rounded-bottom">
+          <div
+            v-if="isCover"
+            class="position-absolute cover-indicator text-light small w-100 bg-dark rounded-bottom"
+          >
             Cover
           </div>
 

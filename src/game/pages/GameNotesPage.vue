@@ -29,73 +29,130 @@
           </b-button>
         </portal>
 
-        <b-col cols="12" sm="6">
-          <div ref="editor" />
-
-          <game-note
-            v-if="showPreview"
-            :note="{ note }"
-            class="mt-3 mt-sm-0"
-          />
-
+        <b-col cols="12" sm="3">
           <router-link
-            v-else-if="game"
             :to="{ name: 'game', params: { id: game.id, slug: game.slug }}"
-            class="float-right"
           >
-            <b-img :src="$options.getImageUrl(game.cover.image_id, 't_cover_small_2x')" fluid rounded />
+            <b-img
+              :src="$options.getImageUrl(game.cover.image_id, 't_cover_big_2x')"
+              fluid
+              rounded
+            />
           </router-link>
         </b-col>
 
-        <b-col cols="12" sm="6">
-          <form class="mt-3 mt-sm-0 mb-3 field">
-            <b-form-textarea
-              v-model.trim="note"
-              placeholder="Type note here"
-              rows="3"
-              max-rows="20"
-            />
+        <b-col cols="12" sm="9">
+          <b-button-toolbar
+            v-if="editor"
+            key-nav
+            class="mb-3"
+            aria-label="Toolbar with button groups"
+          >
+            <b-button-group>
+              <b-button
+                @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
+                v-b-tooltip.hover
+                title="1"
+                :variant="editor.isActive('heading', { level: 1 }) ? 'dark' : 'light'"
+              >
+                <span class="fa-layers fa-fw">
+                  <i class="fa-solid fa-heading fa-fw" />
+                  <i class="fa-solid fa-1" />
+                </span>
+              </b-button>
 
-            <b-link
-              class="small"
-              variant="link"
-              v-b-modal.markdown-cheatsheet
+              <b-button
+                @click="editor.chain().focus().toggleHeading({ level: 2 }).run()"
+                v-b-tooltip.hover
+                title="2"
+                :variant="editor.isActive('heading', { level: 2 }) ? 'dark' : 'light'"
+              >
+                <span class="fa-layers fa-fw">
+                  <i class="fa-solid fa-heading fa-fw" />
+                  <i class="fa-solid fa-2" />
+                </span>
+              </b-button>
+
+              <b-button
+                @click="editor.chain().focus().toggleHeading({ level: 3 }).run()"
+                v-b-tooltip.hover
+                title="3"
+                :variant="editor.isActive('heading', { level: 3 }) ? 'dark' : 'light'"
+              >
+                <span class="fa-layers fa-fw">
+                  <i class="fa-solid fa-heading fa-fw" />
+                  <i class="fa-solid fa-3" />
+                </span>
+              </b-button>
+            </b-button-group>
+            <b-button-group class="mx-1">
+              <b-button
+                @click="editor.chain().focus().setParagraph().run()"
+                v-b-tooltip.hover
+                title="Paragraph"
+                :class="{ 'is-active': editor.isActive('paragraph') }"
+              >
+                <i class="fa-solid fa-paragraph fa-fw" />
+              </b-button>
+              <b-button
+                @click="editor.chain().focus().toggleBold().run()"
+                v-b-tooltip.hover
+                title="Bold"
+                :variant="editor.isActive('bold') ? 'dark' : 'light'"
+              >
+                <i class="fa-solid fa-bold fa-fw" />
+              </b-button>
+              <b-button
+                @click="editor.chain().focus().toggleItalic().run()"
+                v-b-tooltip.hover
+                title="Italic"
+                :variant="editor.isActive('italic') ? 'dark' : 'light'"
+              >
+                <i class="fa-solid fa-italic fa-fw" />
+              </b-button>
+              <b-button
+                @click="editor.chain().focus().toggleStrike().run()"
+                v-b-tooltip.hover
+                title="Strikethrough"
+                :variant="editor.isActive('strike') ? 'dark' : 'light'"
+              >
+                <i class="fa-solid fa-strikethrough fa-fw" />
+              </b-button>
+            </b-button-group>
+          </b-button-toolbar>
+
+          <editor-content :editor="editor" />
+
+          <b-link
+            class="small"
+            variant="link"
+            v-b-modal.markdown-cheatsheet
+          >
+            <i class="fab fa-markdown fa-fw" />
+            Markdown supported
+          </b-link>
+
+          <footer class="mt-2 d-flex">
+            <b-button
+              variant="primary"
+              :disabled="saving"
+              @click="saveNote"
             >
-              <i class="fab fa-markdown fa-fw" />
-              Markdown supported
-            </b-link>
+              <b-spinner small v-if="saving" />
+              <span v-else>{{ $t('global.save') }}</span>
+            </b-button>
 
-            <footer class="mt-2 d-flex">
-              <b-button
-                variant="primary"
-                :disabled="saving"
-                @click="saveNote"
-              >
-                <b-spinner small v-if="saving" />
-                <span v-else>{{ $t('global.save') }}</span>
-              </b-button>
-
-              <b-button
-                variant="danger"
-                class="ml-2"
-                v-if="!saving"
-                :disabled="deleting"
-                @click="deleteNote"
-              >
-                <b-spinner small v-if="deleting" />
-                <i v-else class="fas fa-trash fa-fw" aria-hidden />
-              </b-button>
-
-              <b-button
-                variant="light"
-                class="ml-auto"
-                @click="showPreview = !showPreview"
-              >
-                <i class="fas fa-eye fa-fw" aria-hidden />
-                Toggle preview
-              </b-button>
-            </footer>
-          </form>
+            <b-button
+              variant="danger"
+              class="ml-2"
+              v-if="!saving"
+              :disabled="deleting"
+              @click="deleteNote"
+            >
+              <b-spinner small v-if="deleting" />
+              <i v-else class="fas fa-trash fa-fw" aria-hidden />
+            </b-button>
+          </footer>
         </b-col>
       </b-row>
     </b-container>
@@ -105,14 +162,15 @@
 <script>
 import { mapState } from 'vuex';
 
-import GameNote from '@/components/GameNote';
 import { getImageUrl } from '@/utils';
+import { Editor, EditorContent } from '@tiptap/vue-2';
+import StarterKit from '@tiptap/starter-kit';
 
 export default {
   getImageUrl,
 
   components: {
-    GameNote,
+    EditorContent,
   },
 
   data() {
@@ -121,7 +179,7 @@ export default {
       note: '',
       loading: false,
       deleting: false,
-      showPreview: false,
+      editor: null,
     };
   },
 
@@ -131,6 +189,10 @@ export default {
 
   mounted() {
     this.loadGame();
+  },
+
+  beforeDestroy() {
+    this.editor.destroy()
   },
 
   methods: {
@@ -155,6 +217,20 @@ export default {
 
     setNote() {
       this.note = this.notes[this.$route.params?.id] || '';
+
+      this.editor = new Editor({
+        content: this.note,
+        extensions: [StarterKit],
+        editorProps: {
+          attributes: {
+            class: 'border rounded p-3',
+          },
+        },
+        onUpdate: () => {
+          this.note = this.editor.getHTML();
+        },
+      })
+
     },
 
     async saveNote() {
@@ -193,3 +269,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.ProseMirror {
+  min-height: 50vh;
+}
+</style>

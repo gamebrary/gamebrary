@@ -1,8 +1,7 @@
+<!-- TODO: load genres const response = await this.$store.dispatch('IGDB', { path: 'genres', data: 'fields *; limit 25;' }); -->
 <!-- TODO: use https://github.com/twitchtv/igdb-api-node -->
 <!-- TODO: create button component that handles loading and showing feedback -->
 <!-- TODO: create tag component and standardize all instances -->
-<!-- TODO: auto scroll to bottom after adding product -->
-<!-- TODO: add markdown wysiwyg -->
 <!-- TODO: add help section -->
 <template>
   <main

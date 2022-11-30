@@ -55,8 +55,6 @@
               <small>{{ name }}</small>
             </b-badge>
           </template>
-
-          <!-- TODO: show release dates -->
         </b-card-body>
       </b-col>
     </b-form-row>

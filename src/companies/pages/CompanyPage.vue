@@ -7,7 +7,7 @@
         <portal to="pageTitle">{{ company.name }}</portal>
         <p>{{ company.description }}</p>
         <img
-          v-if="company.logo"
+          v-if="company.logo && company.logo.image_id"
           :src="$options.getImageUrl(company.logo.image_id)"
           alt="company.name"
           width="100"
@@ -25,7 +25,13 @@
             lg="2"
           >
             <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}">
-              <b-img :src="$options.getImageUrl(game.cover.image_id)" alt="" fluid class="rounded" />
+              <b-img
+                v-if="game.cover && game.cover.image_id"
+                :src="$options.getImageUrl(game.cover.image_id)"
+                alt=""
+                fluid
+                class="rounded"
+              />
               <br />
               <small>{{ game.name }}</small>
             </router-link>
@@ -44,7 +50,7 @@
             lg="2"
           >
             <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}">
-              <b-img :src="$options.getImageUrl(game.cover.image_id)" alt="" fluid class="rounded" />
+              <b-img v-if="game.cover" :src="$options.getImageUrl(game.cover.image_id)" alt="" fluid class="rounded" />
               <br />
               <small>{{ game.name }}</small>
             </router-link>

@@ -76,9 +76,7 @@
                     </div>
                   </b-button>
 
-                  <p class="note-text text-muted small" v-if="note">
-                    {{ note }}
-                  </p>
+                  <p class="note-text text-muted small" v-if="note" v-html="note" />
                 </b-card-text>
               </b-card>
             </b-card-group>
