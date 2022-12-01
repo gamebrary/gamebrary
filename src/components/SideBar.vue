@@ -141,32 +141,13 @@
         </b-button>
 
         <b-button
+          :to="{ name: 'help' }"
+          :variant="darkTheme ? 'info' : 'light'"
           class="w-100 text-left mb-1"
-          variant="link"
-          href="https://github.com/romancm/gamebrary"
-          target="_blank"
+          id="help"
         >
-          <i class="fab fa-github fa-fw" /> Github
-        </b-button>
-
-        <b-button
-          class="w-100 text-left mb-1"
-          variant="link"
-          href="https://goo.gl/forms/r0juBCsZaUtJ03qb2"
-          target="_blank"
-        >
-          <i class="fa-regular fa-comment-dots fa-fw" />
-          Submit Feedback
-        </b-button>
-
-        <b-button
-          class="w-100 text-left mb-1"
-          variant="link"
-          href="https://www.paypal.me/RomanCervantes/5"
-          target="_blank"
-        >
-          <i class="fa-solid fa-circle-dollar-to-slot fa-fw" />
-          Donate
+          <i class="fa fa-regular fa-circle-question fa-fw" aria-hidden="true" />
+          <span class="ml-2">Help</span>
         </b-button>
 
         <!-- <b-button

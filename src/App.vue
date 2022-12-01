@@ -2,7 +2,6 @@
 <!-- TODO: use https://github.com/twitchtv/igdb-api-node -->
 <!-- TODO: create button component that handles loading and showing feedback -->
 <!-- TODO: create tag component and standardize all instances -->
-<!-- TODO: add help section -->
 <template>
   <main
     id="app"

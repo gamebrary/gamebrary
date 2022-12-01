@@ -18,6 +18,15 @@ const routes = [
     },
   },
   {
+    name: 'help',
+    path: '/help',
+    component: () => import(/* webpackChunkName: "public" */ '@/public/pages/HelpPage'),
+    meta: {
+      title: 'Help',
+      public: true,
+    },
+  },
+  {
     name: 'dev.tools',
     path: '/dev-tools',
     component: () => import(/* webpackChunkName: "public" */ '@/public/pages/DevToolsPage'),
