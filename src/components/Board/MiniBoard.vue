@@ -95,6 +95,12 @@ export default {
     };
   },
 
+  watch: {
+    'board.backgroundUrl'(newValue, oldValue) {
+      if (newValue !== oldValue) this.loadWallpaper();
+    },
+  },
+
   computed: {
     ...mapState(['settings']),
     ...mapGetters(['darkTheme']),
