@@ -1,7 +1,10 @@
 <template lang="html">
   <section>
+    <portal to="pageTitle">
+      Help
+    </portal>
+
     <b-container class="field centered">
-      <h1>Help</h1>
       <p>Feel free to contact us with any feedback, comments, suggestions, or just to say hi.</p>
 
       <b-button href="mailto:contact@gamebrary.com">
