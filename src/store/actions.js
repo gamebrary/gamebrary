@@ -290,10 +290,8 @@ export default {
           if (doc.exists) {
             const profile = doc.data();
 
-            // commit('SET_PROFILE', profile);
             resolve(profile);
           } else {
-            // commit('REMOVE_PROFILE');
             reject();
           }
         })
