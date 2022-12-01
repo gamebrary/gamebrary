@@ -261,18 +261,11 @@ export default {
         .where('userName', '==', userName)
         .get()
         .then((docs) => {
-          const [profile] = docs.docs.map((doc) => {
-            return {
-              ...doc.data(),
-              uid: doc.id,
-            }
-          });
+          const [profile] = docs.docs.map((doc) => ({ ...doc.data(), uid: doc.id }));
 
-          if (profile) {
-            resolve(profile);
-          } else {
-            reject();
-          }
+          if (!profile) return reject();
+
+          resolve(profile);
         })
         .catch(reject);
     });
