@@ -7,9 +7,12 @@
         <b-form-input
           v-model="steamId"
           style="max-width: 200px"
-          @change="save"
         />
       </b-form-group>
+
+      <b-button @click="save">
+        Save
+      </b-button>
     </b-container>
   </section>
 </template>

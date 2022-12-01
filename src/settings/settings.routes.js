@@ -8,8 +8,8 @@ const routes = [
     },
   },
   {
-    name: 'steam.settings',
-    path: '/settings/steam',
+    name: 'steam',
+    path: '/steam',
     component: () => import(/* webpackChunkName: "settings" */ '@/settings/pages/SteamSettingsPage'),
     meta: {
       title: "Steam",
