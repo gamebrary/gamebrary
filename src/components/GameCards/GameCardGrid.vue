@@ -1,3 +1,4 @@
+<!-- TODO: enable drag-n-drop -->
 <template lang="html">
   <b-card
     no-body
@@ -9,7 +10,7 @@
     <div class="position-relative cursor-pointer rounded align-self-end card overflow-hidden border-0 m-1">
       <b-img
         fluid
-        :src="$options.getImageUrl(game.cover.image_id)"
+        :src="$options.getImageUrl(game)"
       />
 
       <i

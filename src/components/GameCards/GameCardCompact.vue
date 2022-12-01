@@ -10,7 +10,7 @@
         <b-img
           fluid
           blank-color="#ccc"
-          :src="$options.getImageUrl(game.cover.image_id)"
+          :src="$options.getImageUrl(game)"
           :alt="game.name"
           class="rounded m-1"
         />

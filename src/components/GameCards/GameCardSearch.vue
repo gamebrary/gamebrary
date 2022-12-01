@@ -1,7 +1,7 @@
 <template lang="html">
   <b-card
     v-if="game"
-    :img-src="$options.getImageUrl(coverId)"
+    :img-src="$options.getImageUrl(game)"
     :img-alt="game.name"
     :class="['mb-3 cursor-pointer', { 'border-selected': selected }]"
     overlay
@@ -30,10 +30,6 @@ export default {
 
   computed: {
     ...mapState(['user', 'boards']),
-
-    coverId() {
-      return this.game?.cover?.image_id;
-    },
 
     selectedBoard() {
       const { boardId } = this.$route.query;

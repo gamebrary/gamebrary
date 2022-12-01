@@ -54,7 +54,7 @@
             :class="['text-center', { 'has-backdrop': backdrop }]"
           >
             <b-img
-              :src="$options.getImageUrl(game.cover.image_id)"
+              :src="$options.getImageUrl(game)"
               :alt="game.name"
               v-b-modal.mediaModal
               rounded
@@ -231,7 +231,7 @@ export default {
       return {
         height: artwork.height,
         width: artwork.width,
-        url: getImageUrl(artwork.image_id, IMAGE_SIZE_SCREENSHOT_HUGE),
+        url: getImageUrl(artwork, IMAGE_SIZE_SCREENSHOT_HUGE),
       }
     },
 
@@ -248,7 +248,7 @@ export default {
           name,
           id,
         }
-      });
+      }) || [];
     },
 
     originBoardId() {

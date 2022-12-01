@@ -44,10 +44,9 @@
           @click="selectGame(game.id)"
         >
           <b-card-img
-            v-if="game.cover"
-            :src="$options.getImageUrl(game.cover.image_id, IMAGE_SIZE_COVER_SMALL)"
+            :src="$options.getImageUrl(game, $options.IMAGE_SIZE_COVER_SMALL)"
             alt="Image"
-            class="game-thumbnail rounded"
+            class="game-thumbnail rounded mr-2"
           />
 
           {{ game.name }}
@@ -77,6 +76,7 @@ import { IMAGE_SIZE_COVER_SMALL } from '@/constants';
 
 export default {
   getImageUrl,
+  IMAGE_SIZE_COVER_SMALL,
 
   props: {
     block: Boolean,
@@ -149,7 +149,7 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
 .game-thumbnail {
-  width: 40px;
+  width: 80px;
   height: auto;
 }
 

@@ -34,7 +34,7 @@
             :to="{ name: 'game', params: { id: game.id, slug: game.slug }}"
           >
             <b-img
-              :src="$options.getImageUrl(game.cover.image_id, 't_cover_big_2x')"
+              :src="$options.getImageUrl(game)"
               fluid
               rounded
             />

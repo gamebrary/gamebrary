@@ -26,7 +26,7 @@
       <b-row v-else>
         <b-col cols="12" sm="4">
           <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}" class="float-right">
-            <b-img :src="$options.getImageUrl(game.cover.image_id)" fluid rounded />
+            <b-img :src="$options.getImageUrl(game)" fluid rounded />
           </router-link>
         </b-col>
 

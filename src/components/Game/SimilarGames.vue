@@ -11,7 +11,7 @@
         <b-img
           fluid
           rounded
-          :src="$options.getImageUrl(game.cover.image_id)"
+          :src="$options.getImageUrl(game)"
           :alt="game.name"
           img-top
         />

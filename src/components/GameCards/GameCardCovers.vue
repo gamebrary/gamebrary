@@ -2,7 +2,7 @@
   <div class="position-relative cursor-pointer rounded align-self-end card overflow-hidden border-0 mb-2">
     <b-img
       fluid
-      :src="$options.getImageUrl(game.cover.image_id)"
+      :src="$options.getImageUrl(game)"
     />
 
     <i

@@ -93,7 +93,7 @@
           <b-img
             v-for="game in tag.games"
             :key="game"
-            :src="$options.getImageUrl(games[game].cover.image_id, $options.IMAGE_SIZE_COVER_SMALL)"
+            :src="$options.getImageUrl(games[game], $options.IMAGE_SIZE_COVER_SMALL)"
             class="cursor-pointer rounded mr-2 mb-2"
             @click="$router.push({ name: 'game', params: { id: games[game].id, slug: games[game].slug }})"
           />

@@ -57,7 +57,7 @@
               >
                 <b-card-text v-if="game">
                   <b-img
-                    :src="$options.getImageUrl(game.cover.image_id, $options.IMAGE_SIZE_COVER_SMALL)"
+                    :src="$options.getImageUrl(game, $options.IMAGE_SIZE_COVER_SMALL)"
                     height="80"
                     class="cursor-pointer rounded float-left mr-3 mb-2"
                   />

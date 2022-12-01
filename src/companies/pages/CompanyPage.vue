@@ -6,9 +6,9 @@
       <div v-else-if="company">
         <portal to="pageTitle">{{ company.name }}</portal>
         <p>{{ company.description }}</p>
+
         <img
-          v-if="company.logo && company.logo.image_id"
-          :src="$options.getImageUrl(company.logo.image_id)"
+          :src="$options.getImageUrl(company)"
           alt="company.name"
           width="100"
         />
@@ -26,8 +26,7 @@
           >
             <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}">
               <b-img
-                v-if="game.cover && game.cover.image_id"
-                :src="$options.getImageUrl(game.cover.image_id)"
+                :src="$options.getImageUrl(game)"
                 alt=""
                 fluid
                 class="rounded"
@@ -50,7 +49,7 @@
             lg="2"
           >
             <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}">
-              <b-img v-if="game.cover" :src="$options.getImageUrl(game.cover.image_id)" alt="" fluid class="rounded" />
+              <b-img :src="$options.getImageUrl(game)" alt="" fluid class="rounded" />
               <br />
               <small>{{ game.name }}</small>
             </router-link>

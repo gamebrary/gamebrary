@@ -24,8 +24,6 @@
       </b-dropdown-item>
     </b-dropdown>
 
-
-
     <draggable
       handle=".game"
       ghost-class="card-placeholder"
@@ -48,7 +46,7 @@
         :key="gameId"
         class="game cursor-pointer rounded ml-2"
         fluid
-        :src="$options.getImageUrl(games[gameId].cover.image_id, 't_cover_med_2x')"
+        :src="$options.getImageUrl(games[gameId], $options.IMAGE_SIZE_COVER_SMALL)"
         @click="openGame(gameId)"
       />
     </draggable>
@@ -63,9 +61,11 @@ import orderby from 'lodash.orderby';
 import { mapState, mapGetters } from 'vuex';
 import gameCardMixin from '@/mixins/gameCardMixin';
 import GameSelector from '@/components/GameSelector';
+import { IMAGE_SIZE_COVER_SMALL } from '@/constants';
 
 export default {
   getImageUrl,
+  IMAGE_SIZE_COVER_SMALL,
 
   mixins: [gameCardMixin],
 

@@ -14,7 +14,7 @@
           blank-color="#ccc"
           class="m-1"
           rounded
-          :src="$options.getImageUrl(game.cover.image_id)"
+          :src="$options.getImageUrl(game)"
           :alt="game.name"
         />
       </b-col>
