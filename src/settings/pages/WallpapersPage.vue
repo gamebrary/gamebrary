@@ -1,4 +1,3 @@
-<!-- TODO: get all refs at first, paginate and render as needed -->
 <template lang="html">
   <section>
     <b-container class="pb-5 px-0">
@@ -29,7 +28,6 @@
 import { mapState } from 'vuex';
 import EmptyState from '@/components/EmptyState';
 import UploadWallpaperButton from '@/components/UploadWallpaperButton';
-import { bytesToSize } from '@/utils';
 import WallpapersList from '@/components/WallpapersList';
 
 export default {
@@ -44,7 +42,6 @@ export default {
       file: null,
       saving: false,
       loading: false,
-      maxSpace: '67108864', // 64mb storage limit
       wallpaperUrls: [],
     };
   },
@@ -52,38 +49,8 @@ export default {
   computed: {
     ...mapState(['user', 'board', 'wallpapers']),
 
-    usedSpaceText() {
-      return `${this.formattedSpaceUsed} of ${bytesToSize(this.maxSpace)} used`;
-    },
-
-    existingFiles() {
-      return this.wallpapers.map(({ name }) => name);
-    },
-
     showEmptyState() {
       return this.wallpapers?.length === 0;
-    },
-
-    isDuplicate() {
-      return this.file?.name && this.existingFiles.includes(this.file?.name);
-    },
-
-    formattedSpaceUsed() {
-      return this.spaceUsed
-        ? bytesToSize(this.spaceUsed)
-        : 0;
-    },
-
-    spaceUsed() {
-      return this.wallpapers.reduce((total, { metadata }) => {
-        const size = metadata?.size || 0;
-
-        return total + size;
-      }, 0);
-    },
-
-    outOfSpace() {
-      return this.spaceUsed >= this.maxSpace;
     },
   },
 
@@ -101,10 +68,6 @@ export default {
       }
 
       this.loading = false;
-    },
-
-    triggerFileUpload() {
-      document.querySelector('.file-input input').click();
     },
   },
 };

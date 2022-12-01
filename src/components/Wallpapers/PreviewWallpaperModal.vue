@@ -53,8 +53,8 @@
     </template>
 
     <b-img
-      v-if="wallpaperUrl"
-      :src="wallpaperUrl"
+      v-if="wallpaper.url"
+      :src="wallpaper.url"
       class="mw-100 rounded"
     />
   </b-modal>
@@ -62,7 +62,6 @@
 
 <script>
 import { mapState } from 'vuex';
-// import { bytesToSize } from '@/utils';
 
 export default {
   data() {
@@ -91,17 +90,11 @@ export default {
   },
 
   methods: {
-    // formatSize(wallpaper) {
-    //   return bytesToSize(wallpaper?.metadata?.size || 0);
-    // },
-
     getWallpaperUrl(url) {
       if (!url) return null;
       if (url?.includes('igdb.com')) return url;
 
-      const wallpaper = this.wallpapers?.find(({ fullPath }) => fullPath === url);
-
-      return wallpaper?.url;
+      return this.wallpapers?.find(({ ref }) => ref === url)?.url;
     },
 
     async confirmDeleteWallpaper(file) {
@@ -118,6 +111,8 @@ export default {
     async deleteFile(file) {
       this.deleting = true;
 
+      // TODO: warn user if wallpaper is currently in use
+
       await this.$store.dispatch('DELETE_WALLPAPER', file)
         .catch(() => {
           this.$bvToast.toast('There was an error deleting wallpaper', { variant: 'danger' });
@@ -128,18 +123,15 @@ export default {
     },
 
     async setAsWallpaper(board) {
-      const payload = {
-        ...board,
-        backgroundUrl: this.wallpaper.fullPath,
+      try {
+        this.saving = true;
+
+        this.$store.commit('SET_ACTIVE_BOARD', { ...board, backgroundUrl: this.wallpaper.ref });
+
+        await this.$store.dispatch('SAVE_BOARD');
+      } catch (e) {
+        this.saving = false;
       }
-      this.saving = true;
-
-      this.$store.commit('SET_ACTIVE_BOARD', payload);
-
-      await this.$store.dispatch('SAVE_BOARD')
-        .catch(() => {
-          this.saving = false;
-        });
 
       this.saving = false;
       this.$bvModal.hide('previewWallpaper');

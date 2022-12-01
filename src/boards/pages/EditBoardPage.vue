@@ -465,8 +465,6 @@ export default {
 
     selectWallpaper(wallpaper) {
       this.board.backgroundUrl = wallpaper;
-      this.saveBoard();
-      this.$forceUpdate();
     },
 
     async saveBoard() {

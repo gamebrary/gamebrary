@@ -7,7 +7,6 @@
         <b-col
           v-for="wallpaper in sortedWallpapers"
           cols="6"
-          sm=".fullPath.includes('_300x3006"
           md="3"
           lg="2"
           class="pb-3 pr-3"
@@ -51,7 +50,7 @@ export default {
     ...mapState(['wallpapers']),
 
     sortedWallpapers() {
-      const wallpapers = this.wallpapers.filter((wallpaper) => !wallpaper.fullPath.includes(THUMBNAIL_PREFIX));
+      const wallpapers = this.wallpapers?.filter((wallpaper) => !wallpaper?.ref?.includes(THUMBNAIL_PREFIX));
 
       return sortby(wallpapers, 'updated').reverse();
     },
@@ -59,8 +58,8 @@ export default {
 
   methods: {
     handleClick(wallpaper) {
-      if (this.selectable && wallpaper?.fullPath) {
-        this.$emit('select', wallpaper.fullPath);
+      if (this.selectable && wallpaper?.ref) {
+        this.$emit('select', wallpaper.ref);
         this.$bvModal.hide('boardWallpaper');
       } else {
         this.openPreview(wallpaper);

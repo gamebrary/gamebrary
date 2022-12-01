@@ -364,16 +364,12 @@ export default {
     });
   },
 
-  DELETE_WALLPAPER({ commit }, { fullPath }) {
+  DELETE_WALLPAPER({ commit }, { ref }) {
     return new Promise((resolve, reject) => {
-      storage()
-        .ref(fullPath)
-        .delete()
-        .then(() => {
-          commit('REMOVE_WALLPAPER', fullPath);
-          resolve();
-        })
-        .catch(reject);
+      storage().ref(ref).delete().then(() => {
+        commit('REMOVE_WALLPAPER', ref);
+        resolve();
+      }).catch(reject);
     });
   },
 
@@ -392,61 +388,27 @@ export default {
 
   LOAD_WALLPAPERS({ state, commit }) {
     return new Promise((resolve, reject) => {
-      storage()
-        .ref(`${state.user.uid}/wallpapers`)
-        .listAll()
-        .then(({ items }) => {
-          const wallpapers = items.map(({ fullPath, name }) => {
-            const wallpaper = {
-              fullPath,
-              name,
-            };
+      const wallpapers = [];
 
-            return wallpaper;
-          });
+      storage().ref(`${state.user.uid}/wallpapers`).listAll().then(({ items }) => {
+        const refs = items.map(({ fullPath }) => (fullPath));
 
-          // TODO: only store refs, load images as needed, lazily.
-          const fetchedUrls = [];
+        refs.forEach((ref, index) => {
+          storage().ref().child(ref).getDownloadURL().then((url) => {
+            storage().ref(ref).getMetadata().then(({ size, name, updated }) => {
+              wallpapers.push({ url, ref, size, name, updated });
 
-          wallpapers.forEach(({ fullPath }, index) => {
-            storage()
-              .ref()
-              .child(fullPath)
-              .getDownloadURL()
-              .then((url) => {
-                fetchedUrls.push(url);
-
-                wallpapers[index].url = url;
-
-                if (fetchedUrls.length === wallpapers.length) {
-                  const fetchedMetadatas = [];
-
-                  wallpapers.forEach((wallpaper, i) => {
-                    storage()
-                      .ref(wallpaper.fullPath)
-                      .getMetadata()
-                      .then((metadata) => {
-                        fetchedMetadatas.push(metadata);
-
-                        wallpapers[i] = {
-                          ...metadata,
-                          ...wallpapers[i],
-                        };
-
-                        if (fetchedMetadatas.length === wallpapers.length) {
-                          commit('SET_WALLPAPERS', wallpapers);
-                          resolve();
-                        }
-                      });
-                  });
-                }
-              })
-              .catch(reject);
-          });
-
-          resolve(wallpapers);
-        })
-        .catch(reject);
+              if (wallpapers.length === refs.length) {
+                commit('SET_WALLPAPERS', wallpapers);
+                resolve(wallpapers);
+              }
+            });
+          })
+          .catch(reject);
+        });
+      }).catch((e) => {
+        reject(e);
+      })
     });
   },
 
@@ -455,25 +417,21 @@ export default {
       storage()
         .ref(`${state.user.uid}/wallpapers/${file.name}`)
         .put(file)
-        .then((response) => {
-          if (response.state === 'success') {
-            const { metadata: { fullPath, name } } = response;
+        .then(({ state, metadata }) => {
+          if (state === 'success') {
+            storage().ref().child(metadata.fullPath).getDownloadURL().then((url) => {
+              const wallpaper = {
+                ref: metadata.fullPath,
+                name: metadata.name,
+                size: metadata.size,
+                updated: metadata.updated,
+                url,
+              };
 
-            storage()
-              .ref()
-              .child(fullPath)
-              .getDownloadURL()
-              .then((url) => {
-                const wallpaper = {
-                  fullPath,
-                  name,
-                  url,
-                };
-
-                commit('ADD_WALLPAPER', wallpaper);
-                resolve();
-              })
-              .catch(reject);
+              commit('ADD_WALLPAPER', wallpaper);
+              resolve();
+            })
+            .catch(reject);
           }
         })
         .catch(reject);
