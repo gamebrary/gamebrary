@@ -74,7 +74,7 @@
             <!-- <amazon-links class="mt-2" /> -->
             <!-- <game-speedruns /> -->
             <template v-if="highlightedAchievements">
-              <h4 class="mt-3">Achievements</h4>
+              <h4 :class="['mt-3', { 'text-outlined': hasWallpaper }]">Achievements</h4>
 
               <b-list-group>
                 <b-list-group-item
