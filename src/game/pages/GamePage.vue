@@ -139,9 +139,13 @@
                 </div>
               </div>
 
-              <game-details />
+
+              <!-- <b-link v-if="!boardsWithGame.length" v-b-modal.addRemoveGameModal>
+                Add to list
+              </b-link> -->
 
               <game-ratings />
+              <game-details />
             </article>
 
             <small
@@ -153,6 +157,28 @@
         </b-row>
 
         <game-media />
+
+        <section v-if="boardsWithGame.length" class="mt-3">
+          <strong :class="{ 'text-outlined': hasWallpaper }">Found in: </strong>
+
+          <b-form-row>
+            <!-- TODO: highlight game when linking back to board -->
+            <b-col
+              v-for="board in boardsWithGame"
+              :key="board.id"
+              class="mb-2"
+              cols="12"
+              sm="6"
+              md="4"
+              lg="3"
+            >
+              <mini-board
+                :board="board"
+                @click.native="$router.push({ name: 'board', params: { id: board.id } })"
+              />
+            </b-col>
+          </b-form-row>
+        </section>
         <!-- <timeline
           v-if="twitterHandle"
           :id="twitterHandle"
@@ -186,6 +212,7 @@ import GameMedia from '@/components/Game/GameMedia';
 import GameRatings from '@/components/Game/GameRatings';
 import GameDescription from '@/components/Game/GameDescription';
 import SimilarGames from '@/components/Game/SimilarGames';
+import MiniBoard from '@/components/Board/MiniBoard';
 // import GameSpeedruns from '@/components/Game/GameSpeedruns';
 import { STEAM_CATEGORY_ID, GOG_CATEGORY_ID, TWITTER_CATEGORY_ID, IMAGE_SIZE_SCREENSHOT_HUGE } from '@/constants';
 import { getImageUrl } from '@/utils';
@@ -194,6 +221,7 @@ export default {
   getImageUrl,
 
   components: {
+    MiniBoard,
     // AmazonLinks,
     GameDescription,
     GameDetails,
@@ -214,6 +242,10 @@ export default {
   computed: {
     ...mapState(['game', 'progresses', 'tags', 'boards', 'user', 'notes', 'twitchToken']),
     ...mapGetters(['darkTheme', 'gameNews']),
+
+    boardsWithGame() {
+      return this.boards?.filter(({ lists }) => lists?.some(({ games }) => games?.includes(this.game?.id))) || [];
+    },
 
     backdrop() {
       const artwork = this.game?.artworks?.[0];
