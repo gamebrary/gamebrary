@@ -2,17 +2,7 @@
   <section>
     <b-container>
       <portal to="pageTitle">
-        <div>
-          <b-button
-            variant="light"
-            class="mr-2"
-            :to="{ name: 'home' }"
-          >
-            <i class="fa-solid fa-chevron-left" />
-          </b-button>
-
-          Tags
-        </div>
+        Tags
       </portal>
 
       <portal v-if="!loading && tags.length > 0" to="headerActions">
