@@ -379,14 +379,11 @@ export default {
 
       this.loadArtworks();
 
-      const steamData = this.game?.websites?.find(({ category }) => category === STEAM_CATEGORY_ID);
-
-      // TODO: use regex or more elegant way to get id from url
-      const steamGameId = steamData?.url?.split('app/')[1]?.split('/')[0];
+      const steamUrl = this.game?.websites?.find(({ category }) => category === STEAM_CATEGORY_ID)?.url;
+      const steamGameId = steamUrl?.split('app/')[1]?.split('/')[0];
 
       if (steamGameId) await this.$store.dispatch('LOAD_STEAM_GAME', steamGameId).catch((e) => {});
 
-      // TODO: find more precise way to load GOG game, based on id?
       const gogPage = this.game?.websites?.find(({ category }) => category !== GOG_CATEGORY_ID);
       if (gogPage) await this.$store.dispatch('LOAD_GOG_GAME', this.game?.name).catch((e) => {});
 
