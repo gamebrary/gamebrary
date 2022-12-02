@@ -6,29 +6,39 @@
 
     <template v-else-if="hasAccess">
       <portal to="pageTitle">
-        <div :class="{ 'd-flex align-items-baseline': publicUserName }">
-          <p :class="['mb-0', { 'text-outlined': backgroundUrl }]">
-            {{ board.name }}
+        <div class="d-flex align-items-center">
+          <b-button
+            variant="light"
+            class="mr-2"
+            :to="{ name: 'boards' }"
+          >
+            <i class="fa-solid fa-chevron-left" />
+          </b-button>
 
-            <small v-if="publicUserName">
-              by
+          <div :class="{ 'd-flex align-items-baseline': publicUserName }">
+            <p :class="['mb-0', { 'text-outlined': backgroundUrl }]">
+              <span class="">{{ board.name }}</span>
 
-              <b-link
-                :class="['mr-2', { 'text-white': backgroundUrl } ]"
-                :to="{ name: 'public.profile', params: { userName: publicUserName }}"
-              >
-                <b-avatar
-                  rounded
-                  v-if="avatarImage"
-                  :src="avatarImage"
-                  :title="`@${publicUserName}`"
-                  v-b-tooltip.hover
-                />
+              <small v-if="publicUserName">
+                by
 
-                @{{ publicUserName }}
-              </b-link>
-            </small>
-          </p>
+                <b-link
+                  :class="['mr-2', { 'text-white': backgroundUrl } ]"
+                  :to="{ name: 'public.profile', params: { userName: publicUserName }}"
+                >
+                  <b-avatar
+                    rounded
+                    v-if="avatarImage"
+                    :src="avatarImage"
+                    :title="`@${publicUserName}`"
+                    v-b-tooltip.hover
+                  />
+
+                  @{{ publicUserName }}
+                </b-link>
+              </small>
+            </p>
+          </div>
         </div>
       </portal>
 
