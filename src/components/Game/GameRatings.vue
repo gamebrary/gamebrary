@@ -6,7 +6,7 @@
       :alt="rating"
       :key="rating"
       height="60"
-      class="mr-2 border"
+      class="mr-2"
     />
   </section>
 </template>
