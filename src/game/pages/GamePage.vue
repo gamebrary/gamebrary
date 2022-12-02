@@ -109,7 +109,7 @@
 
               <game-description />
 
-              <div v-if="gameDevelopers" class="mt-3">
+              <div v-if="gameDevelopers.length" class="mt-3">
                 <h4>Developed by:</h4>
                 <b-link
                   v-for="developer in gameDevelopers"
@@ -120,25 +120,26 @@
                     v-if="developer.logo"
                     :src="$options.getImageUrl(developer)"
                     :alt="developer.name"
-                    width="100"
+                    width="120"
                   />
 
                   <span v-else>{{ developer.name }}</span>
                 </b-link>
               </div>
 
-              <div v-if="gamePublishers" class="mt-3">
+              <div v-if="gamePublishers.length" class="mt-3">
                 <h4>Published by:</h4>
                 <b-link
                   v-for="publisher in gamePublishers"
                   :key="publisher.id"
                   :to="{ name: 'company', params: { id: publisher.id }}"
                 >
+                  <!-- TODO: use publisher.logo.alpha_channel to style logo -->
                   <b-img
                     v-if="publisher.logo"
                     :src="$options.getImageUrl(publisher)"
                     :alt="publisher.name"
-                    width="100"
+                    width="120"
                   />
 
                   <span v-else>{{ publisher.name }}</span>
@@ -307,13 +308,13 @@ export default {
     gameDevelopers() {
       return this.game?.involved_companies
         ?.filter(({ developer }) => developer)
-        ?.map(({ company }) => company) || null;
+        ?.map(({ company }) => company) || [];
     },
 
     gamePublishers() {
       return this.game?.involved_companies
         ?.filter(({ publisher }) => publisher)
-        ?.map(({ company }) => company) || null;
+        ?.map(({ company }) => company) || [];
     },
 
     gamePlatforms() {
