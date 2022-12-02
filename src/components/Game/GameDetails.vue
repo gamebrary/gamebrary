@@ -45,18 +45,6 @@
       </b-link>
     </div>
 
-    <div class="pr-2 pb-2">
-      <strong>Available for: </strong>
-
-      <span
-        v-for="(platform, index) in gamePlatforms"
-        :key="platform.id"
-      >
-        <b-link :to="{ name: 'search', query: { platforms: platform.id }}">{{ platform.name }}</b-link>
-        <template v-if="index < gamePlatforms.length - 1">, </template>
-      </span>
-    </div>
-
     <!-- TODO: restore release dates -->
     <!-- <div class="pr-2 pb-2">
       <strong>{{ $t('board.gameModal.releaseDate') }}</strong>
@@ -220,10 +208,6 @@ export default {
 
     officialWebsiteUrl() {
       return this.gameLinks?.find(({ id }) => id === 'official')?.url;
-    },
-
-    gamePlatforms() {
-      return this.game?.platforms;
     },
 
     gameModes() {

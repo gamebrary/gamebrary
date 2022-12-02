@@ -729,6 +729,7 @@ export default {
       involved_companies.developer,
       involved_companies.publisher,
       name,
+      platforms.platform_logo.*,
       platforms.id,
       platforms.name,
       player_perspectives.name,

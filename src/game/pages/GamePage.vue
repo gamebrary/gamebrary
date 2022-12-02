@@ -109,35 +109,41 @@
 
               <game-description />
 
-              <b-link
-                v-for="developer in gameDevelopers"
-                :key="developer.id"
-                :to="{ name: 'company', params: { id: developer.id }}"
-              >
-                <img
-                  v-if="developer.logo"
-                  :src="$options.getImageUrl(developer)"
-                  :alt="developer.name"
-                  width="100"
-                />
+              <div v-if="gameDevelopers" class="mt-3">
+                <h4>Developed by:</h4>
+                <b-link
+                  v-for="developer in gameDevelopers"
+                  :key="developer.id"
+                  :to="{ name: 'company', params: { id: developer.id }}"
+                >
+                  <b-img
+                    v-if="developer.logo"
+                    :src="$options.getImageUrl(developer)"
+                    :alt="developer.name"
+                    width="100"
+                  />
 
-                <span v-else>{{ developer.name }}</span>
-              </b-link>
+                  <span v-else>{{ developer.name }}</span>
+                </b-link>
+              </div>
 
-              <b-link
-                v-for="publisher in gamePublishers"
-                :key="publisher.id"
-                :to="{ name: 'company', params: { id: publisher.id }}"
-              >
-                <img
-                  v-if="publisher.logo"
-                  :src="$options.getImageUrl(publisher)"
-                  :alt="publisher.name"
-                  width="100"
-                />
+              <div v-if="gamePublishers" class="mt-3">
+                <h4>Published by:</h4>
+                <b-link
+                  v-for="publisher in gamePublishers"
+                  :key="publisher.id"
+                  :to="{ name: 'company', params: { id: publisher.id }}"
+                >
+                  <b-img
+                    v-if="publisher.logo"
+                    :src="$options.getImageUrl(publisher)"
+                    :alt="publisher.name"
+                    width="100"
+                  />
 
-                <span v-else>{{ publisher.name }}</span>
-              </b-link>
+                  <span v-else>{{ publisher.name }}</span>
+                </b-link>
+              </div>
 
               <b-alert
                 v-if="note"
@@ -169,6 +175,27 @@
                 </div>
               </div>
 
+              <div v-if="gamePlatforms">
+                <h4>Available for:</h4>
+
+                <b-link
+                  v-for="platform in gamePlatforms"
+                  :key="platform.id"
+                  :to="{ name: 'search', query: { platforms: platform.id }}"
+                >
+                  <b-img
+                    v-if="platform.platform_logo"
+                    :src="$options.getImageUrl(platform.platform_logo)"
+                    :alt="platform.name"
+                    thumbnail
+                    width="100"
+                  />
+
+                  <div v-else>
+                    {{ platform.name }}
+                  </div>
+                </b-link>
+              </div>
 
               <!-- <b-link v-if="!boardsWithGame.length" v-b-modal.addRemoveGameModal>
                 Add to list
@@ -280,13 +307,17 @@ export default {
     gameDevelopers() {
       return this.game?.involved_companies
         ?.filter(({ developer }) => developer)
-        ?.map(({ company }) => company);
+        ?.map(({ company }) => company) || null;
     },
 
     gamePublishers() {
       return this.game?.involved_companies
         ?.filter(({ publisher }) => publisher)
-        ?.map(({ company }) => company);
+        ?.map(({ company }) => company) || null;
+    },
+
+    gamePlatforms() {
+      return this.game?.platforms;
     },
 
     backdrop() {
