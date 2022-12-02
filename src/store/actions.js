@@ -5,8 +5,6 @@ import { firestore, storage } from 'firebase/app';
 import 'firebase/storage';
 import 'firebase/firestore';
 
-// TODO: use env variable in command to determine environment
-
 const API_BASE = 'https://us-central1-gamebrary-8c736.cloudfunctions.net';
 // const API_BASE = 'http://localhost:5001/gamebrary-8c736/us-central1';
 
@@ -34,7 +32,6 @@ export default {
     return new Promise((resolve, reject) => {
       axios.post('https://forms.keapapis.com/api/v1/public/forms/5330437182324736/submissions')
         .then(({ data }) => {
-          // commit('APPEND_GAME_SPEEDRUNS', data);
           resolve(data);
         }).catch(reject);
     });
@@ -73,9 +70,7 @@ export default {
     return new Promise((resolve, reject) => {
       axios.get(`${API_BASE}/steam-news?appId=${steamGameId}`)
         .then(({ data }) => {
-          const gameNews = data && data.appnews && data.appnews.newsitems
-            ? data.appnews.newsitems
-            : null;
+          const gameNews = data?.appnews?.newsitems || null;
 
           commit('APPEND_GAME_NEWS', gameNews);
           resolve(gameNews);
@@ -280,13 +275,11 @@ export default {
         .doc(userId)
         .get()
         .then((doc) => {
-          if (doc.exists) {
-            const profile = doc.data();
+          if (!doc.exists) return reject();
 
-            resolve(profile);
-          } else {
-            reject();
-          }
+          const profile = doc.data();
+
+          resolve(profile);
         })
         .catch(reject);
     });
@@ -366,13 +359,8 @@ export default {
 
   LOAD_FIREBASE_IMAGE(context, path) {
     return new Promise((resolve, reject) => {
-      storage()
-        .ref()
-        .child(path)
-        .getDownloadURL()
-        .then((url) => {
-          resolve(url);
-        })
+      storage().ref().child(path).getDownloadURL()
+        .then((url) => resolve(url))
         .catch(reject);
     });
   },

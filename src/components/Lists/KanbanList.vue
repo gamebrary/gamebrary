@@ -183,7 +183,6 @@ export default {
     },
 
     gameCardComponent() {
-      // TODO: use values from constant
       const availableViews = Object.keys(this.gameCardComponents);
 
       return availableViews?.includes(this.listView)
