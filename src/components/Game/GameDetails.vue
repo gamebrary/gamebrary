@@ -33,30 +33,6 @@
       </b-link>
     </div>
 
-    <div v-if="gameDevelopers" class="pr-2 pb-2">
-      <strong>{{ $t('board.gameModal.developers') }}: </strong>
-
-      <b-link
-        v-for="({ company }, index) in gameDevelopers"
-        :key="company.id"
-      >
-        <b-link :to="{ name: 'company', params: { id: company.id }}">{{ company.name }}</b-link>
-        <template v-if="index < gameDevelopers.length - 1">, </template>
-      </b-link>
-    </div>
-
-    <div v-if="gamePublishers" class="pr-2 pb-2">
-      <strong>{{ $t('board.gameModal.publishers') }}: </strong>
-
-      <b-link
-        v-for="({ company }, index) in gamePublishers"
-        :key="company.id"
-      >
-        <b-link :to="{ name: 'company', params: { id: company.id }}">{{ company.name }}</b-link>
-        <template v-if="index < gamePublishers.length - 1">, </template>
-      </b-link>
-    </div>
-
     <div v-if="playerPerspectives" class="pr-2 pb-2">
       <strong>{{ $t('board.gameModal.perspective') }}: </strong>
 
@@ -248,14 +224,6 @@ export default {
 
     gamePlatforms() {
       return this.game?.platforms;
-    },
-
-    gameDevelopers() {
-      return this.game?.involved_companies?.filter(({ developer }) => developer);
-    },
-
-    gamePublishers() {
-      return this.game?.involved_companies?.filter(({ publisher }) => publisher);
     },
 
     gameModes() {

@@ -109,6 +109,36 @@
 
               <game-description />
 
+              <b-link
+                v-for="developer in gameDevelopers"
+                :key="developer.id"
+                :to="{ name: 'company', params: { id: developer.id }}"
+              >
+                <img
+                  v-if="developer.logo"
+                  :src="$options.getImageUrl(developer)"
+                  :alt="developer.name"
+                  width="100"
+                />
+
+                <span v-else>{{ developer.name }}</span>
+              </b-link>
+
+              <b-link
+                v-for="publisher in gamePublishers"
+                :key="publisher.id"
+                :to="{ name: 'company', params: { id: publisher.id }}"
+              >
+                <img
+                  v-if="publisher.logo"
+                  :src="$options.getImageUrl(publisher)"
+                  :alt="publisher.name"
+                  width="100"
+                />
+
+                <span v-else>{{ publisher.name }}</span>
+              </b-link>
+
               <b-alert
                 v-if="note"
                 v-html="note"
@@ -245,6 +275,18 @@ export default {
 
     boardsWithGame() {
       return this.boards?.filter(({ lists }) => lists?.some(({ games }) => games?.includes(this.game?.id))) || [];
+    },
+
+    gameDevelopers() {
+      return this.game?.involved_companies
+        ?.filter(({ developer }) => developer)
+        ?.map(({ company }) => company);
+    },
+
+    gamePublishers() {
+      return this.game?.involved_companies
+        ?.filter(({ publisher }) => publisher)
+        ?.map(({ company }) => company);
     },
 
     backdrop() {

@@ -724,6 +724,7 @@ export default {
       external_games.*,
       game_modes.name,
       genres.name,
+      involved_companies.company.logo.*,
       involved_companies.company.name,
       involved_companies.developer,
       involved_companies.publisher,
