@@ -16,7 +16,7 @@
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <template v-else-if="game">
-      <div v-if="backdrop" class="backdrop d-none d-sm-block" :style="`background-image: url('${backdrop.url}'); height: 500px; margin-top: -54px`" />
+      <div v-if="backdrop" class="backdrop" :style="`background-image: url('${backdrop.url}')`" />
 
       <b-container>
         <portal to="pageTitle">
@@ -412,27 +412,13 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-.play-button {
-  background-color:rgba(0, 0, 0, 0.3);
-  position: absolute;
-  width: 100px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  left: calc(50% - 50px);
-  font-size: 2rem;
-  top: calc(50% - 25px);
-}
-
 .backdrop {
-  height: 300px;
+  margin-top: -54px;
   background-size: cover;
+  height: 50vh;
 }
 
 .has-backdrop {
-  @media(min-width: 781px) {
-    margin-top: -150px;
-  }
+  margin-top: -25vh;
 }
 </style>
