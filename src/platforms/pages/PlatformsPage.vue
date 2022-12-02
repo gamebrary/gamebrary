@@ -7,7 +7,16 @@
       :to="{ name: 'platform', params: { id: platform.id } }"
       :key="platform.id"
     >
-      {{ platform.name }}
+      <b-img
+        v-if="platform.platform_logo"
+        :src="$options.getImageUrl(platform.platform_logo)"
+        :alt="platform.name"
+        width="120"
+      />
+
+      <template v-else>
+        {{ platform.name }}
+      </template>
     </b-button>
   </div>
 </template>
@@ -15,8 +24,11 @@
 <script>
 import orderby from 'lodash.orderby';
 import { mapGetters } from 'vuex';
+import { getImageUrl } from '@/utils';
 
 export default {
+  getImageUrl,
+
   data() {
     return {
       platforms: null,
@@ -30,7 +42,7 @@ export default {
   methods: {
     async loadPlatforms() {
       try {
-        const data = `fields category,generation,name,alternative_name,slug; limit 200;`;
+        const data = `fields category,generation,name,alternative_name,slug,platform_logo.*; limit 200;`;
         const platforms = await this.$store.dispatch('IGDB', { path: 'platforms', data });
 
         this.platforms = orderby(platforms, 'name');
