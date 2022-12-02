@@ -14,7 +14,7 @@ export const getImageUrl = (item, size = IMAGE_SIZE_COVER_BIG) => {
   const imageId = item?.logo?.image_id || item?.cover?.image_id || item?.image_id || null;
 
   return imageId
-    ? `https://images.igdb.com/igdb/image/upload/${size}/${imageId}.jpg`
+    ? `https://images.igdb.com/igdb/image/upload/${size}/${imageId}.png`
     : '/placeholder.gif';
 };
 
