@@ -42,20 +42,38 @@
           title="Screenshots and videos"
           @close="close"
         >
-          <!-- TODO: restore set as wallpaper -->
-          <!-- <b-button
-            v-if="isBoardOwner"
-            class="d-none d-sm-inline"
+          <b-dropdown
+            v-if="showSetAsWallpaperButton"
             variant="light"
-            @click="setAsWallpaper"
+            class="mr-2"
+            menu-class="p-0"
           >
-            <i
-              v-if="saving"
-              class="d-sm-fas fa-sync fa-spin fa-fw"
-              aria-hidden
-            />
-            <span v-else>Set as wallpaper</span>
-          </b-button> -->
+            <template #button-content>
+              <b-spinner v-if="saving" small />
+              <span v-else>Set as wallpaper</span>
+            </template>
+
+            <b-dropdown-item
+              v-for="board in formattedBoards"
+              :key="board.id"
+              @click="setAsWallpaper(board)"
+              class="p-0"
+            >
+              <b-avatar
+                rounded
+                :class="['board-thumbnail mr-2', { 'bg-dark' : !board.backgroundColor }]"
+                :title="board.name"
+                text=" "
+                size="32"
+                :style="`
+                  background-image: url(${board.backgroundUrl ? board.backgroundUrl : ''});
+                  background-color: ${board.backgroundColor ? board.backgroundColor : ''}
+                  `"
+              />
+
+              {{ board.name }}
+            </b-dropdown-item>
+          </b-dropdown>
         </modal-header>
       </template>
 
@@ -118,11 +136,19 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['isBoardOwner', 'gameMedia']),
-    ...mapState(['board', 'game']),
+    ...mapGetters(['gameMedia']),
+    ...mapState(['user', 'board', 'game', 'wallpapers', 'boards']),
+
+    formattedBoards() {
+      return this.boards?.map((board) => ({ ...board, backgroundUrl: this.getWallpaperUrl(board?.backgroundUrl) }));
+    },
 
     isSelectedMediaVideo() {
       return this.selectedMedia?.isVideo;
+    },
+
+    isSelectedMediaCover() {
+      return this.selectedMedia?.isCover;
     },
 
     selectedMedia() {
@@ -135,6 +161,12 @@ export default {
 
     visible() {
       return this.activeIndex !== null;
+    },
+
+    showSetAsWallpaperButton() {
+      if (!this.user) return false;
+
+      return !this.isSelectedMediaVideo && !this.isSelectedMediaCover;
     },
   },
 
@@ -152,26 +184,26 @@ export default {
       this.$bvModal.show('mediaModal');
     },
 
-    async setAsWallpaper() {
-      // TODO: refactor and restore
-      // this.saving = true;
-      //
-      // const payload = {
-      //   ...this.board,
-      //   backgroundUrl: this.slides[this.activeIndex - 1],
-      // };
-      //
-      // this.$store.commit('SET_ACTIVE_BOARD', payload);
-      //
-      // await this.$store.dispatch('SAVE_BOARD')
-      //   .catch(() => {
-      //     this.saving = false;
-      //
-      //     this.$bvToast.toast('There was an error renaming list', { variant: 'danger' });
-      //   });
-      //
-      // this.saving = false;
-      // this.$bvToast.toast('Wallpaper set');
+    getWallpaperUrl(url) {
+      if (!url) return null;
+      if (url?.includes('igdb.com')) return url;
+
+      return this.wallpapers?.find(({ ref }) => ref === url)?.url;
+    },
+
+    async setAsWallpaper(board) {
+      try {
+        this.saving = true;
+
+        this.$store.commit('SET_ACTIVE_BOARD', { ...board, backgroundUrl: this.selectedMedia.imageUrl });
+
+        await this.$store.dispatch('SAVE_BOARD');
+      } catch (e) {
+        this.$bvToast.toast('There was an error setting wallpaper', { variant: 'danger' });
+      }
+
+      this.saving = false;
+      this.$bvModal.hide('mediaModal');
     },
   },
 };

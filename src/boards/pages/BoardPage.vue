@@ -157,17 +157,25 @@ export default {
     },
 
     async loadBoardBackground() {
-      const url = this.board?.backgroundUrl;
+      const backgroundUrl = this.board?.backgroundUrl;
 
       if (this.board?.backgroundColor) this.$bus.$emit('UPDATE_BACKGROUND_COLOR', this.board?.backgroundColor);
+      if (!backgroundUrl) return this.backgroundUrl = null;
+      if (backgroundUrl.includes('igdb')) return this.backgroundUrl = backgroundUrl;
 
-      if (url) {
-        this.backgroundUrl = url.includes('igdb')
-          ? url
-          : await this.$store.dispatch('LOAD_FIREBASE_IMAGE', url);
-      } else {
-        this.backgroundUrl = null;
+      try {
+        this.backgroundUrl = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', backgroundUrl);
+      } catch (e) {
+        if (e?.code === 'storage/object-not-found') this.removeBoardWallpaper();
       }
+    },
+
+    async removeBoardWallpaper() {
+      const board = { ...this.board, backgroundUrl: null }
+
+      this.$store.commit('SET_ACTIVE_BOARD', board);
+
+      await this.$store.dispatch('SAVE_BOARD');
     },
 
     async loadPublicProfile() {
