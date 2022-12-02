@@ -736,8 +736,8 @@ export default {
       release_dates.platform,
       screenshots.image_id,
       similar_games,
-      summary,
       slug,
+      summary,
       videos.video_id,
       websites.category,
       websites.url;
