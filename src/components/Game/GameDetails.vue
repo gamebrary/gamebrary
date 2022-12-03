@@ -1,16 +1,9 @@
 <template>
-  <b-card
-    :img-src="gameHeaderImage"
-    img-alt="Image"
-    img-top
-    class="small mt-3"
-    bg-variant="light"
-    text-variant="dark"
-  >
+  <div>
     <game-progress />
 
-    <div v-if="gameGenres" class="pr-2 pb-2">
-      <strong>Genres: </strong>
+    <div v-if="gameGenres">
+      <h4 class="mt-4">Genres: </h4>
 
       <b-link
         v-for="(genre, index) in gameGenres"
@@ -21,8 +14,8 @@
       </b-link>
     </div>
 
-    <div v-if="gameModes" class="pr-2 pb-2">
-      <strong>{{ $t('board.gameModal.gameModes') }}: </strong>
+    <div v-if="gameModes">
+      <h4 class="mt-4">{{ $t('board.gameModal.gameModes') }}: </h4>
 
       <b-link
         v-for="(gameMode, index) in gameModes"
@@ -33,8 +26,8 @@
       </b-link>
     </div>
 
-    <div v-if="playerPerspectives" class="pr-2 pb-2">
-      <strong>{{ $t('board.gameModal.perspective') }}: </strong>
+    <div v-if="playerPerspectives">
+      <h4 class="mt-4">{{ $t('board.gameModal.perspective') }}: </h4>
 
       <b-link
         v-for="({ id, name }, index) in playerPerspectives"
@@ -46,8 +39,8 @@
     </div>
 
     <!-- TODO: restore release dates -->
-    <!-- <div class="pr-2 pb-2">
-      <strong>{{ $t('board.gameModal.releaseDate') }}</strong>
+    <!-- <div>
+      <h4 class="mt-4">{{ $t('board.gameModal.releaseDate') }}</h4>
       <ol v-if="releaseDates" class="list-unstyled mb-0">
         <li
           v-for="{ id, platform, date } in releaseDates"
@@ -62,8 +55,8 @@
       </div>
     </div> -->
 
-    <div v-if="user" class="pr-2 pb-2">
-      <strong>Found in: </strong>
+    <div v-if="user">
+      <h4 class="mt-4">Found in: </h4>
 
       <b-link v-if="!boardsWithGame.length" v-b-modal.addRemoveGameModal>
         Add to list
@@ -81,14 +74,12 @@
       <add-remove-game />
     </div>
 
-    <div v-if="user" class="pr-2 pb-2">
-      <strong>Tags: </strong>
+    <div v-if="user">
+      <h4 class="mt-4">Tags: </h4>
 
       <b-link v-if="!tagsApplied.length" v-b-modal.gameTagsModal>
         Add tag
       </b-link>
-
-      <br />
 
       <b-button
         v-for="({ bgColor, textColor, name, index }) in tagsApplied"
@@ -107,8 +98,7 @@
       <game-tags-modal />
     </div>
 
-    <strong>Other links</strong>
-    <br>
+    <h4 class="mt-4">Other links</h4>
 
     <b-button
       v-for="{ url, id, icon, svg } in gameLinks"
@@ -134,16 +124,13 @@
       />
     </b-button>
 
-    <b-button
+    <b-link
       v-if="officialWebsiteUrl"
-      class="mt-3"
       v-b-modal.officialWebsite
-      block
       :title="officialWebsiteUrl"
-      variant="secondary"
     >
       Official website
-    </b-button>
+    </b-link>
 
     <b-modal
       id="officialWebsite"
@@ -171,7 +158,7 @@
       />
     </b-modal>
 
-  </b-card>
+  </div>
 </template>
 
 <script>
@@ -202,9 +189,10 @@ export default {
       return this.boards?.filter(({ lists }) => lists?.some(({ games }) => games?.includes(this.game?.id))) || [];
     },
 
-    gameHeaderImage() {
-      return this.game?.steam?.header_image;
-    },
+    // TODO: find a good use for game header image
+    // gameHeaderImage() {
+    //   return this.game?.steam?.header_image;
+    // },
 
     officialWebsiteUrl() {
       return this.gameLinks?.find(({ id }) => id === 'official')?.url;

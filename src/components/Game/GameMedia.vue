@@ -1,11 +1,13 @@
 <template lang="html">
   <div class="mt-3">
-    <b-row no-gutters>
-      <div
+    <b-form-row>
+      <b-col
         v-for="({ imageUrl, isVideo, isCover }, index) in gameMedia"
+        cols="6"
+        sm="4"
         :key="index"
       >
-        <div class="mr-2 align-items-center text-center mb-2 rounded cursor-pointer position-relative">
+        <div class="align-items-center text-center mb-2 rounded cursor-pointer">
           <i
             v-if="isVideo"
             class="fa-solid fa-play video-indicator position-absolute text-white"
@@ -21,12 +23,14 @@
           <b-img
             :src="imageUrl"
             rounded
-            style="height: 180px"
+            class="mb-2"
+            fluid
+            style="max-height: 120px;"
             @click="viewMedia(index)"
           />
         </div>
-      </div>
-    </b-row>
+      </b-col>
+    </b-form-row>
 
     <b-modal
       id="mediaModal"

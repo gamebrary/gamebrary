@@ -106,6 +106,7 @@ export default {
     border-radius: .25rem;
   }
 }
+
 .mw-empty-elt {
   display: none;
 }

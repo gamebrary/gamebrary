@@ -1,4 +1,4 @@
-import { THUMBNAIL_PREFIX, IMAGE_SIZE_COVER_BIG } from '@/constants';
+import { THUMBNAIL_PREFIX, IMAGE_SIZE_COVER_BIG, NO_IMAGE_PATH } from '@/constants';
 
 export const bytesToSize = (bytes) => {
   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
@@ -15,7 +15,7 @@ export const getImageUrl = (item, size = IMAGE_SIZE_COVER_BIG) => {
 
   return imageId
     ? `https://images.igdb.com/igdb/image/upload/${size}/${imageId}.png`
-    : '/placeholder.gif';
+    : NO_IMAGE_PATH;
 };
 
 export const getFileExtension = (fileName) => {

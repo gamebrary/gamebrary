@@ -74,6 +74,7 @@ export default {
     },
 
     isBoardPage() {
+      // TODO: do show blurred background in game page
       return ['board', 'game'].includes(this.$route.name);
     },
   },

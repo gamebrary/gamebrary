@@ -16,7 +16,13 @@
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <template v-else-if="game">
-      <div v-if="backdrop" class="backdrop" :style="`background-image: url('${backdrop.url}')`" />
+      <div
+        v-if="backdrop"
+        class="backdrop"
+        :style="`background-image: url('${backdrop.url}')`"
+        v-b-modal.mediaModal
+      />
+
 
       <b-container>
         <portal to="pageTitle">
@@ -99,122 +105,134 @@
           <b-col
             cols="12"
             md="8"
-            xl="9"
+            lg="5"
+            xl="6"
+            :class="['pt-3', darkTheme || hasWallpaper ? 'text-light' : '']"
           >
-            <article :class="darkTheme || hasWallpaper ? 'text-light' : ''">
+            <div class="d-flex justify-content-between" v-b-visible="visibleHandler">
+              <h2 :class="{ 'mt-3': backdrop }">{{ game.name }}</h2>
+            </div>
 
-              <div class="d-flex justify-content-between" v-b-visible="visibleHandler">
-                <h2 :class="{ 'mt-3': backdrop }">{{ game.name }}</h2>
-              </div>
+            <game-description />
 
-              <game-description />
+            <b-alert
+              v-if="note"
+              v-html="note"
+              show
+              class="cursor-pointer mt-3"
+              variant="warning"
+              @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
+            />
 
-              <div v-if="gameDevelopers.length" class="mt-3">
-                <h4>Developed by:</h4>
-                <b-link
-                  v-for="developer in gameDevelopers"
-                  :key="developer.id"
-                  :to="{ name: 'company', params: { id: developer.id }}"
-                >
-                  <b-img
-                    v-if="developer.logo"
-                    :src="$options.getImageUrl(developer)"
-                    :alt="developer.name"
-                    width="120"
-                  />
+            <!-- <b-link v-if="!boardsWithGame.length" v-b-modal.addRemoveGameModal>
+              Add to list
+            </b-link> -->
 
-                  <span v-else>{{ developer.name }}</span>
-                </b-link>
-              </div>
-
-              <div v-if="gamePublishers.length" class="mt-3">
-                <h4>Published by:</h4>
-                <b-link
-                  v-for="publisher in gamePublishers"
-                  :key="publisher.id"
-                  :to="{ name: 'company', params: { id: publisher.id }}"
-                >
-                  <!-- TODO: use publisher.logo.alpha_channel to style logo -->
-                  <b-img
-                    v-if="publisher.logo"
-                    :src="$options.getImageUrl(publisher)"
-                    :alt="publisher.name"
-                    width="120"
-                  />
-
-                  <span v-else>{{ publisher.name }}</span>
-                </b-link>
-              </div>
-
-              <b-alert
-                v-if="note"
-                v-html="note"
-                show
-                class="cursor-pointer mt-3"
-                variant="warning"
-                @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
-              />
-
-              <div class="mt-3" v-if="alternativeNames.length">
-                <p>Alternative names:</p>
-
-                <div
-                  class="mb-1 small"
-                  variant="light"
-                  v-for="{ comment, id, name, imgUrl } in alternativeNames"
-                  :key="id"
-                >
-                  <b-avatar
-                    v-b-tooltip.hover
-                    :title="comment || null"
-                    size="sm"
-                    class="mr-1"
-                    :src="imgUrl"
-                  />
-
-                  {{ name }}
-                </div>
-              </div>
-
-              <div v-if="gamePlatforms">
-                <h4>Available for:</h4>
-
-                <b-link
-                  v-for="platform in gamePlatforms"
-                  :key="platform.id"
-                  :to="{ name: 'search', query: { platforms: platform.id }}"
-                >
-                  <b-img
-                    v-if="platform.platform_logo"
-                    :src="$options.getImageUrl(platform.platform_logo)"
-                    :alt="platform.name"
-                    thumbnail
-                    width="100"
-                  />
-
-                  <div v-else>
-                    {{ platform.name }}
-                  </div>
-                </b-link>
-              </div>
-
-              <!-- <b-link v-if="!boardsWithGame.length" v-b-modal.addRemoveGameModal>
-                Add to list
-              </b-link> -->
-
-              <game-ratings />
-              <game-details />
-            </article>
+            <game-ratings />
 
             <small
               v-if="legalNotice"
               class="text-muted"
               v-html="legalNotice"
             />
+
+            <game-media />
+          </b-col>
+
+          <b-col
+            cols="12"
+            md="12"
+            lg="3"
+            xl="3"
+            class="pt-3"
+          >
+            <game-details />
+
+            <div v-if="gamePublishers.length" class="d-flex justify-content-center flex-column">
+              <h4 class="mt-4">Published by:</h4>
+
+              <b-link
+                v-for="publisher in gamePublishers"
+                :key="publisher.id"
+                :to="{ name: 'company', params: { id: publisher.id }}"
+              >
+                <!-- TODO: use publisher.logo.alpha_channel to style logo -->
+                <b-img
+                  v-if="publisher.logo"
+                  :src="$options.getImageUrl(publisher)"
+                  :alt="publisher.name"
+                  width="120"
+                />
+
+                <span v-else>{{ publisher.name }}</span>
+              </b-link>
+            </div>
+
+            <div v-if="gameDevelopers.length">
+              <h4 class="mt-4">Developed by:</h4>
+
+              <b-link
+                v-for="developer in gameDevelopers"
+                :key="developer.id"
+                :to="{ name: 'company', params: { id: developer.id }}"
+              >
+                <b-img
+                  v-if="developer.logo"
+                  :src="$options.getImageUrl(developer)"
+                  :alt="developer.name"
+                  width="120"
+                />
+
+                <span v-else>{{ developer.name }}</span>
+              </b-link>
+            </div>
+
+            <div v-if="alternativeNames.length">
+              <h4 class="mt-4">Alternative names:</h4>
+
+              <div
+                class="mb-1"
+                variant="light"
+                v-for="{ comment, id, name, imgUrl } in alternativeNames"
+                :key="id"
+              >
+                <b-avatar
+                  v-b-tooltip.hover
+                  :title="comment || null"
+                  size="sm"
+                  class="mr-1"
+                  :src="imgUrl"
+                />
+
+                {{ name }}
+              </div>
+            </div>
+
+            <div v-if="gamePlatforms">
+              <h4 class="mt-4">Available for:</h4>
+
+              <b-button
+                v-for="platform in gamePlatforms"
+                :key="platform.id"
+                variant="transparent"
+                class="pb-0"
+                :to="{ name: 'search', query: { platforms: platform.id }}"
+              >
+                <b-img
+                  v-if="platform.platform_logo"
+                  :src="$options.getImageUrl(platform.platform_logo)"
+                  :alt="platform.name"
+                  class="mr-2 mb-2"
+                  width="100"
+                />
+
+                <b-avatar size="100" rounded v-else>
+                  <small>{{ platform.name }}</small>
+                </b-avatar>
+              </b-button>
+            </div>
           </b-col>
         </b-row>
-
-        <game-media />
 
         <section v-if="boardsWithGame.length" class="mt-3">
           <strong :class="{ 'text-outlined': hasWallpaper }">Found in: </strong>
@@ -246,7 +264,7 @@
         </timeline> -->
       </b-container>
 
-      <similar-games />
+      <similar-games :has-wallpaper="hasWallpaper" />
     </template>
 
     <div class="pt-5" v-else>

@@ -1,12 +1,19 @@
 <template lang="html">
   <b-card
     v-if="game"
-    :img-src="$options.getImageUrl(game)"
+    :img-src="gameCoverUrl"
     :img-alt="game.name"
     :class="['mb-3 cursor-pointer', { 'border-selected': selected }]"
     overlay
     @click="handleClick"
   >
+    <strong
+      v-if="noImage"
+      class="text-center pb-5 d-flex justify-content-center"
+    >
+      {{ game.name }}
+    </strong>
+
     <div v-if="selected" class="selected-indicator rounded bg-success text-white">
       <i class="fa fa-check" />
     </div>
@@ -16,11 +23,10 @@
 <script>
 import { getImageUrl } from '@/utils';
 import { mapState } from 'vuex';
+import { NO_IMAGE_PATH } from '@/constants';
 import slugify from 'slugify'
 
 export default {
-  getImageUrl,
-
   props: {
     game: {
       type: Object,
@@ -37,8 +43,16 @@ export default {
       return this.boards.find(({ id }) => id === boardId);
     },
 
+    gameCoverUrl() {
+      return getImageUrl(this.game);
+    },
+
     selected() {
       return this.selectedList?.games?.includes(this.game.id)
+    },
+
+    noImage() {
+      return NO_IMAGE_PATH === this.gameCoverUrl;
     },
 
     selectedList() {

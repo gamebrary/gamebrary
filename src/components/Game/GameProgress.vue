@@ -1,7 +1,7 @@
 <!-- TODO: hide progress if game is not yet released -->
 <template lang="html">
-  <div class="pr-2 pb-2">
-    <strong>Progress: </strong>
+  <div>
+    <h4 class="mt-4">Progress: </h4>
     <b-link @click="editing = true">{{ progress }}%</b-link>
 
     <b-form v-if="editing">
@@ -96,6 +96,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-</style>
