@@ -83,7 +83,7 @@ export default {
 
     const igdbVideos = state.game?.videos?.map((video) => {
       return {
-        imageUrl: `https://img.youtube.com/vi/${video.video_id}/default.jpg`,
+        imageUrl: `https://img.youtube.com/vi/${video.video_id}/hqdefault.jpg`,
         videoUrl: `https://www.youtube.com/embed/${video.video_id}?rel=0&autoplay=1`,
         isVideo: true,
         source: 'youtube',
@@ -118,8 +118,8 @@ export default {
       ...gogImages,
       ...steamScreenshots,
       ...igdbScreenshots,
-      ...wikipediaImages,
       ...igdbArtworks,
+      ...wikipediaImages,
       gameCover,
       ...igdbVideos,
       ...steamVideos,
