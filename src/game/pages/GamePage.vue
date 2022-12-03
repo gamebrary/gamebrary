@@ -23,7 +23,6 @@
         v-b-modal.mediaModal
       />
 
-
       <b-container>
         <portal to="pageTitle">
           <span
@@ -85,6 +84,7 @@
               <b-list-group>
                 <b-list-group-item
                   class="d-flex align-items-center"
+                  variant="dark"
                   v-for="achievement in highlightedAchievements"
                   :key="achievement.name"
                 >
@@ -113,7 +113,15 @@
               <h2 :class="{ 'mt-3': backdrop }">{{ game.name }}</h2>
             </div>
 
-            <game-description />
+            <div :class="['game-description', source]">
+              <b-spinner v-if="loading" class="spinner-centered" />
+
+              <template v-else>
+                <div v-html="description" />
+                <!-- TODO: use logos for listing all sources -->
+                <span class="text-muted mt-n3 mb-3 text-capitalize">Source: {{ source }}</span>
+              </template>
+            </div>
 
             <b-alert
               v-if="note"
@@ -144,9 +152,166 @@
             md="12"
             lg="3"
             xl="3"
-            class="pt-3"
+            :class="['pt-3', darkTheme || hasWallpaper ? 'text-light' : '']"
           >
-            <game-details />
+            <game-progress />
+
+            <div v-if="gameGenres">
+              <h4 class="mt-4">Genres: </h4>
+
+              <b-link
+                v-for="(genre, index) in gameGenres"
+                :to="{ name: 'search', query: { genres: genre.id }}"
+                :key="genre.id"
+              >
+                {{ genre.name }}
+                <template v-if="index < gameGenres.length - 1">, </template>
+              </b-link>
+            </div>
+
+            <div v-if="gameModes">
+              <h4 class="mt-4">{{ $t('board.gameModal.gameModes') }}: </h4>
+
+              <b-link
+                v-for="(gameMode, index) in gameModes"
+                :key="gameMode.id"
+              >
+                <b-link :to="{ name: 'search', query: { gameMode: gameMode.id }}">{{ gameMode.name }}</b-link>
+                <template v-if="index < gameModes.length - 1">, </template>
+              </b-link>
+            </div>
+
+            <div v-if="playerPerspectives">
+              <h4 class="mt-4">{{ $t('board.gameModal.perspective') }}: </h4>
+
+              <b-link
+                v-for="({ id, name }, index) in playerPerspectives"
+                :key="id"
+              >
+                <b-link :to="{ name: 'search', query: { perspective: id }}">{{ name }}</b-link>
+                <template v-if="index < playerPerspectives.length - 1">, </template>
+              </b-link>
+            </div>
+
+            <!-- TODO: restore release dates -->
+            <!-- <div>
+              <h4 class="mt-4">{{ $t('board.gameModal.releaseDate') }}</h4>
+              <ol v-if="releaseDates" class="list-unstyled mb-0">
+                <li
+                  v-for="{ id, platform, date } in releaseDates"
+                  :key="id"
+                >
+                  {{ date }} <span>{{ platform || 'N/A' }}</span>
+                </li>
+              </ol>
+
+              <div v-else>
+                Not released yet
+              </div>
+            </div> -->
+
+            <div v-if="user">
+              <h4 class="mt-4">Found in: </h4>
+
+              <b-link v-if="!boardsWithGame.length" v-b-modal.addRemoveGameModal>
+                Add to list
+              </b-link>
+
+              <span
+                v-for="(board, index) in boardsWithGame"
+                :key="board.id"
+              >
+                <b-link :to="{ name: 'board', params: { id: board.id } }">{{ board.name }}</b-link>
+                <template v-if="index !== boardsWithGame.length - 1">, </template>
+              </span>
+
+
+              <add-remove-game />
+            </div>
+
+            <div v-if="user">
+              <h4 class="mt-4">Tags: </h4>
+
+              <b-link v-if="!tagsApplied.length" v-b-modal.gameTagsModal>
+                Add tag
+              </b-link>
+
+              <b-button
+                v-for="({ bgColor, textColor, name, index }) in tagsApplied"
+                :key="index"
+                rounded
+                size="sm"
+                variant="transparent"
+                class="mr-1 mb-2"
+                :style="`background-color: ${bgColor}; color: ${textColor}`"
+                v-b-modal.gameTagsModal
+              >
+                <i class="fa-solid fa-tag mr-1" />
+                {{ name }}
+              </b-button>
+
+              <game-tags-modal />
+            </div>
+
+            <h4 class="mt-4">External links</h4>
+
+            <b-button
+              v-for="{ url, id, icon, svg } in gameLinks"
+              :href="url"
+              :key="id"
+              :title="$t(`board.gameModal.links.${id}`)"
+              v-b-tooltip.hover
+              variant="transparent"
+              target="_blank"
+              class="text-left p-1 m-0"
+            >
+              <i
+                v-if="icon"
+                :class="`${icon} fa-fw`"
+                aria-hidden
+              />
+
+              <b-img
+                v-else-if="svg"
+                width="24"
+                class="mr-1"
+                :src="`/logos/companies/${id}.svg`"
+              />
+            </b-button>
+
+            <b-link
+              v-if="officialWebsiteUrl"
+              v-b-modal.officialWebsite
+              :title="officialWebsiteUrl"
+            >
+              Official website
+            </b-link>
+
+            <b-modal
+              id="officialWebsite"
+              size="xl"
+              hide-footer
+            >
+              <template v-slot:modal-header="{ close }">
+                <modal-header
+                  title="Official website"
+                  :subtitle="game.name"
+                  @close="close"
+                >
+                  <b-button :href="officialWebsiteUrl" target="_blank">
+                    Open in new tab
+                  </b-button>
+                </modal-header>
+              </template>
+
+              <b-embed
+                type="iframe"
+                aspect="16by9"
+                class="official-site-modal rounded"
+                :src="officialWebsiteUrl"
+                allowfullscreen
+              />
+            </b-modal>
 
             <div v-if="gamePublishers.length" class="d-flex justify-content-center flex-column">
               <h4 class="mt-4">Published by:</h4>
@@ -283,10 +448,12 @@ import { setPageTitle } from '@/utils';
 import { mapState, mapGetters } from 'vuex';
 import { WEBSITE_CATEGORIES } from '@/constants';
 // import AmazonLinks from '@/components/Game/AmazonLinks';
-import GameDetails from '@/components/Game/GameDetails';
+// import GameDetails from '@/components/Game/GameDetails';
 import GameMedia from '@/components/Game/GameMedia';
+import GameProgress from '@/components/Game/GameProgress';
+import GameTagsModal from '@/components/Game/GameTagsModal';
+import AddRemoveGame from '@/components/AddRemoveGame';
 import GameRatings from '@/components/Game/GameRatings';
-import GameDescription from '@/components/Game/GameDescription';
 import SimilarGames from '@/components/Game/SimilarGames';
 import MiniBoard from '@/components/Board/MiniBoard';
 // import GameSpeedruns from '@/components/Game/GameSpeedruns';
@@ -298,9 +465,11 @@ export default {
 
   components: {
     MiniBoard,
+    AddRemoveGame,
+    GameTagsModal,
+    GameProgress,
     // AmazonLinks,
-    GameDescription,
-    GameDetails,
+    // GameDetails,
     GameMedia,
     GameRatings,
     // GameSpeedruns,
@@ -311,16 +480,94 @@ export default {
     return {
       loading: false,
       showHeaderTitle: false,
-      hasWallpaper: false,
+      wikipediaDescription: null,
     };
   },
 
   computed: {
     ...mapState(['game', 'progresses', 'tags', 'boards', 'user', 'notes', 'twitchToken']),
-    ...mapGetters(['darkTheme', 'gameNews']),
+    ...mapGetters(['darkTheme', 'gameNews', 'platformNames', 'gameLinks']),
+
+    description() {
+      return this.wikipediaExtract || this.steamDescription || this.igdbDescription;
+    },
+
+    source() {
+      if (this.wikipediaExtract) return 'wikipedia';
+      if (this.steamDescription) return 'steam';
+
+      return 'IGDB';
+    },
+
+    steamDescription() {
+      return this.game?.steam?.about_the_game || this.game?.steam?.short_description;
+    },
+
+    igdbDescription() {
+      return this.game?.summary;
+    },
+
+    wikipediaExtract() {
+      const pages = this.wikipediaDescription?.query?.pages;
+
+      if (!pages) return;
+
+      const [key] = Object.keys(pages);
+      const { extract } = pages[key];
+
+      return extract || null;
+    },
+
+    wikipediaSlug() {
+      const wikipediaData = this.game?.websites?.find(({ url, category }) => url && category === WEBSITE_CATEGORIES.WIKIPEDIA);
+
+      return wikipediaData?.url?.split('/wiki/')?.[1];
+    },
+
+    tagsApplied() {
+      if (!this.tags) return [];
+
+      return this.tags?.map((tag, index) => ({ ...tag, index }))
+        .filter((tag) => tag?.games?.includes(this.game?.id));
+    },
 
     boardsWithGame() {
       return this.boards?.filter(({ lists }) => lists?.some(({ games }) => games?.includes(this.game?.id))) || [];
+    },
+
+    // TODO: find a good use for game header image
+    // gameHeaderImage() {
+    //   return this.game?.steam?.header_image;
+    // },
+
+    officialWebsiteUrl() {
+      return this.gameLinks?.find(({ id }) => id === 'official')?.url;
+    },
+
+    gameModes() {
+      return this.game?.game_modes;
+    },
+
+    playerPerspectives() {
+      return this.game?.player_perspectives;
+    },
+
+    gameGenres() {
+      return this.game?.genres;
+    },
+
+    releaseDates() {
+      const releaseDates = this.game?.release_dates?.slice();
+
+      const sortedActivities = releaseDates?.sort((a, b) => a.date - b.date);
+
+      return sortedActivities?.map(({ platform, date, id }) => {
+        return {
+          id,
+          platform: this.platformNames?.[platform]?.name,
+          date: new Date(date * 1000).toLocaleDateString('en-US', { dateStyle: 'medium' }),
+        };
+      });
     },
 
     gameDevelopers() {
@@ -384,6 +631,10 @@ export default {
       return this.game?.steam?.legal_notice;
     },
 
+    hasWallpaper() {
+      return this.game?.steam?.background;
+    },
+
     // twitterHandle() {
     //   const twitterUrl = this.game?.websites?.find(({ category }) => category === TWITTER_CATEGORY_ID);
     //
@@ -405,6 +656,10 @@ export default {
 
   async mounted() {
     if (!this.twitchToken) return this.waitAndLoadGame();
+
+    if (!this.tags) {
+      await this.$store.dispatch('LOAD_TAGS');
+    }
 
     this.loadGame();
   },
@@ -471,6 +726,10 @@ export default {
 
       this.loadArtworks();
 
+      this.wikipediaDescription = this.wikipediaSlug
+        ? await this.$store.dispatch('LOAD_WIKIPEDIA_DESCRIPTION', this.wikipediaSlug).catch((e) => {})
+        : null;
+
       const steamUrl = this.game?.websites?.find(({ category }) => category === STEAM_CATEGORY_ID)?.url;
       const steamGameId = steamUrl?.split('app/')[1]?.split('/')[0];
 
@@ -485,7 +744,6 @@ export default {
       if (steamGameId) await this.$store.dispatch('LOAD_STEAM_GAME_NEWS', steamGameId).catch((e) => {});
       if (this.game?.steam?.background) {
         this.$bus.$emit('UPDATE_WALLPAPER', this.game?.steam?.background)
-        this.hasWallpaper = Boolean(this.game?.steam?.background);
       };
 
       this.loading = false;
@@ -509,5 +767,47 @@ export default {
 
 .has-backdrop {
   margin-top: -25vh;
+}
+</style>
+
+<style lang="scss" rel="stylesheet/scss">
+.game-description {
+  &.steam {
+    // Steam overrides
+  }
+
+  h2, h3 {
+    margin: 0;
+  }
+
+  h2 {
+    font-size: 14px;
+    margin: 8px 0;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  h4, h5, h6 {
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  img {
+    width: 100%;
+    border-radius: .25rem;
+  }
+}
+
+.mw-empty-elt {
+  display: none;
+}
+
+.wiki-content img {
+  float: left;
+  border-radius: 1rem;
+  padding-right: 1rem;
+  width: auto;
 }
 </style>
