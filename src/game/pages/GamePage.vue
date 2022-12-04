@@ -795,7 +795,7 @@ export default {
   }
 
   img {
-    width: 100%;
+    max-width: 100%;
     border-radius: .25rem;
   }
 }
