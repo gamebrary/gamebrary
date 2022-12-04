@@ -632,7 +632,7 @@ export default {
     },
 
     hasWallpaper() {
-      return this.game?.steam?.background;
+      return Boolean(this.game?.steam?.background);
     },
 
     // twitterHandle() {
