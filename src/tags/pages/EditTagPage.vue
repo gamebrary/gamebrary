@@ -7,53 +7,52 @@
 
       <b-spinner v-if="loading" class="spinner-centered" />
 
-      <b-row v-else>
-        <b-col cols="12" sm="6">
-          <form
-            class="field centered"
-            @submit.prevent="saveTag"
-          >
-            <label for="tagName">Tag name:</label>
+      <b-form-row v-else>
+        <b-col cols="12">
+          <form @submit.prevent="saveTag" class="d-flex align-items-start">
+            <div>
+              <b-form-input
+                id="tagName"
+                v-model.trim="tag.name"
+                class="field mr-2 mb-2"
+                maxlength="20"
+                :placeholder="$t('tags.form.inputPlaceholder')"
+                required
+                trim
+              />
 
-            <b-form-input
-              id="tagName"
-              v-model.trim="tag.name"
-              class="mb-3 field"
-              maxlength="20"
-              :placeholder="$t('tags.form.inputPlaceholder')"
-              required
-              trim
-            />
-
-            <p>Background color</p>
+              <b-button
+                v-if="tag.name"
+                rounded
+                variant="transparent"
+                :style="`background-color: ${tag.bgColor}; color: ${tag.textColor}`"
+              >
+                {{ tag.name }}
+              </b-button>
+            </div>
 
             <v-swatches
               v-model="tag.bgColor"
+              v-b-tooltip.hover
+              class="mr-2"
+              title="Tag background color"
               show-fallback
+              show-checkbox
+              fallback-input-class="bg-danger"
+              fallback-input-type="color"
+              fallback-ok-class="bg-dark p-2"
+              fallback-ok-text="Select"
               popover-x="left"
             />
-            <p>Text color</p>
 
             <v-swatches
               v-model="tag.textColor"
+              v-b-tooltip.hover
+              class="mr-2"
+              title="Tag text color"
               show-fallback
               popover-x="left"
             />
-
-            <p>Preview</p>
-
-            <b-button
-              v-if="tag.name"
-              rounded
-              size="sm"
-              class="mr-2 mb-4"
-              variant="transparent"
-              :style="`background-color: ${tag.bgColor}; color: ${tag.textColor}`"
-            >
-              {{ tag.name }}
-            </b-button>
-
-            <hr />
 
             <b-button
               variant="primary"
@@ -72,11 +71,13 @@
               <i class="fas fa-trash-alt fa-fw" aria-hidden />
             </b-button>
           </form>
+
+          <hr class="my-2" />
         </b-col>
 
-        <b-col cols="12" sm="6">
-          <header class="d-flex justify-content-between">
-            <p>Games tagged</p>
+        <b-col cols="12">
+          <header class="d-flex justify-content-between align-items-center mb-2">
+            <h4>Games tagged</h4>
 
             <game-selector
               :filter="tag.games"
@@ -89,16 +90,24 @@
           <b-alert :show="tag.games.length === 0" variant="light" class="field">
             No games tagged
           </b-alert>
+        </b-col>
 
+        <b-col
+          v-for="game in tag.games"
+          :key="game"
+          cols="6"
+          sm="4"
+          md="3"
+          lg="2"
+        >
           <b-img
-            v-for="game in tag.games"
-            :key="game"
             :src="$options.getImageUrl(games[game], $options.IMAGE_SIZE_COVER_SMALL)"
-            class="cursor-pointer rounded mr-2 mb-2"
+            class="cursor-pointer rounded mb-2"
+            fluid-grow
             @click="$router.push({ name: 'game', params: { id: games[game].id, slug: games[game].slug }})"
           />
         </b-col>
-      </b-row>
+      </b-form-row>
     </b-container>
   </section>
 </template>
