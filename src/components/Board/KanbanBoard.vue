@@ -1,3 +1,5 @@
+<!-- TODO: fix right spacing on public board -->
+<!-- TODO: fix board height when short lists -->
 <template lang="html">
   <div class="kanban-board">
     <kanban-list

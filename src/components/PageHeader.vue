@@ -86,7 +86,7 @@ export default {
     display: grid;
     align-items: center;
     grid-template-columns: 65px 1fr;
-    z-index: 1;
+    z-index: 2;
 
     &.blurred {
       backdrop-filter: blur(12px);

@@ -15,7 +15,7 @@
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <template v-else-if="game">
-      <game-header />
+      <game-header v-if="hasArtworks" />
 
       <b-container>
         <portal to="pageTitle">

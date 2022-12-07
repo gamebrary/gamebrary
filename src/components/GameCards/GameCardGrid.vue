@@ -1,4 +1,3 @@
-<!-- TODO: enable drag-n-drop -->
 <template lang="html">
   <b-card
     no-body
