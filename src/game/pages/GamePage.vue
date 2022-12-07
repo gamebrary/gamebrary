@@ -10,18 +10,12 @@
 <!-- TODO: maintain background image in subpages -->
 <!-- TODO: maintain game actions in subpages -->
 <!-- TODO: mine data from GOG -->
-<!-- TODO: optimize backdrop styling -->
 <template lang="html">
   <section>
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <template v-else-if="game">
-      <div
-        v-if="backdrop"
-        class="backdrop"
-        :style="`background-image: url('${backdrop.url}')`"
-        v-b-modal.mediaModal
-      />
+      <game-header />
 
       <b-container>
         <portal to="pageTitle">
@@ -56,7 +50,8 @@
             cols="12"
             md="4"
             xl="3"
-            :class="['text-center', { 'has-backdrop': backdrop }]"
+            style="z-index: 1"
+            :class="['text-center', { 'has-artworks': hasArtworks }]"
           >
             <b-img
               :src="$options.getImageUrl(game)"
@@ -110,7 +105,7 @@
             :class="['pt-3', darkTheme || hasWallpaper ? 'text-light' : '']"
           >
             <div class="d-flex justify-content-between" v-b-visible="visibleHandler">
-              <h2 :class="{ 'mt-3': backdrop }">{{ game.name }}</h2>
+              <h2 :class="{ 'mt-3': hasArtworks }">{{ game.name }}</h2>
             </div>
 
             <div :class="['game-description', source]">
@@ -457,6 +452,7 @@ import { WEBSITE_CATEGORIES } from '@/constants';
 import GameMedia from '@/components/Game/GameMedia';
 import GameProgress from '@/components/Game/GameProgress';
 import GameTagsModal from '@/components/Game/GameTagsModal';
+import GameHeader from '@/components/Game/GameHeader';
 import AddRemoveGame from '@/components/AddRemoveGame';
 import GameRatings from '@/components/Game/GameRatings';
 import SimilarGames from '@/components/Game/SimilarGames';
@@ -472,6 +468,7 @@ export default {
     MiniBoard,
     AddRemoveGame,
     GameTagsModal,
+    GameHeader,
     GameProgress,
     // AmazonLinks,
     // GameDetails,
@@ -591,16 +588,8 @@ export default {
       return this.game?.platforms;
     },
 
-    backdrop() {
-      const artwork = this.game?.artworks?.[0];
-
-      if (!artwork) return null;
-
-      return {
-        height: artwork.height,
-        width: artwork.width,
-        url: getImageUrl(artwork, IMAGE_SIZE_SCREENSHOT_HUGE),
-      }
+    hasArtworks() {
+      return this.game?.artworks?.length > 0;
     },
 
     metacriticScore() {
@@ -755,22 +744,18 @@ export default {
     },
 
     async loadArtworks() {
-      const artworks = await this.$store.dispatch('IGDB', { path: 'artworks', data: `fields *; where game = ${this.game.id}; limit 20;` });
-
-      if (artworks) this.$store.commit('APPEND_GAME_ARTWORKS', artworks);
+      await this.$store.dispatch('IGDB', {
+        path: 'artworks',
+        data: `fields *; where game = ${this.game.id}; limit 20;`,
+        mutation: 'APPEND_GAME_ARTWORKS'
+      }).catch(() => {});
     },
   },
 };
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-.backdrop {
-  margin-top: -54px;
-  background-size: cover;
-  height: 50vh;
-}
-
-.has-backdrop {
+.has-artworks {
   margin-top: -25vh;
 }
 </style>
