@@ -141,6 +141,20 @@ export default {
       } else if (this.$route.name !== 'auth') {
         this.$router.replace({ name: 'auth' });
       }
+
+      this.loadPlatforms();
+    },
+
+    async loadPlatforms() {
+      try {
+        await this.$store.dispatch('IGDB', {
+          path: 'platforms',
+          data: 'fields category,generation,name,alternative_name,slug,platform_logo.*; limit 300;',
+          mutation: 'SET_PLATFORMS',
+        });
+      } catch (e) {
+        this.$bvToast.toast('There was an error loading platforms', { variant: 'error' });
+      }
     },
 
     async boot() {

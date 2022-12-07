@@ -3,7 +3,7 @@
     v-if="game"
     :img-src="gameCoverUrl"
     :img-alt="game.name"
-    :class="['mb-3 cursor-pointer', { 'border-selected': selected }]"
+    :class="['mb-2 cursor-pointer', { 'border-selected': selected }]"
     overlay
     @click="handleClick"
   >

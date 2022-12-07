@@ -161,7 +161,7 @@
 
               <b-link
                 v-for="(genre, index) in gameGenres"
-                :to="{ name: 'search', query: { genres: genre.id }}"
+                :to="{ name: 'search', query: { filterBy: 'genres', value: genre.id }}"
                 :key="genre.id"
               >
                 {{ genre.name }}
@@ -176,7 +176,9 @@
                 v-for="(gameMode, index) in gameModes"
                 :key="gameMode.id"
               >
-                <b-link :to="{ name: 'search', query: { gameMode: gameMode.id }}">{{ gameMode.name }}</b-link>
+                <b-link :to="{ name: 'search', query: { filterBy: 'game_modes', value: gameMode.id }}">
+                  {{ gameMode.name }}
+                </b-link>
                 <template v-if="index < gameModes.length - 1">, </template>
               </b-link>
             </div>
@@ -188,7 +190,10 @@
                 v-for="({ id, name }, index) in playerPerspectives"
                 :key="id"
               >
-                <b-link :to="{ name: 'search', query: { perspective: id }}">{{ name }}</b-link>
+
+                <b-link :to="{ name: 'search', query: { filterBy: 'player_perspectives', value: id }}">
+                  {{ name }}
+                </b-link>
                 <template v-if="index < playerPerspectives.length - 1">, </template>
               </b-link>
             </div>
@@ -381,7 +386,7 @@
                 :key="platform.id"
                 variant="transparent"
                 class="pb-0"
-                :to="{ name: 'search', query: { platforms: platform.id }}"
+                :to="{ name: 'search', query: { filterBy: 'platforms', value: platform.id }}"
               >
                 <b-img
                   v-if="platform.platform_logo"

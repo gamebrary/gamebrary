@@ -37,10 +37,12 @@ export default {
     });
   },
 
-  IGDB({ state }, { path, data }) {
+  IGDB({ state, commit }, { path, data, mutation }) {
     return new Promise((resolve, reject) => {
       axios.get(`${API_BASE}/igdb?token=${state.twitchToken.access_token}&path=${path}&data=${data}`)
         .then(({ data }) => {
+          if (mutation) commit(mutation, data);
+
           resolve(data);
         }).catch(reject);
     });

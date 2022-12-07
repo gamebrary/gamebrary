@@ -159,7 +159,6 @@ export default {
     state.profiles = [];
     state.dragging = false;
     state.settings = null;
-    state.platform = null;
     state.platforms = [];
     state.games = {};
     state.boards = [];
@@ -171,6 +170,10 @@ export default {
 
   SET_NOTES(state, notes) {
     state.notes = notes;
+  },
+
+  SET_PLATFORMS(state, platforms) {
+    state.platforms = platforms;
   },
 
   SET_PROGRESSES(state, progresses) {

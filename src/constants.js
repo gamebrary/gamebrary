@@ -298,3 +298,48 @@ export const WEBSITE_CATEGORIES = {
   WIKIPEDIA: 3,
   AMAZON: 20,
 };
+
+export const GAME_GENRES = [
+  { id: 2, name: 'Point-and-click', slug: 'point-and-click' },
+  { id: 4, name: 'Fighting', slug: 'fighting' },
+  { id: 5, name: 'Shooter', slug: 'shooter' },
+  { id: 7, name: 'Music', slug: 'music' },
+  { id: 8, name: 'Platform', slug: 'platform' },
+  { id: 9, name: 'Puzzle', slug: 'puzzle' },
+  { id: 10, name: 'Racing', slug: 'racing' },
+  { id: 11, name: 'Real Time Strategy (RTS)', slug: 'real-time-strategy-rts' },
+  { id: 12, name: 'Role-playing (RPG)', slug: 'role-playing-rpg' },
+  { id: 13, name: 'Simulator', slug: 'simulator' },
+  { id: 14, name: 'Sport', slug: 'sport' },
+  { id: 15, name: 'Strategy', slug: 'strategy' },
+  { id: 16, name: 'Turn-based strategy (TBS)', slug: 'turn-based-strategy-tbs' },
+  { id: 24, name: 'Tactical', slug: 'tactical' },
+  { id: 25, name: 'Hack and slash/Beat \'em up', slug: 'hack-and-slash-beat-em-up' },
+  { id: 26, name: 'Quiz/Trivia', slug: 'quiz-trivia' },
+  { id: 30, name: 'Pinball', slug: 'pinball' },
+  { id: 31, name: 'Adventure', slug: 'adventure' },
+  { id: 32, name: 'Indie', slug: 'indie' },
+  { id: 33, name: 'Arcade', slug: 'arcade' },
+  { id: 34, name: 'Visual Novel', slug: 'visual-novel' },
+  { id: 35, name: 'Card & Board Game', slug: 'card-and-board-game' },
+  { id: 36, name: 'MOBA', slug: 'moba' },
+];
+
+export const GAME_PERSPECTIVES = [
+  { id: 1, name: 'First person', slug: 'first-person' },
+  { id: 2, name: 'Third person', slug: 'third-person' },
+  { id: 3, name: 'Bird view / Isometric', slug: 'bird-view-slash-isometric' },
+  { id: 5, name: 'Text', slug: 'text' },
+  { id: 4, name: 'Side view', slug: 'side-view' },
+  { id: 7, name: 'Virtual Reality', slug: 'virtual-reality' },
+  { id: 6, name: 'Auditory', slug: 'auditory' }
+];
+
+export const GAME_MODES = [
+  { id: 1, name: 'Single player', slug: 'single-player' },
+  { id: 2, name: 'Multiplayer', slug: 'multiplayer' },
+  { id: 3, name: 'Co-operative', slug: 'co-operative' },
+  { id: 4, name: 'Split screen', slug: 'split-screen' },
+  { id: 5, name: 'Massively Multiplayer Online (MMO)', slug: 'massively-multiplayer-online-mmo' },
+  { id: 6, name: 'Battle Royale', slug: 'battle-royale' }
+];

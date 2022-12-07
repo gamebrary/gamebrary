@@ -99,16 +99,6 @@
         <hr />
 
         <b-button
-          :to="{ name: 'platforms' }"
-          :variant="darkTheme ? 'info' : 'light'"
-          class="w-100 text-left mb-1"
-          id="paltforms"
-        >
-          <i class="fa fa-gamepad" aria-hidden="true"></i>
-          <span class="ml-2">Platforms</span>
-        </b-button>
-
-        <b-button
           :to="{ name: 'explore' }"
           :variant="darkTheme ? 'info' : 'light'"
           class="w-100 text-left mb-1"

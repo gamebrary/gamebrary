@@ -7,7 +7,7 @@ export default {
   games: {},
   notes: {},
   notification: false,
-  platform: null,
+  platforms: [],
   profile: {},
   profiles: [],
   progresses: {},
