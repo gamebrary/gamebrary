@@ -757,6 +757,10 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
 .has-artworks {
   margin-top: -25vh;
+
+  @media(max-width: 780px) {
+    margin-top: -3rem;
+  }
 }
 </style>
 
