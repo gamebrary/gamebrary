@@ -6,8 +6,8 @@
     no-hover-pause
   >
     <b-carousel-slide
-      v-for="artwork in artworks"
-      :key="artwork.url"
+      v-for="(artwork, index) in artworks"
+      :key="index"
       :img-src="artwork.url"
     />
   </b-carousel>
