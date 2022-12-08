@@ -1,3 +1,5 @@
+<!-- TODO: finish layout -->
+<!-- TODO: paginate -->
 <template lang="html">
   <section>
     <b-container>
