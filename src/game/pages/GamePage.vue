@@ -61,6 +61,8 @@
               fluid
             />
 
+            <game-in-boards class="d-none d-md-block mt-5" />
+
             <b-button
               v-if="gameNews"
               variant="info"
@@ -126,10 +128,6 @@
               variant="warning"
               @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
             />
-
-            <!-- <b-link v-if="!boardsWithGame.length" v-b-modal.addRemoveGameModal>
-              Add to list
-            </b-link> -->
 
             <game-ratings />
 
@@ -206,25 +204,6 @@
             </div> -->
 
             <div v-if="user">
-              <h4 class="mt-4">Found in: </h4>
-
-              <b-link v-if="!boardsWithGame.length" v-b-modal.addRemoveGameModal>
-                Add to list
-              </b-link>
-
-              <span
-                v-for="(board, index) in boardsWithGame"
-                :key="board.id"
-              >
-                <b-link :to="{ name: 'board', params: { id: board.id } }">{{ board.name }}</b-link>
-                <template v-if="index !== boardsWithGame.length - 1">, </template>
-              </span>
-
-
-              <add-remove-game />
-            </div>
-
-            <div v-if="user">
               <h4 class="mt-4">Tags: </h4>
 
               <b-link v-if="!tagsApplied.length" v-b-modal.gameTagsModal>
@@ -237,7 +216,7 @@
                 rounded
                 size="sm"
                 variant="transparent"
-                class="mr-1 mb-2"
+                class="mr-2 mb-2"
                 :style="`background-color: ${bgColor}; color: ${textColor}`"
                 v-b-modal.gameTagsModal
               >
@@ -274,58 +253,27 @@
               />
             </b-button>
 
-            <b-link
-              v-if="officialWebsiteUrl"
-              v-b-modal.officialWebsite
-              :title="officialWebsiteUrl"
-            >
-              Official website
-            </b-link>
-
-            <b-modal
-              id="officialWebsite"
-              size="xl"
-              hide-footer
-            >
-              <template v-slot:modal-header="{ close }">
-                <modal-header
-                  title="Official website"
-                  :subtitle="game.name"
-                  @close="close"
-                >
-                  <b-button :href="officialWebsiteUrl" target="_blank">
-                    Open in new tab
-                  </b-button>
-                </modal-header>
-              </template>
-
-              <b-embed
-                type="iframe"
-                aspect="16by9"
-                class="official-site-modal rounded"
-                :src="officialWebsiteUrl"
-                allowfullscreen
-              />
-            </b-modal>
-
             <div v-if="gamePublishers.length" class="d-flex justify-content-center flex-column">
               <h4 class="mt-4">Published by:</h4>
 
-              <b-link
-                v-for="publisher in gamePublishers"
-                :key="publisher.id"
-                :to="{ name: 'company', params: { id: publisher.id }}"
-              >
-                <!-- TODO: use publisher.logo.alpha_channel to style logo -->
-                <b-img
-                  v-if="publisher.logo"
-                  :src="$options.getImageUrl(publisher)"
-                  :alt="publisher.name"
-                  width="120"
-                />
+              <div>
+                <b-link
+                  v-for="publisher in gamePublishers"
+                  :key="publisher.id"
+                  :to="{ name: 'company', params: { id: publisher.id }}"
+                >
+                  <!-- TODO: use publisher.logo.alpha_channel to style logo -->
+                  <b-img
+                    v-if="publisher.logo"
+                    :src="$options.getImageUrl(publisher)"
+                    :alt="publisher.name"
+                    class="mr-2 mb-2"
+                    width="60"
+                  />
 
-                <span v-else>{{ publisher.name }}</span>
-              </b-link>
+                  <span v-else>{{ publisher.name }}</span>
+                </b-link>
+              </div>
             </div>
 
             <div v-if="gameDevelopers.length">
@@ -340,7 +288,8 @@
                   v-if="developer.logo"
                   :src="$options.getImageUrl(developer)"
                   :alt="developer.name"
-                  width="120"
+                  class="mr-2 mb-2"
+                  width="60"
                 />
 
                 <span v-else>{{ developer.name }}</span>
@@ -371,50 +320,21 @@
             <div v-if="gamePlatforms">
               <h4 class="mt-4">Available for:</h4>
 
-              <b-button
+              <b-link
                 v-for="platform in gamePlatforms"
                 :key="platform.id"
                 block
                 class="pb-0 text-left"
                 :to="{ name: 'search', query: { filterBy: 'platforms', value: platform.id }}"
               >
-                <b-img
-                  v-if="platform.platform_logo"
-                  :src="$options.getImageUrl(platform.platform_logo)"
-                  :alt="platform.name"
-                  square
-                  variant="light"
-                  class="mr-1 mb-1 p-1"
-                  width="30"
-                />
-
-                <small>{{ platform.name }}</small>
-              </b-button>
+                {{ platform.name }}
+              </b-link>
             </div>
+
+            <game-in-boards class="d-md-none mt-4" />
           </b-col>
         </b-row>
 
-        <section v-if="boardsWithGame.length" class="mt-3">
-          <strong :class="{ 'text-outlined': hasWallpaper }">Found in: </strong>
-
-          <b-form-row>
-            <!-- TODO: highlight game when linking back to board -->
-            <b-col
-              v-for="board in boardsWithGame"
-              :key="board.id"
-              class="mb-2"
-              cols="12"
-              sm="6"
-              md="4"
-              lg="3"
-            >
-              <mini-board
-                :board="board"
-                @click.native="$router.push({ name: 'board', params: { id: board.id } })"
-              />
-            </b-col>
-          </b-form-row>
-        </section>
         <!-- <timeline
           v-if="twitterHandle"
           :id="twitterHandle"
@@ -445,13 +365,12 @@ import { WEBSITE_CATEGORIES } from '@/constants';
 // import AmazonLinks from '@/components/Game/AmazonLinks';
 // import GameDetails from '@/components/Game/GameDetails';
 import GameMedia from '@/components/Game/GameMedia';
+import GameInBoards from '@/components/Game/GameInBoards';
 import GameProgress from '@/components/Game/GameProgress';
 import GameTagsModal from '@/components/Game/GameTagsModal';
 import GameHeader from '@/components/Game/GameHeader';
-import AddRemoveGame from '@/components/AddRemoveGame';
 import GameRatings from '@/components/Game/GameRatings';
 import SimilarGames from '@/components/Game/SimilarGames';
-import MiniBoard from '@/components/Board/MiniBoard';
 // import GameSpeedruns from '@/components/Game/GameSpeedruns';
 import { STEAM_CATEGORY_ID, GOG_CATEGORY_ID, TWITTER_CATEGORY_ID, IMAGE_SIZE_SCREENSHOT_HUGE } from '@/constants';
 import { getImageUrl } from '@/utils';
@@ -460,14 +379,13 @@ export default {
   getImageUrl,
 
   components: {
-    MiniBoard,
-    AddRemoveGame,
     GameTagsModal,
     GameHeader,
     GameProgress,
     // AmazonLinks,
     // GameDetails,
     GameMedia,
+    GameInBoards,
     GameRatings,
     // GameSpeedruns,
     SimilarGames,

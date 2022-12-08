@@ -1,3 +1,4 @@
+<!-- TODO: add media query helper classes -->
 <!-- TODO: audit fa-fw usage -->
 <!-- TODO: deku deals integration https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Frsshub.app%2Fdekudeals%2Fmost-wanted -->
 <!-- TODO: load genres const response = await this.$store.dispatch('IGDB', { path: 'genres', data: 'fields *; limit 25;' }); -->

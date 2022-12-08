@@ -1,8 +1,9 @@
 <template lang="html">
   <b-carousel
     id="carousel-fade"
-    class="artworks-carousel"
+    class="artworks-carousel cursor-pointer"
     fade
+    v-b-modal.mediaModal
     no-hover-pause
   >
     <b-carousel-slide
@@ -36,7 +37,11 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
 .artworks-carousel {
   margin-top: -54px;
-  max-height: 100vh;
+  max-height: 50vh;
   overflow: hidden;
+
+  @media(max-width: 780px) {
+    max-height: 25vh;
+  }
 }
 </style>

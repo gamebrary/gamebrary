@@ -41,7 +41,7 @@
 
         <b-button
           @click="selectTag(index, games)"
-          :variant="games.includes(Number(game.id)) ? 'danger' : 'info'"
+          :variant="games.includes(Number(game.id)) ? 'danger' : 'light'"
         >
           <i
             v-if="games.includes(Number(game.id))"
