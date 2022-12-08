@@ -7,16 +7,17 @@
 
       <div v-else-if="company">
         <portal to="pageTitle">{{ company.name }}</portal>
-        <p>{{ company.description }}</p>
-
         <img
           :src="$options.getImageUrl(company)"
-          alt="company.name"
+          :alt="company.name"
           width="100"
+          class="mb-2 rounded"
         />
 
+        <p>{{ company.description }}</p>
+
         <b-form-row no-gutters>
-          <h3 class="w-100 my-3">Games developed by {{ company.name }}</h3>
+          <h3 class="w-100 my-3">Games developed:</h3>
 
           <b-col
             v-for="game in company.developed"
@@ -25,6 +26,7 @@
             sm="4"
             md="3"
             lg="2"
+            class="mb-2"
           >
             <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}">
               <b-img
@@ -33,13 +35,11 @@
                 fluid
                 class="rounded"
               />
-              <br />
-              <small>{{ game.name }}</small>
             </router-link>
           </b-col>
         </b-form-row>
 
-        <b-row no-gutters>
+        <b-form-row no-gutters>
           <h3 class="w-100 my-3">Games published by {{ company.name }}</h3>
 
           <b-col
@@ -49,14 +49,18 @@
             sm="4"
             md="3"
             lg="2"
+            class="mb-2"
           >
             <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}">
-              <b-img :src="$options.getImageUrl(game)" alt="" fluid class="rounded" />
-              <br />
-              <small>{{ game.name }}</small>
+              <b-img
+                :src="$options.getImageUrl(game)"
+                alt=""
+                fluid
+                class="rounded"
+              />
             </router-link>
           </b-col>
-        </b-row>
+        </b-form-row>
 
         <!-- <pre>{{ company.slug }}</pre> -->
         <!-- <pre>{{ company.websites }}</pre> -->

@@ -1,6 +1,5 @@
 <!-- TODO: add sorting -->
 <!-- TODO: change default call -->
-<!-- TODO: cache last search -->
 <template lang="html">
   <section>
     <b-container>
