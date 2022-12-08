@@ -1,7 +1,7 @@
 <template lang="html">
   <b-card
     no-body
-    :bg-variant="darkTheme ? 'info' : 'light'"
+    :bg-variant="darkTheme ? 'secondary' : 'light'"
     :text-variant="darkTheme ? 'light' : 'dark'"
     class="cursor-pointer"
   >

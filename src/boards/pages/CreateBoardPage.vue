@@ -40,7 +40,8 @@
         </b-form-checkbox>
 
         <b-button
-          :variant="darkTheme ? 'dark' : 'light'"
+          variant="primary"
+          class="mt-3"
           loading
           type="submit"
         >

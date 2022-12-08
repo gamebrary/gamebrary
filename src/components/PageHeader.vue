@@ -92,11 +92,11 @@ export default {
       backdrop-filter: blur(12px);
 
       &.light {
-        background-color: rgba(248, 248, 255, 0.7);
+        background-color: var(--white)70;
       }
 
       &.dark {
-        background-color: rgba(53, 54, 58, 0.7);
+        background-color: var(--black)70;
       }
     }
   }

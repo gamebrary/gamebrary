@@ -1,34 +1,22 @@
 <template lang="html">
-  <section>
+  <!-- TODO: remove v-if -->
+  <section v-if="user">
     <b-container>
       <portal to="pageTitle">Account</portal>
 
       <profile-form />
 
-      <div class="field centered" v-if="user">
-        <hr class="py-2" />
-        <p>Logged in as:</p>
-        <p>{{ user.displayName }} / {{ user.email }}</p>
-
-        <b-alert show class="field" variant="light">
-          <small>
-            <strong>User ID:</strong>
-            {{ user.uid }}
-          </small>
-        </b-alert>
-
+      <div class="field centered">
         <b-button
-          variant="light"
+          :variant="darkTheme ? 'secondary' : 'light'"
+          class="mr-2"
           @click="session_signOut"
         >
           Log out
         </b-button>
 
-        <hr class="py-2" />
-
         <b-button
-          variant="link"
-          class="text-danger mb-5"
+          variant="outline-danger"
           @click="$bvModal.show('deleteAccount');"
         >
           Delete account
@@ -43,7 +31,7 @@
 <script>
 import sessionMixin from '@/mixins/sessionMixin';
 import ProfileForm from '@/components/ProfileForm'
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 import DeleteAccountModal from '@/components/Settings/DeleteAccountModal';
 
@@ -57,6 +45,7 @@ export default {
 
   computed: {
     ...mapState(['user']),
+    ...mapGetters(['darkTheme']),
   },
 };
 </script>

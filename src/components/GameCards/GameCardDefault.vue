@@ -1,7 +1,7 @@
 <template lang="html">
   <b-card
     no-body
-    :bg-variant="darkTheme ? 'info' : 'white'"
+    :bg-variant="darkTheme ? 'secondary' : 'white'"
     :text-variant="darkTheme ? 'white' : 'dark'"
     class="cursor-pointer"
   >
@@ -16,6 +16,16 @@
           rounded
           :src="$options.getImageUrl(game)"
           :alt="game.name"
+        />
+
+        <b-progress
+          v-if="gameProgress > 0"
+          v-b-tooltip.hover
+          :title="`${gameProgress}% Completed`"
+          :value="gameProgress"
+          :variant="gameProgress == 100 ? 'success' : 'primary'"
+          class="game-progress"
+          height="8px"
         />
       </b-col>
 
@@ -32,28 +42,18 @@
             <i class="far fa-sticky-note fa-fw" />
           </b-badge>
 
-          <b-badge
-            v-if="gameProgress > 0"
-            rounded
-            variant="success"
-            class="mr-1"
-            size="sm"
-          >
-            <i v-if="gameProgress == 100" class="fas fa-check fa-fw" aria-hidden />
-            <small v-else>{{ gameProgress }}%</small>
-          </b-badge>
-
           <template v-if="tagsApplied.length">
-            <b-badge
+            <b-button
               v-for="({ bgColor, textColor, name }) in tagsApplied"
               :key="name"
               rounded
               class="mr-1"
+              size="sm"
               variant="transparent"
               :style="`background-color: ${bgColor}; color: ${textColor}`"
             >
               <small>{{ name }}</small>
-            </b-badge>
+            </b-button>
           </template>
         </b-card-body>
       </b-col>
@@ -68,3 +68,12 @@ export default {
   mixins: [gameCardMixin],
 };
 </script>
+
+<style scoped>
+.game-progress {
+  position: absolute;
+  bottom: 10px;
+  left: 15px;
+  width: calc(100% - 22px);
+}
+</style>

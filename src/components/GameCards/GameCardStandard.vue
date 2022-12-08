@@ -22,7 +22,7 @@
       <b-col cols="8">
         <b-card-body body-class="p-2">
           <b-card-title
-            :class="`mb-0 ${highlightCompletedGame ? 'text-success' : ''}`"
+            :class="`mb-2 ${highlightCompletedGame ? 'text-success' : ''}`"
             title-tag="h3"
           >
             <b-avatar
@@ -58,7 +58,7 @@
               rounded
               size="sm"
               variant="transparent"
-              class="mr-1 mb-2"
+              class="mr-2 mb-2"
               :style="`background-color: ${bgColor}; color: ${textColor}`"
               v-b-modal.gameTagsModal
             >

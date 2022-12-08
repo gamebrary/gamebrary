@@ -29,9 +29,11 @@
     />
 
     <game-selector
+      v-if="isBoardOwner"
       :filter="filter"
       title="Add games"
       trigger-text="Add games"
+      variant="primary"
       block
       size="lg"
       @select-game="selectGame"

@@ -12,6 +12,10 @@
 
     <b-modal
       hide-footer
+      :header-bg-variant="darkTheme ? 'dark' : 'white'"
+      :header-text-variant="darkTheme ? 'white' : 'dark'"
+      :body-bg-variant="darkTheme ? 'dark' : 'white'"
+      :body-text-variant="darkTheme ? 'white' : 'dark'"
       v-model="selecting"
     >
       <template v-slot:modal-header="{ close }">
@@ -37,6 +41,8 @@
         <b-card
           v-for="game in filteredSearchResults"
           class="cursor-pointer mt-2"
+          :bg-variant="darkTheme ? 'secondary' : 'light'"
+          :text-variant="darkTheme ? 'light' : 'dark'"
           body-class="p-1"
           :key="game.id"
           @click="selectGame(game.id)"
@@ -112,7 +118,7 @@ export default {
 
   computed: {
     ...mapState(['board']),
-    ...mapGetters(['isBoardOwner']),
+    ...mapGetters(['isBoardOwner', 'darkTheme']),
 
     filteredSearchResults() {
       return this.searchResults.filter(({ id }) => !this.filter?.includes(id));

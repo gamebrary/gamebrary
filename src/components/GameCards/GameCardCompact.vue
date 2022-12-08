@@ -1,7 +1,7 @@
 <template lang="html">
   <b-card
     no-body
-    :bg-variant="darkTheme ? 'info' : 'light'"
+    :bg-variant="darkTheme ? 'secondary' : 'light'"
     :text-variant="darkTheme ? 'light' : 'dark'"
     class="cursor-pointer"
   >
@@ -43,8 +43,8 @@
             <b-badge
               v-for="({ bgColor, textColor, name }) in tagsApplied"
               :key="name"
-              rounded
-              class="mr-1"
+              class="mr-1 mb-1"
+              size="sm"
               variant="transparent"
               :style="`background-color: ${bgColor}; color: ${textColor}`"
             >

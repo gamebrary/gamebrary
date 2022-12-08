@@ -3,7 +3,7 @@
     <b-card
       v-if="active || empty"
       class="mr-3"
-      :bg-variant="darkTheme ? 'info' : 'light'"
+      :bg-variant="darkTheme ? 'dark' : 'light'"
       :text-variant="darkTheme ? 'light' : 'dark'"
       no-body
       v-click-outside="reset"
@@ -25,7 +25,7 @@
           <b-input-group-append>
             <b-button
               split
-              variant="primary"
+              :variant="darkTheme ? 'primary' : 'light'"
               :disabled="saving || !listName"
               @click.stop="submit"
             >

@@ -185,6 +185,14 @@ export default {
     min-height: 100vh;
     display: grid;
     background-size: cover;
+
+    &.dark {
+      background-color: var(--black);
+    }
+
+    &.light {
+      background-color: var(--white);
+    }
   }
 
   .viewport {

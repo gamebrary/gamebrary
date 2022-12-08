@@ -213,7 +213,6 @@
               <b-button
                 v-for="({ bgColor, textColor, name, index }) in tagsApplied"
                 :key="index"
-                rounded
                 size="sm"
                 variant="transparent"
                 class="mr-2 mb-2"

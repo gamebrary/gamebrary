@@ -2,7 +2,7 @@
   <b-card
     no-body
     class="cursor-pointer text-center"
-    :bg-variant="darkTheme ? 'info' : 'white'"
+    :bg-variant="darkTheme ? 'secondary' : 'white'"
     :text-variant="darkTheme ? 'white' : 'dark'"
     img-top
   >

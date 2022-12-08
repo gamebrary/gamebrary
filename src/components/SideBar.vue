@@ -190,7 +190,7 @@ export default {
 
   computed: {
     ...mapState(['board', 'boards', 'settings']),
-    ...mapGetters(['sortedBoards', 'darkTheme', 'latestRelease']),
+    ...mapGetters(['darkTheme', 'latestRelease']),
   },
 
   methods: {

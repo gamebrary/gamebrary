@@ -9,7 +9,7 @@
   >
     <b-card
       no-body
-      :bg-variant="darkTheme ? 'info' : 'light'"
+      :bg-variant="darkTheme ? 'dark' : 'light'"
       :text-variant="darkTheme ? 'light' : 'dark'"
     >
       <b-button-toolbar
@@ -19,7 +19,7 @@
         <b-badge
           v-if="showGameCount"
           class="align-self-center"
-          :variant="darkTheme ? 'info' : 'info'"
+          :variant="darkTheme ? 'dark' : 'info'"
         >
           {{ list.games.length }}
         </b-badge>
@@ -27,7 +27,7 @@
         <b-badge
           v-if="sortingEnabled"
           class="align-self-center"
-          :variant="darkTheme ? 'info' : 'light'"
+          :variant="darkTheme ? 'dark' : 'light'"
           v-b-tooltip.hover
           :title="`${$t('board.list.sortedBy')}${sortOrder}`"
         >
@@ -39,16 +39,16 @@
           :disabled="!isBoardOwner"
           class="mr-1 text-left"
           style="flex: 1"
-          :variant="darkTheme ? 'info' : 'light'"
+          :variant="darkTheme ? 'dark' : 'light'"
         >
           {{ list.name }}
         </b-button>
 
         <game-selector
-          v-if="isBoardOwner"
+          v-if="isBoardOwner && !isEmpty"
           :title="`Add games to ${list.name}`"
           class="ml-auto"
-          :variant="darkTheme ? 'info' : 'light'"
+          :variant="darkTheme ? 'dark' : 'light'"
           :filter="list.games"
           @select-game="selectGame"
         >
@@ -90,7 +90,7 @@
           class="mb-2"
           block
           trigger-text="Add games"
-          :variant="darkTheme ? 'secondary' : 'primary'"
+          variant="primary"
           :filter="list.games"
           @select-game="selectGame"
         />

@@ -30,6 +30,19 @@
     <!-- TODO: add delete option -->
     <!-- TODO: replace when uploading? -->
 
+    <b-form-group
+      label-class="m-0 text-muted"
+      label="User ID"
+      label-for="id"
+    >
+      <b-form-input
+        id="id"
+        readonly
+        v-model="user.uid"
+        class="mb-3"
+      />
+    </b-form-group>
+
     <b-form-file
       class="d-none file-input"
       v-model="file"

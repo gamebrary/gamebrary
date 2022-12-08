@@ -212,7 +212,7 @@
                       <b-dropdown
                         id="list-settings"
                         no-caret
-                        :variant="list.sortOrder ? 'success' : 'light'"
+                        :variant="list.sortOrder ? 'primary' : 'light'"
                       >
                         <template #button-content>
                           <i class="fa-solid fa-sort fa-fw" />
@@ -222,7 +222,7 @@
                           <b-dropdown-item-button
                             v-for="option in $options.LIST_SORT_OPTIONS"
                             :key="option.value"
-                            :variant="option.value == list.sortOrder ? 'success' : 'info'"
+                            :variant="option.value == list.sortOrder ? 'primary' : 'info'"
                             @click="setListSorting(index, option.value)"
                           >
                             <div>{{ option.text }}</div>
