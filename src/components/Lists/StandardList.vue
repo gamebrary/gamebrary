@@ -47,7 +47,6 @@ import GameSelector from '@/components/GameSelector';
 import { mapState, mapGetters } from 'vuex';
 import GameCardStandard from '@/components/GameCards/GameCardStandard';
 
-
 export default {
   components: {
     draggable,
