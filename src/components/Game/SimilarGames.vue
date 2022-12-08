@@ -1,6 +1,6 @@
 <!-- TODO: use search endpoint to get more accurate results -->
 <template lang="html">
-  <section v-if="similarGames.length" :class="['my-5 px-3 py-5', hasWallpaper ? '' : 'bg-light']">
+  <section v-if="similarGames.length" class="my-5 px-3 py-5">
     <h4 :class="['text-center mb-3', { 'text-outlined': hasWallpaper }]">You may also like</h4>
 
     <div class="similar-games">
