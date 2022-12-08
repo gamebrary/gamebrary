@@ -1,19 +1,21 @@
 <!-- TODO: use custom login page, modal? -->
 <template lang="html">
   <section>
-    <b-container>
-      <portal to="pageTitle">Login</portal>
+    <b-container class="field centered">
+      <b-overlay :show="loading" rounded="sm">
+        <portal to="pageTitle">Login</portal>
 
-      <b-alert
-        class="mx-auto text-center"
-        :show="showExpiredAlert"
-        style="width: 220px"
-        variant="warning"
-      >
-        Session expired
-      </b-alert>
+        <b-alert
+          class="mx-auto text-center"
+          :show="showExpiredAlert"
+          style="width: 220px"
+          variant="warning"
+        >
+          Session expired
+        </b-alert>
 
-      <section id="auth" />
+        <section v-show="!loading" id="auth" class="py-2" />
+      </b-overlay>
     </b-container>
   </section>
 </template>
@@ -91,6 +93,7 @@ export default {
 
     signInSuccess({ additionalUserInfo, user }) {
       this.loading = true;
+      debugger;
 
       if (additionalUserInfo?.isNewUser) {
         this.$store.dispatch('SEND_WELCOME_EMAIL', additionalUserInfo);
