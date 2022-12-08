@@ -43,7 +43,7 @@
       @click.stop="showForm"
       class="mr-3"
     >
-      <i class="fas fa-plus fa-fw" aria-hidden />
+      <i class="fas fa-plus" aria-hidden />
     </b-button>
   </div>
 </template>

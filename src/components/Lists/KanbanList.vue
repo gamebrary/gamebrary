@@ -1,7 +1,7 @@
 <!-- TODO: test all settings -->
 <template lang="html">
   <div
-    :class="['list rounded pl-3', listView, { dragging, 'unique': singleList }]"
+    :class="['list rounded pl-3', listView, { dragging, 'unique': singleList, 'pr-3': isLastList && isPublicBoard }]"
     :id="listIndex"
   >
     <b-card
@@ -149,6 +149,14 @@ export default {
 
     draggingDisabled() {
       return !this.user || !this.isBoardOwner;
+    },
+
+    isLastList() {
+      return this.board?.lists?.length - 1 === this.listIndex;
+    },
+
+    isPublicBoard() {
+      return this.board?.isPublic;
     },
 
     sortingEnabled() {
