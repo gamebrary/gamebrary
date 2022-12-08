@@ -1,4 +1,10 @@
-import { NEWS_SOURCES, LINKS_CATEGORIES, EXCLUDED_PLATFORMS, IMAGE_SIZE_SCREENSHOT_HUGE } from '@/constants';
+import {
+  NEWS_SOURCES,
+  LINKS_CATEGORIES,
+  EXCLUDED_PLATFORMS,
+  IMAGE_SIZE_SCREENSHOT_HUGE,
+  IMAGE_SIZE_1080P,
+} from '@/constants';
 import { getImageUrl } from '@/utils';
 import slugify from 'slugify'
 import bbobHTML from '@bbob/html'
@@ -11,10 +17,7 @@ export default {
   latestRelease: ({ releases }) => releases?.[0]?.tag_name || 'v1',
   darkTheme: ({ settings }) => settings?.darkTheme || false,
   sortedBoards: ({ boards }) => orderby(boards, 'lastUpdated', 'desc'),
-
-  isBoardOwner: ({ board, user }) => {
-    return board?.owner === user?.uid;
-  },
+  isBoardOwner: ({ board, user }) => board?.owner === user?.uid,
 
   gameLinks: ({ game }) => {
     return game?.websites?.map(({ url, category }) => ({ url, ...LINKS_CATEGORIES[category] }));
@@ -76,7 +79,7 @@ export default {
     const steamScreenshots = state.game?.steam?.screenshots.map(({ path_full }) => ({ imageUrl: path_full, source: 'steam' })) || [];
 
     const gameCover = {
-      imageUrl: getImageUrl(state.game),
+      imageUrl: getImageUrl(state.game, IMAGE_SIZE_1080P),
       source: 'igdb',
       isCover: true,
     };
@@ -86,7 +89,7 @@ export default {
       : [];
 
     const gogImages = state.game?.gog?.gallery.map((image) => {
-      const imageId = image.split('.com/')[1];
+      const imageId = image?.split('.com/')?.[1];
 
       return {
         imageUrl: imageId ? `https://images.gog-statics.com/${imageId}.jpg` : null,
@@ -94,7 +97,7 @@ export default {
       };
     }) || [];
 
-    const igdbArtworks = state?.game?.artworks?.map((artwork) => ({ imageUrl: getImageUrl(artwork, IMAGE_SIZE_SCREENSHOT_HUGE), source: 'igdb', })) || [];
+    const igdbArtworks = state?.game?.artworks?.map((artwork) => ({ imageUrl: getImageUrl(artwork, IMAGE_SIZE_1080P), source: 'igdb', })) || [];
 
     return [
       ...gogImages,
