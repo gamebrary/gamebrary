@@ -4,7 +4,7 @@
       <portal to="pageTitle">
         <div>
           <b-button
-            variant="light"
+            :variant="darkTheme ? 'secondary' : 'light'"
             class="mr-2"
             :to="{ name: 'tags' }"
           >
@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import VSwatches from 'vue-swatches'
 
 export default {
@@ -80,6 +80,7 @@ export default {
 
   computed: {
     ...mapState(['tags']),
+    ...mapGetters(['darkTheme']),
   },
 
   methods: {

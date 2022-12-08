@@ -3,6 +3,10 @@
     id="previewWallpaper"
     hide-footer
     scrollable
+    :header-bg-variant="darkTheme ? 'dark' : 'white'"
+    :header-text-variant="darkTheme ? 'white' : 'dark'"
+    :body-bg-variant="darkTheme ? 'dark' : 'white'"
+    :body-text-variant="darkTheme ? 'white' : 'dark'"
     size="xl"
   >
     <template v-slot:modal-header="{ close }">
@@ -11,7 +15,7 @@
         @close="close"
       >
         <b-dropdown
-          variant="light"
+          :variant="darkTheme ? 'secondary' : 'light'"
           class="mr-2"
           menu-class="p-0"
         >
@@ -61,7 +65,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -79,6 +83,7 @@ export default {
 
   computed: {
     ...mapState(['boards', 'wallpapers']),
+    ...mapGetters(['darkTheme']),
 
     formattedBoards() {
       return this.boards.map((board) => ({ ...board, backgroundUrl: this.getWallpaperUrl(board.backgroundUrl) }));

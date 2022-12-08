@@ -12,7 +12,7 @@
 
     <b-button
       class="align-self-baseline"
-      variant="transparent"
+      :variant="darkTheme ? 'secondary' : 'light'"
       @click="$emit('close')"
     >
       <i class="fas fa-times fa-fw" aria-hidden />
@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   props: {
     title: String,
@@ -28,6 +30,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['darkTheme']),
+
     slots() {
       return Object.keys(this.$slots);
     },

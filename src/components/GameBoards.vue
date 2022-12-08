@@ -20,7 +20,7 @@
         <portal to="headerActions">
           <b-button
             v-if="user"
-            variant="primary"
+            :variant="darkTheme ? 'secondary' : 'light'"
             class="mr-2"
             :to="{ name: 'create.board' }"
           >
@@ -68,7 +68,7 @@ export default {
 
   computed: {
     ...mapState(['publicBoards', 'user', 'boards', 'wallpapers']),
-    ...mapGetters(['isBoardOwner', 'platformNames', 'sortedBoards']),
+    ...mapGetters(['isBoardOwner', 'platformNames', 'sortedBoards', 'darkTheme']),
 
     gameBoards() {
       return this.isPublicBoard

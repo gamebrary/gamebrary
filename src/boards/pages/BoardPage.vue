@@ -8,7 +8,7 @@
       <portal to="pageTitle">
         <div class="d-flex align-items-center">
           <b-button
-            variant="light"
+            :variant="darkTheme ? 'secondary' : 'light'"
             class="mr-2"
             :to="{ name: 'boards' }"
           >
@@ -46,7 +46,7 @@
         <b-button
           v-if="isBoardOwner"
           :to="{ name: 'board.edit', params: { id: board.id } }"
-          variant="light"
+          :variant="darkTheme ? 'secondary' : 'light'"
           class="mr-2"
         >
           <span class="d-none d-sm-block">Edit board</span>
@@ -101,7 +101,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'dragging', 'board', 'wallpapers']),
-    ...mapGetters(['isBoardOwner']),
+    ...mapGetters(['isBoardOwner', 'darkTheme']),
 
     isBoardPage() {
       return this.$route.name === 'board';

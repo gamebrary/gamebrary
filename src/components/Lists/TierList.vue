@@ -81,7 +81,6 @@ export default {
       default: () => {},
     },
     listIndex: Number,
-    preview: Boolean,
   },
 
   data() {

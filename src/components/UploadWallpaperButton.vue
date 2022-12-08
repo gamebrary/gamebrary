@@ -11,7 +11,7 @@
 
     <b-button
       :disabled="outOfSpace"
-      variant="light"
+      :variant="darkTheme ? 'secondary': 'light'"
       class="mr-2"
       @click="triggerFileUpload"
     >
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -46,6 +46,7 @@ export default {
 
   computed: {
     ...mapState(['wallpapers']),
+    ...mapGetters(['darkTheme']),
 
     isDuplicate() {
       const { file, existingFiles } = this;

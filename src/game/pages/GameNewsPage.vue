@@ -7,7 +7,7 @@
         <div>
           <b-button
             :to="{ name: 'game', params: { id: game.id, slug: game.slug } }"
-            variant="light"
+            :variant="darkTheme ? 'secondary' : 'light'"
             class="mr-2"
             >
               <i class="fa-solid fa-chevron-left" />
@@ -34,15 +34,20 @@
           <b-card
             v-for="article in gameNews"
             class="mb-3"
-            :bg-variant="darkTheme ? 'info' : 'light'"
-            :text-variant="darkTheme ? 'light' : 'info'"
+            :bg-variant="darkTheme ? 'secondary' : 'light'"
+            :text-variant="darkTheme ? 'white' : 'dark'"
             :key="article.id"
           >
             <div class="d-flex align-items-start justify-content-between">
               <aside>
-                <p class="mb-0"><strong>{{ article.title }}</strong></p>
-                <small v-if="article.author" class="text-muted mr-1">By {{ article.author }} |</small>
-                <small class="text-muted">{{ article.date }}</small>
+                <h4 class="mb-0">
+                  {{ article.title }}
+                  <b-badge>{{ article.date }}</b-badge>
+                </h4>
+
+                <small v-if="article.author" :class="darkTheme ? 'text-light' : 'text-muted'">
+                  By {{ article.author }}
+                </small>
               </aside>
 
               <a

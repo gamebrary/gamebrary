@@ -6,7 +6,7 @@
     <b-button
       block
       v-b-toggle.genres
-      :variant="filterBy === 'genres' ? 'outline-success' : 'light'"
+      :variant="filterBy === 'genres' ? 'primary' : normalVariant"
       class="mb-2"
     >
       Genres
@@ -23,8 +23,8 @@
         :key="name"
         block
         size="sm"
-        :variant="isFilterSelected('genres', id) ? 'outline-success' : 'link'"
-        class="text-left my-0"
+        :variant="isFilterSelected('genres', id) ? 'primary' : normalVariant"
+        class="text-left mb-1"
         @click="setFilter('genres', id)"
       >
         {{ name }}
@@ -35,7 +35,7 @@
       block
       v-b-toggle.player_perspectives
       class="mb-2"
-      :variant="filterBy === 'player_perspectives' ? 'outline-success' : 'light'"
+      :variant="filterBy === 'player_perspectives' ? 'primary' : normalVariant"
     >
       Perspectives
     </b-button>
@@ -51,8 +51,8 @@
         :key="name"
         block
         size="sm"
-        :variant="isFilterSelected('player_perspectives', id) ? 'outline-success' : 'link'"
-        class="text-left my-0"
+        :variant="isFilterSelected('player_perspectives', id) ? 'primary' : normalVariant"
+        class="text-left mb-1"
         @click="setFilter('player_perspectives', id)"
       >
         {{ name }}
@@ -64,7 +64,7 @@
       block
       v-b-toggle.platforms
       class="mb-2"
-      :variant="filterBy === 'platforms' ? 'outline-success' : 'light'"
+      :variant="filterBy === 'platforms' ? 'primary' : normalVariant"
     >
       Platforms
     </b-button>
@@ -80,8 +80,8 @@
         :key="id"
         block
         size="sm"
-        :variant="isFilterSelected('platforms', id) ? 'outline-success' : 'link'"
-        class="text-left my-0"
+        :variant="isFilterSelected('platforms', id) ? 'primary' : normalVariant"
+        class="text-left mb-1"
         @click="setFilter('platforms', id)"
       >
         {{ name }}
@@ -92,7 +92,7 @@
       block
       v-b-toggle.game_modes
       class="mb-2"
-      :variant="filterBy === 'game_modes' ? 'outline-success' : 'light'"
+      :variant="filterBy === 'game_modes' ? 'primary' : normalVariant"
     >
       Game modes
     </b-button>
@@ -108,8 +108,8 @@
         :key="id"
         block
         size="sm"
-        :variant="isFilterSelected('game_modes', id) ? 'outline-success' : 'link'"
-        class="text-left my-0"
+        :variant="isFilterSelected('game_modes', id) ? 'primary' : normalVariant"
+        class="text-left mb-1"
         @click="setFilter('game_modes', id)"
       >
         {{ name }}
@@ -120,7 +120,7 @@
 
 <script>
 import { GAME_GENRES, GAME_PERSPECTIVES, GAME_MODES } from '@/constants';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   GAME_GENRES,
@@ -129,6 +129,7 @@ export default {
 
   computed: {
     ...mapState(['platforms']),
+    ...mapGetters(['darkTheme']),
 
     filterBy() {
       return this.$route.query?.filterBy;
@@ -136,7 +137,13 @@ export default {
 
     value() {
       return this.$route.query?.value;
-    }
+    },
+
+    normalVariant() {
+      return this.darkTheme
+        ? 'secondary'
+        : 'light';
+    },
   },
 
   methods: {

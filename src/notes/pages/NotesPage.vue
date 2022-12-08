@@ -12,6 +12,7 @@
               title="Select game to add a note"
               trigger-text="Create note"
               size="md"
+              :variant="darkTheme ? 'secondary' : 'light'"
               class="mr-2"
               @select-game="createNote"
             />
@@ -49,7 +50,7 @@
               <b-card
                 v-for="({ note, game }, index) in filteredNotes"
                 body-class="p-2"
-                :bg-variant="darkTheme ? 'info' : 'light'"
+                :bg-variant="darkTheme ? 'secondary' : 'light'"
                 :text-variant="darkTheme ? 'light' : 'dark'"
                 :key="index"
                 class="cursor-pointer"
@@ -66,7 +67,7 @@
                     <h5>{{ game.name }}</h5>
                   </div>
 
-                  <p class="note-text text-muted small" v-if="note" v-html="note" />
+                  <p class="note-text small" v-if="note" v-html="note" />
                 </b-card-text>
               </b-card>
             </b-card-group>

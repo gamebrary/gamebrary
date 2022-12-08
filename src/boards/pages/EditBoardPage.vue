@@ -209,21 +209,39 @@
                     />
 
                     <b-input-group-append>
-                      <b-dropdown id="list-settings" no-caret variant="light">
+                      <b-dropdown
+                        id="list-settings"
+                        no-caret
+                        :variant="list.sortOrder ? 'success' : 'light'"
+                      >
                         <template #button-content>
-                          <i class="fa-solid fa-ellipsis-vertical fa-fw" />
+                          <i class="fa-solid fa-sort fa-fw" />
                         </template>
 
                         <b-dropdown-group id="dropdown-group-1" header="Sort">
                           <b-dropdown-item-button
                             v-for="option in $options.LIST_SORT_OPTIONS"
                             :key="option.value"
-                            :bg-variant="option.value === list.sortOrder ? 'success' : ''"
+                            :variant="option.value == list.sortOrder ? 'success' : 'info'"
                             @click="setListSorting(index, option.value)"
                           >
-                            {{ option.text }}
+                            <div>{{ option.text }}</div>
+                            <small class="text-secondary" v-if="!option.value" show>
+                              <i class="far fa-hand-paper" aria-hidden="true"></i>
+                              Drag and drop
+                            </small>
                           </b-dropdown-item-button>
                         </b-dropdown-group>
+                      </b-dropdown>
+
+                      <b-dropdown
+                        id="list-settings"
+                        no-caret
+                        :variant="darkTheme ? 'secondary' : 'light'"
+                      >
+                        <template #button-content>
+                          <i class="fa-solid fa-ellipsis-vertical fa-fw" />
+                        </template>
 
                         <b-dropdown-group id="dropdown-group-2" header="List view">
                           <b-dropdown-item-button
@@ -387,6 +405,7 @@ export default {
 
   computed: {
     ...mapState(['user']),
+    ...mapGetters(['darkTheme']),
 
     boardId() {
       return this.$route?.params?.id;

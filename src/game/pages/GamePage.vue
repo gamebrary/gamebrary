@@ -30,7 +30,7 @@
         <portal to="headerActions">
           <b-dropdown
             class="mr-2"
-            variant="success"
+            :variant="darkTheme ? 'secondary' : 'light'"
             no-caret
           >
             <template #button-content>
@@ -159,8 +159,7 @@
                 :to="{ name: 'search', query: { filterBy: 'genres', value: genre.id }}"
                 :key="genre.id"
               >
-                {{ genre.name }}
-                <template v-if="index < gameGenres.length - 1">, </template>
+                {{ genre.name }}<template v-if="index < gameGenres.length - 1">, </template>
               </b-link>
             </div>
 
@@ -171,9 +170,7 @@
                 v-for="(gameMode, index) in gameModes"
                 :key="gameMode.id"
               >
-                <b-link :to="{ name: 'search', query: { filterBy: 'game_modes', value: gameMode.id }}">
-                  {{ gameMode.name }}
-                </b-link>
+                <b-link :to="{ name: 'search', query: { filterBy: 'game_modes', value: gameMode.id }}">{{ gameMode.name }}</b-link>
                 <template v-if="index < gameModes.length - 1">, </template>
               </b-link>
             </div>
@@ -186,9 +183,7 @@
                 :key="id"
               >
 
-                <b-link :to="{ name: 'search', query: { filterBy: 'player_perspectives', value: id }}">
-                  {{ name }}
-                </b-link>
+                <b-link :to="{ name: 'search', query: { filterBy: 'player_perspectives', value: id }}">{{ name }}</b-link>
                 <template v-if="index < playerPerspectives.length - 1">, </template>
               </b-link>
             </div>
@@ -379,21 +374,21 @@
               <b-button
                 v-for="platform in gamePlatforms"
                 :key="platform.id"
-                variant="transparent"
-                class="pb-0"
+                block
+                class="pb-0 text-left"
                 :to="{ name: 'search', query: { filterBy: 'platforms', value: platform.id }}"
               >
                 <b-img
                   v-if="platform.platform_logo"
                   :src="$options.getImageUrl(platform.platform_logo)"
                   :alt="platform.name"
-                  class="mr-2 mb-2"
-                  width="100"
+                  square
+                  variant="light"
+                  class="mr-1 mb-1 p-1"
+                  width="30"
                 />
 
-                <b-avatar size="100" rounded v-else>
-                  <small>{{ platform.name }}</small>
-                </b-avatar>
+                <small>{{ platform.name }}</small>
               </b-button>
             </div>
           </b-col>

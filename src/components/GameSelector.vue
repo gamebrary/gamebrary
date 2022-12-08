@@ -1,16 +1,14 @@
 <template lang="html">
-  <div>
-    <component
-      :is="triggerComponent"
-      trigger-text="Add games to tier"
-      :variant="variant"
-      :size="size"
-      :block="block"
-      @click="selecting = true"
-    >
-      <template v-if="triggerText">{{ triggerText }}</template>
-      <slot />
-    </component>
+  <component
+    :is="triggerComponent"
+    trigger-text="Add games to tier"
+    :variant="variant"
+    :size="size"
+    :block="block"
+    @click="selecting = true"
+  >
+    <template v-if="triggerText">{{ triggerText }}</template>
+    <slot />
 
     <b-modal
       hide-footer
@@ -66,7 +64,7 @@
         No results
       </div>
     </b-modal>
-  </div>
+  </component>
 </template>
 
 <script>

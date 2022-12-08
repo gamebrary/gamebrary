@@ -8,7 +8,7 @@
       <portal v-if="!loading && tags.length > 0" to="headerActions">
         <b-button
           class="mr-2"
-          variant="light"
+          :variant="darkTheme ? 'secondary' : 'light'"
           :to="{ name: 'tag.create' }"
         >
           Add tag
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import EmptyState from '@/components/EmptyState';
 
 export default {
@@ -63,6 +63,7 @@ export default {
 
   computed: {
     ...mapState(['tags']),
+    ...mapGetters(['darkTheme']),
   },
 
   mounted() {

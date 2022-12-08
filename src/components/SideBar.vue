@@ -24,7 +24,7 @@
 
         <b-button
           v-b-toggle.sidebar
-          :variant="darkTheme ? 'info' : 'light'"
+          :variant="darkTheme ? 'dark' : 'light'"
         >
           <i class="fa fa-close fa-fw" />
         </b-button>
@@ -37,7 +37,7 @@
 
         <b-button
           :to="{ name: 'boards' }"
-          :variant="darkTheme ? 'info' : 'light'"
+          :variant="darkTheme ? 'dark' : 'light'"
           class="w-100 text-left mb-1"
         >
           <i class="fa-regular fa-rectangle-list fa-fw" />
@@ -46,7 +46,7 @@
 
         <b-button
           :to="{ name: 'wallpapers' }"
-          :variant="darkTheme ? 'info' : 'light'"
+          :variant="darkTheme ? 'dark' : 'light'"
           class="w-100 text-left mb-1"
         >
           <i class="fa fa-images fa-fw" aria-hidden="true" />
@@ -55,7 +55,7 @@
 
         <b-button
           :to="{ name: 'notes' }"
-          :variant="darkTheme ? 'info' : 'light'"
+          :variant="darkTheme ? 'dark' : 'light'"
           class="w-100 text-left mb-1"
           id="notes"
         >
@@ -65,7 +65,7 @@
 
         <b-button
           :to="{ name: 'tags' }"
-          :variant="darkTheme ? 'info' : 'light'"
+          :variant="darkTheme ? 'dark' : 'light'"
           class="w-100 text-left mb-1"
           id="tags"
         >
@@ -76,7 +76,7 @@
         <b-button
           class="w-100 text-left mb-1"
           :to="{ name: 'account' }"
-          :variant="darkTheme ? 'info' : 'light'"
+          :variant="darkTheme ? 'dark' : 'light'"
         >
           <b-avatar
             rounded
@@ -100,7 +100,7 @@
 
         <b-button
           :to="{ name: 'explore' }"
-          :variant="darkTheme ? 'info' : 'light'"
+          :variant="darkTheme ? 'dark' : 'light'"
           class="w-100 text-left mb-1"
           id="paltforms"
         >
@@ -111,7 +111,7 @@
         <hr />
 
         <b-button
-          :variant="darkTheme ? 'info' : 'light'"
+          :variant="darkTheme ? 'dark' : 'light'"
           class="w-100 text-left mb-1"
           v-b-modal.keyboard-shortcuts
           id="shortcuts"
@@ -120,7 +120,7 @@
         </b-button>
 
         <b-button
-          :variant="darkTheme ? 'info' : 'light'"
+          :variant="darkTheme ? 'dark' : 'light'"
           class="w-100 text-left mb-1"
           @click="toggleTheme"
         >
@@ -132,7 +132,7 @@
 
         <b-button
           :to="{ name: 'help' }"
-          :variant="darkTheme ? 'info' : 'light'"
+          :variant="darkTheme ? 'dark' : 'light'"
           class="w-100 text-left mb-1"
           id="help"
         >

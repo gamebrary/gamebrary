@@ -36,5 +36,7 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
 .artworks-carousel {
   margin-top: -54px;
+  max-height: 100vh;
+  overflow: hidden;
 }
 </style>

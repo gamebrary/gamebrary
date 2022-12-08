@@ -5,60 +5,70 @@
         title="Dev tools"
       />
 
-      <div
-        v-for="variant in variants"
-        :key="variant"
-        class="mb-3"
-      >
-        <b-button
-          v-for="size in ['sm', '', 'lg']"
-          :variant="variant"
-          :key="size"
-          :size="size"
-          class="mr-2"
-        >
-          {{ variant }}
-        </b-button>
+      <b-row>
+        <b-col cols="12">
+          <div
+            v-for="variant in variants"
+            :key="variant"
+            class="mb-3"
+          >
+            <b-button
+              v-for="size in ['sm', '', 'lg']"
+              :variant="variant"
+              :key="size"
+              :size="size"
+              class="mr-2"
+            >
+              {{ variant }}
+            </b-button>
 
-        <b-button
-          v-for="size in ['sm', '', 'lg']"
-          :variant="`outline-${variant}`"
-          :key="size"
-          :size="size"
-          class="mr-2"
-        >
-          {{ variant }}
-        </b-button>
+            <b-button
+              v-for="size in ['sm', '', 'lg']"
+              :variant="`outline-${variant}`"
+              :key="size"
+              :size="size"
+              class="mr-2"
+            >
+              {{ variant }}
+            </b-button>
 
-        <b-button
-          v-for="size in ['sm', '', 'lg']"
-          :variant="`${variant}`"
-          pill
-          :key="size"
-          :size="size"
-          class="mr-2"
-        >
-          {{ variant }}
-        </b-button>
+            <b-button
+              v-for="size in ['sm', '', 'lg']"
+              :variant="`${variant}`"
+              pill
+              :key="size"
+              :size="size"
+              class="mr-2"
+            >
+              {{ variant }}
+            </b-button>
 
-        <b-button
-          v-for="size in ['sm', '', 'lg']"
-          :variant="`${variant}`"
-          squared
-          :key="size"
-          :size="size"
-          class="mr-2"
-        >
-          {{ variant }}
-        </b-button>
-      </div>
+            <b-button
+              v-for="size in ['sm', '', 'lg']"
+              :variant="`${variant}`"
+              squared
+              :key="size"
+              :size="size"
+              class="mr-2"
+            >
+              {{ variant }}
+            </b-button>
+          </div>
+        </b-col>
 
-      <h1>Axiom Verge</h1>
-      <h2>Axiom Verge</h2>
-      <h3>Axiom Verge</h3>
-      <h4>Axiom Verge</h4>
-      <h5>Axiom Verge</h5>
-      <h6>Axiom Verge</h6>
+        <b-col
+          cols="3"
+        >
+          <h1>Axiom Verge</h1>
+          <h2>Axiom Verge</h2>
+          <h3>Axiom Verge</h3>
+          <h4>Axiom Verge</h4>
+          <h5>Axiom Verge</h5>
+          <h6>Axiom Verge</h6>
+        </b-col>
+      </b-row>
+
+
 
       <div class="p-3 mb-2 bg-primary text-white">.bg-primary</div>
       <div class="p-3 mb-2 bg-secondary text-white">.bg-secondary</div>
@@ -112,6 +122,7 @@ export default {
         'info',
         'light',
         'dark',
+        'black',
         'link',
       ],
     };

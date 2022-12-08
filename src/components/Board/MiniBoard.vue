@@ -37,7 +37,7 @@
         <template v-if="firstList.games.length">
           <div
             v-for="(game, index) in firstList.games"
-            :key="game"
+            :key="index"
             :class="['bg-light', { 'border-bottom': index !== firstList.games.length - 1 }]"
           >
             <i class="fas fa-square fa-fw text-white" style="margin-left: 1px;" aria-hidden />
@@ -112,7 +112,7 @@ export default {
     miniBoardClass() {
       if (this.hasCustomBackground) return;
 
-      return this.darkTheme ? 'bg-info' : 'bg-light';
+      return this.darkTheme ? 'bg-secondary' : 'bg-light';
     },
 
     showPublicIndicator() {

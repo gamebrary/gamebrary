@@ -7,23 +7,58 @@
 
       <b-spinner v-if="loading" class="spinner-centered" />
 
-      <b-form-row v-else>
-        <b-col cols="12">
-          <form @submit.prevent="saveTag" class="d-flex align-items-start">
-            <div>
+      <form
+        v-else
+        class="d-flex align-items-start flex-column"
+        @submit.prevent="saveTag"
+      >
+        <b-form-row>
+          <b-col cols="12">
+            <div class="field mb-2">
               <b-form-input
                 id="tagName"
                 v-model.trim="tag.name"
-                class="field mr-2 mb-2"
+                class="mb-2"
                 maxlength="20"
                 :placeholder="$t('tags.form.inputPlaceholder')"
                 required
                 trim
               />
 
+              <v-swatches
+                v-model="tag.bgColor"
+                v-b-tooltip.hover
+                class="mr-2"
+                title="Tag background color"
+                :trigger-style="{ height: '38px', width: '38px', border: '1px solid #ced4da' }"
+                show-fallback
+                show-checkbox
+                fallback-input-class="color-input float-left"
+                fallback-input-type="color"
+                :fallback-ok-class="`${darkTheme ? 'bg-secondary text-light' : 'bg-light text-dark'} p-2 float-right`"
+                fallback-ok-text="Select"
+                popover-x="left"
+              />
+
+              <v-swatches
+                v-model="tag.textColor"
+                v-b-tooltip.hover
+                class="mr-2"
+                title="Tag text color"
+                :trigger-style="{ height: '38px', width: '38px', border: '1px solid #ced4da' }"
+                show-fallback
+                show-checkbox
+                fallback-input-class="color-input float-left"
+                fallback-input-type="color"
+                :fallback-ok-class="`${darkTheme ? 'bg-secondary text-light' : 'bg-light text-dark'} p-2 float-right`"
+                fallback-ok-text="Select"
+                popover-x="left"
+              />
+
               <b-button
                 v-if="tag.name"
                 rounded
+                class="float-right"
                 variant="transparent"
                 :style="`background-color: ${tag.bgColor}; color: ${tag.textColor}`"
               >
@@ -31,31 +66,8 @@
               </b-button>
             </div>
 
-            <v-swatches
-              v-model="tag.bgColor"
-              v-b-tooltip.hover
-              class="mr-2"
-              title="Tag background color"
-              show-fallback
-              show-checkbox
-              fallback-input-class="bg-danger"
-              fallback-input-type="color"
-              fallback-ok-class="bg-dark p-2"
-              fallback-ok-text="Select"
-              popover-x="left"
-            />
-
-            <v-swatches
-              v-model="tag.textColor"
-              v-b-tooltip.hover
-              class="mr-2"
-              title="Tag text color"
-              show-fallback
-              popover-x="left"
-            />
-
             <b-button
-              variant="primary"
+              :variant="darkTheme ? 'secondary' : 'light'"
               :disabled="saving"
               type="submit"
             >
@@ -70,44 +82,43 @@
             >
               <i class="fas fa-trash-alt fa-fw" aria-hidden />
             </b-button>
-          </form>
+          </b-col>
 
-          <hr class="my-2" />
-        </b-col>
+          <b-col cols="12">
+            <header class="d-flex justify-content-between align-items-center mt-5 mb-2">
+              <h4>Games tagged</h4>
 
-        <b-col cols="12">
-          <header class="d-flex justify-content-between align-items-center mb-2">
-            <h4>Games tagged</h4>
+              <game-selector
+                :filter="tag.games"
+                title="Tag game"
+                :variant="darkTheme ? 'secondary' : 'light'"
+                trigger-text="Tag game"
+                @select-game="selectGame"
+              />
+            </header>
 
-            <game-selector
-              :filter="tag.games"
-              title="Tag game"
-              trigger-text="Tag game"
-              @select-game="selectGame"
+            <b-alert :show="tag.games.length === 0" variant="light" class="field">
+              No games tagged
+            </b-alert>
+          </b-col>
+
+          <b-col
+            v-for="game in tag.games"
+            :key="game"
+            cols="6"
+            sm="4"
+            md="3"
+            lg="2"
+          >
+            <b-img
+              :src="$options.getImageUrl(games[game], $options.IMAGE_SIZE_COVER_SMALL)"
+              class="cursor-pointer rounded mb-2"
+              fluid-grow
+              @click="$router.push({ name: 'game', params: { id: games[game].id, slug: games[game].slug }})"
             />
-          </header>
-
-          <b-alert :show="tag.games.length === 0" variant="light" class="field">
-            No games tagged
-          </b-alert>
-        </b-col>
-
-        <b-col
-          v-for="game in tag.games"
-          :key="game"
-          cols="6"
-          sm="4"
-          md="3"
-          lg="2"
-        >
-          <b-img
-            :src="$options.getImageUrl(games[game], $options.IMAGE_SIZE_COVER_SMALL)"
-            class="cursor-pointer rounded mb-2"
-            fluid-grow
-            @click="$router.push({ name: 'game', params: { id: games[game].id, slug: games[game].slug }})"
-          />
-        </b-col>
-      </b-form-row>
+          </b-col>
+        </b-form-row>
+      </form>
     </b-container>
   </section>
 </template>
@@ -116,7 +127,7 @@
 import VSwatches from 'vue-swatches'
 import GameSelector from '@/components/GameSelector';
 import { getImageUrl } from '@/utils';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import { IMAGE_SIZE_COVER_SMALL } from '@/constants';
 
 export default {
@@ -140,6 +151,7 @@ export default {
 
   computed: {
     ...mapState(['tags', 'games']),
+    ...mapGetters(['darkTheme']),
 
     tagIndex() {
       return this.$route?.params?.id;
@@ -214,3 +226,13 @@ export default {
   },
 };
 </script>
+
+<style>
+.color-input {
+  height: 38px;
+  width: 38px;
+  border: 1px solid #ced4da;
+  padding: 0;
+  background: transparent;
+}
+</style>

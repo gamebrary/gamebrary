@@ -1,3 +1,6 @@
+<!-- TODO: fix board height when short lists -->
+<!-- TODO: Place progress overlaid on cover -->
+<!-- TODO: Fix issue with grid not loading correctly -->
 <!-- TODO: test all settings -->
 <template lang="html">
   <div
@@ -9,51 +12,52 @@
       :bg-variant="darkTheme ? 'info' : 'light'"
       :text-variant="darkTheme ? 'light' : 'dark'"
     >
-      <header class="p-2 pr-0 d-flex justify-content-between">
-        <b-button
-          block
-          size="sm"
-          :variant="darkTheme ? 'info' : 'transparent'"
-          class="d-flex justify-content-between align-items-center pl-0"
-          :disabled="preview || !isBoardOwner"
-          :to="{ name: 'board.edit', params: { id: board.id } }"
+      <b-button-toolbar
+        key-nav
+        class="p-2"
+      >
+        <b-badge
+          v-if="showGameCount"
+          class="align-self-center"
+          :variant="darkTheme ? 'info' : 'info'"
         >
-          <span>
-            <b-badge
-              v-if="showGameCount"
-              :variant="darkTheme ? 'dark' : 'info'"
-            >
-              {{ list.games.length }}
-            </b-badge>
+          {{ list.games.length }}
+        </b-badge>
 
-            {{ list.name }}
-          </span>
+        <b-badge
+          v-if="sortingEnabled"
+          class="align-self-center"
+          :variant="darkTheme ? 'info' : 'light'"
+          v-b-tooltip.hover
+          :title="`${$t('board.list.sortedBy')}${sortOrder}`"
+        >
+          <i class="fa-solid fa-sort fa-fw" />
+        </b-badge>
 
-          <b-badge
-            v-if="sortingEnabled"
-            :variant="darkTheme ? 'danger' : 'warning'"
-            v-b-tooltip.hover
-            :title="`${$t('board.list.sortedBy')} ${$t(`board.list.${sortOrder}`)}`"
-          >
-            <i class="fa-solid fa-sort fa-fw" />
-          </b-badge>
+        <b-button
+          @click="$router.push({ name: 'board.edit', params: { id: board.id } })"
+          :disabled="!isBoardOwner"
+          class="mr-1 text-left"
+          style="flex: 1"
+          :variant="darkTheme ? 'info' : 'light'"
+        >
+          {{ list.name }}
         </b-button>
 
         <game-selector
           v-if="isBoardOwner"
-          class="mb-2"
-          title="Add games"
-          size="sm"
-          :variant="darkTheme ? 'info' : 'transparent'"
+          :title="`Add games to ${list.name}`"
+          class="ml-auto"
+          :variant="darkTheme ? 'info' : 'light'"
           :filter="list.games"
           @select-game="selectGame"
         >
           <i class="fa-solid fa-plus fa-fw" />
         </game-selector>
-      </header>
+      </b-button-toolbar>
 
       <draggable
-        class="games"
+        :class="['games', isEmpty ? 'pt-3' : '']"
         handle=".card"
         ghost-class="card-placeholder"
         drag-class="border-selected"
@@ -86,7 +90,7 @@
           class="mb-2"
           block
           trigger-text="Add games"
-          :variant="darkTheme ? 'secondary' : 'success'"
+          :variant="darkTheme ? 'secondary' : 'primary'"
           :filter="list.games"
           @select-game="selectGame"
         />
@@ -125,7 +129,6 @@ export default {
       default: () => {},
     },
     listIndex: Number,
-    preview: Boolean,
   },
 
   data() {
