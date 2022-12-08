@@ -401,7 +401,7 @@ export default {
 
   computed: {
     ...mapState(['game', 'progresses', 'tags', 'boards', 'user', 'notes', 'twitchToken']),
-    ...mapGetters(['darkTheme', 'gameNews', 'platformNames', 'gameLinks']),
+    ...mapGetters(['darkTheme', 'gameNews', 'gameLinks']),
 
     description() {
       return this.wikipediaExtract || this.steamDescription || this.igdbDescription;
@@ -471,19 +471,20 @@ export default {
       return this.game?.genres;
     },
 
-    releaseDates() {
-      const releaseDates = this.game?.release_dates?.slice();
-
-      const sortedActivities = releaseDates?.sort((a, b) => a.date - b.date);
-
-      return sortedActivities?.map(({ platform, date, id }) => {
-        return {
-          id,
-          platform: this.platformNames?.[platform]?.name,
-          date: new Date(date * 1000).toLocaleDateString('en-US', { dateStyle: 'medium' }),
-        };
-      });
-    },
+    // releaseDates() {
+    //   const releaseDates = this.game?.release_dates?.slice();
+    //
+    //   const sortedActivities = releaseDates?.sort((a, b) => a.date - b.date);
+    //
+    //   return sortedActivities?.map(({ platform, date, id }) => {
+    //     return {
+    //       id,
+    // TODO: use platforms from store
+    //       platform: this.platformNames?.[platform]?.name,
+    //       date: new Date(date * 1000).toLocaleDateString('en-US', { dateStyle: 'medium' }),
+    //     };
+    //   });
+    // },
 
     gameDevelopers() {
       return this.game?.involved_companies

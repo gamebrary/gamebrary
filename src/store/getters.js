@@ -23,24 +23,6 @@ export default {
   // Arabic is the only ltr language supported at the moment
   isRTL: ({ settings }) => settings?.language !== 'ar',
 
-  platformNames: (state) => {
-    // TODO: use array map
-    const formattedPlatforms = {};
-
-    if (!state.platforms) {
-      return [];
-    }
-
-    state.platforms?.forEach(({ id, slug, name }) => {
-      formattedPlatforms[id] = {
-        name,
-        slug,
-      };
-    });
-
-    return formattedPlatforms;
-  },
-
   gameNews: (state) => {
     const gameNews = state.game?.news?.map((article) => {
       const feedSlug = slugify(article?.feedname, {
