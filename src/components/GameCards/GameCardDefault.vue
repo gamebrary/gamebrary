@@ -47,7 +47,7 @@
               v-for="({ bgColor, textColor, name }) in tagsApplied"
               :key="name"
               rounded
-              class="mr-1"
+              class="mr-2 mb-2 p-0 px-2"
               size="sm"
               variant="transparent"
               :style="`background-color: ${bgColor}; color: ${textColor}`"
