@@ -37,7 +37,7 @@
       <form
         ref="boardSettingsForm"
         class="mb-5"
-        @submit.stop.prevent="saveBoard"
+        @submit.stop.prevent="saveBoard(true)"
       >
         <b-row>
           <b-col cols="12" sm="6" md="4" offset-md="2">
@@ -486,7 +486,7 @@ export default {
       this.board.backgroundUrl = wallpaper;
     },
 
-    async saveBoard() {
+    async saveBoard(close = false) {
       this.saving = true;
 
       const { board, lists } = this;
@@ -507,7 +507,8 @@ export default {
         });
 
       this.saving = false;
-      this.$router.push({ name: 'board', params: { id: this.board.id } });
+
+      if (close) this.$router.push({ name: 'board', params: { id: this.board.id } });
     },
   },
 };
