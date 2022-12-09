@@ -12,6 +12,16 @@
         :src="$options.getImageUrl(game)"
       />
 
+      <b-progress
+        v-if="gameProgress > 0"
+        v-b-tooltip.hover
+        :title="`${gameProgress}% Completed`"
+        :value="gameProgress"
+        :variant="gameProgress == 100 ? 'success' : 'primary'"
+        class="game-progress"
+        height="8px"
+      />
+
       <i
         v-if="tagsApplied.length"
         class="fas fa-tags position-absolute text-white tag-icon"
@@ -28,14 +38,6 @@
       >
         {{ game.name }}
       </b-card-title>
-
-      <b-progress
-        v-if="gameProgress > 0"
-        :value="gameProgress"
-        class="my-2"
-        variant="success"
-        height="6px"
-      />
 
       <b-badge variant="warning" v-if="gameNotes">
         <i class="far fa-sticky-note fa-fw" />
@@ -54,7 +56,14 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
 .tag-icon {
-  bottom: .25rem;
-  right: .25rem;
+  top: .5rem;
+  right: .5rem;
+}
+
+.game-progress {
+  position: absolute;
+  bottom: 10px;
+  left: 15px;
+  width: calc(100% - 22px);
 }
 </style>

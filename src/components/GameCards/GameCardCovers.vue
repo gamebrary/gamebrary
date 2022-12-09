@@ -5,6 +5,16 @@
       :src="$options.getImageUrl(game)"
     />
 
+    <b-progress
+      v-if="gameProgress > 0"
+      v-b-tooltip.hover
+      :title="`${gameProgress}% Completed`"
+      :value="gameProgress"
+      :variant="gameProgress == 100 ? 'success' : 'primary'"
+      class="game-progress"
+      height="8px"
+    />
+
     <i
       v-if="tagsApplied.length"
       class="fas fa-tags position-absolute text-white tag-icon"
@@ -27,5 +37,12 @@ export default {
 .tag-icon {
   bottom: .25rem;
   right: .25rem;
+}
+
+.game-progress {
+  position: absolute;
+  bottom: 10px;
+  left: 15px;
+  width: calc(100% - 22px);
 }
 </style>

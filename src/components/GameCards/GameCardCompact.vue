@@ -14,12 +14,22 @@
           :alt="game.name"
           class="rounded m-1"
         />
+
+        <b-progress
+          v-if="gameProgress > 0"
+          v-b-tooltip.hover
+          :title="`${gameProgress}% Completed`"
+          :value="gameProgress"
+          :variant="gameProgress == 100 ? 'success' : 'primary'"
+          class="game-progress"
+          height="8px"
+        />
       </b-col>
 
       <b-col cols="9">
         <b-card-body body-class="p-2">
           <b-card-title
-            :class="`mb-0 ${highlightCompletedGame ? 'text-success' : ''}`"
+            :class="`mb-1 ${highlightCompletedGame ? 'text-success' : ''}`"
             title-tag="h5"
           >
             {{ game.name }}
@@ -29,27 +39,17 @@
             </b-badge>
           </b-card-title>
 
-          <br />
-
-          <b-progress
-            v-if="gameProgress > 0"
-            :value="gameProgress"
-            class="my-2"
-            variant="success"
-            height="6px"
-          />
-
           <template v-if="tagsApplied.length">
-            <b-badge
+            <b-button
               v-for="({ bgColor, textColor, name }) in tagsApplied"
               :key="name"
-              class="mr-1 mb-1"
+              class="mr-1 mb-1 p-0 px-1"
               size="sm"
               variant="transparent"
               :style="`background-color: ${bgColor}; color: ${textColor}`"
             >
               <small>{{ name }}</small>
-            </b-badge>
+            </b-button>
           </template>
         </b-card-body>
       </b-col>
@@ -64,3 +64,12 @@ export default {
   mixins: [gameCardMixin],
 };
 </script>
+
+<style scoped>
+.game-progress {
+  position: absolute;
+  bottom: 10px;
+  left: 15px;
+  width: calc(100% - 22px);
+}
+</style>

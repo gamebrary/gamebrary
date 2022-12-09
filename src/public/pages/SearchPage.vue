@@ -1,6 +1,10 @@
+<!-- TODO: add option to clear filters -->
+<!-- TODO: show option to clear search text if no results AND filters on -->
+<!-- TODO: remove filter if selected -->
 <!-- TODO: add sorting -->
 <!-- TODO: use route query -->
 <!-- TODO: change default call -->
+<!-- TODO: add page size dropdown -->
 <template lang="html">
   <section>
     <b-container>
@@ -107,7 +111,7 @@
             </b-form-row>
 
             <div
-              v-if="!loading && query.length > 0"
+              v-if="!loading && query.length > 0 && !searchResults.length"
               class="field centered text-center mt-5"
             >
               <p>No results found</p>
@@ -135,7 +139,7 @@ export default {
     return {
       searchResults: [],
       loading: false,
-      pageSize: 50,
+      pageSize: 24,
       offset: 0,
     };
   },
@@ -236,12 +240,9 @@ export default {
         : '';
 
       // TODO: paginate
-      const data = `${search} fields *,platforms,slug,rating,cover.image_id; limit 50; offset ${this.offset}; ${filter};`;
+      const data = `${search} fields *,platforms,slug,rating,cover.image_id; limit ${this.pageSize}; offset ${this.offset}; ${filter};`;
 
       this.searchResults = await this.$store.dispatch('IGDB', { path: 'games', data });
-
-      console.log('this.searchResults', this.searchResults);
-      // length
 
       this.loading = false;
     },
