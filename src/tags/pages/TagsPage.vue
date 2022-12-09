@@ -8,7 +8,7 @@
       <portal v-if="!loading && tags.length > 0" to="headerActions">
         <b-button
           class="mr-2"
-          :variant="darkTheme ? 'secondary' : 'light'"
+          variant="primary"
           :to="{ name: 'tag.create' }"
         >
           Add tag
@@ -22,7 +22,7 @@
         message="Tags are a great way to organize your collection"
        >
          <b-button
-           variant="light"
+           variant="primary"
            :to="{ name: 'tag.create' }"
          >
            Create a tag

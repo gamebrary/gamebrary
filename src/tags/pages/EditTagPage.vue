@@ -5,6 +5,17 @@
         Edit tag
       </portal>
 
+      <portal to="headerActions">
+        <game-selector
+          :filter="tag.games"
+          title="Tag game"
+          variant="primary"
+          class="mr-2"
+          trigger-text="Tag game"
+          @select-game="selectGame"
+        />
+      </portal>
+
       <b-spinner v-if="loading" class="spinner-centered" />
 
       <form
@@ -84,39 +95,24 @@
             </b-button>
           </b-col>
 
-          <b-col cols="12">
-            <header class="d-flex justify-content-between align-items-center mt-5 mb-2">
-              <h4>Games tagged</h4>
+          <div class="mt-5" v-if="tag.games.length">
+            <h4>Games tagged</h4>
 
-              <game-selector
-                :filter="tag.games"
-                title="Tag game"
-                :variant="darkTheme ? 'secondary' : 'light'"
-                trigger-text="Tag game"
-                @select-game="selectGame"
+            <b-col
+              v-for="game in tag.games"
+              :key="game"
+              cols="6"
+              sm="4"
+              md="3"
+              lg="2"
+            >
+              <b-img
+                :src="$options.getImageUrl(games[game], $options.IMAGE_SIZE_COVER_SMALL)"
+                class="cursor-pointer rounded mb-2"
+                @click="$router.push({ name: 'game', params: { id: games[game].id, slug: games[game].slug }})"
               />
-            </header>
-
-            <b-alert :show="tag.games.length === 0" variant="light" class="field">
-              No games tagged
-            </b-alert>
-          </b-col>
-
-          <b-col
-            v-for="game in tag.games"
-            :key="game"
-            cols="6"
-            sm="4"
-            md="3"
-            lg="2"
-          >
-            <b-img
-              :src="$options.getImageUrl(games[game], $options.IMAGE_SIZE_COVER_SMALL)"
-              class="cursor-pointer rounded mb-2"
-              fluid-grow
-              @click="$router.push({ name: 'game', params: { id: games[game].id, slug: games[game].slug }})"
-            />
-          </b-col>
+            </b-col>
+          </div>
         </b-form-row>
       </form>
     </b-container>
@@ -186,7 +182,9 @@ export default {
 
       this.tag = JSON.parse(JSON.stringify(tags[tagIndex]));
 
-      await this.$store.dispatch('LOAD_GAMES', this.tag.games);
+      if (this.tag?.games?.length > 0) {
+        await this.$store.dispatch('LOAD_GAMES', this.tag.games);
+      }
 
       this.loading = false;
     },

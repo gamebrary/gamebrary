@@ -6,13 +6,13 @@
       <b-spinner v-if="loading" class="spinner-centered" />
 
       <template v-else>
-        <portal to="headerActions">
+        <portal v-if="!isEmpty" to="headerActions">
           <div class="d-flex">
             <game-selector
               title="Select game to add a note"
               trigger-text="Create note"
               size="md"
-              :variant="darkTheme ? 'secondary' : 'light'"
+              variant="primary"
               class="mr-2"
               @select-game="createNote"
             />
@@ -24,9 +24,14 @@
           :title="$t('notes.title')"
           message="Looks like you don't have any notes yet."
         >
-          <b-button variant="light" :to="{ name: 'notes.create' }">
-            Add note
-          </b-button>
+          <game-selector
+            title="Select game to add a note"
+            trigger-text="Create note"
+            size="md"
+            variant="primary"
+            class="mr-2"
+            @select-game="createNote"
+          />
         </empty-state>
 
         <div v-else-if="searchText.length && !filteredNotes.length">
