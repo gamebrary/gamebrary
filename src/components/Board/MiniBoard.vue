@@ -22,11 +22,25 @@
       <div
         class="tier d-flex mx-2"
         v-for="tier in board.lists"
-        style="margin-bottom: 1px;"
+        style="margin-bottom: 2px;"
         :key="tier.id"
       >
-        <b-avatar :style="`background-color: ${tier.backgroundColor}`" square text=" " size="20" />
-        <b-avatar v-for="(game, index) in tier.games" :key="index" square text=" " style="margin-right: 1px;" size="20" />
+        <b-avatar
+          :style="`background-color: ${tier.backgroundColor}`"
+          square
+          text=" "
+          size="20"
+        />
+
+        <b-avatar
+          :variant="darkTheme ? 'light' : 'secondary'"
+          v-for="(game, index) in tier.games"
+          :key="index"
+          text=" "
+          square
+          style="margin-left: 2px;"
+          size="20"
+        />
       </div>
     </div>
 
