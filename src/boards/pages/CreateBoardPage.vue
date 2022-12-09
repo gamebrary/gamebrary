@@ -14,16 +14,22 @@
           />
         </b-form-group>
 
-        <b-form-group
-          label="Board type"
-          label-for="boardType"
-        >
-          <b-form-select
-            id="boardType"
-            v-model="board.type"
-            :options="$options.BOARD_TYPES"
-          />
-        </b-form-group>
+        <p>Board type:</p>
+        <b-button-group class="mb-2">
+          <b-button
+            v-for="{ text, value } in $options.BOARD_TYPES"
+            :key="value"
+            :variant="value === board.type ? 'primary' : 'light'"
+            @click="board.type = value"
+          >
+            {{ text }}
+          </b-button>
+        </b-button-group>
+
+        <mini-board
+          class="mb-2"
+          :board="sampleBoardWithGames"
+        />
 
         <b-form-checkbox
           v-if="board.type === $options.BOARD_TYPE_STANDARD"
@@ -63,11 +69,18 @@ import {
   DEFAULT_BOARD_STANDARD,
   DEFAULT_BOARD_TIER,
 } from '@/constants';
+import MiniBoard from '@/components/Board/MiniBoard';
+
 
 export default {
   BOARD_TYPES,
   BOARD_TYPE_TIER,
   BOARD_TYPE_STANDARD,
+  DEFAULT_BOARD_TIER,
+
+  components: {
+    MiniBoard,
+  },
 
   data() {
     return {
@@ -81,6 +94,26 @@ export default {
     this.board = {
       ...this.getDefaultBoard(),
       type: BOARD_TYPE_STANDARD,
+    }
+  },
+
+  computed: {
+    sampleBoard() {
+      if (this.board.type === BOARD_TYPE_KANBAN) return DEFAULT_BOARD_KANBAN;
+      if (this.board.type === BOARD_TYPE_TIER) return DEFAULT_BOARD_TIER;
+      if (this.board.type === BOARD_TYPE_STANDARD) return DEFAULT_BOARD_STANDARD;
+
+      return DEFAULT_BOARD_KANBAN;
+    },
+
+    sampleBoardWithGames() {
+      return {
+        ...this.sampleBoard,
+        lists: this.sampleBoard?.lists?.map((list) => ({
+          ...list,
+          games: list.games = Array.from({length: Math.floor(Math.random() * 5) + 3 }, () => ''),
+        })),
+      }
     }
   },
 
