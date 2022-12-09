@@ -93,7 +93,6 @@ export default {
 
     signInSuccess({ additionalUserInfo, user }) {
       this.loading = true;
-      debugger;
 
       if (additionalUserInfo?.isNewUser) {
         this.$store.dispatch('SEND_WELCOME_EMAIL', additionalUserInfo);

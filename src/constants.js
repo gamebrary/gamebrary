@@ -107,15 +107,35 @@ export const DEFAULT_BOARD_STANDARD = {
 export const DEFAULT_BOARD_KANBAN = {
   ...DEFAULT_BOARD_BASE,
   type: BOARD_TYPE_KANBAN,
-  lists: [{
-    name: 'Click to edit',
-    games: [],
-    sortBy: null,
-    showTags: false,
-    showNotes: false,
-    showCount: false,
-    view: null,
-  }],
+  lists: [
+    {
+      name: 'Backlog',
+      games: [],
+      sortBy: null,
+      showTags: false,
+      showNotes: false,
+      showCount: false,
+      view: null,
+    },
+    {
+      name: 'Playing',
+      games: [],
+      sortBy: null,
+      showTags: false,
+      showNotes: false,
+      showCount: false,
+      view: null,
+    },
+    {
+      name: 'Completed',
+      games: [],
+      sortBy: null,
+      showTags: false,
+      showNotes: false,
+      showCount: false,
+      view: null,
+    }
+  ],
 };
 
 export const AUTH_PROVIDERS = {

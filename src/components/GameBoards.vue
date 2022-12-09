@@ -4,13 +4,13 @@
 
     <template v-else>
       <empty-state
-        v-if="isEmpty"
+        v-if="isEmpty && !isPublicBoard"
         title="Boards"
         message="Use boards to organize your video games"
       >
         <b-button
           :to="{ name: 'create.board' }"
-          variant="light"
+          variant="primary"
         >
           {{ $t('boards.create') }}
         </b-button>

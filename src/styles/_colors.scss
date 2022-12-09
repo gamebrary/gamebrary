@@ -2,7 +2,7 @@ $primary: #da0050 !default;
 $muted: #7d7f8c !default;
 $danger: #C0392B !default;
 $warning: #F39C12 !default;
-$success: #a8deb6 !default;
+$success: #6eda40 !default;
 $white: #f8f8f6 !default;
 $black: #202123 !default;
 $info: #4f4d6f !default;
@@ -23,12 +23,4 @@ $theme-colors: map-merge((
   'light': $light,
   'dark': $dark,
   'secondary': $secondary,
-  // "primary": $primary,
-  // "secondary": $secondary,
-  // "success": $success,
-  // "info": $info,
-  // "warning": $warning,
-  // "danger": $danger,
-  // "light": $light,
-  // "dark": $dark,
   ), $theme-colors);
