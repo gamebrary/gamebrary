@@ -414,6 +414,7 @@ export default {
 
   mounted() {
     this.loadBoard();
+    this.$store.dispatch('LOAD_WALLPAPERS');
   },
 
   methods: {
