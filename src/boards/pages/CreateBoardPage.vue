@@ -91,7 +91,7 @@ export default {
 
   mounted() {
     this.board = {
-      ...this.getDefaultBoard(),
+      ...this.sampleBoard,
       type: BOARD_TYPE_STANDARD,
     }
   },
@@ -117,21 +117,13 @@ export default {
   },
 
   methods: {
-    getDefaultBoard() {
-      if (this.board.type === BOARD_TYPE_TIER) return DEFAULT_BOARD_TIER;
-      if (this.board.type === BOARD_TYPE_KANBAN) return DEFAULT_BOARD_KANBAN;
-
-      return DEFAULT_BOARD_STANDARD;
-    },
-
     async createBoard() {
       this.saving = true;
-      const defaultBoard = this.getDefaultBoard();
 
       const payload = {
-        ...defaultBoard,
+        ...this.sampleBoard,
         ...this.board,
-        lists: defaultBoard.lists,
+        lists: this.sampleBoard.lists.map((list, index) => ({ ...list, games: [] })),
       }
 
       try {
