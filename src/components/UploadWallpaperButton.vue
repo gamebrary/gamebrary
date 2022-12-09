@@ -11,7 +11,7 @@
 
     <b-button
       :disabled="outOfSpace"
-      :variant="darkTheme ? 'secondary': 'light'"
+      variant="primary"
       class="mr-2"
       @click="triggerFileUpload"
     >
