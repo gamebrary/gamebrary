@@ -1,15 +1,18 @@
 <template lang="html">
   <div class="d-flex align-items-center mb-2">
-    <b-dropdown size="lg"  variant="link" toggle-class="text-decoration-none p-0 pl-3" no-caret>
+    <b-dropdown size="lg"  variant="link" toggle-class="text-decoration-none p-0 pl-3" no-caret dropright>
       <template #button-content>
         <b-avatar
           variant="primary"
-          :text="list.name"
+          :text="listNameInitials"
+          :title="list.name"
           rounded
           :style="`background-color: ${list.backgroundColor}`"
           size="100"
         />
       </template>
+
+      <strong class="ml-4 mb-1">{{ list.name }}</strong>
 
       <game-selector
         title="Add games"
@@ -93,6 +96,10 @@ export default {
   computed: {
     ...mapState(['games', 'dragging', 'progresses', 'board', 'user', 'settings']),
     ...mapGetters(['isBoardOwner']),
+
+    listNameInitials() {
+      return this.list.name?.split(' ').map((n)=>n[0]).join('');
+    },
 
     draggingDisabled() {
       return !this.user || !this.isBoardOwner;

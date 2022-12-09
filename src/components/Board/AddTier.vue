@@ -3,6 +3,8 @@
     <b-button
       class="ml-3"
       style="width: 100px;"
+      v-b-tooltip.hover
+      title="Add tier"
       :variant="darkTheme ? 'dark' : 'light'"
       v-b-modal.addTier
     >
