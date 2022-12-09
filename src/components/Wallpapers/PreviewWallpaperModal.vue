@@ -16,14 +16,15 @@
       >
         <b-dropdown
           :variant="darkTheme ? 'secondary' : 'light'"
-          class="mr-2"
-          menu-class="p-0"
+          no-caret
+          right
         >
           <template #button-content>
-            <b-spinner v-if="saving" small />
-            <span v-else>Set as wallpaper</span>
+            <b-spinner v-if="saving || deleting" small />
+            <i v-else class="fas fa-ellipsis-h" aria-hidden="true" />
           </template>
 
+          <b-dropdown-text>Set as wallpaper</b-dropdown-text>
           <b-dropdown-item
             v-for="board in formattedBoards"
             :key="board.id"
@@ -44,15 +45,15 @@
 
             {{ board.name }}
           </b-dropdown-item>
-        </b-dropdown>
 
-        <b-button
-          variant="danger"
-          @click.stop="confirmDeleteWallpaper(wallpaper)"
-        >
-          <b-spinner v-if="deleting" small />
-          <i v-else class="fas fa-trash fa-fw" aria-hidden />
-        </b-button>
+          <b-dropdown-divider />
+          <b-dropdown-item
+            variant="danger"
+            @click.stop="confirmDeleteWallpaper(wallpaper)"
+          >
+              Delete wallpaper
+          </b-dropdown-item>
+        </b-dropdown>
       </modal-header>
     </template>
 
