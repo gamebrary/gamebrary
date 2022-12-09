@@ -8,7 +8,6 @@
           <b-form-input
             id="boardName"
             v-model.trim="board.name"
-            placeholder="PS4 collection, Nintendo Switch, etc..."
             autofocus
             required
           />
