@@ -26,14 +26,12 @@
         :key="tier.id"
       >
         <b-avatar :style="`background-color: ${tier.backgroundColor}`" square text=" " size="20" />
-        <b-avatar v-for="game in tier.games" :key="game" square text=" " style="margin-right: 1px;" size="20" />
+        <b-avatar v-for="(game, index) in tier.games" :key="index" square text=" " style="margin-right: 1px;" size="20" />
       </div>
     </div>
 
     <div v-else-if="isStandardBoard" class="lists rounded overflow-hidden w-100 justify-content-center">
-      <div
-        class="list basic rounded overflow-hidden border"
-      >
+      <div class="list basic rounded overflow-hidden border">
         <template v-if="firstList.games.length">
           <div
             v-for="(game, index) in firstList.games"
@@ -62,7 +60,7 @@
         <template v-if="list.games.length">
           <div
             v-for="(game, index) in list.games"
-            :key="game"
+            :key="index"
             style="width: 60px"
             :class="['list bg-light', { 'border-bottom': index !== list.games.length - 1 }]"
           >
