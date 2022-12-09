@@ -1,4 +1,5 @@
 <!-- TODO: add sorting -->
+<!-- TODO: use route query -->
 <!-- TODO: change default call -->
 <template lang="html">
   <section>
@@ -12,11 +13,11 @@
       </b-form-row>
 
       <b-form-row>
-        <b-col cols="3">
+        <b-col cols="4" sm="3">
           <search-filters />
         </b-col>
 
-        <b-col cols="9">
+        <b-col cols="8" sm="9">
           <b-form-row>
             <b-col v-if="activeBoard">
               <div class="d-flex align-items-center">
@@ -75,21 +76,38 @@
               </div>
             </b-col>
 
-            <b-spinner v-if="loading" class="spinner-centered" />
-
-            <b-col
-              v-else-if="searchResults.length"
-              cols="6"
-              md="4"
-              lg="2"
-              v-for="game in searchResults"
-              :key="game.id"
+            <b-button
+              v-if="showPreviousButton"
+              class="mr-2"
+              @click="prev"
             >
-              <game-card-search :game="game" />
-            </b-col>
+              Previous
+            </b-button>
+
+            <b-button
+              class="mr-2"
+              v-if="searchResults.length === pageSize"
+              @click="next"
+            >
+              Next
+            </b-button>
+
+            <b-spinner v-if="loading" class="ml-2" />
+
+            <b-form-row class="mt-3">
+              <b-col
+                cols="6"
+                md="4"
+                lg="2"
+                v-for="game in searchResults"
+                :key="game.id"
+              >
+                <game-card-search :game="game" />
+              </b-col>
+            </b-form-row>
 
             <div
-              v-else-if="query.length > 0"
+              v-if="!loading && query.length > 0"
               class="field centered text-center mt-5"
             >
               <p>No results found</p>
@@ -117,7 +135,8 @@ export default {
     return {
       searchResults: [],
       loading: false,
-      results: null,
+      pageSize: 50,
+      offset: 0,
     };
   },
 
@@ -163,28 +182,44 @@ export default {
     showEmptyState() {
       return this.$route?.query?.q === undefined;
     },
+
+    showPreviousButton() {
+      return this.offset >= this.pageSize;
+    },
   },
 
   watch: {
     query(value) {
+      this.offset = 0;
       this.search();
     },
 
     filterValue(value) {
+      this.offset = 0;
       this.search();
     },
 
     filterType(value) {
+      this.offset = 0;
       this.search();
     },
   },
 
   async mounted() {
     this.search();
-    this.test();
   },
 
   methods: {
+    next() {
+      this.offset = this.offset + this.pageSize;
+      this.search();
+    },
+
+    prev() {
+      this.offset = this.offset - this.pageSize;
+      this.search();
+    },
+
     async search() {
       this.loading = true;
 
@@ -201,17 +236,14 @@ export default {
         : '';
 
       // TODO: paginate
-      const data = `${search} fields *,platforms,slug,rating,cover.image_id; limit 100; ${filter}`;
+      const data = `${search} fields *,platforms,slug,rating,cover.image_id; limit 50; offset ${this.offset}; ${filter};`;
 
       this.searchResults = await this.$store.dispatch('IGDB', { path: 'games', data });
 
+      console.log('this.searchResults', this.searchResults);
+      // length
+
       this.loading = false;
-    },
-
-    async test() {
-      const data = `fields *, content_descriptions.*; limit 100;`;
-
-      this.results = await this.$store.dispatch('IGDB', { path: 'age_ratings', data });
     },
   },
 };
