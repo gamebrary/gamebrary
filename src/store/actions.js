@@ -9,19 +9,26 @@ const API_BASE = 'https://us-central1-gamebrary-8c736.cloudfunctions.net';
 // const API_BASE = 'http://localhost:5001/gamebrary-8c736/us-central1';
 
 export default {
-  LOAD_SPEEDRUN_GAME({ commit }, gameName) {
+  GET_SPEEDRUN_GAME_ID({ commit, dispatch }, gameName) {
     return new Promise((resolve, reject) => {
       axios.get(`https://www.speedrun.com/api/v1/games?name=${gameName}`)
         .then(({ data }) => {
-          resolve(data);
+          const speedRunGameId = data?.data?.[0]?.id;
+
+          if (speedRunGameId) {
+            commit('APPEND_GAME_SPEEDRUN_ID', speedRunGameId);
+            dispatch('LOAD_GAME_SPEEDRUN_RUNS', speedRunGameId);
+            resolve(speedRunGameId);
+          }
         }).catch(reject);
     });
   },
 
-  LOAD_GAME_SPEEDRUN_RUNS({ commit }, runUrl) {
+  LOAD_GAME_SPEEDRUN_RUNS({ commit }, gameId) {
     return new Promise((resolve, reject) => {
-      axios.get(runUrl)
+      axios.get(`https://www.speedrun.com/api/v1/runs?game=${gameId}`)
         .then(({ data }) => {
+          console.log(data);
           commit('APPEND_GAME_SPEEDRUNS', data);
           resolve(data);
         }).catch(reject);

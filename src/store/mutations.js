@@ -111,6 +111,12 @@ export default {
     Vue.set(state.game, 'speedruns', data);
   },
 
+  APPEND_GAME_SPEEDRUN_ID(state, speedrunId) {
+    if (state.game !== null) {
+      Vue.set(state.game, 'speedrunId', speedrunId);
+    }
+  },
+
   APPEND_GOG_GAME_DATA(state, data) {
     Vue.set(state.game, 'gog', data);
   },

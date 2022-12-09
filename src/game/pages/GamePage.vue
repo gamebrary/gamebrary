@@ -74,14 +74,13 @@
             </b-button>
 
             <!-- <amazon-links class="mt-2" /> -->
-            <!-- <game-speedruns /> -->
             <template v-if="highlightedAchievements">
-              <h4 :class="['mt-3', { 'text-outlined': hasWallpaper }]">Achievements</h4>
+              <h4 :class="['mt-5', { 'text-outlined': hasWallpaper }]">Achievements</h4>
 
               <b-list-group>
                 <b-list-group-item
                   class="d-flex align-items-center"
-                  variant="dark"
+                  variant="secondary"
                   v-for="achievement in highlightedAchievements"
                   :key="achievement.name"
                 >
@@ -89,6 +88,7 @@
                     variant="info"
                     :src="achievement.path"
                     square
+                    size="24"
                     class="mr-2"
                   />
 
@@ -138,6 +138,8 @@
             />
 
             <game-media />
+
+            <!-- <game-speedruns /> -->
           </b-col>
 
           <b-col
