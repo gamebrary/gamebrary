@@ -143,7 +143,7 @@ export default {
       : '';
       const data = `${search} fields name,platforms,slug,rating,cover.image_id; limit 50; ${filter}`;
 
-      this.searchResults = await this.$store.dispatch('IGDB', { path: 'games', data });
+      this.searchResults = await this.$store.dispatch('IGDB', { path: 'games', data, mutation: 'CACHE_GAME_DATA' });
 
       this.loading = false;
     },
