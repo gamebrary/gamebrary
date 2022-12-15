@@ -20,7 +20,7 @@ export default {
   isBoardOwner: ({ board, user }) => board?.owner === user?.uid,
 
   gameLinks: ({ game }) => {
-    return game?.websites?.map(({ url, category }) => ({ url, ...LINKS_CATEGORIES[category] }));
+    return game?.websites?.map(({ url, category }) => ({ url, ...LINKS_CATEGORIES[category] })) || [];
   },
 
   // Arabic is the only ltr language supported at the moment
