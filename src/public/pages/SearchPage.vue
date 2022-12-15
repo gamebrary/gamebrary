@@ -17,11 +17,7 @@
       </b-form-row>
 
       <b-form-row>
-        <b-col cols="4" sm="3">
-          <search-filters />
-        </b-col>
-
-        <b-col cols="8" sm="9">
+        <b-col>
           <b-form-row>
             <b-col v-if="activeBoard">
               <div class="d-flex align-items-center">
@@ -80,23 +76,32 @@
               </div>
             </b-col>
 
-            <b-button
-              v-if="showPreviousButton"
-              class="mr-2"
-              @click="prev"
-            >
-              Previous
-            </b-button>
+            <portal to="headerActions">
 
-            <b-button
-              class="mr-2"
-              v-if="searchResults.length === pageSize"
-              @click="next"
-            >
-              Next
-            </b-button>
+              <b-spinner
+                v-if="loading"
+                class="mr-3"
+                small
+              />
 
-            <b-spinner v-if="loading" class="ml-2" />
+              <b-button
+                v-if="showPreviousButton"
+                class="mr-2"
+                @click="prev"
+              >
+                Previous
+              </b-button>
+
+              <b-button
+                class="mr-2"
+                v-if="searchResults.length === pageSize"
+                @click="next"
+              >
+                Next
+              </b-button>
+
+              <search-filters />
+            </portal>
 
             <b-form-row class="mt-3">
               <b-col
