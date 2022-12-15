@@ -55,7 +55,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['user', 'settings', 'sessionExpired']),
+    ...mapState(['user', 'settings', 'sessionExpired', 'platforms']),
     ...mapGetters(['darkTheme']),
 
     style() {
@@ -89,6 +89,7 @@ export default {
     this.loading = true;
 
     await this.$store.dispatch('GET_TWITCH_TOKEN');
+
     this.init();
   },
 
@@ -127,19 +128,14 @@ export default {
     },
 
     init() {
-      if (this.isPublicRoute && !this.user) {
-        this.loading = false;
-
-        return;
-      }
+      if (!this.platforms.length) this.loadPlatforms();
+      if (this.isPublicRoute && !this.user) return this.loading = false;
 
       if (this.user) {
         this.boot();
       } else if (this.$route.name !== 'auth') {
         this.$router.replace({ name: 'auth' });
       }
-
-      this.loadPlatforms();
     },
 
     async loadPlatforms() {
