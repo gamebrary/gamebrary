@@ -1,12 +1,21 @@
 <!-- TODO: allow multiple filters at once -->
 <!-- TODO: add rating filtering -->
 <template lang="html">
-  <b-dropdown id="dropdown-grouped" text="Filter" class="mr-2">
-    <b-dropdown-item-button variant="primary">
-      Clear filter
-    </b-dropdown-item-button>
+  <b-dropdown
+    text="Filter"
+    :variant="hasFilter ? 'primary' : 'secondary'"
+    class="mr-2"
+  >
+    <template v-if="hasFilter">
+      <b-dropdown-item-button
+        variant="primary"
+        @click="clearFilters"
+      >
+        Clear filter
+      </b-dropdown-item-button>
 
-    <b-dropdown-divider />
+      <b-dropdown-divider />
+    </template>
 
     <b-dropdown-group id="genres" header="Genres">
       <b-dropdown-item-button
@@ -86,9 +95,17 @@ export default {
     value() {
       return this.$route.query?.value;
     },
+
+    hasFilter() {
+      return Object.keys(this.$route.query)?.length > 0;
+    },
   },
 
   methods: {
+    clearFilters() {
+      this.$router.push({ name: 'search', query: {} });
+    },
+
     isFilterSelected(filterBy, value) {
       const filterSelected = this.filterBy == filterBy;
       const valueSelected = this.value == value;
