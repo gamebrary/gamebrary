@@ -36,7 +36,7 @@
     <portal-target name="pageTitle" multiple />
 
     <div class="align-items-center d-flex ml-auto">
-      <portal-target name="headerActions" />
+      <portal-target name="headerActions" multiple />
 
       <b-button v-if="!isSearchPage" :to="{ name: 'search' }" class="d-sm-none">
         <i class="fa fa-search" aria-hidden="true" />
