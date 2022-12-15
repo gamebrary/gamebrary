@@ -25,7 +25,7 @@
           <b-input-group-append>
             <b-button
               split
-              :variant="darkTheme ? 'primary' : 'light'"
+              variant="primary"
               :disabled="saving || !listName"
               @click.stop="submit"
             >
