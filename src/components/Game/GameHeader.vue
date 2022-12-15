@@ -25,8 +25,6 @@ export default {
 
     artworks() {
       return this.game?.artworks?.map((artwork) => ({
-        height: artwork.height,
-        width: artwork.width,
         url: getImageUrl(artwork, IMAGE_SIZE_SCREENSHOT_HUGE),
       }));
     },

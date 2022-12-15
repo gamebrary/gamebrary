@@ -720,55 +720,6 @@ export default {
     });
   },
 
-  LOAD_GAME({ state, commit }, gameId) {
-    return new Promise((resolve, reject) => {
-      const data = `fields
-      *,
-      age_ratings.*,
-      alternative_names.*,
-      bundles.*,
-      collection.*,
-      collection.games.*,
-      cover.image_id,
-      external_games.*,
-      game_modes.name,
-      genres.name,
-      involved_companies.company.logo.*,
-      involved_companies.company.name,
-      involved_companies.developer,
-      involved_companies.publisher,
-      name,
-      platforms.platform_logo.*,
-      platforms.id,
-      platforms.name,
-      player_perspectives.name,
-      rating,
-      release_dates.date,
-      release_dates.platform,
-      screenshots.image_id,
-      similar_games.id,
-      similar_games.cover.image_id,
-      similar_games.slug,
-      similar_games.name,
-      slug,
-      summary,
-      videos.video_id,
-      websites.category,
-      websites.url;
-
-      where id = ${gameId};`;
-
-      axios.get(`${API_BASE}/igdb?token=${state.twitchToken.access_token}&path=games&data=${data}`)
-        .then(({ data }) => {
-          const [game] = data;
-
-          commit('SET_GAME', game);
-
-          resolve(game);
-        }).catch(reject);
-    });
-  },
-
   // TAGS
   SAVE_TAGS({ state }) {
     const db = firestore();

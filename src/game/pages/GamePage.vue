@@ -441,10 +441,12 @@ export default {
     },
 
     tagsApplied() {
-      if (!this.tags) return [];
+      const tags = this.tags?.tags || this.tags;
 
-      return this.tags?.map((tag, index) => ({ ...tag, index }))
-        .filter((tag) => tag?.games?.includes(this.game?.id));
+      if (!tags) return [];
+
+      return tags?.map((tag, index) => ({ ...tag, index }))
+        ?.filter((tag) => tag?.games?.includes(this.game?.id));
     },
 
     boardsWithGame() {
@@ -627,13 +629,14 @@ export default {
       this.$bus.$emit('CLEAR_WALLPAPER');
       this.$store.commit('CLEAR_GAME');
 
-      await this.$store.dispatch('LOAD_GAME', this.gameId).catch(() => {});
+      const data = `fields *,artworks.image_id,age_ratings.*,alternative_names.*,bundles.*,collection.*,collection.games.*,cover.image_id,external_games.*,game_modes.name,genres.name,involved_companies.company.logo.*,involved_companies.company.name,involved_companies.developer,involved_companies.publisher,name,platforms.platform_logo.*,platforms.id,platforms.name,player_perspectives.name,rating,release_dates.date,release_dates.platform,screenshots.image_id,similar_games.id,similar_games.cover.image_id,similar_games.slug,similar_games.name,slug,summary,videos.video_id,websites.category,websites.url;where id = ${this.gameId};`;
+
+      // await this.$store.dispatch('LOAD_GAME', this.gameId).catch(() => {});
+      await this.$store.dispatch('IGDB', { path: 'games', data, mutation: 'SET_GAME' });
 
       setPageTitle(this.game?.name);
 
       this.loading = false;
-
-      this.loadArtworks();
 
       this.wikipediaDescription = this.wikipediaSlug
         ? await this.$store.dispatch('LOAD_WIKIPEDIA_DESCRIPTION', this.wikipediaSlug).catch((e) => {})
@@ -656,14 +659,6 @@ export default {
       };
 
       this.loading = false;
-    },
-
-    async loadArtworks() {
-      await this.$store.dispatch('IGDB', {
-        path: 'artworks',
-        data: `fields *; where game = ${this.game.id}; limit 20;`,
-        mutation: 'APPEND_GAME_ARTWORKS'
-      }).catch(() => {});
     },
   },
 };

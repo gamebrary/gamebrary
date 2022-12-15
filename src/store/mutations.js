@@ -87,7 +87,7 @@ export default {
     state.boards.splice(boardIndex, 1);
   },
 
-  SET_GAME(state, game) {
+  SET_GAME(state, [game]) {
     state.game = game;
   },
 
@@ -119,10 +119,6 @@ export default {
 
   APPEND_GOG_GAME_DATA(state, data) {
     Vue.set(state.game, 'gog', data);
-  },
-
-  APPEND_GAME_ARTWORKS(state, artworks) {
-    Vue.set(state.game, 'artworks', artworks);
   },
 
   MOVE_LIST(state, { from, to }) {
