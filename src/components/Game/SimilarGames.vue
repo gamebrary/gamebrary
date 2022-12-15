@@ -32,29 +32,11 @@ export default {
     hasWallpaper: Boolean,
   },
 
-  data() {
-    return {
-      similarGames: [],
-    };
-  },
-
   computed: {
-    ...mapState(['game', 'games']),
+    ...mapState(['game']),
 
-    similarGameIds() {
+    similarGames() {
       return this.game?.similar_games;
-    },
-  },
-
-  mounted() {
-    if (this.similarGameIds) this.loadGames();
-  },
-
-  methods: {
-    async loadGames() {
-      await this.$store.dispatch('LOAD_GAMES', this.similarGameIds);
-
-      this.similarGames = this.similarGameIds?.map(game => this.games?.[game]);
     },
   },
 };
