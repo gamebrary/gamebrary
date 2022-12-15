@@ -174,10 +174,10 @@ export default {
       const { sortOrder, games } = this.list;
 
       switch (sortOrder) {
-        case SORT_TYPE_PROGRESS: return orderby(games, [game => this.progresses[game] || 0], ['desc']);
-        case SORT_TYPE_RATING: return orderby(games, [game => this.games[game].rating || 0], ['desc']);
-        case SORT_TYPE_ALPHABETICALLY: return orderby(games, [game => this.games[game].name]);
-        default: return this.list.games;
+        case SORT_TYPE_PROGRESS: return orderby(games, [game => this.progresses?.[game] || 0], ['desc']);
+        case SORT_TYPE_RATING: return orderby(games, [game => this.games?.[game]?.rating || 0], ['desc']);
+        case SORT_TYPE_ALPHABETICALLY: return orderby(games, [game => this.games?.[game]?.name]);
+        default: return this.list?.games || [];
       }
     },
 
