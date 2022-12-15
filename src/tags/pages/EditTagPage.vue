@@ -98,20 +98,23 @@
           <div class="mt-5" v-if="tag.games.length">
             <h4>Games tagged</h4>
 
-            <b-col
-              v-for="game in tag.games"
-              :key="game"
-              cols="6"
-              sm="4"
-              md="3"
-              lg="2"
-            >
-              <b-img
-                :src="$options.getImageUrl(games[game], $options.IMAGE_SIZE_COVER_SMALL)"
-                class="cursor-pointer rounded mb-2"
-                @click="$router.push({ name: 'game', params: { id: games[game].id, slug: games[game].slug }})"
-              />
-            </b-col>
+            <b-row>
+              <b-col
+                v-for="game in tag.games"
+                :key="game"
+                cols="6"
+                sm="4"
+                md="3"
+                lg="2"
+              >
+                <b-img
+                  :src="$options.getImageUrl(games[game], $options.IMAGE_SIZE_COVER_SMALL)"
+                  class="cursor-pointer rounded mb-2"
+                  fluid
+                  @click="$router.push({ name: 'game', params: { id: games[game].id, slug: games[game].slug }})"
+                />
+              </b-col>
+            </b-row>
           </div>
         </b-form-row>
       </form>
