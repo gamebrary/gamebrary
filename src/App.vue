@@ -28,7 +28,7 @@ import SideBar from '@/components/SideBar';
 import sessionMixin from '@/mixins/sessionMixin';
 import firebase from 'firebase/app';
 import { mapState, mapGetters } from 'vuex';
-import { KEYBOARD_SHORTCUTS, FIREBASE_CONFIG } from '@/constants';
+import { KEYBOARD_SHORTCUTS, FIREBASE_CONFIG, IGDB_QUERIES } from '@/constants';
 
 firebase.initializeApp(FIREBASE_CONFIG);
 
@@ -142,7 +142,7 @@ export default {
       try {
         await this.$store.dispatch('IGDB', {
           path: 'platforms',
-          data: 'fields category,generation,name,alternative_name,slug,platform_logo.*; limit 300;',
+          data: IGDB_QUERIES.PLATFORMS,
           mutation: 'SET_PLATFORMS',
         });
       } catch (e) {

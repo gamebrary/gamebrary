@@ -75,6 +75,7 @@
 
 <script>
 import { getImageUrl } from '@/utils';
+import { IGDB_QUERIES } from '@/constants';
 
 export default {
   getImageUrl,
@@ -88,9 +89,11 @@ export default {
 
   async mounted() {
     this.loading = true;
-    const data = `fields id,description,developed.name,developed.slug,developed.cover.*,logo.*,name,published.name,published.slug,published.cover.*,websites.*,slug; where id = ${this.$route.params.id};`;
 
-    [this.company] = await this.$store.dispatch('IGDB', { path: 'companies', data });
+    [this.company] = await this.$store.dispatch('IGDB', {
+      path: 'companies',
+      data: `${IGDB_QUERIES.COMPANY} where id = ${this.$route.params.id};`,
+    });
 
     this.loading = false;
   },

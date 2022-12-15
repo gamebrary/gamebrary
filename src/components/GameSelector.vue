@@ -76,7 +76,7 @@
 <script>
 import { mapGetters, mapState } from 'vuex';
 import { getImageUrl } from '@/utils';
-import { IMAGE_SIZE_COVER_SMALL } from '@/constants';
+import { IMAGE_SIZE_COVER_SMALL, IGDB_QUERIES } from '@/constants';
 
 export default {
   getImageUrl,
@@ -141,9 +141,12 @@ export default {
       const filter = !this.searchText
       ? 'where rating >= 80;'
       : '';
-      const data = `${search} fields name,platforms,slug,rating,cover.image_id; limit 50; ${filter}`;
 
-      this.searchResults = await this.$store.dispatch('IGDB', { path: 'games', data, mutation: 'CACHE_GAME_DATA' });
+      this.searchResults = await this.$store.dispatch('IGDB', {
+        path: 'games',
+        data: `${search} ${IGDB_QUERIES.SEARCH} limit 50; ${filter}`,
+        mutation: 'CACHE_GAME_DATA',
+      });
 
       this.loading = false;
     },

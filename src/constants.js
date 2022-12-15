@@ -363,3 +363,10 @@ export const GAME_MODES = [
   { id: 5, name: 'Massively Multiplayer Online (MMO)', slug: 'massively-multiplayer-online-mmo' },
   { id: 6, name: 'Battle Royale', slug: 'battle-royale' }
 ];
+
+export const IGDB_QUERIES = {
+  GAME: 'fields *, artworks.image_id, age_ratings.*, alternative_names.*, bundles.*, collection.*, collection.games.*, cover.image_id, external_games.*, game_modes.name, genres.name, involved_companies.company.logo.*, involved_companies.company.name, involved_companies.developer, involved_companies.publisher, name, platforms.platform_logo.*, platforms.id, platforms.name, player_perspectives.name, rating, release_dates.date, release_dates.platform, screenshots.image_id, similar_games.id, similar_games.cover.image_id, similar_games.slug, similar_games.name, slug, summary, videos.video_id, websites.category, websites.url;',
+  PLATFORMS: 'fields category,generation,name,alternative_name,slug,platform_logo.*; limit 300;',
+  COMPANY: 'fields id,description,developed.name,developed.slug,developed.cover.*,logo.*,name,published.name,published.slug,published.cover.*,websites.*,slug;',
+  SEARCH: 'fields name,platforms,slug,rating,cover.image_id;',
+}

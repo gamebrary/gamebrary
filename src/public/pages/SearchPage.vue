@@ -127,6 +127,7 @@
 import GameCardSearch from '@/components/GameCards/GameCardSearch';
 import SearchFilters from '@/components/SearchFilters';
 import orderby from 'lodash.orderby';
+import { IGDB_QUERIES } from '@/constants';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
@@ -239,10 +240,10 @@ export default {
         ? `where ${this.filterBy} = (${this.filterValue});`
         : '';
 
-      // TODO: paginate
-      const data = `${search} fields *,platforms,slug,rating,cover.image_id; limit ${this.pageSize}; offset ${this.offset}; ${filter};`;
-
-      this.searchResults = await this.$store.dispatch('IGDB', { path: 'games', data });
+      this.searchResults = await this.$store.dispatch('IGDB', {
+        path: 'games',
+        data: `${search} ${IGDB_QUERIES.SEARCH} limit ${this.pageSize}; offset ${this.offset}; ${filter};`,
+      });
 
       this.loading = false;
     },

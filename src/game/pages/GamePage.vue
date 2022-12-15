@@ -373,7 +373,7 @@ import GameHeader from '@/components/Game/GameHeader';
 import GameRatings from '@/components/Game/GameRatings';
 import SimilarGames from '@/components/Game/SimilarGames';
 // import GameSpeedruns from '@/components/Game/GameSpeedruns';
-import { STEAM_CATEGORY_ID, GOG_CATEGORY_ID, TWITTER_CATEGORY_ID, IMAGE_SIZE_SCREENSHOT_HUGE } from '@/constants';
+import { STEAM_CATEGORY_ID, GOG_CATEGORY_ID, TWITTER_CATEGORY_ID, IMAGE_SIZE_SCREENSHOT_HUGE, IGDB_QUERIES } from '@/constants';
 import { getImageUrl } from '@/utils';
 
 export default {
@@ -629,10 +629,11 @@ export default {
       this.$bus.$emit('CLEAR_WALLPAPER');
       this.$store.commit('CLEAR_GAME');
 
-      const data = `fields *,artworks.image_id,age_ratings.*,alternative_names.*,bundles.*,collection.*,collection.games.*,cover.image_id,external_games.*,game_modes.name,genres.name,involved_companies.company.logo.*,involved_companies.company.name,involved_companies.developer,involved_companies.publisher,name,platforms.platform_logo.*,platforms.id,platforms.name,player_perspectives.name,rating,release_dates.date,release_dates.platform,screenshots.image_id,similar_games.id,similar_games.cover.image_id,similar_games.slug,similar_games.name,slug,summary,videos.video_id,websites.category,websites.url;where id = ${this.gameId};`;
-
-      // await this.$store.dispatch('LOAD_GAME', this.gameId).catch(() => {});
-      await this.$store.dispatch('IGDB', { path: 'games', data, mutation: 'SET_GAME' });
+      await this.$store.dispatch('IGDB', {
+        path: 'games',
+        data: `${IGDB_QUERIES.GAME} where id = ${this.gameId};`,
+        mutation: 'SET_GAME',
+      });
 
       setPageTitle(this.game?.name);
 
