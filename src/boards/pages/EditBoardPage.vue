@@ -52,16 +52,17 @@
                 />
               </b-form-group>
 
-              <b-form-group
-                label="Board type"
-                label-for="boardType"
-              >
-                <b-form-select
-                  id="boardType"
-                  v-model="board.type"
-                  :options="$options.BOARD_TYPES"
-                />
-              </b-form-group>
+              <p>Board type:</p>
+              <b-button-group class="mb-2">
+                <b-button
+                  v-for="{ text, value } in $options.BOARD_TYPES"
+                  :key="value"
+                  :variant="value === board.type ? 'primary' : 'light'"
+                  @click="board.type = value"
+                >
+                  {{ text }}
+                </b-button>
+              </b-button-group>
 
               <b-form-checkbox
                 v-if="board.type === $options.BOARD_TYPE_STANDARD"
