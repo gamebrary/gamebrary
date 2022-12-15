@@ -1,3 +1,4 @@
+<!-- TODO: show igdb tags? -->
 <!-- TODO: add ports -->
 <!-- TODO: add franchises -->
 <!-- TODO: add bundles -->
@@ -228,31 +229,33 @@
               <game-tags-modal />
             </div>
 
-            <h4 class="mt-4">External links</h4>
+            <template v-if="gameLinks.length">
+              <h4 class="mt-4">External links</h4>
 
-            <b-button
-              v-for="{ url, id, icon, svg } in gameLinks"
-              :href="url"
-              :key="id"
-              :title="$t(`board.gameModal.links.${id}`)"
-              v-b-tooltip.hover
-              variant="transparent"
-              target="_blank"
-              class="text-left p-1 m-0"
-            >
-              <i
-                v-if="icon"
-                :class="`${icon} fa-fw`"
-                aria-hidden
-              />
+              <b-button
+                v-for="({ url, id, icon, svg }, index) in gameLinks"
+                :href="url"
+                :key="index"
+                :title="$t(`board.gameModal.links.${id}`)"
+                v-b-tooltip
+                variant="transparent"
+                target="_blank"
+                class="text-left p-1 m-0"
+              >
+                <i
+                  v-if="icon"
+                  :class="`${icon} fa-fw`"
+                  aria-hidden
+                />
 
-              <b-img
-                v-else-if="svg"
-                width="24"
-                class="mr-1"
-                :src="`/logos/companies/${id}.svg`"
-              />
-            </b-button>
+                <b-img
+                  v-else-if="svg"
+                  width="24"
+                  class="mr-1"
+                  :src="`/logos/companies/${id}.svg`"
+                />
+              </b-button>
+            </template>
 
             <div v-if="gamePublishers.length" class="d-flex justify-content-center flex-column">
               <h4 class="mt-4">Published by:</h4>
@@ -307,7 +310,7 @@
                 :key="id"
               >
                 <b-avatar
-                  v-b-tooltip.hover
+                  v-b-tooltip
                   :title="comment || null"
                   size="sm"
                   class="mr-1"
