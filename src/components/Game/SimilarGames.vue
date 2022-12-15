@@ -36,7 +36,7 @@ export default {
     ...mapState(['game']),
 
     similarGames() {
-      return this.game?.similar_games;
+      return this.game?.similar_games || [];
     },
   },
 };
