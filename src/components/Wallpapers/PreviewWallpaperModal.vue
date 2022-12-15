@@ -49,11 +49,34 @@
           <b-dropdown-divider />
           <b-dropdown-item
             variant="danger"
-            @click.stop="confirmDeleteWallpaper(wallpaper)"
+            v-b-modal.deleteConfirm
           >
               Delete wallpaper
           </b-dropdown-item>
         </b-dropdown>
+
+        <b-modal
+          id="deleteConfirm"
+          hide-footer
+        >
+          <template v-slot:modal-header="{ close }">
+            <modal-header
+              title="Are you sure?"
+              @close="close"
+            />
+          </template>
+
+          <p>Wallpaper will be permanently removed</p>
+
+          <b-alert v-if="boardsWithWallpaper.length" show variant="warning">
+            This wallpaper is being used by {{ boardsWithWallpaper.length }} boards.
+          </b-alert>
+
+          <b-button @click="deleteFile(wallpaper)" variant="danger">
+            <b-spinner v-if="deleting" small />
+            <template v-else>Delete</template>
+          </b-button>
+        </b-modal>
       </modal-header>
     </template>
 
@@ -93,6 +116,10 @@ export default {
     wallpaperUrl() {
       return this.wallpaper?.url;
     },
+
+    boardsWithWallpaper() {
+      return this.boards.filter(({ backgroundUrl }) => backgroundUrl === this.wallpaper?.ref) || [];
+    },
   },
 
   methods: {
@@ -103,21 +130,8 @@ export default {
       return this.wallpapers?.find(({ ref }) => ref === url)?.url;
     },
 
-    async confirmDeleteWallpaper(file) {
-      const confirmed = await this.$bvModal.msgBoxConfirm('Wallpaper will be permanently removed', {
-        okVariant: 'danger',
-        okTitle: 'Delete',
-      });
-
-      if (confirmed) {
-        this.deleteFile(file);
-      }
-    },
-
     async deleteFile(file) {
       this.deleting = true;
-
-      // TODO: warn user if wallpaper is currently in use
 
       await this.$store.dispatch('DELETE_WALLPAPER', file)
         .catch(() => {
