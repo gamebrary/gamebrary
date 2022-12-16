@@ -1,4 +1,3 @@
-<!-- TODO: merge boards and explore pages -->
 <template lang="html">
   <section>
     <b-container>
