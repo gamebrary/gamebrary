@@ -456,7 +456,6 @@ export default {
 
   SAVE_GAME_BOARD({ commit }, payload) {
     const db = firestore();
-    // TODO: sanitize list games, remove undefined and null game ids
 
     const board = {
       ...payload,
