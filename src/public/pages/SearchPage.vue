@@ -1,4 +1,3 @@
-<!-- TODO: add option to clear filters -->
 <!-- TODO: show option to clear search text if no results AND filters on -->
 <!-- TODO: remove filter if selected -->
 <!-- TODO: add sorting -->

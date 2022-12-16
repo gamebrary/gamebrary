@@ -14,10 +14,7 @@
       />
 
       <b-input-group-append>
-        <b-button
-          :disabled="!searchText"
-          type="submit"
-        >
+        <b-button type="submit">
           <i
             class="fas fa-search fa-fw"
             aria-hidden
