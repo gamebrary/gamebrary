@@ -2,8 +2,8 @@
   <b-card
     no-body
     class="cursor-pointer text-center"
-    :bg-variant="darkTheme ? 'secondary' : 'white'"
-    :text-variant="darkTheme ? 'white' : 'dark'"
+    :bg-variant="cardBackgroundVariant"
+    :text-variant="cardTextVariant"
     img-top
   >
     <div class="position-relative cursor-pointer rounded align-self-end card overflow-hidden border-0 m-1">
@@ -13,7 +13,7 @@
       />
 
       <b-progress
-        v-if="gameProgress > 0"
+        v-if="showGameProgress && !gameCompleted"
         v-b-tooltip.hover
         :title="`${gameProgress}% Completed`"
         :value="gameProgress"
@@ -24,24 +24,28 @@
 
       <i
         v-if="tagsApplied.length"
-        class="fas fa-tags position-absolute text-white tag-icon"
+        class="fas fa-tags position-absolute text-info tag-icon"
         v-b-tooltip.hover
-        :title="`${tagsApplied.length} tags applied.`"
+        :title="`${tagsApplied.length} Tag${tagsApplied.length > 1 ? 's' : ''} applied`"
         aria-hidden
       />
     </div>
 
     <b-card-body body-class="p-2" v-if="game && game.name">
       <b-card-title
-        :class="`mb-0 ${highlightCompletedGame ? 'text-success' : ''}`"
         title-tag="h5"
       >
         {{ game.name }}
       </b-card-title>
 
-      <b-badge variant="warning" v-if="gameNotes">
-        <i class="far fa-sticky-note fa-fw" />
-      </b-badge>
+      <template v-if="gameNotes">
+        <i
+          class="fas fa-book note-indicator text-warning"
+          v-b-tooltip.hover
+          @click.stop.prevent="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug }})"
+          title="See game notes"
+        />
+      </template>
     </b-card-body>
   </b-card>
 </template>
@@ -56,14 +60,21 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
 .tag-icon {
-  top: .5rem;
-  right: .5rem;
+  top: 5px;
+  right: 5px;
 }
 
 .game-progress {
   position: absolute;
-  bottom: 10px;
-  left: 15px;
-  width: calc(100% - 22px);
+  bottom: 5px;
+  left: 5px;
+  width: calc(100% - 10px);
+}
+
+.note-indicator {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
 }
 </style>

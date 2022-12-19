@@ -1,7 +1,5 @@
 <!-- TODO: fix board height when short lists -->
-<!-- TODO: Place progress overlaid on cover -->
 <!-- TODO: Fix issue with grid not loading correctly -->
-<!-- TODO: test all settings -->
 <template lang="html">
   <div
     :class="['list rounded pl-3', listView, { dragging, 'unique': singleList, 'pr-3': isLastList && isPublicBoard }]"
@@ -18,7 +16,7 @@
       >
         <b-badge
           v-if="showGameCount"
-          class="align-self-center"
+          class="align-self-center mr-1"
           :variant="darkTheme ? 'dark' : 'info'"
         >
           {{ list.games.length }}
@@ -26,8 +24,8 @@
 
         <b-badge
           v-if="sortingEnabled"
-          class="align-self-center"
-          :variant="darkTheme ? 'dark' : 'light'"
+          class="align-self-center mr-1"
+          :variant="darkTheme ? 'dark' : 'info'"
           v-b-tooltip.hover
           :title="`${$t('board.list.sortedBy')}${sortOrder}`"
         >
@@ -37,7 +35,8 @@
         <b-button
           @click="$router.push({ name: 'board.edit', params: { id: board.id } })"
           :disabled="!isBoardOwner"
-          class="mr-1 text-left"
+          class="mr-1 px-2 text-left"
+          size="sm"
           style="flex: 1"
           :variant="darkTheme ? 'dark' : 'light'"
         >
@@ -48,6 +47,7 @@
           v-if="isBoardOwner && !isEmpty"
           :title="`Add games to ${list.name}`"
           class="ml-auto"
+          size="sm"
           :variant="darkTheme ? 'dark' : 'light'"
           :filter="list.games"
           @select-game="selectGame"

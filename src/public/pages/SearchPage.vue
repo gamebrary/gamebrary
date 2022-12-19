@@ -1,8 +1,7 @@
 <!-- TODO: show option to clear search text if no results AND filters on -->
 <!-- TODO: remove filter if selected -->
 <!-- TODO: add sorting -->
-<!-- TODO: use route query -->
-<!-- TODO: change default call -->
+<!-- TODO: use route query for offset & limit -->
 <!-- TODO: add page size dropdown -->
 <template lang="html">
   <section>

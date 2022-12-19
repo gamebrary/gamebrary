@@ -16,12 +16,24 @@ export default {
     ...mapState(['settings', 'games', 'tags', 'notes', 'progresses', 'board']),
     ...mapGetters(['isRTL', 'darkTheme']),
 
-    highlightCompletedGame() {
-      return this.gameProgress && Number(this.gameProgress) === 100;
+    cardBackgroundVariant() {
+      if (this.gameCompleted) return 'success';
+
+      return this.darkTheme ? 'dark' : 'white';
+    },
+
+    cardTextVariant() {
+      if (this.gameCompleted) return 'white';
+
+      return this.darkTheme ? 'white' : 'dark';
+    },
+
+    gameCompleted() {
+      return this.list?.highlightCompletedGames && Number(this.gameProgress) === 100;
     },
 
     showGameProgress() {
-      return this.gameProgress > 0;
+      return this.list?.showGameProgress && this.gameProgress > 0;
     },
 
     showReleaseDates() {

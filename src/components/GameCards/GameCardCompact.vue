@@ -1,8 +1,8 @@
 <template lang="html">
   <b-card
     no-body
-    :bg-variant="darkTheme ? 'secondary' : 'light'"
-    :text-variant="darkTheme ? 'light' : 'dark'"
+    :bg-variant="cardBackgroundVariant"
+    :text-variant="cardTextVariant"
     class="cursor-pointer"
   >
     <b-form-row v-if="game && game.name">
@@ -16,7 +16,7 @@
         />
 
         <b-progress
-          v-if="gameProgress > 0"
+          v-if="showGameProgress && !gameCompleted"
           v-b-tooltip.hover
           :title="`${gameProgress}% Completed`"
           :value="gameProgress"
@@ -28,16 +28,18 @@
 
       <b-col cols="9">
         <b-card-body body-class="p-2">
-          <b-card-title
-            :class="`mb-1 ${highlightCompletedGame ? 'text-success' : ''}`"
-            title-tag="h5"
-          >
+          <p class="small mb-1">
             {{ game.name }}
+          </p>
 
-            <b-badge variant="warning" v-if="gameNotes">
-              <i class="far fa-sticky-note fa-fw" />
-            </b-badge>
-          </b-card-title>
+          <template v-if="gameNotes">
+            <i
+              class="fas fa-book note-indicator text-warning"
+              v-b-tooltip.hover
+              @click.stop.prevent="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug }})"
+              title="See game notes"
+            />
+          </template>
 
           <template v-if="tagsApplied.length">
             <b-button
@@ -71,5 +73,12 @@ export default {
   bottom: 10px;
   left: 15px;
   width: calc(100% - 22px);
+}
+
+.note-indicator {
+  position: absolute;
+  bottom: 8px;
+  right: 14px;
+  z-index: 1;
 }
 </style>

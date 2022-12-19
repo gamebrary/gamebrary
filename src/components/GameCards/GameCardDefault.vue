@@ -1,8 +1,8 @@
 <template lang="html">
   <b-card
     no-body
-    :bg-variant="darkTheme ? 'dark' : 'white'"
-    :text-variant="darkTheme ? 'white' : 'dark'"
+    :bg-variant="cardBackgroundVariant"
+    :text-variant="cardTextVariant"
     class="cursor-pointer"
   >
     <b-form-row
@@ -19,7 +19,7 @@
         />
 
         <b-progress
-          v-if="gameProgress > 0"
+          v-if="showGameProgress && !gameCompleted"
           v-b-tooltip.hover
           :title="`${gameProgress}% Completed`"
           :value="gameProgress"
@@ -31,29 +31,31 @@
 
       <b-col cols="8">
         <b-card-body body-class="p-2">
-          <b-card-title
-            :class="`mb-0 ${highlightCompletedGame ? 'text-success' : ''}`"
-            title-tag="p"
-          >
+          <p class="mb-1">
             {{ game.name }}
-          </b-card-title>
-
-          <b-badge variant="warning" v-if="gameNotes" class="mr-1">
-            <i class="far fa-sticky-note fa-fw" />
-          </b-badge>
+          </p>
 
           <template v-if="tagsApplied.length">
             <b-button
               v-for="({ bgColor, textColor, name }) in tagsApplied"
               :key="name"
               rounded
-              class="mr-2 mb-2 p-0 px-2"
+              class="mr-2 mb-1 p-0 px-2"
               size="sm"
               variant="transparent"
               :style="`background-color: ${bgColor}; color: ${textColor}`"
             >
               <small>{{ name }}</small>
             </b-button>
+          </template>
+
+          <template v-if="gameNotes">
+            <i
+              class="fas fa-book note-indicator text-warning"
+              v-b-tooltip.hover
+              @click.stop.prevent="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug }})"
+              title="See game notes"
+            />
           </template>
         </b-card-body>
       </b-col>
@@ -75,5 +77,12 @@ export default {
   bottom: 10px;
   left: 15px;
   width: calc(100% - 22px);
+}
+
+.note-indicator {
+  position: absolute;
+  bottom: 8px;
+  right: 14px;
+  z-index: 1;
 }
 </style>
