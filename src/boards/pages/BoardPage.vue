@@ -8,6 +8,7 @@
       <portal to="pageTitle">
         <div class="d-flex align-items-center">
           <b-button
+            v-if="user"
             :variant="darkTheme ? 'secondary' : 'light'"
             class="mr-2"
             :to="{ name: 'boards' }"
