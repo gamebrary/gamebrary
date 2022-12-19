@@ -43,8 +43,8 @@
               </b-button>
 
               <b-button
-                v-if="profile.twitter"
-                :href="`https://twitter.com/${profile.website}`"
+                v-if="profile.website"
+                :href="profile.website"
                 target="_blank"
                 v-b-tooltip.hover
                 title="Website"
