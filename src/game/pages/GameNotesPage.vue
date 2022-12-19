@@ -167,6 +167,7 @@ import { mapState } from 'vuex';
 import { getImageUrl } from '@/utils';
 import { Editor, EditorContent } from '@tiptap/vue-2';
 import StarterKit from '@tiptap/starter-kit';
+import { IGDB_QUERIES } from '@/constants';
 
 export default {
   getImageUrl,
@@ -179,7 +180,7 @@ export default {
     return {
       saving: false,
       note: '',
-      loading: false,
+      loading: true,
       deleting: false,
       editor: null,
     };
@@ -187,6 +188,10 @@ export default {
 
   computed: {
     ...mapState(['notes', 'game', 'games']),
+
+    gameId() {
+      return this.$route?.params?.id;
+    },
   },
 
   mounted() {
@@ -199,26 +204,33 @@ export default {
 
   methods: {
     async loadGame() {
-      const gameCached = this.game?.id == this.$route?.params?.id;
+      const gameCached = this.game?.id == this.gameId;
 
-      if (!gameCached) {
-        this.$store.commit('CLEAR_GAME');
-        this.loading = true;
-
-        try {
-          await this.$store.dispatch('LOAD_GAME', this.$route.params.id);
-
-          this.setNote();
-        } catch (e) {}
-      } else {
+      if (gameCached) {
         this.setNote();
+        this.loading = false;
+
+        return;
       }
+
+      this.$store.commit('CLEAR_GAME');
+      this.loading = true;
+
+      try {
+        await this.$store.dispatch('IGDB', {
+          path: 'games',
+          data: `${IGDB_QUERIES.GAME} where id = ${this.gameId};`,
+          mutation: 'SET_GAME',
+        });
+
+        this.setNote();
+      } catch (e) {}
 
       this.loading = false;
     },
 
     setNote() {
-      this.note = this.notes[this.$route.params?.id] || '';
+      this.note = this.notes[this.gameId] || '';
 
       this.editor = new Editor({
         content: this.note,
@@ -238,7 +250,7 @@ export default {
     async saveNote() {
       this.saving = true;
 
-      this.$store.commit('SET_GAME_NOTE', { note: this.note, gameId: this.$route.params?.id });
+      this.$store.commit('SET_GAME_NOTE', { note: this.note, gameId: this.gameId });
 
       await this.$store.dispatch('SAVE_NOTES').catch(() => {});
 
