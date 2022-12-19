@@ -30,7 +30,20 @@
       </b-dropdown-item-button>
     </b-dropdown-group>
 
-    <b-dropdown-group id="dropdown-group-1" header="Perspectives">
+    <b-dropdown-group id="themes" header="Themes">
+      <b-dropdown-item-button
+        v-for="{ id, name } in $options.GAME_THEMES"
+        :key="name"
+        block
+        size="sm"
+        :variant="isFilterSelected('themes', id) ? 'primary' : ''"
+        @click="setFilter('themes', id)"
+      >
+        {{ name }}
+      </b-dropdown-item-button>
+    </b-dropdown-group>
+
+    <b-dropdown-group header="Perspectives">
       <b-dropdown-item-button
         v-for="{ id, name } in $options.GAME_PERSPECTIVES"
         :key="name"
@@ -42,6 +55,19 @@
         {{ name }}
       </b-dropdown-item-button>
     </b-dropdown-group>
+
+    <!-- <b-dropdown-group header="Languages">
+      <b-dropdown-item-button
+        v-for="{ id, name } in $options.GAME_LANGUAGES"
+        :key="name"
+        block
+        size="sm"
+        :variant="isFilterSelected('languages', id) ? 'primary' : ''"
+        @click="setFilter('languages', id)"
+      >
+        {{ name }}
+      </b-dropdown-item-button>
+    </b-dropdown-group> -->
 
     <b-dropdown-divider />
 
@@ -68,21 +94,19 @@
         {{ name }}
       </b-dropdown-item-button>
     </b-dropdown-group>
-    <b-dropdown-divider />
-    <b-dropdown-item-button>
-      Another Non-grouped Item
-    </b-dropdown-item-button>
   </b-dropdown>
 </template>
 
 <script>
-import { GAME_GENRES, GAME_PERSPECTIVES, GAME_MODES } from '@/constants';
+import { GAME_GENRES, GAME_PERSPECTIVES, GAME_MODES, GAME_THEMES, GAME_LANGUAGES } from '@/constants';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
   GAME_GENRES,
   GAME_PERSPECTIVES,
   GAME_MODES,
+  GAME_THEMES,
+  GAME_LANGUAGES,
 
   computed: {
     ...mapState(['platforms']),

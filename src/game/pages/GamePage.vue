@@ -164,6 +164,18 @@
               </b-link>
             </div>
 
+            <div v-if="gameThemes">
+              <h4 class="mt-4">Themes: </h4>
+
+              <b-link
+                v-for="({ id, name }, index) in gameThemes"
+                :key="id"
+              >
+                <b-link :to="{ name: 'search', query: { filterBy: 'themes', value: id }}">{{ name }}</b-link>
+                <template v-if="index < gameThemes.length - 1">, </template>
+              </b-link>
+            </div>
+
             <div v-if="gameModes">
               <h4 class="mt-4">{{ $t('board.gameModal.gameModes') }}: </h4>
 
@@ -491,6 +503,10 @@ export default {
     //     };
     //   });
     // },
+
+    gameThemes() {
+      return this.game?.themes || [];
+    },
 
     gameDevelopers() {
       return this.game?.involved_companies

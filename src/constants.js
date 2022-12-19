@@ -345,6 +345,62 @@ export const GAME_GENRES = [
   { id: 36, name: 'MOBA', slug: 'moba' },
 ];
 
+export const GAME_THEMES = [
+    { id: 1, name: 'Action', slug: 'action' },
+    { id: 17, name: 'Fantasy', slug: 'fantasy' },
+    { id: 18, name: 'Science fiction', slug: 'science-fiction' },
+    { id: 19, name: 'Horror', slug: 'horror' },
+    { id: 20, name: 'Thriller', slug: 'thriller' },
+    { id: 21, name: 'Survival', slug: 'survival' },
+    { id: 22, name: 'Historical', slug: 'historical' },
+    { id: 23, name: 'Stealth', slug: 'stealth' },
+    { id: 27, name: 'Comedy', slug: 'comedy' },
+    { id: 28, name: 'Business', slug: 'business' },
+    { id: 31, name: 'Drama', slug: 'drama' },
+    { id: 32, name: 'Non-fiction', slug: 'non-fiction' },
+    { id: 33, name: 'Sandbox', slug: 'sandbox' },
+    { id: 34, name: 'Educational', slug: 'educational' },
+    { id: 35, name: 'Kids', slug: 'kids' },
+    { id: 38, name: 'Open world', slug: 'open-world' },
+    { id: 39, name: 'Warfare', slug: 'warfare' },
+    { id: 40, name: 'Party', slug: 'party' },
+    { id: 41, name: '4X (explore, expand, exploit, and exterminate)', slug: '4x-explore-expand-exploit-and-exterminate' },
+    { id: 42, name: 'Erotic', slug: 'erotic' },
+    { id: 43, name: 'Mystery', slug: 'mystery' },
+    { id: 44, name: 'Romance', slug: 'romance' },
+];
+
+export const GAME_LANGUAGES = [
+    { id: 1, name: 'Arabic', nativeName: 'العربية' },
+    { id: 2, name: 'Chinese (Simplified)', nativeName: '简体中文' },
+    { id: 3, name: 'Chinese (Traditional)', nativeName: '繁體中文' },
+    { id: 4, name: 'Czech', nativeName: 'čeština' },
+    { id: 5, name: 'Danish', nativeName: 'Dansk' },
+    { id: 6, name: 'Dutch', nativeName: 'Nederlands' },
+    { id: 7, name: 'English', nativeName: 'English (US)' },
+    { id: 8, name: 'English (UK)', nativeName: 'English (UK)' },
+    { id: 9, name: 'Spanish (Spain)', nativeName: 'Español (España)' },
+    { id: 10, name: 'Spanish (Mexico)', nativeName: 'Español (Mexico)' },
+    { id: 12, name: 'French', nativeName: 'Français' },
+    { id: 14, name: 'Hungarian', nativeName: 'Magyar' },
+    { id: 11, name: 'Finnish', nativeName: 'Suomi' },
+    { id: 15, name: 'Italian', nativeName: 'Italiano' },
+    { id: 13, name: 'Hebrew', nativeName: 'עברית' },
+    { id: 16, name: 'Japanese', nativeName: '日本語' },
+    { id: 17, name: 'Korean', nativeName: '한국어' },
+    { id: 18, name: 'Norwegian', nativeName: 'Norsk' },
+    { id: 20, name: 'Portuguese (Portugal)', nativeName: 'Português (Portugal)' },
+    { id: 21, name: 'Portuguese (Brazil)', nativeName: 'Português (Brasil)' },
+    { id: 19, name: 'Polish', nativeName: 'Polski' },
+    { id: 22, name: 'Russian', nativeName: 'Русский' },
+    { id: 24, name: 'Turkish', nativeName: 'Türkçe' },
+    { id: 25, name: 'Thai', nativeName: 'ไทย' },
+    { id: 26, name: 'Vietnamese', nativeName: 'Tiếng Việt' },
+    { id: 23, name: 'Swedish', nativeName: 'Svenska' },
+    { id: 28, name: 'Ukrainian', nativeName: 'українська' },
+    { id: 27, name: 'German', nativeName: 'Deutsch' }
+];
+
 export const GAME_PERSPECTIVES = [
   { id: 1, name: 'First person', slug: 'first-person' },
   { id: 2, name: 'Third person', slug: 'third-person' },
@@ -365,7 +421,7 @@ export const GAME_MODES = [
 ];
 
 export const IGDB_QUERIES = {
-  GAME: 'fields *, artworks.image_id, age_ratings.*, age_ratings.content_descriptions.*, alternative_names.*, bundles.*, collection.*, collection.games.*, cover.image_id, external_games.*, game_modes.name, genres.name, involved_companies.company.logo.*, involved_companies.company.name, involved_companies.developer, involved_companies.publisher, name, platforms.platform_logo.*, platforms.id, platforms.name, player_perspectives.name, rating, release_dates.date, release_dates.platform, screenshots.image_id, similar_games.id, similar_games.cover.image_id, similar_games.slug, similar_games.name, slug, summary, videos.video_id, websites.category, websites.url;',
+  GAME: 'fields *, language_supports, artworks.image_id, age_ratings.*, age_ratings.content_descriptions.*, alternative_names.*, bundles.*, collection.*, collection.games.*, cover.image_id, external_games.*, game_modes.name, genres.name, involved_companies.company.logo.*, involved_companies.company.name, involved_companies.developer, involved_companies.publisher, name, platforms.platform_logo.*, platforms.id, platforms.name, player_perspectives.name, rating, release_dates.date, release_dates.platform, screenshots.image_id, similar_games.id, similar_games.cover.image_id, similar_games.slug, similar_games.name, slug, summary, videos.video_id, websites.category, websites.url, themes.*;',
   PLATFORMS: 'fields category,generation,name,alternative_name,slug,platform_logo.*; limit 300;',
   COMPANY: 'fields id,description,developed.name,developed.slug,developed.cover.*,logo.*,name,published.name,published.slug,published.cover.*,websites.*,slug;',
   SEARCH: 'fields name,platforms,slug,rating,cover.image_id;',
