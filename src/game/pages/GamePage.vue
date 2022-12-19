@@ -28,7 +28,7 @@
           </span>
         </portal>
 
-        <portal to="headerActions">
+        <portal v-if="user" to="headerActions">
           <b-dropdown
             class="mr-2"
             :variant="darkTheme ? 'secondary' : 'light'"
