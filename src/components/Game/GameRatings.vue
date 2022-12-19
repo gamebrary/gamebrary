@@ -5,7 +5,7 @@
       :src="`/img/age-ratings/${rating}.${logoFormat || 'png'}`"
       :alt="rating"
       :key="rating"
-      :title="descriptions"
+      :title="descriptions || rating"
       v-b-tooltip
       height="60"
       class="mr-2"
@@ -24,7 +24,7 @@ export default {
     ageRatings() {
       const formattedRatings = this.game?.age_ratings?.map(({ category, rating, content_descriptions }) => {
         const { ratings } = AGE_RATING_SYSTEMS[category];
-        const descriptions = content_descriptions?.map(({ description }) => description)?.join(', ') || [];
+        const descriptions = content_descriptions?.map(({ description }) => description)?.join(', ') || null;
         const ratingData = ratings[rating];
 
         return ratingData
