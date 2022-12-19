@@ -59,7 +59,7 @@
           class="w-100 text-left mb-1"
           id="notes"
         >
-          <i class="fa fa-note-sticky fa-fw" aria-hidden="true" />
+          <i class="fa fa-book fa-fw" aria-hidden="true" />
           <span class="ml-2">Notes</span>
         </b-button>
 
