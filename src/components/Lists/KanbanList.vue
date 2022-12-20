@@ -322,6 +322,10 @@ export default {
     overflow-y: auto;
     padding: 0 .5rem;
     width: 100%;
+
+    @media(max-width: 768px) {
+      max-height: 70vh;
+    }
   }
 
   &.grid {
