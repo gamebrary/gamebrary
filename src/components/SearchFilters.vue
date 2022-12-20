@@ -2,10 +2,15 @@
 <!-- TODO: add rating filtering -->
 <template lang="html">
   <b-dropdown
-    text="Filter"
     :variant="hasFilter ? 'primary' : 'secondary'"
+    no-caret
     class="mr-2"
   >
+    <template #button-content>
+      <span class="d-none d-sm-block">Filter</span>
+      <i class="fa-solid fa-filter d-sm-none" aria-hidden="true"></i>
+    </template>
+
     <template v-if="hasFilter">
       <b-dropdown-item-button
         variant="primary"

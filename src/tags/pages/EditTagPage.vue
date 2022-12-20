@@ -2,7 +2,17 @@
   <section>
     <b-container>
       <portal to="pageTitle">
-        Edit tag
+        <b-button
+          v-if="tag.name"
+          rounded
+          class="float-right"
+          variant="transparent"
+          :style="`background-color: ${tag.bgColor}; color: ${tag.textColor}`"
+        >
+          {{ tag.name }}
+        </b-button>
+
+        <template v-else-if="!loading">Edit tag</template>
       </portal>
 
       <portal to="headerActions">
@@ -11,9 +21,11 @@
           title="Tag game"
           variant="primary"
           class="mr-2"
-          trigger-text="Tag game"
           @select-game="selectGame"
-        />
+        >
+          <span class="d-none d-sm-block">Tag game</span>
+          <i class="fa-solid fa-plus d-sm-none" />
+        </game-selector>
       </portal>
 
       <b-spinner v-if="loading" class="spinner-centered" />
@@ -25,11 +37,11 @@
       >
         <b-form-row>
           <b-col cols="12">
-            <div class="field mb-2">
+            <div class="field mb-2 d-flex">
               <b-form-input
                 id="tagName"
                 v-model.trim="tag.name"
-                class="mb-2"
+                class="mb-2 mr-2"
                 maxlength="20"
                 :placeholder="$t('tags.form.inputPlaceholder')"
                 required
@@ -41,7 +53,7 @@
                 v-b-tooltip.hover
                 class="mr-2"
                 title="Tag background color"
-                :trigger-style="{ height: '38px', width: '38px', border: '1px solid #ced4da' }"
+                :trigger-style="{ height: '34px', width: '34px', border: '1px solid #ced4da' }"
                 show-fallback
                 show-checkbox
                 fallback-input-class="color-input float-left"
@@ -56,7 +68,7 @@
                 v-b-tooltip.hover
                 class="mr-2"
                 title="Tag text color"
-                :trigger-style="{ height: '38px', width: '38px', border: '1px solid #ced4da' }"
+                :trigger-style="{ height: '34px', width: '34px', border: '1px solid #ced4da' }"
                 show-fallback
                 show-checkbox
                 fallback-input-class="color-input float-left"
@@ -65,16 +77,6 @@
                 fallback-ok-text="Select"
                 popover-x="left"
               />
-
-              <b-button
-                v-if="tag.name"
-                rounded
-                class="float-right"
-                variant="transparent"
-                :style="`background-color: ${tag.bgColor}; color: ${tag.textColor}`"
-              >
-                {{ tag.name }}
-              </b-button>
             </div>
 
             <b-button

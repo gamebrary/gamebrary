@@ -38,11 +38,7 @@
     <div class="align-items-center d-flex ml-auto">
       <portal-target name="headerActions" multiple />
 
-      <b-button v-if="!isSearchPage" :to="{ name: 'search' }" class="d-sm-none">
-        <i class="fa fa-search" aria-hidden="true" />
-      </b-button>
-
-      <search-box :class="[{ 'd-none d-sm-block': !isSearchPage }]" />
+      <search-box />
 
       <b-button
         v-if="!user"
@@ -68,10 +64,6 @@ export default {
   computed: {
     ...mapState(['user']),
     ...mapGetters(['darkTheme']),
-
-    isSearchPage() {
-      return this.$route.name === 'search';
-    },
 
     isBoardPage() {
       // TODO: do show blurred background in game page

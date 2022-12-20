@@ -6,13 +6,7 @@
 <template lang="html">
   <section>
     <b-container>
-      <portal to="pageTitle">Search</portal>
-
-      <b-form-row>
-        <!-- <b-button @click="loadMoreResults">
-          load more
-        </b-button> -->
-      </b-form-row>
+      <portal v-if="!showPreviousButton" to="pageTitle">Search</portal>
 
       <b-form-row>
         <b-col>
@@ -87,7 +81,8 @@
                 class="mr-2"
                 @click="prev"
               >
-                Previous
+                <span class="d-none d-sm-block">Prev</span>
+                <i class="fa-solid fa-caret-left d-sm-none" aria-hidden="true" />
               </b-button>
 
               <b-button
@@ -95,7 +90,8 @@
                 v-if="searchResults.length === pageSize"
                 @click="next"
               >
-                Next
+                <span class="d-none d-sm-block">Next</span>
+                <i class="fa-solid fa-caret-right d-sm-none" aria-hidden="true" />
               </b-button>
 
               <search-filters />

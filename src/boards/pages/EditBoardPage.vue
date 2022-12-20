@@ -99,7 +99,7 @@
                   <v-swatches
                     v-model="board.backgroundColor"
                     show-fallback
-                    :trigger-style="{ height: '38px' }"
+                    :trigger-style="{ height: '34px', width: '34px' }"
                     popover-x="left"
                   />
 
@@ -170,7 +170,7 @@
                   <v-swatches
                     v-model="list.backgroundColor"
                     show-fallback
-                    :trigger-style="{ height: '38px' }"
+                    :trigger-style="{ height: '34px', width: '34px' }"
                     popover-x="left"
                   />
 

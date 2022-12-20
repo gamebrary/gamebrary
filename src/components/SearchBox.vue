@@ -1,30 +1,34 @@
 <template lang="html">
-  <b-form
-    @submit.prevent="search"
-    class="mw-100"
-    style="width: 180px"
-  >
-    <b-input-group>
-      <b-form-input
-        v-model="searchText"
-        type="search"
-        autofocus
-        debounce="500"
-        placeholder="Search"
-      />
+  <div class="search-box">
+    <b-form
+      @submit.prevent="search"
+      :class="[{ 'd-none d-sm-block': !isSearchPage }, 'mw-100']"
+      style="width: 180px"
+    >
+      <b-input-group>
+        <b-form-input
+          v-model="searchText"
+          type="search"
+          autofocus
+          debounce="500"
+          placeholder="Search"
+        />
 
-      <b-input-group-append>
-        <b-button type="submit">
-          <i
-            class="fas fa-search fa-fw"
-            aria-hidden
-          />
-        </b-button>
-      </b-input-group-append>
-    </b-input-group>
+        <b-input-group-append>
+          <b-button type="submit">
+            <i
+              class="fas fa-search"
+              aria-hidden
+            />
+          </b-button>
+        </b-input-group-append>
+      </b-input-group>
+    </b-form>
 
-
-  </b-form>
+    <b-button v-if="!isSearchPage" :to="{ name: 'search' }" class="d-sm-none">
+      <i class="fa fa-search" aria-hidden="true" />
+    </b-button>
+  </div>
 </template>
 
 <script>
