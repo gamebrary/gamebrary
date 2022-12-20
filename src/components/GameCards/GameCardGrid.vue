@@ -9,7 +9,7 @@
     <div class="position-relative cursor-pointer rounded align-self-end card overflow-hidden border-0 m-1">
       <b-img
         fluid
-        :src="$options.getImageUrl(game)"
+        :src="$options.getImageUrl(game, $options.IMAGE_SIZE_COVER_SMALL)"
       />
 
       <b-progress

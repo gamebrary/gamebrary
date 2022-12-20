@@ -2,7 +2,7 @@
   <div :class="['position-relative cursor-pointer rounded align-self-end card overflow-hidden mb-2', gameCompleted ? 'border-success completed' : 'border-0']">
     <b-img
       fluid
-      :src="$options.getImageUrl(game)"
+      :src="$options.getImageUrl(game, $options.IMAGE_SIZE_COVER_SMALL)"
     />
 
     <b-progress

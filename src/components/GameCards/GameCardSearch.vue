@@ -1,7 +1,7 @@
 <template lang="html">
   <b-card
     v-if="game"
-    :img-src="gameCoverUrl"
+    :img-src="$options.getImageUrl(game, $options.IMAGE_SIZE_COVER_SMALL)"
     :img-alt="game.name"
     :class="['mb-3 cursor-pointer', { 'border-selected': selected }]"
     overlay
@@ -23,10 +23,13 @@
 <script>
 import { getImageUrl } from '@/utils';
 import { mapState } from 'vuex';
-import { NO_IMAGE_PATH } from '@/constants';
+import { NO_IMAGE_PATH, IMAGE_SIZE_COVER_SMALL } from '@/constants';
 import slugify from 'slugify'
 
 export default {
+  IMAGE_SIZE_COVER_SMALL,
+  getImageUrl,
+
   props: {
     game: {
       type: Object,
@@ -41,10 +44,6 @@ export default {
       const { boardId } = this.$route.query;
 
       return this.boards.find(({ id }) => id === boardId);
-    },
-
-    gameCoverUrl() {
-      return getImageUrl(this.game);
     },
 
     selected() {

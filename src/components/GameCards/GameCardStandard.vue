@@ -14,7 +14,7 @@
           blank-color="#ccc"
           class="m-1"
           rounded
-          :src="$options.getImageUrl(game)"
+          :src="$options.getImageUrl(game, $options.IMAGE_SIZE_COVER_SMALL)"
           :alt="game.name"
         />
       </b-col>
@@ -72,9 +72,12 @@
 </template>
 
 <script>
+import { IMAGE_SIZE_COVER_SMALL } from '@/constants';
 import gameCardMixin from '@/mixins/gameCardMixin';
 
 export default {
+  IMAGE_SIZE_COVER_SMALL,
+
   props: {
     ranked: Boolean,
     rank: Number,
