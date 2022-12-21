@@ -75,13 +75,13 @@
       >
         <component
           v-for="gameId in sortedGames"
-          :ref="gameId"
+          :ref="`${listIndex}-${gameId}`"
           :id="gameId"
           :is="gameCardComponent"
           :key="gameId"
           :list="list"
           :game-id="gameId"
-          :class="{ 'mb-2': listView !== 'covers', 'border-success': highlightedGame == gameId }"
+          :class="{ 'mb-2': listView !== 'covers', 'highlighted': highlightedGameId == gameId }"
           @click.native="openGame(gameId, list)"
         />
 
@@ -204,6 +204,10 @@ export default {
     listView() {
       return this.list?.view || LIST_VIEW_SINGLE;
     },
+
+    highlightedGameId() {
+      return this.$route.query?.g;
+    }
   },
 
   methods: {
@@ -229,15 +233,17 @@ export default {
     },
 
     highlightGame(gameId) {
-      this.highlightedGame = gameId;
+      this.$router.replace({ name: 'board', params: this.$route.params, query: { g: gameId } });
 
-      const [gameRef] = this.$refs[gameId];
+      const gameRef = this.$refs[`${this.listIndex}-${gameId}`]?.[0];
 
-      gameRef.$el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (gameRef) {
+        gameRef?.$el.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-      setTimeout(() => {
-        this.highlightedGame = null;
-      }, 2000);
+        setTimeout(() => {
+          this.$router.replace({ name: 'board', params: this.$route.params, query: {} })
+        }, 5000);
+      }
     },
 
     async removeGame() {
@@ -352,6 +358,10 @@ export default {
 
 .list-settings {
   padding: 1rem;
+}
+
+.highlighted {
+  outline: 3px dashed var(--primary);
 }
 </style>
 

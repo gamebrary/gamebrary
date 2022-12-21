@@ -62,7 +62,7 @@
               fluid
             />
 
-            <game-in-boards class="d-none d-md-block mt-5" />
+            <game-in-boards class="d-none d-md-block mt-5 text-left" />
 
             <b-button
               v-if="gameNews"

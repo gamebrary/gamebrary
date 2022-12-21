@@ -1,5 +1,5 @@
 <template lang="html">
-  <div :class="['position-relative cursor-pointer rounded align-self-end card overflow-hidden mb-2', gameCompleted ? 'border-success completed' : 'border-0']">
+  <div :class="['position-relative cursor-pointer rounded align-self-end card overflow-hidden mb-2', gameCompleted ? 'completed' : 'border-0']">
     <b-img
       fluid
       :src="$options.getImageUrl(game, $options.IMAGE_SIZE_COVER_SMALL)"
@@ -63,6 +63,6 @@ export default {
 }
 
 .completed {
-  border-width: 3px;
+  outline: 3px solid var(--success);
 }
 </style>
