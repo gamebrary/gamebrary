@@ -1,10 +1,6 @@
-// Variables
-//
-// Variables should follow the `$component-state-property-size` formula for
-// consistent naming. Ex: $nav-link-disabled-color and $modal-content-box-shadow-xs.
+// Variables reference
 
 // Color system
-
 $white:    #fff !default;
 $gray-100: #f8f9fa !default;
 $gray-200: #e9ecef !default;
@@ -88,15 +84,11 @@ $theme-colors: map-merge(
   $theme-colors
 );
 
-// Set a specific jump point for requesting color jumps
-$theme-color-interval:      8% !default;
-
-// The yiq lightness value that determines when the lightness of color changes from "dark" to "light". Acceptable values are between 0 and 255.
-$yiq-contrasted-threshold:  150 !default;
-
+$theme-color-interval: 8% !default; // Set a specific jump point for requesting color jumps
+$yiq-contrasted-threshold:  150 !default; // The yiq lightness value that determines when the lightness of color changes from "dark" to "light". Acceptable values are between 0 and 255.
 // Customize the light and dark text colors for use in our YIQ color contrast function.
-$yiq-text-dark:             $gray-900 !default;
-$yiq-text-light:            $white !default;
+$yiq-text-dark: $gray-900 !default;
+$yiq-text-light: $white !default;
 
 // Characters which are escaped by the escape-svg function
 $escaped-characters: (
@@ -111,7 +103,6 @@ $escaped-characters: (
 // Options
 //
 // Quickly modify global styling by enabling or disabling optional features.
-
 $enable-caret:                                true !default;
 $enable-rounded:                              true !default;
 $enable-shadows:                              false !default;

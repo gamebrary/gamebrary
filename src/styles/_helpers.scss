@@ -1,13 +1,35 @@
-// TODO: add media query helper classes
-.releases img {
-  max-width: 100%;
-  margin-top: 1rem;
-}
-
 .cursor-pointer {
   cursor: pointer !important;
 }
 
-.z-index-1 {
-  z-index: 1;
+.field {
+  width: 320px;
+  max-width: 100%;
+
+  @media(max-width: 480px) {
+    width: 100%;
+  }
+}
+
+.centered {
+  margin: 0 auto;
+}
+
+.spinner-centered {
+  position: absolute;
+  left: calc(50% - 16px);
+}
+
+.dropdown-menu {
+    max-height: 320px;
+    overflow-y: auto;
+}
+
+.border-selected {
+  border: 4px solid var(--success);
+}
+
+.text-outlined {
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  color: var(--light);
 }
