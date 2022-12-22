@@ -1,76 +1,93 @@
 <template lang="html">
-  <component
-    :is="triggerComponent"
-    trigger-text="Add games to tier"
-    :variant="variant"
-    :size="size"
-    :block="block"
-    @click="selecting = true"
-  >
-    <template v-if="triggerText">{{ triggerText }}</template>
-    <slot />
-
-    <b-modal
-      hide-footer
-      :header-bg-variant="darkTheme ? 'dark' : 'white'"
-      :header-text-variant="darkTheme ? 'white' : 'dark'"
-      :body-bg-variant="darkTheme ? 'dark' : 'white'"
-      :body-text-variant="darkTheme ? 'white' : 'dark'"
-      v-model="selecting"
+  <div class="game-selector">
+    <component
+      :is="triggerComponent"
+      trigger-text="Add games to tier"
+      :variant="variant"
+      :size="size"
+      :block="block"
+      @click="selecting = true"
     >
-      <template v-slot:modal-header="{ close }">
-        <modal-header
-          :title="title"
-          @close="close"
-        />
+      <template v-if="triggerText">{{ triggerText }}</template>
+      <slot />
+    </component>
+
+    <b-sidebar
+      v-model="selecting"
+      right
+      :bg-variant="darkTheme ? 'dark' : 'light'"
+      :text-variant="darkTheme ? 'light' : 'dark'"
+      aria-labelledby="sidebar-title"
+      shadow
+      backdrop
+      @hidden="selecting = false"
+    >
+      <template #header>
+        <header class="d-flex align-items-center justify-content-between w-100">
+          <h4>{{ title }}</h4>
+
+          <b-button
+            @click="selecting = false"
+            :variant="darkTheme ? 'dark' : 'light'"
+          >
+            <i class="fa fa-close fa-fw" />
+          </b-button>
+        </header>
       </template>
 
-      <b-form-input
-       v-model="searchText"
-       debounce="500"
-       placeholder="Type here"
-       type="search"
-       @update="search"
-      />
+      <div class="p-2">
+        <b-form-input
+         v-model="searchText"
+         debounce="500"
+         placeholder="Type here"
+         type="search"
+         @update="search"
+        />
 
-      <div v-if="loading" style="height: 80px" class="mt-5">
-        <b-spinner class="spinner-centered" />
+        <div v-if="loading" style="height: 80px" class="mt-5">
+          <b-spinner class="spinner-centered" />
+        </div>
+
+        <div v-else-if="filteredSearchResults.length > 0">
+          <b-card
+            v-for="game in filteredSearchResults"
+            class="cursor-pointer mt-2"
+            :bg-variant="darkTheme ? 'secondary' : 'light'"
+            :text-variant="darkTheme ? 'light' : 'dark'"
+            body-class="p-1"
+            :key="game.id"
+            @click="selectGame(game.id)"
+          >
+            <b-row>
+              <b-col cols="4">
+                <b-card-img
+                  :src="$options.getImageUrl(game, $options.IMAGE_SIZE_COVER_SMALL)"
+                  alt="Image"
+                  class="game-thumbnail rounded mr-2"
+                />
+              </b-col>
+              <b-col>
+                {{ game.name }}
+              </b-col>
+            </b-row>
+          </b-card>
+
+          <b-button
+            v-if="isBoardOwner"
+            block
+            class="mt-1"
+            :to="{ name: 'search', query: { boardId: board.id, listIndex: 0 } }"
+          >
+            Advanced search
+          </b-button>
+        </div>
+
+        <div v-else-if="searchText">
+          No results
+        </div>
       </div>
-
-      <div v-else-if="filteredSearchResults.length > 0" class="search-results">
-        <b-card
-          v-for="game in filteredSearchResults"
-          class="cursor-pointer mt-2"
-          :bg-variant="darkTheme ? 'secondary' : 'light'"
-          :text-variant="darkTheme ? 'light' : 'dark'"
-          body-class="p-1"
-          :key="game.id"
-          @click="selectGame(game.id)"
-        >
-          <b-card-img
-            :src="$options.getImageUrl(game, $options.IMAGE_SIZE_COVER_SMALL)"
-            alt="Image"
-            class="game-thumbnail rounded mr-2"
-          />
-
-          {{ game.name }}
-        </b-card>
-
-        <b-button
-          v-if="isBoardOwner"
-          block
-          class="mt-1"
-          :to="{ name: 'search', query: { boardId: board.id, listIndex: 0 } }"
-        >
-          Advanced search
-        </b-button>
-      </div>
-
-      <div v-else-if="searchText">
-        No results
-      </div>
-    </b-modal>
-  </component>
+    </b-sidebar>
+  </div>
 </template>
 
 <script>
@@ -158,10 +175,5 @@ export default {
 .game-thumbnail {
   width: 80px;
   height: auto;
-}
-
-.search-results {
-  max-height: calc(100vh - 300px);
-  overflow-y: auto;
 }
 </style>

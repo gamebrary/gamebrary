@@ -33,8 +33,6 @@
 
     <template #default>
       <div class="px-3">
-        <search-box class="mb-3 w-100" />
-
         <b-button
           :to="{ name: 'boards' }"
           :variant="darkTheme ? 'dark' : 'light'"
@@ -174,13 +172,8 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import { getImageThumbnail } from '@/utils';
-import SearchBox from '@/components/SearchBox';
 
 export default {
-  components: {
-    SearchBox,
-  },
-
   data() {
     return {
       profile: {},
