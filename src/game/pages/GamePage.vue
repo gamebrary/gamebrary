@@ -652,7 +652,7 @@ export default {
         path: 'games',
         data: `${IGDB_QUERIES.GAME} where id = ${this.gameId};`,
         mutation: 'SET_GAME',
-      });
+      }).catch((e) => {});
 
       setPageTitle(this.game?.name);
 
