@@ -1,4 +1,3 @@
-<!-- TODO: use custom login page, modal? -->
 <template lang="html">
   <section>
     <b-container class="field centered">

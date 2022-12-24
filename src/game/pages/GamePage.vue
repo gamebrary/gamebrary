@@ -2,10 +2,8 @@
 <!-- TODO: add ports -->
 <!-- TODO: add franchises -->
 <!-- TODO: add bundles -->
-<!-- TODO: improve text contrast when dark theme or bg is on -->
 <!-- TODO: load game franchises -->
 <!-- TODO: integrate with twitch -->
-<!-- TODO: show bundles -->
 <!-- TODO: show game right away, load steam and GOG in background -->
 <!-- TODO: improve caching -->
 <!-- TODO: maintain background image in subpages -->
@@ -505,7 +503,7 @@ export default {
     // },
 
     gameThemes() {
-      return this.game?.themes || [];
+      return this.game?.themes;
     },
 
     gameDevelopers() {
