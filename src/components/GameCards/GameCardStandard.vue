@@ -22,7 +22,7 @@
       <b-col cols="8">
         <b-card-body body-class="p-2">
           <b-card-title
-            :class="`mb-2 ${highlightCompletedGame ? 'text-success' : ''}`"
+            :class="`mb-2 ${gameCompleted ? 'text-success' : ''}`"
             title-tag="h3"
           >
             <b-avatar
