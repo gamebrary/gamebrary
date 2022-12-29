@@ -1,11 +1,8 @@
 <!-- TODO: show igdb tags? -->
 <!-- TODO: add ports -->
-<!-- TODO: add franchises -->
-<!-- TODO: add bundles -->
 <!-- TODO: load game franchises -->
 <!-- TODO: integrate with twitch -->
-<!-- TODO: show game right away, load steam and GOG in background -->
-<!-- TODO: improve caching -->
+<!-- TODO: improve caching, show game right away, load steam and GOG in background -->
 <!-- TODO: maintain background image in subpages -->
 <!-- TODO: maintain game actions in subpages -->
 <!-- TODO: mine data from GOG -->
@@ -59,6 +56,40 @@
               rounded
               fluid
             />
+
+            <div v-if="gameRemakes" class="text-left mt-2">
+              <strong>Remakes</strong>
+
+              <router-link
+                v-for="remake in gameRemakes"
+                :key="remake.id"
+                :to="{ name: 'game', params: { id: remake.id, slug: remake.slug } }"
+              >
+                <b-img
+                  :src="$options.getImageUrl(remake)"
+                  :alt="remake.name"
+                  rounded
+                  fluid
+                />
+              </router-link>
+            </div>
+
+            <div v-if="gameRemasters" class="text-left mt-2">
+              <strong>Remasters</strong>
+
+              <router-link
+                v-for="remaster in gameRemasters"
+                :key="remaster.id"
+                :to="{ name: 'game', params: { id: remaster.id, slug: remaster.slug } }"
+              >
+                <b-img
+                  :src="$options.getImageUrl(remaster)"
+                  :alt="remaster.name"
+                  rounded
+                  fluid
+                />
+              </router-link>
+            </div>
 
             <game-in-boards class="d-none d-md-block mt-5 text-left" />
 
@@ -172,6 +203,19 @@
                 <b-link :to="{ name: 'search', query: { filterBy: 'themes', value: id }}">{{ name }}</b-link>
                 <template v-if="index < gameThemes.length - 1">, </template>
               </b-link>
+            </div>
+
+            <div v-if="gameEngines">
+              <h4 class="mt-4">Game engines: </h4>
+
+              <!-- TODO: link and add filter -->
+              <p
+                v-for="{ id, name } in gameEngines"
+                :key="id"
+                class="text-dark"
+              >
+                {{ name }}
+              </p>
             </div>
 
             <div v-if="gameModes">
@@ -323,7 +367,9 @@
                   v-b-tooltip
                   :title="comment || null"
                   size="sm"
+                  variant="transparent"
                   class="mr-1"
+                  rounded
                   :src="imgUrl"
                 />
 
@@ -339,9 +385,12 @@
                 :key="platform.id"
                 block
                 class="pb-0 text-left"
+                v-b-tooltip.hover
+                :title="platform.name"
                 :to="{ name: 'search', query: { filterBy: 'platforms', value: platform.id }}"
               >
-                {{ platform.name }}
+                <b-img :src="$options.getImageUrl(platform.platform_logo)" width="60" />
+                <!-- <b-img src="/logos/platforms/3ds.svg" width="100" /> -->
               </b-link>
             </div>
 
@@ -357,6 +406,44 @@
           loading...
         </timeline> -->
       </b-container>
+
+      <div v-if="gameBundles" class="text-left mt-2">
+        <h4>{{ game.name }} is included in the following bundles:</h4>
+
+        <router-link
+          v-for="bundle in gameBundles"
+          :key="bundle.id"
+          :to="{ name: 'game', params: { id: bundle.id, slug: bundle.slug } }"
+        >
+          <b-img
+            :src="$options.getImageUrl(bundle)"
+            :alt="bundle.name"
+            rounded
+            width="120"
+            class="mb-2 mr-2"
+            fluid
+          />
+        </router-link>
+      </div>
+
+      <div v-if="gameCollection" class="text-left small p-3">
+        <h4>More from the {{ gameCollection.name }} collection</h4>
+
+        <router-link
+          v-for="g in gameCollection.games"
+          :key="g.id"
+          :to="{ name: 'game', params: { id: g.id, slug: g.slug } }"
+        >
+          <b-img
+            :src="$options.getImageUrl(g)"
+            :alt="g.name"
+            width="200"
+            rounded
+            class="mr-2 mb-2"
+            fluid
+          />
+        </router-link>
+      </div>
 
       <similar-games :has-wallpaper="hasWallpaper" />
     </template>
@@ -504,6 +591,26 @@ export default {
 
     gameThemes() {
       return this.game?.themes;
+    },
+
+    gameRemakes() {
+      return this.game?.remakes;
+    },
+
+    gameCollection() {
+      return this.game?.collection;
+    },
+
+    gameRemasters() {
+      return this.game?.remasters;
+    },
+
+    gameBundles() {
+      return this.game?.bundles;
+    },
+
+    gameEngines() {
+      return this.game?.game_engines;
     },
 
     gameDevelopers() {
