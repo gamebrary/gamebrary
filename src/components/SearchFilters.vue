@@ -1,105 +1,95 @@
 <!-- TODO: allow multiple filters at once -->
 <!-- TODO: add rating filtering -->
 <template lang="html">
-  <b-dropdown
-    :variant="hasFilter ? 'primary' : 'secondary'"
-    no-caret
-    class="mr-2"
-  >
-    <template #button-content>
-      <span class="d-none d-sm-block">Filter</span>
-      <i class="fa-solid fa-filter d-sm-none" aria-hidden="true"></i>
-    </template>
+  <b-container>
+    <b-row>
+      <b-col cols="12">
+        <b-tabs>
+          <b-tab title="Genres" active>
+            <b-button
+              v-for="{ id, name } in $options.GAME_GENRES"
+              :key="name"
+              size="sm"
+              :variant="isFilterSelected('genres', id) ? 'primary' : 'link'"
+              @click="setFilter('genres', id)"
+            >
+              {{ name }}
+            </b-button>
+          </b-tab>
 
-    <template v-if="hasFilter">
-      <b-dropdown-item-button
+          <b-tab title="Themes">
+            <b-button
+              v-for="{ id, name } in $options.GAME_THEMES"
+              :key="name"
+              size="sm"
+              :variant="isFilterSelected('themes', id) ? 'primary' : 'link'"
+              @click="setFilter('themes', id)"
+            >
+              {{ name }}
+            </b-button>
+          </b-tab>
+
+          <b-tab title="Perspective">
+            <b-button
+              v-for="{ id, name } in $options.GAME_PERSPECTIVES"
+              :key="name"
+              size="sm"
+              :variant="isFilterSelected('player_perspectives', id) ? 'primary' : 'link'"
+              @click="setFilter('player_perspectives', id)"
+            >
+              {{ name }}
+            </b-button>
+          </b-tab>
+
+          <b-tab title="Platform">
+            <b-button
+              v-for="{ id, name } in platforms"
+              :key="id"
+              size="sm"
+              class="mb-1 mr-1"
+              :variant="isFilterSelected('platforms', id) ? 'primary' : 'link'"
+              @click="setFilter('platforms', id)"
+            >
+              {{ name }}
+            </b-button>
+          </b-tab>
+
+          <b-tab title="Game modes">
+            <b-button
+              v-for="{ id, name } in $options.GAME_MODES"
+              :key="id"
+              size="sm"
+              :variant="isFilterSelected('game_modes', id) ? 'primary' : 'link'"
+              @click="setFilter('game_modes', id)"
+            >
+              {{ name }}
+            </b-button>
+          </b-tab>
+        </b-tabs>
+      </b-col>
+
+      <b-button
+        v-if="hasFilter"
         variant="primary"
         @click="clearFilters"
       >
         Clear filter
-      </b-dropdown-item-button>
+      </b-button>
 
-      <b-dropdown-divider />
-    </template>
-
-    <b-dropdown-group id="genres" header="Genres">
-      <b-dropdown-item-button
-        v-for="{ id, name } in $options.GAME_GENRES"
-        :key="name"
-        block
-        size="sm"
-        :variant="isFilterSelected('genres', id) ? 'primary' : ''"
-        @click="setFilter('genres', id)"
-      >
-        {{ name }}
-      </b-dropdown-item-button>
-    </b-dropdown-group>
-
-    <b-dropdown-group id="themes" header="Themes">
-      <b-dropdown-item-button
-        v-for="{ id, name } in $options.GAME_THEMES"
-        :key="name"
-        block
-        size="sm"
-        :variant="isFilterSelected('themes', id) ? 'primary' : ''"
-        @click="setFilter('themes', id)"
-      >
-        {{ name }}
-      </b-dropdown-item-button>
-    </b-dropdown-group>
-
-    <b-dropdown-group header="Perspectives">
-      <b-dropdown-item-button
-        v-for="{ id, name } in $options.GAME_PERSPECTIVES"
-        :key="name"
-        block
-        size="sm"
-        :variant="isFilterSelected('player_perspectives', id) ? 'primary' : ''"
-        @click="setFilter('player_perspectives', id)"
-      >
-        {{ name }}
-      </b-dropdown-item-button>
-    </b-dropdown-group>
-
-    <!-- <b-dropdown-group header="Languages">
-      <b-dropdown-item-button
-        v-for="{ id, name } in $options.GAME_LANGUAGES"
-        :key="name"
-        block
-        size="sm"
-        :variant="isFilterSelected('languages', id) ? 'primary' : ''"
-        @click="setFilter('languages', id)"
-      >
-        {{ name }}
-      </b-dropdown-item-button>
-    </b-dropdown-group> -->
-
-    <b-dropdown-divider />
-
-    <b-dropdown-group id="dropdown-group-2" header="Platforms">
-      <b-dropdown-item-button
-        v-for="{ id, name } in platforms"
-        :key="id"
-        size="sm"
-        :variant="isFilterSelected('platforms', id) ? 'primary' : ''"
-        @click="setFilter('platforms', id)"
-      >
-        {{ name }}
-      </b-dropdown-item-button>
-    </b-dropdown-group>
-    <b-dropdown-divider />
-    <b-dropdown-group id="dropdown-group-2" header="Game modes">
-      <b-dropdown-item-button
-        v-for="{ id, name } in $options.GAME_MODES"
-        :key="id"
-        size="sm"
-        :variant="isFilterSelected('game_modes', id) ? 'primary' : ''"
-        @click="setFilter('game_modes', id)"
-      >
-        {{ name }}
-      </b-dropdown-item-button>
-    </b-dropdown-group>
-  </b-dropdown>
+      <!-- <div>
+        <b-button
+          v-for="{ id, name } in $options.GAME_LANGUAGES"
+          :key="name"
+          block
+          size="sm"
+          :variant="isFilterSelected('languages', id) ? 'primary' : ''"
+          @click="setFilter('languages', id)"
+        >
+          {{ name }}
+        </b-button>
+      </div> -->
+    </b-row>
+  </b-container>
 </template>
 
 <script>
