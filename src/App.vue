@@ -12,6 +12,7 @@
     <b-spinner v-if="loading" class="spinner-centered mt-5" />
 
     <template v-else>
+      <div v-b-visible.54="visibleHandler" class="header-flag" />
       <page-header />
       <side-bar v-if="user" />
       <router-view class="viewport" />
@@ -95,6 +96,10 @@ export default {
   },
 
   methods: {
+    visibleHandler(visible) {
+      if (!['game', 'board'].includes(this.$route.name)) this.$store.commit('SET_SCROLLED', !visible);
+    },
+
     async toggleTheme() {
       const { settings } = this;
       const darkTheme = settings?.darkTheme || false;
@@ -188,8 +193,13 @@ export default {
   }
 
   .viewport {
-    height: 100vh;
+    min-height: 100vh;
     padding: 54px 0;
-    overflow-y: auto;
+    // overflow-y: auto;
+  }
+
+  .header-flag {
+    background: transparent;
+    height: 0;
   }
 </style>

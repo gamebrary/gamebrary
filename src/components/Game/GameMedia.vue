@@ -1,36 +1,32 @@
 <template lang="html">
-  <div class="mt-3">
-    <b-form-row>
-      <b-col
-        v-for="({ imageUrl, isVideo, isCover }, index) in gameMedia"
-        cols="6"
-        sm="4"
-        :key="index"
-      >
-        <div class="align-items-center text-center mb-2 rounded cursor-pointer">
-          <i
-            v-if="isVideo"
-            class="fa-solid fa-play video-indicator position-absolute text-white"
-          />
+  <b-form-row>
+    <div
+      v-for="({ imageUrl, isVideo, isCover }, index) in gameMediaThumbnails"
+      :key="index"
+    >
+      <div class="align-items-center text-center rounded cursor-pointer">
+        <i
+          v-if="isVideo"
+          class="fa-solid fa-play video-indicator text-white"
+        />
 
-          <div
-            v-if="isCover"
-            class="position-absolute cover-indicator text-light small w-100 bg-dark rounded-bottom"
-          >
-            Cover
-          </div>
-
-          <b-img
-            :src="imageUrl"
-            rounded
-            class="mb-2"
-            fluid
-            style="max-height: 120px;"
-            @click="viewMedia(index)"
-          />
+        <div
+          v-if="isCover"
+          class="cover-indicator text-light small w-100 bg-dark rounded-bottom"
+        >
+          Cover
         </div>
-      </b-col>
-    </b-form-row>
+
+        <b-img
+          :src="imageUrl"
+          rounded
+          class="mb-2 mr-2"
+          fluid
+          style="max-height: 120px;"
+          @click="viewMedia(index)"
+        />
+      </div>
+    </div>
 
     <b-modal
       id="mediaModal"
@@ -125,7 +121,7 @@
         </footer>
       </div>
     </b-modal>
-  </div>
+  </b-form-row>
 </template>
 
 <script>
@@ -140,7 +136,6 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['gameMedia']),
     ...mapState(['user', 'board', 'game', 'wallpapers', 'boards']),
 
     formattedBoards() {
@@ -149,6 +144,14 @@ export default {
 
     isSelectedMediaVideo() {
       return this.selectedMedia?.isVideo;
+    },
+
+    gameMediaThumbnails() {
+      return this.$store.getters.gameMedia(true);
+    },
+
+    gameMedia() {
+      return this.$store.getters.gameMedia();
     },
 
     isSelectedMediaCover() {

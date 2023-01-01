@@ -1,38 +1,72 @@
 <!-- TODO: use this to animate features https://michalsnik.github.io/aos/ -->
 <template lang="html">
-  <section>
+  <section class="home d-flex flex-column">
     <portal to="pageTitle">Gamebrary</portal>
 
-    <div v-if="user" class="text-center py-5">
+    <h1 class="text-light display-4 text-center">Your game library. Organized.</h1>
+
+    <!-- <div v-if="user" class="text-center py-5">
       Welcome back, {{ user.displayName }}
+    </div> -->
+
+    <div class="mb-5 pb-5 field ml-auto mr-auto text-center mb-auto">
+      <div class="lead">
+        <p>Organize</p>
+        <p>Track progress</p>
+        <p>Take notes</p>
+        <p>Learn</p>
+        <p>Read news</p>
+        <p>Discover</p>
+        <p class="text-info">Free and open source!</p>
+      </div>
+
+      <b-button
+        variant="success"
+        class="mt-3"
+        size="lg"
+        :to="{ name: 'auth' }"
+      >
+        Get started!
+      </b-button>
     </div>
 
-    <template v-else>
-      <h1 class="display-5 mt-5 mb-3 mx-5 text-center">
-        Gamebrary
-      </h1>
+    <div class="mt-auto">
+      <h2 class="text-center text-light mb-2">Game data from the most reliable sources</h2>
 
-      <div class="mb-5 pb-5 field ml-auto mr-auto text-center mb-auto">
-        <div class="lead text-primary">
-          <p>Organize</p>
-          <p>Track progress</p>
-          <p>Take notes</p>
-          <p>Learn</p>
-          <p>Read news</p>
-          <p>Discover</p>
-          <p class="text-info">Free and open source!</p>
-        </div>
-
-        <b-button
-          variant="success"
-          class="mt-3"
-          size="lg"
-          :to="{ name: 'auth' }"
-        >
-          Get started!
-        </b-button>
+      <div class="d-flex align-items-start justify-content-center">
+        <!-- YouTube -->
+        <img src="/logos/data-sources/wikipedia.svg" alt="wikipedia" width="80" class="mx-3">
+        <img src="/logos/data-sources/igdb.svg" alt="igdb" width="100" class="mx-3">
+        <img src="/logos/data-sources/fandom.svg" alt="fandom" width="100" class="mx-3 mt-2">
+        <img src="/logos/data-sources/amazon.svg" alt="amazon" width="100" class="mx-3 mt-3">
+        <img src="/logos/data-sources/twitch.svg" alt="twitch" width="100" class="mx-3 mt-2">
+        <img src="/logos/data-sources/speedrun.png" alt="speedrun" width="100" class="mx-3 mt-3">
+        <img src="/logos/data-sources/gog.svg" alt="gog" width="70" class="mx-3">
+        <img src="/logos/data-sources/steam.svg" alt="steam" width="80" class="mx-3">
       </div>
-    </template>
+    </div>
+
+    <footer class="text-light text-center mt-auto">
+      <router-link class="px-1" :to="{ name: 'about' }">About</router-link>
+      <router-link class="px-1" :to="{ name: 'privacy.policy' }">Privacy</router-link>
+      <router-link class="px-1" :to="{ name: 'terms' }">Terms</router-link>
+      <br />
+      <small>©{{ year }} Gamebrary</small>
+    </footer>
+
+    <!-- <h1 class="display-5 mt-5 mb-3 mx-5 text-center">
+      Gamebrary
+    </h1> -->
+
+    <!-- <b-row>
+      <b-col class="bg-warning">
+        <b-img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1212,h=992,fit=crop/blickpkok4/mockup_4-AQE98M88kgFWl5ey.png" />
+      </b-col>
+      <b-col class="bg-danger">
+        <h3>Your games, in one place.</h3>
+        <p>From checking accounts to savings, credit cards, and more, personal finances can be tricky. Blick's mission is to make it simple to manage everything from one place.</p>
+      </b-col>
+    </b-row> -->
 
     <!-- <b-form-row class="bg-secondary px-3 py-5">
       Organize your game library your way!
@@ -46,7 +80,6 @@
     </b-form-row> -->
 
     <!-- <b-form-row>
-      Show simplified game page, with lines pointing to content
       Game page
 
       - IGDB
@@ -87,8 +120,7 @@
       </b-col>
     </b-form-row> -->
 
-    <!-- TODO: put in components -->
-    <b-form-row class="bg-secondary px-3 py-5">
+    <!-- <b-form-row class="bg-light px-3 py-5">
       <b-col cols="12">
         <h3 class="text-center text-light text-outlined py-2 mt-2">Trending games</h3>
       </b-col>
@@ -103,9 +135,9 @@
           <game-card-search :game="game" />
         </b-col>
       </div>
-    </b-form-row>
+    </b-form-row> -->
 
-    <b-form-row class="bg-info px-3 py-5">
+    <!-- <b-form-row class="px-3 py-5">
       <b-col cols="12">
         <h3 class="text-center text-light text-outlined py-2 mt-2">Featured boards</h3>
       </b-col>
@@ -114,7 +146,9 @@
         v-for="board in featuredBoards"
         :key="board.id"
         cols="12"
-        lg="3"
+        sm="6"
+        md="4"
+        lg="2"
       >
         <mini-board
           :board="board"
@@ -131,28 +165,20 @@
       >
         More boards
       </b-button>
-    </b-form-row>
-
-    <footer class="text-muted text-center py-5">
-      <router-link class="px-1" :to="{ name: 'about' }">About</router-link>
-      <router-link class="px-1" :to="{ name: 'privacy.policy' }">Privacy</router-link>
-      <router-link class="px-1" :to="{ name: 'terms' }">Terms</router-link>
-      <br />
-      ©{{ year }} Gamebrary
-    </footer>
+    </b-form-row> -->
   </section>
 </template>
 
 <script>
 import { TRENDING_GAMES } from '@/constants';
-import MiniBoard from '@/components/Board/MiniBoard';
-import GameCardSearch from '@/components/GameCards/GameCardSearch';
+// import MiniBoard from '@/components/Board/MiniBoard';
+// import GameCardSearch from '@/components/GameCards/GameCardSearch';
 import { mapState } from 'vuex';
 
 export default {
   components: {
-    MiniBoard,
-    GameCardSearch,
+    // MiniBoard,
+    // GameCardSearch,
   },
 
   data() {
@@ -176,3 +202,14 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.home {
+  /* margin-top: -54px; */
+  /* padding-top: 54px; */
+  height: 100vh;
+  background: rgb(53,54,58);
+  background: linear-gradient(0deg, rgba(218,0,80,1) 0%, rgba(218,0,80,.8) 100%);
+}
+
+</style>

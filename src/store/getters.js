@@ -2,6 +2,8 @@ import {
   NEWS_SOURCES,
   LINKS_CATEGORIES,
   EXCLUDED_PLATFORMS,
+  IMAGE_SIZE_THUMB,
+  IMAGE_SIZE_MICRO,
   IMAGE_SIZE_SCREENSHOT_HUGE,
   IMAGE_SIZE_1080P,
 } from '@/constants';
@@ -53,7 +55,7 @@ export default {
     return gameNews;
   },
 
-  gameMedia: (state) => {
+  gameMedia: (state) => (thumb = false) => {
     const steamVideos = state.game?.steam?.movies?.map((video) => {
       const hiQuality = video?.mp4?.max;
       const lowQuality = video?.mp4?.[480];
@@ -75,11 +77,14 @@ export default {
       }
     }) || [];
 
-    const igdbScreenshots = state.game?.screenshots?.map((screenshot) => ({ imageUrl: getImageUrl(screenshot, IMAGE_SIZE_SCREENSHOT_HUGE), source: 'igdb', })) || [];
+    const igdbScreenshots = state.game?.screenshots?.map((screenshot) => ({
+      imageUrl: getImageUrl(screenshot, thumb ? IMAGE_SIZE_THUMB : IMAGE_SIZE_SCREENSHOT_HUGE),
+      source: 'igdb',
+    })) || [];
     const steamScreenshots = state.game?.steam?.screenshots.map(({ path_full }) => ({ imageUrl: path_full, source: 'steam' })) || [];
 
     const gameCover = {
-      imageUrl: getImageUrl(state.game, IMAGE_SIZE_1080P),
+      imageUrl: getImageUrl(state.game, thumb ? IMAGE_SIZE_THUMB : IMAGE_SIZE_1080P),
       source: 'igdb',
       isCover: true,
     };
@@ -97,7 +102,7 @@ export default {
       };
     }) || [];
 
-    const igdbArtworks = state?.game?.artworks?.map((artwork) => ({ imageUrl: getImageUrl(artwork, IMAGE_SIZE_1080P), source: 'igdb', })) || [];
+    const igdbArtworks = state?.game?.artworks?.map((artwork) => ({ imageUrl: getImageUrl(artwork, thumb ? IMAGE_SIZE_THUMB : IMAGE_SIZE_1080P), source: 'igdb', })) || [];
 
     return [
       ...gogImages,

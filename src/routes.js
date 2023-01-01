@@ -16,7 +16,7 @@ const routes = [
   ...profileRoutes,
   {
     name: 'company',
-    path: '/company/:id',
+    path: '/company/:id/:slug',
     component: () => import(/* webpackChunkName: "notes" */ '@/companies/pages/CompanyPage'),
     meta: {
       title: 'Company',

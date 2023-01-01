@@ -1,9 +1,9 @@
 <!-- TODO: use search endpoint to get more accurate results -->
 <template lang="html">
-  <section v-if="similarGames.length" class="my-5 px-3 py-5">
-    <h4 :class="['text-center mb-3', { 'text-outlined': hasWallpaper }]">You may also like</h4>
+  <section v-if="similarGames.length" class="px-3">
+    <h3 class="heading my-3">You may also like</h3>
 
-    <div class="similar-games">
+    <div class="game-grid">
       <router-link
         v-for="game in similarGames"
         :key="game.id"
@@ -28,10 +28,6 @@ import { getImageUrl } from '@/utils';
 export default {
   getImageUrl,
 
-  props: {
-    hasWallpaper: Boolean,
-  },
-
   computed: {
     ...mapState(['game']),
 
@@ -41,19 +37,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-.similar-games {
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-gap: 1rem;
-
-  @media(max-width: 1024px) {
-    grid-template-columns: repeat(5, 1fr);
-  }
-
-  @media(max-width: 780px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-</style>

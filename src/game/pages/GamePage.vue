@@ -147,17 +147,50 @@
                 <div v-html="description" />
                 <!-- TODO: use logos for listing all sources -->
                 <span class="text-muted mt-n3 mb-3 text-capitalize">Source: {{ source }}</span>
-              </template>
-            </div>
 
-            <b-alert
-              v-if="note"
-              v-html="note"
-              show
-              class="cursor-pointer mt-3"
-              variant="warning"
-              @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
-            />
+                <div v-if="gamePublishers.length" class="d-flex justify-content-center flex-column">
+                  <span class="mt-4">Published by:</span>
+
+                  <div>
+                    <b-link
+                      v-for="publisher in gamePublishers"
+                      :key="publisher.id"
+                      :to="{ name: 'company', params: { id: publisher.id, slug: publisher.slug }}"
+                    >
+                      <b-img
+                        v-if="publisher.logo"
+                        :src="$options.getImageUrl(publisher)"
+                        :alt="publisher.name"
+                        class="mr-2 mb-2"
+                        width="120"
+                      />
+
+                      <span v-else>{{ publisher.name }}</span>
+                    </b-link>
+                  </div>
+                </div>
+              </template>
+
+              <div v-if="gameDevelopers.length">
+                <h4 class="mt-4">Developed by:</h4>
+
+                <b-link
+                  v-for="developer in gameDevelopers"
+                  :key="developer.id"
+                  :to="{ name: 'company', params: { id: developer.id, slug: developer.slug }}"
+                >
+                  <b-img
+                    v-if="developer.logo"
+                    :src="$options.getImageUrl(developer)"
+                    :alt="developer.name"
+                    class="mr-2 mb-2"
+                    width="120"
+                  />
+
+                  <span v-else>{{ developer.name }}</span>
+                </b-link>
+              </div>
+            </div>
 
             <game-ratings />
 
@@ -179,6 +212,15 @@
             xl="3"
             :class="['pt-3', darkTheme || hasWallpaper ? 'text-light' : '']"
           >
+            <b-alert
+              v-if="note"
+              v-html="note"
+              show
+              class="cursor-pointer mt-3"
+              variant="warning"
+              @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
+            />
+
             <game-progress />
 
             <div v-if="gameGenres">
@@ -311,49 +353,6 @@
               </b-button>
             </template>
 
-            <div v-if="gamePublishers.length" class="d-flex justify-content-center flex-column">
-              <h4 class="mt-4">Published by:</h4>
-
-              <div>
-                <b-link
-                  v-for="publisher in gamePublishers"
-                  :key="publisher.id"
-                  :to="{ name: 'company', params: { id: publisher.id }}"
-                >
-                  <!-- TODO: use publisher.logo.alpha_channel to style logo -->
-                  <b-img
-                    v-if="publisher.logo"
-                    :src="$options.getImageUrl(publisher)"
-                    :alt="publisher.name"
-                    class="mr-2 mb-2"
-                    width="60"
-                  />
-
-                  <span v-else>{{ publisher.name }}</span>
-                </b-link>
-              </div>
-            </div>
-
-            <div v-if="gameDevelopers.length">
-              <h4 class="mt-4">Developed by:</h4>
-
-              <b-link
-                v-for="developer in gameDevelopers"
-                :key="developer.id"
-                :to="{ name: 'company', params: { id: developer.id }}"
-              >
-                <b-img
-                  v-if="developer.logo"
-                  :src="$options.getImageUrl(developer)"
-                  :alt="developer.name"
-                  class="mr-2 mb-2"
-                  width="60"
-                />
-
-                <span v-else>{{ developer.name }}</span>
-              </b-link>
-            </div>
-
             <div v-if="alternativeNames.length">
               <h4 class="mt-4">Alternative names:</h4>
 
@@ -427,25 +426,26 @@
       </div>
 
       <div v-if="gameCollection" class="text-left small p-3">
-        <h4>More from the {{ gameCollection.name }} collection</h4>
+        <!-- <img :src="gameHeaderImage" alt="" /> -->
+        <h3 class="heading mb-3">More from the {{ gameCollection.name }} collection</h3>
 
-        <router-link
-          v-for="g in gameCollection.games"
-          :key="g.id"
-          :to="{ name: 'game', params: { id: g.id, slug: g.slug } }"
-        >
-          <b-img
-            :src="$options.getImageUrl(g)"
-            :alt="g.name"
-            width="200"
-            rounded
-            class="mr-2 mb-2"
-            fluid
-          />
-        </router-link>
+        <div class="game-grid">
+          <router-link
+            v-for="g in gameCollection.games"
+            :key="g.id"
+            :to="{ name: 'game', params: { id: g.id, slug: g.slug } }"
+          >
+            <b-img
+              :src="$options.getImageUrl(g)"
+              :alt="g.name"
+              rounded
+              fluid
+            />
+          </router-link>
+        </div>
       </div>
 
-      <similar-games :has-wallpaper="hasWallpaper" />
+      <similar-games />
     </template>
 
     <div class="pt-5" v-else>
