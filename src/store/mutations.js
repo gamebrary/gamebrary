@@ -13,6 +13,10 @@ export default {
     state.releases = releases;
   },
 
+  SET_SCROLLED(state, scrolled) {
+    state.scrolled = scrolled;
+  },
+
   SET_NOTIFICATION(state, notification) {
     state.notification = notification;
   },

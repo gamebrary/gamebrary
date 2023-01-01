@@ -3,6 +3,7 @@ export default {
   boardGames: [],
   boards: [],
   dragging: false,
+  scrolled: false,
   game: null,
   games: {},
   notes: {},

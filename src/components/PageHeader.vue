@@ -4,7 +4,7 @@
 // import LanguageSettings from '@/components/Settings/LanguageSettings'; -->
 
 <template lang="html">
-  <header :class="['py-2 px-3 d-flex position-fixed w-100', darkTheme ? 'dark' : 'light', { blurred: !isBoardPage }]">
+  <header :class="['py-2 px-3 d-flex position-fixed w-100', { scrolled }, headerClass]">
     <b-button
       v-if="user"
       title="Dashboard"
@@ -13,10 +13,7 @@
       variant="transparent"
       v-b-toggle.sidebar
     >
-      <img
-        src="/logo.png"
-        class="logo"
-      />
+      <img src="/logo.png" class="logo" />
     </b-button>
 
     <b-button
@@ -27,10 +24,7 @@
       variant="transparent"
       :to="{ name: 'home' }"
     >
-      <img
-        src="/logo.png"
-        class="logo"
-      />
+      <img src="/logo.png" class="logo" />
     </b-button>
 
     <portal-target name="pageTitle" multiple />
@@ -62,12 +56,13 @@ export default {
   },
 
   computed: {
-    ...mapState(['user']),
+    ...mapState(['user', 'scrolled']),
     ...mapGetters(['darkTheme']),
 
-    isBoardPage() {
-      // TODO: do show blurred background in game page
-      return ['board', 'game'].includes(this.$route.name);
+    headerClass() {
+      if (this.$route.name === 'board') return '';
+
+      return this.darkTheme ? 'dark' : 'light';
     },
   },
 };
@@ -79,16 +74,15 @@ export default {
     align-items: center;
     grid-template-columns: 65px 1fr;
     z-index: 2;
+    transition: background-color 1s ease;
 
-    &.blurred {
-      backdrop-filter: blur(12px);
-
+    &.scrolled {
       &.light {
-        background-color: var(--white)70;
+        background-color: var(--white);
       }
 
       &.dark {
-        background-color: var(--black)70;
+        background-color: var(--black);
       }
     }
   }

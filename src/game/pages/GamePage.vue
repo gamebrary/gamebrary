@@ -16,7 +16,7 @@
       <b-container>
         <portal to="pageTitle">
           <span
-            v-if="showHeaderTitle"
+            v-show="showHeaderTitle"
             :class="darkTheme || hasWallpaper ? 'text-light text-outlined' : ''"
           >
             {{ game.name }}
@@ -746,6 +746,7 @@ export default {
 
     visibleHandler(visible) {
       this.showHeaderTitle = !visible;
+      this.$store.commit('SET_SCROLLED', !visible);
     },
 
     async loadGame() {
