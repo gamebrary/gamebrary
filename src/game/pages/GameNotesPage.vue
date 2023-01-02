@@ -121,6 +121,17 @@
                 <i class="fa-solid fa-strikethrough fa-fw" />
               </b-button>
             </b-button-group>
+
+            <b-button
+              variant="danger"
+              class="ml-auto"
+              v-if="!saving"
+              :disabled="deleting"
+              @click="deleteNote"
+            >
+              <b-spinner small v-if="deleting" />
+              <i v-else class="fas fa-trash" aria-hidden />
+            </b-button>
           </b-button-toolbar>
 
           <editor-content :editor="editor" />
@@ -142,17 +153,6 @@
             >
               <b-spinner small v-if="saving" />
               <span v-else>{{ $t('global.save') }}</span>
-            </b-button>
-
-            <b-button
-              variant="danger"
-              class="ml-2"
-              v-if="!saving"
-              :disabled="deleting"
-              @click="deleteNote"
-            >
-              <b-spinner small v-if="deleting" />
-              <i v-else class="fas fa-trash fa-fw" aria-hidden />
             </b-button>
           </footer>
         </b-col>
