@@ -1,6 +1,6 @@
 <!-- TODO: use search endpoint to get more accurate results -->
 <template lang="html">
-  <section v-if="similarGames.length" class="px-3">
+  <section v-if="similarGames.length" class="mt-3">
     <h3 class="heading my-3">You may also like</h3>
 
     <div class="game-grid">
