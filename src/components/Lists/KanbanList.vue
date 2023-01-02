@@ -57,7 +57,7 @@
       </b-button-toolbar>
 
       <draggable
-        :class="['games', isEmpty ? 'pt-3' : '']"
+        class="games px-2 pt-1"
         handle=".card"
         ghost-class="card-placeholder"
         drag-class="border-selected"
@@ -326,7 +326,6 @@ export default {
     overflow: hidden;
     max-height: 80vh;
     overflow-y: auto;
-    padding: 0 .5rem;
     width: 100%;
 
     @media(max-width: 768px) {
