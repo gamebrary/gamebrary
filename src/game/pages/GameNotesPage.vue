@@ -54,7 +54,7 @@
               <b-button
                 @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
                 v-b-tooltip.hover
-                title="1"
+                title="Heading 1"
                 :variant="editor.isActive('heading', { level: 1 }) ? 'dark' : 'light'"
               >
                 <span class="fa-layers fa-fw">
@@ -66,7 +66,7 @@
               <b-button
                 @click="editor.chain().focus().toggleHeading({ level: 2 }).run()"
                 v-b-tooltip.hover
-                title="2"
+                title="Heading 2"
                 :variant="editor.isActive('heading', { level: 2 }) ? 'dark' : 'light'"
               >
                 <span class="fa-layers fa-fw">
@@ -78,7 +78,7 @@
               <b-button
                 @click="editor.chain().focus().toggleHeading({ level: 3 }).run()"
                 v-b-tooltip.hover
-                title="3"
+                title="Heading 3"
                 :variant="editor.isActive('heading', { level: 3 }) ? 'dark' : 'light'"
               >
                 <span class="fa-layers fa-fw">
