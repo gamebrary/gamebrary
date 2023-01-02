@@ -15,7 +15,7 @@
       <div v-b-visible.54="visibleHandler" class="header-flag" />
       <page-header />
       <side-bar v-if="user" />
-      <router-view class="viewport" />
+      <router-view :class="['viewport', { offset }]" />
       <keyboard-shortcuts-modal />
       <markdown-cheatsheet />
     </template>
@@ -74,6 +74,10 @@ export default {
 
     isPublicRoute() {
       return this.$route.meta?.public;
+    },
+
+    offset() {
+      return !['home'].includes(this.$route.name);
     },
   },
 
@@ -185,6 +189,7 @@ export default {
 
     &.dark {
       background-color: var(--black);
+      color: var(--light);
     }
 
     &.light {
@@ -194,8 +199,11 @@ export default {
 
   .viewport {
     min-height: 100vh;
-    padding: 54px 0;
-    // overflow-y: auto;
+    overflow-y: auto;
+
+    &.offset {
+      padding: 54px 0;
+    }
   }
 
   .header-flag {
