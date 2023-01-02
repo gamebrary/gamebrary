@@ -148,59 +148,55 @@
                 <!-- TODO: use logos for listing all sources -->
                 <span class="text-muted mt-n3 mb-3 text-capitalize">Source: {{ source }}</span>
 
-                <div v-if="gamePublishers.length" class="d-flex justify-content-center flex-column">
-                  <span class="mt-4">Published by:</span>
+                <b-row class="mt-3">
+                  <b-col v-if="gamePublishers.length">
+                    <span class="mt-4">Published by:</span>
 
-                  <div>
-                    <b-link
-                      v-for="publisher in gamePublishers"
-                      :key="publisher.id"
-                      :to="{ name: 'company', params: { id: publisher.id, slug: publisher.slug }}"
-                    >
-                      <b-img
-                        v-if="publisher.logo"
-                        :src="$options.getImageUrl(publisher)"
-                        :alt="publisher.name"
-                        class="mr-2 mb-2"
-                        width="120"
-                      />
+                    <div>
+                      <b-link
+                        v-for="publisher in gamePublishers"
+                        :key="publisher.id"
+                        :to="{ name: 'company', params: { id: publisher.id, slug: publisher.slug }}"
+                        :class="['p-2 d-inline-flex rounded mr-2 mb-2', { 'bg-white': publisher.logo.alpha_channel }]"
+                      >
+                        <b-img
+                          v-if="publisher.logo"
+                          :src="$options.getImageUrl(publisher)"
+                          :alt="publisher.name"
+                          width="120"
+                        />
 
-                      <span v-else>{{ publisher.name }}</span>
-                    </b-link>
-                  </div>
-                </div>
+                        <span v-else>{{ publisher.name }}</span>
+                      </b-link>
+                    </div>
+                  </b-col>
+
+                  <b-col v-if="gameDevelopers.length">
+                    <span class="mt-4">Developed by:</span>
+
+                    <div>
+                      <b-link
+                        v-for="developer in gameDevelopers"
+                        :key="developer.id"
+                        :to="{ name: 'company', params: { id: developer.id, slug: developer.slug }}"
+                        :class="['p-2 d-inline-flex rounded mr-2 mb-2', { 'bg-white': developer.logo.alpha_channel }]"
+                      >
+                        <b-img
+                          v-if="developer.logo"
+                          :src="$options.getImageUrl(developer)"
+                          :alt="developer.name"
+                          width="120"
+                        />
+
+                        <span v-else>{{ developer.name }}</span>
+                      </b-link>
+                    </div>
+                  </b-col>
+                </b-row>
               </template>
-
-              <div v-if="gameDevelopers.length">
-                <h4 class="mt-4">Developed by:</h4>
-
-                <b-link
-                  v-for="developer in gameDevelopers"
-                  :key="developer.id"
-                  :to="{ name: 'company', params: { id: developer.id, slug: developer.slug }}"
-                >
-                  <b-img
-                    v-if="developer.logo"
-                    :src="$options.getImageUrl(developer)"
-                    :alt="developer.name"
-                    class="mr-2 mb-2"
-                    width="120"
-                  />
-
-                  <span v-else>{{ developer.name }}</span>
-                </b-link>
-              </div>
             </div>
 
             <game-ratings />
-
-            <small
-              v-if="legalNotice"
-              class="text-muted"
-              v-html="legalNotice"
-            />
-
-            <game-media />
 
             <!-- <game-speedruns /> -->
           </b-col>
@@ -397,6 +393,55 @@
           </b-col>
         </b-row>
 
+        <game-media />
+
+        <small
+          v-if="legalNotice"
+          class="text-muted mt-2"
+          v-html="legalNotice"
+        />
+
+        <div v-if="gameBundles" class="text-left mt-3">
+          <h4>{{ game.name }} is included in the following bundles:</h4>
+
+          <router-link
+            v-for="bundle in gameBundles"
+            :key="bundle.id"
+            :to="{ name: 'game', params: { id: bundle.id, slug: bundle.slug } }"
+          >
+            <b-img
+              :src="$options.getImageUrl(bundle)"
+              :alt="bundle.name"
+              rounded
+              width="120"
+              class="mb-2 mr-2"
+              fluid
+            />
+          </router-link>
+        </div>
+
+        <div v-if="gameCollection" class="text-left mt-3">
+          <!-- <img :src="gameHeaderImage" alt="" /> -->
+          <h3 class="heading mb-3">More from the {{ gameCollection.name }} collection</h3>
+
+          <div class="game-grid">
+            <router-link
+              v-for="g in gameCollection.games"
+              :key="g.id"
+              :to="{ name: 'game', params: { id: g.id, slug: g.slug } }"
+            >
+              <b-img
+                :src="$options.getImageUrl(g)"
+                :alt="g.name"
+                rounded
+                fluid
+              />
+            </router-link>
+          </div>
+        </div>
+
+        <similar-games />
+
         <!-- <timeline
           v-if="twitterHandle"
           :id="twitterHandle"
@@ -405,47 +450,6 @@
           loading...
         </timeline> -->
       </b-container>
-
-      <div v-if="gameBundles" class="text-left mt-2">
-        <h4>{{ game.name }} is included in the following bundles:</h4>
-
-        <router-link
-          v-for="bundle in gameBundles"
-          :key="bundle.id"
-          :to="{ name: 'game', params: { id: bundle.id, slug: bundle.slug } }"
-        >
-          <b-img
-            :src="$options.getImageUrl(bundle)"
-            :alt="bundle.name"
-            rounded
-            width="120"
-            class="mb-2 mr-2"
-            fluid
-          />
-        </router-link>
-      </div>
-
-      <div v-if="gameCollection" class="text-left small p-3">
-        <!-- <img :src="gameHeaderImage" alt="" /> -->
-        <h3 class="heading mb-3">More from the {{ gameCollection.name }} collection</h3>
-
-        <div class="game-grid">
-          <router-link
-            v-for="g in gameCollection.games"
-            :key="g.id"
-            :to="{ name: 'game', params: { id: g.id, slug: g.slug } }"
-          >
-            <b-img
-              :src="$options.getImageUrl(g)"
-              :alt="g.name"
-              rounded
-              fluid
-            />
-          </router-link>
-        </div>
-      </div>
-
-      <similar-games />
     </template>
 
     <div class="pt-5" v-else>
