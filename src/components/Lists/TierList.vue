@@ -30,7 +30,7 @@
     <draggable
       handle=".game"
       ghost-class="card-placeholder"
-      drag-class="border-selected"
+      drag-class="border-success"
       chosen-class="border-primary"
       class="tier-list d-flex"
       filter=".drag-filter"

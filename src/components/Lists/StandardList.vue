@@ -4,7 +4,7 @@
     class="mx-2 mx-sm-auto standard-list"
     handle=".card"
     ghost-class="card-placeholder"
-    drag-class="border-selected"
+    drag-class="border-success"
     chosen-class="border-primary"
     filter=".drag-filter"
     delay="50"
