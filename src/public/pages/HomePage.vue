@@ -1,37 +1,55 @@
 <!-- TODO: use this to animate features https://michalsnik.github.io/aos/ -->
 <template lang="html">
-  <section class="home d-flex flex-column">
-    <portal to="pageTitle">Gamebrary</portal>
-
-    <h1 class="text-light display-4 text-center">Your game library. Organized.</h1>
+  <section>
+    <portal to="pageTitle">
+      <h3 class="text-outlined">Gamebrary</h3>
+    </portal>
 
     <!-- <div v-if="user" class="text-center py-5">
       Welcome back, {{ user.displayName }}
     </div> -->
+    <!-- <div class="hero w-100 position-absolute text-center"> -->
+    <div class="hero w-100 mt-5 text-center">
+      <h1 class="display-3 mt-5 mb-3">Your game library.<br />Organized.</h1>
+      <div class="mb-5 pb-5 field ml-auto mr-auto mb-auto">
+        <ul class="list-unstyled">
+          <li class="mb-1">Organize</li>
+          <li class="mb-1">Track progress</li>
+          <li class="mb-1">Take notes</li>
+          <li class="mb-1">Customize</li>
+          <li class="mb-1">News and updates</li>
+          <li class="mb-1">Discover</li>
+          <p class="text-info">Free and open source!</p>
+        </ul>
 
-    <div class="mb-5 pb-5 field ml-auto mr-auto text-center mb-auto">
-      <div class="lead">
-        <p>Organize</p>
-        <p>Track progress</p>
-        <p>Take notes</p>
-        <p>Learn</p>
-        <p>Read news</p>
-        <p>Discover</p>
-        <p class="text-info">Free and open source!</p>
+        <b-button
+          variant="success"
+          class="mt-3"
+          size="lg"
+          :to="{ name: 'auth' }"
+        >
+          Get started!
+        </b-button>
+
+        <!-- <b-button variant="link" v-b-popover.hover.top="'I am popover directive content!'" title="Popover Title">
+          <i class="fa-regular fa-circle fa-beat" />
+        </b-button>
+        <b-button variant="link" v-b-popover.hover.top="'I am popover directive content!'" title="Popover Title">
+          <i class="fa-regular fa-circle fa-beat" />
+        </b-button>
+        <b-button variant="link" v-b-popover.hover.top="'I am popover directive content!'" title="Popover Title">
+          <i class="fa-regular fa-circle fa-beat" />
+        </b-button>
+        <b-button variant="link" v-b-popover.hover.top="'I am popover directive content!'" title="Popover Title">
+          <i class="fa-regular fa-circle fa-beat" />
+        </b-button> -->
       </div>
-
-      <b-button
-        variant="success"
-        class="mt-3"
-        size="lg"
-        :to="{ name: 'auth' }"
-      >
-        Get started!
-      </b-button>
     </div>
 
-    <div class="mt-auto">
-      <h2 class="text-center text-light mb-2">Game data from the most reliable sources</h2>
+    <!-- <b-img src="landing.jpg" alt="" fluid /> -->
+
+    <div class="mt-auto bg-light py-5">
+      <h2 class="text-center text-primary mb-2">Game data from the most reliable sources</h2>
 
       <div class="d-flex align-items-start justify-content-center">
         <!-- YouTube -->
@@ -46,7 +64,7 @@
       </div>
     </div>
 
-    <footer class="text-light text-center mt-auto">
+    <footer class="text-center my-5">
       <router-link class="px-1" :to="{ name: 'about' }">About</router-link>
       <router-link class="px-1" :to="{ name: 'privacy.policy' }">Privacy</router-link>
       <router-link class="px-1" :to="{ name: 'terms' }">Terms</router-link>
@@ -204,12 +222,9 @@ export default {
 </script>
 
 <style scoped>
-.home {
-  /* margin-top: -54px; */
-  /* padding-top: 54px; */
-  height: 100vh;
-  background: rgb(53,54,58);
-  background: linear-gradient(0deg, rgba(218,0,80,1) 0%, rgba(218,0,80,.8) 100%);
+.hero {
+  z-index: 1;
+  /* height: 100vh; */
 }
 
 </style>
