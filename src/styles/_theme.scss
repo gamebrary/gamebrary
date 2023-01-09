@@ -3,9 +3,9 @@
 @import "colors";
 
 // General
-// $line-height-lg:              1.5 !default;
-// $line-height-sm:              1.5 !default;
-$border-width:                1px !default;
+$line-height-lg:              1.75 !default;
+$line-height-sm:              1.5 !default;
+$border-width:                2px !default;
 $border-color:                $secondary !default;
 $border-radius:               .5rem !default;
 $border-radius-lg:            .3rem !default;
@@ -130,8 +130,8 @@ $b-sidebar-width: 320px !default;
 $b-sidebar-transition-duration: 200ms !default;
 // $b-sidebar-zindex: calc(#{$zindex-fixed} + 5) !default;
 // $b-sidebar-header-font-size: 1.5rem !default;
-$b-sidebar-header-padding-y: 1rem !default;
-$b-sidebar-header-padding-x: 1rem !default;
+$b-sidebar-header-padding-y: 0 !default;
+$b-sidebar-header-padding-x: 0 !default;
 //
 // // --- Tables ---
 //
@@ -238,7 +238,7 @@ $font-weight-normal: 400 !default;
 $font-weight-bold: 700 !default;
 $font-weight-bolder: bolder !default;
 $font-weight-base: $font-weight-normal !default;
-$line-height-base: 1.25 !default;
+$line-height-base: 1.5 !default;
 
 // $h1-font-size:                $font-size-base * 2 !default;
 $h1-font-size: $font-size-base * 2.25 !default;
@@ -251,7 +251,7 @@ $h6-font-size: $font-size-base * .75 !default;
 $headings-margin-bottom: 0;
 $headings-font-family: 'Bebas Neue', cursive !default;
 $headings-font-weight: 400 !default;
-$headings-line-height: 1.75 !default;
+$headings-line-height: 1.25 !default;
 // $headings-color: $black !default;
 //
 // $display1-size:               6rem !default;
@@ -782,34 +782,28 @@ $popover-bg: $dark !default;
 // $dropdown-header-color: $white !default;
 // $dropdown-header-padding: $dropdown-padding-y $dropdown-item-padding-x !default;
 // Padding applied to the modal body
-// $modal-inner-padding:               1rem !default;
-//
-// // Margin between elements in footer, must be lower than or equal to 2 * $modal-inner-padding
+
 // $modal-footer-margin-between:       .5rem !default;
-//
-$modal-dialog-margin:               0 !default;
-$modal-dialog-margin-y-sm-up: 1rem !default;
-//
-// $modal-title-line-height:           $line-height-base !default;
-//
 // $modal-content-color: $white !default;
 // $modal-content-bg: $dark !default;
-// $modal-content-border-color:        rgba($black, .2) !default;
-// $modal-content-border-width:        $border-width !default;
-// $modal-content-border-radius:       $border-radius-lg !default;
-// $modal-content-inner-border-radius: subtract($modal-content-border-radius, $modal-content-border-width) !default;
-// $modal-content-box-shadow-xs:       0 .25rem .5rem rgba($black, .5) !default;
-// $modal-content-box-shadow-sm-up:    0 .5rem 1rem rgba($black, .5) !default;
-//
-// $modal-backdrop-bg:                 $black !default;
-// $modal-backdrop-opacity:            .5 !default;
+$modal-inner-padding: 1rem !default;
+$modal-dialog-margin: 0 !default;
+$modal-dialog-margin-y-sm-up: 1rem !default;
+$modal-title-line-height: $line-height-base * .75 !default;
+$modal-content-border-color: rgba($black, .2) !default;
+$modal-content-border-width: $border-width !default;
+$modal-content-border-radius: $border-radius !default;
+$modal-content-inner-border-radius: subtract($modal-content-border-radius, $modal-content-border-width) !default;
+$modal-content-box-shadow-xs: 0 .25rem .5rem rgba($black, .5) !default;
+$modal-content-box-shadow-sm-up: 0 .5rem 1rem rgba($black, .5) !default;
+$modal-backdrop-bg: $black !default;
+$modal-backdrop-opacity: .5 !default;
 $modal-header-border-width: 0;
 $modal-footer-border-width: 0 !default;
 $modal-footer-padding: 0 !default;
 $modal-header-padding: 1rem 1rem 0 !default;
-
-$modal-xl: 1200px !default;
-// $modal-lg:                          800px !default;
+$modal-xl: calc(100vw - 2rem) !default;
+$modal-lg: calc(100% - 2rem) !default;
 $modal-md: 600px !default;
 $modal-sm: 400px !default;
 $modal-fade-transform: translate(0, -150px) !default;
@@ -818,22 +812,22 @@ $modal-transition: transform .1s ease-out !default;
 $modal-scale-transform: scale(1.5) !default;
 
 // Toasts
-$toast-max-width: 100px !default;
-$toast-padding-x: .5rem !default;
-$toast-padding-y: .5rem !default;
-$toast-font-size: .875rem !default;
-$toast-color: $dark !default;
-$toast-background-color: $success;
-$toast-border-width: 0 !default;
-$toast-no-close-button: true !default;
+// $toast-max-width: 100px !default;
+// $toast-padding-x: .5rem !default;
+// $toast-padding-y: .5rem !default;
+// $toast-font-size: .875rem !default;
+// $toast-color: $dark !default;
+// $toast-background-color: $success;
+// $toast-border-width: 0 !default;
+// $toast-no-close-button: true !default;
 // $toast-border-color: rgba(0, 0, 0, .1) !default;
 // $toast-border-radius: .25rem !default;
 // $toast-box-shadow: 0 .25rem .75rem rgba($black, .1) !default;
-$toast-header-color: $white !default;
-$toast-header-background-color: $black !default;
+// $toast-header-color: $white !default;
+// $toast-header-background-color: $black !default;
 // $toast-header-border-color: rgba(0, 0, 0, .05) !default;
-// // Badges
-//
+// Badges
+
 // $badge-font-size:                   75% !default;
 // $badge-font-weight:                 $font-weight-bold !default;
 // $badge-padding-y:                   .25em !default;
