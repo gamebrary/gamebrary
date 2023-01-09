@@ -28,20 +28,14 @@
           </b-button>
         </portal>
 
-        <b-col
-          v-for="board in gameBoards"
-          :key="board.id"
-          cols="12"
-          sm="6"
-          md="4"
-          lg="3"
-          class="px-2 pb-3"
-        >
+        <div class="board-grid mx-2">
           <mini-board
+            v-for="board in gameBoards"
+            :key="board.id"
             :board="board"
             @click.native="$router.push({ name: 'board', params: { id: board.id } })"
           />
-        </b-col>
+        </div>
       </template>
     </template>
   </b-row>
