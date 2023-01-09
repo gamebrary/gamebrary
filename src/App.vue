@@ -186,6 +186,7 @@ export default {
     min-height: 100vh;
     display: grid;
     background-size: cover;
+    background-attachment: fixed;
 
     &.dark {
       background-color: var(--black);
