@@ -9,6 +9,7 @@ export const IMAGE_SIZE_SCREENSHOT_HUGE = 't_screenshot_huge_2x'; // 1280 x 720	
 export const IMAGE_SIZE_SCREENSHOT_MED = 't_screenshot_med_2x'; // 569 x 320	lfill, center gravity
 export const IMAGE_SIZE_THUMB = 't_thumb_2x'; // 90 x 90	thumb, center gravity
 
+export const GAME_CAROUSEL_PAGE_SIZE = 5;
 export const MIN_PROFILE_LENGTH = 6;
 export const THUMBNAIL_PREFIX = '_300x300';
 export const MAX_PROFILE_LENGTH = 20;
