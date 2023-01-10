@@ -8,76 +8,91 @@
     :header-text-variant="darkTheme ? 'white' : 'dark'"
     :body-bg-variant="darkTheme ? 'dark' : 'white'"
     :body-text-variant="darkTheme ? 'white' : 'dark'"
-    size="sm"
   >
-    <b-form-input
+    <template v-slot:modal-header="{ close }">
+      <modal-header
+        :title="title"
+        @close="close"
+      >
+        <b-button @click="selectedBoard = null">Change board</b-button>
+      </modal-header>
+    </template>
+
+    <!-- <b-form-input
       v-if="boards.length > 10"
       v-model.trim="searchText"
       size="sm"
       placeholder="Search boards"
-    />
+    /> -->
 
-    <div
-      v-for="board in filteredBoards"
-      :key="board.id"
-    >
-      <h4>{{ board.name }}</h4>
+    <div v-if="selectedBoard">
+      <mini-board
+        :board="selectedBoard"
+        class="mb-3"
+        @click.native="handleSelectedBoardClick"
+      />
 
-      <div
-        v-for="(list, listIndex) in board.lists"
-        class="d-flex mb-1"
-        :key="listIndex"
-        @click="handleClick({ list, listIndex, board })"
-      >
-        <small class="mr-auto">{{ list.name }}</small>
-        <b-button
-          v-if="isGameInList({ list })"
-          variant="danger"
+      <b-list-group>
+        <b-list-group-item
+          v-for="(list, listIndex) in selectedBoard.lists"
+          :key="listIndex"
+          class="d-flex justify-content-between align-items-center"
         >
-          <i class="fa fa-trash" aria-hidden="true" />
-        </b-button>
+          {{ list.name }}
 
-        <b-button
-          v-else
-        >
-          <i class="fa fa-plus" aria-hidden="true" />
-        </b-button>
-      </div>
+          <b-button
+            :variant="isGameInList({ list }) ? 'danger' : 'success'"
+            @click="handleClick({ list, listIndex, board: selectedBoard })"
+          >
+            <i
+              :class="`fa fa-${isGameInList({ list }) ? 'trash' : 'plus'}`"
+              aria-hidden="true"
+            />
+          </b-button>
+        </b-list-group-item>
+      </b-list-group>
+    </div>
+
+    <div v-else class="board-grid contained">
+      <mini-board
+        v-for="board in boards"
+        :key="board.id"
+        :board="board"
+        @click.native="selectedBoard = board"
+      />
     </div>
   </b-modal>
 </template>
 
 <script>
+import MiniBoard from '@/components/Board/MiniBoard';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
+  components: {
+    MiniBoard,
+  },
+
   data() {
     return {
-      searchText: '',
+      selectedBoard: null,
     }
   },
 
   computed: {
-    ...mapState(['games', 'boards', 'wallpapers']),
+    ...mapState(['games', 'boards', 'wallpapers', 'game']),
     ...mapGetters(['darkTheme']),
 
-    filteredBoards() {
-      return this.boards
-        .filter(({ name }) => name.toLowerCase().includes(this.searchText.toLowerCase()));
-    },
-
-    game() {
-      return this.games[this.gameId] || {};
-    },
-
-    gameId() {
-      return this.$route.params.id
+    title() {
+      return this.selectedBoard
+        ? 'Select list'
+        : 'Select board'
     },
   },
 
   methods: {
     isGameInList({ list }) {
-      return list.games?.includes(Number(this.gameId));
+      return list.games?.includes(Number(this.game?.id));
     },
 
     getWallpaperUrl(url) {
@@ -87,6 +102,11 @@ export default {
       const wallpaper = this.wallpapers.find(({ fullPath }) => fullPath === url);
 
       return wallpaper?.url ? decodeURI(wallpaper.url) : '';
+    },
+
+    handleSelectedBoardClick() {
+      this.$store.commit('SET_HIGHLIGHTED_GAME', this.game.id)
+      this.$router.push({ name: 'board', params: { id: this.selectedBoard.id } });
     },
 
     handleClick({ list, listIndex, board }) {
@@ -113,7 +133,7 @@ export default {
     async removeGame({ listIndex, boardId }) {
       const boardIndex = this.boards.findIndex(({ id }) => id === boardId);
       const board = this.boards[boardIndex];
-      const gameIndex = board.lists[listIndex].games.indexOf(this.gameId);
+      const gameIndex = board.lists[listIndex].games.indexOf(this.game?.id);
 
       board.lists[listIndex].games.splice(gameIndex, 1);
 
