@@ -12,19 +12,28 @@
         @hidden="selecting = false"
       >
         <template #header>
-          <header class="d-flex align-items-center justify-content-between w-100">
-            <h4>{{ title }}</h4>
+          <header class="d-flex align-items-center justify-content-between w-100 px-3 pt-3">
+            <h3>{{ title }}</h3>
 
             <b-button
               @click="selecting = false"
               :variant="darkTheme ? 'dark' : 'light'"
             >
-              <i class="fa fa-close fa-fw" />
+              <i class="fa fa-close" />
             </b-button>
           </header>
         </template>
 
-        <div class="p-2">
+        <div class="px-3 pt-1">
+          <b-form-checkbox
+            v-model="preventClose"
+            name="check-button"
+            class="mb-2"
+            switch
+          >
+            Select multiple
+          </b-form-checkbox>
+
           <b-form-input
            v-model="searchText"
            debounce="500"
@@ -131,6 +140,7 @@ export default {
       searchText: '',
       loading: false,
       selecting: false,
+      preventClose: false,
       searchResults: [],
     }
   },
@@ -147,7 +157,8 @@ export default {
   methods: {
     selectGame(gameId) {
       this.$emit('select-game', gameId);
-      this.selecting = false;
+
+      if (!this.preventClose) this.selecting = false;
     },
 
     async search() {
