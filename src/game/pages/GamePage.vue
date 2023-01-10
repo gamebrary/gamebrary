@@ -134,8 +134,6 @@
               {{ gameName }}
             </h2>
 
-            <pre>{{ gogGame }}</pre>
-
             <b-button
               v-if="gogGame"
               v-b-tooltip.hover
