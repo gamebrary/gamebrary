@@ -98,25 +98,22 @@
           </b-col>
 
           <div class="mt-5" v-if="tag.games.length">
-            <h4>Games tagged</h4>
+            <h2>Games tagged</h2>
 
-            <b-row>
-              <b-col
-                v-for="game in tag.games"
-                :key="game"
-                cols="6"
-                sm="4"
-                md="3"
-                lg="2"
+            <div class="game-grid">
+              <router-link
+              v-for="game in tag.games"
+              :key="game"
+                :to="{ name: 'game', params: { id: games[game].id, slug: games[game].slug } }"
               >
                 <b-img
-                  :src="$options.getImageUrl(games[game], $options.IMAGE_SIZE_COVER_SMALL)"
-                  class="cursor-pointer rounded mb-2"
                   fluid
-                  @click="$router.push({ name: 'game', params: { id: games[game].id, slug: games[game].slug }})"
+                  rounded
+                  :src="$options.getImageUrl(games[game])"
+                  img-top
                 />
-              </b-col>
-            </b-row>
+              </router-link>
+            </div>
           </div>
         </b-form-row>
       </form>
