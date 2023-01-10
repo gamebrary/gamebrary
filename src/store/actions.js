@@ -182,7 +182,6 @@ export default {
 
       const payload = {
         ...board,
-        dateCreated: Date.now(),
         owner: state.user.uid,
       };
 

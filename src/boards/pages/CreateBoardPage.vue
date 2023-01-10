@@ -120,9 +120,13 @@ export default {
     async createBoard() {
       this.saving = true;
 
+      const dateCreated = Date.now();
+
       const payload = {
         ...this.sampleBoard,
         ...this.board,
+        dateCreated,
+        lastUpdated: dateCreated,
         lists: this.sampleBoard.lists.map((list, index) => ({ ...list, games: [] })),
       }
 
