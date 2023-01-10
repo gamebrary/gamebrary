@@ -3,6 +3,10 @@
     id="gameTagsModal"
     hide-footer
     centered
+    :header-bg-variant="darkTheme ? 'dark' : 'white'"
+    :header-text-variant="darkTheme ? 'white' : 'dark'"
+    :body-bg-variant="darkTheme ? 'dark' : 'white'"
+    :body-text-variant="darkTheme ? 'white' : 'dark'"
     size="sm"
   >
     <template v-slot:modal-header="{ close }">
@@ -59,11 +63,12 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   computed: {
     ...mapState(['tags', 'game']),
+    ...mapGetters(['darkTheme']),
 
     isEmpty() {
       return this.tags.length === 0 || !this.game;

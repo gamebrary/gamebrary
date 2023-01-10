@@ -2,6 +2,10 @@
   <b-modal
     id="keyboard-shortcuts"
     title="BootstrapVue"
+    :header-bg-variant="darkTheme ? 'dark' : 'white'"
+    :header-text-variant="darkTheme ? 'white' : 'dark'"
+    :body-bg-variant="darkTheme ? 'dark' : 'white'"
+    :body-text-variant="darkTheme ? 'white' : 'dark'"
     hide-footer
   >
     <template v-slot:modal-header="{ close }">
@@ -35,7 +39,7 @@
 
 <script>
 import { KEYBOARD_SHORTCUTS } from '@/constants';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -46,6 +50,7 @@ export default {
 
   computed: {
     ...mapState(['user']),
+    ...mapGetters(['darkTheme']),
   },
 
   mounted() {

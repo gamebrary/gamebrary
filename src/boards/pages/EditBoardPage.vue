@@ -4,7 +4,7 @@
   <section>
     <b-container>
       <portal to="pageTitle">
-        <div>
+        <div class="d-flex align-items-center">
           <b-button
             :to="{ name: 'board', params: { id: board.id } }"
             variant="light"
@@ -13,11 +13,20 @@
             <i class="fa-solid fa-chevron-left" />
           </b-button>
 
-          Edit board
+          <h3 class="d-inline-block">Edit board</h3>
         </div>
       </portal>
 
-      <b-modal id="boardWallpaper" size="xl" scrollable hide-footer>
+      <b-modal
+        id="boardWallpaper"
+        size="xl"
+        scrollable
+        hide-footer
+        :header-bg-variant="darkTheme ? 'dark' : 'white'"
+        :header-text-variant="darkTheme ? 'white' : 'dark'"
+        :body-bg-variant="darkTheme ? 'dark' : 'white'"
+        :body-text-variant="darkTheme ? 'white' : 'dark'"
+      >
         <template v-slot:modal-header="{ close }">
           <modal-header
             title="Choose wallpaper"
@@ -109,7 +118,7 @@
                     variant="link"
                     class="ml-2"
                   >
-                    <i class="fas fa-times" aria-hidden />
+                    <i class="fas fa-close" aria-hidden />
                   </b-button>
                 </div>
 
@@ -126,7 +135,7 @@
                     variant="link"
                     @click="board.backgroundUrl = null"
                   >
-                    <i class="fas fa-times fa-fw" aria-hidden />
+                    <i class="fas fa-close fa-fw" aria-hidden />
                   </b-button>
                 </div>
               </div>
@@ -322,6 +331,10 @@
                 id="editListsOrder"
                 title="BootstrapVue"
                 hide-footer
+                :header-bg-variant="darkTheme ? 'dark' : 'white'"
+                :header-text-variant="darkTheme ? 'white' : 'dark'"
+                :body-bg-variant="darkTheme ? 'dark' : 'white'"
+                :body-text-variant="darkTheme ? 'white' : 'dark'"
               >
                 <template v-slot:modal-header="{ close }">
                   <modal-header

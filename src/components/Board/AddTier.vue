@@ -14,6 +14,10 @@
     <b-modal
       id="addTier"
       hide-footer
+      :header-bg-variant="darkTheme ? 'dark' : 'white'"
+      :header-text-variant="darkTheme ? 'white' : 'dark'"
+      :body-bg-variant="darkTheme ? 'dark' : 'white'"
+      :body-text-variant="darkTheme ? 'white' : 'dark'"
       @show="reset"
     >
       <template v-slot:modal-header="{ close }">

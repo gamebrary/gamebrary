@@ -1,6 +1,10 @@
 <template lang="html">
   <b-modal
     id="deleteAccount"
+    :header-bg-variant="darkTheme ? 'dark' : 'white'"
+    :header-text-variant="darkTheme ? 'white' : 'dark'"
+    :body-bg-variant="darkTheme ? 'dark' : 'white'"
+    :body-text-variant="darkTheme ? 'white' : 'dark'"
     hide-footer
   >
     <template v-slot:modal-header="{ close }">
@@ -54,7 +58,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import firebase from 'firebase/app';
 import sessionMixin from '@/mixins/sessionMixin';
 
@@ -79,6 +83,7 @@ export default {
       'boards',
       'wallpapers',
     ]),
+    ...mapGetters(['darkTheme']),
   },
 
   methods: {

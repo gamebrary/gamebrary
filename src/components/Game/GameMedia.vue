@@ -34,6 +34,10 @@
       hide-footer
       size="xl"
       :visible="visible"
+      :header-bg-variant="darkTheme ? 'dark' : 'white'"
+      :header-text-variant="darkTheme ? 'white' : 'dark'"
+      :body-bg-variant="darkTheme ? 'dark' : 'white'"
+      :body-text-variant="darkTheme ? 'white' : 'dark'"
       @show="open"
       @hidden="close"
     >

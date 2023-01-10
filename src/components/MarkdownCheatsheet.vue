@@ -1,5 +1,13 @@
 <template lang="html">
-  <b-modal scrollable id="markdown-cheatsheet" hide-footer>
+  <b-modal
+    id="markdown-cheatsheet"
+    scrollable
+    hide-footer
+    :header-bg-variant="darkTheme ? 'dark' : 'white'"
+    :header-text-variant="darkTheme ? 'white' : 'dark'"
+    :body-bg-variant="darkTheme ? 'dark' : 'white'"
+    :body-text-variant="darkTheme ? 'white' : 'dark'"
+  >
     <template v-slot:modal-header="{ close }">
       <modal-header
         title="Markdown syntax"
@@ -162,3 +170,13 @@
       </table>
   </b-modal>
 </template>
+
+<script>
+import { mapGetters } from 'vuex';
+
+export default {
+  computed: {
+    ...mapGetters(['darkTheme']),
+  },
+}
+</script>

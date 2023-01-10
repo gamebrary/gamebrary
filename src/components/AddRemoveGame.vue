@@ -4,6 +4,10 @@
     hide-footer
     centered
     scrollable
+    :header-bg-variant="darkTheme ? 'dark' : 'white'"
+    :header-text-variant="darkTheme ? 'white' : 'dark'"
+    :body-bg-variant="darkTheme ? 'dark' : 'white'"
+    :body-text-variant="darkTheme ? 'white' : 'dark'"
     size="sm"
   >
     <b-form-input
@@ -44,7 +48,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -55,6 +59,7 @@ export default {
 
   computed: {
     ...mapState(['games', 'boards', 'wallpapers']),
+    ...mapGetters(['darkTheme']),
 
     filteredBoards() {
       return this.boards
