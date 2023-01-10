@@ -420,6 +420,24 @@ export const GAME_MODES = [
   { id: 6, name: 'Battle Royale', slug: 'battle-royale' }
 ];
 
+export const GAME_CATEGORIES = {
+  // 0: { name: 'main_game', variant: 'danger' },
+  1: 'DLC/Add-on',
+  2: 'Expansion',
+  3: 'Bundle',
+  4: 'Expansion',
+  5: 'Mod',
+  6: 'Episode',
+  7: 'Season',
+  8: 'Remake',
+  9: 'Remaster',
+  10: 'Expansion',
+  11: 'Port',
+  12: 'Fork',
+  13: 'Pack/DLC',
+  14: 'Update',
+};
+
 export const IGDB_QUERIES = {
   GAME: 'fields *,keywords.*,collection,collection.games.cover.image_id,game_engines.*,remakes.cover.image_id,remasters.cover.image_id,language_supports, artworks.image_id, age_ratings.*, age_ratings.content_descriptions.*, alternative_names.*,bundles.*,bundles.cover.image_id, collection.*, collection.games.*, cover.image_id, external_games.*, game_modes.name, genres.name, involved_companies.company.slug, involved_companies.company.logo.*, involved_companies.company.name, involved_companies.developer, involved_companies.publisher, name, platforms.platform_logo.*, platforms.id, platforms.name, player_perspectives.name, rating, release_dates.date, release_dates.platform, screenshots.image_id, similar_games.id, similar_games.cover.image_id, similar_games.slug, similar_games.name, slug, summary, videos.video_id, websites.category, websites.url, themes.*;',
   PLATFORMS: 'fields category,generation,name,alternative_name,slug,platform_logo.*; limit 300;',
