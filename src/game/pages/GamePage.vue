@@ -401,26 +401,7 @@
       />
 
       <game-in-boards />
-
-      <div v-if="gameBundles" class="text-left mt-3">
-        <h4>{{ gameName }} is included in the following bundles:</h4>
-
-        <div class="game-grid">
-          <router-link
-            v-for="bundle in gameBundles"
-            :key="bundle.id"
-            :to="{ name: 'game', params: { id: bundle.id, slug: bundle.slug } }"
-          >
-            <b-img
-              :src="$options.getImageUrl(bundle)"
-              :alt="bundle.name"
-              rounded
-              fluid
-            />
-          </router-link>
-        </div>
-      </div>
-
+      <game-bundles />
       <game-collection />
       <similar-games />
 
@@ -455,6 +436,7 @@ import GameInBoards from '@/components/Game/GameInBoards';
 import GameProgress from '@/components/Game/GameProgress';
 import GameTagsModal from '@/components/Game/GameTagsModal';
 import GameCollection from '@/components/Game/GameCollection';
+import GameBundles from '@/components/Game/GameBundles';
 import GameHeader from '@/components/Game/GameHeader';
 import GameRatings from '@/components/Game/GameRatings';
 import AddRemoveGame from '@/components/AddRemoveGame';
@@ -469,6 +451,7 @@ export default {
   components: {
     GameTagsModal,
     GameCollection,
+    GameBundles,
     GameHeader,
     GameProgress,
     // AmazonLinks,
@@ -600,10 +583,6 @@ export default {
 
     gameRemasters() {
       return this.game?.remasters;
-    },
-
-    gameBundles() {
-      return this.game?.bundles;
     },
 
     gameEngines() {
