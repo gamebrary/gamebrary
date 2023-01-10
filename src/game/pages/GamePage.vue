@@ -73,15 +73,31 @@
             </router-link>
           </div>
 
-          <b-button
-            v-if="gameNews"
-            variant="info"
-            class="my-3 d-none d-md-block"
-            :to="{ name: 'game.news', params: { id: game.id, slug: game.slug } }"
+          <div
+            v-if="newsHighlights"
+            class="position-relative"
           >
-            <b-badge>{{ gameNews.length }}</b-badge>
-            Latest news
-          </b-button>
+            <div
+              class="news-ticker"
+              v-b-tooltip.hover
+              title="Latest news"
+            >
+              <ul class="news-list" :data-length="newsHighlights.length">
+                <li
+                  v-for="(highlight, index) in newsHighlights"
+                  :key="index"
+                  class="d-flex align-items-center news"
+                >
+                  <b-link
+                    class="text-truncate"
+                    :to="{ name: 'game.news', params: { id: game.id, slug: game.slug } }"
+                  >
+                    {{ highlight}}
+                  </b-link>
+                </li>
+              </ul>
+            </div>
+          </div>
 
           <!-- <amazon-links class="mt-2" /> -->
           <!-- <template v-if="highlightedAchievements">
@@ -496,6 +512,10 @@ export default {
       return this.wikipediaExtract || this.steamDescription || this.igdbDescription;
     },
 
+    newsHighlights() {
+      return this.gameNews?.slice(0, 5)?.map(({ title }) => title?.slice(0, 50));
+    },
+
     source() {
       if (this.wikipediaExtract) return 'wikipedia';
       if (this.steamDescription) return 'steam';
@@ -839,4 +859,137 @@ export default {
   padding-right: 1rem;
   width: auto;
 }
+
+.news-ticker {
+  position: absolute;
+  width: 100%;
+  height: 30px;
+  overflow: hidden;
+
+  ul {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    &[data-length="5"] {
+      top: 30px;
+      animation-name: news-5;
+      animation-duration: 30s;
+      animation-iteration-count: infinite;
+      animation-timing-function: ease;
+      animation-fill-mode: both;
+      animation-delay: 3s;
+    }
+
+    &[data-length="4"] {
+      top: 30px;
+      animation-name: news-4;
+      animation-duration: 24s;
+      animation-iteration-count: infinite;
+      animation-timing-function: ease;
+      animation-fill-mode: both;
+      animation-delay: 3s;
+    }
+    &[data-length="3"] {
+      top: 30px;
+      animation-name: news-3;
+      animation-duration: 18s;
+      animation-iteration-count: infinite;
+      animation-timing-function: ease;
+      animation-fill-mode: both;
+      animation-delay: 3s;
+    }
+    &[data-length="2"] {
+      top: 30px;
+      animation-name: news-2;
+      animation-duration: 12s;
+      animation-iteration-count: infinite;
+      animation-timing-function: ease;
+      animation-fill-mode: both;
+      animation-delay: 3s;
+    }
+
+    &:hover {
+      animation-play-state: paused;
+    }
+  }
+}
+
+.news {
+  height: 30px;
+  line-height: 30px;
+}
+
+@keyframes news-5 {
+    0% {top: 30px; visibility: visible;}
+    5% {top: 0;}
+
+    15% {top: 0;}
+    20% {top: -30px;}
+
+    35% {top: -30px;}
+    40% {top: -60px;}
+
+    55% {top: -60px;}
+    60% {top: -90px;}
+
+    75% {top: -90px;}
+    80% {top: -120px;}
+
+    95% {top: -120px; }
+    99% {top: -150px; visibility: hidden;}
+    100% {top: 30px; visibility: hidden;}
+  }
+
+
+  @keyframes news-4 {
+    0% { top: 30px; visibility: visible; }
+    5% { top: 0; }
+    15% { top: 0; }
+    20% { top: -30px; }
+    40% { top: -30px; }
+    45% { top: -60px; }
+    65% { top: -60px; }
+    70% { top: -90px; }
+    90% { top: -90px; }
+    95% { top: -120px; }
+    99% { top: -120px; visibility: hidden; }
+    100% { top: 30px; visibility: hidden; }
+  }
+
+
+  @keyframes news-3 {
+    0% {top: 30px; visibility: visible;}
+    5% {top: 0;}
+
+    30% {top: 0;}
+    35% {top: -30px;}
+
+    60% {top: -30px;}
+    65% {top: -60px;}
+
+    90% {top: -60px;}
+    95% {top: -90px;}
+
+    99% {top: -90px; visibility: hidden;}
+    100% {top: 30px; visibility: hidden;}
+  }
+
+  @keyframes news-2 {
+    0% {top: 30px; visibility: visible;}
+    5% {top: 0;}
+
+    55% {top: 0;}
+    60% {top: -30px;}
+
+    90% {top: -30px;}
+    95% {top: -60px;}
+
+    99% {top: -60px; visibility: hidden;}
+    100% {top: 30px; visibility: hidden;}
+  }
 </style>
