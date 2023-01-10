@@ -1,95 +1,124 @@
 <!-- TODO: use board thumbnail once fully migrated -->
 <template lang="html">
-  <div
-    :class="['mini-board overflow-hidden rounded cursor-pointer m-0', miniBoardClass]"
-    :style="miniBoardStyles"
+  <b-card
+    class=" cursor-pointer overflow-hidden"
+    :bg-variant="darkTheme ? 'dark' : 'transparent'"
+    :text-variant="darkTheme ? 'light' : 'dark'"
+    body-class="p-0"
+    content-class="rounded"
   >
-    <header class="text-small py-1 px-2 d-flex align-items-center justify-content-between">
-      <h4 :class="['mr-1 mb-1', { 'text-white': hasCustomBackground || darkTheme } ]">
-        {{ board.name }}
-      </h4>
+    <div
+      :style="backgroundSyle"
+      class="mini-board h-100"
+    >
+      <header class="text-small py-1 px-2 d-flex align-items-center justify-content-between">
+        <h4 :class="['', { 'text-white': hasCustomBackground || darkTheme } ]">
+          {{ board.name }}
+        </h4>
 
-      <b-badge
-        v-if="showPublicIndicator"
-        class="bg-warning"
-        size="sm"
-      >
-        Public
-      </b-badge>
-    </header>
+        <b-badge
+          v-if="showPublicIndicator"
+          class="bg-warning"
+          size="sm"
+        >
+          Public
+        </b-badge>
+      </header>
 
-    <div v-if="isTierBoard">
-      <div
-        class="tier d-flex mx-2"
-        v-for="tier in board.lists"
-        style="margin-bottom: 2px;"
-        :key="tier.id"
-      >
-        <b-avatar
-          :style="`background-color: ${tier.backgroundColor}`"
-          square
-          text=" "
-          size="20"
-        />
-
-        <b-avatar
-          :variant="darkTheme ? 'light' : 'secondary'"
-          v-for="(game, index) in tier.games"
-          :key="index"
-          text=" "
-          square
-          style="margin-left: 2px;"
-          size="20"
-        />
-      </div>
-    </div>
-
-    <div v-else-if="isStandardBoard" class="lists rounded overflow-hidden w-100 justify-content-center">
-      <div class="list basic rounded overflow-hidden border">
-        <template v-if="firstList.games.length">
-          <div
-            v-for="(game, index) in firstList.games"
-            :key="index"
-            :class="['bg-light', { 'border-bottom': index !== firstList.games.length - 1 }]"
-          >
-            <i class="fas fa-square fa-fw text-white" style="margin-left: 1px;" aria-hidden />
-            <small v-if="board.ranked" class="mx-1">{{ index + 1 }}</small>
-          </div>
-        </template>
-
+      <div v-if="isTierBoard">
         <div
-          v-else
-          class="rounded overflow-hidden list bg-secondary"
-          style="height: 22px;"
-        />
-      </div>
-    </div>
+          class="d-flex mx-2"
+          v-for="tier in board.lists"
+          style="margin-bottom: 4px;"
+          :key="tier.id"
+        >
+          <b-avatar
+            :style="`background-color: ${tier.backgroundColor}; border-radius: 4px !important;`"
+            text=" "
+            size="20"
+          />
 
-    <div v-else class="lists rounded overflow-hidden">
-      <div
-        v-for="(list, listIndex) in board.lists"
-        :key="listIndex"
-        class="list rounded overflow-hidden ml-2 border align-self-start"
-      >
-        <template v-if="list.games.length">
-          <div
-            v-for="(game, index) in list.games"
+          <b-avatar
+            :variant="darkTheme ? 'secondary' : 'light'"
+            v-for="(game, index) in tier.games"
             :key="index"
-            style="width: 60px"
-            :class="['list bg-light', { 'border-bottom': index !== list.games.length - 1 }]"
-          >
-            <i class="fas fa-square fa-fw text-white" style="margin-left: 1px;" aria-hidden />
-          </div>
-        </template>
+            text=" "
+            square
+            style="margin-left: 4px; border-radius: 4px !important;"
+            size="20"
+          />
+        </div>
+      </div>
 
-        <div
-          v-else
-          class="rounded overflow-hidden list bg-secondary"
-          style="height: 22px;"
-        />
+      <div v-else-if="isStandardBoard" class="lists rounded overflow-hidden w-100 justify-content-center">
+        <b-card
+          body-class="p-0"
+          :bg-variant="darkTheme ? 'secondary' : 'transparent'"
+          :text-variant="darkTheme ? 'light' : 'dark'"
+          style="width: 80px"
+          class="overflow-hidden align-self-start"
+        >
+          <template v-if="firstList.games.length">
+            <div
+              v-for="(game, index) in firstList.games"
+              :key="index"
+              :class="[ darkTheme ? 'border-secondary bg-dark' : 'border-light bg-white', { 'border-bottom': index !== firstList.games.length - 1 }]"
+            >
+              <b-avatar
+                :style="`border-radius: 4px !important;`"
+                text=" "
+                :variant="darkTheme ? 'secondary' : 'light'"
+                class="m-1"
+                size="20"
+              />
+
+              <small v-if="board.ranked">{{ index + 1 }}</small>
+            </div>
+          </template>
+
+          <div
+            v-else
+            class="rounded overflow-hidden"
+            style="height: 22px; width: 60px;"
+          />
+        </b-card>
+      </div>
+
+      <div v-else class="lists rounded overflow-hidden">
+        <b-card
+          v-for="(list, listIndex) in board.lists"
+          :key="listIndex"
+          body-class="p-0 kanban-list"
+          :bg-variant="darkTheme ? 'secondary' : 'transparent'"
+          :text-variant="darkTheme ? 'light' : 'dark'"
+          class="overflow-hidden ml-2 align-self-start"
+        >
+          <template v-if="list.games.length">
+            <div
+              v-for="(game, index) in list.games"
+              :key="index"
+              style="width: 60px"
+              :class="['d-flex', darkTheme ? 'border-secondary bg-dark' : 'border-light bg-white', { 'border-bottom' : index !== list.games.length - 1 } ]"
+            >
+              <b-avatar
+                :style="`border-radius: 4px !important;`"
+                text=" "
+                :variant="darkTheme ? 'secondary' : 'light'"
+                class="m-1"
+                size="20"
+              />
+            </div>
+          </template>
+
+          <div
+            v-else
+            class="rounded overflow-hidden"
+            style="height: 22px; width: 60px;"
+          />
+        </b-card>
       </div>
     </div>
-  </div>
+  </b-card>
 </template>
 
 <script>
@@ -114,17 +143,11 @@ export default {
   },
 
   computed: {
-    ...mapState(['settings']),
+    ...mapState(['settings', 'games']),
     ...mapGetters(['darkTheme']),
 
     hasCustomBackground() {
       return this.board?.backgroundColor || this.board?.backgroundUrl;
-    },
-
-    miniBoardClass() {
-      if (this.hasCustomBackground) return;
-
-      return this.darkTheme ? 'bg-secondary' : 'bg-light';
     },
 
     showPublicIndicator() {
@@ -145,12 +168,11 @@ export default {
       return firstList;
     },
 
-    miniBoardStyles() {
+    backgroundSyle() {
       if (this.backgroundUrl) return `background-image: url(${this.backgroundUrl});`
+      if (this.board?.backgroundColor) return `background-color: ${this.board.backgroundColor};`;
 
-      return this.board?.backgroundColor
-        ? `background-color: ${this.board.backgroundColor};`
-        : null;
+      return null;
     },
   },
 
@@ -182,14 +204,10 @@ $boardHeight: 220px;
 .lists {
   max-height: $boardHeight - 40px;
   display: inline-flex;
+  height: 160px;
 }
 
-.list {
-  width: 60px;
-  max-height: 160px;
-
-  &.basic {
-    width: 80px;
-  }
+.kanban-list {
+  max-height: 146px;
 }
 </style>
