@@ -105,9 +105,9 @@ export default {
     const igdbArtworks = state?.game?.artworks?.map((artwork) => ({ imageUrl: getImageUrl(artwork, thumb ? IMAGE_SIZE_THUMB : IMAGE_SIZE_1080P), source: 'igdb', })) || [];
 
     return [
+      ...igdbScreenshots,
       ...gogImages,
       ...steamScreenshots,
-      ...igdbScreenshots,
       ...igdbArtworks,
       ...wikipediaImages,
       gameCover,
