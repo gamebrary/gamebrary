@@ -423,26 +423,7 @@
         </div>
       </div>
 
-      <div v-if="gameCollection" class="text-left mt-3">
-        <!-- <img :src="gameHeaderImage" alt="" /> -->
-        <h3 class="mb-3">More from the {{ gameCollection.name }} collection</h3>
-
-        <div class="game-grid">
-          <router-link
-            v-for="g in gameCollection.games"
-            :key="g.id"
-            :to="{ name: 'game', params: { id: g.id, slug: g.slug } }"
-          >
-            <b-img
-              :src="$options.getImageUrl(g)"
-              :alt="g.name"
-              rounded
-              fluid
-            />
-          </router-link>
-        </div>
-      </div>
-
+      <game-collection />
       <similar-games />
 
       <!-- <timeline
@@ -475,6 +456,7 @@ import GameMedia from '@/components/Game/GameMedia';
 import GameInBoards from '@/components/Game/GameInBoards';
 import GameProgress from '@/components/Game/GameProgress';
 import GameTagsModal from '@/components/Game/GameTagsModal';
+import GameCollection from '@/components/Game/GameCollection';
 import GameHeader from '@/components/Game/GameHeader';
 import GameRatings from '@/components/Game/GameRatings';
 import AddRemoveGame from '@/components/AddRemoveGame';
@@ -488,6 +470,7 @@ export default {
 
   components: {
     GameTagsModal,
+    GameCollection,
     GameHeader,
     GameProgress,
     // AmazonLinks,
@@ -615,10 +598,6 @@ export default {
 
     gameRemakes() {
       return this.game?.remakes;
-    },
-
-    gameCollection() {
-      return this.game?.collection;
     },
 
     gameRemasters() {
