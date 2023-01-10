@@ -18,17 +18,19 @@
           <li class="mb-1">Customize</li>
           <li class="mb-1">News and updates</li>
           <li class="mb-1">Discover</li>
-          <p class="text-info">Free and open source!</p>
         </ul>
 
         <b-button
-          variant="success"
+          variant="primary"
           class="mt-3"
-          size="lg"
           :to="{ name: 'auth' }"
         >
           Get started!
         </b-button>
+
+        <br />
+
+        <small class="text-success">Free and open source!</small>
 
         <!-- <b-button variant="link" v-b-popover.hover.top="'I am popover directive content!'" title="Popover Title">
           <i class="fa-regular fa-circle fa-beat" />
