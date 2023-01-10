@@ -1,31 +1,16 @@
 <template lang="html">
-  <b-form-row>
-    <div
-      v-for="({ imageUrl, isVideo, isCover }, index) in gameMediaThumbnails"
-      :key="index"
-    >
-      <div class="align-items-center text-center rounded cursor-pointer">
-        <i
-          v-if="isVideo"
-          class="fa-solid fa-play video-indicator text-white"
-        />
-
-        <div
-          v-if="isCover"
-          class="cover-indicator text-light small w-100 bg-dark rounded-bottom"
-        >
-          Cover
-        </div>
-
-        <b-img
-          :src="imageUrl"
-          rounded
-          class="mb-2 mr-2"
-          fluid
-          style="max-height: 120px;"
-          @click="viewMedia(index)"
-        />
-      </div>
+  <div>
+    <div v-if="thumbnailPreviews.length > 1" class="mt-2" style="display: flow-root">
+      <b-img
+        v-for="({ imageUrl }, index) in thumbnailPreviews"
+        :key="index"
+        :src="imageUrl"
+        rounded
+        fluid
+        :class="['mb-2 float-left', { 'mr-2': ![3, 5].includes(index) }]"
+        :style="index > 1 ? 'width: 53px' : 'width: 112px'"
+        @click="viewMedia(index)"
+      />
     </div>
 
     <b-modal
@@ -99,7 +84,7 @@
 
         <footer class="mt-2 d-flex overflow-auto pb-2">
           <div
-            v-for="({ imageUrl, isVideo, isCover }, index) in gameMedia"
+            v-for="({ imageUrl, isVideo, isCover }, index) in thumbnails"
             :key="index"
           >
             <div
@@ -125,7 +110,7 @@
         </footer>
       </div>
     </b-modal>
-  </b-form-row>
+  </div>
 </template>
 
 <script>
@@ -141,6 +126,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'board', 'game', 'wallpapers', 'boards']),
+    ...mapGetters(['darkTheme']),
 
     formattedBoards() {
       return this.boards?.map((board) => ({ ...board, backgroundUrl: this.getWallpaperUrl(board?.backgroundUrl) }));
@@ -150,8 +136,12 @@ export default {
       return this.selectedMedia?.isVideo;
     },
 
-    gameMediaThumbnails() {
+    thumbnails() {
       return this.$store.getters.gameMedia(true);
+    },
+
+    thumbnailPreviews() {
+      return this.$store.getters.gameMedia(true)?.slice(0,6);
     },
 
     gameMedia() {
