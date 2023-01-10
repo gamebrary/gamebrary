@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <div v-if="thumbnailPreviews.length > 1" class="mt-2" style="display: flow-root">
+    <div v-if="thumbnailPreviews.length > 1" class="ml-2 mt-2" style="display: flow-root">
       <b-img
         v-for="({ imageUrl }, index) in thumbnailPreviews"
         :key="index"
@@ -8,7 +8,7 @@
         rounded
         fluid
         :class="['mb-2 float-left', { 'mr-2': ![3, 5].includes(index) }]"
-        :style="index > 1 ? 'width: 53px' : 'width: 112px'"
+        :style="index > 1 ? 'width: 46px' : 'width: 100px'"
         @click="viewMedia(index)"
       />
     </div>
