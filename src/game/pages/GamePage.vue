@@ -156,8 +156,8 @@
               <span class="text-muted mt-n3 mb-3 text-capitalize">Source: {{ source }}</span>
 
               <b-row class="mt-3">
-                <b-col cols="12" v-if="gamePlatforms" class="my-3">
-                  <h3>Available for:</h3>
+                <b-col cols="12" v-if="gamePlatforms">
+                  <h4 class="mb-1">Available for:</h4>
 
                   <b-link
                     v-for="platform in gamePlatforms"
@@ -175,8 +175,8 @@
                   </b-link>
                 </b-col>
 
-                <b-col cols="6" v-if="alternativeNames.length">
-                  <h3>Alternative names:</h3>
+                <b-col cols="4" v-if="alternativeNames.length">
+                  <h4 class="mb-1">Alternative names:</h4>
 
                   <div
                     class="mb-1"
@@ -198,8 +198,8 @@
                   </div>
                 </b-col>
 
-                <b-col v-if="gamePublishers.length">
-                  <h3>Published by:</h3>
+                <b-col cols="4" v-if="gamePublishers.length">
+                  <h4 class="mb-1">Published by:</h4>
 
                   <b-link
                     v-for="publisher in gamePublishers"
@@ -218,26 +218,24 @@
                   </b-link>
                 </b-col>
 
-                <b-col v-if="gameDevelopers.length">
-                  <h3>Developed by:</h3>
+                <b-col cols="4" v-if="gameDevelopers.length">
+                  <h4 class="mb-1">Developed by:</h4>
 
-                  <div>
-                    <b-link
-                      v-for="developer in gameDevelopers"
-                      :key="developer.id"
-                      :to="{ name: 'company', params: { id: developer.id, slug: developer.slug }}"
-                      :class="['p-2 d-inline-flex rounded mr-2 mb-2', { 'bg-white': developer.logo && developer.logo.alpha_channel }]"
-                    >
-                      <b-img
-                        v-if="developer.logo"
-                        :src="$options.getImageUrl(developer)"
-                        :alt="developer.name"
-                        width="120"
-                      />
+                  <b-link
+                    v-for="developer in gameDevelopers"
+                    :key="developer.id"
+                    :to="{ name: 'company', params: { id: developer.id, slug: developer.slug }}"
+                    :class="['p-2 d-inline-flex rounded mr-2 mb-2', { 'bg-white': developer.logo && developer.logo.alpha_channel }]"
+                  >
+                    <b-img
+                      v-if="developer.logo"
+                      :src="$options.getImageUrl(developer)"
+                      :alt="developer.name"
+                      width="120"
+                    />
 
-                      <span v-else>{{ developer.name }}</span>
-                    </b-link>
-                  </div>
+                    <span v-else>{{ developer.name }}</span>
+                  </b-link>
                 </b-col>
               </b-row>
             </template>
@@ -798,7 +796,7 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
 .game-page {
   background-size: contain;
-  background-repeat: no-repeat;
+  background-repeat: repeat-y;
 
   &.offset-background {
     background-position-y: 81vh;
@@ -807,7 +805,7 @@ export default {
 
 .has-artworks {
   @media(min-width: 768px) {
-    margin-top: -25vh;
+    margin-top: -22vh;
   }
 }
 </style>
@@ -816,24 +814,6 @@ export default {
 .game-description {
   &.steam {
     // Steam overrides
-  }
-
-  h2, h3 {
-    margin: 0;
-  }
-
-  h2 {
-    font-size: 14px;
-    margin: 8px 0;
-  }
-
-  h3 {
-    font-size: 18px;
-  }
-
-  h4, h5, h6 {
-    font-size: 16px;
-    font-weight: bold;
   }
 
   img {
