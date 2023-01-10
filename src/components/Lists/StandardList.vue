@@ -1,7 +1,7 @@
 <!-- TODO: handle game highlighting -->
 <template lang="html">
   <draggable
-    class="mx-2 mx-sm-auto standard-list"
+    class="mx-3 mx-sm-auto standard-list"
     handle=".card"
     ghost-class="card-placeholder"
     drag-class="border-success"

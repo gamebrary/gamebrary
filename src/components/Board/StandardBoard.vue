@@ -1,16 +1,14 @@
 <template lang="html">
-  <section class="standard-board">
-    <b-container>
-      <b-row
-        v-for="list in board.lists"
-        :key="list.id"
-      >
-        <standard-list
-          :list="list"
-        />
-      </b-row>
-    </b-container>
-  </section>
+  <b-container>
+    <b-row
+      v-for="list in board.lists"
+      :key="list.id"
+    >
+      <standard-list
+        :list="list"
+      />
+    </b-row>
+  </b-container>
 </template>
 
 <script>

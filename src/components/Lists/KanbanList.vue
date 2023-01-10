@@ -33,15 +33,39 @@
         </b-badge>
 
         <b-button
-          @click="$router.push({ name: 'board.edit', params: { id: board.id } })"
           :disabled="!isBoardOwner"
           class="mr-1 px-2 text-left"
           size="sm"
           style="flex: 1"
           :variant="darkTheme ? 'dark' : 'light'"
+          v-b-modal="`edit-list-${listIndex}`"
         >
           {{ list.name }}
         </b-button>
+
+        <b-modal
+          :header-bg-variant="darkTheme ? 'dark' : 'white'"
+          :header-text-variant="darkTheme ? 'white' : 'dark'"
+          :body-bg-variant="darkTheme ? 'dark' : 'white'"
+          :body-text-variant="darkTheme ? 'white' : 'dark'"
+          :id="`edit-list-${listIndex}`"
+          hide-footer
+        >
+          <template v-slot:modal-header="{ close }">
+            <modal-header
+              title="Edit list"
+              :subtitle="list.name"
+              @close="close"
+            />
+          </template>
+
+          <!-- <p class="my-4">Hello from modal!</p> -->
+          <pre>{{ localList }}</pre>
+          <b-button @click="$router.push({ name: 'board.edit', params: { id: board.id } })">
+            poop
+          </b-button>
+        </b-modal>
+
 
         <game-selector
           v-if="isBoardOwner && !isEmpty"
@@ -60,7 +84,7 @@
         class="games px-2 pt-1"
         handle=".card"
         ghost-class="card-placeholder"
-        drag-class="border-selected"
+        drag-class="border-success"
         chosen-class="border-primary"
         filter=".drag-filter"
         delay="50"
@@ -81,7 +105,7 @@
           :key="gameId"
           :list="list"
           :game-id="gameId"
-          :class="{ 'mb-2': listView !== 'covers', 'highlighted': highlightedGameId == gameId }"
+          :class="{ 'mb-2': listView !== 'covers', 'highlighted': highlightedGame == gameId }"
           @click.native="openGame(gameId, list)"
         />
 
@@ -135,6 +159,7 @@ export default {
     return {
       draggingId: null,
       editing: false,
+      localList: null,
       gameCardComponents: {
         single: 'GameCardDefault',
         covers: 'GameCardCovers',
@@ -143,6 +168,10 @@ export default {
         text: 'GameCardText',
       },
     };
+  },
+
+  mounted() {
+    this.localList = JSON.parse(JSON.stringify(this.list));
   },
 
   computed: {

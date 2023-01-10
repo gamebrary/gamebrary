@@ -1,5 +1,3 @@
-<!-- TODO: copy/move list to different board -->
-<!-- TODO: add background options (position, repeat, etc...) -->
 <template lang="html">
   <section>
     <b-container>

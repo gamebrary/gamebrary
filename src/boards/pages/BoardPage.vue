@@ -1,5 +1,3 @@
-<!-- TODO: clone/fork board -->
-<!-- TODO: like/favorite board -->
 <template lang="html">
   <div>
     <board-placeholder v-if="loading" />

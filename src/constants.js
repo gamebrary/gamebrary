@@ -55,28 +55,6 @@ export const LIST_VIEW_OPTIONS = [
   { text: 'Text', value: LIST_VIEW_TEXT },
 ];
 
-export const FEATURED_BOARDS = [
-  'wGZ8chO5VK4jOaqG1373',
-  'raHXfbMSJtQ9xNT8T6yC',
-  'NSmHnEtQbjblUcwNKN0T',
-  '022E7O53f6XpvO5VIz8D',
-  'xCIeZA1xXOXPM72IBgLo',
-  'LeOgZdJHmThKMEOzLn6g'
-];
-
-// TODO: get games dynamically
-export const TRENDING_GAMES = [
-  '112875',
-  '144054',
-  '17269',
-  '112875',
-  '200165',
-  '119388',
-  '96437',
-  '191692',
-  '125165',
-];
-
 export const DEFAULT_BOARD_BASE = {
   name: '',
   ranked: false,

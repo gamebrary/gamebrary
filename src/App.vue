@@ -1,6 +1,19 @@
 <!-- TODO: add parental controls (filter out erotic games) -->
 <!-- TODO: deku deals integration https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Frsshub.app%2Fdekudeals%2Fmost-wanted -->
 <!-- TODO: use https://github.com/twitchtv/igdb-api-node -->
+<!-- TODO: [gamePage] add pc requirements from steam -->
+<!-- TODO: [gamePage] show igdb tags and franchise data -->
+<!-- TODO: [gamePage] integrate with twitch -->
+<!-- TODO: [gamePage] load all achievements -->
+<!-- TODO: [gamePage] handle gog game on sale -->
+<!-- TODO: [gamePage] find a good use for gameHeaderImage -->
+<!-- TODO: [gamePage] list all sources and logos -->
+<!-- TODO: [gamePage] link and add filter game engines -->
+<!-- TODO: [gamePage] restore release dates -->
+<!-- TODO: [boardPage] clone/fork board -->
+<!-- TODO: [boardPage] like/favorite board -->
+<!-- TODO: [editBoardPage] copy/move list to different board -->
+<!-- TODO: [editBoardPage] add background options (position, repeat, etc...) -->
 <template>
   <main
     id="app"

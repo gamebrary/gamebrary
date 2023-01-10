@@ -1,10 +1,3 @@
-<!-- TODO: show igdb tags? -->
-<!-- TODO: load game franchises -->
-<!-- TODO: integrate with twitch -->
-<!-- TODO: improve caching, show game right away, load steam and GOG in background -->
-<!-- TODO: maintain background image in subpages -->
-<!-- TODO: maintain game actions in subpages -->
-<!-- TODO: mine data from GOG -->
 <template lang="html">
   <section
     :class="[{ 'text-light': darkTheme && hasWallpaper, 'offset-background': hasArtworks }, 'game-page']"
@@ -41,20 +34,33 @@
 
           <game-media />
 
-          <div v-if="parentGame">
-            Original game
+          <div
+            v-if="newsHighlights"
+            class="position-relative"
+            styles="margin-bottom: 30px"
+          >
+            <i class="fa-solid fa-bullhorn" /> News
 
-            <router-link
-              :to="{ name: 'game', params: { id: parentGame.id, slug: parentGame.slug } }"
+            <div
+              class="news-ticker"
+              v-b-tooltip.hover
+              title="Latest news"
             >
-              <b-img
-                :src="$options.getImageUrl(parentGame)"
-                :alt="parentGame.name"
-                rounded
-                width="120"
-                fluid
-              />
-            </router-link>
+              <ul class="news-list" :data-length="newsHighlights.length">
+                <li
+                  v-for="(highlight, index) in newsHighlights"
+                  :key="index"
+                  class="d-flex align-items-center news"
+                >
+                  <b-link
+                    class="text-truncate"
+                    :to="{ name: 'game.news', params: { id: game.id, slug: game.slug } }"
+                  >
+                    {{ highlight}}
+                  </b-link>
+                </li>
+              </ul>
+            </div>
           </div>
 
           <div v-if="gameRemakes" class="text-left mt-2">
@@ -91,32 +97,6 @@
             </router-link>
           </div>
 
-          <div
-            v-if="newsHighlights"
-            class="position-relative"
-          >
-            <div
-              class="news-ticker"
-              v-b-tooltip.hover
-              title="Latest news"
-            >
-              <ul class="news-list" :data-length="newsHighlights.length">
-                <li
-                  v-for="(highlight, index) in newsHighlights"
-                  :key="index"
-                  class="d-flex align-items-center news"
-                >
-                  <b-link
-                    class="text-truncate"
-                    :to="{ name: 'game.news', params: { id: game.id, slug: game.slug } }"
-                  >
-                    {{ highlight}}
-                  </b-link>
-                </li>
-              </ul>
-            </div>
-          </div>
-
           <!-- <amazon-links class="mt-2" /> -->
           <!-- <template v-if="highlightedAchievements">
             <h3 :class="['mt-5', { 'text-outlined': hasWallpaper }]">Achievements</h3>
@@ -140,7 +120,6 @@
               </b-list-group-item>
             </b-list-group>
           </template> -->
-          <!-- TODO: load all achievements -->
         </b-col>
 
         <b-col
@@ -150,10 +129,22 @@
           xl="6"
           class="pt-3"
         >
-          <div class="d-flex justify-content-between" v-b-visible="visibleHandler">
-            <h2 :class="['mb-0', { 'mt-3': hasArtworks }]">
+          <div class="d-flex justify-content-between align-items-end" v-b-visible="visibleHandler">
+            <h2 :class="{ 'mt-3': hasArtworks }">
               {{ gameName }}
             </h2>
+
+            <pre>{{ gogGame }}</pre>
+
+            <b-button
+              v-if="gogGame"
+              v-b-tooltip.hover
+              title="Buy from GOG.com"
+              target="_blank"
+              :href="`https://gog.com${gogGameUrl}`"
+            >
+              {{ gogGamePrice }}
+            </b-button>
           </div>
 
           <b-badge v-if="gameCategory" variant="info" class="mb-2">
@@ -166,7 +157,6 @@
             <template v-else>
               <div v-html="description" />
               <game-ratings />
-              <!-- TODO: use logos for listing all sources -->
               <span class="text-muted mt-n3 mb-3 text-capitalize">Source: {{ source }}</span>
 
               <b-row class="mt-3">
@@ -303,7 +293,6 @@
           <div v-if="gameEngines">
             <h4 class="mt-4">Game engines: </h4>
 
-            <!-- TODO: link and add filter -->
             <p
               v-for="{ id, name } in gameEngines"
               :key="id"
@@ -338,7 +327,6 @@
             </b-link>
           </div>
 
-          <!-- TODO: restore release dates -->
           <!-- <div>
             <h4 class="mt-4">{{ $t('board.gameModal.releaseDate') }}</h4>
             <ol v-if="releaseDates" class="list-unstyled mb-0">
@@ -376,6 +364,22 @@
             </b-button>
 
             <game-tags-modal />
+          </div>
+
+          <div v-if="parentGame" class="mt-3 text-left">
+            <h3>Original game</h3>
+
+            <router-link
+              :to="{ name: 'game', params: { id: parentGame.id, slug: parentGame.slug } }"
+            >
+              <b-img
+                :src="$options.getImageUrl(parentGame)"
+                :alt="parentGame.name"
+                rounded
+                width="120"
+                fluid
+              />
+            </router-link>
           </div>
 
           <template v-if="gameLinks.length">
@@ -566,7 +570,6 @@ export default {
       return this.boards?.filter(({ lists }) => lists?.some(({ games }) => games?.includes(this.game?.id))) || [];
     },
 
-    // TODO: find a good use for game header image
     // gameHeaderImage() {
     //   return this.game?.steam?.header_image;
     // },
@@ -599,7 +602,6 @@ export default {
     //   return sortedActivities?.map(({ platform, date, id }) => {
     //     return {
     //       id,
-    // TODO: use platforms from store
     //       platform: this.platformNames?.[platform]?.name,
     //       date: new Date(date * 1000).toLocaleDateString('en-US', { dateStyle: 'medium' }),
     //     };
@@ -669,6 +671,18 @@ export default {
 
     highlightedAchievements() {
       return this.game?.steam?.achievements?.highlighted;
+    },
+
+    gogGame() {
+      return this.game?.gog;
+    },
+
+    gogGameUrl() {
+      return this.gogGame?.url;
+    },
+
+    gogGamePrice() {
+      return `${this.gogGame.price.symbol}${this.gogGame.price.finalAmount}`;
     },
 
     note() {

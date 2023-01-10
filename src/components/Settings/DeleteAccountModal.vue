@@ -42,7 +42,7 @@
         <li>Game Progresses</li>
         <li>Settings</li>
         <li>Boards</li>
-        <!-- TODO: profile -->
+        <!-- TODO: Delete profile -->
         <!-- <li>Wallpapers </li> -->
       </ul>
     </div>
