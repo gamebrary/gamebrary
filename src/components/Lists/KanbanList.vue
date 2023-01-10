@@ -134,7 +134,6 @@ export default {
   data() {
     return {
       draggingId: null,
-      highlightedGame: null,
       editing: false,
       gameCardComponents: {
         single: 'GameCardDefault',
@@ -147,7 +146,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['games', 'dragging', 'progresses', 'board', 'user', 'settings']),
+    ...mapState(['games', 'dragging', 'progresses', 'board', 'user', 'settings', 'highlightedGame']),
     ...mapGetters(['isBoardOwner', 'darkTheme']),
 
     draggingDisabled() {
@@ -204,10 +203,6 @@ export default {
     listView() {
       return this.list?.view || LIST_VIEW_SINGLE;
     },
-
-    highlightedGameId() {
-      return this.$route.query?.g;
-    }
   },
 
   methods: {
@@ -233,7 +228,7 @@ export default {
     },
 
     highlightGame(gameId) {
-      this.$router.replace({ name: 'board', params: this.$route.params, query: { g: gameId } });
+      this.$store.commit('SET_HIGHLIGHTED_GAME', gameId);
 
       const gameRef = this.$refs[`${this.listIndex}-${gameId}`]?.[0];
 
@@ -241,7 +236,7 @@ export default {
         gameRef?.$el.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
         setTimeout(() => {
-          this.$router.replace({ name: 'board', params: this.$route.params, query: {} })
+          this.$store.commit('SET_HIGHLIGHTED_GAME', null);
         }, 5000);
       }
     },

@@ -27,19 +27,15 @@ export default {
   },
 
   mounted() {
-    if (this.highlightedGameId) this.highlightGame();
+    if (this.highlightedGame) this.highlightGame();
   },
 
   computed: {
-    ...mapState(['board']),
+    ...mapState(['board', 'highlightedGame']),
     ...mapGetters(['isBoardOwner']),
 
     empty() {
       return this.board?.lists?.length === 0;
-    },
-
-    highlightedGameId() {
-      return this.$route.query?.g;
     },
   },
 
@@ -48,7 +44,7 @@ export default {
       const lists = Object.values(this.$refs);
 
       lists.forEach(([list], index) => {
-        const gameRef = list.$refs[`${index}-${this.highlightedGameId}`]?.[0];
+        const gameRef = list.$refs[`${index}-${this.highlightedGame}`]?.[0];
 
         if (gameRef) {
           setTimeout(() => {
@@ -58,7 +54,7 @@ export default {
       });
 
       setTimeout(() => {
-        this.$router.replace({ name: 'board', params: this.$route.params, query: {} })
+        this.$store.commit('SET_HIGHLIGHTED_GAME', null);
       }, 5000);
     },
   },

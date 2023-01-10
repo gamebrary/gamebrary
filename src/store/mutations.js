@@ -25,6 +25,10 @@ export default {
     state.twitchToken = token;
   },
 
+  SET_HIGHLIGHTED_GAME(state, gameId) {
+    state.highlightedGame = gameId;
+  },
+
   CLEAR_BOARD(state) {
     state.board = {};
   },
