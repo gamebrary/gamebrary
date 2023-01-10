@@ -7,9 +7,13 @@
 <!-- TODO: maintain game actions in subpages -->
 <!-- TODO: mine data from GOG -->
 <template lang="html">
-  <section :class="darkTheme && hasWallpaper ? 'text-light' : ''">
+  <section
+    :class="[{ 'text-light': darkTheme && hasWallpaper, 'offset-background': hasArtworks }, 'game-page']"
+    :style="background && this.darkTheme ? `background-image: url(${background})` : ''"
+  >
     <game-header />
     <add-remove-game />
+
 
     <b-container>
       <portal to="pageTitle">
@@ -512,6 +516,10 @@ export default {
       return this.wikipediaExtract || this.steamDescription || this.igdbDescription;
     },
 
+    background() {
+      return this.game?.steam?.background;
+    },
+
     newsHighlights() {
       return this.gameNews?.slice(0, 5)?.map(({ title }) => title?.slice(0, 50));
     },
@@ -801,9 +809,6 @@ export default {
 
       if (wikipediaSlug) await this.$store.dispatch('LOAD_WIKIPEDIA_ARTICLE', wikipediaSlug).catch((e) => {});
       if (steamGameId) await this.$store.dispatch('LOAD_STEAM_GAME_NEWS', steamGameId).catch((e) => {});
-      if (this.game?.steam?.background && this.darkTheme) {
-        this.$bus.$emit('UPDATE_WALLPAPER', this.game?.steam?.background)
-      };
 
       this.loading = false;
     },
@@ -812,6 +817,15 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
+.game-page {
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  &.offset-background {
+    background-position-y: 81vh;
+  }
+}
+
 .has-artworks {
   @media(min-width: 768px) {
     margin-top: -25vh;
@@ -945,7 +959,6 @@ export default {
     100% {top: 30px; visibility: hidden;}
   }
 
-
   @keyframes news-4 {
     0% { top: 30px; visibility: visible; }
     5% { top: 0; }
@@ -960,7 +973,6 @@ export default {
     99% { top: -120px; visibility: hidden; }
     100% { top: 30px; visibility: hidden; }
   }
-
 
   @keyframes news-3 {
     0% {top: 30px; visibility: visible;}
