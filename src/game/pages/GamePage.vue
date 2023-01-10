@@ -1,5 +1,4 @@
 <!-- TODO: show igdb tags? -->
-<!-- TODO: add ports -->
 <!-- TODO: load game franchises -->
 <!-- TODO: integrate with twitch -->
 <!-- TODO: improve caching, show game right away, load steam and GOG in background -->
@@ -13,7 +12,6 @@
   >
     <game-header />
     <add-remove-game />
-
 
     <b-container>
       <portal to="pageTitle">
@@ -42,6 +40,22 @@
           />
 
           <game-media />
+
+          <div v-if="parentGame">
+            Original game
+
+            <router-link
+              :to="{ name: 'game', params: { id: parentGame.id, slug: parentGame.slug } }"
+            >
+              <b-img
+                :src="$options.getImageUrl(parentGame)"
+                :alt="parentGame.name"
+                rounded
+                width="120"
+                fluid
+              />
+            </router-link>
+          </div>
 
           <div v-if="gameRemakes" class="text-left mt-2">
             <strong>Remakes</strong>
@@ -400,6 +414,25 @@
         v-html="legalNotice"
       />
 
+      <div v-if="gamePorts" class="text-left mt-3">
+        <h3>Ports</h3>
+
+        <div class="game-grid">
+          <router-link
+            v-for="port in gamePorts"
+            :key="port.id"
+            :to="{ name: 'game', params: { id: port.id, slug: port.slug } }"
+          >
+            <b-img
+              :src="$options.getImageUrl(port)"
+              :alt="port.name"
+              rounded
+              fluid
+            />
+          </router-link>
+        </div>
+      </div>
+
       <game-in-boards />
       <game-bundles />
       <game-collection />
@@ -581,6 +614,10 @@ export default {
       return this.game?.remakes;
     },
 
+    gamePorts() {
+      return this.game?.ports;
+    },
+
     gameRemasters() {
       return this.game?.remasters;
     },
@@ -648,6 +685,10 @@ export default {
 
     cachedGame() {
       return this.games?.[Number(this.gameId)] || this.game;
+    },
+
+    parentGame() {
+      return this.game?.parent_game;
     },
 
     gameCategory() {
