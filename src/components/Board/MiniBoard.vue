@@ -5,9 +5,9 @@
     :style="miniBoardStyles"
   >
     <header class="text-small py-1 px-2 d-flex align-items-center justify-content-between">
-      <span :class="['mr-1 mb-1', { 'text-outlined': hasCustomBackground || darkTheme } ]">
+      <h4 :class="['mr-1 mb-1', { 'text-white': hasCustomBackground || darkTheme } ]">
         {{ board.name }}
-      </span>
+      </h4>
 
       <b-badge
         v-if="showPublicIndicator"

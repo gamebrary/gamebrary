@@ -1,6 +1,8 @@
 <template lang="html">
   <b-container>
-    <portal to="pageTitle">Account</portal>
+    <portal to="pageTitle">
+      <h3>Account</h3>
+    </portal>
 
     <profile-form />
 

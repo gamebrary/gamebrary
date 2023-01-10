@@ -25,15 +25,10 @@
     overflow-y: auto;
 }
 
-.text-outlined {
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-  color: var(--light);
-}
-
 .game-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-gap: .5rem;
+  grid-gap: 1rem;
 
   @media(max-width: 1024px) {
     grid-template-columns: repeat(5, 1fr);
@@ -44,13 +39,16 @@
   }
 }
 
-.heading {
-  background-color: var(--primary);
-  border-bottom: 3px solid var(--dark);
-  border-right: 3px solid var(--dark);
-  // border-top: 3px solid var(--dark);
-  color: var(--white);
-  padding: 1rem;
-  display: inline-block;
-  text-align: center;
+.board-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 1rem;
+
+  @media(max-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media(max-width: 780px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

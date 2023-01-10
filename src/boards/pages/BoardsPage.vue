@@ -1,7 +1,9 @@
 <template lang="html">
   <section>
-    <b-container>
-      <portal to="pageTitle">Boards</portal>
+    <b-container class="mt-2">
+      <portal to="pageTitle">
+        <h3>Boards</h3>
+      </portal>
 
       <game-boards />
     </b-container>

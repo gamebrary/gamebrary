@@ -8,7 +8,7 @@
     backdrop
   >
     <template #header>
-      <header class="d-flex align-items-center justify-content-between w-100">
+      <header class="d-flex align-items-center justify-content-between w-100 px-3 pt-3">
         <b-button
           title="Dashboard"
           size="sm"
@@ -26,7 +26,7 @@
           v-b-toggle.sidebar
           :variant="darkTheme ? 'dark' : 'light'"
         >
-          <i class="fa fa-close fa-fw" />
+          <i class="fa fa-close" />
         </b-button>
       </header>
     </template>
@@ -36,7 +36,8 @@
         <b-button
           :to="{ name: 'boards' }"
           :variant="darkTheme ? 'dark' : 'light'"
-          class="w-100 text-left mb-1"
+          class="text-left mt-3"
+          block
         >
           <i class="fa-regular fa-rectangle-list fa-fw" />
           <span class="ml-2">Boards</span>
@@ -45,7 +46,8 @@
         <b-button
           :to="{ name: 'wallpapers' }"
           :variant="darkTheme ? 'dark' : 'light'"
-          class="w-100 text-left mb-1"
+          class="text-left mt-1"
+          block
         >
           <i class="fa fa-images fa-fw" aria-hidden="true" />
           <span class="ml-2">Wallpapers</span>
@@ -54,7 +56,8 @@
         <b-button
           :to="{ name: 'notes' }"
           :variant="darkTheme ? 'dark' : 'light'"
-          class="w-100 text-left mb-1"
+          class="text-left mt-1"
+          block
           id="notes"
         >
           <i class="fa fa-book fa-fw" aria-hidden="true" />
@@ -64,7 +67,8 @@
         <b-button
           :to="{ name: 'tags' }"
           :variant="darkTheme ? 'dark' : 'light'"
-          class="w-100 text-left mb-1"
+          class="text-left mt-1"
+          block
           id="tags"
         >
           <i class="fa fa-tags fa-fw" aria-hidden="true" />
@@ -72,7 +76,8 @@
         </b-button>
 
         <b-button
-          class="w-100 text-left mb-1"
+          class="text-left mt-1"
+          block
           :to="{ name: 'account' }"
           :variant="darkTheme ? 'dark' : 'light'"
         >
@@ -99,8 +104,9 @@
         <b-button
           :to="{ name: 'explore' }"
           :variant="darkTheme ? 'dark' : 'light'"
-          class="w-100 text-left mb-1"
-          id="paltforms"
+          class="text-left mt-1"
+          block
+          id="platforms"
         >
           <i class="fa-regular fa-rectangle-list fa-fw" />
           <span class="ml-2">Public boards</span>
@@ -110,7 +116,8 @@
 
         <b-button
           :variant="darkTheme ? 'dark' : 'light'"
-          class="w-100 text-left mb-1"
+          class="text-left mt-1"
+          block
           v-b-modal.keyboard-shortcuts
           id="shortcuts"
         >
@@ -119,7 +126,8 @@
 
         <b-button
           :variant="darkTheme ? 'dark' : 'light'"
-          class="w-100 text-left mb-1"
+          class="text-left mt-1"
+          block
           @click="toggleTheme"
         >
           <i v-if="darkTheme" class="fa-solid fa-sun fa-fw" />
@@ -131,7 +139,8 @@
         <b-button
           :to="{ name: 'help' }"
           :variant="darkTheme ? 'dark' : 'light'"
-          class="w-100 text-left mb-1"
+          class="text-left mt-1"
+          block
           id="help"
         >
           <i class="fa fa-regular fa-circle-question fa-fw" aria-hidden="true" />

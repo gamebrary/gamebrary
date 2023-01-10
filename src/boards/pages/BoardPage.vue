@@ -17,8 +17,8 @@
           </b-button>
 
           <div :class="{ 'd-flex align-items-baseline': publicUserName }">
-            <p :class="['mb-0', { 'text-outlined': backgroundUrl }]">
-              <span class="">{{ board.name }}</span>
+            <h3 :class="[{ 'text-white': backgroundUrl }]">
+              {{ board.name }}
 
               <small v-if="publicUserName">
                 by
@@ -38,7 +38,7 @@
                   @{{ publicUserName }}
                 </b-link>
               </small>
-            </p>
+            </h3>
           </div>
         </div>
       </portal>

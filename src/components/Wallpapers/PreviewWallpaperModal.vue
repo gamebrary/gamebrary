@@ -24,27 +24,25 @@
             <i v-else class="fas fa-ellipsis-h" aria-hidden="true" />
           </template>
 
-          <b-dropdown-text>Set as wallpaper</b-dropdown-text>
-          <b-dropdown-item
-            v-for="board in formattedBoards"
-            :key="board.id"
-            @click="setAsWallpaper(board)"
-            class="p-0"
-          >
-            <b-avatar
-              rounded
-              :class="['board-thumbnail mr-2', { 'bg-dark' : !board.backgroundColor }]"
-              :title="board.name"
-              text=" "
-              size="32"
-              :style="`
-                background-image: url(${board.backgroundUrl ? board.backgroundUrl : ''});
-                background-color: ${board.backgroundColor ? board.backgroundColor : ''}
-                `"
-            />
+          <b-dropdown-item v-b-modal.setAsWallpaper>Set as wallpaper</b-dropdown-item>
 
-            {{ board.name }}
-          </b-dropdown-item>
+          <b-modal id="setAsWallpaper" size="lg">
+            <template v-slot:modal-header="{ close }">
+              <modal-header
+                  title="Apply wallpaper to board"
+                  @close="close"
+              />
+            </template>
+
+            <div class="board-grid mx-2">
+              <mini-board
+                v-for="board in formattedBoards"
+                :key="board.id"
+                :board="board"
+                @click.native="setAsWallpaper(board)"
+              />
+            </div>
+          </b-modal>
 
           <b-dropdown-divider />
           <b-dropdown-item
@@ -90,6 +88,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import MiniBoard from '@/components/Board/MiniBoard';
 
 export default {
   data() {
@@ -98,6 +97,11 @@ export default {
       deleting: false,
     };
   },
+
+  components: {
+    MiniBoard,
+  },
+
   props: {
     wallpaper: {
       type: [Object, Boolean],

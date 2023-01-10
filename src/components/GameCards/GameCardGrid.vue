@@ -33,7 +33,7 @@
 
     <b-card-body body-class="p-2" v-if="game && game.name">
       <b-card-title
-        title-tag="h5"
+        title-tag="p"
       >
         {{ game.name }}
       </b-card-title>

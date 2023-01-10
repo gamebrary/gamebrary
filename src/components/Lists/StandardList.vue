@@ -35,8 +35,6 @@
       title="Add games"
       trigger-text="Add games"
       variant="primary"
-      block
-      size="lg"
       @select-game="selectGame"
     />
   </draggable>

@@ -1,7 +1,9 @@
 <template lang="html">
   <section>
     <b-container class="pb-5 px-0">
-      <portal to="pageTitle">Wallpapers</portal>
+      <portal to="pageTitle">
+        <h3>Wallpapers</h3>
+      </portal>
 
       <b-spinner v-if="loading" class="spinner-centered" />
 

@@ -40,10 +40,10 @@
           >
             <div class="d-flex align-items-start justify-content-between">
               <aside>
-                <h4 class="mb-0">
+                <h2 class="mb-0">
                   {{ article.title }}
                   <b-badge>{{ article.date }}</b-badge>
-                </h4>
+                </h2>
 
                 <small v-if="article.author" :class="darkTheme ? 'text-light' : 'text-muted'">
                   By {{ article.author }}

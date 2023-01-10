@@ -1,7 +1,9 @@
 <template lang="html">
   <section>
     <b-container>
-      <portal to="pageTitle">Notes</portal>
+      <portal to="pageTitle">
+        <h3>Notes</h3>
+      </portal>
 
       <b-spinner v-if="loading" class="spinner-centered" />
 

@@ -2,7 +2,7 @@
   <header :class="{ 'has-action': slots.includes('default') }">
     <div>
       <slot name="header" v-if="slots.includes('header')" />
-      <h4 class="mb-0 text-wrap">{{ title }}</h4>
+      <h3 class="text-wrap">{{ title }}</h3>
       <small class="d-block text-muted">{{ subtitle }}</small>
     </div>
 
@@ -15,7 +15,7 @@
       :variant="darkTheme ? 'secondary' : 'light'"
       @click="$emit('close')"
     >
-      <i class="fas fa-times fa-fw" aria-hidden />
+      <i class="fas fa-close" aria-hidden />
     </b-button>
   </header>
 </template>

@@ -74,7 +74,7 @@ export default {
     align-items: center;
     grid-template-columns: 65px 1fr;
     z-index: 2;
-    transition: background-color 1s ease;
+    transition: background-color .3s linear;
 
     &.scrolled {
       &.light {
