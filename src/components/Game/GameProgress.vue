@@ -1,4 +1,3 @@
-<!-- TODO: hide progress if game is not yet released -->
 <template lang="html">
   <div>
     <h4 class="mt-4">Progress: </h4>
