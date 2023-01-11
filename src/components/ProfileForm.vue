@@ -31,6 +31,7 @@
     <!-- TODO: replace when uploading? -->
 
     <b-form-group
+      v-if="user"
       label-class="m-0 text-muted"
       label="User ID"
       label-for="id"
