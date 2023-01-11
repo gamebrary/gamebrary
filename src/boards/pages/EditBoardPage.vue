@@ -60,6 +60,7 @@
               </b-form-group>
 
               <p>Board type:</p>
+
               <b-button-group class="mb-2">
                 <b-button
                   v-for="{ text, value } in $options.BOARD_TYPES"
@@ -70,6 +71,12 @@
                   {{ text }}
                 </b-button>
               </b-button-group>
+
+              <mini-board
+                class="mb-3"
+                v-b-modal.boardWallpaper
+                :board="board"
+              />
 
               <b-form-checkbox
                 v-if="board.type === $options.BOARD_TYPE_STANDARD"
@@ -96,56 +103,46 @@
                 </b-link>
               </div>
 
-              <b-form-group
-                label="Board background"
-                class="m-0"
-              />
+              <div class="d-flex align-items-start">
+                <v-swatches
+                  v-model="board.backgroundColor"
+                  show-fallback
+                  :trigger-style="{ height: '40px', width: '40px' }"
+                  popover-x="left"
+                />
 
-              <div class="d-flex">
-                <div class="d-flex align-items-start">
-                  <v-swatches
-                    v-model="board.backgroundColor"
-                    show-fallback
-                    :trigger-style="{ height: '34px', width: '34px' }"
-                    popover-x="left"
-                  />
+                <b-button
+                  v-if="board.backgroundColor"
+                  @click="board.backgroundColor = null"
+                  variant="white"
+                  class="ml-2"
+                >
+                  <i class="fas fa-close" aria-hidden />
+                </b-button>
 
-                  <b-button
-                    v-if="board.backgroundColor"
-                    @click="board.backgroundColor = null"
-                    variant="link"
-                    class="ml-2"
-                  >
-                    <i class="fas fa-close" aria-hidden />
-                  </b-button>
-                </div>
-
-                <div class="ml-2 d-flex align-items-start">
-                  <b-button
-                    v-b-modal.boardWallpaper
-                    variant="light"
-                  >
-                    <i class="fa fa-image" aria-hidden="true"></i>
-                  </b-button>
-
-                  <b-button
-                    v-if="board.backgroundUrl"
-                    variant="link"
-                    @click="board.backgroundUrl = null"
-                  >
-                    <i class="fas fa-close fa-fw" aria-hidden />
-                  </b-button>
-                </div>
+                <span class="mt-2 ml-2">Background color</span>
               </div>
 
-              <mini-board
-                v-if="board.backgroundUrl || board.backgroundColor"
-                class="mb-3"
-                v-b-modal.boardWallpaper
-                :board="board"
-              />
+              <div class="d-flex align-items-center">
+                <b-button
+                  v-b-modal.boardWallpaper
+                  variant="light"
+                >
+                  <i class="fa fa-image" aria-hidden="true"></i>
+                </b-button>
 
-              <div class="mt-2 d-none d-sm-inline">
+                <b-button
+                  v-if="board.backgroundUrl"
+                  variant="white"
+                  @click="board.backgroundUrl = null"
+                >
+                  <i class="fas fa-close fa-fw" aria-hidden />
+                </b-button>
+
+                Background image
+              </div>
+
+              <div class="mt-3 d-none d-sm-block">
                 <b-button
                   variant="primary"
                   :disabled="saving"
@@ -177,7 +174,7 @@
                   <v-swatches
                     v-model="list.backgroundColor"
                     show-fallback
-                    :trigger-style="{ height: '34px', width: '34px' }"
+                    :trigger-style="{ height: '40px', width: '40px' }"
                     popover-x="left"
                   />
 
