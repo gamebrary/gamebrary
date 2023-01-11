@@ -1,5 +1,3 @@
-<!-- TODO: finish layout -->
-<!-- TODO: paginate -->
 <template lang="html">
   <section>
     <b-container>
@@ -7,6 +5,7 @@
 
       <div v-else-if="company">
         <portal to="pageTitle">{{ company.name }}</portal>
+
         <img
           :src="$options.getImageUrl(company)"
           :alt="company.name"
@@ -16,54 +15,39 @@
 
         <p>{{ company.description }}</p>
 
-        <b-form-row no-gutters>
-          <h3 class="w-100 my-3">Games developed:</h3>
+        <h3 class="w-100 my-3">Games developed by {{ company.name }}</h3>
 
-          <b-col
+        <div class="game-grid">
+          <router-link
             v-for="game in company.developed"
             :key="game.id"
-            cols="6"
-            sm="4"
-            md="3"
-            lg="2"
-            class="mb-2"
+            :to="{ name: 'game', params: { id: game.id, slug: game.slug } }"
           >
-            <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}">
-              <b-img
-                :src="$options.getImageUrl(game)"
-                alt=""
-                fluid
-                class="rounded"
-              />
-            </router-link>
-          </b-col>
-        </b-form-row>
+            <b-img
+              :src="$options.getImageUrl(game)"
+              :alt="game.name"
+              rounded
+              fluid
+            />
+          </router-link>
+        </div>
 
-        <b-form-row no-gutters>
-          <h3 class="w-100 my-3">Games published by {{ company.name }}</h3>
+        <h3 class="w-100 my-3">Games published by {{ company.name }}</h3>
 
-          <b-col
+        <div class="game-grid">
+          <router-link
             v-for="game in company.published"
             :key="game.id"
-            cols="6"
-            sm="4"
-            md="3"
-            lg="2"
-            class="mb-2"
+            :to="{ name: 'game', params: { id: game.id, slug: game.slug } }"
           >
-            <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}">
-              <b-img
-                :src="$options.getImageUrl(game)"
-                alt=""
-                fluid
-                class="rounded"
-              />
-            </router-link>
-          </b-col>
-        </b-form-row>
-
-        <!-- <pre>{{ company.slug }}</pre> -->
-        <!-- <pre>{{ company.websites }}</pre> -->
+            <b-img
+              :src="$options.getImageUrl(game)"
+              :alt="game.name"
+              rounded
+              fluid
+            />
+          </router-link>
+        </div>
       </div>
 
       <div v-else>
