@@ -1,3 +1,4 @@
+<!-- TODO: finish speedruns -->
 <!-- TODO: add parental controls (filter out erotic games) -->
 <!-- TODO: deku deals integration https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Frsshub.app%2Fdekudeals%2Fmost-wanted -->
 <!-- TODO: use https://github.com/twitchtv/igdb-api-node -->
