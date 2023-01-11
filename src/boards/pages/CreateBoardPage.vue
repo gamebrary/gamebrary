@@ -92,7 +92,7 @@ export default {
   mounted() {
     this.board = {
       ...this.sampleBoard,
-      type: BOARD_TYPE_STANDARD,
+      type: BOARD_TYPE_KANBAN,
     }
   },
 
