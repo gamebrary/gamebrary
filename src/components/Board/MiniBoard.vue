@@ -9,7 +9,7 @@
   >
     <div
       :style="backgroundSyle"
-      class="mini-board h-100"
+      class="mini-board"
     >
       <header class="text-small py-1 px-2 d-flex align-items-center justify-content-between">
         <h4 :class="['', { 'text-white': hasCustomBackground || darkTheme } ]">
@@ -193,7 +193,7 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-$boardHeight: 220px;
+$boardHeight: 200px;
 
 .mini-board {
   background-repeat: no-repeat;
