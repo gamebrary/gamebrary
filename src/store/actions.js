@@ -1,5 +1,4 @@
 // TODO: use Fandom/Wikia API https://pokemon.fandom.com/api/v1/Articles/List?expand=2&category=characters&limit=10000
-import { FEATURED_BOARDS } from '@/constants';
 import axios from 'axios';
 import { firestore, storage } from 'firebase/app';
 import 'firebase/storage';
@@ -28,7 +27,6 @@ export default {
     return new Promise((resolve, reject) => {
       axios.get(`https://www.speedrun.com/api/v1/runs?game=${gameId}`)
         .then(({ data }) => {
-          console.log(data);
           commit('APPEND_GAME_SPEEDRUNS', data);
           resolve(data);
         }).catch(reject);
@@ -218,22 +216,6 @@ export default {
             commit('REMOVE_PROFILE');
             reject();
           }
-        })
-        .catch(reject);
-    });
-  },
-
-  LOAD_FEATURED_BOARDS({ commit, state }) {
-    return new Promise((resolve, reject) => {
-      const db = firestore();
-
-      db.collection('boards')
-        .where('id', 'in', FEATURED_BOARDS)
-        .get()
-        .then((querySnapshot) => {
-          const boards = querySnapshot.docs.map(doc => doc.data());
-
-          resolve(boards);
         })
         .catch(reject);
     });
