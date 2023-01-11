@@ -104,6 +104,7 @@ export default {
   async mounted() {
     this.$bus.$on('CLEAR_WALLPAPER', this.clearWallpaperUrl);
     this.$bus.$on('UPDATE_WALLPAPER', this.updateWallpaperUrl);
+    this.$bus.$on('BOOT', this.boot);
     this.$bus.$on('UPDATE_BACKGROUND_COLOR', this.updateBackgroundColor);
 
     this.loading = true;
@@ -178,10 +179,10 @@ export default {
       const BOARDS = this.$store.dispatch('LOAD_BOARDS').catch(() => {});
       const RELEASES = this.$store.dispatch('LOAD_RELEASES').catch(() => {});
       const WALLPAPERS = this.$store.dispatch('LOAD_WALLPAPERS').catch(() => {});
-      const SETTINGS = this.$store.dispatch('SYNC_LOAD_SETTINGS').catch(() => {});
+      const SETTINGS = this.$store.dispatch('LOAD_SETTINGS').catch(() => {});
       const TAGS = this.$store.dispatch('LOAD_TAGS').catch(() => {});
-      const NOTES = this.$store.dispatch('SYNC_LOAD_NOTES').catch(() => {});
-      const PROGRESSES = this.$store.dispatch('SYNC_LOAD_PROGRESSES').catch(() => {});
+      const NOTES = this.$store.dispatch('LOAD_NOTES').catch(() => {});
+      const PROGRESSES = this.$store.dispatch('LOAD_PROGRESSES').catch(() => {});
 
       await Promise.allSettled([BOARDS, RELEASES, WALLPAPERS, SETTINGS, TAGS, NOTES, PROGRESSES]);
 

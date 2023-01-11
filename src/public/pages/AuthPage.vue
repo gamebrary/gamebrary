@@ -93,56 +93,12 @@ export default {
     signInSuccess({ additionalUserInfo, user }) {
       this.loading = true;
 
-      if (additionalUserInfo?.isNewUser) {
-        this.$store.dispatch('SEND_WELCOME_EMAIL', additionalUserInfo);
-      }
-
-      if (this.sessionExpired) {
-        this.$store.commit('SET_SESSION_EXPIRED', false);
-      }
+      if (additionalUserInfo?.isNewUser) this.$store.dispatch('SEND_WELCOME_EMAIL', additionalUserInfo);
+      if (this.sessionExpired) this.$store.commit('SET_SESSION_EXPIRED', false);
 
       this.$store.commit('SET_USER', user);
-      this.$router.replace({ name: 'boards' });
-      this.load();
-    },
-
-    async load() {
-      // TODO: move all to actions, consider making live update optional? if it gets expensive $$$
-      db.collection('settings').doc(this.user.uid)
-        .onSnapshot((doc) => {
-          if (doc.exists) {
-            const settings = doc.data();
-
-            this.$store.commit('SET_SETTINGS', settings);
-          }
-        });
-
-      db.collection('tags').doc(this.user.uid)
-        .onSnapshot((doc) => {
-          if (doc.exists) {
-            const tags = doc.data();
-
-            this.$store.commit('SET_TAGS', tags);
-          }
-        });
-
-      db.collection('notes').doc(this.user.uid)
-        .onSnapshot((doc) => {
-          if (doc.exists) {
-            const notes = doc.data();
-
-            this.$store.commit('SET_NOTES', notes);
-          }
-        });
-
-      db.collection('progresses').doc(this.user.uid)
-        .onSnapshot((doc) => {
-          if (doc.exists) {
-            const progresses = doc.data();
-
-            this.$store.commit('SET_PROGRESSES', progresses);
-          }
-        });
+      this.$router.push({ name: 'boards' });
+      this.$bus.$emit('BOOT');
     },
   },
 };

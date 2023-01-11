@@ -574,13 +574,14 @@ export default {
     });
   },
 
-  SYNC_LOAD_SETTINGS({ commit, state }) {
+  LOAD_SETTINGS({ commit, state }) {
     return new Promise((resolve, reject) => {
       const db = firestore();
 
       db.collection('settings')
         .doc(state.user.uid)
-        .onSnapshot((doc) => {
+        .get()
+        .then((doc) => {
           if (doc.exists) {
             const settings = doc.data();
 
@@ -614,13 +615,15 @@ export default {
     });
   },
 
-  SYNC_LOAD_NOTES({ commit, state }) {
+  LOAD_NOTES({ commit, state }) {
     return new Promise((resolve, reject) => {
       const db = firestore();
 
       db.collection('notes')
         .doc(state.user.uid)
-        .onSnapshot((doc) => {
+        .get()
+        .then((doc) => {
+
           if (doc.exists) {
             const notes = doc.data();
 
@@ -633,13 +636,14 @@ export default {
     });
   },
 
-  SYNC_LOAD_PROGRESSES({ commit, state }) {
+  LOAD_PROGRESSES({ commit, state }) {
     return new Promise((resolve, reject) => {
       const db = firestore();
 
       db.collection('progresses')
         .doc(state.user.uid)
-        .onSnapshot((doc) => {
+        .get()
+        .then((doc) => {
           if (doc.exists) {
             const progresses = doc.data();
 
