@@ -137,7 +137,7 @@
                   >
                     <b-img
                       :src="`/logos/platforms/${platform.slug}.svg`"
-                      :alt="platform.name"
+                      :alt="platform.slug"
                       width="100"
                     />
                   </b-link>
@@ -166,7 +166,7 @@
                   </div>
                 </b-col>
 
-                <b-col cols="4" v-if="gamePublishers.length">
+                <b-col cols="6" sm="4" md="3" lg="6" v-if="gamePublishers.length">
                   <h4 class="mb-1">Published by:</h4>
 
                   <b-link
@@ -186,7 +186,7 @@
                   </b-link>
                 </b-col>
 
-                <b-col cols="4" v-if="gameDevelopers.length">
+                <b-col cols="6" sm="4" md="3" lg="6" v-if="gameDevelopers.length">
                   <h4 class="mb-1">Developed by:</h4>
 
                   <b-link
@@ -219,196 +219,198 @@
           xl="3"
           class="pt-3"
         >
-          <b-alert
-            v-if="note"
-            v-html="note"
-            show
-            class="cursor-pointer mt-3"
-            variant="warning"
-            @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
-          />
+          <b-row>
+            <b-alert
+              v-if="note"
+              v-html="note"
+              show
+              class="cursor-pointer mt-3"
+              variant="warning"
+              @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
+            />
 
-          <game-progress />
+            <game-progress />
 
-          <div v-if="gameGenres">
-            <h4 class="mt-4">Genres: </h4>
+            <b-col cols="6" sm="4" md="3" lg="12" v-if="gameGenres">
+              <h4 class="mt-4">Genres: </h4>
 
-            <b-link
-              v-for="(genre, index) in gameGenres"
-              :to="{ name: 'search', query: { filterBy: 'genres', value: genre.id }}"
-              :key="genre.id"
-            >
-              {{ genre.name }}<template v-if="index < gameGenres.length - 1">, </template>
-            </b-link>
-          </div>
+              <b-link
+                v-for="(genre, index) in gameGenres"
+                :to="{ name: 'search', query: { filterBy: 'genres', value: genre.id }}"
+                :key="genre.id"
+              >
+                {{ genre.name }}<template v-if="index < gameGenres.length - 1">, </template>
+              </b-link>
+            </b-col>
 
-          <div v-if="gameThemes">
-            <h4 class="mt-4">Themes: </h4>
+            <b-col cols="6" sm="4" md="3" lg="12" v-if="gameThemes">
+              <h4 class="mt-4">Themes: </h4>
 
-            <b-link
-              v-for="({ id, name }, index) in gameThemes"
-              :key="id"
-            >
-              <b-link :to="{ name: 'search', query: { filterBy: 'themes', value: id }}">{{ name }}</b-link>
-              <template v-if="index < gameThemes.length - 1">, </template>
-            </b-link>
-          </div>
-
-          <div v-if="gameEngines">
-            <h4 class="mt-4">Game engines: </h4>
-
-            <p
-              v-for="{ id, name } in gameEngines"
-              :key="id"
-              :class="darkTheme && hasWallpaper ? 'text-light' : ''"
-            >
-              {{ name }}
-            </p>
-          </div>
-
-          <div v-if="gameModes">
-            <h4 class="mt-4">{{ $t('board.gameModal.gameModes') }}: </h4>
-
-            <b-link
-              v-for="(gameMode, index) in gameModes"
-              :key="gameMode.id"
-            >
-              <b-link :to="{ name: 'search', query: { filterBy: 'game_modes', value: gameMode.id }}">{{ gameMode.name }}</b-link>
-              <template v-if="index < gameModes.length - 1">, </template>
-            </b-link>
-          </div>
-
-          <div v-if="playerPerspectives">
-            <h4 class="mt-4">{{ $t('board.gameModal.perspective') }}: </h4>
-
-            <b-link
-              v-for="({ id, name }, index) in playerPerspectives"
-              :key="id"
-            >
-
-              <b-link :to="{ name: 'search', query: { filterBy: 'player_perspectives', value: id }}">{{ name }}</b-link>
-              <template v-if="index < playerPerspectives.length - 1">, </template>
-            </b-link>
-          </div>
-
-          <!-- <div>
-            <h4 class="mt-4">{{ $t('board.gameModal.releaseDate') }}</h4>
-            <ol v-if="releaseDates" class="list-unstyled mb-0">
-              <li
-                v-for="{ id, platform, date } in releaseDates"
+              <b-link
+                v-for="({ id, name }, index) in gameThemes"
                 :key="id"
               >
-                {{ date }} <span>{{ platform || 'N/A' }}</span>
-              </li>
-            </ol>
+                <b-link :to="{ name: 'search', query: { filterBy: 'themes', value: id }}">{{ name }}</b-link>
+                <template v-if="index < gameThemes.length - 1">, </template>
+              </b-link>
+            </b-col>
 
-            <div v-else>
-              Not released yet
-            </div>
-          </div> -->
+            <b-col cols="6" sm="4" md="3" lg="12" v-if="gameEngines">
+              <h4 class="mt-4">Game engines: </h4>
 
-          <div v-if="user">
-            <h4 class="mt-4">Tags: </h4>
+              <p
+                v-for="{ id, name } in gameEngines"
+                :key="id"
+                :class="darkTheme && hasWallpaper ? 'text-light' : ''"
+              >
+                {{ name }}
+              </p>
+            </b-col>
 
-            <b-link v-if="!tagsApplied.length" v-b-modal.gameTagsModal>
-              Add tag
-            </b-link>
+            <b-col cols="6" sm="4" md="3" lg="12" v-if="gameModes">
+              <h4 class="mt-4">{{ $t('board.gameModal.gameModes') }}: </h4>
 
-            <b-button
-              v-for="({ bgColor, textColor, name, index }) in tagsApplied"
-              :key="index"
-              size="sm"
-              variant="transparent"
-              class="mr-2 mb-2"
-              :style="`background-color: ${bgColor}; color: ${textColor}`"
-              v-b-modal.gameTagsModal
-            >
-              <i class="fa-solid fa-tag mr-1" />
-              {{ name }}
-            </b-button>
+              <b-link
+                v-for="(gameMode, index) in gameModes"
+                :key="gameMode.id"
+              >
+                <b-link :to="{ name: 'search', query: { filterBy: 'game_modes', value: gameMode.id }}">{{ gameMode.name }}</b-link>
+                <template v-if="index < gameModes.length - 1">, </template>
+              </b-link>
+            </b-col>
 
-            <game-tags-modal />
-          </div>
+            <b-col cols="6" sm="4" md="3" lg="12" v-if="playerPerspectives">
+              <h4 class="mt-4">{{ $t('board.gameModal.perspective') }}: </h4>
 
-          <div v-if="gameRemasters" class="text-left mt-2">
-            <h4>Remasters</h4>
+              <b-link
+                v-for="({ id, name }, index) in playerPerspectives"
+                :key="id"
+              >
 
-            <router-link
-              v-for="remaster in gameRemasters"
-              :key="remaster.id"
-              :to="{ name: 'game', params: { id: remaster.id, slug: remaster.slug } }"
-            >
-              <b-img
-                :src="$options.getImageUrl(remaster)"
-                :alt="remaster.name"
-                rounded
-                width="120"
-                fluid
-              />
-            </router-link>
-          </div>
+                <b-link :to="{ name: 'search', query: { filterBy: 'player_perspectives', value: id }}">{{ name }}</b-link>
+                <template v-if="index < playerPerspectives.length - 1">, </template>
+              </b-link>
+            </b-col>
 
-          <div v-if="gameRemakes" class="text-left mt-3">
-            <h4>Remakes</h4>
+            <!-- <div>
+              <h4 class="mt-4">{{ $t('board.gameModal.releaseDate') }}</h4>
+              <ol v-if="releaseDates" class="list-unstyled mb-0">
+                <li
+                  v-for="{ id, platform, date } in releaseDates"
+                  :key="id"
+                >
+                  {{ date }} <span>{{ platform || 'N/A' }}</span>
+                </li>
+              </ol>
 
-            <router-link
-              v-for="remake in gameRemakes"
-              :key="remake.id"
-              :to="{ name: 'game', params: { id: remake.id, slug: remake.slug } }"
-            >
-              <b-img
-                :src="$options.getImageUrl(remake)"
-                :alt="remake.name"
-                rounded
-                width="120"
-                fluid
-              />
-            </router-link>
-          </div>
+              <div v-else>
+                Not released yet
+              </div>
+            </div> -->
 
-          <div v-if="parentGame" class="mt-3 text-left">
-            <h4>Original game</h4>
+            <b-col cols="6" sm="4" md="3" lg="12" v-if="user">
+              <h4 class="mt-4">Tags: </h4>
 
-            <router-link
-              :to="{ name: 'game', params: { id: parentGame.id, slug: parentGame.slug } }"
-            >
-              <b-img
-                :src="$options.getImageUrl(parentGame)"
-                :alt="parentGame.name"
-                rounded
-                width="120"
-                fluid
-              />
-            </router-link>
-          </div>
+              <b-link v-if="!tagsApplied.length" v-b-modal.gameTagsModal>
+                Add tag
+              </b-link>
 
-          <template v-if="gameLinks.length">
-            <h4 class="mt-4">External links</h4>
+              <b-button
+                v-for="({ bgColor, textColor, name, index }) in tagsApplied"
+                :key="index"
+                size="sm"
+                variant="transparent"
+                class="mr-2 mb-2"
+                :style="`background-color: ${bgColor}; color: ${textColor}`"
+                v-b-modal.gameTagsModal
+              >
+                <i class="fa-solid fa-tag mr-1" />
+                {{ name }}
+              </b-button>
 
-            <b-button
-              v-for="({ url, id, icon, svg }, index) in gameLinks"
-              :href="url"
-              :key="index"
-              :title="$t(`board.gameModal.links.${id}`)"
-              v-b-tooltip
-              variant="transparent"
-              target="_blank"
-              class="text-left p-1 m-0"
-            >
-              <i
-                v-if="icon"
-                :class="`${icon} fa-fw`"
-                aria-hidden
-              />
+              <game-tags-modal />
+            </b-col>
 
-              <b-img
-                v-else-if="svg"
-                width="24"
-                class="mr-1"
-                :src="`/logos/companies/${id}.svg`"
-              />
-            </b-button>
-          </template>
+            <b-col cols="6" sm="4" md="3" lg="12" v-if="gameRemasters">
+              <h4>Remasters</h4>
+
+              <router-link
+                v-for="remaster in gameRemasters"
+                :key="remaster.id"
+                :to="{ name: 'game', params: { id: remaster.id, slug: remaster.slug } }"
+              >
+                <b-img
+                  :src="$options.getImageUrl(remaster)"
+                  :alt="remaster.name"
+                  rounded
+                  width="120"
+                  fluid
+                />
+              </router-link>
+            </b-col>
+
+            <b-col cols="6" sm="4" md="3" lg="12" v-if="gameRemakes" class="text-left mt-3">
+              <h4>Remakes</h4>
+
+              <router-link
+                v-for="remake in gameRemakes"
+                :key="remake.id"
+                :to="{ name: 'game', params: { id: remake.id, slug: remake.slug } }"
+              >
+                <b-img
+                  :src="$options.getImageUrl(remake)"
+                  :alt="remake.name"
+                  rounded
+                  width="120"
+                  fluid
+                />
+              </router-link>
+            </b-col>
+
+            <b-col cols="6" sm="4" md="3" lg="12" v-if="parentGame" class="mt-3 text-left">
+              <h4>Original game</h4>
+
+              <router-link
+                :to="{ name: 'game', params: { id: parentGame.id, slug: parentGame.slug } }"
+              >
+                <b-img
+                  :src="$options.getImageUrl(parentGame)"
+                  :alt="parentGame.name"
+                  rounded
+                  width="120"
+                  fluid
+                />
+              </router-link>
+            </b-col>
+
+            <template v-if="gameLinks.length">
+              <h4 class="mt-4">External links</h4>
+
+              <b-button
+                v-for="({ url, id, icon, svg }, index) in gameLinks"
+                :href="url"
+                :key="index"
+                :title="$t(`board.gameModal.links.${id}`)"
+                v-b-tooltip
+                variant="transparent"
+                target="_blank"
+                class="text-left p-1 m-0"
+              >
+                <i
+                  v-if="icon"
+                  :class="`${icon} fa-fw`"
+                  aria-hidden
+                />
+
+                <b-img
+                  v-else-if="svg"
+                  width="24"
+                  class="mr-1"
+                  :src="`/logos/companies/${id}.svg`"
+                />
+              </b-button>
+            </template>
+          </b-row>
         </b-col>
       </b-row>
 
