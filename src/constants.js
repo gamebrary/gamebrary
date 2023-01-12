@@ -201,7 +201,7 @@ export const KEYBOARD_SHORTCUTS = {
   ROUTE_tags: ['shift', 't'],
   ROUTE_notes: ['shift', 'n'],
   ROUTE_wallpapers: ['shift', 'w'],
-  ROUTE_settings: ['shift', 's'],
+  // ROUTE_accounts: ['shift', 'a'],
 };
 
 export const SUPPORTED_LANGUAGES = [
