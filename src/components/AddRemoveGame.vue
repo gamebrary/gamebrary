@@ -4,6 +4,7 @@
     hide-footer
     centered
     scrollable
+    size="sm"
     :header-bg-variant="darkTheme ? 'dark' : 'white'"
     :header-text-variant="darkTheme ? 'white' : 'dark'"
     :body-bg-variant="darkTheme ? 'dark' : 'white'"
