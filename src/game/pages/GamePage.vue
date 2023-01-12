@@ -63,40 +63,6 @@
             </div>
           </div>
 
-          <div v-if="gameRemakes" class="text-left mt-2">
-            <strong>Remakes</strong>
-
-            <router-link
-              v-for="remake in gameRemakes"
-              :key="remake.id"
-              :to="{ name: 'game', params: { id: remake.id, slug: remake.slug } }"
-            >
-              <b-img
-                :src="$options.getImageUrl(remake)"
-                :alt="remake.name"
-                rounded
-                fluid
-              />
-            </router-link>
-          </div>
-
-          <div v-if="gameRemasters" class="text-left mt-2">
-            <strong>Remasters</strong>
-
-            <router-link
-              v-for="remaster in gameRemasters"
-              :key="remaster.id"
-              :to="{ name: 'game', params: { id: remaster.id, slug: remaster.slug } }"
-            >
-              <b-img
-                :src="$options.getImageUrl(remaster)"
-                :alt="remaster.name"
-                rounded
-                fluid
-              />
-            </router-link>
-          </div>
-
           <!-- <amazon-links class="mt-2" /> -->
           <!-- <template v-if="highlightedAchievements">
             <h3 :class="['mt-5', { 'text-outlined': hasWallpaper }]">Achievements</h3>
@@ -158,7 +124,7 @@
               <span class="text-muted mt-n3 mb-3 text-capitalize">Source: {{ source }}</span>
 
               <b-row class="mt-3">
-                <b-col cols="12" v-if="gamePlatforms">
+                <b-col cols="12" v-if="gamePlatforms" class="mb-3">
                   <h4 class="mb-1">Available for:</h4>
 
                   <b-link
@@ -166,13 +132,13 @@
                     :key="platform.id"
                     :to="{ name: 'search', query: { filterBy: 'platforms', value: platform.id }}"
                     v-b-tooltip.hover
-                    :title="platform.name"
-                    :class="['p-2 d-inline-flex rounded mr-2 mb-2', { 'bg-white': platform.platform_logo && platform.platform_logo.alpha_channel }]"
+                    :title="platform.slug"
+                    :class="['d-inline-flex rounded mr-2 mb-2', { 'bg-white': platform.platform_logo && platform.platform_logo.alpha_channel }]"
                   >
                     <b-img
-                      :src="$options.getImageUrl(platform.platform_logo)"
+                      :src="`/logos/platforms/${platform.slug}.svg`"
                       :alt="platform.name"
-                      width="60"
+                      width="100"
                     />
                   </b-link>
                 </b-col>
@@ -364,8 +330,44 @@
             <game-tags-modal />
           </div>
 
+          <div v-if="gameRemasters" class="text-left mt-2">
+            <h4>Remasters</h4>
+
+            <router-link
+              v-for="remaster in gameRemasters"
+              :key="remaster.id"
+              :to="{ name: 'game', params: { id: remaster.id, slug: remaster.slug } }"
+            >
+              <b-img
+                :src="$options.getImageUrl(remaster)"
+                :alt="remaster.name"
+                rounded
+                width="120"
+                fluid
+              />
+            </router-link>
+          </div>
+
+          <div v-if="gameRemakes" class="text-left mt-3">
+            <h4>Remakes</h4>
+
+            <router-link
+              v-for="remake in gameRemakes"
+              :key="remake.id"
+              :to="{ name: 'game', params: { id: remake.id, slug: remake.slug } }"
+            >
+              <b-img
+                :src="$options.getImageUrl(remake)"
+                :alt="remake.name"
+                rounded
+                width="120"
+                fluid
+              />
+            </router-link>
+          </div>
+
           <div v-if="parentGame" class="mt-3 text-left">
-            <h3>Original game</h3>
+            <h4>Original game</h4>
 
             <router-link
               :to="{ name: 'game', params: { id: parentGame.id, slug: parentGame.slug } }"
@@ -581,7 +583,7 @@ export default {
     },
 
     gameName() {
-      return this.game?.name;
+      return this.cachedGame?.name;
     },
 
     playerPerspectives() {
