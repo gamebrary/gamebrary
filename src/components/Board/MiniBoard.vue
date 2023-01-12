@@ -198,15 +198,15 @@ $boardHeight: 200px;
   background-repeat: no-repeat;
   background-size: cover;
   height: $boardHeight;
+  min-width: 300px;
 }
 
 .lists {
-  max-height: $boardHeight - 40px;
+  max-height: $boardHeight;
   display: inline-flex;
-  height: 160px;
 }
 
 .kanban-list {
-  max-height: 146px;
+  max-height: 152px;
 }
 </style>
