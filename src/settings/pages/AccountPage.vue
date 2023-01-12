@@ -17,7 +17,7 @@
 
       <b-button
         variant="outline-danger"
-        @click="$bvModal.show('deleteAccount');"
+        v-b-modal.deleteAccount
       >
         Delete account
       </b-button>
