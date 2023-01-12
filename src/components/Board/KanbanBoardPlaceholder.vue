@@ -5,7 +5,11 @@
       :class="`ml-2 list ${listView}`"
       :key="index"
     >
-      <b-card no-body>
+      <b-card
+        no-body
+        :bg-variant="darkTheme ? 'dark' : 'light'"
+        :text-variant="darkTheme ? 'light' : 'dark'"
+      >
         <b-card-header class="pt-2 pb-1 px-2">
           <b-skeleton />
         </b-card-header>
@@ -103,12 +107,13 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import { LIST_VIEW_SINGLE } from '@/constants';
 
 export default {
   computed: {
     ...mapState(['board']),
+    ...mapGetters(['darkTheme']),
 
     listView() {
       return this.list?.view || LIST_VIEW_SINGLE;
