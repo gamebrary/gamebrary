@@ -1,7 +1,3 @@
-<!-- TODO: show option to clear search text if no results AND filters on -->
-<!-- TODO: remove filter if selected -->
-<!-- TODO: add sorting -->
-<!-- TODO: use route query for offset & limit -->
 <template lang="html">
   <section>
     <b-container>

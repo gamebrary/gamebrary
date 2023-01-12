@@ -1,4 +1,3 @@
-<!-- TODO: use board thumbnail once fully migrated -->
 <template lang="html">
   <b-card
     class=" cursor-pointer overflow-hidden"

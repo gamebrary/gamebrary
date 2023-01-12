@@ -1,7 +1,15 @@
+<!-- TODO: find better light and white (for reading) colors -->
 <!-- TODO: finish speedruns -->
 <!-- TODO: add parental controls (filter out erotic games) -->
 <!-- TODO: deku deals integration https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Frsshub.app%2Fdekudeals%2Fmost-wanted -->
 <!-- TODO: use https://github.com/twitchtv/igdb-api-node -->
+<!-- TODO: [searchPage] show option to clear search text if no results AND filters on -->
+<!-- TODO: [searchPage] remove filter if selected -->
+<!-- TODO: [searchPage] add sorting -->
+<!-- TODO: [searchPage] use route query for offset & limit -->
+<!-- TODO: [gamePage] put stuff in components -->
+<!-- TODO: [gamePage] figure out publisher/dev logos -->
+<!-- TODO: [gamePage] figure out platform logos/text -->
 <!-- TODO: [gamePage] add pc requirements from steam -->
 <!-- TODO: [gamePage] show igdb tags and franchise data -->
 <!-- TODO: [gamePage] integrate with twitch -->
@@ -15,6 +23,7 @@
 <!-- TODO: [boardPage] like/favorite board -->
 <!-- TODO: [editBoardPage] copy/move list to different board -->
 <!-- TODO: [editBoardPage] add background options (position, repeat, etc...) -->
+<!-- TODO: use thumbnails for mini boards -->
 <template>
   <main
     id="app"
