@@ -66,5 +66,7 @@ export default {
   user-select: none;
   display: flex;
   align-items: flex-start;
+  width: 100vw;
+  height: 100%;
 }
 </style>
