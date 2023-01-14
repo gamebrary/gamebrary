@@ -11,7 +11,7 @@
             <i class="fa-solid fa-chevron-left" />
           </b-button>
 
-          <h3 class="d-inline-block">Edit board</h3>
+          <h3>Edit board</h3>
         </div>
       </portal>
 

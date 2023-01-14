@@ -4,7 +4,9 @@
       <b-spinner v-if="loading" class="spinner-centered" />
 
       <div v-else-if="company">
-        <portal to="pageTitle">{{ company.name }}</portal>
+        <portal to="pageTitle">
+          <h3>{{ company.name }}</h3>
+        </portal>
 
         <img
           :src="$options.getImageUrl(company)"

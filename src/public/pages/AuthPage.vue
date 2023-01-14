@@ -2,7 +2,9 @@
   <section>
     <b-container class="field centered">
       <b-overlay :show="loading" rounded="sm">
-        <portal to="pageTitle">Login</portal>
+        <portal to="pageTitle">
+          <h3>Login</h3>
+        </portal>
 
         <b-alert
           class="mx-auto text-center"

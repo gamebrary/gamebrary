@@ -2,7 +2,7 @@
   <section>
     <b-container>
       <portal to="pageTitle">
-        Tags
+        <h3>Tags</h3>
       </portal>
 
       <portal v-if="!loading && tags.length > 0" to="headerActions">

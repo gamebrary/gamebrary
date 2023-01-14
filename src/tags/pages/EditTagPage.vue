@@ -12,7 +12,7 @@
           {{ tag.name }}
         </b-button>
 
-        <template v-else-if="!loading">Edit tag</template>
+        <h3 v-else-if="!loading">Edit tag</h3>
       </portal>
 
       <portal to="headerActions">

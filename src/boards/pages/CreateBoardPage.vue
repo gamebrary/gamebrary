@@ -1,7 +1,9 @@
 <template lang="html">
   <section>
     <b-container>
-      <portal to="pageTitle">Create board</portal>
+      <portal to="pageTitle">
+        <h3>Create board</h3>
+      </portal>
 
       <b-form @submit.prevent="createBoard" class="field centered">
         <b-form-group label="Board name:" label-for="boardName">

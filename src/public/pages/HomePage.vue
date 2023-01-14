@@ -1,7 +1,7 @@
 <template lang="html">
   <section>
     <portal to="pageTitle">
-      <h3 class="text-outlined">Gamebrary</h3>
+      <h3>Gamebrary</h3>
     </portal>
 
     <!-- <div v-if="user" class="text-center py-5">

@@ -4,7 +4,7 @@
   <section>
     <b-container>
       <portal to="pageTitle">
-        <div>
+        <div class="d-flex align-items-center">
           <b-button
             :to="{ name: 'game', params: { id: game.id, slug: game.slug } }"
             :variant="darkTheme ? 'secondary' : 'light'"
@@ -13,7 +13,7 @@
               <i class="fa-solid fa-chevron-left" />
           </b-button>
 
-          News
+          <h3>News</h3>
         </div>
       </portal>
 

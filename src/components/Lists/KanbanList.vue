@@ -1,4 +1,3 @@
-<!-- TODO: fix board height when short lists -->
 <!-- TODO: Fix issue with grid not loading correctly -->
 <template lang="html">
   <div

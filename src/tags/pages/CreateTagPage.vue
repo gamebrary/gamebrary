@@ -2,7 +2,7 @@
   <section>
     <b-container>
       <portal to="pageTitle">
-        <div>
+        <div class="d-flex align-items-center">
           <b-button
             :variant="darkTheme ? 'secondary' : 'light'"
             class="mr-2"
@@ -11,7 +11,7 @@
             <i class="fa-solid fa-chevron-left" />
           </b-button>
 
-          Create tag
+          <h3>Create tag</h3>
         </div>
       </portal>
 
