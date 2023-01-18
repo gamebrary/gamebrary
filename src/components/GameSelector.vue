@@ -25,7 +25,17 @@
         </template>
 
         <div class="px-3 pt-1">
+          <b-form-input
+           v-model="searchText"
+           debounce="500"
+           class="mb-2"
+           placeholder="Type here"
+           type="search"
+           @update="search"
+          />
+
           <b-form-checkbox
+            v-if="filteredSearchResults.length"
             v-model="preventClose"
             name="check-button"
             class="mb-2"
@@ -33,14 +43,6 @@
           >
             Select multiple
           </b-form-checkbox>
-
-          <b-form-input
-           v-model="searchText"
-           debounce="500"
-           placeholder="Type here"
-           type="search"
-           @update="search"
-          />
 
           <div v-if="loading" style="height: 80px" class="mt-5">
             <b-spinner class="spinner-centered" />
