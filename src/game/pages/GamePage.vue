@@ -96,9 +96,15 @@
           class="pt-3"
         >
           <div class="d-flex justify-content-between align-items-end" v-b-visible="visibleHandler">
-            <h2 :class="{ 'mt-3': hasArtworks }">
-              {{ gameName }}
-            </h2>
+            <div :class="['d-flex align-items-center', { 'mt-3': hasArtworks }]">
+              <h2>
+                {{ gameName }}
+              </h2>
+
+              <b-badge v-if="gameCategory" variant="info" class="ml-2">
+                {{ gameCategory }}
+              </b-badge>
+            </div>
 
             <b-button
               v-if="gogGame"
@@ -110,10 +116,6 @@
               {{ gogGamePrice }}
             </b-button>
           </div>
-
-          <b-badge v-if="gameCategory" variant="info" class="mb-2">
-            {{ gameCategory }}
-          </b-badge>
 
           <div :class="['game-description', source]">
             <b-spinner v-if="loading" class="spinner-centered" />
