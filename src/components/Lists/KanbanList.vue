@@ -37,34 +37,10 @@
           size="sm"
           style="flex: 1"
           :variant="darkTheme ? 'dark' : 'light'"
-          v-b-modal="`edit-list-${listIndex}`"
+          @click="editList"
         >
           {{ list.name }}
         </b-button>
-
-        <b-modal
-          :header-bg-variant="darkTheme ? 'dark' : 'white'"
-          :header-text-variant="darkTheme ? 'white' : 'dark'"
-          :body-bg-variant="darkTheme ? 'dark' : 'white'"
-          :body-text-variant="darkTheme ? 'white' : 'dark'"
-          :id="`edit-list-${listIndex}`"
-          hide-footer
-        >
-          <template v-slot:modal-header="{ close }">
-            <modal-header
-              title="Edit list"
-              :subtitle="list.name"
-              @close="close"
-            />
-          </template>
-
-          <!-- <p class="my-4">Hello from modal!</p> -->
-          <pre>{{ localList }}</pre>
-          <b-button @click="$router.push({ name: 'board.edit', params: { id: board.id } })">
-            poop
-          </b-button>
-        </b-modal>
-
 
         <game-selector
           v-if="isBoardOwner && !isEmpty"
@@ -158,7 +134,7 @@ export default {
     return {
       draggingId: null,
       editing: false,
-      localList: null,
+      localList: {},
       gameCardComponents: {
         single: 'GameCardDefault',
         covers: 'GameCardCovers',
@@ -234,6 +210,10 @@ export default {
   },
 
   methods: {
+    editList() {
+      this.$bus.$emit('EDIT_LIST', this.listIndex);
+    },
+
     selectGame(gameId) {
       return this.list.games.includes(gameId)
         ? this.removeGame(gameId)
@@ -331,6 +311,7 @@ export default {
   cursor: default;
   position: relative;
   height: auto;
+  max-height: calc(100vh - 200px);
   min-height: 200px;
   width: calc(300px + 1rem);
 
@@ -345,9 +326,8 @@ export default {
   }
 
   .games {
-    height: 100%;
     overflow: hidden;
-    max-height: 80vh;
+    max-height: calc(100vh - 200px);
     overflow-y: auto;
     width: 100%;
 

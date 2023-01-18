@@ -22,7 +22,7 @@
         @select-game="selectGame"
       />
 
-      <b-dropdown-item :to="{ name: 'board.edit', params: { id: board.id } }">
+      <b-dropdown-item @click="editList">
         Edit list
       </b-dropdown-item>
     </b-dropdown>
@@ -182,6 +182,10 @@ export default {
         .catch(() => {
           this.$store.commit('SET_SESSION_EXPIRED', true);
         });
+    },
+
+    editList() {
+      this.$bus.$emit('EDIT_LIST', this.listIndex);
     },
   },
 };

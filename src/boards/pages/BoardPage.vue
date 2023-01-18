@@ -3,6 +3,8 @@
     <board-placeholder v-if="loading" />
 
     <template v-else-if="hasAccess">
+      <edit-list-modal />
+
       <portal to="pageTitle">
         <div class="d-flex align-items-center">
           <b-button
@@ -73,6 +75,7 @@ import BoardPlaceholder from '@/components/Board/BoardPlaceholder';
 import KanbanBoard from '@/components/Board/KanbanBoard';
 import TierBoard from '@/components/Board/TierBoard';
 import StandardBoard from '@/components/Board/StandardBoard';
+import EditListModal from '@/components/Lists/EditListModal';
 import chunk from 'lodash.chunk';
 import { getImageThumbnail } from '@/utils';
 import { BOARD_TYPE_STANDARD, BOARD_TYPE_TIER, MAX_QUERY_LIMIT } from '@/constants';
@@ -86,6 +89,7 @@ export default {
     BoardPlaceholder,
     KanbanBoard,
     TierBoard,
+    EditListModal,
     StandardBoard,
   },
 
