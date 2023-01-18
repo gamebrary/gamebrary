@@ -1,5 +1,5 @@
 <template lang="html">
-  <div>
+  <b-col cols="6" sm="4" md="3" lg="12">
     <h4 class="mt-4">Progress: </h4>
     <b-link @click="editing = true">{{ progress }}%</b-link>
 
@@ -31,7 +31,7 @@
         <i v-else class="fas fa-trash fa-fw" aria-hidden />
       </b-button>
     </b-form>
-  </div>
+  </b-col>
 </template>
 
 <script>

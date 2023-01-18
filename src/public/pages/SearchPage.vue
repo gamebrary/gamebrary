@@ -86,22 +86,14 @@
             <i class="fa-solid fa-caret-right d-sm-none" aria-hidden="true" />
           </b-button>
 
-          <b-button v-b-toggle.filters class="mr-2">
+          <b-button v-b-modal.filters class="mr-2">
             <i class="fa-solid fa-sliders" />
           </b-button>
         </portal>
 
-        <b-collapse id="filters" class="w-100">
-          <!-- <b-col
-            cols="6"
-          >
-            Results per page
-            <br />
-            <b-form-select v-model="pageSize" :options="pageSizes" />
-          </b-col> -->
-
+        <b-modal id="filters" size="md">
           <search-filters />
-        </b-collapse>
+        </b-modal>
 
         <b-col
           cols="6"

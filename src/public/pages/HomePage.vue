@@ -21,16 +21,17 @@
         </ul>
 
         <b-button
-          variant="primary"
+          variant="success"
           class="mt-3"
           :to="{ name: 'auth' }"
         >
-          Get started!
+          <span v-if="user">My boards</span>
+          <span v-else>Get started</span>
         </b-button>
 
         <br />
 
-        <small class="text-success">Free and open source!</small>
+        <small class="text-info"><ins>Free</ins> and <a href="https://github.com/romancm/gamebrary/" target="_blank">Open Source</a></small>
 
         <!-- <b-button variant="link" v-b-popover.hover.top="'I am popover directive content!'" title="Popover Title">
           <i class="fa-regular fa-circle fa-beat" />
@@ -52,7 +53,7 @@
     <div class="mt-auto bg-light py-5">
       <h2 class="text-center text-primary mb-2">Game data from the most reliable sources</h2>
 
-      <div class="d-flex align-items-start justify-content-center">
+      <div class="d-flex align-items-start justify-content-center overflow-auto">
         <!-- YouTube -->
         <img src="/logos/data-sources/wikipedia.svg" alt="wikipedia" width="80" class="mx-3">
         <img src="/logos/data-sources/igdb.svg" alt="igdb" width="100" class="mx-3">

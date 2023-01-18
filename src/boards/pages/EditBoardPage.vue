@@ -126,7 +126,7 @@
               <div class="d-flex align-items-center">
                 <b-button
                   v-b-modal.boardWallpaper
-                  variant="light"
+                  class="mr-2"
                 >
                   <i class="fa fa-image" aria-hidden="true"></i>
                 </b-button>
@@ -134,9 +134,10 @@
                 <b-button
                   v-if="board.backgroundUrl"
                   variant="white"
+                  class="mr-2"
                   @click="board.backgroundUrl = null"
                 >
-                  <i class="fas fa-close fa-fw" aria-hidden />
+                  <i class="fas fa-close" aria-hidden />
                 </b-button>
 
                 Background image

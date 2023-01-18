@@ -132,6 +132,9 @@ export default {
       await this.$store.dispatch('LOAD_TAGS')
         .catch(() => { this.loading = false; })
 
+      // TODO: load games that aren't cached
+      // await this.$store.dispatch('LOAD_GAMES', this.tag.games);
+
       this.loading = false;
     },
   },
