@@ -5,7 +5,7 @@
 
       <b-row v-else>
         <portal to="pageTitle">
-          <div>
+          <div class="d-flex align-items-center">
             <b-button
               v-if="game"
               :to="{ name: 'game', params: { id: game.id, slug: game.slug } }"
@@ -15,7 +15,7 @@
                 <i class="fa-solid fa-chevron-left" />
             </b-button>
 
-            Notes
+            <h3>Notes</h3>
           </div>
         </portal>
 
