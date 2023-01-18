@@ -53,7 +53,7 @@
                 v-b-tooltip.hover
                 class="mr-2"
                 title="Tag background color"
-                :trigger-style="{ height: '34px', width: '34px', border: '1px solid #ced4da' }"
+                :trigger-style="{ height: '40px', width: '40px', border: '1px solid #ced4da' }"
                 show-fallback
                 show-checkbox
                 fallback-input-class="color-input float-left"
@@ -68,7 +68,7 @@
                 v-b-tooltip.hover
                 class="mr-2"
                 title="Tag text color"
-                :trigger-style="{ height: '34px', width: '34px', border: '1px solid #ced4da' }"
+                :trigger-style="{ height: '40px', width: '40px', border: '1px solid #ced4da' }"
                 show-fallback
                 show-checkbox
                 fallback-input-class="color-input float-left"

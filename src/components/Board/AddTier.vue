@@ -36,7 +36,7 @@
         <v-swatches
           v-model="list.backgroundColor"
           show-fallback
-          :trigger-style="{ height: '34px', width: '34px' }"
+          :trigger-style="{ height: '40px', width: '40px' }"
           popover-x="left"
         />
 
