@@ -1,7 +1,7 @@
 <template lang="html">
   <section>
     <portal to="pageTitle">
-      Help
+      <h3>Help</h3>
     </portal>
 
     <b-container class="field centered">
