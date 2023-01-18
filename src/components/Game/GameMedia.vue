@@ -1,17 +1,22 @@
 <template lang="html">
   <div>
-    <div v-if="thumbnailPreviews.length > 1" class="ml-2 mt-2" style="display: flow-root">
-      <b-img
+    <section v-if="thumbnailPreviews.length > 1" class="my-2 thumbnails w-100">
+      <div
         v-for="({ imageUrl }, index) in thumbnailPreviews"
         :key="index"
         :src="imageUrl"
-        rounded
-        fluid
-        :class="['mb-2 float-left', { 'mr-2': ![3, 5].includes(index) }]"
-        :style="index > 1 ? 'width: 46px' : 'width: 100px'"
+        :class="['thumbnail cursor-pointer rounded overflow-hidden', { 'large': index < 2 }]"
+        :style="`background-image: url(${imageUrl})`"
         @click="viewMedia(index)"
-      />
-    </div>
+      >
+        <span
+          v-if="index === 4"
+          class="more-thumbnails text-light w-100 d-flex justify-content-center h-100 align-items-center"
+        >
+          {{ thumbnails.length }}+
+        </span>
+      </div>
+    </section>
 
     <b-modal
       id="mediaModal"
@@ -141,7 +146,7 @@ export default {
     },
 
     thumbnailPreviews() {
-      return this.$store.getters.gameMedia(true)?.slice(0,6);
+      return this.thumbnails?.slice(0, 5);
     },
 
     gameMedia() {
@@ -233,5 +238,22 @@ export default {
 .media-button {
   padding: 21px 16px;
   height: 100%;
+}
+
+.thumbnails {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  // grid-template-rows: repeat(2, 3vw);
+  grid-gap: .5rem;
+}
+
+.thumbnail {
+  height: 60px;
+  background-position: center;
+  background-size: cover;
+}
+
+.more-thumbnails {
+  background-color: rgba(0, 0, 0, 0.3);
 }
 </style>
