@@ -1,6 +1,6 @@
 <template lang="html">
   <b-card
-    class=" cursor-pointer overflow-hidden"
+    class="cursor-pointer overflow-hidden"
     :bg-variant="darkTheme ? 'dark' : 'transparent'"
     :text-variant="darkTheme ? 'light' : 'dark'"
     body-class="p-0"
@@ -10,14 +10,14 @@
       :style="backgroundSyle"
       class="mini-board"
     >
-      <header class="text-small py-1 px-2 d-flex align-items-center justify-content-between">
-        <h4 :class="['', { 'text-white': hasCustomBackground || darkTheme } ]">
+      <header class="text-small px-2 pt-1 d-flex align-items-center justify-content-between">
+        <h4 :class="{ 'text-white': hasCustomBackground || darkTheme }">
           {{ board.name }}
         </h4>
 
         <b-badge
           v-if="showPublicIndicator"
-          class="bg-warning"
+          variant="warning"
           size="sm"
         >
           Public
@@ -49,7 +49,10 @@
         </div>
       </div>
 
-      <div v-else-if="isStandardBoard" class="lists rounded overflow-hidden w-100 justify-content-center">
+      <div
+        v-else-if="isStandardBoard"
+        class="board d-flex rounded overflow-hidden justify-content-center"
+      >
         <b-card
           body-class="p-0"
           :bg-variant="darkTheme ? 'secondary' : 'transparent'"
@@ -61,7 +64,7 @@
             <div
               v-for="(game, index) in firstList.games"
               :key="index"
-              :class="[ darkTheme ? 'border-secondary bg-dark' : 'border-light bg-white', { 'border-bottom': index !== firstList.games.length - 1 }]"
+              :class="[darkTheme ? 'border-secondary bg-dark' : 'border-light bg-white', { 'border-bottom': index !== firstList.games.length - 1 }]"
             >
               <b-avatar
                 :style="`border-radius: 4px !important;`"
@@ -83,27 +86,26 @@
         </b-card>
       </div>
 
-      <div v-else class="lists rounded overflow-hidden">
+      <div v-else class="lists d-inline-flex ml-1 rounded overflow-hidden">
         <b-card
           v-for="(list, listIndex) in board.lists"
           :key="listIndex"
           body-class="p-0 kanban-list"
           :bg-variant="darkTheme ? 'secondary' : 'transparent'"
           :text-variant="darkTheme ? 'light' : 'dark'"
-          class="overflow-hidden ml-2 align-self-start"
+          class="overflow-hidden align-self-start mr-1"
         >
           <template v-if="list.games.length">
             <div
               v-for="(game, index) in list.games"
               :key="index"
               style="width: 60px"
-              :class="['d-flex', darkTheme ? 'border-secondary bg-dark' : 'border-light bg-white', { 'border-bottom' : index !== list.games.length - 1 } ]"
+              :class="['p-1 d-flex', darkTheme ? 'border-secondary bg-dark' : 'border-light bg-white', { 'border-bottom' : index !== list.games.length - 1 } ]"
             >
               <b-avatar
-                :style="`border-radius: 4px !important;`"
+                style="border-radius: 4px !important"
                 text=" "
                 :variant="darkTheme ? 'secondary' : 'light'"
-                class="m-1"
                 size="20"
               />
             </div>
@@ -162,9 +164,7 @@ export default {
     },
 
     firstList() {
-      const [firstList] = this.board?.lists;
-
-      return firstList;
+      return this.board?.lists?.[0] || {};
     },
 
     backgroundSyle() {
@@ -201,9 +201,8 @@ $boardHeight: 200px;
   min-width: 300px;
 }
 
-.lists {
+.board {
   max-height: $boardHeight;
-  display: inline-flex;
 }
 
 .kanban-list {
