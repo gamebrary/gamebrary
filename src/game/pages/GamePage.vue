@@ -333,6 +333,18 @@
               <game-tags-modal />
             </b-col>
 
+            <!-- TODO: add game requirements -->
+            <!-- <b-col cols="6" sm="4" md="3" lg="12" v-if="gameRequirements">
+              <div
+                v-for="(requirement, index) in gameRequirements"
+                :key="index"
+              >
+                <pre>{{ index }}</pre>
+                <p v-html="requirement.minimum" />
+                <p v-html="requirement.recommended" />
+              </div>
+            </b-col> -->
+
             <b-col cols="6" sm="4" md="3" lg="12" v-if="gameRemasters">
               <h4>Remasters</h4>
 
@@ -524,6 +536,18 @@ export default {
     background() {
       return this.game?.steam?.background;
     },
+
+    // gameRequirements() {
+    //   const steamGame = this.game?.steam;
+    //
+    //   if (!steamGame) return null;
+    //
+    //   return {
+    //     mac: steamGame?.mac_requirements || null,
+    //     linux: steamGame?.linux_requirements || null,
+    //     pc: steamGame?.pc_requirements || null,
+    //   };
+    // },
 
     newsHighlights() {
       return this.gameNews?.slice(0, 5)?.map(({ title }) => title?.slice(0, 50));
