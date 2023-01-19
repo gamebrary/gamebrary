@@ -55,6 +55,10 @@
 
         <b-modal
           id="deleteConfirm"
+          :header-bg-variant="darkTheme ? 'dark' : 'white'"
+          :header-text-variant="darkTheme ? 'white' : 'dark'"
+          :body-bg-variant="darkTheme ? 'dark' : 'white'"
+          :body-text-variant="darkTheme ? 'white' : 'dark'"
           hide-footer
         >
           <template v-slot:modal-header="{ close }">
