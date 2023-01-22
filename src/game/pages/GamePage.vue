@@ -145,35 +145,14 @@
                   </b-link>
                 </b-col>
 
-                <b-col cols="4" v-if="alternativeNames.length">
-                  <h4 class="mb-1">Alternative names:</h4>
-
-                  <div
-                    class="mb-1"
-                    variant="light"
-                    v-for="{ comment, id, name, imgUrl } in alternativeNames"
-                    :key="id"
-                  >
-                    <b-avatar
-                      v-b-tooltip
-                      :title="comment || null"
-                      size="sm"
-                      variant="transparent"
-                      class="mr-1"
-                      rounded
-                      :src="imgUrl"
-                    />
-
-                    {{ name }}
-                  </div>
-                </b-col>
-
                 <b-col cols="6" sm="4" md="3" lg="6" v-if="gamePublishers.length">
                   <h4 class="mb-1">Published by:</h4>
 
                   <b-link
                     v-for="publisher in gamePublishers"
                     :key="publisher.id"
+                    v-b-tooltip.hover
+                    :title="publisher.name"
                     :to="{ name: 'company', params: { id: publisher.id, slug: publisher.slug }}"
                     :class="['p-2 d-inline-flex rounded mr-2 mb-2', { 'bg-white': publisher.logo && publisher.logo.alpha_channel }]"
                   >
@@ -234,7 +213,7 @@
             <game-progress />
 
             <b-col cols="6" sm="4" md="3" lg="12" v-if="gameGenres">
-              <h4 class="mt-4">Genres: </h4>
+              <h4 class="mt-3">Genres: </h4>
 
               <b-link
                 v-for="(genre, index) in gameGenres"
@@ -246,7 +225,7 @@
             </b-col>
 
             <b-col cols="6" sm="4" md="3" lg="12" v-if="gameThemes">
-              <h4 class="mt-4">Themes: </h4>
+              <h4 class="mt-3">Themes: </h4>
 
               <b-link
                 v-for="({ id, name }, index) in gameThemes"
@@ -258,7 +237,7 @@
             </b-col>
 
             <b-col cols="6" sm="4" md="3" lg="12" v-if="gameEngines">
-              <h4 class="mt-4">Game engines: </h4>
+              <h4 class="mt-3">Game engines: </h4>
 
               <p
                 v-for="{ id, name } in gameEngines"
@@ -270,7 +249,7 @@
             </b-col>
 
             <b-col cols="6" sm="4" md="3" lg="12" v-if="gameModes">
-              <h4 class="mt-4">{{ $t('board.gameModal.gameModes') }}: </h4>
+              <h4 class="mt-3">{{ $t('board.gameModal.gameModes') }}: </h4>
 
               <b-link
                 v-for="(gameMode, index) in gameModes"
@@ -282,7 +261,7 @@
             </b-col>
 
             <b-col cols="6" sm="4" md="3" lg="12" v-if="playerPerspectives">
-              <h4 class="mt-4">{{ $t('board.gameModal.perspective') }}: </h4>
+              <h4 class="mt-3">{{ $t('board.gameModal.perspective') }}: </h4>
 
               <b-link
                 v-for="({ id, name }, index) in playerPerspectives"
@@ -295,7 +274,7 @@
             </b-col>
 
             <!-- <div>
-              <h4 class="mt-4">{{ $t('board.gameModal.releaseDate') }}</h4>
+              <h4 class="mt-3">{{ $t('board.gameModal.releaseDate') }}</h4>
               <ol v-if="releaseDates" class="list-unstyled mb-0">
                 <li
                   v-for="{ id, platform, date } in releaseDates"
@@ -311,7 +290,7 @@
             </div> -->
 
             <b-col cols="6" sm="4" md="3" lg="12" v-if="user">
-              <h4 class="mt-4">Tags: </h4>
+              <h4 class="mt-3">Tags: </h4>
 
               <b-link v-if="!tagsApplied.length" v-b-modal.gameTagsModal>
                 Add tag
@@ -331,6 +310,29 @@
               </b-button>
 
               <game-tags-modal />
+            </b-col>
+
+            <b-col cols="6" sm="4" md="3" lg="12" v-if="alternativeNames.length">
+              <h4 class="mt-3">Alternative names:</h4>
+
+              <div
+                class="mb-1"
+                variant="light"
+                v-for="{ comment, id, name, imgUrl } in alternativeNames"
+                :key="id"
+              >
+                <b-avatar
+                  v-b-tooltip
+                  :title="comment || null"
+                  size="sm"
+                  variant="transparent"
+                  class="mr-1"
+                  rounded
+                  :src="imgUrl"
+                />
+
+                {{ name }}
+              </div>
             </b-col>
 
             <!-- TODO: add game requirements -->
@@ -397,8 +399,15 @@
               </router-link>
             </b-col>
 
-            <template v-if="gameLinks.length">
-              <h4 class="mt-4">External links</h4>
+            <b-col
+              v-if="gameLinks.length"
+              cols="6"
+              sm="4"
+              md="3"
+              lg="12"
+              class="mt-3 text-left"
+            >
+              <h4 class="mt-3">External links</h4>
 
               <b-button
                 v-for="({ url, id, icon, svg }, index) in gameLinks"
@@ -423,7 +432,7 @@
                   :src="`/logos/companies/${id}.svg`"
                 />
               </b-button>
-            </template>
+            </b-col>
           </b-row>
         </b-col>
       </b-row>

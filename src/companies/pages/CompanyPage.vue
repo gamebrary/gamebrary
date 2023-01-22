@@ -12,7 +12,7 @@
           :src="$options.getImageUrl(company)"
           :alt="company.name"
           width="100"
-          class="mb-2 rounded"
+          class="mb-2"
         />
 
         <p>{{ company.description }}</p>
