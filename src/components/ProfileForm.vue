@@ -169,7 +169,7 @@
       />
     </b-form-group>
 
-    <footer class="mt-3 mb-5">
+    <footer class="mt-3">
       <b-button
         variant="primary"
         type="submit"
@@ -188,27 +188,34 @@
         <template v-else>Delete profile</template>
       </b-button>
     </footer>
+
+    <hr class="my-3" />
   </form>
 
   <form
     v-else
     class="field centered"
+    autocomplete="off"
     @submit.prevent="checkUserNameAvailability"
   >
-    <p class="text-muted text-center">Choose a user name to get started!</p>
+    <p>Profile</p>
 
     <b-input-group class="mb-3">
       <b-form-input
         id="userName"
         autocomplete="off"
         v-model.trim="userName"
-        size="lg"
         :minlength="$options.MIN_PROFILE_LENGTH"
         :maxlength="$options.MAX_PROFILE_LENGTH"
         required
         :state="available"
         @input="formatUserName"
       />
+      <template #prepend>
+        <b-input-group-text>
+          gamebrary.com/
+        </b-input-group-text>
+      </template>
 
       <template #append>
         <b-button
@@ -231,7 +238,12 @@
         Great, <strong>{{ userName }}</strong> is available!
       </b-alert>
 
-      <b-button block variant="success" @click="createProfile">
+      <b-button
+        block
+        variant="success"
+        class="mb-3"
+        @click="createProfile"
+      >
         <b-spinner small v-if="saving" />
         <template v-else>Create profile</template>
       </b-button>
@@ -240,6 +252,8 @@
     <div v-else-if="!checkingAvailability && available === false">
       User name not available
     </div>
+
+    <hr class="my-3" />
   </form>
 </template>
 
