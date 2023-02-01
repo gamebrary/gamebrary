@@ -185,17 +185,16 @@ export default {
     },
 
     async boot() {
-      const BOARDS = this.$store.dispatch('LOAD_BOARDS').catch(() => {});
-      const RELEASES = this.$store.dispatch('LOAD_RELEASES').catch(() => {});
-      const WALLPAPERS = this.$store.dispatch('LOAD_WALLPAPERS').catch(() => {});
-      const SETTINGS = this.$store.dispatch('LOAD_SETTINGS').catch(() => {});
-      const TAGS = this.$store.dispatch('LOAD_TAGS').catch(() => {});
-      const NOTES = this.$store.dispatch('LOAD_NOTES').catch(() => {});
-      const PROGRESSES = this.$store.dispatch('LOAD_PROGRESSES').catch(() => {});
-
-      await Promise.allSettled([BOARDS, RELEASES, WALLPAPERS, SETTINGS, TAGS, NOTES, PROGRESSES]);
+      await this.$store.dispatch('LOAD_BOARDS').catch((e) => {});
 
       this.loading = false;
+
+      this.$store.dispatch('LOAD_RELEASES').catch((e) => {});
+      this.$store.dispatch('LOAD_WALLPAPERS').catch((e) => {});
+      this.$store.dispatch('LOAD_SETTINGS').catch((e) => {});
+      this.$store.dispatch('LOAD_TAGS').catch((e) => {});
+      this.$store.dispatch('LOAD_NOTES').catch((e) => {});
+      this.$store.dispatch('LOAD_PROGRESSES').catch((e) => {});
     },
   },
 };

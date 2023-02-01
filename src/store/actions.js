@@ -362,6 +362,8 @@ export default {
       storage().ref(`${state.user.uid}/wallpapers`).listAll().then(({ items }) => {
         const refs = items.map(({ fullPath }) => (fullPath));
 
+        if (refs?.length === 0) return resolve();
+
         refs.forEach((ref, index) => {
           storage().ref().child(ref).getDownloadURL().then((url) => {
             storage().ref(ref).getMetadata().then(({ size, name, updated }) => {
@@ -588,27 +590,6 @@ export default {
             commit('SET_SETTINGS', settings);
             resolve();
           } else {
-            reject();
-          }
-        });
-    });
-  },
-
-  LOAD_SETTINGS({ commit, state }) {
-    return new Promise((resolve, reject) => {
-      const db = firestore();
-
-      db.collection('settings')
-        .doc(state.user.uid)
-        .get()
-        .then((doc) => {
-          if (doc.exists) {
-            const settings = doc.data();
-
-            commit('SET_SETTINGS', settings);
-            resolve();
-          } else {
-            commit('SET_SESSION_EXPIRED', true);
             reject();
           }
         });
