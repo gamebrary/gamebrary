@@ -106,8 +106,8 @@ export default {
         });
 
       this.$forceUpdate();
-      this.reset();
       this.saving = false;
+      this.reset();
       this.scroll();
     },
 
