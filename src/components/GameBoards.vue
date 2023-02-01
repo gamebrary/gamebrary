@@ -85,6 +85,8 @@ export default {
 
   methods: {
     load() {
+      this.loading = this.gameBoards?.length === 0;
+
       if (this.isPublicBoard) {
         this.loadPublicBoards();
       } else {
@@ -93,8 +95,6 @@ export default {
     },
 
     async loadBoards() {
-      this.loading = true;
-
       await this.$store.dispatch('LOAD_BOARDS')
         .catch(() => {
           this.loading = false;
@@ -107,8 +107,6 @@ export default {
     },
 
     async loadPublicBoards() {
-      this.loading = true;
-
       await this.$store.dispatch('LOAD_PUBLIC_BOARDS')
         .catch(() => {
           this.loading = false;
