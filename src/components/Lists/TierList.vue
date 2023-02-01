@@ -98,7 +98,7 @@ export default {
     ...mapGetters(['isBoardOwner']),
 
     listNameInitials() {
-      return this.list.name?.split(' ').map((n)=>n[0]).join('');
+      return this.list.name?.charAt(0);
     },
 
     draggingDisabled() {
