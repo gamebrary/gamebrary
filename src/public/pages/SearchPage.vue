@@ -91,9 +91,7 @@
           </b-button>
         </portal>
 
-        <b-modal id="filters" size="md">
-          <search-filters />
-        </b-modal>
+        <search-filters />
 
         <b-col
           cols="6"
@@ -145,6 +143,7 @@ export default {
 
   computed: {
     ...mapState(['boards']),
+    ...mapGetters(['darkTheme']),
 
     filterBy() {
       return this.$route.query?.filterBy
