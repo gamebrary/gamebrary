@@ -1,7 +1,7 @@
 <template lang="html">
   <section>
     <b-container>
-      <portal to="pageTitle">
+      <portal v-if="!isEmpty" to="pageTitle">
         <h3>Tags</h3>
       </portal>
 
@@ -18,7 +18,8 @@
       <b-spinner v-if="loading" class="spinner-centered" />
 
       <empty-state
-        v-else-if="tags.length === 0"
+        v-else-if="isEmpty"
+        title="Tags"
         message="Tags are a great way to organize your collection"
        >
          <b-button
@@ -119,6 +120,10 @@ export default {
   computed: {
     ...mapState(['tags', 'games']),
     ...mapGetters(['darkTheme']),
+
+    isEmpty() {
+      return this.tags?.length === 0;
+    }
   },
 
   mounted() {

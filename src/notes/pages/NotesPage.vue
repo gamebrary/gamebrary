@@ -1,31 +1,14 @@
 <template lang="html">
-  <section>
-    <b-container>
-      <portal to="pageTitle">
-        <h3>Notes</h3>
-      </portal>
+  <b-container>
+    <portal v-if="!isEmpty" to="pageTitle">
+      <h3>Notes</h3>
+    </portal>
 
-      <b-spinner v-if="loading" class="spinner-centered" />
+    <b-spinner v-if="loading" class="spinner-centered" />
 
-      <template v-else>
-        <portal v-if="!isEmpty" to="headerActions">
-          <div class="d-flex">
-            <game-selector
-              title="Select game to add a note"
-              trigger-text="Create note"
-              size="md"
-              variant="primary"
-              class="mr-2"
-              @select-game="createNote"
-            />
-          </div>
-        </portal>
-
-        <empty-state
-          v-if="isEmpty"
-          :title="$t('notes.title')"
-          message="Looks like you don't have any notes yet."
-        >
+    <template v-else>
+      <portal v-if="!isEmpty" to="headerActions">
+        <div class="d-flex">
           <game-selector
             title="Select game to add a note"
             trigger-text="Create note"
@@ -34,55 +17,70 @@
             class="mr-2"
             @select-game="createNote"
           />
-        </empty-state>
-
-        <div v-else-if="searchText.length && !filteredNotes.length">
-          <p>No results</p>
-
-          <b-button @click="searchText = ''">
-            Clear search
-          </b-button>
         </div>
+      </portal>
 
-        <b-row v-else>
-          <b-col>
-            <b-form-input
-              type="search"
-              class="field mb-3"
-              placeholder="Search notes"
-              v-model="searchText"
-            />
+      <empty-state
+        v-if="isEmpty"
+        :title="$t('notes.title')"
+        message="Looks like you don't have any notes yet."
+      >
+        <game-selector
+          title="Select game to add a note"
+          trigger-text="Create note"
+          size="md"
+          variant="primary"
+          class="mr-2"
+          @select-game="createNote"
+        />
+      </empty-state>
 
-            <b-card-group columns>
-              <b-card
-                v-for="({ note, game }, index) in filteredNotes"
-                body-class="p-2"
-                :bg-variant="darkTheme ? 'secondary' : 'light'"
-                :text-variant="darkTheme ? 'light' : 'dark'"
-                :key="index"
-                class="cursor-pointer"
-                @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug }})"
-              >
-                <b-card-text v-if="game">
-                  <b-img
-                    :src="$options.getImageUrl(game, $options.IMAGE_SIZE_COVER_SMALL)"
-                    height="80"
-                    class="cursor-pointer rounded float-left mr-3 mb-2"
-                  />
+      <div v-else-if="searchText.length && !filteredNotes.length">
+        <p>No results</p>
 
-                  <div class="ml-2 overflow-hidden">
-                    <h5>{{ game.name }}</h5>
-                  </div>
+        <b-button @click="searchText = ''">
+          Clear search
+        </b-button>
+      </div>
 
-                  <p class="note-text small" v-if="note" v-html="note" />
-                </b-card-text>
-              </b-card>
-            </b-card-group>
-          </b-col>
-        </b-row>
-      </template>
-    </b-container>
-  </section>
+      <b-row v-else>
+        <b-col>
+          <b-form-input
+            type="search"
+            class="field mb-3"
+            placeholder="Search notes"
+            v-model="searchText"
+          />
+
+          <b-card-group columns>
+            <b-card
+              v-for="({ note, game }, index) in filteredNotes"
+              body-class="p-2"
+              :bg-variant="darkTheme ? 'secondary' : 'light'"
+              :text-variant="darkTheme ? 'light' : 'dark'"
+              :key="index"
+              class="cursor-pointer"
+              @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug }})"
+            >
+              <b-card-text v-if="game">
+                <b-img
+                  :src="$options.getImageUrl(game, $options.IMAGE_SIZE_COVER_SMALL)"
+                  height="80"
+                  class="cursor-pointer rounded float-left mr-3 mb-2"
+                />
+
+                <div class="ml-2 overflow-hidden">
+                  <h5>{{ game.name }}</h5>
+                </div>
+
+                <p class="note-text small" v-if="note" v-html="note" />
+              </b-card-text>
+            </b-card>
+          </b-card-group>
+        </b-col>
+      </b-row>
+    </template>
+  </b-container>
 </template>
 
 <script>
