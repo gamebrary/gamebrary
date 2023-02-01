@@ -26,7 +26,14 @@
 
           <b-dropdown-item v-b-modal.setAsWallpaper>Set as wallpaper</b-dropdown-item>
 
-          <b-modal id="setAsWallpaper" size="lg">
+          <b-modal
+            id="setAsWallpaper"
+            size="lg"
+            :header-bg-variant="darkTheme ? 'dark' : 'white'"
+            :header-text-variant="darkTheme ? 'white' : 'dark'"
+            :body-bg-variant="darkTheme ? 'dark' : 'white'"
+            :body-text-variant="darkTheme ? 'white' : 'dark'"
+          >
             <template v-slot:modal-header="{ close }">
               <modal-header
                   title="Apply wallpaper to board"
