@@ -22,7 +22,7 @@
       v-if="hasArtworks"
       id="carousel-fade"
       class="cursor-pointer d-none d-md-block overflow-hidden"
-      style="max-height: 80vh; margin-top: -54px;"
+      style="max-height: 80vh; margin-top: -72px;"
       fade
       v-b-modal.mediaModal
       no-hover-pause

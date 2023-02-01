@@ -226,7 +226,7 @@ export default {
     overflow-y: auto;
 
     &.offset {
-      padding: 54px 0;
+      padding: 72px 0 16px;
     }
   }
 

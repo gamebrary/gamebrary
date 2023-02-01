@@ -4,7 +4,7 @@
 // import LanguageSettings from '@/components/Settings/LanguageSettings'; -->
 
 <template lang="html">
-  <header :class="['py-2 px-3 d-flex position-fixed w-100', { scrolled }, headerClass]">
+  <header :class="['p-3 d-flex position-fixed w-100', { scrolled }, headerClass]">
     <b-button
       v-if="user"
       title="Dashboard"
