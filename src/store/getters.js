@@ -3,8 +3,7 @@ import {
   LINKS_CATEGORIES,
   IMAGE_SIZE_THUMB,
   IMAGE_SIZE_MICRO,
-  IMAGE_SIZE_SCREENSHOT_HUGE,
-  IMAGE_SIZE_1080P,
+  IMAGE_SIZE_SCREENSHOT_MED,
 } from '@/constants';
 import { getImageUrl } from '@/utils';
 import slugify from 'slugify'
@@ -77,13 +76,13 @@ export default {
     }) || [];
 
     const igdbScreenshots = state.game?.screenshots?.map((screenshot) => ({
-      imageUrl: getImageUrl(screenshot, thumb ? IMAGE_SIZE_THUMB : IMAGE_SIZE_SCREENSHOT_HUGE),
+      imageUrl: getImageUrl(screenshot, thumb ? IMAGE_SIZE_THUMB : IMAGE_SIZE_SCREENSHOT_MED),
       source: 'igdb',
     })) || [];
     const steamScreenshots = state.game?.steam?.screenshots.map(({ path_full }) => ({ imageUrl: path_full, source: 'steam' })) || [];
 
     const gameCover = {
-      imageUrl: getImageUrl(state.game, thumb ? IMAGE_SIZE_THUMB : IMAGE_SIZE_1080P),
+      imageUrl: getImageUrl(state.game, thumb ? IMAGE_SIZE_THUMB : IMAGE_SIZE_SCREENSHOT_MED),
       source: 'igdb',
       isCover: true,
     };
@@ -101,7 +100,7 @@ export default {
       };
     }) || [];
 
-    const igdbArtworks = state?.game?.artworks?.map((artwork) => ({ imageUrl: getImageUrl(artwork, thumb ? IMAGE_SIZE_THUMB : IMAGE_SIZE_1080P), source: 'igdb', })) || [];
+    const igdbArtworks = state?.game?.artworks?.map((artwork) => ({ imageUrl: getImageUrl(artwork, thumb ? IMAGE_SIZE_THUMB : IMAGE_SIZE_SCREENSHOT_MED), source: 'igdb', })) || [];
 
     return [
       ...igdbScreenshots,
