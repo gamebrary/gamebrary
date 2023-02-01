@@ -387,12 +387,12 @@ export default {
     },
 
     async confirmDeleteProfile() {
-      this.deleting = true;
       const confirmed = await this.$bvModal.msgBoxConfirm('Are you sure?')
         .catch(() => {});
 
       if (confirmed) {
-        this.$store.dispatch('DELETE_PROFILE');
+        this.deleting = true;
+        await this.$store.dispatch('DELETE_PROFILE');
         this.profile = null;
       }
 
