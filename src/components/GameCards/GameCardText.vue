@@ -7,9 +7,9 @@
   >
     <b-row no-gutters v-if="game && game.name">
       <b-card-body body-class="py-1 px-2">
-        <p class="small mb-0">
+        <h5>
           {{ game.name }}
-        </p>
+        </h5>
 
         <div class="d-flex align-items-center">
           <b-badge

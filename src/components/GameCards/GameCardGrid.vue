@@ -31,9 +31,10 @@
       />
     </div>
 
-    <b-card-body body-class="p-2" v-if="game && game.name">
+    <b-card-body body-class="px-2 pt-0 pb-1" v-if="game && game.name">
       <b-card-title
-        title-tag="p"
+        title-tag="h5"
+        class="mb-0"
       >
         {{ game.name }}
       </b-card-title>

@@ -28,9 +28,9 @@
 
       <b-col cols="9">
         <b-card-body body-class="p-2">
-          <p class="small mb-1">
+          <h5>
             {{ game.name }}
-          </p>
+          </h5>
 
           <template v-if="gameNotes">
             <i

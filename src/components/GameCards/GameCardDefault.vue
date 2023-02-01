@@ -31,9 +31,9 @@
 
       <b-col cols="8">
         <b-card-body body-class="p-2">
-          <p class="mb-1">
+          <h4 class="mb-1">
             {{ game.name }}
-          </p>
+          </h4>
 
           <template v-if="tagsApplied.length">
             <b-button
