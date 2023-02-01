@@ -1,3 +1,4 @@
+<!-- TODO: use ribbon to show game type in search (e.g. mods, ports, etc) -->
 <!-- TODO: find better light and white (for reading) colors -->
 <!-- TODO: finish speedruns -->
 <!-- TODO: add parental controls (filter out erotic games) -->

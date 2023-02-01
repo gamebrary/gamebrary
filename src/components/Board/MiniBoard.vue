@@ -95,6 +95,7 @@
           :text-variant="darkTheme ? 'light' : 'dark'"
           class="overflow-hidden align-self-start mr-1"
         >
+          <!-- TODO: add previews for diff list views -->
           <template v-if="list.games.length">
             <div
               v-for="(game, index) in list.games"
