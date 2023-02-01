@@ -1,10 +1,11 @@
+<!-- TODO: make row take entire horizontal space to make dragging easier -->
 <template lang="html">
   <div class="d-flex align-items-center mb-2">
     <b-dropdown size="lg"  variant="link" toggle-class="text-decoration-none p-0 pl-3" no-caret dropright>
       <template #button-content>
         <b-avatar
           variant="primary"
-          :text="listNameInitials"
+          :text="tierLetter"
           :title="list.name"
           rounded
           :style="`background-color: ${list.backgroundColor}`"
@@ -97,7 +98,7 @@ export default {
     ...mapState(['games', 'dragging', 'progresses', 'board', 'user', 'settings']),
     ...mapGetters(['isBoardOwner']),
 
-    listNameInitials() {
+    tierLetter() {
       return this.list.name?.charAt(0);
     },
 
