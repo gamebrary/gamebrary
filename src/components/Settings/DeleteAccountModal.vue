@@ -49,7 +49,7 @@
 
     <b-button
       variant="danger"
-      @click="promptDeleteAccount"
+      @click="deleteAccount"
       :disabled="deleting"
     >
       Delete Account
@@ -87,19 +87,6 @@ export default {
   },
 
   methods: {
-    promptDeleteAccount() {
-      this.$bvModal.msgBoxConfirm('All your data will be removed', {
-        title: 'Are you sure you want to delete your account?',
-        okVariant: 'danger',
-        okTitle: 'Yes, delete account',
-      })
-        .then((value) => {
-          if (value) {
-            this.deleteAccount();
-          }
-        });
-    },
-
     async deleteAccount() {
       this.deleting = true;
 
