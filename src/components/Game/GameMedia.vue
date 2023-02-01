@@ -22,7 +22,7 @@
       id="mediaModal"
       centered
       hide-footer
-      size="xl"
+      size="lg"
       :visible="visible"
       :header-bg-variant="darkTheme ? 'dark' : 'white'"
       :header-text-variant="darkTheme ? 'white' : 'dark'"
