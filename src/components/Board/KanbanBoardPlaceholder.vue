@@ -2,7 +2,7 @@
   <div class="d-flex mx-2">
     <div
       v-for="(list, index) in board.lists"
-      :class="`ml-2 list ${listView}`"
+      :class="`ml-2 list ${getListView(list)}`"
       :key="index"
     >
       <b-card
@@ -16,19 +16,20 @@
 
         <div
           v-if="list && list.games.length"
-          :class="['games', listView]"
+          :class="['games', getListView(list)]"
         >
           <div v-for="n in list.games.length" :key="n">
             <b-card
               no-body
               img-top
+              :bg-variant="darkTheme ? 'dark' : 'light'"
               class="mb-1 p-1"
-              v-if="listView === 'grid'"
+              v-if="getListView(list) === 'grid'"
             >
               <b-skeleton-img
                 card-img="top"
                 class="rounded"
-                height="180px"
+                height="160px"
               />
 
               <b-card-body class="p-2">
@@ -37,7 +38,7 @@
             </b-card>
 
             <div
-              v-else-if="listView === 'covers'"
+              v-else-if="getListView(list) === 'covers'"
               class="covers-grid"
             >
               <b-skeleton-img
@@ -49,15 +50,16 @@
             </div>
 
             <b-card
-              v-else-if="listView === 'single'"
+              v-else-if="getListView(list) === 'single'"
               no-body
               img-left
+              :bg-variant="darkTheme ? 'dark' : 'light'"
             >
               <b-skeleton-img
                 card-img="left"
-                width="94px"
+                width="85px"
                 class="rounded m-1"
-                height="124px"
+                height="112px"
               />
 
               <b-card-body class="p-2">
@@ -66,15 +68,16 @@
             </b-card>
 
             <b-card
-              v-else-if="listView === 'compact'"
+              v-else-if="getListView(list) === 'compact'"
               no-body
               img-left
+              :bg-variant="darkTheme ? 'dark' : 'light'"
             >
               <b-skeleton-img
                 card-img="left"
                 class="rounded m-1"
-                width="70px"
-                height="93px"
+                width="60px"
+                height="80px"
               />
 
               <b-card-body class="p-2">
@@ -114,9 +117,11 @@ export default {
   computed: {
     ...mapState(['board']),
     ...mapGetters(['darkTheme']),
+  },
 
-    listView() {
-      return this.list?.view || LIST_VIEW_SINGLE;
+  methods: {
+    getListView(list) {
+      return list?.view || list?.settings?.view || LIST_VIEW_SINGLE;
     },
   },
 };
