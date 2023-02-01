@@ -65,11 +65,11 @@ export const DEFAULT_BOARD_TIER = {
   ...DEFAULT_BOARD_BASE,
   type: BOARD_TYPE_TIER,
   lists: [
-    { name: 'S', games: [], backgroundColor: '#C0382B' },
-    { name: 'A', games: [], backgroundColor: '#E84B3C'},
-    { name: 'B', games: [], backgroundColor: '#F39C19' },
-    { name: 'C', games: [], backgroundColor: '#F2C511' },
-    { name: 'D', games: [], backgroundColor: '#27AF60' },
+    { name: 'Superb', games: [], backgroundColor: '#C0382B' },
+    { name: 'A Tier', games: [], backgroundColor: '#E84B3C'},
+    { name: 'B Tier', games: [], backgroundColor: '#F39C19' },
+    { name: 'C Tier', games: [], backgroundColor: '#F2C511' },
+    { name: 'D Tier', games: [], backgroundColor: '#27AF60' },
   ],
 };
 
