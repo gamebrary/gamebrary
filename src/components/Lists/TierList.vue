@@ -1,6 +1,5 @@
-<!-- TODO: make row take entire horizontal space to make dragging easier -->
 <template lang="html">
-  <div class="d-flex align-items-center mb-2">
+  <div class="d-flex w-100 align-items-center mb-2">
     <b-dropdown size="lg"  variant="link" toggle-class="text-decoration-none p-0 pl-3" no-caret dropright>
       <template #button-content>
         <b-avatar
@@ -33,7 +32,7 @@
       ghost-class="card-placeholder"
       drag-class="border-success"
       chosen-class="border-primary"
-      class="tier-list d-flex"
+      class="tier-list w-100 d-flex"
       filter=".drag-filter"
       delay="50"
       animation="500"
