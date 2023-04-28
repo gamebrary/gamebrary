@@ -69,16 +69,25 @@
       </b-tab>
 
       <b-tab title="Platform">
-        <b-button
-          v-for="{ id, name } in platforms"
-          :key="id"
-          size="sm"
-          class="mb-1 mr-1"
-          :variant="isFilterSelected('platforms', id) ? 'primary' : 'light'"
-          @click="setFilter('platforms', id)"
-        >
-          {{ name }}
-        </b-button>
+        <div style="column-count: 3;">
+          <b-button
+            v-for="{ id, name, slug } in platforms"
+            :key="id"
+            size="sm"
+            class="w-100"
+            :variant="isFilterSelected('platforms', id) ? 'primary' : 'light'"
+            @click="setFilter('platforms', id)"
+          >
+            <b-avatar
+              :src="`/logos/platforms/${slug}.svg`"
+              :text="slug"
+              rounded
+              class="mr-2"
+            />
+
+            {{ name }}
+          </b-button>
+        </div>
       </b-tab>
 
       <b-tab title="Game modes">
