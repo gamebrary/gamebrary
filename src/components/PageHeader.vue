@@ -7,6 +7,8 @@
   <header :class="['p-3 d-flex position-fixed w-100', { scrolled }, headerClass]">
     <main-menu />
 
+    <!-- TODO: use page header to display errors? -->
+
     <portal-target name="pageTitle" multiple />
 
     <div class="align-items-center d-flex ml-auto">

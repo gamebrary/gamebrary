@@ -1,7 +1,7 @@
 <template lang="html">
   <b-container>
-    <portal v-if="!isEmpty" to="pageTitle">
-      <h3>Notes</h3>
+    <portal to="pageTitle">
+      <h3>{{ $t('notes.title') }}</h3>
     </portal>
 
     <b-spinner v-if="loading" class="spinner-centered" />
@@ -22,7 +22,6 @@
 
       <empty-state
         v-if="isEmpty"
-        :title="$t('notes.title')"
         message="Looks like you don't have any notes yet."
       >
         <game-selector

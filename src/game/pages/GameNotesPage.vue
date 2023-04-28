@@ -3,6 +3,10 @@
     <b-container>
       <b-spinner v-if="loading" class="spinner-centered" />
 
+      <!-- TODO: allow to customize note -->
+      <!-- TODO: Add note title? -->
+      <!-- TODO: allow to use wallpapers in notes (use ref?) -->
+
       <b-row v-else>
         <portal to="pageTitle">
           <div class="d-flex">

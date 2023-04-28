@@ -2,14 +2,15 @@
   <section>
     <b-container class="pb-5 px-0">
       <portal to="pageTitle">
-        <h3>Wallpapers</h3>
+        <h3>{{ $t('wallpapers.title') }}</h3>
       </portal>
+
+      <!-- TODO: add artwork/media search and allow to upload using url -->
 
       <b-spinner v-if="loading" class="spinner-centered" />
 
       <empty-state
         v-else-if="showEmptyState"
-        :title="$t('wallpapers.title')"
         message="Upload a wallpaper to customize your boards"
       >
         <upload-wallpaper-button />
