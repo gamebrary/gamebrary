@@ -5,17 +5,25 @@
 
       <b-row v-else>
         <portal to="pageTitle">
-          <div class="d-flex align-items-center">
-            <b-button
-              v-if="game"
-              :to="{ name: 'game', params: { id: game.id, slug: game.slug } }"
-              variant="light"
-              class="mr-2"
-              >
-                <i class="fa-solid fa-chevron-left" />
-            </b-button>
+          <div class="d-flex">
+            <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug } }">
+              <b-img
+                :src="$options.getImageUrl(game)"
+                class="mr-2"
+                style="max-height: 40px; width: auto;"
+              />
+            </router-link>
 
-            <h3>Notes</h3>
+            <div class="d-flex flex-column">
+              <h3 style="line-height: initial;">Notes</h3>
+
+              <router-link
+                class="small mt-n2"
+                :to="{ name: 'game', params: { id: game.id, slug: game.slug } }"
+              >
+                {{ game.name }}
+              </router-link>
+            </div>
           </div>
         </portal>
 
@@ -25,25 +33,12 @@
             variant="light"
             class="mr-2"
           >
-            All notes
+            <i class="fa fa-book fa-fw" aria-hidden="true" />
+            Notes
           </b-button>
         </portal>
 
-        <b-col cols="12" sm="3">
-          <router-link
-            :to="{ name: 'game', params: { id: game.id, slug: game.slug }}"
-          >
-            <b-img
-              :src="$options.getImageUrl(game)"
-              fluid
-              rounded
-            />
-          </router-link>
-
-          <h3 class="mt-2">{{ game.name }}</h3>
-        </b-col>
-
-        <b-col cols="12" sm="9">
+        <b-col cols="12" sm="8" offset-sm="2">
           <b-button-toolbar
             v-if="editor"
             key-nav
@@ -51,6 +46,15 @@
             aria-label="Toolbar with button groups"
           >
             <b-button-group>
+              <b-button
+                @click="editor.chain().focus().setParagraph().run()"
+                v-b-tooltip.hover
+                title="Regular text"
+                :variant="editor.isActive('paragraph') ? 'dark' : 'light'"
+              >
+                <i class="fa-solid fa-font fa-fw" />
+              </b-button>
+
               <b-button
                 @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
                 v-b-tooltip.hover
@@ -89,14 +93,6 @@
             </b-button-group>
             <b-button-group class="mx-1">
               <b-button
-                @click="editor.chain().focus().setParagraph().run()"
-                v-b-tooltip.hover
-                title="Paragraph"
-                :class="{ 'is-active': editor.isActive('paragraph') }"
-              >
-                <i class="fa-solid fa-paragraph fa-fw" />
-              </b-button>
-              <b-button
                 @click="editor.chain().focus().toggleBold().run()"
                 v-b-tooltip.hover
                 title="Bold"
@@ -121,24 +117,12 @@
                 <i class="fa-solid fa-strikethrough fa-fw" />
               </b-button>
             </b-button-group>
-
-            <b-button
-              variant="danger"
-              class="ml-auto"
-              v-if="!saving"
-              :disabled="deleting"
-              @click="deleteNote"
-            >
-              <b-spinner small v-if="deleting" />
-              <i v-else class="fas fa-trash" aria-hidden />
-            </b-button>
           </b-button-toolbar>
 
           <editor-content :editor="editor" />
 
           <b-link
             class="small"
-            variant="link"
             v-b-modal.markdown-cheatsheet
           >
             <i class="fab fa-markdown fa-fw" />
@@ -153,6 +137,17 @@
             >
               <b-spinner small v-if="saving" />
               <span v-else>{{ $t('global.save') }}</span>
+            </b-button>
+
+            <b-button
+              variant="danger"
+              class="ml-2"
+              v-if="!saving"
+              :disabled="deleting"
+              @click="deleteNote"
+            >
+              <b-spinner small v-if="deleting" />
+              <i v-else class="fas fa-trash" aria-hidden />
             </b-button>
           </footer>
         </b-col>
