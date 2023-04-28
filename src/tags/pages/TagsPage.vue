@@ -1,7 +1,8 @@
+<!-- TODO: load games that aren't cached -->
 <template lang="html">
   <section>
     <b-container>
-      <portal v-if="!isEmpty" to="pageTitle">
+      <portal to="pageTitle">
         <h3>Tags</h3>
       </portal>
 
@@ -18,8 +19,7 @@
       <b-spinner v-if="loading" class="spinner-centered" />
 
       <empty-state
-        v-else-if="isEmpty"
-        title="Tags"
+        v-else-if="tags.length === 0"
         message="Tags are a great way to organize your collection"
        >
          <b-button
@@ -120,10 +120,6 @@ export default {
   computed: {
     ...mapState(['tags', 'games']),
     ...mapGetters(['darkTheme']),
-
-    isEmpty() {
-      return this.tags?.length === 0;
-    }
   },
 
   mounted() {
