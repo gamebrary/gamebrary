@@ -1,4 +1,7 @@
-// TODO: use Fandom/Wikia API https://pokemon.fandom.com/api/v1/Articles/List?expand=2&category=characters&limit=10000
+// TODO: use Fandom/Wikia API
+// https://megaman.fandom.com/api.php?action=parse&format=json&page=Mega_Man_II&prop=sections|images
+// https://megaman.fandom.com/api.php?action=parse&page=Mega_Man_II&format=json&prop=wikitext&section=2
+
 import axios from 'axios';
 import { firestore, storage } from 'firebase/app';
 import 'firebase/storage';
@@ -28,6 +31,19 @@ export default {
       axios.get(`https://www.speedrun.com/api/v1/runs?game=${gameId}`)
         .then(({ data }) => {
           commit('APPEND_GAME_SPEEDRUNS', data);
+          resolve(data);
+        }).catch(reject);
+    });
+  },
+
+  LOAD_FANDOM_DATA({ commit }, { subdomain, pageName }) {
+    console.log({ subdomain, pageName });
+
+    return new Promise((resolve, reject) => {
+      axios.get(`https://cors-anywhere.herokuapp.com/https://${subdomain}.fandom.com/api.php?action=parse&format=json&page=${pageName}&prop=sections|images`)
+        .then(({ data }) => {
+          console.log(data);
+          // commit('APPEND_GAME_SPEEDRUNS', data);
           resolve(data);
         }).catch(reject);
     });
