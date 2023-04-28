@@ -7,6 +7,13 @@
     <add-remove-game />
 
     <b-container>
+      <!-- https://commons.wikimedia.org/wiki/Special:FilePath/TMC_Jabber_Nut_Sprite.png -->
+      <!-- https://commons.wikimedia.org/wiki/Special:FilePath/Ad-tech_London_2010_(2).JPG -->
+      <!-- https://commons.wikimedia.org/wiki/Special:FilePath/Ad-tech_London_2010_(2).JPG?width=200 (to get a thumbnail of 200px width) -->
+      <!-- https://commons.wikimedia.org/w/thumb.php?f=Ad-tech_London_2010_(2).JPG&w=200 -->
+      <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/2/28/JPG_Test.jpg" alt=""> -->
+      <!-- https://en.wikipedia.org/w/api.php?action=query&titles=File:Test.jpg&prop=imageinfo&iilimit=50&iiend=2007-12-31T23:59:59Z&iiprop=timestamp|user|url -->
+
       <portal to="pageTitle">
         <h3
           v-show="showHeaderTitle"
@@ -129,20 +136,30 @@
                 <b-col cols="12" v-if="gamePlatforms" class="mb-3">
                   <h4 class="mb-1">Available for:</h4>
 
-                  <b-link
-                    v-for="platform in gamePlatforms"
-                    :key="platform.id"
-                    :to="{ name: 'search', query: { filterBy: 'platforms', value: platform.id }}"
-                    v-b-tooltip.hover
-                    :title="platform.slug"
-                    :class="['d-inline-flex rounded mr-2 mb-2', { 'bg-white': platform.platform_logo && platform.platform_logo.alpha_channel }]"
-                  >
-                    <b-img
-                      :src="`/logos/platforms/${platform.slug}.svg`"
-                      :alt="platform.slug"
-                      width="100"
-                    />
-                  </b-link>
+                  <div style="column-count: 3;">
+                    <b-link
+                      v-for="platform in gamePlatforms"
+                      :key="platform.id"
+                      :to="{ name: 'search', query: { filterBy: 'platforms', value: platform.id }}"
+                      v-b-tooltip.hover
+                      :title="platform.slug"
+                      :class="['d-inline-flex align-items-center mr-2 mb-2', { 'bg-white': platform.platform_logo && platform.platform_logo.alpha_channel }]"
+                    >
+                      <!-- <b-img
+
+                        :alt="platform.slug"
+                        width="100"
+                      /> -->
+                      <!-- <b-avatar
+                        :src="`/logos/platforms/${platform.slug}.svg`"
+                        :text="platform.slug"
+                        rounded
+                        class="mr-2"
+                      /> -->
+
+                      {{ platform.name }}
+                    </b-link>
+                  </div>
                 </b-col>
 
                 <b-col cols="6" sm="4" md="3" lg="6" v-if="gamePublishers.length">
@@ -615,6 +632,12 @@ export default {
       return this.gameLinks?.find(({ id }) => id === 'official')?.url;
     },
 
+    fandomUrl() {
+      // https://nintendo.fandom.com/api.php?action=parse&prop=sections&page=Super_Mario_Bros.&format=json
+      // https://megaman.fandom.com/wiki/Special:Redirect/file/RockManWorld2.png
+      return this.gameLinks?.find(({ id }) => id === 'fandom')?.url;
+    },
+
     gameModes() {
       return this.game?.game_modes;
     },
@@ -650,14 +673,17 @@ export default {
     },
 
     gameRemakes() {
+      // TODO: cache remakes
       return this.game?.remakes;
     },
 
     gamePorts() {
+      // TODO: cache ports
       return this.game?.ports;
     },
 
     gameRemasters() {
+      // TODO: cache remasters
       return this.game?.remasters;
     },
 
@@ -776,6 +802,28 @@ export default {
   },
 
   methods: {
+    loadFandomData() {
+      const subdomain = this.fandomUrl?.split('://')?.[1]?.split('.')?.[0];
+      const pageName = this.fandomUrl?.split('wiki/')?.[1];
+
+      if (subdomain && pageName) this.$store.dispatch('LOAD_FANDOM_DATA', { subdomain, pageName });
+    },
+
+    async loadSpeedruns() {
+      const speedRunGame = await this.$store.dispatch('GET_SPEEDRUN_GAME_ID', this.game.name);
+
+      console.log('speedRunGame', speedRunGame);
+
+      const game = speedRunGame?.data?.[0];
+      const runsLink = game?.links?.find(({ rel }) => rel === 'runs')?.uri;
+
+      console.log('runsLink', runsLink);
+
+      await this.$store.dispatch('LOAD_GAME_SPEEDRUN_RUNS', runsLink)
+
+      this.loaded = true;
+    },
+
     getCountryCode(alternateTitleDescription) {
       if (!alternateTitleDescription) return 'un';
 
@@ -845,10 +893,17 @@ export default {
         ? await this.$store.dispatch('LOAD_WIKIPEDIA_DESCRIPTION', this.wikipediaSlug).catch((e) => {})
         : null;
 
-      const steamUrl = this.game?.websites?.find(({ category }) => category === STEAM_CATEGORY_ID)?.url;
-      const steamGameId = steamUrl?.split('app/')[1]?.split('/')[0];
+      if (this.fandomUrl) this.loadFandomData();
 
-      if (steamGameId) await this.$store.dispatch('LOAD_STEAM_GAME', steamGameId).catch((e) => {});
+      const steamUrl = this.game?.websites?.find(({ category }) => category === STEAM_CATEGORY_ID)?.url;
+      const steamGameId = steamUrl?.split('app/')?.[1]?.split('/')?.[0];
+
+      if (steamGameId) {
+        await this.$store.dispatch('LOAD_STEAM_GAME', steamGameId).catch((e) => {});
+        await this.$store.dispatch('LOAD_STEAM_GAME_NEWS', steamGameId).catch((e) => {});
+      }
+
+      this.loadSpeedruns();
 
       const gogPage = this.game?.websites?.find(({ category }) => category !== GOG_CATEGORY_ID);
       if (gogPage) await this.$store.dispatch('LOAD_GOG_GAME', this.game?.name).catch((e) => {});
@@ -856,7 +911,6 @@ export default {
       const wikipediaSlug = this.game?.websites?.find(({ url, category }) => url && category === WEBSITE_CATEGORIES.WIKIPEDIA)?.url?.split('/wiki/')[1];
 
       if (wikipediaSlug) await this.$store.dispatch('LOAD_WIKIPEDIA_ARTICLE', wikipediaSlug).catch((e) => {});
-      if (steamGameId) await this.$store.dispatch('LOAD_STEAM_GAME_NEWS', steamGameId).catch((e) => {});
 
       this.loading = false;
     },
@@ -870,7 +924,7 @@ export default {
   background-repeat: repeat-y;
 
   &.offset-background {
-    background-position-y: 81vh;
+    background-position-y: 50vh;
   }
 }
 
