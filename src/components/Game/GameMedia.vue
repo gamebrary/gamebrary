@@ -108,6 +108,7 @@
                 :src="imageUrl"
                 rounded
                 style="height: 80px"
+                class="mw-100"
                 @click="viewMedia(index)"
               />
             </div>

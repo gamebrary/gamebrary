@@ -6,40 +6,29 @@
       <edit-list-modal />
 
       <portal to="pageTitle">
-        <div class="d-flex align-items-center">
-          <b-button
-            v-if="user"
-            :variant="darkTheme ? 'secondary' : 'light'"
-            class="mr-2"
-            :to="{ name: 'boards' }"
-          >
-            <i class="fa-solid fa-chevron-left" />
-          </b-button>
+        <div :class="{ 'd-flex align-items-baseline': publicUserName }">
+          <h3 :class="[{ 'text-white': backgroundUrl }]">
+            {{ board.name }}
 
-          <div :class="{ 'd-flex align-items-baseline': publicUserName }">
-            <h3 :class="[{ 'text-white': backgroundUrl }]">
-              {{ board.name }}
+            <small v-if="publicUserName">
+              by
 
-              <small v-if="publicUserName">
-                by
+              <b-link
+                :class="['mr-2', { 'text-white': backgroundUrl } ]"
+                :to="{ name: 'public.profile', params: { userName: publicUserName }}"
+              >
+                <b-avatar
+                  rounded
+                  v-if="avatarImage"
+                  :src="avatarImage"
+                  :title="`@${publicUserName}`"
+                  v-b-tooltip.hover
+                />
 
-                <b-link
-                  :class="['mr-2', { 'text-white': backgroundUrl } ]"
-                  :to="{ name: 'public.profile', params: { userName: publicUserName }}"
-                >
-                  <b-avatar
-                    rounded
-                    v-if="avatarImage"
-                    :src="avatarImage"
-                    :title="`@${publicUserName}`"
-                    v-b-tooltip.hover
-                  />
-
-                  @{{ publicUserName }}
-                </b-link>
-              </small>
-            </h3>
-          </div>
+                @{{ publicUserName }}
+              </b-link>
+            </small>
+          </h3>
         </div>
       </portal>
 

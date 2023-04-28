@@ -22,7 +22,7 @@
       v-if="hasArtworks"
       id="carousel-fade"
       class="cursor-pointer d-none d-md-block overflow-hidden"
-      style="max-height: 80vh; margin-top: -72px;"
+      style="max-height: 50vh; margin-top: -72px;"
       fade
       v-b-modal.mediaModal
       no-hover-pause
@@ -31,6 +31,7 @@
         v-for="(artwork, index) in artworks"
         :key="index"
         :img-src="artwork.url"
+        style="margin-top: -25vh;"
       />
     </b-carousel>
   </header>

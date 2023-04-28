@@ -16,7 +16,7 @@
     @end="dragEnd"
     @start="dragStart"
   >
-    <h3 v-if="hasMultipleLists && list">{{ list.name }}</h3>
+    <h4 v-if="list">{{ list.name }}</h4>
 
     <game-card-standard
       v-for="(game, index) in listGames"

@@ -1,6 +1,14 @@
 <template lang="html">
   <div class="d-flex w-100 align-items-center mb-2">
-    <b-dropdown size="lg"  variant="link" toggle-class="text-decoration-none p-0 pl-3" no-caret dropright>
+    
+    <b-dropdown
+      v-if="user && isBoardOwner"
+      size="lg"
+      variant="link"
+      toggle-class="text-decoration-none p-0 pl-3"
+      no-caret
+      dropright
+    >
       <template #button-content>
         <b-avatar
           variant="primary"
@@ -26,6 +34,17 @@
         Edit list
       </b-dropdown-item>
     </b-dropdown>
+
+    <b-avatar
+      v-else
+      variant="primary"
+      :text="tierLetter"
+      :title="list.name"
+      rounded
+      :style="`background-color: ${list.backgroundColor}`"
+      class="p-0 ml-3"
+      size="100"
+    />
 
     <draggable
       handle=".game"

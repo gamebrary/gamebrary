@@ -5,27 +5,7 @@
 
 <template lang="html">
   <header :class="['p-3 d-flex position-fixed w-100', { scrolled }, headerClass]">
-    <b-button
-      v-if="user"
-      title="Dashboard"
-      size="sm"
-      class="p-0 mr-3"
-      variant="transparent"
-      v-b-toggle.sidebar
-    >
-      <img src="/logo.png" class="logo" />
-    </b-button>
-
-    <b-button
-      v-else
-      title="Dashboard"
-      size="sm"
-      class="p-0 mr-3"
-      variant="transparent"
-      :to="{ name: 'home' }"
-    >
-      <img src="/logo.png" class="logo" />
-    </b-button>
+    <main-menu />
 
     <portal-target name="pageTitle" multiple />
 
@@ -49,10 +29,12 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import SearchBox from '@/components/SearchBox';
+import MainMenu from '@/components/MainMenu';
 
 export default {
   components: {
     SearchBox,
+    MainMenu,
   },
 
   computed: {

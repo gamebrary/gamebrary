@@ -3,6 +3,7 @@ import {
   LINKS_CATEGORIES,
   IMAGE_SIZE_THUMB,
   IMAGE_SIZE_MICRO,
+  IMAGE_SIZE_COVER_BIG,
   IMAGE_SIZE_SCREENSHOT_MED,
 } from '@/constants';
 import { getImageUrl } from '@/utils';
@@ -66,6 +67,20 @@ export default {
       }
     }) || [];
 
+    const speedRunVideos = state.game?.speedruns
+      ?.map((speedrun) => speedrun?.videos?.links?.[0]?.uri)
+      ?.filter((url) => url?.includes('youtube'))
+      ?.map((youtubeUrl) => {
+        const youtubeId = youtubeUrl?.split('v=')?.[1]
+
+        return {
+          imageUrl: `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`,
+          videoUrl: `https://www.youtube.com/embed/${youtubeId}?rel=0&autoplay=1`,
+          isVideo: true,
+          source: 'youtube',
+        }
+      }) || [];
+
     const igdbVideos = state.game?.videos?.map((video) => {
       return {
         imageUrl: `https://img.youtube.com/vi/${video.video_id}/hqdefault.jpg`,
@@ -82,7 +97,7 @@ export default {
     const steamScreenshots = state.game?.steam?.screenshots.map(({ path_full }) => ({ imageUrl: path_full, source: 'steam' })) || [];
 
     const gameCover = {
-      imageUrl: getImageUrl(state.game, thumb ? IMAGE_SIZE_THUMB : IMAGE_SIZE_SCREENSHOT_MED),
+      imageUrl: getImageUrl(state.game, thumb ? IMAGE_SIZE_THUMB : IMAGE_SIZE_COVER_BIG),
       source: 'igdb',
       isCover: true,
     };
@@ -102,6 +117,9 @@ export default {
 
     const igdbArtworks = state?.game?.artworks?.map((artwork) => ({ imageUrl: getImageUrl(artwork, thumb ? IMAGE_SIZE_THUMB : IMAGE_SIZE_SCREENSHOT_MED), source: 'igdb', })) || [];
 
+    // TODO: finish speedruns integration
+    // console.log('speedRunVideos', speedRunVideos);
+
     return [
       ...igdbScreenshots,
       ...gogImages,
@@ -109,6 +127,7 @@ export default {
       ...igdbArtworks,
       ...wikipediaImages,
       gameCover,
+      ...speedRunVideos,
       ...igdbVideos,
       ...steamVideos,
     ];

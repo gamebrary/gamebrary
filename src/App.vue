@@ -1,3 +1,5 @@
+<!-- TODO: add universal search, default based on page visited, allow to change -->
+<!-- TODO: add board lock/readonly -->
 <!-- TODO: use ribbon to show game type in search (e.g. mods, ports, etc) -->
 <!-- TODO: find better light and white (for reading) colors -->
 <!-- TODO: finish speedruns -->
@@ -38,7 +40,6 @@
     <template v-else>
       <div v-b-visible.54="visibleHandler" class="header-flag" />
       <page-header />
-      <side-bar v-if="user" />
       <router-view :class="['viewport', { offset }]" />
       <keyboard-shortcuts-modal />
       <markdown-cheatsheet />
@@ -50,7 +51,6 @@
 import MarkdownCheatsheet from '@/components/MarkdownCheatsheet';
 import KeyboardShortcutsModal from '@/components/KeyboardShortcutsModal';
 import PageHeader from '@/components/PageHeader';
-import SideBar from '@/components/SideBar';
 import sessionMixin from '@/mixins/sessionMixin';
 import firebase from 'firebase/app';
 import { mapState, mapGetters } from 'vuex';
@@ -65,7 +65,6 @@ export default {
     PageHeader,
     MarkdownCheatsheet,
     KeyboardShortcutsModal,
-    SideBar,
   },
 
   mixins: [sessionMixin],

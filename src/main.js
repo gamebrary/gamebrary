@@ -12,6 +12,7 @@ import VueAnalytics from 'vue-analytics';
 import Raven from 'raven-js';
 import PortalVue from 'portal-vue';
 import RavenVue from 'raven-js/plugins/vue';
+import VueMasonry from 'vue-masonry-css';
 import App from '@/App';
 import './registerServiceWorker';
 import messages from '@/i18n/';
@@ -30,6 +31,7 @@ Object.defineProperties(Vue.prototype, {
   },
 });
 
+Vue.use(VueMasonry);
 Vue.use(VueShortKey, { prevent: ['input', 'textarea', '.ProseMirror'] });
 Vue.use(PortalVue);
 Vue.use(BootstrapVue, bootstrapSettings);

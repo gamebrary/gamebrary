@@ -43,30 +43,32 @@
         </b-button>
       </div>
 
-      <b-row v-else>
-        <b-col>
-          <b-form-input
+      <div class="mx-3" v-else>
+        <b-form-input
             type="search"
             class="field mb-3"
             placeholder="Search notes"
             v-model="searchText"
           />
 
-          <b-card-group columns>
+          <masonry
+            :cols="{ default: 4, 1000: 3, 700: 2, 400: 1 }"
+            gutter="8px"
+          >
             <b-card
               v-for="({ note, game }, index) in filteredNotes"
               body-class="p-2"
               :bg-variant="darkTheme ? 'secondary' : 'light'"
               :text-variant="darkTheme ? 'light' : 'dark'"
               :key="index"
-              class="cursor-pointer"
+              class="cursor-pointer mb-2"
               @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug }})"
             >
               <b-card-text v-if="game">
                 <b-img
                   :src="$options.getImageUrl(game, $options.IMAGE_SIZE_COVER_SMALL)"
                   height="80"
-                  class="cursor-pointer rounded float-left mr-3 mb-2"
+                  class="cursor-pointer rounded float-left mr-3"
                 />
 
                 <div class="ml-2 overflow-hidden">
@@ -76,9 +78,8 @@
                 <p class="note-text small" v-if="note" v-html="note" />
               </b-card-text>
             </b-card>
-          </b-card-group>
-        </b-col>
-      </b-row>
+          </masonry>
+      </div>
     </template>
   </b-container>
 </template>
@@ -167,10 +168,10 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
 .note-text {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  // display: -webkit-box;
+  // -webkit-line-clamp: 5;
+  // -webkit-box-orient: vertical;
+  // overflow: hidden;
 }
 
 </style>
