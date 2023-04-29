@@ -4,6 +4,8 @@
       <h3>{{ $t('notes.title') }}</h3>
     </portal>
 
+    <!-- TODO: add examples:  -->
+
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <template v-else>
@@ -25,6 +27,7 @@
         message="Looks like you don't have any notes yet."
       >
         <game-selector
+          v-if="user"
           title="Select game to add a note"
           trigger-text="Create note"
           size="md"
@@ -32,6 +35,13 @@
           class="mr-2"
           @select-game="createNote"
         />
+
+        <b-button
+          v-else
+          :to="{ name: 'auth' }"
+        >
+          Login
+        </b-button>
       </empty-state>
 
       <div v-else-if="searchText.length && !filteredNotes.length">
@@ -107,7 +117,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['notes', 'games']),
+    ...mapState(['notes', 'games', 'user']),
     ...mapGetters(['darkTheme']),
 
     isEmpty() {

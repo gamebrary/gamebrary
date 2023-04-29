@@ -22,12 +22,20 @@
         v-else-if="tags.length === 0"
         message="Tags are a great way to organize your collection"
        >
-         <b-button
-           variant="primary"
-           :to="{ name: 'tag.create' }"
-         >
-           Create a tag
-         </b-button>
+        <b-button
+          v-if="user"
+          variant="primary"
+          :to="{ name: 'tag.create' }"
+        >
+          Create a tag
+        </b-button>
+
+        <b-button
+          v-else
+          :to="{ name: 'auth' }"
+        >
+          Login
+        </b-button>
        </empty-state>
 
       <b-row v-else>
@@ -118,7 +126,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['tags', 'games']),
+    ...mapState(['tags', 'games', 'user']),
     ...mapGetters(['darkTheme']),
   },
 

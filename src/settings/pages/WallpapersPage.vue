@@ -9,12 +9,20 @@
 
       <b-spinner v-if="loading" class="spinner-centered" />
 
-      <empty-state
-        v-else-if="showEmptyState"
-        message="Upload a wallpaper to customize your boards"
-      >
-        <upload-wallpaper-button />
-      </empty-state>
+      <template v-else-if="showEmptyState">
+        <empty-state
+          message="Upload a wallpaper to customize your boards"
+        >
+          <upload-wallpaper-button v-if="user" />
+          <b-button
+            v-else
+            :to="{ name: 'auth' }"
+          >
+            Login
+          </b-button>
+          <!-- TODO: add better public page with images/etc -->
+        </empty-state>
+      </template>
 
       <template v-else>
         <portal to="headerActions">

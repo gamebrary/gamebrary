@@ -1,7 +1,20 @@
 <template lang="html">
   <b-col cols="6" sm="4" md="3" lg="12">
     <h4 class="mt-4">Progress: </h4>
-    <b-link @click="editing = true">{{ progress }}%</b-link>
+
+    <b-link
+      v-if="user"
+      @click="editing = true"
+    >
+      {{ progress }}%
+    </b-link>
+
+    <b-button
+      v-else
+      :to="{ name: 'auth' }"
+    >
+      Login to set progress
+    </b-button>
 
     <b-form v-if="editing">
       <b-form-input

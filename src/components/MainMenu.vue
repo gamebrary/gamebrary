@@ -12,7 +12,7 @@
       <i class="fa-sharp fa-solid fa-bars" />
     </template>
 
-    <b-dropdown-item :to="{ name: 'boards' }">
+    <b-dropdown-item :to="{ name: user ? 'boards' : 'explore' }">
       <i class="fa-regular fa-rectangle-list fa-fw" />
       <span class="ml-2">Boards</span>
     </b-dropdown-item>
@@ -53,23 +53,11 @@
 
     <b-dropdown-divider />
 
-
-    <b-dropdown-item
-      :to="{ name: 'explore' }"
-      block
-      id="platforms"
-    >
-      <i class="fa-regular fa-rectangle-list fa-fw" />
-      <span class="ml-2">Public boards</span>
-    </b-dropdown-item>
-
-    <hr />
-
     <b-dropdown-item v-b-modal.keyboard-shortcuts>
       <i class="fa-solid fa-keyboard fa-fw" /> Keyboard Shortcuts
     </b-dropdown-item>
 
-    <b-dropdown-item @click="toggleTheme">
+    <b-dropdown-item @click="toggleTheme" :disabled="!user">
       <i v-if="darkTheme" class="fa-solid fa-sun fa-fw" />
       <i v-else class="fa-solid fa-moon fa-fw" />
 
@@ -98,7 +86,7 @@
       <small>Steam</small>
     </b-list-group-item> -->
 
-    <footer class="ml-auto pl-2 mt-2 pb-5 text-center small">
+    <footer class="mt-2 mx-4 small">
       &copy; 2022 Gamebrary
 
       <b-link
