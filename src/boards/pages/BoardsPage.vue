@@ -1,13 +1,11 @@
 <template lang="html">
-  <section>
-    <b-container class="mt-2">
-      <portal to="pageTitle">
-        <h3>Boards</h3>
-      </portal>
+  <b-container class="px-3">
+    <portal to="pageTitle">
+      <h3>Boards</h3>
+    </portal>
 
-      <game-boards />
-    </b-container>
-  </section>
+    <game-boards />
+  </b-container>
 </template>
 
 <script>
