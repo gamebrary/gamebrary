@@ -63,10 +63,10 @@
               lg="2"
             >
               <b-img
-                :src="$options.getImageUrl(games[game], $options.IMAGE_SIZE_COVER_SMALL)"
+                :src="$options.getImageUrl(cachedGames[game], $options.IMAGE_SIZE_COVER_SMALL)"
                 class="cursor-pointer rounded mb-2"
                 fluid
-                @click="$router.push({ name: 'game', params: { id: games[game].id, slug: games[game].slug }})"
+                @click="$router.push({ name: 'game', params: { id: cachedGames[game].id, slug: cachedGames[game].slug }})"
               />
             </b-col>
 
@@ -126,7 +126,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['tags', 'games', 'user']),
+    ...mapState(['tags', 'cachedGames', 'user']),
     ...mapGetters(['darkTheme']),
   },
 

@@ -6,7 +6,7 @@ export default {
   dragging: false,
   scrolled: false,
   game: null,
-  games: {},
+  cachedGames: {},
   notes: {},
   notification: false,
   platforms: [],

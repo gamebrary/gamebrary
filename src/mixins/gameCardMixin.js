@@ -15,7 +15,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['settings', 'games', 'tags', 'notes', 'progresses', 'board']),
+    ...mapState(['settings', 'cachedGames', 'tags', 'notes', 'progresses', 'board']),
     ...mapGetters(['isRTL', 'darkTheme']),
 
     cardBackgroundVariant() {
@@ -61,7 +61,7 @@ export default {
     },
 
     game() {
-      return this.games[this.gameId];
+      return this.cachedGames[this.gameId];
     },
   },
 };

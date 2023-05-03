@@ -81,7 +81,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['games', 'boards', 'wallpapers', 'game']),
+    ...mapState(['boards', 'wallpapers', 'game']),
     ...mapGetters(['darkTheme']),
 
     title() {

@@ -117,7 +117,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['notes', 'games', 'user']),
+    ...mapState(['notes', 'cachedGames', 'user']),
     ...mapGetters(['darkTheme']),
 
     isEmpty() {
@@ -127,7 +127,7 @@ export default {
     filteredNotes() {
       const notes = Object.entries(this.notes).map(([gameId, note]) => ({
         note,
-        game: this.games?.[gameId],
+        game: this.cachedGames?.[gameId],
       }));
 
       const searchText = this.searchText?.toLowerCase();
@@ -151,7 +151,7 @@ export default {
 
   methods: {
     createNote(gameId) {
-      const game = this.games[gameId];
+      const game = this.cachedGames[gameId];
 
       this.$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } });
     },
@@ -174,14 +174,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-.note-text {
-  // display: -webkit-box;
-  // -webkit-line-clamp: 5;
-  // -webkit-box-orient: vertical;
-  // overflow: hidden;
-}
-
-</style>
-

@@ -104,12 +104,12 @@
               <router-link
               v-for="game in tag.games"
               :key="game"
-                :to="{ name: 'game', params: { id: games[game].id, slug: games[game].slug } }"
+                :to="{ name: 'game', params: { id: cachedGames[game].id, slug: cachedGames[game].slug } }"
               >
                 <b-img
                   fluid
                   rounded
-                  :src="$options.getImageUrl(games[game])"
+                  :src="$options.getImageUrl(cachedGames[game])"
                   img-top
                 />
               </router-link>
@@ -148,7 +148,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['tags', 'games']),
+    ...mapState(['tags', 'cachedGames']),
     ...mapGetters(['darkTheme']),
 
     tagIndex() {

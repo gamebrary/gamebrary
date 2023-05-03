@@ -152,7 +152,7 @@ export default {
 
   CACHE_GAME_DATA(state, games) {
     games.forEach((game) => {
-      Vue.set(state.games, game.id, { ...game });
+      Vue.set(state.cachedGames, game.id, { ...game });
     });
   },
 
@@ -170,7 +170,7 @@ export default {
     state.dragging = false;
     state.settings = null;
     state.platforms = [];
-    state.games = {};
+    state.cachedGames = {};
     state.boards = [];
     state.board = {};
     state.boardGames = [];

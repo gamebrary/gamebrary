@@ -24,16 +24,8 @@ export default {
   },
 
   computed: {
-    ...mapState(['board', 'games']),
+    ...mapState(['board']),
     ...mapGetters(['isBoardOwner']),
-
-    empty() {
-      return this.board?.lists?.length === 0;
-    },
-
-    formattedGames() {
-      return this.board?.games.map((id) => this.games[id]);
-    },
 
     allGames() {
       return this.board.lists.map((list) => list.games).flat(2);

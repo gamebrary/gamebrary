@@ -125,7 +125,7 @@
 
 <script>
 import { BOARD_TYPE_STANDARD, BOARD_TYPE_TIER } from '@/constants';
-import { mapState, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   props: {
@@ -145,7 +145,6 @@ export default {
   },
 
   computed: {
-    ...mapState(['settings', 'games']),
     ...mapGetters(['darkTheme']),
 
     hasCustomBackground() {
