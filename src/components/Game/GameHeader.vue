@@ -1,5 +1,5 @@
 <template lang="html">
-  <header>
+  <header :class="[{ 'border-bottom': hasArtworks }, darkTheme ? 'border-dark' : 'border-light']">
     <portal v-if="user" to="headerActions">
       <b-dropdown
         class="mr-2"
@@ -21,8 +21,7 @@
     <b-carousel
       v-if="hasArtworks"
       id="carousel-fade"
-      class="cursor-pointer d-none d-md-block overflow-hidden"
-      style="max-height: 50vh; margin-top: -72px;"
+      class="cursor-pointer d-none d-md-block overflow-hidden carousel"
       fade
       v-b-modal.mediaModal
       no-hover-pause
@@ -56,6 +55,16 @@ export default {
     hasArtworks() {
       return this.game?.artworks?.length > 0;
     },
+
+    hasWallpaper() {
+      return Boolean(this.game?.steam?.background);
+    },
   },
 };
 </script>
+<style lang="scss" rel="stylesheet/scss" scoped>
+.carousel {
+  height: 50vh;
+  margin-top: -72px;
+}
+</style>
