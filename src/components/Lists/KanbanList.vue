@@ -150,7 +150,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['games', 'dragging', 'progresses', 'board', 'user', 'settings', 'highlightedGame']),
+    ...mapState(['cachedGames', 'dragging', 'progresses', 'board', 'user', 'settings', 'highlightedGame']),
     ...mapGetters(['isBoardOwner', 'darkTheme']),
 
     draggingDisabled() {
@@ -178,8 +178,8 @@ export default {
 
       switch (sortOrder) {
         case SORT_TYPE_PROGRESS: return orderby(games, [game => this.progresses?.[game] || 0], ['desc']);
-        case SORT_TYPE_RATING: return orderby(games, [game => this.games?.[game]?.rating || 0], ['desc']);
-        case SORT_TYPE_ALPHABETICALLY: return orderby(games, [game => this.games?.[game]?.name]);
+        case SORT_TYPE_RATING: return orderby(games, [game => this.cachedGames?.[game]?.rating || 0], ['desc']);
+        case SORT_TYPE_ALPHABETICALLY: return orderby(games, [game => this.cachedGames?.[game]?.name]);
         default: return this.list?.games || [];
       }
     },
@@ -266,7 +266,7 @@ export default {
     },
 
     openGame(id, list) {
-      const slug = slugify(this.games[id].slug, { lower: true });
+      const slug = slugify(this.cachedGames[id].slug, { lower: true });
 
       this.$router.push({
         name: 'game',

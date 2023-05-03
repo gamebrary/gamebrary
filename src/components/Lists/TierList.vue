@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="d-flex w-100 align-items-center mb-2">
-    
+
     <b-dropdown
       v-if="user && isBoardOwner"
       size="lg"
@@ -68,7 +68,7 @@
         :key="gameId"
         class="game cursor-pointer rounded ml-2"
         fluid
-        :src="$options.getImageUrl(games[gameId], $options.IMAGE_SIZE_COVER_SMALL)"
+        :src="$options.getImageUrl(cachedGames[gameId], $options.IMAGE_SIZE_COVER_SMALL)"
         @click="openGame(gameId)"
       />
     </draggable>
@@ -113,7 +113,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['games', 'dragging', 'progresses', 'board', 'user', 'settings']),
+    ...mapState(['cachedGames', 'dragging', 'progresses', 'board', 'user', 'settings']),
     ...mapGetters(['isBoardOwner']),
 
     tierLetter() {

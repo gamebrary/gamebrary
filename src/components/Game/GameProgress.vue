@@ -62,7 +62,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['progresses', 'game']),
+    ...mapState(['progresses', 'game', 'user']),
   },
 
   mounted() {

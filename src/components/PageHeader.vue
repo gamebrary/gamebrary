@@ -1,3 +1,4 @@
+<!-- TODO: remove sticky header -->
 <!-- // LanguageSettings,
 // SteamSettingsPage,
 // import SteamSettingsPage from '@/pages/SteamSettingsPage';
@@ -19,7 +20,7 @@
       <b-button
         v-if="!user"
         class="ml-2"
-        variant="dark"
+        variant="success"
         :to="{ name: 'auth' }"
       >
         Login

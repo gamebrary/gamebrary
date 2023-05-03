@@ -70,7 +70,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['games', 'dragging', 'progresses', 'board', 'user', 'settings']),
+    ...mapState(['cachedGames', 'dragging', 'progresses', 'board', 'user', 'settings']),
     ...mapGetters(['isBoardOwner', 'darkTheme']),
 
     hasMultipleLists() {
@@ -90,7 +90,7 @@ export default {
     },
 
     listGames() {
-      return this.list?.games?.map((id) => this.games?.[id]) || []
+      return this.list?.games?.map((id) => this.cachedGames?.[id]) || []
         .filter(({ id }) => Boolean(id));
     },
 
@@ -148,7 +148,7 @@ export default {
     },
 
     openGame(id, list) {
-      const slug = slugify(this.games[id].slug, { lower: true });
+      const slug = slugify(this.cachedGames[id].slug, { lower: true });
 
       this.$router.push({
         name: 'game',
