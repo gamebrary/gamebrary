@@ -63,10 +63,6 @@ export default {
     state.profiles = profiles;
   },
 
-  SET_BOARD_GAMES(state, boardGames) {
-    state.boardGames = boardGames;
-  },
-
   SET_WALLPAPERS(state, wallpapers) {
     state.wallpapers = wallpapers;
   },

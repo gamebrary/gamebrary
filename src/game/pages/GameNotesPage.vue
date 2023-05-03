@@ -186,7 +186,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['notes', 'game', 'games']),
+    ...mapState(['notes', 'game']),
 
     gameId() {
       return this.$route?.params?.id;
