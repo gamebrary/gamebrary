@@ -1,3 +1,4 @@
+<!-- TODO: fix set as wallpaper logic -->
 <template lang="html">
   <div>
     <section v-if="thumbnailPreviews.length > 1" class="my-2 thumbnails w-100">
@@ -7,7 +8,7 @@
         :src="imageUrl"
         :class="['thumbnail cursor-pointer rounded overflow-hidden', { 'large': index < 2 }]"
         :style="`background-image: url(${imageUrl})`"
-        @click="viewMedia(index)"
+        @click="viewMedia"
       >
         <span
           v-if="index === 4"
@@ -20,26 +21,32 @@
 
     <b-modal
       id="mediaModal"
-      centered
+      size="xl"
       hide-footer
-      size="lg"
-      :visible="visible"
-      :header-bg-variant="darkTheme ? 'dark' : 'white'"
-      :header-text-variant="darkTheme ? 'white' : 'dark'"
-      :body-bg-variant="darkTheme ? 'dark' : 'white'"
-      :body-text-variant="darkTheme ? 'white' : 'dark'"
-      @show="open"
-      @hidden="close"
+      scrollable
+      :header-bg-variant="darkTheme ? 'dark' : 'transparent'"
+      :header-text-variant="darkTheme ? 'light' : 'dark'"
+      :body-bg-variant="darkTheme ? 'dark' : 'transparent'"
+      :body-text-variant="darkTheme ? 'light' : 'dark'"
+      @hidden="activeIndex = null"
     >
       <template v-slot:modal-header="{ close }">
         <modal-header
           title="Screenshots and videos"
+          :subtitle="subtitle"
           @close="close"
         >
+          <b-button
+            v-if="activeIndex !== null"
+            @click.stop="activeIndex = null"
+          >
+            Back
+          </b-button>
+
           <b-dropdown
             v-if="showSetAsWallpaperButton"
             variant="light"
-            class="mr-2"
+            class="mx-2 d-none d-sm-inline-block"
             menu-class="p-0"
           >
             <template #button-content>
@@ -71,49 +78,40 @@
         </modal-header>
       </template>
 
-      <div v-if="selectedMedia && gameMedia.length" class="game-media">
+      <masonry
+        v-if="activeIndex === null"
+        gutter="8px"
+        :cols="{default: 4, 1000: 3, 700: 2, 400: 1}"
+      >
+        <b-img
+          v-for="({ imageUrl }, index) in gameMedia"
+          :key="index"
+          :src="imageUrl"
+          rounded
+          fluid
+          class="mb-2"
+          @click="viewMedia(index)"
+        />
+      </masonry>
+
+      <div v-else class="text-center">
         <b-embed
           v-if="isSelectedMediaVideo"
           type="iframe"
           aspect="16by9"
           :src="selectedMedia.videoUrl"
+          class="rounded"
           allowfullscreen
         />
 
         <b-img
           v-else
           rounded
-          class="selected-image align-center align-self-center mw-100 mh-100"
+          fluid
           :src="selectedMedia.imageUrl"
+          class="cursor-pointer"
+          @click="activeIndex = null"
         />
-
-        <footer class="mt-2 d-flex overflow-auto pb-2">
-          <div
-            v-for="({ imageUrl, isVideo, isCover }, index) in thumbnails"
-            :key="index"
-          >
-            <div
-              class="mr-2 align-items-center text-center mb-2 rounded cursor-pointer position-relative"
-            >
-              <i
-                v-if="isVideo"
-                class="fa-solid fa-play video-indicator position-absolute text-white"
-              />
-
-              <div v-if="isCover" class="position-absolute cover-indicator text-light small w-100 bg-dark rounded-bottom">
-                Cover
-              </div>
-
-              <b-img
-                :src="imageUrl"
-                rounded
-                style="height: 80px"
-                class="mw-100"
-                @click="viewMedia(index)"
-              />
-            </div>
-          </div>
-        </footer>
       </div>
     </b-modal>
   </div>
@@ -166,26 +164,24 @@ export default {
       return this.gameMedia?.length || 0;
     },
 
-    visible() {
-      return this.activeIndex !== null;
-    },
-
     showSetAsWallpaperButton() {
       if (!this.user) return false;
 
-      return !this.isSelectedMediaVideo && !this.isSelectedMediaCover;
+      console.log('activeIndex', this.activeIndex);
+
+      return this.activeIndex >= 0;
+    },
+
+    subtitle() {
+      if (!this.game?.name) return '';
+      if (this.isSelectedMediaVideo) return `${this.game.name} - Video`;
+      if (this.isSelectedMediaCover) return `${this.game.name} - Game cover`;
+
+      return `${this.game.name} - Screenshot`;
     },
   },
 
   methods: {
-    open() {
-      if (this.activeIndex === null) this.activeIndex = 0;
-    },
-
-    close() {
-      this.activeIndex = null;
-    },
-
     viewMedia(index) {
       this.activeIndex = index;
       this.$bvModal.show('mediaModal');
@@ -217,30 +213,6 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-.game-media {
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-rows: 1fr auto;
-}
-
-.selected-image {
-  justify-self: center;
-}
-
-.video-indicator {
-  left: calc(50% - 6px);
-  top: calc(50% - 8px);
-}
-
-.cover-indicator {
-  bottom: 0;
-}
-
-.media-button {
-  padding: 21px 16px;
-  height: 100%;
-}
-
 .thumbnails {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
