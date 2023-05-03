@@ -32,7 +32,7 @@
       <span class="ml-2">Tags</span>
     </b-dropdown-item>
 
-    <b-dropdown-item :to="{ name: 'account' }">
+    <b-dropdown-item v-if="user" :to="{ name: 'account' }">
       <b-avatar
         rounded
         v-if="avatarImage"
