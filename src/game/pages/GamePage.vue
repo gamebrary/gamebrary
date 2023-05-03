@@ -1,6 +1,6 @@
 <template lang="html">
   <section
-    :class="[{ 'text-light': darkTheme && hasWallpaper, 'offset-background': hasArtworks }, 'game-page']"
+    :class="[{ 'text-light': darkTheme && hasWallpaper, 'offset-background': hasArtworks }, 'game-page mb-5 ']"
     :style="background && this.darkTheme ? `background-image: url(${background})` : ''"
   >
     <game-header />
@@ -34,6 +34,8 @@
           <b-img
             :src="$options.getImageUrl(cachedGame)"
             :alt="gameName"
+            :class="['border', darkTheme ? 'border-dark' : 'border-light']"
+            bordered
             v-b-modal.mediaModal
             rounded
             fluid
@@ -104,10 +106,22 @@
         >
           <div class="d-flex justify-content-between align-items-end" v-b-visible="visibleHandler">
             <div :class="['d-flex align-items-center', { 'mt-3': hasArtworks }]">
+              <b-button
+                size="sm"
+                variant="light"
+                squared
+                class="mr-2"
+                :disabled="!user"
+                @click="selectGame"
+              >
+                <i :class="[isLiked ? 'fa-solid': 'fa-regular' , 'fa-heart text-primary']" />
+              </b-button>
+
               <h2>
                 {{ gameName }}
               </h2>
 
+              <!-- TODO: use popover to show more info (e.g. if port, show original game) -->
               <b-badge v-if="gameCategory" variant="info" class="ml-2">
                 {{ gameCategory }}
               </b-badge>
@@ -552,7 +566,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['game', 'games', 'progresses', 'tags', 'boards', 'user', 'notes', 'twitchToken']),
+    ...mapState(['game', 'cachedGames', 'progresses', 'tags', 'boards', 'user', 'notes', 'twitchToken', 'games']),
     ...mapGetters(['darkTheme', 'gameNews', 'gameLinks']),
 
     description() {
@@ -761,7 +775,11 @@ export default {
     },
 
     cachedGame() {
-      return this.games?.[Number(this.gameId)] || this.game;
+      return this.cachedGames?.[Number(this.gameId)] || this.game;
+    },
+
+    isLiked() {
+      return this.games?.[this.gameId];
     },
 
     parentGame() {
@@ -802,27 +820,48 @@ export default {
   },
 
   methods: {
-    loadFandomData() {
-      const subdomain = this.fandomUrl?.split('://')?.[1]?.split('.')?.[0];
-      const pageName = this.fandomUrl?.split('wiki/')?.[1];
-
-      if (subdomain && pageName) this.$store.dispatch('LOAD_FANDOM_DATA', { subdomain, pageName });
+    selectGame() {
+      if (this.isLiked) {
+        this.unLike()
+      } else {
+        this.like();
+      }
     },
 
-    async loadSpeedruns() {
-      const speedRunGame = await this.$store.dispatch('GET_SPEEDRUN_GAME_ID', this.game.name);
+    async like() {
+      this.$store.commit('LIKE_GAME', this.gameId);
+      await this.$store.dispatch('SAVE_GAMES');
 
-      console.log('speedRunGame', speedRunGame);
-
-      const game = speedRunGame?.data?.[0];
-      const runsLink = game?.links?.find(({ rel }) => rel === 'runs')?.uri;
-
-      console.log('runsLink', runsLink);
-
-      await this.$store.dispatch('LOAD_GAME_SPEEDRUN_RUNS', runsLink)
-
-      this.loaded = true;
+      // TODO: use try catch and catch
     },
+
+    async unLike() {
+      this.$store.commit('UNLIKE_GAME', this.gameId);
+      await this.$store.dispatch('SAVE_GAMES');
+
+      // TODO: use try catch and catch
+    },
+    // loadFandomData() {
+    //   const subdomain = this.fandomUrl?.split('://')?.[1]?.split('.')?.[0];
+    //   const pageName = this.fandomUrl?.split('wiki/')?.[1];
+    //
+    //   if (subdomain && pageName) this.$store.dispatch('LOAD_FANDOM_DATA', { subdomain, pageName });
+    // },
+
+    // async loadSpeedruns() {
+    //   const speedRunGame = await this.$store.dispatch('GET_SPEEDRUN_GAME_ID', this.game.name);
+    //
+    //   console.log('speedRunGame', speedRunGame);
+    //
+    //   const game = speedRunGame?.data?.[0];
+    //   const runsLink = game?.links?.find(({ rel }) => rel === 'runs')?.uri;
+    //
+    //   console.log('runsLink', runsLink);
+    //
+    //   await this.$store.dispatch('LOAD_GAME_SPEEDRUN_RUNS', runsLink)
+    //
+    //   this.loaded = true;
+    // },
 
     getCountryCode(alternateTitleDescription) {
       if (!alternateTitleDescription) return 'un';
@@ -893,7 +932,7 @@ export default {
         ? await this.$store.dispatch('LOAD_WIKIPEDIA_DESCRIPTION', this.wikipediaSlug).catch((e) => {})
         : null;
 
-      if (this.fandomUrl) this.loadFandomData();
+      // if (this.fandomUrl) this.loadFandomData();
 
       const steamUrl = this.game?.websites?.find(({ category }) => category === STEAM_CATEGORY_ID)?.url;
       const steamGameId = steamUrl?.split('app/')?.[1]?.split('/')?.[0];
@@ -903,7 +942,7 @@ export default {
         await this.$store.dispatch('LOAD_STEAM_GAME_NEWS', steamGameId).catch((e) => {});
       }
 
-      this.loadSpeedruns();
+      // this.loadSpeedruns();
 
       const gogPage = this.game?.websites?.find(({ category }) => category !== GOG_CATEGORY_ID);
       if (gogPage) await this.$store.dispatch('LOAD_GOG_GAME', this.game?.name).catch((e) => {});

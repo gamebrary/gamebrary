@@ -7,6 +7,15 @@ import settingsRoutes from '@/settings/settings.routes';
 import notesRoutes from '@/notes/notes.routes';
 
 const routes = [
+  {
+    name: 'games',
+    path: '/games',
+    component: () => import(/* webpackChunkName: "notes" */ '@/pages/GamesPage'),
+    meta: {
+      title: 'Games',
+      public: true,
+    },
+  },
   ...gameRoutes,
   ...tagsRoutes,
   ...settingsRoutes,

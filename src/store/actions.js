@@ -544,6 +544,18 @@ export default {
     });
   },
 
+  SAVE_GAMES({ state }) {
+    return new Promise((resolve, reject) => {
+      const db = firestore();
+
+      db.collection('games')
+        .doc(state.user.uid)
+        .set(state.games, { merge: true })
+        .then(() => resolve())
+        .catch(reject);
+    });
+  },
+
   SAVE_NOTES({ state }) {
     return new Promise((resolve, reject) => {
       const db = firestore();

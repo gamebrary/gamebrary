@@ -23,7 +23,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['game', 'games', 'boards', 'user']),
+    ...mapState(['game', 'boards', 'user']),
 
     boardsWithGame() {
       return this.boards?.filter(({ lists }) => lists?.some(({ games }) => games?.includes(this.game?.id))) || [];

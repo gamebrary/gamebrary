@@ -17,6 +17,11 @@
       <span class="ml-2">Boards</span>
     </b-dropdown-item>
 
+    <b-dropdown-item :to="{ name: 'games' }">
+      <i class="fa-regular fa-heart fa-fw" />
+      <span class="ml-2">Games</span>
+    </b-dropdown-item>
+
     <b-dropdown-item :to="{ name: 'wallpapers' }">
       <i class="fa fa-images fa-fw" aria-hidden="true" />
       <span class="ml-2">Wallpapers</span>

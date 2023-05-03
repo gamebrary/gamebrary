@@ -103,6 +103,14 @@ export default {
     Vue.set(state.game, 'steam', data);
   },
 
+  LIKE_GAME(state, gameId) {
+    Vue.set(state.games, gameId, true);
+  },
+
+  UNLIKE_GAME(state, gameId) {
+    Vue.set(state.games, gameId, false);
+  },
+
   APPEND_GAME_NEWS(state, news) {
     Vue.set(state.game, 'news', news);
   },
@@ -167,9 +175,9 @@ export default {
     state.settings = null;
     state.platforms = [];
     state.cachedGames = {};
+    state.games = {};
     state.boards = [];
     state.board = {};
-    state.boardGames = [];
     state.wallpaperUrl = null;
     state.wallpapers = [];
   },
