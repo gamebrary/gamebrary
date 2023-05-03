@@ -3,9 +3,9 @@
     id="previewWallpaper"
     hide-footer
     scrollable
-    :header-bg-variant="darkTheme ? 'dark' : 'white'"
+    :header-bg-variant="darkTheme ? 'dark' : 'transparent'"
     :header-text-variant="darkTheme ? 'white' : 'dark'"
-    :body-bg-variant="darkTheme ? 'dark' : 'white'"
+    :body-bg-variant="darkTheme ? 'dark' : 'transparent'"
     :body-text-variant="darkTheme ? 'white' : 'dark'"
     size="xl"
   >
@@ -29,9 +29,9 @@
           <b-modal
             id="setAsWallpaper"
             size="lg"
-            :header-bg-variant="darkTheme ? 'dark' : 'white'"
+            :header-bg-variant="darkTheme ? 'dark' : 'transparent'"
             :header-text-variant="darkTheme ? 'white' : 'dark'"
-            :body-bg-variant="darkTheme ? 'dark' : 'white'"
+            :body-bg-variant="darkTheme ? 'dark' : 'transparent'"
             :body-text-variant="darkTheme ? 'white' : 'dark'"
           >
             <template v-slot:modal-header="{ close }">
@@ -62,9 +62,9 @@
 
         <b-modal
           id="deleteConfirm"
-          :header-bg-variant="darkTheme ? 'dark' : 'white'"
+          :header-bg-variant="darkTheme ? 'dark' : 'transparent'"
           :header-text-variant="darkTheme ? 'white' : 'dark'"
-          :body-bg-variant="darkTheme ? 'dark' : 'white'"
+          :body-bg-variant="darkTheme ? 'dark' : 'transparent'"
           :body-text-variant="darkTheme ? 'white' : 'dark'"
           hide-footer
         >

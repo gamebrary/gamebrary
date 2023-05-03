@@ -20,9 +20,9 @@
         size="xl"
         scrollable
         hide-footer
-        :header-bg-variant="darkTheme ? 'dark' : 'white'"
+        :header-bg-variant="darkTheme ? 'dark' : 'transparent'"
         :header-text-variant="darkTheme ? 'white' : 'dark'"
-        :body-bg-variant="darkTheme ? 'dark' : 'white'"
+        :body-bg-variant="darkTheme ? 'dark' : 'transparent'"
         :body-text-variant="darkTheme ? 'white' : 'dark'"
       >
         <template v-slot:modal-header="{ close }">
@@ -327,10 +327,10 @@
                 id="editListsOrder"
                 title="BootstrapVue"
                 hide-footer
-                :header-bg-variant="darkTheme ? 'dark' : 'white'"
-                :header-text-variant="darkTheme ? 'white' : 'dark'"
-                :body-bg-variant="darkTheme ? 'dark' : 'white'"
-                :body-text-variant="darkTheme ? 'white' : 'dark'"
+                :header-bg-variant="darkTheme ? 'dark' : 'transparent'"
+                :header-text-variant="darkTheme ? 'light' : 'dark'"
+                :body-bg-variant="darkTheme ? 'dark' : 'transparent'"
+                :body-text-variant="darkTheme ? 'light' : 'dark'"
               >
                 <template v-slot:modal-header="{ close }">
                   <modal-header

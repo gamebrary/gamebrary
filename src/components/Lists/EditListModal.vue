@@ -1,8 +1,8 @@
 <template>
   <b-modal
-    :header-bg-variant="darkTheme ? 'dark' : 'white'"
+    :header-bg-variant="darkTheme ? 'dark' : 'transparent'"
     :header-text-variant="darkTheme ? 'white' : 'dark'"
-    :body-bg-variant="darkTheme ? 'dark' : 'white'"
+    :body-bg-variant="darkTheme ? 'dark' : 'transparent'"
     :body-text-variant="darkTheme ? 'white' : 'dark'"
     id="edit-list-modal"
     hide-footer
