@@ -1,4 +1,3 @@
-<!-- TODO: load games that aren't cached -->
 <template lang="html">
   <section>
     <b-container>
@@ -126,7 +125,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['tags', 'cachedGames', 'user']),
+    ...mapState(['tags', 'user', 'cachedGames']),
     ...mapGetters(['darkTheme']),
   },
 
@@ -139,10 +138,20 @@ export default {
       this.loading = true;
 
       await this.$store.dispatch('LOAD_TAGS')
-        .catch(() => { this.loading = false; })
+        .catch(() => { this.loading = false; });
 
-      // TODO: load games that aren't cached
-      // await this.$store.dispatch('LOAD_GAMES', this.tag.games);
+      const allGames = Array.from(new Set(this.tags.map(({ games }) => games).flat()));
+      const cachedGames = Object.keys(this.cachedGames);
+      const gamesNotCached = allGames?.filter((game) => !cachedGames.includes(String(game)))?.toString();
+
+      if (gamesNotCached) {
+        console.log('gamesNotCached', gamesNotCached);
+        // TODO: test that it doesn't keep loading
+        await this.$store.dispatch('LOAD_GAMES', gamesNotCached);
+        // TODO: catch error
+      } else {
+        console.log('all loaded');
+      }
 
       this.loading = false;
     },

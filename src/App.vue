@@ -1,3 +1,5 @@
+<!-- TODO: smart lists based on liked games -->
+<!-- TODO: finish unauthed UI -->
 <!-- TODO: add universal search, default based on page visited, allow to change -->
 <!-- TODO: add board lock/readonly -->
 <!-- TODO: use ribbon to show game type in search (e.g. mods, ports, etc) -->

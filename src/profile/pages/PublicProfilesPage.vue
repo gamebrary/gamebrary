@@ -7,13 +7,17 @@
 
       <b-spinner v-if="loading" class="spinner-centered" />
 
-      <div v-else>
+      <masonry
+        v-else
+        gutter="1rem"
+        :cols="{default: 4, 1000: 3, 700: 2, 400: 1}"
+      >
         <profile-card
           v-for="profile in profiles"
           :key="profile.userName"
           :profile="profile"
         />
-      </div>
+      </masonry>
     </b-container>
   </section>
 </template>

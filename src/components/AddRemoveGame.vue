@@ -15,7 +15,13 @@
         :title="title"
         @close="close"
       >
-        <b-button @click="selectedBoard = null">Change board</b-button>
+        <!-- <pre>{{ selectedBoard.id }}</pre> -->
+
+        <!-- <div v-if="selectedBoard">
+          <b-button @click="selectedBoard = null">
+            Back
+          </b-button> -->
+        <!-- </div> -->
       </modal-header>
     </template>
 

@@ -22,11 +22,6 @@
       <span class="ml-2">Games</span>
     </b-dropdown-item>
 
-    <b-dropdown-item :to="{ name: 'wallpapers' }">
-      <i class="fa fa-images fa-fw" aria-hidden="true" />
-      <span class="ml-2">Wallpapers</span>
-    </b-dropdown-item>
-
     <b-dropdown-item :to="{ name: 'notes' }">
       <i class="fa fa-book fa-fw" aria-hidden="true" />
       <span class="ml-2">Notes</span>
@@ -35,6 +30,11 @@
     <b-dropdown-item :to="{ name: 'tags' }">
       <i class="fa fa-tags fa-fw" aria-hidden="true" />
       <span class="ml-2">Tags</span>
+    </b-dropdown-item>
+
+    <b-dropdown-item :to="{ name: 'wallpapers' }">
+      <i class="fa fa-images fa-fw" aria-hidden="true" />
+      <span class="ml-2">Wallpapers</span>
     </b-dropdown-item>
 
     <b-dropdown-item v-if="user" :to="{ name: 'account' }">

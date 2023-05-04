@@ -7,7 +7,7 @@
     <b-avatar
       :src="avatarImage"
       class="mr-3"
-      size="100px"
+      size="120px"
       rounded
     />
 
