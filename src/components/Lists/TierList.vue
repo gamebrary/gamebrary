@@ -144,7 +144,7 @@ export default {
       try {
         await this.$store.dispatch('SAVE_GAME_BOARD', board);
         await this.$store.dispatch('LOAD_BOARD', board.id);
-        await this.$store.dispatch('LOAD_GAMES', [gameId]);
+        await this.$store.dispatch('LOAD_IGDB_GAMES', [gameId]);
       } catch (e) {
         // this.$bvToast.toast(`There was an error adding "${this.game.name}"`, { title: list.name, variant: 'danger' });
       }

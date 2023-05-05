@@ -164,7 +164,7 @@ export default {
       this.loading = true;
 
       try {
-        await this.$store.dispatch('LOAD_GAMES', gamesList);
+        await this.$store.dispatch('LOAD_IGDB_GAMES', gamesList);
       } catch (e) {
         this.$bvToast.toast('Error loading games', { variant: 'error' });
       }

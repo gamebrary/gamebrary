@@ -213,7 +213,7 @@ export default {
 
     async loadGames(gameList) {
       try {
-        await this.$store.dispatch('LOAD_GAMES', gameList)
+        await this.$store.dispatch('LOAD_IGDB_GAMES', gameList)
       } catch (e) {
         this.$bvToast.toast('Error loading games', { variant: 'error' });
       }

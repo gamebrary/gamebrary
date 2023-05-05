@@ -171,7 +171,7 @@ export default {
       this.$store.commit('APPLY_TAG_TO_GAME', { tagIndex, gameId });
 
       await this.$store.dispatch('SAVE_TAGS').catch(() => {});
-      await this.$store.dispatch('LOAD_GAMES', [gameId]);
+      await this.$store.dispatch('LOAD_IGDB_GAMES', [gameId]);
 
       this.tag = JSON.parse(JSON.stringify(tags[tagIndex]));
     },
@@ -185,7 +185,7 @@ export default {
       this.tag = JSON.parse(JSON.stringify(tags[tagIndex]));
 
       if (this.tag?.games?.length > 0) {
-        await this.$store.dispatch('LOAD_GAMES', this.tag.games);
+        await this.$store.dispatch('LOAD_IGDB_GAMES', this.tag.games);
       }
 
       this.loading = false;

@@ -221,7 +221,7 @@ export default {
     },
 
     async addGame(gameId) {
-      await this.$store.dispatch('LOAD_GAMES', [gameId]);
+      await this.$store.dispatch('LOAD_IGDB_GAMES', [gameId]);
       const board = JSON.parse(JSON.stringify(this.board));
 
       board?.lists?.[this.listIndex]?.games.push(gameId);

@@ -147,7 +147,7 @@ export default {
       if (gamesNotCached) {
         console.log('gamesNotCached', gamesNotCached);
         // TODO: test that it doesn't keep loading
-        await this.$store.dispatch('LOAD_GAMES', gamesNotCached);
+        await this.$store.dispatch('LOAD_IGDB_GAMES', gamesNotCached);
         // TODO: catch error
       } else {
         console.log('all loaded');
