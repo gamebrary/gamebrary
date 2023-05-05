@@ -1,14 +1,5 @@
 const routes = [
   {
-    name: 'explore',
-    path: '/explore',
-    component: () => import(/* webpackChunkName: "public" */ '@/public/pages/ExplorePage'),
-    meta: {
-      title: 'Explore public boards',
-      public: true,
-    },
-  },
-  {
     name: 'about',
     path: '/about',
     component: () => import(/* webpackChunkName: "public" */ '@/public/pages/AboutPage'),

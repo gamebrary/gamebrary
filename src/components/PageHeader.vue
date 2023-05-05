@@ -5,7 +5,7 @@
 // import LanguageSettings from '@/components/Settings/LanguageSettings'; -->
 
 <template lang="html">
-  <header :class="['p-3 d-flex position-fixed w-100', { scrolled }, headerClass]">
+  <header :class="['p-3 d-flex position-fixed w-100', { scrolled }, headerClass, { 'game-page': isGamePage }]">
     <main-menu />
 
     <!-- TODO: use page header to display errors? -->
@@ -20,7 +20,7 @@
       <b-button
         v-if="!user"
         class="ml-2"
-        variant="success"
+        variant="primary"
         :to="{ name: 'auth' }"
       >
         Login
@@ -49,6 +49,10 @@ export default {
 
       return this.darkTheme ? 'dark' : 'light';
     },
+
+    isGamePage() {
+      return this.$route.name === 'game'
+    },
   },
 };
 </script>
@@ -60,6 +64,18 @@ export default {
     grid-template-columns: 65px 1fr;
     z-index: 2;
     transition: background-color .3s linear;
+
+    &.light {
+      background-color: var(--white);
+    }
+
+    &.dark {
+      background-color: var(--black);
+    }
+
+    &.game-page {
+      background-color: transparent;
+    }
 
     &.scrolled {
       &.light {

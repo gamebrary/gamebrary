@@ -12,7 +12,7 @@
       <i class="fa-sharp fa-solid fa-bars" />
     </template>
 
-    <b-dropdown-item :to="{ name: user ? 'boards' : 'explore' }">
+    <b-dropdown-item :to="{ name: user ? 'boards' : 'home' }">
       <i class="fa-regular fa-rectangle-list fa-fw" />
       <span class="ml-2">Boards</span>
     </b-dropdown-item>
@@ -27,6 +27,11 @@
       <span class="ml-2">Notes</span>
     </b-dropdown-item>
 
+    <!-- <b-dropdown-item :to="{ name: 'progresses' }">
+      <i class="fa fa-book fa-fw" aria-hidden="true" />
+      <span class="ml-2">Progresses</span>
+    </b-dropdown-item> -->
+
     <b-dropdown-item :to="{ name: 'tags' }">
       <i class="fa fa-tags fa-fw" aria-hidden="true" />
       <span class="ml-2">Tags</span>
@@ -36,6 +41,11 @@
       <i class="fa fa-images fa-fw" aria-hidden="true" />
       <span class="ml-2">Wallpapers</span>
     </b-dropdown-item>
+
+    <!-- <b-dropdown-item :to="{ name: 'dev.tools' }">
+      <i class="fa fa-cog fa-fw" aria-hidden="true" />
+      <span class="ml-2">Dev tools</span>
+    </b-dropdown-item> -->
 
     <b-dropdown-item v-if="user" :to="{ name: 'account' }">
       <b-avatar
@@ -62,7 +72,10 @@
       <i class="fa-solid fa-keyboard fa-fw" /> Keyboard Shortcuts
     </b-dropdown-item>
 
-    <b-dropdown-item @click="toggleTheme" :disabled="!user">
+    <b-dropdown-item
+      v-if="user"
+      @click="toggleTheme"
+    >
       <i v-if="darkTheme" class="fa-solid fa-sun fa-fw" />
       <i v-else class="fa-solid fa-moon fa-fw" />
 
@@ -90,18 +103,17 @@
       <i class="mr-2 fab fa-steam" aria-hidden />
       <small>Steam</small>
     </b-list-group-item> -->
-
-    <footer class="mt-2 mx-4 small">
-      &copy; 2022 Gamebrary
-
+    <b-dropdown-divider />
+    <b-dropdown-text>
+      ©{{ year }}
       <b-link
-        href="https://github.com/romancm/gamebrary/releases"
+        href="https://github.com/romancm/gamebrary"
         target="_blank"
-        :class="darkTheme ? 'text-light' : 'text-dark'"
+        :class="darkTheme ? 'text-primary' : 'text-dark'"
       >
-        {{ latestRelease }}
+        Gamebrary
       </b-link>
-    </footer>
+    </b-dropdown-text>
   </b-dropdown>
 </template>
 
@@ -119,7 +131,11 @@ export default {
 
   computed: {
     ...mapState(['board', 'boards', 'settings', 'user']),
-    ...mapGetters(['darkTheme', 'latestRelease']),
+    ...mapGetters(['darkTheme']),
+
+    year() {
+      return new Date().getFullYear();
+    },
   },
 
   methods: {

@@ -19,6 +19,7 @@
 
       <empty-state
         v-else-if="tags.length === 0"
+        illustration="tags"
         message="Tags are a great way to organize your collection"
        >
         <b-button
@@ -28,19 +29,16 @@
         >
           Create a tag
         </b-button>
-
-        <b-button
-          v-else
-          :to="{ name: 'auth' }"
-        >
-          Login
-        </b-button>
        </empty-state>
 
       <b-row v-else>
         <b-col
           v-for="({ textColor, bgColor, name, games: taggedGames }, index) in tags"
-          cols="8"
+          cols="12"
+          sm="12"
+          md="12"
+          lg="8"
+          offset-lg="2"
           :key="name"
         >
 
@@ -54,9 +52,9 @@
 
           <b-form-row v-if="taggedGames.length" class="mt-2">
             <b-col
-              v-for="game in taggedGames.slice(0, 5)"
+              v-for="game in taggedGames.slice(0, 6)"
               :key="game"
-              cols="6"
+              cols="3"
               sm="4"
               md="3"
               lg="2"
@@ -68,22 +66,14 @@
                 @click="$router.push({ name: 'game', params: { id: cachedGames[game].id, slug: cachedGames[game].slug }})"
               />
             </b-col>
-
-            <b-col
-              v-if="taggedGames.length > 5"
-              cols="6"
-              sm="4"
-              md="3"
-              lg="2"
-            >
-              <router-link
-                class="d-flex align-items-center w-100 h-100 bg-light text-dark justify-content-center rounded"
-                :to="{ name: 'tag.edit', params: { id: index } }"
-              >
-                {{ taggedGames.length }} more...
-              </router-link>
-            </b-col>
           </b-form-row>
+
+          <b-link
+            v-if="taggedGames.length > 6"
+            :to="{ name: 'tag.edit', params: { id: index } }"
+          >
+            {{ taggedGames.length }} more...
+          </b-link>
         </b-card>
         </b-col>
 
@@ -135,22 +125,20 @@ export default {
 
   methods: {
     async load() {
-      this.loading = true;
+      try {
+        this.loading = true;
 
-      await this.$store.dispatch('LOAD_TAGS')
-        .catch(() => { this.loading = false; });
+        await this.$store.dispatch('LOAD_TAGS');
 
-      const allGames = Array.from(new Set(this.tags.map(({ games }) => games).flat()));
-      const cachedGames = Object.keys(this.cachedGames);
-      const gamesNotCached = allGames?.filter((game) => !cachedGames.includes(String(game)))?.toString();
+        const allGames = Array.from(new Set(this.tags.map(({ games }) => games).flat()));
+        const cachedGames = Object.keys(this.cachedGames);
+        const gamesNotCached = allGames?.filter((game) => !cachedGames.includes(String(game)))?.toString();
 
-      if (gamesNotCached) {
-        console.log('gamesNotCached', gamesNotCached);
-        // TODO: test that it doesn't keep loading
-        await this.$store.dispatch('LOAD_IGDB_GAMES', gamesNotCached);
-        // TODO: catch error
-      } else {
-        console.log('all loaded');
+        if (gamesNotCached) {
+          await this.$store.dispatch('LOAD_IGDB_GAMES', gamesNotCached);
+        }
+      } catch (e) {
+        console.log('e', e);
       }
 
       this.loading = false;

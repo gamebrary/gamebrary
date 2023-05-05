@@ -160,6 +160,10 @@ export default {
     });
   },
 
+  CLEAR_CACHE_GAME_DATA(state) {
+    state.cachedGames = {};
+  },
+
   SET_SETTINGS(state, settings) {
     state.settings = settings;
   },
@@ -184,6 +188,10 @@ export default {
 
   SET_NOTES(state, notes) {
     state.notes = notes;
+  },
+
+  SET_GAMES(state, games) {
+    state.games = games;
   },
 
   SET_PLATFORMS(state, platforms) {

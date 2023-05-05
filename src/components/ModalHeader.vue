@@ -3,7 +3,7 @@
     <div>
       <slot name="header" v-if="slots.includes('header')" />
       <h3 class="text-wrap">{{ title }}</h3>
-      <small class="d-block text-muted">{{ subtitle }}</small>
+      <small class="d-block text-muted" style="margin-top: -4px;">{{ subtitle }}</small>
     </div>
 
     <div class="actions" v-if="slots.includes('default')">

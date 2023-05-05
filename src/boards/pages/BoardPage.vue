@@ -154,7 +154,7 @@ export default {
         this.loadBoardGames();
         this.loadBoardBackground();
       } else {
-        this.$router.push({ name: 'explore' });
+        this.$router.push({ name: 'home' });
       }
     },
 

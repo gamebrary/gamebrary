@@ -75,7 +75,7 @@ export default {
     },
 
     isPublicBoard() {
-      return this.$route.name === 'explore';
+      return this.$route.name === 'home';
     },
   },
 

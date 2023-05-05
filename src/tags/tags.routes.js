@@ -5,6 +5,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "tags" */ '@/tags/pages/TagsPage'),
     meta: {
       title: 'Tags',
+      public: true,
     },
   },
   {

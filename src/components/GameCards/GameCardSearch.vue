@@ -7,6 +7,7 @@
     overlay
     @click="handleClick"
   >
+    <!-- TODO: allow to like/unlike games -->
     <strong
       v-if="noImage"
       class="text-center pb-5 d-flex justify-content-center"

@@ -1,3 +1,4 @@
+<!-- TODO: add local storage size progress bar (in dev tools?) -->
 <!-- TODO: smart lists based on liked games -->
 <!-- TODO: finish unauthed UI -->
 <!-- TODO: add universal search, default based on page visited, allow to change -->
@@ -42,7 +43,7 @@
     <template v-else>
       <div v-b-visible.54="visibleHandler" class="header-flag" />
       <page-header />
-      <router-view :class="['viewport', { offset }]" />
+      <router-view class="viewport" />
       <keyboard-shortcuts-modal />
       <markdown-cheatsheet />
     </template>
@@ -100,10 +101,6 @@ export default {
     isPublicRoute() {
       return this.$route.meta?.public;
     },
-
-    offset() {
-      return !['home'].includes(this.$route.name);
-    },
   },
 
   watch: {
@@ -113,6 +110,7 @@ export default {
   },
 
   async mounted() {
+    this.$bus.$on('SELECT_GAME', this.selectGame);
     this.$bus.$on('CLEAR_WALLPAPER', this.clearWallpaperUrl);
     this.$bus.$on('UPDATE_WALLPAPER', this.updateWallpaperUrl);
     this.$bus.$on('BOOT', this.boot);
@@ -226,10 +224,7 @@ export default {
   .viewport {
     min-height: 100vh;
     overflow-y: auto;
-
-    &.offset {
-      padding: 72px 0 16px;
-    }
+    padding: 72px 0 16px;
   }
 
   .header-flag {

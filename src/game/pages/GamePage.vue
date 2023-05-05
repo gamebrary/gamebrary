@@ -108,9 +108,9 @@
             <div :class="['d-flex align-items-center', { 'mt-3': hasArtworks }]">
               <b-button
                 size="sm"
-                variant="light"
+                variant="transparent"
                 squared
-                class="mr-2"
+                class="mr-2 p-0"
                 :disabled="!user"
                 @click="selectGame"
               >

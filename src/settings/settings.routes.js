@@ -21,6 +21,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "settings" */ '@/settings/pages/WallpapersPage'),
     meta: {
       title: 'Wallpapers',
+      public: true,
     },
   },
 ];

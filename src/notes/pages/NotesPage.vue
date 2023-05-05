@@ -4,8 +4,6 @@
       <h3>{{ $t('notes.title') }}</h3>
     </portal>
 
-    <!-- TODO: add examples:  -->
-
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <template v-else>
@@ -24,8 +22,11 @@
 
       <empty-state
         v-if="isEmpty"
-        message="Looks like you don't have any notes yet."
+        illustration="notes"
       >
+        <p>Looks like you don't have any notes yet.</p>
+        <p>Use notes to keep track of cheat codes, passwords, or pretty much anything!</p>
+
         <game-selector
           v-if="user"
           title="Select game to add a note"
@@ -36,21 +37,23 @@
           @select-game="createNote"
         />
 
-        <b-button
+        <!-- <b-button
           v-else
           :to="{ name: 'auth' }"
         >
           Login
-        </b-button>
+        </b-button> -->
       </empty-state>
 
-      <div v-else-if="searchText.length && !filteredNotes.length">
-        <p>No results</p>
-
+      <empty-state
+        v-else-if="searchText.length && !filteredNotes.length"
+        illustration="notes"
+        message="No results"
+      >
         <b-button @click="searchText = ''">
           Clear search
         </b-button>
-      </div>
+      </empty-state>
 
       <div class="mx-3" v-else>
         <b-form-input

@@ -488,7 +488,24 @@ export default {
     });
   },
 
-  LOAD_GAMES({ state, commit }, games) {
+  // TODO: Add action to load my games
+  LOAD_GAMES({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      const db = firestore();
+
+      db.collection('games')
+        .doc(state.user.uid)
+        .get()
+        .then((doc) => {
+          if (!doc?.exists) return reject();
+
+          commit('SET_GAMES', doc.data());
+          resolve();
+        });
+    });
+  },
+
+  LOAD_IGDB_GAMES({ state, commit }, games) {
     return new Promise((resolve, reject) => {
       const data = `fields id,name,slug,rating,release_dates.*,name,cover.image_id; where id = (${ games }); limit 500;`;
 

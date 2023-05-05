@@ -152,7 +152,7 @@ export default {
     },
 
     showPublicIndicator() {
-      return this.$route.name !== 'explore' && this.board?.isPublic;
+      return this.$route.name !== 'home' && this.board?.isPublic;
     },
 
     isStandardBoard() {

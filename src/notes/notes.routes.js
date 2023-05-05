@@ -5,6 +5,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "notes" */ '@/notes/pages/NotesPage'),
     meta: {
       title: 'Notes',
+      public: true,
     },
   },
 ];

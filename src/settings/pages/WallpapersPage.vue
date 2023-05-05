@@ -12,14 +12,9 @@
       <template v-else-if="showEmptyState">
         <empty-state
           message="Upload a wallpaper to customize your boards"
+          illustration="wallpapers"
         >
           <upload-wallpaper-button v-if="user" />
-          <b-button
-            v-else
-            :to="{ name: 'auth' }"
-          >
-            Login
-          </b-button>
           <!-- TODO: add better public page with images/etc -->
         </empty-state>
       </template>

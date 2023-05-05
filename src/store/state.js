@@ -2,6 +2,7 @@ export default {
   board: {},
   highlightedGame: null,
   boards: [],
+  games: {},
   dragging: false,
   scrolled: false,
   game: null,

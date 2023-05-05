@@ -51,7 +51,7 @@
             v-for="option in $options.LIST_SORT_OPTIONS"
             :key="option.value"
             :variant="option.value == list.sortOrder ? 'primary' : 'light'"
-            class="mr-2"
+            class="mr-2 mb-2"
             @click="setListSorting(option.value)"
           >
             {{ option.text }}
@@ -70,7 +70,7 @@
             v-for="option in $options.LIST_VIEW_OPTIONS"
             :key="option.value"
             :variant="option.value === list.view ? 'primary' : 'light'"
-            class="mr-2"
+            class="mr-2 mb-2"
             @click="setListView(option.value)"
           >
             {{ option.text }}

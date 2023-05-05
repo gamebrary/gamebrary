@@ -1,3 +1,4 @@
+<!-- TODO: move to main menu -->
 <template lang="html">
   <section>
     <b-container>
@@ -115,6 +116,13 @@
         variant="warning"
       >
         Expire session
+      </b-button>
+
+      <b-button
+        @click="$store.commit('CLEAR_CACHE_GAME_DATA')"
+        variant="warning"
+      >
+        Clear game cache
       </b-button>
     </b-container>
   </section>
