@@ -12,7 +12,7 @@
       <i class="fa-sharp fa-solid fa-bars" />
     </template>
 
-    <b-dropdown-item :to="{ name: user ? 'boards' : 'home' }">
+    <b-dropdown-item :to="{ name: 'home' }">
       <i class="fa-regular fa-rectangle-list fa-fw" />
       <span class="ml-2">Boards</span>
     </b-dropdown-item>

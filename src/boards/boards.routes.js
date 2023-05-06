@@ -20,14 +20,6 @@ const routes = [
       public: true,
     },
   },
-  {
-    name: 'boards',
-    path: '/boards',
-    component: () => import(/* webpackChunkName: "boards" */ '@/boards/pages/BoardsPage'),
-    meta: {
-      title: 'Boards',
-    },
-  },
 ];
 
 export default routes;
