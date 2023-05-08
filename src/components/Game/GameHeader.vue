@@ -1,5 +1,5 @@
 <template lang="html">
-  <header :class="[{ 'border-bottom': hasArtworks }, darkTheme ? 'border-dark' : 'border-light']">
+  <header :class="[darkTheme ? 'border-dark' : 'border-light']">
     <portal v-if="user" to="headerActions">
       <b-dropdown
         class="mr-2"

@@ -2,10 +2,6 @@
 <template lang="html">
   <section>
     <b-container>
-      <page-title
-        title="Dev tools"
-      />
-
       <b-row>
         <b-col cols="12">
           <div

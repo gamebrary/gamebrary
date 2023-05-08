@@ -1,7 +1,12 @@
 <template lang="html">
   <section>
     <b-container>
-      <portal v-if="!showPreviousButton" to="pageTitle">Search</portal>
+      <portal to="pageTitle">
+        <h3>Search</h3>
+      </portal>
+
+      <search-box class="mb-3" />
+      <!-- TODO: show result count, align search box to right -->
 
       <b-form-row>
         <b-col v-if="activeBoard">
@@ -117,6 +122,7 @@
 <script>
 import GameCardSearch from '@/components/GameCards/GameCardSearch';
 import SearchFilters from '@/components/SearchFilters';
+import SearchBox from '@/components/SearchBox';
 import orderby from 'lodash.orderby';
 import { IGDB_QUERIES } from '@/constants';
 import { mapState, mapGetters } from 'vuex';
@@ -124,6 +130,7 @@ import { mapState, mapGetters } from 'vuex';
 export default {
   components: {
     GameCardSearch,
+    SearchBox,
     SearchFilters,
   },
 

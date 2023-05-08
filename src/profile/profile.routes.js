@@ -4,7 +4,7 @@ const routes = [
     path: '/profiles',
     component: () => import(/* webpackChunkName: "profile" */ '@/profile/pages/PublicProfilesPage'),
     meta: {
-      title: 'profiles',
+      title: 'Profiles',
       public: true,
     },
   },

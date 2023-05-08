@@ -1,7 +1,7 @@
 <template lang="html">
   <section>
     <portal to="pageTitle">
-      <h3>Gamebrary</h3>
+      <h3>{{ user ? 'Boards' : 'Gamebrary' }}</h3>
     </portal>
 
     <b-container>

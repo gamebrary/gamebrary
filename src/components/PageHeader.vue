@@ -15,7 +15,7 @@
     <div class="align-items-center d-flex ml-auto">
       <portal-target name="headerActions" multiple />
 
-      <search-box />
+      <search-box v-if="showSearchBox" />
 
       <b-button
         v-if="!user"
@@ -48,6 +48,10 @@ export default {
       if (this.$route.name === 'board') return '';
 
       return this.darkTheme ? 'dark' : 'light';
+    },
+
+    showSearchBox() {
+      return this.$route.name !== 'search';
     },
 
     isGamePage() {

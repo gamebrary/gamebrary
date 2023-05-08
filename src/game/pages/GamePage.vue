@@ -107,7 +107,6 @@
           <div class="d-flex justify-content-between align-items-end" v-b-visible="visibleHandler">
             <div :class="['d-flex align-items-center', { 'mt-3': hasArtworks }]">
               <b-button
-                size="sm"
                 variant="transparent"
                 squared
                 class="mr-2 p-0"

@@ -1,10 +1,10 @@
 <template lang="html">
   <section>
-    <b-container>
-      <page-title
-        title="Profiles"
-      />
+    <portal to="pageTitle">
+      <h3>Profiles</h3>
+    </portal>
 
+    <b-container>
       <b-spinner v-if="loading" class="spinner-centered" />
 
       <masonry
