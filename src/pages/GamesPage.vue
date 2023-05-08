@@ -16,7 +16,7 @@
 
     <empty-state
       v-if="!user"
-      illustration="notes"
+      illustration="games"
      >
       <p>Click on <i class="fa-solid fa-heart text-primary" /> and your games will show here.</p>
      </empty-state>
@@ -26,16 +26,18 @@
     <masonry
       v-else-if="likedGames.length"
       :cols="{ default: 5, 1200: 4, 768: 3, 480: 2 }"
-      gutter="8px"
+      gutter="16px"
     >
       <b-card
         v-for="game in likedGames"
         body-class="pb-0"
+        :bg-variant="darkTheme ? 'secondary' : 'light'"
+        :text-variant="darkTheme ? 'white' : 'dark'"
         :key="game.id"
         :title="game.name"
         :img-src="$options.getImageUrl(game, $options.IMAGE_SIZE_COVER_SMALL)"
         img-alt="Image"
-        class="cursor-pointer mb-2"
+        class="cursor-pointer mb-3"
         @click="$router.push({ name: 'game', params: { id: game.id, slug: game.slug }})"
       />
     </masonry>
@@ -55,7 +57,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 import { getImageUrl } from '@/utils';
 import EmptyState from '@/components/EmptyState';
 
@@ -74,6 +76,7 @@ export default {
 
   computed: {
     ...mapState(['games', 'cachedGames', 'user']),
+    ...mapGetters(['darkTheme']),
 
     likedGames() {
       if (!this.user) return null;
