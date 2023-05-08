@@ -56,7 +56,7 @@ export default {
       }
 
       if (this.user?.uid) {
-        this.$router.replace({ name: 'boards' });
+        this.$router.replace({ name: 'home' });
       } else {
         this.startAuthUI();
       }
@@ -99,7 +99,7 @@ export default {
       if (this.sessionExpired) this.$store.commit('SET_SESSION_EXPIRED', false);
 
       this.$store.commit('SET_USER', user);
-      this.$router.push({ name: 'boards' });
+      this.$router.push({ name: 'home' });
       this.$bus.$emit('BOOT');
     },
   },
