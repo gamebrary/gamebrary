@@ -2,54 +2,50 @@
   <section>
     <b-container>
       <b-spinner v-if="loading" class="spinner-centered" />
-
       <!-- TODO: allow to customize note -->
       <!-- TODO: Add note title? -->
       <!-- TODO: allow to use wallpapers in notes (use ref?) -->
 
       <b-row v-else>
         <portal to="pageTitle">
-          <div class="d-flex">
+          <h3>Notes</h3>
+        </portal>
+
+        <b-col cols="12" sm="8" offset-sm="2">
+          <div class="mb-3">
             <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug } }">
               <b-img
                 :src="$options.getImageUrl(game)"
                 class="mr-2"
-                style="max-height: 40px; width: auto;"
+                rounded
+                style="max-height: 80px; width: auto;"
               />
             </router-link>
 
-            <div class="d-flex flex-column">
-              <h3 style="line-height: initial;">Notes</h3>
-
-              <router-link
-                class="small mt-n2"
-                :to="{ name: 'game', params: { id: game.id, slug: game.slug } }"
-              >
-                {{ game.name }}
-              </router-link>
-            </div>
+            <router-link
+              class="small mt-n2"
+              :to="{ name: 'game', params: { id: game.id, slug: game.slug } }"
+            >
+              {{ game.name }}
+            </router-link>
           </div>
-        </portal>
 
-        <portal to="headerActions">
-          <b-button
+          <!-- <b-button
             :to="{ name: 'notes' }"
             variant="light"
             class="mr-2"
           >
             <i class="fa fa-book fa-fw" aria-hidden="true" />
             Notes
-          </b-button>
-        </portal>
+          </b-button> -->
 
-        <b-col cols="12" sm="8" offset-sm="2">
           <b-button-toolbar
             v-if="editor"
             key-nav
             class="mb-3"
             aria-label="Toolbar with button groups"
           >
-            <b-button-group>
+            <b-button-group class="mr-3 mb-3 mb-sm-0">
               <b-button
                 @click="editor.chain().focus().setParagraph().run()"
                 v-b-tooltip.hover
@@ -95,7 +91,8 @@
                 </span>
               </b-button>
             </b-button-group>
-            <b-button-group class="mx-1">
+
+            <b-button-group>
               <b-button
                 @click="editor.chain().focus().toggleBold().run()"
                 v-b-tooltip.hover
