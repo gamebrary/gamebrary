@@ -18,13 +18,15 @@
     <div v-if="selected" class="selected-indicator rounded bg-success text-white">
       <i class="fa fa-check" />
     </div>
+
+    <!-- {{ gamePlatformsText }} -->
   </b-card>
 </template>
 
 <script>
 import { getImageUrl } from '@/utils';
 import { mapState } from 'vuex';
-import { NO_IMAGE_PATH, IMAGE_SIZE_COVER_SMALL } from '@/constants';
+import { NO_IMAGE_PATH, IMAGE_SIZE_COVER_SMALL, PLATFORMS } from '@/constants';
 import slugify from 'slugify'
 
 export default {
@@ -40,6 +42,14 @@ export default {
 
   computed: {
     ...mapState(['user', 'boards']),
+
+    gamePlatforms() {
+      return this.game?.platforms.map((id) => PLATFORMS?.[id]);
+    },
+
+    gamePlatformsText() {
+      return this.game?.platforms.map((id) => PLATFORMS?.[id]?.name)?.join(', ');
+    },
 
     selectedBoard() {
       const { boardId } = this.$route.query;

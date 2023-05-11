@@ -36,6 +36,10 @@
             {{ game.name }}
           </b-card-title>
 
+          <div class="d-flex mb-2" v-if="gamePlatformsText">
+            <small>{{ gamePlatformsText }}</small>
+          </div>
+
           <b-badge variant="warning" v-if="gameNotes" class="mr-1">
             <i class="far fa-sticky-note fa-fw" />
           </b-badge>
@@ -72,12 +76,9 @@
 </template>
 
 <script>
-import { IMAGE_SIZE_COVER_SMALL } from '@/constants';
 import gameCardMixin from '@/mixins/gameCardMixin';
 
 export default {
-  IMAGE_SIZE_COVER_SMALL,
-
   props: {
     ranked: Boolean,
     rank: Number,

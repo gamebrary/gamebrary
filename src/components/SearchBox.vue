@@ -16,7 +16,13 @@
 
         <b-input-group-append>
           <b-button type="submit">
+            <b-spinner
+              v-if="loading"
+              small
+            />
+
             <i
+              v-else
               class="fas fa-search"
               aria-hidden
             />
@@ -33,6 +39,10 @@
 
 <script>
 export default {
+  props: {
+    loading: Boolean,
+  },
+
   data() {
     return {
       searchText: '',

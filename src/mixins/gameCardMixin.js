@@ -1,6 +1,6 @@
 import { mapState, mapGetters } from 'vuex';
 import { getImageUrl } from '@/utils';
-import { IMAGE_SIZE_COVER_SMALL } from '@/constants';
+import { IMAGE_SIZE_COVER_SMALL, PLATFORMS } from '@/constants';
 
 export default {
   IMAGE_SIZE_COVER_SMALL,
@@ -17,6 +17,14 @@ export default {
   computed: {
     ...mapState(['settings', 'cachedGames', 'tags', 'notes', 'progresses', 'board']),
     ...mapGetters(['isRTL', 'darkTheme']),
+
+    gamePlatforms() {
+      return this.game?.platforms.map((id) => PLATFORMS?.[id]);
+    },
+
+    gamePlatformsText() {
+      return this.game?.platforms.map((id) => PLATFORMS?.[id]?.name)?.join(', ');
+    },
 
     cardBackgroundVariant() {
       if (this.gameCompleted) return 'success';

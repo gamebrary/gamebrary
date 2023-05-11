@@ -1,33 +1,34 @@
 <!-- TODO: handle game highlighting -->
 <template lang="html">
-  <draggable
-    class="mx-3 mx-sm-auto standard-list"
-    handle=".card"
-    ghost-class="card-placeholder"
-    drag-class="border-success"
-    chosen-class="border-primary"
-    filter=".drag-filter"
-    delay="50"
-    animation="500"
-    :list="list.games"
-    :move="validateMove"
-    :disabled="draggingDisabled"
-    :group="{ name: 'games' }"
-    @end="dragEnd"
-    @start="dragStart"
-  >
-    <h4 v-if="list">{{ list.name }}</h4>
+  <div class="mx-3 mx-sm-auto standard-list">
+    <draggable
+      handle=".card"
+      ghost-class="card-placeholder"
+      drag-class="border-success"
+      chosen-class="border-primary"
+      filter=".drag-filter"
+      delay="50"
+      animation="500"
+      :list="list.games"
+      :move="validateMove"
+      :disabled="draggingDisabled"
+      :group="{ name: 'games' }"
+      @end="dragEnd"
+      @start="dragStart"
+    >
+      <h4 v-if="list">{{ list.name }}</h4>
 
-    <game-card-standard
-      v-for="(game, index) in listGames"
-      :key="index"
-      :list="list"
-      :game-id="game.id"
-      :ranked="board.ranked"
-      :rank="index + 1"
-      class="mb-2"
-      @click.native="openGame(game.id, list)"
-    />
+      <game-card-standard
+        v-for="(game, index) in listGames"
+        :key="index"
+        :list="list"
+        :game-id="game.id"
+        :ranked="board.ranked"
+        :rank="index + 1"
+        class="mb-2"
+        @click.native="openGame(game.id, list)"
+      />
+    </draggable>
 
     <game-selector
       v-if="isBoardOwner"
@@ -37,7 +38,7 @@
       variant="primary"
       @select-game="selectGame"
     />
-  </draggable>
+  </div>
 </template>
 
 <script>

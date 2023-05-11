@@ -14,17 +14,17 @@
 
     <b-dropdown-item :to="{ name: 'home' }">
       <i class="fa-regular fa-rectangle-list fa-fw" />
-      <span class="ml-2">Boards</span>
+      <span class="ml-2">Boards <small v-if="user" class="text-muted">({{ boardCount }})</small></span>
     </b-dropdown-item>
 
     <b-dropdown-item :to="{ name: 'games' }">
       <i class="fa-regular fa-heart fa-fw" />
-      <span class="ml-2">Games</span>
+      <span class="ml-2">Games <small v-if="user" class="text-muted">({{ gameCount }})</small></span>
     </b-dropdown-item>
 
     <b-dropdown-item :to="{ name: 'notes' }">
       <i class="fa fa-book fa-fw" aria-hidden="true" />
-      <span class="ml-2">Notes</span>
+      <span class="ml-2">Notes <small v-if="user" class="text-muted">({{ noteCount }})</small></span>
     </b-dropdown-item>
 
     <!-- <b-dropdown-item :to="{ name: 'progresses' }">
@@ -34,12 +34,12 @@
 
     <b-dropdown-item :to="{ name: 'tags' }">
       <i class="fa fa-tags fa-fw" aria-hidden="true" />
-      <span class="ml-2">Tags</span>
+      <span class="ml-2">Tags <small v-if="user" class="text-muted">({{ tagCount }})</small></span>
     </b-dropdown-item>
 
     <b-dropdown-item :to="{ name: 'wallpapers' }">
       <i class="fa fa-images fa-fw" aria-hidden="true" />
-      <span class="ml-2">Wallpapers</span>
+      <span class="ml-2">Wallpapers <small v-if="user" class="text-muted">({{ wallpaperCount }})</small></span>
     </b-dropdown-item>
 
     <!-- <b-dropdown-item :to="{ name: 'dev.tools' }">
@@ -47,7 +47,7 @@
       <span class="ml-2">Dev tools</span>
     </b-dropdown-item> -->
 
-    <b-dropdown-item v-if="user" :to="{ name: 'account' }">
+    <b-dropdown-item v-if="user" :to="{ name: 'profile' }">
       <b-avatar
         rounded
         v-if="avatarImage"
@@ -62,7 +62,7 @@
       />
 
       <span class="mr-2">
-        Account
+        Profile
       </span>
     </b-dropdown-item>
 
@@ -90,6 +90,15 @@
       <i class="fa fa-regular fa-circle-question fa-fw" aria-hidden="true" />
       <span class="ml-2">Help</span>
     </b-dropdown-item>
+
+    <b-dropdown-item-button
+      block
+      @click="session_signOut"
+    >
+
+      <i class="fa fa-solid fa-arrow-right-from-bracket fa-fw" aria-hidden="true" />
+      <span class="ml-2">Log out</span>
+    </b-dropdown-item-button>
 
     <!-- <b-dropdown-item
       class="mr-2"
@@ -120,7 +129,7 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import { getImageThumbnail } from '@/utils';
-
+import sessionMixin from '@/mixins/sessionMixin';
 export default {
   data() {
     return {
@@ -129,12 +138,34 @@ export default {
     }
   },
 
+  mixins: [sessionMixin],
+
   computed: {
-    ...mapState(['board', 'boards', 'settings', 'user']),
+    ...mapState(['board', 'boards', 'settings', 'user', 'games', 'notes', 'tags', 'wallpapers']),
     ...mapGetters(['darkTheme']),
 
     year() {
       return new Date().getFullYear();
+    },
+
+    gameCount() {
+      return Object.values(this.games)?.filter((liked) => Boolean(liked))?.length;
+    },
+
+    noteCount() {
+      return Object.keys(this.notes)?.length;
+    },
+
+    tagCount() {
+      return Object.keys(this.tags)?.length;
+    },
+
+    boardCount() {
+      return this.boards?.length;
+    },
+
+    wallpaperCount() {
+      return this.wallpapers?.length;
     },
   },
 

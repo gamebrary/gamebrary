@@ -149,30 +149,15 @@
                 <b-col cols="12" v-if="gamePlatforms" class="mb-3">
                   <h4 class="mb-1">Available for:</h4>
 
-                  <div style="column-count: 3;">
-                    <b-link
-                      v-for="platform in gamePlatforms"
-                      :key="platform.id"
-                      :to="{ name: 'search', query: { filterBy: 'platforms', value: platform.id }}"
-                      v-b-tooltip.hover
-                      :title="platform.slug"
-                      :class="['d-inline-flex align-items-center mr-2 mb-2', { 'bg-white': platform.platform_logo && platform.platform_logo.alpha_channel }]"
-                    >
-                      <!-- <b-img
-
-                        :alt="platform.slug"
-                        width="100"
-                      /> -->
-                      <!-- <b-avatar
-                        :src="`/logos/platforms/${platform.slug}.svg`"
-                        :text="platform.slug"
-                        rounded
-                        class="mr-2"
-                      /> -->
-
-                      {{ platform.name }}
-                    </b-link>
-                  </div>
+                  <b-button
+                    v-for="platform in gamePlatforms"
+                    :key="platform.id"
+                    size="sm"
+                    class="mr-2 mb-2"
+                    :to="{ name: 'search', query: { filterBy: 'platforms', value: platform.id }}"
+                  >
+                    {{ platform.name }}
+                  </b-button>
                 </b-col>
 
                 <b-col cols="6" sm="4" md="3" lg="6" v-if="gamePublishers.length">
@@ -520,7 +505,7 @@
 <script>
 import { setPageTitle } from '@/utils';
 import { mapState, mapGetters } from 'vuex';
-import { WEBSITE_CATEGORIES, GAME_CATEGORIES } from '@/constants';
+import { WEBSITE_CATEGORIES, GAME_CATEGORIES, PLATFORMS } from '@/constants';
 // import AmazonLinks from '@/components/Game/AmazonLinks';
 // import GameDetails from '@/components/Game/GameDetails';
 import GameMedia from '@/components/Game/GameMedia';
@@ -717,7 +702,12 @@ export default {
     },
 
     gamePlatforms() {
-      return this.game?.platforms;
+      return this.game?.platforms.map(({ id }) => {
+        return {
+          id,
+          name: PLATFORMS?.[id]?.name,
+        };
+      });
     },
 
     hasArtworks() {

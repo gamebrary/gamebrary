@@ -507,7 +507,7 @@ export default {
 
   LOAD_IGDB_GAMES({ state, commit }, games) {
     return new Promise((resolve, reject) => {
-      const data = `fields id,name,slug,rating,release_dates.*,name,cover.image_id; where id = (${ games }); limit 500;`;
+      const data = `fields id,name,platforms,slug,rating,release_dates.*,name,cover.image_id; where id = (${ games }); limit 500;`;
 
       axios.get(`${API_BASE}/igdb?token=${state.twitchToken.access_token}&path=games&data=${data}`)
         .then(({ data }) => {

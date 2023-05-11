@@ -5,7 +5,9 @@
         <h3>Search</h3>
       </portal>
 
-      <search-box class="mb-3" />
+      <portal to="headerActions">
+        <search-box :loading="loading" />
+      </portal>
       <!-- TODO: show result count, align search box to right -->
 
       <b-form-row>
@@ -66,46 +68,45 @@
           </div>
         </b-col>
 
-        <portal to="headerActions">
-          <b-spinner
-            v-if="loading"
-            class="mr-3"
-            small
-          />
+        <b-col>
+          <header class="mb-3 d-flex justify-content-between">
+            <b-button v-b-modal.filters>
+              <i class="fa-solid fa-sliders" />
+              Filters
+            </b-button>
 
-          <b-button
-            v-if="showPreviousButton"
-            class="mr-2"
-            @click="prev"
+            <search-filters />
+
+            <div>
+              <b-button
+                v-if="showPreviousButton"
+                @click="prev"
+              >
+                <i class="fa-solid fa-caret-left" aria-hidden="true" />
+                Prev
+              </b-button>
+
+              <b-button
+                class="ml-3"
+                v-if="searchResults.length === pageSize"
+                @click="next"
+              >
+                Next
+                <i class="fa-solid fa-caret-right" aria-hidden="true" />
+              </b-button>
+            </div>
+          </header>
+
+          <masonry
+            gutter="8px"
+            :cols="{ default: 7, 1200: 5, 768: 3, 480: 2 }"
           >
-            <span class="d-none d-sm-block">Prev</span>
-            <i class="fa-solid fa-caret-left d-sm-none" aria-hidden="true" />
-          </b-button>
-
-          <b-button
-            class="mr-2"
-            v-if="searchResults.length === pageSize"
-            @click="next"
-          >
-            <span class="d-none d-sm-block">Next</span>
-            <i class="fa-solid fa-caret-right d-sm-none" aria-hidden="true" />
-          </b-button>
-
-          <b-button v-b-modal.filters class="mr-2">
-            <i class="fa-solid fa-sliders" />
-          </b-button>
-        </portal>
-
-        <search-filters />
-
-        <b-col
-          cols="6"
-          md="4"
-          lg="2"
-          v-for="game in searchResults"
-          :key="game.id"
-        >
-          <game-card-search :game="game" />
+            <game-card-search
+              v-for="game in searchResults"
+              :game="game"
+              :key="game.id"
+            />
+          </masonry>
         </b-col>
 
         <div
@@ -138,7 +139,7 @@ export default {
     return {
       searchResults: [],
       loading: false,
-      pageSize: 30,
+      pageSize: 200,
       offset: 0,
       // pageSizes: [
       //   { value: 24, text: '24' },

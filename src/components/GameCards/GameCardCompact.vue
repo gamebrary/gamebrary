@@ -53,6 +53,10 @@
               <small>{{ name }}</small>
             </b-button>
           </template>
+
+          <div class="d-flex mb-2" v-if="gamePlatformsText">
+            <small>{{ gamePlatformsText }}</small>
+          </div>
         </b-card-body>
       </b-col>
     </b-form-row>

@@ -15,7 +15,6 @@
 <!-- TODO: [searchPage] use route query for offset & limit -->
 <!-- TODO: [gamePage] put stuff in components -->
 <!-- TODO: [gamePage] figure out publisher/dev logos -->
-<!-- TODO: [gamePage] figure out platform logos/text -->
 <!-- TODO: [gamePage] add pc requirements from steam -->
 <!-- TODO: [gamePage] show igdb tags and franchise data -->
 <!-- TODO: [gamePage] integrate with twitch -->
@@ -195,6 +194,7 @@ export default {
       this.$store.dispatch('LOAD_TAGS').catch((e) => {});
       this.$store.dispatch('LOAD_NOTES').catch((e) => {});
       this.$store.dispatch('LOAD_PROGRESSES').catch((e) => {});
+      this.$store.dispatch('LOAD_GAMES').catch((e) => {});
     },
   },
 };

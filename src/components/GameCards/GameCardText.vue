@@ -44,6 +44,10 @@
             </b-button>
           </template>
         </div>
+
+        <div class="d-flex mb-2" v-if="gamePlatformsText">
+          <small>{{ gamePlatformsText }}</small>
+        </div>
       </b-card-body>
     </b-row>
   </b-card>

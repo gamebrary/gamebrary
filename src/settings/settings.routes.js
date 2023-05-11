@@ -1,10 +1,10 @@
 const routes = [
   {
-    name: 'account',
-    path: '/account',
-    component: () => import(/* webpackChunkName: "settings" */ '@/settings/pages/AccountPage'),
+    name: 'profile',
+    path: '/profile',
+    component: () => import(/* webpackChunkName: "settings" */ '@/settings/pages/ProfilePage'),
     meta: {
-      title: 'Account',
+      title: 'Profile',
     },
   },
   {
