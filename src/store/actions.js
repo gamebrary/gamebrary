@@ -149,6 +149,8 @@ export default {
   },
 
   LOAD_BOARD({ state, commit }, id) {
+    console.log('id', id);
+
     return new Promise((resolve, reject) => {
       const db = firestore();
 
@@ -474,6 +476,7 @@ export default {
   },
 
   DELETE_BOARD({ commit }, id) {
+    console.log('id', id);
     return new Promise((resolve, reject) => {
       const db = firestore();
 

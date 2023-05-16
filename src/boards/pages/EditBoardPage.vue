@@ -369,7 +369,7 @@
           </b-button>
 
           <b-button
-            variant="outline-danger"
+            variant="danger"
             class="mx-2"
             @click="confirmDeleteBoard"
           >
@@ -430,9 +430,7 @@ export default {
   methods: {
     async loadBoard() {
       this.loading = true;
-
       this.board = await this.$store.dispatch('LOAD_BOARD', this.boardId);
-
       this.lists = JSON.parse(JSON.stringify(this.board.lists));
 
       this.loading = false;
@@ -480,17 +478,18 @@ export default {
     },
 
     async deleteBoard() {
-      this.loading = true;
+      try {
+        this.loading = true;
+        await this.$store.dispatch('DELETE_BOARD', this.board.id)
 
-      await this.$store.dispatch('DELETE_BOARD', this.board.id)
-        .catch(() => {
-          this.loading = false;
-          this.$bvToast.toast('There was an error deleting board', { variant: 'error' });
-        });
+        this.$bus.$emit('ALERT', { type: 'success', message: 'Board deleted' })
+
+        this.$router.push({ name: 'home' });
+      } catch (e) {
+        this.$bus.$emit('ALERT', { type: 'error', message: 'Error deleting board' })
+      }
 
       this.loading = false;
-      this.$bvToast.toast('Board removed');
-      this.$router.push({ name: 'boards' });
     },
 
     selectWallpaper(wallpaper) {
@@ -498,28 +497,29 @@ export default {
     },
 
     async saveBoard(close = false) {
-      this.saving = true;
+      try {
+        this.saving = true;
 
-      const { board, lists } = this;
+        const { board, lists } = this;
 
-      const payload = {
-        ...board,
-        lastUpdated: Date.now(),
-        lists,
+        const payload = {
+          ...board,
+          lastUpdated: Date.now(),
+          lists,
+        }
+
+        this.$store.commit('SET_GAME_BOARD', payload);
+
+        await this.$store.dispatch('SAVE_BOARD');
+
+        this.$bus.$emit('ALERT', { type: 'success', message: 'Board saved' });
+
+        if (close) this.$router.push({ name: 'board', params: { id: this.board.id } });
+      } catch (e) {
+        this.$bus.$emit('ALERT', { type: 'error', message: 'There was an saving board settings' });
       }
 
-      this.$store.commit('SET_GAME_BOARD', payload);
-
-      await this.$store.dispatch('SAVE_BOARD')
-        .catch(() => {
-          this.saving = false;
-
-          this.$bvToast.toast('There was an saving board settings', { variant: 'danger' });
-        });
-
       this.saving = false;
-
-      if (close) this.$router.push({ name: 'board', params: { id: this.board.id } });
     },
   },
 };

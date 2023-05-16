@@ -1,33 +1,27 @@
 <template lang="html">
-  <section>
-    <b-container class="pb-5 px-0">
-      <portal to="pageTitle">
-        <h3>{{ $t('wallpapers.title') }}</h3>
-      </portal>
+  <b-container class="pb-5 px-0">
+    <page-title :title="$t('wallpapers.title')" />
 
-      <!-- TODO: add artwork/media search and allow to upload using url -->
+    <!-- TODO: add artwork/media search and allow to upload using url -->
 
-      <b-spinner v-if="loading" class="spinner-centered" />
+    <b-spinner v-if="loading" class="spinner-centered" />
 
-      <template v-else-if="showEmptyState">
-        <empty-state
-          message="Upload a wallpaper to customize your boards"
-          illustration="wallpapers"
-        >
-          <upload-wallpaper-button v-if="user" />
-          <!-- TODO: add better public page with images/etc -->
-        </empty-state>
-      </template>
+    <template v-else-if="showEmptyState">
+      <empty-state
+        message="Upload a wallpaper to customize your boards"
+        illustration="wallpapers"
+      >
+        <upload-wallpaper-button v-if="user" />
+        <!-- TODO: add better public page with images/etc -->
+      </empty-state>
+    </template>
 
-      <template v-else>
-        <portal to="headerActions">
-          <upload-wallpaper-button />
-        </portal>
+    <template v-else>
+      <upload-wallpaper-button />
 
-        <wallpapers-list />
-      </template>
-    </b-container>
-  </section>
+      <wallpapers-list />
+    </template>
+  </b-container>
 </template>
 
 <script>

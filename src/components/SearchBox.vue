@@ -1,5 +1,9 @@
 <template lang="html">
-  <div class="search-box">
+  <b-button v-if="isVerticalNav" :to="{ name: 'search' }" class="d-sm-none">
+    <i class="fa fa-search" aria-hidden="true" />
+  </b-button>
+
+  <div v-else class="search-box">
     <b-form
       @submit.prevent="search"
       :class="[{ 'd-none d-sm-block': !isSearchPage }, 'mw-100']"
@@ -9,7 +13,6 @@
         <b-form-input
           v-model="searchText"
           type="search"
-          autofocus
           debounce="500"
           placeholder="Search"
         />
@@ -38,6 +41,8 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex';
+
 export default {
   props: {
     loading: Boolean,
@@ -54,6 +59,9 @@ export default {
   },
 
   computed: {
+    ...mapState(['settings']),
+    ...mapGetters(['navPosition', 'isVerticalNav']),
+
     isSearchPage() {
       return this.$route.name === 'search';
     },

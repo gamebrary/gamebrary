@@ -73,34 +73,41 @@ export default {
 
   methods: {
     async deleteProgress() {
-      const { id, name } = this.game;
+      try {
+        const { id, name } = this.game;
 
-      this.deleting = true;
+        this.deleting = true;
 
-      this.$store.commit('REMOVE_GAME_PROGRESS', id);
+        this.$store.commit('REMOVE_GAME_PROGRESS', id);
 
-      await this.$store.dispatch('SAVE_PROGRESSES_NO_MERGE')
-        .catch(() => {
-          this.$bvToast.toast('There was an error deleting your progress', { title: `${name} progress`, variant: 'error' });
-          this.deleting = false;
-        });
+        await this.$store.dispatch('SAVE_PROGRESSES_NO_MERGE');
+        this.progress = 0;
+        this.$bus.$emit('ALERT', { message: 'Progress deleted' });
+      } catch (e) {
+        this.$bus.$emit('ALERT', { type: 'error', message: 'Error deleting progress' });
+        this.$bvToast.toast('There was an error deleting your progress', { title: `${name} progress`, variant: 'error' });
+      }
 
+      this.editing = false;
       this.deleting = false;
     },
 
     async saveProgress() {
-      this.saving = true;
+      try {
+        this.saving = true;
 
-      this.$store.commit('SET_GAME_PROGRESS', {
-        progress: this.progress,
-        gameId: this.game?.id,
-      });
-
-      await this.$store.dispatch('SAVE_PROGRESSES')
-        .catch(() => {
-          this.saving = false;
-          this.$bvToast.toast('There was an error saving your progress', { variant: 'error' });
+        this.$store.commit('SET_GAME_PROGRESS', {
+          progress: this.progress,
+          gameId: this.game?.id,
         });
+
+        await this.$store.dispatch('SAVE_PROGRESSES');
+
+        this.$bus.$emit('ALERT', { type: 'success', message: 'Progress saved' });
+      } catch (e) {
+        this.saving = false;
+        this.$bus.$emit('ALERT', { type: 'error', message: 'Error saving progress' });
+      }
 
       this.editing = false;
       this.saving = false;

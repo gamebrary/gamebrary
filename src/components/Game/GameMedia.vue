@@ -1,7 +1,78 @@
 <!-- TODO: fix set as wallpaper logic -->
 <template lang="html">
   <div>
-    <section v-if="thumbnailPreviews.length > 1" class="my-2 thumbnails w-100">
+    <masonry
+      v-if="activeIndex === null"
+      gutter="8px"
+      :cols="{default: 4, 1000: 3, 700: 2, 400: 1}"
+    >
+      <b-img
+        v-for="({ imageUrl }, index) in gameMedia"
+        :key="index"
+        :src="imageUrl"
+        rounded
+        fluid
+        class="mb-2"
+        @click="viewMedia(index)"
+      />
+    </masonry>
+
+    <div v-else class="text-center w-100">
+      <b-embed
+        v-if="isSelectedMediaVideo"
+        type="iframe"
+        aspect="16by9"
+        :src="selectedMedia.videoUrl"
+        class="rounded w-100"
+        allowfullscreen
+      />
+
+      <b-img
+        v-else
+        rounded
+        fluid
+        :src="selectedMedia.imageUrl"
+        class="cursor-pointer"
+        @click="activeIndex = null"
+      />
+    </div>
+
+    <!-- <masonry
+      v-if="activeIndex === null"
+      gutter="8px"
+      :cols="{default: 4, 1000: 3, 700: 2, 400: 1}"
+    >
+      <b-img
+        v-for="({ imageUrl }, index) in gameMedia"
+        :key="index"
+        :src="imageUrl"
+        rounded
+        fluid
+        class="mb-2"
+        @click="viewMedia(index)"
+      />
+    </masonry>
+
+    <div v-else class="text-center">
+      <b-embed
+        v-if="isSelectedMediaVideo"
+        type="iframe"
+        aspect="16by9"
+        :src="selectedMedia.videoUrl"
+        class="rounded"
+        allowfullscreen
+      />
+
+      <b-img
+        v-else
+        rounded
+        fluid
+        :src="selectedMedia.imageUrl"
+        class="cursor-pointer"
+        @click="activeIndex = null"
+      />
+    </div> -->
+    <!-- <section v-if="thumbnailPreviews.length > 1" class="my-2 thumbnails w-100">
       <div
         v-for="({ imageUrl }, index) in thumbnailPreviews"
         :key="index"
@@ -17,9 +88,9 @@
           {{ thumbnails.length }}+
         </span>
       </div>
-    </section>
+    </section> -->
 
-    <b-modal
+    <!-- <b-modal
       id="mediaModal"
       size="xl"
       hide-footer
@@ -77,43 +148,7 @@
           </b-dropdown>
         </modal-header>
       </template>
-
-      <masonry
-        v-if="activeIndex === null"
-        gutter="8px"
-        :cols="{default: 4, 1000: 3, 700: 2, 400: 1}"
-      >
-        <b-img
-          v-for="({ imageUrl }, index) in gameMedia"
-          :key="index"
-          :src="imageUrl"
-          rounded
-          fluid
-          class="mb-2"
-          @click="viewMedia(index)"
-        />
-      </masonry>
-
-      <div v-else class="text-center">
-        <b-embed
-          v-if="isSelectedMediaVideo"
-          type="iframe"
-          aspect="16by9"
-          :src="selectedMedia.videoUrl"
-          class="rounded"
-          allowfullscreen
-        />
-
-        <b-img
-          v-else
-          rounded
-          fluid
-          :src="selectedMedia.imageUrl"
-          class="cursor-pointer"
-          @click="activeIndex = null"
-        />
-      </div>
-    </b-modal>
+    </b-modal> -->
   </div>
 </template>
 

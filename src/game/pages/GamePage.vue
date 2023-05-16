@@ -16,7 +16,7 @@
 
       <portal to="pageTitle">
         <h3
-          v-show="showHeaderTitle"
+          v-show="titleVisible"
           :class="darkTheme && hasWallpaper ? 'text-light text-outlined' : ''"
         >
           {{ gameName }}
@@ -40,8 +40,6 @@
             rounded
             fluid
           />
-
-          <game-media />
 
           <div
             v-if="newsHighlights"
@@ -104,7 +102,10 @@
           xl="6"
           class="pt-3"
         >
-          <div class="d-flex justify-content-between align-items-end" v-b-visible="visibleHandler">
+          <div
+            class="d-flex justify-content-between align-items-end"
+            v-b-visible="(value) => titleVisible = !value"
+          >
             <div :class="['d-flex align-items-center', { 'mt-3': hasArtworks }]">
               <b-button
                 variant="transparent"
@@ -452,6 +453,10 @@
         </b-col>
       </b-row>
 
+      <b-row>
+        <game-media />
+      </b-row>
+
       <small
         v-if="legalNotice"
         class="text-muted mt-2"
@@ -544,7 +549,7 @@ export default {
   data() {
     return {
       loading: false,
-      showHeaderTitle: false,
+      titleVisible: false,
       wikipediaDescription: null,
     };
   },
@@ -821,6 +826,8 @@ export default {
       this.$store.commit('LIKE_GAME', this.gameId);
       await this.$store.dispatch('SAVE_GAMES');
 
+      console.log('game', this.game);
+      this.$bus.$emit('ALERT', { type: 'success', message: 'Game added to your favorites' });
       // TODO: use try catch and catch
     },
 
@@ -894,11 +901,6 @@ export default {
       const wallpaper = this.wallpapers?.find(({ fullPath }) => fullPath === url);
 
       return wallpaper?.url ? decodeURI(wallpaper.url) : '';
-    },
-
-    visibleHandler(visible) {
-      this.showHeaderTitle = !visible;
-      this.$store.commit('SET_SCROLLED', !visible);
     },
 
     async loadGame() {

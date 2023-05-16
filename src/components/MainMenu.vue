@@ -1,8 +1,10 @@
 <template>
   <b-dropdown
     :variant="darkTheme ? 'dark' : 'light'"
+    :dropup="navPosition === 'bottom'"
+    :dropright="navPosition === 'left'"
+    :dropleft="navPosition === 'right'"
     no-caret
-    class="mr-3"
   >
     <!-- <b-dropdown-text style="width: 240px;">
       <small>Welcome {{ user.displayName }}</small>
@@ -42,11 +44,6 @@
       <span class="ml-2">Wallpapers <small v-if="user" class="text-muted">({{ wallpaperCount }})</small></span>
     </b-dropdown-item>
 
-    <!-- <b-dropdown-item :to="{ name: 'dev.tools' }">
-      <i class="fa fa-cog fa-fw" aria-hidden="true" />
-      <span class="ml-2">Dev tools</span>
-    </b-dropdown-item> -->
-
     <b-dropdown-item v-if="user" :to="{ name: 'profile' }">
       <b-avatar
         rounded
@@ -61,25 +58,14 @@
         aria-hidden
       />
 
-      <span class="mr-2">
-        Profile
-      </span>
+      {{ profileTitle }}
     </b-dropdown-item>
 
     <b-dropdown-divider />
 
-    <b-dropdown-item v-b-modal.keyboard-shortcuts>
-      <i class="fa-solid fa-keyboard fa-fw" /> Keyboard Shortcuts
-    </b-dropdown-item>
-
-    <b-dropdown-item
-      v-if="user"
-      @click="toggleTheme"
-    >
-      <i v-if="darkTheme" class="fa-solid fa-sun fa-fw" />
-      <i v-else class="fa-solid fa-moon fa-fw" />
-
-      Change theme
+    <b-dropdown-item :to="{ name: 'settings' }">
+      <i class="fa fa-cog fa-fw" aria-hidden="true" />
+      <span class="ml-2">Settings</span>
     </b-dropdown-item>
 
     <b-dropdown-item
@@ -90,15 +76,6 @@
       <i class="fa fa-regular fa-circle-question fa-fw" aria-hidden="true" />
       <span class="ml-2">Help</span>
     </b-dropdown-item>
-
-    <b-dropdown-item-button
-      block
-      @click="session_signOut"
-    >
-
-      <i class="fa fa-solid fa-arrow-right-from-bracket fa-fw" aria-hidden="true" />
-      <span class="ml-2">Log out</span>
-    </b-dropdown-item-button>
 
     <!-- <b-dropdown-item
       class="mr-2"
@@ -113,6 +90,7 @@
       <small>Steam</small>
     </b-list-group-item> -->
     <b-dropdown-divider />
+
     <b-dropdown-text>
       ©{{ year }}
       <b-link
@@ -129,7 +107,7 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import { getImageThumbnail } from '@/utils';
-import sessionMixin from '@/mixins/sessionMixin';
+
 export default {
   data() {
     return {
@@ -138,11 +116,9 @@ export default {
     }
   },
 
-  mixins: [sessionMixin],
-
   computed: {
     ...mapState(['board', 'boards', 'settings', 'user', 'games', 'notes', 'tags', 'wallpapers']),
-    ...mapGetters(['darkTheme']),
+    ...mapGetters(['darkTheme', 'navPosition']),
 
     year() {
       return new Date().getFullYear();
@@ -167,26 +143,19 @@ export default {
     wallpaperCount() {
       return this.wallpapers?.length;
     },
+
+    profileTitle() {
+      return this.profile?.userName
+        ? `@${this.profile.userName}`
+        : 'Profile';
+    },
+  },
+
+  mounted() {
+    if (this.user) this.load();
   },
 
   methods: {
-    async toggleTheme() {
-      const { settings } = this;
-      const darkTheme = settings?.darkTheme || false;
-
-      const payload = {
-        ...settings,
-        darkTheme: !darkTheme,
-      };
-
-      await this.$store.dispatch('SAVE_SETTINGS', payload)
-        .catch(() => {
-          this.$bvToast.toast('There was an error saving your settings', { variant: 'danger' });
-          this.saving = false;
-        });
-
-    },
-
     async load() {
       this.profile = await this.$store.dispatch('LOAD_PROFILE').catch(() => {});
 
@@ -201,16 +170,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-  header {
-    display: grid;
-    align-items: center;
-    grid-template-columns: 65px 1fr;
-    z-index: 1;
-  }
-
-  .logo {
-    height: 36px;
-  }
-</style>

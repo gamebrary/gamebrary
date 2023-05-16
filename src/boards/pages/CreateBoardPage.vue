@@ -120,24 +120,25 @@ export default {
 
   methods: {
     async createBoard() {
-      this.saving = true;
-
-      const dateCreated = Date.now();
-
-      const payload = {
-        ...this.sampleBoard,
-        ...this.board,
-        dateCreated,
-        lastUpdated: dateCreated,
-        lists: this.sampleBoard.lists.map((list, index) => ({ ...list, games: [] })),
-      }
-
       try {
+        this.saving = true;
+
+        const dateCreated = Date.now();
+
+        const payload = {
+          ...this.sampleBoard,
+          ...this.board,
+          dateCreated,
+          lastUpdated: dateCreated,
+          lists: this.sampleBoard.lists.map((list, index) => ({ ...list, games: [] })),
+        }
+
         const { id } = await this.$store.dispatch('CREATE_BOARD', payload);
+        $bus.$emit('ALERT', { type: 'success', message: 'Board created' });
 
         this.$router.push({ name: 'board', params: { id } });
       } catch (e) {
-        this.$bvToast.toast('There was an error creating board', { variant: 'error' });
+        $bus.$emit('ALERT', { type: 'error', message: 'Error creating board' });
       }
     },
   },

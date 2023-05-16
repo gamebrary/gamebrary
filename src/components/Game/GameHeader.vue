@@ -64,7 +64,7 @@ export default {
 </script>
 <style lang="scss" rel="stylesheet/scss" scoped>
 .carousel {
-  height: 50vh;
-  margin-top: -72px;
+  // height: 50vh;
+  // margin-top: -72px;
 }
 </style>

@@ -4,7 +4,6 @@ export default {
   boards: [],
   games: {},
   dragging: false,
-  scrolled: false,
   game: null,
   cachedGames: {},
   notes: {},

@@ -19,7 +19,7 @@
       <template v-else>
         <portal to="headerActions">
           <b-button
-            v-if="user"
+            v-if="user && !isVerticalNav"
             :variant="darkTheme ? 'secondary' : 'light'"
             class="mr-2"
             :to="{ name: 'create.board' }"
@@ -61,17 +61,21 @@ export default {
   },
 
   computed: {
-    ...mapState(['publicBoards', 'user', 'boards', 'wallpapers']),
-    ...mapGetters(['isBoardOwner', 'sortedBoards', 'darkTheme']),
+    ...mapState(['user', 'boards', 'wallpapers']),
+    ...mapGetters(['isBoardOwner', 'sortedBoards', 'sortedPublicBoards', 'darkTheme', 'isVerticalNav']),
 
     gameBoards() {
       return this.isPublicBoard
-        ? this.publicBoards
+        ? this.recentlyUpdatedPublicBoards
         : this.sortedBoards;
     },
 
+    recentlyUpdatedPublicBoards() {
+      return this.sortedPublicBoards.filter(({ lastUpdated }) => Boolean(lastUpdated)).slice(0, 20);
+    },
+
     isEmpty() {
-      return !this.loading && this.gameBoards.length === 0;
+      return !this.loading && this.gameBoards?.length === 0;
     },
 
     isPublicBoard() {

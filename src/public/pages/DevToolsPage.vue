@@ -2,6 +2,36 @@
 <template lang="html">
   <section>
     <b-container>
+      <div class="mb-3 border-bottom pb-3">
+        <div>
+          Alerts
+        </div>
+
+        <b-button
+          class="mr-2"
+          variant="info"
+          @click="$bus.$emit('ALERT', { message: 'Information' })"
+        >
+          Default
+        </b-button>
+
+        <b-button
+          class="mr-2"
+          variant="success"
+          @click="$bus.$emit('ALERT', { type: 'success', message: 'Data saved' })"
+        >
+          Success
+        </b-button>
+
+        <b-button
+          class="mr-2"
+          variant="danger"
+          @click="$bus.$emit('ALERT', { type: 'error', message: 'Error saving data' })"
+        >
+          Error
+        </b-button>
+      </div>
+
       <b-row>
         <b-col cols="12">
           <div

@@ -18,7 +18,10 @@ export default {
   latestRelease: ({ releases }) => releases?.[0]?.tag_name || 'v1',
   darkTheme: ({ settings }) => settings?.darkTheme || false,
   sortedBoards: ({ boards }) => orderby(boards, 'lastUpdated', 'desc'),
+  sortedPublicBoards: ({ publicBoards }) => orderby(publicBoards, 'lastUpdated', 'desc'),
   isBoardOwner: ({ board, user }) => board?.owner === user?.uid,
+  navPosition: ({ settings }) => settings?.navPosition || 'top',
+  isVerticalNav: ({ settings }) => ['left', 'right'].includes(settings?.navPosition),
 
   gameLinks: ({ game }) => {
     return game?.websites?.map(({ url, category }) => ({ url, ...LINKS_CATEGORIES[category] })) || [];

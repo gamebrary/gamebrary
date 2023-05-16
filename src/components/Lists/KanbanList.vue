@@ -1,7 +1,7 @@
 <!-- TODO: Fix issue with grid not loading correctly -->
 <template lang="html">
   <div
-    :class="['list rounded pl-3', listView, { dragging, 'unique': singleList, 'pr-3': isLastList && isPublicBoard }]"
+    :class="['list rounded pr-3', listView, { dragging, 'unique': singleList, 'pr-3': isLastList && isPublicBoard }]"
     :id="listIndex"
   >
     <b-card
@@ -309,11 +309,12 @@ export default {
 .list {
   flex-shrink: 0;
   cursor: default;
-  position: relative;
-  height: auto;
-  max-height: calc(100vh - 200px);
-  min-height: 200px;
+  // position: relative;
+  // height: auto;
+  // max-height: calc(100vh - 200px);
+  // min-height: 200px;
   width: calc(300px + 1rem);
+  // overflow-y: auto;
 
   @media(max-width: 400px) {
     width: calc(100vw - calc(68px + .5rem));

@@ -105,16 +105,19 @@ export default {
     },
 
     async addTier() {
-      this.saving = true;
+      try {
+        this.saving = true;
 
-      this.$store.commit('ADD_LIST', this.list);
+        this.$store.commit('ADD_LIST', this.list);
 
-      await this.$store.dispatch('SAVE_BOARD')
-        .catch(() => {
-          this.$bvToast.toast('Error adding tier', { variant: 'danger' });
-        });
+        await this.$store.dispatch('SAVE_BOARD');
+        this.$bvModal.hide('addTier');
+        this.$bus.$emit('ALERT', { type: 'success', message: 'Tier added' });
+      } catch (e) {
+        this.$bus.$emit('ALERT', { type: 'error', message: 'Error adding tier' });
+        // this.$bvToast.toast('Error adding tier', { variant: 'danger' });
+      }
 
-      this.$bvModal.hide('addTier');
       this.saving = false;
     },
   },

@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="pb-3 d-flex flex-column align-items-start">
+  <div class="py-3 d-flex flex-column align-items-start">
     <tier-list
       v-for="(list, listIndex) in board.lists"
       :list="list"

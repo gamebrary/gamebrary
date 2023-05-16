@@ -1,6 +1,5 @@
 <template lang="html">
-  <div class="d-flex w-100 align-items-center mb-2">
-
+  <div class="d-flex w-100 align-items-center p-1 tier-list">
     <b-dropdown
       v-if="user && isBoardOwner"
       size="lg"
@@ -51,7 +50,7 @@
       ghost-class="card-placeholder"
       drag-class="border-success"
       chosen-class="border-primary"
-      class="tier-list w-100 d-flex"
+      class="tier-game w-100 d-flex"
       filter=".drag-filter"
       delay="50"
       animation="500"
@@ -145,6 +144,7 @@ export default {
         await this.$store.dispatch('SAVE_GAME_BOARD', board);
         await this.$store.dispatch('LOAD_BOARD', board.id);
         await this.$store.dispatch('LOAD_IGDB_GAMES', [gameId]);
+        this.$bus.$emit('ALERT', { type: 'success', message: 'Game added' });
       } catch (e) {
         // this.$bvToast.toast(`There was an error adding "${this.game.name}"`, { title: list.name, variant: 'danger' });
       }
@@ -163,11 +163,11 @@ export default {
         await this.$store.dispatch('LOAD_BOARD', board.id)
       } catch (e) {
         // this.$bvToast.toast(`There was an error removing "${this.game.name}"`, { title: list.name, variant: 'danger' });
-       cursor-pointer}
+      }
     },
 
     openGame(id) {
-      const slug = slugify(this.games[id].slug, { lower: true });
+      const slug = slugify(this.cachedGames?.[id]?.slug, { lower: true });
 
       this.$router.push({
         name: 'game',
@@ -197,10 +197,12 @@ export default {
     },
 
     async saveBoard() {
-      await this.$store.dispatch('SAVE_BOARD')
-        .catch(() => {
-          this.$store.commit('SET_SESSION_EXPIRED', true);
-        });
+      try {
+        await this.$store.dispatch('SAVE_BOARD');
+        this.$bus.$emit('ALERT', { type: 'success', message: 'Board updated' });
+      } catch (e) {
+        this.$store.commit('SET_SESSION_EXPIRED', true);
+      }
     },
 
     editList() {
@@ -211,11 +213,17 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-.tier-list {
+.tier-game {
   height: 100px;
   overflow-y: hidden;
   overflow-x: auto;
-  margin-bottom: 1px;
+}
+
+.tier-list {
+  &:hover {
+    transition: background 300ms ease;
+    background: #00000022;
+  }
 }
 
 .game {

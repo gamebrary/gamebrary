@@ -1,3 +1,5 @@
+<!-- TODO: add slideshow view (based on games on board/list) -->
+<!-- TODO: replace toasts with custom alert -->
 <!-- TODO: add local storage size progress bar (in dev tools?) -->
 <!-- TODO: smart lists based on liked games -->
 <!-- TODO: finish unauthed UI -->
@@ -32,17 +34,16 @@
 <template>
   <main
     id="app"
-    :class="darkTheme ? 'dark' : 'light'"
-    v-shortkey="KEYBOARD_SHORTCUTS"
+    :class="[darkTheme ? 'dark' : 'light', navPosition]"
     :style="style"
+    v-shortkey="KEYBOARD_SHORTCUTS"
     @shortkey="handleShortcutAction"
   >
     <b-spinner v-if="loading" class="spinner-centered mt-5" />
 
     <template v-else>
-      <div v-b-visible.54="visibleHandler" class="header-flag" />
       <page-header />
-      <router-view class="viewport" />
+      <router-view :class="['viewport', { 'game-page': isGamePage }]" />
       <keyboard-shortcuts-modal />
       <markdown-cheatsheet />
     </template>
@@ -100,6 +101,16 @@ export default {
     isPublicRoute() {
       return this.$route.meta?.public;
     },
+
+    isGamePage() {
+      return this.$route.name === 'game';
+    },
+
+    navPosition() {
+      const position = this.settings?.navPosition || 'top';
+
+      return `nav-${position}`;
+    },
   },
 
   watch: {
@@ -123,10 +134,6 @@ export default {
   },
 
   methods: {
-    visibleHandler(visible) {
-      if (!['game', 'board'].includes(this.$route.name)) this.$store.commit('SET_SCROLLED', !visible);
-    },
-
     async toggleTheme() {
       const { settings } = this;
       const darkTheme = settings?.darkTheme || false;
@@ -136,9 +143,11 @@ export default {
         darkTheme: !darkTheme,
       };
 
+      this.$bus.$emit('ALERT', { type: 'error', message: 'Error saving settings' });
+
       await this.$store.dispatch('SAVE_SETTINGS', payload)
         .catch(() => {
-          this.$bvToast.toast('There was an error saving your settings', { variant: 'danger' });
+          this.$bus.$emit('ALERT', { type: 'error', message: 'Error saving settings' });
           this.saving = false;
         });
 
@@ -206,10 +215,10 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
   #app {
-    min-height: 100vh;
-    display: grid;
     background-size: cover;
     background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
 
     &.dark {
       background-color: var(--black);
@@ -219,16 +228,40 @@ export default {
     &.light {
       background-color: var(--white);
     }
+
+    &.nav-bottom {
+      flex-direction: column-reverse;
+    }
+
+    &.nav-left {
+      flex-direction: row;
+    }
+
+    &.nav-right {
+      justify-content: space-between;
+      flex-direction: row-reverse;
+    }
   }
+
+  .nav-left, .nav-right {
+    .viewport {
+      height: 100vh;
+      overflow-y: auto;
+    }
+  }
+
+  // .nav-top, .nav-right {
+  //   // background: #cf0;
+  // }
 
   .viewport {
-    min-height: 100vh;
+    height: calc(100vh - 72px);
     overflow-y: auto;
-    padding: 72px 0 16px;
-  }
+    width: 100%;
 
-  .header-flag {
-    background: transparent;
-    height: 0;
+    // &.game-page {
+    //   background: red;
+    //   margin-top: -72px;
+    // }
   }
 </style>

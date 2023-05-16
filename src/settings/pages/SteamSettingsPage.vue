@@ -1,8 +1,6 @@
 <template lang="html">
   <section>
     <b-container>
-      <page-title title="Steam settings" />
-
       <b-form-group label="Steam ID:">
         <b-form-input
           v-model="steamId"
@@ -47,7 +45,7 @@ export default {
 
       await this.$store.dispatch('SAVE_SETTINGS', payload)
         .catch(() => {
-          this.$bvToast.toast('There was an error saving your settings', { variant: 'danger' });
+          $bus.$emit('ALERT', { type: 'error', message: 'Error saving settings' })
           this.saving = false;
         });
     },

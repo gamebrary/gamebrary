@@ -1,24 +1,19 @@
 <template lang="html">
   <b-container>
-    <portal to="pageTitle">
-      <h3>{{ $t('notes.title') }}</h3>
-    </portal>
+    <page-title :title="$t('notes.title')" />
 
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <template v-else>
-      <portal v-if="!isEmpty" to="headerActions">
-        <div class="d-flex">
-          <game-selector
-            title="Select game to add a note"
-            trigger-text="Create note"
-            size="md"
-            variant="primary"
-            class="mr-2"
-            @select-game="createNote"
-          />
-        </div>
-      </portal>
+      <game-selector
+        v-if="!isEmpty"
+        title="Select game to add a note"
+        trigger-text="Create note"
+        size="md"
+        variant="primary"
+        class="mr-2"
+        @select-game="createNote"
+      />
 
       <empty-state
         v-if="isEmpty"

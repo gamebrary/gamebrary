@@ -1,10 +1,18 @@
 <template lang="html">
   <section>
-    <portal to="pageTitle">
-      <h3>{{ user ? 'Boards' : 'Gamebrary' }}</h3>
-    </portal>
-
     <b-container>
+      <page-title :title="user ? 'Boards' : 'Gamebrary'" />
+
+      <portal to="headerActions">
+        <b-button
+          v-if="user"
+          :variant="darkTheme ? 'secondary' : 'light'"
+          :to="{ name: 'create.board' }"
+        >
+          <i v-if="isVerticalNav" class="fa fa-plus" aria-hidden="true" />
+          <template v-else>Create board</template>
+        </b-button>
+      </portal>
       <!-- Organize your game library your way!
 
       Choose between 3 types of boards.
@@ -13,6 +21,9 @@
       - Standard, organize your games by creating
       - Robust, fully customizable organization.
       - Tier, Rank -->
+
+      <game-boards />
+
       <template v-if="!user">
         <b-alert variant="success" show>
           <h4 class="alert-heading">Welcome!</h4>
@@ -24,7 +35,7 @@
           <small class="text-info"><ins>Free</ins> and <a href="https://github.com/romancm/gamebrary/" target="_blank">Open Source</a></small>
         </b-alert>
 
-        <div class="mt-auto bg-light py-5 mb-3">
+        <div class="mt-auto bg-light py-5 mb-3 d-none d-md-block">
           <h2 class="text-center text-primary mb-2">Game data from the most reliable sources</h2>
 
           <div class="d-flex align-items-start justify-content-center overflow-auto">
@@ -39,10 +50,7 @@
             <img src="/logos/data-sources/steam.svg" alt="steam" width="80" class="mx-3">
           </div>
         </div>
-
       </template>
-
-      <game-boards />
 
       <!-- <div class="game-deals">
         <twitter-feed twitter-user="wario64" />
@@ -78,7 +86,7 @@ export default {
 
   computed: {
     ...mapState(['user']),
-    ...mapGetters(['latestRelease', 'darkTheme']),
+    ...mapGetters(['latestRelease', 'darkTheme', 'isVerticalNav']),
   },
 };
 </script>

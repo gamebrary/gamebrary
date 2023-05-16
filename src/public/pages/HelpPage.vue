@@ -22,27 +22,6 @@
         </b-link>
       </p>
 
-      <h3 class="mt-4 mb-1">Account</h3>
-      <!-- <p></p> -->
-
-      <b-button
-        class="mr-3"
-        variant="light"
-        href="https://accounts.google.com/"
-        target="_blank"
-      >
-        Manage account
-      </b-button>
-
-      <b-button
-        variant="danger"
-        v-b-modal.deleteAccount
-      >
-        Delete account
-      </b-button>
-
-      <delete-account-modal />
-
       <h3 class="mt-4">Issues</h3>
       <p>Found an issue? Submit it please.</p>
 
@@ -82,13 +61,3 @@
     </b-container>
   </section>
 </template>
-
-<script>
-import DeleteAccountModal from '@/components/Settings/DeleteAccountModal';
-
-export default {
-  components: {
-    DeleteAccountModal,
-  },
-};
-</script>

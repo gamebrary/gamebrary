@@ -1,59 +1,64 @@
 <template lang="html">
-  <b-container class="px-3">
-    <portal to="pageTitle">
-      <h3>Games</h3>
-    </portal>
+  <div class="p-3">
+    <page-title title="Games" />
 
-    <!-- <portal to="headerActions">
-      <b-button class="mr-3">
-        Sort
-      </b-button>
+    <b-container class="px-0">
+      <!-- TODO: add sorting -->
+      <!-- TODO: add more views -->
+      <!-- TODO: add filtering -->
+      <!-- TODO: add filtering -->
 
-      <b-button class="mr-3">
-        Filter
-      </b-button>
-    </portal> -->
+      <!-- <portal to="headerActions">
+        <b-button class="mr-3">
+          Sort
+        </b-button>
 
-    <empty-state
-      v-if="!user"
-      illustration="games"
-     >
-      <p>Click on <i class="fa-solid fa-heart text-primary" /> and your games will show here.</p>
-     </empty-state>
+        <b-button class="mr-3">
+          Filter
+        </b-button>
+      </portal> -->
 
-    <b-spinner v-else-if="loading" class="spinner-centered" />
+      <empty-state
+        v-if="!user"
+        illustration="games"
+       >
+        <p>Click on <i class="fa-solid fa-heart text-primary" /> and your games will show here.</p>
+       </empty-state>
 
-    <masonry
-      v-else-if="likedGames.length"
-      :cols="{ default: 5, 1200: 4, 768: 3, 480: 2 }"
-      gutter="16px"
-    >
-      <b-card
-        v-for="game in likedGames"
-        body-class="pb-0"
-        :bg-variant="darkTheme ? 'secondary' : 'light'"
-        :text-variant="darkTheme ? 'white' : 'dark'"
-        :key="game.id"
-        :title="game.name"
-        :img-src="$options.getImageUrl(game, $options.IMAGE_SIZE_COVER_SMALL)"
-        img-alt="Image"
-        class="cursor-pointer mb-3"
-        @click="$router.push({ name: 'game', params: { id: game.id, slug: game.slug }})"
-      />
-    </masonry>
+      <b-spinner v-else-if="loading" class="spinner-centered" />
 
-    <empty-state
-      v-else
-      message="My games"
-     >
-      <!-- TODO: add illustration -->
-      <b-button
-        :to="{ name: 'auth' }"
+      <masonry
+        v-else-if="likedGames.length"
+        :cols="{ default: 5, 1200: 4, 768: 3, 480: 2 }"
+        gutter="16px"
       >
-        Login
-      </b-button>
-     </empty-state>
-  </b-container>
+        <b-card
+          v-for="game in likedGames"
+          body-class="pb-0"
+          :bg-variant="darkTheme ? 'secondary' : 'light'"
+          :text-variant="darkTheme ? 'white' : 'dark'"
+          :key="game.id"
+          :title="game.name"
+          :img-src="$options.getImageUrl(game, $options.IMAGE_SIZE_COVER_SMALL)"
+          img-alt="Image"
+          class="cursor-pointer mb-3"
+          @click="$router.push({ name: 'game', params: { id: game.id, slug: game.slug }})"
+        />
+      </masonry>
+
+      <empty-state
+        v-else
+        message="My games"
+       >
+        <!-- TODO: add illustration -->
+        <b-button
+          :to="{ name: 'auth' }"
+        >
+          Login
+        </b-button>
+       </empty-state>
+    </b-container>
+  </div>
 </template>
 
 <script>

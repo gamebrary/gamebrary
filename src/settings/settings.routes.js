@@ -1,5 +1,13 @@
 const routes = [
   {
+    name: 'settings',
+    path: '/settings',
+    component: () => import(/* webpackChunkName: "settings" */ '@/settings/pages/SettingsPage'),
+    meta: {
+      title: 'Settings',
+    },
+  },
+  {
     name: 'profile',
     path: '/profile',
     component: () => import(/* webpackChunkName: "settings" */ '@/settings/pages/ProfilePage'),

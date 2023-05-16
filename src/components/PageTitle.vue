@@ -1,28 +1,23 @@
 <template lang="html">
-  <header class="mb-2 d-flex align-items-center justify-content-between">
-    <h1 class="m-0">{{ title }}</h1>
-
-    <div v-if="$slots.default || actionText">
-      <slot />
-
-      <b-button
-        v-if="actionText"
-        :href="url"
-        variant="primary"
-        @click="$emit('action')"
-      >
-        {{ actionText }}
-      </b-button>
-    </div>
+  <header v-if="isVerticalNav">
+    <h2 class="my-3">{{ title }}</h2>
   </header>
+
+  <portal v-else to="pageTitle">
+    <h3>Settings</h3>
+  </portal>
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex';
+
 export default {
   props: {
     title: String,
-    url: String,
-    actionText: String,
+  },
+
+  computed: {
+    ...mapGetters(['isVerticalNav']),
   },
 };
 </script>

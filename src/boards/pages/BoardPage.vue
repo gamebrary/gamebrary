@@ -1,62 +1,60 @@
 <template lang="html">
-  <div>
-    <board-placeholder v-if="loading" />
+  <board-placeholder v-if="loading" />
 
-    <template v-else-if="hasAccess">
-      <edit-list-modal />
+  <div v-else-if="hasAccess">
+    <edit-list-modal />
 
-      <portal to="pageTitle">
-        <div :class="{ 'd-flex align-items-baseline': publicUserName }">
-          <h3 :class="[{ 'text-white': backgroundUrl }]">
-            {{ board.name }}
+    <portal to="pageTitle">
+      <div :class="{ 'd-flex align-items-baseline': publicUserName }">
+        <h3 :class="[{ 'text-white': backgroundUrl }]">
+          {{ board.name }}
 
-            <small v-if="publicUserName">
-              by
+          <small v-if="publicUserName">
+            by
 
-              <b-link
-                :class="['mr-2', { 'text-white': backgroundUrl } ]"
-                :to="{ name: 'public.profile', params: { userName: publicUserName }}"
-              >
-                <b-avatar
-                  rounded
-                  v-if="avatarImage"
-                  :src="avatarImage"
-                  :title="`@${publicUserName}`"
-                  v-b-tooltip.hover
-                />
+            <b-link
+              :class="['mr-2', { 'text-white': backgroundUrl } ]"
+              :to="{ name: 'public.profile', params: { userName: publicUserName }}"
+            >
+              <b-avatar
+                rounded
+                v-if="avatarImage"
+                :src="avatarImage"
+                :title="`@${publicUserName}`"
+                v-b-tooltip.hover
+              />
 
-                @{{ publicUserName }}
-              </b-link>
-            </small>
-          </h3>
-        </div>
-      </portal>
+              @{{ publicUserName }}
+            </b-link>
+          </small>
+        </h3>
+      </div>
+    </portal>
 
-      <portal to="headerActions">
-        <b-button
-          v-if="isBoardOwner"
-          :to="{ name: 'board.edit', params: { id: board.id } }"
-          :variant="darkTheme ? 'secondary' : 'light'"
-          class="mr-2"
-        >
-          <span class="d-none d-sm-block">Edit board</span>
-          <i class="fa fa-pen d-sm-none" aria-hidden="true" />
-        </b-button>
-      </portal>
+    <portal v-if="!isVerticalNav" to="headerActions">
+      <b-button
+        v-if="isBoardOwner"
+        :to="{ name: 'board.edit', params: { id: board.id } }"
+        :variant="darkTheme ? 'secondary' : 'light'"
+        class="mr-2"
+      >
+        <span class="d-none d-sm-block">Edit board</span>
+        <i class="fa fa-pen d-sm-none" aria-hidden="true" />
+      </b-button>
+    </portal>
 
-      <standard-board v-if="board.type === $options.BOARD_TYPE_STANDARD" />
-      <tier-board v-else-if="board.type === $options.BOARD_TYPE_TIER" />
-      <kanban-board v-else />
-    </template>
-
-    <b-alert
-      v-else
-      variant="warning"
-      show
-    >
-      <span>Private Board</span>
-    </b-alert>
+    <standard-board v-if="board.type === $options.BOARD_TYPE_STANDARD" />
+    <tier-board v-else-if="board.type === $options.BOARD_TYPE_TIER" />
+    <kanban-board v-else />
   </div>
+
+  <b-alert
+    v-else
+    variant="warning"
+    show
+  >
+    <span>Private Board</span>
+  </b-alert>
 </template>
 
 <script>
@@ -93,7 +91,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'dragging', 'board', 'wallpapers']),
-    ...mapGetters(['isBoardOwner', 'darkTheme']),
+    ...mapGetters(['isBoardOwner', 'darkTheme', 'isVerticalNav']),
 
     isBoardPage() {
       return this.$route.name === 'board';
