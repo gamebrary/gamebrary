@@ -1,45 +1,43 @@
 <template lang="html">
-  <b-container class="pt-3">
+  <b-container class="pt-3 mw-50" v-if="user">
     <page-title title="Settings" />
 
-    <!-- <b-button
-      v-if="user"
-      @click="toggleTheme"
-    >
-      <i v-if="darkTheme" class="fa-solid fa-sun fa-fw" />
-      <i v-else class="fa-solid fa-moon fa-fw" />
+    <section class="mb-3">
+      <p class="mt-2">Menu position</p>
 
-      Change theme
-    </b-button> -->
+      <b-button
+        :variant="navPosition === 'top' ? 'primary' : 'light'"
+        @click="setNavPosition('top')"
+      >
+        Top
+      </b-button>
 
-    <h4 class="mt-2">Nav position</h4>
+      <b-button
+        class="ml-3"
+        :variant="navPosition === 'bottom' ? 'primary' : 'light'"
+        @click="setNavPosition('bottom')"
+      >
+        Bottom
+      </b-button>
 
-    <b-button
-      @click="setNavPosition('top')"
-    >
-      Top
-    </b-button>
+      <b-button
+        class="ml-3"
+        :variant="navPosition === 'left' ? 'primary' : 'light'"
+        @click="setNavPosition('left')"
+      >
+        Left
+      </b-button>
 
-    <b-button
-      class="ml-3"
-      @click="setNavPosition('bottom')"
-    >
-      Bottom
-    </b-button>
+      <b-button
+        class="ml-3"
+        :variant="navPosition === 'right' ? 'primary' : 'light'"
+        @click="setNavPosition('right')"
+      >
+        Right
+      </b-button>
+    </section>
 
-    <b-button
-      class="ml-3"
-      @click="setNavPosition('left')"
-    >
-      Left
-    </b-button>
-
-    <b-button
-      class="ml-3"
-      @click="setNavPosition('right')"
-    >
-      Right
-    </b-button>
+    <hr />
 
     <b-form-checkbox
       switch
@@ -50,10 +48,7 @@
       Dark theme
     </b-form-checkbox>
 
-    <hr />
-
-    <h3 class="mt-4 mb-1">Account</h3>
-    <!-- <p></p> -->
+    <!-- <h4 class="mt-4 mb-1">Account</h4>
 
     <b-button
       class="mr-3"
@@ -62,7 +57,9 @@
       target="_blank"
     >
       Manage account
-    </b-button>
+    </b-button> -->
+
+    <hr />
 
     <b-button
       variant="danger"
@@ -73,19 +70,21 @@
 
     <delete-account-modal />
 
+    <hr />
+
+    <b-button
+      @click="session_signOut"
+    >
+      Log out
+    </b-button>
+
+    <hr />
 
     <b-link v-b-modal.keyboard-shortcuts>
       <i class="fa-solid fa-keyboard fa-fw" /> Keyboard Shortcuts
     </b-link>
 
-    <br />
-
-    <b-button
-      class="mt-3"
-      @click="session_signOut"
-    >
-      Log out
-    </b-button>
+    <!-- <br /> -->
 
     <!-- <b-link :to="{ name: 'dev.tools' }">
       <i class="fa fa-cog fa-fw" aria-hidden="true" />
@@ -109,7 +108,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'settings']),
-    ...mapGetters(['darkTheme']),
+    ...mapGetters(['darkTheme', 'navPosition']),
   },
 
   methods: {
