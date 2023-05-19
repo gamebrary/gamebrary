@@ -13,7 +13,7 @@
       </b-button>
 
       <b-button
-        class="ml-3"
+        class="ml-2"
         :variant="navPosition === 'bottom' ? 'primary' : 'light'"
         @click="setNavPosition('bottom')"
       >
@@ -21,7 +21,7 @@
       </b-button>
 
       <b-button
-        class="ml-3"
+        class="ml-2"
         :variant="navPosition === 'left' ? 'primary' : 'light'"
         @click="setNavPosition('left')"
       >
@@ -29,7 +29,7 @@
       </b-button>
 
       <b-button
-        class="ml-3"
+        class="ml-2"
         :variant="navPosition === 'right' ? 'primary' : 'light'"
         @click="setNavPosition('right')"
       >
