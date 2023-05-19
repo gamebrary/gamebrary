@@ -91,7 +91,6 @@
 
     <component
       :is="triggerComponent"
-      trigger-text="Add games to tier"
       :variant="variant"
       :size="size"
       :block="block"

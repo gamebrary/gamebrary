@@ -11,14 +11,15 @@
 
     <b-button
       :disabled="outOfSpace"
-      variant="primary"
+      :variant="darkTheme ? 'secondary' : 'light'"
       class="mr-2"
       @click="triggerFileUpload"
     >
       <b-spinner small v-if="saving" />
 
       <span v-else>
-        Upload
+        <i class="d-sm-none fa-solid fa-cloud-arrow-up" />
+        <span class="d-none d-sm-inline">Upload</span>
       </span>
     </b-button>
 

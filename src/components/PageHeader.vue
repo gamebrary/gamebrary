@@ -4,7 +4,7 @@
 // import LanguageSettings from '@/components/Settings/LanguageSettings'; -->
 
 <template lang="html">
-  <header :class="[darkTheme ? 'bg-black' : 'bg-light', `nav-${navPosition}`, 'p-3']">
+  <header :class="[darkTheme ? 'bg-black' : '', `nav-${navPosition}`, 'p-3']">
     <!-- TODO: allow to collapse menu -->
     <div :class="['alert', alertType, { visible }]">
       <div class="d-flex align-items-center">
@@ -12,12 +12,12 @@
         <i v-if="alertType === 'error'" class="fa-solid fa-triangle-exclamation text-white mr-2" />
         <i v-else-if="alertType === 'success'" class="fa-solid fa-check text-white mr-2"/>
         <i v-else class="fa-solid fa-info text-white mr-2" />
+        <i :class="['fa-solid fa-info text-white mr-2', alertIcon]" />
         <strong>{{ alert.message }}</strong>
       </div>
     </div>
 
     <main-menu />
-    <!-- TODO: use page header to display errors? -->
 
     <portal-target
       v-if="!isVerticalNav"
@@ -87,6 +87,13 @@ export default {
 
     isBottomNav() {
       return this.navPosition === 'bottom';
+    },
+
+    alertIcon() {
+      if (this.alertType === 'error') return 'fa-triangle-exclamation';
+      if (this.alertType === 'success') return 'fa-check';
+
+      return 'fa-info';
     },
   },
 

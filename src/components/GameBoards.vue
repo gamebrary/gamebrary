@@ -24,7 +24,8 @@
             class="mr-2"
             :to="{ name: 'create.board' }"
           >
-            Create board
+            <i class="d-sm-none fa-solid fa-plus" />
+            <span class="d-none d-sm-inline">Create board</span>
           </b-button>
         </portal>
 

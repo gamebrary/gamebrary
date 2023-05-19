@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="p-3">
+  <div class="px-3">
     <page-title title="Games" />
 
     <b-container class="px-0">

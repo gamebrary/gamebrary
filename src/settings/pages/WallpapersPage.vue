@@ -17,7 +17,9 @@
     </template>
 
     <template v-else>
-      <upload-wallpaper-button />
+      <portal to="headerActions">
+        <upload-wallpaper-button />
+      </portal>
 
       <wallpapers-list />
     </template>

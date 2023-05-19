@@ -1,8 +1,8 @@
 <template lang="html">
-  <div class="add-tier">
+  <div class="add-tier mt-2">
     <b-button
       class="ml-3"
-      style="width: 100px;"
+      style="width: 100px; height: 60px;"
       v-b-tooltip.hover
       title="Add tier"
       :variant="darkTheme ? 'dark' : 'light'"

@@ -4,7 +4,7 @@
       v-if="user && isBoardOwner"
       size="lg"
       variant="link"
-      toggle-class="text-decoration-none p-0 pl-3"
+      toggle-class="text-decoration-none p-0 pl-2"
       no-caret
       dropright
     >

@@ -5,15 +5,19 @@
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <template v-else>
-      <game-selector
-        v-if="!isEmpty"
-        title="Select game to add a note"
-        trigger-text="Create note"
-        size="md"
-        variant="primary"
-        class="mr-2"
-        @select-game="createNote"
-      />
+      <portal to="headerActions">
+        <game-selector
+          v-if="!isEmpty"
+          title="Select game to add a note"
+          size="md"
+          :variant="darkTheme ? 'secondary' : 'light'"
+          class="mr-2"
+          @select-game="createNote"
+        >
+          <i class="d-sm-none fa-solid fa-plus" />
+          <span class="d-none d-sm-inline">Create note</span>
+        </game-selector>
+      </portal>
 
       <empty-state
         v-if="isEmpty"
@@ -50,7 +54,7 @@
         </b-button>
       </empty-state>
 
-      <div class="mx-3" v-else>
+      <template v-else>
         <b-form-input
             type="search"
             class="field mb-3"
@@ -86,7 +90,7 @@
               </b-card-text>
             </b-card>
           </masonry>
-      </div>
+      </template>
     </template>
   </b-container>
 </template>

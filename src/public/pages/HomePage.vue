@@ -3,16 +3,6 @@
     <b-container>
       <page-title :title="user ? 'Boards' : 'Gamebrary'" />
 
-      <portal to="headerActions">
-        <b-button
-          v-if="user"
-          :variant="darkTheme ? 'secondary' : 'light'"
-          :to="{ name: 'create.board' }"
-        >
-          <i v-if="isVerticalNav" class="fa fa-plus" aria-hidden="true" />
-          <template v-else>Create board</template>
-        </b-button>
-      </portal>
       <!-- Organize your game library your way!
 
       Choose between 3 types of boards.

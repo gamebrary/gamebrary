@@ -250,18 +250,9 @@ export default {
     }
   }
 
-  // .nav-top, .nav-right {
-  //   // background: #cf0;
-  // }
-
   .viewport {
     height: calc(100vh - 72px);
     overflow-y: auto;
     width: 100%;
-
-    // &.game-page {
-    //   background: red;
-    //   margin-top: -72px;
-    // }
   }
 </style>

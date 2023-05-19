@@ -12,6 +12,7 @@
       class="field centered"
       @submit.prevent="save"
     >
+      <pre>{{ profile }}</pre>
       <portal to="headerActions">
         <b-button
           :to="{ name: 'public.profile', params: { userName: profile.userName } }"
@@ -31,6 +32,8 @@
         size="120"
         @click.native="triggerFileUpload"
       />
+
+      <b-img :src="wallpaperImage" width="200" rounded />
 
       <b-modal
         id="boardWallpaper"
@@ -58,9 +61,9 @@
         <!-- :selected="board.backgroundUrl" -->
       </b-modal>
 
-      <!-- <b-button v-b-modal.boardWallpaper>
+      <b-button v-b-modal.boardWallpaper>
         set wallpaper
-      </b-button> -->
+      </b-button>
       <!-- TODO: finish setting wallpaper -->
 
       <!-- TODO: add delete option -->
@@ -314,6 +317,7 @@ export default {
     return {
       saving: false,
       avatarImage: null,
+      wallpaperImage: null,
       available: undefined,
       checkingAvailability: false,
       loading: false,
@@ -326,7 +330,7 @@ export default {
   },
 
   mounted() {
-    this.load();
+    this.loadProfile();
   },
 
   computed: {
@@ -335,6 +339,14 @@ export default {
   },
 
   methods: {
+    async selectWallpaper(wallpaper) {
+      this.profile.wallpaper = wallpaper;
+
+      this.save(false);
+
+      this.avatarImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', wallpaper);
+    },
+
     autoformatWebsite() {
       const website = this.profile?.website;
 
@@ -343,12 +355,13 @@ export default {
       }
     },
 
-    async load() {
+    async loadProfile() {
       this.loading = true;
 
       this.profile = await this.$store.dispatch('LOAD_PROFILE').catch(() => null);
 
       if (this.profile?.avatar) this.loadAvatarImage();
+      if (this.profile?.wallpaper) this.loadWallpaper();
 
       this.loading = false;
     },
@@ -358,6 +371,15 @@ export default {
         const thumbnailRef = getImageThumbnail(this.profile?.avatar);
 
         this.avatarImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', thumbnailRef);
+      } catch (e) {
+        this.profile.avatar = null;
+        this.save(false);
+      }
+    },
+
+    async loadWallpaper() {
+      try {
+        this.wallpaperImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', this.profile?.wallpaper);
       } catch (e) {
         this.profile.avatar = null;
         this.save(false);

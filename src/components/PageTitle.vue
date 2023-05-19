@@ -4,7 +4,7 @@
   </header>
 
   <portal v-else to="pageTitle">
-    <h3>Settings</h3>
+    <h3>{{ title }}</h3>
   </portal>
 </template>
 
