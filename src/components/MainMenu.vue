@@ -63,7 +63,7 @@
 
     <b-dropdown-divider />
 
-    <b-dropdown-item :to="{ name: 'settings' }">
+    <b-dropdown-item v-if="user" :to="{ name: 'settings' }">
       <i class="fa fa-cog fa-fw" aria-hidden="true" />
       <span class="ml-2">Settings</span>
     </b-dropdown-item>
