@@ -135,8 +135,6 @@ export default {
         navPosition,
       };
 
-      console.log('save this', payload);
-
       // TODO: commit first then save settings, to allow unauthed use
       await this.$store.dispatch('SAVE_SETTINGS', payload)
         .catch(() => {

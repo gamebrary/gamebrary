@@ -251,7 +251,7 @@ export default {
   }
 
   .viewport {
-    height: calc(100vh - 72px);
+    height: calc(100vh - 56px);
     overflow-y: auto;
     width: 100%;
   }

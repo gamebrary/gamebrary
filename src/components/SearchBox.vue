@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-button v-if="isVerticalNav" :to="{ name: 'search' }" class="d-sm-none">
+  <b-button v-if="isVerticalNav" :to="{ name: 'search' }">
     <i class="fa fa-search" aria-hidden="true" />
   </b-button>
 

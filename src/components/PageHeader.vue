@@ -4,7 +4,7 @@
 // import LanguageSettings from '@/components/Settings/LanguageSettings'; -->
 
 <template lang="html">
-  <header :class="[darkTheme ? 'bg-black' : '', `nav-${navPosition}`, 'p-3']">
+  <header :class="[darkTheme ? 'bg-black' : '', isVerticalNav ? 'p-sm-3 p-2' : 'px-3 py-2', `nav-${navPosition}`]">
     <!-- TODO: allow to collapse menu -->
     <div :class="['alert', alertType, { visible }]">
       <div class="d-flex align-items-center">
@@ -29,7 +29,7 @@
     <div class="align-items-center d-flex ml-auto">
       <portal-target name="headerActions" multiple />
 
-      <search-box v-if="showSearchBox" />
+      <search-box v-if="showSearchBox" :class="isVerticalNav ? 'mt-2' : ''" />
 
       <b-button
         v-if="!user"
@@ -113,13 +113,27 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
 header {
   display: flex;
-  height: 72px;
   align-items: center;
+  border-bottom: 1px solid var(--light);
+
+  &.nav-bottom {
+    border-bottom: 0;
+    border-top: 1px solid var(--light);
+  }
+
+  &.nav-left {
+    border: 0;
+    border-right: 1px solid var(--light);
+  }
+
+  &.nav-right {
+    border: 0;
+    border-left: 1px solid var(--light);
+  }
 
   &.nav-left, &.nav-right {
     height: 100vh;
     display: flex;
-    background: #ccf;
     flex-direction: column;
   }
 }
