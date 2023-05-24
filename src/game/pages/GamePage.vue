@@ -1,6 +1,6 @@
 <template lang="html">
   <section
-    :class="[{ 'text-light': darkTheme && hasWallpaper, 'offset-background': hasArtworks }, 'game-page mb-5 ']"
+    :class="[{ 'text-light': darkTheme && hasWallpaper, 'pt-3': !hasArtworks }, 'game-page mb-5 ']"
     :style="background && this.darkTheme ? `background-image: url(${background})` : ''"
   >
     <game-header />
@@ -953,9 +953,9 @@ export default {
   background-size: contain;
   background-repeat: repeat-y;
 
-  &.offset-background {
-    background-position-y: 50vh;
-  }
+  // &.offset-background {
+  //   background-position-y: 50vh;
+  // }
 }
 
 .has-artworks {

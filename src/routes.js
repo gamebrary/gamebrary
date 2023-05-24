@@ -10,7 +10,16 @@ const routes = [
   {
     name: 'games',
     path: '/games',
-    component: () => import(/* webpackChunkName: "notes" */ '@/pages/GamesPage'),
+    component: () => import(/* webpackChunkName: "games" */ '@/pages/GamesPage'),
+    meta: {
+      title: 'Games',
+      public: true,
+    },
+  },
+  {
+    name: 'games',
+    path: '/games/upcoming',
+    component: () => import(/* webpackChunkName: "games" */ '@/pages/UpcomingGames'),
     meta: {
       title: 'Games',
       public: true,

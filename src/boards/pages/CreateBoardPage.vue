@@ -1,6 +1,7 @@
 <template lang="html">
   <section>
     <b-container>
+      <!-- <page-title title="Create board" /> -->
       <portal to="pageTitle">
         <h3>Create board</h3>
       </portal>

@@ -1,24 +1,22 @@
 <template lang="html">
   <section>
-    <b-container class="pr-0">
+    <b-container>
       <preview-wallpaper-modal :wallpaper="activeWallpaper" />
 
-      <b-row no-gutters>
-        <b-col
+      <masonry
+        :cols="{ default: 5, 1200: 4, 768: 3, 480: 2 }"
+        gutter="16px"
+      >
+        <b-img
           v-for="wallpaper in sortedWallpapers"
-          cols="6"
-          md="3"
-          lg="2"
-          class="pb-3 pr-3"
           :key="wallpaper.name"
-        >
-          <div
-            :style="`background-image: url(${wallpaper.url})`"
-            class="wallpaper-card rounded w-100"
-            @click="handleClick(wallpaper)"
-          />
-        </b-col>
-      </b-row>
+          :src="wallpaper.url"
+          class="mb-3"
+          rounded
+          fluid
+          @click="handleClick(wallpaper)"
+        />
+      </masonry>
     </b-container>
   </section>
 </template>

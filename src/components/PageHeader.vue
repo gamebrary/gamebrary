@@ -4,43 +4,58 @@
 // import LanguageSettings from '@/components/Settings/LanguageSettings'; -->
 
 <template lang="html">
-  <header :class="[darkTheme ? 'bg-black' : '', isVerticalNav ? 'p-sm-3 p-2' : 'px-3 py-2', `nav-${navPosition}`]">
-    <!-- TODO: allow to collapse menu -->
-    <div :class="['alert', alertType, { visible }]">
-      <div class="d-flex align-items-center">
-        <!-- TODO: merge and use computed -->
-        <i v-if="alertType === 'error'" class="fa-solid fa-triangle-exclamation text-white mr-2" />
-        <i v-else-if="alertType === 'success'" class="fa-solid fa-check text-white mr-2"/>
-        <i v-else class="fa-solid fa-info text-white mr-2" />
-        <i :class="['fa-solid fa-info text-white mr-2', alertIcon]" />
-        <strong>{{ alert.message }}</strong>
-      </div>
-    </div>
+  <!-- TODO: set default background color? -->
+  <div class="page-header position-relative">
+    <b-collapse id="header">
+      <header :class="[darkTheme ? 'bg-black' : 'bg-white', isVerticalNav ? 'p-sm-3 p-2' : 'px-3 py-2', `nav-${navPosition}`]">
+        <!-- TODO: allow to collapse menu -->
+        <div :class="['alert', alertType, { visible }]">
+          <div class="d-flex align-items-center">
+            <!-- TODO: merge and use computed -->
+            <i v-if="alertType === 'error'" class="fa-solid fa-triangle-exclamation text-white mr-2" />
+            <i v-else-if="alertType === 'success'" class="fa-solid fa-check text-white mr-2"/>
+            <i v-else class="fa-solid fa-info text-white mr-2" />
+            <i :class="['fa-solid fa-info text-white mr-2', alertIcon]" />
+            <strong>{{ alert.message }}</strong>
+          </div>
+        </div>
 
-    <main-menu />
+        <main-menu />
 
-    <portal-target
-      v-if="!isVerticalNav"
-      class="ml-3"
-      name="pageTitle"
-      multiple
-    />
+        <portal-target
+          v-if="!isVerticalNav"
+          class="ml-3"
+          name="pageTitle"
+          multiple
+        />
 
-    <div class="align-items-center d-flex ml-auto">
-      <portal-target name="headerActions" multiple />
+        <div class="align-items-center d-flex ml-auto">
+          <portal-target name="headerActions" multiple />
 
-      <search-box v-if="showSearchBox" :class="isVerticalNav ? 'mt-2' : ''" />
+          <search-box v-if="showSearchBox" :class="isVerticalNav ? 'mt-2' : ''" />
 
-      <b-button
-        v-if="!user"
-        class="ml-2"
-        variant="primary"
-        :to="{ name: 'auth' }"
-      >
-        Login
-      </b-button>
-    </div>
-  </header>
+          <b-button
+            v-if="!user"
+            class="ml-2"
+            variant="primary"
+            :to="{ name: 'auth' }"
+          >
+            Login
+          </b-button>
+        </div>
+      </header>
+    </b-collapse>
+
+    <b-button
+      v-b-toggle.header
+      variant="light"
+      size="sm"
+      pill
+      class="header-toggle mt-n2"
+    >
+      <i class="fa-solid fa-caret-down" />
+    </b-button>
+  </div>
 </template>
 
 <script>
@@ -136,6 +151,18 @@ header {
     display: flex;
     flex-direction: column;
   }
+
+  &.bg-black {
+    border-color: #181818;
+  }
+}
+
+.header-toggle {
+  position: absolute;
+  padding: 0;
+  width: 30px;
+  left: calc(50vw - 15px);
+  background: var(--light);
 }
 
 .alert {

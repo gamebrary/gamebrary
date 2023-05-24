@@ -34,6 +34,7 @@
       v-if="isBoardOwner"
       :filter="filter"
       title="Add games"
+      class="pb-5"
       trigger-text="Add games"
       variant="primary"
       @select-game="selectGame"

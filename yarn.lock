@@ -966,6 +966,13 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
+"@babel/runtime@^7.21.0":
+  version "7.21.5"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.21.5.tgz#8492dddda9644ae3bda3b45eabe87382caee7200"
+  integrity sha512-8jI69toZqqcsnqGGqwGS4Qb1VwLOEp4hz+CXPywcvjs60u3B4Pom/U/7rm4W8tMOYEB+E9wgD0mW1l3r8qlI9Q==
+  dependencies:
+    regenerator-runtime "^0.13.11"
+
 "@babel/template@^7.0.0", "@babel/template@^7.16.7", "@babel/template@^7.3.3":
   version "7.16.7"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.16.7.tgz#8d126c8701fde4d66b264b3eba3d96f07666d155"
@@ -1984,6 +1991,11 @@
   resolved "https://registry.yarnpkg.com/@polka/url/-/url-1.0.0-next.21.tgz#5de5a2385a35309427f6011992b544514d559aa1"
   integrity sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==
 
+"@popperjs/core@^2.11.7":
+  version "2.11.7"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.7.tgz#ccab5c8f7dc557a52ca3288c10075c9ccd37fff7"
+  integrity sha512-Cr4OjIkipTtcXKjAsm8agyleBuDHvxzeBoa1v543lbv1YaIwQjESsVcmjiWiPEbC1FIeHOG/Op9kdCmAmiS3Kw==
+
 "@popperjs/core@^2.9.0":
   version "2.11.6"
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.6.tgz#cee20bd55e68a1720bdab363ecf0c821ded4cd45"
@@ -2528,6 +2540,11 @@
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
   integrity sha1-7ihweulOEdK4J7y+UnC86n8+ce4=
 
+"@types/lodash@^4.14.165":
+  version "4.14.194"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.194.tgz#b71eb6f7a0ff11bff59fc987134a093029258a76"
+  integrity sha512-r22s9tAS7imvBt2lyHC9B8AGwWnXaYb1tY09oyLkXDs4vArpYJzw09nj8MLx5VfciBPGIb+ZwG0ssYnEPJxn/g==
+
 "@types/long@^4.0.0", "@types/long@^4.0.1":
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/@types/long/-/long-4.0.1.tgz#459c65fa1867dafe6a8f322c4c51695663cc55e9"
@@ -2589,6 +2606,11 @@
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.4.tgz#cd667bcfdd025213aafb7ca5915a932590acdcdc"
   integrity sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==
+
+"@types/resize-observer-browser@^0.1.7":
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/@types/resize-observer-browser/-/resize-observer-browser-0.1.7.tgz#294aaadf24ac6580b8fbd1fe3ab7b59fe85f9ef3"
+  integrity sha512-G9eN0Sn0ii9PWQ3Vl72jDPgeJwRWhv2Qk/nQkJuWmRmOB4HX3/BhD5SE1dZs/hzPZL/WKnvF0RHdTSG54QJFyg==
 
 "@types/resolve@1.17.1":
   version "1.17.1"
@@ -4566,6 +4588,18 @@ date-and-time@^2.0.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/date-and-time/-/date-and-time-2.3.1.tgz#006675ec4943a0a5f85810e3a3fd6aa96f6130c9"
   integrity sha512-OaIRmSJXifwEN21rMVVDs0Kz8uhJ3wWPYd86atkRiqN54liaMQYEbbrgjZQea75YXOBWL4ZFb3rG/waenw1TEg==
+
+date-fns-tz@^1.0.12:
+  version "1.3.8"
+  resolved "https://registry.yarnpkg.com/date-fns-tz/-/date-fns-tz-1.3.8.tgz#083e3a4e1f19b7857fa0c18deea6c2bc46ded7b9"
+  integrity sha512-qwNXUFtMHTTU6CFSFjoJ80W8Fzzp24LntbjFFBgL/faqds4e5mo9mftoRLgr3Vi1trISsg4awSpYVsOQCRnapQ==
+
+date-fns@^2.16.1:
+  version "2.30.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.30.0.tgz#f367e644839ff57894ec6ac480de40cae4b0f4d0"
+  integrity sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==
+  dependencies:
+    "@babel/runtime" "^7.21.0"
 
 dayjs@^1.10.4:
   version "1.11.0"
@@ -9458,6 +9492,11 @@ regenerate@^1.4.2:
   resolved "https://registry.yarnpkg.com/regenerate/-/regenerate-1.4.2.tgz#b9346d8827e8f5a32f7ba29637d398b69014848a"
   integrity sha512-zrceR/XhGYU/d/opr2EKO7aRHUeiBI8qjtfHqADTwZd6Szfy16la6kqD0MIUs5z5hx6AaKa+PixpPrR289+I0A==
 
+regenerator-runtime@^0.13.11:
+  version "0.13.11"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.11.tgz#f6dca3e7ceec20590d07ada785636a90cdca17f9"
+  integrity sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==
+
 regenerator-runtime@^0.13.4:
   version "0.13.9"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.9.tgz#8925742a98ffd90814988d7566ad30ca3b263b52"
@@ -10948,6 +10987,18 @@ uvu@^0.5.0:
     kleur "^4.0.3"
     sade "^1.7.3"
 
+v-calendar@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/v-calendar/-/v-calendar-3.0.3.tgz#f04c625d3c3352d5685099bb4ad3e24d0530a7d4"
+  integrity sha512-Skpp/nMoFqFadm94aWj0oOfazoux5T5Ug3/pbRbdolkoDrnVcL7Ronw1/SGFRUPGOwnLdYwhKPhrhSE1segW6w==
+  dependencies:
+    "@types/lodash" "^4.14.165"
+    "@types/resize-observer-browser" "^0.1.7"
+    date-fns "^2.16.1"
+    date-fns-tz "^1.0.12"
+    lodash "^4.17.20"
+    vue-screen-utils "^1.0.0-beta.13"
+
 v8-compile-cache@^2.0.3:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/v8-compile-cache/-/v8-compile-cache-2.3.0.tgz#2de19618c66dc247dcfb6f99338035d8245a2cee"
@@ -11070,6 +11121,11 @@ vue-router@^3.5.1:
   version "3.5.3"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.5.3.tgz#041048053e336829d05dafacf6a8fb669a2e7999"
   integrity sha512-FUlILrW3DGitS2h+Xaw8aRNvGTwtuaxrRkNSHWTizOfLUie7wuYwezeZ50iflRn8YPV5kxmU2LQuu3nM/b3Zsg==
+
+vue-screen-utils@^1.0.0-beta.13:
+  version "1.0.0-beta.13"
+  resolved "https://registry.yarnpkg.com/vue-screen-utils/-/vue-screen-utils-1.0.0-beta.13.tgz#0c739e19f6ffbffab63184aba7b6d710b6a63681"
+  integrity sha512-EJ/8TANKhFj+LefDuOvZykwMr3rrLFPLNb++lNBqPOpVigT2ActRg6icH9RFQVm4nHwlHIHSGm5OY/Clar9yIg==
 
 vue-shortkey@^3.1.7:
   version "3.1.7"

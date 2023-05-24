@@ -1,6 +1,6 @@
 <template lang="html">
   <section>
-    <b-container>
+    <b-container class="px-0">
       <page-title :title="user ? 'Boards' : 'Gamebrary'" />
 
       <!-- Organize your game library your way!

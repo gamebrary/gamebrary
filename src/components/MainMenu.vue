@@ -91,7 +91,7 @@
     </b-list-group-item> -->
     <b-dropdown-divider />
 
-    <b-dropdown-text>
+    <b-dropdown-text class="small">
       ©{{ year }}
       <b-link
         href="https://github.com/romancm/gamebrary"

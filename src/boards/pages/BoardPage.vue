@@ -6,7 +6,7 @@
 
     <portal to="pageTitle">
       <div :class="{ 'd-flex align-items-baseline': publicUserName }">
-        <h3 :class="[{ 'text-white': backgroundUrl }]">
+        <h3 :class="[{ 'text-white': backgroundUrl && darkTheme }]">
           {{ board.name }}
 
           <small v-if="publicUserName">

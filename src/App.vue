@@ -1,3 +1,4 @@
+<!-- TODO: standardize vue masonry settings -->
 <!-- TODO: add slideshow view (based on games on board/list) -->
 <!-- TODO: replace toasts with custom alert -->
 <!-- TODO: add local storage size progress bar (in dev tools?) -->
@@ -43,7 +44,7 @@
 
     <template v-else>
       <page-header />
-      <router-view :class="['viewport', { 'game-page': isGamePage }]" />
+      <router-view :class="['viewport', isGamePage ? '' : 'px-3 pt-3']" />
       <keyboard-shortcuts-modal />
       <markdown-cheatsheet />
     </template>
@@ -226,7 +227,7 @@ export default {
     }
 
     &.light {
-      background-color: var(--white);
+      background-color: #f3f3f3;
     }
 
     &.nav-bottom {
@@ -243,16 +244,16 @@ export default {
     }
   }
 
+  .viewport {
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+    width: 100%;
+  }
+
   .nav-left, .nav-right {
     .viewport {
       height: 100vh;
       overflow-y: auto;
     }
-  }
-
-  .viewport {
-    height: calc(100vh - 56px);
-    overflow-y: auto;
-    width: 100%;
   }
 </style>

@@ -1,19 +1,7 @@
 <template lang="html">
   <section>
     <b-container>
-      <portal to="pageTitle">
-        <div class="d-flex align-items-center">
-          <b-button
-            :to="{ name: 'board', params: { id: board.id } }"
-            variant="light"
-            class="mr-2"
-          >
-            <i class="fa-solid fa-chevron-left" />
-          </b-button>
-
-          <h3>Edit board</h3>
-        </div>
-      </portal>
+      <page-title title="Edit board" />
 
       <b-modal
         id="boardWallpaper"

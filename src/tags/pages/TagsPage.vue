@@ -1,9 +1,15 @@
 <template lang="html">
   <section>
     <b-container>
-      <portal to="pageTitle">
-        <h3>Tags</h3>
-      </portal>
+      <page-title title="Tags" />
+
+      <b-button
+        class="mr-2"
+        variant="primary"
+        :to="{ name: 'tag.create' }"
+      >
+        Add tag
+      </b-button>
 
       <portal v-if="!loading && tags.length > 0" to="headerActions">
         <b-button

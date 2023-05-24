@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="px-3">
+  <div>
     <page-title title="Games" />
 
     <b-container class="px-0">
@@ -48,15 +48,9 @@
 
       <empty-state
         v-else
-        message="My games"
-       >
-        <!-- TODO: add illustration -->
-        <b-button
-          :to="{ name: 'auth' }"
-        >
-          Login
-        </b-button>
-       </empty-state>
+        illustration="games"
+        message="No liked games yet"
+       />
     </b-container>
   </div>
 </template>
