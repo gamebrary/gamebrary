@@ -12,8 +12,8 @@
       class="field centered"
       @submit.prevent="save"
     >
-      <pre>{{ profile }}</pre>
-      <portal to="headerActions">
+      <!-- <pre>{{ profile }}</pre> -->
+      <portal to="headerActions" v-if="!isVerticalNav">
         <b-button
           :to="{ name: 'public.profile', params: { userName: profile.userName } }"
           class="mr-2"
@@ -33,7 +33,7 @@
         @click.native="triggerFileUpload"
       />
 
-      <b-img :src="wallpaperImage" width="200" rounded />
+      <!-- <b-img :src="wallpaperImage" width="200" rounded /> -->
 
       <b-modal
         id="boardWallpaper"
@@ -61,9 +61,9 @@
         <!-- :selected="board.backgroundUrl" -->
       </b-modal>
 
-      <b-button v-b-modal.boardWallpaper>
+      <!-- <b-button v-b-modal.boardWallpaper>
         set wallpaper
-      </b-button>
+      </b-button> -->
       <!-- TODO: finish setting wallpaper -->
 
       <!-- TODO: add delete option -->
@@ -334,8 +334,8 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['darkTheme']),
     ...mapState(['user']),
+    ...mapGetters(['darkTheme', 'isVerticalNav']),
   },
 
   methods: {

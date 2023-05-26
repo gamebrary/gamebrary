@@ -38,7 +38,7 @@
           />
 
           <b-avatar
-            :variant="darkTheme ? 'secondary' : 'light'"
+            :variant="darkTheme ? 'black' : 'light'"
             v-for="(game, index) in tier.games"
             :key="index"
             text=" "
@@ -55,7 +55,7 @@
       >
         <b-card
           body-class="p-0"
-          :bg-variant="darkTheme ? 'secondary' : 'transparent'"
+          :bg-variant="darkTheme ? 'black' : 'transparent'"
           :text-variant="darkTheme ? 'light' : 'dark'"
           style="width: 80px"
           class="overflow-hidden align-self-start"
@@ -64,12 +64,12 @@
             <div
               v-for="(game, index) in firstList.games"
               :key="index"
-              :class="[darkTheme ? 'border-secondary bg-dark' : 'border-light bg-white', { 'border-bottom': index !== firstList.games.length - 1 }]"
+              :class="[darkTheme ? 'border-black bg-dark' : 'border-light bg-white', { 'border-bottom': index !== firstList.games.length - 1 }]"
             >
               <b-avatar
                 :style="`border-radius: 4px !important;`"
                 text=" "
-                :variant="darkTheme ? 'secondary' : 'light'"
+                :variant="darkTheme ? 'black' : 'light'"
                 class="m-1"
                 size="20"
               />
@@ -91,7 +91,7 @@
           v-for="(list, listIndex) in board.lists"
           :key="listIndex"
           body-class="p-0 kanban-list"
-          :bg-variant="darkTheme ? 'secondary' : 'transparent'"
+          :bg-variant="darkTheme ? 'black' : 'transparent'"
           :text-variant="darkTheme ? 'light' : 'dark'"
           class="overflow-hidden align-self-start mr-1"
         >
@@ -101,12 +101,12 @@
               v-for="(game, index) in list.games"
               :key="index"
               style="width: 60px"
-              :class="['p-1 d-flex', darkTheme ? 'border-secondary bg-dark' : 'border-light bg-white', { 'border-bottom' : index !== list.games.length - 1 } ]"
+              :class="['p-1 d-flex', darkTheme ? 'border-black bg-dark' : 'border-light bg-white', { 'border-bottom' : index !== list.games.length - 1 } ]"
             >
               <b-avatar
                 style="border-radius: 4px !important"
                 text=" "
-                :variant="darkTheme ? 'secondary' : 'light'"
+                :variant="darkTheme ? 'black' : 'light'"
                 size="20"
               />
             </div>

@@ -1,5 +1,5 @@
 <template lang="html">
-  <section>
+  <section :style="`background-image: url(${wallpaperImage})`">
     <b-container>
       <b-spinner v-if="loading" class="spinner-centered" />
 
@@ -16,44 +16,43 @@
           </b-button>
         </portal>
 
-        <div class="d-flex">
+        <div class="text-center">
           <b-avatar
             :src="avatarImage"
-            class="mr-3 float-left"
+            class="mx-auto rounded my-3"
             size="200"
             rounded
           />
 
-          <div class="d-flex flex-column">
-            <template v-if="profile.name">{{ profile.name }} / </template>@{{ profile.userName }}
-            <p class="text-info mb-0">{{ profile.bio }}</p>
-            <p class="mb-0">{{ profile.location }}</p>
+          <br />
 
-            <div>
-              <b-button
-                v-if="profile.twitter"
-                :href="`https://twitter.com/${profile.twitter}`"
-                target="_blank"
-                style="color: #00acee"
-                v-b-tooltip.hover
-                title="Twitter"
-                class="mr-2"
-              >
-                <i class="fab fa-twitter fa-fw" aria-hidden />
-              </b-button>
+          <p :class="['lead', wallpaperImage ? 'text-white' : '']">@{{ profile.userName }}</p>
 
-              <b-button
-                v-if="profile.website"
-                :href="profile.website"
-                target="_blank"
-                v-b-tooltip.hover
-                title="Website"
-                class="mr-2"
-              >
-                <i class="fa-solid fa-link fa-fw" />
-              </b-button>
-            </div>
-          </div>
+          <template v-if="profile.name">{{ profile.name }} / </template>
+          <p class="text-info">{{ profile.bio }}</p>
+          <p>{{ profile.location }}</p>
+          <b-button
+            v-if="profile.twitter"
+            :href="`https://twitter.com/${profile.twitter}`"
+            target="_blank"
+            style="color: #00acee"
+            v-b-tooltip.hover
+            title="Twitter"
+            class="mr-2"
+          >
+            <i class="fab fa-twitter fa-fw" aria-hidden />
+          </b-button>
+
+          <b-button
+            v-if="profile.website"
+            :href="profile.website"
+            target="_blank"
+            v-b-tooltip.hover
+            title="Website"
+            class="mr-2"
+          >
+            <i class="fa-solid fa-link fa-fw" />
+          </b-button>
         </div>
 
         <!-- <b-button :to="{ name: 'profiles' }">
@@ -106,6 +105,7 @@ export default {
       userBoards: [],
       profile: null,
       avatarImage: null,
+      wallpaperImage: null,
     };
   },
 
@@ -166,6 +166,11 @@ export default {
         const thumbnailRef = getImageThumbnail(this.profile?.avatar);
 
         this.avatarImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', thumbnailRef)
+          .catch((e) => {});
+      }
+
+      if (this.profile?.wallpaper) {
+        this.wallpaperImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', this.profile?.wallpaper)
           .catch((e) => {});
       }
 

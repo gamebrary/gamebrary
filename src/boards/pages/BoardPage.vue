@@ -35,7 +35,7 @@
       <b-button
         v-if="isBoardOwner"
         :to="{ name: 'board.edit', params: { id: board.id } }"
-        :variant="darkTheme ? 'secondary' : 'light'"
+        :variant="darkTheme ? 'dark' : 'light'"
         class="mr-2"
       >
         <span class="d-none d-sm-block">Edit board</span>

@@ -135,11 +135,11 @@ export default {
         }
 
         const { id } = await this.$store.dispatch('CREATE_BOARD', payload);
-        $bus.$emit('ALERT', { type: 'success', message: 'Board created' });
+        this.$bus.$emit('ALERT', { type: 'success', message: 'Board created' });
 
         this.$router.push({ name: 'board', params: { id } });
       } catch (e) {
-        $bus.$emit('ALERT', { type: 'error', message: 'Error creating board' });
+        this.$bus.$emit('ALERT', { type: 'error', message: 'Error creating board' });
       }
     },
   },

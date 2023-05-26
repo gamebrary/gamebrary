@@ -12,10 +12,15 @@
     <b-button
       :disabled="outOfSpace"
       :variant="darkTheme ? 'secondary' : 'light'"
-      class="mr-2"
+      :class="{ 'mr-2' : !isVerticalNav }"
       @click="triggerFileUpload"
     >
       <b-spinner small v-if="saving" />
+
+      <i
+        v-else-if="isVerticalNav"
+        class="fa-solid fa-cloud-arrow-up fa-fw"
+      />
 
       <span v-else>
         <i class="d-sm-none fa-solid fa-cloud-arrow-up" />
@@ -47,7 +52,7 @@ export default {
 
   computed: {
     ...mapState(['wallpapers']),
-    ...mapGetters(['darkTheme']),
+    ...mapGetters(['darkTheme', 'isVerticalNav']),
 
     isDuplicate() {
       const { file, existingFiles } = this;

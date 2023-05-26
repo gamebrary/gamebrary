@@ -4,13 +4,11 @@
       <portal to="pageTitle">
         <h3>Search</h3>
       </portal>
-
-      <portal to="headerActions">
-        <search-box :loading="loading" />
-      </portal>
       <!-- TODO: show result count, align search box to right -->
 
       <b-form-row>
+        <search-box :loading="loading" />
+
         <b-col v-if="activeBoard">
           <div class="d-flex align-items-center">
             <span class="d-none d-sm-block">

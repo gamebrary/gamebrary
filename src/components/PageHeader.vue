@@ -1,3 +1,4 @@
+<!-- TODO: remove alert, use toast, style toast -->
 <!-- // LanguageSettings,
 // SteamSettingsPage,
 // import SteamSettingsPage from '@/pages/SteamSettingsPage';
@@ -6,33 +7,39 @@
 <template lang="html">
   <!-- TODO: set default background color? -->
   <div class="page-header position-relative">
-    <b-collapse id="header">
-      <header :class="[darkTheme ? 'bg-black' : 'bg-white', isVerticalNav ? 'p-sm-3 p-2' : 'px-3 py-2', `nav-${navPosition}`]">
-        <!-- TODO: allow to collapse menu -->
-        <div :class="['alert', alertType, { visible }]">
-          <div class="d-flex align-items-center">
-            <!-- TODO: merge and use computed -->
-            <i v-if="alertType === 'error'" class="fa-solid fa-triangle-exclamation text-white mr-2" />
-            <i v-else-if="alertType === 'success'" class="fa-solid fa-check text-white mr-2"/>
-            <i v-else class="fa-solid fa-info text-white mr-2" />
-            <i :class="['fa-solid fa-info text-white mr-2', alertIcon]" />
-            <strong>{{ alert.message }}</strong>
-          </div>
+    <header :class="[darkTheme ? 'bg-black' : 'bg-white', isVerticalNav ? 'p-2' : 'px-3 py-2', `nav-${navPosition}`]">
+      <!-- TODO: allow to collapse menu -->
+      <div :class="['alert', alertType, { visible }]">
+        <div class="d-flex align-items-center">
+          <!-- TODO: merge and use computed -->
+          <i v-if="alertType === 'error'" class="fa-solid fa-triangle-exclamation text-white mr-2" />
+          <i v-else-if="alertType === 'success'" class="fa-solid fa-check text-white mr-2"/>
+          <i v-else class="fa-solid fa-info text-white mr-2" />
+          <i :class="['fa-solid fa-info text-white mr-2', alertIcon]" />
+          <strong>{{ alert.message }}</strong>
         </div>
+      </div>
 
-        <main-menu />
+      <main-menu :class="isVerticalNav ? ' mb-2' : ''" />
 
-        <portal-target
-          v-if="!isVerticalNav"
-          class="ml-3"
-          name="pageTitle"
-          multiple
-        />
+      <portal-target
+        v-if="!isVerticalNav"
+        class="ml-3"
+        name="pageTitle"
+        multiple
+      />
 
-        <div class="align-items-center d-flex ml-auto">
+      <div :class="['align-items-center d-flex ml-auto', isVerticalNav ? 'h-100 flex-column' : '']">
           <portal-target name="headerActions" multiple />
 
-          <search-box v-if="showSearchBox" :class="isVerticalNav ? 'mt-2' : ''" />
+          <b-button
+            v-if="!isSearchPage"
+            :variant="darkTheme ? 'dark' : 'light'"
+            :class="isVerticalNav ? 'mt-auto' : ''"
+            :to="{ name: 'search' }"
+          >
+            <i class="fa fa-fw fa-search" aria-hidden="true" />
+          </b-button>
 
           <b-button
             v-if="!user"
@@ -42,11 +49,13 @@
           >
             Login
           </b-button>
-        </div>
-      </header>
-    </b-collapse>
+      </div>
+    </header>
+    <!-- <b-collapse id="header">
 
-    <b-button
+    </b-collapse> -->
+
+    <!-- <b-button
       v-b-toggle.header
       variant="light"
       size="sm"
@@ -54,18 +63,16 @@
       class="header-toggle mt-n2"
     >
       <i class="fa-solid fa-caret-down" />
-    </b-button>
+    </b-button> -->
   </div>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import SearchBox from '@/components/SearchBox';
 import MainMenu from '@/components/MainMenu';
 
 export default {
   components: {
-    SearchBox,
     MainMenu,
   },
 
@@ -88,10 +95,6 @@ export default {
     ...mapState(['user', 'settings']),
     ...mapGetters(['darkTheme', 'navPosition', 'isVerticalNav']),
 
-    showSearchBox() {
-      return this.$route.name !== 'search';
-    },
-
     alertType() {
       return this.alert?.type;
     },
@@ -102,6 +105,10 @@ export default {
 
     isBottomNav() {
       return this.navPosition === 'bottom';
+    },
+
+    isSearchPage() {
+      return this.$route.name === 'search';
     },
 
     alertIcon() {

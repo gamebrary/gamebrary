@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container class="">
+  <b-container>
     <page-title :title="$t('wallpapers.title')" />
 
     <!-- TODO: add artwork/media search and allow to upload using url -->

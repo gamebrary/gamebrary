@@ -54,6 +54,10 @@ export default {
     EmptyState,
   },
 
+  props: {
+    public: Boolean,
+  },
+
   data() {
     return {
       loading: false,
@@ -80,7 +84,7 @@ export default {
     },
 
     isPublicBoard() {
-      return this.$route.name === 'home' && !this.user;
+      return this.public || this.$route.name === 'home' && !this.user;
     },
   },
 

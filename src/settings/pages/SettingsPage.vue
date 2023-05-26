@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container class="pt-3 mw-50" v-if="user">
+  <b-container class="pt-3" v-if="user">
     <page-title title="Settings" />
 
     <section class="mb-3">

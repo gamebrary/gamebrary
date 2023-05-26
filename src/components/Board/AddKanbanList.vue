@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="flex-shrink-0 mx-3">
+  <div class="flex-shrink-0">
     <b-card
       v-if="active || empty"
       class="mr-3"

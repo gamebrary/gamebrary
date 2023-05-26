@@ -11,13 +11,23 @@
     </b-dropdown-text> -->
 
     <template #button-content>
-      <i class="fa-sharp fa-solid fa-bars" />
+      <i class="fa-sharp fa-solid fa-bars fa-fw" />
     </template>
 
     <b-dropdown-item :to="{ name: 'home' }">
       <i class="fa-regular fa-rectangle-list fa-fw" />
       <span class="ml-2">Boards <small v-if="user" class="text-muted">({{ boardCount }})</small></span>
     </b-dropdown-item>
+
+    <b-dropdown-group v-if="user && routeName === 'home'">
+      <b-dropdown-item
+        v-for="board in recentlyUpdatedBoards"
+        :key="board.id"
+        :to="{ name: 'board', params: { id: board.id } }"
+      >
+        <small>{{ board.name }}</small>
+      </b-dropdown-item>
+    </b-dropdown-group>
 
     <b-dropdown-item :to="{ name: 'games' }">
       <i class="fa-regular fa-heart fa-fw" />
@@ -118,10 +128,18 @@ export default {
 
   computed: {
     ...mapState(['board', 'boards', 'settings', 'user', 'games', 'notes', 'tags', 'wallpapers']),
-    ...mapGetters(['darkTheme', 'navPosition']),
+    ...mapGetters(['darkTheme', 'navPosition', 'sortedBoards']),
 
     year() {
       return new Date().getFullYear();
+    },
+
+    routeName() {
+      return this.$route.name;
+    },
+
+    recentlyUpdatedBoards() {
+      return this.sortedBoards.filter(({ lastUpdated }) => Boolean(lastUpdated)).slice(0, 5);
     },
 
     gameCount() {

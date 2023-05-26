@@ -1,6 +1,6 @@
 <template lang="html">
   <section
-    :class="[{ 'text-light': darkTheme && hasWallpaper, 'pt-3': !hasArtworks }, 'game-page mb-5 ']"
+    :class="[{ 'text-light': darkTheme && hasWallpaper, 'pt-3': !hasArtworks }, 'game-page pb-5']"
     :style="background && this.darkTheme ? `background-image: url(${background})` : ''"
   >
     <game-header />
@@ -29,7 +29,7 @@
           md="4"
           xl="3"
           style="z-index: 1"
-          :class="['text-center', { 'has-artworks': hasArtworks }]"
+          :class="['text-center pt-3 pt-md-0', { 'has-artworks': hasArtworks }]"
         >
           <b-img
             :src="$options.getImageUrl(cachedGame)"

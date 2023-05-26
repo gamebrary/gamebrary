@@ -1,6 +1,6 @@
 <template lang="html">
   <section>
-    <b-container>
+    <b-container class="px-0">
       <preview-wallpaper-modal :wallpaper="activeWallpaper" />
 
       <masonry

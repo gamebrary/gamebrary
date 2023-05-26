@@ -3,21 +3,16 @@
     <b-container>
       <page-title title="Tags" />
 
-      <b-button
-        class="mr-2"
-        variant="primary"
-        :to="{ name: 'tag.create' }"
-      >
-        Add tag
-      </b-button>
-
       <portal v-if="!loading && tags.length > 0" to="headerActions">
         <b-button
-          class="mr-2"
-          variant="primary"
+          :class="{ 'mr-2': !isVerticalNav}"
           :to="{ name: 'tag.create' }"
         >
-          Add tag
+          <i
+            v-if="isVerticalNav"
+            class="fa-solid fa-plus fa-fw"
+          />
+          <span v-else>Add tag</span>
         </b-button>
       </portal>
 
@@ -122,7 +117,7 @@ export default {
 
   computed: {
     ...mapState(['tags', 'user', 'cachedGames']),
-    ...mapGetters(['darkTheme']),
+    ...mapGetters(['darkTheme', 'isVerticalNav']),
   },
 
   mounted() {

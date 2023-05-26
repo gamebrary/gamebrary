@@ -11,11 +11,18 @@
           title="Select game to add a note"
           size="md"
           :variant="darkTheme ? 'secondary' : 'light'"
-          class="mr-2"
+          :class="{ 'mr-2': !isVerticalNav }"
           @select-game="createNote"
         >
-          <i class="d-sm-none fa-solid fa-plus" />
-          <span class="d-none d-sm-inline">Create note</span>
+          <i
+            v-if="isVerticalNav"
+            class="fa-solid fa-plus fa-fw"
+          />
+
+          <template v-else>
+            <i class="d-sm-none fa-solid fa-plus" />
+            <span class="d-none d-sm-inline">Create note</span>
+          </template>
         </game-selector>
       </portal>
 
@@ -120,7 +127,7 @@ export default {
 
   computed: {
     ...mapState(['notes', 'cachedGames', 'user']),
-    ...mapGetters(['darkTheme']),
+    ...mapGetters(['darkTheme', 'isVerticalNav']),
 
     isEmpty() {
       return !Object.keys(this.notes).length;

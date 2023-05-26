@@ -1,4 +1,4 @@
-<!-- TODO: calendar view -->
+<!-- TODO: calendar view? -->
 <template lang="html">
   <div>
     <masonry

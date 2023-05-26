@@ -151,7 +151,7 @@
               </div>
             </b-col>
 
-            <b-col cols="12" sm="6" md="4">
+            <b-col cols="12" sm="6" md="4" v-if="board.type !== $options.BOARD_TYPE_STANDARD">
               <template v-if="board.type === 'tier'">
                 <h4>Tiers</h4>
 

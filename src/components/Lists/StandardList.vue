@@ -25,7 +25,7 @@
         :game-id="game.id"
         :ranked="board.ranked"
         :rank="index + 1"
-        class="mb-2"
+        class="mb-3"
         @click.native="openGame(game.id, list)"
       />
     </draggable>

@@ -1,5 +1,9 @@
+<!-- TODO: show title at top when vertical nav -->
+<!-- TODO: flatten lists, only use games, show alert if has lists -->
 <template lang="html">
   <b-container>
+    <h2 class="text-center mb-3">{{ board.name }}</h2>
+
     <b-row
       v-for="list in board.lists"
       :key="list.id"
@@ -27,7 +31,11 @@ export default {
       const [firstList] = this.board?.lists;
 
       return firstList || [];
-    }
+    },
+
+    hasLists() {
+      return this.board?.lists?.length > 0;
+    },
   },
 };
 </script>

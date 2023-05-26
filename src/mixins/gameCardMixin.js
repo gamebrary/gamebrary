@@ -23,7 +23,7 @@ export default {
     },
 
     gamePlatformsText() {
-      return this.game?.platforms.map((id) => PLATFORMS?.[id]?.name)?.join(', ');
+      return this.game?.platforms?.map((id) => PLATFORMS?.[id]?.name)?.join(', ');
     },
 
     cardBackgroundVariant() {

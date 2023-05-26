@@ -1,15 +1,43 @@
 <template lang="html">
   <header :class="[darkTheme ? 'border-dark' : 'border-light']">
     <portal v-if="user" to="headerActions">
+      <div :class="['d-none d-md-flex', { 'flex-column': isVerticalNav }]">
+        <b-button
+          :variant="darkTheme ? 'dark' : 'light'"
+          :class="isVerticalNav ? 'mb-2' : 'mr-2'"
+          @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
+        >
+          <i v-if="isVerticalNav" class="fa fa-book fa-fw" aria-hidden="true" />
+          <template v-else>Add note</template>
+        </b-button>
+
+        <b-button
+          :variant="darkTheme ? 'dark' : 'light'"
+          :class="isVerticalNav ? 'mb-2' : 'mr-2'"
+          v-b-modal.gameTagsModal
+        >
+          <i v-if="isVerticalNav" class="fa fa-tags fa-fw" aria-hidden="true" />
+          <template v-else>Edit tags</template>
+        </b-button>
+
+        <b-button
+          :variant="darkTheme ? 'dark' : 'light'"
+          :class="isVerticalNav ? 'mb-2' : 'mr-2'"
+          v-b-modal.addRemoveGameModal
+        >
+          <i v-if="isVerticalNav" class="fa fa-plus-minus fa-fw" aria-hidden="true" />
+          <template v-else>Add/Remove</template>
+        </b-button>
+      </div>
+
       <b-dropdown
-        class="mr-2"
+        :class="['d-md-none', { 'mr-2': !isVerticalNav }]"
         :variant="darkTheme ? 'secondary' : 'light'"
         no-caret
       >
         <template #button-content>
-          <i class="fa-solid fa-ellipsis" />
+          <i class="fa-solid fa-ellipsis fa-fw" />
         </template>
-
         <b-dropdown-item-button @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })">
           Add note
         </b-dropdown-item-button>
@@ -44,7 +72,7 @@ import { getImageUrl } from '@/utils';
 export default {
   computed: {
     ...mapState(['game', 'user']),
-    ...mapGetters(['darkTheme']),
+    ...mapGetters(['darkTheme', 'isVerticalNav']),
 
     artworks() {
       return this.game?.artworks?.map((artwork) => ({

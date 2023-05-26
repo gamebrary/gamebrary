@@ -1,47 +1,31 @@
 <template lang="html">
-  <b-button v-if="isVerticalNav" :to="{ name: 'search' }">
-    <i class="fa fa-search" aria-hidden="true" />
-  </b-button>
+  <b-form
+    class="w-100 d-flex mb-3"
+    @submit.prevent="search"
+  >
+    <b-form-input
+      v-model="searchText"
+      type="search"
+      size="lg"
+      debounce="500"
+      placeholder="Search"
+      class="mr-3"
+    />
 
-  <div v-else class="search-box">
-    <b-form
-      @submit.prevent="search"
-      :class="[{ 'd-none d-sm-block': !isSearchPage }, 'mw-100']"
-      style="width: 180px"
-    >
-      <b-input-group>
-        <b-form-input
-          v-model="searchText"
-          type="search"
-          debounce="500"
-          placeholder="Search"
-        />
+    <b-button type="submit" class="px-4">
+      <b-spinner v-if="loading" small />
 
-        <b-input-group-append>
-          <b-button type="submit">
-            <b-spinner
-              v-if="loading"
-              small
-            />
-
-            <i
-              v-else
-              class="fas fa-search"
-              aria-hidden
-            />
-          </b-button>
-        </b-input-group-append>
-      </b-input-group>
-    </b-form>
-
-    <b-button v-if="!isSearchPage" :to="{ name: 'search' }" class="d-sm-none">
-      <i class="fa fa-search" aria-hidden="true" />
+      <i
+        v-else
+        class="fas fa-search fa-fw"
+        aria-hidden
+      />
     </b-button>
-  </div>
+  </b-form>
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   props: {
@@ -56,15 +40,6 @@ export default {
 
   mounted() {
     this.searchText = this.$route.query.q || '';
-  },
-
-  computed: {
-    ...mapState(['settings']),
-    ...mapGetters(['navPosition', 'isVerticalNav']),
-
-    isSearchPage() {
-      return this.$route.name === 'search';
-    },
   },
 
   methods: {

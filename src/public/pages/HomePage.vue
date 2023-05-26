@@ -11,8 +11,33 @@
       - Standard, organize your games by creating
       - Robust, fully customizable organization.
       - Tier, Rank -->
+      <portal to="headerActions">
+        <b-button-group
+          v-if="user"
+          :class="isVerticalNav ? 'mt-2' : 'mr-2'"
+          :vertical="isVerticalNav"
+        >
+          <b-button
+            @click="showPublic = false"
+            :variant="showPublic ? 'light' : 'secondary'"
+            v-b-tooltip.hover
+            title="My boards"
+          >
+            <i class="fa-solid fa-user fa-fw" />
+          </b-button>
 
-      <game-boards />
+          <b-button
+            @click="showPublic = true"
+            :variant="showPublic ? 'secondary' : 'light'"
+            v-b-tooltip.hover
+            title="All boards"
+          >
+            <i class="fa-solid fa-users fa-fw" />
+          </b-button>
+        </b-button-group>
+      </portal>
+
+      <game-boards :public="showPublic" />
 
       <template v-if="!user">
         <b-alert variant="success" show>
@@ -72,6 +97,12 @@ export default {
   components: {
     GameBoards,
     // TwitterFeed,
+  },
+
+  data() {
+    return {
+      showPublic: false,
+    }
   },
 
   computed: {
