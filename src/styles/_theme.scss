@@ -1,16 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Signika:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap');
-$primary: #da0050 !default;
+
+$primary: #4d78cc !default;
 $muted: #7d7f8c !default;
-$danger: #C0392B !default;
-$warning: #F39C12 !default;
-$success: #30d158 !default;
+$danger: #da0050 !default;
+$warning: #f8a23a !default;
+$success: #c5e254 !default;
 $white: #f8f8f6 !default;
 $black: #202123 !default;
-$info: #4f4d6f !default;
+$info: #b3dbf5 !default;
 $light: #dee4e7 !default;
 $dark: #35363a !default;
-$secondary: #4f4e52 !default;
+$secondary: #ce8ebe !default;
 
 $theme-colors: () !default;
 $theme-colors: map-merge((
@@ -734,7 +735,7 @@ $card-img-overlay-padding: 0 !default;
 // // Popovers
 //
 // $popover-font-size:                 $font-size-sm !default;
-$popover-bg: $dark !default;
+// $popover-bg: $dark !default;
 // $popover-max-width:                 276px !default;
 // $popover-border-width:              $border-width !default;
 // $popover-border-color:              rgba($black, .2) !default;
@@ -786,7 +787,8 @@ $popover-bg: $dark !default;
 //
 // DROPDOWNS
 // $dropdown-min-width: 10rem !default;
-// $dropdown-padding-y: .25rem !default;
+$dropdown-padding-y: .25rem !default;
+$dropdown-padding-x: .25rem !default;
 // $dropdown-font-size: $font-size-sm !default;
 // $dropdown-color: $white !default;
 // $dropdown-bg: $secondary !default;
@@ -804,7 +806,7 @@ $popover-bg: $dark !default;
 // $dropdown-link-active-bg: darken($secondary, 10%)  !default;
 // $dropdown-link-disabled-color: red !default;
 // $dropdown-item-padding-y: .25rem !default;
-// $dropdown-item-padding-x: .25rem !default;
+$dropdown-item-padding-x: .5rem !default;
 // $dropdown-header-color: $white !default;
 // $dropdown-header-padding: $dropdown-padding-y $dropdown-item-padding-x !default;
 // Padding applied to the modal body
@@ -838,20 +840,19 @@ $modal-transition: transform .1s ease-out !default;
 $modal-scale-transform: scale(1.5) !default;
 
 // Toasts
-// $toast-max-width: 100px !default;
-// $toast-padding-x: .5rem !default;
-// $toast-padding-y: .5rem !default;
-// $toast-font-size: .875rem !default;
-// $toast-color: $dark !default;
-// $toast-background-color: $success;
-// $toast-border-width: 0 !default;
-// $toast-no-close-button: true !default;
+$toast-max-width: 200px !default;
+$toast-padding-x: .5rem !default;
+$toast-padding-y: .5rem !default;
+$toast-font-size: $font-size-base !default;
+$toast-color: $white !default;
+$toast-background-color: $black;
+$toast-border-width: 0 !default;
 // $toast-border-color: rgba(0, 0, 0, .1) !default;
-// $toast-border-radius: .25rem !default;
-// $toast-box-shadow: 0 .25rem .75rem rgba($black, .1) !default;
-// $toast-header-color: $white !default;
-// $toast-header-background-color: $black !default;
-// $toast-header-border-color: rgba(0, 0, 0, .05) !default;
+$toast-border-radius: $border-radius !default;
+$toast-box-shadow: none !default;
+$toast-header-color: $white !default;
+$toast-header-background-color: $black !default;
+$toast-header-border-color: transparent !default;
 // Badges
 
 // $badge-font-size:                   75% !default;

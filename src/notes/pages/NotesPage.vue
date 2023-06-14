@@ -10,8 +10,8 @@
           v-if="!isEmpty"
           title="Select game to add a note"
           size="md"
-          :variant="darkTheme ? 'secondary' : 'light'"
-          :class="{ 'mr-2': !isVerticalNav }"
+          :variant="darkTheme ? 'success' : 'primary'"
+          :class="{ 'mr-3': !isVerticalNav }"
           @select-game="createNote"
         >
           <i
@@ -76,7 +76,7 @@
             <b-card
               v-for="({ note, game }, index) in filteredNotes"
               body-class="p-2"
-              :bg-variant="darkTheme ? 'secondary' : 'light'"
+              :bg-variant="darkTheme ? 'dark' : 'light'"
               :text-variant="darkTheme ? 'light' : 'dark'"
               :key="index"
               class="cursor-pointer mb-2"

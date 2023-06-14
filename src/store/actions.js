@@ -1,3 +1,4 @@
+
 // TODO: use Fandom/Wikia API
 // https://megaman.fandom.com/api.php?action=parse&format=json&page=Mega_Man_II&prop=sections|images
 // https://megaman.fandom.com/api.php?action=parse&page=Mega_Man_II&format=json&prop=wikitext&section=2
@@ -489,7 +490,6 @@ export default {
     });
   },
 
-  // TODO: Add action to load my games
   LOAD_GAMES({ commit, state }) {
     return new Promise((resolve, reject) => {
       const db = firestore();

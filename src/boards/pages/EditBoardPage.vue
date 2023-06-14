@@ -173,7 +173,7 @@
                     v-model.trim="list.name"
                   />
 
-                  <b-button class="ml-2" @click="confirmDeleteList(index)">
+                  <b-button variant="danger" class="ml-2" @click="confirmDeleteList(index)">
                     <i class="fa fa-trash" aria-hidden="true" />
                   </b-button>
                 </div>
@@ -470,11 +470,9 @@ export default {
         this.loading = true;
         await this.$store.dispatch('DELETE_BOARD', this.board.id)
 
-        this.$bus.$emit('ALERT', { type: 'success', message: 'Board deleted' })
-
-        this.$router.push({ name: 'home' });
+        this.$router.replace({ name: 'home' });
       } catch (e) {
-        this.$bus.$emit('ALERT', { type: 'error', message: 'Error deleting board' })
+        //
       }
 
       this.loading = false;
@@ -500,11 +498,11 @@ export default {
 
         await this.$store.dispatch('SAVE_BOARD');
 
-        this.$bus.$emit('ALERT', { type: 'success', message: 'Board saved' });
+        this.$bvToast.toast('Board saved');
 
         if (close) this.$router.push({ name: 'board', params: { id: this.board.id } });
       } catch (e) {
-        this.$bus.$emit('ALERT', { type: 'error', message: 'There was an saving board settings' });
+        //
       }
 
       this.saving = false;

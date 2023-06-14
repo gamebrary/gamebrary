@@ -7,6 +7,7 @@ export default {
   getImageUrl,
 
   props: {
+    listIndex: Number,
     list: {
       type: Object,
       default: () => {},
@@ -24,18 +25,6 @@ export default {
 
     gamePlatformsText() {
       return this.game?.platforms?.map((id) => PLATFORMS?.[id]?.name)?.join(', ');
-    },
-
-    cardBackgroundVariant() {
-      if (this.gameCompleted) return 'success';
-
-      return this.darkTheme ? 'dark' : 'white';
-    },
-
-    cardTextVariant() {
-      if (this.gameCompleted) return 'white';
-
-      return this.darkTheme ? 'white' : 'dark';
     },
 
     gameCompleted() {

@@ -49,7 +49,7 @@
     <b-carousel
       v-if="hasArtworks"
       id="carousel-fade"
-      class="cursor-pointer d-none d-md-block overflow-hidden carousel"
+      class="cursor-pointer d-none d-md-block overflow-hidden"
       fade
       v-b-modal.mediaModal
       no-hover-pause
@@ -90,10 +90,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-.carousel {
-  // height: 50vh;
-  // margin-top: -56px;
-}
-</style>

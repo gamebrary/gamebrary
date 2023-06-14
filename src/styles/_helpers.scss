@@ -11,6 +11,16 @@
   }
 }
 
+.small-container {
+  width: 480px;
+  max-width: 100%;
+  margin: 0 auto;
+
+  @media(max-width: 480px) {
+    width: 100%;
+  }
+}
+
 .centered {
   margin: 0 auto;
 }
@@ -67,4 +77,13 @@
 
 .dropdown-menu {
   max-height: 90vh;
+}
+
+.dropdown-item {
+  border-radius: 0.5rem;
+}
+
+.toast-body {
+  height: 40px;
+  text-align: center;
 }

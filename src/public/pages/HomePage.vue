@@ -1,25 +1,27 @@
 <template lang="html">
   <section>
     <b-container class="px-0">
-      <page-title :title="user ? 'Boards' : 'Gamebrary'" />
+      <page-title :title="user ? 'Boards' : 'Gamebrary'">
+        <b-button
+          v-if="user && isVerticalNav"
+          :variant="darkTheme ? 'secondary' : 'light'"
+          class="mr-2"
+          :to="{ name: 'create.board' }"
+        >
+          <i class="d-sm-none fa-solid fa-plus" />
+          <span class="d-none d-sm-inline">Create board</span>
+        </b-button>
+      </page-title>
 
-      <!-- Organize your game library your way!
-
-      Choose between 3 types of boards.
-
-      Kanban
-      - Standard, organize your games by creating
-      - Robust, fully customizable organization.
-      - Tier, Rank -->
       <portal to="headerActions">
         <b-button-group
           v-if="user"
-          :class="isVerticalNav ? 'mt-2' : 'mr-2'"
+          :class="isVerticalNav ? 'mt-2' : 'mr-3'"
           :vertical="isVerticalNav"
         >
           <b-button
             @click="showPublic = false"
-            :variant="showPublic ? 'light' : 'secondary'"
+            :variant="showPublic ? offVariant : 'primary'"
             v-b-tooltip.hover
             title="My boards"
           >
@@ -28,7 +30,7 @@
 
           <b-button
             @click="showPublic = true"
-            :variant="showPublic ? 'secondary' : 'light'"
+            :variant="showPublic ? 'primary' : offVariant"
             v-b-tooltip.hover
             title="All boards"
           >
@@ -37,53 +39,32 @@
         </b-button-group>
       </portal>
 
-      <game-boards :public="showPublic" />
+      <div
+        v-if="!user"
+        class="mt-auto py-3 mb-3"
+      >
+        <h4 class="text-center mb-2">Organize your game library your way!</h4>
 
-      <template v-if="!user">
-        <b-alert variant="success" show>
-          <h4 class="alert-heading">Welcome!</h4>
+        <h4 class="text-center text-primary mb-2">Powered by:</h4>
 
-          <p class="mb-0">
-            Use Gamebrary to organize your video game collection.
-          </p>
-
-          <small class="text-info"><ins>Free</ins> and <a href="https://github.com/romancm/gamebrary/" target="_blank">Open Source</a></small>
-        </b-alert>
-
-        <div class="mt-auto bg-light py-5 mb-3 d-none d-md-block">
-          <h2 class="text-center text-primary mb-2">Game data from the most reliable sources</h2>
-
-          <div class="d-flex align-items-start justify-content-center overflow-auto">
-            <!-- YouTube -->
-            <img src="/logos/data-sources/wikipedia.svg" alt="wikipedia" width="80" class="mx-3">
-            <img src="/logos/data-sources/igdb.svg" alt="igdb" width="100" class="mx-3">
-            <img src="/logos/data-sources/fandom.svg" alt="fandom" width="100" class="mx-3 mt-2">
-            <img src="/logos/data-sources/amazon.svg" alt="amazon" width="100" class="mx-3 mt-3">
-            <img src="/logos/data-sources/twitch.svg" alt="twitch" width="100" class="mx-3 mt-2">
-            <img src="/logos/data-sources/speedrun.png" alt="speedrun" width="100" class="mx-3 mt-3">
-            <img src="/logos/data-sources/gog.svg" alt="gog" width="70" class="mx-3">
-            <img src="/logos/data-sources/steam.svg" alt="steam" width="80" class="mx-3">
-          </div>
+        <div class="d-flex flex-wrap align-items-start justify-content-center overflow-auto">
+          <!-- YouTube -->
+          <img src="/logos/data-sources/wikipedia.svg" alt="wikipedia" width="60" class="mx-3">
+          <img src="/logos/data-sources/igdb.svg" alt="igdb" width="80" class="mx-3">
+          <img src="/logos/data-sources/fandom.svg" alt="fandom" width="80" class="mx-3 mt-2">
+          <img src="/logos/data-sources/amazon.svg" alt="amazon" width="80" class="mx-3 mt-3">
+          <img src="/logos/data-sources/twitch.svg" alt="twitch" width="80" class="mx-3 mt-2">
+          <img src="/logos/data-sources/speedrun.png" alt="speedrun" width="80" class="mx-3 mt-3">
+          <img src="/logos/data-sources/gog.svg" alt="gog" width="60" class="mx-3">
+          <img src="/logos/data-sources/steam.svg" alt="steam" width="60" class="mx-3">
         </div>
-      </template>
+      </div>
+
+      <game-boards :public="showPublic" />
 
       <!-- <div class="game-deals">
         <twitter-feed twitter-user="wario64" />
       </div> -->
-
-      <footer class="pb-5 pt-3">
-        <b-link
-          href="https://github.com/romancm/gamebrary/releases"
-          target="_blank"
-          :class="darkTheme ? 'text-light' : 'text-dark'"
-        >
-          {{ latestRelease }}
-        </b-link>
-
-        <router-link class="px-1" :to="{ name: 'about' }">About</router-link>
-        <router-link class="px-1" :to="{ name: 'privacy.policy' }">Privacy</router-link>
-        <router-link class="px-1" :to="{ name: 'terms' }">Terms</router-link>
-      </footer>
     </b-container>
   </section>
 </template>
@@ -107,7 +88,13 @@ export default {
 
   computed: {
     ...mapState(['user']),
-    ...mapGetters(['latestRelease', 'darkTheme', 'isVerticalNav']),
+    ...mapGetters(['darkTheme', 'isVerticalNav']),
+
+    offVariant() {
+      return this.darkTheme
+        ? 'black'
+        : 'light';
+    },
   },
 };
 </script>

@@ -8,6 +8,16 @@
     @click="handleClick"
   >
     <!-- TODO: allow to like/unlike games -->
+    <b-button
+      variant="transparent"
+      squared
+      class="mr-2 p-0"
+      :disabled="!user"
+      @click.stop.prevent="$bus.$emit('SELECT_GAME', game.id)"
+    >
+      <i :class="[isLiked ? 'fa-solid': 'fa-regular' , 'fa-heart text-primary']" />
+    </b-button>
+
     <strong
       v-if="noImage"
       class="text-center pb-5 d-flex justify-content-center"
@@ -41,7 +51,11 @@ export default {
   },
 
   computed: {
-    ...mapState(['user', 'boards']),
+    ...mapState(['user', 'boards', 'games']),
+
+    isLiked() {
+      return this.games?.[this.game?.id];
+    },
 
     gamePlatforms() {
       return this.game?.platforms.map((id) => PLATFORMS?.[id]);

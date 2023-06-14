@@ -17,7 +17,7 @@
 
         <b-badge
           v-if="showPublicIndicator"
-          variant="warning"
+          :variant="darkTheme ? 'warning' : 'danger'"
           size="sm"
         >
           Public

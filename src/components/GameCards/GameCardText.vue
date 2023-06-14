@@ -1,13 +1,13 @@
 <template lang="html">
   <b-card
     no-body
-    :bg-variant="cardBackgroundVariant"
-    :text-variant="cardTextVariant"
+    :bg-variant="darkTheme ? 'dark' : 'white'"
+    :text-variant="darkTheme ? 'white' : 'dark'"
     class="cursor-pointer"
   >
     <b-row no-gutters v-if="game && game.name">
       <b-card-body body-class="py-1 px-2">
-        <h5>
+        <h5 :class="{ 'text-success' : gameCompleted}">
           {{ game.name }}
         </h5>
 
@@ -21,16 +21,23 @@
             {{ `${gameProgress}%` }}
           </b-badge>
 
-          <template v-if="gameNotes">
-            <i
-              class="fas fa-book text-warning mr-1"
-              v-b-tooltip.hover
-              @click.stop.prevent="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug }})"
-              title="See game notes"
-            />
-          </template>
+          <b-link
+            :class="['small', { 'text-warning': darkTheme }]"
+            :to="{ name: 'game.notes', params: { id: game.id, slug: game.slug }}"
+            v-if="gameNotes"
+          >
+            Note
+          </b-link>
 
-          <template v-if="tagsApplied.length">
+          <b-link
+            v-if="tagsApplied.length"
+            :id="`${gameId}-${listIndex}`"
+            :class="['small', { 'text-info': darkTheme }]"
+          >
+            {{ tagsApplied.length }} tags
+          </b-link>
+
+          <b-popover :target="`${gameId}-${listIndex}`" triggers="hover" placement="viewport">
             <b-button
               v-for="({ bgColor, textColor, name }) in tagsApplied"
               :key="name"
@@ -42,12 +49,18 @@
             >
               <small>{{ name }}</small>
             </b-button>
-          </template>
+          </b-popover>
+
         </div>
 
-        <div class="d-flex mb-2" v-if="gamePlatformsText">
-          <small>{{ gamePlatformsText }}</small>
+        <div class="text-white">
+          {{ gameId }}
+
+          <pre>{{ listIndex }}</pre>
         </div>
+        <!-- <div class="d-flex mb-2" v-if="gamePlatformsText">
+          <small>{{ gamePlatformsText }}</small>
+        </div> -->
       </b-card-body>
     </b-row>
   </b-card>

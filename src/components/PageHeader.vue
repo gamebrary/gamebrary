@@ -5,16 +5,11 @@
 // import LanguageSettings from '@/components/Settings/LanguageSettings'; -->
 
 <template lang="html">
-  <!-- TODO: set default background color? -->
   <div class="page-header position-relative">
-    <header :class="[darkTheme ? 'bg-black' : 'bg-white', isVerticalNav ? 'p-2' : 'px-3 py-2', `nav-${navPosition}`]">
+    <header :class="[darkTheme ? 'bg-dark' : 'bg-white', isVerticalNav ? 'p-2' : 'px-3 py-2', `nav-${navPosition}`]">
       <!-- TODO: allow to collapse menu -->
       <div :class="['alert', alertType, { visible }]">
         <div class="d-flex align-items-center">
-          <!-- TODO: merge and use computed -->
-          <i v-if="alertType === 'error'" class="fa-solid fa-triangle-exclamation text-white mr-2" />
-          <i v-else-if="alertType === 'success'" class="fa-solid fa-check text-white mr-2"/>
-          <i v-else class="fa-solid fa-info text-white mr-2" />
           <i :class="['fa-solid fa-info text-white mr-2', alertIcon]" />
           <strong>{{ alert.message }}</strong>
         </div>
@@ -33,9 +28,8 @@
           <portal-target name="headerActions" multiple />
 
           <b-button
-            v-if="!isSearchPage"
-            :variant="darkTheme ? 'dark' : 'light'"
-            :class="isVerticalNav ? 'mt-auto' : ''"
+            :variant="darkTheme ? 'black' : 'light'"
+            :class="isVerticalNav ? 'mt-auto mb-2' : ''"
             :to="{ name: 'search' }"
           >
             <i class="fa fa-fw fa-search" aria-hidden="true" />
@@ -44,10 +38,10 @@
           <b-button
             v-if="!user"
             class="ml-2"
-            variant="primary"
+            variant="black"
             :to="{ name: 'auth' }"
           >
-            Login
+            Get started — it's free!
           </b-button>
       </div>
     </header>
@@ -159,8 +153,8 @@ header {
     flex-direction: column;
   }
 
-  &.bg-black {
-    border-color: #181818;
+  &.bg-dark {
+    border-color: var(--black);
   }
 }
 

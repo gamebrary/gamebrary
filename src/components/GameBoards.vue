@@ -20,8 +20,8 @@
         <portal to="headerActions">
           <b-button
             v-if="user && !isVerticalNav"
-            :variant="darkTheme ? 'secondary' : 'light'"
-            class="mr-2"
+            :variant="darkTheme ? 'success' : 'primary'"
+            class="mr-3"
             :to="{ name: 'create.board' }"
           >
             <i class="d-sm-none fa-solid fa-plus" />

@@ -2,94 +2,104 @@
   <b-container class="pt-3" v-if="user">
     <page-title title="Settings" />
 
-    <section class="mb-3">
-      <p class="mt-2">Menu position</p>
+    <div class="small-container">
+      <section class="mb-3">
+        <p class="mt-2">Menu position</p>
+
+        <b-button
+          :variant="navPosition === 'top' ? 'primary' : 'light'"
+          @click="setNavPosition('top')"
+        >
+          Top
+        </b-button>
+
+        <b-button
+          class="ml-2"
+          :variant="navPosition === 'bottom' ? 'primary' : 'light'"
+          @click="setNavPosition('bottom')"
+        >
+          Bottom
+        </b-button>
+
+        <b-button
+          class="ml-2"
+          :variant="navPosition === 'left' ? 'primary' : 'light'"
+          @click="setNavPosition('left')"
+        >
+          Left
+        </b-button>
+
+        <b-button
+          class="ml-2"
+          :variant="navPosition === 'right' ? 'primary' : 'light'"
+          @click="setNavPosition('right')"
+        >
+          Right
+        </b-button>
+      </section>
+      <!-- TODO: game rating -->
+      <!-- TODO: erotic category -->
+
+      <hr />
+
+      <b-form-checkbox
+        switch
+        @input="toggleTheme"
+        :checked="darkTheme"
+        class="mb-3"
+      >
+        Dark theme
+      </b-form-checkbox>
+
+      <!-- <h3>Game rating type</h3>
+      number / stars / minimalist
+
+      <h3>Allow erotic content</h3> -->
+
+      <!-- TODO: make it smart -->
+      <!-- <h4 class="mt-4 mb-1">Account</h4>
 
       <b-button
-        :variant="navPosition === 'top' ? 'primary' : 'light'"
-        @click="setNavPosition('top')"
+        class="mr-3"
+        variant="light"
+        href="https://accounts.google.com/"
+        target="_blank"
       >
-        Top
-      </b-button>
+        Manage account
+      </b-button> -->
+
+      <hr />
 
       <b-button
-        class="ml-2"
-        :variant="navPosition === 'bottom' ? 'primary' : 'light'"
-        @click="setNavPosition('bottom')"
+        variant="danger"
+        v-b-modal.deleteAccount
       >
-        Bottom
+        Delete account
       </b-button>
+
+      <delete-account-modal />
+
+      <hr />
 
       <b-button
-        class="ml-2"
-        :variant="navPosition === 'left' ? 'primary' : 'light'"
-        @click="setNavPosition('left')"
+        @click="session_signOut"
       >
-        Left
+        Log out
       </b-button>
 
-      <b-button
-        class="ml-2"
-        :variant="navPosition === 'right' ? 'primary' : 'light'"
-        @click="setNavPosition('right')"
-      >
-        Right
-      </b-button>
-    </section>
+      <hr />
 
-    <hr />
+      <b-link v-b-modal.keyboard-shortcuts>
+        <i class="fa-solid fa-keyboard fa-fw" /> Keyboard Shortcuts
+      </b-link>
 
-    <b-form-checkbox
-      switch
-      @input="toggleTheme"
-      :checked="darkTheme"
-      class="mb-3"
-    >
-      Dark theme
-    </b-form-checkbox>
+      <!-- <br /> -->
 
-    <!-- <h4 class="mt-4 mb-1">Account</h4>
-
-    <b-button
-      class="mr-3"
-      variant="light"
-      href="https://accounts.google.com/"
-      target="_blank"
-    >
-      Manage account
-    </b-button> -->
-
-    <hr />
-
-    <b-button
-      variant="danger"
-      v-b-modal.deleteAccount
-    >
-      Delete account
-    </b-button>
-
-    <delete-account-modal />
-
-    <hr />
-
-    <b-button
-      @click="session_signOut"
-    >
-      Log out
-    </b-button>
-
-    <hr />
-
-    <b-link v-b-modal.keyboard-shortcuts>
-      <i class="fa-solid fa-keyboard fa-fw" /> Keyboard Shortcuts
-    </b-link>
-
-    <!-- <br /> -->
-
-    <!-- <b-link :to="{ name: 'dev.tools' }">
-      <i class="fa fa-cog fa-fw" aria-hidden="true" />
-      <span class="ml-2">Dev tools</span>
-    </b-link> -->
+      <!-- <b-link :to="{ name: 'dev.tools' }">
+        <i class="fa fa-cog fa-fw" aria-hidden="true" />
+        <span class="ml-2">Dev tools</span>
+      </b-link> -->
+    </div>
   </b-container>
 </template>
 

@@ -5,7 +5,8 @@
 
       <portal v-if="!loading && tags.length > 0" to="headerActions">
         <b-button
-          :class="{ 'mr-2': !isVerticalNav}"
+          :class="{ 'mr-3': !isVerticalNav}"
+          :variant="darkTheme ? 'success' : 'primary'"
           :to="{ name: 'tag.create' }"
         >
           <i
@@ -43,7 +44,11 @@
           :key="name"
         >
 
-        <b-card class="mb-2">
+        <b-card
+          :bg-variant="darkTheme ? 'dark' : 'light'"
+          :text-variant="darkTheme ? 'light' : 'dark'"
+          class="mb-2"
+        >
           <b-button
             :style="`background-color: ${bgColor}; color: ${textColor}`"
             @click="$router.push({ name: 'tag.edit', params: { id: index } })"

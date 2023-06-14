@@ -1,6 +1,10 @@
 <template lang="html">
-  <header v-if="isVerticalNav">
-    <h2 class="my-3">{{ title }}</h2>
+  <header
+    v-if="isVerticalNav"
+    :class="['d-flex justify-content-between align-items-center bg-info mb-3']"
+  >
+    <h2>{{ title }}</h2>
+    <slot />
   </header>
 
   <portal v-else to="pageTitle">

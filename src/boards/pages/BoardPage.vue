@@ -5,29 +5,29 @@
     <edit-list-modal />
 
     <portal to="pageTitle">
-      <div :class="{ 'd-flex align-items-baseline': publicUserName }">
-        <h3 :class="[{ 'text-white': backgroundUrl && darkTheme }]">
+      <div :class="{ 'd-flex flex-column align-items-baseline': publicUserName }">
+        <h3 :class="[{ 'text-white': backgroundUrl && darkTheme }]" :style="publicUserName ? 'line-height: 1rem' : ''">
           {{ board.name }}
-
-          <small v-if="publicUserName">
-            by
-
-            <b-link
-              :class="['mr-2', { 'text-white': backgroundUrl } ]"
-              :to="{ name: 'public.profile', params: { userName: publicUserName }}"
-            >
-              <b-avatar
-                rounded
-                v-if="avatarImage"
-                :src="avatarImage"
-                :title="`@${publicUserName}`"
-                v-b-tooltip.hover
-              />
-
-              @{{ publicUserName }}
-            </b-link>
-          </small>
         </h3>
+
+        <small v-if="publicUserName">
+          by
+
+          <b-link
+            class="mr-2"
+            :to="{ name: 'public.profile', params: { userName: publicUserName }}"
+          >
+            <b-avatar
+              rounded
+              v-if="avatarImage"
+              :src="avatarImage"
+              :title="`@${publicUserName}`"
+              v-b-tooltip.hover
+            />
+
+            @{{ publicUserName }}
+          </b-link>
+        </small>
       </div>
     </portal>
 
@@ -35,8 +35,8 @@
       <b-button
         v-if="isBoardOwner"
         :to="{ name: 'board.edit', params: { id: board.id } }"
-        :variant="darkTheme ? 'dark' : 'light'"
-        class="mr-2"
+        :variant="darkTheme ? 'success' : 'primary'"
+        class="mr-3"
       >
         <span class="d-none d-sm-block">Edit board</span>
         <i class="fa fa-pen d-sm-none" aria-hidden="true" />
@@ -179,8 +179,12 @@ export default {
     },
 
     async loadPublicProfile() {
+      console.log('load public profile');
+      console.log(this.board.owner);
       this.publicProfile = await this.$store.dispatch('LOAD_PUBLIC_PROFILE_BY_USER_ID', this.board.owner)
         .catch(() => {});
+
+      console.log(this.publicProfile);
 
       if (!this.profile?.avatar) return;
 

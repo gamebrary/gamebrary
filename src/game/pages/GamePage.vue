@@ -112,9 +112,9 @@
                 squared
                 class="mr-2 p-0"
                 :disabled="!user"
-                @click="selectGame"
+                @click="$bus.$emit('SELECT_GAME', gameId)"
               >
-                <i :class="[isLiked ? 'fa-solid': 'fa-regular' , 'fa-heart text-primary']" />
+                <i :class="[isLiked ? 'fa-solid': 'fa-regular' , 'fa-heart text-danger']" />
               </b-button>
 
               <h2>
@@ -453,10 +453,6 @@
         </b-col>
       </b-row>
 
-      <b-row>
-        <game-media />
-      </b-row>
-
       <small
         v-if="legalNotice"
         class="text-muted mt-2"
@@ -495,6 +491,10 @@
         loading...
       </timeline> -->
     </b-container>
+
+    <b-row>
+      <game-media />
+    </b-row>
 
     <div v-if="!loading && !game" class="pt-5">
       <div class="d-flex justify-content-center align-items-center" id="main">
@@ -814,29 +814,6 @@ export default {
   },
 
   methods: {
-    selectGame() {
-      if (this.isLiked) {
-        this.unLike()
-      } else {
-        this.like();
-      }
-    },
-
-    async like() {
-      this.$store.commit('LIKE_GAME', this.gameId);
-      await this.$store.dispatch('SAVE_GAMES');
-
-      console.log('game', this.game);
-      this.$bus.$emit('ALERT', { type: 'success', message: 'Game added to your favorites' });
-      // TODO: use try catch and catch
-    },
-
-    async unLike() {
-      this.$store.commit('UNLIKE_GAME', this.gameId);
-      await this.$store.dispatch('SAVE_GAMES');
-
-      // TODO: use try catch and catch
-    },
     // loadFandomData() {
     //   const subdomain = this.fandomUrl?.split('://')?.[1]?.split('.')?.[0];
     //   const pageName = this.fandomUrl?.split('wiki/')?.[1];

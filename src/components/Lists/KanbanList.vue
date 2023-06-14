@@ -9,51 +9,48 @@
       :bg-variant="darkTheme ? 'dark' : 'light'"
       :text-variant="darkTheme ? 'light' : 'dark'"
     >
-      <b-button-toolbar
-        key-nav
-        class="p-2"
+      <b-dropdown
+        v-if="isBoardOwner"
+        id="dropdown-1"
+        :variant="darkTheme ? 'dark' : 'light'"
+        class="mt-1 mx-2"
+        size="sm"
+        no-caret
+        block
       >
-        <b-badge
-          v-if="showGameCount"
-          class="align-self-center mr-1"
-          :variant="darkTheme ? 'dark' : 'info'"
-        >
-          {{ list.games.length }}
-        </b-badge>
+        <template #button-content>
+          <strong>{{ list.name }}</strong>
+        </template>
 
-        <b-badge
-          v-if="sortingEnabled"
-          class="align-self-center mr-1"
-          :variant="darkTheme ? 'dark' : 'info'"
-          v-b-tooltip.hover
-          :title="`${$t('board.list.sortedBy')}${sortOrder}`"
-        >
-          <i class="fa-solid fa-sort fa-fw" />
-        </b-badge>
+        <b-dropdown-text v-if="sortingEnabled">
+          <small>Auto sort enabled ({{ sortOrder }})</small>
+        </b-dropdown-text>
 
-        <b-button
-          :disabled="!isBoardOwner"
-          class="mr-1 px-2 text-left"
-          size="sm"
-          style="flex: 1"
-          :variant="darkTheme ? 'dark' : 'light'"
+        <b-dropdown-text v-if="list.games.length">
+          <small>{{ list.games.length }} games</small>
+        </b-dropdown-text>
+
+        <b-dropdown-divider />
+
+        <b-dropdown-item-button
           @click="editList"
         >
-          {{ list.name }}
-        </b-button>
+          Edit list
+        </b-dropdown-item-button>
+
+        <b-dropdown-item disabled>Delete list</b-dropdown-item>
 
         <game-selector
           v-if="isBoardOwner && !isEmpty"
           :title="`Add games to ${list.name}`"
-          class="ml-auto"
           size="sm"
-          :variant="darkTheme ? 'dark' : 'light'"
+          trigger-component="b-dropdown-item-button"
           :filter="list.games"
           @select-game="selectGame"
         >
-          <i class="fa-solid fa-plus fa-fw" />
+          Add games
         </game-selector>
-      </b-button-toolbar>
+      </b-dropdown>
 
       <draggable
         class="games px-2 pt-1"
@@ -78,6 +75,7 @@
           :id="gameId"
           :is="gameCardComponent"
           :key="gameId"
+          :list-index="listIndex"
           :list="list"
           :game-id="gameId"
           :class="{ 'mb-2': listView !== 'covers', 'highlighted': highlightedGame == gameId }"
@@ -89,7 +87,8 @@
           class="mb-2"
           block
           trigger-text="Add games"
-          variant="primary"
+          :variant="darkTheme ? 'success' : 'primary'"
+          size="sm"
           :filter="list.games"
           @select-game="selectGame"
         />

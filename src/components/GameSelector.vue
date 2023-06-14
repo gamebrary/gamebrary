@@ -52,7 +52,7 @@
             <b-card
               v-for="game in filteredSearchResults"
               class="cursor-pointer mt-2"
-              :bg-variant="darkTheme ? 'secondary' : 'light'"
+              :bg-variant="darkTheme ? 'black' : 'light'"
               :text-variant="darkTheme ? 'light' : 'dark'"
               body-class="p-1"
               :key="game.id"

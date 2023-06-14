@@ -1,3 +1,4 @@
+<!-- TODO: standardize media query breakpoints -->
 <!-- TODO: standardize vue masonry settings -->
 <!-- TODO: add slideshow view (based on games on board/list) -->
 <!-- TODO: replace toasts with custom alert -->
@@ -8,7 +9,7 @@
 <!-- TODO: add board lock/readonly -->
 <!-- TODO: use ribbon to show game type in search (e.g. mods, ports, etc) -->
 <!-- TODO: find better light and white (for reading) colors -->
-<!-- TODO: finish speedruns -->
+<!-- TODO: Speedruns MVP -->
 <!-- TODO: add parental controls (filter out erotic games) -->
 <!-- TODO: deku deals integration https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Frsshub.app%2Fdekudeals%2Fmost-wanted -->
 <!-- TODO: use https://github.com/twitchtv/igdb-api-node -->
@@ -35,7 +36,7 @@
 <template>
   <main
     id="app"
-    :class="[darkTheme ? 'dark' : 'light', navPosition]"
+    :class="[darkTheme ? 'dark bg-black text-light' : 'light', navPosition]"
     :style="style"
     v-shortkey="KEYBOARD_SHORTCUTS"
     @shortkey="handleShortcutAction"
@@ -43,8 +44,8 @@
     <b-spinner v-if="loading" class="spinner-centered mt-5" />
 
     <template v-else>
-      <page-header />
-      <router-view :class="['viewport', isGamePage ? '' : 'px-3 pt-3']" />
+      <page-header v-if="!isAuthPage" />
+      <router-view :class="['viewport', isGamePage ? '' : 'p-2']" />
       <keyboard-shortcuts-modal />
       <markdown-cheatsheet />
     </template>
@@ -84,7 +85,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['user', 'settings', 'sessionExpired', 'platforms']),
+    ...mapState(['user', 'settings', 'sessionExpired', 'platforms', 'games']),
     ...mapGetters(['darkTheme']),
 
     style() {
@@ -105,6 +106,10 @@ export default {
 
     isGamePage() {
       return this.$route.name === 'game';
+    },
+
+    isAuthPage() {
+      return this.$route.name === 'auth';
     },
 
     navPosition() {
@@ -135,23 +140,20 @@ export default {
   },
 
   methods: {
-    async toggleTheme() {
-      const { settings } = this;
-      const darkTheme = settings?.darkTheme || false;
+    async selectGame(gameId) {
+      try {
+        const isLiked = this.games?.[gameId];
+        const mutation = isLiked ? 'UNLIKE_GAME' : 'LIKE_GAME';
+        const message = isLiked ? 'Game removed from your favorites' : 'Game added to your favorites';
 
-      const payload = {
-        ...settings,
-        darkTheme: !darkTheme,
-      };
+        this.$store.commit(mutation, gameId);
 
-      this.$bus.$emit('ALERT', { type: 'error', message: 'Error saving settings' });
+        await this.$store.dispatch('SAVE_GAMES');
 
-      await this.$store.dispatch('SAVE_SETTINGS', payload)
-        .catch(() => {
-          this.$bus.$emit('ALERT', { type: 'error', message: 'Error saving settings' });
-          this.saving = false;
-        });
-
+        this.$bvToast.toast(message);
+      } catch (e) {
+        //
+      }
     },
 
     clearWallpaperUrl() {
@@ -220,11 +222,6 @@ export default {
     background-attachment: fixed;
     display: flex;
     flex-direction: column;
-
-    &.dark {
-      background-color: var(--black);
-      color: var(--light);
-    }
 
     &.light {
       background-color: #f3f3f3;

@@ -1,8 +1,12 @@
 <template lang="html">
   <div class="d-flex flex-column align-items-start">
-    <h3 :class="['mx-3', { 'text-white': hasBackground || darkTheme }]">
+    <h3
+      v-if="isVerticalNav"
+      :class="['mx-3', { 'text-white': hasBackground || darkTheme }]"
+    >
       {{ board.name }}
     </h3>
+
     <tier-list
       v-for="(list, listIndex) in board.lists"
       :list="list"
@@ -28,7 +32,7 @@ export default {
 
   computed: {
     ...mapState(['board']),
-    ...mapGetters(['isBoardOwner', 'darkTheme']),
+    ...mapGetters(['isBoardOwner', 'darkTheme', 'isVerticalNav']),
 
     allGames() {
       return this.board.lists.map((list) => list.games).flat(2);

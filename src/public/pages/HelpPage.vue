@@ -4,7 +4,8 @@
       <h3>Help</h3>
     </portal>
 
-    <b-container class="field centered">
+    <b-container class="small-container">
+      <h3 class="mt-4">Contact</h3>
       <p>Feel free to contact us with any feedback, comments, suggestions, or just to say hi.</p>
 
       <b-button href="mailto:contact@gamebrary.com">
@@ -12,7 +13,7 @@
         contact@gamebrary.com
       </b-button>
 
-      <p class="mt-2 small">You can also submit
+      <p class="mt-2">You can also submit
         <b-link
           href="https://goo.gl/forms/r0juBCsZaUtJ03qb2"
           variant="link"
@@ -37,6 +38,17 @@
         <template #title>Heads up!</template>
         Contributors get featured in our GitHub repository. If you do <strong>not</strong> want to be featured, please make sure you mention it when creating issues.
       </b-popover>
+
+      <h3 class="mt-4">Legal</h3>
+      <b-link :to="{ name: 'privacy.policy' }">
+        Privacy Policy
+      </b-link>
+
+      <br />
+
+      <b-link :to="{ name: 'terms' }">
+        Terms
+      </b-link>
 
       <h3 class="mt-4">Contributions</h3>
 

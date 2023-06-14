@@ -12,7 +12,7 @@
 
     <b-button
       class="align-self-baseline"
-      :variant="darkTheme ? 'secondary' : 'light'"
+      :variant="darkTheme ? 'dark' : 'light'"
       @click="$emit('close')"
     >
       <i class="fas fa-close" aria-hidden />

@@ -1,8 +1,8 @@
 <template lang="html">
   <b-card
     no-body
-    :bg-variant="cardBackgroundVariant"
-    :text-variant="cardTextVariant"
+    :bg-variant="darkTheme ? 'dark' : 'white'"
+    :text-variant="darkTheme ? 'white' : 'dark'"
     class="cursor-pointer"
   >
     <b-form-row v-if="game && game.name">
@@ -28,7 +28,7 @@
 
       <b-col cols="9">
         <b-card-body body-class="p-2">
-          <h5>
+          <h5 :class="{ 'text-success' : gameCompleted }">
             {{ game.name }}
           </h5>
 
@@ -54,9 +54,9 @@
             </b-button>
           </template>
 
-          <div class="d-flex mb-2" v-if="gamePlatformsText">
+          <!-- <div class="d-flex mb-2" v-if="gamePlatformsText">
             <small>{{ gamePlatformsText }}</small>
-          </div>
+          </div> -->
         </b-card-body>
       </b-col>
     </b-form-row>

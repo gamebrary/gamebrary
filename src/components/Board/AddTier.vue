@@ -112,10 +112,9 @@ export default {
 
         await this.$store.dispatch('SAVE_BOARD');
         this.$bvModal.hide('addTier');
-        this.$bus.$emit('ALERT', { type: 'success', message: 'Tier added' });
+        this.$bvToast.toast('Tier added');
       } catch (e) {
-        this.$bus.$emit('ALERT', { type: 'error', message: 'Error adding tier' });
-        // this.$bvToast.toast('Error adding tier', { variant: 'danger' });
+        this.$bvToast.toast('Error adding tier', { variant: 'danger' });
       }
 
       this.saving = false;

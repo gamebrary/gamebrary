@@ -1,6 +1,7 @@
 import {
   NEWS_SOURCES,
   LINKS_CATEGORIES,
+  IMAGE_SIZE_720P,
   IMAGE_SIZE_THUMB,
   IMAGE_SIZE_MICRO,
   IMAGE_SIZE_COVER_BIG,
@@ -94,7 +95,7 @@ export default {
     }) || [];
 
     const igdbScreenshots = state.game?.screenshots?.map((screenshot) => ({
-      imageUrl: getImageUrl(screenshot, thumb ? IMAGE_SIZE_THUMB : IMAGE_SIZE_SCREENSHOT_MED),
+      imageUrl: getImageUrl(screenshot, IMAGE_SIZE_720P),
       source: 'igdb',
     })) || [];
     const steamScreenshots = state.game?.steam?.screenshots.map(({ path_full }) => ({ imageUrl: path_full, source: 'steam' })) || [];
@@ -118,7 +119,7 @@ export default {
       };
     }) || [];
 
-    const igdbArtworks = state?.game?.artworks?.map((artwork) => ({ imageUrl: getImageUrl(artwork, thumb ? IMAGE_SIZE_THUMB : IMAGE_SIZE_SCREENSHOT_MED), source: 'igdb', })) || [];
+    const igdbArtworks = state?.game?.artworks?.map((artwork) => ({ imageUrl: getImageUrl(artwork, IMAGE_SIZE_720P), source: 'igdb', })) || [];
 
     // TODO: finish speedruns integration
     // console.log('speedRunVideos', speedRunVideos);

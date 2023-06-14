@@ -1,108 +1,28 @@
-<!-- TODO: move to main menu -->
 <template lang="html">
-  <section>
+  <div :class="`bg-${variantSelected}`">
     <b-container>
-      <div class="mb-3 border-bottom pb-3">
-        <div>
-          Alerts
-        </div>
-
-        <b-button
-          class="mr-2"
-          variant="info"
-          @click="$bus.$emit('ALERT', { message: 'Information' })"
-        >
-          Default
-        </b-button>
-
-        <b-button
-          class="mr-2"
-          variant="success"
-          @click="$bus.$emit('ALERT', { type: 'success', message: 'Data saved' })"
-        >
-          Success
-        </b-button>
-
-        <b-button
-          class="mr-2"
-          variant="danger"
-          @click="$bus.$emit('ALERT', { type: 'error', message: 'Error saving data' })"
-        >
-          Error
-        </b-button>
-      </div>
-
       <b-row>
         <b-col cols="12">
-          <div
-            v-for="variant in variants"
-            :key="variant"
-            class="mb-3"
-          >
+          <b-button-group class="mb-3">
             <b-button
-              v-for="size in ['sm', '', 'lg']"
+              v-for="variant in variants"
+              :key="variant"
               :variant="variant"
-              :key="size"
-              :size="size"
-              class="mr-2"
+              @click="variantSelected = variant"
             >
               {{ variant }}
             </b-button>
-
-            <b-button
-              v-for="size in ['sm', '', 'lg']"
-              :variant="`outline-${variant}`"
-              :key="size"
-              :size="size"
-              class="mr-2"
-            >
-              {{ variant }}
-            </b-button>
-
-            <b-button
-              v-for="size in ['sm', '', 'lg']"
-              :variant="`${variant}`"
-              pill
-              :key="size"
-              :size="size"
-              class="mr-2"
-            >
-              {{ variant }}
-            </b-button>
-
-            <b-button
-              v-for="size in ['sm', '', 'lg']"
-              :variant="`${variant}`"
-              squared
-              :key="size"
-              :size="size"
-              class="mr-2"
-            >
-              {{ variant }}
-            </b-button>
-          </div>
+          </b-button-group>
         </b-col>
 
         <b-col cols="3">
-          <h1>Axiom Verge</h1>
-          <h2>Axiom Verge</h2>
-          <h3>Axiom Verge</h3>
-          <h4>Axiom Verge</h4>
-          <h5>Axiom Verge</h5>
-          <h6>Axiom Verge</h6>
-        </b-col>
-
-        <b-col cols="3">
-          <div class="p-1 small rounded mb-2 bg-primary text-white">.bg-primary</div>
-          <div class="p-1 small rounded mb-2 bg-secondary text-white">.bg-secondary</div>
-          <div class="p-1 small rounded mb-2 bg-success text-white">.bg-success</div>
-          <div class="p-1 small rounded mb-2 bg-danger text-white">.bg-danger</div>
-          <div class="p-1 small rounded mb-2 bg-warning text-dark">.bg-warning</div>
-          <div class="p-1 small rounded mb-2 bg-info text-white">.bg-info</div>
-          <div class="p-1 small rounded mb-2 bg-light text-dark">.bg-light</div>
-          <div class="p-1 small rounded mb-2 bg-dark text-white">.bg-dark</div>
-          <div class="p-1 small rounded mb-2 bg-white text-dark">.bg-white</div>
-          <div class="p-1 small rounded mb-2 bg-transparent text-dark">.bg-transparent</div>
+          <h1>Axiom Verge 1</h1>
+          <h2>Axiom Verge 2</h2>
+          <h3>Axiom Verge 3</h3>
+          <h4>Axiom Verge 4</h4>
+          <h5>Axiom Verge 5</h5>
+          <h6>Axiom Verge 6</h6>
+          <p>Paragraph</p>
         </b-col>
 
         <b-col cols="3">
@@ -139,6 +59,7 @@
 
       <b-button
         @click="$store.commit('SET_SESSION_EXPIRED', true)"
+        class="mr-3"
         variant="warning"
       >
         Expire session
@@ -151,13 +72,14 @@
         Clear game cache
       </b-button>
     </b-container>
-  </section>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
     return {
+      variantSelected: 'white',
       variants: [
         'primary',
         'secondary',
@@ -168,7 +90,7 @@ export default {
         'light',
         'dark',
         'black',
-        'link',
+        'white',
       ],
     };
   },

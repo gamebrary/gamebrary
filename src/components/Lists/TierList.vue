@@ -1,4 +1,5 @@
 <!-- TODO: use games to show pool of games (not added to tier) -->
+<!-- TODO: make entire row trigger dropdown -->
 <template lang="html">
   <div class="d-flex w-100 align-items-center p-1 tier-list">
     <b-dropdown
@@ -19,8 +20,6 @@
           size="100"
         />
       </template>
-
-      <strong class="ml-4 mb-1">{{ list.name }}</strong>
 
       <game-selector
         title="Add games"

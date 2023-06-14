@@ -1,18 +1,17 @@
 <template lang="html">
   <b-form
-    class="w-100 d-flex mb-3"
+    class="w-100 d-flex mb-3 px-2"
     @submit.prevent="search"
   >
     <b-form-input
       v-model="searchText"
       type="search"
-      size="lg"
       debounce="500"
       placeholder="Search"
       class="mr-3"
     />
 
-    <b-button type="submit" class="px-4">
+    <b-button type="submit">
       <b-spinner v-if="loading" small />
 
       <i

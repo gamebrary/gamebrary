@@ -1,8 +1,8 @@
 <template lang="html">
   <b-card
     no-body
-    :bg-variant="cardBackgroundVariant"
-    :text-variant="cardTextVariant"
+    :bg-variant="darkTheme ? 'black' : 'white'"
+    :text-variant="darkTheme ? 'white' : 'dark'"
     class="cursor-pointer"
   >
     <b-form-row
@@ -31,7 +31,7 @@
 
       <b-col cols="8">
         <b-card-body body-class="p-2">
-          <h4 class="mb-1">
+          <h4 :class="['mb-1', { 'text-success' : gameCompleted }]">
             {{ game.name }}
           </h4>
 
@@ -58,9 +58,9 @@
             />
           </template>
 
-          <div class="d-flex mb-2" v-if="gamePlatformsText">
+          <!-- <div class="d-flex mb-2" v-if="gamePlatformsText">
             <small>{{ gamePlatformsText }}</small>
-          </div>
+          </div> -->
         </b-card-body>
       </b-col>
     </b-form-row>

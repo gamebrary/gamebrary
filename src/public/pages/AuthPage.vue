@@ -1,10 +1,11 @@
 <template lang="html">
   <section>
-    <b-container class="field centered">
+    <b-container class="field centered text-center">
       <b-overlay :show="loading" rounded="sm">
-        <portal to="pageTitle">
+        <!-- <portal to="pageTitle">
           <h3>Login</h3>
-        </portal>
+        </portal> -->
+        <h3 class="mt-5">Welcome to Gamebrary</h3>
 
         <b-alert
           class="mx-auto text-center"

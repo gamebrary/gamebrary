@@ -36,9 +36,9 @@
             {{ game.name }}
           </b-card-title>
 
-          <div class="d-flex mb-2" v-if="gamePlatformsText">
+          <!-- <div class="d-flex mb-2" v-if="gamePlatformsText">
             <small>{{ gamePlatformsText }}</small>
-          </div>
+          </div> -->
 
           <b-badge variant="warning" v-if="gameNotes" class="mr-1">
             <i class="far fa-sticky-note fa-fw" />

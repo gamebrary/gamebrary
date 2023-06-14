@@ -1,17 +1,18 @@
 <template>
   <b-dropdown
-    :variant="darkTheme ? 'dark' : 'light'"
+    :variant="darkTheme ? 'black' : 'light'"
     :dropup="navPosition === 'bottom'"
     :dropright="navPosition === 'left'"
     :dropleft="navPosition === 'right'"
     no-caret
+    :menu-class="darkTheme ? 'bg-dark' : null"
   >
     <!-- <b-dropdown-text style="width: 240px;">
       <small>Welcome {{ user.displayName }}</small>
     </b-dropdown-text> -->
 
     <template #button-content>
-      <i class="fa-sharp fa-solid fa-bars fa-fw" />
+      <i class="fa-sharp fa-solid fa-bars" />
     </template>
 
     <b-dropdown-item :to="{ name: 'home' }">
@@ -19,7 +20,7 @@
       <span class="ml-2">Boards <small v-if="user" class="text-muted">({{ boardCount }})</small></span>
     </b-dropdown-item>
 
-    <b-dropdown-group v-if="user && routeName === 'home'">
+    <!-- <b-dropdown-group v-if="user && routeName === 'home'">
       <b-dropdown-item
         v-for="board in recentlyUpdatedBoards"
         :key="board.id"
@@ -27,7 +28,7 @@
       >
         <small>{{ board.name }}</small>
       </b-dropdown-item>
-    </b-dropdown-group>
+    </b-dropdown-group> -->
 
     <b-dropdown-item :to="{ name: 'games' }">
       <i class="fa-regular fa-heart fa-fw" />
@@ -99,16 +100,20 @@
       <i class="mr-2 fab fa-steam" aria-hidden />
       <small>Steam</small>
     </b-list-group-item> -->
-    <b-dropdown-divider />
 
-    <b-dropdown-text class="small">
-      ©{{ year }}
+    <b-dropdown-text>
       <b-link
         href="https://github.com/romancm/gamebrary"
         target="_blank"
         :class="darkTheme ? 'text-primary' : 'text-dark'"
       >
-        Gamebrary
+        <b-link
+          href="https://github.com/romancm/gamebrary/releases"
+          target="_blank"
+          :class="darkTheme ? 'text-light' : 'text-dark'"
+        >
+          {{ latestRelease }}
+        </b-link>
       </b-link>
     </b-dropdown-text>
   </b-dropdown>
@@ -128,7 +133,7 @@ export default {
 
   computed: {
     ...mapState(['board', 'boards', 'settings', 'user', 'games', 'notes', 'tags', 'wallpapers']),
-    ...mapGetters(['darkTheme', 'navPosition', 'sortedBoards']),
+    ...mapGetters(['darkTheme', 'navPosition', 'sortedBoards', 'latestRelease']),
 
     year() {
       return new Date().getFullYear();
