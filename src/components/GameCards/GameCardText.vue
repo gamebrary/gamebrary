@@ -50,13 +50,6 @@
               <small>{{ name }}</small>
             </b-button>
           </b-popover>
-
-        </div>
-
-        <div class="text-white">
-          {{ gameId }}
-
-          <pre>{{ listIndex }}</pre>
         </div>
         <!-- <div class="d-flex mb-2" v-if="gamePlatformsText">
           <small>{{ gamePlatformsText }}</small>

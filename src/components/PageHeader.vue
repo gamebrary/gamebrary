@@ -6,7 +6,7 @@
 
 <template lang="html">
   <div class="page-header position-relative">
-    <header :class="[darkTheme ? 'bg-dark' : 'bg-white', isVerticalNav ? 'p-2' : 'px-3 py-2', `nav-${navPosition}`]">
+    <header :class="[darkTheme ? 'bg-dark' : 'bg-white', isVerticalNav ? 'py-3 px-2' : 'px-3 py-2', `nav-${navPosition}`]">
       <!-- TODO: allow to collapse menu -->
       <div :class="['alert', alertType, { visible }]">
         <div class="d-flex align-items-center">

@@ -5,8 +5,10 @@
     :dropright="navPosition === 'left'"
     :dropleft="navPosition === 'right'"
     no-caret
-    :menu-class="darkTheme ? 'bg-dark' : null"
+    :class="isVerticalNav ? 'mt-1' : ''"
   >
+    <!-- TODO: style dark dropdown -->
+    <!-- :menu-class="darkTheme ? 'bg-dark' : null" -->
     <!-- <b-dropdown-text style="width: 240px;">
       <small>Welcome {{ user.displayName }}</small>
     </b-dropdown-text> -->
@@ -101,21 +103,14 @@
       <small>Steam</small>
     </b-list-group-item> -->
 
-    <b-dropdown-text>
+    <!-- <b-dropdown-text>
       <b-link
-        href="https://github.com/romancm/gamebrary"
+        href="https://github.com/romancm/gamebrary/"
         target="_blank"
-        :class="darkTheme ? 'text-primary' : 'text-dark'"
       >
-        <b-link
-          href="https://github.com/romancm/gamebrary/releases"
-          target="_blank"
-          :class="darkTheme ? 'text-light' : 'text-dark'"
-        >
-          {{ latestRelease }}
-        </b-link>
+        GitHub
       </b-link>
-    </b-dropdown-text>
+    </b-dropdown-text> -->
   </b-dropdown>
 </template>
 
@@ -133,7 +128,7 @@ export default {
 
   computed: {
     ...mapState(['board', 'boards', 'settings', 'user', 'games', 'notes', 'tags', 'wallpapers']),
-    ...mapGetters(['darkTheme', 'navPosition', 'sortedBoards', 'latestRelease']),
+    ...mapGetters(['darkTheme', 'navPosition', 'sortedBoards', 'latestRelease', 'isVerticalNav']),
 
     year() {
       return new Date().getFullYear();

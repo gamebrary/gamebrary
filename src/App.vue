@@ -45,7 +45,7 @@
 
     <template v-else>
       <page-header v-if="!isAuthPage" />
-      <router-view :class="['viewport', isGamePage ? '' : 'p-2']" />
+      <router-view :class="['viewport', routerViewClass]" />
       <keyboard-shortcuts-modal />
       <markdown-cheatsheet />
     </template>
@@ -86,7 +86,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'settings', 'sessionExpired', 'platforms', 'games']),
-    ...mapGetters(['darkTheme']),
+    ...mapGetters(['darkTheme', 'isVerticalNav']),
 
     style() {
       const backgroundImage = ['game', 'board'].includes(this.$route?.name) && this.backgroundImageUrl
@@ -102,6 +102,12 @@ export default {
 
     isPublicRoute() {
       return this.$route.meta?.public;
+    },
+
+    routerViewClass() {
+      if (this.isGamePage) return '';
+
+      return this.isVerticalNav ? 'p-3' : 'p-3'
     },
 
     isGamePage() {
@@ -173,7 +179,7 @@ export default {
     },
 
     init() {
-      if (!this.platforms.length) this.loadPlatforms();
+      if (!this.platforms?.length) this.loadPlatforms();
       if (this.isPublicRoute && !this.user) return this.loading = false;
 
       if (this.user) {

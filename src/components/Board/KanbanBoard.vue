@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="kanban-board">
+  <div class="kanban-board p-1">
     <kanban-list
       v-for="(list, listIndex) in board.lists"
       :ref="`list-${listIndex}`"
