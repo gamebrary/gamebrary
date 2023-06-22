@@ -1,19 +1,24 @@
 <template lang="html">
   <section>
     <b-container>
-      <page-title title="Tags" />
-
-      <portal v-if="!loading && tags.length > 0" to="headerActions">
+      <page-title title="Tags">
         <b-button
-          :class="{ 'mr-3': !isVerticalNav}"
           :variant="darkTheme ? 'success' : 'primary'"
           :to="{ name: 'tag.create' }"
         >
-          <i
-            v-if="isVerticalNav"
-            class="fa-solid fa-plus fa-fw"
-          />
-          <span v-else>Add tag</span>
+          <i class="d-sm-none fa-solid fa-plus" />
+          <span class="d-none d-sm-inline">Add tag</span>
+        </b-button>
+      </page-title>
+
+      <portal v-if="!isVerticalNav && !loading && tags.length > 0" to="headerActions">
+        <b-button
+          :variant="darkTheme ? 'success' : 'primary'"
+          :to="{ name: 'tag.create' }"
+          class="mr-3"
+        >
+          <i class="d-sm-none fa-solid fa-plus" />
+          <span class="d-none d-sm-inline">Add tag</span>
         </b-button>
       </portal>
 
@@ -29,7 +34,7 @@
           variant="primary"
           :to="{ name: 'tag.create' }"
         >
-          Create a tag
+          Add tag
         </b-button>
        </empty-state>
 

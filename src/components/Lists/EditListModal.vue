@@ -236,12 +236,11 @@ export default {
           this.saving = false;
 
           this.$bvToast.toast('There was an error deleting list', { variant: 'danger' });
-          this.$bus.$emit('ALERT', { type: 'error', message: 'Error deleting list' });
         });
 
       this.saving = false;
       this.$bvModal.hide('edit-list-modal');
-      this.$bus.$emit('ALERT', { type: 'success', message: 'List deleted' });
+      this.$bvToast.toast('List deleted');
     },
 
     async saveList() {

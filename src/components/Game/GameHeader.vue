@@ -32,11 +32,11 @@
 
       <b-dropdown
         :class="['d-md-none', { 'mr-2': !isVerticalNav }]"
-        :variant="darkTheme ? 'secondary' : 'light'"
+        :variant="darkTheme ? 'black' : 'light'"
         no-caret
       >
         <template #button-content>
-          <i class="fa-solid fa-ellipsis fa-fw" />
+          <i class="fa-solid fa-ellipsis" />
         </template>
         <b-dropdown-item-button @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })">
           Add note

@@ -1,41 +1,40 @@
 <template lang="html">
   <div>
-    <page-title title="Games">
-      <b-button
-        v-if="isVerticalNav"
-        @click="toggleView"
-        class="mr-3"
-        variant="light"
-      >
-        <i v-if="view === 'grid'" class="fa-solid fa-list" />
-        <i v-else class="fa-solid fa-table-cells" />
-      </b-button>
-    </page-title>
-
     <b-container class="px-0">
-      <!-- TODO: add sorting -->
-      <!-- TODO: add more views -->
-      <!-- TODO: add filtering -->
-      <!-- TODO: add filtering -->
-
-      <portal to="headerActions">
+      <portal
+        v-if="!isVerticalNav"
+        to="headerActions"
+      >
         <b-button
-          v-if="!isVerticalNav"
           @click="toggleView"
           class="mr-3"
-          variant="dark"
+          :variant="darkTheme ? 'black' : 'light'"
         >
           <i :class="`fa-solid ${view === 'grid' ? 'fa-list' : 'fa-table-cells'}`" />
         </b-button>
-
-        <!-- <b-button class="mr-3">
-          Sort
-        </b-button>
-
-        <b-button class="mr-3">
-          Filter
-        </b-button> -->
       </portal>
+
+      <page-title title="Games">
+        <b-button
+          v-if="isVerticalNav"
+          @click="toggleView"
+          :variant="darkTheme ? 'dark' : 'light'"
+        >
+          <i v-if="view === 'grid'" class="fa-solid fa-list" />
+          <i v-else class="fa-solid fa-table-cells" />
+        </b-button>
+      </page-title>
+      <!-- TODO: add sorting -->
+      <!-- TODO: add filtering -->
+      <!-- TODO: add filtering -->
+
+      <!-- <b-button class="mr-3">
+        Sort
+      </b-button>
+
+      <b-button class="mr-3">
+        Filter
+      </b-button> -->
 
       <empty-state
         v-if="!user"

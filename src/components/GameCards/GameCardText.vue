@@ -1,8 +1,8 @@
 <template lang="html">
   <b-card
     no-body
-    :bg-variant="darkTheme ? 'dark' : 'white'"
-    :text-variant="darkTheme ? 'white' : 'dark'"
+    :bg-variant="darkTheme ? 'black' : 'white'"
+    :text-variant="darkTheme ? 'white' : 'black'"
     class="cursor-pointer"
   >
     <b-row no-gutters v-if="game && game.name">
@@ -28,6 +28,20 @@
           >
             Note
           </b-link>
+
+          <template v-if="tagsApplied.length === 1">
+            <b-button
+              v-for="({ bgColor, textColor, name }) in tagsApplied"
+              :key="name"
+              rounded
+              class="mr-1 mb-1 py-0 px-1"
+              size="sm"
+              variant="transparent"
+              :style="`background-color: ${bgColor}; color: ${textColor}`"
+            >
+              <small>{{ name }}</small>
+            </b-button>
+          </template>
 
           <b-link
             v-if="tagsApplied.length"

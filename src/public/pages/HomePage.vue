@@ -4,7 +4,7 @@
       <page-title :title="user ? 'Boards' : 'Gamebrary'">
         <b-button
           v-if="user && isVerticalNav"
-          :variant="darkTheme ? 'secondary' : 'light'"
+          :variant="darkTheme ? 'success' : 'primary'"
           class="mr-2"
           :to="{ name: 'create.board' }"
         >
@@ -14,29 +14,17 @@
       </page-title>
 
       <portal to="headerActions">
-        <b-button-group
+        <b-button
           v-if="user"
           :class="isVerticalNav ? 'mt-2' : 'mr-3'"
-          :vertical="isVerticalNav"
+          @click="showPublic = !showPublic"
+          v-b-tooltip.hover
+          variant="black"
+          :title="showPublic ? 'My boards' : 'All boards'"
         >
-          <b-button
-            @click="showPublic = false"
-            :variant="showPublic ? offVariant : 'primary'"
-            v-b-tooltip.hover
-            title="My boards"
-          >
-            <i class="fa-solid fa-user fa-fw" />
-          </b-button>
-
-          <b-button
-            @click="showPublic = true"
-            :variant="showPublic ? 'primary' : offVariant"
-            v-b-tooltip.hover
-            title="All boards"
-          >
-            <i class="fa-solid fa-users fa-fw" />
-          </b-button>
-        </b-button-group>
+          <i v-if="showPublic" class="fa-solid fa-user" />
+          <i v-else class="fa-solid fa-users" />
+        </b-button>
       </portal>
 
       <div

@@ -144,9 +144,9 @@ export default {
         await this.$store.dispatch('SAVE_GAME_BOARD', board);
         await this.$store.dispatch('LOAD_BOARD', board.id);
         await this.$store.dispatch('LOAD_IGDB_GAMES', [gameId]);
-        this.$bus.$emit('ALERT', { type: 'success', message: 'Game added' });
+        this.$bvToast.toast('Game added');
       } catch (e) {
-        // this.$bvToast.toast(`There was an error adding "${this.game.name}"`, { title: list.name, variant: 'danger' });
+        this.$bvToast.toast('There was an error adding game', { variant: 'danger' });
       }
     },
 

@@ -16,7 +16,7 @@
 
       <i
         v-else
-        class="fas fa-search fa-fw"
+        class="fas fa-search"
         aria-hidden
       />
     </b-button>

@@ -1,28 +1,31 @@
 <template lang="html">
   <b-container>
-    <page-title :title="$t('notes.title')" />
+    <page-title :title="$t('notes.title')">
+      <game-selector
+        v-if="!isEmpty"
+        title="Select game to add a note"
+        :variant="darkTheme ? 'success' : 'primary'"
+        :class="{ 'mr-3': !isVerticalNav }"
+        @select-game="createNote"
+      >
+      <i class="d-sm-none fa-solid fa-plus" />
+      <span class="d-none d-sm-inline">Create note</span>
+      </game-selector>
+    </page-title>
 
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <template v-else>
       <portal to="headerActions">
         <game-selector
-          v-if="!isEmpty"
+          v-if="!isEmpty && !isVerticalNav"
           title="Select game to add a note"
-          size="md"
           :variant="darkTheme ? 'success' : 'primary'"
           :class="{ 'mr-3': !isVerticalNav }"
           @select-game="createNote"
         >
-          <i
-            v-if="isVerticalNav"
-            class="fa-solid fa-plus fa-fw"
-          />
-
-          <template v-else>
-            <i class="d-sm-none fa-solid fa-plus" />
-            <span class="d-none d-sm-inline">Create note</span>
-          </template>
+        <i class="d-sm-none fa-solid fa-plus" />
+        <span class="d-none d-sm-inline">Create note</span>
         </game-selector>
       </portal>
 

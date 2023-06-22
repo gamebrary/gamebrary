@@ -199,6 +199,7 @@ $boardHeight: 200px;
   background-size: cover;
   height: $boardHeight;
   min-width: 300px;
+  text-align: left;
 }
 
 .board {

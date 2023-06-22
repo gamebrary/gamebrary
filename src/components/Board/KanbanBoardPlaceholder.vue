@@ -1,8 +1,8 @@
 <template lang="html">
-  <div class="d-flex mx-2">
+  <div class="d-flex mx-1">
     <div
       v-for="(list, index) in board.lists"
-      :class="`ml-2 list ${getListView(list)}`"
+      :class="`mr-3 list ${getListView(list)}`"
       :key="index"
     >
       <b-card
@@ -88,8 +88,8 @@
             <b-card
               v-else
               no-body
+              :bg-variant="darkTheme ? 'dark' : 'light'"
               img-left
-
             >
               <b-card-body class="p-2">
                 <b-skeleton class="m-0" />

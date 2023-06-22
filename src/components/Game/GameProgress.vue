@@ -82,10 +82,9 @@ export default {
 
         await this.$store.dispatch('SAVE_PROGRESSES_NO_MERGE');
         this.progress = 0;
-        this.$bus.$emit('ALERT', { message: 'Progress deleted' });
+        this.$bvToast.toast('Progress deleted');
       } catch (e) {
-        this.$bus.$emit('ALERT', { type: 'error', message: 'Error deleting progress' });
-        this.$bvToast.toast('There was an error deleting your progress', { title: `${name} progress`, variant: 'error' });
+        this.$bvToast.toast('There was an error deleting your progress', { variant: 'error' });
       }
 
       this.editing = false;
@@ -103,10 +102,10 @@ export default {
 
         await this.$store.dispatch('SAVE_PROGRESSES');
 
-        this.$bus.$emit('ALERT', { type: 'success', message: 'Progress saved' });
+        this.$bvToast.toast('Progress saved');
       } catch (e) {
         this.saving = false;
-        this.$bus.$emit('ALERT', { type: 'error', message: 'Error saving progress' });
+        this.$bvToast.toast('There was an error saving your progress', { variant: 'error' });
       }
 
       this.editing = false;

@@ -147,7 +147,8 @@ export default {
 
       // TODO: commit first then save settings, to allow unauthed use
       await this.$store.dispatch('SAVE_SETTINGS', payload)
-        .catch(() => {
+        .catch((e) => {
+          console.log(e);
           this.$bvToast.toast('There was an error saving your settings', { variant: 'danger' });
           this.saving = false;
         });

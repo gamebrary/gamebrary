@@ -1,6 +1,6 @@
 <!-- TODO: fix set as wallpaper logic -->
 <template lang="html">
-  <div>
+  <section>
     <masonry
       v-if="activeIndex === null"
       gutter="8px"
@@ -149,7 +149,7 @@
         </modal-header>
       </template>
     </b-modal> -->
-  </div>
+  </section>
 </template>
 
 <script>

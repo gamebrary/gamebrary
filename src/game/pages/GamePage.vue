@@ -1,5 +1,15 @@
 <template lang="html">
+  <div v-if="!loading && !game" class="pt-5">
+    <div class="d-flex justify-content-center align-items-center">
+      <h1 class="mr-3 pr-3 align-top border-right border-danger inline-block align-content-center text-danger">404</h1>
+      <div class="inline-block align-middle">
+        <h2 class="font-weight-normal lead text-danger">Game was not found.</h2>
+      </div>
+    </div>
+  </div>
+
   <section
+    v-else
     :class="[{ 'text-light': darkTheme && hasWallpaper, 'pt-3': !hasArtworks }, 'game-page pb-5']"
     :style="background && this.darkTheme ? `background-image: url(${background})` : ''"
   >
@@ -217,17 +227,6 @@
           class="pt-3"
         >
           <b-row>
-            <b-alert
-              v-if="note"
-              v-html="note"
-              show
-              class="cursor-pointer mt-3"
-              variant="warning"
-              @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
-            />
-
-            <game-progress />
-
             <b-col cols="6" sm="4" md="3" lg="12" v-if="gameGenres">
               <h4 class="mt-3">Genres: </h4>
 
@@ -363,58 +362,6 @@
               </div>
             </b-col> -->
 
-            <b-col cols="6" sm="4" md="3" lg="12" v-if="gameRemasters">
-              <h4>Remasters</h4>
-
-              <router-link
-                v-for="remaster in gameRemasters"
-                :key="remaster.id"
-                :to="{ name: 'game', params: { id: remaster.id, slug: remaster.slug } }"
-              >
-                <b-img
-                  :src="$options.getImageUrl(remaster)"
-                  :alt="remaster.name"
-                  rounded
-                  width="120"
-                  fluid
-                />
-              </router-link>
-            </b-col>
-
-            <b-col cols="6" sm="4" md="3" lg="12" v-if="gameRemakes" class="text-left mt-3">
-              <h4>Remakes</h4>
-
-              <router-link
-                v-for="remake in gameRemakes"
-                :key="remake.id"
-                :to="{ name: 'game', params: { id: remake.id, slug: remake.slug } }"
-              >
-                <b-img
-                  :src="$options.getImageUrl(remake)"
-                  :alt="remake.name"
-                  rounded
-                  width="120"
-                  fluid
-                />
-              </router-link>
-            </b-col>
-
-            <b-col cols="6" sm="4" md="3" lg="12" v-if="parentGame" class="mt-3 text-left">
-              <h4>Original game</h4>
-
-              <router-link
-                :to="{ name: 'game', params: { id: parentGame.id, slug: parentGame.slug } }"
-              >
-                <b-img
-                  :src="$options.getImageUrl(parentGame)"
-                  :alt="parentGame.name"
-                  rounded
-                  width="120"
-                  fluid
-                />
-              </router-link>
-            </b-col>
-
             <b-col
               v-if="gameLinks.length"
               cols="6"
@@ -459,30 +406,6 @@
         v-html="legalNotice"
       />
 
-      <div v-if="gamePorts" class="text-left mt-3">
-        <h3>Ports</h3>
-
-        <div class="game-grid">
-          <router-link
-            v-for="port in gamePorts"
-            :key="port.id"
-            :to="{ name: 'game', params: { id: port.id, slug: port.slug } }"
-          >
-            <b-img
-              :src="$options.getImageUrl(port)"
-              :alt="port.name"
-              rounded
-              fluid
-            />
-          </router-link>
-        </div>
-      </div>
-
-      <game-in-boards />
-      <game-bundles />
-      <game-collection />
-      <similar-games />
-
       <!-- <timeline
         v-if="twitterHandle"
         :id="twitterHandle"
@@ -492,18 +415,110 @@
       </timeline> -->
     </b-container>
 
-    <b-row>
-      <game-media />
-    </b-row>
+    <game-page-tile full>
+      <b-row>
+        <b-col>
+          <b-alert
+            v-if="note"
+            v-html="note"
+            show
+            class="cursor-pointer mt-3"
+            variant="warning"
+            @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
+          />
+        </b-col>
 
-    <div v-if="!loading && !game" class="pt-5">
-      <div class="d-flex justify-content-center align-items-center" id="main">
-        <h1 class="mr-3 pr-3 align-top border-right inline-block align-content-center">404</h1>
-        <div class="inline-block align-middle">
-          <h2 class="font-weight-normal lead" id="desc">Game was not found.</h2>
+        <b-col>
+          <game-progress />
+        </b-col>
+      </b-row>
+    </game-page-tile>
+
+    <div class="d-flex flex-column flex-md-row">
+      <game-page-tile title="Game screenshots">
+        <game-media v-if="!loading" />
+      </game-page-tile>
+
+      <game-page-tile title="Similar games">
+        <similar-games />
+        <game-bundles />
+        <game-collection />
+        <span v-if="parentGame">
+          <h4>Original game</h4>
+
+          <router-link
+            :to="{ name: 'game', params: { id: parentGame.id, slug: parentGame.slug } }"
+          >
+            <b-img
+              :src="$options.getImageUrl(parentGame)"
+              :alt="parentGame.name"
+              rounded
+              width="120"
+              fluid
+            />
+          </router-link>
+        </span>
+
+        <div v-if="gameRemasters">
+          <h4>Remasters</h4>
+
+          <router-link
+            v-for="remaster in gameRemasters"
+            :key="remaster.id"
+            :to="{ name: 'game', params: { id: remaster.id, slug: remaster.slug } }"
+          >
+            <b-img
+              :src="$options.getImageUrl(remaster)"
+              :alt="remaster.name"
+              rounded
+              width="120"
+              fluid
+            />
+          </router-link>
         </div>
-      </div>
+
+        <span v-if="gameRemakes">
+          <h4>Remakes</h4>
+
+          <router-link
+            v-for="remake in gameRemakes"
+            :key="remake.id"
+            :to="{ name: 'game', params: { id: remake.id, slug: remake.slug } }"
+          >
+            <b-img
+              :src="$options.getImageUrl(remake)"
+              :alt="remake.name"
+              rounded
+              width="120"
+              fluid
+            />
+          </router-link>
+        </span>
+
+        <div v-if="gamePorts" class="text-left mt-3">
+          <h3>Ports</h3>
+
+          <div class="game-grid">
+            <router-link
+              v-for="port in gamePorts"
+              :key="port.id"
+              :to="{ name: 'game', params: { id: port.id, slug: port.slug } }"
+            >
+              <b-img
+                :src="$options.getImageUrl(port)"
+                :alt="port.name"
+                rounded
+                fluid
+              />
+            </router-link>
+          </div>
+        </div>
+      </game-page-tile>
     </div>
+
+    <game-page-tile title="Found in these boards" full>
+      <game-in-boards v-if="!loading" />
+    </game-page-tile>
   </section>
 </template>
 
@@ -514,6 +529,7 @@ import { WEBSITE_CATEGORIES, GAME_CATEGORIES, PLATFORMS } from '@/constants';
 // import AmazonLinks from '@/components/Game/AmazonLinks';
 // import GameDetails from '@/components/Game/GameDetails';
 import GameMedia from '@/components/Game/GameMedia';
+import GamePageTile from '@/components/Game/GamePageTile';
 import GameInBoards from '@/components/Game/GameInBoards';
 import GameProgress from '@/components/Game/GameProgress';
 import GameTagsModal from '@/components/Game/GameTagsModal';
@@ -539,6 +555,7 @@ export default {
     // AmazonLinks,
     // GameDetails,
     GameMedia,
+    GamePageTile,
     GameInBoards,
     GameRatings,
     // GameSpeedruns,
@@ -936,8 +953,15 @@ export default {
 }
 
 .has-artworks {
-  @media(min-width: 768px) {
-    margin-top: -22vh;
+  margin-top: -22vh;
+
+  @media(max-width: 1024px) {
+    margin-top: -10vh;
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  @media(max-width: 767px) {
+    margin: 0;
   }
 }
 </style>
@@ -1094,5 +1118,11 @@ export default {
 
     99% {top: -60px; visibility: hidden;}
     100% {top: 30px; visibility: hidden;}
+  }
+
+  .half-tile {
+    width: 50vw;
+    height: 50vh;
+    overflow: hidden !important;
   }
 </style>
