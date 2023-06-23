@@ -31,8 +31,8 @@
       <span class="ml-2">New board</span>
     </b-dropdown-item>
 
-    <div class="bg-black py-1 rounded" v-if="showBoardActions">
-      <p class="text-success text-uppercase mb-0 ml-2 mt-1 ">{{ board.name }}</p>
+    <div :class="['py-1 rounded', darkTheme ? 'bg-black' : 'bg-light']" v-if="showBoardActions">
+      <p :class="['strong text-uppercase mb-0 ml-2 mt-1', darkTheme ? 'text-success' : 'text-dark']">{{ board.name }}</p>
 
       <b-dropdown-item
         v-if="isBoardOwner"
