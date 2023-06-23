@@ -35,7 +35,7 @@
 <template>
   <main
     id="app"
-    :class="[darkTheme ? 'dark bg-black text-light' : 'light', navPosition]"
+    :class="[!backgroundColor && darkTheme ? 'dark bg-black text-light' : 'light', navPosition]"
     :style="style"
     v-shortkey="KEYBOARD_SHORTCUTS"
     @shortkey="handleShortcutAction"

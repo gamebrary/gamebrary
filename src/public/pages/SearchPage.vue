@@ -1,126 +1,63 @@
 <template lang="html">
   <section>
-    <b-container>
-      <portal to="pageTitle">
-        <h3>Search</h3>
-      </portal>
-      <!-- TODO: show result count, align search box to right -->
+    <portal to="pageTitle">
+      <h3>Search</h3>
+    </portal>
 
-      <b-form-row>
-        <search-box :loading="loading" />
+    <search-box :loading="loading" />
 
-        <b-col v-if="activeBoard">
-          <div class="d-flex align-items-center">
-            <span class="d-none d-sm-block">
-              Add games to
-              <strong v-if="activeBoard.type === 'list'">
-                {{ activeBoard.name }}
-              </strong>
-            </span>
+    <header class="mb-3 d-flex justify-content-between">
+      <!-- <b-button v-b-modal.filters>
+        <i class="fa-solid fa-sliders" />
+        Filters
+      </b-button>
 
-            <template v-if="activeBoard.type !== 'list'">
-              <b-dropdown
-                split
-                variant="light"
-                size="sm"
-                class="ml-2"
-                :split-to="{ name: 'board', params: { id: boardId } }"
-                :text="activeBoard.name"
-              >
-                <b-dropdown-item
-                  v-for="board in boards"
-                  :key="board.id"
-                  :disabled="!board.lists.length"
-                  :to="{ name: 'search', query: { boardId: board.id, listIndex: 0, q: query } }"
-                >
-                  {{ board.name }}
-                </b-dropdown-item>
-              </b-dropdown>
+      <search-filters /> -->
 
-              <b-dropdown
-                v-if="activeBoardList"
-                split
-                variant="light"
-                size="sm"
-                class="ml-2"
-                :split-to="{ name: 'board', params: { id: boardId } }"
-                :text="activeBoardList.name"
-              >
-                <b-dropdown-item
-                  v-for="(list, listIndex) in activeBoard.lists"
-                  :key="list.id"
-                  :to="{ name: 'search', query: { boardId: activeBoard.id, listIndex, q: query } }"
-                >
-                  {{ list.name }}
-                </b-dropdown-item>
-              </b-dropdown>
-            </template>
-
-            <b-button :to="{ name: 'search' }" class="ml-auto" variant="light">
-              <i class="fas fa-times fa-fw" aria-hidden />
-
-              <span class="d-none d-sm-inline">
-                Clear
-              </span>
-            </b-button>
-          </div>
-        </b-col>
-
-        <b-col>
-          <header class="mb-3 d-flex justify-content-between">
-            <b-button v-b-modal.filters>
-              <i class="fa-solid fa-sliders" />
-              Filters
-            </b-button>
-
-            <search-filters />
-
-            <div>
-              <b-button
-                v-if="showPreviousButton"
-                @click="prev"
-              >
-                <i class="fa-solid fa-caret-left" aria-hidden="true" />
-                Prev
-              </b-button>
-
-              <b-button
-                class="ml-3"
-                v-if="searchResults.length === pageSize"
-                @click="next"
-              >
-                Next
-                <i class="fa-solid fa-caret-right" aria-hidden="true" />
-              </b-button>
-            </div>
-          </header>
-
-          <masonry
-            gutter="8px"
-            :cols="{ default: 7, 1200: 5, 768: 3, 480: 2 }"
-          >
-            <game-card-search
-              v-for="game in searchResults"
-              :game="game"
-              :key="game.id"
-            />
-          </masonry>
-        </b-col>
-
-        <div
-          v-if="!loading && query.length > 0 && !searchResults.length"
-          class="field centered text-center mt-5"
+      <div>
+        <b-button
+          v-if="showPreviousButton"
+          @click="prev"
         >
-          <p>No results found</p>
-        </div>
-      </b-form-row>
-    </b-container>
+          <i class="fa-solid fa-caret-left" aria-hidden="true" />
+          Prev
+        </b-button>
+
+        <b-button
+          class="ml-3"
+          v-if="searchResults.length === pageSize"
+          @click="next"
+        >
+          Next
+          <i class="fa-solid fa-caret-right" aria-hidden="true" />
+        </b-button>
+      </div>
+    </header>
+
+    <masonry
+      gutter="16px"
+      :cols="{ default: 7, 1200: 5, 768: 3, 480: 2 }"
+    >
+      <game-card-search
+        v-for="game in searchResults"
+        :game="game"
+        :key="game.id"
+      />
+    </masonry>
+
+    <p
+      v-if="!loading && query.length > 0 && !searchResults.length"
+      :class="['text-center mt-5', { 'text-info' : darkTheme }]"
+    >
+      No results found
+    </p>
+    <!-- TODO: show result count, align search box to right -->
   </section>
 </template>
 
 <script>
 import GameCardSearch from '@/components/GameCards/GameCardSearch';
-import SearchFilters from '@/components/SearchFilters';
+// import SearchFilters from '@/components/SearchFilters';
 import SearchBox from '@/components/SearchBox';
 import orderby from 'lodash.orderby';
 import { IGDB_QUERIES } from '@/constants';
@@ -130,7 +67,7 @@ export default {
   components: {
     GameCardSearch,
     SearchBox,
-    SearchFilters,
+    // SearchFilters,
   },
 
   data() {
@@ -177,15 +114,15 @@ export default {
       return this.$route.query?.listIndex;
     },
 
-    activeBoard() {
-      return this.boards.find(({ id }) => id === this.boardId);
-    },
-
-    activeBoardList() {
-      if (this.boardListIndex === undefined) return [];
-
-      return this.activeBoard?.lists[this.boardListIndex];
-    },
+    // activeBoard() {
+    //   return this.boards.find(({ id }) => id === this.boardId);
+    // },
+    //
+    // activeBoardList() {
+    //   if (this.boardListIndex === undefined) return [];
+    //
+    //   return this.activeBoard?.lists[this.boardListIndex];
+    // },
 
     showEmptyState() {
       return this.$route?.query?.q === undefined;
@@ -218,7 +155,7 @@ export default {
   },
 
   async mounted() {
-    this.search();
+    // this.search();
   },
 
   methods: {

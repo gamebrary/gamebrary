@@ -1,30 +1,24 @@
 <template lang="html">
   <div class="game-selector">
     <portal to="headerActions">
-      <b-sidebar
+      <b-modal
         v-model="selecting"
-        right
-        :bg-variant="darkTheme ? 'dark' : 'light'"
-        :text-variant="darkTheme ? 'light' : 'dark'"
-        aria-labelledby="sidebar-title"
-        shadow
-        backdrop
+        :header-bg-variant="darkTheme ? 'dark' : 'transparent'"
+        :header-text-variant="darkTheme ? 'white' : 'dark'"
+        :body-bg-variant="darkTheme ? 'dark' : 'transparent'"
+        :body-text-variant="darkTheme ? 'white' : 'dark'"
+        hide-footer
+        :size="filteredSearchResults.length > 6 ? 'lg' : 'sm'"
         @hidden="selecting = false"
       >
-        <template #header>
-          <header class="d-flex align-items-center justify-content-between w-100 px-3 pt-3">
-            <h3>{{ title }}</h3>
-
-            <b-button
-              @click="selecting = false"
-              :variant="darkTheme ? 'dark' : 'light'"
-            >
-              <i class="fa fa-close" />
-            </b-button>
-          </header>
+        <template v-slot:modal-header="{ close }">
+          <modal-header
+            :title="title"
+            @close="close"
+          />
         </template>
 
-        <div class="px-3 pt-1">
+        <div class="small-container d-flex justify-content-between align-items-center">
           <b-form-input
            v-model="searchText"
            debounce="500"
@@ -38,55 +32,60 @@
             v-if="filteredSearchResults.length"
             v-model="preventClose"
             name="check-button"
-            class="mb-2"
+            class="mb-2 ml-2"
+            style="width: 220px;"
             switch
           >
             Select multiple
           </b-form-checkbox>
-
-          <div v-if="loading" style="height: 80px" class="mt-5">
-            <b-spinner class="spinner-centered" />
-          </div>
-
-          <div v-else-if="filteredSearchResults.length > 0">
-            <b-card
-              v-for="game in filteredSearchResults"
-              class="cursor-pointer mt-2"
-              :bg-variant="darkTheme ? 'black' : 'light'"
-              :text-variant="darkTheme ? 'light' : 'dark'"
-              body-class="p-1"
-              :key="game.id"
-              @click="selectGame(game.id)"
-            >
-              <b-row>
-                <b-col cols="4">
-                  <b-card-img
-                    :src="$options.getImageUrl(game, $options.IMAGE_SIZE_COVER_SMALL)"
-                    alt="Image"
-                    class="game-thumbnail rounded mr-2"
-                  />
-                </b-col>
-                <b-col>
-                  {{ game.name }}
-                </b-col>
-              </b-row>
-            </b-card>
-
-            <b-button
-              v-if="isBoardOwner"
-              block
-              class="mt-1"
-              :to="{ name: 'search', query: { boardId: board.id, listIndex: 0 } }"
-            >
-              Advanced search
-            </b-button>
-          </div>
-
-          <div v-else-if="searchText">
-            No results
-          </div>
         </div>
-      </b-sidebar>
+
+        <div v-if="loading" style="height: 80px" class="mt-5">
+          <b-spinner class="spinner-centered" />
+        </div>
+
+        <div v-else-if="filteredSearchResults.length > 0">
+          <masonry
+            gutter="8px"
+            :cols="cols"
+          >
+            <game-card-search
+              v-for="game in filteredSearchResults"
+              :game="game"
+              :key="game.id"
+              no-link
+              @click="selectGame(game.id)"
+            />
+          </masonry>
+
+          <!-- <b-card
+            v-for="game in filteredSearchResults"
+            class="cursor-pointer mt-2"
+            :bg-variant="darkTheme ? 'black' : 'light'"
+            :text-variant="darkTheme ? 'light' : 'dark'"
+            body-class="p-1"
+            :key="game.id"
+            @click="selectGame(game.id)"
+          >
+            <b-row>
+              <b-col cols="4">
+                <b-card-img
+                  :src="$options.getImageUrl(game, $options.IMAGE_SIZE_COVER_SMALL)"
+                  alt="Image"
+                  class="game-thumbnail rounded mr-2"
+                />
+              </b-col>
+              <b-col>
+                {{ game.name }}
+              </b-col>
+            </b-row>
+          </b-card> -->
+        </div>
+
+        <div v-else-if="searchText">
+          No results
+        </div>
+      </b-modal>
     </portal>
 
     <component
@@ -105,6 +104,7 @@
 <script>
 import { mapGetters, mapState } from 'vuex';
 import { getImageUrl } from '@/utils';
+import GameCardSearch from '@/components/GameCards/GameCardSearch';
 import { IMAGE_SIZE_COVER_SMALL, IGDB_QUERIES } from '@/constants';
 
 export default {
@@ -146,9 +146,19 @@ export default {
     }
   },
 
+  components: {
+    GameCardSearch,
+  },
+
   computed: {
     ...mapState(['board']),
     ...mapGetters(['isBoardOwner', 'darkTheme']),
+
+    cols() {
+      return this.filteredSearchResults.length > 6
+        ? { default: 6, 1200: 5, 768: 4, 480: 2 }
+        : { default: 3, 768: 3, 480: 2 };
+    },
 
     filteredSearchResults() {
       return this.searchResults.filter(({ id }) => !this.filter?.includes(id));

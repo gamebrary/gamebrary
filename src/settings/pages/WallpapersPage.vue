@@ -1,6 +1,8 @@
 <template lang="html">
   <b-container>
-    <page-title :title="$t('wallpapers.title')" />
+    <page-title :title="$t('wallpapers.title')">
+      <upload-wallpaper-button />
+    </page-title>
 
     <!-- TODO: add artwork/media search and allow to upload using url -->
 
@@ -17,10 +19,6 @@
     </template>
 
     <template v-else>
-      <portal to="headerActions">
-        <upload-wallpaper-button />
-      </portal>
-
       <wallpapers-list />
     </template>
   </b-container>

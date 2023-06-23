@@ -87,3 +87,17 @@
   height: 40px;
   text-align: center;
 }
+
+.dark {
+  .dropdown-menu {
+    background-color: var(--dark);
+
+    .dropdown-item {
+      color: var(--light);
+
+      &:hover {
+        color: unset;
+      }
+    }
+  }
+}

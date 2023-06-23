@@ -17,15 +17,10 @@
     >
       <b-spinner small v-if="saving" />
 
-      <i
-        v-else-if="isVerticalNav"
-        class="fa-solid fa-cloud-arrow-up fa-fw"
-      />
-
-      <span v-else>
+      <template v-else>
         <i class="d-sm-none fa-solid fa-cloud-arrow-up" />
         <span class="d-none d-sm-inline">Upload</span>
-      </span>
+      </template>
     </b-button>
 
     <b-alert

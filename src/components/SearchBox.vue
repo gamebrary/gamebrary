@@ -1,6 +1,6 @@
 <template lang="html">
   <b-form
-    class="w-100 d-flex mb-3 px-2"
+    class="small-container d-flex"
     @submit.prevent="search"
   >
     <b-form-input

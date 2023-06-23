@@ -15,7 +15,7 @@
         @close="close"
       >
         <b-dropdown
-          :variant="darkTheme ? 'secondary' : 'light'"
+          :variant="darkTheme ? 'black' : 'light'"
           no-caret
           right
         >

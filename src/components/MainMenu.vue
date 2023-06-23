@@ -22,6 +22,34 @@
       <span class="ml-2">Boards</span>
     </b-dropdown-item>
 
+    <b-dropdown-item
+      v-if="user"
+      :to="{ name: 'create.board' }"
+      class="ml-2"
+    >
+      <i class="fa-regular fa-plus" />
+      <span class="ml-2">New board</span>
+    </b-dropdown-item>
+
+    <div class="bg-black py-1 rounded" v-if="showBoardActions">
+      <p class="text-success text-uppercase mb-0 ml-2 mt-1 ">{{ board.name }}</p>
+
+      <b-dropdown-item
+        v-if="isBoardOwner"
+        class="mx-1"
+        :to="{ name: 'board.edit', params: { id: board.id } }"
+      >
+        Edit board
+      </b-dropdown-item>
+
+      <!-- <b-dropdown-item
+        :to="{ name: 'board.edit', params: { id: board.id } }"
+        class="mx-1"
+      >
+        Copy board
+      </b-dropdown-item> -->
+    </div>
+
     <!-- <b-dropdown-group v-if="user && routeName === 'home'">
       <b-dropdown-item
         v-for="board in recentlyUpdatedBoards"
@@ -55,6 +83,11 @@
     <b-dropdown-item :to="{ name: 'wallpapers' }">
       <i class="fa fa-images fa-fw" aria-hidden="true" />
       <span class="ml-2">Wallpapers</span>
+    </b-dropdown-item>
+
+    <b-dropdown-item :to="{ name: 'search' }">
+      <i class="fa fa-search fa-fw" aria-hidden="true" />
+      <span class="ml-2">Search</span>
     </b-dropdown-item>
 
     <b-dropdown-item v-if="user" :to="{ name: 'profile' }">
@@ -128,7 +161,7 @@ export default {
 
   computed: {
     ...mapState(['board', 'boards', 'settings', 'user', 'games', 'notes', 'tags', 'wallpapers']),
-    ...mapGetters(['darkTheme', 'navPosition', 'sortedBoards', 'latestRelease', 'isVerticalNav']),
+    ...mapGetters(['darkTheme', 'navPosition', 'sortedBoards', 'latestRelease', 'isVerticalNav', 'isBoardOwner']),
 
     year() {
       return new Date().getFullYear();
@@ -136,6 +169,10 @@ export default {
 
     routeName() {
       return this.$route.name;
+    },
+
+    showBoardActions() {
+      return Boolean(this.routeName === 'board' && this.user?.uid);
     },
 
     recentlyUpdatedBoards() {

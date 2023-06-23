@@ -22,15 +22,13 @@
           <strong>{{ list.name }}</strong>
         </template>
 
-        <b-dropdown-text v-if="sortingEnabled">
+        <b-dropdown-text :variant="darkTheme ? 'success' : 'danger'" v-if="sortingEnabled">
           <small>Auto sort enabled ({{ sortOrder }})</small>
         </b-dropdown-text>
 
-        <b-dropdown-text v-if="list.games.length">
+        <!-- <b-dropdown-text variant="success" v-if="list.games.length">
           <small>{{ list.games.length }} games</small>
-        </b-dropdown-text>
-
-        <b-dropdown-divider />
+        </b-dropdown-text> -->
 
         <b-dropdown-item-button
           @click="editList"
@@ -38,7 +36,7 @@
           Edit list
         </b-dropdown-item-button>
 
-        <b-dropdown-item disabled>Delete list</b-dropdown-item>
+        <!-- <b-dropdown-item disabled>Delete list</b-dropdown-item> -->
 
         <game-selector
           v-if="isBoardOwner && !isEmpty"

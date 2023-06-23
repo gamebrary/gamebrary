@@ -11,8 +11,7 @@
     </div>
 
     <b-button
-      class="align-self-baseline"
-      :variant="darkTheme ? 'dark' : 'light'"
+      :variant="darkTheme ? 'black' : 'light'"
       @click="$emit('close')"
     >
       <i class="fas fa-close" aria-hidden />

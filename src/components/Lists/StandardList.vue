@@ -34,7 +34,8 @@
       title="Add games"
       class="pb-5"
       trigger-text="Add games"
-      variant="primary"
+      variant="success"
+      block
       @select-game="selectGame"
     />
   </div>
