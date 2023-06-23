@@ -1,6 +1,9 @@
 <template lang="html">
-  <!-- TODO: add menu: allow to remove game from board, view board, edit board, etc... -->
-  <div v-if="user && boardsWithGame.length">
+  <game-page-tile
+    v-if="user && boardsWithGame.length"
+    title="Found in these boards"
+    full
+  >
     <div class="board-grid">
       <mini-board
         v-for="board in boardsWithGame"
@@ -9,16 +12,20 @@
         @click.native="handleBoardClick(board.id)"
       />
     </div>
-  </div>
+  </game-page-tile>
+
+  <!-- TODO: add menu: allow to remove game from board, view board, edit board, etc... -->
 </template>
 
 <script>
 import MiniBoard from '@/components/Board/MiniBoard';
+import GamePageTile from '@/components/Game/GamePageTile';
 import { mapState } from 'vuex';
 
 export default {
   components: {
     MiniBoard,
+    GamePageTile,
   },
 
   computed: {

@@ -216,7 +216,7 @@
                           <b-dropdown-item-button
                             v-for="option in $options.LIST_SORT_OPTIONS"
                             :key="option.value"
-                            :variant="option.value == list.sortOrder ? 'primary' : 'info'"
+                            :variant="option.value == list.sortOrder ? 'primary' : 'success'"
                             @click="setListSorting(index, option.value)"
                           >
                             <div>{{ option.text }}</div>

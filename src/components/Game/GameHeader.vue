@@ -1,37 +1,8 @@
 <template lang="html">
   <header :class="[darkTheme ? 'border-dark' : 'border-light']">
     <portal v-if="user" to="headerActions">
-      <div :class="['d-none d-md-flex', { 'flex-column': isVerticalNav }]">
-        <b-button
-          :variant="darkTheme ? 'dark' : 'light'"
-          :class="isVerticalNav ? 'mb-2' : 'mr-2'"
-          @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
-        >
-          <i v-if="isVerticalNav" class="fa fa-book fa-fw" aria-hidden="true" />
-          <template v-else>Add note</template>
-        </b-button>
-
-        <b-button
-          :variant="darkTheme ? 'dark' : 'light'"
-          :class="isVerticalNav ? 'mb-2' : 'mr-2'"
-          v-b-modal.gameTagsModal
-        >
-          <i v-if="isVerticalNav" class="fa fa-tags fa-fw" aria-hidden="true" />
-          <template v-else>Edit tags</template>
-        </b-button>
-
-        <b-button
-          :variant="darkTheme ? 'dark' : 'light'"
-          :class="isVerticalNav ? 'mb-2' : 'mr-2'"
-          v-b-modal.addRemoveGameModal
-        >
-          <i v-if="isVerticalNav" class="fa fa-plus-minus fa-fw" aria-hidden="true" />
-          <template v-else>Add/Remove</template>
-        </b-button>
-      </div>
-
       <b-dropdown
-        :class="['d-md-none', { 'mr-2': !isVerticalNav }]"
+        :class="{ 'mr-2': !isVerticalNav }"
         :variant="darkTheme ? 'black' : 'light'"
         no-caret
       >
@@ -49,7 +20,7 @@
     <b-carousel
       v-if="hasArtworks"
       id="carousel-fade"
-      class="cursor-pointer d-none d-md-block overflow-hidden"
+      class="cursor-pointer overflow-hidden d-none d-md-block"
       fade
       v-b-modal.mediaModal
       no-hover-pause
@@ -58,7 +29,6 @@
         v-for="(artwork, index) in artworks"
         :key="index"
         :img-src="artwork.url"
-        style="margin-top: -25vh;"
       />
     </b-carousel>
   </header>

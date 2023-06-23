@@ -10,110 +10,39 @@
 
   <section
     v-else
-    :class="[{ 'text-light': darkTheme && hasWallpaper, 'pt-3': !hasArtworks }, 'game-page pb-5']"
+    :class="[{ 'text-light': darkTheme && hasWallpaper, 'pt-3': !hasArtworks }, 'game-page']"
     :style="background && this.darkTheme ? `background-image: url(${background})` : ''"
   >
     <game-header />
-    <add-remove-game />
 
-    <b-container>
-      <!-- https://commons.wikimedia.org/wiki/Special:FilePath/TMC_Jabber_Nut_Sprite.png -->
-      <!-- https://commons.wikimedia.org/wiki/Special:FilePath/Ad-tech_London_2010_(2).JPG -->
-      <!-- https://commons.wikimedia.org/wiki/Special:FilePath/Ad-tech_London_2010_(2).JPG?width=200 (to get a thumbnail of 200px width) -->
-      <!-- https://commons.wikimedia.org/w/thumb.php?f=Ad-tech_London_2010_(2).JPG&w=200 -->
-      <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/2/28/JPG_Test.jpg" alt=""> -->
-      <!-- https://en.wikipedia.org/w/api.php?action=query&titles=File:Test.jpg&prop=imageinfo&iilimit=50&iiend=2007-12-31T23:59:59Z&iiprop=timestamp|user|url -->
+    <b-row no-gutters>
+      <b-col
+        cols="12"
+        md="6"
+        lg="4"
+        xl="3"
+        style="z-index: 1"
+      >
+        <b-img
+          :src="$options.getImageUrl(cachedGame)"
+          :alt="gameName"
+          :class="['border mx-3 mb-3', darkTheme ? 'border-dark' : 'border-light', { 'has-artworks': hasArtworks }]"
+          style="width: calc(100% - 2rem) !important"
+          bordered
+          v-b-modal.mediaModal
+          rounded
+        />
+      </b-col>
 
-      <portal to="pageTitle">
-        <h3
-          v-show="titleVisible"
-          :class="darkTheme && hasWallpaper ? 'text-light text-outlined' : ''"
-        >
-          {{ gameName }}
-        </h3>
-      </portal>
-
-      <b-row>
-        <b-col
-          cols="12"
-          md="4"
-          xl="3"
-          style="z-index: 1"
-          :class="['text-center pt-3 pt-md-0', { 'has-artworks': hasArtworks }]"
-        >
-          <b-img
-            :src="$options.getImageUrl(cachedGame)"
-            :alt="gameName"
-            :class="['border', darkTheme ? 'border-dark' : 'border-light']"
-            bordered
-            v-b-modal.mediaModal
-            rounded
-            fluid
-          />
-
+      <b-col
+        cols="12"
+        md="6"
+        lg="8"
+        xl="6"
+      >
+        <div class="px-3 pt-1">
           <div
-            v-if="newsHighlights"
-            class="position-relative"
-            styles="margin-bottom: 30px"
-          >
-            <i class="fa-solid fa-bullhorn" /> News
-
-            <div
-              class="news-ticker"
-              v-b-tooltip.hover
-              title="Latest news"
-            >
-              <ul class="news-list" :data-length="newsHighlights.length">
-                <li
-                  v-for="(highlight, index) in newsHighlights"
-                  :key="index"
-                  class="d-flex align-items-center news"
-                >
-                  <b-link
-                    class="text-truncate"
-                    :to="{ name: 'game.news', params: { id: game.id, slug: game.slug } }"
-                  >
-                    {{ highlight}}
-                  </b-link>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- <amazon-links class="mt-2" /> -->
-          <!-- <template v-if="highlightedAchievements">
-            <h3 :class="['mt-5', { 'text-outlined': hasWallpaper }]">Achievements</h3>
-
-            <b-list-group>
-              <b-list-group-item
-                class="d-flex align-items-center"
-                variant="secondary"
-                v-for="achievement in highlightedAchievements"
-                :key="achievement.name"
-              >
-                <b-avatar
-                  variant="info"
-                  :src="achievement.path"
-                  square
-                  size="24"
-                  class="mr-2"
-                />
-
-                {{ achievement.name }}
-              </b-list-group-item>
-            </b-list-group>
-          </template> -->
-        </b-col>
-
-        <b-col
-          cols="12"
-          md="8"
-          lg="5"
-          xl="6"
-          class="pt-3"
-        >
-          <div
-            class="d-flex justify-content-between align-items-end"
+            class="d-flex justify-content-between align-items-end mb-2"
             v-b-visible="(value) => titleVisible = !value"
           >
             <div :class="['d-flex align-items-center', { 'mt-3': hasArtworks }]">
@@ -152,259 +81,293 @@
             <b-spinner v-if="loading" class="spinner-centered" />
 
             <template v-else>
-              <div v-html="description" />
+              <div class="text-justify" v-html="description" />
               <game-ratings />
               <span class="text-muted mt-n3 mb-3 text-capitalize">Source: {{ source }}</span>
-
-              <b-row class="mt-3">
-                <b-col cols="12" v-if="gamePlatforms" class="mb-3">
-                  <h4 class="mb-1">Available for:</h4>
-
-                  <b-button
-                    v-for="platform in gamePlatforms"
-                    :key="platform.id"
-                    size="sm"
-                    class="mr-2 mb-2"
-                    :to="{ name: 'search', query: { filterBy: 'platforms', value: platform.id }}"
-                  >
-                    {{ platform.name }}
-                  </b-button>
-                </b-col>
-
-                <b-col cols="6" sm="4" md="3" lg="6" v-if="gamePublishers.length">
-                  <h4 class="mb-1">Published by:</h4>
-
-                  <b-link
-                    v-for="publisher in gamePublishers"
-                    :key="publisher.id"
-                    v-b-tooltip.hover
-                    :title="publisher.name"
-                    :to="{ name: 'company', params: { id: publisher.id, slug: publisher.slug }}"
-                    :class="['p-2 d-inline-flex rounded mr-2 mb-2', { 'bg-white': publisher.logo && publisher.logo.alpha_channel }]"
-                  >
-                    <b-img
-                      v-if="publisher.logo"
-                      :src="$options.getImageUrl(publisher)"
-                      :alt="publisher.name"
-                      width="120"
-                    />
-
-                    <span v-else>{{ publisher.name }}</span>
-                  </b-link>
-                </b-col>
-
-                <b-col cols="6" sm="4" md="3" lg="6" v-if="gameDevelopers.length">
-                  <h4 class="mb-1">Developed by:</h4>
-
-                  <b-link
-                    v-for="developer in gameDevelopers"
-                    :key="developer.id"
-                    :to="{ name: 'company', params: { id: developer.id, slug: developer.slug }}"
-                    :class="['p-2 d-inline-flex rounded mr-2 mb-2', { 'bg-white': developer.logo && developer.logo.alpha_channel }]"
-                  >
-                    <b-img
-                      v-if="developer.logo"
-                      :src="$options.getImageUrl(developer)"
-                      :alt="developer.name"
-                      width="120"
-                    />
-
-                    <span v-else>{{ developer.name }}</span>
-                  </b-link>
-                </b-col>
-              </b-row>
             </template>
           </div>
 
-          <!-- <game-speedruns /> -->
-        </b-col>
+          <small
+            v-if="legalNotice"
+            class="text-muted mt-2"
+            v-html="legalNotice"
+          />
+        </div>
+      </b-col>
 
-        <b-col
-          cols="12"
-          md="12"
-          lg="3"
-          xl="3"
-          class="pt-3"
-        >
-          <b-row>
-            <b-col cols="6" sm="4" md="3" lg="12" v-if="gameGenres">
-              <h4 class="mt-3">Genres: </h4>
+      <b-col>
+        <div :class="['m-3 p-3 rounded', darkTheme ? 'bg-dark' : 'bg-info']">
+          <div v-if="gameGenres">
+            <h4 class="mt-3">Genres: </h4>
 
-              <b-link
-                v-for="(genre, index) in gameGenres"
-                :to="{ name: 'search', query: { filterBy: 'genres', value: genre.id }}"
-                :key="genre.id"
-              >
-                {{ genre.name }}<template v-if="index < gameGenres.length - 1">, </template>
-              </b-link>
-            </b-col>
+            <b-link
+              v-for="(genre, index) in gameGenres"
+              :to="{ name: 'search', query: { filterBy: 'genres', value: genre.id }}"
+              :key="genre.id"
+            >
+              {{ genre.name }}<template v-if="index < gameGenres.length - 1">, </template>
+            </b-link>
+          </div>
 
-            <b-col cols="6" sm="4" md="3" lg="12" v-if="gameThemes">
-              <h4 class="mt-3">Themes: </h4>
+          <div v-if="gameThemes">
+            <h4 class="mt-3">Themes: </h4>
 
-              <b-link
-                v-for="({ id, name }, index) in gameThemes"
-                :key="id"
-              >
-                <b-link :to="{ name: 'search', query: { filterBy: 'themes', value: id }}">{{ name }}</b-link>
-                <template v-if="index < gameThemes.length - 1">, </template>
-              </b-link>
-            </b-col>
+            <b-link
+              v-for="({ id, name }, index) in gameThemes"
+              :key="id"
+            >
+              <b-link :to="{ name: 'search', query: { filterBy: 'themes', value: id }}">{{ name }}</b-link>
+              <template v-if="index < gameThemes.length - 1">, </template>
+            </b-link>
+          </div>
 
-            <b-col cols="6" sm="4" md="3" lg="12" v-if="gameEngines">
-              <h4 class="mt-3">Game engines: </h4>
+          <div v-if="gameEngines">
+            <h4 class="mt-3">Game engines: </h4>
 
-              <p
-                v-for="{ id, name } in gameEngines"
-                :key="id"
-                :class="darkTheme && hasWallpaper ? 'text-light' : ''"
-              >
-                {{ name }}
-              </p>
-            </b-col>
+            <p
+              v-for="{ id, name } in gameEngines"
+              :key="id"
+              :class="darkTheme && hasWallpaper ? 'text-light' : ''"
+            >
+              {{ name }}
+            </p>
+          </div>
 
-            <b-col cols="6" sm="4" md="3" lg="12" v-if="gameModes">
-              <h4 class="mt-3">{{ $t('board.gameModal.gameModes') }}: </h4>
+          <div v-if="gameModes">
+            <h4 class="mt-3">{{ $t('board.gameModal.gameModes') }}: </h4>
 
-              <b-link
-                v-for="(gameMode, index) in gameModes"
-                :key="gameMode.id"
-              >
-                <b-link :to="{ name: 'search', query: { filterBy: 'game_modes', value: gameMode.id }}">{{ gameMode.name }}</b-link>
-                <template v-if="index < gameModes.length - 1">, </template>
-              </b-link>
-            </b-col>
+            <b-link
+              v-for="(gameMode, index) in gameModes"
+              :key="gameMode.id"
+            >
+              <b-link :to="{ name: 'search', query: { filterBy: 'game_modes', value: gameMode.id }}">{{ gameMode.name }}</b-link>
+              <template v-if="index < gameModes.length - 1">, </template>
+            </b-link>
+          </div>
 
-            <b-col cols="6" sm="4" md="3" lg="12" v-if="playerPerspectives">
-              <h4 class="mt-3">{{ $t('board.gameModal.perspective') }}: </h4>
+          <div v-if="playerPerspectives">
+            <h4 class="mt-3">{{ $t('board.gameModal.perspective') }}: </h4>
 
-              <b-link
-                v-for="({ id, name }, index) in playerPerspectives"
-                :key="id"
-              >
+            <b-link
+              v-for="({ id, name }, index) in playerPerspectives"
+              :key="id"
+            >
 
-                <b-link :to="{ name: 'search', query: { filterBy: 'player_perspectives', value: id }}">{{ name }}</b-link>
-                <template v-if="index < playerPerspectives.length - 1">, </template>
-              </b-link>
-            </b-col>
+              <b-link :to="{ name: 'search', query: { filterBy: 'player_perspectives', value: id }}">{{ name }}</b-link>
+              <template v-if="index < playerPerspectives.length - 1">, </template>
+            </b-link>
+          </div>
 
-            <!-- <div>
-              <h4 class="mt-3">{{ $t('board.gameModal.releaseDate') }}</h4>
-              <ol v-if="releaseDates" class="list-unstyled mb-0">
-                <li
-                  v-for="{ id, platform, date } in releaseDates"
-                  :key="id"
-                >
-                  {{ date }} <span>{{ platform || 'N/A' }}</span>
-                </li>
-              </ol>
+          <div v-if="user">
+            <h4 class="mt-3">Tags: </h4>
 
-              <div v-else>
-                Not released yet
-              </div>
-            </div> -->
+            <b-link v-if="!tagsApplied.length" v-b-modal.gameTagsModal>
+              Add tag
+            </b-link>
 
-            <b-col cols="6" sm="4" md="3" lg="12" v-if="user">
-              <h4 class="mt-3">Tags: </h4>
+            <b-button
+              v-for="({ bgColor, textColor, name, index }) in tagsApplied"
+              :key="index"
+              size="sm"
+              variant="transparent"
+              class="mr-2 mb-2"
+              :style="`background-color: ${bgColor}; color: ${textColor}`"
+              v-b-modal.gameTagsModal
+            >
+              <i class="fa-solid fa-tag mr-1" />
+              {{ name }}
+            </b-button>
 
-              <b-link v-if="!tagsApplied.length" v-b-modal.gameTagsModal>
-                Add tag
-              </b-link>
+            <game-tags-modal />
+          </div>
 
-              <b-button
-                v-for="({ bgColor, textColor, name, index }) in tagsApplied"
-                :key="index"
+          <div v-if="alternativeNames.length">
+            <h4 class="mt-3">Alternative names:</h4>
+
+            <div
+              class="mb-1"
+              variant="light"
+              v-for="{ comment, id, name, imgUrl } in alternativeNames"
+              :key="id"
+            >
+              <b-avatar
+                v-b-tooltip
+                :title="comment || null"
                 size="sm"
                 variant="transparent"
-                class="mr-2 mb-2"
-                :style="`background-color: ${bgColor}; color: ${textColor}`"
-                v-b-modal.gameTagsModal
-              >
-                <i class="fa-solid fa-tag mr-1" />
-                {{ name }}
-              </b-button>
+                class="mr-1"
+                rounded
+                :src="imgUrl"
+              />
 
-              <game-tags-modal />
-            </b-col>
+              {{ name }}
+            </div>
+          </div>
+        </div>
 
-            <b-col cols="6" sm="4" md="3" lg="12" v-if="alternativeNames.length">
-              <h4 class="mt-3">Alternative names:</h4>
+        <!-- <div>
+          <h4 class="mt-3">{{ $t('board.gameModal.releaseDate') }}</h4>
+          <ol v-if="releaseDates" class="list-unstyled mb-0">
+            <li
+              v-for="{ id, platform, date } in releaseDates"
+              :key="id"
+            >
+              {{ date }} <span>{{ platform || 'N/A' }}</span>
+            </li>
+          </ol>
 
-              <div
-                class="mb-1"
-                variant="light"
-                v-for="{ comment, id, name, imgUrl } in alternativeNames"
-                :key="id"
+          <div v-else>
+            Not released yet
+          </div>
+        </div> -->
+
+        <!-- TODO: add game requirements -->
+        <!-- <b-col cols="6" sm="4" md="3" lg="12" v-if="gameRequirements">
+          <div
+            v-for="(requirement, index) in gameRequirements"
+            :key="index"
+          >
+            <pre>{{ index }}</pre>
+            <p v-html="requirement.minimum" />
+            <p v-html="requirement.recommended" />
+          </div>
+        </b-col> -->
+      </b-col>
+    </b-row>
+
+    <div class="d-flex flex-column flex-md-row">
+      <game-page-tile size="quarter" title="Publisher / Developer">
+        <b-link
+          v-for="publisher in gamePublishers"
+          :key="publisher.id"
+          v-b-tooltip.hover
+          :title="publisher.name"
+          :to="{ name: 'company', params: { id: publisher.id, slug: publisher.slug }}"
+          :class="['p-2 d-inline-flex rounded mr-2 mb-2', { 'bg-white': publisher.logo && publisher.logo.alpha_channel }]"
+        >
+          <b-img
+            v-if="publisher.logo"
+            :src="$options.getImageUrl(publisher)"
+            :alt="publisher.name"
+            width="120"
+          />
+
+          <span v-else>{{ publisher.name }}</span>
+        </b-link>
+
+        devs:
+        <b-link
+          v-for="developer in gameDevelopers"
+          :key="developer.id"
+          :to="{ name: 'company', params: { id: developer.id, slug: developer.slug }}"
+          :class="['p-2 d-inline-flex rounded mr-2 mb-2', { 'bg-white': developer.logo && developer.logo.alpha_channel }]"
+        >
+          <b-img
+            v-if="developer.logo"
+            :src="$options.getImageUrl(developer)"
+            :alt="developer.name"
+            width="120"
+          />
+
+          <span v-else>{{ developer.name }}</span>
+        </b-link>
+      </game-page-tile>
+
+      <game-page-tile size="quarter" title="News">
+        <ul v-if="newsHighlights">
+          <li
+            v-for="(highlight, index) in newsHighlights"
+            :key="index"
+            class="d-flex align-items-center news"
+          >
+            <b-link
+              class="text-truncate"
+              :to="{ name: 'game.news', params: { id: game.id, slug: game.slug } }"
+            >
+              {{ highlight}}
+            </b-link>
+          </li>
+        </ul>
+      </game-page-tile>
+
+      <game-page-tile v-if="gamePlatforms" size="quarter" title="Available for">
+        <b-button
+          v-for="platform in gamePlatforms"
+          :key="platform.id"
+          size="sm"
+          class="mr-2 mb-2"
+          :to="{ name: 'search', query: { filterBy: 'platforms', value: platform.id }}"
+        >
+          {{ platform.name }}
+        </b-button>
+      </game-page-tile>
+    </div>
+
+
+    <add-remove-game />
+
+    <b-container>
+      <!-- https://commons.wikimedia.org/wiki/Special:FilePath/TMC_Jabber_Nut_Sprite.png -->
+      <!-- https://commons.wikimedia.org/wiki/Special:FilePath/Ad-tech_London_2010_(2).JPG -->
+      <!-- https://commons.wikimedia.org/wiki/Special:FilePath/Ad-tech_London_2010_(2).JPG?width=200 (to get a thumbnail of 200px width) -->
+      <!-- https://commons.wikimedia.org/w/thumb.php?f=Ad-tech_London_2010_(2).JPG&w=200 -->
+      <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/2/28/JPG_Test.jpg" alt=""> -->
+      <!-- https://en.wikipedia.org/w/api.php?action=query&titles=File:Test.jpg&prop=imageinfo&iilimit=50&iiend=2007-12-31T23:59:59Z&iiprop=timestamp|user|url -->
+
+      <portal to="pageTitle">
+        <h3
+          v-show="titleVisible"
+          :class="darkTheme && hasWallpaper ? 'text-light text-outlined' : ''"
+        >
+        <b-img
+          :blank="loading"
+          :src="$options.getImageUrl(cachedGame)"
+          :alt="gameName"
+          bordered
+          class="mr-2"
+          style="max-height: 40px; width: auto;"
+          v-b-modal.mediaModal
+        />
+          {{ gameName }}
+        </h3>
+      </portal>
+
+      <b-row>
+        <b-col
+          cols="12"
+          md="4"
+          xl="3"
+          style="z-index: 1"
+          class="text-center pt-3 pt-md-0"
+        >
+
+
+          <!-- <amazon-links class="mt-2" /> -->
+          <!-- <template v-if="highlightedAchievements">
+            <h3 :class="['mt-5', { 'text-outlined': hasWallpaper }]">Achievements</h3>
+
+            <b-list-group>
+              <b-list-group-item
+                class="d-flex align-items-center"
+                variant="secondary"
+                v-for="achievement in highlightedAchievements"
+                :key="achievement.name"
               >
                 <b-avatar
-                  v-b-tooltip
-                  :title="comment || null"
-                  size="sm"
-                  variant="transparent"
-                  class="mr-1"
-                  rounded
-                  :src="imgUrl"
+                  variant="info"
+                  :src="achievement.path"
+                  square
+                  size="24"
+                  class="mr-2"
                 />
 
-                {{ name }}
-              </div>
-            </b-col>
-
-            <!-- TODO: add game requirements -->
-            <!-- <b-col cols="6" sm="4" md="3" lg="12" v-if="gameRequirements">
-              <div
-                v-for="(requirement, index) in gameRequirements"
-                :key="index"
-              >
-                <pre>{{ index }}</pre>
-                <p v-html="requirement.minimum" />
-                <p v-html="requirement.recommended" />
-              </div>
-            </b-col> -->
-
-            <b-col
-              v-if="gameLinks.length"
-              cols="6"
-              sm="4"
-              md="3"
-              lg="12"
-              class="mt-3 text-left"
-            >
-              <h4 class="mt-3">External links</h4>
-
-              <b-button
-                v-for="({ url, id, icon, svg }, index) in gameLinks"
-                :href="url"
-                :key="index"
-                :title="$t(`board.gameModal.links.${id}`)"
-                v-b-tooltip
-                variant="transparent"
-                target="_blank"
-                class="text-left p-1 m-0"
-              >
-                <i
-                  v-if="icon"
-                  :class="`${icon} fa-fw`"
-                  aria-hidden
-                />
-
-                <b-img
-                  v-else-if="svg"
-                  width="24"
-                  class="mr-1"
-                  :src="`/logos/companies/${id}.svg`"
-                />
-              </b-button>
-            </b-col>
-          </b-row>
+                {{ achievement.name }}
+              </b-list-group-item>
+            </b-list-group>
+          </template> -->
         </b-col>
+        <!-- <game-speedruns /> -->
       </b-row>
-
-      <small
-        v-if="legalNotice"
-        class="text-muted mt-2"
-        v-html="legalNotice"
-      />
 
       <!-- <timeline
         v-if="twitterHandle"
@@ -415,31 +378,57 @@
       </timeline> -->
     </b-container>
 
-    <game-page-tile full>
-      <b-row>
-        <b-col>
-          <b-alert
-            v-if="note"
-            v-html="note"
-            show
-            class="cursor-pointer mt-3"
-            variant="warning"
-            @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
-          />
-        </b-col>
+    <game-page-tile full v-if="gameLinks.length">
+      <h4 class="mt-3">External links</h4>
 
-        <b-col>
-          <game-progress />
-        </b-col>
-      </b-row>
+      <b-link
+        v-for="({ url, id, icon, svg }, index) in gameLinks"
+        :href="url"
+        :key="index"
+        :title="$t(`board.gameModal.links.${id}`)"
+        v-b-tooltip
+        target="_blank"
+        :class="['text-left p-1 mr-2', darkTheme ? 'text-success' : '']"
+      >
+        <i
+          v-if="icon"
+          :class="`${icon} fa-fw`"
+          aria-hidden
+        />
+
+        <b-img
+          v-else-if="svg"
+          width="24"
+          :src="`/logos/companies/${id}.svg`"
+        />
+
+        <span class="ml-2 text-capitalize">{{ id }}</span>
+      </b-link>
+    </game-page-tile>
+
+    <game-page-tile full>
+      <b-alert
+        v-if="note"
+        v-html="note"
+        show
+        class="cursor-pointer mt-3"
+        variant="warning"
+        @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
+      />
+
+      <b-button v-else>
+        Add note
+      </b-button>
+
+      <game-progress />
     </game-page-tile>
 
     <div class="d-flex flex-column flex-md-row">
-      <game-page-tile title="Game screenshots">
+      <game-page-tile size="half" title="Game screenshots">
         <game-media v-if="!loading" />
       </game-page-tile>
 
-      <game-page-tile title="Similar games">
+      <game-page-tile size="half" title="Similar games">
         <similar-games />
         <game-bundles />
         <game-collection />
@@ -516,9 +505,7 @@
       </game-page-tile>
     </div>
 
-    <game-page-tile title="Found in these boards" full>
-      <game-in-boards v-if="!loading" />
-    </game-page-tile>
+    <game-in-boards v-if="!loading" />
   </section>
 </template>
 
@@ -576,7 +563,7 @@ export default {
     ...mapGetters(['darkTheme', 'gameNews', 'gameLinks']),
 
     description() {
-      return this.wikipediaExtract || this.steamDescription || this.igdbDescription;
+      return this.igdbDescription || this.steamDescription || this.wikipediaExtract;
     },
 
     background() {
@@ -600,10 +587,11 @@ export default {
     },
 
     source() {
-      if (this.wikipediaExtract) return 'wikipedia';
+      if (this.igdbDescription) return 'IGDB';
       if (this.steamDescription) return 'steam';
+      if (this.wikipediaExtract) return 'wikipedia';
 
-      return 'IGDB';
+      return 'N/A';
     },
 
     steamDescription() {
@@ -961,168 +949,16 @@ export default {
   }
 
   @media(max-width: 767px) {
-    margin: 0;
+    margin-top: 1rem;
   }
 }
 </style>
 
 <style lang="scss" rel="stylesheet/scss">
 .game-description {
-  &.steam {
-    // Steam overrides
-  }
-
   img {
     max-width: 100%;
     border-radius: .25rem;
   }
 }
-
-.mw-empty-elt {
-  display: none;
-}
-
-.wiki-content img {
-  float: left;
-  border-radius: 1rem;
-  padding-right: 1rem;
-  width: auto;
-}
-
-.news-ticker {
-  position: absolute;
-  width: 100%;
-  height: 30px;
-  overflow: hidden;
-
-  ul {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-
-    &[data-length="5"] {
-      top: 30px;
-      animation-name: news-5;
-      animation-duration: 30s;
-      animation-iteration-count: infinite;
-      animation-timing-function: ease;
-      animation-fill-mode: both;
-      animation-delay: 3s;
-    }
-
-    &[data-length="4"] {
-      top: 30px;
-      animation-name: news-4;
-      animation-duration: 24s;
-      animation-iteration-count: infinite;
-      animation-timing-function: ease;
-      animation-fill-mode: both;
-      animation-delay: 3s;
-    }
-    &[data-length="3"] {
-      top: 30px;
-      animation-name: news-3;
-      animation-duration: 18s;
-      animation-iteration-count: infinite;
-      animation-timing-function: ease;
-      animation-fill-mode: both;
-      animation-delay: 3s;
-    }
-    &[data-length="2"] {
-      top: 30px;
-      animation-name: news-2;
-      animation-duration: 12s;
-      animation-iteration-count: infinite;
-      animation-timing-function: ease;
-      animation-fill-mode: both;
-      animation-delay: 3s;
-    }
-
-    &:hover {
-      animation-play-state: paused;
-    }
-  }
-}
-
-.news {
-  height: 30px;
-  line-height: 30px;
-}
-
-@keyframes news-5 {
-    0% {top: 30px; visibility: visible;}
-    5% {top: 0;}
-
-    15% {top: 0;}
-    20% {top: -30px;}
-
-    35% {top: -30px;}
-    40% {top: -60px;}
-
-    55% {top: -60px;}
-    60% {top: -90px;}
-
-    75% {top: -90px;}
-    80% {top: -120px;}
-
-    95% {top: -120px; }
-    99% {top: -150px; visibility: hidden;}
-    100% {top: 30px; visibility: hidden;}
-  }
-
-  @keyframes news-4 {
-    0% { top: 30px; visibility: visible; }
-    5% { top: 0; }
-    15% { top: 0; }
-    20% { top: -30px; }
-    40% { top: -30px; }
-    45% { top: -60px; }
-    65% { top: -60px; }
-    70% { top: -90px; }
-    90% { top: -90px; }
-    95% { top: -120px; }
-    99% { top: -120px; visibility: hidden; }
-    100% { top: 30px; visibility: hidden; }
-  }
-
-  @keyframes news-3 {
-    0% {top: 30px; visibility: visible;}
-    5% {top: 0;}
-
-    30% {top: 0;}
-    35% {top: -30px;}
-
-    60% {top: -30px;}
-    65% {top: -60px;}
-
-    90% {top: -60px;}
-    95% {top: -90px;}
-
-    99% {top: -90px; visibility: hidden;}
-    100% {top: 30px; visibility: hidden;}
-  }
-
-  @keyframes news-2 {
-    0% {top: 30px; visibility: visible;}
-    5% {top: 0;}
-
-    55% {top: 0;}
-    60% {top: -30px;}
-
-    90% {top: -30px;}
-    95% {top: -60px;}
-
-    99% {top: -60px; visibility: hidden;}
-    100% {top: 30px; visibility: hidden;}
-  }
-
-  .half-tile {
-    width: 50vw;
-    height: 50vh;
-    overflow: hidden !important;
-  }
 </style>

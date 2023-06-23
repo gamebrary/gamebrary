@@ -31,15 +31,21 @@
       </div>
     </portal>
 
-    <portal v-if="!isVerticalNav" to="headerActions">
+    <portal to="headerActions">
       <b-button
         v-if="isBoardOwner"
         :to="{ name: 'board.edit', params: { id: board.id } }"
         :variant="darkTheme ? 'success' : 'primary'"
-        class="mr-3"
+        :class="{ 'mr-3': !isVerticalNav }"
       >
-        <span class="d-none d-sm-block">Edit board</span>
-        <i class="fa fa-pen d-sm-none" aria-hidden="true" />
+        <div v-if="isVerticalNav">
+          <i class="fa fa-pen" aria-hidden="true" />
+        </div>
+
+        <template v-else>
+          <span class="d-none d-sm-block">Edit board</span>
+          <i class="fa fa-pen d-sm-none" aria-hidden="true" />
+        </template>
       </b-button>
     </portal>
 

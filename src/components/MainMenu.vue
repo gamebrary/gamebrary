@@ -19,7 +19,7 @@
 
     <b-dropdown-item :to="{ name: 'home' }">
       <i class="fa-regular fa-rectangle-list fa-fw" />
-      <span class="ml-2">Boards <small v-if="user" class="text-muted">({{ boardCount }})</small></span>
+      <span class="ml-2">Boards</span>
     </b-dropdown-item>
 
     <!-- <b-dropdown-group v-if="user && routeName === 'home'">
@@ -34,12 +34,12 @@
 
     <b-dropdown-item :to="{ name: 'games' }">
       <i class="fa-regular fa-heart fa-fw" />
-      <span class="ml-2">Games <small v-if="user" class="text-muted">({{ gameCount }})</small></span>
+      <span class="ml-2">Games</span>
     </b-dropdown-item>
 
     <b-dropdown-item :to="{ name: 'notes' }">
       <i class="fa fa-book fa-fw" aria-hidden="true" />
-      <span class="ml-2">Notes <small v-if="user" class="text-muted">({{ noteCount }})</small></span>
+      <span class="ml-2">Notes</span>
     </b-dropdown-item>
 
     <!-- <b-dropdown-item :to="{ name: 'progresses' }">
@@ -49,12 +49,12 @@
 
     <b-dropdown-item :to="{ name: 'tags' }">
       <i class="fa fa-tags fa-fw" aria-hidden="true" />
-      <span class="ml-2">Tags <small v-if="user" class="text-muted">({{ tagCount }})</small></span>
+      <span class="ml-2">Tags</span>
     </b-dropdown-item>
 
     <b-dropdown-item :to="{ name: 'wallpapers' }">
       <i class="fa fa-images fa-fw" aria-hidden="true" />
-      <span class="ml-2">Wallpapers <small v-if="user" class="text-muted">({{ wallpaperCount }})</small></span>
+      <span class="ml-2">Wallpapers</span>
     </b-dropdown-item>
 
     <b-dropdown-item v-if="user" :to="{ name: 'profile' }">
@@ -140,26 +140,6 @@ export default {
 
     recentlyUpdatedBoards() {
       return this.sortedBoards.filter(({ lastUpdated }) => Boolean(lastUpdated)).slice(0, 5);
-    },
-
-    gameCount() {
-      return Object.values(this.games)?.filter((liked) => Boolean(liked))?.length;
-    },
-
-    noteCount() {
-      return Object.keys(this.notes)?.length;
-    },
-
-    tagCount() {
-      return Object.keys(this.tags)?.length;
-    },
-
-    boardCount() {
-      return this.boards?.length;
-    },
-
-    wallpaperCount() {
-      return this.wallpapers?.length;
     },
 
     profileTitle() {

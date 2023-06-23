@@ -8,7 +8,6 @@
 <!-- TODO: add universal search, default based on page visited, allow to change -->
 <!-- TODO: add board lock/readonly -->
 <!-- TODO: use ribbon to show game type in search (e.g. mods, ports, etc) -->
-<!-- TODO: find better light and white (for reading) colors -->
 <!-- TODO: Speedruns MVP -->
 <!-- TODO: add parental controls (filter out erotic games) -->
 <!-- TODO: deku deals integration https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Frsshub.app%2Fdekudeals%2Fmost-wanted -->

@@ -32,7 +32,7 @@
           variant="black"
           :to="{ name: 'auth' }"
         >
-          Get started — it's free!
+          Get started <span class="d-none d-sm-inline"> — it's free!</span>
         </b-button>
     </div>
     <!-- <b-collapse id="header">
