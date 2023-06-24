@@ -13,7 +13,7 @@
         </b-button>
       </page-title>
 
-      <portal to="headerActions">
+      <!-- <portal to="headerActions">
         <b-button
           v-if="user"
           :class="isVerticalNav ? 'mt-2' : 'mr-3'"
@@ -25,7 +25,7 @@
           <i v-if="showPublic" class="fa-solid fa-user" />
           <i v-else class="fa-solid fa-users" />
         </b-button>
-      </portal>
+      </portal> -->
 
       <div
         v-if="!user"
