@@ -3,7 +3,7 @@
   <section>
     <masonry
       gutter="1rem"
-      :cols="{default: 4, 1000: 3, 700: 2, 400: 1}"
+      :cols="{default: 3, 1000: 2, 400: 1}"
     >
       <b-img
         v-for="({ imageUrl }, index) in gameMedia"

@@ -7,11 +7,13 @@
     overlay
     @click="handleClick"
   >
+    <game-ribbon :game="game" />
+
     <!-- TODO: allow to like/unlike games -->
     <b-button
       variant="transparent"
       squared
-      class="mr-2 p-0"
+      class="ml-2 mt-1 p-0"
       :disabled="!user"
       @click.stop.prevent="$bus.$emit('SELECT_GAME', game.id)"
     >
@@ -33,6 +35,7 @@
 import { getImageUrl } from '@/utils';
 import { mapState } from 'vuex';
 import { NO_IMAGE_PATH, IMAGE_SIZE_COVER_SMALL, PLATFORMS } from '@/constants';
+import GameRibbon from '@/components/GameRibbon';
 import slugify from 'slugify'
 
 export default {
@@ -45,6 +48,10 @@ export default {
       required: true,
     },
     noLink: Boolean,
+  },
+
+  components: {
+    GameRibbon,
   },
 
   computed: {

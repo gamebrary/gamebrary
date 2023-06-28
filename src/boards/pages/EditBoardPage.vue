@@ -131,6 +131,199 @@
                 Background image
               </div>
 
+              <b-col v-if="board.type !== $options.BOARD_TYPE_STANDARD">
+                <template v-if="board.type === 'tier'">
+                  <h4>Tiers</h4>
+
+                  <div
+                    v-for="(list, index) in lists"
+                    :key="index"
+                    class="d-flex justify-content-between align-items-start"
+                  >
+                    <v-swatches
+                      v-model="list.backgroundColor"
+                      show-fallback
+                      :trigger-style="{ height: '40px', width: '40px' }"
+                      popover-x="left"
+                    />
+
+                    <b-form-input
+                      id="name"
+                      class="ml-2"
+                      v-model.trim="list.name"
+                    />
+
+                    <b-button variant="danger" class="ml-2" @click="confirmDeleteList(index)">
+                      <i class="fa fa-trash" aria-hidden="true" />
+                    </b-button>
+                  </div>
+                </template>
+
+                <!-- <template v-else>
+                  <div class="mt-2 d-flex justify-content-between align-items-center">
+                    Lists
+
+                    <b-button
+                      v-if="lists.length > 1"
+                      v-b-modal.editListsOrder
+                    >
+                      Edit list order
+                    </b-button>
+                  </div>
+
+                  <div
+                    v-for="(list, index) in lists"
+                    class="mb-2 list"
+                    :key="index"
+                  >
+                    <b-input-group class="mt-3">
+                      <b-form-input
+                        id="name"
+                        v-model.trim="list.name"
+                      />
+
+                      <b-input-group-append>
+                        <b-dropdown
+                          id="list-settings"
+                          no-caret
+                          :variant="list.sortOrder ? 'primary' : 'light'"
+                        >
+                          <template #button-content>
+                            <i class="fa-solid fa-sort fa-fw" />
+                          </template>
+
+                          <b-dropdown-group id="dropdown-group-1" header="Sort">
+                            <b-dropdown-item-button
+                              v-for="option in $options.LIST_SORT_OPTIONS"
+                              :key="option.value"
+                              :variant="option.value == list.sortOrder ? 'primary' : 'success'"
+                              @click="setListSorting(index, option.value)"
+                            >
+                              <div>{{ option.text }}</div>
+                              <small class="text-secondary" v-if="!option.value" show>
+                                <i class="far fa-hand-paper" aria-hidden="true"></i>
+                                Drag and drop
+                              </small>
+                            </b-dropdown-item-button>
+                          </b-dropdown-group>
+                        </b-dropdown>
+
+                        <b-dropdown
+                          id="list-settings"
+                          no-caret
+                          :variant="darkTheme ? 'secondary' : 'light'"
+                        >
+                          <template #button-content>
+                            <i class="fa-solid fa-ellipsis-vertical fa-fw" />
+                          </template>
+
+                          <b-dropdown-group id="dropdown-group-2" header="List view">
+                            <b-dropdown-item-button
+                              v-for="option in $options.LIST_VIEW_OPTIONS"
+                              :key="option.value"
+                              :bg-variant="option.value === list.view ? 'success' : ''"
+                              @click="setListView(index, option.value)"
+                            >
+                              {{ option.text }}
+                            </b-dropdown-item-button>
+                          </b-dropdown-group>
+
+                          <b-dropdown-divider />
+
+                          <div class="p-2">
+                            <b-form-checkbox
+                              v-model="list.showReleaseDates"
+                              class="mb-2"
+                              switch
+                            >
+                              {{ $t('board.list.showReleaseDates') }}
+                            </b-form-checkbox>
+
+                            <b-form-checkbox
+                              v-model="list.showGameProgress"
+                              class="mb-2"
+                              switch
+                            >
+                              {{ $t('board.list.showGameProgress') }}
+                            </b-form-checkbox>
+
+                            <b-form-checkbox
+                              v-model="list.highlightCompletedGames"
+                              class="mb-2"
+                              switch
+                            >
+                              Highlight completed games
+                            </b-form-checkbox>
+
+                            <b-form-checkbox
+                              v-model="list.showGameNotes"
+                              class="mb-2"
+                              switch
+                            >
+                              {{ $t('board.list.showGameNotes') }}
+                            </b-form-checkbox>
+
+                            <b-form-checkbox
+                              v-model="list.showGameTags"
+                              class="mb-2"
+                              switch
+                            >
+                              {{ $t('board.list.showGameTags') }}
+                            </b-form-checkbox>
+
+                            <b-form-checkbox
+                              v-model="list.showGameCount"
+                              name="check-button"
+                              switch
+                            >
+                              {{ $t('board.list.showGameCount') }}
+                            </b-form-checkbox>
+                          </div>
+
+                          <b-dropdown-divider />
+
+                          <b-dropdown-item-button @click="confirmDeleteList(index)">
+                            Delete list
+                          </b-dropdown-item-button>
+                        </b-dropdown>
+                      </b-input-group-append>
+                    </b-input-group>
+                  </div>
+                </template> -->
+
+                <b-modal
+                  id="editListsOrder"
+                  title="BootstrapVue"
+                  hide-footer
+                  :header-bg-variant="darkTheme ? 'dark' : 'transparent'"
+                  :header-text-variant="darkTheme ? 'light' : 'dark'"
+                  :body-bg-variant="darkTheme ? 'dark' : 'transparent'"
+                  :body-text-variant="darkTheme ? 'light' : 'dark'"
+                >
+                  <template v-slot:modal-header="{ close }">
+                    <modal-header
+                      title="Change list order"
+                      subtitle=""
+                      @close="close"
+                    />
+                  </template>
+
+                  <b-list-group>
+                    <draggable
+                      :list="lists"
+                      animation="500"
+                    >
+                      <b-list-group-item
+                        v-for="(list, index) in lists"
+                        :key="index"
+                      >
+                        <i class="fa-solid fa-grip-vertical fa-fw" />
+                        {{ list.name }}
+                      </b-list-group-item>
+                    </draggable>
+                  </b-list-group>
+                </b-modal>
+
               <div class="mt-3 d-none d-sm-block">
                 <b-button
                   variant="primary"
@@ -150,199 +343,6 @@
                 </b-button>
               </div>
             </b-col>
-
-            <b-col cols="12" sm="6" md="4" v-if="board.type !== $options.BOARD_TYPE_STANDARD">
-              <template v-if="board.type === 'tier'">
-                <h4>Tiers</h4>
-
-                <div
-                  v-for="(list, index) in lists"
-                  :key="index"
-                  class="d-flex justify-content-between align-items-start"
-                >
-                  <v-swatches
-                    v-model="list.backgroundColor"
-                    show-fallback
-                    :trigger-style="{ height: '40px', width: '40px' }"
-                    popover-x="left"
-                  />
-
-                  <b-form-input
-                    id="name"
-                    class="ml-2"
-                    v-model.trim="list.name"
-                  />
-
-                  <b-button variant="danger" class="ml-2" @click="confirmDeleteList(index)">
-                    <i class="fa fa-trash" aria-hidden="true" />
-                  </b-button>
-                </div>
-              </template>
-
-              <template v-else>
-                <div class="mt-2 d-flex justify-content-between align-items-center">
-                  Lists
-
-                  <b-button
-                    v-if="lists.length > 1"
-                    v-b-modal.editListsOrder
-                  >
-                    Edit list order
-                  </b-button>
-                </div>
-
-                <div
-                  v-for="(list, index) in lists"
-                  class="mb-2 list"
-                  :key="index"
-                >
-                  <b-input-group class="mt-3">
-                    <b-form-input
-                      id="name"
-                      v-model.trim="list.name"
-                    />
-
-                    <b-input-group-append>
-                      <b-dropdown
-                        id="list-settings"
-                        no-caret
-                        :variant="list.sortOrder ? 'primary' : 'light'"
-                      >
-                        <template #button-content>
-                          <i class="fa-solid fa-sort fa-fw" />
-                        </template>
-
-                        <b-dropdown-group id="dropdown-group-1" header="Sort">
-                          <b-dropdown-item-button
-                            v-for="option in $options.LIST_SORT_OPTIONS"
-                            :key="option.value"
-                            :variant="option.value == list.sortOrder ? 'primary' : 'success'"
-                            @click="setListSorting(index, option.value)"
-                          >
-                            <div>{{ option.text }}</div>
-                            <small class="text-secondary" v-if="!option.value" show>
-                              <i class="far fa-hand-paper" aria-hidden="true"></i>
-                              Drag and drop
-                            </small>
-                          </b-dropdown-item-button>
-                        </b-dropdown-group>
-                      </b-dropdown>
-
-                      <b-dropdown
-                        id="list-settings"
-                        no-caret
-                        :variant="darkTheme ? 'secondary' : 'light'"
-                      >
-                        <template #button-content>
-                          <i class="fa-solid fa-ellipsis-vertical fa-fw" />
-                        </template>
-
-                        <b-dropdown-group id="dropdown-group-2" header="List view">
-                          <b-dropdown-item-button
-                            v-for="option in $options.LIST_VIEW_OPTIONS"
-                            :key="option.value"
-                            :bg-variant="option.value === list.view ? 'success' : ''"
-                            @click="setListView(index, option.value)"
-                          >
-                            {{ option.text }}
-                          </b-dropdown-item-button>
-                        </b-dropdown-group>
-
-                        <b-dropdown-divider />
-
-                        <div class="p-2">
-                          <b-form-checkbox
-                            v-model="list.showReleaseDates"
-                            class="mb-2"
-                            switch
-                          >
-                            {{ $t('board.list.showReleaseDates') }}
-                          </b-form-checkbox>
-
-                          <b-form-checkbox
-                            v-model="list.showGameProgress"
-                            class="mb-2"
-                            switch
-                          >
-                            {{ $t('board.list.showGameProgress') }}
-                          </b-form-checkbox>
-
-                          <b-form-checkbox
-                            v-model="list.highlightCompletedGames"
-                            class="mb-2"
-                            switch
-                          >
-                            Highlight completed games
-                          </b-form-checkbox>
-
-                          <b-form-checkbox
-                            v-model="list.showGameNotes"
-                            class="mb-2"
-                            switch
-                          >
-                            {{ $t('board.list.showGameNotes') }}
-                          </b-form-checkbox>
-
-                          <b-form-checkbox
-                            v-model="list.showGameTags"
-                            class="mb-2"
-                            switch
-                          >
-                            {{ $t('board.list.showGameTags') }}
-                          </b-form-checkbox>
-
-                          <b-form-checkbox
-                            v-model="list.showGameCount"
-                            name="check-button"
-                            switch
-                          >
-                            {{ $t('board.list.showGameCount') }}
-                          </b-form-checkbox>
-                        </div>
-
-                        <b-dropdown-divider />
-
-                        <b-dropdown-item-button @click="confirmDeleteList(index)">
-                          Delete list
-                        </b-dropdown-item-button>
-                      </b-dropdown>
-                    </b-input-group-append>
-                  </b-input-group>
-                </div>
-              </template>
-
-              <b-modal
-                id="editListsOrder"
-                title="BootstrapVue"
-                hide-footer
-                :header-bg-variant="darkTheme ? 'dark' : 'transparent'"
-                :header-text-variant="darkTheme ? 'light' : 'dark'"
-                :body-bg-variant="darkTheme ? 'dark' : 'transparent'"
-                :body-text-variant="darkTheme ? 'light' : 'dark'"
-              >
-                <template v-slot:modal-header="{ close }">
-                  <modal-header
-                    title="Change list order"
-                    subtitle=""
-                    @close="close"
-                  />
-                </template>
-
-                <b-list-group>
-                  <draggable
-                    :list="lists"
-                    animation="500"
-                  >
-                    <b-list-group-item
-                      v-for="(list, index) in lists"
-                      :key="index"
-                    >
-                      <i class="fa-solid fa-grip-vertical fa-fw" />
-                      {{ list.name }}
-                    </b-list-group-item>
-                  </draggable>
-                </b-list-group>
-              </b-modal>
           </b-col>
         </b-row>
 
@@ -371,7 +371,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import { BOARD_TYPES, BOARD_TYPE_STANDARD, LIST_SORT_OPTIONS, LIST_VIEW_OPTIONS } from '@/constants';
+import { BOARD_TYPES, BOARD_TYPE_STANDARD, BOARD_TYPE_KANBAN, LIST_SORT_OPTIONS, LIST_VIEW_OPTIONS } from '@/constants';
 import WallpapersList from '@/components/WallpapersList';
 import UploadWallpaperButton from '@/components/UploadWallpaperButton';
 import VSwatches from 'vue-swatches'
@@ -418,7 +418,14 @@ export default {
   methods: {
     async loadBoard() {
       this.loading = true;
-      this.board = await this.$store.dispatch('LOAD_BOARD', this.boardId);
+
+      const board = await this.$store.dispatch('LOAD_BOARD', this.boardId);
+
+      this.board = {
+        type: BOARD_TYPE_KANBAN,
+        ...board,
+      };
+
       this.lists = JSON.parse(JSON.stringify(this.board.lists));
 
       this.loading = false;

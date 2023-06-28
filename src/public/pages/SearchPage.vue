@@ -155,7 +155,7 @@ export default {
   },
 
   async mounted() {
-    if (this.filterBy || this.filterValue) this.search();
+    if (this.filterBy || this.filterValue || !this.showEmptyState) this.search();
   },
 
   methods: {

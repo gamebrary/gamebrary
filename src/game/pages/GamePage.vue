@@ -436,80 +436,8 @@
         <game-media v-if="!loading" />
       </game-page-tile>
 
-      <game-page-tile size="half" title="Similar games">
+      <game-page-tile size="half" title="You may also like">
         <similar-games />
-        <game-bundles />
-        <game-collection />
-        <span v-if="parentGame">
-          <h4>Original game</h4>
-
-          <router-link
-            :to="{ name: 'game', params: { id: parentGame.id, slug: parentGame.slug } }"
-          >
-            <b-img
-              :src="$options.getImageUrl(parentGame)"
-              :alt="parentGame.name"
-              rounded
-              width="120"
-              fluid
-            />
-          </router-link>
-        </span>
-
-        <div v-if="gameRemasters">
-          <h4>Remasters</h4>
-
-          <router-link
-            v-for="remaster in gameRemasters"
-            :key="remaster.id"
-            :to="{ name: 'game', params: { id: remaster.id, slug: remaster.slug } }"
-          >
-            <b-img
-              :src="$options.getImageUrl(remaster)"
-              :alt="remaster.name"
-              rounded
-              width="120"
-              fluid
-            />
-          </router-link>
-        </div>
-
-        <span v-if="gameRemakes">
-          <h4>Remakes</h4>
-
-          <router-link
-            v-for="remake in gameRemakes"
-            :key="remake.id"
-            :to="{ name: 'game', params: { id: remake.id, slug: remake.slug } }"
-          >
-            <b-img
-              :src="$options.getImageUrl(remake)"
-              :alt="remake.name"
-              rounded
-              width="120"
-              fluid
-            />
-          </router-link>
-        </span>
-
-        <div v-if="gamePorts" class="text-left mt-3">
-          <h3>Ports</h3>
-
-          <div class="game-grid">
-            <router-link
-              v-for="port in gamePorts"
-              :key="port.id"
-              :to="{ name: 'game', params: { id: port.id, slug: port.slug } }"
-            >
-              <b-img
-                :src="$options.getImageUrl(port)"
-                :alt="port.name"
-                rounded
-                fluid
-              />
-            </router-link>
-          </div>
-        </div>
       </game-page-tile>
     </div>
 
@@ -528,8 +456,6 @@ import GamePageTile from '@/components/Game/GamePageTile';
 import GameInBoards from '@/components/Game/GameInBoards';
 import GameProgress from '@/components/Game/GameProgress';
 import GameTagsModal from '@/components/Game/GameTagsModal';
-import GameCollection from '@/components/Game/GameCollection';
-import GameBundles from '@/components/Game/GameBundles';
 import GameHeader from '@/components/Game/GameHeader';
 import GameRatings from '@/components/Game/GameRatings';
 import AddRemoveGame from '@/components/AddRemoveGame';
@@ -543,8 +469,6 @@ export default {
 
   components: {
     GameTagsModal,
-    GameCollection,
-    GameBundles,
     GameHeader,
     GameProgress,
     // AmazonLinks,
@@ -569,6 +493,10 @@ export default {
   computed: {
     ...mapState(['game', 'cachedGames', 'progresses', 'tags', 'boards', 'user', 'notes', 'twitchToken', 'games']),
     ...mapGetters(['darkTheme', 'gameNews', 'gameLinks']),
+
+    gameCollection() {
+      return this.game?.collection;
+    },
 
     description() {
       return this.igdbDescription || this.steamDescription || this.wikipediaExtract;
@@ -688,21 +616,6 @@ export default {
       return this.game?.themes;
     },
 
-    gameRemakes() {
-      // TODO: cache remakes
-      return this.game?.remakes;
-    },
-
-    gamePorts() {
-      // TODO: cache ports
-      return this.game?.ports;
-    },
-
-    gameRemasters() {
-      // TODO: cache remasters
-      return this.game?.remasters;
-    },
-
     gameEngines() {
       return this.game?.game_engines;
     },
@@ -787,10 +700,6 @@ export default {
 
     isLiked() {
       return this.games?.[this.gameId];
-    },
-
-    parentGame() {
-      return this.game?.parent_game;
     },
 
     gameCategory() {
