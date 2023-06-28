@@ -491,7 +491,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['game', 'cachedGames', 'progresses', 'tags', 'boards', 'user', 'notes', 'twitchToken', 'games']),
+    ...mapState(['game', 'cachedGames', 'tags', 'boards', 'user', 'notes', 'twitchToken', 'games']),
     ...mapGetters(['darkTheme', 'gameNews', 'gameLinks']),
 
     gameCollection() {

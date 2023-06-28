@@ -1,44 +1,50 @@
 <template lang="html">
-  <div class="game-progress text-center">
-    <b-link
-      class="display-3"
-      @click="editing = !editing"
-    >
+  <div v-if="user" class="text-center">
+    <span class="display-4">
       {{ progress }}%
-    </b-link>
+    </span>
+
+    <br />
+
+    Completed
+
+    <b-form>
+      <b-form-input
+        v-model="progress"
+        type="range"
+        max="100"
+        :class="['rounded px-2', progressClass]"
+        step="1"
+        debounce="500"
+        @update="saveProgress"
+      />
+
+      <b-button
+        v-if="progress"
+        :disabled="deleting"
+        variant="transparent"
+        class="text-danger"
+        size="sm"
+        @click="deleteProgress"
+      >
+        <b-spinner small v-if="deleting" />
+        <i v-else class="fas fa-trash fa-fw" aria-hidden />
+
+        Clear progress
+      </b-button>
+    </b-form>
+  </div>
+
+  <div v-else>
+    <p>Track your game progress!</p>
 
     <b-button
-      :disabled="deleting"
-      variant="danger"
-      size="sm"
-      @click="deleteProgress"
+      variant="secondary"
+      :to="{ name: 'auth' }"
+      class="mt-2"
     >
-      <b-spinner small v-if="deleting" />
-      <i v-else class="fas fa-trash fa-fw" aria-hidden />
+      Get started
     </b-button>
-
-    <b-collapse id="collapse-4" v-model="editing" class="mt-2">
-      <b-form>
-        <b-form-input
-          v-model="progress"
-          type="range"
-          max="100"
-          step="1"
-          debounce="500"
-          @update="saveProgress"
-        />
-
-        <!-- <b-button
-          variant="primary"
-          :disabled="saving"
-          class="mr-2"
-          @click="saveProgress"
-        >
-          <b-spinner small v-if="saving" />
-          <span v-else>{{ $t('global.save') }}</span>
-        </b-button> -->
-      </b-form>
-    </b-collapse>
   </div>
 </template>
 
@@ -49,7 +55,6 @@ export default {
   data() {
     return {
       progress: 0,
-      editing: false,
       saving: false,
       deleting: false,
     }
@@ -57,6 +62,13 @@ export default {
 
   computed: {
     ...mapState(['progresses', 'game', 'user']),
+
+    progressClass() {
+      if (this.progress === 0) return 'bg-white';
+      if (this.progress < 90) return 'bg-secondary';
+
+      return 'bg-success';
+    },
   },
 
   watch: {
@@ -91,7 +103,6 @@ export default {
         this.$bvToast.toast('There was an error deleting your progress', { variant: 'error' });
       }
 
-      this.editing = false;
       this.deleting = false;
     },
 
@@ -112,7 +123,6 @@ export default {
         this.$bvToast.toast('There was an error saving your progress', { variant: 'error' });
       }
 
-      this.editing = false;
       this.saving = false;
     },
   },
