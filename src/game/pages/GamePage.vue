@@ -23,15 +23,19 @@
         xl="3"
         style="z-index: 1"
       >
-        <b-img
-          :src="$options.getImageUrl(cachedGame)"
-          :alt="gameName"
-          :class="['border mx-3 mb-3', darkTheme ? 'border-dark' : 'border-light', { 'has-artworks': hasArtworks }]"
-          style="width: calc(100% - 2rem) !important"
-          bordered
-          v-b-modal.mediaModal
-          rounded
-        />
+        <div class="position-relative">
+          <game-ratings class="position-absolute d-flex" style="bottom: 1rem; right: 1rem;" />
+
+          <b-img
+            :src="$options.getImageUrl(cachedGame)"
+            :alt="gameName"
+            :class="['border mx-3 mb-3', darkTheme ? 'border-dark' : 'border-light', { 'has-artworks': hasArtworks }]"
+            style="width: calc(100% - 2rem) !important"
+            bordered
+            v-b-modal.mediaModal
+            rounded
+          />
+        </div>
       </b-col>
 
       <b-col
@@ -82,7 +86,6 @@
 
             <template v-else>
               <div class="text-justify" v-html="description" />
-              <game-ratings />
               <span class="text-muted mt-n3 mb-3 text-capitalize">Source: {{ source }}</span>
             </template>
           </div>

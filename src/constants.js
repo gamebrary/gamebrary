@@ -217,9 +217,12 @@ export const SUPPORTED_LANGUAGES = [
   { name: 'Spanish', nativeName: 'Español', value: 'es' },
 ];
 
-export const AGE_RATING_SYSTEMS = {
-  1: {
-    id: 'ESRB',
+export const AGE_RATINGS = [
+  {
+    slug: 'ESRB',
+    name: '🇺🇸 ESRB',
+    title: 'Entertainment Software Rating Board',
+    id: 1,
     ratings: {
       6: 'RP',
       7: 'EC',
@@ -230,8 +233,11 @@ export const AGE_RATING_SYSTEMS = {
       12: 'AO',
     },
   },
-  2: {
-    id: 'PEGI',
+  {
+    slug: 'PEGI',
+    name: '🇪🇺 PEGI',
+    title: 'Pan-European Game Information',
+    id: 2,
     ratings: {
       1: '3',
       2: '7',
@@ -240,8 +246,11 @@ export const AGE_RATING_SYSTEMS = {
       5: '18',
     },
   },
-  3: {
-    id: 'CERO',
+  {
+    slug: 'CERO',
+    name: '🇯🇵 CERO',
+    title: 'Computer Entertainment Rating Organization',
+    id: 3,
     ratings: {
       13: 'CERO_A',
       14: 'CERO_B',
@@ -250,8 +259,11 @@ export const AGE_RATING_SYSTEMS = {
       17: 'CERO_Z',
     },
   },
-  4: {
-    id: 'USK',
+  {
+    slug: 'USK',
+    name: '🇩🇪 USK',
+    title: 'Unterhaltungssoftware Selbstkontrolle',
+    id: 4,
     ratings: {
       18: 'USK_0',
       19: 'USK_6',
@@ -259,8 +271,11 @@ export const AGE_RATING_SYSTEMS = {
       21: 'USK_18',
     },
   },
-  5: {
-    id: 'GRAC',
+  {
+    slug: 'GRAC',
+    name: '🇰🇷 GRAC',
+    title: 'Game Rating and Administration Committee',
+    id: 5,
     ratings: {
       22: 'GRAC_ALL',
       23: 'GRAC_Twelve',
@@ -269,8 +284,11 @@ export const AGE_RATING_SYSTEMS = {
       26: 'GRAC_TESTING',
     },
   },
-  6: {
-    id: 'ClassInd',
+  {
+    slug: 'ClassInd',
+    name: '🇧🇷 ClassInd',
+    title: 'Classificação Indicativa',
+    id: 6,
     ratings: {
       27: 'ClassInd-L',
       28: 'ClassInd-10',
@@ -280,8 +298,11 @@ export const AGE_RATING_SYSTEMS = {
       32: 'ClassInd-18',
     },
   },
-  7: {
-    id: 'ACB',
+  {
+    slug: 'ACB',
+    name: '🇦🇺 ACB',
+    title: 'Australian Classification Board',
+    id: 7,
     ratings: {
       33: 'ACB_G',
       34: 'ACB_PG',
@@ -291,7 +312,7 @@ export const AGE_RATING_SYSTEMS = {
       38: 'ACB_RC',
     },
   },
-};
+];
 
 export const WEBSITE_CATEGORIES = {
   WIKIPEDIA: 3,

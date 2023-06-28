@@ -37,7 +37,32 @@
           Right
         </b-button>
       </section>
-      <!-- TODO: game rating -->
+
+      <hr />
+
+      <section class="mb-3">
+        <p class="mt-2">Preferred age rating</p>
+
+        <b-button
+          :variant="ageRating === 'all' ? 'primary' : 'light'"
+          class="mb-2 mr-2"
+          @click="setPreferredGameRating('all')"
+        >
+          Show all
+        </b-button>
+
+        <b-button
+          v-for="{ id, name, title } in $options.AGE_RATINGS"
+          class="mr-2 mb-2"
+          :key="id"
+          v-b-tooltip.hover
+          :title="title"
+          :variant="ageRating === id ? 'primary' : 'light'"
+          @click="setPreferredGameRating(id)"
+        >
+          {{ name }}
+        </b-button>
+      </section>
       <!-- TODO: erotic category -->
 
       <hr />
@@ -105,11 +130,14 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import { AGE_RATINGS } from '@/constants';
 import DeleteAccountModal from '@/components/Settings/DeleteAccountModal';
 
 import sessionMixin from '@/mixins/sessionMixin';
 
 export default {
+  AGE_RATINGS,
+
   components: {
     DeleteAccountModal,
   },
@@ -118,7 +146,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'settings']),
-    ...mapGetters(['darkTheme', 'navPosition']),
+    ...mapGetters(['darkTheme', 'navPosition', 'ageRating']),
   },
 
   methods: {
@@ -140,18 +168,30 @@ export default {
     },
 
     async setNavPosition(navPosition) {
-      const payload = {
-        ...this.settings,
-        navPosition,
-      };
-
       // TODO: commit first then save settings, to allow unauthed use
-      await this.$store.dispatch('SAVE_SETTINGS', payload)
-        .catch((e) => {
-          console.log(e);
-          this.$bvToast.toast('There was an error saving your settings', { variant: 'danger' });
-          this.saving = false;
+      try {
+        await this.$store.dispatch('SAVE_SETTINGS', {
+          ...this.settings,
+          navPosition,
         });
+      } catch (e) {
+        this.$bvToast.toast('There was an error saving your settings', { variant: 'danger' });
+      }
+
+      this.saving = false;
+    },
+
+    async setPreferredGameRating(ageRating) {
+      try {
+        await this.$store.dispatch('SAVE_SETTINGS', {
+          ...this.settings,
+          ageRating,
+        });
+      } catch (e) {
+        this.$bvToast.toast('There was an error saving your settings', { variant: 'danger' });
+      }
+
+      this.saving = false;
     },
   },
 };

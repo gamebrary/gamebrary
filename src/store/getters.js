@@ -22,6 +22,7 @@ export default {
   sortedPublicBoards: ({ publicBoards }) => orderby(publicBoards, 'lastUpdated', 'desc'),
   isBoardOwner: ({ board, user }) => board?.owner === user?.uid,
   navPosition: ({ settings }) => settings?.navPosition || 'top',
+  ageRating: ({ settings }) => settings?.ageRating || 'all',
   isVerticalNav: ({ settings }) => ['left', 'right'].includes(settings?.navPosition),
 
   gameLinks: ({ game }) => {
