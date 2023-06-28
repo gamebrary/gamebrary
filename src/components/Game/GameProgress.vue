@@ -1,50 +1,45 @@
 <template lang="html">
-  <b-col cols="6" sm="4" md="3" lg="12">
-    <h4 class="mt-4">Progress: </h4>
-
+  <div class="game-progress text-center">
     <b-link
-      v-if="user"
-      @click="editing = true"
+      class="display-3"
+      @click="editing = !editing"
     >
       {{ progress }}%
     </b-link>
 
     <b-button
-      v-else
-      :to="{ name: 'auth' }"
+      :disabled="deleting"
+      variant="danger"
+      size="sm"
+      @click="deleteProgress"
     >
-      Login to set progress
+      <b-spinner small v-if="deleting" />
+      <i v-else class="fas fa-trash fa-fw" aria-hidden />
     </b-button>
 
-    <b-form v-if="editing">
-      <b-form-input
-        size="lg"
-        v-model="progress"
-        type="range"
-        max="100"
-        step="1"
-      />
+    <b-collapse id="collapse-4" v-model="editing" class="mt-2">
+      <b-form>
+        <b-form-input
+          v-model="progress"
+          type="range"
+          max="100"
+          step="1"
+          debounce="500"
+          @update="saveProgress"
+        />
 
-      <b-button
-        variant="primary"
-        :disabled="saving"
-        class="mr-2"
-        @click="saveProgress"
-      >
-        <b-spinner small v-if="saving" />
-        <span v-else>{{ $t('global.save') }}</span>
-      </b-button>
-
-      <b-button
-        :disabled="deleting"
-        variant="danger"
-        @click="deleteProgress"
-      >
-        <b-spinner small v-if="deleting" />
-        <i v-else class="fas fa-trash fa-fw" aria-hidden />
-      </b-button>
-    </b-form>
-  </b-col>
+        <!-- <b-button
+          variant="primary"
+          :disabled="saving"
+          class="mr-2"
+          @click="saveProgress"
+        >
+          <b-spinner small v-if="saving" />
+          <span v-else>{{ $t('global.save') }}</span>
+        </b-button> -->
+      </b-form>
+    </b-collapse>
+  </div>
 </template>
 
 <script>
@@ -65,13 +60,23 @@ export default {
     ...mapState(['progresses', 'game', 'user']),
   },
 
+  watch: {
+      game(game) {
+        if (game?.id) this.setProgress();
+      },
+  },
+
   mounted() {
-    this.progress = this.progresses?.[this.game?.id]
-      ? JSON.parse(JSON.stringify(this.progresses?.[this.game?.id]))
-      : 0;
+    this.setProgress();
   },
 
   methods: {
+    setProgress() {
+      this.progress = this.progresses?.[this.game?.id]
+        ? JSON.parse(JSON.stringify(this.progresses?.[this.game?.id]))
+        : 0;
+    },
+
     async deleteProgress() {
       try {
         const { id, name } = this.game;

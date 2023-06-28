@@ -239,41 +239,48 @@
     </b-row>
 
     <div class="d-flex flex-column flex-md-row">
-      <game-page-tile size="quarter" title="Publisher / Developer">
-        <b-link
+      <game-page-tile size="quarter" title="Progress">
+        <game-progress />
+      </game-page-tile>
+
+      <game-page-tile size="quarter" title="Publishers">
+        <b-button
           v-for="publisher in gamePublishers"
           :key="publisher.id"
-          v-b-tooltip.hover
-          :title="publisher.name"
+          variant="info"
           :to="{ name: 'company', params: { id: publisher.id, slug: publisher.slug }}"
-          :class="['p-2 d-inline-flex rounded mr-2 mb-2', { 'bg-white': publisher.logo && publisher.logo.alpha_channel }]"
+          class="mr-2 mb-2 align-items-center"
         >
           <b-img
             v-if="publisher.logo"
             :src="$options.getImageUrl(publisher)"
             :alt="publisher.name"
-            width="120"
+            width="40"
+            class="mr-2"
           />
 
-          <span v-else>{{ publisher.name }}</span>
-        </b-link>
+          <span>{{ publisher.name }}</span>
+        </b-button>
+      </game-page-tile>
 
-        devs:
-        <b-link
+      <game-page-tile size="quarter" title="Developers">
+        <b-button
           v-for="developer in gameDevelopers"
           :key="developer.id"
+          variant="info"
           :to="{ name: 'company', params: { id: developer.id, slug: developer.slug }}"
-          :class="['p-2 d-inline-flex rounded mr-2 mb-2', { 'bg-white': developer.logo && developer.logo.alpha_channel }]"
+          class="mr-2 mb-2 align-items-center"
         >
           <b-img
             v-if="developer.logo"
             :src="$options.getImageUrl(developer)"
             :alt="developer.name"
-            width="120"
+            width="40"
+            class="mr-2"
           />
 
-          <span v-else>{{ developer.name }}</span>
-        </b-link>
+          <span>{{ developer.name }}</span>
+        </b-button>
       </game-page-tile>
 
       <game-page-tile size="quarter" title="News">
@@ -422,8 +429,6 @@
       <b-button v-else>
         Add note
       </b-button>
-
-      <game-progress />
     </game-page-tile>
 
     <div class="d-flex flex-column flex-md-row">
@@ -889,7 +894,6 @@ export default {
     },
 
     async loadGame() {
-      window.scrollTo(0, 0);
       this.loading = true;
       this.$bus.$emit('CLEAR_WALLPAPER');
       this.$store.commit('CLEAR_GAME');
@@ -903,6 +907,7 @@ export default {
       setPageTitle(this.game?.name);
 
       this.loading = false;
+      window.scrollTo(0, 0);
 
       this.wikipediaDescription = this.wikipediaSlug
         ? await this.$store.dispatch('LOAD_WIKIPEDIA_DESCRIPTION', this.wikipediaSlug).catch((e) => {})

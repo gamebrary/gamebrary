@@ -1,3 +1,4 @@
+<!-- TODO: scroll to top on route change -->
 <!-- TODO: standardize media query breakpoints -->
 <!-- TODO: standardize vue masonry settings -->
 <!-- TODO: add slideshow view (based on games on board/list) -->

@@ -46,16 +46,7 @@
           <b-alert show variant="light">Light Alert</b-alert>
           <b-alert show variant="dark">Dark Alert</b-alert>
         </b-col>
-
-        <b-col cols="3">
-        </b-col>
-
-        <b-col cols="3">
-        </b-col>
-
       </b-row>
-
-
 
       <b-button
         @click="$store.commit('SET_SESSION_EXPIRED', true)"
