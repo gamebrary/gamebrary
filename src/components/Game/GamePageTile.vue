@@ -1,7 +1,7 @@
 <template>
   <div :class="['tile', size]">
     <section :class="['p-3 rounded my-3 m-3', darkTheme ? 'bg-dark text-light' : 'bg-light']">
-      <h3>{{ title }}</h3>
+      <h3 class="mb-2">{{ title }}</h3>
 
       <div :class="['content', 'rounded', size]">
         <slot />
