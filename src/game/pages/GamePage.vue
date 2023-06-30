@@ -21,6 +21,7 @@
         md="6"
         lg="4"
         xl="3"
+        offset-xl="1"
         style="z-index: 1"
       >
         <div class="position-relative">
@@ -42,14 +43,16 @@
         cols="12"
         md="6"
         lg="8"
-        xl="6"
+        xl="8"
       >
-        <div class="px-3 pt-1">
+        <div class="px-3 mx-auto pt-1" style="width: 800px; max-width: 100%;">
           <div
             class="d-flex justify-content-between align-items-end mb-2"
             v-b-visible="(value) => titleVisible = !value"
           >
             <div :class="['d-flex align-items-center', { 'mt-3': hasArtworks }]">
+              <!-- TODO: put like button in component, pass gameId -->
+              <!-- TODO: if liked, show dropdown when clicked, options: remove from your games -->
               <b-button
                 variant="transparent"
                 squared
@@ -60,11 +63,40 @@
                 <i :class="[isLiked ? 'fa-solid': 'fa-regular' , 'fa-heart text-danger']" />
               </b-button>
 
-              <h2>
+              <h2 id="popover-target-1" :class="{ 'text-danger': isLiked, 'cursor-pointer': alternativeNames.length }">
                 {{ gameName }}
               </h2>
 
+              <b-popover
+                v-if="alternativeNames.length"
+                target="popover-target-1"
+                triggers="hover"
+                placement="top"
+              >
+                <strong class="mb-2 d-block">Alternative names:</strong>
+
+                <div
+                  class="mb-1"
+                  variant="light"
+                  v-for="{ comment, id, name, imgUrl } in alternativeNames"
+                  :key="id"
+                >
+                  <b-avatar
+                    v-b-tooltip
+                    :title="comment || null"
+                    size="sm"
+                    variant="transparent"
+                    class="mr-1"
+                    rounded
+                    :src="imgUrl"
+                  />
+
+                  {{ name }}
+                </div>
+              </b-popover>
+
               <!-- TODO: use popover to show more info (e.g. if port, show original game) -->
+              <!-- TODO: if type of === expansion, then show original game in popover -->
               <b-badge v-if="gameCategory" variant="info" class="ml-2">
                 {{ gameCategory }}
               </b-badge>
@@ -81,89 +113,7 @@
             </b-button>
           </div>
 
-          <div :class="['game-description', source]">
-            <b-spinner v-if="loading" class="spinner-centered" />
-
-            <template v-else>
-              <div class="text-justify" v-html="description" />
-              <span class="text-muted mt-n3 mb-3 text-capitalize">Source: {{ source }}</span>
-            </template>
-          </div>
-
-          <small
-            v-if="legalNotice"
-            class="text-muted mt-2"
-            v-html="legalNotice"
-          />
-        </div>
-      </b-col>
-
-      <b-col>
-        <div :class="['m-3 p-3 rounded', darkTheme ? 'bg-dark' : 'bg-info']">
-          <div v-if="gameGenres">
-            <h4 class="mt-3">Genres: </h4>
-
-            <b-link
-              v-for="(genre, index) in gameGenres"
-              :to="{ name: 'search', query: { filterBy: 'genres', value: genre.id }}"
-              :key="genre.id"
-            >
-              {{ genre.name }}<template v-if="index < gameGenres.length - 1">, </template>
-            </b-link>
-          </div>
-
-          <div v-if="gameThemes">
-            <h4 class="mt-3">Themes: </h4>
-
-            <b-link
-              v-for="({ id, name }, index) in gameThemes"
-              :key="id"
-            >
-              <b-link :to="{ name: 'search', query: { filterBy: 'themes', value: id }}">{{ name }}</b-link>
-              <template v-if="index < gameThemes.length - 1">, </template>
-            </b-link>
-          </div>
-
-          <div v-if="gameEngines">
-            <h4 class="mt-3">Game engines: </h4>
-
-            <p
-              v-for="{ id, name } in gameEngines"
-              :key="id"
-              :class="darkTheme && hasWallpaper ? 'text-light' : ''"
-            >
-              {{ name }}
-            </p>
-          </div>
-
-          <div v-if="gameModes">
-            <h4 class="mt-3">{{ $t('board.gameModal.gameModes') }}: </h4>
-
-            <b-link
-              v-for="(gameMode, index) in gameModes"
-              :key="gameMode.id"
-            >
-              <b-link :to="{ name: 'search', query: { filterBy: 'game_modes', value: gameMode.id }}">{{ gameMode.name }}</b-link>
-              <template v-if="index < gameModes.length - 1">, </template>
-            </b-link>
-          </div>
-
-          <div v-if="playerPerspectives">
-            <h4 class="mt-3">{{ $t('board.gameModal.perspective') }}: </h4>
-
-            <b-link
-              v-for="({ id, name }, index) in playerPerspectives"
-              :key="id"
-            >
-
-              <b-link :to="{ name: 'search', query: { filterBy: 'player_perspectives', value: id }}">{{ name }}</b-link>
-              <template v-if="index < playerPerspectives.length - 1">, </template>
-            </b-link>
-          </div>
-
           <div v-if="user">
-            <h4 class="mt-3">Tags: </h4>
-
             <b-link v-if="!tagsApplied.length" v-b-modal.gameTagsModal>
               Add tag
             </b-link>
@@ -184,57 +134,155 @@
             <game-tags-modal />
           </div>
 
-          <div v-if="alternativeNames.length">
-            <h4 class="mt-3">Alternative names:</h4>
+          <div :class="['game-description', source]">
+            <b-spinner v-if="loading" class="spinner-centered" />
 
-            <div
-              class="mb-1"
-              variant="light"
-              v-for="{ comment, id, name, imgUrl } in alternativeNames"
-              :key="id"
-            >
-              <b-avatar
-                v-b-tooltip
-                :title="comment || null"
-                size="sm"
-                variant="transparent"
-                class="mr-1"
-                rounded
-                :src="imgUrl"
-              />
+            <template v-else>
+              <div class="text-justify" v-html="description" />
+              <small class="text-muted mb-3 text-capitalize">Source: {{ source }}</small>
+            </template>
+          </div>
 
-              {{ name }}
+          <hr v-if="!loading" class="my-4" />
+
+          <div class="d-inline-block w-100">
+            <div v-if="gameGenres" class="float-left mr-3">
+              <h5>Genres: </h5>
+
+              <b-button-group class="mb-3">
+                <b-button
+                  v-for="genre in gameGenres"
+                  :to="{ name: 'search', query: { filterBy: 'genres', value: genre.id }}"
+                  :key="genre.id"
+                  size="sm"
+                  variant="light"
+                >
+                  <i :class="genre.icon || 'fa-solid fa-asterisk'" aria-hidden="true" />
+                  <br />
+                  <small>{{ genre.name }}</small>
+                </b-button>
+              </b-button-group>
             </div>
+
+            <div v-if="gameThemes" class="float-left mr-3">
+              <h5>Themes: </h5>
+
+              <b-button-group class="mb-3">
+                <b-button
+                  v-for="theme in gameThemes"
+                  :to="{ name: 'search', query: { filterBy: 'themes', value: theme.id }}"
+                  :key="theme.id"
+                  size="sm"
+                  variant="light"
+                >
+                  <i :class="theme.icon || 'fa-solid fa-asterisk'" aria-hidden="true" />
+                  <br />
+                  <small>{{ theme.name }}</small>
+                </b-button>
+              </b-button-group>
+            </div>
+
+            <div v-if="gameModes" class="float-left mr-3">
+              <h5>{{ $t('board.gameModal.gameModes') }}: </h5>
+
+              <b-button-group class="mb-3">
+                <b-button
+                  v-for="gameMode in gameModes"
+                  :key="gameMode.id"
+                  :to="{ name: 'search', query: { filterBy: 'game_modes', value: gameMode.id }}"
+                  size="sm"
+                  variant="light"
+                >
+                  <i :class="gameMode.icon || 'fa-solid fa-gamepad'" aria-hidden="true" />
+                  <br />
+                  <small>{{ gameMode.name }}</small>
+                </b-button>
+              </b-button-group>
+            </div>
+
+            <div v-if="gameEngines" class="float-left mr-3">
+              <h5>Game engines</h5>
+
+              <b-button-group class="mb-3">
+                <b-button
+                  v-for="gameEngine in gameEngines"
+                  :key="gameEngine.id"
+                  size="sm"
+                  variant="light"
+                >
+                  <!-- :to="{ name: 'search', query: { filterBy: 'game_modes', value: gameEngine.id }}" -->
+                  <i :class="gameEngine.icon || 'fa-solid fa-asterisk'" aria-hidden="true" />
+                  <br />
+                  <small>{{ gameEngine.name }}</small>
+                </b-button>
+              </b-button-group>
+            </div>
+
+            <div v-if="playerPerspectives" class="float-left mr-3">
+              <h5>Perspective</h5>
+
+              <b-button-group class="mb-3">
+                <b-button
+                  v-for="perspective in playerPerspectives"
+                  :key="perspective.id"
+                  :to="{ name: 'search', query: { filterBy: 'player_perspectives', value: id }}"
+                  size="sm"
+                  variant="light"
+                >
+                  <!-- :to="{ name: 'search', query: { filterBy: 'game_modes', value: perspective.id }}" -->
+                  <i :class="perspective.icon || 'fa-solid fa-asterisk'" aria-hidden="true" />
+                  <br />
+                  <small>{{ perspective.name }}</small>
+                </b-button>
+              </b-button-group>
+            </div>
+
+            <!-- <div>
+              <h4 class="mt-3">{{ $t('board.gameModal.releaseDate') }}</h4>
+              <ol v-if="releaseDates" class="list-unstyled mb-0">
+                <li
+                  v-for="{ id, platform, date } in releaseDates"
+                  :key="id"
+                >
+                  {{ date }} <span>{{ platform || 'N/A' }}</span>
+                </li>
+              </ol>
+
+              <div v-else>
+                Not released yet
+              </div>
+            </div> -->
+
+            <!-- TODO: add game requirements -->
+            <!-- <b-col cols="6" sm="4" md="3" lg="12" v-if="gameRequirements">
+              <div
+                v-for="(requirement, index) in gameRequirements"
+                :key="index"
+              >
+                <pre>{{ index }}</pre>
+                <p v-html="requirement.minimum" />
+                <p v-html="requirement.recommended" />
+              </div>
+            </b-col> -->
+          </div>
+
+          <hr v-if="!loading" class="my-4" />
+
+          <div v-if="gamePlatforms" class="d-inline-block w-100">
+            <h5>Available for</h5>
+
+            <b-link
+              v-for="platform in gamePlatforms"
+              :key="platform.id"
+              size="sm"
+              variant="link"
+              class="mr-2 mb-2"
+              :to="{ name: 'search', query: { filterBy: 'platforms', value: platform.id }}"
+            >
+              {{ platform.name }}
+            </b-link>
           </div>
         </div>
-
-        <!-- <div>
-          <h4 class="mt-3">{{ $t('board.gameModal.releaseDate') }}</h4>
-          <ol v-if="releaseDates" class="list-unstyled mb-0">
-            <li
-              v-for="{ id, platform, date } in releaseDates"
-              :key="id"
-            >
-              {{ date }} <span>{{ platform || 'N/A' }}</span>
-            </li>
-          </ol>
-
-          <div v-else>
-            Not released yet
-          </div>
-        </div> -->
-
-        <!-- TODO: add game requirements -->
-        <!-- <b-col cols="6" sm="4" md="3" lg="12" v-if="gameRequirements">
-          <div
-            v-for="(requirement, index) in gameRequirements"
-            :key="index"
-          >
-            <pre>{{ index }}</pre>
-            <p v-html="requirement.minimum" />
-            <p v-html="requirement.recommended" />
-          </div>
-        </b-col> -->
       </b-col>
     </b-row>
 
@@ -283,8 +331,12 @@
         </b-button>
       </game-page-tile>
 
-      <game-page-tile size="quarter" title="News">
-        <ul v-if="newsHighlights">
+      <game-page-tile
+        v-if="newsHighlights"
+        size="quarter"
+        title="News"
+      >
+        <ul>
           <li
             v-for="(highlight, index) in newsHighlights"
             :key="index"
@@ -298,18 +350,6 @@
             </b-link>
           </li>
         </ul>
-      </game-page-tile>
-
-      <game-page-tile v-if="gamePlatforms" size="quarter" title="Available for">
-        <b-button
-          v-for="platform in gamePlatforms"
-          :key="platform.id"
-          size="sm"
-          class="mr-2 mb-2"
-          :to="{ name: 'search', query: { filterBy: 'platforms', value: platform.id }}"
-        >
-          {{ platform.name }}
-        </b-button>
       </game-page-tile>
     </div>
 
@@ -426,7 +466,10 @@
         @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
       />
 
-      <b-button v-else>
+      <b-button
+        v-else
+        @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
+      >
         Add note
       </b-button>
     </game-page-tile>
@@ -442,13 +485,19 @@
     </div>
 
     <game-in-boards v-if="!loading" />
+
+    <p
+      v-if="legalNotice"
+      class="text-muted mt-2 mb-5 p-3 small"
+      v-html="legalNotice"
+    />
   </section>
 </template>
 
 <script>
 import { setPageTitle } from '@/utils';
 import { mapState, mapGetters } from 'vuex';
-import { WEBSITE_CATEGORIES, GAME_CATEGORIES, PLATFORMS } from '@/constants';
+import { WEBSITE_CATEGORIES, GAME_CATEGORIES, PLATFORMS, GAME_DESC_SM_CHAR_COUNT } from '@/constants';
 // import AmazonLinks from '@/components/Game/AmazonLinks';
 // import GameDetails from '@/components/Game/GameDetails';
 import GameMedia from '@/components/Game/GameMedia';
@@ -492,7 +541,7 @@ export default {
 
   computed: {
     ...mapState(['game', 'cachedGames', 'tags', 'boards', 'user', 'notes', 'twitchToken', 'games']),
-    ...mapGetters(['darkTheme', 'gameNews', 'gameLinks']),
+    ...mapGetters(['darkTheme', 'gameNews', 'gameLinks', 'gameGenres']),
 
     gameCollection() {
       return this.game?.collection;
@@ -500,6 +549,10 @@ export default {
 
     description() {
       return this.igdbDescription || this.steamDescription || this.wikipediaExtract;
+    },
+
+    hasShortDescription() {
+      return this.description?.length < GAME_DESC_SM_CHAR_COUNT;
     },
 
     background() {
@@ -592,10 +645,6 @@ export default {
 
     playerPerspectives() {
       return this.game?.player_perspectives;
-    },
-
-    gameGenres() {
-      return this.game?.genres;
     },
 
     // releaseDates() {
@@ -816,7 +865,6 @@ export default {
       setPageTitle(this.game?.name);
 
       this.loading = false;
-      window.scrollTo(0, 0);
 
       this.wikipediaDescription = this.wikipediaSlug
         ? await this.$store.dispatch('LOAD_WIKIPEDIA_DESCRIPTION', this.wikipediaSlug).catch((e) => {})

@@ -6,6 +6,7 @@ import {
   IMAGE_SIZE_MICRO,
   IMAGE_SIZE_COVER_BIG,
   IMAGE_SIZE_SCREENSHOT_MED,
+  GAME_GENRES,
 } from '@/constants';
 import { getImageUrl } from '@/utils';
 import slugify from 'slugify'
@@ -31,6 +32,17 @@ export default {
 
   // Arabic is the only ltr language supported at the moment
   isRTL: ({ settings }) => settings?.language !== 'ar',
+
+  gameGenres: (state) => {
+    return state.game?.genres.map((genre) => {
+      const genreOverrides = GAME_GENRES.find(({ id }) => id === genre.id);
+
+      return {
+        ...genre,
+        ...genreOverrides,
+      };
+    });
+  },
 
   gameNews: (state) => {
     const gameNews = state.game?.news?.map((article) => {

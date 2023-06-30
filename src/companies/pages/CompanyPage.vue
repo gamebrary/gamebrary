@@ -19,37 +19,34 @@
 
         <h3 class="w-100 my-3">Games developed by {{ company.name }}</h3>
 
-        <div class="game-grid">
-          <router-link
-            v-for="game in company.developed"
-            :key="game.id"
-            :to="{ name: 'game', params: { id: game.id, slug: game.slug } }"
-          >
-            <b-img
-              :src="$options.getImageUrl(game)"
-              :alt="game.name"
-              rounded
-              fluid
-            />
-          </router-link>
-        </div>
+        <masonry
+          gutter="16px"
+          style="max-height: 60vh;"
+          class="mb-5"
+          v-if="company.developed"
+          :cols="{ default: 7, 1200: 5, 768: 3, 480: 2 }"
+        >
+          <game-card-search
+            v-for="gameDeveloped in company.developed"
+            :game="gameDeveloped"
+            :key="gameDeveloped.id"
+          />
+        </masonry>
 
         <h3 class="w-100 my-3">Games published by {{ company.name }}</h3>
 
-        <div class="game-grid">
-          <router-link
-            v-for="game in company.published"
-            :key="game.id"
-            :to="{ name: 'game', params: { id: game.id, slug: game.slug } }"
-          >
-            <b-img
-              :src="$options.getImageUrl(game)"
-              :alt="game.name"
-              rounded
-              fluid
-            />
-          </router-link>
-        </div>
+        <masonry
+          gutter="16px"
+          style="max-height: 60vh;"
+          v-if="company.published"
+          :cols="{ default: 7, 1200: 5, 768: 3, 480: 2 }"
+        >
+          <game-card-search
+            v-for="gamePublished in company.published"
+            :game="gamePublished"
+            :key="gamePublished.id"
+          />
+        </masonry>
       </div>
 
       <div v-else>
@@ -62,9 +59,14 @@
 <script>
 import { getImageUrl } from '@/utils';
 import { IGDB_QUERIES } from '@/constants';
+import GameCardSearch from '@/components/GameCards/GameCardSearch';
 
 export default {
   getImageUrl,
+
+  components: {
+    GameCardSearch,
+  },
 
   data() {
     return {

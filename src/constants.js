@@ -9,6 +9,7 @@ export const IMAGE_SIZE_SCREENSHOT_HUGE = 't_screenshot_huge_2x'; // 1280 x 720	
 export const IMAGE_SIZE_SCREENSHOT_MED = 't_screenshot_med_2x'; // 569 x 320	lfill, center gravity
 export const IMAGE_SIZE_THUMB = 't_thumb_2x'; // 90 x 90	thumb, center gravity
 
+export const GAME_DESC_SM_CHAR_COUNT = 520;
 export const GAME_CAROUSEL_PAGE_SIZE = 5;
 export const MIN_PROFILE_LENGTH = 6;
 export const THUMBNAIL_PREFIX = '_300x300';
@@ -169,30 +170,6 @@ export const NEWS_SOURCES = {
   gamingonlinux: { img: 'gamingonlinux.svg', url: 'https://www.gamingonlinux.com/', name: 'GamingOnLinux' },
 };
 
-export const GENRE_ICONS = {
-  2: 'fa-solid fa-computer-mouse',
-  4: 'fa-solid fa-hand-fist',
-  5: 'fa-solid fa-person-rifle',
-  7: 'fa-solid fa-music',
-  8: 'fa-solid fa-person-running',
-  9: 'fa-solid fa-puzzle-piece',
-  10: 'fa-solid fa-flag-checkered',
-  12: 'fa-solid fa-shield',
-  13: 'fa-solid fa-cube',
-  14: 'fa-solid fa-futbol',
-  15: 'fa-solid fa-chess',
-  16: 'fa-solid fa-arrows-turn-to-dots',
-  24: 'fa-solid fa-user-ninja',
-  26: 'fa-solid fa-person-circle-question',
-  30: 'fa-solid fa-table-tennis-paddle-ball',
-  31: 'fa-solid fa-mountain-sun',
-  32: 'fa-solid fa-gamepad',
-  33: 'fa-solid fa-asterisk',
-  35: 'fa-solid fa-chess-board',
-  34: 'fa-solid fa-comments',
-  36: 'fa-solid fa-network-wired',
-};
-
 export const KEYBOARD_SHORTCUTS = {
   'MODAL_keyboard-shortcuts': ['shift', '?'],
   // MODAL_devTools: ['shift', 'd'],
@@ -320,29 +297,29 @@ export const WEBSITE_CATEGORIES = {
 };
 
 export const GAME_GENRES = [
-  { id: 2, name: 'Point-and-click', slug: 'point-and-click' },
-  { id: 4, name: 'Fighting', slug: 'fighting' },
-  { id: 5, name: 'Shooter', slug: 'shooter' },
-  { id: 7, name: 'Music', slug: 'music' },
-  { id: 8, name: 'Platform', slug: 'platform' },
-  { id: 9, name: 'Puzzle', slug: 'puzzle' },
-  { id: 10, name: 'Racing', slug: 'racing' },
-  { id: 11, name: 'Real Time Strategy (RTS)', slug: 'real-time-strategy-rts' },
-  { id: 12, name: 'Role-playing (RPG)', slug: 'role-playing-rpg' },
-  { id: 13, name: 'Simulator', slug: 'simulator' },
-  { id: 14, name: 'Sport', slug: 'sport' },
-  { id: 15, name: 'Strategy', slug: 'strategy' },
-  { id: 16, name: 'Turn-based strategy (TBS)', slug: 'turn-based-strategy-tbs' },
-  { id: 24, name: 'Tactical', slug: 'tactical' },
-  { id: 25, name: 'Hack and slash/Beat \'em up', slug: 'hack-and-slash-beat-em-up' },
-  { id: 26, name: 'Quiz/Trivia', slug: 'quiz-trivia' },
-  { id: 30, name: 'Pinball', slug: 'pinball' },
-  { id: 31, name: 'Adventure', slug: 'adventure' },
-  { id: 32, name: 'Indie', slug: 'indie' },
-  { id: 33, name: 'Arcade', slug: 'arcade' },
-  { id: 34, name: 'Visual Novel', slug: 'visual-novel' },
-  { id: 35, name: 'Card & Board Game', slug: 'card-and-board-game' },
-  { id: 36, name: 'MOBA', slug: 'moba' },
+  { id: 2, name: 'Point-and-click', slug: 'point-and-click', icon: 'fa-solid fa-computer-mouse' },
+  { id: 4, name: 'Fighting', slug: 'fighting', icon: 'fa-solid fa-hand-fist' },
+  { id: 5, name: 'Shooter', slug: 'shooter', icon: 'fa-solid fa-person-rifle' },
+  { id: 7, name: 'Music', slug: 'music', icon: 'fa-solid fa-music' },
+  { id: 8, name: 'Platform', slug: 'platform', icon: 'fa-solid fa-person-running' },
+  { id: 9, name: 'Puzzle', slug: 'puzzle', icon: 'fa-solid fa-puzzle-piece' },
+  { id: 10, name: 'Racing', slug: 'racing', icon: 'fa-solid fa-flag-checkered' },
+  { id: 11, name: 'Real Time Strategy (RTS)', slug: 'real-time-strategy-rts', icon: 'fas-solid fa-ambulance' },
+  { id: 12, name: 'Role-playing (RPG)', slug: 'role-playing-rpg', icon: 'fa-solid fa-shield' },
+  { id: 13, name: 'Simulator', slug: 'simulator', icon: 'fa-solid fa-cube' },
+  { id: 14, name: 'Sport', slug: 'sport', icon: 'fa-solid fa-futbol' },
+  { id: 15, name: 'Strategy', slug: 'strategy', icon: 'fa-solid fa-chess' },
+  { id: 16, name: 'Turn-based strategy (TBS)', slug: 'turn-based-strategy-tbs', icon: 'fa-solid fa-arrows-turn-to-dots' },
+  { id: 24, name: 'Tactical', slug: 'tactical', icon: 'fa-solid fa-user-ninja' },
+  { id: 25, name: 'Beat \'em up', slug: 'hack-and-slash-beat-em-up' },
+  { id: 26, name: 'Quiz/Trivia', slug: 'quiz-trivia', icon: 'fa-solid fa-person-circle-question' },
+  { id: 30, name: 'Pinball', slug: 'pinball', icon: 'fa-solid fa-table-tennis-paddle-ball' },
+  { id: 31, slug: 'adventure', icon: 'fa-solid fa-mountain-sun' },
+  { id: 32, name: 'Indie', slug: 'indie', icon: 'fa-solid fa-gamepad' },
+  { id: 33, name: 'Arcade', slug: 'arcade', icon: 'fa-solid fa-asterisk' },
+  { id: 34, name: 'Visual Novel', slug: 'visual-novel', icon: 'fa-solid fa-comments' },
+  { id: 35, name: 'Card & Board Game', slug: 'card-and-board-game', icon: 'fa-solid fa-chess-board' },
+  { id: 36, name: 'MOBA', slug: 'moba', icon: 'fa-solid fa-network-wired' },
 ];
 
 export const PLATFORMS = {
