@@ -36,7 +36,7 @@ export default {
         ...this.gameRemasters,
         ...this.gameBundles,
         ...this.similarGames,
-      ]
+      ];
     },
 
     gameRemakes() {
@@ -44,7 +44,13 @@ export default {
     },
 
     collectionGames() {
-      return this.game?.collection?.games || [];
+      const filteredGames = this.game?.collection?.games?.filter(({ id }) => {
+        const isCurrentGame = id === this.game?.id;
+
+        return !isCurrentGame;
+      })
+
+      return filteredGames || [];
     },
 
     gamePorts() {
