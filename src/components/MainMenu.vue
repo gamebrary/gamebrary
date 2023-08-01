@@ -7,12 +7,6 @@
     no-caret
     :class="isVerticalNav ? 'mt-1' : ''"
   >
-    <!-- TODO: style dark dropdown -->
-    <!-- :menu-class="darkTheme ? 'bg-dark' : null" -->
-    <!-- <b-dropdown-text style="width: 240px;">
-      <small>Welcome {{ user.displayName }}</small>
-    </b-dropdown-text> -->
-
     <template #button-content>
       <i class="fa-sharp fa-solid fa-bars" />
     </template>

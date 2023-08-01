@@ -24,9 +24,6 @@
           <i v-else class="fa-solid fa-table-cells" />
         </b-button>
       </page-title>
-      <!-- TODO: add sorting -->
-      <!-- TODO: add filtering -->
-      <!-- TODO: add filtering -->
 
       <!-- <b-button class="mr-3">
         Sort

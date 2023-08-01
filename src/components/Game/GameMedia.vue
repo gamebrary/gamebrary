@@ -1,4 +1,3 @@
-<!-- TODO: fix set as wallpaper logic -->
 <template lang="html">
   <section>
     <masonry

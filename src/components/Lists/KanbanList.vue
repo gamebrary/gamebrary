@@ -1,4 +1,3 @@
-<!-- TODO: Fix issue with grid not loading correctly -->
 <template lang="html">
   <div
     :class="['list rounded pr-3', listView, { dragging, 'unique': singleList, 'pr-3': isLastList && isPublicBoard }]"

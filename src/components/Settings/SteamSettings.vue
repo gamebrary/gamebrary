@@ -1,4 +1,3 @@
-<!-- TODO: finish steam integration -->
 <template lang="html">
   <div>
     <b-form-group label="Steam ID:">

@@ -63,7 +63,6 @@
           {{ name }}
         </b-button>
       </section>
-      <!-- TODO: erotic category -->
 
       <hr />
 
@@ -81,7 +80,6 @@
 
       <h3>Allow erotic content</h3> -->
 
-      <!-- TODO: make it smart -->
       <!-- <h4 class="mt-4 mb-1">Account</h4>
 
       <b-button
@@ -159,7 +157,6 @@ export default {
         darkTheme: !darkTheme,
       };
 
-      // TODO: commit first then save settings, to allow unauthed use
       await this.$store.dispatch('SAVE_SETTINGS', payload)
         .catch(() => {
           this.$bvToast.toast('There was an error saving your settings', { variant: 'danger' });
@@ -168,7 +165,6 @@ export default {
     },
 
     async setNavPosition(navPosition) {
-      // TODO: commit first then save settings, to allow unauthed use
       try {
         await this.$store.dispatch('SAVE_SETTINGS', {
           ...this.settings,

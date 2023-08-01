@@ -4,8 +4,6 @@
       <upload-wallpaper-button />
     </page-title>
 
-    <!-- TODO: add artwork/media search and allow to upload using url -->
-
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <template v-else-if="showEmptyState">
@@ -14,7 +12,6 @@
         illustration="wallpapers"
       >
         <upload-wallpaper-button v-if="user" />
-        <!-- TODO: add better public page with images/etc -->
       </empty-state>
     </template>
 

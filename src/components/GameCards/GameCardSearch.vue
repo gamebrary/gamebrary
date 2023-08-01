@@ -9,7 +9,6 @@
   >
     <game-ribbon :game="game" />
 
-    <!-- TODO: allow to like/unlike games -->
     <b-button
       variant="transparent"
       squared

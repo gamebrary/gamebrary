@@ -1,5 +1,3 @@
-<!-- TODO: allow multiple filters at once -->
-<!-- TODO: add rating filtering -->
 <template lang="html">
   <b-modal
     id="filters"

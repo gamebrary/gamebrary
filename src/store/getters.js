@@ -134,7 +134,6 @@ export default {
 
     const igdbArtworks = state?.game?.artworks?.map((artwork) => ({ imageUrl: getImageUrl(artwork, IMAGE_SIZE_720P), source: 'igdb', })) || [];
 
-    // TODO: finish speedruns integration
     // console.log('speedRunVideos', speedRunVideos);
 
     return [

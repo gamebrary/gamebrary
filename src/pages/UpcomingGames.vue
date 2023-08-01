@@ -1,4 +1,3 @@
-<!-- TODO: calendar view? -->
 <template lang="html">
   <div>
     <masonry

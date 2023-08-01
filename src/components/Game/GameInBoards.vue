@@ -13,8 +13,6 @@
       />
     </div>
   </game-page-tile>
-
-  <!-- TODO: add menu: allow to remove game from board, view board, edit board, etc... -->
 </template>
 
 <script>

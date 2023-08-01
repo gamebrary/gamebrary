@@ -1,5 +1,3 @@
-<!-- TODO: show title at top when vertical nav -->
-<!-- TODO: flatten lists, only use games, show alert if has lists -->
 <template lang="html">
   <b-container>
     <h2

@@ -5,8 +5,6 @@
       class="spinner-centered mt-5"
     />
 
-    <!-- TODO: restore standard board placeholder -->
-
     <kanban-board-placeholder v-else />
   </div>
 </template>

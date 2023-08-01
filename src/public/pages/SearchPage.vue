@@ -51,7 +51,6 @@
     >
       No results found
     </p>
-    <!-- TODO: show result count, align search box to right -->
   </section>
 </template>
 

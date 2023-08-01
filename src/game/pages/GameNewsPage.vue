@@ -1,5 +1,3 @@
-<!-- TODO: find out all possible news sources and add constant entries -->
-<!-- TODO: make game cover sticky -->
 <template lang="html">
   <section>
     <b-container>
@@ -65,7 +63,7 @@
             </div>
 
             <div class="game-news" v-html="article.contents" />
-            <!-- TODO: restore tags? -->
+
             <!-- <b-badge v-for="tag in article.tags" :key="tag">{{ tag }}</b-badge> -->
           </b-card>
         </b-col>

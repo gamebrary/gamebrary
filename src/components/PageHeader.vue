@@ -2,7 +2,6 @@
 // SteamSettingsPage,
 // import SteamSettingsPage from '@/pages/SteamSettingsPage';
 // import LanguageSettings from '@/components/Settings/LanguageSettings'; -->
-<!-- TODO: allow to collapse menu -->
 
 <template lang="html">
   <header :class="[darkTheme ? 'bg-dark' : 'bg-white', isVerticalNav ? 'p-2' : 'px-3 py-2', `nav-${navPosition}`]">

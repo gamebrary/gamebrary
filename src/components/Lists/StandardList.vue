@@ -1,4 +1,3 @@
-<!-- TODO: handle game highlighting -->
 <template lang="html">
   <div class="mx-3 mx-sm-auto standard-list">
     <draggable

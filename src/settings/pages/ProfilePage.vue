@@ -1,4 +1,3 @@
-<!-- TODO: move into separate components -->
 <template lang="html">
   <b-container class="px-3">
     <portal to="pageTitle">
@@ -64,10 +63,6 @@
       <!-- <b-button v-b-modal.boardWallpaper>
         set wallpaper
       </b-button> -->
-      <!-- TODO: finish setting wallpaper -->
-
-      <!-- TODO: add delete option -->
-      <!-- TODO: replace when uploading? -->
 
       <b-form-group
         v-if="user"
