@@ -1,38 +1,3 @@
-<!-- TODO: scroll to top on route change -->
-<!-- TODO: standardize media query breakpoints -->
-<!-- TODO: standardize vue masonry settings -->
-<!-- TODO: add slideshow view (based on games on board/list) -->
-<!-- TODO: replace toasts with custom alert -->
-<!-- TODO: add local storage size progress bar (in dev tools?) -->
-<!-- TODO: smart lists based on liked games -->
-<!-- TODO: finish unauthed UI -->
-<!-- TODO: add universal search, default based on page visited, allow to change -->
-<!-- TODO: add board lock/readonly -->
-<!-- TODO: use ribbon to show game type in search (e.g. mods, ports, etc) -->
-<!-- TODO: Speedruns MVP -->
-<!-- TODO: add parental controls (filter out erotic games) -->
-<!-- TODO: deku deals integration https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Frsshub.app%2Fdekudeals%2Fmost-wanted -->
-<!-- TODO: use https://github.com/twitchtv/igdb-api-node -->
-<!-- TODO: [searchPage] show option to clear search text if no results AND filters on -->
-<!-- TODO: [searchPage] remove filter if selected -->
-<!-- TODO: [searchPage] add sorting -->
-<!-- TODO: [searchPage] use route query for offset & limit -->
-<!-- TODO: [gamePage] put stuff in components -->
-<!-- TODO: [gamePage] figure out publisher/dev logos -->
-<!-- TODO: [gamePage] add pc requirements from steam -->
-<!-- TODO: [gamePage] show igdb tags and franchise data -->
-<!-- TODO: [gamePage] integrate with twitch -->
-<!-- TODO: [gamePage] load all achievements -->
-<!-- TODO: [gamePage] handle gog game on sale -->
-<!-- TODO: [gamePage] find a good use for gameHeaderImage -->
-<!-- TODO: [gamePage] list all sources and logos -->
-<!-- TODO: [gamePage] link and add filter game engines -->
-<!-- TODO: [gamePage] restore release dates -->
-<!-- TODO: [boardPage] clone/fork board -->
-<!-- TODO: [boardPage] like/favorite board -->
-<!-- TODO: [editBoardPage] copy/move list to different board -->
-<!-- TODO: [editBoardPage] add background options (position, repeat, etc...) -->
-<!-- TODO: use thumbnails for mini boards -->
 <template>
   <main
     id="app"
