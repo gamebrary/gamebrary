@@ -24,7 +24,7 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
 .twitter-feed {
-  max-height: 100vh;
+  max-height: 100svh;
   overflow: auto;
 }
 </style>

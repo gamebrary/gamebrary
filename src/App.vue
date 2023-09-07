@@ -213,14 +213,14 @@ export default {
   }
 
   .viewport {
-    height: calc(100vh - 56px);
+    height: calc(100svh - 56px);
     overflow-y: auto;
     width: 100%;
   }
 
   .nav-left, .nav-right {
     .viewport {
-      height: 100vh;
+      height: 100svh;
       overflow-y: auto;
     }
   }
