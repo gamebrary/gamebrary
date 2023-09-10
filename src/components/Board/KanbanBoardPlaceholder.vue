@@ -7,6 +7,7 @@
     >
       <b-card
         no-body
+        class="h-100"
         :bg-variant="darkTheme ? 'dark' : 'light'"
         :text-variant="darkTheme ? 'light' : 'dark'"
       >
@@ -135,7 +136,7 @@ export default {
     position: relative;
     width: 300px;
     margin-right: .5rem;
-    max-height: calc(100svh - 81px);
+    max-height: calc(100svh - 2rem);
   }
 
   .header {
