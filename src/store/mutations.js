@@ -136,6 +136,7 @@ export default {
   },
 
   SET_USER(state, data) {
+    console.log('boom?', data);
     const [{ providerId }] = data.providerData;
 
     state.user = {

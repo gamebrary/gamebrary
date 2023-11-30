@@ -82,7 +82,7 @@
       <empty-state
         v-else
         illustration="games"
-        message="No liked games yet"
+        message="No games you've liked so far!"
        />
     </b-container>
   </div>

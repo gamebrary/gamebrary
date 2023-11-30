@@ -22,11 +22,11 @@ import MarkdownCheatsheet from '@/components/MarkdownCheatsheet';
 import KeyboardShortcutsModal from '@/components/KeyboardShortcutsModal';
 import PageHeader from '@/components/PageHeader';
 import sessionMixin from '@/mixins/sessionMixin';
-import firebase from 'firebase/app';
+import { initializeApp } from "firebase/app";
 import { mapState, mapGetters } from 'vuex';
 import { KEYBOARD_SHORTCUTS, FIREBASE_CONFIG, IGDB_QUERIES } from '@/constants';
 
-firebase.initializeApp(FIREBASE_CONFIG);
+const app = initializeApp(FIREBASE_CONFIG);
 
 export default {
   name: 'App',
@@ -123,7 +123,7 @@ export default {
 
         this.$bvToast.toast(message);
       } catch (e) {
-        //
+        console.log('err' ,e);
       }
     },
 
@@ -204,24 +204,29 @@ export default {
 
     &.nav-left {
       flex-direction: row;
+
+      .viewport {
+        background: #ccf;
+        padding-left: 64px;
+      }
     }
 
     &.nav-right {
       justify-content: space-between;
       flex-direction: row-reverse;
     }
-  }
 
-  .viewport {
-    height: calc(100svh - 56px);
-    overflow-y: auto;
-    width: 100%;
-  }
-
-  .nav-left, .nav-right {
     .viewport {
       height: 100svh;
       overflow-y: auto;
+      width: 100%;
+    }
+
+    &.nav-left, &.nav-right {
+      .viewport {
+        height: 100svh;
+        overflow-y: auto;
+      }
     }
   }
 </style>

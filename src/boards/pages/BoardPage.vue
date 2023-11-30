@@ -158,7 +158,7 @@ export default {
         this.loadBoardGames();
         this.loadBoardBackground();
       } else {
-        this.$router.push({ name: 'home' });
+        // this.$router.push({ name: 'home' });
       }
     },
 
@@ -185,12 +185,8 @@ export default {
     },
 
     async loadPublicProfile() {
-      console.log('load public profile');
-      console.log(this.board.owner);
-      this.publicProfile = await this.$store.dispatch('LOAD_PUBLIC_PROFILE_BY_USER_ID', this.board.owner)
+      this.publicProfile = await this.$store.dispatch('LOAD_PUBLIC_PROFILE_BY_USER_ID', this.board?.owner)
         .catch(() => {});
-
-      console.log(this.publicProfile);
 
       if (!this.profile?.avatar) return;
 

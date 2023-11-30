@@ -2,6 +2,34 @@
 // SteamSettingsPage,
 // import SteamSettingsPage from '@/pages/SteamSettingsPage';
 // import LanguageSettings from '@/components/Settings/LanguageSettings'; -->
+<!-- Elevate Your Play, Organize Your Way! -->
+<!-- "Gamebrary: Level Up Your Collection, Organize Your Play." -->
+
+<!-- TODO: add game reviews -->
+
+<!--
+🌟 Smart Filters: Now, effortlessly find the perfect game for your mood or gaming session with our new Smart Filters! Sort and discover your collection based on genres, release dates, and more. Level up your game organization experience!
+
+Explore the next level of game management with Gamebrary's Smart Filters—your key to a more personalized gaming adventure. Start organizing like never before! 🚀🎮
+
+Introducing the **New Feature: "PlayStats"**!
+
+Now, take your game organization to the next level with PlayStats, the latest addition to our website. Dive deeper into your gaming world and enhance your experience by tracking and analyzing your gameplay habits. Here's what PlayStats has to offer:
+
+1. **Gameplay Insights:**
+   Explore detailed statistics on your gaming patterns, such as total playtime, most played genres, and favorite gaming hours. Gain valuable insights into your gaming preferences.
+
+2. **Achievement Showcase:**
+   Showcase your in-game achievements and milestones. Celebrate your victories and share your gaming accomplishments with the community.
+
+3. **Playtime Reminders:**
+   Set personalized playtime reminders to maintain a healthy gaming balance. Keep track of your gaming sessions and ensure you stay on top of your real-life responsibilities.
+
+4. **Game Recommendations:**
+   Receive tailored game recommendations based on your play history and preferences. Discover new titles that align with your gaming style and interests.
+
+Elevate your gaming experience with PlayStats – because your gaming journey is more than just a collection; it's a story waiting to be told. Upgrade your Gamebrary experience today!
+ -->
 
 <template lang="html">
   <header :class="[darkTheme ? 'bg-dark' : 'bg-white', isVerticalNav ? 'p-2' : 'px-3 py-2', `nav-${navPosition}`]">
@@ -83,6 +111,13 @@ header {
   display: flex;
   align-items: center;
   border-bottom: 1px solid var(--light);
+  border-radius: .5rem;
+  position: fixed;
+  z-index: 9999;
+  margin: .5rem;
+  width: calc(100% - 1rem);
+  // background: url('https://static.vecteezy.com/system/resources/previews/026/292/194/original/90s-seamless-pattern-colourful-memphis-style-retro-background-or-retro-80s-wallpaper-free-vector.jpg');
+  // background-size: 200px;
 
   &.nav-bottom {
     border-bottom: 0;
@@ -100,6 +135,7 @@ header {
   }
 
   &.nav-left, &.nav-right {
+    width: auto;
     height: 100svh;
     display: flex;
     flex-direction: column;

@@ -33,8 +33,8 @@
         v-if="isEmpty"
         illustration="notes"
       >
-        <p>Looks like you don't have any notes yet.</p>
-        <p>Use notes to keep track of cheat codes, passwords, or pretty much anything!</p>
+        <p>Looks like you haven't added any notes yet.</p>
+        <p>Notes are handy for keeping track of cheat codes, passwords, or just about anything you want to remember!</p>
 
         <game-selector
           v-if="user"

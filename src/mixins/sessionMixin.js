@@ -1,5 +1,6 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
+// TODO: remove
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
 
 export default {
   methods: {

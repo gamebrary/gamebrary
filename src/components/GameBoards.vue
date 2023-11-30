@@ -6,7 +6,7 @@
       <empty-state
         v-if="isEmpty && !isPublicBoard"
         title="Boards"
-        message="Use boards to organize your video games"
+        message="Utilize boards to neatly organize your video games!"
       >
         <b-button
           :to="{ name: 'create.board' }"

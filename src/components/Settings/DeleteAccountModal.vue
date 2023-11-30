@@ -58,7 +58,12 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
+// move to actions
+import { FIREBASE_CONFIG } from '@/constants';
+
+const app = initializeApp(FIREBASE_CONFIG);
+
 import sessionMixin from '@/mixins/sessionMixin';
 
 export default {

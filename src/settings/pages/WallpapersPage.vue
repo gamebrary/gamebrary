@@ -8,7 +8,7 @@
 
     <template v-else-if="showEmptyState">
       <empty-state
-        message="Upload a wallpaper to customize your boards"
+        message="Add a personal touch to your boards by uploading a wallpaper!"
         illustration="wallpapers"
       >
         <upload-wallpaper-button v-if="user" />

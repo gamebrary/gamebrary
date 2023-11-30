@@ -17,7 +17,7 @@ const routes = [
     },
   },
   {
-    name: 'games',
+    name: 'upcoming-games',
     path: '/games/upcoming',
     component: () => import(/* webpackChunkName: "games" */ '@/pages/UpcomingGames'),
     meta: {

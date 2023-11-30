@@ -72,7 +72,7 @@ import {
   DEFAULT_BOARD_TIER,
 } from '@/constants';
 import MiniBoard from '@/components/Board/MiniBoard';
-
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   BOARD_TYPES,
@@ -100,6 +100,8 @@ export default {
   },
 
   computed: {
+		...mapState(['user']),
+
     sampleBoard() {
       if (this.board.type === BOARD_TYPE_KANBAN) return DEFAULT_BOARD_KANBAN;
       if (this.board.type === BOARD_TYPE_TIER) return DEFAULT_BOARD_TIER;
@@ -132,7 +134,11 @@ export default {
           dateCreated,
           lastUpdated: dateCreated,
           lists: this.sampleBoard.lists.map((list, index) => ({ ...list, games: [] })),
+          owner: this.user.uid,
         }
+
+				console.log(payload);
+				debugger;
 
         const { id } = await this.$store.dispatch('CREATE_BOARD', payload);
 

@@ -1,3 +1,4 @@
+<!-- TODO: only load tags if logged in -->
 <template lang="html">
   <b-container>
     <page-title title="Tags">
@@ -26,7 +27,7 @@
     <empty-state
       v-else-if="tags.length === 0"
       illustration="tags"
-      message="Tags are a great way to organize your collection"
+      message="Using tags is a fantastic way to keep your collection well-organized!"
      >
       <b-button
         v-if="user"
@@ -129,7 +130,7 @@ export default {
   },
 
   mounted() {
-    this.load();
+		if (this.user?.uid) this.load();
   },
 
   methods: {

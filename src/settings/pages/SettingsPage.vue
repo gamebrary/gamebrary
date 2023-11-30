@@ -100,12 +100,12 @@
         Delete account
       </b-button>
 
-      <delete-account-modal />
+      <!-- <delete-account-modal /> -->
 
       <hr />
 
       <b-button
-        @click="session_signOut"
+        @click="signOut"
       >
         Log out
       </b-button>
@@ -129,18 +129,14 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import { AGE_RATINGS } from '@/constants';
-import DeleteAccountModal from '@/components/Settings/DeleteAccountModal';
-
-import sessionMixin from '@/mixins/sessionMixin';
+// import DeleteAccountModal from '@/components/Settings/DeleteAccountModal';
 
 export default {
   AGE_RATINGS,
 
   components: {
-    DeleteAccountModal,
+    // DeleteAccountModal,
   },
-
-  mixins: [sessionMixin],
 
   computed: {
     ...mapState(['user', 'settings']),
@@ -148,6 +144,14 @@ export default {
   },
 
   methods: {
+		async signOut() {
+			await this.$store.dispatch('SIGN_OUT');
+			this.$bvToast.toast('Logged out');
+
+			this.$store.commit('CLEAR_SESSION');
+			this.$router.replace({ name: 'auth' });
+		},
+
     async toggleTheme() {
       const { settings } = this;
       const darkTheme = settings?.darkTheme || false;
