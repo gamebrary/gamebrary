@@ -439,6 +439,8 @@ export default {
 
     formatUserName() {
       this.userName = this.userName.replace(/\W/g, '');
+
+      if (this.available) this.available = false;
     },
 
     async checkUserNameAvailability() {
