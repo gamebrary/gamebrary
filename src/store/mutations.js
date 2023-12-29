@@ -63,8 +63,8 @@ export default {
     state.wallpapers = wallpapers;
   },
 
-  REMOVE_WALLPAPER(state, ref) {
-    const wallpaperIndex = state.wallpapers.findIndex(wallpaper => wallpaper.ref === ref);
+  REMOVE_WALLPAPER(state, fullPath) {
+    const wallpaperIndex = state.wallpapers.findIndex(wallpaper => wallpaper.fullPath === fullPath);
 
     state.wallpapers.splice(wallpaperIndex, 1);
   },
@@ -136,7 +136,6 @@ export default {
   },
 
   SET_USER(state, data) {
-    console.log('boom?', data);
     const [{ providerId }] = data.providerData;
 
     state.user = {
