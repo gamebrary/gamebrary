@@ -56,8 +56,8 @@ export default {
 
   methods: {
     handleClick(wallpaper) {
-      if (this.selectable && wallpaper?.ref) {
-        this.$emit('select', wallpaper.ref);
+      if (this.selectable && wallpaper?.fullPath) {
+        this.$emit('select', wallpaper.fullPath);
         this.$bvModal.hide('boardWallpaper');
       } else {
         this.openPreview(wallpaper);

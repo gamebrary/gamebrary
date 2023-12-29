@@ -133,7 +133,7 @@ export default {
     },
 
     boardsWithWallpaper() {
-      return this.boards.filter(({ backgroundUrl }) => backgroundUrl === this.wallpaper?.ref) || [];
+      return this.boards.filter(({ backgroundUrl }) => backgroundUrl === this.wallpaper?.fullPath) || [];
     },
   },
 
