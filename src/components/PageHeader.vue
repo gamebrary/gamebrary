@@ -1,3 +1,5 @@
+<!-- T -->
+<!-- TODO: price tracker, stats, trends, etc... -->
 <!-- // LanguageSettings,
 // SteamSettingsPage,
 // import SteamSettingsPage from '@/pages/SteamSettingsPage';
@@ -36,7 +38,6 @@ Elevate your gaming experience with PlayStats – because your gaming journey is
     <main-menu :class="isVerticalNav ? ' mb-2' : ''" />
 
     <portal-target
-      v-if="!isVerticalNav"
       class="ml-3"
       name="pageTitle"
       multiple
@@ -112,8 +113,6 @@ header {
   align-items: center;
   border-bottom: 1px solid var(--light);
   border-radius: .5rem;
-  position: fixed;
-  z-index: 9999;
   margin: .5rem;
   width: calc(100% - 1rem);
   // background: url('https://static.vecteezy.com/system/resources/previews/026/292/194/original/90s-seamless-pattern-colourful-memphis-style-retro-background-or-retro-80s-wallpaper-free-vector.jpg');
@@ -136,7 +135,7 @@ header {
 
   &.nav-left, &.nav-right {
     width: auto;
-    height: 100svh;
+    height: calc(100svh - 1rem);
     display: flex;
     flex-direction: column;
   }

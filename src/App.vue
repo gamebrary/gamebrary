@@ -194,6 +194,12 @@ export default {
     display: flex;
     flex-direction: column;
 
+    .viewport {
+      height: calc(100svh - 73px);
+      overflow-y: auto;
+      width: 100%;
+    }
+
     &.light {
       background-color: #f3f3f3;
     }
@@ -206,7 +212,6 @@ export default {
       flex-direction: row;
 
       .viewport {
-        background: #ccf;
         padding-left: 64px;
       }
     }
@@ -214,12 +219,6 @@ export default {
     &.nav-right {
       justify-content: space-between;
       flex-direction: row-reverse;
-    }
-
-    .viewport {
-      height: 100svh;
-      overflow-y: auto;
-      width: 100%;
     }
 
     &.nav-left, &.nav-right {

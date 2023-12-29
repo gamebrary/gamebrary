@@ -9,6 +9,7 @@
 
   <portal v-else to="pageTitle">
     <h3>{{ title }}</h3>
+    <slot />
   </portal>
 </template>
 

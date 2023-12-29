@@ -324,7 +324,7 @@
                   </b-list-group>
                 </b-modal>
 
-              <div class="mt-3 d-none d-sm-block">
+              <div class="mt-3">
                 <b-button
                   variant="primary"
                   :disabled="saving"
@@ -346,7 +346,7 @@
           </b-col>
         </b-row>
 
-        <div class="mt-2 d-sm-none">
+        <div class="mt-2">
           <b-button
             variant="primary"
             :disabled="saving"
@@ -475,7 +475,10 @@ export default {
     async deleteBoard() {
       try {
         this.loading = true;
-        await this.$store.dispatch('DELETE_BOARD', this.board.id)
+        console.log(this.board.id);
+        await this.$store.dispatch('DELETE_BOARD', this.board.id);
+
+        console.log('delete');
 
         this.$router.replace({ name: 'home' });
       } catch (e) {
@@ -486,11 +489,13 @@ export default {
     },
 
     selectWallpaper(wallpaper) {
+      console.log(wallpaper);
       this.board.backgroundUrl = wallpaper;
     },
 
     async saveBoard(close = false) {
       try {
+        console.log('saveBoard')
         this.saving = true;
 
         const { board, lists } = this;
@@ -508,11 +513,11 @@ export default {
         this.$bvToast.toast('Board saved');
 
         if (close) this.$router.push({ name: 'board', params: { id: this.board.id } });
+        
+        this.saving = false;
       } catch (e) {
-        //
+        console.log(e)
       }
-
-      this.saving = false;
     },
   },
 };
