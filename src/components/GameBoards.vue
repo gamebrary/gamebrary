@@ -1,45 +1,43 @@
 <template lang="html">
-  <b-row class="px-2">
-    <b-spinner v-if="loading" class="spinner-centered" />
+  <b-spinner v-if="loading" class="spinner-centered" />
+
+  <div v-else>
+    <empty-state
+      v-if="isEmpty && !isPublicBoard"
+      title="Boards"
+      message="Utilize boards to neatly organize your video games!"
+    >
+      <b-button
+        :to="{ name: 'create.board' }"
+        variant="primary"
+      >
+        {{ $t('boards.create') }}
+      </b-button>
+    </empty-state>
 
     <template v-else>
-      <empty-state
-        v-if="isEmpty && !isPublicBoard"
-        title="Boards"
-        message="Utilize boards to neatly organize your video games!"
-      >
+      <portal to="headerActions">
         <b-button
+          v-if="user && !isVerticalNav"
+          :variant="darkTheme ? 'success' : 'primary'"
+          class="mr-3"
           :to="{ name: 'create.board' }"
-          variant="primary"
         >
-          {{ $t('boards.create') }}
+          <i class="d-sm-none fa-solid fa-plus" />
+          <span class="d-none d-sm-inline">Create board</span>
         </b-button>
-      </empty-state>
+      </portal>
 
-      <template v-else>
-        <portal to="headerActions">
-          <b-button
-            v-if="user && !isVerticalNav"
-            :variant="darkTheme ? 'success' : 'primary'"
-            class="mr-3"
-            :to="{ name: 'create.board' }"
-          >
-            <i class="d-sm-none fa-solid fa-plus" />
-            <span class="d-none d-sm-inline">Create board</span>
-          </b-button>
-        </portal>
-
-        <div class="board-grid mx-2">
-          <mini-board
-            v-for="board in gameBoards"
-            :key="board.id"
-            :board="board"
-            @click.native="$router.push({ name: 'board', params: { id: board.id } })"
-          />
-        </div>
-      </template>
+      <div class="board-grid">
+        <mini-board
+          v-for="board in gameBoards"
+          :key="board.id"
+          :board="board"
+          @click.native="$router.push({ name: 'board', params: { id: board.id } })"
+        />
+      </div>
     </template>
-  </b-row>
+  </div>
 </template>
 
 <script>
@@ -54,10 +52,6 @@ export default {
     EmptyState,
   },
 
-  props: {
-    public: Boolean,
-  },
-
   data() {
     return {
       loading: false,
@@ -67,7 +61,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'boards', 'wallpapers']),
-    ...mapGetters(['isBoardOwner', 'sortedBoards', 'sortedPublicBoards', 'darkTheme', 'isVerticalNav']),
+    ...mapGetters(['isBoardOwner', 'sortedBoards', 'sortedPublicBoards', 'darkTheme', 'isVerticalNav', 'navPosition']),
 
     gameBoards() {
       return this.isPublicBoard
@@ -84,7 +78,7 @@ export default {
     },
 
     isPublicBoard() {
-      return this.public || this.$route.name === 'home' && !this.user;
+      return this.$route.name === 'home' && !this.user;
     },
   },
 
@@ -117,7 +111,7 @@ export default {
 
     async loadPublicBoards() {
       await this.$store.dispatch('LOAD_PUBLIC_BOARDS')
-        .catch(() => {
+        .catch((e) => {
           this.loading = false;
           this.$store.commit('SET_SESSION_EXPIRED', true);
         });
