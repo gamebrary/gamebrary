@@ -1,18 +1,18 @@
-<!-- TODO: only load tags if logged in -->
 <template lang="html">
   <b-container>
     <page-title title="Tags">
-      <b-button
+      <!-- <b-button
         :variant="darkTheme ? 'success' : 'primary'"
         :to="{ name: 'tag.create' }"
       >
         <i class="d-sm-none fa-solid fa-plus" />
         <span class="d-none d-sm-inline">Add tag</span>
-      </b-button>
+      </b-button> -->
     </page-title>
 
     <portal v-if="!isVerticalNav && !loading && tags.length > 0" to="headerActions">
       <b-button
+        v-if="user"
         :variant="darkTheme ? 'success' : 'primary'"
         :to="{ name: 'tag.create' }"
         class="mr-3"

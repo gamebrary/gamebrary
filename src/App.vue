@@ -1,3 +1,4 @@
+<!-- TODO: make portal name dynamic and change target based on nav orientation -->
 <template>
   <main
     id="app"
@@ -10,7 +11,7 @@
 
     <template v-else>
       <page-header v-if="!isAuthPage" />
-      <router-view :class="['viewport', routerViewClass]" />
+      <router-view class="viewport" />
       <keyboard-shortcuts-modal />
       <markdown-cheatsheet />
     </template>
@@ -69,11 +70,11 @@ export default {
       return this.$route.meta?.public;
     },
 
-    routerViewClass() {
-      if (this.isGamePage) return '';
+    // routerViewClass() {
+    //   if (this.isGamePage) return '';
 
-      return this.isVerticalNav ? 'p-3' : 'p-3'
-    },
+    //   return this.isVerticalNav ? 'p-2' : 'p-2';
+    // },
 
     isGamePage() {
       return this.$route.name === 'game';
@@ -132,6 +133,7 @@ export default {
     },
 
     updateWallpaperUrl(value) {
+      console.log('updateWallpaperUrl', value);
       this.backgroundImageUrl = value;
     },
 
@@ -189,14 +191,19 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
   #app {
-    background-size: cover;
-    background-attachment: fixed;
     display: flex;
-    flex-direction: column;
+    background-size: contain;
+    background-attachment: fixed;
+    // background-repeat: no-repeat;
+
+    &.nav-top {
+      padding-top: 65px;
+    }
 
     .viewport {
-      height: calc(100svh - 73px);
-      overflow-y: auto;
+      height: 100svh;
+      // overflow-y: auto;
+      padding: .5rem 1rem;
       width: 100%;
     }
 
@@ -210,15 +217,20 @@ export default {
 
     &.nav-left {
       flex-direction: row;
-
+      
       .viewport {
-        padding-left: 64px;
+        padding-left: 85px;
       }
     }
 
     &.nav-right {
       justify-content: space-between;
       flex-direction: row-reverse;
+      
+      .viewport {
+        padding-right: 85px;
+        background-color: red;
+      }
     }
 
     &.nav-left, &.nav-right {

@@ -1,7 +1,7 @@
 <template lang="html">
-  <b-container>
+  <b-container :class="{ 'pr-2 pl-0': navPosition === 'left' }" >
     <page-title :title="$t('notes.title')">
-      <game-selector
+      <!-- <game-selector
         v-if="!isEmpty"
         title="Select game to add a note"
         :variant="darkTheme ? 'success' : 'primary'"
@@ -10,7 +10,7 @@
       >
       <i class="d-sm-none fa-solid fa-plus" />
       <span class="d-none d-sm-inline">Create note</span>
-      </game-selector>
+      </game-selector> -->
     </page-title>
 
     <b-spinner v-if="loading" class="spinner-centered" />
