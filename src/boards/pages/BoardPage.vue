@@ -153,6 +153,8 @@ export default {
           return this.$router.replace({ name: 'home' });
         });
 
+      document.title = `${this.board.name} - Gamebrary`;
+
       if (this.hasAccess) {
         if (this.board?.isPublic && !this.isBoardOwner) this.loadPublicProfile();
         this.loadBoardGames();
