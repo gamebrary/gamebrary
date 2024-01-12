@@ -12,7 +12,7 @@ const routes = [
     path: '/games',
     component: () => import(/* webpackChunkName: "games" */ '@/pages/GamesPage'),
     meta: {
-      title: 'Games',
+      title: 'My games',
       public: true,
     },
   },
@@ -21,8 +21,16 @@ const routes = [
     path: '/games/upcoming',
     component: () => import(/* webpackChunkName: "games" */ '@/pages/UpcomingGames'),
     meta: {
-      title: 'Games',
+      title: 'Upcoming games',
       public: true,
+    },
+  },
+  {
+    name: 'company',
+    path: '/company/:id/:slug',
+    component: () => import(/* webpackChunkName: "notes" */ '@/companies/pages/CompanyPage'),
+    meta: {
+      title: 'Company',
     },
   },
   ...gameRoutes,
@@ -32,14 +40,6 @@ const routes = [
   ...notesRoutes,
   ...publicRoutes,
   ...profileRoutes,
-  {
-    name: 'company',
-    path: '/company/:id/:slug',
-    component: () => import(/* webpackChunkName: "notes" */ '@/companies/pages/CompanyPage'),
-    meta: {
-      title: 'Company',
-    },
-  },
 ];
 
 export default routes;
