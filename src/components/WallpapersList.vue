@@ -48,7 +48,7 @@ export default {
     ...mapState(['wallpapers']),
 
     sortedWallpapers() {
-      const wallpapers = this.wallpapers?.filter((wallpaper) => !wallpaper?.ref?.includes(THUMBNAIL_PREFIX));
+      const wallpapers = this.wallpapers?.filter((wallpaper) => !wallpaper?.fullPath?.includes(THUMBNAIL_PREFIX));
 
       return sortby(wallpapers, 'updated').reverse();
     },

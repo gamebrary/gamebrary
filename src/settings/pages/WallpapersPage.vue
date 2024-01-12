@@ -1,8 +1,10 @@
 <template lang="html">
   <b-container>
-    <page-title :title="$t('wallpapers.title')">
+    <page-title :title="$t('wallpapers.title')" />
+    
+    <portal to="headerActions" v-if="!isVerticalNav">
       <upload-wallpaper-button />
-    </page-title>
+    </portal>
 
     <b-spinner v-if="loading" class="spinner-centered" />
 

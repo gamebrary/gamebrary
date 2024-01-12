@@ -161,7 +161,7 @@ export default {
       try {
         this.saving = true;
 
-        this.$store.commit('SET_ACTIVE_BOARD', { ...board, backgroundUrl: this.wallpaper.ref });
+        this.$store.commit('SET_ACTIVE_BOARD', { ...board, backgroundUrl: this.wallpaper.fullPath });
 
         await this.$store.dispatch('SAVE_BOARD');
       } catch (e) {
