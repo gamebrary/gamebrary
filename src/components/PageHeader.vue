@@ -1,13 +1,9 @@
-<!-- T -->
-<!-- TODO: price tracker, stats, trends, etc... -->
 <!-- // LanguageSettings,
 // SteamSettingsPage,
 // import SteamSettingsPage from '@/pages/SteamSettingsPage';
 // import LanguageSettings from '@/components/Settings/LanguageSettings'; -->
 <!-- Elevate Your Play, Organize Your Way! -->
 <!-- "Gamebrary: Level Up Your Collection, Organize Your Play." -->
-
-<!-- TODO: add game reviews -->
 
 <!--
 🌟 Smart Filters: Now, effortlessly find the perfect game for your mood or gaming session with our new Smart Filters! Sort and discover your collection based on genres, release dates, and more. Level up your game organization experience!
@@ -34,11 +30,12 @@ Elevate your gaming experience with PlayStats – because your gaming journey is
  -->
 
 <template lang="html">
-  <header :class="[darkTheme ? 'bg-dark' : 'bg-white', isVerticalNav ? 'p-2' : 'px-3 py-2', `nav-${navPosition}`]">
+  <header :class="[darkTheme ? 'bg-dark' : 'bg-light', isVerticalNav ? 'p-2' : 'px-2 py-2', `nav-${navPosition}`]">
     <main-menu :class="isVerticalNav ? ' mb-2' : ''" />
 
     <portal-target
-      class="ml-3"
+      v-if="!isVerticalNav"
+      class="ml-2"
       name="pageTitle"
       multiple
     />
@@ -114,17 +111,27 @@ header {
   border-bottom: 1px solid var(--light);
   border-radius: .5rem;
   margin: .5rem;
-  width: calc(100% - 1rem);
+  width: calc(100% - 2rem);
+  position: fixed;
+  z-index: 1;
   // background: url('https://static.vecteezy.com/system/resources/previews/026/292/194/original/90s-seamless-pattern-colourful-memphis-style-retro-background-or-retro-80s-wallpaper-free-vector.jpg');
   // background-size: 200px;
+  
+  &.nav-top {
+    top: 0;
+    margin: .5rem 1rem;
+  }
 
   &.nav-bottom {
     border-bottom: 0;
+    bottom: 0;
+    margin: .5rem 1rem;
     border-top: 1px solid var(--light);
   }
 
   &.nav-left {
     border: 0;
+    left: 0;
     border-right: 1px solid var(--light);
   }
 

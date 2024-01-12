@@ -5,7 +5,6 @@
     :dropright="navPosition === 'left'"
     :dropleft="navPosition === 'right'"
     no-caret
-    :class="isVerticalNav ? 'mt-1' : ''"
   >
     <template #button-content>
       <i class="fa-sharp fa-solid fa-bars" />
@@ -25,7 +24,7 @@
       <span class="ml-2">New board</span>
     </b-dropdown-item>
 
-    <div :class="['py-1 rounded', darkTheme ? 'bg-black' : 'bg-light']" v-if="showBoardActions">
+    <!-- <div :class="['py-1 rounded', darkTheme ? 'bg-black' : 'bg-light']" v-if="showBoardActions">
       <p :class="['strong text-uppercase mb-0 ml-2 mt-1', darkTheme ? 'text-success' : 'text-dark']">{{ board.name }}</p>
 
       <b-dropdown-item
@@ -36,13 +35,13 @@
         Edit board
       </b-dropdown-item>
 
-      <!-- <b-dropdown-item
+      <b-dropdown-item
         :to="{ name: 'board.edit', params: { id: board.id } }"
         class="mx-1"
       >
         Copy board
-      </b-dropdown-item> -->
-    </div>
+      </b-dropdown-item>
+    </div> -->
 
     <!-- <b-dropdown-group v-if="user && routeName === 'home'">
       <b-dropdown-item
