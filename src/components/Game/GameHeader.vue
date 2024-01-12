@@ -17,7 +17,7 @@
       </b-dropdown>
     </portal>
 
-    <b-carousel
+    <!-- <b-carousel
       v-if="hasArtworks"
       id="carousel-fade"
       class="cursor-pointer overflow-hidden d-none d-md-block"
@@ -31,7 +31,7 @@
         :key="index"
         :img-src="artwork.url"
       />
-    </b-carousel>
+    </b-carousel> -->
   </header>
 </template>
 

@@ -10,7 +10,7 @@
 
   <section
     v-else
-    :class="[{ 'text-light': darkTheme && hasWallpaper, 'pt-3': !hasArtworks }, 'game-page']"
+    :class="[{ 'text-light': darkTheme }, 'game-page']"
     :style="background && this.darkTheme ? `background-image: url(${background})` : ''"
   >
     <game-header />
@@ -20,9 +20,6 @@
         cols="12"
         md="6"
         lg="4"
-        xl="3"
-        offset-xl="1"
-        style="z-index: 1"
       >
         <div class="position-relative">
           <game-ratings class="position-absolute d-flex" style="bottom: 1rem; right: 1rem;" />
@@ -30,8 +27,8 @@
           <b-img
             :src="$options.getImageUrl(cachedGame)"
             :alt="gameName"
-            :class="['border mx-3 mb-3', darkTheme ? 'border-dark' : 'border-light', { 'has-artworks': hasArtworks }]"
-            style="width: calc(100% - 2rem) !important"
+            :class="['border mb-3', darkTheme ? 'border-dark' : 'border-light', { 'has-artworks': hasArtworks }]"
+            style="width: calc(100% - 1rem) !important"
             bordered
             v-b-modal.mediaModal
             rounded
@@ -45,7 +42,7 @@
         lg="8"
         xl="8"
       >
-        <div class="px-3 mx-auto pt-1" style="width: 800px; max-width: 100%;">
+        <div class="mx-auto" style="width: 800px; max-width: 100%;">
           <div
             class="d-flex justify-content-between align-items-end mb-2"
             v-b-visible="(value) => titleVisible = !value"
@@ -282,55 +279,53 @@
               {{ platform.name }}
             </b-link>
           </div>
+          
+          <h5 class="mt-2">Developers</h5>
+
+          <b-button
+            v-for="developer in gameDevelopers"
+            :key="developer.id"
+            variant="info"
+            :to="{ name: 'company', params: { id: developer.id, slug: developer.slug }}"
+            class="mr-2 mb-2 align-items-center"
+          >
+            <b-img
+              v-if="developer.logo"
+              :src="$options.getImageUrl(developer)"
+              :alt="developer.name"
+              width="40"
+              class="mr-2"
+            />
+
+            <span>{{ developer.name }}</span>
+          </b-button>
+
+          <h5 class="mt-2">Publishers</h5>
+          
+          <b-button
+            v-for="publisher in gamePublishers"
+            :key="publisher.id"
+            variant="info"
+            :to="{ name: 'company', params: { id: publisher.id, slug: publisher.slug }}"
+            class="mr-2 mb-2 align-items-center"
+          >
+            <b-img
+              v-if="publisher.logo"
+              :src="$options.getImageUrl(publisher)"
+              :alt="publisher.name"
+              width="40"
+              class="mr-2"
+            />
+
+            <span>{{ publisher.name }}</span>
+          </b-button>
+
+          <game-progress />
         </div>
       </b-col>
     </b-row>
 
     <div class="d-flex flex-column flex-md-row">
-      <game-page-tile size="quarter" title="Progress">
-        <game-progress />
-      </game-page-tile>
-
-      <game-page-tile size="quarter" title="Publishers">
-        <b-button
-          v-for="publisher in gamePublishers"
-          :key="publisher.id"
-          variant="info"
-          :to="{ name: 'company', params: { id: publisher.id, slug: publisher.slug }}"
-          class="mr-2 mb-2 align-items-center"
-        >
-          <b-img
-            v-if="publisher.logo"
-            :src="$options.getImageUrl(publisher)"
-            :alt="publisher.name"
-            width="40"
-            class="mr-2"
-          />
-
-          <span>{{ publisher.name }}</span>
-        </b-button>
-      </game-page-tile>
-
-      <game-page-tile size="quarter" title="Developers">
-        <b-button
-          v-for="developer in gameDevelopers"
-          :key="developer.id"
-          variant="info"
-          :to="{ name: 'company', params: { id: developer.id, slug: developer.slug }}"
-          class="mr-2 mb-2 align-items-center"
-        >
-          <b-img
-            v-if="developer.logo"
-            :src="$options.getImageUrl(developer)"
-            :alt="developer.name"
-            width="40"
-            class="mr-2"
-          />
-
-          <span>{{ developer.name }}</span>
-        </b-button>
-      </game-page-tile>
-
       <game-page-tile
         v-if="newsHighlights"
         size="quarter"
@@ -367,7 +362,7 @@
       <portal to="pageTitle">
         <h3
           v-show="titleVisible"
-          :class="darkTheme && hasWallpaper ? 'text-light text-outlined' : ''"
+          :class="darkTheme ? 'text-light text-outlined' : ''"
         >
         <b-img
           :blank="loading"
@@ -394,7 +389,7 @@
 
           <!-- <amazon-links class="mt-2" /> -->
           <!-- <template v-if="highlightedAchievements">
-            <h3 :class="['mt-5', { 'text-outlined': hasWallpaper }]">Achievements</h3>
+            <h3 :class="['mt-5']">Achievements</h3>
 
             <b-list-group>
               <b-list-group-item
@@ -428,7 +423,7 @@
       </timeline> -->
     </b-container>
 
-    <game-page-tile full v-if="gameLinks.length">
+    <div v-if="gameLinks.length">
       <h4 class="mt-3">External links</h4>
 
       <b-link
@@ -454,30 +449,26 @@
 
         <span class="ml-2 text-capitalize">{{ id }}</span>
       </b-link>
-    </game-page-tile>
+    </div>
 
-    <game-page-tile full>
-      <b-alert
-        v-if="note"
-        v-html="note"
-        show
-        class="cursor-pointer mt-3"
-        variant="warning"
-        @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
-      />
+    <b-alert
+      v-if="note"
+      v-html="note"
+      show
+      class="cursor-pointer mt-3"
+      variant="warning"
+      @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
+    />
 
-      <b-button
-        v-else
-        @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
-      >
-        Add note
-      </b-button>
-    </game-page-tile>
+    <b-button
+      v-else
+      @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
+    >
+      Add note
+    </b-button>
 
+    <game-media v-if="!loading" />
     <div class="d-flex flex-column flex-md-row">
-      <game-page-tile size="half" title="Game screenshots">
-        <game-media v-if="!loading" />
-      </game-page-tile>
 
       <game-page-tile size="half" title="You may also like">
         <similar-games />
@@ -555,9 +546,9 @@ export default {
       return this.description?.length < GAME_DESC_SM_CHAR_COUNT;
     },
 
-    background() {
-      return this.game?.steam?.background;
-    },
+    // background() {
+    //   return this.game?.steam?.background;
+    // },
 
     // gameRequirements() {
     //   const steamGame = this.game?.steam;
@@ -739,10 +730,6 @@ export default {
       return this.game?.steam?.legal_notice;
     },
 
-    hasWallpaper() {
-      return Boolean(this.game?.steam?.background);
-    },
-
     cachedGame() {
       return this.cachedGames?.[Number(this.gameId)] || this.game;
     },
@@ -766,6 +753,12 @@ export default {
     gameId() {
       return this.$route.params.id;
     },
+
+    artworks() {
+      return this.game?.artworks?.map((artwork) => ({
+        url: getImageUrl(artwork, IMAGE_SIZE_SCREENSHOT_HUGE),
+      }));
+    },
   },
 
   watch: {
@@ -782,6 +775,10 @@ export default {
     }
 
     this.loadGame();
+  },
+
+  destroyed() {
+    this.$bus.$emit('CLEAR_WALLPAPER');
   },
 
   methods: {
@@ -889,7 +886,19 @@ export default {
 
       if (wikipediaSlug) await this.$store.dispatch('LOAD_WIKIPEDIA_ARTICLE', wikipediaSlug).catch((e) => {});
 
+      this.setWallpaper();
+
       this.loading = false;
+    },
+
+    setWallpaper() {
+      console.log(this.artworks);
+      const steamBackground = this.game?.steam?.background;
+      const [{ url }] = this.artworks?.filter(({ url }) => url);
+
+      const wallpaper = url || steamBackground;
+
+      if (wallpaper) this.$bus.$emit('UPDATE_WALLPAPER', url);
     },
   },
 };
@@ -897,26 +906,26 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
 .game-page {
-  background-size: contain;
-  background-repeat: repeat-y;
+  // background-size: contain;
+  // background-repeat: repeat-y;
 
   // &.offset-background {
   //   background-position-y: 50vh;
   // }
 }
 
-.has-artworks {
-  margin-top: -22vh;
+// .has-artworks {
+//   margin-top: -22vh;
 
-  @media(max-width: 1024px) {
-    margin-top: -10vh;
-    grid-template-columns: repeat(5, 1fr);
-  }
+//   @media(max-width: 1024px) {
+//     margin-top: -10vh;
+//     grid-template-columns: repeat(5, 1fr);
+//   }
 
-  @media(max-width: 767px) {
-    margin-top: 1rem;
-  }
-}
+//   @media(max-width: 767px) {
+//     margin-top: 1rem;
+//   }
+// }
 </style>
 
 <style lang="scss" rel="stylesheet/scss">

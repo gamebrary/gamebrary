@@ -1,90 +1,88 @@
 <template lang="html">
   <div>
-    <b-container class="px-0">
-      <portal
-        v-if="!isVerticalNav"
-        to="headerActions"
+    <portal
+      v-if="!isVerticalNav"
+      to="headerActions"
+    >
+      <b-button
+        @click="toggleView"
+        class="mr-3"
+        :variant="darkTheme ? 'black' : 'light'"
       >
-        <b-button
-          @click="toggleView"
-          class="mr-3"
-          :variant="darkTheme ? 'black' : 'light'"
-        >
-          <i :class="`fa-solid ${view === 'grid' ? 'fa-list' : 'fa-table-cells'}`" />
-        </b-button>
-      </portal>
-
-      <page-title title="Games">
-        <b-button
-          v-if="isVerticalNav"
-          @click="toggleView"
-          :variant="darkTheme ? 'dark' : 'light'"
-        >
-          <i v-if="view === 'grid'" class="fa-solid fa-list" />
-          <i v-else class="fa-solid fa-table-cells" />
-        </b-button>
-      </page-title>
-
-      <!-- <b-button class="mr-3">
-        Sort
+        <i :class="`fa-solid ${view === 'grid' ? 'fa-list' : 'fa-table-cells'}`" />
       </b-button>
+    </portal>
 
-      <b-button class="mr-3">
-        Filter
-      </b-button> -->
+    <page-title title="Games">
+      <b-button
+        v-if="isVerticalNav"
+        @click="toggleView"
+        :variant="darkTheme ? 'dark' : 'light'"
+      >
+        <i v-if="view === 'grid'" class="fa-solid fa-list" />
+        <i v-else class="fa-solid fa-table-cells" />
+      </b-button>
+    </page-title>
 
-      <empty-state
-        v-if="!user"
-        illustration="games"
-       >
-        <p>Click on <i class="fa-solid fa-heart text-primary" /> and your games will show here.</p>
-       </empty-state>
+    <!-- <b-button class="mr-3">
+      Sort
+    </b-button>
 
-      <b-spinner v-else-if="loading" class="spinner-centered" />
+    <b-button class="mr-3">
+      Filter
+    </b-button> -->
 
-      <template v-else-if="likedGames.length">
-        <div v-if="view === 'list'" class="small-container">
-          <b-card
-            v-for="game in likedGames"
-            :bg-variant="darkTheme ? 'black' : 'light'"
-            :text-variant="darkTheme ? 'white' : 'dark'"
-            :key="game.id"
-            :img-src="$options.getImageUrl(game, $options.IMAGE_SIZE_COVER_SMALL)"
-            img-alt="Image"
-            img-left
-            :title="game.name"
-            img-width="100px"
-            class="cursor-pointer mb-3"
-            @click="$router.push({ name: 'game', params: { id: game.id, slug: game.slug }})"
-          />
-        </div>
+    <empty-state
+      v-if="!user"
+      illustration="games"
+      >
+      <p>Click on <i class="fa-solid fa-heart text-primary" /> and your games will show here.</p>
+      </empty-state>
 
-        <masonry
-          v-else
-          :cols="{ default: 5, 1200: 4, 768: 3, 480: 2 }"
-          gutter="16px"
-        >
-          <b-card
-            v-for="game in likedGames"
-            :body-class="['pb-0 text-center', { 'text-success' : isCompleted(game.id) }]"
-            :bg-variant="darkTheme ? 'dark' : 'light'"
-            :text-variant="darkTheme ? 'white' : 'dark'"
-            :key="game.id"
-            :title="game.name"
-            :img-src="$options.getImageUrl(game, $options.IMAGE_SIZE_COVER_SMALL)"
-            img-alt="Image"
-            class="cursor-pointer mb-3"
-            @click="$router.push({ name: 'game', params: { id: game.id, slug: game.slug }})"
-          />
-        </masonry>
-      </template>
+    <b-spinner v-else-if="loading" class="spinner-centered" />
 
-      <empty-state
+    <template v-else-if="likedGames.length">
+      <div v-if="view === 'list'" class="small-container">
+        <b-card
+          v-for="game in likedGames"
+          :bg-variant="darkTheme ? 'black' : 'light'"
+          :text-variant="darkTheme ? 'white' : 'dark'"
+          :key="game.id"
+          :img-src="$options.getImageUrl(game, $options.IMAGE_SIZE_COVER_SMALL)"
+          img-alt="Image"
+          img-left
+          :title="game.name"
+          img-width="100px"
+          class="cursor-pointer mb-3"
+          @click="$router.push({ name: 'game', params: { id: game.id, slug: game.slug }})"
+        />
+      </div>
+
+      <masonry
         v-else
-        illustration="games"
-        message="No games you've liked so far!"
-       />
-    </b-container>
+        :cols="{ default: 5, 1200: 4, 768: 3, 480: 2 }"
+        gutter="16px"
+      >
+        <b-card
+          v-for="game in likedGames"
+          :body-class="['pb-0 text-center', { 'text-success' : isCompleted(game.id) }]"
+          :bg-variant="darkTheme ? 'dark' : 'light'"
+          :text-variant="darkTheme ? 'white' : 'dark'"
+          :key="game.id"
+          :title="game.name"
+          :img-src="$options.getImageUrl(game, $options.IMAGE_SIZE_COVER_SMALL)"
+          img-alt="Image"
+          class="cursor-pointer mb-3"
+          @click="$router.push({ name: 'game', params: { id: game.id, slug: game.slug }})"
+        />
+      </masonry>
+    </template>
+
+    <empty-state
+      v-else
+      illustration="games"
+      message="No games you've liked so far!"
+      />
   </div>
 </template>
 
@@ -109,7 +107,7 @@ export default {
 
   computed: {
     ...mapState(['games', 'cachedGames', 'user', 'progresses']),
-    ...mapGetters(['darkTheme', 'isVerticalNav']),
+    ...mapGetters(['darkTheme', 'isVerticalNav', 'navPosition']),
 
     likedGames() {
       if (!this.user) return null;

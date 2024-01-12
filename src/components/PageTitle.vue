@@ -1,7 +1,7 @@
 <template lang="html">
   <header
     v-if="isVerticalNav"
-    :class="['d-flex justify-content-between align-items-center mb-3']"
+    :class="['d-flex justify-content-between align-items-center mb-2']"
   >
     <h2>{{ title }}</h2>
     <slot />

@@ -28,7 +28,7 @@
 
           <p :class="['lead', wallpaperImage ? 'text-white' : '']">@{{ profile.userName }}</p>
 
-          <template v-if="profile.name">{{ profile.name }} / </template>
+          {{ profile.name }}<template v-if="profile.bio"> / </template>
           <p class="text-info">{{ profile.bio }}</p>
           <p>{{ profile.location }}</p>
           <b-button
@@ -153,6 +153,7 @@ export default {
 
       if (!this.profile) {
         this.loading = false;
+        document.title = 'Page not found - Gamebrary';
 
         return;
       }

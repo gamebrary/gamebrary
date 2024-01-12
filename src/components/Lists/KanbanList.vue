@@ -1,6 +1,6 @@
 <template lang="html">
   <div
-    :class="['list rounded pr-3', listView, { dragging, 'unique': singleList, 'pr-3': isLastList && isPublicBoard }]"
+    :class="['list rounded pr-2', listView, { dragging, 'unique': singleList, 'pr-3': isLastList && isPublicBoard }]"
     :id="listIndex"
   >
     <b-card
@@ -48,6 +48,15 @@
           Add games
         </game-selector>
       </b-dropdown>
+
+      <b-button
+        v-else
+        class="mt-1 mx-2"
+        size="sm"
+        :variant="darkTheme ? 'dark' : 'light'"
+      >
+        <strong>{{ list.name }}</strong>
+      </b-button>
 
       <draggable
         class="games px-2 pt-1"

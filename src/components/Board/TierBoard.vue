@@ -2,7 +2,7 @@
   <div class="d-flex flex-column align-items-start">
     <h3
       v-if="isVerticalNav"
-      :class="['mx-3', { 'text-white': hasBackground || darkTheme }]"
+      :class="{ 'text-white': hasBackground || darkTheme }"
     >
       {{ board.name }}
     </h3>

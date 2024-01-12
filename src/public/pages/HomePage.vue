@@ -5,7 +5,6 @@
         <b-button
           v-if="user && isVerticalNav"
           :variant="darkTheme ? 'success' : 'primary'"
-          class="mr-2"
           :to="{ name: 'create.board' }"
         >
           <i class="d-sm-none fa-solid fa-plus" />
@@ -48,7 +47,7 @@
         </div>
       </div>
 
-      <game-boards :public="showPublic" />
+      <game-boards />
 
       <!-- <div class="game-deals">
         <twitter-feed twitter-user="wario64" />
@@ -66,12 +65,6 @@ export default {
   components: {
     GameBoards,
     // TwitterFeed,
-  },
-
-  data() {
-    return {
-      showPublic: false,
-    }
   },
 
   computed: {

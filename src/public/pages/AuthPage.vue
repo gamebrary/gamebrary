@@ -5,7 +5,7 @@
 
       <b-alert
         class="mx-auto text-center"
-        :show="!showExpiredAlert"
+        :show="showExpiredAlert"
         style="width: 220px"
         variant="warning"
       >
@@ -32,11 +32,17 @@
           <template v-else>Create account</template>
         </b-button>
 
-        <b-button @click="login">
+        <b-button @click="loginWithEmail">
           <b-spinner v-if="loading" small />
           <template v-else>Login</template>
         </b-button>
       </div>
+      
+      <b-button @click="loginWithGoogle">
+        Login with Google
+      </b-button>
+
+
 
       <section v-show="!loading" id="auth" class="py-2" />
     </b-container>
@@ -45,7 +51,14 @@
 
 <script>
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  getRedirectResult,
+} from "firebase/auth";
 
 import { FIREBASE_CONFIG } from '@/constants';
 import { mapState } from 'vuex';
@@ -71,17 +84,14 @@ export default {
 
   methods: {
     init() {
+      console.log('sessionExpired', this.sessionExpired);
       if (this.sessionExpired) {
+        console.log('sessionExpired', this.sessionExpired);
         this.showExpiredAlert = true;
         this.$store.commit('SET_SESSION_EXPIRED', false);
       }
 
-      // if (this.user?.uid) {
-      //   console.log('dis');
-      //   // this.$router.replace({ name: 'home' });
-      // } else {
-      //   console.log('start ui');
-      // }
+      this.getGoogleRedirectResult();
     },
 
     createAccount() {
@@ -91,17 +101,11 @@ export default {
       createUserWithEmailAndPassword(auth, this.email, this.password)
         .then((userCredential) => {
           console.log('userCredential', userCredential);
-          // console.log(userCredential);
-          // Signed up
-          const user = userCredential.user;
-
-          debugger;
+          const user = userCredential?.user;
 
           this.$store.commit('SET_SESSION_EXPIRED', false);
           this.$store.commit('SET_USER', user);
           this.$router.push({ name: 'home' });
-          // ...
-          // TODO: redirect to home
         })
         .catch((error) => {
           this.handleError(error.code)
@@ -109,7 +113,7 @@ export default {
         });
     },
 
-    login() {
+    loginWithEmail() {
       this.loading = true;
       const auth = getAuth(app);
 
@@ -120,6 +124,71 @@ export default {
         .catch((error) => {
           this.handleError(error.code)
           this.loading = false;
+        });
+    },
+
+    loginWithGoogle() {
+      const auth = getAuth();
+      const provider = new GoogleAuthProvider();
+
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          console.log('result', result);
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          const credential = GoogleAuthProvider.credentialFromResult(result);
+          const token = credential.accessToken;
+
+          console.log('token', token)
+          // The signed-in user info.
+          const user = result.user;
+          console.log('user', user)
+          this.signInSuccess(user);
+          // IdP data available using getAdditionalUserInfo(result)
+          // ...
+        }).catch((error) => {
+          // Handle Errors here.
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // The email of the user's account used.
+          const email = error.customData.email;
+          // The AuthCredential type that was used.
+          const credential = GoogleAuthProvider.credentialFromError(error);
+
+          console.log(error);
+          console.log(email);
+          console.log(credential);
+          // ...
+        });
+    },
+
+    getGoogleRedirectResult() {
+      const auth = getAuth();
+
+      getRedirectResult(auth)
+        .then((result) => {
+          console.log('getRedirectResult', result);
+          // This gives you a Google Access Token. You can use it to access Google APIs.
+          const credential = GoogleAuthProvider.credentialFromResult(result);
+          console.log('credential', credential);
+          const token = credential.accessToken;
+
+          console.log('token', token);
+
+          // The signed-in user info.
+          const user = result.user;
+
+          console.log('user', user)
+          // IdP data available using getAdditionalUserInfo(result)
+          // ...
+        }).catch((error) => {
+          // Handle Errors here.
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // The email of the user's account used.
+          const email = error.customData.email;
+          // The AuthCredential type that was used.
+          const credential = GoogleAuthProvider.credentialFromError(error);
+          // ...
         });
     },
 

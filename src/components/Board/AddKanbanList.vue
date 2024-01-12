@@ -2,7 +2,7 @@
   <div class="flex-shrink-0">
     <b-card
       v-if="active || empty"
-      class="mr-3"
+      class="mr-2"
       :bg-variant="darkTheme ? 'dark' : 'light'"
       :text-variant="darkTheme ? 'light' : 'dark'"
       no-body
@@ -41,7 +41,7 @@
       v-else
       :variant="darkTheme ? 'dark' : 'light'"
       @click.stop="showForm"
-      class="mr-3"
+      class="mr-2"
     >
       <i class="fas fa-plus" aria-hidden />
     </b-button>

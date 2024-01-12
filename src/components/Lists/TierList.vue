@@ -4,7 +4,7 @@
       v-if="user && isBoardOwner"
       size="lg"
       variant="link"
-      toggle-class="text-decoration-none p-0 pl-2"
+      toggle-class="text-decoration-none p-0"
       no-caret
       dropright
     >
@@ -39,7 +39,7 @@
       :title="list.name"
       rounded
       :style="`background-color: ${list.backgroundColor}`"
-      class="p-0 ml-3"
+      class="p-0 ml-2"
       size="100"
     />
 
