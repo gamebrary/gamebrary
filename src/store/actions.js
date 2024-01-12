@@ -200,8 +200,7 @@ export default {
   },
 
   async LOAD_PUBLIC_BOARDS({ commit }) {
-    const query = query(collection(db, "boards"), where("isPublic", "==", true));
-    const querySnapshot = await getDocs(query);
+    const querySnapshot = await getDocs(query(collection(db, "boards"), where('isPublic', '==', true)));
     const boards = querySnapshot.docs.map((doc) => doc.data());
 
     commit("SET_PUBLIC_BOARDS", boards);
@@ -285,7 +284,7 @@ export default {
                 resolve(wallpapers);
               }
             }).catch((error) => {
-              reject(e);
+              reject(error);
             });
           })
         });
