@@ -41,6 +41,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "public" */ '@/public/pages/PrivacyPolicyPage'),
     meta: {
       public: true,
+      title: 'Privacy policy',
     },
   },
   {
@@ -49,6 +50,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "public" */ '@/public/pages/TermsPage'),
     meta: {
       public: true,
+      title: 'Terms and conditions',
     },
   },
   {
@@ -66,6 +68,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "public" */ '@/public/pages/HomePage'),
     meta: {
       public: true,
+      title: 'Boards',
     },
   },
   {
@@ -73,6 +76,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "public" */ '@/public/pages/NotFoundPage'),
     meta: {
       public: true,
+      title: 'Page not found',
     },
   },
 ];
