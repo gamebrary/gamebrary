@@ -1,3 +1,5 @@
+<!-- TODO: allow auto collapse, toggle on click, hover -->
+<!-- TODO: add option for dock style: rounded, full, floating (top, bottom), bring back pinned boards, notes, tags,  -->
 <!-- // LanguageSettings,
 // SteamSettingsPage,
 // import SteamSettingsPage from '@/pages/SteamSettingsPage';
