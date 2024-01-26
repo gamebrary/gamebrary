@@ -12,6 +12,7 @@
     <template v-slot:modal-header="{ close }">
       <modal-header
         :title="wallpaper.name"
+        subtitle="Wallpaper"
         @close="close"
       >
         <b-dropdown

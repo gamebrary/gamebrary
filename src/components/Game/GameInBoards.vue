@@ -1,29 +1,23 @@
 <template lang="html">
-  <game-page-tile
-    v-if="user && boardsWithGame.length"
-    title="Found in these boards"
-    full
-  >
-    <div class="board-grid">
-      <mini-board
-        v-for="board in boardsWithGame"
-        :key="board.id"
-        :board="board"
-        @click.native="handleBoardClick(board.id)"
-      />
-    </div>
-  </game-page-tile>
+  <div v-if="user && boardsWithGame.length" class="bg-light p-3 rounded">
+    <h4 class="mb-2">Found in {{ boardsWithGame.length }} boards</h4>
+    <MiniBoard
+      v-for="board in boardsWithGame"
+      :key="board.id"
+      :board="board"
+      :gameId="game.id"
+      @click.native="handleBoardClick(board.id)"
+    />
+  </div>
 </template>
 
 <script>
 import MiniBoard from '@/components/Board/MiniBoard';
-import GamePageTile from '@/components/Game/GamePageTile';
 import { mapState } from 'vuex';
 
 export default {
   components: {
     MiniBoard,
-    GamePageTile,
   },
 
   computed: {

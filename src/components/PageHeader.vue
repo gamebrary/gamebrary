@@ -33,7 +33,8 @@ Elevate your gaming experience with PlayStats – because your gaming journey is
 
 <template lang="html">
   <header :class="[darkTheme ? 'bg-dark' : 'bg-light', isVerticalNav ? 'p-2' : 'px-2 py-2', `nav-${navPosition}`]">
-    <main-menu :class="isVerticalNav ? ' mb-2' : ''" />
+    <!-- <VerticalMenu v-if="isVerticalNav" /> -->
+    <main-menu />
 
     <portal-target
       v-if="!isVerticalNav"
@@ -81,10 +82,12 @@ Elevate your gaming experience with PlayStats – because your gaming journey is
 <script>
 import { mapState, mapGetters } from 'vuex';
 import MainMenu from '@/components/MainMenu';
+// import VerticalMenu from '@/components/VerticalMenu';
 
 export default {
   components: {
     MainMenu,
+    // VerticalMenu,
   },
 
   computed: {

@@ -1,26 +1,21 @@
 <template lang="html">
-  <b-container>
-    <page-title :title="$t('wallpapers.title')" />
-    
-    <portal to="headerActions" v-if="!isVerticalNav">
+  <div>
+    <page-title :title="$t('wallpapers.title')">
       <upload-wallpaper-button />
-    </portal>
-
+    </page-title>
+    
     <b-spinner v-if="loading" class="spinner-centered" />
 
-    <template v-else-if="showEmptyState">
-      <empty-state
-        message="Add a personal touch to your boards by uploading a wallpaper!"
-        illustration="wallpapers"
-      >
-        <upload-wallpaper-button v-if="user" />
-      </empty-state>
-    </template>
+    <empty-state
+      v-else-if="showEmptyState"
+      message="Add a personal touch to your boards by uploading a wallpaper!"
+      illustration="wallpapers"
+    >
+      <upload-wallpaper-button v-if="user" />
+    </empty-state>
 
-    <template v-else>
-      <wallpapers-list />
-    </template>
-  </b-container>
+    <wallpapers-list v-else />
+  </div>
 </template>
 
 <script>

@@ -1,6 +1,6 @@
 <template lang="html">
   <section>
-    <b-container class="px-0">
+    <div>
       <page-title :title="user ? 'Boards' : 'Gamebrary'">
         <b-button
           v-if="user && isVerticalNav"
@@ -52,7 +52,7 @@
       <!-- <div class="game-deals">
         <twitter-feed twitter-user="wario64" />
       </div> -->
-    </b-container>
+    </div>
   </section>
 </template>
 

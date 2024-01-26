@@ -1,3 +1,4 @@
+<!-- TODO: fix background, add options? -->
 <template lang="html">
   <div v-if="!loading && !game" class="pt-5">
     <div class="d-flex justify-content-center align-items-center">
@@ -15,11 +16,11 @@
   >
     <game-header />
 
-    <b-row no-gutters>
+    <b-row>
       <b-col
         cols="12"
         md="6"
-        lg="4"
+        lg="3"
       >
         <div class="position-relative">
           <game-ratings class="position-absolute d-flex" style="bottom: 1rem; right: 1rem;" />
@@ -27,27 +28,29 @@
           <b-img
             :src="$options.getImageUrl(cachedGame)"
             :alt="gameName"
-            :class="['border mb-3', darkTheme ? 'border-dark' : 'border-light', { 'has-artworks': hasArtworks }]"
-            style="width: calc(100% - 1rem) !important"
+            class="border d-flex mb-3 w-100"
+            :class="`border-${darkTheme ? 'dark' : 'light'}`"
             bordered
             v-b-modal.mediaModal
             rounded
           />
         </div>
+
+        <GameMedia v-if="!loading" />
       </b-col>
 
       <b-col
         cols="12"
         md="6"
         lg="8"
-        xl="8"
+        xl="6"
       >
-        <div class="mx-auto" style="width: 800px; max-width: 100%;">
+        <div>
           <div
             class="d-flex justify-content-between align-items-end mb-2"
             v-b-visible="(value) => titleVisible = !value"
           >
-            <div :class="['d-flex align-items-center', { 'mt-3': hasArtworks }]">
+            <div :class="['d-flex align-items-center']">
               <!-- TODO: put like button in component, pass gameId -->
               <!-- TODO: if liked, show dropdown when clicked, options: remove from your games -->
               <b-button
@@ -282,23 +285,22 @@
           
           <h5 class="mt-2">Developers</h5>
 
-          <b-button
+          <b-link
             v-for="developer in gameDevelopers"
             :key="developer.id"
-            variant="info"
             :to="{ name: 'company', params: { id: developer.id, slug: developer.slug }}"
             class="mr-2 mb-2 align-items-center"
           >
-            <b-img
+            <!-- <b-img
               v-if="developer.logo"
               :src="$options.getImageUrl(developer)"
               :alt="developer.name"
               width="40"
               class="mr-2"
-            />
+            /> -->
 
             <span>{{ developer.name }}</span>
-          </b-button>
+          </b-link>
 
           <h5 class="mt-2">Publishers</h5>
           
@@ -321,7 +323,46 @@
           </b-button>
 
           <game-progress />
+
+          <div v-if="gameLinks.length">
+            <h4 class="mt-3">External links</h4>
+
+            <b-link
+              v-for="({ url, id, icon, svg }, index) in gameLinks"
+              :href="url"
+              :key="index"
+              :title="$t(`board.gameModal.links.${id}`)"
+              v-b-tooltip
+              target="_blank"
+              :class="['text-left p-1 mr-2', darkTheme ? 'text-success' : '']"
+            >
+              <i
+                v-if="icon"
+                :class="`${icon} fa-fw`"
+                aria-hidden
+              />
+
+              <b-img
+                v-else-if="svg"
+                width="24"
+                :src="`/logos/companies/${id}.svg`"
+              />
+
+              <span class="ml-2 text-capitalize">{{ id }}</span>
+            </b-link>
+          </div>
         </div>
+      </b-col>
+
+      <b-col
+        cols="12"
+        md="6"
+        lg="8"
+        xl="3"
+      >
+        <GameInBoards />
+        <SimilarGames />
+
       </b-col>
     </b-row>
 
@@ -386,7 +427,6 @@
           class="text-center pt-3 pt-md-0"
         >
 
-
           <!-- <amazon-links class="mt-2" /> -->
           <!-- <template v-if="highlightedAchievements">
             <h3 :class="['mt-5']">Achievements</h3>
@@ -423,34 +463,6 @@
       </timeline> -->
     </b-container>
 
-    <div v-if="gameLinks.length">
-      <h4 class="mt-3">External links</h4>
-
-      <b-link
-        v-for="({ url, id, icon, svg }, index) in gameLinks"
-        :href="url"
-        :key="index"
-        :title="$t(`board.gameModal.links.${id}`)"
-        v-b-tooltip
-        target="_blank"
-        :class="['text-left p-1 mr-2', darkTheme ? 'text-success' : '']"
-      >
-        <i
-          v-if="icon"
-          :class="`${icon} fa-fw`"
-          aria-hidden
-        />
-
-        <b-img
-          v-else-if="svg"
-          width="24"
-          :src="`/logos/companies/${id}.svg`"
-        />
-
-        <span class="ml-2 text-capitalize">{{ id }}</span>
-      </b-link>
-    </div>
-
     <b-alert
       v-if="note"
       v-html="note"
@@ -466,16 +478,6 @@
     >
       Add note
     </b-button>
-
-    <game-media v-if="!loading" />
-    <div class="d-flex flex-column flex-md-row">
-
-      <game-page-tile size="half" title="You may also like">
-        <similar-games />
-      </game-page-tile>
-    </div>
-
-    <game-in-boards v-if="!loading" />
 
     <p
       v-if="legalNotice"
@@ -863,6 +865,8 @@ export default {
 
       this.loading = false;
 
+      // TODO: load all the stuff asyncronously
+
       this.wikipediaDescription = this.wikipediaSlug
         ? await this.$store.dispatch('LOAD_WIKIPEDIA_DESCRIPTION', this.wikipediaSlug).catch((e) => {})
         : null;
@@ -886,7 +890,7 @@ export default {
 
       if (wikipediaSlug) await this.$store.dispatch('LOAD_WIKIPEDIA_ARTICLE', wikipediaSlug).catch((e) => {});
 
-      this.setWallpaper();
+      // this.setWallpaper();
 
       this.loading = false;
     },

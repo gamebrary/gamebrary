@@ -2,13 +2,13 @@
   <div class="game-selector">
     <portal to="headerActions">
       <b-modal
+        scrollable
         v-model="selecting"
         :header-bg-variant="darkTheme ? 'dark' : 'transparent'"
         :header-text-variant="darkTheme ? 'white' : 'dark'"
         :body-bg-variant="darkTheme ? 'dark' : 'transparent'"
         :body-text-variant="darkTheme ? 'white' : 'dark'"
         hide-footer
-        :size="filteredSearchResults.length > 6 ? 'lg' : 'sm'"
         @hidden="selecting = false"
       >
         <template v-slot:modal-header="{ close }">
@@ -18,7 +18,10 @@
           />
         </template>
 
-        <div class="small-container d-flex justify-content-between align-items-center">
+        <div
+          class="small-container d-flex pt-1 bg-white justify-content-between align-items-center"
+          style="position: sticky; top: -16px; z-index: 1"
+        >
           <b-form-input
            v-model="searchText"
            debounce="500"
@@ -156,7 +159,7 @@ export default {
 
     cols() {
       return this.filteredSearchResults.length > 6
-        ? { default: 6, 1200: 5, 768: 4, 480: 2 }
+        ? { default: 3, 1200: 5, 768: 4, 480: 2 }
         : { default: 3, 768: 3, 480: 2 };
     },
 

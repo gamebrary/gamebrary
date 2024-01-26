@@ -39,6 +39,8 @@ Vue.use(VueAnalytics, { id: 'UA-120053966-1', router });
 Vue.use(VueAxios, axios);
 Vue.use(VueFire);
 Vue.use(VueI18n);
+
+// TODO: update these two to be title case
 Vue.component('modal-header', ModalHeader);
 Vue.component('page-title', PageTitle);
 

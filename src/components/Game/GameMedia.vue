@@ -2,10 +2,10 @@
   <section>
     <masonry
       gutter="1rem"
-      :cols="{default: 3, 1000: 2, 400: 1}"
+      :cols="{ default: 5, 1400: 5, 1200: 5, 768: 5, 480: 3 }"
     >
       <b-img
-        v-for="({ imageUrl }, index) in gameMedia"
+        v-for="({ imageUrl }, index) in slicedGameMedia"
         :key="index"
         :src="imageUrl"
         rounded
@@ -14,6 +14,16 @@
         @click="viewMedia(index)"
       />
     </masonry>
+
+    <b-button
+      v-if="gameMedia.length > 5"
+      variant="light"
+      size="sm"
+      block
+      @click="viewMedia(6)"
+    >
+      More images
+    </b-button>
 
     <!-- <masonry
       v-if="activeIndex === null"
@@ -195,6 +205,10 @@ export default {
 
     thumbnailPreviews() {
       return this.thumbnails?.slice(0, 5);
+    },
+
+    slicedGameMedia() {
+      return this.gameMedia?.slice(0, 5);
     },
 
     gameMedia() {

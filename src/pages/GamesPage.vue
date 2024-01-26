@@ -60,7 +60,7 @@
 
       <masonry
         v-else
-        :cols="{ default: 5, 1200: 4, 768: 3, 480: 2 }"
+        :cols="{ default: 7, 1200: 4, 768: 3, 480: 2 }"
         gutter="16px"
       >
         <b-card

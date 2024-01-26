@@ -1,15 +1,36 @@
 <template lang="html">
-  <div v-if="user" class="text-center">
-    <span class="display-4">
-      {{ progress }}%
-    </span>
+  <div v-if="user">
+    <!-- <progress-bar
+      :value="6"
+      type="line"
+    /> -->
 
-    <br />
+    <loading-progress
+      :progress="50"
+      size="64"
+      rotate
+      fillDuration="2"
+      rotationDuration="1"
+    />
 
-    Completed
+
+    <!-- <progress-bar
+      :value="6"
+      type="cylinder"
+    /> -->
+
+    <!-- <progress-bar
+      :value="6"
+      type="battery"
+    /> -->
+<!-- 
+    <progress-bar
+      :value="6"
+      type="line"
+    /> -->
 
     <b-form>
-      <b-form-input
+      <!-- <b-form-input
         v-model="progress"
         type="range"
         max="100"
@@ -17,7 +38,7 @@
         step="1"
         debounce="500"
         @update="saveProgress"
-      />
+      /> -->
 
       <b-button
         v-if="progress"

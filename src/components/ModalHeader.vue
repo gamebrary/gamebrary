@@ -1,5 +1,5 @@
 <template lang="html">
-  <header :class="{ 'has-action': slots.includes('default') }">
+  <header :class="['align-items-start', { 'has-action': slots.includes('default') }]">
     <div>
       <slot name="header" v-if="slots.includes('header')" />
       <h3 class="text-wrap">{{ title }}</h3>

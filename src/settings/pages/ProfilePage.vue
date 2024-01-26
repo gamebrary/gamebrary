@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container class="px-3">
+  <div>
     <portal to="pageTitle">
       <h3>Profile</h3>
     </portal>
@@ -8,7 +8,7 @@
 
     <form
       v-else-if="profile"
-      class="field centered"
+      class="field"
       @submit.prevent="save"
     >
       <!-- <pre>{{ profile }}</pre> -->
@@ -222,8 +222,6 @@
           <template v-else>Delete profile</template>
         </b-button>
       </footer>
-
-      <hr class="my-3" />
     </form>
 
     <form
@@ -289,7 +287,7 @@
 
       <hr class="my-3" />
     </form>
-  </b-container>
+  </div>
 </template>
 
 <script>

@@ -1,15 +1,20 @@
 <template>
-  <masonry
-    v-if="allGames.length"
-    gutter="16px"
-    :cols="{ default: 3, 1200: 2, 768: 3, 480: 2 }"
-  >
-    <game-card-search
-      v-for="game in allGames"
-      :game="game"
-      :key="game && game.id"
-    />
-  </masonry>
+  <!-- TODO: add pagination, limit to 6 per page -->
+  <div>
+    Similar games
+
+    <masonry
+      v-if="allGames.length"
+      gutter="16px"
+      :cols="{ default: 3, 1400: 5, 1200: 5, 768: 5, 480: 3 }"
+    >
+      <game-card-search
+        v-for="game in allGames"
+        :game="game"
+        :key="game && game.id"
+      />
+    </masonry>
+  </div>
 </template>
 
 <script>
@@ -36,7 +41,7 @@ export default {
         ...this.gameRemasters,
         ...this.gameBundles,
         ...this.similarGames,
-      ];
+      ].slice(0, 6);
     },
 
     gameRemakes() {

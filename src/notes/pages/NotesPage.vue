@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-container :class="{ 'pr-2 pl-0': navPosition === 'left' }" >
+  <div>
     <page-title :title="$t('notes.title')">
       <!-- <game-selector
         v-if="!isEmpty"
@@ -102,7 +102,7 @@
           </masonry>
       </template>
     </template>
-  </b-container>
+  </div>
 </template>
 
 <script>

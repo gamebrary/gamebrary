@@ -11226,6 +11226,11 @@ vue-masonry-css@^1.0.3:
   resolved "https://registry.yarnpkg.com/vue-masonry-css/-/vue-masonry-css-1.0.3.tgz#a5e7bb248570eeedcd358637d3f1f4fc7f0c5f86"
   integrity sha512-viecHQiHVLez7HlYUQsv1wJb2MT/RDSzkDp6m3In41vPrk6OsBmT2qRE8LZqYIA4daIwrnx/Xm8h4fjOpuE3hw==
 
+vue-progress-path@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/vue-progress-path/-/vue-progress-path-0.0.2.tgz#d780fc7a96dbc7f784eb52895aeef7a5f0af6325"
+  integrity sha512-olD0dTbxZkwpodYbvPU/O2tJT7CbZt8NHP1ewtM6iXrzsjnfi9KZ6+CsUadsW87jCemSPIu9ez1iHcrvpqIJeg==
+
 vue-raven@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/vue-raven/-/vue-raven-1.0.3.tgz#cce941a9255e9694a5793c384fd8ab2e576ce764"
@@ -11293,6 +11298,11 @@ vuefire@^1.4.5:
   version "1.4.5"
   resolved "https://registry.yarnpkg.com/vuefire/-/vuefire-1.4.5.tgz#2f31028b18f25e0f581bb68fb94b88302d62ebf8"
   integrity sha512-lYk0Yk7ExwGN8G/datDMKxNeLLxfkL/cCU/B5Dw5ggNabCPwKnUEv3OE3ShMwberDDN+9wzm8AEPiLvI9aG/9Q==
+
+vuejs-progress-bar@^1.2.8:
+  version "1.2.8"
+  resolved "https://registry.yarnpkg.com/vuejs-progress-bar/-/vuejs-progress-bar-1.2.8.tgz#0e88291ad2c215ca165e63907dca356a9463e75c"
+  integrity sha512-FSXg42UlV0X6EMI0Tk6JFf9U55cWjlLVFQVoZef+o0oiAX7dvYKqVJSrsO5tR09FiN3KbVJGASbpuUoK/iNw9w==
 
 vuex-persist@^1.2.2:
   version "1.8.0"

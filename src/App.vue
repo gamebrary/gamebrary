@@ -10,7 +10,7 @@
     <b-spinner v-if="loading" class="spinner-centered mt-5" />
 
     <template v-else>
-      <page-header v-if="!isAuthPage" />
+      <page-header />
       <router-view class="viewport" />
       <keyboard-shortcuts-modal />
       <markdown-cheatsheet />

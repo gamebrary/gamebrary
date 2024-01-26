@@ -38,8 +38,8 @@
         </b-button>
       </div>
       
-      <b-button @click="loginWithGoogle">
-        Login with Google
+      <b-button @click="loginWithGoogle" variant="text" class="p-0">
+        <img src="img/google-sign-in-button-light.svg" alt="Login with Google">
       </b-button>
 
 

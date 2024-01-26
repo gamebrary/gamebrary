@@ -33,20 +33,21 @@
           />
         </masonry>
 
-        <h3 class="w-100 my-3">Games published by {{ company.name }}</h3>
+        <div v-if="company.published" class="bg-light rounded p-3">
+          <h3 class="w-100 my-3">Games published by {{ company.name }}</h3>
 
-        <masonry
-          gutter="16px"
-          style="max-height: 60vh;"
-          v-if="company.published"
-          :cols="{ default: 7, 1200: 5, 768: 3, 480: 2 }"
-        >
-          <game-card-search
-            v-for="gamePublished in company.published"
-            :game="gamePublished"
-            :key="gamePublished.id"
-          />
-        </masonry>
+          <masonry
+            gutter="16px"
+            :cols="{ default: 7, 1200: 5, 768: 3, 480: 2 }"
+          >
+            <game-card-search
+              v-for="gamePublished in company.published"
+              :game="gamePublished"
+              :key="gamePublished.id"
+            />
+          </masonry>
+        </div>
+
       </div>
 
       <div v-else>

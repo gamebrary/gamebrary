@@ -1,63 +1,58 @@
 <template lang="html">
   <section>
-    <b-container>
-      <!-- <page-title title="Create board" /> -->
-      <portal to="pageTitle">
-        <h3>Create board</h3>
-      </portal>
+    <page-title title="Create board" />
 
-      <b-form @submit.prevent="createBoard" class="field centered">
-        <b-form-group label="Board name:" label-for="boardName">
-          <b-form-input
-            id="boardName"
-            v-model.trim="board.name"
-            autofocus
-            required
-          />
-        </b-form-group>
-
-        <p>Board type:</p>
-        <b-button-group class="mb-2">
-          <b-button
-            v-for="{ text, value } in $options.BOARD_TYPES"
-            :key="value"
-            :variant="value === board.type ? 'primary' : 'light'"
-            @click="board.type = value"
-          >
-            {{ text }}
-          </b-button>
-        </b-button-group>
-
-        <mini-board
-          class="mb-2"
-          :board="sampleBoardWithGames"
+    <b-form @submit.prevent="createBoard" class="field">
+      <b-form-group label="Board name:" label-for="boardName">
+        <b-form-input
+          id="boardName"
+          v-model.trim="board.name"
+          autofocus
+          required
         />
+      </b-form-group>
 
-        <b-form-checkbox
-          v-if="board.type === $options.BOARD_TYPE_STANDARD"
-          v-model="board.ranked"
-          name="check-button"
-          class="mb-3"
-          switch
-        >
-          Ranked
-        </b-form-checkbox>
-
-        <b-form-checkbox v-model="board.isPublic" switch class="mb-2">
-          Public
-        </b-form-checkbox>
-
+      <p>Board type:</p>
+      <b-button-group class="mb-2">
         <b-button
-          variant="primary"
-          class="mt-3"
-          loading
-          type="submit"
+          v-for="{ text, value } in $options.BOARD_TYPES"
+          :key="value"
+          :variant="value === board.type ? 'primary' : 'light'"
+          @click="board.type = value"
         >
-          <b-spinner small v-if="saving" />
-          <template v-else>Create board</template>
+          {{ text }}
         </b-button>
-      </b-form>
-    </b-container>
+      </b-button-group>
+
+      <mini-board
+        class="mb-2"
+        :board="sampleBoardWithGames"
+      />
+
+      <b-form-checkbox
+        v-if="board.type === $options.BOARD_TYPE_STANDARD"
+        v-model="board.ranked"
+        name="check-button"
+        class="mb-3"
+        switch
+      >
+        Ranked
+      </b-form-checkbox>
+
+      <b-form-checkbox v-model="board.isPublic" switch class="mb-2">
+        Public
+      </b-form-checkbox>
+
+      <b-button
+        variant="primary"
+        class="mt-3"
+        loading
+        type="submit"
+      >
+        <b-spinner small v-if="saving" />
+        <template v-else>Create board</template>
+      </b-button>
+    </b-form>
   </section>
 </template>
 

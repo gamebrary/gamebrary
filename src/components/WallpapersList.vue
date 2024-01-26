@@ -1,23 +1,21 @@
 <template lang="html">
   <section>
-    <b-container class="px-0">
-      <preview-wallpaper-modal :wallpaper="activeWallpaper" />
+    <preview-wallpaper-modal :wallpaper="activeWallpaper" />
 
-      <masonry
-        :cols="{ default: 5, 1200: 4, 768: 3, 480: 2 }"
-        gutter="16px"
-      >
-        <b-img
-          v-for="wallpaper in sortedWallpapers"
-          :key="wallpaper.name"
-          :src="wallpaper.url"
-          class="mb-3"
-          rounded
-          fluid
-          @click="handleClick(wallpaper)"
-        />
-      </masonry>
-    </b-container>
+    <masonry
+      :cols="{ default: 5, 1200: 4, 768: 3, 480: 2 }"
+      gutter="16px"
+    >
+      <b-img
+        v-for="wallpaper in sortedWallpapers"
+        :key="wallpaper.name"
+        :src="wallpaper.url"
+        class="mb-3"
+        rounded
+        fluid
+        @click="handleClick(wallpaper)"
+      />
+    </masonry>
   </section>
 </template>
 

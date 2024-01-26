@@ -100,13 +100,21 @@
               v-for="(game, index) in list.games"
               :key="index"
               style="width: 60px"
-              :class="['p-1 d-flex', darkTheme ? 'border-black bg-dark' : 'border-light bg-white', { 'border-bottom' : index !== list.games.length - 1 } ]"
+              class="p-1 d-flex"
+              :class="[
+                darkTheme ? 'border-black bg-dark' : 'border-light ',
+                gameId === game ? 'bg-danger' : 'bg-white',
+                {
+                  'border-bottom' : index !== list.games.length - 1,
+                }
+              ]"
             >
               <b-avatar
                 style="border-radius: 4px !important"
                 text=" "
+                :src="getCachedGame(game)"
                 :variant="darkTheme ? 'black' : 'light'"
-                size="20"
+                size="24"
               />
             </div>
           </template>
@@ -123,12 +131,14 @@
 </template>
 
 <script>
-import { BOARD_TYPE_STANDARD, BOARD_TYPE_TIER } from '@/constants';
-import { mapGetters } from 'vuex';
+import { BOARD_TYPE_STANDARD, BOARD_TYPE_TIER, IMAGE_SIZE_THUMB } from '@/constants';
+import { mapGetters, mapState } from 'vuex';
+import { getImageUrl } from '@/utils';
 
 export default {
   props: {
     board: Object,
+    gameId: Number,
   },
 
   data() {
@@ -144,6 +154,7 @@ export default {
   },
 
   computed: {
+    ...mapState(['cachedGames']),
     ...mapGetters(['darkTheme']),
 
     hasCustomBackground() {
@@ -179,6 +190,10 @@ export default {
   },
 
   methods: {
+    getCachedGame(gameId) {
+      return getImageUrl(this.cachedGames?.[Number(gameId)], IMAGE_SIZE_THUMB);
+    },
+
     async loadWallpaper() {
       if (this.board?.backgroundUrl) {
         this.backgroundUrl = this.board?.backgroundUrl?.includes('igdb')
