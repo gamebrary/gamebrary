@@ -13,7 +13,7 @@
       </b-button>
     </portal>
 
-    <page-title title="Games">
+    <PageTitle title="Games">
       <b-button
         v-if="isVerticalNav"
         @click="toggleView"
@@ -22,7 +22,7 @@
         <i v-if="view === 'grid'" class="fa-solid fa-list" />
         <i v-else class="fa-solid fa-table-cells" />
       </b-button>
-    </page-title>
+    </PageTitle>
 
     <!-- <b-button class="mr-3">
       Sort

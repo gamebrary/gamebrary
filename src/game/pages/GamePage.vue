@@ -304,23 +304,13 @@
 
           <h5 class="mt-2">Publishers</h5>
           
-          <b-button
+          <b-link
             v-for="publisher in gamePublishers"
             :key="publisher.id"
-            variant="info"
             :to="{ name: 'company', params: { id: publisher.id, slug: publisher.slug }}"
-            class="mr-2 mb-2 align-items-center"
           >
-            <b-img
-              v-if="publisher.logo"
-              :src="$options.getImageUrl(publisher)"
-              :alt="publisher.name"
-              width="40"
-              class="mr-2"
-            />
-
-            <span>{{ publisher.name }}</span>
-          </b-button>
+            {{ publisher.name }}
+          </b-link>
 
           <game-progress />
 

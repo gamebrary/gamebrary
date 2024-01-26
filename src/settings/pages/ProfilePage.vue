@@ -136,11 +136,11 @@
 
       <b-form-group
         label-class="m-0 text-muted"
-        label="Twitter"
-        label-for="twitter"
+        label="X"
+        label-for="x"
       >
         <b-form-input
-          id="twitter"
+          id="x"
           v-model="profile.twitter"
           class="mb-3"
         />

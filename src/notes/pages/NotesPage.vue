@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <page-title :title="$t('notes.title')">
+    <PageTitle :title="$t('notes.title')">
       <!-- <game-selector
         v-if="!isEmpty"
         title="Select game to add a note"
@@ -11,7 +11,7 @@
       <i class="d-sm-none fa-solid fa-plus" />
       <span class="d-none d-sm-inline">Create note</span>
       </game-selector> -->
-    </page-title>
+    </PageTitle>
 
     <b-spinner v-if="loading" class="spinner-centered" />
 

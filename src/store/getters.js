@@ -19,6 +19,7 @@ import linkifyHtml from 'linkify-html';
 export default {
   latestRelease: ({ releases }) => releases?.[0]?.tag_name || 'v1',
   darkTheme: ({ settings }) => settings?.darkTheme || false,
+  coversInMiniBoards: ({ settings }) => settings?.coversInMiniBoards || false,
   sortedBoards: ({ boards }) => orderby(boards, 'lastUpdated', 'desc'),
   sortedPublicBoards: ({ publicBoards }) => orderby(publicBoards, 'lastUpdated', 'desc'),
   isBoardOwner: ({ board, user }) => board?.owner === user?.uid,

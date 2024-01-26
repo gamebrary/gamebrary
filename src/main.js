@@ -40,9 +40,8 @@ Vue.use(VueAxios, axios);
 Vue.use(VueFire);
 Vue.use(VueI18n);
 
-// TODO: update these two to be title case
-Vue.component('modal-header', ModalHeader);
-Vue.component('page-title', PageTitle);
+Vue.component('ModalHeader', ModalHeader);
+Vue.component('PageTitle', PageTitle);
 
 Vue.directive('click-outside', {
   bind: function (el, binding, vnode) {

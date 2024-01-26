@@ -1,41 +1,60 @@
 <template lang="html">
-  <b-container class="pt-3" v-if="user">
-    <page-title title="Settings" />
+  <div class="pt-3">
+    <PageTitle title="Settings" />
 
-    <div class="small-container">
+    <div>
       <section class="mb-3">
         <p class="mt-2">Menu position</p>
 
-        <b-button
-          :variant="navPosition === 'top' ? 'primary' : 'light'"
-          @click="setNavPosition('top')"
-        >
-          Top
-        </b-button>
+        <div class="bg-light p-2 rounded" style="width: 200px">
+          <b-button
+            block
+            :variant="navPosition === 'top' ? 'primary' : 'light'"
+            size="sm"
+            class="mb-1"
+            @click="setNavPosition('top')"
+          >
+            <i class="fa fa-arrow-up" />
+            Top
+          </b-button>
 
-        <b-button
-          class="ml-2"
-          :variant="navPosition === 'bottom' ? 'primary' : 'light'"
-          @click="setNavPosition('bottom')"
-        >
-          Bottom
-        </b-button>
+          <div class="d-flex align-items-start">
+            <b-button
+              block
+              size="sm"
+              class="m-0 py-5 d-flex flex-column align-items-center"
+              :variant="navPosition === 'left' ? 'primary' : 'light'"
+              @click="setNavPosition('left')"
+            >
+              <i class="fa fa-arrow-left" />
+              Left
+            </b-button>
 
-        <b-button
-          class="ml-2"
-          :variant="navPosition === 'left' ? 'primary' : 'light'"
-          @click="setNavPosition('left')"
-        >
-          Left
-        </b-button>
+            <span class="w-100" />
 
-        <b-button
-          class="ml-2"
-          :variant="navPosition === 'right' ? 'primary' : 'light'"
-          @click="setNavPosition('right')"
-        >
-          Right
-        </b-button>
+            <b-button
+              block
+              size="sm"
+              class="m-0 py-5 d-flex flex-column align-items-center"
+              :variant="navPosition === 'right' ? 'primary' : 'light'"
+              @click="setNavPosition('right')"
+            >
+              <i class="fa fa-arrow-right" />
+              Right
+            </b-button>
+          </div>
+
+          <b-button
+            block
+            :variant="navPosition === 'bottom' ? 'primary' : 'light'"
+            size="sm"
+            class="mt-1"
+            @click="setNavPosition('bottom')"
+          >
+            <i class="fa fa-arrow-down" />
+            Bottom
+          </b-button>
+        </div>
       </section>
 
       <hr />
@@ -75,6 +94,16 @@
         Dark theme
       </b-form-checkbox>
 
+
+      <b-form-checkbox
+        switch
+        @input="toggleCoversInMiniBoards"
+        :checked="coversInMiniBoards"
+        class="mb-3"
+      >
+        Show game covers in mini boards
+      </b-form-checkbox>
+
       <!-- <h3>Game rating type</h3>
       number / stars / minimalist
 
@@ -91,7 +120,8 @@
         Manage account
       </b-button> -->
 
-      <hr />
+      <!-- TODO: migrate and restore delete account modal, use firebase extension? -->
+      <!-- <hr />
 
       <b-button
         variant="danger"
@@ -100,7 +130,7 @@
         Delete account
       </b-button>
 
-      <!-- <delete-account-modal /> -->
+      <delete-account-modal /> -->
 
       <hr />
 
@@ -116,14 +146,14 @@
         <i class="fa-solid fa-keyboard fa-fw" /> Keyboard Shortcuts
       </b-link>
 
-      <!-- <br /> -->
+      <br />
 
-      <!-- <b-link :to="{ name: 'dev.tools' }">
+      <b-link :to="{ name: 'dev.tools' }">
         <i class="fa fa-cog fa-fw" aria-hidden="true" />
         <span class="ml-2">Dev tools</span>
-      </b-link> -->
+      </b-link>
     </div>
-  </b-container>
+  </div>
 </template>
 
 <script>
@@ -140,7 +170,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'settings']),
-    ...mapGetters(['darkTheme', 'navPosition', 'ageRating']),
+    ...mapGetters(['darkTheme', 'navPosition', 'ageRating', 'coversInMiniBoards']),
   },
 
   methods: {
@@ -159,6 +189,22 @@ export default {
       const payload = {
         ...settings,
         darkTheme: !darkTheme,
+      };
+
+      await this.$store.dispatch('SAVE_SETTINGS', payload)
+        .catch(() => {
+          this.$bvToast.toast('There was an error saving your settings', { variant: 'danger' });
+          this.saving = false;
+        });
+    },
+
+    async toggleCoversInMiniBoards() {
+      const { settings } = this;
+      const coversInMiniBoards = settings?.coversInMiniBoards || false;
+
+      const payload = {
+        ...settings,
+        coversInMiniBoards: !coversInMiniBoards,
       };
 
       await this.$store.dispatch('SAVE_SETTINGS', payload)

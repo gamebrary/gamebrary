@@ -1,6 +1,6 @@
 <template lang="html">
   <b-container>
-    <page-title title="Tags">
+    <PageTitle title="Tags">
       <!-- <b-button
         :variant="darkTheme ? 'success' : 'primary'"
         :to="{ name: 'tag.create' }"
@@ -8,7 +8,7 @@
         <i class="d-sm-none fa-solid fa-plus" />
         <span class="d-none d-sm-inline">Add tag</span>
       </b-button> -->
-    </page-title>
+    </PageTitle>
 
     <portal v-if="!isVerticalNav && !loading && tags.length > 0" to="headerActions">
       <b-button

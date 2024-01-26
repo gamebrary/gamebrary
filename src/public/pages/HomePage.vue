@@ -1,16 +1,7 @@
 <template lang="html">
   <section>
     <div>
-      <page-title :title="user ? 'Boards' : 'Gamebrary'">
-        <b-button
-          v-if="user && isVerticalNav"
-          :variant="darkTheme ? 'success' : 'primary'"
-          :to="{ name: 'create.board' }"
-        >
-          <i class="d-sm-none fa-solid fa-plus" />
-          <span class="d-none d-sm-inline">Create board</span>
-        </b-button>
-      </page-title>
+      <page-title :title="user ? 'Boards' : 'Gamebrary'" />
 
       <!-- <portal to="headerActions">
         <b-button
@@ -47,7 +38,7 @@
         </div>
       </div>
 
-      <game-boards />
+      <BoardsPage />
 
       <!-- <div class="game-deals">
         <twitter-feed twitter-user="wario64" />
@@ -58,12 +49,12 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import GameBoards from '@/components/GameBoards';
+import BoardsPage from '@/components/BoardsPage';
 import TwitterFeed from '@/components/TwitterFeed';
 
 export default {
   components: {
-    GameBoards,
+    BoardsPage,
     // TwitterFeed,
   },
 

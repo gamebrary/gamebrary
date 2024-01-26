@@ -1,9 +1,12 @@
 <template lang="html">
   <header
     v-if="isVerticalNav"
-    :class="['d-flex justify-content-between align-items-center mb-2']"
+    class="d-flex justify-content-between align-items-center mb-2"
+    hasLongText
   >
-    <h2>{{ title }}</h2>
+    <h2 :class="{ 'text-wrap text-danger': hasLongText }">
+      {{ title }}
+    </h2>
     <slot />
   </header>
 
@@ -23,6 +26,10 @@ export default {
 
   computed: {
     ...mapGetters(['isVerticalNav']),
+
+    hasLongText() {
+      return this.title.length > 30;
+    },
   },
 };
 </script>

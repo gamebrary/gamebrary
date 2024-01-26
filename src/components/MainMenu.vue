@@ -108,6 +108,15 @@
     </b-dropdown-item>
 
     <b-dropdown-item
+        v-if="!user"
+        class="ml-2"
+        variant="danger"
+        :to="{ name: 'auth' }"
+      >
+        Get started <span class="d-none d-sm-inline"> — it's free!</span>
+    </b-dropdown-item>
+
+    <b-dropdown-item
       :to="{ name: 'help' }"
       block
       id="help"

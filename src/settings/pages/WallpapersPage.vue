@@ -1,9 +1,10 @@
 <template lang="html">
   <div>
-    <page-title :title="$t('wallpapers.title')">
-      <upload-wallpaper-button />
-    </page-title>
-    
+    <PageTitle :title="$t('wallpapers.title')" />
+
+    <portal to="headerActions">
+      <UploadWallpaperButton />
+    </portal>
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <empty-state
@@ -11,7 +12,7 @@
       message="Add a personal touch to your boards by uploading a wallpaper!"
       illustration="wallpapers"
     >
-      <upload-wallpaper-button v-if="user" />
+      <UploadWallpaperButton v-if="user" />
     </empty-state>
 
     <wallpapers-list v-else />

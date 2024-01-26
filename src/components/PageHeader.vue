@@ -40,7 +40,6 @@ Elevate your gaming experience with PlayStats – because your gaming journey is
       v-if="!isVerticalNav"
       class="ml-2"
       name="pageTitle"
-      multiple
     />
 
     <div :class="['align-items-center d-flex ml-auto', isVerticalNav ? 'h-100 flex-column' : '']">
@@ -56,11 +55,11 @@ Elevate your gaming experience with PlayStats – because your gaming journey is
 
         <b-button
           v-if="!user"
-          class="ml-2"
+          class="ml-2 d-none d-sm-inline"
           variant="black"
           :to="{ name: 'auth' }"
         >
-          Get started <span class="d-none d-sm-inline"> — it's free!</span>
+          Get started
         </b-button>
     </div>
     <!-- <b-collapse id="header">

@@ -18,13 +18,14 @@
     <template v-else>
       <portal to="headerActions">
         <b-button
-          v-if="user && !isVerticalNav"
-          :variant="darkTheme ? 'success' : 'primary'"
+          v-if="user"
+          :variant="darkTheme ? 'success' : 'light'"
           class="mr-3"
+          v-b-tooltip.hover
+          title="Create board"
           :to="{ name: 'create.board' }"
         >
-          <i class="d-sm-none fa-solid fa-plus" />
-          <span class="d-none d-sm-inline">Create board</span>
+          <i class="fa-solid fa-plus" />
         </b-button>
       </portal>
 

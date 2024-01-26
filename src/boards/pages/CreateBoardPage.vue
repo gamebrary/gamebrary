@@ -1,6 +1,6 @@
 <template lang="html">
   <section>
-    <page-title title="Create board" />
+    <PageTitle title="Create board" />
 
     <b-form @submit.prevent="createBoard" class="field">
       <b-form-group label="Board name:" label-for="boardName">

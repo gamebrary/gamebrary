@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="mx-sm-auto standard-list">
+  <div class="standard-list">
     <draggable
       handle=".card"
       ghost-class="card-placeholder"

@@ -1,21 +1,13 @@
 <template lang="html">
-  <b-container>
-    <h2
-      v-if="isVerticalNav"
-      class="text-center mb-3"
-    >
-      {{ board.name }}
-    </h2>
-
-    <b-row
+  <div class="standard-board">
+    <PageTitle :title="board.name" />
+    
+    <standard-list
       v-for="list in board.lists"
       :key="list.id"
-    >
-      <standard-list
-        :list="list"
-      />
-    </b-row>
-  </b-container>
+      :list="list"
+    />
+  </div>
 </template>
 
 <script>
@@ -43,3 +35,13 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.standard-board {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  flex-direction: column;
+}
+</style>

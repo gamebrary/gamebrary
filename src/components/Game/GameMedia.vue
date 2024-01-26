@@ -25,62 +25,9 @@
       More images
     </b-button>
 
-    <!-- <masonry
-      v-if="activeIndex === null"
-      gutter="8px"
-      :cols="{default: 4, 1000: 3, 700: 2, 400: 1}"
-    >
-      <b-img
-        v-for="({ imageUrl }, index) in gameMedia"
-        :key="index"
-        :src="imageUrl"
-        rounded
-        fluid
-        class="mb-2"
-        @click="viewMedia(index)"
-      />
-    </masonry>
-
-    <div v-else class="text-center">
-      <b-embed
-        v-if="isSelectedMediaVideo"
-        type="iframe"
-        aspect="16by9"
-        :src="selectedMedia.videoUrl"
-        class="rounded"
-        allowfullscreen
-      />
-
-      <b-img
-        v-else
-        rounded
-        fluid
-        :src="selectedMedia.imageUrl"
-        class="cursor-pointer"
-        @click="activeIndex = null"
-      />
-    </div> -->
-    <!-- <section v-if="thumbnailPreviews.length > 1" class="my-2 thumbnails w-100">
-      <div
-        v-for="({ imageUrl }, index) in thumbnailPreviews"
-        :key="index"
-        :src="imageUrl"
-        :class="['thumbnail cursor-pointer rounded overflow-hidden', { 'large': index < 2 }]"
-        :style="`background-image: url(${imageUrl})`"
-        @click="viewMedia"
-      >
-        <span
-          v-if="index === 4"
-          class="more-thumbnails text-light w-100 d-flex justify-content-center h-100 align-items-center"
-        >
-          {{ thumbnails.length }}+
-        </span>
-      </div>
-    </section> -->
-
     <b-modal
       id="mediaModal"
-      size="lg"
+      size="xl"
       hide-footer
       scrollable
       :header-bg-variant="darkTheme ? 'dark' : 'transparent'"
@@ -137,40 +84,43 @@
         </modal-header>
       </template>
 
-      <masonry
-        v-if="activeIndex === null"
-        gutter="8px"
-        :cols="{default: 4, 1000: 3, 700: 2, 400: 1}"
-      >
-        <b-img
-          v-for="({ imageUrl }, index) in gameMedia"
-          :key="index"
-          :src="imageUrl"
-          rounded
-          fluid
-          class="mb-2"
-          @click="viewMedia(index)"
-        />
-      </masonry>
+      <pre>{{ activeIndex }}</pre>
 
-      <div v-else class="text-center w-100">
-        <b-embed
-          v-if="isSelectedMediaVideo"
-          type="iframe"
-          aspect="16by9"
-          :src="selectedMedia.videoUrl"
-          class="rounded w-100"
-          allowfullscreen
-        />
+      <div class="game-media" :class="{ 'selected': Boolean(activeIndex) }">
+        <masonry
+          gutter="8px"
+          :cols="{ default: activeIndex ? 2 : 10, 1000: 3, 700: 2, 400: 1}"
+        >
+          <b-img
+            v-for="({ imageUrl }, index) in gameMedia"
+            :key="index"
+            :src="imageUrl"
+            rounded
+            fluid
+            class="mb-2"
+            @click="viewMedia(index)"
+          />
+        </masonry>
 
-        <b-img
-          v-else
-          rounded
-          fluid
-          :src="selectedMedia.imageUrl"
-          class="cursor-pointer"
-          @click="activeIndex = null"
-        />
+        <div v-if="activeIndex" class="text-center w-100">
+          <b-embed
+            v-if="isSelectedMediaVideo"
+            type="iframe"
+            aspect="16by9"
+            :src="selectedMedia.videoUrl"
+            class="rounded w-100"
+            allowfullscreen
+          />
+
+          <b-img
+            v-else
+            rounded
+            fluid
+            :src="selectedMedia.imageUrl"
+            class="cursor-pointer"
+            @click="activeIndex = null"
+          />
+        </div>
       </div>
     </b-modal>
   </section>
@@ -276,20 +226,12 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-.thumbnails {
+.game-media {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  // grid-template-rows: repeat(2, 3vw);
-  grid-gap: .5rem;
-}
-
-.thumbnail {
-  height: 60px;
-  background-position: center;
-  background-size: cover;
-}
-
-.more-thumbnails {
-  background-color: rgba(0, 0, 0, 0.3);
+  grid-gap: 1rem;
+  
+  &.selected {
+    grid-template-columns: 200px 1fr;
+  }
 }
 </style>

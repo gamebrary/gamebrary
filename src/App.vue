@@ -2,7 +2,7 @@
 <template>
   <main
     id="app"
-    :class="[!backgroundColor && darkTheme ? 'dark bg-black text-light' : 'light', navPosition]"
+    :class="[!backgroundColor && darkTheme ? 'dark bg-black text-light' : 'light', `nav-${navPosition}`]"
     :style="style"
     v-shortkey="KEYBOARD_SHORTCUTS"
     @shortkey="handleShortcutAction"
@@ -52,7 +52,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'settings', 'sessionExpired', 'platforms', 'games']),
-    ...mapGetters(['darkTheme', 'isVerticalNav']),
+    ...mapGetters(['darkTheme', 'isVerticalNav', 'navPosition']),
 
     style() {
       const backgroundImage = ['game', 'board'].includes(this.$route?.name) && this.backgroundImageUrl
@@ -78,16 +78,6 @@ export default {
 
     isGamePage() {
       return this.$route.name === 'game';
-    },
-
-    isAuthPage() {
-      return this.$route.name === 'auth';
-    },
-
-    navPosition() {
-      const position = this.settings?.navPosition || 'top';
-
-      return `nav-${position}`;
     },
   },
 
@@ -196,13 +186,21 @@ export default {
     background-attachment: fixed;
     // background-repeat: no-repeat;
 
+    // test
+    max-height: 100svh;
+    overflow-y: auto;
+    // end test
+
     &.nav-top {
       padding-top: 65px;
+
+      .viewport {
+        height: calc(100svh - 65px);
+      }
     }
 
     .viewport {
       height: 100svh;
-      // overflow-y: auto;
       padding: .5rem 1rem;
       width: 100%;
     }
@@ -229,7 +227,6 @@ export default {
       
       .viewport {
         padding-right: 85px;
-        background-color: red;
       }
     }
 

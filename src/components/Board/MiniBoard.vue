@@ -1,3 +1,4 @@
+<!-- TODO: highlight entire list -->
 <template lang="html">
   <b-card
     class="cursor-pointer overflow-hidden"
@@ -27,7 +28,7 @@
       <div v-if="isTierBoard">
         <div
           class="d-flex mx-2"
-          v-for="tier in board.lists"
+          v-for="tier in formattedBoard.lists"
           style="margin-bottom: 4px;"
           :key="tier.id"
         >
@@ -41,8 +42,11 @@
             :variant="darkTheme ? 'black' : 'light'"
             v-for="(game, index) in tier.games"
             :key="index"
+            v-b-tooltip.hover
+            :title="game.name"
             text=" "
             square
+            :src="coversInMiniBoards ? game.src : null"
             style="margin-left: 4px; border-radius: 4px !important;"
             size="20"
           />
@@ -71,6 +75,9 @@
                 text=" "
                 :variant="darkTheme ? 'black' : 'light'"
                 class="m-1"
+                v-b-tooltip.hover
+                :title="game.name"
+                :src="coversInMiniBoards ? game.src : null"
                 size="20"
               />
 
@@ -88,7 +95,7 @@
 
       <div v-else class="lists d-inline-flex ml-1 rounded overflow-hidden">
         <b-card
-          v-for="(list, listIndex) in board.lists"
+          v-for="(list, listIndex) in formattedBoard.lists"
           :key="listIndex"
           body-class="p-0 kanban-list"
           :bg-variant="darkTheme ? 'black' : 'transparent'"
@@ -112,7 +119,7 @@
               <b-avatar
                 style="border-radius: 4px !important"
                 text=" "
-                :src="getCachedGame(game)"
+                :src="coversInMiniBoards ? game.src : null"
                 :variant="darkTheme ? 'black' : 'light'"
                 size="24"
               />
@@ -155,7 +162,28 @@ export default {
 
   computed: {
     ...mapState(['cachedGames']),
-    ...mapGetters(['darkTheme']),
+    ...mapGetters(['darkTheme', 'coversInMiniBoards']),
+
+    formattedBoard() {
+      const formattedLists = this.board?.lists?.map((list) => ({
+          games: list.games?.map((game) => {
+            const cachedGame = this.cachedGames?.[Number(game)] || {};
+            
+            return {
+              name: cachedGame.name,
+              src: getImageUrl(this.cachedGames?.[Number(game)], IMAGE_SIZE_THUMB),
+            }
+          }),
+          name: list.name,
+        }));
+
+      const formattedBoard = {
+        ...this.board,
+        lists: formattedLists,
+      }
+      
+      return formattedBoard;
+    },
 
     hasCustomBackground() {
       return this.board?.backgroundColor || this.board?.backgroundUrl;
@@ -190,10 +218,6 @@ export default {
   },
 
   methods: {
-    getCachedGame(gameId) {
-      return getImageUrl(this.cachedGames?.[Number(gameId)], IMAGE_SIZE_THUMB);
-    },
-
     async loadWallpaper() {
       if (this.board?.backgroundUrl) {
         this.backgroundUrl = this.board?.backgroundUrl?.includes('igdb')

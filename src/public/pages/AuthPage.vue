@@ -1,52 +1,58 @@
 <template lang="html">
-  <section>
-    <b-container class="field centered text-center">
-      <h3 class="mt-5">Welcome to Gamebrary</h3>
+  <div class="mx-auto" style="width: 420px">
+    <h3>Welcome to Gamebrary</h3>
 
-      <b-alert
-        class="mx-auto text-center"
-        :show="showExpiredAlert"
-        style="width: 220px"
-        variant="warning"
-      >
-        Session expired
-      </b-alert>
+    <p class="small">
+      {{ authDescription }}
+      <br />
+      <b-link @click="newUser = !newUser">{{ authAction }}</b-link>
+    </p>
 
-      <b-form-input
-        v-model="email"
-        id="email"
-        type="email"
-        placeholder="Email"
-      />
+    <b-alert
+      class="mx-auto text-center"
+      :show="showExpiredAlert"
+      style="width: 220px"
+      variant="warning"
+    >
+      Session expired
+    </b-alert>
 
-      <b-form-input
-        v-model="password"
-        id="password"
-        type="password"
-        placeholder="Password"
-      />
+    <b-form-input
+      v-model="email"
+      id="email"
+      type="email"
+      class="mb-3"
+      placeholder="Email"
+    />
 
-      <div class="d-flex justify-content-between">
-        <b-button @click="createAccount">
-          <b-spinner v-if="loading" small />
-          <template v-else>Create account</template>
-        </b-button>
+    <b-form-input
+      v-model="password"
+      class="mb-3"
+      id="password"
+      type="password"
+      placeholder="Password"
+    />
 
-        <b-button @click="loginWithEmail">
-          <b-spinner v-if="loading" small />
-          <template v-else>Login</template>
-        </b-button>
-      </div>
-      
-      <b-button @click="loginWithGoogle" variant="text" class="p-0">
-        <img src="img/google-sign-in-button-light.svg" alt="Login with Google">
+    <div class="d-flex justify-content-between">
+      <b-button v-if="newUser" @click="createAccount">
+        <b-spinner v-if="loading" small />
+        <template v-else>Create account</template>
       </b-button>
 
+      <b-button v-else @click="loginWithEmail">
+        <b-spinner v-if="loading" small />
+        <template v-else>Login</template>
+      </b-button>
+    </div>
+
+    <b-button @click="loginWithGoogle" variant="text" class="p-0">
+      <img src="img/google-sign-in-button-light.svg" alt="Login with Google">
+    </b-button>
 
 
-      <section v-show="!loading" id="auth" class="py-2" />
-    </b-container>
-  </section>
+
+    <section v-show="!loading" id="auth" class="py-2" />
+  </div>
 </template>
 
 <script>
@@ -72,10 +78,24 @@ export default {
       loading: false,
       email: '',
       password: '',
+      newUser: false,
     };
   },
+
   computed: {
     ...mapState(['user', 'sessionExpired']),
+
+    authDescription() {
+      return this.newUser
+        ? 'Create an account below. Already have an account?'
+        : 'Please login below. Need an account?';
+    },
+
+    authAction() {
+      return this.newUser
+        ? 'Login to your account'
+        : 'Create account';
+    },
   },
 
   mounted() {

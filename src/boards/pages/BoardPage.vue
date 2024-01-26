@@ -35,8 +35,8 @@
       <b-button
         v-if="isBoardOwner"
         :to="{ name: 'board.edit', params: { id: board.id } }"
-        :variant="darkTheme ? 'success' : 'primary'"
-        :class="{ 'mr-3': !isVerticalNav }"
+        :variant="darkTheme ? 'success' : 'light'"
+        :class="isVerticalNav ? 'mt-2' : 'mr-3'"
       >
         <div v-if="isVerticalNav">
           <i class="fa fa-pen" aria-hidden="true" />
