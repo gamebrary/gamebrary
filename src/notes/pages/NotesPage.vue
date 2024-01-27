@@ -67,7 +67,7 @@
       <template v-else>
         <b-form-input
             type="search"
-            class="field mb-3"
+            class="field mb-3 mt-2"
             placeholder="Search notes"
             v-model="searchText"
           />

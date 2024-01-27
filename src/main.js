@@ -18,7 +18,6 @@ import './registerServiceWorker';
 import messages from '@/i18n/';
 import store from '@/store/';
 import router from '@/router';
-import bootstrapSettings from '@/bootstrapSettings';
 import 'vue-swatches/dist/vue-swatches.css'
 
 const EventBus = new Vue();
@@ -34,7 +33,7 @@ Object.defineProperties(Vue.prototype, {
 Vue.use(VueMasonry);
 Vue.use(VueShortKey, { prevent: ['input', 'textarea', '.ProseMirror'] });
 Vue.use(PortalVue);
-Vue.use(BootstrapVue, bootstrapSettings);
+Vue.use(BootstrapVue);
 Vue.use(VueAnalytics, { id: 'UA-120053966-1', router });
 Vue.use(VueAxios, axios);
 Vue.use(VueFire);

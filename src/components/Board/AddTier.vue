@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="px-1">
+  <div class="mb-3">
     <b-button
       style="width: 100px; height: 60px;"
       v-b-tooltip.hover
@@ -29,7 +29,7 @@
 
       <form
         ref="addListForm"
-        class="p-2 d-flex justify-content-between"
+        class="d-flex justify-content-between"
         @submit.stop.prevent="submit"
       >
         <v-swatches

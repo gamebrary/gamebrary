@@ -14,10 +14,13 @@
           :text="tierLetter"
           :title="list.name"
           rounded
+          class="mr-2"
           :style="`background-color: ${list.backgroundColor}`"
           size="100"
         />
       </template>
+
+      <strong class="mx-2">{{ list.name }}</strong>
 
       <game-selector
         title="Add games"
@@ -63,7 +66,7 @@
       <b-img
         v-for="gameId in list.games"
         :key="gameId"
-        class="game cursor-pointer rounded ml-2"
+        class="game cursor-pointer rounded mr-2"
         fluid
         :src="$options.getImageUrl(cachedGames[gameId], $options.IMAGE_SIZE_COVER_SMALL)"
         @click="openGame(gameId)"
