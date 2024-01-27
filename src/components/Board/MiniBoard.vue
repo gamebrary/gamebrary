@@ -1,4 +1,3 @@
-<!-- TODO: highlight entire list -->
 <template lang="html">
   <b-card
     class="cursor-pointer overflow-hidden"
@@ -41,7 +40,7 @@
           <b-avatar
             v-for="(game, index) in tier.games"
             :key="index"
-            :variant="gameId === game.id ? 'danger' : darkTheme ? 'black' : 'light'"
+            :variant="gameId && game.id === gameId ? 'danger' : darkTheme ? 'black' : 'light'"
             v-b-tooltip.hover
             :title="game.name"
             text=" "
@@ -109,8 +108,7 @@
               style="width: 60px"
               class="p-1 d-flex"
               :class="[
-                darkTheme ? 'border-black bg-dark' : 'border-light ',
-                gameId === game.id ? 'bg-danger' : null,
+                gameId && game.id === gameId ? 'bg-danger' : darkTheme ? 'border-black bg-dark' : 'border-light bg-white',
                 {
                   'border-bottom' : index !== list.games.length - 1,
                 }
@@ -119,7 +117,7 @@
               <b-avatar
                 style="border-radius: 4px !important"
                 text=" "
-                :src="gameId === game.id ? game.src : coversInMiniBoards ? game.src : null"
+                :src="gameId && game.id === gameId ? game.src : coversInMiniBoards ? game.src : null"
                 :variant="darkTheme ? 'black' : 'light'"
                 size="24"
               />

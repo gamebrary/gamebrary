@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="d-flex w-100 align-items-center p-1 tier-list">
+  <div class="d-flex w-100 align-items-center mb-2 tier-list">
     <b-dropdown
       v-if="user && isBoardOwner"
       size="lg"
@@ -39,7 +39,7 @@
       :title="list.name"
       rounded
       :style="`background-color: ${list.backgroundColor}`"
-      class="p-0 ml-2"
+      class="p-0"
       size="100"
     />
 
@@ -215,13 +215,6 @@ export default {
   height: 100px;
   overflow-y: hidden;
   overflow-x: auto;
-}
-
-.tier-list {
-  &:hover {
-    transition: background 300ms ease;
-    background: #00000022;
-  }
 }
 
 .game {

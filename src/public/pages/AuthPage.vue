@@ -118,9 +118,7 @@ export default {
 
   methods: {
     init() {
-      console.log('sessionExpired', this.sessionExpired);
       if (this.sessionExpired) {
-        console.log('sessionExpired', this.sessionExpired);
         this.showExpiredAlert = true;
         this.$store.commit('SET_SESSION_EXPIRED', false);
       }
@@ -134,7 +132,7 @@ export default {
 
       createUserWithEmailAndPassword(auth, this.email, this.password)
         .then((userCredential) => {
-          console.log('userCredential', userCredential);
+          // console.log('userCredential', userCredential);
           const user = userCredential?.user;
 
           this.$store.commit('SET_SESSION_EXPIRED', false);
@@ -167,30 +165,30 @@ export default {
 
       signInWithPopup(auth, provider)
         .then((result) => {
-          console.log('result', result);
+          // console.log('result', result);
           // This gives you a Google Access Token. You can use it to access the Google API.
           const credential = GoogleAuthProvider.credentialFromResult(result);
           const token = credential.accessToken;
 
-          console.log('token', token)
+          // console.log('token', token)
           // The signed-in user info.
           const user = result.user;
-          console.log('user', user)
+          // console.log('user', user)
           this.signInSuccess(user);
           // IdP data available using getAdditionalUserInfo(result)
           // ...
         }).catch((error) => {
-          // Handle Errors here.
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          // The email of the user's account used.
-          const email = error.customData.email;
-          // The AuthCredential type that was used.
-          const credential = GoogleAuthProvider.credentialFromError(error);
+          // // Handle Errors here.
+          // const errorCode = error.code;
+          // const errorMessage = error.message;
+          // // The email of the user's account used.
+          // const email = error.customData.email;
+          // // The AuthCredential type that was used.
+          // const credential = GoogleAuthProvider.credentialFromError(error);
 
-          console.log(error);
-          console.log(email);
-          console.log(credential);
+          // console.log(error);
+          // console.log(email);
+          // console.log(credential);
           // ...
         });
     },
@@ -200,18 +198,18 @@ export default {
 
       getRedirectResult(auth)
         .then((result) => {
-          console.log('getRedirectResult', result);
+          // console.log('getRedirectResult', result);
           // This gives you a Google Access Token. You can use it to access Google APIs.
           const credential = GoogleAuthProvider.credentialFromResult(result);
-          console.log('credential', credential);
+          // console.log('credential', credential);
           const token = credential.accessToken;
 
-          console.log('token', token);
+          // console.log('token', token);
 
           // The signed-in user info.
           const user = result.user;
 
-          console.log('user', user)
+          // console.log('user', user)
           // IdP data available using getAdditionalUserInfo(result)
           // ...
         }).catch((error) => {
@@ -229,6 +227,7 @@ export default {
     handleError(errorCode) {
       if (errorCode === 'auth/email-already-in-use') this.$bvToast.toast('Email already in use');
       if (errorCode === 'auth/wrong-password') this.$bvToast.toast('Wrong password');
+      // TODO: add default error
     },
 
     signInSuccess(user) {

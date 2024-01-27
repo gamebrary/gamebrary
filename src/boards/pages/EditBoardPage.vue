@@ -248,17 +248,6 @@
             </div>
           </div>
         </div>
-
-        <div class="mt-2">
-          <b-button variant="primary" :disabled="saving" type="submit">
-            <b-spinner small v-if="saving" />
-            <span v-else>{{ $t('global.save') }}</span>
-          </b-button>
-
-          <b-button variant="danger" class="mx-2" @click="confirmDeleteBoard">
-            {{ $t('board.settings.deleteBoard') }}
-          </b-button>
-        </div>
       </form>
   </section>
 </template>

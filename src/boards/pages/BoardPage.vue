@@ -6,7 +6,7 @@
 
     <portal to="pageTitle">
       <div :class="{ 'd-flex flex-column align-items-baseline': publicUserName }">
-        <h3 :class="[{ 'text-white': backgroundUrl && darkTheme }]" :style="publicUserName ? 'line-height: 1rem' : ''">
+        <h3 :class="['text-truncate', { 'text-white': backgroundUrl && darkTheme }]" :style="publicUserName ? 'line-height: 1rem' : ''">
           {{ board.name }}
         </h3>
 

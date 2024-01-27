@@ -134,7 +134,7 @@
             <game-tags-modal />
           </div>
 
-          <div :class="['game-description', source]">
+          <div :class="['game-description pb-4', source]">
             <b-spinner v-if="loading" class="spinner-centered" />
 
             <template v-else>
@@ -143,11 +143,9 @@
             </template>
           </div>
 
-          <hr v-if="!loading" class="my-4" />
-
           <div class="d-inline-block w-100">
             <div v-if="gameGenres" class="float-left mr-3">
-              <h5>Genres: </h5>
+              <h5>Genres</h5>
 
               <b-button-group class="mb-3">
                 <b-button
@@ -165,7 +163,7 @@
             </div>
 
             <div v-if="gameThemes" class="float-left mr-3">
-              <h5>Themes: </h5>
+              <h5>Themes</h5>
 
               <b-button-group class="mb-3">
                 <b-button
@@ -183,7 +181,7 @@
             </div>
 
             <div v-if="gameModes" class="float-left mr-3">
-              <h5>{{ $t('board.gameModal.gameModes') }}: </h5>
+              <h5>{{ $t('board.gameModal.gameModes') }} </h5>
 
               <b-button-group class="mb-3">
                 <b-button
@@ -266,8 +264,6 @@
             </b-col> -->
           </div>
 
-          <hr v-if="!loading" class="my-4" />
-
           <div v-if="gamePlatforms" class="d-inline-block w-100">
             <h5>Available for</h5>
 
@@ -318,27 +314,13 @@
             <h4 class="mt-3">External links</h4>
 
             <b-link
-              v-for="({ url, id, icon, svg }, index) in gameLinks"
+              v-for="({ url, id }, index) in gameLinks"
               :href="url"
               :key="index"
-              :title="$t(`board.gameModal.links.${id}`)"
-              v-b-tooltip
               target="_blank"
               :class="['text-left p-1 mr-2', darkTheme ? 'text-success' : '']"
             >
-              <i
-                v-if="icon"
-                :class="`${icon} fa-fw`"
-                aria-hidden
-              />
-
-              <b-img
-                v-else-if="svg"
-                width="24"
-                :src="`/logos/companies/${id}.svg`"
-              />
-
-              <span class="ml-2 text-capitalize">{{ id }}</span>
+              <span class="text-capitalize">{{ id }}</span>
             </b-link>
           </div>
         </div>

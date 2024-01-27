@@ -31,7 +31,7 @@
 
         <b-form-input
           id="name"
-          class="ml-2"
+          class="ml-3"
           v-model.trim="list.name"
         />
       </div>
