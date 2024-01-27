@@ -6,7 +6,7 @@
       <section class="mb-3">
         <p class="mt-2">Menu position</p>
 
-        <div class="bg-light p-2 rounded" style="width: 200px">
+        <div class="bg-light p-2 rounded" style="width: 140px;">
           <b-button
             block
             :variant="navPosition === 'top' ? 'primary' : 'light'"
@@ -15,7 +15,6 @@
             @click="setNavPosition('top')"
           >
             <i class="fa fa-arrow-up" />
-            Top
           </b-button>
 
           <div class="d-flex align-items-start">
@@ -27,7 +26,6 @@
               @click="setNavPosition('left')"
             >
               <i class="fa fa-arrow-left" />
-              Left
             </b-button>
 
             <span class="w-100" />
@@ -40,7 +38,6 @@
               @click="setNavPosition('right')"
             >
               <i class="fa fa-arrow-right" />
-              Right
             </b-button>
           </div>
 
@@ -52,7 +49,6 @@
             @click="setNavPosition('bottom')"
           >
             <i class="fa fa-arrow-down" />
-            Bottom
           </b-button>
         </div>
       </section>

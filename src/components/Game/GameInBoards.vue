@@ -1,5 +1,5 @@
 <template lang="html">
-  <div v-if="user && boardsWithGame.length" class="bg-light p-3 rounded">
+  <div v-if="user && boardsWithGame.length" class="p-3 rounded">
     <h4 class="mb-2">Found in {{ boardsWithGame.length }} boards</h4>
     <MiniBoard
       v-for="board in boardsWithGame"

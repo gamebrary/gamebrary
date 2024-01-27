@@ -20,7 +20,6 @@
         <b-button
           v-if="user"
           :variant="darkTheme ? 'success' : 'light'"
-          class="mr-3"
           v-b-tooltip.hover
           title="Create board"
           :to="{ name: 'create.board' }"

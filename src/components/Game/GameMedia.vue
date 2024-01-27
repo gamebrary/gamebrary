@@ -84,12 +84,13 @@
         </modal-header>
       </template>
 
-      <pre>{{ activeIndex }}</pre>
-
-      <div class="game-media" :class="{ 'selected': Boolean(activeIndex) }">
+      <div class="game-media" :class="{ 'selected': activeIndex !== null }">
+        <pre>{{ activeIndex }}</pre>
         <masonry
-          gutter="8px"
-          :cols="{ default: activeIndex ? 2 : 10, 1000: 3, 700: 2, 400: 1}"
+          gutter="16px"
+          :cols="activeIndex === null
+            ? { default: 1 }
+            : { default: 5, 1000: 3, 700: 2, 400: 1 }"
         >
           <b-img
             v-for="({ imageUrl }, index) in gameMedia"
@@ -97,12 +98,12 @@
             :src="imageUrl"
             rounded
             fluid
-            class="mb-2"
+            class="mb-3"
             @click="viewMedia(index)"
           />
         </masonry>
 
-        <div v-if="activeIndex" class="text-center w-100">
+        <div v-if="activeIndex !== null" class="text-center w-100">
           <b-embed
             v-if="isSelectedMediaVideo"
             type="iframe"
@@ -179,8 +180,6 @@ export default {
 
     showSetAsWallpaperButton() {
       if (!this.user) return false;
-
-      console.log('activeIndex', this.activeIndex);
 
       return this.activeIndex >= 0;
     },

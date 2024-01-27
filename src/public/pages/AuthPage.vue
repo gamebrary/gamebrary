@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="mx-auto" style="width: 420px">
-    <h3>Welcome to Gamebrary</h3>
+    <PageTitle title="Welcome to Gamebrary" />
 
     <p class="small">
       {{ authDescription }}
@@ -33,20 +33,34 @@
       placeholder="Password"
     />
 
-    <div class="d-flex justify-content-between">
-      <b-button v-if="newUser" @click="createAccount">
-        <b-spinner v-if="loading" small />
-        <template v-else>Create account</template>
-      </b-button>
+    <b-button v-if="newUser" @click="createAccount">
+      <b-spinner v-if="loading" small />
+      <template v-else>Create account</template>
+    </b-button>
 
-      <b-button v-else @click="loginWithEmail">
-        <b-spinner v-if="loading" small />
-        <template v-else>Login</template>
-      </b-button>
-    </div>
+    <b-button v-else @click="loginWithEmail">
+      <b-spinner v-if="loading" small />
+      <template v-else>Login</template>
+    </b-button>
 
-    <b-button @click="loginWithGoogle" variant="text" class="p-0">
-      <img src="img/google-sign-in-button-light.svg" alt="Login with Google">
+    <br />
+
+    <b-button
+      variant="text"
+      class="mt-3 p-0"
+      @click="loginWithGoogle"
+    >
+      <img
+        v-if="newUser"
+        src="img/google-sign-in-button-light.svg"
+        alt="Login with Google"
+      />
+
+      <img
+        v-else
+        src="img/google-sign-up-button-light.svg"
+        alt="Sign up with Google"
+      />
     </b-button>
 
 

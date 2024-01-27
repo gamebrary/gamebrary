@@ -25,7 +25,7 @@
         </b-badge>
       </header>
 
-      <div v-if="isTierBoard">
+      <template v-if="isTierBoard">
         <div
           class="d-flex mx-2"
           v-for="tier in formattedBoard.lists"
@@ -39,9 +39,9 @@
           />
 
           <b-avatar
-            :variant="darkTheme ? 'black' : 'light'"
             v-for="(game, index) in tier.games"
             :key="index"
+            :variant="gameId === game.id ? 'danger' : darkTheme ? 'black' : 'light'"
             v-b-tooltip.hover
             :title="game.name"
             text=" "
@@ -51,7 +51,7 @@
             size="20"
           />
         </div>
-      </div>
+      </template>
 
       <div
         v-else-if="isStandardBoard"
@@ -110,7 +110,7 @@
               class="p-1 d-flex"
               :class="[
                 darkTheme ? 'border-black bg-dark' : 'border-light ',
-                gameId === game ? 'bg-danger' : 'bg-white',
+                gameId === game.id ? 'bg-danger' : null,
                 {
                   'border-bottom' : index !== list.games.length - 1,
                 }
@@ -119,7 +119,7 @@
               <b-avatar
                 style="border-radius: 4px !important"
                 text=" "
-                :src="coversInMiniBoards ? game.src : null"
+                :src="gameId === game.id ? game.src : coversInMiniBoards ? game.src : null"
                 :variant="darkTheme ? 'black' : 'light'"
                 size="24"
               />
@@ -170,6 +170,7 @@ export default {
             const cachedGame = this.cachedGames?.[Number(game)] || {};
             
             return {
+              id: cachedGame.id,
               name: cachedGame.name,
               src: getImageUrl(this.cachedGames?.[Number(game)], IMAGE_SIZE_THUMB),
             }
@@ -202,7 +203,7 @@ export default {
     },
 
     firstList() {
-      return this.board?.lists?.[0] || {};
+      return this.formattedBoard?.lists?.[0] || {};
     },
 
     backgroundSyle() {
