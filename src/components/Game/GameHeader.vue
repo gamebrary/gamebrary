@@ -1,22 +1,5 @@
 <template lang="html">
   <header :class="[darkTheme ? 'border-dark' : 'border-light']">
-    <portal v-if="user" to="headerActions">
-      <b-dropdown
-        :class="{ 'mr-2': !isVerticalNav }"
-        :variant="darkTheme ? 'black' : 'light'"
-        no-caret
-      >
-        <template #button-content>
-          <i class="fa-solid fa-ellipsis" />
-        </template>
-        <b-dropdown-item-button @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })">
-          Add note
-        </b-dropdown-item-button>
-        <b-dropdown-item v-b-modal.gameTagsModal>Edit tags</b-dropdown-item>
-        <b-dropdown-item v-b-modal.addRemoveGameModal>Add to list</b-dropdown-item>
-      </b-dropdown>
-    </portal>
-
     <!-- <b-carousel
       v-if="hasArtworks"
       id="carousel-fade"

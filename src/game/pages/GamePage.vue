@@ -20,7 +20,7 @@
       <b-col
         cols="12"
         md="6"
-        lg="3"
+        lg="4"
       >
         <div class="position-relative">
           <game-ratings class="position-absolute d-flex" style="bottom: 1rem; right: 1rem;" />
@@ -42,8 +42,8 @@
       <b-col
         cols="12"
         md="6"
-        lg="8"
-        xl="6"
+        lg="7"
+        xl="5"
       >
         <div>
           <div
@@ -329,7 +329,7 @@
       <b-col
         cols="12"
         md="6"
-        lg="8"
+        lg="5"
         xl="3"
       >
         <GameInBoards />
@@ -394,7 +394,7 @@
         <b-col
           cols="12"
           md="4"
-          xl="3"
+          xl="4"
           style="z-index: 1"
           class="text-center pt-3 pt-md-0"
         >

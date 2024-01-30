@@ -46,14 +46,6 @@ Elevate your gaming experience with PlayStats – because your gaming journey is
         <portal-target name="headerActions" multiple />
 
         <b-button
-          :variant="darkTheme ? 'black' : 'light'"
-          :class="isVerticalNav ? 'mt-auto mb-2' : ''"
-          :to="{ name: 'search' }"
-        >
-          <i class="fa fa-search" aria-hidden="true" />
-        </b-button>
-
-        <b-button
           v-if="!user"
           class="ml-2 d-none d-sm-inline"
           variant="black"

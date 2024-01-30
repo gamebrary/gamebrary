@@ -31,24 +31,6 @@
       </div>
     </portal>
 
-    <portal to="headerActions">
-      <b-button
-        v-if="isBoardOwner"
-        :to="{ name: 'board.edit', params: { id: board.id } }"
-        :variant="darkTheme ? 'success' : 'light'"
-        :class="isVerticalNav ? 'mt-2' : 'mr-3'"
-      >
-        <div v-if="isVerticalNav">
-          <i class="fa fa-pen" aria-hidden="true" />
-        </div>
-
-        <template v-else>
-          <span class="d-none d-sm-block">Edit board</span>
-          <i class="fa fa-pen d-sm-none" aria-hidden="true" />
-        </template>
-      </b-button>
-    </portal>
-
     <standard-board v-if="board.type === $options.BOARD_TYPE_STANDARD" />
     <tier-board v-else-if="board.type === $options.BOARD_TYPE_TIER" />
     <kanban-board v-else />

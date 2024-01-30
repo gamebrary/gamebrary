@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="d-flex flex-column align-items-start border border-light rounded pl-3 pt-3 w-100">
+  <div class="d-flex flex-column align-items-start rounded pt-2 w-100">
     <h3
       v-if="isVerticalNav"
       :class="{ 'text-white': hasBackground || darkTheme }"
