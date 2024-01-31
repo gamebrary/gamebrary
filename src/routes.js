@@ -1,16 +1,17 @@
-import gameRoutes from '@/game/game.routes';
-import boardsRoutes from '@/boards/boards.routes';
-import tagsRoutes from '@/tags/tags.routes';
-import profileRoutes from '@/profile/profile.routes';
-import publicRoutes from '@/public/public.routes';
-import settingsRoutes from '@/settings/settings.routes';
-import notesRoutes from '@/notes/notes.routes';
-
 const routes = [
   {
     name: 'games',
     path: '/games',
     component: () => import(/* webpackChunkName: "games" */ '@/pages/GamesPage'),
+    meta: {
+      title: 'My games',
+      public: true,
+    },
+  },
+  {
+    name: 'boards',
+    path: '/boards',
+    component: () => import(/* webpackChunkName: "games" */ '@/pages/BoardsPage'),
     meta: {
       title: 'My games',
       public: true,
@@ -28,18 +29,223 @@ const routes = [
   {
     name: 'company',
     path: '/company/:id/:slug',
-    component: () => import(/* webpackChunkName: "notes" */ '@/companies/pages/CompanyPage'),
+    component: () => import(/* webpackChunkName: "notes" */ '@/pages/CompanyPage'),
     meta: {
       title: 'Company',
     },
   },
-  ...gameRoutes,
-  ...tagsRoutes,
-  ...settingsRoutes,
-  ...boardsRoutes,
-  ...notesRoutes,
-  ...publicRoutes,
-  ...profileRoutes,
+  {
+    name: 'game.news',
+    path: '/g/:id/:slug/news',
+    component: () => import(/* webpackChunkName: "game" */ '@/pages/GameNewsPage'),
+    meta: {
+      public: true,
+    },
+  },
+  {
+    name: 'game.notes',
+    path: '/g/:id/:slug/notes',
+    component: () => import(/* webpackChunkName: "game" */ '@/pages/GameNotesPage'),
+    meta: {
+      title: 'Notes'
+    },
+  },
+  {
+    name: 'game',
+    path: '/g/:id/:slug',
+    component: () => import(/* webpackChunkName: "game" */ '@/pages/GamePage'),
+    meta: {
+      public: true,
+    },
+  },
+  {
+    name: 'tags',
+    path: '/tags',
+    component: () => import(/* webpackChunkName: "tags" */ '@/pages/TagsPage'),
+    meta: {
+      title: 'Tags',
+      public: true,
+    },
+  },
+  {
+    name: 'tag.create',
+    path: '/tags/create',
+    component: () => import(/* webpackChunkName: "tags" */ '@/pages/CreateTagPage'),
+    meta: {
+      title: 'Create tag',
+    },
+  },
+  {
+    name: 'tag.edit',
+    path: '/tags/:id',
+    component: () => import(/* webpackChunkName: "tags" */ '@/pages/EditTagPage'),
+    meta: {
+      title: 'Edit tag',
+    },
+  },
+  {
+    name: 'settings',
+    path: '/settings',
+    component: () => import(/* webpackChunkName: "settings" */ '@/pages/SettingsPage'),
+    meta: {
+      title: 'Settings',
+    },
+  },
+  {
+    name: 'profile',
+    path: '/profile',
+    component: () => import(/* webpackChunkName: "settings" */ '@/pages/ProfilePage'),
+    meta: {
+      title: 'Profile',
+    },
+  },
+  {
+    name: 'steam',
+    path: '/steam',
+    component: () => import(/* webpackChunkName: "settings" */ '@/pages/SteamSettingsPage'),
+    meta: {
+      title: "Steam",
+    },
+  },
+  {
+    name: 'wallpapers',
+    path: '/wallpapers',
+    component: () => import(/* webpackChunkName: "settings" */ '@/pages/WallpapersPage'),
+    meta: {
+      title: 'Wallpapers',
+      public: true,
+    },
+  },
+  {
+    path: '/b/create',
+    name: 'create.board',
+    component: () => import(/* webpackChunkName: "boards" */ '@/pages/CreateBoardPage'),
+    meta: {
+      title: 'Create board',
+    }
+  },
+  {
+    path: '/b/:id/edit',
+    name: 'board.edit',
+    component: () => import(/* webpackChunkName: "boards" */ '@/pages/EditBoardPage'),
+    meta: {
+      title: 'Edit board',
+    }
+  },
+  {
+    path: '/b/:id',
+    name: 'board',
+    component: () => import(/* webpackChunkName: "boards" */ '@/pages/BoardPage'),
+    meta: {
+      public: true,
+    },
+  },
+  {
+    name: 'notes',
+    path: '/notes',
+    component: () => import(/* webpackChunkName: "notes" */ '@/pages/NotesPage'),
+    meta: {
+      title: 'Notes',
+      public: true,
+    },
+  },
+  {
+    name: 'profiles',
+    path: '/profiles',
+    component: () => import(/* webpackChunkName: "profile" */ '@/pages/PublicProfilesPage'),
+    meta: {
+      title: 'Profiles',
+      public: true,
+    },
+  },
+  {
+    name: 'about',
+    path: '/about',
+    component: () => import(/* webpackChunkName: "public" */ '@/pages/AboutPage'),
+    meta: {
+      title: 'About',
+      public: true,
+    },
+  },
+  {
+    name: 'help',
+    path: '/help',
+    component: () => import(/* webpackChunkName: "public" */ '@/pages/HelpPage'),
+    meta: {
+      title: 'Help',
+      public: true,
+    },
+  },
+  {
+    name: 'dev.tools',
+    path: '/dev-tools',
+    component: () => import(/* webpackChunkName: "public" */ '@/pages/DevToolsPage'),
+    meta: {
+      title: 'DevTools',
+      public: true,
+    },
+  },
+  {
+    name: 'auth',
+    path: '/auth',
+    component: () => import(/* webpackChunkName: "public" */ '@/pages/AuthPage'),
+    meta: {
+      title: 'Welcome to Gamebrary',
+      public: true,
+    },
+  },
+  {
+    path: '/privacy-policy',
+    name: 'privacy.policy',
+    component: () => import(/* webpackChunkName: "public" */ '@/pages/PrivacyPolicyPage'),
+    meta: {
+      public: true,
+      title: 'Privacy policy',
+    },
+  },
+  {
+    path: '/terms',
+    name: 'terms',
+    component: () => import(/* webpackChunkName: "public" */ '@/pages/TermsPage'),
+    meta: {
+      public: true,
+      title: 'Terms and conditions',
+    },
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: () => import(/* webpackChunkName: "public" */ '@/pages/SearchPage'),
+    meta: {
+      title: 'Search',
+      public: true,
+    },
+  },
+  {
+    name: 'home',
+    path: '/',
+    component: () => import(/* webpackChunkName: "public" */ '@/pages/HomePage'),
+    meta: {
+      public: true,
+      title: 'Welcome to Gamebrary',
+    },
+  },
+  {
+    path: '*',
+    component: () => import(/* webpackChunkName: "public" */ '@/pages/NotFoundPage'),
+    meta: {
+      public: true,
+      title: 'Page not found',
+    },
+  },
+  {
+    path: '/:userName',
+    name: 'public.profile',
+    component: () => import(/* webpackChunkName: "profile" */ '@/pages/PublicProfilePage'),
+    meta: {
+      public: true,
+    },
+  },
 ];
 
 export default routes;
