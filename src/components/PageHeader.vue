@@ -32,15 +32,8 @@ Elevate your gaming experience with PlayStats – because your gaming journey is
  -->
 
 <template lang="html">
-  <header :class="[darkTheme ? 'bg-dark' : 'bg-light', isVerticalNav ? 'p-2' : 'px-2 py-2', `nav-${navPosition}`]">
-    <!-- <VerticalMenu v-if="isVerticalNav" /> -->
+  <header :class="[darkTheme ? 'bg-dark' : 'bg-light', `nav-${navPosition}`]" class="p-1">
     <main-menu />
-
-    <portal-target
-      v-if="!isVerticalNav"
-      class="ml-2"
-      name="pageTitle"
-    />
 
     <div :class="['align-items-center d-flex ml-auto', isVerticalNav ? 'h-100 flex-column' : '']">
         <portal-target name="headerActions" multiple />
@@ -54,48 +47,21 @@ Elevate your gaming experience with PlayStats – because your gaming journey is
           Get started
         </b-button>
     </div>
-    <!-- <b-collapse id="header">
-
-    </b-collapse> -->
-
-    <!-- <b-button
-      v-b-toggle.header
-      variant="light"
-      size="sm"
-      pill
-      class="header-toggle mt-n2"
-    >
-      <i class="fa-solid fa-caret-down" />
-    </b-button> -->
   </header>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
 import MainMenu from '@/components/MainMenu';
-// import VerticalMenu from '@/components/VerticalMenu';
 
 export default {
   components: {
     MainMenu,
-    // VerticalMenu,
   },
 
   computed: {
-    ...mapState(['user', 'settings']),
+    ...mapState(['user']),
     ...mapGetters(['darkTheme', 'navPosition', 'isVerticalNav']),
-
-    isTopNav() {
-      return this.navPosition === 'top';
-    },
-
-    isBottomNav() {
-      return this.navPosition === 'bottom';
-    },
-
-    isSearchPage() {
-      return this.$route.name === 'search';
-    },
   },
 };
 </script>

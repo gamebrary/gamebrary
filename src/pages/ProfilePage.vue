@@ -11,16 +11,6 @@
       class="field"
       @submit.prevent="save"
     >
-      <!-- <pre>{{ profile }}</pre> -->
-      <portal to="headerActions" v-if="!isVerticalNav">
-        <b-button
-          :to="{ name: 'public.profile', params: { userName: profile.userName } }"
-          class="mr-2"
-        >
-          View profile
-        </b-button>
-      </portal>
-
       <b-spinner v-if="uploading" />
 
       <b-avatar

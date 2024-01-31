@@ -42,7 +42,7 @@
             class="mb-3"
             aria-label="Toolbar with button groups"
           >
-            <b-button-group class="mr-3 mb-3 mb-sm-0">
+            <b-button-group>
               <b-button
                 @click="editor.chain().focus().setParagraph().run()"
                 v-b-tooltip.hover
@@ -89,7 +89,7 @@
               </b-button>
             </b-button-group>
 
-            <b-button-group>
+            <b-button-group class="mx-3">
               <b-button
                 @click="editor.chain().focus().toggleBold().run()"
                 v-b-tooltip.hover

@@ -51,14 +51,7 @@
       @click="loginWithGoogle"
     >
       <img
-        v-if="newUser"
-        src="img/google-sign-in-button-light.svg"
-        alt="Login with Google"
-      />
-
-      <img
-        v-else
-        src="img/google-sign-up-button-light.svg"
+        :src="`img/google-sign-${newUser ? 'up' : 'in'}-button-light.svg`"
         alt="Sign up with Google"
       />
     </b-button>

@@ -1,33 +1,90 @@
+<!-- TODO: bring settings to nav, remove page. -->
+<!-- TODO: highlight menu item if active -->
 <template>
-  <div class="main-menu" :class="{ 'd-flex flex-column': isVerticalNav }">
+  <div class="main-menu w-100 d-flex" :class="{ 'd-flex flex-column': isVerticalNav }">
+    <b-dropdown id="dropdown-form" text="Dropdown with form" ref="dropdown" class="m-2">
+      <b-dropdown-form>
+        <b-form-group label="Email" label-for="dropdown-form-email" @submit.stop.prevent>
+          <b-form-checkbox v-model="checked" name="check-button" switch>
+      Switch Checkbox <b>(Checked: {{ checked }})</b>
+    </b-form-checkbox>
+
+          <b-form-select v-model="selected" :options="options"></b-form-select>
+
+          <div @click.native.stop.prevent>
+            <b-dropdown @click.native.stop.prevent id="dropdown-1" text="Dropdown Button" class="m-md-2">
+            <b-dropdown-item @click.native.stop.prevent>First Action</b-dropdown-item>
+            <b-dropdown-item @click.native.stop.prevent>Second Action</b-dropdown-item>
+            <b-dropdown-item @click.native.stop.prevent>Third Action</b-dropdown-item>
+            <b-dropdown-divider></b-dropdown-divider>
+            <b-dropdown-item active>Active action</b-dropdown-item>
+            <b-dropdown-item disabled>Disabled action</b-dropdown-item>
+          </b-dropdown>
+          </div>
+
+
+          <b-form-input
+            id="dropdown-form-email"
+            size="sm"
+            placeholder="email@example.com"
+          ></b-form-input>
+        </b-form-group>
+
+        <b-form-group label="Password" label-for="dropdown-form-password">
+          <b-form-input
+            id="dropdown-form-password"
+            type="password"
+            size="sm"
+            placeholder="Password"
+          ></b-form-input>
+        </b-form-group>
+
+        <b-form-checkbox class="mb-3">Remember me</b-form-checkbox>
+        <b-button variant="primary" size="sm" @click="onClick">Sign In</b-button>
+      </b-dropdown-form>
+      <b-dropdown-divider></b-dropdown-divider>
+      <b-dropdown-item-button>New around here? Sign up</b-dropdown-item-button>
+      <b-dropdown-item-button>Forgot Password?</b-dropdown-item-button>
+    </b-dropdown>
+
     <b-button
-      v-b-tooltip.hover.auto
+      v-b-tooltip.hover
+      v-bind="dropdownProps"
       title="Home"
       :to="{ name: 'home' }"
     >
-      <i class="fa-solid fa-house"></i>
+      <img src="logo.png" alt="" height="26" />
     </b-button>
 
     <b-dropdown
-      v-b-tooltip.hover.auto
+      v-b-tooltip.hover
       :title="boardButtonTitle"
-      :variant="darkTheme ? 'black' : 'light'"
-      no-caret
+      v-bind="dropdownProps"
     >
       <template #button-content>
         <i class="fa-regular fa-rectangle-list fa-fw" />
         
-        <template v-if="!isVerticalNav">  
+        <span v-if="!isVerticalNav" class="d-none d-md-inline">
           {{ boardButtonTitle }}
-        </template>
+        </span>
       </template>
 
       <b-dropdown-item
-        :to="{ name: 'home' }"
+        :to="{ name: 'boards' }"
       >
       <i class="fa-regular fa-rectangle-list fa-fw"></i>
         <span class="ml-2">My boards</span>
       </b-dropdown-item>
+
+      <b-dropdown-group v-if="user">
+        <b-dropdown-item
+          v-for="board in recentlyUpdatedBoards"
+          :key="board.id"
+          :to="{ name: 'board', params: { id: board.id } }"
+        >
+          <small>{{ board.name }}</small>
+        </b-dropdown-item>
+      </b-dropdown-group>
 
       <b-dropdown-item
         v-if="isBoardEditPage"
@@ -51,92 +108,28 @@
         <i class="fa-regular fa-plus fa-fw" />
         <span class="ml-2">Create board</span>
       </b-dropdown-item>
+
+      <b-dropdown-item
+          v-if="showBoardActions"
+          disabled
+        >
+          <i class="fa-solid fa-clone fa-fw"></i>
+          <span class="ml-2">Copy board</span>
+        </b-dropdown-item>
     </b-dropdown>
 
     <b-dropdown
       v-b-tooltip.hover.auto
-      title="Tags"
-      :variant="darkTheme ? 'black' : 'light'"
-      :dropup="navPosition === 'bottom'"
-      :dropright="navPosition === 'left'"
-      :dropleft="navPosition === 'right'"
-      no-caret
+      title="Games"
+      toggle-class="px-2 py-0"
+      v-bind="dropdownProps"
     >
       <template #button-content>
-        <i class="fa-solid fa-tags fa-fw" />
-        
-        <template v-if="!isVerticalNav">  
-          Tags
-        </template>
-      </template>
+        <i class="fa-solid fa-gamepad fa-fw" />
 
-      <b-dropdown-item
-        :to="{ name: 'tags' }"
-      >
-      <i class="fa-regular fa-rectangle-list fa-fw"></i>
-        <span class="ml-2">My tags</span>
-      </b-dropdown-item>
-
-      <b-dropdown-item
-        v-if="user"
-        :to="{ name: 'tag.create' }"
-      >
-        <i class="fa-regular fa-plus fa-fw" />
-        <span class="ml-2">Add tag</span>
-      </b-dropdown-item>
-    </b-dropdown>
-
-    <b-dropdown
-      v-b-tooltip.hover.auto
-      title="Wallpapers"
-      :variant="darkTheme ? 'black' : 'light'"
-      :dropup="navPosition === 'bottom'"
-      :dropright="navPosition === 'left'"
-      :dropleft="navPosition === 'right'"
-      no-caret
-    >
-      <template #button-content>
-        <i class="fa fa-images fa-fw" aria-hidden="true" />
-        
-        <template v-if="!isVerticalNav">  
-          Wallpapers
-        </template>
-      </template>
-
-      <b-dropdown-item
-        :to="{ name: 'wallpapers' }"
-      >
-      <i class="fa-regular fa-rectangle-list fa-fw"></i>
-        <span class="ml-2">My wallpapers</span>
-      </b-dropdown-item>
-
-      <UploadWallpaperButton v-if="user" />
-    </b-dropdown>
-
-    <b-dropdown
-      :variant="darkTheme ? 'black' : 'light'"
-      :dropup="navPosition === 'bottom'"
-      :dropright="navPosition === 'left'"
-      :dropleft="navPosition === 'right'"
-      no-caret
-    >
-      <template #button-content>
-        
-        <b-img
-          v-if="isGamePage"
-          :src="$options.getImageUrl(game)"
-          :alt="game.name"
-          bordered
-          class="mr-2"
-          style="max-height: 40px; width: auto;"
-        />
-
-        <i v-else class="fa-solid fa-gamepad fa-fw" />
-
-        <template v-if="!isVerticalNav">
-          <!-- {{ gameButtonTitle }} -->
-          Games
-        </template>
+        <span v-if="!isVerticalNav" class="d-none d-md-inline">
+          {{ gameButtonTitle }}
+        </span>
       </template>
 
       <template v-if="isGamePage">
@@ -166,43 +159,48 @@
         Find games
       </b-dropdown-item>
 
-      <!-- <b-dropdown-item
-        v-if="isBoardPage && isBoardOwner"
-        :to="{ name: 'board.edit', params: { id: board.id } }"
-      >
-        <i class="fa-regular fa-rectangle-list fa-fw" />
-        <span class="ml-2">Edit board</span>
-      </b-dropdown-item> -->
-
       <b-dropdown-item
-        :to="{ name: 'create.board' }"
+        :to="{ name: 'home' }"
+        disabled
       >
-        <i class="fa-regular fa-plus fa-fw" />
-        <span class="ml-2">Create board</span>
+        <i
+          class="fa-solid fa-stopwatch fa-fw"
+          aria-hidden="true"
+        />
+        <span class="ml-2">Progresses</span>
       </b-dropdown-item>
     </b-dropdown>
 
-
     <b-dropdown
-      v-b-tooltip.hover.auto
-      :title="boardButtonTitle"
-      :variant="darkTheme ? 'black' : 'light'"
-      no-caret
+      v-b-tooltip.hover
+      title="Tags"
+      v-bind="dropdownProps"
     >
       <template #button-content>
-        <i class="fa-solid fa-cog fa-fw" />
+        <i class="fa-solid fa-tags fa-fw" />
         
-        <template v-if="!isVerticalNav">  
-          Settings
-        </template>
+        <span v-if="!isVerticalNav" class="d-none d-md-inline">
+          Tags
+        </span>
       </template>
 
-      <b-dropdown-item
+      <b-dropdown-text
+          v-for="({ textColor, bgColor, name }, index) in tags"
+          :key="name"
+          block
+          class="rounded mb-1"
+          :style="`background-color: ${bgColor};`"
+          @click="$router.push({ name: 'tag.edit', params: { id: index } })"
+        >
+        <span :style="`color: ${textColor}`">{{ name }}</span>
+      </b-dropdown-text>
+
+      <!-- <b-dropdown-item
         :to="{ name: 'tags' }"
       >
       <i class="fa-regular fa-rectangle-list fa-fw"></i>
         <span class="ml-2">My tags</span>
-      </b-dropdown-item>
+      </b-dropdown-item> -->
 
       <b-dropdown-item
         v-if="user"
@@ -214,6 +212,51 @@
     </b-dropdown>
 
     <b-dropdown
+      v-b-tooltip.hover.auto
+      title="Notes"
+      v-bind="dropdownProps"
+    >
+      <template #button-content>
+        <i class="fa fa-sticky-note fa-fw" aria-hidden="true" />
+
+        <span v-if="!isVerticalNav" class="d-none d-md-inline">
+          Wallpapers
+        </span>
+      </template>
+
+      <b-dropdown-item
+        :to="{ name: 'notes' }"
+      >
+      <i class="fa-regular fa-rectangle-list fa-fw"></i>
+        <span class="ml-2">My notes</span>
+      </b-dropdown-item>
+
+    </b-dropdown>
+
+    <b-dropdown
+      v-b-tooltip.hover.auto
+      title="Wallpapers"
+      v-bind="dropdownProps"
+    >
+      <template #button-content>
+        <i class="fa fa-images fa-fw" aria-hidden="true" />
+
+        <span v-if="!isVerticalNav" class="d-none d-md-inline">
+          Wallpapers
+        </span>
+      </template>
+
+      <b-dropdown-item
+        :to="{ name: 'wallpapers' }"
+      >
+      <i class="fa-regular fa-rectangle-list fa-fw"></i>
+        <span class="ml-2">My wallpapers</span>
+      </b-dropdown-item>
+
+      <UploadWallpaperButton v-if="user" />
+    </b-dropdown>
+
+    <b-dropdown
       v-if="user"
       v-b-tooltip.hover.auto
       title="Profile"
@@ -221,7 +264,7 @@
       no-caret
     >
       <template #button-content>
-        <template v-if="!isVerticalNav">  
+        <template>  
           <b-avatar
             rounded
             v-if="avatarImage"
@@ -235,135 +278,98 @@
             aria-hidden
           />
 
-          {{ profileTitle }}
+          <!-- {{ profileTitle }} -->
         </template>
       </template>
 
       <b-dropdown-item
-        :to="{ name: 'tags' }"
+        :to="{ name: 'profile' }"
       >
-      <i class="fa-regular fa-rectangle-list fa-fw"></i>
-        <span class="ml-2">My tags</span>
+        <i class="fa-regular fa-rectangle-list fa-fw"></i>
+          <span class="ml-2">Edit profile</span>
       </b-dropdown-item>
 
       <b-dropdown-item
-        :to="{ name: 'tag.create' }"
+        :to="{ name: 'public.profile', params: { userName: profile.userName } }"
       >
         <i class="fa-regular fa-plus fa-fw" />
-        <span class="ml-2">Add tag</span>
+        <span class="ml-2">View profile</span>
       </b-dropdown-item>
     </b-dropdown>
 
-    <b-dropdown-item v-if="user" :to="{ name: 'profile' }">
-
-    </b-dropdown-item>
-
     <b-dropdown
-    :variant="darkTheme ? 'black' : 'light'"
-    :dropup="navPosition === 'bottom'"
-    :dropright="navPosition === 'left'"
-    :dropleft="navPosition === 'right'"
-    no-caret
-  >
-    <template #button-content>
-      <i class="fa-sharp fa-solid fa-bars" />
-    </template>
-
-    <!-- <b-dropdown-item
-      v-if="user"
-      :to="{ name: 'create.board' }"
-      class="ml-2"
+      v-b-tooltip.hover.auto
+      title="Preferences"
+      :variant="darkTheme ? 'black' : 'light'"
+      no-caret
     >
-      <i class="fa-regular fa-plus" />
-      <span class="ml-2">New board</span>
-    </b-dropdown-item> -->
-
-    <!-- <div :class="['py-1 rounded', darkTheme ? 'bg-black' : 'bg-light']" v-if="showBoardActions">
-      <p :class="['strong text-uppercase mb-0 ml-2 mt-1', darkTheme ? 'text-success' : 'text-dark']">{{ board.name }}</p>
+      <template #button-content>
+        <i class="fa-solid fa-sliders fa-fw" />
+        
+        <span v-if="!isVerticalNav" class="d-none d-md-inline">
+          Settings
+        </span>
+      </template>
 
       <b-dropdown-item
-        v-if="isBoardOwner"
-        class="mx-1"
-        :to="{ name: 'board.edit', params: { id: board.id } }"
+        :to="{ name: 'settings' }"
       >
-        Edit board
+        <i class="fa-regular fa-rectangle-list fa-fw"></i>
+        <span class="ml-2">Settings</span>
       </b-dropdown-item>
 
       <b-dropdown-item
-        :to="{ name: 'board.edit', params: { id: board.id } }"
-        class="mx-1"
+        href="https://github.com/romancm/gamebrary/"
+        target="_blank"
       >
-        Copy board
+        <i class="fa-brands fa-github fa-fw"></i>
+        GitHub
       </b-dropdown-item>
-    </div> -->
 
-    <!-- <b-dropdown-group v-if="user && routeName === 'home'">
+      <b-dropdown-item v-b-modal.keyboard-shortcuts>
+        <i class="fa-solid fa-keyboard fa-fw" />
+        <span class="ml-2">Keyboard Shortcuts</span>
+      </b-dropdown-item>
+
       <b-dropdown-item
-        v-for="board in recentlyUpdatedBoards"
-        :key="board.id"
-        :to="{ name: 'board', params: { id: board.id } }"
+        :to="{ name: 'help' }"
+        id="help"
       >
-        <small>{{ board.name }}</small>
+        <i class="fa-regular fa-circle-question fa-fw" aria-hidden="true" />
+        <span class="ml-2">Help</span>
       </b-dropdown-item>
-    </b-dropdown-group> -->
 
-    <!-- <b-dropdown-item :to="{ name: 'progresses' }">
-      <i class="fa fa-book fa-fw" aria-hidden="true" />
-      <span class="ml-2">Progresses</span>
-    </b-dropdown-item> -->
+      <b-dropdown-item disabled>
+        <i class="fa-solid fa-language" />
+        <span class="ml-2">Change language</span>
+      </b-dropdown-item>
 
-    <b-dropdown-item :to="{ name: 'search' }">
+      <b-dropdown-item
+        :to="{ name: 'steam.settings' }"
+        disabled
+      >
+        <i class="fab fa-steam fa-fe" aria-hidden />
+        <span class="ml-2">Steam</span>
+      </b-dropdown-item>
+    </b-dropdown>
+
+    <b-button
+      class="ml-auto"
+      :to="{ name: 'search' }"
+      v-b-tooltip.hover.auto
+      title="Search"
+    >
       <i class="fa fa-search fa-fw" aria-hidden="true" />
-      <span class="ml-2">Search</span>
-    </b-dropdown-item>
+    </b-button>
 
-    <b-dropdown-divider />
-
-    <b-dropdown-item v-if="user" :to="{ name: 'settings' }">
-      <i class="fa fa-cog fa-fw" aria-hidden="true" />
-      <span class="ml-2">Settings</span>
-    </b-dropdown-item>
-
-    <b-dropdown-item
+    <b-button
         v-if="!user"
-        class="ml-2"
+        class="ml-auto"
         variant="danger"
         :to="{ name: 'auth' }"
       >
         Get started <span class="d-none d-sm-inline"> — it's free!</span>
-    </b-dropdown-item>
-
-    <b-dropdown-item
-      :to="{ name: 'help' }"
-      block
-      id="help"
-    >
-      <i class="fa fa-regular fa-circle-question fa-fw" aria-hidden="true" />
-      <span class="ml-2">Help</span>
-    </b-dropdown-item>
-
-    <!-- <b-dropdown-item
-      class="mr-2"
-      v-b-tooltip.hover
-      title="Change language"
-    >
-      <i class="fa-solid fa-language" />
-    </b-dropdown-item> -->
-
-    <!-- <b-list-group-item exact exact-active-class="bg-primary text-white" :to="{ name: 'steam.settings' }">
-      <i class="mr-2 fab fa-steam" aria-hidden />
-      <small>Steam</small>
-    </b-list-group-item> -->
-
-    <!-- <b-dropdown-text>
-      <b-link
-        href="https://github.com/romancm/gamebrary/"
-        target="_blank"
-      >
-        GitHub
-      </b-link>
-    </b-dropdown-text> -->
-  </b-dropdown>
+    </b-button>
   </div>
 </template>
 
@@ -383,12 +389,29 @@ export default {
     return {
       profile: {},
       avatarImage: null,
+      options: [
+        { value: null, text: 'Please select an option' },
+        { value: 'a', text: 'This is First option' },
+        { value: 'b', text: 'Selected Option' },
+        { value: { C: '3PO' }, text: 'This is an option with object value' },
+        { value: 'd', text: 'This one is disabled', disabled: true }
+      ],
     }
   },
 
   computed: {
     ...mapState(['board', 'boards', 'settings', 'user', 'games', 'notes', 'tags', 'wallpapers', 'game']),
     ...mapGetters(['darkTheme', 'navPosition', 'sortedBoards', 'latestRelease', 'isVerticalNav', 'isBoardOwner']),
+
+    dropdownProps() {
+      return {
+        variant: this.darkTheme ? 'black' : 'light',
+        dropup: this.navPosition === 'bottom',
+        dropright: this.navPosition === 'left',
+        dropleft: this.navPosition === 'right',
+        noCaret: true,
+      };
+    },
 
     year() {
       return new Date().getFullYear();
@@ -409,7 +432,7 @@ export default {
     },
 
     recentlyUpdatedBoards() {
-      return this.sortedBoards.filter(({ lastUpdated }) => Boolean(lastUpdated)).slice(0, 5);
+      return this.sortedBoards.filter(({ lastUpdated }) => Boolean(lastUpdated)).slice(0, 3);
     },
 
     profileTitle() {
@@ -440,11 +463,11 @@ export default {
       return 'Boards';
     },
 
-    // gameButtonTitle() {
-    //   if (this.isGamePage) return this.game.name;
+    gameButtonTitle() {
+      if (this.isGamePage) return this.game.name;
 
-    //   return 'Games';
-    // }
+      return 'Games';
+    }
   },
 
   mounted() {

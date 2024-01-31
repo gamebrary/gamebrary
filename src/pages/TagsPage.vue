@@ -1,18 +1,15 @@
 <template lang="html">
   <b-container>
-    <PageTitle title="Tags" />
-
-    <portal v-if="!isVerticalNav && !loading && tags.length > 0" to="headerActions">
+    <PageTitle title="Tags">
       <b-button
         v-if="user"
-        :variant="darkTheme ? 'success' : 'primary'"
+        :variant="darkTheme ? 'success' : 'black'"
         :to="{ name: 'tag.create' }"
-        class="mr-3"
       >
         <i class="d-sm-none fa-solid fa-plus" />
-        <span class="d-none d-sm-inline">Add tag</span>
+        <span class="ml-2">Add tag</span>
       </b-button>
-    </portal>
+    </PageTitle>
 
     <b-spinner v-if="loading" class="spinner-centered" />
 
@@ -62,12 +59,12 @@
             md="3"
             lg="2"
           >
-            <b-img
+            <!-- <b-img
               :src="$options.getImageUrl(cachedGames[game], $options.IMAGE_SIZE_COVER_SMALL)"
               class="cursor-pointer rounded mb-2"
               fluid
               @click="$router.push({ name: 'game', params: { id: cachedGames[game].id, slug: cachedGames[game].slug }})"
-            />
+            /> -->
           </b-col>
         </b-form-row>
 

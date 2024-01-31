@@ -12,7 +12,7 @@
     <b-button
       :disabled="outOfSpace"
       :variant="darkTheme ? 'success' : 'primary'"
-      :class="{ 'mr-3' : !isVerticalNav }"
+      block
       @click="triggerFileUpload"
     >
       <b-spinner small v-if="saving" />

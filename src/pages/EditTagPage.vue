@@ -15,18 +15,16 @@
         <h3 v-else-if="!loading">Edit tag</h3>
       </portal>
 
-      <portal to="headerActions">
-        <game-selector
-          :filter="tag.games"
-          title="Tag game"
-          variant="primary"
-          class="mr-2"
-          @select-game="selectGame"
-        >
-          <span class="d-none d-sm-block">Tag game</span>
-          <i class="fa-solid fa-plus d-sm-none" />
-        </game-selector>
-      </portal>
+      <game-selector
+        :filter="tag.games"
+        title="Tag game"
+        variant="primary"
+        class="mr-2"
+        @select-game="selectGame"
+      >
+        <span>Tag game</span>
+        <i class="fa-solid fa-plus d-sm-none" />
+      </game-selector>
 
       <b-spinner v-if="loading" class="spinner-centered" />
 

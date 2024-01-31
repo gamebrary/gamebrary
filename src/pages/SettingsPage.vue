@@ -136,12 +136,6 @@
         Log out
       </b-button>
 
-      <hr />
-
-      <b-link v-b-modal.keyboard-shortcuts>
-        <i class="fa-solid fa-keyboard fa-fw" /> Keyboard Shortcuts
-      </b-link>
-
       <br />
 
       <b-link :to="{ name: 'dev.tools' }">

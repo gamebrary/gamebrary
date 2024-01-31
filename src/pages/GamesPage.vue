@@ -1,26 +1,11 @@
 <template lang="html">
   <div>
-    <portal
-      v-if="!isVerticalNav"
-      to="headerActions"
-    >
+    <PageTitle title="Games">
       <b-button
         @click="toggleView"
-        class="mr-3"
         :variant="darkTheme ? 'black' : 'light'"
       >
         <i :class="`fa-solid ${view === 'grid' ? 'fa-list' : 'fa-table-cells'}`" />
-      </b-button>
-    </portal>
-
-    <PageTitle title="Games">
-      <b-button
-        v-if="isVerticalNav"
-        @click="toggleView"
-        :variant="darkTheme ? 'dark' : 'light'"
-      >
-        <i v-if="view === 'grid'" class="fa-solid fa-list" />
-        <i v-else class="fa-solid fa-table-cells" />
       </b-button>
     </PageTitle>
 

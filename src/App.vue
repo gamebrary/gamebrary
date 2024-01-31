@@ -1,4 +1,4 @@
-<!-- TODO: make portal name dynamic and change target based on nav orientation -->
+<!-- TODO: integrate with keap -->
 <template>
   <main
     id="app"

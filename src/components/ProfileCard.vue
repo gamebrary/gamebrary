@@ -1,18 +1,18 @@
 <template lang="html">
-  <b-card
-    class="cursor-pointer mb-3"
+  <b-link
+    class="cursor-pointer mb-3 d-flex"
     body-class="p-2"
     @click="$router.push({ name: 'public.profile', params: { userName: profile.userName } })"
   >
     <b-avatar
       :src="avatarImage"
       class="mr-3"
-      size="120px"
+      size="80px"
       rounded
     />
 
-    <b-link>@{{ profile.userName }}</b-link>
-  </b-card>
+    <b-link class="small text-center d-block">@{{ profile.userName }}</b-link>
+  </b-link>
 </template>
 
 <script>

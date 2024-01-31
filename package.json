@@ -6,7 +6,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "vue-cli-service serve --port 4000 --open --host localhost",
+    "dev": "vue-cli-service serve --port 10293 --open --host localhost",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
@@ -40,7 +40,6 @@
     "lodash.orderby": "^4.6.0",
     "lodash.sortby": "^4.7.0",
     "marked": "^4.0.14",
-    "packery": "^2.1.2",
     "portal-vue": "^2.1.7",
     "raven-js": "^3.27.0",
     "register-service-worker": "^1.7.2",

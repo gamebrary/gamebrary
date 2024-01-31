@@ -85,13 +85,7 @@
       </template>
 
       <div class="game-media" :class="{ 'selected': activeIndex !== null }">
-        <pre>{{ activeIndex }}</pre>
-        <masonry
-          gutter="16px"
-          :cols="activeIndex === null
-            ? { default: 1 }
-            : { default: 5, 1000: 3, 700: 2, 400: 1 }"
-        >
+        <div class="thumbnails">
           <b-img
             v-for="({ imageUrl }, index) in gameMedia"
             :key="index"
@@ -101,7 +95,8 @@
             class="mb-3"
             @click="viewMedia(index)"
           />
-        </masonry>
+        </div>
+
 
         <div v-if="activeIndex !== null" class="text-center w-100">
           <b-embed
@@ -191,6 +186,11 @@ export default {
 
       return `${this.game.name} - Screenshot`;
     },
+  },
+
+  // TODO: remove
+  mounted () {
+    this.viewMedia(0);
   },
 
   methods: {

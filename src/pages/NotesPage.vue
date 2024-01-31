@@ -16,9 +16,8 @@
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <template v-else>
-      <portal to="headerActions">
-        <game-selector
-          v-if="!isEmpty && !isVerticalNav"
+      <game-selector
+          v-if="!isEmpty"
           title="Select game to add a note"
           :variant="darkTheme ? 'success' : 'primary'"
           :class="{ 'mr-3': !isVerticalNav }"
@@ -26,8 +25,7 @@
         >
         <i class="d-sm-none fa-solid fa-plus" />
         <span class="d-none d-sm-inline">Create note</span>
-        </game-selector>
-      </portal>
+      </game-selector>
 
       <empty-state
         v-if="isEmpty"

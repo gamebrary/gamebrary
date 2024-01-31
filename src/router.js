@@ -10,7 +10,8 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to?.meta?.title) document.title = `${to.meta.title} - Gamebrary`;
+  if (to?.meta?.title) document.title = `Keap`;
+  // if (to?.meta?.title) document.title = `${to.meta.title} - Gamebrary`;
 
   next();
 });
