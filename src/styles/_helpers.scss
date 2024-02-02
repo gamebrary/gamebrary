@@ -2,29 +2,6 @@
   cursor: pointer !important;
 }
 
-.field {
-  width: 320px;
-  max-width: 100%;
-
-  @media(max-width: 480px) {
-    width: 100%;
-  }
-}
-
-.small-container {
-  width: 480px;
-  max-width: 100%;
-  margin: 0 auto;
-
-  @media(max-width: 480px) {
-    width: 100%;
-  }
-}
-
-.centered {
-  margin: 0 auto;
-}
-
 .spinner-centered {
   position: absolute;
   left: calc(50% - 16px);
@@ -100,5 +77,15 @@
         color: unset;
       }
     }
+  }
+}
+
+form, .page-container {
+  width: 500px !important;
+  margin: 0 auto !important;
+
+  @media(max-width: 780px) {
+    width: 100% !important;
+    margin: 0 !important;
   }
 }

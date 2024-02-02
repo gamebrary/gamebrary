@@ -31,6 +31,16 @@ export default {
     return game?.websites?.map(({ url, category }) => ({ url, ...LINKS_CATEGORIES[category] })) || [];
   },
 
+  dockDropdownProps: (getters) => {
+    return {
+      variant: getters.darkTheme ? 'black' : 'light',
+      dropup: getters.navPosition === 'bottom',
+      dropright: getters.navPosition === 'left',
+      dropleft: getters.navPosition === 'right',
+      noCaret: true,
+    };
+  },
+
   // Arabic is the only ltr language supported at the moment
   isRTL: ({ settings }) => settings?.language !== 'ar',
 

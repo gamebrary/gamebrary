@@ -1,6 +1,6 @@
 <template lang="html">
   <header
-    class="d-flex justify-content-between align-items-center mb-2"
+    class="d-flex justify-content-between align-items-center mb-3"
     hasLongText
   >
     <h2 :class="{ 'text-wrap text-danger': hasLongText }">

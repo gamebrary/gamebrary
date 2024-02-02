@@ -1,31 +1,31 @@
 <template lang="html">
   <b-form
-    class="small-container d-flex"
     @submit.prevent="search"
   >
-    <b-form-input
-      v-model="searchText"
-      type="search"
-      debounce="500"
-      placeholder="Search"
-      class="mr-3"
-    />
-
-    <b-button type="submit">
-      <b-spinner v-if="loading" small />
-
-      <i
-        v-else
-        class="fas fa-search"
-        aria-hidden
+    <b-input-group>
+      <b-form-input
+        v-model="searchText"
+        type="search"
+        debounce="500"
+        placeholder="Search"
       />
-    </b-button>
+
+      <b-input-group-append>
+        <b-button type="submit">
+          <b-spinner v-if="loading" small />
+
+          <i
+            v-else
+            class="fas fa-search"
+            aria-hidden
+          />
+        </b-button>
+      </b-input-group-append>
+    </b-input-group>
   </b-form>
 </template>
 
 <script>
-import { mapState } from 'vuex';
-
 export default {
   props: {
     loading: Boolean,

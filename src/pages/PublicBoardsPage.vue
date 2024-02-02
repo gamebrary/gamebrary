@@ -16,21 +16,21 @@
       </empty-state>
   
       <template v-else>
-        <PageTitle title="My boards">
+        <portal to="headerActions">
           <b-button
             v-if="user"
             :variant="darkTheme ? 'success' : 'light'"
+            v-b-tooltip.hover
             title="Create board"
             :to="{ name: 'create.board' }"
           >
             <i class="fa-solid fa-plus" />
-            Create board
           </b-button>
-        </PageTitle>
+        </portal>
   
         <div class="board-grid">
           <mini-board
-            v-for="board in sortedBoards"
+            v-for="board in sortedPublicBoards"
             :key="board.id"
             :board="board"
             @click.native="$router.push({ name: 'board', params: { id: board.id } })"
@@ -58,19 +58,11 @@
     },
   
     computed: {
-      ...mapState(['user', 'boards', 'wallpapers']),
-      ...mapGetters(['isBoardOwner', 'sortedBoards', 'sortedPublicBoards', 'darkTheme', 'isVerticalNav', 'navPosition']),
-  
-      recentlyUpdatedPublicBoards() {
-        return this.sortedPublicBoards.filter(({ lastUpdated }) => Boolean(lastUpdated)).slice(0, 20);
-      },
+      ...mapState(['user', 'wallpapers']),
+      ...mapGetters(['isBoardOwner', 'sortedPublicBoards', 'darkTheme', 'isVerticalNav', 'navPosition']),
   
       isEmpty() {
-        return !this.loading && this.gameBoards?.length === 0;
-      },
-  
-      isPublicBoard() {
-        return this.$route.name === 'home' && !this.user;
+        return !this.loading && this.sortedPublicBoards?.length === 0;
       },
     },
   
@@ -82,11 +74,7 @@
       load() {
         this.loading = this.gameBoards?.length === 0;
   
-        if (this.isPublicBoard) {
-          this.loadPublicBoards();
-        } else {
-          this.loadBoards()
-        }
+        this.loadPublicBoards();
       },
   
       async loadBoards() {

@@ -8,7 +8,6 @@
 
     <form
       v-else-if="profile"
-      class="field"
       @submit.prevent="save"
     >
       <b-spinner v-if="uploading" />
@@ -216,7 +215,6 @@
 
     <form
       v-else
-      class="field centered"
       autocomplete="off"
       @submit.prevent="checkUserNameAvailability"
     >

@@ -15,10 +15,10 @@
         </div>
       </portal>
 
-      <form @submit.prevent="submit" class="field centered">
+      <form @submit.prevent="submit">
         <b-form-input
           v-model.trim="tag.name"
-          class="mb-3 field"
+          class="mb-3"
           maxlength="20"
           :placeholder="$t('tags.form.inputPlaceholder')"
           required
@@ -37,7 +37,7 @@
           rounded
           block
           size="sm"
-          class="mr-2 mb-2 field"
+          class="mr-2 mb-2"
           variant="outline-light"
           :style="`background-color: ${tag.bgColor}; color: ${tag.textColor}`"
         >

@@ -35,7 +35,7 @@
       >
         <b-form-row>
           <b-col cols="12">
-            <div class="field mb-2 d-flex">
+            <div class="mb-2 d-flex">
               <b-form-input
                 id="tagName"
                 v-model.trim="tag.name"

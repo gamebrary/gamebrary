@@ -1,38 +1,37 @@
 <template lang="html">
-  <section>
+  <section class="d-flex flex-column">
     <portal to="pageTitle">
       <h3>Search</h3>
     </portal>
 
-    <search-box :loading="loading" />
+    <SearchBox :loading="loading" />
 
-    <header class="mb-3 d-flex justify-content-between">
+    <header class="mb-3 d-flex justify-content-between bg-danger">
       <!-- <b-button v-b-modal.filters>
         <i class="fa-solid fa-sliders" />
         Filters
       </b-button>
 
       <search-filters /> -->
-
-      <div>
-        <b-button
-          v-if="showPreviousButton"
-          @click="prev"
-        >
-          <i class="fa-solid fa-caret-left" aria-hidden="true" />
-          Prev
-        </b-button>
-
-        <b-button
-          class="ml-3"
-          v-if="searchResults.length === pageSize"
-          @click="next"
-        >
-          Next
-          <i class="fa-solid fa-caret-right" aria-hidden="true" />
-        </b-button>
-      </div>
     </header>
+
+    <b-button
+      v-if="showPreviousButton"
+      @click="prev"
+    >
+      <i class="fa-solid fa-caret-left" aria-hidden="true" />
+      Prev
+    </b-button>
+
+    <b-button
+      class="ml-3"
+      v-if="searchResults.length === pageSize"
+      @click="next"
+    >
+      Next
+      <i class="fa-solid fa-caret-right" aria-hidden="true" />
+    </b-button>
+
 
     <masonry
       gutter="16px"
@@ -44,6 +43,19 @@
         :key="game.id"
       />
     </masonry>
+
+    <b-button
+      v-if="searchResults.length === pageSize"
+      block
+      class="mb-2"
+      @click="next"
+    >
+      <b-spinner v-if="loading" />
+      
+      <span v-else>
+        More results
+      </span>
+    </b-button>
 
     <p
       v-if="!loading && query.length > 0 && !searchResults.length"
@@ -73,7 +85,7 @@ export default {
     return {
       searchResults: [],
       loading: false,
-      pageSize: 200,
+      pageSize: 20,
       offset: 0,
       // pageSizes: [
       //   { value: 24, text: '24' },

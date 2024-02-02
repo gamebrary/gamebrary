@@ -24,113 +24,25 @@
         </b-badge>
       </header>
 
-      <template v-if="isTierBoard">
-        <div
-          class="d-flex mx-2"
-          v-for="tier in formattedBoard.lists"
-          style="margin-bottom: 4px;"
-          :key="tier.id"
-        >
-          <b-avatar
-            :style="`background-color: ${tier.backgroundColor}; border-radius: 4px !important;`"
-            text=" "
-            size="20"
-          />
+      <TierMiniBoard
+        v-if="isTierBoard"
+        :board="formattedBoard"
+        :gameId="gameId"
+      />
 
-          <b-avatar
-            v-for="(game, index) in tier.games"
-            :key="index"
-            :variant="gameId && game.id === gameId ? 'danger' : darkTheme ? 'black' : 'light'"
-            v-b-tooltip.hover
-            :title="game.name"
-            text=" "
-            square
-            :src="coversInMiniBoards ? game.src : null"
-            style="margin-left: 4px; border-radius: 4px !important;"
-            size="20"
-          />
-        </div>
-      </template>
-
-      <div
+      <StandardMiniBoard
         v-else-if="isStandardBoard"
-        class="board d-flex rounded overflow-hidden justify-content-center"
-      >
-        <b-card
-          body-class="p-0"
-          :bg-variant="darkTheme ? 'black' : 'transparent'"
-          :text-variant="darkTheme ? 'light' : 'dark'"
-          style="width: 80px"
-          class="overflow-hidden align-self-start"
-        >
-          <template v-if="firstList.games.length">
-            <div
-              v-for="(game, index) in firstList.games"
-              :key="index"
-              :class="[darkTheme ? 'border-black bg-dark' : 'border-light bg-white', { 'border-bottom': index !== firstList.games.length - 1 }]"
-            >
-              <b-avatar
-                :style="`border-radius: 4px !important;`"
-                text=" "
-                :variant="darkTheme ? 'black' : 'light'"
-                class="m-1"
-                v-b-tooltip.hover
-                :title="game.name"
-                :src="coversInMiniBoards ? game.src : null"
-                size="20"
-              />
+        :board="formattedBoard"
+        :gameId="gameId"
+      />
+      
+      <KanbanMiniBoard
+        v-else
+        :gameId="gameId"
+        :board="formattedBoard"
+      />
 
-              <small v-if="board.ranked">{{ index + 1 }}</small>
-            </div>
-          </template>
-
-          <div
-            v-else
-            class="rounded overflow-hidden"
-            style="height: 22px; width: 60px;"
-          />
-        </b-card>
-      </div>
-
-      <div v-else class="lists d-inline-flex ml-1 rounded overflow-hidden">
-        <b-card
-          v-for="(list, listIndex) in formattedBoard.lists"
-          :key="listIndex"
-          body-class="p-0 kanban-list"
-          :bg-variant="darkTheme ? 'black' : 'transparent'"
-          :text-variant="darkTheme ? 'light' : 'dark'"
-          class="overflow-hidden align-self-start mr-1"
-        >
-          <template v-if="list.games.length">
-            <div
-              v-for="(game, index) in list.games"
-              :key="index"
-              style="width: 60px"
-              class="p-1 d-flex"
-              :class="[
-                gameId && game.id === gameId ? 'bg-danger' : darkTheme ? 'border-black bg-dark' : 'border-light bg-white',
-                {
-                  'border-bottom' : index !== list.games.length - 1,
-                }
-              ]"
-            >
-              <b-avatar
-                style="border-radius: 4px !important"
-                text=" "
-                :src="gameId && game.id === gameId ? game.src : coversInMiniBoards ? game.src : null"
-                :variant="darkTheme ? 'black' : 'light'"
-                size="24"
-              />
-            </div>
-          </template>
-
-          <div
-            v-else
-            class="rounded overflow-hidden"
-            style="height: 22px; width: 60px;"
-          />
-        </b-card>
-      </div>
+      <!-- TODO: use dynamic component -->
     </div>
   </b-card>
 </template>
@@ -139,11 +51,20 @@
 import { BOARD_TYPE_STANDARD, BOARD_TYPE_TIER, IMAGE_SIZE_THUMB } from '@/constants';
 import { mapGetters, mapState } from 'vuex';
 import { getImageUrl } from '@/utils';
+import StandardMiniBoard from '@/components/MiniBoards/StandardMiniBoard';
+import KanbanMiniBoard from '@/components/MiniBoards/KanbanMiniBoard';
+import TierMiniBoard from '@/components/MiniBoards/TierMiniBoard';
 
 export default {
   props: {
     board: Object,
     gameId: Number,
+  },
+
+  components: {
+    StandardMiniBoard,
+    KanbanMiniBoard,
+    TierMiniBoard,
   },
 
   data() {
@@ -198,10 +119,6 @@ export default {
 
     isTierBoard() {
       return this.board?.type === BOARD_TYPE_TIER;
-    },
-
-    firstList() {
-      return this.formattedBoard?.lists?.[0] || {};
     },
 
     backgroundSyle() {

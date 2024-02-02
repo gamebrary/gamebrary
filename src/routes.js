@@ -18,6 +18,15 @@ const routes = [
     },
   },
   {
+    name: 'public.boards',
+    path: '/public-boards',
+    component: () => import(/* webpackChunkName: "games" */ '@/pages/PublicBoardsPage'),
+    meta: {
+      title: 'My games',
+      public: true,
+    },
+  },
+  {
     name: 'upcoming-games',
     path: '/games/upcoming',
     component: () => import(/* webpackChunkName: "games" */ '@/pages/UpcomingGames'),

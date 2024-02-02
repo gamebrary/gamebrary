@@ -1,19 +1,19 @@
 <template lang="html">
-  <div>
+  <div class="page-container">
     <PageTitle title="Games">
-      <b-button
-        @click="toggleView"
-        :variant="darkTheme ? 'black' : 'light'"
-      >
-        <i :class="`fa-solid ${view === 'grid' ? 'fa-list' : 'fa-table-cells'}`" />
-      </b-button>
+      <game-selector
+        trigger-text="Add games"
+        :variant="darkTheme ? 'success' : 'primary'"
+        :filter="likedGamesIds"
+        @select-game="selectGame"
+      />
     </PageTitle>
 
     <!-- <b-button class="mr-3">
       Sort
-    </b-button>
+    </b-button> -->
 
-    <b-button class="mr-3">
+    <!-- <b-button class="mr-3">
       Filter
     </b-button> -->
 
@@ -27,8 +27,7 @@
     <b-spinner v-else-if="loading" class="spinner-centered" />
 
     <template v-else-if="likedGames.length">
-      <div v-if="view === 'list'" class="small-container">
-        <b-card
+      <b-card
           v-for="game in likedGames"
           :bg-variant="darkTheme ? 'black' : 'light'"
           :text-variant="darkTheme ? 'white' : 'dark'"
@@ -41,26 +40,6 @@
           class="cursor-pointer mb-3"
           @click="$router.push({ name: 'game', params: { id: game.id, slug: game.slug }})"
         />
-      </div>
-
-      <masonry
-        v-else
-        :cols="{ default: 7, 1200: 4, 768: 3, 480: 2 }"
-        gutter="16px"
-      >
-        <b-card
-          v-for="game in likedGames"
-          :body-class="['pb-0 text-center', { 'text-success' : isCompleted(game.id) }]"
-          :bg-variant="darkTheme ? 'dark' : 'light'"
-          :text-variant="darkTheme ? 'white' : 'dark'"
-          :key="game.id"
-          :title="game.name"
-          :img-src="$options.getImageUrl(game, $options.IMAGE_SIZE_COVER_SMALL)"
-          img-alt="Image"
-          class="cursor-pointer mb-3"
-          @click="$router.push({ name: 'game', params: { id: game.id, slug: game.slug }})"
-        />
-      </masonry>
     </template>
 
     <empty-state
@@ -75,11 +54,13 @@
 import { mapGetters, mapState } from 'vuex';
 import { getImageUrl } from '@/utils';
 import EmptyState from '@/components/EmptyState';
+import GameSelector from '@/components/GameSelector';
 
 export default {
   getImageUrl,
-
+  
   components: {
+    GameSelector,
     EmptyState,
   },
 
@@ -99,6 +80,10 @@ export default {
 
       return Object.entries(this.games)?.filter(([id, liked]) => liked)?.map(([id]) => this.cachedGames?.[id]);
     },
+
+    likedGamesIds() {
+      return Object.entries(this.games)?.filter(([id, liked]) => liked)?.map(([id]) => Number(id));
+    },
   },
 
   mounted() {
@@ -116,6 +101,10 @@ export default {
       this.view = this.view === 'grid'
         ? 'list'
         : 'grid';
+    },
+
+    selectGame(gameId) {
+      this.$bus.$emit('SELECT_GAME', gameId);
     },
 
     async loadGames() {
