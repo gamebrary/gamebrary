@@ -9,9 +9,13 @@
     <div
       :style="backgroundSyle"
       class="mini-board"
+      :class="{ thumbnail }"
     >
       <header class="text-small px-2 pt-1 d-flex align-items-center justify-content-between">
-        <h4 :class="{ 'text-white': hasCustomBackground || darkTheme }">
+        <h4
+          v-if="!thumbnail"
+          :class="{ 'text-white': hasCustomBackground || darkTheme }"
+        >
           {{ board.name }}
         </h4>
 
@@ -59,6 +63,7 @@ export default {
   props: {
     board: Object,
     gameId: Number,
+    thumbnail: Boolean,
   },
 
   components: {
@@ -154,6 +159,12 @@ $boardHeight: 200px;
   height: $boardHeight;
   min-width: 300px;
   text-align: left;
+
+  &.thumbnail {
+    min-width: auto;
+    width: 120px !important;
+    height: 80px;
+  }
 }
 
 .board {

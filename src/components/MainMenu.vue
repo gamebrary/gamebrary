@@ -1,3 +1,4 @@
+<!-- TODO: get colorized icons for active state -->
 <!-- TODO: bring settings to nav, remove page. -->
 <!-- TODO: highlight menu item if active -->
 <template>
@@ -20,24 +21,31 @@
       v-bind="dockDropdownProps"
     >
       <template #button-content>
-        <i class="fa-solid fa-gamepad fa-fw" />
+        <div class="d-flex align-items-center">
+          <b-img
+            v-if="isGamePage && !isVerticalNav"
+            :src="$options.getImageUrl(game)"
+            :alt="game.name"
+            height="32"
+            style="border-radius: 3px;"
+          />
 
-        <span v-if="!isVerticalNav" class="d-none d-md-inline">
-          {{ gameButtonTitle }}
-        </span>
+          <i v-else class="fa-solid fa-gamepad fa-fw" />
+
+          <span v-if="!isVerticalNav" class="d-none d-md-inline">
+            <span class="ml-2">{{ gameButtonTitle }}</span>
+          </span>
+        </div>
       </template>
 
-      <template v-if="isGamePage">
-        <b-dropdown-text>
-          {{ game.name }}
-        </b-dropdown-text>
-
+      
+      <b-dropdown-group v-if="isGamePage" class="p-1 bg-light m-1 rounded">
         <b-dropdown-item-button @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })">
           Add note
         </b-dropdown-item-button>
         <b-dropdown-item v-b-modal.gameTagsModal>Edit tags</b-dropdown-item>
         <b-dropdown-item v-b-modal.addRemoveGameModal>Add to list</b-dropdown-item>
-      </template>
+      </b-dropdown-group>
 
       <b-dropdown-item
         :to="{ name: 'games' }"

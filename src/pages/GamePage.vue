@@ -31,7 +31,6 @@
             class="border d-flex mb-3 w-100"
             :class="`border-${darkTheme ? 'dark' : 'light'}`"
             bordered
-            v-b-modal.mediaModal
             rounded
           />
         </div>
@@ -323,6 +322,22 @@
               <span class="text-capitalize">{{ id }}</span>
             </b-link>
           </div>
+
+          <b-alert
+            v-if="note"
+            v-html="note"
+            show
+            class="cursor-pointer mt-3"
+            variant="warning"
+            @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
+          />
+
+          <b-button
+            v-else
+            @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
+          >
+            Add note
+          </b-button>
         </div>
       </b-col>
 
@@ -434,22 +449,6 @@
         loading...
       </timeline> -->
     </b-container>
-
-    <b-alert
-      v-if="note"
-      v-html="note"
-      show
-      class="cursor-pointer mt-3"
-      variant="warning"
-      @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
-    />
-
-    <b-button
-      v-else
-      @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
-    >
-      Add note
-    </b-button>
 
     <p
       v-if="legalNotice"

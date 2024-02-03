@@ -41,51 +41,11 @@
           title="Screenshots and videos"
           :subtitle="subtitle"
           @close="close"
-        >
-          <b-button
-            v-if="activeIndex !== null"
-            @click.stop="activeIndex = null"
-          >
-            Back
-          </b-button>
-
-          <!-- <b-dropdown
-            v-if="showSetAsWallpaperButton"
-            variant="light"
-            class="mx-2 d-none d-sm-inline-block"
-            menu-class="p-0"
-          >
-            <template #button-content>
-              <b-spinner v-if="saving" small />
-              <span v-else>Set as wallpaper</span>
-            </template>
-
-            <b-dropdown-item
-              v-for="board in formattedBoards"
-              :key="board.id"
-              @click="setAsWallpaper(board)"
-              class="p-0"
-            >
-              <b-avatar
-                rounded
-                :class="['board-thumbnail mr-2', { 'bg-dark' : !board.backgroundColor }]"
-                :title="board.name"
-                text=" "
-                size="32"
-                :style="`
-                  background-image: url(${board.backgroundUrl ? board.backgroundUrl : ''});
-                  background-color: ${board.backgroundColor ? board.backgroundColor : ''}
-                  `"
-              />
-
-              {{ board.name }}
-            </b-dropdown-item>
-          </b-dropdown> -->
-        </modal-header>
+        />
       </template>
 
       <div class="game-media" :class="{ 'selected': activeIndex !== null }">
-        <div class="thumbnails">
+        <div>
           <b-img
             v-for="({ imageUrl }, index) in gameMedia"
             :key="index"
@@ -113,8 +73,8 @@
             rounded
             fluid
             :src="selectedMedia.imageUrl"
-            class="cursor-pointer"
-            @click="activeIndex = null"
+            class="cursor-pointer w-auto"
+            style="max-height: 75vh;"
           />
         </div>
       </div>
@@ -188,10 +148,10 @@ export default {
     },
   },
 
-  // TODO: remove
-  mounted () {
-    this.viewMedia(0);
-  },
+  // // TODO: remove
+  // mounted () {
+  //   this.viewMedia(0);
+  // },
 
   methods: {
     viewMedia(index) {

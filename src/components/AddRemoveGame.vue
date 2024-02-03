@@ -4,7 +4,6 @@
     hide-footer
     centered
     scrollable
-    size="sm"
     :header-bg-variant="darkTheme ? 'dark' : 'transparent'"
     :header-text-variant="darkTheme ? 'white' : 'dark'"
     :body-bg-variant="darkTheme ? 'dark' : 'transparent'"
@@ -12,62 +11,51 @@
   >
     <template v-slot:modal-header="{ close }">
       <modal-header
-        :title="title"
+        :title="`Add or remove ${game.name} to list`"
         @close="close"
-      >
-        <!-- <pre>{{ selectedBoard.id }}</pre> -->
-
-        <!-- <div v-if="selectedBoard">
-          <b-button @click="selectedBoard = null">
-            Back
-          </b-button> -->
-        <!-- </div> -->
-      </modal-header>
+      />
     </template>
 
-    <!-- <b-form-input
-      v-if="boards.length > 10"
-      v-model.trim="searchText"
-      size="sm"
-      placeholder="Search boards"
-    /> -->
-
-    <div v-if="selectedBoard">
-      <mini-board
-        :board="selectedBoard"
-        class="mb-3"
-        @click.native="handleSelectedBoardClick"
-      />
-
-      <b-list-group>
-        <b-list-group-item
-          v-for="(list, listIndex) in selectedBoard.lists"
-          :key="listIndex"
-          class="d-flex justify-content-between align-items-center"
+    <b-list-group>
+      <b-list-group-item v-for="board in boards" :key="board.id">
+        <div
+          class="cursor-pointer d-flex align-items-center"
+          @click="selectedBoard = board.id"
         >
-          {{ list.name }}
+          <mini-board
+            class="cursor-pointer"
+            :board="board"
+            thumbnail
+            @click.native="$router.push({ name: 'board', params: { id: board.id } })"
+          />
 
-          <b-button
-            :variant="isGameInList({ list }) ? 'danger' : 'success'"
-            @click="handleClick({ list, listIndex, board: selectedBoard })"
-          >
-            <i
-              :class="`fa fa-${isGameInList({ list }) ? 'trash' : 'plus'}`"
-              aria-hidden="true"
-            />
-          </b-button>
-        </b-list-group-item>
-      </b-list-group>
-    </div>
+          <h3 class="mx-2">{{ board.name }}</h3>
+        </div>
 
-    <div v-else class="board-grid contained">
-      <mini-board
-        v-for="board in boards"
-        :key="board.id"
-        :board="board"
-        @click.native="selectedBoard = board"
-      />
-    </div>
+        <b-collapse :visible="selectedBoard === board.id" class="mt-2">
+          <b-list-group>
+            <b-list-group-item
+              v-for="(list, listIndex) in board.lists"
+              :key="listIndex"
+              class="d-flex justify-content-between align-items-center"
+            >
+              {{ list.name || '[Unnamed]' }}
+
+              <b-button
+                :variant="isGameInList({ list }) ? 'danger' : 'success'"
+                @click="handleClick({ list, listIndex, board })"
+              >
+                {{ isGameInList({ list }) ? 'Remove from list' : 'Add to list' }}
+                <i
+                  :class="`fa fa-${isGameInList({ list }) ? 'trash' : 'plus'}`"
+                  aria-hidden="true"
+                />
+              </b-button>
+            </b-list-group-item>
+          </b-list-group>
+        </b-collapse>
+      </b-list-group-item>
+    </b-list-group>
   </b-modal>
 </template>
 
@@ -89,12 +77,6 @@ export default {
   computed: {
     ...mapState(['boards', 'wallpapers', 'game']),
     ...mapGetters(['darkTheme']),
-
-    title() {
-      return this.selectedBoard
-        ? 'Select list'
-        : 'Select board'
-    },
   },
 
   methods: {
@@ -109,11 +91,6 @@ export default {
       const wallpaper = this.wallpapers.find(({ fullPath }) => fullPath === url);
 
       return wallpaper?.url ? decodeURI(wallpaper.url) : '';
-    },
-
-    handleSelectedBoardClick() {
-      this.$store.commit('SET_HIGHLIGHTED_GAME', this.game.id)
-      this.$router.push({ name: 'board', params: { id: this.selectedBoard.id } });
     },
 
     handleClick({ list, listIndex, board }) {
@@ -153,15 +130,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-  .board {
-    width: 180px;
-    max-width: 100%;
-  }
-
-  .board-thumbnail {
-    background-size: cover;
-    background-position: center;
-  }
-</style>
