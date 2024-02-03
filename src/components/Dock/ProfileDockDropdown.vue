@@ -3,7 +3,7 @@
       v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
       title="Profile"
       v-bind="dockDropdownProps"
-      class="ml-auto"
+      :class="isVerticalNav ? 'mt-auto' : 'ml-auto'"
       :toggle-class="avatarImage ? 'p-0' : null"
       no-caret
     >
@@ -66,7 +66,7 @@ export default {
 
   computed: {
     ...mapState(['board', 'user']),
-    ...mapGetters(['dockDropdownProps', 'darkTheme']),
+    ...mapGetters(['dockDropdownProps', 'darkTheme', 'isVerticalNav']),
 
     profileTitle() {
       return this.profile?.userName

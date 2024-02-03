@@ -15,28 +15,14 @@
       </b-button>
     </empty-state>
 
-    <template v-else>
-      <portal to="headerActions">
-        <b-button
-          v-if="user"
-          :variant="darkTheme ? 'success' : 'light'"
-          v-b-tooltip.hover
-          title="Create board"
-          :to="{ name: 'create.board' }"
-        >
-          <i class="fa-solid fa-plus" />
-        </b-button>
-      </portal>
-
-      <div class="board-grid">
-        <mini-board
-          v-for="board in gameBoards"
-          :key="board.id"
-          :board="board"
-          @click.native="$router.push({ name: 'board', params: { id: board.id } })"
-        />
-      </div>
-    </template>
+    <div v-else class="board-grid">
+      <mini-board
+        v-for="board in gameBoards"
+        :key="board.id"
+        :board="board"
+        @click.native="$router.push({ name: 'board', params: { id: board.id } })"
+      />
+    </div>
   </div>
 </template>
 

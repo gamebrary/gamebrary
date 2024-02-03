@@ -2,7 +2,7 @@
 <!-- TODO: bring settings to nav, remove page. -->
 <!-- TODO: highlight menu item if active -->
 <template>
-  <div class="main-menu w-100 d-flex" :class="{ 'd-flex flex-column': isVerticalNav }">
+  <div class="main-menu h-100 w-100 d-flex" :class="{ 'd-flex flex-column': isVerticalNav }">
     <b-button
       v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
       v-bind="dockDropdownProps"
@@ -18,10 +18,11 @@
       v-if="user"
       v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
       title="Games"
-      toggle-class="px-2 py-0"
+      :toggle-class="isGamePage ? 'px-2 py-0' : null"
       v-bind="dockDropdownProps"
     >
       <template #button-content>
+        <!-- TODO: fix this -->
         <div class="d-flex align-items-center">
           <b-img
             v-if="isGamePage && !isVerticalNav"
