@@ -9,9 +9,8 @@
         <div class="text-center">
           <b-avatar
             :src="avatarImage"
-            class="mx-auto rounded my-3"
+            class="mx-auto my-3"
             size="200"
-            rounded
           />
 
           <br />

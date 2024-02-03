@@ -12,9 +12,10 @@
       <img src="logo.png" alt="" height="26" />
     </b-button>
 
-    <BoardsDockDropdown />
+    <BoardsDockDropdown v-if="user" />
 
     <b-dropdown
+      v-if="user"
       v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
       title="Games"
       toggle-class="px-2 py-0"
@@ -50,8 +51,7 @@
       <b-dropdown-item
         :to="{ name: 'games' }"
       >
-
-      <i class="fa-solid fa-heart fa-fw"></i>
+        <i class="fa-solid fa-heart fa-fw" />
         <span class="ml-2">My games</span>
       </b-dropdown-item>
 
@@ -74,47 +74,10 @@
       </b-dropdown-item>
     </b-dropdown>
 
-    <b-dropdown
-      v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
-      title="Tags"
-      v-bind="dockDropdownProps"
-    >
-      <template #button-content>
-        <i class="fa-solid fa-tags fa-fw" />
-        
-        <span v-if="!isVerticalNav" class="d-none d-md-inline">
-          Tags
-        </span>
-      </template>
-
-      <b-dropdown-text
-          v-for="({ textColor, bgColor, name }, index) in tags"
-          :key="name"
-          block
-          class="rounded mb-1"
-          :style="`background-color: ${bgColor};`"
-          @click="$router.push({ name: 'tag.edit', params: { id: index } })"
-        >
-        <span :style="`color: ${textColor}`">{{ name }}</span>
-      </b-dropdown-text>
-
-      <!-- <b-dropdown-item
-        :to="{ name: 'tags' }"
-      >
-      <i class="fa-regular fa-rectangle-list fa-fw"></i>
-        <span class="ml-2">My tags</span>
-      </b-dropdown-item> -->
-
-      <b-dropdown-item
-        v-if="user"
-        :to="{ name: 'tag.create' }"
-      >
-        <i class="fa-regular fa-plus fa-fw" />
-        <span class="ml-2">Add tag</span>
-      </b-dropdown-item>
-    </b-dropdown>
+    <TagsDockDropdown v-if="user" />
 
     <b-dropdown
+      v-if="user"
       v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
       title="Notes"
       v-bind="dockDropdownProps"
@@ -123,7 +86,7 @@
         <i class="fa fa-sticky-note fa-fw" aria-hidden="true" />
 
         <span v-if="!isVerticalNav" class="d-none d-md-inline">
-          Wallpapers
+          Notes
         </span>
       </template>
 
@@ -137,6 +100,7 @@
     </b-dropdown>
 
     <b-dropdown
+      v-if="user"
       v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
       title="Wallpapers"
       v-bind="dockDropdownProps"
@@ -159,167 +123,38 @@
       <UploadWallpaperButton v-if="user" />
     </b-dropdown>
 
-    <b-dropdown
-      v-if="user"
-      v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
-      title="Profile"
-      :variant="darkTheme ? 'black' : 'light'"
-      no-caret
-    >
-      <template #button-content>
-        <template>  
-          <b-avatar
-            rounded
-            v-if="avatarImage"
-            :src="avatarImage"
-            size="22"
-          />
+    <SettingsDockDropdown v-if="user" />
+    <ProfileDockDropdown v-if="user" />
 
-          <i
-            v-else
-            class="fa fa-solid fa-user fa-fw"
-            aria-hidden
-          />
-
-          <!-- {{ profileTitle }} -->
-        </template>
-      </template>
-
-      <b-dropdown-item
-        :to="{ name: 'profile' }"
+    <div v-else class="ml-auto d-flex align-items">
+      <b-button
+        v-bind="dockDropdownProps"
+        :to="{ name: 'search' }"
+        v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
+        title="Search"
       >
-        <i class="fa-regular fa-rectangle-list fa-fw"></i>
-          <span class="ml-2">Edit profile</span>
-      </b-dropdown-item>
+        <i class="fa fa-search fa-fw" aria-hidden="true" />
+      </b-button>
 
-      <b-dropdown-item
-        :to="{ name: 'public.profile', params: { userName: profile.userName } }"
-      >
-        <i class="fa-regular fa-plus fa-fw" />
-        <span class="ml-2">View profile</span>
-      </b-dropdown-item>
-    </b-dropdown>
-
-    <b-dropdown
-      v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
-      v-bind="dockDropdownProps"
-    >
-      <template #button-content>
-        <i class="fa-solid fa-sliders fa-fw" />
-        
-        <span v-if="!isVerticalNav" class="d-none d-md-inline">
-          Settings
-        </span>
-      </template>
-
-      <!-- <b-dropdown-form>
-        <b-form-group label="Email" label-for="dropdown-form-email" @submit.stop.prevent>
-          <b-form-checkbox v-model="checked" name="check-button" switch>
-            Switch Checkbox <b>(Checked: {{ checked }})</b>
-          </b-form-checkbox>
-
-          <b-form-select v-model="selected" :options="options"></b-form-select>
-        </b-form-group>
-
-        <b-form-group label="Password" label-for="dropdown-form-password">
-          <b-form-input
-            id="dropdown-form-password"
-            type="password"
-            size="sm"
-            placeholder="Password"
-          />
-        </b-form-group>
-
-        <b-form-checkbox class="mb-3">Remember me</b-form-checkbox>
-        <b-button variant="primary" size="sm" @click="onClick">Sign In</b-button>
-      </b-dropdown-form> -->
-
-      <b-dropdown-divider />
-      <b-dropdown-item-button>New around here? Sign up</b-dropdown-item-button>
-      <b-dropdown-item-button>Forgot Password?</b-dropdown-item-button>
-    </b-dropdown>
-
-    <b-dropdown
-      v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
-      title="Preferences"
-      :variant="darkTheme ? 'black' : 'light'"
-      no-caret
-    >
-      <template #button-content>
-        <i class="fa-solid fa-sliders fa-fw" />
-        
-        <span v-if="!isVerticalNav" class="d-none d-md-inline">
-          Settings
-        </span>
-      </template>
-
-      <b-dropdown-item
-        :to="{ name: 'settings' }"
-      >
-        <i class="fa-regular fa-rectangle-list fa-fw"></i>
-        <span class="ml-2">Settings</span>
-      </b-dropdown-item>
-
-      <b-dropdown-item
-        href="https://github.com/romancm/gamebrary/"
-        target="_blank"
-      >
-        <i class="fa-brands fa-github fa-fw"></i>
-        GitHub
-      </b-dropdown-item>
-
-      <b-dropdown-item v-b-modal.keyboard-shortcuts>
-        <i class="fa-solid fa-keyboard fa-fw" />
-        <span class="ml-2">Keyboard Shortcuts</span>
-      </b-dropdown-item>
-
-      <b-dropdown-item
-        :to="{ name: 'help' }"
-        id="help"
-      >
-        <i class="fa-regular fa-circle-question fa-fw" aria-hidden="true" />
-        <span class="ml-2">Help</span>
-      </b-dropdown-item>
-
-      <b-dropdown-item disabled>
-        <i class="fa-solid fa-language" />
-        <span class="ml-2">Change language</span>
-      </b-dropdown-item>
-
-      <b-dropdown-item
-        :to="{ name: 'steam.settings' }"
-        disabled
-      >
-        <i class="fab fa-steam fa-fe" aria-hidden />
-        <span class="ml-2">Steam</span>
-      </b-dropdown-item>
-    </b-dropdown>
-
-    <b-button
-      class="ml-auto"
-      :to="{ name: 'search' }"
-      v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
-      title="Search"
-    >
-      <i class="fa fa-search fa-fw" aria-hidden="true" />
-    </b-button>
-
-    <b-button
-        v-if="!user"
-        class="ml-auto"
-        variant="danger"
-        :to="{ name: 'auth' }"
-      >
-        Get started <span class="d-none d-sm-inline"> — it's free!</span>
-    </b-button>
+      <b-button
+          variant="danger"
+          class="ml-2"
+          :to="{ name: 'auth' }"
+        >
+          Get started <span class="d-none d-sm-inline"> — it's free!</span>
+      </b-button>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import { getImageThumbnail, getImageUrl } from '@/utils';
+import { getImageUrl } from '@/utils';
 import UploadWallpaperButton from '@/components/UploadWallpaperButton';
 import BoardsDockDropdown from '@/components/Dock/BoardsDockDropdown';
+import ProfileDockDropdown from '@/components/Dock/ProfileDockDropdown';
+import SettingsDockDropdown from '@/components/Dock/SettingsDockDropdown';
+import TagsDockDropdown from '@/components/Dock/TagsDockDropdown';
 
 export default {
   getImageUrl,
@@ -327,12 +162,13 @@ export default {
   components: {
     UploadWallpaperButton,
     BoardsDockDropdown,
+    ProfileDockDropdown,
+    SettingsDockDropdown,
+    TagsDockDropdown,
   },
 
   data() {
     return {
-      profile: {},
-      avatarImage: null,
       options: [
         { value: null, text: 'Please select an option' },
         { value: 'a', text: 'This is First option' },
@@ -345,16 +181,10 @@ export default {
 
   computed: {
     ...mapState(['board', 'boards', 'settings', 'user', 'games', 'notes', 'tags', 'wallpapers', 'game']),
-    ...mapGetters(['darkTheme', 'navPosition', 'latestRelease', 'isVerticalNav', 'dockDropdownProps']),
+    ...mapGetters(['navPosition', 'latestRelease', 'isVerticalNav', 'dockDropdownProps']),
 
     routeName() {
       return this.$route.name;
-    },
-
-    profileTitle() {
-      return this.profile?.userName
-        ? `@${this.profile.userName}`
-        : 'Profile';
     },
 
     isGamePage() {
@@ -366,24 +196,6 @@ export default {
 
       return 'Games';
     }
-  },
-
-  mounted() {
-    if (this.user) this.load();
-  },
-
-  methods: {
-    async load() {
-      this.profile = await this.$store.dispatch('LOAD_PROFILE').catch(() => {});
-
-      if (this.profile?.avatar) this.loadAvatarImage();
-    },
-
-    async loadAvatarImage() {
-      const thumbnailRef = getImageThumbnail(this.profile?.avatar);
-
-      this.avatarImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', thumbnailRef);
-    },
   },
 }
 </script>

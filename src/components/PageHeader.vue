@@ -37,15 +37,6 @@ Elevate your gaming experience with PlayStats – because your gaming journey is
 
     <div :class="['align-items-center d-flex ml-auto', isVerticalNav ? 'h-100 flex-column' : '']">
         <portal-target name="headerActions" multiple />
-
-        <b-button
-          v-if="!user"
-          class="ml-2 d-none d-sm-inline"
-          variant="black"
-          :to="{ name: 'auth' }"
-        >
-          Get started
-        </b-button>
     </div>
   </header>
 </template>

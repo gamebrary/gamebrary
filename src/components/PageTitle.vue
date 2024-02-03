@@ -1,7 +1,6 @@
 <template lang="html">
   <header
     class="d-flex justify-content-between align-items-center mb-3"
-    hasLongText
   >
     <h2 :class="{ 'text-wrap text-danger': hasLongText }">
       {{ title }}
@@ -22,7 +21,7 @@ export default {
     ...mapGetters(['isVerticalNav']),
 
     hasLongText() {
-      return this.title.length > 30;
+      return this.title?.length > 30;
     },
   },
 };

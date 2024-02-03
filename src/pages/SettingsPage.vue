@@ -81,24 +81,7 @@
 
       <hr />
 
-      <b-form-checkbox
-        switch
-        @input="toggleTheme"
-        :checked="darkTheme"
-        class="mb-3"
-      >
-        Dark theme
-      </b-form-checkbox>
-
-
-      <b-form-checkbox
-        switch
-        @input="toggleCoversInMiniBoards"
-        :checked="coversInMiniBoards"
-        class="mb-3"
-      >
-        Show game covers in mini boards
-      </b-form-checkbox>
+      
 
       <!-- <h3>Game rating type</h3>
       number / stars / minimalist
@@ -128,16 +111,6 @@
 
       <delete-account-modal /> -->
 
-      <hr />
-
-      <b-button
-        @click="signOut"
-      >
-        Log out
-      </b-button>
-
-      <br />
-
       <b-link :to="{ name: 'dev.tools' }">
         <i class="fa fa-cog fa-fw" aria-hidden="true" />
         <span class="ml-2">Dev tools</span>
@@ -149,6 +122,7 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import { AGE_RATINGS } from '@/constants';
+// TODO: restore and finish delete account modal
 // import DeleteAccountModal from '@/components/Settings/DeleteAccountModal';
 
 export default {
@@ -160,50 +134,10 @@ export default {
 
   computed: {
     ...mapState(['user', 'settings']),
-    ...mapGetters(['darkTheme', 'navPosition', 'ageRating', 'coversInMiniBoards']),
+    ...mapGetters(['darkTheme', 'navPosition', 'ageRating']),
   },
 
   methods: {
-		async signOut() {
-			await this.$store.dispatch('SIGN_OUT');
-			this.$bvToast.toast('Logged out');
-
-			this.$store.commit('CLEAR_SESSION');
-			this.$router.replace({ name: 'auth' });
-		},
-
-    async toggleTheme() {
-      const { settings } = this;
-      const darkTheme = settings?.darkTheme || false;
-
-      const payload = {
-        ...settings,
-        darkTheme: !darkTheme,
-      };
-
-      await this.$store.dispatch('SAVE_SETTINGS', payload)
-        .catch(() => {
-          this.$bvToast.toast('There was an error saving your settings', { variant: 'danger' });
-          this.saving = false;
-        });
-    },
-
-    async toggleCoversInMiniBoards() {
-      const { settings } = this;
-      const coversInMiniBoards = settings?.coversInMiniBoards || false;
-
-      const payload = {
-        ...settings,
-        coversInMiniBoards: !coversInMiniBoards,
-      };
-
-      await this.$store.dispatch('SAVE_SETTINGS', payload)
-        .catch(() => {
-          this.$bvToast.toast('There was an error saving your settings', { variant: 'danger' });
-          this.saving = false;
-        });
-    },
-
     async setNavPosition(navPosition) {
       try {
         await this.$store.dispatch('SAVE_SETTINGS', {

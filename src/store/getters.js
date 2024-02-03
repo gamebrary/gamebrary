@@ -17,9 +17,10 @@ import * as linkify from 'linkifyjs';
 import linkifyHtml from 'linkify-html';
 
 export default {
+  // TODO: use constants for default settings
   latestRelease: ({ releases }) => releases?.[0]?.tag_name || 'v1',
   darkTheme: ({ settings }) => settings?.darkTheme || false,
-  coversInMiniBoards: ({ settings }) => settings?.coversInMiniBoards || false,
+  showGameThumbnails: ({ settings }) => settings?.showGameThumbnails || false,
   sortedBoards: ({ boards }) => orderby(boards, 'lastUpdated', 'desc'),
   sortedPublicBoards: ({ publicBoards }) => orderby(publicBoards, 'lastUpdated', 'desc'),
   isBoardOwner: ({ board, user }) => board?.owner === user?.uid,
@@ -31,12 +32,12 @@ export default {
     return game?.websites?.map(({ url, category }) => ({ url, ...LINKS_CATEGORIES[category] })) || [];
   },
 
-  dockDropdownProps: (getters) => {
+  dockDropdownProps: ({ settings }) => {
     return {
-      variant: getters.darkTheme ? 'black' : 'light',
-      dropup: getters.navPosition === 'bottom',
-      dropright: getters.navPosition === 'left',
-      dropleft: getters.navPosition === 'right',
+      variant: settings?.darkTheme ? 'dark' : 'light',
+      dropup: settings?.navPosition === 'bottom',
+      dropright: settings?.navPosition === 'left',
+      dropleft: settings?.navPosition === 'right',
       noCaret: true,
     };
   },
