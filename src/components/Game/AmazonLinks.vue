@@ -1,67 +1,36 @@
 <template lang="html">
-  <div>
-    <b-button
-      v-if="amazonLink"
-      variant="warning"
-      class="mb-3"
-      :href="amazonLink"
-      target="_blank"
+  <b-link
+    v-if="amazonLink"
+    v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
+    title="Using this link helps support Gamebrary at to extra cost to you."
+    :href="amazonLink"
+    target="_blank"
+  >
+    <img
+      :src="`/img/available-at-amazon-${darkTheme ? 'light' : 'dark'}.png`"
+      width="90"
     >
-      <i class="fab fa-amazon fa-fw" aria-hidden />
-      Available on Amazon
-    </b-button>
-
-
-    <!-- <b-modal
-      :id="modalId"
-      hide-footer
-    >
-      <template v-slot:modal-header="{ close }">
-        <modal-header
-          :title="`Find ${game.name} on Amazon`"
-          @close="close"
-        />
-      </template>
-
-      <b-alert show variant="success">
-        Support Gamebrary by using these affiliate links to purchase games from Amazon.
-      </b-alert>
-
-      <a
-        v-for="link in amazonLinks"
-        :key="link.url"
-        :href="`https://amazon.com/dp/${link.uid}`"
-        target="_blank"
-        class="mr-2 mb-2"
-      >
-        <b-img
-          :src="`http://images.amazon.com/images/P/${link.uid}.01._SCMZZZZZZZ_.jpg`"
-          thumbnail
-        />
-      </a>
-    </b-modal> -->
-  </div>
+  </b-link>
 </template>
 
 <script>
 import { WEBSITE_CATEGORIES } from '@/constants';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 
 export default {
   computed: {
     ...mapState(['game']),
+    ...mapGetters(['darkTheme']),
 
     amazonLink() {
-      return this.amazonAsins
-        ? `https://www.amazon.com/s?k=${this.amazonAsins}?tag=gamebrary0e-20`
-        : null;
-    },
-
-    amazonAsins() {
-      return this.game?.external_games?.filter(({ category, uid }) => uid && category === WEBSITE_CATEGORIES.AMAZON)
+      const amazonAsins = this.game?.external_games?.filter(({ category, uid }) => uid && category === WEBSITE_CATEGORIES.AMAZON)
         .map(({ uid }) => uid)
         .join('|');
+
+      return amazonAsins
+        ? `https://www.amazon.com/s?k=${amazonAsins}?tag=gamebrary0e-20`
+        : null;
     },
   },
 };

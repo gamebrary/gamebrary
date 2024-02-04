@@ -23,7 +23,7 @@
         lg="4"
       >
         <div class="position-relative">
-          <game-ratings class="position-absolute d-flex" style="bottom: 1rem; right: 1rem;" />
+          <GameRatings class="position-absolute d-flex" style="bottom: 1rem; right: 1rem;" />
 
           <b-img
             :src="$options.getImageUrl(cachedGame)"
@@ -141,6 +141,8 @@
               <small class="text-muted mb-3 text-capitalize">Source: {{ source }}</small>
             </template>
           </div>
+
+          <AmazonLinks />
 
           <div class="d-inline-block w-100">
             <div v-if="gameGenres" class="float-left mr-3">
@@ -413,8 +415,6 @@
           style="z-index: 1"
           class="text-center pt-3 pt-md-0"
         >
-
-          <!-- <amazon-links class="mt-2" /> -->
           <!-- <template v-if="highlightedAchievements">
             <h3 :class="['mt-5']">Achievements</h3>
 
@@ -462,7 +462,7 @@
 import { setPageTitle } from '@/utils';
 import { mapState, mapGetters } from 'vuex';
 import { WEBSITE_CATEGORIES, GAME_CATEGORIES, PLATFORMS, GAME_DESC_SM_CHAR_COUNT } from '@/constants';
-// import AmazonLinks from '@/components/Game/AmazonLinks';
+import AmazonLinks from '@/components/Game/AmazonLinks';
 // import GameDetails from '@/components/Game/GameDetails';
 import GameMedia from '@/components/Game/GameMedia';
 import GamePageTile from '@/components/Game/GamePageTile';
@@ -484,7 +484,7 @@ export default {
     GameTagsModal,
     GameHeader,
     GameProgress,
-    // AmazonLinks,
+    AmazonLinks,
     // GameDetails,
     GameMedia,
     GamePageTile,
