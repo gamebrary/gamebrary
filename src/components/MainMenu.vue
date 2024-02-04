@@ -9,7 +9,7 @@
       title="Home"
       :to="{ name: 'home' }"
     >
-      <img src="logo.png" alt="" height="26" />
+      <img src="/logo.png" alt="" height="26" />
     </b-button>
 
     <BoardsDockDropdown v-if="user" />
