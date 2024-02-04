@@ -1,4 +1,5 @@
 <template lang="html">
+  <!-- TODO: default to whatever is available if prefered age rating isn't availablem -->
   <div v-if="ageRating === 'all'">
     <b-img
       v-for="{ rating, logoFormat, descriptions } in gameRatings"

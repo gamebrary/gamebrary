@@ -59,14 +59,6 @@
         <p class="mt-2">Preferred age rating</p>
 
         <b-button
-          :variant="ageRating === 'all' ? 'primary' : 'light'"
-          class="mb-2 mr-2"
-          @click="setPreferredGameRating('all')"
-        >
-          Show all
-        </b-button>
-
-        <b-button
           v-for="{ id, name, title } in $options.AGE_RATINGS"
           class="mr-2 mb-2"
           :key="id"
