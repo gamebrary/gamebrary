@@ -1,39 +1,33 @@
+<!-- TODO: default to whatever is available if prefered age rating isn't availablem -->
+<!-- TODO: use popover instead of deopdown -->
 <template lang="html">
-  <!-- TODO: default to whatever is available if prefered age rating isn't availablem -->
-  <div v-if="ageRating === 'all'">
-    <b-img
-      v-for="{ rating, logoFormat, descriptions } in gameRatings"
-      :src="`/img/age-ratings/${rating}.${logoFormat || 'png'}`"
-      :alt="rating"
-      :key="rating"
-      :title="descriptions || rating"
-      v-b-tooltip
-      height="60"
-      class="mr-2 mb-2"
-    />
-  </div>
-
-  <b-dropdown v-else-if="preferredRating" variant="link" toggle-class="p-0 mr-2 mb-2" no-caret>
+  <b-dropdown v-if="ratings" variant="link" toggle-class="p-0" no-caret>
     <template #button-content>
       <b-img
-        :src="`/img/age-ratings/${preferredRating.rating}.${preferredRating.logoFormat || 'png'}`"
-        :alt="preferredRating.rating"
-        :key="preferredRating.rating"
+        :src="`/img/age-ratings/${ratings.rating}.${ratings.logoFormat || 'png'}`"
+        :alt="ratings.rating"
+        :key="ratings.rating"
         height="60"
       />
-    </template>
-    <b-dropdown-text href="#"
-      v-for="{ rating, logoFormat, descriptions } in gameRatings"
-      v-b-tooltip.right
-      :title="descriptions"
-      :key="rating"
-    >
-      <b-img
-        :src="`/img/age-ratings/${rating}.${logoFormat || 'png'}`"
-        width="40"
-      />
 
-      {{ rating }}
+    </template>
+    
+    <b-dropdown-text>
+      <div class="d-flex align-items-start">
+        <b-img
+          v-for="{ rating, logoFormat, description } in gameRatings"
+          :title="description"
+          :key="rating"
+          class="mr-2"
+          :src="`/img/age-ratings/${rating}.${logoFormat || 'png'}`"
+          height="60"
+        />
+        
+        <!-- <div> 
+          <p class="m-0">{{ name }}</p>
+          <small v-if="description">{{ description }}</small>
+        </div> -->
+      </div>
     </b-dropdown-text>
   </b-dropdown>
 </template>
@@ -51,21 +45,25 @@ export default {
 
     gameRatings() {
       const formattedRatings = this.game?.age_ratings?.map(({ category, rating, content_descriptions }) => {
-        const { ratings } = AGE_RATINGS?.find(({ id }) => id === category);
-        const descriptions = content_descriptions?.map(({ description }) => description)?.join(', ') || null;
+        const { ratings, name } = AGE_RATINGS?.find(({ id }) => id === category);
+        const description = content_descriptions?.map(({ description }) => description)?.join(', ') || null;
         const ratingData = ratings[rating];
 
         return ratingData
-          ? { rating: ratingData, descriptions, category }
+          ? { rating: ratingData, description, category, name }
           : {};
       }) || [];
 
       return formattedRatings.filter(value => Object.keys(value).length !== 0);
     },
 
-    preferredRating() {
-      return this.gameRatings?.find(({ category }) => category === this.ageRating);
-    },
+    ratings() {
+      const preferredRating = this.gameRatings?.find(({ category }) => category === this.ageRating);
+
+      if (preferredRating) return preferredRating;
+
+      return this.gameRatings?.find(({ category }) => category);
+    }
   },
 };
 </script>
