@@ -197,7 +197,7 @@ export const SUPPORTED_LANGUAGES = [
 export const AGE_RATINGS = [
   {
     slug: 'ESRB',
-    name: '🇺🇸 ESRB',
+    name: 'ESRB',
     title: 'Entertainment Software Rating Board',
     id: 1,
     ratings: {
@@ -212,7 +212,7 @@ export const AGE_RATINGS = [
   },
   {
     slug: 'PEGI',
-    name: '🇪🇺 PEGI',
+    name: 'PEGI',
     title: 'Pan-European Game Information',
     id: 2,
     ratings: {
@@ -225,7 +225,7 @@ export const AGE_RATINGS = [
   },
   {
     slug: 'CERO',
-    name: '🇯🇵 CERO',
+    name: 'CERO',
     title: 'Computer Entertainment Rating Organization',
     id: 3,
     ratings: {
@@ -238,7 +238,7 @@ export const AGE_RATINGS = [
   },
   {
     slug: 'USK',
-    name: '🇩🇪 USK',
+    name: 'USK',
     title: 'Unterhaltungssoftware Selbstkontrolle',
     id: 4,
     ratings: {
@@ -250,7 +250,7 @@ export const AGE_RATINGS = [
   },
   {
     slug: 'GRAC',
-    name: '🇰🇷 GRAC',
+    name: 'GRAC',
     title: 'Game Rating and Administration Committee',
     id: 5,
     ratings: {
@@ -263,7 +263,7 @@ export const AGE_RATINGS = [
   },
   {
     slug: 'ClassInd',
-    name: '🇧🇷 ClassInd',
+    name: 'ClassInd',
     title: 'Classificação Indicativa',
     id: 6,
     ratings: {
@@ -277,7 +277,7 @@ export const AGE_RATINGS = [
   },
   {
     slug: 'ACB',
-    name: '🇦🇺 ACB',
+    name: 'ACB',
     title: 'Australian Classification Board',
     id: 7,
     ratings: {
