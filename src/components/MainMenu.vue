@@ -41,71 +41,7 @@
 
     <BoardsDockDropdown v-if="user" />
 
-    <b-dropdown
-      v-if="user"
-      v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
-      title="Games"
-      :toggle-class="isGamePage ? 'px-2 py-0' : null"
-      v-bind="dockDropdownProps"
-    >
-      <template #button-content>
-        <div class="d-flex align-items-center">
-          <b-img
-            v-if="isGamePage && !isVerticalNav"
-            :src="$options.getImageUrl(game)"
-            :alt="game && game.name"
-            height="32"
-            style="border-radius: 3px;"
-          />
-
-          <i v-else class="fa-solid fa-gamepad fa-fw" />
-
-          <span v-if="!isVerticalNav" class="d-none d-md-inline">
-            <span>
-              {{ gameButtonTitle }}
-            </span>
-          </span>
-        </div>
-      </template>
-
-      <b-dropdown-group
-        v-if="isGamePage"
-        class="p-1 m-1 rounded"
-        :class="darkTheme ? 'bg-black' : 'bg-light'"
-      >
-        <b-dropdown-item-button @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })">
-          Add note
-        </b-dropdown-item-button>
-        <b-dropdown-item v-b-modal.gameTagsModal>Edit tags</b-dropdown-item>
-        <b-dropdown-item v-b-modal.addRemoveGameModal>Add to list</b-dropdown-item>
-      </b-dropdown-group>
-
-      <b-dropdown-item
-        :to="{ name: 'games' }"
-      >
-        <i class="fa-solid fa-heart fa-fw" />
-        <span class="ml-2">My games</span>
-      </b-dropdown-item>
-
-      <b-dropdown-item
-        :to="{ name: 'search' }"
-      >
-        <i class="fa fa-search fa-fw" aria-hidden="true" />
-        Find games
-      </b-dropdown-item>
-
-      <b-dropdown-item
-        :to="{ name: 'home' }"
-        disabled
-      >
-        <i
-          class="fa-solid fa-stopwatch fa-fw"
-          aria-hidden="true"
-        />
-        <span class="ml-2">Progresses</span>
-      </b-dropdown-item>
-    </b-dropdown>
-
+    <GamesDockDropdown v-if="user" />
     <TagsDockDropdown v-if="user" />
 
     <b-dropdown
@@ -188,9 +124,9 @@ import BoardsDockDropdown from '@/components/Dock/BoardsDockDropdown';
 import ProfileDockDropdown from '@/components/Dock/ProfileDockDropdown';
 import SettingsDockDropdown from '@/components/Dock/SettingsDockDropdown';
 import TagsDockDropdown from '@/components/Dock/TagsDockDropdown';
+import GamesDockDropdown from '@/components/Dock/GamesDockDropdown';
 
 export default {
-  getImageUrl,
 
   components: {
     UploadWallpaperButton,
@@ -198,43 +134,12 @@ export default {
     ProfileDockDropdown,
     SettingsDockDropdown,
     TagsDockDropdown,
-  },
-
-  watch: {
-    status(status) {
-      if(!status || status === 'LOADING') return;
-
-      setTimeout(() => {
-        this.$store.commit('SET_STATUS', null);
-      }, 2000);
-    }
+    GamesDockDropdown,
   },
 
   computed: {
-    ...mapState(['board', 'boards', 'settings', 'user', 'games', 'notes', 'tags', 'wallpapers', 'game', 'status']),
-    ...mapGetters(['navPosition', 'latestRelease', 'isVerticalNav', 'dockDropdownProps', 'darkTheme']),
-
-    statusClass() {
-      if (this.status === 'LOADING') return this.darkTheme ? 'bg-black' : 'bg-dark text-light';
-      if (this.status === 'SUCCESS') return 'bg-success text-dark';
-      if (this.status === 'ERROR') return 'bg-danger text-light';
-      
-      return null;
-    },
-
-    routeName() {
-      return this.$route.name;
-    },
-
-    isGamePage() {
-      return this.$route.name === 'game';
-    },
-
-    gameButtonTitle() {
-      if (this.isGamePage) return this.game?.name;
-
-      return 'Games';
-    },
+    ...mapState(['board', 'boards', 'settings', 'user', 'games', 'notes', 'tags', 'wallpapers']),
+    ...mapGetters(['navPosition', 'latestRelease', 'isVerticalNav', 'dockDropdownProps']),
   },
 }
 </script>
