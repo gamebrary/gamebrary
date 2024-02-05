@@ -1,7 +1,8 @@
 <template>
     <b-dropdown
-      v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
+      v-b-tooltip.hover.auto= "{ delay: { show: 500, hide: 50 } }"
       :title="boardButtonTitle"
+      :variant="variant"
       :toggle-class="isBoardPage ? 'border-danger' : null"
       v-bind="dockDropdownProps"
     >
@@ -84,7 +85,7 @@ export default {
 
     computed: {
       ...mapState(['board', 'user']),
-      ...mapGetters(['isVerticalNav', 'dockDropdownProps', 'sortedBoards', 'isBoardOwner']),
+      ...mapGetters(['isVerticalNav', 'dockDropdownProps', 'sortedBoards', 'isBoardOwner', 'darkTheme']),
       
       boardButtonTitle() {
         if (this.isBoardEditPage || this.isBoardPage) return this.board.name;
@@ -103,6 +104,14 @@ export default {
       recentlyUpdatedBoards() {
         return this.sortedBoards.filter(({ lastUpdated }) => Boolean(lastUpdated)).slice(0, 3);
       },
+
+      variant() {
+        const isBoardRoute = ['boards', 'create.board', 'board.edit', 'public.boards'].includes(this.$route.name);
+        
+        if (!isBoardRoute) return;
+
+        return this.darkTheme ? 'outline-success' : 'outline-dark';
+      }
     },
 
     methods: {
