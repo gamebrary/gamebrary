@@ -61,7 +61,7 @@
           <i v-else class="fa-solid fa-gamepad fa-fw" />
 
           <span v-if="!isVerticalNav" class="d-none d-md-inline">
-            <span class="ml-2">{{ gameButtonTitle }}</span>
+            <span class="d-inline-block ml-2 text-truncate overflow-hidden" style="width: 100px;">{{ gameButtonTitle }}</span>
           </span>
         </div>
       </template>
