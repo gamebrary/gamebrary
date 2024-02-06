@@ -1,4 +1,6 @@
 <!-- TODO: integrate with keap -->
+<!-- TODO: make all components pascal case -->
+<!-- TODO: hook up remaining status indicator places -->
 <template>
   <main
     id="app"
@@ -69,12 +71,6 @@ export default {
     isPublicRoute() {
       return this.$route.meta?.public;
     },
-
-    // routerViewClass() {
-    //   if (this.isGamePage) return '';
-
-    //   return this.isVerticalNav ? 'p-2' : 'p-2';
-    // },
 
     isGamePage() {
       return this.$route.name === 'game';
@@ -184,6 +180,7 @@ export default {
     display: flex;
     background-size: contain;
     background-attachment: fixed;
+    height: 100svh;
     // background-repeat: no-repeat;
 
     // test

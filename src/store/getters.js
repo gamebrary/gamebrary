@@ -3,9 +3,7 @@ import {
   LINKS_CATEGORIES,
   IMAGE_SIZE_720P,
   IMAGE_SIZE_THUMB,
-  IMAGE_SIZE_MICRO,
   IMAGE_SIZE_COVER_BIG,
-  IMAGE_SIZE_SCREENSHOT_MED,
   GAME_GENRES,
 } from '@/constants';
 import { getImageUrl } from '@/utils';
@@ -46,14 +44,10 @@ export default {
   isRTL: ({ settings }) => settings?.language !== 'ar',
 
   gameGenres: (state) => {
-    return state.game?.genres.map((genre) => {
-      const genreOverrides = GAME_GENRES.find(({ id }) => id === genre.id);
-
-      return {
-        ...genre,
-        ...genreOverrides,
-      };
-    });
+    return state.game?.genres?.map((genre) => ({
+      ...genre,
+        ...GAME_GENRES.find(({ id }) => id === genre.id),
+    }));
   },
 
   gameNews: (state) => {

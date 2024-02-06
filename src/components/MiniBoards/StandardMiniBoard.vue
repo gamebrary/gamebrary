@@ -23,7 +23,7 @@
           class="m-1"
           v-b-tooltip.hover
           :title="game.name"
-          :src="coversInMiniBoards ? game.src : null"
+          :src="showGameThumbnails ? game.src : null"
           size="20"
         />
 
@@ -62,7 +62,7 @@ export default {
   },
   
   computed: {
-    ...mapGetters(['darkTheme', 'coversInMiniBoards']),
+    ...mapGetters(['darkTheme', 'showGameThumbnails']),
 
     firstList() {
       return this.board?.lists?.[0] || {};

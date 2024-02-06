@@ -1,16 +1,37 @@
 <template lang="html">
   <div>
-    <page-title :title="user ? 'Boards' : null" />
-
     <div
       class="mt-auto py-3 mb-3"
     >
-      <h4 class="text-center mb-2">Elevate Your Play, Organize Your Way!</h4>
+      <h1 class="text-center">Gamebrary</h1>
+      <h2 class="text-center mb-3">Elevate Your Play, Organize Your Way!</h2>
 
-      <div class="bg-light p-3 rounded">
-        <h4 class="text-center text-primary mb-2">Powered by</h4>
+      <div class="board-grid">
+        <mini-board
+          v-for="board in recentlyUpdatedPublicBoards"
+          :key="board.id"
+          :board="board"
+          @click.native="$router.push({ name: 'board', params: { id: board.id } })"
+        />
+      </div>
 
-        <div class="d-flex flex-wrap align-items-start justify-content-center overflow-auto">
+      <div class="p-3 rounded">
+        <h3 class="text-center">Join the community and start creating your own boards!</h3>
+
+        <div class="d-flex overflow-auto justify-content-center my-3">
+          <profile-card
+            v-for="(profile, index) in filteredProfiles"
+            :key="profile.userName"
+            :profile="profile"
+            :class="index ? 'ml-n3' : ''"
+          />
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-center mb-2">Powered by</h3>
+
+        <div class="rounded d-flex flex-wrap align-items-start justify-content-center overflow-auto">
           <!-- YouTube -->
           <img src="/logos/data-sources/wikipedia.svg" alt="wikipedia" width="60" class="mx-3">
           <img src="/logos/data-sources/igdb.svg" alt="igdb" width="80" class="mx-3">
@@ -24,38 +45,15 @@
       </div>
     </div>
 
-    <div class="bg-success p-3 rounded">
-      <h4 class="text-center">Join the community and start creating your own boards!</h4>
-
-      <div>
-        <profile-card
-          v-for="profile in profiles"
-          :key="profile.userName"
-          :profile="profile"
-        />
-
-
-      </div>
-    </div>
-
     <!-- TODO: put public boards here -->
     <!-- TODO: put public reviews here -->
     <!-- TODO: put latest news here -->
     <!-- TODO: put latest deals here -->
 
-    <!-- <BoardsPage /> -->
-    <div class="board-grid">
-      <mini-board
-        v-for="board in recentlyUpdatedPublicBoards"
-        :key="board.id"
-        :board="board"
-        @click.native="$router.push({ name: 'board', params: { id: board.id } })"
-      />
-    </div>
-
     <!-- <div class="game-deals">
       <twitter-feed twitter-user="wario64" />
     </div> -->
+    <p class="text-center py-5">&copy; {{ currentYear }} Gamebrary </p>
   </div>
 </template>
 
@@ -77,8 +75,16 @@ export default {
     ...mapGetters(['darkTheme', 'isVerticalNav', 'navPosition', 'sortedPublicBoards']),
 
     recentlyUpdatedPublicBoards() {
-        return this.sortedPublicBoards.filter(({ lastUpdated }) => Boolean(lastUpdated)).slice(0, 20);
-      },
+      return this.sortedPublicBoards.filter(({ lastUpdated }) => Boolean(lastUpdated)).slice(0, 12);
+    },
+
+    filteredProfiles() {
+      return this.profiles.filter(({ avatar }) => avatar);  
+    },
+
+    currentYear() {
+      return new Date().getFullYear();
+    },
   },
 
   mounted () {

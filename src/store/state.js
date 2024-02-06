@@ -20,4 +20,5 @@ export default {
   twitchToken: null,
   user: null,
   wallpapers: [],
+  status: null,
 };

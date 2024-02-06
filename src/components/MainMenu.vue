@@ -7,9 +7,36 @@
       v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
       v-bind="dockDropdownProps"
       title="Home"
+      class="position-relative"
       :to="{ name: 'home' }"
     >
-      <img src="/logo.png" alt="" height="26" />
+      <div
+        v-if="status"
+        class="position-absolute w-100 h-100 rounded d-flex align-items-center justify-content-center"
+        :class="statusClass"
+        style="left: 0; top: 0;"
+      >
+        <i
+          v-if="status === 'SUCCESS'"
+          class="fa-solid fa-fw fa-check"
+        />
+
+        <b-spinner
+          v-else-if="status === 'LOADING'"
+          small
+        />
+
+        <i
+          v-else-if="status === 'ERROR'"
+          class="fa-solid fa-fw fa-times"
+        />
+      </div>
+      
+      <img
+        src="/logo.png"
+        alt=""
+        height="26"
+      />
     </b-button>
 
     <BoardsDockDropdown v-if="user" />
@@ -22,12 +49,11 @@
       v-bind="dockDropdownProps"
     >
       <template #button-content>
-        <!-- TODO: fix this -->
         <div class="d-flex align-items-center">
           <b-img
             v-if="isGamePage && !isVerticalNav"
             :src="$options.getImageUrl(game)"
-            :alt="game.name"
+            :alt="game && game.name"
             height="32"
             style="border-radius: 3px;"
           />
@@ -40,8 +66,11 @@
         </div>
       </template>
 
-      
-      <b-dropdown-group v-if="isGamePage" class="p-1 bg-light m-1 rounded">
+      <b-dropdown-group
+        v-if="isGamePage"
+        class="p-1 m-1 rounded"
+        :class="darkTheme ? 'bg-black' : 'bg-light'"
+      >
         <b-dropdown-item-button @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })">
           Add note
         </b-dropdown-item-button>
@@ -151,6 +180,7 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import { getImageUrl } from '@/utils';
+import { STATUS_VARIANTS } from '@/constants';
 import UploadWallpaperButton from '@/components/UploadWallpaperButton';
 import BoardsDockDropdown from '@/components/Dock/BoardsDockDropdown';
 import ProfileDockDropdown from '@/components/Dock/ProfileDockDropdown';
@@ -168,21 +198,27 @@ export default {
     TagsDockDropdown,
   },
 
-  data() {
-    return {
-      options: [
-        { value: null, text: 'Please select an option' },
-        { value: 'a', text: 'This is First option' },
-        { value: 'b', text: 'Selected Option' },
-        { value: { C: '3PO' }, text: 'This is an option with object value' },
-        { value: 'd', text: 'This one is disabled', disabled: true }
-      ],
+  watch: {
+    status(status) {
+      if(!status || status === 'LOADING') return;
+
+      setTimeout(() => {
+        this.$store.commit('SET_STATUS', null);
+      }, 2000);
     }
   },
 
   computed: {
-    ...mapState(['board', 'boards', 'settings', 'user', 'games', 'notes', 'tags', 'wallpapers', 'game']),
-    ...mapGetters(['navPosition', 'latestRelease', 'isVerticalNav', 'dockDropdownProps']),
+    ...mapState(['board', 'boards', 'settings', 'user', 'games', 'notes', 'tags', 'wallpapers', 'game', 'status']),
+    ...mapGetters(['navPosition', 'latestRelease', 'isVerticalNav', 'dockDropdownProps', 'darkTheme']),
+
+    statusClass() {
+      if (this.status === 'LOADING') return this.darkTheme ? 'bg-black' : 'bg-dark text-light';
+      if (this.status === 'SUCCESS') return 'bg-success text-dark';
+      if (this.status === 'ERROR') return 'bg-danger text-light';
+      
+      return null;
+    },
 
     routeName() {
       return this.$route.name;
@@ -193,10 +229,10 @@ export default {
     },
 
     gameButtonTitle() {
-      if (this.isGamePage) return this.game.name;
+      if (this.isGamePage) return this.game?.name;
 
       return 'Games';
-    }
+    },
   },
 }
 </script>

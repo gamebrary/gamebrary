@@ -1,36 +1,42 @@
 <template>
   <!-- TODO: add pagination, limit to 6 per page -->
-  <div>
-    Similar games
+  <div class="bg-light p-3 rounded" :class="darkTheme ? 'bg-dark' : 'bg-light'">
+    <h3>You may also like</h3>
 
-    <masonry
-      v-if="allGames.length"
-      gutter="16px"
-      :cols="{ default: 3, 1400: 5, 1200: 5, 768: 5, 480: 3 }"
+    <div
+      class="overflow-auto"
+      style="max-height: 50vh;"
     >
-      <game-card-search
-        v-for="game in allGames"
-        :game="game"
-        :key="game && game.id"
-      />
-    </masonry>
+      <masonry
+        v-if="allGames.length"
+        gutter="16px"
+        :cols="{ default: 3, 1400: 5, 1200: 6, 768: 3 }"
+      >
+        <game-card-search
+          v-for="game in allGames"
+          :game="game"
+          :key="game && game.id"
+        />
+      </masonry>
+    </div>
   </div>
 </template>
 
 <script>
 import GameCardSearch from '@/components/GameCards/GameCardSearch';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import { getImageUrl } from '@/utils';
 
 export default {
+  getImageUrl,
+  
   components: {
     GameCardSearch,
   },
 
-  getImageUrl,
-
   computed: {
     ...mapState(['game']),
+    ...mapGetters(['darkTheme']),
 
     allGames() {
       return [
@@ -41,7 +47,7 @@ export default {
         ...this.gameRemasters,
         ...this.gameBundles,
         ...this.similarGames,
-      ].slice(0, 6);
+      ];
     },
 
     gameRemakes() {
@@ -106,5 +112,11 @@ export default {
       if (games?.length) this.$store.commit('CACHE_GAME_DATA', games);
     },
   },
+
+  methods: {
+    loadMore() {
+      this.page++;
+    },
+  }
 };
 </script>

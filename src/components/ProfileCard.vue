@@ -1,17 +1,14 @@
 <template lang="html">
   <b-link
-    class="cursor-pointer mb-3 d-flex"
-    body-class="p-2"
+    class="d-inline-flex"
     @click="$router.push({ name: 'public.profile', params: { userName: profile.userName } })"
   >
     <b-avatar
+      v-b-tooltip.hover
+      :title="`@${profile.userName}`"
       :src="avatarImage"
-      class="mr-3"
       size="80px"
-      rounded
     />
-
-    <b-link class="small text-center d-block">@{{ profile.userName }}</b-link>
   </b-link>
 </template>
 

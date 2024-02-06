@@ -20,7 +20,7 @@
         :title="game.name"
         text=" "
         square
-        :src="coversInMiniBoards ? game.src : null"
+        :src="showGameThumbnails ? game.src : null"
         style="margin-left: 4px; border-radius: 4px !important;"
         size="20"
       />
@@ -40,7 +40,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['darkTheme', 'coversInMiniBoards']),
+    ...mapGetters(['darkTheme', 'showGameThumbnails']),
   },
 }
 </script>

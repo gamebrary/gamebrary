@@ -86,7 +86,7 @@ export default {
 
   computed: {
     ...mapState(['cachedGames']),
-    ...mapGetters(['darkTheme', 'coversInMiniBoards']),
+    ...mapGetters(['darkTheme']),
 
     formattedBoard() {
       const formattedLists = this.board?.lists?.map((list) => ({

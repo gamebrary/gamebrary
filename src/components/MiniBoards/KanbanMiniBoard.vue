@@ -25,7 +25,7 @@
             style="border-radius: 4px !important"
             text=" "
             :title="game.name"
-            :src="gameId && game.src && game.id === gameId ? game.src : coversInMiniBoards && game.src ? game.src : null"
+            :src="gameId && game.src && game.id === gameId ? game.src : showGameThumbnails && game.src ? game.src : null"
             v-b-tooltip.hover
             :variant="darkTheme ? 'black' : 'light'"
             size="24"
@@ -65,7 +65,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['darkTheme', 'coversInMiniBoards']),
+    ...mapGetters(['darkTheme', 'showGameThumbnails']),
   },
 
   mounted() {

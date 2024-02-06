@@ -12,7 +12,6 @@
   <section
     v-else
     :class="[{ 'text-light': darkTheme }, 'game-page']"
-    :style="background && this.darkTheme ? `background-image: url(${background})` : ''"
   >
     <game-header />
 
@@ -100,22 +99,12 @@
                 {{ gameCategory }}
               </b-badge>
             </div>
-
-            <b-button
-              v-if="gogGame"
-              v-b-tooltip.hover
-              title="Buy from GOG.com"
-              target="_blank"
-              :href="`https://gog.com${gogGameUrl}`"
-            >
-              {{ gogGamePrice }}
-            </b-button>
           </div>
 
           <div v-if="user">
-            <b-link v-if="!tagsApplied.length" v-b-modal.gameTagsModal>
+            <!-- <b-link v-if="!tagsApplied.length" v-b-modal.gameTagsModal>
               Add tag
-            </b-link>
+            </b-link> -->
 
             <b-button
               v-for="({ bgColor, textColor, name, index }) in tagsApplied"
@@ -137,14 +126,49 @@
             <b-spinner v-if="loading" class="spinner-centered" />
 
             <template v-else>
-              <div class="text-justify" v-html="description" />
+              <p v-html="description" />
+
+              <p class="small">
+                <template>
+                    Developed by 
+                    <b-link
+                      v-for="developer in gameDevelopers"
+                      :key="developer.id"
+                      :to="{ name: 'company', params: { id: developer.id, slug: developer.slug }}"
+                      class="mr-2 mb-2 align-items-center"
+                    >
+                      <span>{{ developer.name }}</span>
+                    </b-link>
+                </template>
+
+                Published by
+                <b-link
+                  v-for="publisher in gamePublishers"
+                  :key="publisher.id"
+                  :to="{ name: 'company', params: { id: publisher.id, slug: publisher.slug }}"
+                >
+                  {{ publisher.name }}
+                </b-link>
+              </p>
               <small class="text-muted mb-3 text-capitalize">Source: {{ source }}</small>
             </template>
           </div>
 
           <AmazonLinks />
 
-          <div class="d-inline-block w-100">
+          <b-link
+            v-if="gogGame"
+            v-b-tooltip.hover
+            title="Buy from GOG.com"
+            target="_blank"
+            class="bg-white text-dark p-2 rounded d-inline-flex flex-column small align-items-center"
+            :href="`https://gog.com${gogGameUrl}`"
+          >
+            Available at
+            <img src="/logos/data-sources/gog.svg" alt="gog" width="60">
+          </b-link>
+
+          <div class="mt-3">
             <div v-if="gameGenres" class="float-left mr-3">
               <h5>Genres</h5>
 
@@ -279,35 +303,6 @@
               {{ platform.name }}
             </b-link>
           </div>
-          
-          <h5 class="mt-2">Developers</h5>
-
-          <b-link
-            v-for="developer in gameDevelopers"
-            :key="developer.id"
-            :to="{ name: 'company', params: { id: developer.id, slug: developer.slug }}"
-            class="mr-2 mb-2 align-items-center"
-          >
-            <!-- <b-img
-              v-if="developer.logo"
-              :src="$options.getImageUrl(developer)"
-              :alt="developer.name"
-              width="40"
-              class="mr-2"
-            /> -->
-
-            <span>{{ developer.name }}</span>
-          </b-link>
-
-          <h5 class="mt-2">Publishers</h5>
-          
-          <b-link
-            v-for="publisher in gamePublishers"
-            :key="publisher.id"
-            :to="{ name: 'company', params: { id: publisher.id, slug: publisher.slug }}"
-          >
-            {{ publisher.name }}
-          </b-link>
 
           <game-progress />
 
@@ -333,23 +328,14 @@
             variant="warning"
             @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
           />
-
-          <b-button
-            v-else
-            @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
-          >
-            Add note
-          </b-button>
         </div>
       </b-col>
 
       <b-col
         cols="12"
-        md="6"
-        lg="5"
         xl="3"
       >
-        <GameInBoards />
+        <GameInBoards class="mb-3" />
         <SimilarGames />
 
       </b-col>

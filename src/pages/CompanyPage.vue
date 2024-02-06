@@ -33,7 +33,7 @@
           />
         </masonry>
 
-        <div v-if="company.published" class="bg-light rounded p-3">
+        <div v-if="company.published">
           <h3 class="w-100 my-3">Games published by {{ company.name }}</h3>
 
           <masonry

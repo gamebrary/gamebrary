@@ -2,7 +2,7 @@
     <b-dropdown
       v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
       :title="boardButtonTitle"
-      :toggle-class="isBoardPage ? 'border-danger' : null"
+      :toggle-class="isBoardPage ? darkTheme ? 'border-danger' : 'border-success' : null"
       v-bind="dockDropdownProps"
     >
         <template #button-content>

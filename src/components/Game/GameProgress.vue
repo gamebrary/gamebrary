@@ -1,59 +1,29 @@
 <template lang="html">
   <div v-if="user">
-    <!-- <progress-bar
-      :value="6"
-      type="line"
-    /> -->
+    {{ progress }}% Completed
 
-    <loading-progress
-      :progress="50"
-      size="64"
-      rotate
-      fillDuration="2"
-      rotationDuration="1"
+    <b-form-input
+      v-model="progress"
+      type="range"
+      max="100"
+      step="1"
+      debounce="500"
+      @update="saveProgress"
     />
 
+    <b-button
+      v-if="progress"
+      :disabled="deleting"
+      variant="transparent"
+      class="text-danger"
+      size="sm"
+      @click="deleteProgress"
+    >
+      <b-spinner small v-if="deleting" />
+      <i v-else class="fas fa-trash fa-fw" aria-hidden />
 
-    <!-- <progress-bar
-      :value="6"
-      type="cylinder"
-    /> -->
-
-    <!-- <progress-bar
-      :value="6"
-      type="battery"
-    /> -->
-<!-- 
-    <progress-bar
-      :value="6"
-      type="line"
-    /> -->
-
-    <b-form>
-      <!-- <b-form-input
-        v-model="progress"
-        type="range"
-        max="100"
-        :class="['rounded px-2', progressClass]"
-        step="1"
-        debounce="500"
-        @update="saveProgress"
-      /> -->
-
-      <b-button
-        v-if="progress"
-        :disabled="deleting"
-        variant="transparent"
-        class="text-danger"
-        size="sm"
-        @click="deleteProgress"
-      >
-        <b-spinner small v-if="deleting" />
-        <i v-else class="fas fa-trash fa-fw" aria-hidden />
-
-        Clear progress
-      </b-button>
-    </b-form>
+      Clear progress
+    </b-button>
   </div>
 
   <div v-else>
@@ -138,10 +108,10 @@ export default {
 
         await this.$store.dispatch('SAVE_PROGRESSES');
 
-        this.$bvToast.toast('Progress saved');
+        // this.$bvToast.toast('Progress saved');
       } catch (e) {
         this.saving = false;
-        this.$bvToast.toast('There was an error saving your progress', { variant: 'error' });
+        // this.$bvToast.toast('There was an error saving your progress', { variant: 'error' });
       }
 
       this.saving = false;

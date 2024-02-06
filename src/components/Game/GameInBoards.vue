@@ -1,5 +1,10 @@
 <template lang="html">
-  <div v-if="user && boardsWithGame.length" class="p-3 rounded">
+  <div
+    v-if="user && boardsWithGame.length"
+    class="p-3 rounded"
+    style="max-height: 50vh; overflow-y: auto;"
+    :class="darkTheme ? 'bg-dark' : 'bg-light'"
+  >
     <h4 class="mb-2">Found in {{ boardsWithGame.length }} boards</h4>
     <MiniBoard
       v-for="board in boardsWithGame"
@@ -13,7 +18,7 @@
 
 <script>
 import MiniBoard from '@/components/Board/MiniBoard';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -22,6 +27,7 @@ export default {
 
   computed: {
     ...mapState(['game', 'boards', 'user']),
+    ...mapGetters(['darkTheme']),
 
     boardsWithGame() {
       return this.boards?.filter(({ lists }) => lists?.some(({ games }) => games?.includes(this.game?.id))) || [];

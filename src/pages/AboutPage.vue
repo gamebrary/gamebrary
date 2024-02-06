@@ -57,10 +57,6 @@ export default {
   },
 
   computed: {
-    currentYear() {
-      return new Date().getFullYear();
-    },
-
     formattedReadme() {
       return this.readme
         ? marked(this.readme)

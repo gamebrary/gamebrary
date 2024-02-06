@@ -3,7 +3,7 @@
     v-if="user"
     v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
     title="Preferences"
-    :variant="darkTheme ? 'black' : 'light'"
+    v-bind="dockDropdownProps"
     no-caret
   >
     <template #button-content>
@@ -83,7 +83,7 @@ import { mapState, mapGetters } from 'vuex';
 export default {
   computed: {
     ...mapState(['user', 'settings']),
-    ...mapGetters(['darkTheme', 'isVerticalNav', 'showGameThumbnails']),
+    ...mapGetters(['darkTheme', 'isVerticalNav', 'showGameThumbnails', 'dockDropdownProps']),
   },
 
   methods: {
