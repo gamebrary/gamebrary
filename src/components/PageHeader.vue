@@ -35,7 +35,10 @@ Elevate your gaming experience with PlayStats – because your gaming journey is
   <header :class="[darkTheme ? 'bg-dark' : 'bg-light', `nav-${navPosition}`]" class="p-1">
     <main-menu />
 
-    <div :class="['align-items-center d-flex ml-auto', isVerticalNav ? 'h-100 flex-column' : '']">
+    <div 
+      v-if="!isVerticalNav"
+      class="align-items-center d-flex ml-auto h-100 flex-column"
+    >
         <portal-target name="headerActions" multiple />
     </div>
   </header>

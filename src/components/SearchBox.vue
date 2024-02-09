@@ -1,5 +1,6 @@
 <template lang="html">
   <b-form
+    class="small-container"
     @submit.prevent="search"
   >
     <b-input-group>

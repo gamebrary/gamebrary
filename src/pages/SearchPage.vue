@@ -4,7 +4,28 @@
       <h3>Search</h3>
     </portal>
 
-    <SearchBox :loading="loading" />
+    <div class="d-flex">
+      <SearchBox :loading="loading" />
+
+      <div>
+        <b-button
+          v-if="showPreviousButton"
+          @click="prev"
+        >
+          <i class="fa-solid fa-caret-left" aria-hidden="true" />
+          Prev
+        </b-button>
+
+        <b-button
+          class="ml-3"
+          v-if="searchResults.length === pageSize"
+          @click="next"
+        >
+          Next
+          <i class="fa-solid fa-caret-right" aria-hidden="true" />
+        </b-button>
+      </div>
+    </div>
 
     <header class="mb-3 d-flex justify-content-between bg-danger">
       <!-- <b-button v-b-modal.filters>
@@ -14,24 +35,6 @@
 
       <search-filters /> -->
     </header>
-
-    <b-button
-      v-if="showPreviousButton"
-      @click="prev"
-    >
-      <i class="fa-solid fa-caret-left" aria-hidden="true" />
-      Prev
-    </b-button>
-
-    <b-button
-      class="ml-3"
-      v-if="searchResults.length === pageSize"
-      @click="next"
-    >
-      Next
-      <i class="fa-solid fa-caret-right" aria-hidden="true" />
-    </b-button>
-
 
     <masonry
       gutter="16px"

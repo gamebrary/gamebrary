@@ -14,7 +14,7 @@
       </span>
     </template>
 
-    <b-dropdown-form>
+    <b-dropdown-form style="width: auto">
       <b-form-checkbox
         switch
         @change="toggleTheme"

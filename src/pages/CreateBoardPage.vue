@@ -1,7 +1,7 @@
 <template lang="html">
   <b-form
     @submit.prevent="createBoard"
-    class="pb-3 d-flex flex-column"
+    class="small-container pb-3 d-flex flex-column"
   >
     <PageTitle title="Create board" />
     

@@ -19,7 +19,7 @@
         </template>
 
         <div
-          class="small-container d-flex pt-1 bg-white justify-content-between align-items-center"
+          class="d-flex pt-1 bg-white justify-content-between align-items-center"
           style="position: sticky; top: -16px; z-index: 1"
         >
           <b-form-input

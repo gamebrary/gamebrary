@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="page-container">
+  <div class="small-container">
     <PageTitle title="Games">
       <game-selector
         trigger-text="Add games"
