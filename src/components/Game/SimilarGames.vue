@@ -10,7 +10,7 @@
       <masonry
         v-if="allGames.length"
         gutter="16px"
-        :cols="{ default: 3, 1400: 5, 1200: 6, 768: 3 }"
+        :cols="{ default: 3, 1200: 6, 768: 3 }"
       >
         <game-card-search
           v-for="game in allGames"

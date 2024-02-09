@@ -9,44 +9,48 @@
         <div class="text-center">
           <b-avatar
             :src="avatarImage"
-            class="mx-auto my-3"
+            class="mx-auto mt-5 mb-3"
             size="200"
           />
 
-          <br />
+          <h3>@{{ profile.userName }}</h3>
 
-          <p :class="['lead', wallpaperImage ? 'text-white' : '']">@{{ profile.userName }}</p>
+          <strong v-if="profile.name">{{ profile.name }}</strong>
 
-          {{ profile.name }}<template v-if="profile.bio"> / </template>
-          <p class="text-info">{{ profile.bio }}</p>
-          <p>{{ profile.location }}</p>
-          <b-button
-            v-if="profile.twitter"
-            :href="`https://twitter.com/${profile.twitter}`"
-            target="_blank"
-            style="color: #00acee"
-            v-b-tooltip.hover
-            title="Twitter"
-            class="mr-2"
-          >
-            <i class="fab fa-twitter fa-fw" aria-hidden />
-          </b-button>
+          <p v-if="profile.location">
+            <i class="fa-solid fa-location-dot" />
+            {{ profile.location }}
+          </p>
 
+          <p v-if="profile.bio" class="text-subtle">{{ profile.bio }}</p>
+          
           <b-button
             v-if="profile.website"
             :href="profile.website"
             target="_blank"
-            v-b-tooltip.hover
             title="Website"
-            class="mr-2"
+            variant="link"
           >
-            <i class="fa-solid fa-link fa-fw" />
+            {{ profile.website }}
+          </b-button>
+          
+          <b-button
+            v-if="profile.twitter"
+            :href="`https://twitter.com/${profile.twitter}`"
+            target="_blank"
+            title="X"
+            variant="transparent"
+          >
+            <i class="fa-brands fa-x-twitter fa-fw" />
+            {{ profile.twitter }}
           </b-button>
         </div>
 
         <!-- <b-button :to="{ name: 'profiles' }">
           View other profiles
         </b-button> -->
+
+        <pre>{{ userBoards }}</pre>
         <b-row class="mt-4">
           <b-col
             v-for="board in userBoards"
@@ -159,10 +163,10 @@ export default {
           .catch((e) => {});
       }
 
-      if (this.profile?.wallpaper) {
-        this.wallpaperImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', this.profile?.wallpaper)
-          .catch((e) => {});
-      }
+      // if (this.profile?.wallpaper) {
+      //   this.wallpaperImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', this.profile?.wallpaper)
+      //     .catch((e) => {});
+      // }
 
       this.loading = false;
     },

@@ -1,3 +1,4 @@
+<!-- TODO: add features page -->
 <!-- TODO: integrate with keap -->
 <!-- TODO: make all components pascal case -->
 <!-- TODO: hook up remaining status indicator places -->

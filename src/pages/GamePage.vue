@@ -40,7 +40,7 @@
       <b-col
         cols="12"
         md="6"
-        lg="7"
+        lg="8"
         xl="5"
       >
         <div>
