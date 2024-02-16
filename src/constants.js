@@ -1,3 +1,4 @@
+// TODO: audit these
 export const IMAGE_SIZE_1080P = 't_1080p_2x'; // 1920 x 1080	fit, center gravity
 export const IMAGE_SIZE_720P = 't_720p_2x'; // 1280 x 720	fit, center gravity
 export const IMAGE_SIZE_COVER_BIG = 't_cover_big_2x'; // 264 x 374	fit

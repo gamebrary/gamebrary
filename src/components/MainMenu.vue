@@ -1,4 +1,4 @@
-<!-- TODO: get colorized icons for active state -->
+<!-- TODO: get better (and) colorized icons for active state -->
 <!-- TODO: bring settings to nav, remove page. -->
 <!-- TODO: highlight menu item if active -->
 <template>

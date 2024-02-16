@@ -1,7 +1,11 @@
 <template>
-  <b-dropdown v-if="user" v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }" title="Games"
-    :variant="isGamePage || $route.name === 'games' ? darkTheme ? 'outline-success' : 'outline-dark' : null"
-    :toggle-class="isGamePage ? 'px-2 py-0' : null" v-bind="dockDropdownProps">
+  <b-dropdown
+    v-if="user"
+    v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
+    title="Games"
+    :toggle-class="isGamePage ? 'px-2 py-0' : null"
+    v-bind="dockDropdownProps"
+  >
     <template #button-content>
       <!-- TODO: fix this -->
       <div class="d-flex align-items-center">
