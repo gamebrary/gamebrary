@@ -3,6 +3,7 @@
     v-if="user"
     v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
     title="Preferences"
+    ref="settingsDropdown"
     v-bind="dockDropdownProps"
     no-caret
   >
@@ -33,6 +34,62 @@
         </span>
       </b-form-checkbox>
     </b-dropdown-form>
+
+    <b-form-select
+      :value="navPosition"
+      :options="options"
+      @change="setNavPosition"
+    />
+
+    <section class="mb-3">
+        <p class="mt-2">Menu position</p>
+
+        <div class="bg-light p-2 rounded" style="width: 140px;">
+          <b-button
+            block
+            :variant="navPosition === 'top' ? 'primary' : 'light'"
+            size="sm"
+            class="mb-1"
+            @click="setNavPosition('top')"
+          >
+            <i class="fa fa-arrow-up" />
+          </b-button>
+
+          <div class="d-flex align-items-start">
+            <b-button
+              block
+              size="sm"
+              class="m-0 py-5 d-flex flex-column align-items-center"
+              :variant="navPosition === 'left' ? 'primary' : 'light'"
+              @click="setNavPosition('left')"
+            >
+              <i class="fa fa-arrow-left" />
+            </b-button>
+
+            <span class="w-100" />
+
+            <b-button
+              block
+              size="sm"
+              class="m-0 py-5 d-flex flex-column align-items-center"
+              :variant="navPosition === 'right' ? 'primary' : 'light'"
+              @click="setNavPosition('right')"
+            >
+              <i class="fa fa-arrow-right" />
+            </b-button>
+          </div>
+
+          <b-button
+            block
+            :variant="navPosition === 'bottom' ? 'primary' : 'light'"
+            size="sm"
+            class="mt-1"
+            @click="setNavPosition('bottom')"
+          >
+            <i class="fa fa-arrow-down" />
+          </b-button>
+        </div>
+      </section>
 
     <b-dropdown-item
       :to="{ name: 'settings' }"
@@ -81,12 +138,38 @@
 import { mapState, mapGetters } from 'vuex';
 
 export default {
+  data() {
+    return {
+      options: [
+        { value: 'top', text: 'Top' },
+        { value: 'right', text: 'Right' },
+        { value: 'bottom', text: 'Bottom' },
+        { value: 'left', text: 'Left' },
+      ],
+    };
+  },
+
   computed: {
     ...mapState(['user', 'settings']),
-    ...mapGetters(['darkTheme', 'isVerticalNav', 'showGameThumbnails', 'dockDropdownProps']),
+    ...mapGetters(['darkTheme', 'isVerticalNav', 'showGameThumbnails', 'dockDropdownProps', 'navPosition']),
   },
 
   methods: {
+    async setNavPosition(navPosition) {
+      this.$refs.settingsDropdown?.hide();
+
+      try {
+        await this.$store.dispatch('SAVE_SETTINGS', {
+          ...this.settings,
+          navPosition,
+        });
+      } catch (e) {
+        this.$bvToast.toast('There was an error saving your settings', { variant: 'danger' });
+      }
+
+      this.saving = false;
+    },
+
     async toggleTheme() {
       const { settings } = this;
       const darkTheme = settings?.darkTheme || false;
