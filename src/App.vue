@@ -1,3 +1,4 @@
+<!-- TODO: fix merge conflict bad merge, restore menu position and age rating -->
 <!-- TODO: add features page -->
 <!-- TODO: integrate with keap -->
 <!-- TODO: make all components pascal case -->
@@ -58,7 +59,7 @@ export default {
     ...mapGetters(['darkTheme', 'isVerticalNav', 'navPosition']),
 
     style() {
-      const backgroundImage = ['game', 'board'].includes(this.$route?.name) && this.backgroundImageUrl
+      const backgroundImage = ['game', 'board', 'profile'].includes(this.$route?.name) && this.backgroundImageUrl
         ? `background-image: url('${this.backgroundImageUrl}');`
         : null;
 
