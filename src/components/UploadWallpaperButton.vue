@@ -9,19 +9,18 @@
       @input="uploadWallpaper"
     />
 
-    <b-button
+    <b-dropdown-item
       :disabled="outOfSpace"
-      :variant="darkTheme ? 'success' : 'primary'"
       block
       @click="triggerFileUpload"
     >
       <b-spinner small v-if="saving" />
 
       <template v-else>
-        <i class="d-sm-none fa-solid fa-cloud-arrow-up" />
-        <span class="d-none d-sm-inline">Upload</span>
+        <i class="fa-solid fa-cloud-arrow-up fa-fw"></i>
+        <span class="ml-2">Upload</span>
       </template>
-    </b-button>
+    </b-dropdown-item>
 
     <b-alert
       v-if="isDuplicate && !saving && file && file.name"

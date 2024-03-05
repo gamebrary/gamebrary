@@ -12,11 +12,12 @@
         <b-img v-if="isGamePage && !isVerticalNav" :src="$options.getImageUrl(game)" :alt="game.name" height="32"
           style="border-radius: 3px;" />
 
-        <i v-else class="fa-solid fa-gamepad fa-fw" />
-
-        <span v-if="!isVerticalNav" class="d-none d-md-inline">
-          <span class="ml-2">{{ gameButtonTitle }}</span>
-        </span>
+        <b-img
+          v-else
+          src="/img/dock-icons/games.png"
+          alt="wikipedia"
+          width="24"
+        />
       </div>
     </template>
 

@@ -14,7 +14,7 @@
 
     <h3 class="mt-5 mb-3">Join the community and start creating your own boards!</h3>
 
-    <div class="d-flex overflow-auto justify-content-center">
+    <div class="d-flex overflow-hidden justify-content-center">
       <profile-card
         v-for="(profile, index) in filteredProfiles"
         :key="profile.userName"

@@ -114,8 +114,6 @@ export default {
 
       return this.user?.uid === this.profile?.uid;
     },
-
-
   },
 
   watch: {
@@ -163,10 +161,10 @@ export default {
           .catch((e) => {});
       }
 
-      // if (this.profile?.wallpaper) {
-      //   this.wallpaperImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', this.profile?.wallpaper)
-      //     .catch((e) => {});
-      // }
+      if (this.profile?.wallpaper) {
+        this.wallpaperImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', this.profile?.wallpaper)
+          .catch((e) => {});
+      }
 
       this.loading = false;
     },

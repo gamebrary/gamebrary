@@ -32,8 +32,8 @@ Elevate your gaming experience with PlayStats – because your gaming journey is
  -->
 
 <template lang="html">
-  <header :class="[darkTheme ? 'bg-dark' : 'bg-light', `nav-${navPosition}`]" class="p-1">
-    <main-menu />
+  <nav :class="[darkTheme ? 'dark' : 'light', `nav-${navPosition}`]" class="p-1">
+    <PageDock />
 
     <div 
       v-if="!isVerticalNav"
@@ -41,16 +41,16 @@ Elevate your gaming experience with PlayStats – because your gaming journey is
     >
         <portal-target name="headerActions" multiple />
     </div>
-  </header>
+  </nav>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import MainMenu from '@/components/MainMenu';
+import PageDock from '@/components/Dock/PageDock';
 
 export default {
   components: {
-    MainMenu,
+    PageDock,
   },
 
   computed: {
@@ -61,7 +61,7 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-header {
+nav {
   display: flex;
   align-items: center;
   border-bottom: 1px solid var(--light);
@@ -70,6 +70,14 @@ header {
   width: calc(100% - 2rem);
   position: fixed;
   z-index: 1;
+  backdrop-filter: saturate(180%) blur(20px);
+  &.dark {
+    background: rgba(53,54,58,.72);
+  }
+  
+  &.light {
+    background: rgba(222,228,231,.72);
+  }
   // background: url('https://static.vecteezy.com/system/resources/previews/026/292/194/original/90s-seamless-pattern-colourful-memphis-style-retro-background-or-retro-80s-wallpaper-free-vector.jpg');
   // background-size: 200px;
   

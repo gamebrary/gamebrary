@@ -6,11 +6,11 @@
     v-bind="dockDropdownProps"
   >
     <template #button-content>
-      <i class="fa-solid fa-tags fa-fw" />
-      
-      <span v-if="!isVerticalNav" class="d-none d-md-inline">
-        Tags
-      </span>
+      <img
+        src="/img/dock-icons/tags.png"
+        alt="wikipedia"
+        width="24"
+      />
     </template>
 
     <b-dropdown-text

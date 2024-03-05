@@ -8,12 +8,12 @@
     no-caret
   >
     <template #button-content>
-      <i class="fas fa-cog fa-fw" />
-      
-      <span v-if="!isVerticalNav" class="d-none d-md-inline">
-        Settings
-      </span>
-    </template>
+        <b-img
+          src="/img/dock-icons/settings.png"
+          alt="wikipedia"
+          width="24"
+        />
+      </template>
 
     <b-dropdown-form style="width: auto">
       <b-form-checkbox
@@ -40,57 +40,7 @@
       :options="options"
       @change="setNavPosition"
     />
-
-    <section class="mb-3">
-        <p class="mt-2">Menu position</p>
-
-        <div class="bg-light p-2 rounded" style="width: 140px;">
-          <b-button
-            block
-            :variant="navPosition === 'top' ? 'primary' : 'light'"
-            size="sm"
-            class="mb-1"
-            @click="setNavPosition('top')"
-          >
-            <i class="fa fa-arrow-up" />
-          </b-button>
-
-          <div class="d-flex align-items-start">
-            <b-button
-              block
-              size="sm"
-              class="m-0 py-5 d-flex flex-column align-items-center"
-              :variant="navPosition === 'left' ? 'primary' : 'light'"
-              @click="setNavPosition('left')"
-            >
-              <i class="fa fa-arrow-left" />
-            </b-button>
-
-            <span class="w-100" />
-
-            <b-button
-              block
-              size="sm"
-              class="m-0 py-5 d-flex flex-column align-items-center"
-              :variant="navPosition === 'right' ? 'primary' : 'light'"
-              @click="setNavPosition('right')"
-            >
-              <i class="fa fa-arrow-right" />
-            </b-button>
-          </div>
-
-          <b-button
-            block
-            :variant="navPosition === 'bottom' ? 'primary' : 'light'"
-            size="sm"
-            class="mt-1"
-            @click="setNavPosition('bottom')"
-          >
-            <i class="fa fa-arrow-down" />
-          </b-button>
-        </div>
-      </section>
-
+  
     <b-dropdown-item
       :to="{ name: 'settings' }"
     >

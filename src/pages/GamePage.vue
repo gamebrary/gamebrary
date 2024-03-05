@@ -13,28 +13,13 @@
     v-else
     :class="[{ 'text-light': darkTheme }, 'game-page']"
   >
-    <game-header />
-
     <b-row>
       <b-col
         cols="12"
         md="6"
         lg="4"
       >
-        <div class="position-relative">
-          <GameRatings class="position-absolute d-flex" style="bottom: 1rem; right: 1rem;" />
-
-          <b-img
-            :src="$options.getImageUrl(cachedGame)"
-            :alt="gameName"
-            class="border d-flex mb-3 w-100"
-            :class="`border-${darkTheme ? 'dark' : 'light'}`"
-            bordered
-            rounded
-          />
-        </div>
-
-        <GameMedia v-if="!loading" />
+        <GameCover />
       </b-col>
 
       <b-col
@@ -335,6 +320,7 @@
         cols="12"
         xl="3"
       >
+        <game-header />
         <GameInBoards class="mb-3" />
         <SimilarGames />
 
@@ -449,14 +435,12 @@ import { setPageTitle } from '@/utils';
 import { mapState, mapGetters } from 'vuex';
 import { WEBSITE_CATEGORIES, GAME_CATEGORIES, PLATFORMS, GAME_DESC_SM_CHAR_COUNT } from '@/constants';
 import AmazonLinks from '@/components/Game/AmazonLinks';
-// import GameDetails from '@/components/Game/GameDetails';
-import GameMedia from '@/components/Game/GameMedia';
+import GameCover from '@/components/Game/GameCover';
 import GamePageTile from '@/components/Game/GamePageTile';
 import GameInBoards from '@/components/Game/GameInBoards';
 import GameProgress from '@/components/Game/GameProgress';
 import GameTagsModal from '@/components/Game/GameTagsModal';
 import GameHeader from '@/components/Game/GameHeader';
-import GameRatings from '@/components/Game/GameRatings';
 import AddRemoveGame from '@/components/AddRemoveGame';
 import SimilarGames from '@/components/Game/SimilarGames';
 // import GameSpeedruns from '@/components/Game/GameSpeedruns';
@@ -471,11 +455,9 @@ export default {
     GameHeader,
     GameProgress,
     AmazonLinks,
-    // GameDetails,
-    GameMedia,
+    GameCover,
     GamePageTile,
     GameInBoards,
-    GameRatings,
     // GameSpeedruns,
     SimilarGames,
     AddRemoveGame,

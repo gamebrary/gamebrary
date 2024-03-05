@@ -1,4 +1,3 @@
-<!-- TODO: fix merge conflict bad merge, restore menu position and age rating -->
 <!-- TODO: add features page -->
 <!-- TODO: integrate with keap -->
 <!-- TODO: make all components pascal case -->

@@ -1,10 +1,9 @@
 <template lang="html">
   <header :class="[darkTheme ? 'border-dark' : 'border-light']">
-    <!-- <b-carousel
+    <b-carousel
       v-if="hasArtworks"
       id="carousel-fade"
       class="cursor-pointer overflow-hidden d-none d-md-block"
-      style="height: 80vh"
       fade
       v-b-modal.mediaModal
       no-hover-pause
@@ -14,7 +13,7 @@
         :key="index"
         :img-src="artwork.url"
       />
-    </b-carousel> -->
+    </b-carousel>
   </header>
 </template>
 

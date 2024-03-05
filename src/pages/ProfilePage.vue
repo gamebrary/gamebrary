@@ -6,66 +6,25 @@
 
     <b-spinner v-if="loading" class="spinner-centered" />
 
-    <form
+    <b-form
       v-else-if="profile"
+      class="pb-3 small-container"
       @submit.prevent="save"
     >
       <b-spinner v-if="uploading" />
 
-      <b-avatar
-        v-else
-        class="mb-3"
-        rounded
-        :src="avatarImage"
-        size="120"
-        @click.native="triggerFileUpload"
-      />
+      <!-- TODO: add v-else -->
 
-      <!-- <b-img :src="wallpaperImage" width="200" rounded /> -->
-
-      <b-modal
-        id="boardWallpaper"
-        size="xl"
-        scrollable
-        hide-footer
-        :header-bg-variant="darkTheme ? 'dark' : 'transparent'"
-        :header-text-variant="darkTheme ? 'white' : 'dark'"
-        :body-bg-variant="darkTheme ? 'dark' : 'transparent'"
-        :body-text-variant="darkTheme ? 'white' : 'dark'"
-      >
-        <template v-slot:modal-header="{ close }">
-          <modal-header
-            title="Choose wallpaper"
-            @close="close"
-          >
-            <upload-wallpaper-button />
-          </modal-header>
-        </template>
-
-        <wallpapers-list
-          selectable
-          @select="selectWallpaper"
+      <div class="text-center mb-5">
+        <b-avatar
+          :src="avatarImage"
+          class="mx-auto d-block mt-5 mb-3 cursor-pointer"
+          size="200"
+          @click.native="triggerFileUpload"
         />
-        <!-- :selected="board.backgroundUrl" -->
-      </b-modal>
 
-      <!-- <b-button v-b-modal.boardWallpaper>
-        set wallpaper
-      </b-button> -->
-
-      <b-form-group
-        v-if="user"
-        label-class="m-0 text-muted"
-        label="User ID"
-        label-for="id"
-      >
-        <b-form-input
-          id="id"
-          readonly
-          v-model="user.uid"
-          class="mb-3"
-        />
-      </b-form-group>
+        <strong>@{{ profile.userName }}</strong>
+      </div>
 
       <b-form-file
         class="d-none file-input"
@@ -192,7 +151,48 @@
         />
       </b-form-group>
 
-      <footer class="mt-3">
+      <!-- TODO: finish wallpaper upload and add options -->
+
+      Wallpaper 
+      <b-img
+        v-if="wallpaperImage"
+        :src="wallpaperImage"
+        rounded
+        fluid
+        class="mb-3"
+      />
+
+      <b-button class="mb-3" v-b-modal.boardWallpaper>
+        {{ wallpaperImage ? 'Change wallpaper' : 'Set wallpaper' }}
+      </b-button>
+
+      <b-modal
+        id="boardWallpaper"
+        size="xl"
+        scrollable
+        hide-footer
+        :header-bg-variant="darkTheme ? 'dark' : 'transparent'"
+        :header-text-variant="darkTheme ? 'white' : 'dark'"
+        :body-bg-variant="darkTheme ? 'dark' : 'transparent'"
+        :body-text-variant="darkTheme ? 'white' : 'dark'"
+      >
+        <template v-slot:modal-header="{ close }">
+          <modal-header
+            title="Choose wallpaper"
+            @close="close"
+          >
+            <upload-wallpaper-button />
+          </modal-header>
+        </template>
+
+        <wallpapers-list
+          selectable
+          @select="selectWallpaper"
+        />
+          <!-- :selected="board.backgroundUrl" -->
+      </b-modal>
+
+      <footer class="my-3">
         <b-button
           variant="primary"
           type="submit"
@@ -202,8 +202,8 @@
         </b-button>
 
         <b-button
-          variant="link"
-          class="text-danger"
+          class="ml-2"
+          variant="danger"
           :disabled="deleting"
           @click="confirmDeleteProfile"
         >
@@ -211,9 +211,9 @@
           <template v-else>Delete profile</template>
         </b-button>
       </footer>
-    </form>
+    </b-form>
 
-    <form
+    <b-form
       v-else
       autocomplete="off"
       @submit.prevent="checkUserNameAvailability"
@@ -274,7 +274,7 @@
       </div>
 
       <hr class="my-3" />
-    </form>
+    </b-form>
   </div>
 </template>
 
@@ -361,6 +361,9 @@ export default {
     async loadWallpaper() {
       try {
         this.wallpaperImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', this.profile?.wallpaper);
+
+        console.log(this.wallpaperImage);
+        if (this.wallpaperImage) this.$bus.$emit('UPDATE_WALLPAPER', this.wallpaperImage);
       } catch (e) {
         this.profile.avatar = null;
         this.save(false);

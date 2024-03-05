@@ -14,12 +14,13 @@
         v-if="status"
         class="position-absolute w-100 h-100 rounded d-flex align-items-center justify-content-center"
         :class="statusClass"
-        style="left: 0; top: 0;"
+          style="left: 0; top: 0;"
       >
         <i
           v-if="status === 'SUCCESS'"
           class="fa-solid fa-fw fa-check"
         />
+        
 
         <b-spinner
           v-else-if="status === 'LOADING'"
@@ -40,7 +41,6 @@
     </b-button>
 
     <BoardsDockDropdown v-if="user" />
-
     <GamesDockDropdown v-if="user" />
     <TagsDockDropdown v-if="user" />
 
@@ -51,11 +51,11 @@
       v-bind="dockDropdownProps"
     >
       <template #button-content>
-        <i class="fa fa-sticky-note fa-fw" aria-hidden="true" />
-
-        <span v-if="!isVerticalNav" class="d-none d-md-inline">
-          Notes
-        </span>
+        <img
+          src="/img/dock-icons/notes.png"
+          alt="wikipedia"
+          width="24"
+        />
       </template>
 
       <b-dropdown-item
@@ -74,11 +74,11 @@
       v-bind="dockDropdownProps"
     >
       <template #button-content>
-        <i class="fa fa-images fa-fw" aria-hidden="true" />
-
-        <span v-if="!isVerticalNav" class="d-none d-md-inline">
-          Wallpapers
-        </span>
+        <img
+            src="/img/dock-icons/wallpapers.png"
+            alt="wikipedia"
+            width="24"
+          />
       </template>
 
       <b-dropdown-item

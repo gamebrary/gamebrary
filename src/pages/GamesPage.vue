@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="small-container">
+  <div>
     <PageTitle title="Games">
       <game-selector
         trigger-text="Add games"
@@ -26,7 +26,7 @@
 
     <b-spinner v-else-if="loading" class="spinner-centered" />
 
-    <template v-else-if="likedGames.length">
+    <div v-else-if="likedGames.length" class="small-container">
       <b-card
           v-for="game in likedGames"
           :bg-variant="darkTheme ? 'black' : 'light'"
@@ -40,7 +40,7 @@
           class="cursor-pointer mb-3"
           @click="$router.push({ name: 'game', params: { id: game.id, slug: game.slug }})"
         />
-    </template>
+    </div>
 
     <empty-state
       v-else

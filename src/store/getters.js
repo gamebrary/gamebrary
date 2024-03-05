@@ -32,11 +32,12 @@ export default {
 
   dockDropdownProps: ({ settings }) => {
     return {
-      variant: settings?.darkTheme ? 'dark' : 'light',
+      variant: 'transparent',
       dropup: settings?.navPosition === 'bottom',
       dropright: settings?.navPosition === 'left',
       dropleft: settings?.navPosition === 'right',
       noCaret: true,
+      toggleClass: 'py-0 px-2',
     };
   },
 

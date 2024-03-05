@@ -6,6 +6,7 @@
     :class="darkTheme ? 'bg-dark' : 'bg-light'"
   >
     <h4 class="mb-2">Found in {{ boardsWithGame.length }} boards</h4>
+    
     <MiniBoard
       v-for="board in boardsWithGame"
       :key="board.id"
