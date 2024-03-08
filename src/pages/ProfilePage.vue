@@ -14,17 +14,29 @@
       <b-spinner v-if="uploading" />
 
       <!-- TODO: add v-else -->
-
       <div class="text-center mb-5">
         <b-avatar
+          v-if="avatarImage"
           :src="avatarImage"
-          class="mx-auto d-block mt-5 mb-3 cursor-pointer"
+          class="mx-auto d-block mt-5 mb-2 cursor-pointer"
           size="200"
           @click.native="triggerFileUpload"
         />
 
+        <b-img
+          src="/img/dock-icons/profile.png"
+          alt="wikipedia"
+          width="120"
+          @click="triggerFileUpload"
+        />
+        <!-- TODO: improve UI when uploading and replacing image -->
+
+        <br />
+
         <strong>@{{ profile.userName }}</strong>
       </div>
+
+      <pre>{{ file  }}</pre>
 
       <b-form-file
         class="d-none file-input"

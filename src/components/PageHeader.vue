@@ -64,7 +64,7 @@ export default {
 nav {
   display: flex;
   align-items: center;
-  border-bottom: 1px solid var(--light);
+  // border-bottom: 1px solid var(--light);
   border-radius: .5rem;
   margin: .5rem;
   width: calc(100% - 2rem);
@@ -87,16 +87,16 @@ nav {
   }
 
   &.nav-bottom {
-    border-bottom: 0;
+    // border-bottom: 0;
     bottom: 0;
     margin: .5rem 1rem;
-    border-top: 1px solid var(--light);
+    // border-top: 1px solid var(--light);
   }
 
   &.nav-left {
     border: 0;
     left: 0;
-    border-right: 1px solid var(--light);
+    // border-right: 1px solid var(--light);
   }
 
   &.nav-right {

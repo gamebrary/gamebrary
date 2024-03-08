@@ -13,7 +13,7 @@
     <b-spinner v-if="loading" class="spinner-centered mt-5" />
 
     <template v-else>
-      <page-header />
+      <page-header v-if="showPageHeader" />
       <router-view class="viewport" />
       <keyboard-shortcuts-modal />
       <markdown-cheatsheet />
@@ -56,6 +56,12 @@ export default {
   computed: {
     ...mapState(['user', 'settings', 'sessionExpired', 'platforms', 'games']),
     ...mapGetters(['darkTheme', 'isVerticalNav', 'navPosition']),
+
+    showPageHeader() {
+      if (['auth', 'home'].includes(this.$route.name) && !this.user) return false;
+      
+      return Boolean(this.user) || this.isPublicRoute;
+    },
 
     style() {
       const backgroundImage = ['game', 'board', 'profile'].includes(this.$route?.name) && this.backgroundImageUrl

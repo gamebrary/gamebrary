@@ -1,19 +1,17 @@
 <template lang="html">
   <section>
     <b-container>
-      <portal to="pageTitle">
-        <b-button
-          v-if="tag.name"
-          rounded
-          class="float-right"
-          variant="transparent"
-          :style="`background-color: ${tag.bgColor}; color: ${tag.textColor}`"
-        >
-          {{ tag.name }}
-        </b-button>
+      <b-button
+        v-if="tag.name"
+        rounded
+        class="float-right"
+        variant="transparent"
+        :style="`background-color: ${tag.bgColor}; color: ${tag.textColor}`"
+      >
+        {{ tag.name }}
+      </b-button>
 
-        <h3 v-else-if="!loading">Edit tag</h3>
-      </portal>
+      <h3 v-else-if="!loading">Edit tag</h3>
 
       <game-selector
         :filter="tag.games"
@@ -154,6 +152,12 @@ export default {
     },
   },
 
+  watch: {
+    tagIndex(oldId, newId) {
+      this.load();
+    },
+  },
+
   async mounted() {
     this.load();
   },
@@ -175,12 +179,18 @@ export default {
     },
 
     async load() {
+      try {
+
+      } catch (error) {
+
+      }
+
       this.loading = true;
       await this.$store.dispatch('LOAD_TAGS');
 
       const { tags, tagIndex } = this;
 
-      this.tag = JSON.parse(JSON.stringify(tags[tagIndex]));
+      this.tag = JSON.parse(JSON.stringify(tags?.[tagIndex]));
 
       if (this.tag?.games?.length > 0) {
         await this.$store.dispatch('LOAD_IGDB_GAMES', this.tag.games);

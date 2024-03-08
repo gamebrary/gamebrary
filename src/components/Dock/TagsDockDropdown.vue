@@ -1,3 +1,5 @@
+<!-- TODO: fix tag buttons -->
+<!-- TODO: add watcher for tag id to reload toag -->
 <template>
   <b-dropdown
     v-if="user"
@@ -8,12 +10,11 @@
     <template #button-content>
       <img
         src="/img/dock-icons/tags.png"
-        alt="wikipedia"
         width="24"
       />
     </template>
 
-    <b-dropdown-text
+    <!-- <b-dropdown-text
         v-for="({ textColor, bgColor, name }, index) in tags"
         :key="name"
         block
@@ -22,7 +23,7 @@
         @click="$router.push({ name: 'tag.edit', params: { id: index } })"
       >
       <span :style="`color: ${textColor}`">{{ name }}</span>
-    </b-dropdown-text>
+    </b-dropdown-text> -->
 
     <!-- <b-dropdown-item
       :to="{ name: 'tags' }"
@@ -33,10 +34,28 @@
 
     <b-dropdown-item
       v-if="user"
+      :to="{ name: 'tags' }"
+    >
+      <img
+        src="/img/dock-icons/tags.png"
+        width="16"
+      />
+      <span class="ml-2">My Tags</span>
+    </b-dropdown-item>
+    
+    <b-dropdown-item
+      v-if="user"
       :to="{ name: 'tag.create' }"
     >
       <i class="fa-regular fa-plus fa-fw" />
       <span class="ml-2">Add tag</span>
+    </b-dropdown-item>
+
+    <b-dropdown-item
+      v-if="user"
+    >
+      <i class="fa-regular fa-plus fa-fw" />
+      <span class="ml-2">Tag game</span>
     </b-dropdown-item>
   </b-dropdown>
 </template>

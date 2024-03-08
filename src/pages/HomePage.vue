@@ -1,7 +1,15 @@
 <template lang="html">
   <div class="text-center">
-    <h1 class="mt-5 mb-2">Gamebrary</h1>
-    <h2 class="mb-5">Elevate Your Play, Organize Your Way!</h2>
+    <h1 class="mb-2">Gamebrary</h1>
+    <h2 class="mb-3">Elevate Your Play, Organize Your Way.</h2>
+
+    <b-button
+        variant="danger"
+        class="mb-5"
+        :to="{ name: 'auth' }"
+      >
+        Join the community!
+    </b-button>
 
     <div class="board-grid">
       <mini-board

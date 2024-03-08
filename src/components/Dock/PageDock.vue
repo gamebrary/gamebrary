@@ -4,13 +4,14 @@
 <template>
   <div class="main-menu h-100 w-100 d-flex" :class="{ 'd-flex flex-column': isVerticalNav }">
     <b-button
+      v-if="!user"
       v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
       v-bind="dockDropdownProps"
       title="Home"
       class="position-relative"
       :to="{ name: 'home' }"
     >
-      <div
+      <!-- <div
         v-if="status"
         class="position-absolute w-100 h-100 rounded d-flex align-items-center justify-content-center"
         :class="statusClass"
@@ -31,7 +32,7 @@
           v-else-if="status === 'ERROR'"
           class="fa-solid fa-fw fa-times"
         />
-      </div>
+      </div> -->
       
       <img
         src="/logo.png"

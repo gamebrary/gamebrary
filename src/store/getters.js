@@ -37,7 +37,7 @@ export default {
       dropright: settings?.navPosition === 'left',
       dropleft: settings?.navPosition === 'right',
       noCaret: true,
-      toggleClass: 'py-0 px-2',
+      toggleClass: 'p-2',
     };
   },
 

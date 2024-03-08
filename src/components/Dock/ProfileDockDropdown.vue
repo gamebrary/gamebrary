@@ -16,10 +16,11 @@
             rounded
           />
 
-          <i
+          <b-img
             v-else
-            class="fa fa-solid fa-user fa-fw"
-            aria-hidden
+            src="/img/dock-icons/profile.png"
+            alt="wikipedia"
+            width="24"
           />
         </template>
       </template>

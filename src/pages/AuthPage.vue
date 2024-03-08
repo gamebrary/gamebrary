@@ -4,7 +4,6 @@
 
     <p class="small">
       {{ authDescription }}
-      <br />
       <b-link @click="newUser = !newUser">{{ authAction }}</b-link>
     </p>
 
@@ -22,6 +21,7 @@
       id="email"
       type="email"
       class="mb-3"
+      autocomplete="email"
       placeholder="Email"
     />
 
@@ -30,6 +30,7 @@
       class="mb-3"
       id="password"
       type="password"
+      autocomplete="new-password"
       placeholder="Password"
     />
 
@@ -52,13 +53,9 @@
     >
       <img
         :src="`img/google-sign-${newUser ? 'up' : 'in'}-button-light.svg`"
-        alt="Sign up with Google"
+        alt="Sign in with Google"
       />
     </b-button>
-
-
-
-    <section v-show="!loading" id="auth" class="py-2" />
   </div>
 </template>
 
@@ -94,13 +91,13 @@ export default {
 
     authDescription() {
       return this.newUser
-        ? 'Create an account below. Already have an account?'
-        : 'Please login below. Need an account?';
+        ? 'Already have an account?'
+        : 'Need an account?';
     },
 
     authAction() {
       return this.newUser
-        ? 'Login to your account'
+        ? 'Login'
         : 'Create account';
     },
   },
@@ -138,18 +135,20 @@ export default {
         });
     },
 
-    loginWithEmail() {
-      this.loading = true;
-      const auth = getAuth(app);
+    async loginWithEmail() {
+      try {
+        this.loading = true;
+        const auth = getAuth(app);
 
-      signInWithEmailAndPassword(auth, this.email, this.password)
-        .then(({ user }) => {
-          this.signInSuccess(user)
-        })
-        .catch((error) => {
-          this.handleError(error.code)
-          this.loading = false;
-        });
+        const data = await signInWithEmailAndPassword(auth, this.email, this.password)
+
+        console.log('login with email data', data);
+
+        this.signInSuccess(data.user);
+      } catch (error) {
+        this.handleError(error.code)
+        this.loading = false;
+      }
     },
 
     loginWithGoogle() {
@@ -191,7 +190,10 @@ export default {
 
       getRedirectResult(auth)
         .then((result) => {
-          // console.log('getRedirectResult', result);
+          if (!result) return;
+
+          console.log('result', result);
+
           // This gives you a Google Access Token. You can use it to access Google APIs.
           const credential = GoogleAuthProvider.credentialFromResult(result);
           // console.log('credential', credential);
@@ -206,6 +208,7 @@ export default {
           // IdP data available using getAdditionalUserInfo(result)
           // ...
         }).catch((error) => {
+          console.log('error getRedirectResult', error);
           // Handle Errors here.
           const errorCode = error.code;
           const errorMessage = error.message;

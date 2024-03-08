@@ -3,9 +3,11 @@
     :class="['list rounded pr-2', listView, { dragging, 'unique': singleList, 'pr-3': isLastList && isPublicBoard }]"
     :id="listIndex"
   >
+    <!-- :bg-variant="darkTheme ? 'dark' : 'light'" -->
     <b-card
       no-body
-      :bg-variant="darkTheme ? 'dark' : 'light'"
+      bg-variant="transparent"
+      content-class="bg-danger"
       :text-variant="darkTheme ? 'light' : 'dark'"
     >
       <b-dropdown
@@ -319,6 +321,7 @@ export default {
   // max-height: calc(100vh - 200px);
   // min-height: 200px;
   width: calc(300px + 1rem);
+
   // overflow-y: auto;
 
   @media(max-width: 400px) {
