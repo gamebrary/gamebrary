@@ -1,7 +1,7 @@
 <template lang="html">
   <b-link
     class="d-inline-flex"
-    @click="$router.push({ name: 'public.profile', params: { userName: profile.userName } })"
+    :to="{ name: 'public.profile', params: { userName: profile.userName } }"
   >
     <b-avatar
       v-b-tooltip.hover
