@@ -50,7 +50,6 @@
           View other profiles
         </b-button> -->
 
-        <pre>{{ userBoards }}</pre>
         <b-row class="mt-4">
           <b-col
             v-for="board in userBoards"

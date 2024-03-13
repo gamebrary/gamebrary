@@ -138,14 +138,15 @@ export default {
   },
 
   async LOAD_USER_PUBLIC_BOARDS(context, userId) {
-    const query = query(
+    const q = query(
       collection(db, "boards"),
       where("owner", "==", userId),
       where("isPublic", "==", true)
     );
-    const querySnapshot = await getDocs(query);
+    
+    const querySnapshot = await getDocs(q);
 
-    return querySnapshot.docs.map((doc) => doc.data());
+    return querySnapshot.docs?.map((doc) => doc.data());
   },
 
   async LOAD_PUBLIC_PROFILE_BY_USERNAME(context, userName) {
