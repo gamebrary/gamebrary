@@ -16,14 +16,39 @@
     <b-row>
       <b-col
         cols="12"
-        md="6"
+        sm="6"
+        md="5"
         lg="4"
+        xl="3"
       >
         <GameCover />
+        <GameMedia />
+
+        <game-page-tile
+        v-if="newsHighlights"
+        size="quarter"
+        title="News"
+      >
+        <ul>
+          <li
+            v-for="(highlight, index) in newsHighlights"
+            :key="index"
+            class="d-flex align-items-center news"
+          >
+            <b-link
+              class="text-truncate"
+              :to="{ name: 'game.news', params: { id: game.id, slug: game.slug } }"
+            >
+              {{ highlight}}
+            </b-link>
+          </li>
+        </ul>
+      </game-page-tile>
       </b-col>
 
       <b-col
         cols="12"
+        sm="6"
         md="6"
         lg="8"
         xl="5"
@@ -327,30 +352,6 @@
       </b-col>
     </b-row>
 
-    <div class="d-flex flex-column flex-md-row">
-      <game-page-tile
-        v-if="newsHighlights"
-        size="quarter"
-        title="News"
-      >
-        <ul>
-          <li
-            v-for="(highlight, index) in newsHighlights"
-            :key="index"
-            class="d-flex align-items-center news"
-          >
-            <b-link
-              class="text-truncate"
-              :to="{ name: 'game.news', params: { id: game.id, slug: game.slug } }"
-            >
-              {{ highlight}}
-            </b-link>
-          </li>
-        </ul>
-      </game-page-tile>
-    </div>
-
-
     <add-remove-game />
 
     <b-container>
@@ -443,6 +444,7 @@ import GameTagsModal from '@/components/Game/GameTagsModal';
 import GameHeader from '@/components/Game/GameHeader';
 import AddRemoveGame from '@/components/AddRemoveGame';
 import SimilarGames from '@/components/Game/SimilarGames';
+import GameMedia from '@/components/Game/GameMedia';
 // import GameSpeedruns from '@/components/Game/GameSpeedruns';
 import { STEAM_CATEGORY_ID, GOG_CATEGORY_ID, TWITTER_CATEGORY_ID, IMAGE_SIZE_SCREENSHOT_HUGE, IGDB_QUERIES } from '@/constants';
 import { getImageUrl } from '@/utils';
@@ -456,6 +458,7 @@ export default {
     GameProgress,
     AmazonLinks,
     GameCover,
+    GameMedia,
     GamePageTile,
     GameInBoards,
     // GameSpeedruns,

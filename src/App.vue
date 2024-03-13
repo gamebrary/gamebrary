@@ -1,3 +1,5 @@
+<!-- TODO: finish boards transparency -->
+<!-- TODO: add itch.io affiliates link -->
 <!-- TODO: add features page -->
 <!-- TODO: integrate with keap -->
 <!-- TODO: make all components pascal case -->
@@ -64,7 +66,7 @@ export default {
     },
 
     style() {
-      const backgroundImage = ['game', 'board', 'profile'].includes(this.$route?.name) && this.backgroundImageUrl
+      const backgroundImage = ['game', 'board', 'profile', 'public.profile'].includes(this.$route?.name) && this.backgroundImageUrl
         ? `background-image: url('${this.backgroundImageUrl}');`
         : null;
 
@@ -126,7 +128,6 @@ export default {
     },
 
     updateWallpaperUrl(value) {
-      console.log('updateWallpaperUrl', value);
       this.backgroundImageUrl = value;
     },
 

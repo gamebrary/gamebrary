@@ -1,5 +1,5 @@
 <template lang="html">
-  <section :style="`background-image: url(${wallpaperImage})`">
+  <section>
     <b-container>
       <b-spinner v-if="loading" class="spinner-centered" />
 
@@ -121,10 +121,18 @@ export default {
         this.loadProfile();
       }
     },
+
+    wallpaperImage(value) {
+      if (value) this.$bus.$emit('UPDATE_WALLPAPER', value);
+    },
   },
 
   mounted() {
     this.loadProfile();
+  },
+
+  destroyed() {
+    this.$bus.$emit('CLEAR_WALLPAPER');
   },
 
   methods: {

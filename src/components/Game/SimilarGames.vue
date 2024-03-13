@@ -1,6 +1,10 @@
 <template>
   <!-- TODO: add pagination, limit to 6 per page -->
-  <div class="bg-light p-3 rounded" :class="darkTheme ? 'bg-dark' : 'bg-light'">
+  <div
+    v-if="allGames.length"
+    class="bg-light p-3 rounded"
+    :class="darkTheme ? 'bg-dark' : 'bg-light'"
+  >
     <h3>You may also like</h3>
 
     <div

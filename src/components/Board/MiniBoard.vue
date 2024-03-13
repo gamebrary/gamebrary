@@ -1,3 +1,4 @@
+<!-- TODO: highlight game in board when clicked from here -->
 <template lang="html">
   <b-card
     class="cursor-pointer overflow-hidden"
