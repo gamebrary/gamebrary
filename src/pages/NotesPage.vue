@@ -16,7 +16,7 @@
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <template v-else>
-      <game-selector
+      <!-- <game-selector
           v-if="!isEmpty"
           title="Select game to add a note"
           :variant="darkTheme ? 'success' : 'primary'"
@@ -25,7 +25,7 @@
         >
         <i class="d-sm-none fa-solid fa-plus" />
         <span class="d-none d-sm-inline">Create note</span>
-      </game-selector>
+      </game-selector> -->
 
       <empty-state
         v-if="isEmpty"
@@ -75,15 +75,19 @@
             gutter="8px"
           >
             <b-card
-              v-for="({ note, game }, index) in filteredNotes"
+              v-for="note in notes"
               body-class="p-2"
               :bg-variant="darkTheme ? 'dark' : 'light'"
               :text-variant="darkTheme ? 'light' : 'dark'"
-              :key="index"
+              :key="note"
               class="cursor-pointer mb-2"
-              @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug }})"
             >
-              <b-card-text v-if="game">
+              <h2>{{ note.title }}</h2>
+              <p v-html="note.body" />
+              <!-- TODO: use correct route -->
+              <!-- @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug }})" -->
+              
+              <!-- <b-card-text v-if="game">
                 <b-img
                   :src="$options.getImageUrl(game, $options.IMAGE_SIZE_COVER_SMALL)"
                   height="80"
@@ -95,7 +99,7 @@
                 </div>
 
                 <p class="note-text small" v-if="note" v-html="note" />
-              </b-card-text>
+              </b-card-text> -->
             </b-card>
           </masonry>
       </template>
@@ -134,29 +138,30 @@ export default {
       return !Object.keys(this.notes).length;
     },
 
-    filteredNotes() {
-      const notes = Object.entries(this.notes).map(([gameId, note]) => ({
-        note,
-        game: this.cachedGames?.[gameId],
-      }));
+    // filteredNotes() {
+    //   const notes = Object.entries(this.notes).map(([gameId, note]) => ({
+    //     note,
+    //     game: this.cachedGames?.[gameId],
+    //   }));
 
-      const searchText = this.searchText?.toLowerCase();
+    //   const searchText = this.searchText?.toLowerCase();
 
-      if (searchText) {
-        return notes.filter(({ game, note }) => {
-          const noteIsMatch = note?.toLowerCase()?.includes(searchText);
-          const titleIsMatch = game?.name?.toLowerCase()?.includes(searchText);
+    //   if (searchText) {
+    //     return notes.filter(({ game, note }) => {
+    //       const noteIsMatch = note?.toLowerCase()?.includes(searchText);
+    //       const titleIsMatch = game?.name?.toLowerCase()?.includes(searchText);
 
-          return noteIsMatch || titleIsMatch;
-        });
-      }
+    //       return noteIsMatch || titleIsMatch;
+    //     });
+    //   }
 
-      return notes;
-    },
+    //   return notes;
+    // },
   },
 
   mounted() {
-    this.loadGames();
+    // this.loadGames();
+    this.loadNotes();
   },
 
   methods: {
@@ -166,21 +171,25 @@ export default {
       this.$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } });
     },
 
-    async loadGames() {
-      if (this.isEmpty) return;
+    loadNotes() {
 
-      const gamesList = Object.keys(this.notes);
-
-      this.loading = true;
-
-      try {
-        await this.$store.dispatch('LOAD_IGDB_GAMES', gamesList);
-      } catch (e) {
-        this.$bvToast.toast('Error loading games', { variant: 'error' });
-      }
-
-      this.loading = false;
     },
+
+    // async loadGames() {
+    //   if (this.isEmpty) return;
+
+    //   const gamesList = Object.keys(this.notes);
+
+    //   this.loading = true;
+
+    //   try {
+    //     await this.$store.dispatch('LOAD_IGDB_GAMES', gamesList);
+    //   } catch (e) {
+    //     this.$bvToast.toast('Error loading games', { variant: 'error' });
+    //   }
+
+    //   this.loading = false;
+    // },
   },
 };
 </script>

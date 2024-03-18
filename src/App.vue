@@ -1,3 +1,5 @@
+<!-- TODO: add like button to all game covers -->
+<!-- TODO: finish notifications -->
 <!-- TODO: finish boards transparency -->
 <!-- TODO: add itch.io affiliates link -->
 <!-- TODO: add features page -->

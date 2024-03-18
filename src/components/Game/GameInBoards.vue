@@ -1,10 +1,5 @@
 <template lang="html">
-  <div
-    v-if="user && boardsWithGame.length"
-    class="p-3 rounded"
-    style="max-height: 50vh; overflow-y: auto;"
-    :class="darkTheme ? 'bg-dark' : 'bg-light'"
-  >
+  <div v-if="user && boardsWithGame.length">
     <h4 class="mb-2">Found in {{ boardsWithGame.length }} boards</h4>
     
     <MiniBoard
@@ -12,6 +7,7 @@
       :key="board.id"
       :board="board"
       :gameId="game.id"
+      class="mb-3"
       @click.native="handleBoardClick(board.id)"
     />
   </div>

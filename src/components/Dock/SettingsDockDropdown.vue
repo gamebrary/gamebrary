@@ -35,11 +35,15 @@
       </b-form-checkbox>
     </b-dropdown-form>
 
-    <b-form-select
-      :value="navPosition"
-      :options="options"
-      @change="setNavPosition"
-    />
+    <div class="p-1">
+      <span>Menu position</span>
+      
+      <b-form-select
+        :value="navPosition"
+        :options="options"
+        @change="setNavPosition"
+      />
+    </div>
   
     <b-dropdown-item
       :to="{ name: 'settings' }"
@@ -52,12 +56,19 @@
       href="https://github.com/romancm/gamebrary/"
       target="_blank"
     >
-      <i class="fa-brands fa-github fa-fw"></i>
+      <b-img
+        src="/img/dock-icons/github.png"
+        width="24"
+      />
       GitHub
     </b-dropdown-item>
 
     <b-dropdown-item v-b-modal.keyboard-shortcuts>
-      <i class="fa-solid fa-keyboard fa-fw" />
+      <b-img
+        src="/img/dock-icons/shortcuts.png"
+        width="24"
+      />
+
       <span class="ml-2">Keyboard Shortcuts</span>
     </b-dropdown-item>
 
@@ -65,22 +76,27 @@
       :to="{ name: 'help' }"
       id="help"
     >
-      <i class="fa-regular fa-circle-question fa-fw" aria-hidden="true" />
+      <b-img
+        src="/img/dock-icons/help.png"
+        width="24"
+      />
       <span class="ml-2">Help</span>
     </b-dropdown-item>
 
-    <b-dropdown-item disabled>
+    <!-- TODO: add i18n -->
+    <!-- <b-dropdown-item disabled>
       <i class="fa-solid fa-language" />
       <span class="ml-2">Change language</span>
-    </b-dropdown-item>
+    </b-dropdown-item> -->
 
-    <b-dropdown-item
+    <!-- TODO: finish steam integration -->
+    <!-- <b-dropdown-item
       :to="{ name: 'steam.settings' }"
       disabled
     >
       <i class="fab fa-steam fa-fe" aria-hidden />
       <span class="ml-2">Steam</span>
-    </b-dropdown-item>
+    </b-dropdown-item> -->
   </b-dropdown>
 </template>
 

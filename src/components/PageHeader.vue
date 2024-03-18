@@ -94,14 +94,14 @@ nav {
   }
 
   &.nav-left {
-    border: 0;
+    // border: 0;
     left: 0;
     // border-right: 1px solid var(--light);
   }
 
   &.nav-right {
     border: 0;
-    border-left: 1px solid var(--light);
+    // border-left: 1px solid var(--light);
   }
 
   &.nav-left, &.nav-right {
@@ -111,9 +111,9 @@ nav {
     flex-direction: column;
   }
 
-  &.bg-dark {
-    border-color: var(--black);
-  }
+  // &.bg-dark {
+  //   border-color: var(--black);
+  // }
 }
 
 // .header-toggle {

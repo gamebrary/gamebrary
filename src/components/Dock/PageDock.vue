@@ -44,29 +44,7 @@
     <BoardsDockDropdown v-if="user" />
     <GamesDockDropdown v-if="user" />
     <TagsDockDropdown v-if="user" />
-
-    <b-dropdown
-      v-if="user"
-      v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
-      title="Notes"
-      v-bind="dockDropdownProps"
-    >
-      <template #button-content>
-        <img
-          src="/img/dock-icons/notes.png"
-          alt="wikipedia"
-          width="24"
-        />
-      </template>
-
-      <b-dropdown-item
-        :to="{ name: 'notes' }"
-      >
-      <i class="fa-regular fa-rectangle-list fa-fw"></i>
-        <span class="ml-2">My notes</span>
-      </b-dropdown-item>
-
-    </b-dropdown>
+    <NotesDockDropdown v-if="user" />
 
     <b-dropdown
       v-if="user"
@@ -76,16 +54,20 @@
     >
       <template #button-content>
         <img
-            src="/img/dock-icons/wallpapers.png"
-            alt="wikipedia"
-            width="24"
-          />
+          src="/img/dock-icons/wallpapers.png"
+          alt="Wallpapers"
+          width="24"
+        />
       </template>
 
       <b-dropdown-item
         :to="{ name: 'wallpapers' }"
       >
-      <i class="fa-regular fa-rectangle-list fa-fw"></i>
+        <img
+          src="/img/dock-icons/my-wallpapers.png"
+          alt="Wallpapers"
+          width="24"
+        />
         <span class="ml-2">My wallpapers</span>
       </b-dropdown-item>
 
@@ -93,24 +75,31 @@
     </b-dropdown>
 
     <SettingsDockDropdown v-if="user" />
-    <ProfileDockDropdown v-if="user" />
 
-    <div v-else class="ml-auto d-flex align-items">
+    <div class="ml-auto d-flex align-items">
       <b-button
         v-bind="dockDropdownProps"
         :to="{ name: 'search' }"
         v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
         title="Search"
       >
-        <i class="fa fa-search fa-fw" aria-hidden="true" />
+        <!-- <i class="fa fa-search fa-fw" aria-hidden="true" /> -->
+        <img
+          src="/img/dock-icons/search.png"
+          alt="wikipedia"
+          width="24"
+        />
       </b-button>
 
+      <ProfileDockDropdown v-if="user" />
+
       <b-button
-          variant="danger"
-          class="ml-2"
-          :to="{ name: 'auth' }"
-        >
-          Get started <span class="d-none d-sm-inline"> — it's free!</span>
+        v-else
+        variant="danger"
+        class="ml-2"
+        :to="{ name: 'auth' }"
+      >
+        Get started <span class="d-none d-sm-inline"> — it's free!</span>
       </b-button>
     </div>
   </div>
@@ -118,13 +107,13 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import { getImageUrl } from '@/utils';
-import { STATUS_VARIANTS } from '@/constants';
+// import { STATUS_VARIANTS } from '@/constants';
 import UploadWallpaperButton from '@/components/UploadWallpaperButton';
 import BoardsDockDropdown from '@/components/Dock/BoardsDockDropdown';
 import ProfileDockDropdown from '@/components/Dock/ProfileDockDropdown';
 import SettingsDockDropdown from '@/components/Dock/SettingsDockDropdown';
 import TagsDockDropdown from '@/components/Dock/TagsDockDropdown';
+import NotesDockDropdown from '@/components/Dock/NotesDockDropdown';
 import GamesDockDropdown from '@/components/Dock/GamesDockDropdown';
 
 export default {
@@ -135,6 +124,7 @@ export default {
     ProfileDockDropdown,
     SettingsDockDropdown,
     TagsDockDropdown,
+    NotesDockDropdown,
     GamesDockDropdown,
   },
 

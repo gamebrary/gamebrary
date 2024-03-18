@@ -20,14 +20,14 @@
     <b-dropdown-group v-if="isGamePage" class="p-1 bg-light m-1 rounded">
       <!-- TODO: style this better -->
       <b-img
-        v-if="isGamePage && !isVerticalNav"
+        v-if="isGamePage && !isVerticalNav && gameName"
         :src="$options.getImageUrl(game)"
-        :alt="game.name"
+        :alt="gameName"
         height="32"
         style="border-radius: 3px;"
       />
 
-      {{ game.name }}
+      <span>{{ gameName }}</span>
 
       <b-dropdown-item-button @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })">
         Add note
@@ -80,8 +80,12 @@ export default {
       return ['game.notes','game','game.news'].includes(this.$route.name);
     },
 
+    gameName() {
+      return this.game?.name;
+    },
+
     gameButtonTitle() {
-      if (this.isGamePage) return this.game.name;
+      if (this.isGamePage) return this.game?.name;
 
       return 'Games';
     }

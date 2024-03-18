@@ -172,9 +172,15 @@ export default {
   },
 
   async LOAD_NOTES({ commit, state }) {
-    const docSnap = await getDoc(doc(db, "notes", state.user.uid));
+    const q = query(collection(db, "notes-v2"), where("owner", "==", state.user.uid));
+    
+    const querySnapshot = await getDocs(q);
+    
+    const notes = querySnapshot.docs.map((doc) => doc.data());
 
-    commit("SET_NOTES", docSnap.data());
+    console.log(notes);
+    
+    commit("SET_NOTES", notes);
   },
 
   async LOAD_TAGS({ commit, state }) {
@@ -219,6 +225,15 @@ export default {
 
   async SAVE_NOTES({ state }) {
     await setDoc(doc(db, "notes", state.user.uid), state.notes, { merge: true });
+  },
+
+  async CREATE_NOTE_V2(context, note) {
+    const docRef = await addDoc(collection(db, "notes-v2"), note);
+
+    console.log(docRef);
+
+    // commit("ADD_BOARD", newBoard);
+    return note;
   },
 
   async SAVE_GAMES({ state }) {

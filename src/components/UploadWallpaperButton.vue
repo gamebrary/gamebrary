@@ -17,7 +17,12 @@
       <b-spinner small v-if="saving" />
 
       <template v-else>
-        <i class="fa-solid fa-cloud-arrow-up fa-fw"></i>
+        <img
+          src="/img/dock-icons/upload-wallpaper.png"
+          alt="Wallpapers"
+          width="24"
+        />
+
         <span class="ml-2">Upload</span>
       </template>
     </b-dropdown-item>

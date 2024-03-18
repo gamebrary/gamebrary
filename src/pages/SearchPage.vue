@@ -4,28 +4,7 @@
       <h3>Search</h3>
     </portal>
 
-    <div class="d-flex">
-      <SearchBox :loading="loading" />
-
-      <div>
-        <b-button
-          v-if="showPreviousButton"
-          @click="prev"
-        >
-          <i class="fa-solid fa-caret-left" aria-hidden="true" />
-          Prev
-        </b-button>
-
-        <b-button
-          class="ml-3"
-          v-if="searchResults.length === pageSize"
-          @click="next"
-        >
-          Next
-          <i class="fa-solid fa-caret-right" aria-hidden="true" />
-        </b-button>
-      </div>
-    </div>
+    <SearchBox :loading="loading" />
 
     <header class="mb-3 d-flex justify-content-between bg-danger">
       <!-- <b-button v-b-modal.filters>
@@ -48,16 +27,18 @@
     </masonry>
 
     <b-button
-      v-if="searchResults.length === pageSize"
+      v-if="searchResults.length <= pageSize"
       block
       class="mb-2"
-      @click="next"
+      @click="loadMore"
     >
       <b-spinner v-if="loading" />
       
       <span v-else>
         More results
       </span>
+      <pre>{{ searchResults.length }}</pre>
+      <pre>{{ pageSize }}</pre>
     </b-button>
 
     <p
@@ -173,7 +154,12 @@ export default {
   },
 
   methods: {
-    next() {
+    clearResults() {
+      this.searchResults = [];
+      console.log('results cleared');
+    },
+
+    loadMore() {
       this.offset = this.offset + this.pageSize;
       this.search();
     },
@@ -185,6 +171,10 @@ export default {
 
     async search() {
       this.loading = true;
+
+      if (this.searchResults.length > 0 && this.offset === 0) {
+        this.clearResults();
+      }
 
       const search = this.query
         ? `search "${this.query}";`
@@ -198,10 +188,15 @@ export default {
         ? `where ${this.filterBy} = (${this.filterValue});`
         : '';
 
-      this.searchResults = await this.$store.dispatch('IGDB', {
+      const searchResults = await this.$store.dispatch('IGDB', {
         path: 'games',
         data: `${search} ${IGDB_QUERIES.SEARCH} limit ${this.pageSize}; offset ${this.offset}; ${filter};`,
       });
+
+      this.searchResults = [
+        ...this.searchResults,
+        ...searchResults,
+      ]
 
       this.loading = false;
     },

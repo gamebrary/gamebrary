@@ -34,7 +34,7 @@
       :header-text-variant="darkTheme ? 'light' : 'dark'"
       :body-bg-variant="darkTheme ? 'dark' : 'transparent'"
       :body-text-variant="darkTheme ? 'light' : 'dark'"
-      @hidden="activeIndex = null"
+      @hidden="activeIndex = 0"
     >
       <template v-slot:modal-header="{ close }">
         <modal-header
@@ -68,14 +68,16 @@
             allowfullscreen
           />
 
-          <b-img
-            v-else
-            rounded
-            fluid
-            :src="selectedMedia.imageUrl"
-            class="cursor-pointer w-auto"
-            style="max-height: 75vh;"
-          />
+          <a v-else :href="selectedMedia.imageUrl">
+            <b-img
+              rounded
+              fluid
+              :src="selectedMedia.imageUrl"
+              class="cursor-pointer w-auto"
+              target="_blank"
+              style="max-height: 75vh;"
+            />
+          </a>
         </div>
       </div>
     </b-modal>
@@ -88,7 +90,7 @@ import { mapGetters, mapState } from 'vuex';
 export default {
   data() {
     return {
-      activeIndex: null,
+      activeIndex: 0,
       saving: false,
     };
   },

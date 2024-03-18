@@ -13,7 +13,7 @@ const routes = [
     path: '/boards',
     component: () => import(/* webpackChunkName: "games" */ '@/pages/BoardsPage'),
     meta: {
-      title: 'My games',
+      title: 'My boards',
       public: true,
     },
   },
@@ -22,7 +22,7 @@ const routes = [
     path: '/public-boards',
     component: () => import(/* webpackChunkName: "games" */ '@/pages/PublicBoardsPage'),
     meta: {
-      title: 'My games',
+      title: 'My boards',
       public: true,
     },
   },
@@ -158,6 +158,23 @@ const routes = [
       public: true,
     },
   },
+  {
+    name: 'create.note',
+    path: '/notes/create',
+    component: () => import(/* webpackChunkName: "notes" */ '@/pages/CreateNotePage'),
+    meta: {
+      title: 'Create note',
+    },
+  },
+  // {
+  //   name: 'note',
+  //   path: '/notes/:id',
+  //   component: () => import(/* webpackChunkName: "notes" */ '@/pages/NotePage'),
+  //   meta: {
+  //     title: 'Notes',
+  //     public: true,
+  //   },
+  // },
   {
     name: 'profiles',
     path: '/profiles',

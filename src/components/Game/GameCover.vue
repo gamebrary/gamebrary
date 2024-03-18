@@ -2,6 +2,18 @@
 <template>
   <div>
     <div class="position-relative">
+      <!-- TODO: put like button in component, pass gameId -->
+      <!-- TODO: if liked, show dropdown when clicked, options: remove from your games -->
+      <b-button
+        variant="transparent"
+        squared
+        class="ml-2 mt-1 p-0 position-absolute"
+        :disabled="!user"
+        @click="$bus.$emit('SELECT_GAME', gameId)"
+      >
+        <i :class="[isLiked ? 'fa-solid': 'fa-regular' , 'fa-heart text-danger']" />
+      </b-button>
+
       <GameRatings class="position-absolute d-flex" style="bottom: 1rem; right: 1rem;" />
     
       <b-img
@@ -36,8 +48,16 @@ export default {
   },
 
   computed: {
-    ...mapState(['game', 'cachedGames', 'games']),
+    ...mapState(['game', 'cachedGames', 'games', 'user']),
     ...mapGetters(['darkTheme', 'gameNews', 'gameLinks', 'gameGenres']),
+
+    gameId() {
+      return this.$route.params.id;
+    },
+
+    isLiked() {
+      return this.games?.[this.gameId];
+    },
 
     cachedGame() {
       return this.cachedGames?.[Number(this.$route.params.id)] || this.game;

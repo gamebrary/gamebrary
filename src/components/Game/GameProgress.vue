@@ -1,5 +1,5 @@
 <template lang="html">
-  <div v-if="user">
+  <div v-if="user" style="width: 200px">
     {{ progress }}% Completed
 
     <b-form-input

@@ -6,16 +6,17 @@
     <!-- :bg-variant="darkTheme ? 'dark' : 'light'" -->
     <b-card
       no-body
-      bg-variant="transparent"
-      content-class="bg-danger"
+      class="semi-transparent"
+      :class="darkTheme ? 'dark' : 'light'"
       :text-variant="darkTheme ? 'light' : 'dark'"
     >
       <b-dropdown
         v-if="isBoardOwner"
         id="dropdown-1"
         :variant="darkTheme ? 'dark' : 'light'"
-        class="mt-1 mx-2"
+        class="mt-1 mx-2 semi-transparent"
         size="sm"
+        style="z-index: 1"
         no-caret
         block
       >
@@ -364,6 +365,18 @@ export default {
         padding-bottom: .5rem;
       }
     }
+  }
+}
+
+.semi-transparent {
+  backdrop-filter: saturate(180%) blur(20px);
+
+  &.dark {
+    background: rgba(53,54,58,.72);
+  }
+  
+  &.light {
+    background: rgba(222,228,231,.72);
   }
 }
 

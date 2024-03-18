@@ -1,5 +1,5 @@
 <template lang="html">
-  <header :class="[darkTheme ? 'border-dark' : 'border-light']">
+  <header :class="[darkTheme ? 'border-dark' : 'border-light']" class="rounded overflow-hidden mb-3">
     <b-carousel
       v-if="hasArtworks"
       id="carousel-fade"

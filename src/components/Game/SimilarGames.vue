@@ -1,34 +1,25 @@
+<!-- TODO: add pagination, limit to 6 per page -->
 <template>
-  <!-- TODO: add pagination, limit to 6 per page -->
-  <div
-    v-if="allGames.length"
-    class="bg-light p-3 rounded"
-    :class="darkTheme ? 'bg-dark' : 'bg-light'"
-  >
+  <div v-if="allGames.length">
     <h3>You may also like</h3>
 
-    <div
-      class="overflow-auto"
-      style="max-height: 50vh;"
+    <masonry
+      v-if="allGames.length"
+      gutter="16px"
+      :cols="{ default: 3, 1200: 6, 768: 3 }"
     >
-      <masonry
-        v-if="allGames.length"
-        gutter="16px"
-        :cols="{ default: 3, 1200: 6, 768: 3 }"
-      >
-        <game-card-search
-          v-for="game in allGames"
-          :game="game"
-          :key="game && game.id"
-        />
-      </masonry>
-    </div>
+      <game-card-search
+        v-for="game in allGames"
+        :game="game"
+        :key="game && game.id"
+      />
+    </masonry>
   </div>
 </template>
 
 <script>
 import GameCardSearch from '@/components/GameCards/GameCardSearch';
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import { getImageUrl } from '@/utils';
 
 export default {
@@ -40,7 +31,6 @@ export default {
 
   computed: {
     ...mapState(['game']),
-    ...mapGetters(['darkTheme']),
 
     allGames() {
       return [

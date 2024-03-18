@@ -127,7 +127,7 @@ export default {
 
           this.$store.commit('SET_SESSION_EXPIRED', false);
           this.$store.commit('SET_USER', user);
-          this.$router.push({ name: 'home' });
+          this.$router.replace({ name: 'boards' });
         })
         .catch((error) => {
           this.handleError(error.code)
@@ -232,7 +232,7 @@ export default {
       // if (additionalUserInfo?.isNewUser) this.$store.dispatch('SEND_WELCOME_EMAIL', additionalUserInfo);
       this.$store.commit('SET_SESSION_EXPIRED', false);
       this.$store.commit('SET_USER', user);
-      this.$router.push({ name: 'home' });
+      this.$router.replace({ name: 'boards' });
       this.$bus.$emit('BOOT');
     },
   },
