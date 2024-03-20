@@ -25,7 +25,12 @@
     </b-dropdown-item>
 
     <b-dropdown-item :to="{ name: 'notes' }">
-      <i class="fa-regular fa-rectangle-list fa-fw"></i>
+      <img
+          src="/img/dock-icons/my-notes.png"
+          alt="My notes"
+          width="24"
+      />
+
       <span class="ml-2">My notes</span>
     </b-dropdown-item>
   </b-dropdown>
