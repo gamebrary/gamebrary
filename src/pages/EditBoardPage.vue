@@ -386,14 +386,13 @@ export default {
       this.loading = false;
     },
 
+    // TODO: fix wallpaper not updating after selecting
     selectWallpaper(wallpaper) {
-      console.log(wallpaper);
       this.board.backgroundUrl = wallpaper;
     },
 
     async saveBoard(close = false) {
       try {
-        console.log('saveBoard')
         this.saving = true;
 
         const { board, lists } = this;
@@ -414,7 +413,7 @@ export default {
 
         this.saving = false;
       } catch (e) {
-        console.log(e)
+        // TODO: show error alert
       }
     },
   },

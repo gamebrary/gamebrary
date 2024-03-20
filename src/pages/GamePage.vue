@@ -264,7 +264,7 @@
           </div>
 
           <div v-if="gamePlatforms" class="d-inline-block w-100 mb-3">
-            <h4>Available for</h4>
+            <h3>Available for</h3>
 
             <b-link
               v-for="platform in gamePlatforms"
@@ -656,7 +656,7 @@ export default {
     // },
 
     gameId() {
-      return this.$route.params.id;
+      return this.$route.params?.id;
     },
 
     artworks() {

@@ -229,6 +229,7 @@ export default {
 
   async CREATE_NOTE_V2(context, note) {
     const docRef = await addDoc(collection(db, "notes-v2"), note);
+    // TODO: finish notes v2
 
     console.log(docRef);
 

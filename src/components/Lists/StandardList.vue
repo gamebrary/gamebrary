@@ -105,6 +105,7 @@ export default {
 
   methods: {
     selectGame(gameId) {
+      // TODO: finish this
       if (this.list.games.includes(gameId)) {
         // console.log('remove');
       } else {

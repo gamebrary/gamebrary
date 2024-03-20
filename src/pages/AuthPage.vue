@@ -122,12 +122,11 @@ export default {
 
       createUserWithEmailAndPassword(auth, this.email, this.password)
         .then((userCredential) => {
-          // console.log('userCredential', userCredential);
-          const user = userCredential?.user;
-
           this.$store.commit('SET_SESSION_EXPIRED', false);
-          this.$store.commit('SET_USER', user);
+          this.$store.commit('SET_USER', userCredential?.user);
           this.$router.replace({ name: 'boards' });
+          // TODO: Add to Keap
+          // TODO: Send welcome email
         })
         .catch((error) => {
           this.handleError(error.code)
@@ -140,9 +139,7 @@ export default {
         this.loading = true;
         const auth = getAuth(app);
 
-        const data = await signInWithEmailAndPassword(auth, this.email, this.password)
-
-        console.log('login with email data', data);
+        const data = await signInWithEmailAndPassword(auth, this.email, this.password);
 
         this.signInSuccess(data.user);
       } catch (error) {
@@ -157,7 +154,7 @@ export default {
 
       signInWithPopup(auth, provider)
         .then((result) => {
-          // console.log('result', result);
+          // TODO: clean this up, inspect data available, save as needed
           // This gives you a Google Access Token. You can use it to access the Google API.
           const credential = GoogleAuthProvider.credentialFromResult(result);
           const token = credential.accessToken;
