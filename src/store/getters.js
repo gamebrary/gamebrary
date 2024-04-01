@@ -144,12 +144,12 @@ export default {
     // console.log('speedRunVideos', speedRunVideos);
 
     return [
+      gameCover,
       ...igdbArtworks,
       ...igdbScreenshots,
       ...gogImages,
       ...steamScreenshots,
       ...wikipediaImages,
-      gameCover,
       ...speedRunVideos,
       ...igdbVideos,
       ...steamVideos,

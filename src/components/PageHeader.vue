@@ -69,7 +69,7 @@ nav {
   margin: .5rem;
   width: calc(100% - 2rem);
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   backdrop-filter: saturate(180%) blur(20px);
   &.dark {
     background: rgba(53,54,58,.72);

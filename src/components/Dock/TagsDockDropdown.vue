@@ -37,8 +37,8 @@
       :to="{ name: 'tags' }"
     >
       <img
-        src="/img/dock-icons/tags.png"
-        width="16"
+        src="/img/dock-icons/my-tags.png"
+        width="24"
       />
       <span class="ml-2">My Tags</span>
     </b-dropdown-item>
@@ -47,14 +47,20 @@
       v-if="user"
       :to="{ name: 'tag.create' }"
     >
-      <i class="fa-regular fa-plus fa-fw" />
+      <img
+        src="/img/dock-icons/new-tag.png"
+        width="24"
+      />
       <span class="ml-2">Add tag</span>
     </b-dropdown-item>
 
     <b-dropdown-item
       v-if="user"
     >
-      <i class="fa-regular fa-plus fa-fw" />
+      <img
+        src="/img/dock-icons/tag-game.png"
+        width="24"
+      />
       <span class="ml-2">Tag game</span>
     </b-dropdown-item>
   </b-dropdown>
