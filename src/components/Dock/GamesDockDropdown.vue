@@ -7,24 +7,19 @@
     v-bind="dockDropdownProps"
   >
     <template #button-content>
-      <!-- TODO: fix this -->
-      <div class="d-flex align-items-center">
-        <b-img
-          src="/img/dock-icons/games.png"
-          width="24"
-        />
-      </div>
+      <b-img
+        src="/img/dock-icons/games.png"
+        width="24"
+      />
     </template>
 
-
     <b-dropdown-group v-if="isGamePage" class="p-1 bg-light m-1 rounded">
-      <!-- TODO: style this better -->
       <b-img
         v-if="isGamePage && !isVerticalNav && gameName"
         :src="$options.getImageUrl(game)"
         :alt="gameName"
-        height="32"
-        style="border-radius: 3px;"
+        height="50"
+        class="mr-2"
       />
 
       <span>{{ gameName }}</span>

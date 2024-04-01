@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="d-flex w-100 align-items-center mb-2 tier-list">
+  <div class="d-flex w-100 align-items-start mb-2 tier-list">
     <b-dropdown
       v-if="user && isBoardOwner"
       size="lg"
@@ -51,7 +51,7 @@
       ghost-class="card-placeholder"
       drag-class="border-success"
       chosen-class="border-primary"
-      class="tier-game w-100 d-flex"
+      class="tier-game w-100 d-flex ml-2"
       filter=".drag-filter"
       delay="50"
       animation="500"
@@ -215,7 +215,6 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
 .tier-game {
-  height: 100px;
   overflow-y: hidden;
   overflow-x: auto;
 }

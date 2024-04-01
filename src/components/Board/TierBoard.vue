@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="d-flex flex-column align-items-start rounded pt-2 w-100">
+  <div class="d-flex flex-column align-items-start rounded w-100">
     <h3
       v-if="isVerticalNav"
       :class="{ 'text-white': hasBackground || darkTheme }"
@@ -7,7 +7,7 @@
       {{ board.name }}
     </h3>
 
-    <tier-list
+    <TierList
       v-for="(list, listIndex) in board.lists"
       :list="list"
       :allGames="allGames"
