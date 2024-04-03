@@ -176,11 +176,21 @@ export default {
     
     const querySnapshot = await getDocs(q);
     
-    const notes = querySnapshot.docs.map((doc) => doc.data());
+    const notes = querySnapshot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
 
     console.log(notes);
     
     commit("SET_NOTES", notes);
+  },
+
+  async LOAD_NOTE({ state }, noteId) {
+    console.log(noteId);
+    const docSnap = await getDoc(doc(db, "notes-v2", noteId));
+
+    return docSnap.data();
   },
 
   async LOAD_TAGS({ commit, state }) {

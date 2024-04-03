@@ -45,14 +45,15 @@
       </template>
 
       <div class="game-media" :class="{ 'selected': activeIndex !== null }">
-        <div>
+        <div class="overflow-auto thumbnails">
           <b-img
             v-for="({ imageUrl }, index) in gameMedia"
             :key="index"
             :src="imageUrl"
             rounded
             fluid
-            class="mb-3"
+            class="mb-3 cursor-pointer border"
+            :class="{ 'border border-danger': activeIndex === index }"
             @click="viewMedia(index)"
           />
         </div>
@@ -150,13 +151,8 @@ export default {
     },
   },
 
-  // // TODO: remove
-  // mounted () {
-  //   this.viewMedia(0);
-  // },
-
   methods: {
-    viewMedia(index) {
+    viewMedia(index = 0) {
       this.activeIndex = index;
       this.$bvModal.show('mediaModal');
     },
@@ -194,5 +190,9 @@ export default {
   &.selected {
     grid-template-columns: 200px 1fr;
   }
+}
+
+.thumbnails {
+  max-height: calc(100vh - 129px);
 }
 </style>

@@ -27,7 +27,7 @@
     </masonry>
 
     <b-button
-      v-if="searchResults.length <= pageSize"
+      v-if="searchResults.length === pageSize"
       block
       class="mb-2"
       @click="loadMore"
@@ -37,8 +37,6 @@
       <span v-else>
         More results
       </span>
-      <pre>{{ searchResults.length }}</pre>
-      <pre>{{ pageSize }}</pre>
     </b-button>
 
     <p

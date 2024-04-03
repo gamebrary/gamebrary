@@ -1,4 +1,3 @@
-<!-- TODO: add edit note page -->
 <template lang="html">
   <div>
     <b-form-input
@@ -106,7 +105,7 @@
     </b-link>
 
     <footer class="mt-3">
-      <b-button variant="primary" @click="saveNote">
+      <b-button variant="primary" @click="createNote">
         Save note
       </b-button>
     </footer>
@@ -158,9 +157,13 @@ export default {
   },
 
   methods: {
-    saveNote() {
+    createNote() {
+      const dateCreated = Date.now();
+
       const payload = {
         ...this.note,
+        dateCreated,
+        lastUpdated: dateCreated,
         owner: this.user?.uid,
       }
 

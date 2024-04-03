@@ -81,7 +81,9 @@
               :text-variant="darkTheme ? 'light' : 'dark'"
               :key="note"
               class="cursor-pointer mb-2"
+              @click="openNote(note.id)"
             >
+              <!-- <pre>{{ note }}</pre> -->
               <h2>{{ note.title }}</h2>
               <p v-html="note.body" />
               <!-- TODO: use correct route -->
@@ -161,7 +163,7 @@ export default {
 
   mounted() {
     // this.loadGames();
-    this.loadNotes();
+    // this.loadNotes();
   },
 
   methods: {
@@ -171,9 +173,13 @@ export default {
       this.$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } });
     },
 
-    loadNotes() {
-
+    openNote(id) {
+      this.$router.push({ name: 'note', params: { id }});
     },
+
+    // loadNotes() {
+
+    // },
 
     // async loadGames() {
     //   if (this.isEmpty) return;

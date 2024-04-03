@@ -37,7 +37,11 @@
     </b-dropdown-item>
 
     <b-dropdown-item :to="{ name: 'search' }">
-      <i class="fa fa-search fa-fw" aria-hidden="true" />
+      <img
+        src="/img/dock-icons/search.png"
+        width="24"
+      />
+
       Find games
     </b-dropdown-item>
 
