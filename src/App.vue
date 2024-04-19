@@ -6,7 +6,7 @@
 <!-- TODO: integrate with keap -->
 <!-- TODO: make all components pascal case -->
 <!-- TODO: hook up remaining status indicator places -->
-<template>
+<template> 
   <main
     id="app"
     :class="[!backgroundColor && darkTheme ? 'dark bg-black text-light' : 'light', `nav-${navPosition}`]"
@@ -202,7 +202,7 @@ export default {
       padding-top: 65px;
 
       .viewport {
-        height: calc(100svh - 65px);
+        height: calc(100svh - 80px);
       }
     }
 
