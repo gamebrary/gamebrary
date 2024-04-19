@@ -1,26 +1,47 @@
 {
-    "database": {
-        "rules": "firebase/database.rules.json"
+  "database": {
+    "rules": "firebase/database.rules.json"
+  },
+  "firestore": {
+    "rules": "firebase/firestore.rules",
+    "indexes": "firebase/firestore.indexes.json"
+  },
+  "hosting": {
+    "public": "dist",
+    "ignore": [
+      "firebase/firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "storage": {
+    "rules": "firebase/storage.rules"
+  },
+  "emulators": {
+    "functions": {
+      "port": 5001
     },
     "firestore": {
-        "rules": "firebase/firestore.rules",
-        "indexes": "firebase/firestore.indexes.json"
+      "port": 8080
+    },
+    "database": {
+      "port": 9000
     },
     "hosting": {
-        "public": "dist",
-        "ignore": [
-            "firebase/firebase.json",
-            "**/.*",
-            "**/node_modules/**"
-        ],
-        "rewrites": [
-            {
-                "source": "**",
-                "destination": "/index.html"
-            }
-        ]
+      "port": 5000
     },
     "storage": {
-        "rules": "firebase/storage.rules"
-    }
+      "port": 9199
+    },
+    "ui": {
+      "enabled": true
+    },
+    "singleProjectMode": true
+  }
 }
