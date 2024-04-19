@@ -32,12 +32,13 @@ export default {
 
   dockDropdownProps: ({ settings }) => {
     return {
-      variant: 'transparent',
+      variant: settings?.darkTheme ? 'dark' : 'light',
       dropup: settings?.navPosition === 'bottom',
       dropright: settings?.navPosition === 'left',
       dropleft: settings?.navPosition === 'right',
       noCaret: true,
-      toggleClass: 'p-2',
+      toggleClass: 'p-0 border-0',
+      style: 'width: 44px;',
     };
   },
 
