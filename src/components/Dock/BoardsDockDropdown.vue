@@ -2,15 +2,10 @@
     <b-dropdown
       v-b-tooltip.hover.auto= "{ delay: { show: 500, hide: 50 } }"
       :title="boardButtonTitle"
-      :variant="isBoardPage ? 'white' : 'transparent'"
       v-bind="dockDropdownProps"
     >
       <template #button-content>
-        <img
-          src="/img/dock-icons/boards.png"
-          alt="wikipedia"
-          width="24"
-        />
+        <i class="fa-regular fa-cards-blank"></i>
       </template>
 
       <b-dropdown-item

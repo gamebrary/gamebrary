@@ -8,10 +8,7 @@
     v-bind="dockDropdownProps"
   >
     <template #button-content>
-      <img
-        src="/img/dock-icons/tags.png"
-        width="24"
-      />
+      <i class="fa-regular fa-tag"></i>
     </template>
 
     <!-- <b-dropdown-text
@@ -36,10 +33,7 @@
       v-if="user"
       :to="{ name: 'tags' }"
     >
-      <img
-        src="/img/dock-icons/my-tags.png"
-        width="24"
-      />
+      <i class="fa-light fa-tags"></i>
       <span class="ml-2">My Tags</span>
     </b-dropdown-item>
     
@@ -47,10 +41,15 @@
       v-if="user"
       :to="{ name: 'tag.create' }"
     >
-      <img
+      <span class="fa-stack">
+        <i class="fa-light fa-tag fa-stack-1x"></i>
+        <i class="fab fa-plus"></i>
+      </span>
+
+      <!-- <img
         src="/img/dock-icons/new-tag.png"
         width="24"
-      />
+      /> -->
       <span class="ml-2">Add tag</span>
     </b-dropdown-item>
 

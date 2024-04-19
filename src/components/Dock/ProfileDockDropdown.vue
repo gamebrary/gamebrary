@@ -4,7 +4,7 @@
       title="Profile"
       v-bind="dockDropdownProps"
       :class="isVerticalNav ? 'mt-auto' : 'ml-auto'"
-      :toggle-class="avatarImage ? 'p-0' : null"
+      variant="transparent"
       no-caret
     >
       <template #button-content>
@@ -12,7 +12,7 @@
           <b-avatar
             v-if="avatarImage"
             :src="avatarImage"
-            size="40"
+            size="36"
             rounded
           />
 

@@ -6,30 +6,18 @@
     v-bind="dockDropdownProps"
   >
     <template #button-content>
-      <img
-          src="/img/dock-icons/notes.png"
-          alt="wikipedia"
-          width="24"
-      />
+      <i class="fa-regular fa-note-sticky"></i>
     </template>
 
     <b-dropdown-item
       :to="{ name: 'create.note' }"
     >
-      <img
-        src="/img/dock-icons/new-note.png"
-        alt="Wallpapers"
-        width="24"
-      />
+    <i class="fa-regular fa-note-medical"></i>
       <span class="ml-2">New note</span>
     </b-dropdown-item>
 
     <b-dropdown-item :to="{ name: 'notes' }">
-      <img
-          src="/img/dock-icons/my-notes.png"
-          alt="My notes"
-          width="24"
-      />
+      <i class="fa-regular fa-notes"></i>
 
       <span class="ml-2">My notes</span>
     </b-dropdown-item>

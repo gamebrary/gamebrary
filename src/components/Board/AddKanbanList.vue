@@ -1,8 +1,8 @@
 <template lang="html">
-  <div class="flex-shrink-0">
+  <div class="flex-shrink-0 pr-4">
     <b-card
       v-if="active || empty"
-      class="mr-2"
+      class="mr-3"
       :bg-variant="darkTheme ? 'dark' : 'light'"
       :text-variant="darkTheme ? 'light' : 'dark'"
       no-body

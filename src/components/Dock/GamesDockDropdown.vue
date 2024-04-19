@@ -3,14 +3,10 @@
     v-if="user"
     v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
     title="Games"
-    :toggle-class="isGamePage ? 'px-2 py-0' : null"
     v-bind="dockDropdownProps"
   >
     <template #button-content>
-      <b-img
-        src="/img/dock-icons/games.png"
-        width="24"
-      />
+      <i class="fa-regular fa-game-console-handheld"></i>
     </template>
 
     <b-dropdown-group v-if="isGamePage" class="p-1 bg-light m-1 rounded">
@@ -34,15 +30,6 @@
     <b-dropdown-item :to="{ name: 'games' }">
       <i class="fa-solid fa-heart fa-fw" />
       <span class="ml-2">My games</span>
-    </b-dropdown-item>
-
-    <b-dropdown-item :to="{ name: 'search' }">
-      <img
-        src="/img/dock-icons/search.png"
-        width="24"
-      />
-
-      Find games
     </b-dropdown-item>
 
     <!-- TODO: Add progresses page -->

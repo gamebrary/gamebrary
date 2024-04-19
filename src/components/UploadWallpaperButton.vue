@@ -17,11 +17,7 @@
       <b-spinner small v-if="saving" />
 
       <template v-else>
-        <img
-          src="/img/dock-icons/upload-wallpaper.png"
-          alt="Wallpapers"
-          width="24"
-        />
+        <i class="fa-light fa-upload"></i>
 
         <span class="ml-2">Upload</span>
       </template>

@@ -8,12 +8,8 @@
     no-caret
   >
     <template #button-content>
-        <b-img
-          src="/img/dock-icons/settings.png"
-          alt="wikipedia"
-          width="24"
-        />
-      </template>
+      <i class="fa-regular fa-gear"></i>
+    </template>
 
     <b-dropdown-form style="width: auto">
       <b-form-checkbox

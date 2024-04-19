@@ -3,7 +3,6 @@
     :class="['list rounded pr-2', listView, { dragging, 'unique': singleList, 'pr-3': isLastList && isPublicBoard }]"
     :id="listIndex"
   >
-    <!-- :bg-variant="darkTheme ? 'dark' : 'light'" -->
     <b-card
       no-body
       class="semi-transparent"
@@ -15,6 +14,7 @@
         id="dropdown-1"
         :variant="darkTheme ? 'dark' : 'light'"
         class="mt-1 mx-2 semi-transparent"
+        toggle-class="semi-transparent"
         size="sm"
         style="z-index: 1"
         no-caret

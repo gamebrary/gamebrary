@@ -2,7 +2,7 @@
 <!-- TODO: bring settings to nav, remove page. -->
 <!-- TODO: highlight menu item if active -->
 <template>
-  <div class="main-menu h-100 w-100 d-flex" :class="{ 'd-flex flex-column': isVerticalNav }">
+  <div class="pl-2 h-100 w-100 d-flex" :class="{ 'd-flex flex-column': isVerticalNav }">
     <b-button
       v-if="!user"
       v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
@@ -41,67 +41,53 @@
       />
     </b-button>
 
-    <BoardsDockDropdown v-if="user" />
-    <GamesDockDropdown v-if="user" />
-    <TagsDockDropdown v-if="user" />
-    <NotesDockDropdown v-if="user" />
+    <BoardsDockDropdown v-if="user" class="mr-1" />
+    <GamesDockDropdown v-if="user" class="mr-1" />
+    <TagsDockDropdown v-if="user" class="mr-1" />
+    <NotesDockDropdown v-if="user" class="mr-1" />
 
     <b-dropdown
       v-if="user"
+      class="mr-1"
       v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
       title="Wallpapers"
       v-bind="dockDropdownProps"
     >
       <template #button-content>
-        <img
-          src="/img/dock-icons/wallpapers.png"
-          alt="Wallpapers"
-          width="24"
-        />
+        <i class="fa-regular fa-image"></i>
       </template>
 
       <b-dropdown-item
         :to="{ name: 'wallpapers' }"
       >
-        <img
-          src="/img/dock-icons/my-wallpapers.png"
-          alt="Wallpapers"
-          width="24"
-        />
+      <i class="fa-solid fa-images"></i>
         <span class="ml-2">My wallpapers</span>
       </b-dropdown-item>
 
       <UploadWallpaperButton v-if="user" />
     </b-dropdown>
 
-    <SettingsDockDropdown v-if="user" />
+    <SettingsDockDropdown v-if="user" class="mr-1" />
 
-    <div class="ml-auto d-flex align-items">
-      <b-button
-        v-bind="dockDropdownProps"
-        :to="{ name: 'search' }"
-        v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
-        title="Search"
-      >
-        <!-- <i class="fa fa-search fa-fw" aria-hidden="true" /> -->
-        <img
-          src="/img/dock-icons/search.png"
-          alt="wikipedia"
-          width="24"
-        />
-      </b-button>
+    <b-button
+      v-bind="dockDropdownProps"
+      :to="{ name: 'search' }"
+      class="mr-1"
+      v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
+      title="Search"
+    >
+      <i class="fa-regular fa-search"></i>
+    </b-button>
 
-      <ProfileDockDropdown v-if="user" />
+    <ProfileDockDropdown v-if="user" class="ml-auto" />
 
-      <b-button
-        v-else
-        variant="danger"
-        class="ml-2"
-        :to="{ name: 'auth' }"
-      >
-        Get started <span class="d-none d-sm-inline"> — it's free!</span>
-      </b-button>
-    </div>
+    <b-button
+      v-else
+      variant="danger"
+      :to="{ name: 'auth' }"
+    >
+      Get started <span class="d-none d-sm-inline"> — it's free!</span>
+    </b-button>
   </div>
 </template>
 
