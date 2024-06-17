@@ -1,0 +1,31 @@
+.dropdown-menu {
+  max-height: 90vh;
+}
+
+.dropdown-item {
+  border-radius: 0.5rem;
+}
+
+.toast-body {
+  height: 40px;
+  text-align: center;
+}
+
+.dark {
+  .dropdown-menu {
+    background-color: var(--dark);
+
+    .dropdown-item {
+      color: var(--light);
+
+      &:hover {
+        color: unset;
+      }
+    }
+  }
+}
+
+.form-control {
+  width: 480px;
+  max-width: 100%;
+}
