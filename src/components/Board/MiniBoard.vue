@@ -29,25 +29,11 @@
         </b-badge>
       </header>
 
-      <TierMiniBoard
-        v-if="isTierBoard"
+      <component
+        :is="miniBoardComponent"
         :board="formattedBoard"
         :gameId="gameId"
       />
-
-      <StandardMiniBoard
-        v-else-if="isStandardBoard"
-        :board="formattedBoard"
-        :gameId="gameId"
-      />
-      
-      <KanbanMiniBoard
-        v-else
-        :gameId="gameId"
-        :board="formattedBoard"
-      />
-
-      <!-- TODO: use dynamic component -->
     </div>
   </b-card>
 </template>
@@ -89,6 +75,13 @@ export default {
     ...mapState(['cachedGames']),
     ...mapGetters(['darkTheme']),
 
+    miniBoardComponent() {
+      if (this.board?.type === BOARD_TYPE_TIER) return 'TierMiniBoard';
+      if (this.board?.type === BOARD_TYPE_STANDARD) return 'StandardMiniBoard';
+
+      return 'KanbanMiniBoard';
+    },
+
     formattedBoard() {
       const formattedLists = this.board?.lists?.map((list) => ({
           games: list.games?.map((game) => {
@@ -117,14 +110,6 @@ export default {
 
     showPublicIndicator() {
       return this.$route.name !== 'home' && this.board?.isPublic;
-    },
-
-    isStandardBoard() {
-      return this.board?.type === BOARD_TYPE_STANDARD;
-    },
-
-    isTierBoard() {
-      return this.board?.type === BOARD_TYPE_TIER;
     },
 
     backgroundSyle() {
