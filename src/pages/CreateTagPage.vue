@@ -28,21 +28,10 @@
         <p>Background color</p>
         <v-swatches v-model="tag.bgColor" show-fallback />
 
-        <p>Text color</p>
-        <v-swatches v-model="tag.textColor" show-fallback />
-
-        <p>Preview</p>
-
-        <b-button
-          rounded
-          block
-          size="sm"
-          class="mr-2 mb-2"
-          variant="outline-light"
-          :style="`background-color: ${tag.bgColor}; color: ${tag.textColor}`"
-        >
-          {{ tag.name || 'Tag preview' }}
-        </b-button>
+        <div class="mb-3">
+          <p>Text color</p>
+          <v-swatches v-model="tag.textColor" show-fallback />
+        </div>
 
         <b-button
           variant="primary"

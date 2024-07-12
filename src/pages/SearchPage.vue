@@ -1,3 +1,4 @@
+<!-- TODO: improve this page -->
 <template lang="html">
   <section class="d-flex flex-column">
     <portal to="pageTitle">
@@ -15,16 +16,11 @@
       <search-filters /> -->
     </header>
 
-    <masonry
-      gutter="16px"
-      :cols="{ default: 7, 1200: 5, 768: 3, 480: 2 }"
-    >
-      <game-card-search
-        v-for="game in searchResults"
-        :game="game"
-        :key="game.id"
-      />
-    </masonry>
+    <game-card-search
+      v-for="game in searchResults"
+      :game="game"
+      :key="game.id"
+    />
 
     <b-button
       v-if="searchResults.length === pageSize"

@@ -16,7 +16,7 @@
       </empty-state>
   
       <template v-else>
-        <PageTitle title="My boards">
+        <PageTitle title="My boards" class="d-md-none">
           <b-button
             v-if="user"
             :variant="darkTheme ? 'success' : 'light'"

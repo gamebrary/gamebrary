@@ -193,8 +193,10 @@ export default {
 .game-cover {
   width: 120px;
 }
+
 .standard-list {
   width: 500px;
+  overflow-x: hidden;
 
   @media(max-width: 500px) {
     width: 100%;

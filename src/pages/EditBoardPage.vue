@@ -1,7 +1,7 @@
 <template lang="html">
   <form
     @submit.stop.prevent="saveBoard(true)"
-    class="pb-3 d-flex flex-column h-100"
+    class="pb-3 d-flex flex-column h-100 small-container"
   >
     <PageTitle title="Edit board" />
     

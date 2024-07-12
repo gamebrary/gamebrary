@@ -5,16 +5,15 @@
   >
     <b-card
       no-body
-      class="semi-transparent"
-      :class="darkTheme ? 'dark' : 'light'"
+      :variant="darkTheme ? 'dark' : 'danger'"
+      :class="[darkTheme ? 'dark' : 'light', transparencyEnabled ? 'semi-transparent' : '']"
       :text-variant="darkTheme ? 'light' : 'dark'"
     >
       <b-dropdown
         v-if="isBoardOwner"
-        id="dropdown-1"
-        :variant="darkTheme ? 'dark' : 'light'"
-        class="mt-1 mx-2 semi-transparent"
-        toggle-class="semi-transparent"
+        :variant="dropdownVariant"
+        class="mt-1 mx-2"
+        :toggle-class="['text-left', darkTheme ? 'text-white' : '']"
         size="sm"
         style="z-index: 1"
         no-caret
@@ -159,7 +158,7 @@ export default {
 
   computed: {
     ...mapState(['cachedGames', 'dragging', 'progresses', 'board', 'user', 'settings', 'highlightedGame']),
-    ...mapGetters(['isBoardOwner', 'darkTheme']),
+    ...mapGetters(['isBoardOwner', 'darkTheme', 'transparencyEnabled']),
 
     draggingDisabled() {
       return !this.user || !this.isBoardOwner;
@@ -179,6 +178,12 @@ export default {
 
     sortOrder() {
       return this.list?.sortOrder;
+    },
+
+    dropdownVariant() {
+      if (this.transparencyEnabled) return 'transparent';
+
+      return this.darkTheme ? 'dark' : 'transparent'
     },
 
     sortedGames() {
@@ -317,13 +322,7 @@ export default {
 .list {
   flex-shrink: 0;
   cursor: default;
-  // position: relative;
-  // height: auto;
-  // max-height: calc(100vh - 200px);
-  // min-height: 200px;
   width: calc(300px + 1rem);
-
-  // overflow-y: auto;
 
   @media(max-width: 400px) {
     width: calc(100vw - calc(68px + .5rem));
@@ -365,18 +364,6 @@ export default {
         padding-bottom: .5rem;
       }
     }
-  }
-}
-
-.semi-transparent {
-  backdrop-filter: saturate(180%) blur(20px);
-
-  &.dark {
-    background: rgba(53,54,58,.72);
-  }
-  
-  &.light {
-    background: rgba(222,228,231,.72);
   }
 }
 

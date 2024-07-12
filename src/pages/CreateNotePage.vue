@@ -1,5 +1,5 @@
 <template lang="html">
-  <div>
+  <div class="small-container">
     <b-form-input
       v-model="note.title"
       class="mb-3"

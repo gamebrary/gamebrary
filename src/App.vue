@@ -1,3 +1,4 @@
+<!-- TODO: finish game highlighting -->
 <!-- // LanguageSettings,
 // SteamSettingsPage,
 // import SteamSettingsPage from '@/pages/SteamSettingsPage';

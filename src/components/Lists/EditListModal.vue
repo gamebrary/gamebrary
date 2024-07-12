@@ -6,7 +6,6 @@
     :body-text-variant="darkTheme ? 'white' : 'dark'"
     id="edit-list-modal"
     hide-footer
-    size="sm"
   >
     <template v-slot:modal-header="{ close }">
       <modal-header

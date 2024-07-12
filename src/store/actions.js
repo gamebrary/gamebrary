@@ -180,8 +180,6 @@ export default {
       ...doc.data(),
       id: doc.id,
     }));
-
-    console.log(notes);
     
     commit("SET_NOTES", notes);
   },

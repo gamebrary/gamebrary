@@ -23,13 +23,12 @@
         >
           <b-avatar
             style="border-radius: 4px !important"
-            text=" "
             :title="game.name"
             :src="gameId && game.src && game.id === gameId ? game.src : showGameThumbnails && game.src ? game.src : null"
             v-b-tooltip.hover
             :variant="darkTheme ? 'black' : 'light'"
             size="24"
-            @click.stop.prevent
+            @click.native="highlightGame(game.id)"
           />
         </div>
       </template>
@@ -60,8 +59,13 @@ export default {
       // Your data properties here
     };
   },
+  
   methods: {
-    // Your methods here
+    highlightGame(gameId) {
+      console.log('higlight', gameId);
+
+      this.$store.commit('SET_HIGHLIGHTED_GAME', gameId);
+    },
   },
 
   computed: {

@@ -18,6 +18,7 @@ export default {
   // TODO: use constants for default settings
   latestRelease: ({ releases }) => releases?.[0]?.tag_name || 'v1',
   darkTheme: ({ settings }) => settings?.darkTheme || false,
+  transparencyEnabled: ({ settings }) => settings?.transparencyEnabled || false,
   showGameThumbnails: ({ settings }) => settings?.showGameThumbnails || false,
   sortedBoards: ({ boards }) => orderby(boards, 'lastUpdated', 'desc'),
   sortedPublicBoards: ({ publicBoards }) => orderby(publicBoards, 'lastUpdated', 'desc'),
@@ -37,8 +38,8 @@ export default {
       dropright: settings?.navPosition === 'left',
       dropleft: settings?.navPosition === 'right',
       noCaret: true,
-      toggleClass: 'p-0 border-0',
-      style: 'width: 44px;',
+      // toggleClass: 'p-0 border-0',
+      // style: 'width: 44px;',
     };
   },
 

@@ -227,11 +227,16 @@ export default {
       this.loading = true;
 
       // if (additionalUserInfo?.isNewUser) this.$store.dispatch('SEND_WELCOME_EMAIL', additionalUserInfo);
+      // TODO: if new user, add to keap via clouud function / API
       this.$store.commit('SET_SESSION_EXPIRED', false);
       this.$store.commit('SET_USER', user);
       this.$router.replace({ name: 'boards' });
       this.$bus.$emit('BOOT');
     },
+
+    // addContact() {
+    //   this.$store.dispatch('ADD_CONTACT_TO_KEAP');
+    // },
   },
 };
 </script>

@@ -5,9 +5,9 @@
         v-if="user"
         :variant="darkTheme ? 'success' : 'black'"
         :to="{ name: 'tag.create' }"
+        title="Add tag"
       >
-        <i class="d-sm-none fa-solid fa-plus" />
-        <span class="ml-2">Add tag</span>
+        <i class="fa-solid fa-plus fa-fw" />
       </b-button>
     </PageTitle>
 

@@ -1,3 +1,4 @@
+<!-- TODO: make sure scrollbars don't block covers -->
 <template lang="html">
   <div class="d-flex w-100 align-items-start mb-2 tier-list">
     <b-dropdown
