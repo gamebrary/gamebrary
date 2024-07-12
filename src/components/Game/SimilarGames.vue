@@ -33,7 +33,7 @@ export default {
     ...mapState(['game']),
 
     allGames() {
-      return [
+      const allGames = [
         ...this.parentGame,
         ...this.gameRemakes,
         ...this.collectionGames,
@@ -42,6 +42,8 @@ export default {
         ...this.gameBundles,
         ...this.similarGames,
       ];
+
+      return allGames.filter((obj, index) => (index === allGames.findIndex(o => obj.id === o.id)));
     },
 
     gameRemakes() {
