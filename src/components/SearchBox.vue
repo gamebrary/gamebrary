@@ -1,8 +1,5 @@
 <template lang="html">
-  <b-form
-    class="small-container"
-    @submit.prevent="search"
-  >
+  <b-form @submit.prevent="search">
     <b-input-group>
       <b-form-input
         v-model="searchText"

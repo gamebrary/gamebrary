@@ -1,4 +1,3 @@
-// TODO: add endpoint to update/add contact
 // firebase emulators:start --only functions
 // Add json object in .runtimeconfig.json to use env variables locally
 

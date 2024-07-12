@@ -2,16 +2,17 @@
     <b-dropdown
       v-b-tooltip.hover.auto= "{ delay: { show: 500, hide: 50 } }"
       :title="boardButtonTitle"
+      active
       v-bind="dockDropdownProps"
     >
       <template #button-content>
-        <i class="fa-regular fa-cards-blank"></i>
+        <i class="fa-regular fa-cards-blank" />
       </template>
 
       <b-dropdown-item
           :to="{ name: 'boards' }"
       >
-          <i class="fa-regular fa-rectangle-list fa-fw"></i>
+          <i class="fa-regular fa-rectangle-list" />
           <span class="ml-2">My boards</span>
       </b-dropdown-item>
 

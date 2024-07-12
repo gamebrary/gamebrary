@@ -1,4 +1,3 @@
-<!-- TODO: highlight game in board when clicked from here -->
 <template lang="html">
   <b-card
     class="cursor-pointer overflow-hidden"
@@ -28,7 +27,7 @@
           Public
         </b-badge>
       </header>
-
+      
       <component
         :is="miniBoardComponent"
         :board="formattedBoard"
@@ -137,7 +136,7 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-$boardHeight: 200px;
+$boardHeight: 240px;
 
 .mini-board {
   background-repeat: no-repeat;

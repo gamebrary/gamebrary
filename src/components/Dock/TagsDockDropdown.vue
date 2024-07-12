@@ -41,25 +41,14 @@
       v-if="user"
       :to="{ name: 'tag.create' }"
     >
-      <span class="fa-stack">
-        <i class="fa-light fa-tag fa-stack-1x"></i>
-        <i class="fab fa-plus"></i>
-      </span>
-
-      <!-- <img
-        src="/img/dock-icons/new-tag.png"
-        width="24"
-      /> -->
+      <i class="fa-regular fa-plus fa-fw" />
       <span class="ml-2">Add tag</span>
     </b-dropdown-item>
-
+    
     <b-dropdown-item
-      v-if="user"
+    v-if="user"
     >
-      <img
-        src="/img/dock-icons/tag-game.png"
-        width="24"
-      />
+      <i class="fa-regular fa-plus fa-fw" />
       <span class="ml-2">Tag game</span>
     </b-dropdown-item>
   </b-dropdown>

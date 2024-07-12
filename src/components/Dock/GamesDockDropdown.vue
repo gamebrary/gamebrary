@@ -13,12 +13,12 @@
       <b-img
         v-if="isGamePage && !isVerticalNav && gameName"
         :src="$options.getImageUrl(game)"
+        width="140"
+        rounded
         :alt="gameName"
-        height="50"
-        class="mr-2"
       />
 
-      <span>{{ gameName }}</span>
+      <strong>{{ gameName }}</strong>
 
       <b-dropdown-item-button @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })">
         Add note

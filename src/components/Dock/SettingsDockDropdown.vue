@@ -26,44 +26,57 @@
         :checked="showGameThumbnails"
       >
         <span :class="darkTheme ? 'text-light' : null">
-          Show game thumbnails
+          Game covers in board preview
         </span>
       </b-form-checkbox>
+
+      <b-form-checkbox
+        switch
+        @change="toggleTransparency"
+        :checked="transparencyEnabled"
+      >
+        <span :class="darkTheme ? 'text-light' : null">Transparency</span>
+      </b-form-checkbox>
+      <!-- TODO: add option to use system theme (auto) -->
     </b-dropdown-form>
 
     <div class="p-1">
-      <span>Menu position</span>
+      <span :class="darkTheme ? 'text-light' : null">Menu position</span>
       
       <b-form-select
         :value="navPosition"
-        :options="options"
+        :options="navPositionOptions"
         @change="setNavPosition"
+      />
+    </div>
+
+    <div class="p-1">
+      <span :class="darkTheme ? 'text-light' : null">Preferred age rating</span>
+      
+      <b-form-select
+        :value="ageRating"
+        :options="ageRatingOptions"
+        @change="setPreferredGameRating"
       />
     </div>
   
     <b-dropdown-item
-      :to="{ name: 'settings' }"
+      :to="{ name: 'account' }"
     >
-      <i class="fa-regular fa-rectangle-list fa-fw"></i>
-      <span class="ml-2">Settings</span>
+      <i class="fa-regular fa-user-shield fa-fw" />
+      <span class="ml-2">Account</span>
     </b-dropdown-item>
 
     <b-dropdown-item
       href="https://github.com/romancm/gamebrary/"
       target="_blank"
     >
-      <b-img
-        src="/img/dock-icons/github.png"
-        width="24"
-      />
+      <i class="fa-brands fa-github fa-fw" />
       GitHub
     </b-dropdown-item>
 
     <b-dropdown-item v-b-modal.keyboard-shortcuts>
-      <b-img
-        src="/img/dock-icons/shortcuts.png"
-        width="24"
-      />
+      <i class="fa-regular fa-keyboard fa-fw" />
 
       <span class="ml-2">Keyboard Shortcuts</span>
     </b-dropdown-item>
@@ -72,10 +85,8 @@
       :to="{ name: 'help' }"
       id="help"
     >
-      <b-img
-        src="/img/dock-icons/help.png"
-        width="24"
-      />
+      <i class="fa-duotone fa-question fa-fw" />
+
       <span class="ml-2">Help</span>
     </b-dropdown-item>
 
@@ -98,11 +109,14 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import { AGE_RATINGS } from '@/constants';
 
 export default {
+  AGE_RATINGS,
+
   data() {
     return {
-      options: [
+      navPositionOptions: [
         { value: 'top', text: 'Top' },
         { value: 'right', text: 'Right' },
         { value: 'bottom', text: 'Bottom' },
@@ -113,7 +127,25 @@ export default {
 
   computed: {
     ...mapState(['user', 'settings']),
-    ...mapGetters(['darkTheme', 'isVerticalNav', 'showGameThumbnails', 'dockDropdownProps', 'navPosition']),
+    ...mapGetters(['darkTheme', 'isVerticalNav', 'showGameThumbnails', 'dockDropdownProps', 'navPosition', 'transparencyEnabled', 'ageRating']),
+
+    ageRatingOptions() {
+      return AGE_RATINGS.map((rating) => {
+
+        return { 
+          value: rating.id,
+          text: rating.name,
+        }
+        console.log('rating', rating);
+
+        // ageRatingOptions: [
+        //   { value: 'top', text: 'Top' },
+        //   { value: 'right', text: 'Right' },
+        //   { value: 'bottom', text: 'Bottom' },
+        //   { value: 'left', text: 'Left' },
+        // ],
+      });
+    },
   },
 
   methods: {
@@ -132,6 +164,19 @@ export default {
       this.saving = false;
     },
 
+    async setPreferredGameRating(ageRating) {
+      try {
+        await this.$store.dispatch('SAVE_SETTINGS', {
+          ...this.settings,
+          ageRating,
+        });
+      } catch (e) {
+        this.$bvToast.toast('There was an error saving your settings', { variant: 'danger' });
+      }
+
+      this.saving = false;
+    },
+
     async toggleTheme() {
       const { settings } = this;
       const darkTheme = settings?.darkTheme || false;
@@ -139,6 +184,21 @@ export default {
       const payload = {
         ...settings,
         darkTheme: !darkTheme,
+      };
+
+      await this.$store.dispatch('SAVE_SETTINGS', payload)
+        .catch(() => {
+          this.$bvToast.toast('There was an error saving your settings', { variant: 'danger' });
+          this.saving = false;
+        });
+    },
+
+    async toggleTransparency() {
+      const transparencyEnabled = this.settings?.transparencyEnabled || false;
+
+      const payload = {
+        ...this.settings,
+        transparencyEnabled: !transparencyEnabled,
       };
 
       await this.$store.dispatch('SAVE_SETTINGS', payload)

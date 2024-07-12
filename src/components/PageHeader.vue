@@ -1,38 +1,5 @@
-<!-- TODO: allow auto collapse, toggle on click, hover -->
-<!-- TODO: add option for dock style: rounded, full, floating (top, bottom), bring back pinned boards, notes, tags,  -->
-<!-- // LanguageSettings,
-// SteamSettingsPage,
-// import SteamSettingsPage from '@/pages/SteamSettingsPage';
-// import LanguageSettings from '@/components/Settings/LanguageSettings'; -->
-<!-- Elevate Your Play, Organize Your Way! -->
-<!-- "Gamebrary: Level Up Your Collection, Organize Your Play." -->
-
-<!--
-🌟 Smart Filters: Now, effortlessly find the perfect game for your mood or gaming session with our new Smart Filters! Sort and discover your collection based on genres, release dates, and more. Level up your game organization experience!
-
-Explore the next level of game management with Gamebrary's Smart Filters—your key to a more personalized gaming adventure. Start organizing like never before! 🚀🎮
-
-Introducing the **New Feature: "PlayStats"**!
-
-Now, take your game organization to the next level with PlayStats, the latest addition to our website. Dive deeper into your gaming world and enhance your experience by tracking and analyzing your gameplay habits. Here's what PlayStats has to offer:
-
-1. **Gameplay Insights:**
-   Explore detailed statistics on your gaming patterns, such as total playtime, most played genres, and favorite gaming hours. Gain valuable insights into your gaming preferences.
-
-2. **Achievement Showcase:**
-   Showcase your in-game achievements and milestones. Celebrate your victories and share your gaming accomplishments with the community.
-
-3. **Playtime Reminders:**
-   Set personalized playtime reminders to maintain a healthy gaming balance. Keep track of your gaming sessions and ensure you stay on top of your real-life responsibilities.
-
-4. **Game Recommendations:**
-   Receive tailored game recommendations based on your play history and preferences. Discover new titles that align with your gaming style and interests.
-
-Elevate your gaming experience with PlayStats – because your gaming journey is more than just a collection; it's a story waiting to be told. Upgrade your Gamebrary experience today!
- -->
-
 <template lang="html">
-  <nav :class="[darkTheme ? 'dark' : 'light', `nav-${navPosition}`]" class="p-1">
+  <nav :class="[darkTheme ? 'bg-dark' : 'bg-light', `nav-${navPosition}`, transparencyEnabled ? 'semi-transparent' : '']" class="p-1">
     <PageDock />
 
     <div 
@@ -55,7 +22,7 @@ export default {
 
   computed: {
     ...mapState(['user']),
-    ...mapGetters(['darkTheme', 'navPosition', 'isVerticalNav']),
+    ...mapGetters(['darkTheme', 'navPosition', 'isVerticalNav', 'transparencyEnabled']),
   },
 };
 </script>
@@ -66,24 +33,16 @@ nav {
   align-items: center;
   // border-bottom: 1px solid var(--light);
   border-radius: .5rem;
-  margin: .5rem;
-  width: calc(100% - 2rem);
+  margin: 1rem;
+  width: calc(100dvw - 2rem);
   position: fixed;
   z-index: 2;
-  backdrop-filter: saturate(180%) blur(20px);
-  &.dark {
-    background: rgba(53,54,58,.72);
-  }
-  
-  &.light {
-    background: rgba(222,228,231,.72);
-  }
   // background: url('https://static.vecteezy.com/system/resources/previews/026/292/194/original/90s-seamless-pattern-colourful-memphis-style-retro-background-or-retro-80s-wallpaper-free-vector.jpg');
   // background-size: 200px;
   
   &.nav-top {
     top: 0;
-    margin: .5rem 1rem;
+    margin: .5rem;
   }
 
   &.nav-bottom {
