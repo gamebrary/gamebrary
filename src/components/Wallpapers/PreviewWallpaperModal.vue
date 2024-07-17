@@ -43,7 +43,7 @@
             </template>
 
             <div class="board-grid mx-2">
-              <mini-board
+              <MiniBoard
                 v-for="board in formattedBoards"
                 :key="board.id"
                 :board="board"

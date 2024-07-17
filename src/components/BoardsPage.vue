@@ -2,7 +2,7 @@
   <b-spinner v-if="loading" class="spinner-centered" />
 
   <div v-else>
-    <empty-state
+    <EmptyState
       v-if="isEmpty && !isPublicBoard"
       title="Boards"
       message="Utilize boards to neatly organize your video games!"
@@ -13,10 +13,10 @@
       >
         {{ $t('boards.create') }}
       </b-button>
-    </empty-state>
+    </EmptyState>
 
     <div v-else class="board-grid">
-      <mini-board
+      <MiniBoard
         v-for="board in gameBoards"
         :key="board.id"
         :board="board"
@@ -29,7 +29,6 @@
 <script>
 import MiniBoard from '@/components/Board/MiniBoard';
 import EmptyState from '@/components/EmptyState';
-import Packery from 'packery';
 import { mapState, mapGetters } from 'vuex';
 
 export default {

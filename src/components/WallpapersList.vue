@@ -1,6 +1,6 @@
 <template lang="html">
   <section>
-    <preview-wallpaper-modal :wallpaper="activeWallpaper" />
+    <PreviewWallpaperModal :wallpaper="activeWallpaper" />
 
     <masonry
       :cols="{ default: 5, 1200: 4, 768: 3, 480: 2 }"

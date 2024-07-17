@@ -2,7 +2,7 @@
   <div class="standard-board">
     <PageTitle :title="board.name" />
     
-    <standard-list
+    <StandardList
       v-for="list in board.lists"
       :key="list.id"
       :list="list"

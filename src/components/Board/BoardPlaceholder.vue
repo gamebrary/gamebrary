@@ -5,7 +5,7 @@
       class="spinner-centered mt-5"
     />
 
-    <kanban-board-placeholder v-else />
+    <KanbanBoardPlaceholder v-else />
   </div>
 </template>
 

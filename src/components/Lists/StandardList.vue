@@ -15,7 +15,7 @@
       @end="dragEnd"
       @start="dragStart"
     >
-      <game-card-standard
+      <GameCardStandard
         v-for="(game, index) in listGames"
         :key="index"
         :list="list"
@@ -27,7 +27,7 @@
       />
     </draggable>
 
-    <game-selector
+    <GameSelector
       v-if="isBoardOwner"
       :filter="filter"
       title="Add games"
@@ -43,7 +43,6 @@
 <script>
 import draggable from 'vuedraggable';
 import slugify from 'slugify'
-import orderby from 'lodash.orderby';
 import GameSelector from '@/components/GameSelector';
 import { mapState, mapGetters } from 'vuex';
 import GameCardStandard from '@/components/GameCards/GameCardStandard';

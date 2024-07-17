@@ -8,7 +8,7 @@
       gutter="16px"
       :cols="{ default: 3, 1200: 6, 768: 3 }"
     >
-      <game-card-search
+      <GameCardSearch
         v-for="game in allGames"
         :game="game"
         :key="game && game.id"

@@ -7,7 +7,7 @@
     overlay
     @click="handleClick"
   >
-    <game-ribbon :game="game" />
+    <GameRibbon :game="game" />
 
     <b-button
       variant="transparent"

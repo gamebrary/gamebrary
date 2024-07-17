@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="kanban-board">
-    <kanban-list
+    <KanbanList
       v-for="(list, listIndex) in board.lists"
       :ref="`list-${listIndex}`"
       :list="list"
@@ -8,7 +8,7 @@
       :key="listIndex"
     />
 
-    <add-kanban-list
+    <AddKanbanList
       v-if="isBoardOwner"
       :empty="empty"
     />

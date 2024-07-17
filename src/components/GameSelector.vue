@@ -52,7 +52,7 @@
             gutter="8px"
             :cols="cols"
           >
-            <game-card-search
+            <GameCardSearch
               v-for="game in filteredSearchResults"
               :game="game"
               :key="game.id"

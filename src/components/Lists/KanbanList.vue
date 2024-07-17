@@ -39,7 +39,7 @@
 
         <!-- <b-dropdown-item disabled>Delete list</b-dropdown-item> -->
 
-        <game-selector
+        <GameSelector
           v-if="isBoardOwner && !isEmpty"
           :title="`Add games to ${list.name}`"
           size="sm"
@@ -90,7 +90,7 @@
           @click.native="openGame(gameId, list)"
         />
 
-        <game-selector
+        <GameSelector
           v-if="isEmpty && isBoardOwner"
           class="mb-2"
           block

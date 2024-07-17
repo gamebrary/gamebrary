@@ -52,6 +52,7 @@ import { getImageUrl } from '@/utils';
 
 export default {
   getImageUrl,
+
   data() {
     return {
 

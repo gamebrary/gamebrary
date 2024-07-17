@@ -15,7 +15,7 @@
       :key="listIndex"
     />
 
-    <add-tier v-if="isBoardOwner" />
+    <AddTier v-if="isBoardOwner" />
   </div>
 </template>
 

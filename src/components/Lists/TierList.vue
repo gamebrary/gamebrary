@@ -23,7 +23,7 @@
 
       <strong class="mx-2">{{ list.name }}</strong>
 
-      <game-selector
+      <GameSelector
         title="Add games"
         :filter="allGames"
         trigger-text="Add games"
@@ -80,7 +80,6 @@
 import { getImageUrl } from '@/utils';
 import draggable from 'vuedraggable';
 import slugify from 'slugify'
-import orderby from 'lodash.orderby';
 import { mapState, mapGetters } from 'vuex';
 import gameCardMixin from '@/mixins/gameCardMixin';
 import GameSelector from '@/components/GameSelector';

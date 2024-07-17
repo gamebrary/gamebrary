@@ -22,7 +22,7 @@
           class="cursor-pointer d-flex align-items-center"
           @click="selectedBoard = board.id"
         >
-          <mini-board
+          <MiniBoard
             class="cursor-pointer"
             :board="board"
             thumbnail

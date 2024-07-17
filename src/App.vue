@@ -31,7 +31,6 @@ Elevate your gaming experience with PlayStats – because your gaming journey is
  -->
 
 <!-- CHORE: add like button to all game covers -->
-<!-- CHORE: make all components pascal case -->
 <!-- TODO: allow to copy/clone board -->
 <template> 
   <main
@@ -46,7 +45,7 @@ Elevate your gaming experience with PlayStats – because your gaming journey is
     <template v-else>
       <page-header v-if="showPageHeader" />
       <router-view class="viewport" />
-      <keyboard-shortcuts-modal />
+      <KeyboardShortcutsModal />
       <markdown-cheatsheet />
     </template>
   </main>
