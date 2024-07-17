@@ -56,7 +56,6 @@ Elevate your gaming experience with PlayStats – because your gaming journey is
 import MarkdownCheatsheet from '@/components/MarkdownCheatsheet';
 import KeyboardShortcutsModal from '@/components/KeyboardShortcutsModal';
 import PageHeader from '@/components/PageHeader';
-import sessionMixin from '@/mixins/sessionMixin';
 import { initializeApp } from "firebase/app";
 import { mapState, mapGetters } from 'vuex';
 import { KEYBOARD_SHORTCUTS, FIREBASE_CONFIG, IGDB_QUERIES } from '@/constants';
@@ -71,8 +70,6 @@ export default {
     MarkdownCheatsheet,
     KeyboardShortcutsModal,
   },
-
-  mixins: [sessionMixin],
 
   data() {
     return {
@@ -117,7 +114,10 @@ export default {
 
   watch: {
     sessionExpired(expired) {
-      if (expired) this.session_handleExpiredSession();
+      if (!expired) return;
+
+      this.$store.commit('CLEAR_SESSION');
+      this.$router.replace({ name: 'auth' });
     },
   },
 

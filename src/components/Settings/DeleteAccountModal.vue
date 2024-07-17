@@ -64,11 +64,7 @@ import { FIREBASE_CONFIG } from '@/constants';
 
 const app = initializeApp(FIREBASE_CONFIG);
 
-import sessionMixin from '@/mixins/sessionMixin';
-
 export default {
-  mixins: [sessionMixin],
-
   data() {
     return {
       progress: 0,
