@@ -34,7 +34,6 @@
     <h3 class="mt-5">Powered by</h3>
 
     <div class="rounded d-flex flex-wrap align-items-start justify-content-center overflow-auto">
-      <!-- YouTube -->
       <img src="/logos/data-sources/wikipedia.svg" alt="wikipedia" width="60" class="mx-3">
       <img src="/logos/data-sources/igdb.svg" alt="igdb" width="80" class="mx-3">
       <img src="/logos/data-sources/fandom.svg" alt="fandom" width="80" class="mx-3 mt-2">
@@ -44,10 +43,6 @@
       <img src="/logos/data-sources/gog.svg" alt="gog" width="60" class="mx-3">
       <img src="/logos/data-sources/steam.svg" alt="steam" width="60" class="mx-3">
     </div>
-
-    <!-- TODO: put public reviews here -->
-    <!-- TODO: put latest news here -->
-    <!-- TODO: put latest deals here -->
 
     <small class="pb-5">&copy; {{ currentYear }} Gamebrary </small>
   </div>

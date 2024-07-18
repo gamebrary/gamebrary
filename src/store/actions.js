@@ -22,7 +22,7 @@ import {
   getAuth,
   signOut,
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
+  // signInWithEmailAndPassword,
 } from "firebase/auth";
 
 import { getStorage, ref, getDownloadURL, listAll, getMetadata, uploadBytes, deleteObject } from "firebase/storage";

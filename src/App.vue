@@ -31,7 +31,6 @@ Elevate your gaming experience with PlayStats – because your gaming journey is
  -->
 
 <!-- CHORE: add like button to all game covers -->
-<!-- TODO: allow to copy/clone board -->
 <template> 
   <main
     id="app"
