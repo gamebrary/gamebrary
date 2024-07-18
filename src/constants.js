@@ -291,12 +291,6 @@ export const AGE_RATINGS = [
   },
 ];
 
-export const STATUS_VARIANTS = {
-  LOADING: null,
-  ERROR: 'danger',
-  SUCCESS: 'success',
-};
-
 export const WEBSITE_CATEGORIES = {
   WIKIPEDIA: 3,
   AMAZON: 20,
