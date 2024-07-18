@@ -1,7 +1,7 @@
 <template lang="html">
   <div>
     <PageTitle :title="$t('notes.title')">
-      <!-- <game-selector
+      <!-- <GameSelectors
         v-if="!isEmpty"
         title="Select game to add a note"
         :variant="darkTheme ? 'success' : 'primary'"
@@ -10,13 +10,13 @@
       >
       <i class="d-sm-none fa-solid fa-plus" />
       <span class="d-none d-sm-inline">Create note</span>
-      </game-selector> -->
+      </GameSelectors> -->
     </PageTitle>
 
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <template v-else>
-      <!-- <game-selector
+      <!-- <GameSelectors
           v-if="!isEmpty"
           title="Select game to add a note"
           :variant="darkTheme ? 'success' : 'primary'"
@@ -25,7 +25,7 @@
         >
         <i class="d-sm-none fa-solid fa-plus" />
         <span class="d-none d-sm-inline">Create note</span>
-      </game-selector> -->
+      </GameSelectors> -->
 
       <empty-state
         v-if="isEmpty"
@@ -34,7 +34,7 @@
         <p>Looks like you haven't added any notes yet.</p>
         <p>Notes are handy for keeping track of cheat codes, passwords, or just about anything you want to remember!</p>
 
-        <game-selector
+        <GameSelector
           v-if="user"
           title="Select game to add a note"
           trigger-text="Create note"

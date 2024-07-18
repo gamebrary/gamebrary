@@ -13,7 +13,7 @@
 
       <h3 v-else-if="!loading">Edit tag</h3>
 
-      <game-selector
+      <GameSelector
         :filter="tag.games"
         title="Tag game"
         variant="primary"
@@ -22,7 +22,7 @@
       >
         <span>Tag game</span>
         <i class="fa-solid fa-plus d-sm-none" />
-      </game-selector>
+      </GameSelector>
 
       <b-spinner v-if="loading" class="spinner-centered" />
 

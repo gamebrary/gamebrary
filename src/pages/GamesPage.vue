@@ -1,7 +1,7 @@
 <template lang="html">
   <div>
     <PageTitle title="Games">
-      <game-selector
+      <GameSelector
         trigger-text="Add games"
         :variant="darkTheme ? 'success' : 'primary'"
         :filter="likedGamesIds"

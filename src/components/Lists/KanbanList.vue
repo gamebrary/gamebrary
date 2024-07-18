@@ -48,7 +48,7 @@
           @select-game="selectGame"
         >
           Add games
-        </game-selector>
+        </GameSelector>
       </b-dropdown>
 
       <b-button
