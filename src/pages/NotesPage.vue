@@ -5,7 +5,6 @@
         v-if="!isEmpty"
         title="Select game to add a note"
         :variant="darkTheme ? 'success' : 'primary'"
-        :class="{ 'mr-3': !isVerticalNav }"
         @select-game="createNote"
       >
       <i class="d-sm-none fa-solid fa-plus" />
@@ -20,7 +19,6 @@
           v-if="!isEmpty"
           title="Select game to add a note"
           :variant="darkTheme ? 'success' : 'primary'"
-          :class="{ 'mr-3': !isVerticalNav }"
           @select-game="createNote"
         >
         <i class="d-sm-none fa-solid fa-plus" />
@@ -134,7 +132,7 @@ export default {
 
   computed: {
     ...mapState(['notes', 'cachedGames', 'user']),
-    ...mapGetters(['darkTheme', 'isVerticalNav']),
+    ...mapGetters(['darkTheme']),
 
     isEmpty() {
       return !Object.keys(this.notes).length;

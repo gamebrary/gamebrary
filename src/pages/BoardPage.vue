@@ -79,7 +79,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'dragging', 'board', 'wallpapers']),
-    ...mapGetters(['isBoardOwner', 'darkTheme', 'isVerticalNav']),
+    ...mapGetters(['isBoardOwner', 'darkTheme']),
 
     isBoardPage() {
       return this.$route.name === 'board';

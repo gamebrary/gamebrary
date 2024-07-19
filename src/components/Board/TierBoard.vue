@@ -1,9 +1,6 @@
 <template lang="html">
   <div class="d-flex flex-column align-items-start rounded w-100">
-    <h3
-      v-if="isVerticalNav"
-      :class="{ 'text-white': hasBackground || darkTheme }"
-    >
+    <h3 :class="{ 'text-white': hasBackground || darkTheme }">
       {{ board.name }}
     </h3>
 
@@ -32,7 +29,7 @@ export default {
 
   computed: {
     ...mapState(['board']),
-    ...mapGetters(['isBoardOwner', 'darkTheme', 'isVerticalNav']),
+    ...mapGetters(['isBoardOwner', 'darkTheme']),
 
     allGames() {
       return this.board.lists.map((list) => list.games).flat(2);

@@ -1,3 +1,4 @@
+<!-- TODO: remove? -->
 <template lang="html">
   <header
     class="d-flex justify-content-between align-items-center mb-3"
@@ -18,8 +19,6 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['isVerticalNav']),
-
     hasLongText() {
       return this.title?.length > 30;
     },

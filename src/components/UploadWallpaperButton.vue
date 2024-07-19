@@ -47,7 +47,7 @@ export default {
 
   computed: {
     ...mapState(['wallpapers']),
-    ...mapGetters(['darkTheme', 'isVerticalNav']),
+    ...mapGetters(['darkTheme']),
 
     isDuplicate() {
       const { file, existingFiles } = this;

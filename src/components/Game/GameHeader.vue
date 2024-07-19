@@ -25,7 +25,7 @@ import { getImageUrl } from '@/utils';
 export default {
   computed: {
     ...mapState(['game', 'user']),
-    ...mapGetters(['darkTheme', 'isVerticalNav']),
+    ...mapGetters(['darkTheme']),
 
     artworks() {
       return this.game?.artworks?.map((artwork) => ({

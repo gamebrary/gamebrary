@@ -73,7 +73,7 @@ export default {
 
   computed: {
     ...mapState(['games', 'cachedGames', 'user', 'progresses']),
-    ...mapGetters(['darkTheme', 'isVerticalNav', 'navPosition']),
+    ...mapGetters(['darkTheme', 'navPosition']),
 
     likedGames() {
       if (!this.user) return null;

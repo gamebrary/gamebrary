@@ -319,7 +319,7 @@ export default {
 
   computed: {
     ...mapState(['user']),
-    ...mapGetters(['darkTheme', 'isVerticalNav']),
+    ...mapGetters(['darkTheme']),
   },
 
   methods: {

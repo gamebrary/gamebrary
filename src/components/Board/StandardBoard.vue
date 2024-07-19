@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import StandardList from '@/components/Lists/StandardList';
 
 export default {
@@ -21,7 +21,6 @@ export default {
 
   computed: {
     ...mapState(['board']),
-    ...mapGetters(['isVerticalNav']),
 
     list() {
       const [firstList] = this.board?.lists;

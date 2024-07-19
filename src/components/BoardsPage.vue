@@ -46,7 +46,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'boards', 'wallpapers']),
-    ...mapGetters(['isBoardOwner', 'sortedBoards', 'sortedPublicBoards', 'darkTheme', 'isVerticalNav', 'navPosition']),
+    ...mapGetters(['isBoardOwner', 'sortedBoards', 'sortedPublicBoards', 'darkTheme', 'navPosition']),
 
     gameBoards() {
       return this.isPublicBoard

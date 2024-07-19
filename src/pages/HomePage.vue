@@ -61,7 +61,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'profiles']),
-    ...mapGetters(['darkTheme', 'isVerticalNav', 'navPosition', 'sortedPublicBoards']),
+    ...mapGetters(['darkTheme', 'navPosition', 'sortedPublicBoards']),
 
     recentlyUpdatedPublicBoards() {
       return this.sortedPublicBoards.filter(({ lastUpdated }) => Boolean(lastUpdated)).slice(0, 12);

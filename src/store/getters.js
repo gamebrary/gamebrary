@@ -25,7 +25,6 @@ export default {
   isBoardOwner: ({ board, user }) => board?.owner === user?.uid,
   navPosition: ({ settings }) => settings?.navPosition || 'top',
   ageRating: ({ settings }) => settings?.ageRating || 'all',
-  isVerticalNav: ({ settings }) => ['left', 'right'].includes(settings?.navPosition),
 
   gameLinks: ({ game }) => {
     return game?.websites?.map(({ url, category }) => ({ url, ...LINKS_CATEGORIES[category] })) || [];

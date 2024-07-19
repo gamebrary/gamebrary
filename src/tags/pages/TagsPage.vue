@@ -2,7 +2,7 @@
   <b-container>
     <PageTitle title="Tags" />
 
-    <portal v-if="!isVerticalNav && !loading && tags.length > 0" to="headerActions">
+    <portal v-if="!loading && tags.length > 0" to="headerActions">
       <b-button
         v-if="user"
         :variant="darkTheme ? 'success' : 'primary'"
@@ -118,7 +118,7 @@ export default {
 
   computed: {
     ...mapState(['tags', 'user', 'cachedGames']),
-    ...mapGetters(['darkTheme', 'isVerticalNav']),
+    ...mapGetters(['darkTheme']),
   },
 
   mounted() {

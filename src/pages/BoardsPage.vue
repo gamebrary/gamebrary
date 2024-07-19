@@ -59,7 +59,7 @@
   
     computed: {
       ...mapState(['user', 'boards', 'wallpapers']),
-      ...mapGetters(['isBoardOwner', 'sortedBoards', 'sortedPublicBoards', 'darkTheme', 'isVerticalNav', 'navPosition']),
+      ...mapGetters(['isBoardOwner', 'sortedBoards', 'sortedPublicBoards', 'darkTheme', 'navPosition']),
   
       recentlyUpdatedPublicBoards() {
         return this.sortedPublicBoards.filter(({ lastUpdated }) => Boolean(lastUpdated)).slice(0, 20);

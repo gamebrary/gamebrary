@@ -115,7 +115,7 @@ export default {
 
   computed: {
     ...mapState(['tags', 'user', 'cachedGames']),
-    ...mapGetters(['darkTheme', 'isVerticalNav']),
+    ...mapGetters(['darkTheme']),
   },
 
   mounted() {

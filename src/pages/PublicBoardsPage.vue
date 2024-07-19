@@ -47,7 +47,7 @@
   
     computed: {
       ...mapState(['user', 'wallpapers']),
-      ...mapGetters(['isBoardOwner', 'sortedPublicBoards', 'darkTheme', 'isVerticalNav', 'navPosition']),
+      ...mapGetters(['isBoardOwner', 'sortedPublicBoards', 'darkTheme', 'navPosition']),
   
       isEmpty() {
         return !this.loading && this.sortedPublicBoards?.length === 0;
