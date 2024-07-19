@@ -30,10 +30,14 @@
       </b-button>
     </b-button-group>
 
+    <b-alert v-if="needsFlattening" variant="warning" show>
+      Changing this board to a standard list will merge all lists into one.
+    </b-alert>
+
     <MiniBoard
       class="mb-2"
-      :board="board"
-      />
+      :board="previewBoard"
+    />
 
     <b-form-checkbox
       v-if="board.type === $options.BOARD_TYPE_STANDARD"
@@ -306,6 +310,27 @@ export default {
     boardId() {
       return this.$route?.params?.id;
     },
+
+    needsFlattening() {
+      return this.board?.lists?.length && this.board.type === 'standard';
+    },
+
+    mergedGamesList() {
+      return [...new Set(this.board?.lists?.map(({ games }) => games)?.flat())];
+    },
+
+    previewBoard() {
+      return this.needsFlattening
+        ? this.standardPreviewBoard
+        : this.board;
+    },
+
+    standardPreviewBoard() {
+      return {
+        ...this.board,
+        lists: [{ name: '', games: this.mergedGamesList }],
+      }
+    },
   },
 
   mounted() {
@@ -395,13 +420,16 @@ export default {
       try {
         this.saving = true;
 
-        const { board, lists } = this;
+        const lists = this.needsFlattening
+          ? [{ name: '', games: this.mergedGamesList }]
+          : this.lists;
 
         const payload = {
-          ...board,
+          ...this.board,
           lastUpdated: Date.now(),
           lists,
         }
+
 
         this.$store.commit('SET_GAME_BOARD', payload);
 
