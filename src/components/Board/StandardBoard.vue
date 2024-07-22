@@ -28,10 +28,38 @@ export default {
       return firstList || [];
     },
 
+    needsFlattening() {
+      return this.board?.lists?.length && this.board.type === 'standard';
+    },
+
     hasLists() {
       return this.board?.lists?.length > 0;
     },
   },
+
+  mounted() {
+    if (this.needsFlattening) this.flattenAndSaveBoard();
+  },
+
+  methods: {
+    async flattenAndSaveBoard() {
+      const mergedGamesList = [...new Set(this.board?.lists?.map(({ games }) => games)?.flat())];
+
+      const payload = {
+        ...this.board,
+        lastUpdated: Date.now(),
+        lists: [{ name: '', games: mergedGamesList }],
+      }
+      
+      this.$store.commit('SET_GAME_BOARD', payload);
+
+      await this.$store.dispatch('SAVE_BOARD');
+    },
+
+    flattenBoard() {
+      this.$store.commit('FLATTEN_BOARD');
+    },
+  }
 };
 </script>
 

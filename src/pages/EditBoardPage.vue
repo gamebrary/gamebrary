@@ -430,7 +430,6 @@ export default {
           lists,
         }
 
-
         this.$store.commit('SET_GAME_BOARD', payload);
 
         await this.$store.dispatch('SAVE_BOARD');
