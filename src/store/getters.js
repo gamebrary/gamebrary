@@ -30,13 +30,9 @@ export default {
     return game?.websites?.map(({ url, category }) => ({ url, ...LINKS_CATEGORIES[category] })) || [];
   },
 
-  dockDropdownProps: ({ settings }) => {
+  dockButtonProps: ({ settings }) => {
     return {
       variant: settings?.darkTheme ? 'dark' : 'light',
-      dropup: settings?.navPosition === 'bottom',
-      dropright: settings?.navPosition === 'left',
-      dropleft: settings?.navPosition === 'right',
-      noCaret: true,
       // toggleClass: 'p-0 border-0',
       // style: 'width: 44px;',
     };

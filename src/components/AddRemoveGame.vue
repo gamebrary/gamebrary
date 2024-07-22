@@ -102,7 +102,6 @@ export default {
     },
 
     async addGame({ list, listIndex, boardId }) {
-      this.$store.commit('SET_STATUS', 'LOADING')
       const boardIndex = this.boards.findIndex(({ id }) => id === boardId);
       const board = this.boards[boardIndex];
 
@@ -110,9 +109,8 @@ export default {
 
       try {
         await this.$store.dispatch('SAVE_GAME_BOARD', board);
-        this.$store.commit('SET_STATUS', 'SUCCESS')
       } catch (e) {
-        this.$store.commit('SET_STATUS', 'ERROR')
+        // 
       }
     },
 

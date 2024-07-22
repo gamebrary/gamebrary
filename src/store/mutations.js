@@ -29,10 +29,6 @@ export default {
     state.board = {};
   },
 
-  SET_STATUS(state, status) {
-    state.status = status;
-  },
-
   SET_ACTIVE_BOARD(state, board) {
     state.board = board;
 
@@ -49,6 +45,10 @@ export default {
 
   SET_GAME_BOARD(state, board) {
     state.board = board;
+  },
+  
+  SET_MENU_OPEN(state, menuOpen) {
+    state.menuOpen = Boolean(menuOpen);
   },
 
   SET_PROFILE(state, profile) {

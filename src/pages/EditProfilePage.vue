@@ -418,14 +418,10 @@ export default {
 
     async save(redirect = true) {
       this.saving = true;
-      this.$store.commit('SET_STATUS', 'LOADING')
       
-      await this.$store.dispatch('SAVE_PROFILE', this.profile)
-        .catch(() => {
-          this.$store.commit('SET_STATUS', 'ERROR')
-        });
-      
-      this.$store.commit('SET_STATUS', 'SUCCESS')
+      await this.$store.dispatch('SAVE_PROFILE', this.profile);
+      // TODO: catch
+
       this.saving = false;
 
       if (redirect) {

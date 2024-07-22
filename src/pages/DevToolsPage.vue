@@ -1,9 +1,5 @@
 <template lang="html">
   <div>
-    <b-button @click="$store.commit('SET_STATUS', 'LOADING')">LOADING</b-button>
-    <b-button @click="$store.commit('SET_STATUS', 'ERROR')">ERROR</b-button>
-    <b-button @click="$store.commit('SET_STATUS', 'SUCCESS')">SUCCESS</b-button>
-    <b-button @click="$store.commit('SET_STATUS', NULL)">NULL</b-button>
     <b-container>
       <b-row>
         <b-col cols="12">

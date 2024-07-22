@@ -242,15 +242,12 @@ export default {
 
     async saveNote() {
       this.saving = true;
-      this.$store.commit('SET_STATUS', 'LOADING')
 
       this.$store.commit('SET_GAME_NOTE', { note: this.note, gameId: this.gameId });
 
       await this.$store.dispatch('SAVE_NOTES').catch(() => {
-        this.$store.commit('SET_STATUS', 'ERROR')
+        // 
       });
-
-      this.$store.commit('SET_STATUS', 'SUCCESS')
 
       this.saving = false;
 
