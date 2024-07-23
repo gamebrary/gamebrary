@@ -1,0 +1,62 @@
+<!-- TODO: get better (and) colorized icons for active state -->
+<!-- TODO: bring settings to nav, remove page. -->
+<!-- TODO: highlight menu item if active -->
+<!-- TODO: put login/logout button at top right corner -->
+<template lang="html">
+  <nav :class="`nav-${navPosition}`">
+    <b-button @click="$store.commit('SET_MENU_OPEN', true)">B</b-button>
+
+    <b-button
+        v-if="!user"
+        variant="danger"
+        :to="{ name: 'auth' }"
+      >
+        Get started <span class="d-none d-sm-inline"> — it's free!</span>
+      </b-button>
+
+    <div class="d-flex justify-content-between w-100 align-items-center">
+      <portal-target name="pageTitle"/>
+      <portal-target name="headerActions" multiple />
+    </div>
+  </nav>
+</template>
+
+<script>
+import { mapState, mapGetters } from 'vuex';
+
+export default {
+  components: {
+  },
+
+  computed: {
+    ...mapState(['user', 'games', 'notes', 'tags', 'wallpapers', 'menuOpen']),
+    ...mapGetters(['navPosition', 'latestRelease', 'darkTheme', 'transparencyEnabled']),
+  },
+};
+</script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+nav {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  border-radius: .5rem;
+  margin: 1rem;
+  padding-right: 1rem;
+  width: calc(100dvw - 2rem);
+  position: fixed;
+  z-index: 2;
+  
+  &.nav-top {
+    top: 0;
+    // margin: .5rem;
+    position: fixed;
+  }
+
+  &.nav-bottom {
+    bottom: 1rem;
+    // background-color: red;
+    // margin: .5rem 1rem;
+  }
+}
+</style>

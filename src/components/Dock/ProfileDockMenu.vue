@@ -1,55 +1,30 @@
 <template>
-    <b-dropdown
-      v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
-      title="Profile"
-      v-bind="dockDropdownProps"
-      :class="isVerticalNav ? 'mt-auto' : 'ml-auto'"
-      :toggle-class="avatarImage ? 'p-0' : ''"
-      variant="transparent"
-      no-caret
-    >
-      <template #button-content>
-        <template>  
-          <b-avatar
-            v-if="avatarImage"
-            :src="avatarImage"
-            size="36"
-            rounded
-          />
+    <div>
+      <div class="position-relative text-center">
+        <b-avatar
+          :src="avatarImage"
+          size="120"
+          :title="displayUserName"
+          :to="{ name: 'public.profile', params: { userName } }"
+        />
+      </div>
 
-          <i v-else class="fa-regular fa-user" />
-        </template>
-      </template>
-
-      <b-dropdown-item
-        v-if="userName"
-        :to="{ name: 'public.profile', params: { userName } }"
-      >
-        {{ displayUserName }}
-      </b-dropdown-item>
-
-      <b-dropdown-item
+      <b-button
+        :variant="darkTheme ? 'dark' : 'light'"
         :to="{ name: 'profile' }"
       >
-        <i class="fa-regular fa-user-pen"></i>
-        <span class="ml-2">Edit profile</span>
-      </b-dropdown-item>
+        <i class="fa-regular fa-pen"></i>
+      </b-button>
 
-      <!-- <b-dropdown-item
-        v-if="profile"
-        :to="{ name: 'public.profile', params: { userName: profile.userName } }"
-      >
-        <i class="fa-regular fa-address-card"></i>
-        <span class="ml-2">View profile</span>
-      </b-dropdown-item> -->
-
-      <b-dropdown-item
+      <b-button
+        block
+        :variant="darkTheme ? 'dark' : 'light'"
         @click="signOut"
       >
         <i class="fa-regular fa-right-from-bracket"></i>
         <span class="ml-2">Log out</span>
-      </b-dropdown-item>
-    </b-dropdown>
+      </b-button>
+    </div>
 </template>
 
 <script>
@@ -66,7 +41,7 @@ export default {
 
   computed: {
     ...mapState(['board', 'user']),
-    ...mapGetters(['dockDropdownProps', 'darkTheme', 'isVerticalNav']),
+    ...mapGetters(['dockButtonProps', 'darkTheme']),
 
     userName() {
       return this.profile?.userName;

@@ -1,14 +1,17 @@
 <template lang="html">
   <div class="game-selector">
     <portal to="headerActions">
-      <b-modal
+      <b-sidebar
         scrollable
-        v-model="selecting"
-        :header-bg-variant="darkTheme ? 'dark' : 'transparent'"
-        :header-text-variant="darkTheme ? 'white' : 'dark'"
-        :body-bg-variant="darkTheme ? 'dark' : 'transparent'"
-        :body-text-variant="darkTheme ? 'white' : 'dark'"
-        hide-footer
+        right
+        width="380px"
+        shadow
+        no-header
+        backdrop
+        body-class="p-3"
+        :visible="selecting"
+        :bg-variant="darkTheme ? 'dark' : 'light'"
+        :text-variant="darkTheme ? 'light' : 'dark'" 
         @hidden="selecting = false"
       >
         <template v-slot:modal-header="{ close }">
@@ -17,6 +20,7 @@
             @close="close"
           />
         </template>
+        <pre>{{ title }}</pre>
 
         <div
           class="d-flex pt-1 bg-white justify-content-between align-items-center"
@@ -48,18 +52,13 @@
         </div>
 
         <div v-else-if="filteredSearchResults.length > 0">
-          <masonry
-            gutter="8px"
-            :cols="cols"
-          >
-            <GameCardSearch
-              v-for="game in filteredSearchResults"
-              :game="game"
-              :key="game.id"
-              no-link
-              @click="selectGame(game.id)"
-            />
-          </masonry>
+          <GameCardSearch
+            v-for="game in filteredSearchResults"
+            :game="game"
+            :key="game.id"
+            no-link
+            @click="selectGame(game.id)"
+          />
 
           <!-- <b-card
             v-for="game in filteredSearchResults"
@@ -88,7 +87,7 @@
         <div v-else-if="searchText">
           No results
         </div>
-      </b-modal>
+      </b-sidebar>
     </portal>
 
     <component

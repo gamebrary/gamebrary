@@ -6,7 +6,6 @@ import VueShortKey from 'vue-shortkey';
 import VueFire from 'vuefire';
 import VueI18n from 'vue-i18n';
 import ModalHeader from '@/components/ModalHeader';
-import PageTitle from '@/components/PageTitle';
 import axios from 'axios';
 import VueAnalytics from 'vue-analytics';
 import Raven from 'raven-js';
@@ -40,7 +39,6 @@ Vue.use(VueFire);
 Vue.use(VueI18n);
 
 Vue.component('ModalHeader', ModalHeader);
-Vue.component('PageTitle', PageTitle);
 
 Vue.directive('click-outside', {
   bind: function (el, binding, vnode) {

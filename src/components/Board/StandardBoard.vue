@@ -1,6 +1,23 @@
 <template lang="html">
   <div class="standard-board">
-    <PageTitle :title="board.name" />
+    <portal to="pageTitle">
+      {{ board.name }}
+    </portal>
+
+    <portal to="headerActions">
+      <div class="d-flex align-items-center">
+        <!-- <b-button
+          :to="{ name: 'game', params: { id: game.id, slug: game.slug } }"
+          :variant="darkTheme ? 'secondary' : 'light'"
+          class="mr-2"
+          >
+            <i class="fa-solid fa-chevron-left" />
+        </b-button> -->
+
+        <!-- <h3>News</h3> -->
+      </div>
+    </portal>
+
     
     <StandardList
       v-for="list in board.lists"

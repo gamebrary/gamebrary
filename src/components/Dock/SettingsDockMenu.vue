@@ -1,110 +1,127 @@
 <template>
-  <b-dropdown
-    v-if="user"
-    v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
-    title="Preferences"
-    ref="settingsDropdown"
-    v-bind="dockDropdownProps"
-    no-caret
-  >
-    <template #button-content>
-      <i class="fa-regular fa-gear"></i>
-    </template>
+  <div>
+    <b-button
+      v-b-toggle.collapse-1
+      block
+      :variant="darkTheme ? 'dark' : 'light'"
+    >
+      <i class="fa-regular fa-gear fa-fw" />
+      Settings
+    </b-button>
 
-    <b-dropdown-form style="width: auto">
-      <b-form-checkbox
-        switch
-        @change="toggleTheme"
-        :checked="darkTheme"
-      >
-        <span :class="darkTheme ? 'text-light' : null">Dark theme</span>
-      </b-form-checkbox>
+    <b-collapse id="collapse-1" class="mt-2">
+      <b-card bg-variant="dark">
+        <b-button
+          block
+          :variant="darkTheme ? 'dark' : 'light'"
+          :to="{ name: 'public.profile', params: { userName } }"
+        >
+          toggleTransparency
+        </b-button>
 
-      <b-form-checkbox
-        switch
-        @change="toggleGameThumbnails"
-        :checked="showGameThumbnails"
-      >
-        <span :class="darkTheme ? 'text-light' : null">
-          Game covers in board preview
-        </span>
-      </b-form-checkbox>
+        <b-form-checkbox
+          switch
+          @change="toggleTheme"
+          :checked="darkTheme"
+        >
+          <span :class="darkTheme ? 'text-light' : null">Dark theme</span>
+        </b-form-checkbox>
 
-      <b-form-checkbox
-        switch
-        @change="toggleTransparency"
-        :checked="transparencyEnabled"
-      >
-        <span :class="darkTheme ? 'text-light' : null">Transparency</span>
-      </b-form-checkbox>
-      <!-- TODO: add option to use system theme (auto) -->
-    </b-dropdown-form>
+        <b-form-checkbox
+          switch
+          @change="toggleGameThumbnails"
+          :checked="showGameThumbnails"
+        >
+          <span :class="darkTheme ? 'text-light' : null">
+            Game covers in board preview
+          </span>
+        </b-form-checkbox>
 
-    <div class="p-1">
-      <span :class="darkTheme ? 'text-light' : null">Menu position</span>
+        <b-form-checkbox
+          switch
+          @change="toggleTransparency"
+          :checked="transparencyEnabled"
+        >
+          <span :class="darkTheme ? 'text-light' : null">Transparency</span>
+        </b-form-checkbox>
+        <!-- TODO: add option to use system theme (auto) -->
+        <div class="p-1">
+          <span :class="darkTheme ? 'text-light' : null">Menu position</span>
+          
+          <b-form-select
+            :value="navPosition"
+            :options="navPositionOptions"
+            @change="setNavPosition"
+          />
+        </div>
+
+        <div class="p-1">
+          <span :class="darkTheme ? 'text-light' : null">Preferred age rating</span>
+          
+          <b-form-select
+            :value="ageRating"
+            :options="ageRatingOptions"
+            @change="setPreferredGameRating"
+          />
+        </div>
       
-      <b-form-select
-        :value="navPosition"
-        :options="navPositionOptions"
-        @change="setNavPosition"
-      />
-    </div>
+        <b-button
+          block
+          :variant="darkTheme ? 'dark' : 'light'"
+          :to="{ name: 'account' }"
+        >
+          <i class="fa-regular fa-user-shield fa-fw" />
+          <span class="ml-2">Account</span>
+        </b-button>
 
-    <div class="p-1">
-      <span :class="darkTheme ? 'text-light' : null">Preferred age rating</span>
-      
-      <b-form-select
-        :value="ageRating"
-        :options="ageRatingOptions"
-        @change="setPreferredGameRating"
-      />
-    </div>
-  
-    <b-dropdown-item
-      :to="{ name: 'account' }"
-    >
-      <i class="fa-regular fa-user-shield fa-fw" />
-      <span class="ml-2">Account</span>
-    </b-dropdown-item>
+        <b-button
+          block
+          :variant="darkTheme ? 'dark' : 'light'"
+          href="https://github.com/romancm/gamebrary/"
+          target="_blank"
+        >
+          <i class="fa-brands fa-github fa-fw" />
+          GitHub
+        </b-button>
 
-    <b-dropdown-item
-      href="https://github.com/romancm/gamebrary/"
-      target="_blank"
-    >
-      <i class="fa-brands fa-github fa-fw" />
-      GitHub
-    </b-dropdown-item>
+        <b-button
+          v-b-modal.keyboard-shortcuts
+          block
+          :variant="darkTheme ? 'dark' : 'light'"
+        >
+          <i class="fa-regular fa-keyboard fa-fw" />
 
-    <b-dropdown-item v-b-modal.keyboard-shortcuts>
-      <i class="fa-regular fa-keyboard fa-fw" />
+          <span class="ml-2">Keyboard Shortcuts</span>
+        </b-button>
 
-      <span class="ml-2">Keyboard Shortcuts</span>
-    </b-dropdown-item>
+        <b-button
+          :to="{ name: 'help' }"
+          id="help"
+          block
+          :variant="darkTheme ? 'dark' : 'light'"
+        >
+          <i class="fa-duotone fa-question fa-fw" />
 
-    <b-dropdown-item
-      :to="{ name: 'help' }"
-      id="help"
-    >
-      <i class="fa-duotone fa-question fa-fw" />
-
-      <span class="ml-2">Help</span>
-    </b-dropdown-item>
+          <span class="ml-2">Help</span>
+        </b-button>
+      </b-card>
+    </b-collapse>
 
     <!-- TODO: add i18n -->
-    <!-- <b-dropdown-item disabled>
+    <!-- <b-button disabled>
       <i class="fa-solid fa-language" />
       <span class="ml-2">Change language</span>
-    </b-dropdown-item> -->
+    </b-button> -->
 
     <!-- TODO: finish steam integration -->
-    <!-- <b-dropdown-item
+    <!-- <b-button
       :to="{ name: 'steam.settings' }"
       disabled
     >
       <i class="fab fa-steam fa-fe" aria-hidden />
       <span class="ml-2">Steam</span>
-    </b-dropdown-item> -->
-  </b-dropdown>
+    </b-button> -->
+  </div>
 </template>
 
 <script>
@@ -118,16 +135,14 @@ export default {
     return {
       navPositionOptions: [
         { value: 'top', text: 'Top' },
-        { value: 'right', text: 'Right' },
         { value: 'bottom', text: 'Bottom' },
-        { value: 'left', text: 'Left' },
       ],
     };
   },
 
   computed: {
-    ...mapState(['user', 'settings']),
-    ...mapGetters(['darkTheme', 'isVerticalNav', 'showGameThumbnails', 'dockDropdownProps', 'navPosition', 'transparencyEnabled', 'ageRating']),
+    ...mapState(['settings']),
+    ...mapGetters(['darkTheme', 'showGameThumbnails', 'dockButtonProps', 'navPosition', 'transparencyEnabled', 'ageRating']),
 
     ageRatingOptions() {
       return AGE_RATINGS.map((rating) => {

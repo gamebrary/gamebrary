@@ -9,7 +9,7 @@
       @input="uploadWallpaper"
     />
 
-    <b-dropdown-item
+    <b-button
       :disabled="outOfSpace"
       block
       @click="triggerFileUpload"
@@ -21,7 +21,7 @@
 
         <span class="ml-2">Upload</span>
       </template>
-    </b-dropdown-item>
+    </b-button>
 
     <b-alert
       v-if="isDuplicate && !saving && file && file.name"

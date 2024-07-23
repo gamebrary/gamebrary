@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="mx-auto" style="width: 420px">
-    <PageTitle title="Welcome to Gamebrary" />
+    Welcome to Gamebrary
 
     <p class="small">
       {{ authDescription }}

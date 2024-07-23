@@ -42,7 +42,8 @@ Elevate your gaming experience with PlayStats – because your gaming journey is
     <b-spinner v-if="loading" class="spinner-centered mt-5" />
 
     <template v-else>
-      <page-header v-if="showPageHeader" />
+      <PageDock v-if="showPageDock" />
+      <MainMenu v-if="user" />
       <router-view class="viewport" />
       <KeyboardShortcutsModal />
       <markdown-cheatsheet />
@@ -53,7 +54,8 @@ Elevate your gaming experience with PlayStats – because your gaming journey is
 <script>
 import MarkdownCheatsheet from '@/components/MarkdownCheatsheet';
 import KeyboardShortcutsModal from '@/components/KeyboardShortcutsModal';
-import PageHeader from '@/components/PageHeader';
+import PageDock from '@/components/PageDock';
+import MainMenu from '@/components/MainMenu';
 import { initializeApp } from "firebase/app";
 import { mapState, mapGetters } from 'vuex';
 import { KEYBOARD_SHORTCUTS, FIREBASE_CONFIG, IGDB_QUERIES } from '@/constants';
@@ -64,7 +66,8 @@ export default {
   name: 'App',
 
   components: {
-    PageHeader,
+    PageDock,
+    MainMenu,
     MarkdownCheatsheet,
     KeyboardShortcutsModal,
   },
@@ -81,9 +84,9 @@ export default {
 
   computed: {
     ...mapState(['user', 'settings', 'sessionExpired', 'platforms', 'games']),
-    ...mapGetters(['darkTheme', 'isVerticalNav', 'navPosition']),
+    ...mapGetters(['darkTheme', 'navPosition']),
 
-    showPageHeader() {
+    showPageDock() {
       if (['auth', 'home'].includes(this.$route.name) && !this.user) return false;
       
       return Boolean(this.user) || this.isPublicRoute;

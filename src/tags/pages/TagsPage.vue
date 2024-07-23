@@ -1,6 +1,6 @@
 <template lang="html">
   <b-container>
-    <PageTitle title="Tags" />
+    <portal to="pageTitle">Tags</portal>
 
     <portal v-if="!loading && tags.length > 0" to="headerActions">
       <b-button

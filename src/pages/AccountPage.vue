@@ -1,6 +1,8 @@
 <template lang="html">
   <div class="pt-3">
-    <PageTitle title="Settings" />
+    <portal to="pageTitle">
+      Settings
+    </portal>
 
     <b-button
       class="mr-3"

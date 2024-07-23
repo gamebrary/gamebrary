@@ -1,6 +1,10 @@
 <template lang="html">
   <b-container>
-    <PageTitle title="Tags">
+    <portal to="pageTitle">
+      Tags
+    </portal>
+
+    <portal to="headerActions">
       <b-button
         v-if="user"
         :variant="darkTheme ? 'success' : 'black'"
@@ -9,7 +13,7 @@
       >
         <i class="fa-solid fa-plus fa-fw" />
       </b-button>
-    </PageTitle>
+    </portal>
 
     <b-spinner v-if="loading" class="spinner-centered" />
 

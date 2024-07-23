@@ -3,7 +3,7 @@
     @submit.prevent="createBoard"
     class="small-container pb-3 d-flex flex-column"
   >
-    <PageTitle title="Create board" />
+    <portal to="pageTitle">Create board</portal>
     
     <b-form-group label="Board name:" label-for="boardName">
       <b-form-input

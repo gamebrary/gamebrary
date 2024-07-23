@@ -1,13 +1,15 @@
 <template lang="html">
   <div>
-    <PageTitle title="Games">
+    <portal to="pageTitle">Games</portal>
+    
+    <portal to="headerActions">
       <GameSelector
         trigger-text="Add games"
         :variant="darkTheme ? 'success' : 'primary'"
         :filter="likedGamesIds"
         @select-game="selectGame"
       />
-    </PageTitle>
+    </portal>
 
     <!-- <b-button class="mr-3">
       Sort

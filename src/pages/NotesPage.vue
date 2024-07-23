@@ -1,16 +1,16 @@
 <template lang="html">
   <div>
-    <PageTitle :title="$t('notes.title')">
-      <!-- <GameSelectors
-        v-if="!isEmpty"
+    <portal to="pageTitle">Notes</portal>
+
+    <portal to="headerActions">
+      <GameSelector
         title="Select game to add a note"
         :variant="darkTheme ? 'success' : 'primary'"
         @select-game="createNote"
       >
-      <i class="d-sm-none fa-solid fa-plus" />
-      <span class="d-none d-sm-inline">Create note</span>
-      </GameSelectors> -->
-    </PageTitle>
+      <i class="fa-solid fa-plus" />
+      </GameSelector>
+    </portal>
 
     <b-spinner v-if="loading" class="spinner-centered" />
 

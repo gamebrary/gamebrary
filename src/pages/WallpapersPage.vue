@@ -1,6 +1,13 @@
 <template lang="html">
   <div>
-    <PageTitle :title="$t('wallpapers.title')" />
+    <portal to="pageTitle">
+      Wallpapers
+    </portal>
+    
+    <portal to="headerActions">
+      <UploadWallpaperButton v-if="user" />
+    </portal>
+
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <empty-state

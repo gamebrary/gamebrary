@@ -3,7 +3,9 @@
     @submit.stop.prevent="saveBoard(true)"
     class="pb-3 d-flex flex-column h-100 small-container"
   >
-    <PageTitle title="Edit board" />
+    <portal to="pageTitle">
+      Edit board
+    </portal>
     
     <b-modal id="boardWallpaper" size="xl" scrollable hide-footer
       :header-bg-variant="darkTheme ? 'dark' : 'transparent'" :header-text-variant="darkTheme ? 'white' : 'dark'"
