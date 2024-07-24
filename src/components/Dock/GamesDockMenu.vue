@@ -58,7 +58,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'tags', 'game']),
-    ...mapGetters(['dockButtonProps', 'darkTheme']),
+    ...mapGetters(['darkTheme']),
 
     isGamePage() {
       return ['game.notes','game','game.news'].includes(this.$route.name);

@@ -142,7 +142,7 @@ export default {
 
   computed: {
     ...mapState(['settings']),
-    ...mapGetters(['darkTheme', 'showGameThumbnails', 'dockButtonProps', 'navPosition', 'transparencyEnabled', 'ageRating']),
+    ...mapGetters(['darkTheme', 'showGameThumbnails', 'navPosition', 'transparencyEnabled', 'ageRating']),
 
     ageRatingOptions() {
       return AGE_RATINGS.map((rating) => {

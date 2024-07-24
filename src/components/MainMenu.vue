@@ -78,9 +78,8 @@
       <SettingsDockMenu class="mr-1" />
 
       <b-button
-        v-bind="dockButtonProps"
         :to="{ name: 'search' }"
-        class="mr-1 d-sm-none"
+        :variant="darkTheme ? 'dark' : 'light'"
         v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
         title="Search"
       >
@@ -128,7 +127,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'board', 'boards', 'settings', 'user', 'games', 'notes', 'tags', 'wallpapers', 'menuOpen']),
-    ...mapGetters(['navPosition', 'latestRelease', 'dockButtonProps', 'darkTheme', 'transparencyEnabled']),
+    ...mapGetters(['navPosition', 'latestRelease', 'darkTheme', 'transparencyEnabled']),
 
     currentYear() {
       return new Date().getFullYear();

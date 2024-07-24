@@ -41,7 +41,7 @@ export default {
 
   computed: {
     ...mapState(['board', 'user']),
-    ...mapGetters(['dockButtonProps', 'darkTheme']),
+    ...mapGetters(['darkTheme']),
 
     userName() {
       return this.profile?.userName;

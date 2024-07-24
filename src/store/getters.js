@@ -30,14 +30,6 @@ export default {
     return game?.websites?.map(({ url, category }) => ({ url, ...LINKS_CATEGORIES[category] })) || [];
   },
 
-  dockButtonProps: ({ settings }) => {
-    return {
-      variant: settings?.darkTheme ? 'dark' : 'light',
-      // toggleClass: 'p-0 border-0',
-      // style: 'width: 44px;',
-    };
-  },
-
   // Arabic is the only ltr language supported at the moment
   isRTL: ({ settings }) => settings?.language !== 'ar',
 
