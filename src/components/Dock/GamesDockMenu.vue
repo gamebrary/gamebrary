@@ -1,5 +1,6 @@
 <template>
   <div>  
+    <!-- TODO: move these to a dropdown in dock using portal -->
     <div v-if="isGamePage" class="p-1 bg-light m-1 rounded">
       <b-img
         v-if="isGamePage && gameName"

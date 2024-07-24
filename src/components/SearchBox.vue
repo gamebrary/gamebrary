@@ -5,7 +5,7 @@
         v-model="searchText"
         type="search"
         debounce="500"
-        placeholder="Search"
+        placeholder="Search games"
       />
 
       <b-input-group-append>

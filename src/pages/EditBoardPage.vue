@@ -261,15 +261,17 @@
     </div>
 
     <div class="mt-3">
-        <b-button variant="primary" :disabled="saving" type="submit">
-          <b-spinner small v-if="saving" />
-          <span v-else>{{ $t('global.save') }}</span>
-        </b-button>
+      <b-button variant="primary" :disabled="saving" type="submit">
+        <b-spinner small v-if="saving" />
+        <span v-else>{{ $t('global.save') }}</span>
+      </b-button>
+    </div>
 
-        <b-button variant="outline-danger" class="mx-2" @click="confirmDeleteBoard">
-          {{ $t('board.settings.deleteBoard') }}
-        </b-button>
-      </div>
+    <portal to="headerActions">
+      <b-button variant="danger" @click="confirmDeleteBoard">
+        {{ $t('board.settings.deleteBoard') }}
+      </b-button>
+    </portal>
   </form>
 </template>
 

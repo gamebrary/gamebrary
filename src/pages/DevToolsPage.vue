@@ -3,6 +3,27 @@
     <b-container>
       <b-row>
         <b-col cols="12">
+          <div class="pb-5">
+            main two
+            <div class="py-4 bg-primary text-center text-light">.bg-primary</div>
+            <div class="py-4 bg-secondary text-center">.bg-secondary</div>
+            
+            complementary
+            <div class="py-4 bg-muted text-center">.bg-muted</div>
+            <div class="py-4 bg-info text-center">.bg-info</div>
+            
+            black and white
+            <div class="py-4 bg-white text-center">.bg-white</div>
+            <div class="py-4 bg-black text-center text-light">.bg-black</div>
+            <div class="py-4 bg-dark text-center text-light">.bg-dark</div>
+            <div class="py-4 bg-light text-center">.bg-light</div>
+
+            statuses
+            <div class="py-4 bg-success text-center">.bg-success</div>
+            <div class="py-4 bg-warning text-center">.bg-warning</div>
+            <div class="py-4 bg-danger text-center">.bg-danger</div>
+          </div>
+
           <b-button-group class="mb-3">
             <b-button
               v-for="variant in variants"

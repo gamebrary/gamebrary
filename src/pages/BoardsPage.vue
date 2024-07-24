@@ -2,6 +2,22 @@
     <b-spinner v-if="loading" class="spinner-centered" />
   
     <div v-else>
+      <portal to="pageTitle">
+        Boards
+      </portal>
+
+      <portal to="headerActions">
+        <b-button
+          v-if="user"
+          :variant="darkTheme ? 'success' : 'light'"
+          title="Create board"
+          :to="{ name: 'create.board' }"
+        >
+          <i class="fa-solid fa-plus" />
+          Create board
+        </b-button>
+      </portal>
+
       <empty-state
         v-if="isEmpty && !isPublicBoard"
         title="Boards"
@@ -15,28 +31,14 @@
         </b-button>
       </empty-state>
   
-      <template v-else>
-        <PageTitle title="My boards" class="d-md-none">
-          <b-button
-            v-if="user"
-            :variant="darkTheme ? 'success' : 'light'"
-            title="Create board"
-            :to="{ name: 'create.board' }"
-          >
-            <i class="fa-solid fa-plus" />
-            Create board
-          </b-button>
-        </PageTitle>
-  
-        <div class="board-grid">
-          <mini-board
-            v-for="board in sortedBoards"
-            :key="board.id"
-            :board="board"
-            @click.native="$router.push({ name: 'board', params: { id: board.id } })"
-          />
-        </div>
-      </template>
+      <div v-else class="board-grid">
+        <mini-board
+          v-for="board in sortedBoards"
+          :key="board.id"
+          :board="board"
+          @click.native="$router.push({ name: 'board', params: { id: board.id } })"
+        />
+      </div>
     </div>
   </template>
   

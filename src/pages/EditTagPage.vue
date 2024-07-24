@@ -11,7 +11,7 @@
         {{ tag.name }}
       </b-button>
 
-      <h3 v-else-if="!loading">Edit tag</h3>
+      <portal to="pageTitle">Edit tag</portal>
 
       <GameSelector
         :filter="tag.games"

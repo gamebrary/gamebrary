@@ -4,7 +4,7 @@
     <h2 class="mb-3">Elevate Your Play, Organize Your Way.</h2>
 
     <b-button
-        variant="danger"
+        variant="success"
         class="mb-5"
         :to="{ name: 'auth' }"
       >

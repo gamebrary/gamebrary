@@ -237,7 +237,7 @@ export default {
     }
 
     &.light {
-      background-color: #f3f3f3;
+      background-color: var(--light);
     }
 
     &.nav-bottom {

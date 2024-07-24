@@ -1,8 +1,8 @@
 <template lang="html">
   <board-placeholder v-if="loading" />
-
+  
   <div v-else-if="hasAccess">
-    <edit-list-modal />
+    <edit-list-modal v-if="board.type !== $options.BOARD_TYPE_STANDARD" />
 
     <portal to="pageTitle">
       <div :class="{ 'd-flex flex-column align-items-baseline': publicUserName }">
@@ -29,6 +29,32 @@
           </b-link>
         </small>
       </div>
+    </portal>
+
+    <portal to="headerActions">
+      <b-dropdown no-caret right>
+        <template #button-content>
+          <i class="fa-regular fa-caret-down" />
+        </template>
+
+        <b-dropdown-item
+          v-if="canEdit"
+          :to="{ name: 'board.edit', params: { id: board.id } }"
+        >
+          <i class="fa-solid fa-pen fa-fw" />
+          <span class="ml-2">Edit board</span>
+        </b-dropdown-item>
+
+        <!-- TODO: add copy board logic -->
+        <b-dropdown-item disabled>
+          <i class="fa-solid fa-clone fa-fw"></i>
+          <span class="ml-2">Copy board</span>
+        </b-dropdown-item>
+
+        <b-dropdown-item>Third Action</b-dropdown-item>
+        <b-dropdown-divider></b-dropdown-divider>
+        <b-dropdown-item disabled>Disabled action</b-dropdown-item>
+      </b-dropdown>
     </portal>
 
     <standard-board v-if="board.type === $options.BOARD_TYPE_STANDARD" />
@@ -79,7 +105,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'dragging', 'board', 'wallpapers']),
-    ...mapGetters(['isBoardOwner', 'darkTheme']),
+    ...mapGetters(['isBoardOwner', 'darkTheme', 'isBoardOwner']),
 
     isBoardPage() {
       return this.$route.name === 'board';
@@ -99,6 +125,10 @@ export default {
 
     isBoardCached() {
       return this.board.id === this.boardId;
+    },
+
+    canEdit() {
+      return Boolean(this.$route.name === 'board' && this.isBoardOwner);
     },
   },
 

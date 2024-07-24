@@ -1,14 +1,17 @@
-$primary: #4D78CC !default;
-$muted: #7D7F8C !default;
-$danger: #DA0050 !default;
-$warning: #F8A23A !default;
-$success: #C5E254 !default;
+$primary: #2C82C9 !default;
+$secondary: #DB61A2 !default;
+
+$muted: #A8AAA4 !default;
+$info: #B692C2 !default;
+
 $white: #F8F8F6 !default;
+$light: #e8e8e8	 !default;
 $black: #202123 !default;
-$info: #B3DBF5 !default;
-$light: #DEE4E7 !default;
 $dark: #35363A !default;
-$secondary: #DEE4E7 !default;
+
+$danger: #F1828D !default;
+$warning: #FEFAD4 !default;
+$success: #C5E254 !default;
 
 $sizes: () !default;
 $sizes: map-merge(
@@ -91,7 +94,7 @@ $border-radius-sm:            .2rem !default;
 // //
 // // Settings for the `<body>` element.
 //
-$body-bg: $white !default;
+$body-bg: $light !default;
 $body-color: $dark !default;
 // // Users can override these variables in their custom SCSS
 // //

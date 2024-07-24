@@ -1,30 +1,22 @@
 <template>
-    <div>
-      <div class="position-relative text-center">
-        <b-avatar
-          :src="avatarImage"
-          size="120"
-          :title="displayUserName"
-          :to="{ name: 'public.profile', params: { userName } }"
-        />
-      </div>
+  <div
+    class="py-3 d-flex flex-column text-center"
+    :style="style"
+  >
+    <b-avatar
+      :src="avatarImage"
+      size="120"
+      class="mx-auto mb-2"
+      :title="displayUserName"
+      :to="{ name: 'public.profile', params: { userName } }"
+    />
 
-      <b-button
-        :variant="darkTheme ? 'dark' : 'light'"
-        :to="{ name: 'profile' }"
-      >
-        <i class="fa-regular fa-pen"></i>
-      </b-button>
-
-      <b-button
-        block
-        :variant="darkTheme ? 'dark' : 'light'"
-        @click="signOut"
-      >
-        <i class="fa-regular fa-right-from-bracket"></i>
-        <span class="ml-2">Log out</span>
-      </b-button>
-    </div>
+    <b-link
+      :to="{ name: 'public.profile', params: { userName } }"
+    >
+      {{ displayUserName }}
+    </b-link>
+  </div>
 </template>
 
 <script>
@@ -36,12 +28,19 @@ export default {
     return {
       profile: null,
       avatarImage: null,
+      wallpaperImage: null,
     };
   },
 
   computed: {
     ...mapState(['board', 'user']),
     ...mapGetters(['darkTheme']),
+
+    style() {
+      return this.wallpaperImage
+        ? `background-image: url('${this.wallpaperImage}'); background-size: cover;`
+        : null;
+    },
 
     userName() {
       return this.profile?.userName;
@@ -63,6 +62,11 @@ export default {
       this.profile = await this.$store.dispatch('LOAD_PROFILE').catch(() => {});
       
       if (this.profile?.avatar) this.loadAvatarImage();
+
+      if (this.profile?.wallpaper) {
+        this.wallpaperImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', this.profile?.wallpaper)
+          .catch((e) => {});
+      }
     },
     
     async loadAvatarImage() {
@@ -70,13 +74,6 @@ export default {
     
       this.avatarImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', thumbnailRef);
     },
-
-    async signOut() {
-			await this.$store.dispatch('SIGN_OUT');
-			this.$bvToast.toast('Logged out');
-			this.$store.commit('CLEAR_SESSION');
-			this.$router.replace({ name: 'home' });
-		},
   }
 }
 </script>

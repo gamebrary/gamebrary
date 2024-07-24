@@ -32,11 +32,17 @@ Object.defineProperties(Vue.prototype, {
 Vue.use(VueMasonry);
 Vue.use(VueShortKey, { prevent: ['input', 'textarea', '.ProseMirror'] });
 Vue.use(PortalVue);
-Vue.use(BootstrapVue);
 Vue.use(VueAnalytics, { id: 'UA-120053966-1', router });
 Vue.use(VueAxios, axios);
 Vue.use(VueFire);
 Vue.use(VueI18n);
+// Component specific defaults are keyed by their PascalCase name with the props as camelCase properties.
+// https://bootstrap-vue.org/docs/reference/settings#settings
+Vue.use(BootstrapVue, {
+  BButton: { variant: 'primary' },
+  BAvatar: { variant: 'muted' },
+  BDropdown: { variant: 'primary' },
+});
 
 Vue.component('ModalHeader', ModalHeader);
 

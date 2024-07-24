@@ -31,55 +31,29 @@
       </b-button>
      </empty-state>
 
-    <b-row v-else>
-      <b-col
-        v-for="({ textColor, bgColor, name, games: taggedGames }, index) in tags"
-        cols="12"
-        sm="12"
-        md="12"
-        lg="8"
-        offset-lg="2"
-        :key="name"
-      >
-
-      <b-card
-        :bg-variant="darkTheme ? 'dark' : 'light'"
-        :text-variant="darkTheme ? 'light' : 'dark'"
-        class="mb-2"
-      >
-        <b-button
-          :style="`background-color: ${bgColor}; color: ${textColor}`"
-          @click="$router.push({ name: 'tag.edit', params: { id: index } })"
-        >
-         {{ name }}
-        </b-button>
-
-        <b-form-row v-if="taggedGames.length" class="mt-2">
-          <b-col
-            v-for="game in taggedGames.slice(0, 6)"
-            :key="game"
-            cols="3"
-            sm="4"
-            md="3"
-            lg="2"
-          >
-            <!-- <b-img
-              :src="$options.getImageUrl(cachedGames[game], $options.IMAGE_SIZE_COVER_SMALL)"
-              class="cursor-pointer rounded mb-2"
-              fluid
-              @click="$router.push({ name: 'game', params: { id: cachedGames[game].id, slug: cachedGames[game].slug }})"
-            /> -->
-          </b-col>
-        </b-form-row>
-
-        <b-link
-          v-if="taggedGames.length > 6"
+    <div v-else>
+      <b-list-group>
+        <b-list-group-item
+          v-for="({ textColor, bgColor, name, games: taggedGames }, index) in tags"
+          :key="name"
+          :variant="darkTheme ? 'dark' : 'light'"
+          class="flex-column align-items-start"
           :to="{ name: 'tag.edit', params: { id: index } }"
         >
-          {{ taggedGames.length }} more...
-        </b-link>
-      </b-card>
-      </b-col>
+          <div class="d-flex w-100 justify-content-between align-items-center">
+            <b-button
+              variant="transparent"
+              :style="`background-color: ${bgColor}; color: ${textColor}`"
+            >
+            {{ name }}
+            </b-button>
+
+            <b-badge variant="primary" pill>
+              {{ taggedGames.length }} games
+            </b-badge>
+          </div>
+        </b-list-group-item>
+      </b-list-group>
 
       <!-- <b-button
         v-for="({ textColor, bgColor, name, games }, index) in tags"
@@ -92,7 +66,7 @@
       >
         {{ name }} {{ games.length ? `(${games.length})` : '' }}
       </b-button> -->
-    </b-row>
+    </div>
   </b-container>
 </template>
 
