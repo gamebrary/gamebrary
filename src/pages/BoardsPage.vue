@@ -9,12 +9,10 @@
       <portal to="headerActions">
         <b-button
           v-if="user"
-          :variant="darkTheme ? 'success' : 'light'"
           title="Create board"
           :to="{ name: 'create.board' }"
         >
           <i class="fa-solid fa-plus" />
-          Create board
         </b-button>
       </portal>
 
@@ -31,7 +29,7 @@
         </b-button>
       </empty-state>
   
-      <div v-else class="board-grid">
+      <div v-else class="board-grid pb-3">
         <mini-board
           v-for="board in sortedBoards"
           :key="board.id"

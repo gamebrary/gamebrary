@@ -5,7 +5,6 @@
     <portal to="headerActions">
       <GameSelector
         trigger-text="Add games"
-        :variant="darkTheme ? 'success' : 'primary'"
         :filter="likedGamesIds"
         @select-game="selectGame"
       />

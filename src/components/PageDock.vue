@@ -58,7 +58,7 @@ nav {
   gap: 1rem;
   align-items: center;
   border-radius: .5rem;
-  margin: .5rem;
+  margin: .5rem 1rem;
   padding-right: 1rem;
   padding: .25rem;
   width: calc(100dvw - 2rem);
