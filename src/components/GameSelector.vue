@@ -126,7 +126,7 @@ export default {
     size: String,
     variant: {
       type: String,
-      default: '',
+      default: 'primary',
     },
     title: {
       type: String,
