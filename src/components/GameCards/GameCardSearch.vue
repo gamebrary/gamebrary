@@ -1,3 +1,4 @@
+<!-- TODO: finish game card, make it default card? -->
 <template lang="html">
   <b-card
     v-if="game"
@@ -5,7 +6,6 @@
     :img-alt="game.name"
     class="mb-3 cursor-pointer border-0"
     img-left
-    overlay
     @click="handleClick"
   >
     <b-card-text>
@@ -22,13 +22,11 @@
       </b-button>
 
       <strong
-        v-if="noImage"
         class="text-center pb-5 d-flex justify-content-center"
       >
         {{ game.name }}
       </strong>
-
-      <!-- {{ gamePlatformsText }} -->
+      {{ gamePlatformsText }}
     </b-card-text>
   </b-card>
 </template>
@@ -67,13 +65,9 @@ export default {
       return NO_IMAGE_PATH === this.gameCoverUrl;
     },
 
-    // gamePlatforms() {
-    //   return this.game?.platforms.map((id) => PLATFORMS?.[id]);
-    // },
-
-    // gamePlatformsText() {
-    //   return this.game?.platforms.map((id) => PLATFORMS?.[id]?.name)?.join(', ');
-    // },
+    gamePlatformsText() {
+      return this.game?.platforms.map((id) => PLATFORMS?.[id]?.name)?.join(', ');
+    },
   },
 
   methods: {

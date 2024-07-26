@@ -1,22 +1,27 @@
-<!-- TODO: improve this page -->
 <template lang="html">
   <section class="d-flex flex-column">
     <portal to="pageTitle">
       <h3>Search</h3>
     </portal>
 
-    <SearchBox :loading="loading" />
+    <portal to="headerActions">
+      <div class="d-flex">
+        <b-button
+          v-b-toggle.filtersSidebar
+          title="Filters"
+          :variant="filterSelected ? 'primary' : darkTheme ? 'light' : 'secondary'"
+          class="mr-2"
+        >
+          <i class="fa-regular fa-filter fa-fw" />
+        </b-button>
 
-    <header class="mb-3 d-flex justify-content-between bg-danger">
-      <!-- <b-button v-b-modal.filters>
-        <i class="fa-solid fa-sliders" />
-        Filters
-      </b-button>
+        <SearchBox :loading="loading" />
+      </div>
+    </portal>
 
-      <search-filters /> -->
-    </header>
+    <SearchFilters />
 
-    <game-card-search
+    <GameCardSearch
       v-for="game in searchResults"
       :game="game"
       :key="game.id"
@@ -46,9 +51,8 @@
 
 <script>
 import GameCardSearch from '@/components/GameCards/GameCardSearch';
-// import SearchFilters from '@/components/SearchFilters';
+import SearchFilters from '@/components/SearchFilters';
 import SearchBox from '@/components/SearchBox';
-import orderby from 'lodash.orderby';
 import { IGDB_QUERIES } from '@/constants';
 import { mapState, mapGetters } from 'vuex';
 
@@ -56,7 +60,7 @@ export default {
   components: {
     GameCardSearch,
     SearchBox,
-    // SearchFilters,
+    SearchFilters,
   },
 
   data() {
@@ -103,22 +107,16 @@ export default {
       return this.$route.query?.listIndex;
     },
 
-    // activeBoard() {
-    //   return this.boards.find(({ id }) => id === this.boardId);
-    // },
-    //
-    // activeBoardList() {
-    //   if (this.boardListIndex === undefined) return [];
-    //
-    //   return this.activeBoard?.lists[this.boardListIndex];
-    // },
-
     showEmptyState() {
       return this.$route?.query?.q === undefined;
     },
 
     showPreviousButton() {
       return this.offset >= this.pageSize;
+    },
+
+    filterSelected() {
+      return Boolean(this.$route.query?.filterBy && this.$route.query?.value);
     },
   },
 
@@ -136,11 +134,6 @@ export default {
       this.offset = 0;
       this.search();
     },
-
-    filterType(value) {
-      this.offset = 0;
-      this.search();
-    },
   },
 
   async mounted() {
@@ -150,7 +143,6 @@ export default {
   methods: {
     clearResults() {
       this.searchResults = [];
-      console.log('results cleared');
     },
 
     loadMore() {
