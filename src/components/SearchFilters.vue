@@ -1,125 +1,145 @@
 <template lang="html">
-  <b-modal
-    id="filters"
-    size="md"
-    :header-bg-variant="darkTheme ? 'dark' : 'transparent'"
-    :header-text-variant="darkTheme ? 'white' : 'dark'"
-    :body-bg-variant="darkTheme ? 'dark' : 'transparent'"
-    :body-text-variant="darkTheme ? 'white' : 'dark'"
-    hide-footer
+  <b-sidebar
+    id="filtersSidebar"
+    shadow
+    right
+    no-header
+    backdrop
+    width="380px"
+    body-class="p-3"
+    :bg-variant="darkTheme ? 'dark' : 'light'"
+    :text-variant="darkTheme ? 'light' : 'dark'" 
   >
-    <template v-slot:modal-header="{ close }">
-      <modal-header
-        title="Search filters"
-        @close="close"
-      >
-        <b-button
-          v-if="hasFilter"
-          @click="clearFilters"
-        >
-          Clear filter
-        </b-button>
-      </modal-header>
-    </template>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h3>Filter search results</h3>
 
-    <b-tabs
-      :active-nav-item-class="darkTheme ? 'bg-light' : 'bg-primary'"
-      pills
-      nav-wrapper-class="pb-3"
-    >
-      <b-tab title="Genres" active>
-        <b-button
-          v-for="{ id, name } in $options.GAME_GENRES"
-          :key="name"
-          size="sm"
-          class="mb-1 mr-1"
-          :variant="isFilterSelected('genres', id) ? 'primary' : 'light'"
-          @click="setFilter('genres', id)"
-        >
-          {{ name }}
-        </b-button>
-      </b-tab>
-
-      <b-tab title="Themes">
-        <b-button
-          v-for="{ id, name } in $options.GAME_THEMES"
-          :key="name"
-          size="sm"
-          class="mb-1 mr-1"
-          :variant="isFilterSelected('themes', id) ? 'primary' : 'light'"
-          @click="setFilter('themes', id)"
-        >
-          {{ name }}
-        </b-button>
-      </b-tab>
-
-      <b-tab title="Perspective">
-        <b-button
-          v-for="{ id, name } in $options.GAME_PERSPECTIVES"
-          :key="name"
-          size="sm"
-          class="mb-1 mr-1"
-          :variant="isFilterSelected('player_perspectives', id) ? 'primary' : 'light'"
-          @click="setFilter('player_perspectives', id)"
-        >
-          {{ name }}
-        </b-button>
-      </b-tab>
-
-      <b-tab title="Platform">
-        <div style="column-count: 3;">
-          <b-button
-            v-for="{ id, name, slug } in platforms"
-            :key="id"
-            size="sm"
-            class="w-100"
-            :variant="isFilterSelected('platforms', id) ? 'primary' : 'light'"
-            @click="setFilter('platforms', id)"
-          >
-            <b-avatar
-              :src="`/logos/platforms/${slug}.svg`"
-              :text="slug"
-              rounded
-              class="mr-2"
-            />
-
-            {{ name }}
-          </b-button>
-        </div>
-      </b-tab>
-
-      <b-tab title="Game modes">
-        <b-button
-          v-for="{ id, name } in $options.GAME_MODES"
-          :key="id"
-          size="sm"
-          class="mb-1 mr-1"
-          :variant="isFilterSelected('game_modes', id) ? 'primary' : 'light'"
-          @click="setFilter('game_modes', id)"
-        >
-          {{ name }}
-        </b-button>
-      </b-tab>
-    </b-tabs>
-
-    <!-- <div>
       <b-button
-        v-for="{ id, name } in $options.GAME_LANGUAGES"
-        :key="name"
-        block
+        v-if="filterSelected"
         size="sm"
-        :variant="isFilterSelected('languages', id) ? 'primary' : ''"
-        @click="setFilter('languages', id)"
+        :variant="darkTheme ? 'black' : 'white'"
+        @click="clearFilters"
+      >
+        Clear filter
+      </b-button>
+    </div>
+
+    <b-button
+      block
+      v-b-toggle.genres-accordion
+      class="mb-3"
+      :variant="filterType === 'genres' ? 'primary' : darkTheme ? 'light' : null"
+    >
+      Genre
+    </b-button>
+      
+    <b-collapse id="genres-accordion" visible accordion="search-filters" role="tabpanel">
+      <b-button
+        v-for="{ id, name } in $options.GAME_GENRES"
+        :key="name"
+        size="sm"
+        class="mb-2 mr-2"
+        :variant="filterType === 'genres' && filterValue === id ? 'primary' : darkTheme ? 'black' : 'white'"
+        @click="setFilter('genres', id)"
+        >
+        {{ name }}
+      </b-button>
+    </b-collapse>
+    
+    
+    <b-button
+      block
+      v-b-toggle.themes-accordion
+      class="mb-3"
+      :variant="filterType === 'themes' ? 'primary' : darkTheme ? 'light' : null"
+    >
+      Theme
+    </b-button>
+    
+    <b-collapse id="themes-accordion" accordion="search-filters" role="tabpanel">
+      <b-button
+        v-for="{ id, name } in $options.GAME_THEMES"
+        :key="name"
+        size="sm"
+        class="mb-1 mr-1"
+        :variant="filterType === 'themes' && filterValue === id ? 'primary' : darkTheme ? 'black' : 'white'"
+        @click="setFilter('themes', id)"
       >
         {{ name }}
       </b-button>
-    </div> -->
-  </b-modal>
+    </b-collapse>
+
+    <b-button
+      block
+      class="mb-3"
+      v-b-toggle.perspectives-accordion
+      :variant="filterType === 'player_perspectives' ? 'primary' : darkTheme ? 'light' : null"
+    >
+      Game perspective
+    </b-button>
+    
+    <b-collapse id="perspectives-accordion" accordion="search-filters" role="tabpanel">
+      <b-button
+        v-for="{ id, name } in $options.GAME_PERSPECTIVES"
+        :key="name"
+        size="sm"
+        class="mb-1 mr-1"
+        :variant="filterType === 'player_perspectives' && filterValue === id ? 'primary' : darkTheme ? 'black' : 'white'"
+        @click="setFilter('player_perspectives', id)"
+      >
+        {{ name }}
+      </b-button>
+    </b-collapse>
+
+    <b-button
+      block
+      class="mb-3"
+      v-b-toggle.platforms-accordion
+      :variant="filterType === 'platforms' ? 'primary' : darkTheme ? 'light' : null"
+    >
+      Platform
+    </b-button>
+    
+    <b-collapse id="platforms-accordion" accordion="search-filters" role="tabpanel">
+      <b-button
+        v-for="{ id, name } in sortedPlatforms"
+        :key="id"
+        size="sm"
+        block
+        :variant="filterType === 'platforms' && filterValue === id ? 'primary' : darkTheme ? 'black' : 'white'"
+        @click="setFilter('platforms', id)"
+      >
+        {{ name }}
+      </b-button>
+    </b-collapse>
+
+    <b-button
+      block
+      v-b-toggle.gamemodes-accordion
+      class="mb-3"
+      :variant="filterType === 'game_modes' ? 'primary' : darkTheme ? 'light' : null"
+    >
+      Game modes
+    </b-button>
+      
+    <b-collapse id="gamemodes-accordion" visible accordion="search-filters" role="tabpanel">
+      <b-button
+        v-for="{ id, name } in $options.GAME_MODES"
+        :key="id"
+        size="sm"
+        class="mb-1 mr-1"
+        :variant="filterType === 'game_modes' && filterValue === id ? 'primary' : darkTheme ? 'black' : 'white'"
+        @click="setFilter('game_modes', id)"
+      >
+        {{ name }}
+      </b-button>
+    </b-collapse>
+  </b-sidebar>
 </template>
 
 <script>
 import { GAME_GENRES, GAME_PERSPECTIVES, GAME_MODES, GAME_THEMES, GAME_LANGUAGES } from '@/constants';
 import { mapState, mapGetters } from 'vuex';
+import orderby from 'lodash.orderby';
 
 export default {
   GAME_GENRES,
@@ -132,29 +152,29 @@ export default {
     ...mapState(['platforms']),
     ...mapGetters(['darkTheme']),
 
-    filterBy() {
+    sortedPlatforms() {
+      return orderby(this.platforms, [platform => platform.name]);
+    },
+
+    filterType() {
       return this.$route.query?.filterBy;
     },
 
-    value() {
+    filterValue() {
       return this.$route.query?.value;
     },
 
-    hasFilter() {
-      return Object.keys(this.$route.query)?.length > 0;
+    filterSelected() {
+      return Boolean(this.filterType && this.filterValue);
     },
   },
 
   methods: {
     clearFilters() {
-      this.$router.push({ name: 'search', query: {} });
-    },
-
-    isFilterSelected(filterBy, value) {
-      const filterSelected = this.filterBy == filterBy;
-      const valueSelected = this.value == value;
-
-      return filterSelected && valueSelected;
+      this.$router.push({ name: 'search', query: this.$route.query?.q
+          ? { q: this.$route.query?.q }
+          : {}
+      });
     },
 
     setFilter(type, value) {
