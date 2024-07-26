@@ -39,7 +39,7 @@ Vue.use(VueI18n);
 // Component specific defaults are keyed by their PascalCase name with the props as camelCase properties.
 // https://bootstrap-vue.org/docs/reference/settings#settings
 Vue.use(BootstrapVue, {
-  BButton: { variant: 'primary' },
+  BButton: { variant: 'secondary' },
   BAvatar: { variant: 'muted' },
   BDropdown: { variant: 'primary' },
 });
