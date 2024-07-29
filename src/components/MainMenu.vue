@@ -29,16 +29,6 @@
           <span class="ml-2">Boards</span>
         </b-button>
 
-        <!-- TODO: find a place to show public boards -->
-        <!-- <b-button
-          :variant="darkTheme ? 'dark' : 'light'"
-          block
-          :to="{ name: 'public.boards' }"
-        >
-          <i class="fa-solid fa-users-rectangle fa-fw" />
-          <span class="ml-2">Public boards</span>
-        </b-button> -->
-
         <GamesDockMenu />
         <TagsDockMenu />
         

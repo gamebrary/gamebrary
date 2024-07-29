@@ -20,6 +20,14 @@
       />
     </div>
 
+    <b-button
+      variant="link"
+      class="mt-2"
+      :to="{ name: 'public.boards' }"
+    >
+      View all public boards...
+    </b-button>
+
     <h3 class="mt-5 mb-3">Join the community and start creating your own boards!</h3>
 
     <div class="d-flex overflow-hidden justify-content-center">
