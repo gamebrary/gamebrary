@@ -45,7 +45,6 @@ export default {
 
       await this.$store.dispatch('SAVE_SETTINGS', payload)
         .catch(() => {
-          $bus.$emit('ALERT', { type: 'error', message: 'Error saving settings' })
           this.saving = false;
         });
     },

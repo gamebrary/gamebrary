@@ -200,7 +200,6 @@ export default {
     async saveBoard() {
       try {
         await this.$store.dispatch('SAVE_BOARD');
-        this.$bus.$emit('ALERT', { type: 'success', message: 'Board updated' });
       } catch (e) {
         this.$store.commit('SET_SESSION_EXPIRED', true);
       }
