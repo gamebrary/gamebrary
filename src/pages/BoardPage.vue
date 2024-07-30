@@ -50,10 +50,6 @@
           <i class="fa-solid fa-clone fa-fw"></i>
           <span class="ml-2">Copy board</span>
         </b-dropdown-item>
-
-        <b-dropdown-item>Third Action</b-dropdown-item>
-        <b-dropdown-divider></b-dropdown-divider>
-        <b-dropdown-item disabled>Disabled action</b-dropdown-item>
       </b-dropdown>
     </portal>
 
