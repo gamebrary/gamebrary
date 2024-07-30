@@ -20,10 +20,10 @@
             @close="close"
           />
         </template>
-        <pre>{{ title }}</pre>
+        <h3>{{ title }}</h3>
 
         <div
-          class="d-flex pt-1 bg-white justify-content-between align-items-center"
+          class="d-flex pt-1 justify-content-between align-items-center"
           style="position: sticky; top: -16px; z-index: 1"
         >
           <b-form-input

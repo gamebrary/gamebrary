@@ -23,7 +23,7 @@
         >
           <b-avatar
             style="border-radius: 4px !important"
-            :title="game.name"
+            text=" "
             :src="gameId && game.src && game.id === gameId ? game.src : showGameThumbnails && game.src ? game.src : null"
             v-b-tooltip.hover
             :variant="darkTheme ? 'black' : 'light'"

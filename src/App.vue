@@ -240,32 +240,5 @@ export default {
       background-color: var(--light);
     }
 
-    &.nav-bottom {
-      flex-direction: column-reverse;
-    }
-
-    &.nav-left {
-      flex-direction: row;
-      
-      .viewport {
-        padding-left: 85px;
-      }
-    }
-
-    &.nav-right {
-      justify-content: space-between;
-      flex-direction: row-reverse;
-      
-      .viewport {
-        padding-right: 85px;
-      }
-    }
-
-    &.nav-left, &.nav-right {
-      .viewport {
-        height: 100svh;
-        overflow-y: auto;
-      }
-    }
   }
 </style>

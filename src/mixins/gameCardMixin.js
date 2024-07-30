@@ -20,7 +20,7 @@ export default {
     ...mapGetters(['isRTL', 'darkTheme']),
 
     gamePlatforms() {
-      return this.game?.platforms.map((id) => PLATFORMS?.[id]);
+      return this.game?.platforms?.map((id) => PLATFORMS?.[id]);
     },
 
     gamePlatformsText() {
