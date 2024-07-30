@@ -1,19 +1,12 @@
-<!-- TODO: add pagination, limit to 6 per page -->
 <template>
   <div v-if="allGames.length">
     <h3>You may also like</h3>
 
-    <masonry
-      v-if="allGames.length"
-      gutter="16px"
-      :cols="{ default: 3, 1200: 6, 768: 3 }"
-    >
-      <GameCardSearch
+    <GameCardSearch
         v-for="game in allGames"
         :game="game"
         :key="game && game.id"
       />
-    </masonry>
   </div>
 </template>
 
