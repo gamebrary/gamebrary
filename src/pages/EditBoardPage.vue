@@ -316,7 +316,9 @@ export default {
     },
 
     needsFlattening() {
-      return this.board?.lists?.length && this.board.type === 'standard';
+      const listCount = this.board?.lists?.length || 0;
+
+      return listCount > 1 && this.board.type === 'standard';
     },
 
     mergedGamesList() {
