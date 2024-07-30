@@ -14,6 +14,16 @@
     v-else
     :class="[{ 'text-light': darkTheme }, 'game-page']"
   >
+    <portal to="headerActions">
+      <b-dropdown id="dropdown-1" text="Edit game" class="m-md-2">
+        <b-dropdown-item @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })">
+          Add note
+        </b-dropdown-item>
+        <b-button v-b-modal.gameTagsModal>Edit tags</b-button>
+        <b-button v-b-modal.addRemoveGameModal>Add to list</b-button>
+      </b-dropdown>
+    </portal>
+
     <b-row>
       <b-col
         cols="12"
