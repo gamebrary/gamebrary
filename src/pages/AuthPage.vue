@@ -1,6 +1,15 @@
 <template lang="html">
   <div class="mx-auto" style="width: 420px">
-    Welcome to Gamebrary
+    <div class="text-center mb-3">
+      <img
+        src="/logo.png"
+        alt=""
+        height="100"
+        class="mb-3"
+      />
+
+      <h3>Welcome to Gamebrary</h3>
+    </div>
 
     <p class="small">
       {{ authDescription }}
@@ -8,10 +17,8 @@
     </p>
 
     <b-alert
-      class="mx-auto text-center"
       :show="showExpiredAlert"
-      style="width: 220px"
-      variant="warning"
+      variant="danger"
     >
       Session expired
     </b-alert>
@@ -34,12 +41,12 @@
       placeholder="Password"
     />
 
-    <b-button v-if="newUser" @click="createAccount">
+    <b-button v-if="newUser" @click="createAccount" variant="primary">
       <b-spinner v-if="loading" small />
       <template v-else>Create account</template>
     </b-button>
 
-    <b-button v-else @click="loginWithEmail">
+    <b-button v-else @click="loginWithEmail" variant="primary">
       <b-spinner v-if="loading" small />
       <template v-else>Login</template>
     </b-button>
