@@ -93,11 +93,11 @@ const routes = [
     },
   },
   {
-    name: 'account',
-    path: '/account',
-    component: () => import(/* webpackChunkName: "account" */ '@/pages/AccountPage'),
+    name: 'settings',
+    path: '/settings',
+    component: () => import(/* webpackChunkName: "settings" */ '@/pages/SettingsPage'),
     meta: {
-      title: 'Account',
+      title: 'Settings',
     },
   },
   {

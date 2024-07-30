@@ -1,5 +1,6 @@
 <template lang="html">
   <div class="small-container">
+    <portal to="pageTitle">Help</portal>
     <h3 class="mt-4">Contact</h3>
     <p>Feel free to contact us with any feedback, comments, suggestions, or just to say hi.</p>
 

@@ -1,7 +1,3 @@
-<!-- TODO: get better (and) colorized icons for active state -->
-<!-- TODO: bring settings to nav, remove page. -->
-<!-- TODO: highlight menu item if active -->
-<!-- TODO: rename to menu, dock, or similar -->
 <template lang="html">
   <b-sidebar
     id="mainMenu"
@@ -21,7 +17,7 @@
 
       <div class="p-3">
         <b-button
-          :variant="darkTheme ? 'dark' : 'light'"
+          :variant="routeName === 'boards' ? 'primary' : darkTheme ? 'dark' : 'light'"
           block
           :to="{ name: 'boards' }"
         >
@@ -29,30 +25,50 @@
           <span class="ml-2">Boards</span>
         </b-button>
 
-        <GamesDockMenu />
-        <TagsDockMenu />
-        
+        <b-button
+          :variant="routeName === 'games' ? 'primary' : darkTheme ? 'dark' : 'light'"
+          :to="{ name: 'games' }"
+          block
+        >
+        <i class="fa-regular fa-gamepad fa-fw" />
+          Games
+        </b-button>
+
+        <!-- TODO: Add progresses page -->
+        <b-button
+          :variant="darkTheme ? 'dark' : 'light'"
+          block
+          :to="{ name: 'progresses' }"
+          disabled
+        >
+          <i
+            class="fa-solid fa-stopwatch fa-fw"
+            aria-hidden="true"
+          />
+          <span class="ml-2">Progresses</span>
+        </b-button>
+
         <b-button
           block
-          :variant="darkTheme ? 'dark' : 'light'"
-          :to="{ name: 'create.note' }"
+          :variant="routeName === 'tags' ? 'primary' : darkTheme ? 'dark' : 'light'"
+          :to="{ name: 'tags' }"
         >
-        <i class="fa-regular fa-note-medical"></i>
-          <span class="ml-2">New note</span>
+          <i class="fa-light fa-tags fa-fw" />
+          <span class="ml-2">Tags</span>
         </b-button>
 
         <b-button
           :to="{ name: 'notes' }"
-          :variant="darkTheme ? 'dark' : 'light'"
+          :variant="routeName === 'notes' ? 'primary' : darkTheme ? 'dark' : 'light'"
           block
         >
           <i class="fa-regular fa-notes"></i>
 
-          <span class="ml-2">My notes</span>
+          <span class="ml-2">Notes</span>
         </b-button>
         
         <b-button
-          :variant="darkTheme ? 'dark' : 'light'"
+          :variant="routeName === 'wallpapers' ? 'primary' : darkTheme ? 'dark' : 'light'"
           :to="{ name: 'wallpapers' }"
           block
         >
@@ -60,8 +76,14 @@
           <span class="ml-2">Wallpapers</span>
         </b-button>
 
-
-        <SettingsDockMenu class="mr-1" />
+        <b-button
+          block
+          :variant="routeName === 'settings' ? 'primary' : darkTheme ? 'dark' : 'light'"
+          :to="{ name: 'settings' }"
+        >
+          <i class="fa-regular fa-gear fa-fw" />
+          Settings
+        </b-button>
       </div>
 
       <!-- TODO: find place for close button, maybe only needed for mobile? -->
@@ -91,27 +113,7 @@
     </template>
 
     <template #footer>
-      <div class="text-center p-3 d-flex justify-content-between small">
-        <div class="d-flex justify-content-between align-items-center">
-          <img
-            src="/logo.png"
-            alt=""
-            height="26"
-            class="mr-2"
-          />
-
-          &copy; {{ currentYear }} Gamebrary
-        </div>
-
-        <b-button
-          :variant="darkTheme ? 'dark' : 'light'"
-          size="sm"
-          @click="signOut"
-        >
-          <i class="fa-regular fa-right-from-bracket fa-fw" />
-          Sign out
-        </b-button>
-      </div>
+      <DockFooter />
     </template>
   </b-sidebar>
 </template>
@@ -119,26 +121,22 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import ProfileDockMenu from '@/components/Dock/ProfileDockMenu';
-import SettingsDockMenu from '@/components/Dock/SettingsDockMenu';
-import TagsDockMenu from '@/components/Dock/TagsDockMenu';
-import GamesDockMenu from '@/components/Dock/GamesDockMenu';
+import DockFooter from '@/components/Dock/DockFooter';
 import SearchBox from '@/components/SearchBox';
 
 export default {
   components: {
     SearchBox,
     ProfileDockMenu,
-    SettingsDockMenu,
-    TagsDockMenu,
-    GamesDockMenu,
+    DockFooter,
   },
 
   computed: {
     ...mapState(['user', 'board', 'boards', 'settings', 'user', 'games', 'notes', 'tags', 'wallpapers', 'menuOpen']),
     ...mapGetters(['navPosition', 'latestRelease', 'darkTheme', 'transparencyEnabled']),
 
-    currentYear() {
-      return new Date().getFullYear();
+    routeName() {
+      return this.$route?.name;
     },
   },
 
@@ -146,13 +144,6 @@ export default {
     hideSidebar() {
       this.$store.commit('SET_MENU_OPEN', false);
     },
-
-    async signOut() {
-			await this.$store.dispatch('SIGN_OUT');
-			this.$bvToast.toast('Logged out');
-			this.$store.commit('CLEAR_SESSION');
-			this.$router.replace({ name: 'home' });
-		},
   }
 };
 </script>

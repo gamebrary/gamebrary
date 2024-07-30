@@ -9,10 +9,10 @@
       @click="handleLogoClick"
     >
       <img
-          src="/logo.png"
-          alt=""
-          height="26"
-        />
+        src="/logo.png"
+        alt=""
+        height="26"
+      />
     </b-button>
 
     <div class="d-flex justify-content-between w-100 align-items-center">
