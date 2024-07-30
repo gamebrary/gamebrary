@@ -201,7 +201,7 @@ export default {
 
   DELETE_WALLPAPER({ commit }, { fullPath }) {
     deleteObject(ref(storage, fullPath)).then(() => {
-      commit("REMOVE_WALLPAPER", fullPath);
+      return commit("REMOVE_WALLPAPER", fullPath);
     }).catch((error) => {
       throw error;
     });
