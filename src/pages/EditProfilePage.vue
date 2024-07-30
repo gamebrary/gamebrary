@@ -364,8 +364,6 @@ export default {
     async loadWallpaper() {
       try {
         this.wallpaperImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', this.profile?.wallpaper);
-
-        if (this.wallpaperImage) this.$bus.$emit('UPDATE_WALLPAPER', this.wallpaperImage);
       } catch (e) {
         this.profile.avatar = null;
         this.save(false);
