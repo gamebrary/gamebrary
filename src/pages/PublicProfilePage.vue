@@ -6,6 +6,15 @@
       <div
         v-else-if="profile"
       >
+        <portal to="headerActions">
+          <b-button
+            v-if="isProfileOwner"
+            variant="primary"
+            :to="{ name: 'profile' }"
+          >
+            Edit profile
+          </b-button>
+        </portal>
         <div class="text-center">
           <b-avatar
             :src="avatarImage"
