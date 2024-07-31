@@ -101,14 +101,6 @@ const routes = [
     },
   },
   {
-    name: 'profile',
-    path: '/profile',
-    component: () => import(/* webpackChunkName: "settings" */ '@/pages/EditProfilePage'),
-    meta: {
-      title: 'Profile',
-    },
-  },
-  {
     name: 'steam',
     path: '/steam',
     component: () => import(/* webpackChunkName: "settings" */ '@/pages/SteamSettingsPage'),

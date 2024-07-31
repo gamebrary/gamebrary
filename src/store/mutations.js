@@ -21,6 +21,14 @@ export default {
     state.twitchToken = token;
   },
 
+  SET_ACTIVE_WALLPAPER(state, activeWallpaper) {
+    state.activeWallpaper = activeWallpaper;
+  },
+  
+  CLEAR_ACTIVE_WALLPAPER(state) {
+    state.activeWallpaper = {};
+  },
+
   SET_HIGHLIGHTED_GAME(state, gameId) {
     state.highlightedGame = gameId;
   },

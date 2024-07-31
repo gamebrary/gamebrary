@@ -3,7 +3,7 @@
   
     <div v-else>
       <portal to="pageTitle">
-        Boards
+        <h3>Boards</h3>
       </portal>
 
       <portal to="headerActions">

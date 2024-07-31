@@ -1,20 +1,15 @@
 <template lang="html">
-  <b-modal
-    id="keyboard-shortcuts"
-    title="BootstrapVue"
-    :header-bg-variant="darkTheme ? 'dark' : 'transparent'"
-    :header-text-variant="darkTheme ? 'white' : 'dark'"
-    :body-bg-variant="darkTheme ? 'dark' : 'transparent'"
-    :body-text-variant="darkTheme ? 'white' : 'dark'"
-    hide-footer
+  <b-sidebar
+    id="keyboard-shortcuts-sidebar"
+    shadow
+    no-header
+    backdrop
+    width="380px"
+    body-class="p-3"
+    :bg-variant="darkTheme ? 'dark' : 'light'"
+    :text-variant="darkTheme ? 'light' : 'dark'" 
   >
-    <template v-slot:modal-header="{ close }">
-      <modal-header
-        title="Keyboard Shortcuts"
-        @close="close"
-      />
-    </template>
-
+    <h3 class="mb-3">Keyboard Shortcuts</h3>
     <p>
       <kbd class="mr-1">Esc </kbd>
       Close modal
@@ -34,7 +29,7 @@
 
       {{ $t(`shortcuts.${name.substr(6)}`) }}
     </p>
-  </b-modal>
+  </b-sidebar>
 </template>
 
 <script>

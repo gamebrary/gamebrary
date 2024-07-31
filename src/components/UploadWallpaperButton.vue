@@ -76,7 +76,7 @@ export default {
     async uploadWallpaper() {
       if (this.isDuplicate) return this.$bvToast.toast('File already exists', { variant: 'warning' });
       if (!this.file) return false;
-
+      
       this.saving = true;
 
       try {

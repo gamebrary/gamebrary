@@ -34,7 +34,7 @@
         </b-button>
 
         <b-button
-          v-b-modal.keyboard-shortcuts
+          v-b-toggle.keyboard-shortcuts-sidebar
           :variant="darkTheme ? 'dark' : 'light'"
           title="Keyboard Shortcuts"
           size="sm"

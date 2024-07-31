@@ -171,17 +171,23 @@ export default {
     commit("SET_SETTINGS", docSnap.data());
   },
 
+  // TODO: get legacy notes, add UI to migrate?
+  // const docSnap = await getDoc(doc(db, "notes", state.user.uid));
+
   async LOAD_NOTES({ commit, state }) {
-    const q = query(collection(db, "notes-v2"), where("owner", "==", state.user.uid));
+    // const q = query(collection(db, "notes-v2"), where("owner", "==", state.user.uid));
     
-    const querySnapshot = await getDocs(q);
+    // const querySnapshot = await getDocs(q);
     
-    const notes = querySnapshot.docs.map((doc) => ({
-      ...doc.data(),
-      id: doc.id,
-    }));
+    // const notes = querySnapshot.docs.map((doc) => ({
+    //   ...doc.data(),
+    //   id: doc.id,
+    // }));
+
+    // commit("SET_NOTES", notes);
+    const docSnap = await getDoc(doc(db, "notes", state.user.uid));
     
-    commit("SET_NOTES", notes);
+    commit("SET_NOTES", docSnap.data());
   },
 
   async LOAD_NOTE({ state }, noteId) {
@@ -337,19 +343,18 @@ export default {
   async UPLOAD_WALLPAPER({ state, commit }, file) {
     const storageRef = ref(storage, `${state.user.uid}/wallpapers/${file.name}`);
 
-    uploadBytes(storageRef, file).then(async ({ metadata }) => {
-      const downloadURL = await getDownloadURL(ref(storage, metadata.fullPath));
-
-      const wallpaper = {
-        ref: metadata.fullPath,
-        name: metadata.name,
-        size: metadata.size,
-        updated: metadata.updated,
-        url: downloadURL,
-      };
-
-      commit("ADD_WALLPAPER", wallpaper);
-    });
+    const { metadata } = await uploadBytes(storageRef, file);
+    const downloadURL = await getDownloadURL(ref(storage, metadata.fullPath));
+    
+    const wallpaper = {
+      ref: metadata.fullPath,
+      name: metadata.name,
+      size: metadata.size,
+      updated: metadata.updated,
+      url: downloadURL,
+    };
+    
+    return commit("ADD_WALLPAPER", wallpaper);
   },
 
   // EXTERNAL, clean up, use await, etc...

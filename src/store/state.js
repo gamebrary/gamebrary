@@ -20,5 +20,6 @@ export default {
   twitchToken: null,
   user: null,
   wallpapers: [], 
+  activeWallpaper: {},
   menuOpen: true,
 };

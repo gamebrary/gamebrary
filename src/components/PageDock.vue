@@ -1,7 +1,3 @@
-<!-- TODO: get better (and) colorized icons for active state -->
-<!-- TODO: bring settings to nav, remove page. -->
-<!-- TODO: highlight menu item if active -->
-<!-- TODO: put login/logout button at top right corner -->
 <template lang="html">
   <nav :class="[`nav-${navPosition}`, darkTheme ? 'bg-dark' : 'bg-light']" >
     <b-button

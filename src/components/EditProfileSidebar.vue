@@ -1,33 +1,44 @@
 <template lang="html">
-  <div>
-    <portal to="pageTitle">
-      <h3>Profile</h3>
-    </portal>
+  <b-sidebar
+    id="profile-sidebar"
+    scrollable
+    right
+    width="380px"
+    shadow
+    visible
+    no-header
+    backdrop
+    body-class="p-3"
+    :bg-variant="darkTheme ? 'dark' : 'light'"
+    :text-variant="darkTheme ? 'light' : 'dark'"
+  >
+    <h3>Edit Profile</h3>
 
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <b-form
       v-else-if="profile"
-      class="pb-3 small-container"
       @submit.prevent="save"
     >
       <b-spinner v-if="uploading" />
 
-      <!-- TODO: add v-else -->
-      <div class="text-center mb-5">
+      <div class="text-center">
         <b-avatar
+          v-if="avatarImage"
           :src="avatarImage"
-          class="mx-auto mt-5 mb-2 cursor-pointer"
+          class="mx-auto cursor-pointer"
           size="200"
           @click.native="triggerFileUpload"
         />
 
         <br />
 
+        <b-link>
+          Remove profile picture
+        </b-link>
+
         <strong>@{{ profile.userName }}</strong>
       </div>
-
-      <pre>{{ file  }}</pre>
 
       <b-form-file
         class="d-none file-input"
@@ -165,19 +176,21 @@
         class="mb-3"
       />
 
-      <b-button class="mb-3" v-b-modal.boardWallpaper>
+      <b-button class="mb-3" v-b-toggle.boardWallpaper>
         {{ wallpaperImage ? 'Change wallpaper' : 'Set wallpaper' }}
       </b-button>
 
-      <b-modal
+      <b-sidebar
         id="boardWallpaper"
-        size="xl"
         scrollable
-        hide-footer
-        :header-bg-variant="darkTheme ? 'dark' : 'transparent'"
-        :header-text-variant="darkTheme ? 'white' : 'dark'"
-        :body-bg-variant="darkTheme ? 'dark' : 'transparent'"
-        :body-text-variant="darkTheme ? 'white' : 'dark'"
+        right
+        width="380px"
+        shadow
+        no-header
+        backdrop
+        body-class="p-3"
+        :bg-variant="darkTheme ? 'dark' : 'light'"
+        :text-variant="darkTheme ? 'light' : 'dark'" 
       >
         <template v-slot:modal-header="{ close }">
           <modal-header
@@ -188,12 +201,12 @@
           </modal-header>
         </template>
 
-        <wallpapers-list
+        <WallpapersList
           selectable
           @select="selectWallpaper"
         />
           <!-- :selected="board.backgroundUrl" -->
-      </b-modal>
+      </b-sidebar>
 
       <footer class="my-3">
         <b-button
@@ -216,6 +229,7 @@
       </footer>
     </b-form>
 
+    <!-- TODO: move to create profile page -->
     <b-form
       v-else
       autocomplete="off"
@@ -278,7 +292,7 @@
 
       <hr class="my-3" />
     </b-form>
-  </div>
+  </b-sidebar>
 </template>
 
 <script>
@@ -386,6 +400,7 @@ export default {
 
         this.avatarImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', this.profile.avatar);
       } catch (e) {
+        console.log(e)
         this.$bvToast.toast('There was an error uploading wallpaper', { variant: 'danger' });
       }
 

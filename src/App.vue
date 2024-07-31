@@ -47,6 +47,8 @@ Elevate your gaming experience with PlayStats – because your gaming journey is
       <router-view class="viewport" />
       <KeyboardShortcutsModal />
       <markdown-cheatsheet />
+      <!-- TODO: finish wallpapers -->
+      <WallpaperDetailsSidebar :wallpaper="activeWallpaper" />
     </template>
   </main>
 </template>
@@ -56,6 +58,7 @@ import MarkdownCheatsheet from '@/components/MarkdownCheatsheet';
 import KeyboardShortcutsModal from '@/components/KeyboardShortcutsModal';
 import PageDock from '@/components/PageDock';
 import MainMenu from '@/components/MainMenu';
+import WallpaperDetailsSidebar from '@/components/Wallpapers/WallpaperDetailsSidebar';
 import { initializeApp } from "firebase/app";
 import { mapState, mapGetters } from 'vuex';
 import { KEYBOARD_SHORTCUTS, FIREBASE_CONFIG, IGDB_QUERIES } from '@/constants';
@@ -64,12 +67,13 @@ const app = initializeApp(FIREBASE_CONFIG);
 
 export default {
   name: 'App',
-
+  
   components: {
     PageDock,
     MainMenu,
     MarkdownCheatsheet,
     KeyboardShortcutsModal,
+    WallpaperDetailsSidebar,
   },
 
   data() {

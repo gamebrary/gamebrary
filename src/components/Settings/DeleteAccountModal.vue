@@ -59,10 +59,10 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import firebase from 'firebase/compat/app';
-// move to actions
-import { FIREBASE_CONFIG } from '@/constants';
+// TODO: finish and test delete account
+// import { FIREBASE_CONFIG } from '@/constants';
 
-const app = initializeApp(FIREBASE_CONFIG);
+// const app = initializeApp(FIREBASE_CONFIG);
 
 export default {
   data() {

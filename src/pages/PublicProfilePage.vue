@@ -10,11 +10,14 @@
           <b-button
             v-if="isProfileOwner"
             variant="primary"
-            :to="{ name: 'profile' }"
+            v-b-toggle.profile-sidebar
           >
             Edit profile
           </b-button>
         </portal>
+
+        <EditProfileSidebar />
+
         <div class="text-center">
           <b-avatar
             :src="avatarImage"
@@ -90,12 +93,14 @@
 <script>
 import { mapState } from 'vuex';
 import MiniBoard from '@/components/Board/MiniBoard';
+import EditProfileSidebar from '@/components/EditProfileSidebar';
 import EmptyState from '@/components/EmptyState';
 import { getImageThumbnail } from '@/utils';
 
 export default {
   components: {
     MiniBoard,
+    EditProfileSidebar,
     EmptyState,
   },
 

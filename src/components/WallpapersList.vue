@@ -1,33 +1,39 @@
 <template lang="html">
-  <section>
-    <PreviewWallpaperModal :wallpaper="activeWallpaper" />
-
-    <masonry
-      :cols="{ default: 5, 1200: 4, 768: 3, 480: 2 }"
-      gutter="16px"
+  <b-list-group>
+    <b-list-group-item
+      v-for="wallpaper in sortedWallpapers"
+      :variant="darkTheme ? 'dark' : 'light'"
+      :key="wallpaper.name"
+      button
+      @click="handleClick(wallpaper)"
+      class="flex-column align-items-start"
     >
-      <b-img
-        v-for="wallpaper in sortedWallpapers"
-        :key="wallpaper.name"
-        :src="wallpaper.url"
-        class="mb-3"
-        rounded
-        fluid
-        @click="handleClick(wallpaper)"
-      />
-    </masonry>
-  </section>
+      <div class="d-flex w-100 justify-content-between">
+        <b-img
+          :src="wallpaper.url"
+          class="mb-3"
+          rounded
+          width="200"
+        />
+
+        <!-- <small>{{ wallpaper.size }}</small> -->
+      </div>
+
+      <p class="mb-1">
+        {{ wallpaper.name }}
+        {{ wallpaper.timeCreated }}
+      </p>
+    </b-list-group-item>
+  </b-list-group>
 </template>
 
 <script>
 import sortby from 'lodash.sortby';
 import { THUMBNAIL_PREFIX } from '@/constants';
-import PreviewWallpaperModal from '@/components/Wallpapers/PreviewWallpaperModal';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
-    PreviewWallpaperModal,
   },
 
   props: {
@@ -36,14 +42,10 @@ export default {
     saving: Boolean,
   },
 
-  data() {
-    return {
-      activeWallpaper: false,
-    };
-  },
-
   computed: {
     ...mapState(['wallpapers']),
+    ...mapGetters(['darkTheme']),
+
 
     sortedWallpapers() {
       const wallpapers = this.wallpapers?.filter((wallpaper) => !wallpaper?.fullPath?.includes(THUMBNAIL_PREFIX));
@@ -63,19 +65,8 @@ export default {
     },
 
     openPreview(wallpaper) {
-      this.activeWallpaper = wallpaper;
-      this.$bvModal.show('previewWallpaper');
+      this.$store.commit('SET_ACTIVE_WALLPAPER', wallpaper);
     },
   },
 };
 </script>
-
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-.wallpaper-card {
-  height: 140px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-</style>

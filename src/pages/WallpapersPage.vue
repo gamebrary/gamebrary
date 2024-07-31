@@ -18,7 +18,7 @@
       <UploadWallpaperButton v-if="user" />
     </empty-state>
 
-    <wallpapers-list v-else />
+    <WallpapersList v-else />
   </div>
 </template>
 
@@ -38,7 +38,6 @@ export default {
   data() {
     return {
       file: null,
-      saving: false,
       loading: false,
       wallpaperUrls: [],
     };

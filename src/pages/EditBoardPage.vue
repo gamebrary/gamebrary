@@ -16,7 +16,7 @@
         </modal-header>
       </template>
 
-      <wallpapers-list selectable :selected="board.backgroundUrl" @select="selectWallpaper" />
+      <WallpapersList selectable :selected="board.backgroundUrl" @select="selectWallpaper" />
     </b-modal>
 
     <b-form-group label="Board name" label-for="name">
