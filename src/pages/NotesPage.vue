@@ -73,21 +73,20 @@
             gutter="8px"
           >
             <b-card
-              v-for="note in notes"
+              v-for="({ note, game }, index) in filteredNotes"
               body-class="p-2"
               :bg-variant="darkTheme ? 'dark' : 'light'"
               :text-variant="darkTheme ? 'light' : 'dark'"
-              :key="note"
+              :key="index"
               class="cursor-pointer mb-2"
               @click="openNote(note.id)"
             >
               <!-- <pre>{{ note }}</pre> -->
-              <h2>{{ note.title }}</h2>
-              <p v-html="note.body" />
+              <!-- <h2>{{ note.title }}</h2> -->
+              <!-- <p v-html="note.body" /> -->
               <!-- TODO: use correct route -->
               <!-- @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug }})" -->
-              
-              <!-- <b-card-text v-if="game">
+              <b-card-text v-if="game">
                 <b-img
                   :src="$options.getImageUrl(game, $options.IMAGE_SIZE_COVER_SMALL)"
                   height="80"
@@ -99,7 +98,7 @@
                 </div>
 
                 <p class="note-text small" v-if="note" v-html="note" />
-              </b-card-text> -->
+              </b-card-text>
             </b-card>
           </masonry>
       </template>
@@ -138,25 +137,25 @@ export default {
       return !Object.keys(this.notes).length;
     },
 
-    // filteredNotes() {
-    //   const notes = Object.entries(this.notes).map(([gameId, note]) => ({
-    //     note,
-    //     game: this.cachedGames?.[gameId],
-    //   }));
+    filteredNotes() {
+      const notes = Object.entries(this.notes).map(([gameId, note]) => ({
+        note,
+        game: this.cachedGames?.[gameId],
+      }));
 
-    //   const searchText = this.searchText?.toLowerCase();
+      const searchText = this.searchText?.toLowerCase();
 
-    //   if (searchText) {
-    //     return notes.filter(({ game, note }) => {
-    //       const noteIsMatch = note?.toLowerCase()?.includes(searchText);
-    //       const titleIsMatch = game?.name?.toLowerCase()?.includes(searchText);
+      if (searchText) {
+        return notes.filter(({ game, note }) => {
+          const noteIsMatch = note?.toLowerCase()?.includes(searchText);
+          const titleIsMatch = game?.name?.toLowerCase()?.includes(searchText);
 
-    //       return noteIsMatch || titleIsMatch;
-    //     });
-    //   }
+          return noteIsMatch || titleIsMatch;
+        });
+      }
 
-    //   return notes;
-    // },
+      return notes;
+    },
   },
 
   mounted() {
