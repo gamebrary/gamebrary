@@ -48,7 +48,7 @@ Elevate your gaming experience with PlayStats – because your gaming journey is
       <KeyboardShortcutsModal />
       <markdown-cheatsheet />
       <!-- TODO: finish wallpapers -->
-      <WallpaperDetailsSidebar :wallpaper="activeWallpaper" />
+      <WallpaperDetailsSidebar />
     </template>
   </main>
 </template>
