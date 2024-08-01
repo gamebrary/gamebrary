@@ -14,12 +14,12 @@
     @hidden="closeSidebar"
   >
     <div
-      class="active-wallpaper pt-3"
+      class="pt-3"
       :class="darkTheme ? 'bg-dark' : 'bg-light'"
     >
       <b-img
-        v-if="activeWallpaper.url"
-        :src="activeWallpaper.url"
+        v-if="wallpaperUrl"
+        :src="wallpaperUrl"
         class="mw-100 rounded mb-2"
       />
 
@@ -31,20 +31,30 @@
         <!-- {{ activeWallpaper.timeCreated }} -->
         </div>
 
-        <b-dropdown id="wallpaperOptions">
-          <b-dropdown-item v-b-toggle.boards-list>
-            Set as wallpaper
-          </b-dropdown-item>
-          <b-dropdown-divider></b-dropdown-divider>
-          <b-dropdown-item v-b-modal.deleteConfirm variant="danger">
-            Delete wallpaper
-          </b-dropdown-item>
-        </b-dropdown>
+        <div class="d-flex align-items-center justify-content-between pb-2">
+          <b-button
+            v-b-toggle.boards-list
+            title="Set as wallpaper"
+            v-b-tooltip.hover.bottom
+          >
+            <i class="fa-regular fa-rectangle-list" />
+          </b-button>
+
+          <b-button
+            v-b-modal.deleteConfirm
+            variant="danger"
+            class="ml-2"
+            v-b-tooltip.hover="{ title: 'Delete wallpaper', placement: 'bottom', boundary: 'viewports' }"
+          >
+            <i class="fa fa-trash" aria-hidden="true" />
+          </b-button>
+        </div>
       </div>
     </div>
-
   
     <b-collapse id="boards-list" class="mt-2">
+      <b-alert show style="position: sticky; top: 0; z-index: 3;">Select a board to apply wallpaper</b-alert>
+
       <MiniBoard
         v-for="board in formattedBoards"
         :key="board.id"
@@ -74,7 +84,7 @@
         This wallpaper is being used by {{ boardsWithWallpaper.length }} boards.
       </b-alert>
 
-      <b-button @click="deleteFile(wallpaper)" variant="danger">
+      <b-button @click="deleteFile(activeWallpaper)" variant="danger">
         <b-spinner v-if="deleting" small />
         <template v-else>Delete</template>
       </b-button>
@@ -98,13 +108,6 @@ export default {
     MiniBoard,
   },
 
-  props: {
-    wallpaper: {
-      type: [Object, Boolean],
-      default: () => {},
-    },
-  },
-
   computed: {
     ...mapState(['boards', 'wallpapers', 'activeWallpaper']),
     ...mapGetters(['darkTheme']),
@@ -114,11 +117,11 @@ export default {
     },
 
     wallpaperUrl() {
-      return this.wallpaper?.url;
+      return this.activeWallpaper?.url;
     },
 
     boardsWithWallpaper() {
-      return this.boards.filter(({ backgroundUrl }) => backgroundUrl === this.wallpaper?.fullPath) || [];
+      return this.boards.filter(({ backgroundUrl }) => backgroundUrl && backgroundUrl === this.activeWallpaper?.fullPath) || [];
     },
 
     visible() {
@@ -129,6 +132,8 @@ export default {
   methods: {
     closeSidebar() {
       this.$store.commit('CLEAR_ACTIVE_WALLPAPER');
+      this.saving = false;
+      this.deleting = false;
     },
 
     getWallpaperUrl(url) {
@@ -146,32 +151,24 @@ export default {
           this.$bvToast.toast('There was an error deleting wallpaper', { variant: 'danger' });
         });
 
-      this.deleting = false;
-      this.$bvModal.hide('wallpaper-details-sidebar');
+      this.$bvModal.hide('deleteConfirm');
+      this.$root.$emit('bv::toggle::collapse', 'wallpaper-details-sidebar');
     },
 
     async setAsWallpaper(board) {
       try {
         this.saving = true;
 
-        this.$store.commit('SET_ACTIVE_BOARD', { ...board, backgroundUrl: this.wallpaper.fullPath });
+        this.$store.commit('SET_ACTIVE_BOARD', { ...board, backgroundUrl: this.activeWallpaper.fullPath });
 
         await this.$store.dispatch('SAVE_BOARD');
       } catch (e) {
         this.saving = false;
       }
 
-      this.saving = false;
-      this.$bvModal.hide('wallpaper-details-sidebar');
+      // TODO: ask how to proceed, options: 1) go to board 2) Back to wallpapers
+      this.$root.$emit('bv::toggle::collapse', 'wallpaper-details-sidebar');
     },
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss" scoped>
-.active-wallpaper {
-  position: sticky;
-  top: 0;
-  z-index: 9999;
-}
-</style>

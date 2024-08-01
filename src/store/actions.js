@@ -205,12 +205,10 @@ export default {
     commit("SET_TAGS", formattedTags);
   },
 
-  DELETE_WALLPAPER({ commit }, { fullPath }) {
-    deleteObject(ref(storage, fullPath)).then(() => {
-      return commit("REMOVE_WALLPAPER", fullPath);
-    }).catch((error) => {
-      throw error;
-    });
+  async DELETE_WALLPAPER({ commit }, { fullPath }) {
+    await deleteObject(ref(storage, fullPath))
+
+    return commit("REMOVE_WALLPAPER", fullPath);
   },
 
   async GET_TWITCH_TOKEN({ commit }) {

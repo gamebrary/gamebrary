@@ -12,15 +12,11 @@
     <b-button
       :disabled="outOfSpace"
       block
+      title=""
       @click="triggerFileUpload"
     >
       <b-spinner small v-if="saving" />
-
-      <template v-else>
-        <i class="fa-light fa-upload"></i>
-
-        <span class="ml-2">Upload</span>
-      </template>
+      <i v-else class="fa-regular fa-upload" />
     </b-button>
 
     <b-alert
