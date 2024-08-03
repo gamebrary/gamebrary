@@ -1,17 +1,17 @@
 <template>
   <div v-if="allGames.length">
     <h3>You may also like</h3>
-
-    <GameCardSearch
+    
+    <GameCard
         v-for="game in allGames"
-        :game="game"
+        :game-id="game.id"
         :key="game && game.id"
       />
   </div>
 </template>
 
 <script>
-import GameCardSearch from '@/components/GameCards/GameCardSearch';
+import GameCard from '@/components/GameCards/GameCard';
 import { mapState } from 'vuex';
 import { getImageUrl } from '@/utils';
 
@@ -19,7 +19,7 @@ export default {
   getImageUrl,
   
   components: {
-    GameCardSearch,
+    GameCard,
   },
 
   computed: {
@@ -77,35 +77,9 @@ export default {
   },
 
   watch: {
-    game(game) {
-      this.page = 0;
-    },
-
-    gameRemakes(games) {
-      if (games?.length) this.$store.commit('CACHE_GAME_DATA', games);
-    },
-
-    similarGames(games) {
-      if (games?.length) this.$store.commit('CACHE_GAME_DATA', games);
-    },
-
-    gameBundles(games) {
-      if (games?.length) this.$store.commit('CACHE_GAME_DATA', games);
-    },
-
-    gameRemasters(games) {
-      if (games?.length) this.$store.commit('CACHE_GAME_DATA', games);
-    },
-
-    collectionGames(games) {
+    allGames(games) {
       if (games?.length) this.$store.commit('CACHE_GAME_DATA', games);
     },
   },
-
-  methods: {
-    loadMore() {
-      this.page++;
-    },
-  }
 };
 </script>

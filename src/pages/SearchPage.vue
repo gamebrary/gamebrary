@@ -21,10 +21,14 @@
 
     <SearchFilters />
 
-    <GameCardSearch
+    <GameCard
       v-for="game in searchResults"
-      :game="game"
+      :game-id="game.id"
       :key="game.id"
+      show-tags
+      show-ribbon
+      show-platforms
+      show-progress
     />
 
     <b-button
@@ -50,7 +54,7 @@
 </template>
 
 <script>
-import GameCardSearch from '@/components/GameCards/GameCardSearch';
+import GameCard from '@/components/GameCards/GameCard';
 import SearchFilters from '@/components/SearchFilters';
 import SearchBox from '@/components/SearchBox';
 import { IGDB_QUERIES } from '@/constants';
@@ -58,7 +62,7 @@ import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
-    GameCardSearch,
+    GameCard,
     SearchBox,
     SearchFilters,
   },
@@ -156,6 +160,7 @@ export default {
     },
 
     async search() {
+      // TODO: move to actions
       this.loading = true;
 
       if (this.searchResults.length > 0 && this.offset === 0) {
@@ -183,6 +188,8 @@ export default {
         ...this.searchResults,
         ...searchResults,
       ]
+
+      this.$store.commit("CACHE_GAME_DATA", searchResults);
 
       this.loading = false;
     },

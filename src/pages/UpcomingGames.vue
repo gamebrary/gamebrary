@@ -1,25 +1,20 @@
 <template lang="html">
   <div>
-    <masonry
-      gutter="8px"
-      :cols="{ default: 7, 1200: 5, 768: 3, 480: 2 }"
-    >
-      <game-card-search
-        v-for="game in upcomingGames"
-        :game="game.game"
-        :key="game.id"
-        @click.native="$router.push({ name: 'game', params: { id: game.game.id, slug: game.game.slug } })"
-      />
-    </masonry>
+    <GameCard
+      v-for="game in upcomingGames"
+      :game-id="game.id"
+      :key="game.id"
+      @click.native="$router.push({ name: 'game', params: { id: game.game.id, slug: game.game.slug } })"
+    />
   </div>
 </template>
 
 <script>
-import GameCardSearch from '@/components/GameCards/GameCardSearch';
+import GameCard from '@/components/GameCards/GameCard';
 
 export default {
   components: {
-    GameCardSearch,
+    GameCard,
   },
 
   mounted() {
@@ -34,11 +29,15 @@ export default {
 
   methods: {
     async load() {
-      this.upcomingGames = await this.$store.dispatch('IGDB', {
+      const data = await this.$store.dispatch('IGDB', {
         path: 'release_dates',
 
         data: `fields *, game.category, game.name, game.cover.*; where game.category = 0; sort date desc; limit: 100;`,
       });
+
+      this.upcomingGames = data.map(({ game }) => game);
+
+      if (this.upcomingGames?.length) this.$store.commit('CACHE_GAME_DATA', this.upcomingGames);
     },
   },
 };

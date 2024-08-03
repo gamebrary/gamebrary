@@ -1,3 +1,5 @@
+
+// TODO: remove this mixin
 import { mapState, mapGetters } from 'vuex';
 import { getImageUrl } from '@/utils';
 import { IMAGE_SIZE_COVER_SMALL, PLATFORMS } from '@/constants';

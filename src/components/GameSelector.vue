@@ -52,11 +52,12 @@
         </div>
 
         <div v-else-if="filteredSearchResults.length > 0">
-          <GameCardSearch
+          <GameCard
             v-for="game in filteredSearchResults"
-            :game="game"
+            :game-id="game.id"
             :key="game.id"
-            no-link
+            selectable
+            small
             @click="selectGame(game.id)"
           />
 
@@ -106,7 +107,7 @@
 <script>
 import { mapGetters, mapState } from 'vuex';
 import { getImageUrl } from '@/utils';
-import GameCardSearch from '@/components/GameCards/GameCardSearch';
+import GameCard from '@/components/GameCards/GameCard';
 import { IMAGE_SIZE_COVER_SMALL, IGDB_QUERIES } from '@/constants';
 
 export default {
@@ -149,7 +150,7 @@ export default {
   },
 
   components: {
-    GameCardSearch,
+    GameCard,
   },
 
   computed: {

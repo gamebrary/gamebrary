@@ -36,18 +36,13 @@
         <div v-if="company.published">
           <h3 class="w-100 my-3">Games published by {{ company.name }}</h3>
 
-          <masonry
-            gutter="16px"
-            :cols="{ default: 7, 1200: 5, 768: 3, 480: 2 }"
-          >
-            <game-card-search
-              v-for="gamePublished in company.published"
-              :game="gamePublished"
-              :key="gamePublished.id"
-            />
-          </masonry>
+          <GameCard
+            v-for="gamePublished in company.published"
+            :game-id="gamePublished.id"
+            :key="gamePublished.id"
+            show-tags
+          />
         </div>
-
       </div>
 
       <div v-else>
@@ -60,13 +55,13 @@
 <script>
 import { getImageUrl } from '@/utils';
 import { IGDB_QUERIES } from '@/constants';
-import GameCardSearch from '@/components/GameCards/GameCardSearch';
+import GameCard from '@/components/GameCards/GameCard';
 
 export default {
   getImageUrl,
 
   components: {
-    GameCardSearch,
+    GameCard,
   },
 
   data() {
@@ -83,6 +78,8 @@ export default {
       path: 'companies',
       data: `${IGDB_QUERIES.COMPANY} where id = ${this.$route.params.id};`,
     });
+
+    if (this.company.published?.length) this.$store.commit('CACHE_GAME_DATA', this.company.published);
 
     this.loading = false;
   },
