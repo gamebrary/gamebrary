@@ -198,14 +198,6 @@
                     </b-form-checkbox>
 
                     <b-form-checkbox
-                      v-model="list.highlightCompletedGames"
-                      class="mb-2"
-                      switch
-                    >
-                      Highlight completed games
-                    </b-form-checkbox>
-
-                    <b-form-checkbox
                       v-model="list.showGameNotes"
                       class="mb-2"
                       switch
@@ -260,24 +252,27 @@
       </b-modal>
     </div>
 
-    <div class="mt-3">
-      <b-button variant="primary" :disabled="saving" type="submit">
+    <div class="mt-3 d-flex">
+      <b-button
+        variant="primary"
+        :disabled="saving"
+        class="mr-3"
+        type="submit"
+      >
         <b-spinner small v-if="saving" />
         <span v-else>{{ $t('global.save') }}</span>
       </b-button>
-    </div>
 
-    <portal to="headerActions">
-      <b-button variant="danger" @click="confirmDeleteBoard">
+      <b-button variant="outline-danger border-0" @click="confirmDeleteBoard">
         {{ $t('board.settings.deleteBoard') }}
       </b-button>
-    </portal>
+    </div>
   </form>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import { BOARD_TYPES, BOARD_TYPE_STANDARD, BOARD_TYPE_KANBAN, LIST_SORT_OPTIONS, LIST_VIEW_OPTIONS } from '@/constants';
+import { BOARD_TYPES, BOARD_TYPE_STANDARD, BOARD_TYPE_KANBAN, LIST_SORT_OPTIONS } from '@/constants';
 import WallpapersList from '@/components/WallpapersList';
 import UploadWallpaperButton from '@/components/UploadWallpaperButton';
 import VSwatches from 'vue-swatches'
@@ -288,7 +283,6 @@ export default {
   BOARD_TYPES,
   BOARD_TYPE_STANDARD,
   LIST_SORT_OPTIONS,
-  LIST_VIEW_OPTIONS,
 
   components: {
     draggable,

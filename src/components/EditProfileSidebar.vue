@@ -5,12 +5,13 @@
     right
     width="380px"
     shadow
-    visible
+    :visible="editProfileSidebarOpen"
     no-header
     backdrop
     body-class="p-3"
     :bg-variant="darkTheme ? 'dark' : 'light'"
     :text-variant="darkTheme ? 'light' : 'dark'"
+    @hidden="$store.commit('SET_PROFILE_SIDEBAR_OPEN', false)"
   >
     <h3>Edit Profile</h3>
 
@@ -192,19 +193,26 @@
         :bg-variant="darkTheme ? 'dark' : 'light'"
         :text-variant="darkTheme ? 'light' : 'dark'" 
       >
-        <template v-slot:modal-header="{ close }">
-          <modal-header
-            title="Choose wallpaper"
-            @close="close"
+      <template #default="{ hide }">
+        <div class="d-flex align-items-center justify-content-between mb-2 p-3">
+
+          <b-button
+            @click="hide"
+            class="close-button"
           >
-            <upload-wallpaper-button />
-          </modal-header>
-        </template>
+            <i class="fa-solid fa-xmark" />
+          </b-button>
+
+          <upload-wallpaper-button />
+        </div>
 
         <WallpapersList
           selectable
           @select="selectWallpaper"
         />
+      </template>
+
+        
           <!-- :selected="board.backgroundUrl" -->
       </b-sidebar>
 
@@ -228,84 +236,16 @@
         </b-button>
       </footer>
     </b-form>
-
-    <!-- TODO: move to create profile page -->
-    <b-form
-      v-else
-      autocomplete="off"
-      @submit.prevent="checkUserNameAvailability"
-    >
-      <p>Profile</p>
-
-      <b-input-group class="mb-3">
-        <b-form-input
-          id="userName"
-          autocomplete="off"
-          v-model.trim="userName"
-          :minlength="$options.MIN_PROFILE_LENGTH"
-          :maxlength="$options.MAX_PROFILE_LENGTH"
-          required
-          :state="available"
-          @input="formatUserName"
-        />
-        <template #prepend>
-          <b-input-group-text>
-            gamebrary.com/
-          </b-input-group-text>
-        </template>
-
-        <template #append>
-          <b-button
-            type="submit"
-          >
-            <b-spinner small v-if="checkingAvailability" />
-            <template v-else>
-              <i class="fa-solid fa-magnifying-glass" />
-            </template>
-          </b-button>
-        </template>
-      </b-input-group>
-
-      <template v-if="available">
-        <b-alert
-          class="mt-3"
-          show
-          variant="success"
-        >
-          Great, <strong>{{ userName }}</strong> is available!
-        </b-alert>
-
-        <b-button
-          block
-          variant="success"
-          class="mb-3"
-          @click="createProfile"
-        >
-          <b-spinner small v-if="saving" />
-          <template v-else>Create profile</template>
-        </b-button>
-      </template>
-
-      <div v-else-if="!checkingAvailability && available === false">
-        User name not available
-      </div>
-
-      <hr class="my-3" />
-    </b-form>
   </b-sidebar>
 </template>
 
 <script>
-import { MIN_PROFILE_LENGTH, MAX_PROFILE_LENGTH } from '@/constants';
 import { getImageThumbnail } from '@/utils';
 import { mapState, mapGetters } from 'vuex';
 import WallpapersList from '@/components/WallpapersList';
 import UploadWallpaperButton from '@/components/UploadWallpaperButton';
 
 export default {
-  MIN_PROFILE_LENGTH,
-  MAX_PROFILE_LENGTH,
-
   components: {
     WallpapersList,
     UploadWallpaperButton,
@@ -316,23 +256,21 @@ export default {
       saving: false,
       avatarImage: null,
       wallpaperImage: null,
-      available: undefined,
-      checkingAvailability: false,
       loading: false,
       deleting: false,
       uploading: false,
       profile: null,
       file: null,
-      userName: '',
     };
   },
 
   mounted() {
+    console.log('editProfileSidebarOpen', this.editProfileSidebarOpen);
     this.loadProfile();
   },
 
   computed: {
-    ...mapState(['user']),
+    ...mapState(['user', 'editProfileSidebarOpen']),
     ...mapGetters(['darkTheme']),
   },
 
@@ -340,7 +278,7 @@ export default {
     async selectWallpaper(wallpaper) {
       this.profile.wallpaper = wallpaper;
 
-      this.save(false);
+      this.save();
 
       this.avatarImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', wallpaper);
     },
@@ -371,7 +309,7 @@ export default {
         this.avatarImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', thumbnailRef);
       } catch (e) {
         this.profile.avatar = null;
-        this.save(false);
+        this.save();
       }
     },
 
@@ -380,7 +318,7 @@ export default {
         this.wallpaperImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', this.profile?.wallpaper);
       } catch (e) {
         this.profile.avatar = null;
-        this.save(false);
+        this.save();
       }
     },
 
@@ -396,7 +334,7 @@ export default {
       try {
         this.profile.avatar = await this.$store.dispatch('UPLOAD_PROFILE_AVATAR', this.file);
 
-        this.save(false);
+        this.save();
 
         this.avatarImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', this.profile.avatar);
       } catch (e) {
@@ -408,52 +346,22 @@ export default {
       this.file = null;
     },
 
-    createProfile() {
-      const { userName } = this;
-
-      this.profile = {
-        name: '',
-        bio: '',
-        location: '',
-        website: '',
-        twitter: '',
-        psnId: '',
-        steamFriendCode: '',
-        gamerTag: '',
-        friendCode: '',
-        userName,
-        avatar: null,
-        wallpaper: null,
-      }
-
-      this.save(false);
-    },
-
     async save(redirect = true) {
-      this.saving = true;
-      
-      await this.$store.dispatch('SAVE_PROFILE', this.profile);
-      // TODO: catch
+      try {
+        this.saving = true;
 
-      this.saving = false;
+        await this.$store.dispatch('SAVE_PROFILE', this.profile);  
 
-      if (redirect) {
-        this.$router.push({ name: 'public.profile', params: { userName : this.profile?.userName }});
+        this.saving = false;
+        this.$bus.$emit('LOAD_PROFILE');
+
+
+        // TODO: commit to store
+        // this.$root.$emit('bv::toggle::collapse', 'profile-sidebar');
+      } catch (error) {
+        this.saving = false;
+        // 
       }
-    },
-
-    formatUserName() {
-      this.userName = this.userName.replace(/\W/g, '');
-
-      if (this.available) this.available = false;
-    },
-
-    async checkUserNameAvailability() {
-      this.checkingAvailability = true;
-
-      this.available = await this.$store.dispatch('CHECK_PROFILE_USERNAME_AVAILABILITY', this.userName);
-
-      this.checkingAvailability = false;
     },
 
     async confirmDeleteProfile() {
@@ -463,7 +371,8 @@ export default {
       if (confirmed) {
         this.deleting = true;
         await this.$store.dispatch('DELETE_PROFILE');
-        this.profile = null;
+
+        this.$router.replace({ name: 'create.profile' });
       }
 
       this.deleting = false;

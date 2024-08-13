@@ -2,7 +2,7 @@
   <board-placeholder v-if="loading" />
   
   <div v-else-if="hasAccess">
-    <edit-list-modal v-if="board.type !== $options.BOARD_TYPE_STANDARD" />
+    <EditListSidebar v-if="board.type !== $options.BOARD_TYPE_STANDARD" />
 
     <portal to="pageTitle">
       <div :class="{ 'd-flex flex-column align-items-baseline': publicUserName }">
@@ -32,25 +32,13 @@
     </portal>
 
     <portal to="headerActions">
-      <b-dropdown no-caret right>
-        <template #button-content>
-          <i class="fa-regular fa-caret-down" />
-        </template>
-
-        <b-dropdown-item
-          v-if="canEdit"
-          :to="{ name: 'board.edit', params: { id: board.id } }"
-        >
-          <i class="fa-solid fa-pen fa-fw" />
-          <span class="ml-2">Edit board</span>
-        </b-dropdown-item>
-
-        <!-- TODO: add copy board logic -->
-        <b-dropdown-item disabled>
-          <i class="fa-solid fa-clone fa-fw"></i>
-          <span class="ml-2">Copy board</span>
-        </b-dropdown-item>
-      </b-dropdown>
+      <b-button
+        v-if="canEdit"
+        :variant="darkTheme ? 'success' : 'primary'"
+        :to="{ name: 'board.edit', params: { id: board.id } }"
+      >
+        <i class="fa-solid fa-pen" />
+      </b-button>
     </portal>
 
     <standard-board v-if="board.type === $options.BOARD_TYPE_STANDARD" />
@@ -72,7 +60,7 @@ import BoardPlaceholder from '@/components/Board/BoardPlaceholder';
 import KanbanBoard from '@/components/Board/KanbanBoard';
 import TierBoard from '@/components/Board/TierBoard';
 import StandardBoard from '@/components/Board/StandardBoard';
-import EditListModal from '@/components/Lists/EditListModal';
+import EditListSidebar from '@/components/Lists/EditListSidebar';
 import chunk from 'lodash.chunk';
 import { getImageThumbnail } from '@/utils';
 import { BOARD_TYPE_STANDARD, BOARD_TYPE_TIER, MAX_QUERY_LIMIT } from '@/constants';
@@ -86,7 +74,7 @@ export default {
     BoardPlaceholder,
     KanbanBoard,
     TierBoard,
-    EditListModal,
+    EditListSidebar,
     StandardBoard,
   },
 

@@ -3,11 +3,14 @@
     <portal to="pageTitle">Games</portal>
     
     <portal to="headerActions">
-      <GameSelector
-        trigger-text="Add games"
-        :filter="likedGamesIds"
-        @select-game="selectGame"
-      />
+      <b-button
+        title="Add games"
+        v-b-tooltip.hover
+        :variant="darkTheme ? 'success' : 'primary'"
+        @click="addGame"
+      >
+        <i class="fa-solid fa-plus" />
+      </b-button>
     </portal>
 
     <!-- <b-button class="mr-3">
@@ -21,31 +24,23 @@
     <empty-state
       v-if="!user"
       illustration="games"
-      >
+    >
       <p>Click on <i class="fa-solid fa-heart text-primary" /> and your games will show here.</p>
-      </empty-state>
+    </empty-state>
 
     <b-spinner v-else-if="loading" class="spinner-centered" />
 
     <div v-else-if="likedGames.length" class="small-container pb-5">
-      <b-card
-          v-for="game in likedGames"
-          :bg-variant="darkTheme ? 'black' : 'light'"
-          :text-variant="darkTheme ? 'white' : 'dark'"
-          :key="game.id"
-          :img-src="$options.getImageUrl(game, $options.IMAGE_SIZE_COVER_SMALL)"
-          img-alt="Image"
-          img-left
-          :title="game.name"
-          img-width="100px"
-          class="cursor-pointer mb-3"
-          @click="$router.push({ name: 'game', params: { id: game.id, slug: game.slug }})"
-        />
+      <GameCard
+        v-for="game in likedGames"
+        :key="game.id"
+        :game-id="game.id"
+        class="mb-3"
+      />
     </div>
 
     <empty-state
       v-else
-      illustration="games"
       message="No games you've liked so far!"
       />
   </div>
@@ -55,13 +50,13 @@
 import { mapGetters, mapState } from 'vuex';
 import { getImageUrl } from '@/utils';
 import EmptyState from '@/components/EmptyState';
-import GameSelector from '@/components/GameSelector';
+import GameCard from '@/components/GameCard';
 
 export default {
   getImageUrl,
   
   components: {
-    GameSelector,
+    GameCard,
     EmptyState,
   },
 
@@ -86,9 +81,15 @@ export default {
       return Object.entries(this.games)?.filter(([id, liked]) => liked)?.map(([id]) => Number(id));
     },
   },
-
+  
   mounted() {
     if (this.user) this.loadGames();
+
+    this.$bus.$on('SELECT_GAME', this.selectGame);
+  },
+
+  destroyed() {
+    this.$bus.$off('SELECT_GAME', this.selectGame);
   },
 
   methods: {
@@ -104,8 +105,15 @@ export default {
         : 'grid';
     },
 
+    addGame() {
+      this.$store.commit('SET_GAME_SELECTOR_DATA', {
+        title: 'Add games to your favorites',
+        filter: this.likedGamesIds,
+      })
+    },
+
     selectGame(gameId) {
-      this.$bus.$emit('SELECT_GAME', gameId);
+      this.$bus.$emit('LIKE_UNLIKE_GAME', gameId);
     },
 
     async loadGames() {

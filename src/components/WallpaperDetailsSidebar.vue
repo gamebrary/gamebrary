@@ -17,6 +17,7 @@
       class="pt-3"
       :class="darkTheme ? 'bg-dark' : 'bg-light'"
     >
+    test
       <b-img
         v-if="wallpaperUrl"
         :src="wallpaperUrl"

@@ -1,5 +1,9 @@
 <template lang="html">
-  <b-list-group>
+  <div v-if="isEmpty">
+    isEmpty
+  </div>
+  
+  <b-list-group v-else>
     <b-list-group-item
       v-for="wallpaper in sortedWallpapers"
       :variant="darkTheme ? 'dark' : 'light'"
@@ -51,6 +55,10 @@ export default {
       const wallpapers = this.wallpapers?.filter((wallpaper) => !wallpaper?.fullPath?.includes(THUMBNAIL_PREFIX));
 
       return sortby(wallpapers, 'updated').reverse();
+    },
+
+    isEmpty() {
+      return this.sortedWallpapers?.length === 0;
     },
   },
 

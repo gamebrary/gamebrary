@@ -1,54 +1,57 @@
-<!-- TODO: make sure scrollbars don't block covers -->
 <template lang="html">
-  <div class="d-flex w-100 align-items-start mb-2 tier-list">
-    <b-dropdown
-      v-if="user && isBoardOwner"
-      size="lg"
-      variant="link"
-      toggle-class="text-decoration-none p-0"
-      no-caret
-      dropright
-    >
-      <template #button-content>
-        <b-avatar
-          variant="primary"
-          :text="tierLetter"
-          :title="list.name"
-          rounded
-          class="mr-2"
-          :style="`background-color: ${list.backgroundColor}`"
-          size="100"
-        />
-      </template>
-
-      <strong class="mx-2">{{ list.name }}</strong>
-
-      <GameSelector
-        title="Add games"
-        :filter="allGames"
-        trigger-text="Add games"
-        trigger-component="b-dropdown-item"
-        @select-game="selectGame"
+  <div class="d-flex w-100 align-items-start mb-2">
+    <div class="d-flex">
+      <b-avatar
+        variant="primary"
+        :text="tierLetter"
+        :title="list.name"
+        rounded
+        v-b-tooltip.hover.right
+        class="cursor-pointer"
+        :style="`background-color: ${list.backgroundColor}`"
+        size="100"
+        @click.native="editList"
       />
 
-      <b-dropdown-item @click="editList">
-        Edit list
-      </b-dropdown-item>
-    </b-dropdown>
+      <b-button-group
+        v-if="user && isBoardOwner"
+        size="sm"
+        vertical
+        class="ml-2"
+      >
+        <!-- :disabled="listIndex === 0" -->
+        <!-- TODO: hook up move list up/down -->
+        <b-button
+          class="border-0"
+          v-b-tooltip.hover.right="'Move up'"
+          disabled
+          :variant="darkTheme ? 'outline-light' : 'outline-secondary'"
+        >
+          <i class="fa-regular fa-caret-up fa-fw" />
+        </b-button>
 
-    <b-avatar
-      v-else
-      variant="primary"
-      :text="tierLetter"
-      :title="list.name"
-      rounded
-      :style="`background-color: ${list.backgroundColor}`"
-      class="p-0"
-      size="100"
-    />
+        <b-button
+          class="border-0"
+          v-b-tooltip.hover.right
+          :title="`Add games to ${list.name}`"
+          :variant="darkTheme ? 'outline-light' : 'outline-secondary'"
+          @click="openGameSelectorSidebar"
+        >
+          <i class="fa-solid fa-plus fa-fw" />
+        </b-button>
+
+        <b-button
+          class="border-0"
+          v-b-tooltip.hover.right="'Move down'"
+          :variant="darkTheme ? 'outline-light' : 'outline-secondary'"
+        >
+          <i class="fa-regular fa-caret-down fa-fw" />
+        </b-button>
+      </b-button-group>
+    </div>
 
     <draggable
-      handle=".game"
+      handle=".game-card"
       ghost-class="card-placeholder"
       drag-class="border-success"
       chosen-class="border-primary"
@@ -63,36 +66,33 @@
       :group="{ name: 'games' }"
       @end="dragEnd"
       @start="dragStart"
-    >
-      <b-img
+    > 
+      <GameCard
         v-for="gameId in list.games"
         :key="gameId"
-        class="game cursor-pointer rounded mr-2"
-        fluid
-        :src="$options.getImageUrl(cachedGames[gameId], $options.IMAGE_SIZE_COVER_SMALL)"
-        @click="openGame(gameId)"
+        :game-id="gameId"
+        hide-title
+        hide-tags
+        hide-notes
+        hide-progress
+        hide-platforms
+        class="mr-2"
+        vertical
+        slim
+        small
       />
     </draggable>
   </div>
 </template>
 
 <script>
-import { getImageUrl } from '@/utils';
 import draggable from 'vuedraggable';
-import slugify from 'slugify'
 import { mapState, mapGetters } from 'vuex';
-import gameCardMixin from '@/mixins/gameCardMixin';
-import GameSelector from '@/components/GameSelector';
-import { IMAGE_SIZE_COVER_SMALL } from '@/constants';
+import GameCard from '@/components/GameCard';
 
 export default {
-  getImageUrl,
-  IMAGE_SIZE_COVER_SMALL,
-
-  mixins: [gameCardMixin],
-
   components: {
-    GameSelector,
+    GameCard,
     draggable,
   },
 
@@ -112,8 +112,16 @@ export default {
     };
   },
 
+  mounted() {
+    this.$bus.$on(this.gameSelectorEventName, this.selectGame);
+  },
+
+  destroyed() {
+    this.$bus.$off(this.gameSelectorEventName, this.selectGame);
+  },
+
   computed: {
-    ...mapState(['cachedGames', 'dragging', 'progresses', 'board', 'user', 'settings']),
+    ...mapState(['dragging', 'progresses', 'board', 'user', 'settings']),
     ...mapGetters(['isBoardOwner']),
 
     tierLetter() {
@@ -127,9 +135,21 @@ export default {
     isEmpty() {
       return this.list.games.length === 0;
     },
+
+    gameSelectorEventName() {
+      return `SELECT_GAME_LIST_${this.listIndex}`;
+    },
   },
 
   methods: {
+    openGameSelectorSidebar() {
+      this.$store.commit('SET_GAME_SELECTOR_DATA', {
+        title: `Add games to ${this.list.name}`,
+        filter: this.list.games,
+        eventName: this.gameSelectorEventName,
+      });
+    },
+
     selectGame(gameId) {
       return this.list.games.includes(gameId)
         ? this.removeGame(gameId)
@@ -167,19 +187,6 @@ export default {
       }
     },
 
-    openGame(id) {
-      const slug = slugify(this.cachedGames?.[id]?.slug, { lower: true });
-
-      this.$router.push({
-        name: 'game',
-        params: {
-          id,
-          slug,
-          boardId: this.board.id,
-        },
-      });
-    },
-
     validateMove({ from, to }) {
       const sameList = from.id === to.id;
       const notInList = !this.board?.lists?.[to.id]?.games?.includes(Number(this.draggingId));
@@ -206,7 +213,7 @@ export default {
     },
 
     editList() {
-      this.$bus.$emit('EDIT_LIST', this.listIndex);
+      if (this.user && this.isBoardOwner) this.$store.commit('SET_ACTIVE_BOARD_LIST_INDEX', this.listIndex);
     },
   },
 };
@@ -216,16 +223,5 @@ export default {
 .tier-game {
   overflow-y: hidden;
   overflow-x: auto;
-}
-
-.game {
-  height: 100px;
-  width: auto;
-}
-</style>
-
-<style lang="scss" rel="stylesheet/scss">
-.card-placeholder {
-  background: #c00;
 }
 </style>

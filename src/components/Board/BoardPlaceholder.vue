@@ -5,18 +5,18 @@
       class="spinner-centered mt-5"
     />
 
-    <KanbanBoardPlaceholder v-else />
+    <!-- <KanbanBoardPlaceholder v-else /> -->
   </div>
 </template>
 
 <script>
 import { BOARD_TYPE_STANDARD, BOARD_TYPE_TIER } from '@/constants';
-import KanbanBoardPlaceholder from '@/components/Board/KanbanBoardPlaceholder'
+// import KanbanBoardPlaceholder from '@/components/Board/KanbanBoardPlaceholder'
 import { mapState } from 'vuex';
 
 export default {
   components: {
-    KanbanBoardPlaceholder,
+    // KanbanBoardPlaceholder,
   },
 
   computed: {

@@ -1,4 +1,3 @@
-<!-- TODO: finish game highlighting -->
 <!-- // LanguageSettings,
 // SteamSettingsPage,
 // import SteamSettingsPage from '@/pages/SteamSettingsPage';
@@ -42,12 +41,14 @@ Elevate your gaming experience with PlayStats – because your gaming journey is
     <b-spinner v-if="loading" class="spinner-centered mt-5" />
 
     <template v-else>
-      <PageDock v-if="showPageDock" />
-      <MainMenu v-if="user" />
+      <!-- TODO: hide sidebars if not logged in -->
+      <portal-target name="root"/>
+      <PageHeader v-if="showPageDock" />
       <router-view class="viewport" />
+      <GameSelectorSidebar />
       <KeyboardShortcutsModal />
       <markdown-cheatsheet />
-      <!-- TODO: finish wallpapers -->
+      <MainSidebar v-if="user" />
       <WallpaperDetailsSidebar />
     </template>
   </main>
@@ -55,10 +56,11 @@ Elevate your gaming experience with PlayStats – because your gaming journey is
 
 <script>
 import MarkdownCheatsheet from '@/components/MarkdownCheatsheet';
+import GameSelectorSidebar from '@/components/GameSelectorSidebar';
 import KeyboardShortcutsModal from '@/components/KeyboardShortcutsModal';
-import PageDock from '@/components/PageDock';
-import MainMenu from '@/components/MainMenu';
-import WallpaperDetailsSidebar from '@/components/Wallpapers/WallpaperDetailsSidebar';
+import PageHeader from '@/components/PageHeader';
+import MainSidebar from '@/components/MainSidebar';
+import WallpaperDetailsSidebar from '@/components/WallpaperDetailsSidebar';
 import { initializeApp } from "firebase/app";
 import { mapState, mapGetters } from 'vuex';
 import { KEYBOARD_SHORTCUTS, FIREBASE_CONFIG, IGDB_QUERIES } from '@/constants';
@@ -69,11 +71,12 @@ export default {
   name: 'App',
   
   components: {
-    PageDock,
-    MainMenu,
+    PageHeader,
+    MainSidebar,
     MarkdownCheatsheet,
     KeyboardShortcutsModal,
     WallpaperDetailsSidebar,
+    GameSelectorSidebar,
   },
 
   data() {
@@ -87,7 +90,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['user', 'settings', 'sessionExpired', 'platforms', 'games']),
+    ...mapState(['user', 'settings', 'sessionExpired', 'platforms', 'games', 'gameSelectorData']),
     ...mapGetters(['darkTheme', 'navPosition']),
 
     showPageDock() {
@@ -127,7 +130,7 @@ export default {
   },
 
   async mounted() {
-    this.$bus.$on('SELECT_GAME', this.selectGame);
+    this.$bus.$on('LIKE_UNLIKE_GAME', this.likeOrUnlikeGame);
     this.$bus.$on('CLEAR_WALLPAPER', this.clearWallpaperUrl);
     this.$bus.$on('UPDATE_WALLPAPER', this.updateWallpaperUrl);
     this.$bus.$on('BOOT', this.boot);
@@ -141,17 +144,15 @@ export default {
   },
 
   methods: {
-    async selectGame(gameId) {
+    async likeOrUnlikeGame(gameId) {
       try {
         const isLiked = this.games?.[gameId];
         const mutation = isLiked ? 'UNLIKE_GAME' : 'LIKE_GAME';
-        const message = isLiked ? 'Game removed from your favorites' : 'Game added to your favorites';
 
         this.$store.commit(mutation, gameId);
 
         await this.$store.dispatch('SAVE_GAMES');
 
-        this.$bvToast.toast(message);
       } catch (e) {
         console.log('err' ,e);
       }
@@ -200,7 +201,7 @@ export default {
       await this.$store.dispatch('LOAD_BOARDS').catch((e) => {});
 
       this.loading = false;
-
+      this.$store.dispatch('LOAD_PROFILE').catch((e) => {});
       this.$store.dispatch('LOAD_RELEASES').catch((e) => {});
       this.$store.dispatch('LOAD_WALLPAPERS').catch((e) => {});
       this.$store.dispatch('LOAD_SETTINGS').catch((e) => {});

@@ -15,7 +15,7 @@
       @end="dragEnd"
       @start="dragStart"
     >
-      <GameCardStandard
+      <GameCard
         v-for="(game, index) in listGames"
         :key="index"
         :list="list"
@@ -27,33 +27,26 @@
       />
     </draggable>
 
-    <GameSelector
-      v-if="isBoardOwner"
-      :filter="filter"
-      title="Add games"
-      class="pb-5"
-      trigger-text="Add games"
-      variant="success"
-      @select-game="selectGame"
-    />
+    <b-button @click="openGameSelectorSidebar">
+      Add games
+    </b-button>
   </div>
 </template>
 
 <script>
 import draggable from 'vuedraggable';
 import slugify from 'slugify'
-import GameSelector from '@/components/GameSelector';
 import { mapState, mapGetters } from 'vuex';
-import GameCardStandard from '@/components/GameCards/GameCardStandard';
+import GameCard from '@/components/GameCard';
 
 export default {
   components: {
     draggable,
-    GameCardStandard,
-    GameSelector,
+    GameCard,
   },
 
   props: {
+    listIndex: Number,
     list: {
       type: Object,
       default: () => {},
@@ -65,6 +58,14 @@ export default {
       draggingId: null,
       editing: false,
     };
+  },
+
+  mounted() {
+    this.$bus.$on(this.gameSelectorEventName, this.selectGame);
+  },
+
+  destroyed() {
+    this.$bus.$off(this.gameSelectorEventName, this.selectGame);
   },
 
   computed: {
@@ -99,20 +100,27 @@ export default {
     singleList() {
       return this.board.lists.length === 1;
     },
+
+    gameSelectorEventName() {
+      return `SELECT_GAME_LIST_${this.listIndex}`;
+    },
   },
 
   methods: {
+    openGameSelectorSidebar() {
+      console.log(this.list)
+      this.$store.commit('SET_GAME_SELECTOR_DATA', {
+        title: `Add games to ${this.board.name}`,
+        filter: this.filter,
+        eventName: this.gameSelectorEventName,
+      })
+    },
+
     selectGame(gameId) {
-      // TODO: finish this
       if (this.list.games.includes(gameId)) {
-        // console.log('remove');
+        this.removeGame(gameId);
       } else {
         this.addGame(gameId);
-        // this.list.games.push(gameId);
-        // this.saveBoard();
-        // console.log('add');
-        // console.log('select gameId', gameId);
-        // console.log(this.list);
       }
     },
 
@@ -130,11 +138,11 @@ export default {
       }
     },
 
-    async removeGame() {
+    async removeGame(gameId) {
       const { boardId, listIndex } = this.$route?.query;
       const boardIndex = this.boards.findIndex(({ id }) => id === boardId);
       const board = this.boards[boardIndex];
-      const gameIndex = board?.lists?.[listIndex]?.games?.indexOf(this.gameId);
+      const gameIndex = board?.lists?.[listIndex]?.games?.indexOf(gameId);
 
       board.lists[listIndex].games.splice(gameIndex, 1);
 

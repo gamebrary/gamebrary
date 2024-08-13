@@ -10,7 +10,23 @@
     :text-variant="darkTheme ? 'light' : 'dark'" 
     @hidden="hideSidebar"
   >
-    <template #default>
+    <template #default="{ hide }">
+      <div class="d-flex align-items-center justify-content-between p-3">
+        <img
+          src="/logo-new.jpg"
+          alt=""
+          height="32"
+        />
+        
+        <b-button
+          @click="hide"
+          :variant="darkTheme ? 'black' : 'white'"
+          class="close-button"
+        >
+          <i class="fa-solid fa-xmark" />
+        </b-button>
+      </div>
+
       <ProfileDockMenu />
 
       <SearchBox class="m-3" />

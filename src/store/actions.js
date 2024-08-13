@@ -49,6 +49,8 @@ export default {
     await setDoc(doc(db, 'profiles', state.user.uid), profile);
 
     commit("SET_PROFILE", profile);
+
+    return profile;
   },
 
   async DELETE_PROFILE({ commit, state }) {
@@ -199,6 +201,10 @@ export default {
 
   async LOAD_TAGS({ commit, state }) {
     const docSnap = await getDoc(doc(db, "tags", state.user.uid));
+    const tagsData = docSnap.data();
+
+    if (!tagsData) return;
+
     const { tags } = docSnap.data();
     const formattedTags = Object.entries(tags).map(([, tag]) => ({ ...tag }));
 
@@ -278,8 +284,9 @@ export default {
   async LOAD_GAMES({ commit, state }) {
     const docRef = doc(db, "games", state.user.uid);
     const docSnap = await getDoc(docRef);
+    const games = docSnap.data();
 
-    commit("SET_GAMES", docSnap.data());
+    if (games) commit("SET_GAMES", games);
   },
 
   async LOAD_BOARD({ state, commit }, id) {
@@ -339,9 +346,12 @@ export default {
   },
 
   async UPLOAD_WALLPAPER({ state, commit }, file) {
+    console.log(`${state.user.uid}/wallpapers/${file.name}`);
+
     const storageRef = ref(storage, `${state.user.uid}/wallpapers/${file.name}`);
 
     const { metadata } = await uploadBytes(storageRef, file);
+    console.log(metadata);
     const downloadURL = await getDownloadURL(ref(storage, metadata.fullPath));
     
     const wallpaper = {

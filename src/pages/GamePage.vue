@@ -15,7 +15,12 @@
     :class="[{ 'text-light': darkTheme }, 'game-page']"
   >
     <portal to="headerActions">
-      <b-dropdown id="dropdown-1" text="Edit game" class="m-md-2">
+
+      <b-dropdown no-caret>
+        <template #button-content>
+          <strong>{{ list.name }}</strong>
+        </template>
+
         <b-dropdown-item @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })">
           Add note
         </b-dropdown-item>
@@ -305,14 +310,14 @@
             </b-link>
           </div>
 
-          <b-alert
+          <!-- <b-alert
             v-if="note"
             v-html="note"
             show
             class="cursor-pointer mt-3"
             variant="warning"
             @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
-          />
+          /> -->
         </div>
       </b-col>
 

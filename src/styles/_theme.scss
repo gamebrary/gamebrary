@@ -268,8 +268,7 @@ $bv-enable-popover-variants: false !default;
 //   $b-skeleton-animate-wave-color,
 //   transparent
 // ) !default;
-
-$font-family-sans-serif: 'Open Sans', sans-serif !default;
+$font-family-sans-serif: "Source Sans 3", sans-serif !default;
 $font-family-base: $font-family-sans-serif !default;
 $font-size-base: 1rem !default;
 $font-size-lg: $font-size-base * 1.25 !default;
@@ -283,18 +282,18 @@ $font-weight-base: $font-weight-normal !default;
 $line-height-base: 1.5 !default;
 
 // $h1-font-size:                $font-size-base * 2 !default;
-$h1-font-size: $font-size-base * 2.25 !default;
-$h2-font-size: $font-size-base * 1.75 !default;
-$h3-font-size: $font-size-base * 1.5 !default;
-$h4-font-size: $font-size-base * 1.25 !default;
-$h5-font-size: $font-size-base !default;
-$h6-font-size: $font-size-base * .75 !default;
+$h1-font-size: $font-size-base * 1.25 !default;
+$h2-font-size: $font-size-base * 1.125 !default;
+$h3-font-size: $font-size-base !default;
+$h4-font-size: $font-size-base * .9 !default;
+$h5-font-size: $font-size-base * .8 !default;
+$h6-font-size: $font-size-base * .7 !default;
 
 $headings-margin-bottom: 0;
-$headings-font-family: 'Bebas Neue', cursive !default;
+$headings-font-family: "Roboto Condensed", sans-serif !default;
 $headings-font-weight: 400 !default;
 $headings-line-height: 1.25 !default;
-// $headings-color: $black !default;
+// $headings-color: $dark !default;
 //
 // $display1-size:               6rem !default;
 // $display2-size:               5.5rem !default;

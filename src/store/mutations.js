@@ -24,6 +24,14 @@ export default {
   SET_ACTIVE_WALLPAPER(state, activeWallpaper) {
     state.activeWallpaper = activeWallpaper;
   },
+
+  SET_ACTIVE_BOARD_LIST_INDEX(state, listIndex) {
+    state.activeBoardListIndex = listIndex;
+  },
+
+  CLEAR_ACTIVE_BOARD_LIST_INDEX(state) {
+    state.activeBoardListIndex = null;
+  },
   
   CLEAR_ACTIVE_WALLPAPER(state) {
     state.activeWallpaper = {};
@@ -57,6 +65,12 @@ export default {
   
   SET_MENU_OPEN(state, menuOpen) {
     state.menuOpen = Boolean(menuOpen);
+  },
+  
+  SET_PROFILE_SIDEBAR_OPEN(state, open) {
+    console.log('SET_PROFILE_SIDEBAR_OPEN');
+
+    state.editProfileSidebarOpen = Boolean(open);
   },
 
   SET_PROFILE(state, profile) {
@@ -105,6 +119,14 @@ export default {
 
   CLEAR_GAME(state) {
     state.game = null;
+  },
+
+  SET_GAME_SELECTOR_DATA(state, data) {
+    state.gameSelectorData = data;
+  },
+
+  CLEAR_GAME_SELECTOR_DATA(state) {
+    state.gameSelectorData = null;
   },
 
   APPEND_STEAM_GAME_DATA(state, data) {

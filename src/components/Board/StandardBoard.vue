@@ -17,11 +17,11 @@
         <!-- <h3>News</h3> -->
       </div>
     </portal>
-
     
     <StandardList
-      v-for="list in board.lists"
+      v-for="(list, listIndex) in board.lists"
       :key="list.id"
+      :listIndex="listIndex"
       :list="list"
     />
   </div>

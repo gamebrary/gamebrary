@@ -2,7 +2,7 @@
   <div class="mb-3">
     <b-button
       style="width: 100px; height: 60px;"
-      v-b-tooltip.hover
+      v-b-tooltip.hover.right
       title="Add tier"      
       :variant="darkTheme ? 'dark' : 'light'"
       v-b-modal.addTier

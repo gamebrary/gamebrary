@@ -9,6 +9,15 @@ const routes = [
     },
   },
   {
+    name: 'progresses',
+    path: '/progresses',
+    component: () => import(/* webpackChunkName: "progresses" */ '@/pages/ProgressesPage'),
+    meta: {
+      title: 'My Progresses',
+      public: true,
+    },
+  },
+  {
     name: 'boards',
     path: '/boards',
     component: () => import(/* webpackChunkName: "games" */ '@/pages/BoardsPage'),
@@ -174,6 +183,14 @@ const routes = [
     meta: {
       title: 'Profiles',
       public: true,
+    },
+  },
+  {
+    name: 'create.profile',
+    path: '/create-profile',
+    component: () => import(/* webpackChunkName: "profile" */ '@/pages/CreateProfilePage'),
+    meta: {
+      title: 'Create profile',
     },
   },
   {

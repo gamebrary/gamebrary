@@ -1,18 +1,25 @@
 <template lang="html">
-  <nav :class="[`nav-${navPosition}`, darkTheme ? 'bg-dark' : 'bg-light']" >
+  <nav
+    :class="[
+      `nav-${navPosition}`,
+      transparencyEnabled ? `semi-transparent ${darkTheme ? 'bg-dark' : 'bg-light'}` : darkTheme ? 'bg-dark' : 'bg-light'
+    ]"
+  >
     <b-button
       variant="link"
+      class="p-0"
       @click="handleLogoClick"
     >
+    <!-- src="/logo.png" -->
       <img
-        src="/logo.png"
+        src="/logo-new.jpg"
         alt=""
-        height="26"
+        height="38"
       />
     </b-button>
 
     <div class="d-flex justify-content-between w-100 align-items-center">
-      <portal-target name="pageTitle"/>
+      <portal-target name="pageTitle" tag="h1" />
       <portal-target name="headerActions" multiple />
 
       <b-button
@@ -51,7 +58,7 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
 nav {
   display: flex;
-  gap: 1rem;
+  gap: .5rem;
   align-items: center;
   border-radius: .5rem;
   margin: .5rem 1rem;

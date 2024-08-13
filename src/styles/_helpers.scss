@@ -64,17 +64,17 @@
 }
 
 .semi-transparent {
-  backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(15px);
 
   &.dark,
   &.bg-dark {
-    background: rgba(53,54,58,.72) !important;
+    background: rgba(53, 54, 58, 0.802) !important;
     color: var(--light) !important;
   }
   
   &.light,
   &.bg-light {
     color: var(--dark) !important;
-    background: rgba(222,228,231,.72) !important;
+    background: rgba(222, 228, 231, 0.876) !important;
   }
 }

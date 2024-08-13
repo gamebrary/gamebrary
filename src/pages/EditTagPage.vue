@@ -13,7 +13,7 @@
 
       <portal to="pageTitle">Edit tag</portal>
 
-      <GameSelector
+      <GameSelectorSidebar
         :filter="tag.games"
         title="Tag game"
         variant="primary"
@@ -22,7 +22,7 @@
       >
         <span>Tag game</span>
         <i class="fa-solid fa-plus d-sm-none" />
-      </GameSelector>
+      </GameSelectorSidebar>
 
       <b-spinner v-if="loading" class="spinner-centered" />
 
@@ -97,18 +97,14 @@
             <h2>Games tagged</h2>
 
             <div class="game-grid">
-              <router-link
-              v-for="game in tag.games"
-              :key="game"
-                :to="{ name: 'game', params: { id: cachedGames[game].id, slug: cachedGames[game].slug } }"
-              >
-                <b-img
-                  fluid
-                  rounded
-                  :src="$options.getImageUrl(cachedGames[game])"
-                  img-top
-                />
-              </router-link>
+              <GameCard
+                v-for="gameId in tag.games"
+                :key="gameId"
+                :game-id="gameId"
+                slim
+                vertical
+                hide-title
+              />
             </div>
           </div>
         </b-form-row>
@@ -119,7 +115,8 @@
 
 <script>
 import VSwatches from 'vue-swatches'
-import GameSelector from '@/components/GameSelector';
+import GameSelectorSidebar from '@/components/GameSelectorSidebar';
+import GameCard from '@/components/GameCard';
 import { getImageUrl } from '@/utils';
 import { mapState, mapGetters } from 'vuex';
 import { IMAGE_SIZE_COVER_SMALL } from '@/constants';
@@ -140,7 +137,8 @@ export default {
 
   components: {
     VSwatches,
-    GameSelector,
+    GameSelectorSidebar,
+    GameCard,
   },
 
   computed: {

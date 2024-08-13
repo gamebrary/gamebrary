@@ -1,55 +1,36 @@
 <template lang="html">
   <div
-    :class="['list rounded pr-2', listView, { dragging, 'unique': singleList, 'pr-3': isLastList && isPublicBoard }]"
+    :class="['list pr-3', { dragging, 'unique': singleList, 'pr-3': isLastList && isPublicBoard }]"
     :id="listIndex"
   >
     <b-card
       no-body
-      :variant="darkTheme ? 'dark' : 'danger'"
+      :bg-variant="darkTheme ? 'dark' : 'light'"
       :class="[darkTheme ? 'dark' : 'light', transparencyEnabled ? 'semi-transparent' : '']"
       :text-variant="darkTheme ? 'light' : 'dark'"
     >
-      <b-dropdown
+      <b-button
         v-if="isBoardOwner"
-        :variant="dropdownVariant"
-        class="mt-1 mx-2"
-        :toggle-class="['text-left', darkTheme ? 'text-white' : '']"
-        size="sm"
-        style="z-index: 1"
-        no-caret
-        block
+        class="m-1 text-left"
+        :variant="darkTheme ? 'dark' : 'light'"
+        @click="editList"
       >
-        <template #button-content>
-          <strong>{{ list.name }}</strong>
-        </template>
+        <div class="d-flex justify-content-between align-items-center">
+          {{ list.name }}
 
-        <b-dropdown-text :variant="darkTheme ? 'success' : 'danger'" v-if="sortingEnabled">
-          <small>Auto sort enabled ({{ sortOrder }})</small>
-        </b-dropdown-text>
+          <i
+            v-if="sortingEnabled"
+            v-b-tooltip.hover
+            class="fa-regular fa-sort ml-auto"
+            :class="darkTheme ? 'text-success' : 'text-primary'"
+            :title="sortMessage"
+          />
 
-        <!-- <b-dropdown-text variant="success" v-if="list.games.length">
-          <small>{{ list.games.length }} games</small>
-        </b-dropdown-text> -->
-
-        <b-dropdown-item-button
-          @click="editList"
-        >
-          Edit list
-        </b-dropdown-item-button>
-
-        <!-- <b-dropdown-item disabled>Delete list</b-dropdown-item> -->
-
-        <GameSelector
-          v-if="isBoardOwner && !isEmpty"
-          :title="`Add games to ${list.name}`"
-          size="sm"
-          trigger-component="b-dropdown-item-button"
-          :filter="list.games"
-          @select-game="selectGame"
-        >
-          Add games
-        </GameSelector>
-      </b-dropdown>
+          <span v-if="list.showGameCount" class="ml-3">
+            {{ gameCount }}
+          </span>
+        </div>
+      </b-button>
 
       <b-button
         v-else
@@ -62,7 +43,7 @@
 
       <draggable
         class="games px-2 pt-1"
-        handle=".card"
+        handle=".game-card"
         ghost-class="card-placeholder"
         drag-class="border-success"
         chosen-class="border-primary"
@@ -77,55 +58,49 @@
         @end="dragEnd"
         @start="dragStart"
       >
-        <component
+        <!-- <pre>{{  }}</pre> -->
+        <GameCard
           v-for="gameId in sortedGames"
           :ref="`${listIndex}-${gameId}`"
-          :id="gameId"
-          :is="gameCardComponent"
+          :game-id="gameId"
           :key="gameId"
           :list-index="listIndex"
           :list="list"
-          :game-id="gameId"
-          :class="{ 'mb-2': listView !== 'covers', 'highlighted': highlightedGame == gameId }"
+          class="mb-3"
+          :vertical="list.vertical"
+          :small="list.smallCover"
+          :hide-cover="list.hideCover"
+          :hide-title="list.hideTitle"
+          :class="{ 'highlighted': highlightedGame == gameId }"
           @click.native="openGame(gameId, list)"
         />
-
-        <GameSelector
-          v-if="isEmpty && isBoardOwner"
-          class="mb-2"
-          block
-          trigger-text="Add games"
-          :variant="darkTheme ? 'success' : 'primary'"
-          size="sm"
-          :filter="list.games"
-          @select-game="selectGame"
-        />
       </draggable>
+
+      <b-button
+        title="Add games"
+        v-b-tooltip.hover
+        class="mx-2 mb-2"
+        :variant="darkTheme ? 'outline-success' : 'light'"
+        :class="darkTheme ? 'border-0' : ''"
+        @click="openGameSelectorSidebar"
+      >
+        <i class="fa-solid fa-plus" />
+      </b-button>
     </b-card>
   </div>
 </template>
 
 <script>
 import draggable from 'vuedraggable';
-import GameSelector from '@/components/GameSelector';
-import GameCardDefault from '@/components/GameCards/GameCardDefault';
-import GameCardCovers from '@/components/GameCards/GameCardCovers';
-import GameCardGrid from '@/components/GameCards/GameCardGrid';
-import GameCardCompact from '@/components/GameCards/GameCardCompact';
-import GameCardText from '@/components/GameCards/GameCardText';
+import GameCard from '@/components/GameCard';
 import slugify from 'slugify'
 import orderby from 'lodash.orderby';
-import { LIST_VIEW_SINGLE, SORT_TYPE_ALPHABETICALLY, SORT_TYPE_RATING, SORT_TYPE_PROGRESS } from '@/constants';
+import { SORT_TYPE_ALPHABETICALLY, SORT_TYPE_RATING, SORT_TYPE_PROGRESS } from '@/constants';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
-    GameSelector,
-    GameCardDefault,
-    GameCardCovers,
-    GameCardGrid,
-    GameCardCompact,
-    GameCardText,
+    GameCard,
     draggable,
   },
 
@@ -142,23 +117,30 @@ export default {
       draggingId: null,
       editing: false,
       localList: {},
-      gameCardComponents: {
-        single: 'GameCardDefault',
-        covers: 'GameCardCovers',
-        grid: 'GameCardGrid',
-        compact: 'GameCardCompact',
-        text: 'GameCardText',
-      },
     };
   },
 
   mounted() {
     this.localList = JSON.parse(JSON.stringify(this.list));
+
+    this.$bus.$on(this.gameSelectorEventName, this.selectGame);
+  },
+
+  destroyed() {
+    this.$bus.$off(this.gameSelectorEventName, this.selectGame);
   },
 
   computed: {
     ...mapState(['cachedGames', 'dragging', 'progresses', 'board', 'user', 'settings', 'highlightedGame']),
     ...mapGetters(['isBoardOwner', 'darkTheme', 'transparencyEnabled']),
+
+    sortMessage() {
+      if (this.sortBy === SORT_TYPE_ALPHABETICALLY) return 'List sorted alphabetically'
+      if (this.sortBy === SORT_TYPE_RATING) return 'List sorted by rating'
+      if (this.sortBy === SORT_TYPE_PROGRESS) return 'List sorted by progress'
+      
+      return null;
+    },
 
     draggingDisabled() {
       return !this.user || !this.isBoardOwner;
@@ -173,26 +155,18 @@ export default {
     },
 
     sortingEnabled() {
-      return [SORT_TYPE_PROGRESS, SORT_TYPE_RATING, SORT_TYPE_ALPHABETICALLY].includes(this.sortOrder);
+      return [SORT_TYPE_PROGRESS, SORT_TYPE_RATING, SORT_TYPE_ALPHABETICALLY].includes(this.sortBy);
     },
 
-    sortOrder() {
-      return this.list?.sortOrder;
-    },
-
-    dropdownVariant() {
-      if (this.transparencyEnabled) return 'transparent';
-
-      return this.darkTheme ? 'dark' : 'transparent'
+    sortBy() {
+      return this.list?.sortBy;
     },
 
     sortedGames() {
-      const { sortOrder, games } = this.list;
-
-      switch (sortOrder) {
-        case SORT_TYPE_PROGRESS: return orderby(games, [game => this.progresses?.[game] || 0], ['desc']);
-        case SORT_TYPE_RATING: return orderby(games, [game => this.cachedGames?.[game]?.rating || 0], ['desc']);
-        case SORT_TYPE_ALPHABETICALLY: return orderby(games, [game => this.cachedGames?.[game]?.name]);
+      switch (this.list?.sortBy) {
+        case SORT_TYPE_PROGRESS: return orderby(this.list?.games, [game => this.progresses?.[game] || 0], ['desc']);
+        case SORT_TYPE_RATING: return orderby(this.list?.games, [game => this.cachedGames?.[game]?.rating || 0], ['desc']);
+        case SORT_TYPE_ALPHABETICALLY: return orderby(this.list?.games, [game => this.cachedGames?.[game]?.name]);
         default: return this.list?.games || [];
       }
     },
@@ -209,22 +183,26 @@ export default {
       return this.list?.showGameCount;
     },
 
-    gameCardComponent() {
-      const availableViews = Object.keys(this.gameCardComponents);
-
-      return availableViews?.includes(this.listView)
-        ? this.gameCardComponents[this.listView]
-        : 'GameCardDefault';
+    gameCount() {
+      return this.list?.games?.length || 0;
     },
 
-    listView() {
-      return this.list?.view || LIST_VIEW_SINGLE;
+    gameSelectorEventName() {
+      return `SELECT_GAME_LIST_${this.listIndex}`;
     },
   },
 
   methods: {
     editList() {
-      this.$bus.$emit('EDIT_LIST', this.listIndex);
+      this.$store.commit('SET_ACTIVE_BOARD_LIST_INDEX', this.listIndex);
+    },
+
+    openGameSelectorSidebar() {
+      this.$store.commit('SET_GAME_SELECTOR_DATA', {
+        title: `Add games to ${this.list.name}`,
+        filter: this.list.games,
+        eventName: this.gameSelectorEventName,
+      })
     },
 
     selectGame(gameId) {
@@ -322,7 +300,7 @@ export default {
 .list {
   flex-shrink: 0;
   cursor: default;
-  width: calc(300px + 1rem);
+  width: calc(380px + 1rem);
 
   @media(max-width: 400px) {
     width: calc(100vw - calc(68px + .5rem));

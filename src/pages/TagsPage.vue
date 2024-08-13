@@ -7,11 +7,11 @@
     <portal to="headerActions">
       <b-button
         v-if="user"
-        :variant="darkTheme ? 'success' : 'black'"
+        :variant="darkTheme ? 'success' : 'primary'"
         :to="{ name: 'tag.create' }"
         title="Add tag"
       >
-        <i class="fa-solid fa-plus fa-fw" />
+        <i class="fa-solid fa-plus" />
       </b-button>
     </portal>
 

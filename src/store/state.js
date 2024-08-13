@@ -4,7 +4,7 @@ export default {
   boards: [],
   games: {},
   dragging: false,
-  game: null,
+  game: {},
   cachedGames: {},
   notes: {},
   notification: false,
@@ -21,5 +21,8 @@ export default {
   user: null,
   wallpapers: [], 
   activeWallpaper: {},
+  activeBoardListIndex: 0,
+  gameSelectorData: null,
   menuOpen: true,
+  editProfileSidebarOpen: false,
 };

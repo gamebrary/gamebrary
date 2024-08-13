@@ -40,7 +40,6 @@
             v-for="gamePublished in company.published"
             :game-id="gamePublished.id"
             :key="gamePublished.id"
-            show-tags
           />
         </div>
       </div>
@@ -55,7 +54,7 @@
 <script>
 import { getImageUrl } from '@/utils';
 import { IGDB_QUERIES } from '@/constants';
-import GameCard from '@/components/GameCards/GameCard';
+import GameCard from '@/components/GameCard';
 
 export default {
   getImageUrl,

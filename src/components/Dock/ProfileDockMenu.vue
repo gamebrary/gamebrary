@@ -4,19 +4,26 @@
     class="py-3 d-flex flex-column text-center"
     :style="style"
   >
-    <b-avatar
-      :src="avatarImage"
-      size="120"
-      class="mx-auto mb-2"
-      :title="displayUserName"
-      :to="{ name: 'public.profile', params: { userName } }"
-    />
+    <template v-if="userName">
+      <b-avatar
+        :src="avatarImage"
+        size="120"
+        class="mx-auto mb-2"
+        :title="displayUserName"
+        :to="{ name: 'public.profile', params: { userName } }"
+      />
+      
+      <b-link
+        :to="{ name: 'public.profile', params: { userName } }"
+      >
+        {{ displayUserName }}
+      </b-link>
+    </template>
 
-    <b-link
-      :to="{ name: 'public.profile', params: { userName } }"
-    >
-      {{ displayUserName }}
-    </b-link>
+    <div v-else>
+      <!-- TODO: Finish this! -->
+      No user name, show UI to create
+    </div>
   </div>
 </template>
 
@@ -27,14 +34,13 @@ import { getImageThumbnail } from '@/utils';
 export default {
   data() {
     return {
-      profile: null,
       avatarImage: null,
       wallpaperImage: null,
     };
   },
 
   computed: {
-    ...mapState(['board', 'user']),
+    ...mapState(['board', 'user', 'profile']),
     ...mapGetters(['darkTheme']),
 
     style() {
@@ -60,7 +66,7 @@ export default {
 
   methods: {
     async load() {
-      this.profile = await this.$store.dispatch('LOAD_PROFILE').catch(() => {});
+      await this.$store.dispatch('LOAD_PROFILE').catch(() => {});
       
       if (this.profile?.avatar) this.loadAvatarImage();
 

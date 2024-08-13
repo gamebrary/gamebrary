@@ -1,7 +1,6 @@
 <template>
   <div class="p-3">
     <div class="d-flex justify-content-end">
-      <!-- TODO: add i18n -->
       <!-- <b-button disabled>
         <i class="fa-solid fa-language" />
         <span class="ml-2">Change language</span>

@@ -1,7 +1,5 @@
 <template lang="html">
-    <b-spinner v-if="loading" class="spinner-centered" />
-  
-    <div v-else>
+    <div>
       <portal to="pageTitle">
         <h3>Boards</h3>
       </portal>
@@ -10,14 +8,17 @@
         <b-button
           v-if="user"
           title="Create board"
+          :variant="darkTheme ? 'success' : 'primary'"
           :to="{ name: 'create.board' }"
         >
           <i class="fa-solid fa-plus" />
         </b-button>
       </portal>
+      
+      <b-spinner v-if="loading" class="spinner-centered" />
 
       <empty-state
-        v-if="isEmpty && !isPublicBoard"
+        v-else-if="isEmpty"
         title="Boards"
         message="Utilize boards to neatly organize your video games!"
       >
@@ -66,30 +67,18 @@
       },
   
       isEmpty() {
-        return !this.loading && this.gameBoards?.length === 0;
-      },
-  
-      isPublicBoard() {
-        return this.$route.name === 'home' && !this.user;
+        return !this.loading && this.boards?.length === 0;
       },
     },
   
     mounted() {
-      this.load();
+      this.loadBoards()
     },
   
     methods: {
-      load() {
-        this.loading = this.gameBoards?.length === 0;
-  
-        if (this.isPublicBoard) {
-          this.loadPublicBoards();
-        } else {
-          this.loadBoards()
-        }
-      },
-  
       async loadBoards() {
+        this.loading = this.boards?.length === 0;
+
         await this.$store.dispatch('LOAD_BOARDS')
           .catch(() => {
             this.loading = false;

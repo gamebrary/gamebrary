@@ -9,10 +9,10 @@
         <b-button
           v-b-toggle.filtersSidebar
           title="Filters"
-          :variant="filterSelected ? 'primary' : darkTheme ? 'light' : 'secondary'"
-          class="mr-2"
+          :variant="filterSelected ? 'outline-primary' : darkTheme ? 'outline-success' : 'outline-primary'"
+          class="mr-1 border-0"
         >
-          <i class="fa-regular fa-filter fa-fw" />
+          <i class="fa-regular fa-filter" />
         </b-button>
 
         <SearchBox :loading="loading" />
@@ -23,12 +23,9 @@
 
     <GameCard
       v-for="game in searchResults"
+      class="mb-3"
       :game-id="game.id"
       :key="game.id"
-      show-tags
-      show-ribbon
-      show-platforms
-      show-progress
     />
 
     <b-button
@@ -54,7 +51,7 @@
 </template>
 
 <script>
-import GameCard from '@/components/GameCards/GameCard';
+import GameCard from '@/components/GameCard';
 import SearchFilters from '@/components/SearchFilters';
 import SearchBox from '@/components/SearchBox';
 import { IGDB_QUERIES } from '@/constants';

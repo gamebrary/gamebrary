@@ -1,3 +1,4 @@
+<!-- TODO: fix placeholder -->
 <template lang="html">
   <div class="d-flex mx-1">
     <div
@@ -112,18 +113,11 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import { LIST_VIEW_SINGLE } from '@/constants';
 
 export default {
   computed: {
     ...mapState(['board']),
     ...mapGetters(['darkTheme']),
-  },
-
-  methods: {
-    getListView(list) {
-      return list?.view || list?.settings?.view || LIST_VIEW_SINGLE;
-    },
   },
 };
 </script>

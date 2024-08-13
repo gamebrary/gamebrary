@@ -1,8 +1,8 @@
 <template lang="html">
   <div class="d-flex flex-column align-items-start rounded w-100">
-    <h3 :class="{ 'text-white': hasBackground || darkTheme }">
+    <!-- <h3 :class="{ 'text-white': hasBackground || darkTheme }">
       {{ board.name }}
-    </h3>
+    </h3> -->
 
     <TierList
       v-for="(list, listIndex) in board.lists"

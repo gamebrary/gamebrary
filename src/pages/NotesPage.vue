@@ -3,19 +3,19 @@
     <portal to="pageTitle">Notes</portal>
 
     <portal to="headerActions">
-      <GameSelector
+      <GameSelectorSidebar
         title="Select game to add a note"
         :variant="darkTheme ? 'success' : 'primary'"
         @select-game="createNote"
       >
       <i class="fa-solid fa-plus" />
-      </GameSelector>
+      </GameSelectorSidebar>
     </portal>
 
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <template v-else>
-      <!-- <GameSelectors
+      <!-- <GameSelectorSidebars
           v-if="!isEmpty"
           title="Select game to add a note"
           :variant="darkTheme ? 'success' : 'primary'"
@@ -23,7 +23,7 @@
         >
         <i class="d-sm-none fa-solid fa-plus" />
         <span class="d-none d-sm-inline">Create note</span>
-      </GameSelectors> -->
+      </GameSelectorSidebars> -->
 
       <empty-state
         v-if="isEmpty"
@@ -32,7 +32,7 @@
         <p>Looks like you haven't added any notes yet.</p>
         <p>Notes are handy for keeping track of cheat codes, passwords, or just about anything you want to remember!</p>
 
-        <GameSelector
+        <GameSelectorSidebar
           v-if="user"
           title="Select game to add a note"
           trigger-text="Create note"
@@ -68,6 +68,7 @@
             v-model="searchText"
           />
 
+          <!-- <pre>{{ filteredNotes }}</pre> -->
           <masonry
             :cols="{ default: 4, 1000: 3, 700: 2, 400: 1 }"
             gutter="8px"
@@ -79,7 +80,7 @@
               :text-variant="darkTheme ? 'light' : 'dark'"
               :key="index"
               class="cursor-pointer mb-2"
-              @click="openNote(note.id)"
+              @click="openNote(game)"
             >
               <!-- <pre>{{ note }}</pre> -->
               <!-- <h2>{{ note.title }}</h2> -->
@@ -108,7 +109,7 @@
 
 <script>
 import EmptyState from '@/components/EmptyState';
-import GameSelector from '@/components/GameSelector';
+import GameSelectorSidebar from '@/components/GameSelectorSidebar';
 import { mapState, mapGetters } from 'vuex';
 import { getImageUrl } from '@/utils';
 import { IMAGE_SIZE_COVER_SMALL } from '@/constants';
@@ -119,7 +120,7 @@ export default {
 
   components: {
     EmptyState,
-    GameSelector,
+    GameSelectorSidebar,
   },
 
   data() {
@@ -134,7 +135,9 @@ export default {
     ...mapGetters(['darkTheme']),
 
     isEmpty() {
-      return !Object.keys(this.notes).length;
+      console.log(this.notes);
+
+      return !Object.keys(this.notes)?.length;
     },
 
     filteredNotes() {
@@ -170,8 +173,8 @@ export default {
       this.$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } });
     },
 
-    openNote(id) {
-      this.$router.push({ name: 'note', params: { id }});
+    openNote(game) {
+      this.$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug }});
     },
 
     // loadNotes() {

@@ -19,12 +19,6 @@ export const GOG_CATEGORY_ID = 17;
 export const TWITTER_CATEGORY_ID = 5;
 export const NO_IMAGE_PATH = '/no-image.png';
 
-export const LIST_VIEW_SINGLE = 'single';
-export const LIST_VIEW_COVERS = 'covers';
-export const LIST_VIEW_GRID = 'grid';
-export const LIST_VIEW_COMPACT = 'compact';
-export const LIST_VIEW_TEXT = 'text';
-
 export const BOARD_TYPE_STANDARD = 'standard';
 export const BOARD_TYPE_KANBAN = 'kanban';
 export const BOARD_TYPE_TIER = 'tier';
@@ -48,18 +42,24 @@ export const LIST_SORT_OPTIONS = [
   { text: 'Progress', value: SORT_TYPE_PROGRESS },
 ];
 
-export const LIST_VIEW_OPTIONS = [
-  { text: 'Default', value: LIST_VIEW_SINGLE },
-  { text: 'Covers', value: LIST_VIEW_COVERS },
-  { text: 'Grid', value: LIST_VIEW_GRID },
-  { text: 'Compact', value: LIST_VIEW_COMPACT },
-  { text: 'Text', value: LIST_VIEW_TEXT },
-];
-
 export const DEFAULT_BOARD_BASE = {
   name: '',
   ranked: false,
   isPublic: false,
+}
+
+export const DEFAULT_PROFILE = {
+  name: '',
+  bio: '',
+  location: '',
+  website: '',
+  twitter: '',
+  psnId: '',
+  steamFriendCode: '',
+  gamerTag: '',
+  friendCode: '',
+  avatar: null,
+  wallpaper: null,
 }
 
 export const DEFAULT_BOARD_TIER = {

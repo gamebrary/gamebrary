@@ -1,93 +1,91 @@
 <template lang="html">
-  <section>
-    <b-container>
-      <b-spinner v-if="loading" class="spinner-centered" />
+  <b-container>
+    <EditProfileSidebar v-if="isProfileOwner" />
 
-      <div
-        v-else-if="profile"
-      >
-        <portal to="headerActions">
-          <b-button
-            v-if="isProfileOwner"
-            variant="primary"
-            v-b-toggle.profile-sidebar
-          >
-            Edit profile
-          </b-button>
-        </portal>
+    <b-spinner v-if="loading" class="spinner-centered" />
 
-        <EditProfileSidebar />
+    <div
+      v-else-if="profile"
+    >
+      <portal to="headerActions">
+        <b-button
+          v-if="isProfileOwner"
+          variant="primary"
+          @click="$store.commit('SET_PROFILE_SIDEBAR_OPEN', true)"
+        >
+          Edit profile
+        </b-button>
+      </portal>
 
-        <div class="text-center">
-          <b-avatar
-            :src="avatarImage"
-            class="mx-auto mt-5 mb-3"
-            size="200"
-          />
+      <div class="text-center">
+        <b-avatar
+          :src="avatarImage"
+          class="mx-auto mt-5 mb-3"
+          size="200"
+        />
 
-          <h3>@{{ profile.userName }}</h3>
+        <h3>@{{ profile.userName }}</h3>
 
-          <strong v-if="profile.name">{{ profile.name }}</strong>
+        <strong v-if="profile.name">{{ profile.name }}</strong>
 
-          <p v-if="profile.location">
-            <i class="fa-solid fa-location-dot" />
-            {{ profile.location }}
-          </p>
+        <p v-if="profile.location">
+          <i class="fa-solid fa-location-dot" />
+          {{ profile.location }}
+        </p>
 
-          <p v-if="profile.bio" class="text-subtle">{{ profile.bio }}</p>
-          
-          <b-button
-            v-if="profile.website"
-            :href="profile.website"
-            target="_blank"
-            title="Website"
-            variant="link"
-          >
-            {{ profile.website }}
-          </b-button>
-          
-          <b-button
-            v-if="profile.twitter"
-            :href="`https://twitter.com/${profile.twitter}`"
-            target="_blank"
-            title="X"
-            variant="transparent"
-          >
-            <i class="fa-brands fa-x-twitter fa-fw" />
-            {{ profile.twitter }}
-          </b-button>
-        </div>
-
-        <!-- <b-button :to="{ name: 'profiles' }">
-          View other profiles
-        </b-button> -->
-
-        <b-row class="mt-4">
-          <b-col
-            v-for="board in userBoards"
-            :key="board.id"
-            cols="12"
-            sm="6"
-            md="4"
-            lg="3"
-            class="px-2"
-          >
-            <mini-board
-              :board="board"
-              @click.native="$router.push({ name: 'board', params: { id: board.id } })"
-              class="p-relative mb-3"
-            />
-          </b-col>
-        </b-row>
+        <p v-if="profile.bio" class="text-subtle">{{ profile.bio }}</p>
+        
+        <b-button
+          v-if="profile.website"
+          :href="profile.website"
+          target="_blank"
+          title="Website"
+          variant="link"
+        >
+          {{ profile.website }}
+        </b-button>
+        
+        <b-button
+          v-if="profile.twitter"
+          :href="`https://twitter.com/${profile.twitter}`"
+          target="_blank"
+          title="X"
+          variant="transparent"
+        >
+          <i class="fa-brands fa-x-twitter fa-fw" />
+          {{ profile.twitter }}
+        </b-button>
       </div>
 
-      <empty-state
-        v-else
-        title="404 Not Found"
-        message="Page not found!"
-      />
-    </b-container>
-  </section>
+      <!-- <b-button :to="{ name: 'profiles' }">
+        View other profiles
+      </b-button> -->
+
+      <b-row class="mt-4">
+        <b-col
+          v-for="board in userBoards"
+          :key="board.id"
+          cols="12"
+          sm="6"
+          md="4"
+          lg="3"
+          class="px-2"
+        >
+          <mini-board
+            :board="board"
+            @click.native="$router.push({ name: 'board', params: { id: board.id } })"
+            class="p-relative mb-3"
+          />
+        </b-col>
+      </b-row>
+    </div>
+
+    <empty-state
+      v-else
+      title="404 Not Found"
+      message="Page not found!"
+    />
+  </b-container>
 </template>
 
 <script>
@@ -116,7 +114,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['user']),
+    ...mapState(['user', 'editProfileSidebarOpen']),
 
     userName() {
       return this.$route.params.userName;
@@ -142,10 +140,12 @@ export default {
   },
 
   mounted() {
+    this.$bus.$on('LOAD_PROFILE', this.loadProfile);
     this.loadProfile();
   },
-
+  
   destroyed() {
+    this.$bus.$off('LOAD_PROFILE');
     this.$bus.$emit('CLEAR_WALLPAPER');
   },
 
@@ -156,7 +156,7 @@ export default {
 
     async loadProfile() {
       this.error = false;
-      this.loading = true;
+      this.loading = this.profile === null;
 
       this.profile = await this.$store.dispatch('LOAD_PUBLIC_PROFILE_BY_USERNAME', this.userName)
         .catch(() => {

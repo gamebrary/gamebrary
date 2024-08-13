@@ -9,7 +9,7 @@
         squared
         class="ml-2 mt-1 p-0 position-absolute"
         :disabled="!user"
-        @click="$bus.$emit('SELECT_GAME', gameId)"
+        @click="$bus.$emit('LIKE_UNLIKE_GAME', gameId)"
       >
         <i :class="[isLiked ? 'fa-solid': 'fa-regular' , 'fa-heart text-danger']" />
       </b-button>

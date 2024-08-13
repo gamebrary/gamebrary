@@ -2,7 +2,7 @@
   <div class="d-flex mx-2">
     <div
       v-for="(list, index) in board.lists"
-      :class="`ml-2 list ${getListView(list)}`"
+      :class="`ml-2 list`"
       :key="index"
     >
       <b-card
@@ -16,7 +16,7 @@
 
         <div
           v-if="list && list.games.length"
-          :class="['games', getListView(list)]"
+          class="games"
         >
           <div v-for="n in list.games.length" :key="n">
             <b-card
@@ -37,7 +37,7 @@
               </b-card-body>
             </b-card>
 
-            <div
+            <!-- <div
               v-else-if="getListView(list) === 'covers'"
               class="covers-grid"
             >
@@ -83,7 +83,7 @@
               <b-card-body class="p-2">
                 <b-skeleton />
               </b-card-body>
-            </b-card>
+            </b-card> -->
 
             <b-card
               v-else
@@ -111,7 +111,6 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import { LIST_VIEW_SINGLE } from '@/constants';
 
 export default {
   computed: {
@@ -120,9 +119,6 @@ export default {
   },
 
   methods: {
-    getListView(list) {
-      return list?.view || list?.settings?.view || LIST_VIEW_SINGLE;
-    },
   },
 };
 </script>

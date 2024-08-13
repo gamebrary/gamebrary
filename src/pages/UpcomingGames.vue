@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import GameCard from '@/components/GameCards/GameCard';
+import GameCard from '@/components/GameCard';
 
 export default {
   components: {
