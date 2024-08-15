@@ -5,30 +5,51 @@
     no-header
     backdrop
     width="380px"
-    body-class="p-3"
+    z-index="2001"
     :bg-variant="darkTheme ? 'dark' : 'light'"
     :text-variant="darkTheme ? 'light' : 'dark'" 
   >
-    <h3 class="mb-3">Keyboard Shortcuts</h3>
-    <p>
-      <kbd class="mr-1">Esc </kbd>
-      Close modal
-    </p>
+  <template #default="{ hide }">
+    <div class="d-flex align-items-center justify-content-between p-3">
+      <h3>Keyboard Shortcuts</h3>
+        
+        <b-button
+          :variant="darkTheme ? 'black' : 'white'"
+          @click="hide"
+        >
+          <i class="fa-solid fa-xmark" />
+        </b-button>
+      </div>
 
-    <p
-      v-for="(shortcut, name) in KEYBOARD_SHORTCUTS"
-      :key="name"
-    >
-      <kbd
-        v-for="key in shortcut"
-        :key="key"
-        class="mr-1"
-      >
-        {{ key }}
-      </kbd>
+      <b-list-group class="mx-3">
+        <b-list-group-item
+          :variant="darkTheme ? 'dark' : 'light'"
+          class="d-flex justify-content-between align-items-center"
+        >
+          <kbd class="mr-1">Esc </kbd>
+          Close modal
+        </b-list-group-item>
 
-      {{ $t(`shortcuts.${name.substr(6)}`) }}
-    </p>
+        <b-list-group-item
+          v-for="(shortcut, name) in KEYBOARD_SHORTCUTS"
+          :key="name"
+          :variant="darkTheme ? 'dark' : 'light'"
+          class="d-flex justify-content-between align-items-center"
+        >
+          <span>
+            <kbd
+              v-for="key in shortcut"
+              :key="key"
+              class="mr-1"
+            >
+              {{ key }}
+            </kbd>
+          </span>
+
+          {{ $t(`shortcuts.${name.substr(6)}`) }}
+        </b-list-group-item>
+      </b-list-group>
+    </template>
   </b-sidebar>
 </template>
 
