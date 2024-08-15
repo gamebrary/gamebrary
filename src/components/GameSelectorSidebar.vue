@@ -14,13 +14,9 @@
   >
     <template #default="{ hide }">
       <div class="d-flex align-items-center justify-content-between mb-2">
-        <pre>{{ localFilter }}</pre>
         <h3>{{ title }}</h3>
         
-        <b-button
-          @click="hide"
-          class="close-button"
-        >
+        <b-button @click="hide">
           <i class="fa-solid fa-xmark" />
         </b-button>
       </div>
@@ -33,7 +29,7 @@
           v-model="searchText"
           debounce="500"
           class="mb-2"
-          placeholder="Type here"
+          placeholder="Search games (e.g. Axiom Verge)"
           type="search"
           @update="search"
         />

@@ -62,8 +62,6 @@ export default {
   
   methods: {
     highlightGame(gameId) {
-      console.log('higlight', gameId);
-
       this.$store.commit('SET_HIGHLIGHTED_GAME', gameId);
     },
   },

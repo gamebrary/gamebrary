@@ -1,6 +1,5 @@
 <template lang="html">
   <div>
-    <pre>{{ file }}</pre>
     <b-form-file
       class="d-none file-input"
       v-model="file"
@@ -77,12 +76,9 @@ export default {
       
       this.saving = true;
 
-      console.log(this.file);
-
       try {
         await this.$store.dispatch('UPLOAD_WALLPAPER', this.file);
       } catch (e) {
-        console.log(e);
         this.$bvToast.toast('There was an error uploading wallpaper', { variant: 'danger' });
       }
 

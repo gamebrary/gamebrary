@@ -20,7 +20,7 @@
         
         <b-button
           @click="hide"
-          class="m-3 close-button"
+          class="m-3"
         >
           <i class="fa-solid fa-xmark" />
         </b-button>

@@ -193,7 +193,6 @@ export default {
   },
 
   async LOAD_NOTE({ state }, noteId) {
-    console.log(noteId);
     const docSnap = await getDoc(doc(db, "notes-v2", noteId));
 
     return docSnap.data();

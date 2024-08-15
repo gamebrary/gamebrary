@@ -7,12 +7,12 @@
   >
     <b-button
       variant="link"
-      class="p-0"
+      class="p-0 mx-1"
       @click="handleLogoClick"
     >
-    <!-- src="/logo.png" -->
+    <!-- src="/logo-new.jpg" -->
       <img
-        src="/logo-new.jpg"
+        src="/logo.png"
         alt=""
         height="38"
       />

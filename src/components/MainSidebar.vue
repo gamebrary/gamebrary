@@ -13,15 +13,14 @@
     <template #default="{ hide }">
       <div class="d-flex align-items-center justify-content-between p-3">
         <img
-          src="/logo-new.jpg"
-          alt=""
-          height="32"
+          src="/logo.png"
+          alt="Gamebrary"
+          height="38"
         />
         
         <b-button
           @click="hide"
           :variant="darkTheme ? 'black' : 'white'"
-          class="close-button"
         >
           <i class="fa-solid fa-xmark" />
         </b-button>
@@ -48,20 +47,6 @@
         >
         <i class="fa-regular fa-gamepad fa-fw" />
           Games
-        </b-button>
-
-        <!-- TODO: Add progresses page -->
-        <b-button
-          :variant="darkTheme ? 'dark' : 'light'"
-          block
-          :to="{ name: 'progresses' }"
-          disabled
-        >
-          <i
-            class="fa-solid fa-stopwatch fa-fw"
-            aria-hidden="true"
-          />
-          <span class="ml-2">Progresses</span>
         </b-button>
 
         <b-button
@@ -101,31 +86,6 @@
           Settings
         </b-button>
       </div>
-
-      <!-- TODO: find place for close button, maybe only needed for mobile? -->
-      <!-- <b-button
-        @click="hideSidebar"
-      >
-        <i class="fa-regular fa-xmark"></i>
-      </b-button> -->
-
-      <!-- <b-button 
-        v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
-        :variant="darkTheme ? 'dark' : 'light'"
-        title="Home"
-        block
-        :to="{ name: 'home' }"
-      > 
-        <img
-          src="/logo.png"
-          alt=""
-          height="26"
-        />
-
-        Gamebrary
-      </b-button> -->
-
-      
     </template>
 
     <template #footer>

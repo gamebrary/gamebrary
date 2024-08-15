@@ -108,7 +108,6 @@ export default {
 
   methods: {
     openGameSelectorSidebar() {
-      console.log(this.list)
       this.$store.commit('SET_GAME_SELECTOR_DATA', {
         title: `Add games to ${this.board.name}`,
         filter: this.filter,

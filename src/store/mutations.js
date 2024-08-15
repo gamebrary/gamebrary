@@ -68,8 +68,6 @@ export default {
   },
   
   SET_PROFILE_SIDEBAR_OPEN(state, open) {
-    console.log('SET_PROFILE_SIDEBAR_OPEN');
-
     state.editProfileSidebarOpen = Boolean(open);
   },
 

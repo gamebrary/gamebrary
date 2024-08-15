@@ -56,16 +56,6 @@
     <DeleteAccountModal />
 
     <div class="mt-4 d-inline-flex flex-column">
-      <!-- TODO: finish steam integration -->
-      <b-button
-        :to="{ name: 'steam.settings' }"
-        class="mb-2"
-        disabled
-      >
-        <i class="fab fa-steam fa-fe" aria-hidden />
-        <span class="ml-2">Steam</span>
-      </b-button>
-
       <b-button
         :variant="darkTheme ? 'dark' : 'light'"
         class="mb-2"

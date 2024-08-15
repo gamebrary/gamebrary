@@ -133,9 +133,6 @@ export default {
           owner: this.user.uid,
         }
 
-				console.log(payload);
-				debugger;
-
         const { id } = await this.$store.dispatch('CREATE_BOARD', payload);
 
         this.$router.push({ name: 'board', params: { id } });
