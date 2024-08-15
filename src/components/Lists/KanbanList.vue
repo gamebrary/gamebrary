@@ -11,7 +11,7 @@
     >
       <b-button
         v-if="isBoardOwner"
-        class="m-1 text-left"
+        class="m-2 text-left"
         :variant="darkTheme ? 'dark' : 'light'"
         @click="editList"
       >
