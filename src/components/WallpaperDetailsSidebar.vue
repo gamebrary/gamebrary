@@ -17,7 +17,6 @@
       class="pt-3"
       :class="darkTheme ? 'bg-dark' : 'bg-light'"
     >
-    test
       <b-img
         v-if="wallpaperUrl"
         :src="wallpaperUrl"
@@ -26,21 +25,13 @@
 
       <div class="d-flex align-items-center justify-content-between pb-2">
         <div>
-          <i class="fa-solid fa-file-png fa-fw" />
+          <!-- <i class="fa-solid fa-file-png fa-fw" /> -->
           {{ activeWallpaper.name }}
           <!-- {{ activeWallpaper.size }} -->
-        <!-- {{ activeWallpaper.timeCreated }} -->
+          <!-- {{ activeWallpaper.timeCreated }} -->
         </div>
 
         <div class="d-flex align-items-center justify-content-between pb-2">
-          <b-button
-            v-b-toggle.boards-list
-            title="Set as wallpaper"
-            v-b-tooltip.hover.bottom
-          >
-            <i class="fa-regular fa-rectangle-list" />
-          </b-button>
-
           <b-button
             v-b-modal.deleteConfirm
             variant="danger"
@@ -51,10 +42,30 @@
           </b-button>
         </div>
       </div>
+
+      <b-button
+        v-b-toggle.boards-list
+        title=""
+        :variant="darkTheme ? 'outline-light' : 'outline-dark'"
+        v-b-tooltip.hover.bottom
+      >
+        Set as wallpaper
+      </b-button>
     </div>
   
-    <b-collapse id="boards-list" class="mt-2">
-      <b-alert show style="position: sticky; top: 0; z-index: 3;">Select a board to apply wallpaper</b-alert>
+    <b-collapse id="boards-list">
+      <div
+        style="position: sticky; top: 0; z-index: 3;"
+        :class="darkTheme ? 'bg-dark' : 'bg-light'"
+        class="pt-3 pb-1"
+      >
+        <b-alert
+          show
+          variant="success"
+        >
+          Select a board to apply wallpaper
+        </b-alert>
+      </div>
 
       <MiniBoard
         v-for="board in formattedBoards"
