@@ -196,10 +196,7 @@
       <template #default="{ hide }">
         <div class="d-flex align-items-center justify-content-between mb-2 p-3">
 
-          <b-button
-            @click="hide"
-            class="close-button"
-          >
+          <b-button @click="hide">
             <i class="fa-solid fa-xmark" />
           </b-button>
 
@@ -265,7 +262,6 @@ export default {
   },
 
   mounted() {
-    console.log('editProfileSidebarOpen', this.editProfileSidebarOpen);
     this.loadProfile();
   },
 
