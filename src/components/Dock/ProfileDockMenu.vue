@@ -1,28 +1,39 @@
-<!-- TODO: link to create page if profile not created -->
 <template>
   <div
     class="py-3 d-flex flex-column text-center"
     :style="style"
   >
-    <template v-if="userName">
-      <b-avatar
-        :src="avatarImage"
-        size="120"
-        class="mx-auto mb-2"
-        :title="displayUserName"
-        :to="{ name: 'public.profile', params: { userName } }"
-      />
-      
+    <!-- <div v-else>
+      Choose your user name!
+    </div> -->
+
+    <b-avatar
+      :src="avatarImage"
+      size="120"
+      class="mx-auto mb-2"
+      :title="displayUserName"
+      :to="userName ? { name: 'public.profile', params: { userName } } : null"
+    />
+    
+    <div class="mx-3">
+      <p v-if="!userName">
+        Welcome! Let's get you started.
+
+        <br />
+
+        <b-link
+          :to="{ name: 'create.profile' }"
+        >
+          Choose a username
+        </b-link>
+      </p>
+
       <b-link
+        v-if="userName"
         :to="{ name: 'public.profile', params: { userName } }"
       >
         {{ displayUserName }}
       </b-link>
-    </template>
-
-    <div v-else>
-      <!-- TODO: Finish this! -->
-      No user name, show UI to create
     </div>
   </div>
 </template>
