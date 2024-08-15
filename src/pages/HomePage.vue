@@ -29,6 +29,11 @@
     </b-button>
 
     <h3 class="mt-5 mb-3">Join the community and start creating your own boards!</h3>
+    Discover and connect with others in the community!
+    
+    <b-button :to="{ name: 'profiles' }">
+      Explore All Public Profiles: 
+    </b-button>
 
     <div class="d-flex overflow-hidden justify-content-center">
       <profile-card
