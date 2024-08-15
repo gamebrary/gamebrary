@@ -1,13 +1,28 @@
 <template>
-  <div v-if="allGames.length">
-    <h3>You may also like</h3>
-    
-    <GameCard
+  <b-container fluid v-if="allGames.length" class="p-0">
+    <h2 class="pb-3">You may also like</h2>
+
+    <b-form-row align-content="end">
+      <b-col
         v-for="game in allGames"
-        :game-id="game.id"
+        cols="6"
+        sm="4"
+        md="3"
+        lg="2"
+        xl="1"
         :key="game && game.id"
-      />
-  </div>
+      >
+        <GameCard
+          :game-id="game.id"
+          hide-platforms
+          vertical
+          hide-tags
+          hide-progress
+          class="mb-3"
+        />
+      </b-col>
+    </b-form-row>
+  </b-container>
 </template>
 
 <script>

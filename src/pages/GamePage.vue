@@ -75,9 +75,9 @@
             v-b-visible="(value) => titleVisible = !value"
           >
             <div :class="['d-flex align-items-center']">
-              <h2 id="popover-target-1" :class="{ 'text-danger': isLiked, 'cursor-pointer': alternativeNames.length }">
+              <h1 id="popover-target-1" :class="{ 'text-danger': isLiked, 'cursor-pointer': alternativeNames.length }">
                 {{ gameName }}
-              </h2>
+              </h1>
 
               <b-popover
                 v-if="alternativeNames.length"
@@ -116,9 +116,9 @@
           </div>
 
           <div v-if="user">
-            <!-- <b-link v-if="!tagsApplied.length" v-b-modal.gameTagsModal>
+            <b-link v-if="!tagsApplied.length" v-b-modal.gameTagsModal>
               Add tag
-            </b-link> -->
+            </b-link>
 
             <b-button
               v-for="({ bgColor, textColor, name, index }) in tagsApplied"
@@ -327,8 +327,6 @@
       >
         <game-header />
         <GameInBoards class="mb-3" />
-        <SimilarGames class="mt-sm-5" />
-
       </b-col>
     </b-row>
 
@@ -402,6 +400,8 @@
         loading...
       </timeline> -->
     </b-container>
+
+    <SimilarGames class="mt-sm-5" />
 
     <p
       v-if="legalNotice"
