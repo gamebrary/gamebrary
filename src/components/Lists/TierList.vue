@@ -22,28 +22,25 @@
         <!-- :disabled="listIndex === 0" -->
         <!-- TODO: hook up move list up/down -->
         <b-button
-          class="border-0"
+          :disabled="listIndex === 0"
           v-b-tooltip.hover.right="'Move up'"
-          disabled
-          :variant="darkTheme ? 'outline-light' : 'outline-secondary'"
+          :variant="tierActionVariant"
         >
           <i class="fa-regular fa-caret-up fa-fw" />
         </b-button>
 
         <b-button
-          class="border-0"
           v-b-tooltip.hover.right
           :title="`Add games to ${list.name}`"
-          :variant="darkTheme ? 'outline-light' : 'outline-secondary'"
+          :variant="tierActionVariant"
           @click="openGameSelectorSidebar"
         >
           <i class="fa-solid fa-plus fa-fw" />
         </b-button>
 
         <b-button
-          class="border-0"
           v-b-tooltip.hover.right="'Move down'"
-          :variant="darkTheme ? 'outline-light' : 'outline-secondary'"
+          :variant="tierActionVariant"
         >
           <i class="fa-regular fa-caret-down fa-fw" />
         </b-button>
@@ -79,6 +76,7 @@
         class="mr-2"
         vertical
         slim
+        fluid
         small
       />
     </draggable>
@@ -126,6 +124,14 @@ export default {
 
     tierLetter() {
       return this.list.name?.charAt(0);
+    },
+
+    tierActionVariant() {
+      if (this.board?.backgroundUrl) {
+        return this.darkTheme ? 'light' : 'secondary';
+      }
+
+      return this.darkTheme ? 'outline-light' : 'outline-secondary';
     },
 
     draggingDisabled() {

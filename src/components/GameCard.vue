@@ -24,7 +24,7 @@
         <b-img
           blank-color="#ccc"
           rounded
-          class="mw-100"
+          :class="vertical && fluid ? '' : 'mw-100'"
           :width="small ? '96' : null"
           :src="$options.getImageUrl(game, $options.IMAGE_SIZE_COVER_SMALL)"
           :alt="game.name"
@@ -131,6 +131,7 @@ export default {
       selectable: Boolean,
       ranked: Boolean,
       rank: Number,
+      fluid: Boolean,
   },
 
   components: {
@@ -247,65 +248,3 @@ export default {
   color: var(--danger);
 }
 </style>
-
-<!-- TODO: reuse anything from mixin>? -->
-<!-- import { mapState, mapGetters } from 'vuex';
-import { getImageUrl } from '@/utils';
-import { IMAGE_SIZE_COVER_SMALL, PLATFORMS } from '@/constants';
-
-export default {
-  IMAGE_SIZE_COVER_SMALL,
-  getImageUrl,
-
-  props: {
-    listIndex: Number,
-    list: {
-      type: Object,
-      default: () => {},
-    },
-    gameId: [String, Number],
-  },
-
-  computed: {
-    ...mapState(['settings', 'cachedGames', 'tags', 'notes', 'progresses', 'board']),
-    ...mapGetters(['isRTL', 'darkTheme']),
-
-    gamePlatforms() {
-      return this.game?.platforms?.map((id) => PLATFORMS?.[id]);
-    },
-
-    gamePlatformsText() {
-      return this.game?.platforms?.map((id) => PLATFORMS?.[id]?.name)?.join(', ');
-    },
-
-    showGameProgress() {
-      return this.list?.showGameProgress && this.gameProgress > 0;
-    },
-
-    showReleaseDates() {
-      return this.list?.showReleaseDates;
-    },
-
-    gameProgress() {
-      const { gameId, progresses } = this;
-
-      return gameId && progresses[gameId]
-        ? progresses[gameId]
-        : 0;
-    },
-
-    tagsApplied() {
-      const tags = this.tags?.tags || this.tags;
-
-      return tags?.filter((tag) => tag?.games?.includes(this.game?.id)) || [];
-    },
-
-    gameNotes() {
-      return this.list?.showGameNotes && this.notes?.[this.gameId];
-    },
-
-    game() {
-      return this.cachedGames[this.gameId];
-    },
-  },
-}; -->
