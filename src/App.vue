@@ -1,39 +1,7 @@
-<!-- // LanguageSettings,
-// SteamSettingsPage,
-// import SteamSettingsPage from '@/pages/SteamSettingsPage';
-// import LanguageSettings from '@/components/Settings/LanguageSettings'; -->
-<!-- Elevate Your Play, Organize Your Way! -->
-<!-- "Gamebrary: Level Up Your Collection, Organize Your Play." -->
-
-<!--
-🌟 Smart Filters: Now, effortlessly find the perfect game for your mood or gaming session with our new Smart Filters! Sort and discover your collection based on genres, release dates, and more. Level up your game organization experience!
-
-Explore the next level of game management with Gamebrary's Smart Filters—your key to a more personalized gaming adventure. Start organizing like never before! 🚀🎮
-
-Introducing the **New Feature: "PlayStats"**!
-
-Now, take your game organization to the next level with PlayStats, the latest addition to our website. Dive deeper into your gaming world and enhance your experience by tracking and analyzing your gameplay habits. Here's what PlayStats has to offer:
-
-1. **Gameplay Insights:**
-   Explore detailed statistics on your gaming patterns, such as total playtime, most played genres, and favorite gaming hours. Gain valuable insights into your gaming preferences.
-
-2. **Achievement Showcase:**
-   Showcase your in-game achievements and milestones. Celebrate your victories and share your gaming accomplishments with the community.
-
-3. **Playtime Reminders:**
-   Set personalized playtime reminders to maintain a healthy gaming balance. Keep track of your gaming sessions and ensure you stay on top of your real-life responsibilities.
-
-4. **Game Recommendations:**
-   Receive tailored game recommendations based on your play history and preferences. Discover new titles that align with your gaming style and interests.
-
-Elevate your gaming experience with PlayStats – because your gaming journey is more than just a collection; it's a story waiting to be told. Upgrade your Gamebrary experience today!
- -->
-
-<!-- CHORE: add like button to all game covers -->
 <template> 
-  <main
+  <body
     id="app"
-    :class="[!backgroundColor && darkTheme ? 'dark bg-black text-light' : 'light', `nav-${navPosition}`]"
+    :class="[!backgroundColor && darkTheme ? 'dark bg-black text-light' : 'bg-light', `nav-${navPosition}`]"
     :style="style"
     v-shortkey="KEYBOARD_SHORTCUTS"
     @shortkey="handleShortcutAction"
@@ -41,17 +9,19 @@ Elevate your gaming experience with PlayStats – because your gaming journey is
     <b-spinner v-if="loading" class="spinner-centered mt-5" />
 
     <template v-else>
-      <!-- TODO: hide sidebars if not logged in -->
       <portal-target name="root"/>
       <PageHeader v-if="showPageDock" />
       <router-view class="viewport" />
-      <GameSelectorSidebar />
       <KeyboardShortcutsModal />
       <markdown-cheatsheet />
-      <MainSidebar v-if="user" />
-      <WallpaperDetailsSidebar />
+      
+      <template v-if="user">
+        <GameSelectorSidebar />
+        <MainSidebar />
+        <WallpaperDetailsSidebar />
+      </template>
     </template>
-  </main>
+  </body>
 </template>
 
 <script>
@@ -61,11 +31,12 @@ import KeyboardShortcutsModal from '@/components/KeyboardShortcutsModal';
 import PageHeader from '@/components/PageHeader';
 import MainSidebar from '@/components/MainSidebar';
 import WallpaperDetailsSidebar from '@/components/WallpaperDetailsSidebar';
-import { initializeApp } from "firebase/app";
+// import { initializeApp } from "firebase/app";
 import { mapState, mapGetters } from 'vuex';
-import { KEYBOARD_SHORTCUTS, FIREBASE_CONFIG, IGDB_QUERIES } from '@/constants';
+import { KEYBOARD_SHORTCUTS, IGDB_QUERIES } from '@/constants';
+// import { KEYBOARD_SHORTCUTS, FIREBASE_CONFIG, IGDB_QUERIES } from '@/constants';
 
-const app = initializeApp(FIREBASE_CONFIG);
+// initializeApp(FIREBASE_CONFIG);
 
 export default {
   name: 'App',
@@ -240,10 +211,5 @@ export default {
       padding: .5rem 1rem;
       width: 100%;
     }
-
-    &.light {
-      background-color: var(--light);
-    }
-
   }
 </style>
