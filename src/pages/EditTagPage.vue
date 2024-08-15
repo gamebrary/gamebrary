@@ -1,3 +1,4 @@
+<!-- TODO: finish layout, convert to sidebar, open games tagged in nested sidebar -->
 <template lang="html">
   <section>
     <b-container>
@@ -12,17 +13,6 @@
       </b-button>
 
       <portal to="pageTitle">Edit tag</portal>
-
-      <GameSelectorSidebar
-        :filter="tag.games"
-        title="Tag game"
-        variant="primary"
-        class="mr-2"
-        @select-game="selectGame"
-      >
-        <span>Tag game</span>
-        <i class="fa-solid fa-plus d-sm-none" />
-      </GameSelectorSidebar>
 
       <b-spinner v-if="loading" class="spinner-centered" />
 
@@ -93,17 +83,22 @@
             </b-button>
           </b-col>
 
-          <div class="mt-5" v-if="tag.games.length">
+          <div class="mt-5 bg-danger d-flex">
             <h2>Games tagged</h2>
 
-            <div class="game-grid">
+            <b-button @click="openGameSelectorSidebar">
+              <i class="fa-solid fa-plus" />
+            </b-button>
+
+            <div v-if="tag.games.length" class="game-grid">
               <GameCard
                 v-for="gameId in tag.games"
                 :key="gameId"
                 :game-id="gameId"
-                slim
                 vertical
-                hide-title
+                hide-tags
+                hide-platforms
+                hide-progress
               />
             </div>
           </div>
@@ -115,7 +110,6 @@
 
 <script>
 import VSwatches from 'vue-swatches'
-import GameSelectorSidebar from '@/components/GameSelectorSidebar';
 import GameCard from '@/components/GameCard';
 import { getImageUrl } from '@/utils';
 import { mapState, mapGetters } from 'vuex';
@@ -137,7 +131,6 @@ export default {
 
   components: {
     VSwatches,
-    GameSelectorSidebar,
     GameCard,
   },
 
@@ -157,7 +150,12 @@ export default {
   },
 
   async mounted() {
+    this.$bus.$on('SELECT_GAME', this.selectGame);
     this.load();
+  },
+
+  destroyed() {
+    this.$bus.$off('SELECT_GAME', this.selectGame);
   },
 
   beforeRouteEnter(to, from, next) {
@@ -174,6 +172,13 @@ export default {
       await this.$store.dispatch('LOAD_IGDB_GAMES', [gameId]);
 
       this.tag = JSON.parse(JSON.stringify(tags[tagIndex]));
+    },
+
+    openGameSelectorSidebar() {
+      this.$store.commit('SET_GAME_SELECTOR_DATA', {
+        title: 'Tag game',
+        filter: this.tag?.games,
+      });
     },
 
     async load() {

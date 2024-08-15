@@ -3,51 +3,34 @@
     <portal to="pageTitle">Notes</portal>
 
     <portal to="headerActions">
-      <GameSelectorSidebar
-        title="Select game to add a note"
+      <b-button
+        title="Add games"
+        v-b-tooltip.hover
         :variant="darkTheme ? 'success' : 'primary'"
-        @select-game="createNote"
+        @click="openGameSelectorSidebar"
       >
-      <i class="fa-solid fa-plus" />
-      </GameSelectorSidebar>
+        <i class="fa-solid fa-plus" />
+      </b-button>
     </portal>
 
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <template v-else>
-      <!-- <GameSelectorSidebars
-          v-if="!isEmpty"
-          title="Select game to add a note"
-          :variant="darkTheme ? 'success' : 'primary'"
-          @select-game="createNote"
-        >
-        <i class="d-sm-none fa-solid fa-plus" />
-        <span class="d-none d-sm-inline">Create note</span>
-      </GameSelectorSidebars> -->
-
       <empty-state
-        v-if="isEmpty"
+        v-if="!isEmpty"
         illustration="notes"
       >
         <p>Looks like you haven't added any notes yet.</p>
         <p>Notes are handy for keeping track of cheat codes, passwords, or just about anything you want to remember!</p>
 
-        <GameSelectorSidebar
-          v-if="user"
-          title="Select game to add a note"
-          trigger-text="Create note"
-          size="md"
-          variant="primary"
-          class="mr-2"
-          @select-game="createNote"
-        />
-
-        <!-- <b-button
-          v-else
-          :to="{ name: 'auth' }"
+        <b-button
+          title="Add games"
+          v-b-tooltip.hover
+          :variant="darkTheme ? 'success' : 'primary'"
+          @click="openGameSelectorSidebar"
         >
-          Login
-        </b-button> -->
+          Create note
+        </b-button>
       </empty-state>
 
       <empty-state
@@ -68,7 +51,6 @@
             v-model="searchText"
           />
 
-          <!-- <pre>{{ filteredNotes }}</pre> -->
           <masonry
             :cols="{ default: 4, 1000: 3, 700: 2, 400: 1 }"
             gutter="8px"
@@ -82,11 +64,6 @@
               class="cursor-pointer mb-2"
               @click="openNote(game)"
             >
-              <!-- <pre>{{ note }}</pre> -->
-              <!-- <h2>{{ note.title }}</h2> -->
-              <!-- <p v-html="note.body" /> -->
-              <!-- TODO: use correct route -->
-              <!-- @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug }})" -->
               <b-card-text v-if="game">
                 <b-img
                   :src="$options.getImageUrl(game, $options.IMAGE_SIZE_COVER_SMALL)"
@@ -109,7 +86,6 @@
 
 <script>
 import EmptyState from '@/components/EmptyState';
-import GameSelectorSidebar from '@/components/GameSelectorSidebar';
 import { mapState, mapGetters } from 'vuex';
 import { getImageUrl } from '@/utils';
 import { IMAGE_SIZE_COVER_SMALL } from '@/constants';
@@ -120,7 +96,6 @@ export default {
 
   components: {
     EmptyState,
-    GameSelectorSidebar,
   },
 
   data() {
@@ -135,8 +110,6 @@ export default {
     ...mapGetters(['darkTheme']),
 
     isEmpty() {
-      console.log(this.notes);
-
       return !Object.keys(this.notes)?.length;
     },
 
@@ -162,40 +135,32 @@ export default {
   },
 
   mounted() {
-    // this.loadGames();
-    // this.loadNotes();
+    this.$bus.$on('SELECT_GAME', this.openNote);
   },
 
+  destroyed() {
+    this.$bus.$off('SELECT_GAME', this.openNote);
+  },
+
+
   methods: {
+    openGameSelectorSidebar() {
+      this.$store.commit('SET_GAME_SELECTOR_DATA', {
+        title: 'Select game to add a note',
+      });
+    },
+
     createNote(gameId) {
       const game = this.cachedGames[gameId];
 
       this.$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } });
     },
 
-    openNote(game) {
+    openNote(gameId) {
+      const game = this.cachedGames[gameId];
+
       this.$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug }});
     },
-
-    // loadNotes() {
-
-    // },
-
-    // async loadGames() {
-    //   if (this.isEmpty) return;
-
-    //   const gamesList = Object.keys(this.notes);
-
-    //   this.loading = true;
-
-    //   try {
-    //     await this.$store.dispatch('LOAD_IGDB_GAMES', gamesList);
-    //   } catch (e) {
-    //     this.$bvToast.toast('Error loading games', { variant: 'error' });
-    //   }
-
-    //   this.loading = false;
-    // },
   },
 };
 </script>
