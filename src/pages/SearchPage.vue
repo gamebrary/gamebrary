@@ -1,3 +1,4 @@
+<!-- TODO: improve pagination/navigation -->
 <template lang="html">
   <section class="d-flex flex-column">
     <portal to="pageTitle">
