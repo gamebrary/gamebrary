@@ -133,14 +133,28 @@ export default {
     if (!this.isBoardCached) this.$store.commit('CLEAR_BOARD');
 
     this.loadBoard();
+    this.$bus.$on('MOVE_LIST_LEFT', this.moveListLeft);
+    this.$bus.$on('MOVE_LIST_RIGHT', this.moveListRight);
   },
-
+  
   destroyed() {
+    this.$bus.$off('MOVE_LIST_LEFT', this.moveListLeft);
+    this.$bus.$off('MOVE_LIST_RIGHT', this.moveListRight);
     this.$bus.$emit('CLEAR_WALLPAPER');
     this.$bus.$emit('UPDATE_BACKGROUND_COLOR', null);
   },
 
   methods: {
+    moveListLeft(listIndex) {
+      this.$store.commit('MOVE_LIST_LEFT', listIndex);
+      this.saveBoard();
+    },
+    
+    moveListRight(listIndex) {
+      this.$store.commit('MOVE_LIST_RIGHT', listIndex);
+      this.saveBoard();
+    },
+
     async loadBoard() {
       this.loading = !this.isBoardCached;
 
@@ -193,6 +207,13 @@ export default {
       this.avatarImage = avatar
         ? await this.$store.dispatch('LOAD_FIREBASE_IMAGE', avatar)
         : null;
+    },
+
+    async saveBoard() {
+      await this.$store.dispatch('SAVE_BOARD')
+        .catch(() => {
+          this.$store.commit('SET_SESSION_EXPIRED', true);
+        });
     },
 
     loadBoardGames() {

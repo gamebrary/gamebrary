@@ -9,7 +9,7 @@
         v-b-tooltip.hover.right
         class="cursor-pointer"
         :style="`background-color: ${list.backgroundColor}`"
-        size="100"
+        size="128"
         @click.native="editList"
       />
 
@@ -19,12 +19,11 @@
         vertical
         class="ml-2"
       >
-        <!-- :disabled="listIndex === 0" -->
-        <!-- TODO: hook up move list up/down -->
         <b-button
           :disabled="listIndex === 0"
           v-b-tooltip.hover.right="'Move up'"
           :variant="tierActionVariant"
+          @click="$bus.$emit('MOVE_LIST_LEFT', listIndex)"
         >
           <i class="fa-regular fa-caret-up fa-fw" />
         </b-button>
@@ -39,8 +38,10 @@
         </b-button>
 
         <b-button
+          :disabled="moveListRightButtonDisabled"
           v-b-tooltip.hover.right="'Move down'"
           :variant="tierActionVariant"
+          @click="$bus.$emit('MOVE_LIST_RIGHT', listIndex)"
         >
           <i class="fa-regular fa-caret-down fa-fw" />
         </b-button>
@@ -73,7 +74,7 @@
         hide-notes
         hide-progress
         hide-platforms
-        class="mr-2"
+        class="mr-2 mb-2"
         vertical
         slim
         fluid
@@ -121,6 +122,12 @@ export default {
   computed: {
     ...mapState(['dragging', 'progresses', 'board', 'user', 'settings']),
     ...mapGetters(['isBoardOwner']),
+
+    moveListRightButtonDisabled() {
+      const listsCount = this.board?.lists?.length || 0;
+
+      return this.listIndex >= listsCount - 1;
+    },
 
     tierLetter() {
       return this.list.name?.charAt(0);
