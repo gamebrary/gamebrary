@@ -114,12 +114,10 @@ export default {
 
   methods: {
     selectGame(gameId) {
-      if (this.preventClose) {
-        this.localFilter.push(gameId);
-      }
+      if (this.preventClose) this.localFilter.push(gameId);
+
       const eventName = this.gameSelectorData?.eventName || 'SELECT_GAME';
 
-      // TODO: replace all instances of @select-game
       this.$bus.$emit(eventName, gameId);
 
       if (!this.preventClose) this.$store.commit('CLEAR_GAME_SELECTOR_DATA');
