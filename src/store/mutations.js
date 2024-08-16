@@ -66,6 +66,24 @@ export default {
   SET_MENU_OPEN(state, menuOpen) {
     state.menuOpen = Boolean(menuOpen);
   },
+
+  MOVE_LIST_LEFT(state, listIndex) {
+    if (listIndex <= 0) return;
+
+    const [list] = state.board.lists.splice(listIndex, 1);
+
+    state.board.lists.splice(listIndex - 1, 0, list);
+  },
+
+  MOVE_LIST_RIGHT(state, listIndex) {
+    const listsCount = state.board?.lists?.length || 0;
+    
+    if (listIndex > listsCount - 1) return;
+    
+    const [list] = state.board.lists.splice(listIndex, 1);
+    
+    state.board.lists.splice(listIndex + 1, 0, list);
+  },
   
   SET_PROFILE_SIDEBAR_OPEN(state, open) {
     state.editProfileSidebarOpen = Boolean(open);
@@ -159,12 +177,6 @@ export default {
 
   APPEND_GOG_GAME_DATA(state, data) {
     Vue.set(state.game, 'gog', data);
-  },
-
-  MOVE_LIST(state, { from, to }) {
-    const cutOut = state.board.lists.splice(from, 1)[0];
-
-    state.board.lists.splice(to, 0, cutOut);
   },
 
   SET_USER(state, data) {
