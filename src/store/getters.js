@@ -11,11 +11,9 @@ import slugify from 'slugify'
 import bbobHTML from '@bbob/html'
 import presetHTML5 from '@bbob/preset-html5'
 import orderby from 'lodash.orderby';
-import * as linkify from 'linkifyjs';
 import linkifyHtml from 'linkify-html';
 
 export default {
-  // TODO: use constants for default settings
   latestRelease: ({ releases }) => releases?.[0]?.tag_name || 'v1',
   darkTheme: ({ settings }) => settings?.darkTheme || false,
   transparencyEnabled: ({ settings }) => settings?.transparencyEnabled || false,

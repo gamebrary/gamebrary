@@ -59,7 +59,7 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import firebase from 'firebase/compat/app';
-// TODO: finish and test delete account
+// TODO: finish and test delete account, make sure everything is deleted, use extension?
 // import { FIREBASE_CONFIG } from '@/constants';
 
 // const app = initializeApp(FIREBASE_CONFIG);

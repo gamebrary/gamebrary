@@ -3,7 +3,6 @@
     autocomplete="off"
     @submit.prevent="checkUserNameAvailability"
   >
-    <!-- TODO: add loading spinner to prevent flicker -->
     <p>Profile</p>
 
     <b-input-group class="mb-3">
@@ -85,7 +84,7 @@ export default {
   },
 
   async mounted() {
-    if (this.profile?.userName) this.$router.replace({ name: 'public.profile', params: { userName: this.profile?.userName } });
+    // if (this.profile?.userName) this.$router.replace({ name: 'public.profile', params: { userName: this.profile?.userName } });
   },
 
   methods: {

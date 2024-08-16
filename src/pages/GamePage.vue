@@ -1,5 +1,4 @@
 <!-- TODO: refresh cached game on game id change -->
-<!-- TODO: fix background, add options? -->
 <template lang="html">
   <div v-if="!loading && !game" class="pt-5">
     <div class="d-flex justify-content-center align-items-center">
@@ -265,7 +264,7 @@
               </div>
             </div> -->
 
-            <!-- TODO: add game requirements -->
+            <!-- TODO: add game requirements back -->
             <!-- <b-col cols="6" sm="4" md="3" lg="12" v-if="gameRequirements">
               <div
                 v-for="(requirement, index) in gameRequirements"
@@ -476,9 +475,9 @@ export default {
 
     // gameRequirements() {
     //   const steamGame = this.game?.steam;
-    //
+    
     //   if (!steamGame) return null;
-    //
+    
     //   return {
     //     mac: steamGame?.mac_requirements || null,
     //     linux: steamGame?.linux_requirements || null,

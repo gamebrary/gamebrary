@@ -1,3 +1,4 @@
+<!-- TODO: only show sections if games are available -->
 <template lang="html">
   <section>
     <b-container>
