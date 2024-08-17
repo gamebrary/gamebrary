@@ -135,14 +135,6 @@ const routes = [
     }
   },
   {
-    path: '/b/:id/edit',
-    name: 'board.edit',
-    component: () => import(/* webpackChunkName: "boards" */ '@/pages/EditBoardPage'),
-    meta: {
-      title: 'Edit board',
-    }
-  },
-  {
     path: '/b/:id',
     name: 'board',
     component: () => import(/* webpackChunkName: "boards" */ '@/pages/BoardPage'),

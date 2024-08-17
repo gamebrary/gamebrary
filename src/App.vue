@@ -1,7 +1,7 @@
 <template> 
   <body
     id="app"
-    :class="[!backgroundColor && darkTheme ? 'dark bg-black text-light' : 'bg-light', `nav-${navPosition}`]"
+    :class="bodyStyles"
     :style="style"
     v-shortkey="KEYBOARD_SHORTCUTS"
     @shortkey="handleShortcutAction"
@@ -17,6 +17,7 @@
       
       <template v-if="user">
         <GameSelectorSidebar />
+        <EditBoardSidebar />
         <MainSidebar />
         <WallpaperDetailsSidebar />
       </template>
@@ -27,10 +28,12 @@
 <script>
 import MarkdownCheatsheet from '@/components/MarkdownCheatsheet';
 import GameSelectorSidebar from '@/components/GameSelectorSidebar';
+import EditBoardSidebar from '@/components/EditBoardSidebar';
 import KeyboardShortcutsModal from '@/components/KeyboardShortcutsModal';
 import PageHeader from '@/components/PageHeader';
 import MainSidebar from '@/components/MainSidebar';
 import WallpaperDetailsSidebar from '@/components/WallpaperDetailsSidebar';
+// TODO: restore or remove
 // import { initializeApp } from "firebase/app";
 import { mapState, mapGetters } from 'vuex';
 import { KEYBOARD_SHORTCUTS, IGDB_QUERIES } from '@/constants';
@@ -48,6 +51,7 @@ export default {
     KeyboardShortcutsModal,
     WallpaperDetailsSidebar,
     GameSelectorSidebar,
+    EditBoardSidebar,
   },
 
   data() {
@@ -63,6 +67,17 @@ export default {
   computed: {
     ...mapState(['user', 'settings', 'sessionExpired', 'platforms', 'games', 'gameSelectorData']),
     ...mapGetters(['darkTheme', 'navPosition']),
+
+    bodyStyles() {
+      return [
+        `nav-${this.navPosition}`,
+        {
+          'dark text-light': this.darkTheme,
+          'bg-black': !this.backgroundColor && this.darkTheme,
+          'bg-light': !this.backgroundColor && !this.darkTheme,
+        }
+      ]
+    },
 
     showPageDock() {
       if (['auth', 'home'].includes(this.$route.name) && !this.user) return false;

@@ -35,7 +35,7 @@
       <b-button
         v-if="canEdit"
         :variant="darkTheme ? 'success' : 'primary'"
-        :to="{ name: 'board.edit', params: { id: board.id } }"
+        v-b-toggle.edit-board-sidebar
       >
         <i class="fa-solid fa-pen" />
       </b-button>
@@ -135,11 +135,13 @@ export default {
     this.loadBoard();
     this.$bus.$on('MOVE_LIST_LEFT', this.moveListLeft);
     this.$bus.$on('MOVE_LIST_RIGHT', this.moveListRight);
+    this.$bus.$on('LOAD_BOARD_WALLPAPER', this.loadBoardBackground);
   },
   
   destroyed() {
     this.$bus.$off('MOVE_LIST_LEFT', this.moveListLeft);
     this.$bus.$off('MOVE_LIST_RIGHT', this.moveListRight);
+    this.$bus.$off('LOAD_BOARD_WALLPAPER', this.loadBoardBackground);
     this.$bus.$emit('CLEAR_WALLPAPER');
     this.$bus.$emit('UPDATE_BACKGROUND_COLOR', null);
   },
