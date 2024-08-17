@@ -9,37 +9,59 @@
       :class="[darkTheme ? 'dark' : 'light', transparencyEnabled ? 'semi-transparent' : '']"
       :text-variant="darkTheme ? 'light' : 'dark'"
     >
-      <b-button
-        v-if="isBoardOwner"
-        class="m-2 text-left"
-        :variant="darkTheme ? 'dark' : 'light'"
-        @click="editList"
-      >
-        <div class="d-flex justify-content-between align-items-center">
-          {{ list.name }}
+      <b-button-group class="m-2">
+        <b-button
+          v-if="isBoardOwner"
+          v-b-tooltip.hover="'Edit list'"
+          class="text-left"
+          :variant="darkTheme ? 'dark' : 'light'"
+          @click="editList"
+        >
+          <div class="d-flex justify-content-between align-items-center">
+            {{ list.name }}
 
-          <i
-            v-if="sortingEnabled"
-            v-b-tooltip.hover
-            class="fa-regular fa-sort ml-auto"
-            :class="darkTheme ? 'text-success' : 'text-primary'"
-            :title="sortMessage"
-          />
+            <i
+              v-if="sortingEnabled"
+              v-b-tooltip.hover
+              class="fa-regular fa-sort ml-auto"
+              :class="darkTheme ? 'text-success' : 'text-primary'"
+              :title="sortMessage"
+            />
 
-          <span v-if="list.showGameCount" class="ml-3">
-            {{ gameCount }}
-          </span>
-        </div>
-      </b-button>
+            <span v-if="list.showGameCount" class="ml-3">
+              {{ gameCount }}
+            </span>
+          </div>
+        </b-button>
 
-      <b-button
-        v-else
-        class="mt-1 mx-2"
-        size="sm"
-        :variant="darkTheme ? 'dark' : 'light'"
-      >
-        <strong>{{ list.name }}</strong>
-      </b-button>
+        <b-button
+          v-else
+          size="sm"
+          :variant="darkTheme ? 'dark' : 'light'"
+        >
+          <strong>{{ list.name }}</strong>
+        </b-button>
+
+        <b-button-group>
+          <b-button
+            v-if="listIndex > 0"
+            :variant="darkTheme ? 'dark' : 'light'"
+            v-b-tooltip.hover="'Move left'"
+            @click="$bus.$emit('MOVE_LIST_LEFT', listIndex)"
+          >
+            <i class="fa-regular fa-caret-left fa-fw" />
+          </b-button>
+
+          <b-button
+            v-if="showMoveListRightButton"
+            :variant="darkTheme ? 'dark' : 'light'"
+            v-b-tooltip.hover="'Move right'"
+            @click="$bus.$emit('MOVE_LIST_RIGHT', listIndex)"
+          >
+            <i class="fa-regular fa-caret-right fa-fw" />
+          </b-button>
+        </b-button-group>
+      </b-button-group>
 
       <draggable
         class="games px-2 pt-1"
@@ -169,6 +191,12 @@ export default {
         case SORT_TYPE_ALPHABETICALLY: return orderby(this.list?.games, [game => this.cachedGames?.[game]?.name]);
         default: return this.list?.games || [];
       }
+    },
+
+    showMoveListRightButton() {
+      const listsCount = this.board?.lists?.length || 0;
+
+      return this.listIndex < listsCount - 1;
     },
 
     isEmpty() {
