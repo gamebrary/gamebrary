@@ -94,14 +94,6 @@ const routes = [
     },
   },
   {
-    name: 'tag.edit',
-    path: '/tags/:id',
-    component: () => import(/* webpackChunkName: "tags" */ '@/pages/EditTagPage'),
-    meta: {
-      title: 'Edit tag',
-    },
-  },
-  {
     name: 'settings',
     path: '/settings',
     component: () => import(/* webpackChunkName: "settings" */ '@/pages/SettingsPage'),

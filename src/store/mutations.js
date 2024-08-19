@@ -293,6 +293,10 @@ export default {
     state.tags = tags;
   },
 
+  SET_ACTIVE_TAG_INDEX(state, index) {
+    state.activeTagIndex = index;
+  },
+
   REMOVE_TAG(state, tagIndex) {
     state.tags.splice(tagIndex, 1);
   },

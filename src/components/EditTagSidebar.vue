@@ -1,24 +1,47 @@
-<!-- TODO: finish layout, convert to sidebar, open games tagged in nested sidebar -->
+<!-- TODO: finish layout, open games tagged in nested sidebar -->
 <template lang="html">
-  <section>
-    <b-container>
-      <b-button
-        v-if="tag.name"
-        rounded
-        class="float-right"
-        variant="transparent"
-        :style="`background-color: ${tag.bgColor}; color: ${tag.textColor}`"
-      >
-        {{ tag.name }}
-      </b-button>
-
-      <portal to="pageTitle">Edit tag</portal>
-
+  <b-sidebar
+    id="edit-list-modal"
+    scrollable
+    right
+    width="380px"
+    shadow
+    :visible="activeTagIndex !== null"
+    no-header
+    backdrop
+    body-class="p-3"
+    :bg-variant="darkTheme ? 'dark' : 'light'"
+    :text-variant="darkTheme ? 'light' : 'dark'"
+    @shown="load"
+    @hidden="closeSidebar"
+  >
+    <template #default="{ hide }">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <h2>
+          <!-- TODO: add button to swap colors -->
+           <!-- TODO: make sure saving works -->
+          <b-button
+            v-if="tag.name"
+            rounded
+            class="float-right"
+            variant="transparent"
+            :style="`background-color: ${tag.bgColor}; color: ${tag.textColor}`"
+          >
+            {{ tag.name }}
+          </b-button>
+        </h2>
+        
+        <b-button
+          @click="hide"
+        >
+          <i class="fa-solid fa-xmark" />
+        </b-button>
+      </div>
+      
       <b-spinner v-if="loading" class="spinner-centered" />
 
       <form
         v-else
-        class="d-flex align-items-start flex-column"
         @submit.prevent="saveTag"
       >
         <b-form-row>
@@ -82,30 +105,27 @@
               <i class="fas fa-trash-alt fa-fw" aria-hidden />
             </b-button>
           </b-col>
-
-          <div class="mt-5 bg-danger d-flex">
-            <h2>Games tagged</h2>
-
-            <b-button @click="openGameSelectorSidebar">
-              <i class="fa-solid fa-plus" />
-            </b-button>
-
-            <div v-if="tag.games.length" class="game-grid">
-              <GameCard
-                v-for="gameId in tag.games"
-                :key="gameId"
-                :game-id="gameId"
-                vertical
-                hide-tags
-                hide-platforms
-                hide-progress
-              />
-            </div>
-          </div>
         </b-form-row>
       </form>
-    </b-container>
-  </section>
+
+      <div class="d-flex justify-content-between align-items-center my-3">
+        <h2>Games tagged</h2>
+      
+        <b-button @click="openGameSelectorSidebar">
+          <i class="fa-solid fa-plus" />
+        </b-button>
+      </div>
+
+      <div v-if="tag.games.length">
+        <GameCard
+          v-for="gameId in tag.games"
+          class="mb-3"
+          :key="gameId"
+          :game-id="gameId"
+        />
+      </div>
+    </template>
+  </b-sidebar>
 </template>
 
 <script>
@@ -135,16 +155,12 @@ export default {
   },
 
   computed: {
-    ...mapState(['tags', 'cachedGames']),
+    ...mapState(['tags', 'cachedGames', 'activeTagIndex']),
     ...mapGetters(['darkTheme']),
-
-    tagIndex() {
-      return this.$route?.params?.id;
-    },
   },
 
   watch: {
-    tagIndex(oldId, newId) {
+    activeTagIndex(oldId, newId) {
       this.load();
     },
   },
@@ -163,15 +179,20 @@ export default {
   },
 
   methods: {
-    async selectGame(gameId) {
-      const { tagIndex, tags } = this;
+    closeSidebar() {
+      this.$store.commit('SET_ACTIVE_TAG_INDEX', null);
+    },
 
-      this.$store.commit('APPLY_TAG_TO_GAME', { tagIndex, gameId });
+    async selectGame(gameId) {
+      const { activeTagIndex, tags } = this;
+
+      // TODO: get active tag index from store intead of sending it here
+      this.$store.commit('APPLY_TAG_TO_GAME', { tagIndex: activeTagIndex, gameId });
 
       await this.$store.dispatch('SAVE_TAGS').catch(() => {});
       await this.$store.dispatch('LOAD_IGDB_GAMES', [gameId]);
 
-      this.tag = JSON.parse(JSON.stringify(tags[tagIndex]));
+      this.tag = JSON.parse(JSON.stringify(tags[activeTagIndex]));
     },
 
     openGameSelectorSidebar() {
@@ -182,18 +203,15 @@ export default {
     },
 
     async load() {
-      try {
+      const { tags, activeTagIndex } = this;
 
-      } catch (error) {
-
-      }
+      if (activeTagIndex === null) return;
 
       this.loading = true;
-      await this.$store.dispatch('LOAD_TAGS');
 
-      const { tags, tagIndex } = this;
+      this.tag = JSON.parse(JSON.stringify(tags?.[activeTagIndex]));
 
-      this.tag = JSON.parse(JSON.stringify(tags?.[tagIndex]));
+      // TODO: only load games that aren't cached
 
       if (this.tag?.games?.length > 0) {
         await this.$store.dispatch('LOAD_IGDB_GAMES', this.tag.games);
@@ -216,23 +234,23 @@ export default {
     },
 
     async deleteTag() {
-      this.$store.commit('REMOVE_TAG', this.tagIndex);
+      this.$store.commit('REMOVE_TAG', this.activeTagIndex);
 
       await this.$store.dispatch('SAVE_TAGS').catch(() => {});
 
-      this.$router.replace({ name: 'tags' });
+      this.closeSidebar();
     },
 
     async saveTag() {
       this.saving = true;
-      const { tag, tagIndex } = this;
-      this.$store.commit('UPDATE_TAG', { tagIndex, tag });
+      const { tag, activeTagIndex } = this;
+      this.$store.commit('UPDATE_TAG', { tagIndex: activeTagIndex, tag });
 
       await this.$store.dispatch('SAVE_TAGS')
         .catch(() => {});
 
       this.saving = false;
-      this.$router.push({ name: 'tags' })
+      this.closeSidebar();
     },
   },
 };

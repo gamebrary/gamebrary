@@ -1,5 +1,7 @@
 <template lang="html">
   <b-container>
+    <EditTagSidebar />
+
     <portal to="pageTitle">
       Tags
     </portal>
@@ -38,7 +40,7 @@
           :key="name"
           :variant="darkTheme ? 'dark' : 'light'"
           class="flex-column align-items-start"
-          :to="{ name: 'tag.edit', params: { id: index } }"
+          @click="openEditTagSidebar(index)"
         >
           <div class="d-flex w-100 justify-content-between align-items-center">
             <b-button
@@ -74,7 +76,7 @@
 import { mapState, mapGetters } from 'vuex';
 import { getImageUrl } from '@/utils';
 import { IMAGE_SIZE_COVER_SMALL } from '@/constants';
-
+import EditTagSidebar from '@/components/EditTagSidebar'
 import EmptyState from '@/components/EmptyState';
 
 export default {
@@ -83,6 +85,7 @@ export default {
 
   components: {
     EmptyState,
+    EditTagSidebar,
   },
 
   data() {
@@ -92,8 +95,14 @@ export default {
   },
 
   computed: {
-    ...mapState(['tags', 'user', 'cachedGames']),
+    ...mapState(['tags', 'user', 'cachedGames', 'activeTagIndex']),
     ...mapGetters(['darkTheme']),
+  },
+
+  watch: {
+    activeTagIndex(activeIndex) {
+      if (activeIndex === null) this.load();
+    },
   },
 
   mounted() {
@@ -101,9 +110,13 @@ export default {
   },
 
   methods: {
+    openEditTagSidebar(index) {
+      this.$store.commit('SET_ACTIVE_TAG_INDEX', index);
+    },
+
     async load() {
       try {
-        this.loading = true;
+        this.loading = this.tags.length === 0;
 
         await this.$store.dispatch('LOAD_TAGS');
 

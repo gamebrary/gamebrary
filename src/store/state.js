@@ -21,6 +21,7 @@ export default {
   user: null,
   wallpapers: [], 
   activeWallpaper: {},
+  activeTagIndex: null,
   activeBoardListIndex: 0,
   gameSelectorData: null,
   menuOpen: true,
