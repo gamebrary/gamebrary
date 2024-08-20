@@ -148,11 +148,15 @@ export default {
 
   methods: {
     moveListLeft(listIndex) {
+      if (!this.isBoardOwner) return;
+      
       this.$store.commit('MOVE_LIST_LEFT', listIndex);
       this.saveBoard();
     },
     
     moveListRight(listIndex) {
+      if (!this.isBoardOwner) return;
+
       this.$store.commit('MOVE_LIST_RIGHT', listIndex);
       this.saveBoard();
     },
