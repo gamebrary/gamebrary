@@ -1,4 +1,3 @@
-<!-- TODO: fix old board sticking around, use mutation to set value that toggles sidebar -->
 <template lang="html">
   <b-sidebar
     scrollable
@@ -211,15 +210,21 @@ export default {
     },
   },
 
+  watch: {
+    boardId(id) {
+      if (id) this.loadBoard();
+    },
+  },
+
   mounted() {
     this.loadBoard();
-    this.$store.dispatch('LOAD_WALLPAPERS');
   },
 
   methods: {
     async loadBoard() {
       this.loading = true;
 
+      await this.$store.dispatch('LOAD_WALLPAPERS');
       const board = await this.$store.dispatch('LOAD_BOARD', this.boardId);
 
       this.board = {
@@ -228,7 +233,6 @@ export default {
       };
 
       this.lists = JSON.parse(JSON.stringify(this.board.lists));
-
       this.loading = false;
     },
 
