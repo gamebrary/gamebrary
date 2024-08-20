@@ -24,14 +24,11 @@
 
       <div class="text-center">
         <b-avatar
-          v-if="avatarImage"
           :src="avatarImage"
           class="mx-auto cursor-pointer"
           size="200"
           @click.native="triggerFileUpload"
         />
-
-        <br />
 
         <b-link>
           Remove profile picture
@@ -340,7 +337,7 @@ export default {
       this.file = null;
     },
 
-    async save(redirect = true) {
+    async save() {
       try {
         this.saving = true;
 
@@ -348,10 +345,7 @@ export default {
 
         this.saving = false;
         this.$bus.$emit('LOAD_PROFILE');
-
-
-        // TODO: commit to store
-        // this.$root.$emit('bv::toggle::collapse', 'profile-sidebar');
+        this.$store.commit('SET_PROFILE_SIDEBAR_OPEN', false);
       } catch (error) {
         this.saving = false;
         // 
