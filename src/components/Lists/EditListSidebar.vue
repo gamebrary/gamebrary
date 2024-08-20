@@ -3,7 +3,6 @@
     id="edit-list-modal"
     scrollable
     right
-    width="380px"
     shadow
     :visible="activeBoardListIndex !== null"
     no-header

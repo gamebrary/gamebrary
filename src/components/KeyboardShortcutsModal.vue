@@ -4,7 +4,6 @@
     shadow
     no-header
     backdrop
-    width="380px"
     z-index="2001"
     :bg-variant="darkTheme ? 'dark' : 'light'"
     :text-variant="darkTheme ? 'light' : 'dark'" 

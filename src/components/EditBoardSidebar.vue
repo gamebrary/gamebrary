@@ -3,9 +3,7 @@
   <b-sidebar
     scrollable
     right
-    width="380px"
     shadow
-    visible
     no-header
     backdrop
     body-class="p-3"
@@ -26,7 +24,6 @@
         <b-sidebar
           scrollable
           right
-          width="380px"
           shadow
           no-header
           backdrop

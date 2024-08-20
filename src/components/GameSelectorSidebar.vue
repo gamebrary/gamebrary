@@ -2,7 +2,6 @@
   <b-sidebar
     scrollable
     right
-    width="380px"
     shadow
     no-header
     backdrop

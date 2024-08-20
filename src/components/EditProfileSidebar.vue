@@ -3,7 +3,6 @@
     id="profile-sidebar"
     scrollable
     right
-    width="380px"
     shadow
     :visible="editProfileSidebarOpen"
     no-header
@@ -185,7 +184,6 @@
         id="boardWallpaper"
         scrollable
         right
-        width="380px"
         shadow
         no-header
         backdrop

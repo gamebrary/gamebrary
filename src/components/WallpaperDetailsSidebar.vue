@@ -3,7 +3,6 @@
     id="wallpaper-details-sidebar"
     scrollable
     right
-    width="380px"
     shadow
     :visible="visible"
     no-header
