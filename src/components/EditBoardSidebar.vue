@@ -217,7 +217,7 @@ export default {
   },
 
   mounted() {
-    this.loadBoard();
+    if (this.boardId) this.loadBoard();
   },
 
   methods: {
