@@ -253,7 +253,7 @@ export default {
   },
 
   SET_GAME_NOTE(state, { note, gameId }) {
-    state.notes[gameId] = note;
+    Vue.set(state.notes, gameId, note);
   },
 
   SET_DRAGGING_STATUS(state, status) {
