@@ -37,6 +37,7 @@
         <b-button
           v-else
           size="sm"
+          disabled
           :variant="darkTheme ? 'dark' : 'light'"
         >
           <strong>{{ list.name }}</strong>
@@ -44,7 +45,7 @@
 
         <b-button-group>
           <b-button
-            v-if="listIndex > 0"
+            v-if="isBoardOwner && listIndex > 0"
             :variant="darkTheme ? 'dark' : 'light'"
             v-b-tooltip.hover="'Move left'"
             @click="$bus.$emit('MOVE_LIST_LEFT', listIndex)"
@@ -53,7 +54,7 @@
           </b-button>
 
           <b-button
-            v-if="showMoveListRightButton"
+            v-if="isBoardOwner && showMoveListRightButton"
             :variant="darkTheme ? 'dark' : 'light'"
             v-b-tooltip.hover="'Move right'"
             @click="$bus.$emit('MOVE_LIST_RIGHT', listIndex)"
@@ -80,7 +81,6 @@
         @end="dragEnd"
         @start="dragStart"
       >
-        <!-- <pre>{{  }}</pre> -->
         <GameCard
           v-for="gameId in sortedGames"
           :ref="`${listIndex}-${gameId}`"
@@ -99,6 +99,7 @@
       </draggable>
 
       <b-button
+        v-if="isBoardOwner"
         title="Add games"
         v-b-tooltip.hover
         class="mx-2 mb-2"
