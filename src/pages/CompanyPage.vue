@@ -79,7 +79,12 @@ export default {
       data: `${IGDB_QUERIES.COMPANY} where id = ${this.$route.params.id};`,
     });
 
-    if (this.company.published?.length) this.$store.commit('CACHE_GAME_DATA', this.company.published);
+    const allGames = [
+      ...this.company.published,
+      ...this.company.developed,
+    ];
+
+    if (this.company.published?.length) this.$store.commit('CACHE_GAME_DATA', allGames);
 
     this.loading = false;
   },
