@@ -1,14 +1,6 @@
 <template lang="html">
-  <div class="text-center pt-5 ml-auto mr-auto">
-    <b-img
-      v-if="illustration"
-      :src="`/illustrations/${illustration}.png`"
-      class="mb-4"
-      height="140"
-    >
-
-    </b-img>
-    <h2 v-if="title">{{ title }}</h2>
+  <div class="text-center m-auto align-content-center h-75">
+    <h1 v-if="title">{{ title }}</h1>
     <p v-if="message">{{ message }}</p>
     <slot />
   </div>
