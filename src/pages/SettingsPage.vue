@@ -86,7 +86,6 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-// TODO: restore and finish delete account modal
 import DeleteAccountModal from '@/components/Settings/DeleteAccountModal';
 import { AGE_RATINGS } from '@/constants';
 

@@ -2,7 +2,7 @@
   <div>
     <portal to="pageTitle">Notes</portal>
 
-    <portal to="headerActions">
+    <portal v-if="user && !isEmpty" to="headerActions">
       <b-button
         title="Add games"
         v-b-tooltip.hover
@@ -16,8 +16,8 @@
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <template v-else>
-      <empty-state
-        v-if="!isEmpty"
+      <EmptyState
+        v-if="isEmpty"
         illustration="notes"
       >
         <p>Looks like you haven't added any notes yet.</p>
@@ -31,9 +31,9 @@
         >
           Create note
         </b-button>
-      </empty-state>
+      </EmptyState>
 
-      <empty-state
+      <EmptyState
         v-else-if="searchText.length && !filteredNotes.length"
         illustration="notes"
         message="No results"
@@ -41,44 +41,36 @@
         <b-button @click="searchText = ''">
           Clear search
         </b-button>
-      </empty-state>
+      </EmptyState>
 
       <template v-else>
         <b-form-input
-            type="search"
-            class="mb-3 mt-2"
-            placeholder="Search notes"
-            v-model="searchText"
-          />
+          type="search"
+          class="mb-3 mt-2"
+          placeholder="Search notes"
+          v-model="searchText"
+        />
+        
+        <b-card
+          v-for="({ note, game }, index) in filteredNotes"
+          body-class="p-3"
+          :bg-variant="darkTheme ? 'dark' : 'light'"
+          :text-variant="darkTheme ? 'light' : 'dark'"
+          :key="index"
+          class="cursor-pointer mb-2"
+          @click="openNote(game.id)"
+        >
+          <b-card-text v-if="game">
+            <GameCard
+              small
+              :game-id="game.id"
+              selectable
+              @click.native.stop="openNote(game.id)"
+            />
 
-          <masonry
-            :cols="{ default: 4, 1000: 3, 700: 2, 400: 1 }"
-            gutter="8px"
-          >
-            <b-card
-              v-for="({ note, game }, index) in filteredNotes"
-              body-class="p-2"
-              :bg-variant="darkTheme ? 'dark' : 'light'"
-              :text-variant="darkTheme ? 'light' : 'dark'"
-              :key="index"
-              class="cursor-pointer mb-2"
-              @click="openNote(game)"
-            >
-              <b-card-text v-if="game">
-                <b-img
-                  :src="$options.getImageUrl(game, $options.IMAGE_SIZE_COVER_SMALL)"
-                  height="80"
-                  class="cursor-pointer rounded float-left mr-3"
-                />
-
-                <div class="ml-2 overflow-hidden">
-                  <h5>{{ game.name }}</h5>
-                </div>
-
-                <p class="note-text small" v-if="note" v-html="note" />
-              </b-card-text>
-            </b-card>
-          </masonry>
+            <p class="note-text bg-warning p-3 rounded mt-3 small" v-if="note" v-html="note" />
+          </b-card-text>
+        </b-card>
       </template>
     </template>
   </div>
@@ -86,6 +78,7 @@
 
 <script>
 import EmptyState from '@/components/EmptyState';
+import GameCard from '@/components/GameCard';
 import { mapState, mapGetters } from 'vuex';
 import { getImageUrl } from '@/utils';
 import { IMAGE_SIZE_COVER_SMALL } from '@/constants';
@@ -96,6 +89,7 @@ export default {
 
   components: {
     EmptyState,
+    GameCard,
   },
 
   data() {
@@ -110,7 +104,7 @@ export default {
     ...mapGetters(['darkTheme']),
 
     isEmpty() {
-      return !Object.keys(this.notes)?.length;
+      return !this.notes || !Object.keys(this.notes)?.length;
     },
 
     filteredNotes() {
@@ -136,6 +130,7 @@ export default {
 
   mounted() {
     this.$bus.$on('SELECT_GAME', this.openNote);
+    this.loadGames();
   },
 
   destroyed() {
@@ -144,6 +139,14 @@ export default {
 
 
   methods: {
+    async loadGames() {
+      const gamesNotCached = Object.entries(this.notes)
+        .map(([gameId]) => (gameId))
+        .filter((gameId) => !this.cachedGames[gameId]);
+
+      if (gamesNotCached.length > 0) await this.$store.dispatch('LOAD_IGDB_GAMES', gamesNotCached);
+    },
+
     openGameSelectorSidebar() {
       this.$store.commit('SET_GAME_SELECTOR_DATA', {
         title: 'Select game to add a note',
@@ -156,10 +159,10 @@ export default {
       this.$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } });
     },
 
-    openNote(gameId) {
-      const game = this.cachedGames[gameId];
+    openNote(id) {
+      const game = this.cachedGames[id];
 
-      this.$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug }});
+      this.$router.push({ name: 'game.notes', params: { id, slug: game.slug }});
     },
   },
 };

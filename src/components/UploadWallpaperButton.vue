@@ -11,13 +11,13 @@
 
     <b-button
       :disabled="outOfSpace"
-      block
       title=""
       :variant="darkTheme ? 'success' : 'primary'"
       @click="triggerFileUpload"
     >
       <b-spinner small v-if="saving" />
       <i v-else class="fa-regular fa-upload" />
+      <slot />
     </b-button>
 
     <b-alert

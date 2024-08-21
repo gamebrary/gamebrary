@@ -2,7 +2,7 @@
   <div>
     <portal to="pageTitle">Games</portal>
     
-    <portal to="headerActions">
+    <portal v-if="likedGames.length" to="headerActions">
       <b-button
         title="Add games"
         v-b-tooltip.hover
@@ -21,12 +21,12 @@
       Filter
     </b-button> -->
 
-    <empty-state
+    <EmptyState
       v-if="!user"
       illustration="games"
     >
       <p>Click on <i class="fa-solid fa-heart text-primary" /> and your games will show here.</p>
-    </empty-state>
+    </EmptyState>
 
     <b-spinner v-else-if="loading" class="spinner-centered" />
 
@@ -39,10 +39,20 @@
       />
     </div>
 
-    <empty-state
+    <EmptyState
       v-else
-      message="No games you've liked so far!"
-      />
+      title="Welcome to your collection of top picks!"
+      message="Here you'll find all the games you’ve marked as your favorites."
+    >
+      <b-button
+        title="Add games"
+        v-b-tooltip.hover
+        :variant="darkTheme ? 'success' : 'primary'"
+        @click="addGame"
+      >
+        Add games
+      </b-button>
+    </EmptyState>
   </div>
 </template>
 
@@ -93,18 +103,6 @@ export default {
   },
 
   methods: {
-    isCompleted(gameId) {
-      const progress = this.progresses?.[gameId] || 0;
-
-      return Number(progress) === 100;
-    },
-
-    toggleView() {
-      this.view = this.view === 'grid'
-        ? 'list'
-        : 'grid';
-    },
-
     addGame() {
       this.$store.commit('SET_GAME_SELECTOR_DATA', {
         title: 'Add games to your favorites',
@@ -123,7 +121,7 @@ export default {
         const cachedGames = Object.keys(this.cachedGames);
         const gamesNotCached = Object.keys(this.games)?.filter((game) => !cachedGames.includes(String(game)))?.toString();
 
-        if (Boolean(gamesNotCached)) {
+        if (gamesNotCached) {
           await this.$store.dispatch('LOAD_IGDB_GAMES', gamesNotCached);
         }
       } catch (e) {

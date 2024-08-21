@@ -152,15 +152,6 @@ const routes = [
     },
   },
   {
-    name: 'note',
-    path: '/notes/:id',
-    component: () => import(/* webpackChunkName: "notes" */ '@/pages/NotePage'),
-    meta: {
-      title: 'Notes',
-      public: true,
-    },
-  },
-  {
     name: 'profiles',
     path: '/profiles',
     component: () => import(/* webpackChunkName: "profile" */ '@/pages/PublicProfilesPage'),

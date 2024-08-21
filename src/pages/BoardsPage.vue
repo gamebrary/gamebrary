@@ -4,9 +4,8 @@
         <h3>Boards</h3>
       </portal>
 
-      <portal to="headerActions">
+      <portal v-if="!this.loading && !isEmpty && user" to="headerActions">
         <b-button
-          v-if="user"
           title="Create board"
           :variant="darkTheme ? 'success' : 'primary'"
           :to="{ name: 'create.board' }"
@@ -14,10 +13,10 @@
           <i class="fa-solid fa-plus" />
         </b-button>
       </portal>
-      
+
       <b-spinner v-if="loading" class="spinner-centered" />
 
-      <empty-state
+      <EmptyState
         v-else-if="isEmpty"
         title="Boards"
         message="Utilize boards to neatly organize your video games!"
@@ -28,7 +27,7 @@
         >
           {{ $t('boards.create') }}
         </b-button>
-      </empty-state>
+      </EmptyState>
   
       <div v-else class="board-grid pb-3">
         <mini-board
@@ -67,7 +66,7 @@
       },
   
       isEmpty() {
-        return !this.loading && this.boards?.length === 0;
+        return this.boards?.length === 0;
       },
     },
   

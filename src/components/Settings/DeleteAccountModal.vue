@@ -1,6 +1,7 @@
 <template lang="html">
   <b-modal
     id="deleteAccount"
+    no-close-on-backdrop
     :header-bg-variant="darkTheme ? 'dark' : 'transparent'"
     :header-text-variant="darkTheme ? 'white' : 'dark'"
     :body-bg-variant="darkTheme ? 'dark' : 'transparent'"
@@ -9,19 +10,17 @@
   >
     <template v-slot:modal-header="{ close }">
       <modal-header
+        v-show="!deleting"
         title="Delete account"
         @close="close"
       />
     </template>
 
-    <b-alert show variant="success" v-if="deleting && progress === 5">
-      Account deleted
-    </b-alert>
+    <div v-if="deleting" class="d-flex flex-column justify-content-center text-center">
+      <b-spinner class="mx-auto mb-5" />
 
-    <template v-else-if="deleting">
-      {{ message }}
-      <b-progress :value="progress" :max="5" class="mb-3"  />
-    </template>
+      Deleting account, do not close this window...
+    </div>
 
     <div v-else>
       <p>We're sorry to see you go. Please consider submitting feedback before deleting your account.</p>
@@ -36,40 +35,35 @@
       <p class="mt-3">The following database entries will be deleted FOREVER.</p>
 
       <ul>
-        <li>User</li>
+        <li>User profile</li>
+        <li>Boards</li>
         <li>Tags</li>
         <li>Notes</li>
         <li>Game Progresses</li>
+        <li>Liked games</li>
+        <li>Wallpapers</li>
+        <li>Avatars</li>
         <li>Settings</li>
-        <li>Boards</li>
-        <!-- <li>Wallpapers </li> -->
       </ul>
-    </div>
 
-    <b-button
-      variant="danger"
-      @click="deleteAccount"
-      :disabled="deleting"
-    >
-      Delete Account
-    </b-button>
+      <b-button
+        variant="danger"
+        @click="deleteAccount"
+        :disabled="deleting"
+      >
+        Delete Account
+      </b-button>
+    </div>
   </b-modal>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import firebase from 'firebase/compat/app';
-// TODO: finish and test delete account, make sure everything is deleted, use extension?
-// import { FIREBASE_CONFIG } from '@/constants';
-
-// const app = initializeApp(FIREBASE_CONFIG);
 
 export default {
   data() {
     return {
-      progress: 0,
       deleting: false,
-      message: 'test',
     };
   },
 
@@ -90,37 +84,7 @@ export default {
     async deleteAccount() {
       this.deleting = true;
 
-      const db = firebase.firestore();
-      const user = firebase.auth().currentUser;
-
-      this.message = 'Deleting tags';
-      await db.collection('tags').doc(this.user.uid).delete();
-      this.progress = this.progress + 1;
-
-      this.message = 'Deleting notes';
-      await db.collection('notes').doc(this.user.uid).delete();
-      this.progress = this.progress + 1;
-
-      this.message = 'Deleting game progresses';
-      await db.collection('progresses').doc(this.user.uid).delete();
-      this.progress = this.progress + 1;
-
-      this.message = 'Deleting settings';
-      await db.collection('settings').doc(this.user.uid).delete();
-      this.progress = this.progress + 1;
-
-      this.message = 'Deleting boards';
-      await db.collection('boards').doc(this.user.uid).delete();
-      this.progress = this.progress + 1;
-
-      user.delete().then(() => {
-        this.$bvToast.toast('Account deleted');
-        this.$store.commit('CLEAR_SESSION');
-        this.$router.replace({ name: 'home' });
-      })
-        .catch(() => {
-          this.$store.commit('SET_SESSION_EXPIRED', true);
-        });
+      await this.$store.dispatch('DELETE_ACCOUNT');
     },
   },
 };

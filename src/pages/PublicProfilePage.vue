@@ -80,7 +80,7 @@
       </b-row>
     </div>
 
-    <empty-state
+    <EmptyState
       v-else
       title="404 Not Found"
       message="Page not found!"

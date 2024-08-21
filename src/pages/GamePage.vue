@@ -1,4 +1,3 @@
-<!-- TODO: refresh cached game on game id change -->
 <template lang="html">
   <div v-if="!loading && !game" class="pt-5">
     <div class="d-flex justify-content-center align-items-center">
@@ -11,7 +10,7 @@
 
   <section
     v-else
-    :class="[{ 'text-light': darkTheme }, 'game-page']"
+    :class="[{ 'text-light': darkTheme }]"
   >
     <portal to="headerActions">
 
@@ -23,7 +22,7 @@
         <b-dropdown-item @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })">
           Add note
         </b-dropdown-item>
-        <b-button v-b-modal.gameTagsModal>Edit tags</b-button>
+        <b-button v-b-toggle.gameTagsModal>Edit tags</b-button>
         <b-button v-b-modal.addRemoveGameModal>Add to list</b-button>
       </b-dropdown>
     </portal>
@@ -106,8 +105,6 @@
                 </div>
               </b-popover>
 
-              <!-- TODO: use popover to show more info (e.g. if port, show original game) -->
-              <!-- TODO: if type of === expansion, then show original game in popover -->
               <b-badge v-if="gameCategory" variant="info" class="ml-2">
                 {{ gameCategory }}
               </b-badge>
@@ -115,7 +112,7 @@
           </div>
 
           <div v-if="user">
-            <b-link v-if="!tagsApplied.length" v-b-modal.gameTagsModal>
+            <b-link v-if="!tagsApplied.length" v-b-toggle.gameTagsModal>
               Add tag
             </b-link>
 
@@ -126,7 +123,7 @@
               variant="transparent"
               class="mr-2 mb-2"
               :style="`background-color: ${bgColor}; color: ${textColor}`"
-              v-b-modal.gameTagsModal
+              v-b-toggle.gameTagsModal
             >
               <i class="fa-solid fa-tag mr-1" />
               {{ name }}
@@ -264,7 +261,6 @@
               </div>
             </div> -->
 
-            <!-- TODO: add game requirements back -->
             <!-- <b-col cols="6" sm="4" md="3" lg="12" v-if="gameRequirements">
               <div
                 v-for="(requirement, index) in gameRequirements"
@@ -782,8 +778,6 @@ export default {
 
       this.loading = false;
 
-      // TODO: load all the stuff asyncronously
-
       this.wikipediaDescription = this.wikipediaSlug
         ? await this.$store.dispatch('LOAD_WIKIPEDIA_DESCRIPTION', this.wikipediaSlug).catch((e) => {})
         : null;
@@ -826,27 +820,6 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-.game-page {
-  // background-size: contain;
-  // background-repeat: repeat-y;
-
-  // &.offset-background {
-  //   background-position-y: 50vh;
-  // }
-}
-
-// .has-artworks {
-//   margin-top: -22vh;
-
-//   @media(max-width: 1024px) {
-//     margin-top: -10vh;
-//     grid-template-columns: repeat(5, 1fr);
-//   }
-
-//   @media(max-width: 767px) {
-//     margin-top: 1rem;
-//   }
-// }
 </style>
 
 <style lang="scss" rel="stylesheet/scss">

@@ -5,7 +5,6 @@
     right
     no-header
     backdrop
-    width="380px"
     body-class="p-3"
     :bg-variant="darkTheme ? 'dark' : 'light'"
     :text-variant="darkTheme ? 'light' : 'dark'" 

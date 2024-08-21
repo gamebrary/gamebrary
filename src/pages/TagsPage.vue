@@ -1,14 +1,12 @@
 <template lang="html">
   <b-container>
-    <EditTagSidebar />
-
     <portal to="pageTitle">
       Tags
     </portal>
 
-    <portal to="headerActions">
+    <portal v-if="user && !isEmpty" to="headerActions">
       <b-button
-        v-if="user"
+
         :variant="darkTheme ? 'success' : 'primary'"
         :to="{ name: 'tag.create' }"
         title="Add tag"
@@ -19,8 +17,8 @@
 
     <b-spinner v-if="loading" class="spinner-centered" />
 
-    <empty-state
-      v-else-if="tags.length === 0"
+    <EmptyState
+      v-else-if="isEmpty"
       illustration="tags"
       message="Using tags is a fantastic way to keep your collection well-organized!"
      >
@@ -31,7 +29,7 @@
       >
         Add tag
       </b-button>
-     </empty-state>
+     </EmptyState>
 
     <div v-else>
       <b-list-group>
@@ -76,7 +74,6 @@
 import { mapState, mapGetters } from 'vuex';
 import { getImageUrl } from '@/utils';
 import { IMAGE_SIZE_COVER_SMALL } from '@/constants';
-import EditTagSidebar from '@/components/EditTagSidebar'
 import EmptyState from '@/components/EmptyState';
 
 export default {
@@ -85,7 +82,6 @@ export default {
 
   components: {
     EmptyState,
-    EditTagSidebar,
   },
 
   data() {
@@ -97,6 +93,10 @@ export default {
   computed: {
     ...mapState(['tags', 'user', 'cachedGames', 'activeTagIndex']),
     ...mapGetters(['darkTheme']),
+
+    isEmpty() {
+      return this.tags?.length === 0;
+    },
   },
 
   watch: {

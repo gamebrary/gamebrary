@@ -16,16 +16,21 @@
       class="pt-3"
       :class="darkTheme ? 'bg-dark' : 'bg-light'"
     >
-      <b-img
-        v-if="wallpaperUrl"
-        :src="wallpaperUrl"
-        class="mw-100 rounded mb-2"
-      />
+      <a :href="wallpaperUrl" target="_blank">
+        <b-img
+          v-if="wallpaperUrl"
+          :src="wallpaperUrl"
+          class="mw-100 rounded mb-2"
+        />
+      </a>      
 
       <div class="d-flex align-items-center justify-content-between pb-2">
+        <a :href="wallpaperUrl" target="_blank">
+          {{ activeWallpaper.name }}
+        </a>      
+
         <div>
           <!-- <i class="fa-solid fa-file-png fa-fw" /> -->
-          {{ activeWallpaper.name }}
           <!-- {{ activeWallpaper.size }} -->
           <!-- {{ activeWallpaper.timeCreated }} -->
         </div>
@@ -70,7 +75,7 @@
         v-for="board in formattedBoards"
         :key="board.id"
         :board="board"
-        @click.native="setAsWallpaper(board)"
+        @click.native="setAsBoardWallpaper(board)"
       />
     </b-collapse>
 
@@ -166,19 +171,19 @@ export default {
       this.$root.$emit('bv::toggle::collapse', 'wallpaper-details-sidebar');
     },
 
-    async setAsWallpaper(board) {
+    async setAsBoardWallpaper(board) {
       try {
         this.saving = true;
 
         this.$store.commit('SET_ACTIVE_BOARD', { ...board, backgroundUrl: this.activeWallpaper.fullPath });
 
         await this.$store.dispatch('SAVE_BOARD');
+        this.$store.commit('CLEAR_ACTIVE_WALLPAPER');
+
+        this.$router.push({ name: 'board', params: { id: board.id } });
       } catch (e) {
         this.saving = false;
       }
-
-      // TODO: ask how to proceed, options: 1) go to board 2) Back to wallpapers
-      this.$root.$emit('bv::toggle::collapse', 'wallpaper-details-sidebar');
     },
   },
 };

@@ -60,24 +60,19 @@ nav {
   display: flex;
   gap: .5rem;
   align-items: center;
-  border-radius: .5rem;
-  margin: .5rem 1rem;
   padding-right: 1rem;
-  padding: .25rem;
-  width: calc(100dvw - 2rem);
+  padding: .5rem 20px;
+  width: 100dvw;
   position: fixed;
   z-index: 2;
   
   &.nav-top {
     top: 0;
-    // margin: .5rem;
     position: fixed;
   }
 
   &.nav-bottom {
-    bottom: .5rem;
-    // background-color: red;
-    // margin: .5rem 1rem;
+    bottom: 0;
   }
 }
 </style>

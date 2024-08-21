@@ -1,4 +1,3 @@
-<!-- TODO: only show sections if games are available -->
 <template lang="html">
   <section>
     <b-container>
@@ -27,21 +26,39 @@
           v-if="company.developed"
           :cols="{ default: 7, 1200: 5, 768: 3, 480: 2 }"
         >
-          <game-card-search
+          <GameCard
             v-for="gameDeveloped in company.developed"
-            :game="gameDeveloped"
+            :game-id="gameDeveloped.id"
             :key="gameDeveloped.id"
+            hide-platforms
+            vertical
+            hide-tags
+            hide-progress
+            class="mb-3"
           />
         </masonry>
 
         <div v-if="company.published">
           <h3 class="w-100 my-3">Games published by {{ company.name }}</h3>
 
-          <GameCard
-            v-for="gamePublished in company.published"
-            :game-id="gamePublished.id"
-            :key="gamePublished.id"
-          />
+          <masonry
+            gutter="16px"
+            style="max-height: 60vh;"
+            class="mb-5"
+            v-if="company.developed"
+            :cols="{ default: 7, 1200: 5, 768: 3, 480: 2 }"
+          >
+            <GameCard
+              v-for="gamePublished in company.published"
+              :game-id="gamePublished.id"
+              :key="gamePublished.id"
+              hide-platforms
+              vertical
+              hide-tags
+              hide-progress
+              class="mb-3"
+            />
+          </masonry>
         </div>
       </div>
 

@@ -10,14 +10,18 @@
 
         <b-col cols="12" sm="8" offset-sm="2">
           <div class="mb-3">
-            <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug } }">
+            <GameCard
+              :game-id="game.id"
+              class="mb-3"
+            />
+            <!-- <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug } }">
               <b-img
                 :src="$options.getImageUrl(game)"
                 class="mr-2"
                 rounded
                 style="max-height: 80px; width: auto;"
               />
-            </router-link>
+            </router-link> -->
 
             <router-link
               class="small mt-n2"
@@ -156,10 +160,11 @@
 
 <script>
 import { mapState } from 'vuex';
-
 import { getImageUrl } from '@/utils';
 import { Editor, EditorContent } from '@tiptap/vue-2';
 import StarterKit from '@tiptap/starter-kit';
+import GameCard from '@/components/GameCard';
+
 import { IGDB_QUERIES } from '@/constants';
 
 export default {
@@ -167,6 +172,7 @@ export default {
 
   components: {
     EditorContent,
+    GameCard,
   },
 
   data() {
@@ -242,6 +248,8 @@ export default {
 
     async saveNote() {
       this.saving = true;
+
+      console.log({ note: this.note, gameId: this.gameId });
 
       this.$store.commit('SET_GAME_NOTE', { note: this.note, gameId: this.gameId });
 

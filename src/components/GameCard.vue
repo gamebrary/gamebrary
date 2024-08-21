@@ -99,6 +99,7 @@
 
   <div v-else>
     {{ gameId }}
+    <!-- TODO: load game if not loaded? perhaps show loading spinner and have parent load it instead? -->
   </div>
 </template>
 

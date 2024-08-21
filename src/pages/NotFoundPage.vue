@@ -1,5 +1,5 @@
 <template lang="html">
-  <empty-state
+  <EmptyState
     title="404 Error"
     message="Page not found"
   />

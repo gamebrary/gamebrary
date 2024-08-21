@@ -1,4 +1,3 @@
-<!-- TODO: fix placeholder -->
 <template lang="html">
   <div class="d-flex mx-1">
     <div

@@ -4,19 +4,21 @@
       Wallpapers
     </portal>
     
-    <portal to="headerActions">
-      <UploadWallpaperButton v-if="user" />
+    <portal v-if="!isEmpty && user" to="headerActions">
+      <UploadWallpaperButton />
     </portal>
 
     <b-spinner v-if="loading" class="spinner-centered" />
 
-    <empty-state
-      v-else-if="showEmptyState"
+    <EmptyState
+      v-else-if="isEmpty"
       message="Add a personal touch to your boards by uploading a wallpaper!"
       illustration="wallpapers"
     >
-      <UploadWallpaperButton v-if="user" />
-    </empty-state>
+      <UploadWallpaperButton v-if="user">
+        <span class="ml-2">Upload wallpaper</span>
+      </UploadWallpaperButton>
+    </EmptyState>
 
     <WallpapersList v-else />
   </div>
@@ -46,8 +48,8 @@ export default {
   computed: {
     ...mapState(['user', 'board', 'wallpapers']),
 
-    showEmptyState() {
-      return this.wallpapers?.length === 0;
+    isEmpty() {
+      return !this.wallpapers || this.wallpapers?.length === 0;
     },
   },
 
@@ -57,12 +59,9 @@ export default {
 
   methods: {
     async loadWallpapers() {
-      try {
-        this.loading = true;
-        await this.$store.dispatch('LOAD_WALLPAPERS');
-      } catch (e) {
-        //
-      }
+      this.loading = true;
+
+      await this.$store.dispatch('LOAD_WALLPAPERS');
 
       this.loading = false;
     },

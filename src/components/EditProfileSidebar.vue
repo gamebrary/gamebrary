@@ -162,8 +162,6 @@
         />
       </b-form-group>
 
-      <!-- TODO: finish wallpaper upload and add options -->
-
       Wallpaper 
       <b-img
         v-if="wallpaperImage"

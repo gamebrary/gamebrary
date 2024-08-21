@@ -1,7 +1,7 @@
 <template> 
   <body
     id="app"
-    :class="bodyStyles"
+    :class="bodyClasses"
     :style="style"
     v-shortkey="KEYBOARD_SHORTCUTS"
     @shortkey="handleShortcutAction"
@@ -16,6 +16,7 @@
       <markdown-cheatsheet />
       
       <template v-if="user">
+        <EditTagSidebar />
         <GameSelectorSidebar />
         <EditBoardSidebar />
         <MainSidebar />
@@ -33,13 +34,9 @@ import KeyboardShortcutsModal from '@/components/KeyboardShortcutsModal';
 import PageHeader from '@/components/PageHeader';
 import MainSidebar from '@/components/MainSidebar';
 import WallpaperDetailsSidebar from '@/components/WallpaperDetailsSidebar';
-// TODO: restore or remove
-// import { initializeApp } from "firebase/app";
+import EditTagSidebar from '@/components/EditTagSidebar'
 import { mapState, mapGetters } from 'vuex';
 import { KEYBOARD_SHORTCUTS, IGDB_QUERIES } from '@/constants';
-// import { KEYBOARD_SHORTCUTS, FIREBASE_CONFIG, IGDB_QUERIES } from '@/constants';
-
-// initializeApp(FIREBASE_CONFIG);
 
 export default {
   name: 'App',
@@ -47,6 +44,7 @@ export default {
   components: {
     PageHeader,
     MainSidebar,
+    EditTagSidebar,
     MarkdownCheatsheet,
     KeyboardShortcutsModal,
     WallpaperDetailsSidebar,
@@ -57,6 +55,7 @@ export default {
   data() {
     return {
       loading: false,
+      hasScroll: false,
       debugUserId: null,
       backgroundImageUrl: null,
       backgroundColor: null,
@@ -68,10 +67,12 @@ export default {
     ...mapState(['user', 'settings', 'sessionExpired', 'platforms', 'games', 'gameSelectorData']),
     ...mapGetters(['darkTheme', 'navPosition']),
 
-    bodyStyles() {
+    bodyClasses() {
       return [
+        this.$route.name,
         `nav-${this.navPosition}`,
         {
+          'has-scroll': this.hasScroll,
           'dark text-light': this.darkTheme,
           'bg-black': !this.backgroundColor && this.darkTheme,
           'bg-light': !this.backgroundColor && !this.darkTheme,
@@ -222,9 +223,13 @@ export default {
     }
 
     .viewport {
-      height: 100svh;
       padding: .5rem 1rem;
       width: 100%;
+      s
+      &.board {
+        height: calc(100svh - 65px);
+        overflow-y: hidden;
+      }
     }
   }
 </style>

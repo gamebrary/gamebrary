@@ -10,23 +10,18 @@
       :key="wallpaper.name"
       button
       @click="handleClick(wallpaper)"
-      class="flex-column align-items-start"
     >
-      <div class="d-flex w-100 justify-content-between">
+      <div class="d-flex w-100 p-2 align-items-center">
         <b-img
           :src="wallpaper.url"
-          class="mb-3"
           rounded
           width="200"
         />
 
-        <!-- <small>{{ wallpaper.size }}</small> -->
+        <p class="ml-3">
+          {{ wallpaper.name }}
+        </p>
       </div>
-
-      <p class="mb-1">
-        {{ wallpaper.name }}
-        {{ wallpaper.timeCreated }}
-      </p>
     </b-list-group-item>
   </b-list-group>
 </template>

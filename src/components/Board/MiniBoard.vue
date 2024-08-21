@@ -1,7 +1,7 @@
 <template lang="html">
   <b-card
     class="cursor-pointer overflow-hidden"
-    :bg-variant="darkTheme ? 'dark' : 'transparent'"
+    :bg-variant="darkTheme ? 'dark' : 'light'"
     :text-variant="darkTheme ? 'light' : 'dark'"
     body-class="p-0"
     content-class="rounded"

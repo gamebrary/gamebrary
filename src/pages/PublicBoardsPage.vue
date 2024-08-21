@@ -2,7 +2,7 @@
     <b-spinner v-if="loading" class="spinner-centered" />
   
     <div v-else>
-      <empty-state
+      <EmptyState
         v-if="isEmpty && !isPublicBoard"
         title="Boards"
         message="Utilize boards to neatly organize your video games!"
@@ -13,7 +13,7 @@
         >
           {{ $t('boards.create') }}
         </b-button>
-      </empty-state>
+      </EmptyState>
   
       <template v-else>
         <div class="board-grid">

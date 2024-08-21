@@ -166,7 +166,7 @@ export default {
           this.$store.commit('SET_SESSION_EXPIRED', false);
           this.$store.commit('SET_USER', userCredential?.user);
           this.$router.replace({ name: 'boards' });
-          // TODO: Add to Keap, send welcome email
+          // TODO: Move to actions, add contact to crm, save user id and metadata
         })
         .catch((error) => {
           this.handleError(error?.code);

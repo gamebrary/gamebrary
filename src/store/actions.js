@@ -1,8 +1,3 @@
-// TODO: restore firestore rules and make them tight!
-// TODO: use Fandom/Wikia API
-// https://megaman.fandom.com/api.php?action=parse&format=json&page=Mega_Man_II&prop=sections|images
-// https://megaman.fandom.com/api.php?action=parse&page=Mega_Man_II&format=json&prop=wikitext&section=2
-
 import axios from "axios";
 import { initializeApp } from "firebase/app";
 import {
@@ -12,7 +7,6 @@ import {
   setDoc,
   addDoc,
   getDoc,
-  updateDoc,
   query,
   where,
   getDocs,
@@ -20,12 +14,19 @@ import {
 } from "firebase/firestore";
 import {
   getAuth,
+  deleteUser,
   signOut,
-  createUserWithEmailAndPassword,
-  // signInWithEmailAndPassword,
 } from "firebase/auth";
 
-import { getStorage, ref, getDownloadURL, listAll, getMetadata, uploadBytes, deleteObject } from "firebase/storage";
+import {
+  getStorage,
+  ref,
+  getDownloadURL,
+  listAll,
+  getMetadata,
+  uploadBytes,
+  deleteObject
+} from "firebase/storage";
 
 import { FIREBASE_CONFIG } from "@/constants";
 const app = initializeApp(FIREBASE_CONFIG);
@@ -37,12 +38,11 @@ const API_BASE = "https://us-central1-gamebrary-8c736.cloudfunctions.net";
 // const API_BASE = 'http://localhost:5001/gamebrary-8c736/us-central1';
 
 export default {
-  UPLOAD_PROFILE_AVATAR({ state }, file) {
+  async UPLOAD_PROFILE_AVATAR({ state }, file) {
     const storageRef = ref(storage, `${state.user.uid}/avatars/${file.name}`);
+    const uploadedFile = await uploadBytes(storageRef, file);
 
-    uploadBytes(storageRef, file).then(async ({ metadata }) => {
-      return metadata.fullPath;
-    });
+    return uploadedFile.metadata.fullPath;
   },
 
   async SAVE_PROFILE({ commit, state }, profile) {
@@ -58,6 +58,44 @@ export default {
     await deleteDoc(doc(db, 'profiles', state.user.uid));
     
     commit("REMOVE_PROFILE");
+  },
+
+  async DELETE_ACCOUNT({ commit, state }) {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    try {
+      await deleteDoc(doc(db, 'games', state.user.uid));
+      await deleteDoc(doc(db, 'notes', state.user.uid));
+      await deleteDoc(doc(db, 'tags', state.user.uid));
+      await deleteDoc(doc(db, 'progresses', state.user.uid));
+      await deleteDoc(doc(db, 'profiles', state.user.uid));
+      await deleteDoc(doc(db, 'settings', state.user.uid));
+
+      if (state.boards.length > 0) {
+        state.boards.forEach(({ id }) => {
+          deleteDoc(doc(db, 'boards', id));
+        })
+      }
+
+      if (state.wallpapers.length > 0) {
+        state.wallpapers.forEach(({ fullPath }) => {
+          deleteObject(ref(storage, fullPath));
+        });
+      }
+      
+      const avatarsRef = ref(storage, `${state.user.uid}/avatars`);
+      
+      listAll(avatarsRef).then(({ items }) => {
+        items.forEach(({ fullPath }) => deleteObject(ref(storage, fullPath)));
+      });
+
+      await deleteUser(user);
+
+      return commit('CLEAR_SESSION');
+    } catch (error) {
+      commit('SET_SESSION_EXPIRED', true);
+    }
   },
 
   async SAVE_BOARD({ state }) {
@@ -81,28 +119,6 @@ export default {
     await deleteDoc(doc(db, 'boards', id));
 
     return commit('REMOVE_BOARD', id);
-  },
-
-  // TODO: add sign up with google
-  async SIGN_UP_WITH_EMAIL({ state, commit }, board) {
-    createUserWithEmailAndPassword(auth, this.email, this.password)
-      .then((userCredential) => {
-        // Signed up
-        const user = userCredential.user;
-        // ...
-        // TODO: redirect to home
-      })
-      .catch((error) => {
-        this.handleError(error.code);
-        this.loading = false;
-      });
-
-    const docRef = await addDoc(collection(db, "boards"), board);
-    const newBoard = { ...board, id: docRef.id };
-
-    commit("ADD_BOARD", newBoard);
-
-    return newBoard;
   },
 
   async CREATE_BOARD({ state, commit }, board) {
@@ -132,7 +148,7 @@ export default {
       id: doc.id,
     }));
 
-    commit("SET_BOARDS", boards);
+    commit("SET_BOARDS", boards || []);
   },
 
   async LOAD_FIREBASE_IMAGE(context, path) {
@@ -173,23 +189,10 @@ export default {
     commit("SET_SETTINGS", docSnap.data());
   },
 
-  // TODO: get legacy notes, add UI to migrate?
-  // const docSnap = await getDoc(doc(db, "notes", state.user.uid));
-
   async LOAD_NOTES({ commit, state }) {
-    // const q = query(collection(db, "notes-v2"), where("owner", "==", state.user.uid));
-    
-    // const querySnapshot = await getDocs(q);
-    
-    // const notes = querySnapshot.docs.map((doc) => ({
-    //   ...doc.data(),
-    //   id: doc.id,
-    // }));
-
-    // commit("SET_NOTES", notes);
     const docSnap = await getDoc(doc(db, "notes", state.user.uid));
-    
-    commit("SET_NOTES", docSnap.data());
+
+    if (docSnap.data()) commit("SET_NOTES", docSnap.data());
   },
 
   async LOAD_NOTE({ state }, noteId) {
@@ -244,15 +247,11 @@ export default {
     await setDoc(doc(db, "notes", state.user.uid), state.notes, { merge: true });
   },
 
-  async CREATE_NOTE_V2(context, note) {
-    const docRef = await addDoc(collection(db, "notes-v2"), note);
-    // TODO: finish notes v2
-
-    console.log(docRef);
-
-    // commit("ADD_BOARD", newBoard);
-    return note;
-  },
+  // async CREATE_NOTE_V2(context, note) {
+  //   const docRef = await addDoc(collection(db, "notes-v2"), note);
+  //   // commit("ADD_BOARD", newBoard);
+  //   return note;
+  // },
 
   async SAVE_GAMES({ state }) {
     await setDoc(doc(db, "games", state.user.uid), state.games);
@@ -269,23 +268,21 @@ export default {
   async LOAD_PROGRESSES({ commit, state }) {
     const docSnap = await getDoc(doc(db, "progresses", state.user.uid));
 
-    commit("SET_PROGRESSES", docSnap.data());
+    commit("SET_PROGRESSES", docSnap.data() || {});
   },
 
   async LOAD_PROFILE({ commit, state }) {
     const docSnap = await getDoc(doc(db, "profiles", state.user.uid));
 
-    commit("SET_PROFILE", docSnap.data());
+    commit("SET_PROFILE", docSnap.data() || {});
 
     return docSnap.data();
   },
 
   async LOAD_GAMES({ commit, state }) {
-    const docRef = doc(db, "games", state.user.uid);
-    const docSnap = await getDoc(docRef);
-    const games = docSnap.data();
+    const docSnap = await getDoc(doc(db, "games", state.user.uid));
 
-    if (games) commit("SET_GAMES", games);
+    commit("SET_GAMES", docSnap.data() || {});
   },
 
   async LOAD_BOARD({ state, commit }, id) {
@@ -309,6 +306,8 @@ export default {
       const wallpapers = [];
 
       listAll(listRef).then((res) => {
+        if (res.items.length === 0) resolve([]);
+
         res.items.forEach((itemRef) => {
           getDownloadURL(ref(storage, itemRef.fullPath)).then((url) => {
             getMetadata(itemRef).then((metadata) => {
@@ -345,20 +344,13 @@ export default {
   },
 
   async UPLOAD_WALLPAPER({ state, commit }, file) {
-    console.log(`${state.user.uid}/wallpapers/${file.name}`);
-
     const storageRef = ref(storage, `${state.user.uid}/wallpapers/${file.name}`);
-
     const { metadata } = await uploadBytes(storageRef, file);
-    console.log(metadata);
     const downloadURL = await getDownloadURL(ref(storage, metadata.fullPath));
     
     const wallpaper = {
-      ref: metadata.fullPath,
-      name: metadata.name,
-      size: metadata.size,
-      updated: metadata.updated,
       url: downloadURL,
+      ...metadata,
     };
     
     return commit("ADD_WALLPAPER", wallpaper);
@@ -406,6 +398,20 @@ export default {
         })
         .catch(reject);
     });
+  },
+
+  async CREATE_NEW_CONTACT(context, payload) {
+    try {
+
+      const contact = await axios.post("https://api.infusionsoft.com/crm/rest/v1/contacts?fields=addresses,anniversary_date,birth_date,company,contact_type,create_time,custom_fields,email_addresses,fax_numbers,job_title,leadsource_id,links,middle_name,notes,origin,owner_id,phone_numbers,preferred_locale,preferred_name,prefix,referral_code,score_value,social_accounts,source_type,spouse_name,suffix,tag_ids,time_zone,update_time,website", payload, {
+        headers: {
+          'X-Keap-API-Key': '',
+        }
+      });
+
+    } catch (error) {
+      
+    }
   },
 
   SUBSCRIBE_TO_NEWSLETTER({ commit }) {
@@ -517,7 +523,6 @@ export default {
     });
   },
 
-  // TODO: use firebase email extension instead
   SEND_WELCOME_EMAIL(context, additionalUserInfo) {
     return new Promise((resolve, reject) => {
       if (additionalUserInfo?.profile) {

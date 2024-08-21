@@ -1,9 +1,6 @@
 <template>
   <div>
     <div class="position-relative">
-      <!-- TODO: use as bg instead of img tag -->
-      <!-- TODO: put like button in component, pass gameId -->
-      <!-- TODO: if liked, show dropdown when clicked, options: remove from your games -->
       <b-button
         variant="transparent"
         squared

@@ -1,4 +1,3 @@
-<!-- TODO: improve pagination/navigation -->
 <template lang="html">
   <section class="d-flex flex-column">
     <portal to="pageTitle">
@@ -145,6 +144,7 @@ export default {
   methods: {
     clearResults() {
       this.searchResults = [];
+      this.offset = 0;
     },
 
     loadMore() {
@@ -158,12 +158,9 @@ export default {
     },
 
     async search() {
-      // TODO: move to actions
       this.loading = true;
 
-      if (this.searchResults.length > 0 && this.offset === 0) {
-        this.clearResults();
-      }
+      if (this.searchResults.length > 0 && this.offset === 0) this.clearResults();
 
       const search = this.query
         ? `search "${this.query}";`
@@ -185,7 +182,7 @@ export default {
       this.searchResults = [
         ...this.searchResults,
         ...searchResults,
-      ]
+      ];
 
       this.$store.commit("CACHE_GAME_DATA", searchResults);
 

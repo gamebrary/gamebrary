@@ -1,4 +1,3 @@
-<!-- TODO: finish layout, open games tagged in nested sidebar -->
 <template lang="html">
   <b-sidebar
     id="edit-list-modal"
@@ -17,8 +16,6 @@
     <template #default="{ hide }">
       <div class="d-flex align-items-center justify-content-between mb-2">
         <h2>
-          <!-- TODO: add button to swap colors -->
-           <!-- TODO: make sure saving works -->
           <b-button
             v-if="tag.name"
             rounded
@@ -115,9 +112,10 @@
         </b-button>
       </div>
 
-      <div v-if="tag.games.length">
+      <div v-if="tag.games && tag.games.length">
         <GameCard
           v-for="gameId in tag.games"
+          small
           class="mb-3"
           :key="gameId"
           :game-id="gameId"
@@ -165,12 +163,12 @@ export default {
   },
 
   async mounted() {
-    this.$bus.$on('SELECT_GAME', this.selectGame);
+    this.$bus.$on('SAVE_TAGS', this.selectGame);
     this.load();
   },
 
   destroyed() {
-    this.$bus.$off('SELECT_GAME', this.selectGame);
+    this.$bus.$off('SAVE_TAGS', this.selectGame);
   },
 
   beforeRouteEnter(to, from, next) {
@@ -185,7 +183,7 @@ export default {
     async selectGame(gameId) {
       const { activeTagIndex, tags } = this;
 
-      // TODO: get active tag index from store intead of sending it here
+      // TODO: get active tag index from store intead of sending it here (same source)
       this.$store.commit('APPLY_TAG_TO_GAME', { tagIndex: activeTagIndex, gameId });
 
       await this.$store.dispatch('SAVE_TAGS').catch(() => {});
@@ -198,6 +196,7 @@ export default {
       this.$store.commit('SET_GAME_SELECTOR_DATA', {
         title: 'Tag game',
         filter: this.tag?.games,
+        eventName: 'SAVE_TAGS',
       });
     },
 
@@ -211,7 +210,6 @@ export default {
       this.tag = JSON.parse(JSON.stringify(tags?.[activeTagIndex]));
 
       // TODO: only load games that aren't cached
-
       if (this.tag?.games?.length > 0) {
         await this.$store.dispatch('LOAD_IGDB_GAMES', this.tag.games);
       }
