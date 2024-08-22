@@ -66,14 +66,10 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import { getImageUrl } from '@/utils';
 import GameCard from '@/components/GameCard';
-import { IMAGE_SIZE_COVER_SMALL, IGDB_QUERIES } from '@/constants';
+import { IGDB_QUERIES } from '@/constants';
 
 export default {
-  getImageUrl,
-  IMAGE_SIZE_COVER_SMALL,
-
   data() {
     return {
       searchText: '',

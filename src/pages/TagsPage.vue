@@ -72,14 +72,9 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import { getImageUrl } from '@/utils';
-import { IMAGE_SIZE_COVER_SMALL } from '@/constants';
 import EmptyState from '@/components/EmptyState';
 
 export default {
-  IMAGE_SIZE_COVER_SMALL,
-  getImageUrl,
-
   components: {
     EmptyState,
   },

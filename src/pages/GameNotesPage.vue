@@ -14,14 +14,6 @@
               :game-id="game.id"
               class="mb-3"
             />
-            <!-- <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug } }">
-              <b-img
-                :src="$options.getImageUrl(game)"
-                class="mr-2"
-                rounded
-                style="max-height: 80px; width: auto;"
-              />
-            </router-link> -->
 
             <router-link
               class="small mt-n2"
@@ -160,7 +152,6 @@
 
 <script>
 import { mapState } from 'vuex';
-import { getImageUrl } from '@/utils';
 import { Editor, EditorContent } from '@tiptap/vue-2';
 import StarterKit from '@tiptap/starter-kit';
 import GameCard from '@/components/GameCard';
@@ -168,8 +159,6 @@ import GameCard from '@/components/GameCard';
 import { IGDB_QUERIES } from '@/constants';
 
 export default {
-  getImageUrl,
-
   components: {
     EditorContent,
     GameCard,

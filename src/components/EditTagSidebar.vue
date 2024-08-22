@@ -128,15 +128,9 @@
 <script>
 import VSwatches from 'vue-swatches'
 import GameCard from '@/components/GameCard';
-import { getImageUrl } from '@/utils';
 import { mapState, mapGetters } from 'vuex';
-import { IMAGE_SIZE_COVER_SMALL } from '@/constants';
 
 export default {
-  IMAGE_SIZE_COVER_SMALL,
-
-  getImageUrl,
-
   data() {
     return {
       tag: {},

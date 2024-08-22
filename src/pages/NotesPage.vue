@@ -80,13 +80,8 @@
 import EmptyState from '@/components/EmptyState';
 import GameCard from '@/components/GameCard';
 import { mapState, mapGetters } from 'vuex';
-import { getImageUrl } from '@/utils';
-import { IMAGE_SIZE_COVER_SMALL } from '@/constants';
 
 export default {
-  IMAGE_SIZE_COVER_SMALL,
-  getImageUrl,
-
   components: {
     EmptyState,
     GameCard,

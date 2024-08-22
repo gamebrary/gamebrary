@@ -154,8 +154,6 @@ export default {
         this.showExpiredAlert = true;
         this.$store.commit('SET_SESSION_EXPIRED', false);
       }
-
-      this.getGoogleRedirectResult();
     },
 
     async createAccount() {
@@ -166,7 +164,6 @@ export default {
           this.$store.commit('SET_SESSION_EXPIRED', false);
           this.$store.commit('SET_USER', userCredential?.user);
           this.$router.replace({ name: 'boards' });
-          // TODO: Move to actions, add contact to crm, save user id and metadata
         })
         .catch((error) => {
           this.handleError(error?.code);
@@ -185,73 +182,17 @@ export default {
       }
     },
 
-    loginWithGoogle() {
+    async loginWithGoogle() {
       const auth = getAuth();
       const provider = new GoogleAuthProvider();
 
-      signInWithPopup(auth, provider)
-        .then((result) => {
-          // TODO: clean this up, inspect data available, save as needed
-          // This gives you a Google Access Token. You can use it to access the Google API.
-          const credential = GoogleAuthProvider.credentialFromResult(result);
-          const token = credential.accessToken;
+      try {
+        const { user } = await signInWithPopup(auth, provider);
 
-          // console.log('token', token)
-          // The signed-in user info.
-          const user = result.user;
-          // console.log('user', user)
-          this.signInSuccess(user);
-          // IdP data available using getAdditionalUserInfo(result)
-          // ...
-        }).catch((error) => {
-          // // Handle Errors here.
-          // const errorCode = error.code;
-          // const errorMessage = error.message;
-          // // The email of the user's account used.
-          // const email = error.customData.email;
-          // // The AuthCredential type that was used.
-          // const credential = GoogleAuthProvider.credentialFromError(error);
-
-          // console.log(error);
-          // console.log(email);
-          // console.log(credential);
-          // ...
-        });
-    },
-
-    getGoogleRedirectResult() {
-      const auth = getAuth();
-
-      getRedirectResult(auth)
-        .then((result) => {
-          if (!result) return;
-
-          console.log('result', result);
-
-          // This gives you a Google Access Token. You can use it to access Google APIs.
-          const credential = GoogleAuthProvider.credentialFromResult(result);
-          // console.log('credential', credential);
-          const token = credential.accessToken;
-
-          // console.log('token', token);
-
-          // The signed-in user info.
-          const user = result.user;
-
-          // console.log('user', user)
-          // IdP data available using getAdditionalUserInfo(result)
-          // ...
-        }).catch((error) => {
-          console.log('error getRedirectResult', error);
-          // Handle Errors here.
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          // The email of the user's account used.
-          const email = error.customData.email;
-          // The AuthCredential type that was used.
-          const credential = GoogleAuthProvider.credentialFromError(error);
-          // ...
-        });
+        this.signInSuccess(user);
+      } catch (error) {
+        this.handleError(error?.code);
+      }
     },
 
     handleError(errorCode = 'default') {
@@ -265,16 +206,11 @@ export default {
       this.loading = true;
 
       // if (additionalUserInfo?.isNewUser) this.$store.dispatch('SEND_WELCOME_EMAIL', additionalUserInfo);
-      // TODO: if new user, add to keap via clouud function / API
       this.$store.commit('SET_SESSION_EXPIRED', false);
       this.$store.commit('SET_USER', user);
       this.$router.replace({ name: 'boards' });
       this.$bus.$emit('BOOT');
     },
-
-    // addContact() {
-    //   this.$store.dispatch('ADD_CONTACT_TO_KEAP');
-    // },
   },
 };
 </script>

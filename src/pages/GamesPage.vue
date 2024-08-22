@@ -58,13 +58,10 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import { getImageUrl } from '@/utils';
 import EmptyState from '@/components/EmptyState';
 import GameCard from '@/components/GameCard';
 
 export default {
-  getImageUrl,
-  
   components: {
     GameCard,
     EmptyState,

@@ -28,11 +28,8 @@
 <script>
 import GameCard from '@/components/GameCard';
 import { mapState } from 'vuex';
-import { getImageUrl } from '@/utils';
 
 export default {
-  getImageUrl,
-  
   components: {
     GameCard,
   },
