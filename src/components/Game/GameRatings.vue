@@ -1,5 +1,3 @@
-<!-- TODO: default to whatever is available if prefered age rating isn't availablem -->
-<!-- TODO: use popover instead of deopdown -->
 <template lang="html">
   <b-dropdown v-if="ratings" variant="link" toggle-class="p-0" no-caret>
     <template #button-content>
@@ -22,11 +20,6 @@
           :src="`/img/age-ratings/${rating}.${logoFormat || 'png'}`"
           height="60"
         />
-        
-        <!-- <div> 
-          <p class="m-0">{{ name }}</p>
-          <small v-if="description">{{ description }}</small>
-        </div> -->
       </div>
     </b-dropdown-text>
   </b-dropdown>
