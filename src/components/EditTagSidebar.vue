@@ -33,10 +33,7 @@
         </b-button>
       </div>
 
-      <b-spinner v-if="loading" class="spinner-centered" />
-
       <form
-        v-else
         @submit.prevent="saveTag"
       >
         <b-form-input
@@ -135,7 +132,6 @@ export default {
   data() {
     return {
       tag: {},
-      loading: true,
       saving: false,
       prevRoute: null,
     }
@@ -210,11 +206,8 @@ export default {
       if (this.tag?.games?.length > 0) {
         // TODO: only load games that aren't cached
         // TODO: move to separate method?
-        this.loading = true;
 
         await this.$store.dispatch('LOAD_IGDB_GAMES', this.tag.games);
-
-        this.loading = false;
       }
     },
 
