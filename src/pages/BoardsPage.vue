@@ -8,7 +8,7 @@
         <b-button
           title="Create board"
           :variant="darkTheme ? 'success' : 'primary'"
-          :to="{ name: 'create.board' }"
+          v-b-toggle.create-board-sidebar
         >
           <i class="fa-solid fa-plus" />
         </b-button>
@@ -22,7 +22,7 @@
         message="Utilize boards to neatly organize your video games!"
       >
         <b-button
-          :to="{ name: 'create.board' }"
+          v-b-toggle.create-board-sidebar
           variant="primary"
         >
           {{ $t('boards.create') }}
@@ -30,7 +30,7 @@
       </EmptyState>
   
       <div v-else class="board-grid pb-3">
-        <mini-board
+        <MiniBoard
           v-for="board in sortedBoards"
           :key="board.id"
           :board="board"
