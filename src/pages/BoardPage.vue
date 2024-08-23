@@ -1,14 +1,15 @@
 <template lang="html">
   <board-placeholder v-if="loading" />
-  
+
   <div v-else-if="hasAccess">
-    <EditListSidebar v-if="board.type !== $options.BOARD_TYPE_STANDARD" />
+    <EditListSidebar v-if="isBoardOwner && board.type !== $options.BOARD_TYPE_STANDARD" />
 
     <portal to="pageTitle">
       <div :class="{ 'd-flex flex-column align-items-baseline': publicUserName }">
         <h3 :class="['text-truncate', { 'text-white': backgroundUrl && darkTheme }]" :style="publicUserName ? 'line-height: 1rem' : ''">
           {{ board.name }}
         </h3>
+
 
         <small v-if="publicUserName">
           by
@@ -89,7 +90,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'dragging', 'board', 'wallpapers']),
-    ...mapGetters(['isBoardOwner', 'darkTheme', 'isBoardOwner']),
+    ...mapGetters(['darkTheme', 'isBoardOwner']),
 
     isBoardPage() {
       return this.$route.name === 'board';
@@ -137,7 +138,7 @@ export default {
     this.$bus.$on('MOVE_LIST_RIGHT', this.moveListRight);
     this.$bus.$on('LOAD_BOARD_WALLPAPER', this.loadBoardBackground);
   },
-  
+
   destroyed() {
     this.$bus.$off('MOVE_LIST_LEFT', this.moveListLeft);
     this.$bus.$off('MOVE_LIST_RIGHT', this.moveListRight);
@@ -149,11 +150,11 @@ export default {
   methods: {
     moveListLeft(listIndex) {
       if (!this.isBoardOwner) return;
-      
+
       this.$store.commit('MOVE_LIST_LEFT', listIndex);
       this.saveBoard();
     },
-    
+
     moveListRight(listIndex) {
       if (!this.isBoardOwner) return;
 

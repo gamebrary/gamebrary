@@ -1,3 +1,4 @@
+<!-- TODO: finish layout, hook up remove profile pic -->
 <template lang="html">
   <b-sidebar
     id="profile-sidebar"
@@ -162,7 +163,7 @@
         />
       </b-form-group>
 
-      Wallpaper 
+      Wallpaper
       <b-img
         v-if="wallpaperImage"
         :src="wallpaperImage"
@@ -184,7 +185,7 @@
         backdrop
         body-class="p-3"
         :bg-variant="darkTheme ? 'dark' : 'light'"
-        :text-variant="darkTheme ? 'light' : 'dark'" 
+        :text-variant="darkTheme ? 'light' : 'dark'"
       >
       <template #default="{ hide }">
         <div class="d-flex align-items-center justify-content-between mb-2 p-3">
@@ -202,7 +203,7 @@
         />
       </template>
 
-        
+
           <!-- :selected="board.backgroundUrl" -->
       </b-sidebar>
 
@@ -327,7 +328,6 @@ export default {
 
         this.avatarImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', this.profile.avatar);
       } catch (e) {
-        console.log(e)
         this.$bvToast.toast('There was an error uploading wallpaper', { variant: 'danger' });
       }
 
@@ -339,14 +339,14 @@ export default {
       try {
         this.saving = true;
 
-        await this.$store.dispatch('SAVE_PROFILE', this.profile);  
+        await this.$store.dispatch('SAVE_PROFILE', this.profile);
 
         this.saving = false;
         this.$bus.$emit('LOAD_PROFILE');
         this.$store.commit('SET_PROFILE_SIDEBAR_OPEN', false);
       } catch (error) {
         this.saving = false;
-        // 
+        //
       }
     },
 

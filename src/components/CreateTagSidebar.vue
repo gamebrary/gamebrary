@@ -1,19 +1,30 @@
 <template lang="html">
-  <section>
-    <b-container>
-      <portal to="pageTitle">
-        <div class="d-flex align-items-center">
-          <b-button
-            :variant="darkTheme ? 'secondary' : 'light'"
-            class="mr-2"
-            :to="{ name: 'tags' }"
-          >
-            <i class="fa-solid fa-chevron-left" />
-          </b-button>
+  <b-sidebar
+    id="create-tag-sidebar"
+    scrollable
+    right
+    shadow
+    no-header
+    backdrop
+    body-class="p-3"
+    :bg-variant="darkTheme ? 'dark' : 'light'"
+    :text-variant="darkTheme ? 'light' : 'dark'"
+  >
+    <!-- TODO: hook up shown and close, reset stuff as needed -->
+    <!-- @shown="load"
+    @hidden="closeSidebar" -->
+    <template #default="{ hide }">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <h2>
+          Create tag
+        </h2>
 
-          <h3>Create tag</h3>
-        </div>
-      </portal>
+        <b-button
+          @click="hide"
+        >
+          <i class="fa-solid fa-xmark" />
+        </b-button>
+      </div>
 
       <form @submit.prevent="submit">
         <b-form-input
@@ -25,12 +36,16 @@
           trim
         />
 
-        <p>Background color</p>
-        <v-swatches v-model="tag.bgColor" show-fallback />
+        <div class="tag-colors">
+          <div>
+            <p>Background color</p>
+            <v-swatches v-model="tag.bgColor" show-fallback />
+          </div>
 
-        <div class="mb-3">
-          <p>Text color</p>
-          <v-swatches v-model="tag.textColor" show-fallback />
+          <div>
+            <p>Text color</p>
+            <v-swatches v-model="tag.textColor" show-fallback />
+          </div>
         </div>
 
         <b-button
@@ -42,8 +57,8 @@
           <span v-else>Create</span>
         </b-button>
       </form>
-    </b-container>
-  </section>
+    </template>
+  </b-sidebar>
 </template>
 
 <script>
@@ -80,12 +95,17 @@ export default {
       await this.$store.dispatch('SAVE_TAGS')
         .catch(() => {});
 
-      this.saving = true;
-      this.$router.push({ name: 'tags' })
+      this.saving = false;
+      this.$root.$emit('bv::toggle::collapse', 'create-tag-sidebar');
     },
   },
 };
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
+.tag-colors {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
 </style>

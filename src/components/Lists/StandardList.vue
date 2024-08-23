@@ -27,7 +27,7 @@
       />
     </draggable>
 
-    <b-button @click="openGameSelectorSidebar">
+    <b-button v-if="isBoardOwner" @click="openGameSelectorSidebar">
       Add games
     </b-button>
   </div>

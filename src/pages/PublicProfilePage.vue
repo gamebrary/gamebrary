@@ -71,7 +71,7 @@
           lg="3"
           class="px-2"
         >
-          <mini-board
+          <MiniBoard
             :board="board"
             @click.native="$router.push({ name: 'board', params: { id: board.id } })"
             class="p-relative mb-3"

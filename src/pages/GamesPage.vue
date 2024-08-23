@@ -1,7 +1,7 @@
 <template lang="html">
   <div>
     <portal to="pageTitle">Games</portal>
-    
+
     <portal v-if="likedGames.length" to="headerActions">
       <b-button
         title="Add games"
@@ -88,7 +88,7 @@ export default {
       return Object.entries(this.games)?.filter(([id, liked]) => liked)?.map(([id]) => Number(id));
     },
   },
-  
+
   mounted() {
     if (this.user) this.loadGames();
 
@@ -122,7 +122,7 @@ export default {
           await this.$store.dispatch('LOAD_IGDB_GAMES', gamesNotCached);
         }
       } catch (e) {
-        console.log('error', e);
+        //
       }
 
       this.loading = false;

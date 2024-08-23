@@ -1,3 +1,4 @@
+<!-- TODO: make mini boards links so you can cmd click them -->
 <template lang="html">
   <div class="text-center">
     <h1 class="mb-2">Gamebrary</h1>
@@ -12,7 +13,7 @@
     </b-button>
 
     <div class="board-grid">
-      <mini-board
+      <MiniBoard
         v-for="board in recentlyUpdatedPublicBoards"
         :key="board.id"
         :board="board"
@@ -30,9 +31,9 @@
 
     <h3 class="mt-5 mb-3">Join the community and start creating your own boards!</h3>
     Discover and connect with others in the community!
-    
+
     <b-button :to="{ name: 'profiles' }">
-      Explore All Public Profiles: 
+      Explore All Public Profiles:
     </b-button>
 
     <div class="d-flex overflow-hidden justify-content-center">
@@ -81,7 +82,7 @@ export default {
     },
 
     filteredProfiles() {
-      return this.profiles.filter(({ avatar }) => avatar);  
+      return this.profiles.filter(({ avatar }) => avatar);
     },
 
     currentYear() {
@@ -100,7 +101,7 @@ export default {
         await this.$store.dispatch('LOAD_PUBLIC_BOARDS');
       } catch (e) {
         // this.loading = false;
-      }  
+      }
     },
   },
 };

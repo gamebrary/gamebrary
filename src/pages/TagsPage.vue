@@ -6,9 +6,8 @@
 
     <portal v-if="user && !isEmpty" to="headerActions">
       <b-button
-
         :variant="darkTheme ? 'success' : 'primary'"
-        :to="{ name: 'tag.create' }"
+        v-b-toggle.create-tag-sidebar
         title="Add tag"
       >
         <i class="fa-solid fa-plus" />
@@ -25,7 +24,7 @@
       <b-button
         v-if="user"
         variant="primary"
-        :to="{ name: 'tag.create' }"
+        v-b-toggle.create-tag-sidebar
       >
         Add tag
       </b-button>
@@ -123,7 +122,7 @@ export default {
           await this.$store.dispatch('LOAD_IGDB_GAMES', gamesNotCached);
         }
       } catch (e) {
-        console.log('e', e);
+        //
       }
 
       this.loading = false;

@@ -2,7 +2,6 @@
   <b-sidebar
     id="create-board-sidebar"
     scrollable
-    visible
     right
     shadow
     no-header

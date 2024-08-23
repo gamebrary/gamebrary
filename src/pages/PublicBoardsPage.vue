@@ -1,42 +1,23 @@
 <template lang="html">
     <b-spinner v-if="loading" class="spinner-centered" />
   
-    <div v-else>
-      <EmptyState
-        v-if="isEmpty && !isPublicBoard"
-        title="Boards"
-        message="Utilize boards to neatly organize your video games!"
-      >
-        <b-button
-          :to="{ name: 'create.board' }"
-          variant="primary"
-        >
-          {{ $t('boards.create') }}
-        </b-button>
-      </EmptyState>
-  
-      <template v-else>
-        <div class="board-grid">
-          <mini-board
-            v-for="board in sortedPublicBoards"
-            :key="board.id"
-            :board="board"
-            @click.native="$router.push({ name: 'board', params: { id: board.id } })"
-          />
-        </div>
-      </template>
+    <div v-else class="board-grid">
+      <MiniBoard
+        v-for="board in sortedPublicBoards"
+        :key="board.id"
+        :board="board"
+        @click.native="$router.push({ name: 'board', params: { id: board.id } })"
+      />
     </div>
   </template>
   
   <script>
   import MiniBoard from '@/components/Board/MiniBoard';
-  import EmptyState from '@/components/EmptyState';
   import { mapState, mapGetters } from 'vuex';
   
   export default {
     components: {
       MiniBoard,
-      EmptyState,
     },
   
     data() {

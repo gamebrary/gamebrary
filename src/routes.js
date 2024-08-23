@@ -86,14 +86,6 @@ const routes = [
     },
   },
   {
-    name: 'tag.create',
-    path: '/tags/create',
-    component: () => import(/* webpackChunkName: "tags" */ '@/pages/CreateTagPage'),
-    meta: {
-      title: 'Create tag',
-    },
-  },
-  {
     name: 'settings',
     path: '/settings',
     component: () => import(/* webpackChunkName: "settings" */ '@/pages/SettingsPage'),

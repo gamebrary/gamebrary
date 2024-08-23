@@ -83,17 +83,19 @@ export default {
 
     formattedBoard() {
       const formattedLists = this.board?.lists?.map((list) => ({
-          games: list.games?.map((game) => {
-            const cachedGame = this.cachedGames?.[Number(game)] || {};
-            
-            return {
-              id: cachedGame.id,
-              name: cachedGame.name,
-              src: getImageUrl(this.cachedGames?.[Number(game)], IMAGE_SIZE_THUMB),
-            }
-          }),
-          name: list.name,
-        }));
+        ...list,
+        games: list?.games?.map((game) => {
+          if (!game) return {};
+
+          const cachedGame = this.cachedGames?.[Number(game)] || {};
+          
+          return {
+            id: cachedGame.id,
+            name: cachedGame.name,
+            src: getImageUrl(this.cachedGames?.[Number(game)], IMAGE_SIZE_THUMB),
+          }
+        }),
+      }));
 
       const formattedBoard = {
         ...this.board,

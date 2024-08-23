@@ -15,7 +15,7 @@
       <b-avatar
         v-for="(game, index) in tier.games"
         :key="index"
-        :variant="gameId && game.id === gameId ? 'danger' : darkTheme ? 'black' : 'light'"
+        :variant="getGameVariant(game)"
         v-b-tooltip.hover
         :title="game.name"
         text=" "
@@ -41,6 +41,17 @@ export default {
 
   computed: {
     ...mapGetters(['darkTheme', 'showGameThumbnails']),
+  },
+
+  methods: {
+    getGameVariant(game) {
+      const defaultVariant = this.darkTheme ? 'black' : 'secondary';
+
+      if (!game?.id) return defaultVariant;
+      if (this.game?.id === this.gameId) return this.darkTheme ? 'success' : 'danger'
+
+      return defaultVariant;
+    },
   },
 }
 </script>

@@ -1,4 +1,4 @@
-<template> 
+<template>
   <body
     id="app"
     :class="bodyClasses"
@@ -14,10 +14,11 @@
       <router-view class="viewport" />
       <KeyboardShortcutsModal />
       <markdown-cheatsheet />
-      
+
       <template v-if="user">
         <EditTagSidebar />
         <CreateBoardSidebar />
+        <CreateTagSidebar />
         <GameSelectorSidebar />
         <EditBoardSidebar />
         <MainSidebar />
@@ -37,17 +38,19 @@ import MainSidebar from '@/components/MainSidebar';
 import WallpaperDetailsSidebar from '@/components/WallpaperDetailsSidebar';
 import EditTagSidebar from '@/components/EditTagSidebar'
 import CreateBoardSidebar from '@/components/CreateBoardSidebar'
+import CreateTagSidebar from '@/components/CreateTagSidebar'
 import { mapState, mapGetters } from 'vuex';
 import { KEYBOARD_SHORTCUTS, IGDB_QUERIES } from '@/constants';
 
 export default {
   name: 'App',
-  
+
   components: {
     PageHeader,
     MainSidebar,
     EditTagSidebar,
     CreateBoardSidebar,
+    CreateTagSidebar,
     MarkdownCheatsheet,
     KeyboardShortcutsModal,
     WallpaperDetailsSidebar,
@@ -85,7 +88,7 @@ export default {
 
     showPageDock() {
       if (['auth', 'home'].includes(this.$route.name) && !this.user) return false;
-      
+
       return Boolean(this.user) || this.isPublicRoute;
     },
 
@@ -144,7 +147,7 @@ export default {
         await this.$store.dispatch('SAVE_GAMES');
 
       } catch (e) {
-        console.log('err' ,e);
+        //
       }
     },
 

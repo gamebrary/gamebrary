@@ -1,7 +1,8 @@
 <template lang="html">
   <div v-if="user && boardsWithGame.length">
     <h4 class="mb-2">Found in {{ boardsWithGame.length }} boards</h4>
-    
+
+    <!-- TODO: stop passing prop, have mini board get id from store instead -->
     <MiniBoard
       v-for="board in boardsWithGame"
       :key="board.id"

@@ -8,12 +8,12 @@
     body-class="p-3"
     id="edit-board-sidebar"
     :bg-variant="darkTheme ? 'dark' : 'light'"
-    :text-variant="darkTheme ? 'light' : 'dark'" 
+    :text-variant="darkTheme ? 'light' : 'dark'"
   >
     <template #default="{ hide }">
       <div class="d-flex align-items-center justify-content-between mb-3">
         <h3>Edit board</h3>
-        
+
         <b-button @click="hide">
           <i class="fa-solid fa-xmark" />
         </b-button>
@@ -29,12 +29,12 @@
           id="select-board-wallpaper"
           body-class="p-3"
           :bg-variant="darkTheme ? 'dark' : 'light'"
-          :text-variant="darkTheme ? 'light' : 'dark'" 
+          :text-variant="darkTheme ? 'light' : 'dark'"
         >
           <template #default="{ hide }">
             <div class="d-flex align-items-center justify-content-between mb-2">
               <h3>Select board background</h3>
-              
+
               <b-button @click="hide">
                 <i class="fa-solid fa-xmark" />
               </b-button>
@@ -70,7 +70,7 @@
         </b-button-group>
 
         <b-alert v-if="needsFlattening" variant="warning" show>
-          Changing this board to a standard list will merge all lists into one.
+          Lists will be merged into a single list.
         </b-alert>
 
         <MiniBoard
@@ -280,10 +280,8 @@ export default {
     async deleteBoard() {
       try {
         this.loading = true;
-        console.log(this.board.id);
-        await this.$store.dispatch('DELETE_BOARD', this.board.id);
 
-        console.log('delete');
+        await this.$store.dispatch('DELETE_BOARD', this.board.id);
 
         this.$router.replace({ name: 'home' });
       } catch (e) {

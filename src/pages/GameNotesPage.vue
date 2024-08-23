@@ -238,12 +238,10 @@ export default {
     async saveNote() {
       this.saving = true;
 
-      console.log({ note: this.note, gameId: this.gameId });
-
       this.$store.commit('SET_GAME_NOTE', { note: this.note, gameId: this.gameId });
 
       await this.$store.dispatch('SAVE_NOTES').catch(() => {
-        // 
+        //
       });
 
       this.saving = false;

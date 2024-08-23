@@ -1,10 +1,10 @@
 <template lang="html">
   <div class="mb-3">
     <b-button
-      style="width: 100px; height: 60px;"
+      style="width: 128px; height: 80px;"
       v-b-tooltip.hover.right
-      title="Add tier"      
-      :variant="darkTheme ? 'dark' : 'light'"
+      title="Add tier"
+      :variant="darkTheme ? 'dark' : 'secondary'"
       v-b-modal.addTier
     >
       <i class="fas fa-plus fa-fw" aria-hidden />
@@ -13,7 +13,6 @@
     <b-modal
       id="addTier"
       hide-footer
-      size="sm"
       :header-bg-variant="darkTheme ? 'dark' : 'transparent'"
       :header-text-variant="darkTheme ? 'white' : 'dark'"
       :body-bg-variant="darkTheme ? 'dark' : 'transparent'"

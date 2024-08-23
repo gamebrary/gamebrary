@@ -23,7 +23,7 @@
       <template v-if="showExpiredAlert">
         Session expired
       </template>
-      
+
       <template v-else>
         {{ errorMessage }}
       </template>
@@ -129,7 +129,7 @@ export default {
       if (this.errorCode === 'auth/wrong-password') return 'Wrong password';
       if (this.errorCode === 'auth/user-not-found') return 'User not found';
       if (this.newUser) return 'Error creating your account';
-      
+
       return 'Error logging in';
     },
   },
@@ -196,8 +196,6 @@ export default {
     },
 
     handleError(errorCode = 'default') {
-      console.log('errorCode', errorCode);
-
       this.loading = false;
       this.errorCode = errorCode;
     },

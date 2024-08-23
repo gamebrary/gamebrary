@@ -1,23 +1,5 @@
 <template lang="html">
-  <div class="standard-board">
-    <portal to="pageTitle">
-      {{ board.name }}
-    </portal>
-
-    <portal to="headerActions">
-      <div class="d-flex align-items-center">
-        <!-- <b-button
-          :to="{ name: 'game', params: { id: game.id, slug: game.slug } }"
-          :variant="darkTheme ? 'secondary' : 'light'"
-          class="mr-2"
-          >
-            <i class="fa-solid fa-chevron-left" />
-        </b-button> -->
-
-        <!-- <h3>News</h3> -->
-      </div>
-    </portal>
-    
+  <div class="standard-board pb-5">
     <StandardList
       v-for="(list, listIndex) in board.lists"
       :key="list.id"
@@ -67,7 +49,7 @@ export default {
         lastUpdated: Date.now(),
         lists: [{ name: '', games: mergedGamesList }],
       }
-      
+
       this.$store.commit('SET_GAME_BOARD', payload);
 
       await this.$store.dispatch('SAVE_BOARD');

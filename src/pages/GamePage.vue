@@ -807,7 +807,6 @@ export default {
     },
 
     setWallpaper() {
-      console.log(this.artworks);
       const steamBackground = this.game?.steam?.background;
       const [{ url }] = this.artworks?.filter(({ url }) => url);
 
