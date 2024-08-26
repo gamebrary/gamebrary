@@ -2,231 +2,223 @@
 <template lang="html">
   <b-sidebar
     id="profile-sidebar"
-    scrollable
-    right
-    shadow
     :visible="editProfileSidebarOpen"
-    no-header
-    backdrop
-    body-class="p-3"
-    :bg-variant="darkTheme ? 'dark' : 'light'"
-    :text-variant="darkTheme ? 'light' : 'dark'"
+    right
+    v-bind="sidebarProps"
     @hidden="$store.commit('SET_PROFILE_SIDEBAR_OPEN', false)"
-  >
-    <h3>Edit Profile</h3>
-
-    <b-spinner v-if="loading" class="spinner-centered" />
-
-    <b-form
-      v-else-if="profile"
-      @submit.prevent="save"
     >
-      <b-spinner v-if="uploading" />
-
-      <div class="text-center">
-        <b-avatar
-          :src="avatarImage"
-          class="mx-auto cursor-pointer"
-          size="200"
-          @click.native="triggerFileUpload"
-        />
-
-        <b-link>
-          Remove profile picture
-        </b-link>
-
-        <strong>@{{ profile.userName }}</strong>
-      </div>
-
-      <b-form-file
-        class="d-none file-input"
-        v-model="file"
-        accept="image/*"
-        @input="uploadProfileAvatar"
-      />
-
-      <b-form-group
-        label-class="m-0 text-muted"
-        label="Name"
-        label-for="name"
-      >
-        <b-form-input
-          id="name"
-          v-model="profile.name"
-          class="mb-3"
-        />
-      </b-form-group>
-
-      <b-form-group
-        label-class="m-0 text-muted"
-        label="About you"
-        label-for="bio"
-      >
-        <b-form-input
-          id="bio"
-          v-model="profile.bio"
-          class="mb-3"
-        />
-      </b-form-group>
-
-      <b-form-group
-        label-class="m-0 text-muted"
-        label="Location"
-        label-for="location"
-      >
-        <b-form-input
-          id="location"
-          v-model="profile.location"
-          class="mb-3"
-        />
-      </b-form-group>
-
-      <b-form-group
-        label-class="m-0 text-muted"
-        label="Website"
-        label-for="website"
-      >
-        <b-form-input
-          id="website"
-          v-model="profile.website"
-          class="mb-3"
-          @blur="autoformatWebsite"
-        />
-      </b-form-group>
-
-      <b-form-group
-        label-class="m-0 text-muted"
-        label="X"
-        label-for="x"
-      >
-        <b-form-input
-          id="x"
-          v-model="profile.twitter"
-          class="mb-3"
-        />
-      </b-form-group>
-
-
-      <b-form-group
-        label-class="m-0 text-muted"
-        label="Nintendo Friend Code"
-        label-for="friendCode"
-      >
-        <b-form-input
-          id="friendCode"
-          v-model="profile.friendCode"
-          placeholder="SW-8496-9128-4205"
-          class="mb-3"
-        />
-      </b-form-group>
-
-
-      <!-- Validate -->
-      <!-- Between 3 and 16 characters -->
-      <!-- Starts with a letter -->
-      <!-- No spaces -->
-      <!-- Only letters, digits, underscores & hyphens -->
-
-      <b-form-group
-        label-class="m-0 text-muted"
-        label="Playstation online ID"
-        label-for="psnId"
-      >
-        <b-form-input
-          id="psnId"
-          v-model="profile.psnId"
-          class="mb-3"
-        />
-      </b-form-group>
-
-      <b-form-group
-        label-class="m-0 text-muted"
-        label="Steam friend code"
-        label-for="steamFriendCode"
-      >
-        <b-form-input
-          id="steamFriendCode"
-          v-model="profile.steamFriendCode"
-          class="mb-3"
-        />
-      </b-form-group>
-
-      <b-form-group
-        label-class="m-0 text-muted"
-        label="Xbox Gamertag"
-        label-for="gamerTag"
-      >
-        <b-form-input
-          id="gamerTag"
-          v-model="profile.gamerTag"
-          class="mb-3"
-        />
-      </b-form-group>
-
-      Wallpaper
-      <b-img
-        v-if="wallpaperImage"
-        :src="wallpaperImage"
-        rounded
-        fluid
-        class="mb-3"
-      />
-
-      <b-button class="mb-3" v-b-toggle.boardWallpaper>
-        {{ wallpaperImage ? 'Change wallpaper' : 'Set wallpaper' }}
-      </b-button>
-
-      <b-sidebar
-        id="boardWallpaper"
-        scrollable
-        right
-        shadow
-        no-header
-        backdrop
-        body-class="p-3"
-        :bg-variant="darkTheme ? 'dark' : 'light'"
-        :text-variant="darkTheme ? 'light' : 'dark'"
-      >
       <template #default="{ hide }">
-        <div class="d-flex align-items-center justify-content-between mb-2 p-3">
+        <SidebarHeader @hide="hide">
+          Edit Profile
+        </SidebarHeader>
 
-          <b-button @click="hide">
-            <i class="fa-solid fa-xmark" />
+        <b-spinner v-if="loading" class="spinner-centered" />
+
+        <b-form
+          v-else-if="profile"
+          class="p-3"
+          @submit.prevent="save"
+        >
+          <b-spinner v-if="uploading" />
+
+          <div class="text-center d-flex flex-column p-3 mb-3" :style="style">
+            <b-avatar
+              :src="avatarImage"
+              class="mx-auto cursor-pointer mb-2"
+              size="120"
+              @click.native="triggerFileUpload"
+            />
+
+            <!-- <b-link>
+              Remove profile picture
+            </b-link> -->
+
+            <strong>@{{ profile.userName }}</strong>
+          </div>
+
+          <b-form-file
+            class="d-none file-input"
+            v-model="file"
+            accept="image/*"
+            @input="uploadProfileAvatar"
+          />
+
+          <b-form-group
+            label-class="m-0 text-muted"
+            label="Name"
+            label-for="name"
+          >
+            <b-form-input
+              id="name"
+              v-model="profile.name"
+              class="mb-3"
+            />
+          </b-form-group>
+
+          <b-form-group
+            label-class="m-0 text-muted"
+            label="About you"
+            label-for="bio"
+          >
+            <b-form-input
+              id="bio"
+              v-model="profile.bio"
+              class="mb-3"
+            />
+          </b-form-group>
+
+          <b-form-group
+            label-class="m-0 text-muted"
+            label="Location"
+            label-for="location"
+          >
+            <b-form-input
+              id="location"
+              v-model="profile.location"
+              class="mb-3"
+            />
+          </b-form-group>
+
+          <b-form-group
+            label-class="m-0 text-muted"
+            label="Website"
+            label-for="website"
+          >
+            <b-form-input
+              id="website"
+              v-model="profile.website"
+              class="mb-3"
+              @blur="autoformatWebsite"
+            />
+          </b-form-group>
+
+          <b-form-group
+            label-class="m-0 text-muted"
+            label="X"
+            label-for="x"
+          >
+            <b-form-input
+              id="x"
+              v-model="profile.twitter"
+              class="mb-3"
+            />
+          </b-form-group>
+
+
+          <b-form-group
+            label-class="m-0 text-muted"
+            label="Nintendo Friend Code"
+            label-for="friendCode"
+          >
+            <b-form-input
+              id="friendCode"
+              v-model="profile.friendCode"
+              placeholder="SW-8496-9128-4205"
+              class="mb-3"
+            />
+          </b-form-group>
+
+
+          <!-- Validate -->
+          <!-- Between 3 and 16 characters -->
+          <!-- Starts with a letter -->
+          <!-- No spaces -->
+          <!-- Only letters, digits, underscores & hyphens -->
+
+          <b-form-group
+            label-class="m-0 text-muted"
+            label="Playstation online ID"
+            label-for="psnId"
+          >
+            <b-form-input
+              id="psnId"
+              v-model="profile.psnId"
+              class="mb-3"
+            />
+          </b-form-group>
+
+          <b-form-group
+            label-class="m-0 text-muted"
+            label="Steam friend code"
+            label-for="steamFriendCode"
+          >
+            <b-form-input
+              id="steamFriendCode"
+              v-model="profile.steamFriendCode"
+              class="mb-3"
+            />
+          </b-form-group>
+
+          <b-form-group
+            label-class="m-0 text-muted"
+            label="Xbox Gamertag"
+            label-for="gamerTag"
+          >
+            <b-form-input
+              id="gamerTag"
+              v-model="profile.gamerTag"
+              class="mb-3"
+            />
+          </b-form-group>
+
+          Wallpaper
+          <b-img
+            v-if="wallpaperImage"
+            :src="wallpaperImage"
+            rounded
+            fluid
+            class="mb-3"
+          />
+
+          <b-button class="mb-3" v-b-toggle.boardWallpaper>
+            {{ wallpaperImage ? 'Change wallpaper' : 'Set wallpaper' }}
           </b-button>
 
-          <upload-wallpaper-button />
-        </div>
+          <b-sidebar
+            id="boardWallpaper"
+            v-bind="sidebarProps"
+            right
+          >
+          <template #default="{ hide }">
+            <SidebarHeader @hide="hide">
+              Set profile wallpaper
+            </SidebarHeader>
 
-        <WallpapersList
-          selectable
-          @select="selectWallpaper"
-        />
+            <div class="p-3">
+              <upload-wallpaper-button class="mb-3" />
+
+              <WallpapersList
+                selectable
+                @select="selectWallpaper"
+              />
+            </div>
+          </template>
+
+
+              <!-- :selected="board.backgroundUrl" -->
+          </b-sidebar>
+
+          <footer class="my-3">
+            <b-button
+              variant="primary"
+              type="submit"
+            >
+              <b-spinner small v-if="saving" />
+              <template v-else>Save</template>
+            </b-button>
+
+            <b-button
+              class="ml-2"
+              variant="danger"
+              :disabled="deleting"
+              @click="confirmDeleteProfile"
+            >
+              <b-spinner small v-if="deleting" />
+              <template v-else>Delete profile</template>
+            </b-button>
+          </footer>
+        </b-form>
       </template>
-
-
-          <!-- :selected="board.backgroundUrl" -->
-      </b-sidebar>
-
-      <footer class="my-3">
-        <b-button
-          variant="primary"
-          type="submit"
-        >
-          <b-spinner small v-if="saving" />
-          <template v-else>Save</template>
-        </b-button>
-
-        <b-button
-          class="ml-2"
-          variant="danger"
-          :disabled="deleting"
-          @click="confirmDeleteProfile"
-        >
-          <b-spinner small v-if="deleting" />
-          <template v-else>Delete profile</template>
-        </b-button>
-      </footer>
-    </b-form>
   </b-sidebar>
 </template>
 
@@ -235,11 +227,13 @@ import { getImageThumbnail } from '@/utils';
 import { mapState, mapGetters } from 'vuex';
 import WallpapersList from '@/components/WallpapersList';
 import UploadWallpaperButton from '@/components/UploadWallpaperButton';
+import SidebarHeader from '@/components/SidebarHeader';
 
 export default {
   components: {
     WallpapersList,
     UploadWallpaperButton,
+    SidebarHeader,
   },
 
   data() {
@@ -261,7 +255,13 @@ export default {
 
   computed: {
     ...mapState(['user', 'editProfileSidebarOpen']),
-    ...mapGetters(['darkTheme']),
+    ...mapGetters(['sidebarProps']),
+
+    style() {
+      return this.wallpaperImage
+        ? `background-image: url('${this.wallpaperImage}'); background-size: cover;`
+        : null;
+    },
   },
 
   methods: {

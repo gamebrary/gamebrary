@@ -1,48 +1,29 @@
 <template lang="html">
   <b-sidebar
-    scrollable
-    right
-    shadow
-    no-header
-    backdrop
-    body-class="p-3"
     id="edit-board-sidebar"
-    :bg-variant="darkTheme ? 'dark' : 'light'"
-    :text-variant="darkTheme ? 'light' : 'dark'"
+    v-bind="sidebarProps"
+    right
   >
     <template #default="{ hide }">
-      <div class="d-flex align-items-center justify-content-between mb-3">
-        <h3>Edit board</h3>
+      <SidebarHeader @hide="hide">
+        Edit board
+      </SidebarHeader>
 
-        <b-button @click="hide">
-          <i class="fa-solid fa-xmark" />
-        </b-button>
-      </div>
-
-      <form @submit.stop.prevent="saveBoard">
+      <form @submit.stop.prevent="saveBoard" class="p-3">
         <b-sidebar
-          scrollable
-          right
-          shadow
-          no-header
-          backdrop
           id="select-board-wallpaper"
-          body-class="p-3"
-          :bg-variant="darkTheme ? 'dark' : 'light'"
-          :text-variant="darkTheme ? 'light' : 'dark'"
+          v-bind="sidebarProps"
+          right
         >
           <template #default="{ hide }">
-            <div class="d-flex align-items-center justify-content-between mb-2">
-              <h3>Select board background</h3>
+            <SidebarHeader @hide="hide">
+              Select board background
+            </SidebarHeader>
 
-              <b-button @click="hide">
-                <i class="fa-solid fa-xmark" />
-              </b-button>
+            <div class="p-3">
+              <upload-wallpaper-button class="mb-3" />
+              <WallpapersList selectable :selected="board.backgroundUrl" @select="selectWallpaper" />
             </div>
-
-            <upload-wallpaper-button />
-
-            <WallpapersList selectable :selected="board.backgroundUrl" @select="selectWallpaper" />
           </template>
         </b-sidebar>
         <!-- <b-sidebar id="boardWallpaper" size="xl" scrollable hide-footer
@@ -64,7 +45,7 @@
 
         <b-button-group class="mb-3">
           <b-button v-for="{ text, value } in $options.BOARD_TYPES" :key="value"
-            :variant="value === board.type ? 'primary' : 'light'" @click="board.type = value">
+            :variant="value === board.type ? 'primary' : 'white'" @click="board.type = value">
             {{ text }}
           </b-button>
         </b-button-group>
@@ -111,7 +92,12 @@
             type="color"
           />
 
-          <b-button v-if="board.backgroundColor" @click="board.backgroundColor = null" variant="white" class="ml-2">
+          <b-button
+            v-if="board.backgroundColor"
+            variant="white"
+            class="ml-2"
+            @click="board.backgroundColor = null"
+          >
             <i class="fas fa-close" aria-hidden />
           </b-button>
 
@@ -141,7 +127,7 @@
 
         <b-button
           variant="outline-danger"
-          class="float-right border-0"
+          class="float-right"
           @click="confirmDeleteBoard"
         >
           {{ $t('board.settings.deleteBoard') }}
@@ -156,6 +142,7 @@ import { mapState, mapGetters } from 'vuex';
 import { BOARD_TYPES, BOARD_TYPE_STANDARD, BOARD_TYPE_KANBAN, LIST_SORT_OPTIONS } from '@/constants';
 import WallpapersList from '@/components/WallpapersList';
 import UploadWallpaperButton from '@/components/UploadWallpaperButton';
+import SidebarHeader from '@/components/SidebarHeader';
 import MiniBoard from '@/components/Board/MiniBoard';
 
 export default {
@@ -167,6 +154,7 @@ export default {
     WallpapersList,
     UploadWallpaperButton,
     MiniBoard,
+    SidebarHeader,
   },
 
   data() {
@@ -180,7 +168,7 @@ export default {
 
   computed: {
     ...mapState(['user']),
-    ...mapGetters(['darkTheme']),
+    ...mapGetters(['darkTheme', 'sidebarProps']),
 
     boardId() {
       return this.$route?.params?.id;

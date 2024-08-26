@@ -1,32 +1,19 @@
 <template lang="html">
   <b-sidebar
     id="create-board-sidebar"
-    scrollable
+    v-bind="sidebarProps"
     right
-    shadow
-    no-header
-    backdrop
-    body-class="p-3"
-    :bg-variant="darkTheme ? 'dark' : 'light'"
-    :text-variant="darkTheme ? 'light' : 'dark'"
-    >
-    <!-- TODO: hook up shown and close, reset stuff as needed -->
-    <!-- @shown="load"
-    @hidden="closeSidebar" -->
+    @hidden="saving = false"
+  >
     <template #default="{ hide }">
-      <div class="d-flex align-items-center justify-content-between mb-2">
-        <h2>
-          Create board
-        </h2>
+      <SidebarHeader @hide="hide">
+        Create board
+      </SidebarHeader>
 
-        <b-button
-          @click="hide"
-        >
-          <i class="fa-solid fa-xmark" />
-        </b-button>
-      </div>
-
-      <b-form @submit.prevent="createBoard">
+      <b-form
+        class="p-3"
+        @submit.prevent="createBoard"
+      >
         <b-form-group label="Board name:" label-for="boardName">
           <b-form-input
             id="boardName"
@@ -92,6 +79,7 @@ import {
   DEFAULT_BOARD_TIER,
 } from '@/constants';
 import MiniBoard from '@/components/Board/MiniBoard';
+import SidebarHeader from '@/components/SidebarHeader';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
@@ -102,6 +90,7 @@ export default {
 
   components: {
     MiniBoard,
+    SidebarHeader,
   },
 
   data() {
@@ -121,7 +110,7 @@ export default {
 
   computed: {
 		...mapState(['user']),
-		...mapGetters(['darkTheme']),
+		...mapGetters(['sidebarProps']),
 
     sampleBoard() {
       if (this.board.type === BOARD_TYPE_KANBAN) return DEFAULT_BOARD_KANBAN;

@@ -1,40 +1,37 @@
 <template>
   <b-sidebar
     id="edit-list-modal"
-    scrollable
+    v-bind="sidebarProps"
     right
-    shadow
     :visible="activeBoardListIndex !== null"
-    no-header
-    backdrop
-    body-class="p-3"
-    :bg-variant="darkTheme ? 'dark' : 'light'"
-    :text-variant="darkTheme ? 'light' : 'dark'"
     @shown="openEditListSidebar"
     @hidden="closeSidebar"
   >
     <template #default="{ hide }">
-      <div class="d-flex align-items-center justify-content-between mb-2">
-        <h3>Edit list</h3>
-        
-        <b-button
-          @click="hide"
-          class="m-3"
-        >
-          <i class="fa-solid fa-xmark" />
-        </b-button>
-      </div>
+      <SidebarHeader @hide="hide">
+        Edit list
+      </SidebarHeader>
 
-      <form @submit.prevent="saveList">
+      <form
+        class="p-3"
+        @submit.prevent="saveList"
+      >
         <div
           v-if="board.type === 'tier'"
-          class="mt-3 d-flex justify-content-between align-items-start"
+          class="d-flex justify-content-between align-items-start"
         >
           <v-swatches
             v-model="list.backgroundColor"
+            v-b-tooltip.hover
+            title="Tag text color"
+            :trigger-style="{ height: '40px', width: '40px', border: '1px solid #ced4da' }"
             show-fallback
-            :trigger-style="{ height: '40px', width: '40px' }"
-            popover-x="left"
+            show-checkbox
+            fallback-input-class="color-input float-left"
+            fallback-input-type="color"
+            :fallback-ok-class="`${darkTheme ? 'bg-secondary text-light' : 'bg-light text-dark'} p-2 float-right`"
+            fallback-ok-text="Select"
+            popover-x="right"
           />
 
           <b-form-input
@@ -159,7 +156,7 @@
           </section>
         </template>
 
-        <footer class="mt-5">
+        <footer class="mt-3">
           <b-button
             variant="primary"
             :disabled="saving"
@@ -170,8 +167,7 @@
           </b-button>
 
           <b-button
-            variant="outline-danger"
-            class="mx-2"
+            variant="outline-danger float-right"
             @click="confirmDeleteList"
           >
             Delete
@@ -186,12 +182,14 @@
 import { mapState, mapGetters } from 'vuex';
 import { LIST_SORT_OPTIONS } from '@/constants';
 import VSwatches from 'vue-swatches'
+import SidebarHeader from '@/components/SidebarHeader';
 
 export default {
   LIST_SORT_OPTIONS,
 
   components: {
     VSwatches,
+    SidebarHeader,
   },
 
   data() {
@@ -203,7 +201,7 @@ export default {
 
   computed: {
     ...mapState(['board', 'activeBoardListIndex']),
-    ...mapGetters(['darkTheme']),
+    ...mapGetters(['darkTheme', 'sidebarProps']),
   },
 
   methods: {

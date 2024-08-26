@@ -1,116 +1,116 @@
 <template lang="html">
   <b-sidebar
     id="wallpaper-details-sidebar"
-    scrollable
+    v-bind="sidebarProps"
     right
-    shadow
     :visible="visible"
-    no-header
-    backdrop
-    body-class="px-3 pb-3"
-    :bg-variant="darkTheme ? 'dark' : 'light'"
-    :text-variant="darkTheme ? 'light' : 'dark'"
     @hidden="closeSidebar"
   >
-    <div
-      class="pt-3"
-      :class="darkTheme ? 'bg-dark' : 'bg-light'"
-    >
-      <a :href="wallpaperUrl" target="_blank">
-        <b-img
-          v-if="wallpaperUrl"
-          :src="wallpaperUrl"
-          class="mw-100 rounded mb-2"
-        />
-      </a>      
+    <template #default="{ hide }">
+      <SidebarHeader @hide="hide">
+        Filter search results
+      </SidebarHeader>
 
-      <div class="d-flex align-items-center justify-content-between pb-2">
+      <div
+        class="p-3"
+      >
         <a :href="wallpaperUrl" target="_blank">
-          {{ activeWallpaper.name }}
-        </a>      
-
-        <div>
-          <!-- <i class="fa-solid fa-file-png fa-fw" /> -->
-          <!-- {{ activeWallpaper.size }} -->
-          <!-- {{ activeWallpaper.timeCreated }} -->
-        </div>
+          <b-img
+            v-if="wallpaperUrl"
+            :src="wallpaperUrl"
+            class="mw-100 rounded mb-2"
+          />
+        </a>
 
         <div class="d-flex align-items-center justify-content-between pb-2">
-          <b-button
-            v-b-modal.deleteConfirm
-            variant="danger"
-            class="ml-2"
-            v-b-tooltip.hover="{ title: 'Delete wallpaper', placement: 'bottom', boundary: 'viewports' }"
-          >
-            <i class="fa fa-trash" aria-hidden="true" />
-          </b-button>
+          <a :href="wallpaperUrl" target="_blank">
+            {{ activeWallpaper.name }}
+          </a>
+
+          <div>
+            <!-- <i class="fa-solid fa-file-png fa-fw" /> -->
+            <!-- {{ activeWallpaper.size }} -->
+            <!-- {{ activeWallpaper.timeCreated }} -->
+          </div>
+
+          <div class="d-flex align-items-center justify-content-between pb-2">
+            <b-button
+              v-b-modal.deleteConfirm
+              variant="danger"
+              class="ml-2"
+              v-b-tooltip.hover="{ title: 'Delete wallpaper', placement: 'bottom', boundary: 'viewports' }"
+            >
+              <i class="fa fa-trash" aria-hidden="true" />
+            </b-button>
+          </div>
         </div>
-      </div>
 
-      <b-button
-        v-b-toggle.boards-list
-        title=""
-        :variant="darkTheme ? 'outline-light' : 'outline-dark'"
-        v-b-tooltip.hover.bottom
-      >
-        Set as wallpaper
-      </b-button>
-    </div>
-  
-    <b-collapse id="boards-list">
-      <div
-        style="position: sticky; top: 0; z-index: 3;"
-        :class="darkTheme ? 'bg-dark' : 'bg-light'"
-        class="pt-3 pb-1"
-      >
-        <b-alert
-          show
-          variant="success"
+        <b-button
+          v-b-toggle.boards-list
+          title=""
+          variant="primary"
+          v-b-tooltip.hover.bottom
         >
-          Select a board to apply wallpaper
-        </b-alert>
+          Set as wallpaper
+        </b-button>
       </div>
 
-      <MiniBoard
-        v-for="board in formattedBoards"
-        :key="board.id"
-        :board="board"
-        @click.native="setAsBoardWallpaper(board)"
-      />
-    </b-collapse>
+      <b-collapse id="boards-list">
+        <div
+          style="position: sticky; top: 0; z-index: 3;"
+          :class="darkTheme ? 'bg-dark' : 'bg-light'"
+          class="pt-3 pb-1"
+        >
+          <b-alert
+            show
+            variant="success"
+          >
+            Select a board to apply wallpaper
+          </b-alert>
+        </div>
 
-    <b-modal
-      id="deleteConfirm"
-      :header-bg-variant="darkTheme ? 'dark' : 'transparent'"
-      :header-text-variant="darkTheme ? 'white' : 'dark'"
-      :body-bg-variant="darkTheme ? 'dark' : 'transparent'"
-      :body-text-variant="darkTheme ? 'white' : 'dark'"
-      hide-footer
-    >
-      <template v-slot:modal-header="{ close }">
-        <modal-header
-          title="Are you sure?"
-          @close="close"
+        <MiniBoard
+          v-for="board in formattedBoards"
+          :key="board.id"
+          :board="board"
+          @click.native="setAsBoardWallpaper(board)"
         />
-      </template>
+      </b-collapse>
 
-      <p>Wallpaper will be permanently removed</p>
+      <b-modal
+        id="deleteConfirm"
+        :header-bg-variant="darkTheme ? 'dark' : 'transparent'"
+        :header-text-variant="darkTheme ? 'white' : 'dark'"
+        :body-bg-variant="darkTheme ? 'dark' : 'transparent'"
+        :body-text-variant="darkTheme ? 'white' : 'dark'"
+        hide-footer
+      >
+        <template v-slot:modal-header="{ close }">
+          <modal-header
+            title="Are you sure?"
+            @close="close"
+          />
+        </template>
 
-      <b-alert v-if="boardsWithWallpaper.length" show variant="warning">
-        This wallpaper is being used by {{ boardsWithWallpaper.length }} boards.
-      </b-alert>
+        <p>Wallpaper will be permanently removed</p>
 
-      <b-button @click="deleteFile(activeWallpaper)" variant="danger">
-        <b-spinner v-if="deleting" small />
-        <template v-else>Delete</template>
-      </b-button>
-    </b-modal>
+        <b-alert v-if="boardsWithWallpaper.length" show variant="warning">
+          This wallpaper is being used by {{ boardsWithWallpaper.length }} boards.
+        </b-alert>
+
+        <b-button @click="deleteFile(activeWallpaper)" variant="danger">
+          <b-spinner v-if="deleting" small />
+          <template v-else>Delete</template>
+        </b-button>
+      </b-modal>
+    </template>
   </b-sidebar>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
 import MiniBoard from '@/components/Board/MiniBoard';
+import SidebarHeader from '@/components/SidebarHeader';
 
 export default {
   data() {
@@ -122,11 +122,12 @@ export default {
 
   components: {
     MiniBoard,
+    SidebarHeader,
   },
 
   computed: {
     ...mapState(['boards', 'wallpapers', 'activeWallpaper']),
-    ...mapGetters(['darkTheme']),
+    ...mapGetters(['darkTheme', 'sidebarProps']),
 
     formattedBoards() {
       return this.boards.map((board) => ({ ...board, backgroundUrl: this.getWallpaperUrl(board.backgroundUrl) }));

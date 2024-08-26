@@ -28,6 +28,17 @@ export default {
     return game?.websites?.map(({ url, category }) => ({ url, ...LINKS_CATEGORIES[category] })) || [];
   },
 
+  sidebarProps(state) {
+    return {
+      scrollable: true,
+      shadow: true,
+      backdrop: true,
+      'no-header': true,
+      'bg-variant': state.settings?.darkTheme ? 'dark' : 'light',
+      'text-variant': state.settings?.darkTheme ? 'light' : 'dark',
+    }
+  },
+
   // Arabic is the only ltr language supported at the moment
   isRTL: ({ settings }) => settings?.language !== 'ar',
 

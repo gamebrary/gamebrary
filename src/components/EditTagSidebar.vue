@@ -1,97 +1,77 @@
 <template lang="html">
   <b-sidebar
-    scrollable
-    right
-    shadow
     :visible="activeTagIndex !== null"
-    no-header
-    backdrop
-    body-class="p-3"
-    :bg-variant="darkTheme ? 'dark' : 'light'"
-    :text-variant="darkTheme ? 'light' : 'dark'"
+    v-bind="sidebarProps"
+    right
     @shown="load"
     @hidden="closeSidebar"
   >
     <template #default="{ hide }">
-      <div class="d-flex align-items-center justify-content-between mb-2">
-        <h2>
+      <SidebarHeader @hide="hide">
+        Edit tag
+      </SidebarHeader>
+
+      <form @submit.prevent="saveTag" class="p-3">
+        <div class="d-flex">
+          <b-form-input
+            id="tagName"
+            v-model.trim="tag.name"
+            class="mr-2"
+            maxlength="20"
+            :placeholder="$t('tags.form.inputPlaceholder')"
+            required
+            trim
+          />
+
+          <v-swatches
+            v-model="tag.bgColor"
+            v-b-tooltip.hover
+            class="mr-2"
+            title="Tag background color"
+            :trigger-style="{ height: '40px', width: '40px', border: '1px solid #ced4da' }"
+            show-fallback
+            show-checkbox
+            fallback-input-class="color-input float-left"
+            fallback-input-type="color"
+            :fallback-ok-class="`${darkTheme ? 'bg-secondary text-light' : 'bg-light text-dark'} p-2 float-right`"
+            fallback-ok-text="Select"
+            popover-x="left"
+          />
+
+          <v-swatches
+            v-model="tag.textColor"
+            v-b-tooltip.hover
+            title="Tag text color"
+            :trigger-style="{ height: '40px', width: '40px', border: '1px solid #ced4da' }"
+            show-fallback
+            show-checkbox
+            fallback-input-class="color-input float-left"
+            fallback-input-type="color"
+            :fallback-ok-class="`${darkTheme ? 'bg-secondary text-light' : 'bg-light text-dark'} p-2 float-right`"
+            fallback-ok-text="Select"
+            popover-x="left"
+          />
+        </div>
+
+        <div class="my-3">
           <b-button
-            v-if="tag.name"
-            rounded
-            class="float-right"
-            variant="transparent"
-            :style="`background-color: ${tag.bgColor}; color: ${tag.textColor}`"
+            :variant="darkTheme ? 'secondary' : 'primary'"
+            :disabled="saving"
+            type="submit"
           >
-            {{ tag.name }}
+            <b-spinner small v-if="saving" />
+            <span v-else>Save</span>
           </b-button>
-        </h2>
 
-        <b-button
-          @click="hide"
-        >
-          <i class="fa-solid fa-xmark" />
-        </b-button>
-      </div>
+          <b-button
+            variant="danger"
+            class="ml-2"
+            @click="promptDeleteTag"
+          >
+            <i class="fas fa-trash-alt fa-fw" aria-hidden />
+          </b-button>
+        </div>
 
-      <form
-        @submit.prevent="saveTag"
-      >
-        <b-form-input
-          id="tagName"
-          v-model.trim="tag.name"
-          class="mb-2 mr-2"
-          maxlength="20"
-          :placeholder="$t('tags.form.inputPlaceholder')"
-          required
-          trim
-        />
-
-        <v-swatches
-          v-model="tag.bgColor"
-          v-b-tooltip.hover
-          class="mr-2"
-          title="Tag background color"
-          :trigger-style="{ height: '40px', width: '40px', border: '1px solid #ced4da' }"
-          show-fallback
-          show-checkbox
-          fallback-input-class="color-input float-left"
-          fallback-input-type="color"
-          :fallback-ok-class="`${darkTheme ? 'bg-secondary text-light' : 'bg-light text-dark'} p-2 float-right`"
-          fallback-ok-text="Select"
-          popover-x="left"
-        />
-
-        <v-swatches
-          v-model="tag.textColor"
-          v-b-tooltip.hover
-          class="mr-2"
-          title="Tag text color"
-          :trigger-style="{ height: '40px', width: '40px', border: '1px solid #ced4da' }"
-          show-fallback
-          show-checkbox
-          fallback-input-class="color-input float-left"
-          fallback-input-type="color"
-          :fallback-ok-class="`${darkTheme ? 'bg-secondary text-light' : 'bg-light text-dark'} p-2 float-right`"
-          fallback-ok-text="Select"
-          popover-x="left"
-        />
-
-        <b-button
-          :variant="darkTheme ? 'secondary' : 'light'"
-          :disabled="saving"
-          type="submit"
-        >
-          <b-spinner small v-if="saving" />
-          <span v-else>Save</span>
-        </b-button>
-
-        <b-button
-          variant="danger"
-          class="ml-2"
-          @click="promptDeleteTag"
-        >
-          <i class="fas fa-trash-alt fa-fw" aria-hidden />
-        </b-button>
 
         <b-card bg-variant="transparent" body-class="pb-3" class="mt-3">
         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -126,6 +106,7 @@
 <script>
 import VSwatches from 'vue-swatches'
 import GameCard from '@/components/GameCard';
+import SidebarHeader from '@/components/SidebarHeader';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
@@ -140,11 +121,12 @@ export default {
   components: {
     VSwatches,
     GameCard,
+    SidebarHeader,
   },
 
   computed: {
     ...mapState(['tags', 'cachedGames', 'activeTagIndex']),
-    ...mapGetters(['darkTheme']),
+    ...mapGetters(['darkTheme', 'sidebarProps']),
 
     isEmpty() {
       return this.tag?.games?.length === 0;

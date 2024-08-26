@@ -1,3 +1,4 @@
+<!-- TODO: move to sidebar -->
 <template lang="html">
   <div class="pt-3">
     <portal to="pageTitle">
@@ -35,7 +36,7 @@
 
     <div class="p-1 mb-1">
       <span :class="darkTheme ? 'text-light' : null">Preferred age rating</span>
-      
+
       <b-form-select
         :value="ageRating"
         :options="ageRatingOptions"
@@ -45,7 +46,7 @@
 
     <div class="p-1 mb-1">
       <span :class="darkTheme ? 'text-light' : null">Menu position</span>
-      
+
       <b-form-select
         :value="navPosition"
         :options="navPositionOptions"
@@ -110,7 +111,7 @@ export default {
     ...mapGetters(['darkTheme', 'showGameThumbnails', 'transparencyEnabled', 'ageRating', 'navPosition']),
 
     ageRatingOptions() {
-      return AGE_RATINGS.map((rating) => ({ 
+      return AGE_RATINGS.map((rating) => ({
           value: rating.id,
           text: rating.name,
         }));

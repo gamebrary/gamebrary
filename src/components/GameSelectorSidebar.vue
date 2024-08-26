@@ -1,28 +1,19 @@
 <template lang="html">
   <b-sidebar
-    scrollable
-    right
-    shadow
-    no-header
-    backdrop
-    body-class="p-3"
     :visible="visible"
-    :bg-variant="darkTheme ? 'dark' : 'light'"
-    :text-variant="darkTheme ? 'light' : 'dark'" 
+    v-bind="sidebarProps"
+    right
     @hidden="closeSidebar"
   >
     <template #default="{ hide }">
-      <div class="d-flex align-items-center justify-content-between mb-2">
-        <h3>{{ title }}</h3>
-        
-        <b-button @click="hide">
-          <i class="fa-solid fa-xmark" />
-        </b-button>
-      </div>
+      <SidebarHeader @hide="hide">
+        {{ title }}
+      </SidebarHeader>
 
       <div
-        class="py-2"
-        style="position: sticky; top: -16px; z-index: 1"
+        class="p-3"
+        :class="darkTheme ? 'bg-dark' : 'bg-dark'"
+        style="position: sticky; top: 0px; z-index: 1"
       >
         <b-form-input
           v-model="searchText"
@@ -67,6 +58,7 @@
 <script>
 import { mapGetters, mapState } from 'vuex';
 import GameCard from '@/components/GameCard';
+import SidebarHeader from '@/components/SidebarHeader';
 import { IGDB_QUERIES } from '@/constants';
 
 export default {
@@ -82,11 +74,12 @@ export default {
 
   components: {
     GameCard,
+    SidebarHeader,
   },
 
   computed: {
     ...mapState(['board', 'gameSelectorData']),
-    ...mapGetters(['isBoardOwner', 'darkTheme']),
+    ...mapGetters(['isBoardOwner', 'sidebarProps', 'darkTheme']),
 
     title() {
       return this.gameSelectorData?.title || 'Select a game';

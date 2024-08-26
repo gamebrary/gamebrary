@@ -1,29 +1,18 @@
 <template lang="html">
   <b-sidebar
     id="mainMenu"
-    shadow
-    no-header
-    backdrop
     :visible="menuOpen"
-    :bg-variant="darkTheme ? 'dark' : 'light'"
-    :text-variant="darkTheme ? 'light' : 'dark'" 
+    v-bind="sidebarProps"
     @hidden="hideSidebar"
   >
     <template #default="{ hide }">
-      <div class="d-flex align-items-center justify-content-between p-3">
+      <SidebarHeader @hide="hide">
         <img
           src="/logo.png"
           alt="Gamebrary"
           height="38"
         />
-        
-        <b-button
-          @click="hide"
-          :variant="darkTheme ? 'black' : 'white'"
-        >
-          <i class="fa-solid fa-xmark" />
-        </b-button>
-      </div>
+      </SidebarHeader>
 
       <ProfileDockMenu />
 
@@ -66,7 +55,7 @@
 
           <span class="ml-2">Notes</span>
         </b-button>
-        
+
         <b-button
           :variant="routeName === 'wallpapers' ? 'primary' : darkTheme ? 'dark' : 'light'"
           :to="{ name: 'wallpapers' }"
@@ -96,6 +85,7 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import ProfileDockMenu from '@/components/Dock/ProfileDockMenu';
+import SidebarHeader from '@/components/SidebarHeader';
 import DockFooter from '@/components/Dock/DockFooter';
 import SearchBox from '@/components/SearchBox';
 
@@ -103,12 +93,13 @@ export default {
   components: {
     SearchBox,
     ProfileDockMenu,
+    SidebarHeader,
     DockFooter,
   },
 
   computed: {
     ...mapState(['user', 'board', 'boards', 'settings', 'user', 'games', 'notes', 'tags', 'wallpapers', 'menuOpen']),
-    ...mapGetters(['navPosition', 'latestRelease', 'darkTheme', 'transparencyEnabled']),
+    ...mapGetters(['navPosition', 'latestRelease', 'darkTheme', 'transparencyEnabled', 'sidebarProps']),
 
     routeName() {
       return this.$route?.name;

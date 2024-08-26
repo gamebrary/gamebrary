@@ -1,54 +1,59 @@
 <template lang="html">
   <b-sidebar
     id="create-tag-sidebar"
-    scrollable
+    v-bind="sidebarProps"
     right
-    shadow
-    no-header
-    backdrop
-    body-class="p-3"
-    :bg-variant="darkTheme ? 'dark' : 'light'"
-    :text-variant="darkTheme ? 'light' : 'dark'"
+    @hidden="saving = false"
   >
-    <!-- TODO: hook up shown and close, reset stuff as needed -->
-    <!-- @shown="load"
-    @hidden="closeSidebar" -->
     <template #default="{ hide }">
-      <div class="d-flex align-items-center justify-content-between mb-2">
-        <h2>
-          Create tag
-        </h2>
+      <SidebarHeader @hide="hide">
+        Create tag
+      </SidebarHeader>
 
-        <b-button
-          @click="hide"
-        >
-          <i class="fa-solid fa-xmark" />
-        </b-button>
-      </div>
+      <form @submit.prevent="submit" class="p-3">
+        <div class="d-flex">
+          <b-form-input
+            id="tagName"
+            v-model.trim="tag.name"
+            class="mr-2"
+            maxlength="20"
+            :placeholder="$t('tags.form.inputPlaceholder')"
+            required
+            trim
+          />
 
-      <form @submit.prevent="submit">
-        <b-form-input
-          v-model.trim="tag.name"
-          class="mb-3"
-          maxlength="20"
-          :placeholder="$t('tags.form.inputPlaceholder')"
-          required
-          trim
-        />
+          <v-swatches
+            v-model="tag.bgColor"
+            v-b-tooltip.hover
+            class="mr-2"
+            title="Tag background color"
+            :trigger-style="{ height: '40px', width: '40px', border: '1px solid #ced4da' }"
+            show-fallback
+            show-checkbox
+            fallback-input-class="color-input float-left"
+            fallback-input-type="color"
+            :fallback-ok-class="`${darkTheme ? 'bg-secondary text-light' : 'bg-light text-dark'} p-2 float-right`"
+            fallback-ok-text="Select"
+            popover-x="left"
+          />
 
-        <div class="tag-colors">
-          <div>
-            <p>Background color</p>
-            <v-swatches v-model="tag.bgColor" show-fallback />
-          </div>
-
-          <div>
-            <p>Text color</p>
-            <v-swatches v-model="tag.textColor" show-fallback />
-          </div>
+          <v-swatches
+            v-model="tag.textColor"
+            v-b-tooltip.hover
+            title="Tag text color"
+            :trigger-style="{ height: '40px', width: '40px', border: '1px solid #ced4da' }"
+            show-fallback
+            show-checkbox
+            fallback-input-class="color-input float-left"
+            fallback-input-type="color"
+            :fallback-ok-class="`${darkTheme ? 'bg-secondary text-light' : 'bg-light text-dark'} p-2 float-right`"
+            fallback-ok-text="Select"
+            popover-x="left"
+          />
         </div>
 
         <b-button
+          class="mt-3"
           variant="primary"
           :disabled="saving"
           type="submit"
@@ -64,6 +69,7 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import VSwatches from 'vue-swatches'
+import SidebarHeader from '@/components/SidebarHeader';
 
 export default {
   data() {
@@ -80,11 +86,12 @@ export default {
 
   components: {
     VSwatches,
+    SidebarHeader,
   },
 
   computed: {
     ...mapState(['tags']),
-    ...mapGetters(['darkTheme']),
+    ...mapGetters(['sidebarProps', 'darkTheme']),
   },
 
   methods: {

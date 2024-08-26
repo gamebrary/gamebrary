@@ -1,24 +1,13 @@
 <template lang="html">
   <b-sidebar
     id="keyboard-shortcuts-sidebar"
-    shadow
-    no-header
-    backdrop
+    v-bind="sidebarProps"
     z-index="2001"
-    :bg-variant="darkTheme ? 'dark' : 'light'"
-    :text-variant="darkTheme ? 'light' : 'dark'" 
   >
-  <template #default="{ hide }">
-    <div class="d-flex align-items-center justify-content-between p-3">
-      <h3>Keyboard Shortcuts</h3>
-        
-        <b-button
-          :variant="darkTheme ? 'black' : 'white'"
-          @click="hide"
-        >
-          <i class="fa-solid fa-xmark" />
-        </b-button>
-      </div>
+    <template #default="{ hide }">
+      <SidebarHeader @hide="hide">
+        Keyboard Shortcuts
+      </SidebarHeader>
 
       <b-list-group class="mx-3">
         <b-list-group-item
@@ -55,8 +44,13 @@
 <script>
 import { KEYBOARD_SHORTCUTS } from '@/constants';
 import { mapState, mapGetters } from 'vuex';
+import SidebarHeader from '@/components/SidebarHeader';
 
 export default {
+  components: {
+    SidebarHeader,
+  },
+
   data() {
     return {
       KEYBOARD_SHORTCUTS,
@@ -65,7 +59,7 @@ export default {
 
   computed: {
     ...mapState(['user']),
-    ...mapGetters(['darkTheme']),
+    ...mapGetters(['darkTheme', 'sidebarProps']),
   },
 
   mounted() {

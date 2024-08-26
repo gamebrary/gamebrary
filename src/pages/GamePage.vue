@@ -129,7 +129,7 @@
               {{ name }}
             </b-button>
 
-            <game-tags-modal />
+            <GameTagsSidebar />
           </div>
 
           <div :class="['game-description pb-4', source]">
@@ -140,7 +140,7 @@
 
               <p class="small">
                 <template>
-                    Developed by 
+                    Developed by
                     <b-link
                       v-for="developer in gameDevelopers"
                       :key="developer.id"
@@ -415,7 +415,7 @@ import GameCover from '@/components/Game/GameCover';
 import GamePageTile from '@/components/Game/GamePageTile';
 import GameInBoards from '@/components/Game/GameInBoards';
 import GameProgress from '@/components/Game/GameProgress';
-import GameTagsModal from '@/components/Game/GameTagsModal';
+import GameTagsSidebar from '@/components/Game/GameTagsSidebar';
 import GameHeader from '@/components/Game/GameHeader';
 import AddRemoveGame from '@/components/AddRemoveGame';
 import SimilarGames from '@/components/Game/SimilarGames';
@@ -428,7 +428,7 @@ export default {
   getImageUrl,
 
   components: {
-    GameTagsModal,
+    GameTagsSidebar,
     GameHeader,
     GameProgress,
     AmazonLinks,
@@ -471,9 +471,9 @@ export default {
 
     // gameRequirements() {
     //   const steamGame = this.game?.steam;
-    
+
     //   if (!steamGame) return null;
-    
+
     //   return {
     //     mac: steamGame?.mac_requirements || null,
     //     linux: steamGame?.linux_requirements || null,

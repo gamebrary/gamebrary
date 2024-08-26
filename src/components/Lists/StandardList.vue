@@ -1,3 +1,4 @@
+<!-- TODO: add empty state -->
 <template lang="html">
   <div class="standard-list">
     <draggable
@@ -192,7 +193,6 @@ export default {
   },
 };
 </script>
-
 
 <style lang="scss" rel="stylesheet/scss">
 .game-cover {
