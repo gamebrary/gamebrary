@@ -113,7 +113,7 @@ export default {
     }) || [];
 
     const igdbScreenshots = state.game?.screenshots?.map((screenshot) => ({
-      imageUrl: getImageUrl(screenshot, IMAGE_SIZE_720P),
+      imageUrl: getImageUrl(screenshot, thumb ? IMAGE_SIZE_THUMB : IMAGE_SIZE_720P),
       source: 'igdb',
     })) || [];
     const steamScreenshots = state.game?.steam?.screenshots.map(({ path_full }) => ({ imageUrl: path_full, source: 'steam' })) || [];
