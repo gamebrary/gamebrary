@@ -85,7 +85,7 @@ export default {
         imageUrl: video.thumbnail,
         videoUrl: hiQuality || lowQuality,
         isVideo: true,
-        source: 'steam',
+        source: 'Steam',
       }
     }) || [];
 
@@ -99,7 +99,7 @@ export default {
           imageUrl: `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`,
           videoUrl: `https://www.youtube.com/embed/${youtubeId}?rel=0&autoplay=1`,
           isVideo: true,
-          source: 'youtube',
+          source: 'YouTube',
         }
       }) || [];
 
@@ -108,24 +108,24 @@ export default {
         imageUrl: `https://img.youtube.com/vi/${video.video_id}/hqdefault.jpg`,
         videoUrl: `https://www.youtube.com/embed/${video.video_id}?rel=0&autoplay=1`,
         isVideo: true,
-        source: 'youtube',
+        source: 'YouTube',
       }
     }) || [];
 
     const igdbScreenshots = state.game?.screenshots?.map((screenshot) => ({
       imageUrl: getImageUrl(screenshot, thumb ? IMAGE_SIZE_THUMB : IMAGE_SIZE_720P),
-      source: 'igdb',
+      source: 'IGDB',
     })) || [];
-    const steamScreenshots = state.game?.steam?.screenshots.map(({ path_full }) => ({ imageUrl: path_full, source: 'steam' })) || [];
+    const steamScreenshots = state.game?.steam?.screenshots.map(({ path_full }) => ({ imageUrl: path_full, source: 'Steam' })) || [];
 
     const gameCover = {
       imageUrl: getImageUrl(state.game, thumb ? IMAGE_SIZE_THUMB : IMAGE_SIZE_COVER_BIG),
-      source: 'igdb',
+      source: 'IGDB',
       isCover: true,
     };
 
     const wikipediaImages = state.game?.wikipedia?.lead?.image?.urls
-      ? [{ imageUrl: Object.values(state.game?.wikipedia?.lead?.image?.urls)?.[0], source: 'wikipedia' }]
+      ? [{ imageUrl: Object.values(state.game?.wikipedia?.lead?.image?.urls)?.[0], source: 'Wikipedia' }]
       : [];
 
     const gogImages = state.game?.gog?.gallery.map((image) => {
@@ -133,11 +133,11 @@ export default {
 
       return {
         imageUrl: imageId ? `https://images.gog-statics.com/${imageId}.jpg` : null,
-        source: 'gog',
+        source: 'GoG',
       };
     }) || [];
 
-    const igdbArtworks = state?.game?.artworks?.map((artwork) => ({ imageUrl: getImageUrl(artwork, IMAGE_SIZE_720P), source: 'igdb', })) || [];
+    const igdbArtworks = state?.game?.artworks?.map((artwork) => ({ imageUrl: getImageUrl(artwork, IMAGE_SIZE_720P), source: 'IGDB', })) || [];
 
     // console.log('speedRunVideos', speedRunVideos);
 

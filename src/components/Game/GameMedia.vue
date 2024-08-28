@@ -1,29 +1,19 @@
 <template lang="html">
   <section>
-    <masonry
-      gutter="1rem"
-      :cols="{ default: 5, 1400: 5, 1200: 5, 768: 5, 480: 3 }"
-    >
-      <b-img
-        v-for="({ imageUrl }, index) in slicedGameMedia"
+    <div class="thumbnails">
+      <div
+        v-for="({ imageUrl }, index) in thumbnailPreviews"
         :key="index"
-        :src="imageUrl"
-        rounded
-        fluid
-        class="mb-3"
-        @click="viewMedia(index)"
-      />
-    </masonry>
-
-    <b-button
-      v-if="gameMedia.length > 5"
-      variant="light"
-      size="sm"
-      block
-      @click="viewMedia(6)"
-    >
-      More images
-    </b-button>
+      >
+        <b-img
+          :src="imageUrl"
+          rounded
+          fluid
+          class="cursor-pointer"
+          @click="viewMedia(index + 1)"
+        />
+      </div>
+    </div>
 
     <b-modal
       id="mediaModal"
@@ -45,21 +35,30 @@
       </template>
 
       <div class="game-media" :class="{ 'selected': activeIndex !== null }">
-        <div class="overflow-auto thumbnails">
-          <b-img
-            v-for="({ imageUrl }, index) in gameMedia"
+        <div class="modal-thumbnails">
+          <div
+            v-for="({ imageUrl, isVideo }, index) in gameMedia"
+            class="position-relative"
             :key="index"
-            :src="imageUrl"
-            rounded
-            fluid
-            class="mb-3 cursor-pointer border"
-            :class="{ 'border border-danger': activeIndex === index }"
-            @click="viewMedia(index)"
-          />
+          >
+            <i
+              v-if="isVideo"
+              class="fa-duotone fa-2x fa-solid fa-play position-absolute video-indicator text-light cursor-pointer"
+              @click="viewMedia(index)"
+            />
+
+            <b-img
+              :src="imageUrl"
+              rounded
+              fluid
+              class="mb-3 cursor-pointer border"
+              :class="{ 'border border-danger': activeIndex === index }"
+              @click="viewMedia(index)"
+            />
+          </div>
         </div>
 
-
-        <div v-if="activeIndex !== null" class="text-center w-100">
+        <div v-if="activeIndex !== null" class="text-center w-100 d-none d-lg-inline">
           <b-embed
             v-if="isSelectedMediaVideo"
             type="iframe"
@@ -79,6 +78,11 @@
               style="max-height: 75vh;"
             />
           </a>
+
+          <div class="text-center">
+            <p>{{ subtitle }}</p>
+            <p>Source: {{ selectedMedia.source }}</p>
+          </div>
         </div>
       </div>
     </b-modal>
@@ -108,16 +112,10 @@ export default {
       return this.selectedMedia?.isVideo;
     },
 
-    thumbnails() {
-      return this.$store.getters.gameMedia(true);
-    },
-
     thumbnailPreviews() {
-      return this.thumbnails?.slice(0, 5);
-    },
+      const thumbnails = this.$store.getters.gameMedia(true);
 
-    slicedGameMedia() {
-      return this.gameMedia?.slice(0, 5);
+      return thumbnails?.slice(1, 6);
     },
 
     gameMedia() {
@@ -186,13 +184,34 @@ export default {
 .game-media {
   display: grid;
   grid-gap: 1rem;
-  
+
   &.selected {
     grid-template-columns: 200px 1fr;
+
+    @media(max-width: 992px) {
+      grid-template-columns: 1fr;
+    }
   }
 }
 
 .thumbnails {
-  max-height: calc(100vh - 129px);
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.modal-thumbnails {
+  max-height: calc(100vh - 124px);
+  overflow-y: auto;
+
+  @media(max-width: 992px) {
+    max-height: auto;
+    overflow-y: auto;
+  }
+}
+
+.video-indicator {
+  left: calc(50% - 12px);
+  top: calc(50% - 16px);
 }
 </style>
