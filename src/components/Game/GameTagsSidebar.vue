@@ -6,7 +6,7 @@
   >
     <template #default="{ hide }">
       <SidebarHeader @hide="hide">
-        Apply tags to {{ game.name }}
+        {{ sidebarTitle }}
       </SidebarHeader>
 
       <div class="p-3">
@@ -74,6 +74,12 @@ export default {
 
     isEmpty() {
       return this.tags.length === 0 || !this.game;
+    },
+
+    sidebarTitle() {
+      if (!this.game?.name) return 'Apply tags';
+
+      return `Apply tags to ${this.game.name}`;
     },
   },
 

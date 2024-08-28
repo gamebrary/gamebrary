@@ -3,7 +3,7 @@
     <portal to="pageTitle">
       Wallpapers
     </portal>
-    
+
     <portal v-if="!isEmpty && user" to="headerActions">
       <UploadWallpaperButton />
     </portal>
@@ -26,6 +26,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import { THUMBNAIL_PREFIX } from '@/constants';
 import EmptyState from '@/components/EmptyState';
 import UploadWallpaperButton from '@/components/UploadWallpaperButton';
 import WallpapersList from '@/components/WallpapersList';
@@ -49,7 +50,9 @@ export default {
     ...mapState(['user', 'board', 'wallpapers']),
 
     isEmpty() {
-      return !this.wallpapers || this.wallpapers?.length === 0;
+      const wallpapers = this.wallpapers?.filter((wallpaper) => !wallpaper?.fullPath?.includes(THUMBNAIL_PREFIX));
+
+      return !wallpapers || wallpapers?.length === 0;
     },
   },
 

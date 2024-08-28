@@ -56,7 +56,7 @@ export default {
   async DELETE_PROFILE({ commit, state }) {
 
     await deleteDoc(doc(db, 'profiles', state.user.uid));
-    
+
     commit("REMOVE_PROFILE");
   },
 
@@ -83,9 +83,9 @@ export default {
           deleteObject(ref(storage, fullPath));
         });
       }
-      
+
       const avatarsRef = ref(storage, `${state.user.uid}/avatars`);
-      
+
       listAll(avatarsRef).then(({ items }) => {
         items.forEach(({ fullPath }) => deleteObject(ref(storage, fullPath)));
       });
@@ -161,7 +161,7 @@ export default {
       where("owner", "==", userId),
       where("isPublic", "==", true)
     );
-    
+
     const querySnapshot = await getDocs(q);
 
     return querySnapshot.docs?.map((doc) => doc.data());
@@ -214,6 +214,7 @@ export default {
   },
 
   async DELETE_WALLPAPER({ commit }, { fullPath }) {
+    // TODO: ensure thumbnail is also deleted
     await deleteObject(ref(storage, fullPath))
 
     return commit("REMOVE_WALLPAPER", fullPath);
@@ -295,7 +296,7 @@ export default {
       throw "Forbidden"
     } else {
       commit("SET_ACTIVE_BOARD", { ...board, id: docSnap.id });
-      
+
       return { ...board, id: docSnap.id };
     }
   },
@@ -347,12 +348,12 @@ export default {
     const storageRef = ref(storage, `${state.user.uid}/wallpapers/${file.name}`);
     const { metadata } = await uploadBytes(storageRef, file);
     const downloadURL = await getDownloadURL(ref(storage, metadata.fullPath));
-    
+
     const wallpaper = {
       url: downloadURL,
       ...metadata,
     };
-    
+
     return commit("ADD_WALLPAPER", wallpaper);
   },
 
@@ -410,7 +411,7 @@ export default {
       });
 
     } catch (error) {
-      
+
     }
   },
 
@@ -514,7 +515,7 @@ export default {
       axios
         .get(`${API_BASE}/gog?search=${search}`)
         .then(({ data }) => {
-          const gogGame = data?.products?.length > 0 ? data.products[0] : null;
+          const gogGame = data?.products?.length > 0 ? data?.products?.[0] : null;
 
           if (gogGame) commit("APPEND_GOG_GAME_DATA", gogGame);
           resolve();

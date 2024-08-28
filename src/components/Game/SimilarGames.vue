@@ -10,6 +10,7 @@
         md="3"
         lg="2"
         xl="1"
+        class="d-flex"
         :key="game && game.id"
       >
         <GameCard

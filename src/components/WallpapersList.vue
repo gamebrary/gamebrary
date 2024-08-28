@@ -1,9 +1,5 @@
 <template lang="html">
-  <div v-if="isEmpty">
-    isEmpty
-  </div>
-  
-  <b-list-group v-else>
+  <b-list-group>
     <b-list-group-item
       v-for="wallpaper in sortedWallpapers"
       :variant="darkTheme ? 'dark' : 'light'"

@@ -13,17 +13,22 @@
     :class="[{ 'text-light': darkTheme }]"
   >
     <portal to="headerActions">
-
-      <b-dropdown no-caret>
+      <b-dropdown
+        v-if="game"
+        :variant="darkTheme ? 'black' : 'light'"
+        no-caret
+      >
         <template #button-content>
-          <strong>{{ list.name }}</strong>
+          <i class="fa-solid fa-ellipsis-vertical px-1" />
         </template>
 
-        <b-dropdown-item @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })">
+        <b-dropdown-item
+          @click="$router.push({ name: 'game.notes', params: { id: gameId, slug: game.slug } })"
+        >
           Add note
         </b-dropdown-item>
-        <b-button v-b-toggle.gameTagsModal>Edit tags</b-button>
-        <b-button v-b-modal.addRemoveGameModal>Add to list</b-button>
+        <b-dropdown-item v-b-toggle.gameTagsModal>Edit tags</b-dropdown-item>
+        <b-dropdown-item v-b-modal.addRemoveGameModal>Add to list</b-dropdown-item>
       </b-dropdown>
     </portal>
 
@@ -38,26 +43,26 @@
         <GameCover />
         <GameMedia />
 
-        <game-page-tile
-        v-if="newsHighlights"
-        size="quarter"
-        title="News"
-      >
-        <ul>
-          <li
-            v-for="(highlight, index) in newsHighlights"
-            :key="index"
-            class="d-flex align-items-center news"
-          >
-            <b-link
-              class="text-truncate"
-              :to="{ name: 'game.news', params: { id: game.id, slug: game.slug } }"
+        <GamePageTile
+          v-if="newsHighlights"
+          size="quarter"
+          title="News"
+        >
+          <ul>
+            <li
+              v-for="(highlight, index) in newsHighlights"
+              :key="index"
+              class="d-flex align-items-center news"
             >
-              {{ highlight}}
-            </b-link>
-          </li>
-        </ul>
-      </game-page-tile>
+              <b-link
+                class="text-truncate"
+                :to="{ name: 'game.news', params: { id: gameId, slug: game.slug } }"
+              >
+                {{ highlight}}
+              </b-link>
+            </li>
+          </ul>
+        </GamePageTile>
       </b-col>
 
       <b-col
@@ -117,7 +122,7 @@
             </b-link>
 
             <b-button
-              v-for="({ bgColor, textColor, name, index }) in tagsApplied"
+              v-for="({ bgColor, textColor, name }, index) in tagsApplied"
               :key="index"
               size="sm"
               variant="transparent"
@@ -142,8 +147,8 @@
                 <template>
                     Developed by
                     <b-link
-                      v-for="developer in gameDevelopers"
-                      :key="developer.id"
+                      v-for="(developer, index) in gameDevelopers"
+                      :key="index"
                       :to="{ name: 'company', params: { id: developer.id, slug: developer.slug }}"
                       class="mr-2 mb-2 align-items-center"
                     >
@@ -164,7 +169,7 @@
             </template>
           </div>
 
-          <AmazonLinks />
+          <AmazonLinks class="mr-3" />
 
           <b-link
             v-if="gogGame"
@@ -183,9 +188,9 @@
               <h4>Genres</h4>
 
               <router-link
-                  v-for="genre in gameGenres"
+                  v-for="(genre, index) in gameGenres"
                   :to="{ name: 'search', query: { filterBy: 'genres', value: genre.id }}"
-                  :key="genre.id"
+                  :key="index"
                 >
                   <small>{{ genre.name }}</small>
                   <br />
@@ -196,9 +201,9 @@
               <h4>Themes</h4>
 
               <router-link
-                v-for="theme in gameThemes"
+                v-for="(theme, index) in gameThemes"
                 :to="{ name: 'search', query: { filterBy: 'themes', value: theme.id }}"
-                :key="theme.id"
+                :key="index"
               >
                 <small>{{ theme.name }}</small>
                 <br />
@@ -209,8 +214,8 @@
               <h4>{{ $t('board.gameModal.gameModes') }} </h4>
 
               <router-link
-                v-for="gameMode in gameModes"
-                :key="gameMode.id"
+                v-for="(gameMode, index) in gameModes"
+                :key="index"
                 :to="{ name: 'search', query: { filterBy: 'game_modes', value: gameMode.id }}"
               >
                 <small>{{ gameMode.name }}</small>
@@ -222,10 +227,9 @@
               <h4>Game engines</h4>
 
               <span
-                v-for="gameEngine in gameEngines"
-                :key="gameEngine.id"
+                v-for="(gameEngine, index) in gameEngines"
+                :key="index"
                 >
-                <!-- :to="{ name: 'search', query: { filterBy: 'game_modes', value: gameEngine.id }}" -->
                 <small>{{ gameEngine.name }}</small>
                 <br />
               </span>
@@ -235,16 +239,16 @@
               <h4>Perspective</h4>
 
               <router-link
-                v-for="perspective in playerPerspectives"
-                :key="perspective.id"
-                :to="{ name: 'search', query: { filterBy: 'player_perspectives', value: id }}"
+                v-for="(perspective, index) in playerPerspectives"
+                :key="index"
+                :to="{ name: 'search', query: { filterBy: 'player_perspectives', value: perspective.id }}"
               >
-                <!-- :to="{ name: 'search', query: { filterBy: 'game_modes', value: perspective.id }}" -->
                 <small>{{ perspective.name }}</small>
                 <br />
               </router-link>
             </div>
 
+            <!-- TODO: restore releaseDates -->
             <!-- <div>
               <h4 class="mt-3">{{ $t('board.gameModal.releaseDate') }}</h4>
               <ol v-if="releaseDates" class="list-unstyled mb-0">
@@ -261,7 +265,7 @@
               </div>
             </div> -->
 
-            <!-- <b-col cols="6" sm="4" md="3" lg="12" v-if="gameRequirements">
+            <b-col cols="6" sm="4" md="3" lg="12" v-if="gameRequirements">
               <div
                 v-for="(requirement, index) in gameRequirements"
                 :key="index"
@@ -270,15 +274,15 @@
                 <p v-html="requirement.minimum" />
                 <p v-html="requirement.recommended" />
               </div>
-            </b-col> -->
+            </b-col>
           </div>
 
           <div v-if="gamePlatforms" class="d-inline-block w-100 mb-3">
             <h3>Available for</h3>
 
             <b-link
-              v-for="platform in gamePlatforms"
-              :key="platform.id"
+              v-for="(platform, index) in gamePlatforms"
+              :key="index"
               size="sm"
               variant="link"
               class="mr-2 mb-2"
@@ -289,7 +293,7 @@
             </b-link>
           </div>
 
-          <game-progress />
+          <GameProgress />
 
           <div v-if="gameLinks.length">
             <h4 class="mt-3">External links</h4>
@@ -305,14 +309,14 @@
             </b-link>
           </div>
 
-          <!-- <b-alert
+          <b-alert
             v-if="note"
             v-html="note"
             show
             class="cursor-pointer mt-3"
             variant="warning"
             @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
-          /> -->
+          />
         </div>
       </b-col>
 
@@ -320,12 +324,12 @@
         cols="12"
         xl="4"
       >
-        <game-header />
+        <GameHeader />
         <GameInBoards class="mb-3" />
       </b-col>
     </b-row>
 
-    <add-remove-game />
+    <AddRemoveGame />
 
     <b-container>
       <!-- https://commons.wikimedia.org/wiki/Special:FilePath/TMC_Jabber_Nut_Sprite.png -->
@@ -361,7 +365,7 @@
           style="z-index: 1"
           class="text-center pt-3 pt-md-0"
         >
-          <!-- <template v-if="highlightedAchievements">
+          <template v-if="highlightedAchievements">
             <h3 :class="['mt-5']">Achievements</h3>
 
             <b-list-group>
@@ -382,9 +386,9 @@
                 {{ achievement.name }}
               </b-list-group-item>
             </b-list-group>
-          </template> -->
+          </template>
         </b-col>
-        <!-- <game-speedruns /> -->
+        <!-- <GameSpeedruns /> -->
       </b-row>
 
       <!-- <timeline
@@ -420,7 +424,7 @@ import GameHeader from '@/components/Game/GameHeader';
 import AddRemoveGame from '@/components/AddRemoveGame';
 import SimilarGames from '@/components/Game/SimilarGames';
 import GameMedia from '@/components/Game/GameMedia';
-// import GameSpeedruns from '@/components/Game/GameSpeedruns';
+// // import GameSpeedruns from '@/components/Game/GameSpeedruns';
 import { STEAM_CATEGORY_ID, GOG_CATEGORY_ID, TWITTER_CATEGORY_ID, IMAGE_SIZE_SCREENSHOT_HUGE, IGDB_QUERIES } from '@/constants';
 import { getImageUrl } from '@/utils';
 
@@ -449,7 +453,7 @@ export default {
     };
   },
 
-  computed: {
+  _computed: {
     ...mapState(['game', 'cachedGames', 'tags', 'boards', 'user', 'notes', 'twitchToken', 'games']),
     ...mapGetters(['darkTheme', 'gameNews', 'gameLinks', 'gameGenres']),
 
@@ -468,18 +472,15 @@ export default {
     // background() {
     //   return this.game?.steam?.background;
     // },
+    gameRequirements() {
+      if (!this.game?.steam) return null;
 
-    // gameRequirements() {
-    //   const steamGame = this.game?.steam;
-
-    //   if (!steamGame) return null;
-
-    //   return {
-    //     mac: steamGame?.mac_requirements || null,
-    //     linux: steamGame?.linux_requirements || null,
-    //     pc: steamGame?.pc_requirements || null,
-    //   };
-    // },
+      return {
+        mac: this.game?.steam?.mac_requirements || null,
+        linux: this.game?.steam?.linux_requirements || null,
+        pc: this.game?.steam?.pc_requirements || null,
+      };
+    },
 
     newsHighlights() {
       return this.gameNews?.slice(0, 5)?.map(({ title }) => title?.slice(0, 50));
@@ -534,7 +535,6 @@ export default {
     // gameHeaderImage() {
     //   return this.game?.steam?.header_image;
     // },
-
     officialWebsiteUrl() {
       return this.gameLinks?.find(({ id }) => id === 'official')?.url;
     },
@@ -557,19 +557,19 @@ export default {
       return this.game?.player_perspectives;
     },
 
-    // releaseDates() {
-    //   const releaseDates = this.game?.release_dates?.slice();
-    //
-    //   const sortedActivities = releaseDates?.sort((a, b) => a.date - b.date);
-    //
-    //   return sortedActivities?.map(({ platform, date, id }) => {
-    //     return {
-    //       id,
-    //       platform: this.platformNames?.[platform]?.name,
-    //       date: new Date(date * 1000).toLocaleDateString('en-US', { dateStyle: 'medium' }),
-    //     };
-    //   });
-    // },
+    releaseDates() {
+      const releaseDates = this.game?.release_dates?.slice();
+
+      const sortedActivities = releaseDates?.sort((a, b) => a.date - b.date);
+
+      return sortedActivities?.map(({ platform, date, id }) => {
+        return {
+          id,
+          platform: this.platformNames?.[platform]?.name,
+          date: new Date(date * 1000).toLocaleDateString('en-US', { dateStyle: 'medium' }),
+        };
+      });
+    },
 
     gameThemes() {
       return this.game?.themes;
@@ -580,6 +580,7 @@ export default {
     },
 
     gameDevelopers() {
+
       return this.game?.involved_companies
         ?.filter(({ developer }) => developer)
         ?.map(({ company }) => company) || [];
@@ -612,7 +613,7 @@ export default {
           imgUrl: `/img/country-flags/${this.getCountryCode(comment)}.svg`,
           name,
           id,
-        }
+        };
       }) || [];
     },
 
@@ -664,7 +665,6 @@ export default {
     //     ? twitterUrl.url.split('twitter.com/')[1]
     //     : null;
     // },
-
     gameId() {
       return this.$route.params?.id;
     },
@@ -674,6 +674,12 @@ export default {
         url: getImageUrl(artwork, IMAGE_SIZE_SCREENSHOT_HUGE),
       }));
     },
+  },
+  get computed() {
+    return this._computed;
+  },
+  set computed(value) {
+    this._computed = value;
   },
 
   watch: {
@@ -797,9 +803,9 @@ export default {
       const gogPage = this.game?.websites?.find(({ category }) => category !== GOG_CATEGORY_ID);
       if (gogPage) await this.$store.dispatch('LOAD_GOG_GAME', this.game?.name).catch((e) => {});
 
-      const wikipediaSlug = this.game?.websites?.find(({ url, category }) => url && category === WEBSITE_CATEGORIES.WIKIPEDIA)?.url?.split('/wiki/')[1];
+      // const wikipediaSlug = this.game?.websites?.find(({ url, category }) => url && category === WEBSITE_CATEGORIES.WIKIPEDIA)?.url?.split('/wiki/')[1];
 
-      if (wikipediaSlug) await this.$store.dispatch('LOAD_WIKIPEDIA_ARTICLE', wikipediaSlug).catch((e) => {});
+      // if (wikipediaSlug) await this.$store.dispatch('LOAD_WIKIPEDIA_ARTICLE', wikipediaSlug).catch((e) => {});
 
       // this.setWallpaper();
 
