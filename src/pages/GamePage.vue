@@ -264,17 +264,6 @@
                 Not released yet
               </div>
             </div> -->
-
-            <b-col cols="6" sm="4" md="3" lg="12" v-if="gameRequirements">
-              <div
-                v-for="(requirement, index) in gameRequirements"
-                :key="index"
-              >
-                <pre>{{ index }}</pre>
-                <p v-html="requirement.minimum" />
-                <p v-html="requirement.recommended" />
-              </div>
-            </b-col>
           </div>
 
           <div v-if="gamePlatforms" class="d-inline-block w-100 mb-3">
@@ -398,6 +387,14 @@
       >
         loading...
       </timeline> -->
+
+      <div
+        v-for="(requirement, index) in gameRequirements"
+        :key="index"
+      >
+        <p v-if="requirement.minimum" v-html="requirement.minimum" />
+        <p v-if="requirement.recommended" v-html="requirement.recommended" />
+      </div>
     </b-container>
 
     <SimilarGames class="mt-sm-5" />
