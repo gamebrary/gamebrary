@@ -17,7 +17,7 @@ export const MAX_PROFILE_LENGTH = 20;
 export const STEAM_CATEGORY_ID = 13;
 export const GOG_CATEGORY_ID = 17;
 export const TWITTER_CATEGORY_ID = 5;
-export const NO_IMAGE_PATH = '/no-image.png';
+export const NO_IMAGE_PATH = '/placeholder.gif';
 
 export const BOARD_TYPE_STANDARD = 'standard';
 export const BOARD_TYPE_KANBAN = 'kanban';
