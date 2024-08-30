@@ -34,7 +34,7 @@
         </p>
 
         <p v-if="profile.bio" class="text-subtle">{{ profile.bio }}</p>
-        
+
         <b-button
           v-if="profile.website"
           :href="profile.website"
@@ -44,7 +44,7 @@
         >
           {{ profile.website }}
         </b-button>
-        
+
         <b-button
           v-if="profile.twitter"
           :href="`https://twitter.com/${profile.twitter}`"
@@ -143,7 +143,7 @@ export default {
     this.$bus.$on('LOAD_PROFILE', this.loadProfile);
     this.loadProfile();
   },
-  
+
   destroyed() {
     this.$bus.$off('LOAD_PROFILE');
     this.$bus.$emit('CLEAR_WALLPAPER');
