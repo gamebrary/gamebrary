@@ -27,7 +27,7 @@
           Public
         </b-badge>
       </header>
-      
+
       <component
         :is="miniBoardComponent"
         :board="formattedBoard"
@@ -88,7 +88,7 @@ export default {
           if (!game) return {};
 
           const cachedGame = this.cachedGames?.[Number(game)] || {};
-          
+
           return {
             id: cachedGame.id,
             name: cachedGame.name,
@@ -101,7 +101,7 @@ export default {
         ...this.board,
         lists: formattedLists,
       }
-      
+
       return formattedBoard;
     },
 

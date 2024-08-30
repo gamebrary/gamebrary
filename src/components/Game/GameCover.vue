@@ -12,9 +12,9 @@
       </b-button>
 
       <GameRatings class="position-absolute d-flex" style="bottom: 1rem; right: 1rem;" />
-    
+
       <b-img
-        :src="$options.getImageUrl(cachedGame)"
+        :src="$options.getImageUrl(game)"
         :alt="gameName"
         class="cursor-pointer border d-flex mb-3 w-100"
         :class="`border-${darkTheme ? 'dark' : 'light'}`"

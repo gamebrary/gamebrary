@@ -232,7 +232,7 @@ export default {
     .viewport {
       padding: .5rem 1rem;
       width: 100%;
-      s
+
       &.board {
         height: calc(100svh - 65px);
         overflow-y: hidden;

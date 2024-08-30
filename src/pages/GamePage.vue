@@ -42,27 +42,6 @@
       >
         <GameCover />
         <GameMedia />
-
-        <GamePageTile
-          v-if="newsHighlights"
-          size="quarter"
-          title="News"
-        >
-          <ul>
-            <li
-              v-for="(highlight, index) in newsHighlights"
-              :key="index"
-              class="d-flex align-items-center news"
-            >
-              <b-link
-                class="text-truncate"
-                :to="{ name: 'game.news', params: { id: gameId, slug: game.slug } }"
-              >
-                {{ highlight}}
-              </b-link>
-            </li>
-          </ul>
-        </GamePageTile>
       </b-col>
 
       <b-col
@@ -397,6 +376,48 @@
       </div>
     </b-container>
 
+    <div class="news-grid">
+      <i class="fa-solid fa-megaphone"></i> Latest news
+
+      <b-card
+        v-for="article in gameNews"
+        class="mb-3 news-card"
+        :bg-variant="darkTheme ? 'secondary' : 'light'"
+        :text-variant="darkTheme ? 'white' : 'dark'"
+        :key="article.id"
+      >
+        <div class="d-flex align-items-start justify-content-between">
+          <aside>
+            <h2 class="mb-0">
+              {{ article.title }}
+              <b-badge>{{ article.date }}</b-badge>
+            </h2>
+
+            <small v-if="article.author" :class="darkTheme ? 'text-light' : 'text-muted'">
+              By {{ article.author }}
+            </small>
+          </aside>
+
+          <a
+            v-if="article.source.url"
+            :href="article.source.url"
+            :title="article.source.name"
+            target="blank"
+            class="mb-2 ml-2"
+          >
+            <b-img
+              class="news-source-logo"
+              :src="`/logos/news-sources/${article.source.img}`"
+            />
+          </a>
+        </div>
+
+        <div class="game-news" v-html="article.contents" />
+
+        <!-- <b-badge v-for="tag in article.tags" :key="tag">{{ tag }}</b-badge> -->
+      </b-card>
+    </div>
+
     <SimilarGames class="mt-sm-5" />
 
     <p
@@ -413,7 +434,6 @@ import { mapState, mapGetters } from 'vuex';
 import { WEBSITE_CATEGORIES, GAME_CATEGORIES, PLATFORMS, GAME_DESC_SM_CHAR_COUNT } from '@/constants';
 import AmazonLinks from '@/components/Game/AmazonLinks';
 import GameCover from '@/components/Game/GameCover';
-import GamePageTile from '@/components/Game/GamePageTile';
 import GameInBoards from '@/components/Game/GameInBoards';
 import GameProgress from '@/components/Game/GameProgress';
 import GameTagsSidebar from '@/components/Game/GameTagsSidebar';
@@ -435,7 +455,6 @@ export default {
     AmazonLinks,
     GameCover,
     GameMedia,
-    GamePageTile,
     GameInBoards,
     // GameSpeedruns,
     SimilarGames,
@@ -477,10 +496,6 @@ export default {
         linux: this.game?.steam?.linux_requirements || null,
         pc: this.game?.steam?.pc_requirements || null,
       };
-    },
-
-    newsHighlights() {
-      return this.gameNews?.slice(0, 5)?.map(({ title }) => title?.slice(0, 50));
     },
 
     source() {
@@ -830,5 +845,16 @@ export default {
     max-width: 100%;
     border-radius: .25rem;
   }
+}
+
+.news-grid {
+  column-count: 3;
+  column-gap: 1em;
+}
+
+.news-card {
+  -webkit-column-break-inside: avoid;
+  break-inside: avoid;
+  page-break-inside: avoid;
 }
 </style>

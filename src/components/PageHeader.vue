@@ -48,7 +48,7 @@ export default {
   methods: {
     handleLogoClick() {
       if (this.user) return this.$store.commit('SET_MENU_OPEN', true);
-      
+
       this.$router.push({ name: 'home' });
     },
   },
@@ -65,7 +65,7 @@ nav {
   width: 100dvw;
   position: fixed;
   z-index: 2;
-  
+
   &.nav-top {
     top: 0;
     position: fixed;
