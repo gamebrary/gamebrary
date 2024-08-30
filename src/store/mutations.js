@@ -32,7 +32,7 @@ export default {
   CLEAR_ACTIVE_BOARD_LIST_INDEX(state) {
     state.activeBoardListIndex = null;
   },
-  
+
   CLEAR_ACTIVE_WALLPAPER(state) {
     state.activeWallpaper = {};
   },
@@ -62,7 +62,7 @@ export default {
   SET_GAME_BOARD(state, board) {
     state.board = board;
   },
-  
+
   SET_MENU_OPEN(state, menuOpen) {
     state.menuOpen = Boolean(menuOpen);
   },
@@ -77,14 +77,14 @@ export default {
 
   MOVE_LIST_RIGHT(state, listIndex) {
     const listsCount = state.board?.lists?.length || 0;
-    
+
     if (listIndex > listsCount - 1) return;
-    
+
     const [list] = state.board.lists.splice(listIndex, 1);
-    
+
     state.board.lists.splice(listIndex + 1, 0, list);
   },
-  
+
   SET_PROFILE_SIDEBAR_OPEN(state, open) {
     state.editProfileSidebarOpen = Boolean(open);
   },
@@ -159,6 +159,10 @@ export default {
 
   APPEND_GAME_NEWS(state, news) {
     Vue.set(state.game, 'news', news);
+  },
+
+  SET_ROUTE(state, route) {
+    state.route = route;
   },
 
   APPEND_WIKIPEDIA_GAME_DATA(state, data) {

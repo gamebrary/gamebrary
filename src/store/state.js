@@ -26,4 +26,5 @@ export default {
   gameSelectorData: null,
   menuOpen: true,
   editProfileSidebarOpen: false,
+  route: {},
 };

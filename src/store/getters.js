@@ -15,7 +15,11 @@ import linkifyHtml from 'linkify-html';
 
 export default {
   latestRelease: ({ releases }) => releases?.[0]?.tag_name || 'v1',
-  darkTheme: ({ settings }) => settings?.darkTheme || false,
+  darkTheme: ({ route, board, settings }) => {
+    const boardOverride = route === 'board' && board?.darkTheme;
+
+    return settings?.darkTheme || boardOverride || false
+  },
   transparencyEnabled: ({ settings }) => settings?.transparencyEnabled || false,
   showGameThumbnails: ({ settings }) => settings?.showGameThumbnails || false,
   sortedBoards: ({ boards }) => orderby(boards, 'lastUpdated', 'desc'),
@@ -28,14 +32,14 @@ export default {
     return game?.websites?.map(({ url, category }) => ({ url, ...LINKS_CATEGORIES[category] })) || [];
   },
 
-  sidebarProps(state) {
+  sidebarProps(state, getters) {
     return {
       scrollable: true,
       shadow: true,
       backdrop: true,
       'no-header': true,
-      'bg-variant': state.settings?.darkTheme ? 'dark' : 'light',
-      'text-variant': state.settings?.darkTheme ? 'light' : 'dark',
+      'bg-variant': getters?.darkTheme ? 'dark' : 'light',
+      'text-variant': getters?.darkTheme ? 'light' : 'dark',
     }
   },
 
