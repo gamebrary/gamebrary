@@ -46,6 +46,8 @@ export const DEFAULT_BOARD_BASE = {
   name: '',
   ranked: false,
   isPublic: false,
+  grid: false,
+  darkTheme: false,
 }
 
 export const DEFAULT_PROFILE = {

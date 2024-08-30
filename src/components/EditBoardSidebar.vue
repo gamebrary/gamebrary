@@ -68,6 +68,23 @@
           Ranked
         </b-form-checkbox>
 
+        <b-form-checkbox
+          v-if="board.type === $options.BOARD_TYPE_STANDARD"
+          v-model="board.grid"
+          class="mb-3"
+          switch
+        >
+          Grid
+        </b-form-checkbox>
+
+        <b-form-checkbox
+          v-model="board.darkTheme"
+          class="mb-3"
+          switch
+        >
+          Dark theme
+        </b-form-checkbox>
+
         <div class="d-flex justify-content-between mb-3">
           <b-form-checkbox v-model="board.isPublic" switch>
             Public
