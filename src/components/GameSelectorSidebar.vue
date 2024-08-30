@@ -12,7 +12,7 @@
 
       <div
         class="p-3"
-        :class="darkTheme ? 'bg-dark' : 'bg-dark'"
+        :class="darkTheme ? 'bg-dark' : 'bg-light'"
         style="position: sticky; top: 0px; z-index: 1"
       >
         <b-form-input
