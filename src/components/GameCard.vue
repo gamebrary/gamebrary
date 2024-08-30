@@ -18,7 +18,7 @@
           <i
             :class="[isLiked ? 'fa-solid': 'fa-regular' , 'fa-heart text-danger']"
             class="fa-fw"
-          /> 
+          />
         </b-button>
 
         <b-img
@@ -35,14 +35,6 @@
     </div>
 
     <aside>
-      <b-avatar
-        v-if="ranked"
-        variant="light"
-        class="mr-2"
-      >
-        {{ rank }}
-      </b-avatar>
-
       <b-progress
         v-if="showGameProgress"
         v-b-tooltip.hover
@@ -64,7 +56,17 @@
         <small v-else>{{ gameProgress }}%</small>
       </b-badge>
 
-      <h2 v-if="!hideTitle || hideCover" :class="['mb-1', { 'text-success' : gameCompleted }]">
+      <h2 v-if="!hideTitle || hideCover" :class="[{ 'text-success' : gameCompleted, 'mb-1': !board.grid }]">
+        <b-avatar
+          v-if="ranked"
+          :variant="darkTheme ? 'warning' : 'success'"
+          rounded
+          size="sm"
+          class="d-inline-block"
+        >
+          {{ rank }}
+        </b-avatar>
+
         {{ game.name }}
       </h2>
 
@@ -113,7 +115,7 @@ import slugify from 'slugify';
 export default {
   IMAGE_SIZE_COVER_SMALL,
   getImageUrl,
-  
+
   props: {
       gameId: {
         type: [String, Number],
@@ -218,7 +220,7 @@ export default {
 
   &.light {
     background-color: var(--white);
-    
+
     &:hover {
       background-color: var(--white);
     }
@@ -226,13 +228,13 @@ export default {
 
   &.dark {
     background-color: var(--dark);
-    
+
     &:hover {
       background-color: var(--dark);
     }
   }
 
-  
+
   &.small {
     grid-template-columns: 60px auto;
   }

@@ -1,7 +1,12 @@
-<!-- TODO: add empty state -->
 <template lang="html">
-  <div class="standard-list">
+  <div class="standard-list" :class="{ 'grid': board.grid }"  >
+    <p v-if="isEmpty">
+      This board is empty.
+    </p>
+
     <draggable
+      class="games"
+      :class="{ 'grid': board.grid }"
       handle=".card"
       ghost-class="card-placeholder"
       drag-class="border-success"
@@ -23,12 +28,18 @@
         :game-id="game.id"
         :ranked="board.ranked"
         :rank="index + 1"
-        class="mb-3"
+        :vertical="board.grid"
+        :hide-platforms="board.grid"
         @click.native="openGame(game.id, list)"
       />
     </draggable>
 
-    <b-button v-if="isBoardOwner" @click="openGameSelectorSidebar">
+    <b-button
+      v-if="isBoardOwner"
+      class="my-3"
+      variant="primary"
+      @click="openGameSelectorSidebar"
+    >
       Add games
     </b-button>
   </div>
@@ -73,10 +84,6 @@ export default {
     ...mapState(['cachedGames', 'dragging', 'progresses', 'board', 'user', 'settings']),
     ...mapGetters(['isBoardOwner', 'darkTheme']),
 
-    hasMultipleLists() {
-      return this.board?.lists?.length > 1;
-    },
-
     filter() {
       return this.list?.games || [];
     },
@@ -96,10 +103,6 @@ export default {
 
     isEmpty() {
       return this.list.games.length === 0;
-    },
-
-    singleList() {
-      return this.board.lists.length === 1;
     },
 
     gameSelectorEventName() {
@@ -200,11 +203,23 @@ export default {
 }
 
 .standard-list {
-  width: 500px;
+  width: 100%;
+  max-width: 600px;
   overflow-x: hidden;
 
-  @media(max-width: 500px) {
-    width: 100%;
+  &.grid {
+    max-width: 1280px;
+  }
+}
+
+.games {
+  display: grid;
+  grid-gap: 1rem;
+
+  &.grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+
   }
 }
 </style>

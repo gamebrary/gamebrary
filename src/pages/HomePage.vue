@@ -1,11 +1,6 @@
 <!-- TODO: make mini boards links so you can cmd click them -->
 <template lang="html">
-  <div v-if="user">
-    <!-- TODO: add homepage -->
-    <pre>{{ user }}</pre>
-  </div>
-
-  <div v-else>
+  <div>
     <div class="text-center">
       <h1 class="mb-2">Gamebrary</h1>
       <h2 class="mb-3">Elevate Your Play, Organize Your Way.</h2>

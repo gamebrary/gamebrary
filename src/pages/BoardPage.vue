@@ -1,5 +1,5 @@
 <template lang="html">
-  <board-placeholder v-if="loading" />
+  <BoardPlaceholder v-if="loading" />
 
   <div v-else-if="hasAccess">
     <EditListSidebar v-if="isBoardOwner && board.type !== $options.BOARD_TYPE_STANDARD" />
@@ -9,7 +9,6 @@
         <h3 :class="['text-truncate', { 'text-white': backgroundUrl && darkTheme }]" :style="publicUserName ? 'line-height: 1rem' : ''">
           {{ board.name }}
         </h3>
-
 
         <small v-if="publicUserName">
           by
@@ -42,9 +41,9 @@
       </b-button>
     </portal>
 
-    <standard-board v-if="board.type === $options.BOARD_TYPE_STANDARD" />
-    <tier-board v-else-if="board.type === $options.BOARD_TYPE_TIER" />
-    <kanban-board v-else />
+    <StandardBoard v-if="board.type === $options.BOARD_TYPE_STANDARD" />
+    <TierBoard v-else-if="board.type === $options.BOARD_TYPE_TIER" />
+    <KanbanBoard v-else />
   </div>
 
   <b-alert
@@ -89,7 +88,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['user', 'dragging', 'board', 'wallpapers']),
+    ...mapState(['user', 'dragging', 'board', 'wallpapers', 'profile']),
     ...mapGetters(['darkTheme', 'isBoardOwner']),
 
     isBoardPage() {
