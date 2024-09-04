@@ -25,30 +25,16 @@
           <v-swatches
             v-model="tag.bgColor"
             v-b-tooltip.hover
-            class="mr-2"
             title="Tag background color"
-            :trigger-style="{ height: '40px', width: '40px', border: '1px solid #ced4da' }"
-            show-fallback
-            show-checkbox
-            fallback-input-class="color-input float-left"
-            fallback-input-type="color"
-            :fallback-ok-class="`${darkTheme ? 'bg-secondary text-light' : 'bg-light text-dark'} p-2 float-right`"
-            fallback-ok-text="Select"
-            popover-x="left"
-          />
+            v-bind="swatchesProps"
+            class="mr-2"
+            />
 
-          <v-swatches
+            <v-swatches
             v-model="tag.textColor"
             v-b-tooltip.hover
+            v-bind="swatchesProps"
             title="Tag text color"
-            :trigger-style="{ height: '40px', width: '40px', border: '1px solid #ced4da' }"
-            show-fallback
-            show-checkbox
-            fallback-input-class="color-input float-left"
-            fallback-input-type="color"
-            :fallback-ok-class="`${darkTheme ? 'bg-secondary text-light' : 'bg-light text-dark'} p-2 float-right`"
-            fallback-ok-text="Select"
-            popover-x="left"
           />
         </div>
 
@@ -91,7 +77,7 @@ export default {
 
   computed: {
     ...mapState(['tags']),
-    ...mapGetters(['sidebarProps', 'darkTheme']),
+    ...mapGetters(['sidebarProps', 'swatchesProps', 'darkTheme']),
   },
 
   methods: {

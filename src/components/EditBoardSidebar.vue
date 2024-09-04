@@ -101,12 +101,13 @@
         </div>
 
         <div class="d-flex align-items-start">
-          <b-form-input
+          <v-swatches
             v-model="board.backgroundColor"
-            placeholder="Background color"
+            v-b-tooltip.hover
+            v-bind="swatchesProps"
+            popoverX="right"
+            title="Background color"
             class="mb-3"
-            style="width: 44px"
-            type="color"
           />
 
           <b-button
@@ -161,6 +162,7 @@ import WallpapersList from '@/components/WallpapersList';
 import UploadWallpaperButton from '@/components/UploadWallpaperButton';
 import SidebarHeader from '@/components/SidebarHeader';
 import MiniBoard from '@/components/Board/MiniBoard';
+import VSwatches from 'vue-swatches';
 
 export default {
   BOARD_TYPES,
@@ -172,6 +174,7 @@ export default {
     UploadWallpaperButton,
     MiniBoard,
     SidebarHeader,
+    VSwatches,
   },
 
   data() {
@@ -185,7 +188,7 @@ export default {
 
   computed: {
     ...mapState(['user']),
-    ...mapGetters(['darkTheme', 'sidebarProps']),
+    ...mapGetters(['darkTheme', 'sidebarProps', 'swatchesProps']),
 
     boardId() {
       return this.$route?.params?.id;

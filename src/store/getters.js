@@ -43,6 +43,26 @@ export default {
     }
   },
 
+  swatchesProps(state, getters) {
+    return {
+      fallbackInputClass: 'color-input float-left',
+      fallbackInputType: 'color',
+      fallbackOkClass: [
+        getters?.darkTheme ? 'bg-secondary text-light' : 'bg-light text-dark',
+        'p-2 float-right',
+      ],
+      fallbackOkText: 'Select',
+      popoverX: 'left',
+      triggerStyle: {
+        height: '40px',
+        width: '40px',
+        border: '1px solid #ced4da',
+      },
+      showFallback: true,
+      showCheckbox: true,
+    }
+  },
+
   // Arabic is the only ltr language supported at the moment
   isRTL: ({ settings }) => settings?.language !== 'ar',
 

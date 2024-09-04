@@ -1,4 +1,3 @@
-<!-- TODO: create getter for swatches props -->
 <template>
   <body
     id="app"

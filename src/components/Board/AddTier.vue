@@ -34,8 +34,7 @@
         <v-swatches
           v-model="list.backgroundColor"
           show-fallback
-          :trigger-style="{ height: '40px', width: '40px' }"
-          popover-x="left"
+          v-bind="swatchesProps"
         />
 
         <b-form-input
@@ -82,7 +81,7 @@ export default {
 
   computed: {
     ...mapState(['platform', 'board']),
-    ...mapGetters(['darkTheme']),
+    ...mapGetters(['darkTheme', 'swatchesProps']),
   },
 
   methods: {

@@ -23,15 +23,9 @@
           <v-swatches
             v-model="list.backgroundColor"
             v-b-tooltip.hover
+            v-bind="swatchesProps"
+            popoverX="right"
             title="Tag text color"
-            :trigger-style="{ height: '40px', width: '40px', border: '1px solid #ced4da' }"
-            show-fallback
-            show-checkbox
-            fallback-input-class="color-input float-left"
-            fallback-input-type="color"
-            :fallback-ok-class="`${darkTheme ? 'bg-secondary text-light' : 'bg-light text-dark'} p-2 float-right`"
-            fallback-ok-text="Select"
-            popover-x="right"
           />
 
           <b-form-input
@@ -201,7 +195,7 @@ export default {
 
   computed: {
     ...mapState(['board', 'activeBoardListIndex']),
-    ...mapGetters(['darkTheme', 'sidebarProps']),
+    ...mapGetters(['darkTheme', 'sidebarProps', 'swatchesProps']),
   },
 
   methods: {
