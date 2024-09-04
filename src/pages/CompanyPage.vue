@@ -19,13 +19,7 @@
 
         <h3 class="w-100 my-3">Games developed by {{ company.name }}</h3>
 
-        <masonry
-          gutter="16px"
-          style="max-height: 60vh;"
-          class="mb-5"
-          v-if="company.developed"
-          :cols="{ default: 7, 1200: 5, 768: 3, 480: 2 }"
-        >
+        <div class="game-grid">
           <GameCard
             v-for="gameDeveloped in company.developed"
             :game-id="gameDeveloped.id"
@@ -36,18 +30,13 @@
             hide-progress
             class="mb-3"
           />
-        </masonry>
+        </div>
 
         <div v-if="company.published">
           <h3 class="w-100 my-3">Games published by {{ company.name }}</h3>
 
-          <masonry
-            gutter="16px"
-            style="max-height: 60vh;"
-            class="mb-5"
-            v-if="company.developed"
-            :cols="{ default: 7, 1200: 5, 768: 3, 480: 2 }"
-          >
+
+          <div class="game-grid">
             <GameCard
               v-for="gamePublished in company.published"
               :game-id="gamePublished.id"
@@ -58,7 +47,7 @@
               hide-progress
               class="mb-3"
             />
-          </masonry>
+          </div>
         </div>
       </div>
 
@@ -97,11 +86,11 @@ export default {
     });
 
     const allGames = [
-      ...this.company.published,
-      ...this.company.developed,
+      ...this.company?.published || [],
+      ...this.company?.developed || [],
     ];
 
-    if (this.company.published?.length) this.$store.commit('CACHE_GAME_DATA', allGames);
+    if (allGames?.length) this.$store.commit('CACHE_GAME_DATA', allGames);
 
     this.loading = false;
   },
