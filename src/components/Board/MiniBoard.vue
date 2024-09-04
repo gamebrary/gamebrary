@@ -92,7 +92,7 @@ export default {
           return {
             id: cachedGame.id,
             name: cachedGame.name,
-            src: getImageUrl(this.cachedGames?.[Number(game)], IMAGE_SIZE_THUMB),
+            src: getImageUrl(this.cachedGames?.[Number(game)], IMAGE_SIZE_THUMB, true),
           }
         }),
       }));

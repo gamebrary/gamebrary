@@ -59,7 +59,7 @@ export default {
       // Your data properties here
     };
   },
-  
+
   methods: {
     highlightGame(gameId) {
       this.$store.commit('SET_HIGHLIGHTED_GAME', gameId);

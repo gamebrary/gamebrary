@@ -10,8 +10,10 @@ export const bytesToSize = (bytes) => {
   return `${Math.round(bytes / (1024 ** i), 2)} ${sizes[i]}`;
 };
 
-export const getImageUrl = (item, size = IMAGE_SIZE_COVER_BIG) => {
+export const getImageUrl = (item, size = IMAGE_SIZE_COVER_BIG, noPlaceholder) => {
   const imageId = item?.logo?.image_id || item?.cover?.image_id || item?.image_id || null;
+
+  if (noPlaceholder && !imageId) return null;
 
   return imageId
     ? `https://images.igdb.com/igdb/image/upload/${size}/${imageId}.png`
