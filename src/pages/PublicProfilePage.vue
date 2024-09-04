@@ -2,7 +2,7 @@
   <b-container>
     <EditProfileSidebar v-if="isProfileOwner" />
 
-    <b-spinner v-if="loading" class="spinner-centered" />
+    <b-spinner v-if="loading && profile === null" class="spinner-centered" />
 
     <div
       v-else-if="profile"
@@ -180,6 +180,8 @@ export default {
 
         this.avatarImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', thumbnailRef)
           .catch((e) => {});
+      } else {
+        this.avatarImage = null;
       }
 
       if (this.profile?.wallpaper) {

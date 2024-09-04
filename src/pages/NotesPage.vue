@@ -50,7 +50,7 @@
           placeholder="Search notes"
           v-model="searchText"
         />
-        
+
         <b-card
           v-for="({ note, game }, index) in filteredNotes"
           body-class="p-3"
@@ -68,7 +68,14 @@
               @click.native.stop="openNote(game.id)"
             />
 
-            <p class="note-text bg-warning p-3 rounded mt-3 small" v-if="note" v-html="note" />
+            <b-alert
+              v-if="note"
+              v-html="note"
+              show
+              class="cursor-pointer mt-3 mb-0"
+              variant="warning"
+              @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
+            />
           </b-card-text>
         </b-card>
       </template>
@@ -131,7 +138,6 @@ export default {
   destroyed() {
     this.$bus.$off('SELECT_GAME', this.openNote);
   },
-
 
   methods: {
     async loadGames() {

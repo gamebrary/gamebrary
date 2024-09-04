@@ -35,7 +35,7 @@
       @click="loadMore"
     >
       <b-spinner v-if="loading" />
-      
+
       <span v-else>
         More results
       </span>

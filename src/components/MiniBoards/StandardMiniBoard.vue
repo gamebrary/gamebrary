@@ -84,14 +84,16 @@ export default {
 .grid {
   grid-gap: .5rem;
   display: grid;
-  width: 296px;
+  max-width: 296px;
   padding: .5rem;
   margin: 0 auto;
   grid-template-columns: repeat(6, 1fr);
 
   @media(max-width: 768px) {
+    justify-content: start;
     grid-template-columns: repeat(3, 1fr);
     width: 152px;
+    margin: 0;
   }
 }
 </style>
