@@ -11,22 +11,23 @@
       class="mini-board"
       :class="{ thumbnail }"
     >
-      <header class="text-small px-2 pt-1 d-flex align-items-center justify-content-between">
-        <h4
-          v-if="!thumbnail"
-          :class="{ 'text-white': hasCustomBackground || darkTheme }"
-        >
-          {{ board.name }}
-        </h4>
+      <h4
+        v-if="!thumbnail"
+        class="px-2 py-1"
+        :class="{ 'text-white': hasCustomBackground || darkTheme }"
+      >
+        {{ board.name }}
+      </h4>
 
-        <b-badge
-          v-if="showPublicIndicator"
-          :variant="darkTheme ? 'warning' : 'danger'"
-          size="sm"
-        >
-          Public
-        </b-badge>
-      </header>
+      <b-badge
+        v-if="showPublicIndicator"
+        class="position-absolute"
+        style="right: 8px; top: 8px;"
+        :variant="darkTheme ? 'warning' : 'danger'"
+        size="sm"
+      >
+        Public
+      </b-badge>
 
       <component
         :is="miniBoardComponent"
