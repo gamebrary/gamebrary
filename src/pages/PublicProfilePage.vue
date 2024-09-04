@@ -61,23 +61,15 @@
         View other profiles
       </b-button> -->
 
-      <b-row class="mt-4">
-        <b-col
+      <div class="board-grid mt-5">
+        <MiniBoard
           v-for="board in userBoards"
           :key="board.id"
-          cols="12"
-          sm="6"
-          md="4"
-          lg="3"
-          class="px-2"
-        >
-          <MiniBoard
-            :board="board"
-            @click.native="$router.push({ name: 'board', params: { id: board.id } })"
-            class="p-relative mb-3"
-          />
-        </b-col>
-      </b-row>
+          :board="board"
+          @click.native="$router.push({ name: 'board', params: { id: board.id } })"
+          class="p-relative mb-3"
+        />
+      </div>
     </div>
 
     <EmptyState
