@@ -27,7 +27,7 @@
         >
           Add note
         </b-dropdown-item>
-        <b-dropdown-item v-b-toggle.gameTagsModal>Edit tags</b-dropdown-item>
+        <b-dropdown-item v-b-toggle.gameTagsSidebar>Edit tags</b-dropdown-item>
         <b-dropdown-item v-b-modal.addRemoveGameModal>Add to list</b-dropdown-item>
       </b-dropdown>
     </portal>
@@ -96,7 +96,7 @@
           </div>
 
           <div v-if="user">
-            <b-link v-if="!tagsApplied.length" v-b-toggle.gameTagsModal>
+            <b-link v-if="!tagsApplied.length" v-b-toggle.gameTagsSidebar>
               Add tag
             </b-link>
 
@@ -107,7 +107,7 @@
               variant="transparent"
               class="mr-2 mb-2"
               :style="`background-color: ${bgColor}; color: ${textColor}`"
-              v-b-toggle.gameTagsModal
+              v-b-toggle.gameTagsSidebar
             >
               <i class="fa-solid fa-tag mr-1" />
               {{ name }}
@@ -376,7 +376,7 @@
       </div>
     </b-container>
 
-    <div class="news-grid">
+    <!-- <div class="news-grid">
       <i class="fa-solid fa-megaphone"></i> Latest news
 
       <b-card
@@ -414,9 +414,9 @@
 
         <div class="game-news" v-html="article.contents" />
 
-        <!-- <b-badge v-for="tag in article.tags" :key="tag">{{ tag }}</b-badge> -->
+        <b-badge v-for="tag in article.tags" :key="tag">{{ tag }}</b-badge>
       </b-card>
-    </div>
+    </div> -->
 
     <SimilarGames class="mt-sm-5" />
 

@@ -1,6 +1,6 @@
 <template lang="html">
   <b-sidebar
-    id="gameTagsModal"
+    id="gameTagsSidebar"
     v-bind="sidebarProps"
     right
   >
