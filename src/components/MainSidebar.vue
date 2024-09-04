@@ -16,7 +16,7 @@
 
       <ProfileDockMenu />
 
-      <SearchBox class="m-3" />
+      <SearchBox class="mx-3 mt-3" />
 
       <div class="p-3">
         <b-button
