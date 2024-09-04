@@ -4,7 +4,7 @@
       <b-button
         variant="transparent"
         squared
-        class="ml-2 mt-1 p-0 position-absolute"
+        class="ml-3 mt-2 p-0 position-absolute"
         :disabled="!user"
         @click="$bus.$emit('LIKE_UNLIKE_GAME', gameId)"
       >
