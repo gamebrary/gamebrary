@@ -1,4 +1,3 @@
-<!-- TODO: standardize title and subtitle -->
 <template lang="html">
   <div class="d-flex align-items-center justify-content-between p-3">
     {{ title }}
