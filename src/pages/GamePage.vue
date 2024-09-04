@@ -14,7 +14,7 @@
   >
     <portal to="headerActions">
       <b-dropdown
-        v-if="game"
+        v-if="game && user"
         :variant="darkTheme ? 'black' : 'light'"
         no-caret
       >
