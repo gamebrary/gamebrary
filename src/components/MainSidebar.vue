@@ -68,7 +68,7 @@
         <b-button
           block
           :variant="routeName === 'settings' ? 'primary' : darkTheme ? 'dark' : 'light'"
-          :to="{ name: 'settings' }"
+          v-b-toggle.settingsSidebar
         >
           <i class="fa-regular fa-gear fa-fw" />
           Settings

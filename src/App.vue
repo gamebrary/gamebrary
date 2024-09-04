@@ -17,6 +17,7 @@
 
       <template v-if="user">
         <EditTagSidebar />
+        <SettingsSidebar />
         <CreateBoardSidebar />
         <CreateTagSidebar />
         <GameSelectorSidebar />
@@ -37,6 +38,7 @@ import PageHeader from '@/components/PageHeader';
 import MainSidebar from '@/components/MainSidebar';
 import WallpaperDetailsSidebar from '@/components/WallpaperDetailsSidebar';
 import EditTagSidebar from '@/components/EditTagSidebar'
+import SettingsSidebar from '@/components/SettingsSidebar'
 import CreateBoardSidebar from '@/components/CreateBoardSidebar'
 import CreateTagSidebar from '@/components/CreateTagSidebar'
 import { mapState, mapGetters } from 'vuex';
@@ -49,6 +51,7 @@ export default {
     PageHeader,
     MainSidebar,
     EditTagSidebar,
+    SettingsSidebar,
     CreateBoardSidebar,
     CreateTagSidebar,
     MarkdownCheatsheet,

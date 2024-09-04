@@ -1,93 +1,99 @@
-<!-- TODO: move to sidebar -->
 <template lang="html">
-  <div class="pt-3">
-    <portal to="pageTitle">
-      <h3>Settings</h3>
-    </portal>
+  <b-sidebar
+    id="settingsSidebar"
+    v-bind="sidebarProps"
+    z-index="2001"
+  >
+    <template #default="{ hide }">
+      <SidebarHeader @hide="hide" title="Settings" />
 
-    <b-form-checkbox
-      switch
-      @change="toggleTheme"
-      :checked="darkTheme"
-      class="mb-1"
-    >
-      <span :class="darkTheme ? 'text-light' : null">Dark theme</span>
-    </b-form-checkbox>
+      <div class="p-3">
+        <b-form-checkbox
+          switch
+          @change="toggleTheme"
+          :checked="darkTheme"
+          class="mb-1"
+        >
+          <span :class="darkTheme ? 'text-light' : null">Dark theme</span>
+        </b-form-checkbox>
 
-    <b-form-checkbox
-      switch
-      @change="toggleGameThumbnails"
-      class="mb-1"
-      :checked="showGameThumbnails"
-    >
-      <span :class="darkTheme ? 'text-light' : null">
-        Game covers in board preview
-      </span>
-    </b-form-checkbox>
+        <b-form-checkbox
+          switch
+          @change="toggleGameThumbnails"
+          class="mb-1"
+          :checked="showGameThumbnails"
+        >
+          <span :class="darkTheme ? 'text-light' : null">
+            Game covers in board preview
+          </span>
+        </b-form-checkbox>
 
-    <b-form-checkbox
-      switch
-      @change="toggleTransparency"
-      class="mb-1"
-      :checked="transparencyEnabled"
-    >
-      <span :class="darkTheme ? 'text-light' : null">Transparency</span>
-    </b-form-checkbox>
+        <b-form-checkbox
+          switch
+          @change="toggleTransparency"
+          class="mb-1"
+          :checked="transparencyEnabled"
+        >
+          <span :class="darkTheme ? 'text-light' : null">Transparency</span>
+        </b-form-checkbox>
 
-    <div class="p-1 mb-1">
-      <span :class="darkTheme ? 'text-light' : null">Preferred age rating</span>
+        <div class="p-1 mb-1">
+          <span :class="darkTheme ? 'text-light' : null">Preferred age rating</span>
 
-      <b-form-select
-        :value="ageRating"
-        :options="ageRatingOptions"
-        @change="setPreferredGameRating"
-      />
-    </div>
+          <b-form-select
+            :value="ageRating"
+            :options="ageRatingOptions"
+            @change="setPreferredGameRating"
+          />
+        </div>
 
-    <div class="p-1 mb-1">
-      <span :class="darkTheme ? 'text-light' : null">Menu position</span>
+        <div class="p-1 mb-1">
+          <span :class="darkTheme ? 'text-light' : null">Menu position</span>
 
-      <b-form-select
-        :value="navPosition"
-        :options="navPositionOptions"
-        @change="setNavPosition"
-      />
-    </div>
+          <b-form-select
+            :value="navPosition"
+            :options="navPositionOptions"
+            @change="setNavPosition"
+          />
+        </div>
 
-    <DeleteAccountModal />
+        <DeleteAccountModal />
 
-    <div class="mt-4 d-inline-flex flex-column">
-      <b-button
-        :variant="darkTheme ? 'dark' : 'light'"
-        class="mb-2"
-        @click="signOut"
-      >
-        <i class="fa-regular fa-right-from-bracket fa-fw" />
-        Sign out
-      </b-button>
+        <div class="mt-4 d-inline-flex flex-column">
+          <b-button
+            :variant="darkTheme ? 'dark' : 'light'"
+            class="mb-2"
+            @click="signOut"
+          >
+            <i class="fa-regular fa-right-from-bracket fa-fw" />
+            Sign out
+          </b-button>
 
-      <b-button
-        href="https://accounts.google.com/"
-        variant="info"
-        class="mb-2"
-        target="_blank"
-      >
-        Manage account
-      </b-button>
+          <b-button
+            href="https://accounts.google.com/"
+            variant="info"
+            class="mb-2"
+            target="_blank"
+          >
+            Manage account
+          </b-button>
 
-      <b-link
-        class="mb-2 text-danger px-3 py-2"
-        v-b-modal.deleteAccount
-      >
-        Delete account
-      </b-link>
-    </div>
-  </div>
+          <b-link
+            class="mb-2 text-danger px-3 py-2"
+            v-b-modal.deleteAccount
+          >
+            Delete account
+          </b-link>
+        </div>
+      </div>
+    </template>
+  </b-sidebar>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
 import DeleteAccountModal from '@/components/Settings/DeleteAccountModal';
+import SidebarHeader from '@/components/SidebarHeader';
 import { AGE_RATINGS } from '@/constants';
 
 export default {
@@ -104,11 +110,12 @@ export default {
 
   components: {
     DeleteAccountModal,
+    SidebarHeader,
   },
 
   computed: {
     ...mapState(['settings']),
-    ...mapGetters(['darkTheme', 'showGameThumbnails', 'transparencyEnabled', 'ageRating', 'navPosition']),
+    ...mapGetters(['darkTheme', 'showGameThumbnails', 'transparencyEnabled', 'ageRating', 'navPosition', 'sidebarProps']),
 
     ageRatingOptions() {
       return AGE_RATINGS.map((rating) => ({
