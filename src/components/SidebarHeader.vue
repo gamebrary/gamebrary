@@ -1,6 +1,7 @@
 <!-- TODO: standardize title and subtitle -->
 <template lang="html">
   <div class="d-flex align-items-center justify-content-between p-3">
+    {{ title }}
     <slot />
 
     <b-button
@@ -19,5 +20,9 @@ export default {
   computed: {
     ...mapGetters(['darkTheme']),
   },
+
+  props: {
+    title: String,
+  }
 }
 </script>

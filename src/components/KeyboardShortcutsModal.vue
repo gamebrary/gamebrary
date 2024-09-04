@@ -5,9 +5,7 @@
     z-index="2001"
   >
     <template #default="{ hide }">
-      <SidebarHeader @hide="hide">
-        Keyboard Shortcuts
-      </SidebarHeader>
+      <SidebarHeader @hide="hide" title="Keyboard Shortcuts" />
 
       <b-list-group class="mx-3">
         <b-list-group-item

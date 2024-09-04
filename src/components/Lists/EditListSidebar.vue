@@ -8,9 +8,7 @@
     @hidden="closeSidebar"
   >
     <template #default="{ hide }">
-      <SidebarHeader @hide="hide">
-        Edit list
-      </SidebarHeader>
+      <SidebarHeader @hide="hide" title="Edit list" />
 
       <form
         class="p-3"

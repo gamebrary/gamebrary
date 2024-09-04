@@ -6,9 +6,7 @@
     @hidden="closeSidebar"
   >
     <template #default="{ hide }">
-      <SidebarHeader @hide="hide">
-        {{ title }}
-      </SidebarHeader>
+      <SidebarHeader @hide="hide" :title="title" />
 
       <div
         class="p-3"

@@ -14,7 +14,7 @@
           width="200"
         />
 
-        <p class="ml-3">
+        <p class="ml-3 text-truncate">
           {{ wallpaper.name }}
         </p>
       </div>

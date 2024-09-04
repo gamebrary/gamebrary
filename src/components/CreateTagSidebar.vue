@@ -6,9 +6,7 @@
     @hidden="saving = false"
   >
     <template #default="{ hide }">
-      <SidebarHeader @hide="hide">
-        Create tag
-      </SidebarHeader>
+      <SidebarHeader @hide="hide" title="Create tag" />
 
       <form @submit.prevent="submit" class="p-3">
         <div class="d-flex">

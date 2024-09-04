@@ -8,9 +8,7 @@
     @hidden="$store.commit('SET_PROFILE_SIDEBAR_OPEN', false)"
     >
       <template #default="{ hide }">
-        <SidebarHeader @hide="hide">
-          Edit Profile
-        </SidebarHeader>
+        <SidebarHeader @hide="hide" title="Edit Profile" />
 
         <b-spinner v-if="loading" class="spinner-centered" />
 
@@ -204,9 +202,7 @@
             right
           >
           <template #default="{ hide }">
-            <SidebarHeader @hide="hide">
-              Set profile wallpaper
-            </SidebarHeader>
+            <SidebarHeader @hide="hide" title="Set profile wallpaper" />
 
             <div class="p-3">
               <WallpapersList

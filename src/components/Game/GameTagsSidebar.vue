@@ -5,9 +5,7 @@
     right
   >
     <template #default="{ hide }">
-      <SidebarHeader @hide="hide">
-        {{ sidebarTitle }}
-      </SidebarHeader>
+      <SidebarHeader @hide="hide" :title="sidebarTitle" />
 
       <div class="p-3">
         <div v-if="isEmpty">

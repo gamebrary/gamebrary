@@ -6,9 +6,10 @@
     @hidden="saving = false"
   >
     <template #default="{ hide }">
-      <SidebarHeader @hide="hide">
-        Create board
-      </SidebarHeader>
+      <SidebarHeader
+        @hide="hide"
+        title="Create board"
+      />
 
       <b-form
         class="p-3"

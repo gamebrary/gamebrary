@@ -5,9 +5,7 @@
     right
   >
     <template #default="{ hide }">
-      <SidebarHeader @hide="hide">
-        Edit board
-      </SidebarHeader>
+      <SidebarHeader @hide="hide" title="Edit board" />
 
       <form @submit.stop.prevent="saveBoard" class="p-3">
         <b-sidebar
@@ -16,9 +14,7 @@
           right
         >
           <template #default="{ hide }">
-            <SidebarHeader @hide="hide">
-              Select board background
-            </SidebarHeader>
+            <SidebarHeader @hide="hide" title="Select board background" />
 
             <div class="p-3">
               <upload-wallpaper-button class="mb-3" />

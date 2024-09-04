@@ -7,9 +7,7 @@
     @hidden="closeSidebar"
   >
     <template #default="{ hide }">
-      <SidebarHeader @hide="hide">
-        Edit tag
-      </SidebarHeader>
+      <SidebarHeader @hide="hide" title="Edit tag" />
 
       <form @submit.prevent="saveTag" class="p-3">
         <div class="d-flex">

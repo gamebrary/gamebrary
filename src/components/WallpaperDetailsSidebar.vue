@@ -7,9 +7,7 @@
     @hidden="closeSidebar"
   >
     <template #default="{ hide }">
-      <SidebarHeader @hide="hide">
-        Filter search results
-      </SidebarHeader>
+      <SidebarHeader @hide="hide" title="Filter search results" />
 
       <div
         class="p-3"
