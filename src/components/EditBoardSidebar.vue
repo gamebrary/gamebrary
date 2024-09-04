@@ -17,7 +17,7 @@
             <SidebarHeader @hide="hide" title="Select board background" />
 
             <div class="p-3">
-              <upload-wallpaper-button class="mb-3" />
+              <UploadWallpaperButton class="mb-3" />
               <WallpapersList selectable :selected="board.backgroundUrl" @select="selectWallpaper" />
             </div>
           </template>
@@ -28,7 +28,7 @@
         >
           <template v-slot:modal-header="{ close }">
             <modal-header title="Choose wallpaper" @close="close">
-              <upload-wallpaper-button />
+              <UploadWallpaperButton />
             </modal-header>
           </template>
         </b-sidebar> -->
