@@ -14,7 +14,7 @@
     >
       <h4
         v-if="!thumbnail"
-        class="px-2 py-1"
+        class="px-2 py-2"
         :class="{ 'text-white': hasCustomBackground || darkTheme }"
       >
         {{ board.name }}
@@ -22,8 +22,8 @@
 
       <b-badge
         v-if="showPublicIndicator"
-        class="position-absolute"
-        style="right: 8px; top: 8px;"
+        class="position-absolute m-1"
+        style="right: 0; top: 0;"
         :variant="darkTheme ? 'warning' : 'danger'"
         size="sm"
       >

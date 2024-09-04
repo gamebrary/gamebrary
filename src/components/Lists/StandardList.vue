@@ -1,12 +1,12 @@
 <template lang="html">
-  <div class="standard-list" :class="{ 'grid': board.grid }"  >
+  <div class="standard-list" :class="{ 'grid': isGrid }"  >
     <p v-if="isEmpty">
       This board is empty.
     </p>
 
     <draggable
       class="games"
-      :class="{ 'game-grid': board.grid }"
+      :class="{ 'game-grid': isGrid }"
       handle=".card"
       ghost-class="card-placeholder"
       drag-class="border-success"
@@ -30,6 +30,7 @@
         :rank="index + 1"
         :vertical="board.grid"
         :hide-platforms="board.grid"
+        :class="isGrid ? null: 'mb-3'"
         @click.native="openGame(game.id, list)"
       />
     </draggable>
@@ -83,6 +84,10 @@ export default {
   computed: {
     ...mapState(['cachedGames', 'dragging', 'progresses', 'board', 'user', 'settings']),
     ...mapGetters(['isBoardOwner', 'darkTheme']),
+
+    isGrid() {
+      return this.board?.grid;
+    },
 
     filter() {
       return this.list?.games || [];

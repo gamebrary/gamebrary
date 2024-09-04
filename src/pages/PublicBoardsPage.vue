@@ -2,7 +2,7 @@
     <div>
       <b-spinner v-if="loading" class="spinner-centered" />
 
-      <div v-else class="board-grid">
+      <div v-else class="board-grid pb-3">
         <MiniBoard
           v-for="board in sortedPublicBoards"
           :key="board.id"

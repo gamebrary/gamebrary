@@ -1,3 +1,4 @@
+<!-- TODO: fix issue that causes games to be wiped when changing board type -->
 <template lang="html">
   <b-sidebar
     id="edit-board-sidebar"

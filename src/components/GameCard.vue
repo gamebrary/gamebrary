@@ -2,7 +2,15 @@
   <div
     v-if="game"
     class="game-card position-relative rounded cursor-pointer"
-    :class="[{ vertical, small, slim }, darkTheme ? 'dark text-light' : 'light' ]"
+    :class="[
+      {
+        vertical,
+        small,
+        slim,
+        'semi-transparent': transparencyEnabled,
+      },
+      darkTheme ? 'dark text-light' : 'light',
+    ]"
     @click="handleClick"
   >
     <div v-if="!hideCover || hideTitle">
@@ -148,7 +156,7 @@ export default {
 
   computed: {
     ...mapState(['settings', 'cachedGames', 'tags', 'notes', 'progresses', 'board', 'games', 'user']),
-    ...mapGetters(['isRTL', 'darkTheme']),
+    ...mapGetters(['isRTL', 'darkTheme', 'transparencyEnabled']),
 
     game() {
       return this.cachedGames?.[this.gameId];
