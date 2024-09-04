@@ -1,10 +1,10 @@
-<!-- TODO: finish layout, hook up remove profile pic -->
 <template lang="html">
   <b-sidebar
     id="profile-sidebar"
     :visible="editProfileSidebarOpen"
     right
     v-bind="sidebarProps"
+    @shown="loadProfile"
     @hidden="$store.commit('SET_PROFILE_SIDEBAR_OPEN', false)"
     >
       <template #default="{ hide }">
@@ -16,22 +16,59 @@
 
         <b-form
           v-else-if="profile"
-          class="p-3"
-          @submit.prevent="save"
+          class="px-3 pb-3"
+          @submit.prevent="saveAndClose"
         >
           <b-spinner v-if="uploading" />
 
-          <div class="text-center d-flex flex-column p-3 mb-3" :style="style">
+          <div
+            class="text-center d-flex flex-column p-3 mb-3 rounded position-relative"
+            :class="darkTheme ? 'bg-black' : 'bg-white'"
+            :style="style"
+          >
+            <b-dropdown
+              no-caret
+              class="position-absolute pr-3"
+              style="right: 0"
+              :variant="darkTheme ? 'dark' : 'white'"
+            >
+              <template #button-content>
+                <i class="fa-solid fa-bars" />
+              </template>
+
+              <b-dropdown-header id="dropdown-header-label">
+                Profile wallpaper
+              </b-dropdown-header>
+
+              <b-dropdown-item v-b-toggle.boardWallpaper>
+                {{ wallpaperImage ? 'Change wallpaper' : 'Set profile wallpaper' }}
+              </b-dropdown-item>
+
+              <b-dropdown-item
+                v-if="wallpaperImage"
+                @click="removeWallpaper"
+              >
+                Remove wallpaper
+              </b-dropdown-item>
+
+              <b-dropdown-divider></b-dropdown-divider>
+
+              <b-dropdown-header id="dropdown-header-label">
+                Profile avatar
+              </b-dropdown-header>
+
+              <b-dropdown-item @click="triggerFileUpload">
+                {{ profile.avatar ? 'Replace avatar' : 'Upload avatar' }}
+              </b-dropdown-item>
+              <b-dropdown-item v-if="avatarImage && profile.avatar" @click="removeAvatar">Remove avatar</b-dropdown-item>
+            </b-dropdown>
+
             <b-avatar
               :src="avatarImage"
               class="mx-auto cursor-pointer mb-2"
               size="120"
               @click.native="triggerFileUpload"
             />
-
-            <!-- <b-link>
-              Remove profile picture
-            </b-link> -->
 
             <strong>@{{ profile.userName }}</strong>
           </div>
@@ -161,19 +198,6 @@
             />
           </b-form-group>
 
-          Wallpaper
-          <b-img
-            v-if="wallpaperImage"
-            :src="wallpaperImage"
-            rounded
-            fluid
-            class="mb-3"
-          />
-
-          <b-button class="mb-3" v-b-toggle.boardWallpaper>
-            {{ wallpaperImage ? 'Change wallpaper' : 'Set wallpaper' }}
-          </b-button>
-
           <b-sidebar
             id="boardWallpaper"
             v-bind="sidebarProps"
@@ -185,8 +209,6 @@
             </SidebarHeader>
 
             <div class="p-3">
-              <upload-wallpaper-button class="mb-3" />
-
               <WallpapersList
                 selectable
                 @select="selectWallpaper"
@@ -226,13 +248,11 @@
 import { getImageThumbnail } from '@/utils';
 import { mapState, mapGetters } from 'vuex';
 import WallpapersList from '@/components/WallpapersList';
-import UploadWallpaperButton from '@/components/UploadWallpaperButton';
 import SidebarHeader from '@/components/SidebarHeader';
 
 export default {
   components: {
     WallpapersList,
-    UploadWallpaperButton,
     SidebarHeader,
   },
 
@@ -255,7 +275,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'editProfileSidebarOpen']),
-    ...mapGetters(['sidebarProps']),
+    ...mapGetters(['sidebarProps', 'darkTheme']),
 
     style() {
       return this.wallpaperImage
@@ -268,9 +288,10 @@ export default {
     async selectWallpaper(wallpaper) {
       this.profile.wallpaper = wallpaper;
 
-      this.save();
+      this.$root.$emit('bv::toggle::collapse', 'boardWallpaper');
+      this.wallpaperImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', wallpaper);
 
-      this.avatarImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', wallpaper);
+      this.save();
     },
 
     autoformatWebsite() {
@@ -282,12 +303,21 @@ export default {
     },
 
     async loadProfile() {
-      this.loading = true;
+      this.loading = this.profile === null;
 
       this.profile = await this.$store.dispatch('LOAD_PROFILE').catch(() => null);
 
-      if (this.profile?.avatar) this.loadAvatarImage();
-      if (this.profile?.wallpaper) this.loadWallpaper();
+      if (this.profile?.avatar) {
+        this.loadAvatarImage()
+      } else {
+        this.resetAvatar();
+      }
+
+      if (this.profile?.wallpaper) {
+        this.loadWallpaper();
+      } else {
+        this.resetWallpaper();
+      }
 
       this.loading = false;
     },
@@ -298,7 +328,6 @@ export default {
 
         this.avatarImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', thumbnailRef);
       } catch (e) {
-        this.profile.avatar = null;
         this.save();
       }
     },
@@ -307,9 +336,18 @@ export default {
       try {
         this.wallpaperImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', this.profile?.wallpaper);
       } catch (e) {
-        this.profile.avatar = null;
         this.save();
       }
+    },
+
+    resetWallpaper() {
+      this.wallpaperImage = null;
+      this.profile.wallpaper = null;
+    },
+
+    resetAvatar() {
+      this.avatarImage = null;
+      this.profile.avatar = null;
     },
 
     triggerFileUpload() {
@@ -335,6 +373,32 @@ export default {
       this.file = null;
     },
 
+    async removeWallpaper() {
+      this.resetWallpaper();
+      this.save();
+    },
+
+    async removeAvatar() {
+      this.resetAvatar();
+
+      this.save();
+    },
+
+    async saveAndClose() {
+      try {
+        this.saving = true;
+
+        await this.$store.dispatch('SAVE_PROFILE', this.profile);
+
+        this.saving = false;
+        this.$store.commit('SET_PROFILE_SIDEBAR_OPEN', false);
+        if (!this.profile.wallpaper) this.$bus.$emit('CLEAR_WALLPAPER');
+        this.$bus.$emit('LOAD_PROFILE');
+      } catch (error) {
+        this.saving = false;
+      }
+    },
+
     async save() {
       try {
         this.saving = true;
@@ -342,8 +406,8 @@ export default {
         await this.$store.dispatch('SAVE_PROFILE', this.profile);
 
         this.saving = false;
+        if (!this.profile.wallpaper) this.$bus.$emit('CLEAR_WALLPAPER');
         this.$bus.$emit('LOAD_PROFILE');
-        this.$store.commit('SET_PROFILE_SIDEBAR_OPEN', false);
       } catch (error) {
         this.saving = false;
         //
