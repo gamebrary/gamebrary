@@ -1,4 +1,3 @@
-<!-- TODO: make mini boards links so you can cmd click them -->
 <template lang="html">
   <div>
     <div class="text-center">

@@ -1,3 +1,4 @@
+<!-- TODO: make mini boards links so you can cmd click them -->
 <template lang="html">
   <b-card
     class="cursor-pointer overflow-hidden"

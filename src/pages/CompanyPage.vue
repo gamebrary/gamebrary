@@ -85,6 +85,8 @@ export default {
       data: `${IGDB_QUERIES.COMPANY} where id = ${this.$route.params.id};`,
     });
 
+    // TODO: only load games that aren't cached
+
     const allGames = [
       ...this.company?.published || [],
       ...this.company?.developed || [],
