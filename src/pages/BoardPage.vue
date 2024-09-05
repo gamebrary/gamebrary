@@ -5,29 +5,28 @@
     <EditListSidebar v-if="isBoardOwner && board.type !== $options.BOARD_TYPE_STANDARD" />
 
     <portal to="pageTitle">
-      <div :class="{ 'd-flex flex-column align-items-baseline': publicUserName }">
+      <div class="d-flex flex-column">
         <h3 :class="['text-truncate', { 'text-white': backgroundUrl && darkTheme }]" :style="publicUserName ? 'line-height: 1rem' : ''">
           {{ board.name }}
         </h3>
 
-        <small v-if="publicUserName">
-          by
+        <b-link
+          v-if="publicUserName"
+          style="font-size: 12px"
+          class="mt-1"
+          :to="{ name: 'public.profile', params: { userName: publicUserName }}"
+        >
+          <b-avatar
+            rounded
+            v-if="avatarImage"
+            :src="avatarImage"
+            size="16"
+            square
+            class="mr-1"
+          />
 
-          <b-link
-            class="mr-2"
-            :to="{ name: 'public.profile', params: { userName: publicUserName }}"
-          >
-            <b-avatar
-              rounded
-              v-if="avatarImage"
-              :src="avatarImage"
-              :title="`@${publicUserName}`"
-              v-b-tooltip.hover
-            />
-
-            @{{ publicUserName }}
-          </b-link>
-        </small>
+          {{ publicUserName }}
+        </b-link>
       </div>
     </portal>
 
@@ -206,9 +205,9 @@ export default {
       this.publicProfile = await this.$store.dispatch('LOAD_PUBLIC_PROFILE_BY_USER_ID', this.board?.owner)
         .catch(() => {});
 
-      if (!this.profile?.avatar) return;
+      if (!this.publicProfile?.avatar) return;
 
-      const avatar = getImageThumbnail(this.profile?.avatar);
+      const avatar = getImageThumbnail(this.publicProfile?.avatar);
 
       this.avatarImage = avatar
         ? await this.$store.dispatch('LOAD_FIREBASE_IMAGE', avatar)
