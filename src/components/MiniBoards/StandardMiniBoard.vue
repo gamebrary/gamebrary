@@ -28,7 +28,7 @@
           v-for="(game, index) in firstList.games"
           :key="index"
           :class="[
-            currentGameId == game.id
+            currentGameId === game.id
               ? 'border bg-danger border-danger'
               : darkTheme
                 ? 'border-black bg-dark'
