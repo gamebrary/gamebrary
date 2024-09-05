@@ -166,15 +166,7 @@ export default {
 
       if (activeTagIndex === null) return;
 
-
       this.tag = JSON.parse(JSON.stringify(tags?.[activeTagIndex]));
-
-      if (this.tag?.games?.length > 0) {
-        // TODO: only load games that aren't cached
-        // TODO: move to separate method?
-
-        await this.$store.dispatch('LOAD_IGDB_GAMES', this.tag.games);
-      }
     },
 
     async promptDeleteTag() {
