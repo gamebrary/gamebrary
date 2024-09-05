@@ -194,18 +194,19 @@ export default {
     },
 
     async boot() {
-      await this.$store.dispatch('LOAD_BOARDS').catch((e) => {});
+      await Promise.allSettled([
+        this.$store.dispatch('LOAD_BOARDS'),
+        this.$store.dispatch('LOAD_PROFILE'),
+        this.$store.dispatch('LOAD_WALLPAPERS'),
+        this.$store.dispatch('LOAD_SETTINGS'),
+        this.$store.dispatch('LOAD_TAGS'),
+        this.$store.dispatch('LOAD_NOTES'),
+        this.$store.dispatch('LOAD_PROGRESSES'),
+        this.$store.dispatch('LOAD_GAMES'),
+      ]);
 
       this.loading = false;
-      this.$store.dispatch('LOAD_PROFILE').catch((e) => {});
-      this.$store.dispatch('LOAD_RELEASES').catch((e) => {});
-      this.$store.dispatch('LOAD_WALLPAPERS').catch((e) => {});
-      this.$store.dispatch('LOAD_SETTINGS').catch((e) => {});
-      this.$store.dispatch('LOAD_TAGS').catch((e) => {});
-      this.$store.dispatch('LOAD_NOTES').catch((e) => {});
-      this.$store.dispatch('LOAD_PROGRESSES').catch((e) => {});
-      this.$store.dispatch('LOAD_GAMES').catch((e) => {});
-    },
+    }
   },
 };
 </script>
