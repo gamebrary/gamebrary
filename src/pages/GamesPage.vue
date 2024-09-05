@@ -1,4 +1,3 @@
-<!-- TODO: only show loading spinner on first load -->
 <template lang="html">
   <div>
     <portal to="pageTitle">Games</portal>
