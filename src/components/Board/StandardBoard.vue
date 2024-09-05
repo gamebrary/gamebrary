@@ -2,6 +2,7 @@
   <div class="standard-board pb-5">
     <StandardList
       v-for="(list, listIndex) in board.lists"
+      :ref="`list-${listIndex}`"
       :key="list.id"
       :listIndex="listIndex"
       :list="list"
@@ -12,14 +13,14 @@
 <script>
 import { mapState } from 'vuex';
 import StandardList from '@/components/Lists/StandardList';
-
+import { HIGHLIGHTED_GAME_TIMEOUT } from '@/constants';
 export default {
   components: {
     StandardList,
   },
 
   computed: {
-    ...mapState(['board']),
+    ...mapState(['board', 'highlightedGame']),
 
     list() {
       const [firstList] = this.board?.lists;
@@ -38,9 +39,30 @@ export default {
 
   mounted() {
     if (this.needsFlattening) this.flattenAndSaveBoard();
+    if (this.highlightedGame) this.highlightGame();
   },
 
   methods: {
+    highlightGame() {
+      const lists = Object.values(this.$refs);
+
+      lists.forEach(([list], index) => {
+        const [gameRef] = list.$refs[`${index}-${this.highlightedGame}`];
+
+        if (gameRef) {
+          console.log('gameRef', gameRef);
+
+          setTimeout(() => {
+            gameRef?.$el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, index * 1000);
+        }
+      });
+
+      setTimeout(() => {
+        this.$store.commit('SET_HIGHLIGHTED_GAME', null);
+      }, HIGHLIGHTED_GAME_TIMEOUT);
+    },
+
     async flattenAndSaveBoard() {
       const mergedGamesList = [...new Set(this.board?.lists?.map(({ games }) => games)?.flat())];
 

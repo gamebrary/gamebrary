@@ -27,7 +27,14 @@
         <div
           v-for="(game, index) in firstList.games"
           :key="index"
-          :class="[darkTheme ? 'border-black bg-dark' : 'border-light bg-white', { 'border-bottom': index !== firstList.games.length - 1 }]"
+          :class="[
+            currentGameId == game.id
+              ? 'border bg-danger border-danger'
+              : darkTheme
+                ? 'border-black bg-dark'
+                : 'border-light bg-white',
+            { 'border-bottom': index !== firstList.games.length - 1 },
+          ]"
           class=""
         >
           <b-avatar
@@ -55,7 +62,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 export default {
   props: {
@@ -63,11 +70,17 @@ export default {
       type: Object,
       required: true,
     },
-    gameId: Number,
   },
 
   computed: {
     ...mapGetters(['darkTheme', 'showGameThumbnails']),
+    ...mapState(['routeName', 'game']),
+
+    currentGameId() {
+      return this.routeName === 'game'
+        ? this.game?.id
+        : null;
+    },
 
     isGrid() {
       return this.board?.grid;

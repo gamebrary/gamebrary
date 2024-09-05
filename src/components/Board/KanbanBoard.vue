@@ -19,6 +19,7 @@
 import { mapState, mapGetters } from 'vuex';
 import AddKanbanList from '@/components/Board/AddKanbanList';
 import KanbanList from '@/components/Lists/KanbanList';
+import { HIGHLIGHTED_GAME_TIMEOUT } from '@/constants'
 
 export default {
   components: {
@@ -27,7 +28,7 @@ export default {
   },
 
   mounted() {
-    if (this.highlightedGame) this.highlightGame();
+    if (this.highlightedGame) this.scrollToGame();
   },
 
   computed: {
@@ -40,7 +41,7 @@ export default {
   },
 
   methods: {
-    highlightGame() {
+    scrollToGame() {
       const lists = Object.values(this.$refs);
 
       lists.forEach(([list], index) => {
@@ -55,7 +56,7 @@ export default {
 
       setTimeout(() => {
         this.$store.commit('SET_HIGHLIGHTED_GAME', null);
-      }, 5000);
+      }, HIGHLIGHTED_GAME_TIMEOUT);
     },
   },
 };

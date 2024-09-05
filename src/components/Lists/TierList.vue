@@ -64,11 +64,12 @@
       :group="{ name: 'games' }"
       @end="dragEnd"
       @start="dragStart"
-    > 
+    >
       <GameCard
         v-for="gameId in list.games"
         :key="gameId"
         :game-id="gameId"
+        :ref="`${listIndex}-${gameId}`"
         hide-title
         hide-tags
         hide-notes

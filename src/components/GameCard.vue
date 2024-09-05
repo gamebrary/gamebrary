@@ -7,6 +7,7 @@
         vertical,
         small,
         slim,
+        highlighted: highlightedGame === gameId,
         'semi-transparent': transparencyEnabled,
       },
       darkTheme ? 'dark text-light' : 'light',
@@ -155,7 +156,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['settings', 'cachedGames', 'tags', 'notes', 'progresses', 'board', 'games', 'user']),
+    ...mapState(['settings', 'cachedGames', 'tags', 'notes', 'progresses', 'board', 'games', 'user', 'highlightedGame']),
     ...mapGetters(['isRTL', 'darkTheme', 'transparencyEnabled']),
 
     game() {
@@ -225,6 +226,10 @@ export default {
   grid-gap: 1rem;
   transition: background-color 300ms linear;
   padding: 0.5rem;
+
+  &.highlighted {
+    border: 3px dotted var(--danger);
+  }
 
   &.slim {
     padding: 0;

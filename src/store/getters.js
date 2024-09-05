@@ -15,8 +15,8 @@ import linkifyHtml from 'linkify-html';
 
 export default {
   latestRelease: ({ releases }) => releases?.[0]?.tag_name || 'v1',
-  darkTheme: ({ route, board, settings }) => {
-    const boardOverride = route === 'board' && board?.darkTheme;
+  darkTheme: ({ routeName, board, settings }) => {
+    const boardOverride = routeName === 'board' && board?.darkTheme;
 
     return settings?.darkTheme || boardOverride || false
   },

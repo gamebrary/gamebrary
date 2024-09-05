@@ -537,10 +537,12 @@ export default {
   },
 
   LOAD_RELEASES({ commit }) {
+    // TODO: use await async
     return new Promise((resolve, reject) => {
       axios
         .get("https://api.github.com/repos/romancm/gamebrary/releases")
         .then(({ data }) => {
+          console.log('releases', data);
           // const [latestRelease] = data;
           // const latestReleaseVersion = latestRelease && latestRelease.tag_name;
           // const lastReleaseSeenByUser = this.settings?.release || null;

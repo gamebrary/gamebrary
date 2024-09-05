@@ -7,7 +7,6 @@
       v-for="board in boardsWithGame"
       :key="board.id"
       :board="board"
-      :gameId="game.id"
       class="mb-3"
       @click.native="handleBoardClick(board.id)"
     />

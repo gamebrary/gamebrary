@@ -25,6 +25,7 @@
         v-for="(game, index) in listGames"
         :key="index"
         :list="list"
+        :ref="`${listIndex}-${game.id}`"
         :game-id="game.id"
         :ranked="board.ranked"
         :rank="index + 1"

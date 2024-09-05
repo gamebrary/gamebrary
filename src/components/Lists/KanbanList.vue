@@ -93,7 +93,6 @@
           :small="list.smallCover"
           :hide-cover="list.hideCover"
           :hide-title="list.hideTitle"
-          :class="{ 'highlighted': highlightedGame == gameId }"
           @click.native="openGame(gameId, list)"
         />
       </draggable>
@@ -118,7 +117,13 @@ import draggable from 'vuedraggable';
 import GameCard from '@/components/GameCard';
 import slugify from 'slugify'
 import orderby from 'lodash.orderby';
-import { SORT_TYPE_ALPHABETICALLY, SORT_TYPE_RATING, SORT_TYPE_PROGRESS } from '@/constants';
+import {
+  SORT_TYPE_ALPHABETICALLY,
+  SORT_TYPE_RATING,
+  SORT_TYPE_PROGRESS,
+  HIGHLIGHTED_GAME_TIMEOUT
+} from '@/constants';
+
 import { mapState, mapGetters } from 'vuex';
 
 export default {
@@ -154,14 +159,14 @@ export default {
   },
 
   computed: {
-    ...mapState(['cachedGames', 'dragging', 'progresses', 'board', 'user', 'settings', 'highlightedGame']),
+    ...mapState(['cachedGames', 'dragging', 'progresses', 'board', 'user', 'settings']),
     ...mapGetters(['isBoardOwner', 'darkTheme', 'transparencyEnabled']),
 
     sortMessage() {
       if (this.sortBy === SORT_TYPE_ALPHABETICALLY) return 'List sorted alphabetically'
       if (this.sortBy === SORT_TYPE_RATING) return 'List sorted by rating'
       if (this.sortBy === SORT_TYPE_PROGRESS) return 'List sorted by progress'
-      
+
       return null;
     },
 
@@ -265,7 +270,7 @@ export default {
 
         setTimeout(() => {
           this.$store.commit('SET_HIGHLIGHTED_GAME', null);
-        }, 5000);
+        }, HIGHLIGHTED_GAME_TIMEOUT);
       }
     },
 
@@ -376,10 +381,6 @@ export default {
 
 .list-settings {
   padding: 1rem;
-}
-
-.highlighted {
-  outline: 3px dashed var(--primary);
 }
 </style>
 

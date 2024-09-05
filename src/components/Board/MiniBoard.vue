@@ -1,3 +1,4 @@
+<!-- <router-link :to="{ name: 'board', params: { id: board.id } }"></router-link> -->
 <!-- TODO: make mini boards links so you can cmd click them -->
 <template lang="html">
   <b-card
@@ -33,7 +34,6 @@
       <component
         :is="miniBoardComponent"
         :board="formattedBoard"
-        :gameId="gameId"
       />
     </div>
   </b-card>
@@ -50,7 +50,6 @@ import TierMiniBoard from '@/components/MiniBoards/TierMiniBoard';
 export default {
   props: {
     board: Object,
-    gameId: Number,
     thumbnail: Boolean,
   },
 
@@ -73,7 +72,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['cachedGames']),
+    ...mapState(['cachedGames', 'game']),
     ...mapGetters(['darkTheme']),
 
     miniBoardComponent() {

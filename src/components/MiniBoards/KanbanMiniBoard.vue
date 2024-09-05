@@ -12,10 +12,14 @@
         <div
           v-for="(game, index) in list.games"
           :key="index"
-          style="width: 60px"
+          style="width: 60px;"
           class="p-1 d-flex"
           :class="[
-            gameId && game.id === gameId ? 'bg-danger' : darkTheme ? 'border-black bg-dark' : 'border-light bg-white',
+            game.id === currentGameId
+              ? 'bg-danger'
+              : darkTheme
+                ? 'border-black bg-dark'
+                : 'border-light bg-white',
             {
               'border-bottom' : index !== list.games.length - 1,
             }
@@ -24,7 +28,7 @@
           <b-avatar
             style="border-radius: 4px !important"
             text=" "
-            :src="gameId && game.src && game.id === gameId ? game.src : showGameThumbnails && game.src ? game.src : null"
+            :src="currentGameId && game.src && game.id === currentGameId ? game.src : showGameThumbnails && game.src ? game.src : null"
             v-b-tooltip.hover
             :variant="darkTheme ? 'black' : 'light'"
             size="24"
@@ -36,28 +40,21 @@
       <div
         v-else
         class="rounded overflow-hidden"
-        style="height: 22px; width: 60px;"
+        style="height: 28px; width: 60px;"
       />
     </b-card>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 export default {
   props: {
-    gameId: Number,
     board: {
       type: Object,
       required: true,
     },
-  },
-
-  data() {
-    return {
-      // Your data properties here
-    };
   },
 
   methods: {
@@ -68,14 +65,13 @@ export default {
 
   computed: {
     ...mapGetters(['darkTheme', 'showGameThumbnails']),
-  },
+    ...mapState(['game', 'routeName']),
 
-  mounted() {
-    // Code to run when the component is mounted
+    currentGameId() {
+      return this.routeName === 'game'
+        ? this.game?.id
+        : null;
+    },
   },
 };
 </script>
-
-<style scoped>
-/* Your CSS styles here */
-</style>

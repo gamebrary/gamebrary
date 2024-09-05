@@ -1,5 +1,6 @@
 <template>
   <div>
+    <pre>{{ currentGameId || 'not game page' }}</pre>
     <div
       class="d-flex mx-2"
       v-for="tier in board.lists"
@@ -22,6 +23,7 @@
         square
         :src="showGameThumbnails ? game.src : null"
         style="margin-left: 4px; border-radius: 4px !important;"
+        :class="currentGameId === game.id ? 'border border-danger' : null"
         size="20"
       />
     </div>
@@ -29,7 +31,7 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
+  import { mapGetters, mapState } from 'vuex';
 export default {
   props: {
     board: {
@@ -41,6 +43,13 @@ export default {
 
   computed: {
     ...mapGetters(['darkTheme', 'showGameThumbnails']),
+    ...mapState(['routeName', 'game']),
+
+    currentGameId() {
+      return this.routeName === 'game'
+        ? this.game?.id
+        : null;
+    },
   },
 
   methods: {

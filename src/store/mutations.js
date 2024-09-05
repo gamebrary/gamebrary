@@ -161,8 +161,8 @@ export default {
     Vue.set(state.game, 'news', news);
   },
 
-  SET_ROUTE(state, route) {
-    state.route = route;
+  SET_ROUTE(state, routeName) {
+    state.routeName = routeName;
   },
 
   APPEND_WIKIPEDIA_GAME_DATA(state, data) {
