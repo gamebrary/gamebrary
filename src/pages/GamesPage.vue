@@ -70,7 +70,7 @@ export default {
 
   data() {
     return {
-      loading: true,
+      loading: false,
       view: 'grid',
     }
   },
@@ -82,11 +82,11 @@ export default {
     likedGames() {
       if (!this.user) return null;
 
-      return Object.entries(this.games)?.filter(([id, liked]) => liked)?.map(([id]) => this.cachedGames?.[id]);
+      return Object.entries(this.games)?.filter(([liked]) => liked)?.map(([id]) => this.cachedGames?.[id]);
     },
 
     likedGamesIds() {
-      return Object.entries(this.games)?.filter(([id, liked]) => liked)?.map(([id]) => Number(id));
+      return Object.entries(this.games)?.filter(([liked]) => liked)?.map(([id]) => Number(id));
     },
   },
 
@@ -114,6 +114,7 @@ export default {
 
     async loadGames() {
       try {
+        this.loading = Object.keys(this.games)?.length === 0;
         await this.$store.dispatch('LOAD_GAMES');
 
         const cachedGames = Object.keys(this.cachedGames);

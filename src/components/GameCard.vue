@@ -110,7 +110,7 @@
 
   <div v-else>
     <b-img
-      :alt="gameId"
+      :alt="String(gameId)"
       blank-color="#ccc"
       rounded
       class="mw-100"
