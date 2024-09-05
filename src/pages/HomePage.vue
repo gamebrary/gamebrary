@@ -31,7 +31,7 @@
 
       <h3 class="mt-3 mb-3">Discover and connect with others in the community!</h3>
 
-      <div class="d-flex overflow-visible w-75 mx-auto justify-content-center">
+      <div class="d-flex overflow-hidden w-75 mx-auto justify-content-center">
         <profile-card
           v-for="(profile, index) in filteredProfiles"
           :key="profile.userName"
@@ -78,7 +78,7 @@ export default {
     },
 
     filteredProfiles() {
-      return this.profiles.filter(({ avatar }) => avatar);
+      return this.profiles.filter(({ avatar }) => avatar).slice(0, 5);
     },
 
     currentYear() {
