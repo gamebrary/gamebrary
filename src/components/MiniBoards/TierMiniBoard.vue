@@ -1,6 +1,5 @@
 <template>
   <div>
-    <pre>{{ currentGameId || 'not game page' }}</pre>
     <div
       class="d-flex mx-2"
       v-for="tier in board.lists"

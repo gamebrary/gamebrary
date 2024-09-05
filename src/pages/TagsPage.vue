@@ -118,9 +118,7 @@ export default {
         const cachedGames = Object.keys(this.cachedGames);
         const gamesNotCached = allGames?.filter((game) => !cachedGames.includes(String(game)))?.toString();
 
-        if (gamesNotCached) {
-          await this.$store.dispatch('LOAD_IGDB_GAMES', gamesNotCached);
-        }
+        if (gamesNotCached) await this.$store.dispatch('LOAD_IGDB_GAMES', gamesNotCached);
       } catch (e) {
         //
       }
