@@ -78,13 +78,13 @@
 
   &.dark,
   &.bg-dark {
-    background: rgba(53, 54, 58, 0.5) !important;
+    background: rgba(53, 54, 58, 0.7) !important;
     color: var(--light) !important;
   }
 
   &.light,
   &.bg-light {
     color: var(--dark) !important;
-    background: rgba(222, 228, 231, 0.5) !important;
+    background: rgba(222, 228, 231, 0.7) !important;
   }
 }
