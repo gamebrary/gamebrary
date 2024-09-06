@@ -19,19 +19,21 @@
 
   @media(max-width: 1024px) {
     grid-template-columns: repeat(5, 1fr);
+    background-color: rgb(131, 21, 116);
   }
 
   @media(max-width: 992px) {
+    background-color: #f0c;
     grid-template-columns: repeat(4, 1fr);
   }
 
-
   @media(max-width: 768px) {
+    background-color: #0cf;
     grid-template-columns: repeat(3, 1fr);
   }
 
-
   @media(max-width: 480px) {
+    background-color: #fc0;
     grid-template-columns: repeat(2, 1fr);
   }
 }

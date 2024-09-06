@@ -1,20 +1,18 @@
 <template lang="html">
-  <header :class="[darkTheme ? 'border-dark' : 'border-light']" class="rounded overflow-hidden mb-3">
-    <b-carousel
-      v-if="hasArtworks"
-      id="carousel-fade"
-      class="cursor-pointer overflow-hidden d-none d-md-block"
-      fade
-      v-b-modal.mediaModal
-      no-hover-pause
-    >
-      <b-carousel-slide
-        v-for="(artwork, index) in artworks"
-        :key="index"
-        :img-src="artwork.url"
-      />
-    </b-carousel>
-  </header>
+  <b-carousel
+    v-if="hasArtworks"
+    id="carousel-fade"
+    class="game-media-carousel cursor-pointer overflow-hidden position-absolute m-3 rounded"
+    fade
+    v-b-modal.mediaModal
+    no-hover-pause
+  >
+    <b-carousel-slide
+      v-for="(artwork, index) in artworks"
+      :key="index"
+      :img-src="artwork.url"
+    />
+  </b-carousel>
 </template>
 
 <script>
@@ -43,3 +41,10 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+.game-media-carousel {
+  bottom: 0;
+  width: 160px;
+}
+</style>

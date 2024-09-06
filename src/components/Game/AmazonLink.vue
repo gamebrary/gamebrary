@@ -1,16 +1,14 @@
 <template lang="html">
-  <b-link
+  <b-button
     v-if="amazonLink"
-    v-b-tooltip.hover.auto="{ delay: { show: 500, hide: 50 } }"
-    title="Using this link helps support Gamebrary at to extra cost to you."
+    variant="primary"
     :href="amazonLink"
     target="_blank"
   >
-    <img
-      :src="`/img/available-at-amazon-${darkTheme ? 'light' : 'dark'}.png`"
-      width="90"
-    >
-  </b-link>
+    <i class="fa-brands fa-amazon mr-1"></i>
+
+    Buy from Amazon
+  </b-button>
 </template>
 
 <script>

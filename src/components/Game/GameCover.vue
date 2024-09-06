@@ -13,6 +13,8 @@
 
       <GameRatings class="position-absolute d-flex" style="bottom: 1rem; right: 1rem;" />
 
+      <GameMediaCarousel />
+
       <b-img
         :src="$options.getImageUrl(game)"
         :alt="gameName"
@@ -29,6 +31,7 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import GameRatings from '@/components/Game/GameRatings';
+import GameMediaCarousel from '@/components/Game/GameMediaCarousel';
 import { getImageUrl } from '@/utils';
 
 export default {
@@ -36,6 +39,7 @@ export default {
 
   components: {
     GameRatings,
+    GameMediaCarousel,
   },
 
   computed: {

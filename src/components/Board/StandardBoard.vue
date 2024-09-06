@@ -88,8 +88,5 @@ export default {
 .standard-board {
   display: flex;
   justify-content: center;
-  align-items: center;
-  overflow-y: auto;
-  flex-direction: column;
 }
 </style>

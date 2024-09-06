@@ -65,7 +65,15 @@
         <small v-else>{{ gameProgress }}%</small>
       </b-badge>
 
-      <h2 v-if="!hideTitle || hideCover" :class="[{ 'text-success' : gameCompleted, 'mb-1': !board.grid }]">
+      <h2
+        v-if="!hideTitle || hideCover"
+        :class="['text-truncate',
+          {
+            'text-success' : gameCompleted, 'mb-1': !board.grid,
+            'mt-2': vertical,
+          }
+        ]"
+      >
         <b-avatar
           v-if="ranked"
           :variant="darkTheme ? 'warning' : 'success'"

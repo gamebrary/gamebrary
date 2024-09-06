@@ -1,21 +1,20 @@
 <template>
-  <b-container v-if="allGames.length" class="p-0">
+  <div v-if="allGames.length">
     <h2 class="pb-3">You may also like</h2>
 
-    <b-form-row align-content="end">
-      <div class="game-grid">
-        <GameCard
-          v-for="game in allGames"
-          :key="game && game.id"
-          :game-id="game.id"
-          hide-platforms
-          vertical
-          hide-tags
-          hide-progress
-        />
-      </div>
-    </b-form-row>
-  </b-container>
+    <div class="scroll-container">
+      <GameCard
+        v-for="game in allGames"
+        :key="game && game.id"
+        :game-id="game.id"
+        hide-platforms
+        vertical
+        hide-tags
+        hide-progress
+        class="scroll-item"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -88,3 +87,17 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+    .scroll-container {
+      width: 100%;
+      white-space: nowrap;
+      overflow-x: auto;
+    }
+
+    .scroll-item {
+      display: inline-block;
+      width: 180px;
+    }
+
+</style>

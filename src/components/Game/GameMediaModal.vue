@@ -1,20 +1,5 @@
 <template lang="html">
   <section>
-    <div class="thumbnails">
-      <div
-        v-for="({ imageUrl }, index) in thumbnailPreviews"
-        :key="index"
-      >
-        <b-img
-          :src="imageUrl"
-          rounded
-          fluid
-          class="cursor-pointer"
-          @click="viewMedia(index + 1)"
-        />
-      </div>
-    </div>
-
     <b-modal
       id="mediaModal"
       size="xl"
@@ -35,7 +20,7 @@
       </template>
 
       <div class="game-media" :class="{ 'selected': activeIndex !== null }">
-        <div class="modal-thumbnails">
+        <div class="thumbnails">
           <div
             v-for="({ imageUrl, isVideo }, index) in gameMedia"
             class="position-relative"
@@ -110,12 +95,6 @@ export default {
 
     isSelectedMediaVideo() {
       return this.selectedMedia?.isVideo;
-    },
-
-    thumbnailPreviews() {
-      const thumbnails = this.$store.getters.gameMedia(true);
-
-      return thumbnails?.slice(1, 6);
     },
 
     gameMedia() {
@@ -195,12 +174,6 @@ export default {
 }
 
 .thumbnails {
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: repeat(5, 1fr);
-}
-
-.modal-thumbnails {
   max-height: calc(100vh - 124px);
   overflow-y: auto;
 

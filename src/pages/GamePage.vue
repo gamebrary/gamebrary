@@ -32,69 +32,85 @@
       </b-dropdown>
     </portal>
 
-    <b-row>
-      <b-col
-        cols="12"
-        sm="6"
-        md="5"
-        lg="4"
-        xl="3"
-      >
+    <GameMediaModal />
+
+    <div class="game-detail">
+      <aside>
         <GameCover />
-        <GameMedia />
-      </b-col>
+      </aside>
 
-      <b-col
-        cols="12"
-        sm="6"
-        md="7"
-        lg="8"
-        xl="5"
-      >
-        <div>
-          <div
-            class="d-flex justify-content-between align-items-end mb-2"
-            v-b-visible="(value) => titleVisible = !value"
+      <article>
+        <div class="d-flex align-items-center" v-b-visible="(value) => titleVisible = !value">
+          <h1 id="popover-target-1" :class="{ 'text-danger': isLiked, 'cursor-pointer': alternativeNames.length }">
+            {{ gameName }}
+          </h1>
+
+          <b-popover
+            v-if="alternativeNames.length"
+            target="popover-target-1"
+            triggers="hover"
+            placement="top"
           >
-            <div :class="['d-flex align-items-center']">
-              <h1 id="popover-target-1" :class="{ 'text-danger': isLiked, 'cursor-pointer': alternativeNames.length }">
-                {{ gameName }}
-              </h1>
+            <strong class="mb-2 d-block">Alternative names:</strong>
 
-              <b-popover
-                v-if="alternativeNames.length"
-                target="popover-target-1"
-                triggers="hover"
-                placement="top"
-              >
-                <strong class="mb-2 d-block">Alternative names:</strong>
+            <div
+              class="mb-1"
+              variant="light"
+              v-for="{ comment, id, name, imgUrl } in alternativeNames"
+              :key="id"
+            >
+              <b-avatar
+                v-b-tooltip
+                :title="comment || null"
+                size="sm"
+                variant="transparent"
+                class="mr-1"
+                rounded
+                :src="imgUrl"
+              />
 
-                <div
-                  class="mb-1"
-                  variant="light"
-                  v-for="{ comment, id, name, imgUrl } in alternativeNames"
-                  :key="id"
-                >
-                  <b-avatar
-                    v-b-tooltip
-                    :title="comment || null"
-                    size="sm"
-                    variant="transparent"
-                    class="mr-1"
-                    rounded
-                    :src="imgUrl"
-                  />
-
-                  {{ name }}
-                </div>
-              </b-popover>
-
-              <b-badge v-if="gameCategory" variant="info" class="ml-2">
-                {{ gameCategory }}
-              </b-badge>
+              {{ name }}
             </div>
-          </div>
+          </b-popover>
 
+          <b-badge v-if="gameCategory" variant="info" class="ml-2">
+            {{ gameCategory }}
+          </b-badge>
+        </div>
+
+        <div :class="['game-description pb-4', source]">
+          <b-spinner v-if="loading" class="spinner-centered" />
+
+          <template v-else>
+            <p v-html="description" />
+
+            <p class="small">
+              <template>
+                  Developed by
+                  <b-link
+                    v-for="(developer, index) in gameDevelopers"
+                    :key="index"
+                    :to="{ name: 'company', params: { id: developer.id, slug: developer.slug }}"
+                    class="mr-2 mb-2 align-items-center"
+                  >
+                    <span>{{ developer.name }}</span>
+                  </b-link>
+              </template>
+
+              Published by
+              <b-link
+                v-for="publisher in gamePublishers"
+                :key="publisher.id"
+                :to="{ name: 'company', params: { id: publisher.id, slug: publisher.slug }}"
+              >
+                {{ publisher.name }}
+              </b-link>
+            </p>
+            <small class="text-muted mb-3 text-capitalize">Source: {{ source }}</small>
+          </template>
+        </div>
+
+        <div>
           <div v-if="user">
             <b-link v-if="!tagsApplied.length" v-b-toggle.gameTagsSidebar>
               Add tag
@@ -116,51 +132,25 @@
             <GameTagsSidebar />
           </div>
 
-          <div :class="['game-description pb-4', source]">
-            <b-spinner v-if="loading" class="spinner-centered" />
+          <AmazonLink class="mr-3" />
 
-            <template v-else>
-              <p v-html="description" />
-
-              <p class="small">
-                <template>
-                    Developed by
-                    <b-link
-                      v-for="(developer, index) in gameDevelopers"
-                      :key="index"
-                      :to="{ name: 'company', params: { id: developer.id, slug: developer.slug }}"
-                      class="mr-2 mb-2 align-items-center"
-                    >
-                      <span>{{ developer.name }}</span>
-                    </b-link>
-                </template>
-
-                Published by
-                <b-link
-                  v-for="publisher in gamePublishers"
-                  :key="publisher.id"
-                  :to="{ name: 'company', params: { id: publisher.id, slug: publisher.slug }}"
-                >
-                  {{ publisher.name }}
-                </b-link>
-              </p>
-              <small class="text-muted mb-3 text-capitalize">Source: {{ source }}</small>
-            </template>
-          </div>
-
-          <AmazonLinks class="mr-3" />
-
-          <b-link
+          <b-button
             v-if="gogGame"
             v-b-tooltip.hover
+            variant="white"
             title="Buy from GOG.com"
             target="_blank"
-            class="bg-white text-dark p-2 rounded d-inline-flex flex-column small align-items-center"
             :href="`https://gog.com${gogGameUrl}`"
           >
-            Available at
-            <img src="/logos/data-sources/gog.svg" alt="gog" width="60">
-          </b-link>
+            <img
+              src="/logos/data-sources/gog.svg"
+              alt="gog"
+              width="20"
+              class="mr-1"
+            />
+
+            Buy from GOG
+          </b-button>
 
           <div class="mt-3">
             <div v-if="gameGenres" class="float-left mr-3 mb-3">
@@ -227,7 +217,6 @@
               </router-link>
             </div>
 
-            <!-- TODO: restore releaseDates -->
             <!-- <div>
               <h4 class="mt-3">{{ $t('board.gameModal.releaseDate') }}</h4>
               <ol v-if="releaseDates" class="list-unstyled mb-0">
@@ -286,17 +275,38 @@
             @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
           />
         </div>
-      </b-col>
+      </article>
 
-      <b-col
-        cols="12"
-        xl="4"
-      >
-        <GameHeader />
-        <GameInBoards class="mb-3" />
-      </b-col>
-    </b-row>
+      <aside>
+        <AmazonLink class="mr-3" />
+        <GameInBoards class="d-none d-lg-inline" />
 
+        <template v-if="highlightedAchievements">
+          <h3 :class="['mt-5']">Achievements</h3>
+
+          <b-list-group>
+            <b-list-group-item
+              class="d-flex align-items-center"
+              variant="secondary"
+              v-for="achievement in highlightedAchievements"
+              :key="achievement.name"
+            >
+              <b-avatar
+                variant="info"
+                :src="achievement.path"
+                square
+                size="24"
+                class="mr-2"
+              />
+
+              {{ achievement.name }}
+            </b-list-group-item>
+          </b-list-group>
+        </template>
+      </aside>
+    </div>
+
+    <GameInBoards class="d-lg-none" />
     <AddRemoveGame />
 
     <b-container>
@@ -325,39 +335,7 @@
         </h3>
       </portal>
 
-      <b-row>
-        <b-col
-          cols="12"
-          md="4"
-          xl="4"
-          style="z-index: 1"
-          class="text-center pt-3 pt-md-0"
-        >
-          <template v-if="highlightedAchievements">
-            <h3 :class="['mt-5']">Achievements</h3>
-
-            <b-list-group>
-              <b-list-group-item
-                class="d-flex align-items-center"
-                variant="secondary"
-                v-for="achievement in highlightedAchievements"
-                :key="achievement.name"
-              >
-                <b-avatar
-                  variant="info"
-                  :src="achievement.path"
-                  square
-                  size="24"
-                  class="mr-2"
-                />
-
-                {{ achievement.name }}
-              </b-list-group-item>
-            </b-list-group>
-          </template>
-        </b-col>
-        <!-- <GameSpeedruns /> -->
-      </b-row>
+      <!-- <GameSpeedruns /> -->
 
       <!-- <timeline
         v-if="twitterHandle"
@@ -432,15 +410,14 @@
 import { setPageTitle } from '@/utils';
 import { mapState, mapGetters } from 'vuex';
 import { WEBSITE_CATEGORIES, GAME_CATEGORIES, PLATFORMS, GAME_DESC_SM_CHAR_COUNT } from '@/constants';
-import AmazonLinks from '@/components/Game/AmazonLinks';
+import AmazonLink from '@/components/Game/AmazonLink';
 import GameCover from '@/components/Game/GameCover';
 import GameInBoards from '@/components/Game/GameInBoards';
 import GameProgress from '@/components/Game/GameProgress';
 import GameTagsSidebar from '@/components/Game/GameTagsSidebar';
-import GameHeader from '@/components/Game/GameHeader';
 import AddRemoveGame from '@/components/AddRemoveGame';
 import SimilarGames from '@/components/Game/SimilarGames';
-import GameMedia from '@/components/Game/GameMedia';
+import GameMediaModal from '@/components/Game/GameMediaModal';
 // // import GameSpeedruns from '@/components/Game/GameSpeedruns';
 import { STEAM_CATEGORY_ID, GOG_CATEGORY_ID, TWITTER_CATEGORY_ID, IMAGE_SIZE_SCREENSHOT_HUGE, IGDB_QUERIES } from '@/constants';
 import { getImageUrl } from '@/utils';
@@ -450,11 +427,10 @@ export default {
 
   components: {
     GameTagsSidebar,
-    GameHeader,
     GameProgress,
-    AmazonLinks,
+    AmazonLink,
     GameCover,
-    GameMedia,
+    GameMediaModal,
     GameInBoards,
     // GameSpeedruns,
     SimilarGames,
@@ -856,5 +832,33 @@ export default {
   -webkit-column-break-inside: avoid;
   break-inside: avoid;
   page-break-inside: avoid;
+}
+
+.game-detail {
+  display: grid;
+  grid-gap: 2rem;
+  grid-template-columns: 480px 3fr 1fr;
+
+  @media(max-width: 1440px) {
+    grid-template-columns: 2fr 3fr;
+  }
+
+  @media(max-width: 1280px) {
+    grid-gap: 1rem;
+    grid-template-columns: 2fr 3fr;
+  }
+
+  @media(max-width: 1024px) {
+    grid-template-columns: 2fr 3fr;
+  }
+
+  @media(max-width: 780px) {
+    grid-template-columns: 2fr 3fr;
+  }
+
+  @media(max-width: 596px) {
+    display: flex;
+    flex-direction: column;
+  }
 }
 </style>

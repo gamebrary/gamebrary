@@ -537,7 +537,6 @@ export default {
   },
 
   LOAD_RELEASES({ commit }) {
-    // TODO: use await async
     return new Promise((resolve, reject) => {
       axios
         .get("https://api.github.com/repos/romancm/gamebrary/releases")
