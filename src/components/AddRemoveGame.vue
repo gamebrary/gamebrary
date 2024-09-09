@@ -26,7 +26,6 @@
             class="cursor-pointer"
             :board="board"
             thumbnail
-            @click.native="$router.push({ name: 'board', params: { id: board.id } })"
           />
 
           <h3 class="mx-2">{{ board.name }}</h3>
@@ -110,7 +109,7 @@ export default {
       try {
         await this.$store.dispatch('SAVE_GAME_BOARD', board);
       } catch (e) {
-        // 
+        //
       }
     },
 

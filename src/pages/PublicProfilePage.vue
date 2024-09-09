@@ -66,8 +66,6 @@
           v-for="board in userBoards"
           :key="board.id"
           :board="board"
-          @click.native="$router.push({ name: 'board', params: { id: board.id } })"
-          class="p-relative mb-3"
         />
       </div>
     </div>

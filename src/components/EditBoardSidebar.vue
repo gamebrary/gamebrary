@@ -54,6 +54,7 @@
         <MiniBoard
           class="mb-3"
           :board="previewBoard"
+          no-link
         />
 
         <b-form-checkbox

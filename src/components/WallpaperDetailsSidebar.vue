@@ -71,6 +71,7 @@
           v-for="board in formattedBoards"
           :key="board.id"
           :board="board"
+          no-link
           @click.native="setAsBoardWallpaper(board)"
         />
       </b-collapse>

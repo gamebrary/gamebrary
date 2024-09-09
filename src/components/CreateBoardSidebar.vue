@@ -39,6 +39,7 @@
         <MiniBoard
           class="mb-2"
           :board="sampleBoardWithRandomizedGames"
+          no-link
         />
 
         <b-form-checkbox

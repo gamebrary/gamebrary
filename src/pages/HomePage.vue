@@ -17,7 +17,6 @@
           v-for="board in recentlyUpdatedPublicBoards"
           :key="board.id"
           :board="board"
-          @click.native="$router.push({ name: 'board', params: { id: board.id } })"
         />
       </div>
 

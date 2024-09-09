@@ -7,6 +7,7 @@
       :key="board.id"
       :board="board"
       class="mb-3"
+      no-link
       @click.native="handleBoardClick(board.id)"
     />
   </div>

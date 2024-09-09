@@ -28,52 +28,51 @@
           {{ $t('boards.create') }}
         </b-button>
       </EmptyState>
-  
+
       <div v-else class="board-grid pb-3">
         <MiniBoard
           v-for="board in sortedBoards"
           :key="board.id"
           :board="board"
-          @click.native="$router.push({ name: 'board', params: { id: board.id } })"
         />
       </div>
     </div>
   </template>
-  
+
   <script>
   import MiniBoard from '@/components/Board/MiniBoard';
   import EmptyState from '@/components/EmptyState';
   import { mapState, mapGetters } from 'vuex';
-  
+
   export default {
     components: {
       MiniBoard,
       EmptyState,
     },
-  
+
     data() {
       return {
         loading: false,
       };
     },
-  
+
     computed: {
       ...mapState(['user', 'boards', 'wallpapers']),
       ...mapGetters(['isBoardOwner', 'sortedBoards', 'sortedPublicBoards', 'darkTheme', 'navPosition']),
-  
+
       recentlyUpdatedPublicBoards() {
         return this.sortedPublicBoards.filter(({ lastUpdated }) => Boolean(lastUpdated)).slice(0, 20);
       },
-  
+
       isEmpty() {
         return this.boards?.length === 0;
       },
     },
-  
+
     mounted() {
       this.loadBoards()
     },
-  
+
     methods: {
       async loadBoards() {
         this.loading = this.boards?.length === 0;
@@ -83,40 +82,39 @@
             this.loading = false;
             this.$store.commit('SET_SESSION_EXPIRED', true);
           });
-  
+
         this.loading = false;
-  
+
         if(!this.boards?.length) this.$emit('empty');
       },
-  
+
       async loadPublicBoards() {
         await this.$store.dispatch('LOAD_PUBLIC_BOARDS')
           .catch((e) => {
             this.loading = false;
             this.$store.commit('SET_SESSION_EXPIRED', true);
           });
-  
+
         this.loading = false;
       },
-  
+
       viewPublicBoard(id) {
         this.$router.push({ name: 'public.board', params: { id } });
       },
-  
+
       async deleteBoard(id) {
         this.loading = true;
-  
+
         await this.$store.dispatch('DELETE_BOARD', id)
           .catch(() => {
             this.loading = false;
-  
+
             this.$bvToast.toast('There was an error deleting board', { variant: 'error' });
           });
-  
+
         this.loading = false;
         this.$bvToast.toast('Board removed');
       },
     },
   };
   </script>
-  
