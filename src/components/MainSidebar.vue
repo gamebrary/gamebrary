@@ -7,11 +7,13 @@
   >
     <template #default="{ hide }">
       <SidebarHeader @hide="hide">
-        <img
-          src="/logo.png"
-          alt="Gamebrary"
-          height="38"
-        />
+        <router-link :to="{ name: 'home' }">
+          <img
+            src="/logo.png"
+            alt="Gamebrary"
+            height="38"
+          />
+        </router-link>
       </SidebarHeader>
 
       <ProfileDockMenu />
