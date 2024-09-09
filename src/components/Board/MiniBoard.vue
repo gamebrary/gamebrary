@@ -1,41 +1,43 @@
-<!-- <router-link :to="{ name: 'board', params: { id: board.id } }"></router-link> -->
-<!-- TODO: make mini boards links so you can cmd click them -->
 <template lang="html">
   <b-card
-    class="cursor-pointer overflow-hidden"
     :bg-variant="darkTheme ? 'dark' : 'light'"
     :text-variant="darkTheme ? 'light' : 'dark'"
     body-class="p-0"
     content-class="rounded"
   >
-    <div
-      :style="backgroundSyle"
-      class="mini-board"
-      :class="{ thumbnail }"
+    <router-link
+      :to="{ name: 'board', params: { id: board.id } }"
+      :event="noLink ? '' : 'click'"
     >
-      <h4
-        v-if="!thumbnail"
-        class="px-2 py-2"
-        :class="{ 'text-white': hasCustomBackground || darkTheme }"
+      <div
+        :style="backgroundSyle"
+        class="mini-board overflow-hidden"
+        :class="{ thumbnail }"
       >
-        {{ board.name }}
-      </h4>
+        <h4
+          v-if="!thumbnail"
+          class="px-2 py-2"
+          :class="{ 'text-white': hasCustomBackground || darkTheme }"
+        >
+          {{ board.name }}
+        </h4>
 
-      <b-badge
-        v-if="showPublicIndicator"
-        class="position-absolute m-1"
-        style="right: 0; top: 0;"
-        :variant="darkTheme ? 'warning' : 'danger'"
-        size="sm"
-      >
-        Public
-      </b-badge>
+        <b-badge
+          v-if="showPublicIndicator"
+          class="position-absolute m-1"
+          style="right: 0; top: 0;"
+          :variant="darkTheme ? 'warning' : 'danger'"
+          size="sm"
+        >
+          Public
+        </b-badge>
 
-      <component
-        :is="miniBoardComponent"
-        :board="formattedBoard"
-      />
-    </div>
+        <component
+          :is="miniBoardComponent"
+          :board="formattedBoard"
+        />
+      </div>
+    </router-link>
   </b-card>
 </template>
 
@@ -51,6 +53,7 @@ export default {
   props: {
     board: Object,
     thumbnail: Boolean,
+    noLink: Boolean,
   },
 
   components: {
