@@ -214,7 +214,6 @@ export default {
   },
 
   async DELETE_WALLPAPER({ commit }, { fullPath }) {
-    // TODO: ensure thumbnail is also deleted
     await deleteObject(ref(storage, fullPath))
 
     return commit("REMOVE_WALLPAPER", fullPath);

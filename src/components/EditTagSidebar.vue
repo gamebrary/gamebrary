@@ -144,7 +144,6 @@ export default {
     async selectGame(gameId) {
       const { activeTagIndex, tags } = this;
 
-      // TODO: get active tag index from store intead of sending it here (same source)
       this.$store.commit('APPLY_TAG_TO_GAME', { tagIndex: activeTagIndex, gameId });
 
       await this.$store.dispatch('SAVE_TAGS').catch(() => {});

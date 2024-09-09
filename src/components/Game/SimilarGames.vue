@@ -10,6 +10,7 @@
         hide-platforms
         vertical
         hide-tags
+        hide-title
         hide-progress
         class="scroll-item"
       />
