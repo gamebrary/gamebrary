@@ -8,9 +8,7 @@ import VueI18n from 'vue-i18n';
 import ModalHeader from '@/components/ModalHeader';
 import axios from 'axios';
 import VueAnalytics from 'vue-analytics';
-import Raven from 'raven-js';
 import PortalVue from 'portal-vue';
-import RavenVue from 'raven-js/plugins/vue';
 import App from '@/App';
 import './registerServiceWorker';
 import messages from '@/i18n/';
@@ -59,13 +57,6 @@ Vue.directive('click-outside', {
     document.body.removeEventListener('click', el.clickOutsideEvent)
   },
 });
-
-if (window.location.hostname.includes('gamebrary')) {
-  Raven
-    .config('https://15928bc58e7b45ac93878da6d8146064@sentry.io/1315568')
-    .addPlugin(RavenVue, Vue)
-    .install();
-}
 
 Vue.config.productionTip = false;
 
