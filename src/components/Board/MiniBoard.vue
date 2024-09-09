@@ -3,6 +3,7 @@
     :bg-variant="darkTheme ? 'dark' : 'light'"
     :text-variant="darkTheme ? 'light' : 'dark'"
     body-class="p-0"
+    class="overflow-hidden"
     content-class="rounded"
   >
     <router-link
@@ -148,7 +149,8 @@ $boardHeight: 240px;
   background-repeat: no-repeat;
   background-size: cover;
   height: $boardHeight;
-  min-width: 300px;
+  // max-width: 100%;
+  // min-width: 300px;
   text-align: left;
 
   &.thumbnail {
@@ -160,6 +162,7 @@ $boardHeight: 240px;
 
 .board {
   max-height: $boardHeight;
+  width: 100%;
 }
 
 .kanban-list {
