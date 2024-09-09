@@ -67,7 +67,7 @@
 
       <h2
         v-if="!hideTitle || hideCover"
-        :class="['text-truncate',
+        :class="['text-wrap',
           {
             'text-success' : gameCompleted, 'mb-1': !board.grid,
             'mt-2': vertical,
