@@ -28,7 +28,7 @@ export const SORT_TYPE_RATING = 'rating';
 export const SORT_TYPE_PROGRESS = 'progress';
 
 export const MAX_QUERY_LIMIT = 500;
-export const HIGHLIGHTED_GAME_TIMEOUT = 5000; // set back to 5000
+export const HIGHLIGHTED_GAME_TIMEOUT = 5000;
 
 export const BOARD_TYPES = [
   { text: 'Kanban', value: BOARD_TYPE_KANBAN },
