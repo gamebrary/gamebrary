@@ -45,6 +45,7 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
 .game-media-carousel {
   bottom: 0;
-  width: 160px;
+  width: 100px;
+  height: 60px;
 }
 </style>
