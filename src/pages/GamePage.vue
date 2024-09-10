@@ -837,26 +837,17 @@ export default {
 .game-detail {
   display: grid;
   grid-gap: 2rem;
-  grid-template-columns: 480px 3fr 1fr;
+  grid-template-columns: 480px 2fr 1fr;
 
   @media(max-width: 1440px) {
     grid-template-columns: 2fr 3fr;
   }
 
-  @media(max-width: 1280px) {
-    grid-gap: 1rem;
-    grid-template-columns: 2fr 3fr;
-  }
-
   @media(max-width: 1024px) {
-    grid-template-columns: 2fr 3fr;
+    grid-template-columns: 1fr 1fr;
   }
 
   @media(max-width: 780px) {
-    grid-template-columns: 2fr 3fr;
-  }
-
-  @media(max-width: 596px) {
     display: flex;
     flex-direction: column;
   }
