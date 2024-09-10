@@ -1,30 +1,28 @@
 <template>
-  <div>
-    <div class="position-relative">
-      <b-button
-        variant="transparent"
-        squared
-        class="ml-3 mt-2 p-0 position-absolute"
-        :disabled="!user"
-        @click="$bus.$emit('LIKE_UNLIKE_GAME', gameId)"
-      >
-        <i :class="[isLiked ? 'fa-solid': 'fa-regular' , 'fa-heart text-danger']" />
-      </b-button>
+  <div class="position-relative">
+    <b-button
+      variant="transparent"
+      squared
+      class="ml-3 mt-2 p-0 position-absolute"
+      :disabled="!user"
+      @click="$bus.$emit('LIKE_UNLIKE_GAME', gameId)"
+    >
+      <i :class="[isLiked ? 'fa-solid': 'fa-regular' , 'fa-heart text-danger']" />
+    </b-button>
 
-      <GameRatings class="position-absolute d-flex" style="bottom: 1rem; right: 1rem;" />
+    <GameRatings class="position-absolute d-flex" style="bottom: 1rem; right: 1rem;" />
 
-      <GameMediaCarousel />
+    <GameMediaCarousel />
 
-      <b-img
-        :src="$options.getImageUrl(game)"
-        :alt="gameName"
-        class="cursor-pointer border d-flex mb-3 w-100"
-        :class="`border-${darkTheme ? 'dark' : 'light'}`"
-        bordered
-        rounded
-        @click="$bvModal.show('mediaModal')"
-      />
-    </div>
+    <b-img
+      :src="$options.getImageUrl(game)"
+      :alt="gameName"
+      class="cursor-pointer border d-flex mb-3 w-100"
+      :class="`border-${darkTheme ? 'dark' : 'light'}`"
+      bordered
+      rounded
+      @click="$bvModal.show('mediaModal')"
+    />
   </div>
 </template>
 
