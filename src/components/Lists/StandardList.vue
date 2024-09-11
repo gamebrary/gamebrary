@@ -29,21 +29,41 @@
         :game-id="game.id"
         :ranked="board.ranked"
         :rank="index + 1"
-        :vertical="board.grid"
-        :hide-platforms="board.grid"
+        :vertical="isGrid"
+        :hide-platforms="isGrid"
         :class="isGrid ? null: 'mb-3'"
         @click.native="openGame(game.id, list)"
       />
-    </draggable>
 
-    <b-button
-      v-if="isBoardOwner"
-      class="my-3"
-      variant="primary"
-      @click="openGameSelectorSidebar"
-    >
-      Add games
-    </b-button>
+      <template v-if="isBoardOwner">
+        <b-card
+          v-if="isGrid"
+          body-class="align-content-center text-center"
+          :bg-variant="darkTheme ? 'dark' : 'light'"
+          :text-variant="darkTheme ? 'light' : 'dark'"
+          @click="openGameSelectorSidebar"
+        >
+          Expand your collection!
+
+          <b-button
+            class="mt-2"
+            :variant="darkTheme ? 'success' : 'primary'"
+          >
+            Add games
+          </b-button>
+        </b-card>
+
+        <b-button
+          v-else
+          class="py-3"
+          block
+          :variant="darkTheme ? 'success' : 'primary'"
+          @click="openGameSelectorSidebar"
+        >
+          Add games
+        </b-button>
+      </template>
+    </draggable>
   </div>
 </template>
 
