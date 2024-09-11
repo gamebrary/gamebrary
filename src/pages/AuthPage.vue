@@ -102,7 +102,7 @@ export default {
       loading: false,
       email: '',
       password: '',
-      newUser: false,
+      newUser: true,
       errorCode: null,
     };
   },
