@@ -112,10 +112,6 @@
 
         <div>
           <div v-if="user">
-            <b-link v-if="!tagsApplied.length" v-b-toggle.gameTagsSidebar>
-              Add tag
-            </b-link>
-
             <b-button
               v-for="({ bgColor, textColor, name }, index) in tagsApplied"
               :key="index"
