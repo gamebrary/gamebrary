@@ -79,7 +79,7 @@
     </template>
 
     <template #footer>
-      <DockFooter />
+      <MainSidebarFooter />
     </template>
   </b-sidebar>
 </template>
@@ -88,7 +88,7 @@
 import { mapState, mapGetters } from 'vuex';
 import ProfileDockMenu from '@/components/Dock/ProfileDockMenu';
 import SidebarHeader from '@/components/SidebarHeader';
-import DockFooter from '@/components/Dock/DockFooter';
+import MainSidebarFooter from '@/components/MainSidebarFooter';
 import SearchBox from '@/components/SearchBox';
 
 export default {
@@ -96,7 +96,7 @@ export default {
     SearchBox,
     ProfileDockMenu,
     SidebarHeader,
-    DockFooter,
+    MainSidebarFooter,
   },
 
   computed: {
