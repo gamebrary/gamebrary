@@ -1,8 +1,7 @@
 <template lang="html">
   <b-sidebar
     id="filtersSidebar"
-    v-bind="sidebarProps"
-    right
+    v-bind="sidebarRightProps"
   >
     <template #default="{ hide }">
       <SidebarHeader @hide="hide" title="Filter search results" />
@@ -151,7 +150,7 @@ export default {
 
   computed: {
     ...mapState(['platforms']),
-    ...mapGetters(['darkTheme', 'sidebarProps']),
+    ...mapGetters(['darkTheme', 'sidebarRightProps']),
 
     sortedPlatforms() {
       return orderby(this.platforms, [platform => platform.name]);

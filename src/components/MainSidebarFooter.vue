@@ -1,13 +1,6 @@
 <template>
   <div class="p-3">
-    <div class="d-flex justify-content-end">
-      <!-- <b-button disabled>
-        <i class="fa-solid fa-language" />
-        <span class="ml-2">Change language</span>
-      </b-button> -->
-    </div>
-
-    <div class="mt-1 text-center d-flex justify-content-between small">
+    <div class="mt-1 text-center d-flex justify-content-between">
       <div class="d-flex justify-content-between align-items-center">
         <img
           src="/logo.png"
@@ -26,21 +19,17 @@
           target="_blank"
           title="GitHub"
           v-b-tooltip.hover
-          size="sm"
-          class="ml-1"
         >
-          <i class="fa-brands fa-github fa-fw" />
+          <i class="fa-brands fa-github" />
         </b-button>
 
         <b-button
           v-b-toggle.keyboard-shortcuts-sidebar
           :variant="darkTheme ? 'dark' : 'light'"
           title="Keyboard Shortcuts"
-          size="sm"
           v-b-tooltip.hover
-          class="ml-1"
         >
-          <i class="fa-solid fa-command fa-fw" />
+          <i class="fa-solid fa-command" />
         </b-button>
 
         <b-button
@@ -48,23 +37,19 @@
           id="help"
           title="Help"
           :variant="darkTheme ? 'dark' : 'light'"
-          size="sm"
           v-b-tooltip.hover
-          class="ml-1"
         >
-          <i class="fa-regular fa-circle-info fa-fw" />
+          <i class="fa-regular fa-circle-info" />
         </b-button>
 
         <b-button
           @click="toggleTheme"
           :variant="darkTheme ? 'dark' : 'light'"
-          size="sm"
           v-b-tooltip.hover
-          class="ml-1"
           title="Toggle theme"
         >
-          <i v-if="darkTheme" class="fa-solid fa-sun fa-fw" />
-          <i v-else class="fa-solid fa-moon fa-fw" />
+          <i v-if="darkTheme" class="fa-solid fa-sun" />
+          <i v-else class="fa-solid fa-moon" />
         </b-button>
       </div>
     </div>

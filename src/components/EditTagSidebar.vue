@@ -1,8 +1,7 @@
 <template lang="html">
   <b-sidebar
     :visible="activeTagIndex !== null"
-    v-bind="sidebarProps"
-    right
+    v-bind="sidebarRightProps"
     @shown="load"
     @hidden="closeSidebar"
   >
@@ -110,7 +109,7 @@ export default {
 
   computed: {
     ...mapState(['tags', 'cachedGames', 'activeTagIndex']),
-    ...mapGetters(['sidebarProps', 'swatchesProps', 'darkTheme']),
+    ...mapGetters(['sidebarRightProps', 'swatchesProps', 'darkTheme']),
 
     isEmpty() {
       return this.tag?.games?.length === 0;

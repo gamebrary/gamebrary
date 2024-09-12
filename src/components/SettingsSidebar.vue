@@ -1,7 +1,7 @@
 <template lang="html">
   <b-sidebar
     id="settingsSidebar"
-    v-bind="sidebarProps"
+    v-bind="sidebarLeftProps"
     z-index="2001"
   >
     <template #default="{ hide }">
@@ -115,7 +115,7 @@ export default {
 
   computed: {
     ...mapState(['settings']),
-    ...mapGetters(['darkTheme', 'showGameThumbnails', 'transparencyEnabled', 'ageRating', 'navPosition', 'sidebarProps']),
+    ...mapGetters(['darkTheme', 'showGameThumbnails', 'transparencyEnabled', 'ageRating', 'navPosition', 'sidebarLeftProps']),
 
     ageRatingOptions() {
       return AGE_RATINGS.map((rating) => ({

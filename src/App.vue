@@ -189,7 +189,7 @@ export default {
           mutation: 'SET_PLATFORMS',
         });
       } catch (e) {
-        this.$bvToast.toast('There was an error loading platforms', { variant: 'error' });
+        this.$bvToast.toast('There was an error loading platforms');
       }
     },
 

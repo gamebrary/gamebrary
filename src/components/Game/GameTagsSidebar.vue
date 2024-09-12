@@ -1,8 +1,7 @@
 <template lang="html">
   <b-sidebar
     id="gameTagsSidebar"
-    v-bind="sidebarProps"
-    right
+    v-bind="sidebarRightProps"
   >
     <template #default="{ hide }">
       <SidebarHeader @hide="hide" :title="sidebarTitle" />
@@ -68,7 +67,7 @@ export default {
 
   computed: {
     ...mapState(['tags', 'game']),
-    ...mapGetters(['sidebarProps']),
+    ...mapGetters(['sidebarRightProps']),
 
     isEmpty() {
       return this.tags.length === 0 || !this.game;

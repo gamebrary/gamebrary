@@ -3,6 +3,7 @@
 
   <div v-else-if="hasAccess">
     <EditListSidebar v-if="isBoardOwner && board.type !== $options.BOARD_TYPE_STANDARD" />
+    <CloneBoardSidebar v-if="user" />
 
     <portal to="pageTitle">
       <div class="d-flex flex-column">
@@ -31,17 +32,28 @@
     </portal>
 
     <portal to="headerActions">
-      <b-button
-        v-if="canEdit"
-        :variant="darkTheme ? 'success' : 'primary'"
-        v-b-toggle.edit-board-sidebar
+      <b-dropdown
+        :variant="darkTheme ? 'black' : 'light'"
+        right
+        no-caret
       >
-        <i class="fa-solid fa-pen" />
-      </b-button>
+        <template #button-content>
+          <i class="fa-solid fa-ellipsis-vertical px-1" />
+        </template>
+
+        <b-dropdown-item v-if="canEdit" v-b-toggle.edit-board-sidebar>
+          <i class="fa-solid fa-pen fa-fw" /> Edit board
+        </b-dropdown-item>
+
+        <b-dropdown-item v-b-toggle.clone-board-sidebar>
+          <i class="fa-regular fa-clone fa-fw" /> Clone board
+        </b-dropdown-item>
+      </b-dropdown>
     </portal>
 
     <StandardBoard v-if="board.type === $options.BOARD_TYPE_STANDARD" />
     <TierBoard v-else-if="board.type === $options.BOARD_TYPE_TIER" />
+    <GridBoard v-else-if="board.type === $options.BOARD_TYPE_GRID" />
     <KanbanBoard v-else />
   </div>
 
@@ -57,24 +69,34 @@
 <script>
 import BoardPlaceholder from '@/components/Board/BoardPlaceholder';
 import KanbanBoard from '@/components/Board/KanbanBoard';
+import GridBoard from '@/components/Board/GridBoard';
 import TierBoard from '@/components/Board/TierBoard';
 import StandardBoard from '@/components/Board/StandardBoard';
 import EditListSidebar from '@/components/Lists/EditListSidebar';
+import CloneBoardSidebar from '@/components/CloneBoardSidebar';
 import chunk from 'lodash.chunk';
 import { getImageThumbnail } from '@/utils';
-import { BOARD_TYPE_STANDARD, BOARD_TYPE_TIER, MAX_QUERY_LIMIT } from '@/constants';
+import {
+  BOARD_TYPE_STANDARD,
+  BOARD_TYPE_TIER,
+  BOARD_TYPE_GRID,
+  MAX_QUERY_LIMIT
+} from '@/constants';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
   BOARD_TYPE_STANDARD,
   BOARD_TYPE_TIER,
+  BOARD_TYPE_GRID,
 
   components: {
     BoardPlaceholder,
-    KanbanBoard,
-    TierBoard,
+    CloneBoardSidebar,
     EditListSidebar,
+    GridBoard,
+    KanbanBoard,
     StandardBoard,
+    TierBoard,
   },
 
   data() {

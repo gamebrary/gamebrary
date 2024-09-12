@@ -43,10 +43,11 @@
 </template>
 
 <script>
-import { BOARD_TYPE_STANDARD, BOARD_TYPE_TIER, IMAGE_SIZE_THUMB } from '@/constants';
+import { BOARD_TYPE_STANDARD, BOARD_TYPE_TIER, BOARD_TYPE_GRID, IMAGE_SIZE_THUMB } from '@/constants';
 import { mapGetters, mapState } from 'vuex';
 import { getImageUrl } from '@/utils';
 import StandardMiniBoard from '@/components/MiniBoards/StandardMiniBoard';
+import GridMiniBoard from '@/components/MiniBoards/GridMiniBoard';
 import KanbanMiniBoard from '@/components/MiniBoards/KanbanMiniBoard';
 import TierMiniBoard from '@/components/MiniBoards/TierMiniBoard';
 
@@ -59,6 +60,7 @@ export default {
 
   components: {
     StandardMiniBoard,
+    GridMiniBoard,
     KanbanMiniBoard,
     TierMiniBoard,
   },
@@ -82,6 +84,7 @@ export default {
     miniBoardComponent() {
       if (this.board?.type === BOARD_TYPE_TIER) return 'TierMiniBoard';
       if (this.board?.type === BOARD_TYPE_STANDARD) return 'StandardMiniBoard';
+      if (this.board?.type === BOARD_TYPE_GRID) return 'GridMiniBoard';
 
       return 'KanbanMiniBoard';
     },

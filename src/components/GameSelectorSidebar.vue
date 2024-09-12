@@ -1,8 +1,7 @@
 <template lang="html">
   <b-sidebar
     :visible="visible"
-    v-bind="sidebarProps"
-    right
+    v-bind="sidebarRightProps"
     @hidden="closeSidebar"
   >
     <template #default="{ hide }">
@@ -77,7 +76,7 @@ export default {
 
   computed: {
     ...mapState(['board', 'gameSelectorData']),
-    ...mapGetters(['isBoardOwner', 'sidebarProps', 'darkTheme']),
+    ...mapGetters(['isBoardOwner', 'sidebarRightProps', 'darkTheme']),
 
     title() {
       return this.gameSelectorData?.title || 'Select a game';

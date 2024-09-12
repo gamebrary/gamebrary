@@ -22,6 +22,7 @@ export const NO_IMAGE_PATH = '/placeholder.gif';
 export const BOARD_TYPE_STANDARD = 'standard';
 export const BOARD_TYPE_KANBAN = 'kanban';
 export const BOARD_TYPE_TIER = 'tier';
+export const BOARD_TYPE_GRID = 'grid';
 
 export const SORT_TYPE_ALPHABETICALLY = 'alphabetically';
 export const SORT_TYPE_RATING = 'rating';
@@ -32,7 +33,8 @@ export const HIGHLIGHTED_GAME_TIMEOUT = 5000;
 
 export const BOARD_TYPES = [
   { text: 'Kanban', value: BOARD_TYPE_KANBAN },
-  { text: 'Standard', value: BOARD_TYPE_STANDARD },
+  { text: 'List', value: BOARD_TYPE_STANDARD },
+  { text: 'Grid', value: BOARD_TYPE_GRID },
   { text: 'Tier', value: BOARD_TYPE_TIER },
 ];
 
@@ -47,8 +49,9 @@ export const DEFAULT_BOARD_BASE = {
   name: '',
   ranked: false,
   isPublic: false,
-  grid: false,
   darkTheme: false,
+  backgroundColor: null,
+  backgroundUrl: null,
 }
 
 export const DEFAULT_PROFILE = {

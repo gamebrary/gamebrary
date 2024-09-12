@@ -274,7 +274,6 @@
       </article>
 
       <aside>
-        <AmazonLink class="mr-3" />
         <GameInBoards class="d-none d-lg-inline" />
 
         <template v-if="highlightedAchievements">

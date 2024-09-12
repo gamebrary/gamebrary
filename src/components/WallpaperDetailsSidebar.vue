@@ -1,8 +1,7 @@
 <template lang="html">
   <b-sidebar
     id="wallpaper-details-sidebar"
-    v-bind="sidebarProps"
-    right
+    v-bind="sidebarRightProps"
     :visible="visible"
     @hidden="closeSidebar"
   >
@@ -126,7 +125,7 @@ export default {
 
   computed: {
     ...mapState(['boards', 'wallpapers', 'activeWallpaper']),
-    ...mapGetters(['darkTheme', 'sidebarProps']),
+    ...mapGetters(['darkTheme', 'sidebarRightProps']),
 
     formattedBoards() {
       return this.boards.map((board) => ({ ...board, backgroundUrl: this.getWallpaperUrl(board.backgroundUrl) }));

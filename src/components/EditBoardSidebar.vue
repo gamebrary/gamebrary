@@ -1,8 +1,7 @@
 <template lang="html">
   <b-sidebar
     id="edit-board-sidebar"
-    v-bind="sidebarProps"
-    right
+    v-bind="sidebarRightProps"
   >
     <template #default="{ hide }">
       <SidebarHeader @hide="hide" title="Edit board" />
@@ -10,8 +9,7 @@
       <form @submit.stop.prevent="saveBoard" class="p-3">
         <b-sidebar
           id="select-board-wallpaper"
-          v-bind="sidebarProps"
-          right
+          v-bind="sidebarRightProps"
         >
           <template #default="{ hide }">
             <SidebarHeader @hide="hide" title="Select board background" />
@@ -63,15 +61,6 @@
           switch
         >
           Ranked
-        </b-form-checkbox>
-
-        <b-form-checkbox
-          v-if="board.type === $options.BOARD_TYPE_STANDARD"
-          v-model="board.grid"
-          class="mb-3"
-          switch
-        >
-          Grid
         </b-form-checkbox>
 
         <b-form-checkbox
@@ -185,7 +174,7 @@ export default {
 
   computed: {
     ...mapState(['user']),
-    ...mapGetters(['darkTheme', 'sidebarProps', 'swatchesProps']),
+    ...mapGetters(['darkTheme', 'sidebarRightProps', 'swatchesProps']),
 
     boardId() {
       return this.$route?.params?.id;

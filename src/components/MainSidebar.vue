@@ -1,8 +1,8 @@
-<template lang="html">
+ <template lang="html">
   <b-sidebar
     id="mainMenu"
     :visible="menuOpen"
-    v-bind="sidebarProps"
+    v-bind="sidebarLeftProps"
     @hidden="hideSidebar"
   >
     <template #default="{ hide }">
@@ -22,58 +22,84 @@
 
       <div class="p-3">
         <b-button
-          :variant="routeName === 'boards' ? 'primary' : darkTheme ? 'dark' : 'light'"
+          :variant="routeName === 'boards' ?  activeVariant : variant"
           block
+          class="text-left align-items-center d-flex"
           :to="{ name: 'boards' }"
         >
           <i class="fa-regular fa-rectangle-list" />
           <span class="ml-2">Boards</span>
+
+          <b-badge v-if="boards.length" class="ml-auto" variant="light">
+            {{ boards.length }}
+          </b-badge>
         </b-button>
 
         <b-button
-          :variant="routeName === 'games' ? 'primary' : darkTheme ? 'dark' : 'light'"
+          :variant="routeName === 'games' ?  activeVariant : variant"
           :to="{ name: 'games' }"
           block
+          class="text-left align-items-center d-flex"
         >
-        <i class="fa-regular fa-gamepad fa-fw" />
-          Games
+          <i class="fa-regular fa-gamepad fa-fw" />
+          <span class="ml-2">Games</span>
+
+          <b-badge v-if="gameCount" class="ml-auto" variant="light">
+            {{ gameCount }}
+          </b-badge>
         </b-button>
 
         <b-button
-          block
-          :variant="routeName === 'tags' ? 'primary' : darkTheme ? 'dark' : 'light'"
           :to="{ name: 'tags' }"
+          :variant="routeName === 'tags' ?  activeVariant : variant"
+          class="text-left align-items-center d-flex"
+          block
         >
           <i class="fa-light fa-tags fa-fw" />
           <span class="ml-2">Tags</span>
+
+          <b-badge v-if="tags.length" class="ml-auto" variant="light">
+            {{ tags.length }}
+          </b-badge>
         </b-button>
 
         <b-button
           :to="{ name: 'notes' }"
-          :variant="routeName === 'notes' ? 'primary' : darkTheme ? 'dark' : 'light'"
+          :variant="routeName === 'notes' ?  activeVariant : variant"
+          class="text-left align-items-center d-flex"
           block
         >
-          <i class="fa-regular fa-notes"></i>
+          <i class="fa-regular fa-notes fa-fw" />
 
           <span class="ml-2">Notes</span>
+
+          <b-badge v-if="notesCount" class="ml-auto" variant="light">
+            {{ notesCount }}
+          </b-badge>
         </b-button>
 
         <b-button
-          :variant="routeName === 'wallpapers' ? 'primary' : darkTheme ? 'dark' : 'light'"
+          :variant="routeName === 'wallpapers' ?  activeVariant : variant"
           :to="{ name: 'wallpapers' }"
+          class="text-left align-items-center d-flex"
           block
         >
-        <i class="fa-solid fa-images"></i>
+        <i class="fa-solid fa-images fa-fw" />
           <span class="ml-2">Wallpapers</span>
+
+          <b-badge v-if="wallpaperCount" class="ml-auto" variant="light">
+            {{ wallpaperCount }}
+          </b-badge>
         </b-button>
 
         <b-button
           block
-          :variant="routeName === 'settings' ? 'primary' : darkTheme ? 'dark' : 'light'"
+          class="text-left"
+          :variant="routeName === 'settings' ?  activeVariant : variant"
           v-b-toggle.settingsSidebar
         >
           <i class="fa-regular fa-gear fa-fw" />
-          Settings
+          <span class="ml-2">Settings</span>
         </b-button>
       </div>
     </template>
@@ -86,6 +112,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import { THUMBNAIL_PREFIX } from '@/constants';
 import ProfileDockMenu from '@/components/Dock/ProfileDockMenu';
 import SidebarHeader from '@/components/SidebarHeader';
 import MainSidebarFooter from '@/components/MainSidebarFooter';
@@ -101,10 +128,32 @@ export default {
 
   computed: {
     ...mapState(['user', 'board', 'boards', 'settings', 'user', 'games', 'notes', 'tags', 'wallpapers', 'menuOpen']),
-    ...mapGetters(['navPosition', 'latestRelease', 'darkTheme', 'transparencyEnabled', 'sidebarProps']),
+    ...mapGetters(['navPosition', 'latestRelease', 'darkTheme', 'transparencyEnabled', 'sidebarLeftProps']),
 
     routeName() {
       return this.$route?.name;
+    },
+
+    variant() {
+      return this.darkTheme ? 'dark' : 'light';
+    },
+
+    activeVariant() {
+      return this.darkTheme ? 'success' : 'primary';
+    },
+
+    gameCount() {
+      return Object.keys(this.games).length;
+    },
+
+    notesCount() {
+      return Object.keys(this.notes).length;
+    },
+
+    wallpaperCount() {
+      const wallpapers = this.wallpapers?.filter((wallpaper) => !wallpaper?.fullPath?.includes(THUMBNAIL_PREFIX));
+
+      return wallpapers.length;
     },
   },
 

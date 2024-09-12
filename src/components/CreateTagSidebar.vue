@@ -1,8 +1,7 @@
 <template lang="html">
   <b-sidebar
     id="create-tag-sidebar"
-    v-bind="sidebarProps"
-    right
+    v-bind="sidebarRightProps"
     @hidden="saving = false"
   >
     <template #default="{ hide }">
@@ -75,7 +74,7 @@ export default {
 
   computed: {
     ...mapState(['tags']),
-    ...mapGetters(['sidebarProps', 'swatchesProps', 'darkTheme']),
+    ...mapGetters(['sidebarRightProps', 'swatchesProps', 'darkTheme']),
   },
 
   methods: {

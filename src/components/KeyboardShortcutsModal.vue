@@ -1,7 +1,7 @@
 <template lang="html">
   <b-sidebar
     id="keyboard-shortcuts-sidebar"
-    v-bind="sidebarProps"
+    v-bind="sidebarLeftProps"
     z-index="2001"
   >
     <template #default="{ hide }">
@@ -57,7 +57,7 @@ export default {
 
   computed: {
     ...mapState(['user']),
-    ...mapGetters(['darkTheme', 'sidebarProps']),
+    ...mapGetters(['darkTheme', 'sidebarLeftProps']),
   },
 
   mounted() {

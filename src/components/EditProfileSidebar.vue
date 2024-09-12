@@ -2,8 +2,7 @@
   <b-sidebar
     id="profile-sidebar"
     :visible="editProfileSidebarOpen"
-    right
-    v-bind="sidebarProps"
+    v-bind="sidebarRightProps"
     @shown="loadProfile"
     @hidden="$store.commit('SET_PROFILE_SIDEBAR_OPEN', false)"
     >
@@ -198,7 +197,7 @@
 
           <b-sidebar
             id="boardWallpaper"
-            v-bind="sidebarProps"
+            v-bind="sidebarRightProps"
             right
           >
           <template #default="{ hide }">
@@ -271,7 +270,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'editProfileSidebarOpen']),
-    ...mapGetters(['sidebarProps', 'darkTheme']),
+    ...mapGetters(['sidebarRightProps', 'darkTheme']),
 
     style() {
       return this.wallpaperImage

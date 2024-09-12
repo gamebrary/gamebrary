@@ -1,8 +1,7 @@
 <template lang="html">
   <b-sidebar
     id="create-board-sidebar"
-    v-bind="sidebarProps"
-    right
+    v-bind="sidebarRightProps"
     @hidden="saving = false"
   >
     <template #default="{ hide }">
@@ -112,7 +111,7 @@ export default {
 
   computed: {
 		...mapState(['user']),
-		...mapGetters(['sidebarProps']),
+		...mapGetters(['sidebarRightProps']),
 
     sampleBoard() {
       if (this.board.type === BOARD_TYPE_KANBAN) return DEFAULT_BOARD_KANBAN;
@@ -153,6 +152,8 @@ export default {
           owner: this.user.uid,
         }
 
+        console.log('payload', payload)
+
         const { id } = await this.$store.dispatch('CREATE_BOARD', payload);
 
         this.$router.push({ name: 'board', params: { id } });
@@ -163,3 +164,19 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" rel="stylesheet/scss">
+.game-cover {
+  width: 120px;
+}
+
+.standard-list {
+  width: 100%;
+  max-width: 600px;
+  overflow-x: hidden;
+
+  &.grid {
+    max-width: 1280px;
+  }
+}
+</style>

@@ -1,52 +1,79 @@
 <template lang="html">
-  <div class="standard-board pb-5 d-flex align-items-center flex-column">
-    <p v-if="isEmpty">
-      This board is empty.
-    </p>
+  <div class="standard-board pb-5">
+    GRID!@@
+    <!-- TODO: clean this up, remove all isGrid references -->
+    <!-- TODO: update isGrid to use board?.grid -->
+    <div class="standard-list" :class="{ 'grid': isGrid }">
+      <p v-if="isEmpty">
+        This board is empty.
+      </p>
 
-    <draggable
-      class="games"
-      handle=".game-card"
-      ghost-class="card-placeholder"
-      drag-class="border-success"
-      chosen-class="border-primary"
-      filter=".drag-filter"
-      delay="50"
-      animation="500"
-      :list="list.games"
-      :move="validateMove"
-      :disabled="draggingDisabled"
-      :group="{ name: 'games' }"
-      @end="dragEnd"
-      @start="dragStart"
-    >
-      <GameCard
-        v-for="(gameId, index) in listGames"
-        :key="index"
-        :list="list"
-        :ref="gameId"
-        :game-id="gameId"
-        :ranked="board.ranked"
-        :rank="index + 1"
-        class="mb-3"
-        @click.native="openGame(gameId, list)"
-      />
-
-      <b-button
-        v-if="isBoardOwner"
-        class="py-3"
-        block
-        :variant="darkTheme ? 'success' : 'primary'"
-        @click="openGameSelectorSidebar"
+      <draggable
+        class="games"
+        :class="{ 'game-grid': isGrid }"
+        handle=".card"
+        ghost-class="card-placeholder"
+        drag-class="border-success"
+        chosen-class="border-primary"
+        filter=".drag-filter"
+        delay="50"
+        animation="500"
+        :list="list.games"
+        :move="validateMove"
+        :disabled="draggingDisabled"
+        :group="{ name: 'games' }"
+        @end="dragEnd"
+        @start="dragStart"
       >
-        Add games
-      </b-button>
-    </draggable>
+        <GameCard
+          v-for="(game, index) in listGames"
+          :key="index"
+          :list="list"
+          :ref="game.id"
+          :game-id="game.id"
+          :ranked="board.ranked"
+          :rank="index + 1"
+          :vertical="isGrid"
+          :hide-platforms="isGrid"
+          :class="isGrid ? null: 'mb-3'"
+          @click.native="openGame(game.id, list)"
+        />
+
+        <template v-if="isBoardOwner">
+          <b-card
+            v-if="isGrid"
+            body-class="align-content-center text-center"
+            :bg-variant="darkTheme ? 'dark' : 'light'"
+            :text-variant="darkTheme ? 'light' : 'dark'"
+            @click="openGameSelectorSidebar"
+          >
+            Expand your collection!
+
+            <b-button
+              class="mt-2"
+              :variant="darkTheme ? 'success' : 'primary'"
+            >
+              Add games
+            </b-button>
+          </b-card>
+
+          <b-button
+            v-else
+            class="py-3"
+            block
+            :variant="darkTheme ? 'success' : 'primary'"
+            @click="openGameSelectorSidebar"
+          >
+            Add games
+          </b-button>
+        </template>
+      </draggable>
+    </div>
   </div>
 </template>
 
 <script>
-import { HIGHLIGHTED_GAME_TIMEOUT } from '@/constants';
+import { HIGHLIGHTED_GAME_TIMEOUT, BOARD_TYPE_GRID } from '@/constants';
 import draggable from 'vuedraggable';
 import slugify from 'slugify'
 import { mapState, mapGetters } from 'vuex';
@@ -72,6 +99,10 @@ export default {
       return this.board?.lists?.length > 0;
     },
 
+    isGrid() {
+      return this.board?.type === BOARD_TYPE_GRID;
+    },
+
     filter() {
       return this.listGames || [];
     },
@@ -81,7 +112,9 @@ export default {
     },
 
     listGames() {
-      return this.list?.games;
+      return this.list?.games
+        ?.map((id) => this.cachedGames?.[id])
+        ?.filter(({ id }) => Boolean(id));
     },
 
     isEmpty() {
@@ -105,27 +138,31 @@ export default {
   },
 
   methods: {
+    // TODO: update this to work
     highlightGame() {
-      // TODO: update this to work
-      // const lists = Object.values(this.$refs);
+      const lists = Object.values(this.$refs);
 
-      // lists.forEach(([list], index) => {
-      //   console.log('list.$refs', list.$refs);
+      console.log('lists', lists)
 
-      //   const [gameRef] = list.$refs[this.highlightedGame];
+      lists.forEach(([list], index) => {
+        console.log('list.$refs', list.$refs);
 
-      //   if (gameRef) {
-      //     console.log('gameRef', gameRef);
+        const [gameRef] = list.$refs[this.highlightedGame];
 
-      //     setTimeout(() => {
-      //       gameRef?.$el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      //     }, index * 1000);
-      //   }
-      // });
+        console.log()
 
-      setTimeout(() => {
-        this.$store.commit('SET_HIGHLIGHTED_GAME', null);
-      }, HIGHLIGHTED_GAME_TIMEOUT);
+        if (gameRef) {
+          console.log('gameRef', gameRef);
+
+          setTimeout(() => {
+            gameRef?.$el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, index * 1000);
+        }
+      });
+
+      // setTimeout(() => {
+      //   this.$store.commit('SET_HIGHLIGHTED_GAME', null);
+      // }, HIGHLIGHTED_GAME_TIMEOUT);
     },
 
     async flattenAndSaveBoard() {
@@ -227,3 +264,13 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.standard-board {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  flex-direction: column;
+}
+</style>

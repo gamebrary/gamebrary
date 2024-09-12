@@ -32,14 +32,30 @@ export default {
     return game?.websites?.map(({ url, category }) => ({ url, ...LINKS_CATEGORIES[category] })) || [];
   },
 
-  sidebarProps(state, getters) {
+  sidebarRightProps(state, getters) {
     return {
       scrollable: true,
       shadow: true,
       backdrop: true,
-      'no-header': true,
-      'bg-variant': getters?.darkTheme ? 'dark' : 'light',
-      'text-variant': getters?.darkTheme ? 'light' : 'dark',
+      right: true,
+      noHeader: true,
+      bgVariant: getters?.darkTheme ? 'dark' : 'light',
+      textVariant: getters?.darkTheme ? 'light' : 'dark',
+      sidebarClass: ['rounded-left border border-right-0', getters?.darkTheme ? 'border-black' : 'border-white'],
+      bodyClass: 'rounded-left',
+    }
+  },
+
+  sidebarLeftProps(state, getters) {
+    return {
+      scrollable: true,
+      shadow: true,
+      backdrop: true,
+      noHeader: true,
+      bgVariant: getters?.darkTheme ? 'dark' : 'light',
+      textVariant: getters?.darkTheme ? 'light' : 'dark',
+      sidebarClass: ['rounded-right border border-left-0', getters?.darkTheme ? 'border-black' : 'border-white'],
+      bodyClass: 'rounded-right',
     }
   },
 

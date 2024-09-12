@@ -38,6 +38,9 @@ Vue.use(BootstrapVue, {
   BButton: { variant: 'secondary' },
   BAvatar: { variant: 'muted' },
   BDropdown: { variant: 'primary' },
+  BToast: {
+    noCloseButton: true,
+  },
 });
 
 Vue.component('ModalHeader', ModalHeader);

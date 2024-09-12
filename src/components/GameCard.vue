@@ -65,11 +65,12 @@
         <small v-else>{{ gameProgress }}%</small>
       </b-badge>
 
+
       <h2
         v-if="!hideTitle || hideCover"
         :class="['text-wrap',
           {
-            'text-success' : gameCompleted, 'mb-1': !board.grid,
+            'text-success' : gameCompleted, 'mb-1': board.type !== $options.BOARD_TYPE_GRID,
             'mt-2': vertical,
           }
         ]"
@@ -130,12 +131,13 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import { getImageUrl } from '@/utils';
-import { IMAGE_SIZE_COVER_SMALL, PLATFORMS } from '@/constants';
+import { IMAGE_SIZE_COVER_SMALL, PLATFORMS, BOARD_TYPE_GRID } from '@/constants';
 import GameRibbon from '@/components/GameRibbon';
 import slugify from 'slugify';
 
 export default {
   IMAGE_SIZE_COVER_SMALL,
+  BOARD_TYPE_GRID,
   getImageUrl,
 
   props: {

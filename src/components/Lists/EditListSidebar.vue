@@ -1,8 +1,7 @@
 <template>
   <b-sidebar
     id="edit-list-modal"
-    v-bind="sidebarProps"
-    right
+    v-bind="sidebarRightProps"
     :visible="activeBoardListIndex !== null"
     @shown="openEditListSidebar"
     @hidden="closeSidebar"
@@ -193,7 +192,7 @@ export default {
 
   computed: {
     ...mapState(['board', 'activeBoardListIndex']),
-    ...mapGetters(['darkTheme', 'sidebarProps', 'swatchesProps']),
+    ...mapGetters(['darkTheme', 'sidebarRightProps', 'swatchesProps']),
   },
 
   methods: {

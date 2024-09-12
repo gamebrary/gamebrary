@@ -122,8 +122,9 @@ export default {
 
       try {
         await this.$store.dispatch('SAVE_GAME_BOARD', board);
+        this.$bvToast.toast(`There was an error removing "${this.game.name}"`);
       } catch (e) {
-        // this.$bvToast.toast(`There was an error removing "${this.game.name}"`, { title: list.name, variant: 'danger' });
+        this.$bvToast.toast(`There was an error removing "${this.game.name}"`);
       }
     },
   },
