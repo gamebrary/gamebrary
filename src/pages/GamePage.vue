@@ -79,35 +79,31 @@
         </div>
 
         <div :class="['game-description pb-4', source]">
-          <b-spinner v-if="loading" class="spinner-centered" />
+          <p v-html="description" />
 
-          <template v-else>
-            <p v-html="description" />
+          <p class="small">
+            <template>
+                Developed by
+                <b-link
+                  v-for="(developer, index) in gameDevelopers"
+                  :key="index"
+                  :to="{ name: 'company', params: { id: developer.id, slug: developer.slug }}"
+                  class="mr-2 mb-2 align-items-center"
+                >
+                  <span>{{ developer.name }}</span>
+                </b-link>
+            </template>
 
-            <p class="small">
-              <template>
-                  Developed by
-                  <b-link
-                    v-for="(developer, index) in gameDevelopers"
-                    :key="index"
-                    :to="{ name: 'company', params: { id: developer.id, slug: developer.slug }}"
-                    class="mr-2 mb-2 align-items-center"
-                  >
-                    <span>{{ developer.name }}</span>
-                  </b-link>
-              </template>
-
-              Published by
-              <b-link
-                v-for="publisher in gamePublishers"
-                :key="publisher.id"
-                :to="{ name: 'company', params: { id: publisher.id, slug: publisher.slug }}"
-              >
-                {{ publisher.name }}
-              </b-link>
-            </p>
-            <small class="text-muted mb-3 text-capitalize">Source: {{ source }}</small>
-          </template>
+            Published by
+            <b-link
+              v-for="publisher in gamePublishers"
+              :key="publisher.id"
+              :to="{ name: 'company', params: { id: publisher.id, slug: publisher.slug }}"
+            >
+              {{ publisher.name }}
+            </b-link>
+          </p>
+          <small class="text-muted mb-3 text-capitalize">Source: {{ source }}</small>
         </div>
 
         <div>

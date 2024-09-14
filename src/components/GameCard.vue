@@ -234,8 +234,31 @@ export default {
   display: grid;
   grid-template-columns: 140px auto;
   grid-gap: 1rem;
-  transition: background-color 300ms linear;
+  transition: background-color 300ms linear, transform 0.3s ease, box-shadow 0.3s ease, opacity 0.2s ease;
   padding: 0.5rem;
+
+  &.dragging {
+    // cursor: grabbing;
+    display: block;
+    transform: rotate(1deg) !important;
+    // box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow when dragged */
+    // transition: transform 0.2s ease, box-shadow 0.2s ease; /* Faster transition while dragging */
+  }
+
+  &.ghost {
+    .like-button {
+      display: none;
+    }
+
+    aside {
+      opacity: 0.5;
+    }
+
+    img {
+      opacity: 0.2;
+      filter: grayscale(90%);
+    }
+  }
 
   &.highlighted {
     border: 3px dotted var(--danger);

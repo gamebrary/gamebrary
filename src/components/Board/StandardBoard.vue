@@ -13,7 +13,7 @@
       filter=".drag-filter"
       delay="50"
       animation="500"
-      :list="list.games"
+      :list="listGames"
       :move="validateMove"
       :disabled="draggingDisabled"
       :group="{ name: 'games' }"
@@ -227,3 +227,17 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.standard-board {
+  width: 100%;
+  max-width: 600px;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  flex-direction: column;
+  margin: 0 auto;
+}
+</style>

@@ -164,19 +164,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" rel="stylesheet/scss">
-.game-cover {
-  width: 120px;
-}
-
-.standard-list {
-  width: 100%;
-  max-width: 600px;
-  overflow-x: hidden;
-
-  &.grid {
-    max-width: 1280px;
-  }
-}
-</style>

@@ -348,54 +348,9 @@ export default {
 
   .games {
     overflow: hidden;
-    max-height: calc(100vh - 200px);
+    max-height: calc(100vh - 209px);
     overflow-y: auto;
     width: 100%;
-
-    @media(max-width: 768px) {
-      max-height: 70vh;
-    }
   }
-
-  &.grid {
-    .games {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-column-gap: .5rem;
-    }
-  }
-
-  &.covers {
-    .games {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-column-gap: .5rem;
-
-      img {
-        width: 100%;
-        padding-bottom: .5rem;
-      }
-    }
-  }
-}
-
-.list-settings {
-  padding: 1rem;
-}
-</style>
-
-<style lang="scss" rel="stylesheet/scss">
-.card-placeholder {
-  > div {
-    visibility: hidden !important;
-  }
-
-  img {
-    display: none !important;
-  }
-
-  height: 100px;
-  opacity: .1;
-  background: #000;
 }
 </style>

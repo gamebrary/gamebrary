@@ -79,6 +79,20 @@ export default {
     }
   },
 
+  // TODO: use this extensively
+  draggableProps(state, getters) {
+    return {
+      handle: '.game-card',
+      ghostClass: 'ghost',
+      dragClass: 'dragging',
+      chosenClass: 'border-primary',
+      filter: '.drag-filter',
+      delay: '50',
+      animation: '500',
+      group: { name: 'games' },
+    }
+  },
+
   // Arabic is the only ltr language supported at the moment
   isRTL: ({ settings }) => settings?.language !== 'ar',
 

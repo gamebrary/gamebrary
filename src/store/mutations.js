@@ -258,8 +258,11 @@ export default {
     Vue.set(state.notes, gameId, note);
   },
 
+  // TODO: refactor dragging in general
+  // TODO: rename this to reflect that it's the dragging game id only
+  // TODO: replace all instances of SET_DRAGGING_STATUS
   SET_DRAGGING_STATUS(state, status) {
-    state.dragging = status;
+    state.draggingGameId = status;
   },
 
   REMOVE_GAME_NOTE(state, gameId) {

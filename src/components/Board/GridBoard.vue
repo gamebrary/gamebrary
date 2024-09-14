@@ -1,79 +1,54 @@
 <template lang="html">
-  <div class="standard-board pb-5">
-    GRID!@@
-    <!-- TODO: clean this up, remove all isGrid references -->
-    <!-- TODO: update isGrid to use board?.grid -->
-    <div class="standard-list" :class="{ 'grid': isGrid }">
-      <p v-if="isEmpty">
-        This board is empty.
-      </p>
+  <div class="grid-board pb-5">
+    <p v-if="isEmpty">
+      This board is empty.
+    </p>
 
-      <draggable
-        class="games"
-        :class="{ 'game-grid': isGrid }"
-        handle=".card"
-        ghost-class="card-placeholder"
-        drag-class="border-success"
-        chosen-class="border-primary"
-        filter=".drag-filter"
-        delay="50"
-        animation="500"
-        :list="list.games"
-        :move="validateMove"
-        :disabled="draggingDisabled"
-        :group="{ name: 'games' }"
-        @end="dragEnd"
-        @start="dragStart"
+    <draggable
+      class="game-grid"
+      v-bind="draggableProps"
+      :list="list.games"
+      :disabled="draggingDisabled"
+      :move="validateMove"
+      @end="dragEnd"
+      @start="dragStart"
+    >
+      <GameCard
+        v-for="(gameId, index) in listGames"
+        :key="index"
+        :list="list"
+        :ref="gameId"
+        :game-id="gameId"
+        :ranked="board.ranked"
+        :rank="index + 1"
+        vertical
+        hide-platforms
+        @click.native="openGame(gameId, list)"
+      />
+
+      <b-card
+        v-if="isBoardOwner"
+        slot="footer"
+        body-class="align-content-center text-center"
+        :bg-variant="darkTheme ? 'dark' : 'light'"
+        :text-variant="darkTheme ? 'light' : 'dark'"
+        @click="openGameSelectorSidebar"
       >
-        <GameCard
-          v-for="(game, index) in listGames"
-          :key="index"
-          :list="list"
-          :ref="game.id"
-          :game-id="game.id"
-          :ranked="board.ranked"
-          :rank="index + 1"
-          :vertical="isGrid"
-          :hide-platforms="isGrid"
-          :class="isGrid ? null: 'mb-3'"
-          @click.native="openGame(game.id, list)"
-        />
+        Expand your collection!
 
-        <template v-if="isBoardOwner">
-          <b-card
-            v-if="isGrid"
-            body-class="align-content-center text-center"
-            :bg-variant="darkTheme ? 'dark' : 'light'"
-            :text-variant="darkTheme ? 'light' : 'dark'"
-            @click="openGameSelectorSidebar"
-          >
-            Expand your collection!
-
-            <b-button
-              class="mt-2"
-              :variant="darkTheme ? 'success' : 'primary'"
-            >
-              Add games
-            </b-button>
-          </b-card>
-
-          <b-button
-            v-else
-            class="py-3"
-            block
-            :variant="darkTheme ? 'success' : 'primary'"
-            @click="openGameSelectorSidebar"
-          >
-            Add games
-          </b-button>
-        </template>
-      </draggable>
-    </div>
+        <b-button
+          class="mt-2"
+          :variant="darkTheme ? 'success' : 'primary'"
+        >
+          Add games
+        </b-button>
+      </b-card>
+    </draggable>
   </div>
 </template>
 
 <script>
-import { HIGHLIGHTED_GAME_TIMEOUT, BOARD_TYPE_GRID } from '@/constants';
+import { HIGHLIGHTED_GAME_TIMEOUT } from '@/constants';
 import draggable from 'vuedraggable';
 import slugify from 'slugify'
 import { mapState, mapGetters } from 'vuex';
@@ -87,7 +62,7 @@ export default {
 
   computed: {
     ...mapState(['cachedGames', 'dragging', 'progresses', 'board', 'user', 'settings', 'highlightedGame']),
-    ...mapGetters(['isBoardOwner', 'darkTheme']),
+    ...mapGetters(['isBoardOwner', 'darkTheme', 'draggableProps']),
 
     list() {
       const [firstList] = this.board?.lists;
@@ -99,10 +74,6 @@ export default {
       return this.board?.lists?.length > 0;
     },
 
-    isGrid() {
-      return this.board?.type === BOARD_TYPE_GRID;
-    },
-
     filter() {
       return this.listGames || [];
     },
@@ -112,9 +83,7 @@ export default {
     },
 
     listGames() {
-      return this.list?.games
-        ?.map((id) => this.cachedGames?.[id])
-        ?.filter(({ id }) => Boolean(id));
+      return this.list?.games;
     },
 
     isEmpty() {
@@ -160,9 +129,9 @@ export default {
         }
       });
 
-      // setTimeout(() => {
-      //   this.$store.commit('SET_HIGHLIGHTED_GAME', null);
-      // }, HIGHLIGHTED_GAME_TIMEOUT);
+      setTimeout(() => {
+        this.$store.commit('SET_HIGHLIGHTED_GAME', null);
+      }, HIGHLIGHTED_GAME_TIMEOUT);
     },
 
     async flattenAndSaveBoard() {
@@ -221,7 +190,7 @@ export default {
         await this.$store.dispatch('SAVE_GAME_BOARD', board);
         await this.$store.dispatch('LOAD_BOARD', board?.id)
       } catch (e) {
-        // this.$bvToast.toast(`There was an error removing "${this.game.name}"`, { title: list.name, variant: 'danger' });
+        this.$bvToast.toast(`There was an error removing "${this.game.name}"`, { title: list.name, variant: 'danger' });
       }
     },
 
@@ -266,11 +235,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.standard-board {
+.grid-board {
   display: flex;
   justify-content: center;
   align-items: center;
   overflow-y: auto;
   flex-direction: column;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 </style>

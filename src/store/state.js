@@ -3,7 +3,7 @@ export default {
   highlightedGame: null,
   boards: [],
   games: {},
-  dragging: false,
+  draggingGameId: null,
   game: {},
   cachedGames: {},
   notes: {},

@@ -1,3 +1,5 @@
+<!-- TODO: fix Lists will be merged into a single list. -->
+<!-- TODO: allow to upload and set wallpaper from here -->
 <template lang="html">
   <b-sidebar
     id="edit-board-sidebar"
@@ -143,7 +145,13 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import { BOARD_TYPES, BOARD_TYPE_STANDARD, BOARD_TYPE_KANBAN, LIST_SORT_OPTIONS } from '@/constants';
+import {
+  BOARD_TYPES,
+  BOARD_TYPE_STANDARD,
+  BOARD_TYPE_GRID,
+  BOARD_TYPE_KANBAN,
+  LIST_SORT_OPTIONS,
+} from '@/constants';
 import WallpapersList from '@/components/WallpapersList';
 import UploadWallpaperButton from '@/components/UploadWallpaperButton';
 import SidebarHeader from '@/components/SidebarHeader';
@@ -153,6 +161,7 @@ import VSwatches from 'vue-swatches';
 export default {
   BOARD_TYPES,
   BOARD_TYPE_STANDARD,
+  BOARD_TYPE_GRID,
   LIST_SORT_OPTIONS,
 
   components: {
@@ -183,7 +192,9 @@ export default {
     needsFlattening() {
       const listCount = this.board?.lists?.length || 0;
 
-      return listCount > 1 && this.board.type === 'standard';
+      if (!listCount) return
+
+      return [BOARD_TYPE_STANDARD, BOARD_TYPE_GRID].includes(this.board.type);
     },
 
     mergedGamesList() {
