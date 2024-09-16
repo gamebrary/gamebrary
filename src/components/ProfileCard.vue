@@ -1,15 +1,23 @@
 <template lang="html">
-  <b-link
-    class="d-inline-flex"
-    :to="{ name: 'public.profile', params: { userName: profile.userName } }"
-  >
-    <b-avatar
-      v-b-tooltip.hover
-      :title="`@${profile.userName}`"
-      :src="avatarImage"
-      size="80px"
-    />
-  </b-link>
+  <b-card>
+    <div class="profile-card">
+      <b-avatar
+          v-b-tooltip.hover
+          :title="`@${profile.userName}`"
+          :src="avatarImage"
+          :to="{ name: 'public.profile', params: { userName: profile.userName } }"
+          size="80"
+          rounded
+        />
+
+        <aside class="d-flex flex-column">
+          <router-link :to="{ name: 'public.profile', params: { userName: profile.userName } }">
+            <strong>@{{ profile.userName }}</strong>
+          </router-link>
+          <q v-if="profile.bio">{{ profile.bio }}</q>
+        </aside>
+    </div>
+  </b-card>
 </template>
 
 <script>
@@ -39,3 +47,12 @@ export default {
   },
 };
 </script>
+
+
+<style lang="scss" scoped>
+.profile-card {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: 80px auto;
+}
+</style>
