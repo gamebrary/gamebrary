@@ -2,7 +2,7 @@
   <div v-if="allGames.length">
     <h2 class="pb-3">You may also like</h2>
 
-    <div class="scroll-container">
+    <div class="scroll-container pb-3">
       <GameCard
         v-for="game in allGames"
         :key="game && game.id"
@@ -12,7 +12,7 @@
         hide-tags
         hide-title
         hide-progress
-        class="scroll-item"
+        class="scroll-item mr-3"
       />
     </div>
   </div>
@@ -98,7 +98,6 @@ export default {
 
     .scroll-item {
       display: inline-block;
-      width: 180px;
     }
 
 </style>
