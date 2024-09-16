@@ -31,6 +31,8 @@
     <b-spinner v-else-if="loading" class="spinner-centered" />
 
     <div v-else-if="likedGames.length" class="small-container pb-5">
+      <!-- TODO: sort by name, progress, tags -->
+      <!-- TODO: filter by tags, platform -->
       <GameCard
         v-for="game in likedGames"
         :key="game.id"
