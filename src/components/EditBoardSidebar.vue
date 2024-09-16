@@ -288,6 +288,7 @@ export default {
 
         await this.$store.dispatch('DELETE_BOARD', this.board.id);
 
+        this.$bvToast.toast('Board deleted');
         this.$router.replace({ name: 'boards' });
       } catch (e) {
         //

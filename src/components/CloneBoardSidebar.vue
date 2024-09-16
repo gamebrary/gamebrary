@@ -107,7 +107,7 @@ export default {
         debugger;
 
         const { id } = await this.$store.dispatch('CREATE_BOARD', this.payload);
-
+        this.$bvToast.toast('Board cloned');
         this.saving = false;
         this.$router.push({ name: 'board', params: { id } });
       } catch (e) {
