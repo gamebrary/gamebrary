@@ -335,14 +335,6 @@
       >
         loading...
       </timeline> -->
-
-      <div
-        v-for="(requirement, index) in gameRequirements"
-        :key="index"
-      >
-        <p v-if="requirement.minimum" v-html="requirement.minimum" />
-        <p v-if="requirement.recommended" v-html="requirement.recommended" />
-      </div>
     </b-container>
 
     <!-- <div class="news-grid">
@@ -386,6 +378,13 @@
         <b-badge v-for="tag in article.tags" :key="tag">{{ tag }}</b-badge>
       </b-card>
     </div> -->
+    <div
+      v-for="(requirement, index) in gameRequirements"
+      :key="index"
+    >
+      <p v-if="requirement.minimum" v-html="requirement.minimum" />
+      <p v-if="requirement.recommended" v-html="requirement.recommended" />
+    </div>
 
     <SimilarGames class="mt-sm-5" />
 
