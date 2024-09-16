@@ -1,21 +1,31 @@
 <template lang="html">
-  <b-card>
+  <b-avatar
+    v-if="thumbnail"
+    v-b-tooltip.hover
+    :title="`@${profile.userName}`"
+    :src="avatarImage"
+    :to="{ name: 'public.profile', params: { userName: profile.userName } }"
+    size="80"
+    :rounded="!thumbnail"
+  />
+
+  <b-card v-else>
     <div class="profile-card">
       <b-avatar
-          v-b-tooltip.hover
-          :title="`@${profile.userName}`"
-          :src="avatarImage"
-          :to="{ name: 'public.profile', params: { userName: profile.userName } }"
-          size="80"
-          rounded
-        />
+        v-b-tooltip.hover
+        :title="`@${profile.userName}`"
+        :src="avatarImage"
+        :to="{ name: 'public.profile', params: { userName: profile.userName } }"
+        size="80"
+        rounded
+      />
 
-        <aside class="d-flex flex-column">
-          <router-link :to="{ name: 'public.profile', params: { userName: profile.userName } }">
-            <strong>@{{ profile.userName }}</strong>
-          </router-link>
-          <q v-if="profile.bio">{{ profile.bio }}</q>
-        </aside>
+      <aside v-if="!thumbnail" class="d-flex flex-column">
+        <router-link :to="{ name: 'public.profile', params: { userName: profile.userName } }">
+          <strong>@{{ profile.userName }}</strong>
+        </router-link>
+        <q v-if="profile.bio">{{ profile.bio }}</q>
+      </aside>
     </div>
   </b-card>
 </template>
@@ -25,6 +35,7 @@ import { getImageThumbnail } from '@/utils';
 
 export default {
   props: {
+    thumbnail: Boolean,
     profile: {
       type: Object,
       required: true,
