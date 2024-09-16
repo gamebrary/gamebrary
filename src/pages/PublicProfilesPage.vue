@@ -7,11 +7,13 @@
     <b-container>
       <b-spinner v-if="loading" class="spinner-centered" />
 
-      <profile-card
+      <div class="profiles-grid">
+        <ProfileCard
           v-for="profile in profiles"
           :key="profile.userName"
           :profile="profile"
         />
+      </div>
     </b-container>
   </section>
 </template>
@@ -52,3 +54,15 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.profiles-grid {
+  width: 100%;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+
+  @media(max-width: 1280px) {grid-template-columns: repeat(2, 1fr); }
+  @media(max-width: 992px) {grid-template-columns: repeat(1, 1fr); }
+}
+</style>

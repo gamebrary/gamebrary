@@ -24,37 +24,54 @@
           size="200"
         />
 
-        <h3>@{{ profile.userName }}</h3>
-
-        <strong v-if="profile.name">{{ profile.name }}</strong>
-
-        <p v-if="profile.location">
-          <i class="fa-solid fa-location-dot" />
-          {{ profile.location }}
-        </p>
-
-        <p v-if="profile.bio" class="text-subtle">{{ profile.bio }}</p>
-
-        <b-button
-          v-if="profile.website"
-          :href="profile.website"
-          target="_blank"
-          title="Website"
-          variant="link"
+        <h3
+          v-b-tooltip
+          :title="profile.name"
         >
-          {{ profile.website }}
-        </b-button>
+          @{{ profile.userName }}
+        </h3>
 
-        <b-button
-          v-if="profile.twitter"
-          :href="`https://twitter.com/${profile.twitter}`"
-          target="_blank"
-          title="X"
-          variant="transparent"
+        <q
+          v-if="profile.bio"
+          class="d-block text-subtle mt-2"
         >
-          <i class="fa-brands fa-x-twitter fa-fw" />
-          {{ profile.twitter }}
-        </b-button>
+          {{ profile.bio }}
+        </q>
+
+        <div class="mt-2">
+          <b-button
+            v-if="profile.website"
+            :href="profile.website"
+            target="_blank"
+            :title="profile.website"
+            v-b-tooltip
+            class="mx-1"
+          >
+            <i class="fa-regular fa-globe-pointer fa-fw" />
+          </b-button>
+
+          <b-button
+            v-if="profile.twitter"
+            :href="`https://twitter.com/${profile.twitter}`"
+            target="_blank"
+            v-b-tooltip
+            :title="profile.twitter"
+            class="mx-1"
+          >
+            <i class="fa-brands fa-x-twitter fa-fw" />
+          </b-button>
+
+          <b-button
+            v-if="userLocation"
+            :href="userLocation"
+            :title="profile.location"
+            v-b-tooltip
+            class="mx-1"
+            target="_blank"
+          >
+            <i class="fa-solid fa-location-dot fa-fw" />
+          </b-button>
+        </div>
       </div>
 
       <!-- <b-button :to="{ name: 'profiles' }">
@@ -108,6 +125,14 @@ export default {
 
     userName() {
       return this.$route.params.userName;
+    },
+
+    userLocation() {
+      if (!this.profile?.location) return null;
+
+      const location = this.profile?.location?.replace(' ', '+');
+
+      return `https://www.google.com/maps/search/${location}`;
     },
 
     isProfileOwner() {
