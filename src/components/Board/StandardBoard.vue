@@ -6,17 +6,10 @@
 
     <draggable
       class="games"
-      handle=".game-card"
-      ghost-class="card-placeholder"
-      drag-class="border-success"
-      chosen-class="border-primary"
-      filter=".drag-filter"
-      delay="50"
-      animation="500"
+      v-bind="draggableProps"
       :list="listGames"
       :move="validateMove"
       :disabled="draggingDisabled"
-      :group="{ name: 'games' }"
       @end="dragEnd"
       @start="dragStart"
     >
@@ -60,7 +53,7 @@ export default {
 
   computed: {
     ...mapState(['cachedGames', 'dragging', 'progresses', 'board', 'user', 'settings', 'highlightedGame']),
-    ...mapGetters(['isBoardOwner', 'darkTheme']),
+    ...mapGetters(['isBoardOwner', 'darkTheme', 'draggableProps']),
 
     list() {
       const [firstList] = this.board?.lists;

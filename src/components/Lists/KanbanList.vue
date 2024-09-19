@@ -18,7 +18,13 @@
           @click="editList"
         >
           <div class="d-flex justify-content-between align-items-center">
-            {{ list.name }}
+            <span v-if="list.name">
+              {{ list.name }}
+            </span>
+
+            <span v-else class="text-info">
+              -
+            </span>
 
             <i
               v-if="sortingEnabled"
@@ -43,9 +49,9 @@
           <strong>{{ list.name }}</strong>
         </b-button>
 
-        <b-button-group>
+        <b-button-group v-if="isBoardOwner && listIndex > 0 || showMoveListRightButton">
           <b-button
-            v-if="isBoardOwner && listIndex > 0"
+            v-if="listIndex > 0"
             :variant="darkTheme ? 'dark' : 'light'"
             v-b-tooltip.hover="'Move left'"
             @click="$bus.$emit('MOVE_LIST_LEFT', listIndex)"
@@ -54,7 +60,7 @@
           </b-button>
 
           <b-button
-            v-if="isBoardOwner && showMoveListRightButton"
+            v-if="showMoveListRightButton"
             :variant="darkTheme ? 'dark' : 'light'"
             v-b-tooltip.hover="'Move right'"
             @click="$bus.$emit('MOVE_LIST_RIGHT', listIndex)"
@@ -66,18 +72,11 @@
 
       <draggable
         class="games px-2 pt-1"
-        handle=".game-card"
-        ghost-class="card-placeholder"
-        drag-class="border-success"
-        chosen-class="border-primary"
-        filter=".drag-filter"
-        delay="50"
-        animation="500"
+        v-bind="draggableProps"
         :list="list.games"
         :id="listIndex"
         :move="validateMove"
         :disabled="draggingDisabled"
-        :group="{ name: 'games' }"
         @end="dragEnd"
         @start="dragStart"
       >
@@ -160,7 +159,7 @@ export default {
 
   computed: {
     ...mapState(['cachedGames', 'dragging', 'progresses', 'board', 'user', 'settings']),
-    ...mapGetters(['isBoardOwner', 'darkTheme', 'transparencyEnabled']),
+    ...mapGetters(['isBoardOwner', 'darkTheme', 'transparencyEnabled', 'draggableProps']),
 
     sortMessage() {
       if (this.sortBy === SORT_TYPE_ALPHABETICALLY) return 'List sorted alphabetically'

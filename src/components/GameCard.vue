@@ -237,13 +237,9 @@ export default {
   transition: background-color 300ms linear, transform 0.3s ease, box-shadow 0.3s ease, opacity 0.2s ease;
   padding: 0.5rem;
 
-  &.dragging {
-    // cursor: grabbing;
-    display: block;
-    transform: rotate(1deg) !important;
-    // box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow when dragged */
-    // transition: transform 0.2s ease, box-shadow 0.2s ease; /* Faster transition while dragging */
-  }
+  // TODO: add dragging effecty, tilt or similar
+  // &.dragging {
+  // }
 
   &.ghost {
     .like-button {
@@ -260,13 +256,26 @@ export default {
     }
   }
 
-  &.highlighted {
-    border: 3px dotted var(--danger);
-  }
-
   &.slim {
     padding: 0;
     grid-gap: 0;
+  }
+
+  &.highlighted {
+    background-color: var(--success) !important;
+    color: var(--dark) !important;
+
+    &.slim::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 4px solid var(--success);
+      z-index: 2;
+      pointer-events: none;
+    }
   }
 
   &.light {

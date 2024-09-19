@@ -79,13 +79,12 @@ export default {
     }
   },
 
-  // TODO: use this extensively
   draggableProps(state, getters) {
     return {
       handle: '.game-card',
       ghostClass: 'ghost',
       dragClass: 'dragging',
-      chosenClass: 'border-primary',
+      chosenClass: 'border-transparent',
       filter: '.drag-filter',
       delay: '50',
       animation: '500',

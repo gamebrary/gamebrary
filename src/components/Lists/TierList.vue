@@ -49,19 +49,12 @@
     </div>
 
     <draggable
-      handle=".game-card"
-      ghost-class="card-placeholder"
-      drag-class="border-success"
-      chosen-class="border-primary"
       class="tier-game w-100 d-flex ml-2"
-      filter=".drag-filter"
-      delay="50"
-      animation="500"
+      v-bind="draggableProps"
       :list="list.games"
       :id="listIndex"
       :move="validateMove"
       :disabled="draggingDisabled"
-      :group="{ name: 'games' }"
       @end="dragEnd"
       @start="dragStart"
     >
@@ -122,7 +115,7 @@ export default {
 
   computed: {
     ...mapState(['dragging', 'progresses', 'board', 'user', 'settings']),
-    ...mapGetters(['isBoardOwner']),
+    ...mapGetters(['isBoardOwner', 'draggableProps']),
 
     moveListRightButtonDisabled() {
       const listsCount = this.board?.lists?.length || 0;
