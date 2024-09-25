@@ -45,11 +45,12 @@
           size="sm"
           disabled
           :variant="darkTheme ? 'dark' : 'light'"
+          class="text-left"
         >
           <strong>{{ list.name }}</strong>
         </b-button>
 
-        <b-button-group v-if="isBoardOwner && listIndex > 0 || showMoveListRightButton">
+        <b-button-group v-if="isBoardOwner && (listIndex > 0 || showMoveListRightButton)">
           <b-button
             v-if="listIndex > 0"
             :variant="darkTheme ? 'dark' : 'light'"

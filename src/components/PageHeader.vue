@@ -1,10 +1,5 @@
 <template lang="html">
-  <nav
-    :class="[
-      `nav-${navPosition}`,
-      transparencyEnabled ? `semi-transparent ${darkTheme ? 'bg-dark' : 'bg-light'}` : darkTheme ? 'bg-dark' : 'bg-light'
-    ]"
-  >
+  <nav :class="navClass">
     <b-button
       variant="link"
       class="p-0 mx-1"
@@ -41,8 +36,22 @@ export default {
   },
 
   computed: {
-    ...mapState(['user', 'games', 'notes', 'tags', 'wallpapers', 'menuOpen']),
+    ...mapState(['user', 'games', 'notes', 'tags', 'wallpapers', 'menuOpen', 'routeName']),
     ...mapGetters(['navPosition', 'latestRelease', 'darkTheme', 'transparencyEnabled']),
+
+    navClass() {
+      const navPosition = `nav-${this.navPosition}`;
+
+      if (this.routeName === 'board') return navPosition;
+
+      const defaultClass = this.darkTheme ? 'bg-dark' : 'bg-light'
+
+      const backgroundClasses = this.transparencyEnabled
+        ? `semi-transparent ${defaultClass}`
+        : defaultClass
+
+      return [navPosition, backgroundClasses]
+    },
   },
 
   methods: {
