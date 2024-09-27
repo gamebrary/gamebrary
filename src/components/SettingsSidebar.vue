@@ -1,6 +1,6 @@
 <template lang="html">
   <b-sidebar
-    id="settingsSidebar"
+    id="settings-sidebar"
     v-bind="sidebarLeftProps"
     z-index="2001"
   >

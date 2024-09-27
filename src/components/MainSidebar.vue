@@ -96,7 +96,7 @@
           block
           class="text-left"
           :variant="routeName === 'settings' ?  activeVariant : variant"
-          v-b-toggle.settingsSidebar
+          @click="openSettingsSidebar"
         >
           <i class="fa-regular fa-gear fa-fw" />
           <span class="ml-2">Settings</span>
@@ -160,6 +160,11 @@ export default {
   methods: {
     hideSidebar() {
       this.$store.commit('SET_MENU_OPEN', false);
+    },
+
+    openSettingsSidebar() {
+      this.$root.$emit('bv::toggle::collapse', 'settings-sidebar');
+      this.hideSidebar();
     },
   }
 };
