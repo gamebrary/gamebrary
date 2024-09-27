@@ -2,7 +2,7 @@
   <b-carousel
     v-if="hasArtworks"
     id="carousel-fade"
-    class="game-media-carousel cursor-pointer overflow-hidden position-absolute m-3 rounded"
+    class="game-media-carousel cursor-pointer position-absolute m-3"
     fade
     v-b-modal.mediaModal
     no-hover-pause
@@ -11,6 +11,7 @@
       v-for="(artwork, index) in artworks"
       :key="index"
       :img-src="artwork.url"
+      class="rounded overflow-hidden"
     />
   </b-carousel>
 </template>
