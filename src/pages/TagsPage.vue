@@ -35,7 +35,7 @@
       <b-list-group>
         <b-list-group-item
           v-for="({ textColor, bgColor, name, games: taggedGames }, index) in tags"
-          :key="name"
+          :key="index"
           :variant="darkTheme ? 'dark' : 'light'"
           class="flex-column align-items-start"
           @click="openEditTagSidebar(index)"

@@ -6,7 +6,7 @@
     <template #default="{ hide }">
       <SidebarHeader @hide="hide" :title="sidebarTitle" />
 
-      <div class="p-3">
+      <div class="px-3">
         <div v-if="isEmpty">
           <p>No tags available</p>
 
@@ -19,7 +19,7 @@
           <div
             v-for="({ name, bgColor, textColor, games }, index) in tags"
             :key="index"
-            class="tag mb-2"
+            class="tag mb-3"
           >
             <b-button
               v-if="name"

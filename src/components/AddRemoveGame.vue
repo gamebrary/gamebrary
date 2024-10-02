@@ -1,3 +1,4 @@
+<!-- TODO: move to sidebar -->
 <template lang="html">
   <b-modal
     id="addRemoveGameModal"

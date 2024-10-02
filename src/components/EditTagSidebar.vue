@@ -55,32 +55,33 @@
           </b-button>
         </div>
 
+        <div class="border rounded p-3 mt-auto">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3>Games tagged</h3>
 
-        <b-card bg-variant="transparent" body-class="pb-3" class="mt-3">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <h2>Games tagged</h2>
+            <b-button @click="openGameSelectorSidebar">
+              <i class="fa-solid fa-plus" />
+            </b-button>
+          </div>
 
-          <b-button @click="openGameSelectorSidebar">
-            <i class="fa-solid fa-plus" />
-          </b-button>
+          <p v-if="isEmpty">
+            No games tagged yet.
+
+            <b-link @click="openGameSelectorSidebar">
+              Tag game
+            </b-link>
+          </p>
+
+          <GameCard
+            v-for="gameId in tag.games"
+            small
+            class="mt-3"
+            hide-platforms
+            hide-progress
+            :key="gameId"
+            :game-id="gameId"
+          />
         </div>
-
-        <p v-if="isEmpty">
-          No games tagged yet.
-
-          <b-link @click="openGameSelectorSidebar">
-            Tag game
-          </b-link>
-        </p>
-
-        <GameCard
-          v-for="gameId in tag.games"
-          small
-          class="mt-3"
-          :key="gameId"
-          :game-id="gameId"
-        />
-      </b-card>
       </form>
     </template>
   </b-sidebar>

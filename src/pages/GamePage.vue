@@ -39,7 +39,7 @@
       </aside>
 
       <article>
-        <div class="d-flex align-items-center" v-b-visible="(value) => titleVisible = !value">
+        <div class="d-flex align-items-center">
           <h1 id="popover-target-1" :class="{ 'text-danger': isLiked, 'cursor-pointer': alternativeNames.length }">
             {{ gameName }}
           </h1>
@@ -307,24 +307,6 @@
       <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/2/28/JPG_Test.jpg" alt=""> -->
       <!-- https://en.wikipedia.org/w/api.php?action=query&titles=File:Test.jpg&prop=imageinfo&iilimit=50&iiend=2007-12-31T23:59:59Z&iiprop=timestamp|user|url -->
 
-      <portal to="pageTitle">
-        <h3
-          v-show="titleVisible"
-          :class="darkTheme ? 'text-light text-outlined' : ''"
-        >
-        <b-img
-          :blank="loading"
-          :src="$options.getImageUrl(cachedGame)"
-          :alt="gameName"
-          bordered
-          class="mr-2"
-          style="max-height: 40px; width: auto;"
-          v-b-modal.mediaModal
-        />
-          {{ gameName }}
-        </h3>
-      </portal>
-
       <!-- <GameSpeedruns /> -->
 
       <!-- <timeline
@@ -429,7 +411,6 @@ export default {
   data() {
     return {
       loading: false,
-      titleVisible: false,
       wikipediaDescription: null,
     };
   },
