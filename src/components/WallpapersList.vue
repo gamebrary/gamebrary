@@ -1,9 +1,9 @@
 <template lang="html">
   <b-list-group>
     <b-list-group-item
-      v-for="wallpaper in sortedWallpapers"
+      v-for="(wallpaper, index) in sortedWallpapers"
       :variant="darkTheme ? 'dark' : 'light'"
-      :key="wallpaper.name"
+      :key="index"
       button
       @click="handleClick(wallpaper)"
     >

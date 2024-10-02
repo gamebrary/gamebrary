@@ -6,10 +6,11 @@
       <b-button
         title="Add games"
         v-b-tooltip.hover
-        :variant="darkTheme ? 'success' : 'primary'"
+        v-bind="buttonProps"
         @click="addGame"
       >
         <i class="fa-solid fa-plus" />
+        Add games
       </b-button>
     </portal>
 
@@ -78,7 +79,7 @@ export default {
 
   computed: {
     ...mapState(['games', 'cachedGames', 'user', 'progresses']),
-    ...mapGetters(['darkTheme', 'navPosition']),
+    ...mapGetters(['darkTheme', 'navPosition', 'buttonProps']),
 
     likedGames() {
       if (!this.user) return null;

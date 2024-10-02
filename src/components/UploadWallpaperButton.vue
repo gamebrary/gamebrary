@@ -10,23 +10,22 @@
     />
 
     <b-button
-      :disabled="outOfSpace"
       title=""
-      :variant="darkTheme ? 'success' : 'primary'"
+      v-bind="buttonProps"
       @click="triggerFileUpload"
     >
-      <b-spinner small v-if="saving" />
-      <i v-else class="fa-regular fa-upload" />
+      <span v-if="saving">
+        <b-spinner small class="mr-2" />
+        Uploading
+      </span>
+
+      <span v-if="!saving">
+        <i class="fa-regular fa-upload mr-2" />
+        Upload
+      </span>
+
       <slot />
     </b-button>
-
-    <b-alert
-      v-if="isDuplicate && !saving && file && file.name"
-      show
-      variant="warning"
-    >
-      {{ $t('wallpapers.form.duplicateMessage', { fileName: file.name }) }}
-    </b-alert>
   </div>
 </template>
 
@@ -44,25 +43,19 @@ export default {
 
   computed: {
     ...mapState(['wallpapers']),
-    ...mapGetters(['darkTheme']),
+    ...mapGetters(['darkTheme', 'buttonProps']),
 
-    isDuplicate() {
-      const { file, existingFiles } = this;
+    // spaceUsed() {
+    //   return this.wallpapers.reduce((total, { metadata }) => {
+    //     const size = metadata?.size || 0;
 
-      return existingFiles?.includes(file?.name);
-    },
+    //     return total + size;
+    //   }, 0);
+    // },
 
-    spaceUsed() {
-      return this.wallpapers.reduce((total, { metadata }) => {
-        const size = metadata?.size || 0;
-
-        return total + size;
-      }, 0);
-    },
-
-    outOfSpace() {
-      return this.spaceUsed >= this.maxSpace;
-    },
+    // outOfSpace() {
+    //   return this.spaceUsed >= this.maxSpace;
+    // },
   },
 
   methods: {
@@ -71,9 +64,8 @@ export default {
     },
 
     async uploadWallpaper() {
-      if (this.isDuplicate) return this.$bvToast.toast('File already exists', { variant: 'warning' });
       if (!this.file) return false;
-      
+
       this.saving = true;
 
       try {

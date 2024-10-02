@@ -41,7 +41,7 @@
 
         <b-button-group class="mb-3">
           <b-button v-for="{ text, value } in $options.BOARD_TYPES" :key="value"
-            :variant="value === board.type ? 'primary' : 'white'" @click="board.type = value">
+            :variant="value === board.type ? 'black' : 'white'" @click="board.type = value">
             {{ text }}
           </b-button>
         </b-button-group>

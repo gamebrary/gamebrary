@@ -7,10 +7,6 @@
 
     <portal to="pageTitle">
       <div class="d-flex flex-column">
-        <h3 :class="['text-truncate', { 'text-white': backgroundUrl && darkTheme }]" :style="publicUserName ? 'line-height: 1rem' : ''">
-          {{ board.name }}
-        </h3>
-
         <b-link
           v-if="publicUserName"
           style="font-size: 12px"
@@ -33,12 +29,15 @@
 
     <portal to="headerActions">
       <b-dropdown
-        :variant="darkTheme ? 'black' : 'light'"
+        v-if="user"
+        variant="black"
         right
         no-caret
       >
         <template #button-content>
-          <i class="fa-solid fa-ellipsis-vertical px-1" />
+          {{ board.name }}
+
+          <i class="fa-regular fa-caret-down fa-fw" />
         </template>
 
         <b-dropdown-item v-if="canEdit" v-b-toggle.edit-board-sidebar>
@@ -49,6 +48,13 @@
           <i class="fa-regular fa-clone fa-fw" /> Clone board
         </b-dropdown-item>
       </b-dropdown>
+
+      <b-button
+        v-else
+        variant="black"
+      >
+        {{ board.name }}
+      </b-button>
     </portal>
 
     <StandardBoard v-if="board.type === $options.BOARD_TYPE_STANDARD" />

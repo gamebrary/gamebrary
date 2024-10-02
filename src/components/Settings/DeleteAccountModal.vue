@@ -1,7 +1,7 @@
 <template lang="html">
   <b-modal
-    id="deleteAccount"
-    no-close-on-backdrop
+    id="delete-account-modal"
+    :no-close-on-backdrop="deleting"
     :header-bg-variant="darkTheme ? 'dark' : 'transparent'"
     :header-text-variant="darkTheme ? 'white' : 'dark'"
     :body-bg-variant="darkTheme ? 'dark' : 'transparent'"

@@ -4,18 +4,26 @@
 
     <portal v-if="user && !isEmpty" to="headerActions">
       <b-button
-        title="Add games"
+        title="Add note"
         v-b-tooltip.hover
-        :variant="darkTheme ? 'success' : 'primary'"
+        v-bind="buttonProps"
         @click="openGameSelectorSidebar"
       >
         <i class="fa-solid fa-plus" />
+        Add note
       </b-button>
     </portal>
 
     <b-spinner v-if="loading" class="spinner-centered" />
 
     <template v-else>
+      <b-form-input
+        type="search"
+        class="mb-3"
+        placeholder="Search notes"
+        v-model="searchText"
+      />
+
       <EmptyState
         v-if="isEmpty"
         illustration="notes"
@@ -38,46 +46,43 @@
         illustration="notes"
         message="No results"
       >
-        <b-button @click="searchText = ''">
+        <b-button
+          @click="searchText = ''"
+          v-bind="buttonProps"
+        >
           Clear search
         </b-button>
       </EmptyState>
 
       <template v-else>
-        <b-form-input
-          type="search"
-          class="mb-3 mt-2"
-          placeholder="Search notes"
-          v-model="searchText"
-        />
-
-        <b-card
+        <b-media
           v-for="({ note, game }, index) in filteredNotes"
-          body-class="p-3"
-          :bg-variant="darkTheme ? 'dark' : 'light'"
-          :text-variant="darkTheme ? 'light' : 'dark'"
           :key="index"
-          class="cursor-pointer mb-2"
-          @click="openNote(game.id)"
+          vertical-align="center"
         >
-          <b-card-text v-if="game">
+          <template #aside>
             <GameCard
-              small
               :game-id="game.id"
-              selectable
-              @click.native.stop="openNote(game.id)"
+              small
+              hide-notes
+              hide-progress
+              vertical
+              hide-title
+              hide-platforms
             />
+          </template>
 
-            <b-alert
-              v-if="note"
-              v-html="note"
-              show
-              class="cursor-pointer mt-3 mb-0"
-              variant="warning"
-              @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
-            />
-          </b-card-text>
-        </b-card>
+          <h2>{{ game.name }}</h2>
+
+          <b-alert
+            v-if="note"
+            v-html="note"
+            show
+            class="cursor-pointer mt-3 mb-0"
+            variant="warning"
+            @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
+          />
+        </b-media>
       </template>
     </template>
   </div>
@@ -103,7 +108,7 @@ export default {
 
   computed: {
     ...mapState(['notes', 'cachedGames', 'user']),
-    ...mapGetters(['darkTheme']),
+    ...mapGetters(['darkTheme', 'buttonProps']),
 
     isEmpty() {
       return !this.notes || !Object.keys(this.notes)?.length;

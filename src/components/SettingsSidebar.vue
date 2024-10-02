@@ -80,7 +80,7 @@
 
           <b-link
             class="mb-2 text-danger px-3 py-2"
-            v-b-modal.deleteAccount
+            @click="openDeleteAccountSidebar"
           >
             Delete account
           </b-link>
@@ -206,6 +206,11 @@ export default {
           this.$bvToast.toast('There was an error saving your settings', { variant: 'danger' });
           this.saving = false;
         });
+    },
+
+    openDeleteAccountSidebar() {
+      this.$root.$emit('bv::toggle::collapse', 'settings-sidebar');
+      this.$bvModal.show('delete-account-modal');
     },
   },
 };

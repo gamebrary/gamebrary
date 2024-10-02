@@ -6,11 +6,12 @@
 
     <portal v-if="user && !isEmpty" to="headerActions">
       <b-button
-        :variant="darkTheme ? 'success' : 'primary'"
+        v-bind="buttonProps"
         v-b-toggle.create-tag-sidebar
         title="Add tag"
       >
         <i class="fa-solid fa-plus" />
+        Add tag
       </b-button>
     </portal>
 
@@ -39,17 +40,38 @@
           class="flex-column align-items-start"
           @click="openEditTagSidebar(index)"
         >
-          <div class="d-flex w-100 justify-content-between align-items-center">
-            <b-button
-              variant="transparent"
-              :style="`background-color: ${bgColor}; color: ${textColor}`"
-            >
-            {{ name }}
-            </b-button>
+          <div class="d-flex w-100 justify-content-between">
+            <div class="d-flex flex-column">
+              <b-button
+                variant="transparent"
+                :style="`background-color: ${bgColor}; color: ${textColor}`"
+                class="mb-2"
+              >
+              {{ name }}
+              </b-button>
 
-            <b-badge variant="primary" pill>
-              {{ taggedGames.length }} games
-            </b-badge>
+              <b-badge variant="primary" pill>
+                {{ taggedGames.length }} games
+              </b-badge>
+            </div>
+
+            <b-avatar-group>
+              <GameCard
+                v-for="gameId in taggedGames"
+                small
+                slim
+                hide-title
+                vertical
+                hide-platforms
+                hide-tags
+                hide-progress
+                class="ml-n5 border-light border"
+                :key="gameId"
+                :game-id="gameId"
+              />
+
+            </b-avatar-group>
+
           </div>
         </b-list-group-item>
       </b-list-group>
@@ -71,11 +93,13 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import GameCard from '@/components/GameCard';
 import EmptyState from '@/components/EmptyState';
 
 export default {
   components: {
     EmptyState,
+    GameCard,
   },
 
   data() {
@@ -86,7 +110,7 @@ export default {
 
   computed: {
     ...mapState(['tags', 'user', 'cachedGames', 'activeTagIndex']),
-    ...mapGetters(['darkTheme']),
+    ...mapGetters(['darkTheme', 'buttonProps']),
 
     isEmpty() {
       return this.tags?.length === 0;

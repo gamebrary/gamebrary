@@ -8,7 +8,7 @@
     <template #default="{ hide }">
       <SidebarHeader @hide="hide" title="Edit tag" />
 
-      <form @submit.prevent="saveTag" class="p-3">
+      <form @submit.prevent="saveTag" class="px-3">
         <div class="d-flex">
           <b-form-input
             id="tagName"

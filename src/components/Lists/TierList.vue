@@ -132,7 +132,7 @@ export default {
         return this.darkTheme ? 'light' : 'secondary';
       }
 
-      return this.darkTheme ? 'outline-light' : 'outline-secondary';
+      return this.darkTheme ? 'outline-light' : 'secondary';
     },
 
     draggingDisabled() {

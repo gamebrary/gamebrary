@@ -7,10 +7,11 @@
       <portal v-if="!this.loading && !isEmpty && user" to="headerActions">
         <b-button
           title="Create board"
-          :variant="darkTheme ? 'success' : 'primary'"
+          :variant="darkTheme ? 'success' : 'black'"
           v-b-toggle.create-board-sidebar
         >
           <i class="fa-solid fa-plus" />
+          Create board
         </b-button>
       </portal>
 

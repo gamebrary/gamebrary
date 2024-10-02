@@ -15,11 +15,10 @@
     <portal to="headerActions">
       <b-dropdown
         v-if="game && user"
-        :variant="darkTheme ? 'black' : 'light'"
-        no-caret
+        :variant="darkTheme ? 'success' : 'black'"
       >
         <template #button-content>
-          <i class="fa-solid fa-ellipsis-vertical px-1" />
+          {{ gameName }}
         </template>
 
         <b-dropdown-item

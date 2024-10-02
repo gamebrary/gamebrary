@@ -9,7 +9,7 @@
       <SidebarHeader @hide="hide" title="Filter search results" />
 
       <div
-        class="p-3"
+        class="px-3"
       >
         <a :href="wallpaperUrl" target="_blank">
           <b-img
@@ -20,32 +20,24 @@
         </a>
 
         <div class="d-flex align-items-center justify-content-between pb-2">
-          <a :href="wallpaperUrl" target="_blank">
+          <a :href="wallpaperUrl" target="_blank" class="text-truncate">
             {{ activeWallpaper.name }}
           </a>
 
-          <div>
-            <!-- <i class="fa-solid fa-file-png fa-fw" /> -->
-            <!-- {{ activeWallpaper.size }} -->
-            <!-- {{ activeWallpaper.timeCreated }} -->
-          </div>
-
-          <div class="d-flex align-items-center justify-content-between pb-2">
-            <b-button
-              v-b-modal.deleteConfirm
-              variant="danger"
-              class="ml-2"
-              v-b-tooltip.hover="{ title: 'Delete wallpaper', placement: 'bottom', boundary: 'viewports' }"
-            >
-              <i class="fa fa-trash" aria-hidden="true" />
-            </b-button>
-          </div>
+          <b-button
+            v-b-modal.deleteConfirm
+            variant="danger"
+            class="ml-2"
+            v-b-tooltip.hover="{ title: 'Delete wallpaper', placement: 'bottom', boundary: 'viewports' }"
+          >
+            <i class="fa fa-trash" aria-hidden="true" />
+          </b-button>
         </div>
 
         <b-button
           v-b-toggle.boards-list
           title=""
-          variant="primary"
+          v-bind="buttonProps"
           v-b-tooltip.hover.bottom
         >
           Set as wallpaper
@@ -125,7 +117,7 @@ export default {
 
   computed: {
     ...mapState(['boards', 'wallpapers', 'activeWallpaper']),
-    ...mapGetters(['darkTheme', 'sidebarRightProps']),
+    ...mapGetters(['darkTheme', 'sidebarRightProps', 'buttonProps']),
 
     formattedBoards() {
       return this.boards.map((board) => ({ ...board, backgroundUrl: this.getWallpaperUrl(board.backgroundUrl) }));

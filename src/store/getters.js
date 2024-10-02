@@ -32,6 +32,12 @@ export default {
     return game?.websites?.map(({ url, category }) => ({ url, ...LINKS_CATEGORIES[category] })) || [];
   },
 
+  buttonProps(state, getters) {
+    return {
+      variant: getters?.darkTheme ? 'success' : 'black',
+    }
+  },
+
   sidebarRightProps(state, getters) {
     return {
       scrollable: true,

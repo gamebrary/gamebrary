@@ -139,7 +139,7 @@ export default {
     },
 
     activeVariant() {
-      return this.darkTheme ? 'success' : 'primary';
+      return this.darkTheme ? 'success' : 'black';
     },
 
     gameCount() {
