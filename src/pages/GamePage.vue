@@ -15,7 +15,7 @@
     <portal to="headerActions">
       <b-dropdown
         v-if="game && user"
-        :variant="darkTheme ? 'success' : 'black'"
+        v-bind="buttonProps"
       >
         <template #button-content>
           {{ gameName }}
@@ -244,17 +244,24 @@
           <GameProgress />
 
           <div v-if="gameLinks.length">
-            <h4 class="mt-3">External links</h4>
+            <h3 class="my-3">External links</h3>
 
-            <b-link
-              v-for="({ url, id }, index) in gameLinks"
+            <b-button
+              v-for="({ url, id, svg }, index) in gameLinks"
               :href="url"
               :key="index"
+              variant="white"
+              class="mr-2 mb-2"
               target="_blank"
-              :class="['text-left p-1 mr-2', darkTheme ? 'text-success' : '']"
             >
+              <img
+                v-if="svg"
+                :src="`/logos/companies/${id}.svg`"
+                width="20"
+                class="mr-1"
+              />
               <span class="text-capitalize">{{ id }}</span>
-            </b-link>
+            </b-button>
           </div>
 
           <b-alert
@@ -417,7 +424,7 @@ export default {
 
   _computed: {
     ...mapState(['game', 'cachedGames', 'tags', 'boards', 'user', 'notes', 'twitchToken', 'games']),
-    ...mapGetters(['darkTheme', 'gameNews', 'gameLinks', 'gameGenres']),
+    ...mapGetters(['darkTheme', 'gameNews', 'gameLinks', 'gameGenres', 'buttonProps']),
 
     gameCollection() {
       return this.game?.collection;
