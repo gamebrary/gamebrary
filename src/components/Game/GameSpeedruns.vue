@@ -2,6 +2,8 @@
   <b-card>
     <h4>Speedruns</h4>
 
+    <pre>{{ speedruns }}</pre>
+
     <div v-for="(speedrun, index) in speedruns" :key="index">
       <b-embed
         type="iframe"
@@ -47,7 +49,9 @@ export default {
 
   methods: {
     async loadSpeedruns() {
-      await this.$store.dispatch('GET_SPEEDRUN_GAME_ID', this.game.name);
+      const speedRunGame = await this.$store.dispatch('GET_SPEEDRUN_GAME_ID', this.game.name);
+
+      console.log('speedRunGame', speedRunGame);
 
       const game = speedRunGame?.data?.[0];
       const runsLink = game.links.find(({ rel }) => rel === 'runs')?.uri;

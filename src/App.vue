@@ -233,10 +233,12 @@ export default {
     }
 
     .viewport {
-      padding: .5rem 1rem;
-      width: 100%;
+        padding: 0 1rem;
+        // width: 100%;
+    }
 
-      &.board {
+    &.board {
+      .viewport {
         height: calc(100svh - 65px);
         overflow-y: hidden;
       }

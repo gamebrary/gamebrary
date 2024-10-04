@@ -1,3 +1,5 @@
+<!-- TODO: steam categories, display all useful info such as (full controller support, steam cloud supported, etc...) -->
+<!-- TODO: finish speedruns, get as much data as possible and render useful stuff -->
 <template lang="html">
   <div v-if="!loading && !game" class="pt-5">
     <div class="d-flex justify-content-center align-items-center">
@@ -277,29 +279,6 @@
 
       <aside>
         <GameInBoards class="d-none d-lg-inline" />
-
-        <template v-if="highlightedAchievements">
-          <h3 :class="['mt-5']">Achievements</h3>
-
-          <b-list-group>
-            <b-list-group-item
-              class="d-flex align-items-center"
-              variant="secondary"
-              v-for="achievement in highlightedAchievements"
-              :key="achievement.name"
-            >
-              <b-avatar
-                variant="info"
-                :src="achievement.path"
-                square
-                size="24"
-                class="mr-2"
-              />
-
-              {{ achievement.name }}
-            </b-list-group-item>
-          </b-list-group>
-        </template>
       </aside>
     </div>
 
@@ -325,54 +304,90 @@
       </timeline> -->
     </b-container>
 
-    <!-- <div class="news-grid">
-      <i class="fa-solid fa-megaphone"></i> Latest news
-
-      <b-card
-        v-for="article in gameNews"
-        class="mb-3 news-card"
-        :bg-variant="darkTheme ? 'secondary' : 'light'"
-        :text-variant="darkTheme ? 'white' : 'dark'"
-        :key="article.id"
-      >
-        <div class="d-flex align-items-start justify-content-between">
-          <aside>
-            <h2 class="mb-0">
-              {{ article.title }}
-              <b-badge>{{ article.date }}</b-badge>
-            </h2>
-
-            <small v-if="article.author" :class="darkTheme ? 'text-light' : 'text-muted'">
-              By {{ article.author }}
-            </small>
-          </aside>
-
-          <a
-            v-if="article.source.url"
-            :href="article.source.url"
-            :title="article.source.name"
-            target="blank"
-            class="mb-2 ml-2"
+    <!-- TODO: finish this, also figure out what else we can use from steam -->
+    <div class="steam-extra-info">
+      <section v-if="hasRequirements">
+        <h3 class="mb-2">Requirements</h3>
+        <b-list-group>
+          <b-list-group-item
+            class="d-flex align-items-center"
+            v-for="(requirement, index) in gameRequirements"
+            :key="index"
           >
-            <b-img
-              class="news-source-logo"
-              :src="`/logos/news-sources/${article.source.img}`"
+            <div class="d-flex flex-column">
+              <p v-if="requirement.minimum.length > 100" v-html="requirement.minimum" />
+              <p v-if="requirement.recommended.length > 100" v-html="requirement.recommended" />
+            </div>
+          </b-list-group-item>
+        </b-list-group>
+      </section>
+
+      <section v-if="highlightedAchievements">
+        <h3 class="mb-2">Achievements</h3>
+
+        <b-list-group>
+          <b-list-group-item
+            class="d-flex align-items-center"
+            v-for="achievement in highlightedAchievements"
+            :key="achievement.name"
+          >
+            <b-avatar
+              variant="info"
+              :src="achievement.path"
+              square
+              class="mr-2"
             />
-          </a>
-        </div>
 
-        <div class="game-news" v-html="article.contents" />
+            <h3>{{ achievement.name }}</h3>
+          </b-list-group-item>
+        </b-list-group>
+      </section>
 
-        <b-badge v-for="tag in article.tags" :key="tag">{{ tag }}</b-badge>
-      </b-card>
-    </div> -->
-    <div
-      v-for="(requirement, index) in gameRequirements"
-      :key="index"
-    >
-      <p v-if="requirement.minimum" v-html="requirement.minimum" />
-      <p v-if="requirement.recommended" v-html="requirement.recommended" />
+      <section v-if="latestNews">
+        <h3 class="mb-2">Latest news</h3>
+
+        <b-list-group>
+          <b-list-group-item
+            v-for="article in latestNews"
+            :key="article.id"
+            action
+            button
+            @click="$router.push({ name: 'game.news', params: { id: game.id } })"
+          >
+            <div class="d-flex w-100 justify-content-between">
+              <h4 class="mb-1">{{ article.title }}</h4>
+              <small>{{ article.date }}</small>
+            </div>
+
+              <small v-if="article.author">By {{ article.author }}</small>
+
+              from
+
+              <a
+                v-if="article.source.url"
+                :href="article.source.url"
+                :title="article.source.name"
+                target="blank"
+                class="mb-2 ml-2"
+              >
+                <b-img
+                  width="20"
+                  :src="`/logos/news-sources/${article.source.img}`"
+                />
+              </a>
+
+              <br />
+
+              <b-badge v-for="tag in article.tags" :key="tag">{{ tag }}</b-badge>
+          </b-list-group-item>
+        </b-list-group>
+      </section>
+
+      <section v-if="!true">
+        <GameSpeedruns />
+      </section>
     </div>
+
 
     <SimilarGames class="mt-sm-5" />
 
@@ -396,7 +411,7 @@ import GameTagsSidebar from '@/components/Game/GameTagsSidebar';
 import AddRemoveGame from '@/components/AddRemoveGame';
 import SimilarGames from '@/components/Game/SimilarGames';
 import GameMediaModal from '@/components/Game/GameMediaModal';
-// // import GameSpeedruns from '@/components/Game/GameSpeedruns';
+import GameSpeedruns from '@/components/Game/GameSpeedruns';
 import { STEAM_CATEGORY_ID, GOG_CATEGORY_ID, TWITTER_CATEGORY_ID, IMAGE_SIZE_SCREENSHOT_HUGE, IGDB_QUERIES } from '@/constants';
 import { getImageUrl } from '@/utils';
 
@@ -410,7 +425,7 @@ export default {
     GameCover,
     GameMediaModal,
     GameInBoards,
-    // GameSpeedruns,
+    GameSpeedruns,
     SimilarGames,
     AddRemoveGame,
   },
@@ -441,14 +456,42 @@ export default {
     // background() {
     //   return this.game?.steam?.background;
     // },
-    gameRequirements() {
-      if (!this.game?.steam) return null;
+    latestNews() {
+      return this.gameNews?.slice(0, 10);
+    },
 
-      return {
-        mac: this.game?.steam?.mac_requirements || null,
-        linux: this.game?.steam?.linux_requirements || null,
-        pc: this.game?.steam?.pc_requirements || null,
-      };
+    macRequirements() {
+      return this.game?.steam?.mac_requirements?.minimum?.length > 60
+          ? this.game?.steam?.mac_requirements
+          : null;
+    },
+
+    linuxRequirements() {
+      return this.game?.steam?.linux_requirements?.minimum?.length > 60
+          ? this.game?.steam?.linux_requirements
+          : null;
+    },
+
+    pcRequirements() {
+      return this.game?.steam?.pc_requirements?.minimum?.length > 60
+          ? this.game?.steam?.pc_requirements
+          : null;
+    },
+
+    gameRequirements() {
+      return [
+        this.macRequirements,
+        this.linuxRequirements,
+        this.pcRequirements,
+      ].filter((req) => req);
+    },
+
+    hasRequirements() {
+      return [
+        this.macRequirements,
+        this.linuxRequirements,
+        this.pcRequirements,
+      ].some((req) => req);
     },
 
     source() {
@@ -583,7 +626,6 @@ export default {
     },
 
     originBoardId() {
-      return this.$route?.params?.boardId;
       return this.$route?.params?.boardId;
     },
 
@@ -800,21 +842,10 @@ export default {
   }
 }
 
-.news-grid {
-  column-count: 3;
-  column-gap: 1em;
-}
-
-.news-card {
-  -webkit-column-break-inside: avoid;
-  break-inside: avoid;
-  page-break-inside: avoid;
-}
-
 .game-detail {
   display: grid;
   grid-gap: 2rem;
-  grid-template-columns: 480px 2fr 1fr;
+  grid-template-columns: 520px auto 380px;
 
   @media(max-width: 1440px) {
     grid-template-columns: 2fr 3fr;
@@ -828,5 +859,24 @@ export default {
     display: flex;
     flex-direction: column;
   }
+}
+
+.steam-extra-info {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: 1fr 1fr 1fr;
+
+  // @media(max-width: 1440px) {
+  //   grid-template-columns: 2fr 3fr;
+  // }
+
+  // @media(max-width: 1024px) {
+  //   grid-template-columns: 1fr 1fr;
+  // }
+
+  // @media(max-width: 780px) {
+  //   display: flex;
+  //   flex-direction: column;
+  // }
 }
 </style>

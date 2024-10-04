@@ -357,21 +357,22 @@ export default {
   },
 
   // EXTERNAL, clean up, use await, etc...
-  GET_SPEEDRUN_GAME_ID({ commit, dispatch }, gameName) {
-    return new Promise((resolve, reject) => {
-      axios
-        .get(`https://www.speedrun.com/api/v1/games?name=${gameName}`)
-        .then(({ data }) => {
-          const speedRunGameId = data?.data?.[0]?.id;
+  async GET_SPEEDRUN_GAME_ID({ commit, dispatch }, gameName) {
+    try {
+      const { data } = await axios.get(`https://www.speedrun.com/api/v1/games?name=${gameName}`);
 
-          if (speedRunGameId) {
-            commit("APPEND_GAME_SPEEDRUN_ID", speedRunGameId);
-            dispatch("LOAD_GAME_SPEEDRUN_RUNS", speedRunGameId);
-            resolve(speedRunGameId);
-          }
-        })
-        .catch(reject);
-    });
+      console.log('games endpoint response', data);
+
+      const speedRunGameId = data?.data?.[0]?.id;
+
+      if (speedRunGameId) {
+        commit("APPEND_GAME_SPEEDRUN_ID", speedRunGameId);
+        dispatch("LOAD_GAME_SPEEDRUN_RUNS", speedRunGameId);
+        return(speedRunGameId);
+      }
+    } catch (error) {
+      throw error;
+    }
   },
 
   LOAD_GAME_SPEEDRUN_RUNS({ commit }, gameId) {
