@@ -866,17 +866,12 @@ export default {
   grid-gap: 1rem;
   grid-template-columns: 1fr 1fr 1fr;
 
-  // @media(max-width: 1440px) {
-  //   grid-template-columns: 2fr 3fr;
-  // }
+  @media(max-width: 1440px) {
+    grid-template-columns: 1fr 1fr;
+  }
 
-  // @media(max-width: 1024px) {
-  //   grid-template-columns: 1fr 1fr;
-  // }
-
-  // @media(max-width: 780px) {
-  //   display: flex;
-  //   flex-direction: column;
-  // }
+  @media(max-width: 780px) {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
