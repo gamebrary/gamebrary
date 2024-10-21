@@ -102,10 +102,6 @@ export default {
       try {
         this.saving = true;
 
-        console.log(this.payload);
-
-        debugger;
-
         const { id } = await this.$store.dispatch('CREATE_BOARD', this.payload);
         this.$bvToast.toast('Board cloned');
         this.saving = false;
