@@ -240,7 +240,6 @@ export default {
     &.board {
       .viewport {
         height: calc(100svh - 65px);
-        overflow-y: hidden;
       }
     }
   }

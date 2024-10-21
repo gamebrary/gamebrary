@@ -1,13 +1,12 @@
 <template lang="html">
   <div class="mb-3">
     <b-button
-      style="width: 128px; height: 80px;"
       v-b-tooltip.hover.right
       title="Add tier"
       :variant="darkTheme ? 'dark' : 'secondary'"
       v-b-modal.addTier
     >
-      <i class="fas fa-plus fa-fw" aria-hidden />
+      <i class="fas fa-plus" aria-hidden />
     </b-button>
 
     <b-modal

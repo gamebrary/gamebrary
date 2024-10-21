@@ -41,9 +41,6 @@ export default {
 
     navClass() {
       const navPosition = `nav-${this.navPosition}`;
-
-      if (this.routeName === 'board') return navPosition;
-
       const defaultClass = this.darkTheme ? 'bg-dark' : 'bg-light'
 
       const backgroundClasses = this.transparencyEnabled

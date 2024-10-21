@@ -308,16 +308,23 @@
     <div class="steam-extra-info">
       <section v-if="hasRequirements">
         <h3 class="mb-2">Requirements</h3>
+
         <b-list-group>
-          <b-list-group-item
-            class="d-flex align-items-center"
-            v-for="(requirement, index) in gameRequirements"
-            :key="index"
-          >
-            <div class="d-flex flex-column">
-              <p v-if="requirement.minimum.length > 100" v-html="requirement.minimum" />
-              <p v-if="requirement.recommended.length > 100" v-html="requirement.recommended" />
-            </div>
+          <b-list-group-item>
+            <b-tabs content-class="mt-3">
+              <b-tab
+                :title="requirement.platform"
+                active
+                v-for="(requirement, index) in gameRequirements"
+                :key="index"
+              >
+                <div class="d-flex flex-column">
+                  <p v-if="requirement.minimum.length > 100" v-html="requirement.minimum" />
+                  <p v-if="requirement.recommended.length > 100" v-html="requirement.recommended" />
+                </div>
+              </b-tab>
+            </b-tabs>
+
           </b-list-group-item>
         </b-list-group>
       </section>
@@ -462,19 +469,19 @@ export default {
 
     macRequirements() {
       return this.game?.steam?.mac_requirements?.minimum?.length > 60
-          ? this.game?.steam?.mac_requirements
+          ? { ...this.game?.steam?.mac_requirements, platform: 'mac' }
           : null;
     },
 
     linuxRequirements() {
       return this.game?.steam?.linux_requirements?.minimum?.length > 60
-          ? this.game?.steam?.linux_requirements
+          ? { ...this.game?.steam?.linux_requirements, platform: 'linux' }
           : null;
     },
 
     pcRequirements() {
       return this.game?.steam?.pc_requirements?.minimum?.length > 60
-          ? this.game?.steam?.pc_requirements
+          ? { ...this.game?.steam?.pc_requirements, platform: 'windows' }
           : null;
     },
 

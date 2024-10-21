@@ -40,7 +40,7 @@
           class="flex-column align-items-start"
           @click="openEditTagSidebar(index)"
         >
-          <div class="d-flex w-100 justify-content-between">
+          <div class="d-flex w-100 justify-content-md-between flex-column flex-md-row">
             <div class="d-flex flex-column">
               <b-button
                 variant="transparent"
@@ -55,7 +55,7 @@
               </b-badge>
             </div>
 
-            <b-avatar-group>
+            <b-avatar-group class="mt-3 mt-md-0 overflow-hidden">
               <GameCard
                 v-for="gameId in taggedGames"
                 small
@@ -65,7 +65,7 @@
                 hide-platforms
                 hide-tags
                 hide-progress
-                class="ml-n5 border-light border"
+                class="ml-md-n5 border-light border"
                 :key="gameId"
                 :game-id="gameId"
               />

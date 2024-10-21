@@ -1,6 +1,54 @@
 <template lang="html">
   <div class="d-flex w-100 align-items-start mb-2">
-    <div class="d-flex">
+    <!-- Mobile controls -->
+    <div class="d-flex flex-column d-md-none">
+      <b-avatar
+        variant="primary"
+        :text="tierLetter"
+        :title="list.name"
+        rounded
+        v-b-tooltip.hover.right
+        class="cursor-pointer"
+        :style="`background-color: ${list.backgroundColor}`"
+        size="92"
+        @click.native="editList"
+      />
+
+      <b-button-group
+        v-if="user && isBoardOwner"
+        size="sm"
+        class="mt-1"
+      >
+        <b-button
+          :disabled="listIndex === 0"
+          v-b-tooltip.hover.right="'Move up'"
+          :variant="tierActionVariant"
+          @click="$bus.$emit('MOVE_LIST_LEFT', listIndex)"
+        >
+          <i class="fa-regular fa-caret-up fa-fw" />
+        </b-button>
+
+        <b-button
+          v-b-tooltip.hover.right
+          :title="`Add games to ${list.name}`"
+          :variant="tierActionVariant"
+          @click="openGameSelectorSidebar"
+        >
+          <i class="fa-solid fa-plus fa-fw" />
+        </b-button>
+
+        <b-button
+          :disabled="moveListRightButtonDisabled"
+          v-b-tooltip.hover.right="'Move down'"
+          :variant="tierActionVariant"
+          @click="$bus.$emit('MOVE_LIST_RIGHT', listIndex)"
+        >
+          <i class="fa-regular fa-caret-down fa-fw" />
+        </b-button>
+      </b-button-group>
+    </div>
+
+    <div class="d-none d-md-flex">
       <b-avatar
         variant="primary"
         :text="tierLetter"
