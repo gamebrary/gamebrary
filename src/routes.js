@@ -1,5 +1,14 @@
 const routes = [
   {
+    name: 'home',
+    path: '/',
+    component: () => import(/* webpackChunkName: "public" */ '@/pages/HomePage'),
+    meta: {
+      public: true,
+      title: 'Welcome to Gamebrary',
+    },
+  },
+  {
     name: 'games',
     path: '/games',
     component: () => import(/* webpackChunkName: "games" */ '@/pages/GamesPage'),
@@ -9,47 +18,11 @@ const routes = [
     },
   },
   {
-    name: 'progresses',
-    path: '/progresses',
-    component: () => import(/* webpackChunkName: "progresses" */ '@/pages/ProgressesPage'),
+    name: 'game',
+    path: '/g/:id/:slug',
+    component: () => import(/* webpackChunkName: "game" */ '@/pages/GamePage'),
     meta: {
-      title: 'My Progresses',
       public: true,
-    },
-  },
-  {
-    name: 'boards',
-    path: '/boards',
-    component: () => import(/* webpackChunkName: "games" */ '@/pages/BoardsPage'),
-    meta: {
-      title: 'My boards',
-      public: true,
-    },
-  },
-  {
-    name: 'public.boards',
-    path: '/public-boards',
-    component: () => import(/* webpackChunkName: "games" */ '@/pages/PublicBoardsPage'),
-    meta: {
-      title: 'My boards',
-      public: true,
-    },
-  },
-  {
-    name: 'upcoming-games',
-    path: '/games/upcoming',
-    component: () => import(/* webpackChunkName: "games" */ '@/pages/UpcomingGames'),
-    meta: {
-      title: 'Upcoming games',
-      public: true,
-    },
-  },
-  {
-    name: 'company',
-    path: '/company/:id/:slug',
-    component: () => import(/* webpackChunkName: "notes" */ '@/pages/CompanyPage'),
-    meta: {
-      title: 'Company',
     },
   },
   {
@@ -69,44 +42,37 @@ const routes = [
     },
   },
   {
-    name: 'game',
-    path: '/g/:id/:slug',
-    component: () => import(/* webpackChunkName: "game" */ '@/pages/GamePage'),
+    name: 'upcoming-games',
+    path: '/games/upcoming',
+    component: () => import(/* webpackChunkName: "games" */ '@/pages/UpcomingGames'),
     meta: {
+      title: 'Upcoming games',
       public: true,
     },
   },
   {
-    name: 'tags',
-    path: '/tags',
-    component: () => import(/* webpackChunkName: "tags" */ '@/pages/TagsPage'),
+    name: 'boards',
+    path: '/boards',
+    component: () => import(/* webpackChunkName: "boards" */ '@/pages/BoardsPage'),
     meta: {
-      title: 'Tags',
+      title: 'My boards',
       public: true,
     },
   },
   {
-    name: 'steam',
-    path: '/steam',
-    component: () => import(/* webpackChunkName: "settings" */ '@/pages/SteamSettingsPage'),
-    meta: {
-      title: "Steam",
-    },
-  },
-  {
-    name: 'wallpapers',
-    path: '/wallpapers',
-    component: () => import(/* webpackChunkName: "settings" */ '@/pages/WallpapersPage'),
-    meta: {
-      title: 'Wallpapers',
-      public: true,
-    },
-  },
-  {
-    path: '/b/:id',
     name: 'board',
+    path: '/b/:id',
     component: () => import(/* webpackChunkName: "boards" */ '@/pages/BoardPage'),
     meta: {
+      public: true,
+    },
+  },
+  {
+    name: 'public.boards',
+    path: '/public-boards',
+    component: () => import(/* webpackChunkName: "boards" */ '@/pages/PublicBoardsPage'),
+    meta: {
+      title: 'My boards',
       public: true,
     },
   },
@@ -128,6 +94,24 @@ const routes = [
     },
   },
   {
+    name: 'progresses',
+    path: '/progresses',
+    component: () => import(/* webpackChunkName: "progresses" */ '@/pages/ProgressesPage'),
+    meta: {
+      title: 'My Progresses',
+      public: true,
+    },
+  },
+  {
+    name: 'tags',
+    path: '/tags',
+    component: () => import(/* webpackChunkName: "tags" */ '@/pages/TagsPage'),
+    meta: {
+      title: 'Tags',
+      public: true,
+    },
+  },
+  {
     name: 'profiles',
     path: '/profiles',
     component: () => import(/* webpackChunkName: "profile" */ '@/pages/PublicProfilesPage'),
@@ -142,6 +126,39 @@ const routes = [
     component: () => import(/* webpackChunkName: "profile" */ '@/pages/CreateProfilePage'),
     meta: {
       title: 'Create profile',
+    },
+  },
+  {
+    name: 'public.profile',
+    path: '/:userName',
+    component: () => import(/* webpackChunkName: "profile" */ '@/pages/PublicProfilePage'),
+    meta: {
+      public: true,
+    },
+  },
+  {
+    name: 'company',
+    path: '/company/:id/:slug',
+    component: () => import(/* webpackChunkName: "notes" */ '@/pages/CompanyPage'),
+    meta: {
+      title: 'Company',
+    },
+  },
+  {
+    name: 'steam',
+    path: '/steam',
+    component: () => import(/* webpackChunkName: "settings" */ '@/pages/SteamSettingsPage'),
+    meta: {
+      title: "Steam",
+    },
+  },
+  {
+    name: 'wallpapers',
+    path: '/wallpapers',
+    component: () => import(/* webpackChunkName: "settings" */ '@/pages/WallpapersPage'),
+    meta: {
+      title: 'Wallpapers',
+      public: true,
     },
   },
   {
@@ -181,8 +198,8 @@ const routes = [
     },
   },
   {
-    path: '/privacy-policy',
     name: 'privacy.policy',
+    path: '/privacy-policy',
     component: () => import(/* webpackChunkName: "public" */ '@/pages/PrivacyPolicyPage'),
     meta: {
       public: true,
@@ -190,8 +207,8 @@ const routes = [
     },
   },
   {
-    path: '/terms',
     name: 'terms',
+    path: '/terms',
     component: () => import(/* webpackChunkName: "public" */ '@/pages/TermsPage'),
     meta: {
       public: true,
@@ -199,21 +216,12 @@ const routes = [
     },
   },
   {
-    path: '/search',
     name: 'search',
+    path: '/search',
     component: () => import(/* webpackChunkName: "public" */ '@/pages/SearchPage'),
     meta: {
       title: 'Search',
       public: true,
-    },
-  },
-  {
-    name: 'home',
-    path: '/',
-    component: () => import(/* webpackChunkName: "public" */ '@/pages/HomePage'),
-    meta: {
-      public: true,
-      title: 'Welcome to Gamebrary',
     },
   },
   {
@@ -222,14 +230,6 @@ const routes = [
     meta: {
       public: true,
       title: 'Page not found',
-    },
-  },
-  {
-    path: '/:userName',
-    name: 'public.profile',
-    component: () => import(/* webpackChunkName: "profile" */ '@/pages/PublicProfilePage'),
-    meta: {
-      public: true,
     },
   },
 ];
