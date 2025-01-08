@@ -9,9 +9,8 @@
       <SidebarHeader @hide="hide">
         <router-link :to="{ name: 'home' }">
           <img
-            src="/logo.png"
+            :src="darkTheme ? '/img/gamebrary-logo-light.png' : '/img/gamebrary-logo-dark.png'"
             alt="Gamebrary"
-            height="38"
           />
         </router-link>
       </SidebarHeader>
@@ -24,6 +23,7 @@
         <b-button
           :variant="routeName === 'boards' ?  activeVariant : variant"
           block
+          size="lg"
           class="text-left align-items-center d-flex"
           :to="{ name: 'boards' }"
         >
@@ -39,6 +39,7 @@
           :variant="routeName === 'games' ?  activeVariant : variant"
           :to="{ name: 'games' }"
           block
+          size="lg"
           class="text-left align-items-center d-flex"
         >
           <i class="fa-regular fa-gamepad fa-fw" />
@@ -53,6 +54,7 @@
           :to="{ name: 'tags' }"
           :variant="routeName === 'tags' ?  activeVariant : variant"
           class="text-left align-items-center d-flex"
+          size="lg"
           block
         >
           <i class="fa-light fa-tags fa-fw" />
@@ -68,6 +70,7 @@
           :variant="routeName === 'notes' ?  activeVariant : variant"
           class="text-left align-items-center d-flex"
           block
+          size="lg"
         >
           <i class="fa-regular fa-notes fa-fw" />
 
@@ -83,6 +86,7 @@
           :to="{ name: 'wallpapers' }"
           class="text-left align-items-center d-flex"
           block
+          size="lg"
         >
         <i class="fa-solid fa-images fa-fw" />
           <span class="ml-2">Wallpapers</span>
@@ -96,6 +100,7 @@
           block
           class="text-left"
           :variant="routeName === 'settings' ?  activeVariant : variant"
+          size="lg"
           @click="openSettingsSidebar"
         >
           <i class="fa-regular fa-gear fa-fw" />
