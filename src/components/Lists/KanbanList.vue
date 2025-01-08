@@ -9,67 +9,75 @@
       :class="[darkTheme ? 'dark' : 'light', transparencyEnabled ? 'semi-transparent' : '']"
       :text-variant="darkTheme ? 'light' : 'dark'"
     >
-      <b-button-group class="m-2">
-        <b-button
-          v-if="isBoardOwner"
-          v-b-tooltip.hover="'Edit list'"
-          class="text-left"
-          :variant="darkTheme ? 'dark' : 'light'"
+      <b-dropdown
+        v-if="isBoardOwner"
+        :title="list.name || 'Untitled list'"
+        class="p-2"
+        :variant="darkTheme ? 'dark' : 'light'"
+      >
+        <template #button-content>
+          <i
+            v-if="sortingEnabled"
+            v-b-tooltip.hover
+            class="fa-regular fa-sort mr-2"
+            :class="darkTheme ? 'text-success' : 'text-primary'"
+            :title="sortMessage"
+          />
+
+          <b-badge v-if="list.showGameCount" class="mr-1">
+            {{ gameCount }}
+          </b-badge>
+          {{ truncatedListName || 'Untitled list' }}
+        </template>
+
+        <b-dropdown-item-button
+          title="Add games"
+          v-bind="buttonProps"
           @click="editList"
         >
-          <div class="d-flex justify-content-between align-items-center">
-            <span v-if="list.name">
-              {{ list.name }}
-            </span>
+          <i class="fa-solid fa-pen" />
+          Edit list
+        </b-dropdown-item-button>
 
-            <span v-else class="text-info">
-              -
-            </span>
-
-            <i
-              v-if="sortingEnabled"
-              v-b-tooltip.hover
-              class="fa-regular fa-sort ml-auto"
-              :class="darkTheme ? 'text-success' : 'text-primary'"
-              :title="sortMessage"
-            />
-
-            <span v-if="list.showGameCount" class="ml-3">
-              {{ gameCount }}
-            </span>
-          </div>
-        </b-button>
-
-        <b-button
-          v-else
-          size="sm"
-          disabled
-          :variant="darkTheme ? 'dark' : 'light'"
-          class="text-left"
-        >
-          <strong>{{ list.name }}</strong>
-        </b-button>
-
-        <b-button-group v-if="isBoardOwner && (listIndex > 0 || showMoveListRightButton)">
-          <b-button
+        <span v-if="isBoardOwner && (listIndex > 0 || showMoveListRightButton)">
+          <b-dropdown-item-button
             v-if="listIndex > 0"
-            :variant="darkTheme ? 'dark' : 'light'"
-            v-b-tooltip.hover="'Move left'"
+            v-bind="buttonProps"
             @click="$bus.$emit('MOVE_LIST_LEFT', listIndex)"
           >
             <i class="fa-regular fa-caret-left fa-fw" />
-          </b-button>
+            Move left
+          </b-dropdown-item-button>
 
-          <b-button
+          <b-dropdown-item-button
             v-if="showMoveListRightButton"
-            :variant="darkTheme ? 'dark' : 'light'"
-            v-b-tooltip.hover="'Move right'"
+            v-bind="buttonProps"
             @click="$bus.$emit('MOVE_LIST_RIGHT', listIndex)"
           >
             <i class="fa-regular fa-caret-right fa-fw" />
-          </b-button>
-        </b-button-group>
-      </b-button-group>
+            Move right
+          </b-dropdown-item-button>
+        </span>
+
+        <b-dropdown-item-button
+          v-if="isBoardOwner"
+          :variant="darkTheme ? 'outline-success' : 'light'"
+          @click="openGameSelectorSidebar"
+        >
+          <i class="fa-solid fa-plus fa-fw" />
+          Add games
+        </b-dropdown-item-button>
+      </b-dropdown>
+
+      <b-button
+        v-else
+        size="sm"
+        disabled
+        :variant="darkTheme ? 'dark' : 'light'"
+        class="text-left"
+      >
+        <strong>{{ list.name }}</strong>
+      </b-button>
 
       <draggable
         class="games px-2 pt-1"
@@ -96,18 +104,6 @@
           @click.native="openGame(gameId, list)"
         />
       </draggable>
-
-      <b-button
-        v-if="isBoardOwner"
-        title="Add games"
-        v-b-tooltip.hover
-        class="mx-2 mb-2"
-        :variant="darkTheme ? 'outline-success' : 'light'"
-        :class="darkTheme ? 'border-0' : ''"
-        @click="openGameSelectorSidebar"
-      >
-        <i class="fa-solid fa-plus" />
-      </b-button>
     </b-card>
   </div>
 </template>
@@ -223,6 +219,10 @@ export default {
 
     gameSelectorEventName() {
       return `SELECT_GAME_LIST_${this.listIndex}`;
+    },
+
+    truncatedListName() {
+      return this.list.name?.length > 28 ? `${this.list.name.substring(0, 28)}...` : this.list.name;
     },
   },
 
