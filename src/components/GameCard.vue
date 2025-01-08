@@ -220,7 +220,7 @@ export default {
     handleClick() {
       if (this.selectable) return this.$emit('click');
 
-      const { id } = this.game;
+      const id = this.gameId || this.game.id;
       const slug = slugify(this.game?.slug || '', { lower: true });
 
       this.$router.push({ name: 'game', params: { id, slug }});
