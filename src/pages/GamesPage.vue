@@ -1,17 +1,19 @@
 <template lang="html">
   <div>
-    <portal to="pageTitle">Games</portal>
-
     <portal v-if="likedGames.length" to="headerActions">
-      <b-button
-        title="Add games"
-        v-b-tooltip.hover
-        v-bind="buttonProps"
-        @click="addGame"
+      <b-dropdown
+        text="Games"
+        :variant="darkTheme ? 'success' : 'black'"
       >
-        <i class="fa-solid fa-plus" />
-        Add games
-      </b-button>
+        <b-dropdown-item-button
+          title="Add games"
+          v-bind="buttonProps"
+          @click="addGame"
+        >
+          <i class="fa-solid fa-plus" />
+          Add games
+        </b-dropdown-item-button>
+      </b-dropdown>
     </portal>
 
     <!-- <b-button class="mr-3">

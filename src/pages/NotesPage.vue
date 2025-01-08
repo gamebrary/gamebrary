@@ -1,17 +1,28 @@
 <template lang="html">
   <div>
-    <portal to="pageTitle">Notes</portal>
-
     <portal v-if="user && !isEmpty" to="headerActions">
-      <b-button
-        title="Add note"
-        v-b-tooltip.hover
-        v-bind="buttonProps"
-        @click="openGameSelectorSidebar"
+      <b-dropdown
+        text="Notes"
+        :variant="darkTheme ? 'success' : 'black'"
       >
-        <i class="fa-solid fa-plus" />
-        Add note
-      </b-button>
+        <b-dropdown-item-button
+          title="Add note"
+          v-bind="buttonProps"
+          @click="openGameSelectorSidebar"
+        >
+          <i class="fa-solid fa-plus" />
+          Add note
+        </b-dropdown-item-button>
+
+        <b-dropdown-item-button
+          title="Add note"
+          v-bind="buttonProps"
+          @click="showSearch = !showSearch"
+        >
+          <i class="fa-solid fa-magnifying-glass" />
+          Search
+        </b-dropdown-item-button>
+      </b-dropdown>
     </portal>
 
     <b-spinner v-if="loading" class="spinner-centered" />

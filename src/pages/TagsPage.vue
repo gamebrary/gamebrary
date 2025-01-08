@@ -1,18 +1,19 @@
 <template lang="html">
   <b-container>
-    <portal to="pageTitle">
-      Tags
-    </portal>
-
     <portal v-if="user && !isEmpty" to="headerActions">
-      <b-button
-        v-bind="buttonProps"
-        v-b-toggle.create-tag-sidebar
-        title="Add tag"
+      <b-dropdown
+        text="Tags"
+        :variant="darkTheme ? 'success' : 'black'"
       >
-        <i class="fa-solid fa-plus" />
-        Add tag
-      </b-button>
+        <b-dropdown-item-button
+          title="Add tag"
+          v-bind="buttonProps"
+          v-b-toggle.create-tag-sidebar
+        >
+          <i class="fa-solid fa-plus" />
+          Add tag
+        </b-dropdown-item-button>
+      </b-dropdown>
     </portal>
 
     <b-spinner v-if="loading" class="spinner-centered" />

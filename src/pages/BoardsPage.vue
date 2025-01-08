@@ -1,18 +1,15 @@
 <template lang="html">
     <div>
-      <portal to="pageTitle">
-        <h3>Boards</h3>
-      </portal>
-
       <portal v-if="!this.loading && !isEmpty && user" to="headerActions">
-        <b-button
-          title="Create board"
+        <b-dropdown
+          text="Boards"
           :variant="darkTheme ? 'success' : 'black'"
-          v-b-toggle.create-board-sidebar
         >
-          <i class="fa-solid fa-plus" />
-          Create board
-        </b-button>
+          <b-dropdown-item-button v-b-toggle.create-board-sidebar>
+            <i class="fa-solid fa-plus" />
+            Create board
+          </b-dropdown-item-button>
+        </b-dropdown>
       </portal>
 
       <b-spinner v-if="loading" class="spinner-centered" />
