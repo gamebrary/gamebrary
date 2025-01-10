@@ -1,11 +1,12 @@
 <template lang="html">
   <div>
-    <portal to="pageTitle">
-      Wallpapers
-    </portal>
-
     <portal v-if="!isEmpty && user" to="headerActions">
-      <UploadWallpaperButton />
+      <b-dropdown
+        text="Wallpapers"
+        :variant="darkTheme ? 'success' : 'black'"
+      >
+        <UploadWallpaperButton />
+      </b-dropdown>
     </portal>
 
     <b-spinner v-if="loading" class="spinner-centered" />
@@ -25,7 +26,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import { THUMBNAIL_PREFIX } from '@/constants';
 import EmptyState from '@/components/EmptyState';
 import UploadWallpaperButton from '@/components/UploadWallpaperButton';
@@ -48,6 +49,7 @@ export default {
 
   computed: {
     ...mapState(['user', 'board', 'wallpapers']),
+    ...mapGetters(['darkTheme']),
 
     isEmpty() {
       const wallpapers = this.wallpapers?.filter((wallpaper) => !wallpaper?.fullPath?.includes(THUMBNAIL_PREFIX));
@@ -62,11 +64,15 @@ export default {
 
   methods: {
     async loadWallpapers() {
-      this.loading = true;
+      try {
+        this.loading = Boolean(this.isEmpty);
 
-      await this.$store.dispatch('LOAD_WALLPAPERS');
+        await this.$store.dispatch('LOAD_WALLPAPERS');
 
-      this.loading = false;
+        this.loading = false;
+      } catch (error) {
+        this.loading = false;
+      }
     },
   },
 };

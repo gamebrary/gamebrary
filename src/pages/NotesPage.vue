@@ -29,6 +29,7 @@
 
     <template v-else>
       <b-form-input
+        v-if="showSearch"
         type="search"
         class="mb-3"
         placeholder="Search notes"
@@ -114,6 +115,7 @@ export default {
     return {
       searchText: '',
       loading: false,
+      showSearch: false,
     };
   },
 

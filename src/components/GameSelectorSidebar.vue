@@ -105,6 +105,8 @@ export default {
 
       this.$bus.$emit(eventName, gameId);
 
+      this.$store.commit('SET_HIGHLIGHTED_GAME', gameId);
+
       if (!this.preventClose) this.$store.commit('CLEAR_GAME_SELECTOR_DATA');
     },
 

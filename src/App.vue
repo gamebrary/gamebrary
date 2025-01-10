@@ -176,8 +176,8 @@ export default {
 
       if (this.user) {
         this.boot();
-      } else if (this.$route.name !== 'auth') {
-        this.$router.replace({ name: 'auth' });
+      } else {
+        if (this.$route.name !== 'auth') this.$router.push({ name: 'auth' });
       }
     },
 
@@ -221,7 +221,7 @@ export default {
     background-size: cover;
     background-attachment: fixed;
     background-position: top;
-    height: 100svh;
+    height: calc(100dvh - 10px);
     overflow-y: auto;
 
     &.nav-top {

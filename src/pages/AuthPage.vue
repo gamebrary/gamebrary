@@ -2,13 +2,13 @@
   <div class="mx-auto" style="max-width: 420px">
     <div class="text-center mb-3">
       <img
-        src="/logo.png"
-        alt=""
-        height="100"
+        :src="darkTheme ? '/img/gamebrary-logo-light.png' : '/img/gamebrary-logo-dark.png'"
+        alt="Gamebrary"
+        width="300"
         class="mb-3"
       />
 
-      <h3>Welcome to Gamebrary</h3>
+      <h3>Elevate your game, Organize your way</h3>
     </div>
 
     <p class="small">
@@ -25,7 +25,7 @@
       </template>
 
       <template v-else>
-        {{ errorMessage }}
+        <div>{{ errorMessage }}</div>
       </template>
     </b-alert>
 

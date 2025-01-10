@@ -1,3 +1,4 @@
+<!-- TODO: Improve style of section headings -->
 <!-- TODO: steam categories, display all useful info such as (full controller support, steam cloud supported, etc...) -->
 <!-- TODO: finish speedruns, get as much data as possible and render useful stuff -->
 <template lang="html">
@@ -20,7 +21,9 @@
         v-bind="buttonProps"
       >
         <template #button-content>
-          {{ gameName }}
+          <span :title="gameName" class="d-sm-none">{{ shortTruncatedGameName }}</span>
+          <span :title="gameName" class="d-none d-sm-inline d-md-none">{{ truncatedGameName }}</span>
+          <span class="d-none d-md-inline">{{ gameName }}</span>
         </template>
 
         <b-dropdown-item
@@ -82,7 +85,7 @@
         <div :class="['game-description pb-4', source]">
           <p v-html="description" />
 
-          <p class="small">
+          <p>
             <template>
                 Developed by
                 <b-link
@@ -104,7 +107,8 @@
               {{ publisher.name }}
             </b-link>
           </p>
-          <small class="text-muted mb-3 text-capitalize">Source: {{ source }}</small>
+
+          <span class="text-muted mb-3 text-capitalize">Source: {{ source }}</span>
         </div>
 
         <div>
@@ -145,73 +149,95 @@
             Buy from GOG
           </b-button>
 
-          <div class="mt-3">
-            <div v-if="gameGenres" class="float-left mr-3 mb-3">
-              <h4>Genres</h4>
+          <GameProgress class="mt-4" />
 
-              <router-link
-                  v-for="(genre, index) in gameGenres"
-                  :to="{ name: 'search', query: { filterBy: 'genres', value: genre.id }}"
-                  :key="index"
-                >
-                  <small>{{ genre.name }}</small>
-                  <br />
-                </router-link>
-            </div>
+          <b-card class="my-4" body-class="game-details">
+            <section v-if="gamePlatforms">
+              <h3 class="mb-2">Platforms</h3>
 
-            <div v-if="gameThemes" class="float-left mr-3 mb-3">
-              <h4>Themes</h4>
+              <b-button
+                v-for="(platform, index) in gamePlatforms"
+                :key="index"
+                :variant="darkTheme ? 'dark' : 'light'"
+                block
+                :to="{ name: 'search', query: { filterBy: 'platforms', value: platform.id }}"
+              >
+                {{ platform.name }}
+                <br />
+              </b-button>
+            </section>
 
-              <router-link
+            <section v-if="gameGenres">
+              <h3 class="mb-2">Genres</h3>
+
+              <b-button
+                v-for="(genre, index) in gameGenres"
+                :to="{ name: 'search', query: { filterBy: 'genres', value: genre.id }}"
+                :key="index"
+                :variant="darkTheme ? 'dark' : 'light'"
+                block
+              >
+                {{ genre.name }}
+              </b-button>
+            </section>
+
+            <section v-if="gameThemes">
+              <h3 class="mb-2">Themes</h3>
+
+              <b-button
                 v-for="(theme, index) in gameThemes"
                 :to="{ name: 'search', query: { filterBy: 'themes', value: theme.id }}"
                 :key="index"
+                :variant="darkTheme ? 'dark' : 'light'"
+                block
               >
-                <small>{{ theme.name }}</small>
-                <br />
-              </router-link>
-            </div>
+                {{ theme.name }}
+              </b-button>
+            </section>
 
-            <div v-if="gameModes" class="float-left mr-3 mb-3">
-              <h4>{{ $t('board.gameModal.gameModes') }} </h4>
+            <section v-if="gameModes">
+              <h3 class="mb-2">{{ $t('board.gameModal.gameModes') }} </h3>
 
-              <router-link
+              <b-button
                 v-for="(gameMode, index) in gameModes"
                 :key="index"
                 :to="{ name: 'search', query: { filterBy: 'game_modes', value: gameMode.id }}"
+                :variant="darkTheme ? 'dark' : 'light'"
+                block
               >
-                <small>{{ gameMode.name }}</small>
-                <br />
-              </router-link>
-            </div>
+                {{ gameMode.name }}
+              </b-button>
+            </section>
 
-            <div v-if="gameEngines" class="float-left mr-3 mb-3">
-              <h4>Game engines</h4>
+            <section v-if="gameEngines">
+              <h3 class="mb-2">Game engines</h3>
 
-              <span
+              <b-button
                 v-for="(gameEngine, index) in gameEngines"
                 :key="index"
-                >
-                <small>{{ gameEngine.name }}</small>
-                <br />
-              </span>
-            </div>
+                :variant="darkTheme ? 'dark' : 'light'"
+                block
+              >
+                {{ gameEngine.name }}
+              </b-button>
+            </section>
 
-            <div v-if="playerPerspectives" class="float-left mr-3 mb-3">
-              <h4>Perspective</h4>
+            <section v-if="playerPerspectives">
+              <h3 class="mb-2">Perspective</h3>
 
-              <router-link
+              <b-button
                 v-for="(perspective, index) in playerPerspectives"
                 :key="index"
                 :to="{ name: 'search', query: { filterBy: 'player_perspectives', value: perspective.id }}"
+                :variant="darkTheme ? 'dark' : 'light'"
+                block
               >
-                <small>{{ perspective.name }}</small>
-                <br />
-              </router-link>
-            </div>
+                {{ perspective.name }}
+              </b-button>
+            </section>
 
             <!-- <div>
-              <h4 class="mt-3">{{ $t('board.gameModal.releaseDate') }}</h4>
+              <h3 class="mt-3">{{ $t('board.gameModal.releaseDate') }}</h3>
               <ol v-if="releaseDates" class="list-unstyled mb-0">
                 <li
                   v-for="{ id, platform, date } in releaseDates"
@@ -225,25 +251,7 @@
                 Not released yet
               </div>
             </div> -->
-          </div>
-
-          <div v-if="gamePlatforms" class="d-inline-block w-100 mb-3">
-            <h3>Available for</h3>
-
-            <b-link
-              v-for="(platform, index) in gamePlatforms"
-              :key="index"
-              size="sm"
-              variant="link"
-              class="mr-2 mb-2"
-              :to="{ name: 'search', query: { filterBy: 'platforms', value: platform.id }}"
-            >
-              <small>{{ platform.name }}</small>
-              <br />
-            </b-link>
-          </div>
-
-          <GameProgress />
+          </b-card>
 
           <div v-if="gameLinks.length">
             <h3 class="my-3">External links</h3>
@@ -292,7 +300,6 @@
       <!-- https://commons.wikimedia.org/w/thumb.php?f=Ad-tech_London_2010_(2).JPG&w=200 -->
       <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/2/28/JPG_Test.jpg" alt=""> -->
       <!-- https://en.wikipedia.org/w/api.php?action=query&titles=File:Test.jpg&prop=imageinfo&iilimit=50&iiend=2007-12-31T23:59:59Z&iiprop=timestamp|user|url -->
-
       <!-- <GameSpeedruns /> -->
 
       <!-- <timeline
@@ -307,13 +314,13 @@
     <!-- TODO: finish this, also figure out what else we can use from steam -->
     <div class="steam-extra-info">
       <section v-if="hasRequirements">
-        <h3 class="mb-2">Requirements</h3>
+        <h2 class="mb-2">Requirements</h2>
 
         <b-list-group>
-          <b-list-group-item>
+          <b-list-group-item :variant="darkTheme ? 'dark' : 'white'">
             <b-tabs content-class="mt-3">
               <b-tab
-                :title="requirement.platform"
+                :title="getTabTitle(requirement.platform)"
                 active
                 v-for="(requirement, index) in gameRequirements"
                 :key="index"
@@ -335,6 +342,7 @@
         <b-list-group>
           <b-list-group-item
             class="d-flex align-items-center"
+            :variant="darkTheme ? 'dark' : 'white'"
             v-for="achievement in highlightedAchievements"
             :key="achievement.name"
           >
@@ -357,13 +365,14 @@
           <b-list-group-item
             v-for="article in latestNews"
             :key="article.id"
+            :variant="darkTheme ? 'dark' : 'white'"
             action
             button
             @click="$router.push({ name: 'game.news', params: { id: game.id } })"
           >
             <div class="d-flex w-100 justify-content-between">
               <h4 class="mb-1">{{ article.title }}</h4>
-              <small>{{ article.date }}</small>
+              {{ article.date }}
             </div>
 
               <small v-if="article.author">By {{ article.author }}</small>
@@ -568,6 +577,14 @@ export default {
       return this.cachedGame?.name;
     },
 
+    truncatedGameName() {
+      return this.gameName?.length > 30 ? `${this.gameName.substring(0, 30)}...` : this.gameName;
+    },
+
+    shortTruncatedGameName() {
+      return this.gameName?.length > 16 ? `${this.gameName.substring(0, 16)}...` : this.gameName;
+    },
+
     playerPerspectives() {
       return this.game?.player_perspectives;
     },
@@ -717,6 +734,14 @@ export default {
   },
 
   methods: {
+    getTabTitle(title) {
+      if ('windows') return 'PC/Windows';
+      if ('mac') return 'MacOS';
+      if ('linux') return 'Linux';
+
+      return title;
+    },
+
     // loadFandomData() {
     //   const subdomain = this.fandomUrl?.split('://')?.[1]?.split('.')?.[0];
     //   const pageName = this.fandomUrl?.split('wiki/')?.[1];
@@ -862,7 +887,7 @@ export default {
     grid-template-columns: 1fr 1fr;
   }
 
-  @media(max-width: 780px) {
+  @media(max-width: 768px) {
     display: flex;
     flex-direction: column;
   }
@@ -879,6 +904,17 @@ export default {
 
   @media(max-width: 780px) {
     grid-template-columns: 1fr;
+  }
+}
+
+.game-details {
+  display: grid;
+  padding: 1rem;
+  grid-gap: 1rem;
+  grid-template-columns: 1fr 1fr 1fr;
+
+  @media(max-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
   }
 }
 </style>

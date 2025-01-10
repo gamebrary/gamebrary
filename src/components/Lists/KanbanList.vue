@@ -61,7 +61,7 @@
 
         <b-dropdown-item-button
           v-if="isBoardOwner"
-          :variant="darkTheme ? 'outline-success' : 'light'"
+          v-bind="buttonProps"
           @click="openGameSelectorSidebar"
         >
           <i class="fa-solid fa-plus fa-fw" />
@@ -156,7 +156,7 @@ export default {
 
   computed: {
     ...mapState(['cachedGames', 'dragging', 'progresses', 'board', 'user', 'settings']),
-    ...mapGetters(['isBoardOwner', 'darkTheme', 'transparencyEnabled', 'draggableProps']),
+    ...mapGetters(['isBoardOwner', 'darkTheme', 'transparencyEnabled', 'draggableProps', 'buttonProps']),
 
     sortMessage() {
       if (this.sortBy === SORT_TYPE_ALPHABETICALLY) return 'List sorted alphabetically'

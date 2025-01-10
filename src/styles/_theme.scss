@@ -269,24 +269,33 @@ $bv-enable-popover-variants: false !default;
 // ) !default;
 $font-family-sans-serif: "Source Sans 3", sans-serif !default;
 $font-family-base: $font-family-sans-serif !default;
-$font-size-base: 1rem !default;
+
+$font-size-base: 1.125rem !default;
 $font-size-lg: $font-size-base * 1.25 !default;
-$font-size-sm: $font-size-base * .875 !default;
-$font-weight-lighter: lighter !default;
+$font-size-sm: $font-size-base * 0.875 !default;
+
+$font-weight-lighter: 200 !default;
 $font-weight-light: 300 !default;
 $font-weight-normal: 400 !default;
-$font-weight-bold: 700 !default;
-$font-weight-bolder: bolder !default;
+$font-weight-bold: 600 !default;
+$font-weight-bolder: 700 !default;
 $font-weight-base: $font-weight-normal !default;
-$line-height-base: 1.5 !default;
+
+$line-height-base: 1.6 !default;
+
 
 // $h1-font-size:                $font-size-base * 2 !default;
-$h1-font-size: $font-size-base * 1.25 !default;
-$h2-font-size: $font-size-base * 1.125 !default;
-$h3-font-size: $font-size-base !default;
-$h4-font-size: $font-size-base * .9 !default;
-$h5-font-size: $font-size-base * .8 !default;
-$h6-font-size: $font-size-base * .7 !default;
+$h1-font-size: $font-size-base * 1.75 !default; // Larger for main headings
+$h2-font-size: $font-size-base * 1.5 !default;  // Slightly smaller than h1
+$h3-font-size: $font-size-base * 1.25 !default; // Keeps it noticeable
+$h4-font-size: $font-size-base * 1.1 !default;  // Small emphasis
+$h5-font-size: $font-size-base * 1 !default;    // Same as base for normal text
+$h6-font-size: $font-size-base * 0.875 !default; // Subtle for minor headings
+
+$line-height-headings: 1.3 !default;
+$h1-line-height: 1.2 !default;
+$h2-line-height: 1.25 !default;
+$h3-line-height: 1.3 !default;
 
 $headings-margin-bottom: 0;
 $headings-font-family: "Roboto Condensed", sans-serif !default;

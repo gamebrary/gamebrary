@@ -134,7 +134,7 @@
               class="mb-2"
               switch
             >
-              Hide game platforms
+              Hide progress
             </b-form-checkbox>
 
             <b-form-checkbox

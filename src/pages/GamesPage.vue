@@ -40,6 +40,7 @@
         v-for="game in likedGames"
         :key="game.id"
         :game-id="game.id"
+        :ref="`id-${game.id}`"
         class="mb-3"
       />
     </div>
@@ -65,7 +66,7 @@
 import { mapGetters, mapState } from 'vuex';
 import EmptyState from '@/components/EmptyState';
 import GameCard from '@/components/GameCard';
-
+import { HIGHLIGHTED_GAME_TIMEOUT } from '@/constants';
 export default {
   components: {
     GameCard,
@@ -80,7 +81,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['games', 'cachedGames', 'user', 'progresses']),
+    ...mapState(['games', 'cachedGames', 'user', 'progresses', 'highlightedGame']),
     ...mapGetters(['darkTheme', 'navPosition', 'buttonProps']),
 
     likedGames() {
@@ -91,6 +92,12 @@ export default {
 
     likedGamesIds() {
       return Object.entries(this.games)?.filter(([liked]) => liked)?.map(([id]) => Number(id));
+    },
+  },
+
+  watch: {
+    games() {
+      if (this.highlightedGame) this.highlightGame(this.highlightedGame);
     },
   },
 
@@ -114,6 +121,22 @@ export default {
 
     selectGame(gameId) {
       this.$bus.$emit('LIKE_UNLIKE_GAME', gameId);
+    },
+
+    async highlightGame(gameId) {
+      await this.$nextTick();
+
+      const gameRef = this.$refs[`id-${gameId}`]?.[0];
+
+      console.log('gameRef', gameRef)
+
+      if (gameRef) {
+        gameRef?.$el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        setTimeout(() => {
+          this.$store.commit('SET_HIGHLIGHTED_GAME', null);
+        }, HIGHLIGHTED_GAME_TIMEOUT);
+      }
     },
 
     async loadGames() {

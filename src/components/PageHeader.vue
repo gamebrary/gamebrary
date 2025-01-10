@@ -1,5 +1,5 @@
 <template lang="html">
-  <nav :class="navClass">
+  <nav :class="navClass" class="px-3 d-flex align-items-center position-fixed" style="height: 56px">
     <b-button
       variant="link"
       class="p-0 mx-1"
@@ -7,9 +7,9 @@
     >
     <!-- src="/logo-new.jpg" -->
       <img
-        src="/logo.png"
-        alt=""
-        height="38"
+        :src="darkTheme ? '/img/gamebrary-logo-light.png' : '/img/gamebrary-logo-dark.png'"
+        class="logo"
+        alt="Gamebrary"
       />
     </b-button>
 
@@ -63,13 +63,7 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
 nav {
-  display: flex;
-  gap: .5rem;
-  align-items: center;
-  padding-right: 1rem;
-  padding: .5rem 20px;
-  width: 100dvw;
-  position: fixed;
+  width: 100%;
   z-index: 2;
 
   &.nav-top {
@@ -79,6 +73,15 @@ nav {
 
   &.nav-bottom {
     bottom: 0;
+  }
+}
+
+.logo {
+  width: 200px;
+
+  @media(max-width: 480px) {
+    // height: 16px;
+    width: 160px;
   }
 }
 </style>

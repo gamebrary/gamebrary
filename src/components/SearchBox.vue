@@ -4,7 +4,6 @@
       <b-form-input
         v-model="searchText"
         type="search"
-        size="lg"
         debounce="500"
         placeholder="Search games"
       />

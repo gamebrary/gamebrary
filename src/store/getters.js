@@ -60,8 +60,6 @@ export default {
       noHeader: true,
       bgVariant: getters?.darkTheme ? 'dark' : 'light',
       textVariant: getters?.darkTheme ? 'light' : 'dark',
-      sidebarClass: ['rounded-right border border-left-0', getters?.darkTheme ? 'border-black' : 'border-white'],
-      bodyClass: 'rounded-right',
     }
   },
 

@@ -11,6 +11,8 @@
           <img
             :src="darkTheme ? '/img/gamebrary-logo-light.png' : '/img/gamebrary-logo-dark.png'"
             alt="Gamebrary"
+            width="200"
+            class="pb-1"
           />
         </router-link>
       </SidebarHeader>

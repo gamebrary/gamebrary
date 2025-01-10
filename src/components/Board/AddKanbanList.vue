@@ -16,15 +16,14 @@
         <b-input-group>
           <b-form-input
             id="listName"
+            v-model="listName"
             autofocus
             placeholder="List name"
-            v-model="listName"
             required
           />
 
           <b-input-group-append>
             <b-button
-              split
               variant="primary"
               :disabled="saving || !listName"
               @click.stop="submit"
@@ -40,8 +39,8 @@
     <b-button
       v-else
       :variant="darkTheme ? 'dark' : 'light'"
-      @click.stop="showForm"
       class="mr-2"
+      @click.stop="showForm"
     >
       <i class="fas fa-plus" aria-hidden />
     </b-button>
@@ -65,7 +64,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['platform', 'board']),
+    ...mapState(['board']),
     ...mapGetters(['darkTheme']),
   },
 
@@ -77,44 +76,44 @@ export default {
 
     showForm() {
       this.active = true;
-
-      this.scroll();
+      this.scrollToEnd();
     },
 
     submit(e) {
       e.preventDefault();
 
-      if (this.$refs.addListForm.checkValidity()) {
-        this.addList();
+      if (!this.$refs.addListForm.checkValidity()) {
+        return;
       }
+
+      this.addList();
     },
 
     async addList() {
-      const list = {
-        games: [],
-        name: this.listName,
-        settings: {},
-      };
-
       this.saving = true;
 
-      this.$store.commit('ADD_LIST', list);
+      try {
+        const list = {
+          games: [],
+          name: this.listName,
+          settings: {},
+        };
 
-      await this.$store.dispatch('SAVE_BOARD')
-        .catch(() => {
-          this.$bvToast.toast('Error adding list', { variant: 'danger' });
-        });
+        this.$store.commit('ADD_LIST', list);
+        await this.$store.dispatch('SAVE_BOARD');
 
-      this.$forceUpdate();
-      this.saving = false;
-      this.reset();
-      this.scroll();
+        this.reset();
+        this.scrollToEnd();
+      } catch (error) {
+        this.$bvToast.toast('Error adding list', { variant: 'danger' });
+      } finally {
+        this.saving = false;
+      }
     },
 
-    scroll() {
+    scrollToEnd() {
       this.$nextTick(() => {
         const board = document.querySelector('.viewport');
-
         board.scrollLeft = board.scrollWidth;
       });
     },

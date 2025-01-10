@@ -9,7 +9,7 @@
       @input="uploadWallpaper"
     />
 
-    <b-button
+    <b-dropdown-item-button
       title=""
       v-bind="buttonProps"
       @click="triggerFileUpload"
@@ -25,7 +25,7 @@
       </span>
 
       <slot />
-    </b-button>
+    </b-dropdown-item-button>
   </div>
 </template>
 
