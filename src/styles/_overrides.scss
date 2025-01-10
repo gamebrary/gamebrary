@@ -66,3 +66,7 @@ body.dark {
   *::-webkit-scrollbar-thumb:hover { background-color: var(--info); }
   *::-webkit-scrollbar-thumb:active { background-color: darken($info, 5%); }
 }
+
+.btn-block + .btn-block {
+  margin-top: 0;
+}

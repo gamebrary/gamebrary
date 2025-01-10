@@ -17,11 +17,9 @@
         </router-link>
       </SidebarHeader>
 
-      <ProfileDockMenu />
+      <SearchBox class="mx-3" />
 
-      <SearchBox class="mx-3 mt-3" />
-
-      <div class="p-3">
+      <div class="px-3 pt-3">
         <b-button
           :variant="routeName === 'boards' ?  activeVariant : variant"
           block
@@ -97,6 +95,8 @@
             {{ wallpaperCount }}
           </b-badge>
         </b-button>
+
+        <ProfileDockMenu />
 
         <b-button
           block

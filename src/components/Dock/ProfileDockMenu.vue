@@ -1,41 +1,22 @@
 <template>
-  <div
-    class="py-4 d-flex flex-column text-center profile-card"
-    :style="style"
+  <b-button
+    block
+    class="text-left"
+    size="lg"
+    :to="userName ? { name: 'public.profile', params: { userName } } : { name: 'create.profile' }"
   >
-    <!-- <div v-else>
-      Choose your user name!
-    </div> -->
-
     <b-avatar
+      v-if="avatarImage"
       :src="avatarImage"
-      size="120"
-      class="mx-auto mb-2"
       :title="displayUserName"
+      size="32"
       :to="userName ? { name: 'public.profile', params: { userName } } : null"
     />
 
-    <div class="mx-3">
-      <p v-if="!userName">
-        Welcome! Let's get you started.
+    <i v-else class="fa-regular fa-user fa-fw" />
 
-        <br />
-
-        <b-link
-          :to="{ name: 'create.profile' }"
-        >
-          Choose a username
-        </b-link>
-      </p>
-
-      <b-link
-        v-if="userName"
-        :to="{ name: 'public.profile', params: { userName } }"
-      >
-        {{ displayUserName }}
-      </b-link>
-    </div>
-  </div>
+    {{ userName ? displayUserName : 'Profile' }}
+  </b-button>
 </template>
 
 <script>
@@ -99,5 +80,11 @@ export default {
 <style scoped>
 .profile-card {
   margin-top: -72px;
+  padding-top: 80px;
+
+  /* TODO: make this responsive */
+  /* @media(max-width: 780px) {
+    height: 16px;
+  } */
 }
 </style>

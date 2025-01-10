@@ -888,6 +888,7 @@ export default {
   }
 
   @media(max-width: 768px) {
+    grid-gap: 0;
     display: flex;
     flex-direction: column;
   }

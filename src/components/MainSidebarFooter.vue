@@ -1,5 +1,5 @@
 <template>
-  <div class="p-3 text-center d-flex align-items-center justify-content-center flex-column">
+  <div class="px-3 text-center d-flex align-items-center justify-content-center flex-column">
     <div>
       <b-button
         :variant="darkTheme ? 'dark' : 'light'"

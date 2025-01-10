@@ -25,13 +25,13 @@
 
       <b-row>
         <b-col md="6" class="mb-4">
-          <b-card title="Game Tagging" class="h-100">
+          <b-card title="Game Tagging" :class="darkTheme ? 'bg-dark' : null">
             <p>Tag your games with custom labels for easy organization. Whether by genre, platform, or rating, Gamebrary helps you find your next game quickly.</p>
           </b-card>
         </b-col>
 
         <b-col md="6" class="mb-4">
-          <b-card title="Board Organizing" class="h-100">
+          <b-card title="Board Organizing" :class="darkTheme ? 'bg-dark' : null">
             <p>Choose from tier-based, Kanban, or simple list boards to organize your games the way you prefer.</p>
           </b-card>
         </b-col>
@@ -39,13 +39,13 @@
 
       <b-row>
         <b-col md="6" class="mb-4">
-          <b-card title="Note Taking" class="h-100">
+          <b-card title="Note Taking" :class="darkTheme ? 'bg-dark' : null">
             <p>Add notes to each game to track progress, strategies, and thoughts, all neatly organized in one place.</p>
           </b-card>
         </b-col>
 
         <b-col md="6" class="mb-4">
-          <b-card title="Customizable Board Wallpapers" class="h-100">
+          <b-card title="Customizable Board Wallpapers" :class="darkTheme ? 'bg-dark' : null">
             <p>Personalize your boards with custom images to make your collection visually unique.</p>
           </b-card>
         </b-col>
@@ -53,25 +53,25 @@
 
       <b-row>
         <b-col md="6" class="mb-4">
-          <b-card title="Speedrun Information (Coming Soon)" class="h-100">
+          <b-card title="Speedrun Information (Coming Soon)" :class="darkTheme ? 'bg-dark' : null">
             <p>Track your speedrun times and personal bests alongside your games. Coming soon: dedicated space for speedrun stats!</p>
           </b-card>
         </b-col>
 
         <b-col md="6" class="mb-4">
-          <b-card title="Progress Tracking" class="h-100">
+          <b-card title="Progress Tracking" :class="darkTheme ? 'bg-dark' : null">
             <p>Gamebrary makes it easy to track your progress in each game. Whether you’re working on a 100% completion or simply enjoying the story, you can log your milestones and achievements to see how far you've come.</p>
           </b-card>
         </b-col>
 
         <b-col md="6" class="mb-4">
-          <b-card title="Public Profiles" class="h-100">
+          <b-card title="Public Profiles" :class="darkTheme ? 'bg-dark' : null">
             <p>Showcase your game library with a public profile to share your collection and gaming style with the world.</p>
           </b-card>
         </b-col>
 
         <b-col md="6" class="mb-4">
-          <b-card title="Public Boards" class="h-100">
+          <b-card title="Public Boards" :class="darkTheme ? 'bg-dark' : null">
             <p>Create public boards to share and collaborate on your game collection with others.</p>
 
             <b-button
