@@ -83,7 +83,7 @@ export default {
         {
           'has-scroll': this.hasScroll,
           'dark text-light': this.darkTheme,
-          'bg-black': !this.backgroundColor && this.darkTheme,
+          'bg-dark': !this.backgroundColor && this.darkTheme,
           'bg-light': !this.backgroundColor && !this.darkTheme,
         }
       ]

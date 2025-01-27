@@ -152,7 +152,12 @@
 
           <GameProgress class="mt-4" />
 
-          <b-card class="my-4" body-class="game-details">
+          <b-card
+            class="my-4"
+            body-class="game-details"
+            :bg-variant="darkTheme ? 'black' : 'white'"
+            :text-variant="darkTheme ? 'white' : 'dark'"
+          >
             <section v-if="gamePlatforms">
               <h3 class="mb-2">Platforms</h3>
 
