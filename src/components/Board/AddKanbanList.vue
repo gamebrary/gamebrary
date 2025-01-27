@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="flex-shrink-0 pr-4">
+  <div class="flex-shrink-0 pr-2">
     <b-card
       v-if="active || empty"
       class="mr-3"
@@ -11,7 +11,7 @@
       <form
         ref="addListForm"
         class="p-2"
-        @submit.stop.prevent="submit"
+        @submit.prevent="addList"
       >
         <b-input-group>
           <b-form-input
@@ -24,8 +24,8 @@
 
           <b-input-group-append>
             <b-button
-              variant="primary"
-              :disabled="saving || !listName"
+              variant="dark"
+              :disabled="saving"
               @click.stop="submit"
             >
               <b-spinner v-if="saving" small />
@@ -77,16 +77,6 @@ export default {
     showForm() {
       this.active = true;
       this.scrollToEnd();
-    },
-
-    submit(e) {
-      e.preventDefault();
-
-      if (!this.$refs.addListForm.checkValidity()) {
-        return;
-      }
-
-      this.addList();
     },
 
     async addList() {
