@@ -14,6 +14,7 @@
   <section
     v-else
     :class="[{ 'text-light': darkTheme }]"
+    class="px-3"
   >
     <portal to="headerActions">
       <b-dropdown
@@ -159,6 +160,7 @@
                 v-for="(platform, index) in gamePlatforms"
                 :key="index"
                 :variant="darkTheme ? 'dark' : 'light'"
+                class="mb-3"
                 block
                 :to="{ name: 'search', query: { filterBy: 'platforms', value: platform.id }}"
               >
@@ -175,6 +177,7 @@
                 :to="{ name: 'search', query: { filterBy: 'genres', value: genre.id }}"
                 :key="index"
                 :variant="darkTheme ? 'dark' : 'light'"
+                class="mb-3"
                 block
               >
                 {{ genre.name }}
@@ -189,6 +192,7 @@
                 :to="{ name: 'search', query: { filterBy: 'themes', value: theme.id }}"
                 :key="index"
                 :variant="darkTheme ? 'dark' : 'light'"
+                class="mb-3"
                 block
               >
                 {{ theme.name }}
@@ -203,6 +207,7 @@
                 :key="index"
                 :to="{ name: 'search', query: { filterBy: 'game_modes', value: gameMode.id }}"
                 :variant="darkTheme ? 'dark' : 'light'"
+                class="mb-3"
                 block
               >
                 {{ gameMode.name }}
@@ -216,6 +221,7 @@
                 v-for="(gameEngine, index) in gameEngines"
                 :key="index"
                 :variant="darkTheme ? 'dark' : 'light'"
+                class="mb-3"
                 block
               >
                 {{ gameEngine.name }}
@@ -230,6 +236,7 @@
                 :key="index"
                 :to="{ name: 'search', query: { filterBy: 'player_perspectives', value: perspective.id }}"
                 :variant="darkTheme ? 'dark' : 'light'"
+                class="mb-3"
                 block
               >
                 {{ perspective.name }}
@@ -257,7 +264,7 @@
             <h3 class="my-3">External links</h3>
 
             <b-button
-              v-for="({ url, id, svg }, index) in gameLinks"
+              v-for="({ url, id, svg, title }, index) in gameLinks"
               :href="url"
               :key="index"
               variant="white"
@@ -270,7 +277,7 @@
                 width="20"
                 class="mr-1"
               />
-              <span class="text-capitalize">{{ id }}</span>
+              <span class="text-capitalize">{{ title || id }}</span>
             </b-button>
           </div>
 
@@ -559,9 +566,6 @@ export default {
     // gameHeaderImage() {
     //   return this.game?.steam?.header_image;
     // },
-    officialWebsiteUrl() {
-      return this.gameLinks?.find(({ id }) => id === 'official')?.url;
-    },
 
     fandomUrl() {
       // https://nintendo.fandom.com/api.php?action=parse&prop=sections&page=Super_Mario_Bros.&format=json
