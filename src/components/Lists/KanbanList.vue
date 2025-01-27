@@ -5,7 +5,7 @@
   >
     <b-card
       no-body
-      :bg-variant="darkTheme ? 'dark' : 'light'"
+      :bg-variant="darkTheme ? 'black' : 'light'"
       :class="[darkTheme ? 'dark' : 'light', transparencyEnabled ? 'semi-transparent' : '']"
       :text-variant="darkTheme ? 'light' : 'dark'"
     >
@@ -14,7 +14,7 @@
         :title="list.name || 'Untitled list'"
         class="p-2"
         no-caret
-        :variant="darkTheme ? 'outline-light' : 'outline-dark'"
+        :variant="darkTheme ? 'dark' : 'white'"
       >
         <template #button-content>
           <h4 class="d-flex">
@@ -26,11 +26,10 @@
               :title="sortMessage"
             />
 
-            <b-badge v-if="list.showGameCount" class="mr-1">
-              {{ gameCount }}
-            </b-badge>
-
             {{ truncatedListName || 'Untitled list' }}
+            <template v-if="list.showGameCount">
+              ({{ gameCount }})
+            </template>
           </h4>
         </template>
 

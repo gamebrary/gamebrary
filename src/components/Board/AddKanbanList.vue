@@ -38,7 +38,7 @@
 
     <b-button
       v-else
-      :variant="darkTheme ? 'dark' : 'light'"
+      :variant="darkTheme ? 'dark' : 'white'"
       class="mr-2"
       @click.stop="showForm"
     >
