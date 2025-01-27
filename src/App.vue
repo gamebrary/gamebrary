@@ -10,7 +10,7 @@
 
     <template v-else>
       <portal-target name="root"/>
-      <PageHeader v-if="showPageDock" :has-background="Boolean(backgroundImageUrl || backgroundColor)" />
+      <PageHeader v-if="showPageDock" />
       <router-view class="viewport" />
       <KeyboardShortcutsModal />
       <markdown-cheatsheet />

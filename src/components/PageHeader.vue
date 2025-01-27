@@ -31,17 +31,15 @@
 import { mapState, mapGetters } from 'vuex';
 
 export default {
-  props: {
-    hasBackground: Boolean,
-  },
-
   computed: {
     ...mapState(['user', 'games', 'notes', 'tags', 'wallpapers', 'menuOpen', 'routeName']),
     ...mapGetters(['navPosition', 'latestRelease', 'darkTheme', 'transparencyEnabled']),
 
     navClass() {
       const navPosition = `nav-${this.navPosition}`;
-      const defaultClass = this.hasBackground ? '' : this.darkTheme ? 'bg-dark' : 'bg-light'
+      const isGameRoute = this.$route.name === 'game';
+
+      const defaultClass = !isGameRoute ? '' : this.darkTheme ? 'bg-dark' : 'bg-light'
 
       const backgroundClasses = this.transparencyEnabled
         ? `semi-transparent ${defaultClass}`

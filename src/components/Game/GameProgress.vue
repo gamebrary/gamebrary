@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -70,6 +70,7 @@ export default {
 
   computed: {
     ...mapState(['progresses', 'game', 'user']),
+    ...mapGetters(['darkTheme']),
 
     progressClass() {
       if (this.progress === 0) return 'bg-white';
@@ -79,6 +80,8 @@ export default {
     },
 
     alertClass() {
+      if (this.darkTheme) return 'alert-dark';
+
       if (!this.progress) return 'alert-muted';
       if (this.progress === 0) return 'alert-muted';
       if (this.progress < 25) return 'alert-info';
