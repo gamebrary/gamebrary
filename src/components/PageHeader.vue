@@ -5,9 +5,8 @@
       class="p-0 mx-1"
       @click="handleLogoClick"
     >
-    <!-- src="/logo-new.jpg" -->
       <img
-        :src="darkTheme ? '/img/gamebrary-logo-light.png' : '/img/gamebrary-logo-dark.png'"
+        src="/img/gamebrary-logo.png"
         class="logo"
         alt="Gamebrary"
       />
@@ -32,7 +31,8 @@
 import { mapState, mapGetters } from 'vuex';
 
 export default {
-  components: {
+  props: {
+    hasBackground: Boolean,
   },
 
   computed: {
@@ -41,7 +41,7 @@ export default {
 
     navClass() {
       const navPosition = `nav-${this.navPosition}`;
-      const defaultClass = this.darkTheme ? 'bg-dark' : 'bg-light'
+      const defaultClass = this.hasBackground ? '' : this.darkTheme ? 'bg-dark' : 'bg-light'
 
       const backgroundClasses = this.transparencyEnabled
         ? `semi-transparent ${defaultClass}`
