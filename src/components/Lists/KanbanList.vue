@@ -17,11 +17,11 @@
         :variant="darkTheme ? 'dark' : 'white'"
       >
         <template #button-content>
-          <h4 class="d-flex">
+          <h4 class="d-flex align-items-center m-0">
             <i
               v-if="sortingEnabled"
               v-b-tooltip.hover
-              class="fa-regular fa-sort mr-2"
+              class="fa-regular fa-sort fa-fw mr-1"
               :class="darkTheme ? 'text-success' : 'text-primary'"
               :title="sortMessage"
             />

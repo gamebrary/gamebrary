@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="mx-auto" style="max-width: 420px">
+  <div class="px-3 mx-auto" style="max-width: 420px">
     <div class="text-center mb-3">
       <img
         src="/img/gamebrary-logo.png"
