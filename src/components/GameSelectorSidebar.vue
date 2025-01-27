@@ -8,7 +8,7 @@
       <SidebarHeader @hide="hide" :title="title" />
 
       <div
-        class="p-3"
+        class="px-3"
         :class="darkTheme ? 'bg-dark' : 'bg-light'"
         style="position: sticky; top: 0px; z-index: 1"
       >
@@ -34,13 +34,13 @@
         <b-spinner class="spinner-centered" />
       </div>
 
-      <div v-else-if="filteredSearchResults.length > 0">
+      <div v-else-if="filteredSearchResults.length > 0" class="mx-3">
         <GameCard
           v-for="game in filteredSearchResults"
           :game-id="game.id"
           :key="game.id"
           selectable
-          class="mb-3"
+          class="mb-1"
           @click="selectGame(game.id)"
         />
       </div>

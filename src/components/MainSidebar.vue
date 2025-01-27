@@ -9,7 +9,7 @@
       <SidebarHeader @hide="hide">
         <router-link :to="{ name: 'home' }">
           <img
-            :src="darkTheme ? '/img/gamebrary-logo-light.png' : '/img/gamebrary-logo-dark.png'"
+            src="/img/gamebrary-logo.png"
             alt="Gamebrary"
             width="200"
             class="pb-1"

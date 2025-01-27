@@ -66,7 +66,7 @@
       </b-badge>
 
 
-      <h2
+      <h4
         v-if="!hideTitle || hideCover"
         :class="['text-wrap',
           {
@@ -86,7 +86,7 @@
         </b-avatar>
 
         {{ game.name }}
-      </h2>
+      </h4>
 
       <template v-if="!hideTags && tagsApplied.length">
         <b-button
