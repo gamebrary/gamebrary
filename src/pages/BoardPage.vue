@@ -5,28 +5,6 @@
     <EditListSidebar v-if="isBoardOwner && board.type !== $options.BOARD_TYPE_STANDARD" />
     <CloneBoardSidebar v-if="user" />
 
-    <portal to="pageTitle">
-      <div class="d-flex flex-column">
-        <b-link
-          v-if="publicUserName"
-          style="font-size: 12px"
-          class="mt-1"
-          :to="{ name: 'public.profile', params: { userName: publicUserName }}"
-        >
-          <b-avatar
-            rounded
-            v-if="avatarImage"
-            :src="avatarImage"
-            size="16"
-            square
-            class="mr-1"
-          />
-
-          {{ publicUserName }}
-        </b-link>
-      </div>
-    </portal>
-
     <portal to="headerActions">
       <b-dropdown
         v-if="user"
@@ -46,6 +24,22 @@
 
         <b-dropdown-item v-b-toggle.clone-board-sidebar>
           <i class="fa-regular fa-clone fa-fw" /> Clone board
+        </b-dropdown-item>
+
+        <b-dropdown-item
+          v-if="publicUserName"
+          :to="{ name: 'public.profile', params: { userName: publicUserName }}"
+        >
+          <b-avatar
+            rounded
+            v-if="avatarImage"
+            :src="avatarImage"
+            size="24"
+            square
+            class="mr-1"
+          />
+
+          {{ publicUserName }}
         </b-dropdown-item>
       </b-dropdown>
 
