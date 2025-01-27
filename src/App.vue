@@ -233,7 +233,6 @@ export default {
     }
 
     .viewport {
-        padding: 0 1rem;
         width: 100%;
     }
 
