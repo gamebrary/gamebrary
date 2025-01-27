@@ -140,7 +140,7 @@ export const FIREBASE_CONFIG = {
 };
 
 export const LINKS_CATEGORIES = {
-  1: { id: 'official', icon: 'fas fa-link' },
+  1: { id: 'official', icon: 'fas fa-link', title: 'Official website' },
   2: { id: 'fandom', svg: true },
   3: { id: 'wikipedia', svg: true },
   4: { id: 'facebook', svg: true },
@@ -154,8 +154,8 @@ export const LINKS_CATEGORIES = {
   13: { id: 'steam', svg: true },
   14: { id: 'reddit', svg: true },
   15: { id: 'itch', svg: true },
-  16: { id: 'epicgames', svg: true },
-  17: { id: 'gog', svg: true },
+  16: { id: 'epicgames', svg: true, title: 'Epic Games' },
+  17: { id: 'gog', svg: true, title: 'GOG' },
   18: { id: 'discord', svg: true },
 };
 
