@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="d-flex w-100 align-items-start mb-2">
+  <div class="d-flex w-100 align-items-start mb-2 pl-3">
     <!-- Mobile controls -->
     <div class="d-flex flex-column d-md-none">
       <b-avatar

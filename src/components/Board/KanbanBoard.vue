@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="kanban-board">
+  <div class="kanban-board pl-3 pt-2">
     <KanbanList
       v-for="(list, listIndex) in board.lists"
       :ref="`list-${listIndex}`"
@@ -67,7 +67,7 @@ export default {
   user-select: none;
   display: flex;
   align-items: flex-start;
-  // width: 100vw;
-  height: 100%;
+  height: calc(100dvh - 65px);
+  overflow-y: hidden;
 }
 </style>

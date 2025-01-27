@@ -1,5 +1,5 @@
 <template lang="html">
-  <div>
+  <div class="px-3">
     <portal v-if="!isEmpty && user" to="headerActions">
       <b-dropdown
         text="Wallpapers"

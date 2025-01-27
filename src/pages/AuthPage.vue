@@ -2,7 +2,7 @@
   <div class="mx-auto" style="max-width: 420px">
     <div class="text-center mb-3">
       <img
-        :src="darkTheme ? '/img/gamebrary-logo-light.png' : '/img/gamebrary-logo-dark.png'"
+        src="/img/gamebrary-logo.png"
         alt="Gamebrary"
         width="300"
         class="mb-3"

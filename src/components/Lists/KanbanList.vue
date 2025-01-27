@@ -13,21 +13,25 @@
         v-if="isBoardOwner"
         :title="list.name || 'Untitled list'"
         class="p-2"
-        :variant="darkTheme ? 'dark' : 'light'"
+        no-caret
+        :variant="darkTheme ? 'outline-light' : 'outline-dark'"
       >
         <template #button-content>
-          <i
-            v-if="sortingEnabled"
-            v-b-tooltip.hover
-            class="fa-regular fa-sort mr-2"
-            :class="darkTheme ? 'text-success' : 'text-primary'"
-            :title="sortMessage"
-          />
+          <h4 class="d-flex">
+            <i
+              v-if="sortingEnabled"
+              v-b-tooltip.hover
+              class="fa-regular fa-sort mr-2"
+              :class="darkTheme ? 'text-success' : 'text-primary'"
+              :title="sortMessage"
+            />
 
-          <b-badge v-if="list.showGameCount" class="mr-1">
-            {{ gameCount }}
-          </b-badge>
-          {{ truncatedListName || 'Untitled list' }}
+            <b-badge v-if="list.showGameCount" class="mr-1">
+              {{ gameCount }}
+            </b-badge>
+
+            {{ truncatedListName || 'Untitled list' }}
+          </h4>
         </template>
 
         <b-dropdown-item-button
@@ -35,7 +39,7 @@
           v-bind="buttonProps"
           @click="editList"
         >
-          <i class="fa-solid fa-pen" />
+          <i class="fa-solid fa-pen fa-fw" />
           Edit list
         </b-dropdown-item-button>
 
@@ -96,7 +100,7 @@
           :key="gameId"
           :list-index="listIndex"
           :list="list"
-          class="mb-3"
+          class="mb-2"
           :vertical="list.vertical"
           :small="list.smallCover"
           :hide-cover="list.hideCover"
@@ -348,7 +352,7 @@ export default {
 
   .games {
     overflow: hidden;
-    max-height: calc(100vh - 209px);
+    max-height: calc(100dvh - 162px);
     overflow-y: auto;
     width: 100%;
   }

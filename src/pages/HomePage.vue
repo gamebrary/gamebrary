@@ -1,10 +1,11 @@
+<!-- TODO: Add a dashboard -->
 <template lang="html">
   <div class="text-center">
     <b-container>
       <b-row class="my-4" v-if="!user">
         <b-col>
           <img
-            :src="darkTheme ? '/img/gamebrary-logo-light.png' : '/img/gamebrary-logo-dark.png'"
+            src="/img/gamebrary-logo.png"
             alt="Gamebrary"
             width="300"
             class="mb-3 mx-auto"

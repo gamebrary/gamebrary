@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="mb-3">
+  <div class="mx-3 mb-3">
     <b-button
       v-b-tooltip.hover.right
       title="Add tier"

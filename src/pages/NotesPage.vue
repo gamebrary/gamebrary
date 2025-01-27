@@ -1,5 +1,5 @@
 <template lang="html">
-  <div>
+  <div class="px-3">
     <portal v-if="user && !isEmpty" to="headerActions">
       <b-dropdown
         text="Notes"

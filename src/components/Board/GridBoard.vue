@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="grid-board pb-5">
+  <div class="grid-board pb-5 px-3">
     <p v-if="isEmpty">
       This board is empty.
     </p>

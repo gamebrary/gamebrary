@@ -10,7 +10,7 @@
       <SidebarHeader @hide="hide" title="Edit list" />
 
       <form
-        class="p-3"
+        class="px-3"
         @submit.prevent="saveList"
       >
         <div
@@ -45,6 +45,7 @@
 
             <b-form-select
               v-model="list.sortBy"
+              :class="{ 'mb-3': list.sortBy }"
               :options="$options.LIST_SORT_OPTIONS"
             />
 
@@ -54,102 +55,98 @@
             </small>
           </section>
 
-          <section class="mt-3">
-            <h4>Settings</h4>
+          <b-form-checkbox
+            v-model="list.vertical"
+            size="lg"
+            switch
+          >
+            Vertical layout
+          </b-form-checkbox>
 
-            <b-form-checkbox
-              v-model="list.vertical"
-              class="mb-2"
-              switch
-            >
-              Vertical layout
-            </b-form-checkbox>
+          <b-form-checkbox
+            v-model="list.smallCover"
+            size="lg"
+            switch
+          >
+            Small covers
+          </b-form-checkbox>
 
-            <b-form-checkbox
-              v-model="list.smallCover"
-              class="mb-2"
-              switch
-            >
-              Small covers
-            </b-form-checkbox>
+          <b-form-checkbox
+            v-model="list.hideCover"
+            size="lg"
+            switch
+          >
+            Hide covers
+          </b-form-checkbox>
 
-            <b-form-checkbox
-              v-model="list.hideCover"
-              class="mb-2"
-              switch
-            >
-              Hide covers
-            </b-form-checkbox>
+          <b-form-checkbox
+            v-model="list.showGameCount"
+            size="lg"
+            switch
+          >
+            Show game count
+          </b-form-checkbox>
 
-            <b-form-checkbox
-              v-model="list.showGameCount"
-              class="mb-2"
-              switch
-            >
-              Show game count
-            </b-form-checkbox>
+          <b-form-checkbox
+            v-model="list.hideTitle"
+            size="lg"
+            switch
+          >
+            Hide game title
+          </b-form-checkbox>
 
-            <b-form-checkbox
-              v-model="list.hideTitle"
-              class="mb-2"
-              switch
-            >
-              Hide game title
-            </b-form-checkbox>
+          <b-form-checkbox
+            v-model="list.hideTags"
+            size="lg"
+            switch
+          >
+            Hide game tags
+          </b-form-checkbox>
 
-            <b-form-checkbox
-              v-model="list.hideTags"
-              class="mb-2"
-              switch
-            >
-              Hide game tags
-            </b-form-checkbox>
+          <b-form-checkbox
+            v-model="list.hideRibbon"
+            size="lg"
+            switch
+          >
+            Hide game ribbon
+          </b-form-checkbox>
 
-            <b-form-checkbox
-              v-model="list.hideRibbon"
-              class="mb-2"
-              switch
-            >
-              Hide game ribbon
-            </b-form-checkbox>
+          <b-form-checkbox
+            v-model="list.hideNotes"
+            size="lg"
+            switch
+          >
+            Hide game notes
+          </b-form-checkbox>
 
-            <b-form-checkbox
-              v-model="list.hideNotes"
-              class="mb-2"
-              switch
-            >
-              Hide game notes
-            </b-form-checkbox>
+          <b-form-checkbox
+            v-model="list.hidePlatforms"
+            size="lg"
+            switch
+          >
+            Hide game platforms
+          </b-form-checkbox>
 
-            <b-form-checkbox
-              v-model="list.hidePlatforms"
-              class="mb-2"
-              switch
-            >
-              Hide game platforms
-            </b-form-checkbox>
+          <b-form-checkbox
+            v-model="list.hideProgress"
+            size="lg"
+            switch
+          >
+            Hide progress
+          </b-form-checkbox>
 
-            <b-form-checkbox
-              v-model="list.hideProgress"
-              class="mb-2"
-              switch
-            >
-              Hide progress
-            </b-form-checkbox>
-
-            <b-form-checkbox
-              v-model="list.ranked"
-              class="mb-2"
-              switch
-            >
-              Ranked
-            </b-form-checkbox>
-          </section>
+          <b-form-checkbox
+            v-model="list.ranked"
+            size="lg"
+            switch
+          >
+            Ranked
+          </b-form-checkbox>
         </template>
 
-        <footer class="mt-3">
+        <footer class="py-3 d-flex align-items-center">
           <b-button
-            variant="primary"
+            variant="dark"
             :disabled="saving"
             type="submit"
           >
@@ -158,7 +155,8 @@
           </b-button>
 
           <b-button
-            variant="outline-danger float-right"
+            variant=""
+            class="ml-auto"
             @click="confirmDeleteList"
           >
             Delete

@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="standard-board pb-5 d-flex align-items-center flex-column">
+  <div class="standard-board pb-5 d-flex align-items-center flex-column px-3">
     <p v-if="isEmpty">
       This board is empty.
     </p>
