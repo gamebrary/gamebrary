@@ -87,25 +87,44 @@
           <p v-html="description" />
 
           <p>
-            <template>
-                Developed by
-                <b-link
-                  v-for="(developer, index) in gameDevelopers"
-                  :key="index"
-                  :to="{ name: 'company', params: { id: developer.id, slug: developer.slug }}"
-                  class="mr-2 mb-2 align-items-center"
-                >
-                  <span>{{ developer.name }}</span>
-                </b-link>
-            </template>
+            <b-link
+              v-for="(developer, index) in gameDevelopers"
+              :key="index"
+              :to="{ name: 'company', params: { id: developer.id, slug: developer.slug }}"
+              v-b-tooltip.hover
+              :title="`Developed by ${developer.name}`"
+            >
+              <img
+                v-if="developer.logo"
+                :src="$options.getImageUrl(developer)"
+                width="100"
+                class="mr-3 mb-3"
+                :alt="developer.name"
+              >
 
-            Published by
+              <p v-else>
+                {{ developer.name }}
+              </p>
+            </b-link>
+
             <b-link
               v-for="publisher in gamePublishers"
               :key="publisher.id"
               :to="{ name: 'company', params: { id: publisher.id, slug: publisher.slug }}"
+              :title="`Published by ${publisher.name}`"
+              v-b-tooltip.hover
             >
-              {{ publisher.name }}
+              <img
+                v-if="publisher.logo"
+                :src="$options.getImageUrl(publisher)"
+                :alt="`Published by ${publisher.name}`"
+                class="mr-3 mb-3"
+                width="100"
+              >
+
+              <p v-else>
+                {{ publisher.name }}
+              </p>
             </b-link>
           </p>
 
