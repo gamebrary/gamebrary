@@ -1,15 +1,11 @@
 <template lang="html">
   <section class="d-flex flex-column">
-    <portal to="pageTitle">
-      <h3>Search</h3>
-    </portal>
-
     <portal to="headerActions">
       <div class="d-flex">
         <b-button
           v-b-toggle.filtersSidebar
           title="Filters"
-          :variant="filterSelected ? 'outline-primary' : darkTheme ? 'outline-success' : 'outline-primary'"
+          :variant="filterSelected ? 'outline-danger' : darkTheme ? 'outline-light' : 'outline-danger'"
           class="mr-1 border-0"
         >
           <i class="fa-regular fa-filter" />
@@ -23,7 +19,7 @@
 
     <GameCard
       v-for="game in searchResults"
-      class="mb-3"
+      class="mb-3 mx-3"
       :game-id="game.id"
       :key="game.id"
     />
