@@ -4,6 +4,7 @@
       v-for="{ rating, logoFormat, description } in gameRatings"
       :title="description"
       :key="rating"
+      v-b-tooltip.hover
       class="mr-2"
       :src="`/img/age-ratings/${rating}.${logoFormat || 'png'}`"
       height="60"
