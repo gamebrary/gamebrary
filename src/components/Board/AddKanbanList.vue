@@ -94,6 +94,7 @@ export default {
 
         this.reset();
         this.scrollToEnd();
+        this.$bvToast.toast('List added');
       } catch (error) {
         this.$bvToast.toast('Error adding list', { variant: 'danger' });
       } finally {
