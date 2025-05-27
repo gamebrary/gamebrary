@@ -1,3 +1,4 @@
+<!-- TODO: Add transparency setting here -->
 <!-- TODO: fix Lists will be merged into a single list. -->
 <!-- TODO: allow to upload and set wallpaper from here -->
 <template lang="html">
