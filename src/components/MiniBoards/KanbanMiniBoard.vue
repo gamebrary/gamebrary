@@ -29,7 +29,6 @@
             style="border-radius: 4px !important"
             text=" "
             :src="currentGameId && game.src && game.id === currentGameId ? game.src : showGameThumbnails && game.src ? game.src : null"
-            v-b-tooltip.hover
             :variant="darkTheme ? 'black' : 'light'"
             size="24"
             @click.native="highlightGame(game.id)"
