@@ -26,7 +26,7 @@
             <b-button
               variant="dark"
               :disabled="saving"
-              @click.stop="submit"
+              type="submit"
             >
               <b-spinner v-if="saving" small />
               <span v-else>Add</span>
