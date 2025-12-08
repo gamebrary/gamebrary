@@ -107,7 +107,6 @@ export default {
   },
 
   methods: {
-    // TODO: update this to work
     highlightGame() {
       const lists = Object.values(this.$refs);
 

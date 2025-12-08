@@ -33,7 +33,7 @@
           Add note
         </b-dropdown-item>
         <b-dropdown-item v-b-toggle.gameTagsSidebar>Edit tags</b-dropdown-item>
-        <b-dropdown-item v-b-modal.addRemoveGameModal>Add to list</b-dropdown-item>
+        <b-dropdown-item v-b-toggle.addRemoveGameSidebar>Add to list</b-dropdown-item>
       </b-dropdown>
     </portal>
 
@@ -853,8 +853,6 @@ export default {
         }
 
         setPageTitle(this.game?.name);
-
-        this.loading = false;
 
         try {
           this.wikipediaDescription = this.wikipediaSlug

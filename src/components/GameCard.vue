@@ -237,9 +237,14 @@ export default {
   transition: background-color 300ms linear, transform 0.3s ease, box-shadow 0.3s ease, opacity 0.2s ease;
   padding: 0.5rem;
 
-  // TODO: add dragging effecty, tilt or similar
-  // &.dragging {
-  // }
+  &.dragging {
+    transform: rotate(3deg) scale(1.05) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3) !important;
+    z-index: 1000 !important;
+    opacity: 0.95 !important;
+    cursor: grabbing !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease !important;
+  }
 
   &.ghost {
     .like-button {
@@ -309,5 +314,20 @@ export default {
 .like-button {
   position: absolute;
   color: var(--danger);
+}
+</style>
+
+<style lang="scss" rel="stylesheet/scss">
+// Non-scoped styles for dragging to work with vuedraggable clones
+.game-card.dragging,
+.dragging.game-card,
+.sortable-drag.game-card {
+  transform: rotate(3deg) scale(1.05) !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3) !important;
+  z-index: 1000 !important;
+  opacity: 0.95 !important;
+  cursor: grabbing !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease !important;
+  pointer-events: none;
 }
 </style>

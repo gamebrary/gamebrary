@@ -236,6 +236,10 @@ export default {
     state.games = games;
   },
 
+  SET_GAMES_SORT_ORDER(state, sortOrder) {
+    state.gamesSortOrder = sortOrder;
+  },
+
   SET_PLATFORMS(state, platforms) {
     state.platforms = platforms;
   },

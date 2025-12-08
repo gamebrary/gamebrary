@@ -1,4 +1,3 @@
-<!-- TODO: add amazon icon -->
 <template lang="html">
   <b-button
     v-if="amazonLink"

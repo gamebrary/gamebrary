@@ -81,10 +81,5 @@ export default {
 .profile-card {
   margin-top: -72px;
   padding-top: 80px;
-
-  /* TODO: make this responsive */
-  /* @media(max-width: 780px) {
-    height: 16px;
-  } */
 }
 </style>

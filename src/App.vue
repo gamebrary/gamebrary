@@ -149,6 +149,13 @@ export default {
 
         await this.$store.dispatch('SAVE_GAMES');
 
+        // Maintain subcollection for Firebase-level sorting
+        if (isLiked) {
+          await this.$store.dispatch('DELETE_USER_GAME', gameId);
+        } else {
+          const gameData = this.cachedGames?.[gameId];
+          await this.$store.dispatch('SAVE_USER_GAME', { gameId, gameData });
+        }
       } catch (e) {
         //
       }

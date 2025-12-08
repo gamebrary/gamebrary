@@ -86,9 +86,23 @@ export default {
     },
   },
 
+  watch: {
+    highlightedGame(gameId) {
+      if (gameId) {
+        this.$nextTick(() => {
+          this.highlightGame();
+        });
+      }
+    },
+  },
+
   mounted() {
     if (this.needsFlattening) this.flattenAndSaveBoard();
-    if (this.highlightedGame) this.highlightGame();
+    if (this.highlightedGame) {
+      this.$nextTick(() => {
+        this.highlightGame();
+      });
+    }
 
     this.$bus.$on(this.gameSelectorEventName, this.selectGame);
   },
@@ -99,22 +113,13 @@ export default {
 
   methods: {
     highlightGame() {
-      // TODO: update this to work
-      // const lists = Object.values(this.$refs);
+      if (!this.highlightedGame) return;
 
-      // lists.forEach(([list], index) => {
-      //   console.log('list.$refs', list.$refs);
+      const gameRef = this.$refs[this.highlightedGame]?.[0];
 
-      //   const [gameRef] = list.$refs[this.highlightedGame];
-
-      //   if (gameRef) {
-      //     console.log('gameRef', gameRef);
-
-      //     setTimeout(() => {
-      //       gameRef?.$el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      //     }, index * 1000);
-      //   }
-      // });
+      if (gameRef) {
+        gameRef.$el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
 
       setTimeout(() => {
         this.$store.commit('SET_HIGHLIGHTED_GAME', null);

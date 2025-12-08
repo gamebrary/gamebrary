@@ -69,9 +69,6 @@ export default {
         ? this.board.backgroundUrl
         : null;
 
-      console.log('isBoardOwner', isBoardOwner);
-
-      // TODO: clone wallpaper when cloning board?
       return {
         type: this.board.type || BOARD_TYPE_KANBAN,
         lists: this.board.lists,

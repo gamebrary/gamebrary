@@ -3,6 +3,7 @@ export default {
   highlightedGame: null,
   boards: [],
   games: {},
+  gamesSortOrder: { sortBy: 'name', sortOrder: 'asc', gameIds: [] },
   draggingGameId: null,
   game: {},
   cachedGames: {},

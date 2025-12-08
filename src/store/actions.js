@@ -11,6 +11,7 @@ import {
   where,
   getDocs,
   deleteDoc,
+  orderBy,
 } from "firebase/firestore";
 import {
   getAuth,
@@ -257,8 +258,19 @@ export default {
     await setDoc(doc(db, "games", state.user.uid), state.games);
   },
 
-  async SAVE_PROGRESSES({ state }) {
+  async SAVE_PROGRESSES({ state, dispatch }) {
     await setDoc(doc(db, "progresses", state.user.uid), state.progresses, { merge: true });
+
+    // Update userGames subcollection for games that are liked
+    const likedGameIds = Object.keys(state.games).filter(id => state.games[id]);
+    for (const gameId of likedGameIds) {
+      if (state.progresses[gameId] !== undefined) {
+        await dispatch('SAVE_USER_GAME', {
+          gameId,
+          gameData: state.cachedGames[gameId],
+        });
+      }
+    }
   },
 
   async SAVE_PROGRESSES_NO_MERGE({ state }) {
@@ -283,6 +295,87 @@ export default {
     const docSnap = await getDoc(doc(db, "games", state.user.uid));
 
     commit("SET_GAMES", docSnap.data() || {});
+  },
+
+  async LOAD_GAMES_SORTED({ commit, state, dispatch }, { sortBy = 'name', sortOrder = 'asc' }) {
+    try {
+      // Load from subcollection for Firebase-level sorting
+      const userGamesRef = collection(db, "games", state.user.uid, "userGames");
+
+      // Map sortBy to Firestore field names
+      const sortFieldMap = {
+        name: 'name',
+        progress: 'progress',
+        tags: 'tagCount',
+        dateAdded: 'dateAdded',
+      };
+
+      const field = sortFieldMap[sortBy] || 'name';
+      const q = query(userGamesRef, orderBy(field, sortOrder));
+
+      const querySnapshot = await getDocs(q);
+      const games = {};
+      const gameIds = [];
+
+      querySnapshot.forEach((docSnap) => {
+        const gameId = docSnap.id;
+        games[gameId] = true;
+        gameIds.push(gameId);
+      });
+
+      // If subcollection is empty but games exist, migrate them
+      if (gameIds.length === 0) {
+        const docSnap = await getDoc(doc(db, "games", state.user.uid));
+        const gamesData = docSnap.data() || {};
+        const likedGameIds = Object.keys(gamesData).filter(id => gamesData[id]);
+
+        if (likedGameIds.length > 0) {
+          // Migrate existing games to subcollection
+          for (const gameId of likedGameIds) {
+            await dispatch('SAVE_USER_GAME', {
+              gameId,
+              gameData: state.cachedGames[gameId],
+            });
+          }
+          // Retry loading
+          return dispatch('LOAD_GAMES_SORTED', { sortBy, sortOrder });
+        }
+      }
+
+      commit("SET_GAMES", games);
+      commit("SET_GAMES_SORT_ORDER", { sortBy, sortOrder, gameIds });
+
+      return gameIds;
+    } catch (e) {
+      // Fallback to regular loading if subcollection doesn't exist or query fails
+      console.warn('Failed to load sorted games, falling back to regular load:', e);
+      const docSnap = await getDoc(doc(db, "games", state.user.uid));
+      commit("SET_GAMES", docSnap.data() || {});
+      return [];
+    }
+  },
+
+  async SAVE_USER_GAME({ state }, { gameId, gameData }) {
+    // Save game metadata to subcollection for sorting
+    const userGameRef = doc(db, "games", state.user.uid, "userGames", String(gameId));
+    const game = state.cachedGames?.[gameId] || gameData;
+    const progress = state.progresses?.[gameId] || 0;
+    const tags = state.tags?.tags || state.tags || [];
+    const gameTags = tags.filter(tag => tag?.games?.includes(Number(gameId)));
+
+    await setDoc(userGameRef, {
+      name: game?.name || '',
+      progress: progress,
+      tagCount: gameTags.length,
+      dateAdded: Date.now(),
+      gameId: Number(gameId),
+    }, { merge: true });
+  },
+
+  async DELETE_USER_GAME({ state }, gameId) {
+    // Remove game from subcollection when unliked
+    const userGameRef = doc(db, "games", state.user.uid, "userGames", String(gameId));
+    await deleteDoc(userGameRef);
   },
 
   async LOAD_BOARD({ state, commit }, id) {
