@@ -837,46 +837,74 @@ export default {
     },
 
     async loadGame() {
-      this.loading = true;
-      this.$bus.$emit('CLEAR_WALLPAPER');
-      this.$store.commit('CLEAR_GAME');
+      try {
+        this.loading = true;
+        this.$bus.$emit('CLEAR_WALLPAPER');
+        this.$store.commit('CLEAR_GAME');
 
-      await this.$store.dispatch('IGDB', {
-        path: 'games',
-        data: `${IGDB_QUERIES.GAME} where id = ${this.gameId};`,
-        mutation: 'SET_GAME',
-      }).catch((e) => {});
+        try {
+          await this.$store.dispatch('IGDB', {
+            path: 'games',
+            data: `${IGDB_QUERIES.GAME} where id = ${this.gameId};`,
+            mutation: 'SET_GAME',
+          });
+        } catch (e) {
+          console.error('Error loading game from IGDB:', e);
+        }
 
-      setPageTitle(this.game?.name);
+        setPageTitle(this.game?.name);
 
-      this.loading = false;
+        this.loading = false;
 
-      this.wikipediaDescription = this.wikipediaSlug
-        ? await this.$store.dispatch('LOAD_WIKIPEDIA_DESCRIPTION', this.wikipediaSlug).catch((e) => {})
-        : null;
+        try {
+          this.wikipediaDescription = this.wikipediaSlug
+            ? await this.$store.dispatch('LOAD_WIKIPEDIA_DESCRIPTION', this.wikipediaSlug)
+            : null;
+        } catch (e) {
+          console.error('Error loading Wikipedia description:', e);
+          this.wikipediaDescription = null;
+        }
 
-      // if (this.fandomUrl) this.loadFandomData();
+        // if (this.fandomUrl) this.loadFandomData();
 
-      const steamUrl = this.game?.websites?.find(({ category }) => category === STEAM_CATEGORY_ID)?.url;
-      const steamGameId = steamUrl?.split('app/')?.[1]?.split('/')?.[0];
+        const steamUrl = this.game?.websites?.find(({ category }) => category === STEAM_CATEGORY_ID)?.url;
+        const steamGameId = steamUrl?.split('app/')?.[1]?.split('/')?.[0];
 
-      if (steamGameId) {
-        await this.$store.dispatch('LOAD_STEAM_GAME', steamGameId).catch((e) => {});
-        await this.$store.dispatch('LOAD_STEAM_GAME_NEWS', steamGameId).catch((e) => {});
+        if (steamGameId) {
+          try {
+            await this.$store.dispatch('LOAD_STEAM_GAME', steamGameId);
+          } catch (e) {
+            console.error('Error loading Steam game:', e);
+          }
+
+          try {
+            await this.$store.dispatch('LOAD_STEAM_GAME_NEWS', steamGameId);
+          } catch (e) {
+            console.error('Error loading Steam game news:', e);
+          }
+        }
+
+        // this.loadSpeedruns();
+
+        const gogPage = this.game?.websites?.find(({ category }) => category === GOG_CATEGORY_ID);
+        if (gogPage) {
+          try {
+            await this.$store.dispatch('LOAD_GOG_GAME', this.game?.name);
+          } catch (e) {
+            console.error('Error loading GOG game:', e);
+          }
+        }
+
+        // const wikipediaSlug = this.game?.websites?.find(({ url, category }) => url && category === WEBSITE_CATEGORIES.WIKIPEDIA)?.url?.split('/wiki/')[1];
+
+        // if (wikipediaSlug) await this.$store.dispatch('LOAD_WIKIPEDIA_ARTICLE', wikipediaSlug).catch((e) => {});
+
+        // this.setWallpaper();
+      } catch (e) {
+        console.error('Error in loadGame:', e);
+      } finally {
+        this.loading = false;
       }
-
-      // this.loadSpeedruns();
-
-      const gogPage = this.game?.websites?.find(({ category }) => category !== GOG_CATEGORY_ID);
-      if (gogPage) await this.$store.dispatch('LOAD_GOG_GAME', this.game?.name).catch((e) => {});
-
-      // const wikipediaSlug = this.game?.websites?.find(({ url, category }) => url && category === WEBSITE_CATEGORIES.WIKIPEDIA)?.url?.split('/wiki/')[1];
-
-      // if (wikipediaSlug) await this.$store.dispatch('LOAD_WIKIPEDIA_ARTICLE', wikipediaSlug).catch((e) => {});
-
-      // this.setWallpaper();
-
-      this.loading = false;
     },
 
     setWallpaper() {

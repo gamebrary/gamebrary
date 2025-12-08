@@ -25,9 +25,15 @@ export default {
 
     gameRatings() {
       const formattedRatings = this.game?.age_ratings?.map(({ category, rating, content_descriptions }) => {
-        const { ratings, name } = AGE_RATINGS?.find(({ id }) => id === category);
+        const ageRating = AGE_RATINGS?.find(({ id }) => id === category);
+
+        if (!ageRating) {
+          return {};
+        }
+
+        const { ratings, name } = ageRating;
         const description = content_descriptions?.map(({ description }) => description)?.join(', ') || null;
-        const ratingData = ratings[rating];
+        const ratingData = ratings?.[rating];
 
         return ratingData
           ? { rating: ratingData, description, category, name }

@@ -75,7 +75,7 @@ export default {
 
   data() {
     return {
-      loading: false,
+      loading: true,
       view: 'grid',
     }
   },
@@ -102,7 +102,11 @@ export default {
   },
 
   mounted() {
-    if (this.user) this.loadGames();
+    if (this.user) {
+      this.loadGames();
+    } else {
+      this.loading = false;
+    }
 
     this.$bus.$on('SELECT_GAME', this.selectGame);
   },
@@ -141,7 +145,7 @@ export default {
 
     async loadGames() {
       try {
-        this.loading = Object.keys(this.games)?.length === 0;
+        this.loading = true;
         await this.$store.dispatch('LOAD_GAMES');
 
         const cachedGames = Object.keys(this.cachedGames);
@@ -152,9 +156,9 @@ export default {
         }
       } catch (e) {
         //
+      } finally {
+        this.loading = false;
       }
-
-      this.loading = false;
     },
   },
 };

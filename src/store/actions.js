@@ -286,7 +286,16 @@ export default {
   },
 
   async LOAD_BOARD({ state, commit }, id) {
+    if (!id || typeof id !== 'string') {
+      throw new Error('Invalid board ID');
+    }
+
     const docSnap = await getDoc(doc(db, "boards", id));
+
+    if (!docSnap.exists()) {
+      throw new Error('Board not found');
+    }
+
     const board = docSnap.data();
 
     const forbiddenTenant = !board?.isPublic && board?.owner !== state?.user?.uid;

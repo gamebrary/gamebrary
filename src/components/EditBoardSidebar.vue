@@ -228,18 +228,27 @@ export default {
 
   methods: {
     async loadBoard() {
-      this.loading = true;
+      if (!this.boardId) {
+        return;
+      }
 
-      await this.$store.dispatch('LOAD_WALLPAPERS');
-      const board = await this.$store.dispatch('LOAD_BOARD', this.boardId);
+      try {
+        this.loading = true;
 
-      this.board = {
-        type: BOARD_TYPE_KANBAN,
-        ...board,
-      };
+        await this.$store.dispatch('LOAD_WALLPAPERS');
+        const board = await this.$store.dispatch('LOAD_BOARD', this.boardId);
 
-      this.lists = JSON.parse(JSON.stringify(this.board.lists));
-      this.loading = false;
+        this.board = {
+          type: BOARD_TYPE_KANBAN,
+          ...board,
+        };
+
+        this.lists = JSON.parse(JSON.stringify(this.board.lists || []));
+      } catch (e) {
+        console.error('Error loading board:', e);
+      } finally {
+        this.loading = false;
+      }
     },
 
     setListSorting(index, value) {
