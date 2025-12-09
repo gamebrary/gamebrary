@@ -10,12 +10,14 @@
       <slot />
     </div>
 
-    <b-button
-      :variant="darkTheme ? 'black' : 'light'"
+    <button
+      type="button"
+      class="btn"
+      :class="darkTheme ? 'btn-dark' : 'btn-light'"
       @click="$emit('close')"
     >
       <i class="fas fa-close" aria-hidden />
-    </b-button>
+    </button>
   </header>
 </template>
 

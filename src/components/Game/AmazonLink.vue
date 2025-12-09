@@ -1,14 +1,14 @@
 <template lang="html">
-  <b-button
+  <a
     v-if="amazonLink"
-    variant="primary"
+    class="btn btn-primary"
     :href="amazonLink"
     target="_blank"
   >
-    <i class="fa-brands fa-amazon mr-1"></i>
+    <i class="fa-brands fa-amazon me-1"></i>
 
     Buy from Amazon
-  </b-button>
+  </a>
 </template>
 
 <script>

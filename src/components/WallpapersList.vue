@@ -1,25 +1,27 @@
 <template lang="html">
-  <b-list-group>
-    <b-list-group-item
+  <ul class="list-group">
+    <li
       v-for="(wallpaper, index) in sortedWallpapers"
-      :variant="darkTheme ? 'dark' : 'light'"
+      class="list-group-item list-group-item-action"
+      :class="darkTheme ? 'bg-dark text-light' : 'bg-light text-dark'"
       :key="index"
-      button
       @click="handleClick(wallpaper)"
+      style="cursor: pointer;"
     >
       <div class="d-flex w-100 p-2 align-items-center">
-        <b-img
+        <img
           :src="wallpaper.url"
-          rounded
-          width="200"
+          class="rounded"
+          style="width: 200px; height: auto; object-fit: cover;"
+          :alt="wallpaper.name"
         />
 
-        <p class="ml-3 text-truncate">
+        <p class="ms-3 text-truncate mb-0">
           {{ wallpaper.name }}
         </p>
       </div>
-    </b-list-group-item>
-  </b-list-group>
+    </li>
+  </ul>
 </template>
 
 <script>
@@ -57,7 +59,11 @@ export default {
     handleClick(wallpaper) {
       if (this.selectable && wallpaper?.fullPath) {
         this.$emit('select', wallpaper.fullPath);
-        this.$bvModal.hide('boardWallpaper');
+        const modalElement = document.getElementById('boardWallpaper');
+        if (modalElement) {
+          const modal = bootstrap.Modal.getInstance(modalElement);
+          if (modal) modal.hide();
+        }
       } else {
         this.openPreview(wallpaper);
       }

@@ -8,41 +8,46 @@
       class="game-grid"
       v-bind="draggableProps"
       :list="list.games"
+      :item-key="(gameId) => gameId"
       :disabled="draggingDisabled"
       :move="validateMove"
       @end="dragEnd"
       @start="dragStart"
     >
-      <GameCard
-        v-for="(gameId, index) in listGames"
-        :key="index"
-        :list="list"
-        :ref="gameId"
-        :game-id="gameId"
-        :ranked="board.ranked"
-        :rank="index + 1"
-        vertical
-        hide-platforms
-        @click.native="openGame(gameId, list)"
-      />
-
-      <b-card
-        v-if="isBoardOwner"
-        slot="footer"
-        body-class="align-content-center text-center"
-        :bg-variant="darkTheme ? 'dark' : 'light'"
-        :text-variant="darkTheme ? 'light' : 'dark'"
-        @click="openGameSelectorSidebar"
-      >
-        Expand your collection!
-
-        <b-button
-          class="mt-2"
-          :variant="darkTheme ? 'success' : 'primary'"
+      <template #item="{ element: gameId, index }">
+        <GameCard
+          :key="gameId"
+          :list="list"
+          :ref="gameId"
+          :game-id="gameId"
+          :ranked="board.ranked"
+          :rank="index + 1"
+          vertical
+          hide-platforms
+          @click.native="openGame(gameId, list)"
+        />
+      </template>
+      <template #footer>
+        <div
+          v-if="isBoardOwner"
+          class="card"
+          :class="darkTheme ? 'bg-dark text-light' : 'bg-light text-dark'"
+          @click="openGameSelectorSidebar"
+          style="cursor: pointer;"
         >
-          Add games
-        </b-button>
-      </b-card>
+          <div class="card-body align-content-center text-center">
+            Expand your collection!
+
+            <button
+              type="button"
+              class="btn mt-2"
+              :class="darkTheme ? 'btn-success' : 'btn-primary'"
+            >
+              Add games
+            </button>
+          </div>
+        </div>
+      </template>
     </draggable>
   </div>
 </template>

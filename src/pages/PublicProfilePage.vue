@@ -1,32 +1,46 @@
 <template lang="html">
-  <b-container>
+  <div class="container">
     <EditProfileSidebar v-if="isProfileOwner" />
 
-    <b-spinner v-if="loading && profile === null" class="spinner-centered" />
+    <div v-if="loading && profile === null" class="spinner-centered d-flex justify-content-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
 
     <div
       v-else-if="profile"
     >
       <portal to="headerActions">
-        <b-button
+        <button
           v-if="isProfileOwner"
-          variant="primary"
+          type="button"
+          class="btn btn-primary"
           @click="$store.commit('SET_PROFILE_SIDEBAR_OPEN', true)"
         >
           Edit profile
-        </b-button>
+        </button>
       </portal>
 
       <div class="text-center">
-        <b-avatar
+        <img
+          v-if="avatarImage"
           :src="avatarImage"
-          class="mx-auto mt-5 mb-3"
-          size="200"
+          class="rounded-circle mx-auto mt-5 mb-3"
+          style="width: 200px; height: 200px; object-fit: cover;"
+          :alt="`@${profile.userName}`"
         />
+        <div
+          v-else
+          class="rounded-circle mx-auto mt-5 mb-3 d-flex align-items-center justify-content-center"
+          style="width: 200px; height: 200px; background-color: var(--bs-gray-300);"
+        >
+          <i class="fa-regular fa-user fa-4x"></i>
+        </div>
 
         <h3
-          v-b-tooltip
           :title="profile.name"
+          data-bs-toggle="tooltip"
         >
           @{{ profile.userName }}
         </h3>
@@ -39,44 +53,44 @@
         </q>
 
         <div class="mt-2">
-          <b-button
+          <a
             v-if="profile.website"
             :href="profile.website"
             target="_blank"
             :title="profile.website"
-            v-b-tooltip
-            class="mx-1"
+            class="btn btn-outline-secondary mx-1"
+            data-bs-toggle="tooltip"
           >
             <i class="fa-regular fa-globe-pointer fa-fw" />
-          </b-button>
+          </a>
 
-          <b-button
+          <a
             v-if="profile.twitter"
             :href="`https://twitter.com/${profile.twitter}`"
             target="_blank"
-            v-b-tooltip
             :title="profile.twitter"
-            class="mx-1"
+            class="btn btn-outline-secondary mx-1"
+            data-bs-toggle="tooltip"
           >
             <i class="fa-brands fa-x-twitter fa-fw" />
-          </b-button>
+          </a>
 
-          <b-button
+          <a
             v-if="userLocation"
             :href="userLocation"
             :title="profile.location"
-            v-b-tooltip
-            class="mx-1"
+            class="btn btn-outline-secondary mx-1"
+            data-bs-toggle="tooltip"
             target="_blank"
           >
             <i class="fa-solid fa-location-dot fa-fw" />
-          </b-button>
+          </a>
         </div>
       </div>
 
-      <!-- <b-button :to="{ name: 'profiles' }">
+      <!-- <button :to="{ name: 'profiles' }">
         View other profiles
-      </b-button> -->
+      </button> -->
 
       <div class="board-grid mt-5">
         <MiniBoard
@@ -92,7 +106,7 @@
       title="404 Not Found"
       message="Page not found!"
     />
-  </b-container>
+  </div>
 </template>
 
 <script>
@@ -157,14 +171,30 @@ export default {
   mounted() {
     this.$bus.$on('LOAD_PROFILE', this.loadProfile);
     this.loadProfile();
+    this.initTooltips();
   },
 
-  destroyed() {
+  updated() {
+    this.initTooltips();
+  },
+
+  beforeUnmount() {
     this.$bus.$off('LOAD_PROFILE');
     this.$bus.$emit('CLEAR_WALLPAPER');
   },
 
   methods: {
+    initTooltips() {
+      this.$nextTick(() => {
+        const tooltipTriggerList = this.$el.querySelectorAll('[data-bs-toggle="tooltip"]');
+        tooltipTriggerList.forEach(tooltipTriggerEl => {
+          if (!tooltipTriggerEl._tooltip) {
+            new bootstrap.Tooltip(tooltipTriggerEl);
+          }
+        });
+      });
+    },
+
     viewPublicBoard(id) {
       this.$router.push({ name: 'public.board', params: { id } });
     },

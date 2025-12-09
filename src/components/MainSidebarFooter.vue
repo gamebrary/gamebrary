@@ -1,48 +1,50 @@
 <template>
   <div class="px-3 text-center d-flex align-items-center justify-content-center flex-column">
     <div>
-      <b-button
-        :variant="darkTheme ? 'dark' : 'light'"
+      <a
         href="https://github.com/romancm/gamebrary/"
         target="_blank"
+        class="btn btn-lg"
+        :class="darkTheme ? 'btn-dark' : 'btn-light'"
+        data-bs-toggle="tooltip"
         title="GitHub"
-        size="lg"
-        v-b-tooltip.hover
       >
         <i class="fa-brands fa-github" />
-      </b-button>
+      </a>
 
-      <b-button
-        v-b-toggle.keyboard-shortcuts-sidebar
-        :variant="darkTheme ? 'dark' : 'light'"
+      <button
+        type="button"
+        class="btn btn-lg"
+        :class="darkTheme ? 'btn-dark' : 'btn-light'"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#keyboard-shortcuts-sidebar"
         title="Keyboard Shortcuts"
-        v-b-tooltip.hover
-        size="lg"
       >
         <i class="fa-solid fa-command" />
-      </b-button>
+      </button>
 
-      <b-button
+      <router-link
         :to="{ name: 'help' }"
         id="help"
+        class="btn btn-lg"
+        :class="darkTheme ? 'btn-dark' : 'btn-light'"
+        data-bs-toggle="tooltip"
         title="Help"
-        :variant="darkTheme ? 'dark' : 'light'"
-        size="lg"
-        v-b-tooltip.hover
       >
         <i class="fa-regular fa-circle-info" />
-      </b-button>
+      </router-link>
 
-      <b-button
-        @click="toggleTheme"
-        :variant="darkTheme ? 'dark' : 'light'"
-        size="lg"
-        v-b-tooltip.hover
+      <button
+        type="button"
+        class="btn btn-lg"
+        :class="darkTheme ? 'btn-dark' : 'btn-light'"
+        data-bs-toggle="tooltip"
         title="Toggle theme"
+        @click="toggleTheme"
       >
         <i v-if="darkTheme" class="fa-solid fa-sun" />
         <i v-else class="fa-solid fa-moon" />
-      </b-button>
+      </button>
     </div>
 
     <div>&copy; {{ currentYear }} Gamebrary</div>
@@ -63,6 +65,14 @@ export default {
     },
   },
 
+  mounted() {
+    // Initialize tooltips
+    this.$nextTick(() => {
+      const tooltipTriggerList = [].slice.call(this.$el.querySelectorAll('[data-bs-toggle="tooltip"]'));
+      tooltipTriggerList.map((tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl));
+    });
+  },
+
   methods: {
     async toggleTheme() {
       try {
@@ -71,7 +81,20 @@ export default {
           darkTheme: !this.settings?.darkTheme,
         });
       } catch (error) {
-        this.$bvToast.toast('There was an error saving your settings', { variant: 'danger' });
+        // Show error toast using Bootstrap
+        const toastElement = document.createElement('div');
+        toastElement.className = 'toast align-items-center text-white bg-danger border-0';
+        toastElement.setAttribute('role', 'alert');
+        toastElement.innerHTML = `
+          <div class="d-flex">
+            <div class="toast-body">There was an error saving your settings</div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+          </div>
+        `;
+        document.body.appendChild(toastElement);
+        const toast = new bootstrap.Toast(toastElement);
+        toast.show();
+        toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
       }
     },
   },

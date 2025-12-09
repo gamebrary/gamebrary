@@ -1,242 +1,235 @@
 <template lang="html">
-  <b-sidebar
+  <AppSidebar
     id="profile-sidebar"
     :visible="editProfileSidebarOpen"
-    v-bind="sidebarRightProps"
+    :placement="sidebarRightProps?.placement || 'end'"
+    :bg-variant="sidebarRightProps?.bgVariant"
+    :text-variant="sidebarRightProps?.textVariant"
+    @update:visible="handleVisibilityChange"
     @shown="loadProfile"
     @hidden="$store.commit('SET_PROFILE_SIDEBAR_OPEN', false)"
+  >
+    <template #header>
+      <SidebarHeader @hide="hideSidebar" title="Edit Profile" />
+    </template>
+
+    <div v-if="loading" class="spinner-centered d-flex justify-content-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+
+    <form
+      v-else-if="profile"
+      class="px-3 pb-3"
+      @submit.prevent="saveAndClose"
     >
-      <template #default="{ hide }">
-        <SidebarHeader @hide="hide" title="Edit Profile" />
+      <div v-if="uploading" class="d-flex justify-content-center mb-3">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Uploading...</span>
+        </div>
+      </div>
 
-        <b-spinner v-if="loading" class="spinner-centered" />
-
-        <b-form
-          v-else-if="profile"
-          class="px-3 pb-3"
-          @submit.prevent="saveAndClose"
-        >
-          <b-spinner v-if="uploading" />
-
-          <div
-            class="text-center d-flex flex-column p-3 mb-3 rounded position-relative"
-            :class="darkTheme ? 'bg-black' : 'bg-white'"
-            :style="style"
+      <div
+        class="text-center d-flex flex-column p-3 mb-3 rounded position-relative"
+        :class="darkTheme ? 'bg-black' : 'bg-white'"
+        :style="style"
+      >
+        <div class="dropdown position-absolute pe-3" style="right: 0">
+          <button
+            class="btn dropdown-toggle"
+            :class="darkTheme ? 'btn-dark' : 'btn-light'"
+            type="button"
+            id="profileMenuDropdown"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
           >
-            <b-dropdown
-              no-caret
-              class="position-absolute pr-3"
-              style="right: 0"
-              :variant="darkTheme ? 'dark' : 'white'"
-            >
-              <template #button-content>
-                <i class="fa-solid fa-bars" />
-              </template>
-
-              <b-dropdown-header id="dropdown-header-label">
-                Profile wallpaper
-              </b-dropdown-header>
-
-              <b-dropdown-item v-b-toggle.boardWallpaper>
+            <i class="fa-solid fa-bars" />
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileMenuDropdown">
+            <li><h6 class="dropdown-header">Profile wallpaper</h6></li>
+            <li>
+              <a class="dropdown-item" href="#" @click.prevent="$root.$emit('bv::toggle::collapse', 'boardWallpaper')">
                 {{ wallpaperImage ? 'Change wallpaper' : 'Set profile wallpaper' }}
-              </b-dropdown-item>
-
-              <b-dropdown-item
-                v-if="wallpaperImage"
-                @click="removeWallpaper"
-              >
-                Remove wallpaper
-              </b-dropdown-item>
-
-              <b-dropdown-divider></b-dropdown-divider>
-
-              <b-dropdown-header id="dropdown-header-label">
-                Profile avatar
-              </b-dropdown-header>
-
-              <b-dropdown-item @click="triggerFileUpload">
+              </a>
+            </li>
+            <li v-if="wallpaperImage">
+              <a class="dropdown-item" href="#" @click.prevent="removeWallpaper">Remove wallpaper</a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li><h6 class="dropdown-header">Profile avatar</h6></li>
+            <li>
+              <a class="dropdown-item" href="#" @click.prevent="triggerFileUpload">
                 {{ profile.avatar ? 'Replace avatar' : 'Upload avatar' }}
-              </b-dropdown-item>
-              <b-dropdown-item v-if="avatarImage && profile.avatar" @click="removeAvatar">Remove avatar</b-dropdown-item>
-            </b-dropdown>
+              </a>
+            </li>
+            <li v-if="avatarImage && profile.avatar">
+              <a class="dropdown-item" href="#" @click.prevent="removeAvatar">Remove avatar</a>
+            </li>
+          </ul>
+        </div>
 
-            <b-avatar
-              :src="avatarImage"
-              class="mx-auto cursor-pointer mb-2"
-              size="120"
-              @click.native="triggerFileUpload"
-            />
+        <img
+          v-if="avatarImage"
+          :src="avatarImage"
+          class="mx-auto cursor-pointer mb-2 rounded-circle"
+          style="width: 120px; height: 120px; object-fit: cover; cursor: pointer;"
+          @click="triggerFileUpload"
+          alt="Avatar"
+        />
+        <div
+          v-else
+          class="mx-auto mb-2 rounded-circle d-flex align-items-center justify-content-center"
+          style="width: 120px; height: 120px; background-color: var(--bs-gray-300); cursor: pointer;"
+          @click="triggerFileUpload"
+        >
+          <i class="fa-regular fa-user fa-3x"></i>
+        </div>
 
-            <strong>@{{ profile.userName }}</strong>
-          </div>
+        <strong>@{{ profile.userName }}</strong>
+      </div>
 
-          <b-form-file
-            class="d-none file-input"
-            v-model="file"
-            accept="image/*"
-            @input="uploadProfileAvatar"
+      <input
+        ref="fileInput"
+        type="file"
+        class="d-none file-input"
+        accept="image/*"
+        @change="uploadProfileAvatar"
+      />
+
+      <div class="mb-3">
+        <label for="name" class="form-label m-0 text-muted">Name</label>
+        <input
+          id="name"
+          type="text"
+          v-model="profile.name"
+          class="form-control mb-3"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="bio" class="form-label m-0 text-muted">About you</label>
+        <input
+          id="bio"
+          type="text"
+          v-model="profile.bio"
+          class="form-control mb-3"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="location" class="form-label m-0 text-muted">Location</label>
+        <input
+          id="location"
+          type="text"
+          v-model="profile.location"
+          class="form-control mb-3"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="website" class="form-label m-0 text-muted">Website</label>
+        <input
+          id="website"
+          type="text"
+          v-model="profile.website"
+          class="form-control mb-3"
+          @blur="autoformatWebsite"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="x" class="form-label m-0 text-muted">X</label>
+        <input
+          id="x"
+          type="text"
+          v-model="profile.twitter"
+          class="form-control mb-3"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="friendCode" class="form-label m-0 text-muted">Nintendo Friend Code</label>
+        <input
+          id="friendCode"
+          type="text"
+          v-model="profile.friendCode"
+          placeholder="SW-8496-9128-4205"
+          class="form-control mb-3"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="psnId" class="form-label m-0 text-muted">Playstation online ID</label>
+        <input
+          id="psnId"
+          type="text"
+          v-model="profile.psnId"
+          class="form-control mb-3"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="steamFriendCode" class="form-label m-0 text-muted">Steam friend code</label>
+        <input
+          id="steamFriendCode"
+          type="text"
+          v-model="profile.steamFriendCode"
+          class="form-control mb-3"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="gamerTag" class="form-label m-0 text-muted">Xbox Gamertag</label>
+        <input
+          id="gamerTag"
+          type="text"
+          v-model="profile.gamerTag"
+          class="form-control mb-3"
+        />
+      </div>
+
+      <AppSidebar
+        id="boardWallpaper"
+        :visible="wallpaperSidebarVisible"
+        :placement="sidebarRightProps?.placement || 'end'"
+        :bg-variant="sidebarRightProps?.bgVariant"
+        :text-variant="sidebarRightProps?.textVariant"
+        @update:visible="handleWallpaperVisibilityChange"
+      >
+        <template #header>
+          <SidebarHeader @hide="hideWallpaperSidebar" title="Set profile wallpaper" />
+        </template>
+        <div class="p-3">
+          <WallpapersList
+            selectable
+            @select="selectWallpaper"
           />
+        </div>
+      </AppSidebar>
 
-          <b-form-group
-            label-class="m-0 text-muted"
-            label="Name"
-            label-for="name"
-          >
-            <b-form-input
-              id="name"
-              v-model="profile.name"
-              class="mb-3"
-            />
-          </b-form-group>
+      <footer class="my-3">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          :disabled="saving"
+        >
+          <span v-if="saving" class="spinner-border spinner-border-sm me-2" role="status"></span>
+          <span v-else>Save</span>
+        </button>
 
-          <b-form-group
-            label-class="m-0 text-muted"
-            label="About you"
-            label-for="bio"
-          >
-            <b-form-input
-              id="bio"
-              v-model="profile.bio"
-              class="mb-3"
-            />
-          </b-form-group>
-
-          <b-form-group
-            label-class="m-0 text-muted"
-            label="Location"
-            label-for="location"
-          >
-            <b-form-input
-              id="location"
-              v-model="profile.location"
-              class="mb-3"
-            />
-          </b-form-group>
-
-          <b-form-group
-            label-class="m-0 text-muted"
-            label="Website"
-            label-for="website"
-          >
-            <b-form-input
-              id="website"
-              v-model="profile.website"
-              class="mb-3"
-              @blur="autoformatWebsite"
-            />
-          </b-form-group>
-
-          <b-form-group
-            label-class="m-0 text-muted"
-            label="X"
-            label-for="x"
-          >
-            <b-form-input
-              id="x"
-              v-model="profile.twitter"
-              class="mb-3"
-            />
-          </b-form-group>
-
-
-          <b-form-group
-            label-class="m-0 text-muted"
-            label="Nintendo Friend Code"
-            label-for="friendCode"
-          >
-            <b-form-input
-              id="friendCode"
-              v-model="profile.friendCode"
-              placeholder="SW-8496-9128-4205"
-              class="mb-3"
-            />
-          </b-form-group>
-
-
-          <!-- Validate -->
-          <!-- Between 3 and 16 characters -->
-          <!-- Starts with a letter -->
-          <!-- No spaces -->
-          <!-- Only letters, digits, underscores & hyphens -->
-
-          <b-form-group
-            label-class="m-0 text-muted"
-            label="Playstation online ID"
-            label-for="psnId"
-          >
-            <b-form-input
-              id="psnId"
-              v-model="profile.psnId"
-              class="mb-3"
-            />
-          </b-form-group>
-
-          <b-form-group
-            label-class="m-0 text-muted"
-            label="Steam friend code"
-            label-for="steamFriendCode"
-          >
-            <b-form-input
-              id="steamFriendCode"
-              v-model="profile.steamFriendCode"
-              class="mb-3"
-            />
-          </b-form-group>
-
-          <b-form-group
-            label-class="m-0 text-muted"
-            label="Xbox Gamertag"
-            label-for="gamerTag"
-          >
-            <b-form-input
-              id="gamerTag"
-              v-model="profile.gamerTag"
-              class="mb-3"
-            />
-          </b-form-group>
-
-          <b-sidebar
-            id="boardWallpaper"
-            v-bind="sidebarRightProps"
-            right
-          >
-          <template #default="{ hide }">
-            <SidebarHeader @hide="hide" title="Set profile wallpaper" />
-
-            <div class="p-3">
-              <WallpapersList
-                selectable
-                @select="selectWallpaper"
-              />
-            </div>
-          </template>
-
-
-              <!-- :selected="board.backgroundUrl" -->
-          </b-sidebar>
-
-          <footer class="my-3">
-            <b-button
-              variant="primary"
-              type="submit"
-            >
-              <b-spinner small v-if="saving" />
-              <template v-else>Save</template>
-            </b-button>
-
-            <b-button
-              class="ml-2"
-              variant="danger"
-              :disabled="deleting"
-              @click="confirmDeleteProfile"
-            >
-              <b-spinner small v-if="deleting" />
-              <template v-else>Delete profile</template>
-            </b-button>
-          </footer>
-        </b-form>
-      </template>
-  </b-sidebar>
+        <button
+          type="button"
+          class="btn btn-danger ms-2"
+          :disabled="deleting"
+          @click="confirmDeleteProfile"
+        >
+          <span v-if="deleting" class="spinner-border spinner-border-sm me-2" role="status"></span>
+          <span v-else>Delete profile</span>
+        </button>
+      </footer>
+    </form>
+  </AppSidebar>
 </template>
 
 <script>
@@ -244,9 +237,11 @@ import { getImageThumbnail } from '@/utils';
 import { mapState, mapGetters } from 'vuex';
 import WallpapersList from '@/components/WallpapersList';
 import SidebarHeader from '@/components/SidebarHeader';
+import AppSidebar from '@/components/Sidebar';
 
 export default {
   components: {
+    AppSidebar,
     WallpapersList,
     SidebarHeader,
   },
@@ -260,12 +255,24 @@ export default {
       deleting: false,
       uploading: false,
       profile: null,
-      file: null,
+      wallpaperSidebarVisible: false,
     };
   },
 
   mounted() {
     this.loadProfile();
+    // Listen for sidebar toggle events
+    this.$root.$on('bv::toggle::collapse', (id) => {
+      if (id === 'profile-sidebar') {
+        this.$store.commit('SET_PROFILE_SIDEBAR_OPEN', !this.editProfileSidebarOpen);
+      } else if (id === 'boardWallpaper') {
+        this.wallpaperSidebarVisible = !this.wallpaperSidebarVisible;
+      }
+    });
+  },
+
+  beforeUnmount() {
+    this.$root.$off('bv::toggle::collapse');
   },
 
   computed: {
@@ -280,12 +287,26 @@ export default {
   },
 
   methods: {
+    handleVisibilityChange(visible) {
+      this.$store.commit('SET_PROFILE_SIDEBAR_OPEN', visible);
+    },
+
+    handleWallpaperVisibilityChange(visible) {
+      this.wallpaperSidebarVisible = visible;
+    },
+
+    hideSidebar() {
+      this.$store.commit('SET_PROFILE_SIDEBAR_OPEN', false);
+    },
+
+    hideWallpaperSidebar() {
+      this.wallpaperSidebarVisible = false;
+    },
+
     async selectWallpaper(wallpaper) {
       this.profile.wallpaper = wallpaper;
-
-      this.$root.$emit('bv::toggle::collapse', 'boardWallpaper');
+      this.hideWallpaperSidebar();
       this.wallpaperImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', wallpaper);
-
       this.save();
     },
 
@@ -346,26 +367,29 @@ export default {
     },
 
     triggerFileUpload() {
-      document.querySelector('.file-input input').click();
+      this.$refs.fileInput?.click();
     },
 
-    async uploadProfileAvatar() {
-      if (!this.file) return;
+    async uploadProfileAvatar(event) {
+      const file = event?.target?.files?.[0];
+      if (!file) return;
 
       this.uploading = true;
 
       try {
-        this.profile.avatar = await this.$store.dispatch('UPLOAD_PROFILE_AVATAR', this.file);
+        this.profile.avatar = await this.$store.dispatch('UPLOAD_PROFILE_AVATAR', file);
 
         this.save();
 
         this.avatarImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', this.profile.avatar);
       } catch (e) {
-        this.$bvToast.toast('There was an error uploading wallpaper', { variant: 'danger' });
+        this.showToast('There was an error uploading avatar', 'danger');
       }
 
       this.uploading = false;
-      this.file = null;
+      if (this.$refs.fileInput) {
+        this.$refs.fileInput.value = '';
+      }
     },
 
     async removeWallpaper() {
@@ -375,7 +399,6 @@ export default {
 
     async removeAvatar() {
       this.resetAvatar();
-
       this.save();
     },
 
@@ -405,22 +428,33 @@ export default {
         this.$bus.$emit('LOAD_PROFILE');
       } catch (error) {
         this.saving = false;
-        //
       }
     },
 
     async confirmDeleteProfile() {
-      const confirmed = await this.$bvModal.msgBoxConfirm('Are you sure?')
-        .catch(() => {});
-
+      const confirmed = window.confirm('Are you sure?');
       if (confirmed) {
         this.deleting = true;
         await this.$store.dispatch('DELETE_PROFILE');
-
         this.$router.replace({ name: 'create.profile' });
       }
-
       this.deleting = false;
+    },
+
+    showToast(message, variant = 'info') {
+      const toastElement = document.createElement('div');
+      toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
+      toastElement.setAttribute('role', 'alert');
+      toastElement.innerHTML = `
+        <div class="d-flex">
+          <div class="toast-body">${message}</div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+      `;
+      document.body.appendChild(toastElement);
+      const toast = new bootstrap.Toast(toastElement);
+      toast.show();
+      toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
     },
   },
 };

@@ -1,62 +1,82 @@
 <template lang="html">
-  <b-container>
+  <div class="container">
     <portal v-if="user && !isEmpty" to="headerActions">
-      <b-dropdown
-        text="Tags"
-        :variant="darkTheme ? 'success' : 'black'"
-      >
-        <b-dropdown-item-button
-          title="Add tag"
-          v-bind="buttonProps"
-          v-b-toggle.create-tag-sidebar
+      <div class="dropdown">
+        <button
+          class="btn dropdown-toggle"
+          :class="darkTheme ? 'btn-success' : 'btn-dark'"
+          type="button"
+          id="tagsDropdown"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
         >
-          <i class="fa-solid fa-plus" />
-          Add tag
-        </b-dropdown-item-button>
-      </b-dropdown>
+          Tags
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="tagsDropdown">
+          <li>
+            <button
+              type="button"
+              class="dropdown-item"
+              :class="darkTheme ? 'text-light' : ''"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#create-tag-sidebar"
+            >
+              <i class="fa-solid fa-plus" />
+              Add tag
+            </button>
+          </li>
+        </ul>
+      </div>
     </portal>
 
-    <b-spinner v-if="loading" class="spinner-centered" />
+    <div v-if="loading" class="spinner-centered d-flex justify-content-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
 
     <EmptyState
       v-else-if="isEmpty"
       illustration="tags"
       message="Using tags is a fantastic way to keep your collection well-organized!"
      >
-      <b-button
+      <button
         v-if="user"
-        variant="primary"
-        v-b-toggle.create-tag-sidebar
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#create-tag-sidebar"
       >
         Add tag
-      </b-button>
+      </button>
      </EmptyState>
 
     <div v-else>
-      <b-list-group>
-        <b-list-group-item
+      <ul class="list-group">
+        <li
           v-for="({ textColor, bgColor, name, games: taggedGames }, index) in tags"
           :key="index"
-          :variant="darkTheme ? 'dark' : 'light'"
-          class="flex-column align-items-start"
+          class="list-group-item d-flex flex-column align-items-start"
+          :class="darkTheme ? 'bg-dark text-light' : 'bg-light text-dark'"
           @click="openEditTagSidebar(index)"
+          style="cursor: pointer;"
         >
           <div class="d-flex w-100 justify-content-md-between flex-column flex-md-row">
             <div class="d-flex flex-column">
-              <b-button
-                variant="transparent"
+              <button
+                type="button"
+                class="btn mb-2"
                 :style="`background-color: ${bgColor}; color: ${textColor}`"
-                class="mb-2"
               >
-              {{ name }}
-              </b-button>
+                {{ name }}
+              </button>
 
-              <b-badge variant="primary" pill>
+              <span class="badge bg-primary rounded-pill">
                 {{ taggedGames.length }} games
-              </b-badge>
+              </span>
             </div>
 
-            <b-avatar-group class="mt-3 mt-md-0 overflow-hidden">
+            <div class="d-flex mt-3 mt-md-0 overflow-hidden">
               <GameCard
                 v-for="gameId in taggedGames"
                 small
@@ -66,16 +86,14 @@
                 hide-platforms
                 hide-tags
                 hide-progress
-                class="ml-md-n5 border-light border"
+                class="ms-md-n5 border-light border"
                 :key="gameId"
                 :game-id="gameId"
               />
-
-            </b-avatar-group>
-
+            </div>
           </div>
-        </b-list-group-item>
-      </b-list-group>
+        </li>
+      </ul>
 
       <!-- <b-button
         v-for="({ textColor, bgColor, name, games }, index) in tags"
@@ -89,7 +107,7 @@
         {{ name }} {{ games.length ? `(${games.length})` : '' }}
       </b-button> -->
     </div>
-  </b-container>
+  </div>
 </template>
 
 <script>

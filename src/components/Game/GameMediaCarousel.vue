@@ -1,19 +1,27 @@
 <template lang="html">
-  <b-carousel
+  <div
     v-if="hasArtworks"
     id="carousel-fade"
-    class="game-media-carousel cursor-pointer position-absolute m-3"
-    fade
-    v-b-modal.mediaModal
-    no-hover-pause
+    class="carousel slide game-media-carousel cursor-pointer position-absolute m-3"
+    data-bs-ride="carousel"
+    data-bs-interval="false"
+    @click="openMediaModal"
   >
-    <b-carousel-slide
-      v-for="(artwork, index) in artworks"
-      :key="index"
-      :img-src="artwork.url"
-      class="rounded overflow-hidden"
-    />
-  </b-carousel>
+    <div class="carousel-inner rounded overflow-hidden">
+      <div
+        v-for="(artwork, index) in artworks"
+        :key="index"
+        class="carousel-item"
+        :class="{ 'active': index === 0 }"
+      >
+        <img
+          :src="artwork.url"
+          class="d-block w-100"
+          :alt="`Artwork ${index + 1}`"
+        />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -38,6 +46,16 @@ export default {
 
     hasWallpaper() {
       return Boolean(this.game?.steam?.background);
+    },
+  },
+
+  methods: {
+    openMediaModal() {
+      const modalElement = document.getElementById('mediaModal');
+      if (modalElement) {
+        const modal = new bootstrap.Modal(modalElement);
+        modal.show();
+      }
     },
   },
 };

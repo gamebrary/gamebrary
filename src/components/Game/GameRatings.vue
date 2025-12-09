@@ -1,13 +1,14 @@
 <template lang="html">
   <div>
-    <b-img
+    <img
       v-for="{ rating, logoFormat, description } in gameRatings"
       :title="description"
       :key="rating"
-      v-b-tooltip.hover
-      class="mr-2"
+      class="me-2"
       :src="`/img/age-ratings/${rating}.${logoFormat || 'png'}`"
       height="60"
+      :alt="description || 'Age rating'"
+      data-bs-toggle="tooltip"
     />
   </div>
 </template>
@@ -50,6 +51,27 @@ export default {
 
       return this.gameRatings?.find(({ category }) => category);
     }
+  },
+
+  mounted() {
+    this.initTooltips();
+  },
+
+  updated() {
+    this.initTooltips();
+  },
+
+  methods: {
+    initTooltips() {
+      this.$nextTick(() => {
+        const tooltipTriggerList = this.$el.querySelectorAll('[data-bs-toggle="tooltip"]');
+        tooltipTriggerList.forEach(tooltipTriggerEl => {
+          if (!tooltipTriggerEl._tooltip) {
+            new bootstrap.Tooltip(tooltipTriggerEl);
+          }
+        });
+      });
+    },
   },
 };
 </script>

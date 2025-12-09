@@ -1,57 +1,52 @@
 <template lang="html">
-  <b-form
+  <form
     autocomplete="off"
     @submit.prevent="checkUserNameAvailability"
   >
     <p>Profile</p>
 
-    <b-input-group class="mb-3">
-      <b-form-input
+    <div class="input-group mb-3">
+      <span class="input-group-text">
+        gamebrary.com/
+      </span>
+      <input
         id="userName"
         autocomplete="off"
         v-model.trim="userName"
+        type="text"
+        class="form-control"
         :minlength="$options.MIN_PROFILE_LENGTH"
         :maxlength="$options.MAX_PROFILE_LENGTH"
         required
-        :state="available"
+        :class="{ 'is-invalid': available === false, 'is-valid': available === true }"
         @input="formatUserName"
       />
-      <template #prepend>
-        <b-input-group-text>
-          gamebrary.com/
-        </b-input-group-text>
-      </template>
-
-      <template #append>
-        <b-button
-          type="submit"
-        >
-          <b-spinner small v-if="checkingAvailability" />
-          <template v-else>
-            <i class="fa-solid fa-magnifying-glass" />
-          </template>
-        </b-button>
-      </template>
-    </b-input-group>
+      <button
+        type="submit"
+        class="btn btn-outline-secondary"
+      >
+        <span v-if="checkingAvailability" class="spinner-border spinner-border-sm me-2" role="status"></span>
+        <i v-else class="fa-solid fa-magnifying-glass" />
+      </button>
+    </div>
 
     <template v-if="available">
-      <b-alert
-        class="mt-3"
-        show
-        variant="success"
+      <div
+        class="alert alert-success mt-3"
+        role="alert"
       >
         Great, <strong>{{ userName }}</strong> is available!
-      </b-alert>
+      </div>
 
-      <b-button
-        block
-        variant="success"
-        class="mb-3"
+      <button
+        type="button"
+        class="btn btn-success w-100 mb-3"
         @click="createProfile"
+        :disabled="saving"
       >
-        <b-spinner small v-if="saving" />
-        <template v-else>Create profile</template>
-      </b-button>
+        <span v-if="saving" class="spinner-border spinner-border-sm me-2" role="status"></span>
+        <span v-else>Create profile</span>
+      </button>
     </template>
 
     <div v-else-if="!checkingAvailability && available === false">
@@ -59,7 +54,7 @@
     </div>
 
     <hr class="my-3" />
-  </b-form>
+  </form>
 </template>
 
 <script>

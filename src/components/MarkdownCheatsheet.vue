@@ -1,20 +1,21 @@
 <template lang="html">
-  <b-modal
+  <div
+    class="modal fade"
     id="markdown-cheatsheet"
-    scrollable
-    hide-footer
-    :header-bg-variant="darkTheme ? 'dark' : 'transparent'"
-    :header-text-variant="darkTheme ? 'white' : 'dark'"
-    :body-bg-variant="darkTheme ? 'dark' : 'transparent'"
-    :body-text-variant="darkTheme ? 'white' : 'dark'"
+    tabindex="-1"
+    aria-labelledby="markdown-cheatsheet-label"
+    aria-hidden="true"
   >
-    <template v-slot:modal-header="{ close }">
-      <modal-header
-        title="Markdown syntax"
-        subtitle="The simple and easy-to-use markup language"
-        @close="close"
-      />
-    </template>
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content" :class="darkTheme ? 'bg-dark text-light' : 'bg-light text-dark'">
+        <div class="modal-header">
+          <h5 class="modal-title" id="markdown-cheatsheet-label">
+            Markdown syntax
+            <small class="d-block text-muted">The simple and easy-to-use markup language</small>
+          </h5>
+          <button type="button" class="btn-close" :class="darkTheme ? 'btn-close-white' : ''" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
 
     <table class="table table-bordered small table-sm table-striped">
       <thead>
@@ -168,7 +169,10 @@
           </tr>
         </tbody>
       </table>
-  </b-modal>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>

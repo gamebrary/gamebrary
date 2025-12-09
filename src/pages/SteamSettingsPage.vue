@@ -1,17 +1,22 @@
 <template lang="html">
   <section>
-    <b-container>
-      <b-form-group label="Steam ID:">
-        <b-form-input
+    <div class="container">
+      <div class="mb-3">
+        <label for="steamId" class="form-label">Steam ID:</label>
+        <input
           v-model="steamId"
+          id="steamId"
+          type="text"
+          class="form-control"
           style="max-width: 200px"
         />
-      </b-form-group>
+      </div>
 
-      <b-button @click="save">
-        Save
-      </b-button>
-    </b-container>
+      <button type="button" class="btn btn-primary" @click="save" :disabled="saving">
+        <span v-if="saving" class="spinner-border spinner-border-sm me-2" role="status"></span>
+        <span v-else>Save</span>
+      </button>
+    </div>
   </section>
 </template>
 
@@ -43,10 +48,12 @@ export default {
         steamId,
       };
 
+      this.saving = true;
       await this.$store.dispatch('SAVE_SETTINGS', payload)
         .catch(() => {
           this.saving = false;
         });
+      this.saving = false;
     },
   },
 };

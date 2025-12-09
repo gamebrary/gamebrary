@@ -4,7 +4,7 @@
       <h3>Gamebrary</h3>
     </portal>
 
-    <b-container>
+    <div class="container">
       <!-- Organize your game library your way!
 
       Choose between 3 types of boards.
@@ -13,7 +13,7 @@
       - Standard, organize your games by creating
       - Robust, fully customizable organization.
       - Tier, Rank -->
-      <b-alert variant="success" show v-if="!user">
+      <div class="alert alert-success" role="alert" v-if="!user">
         <h4 class="alert-heading">Welcome!</h4>
 
         <p class="mb-0">
@@ -21,7 +21,7 @@
         </p>
 
         <small class="text-info"><ins>Free</ins> and <a href="https://github.com/romancm/gamebrary/" target="_blank">Open Source</a></small>
-      </b-alert>
+      </div>
 
       <div class="mt-auto bg-light py-5">
         <h2 class="text-center text-primary mb-2">Game data from the most reliable sources</h2>
@@ -44,7 +44,7 @@
       <!-- <div class="game-deals">
         <twitter-feed twitter-user="wario64" />
       </div> -->
-    </b-container>
+    </div>
   </section>
 </template>
 

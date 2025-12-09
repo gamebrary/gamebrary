@@ -4,47 +4,47 @@
     <h3 class="mt-4">Contact</h3>
     <p>Feel free to contact us with any feedback, comments, suggestions, or just to say hi.</p>
 
-    <b-button href="mailto:contact@gamebrary.com">
+    <a href="mailto:contact@gamebrary.com" class="btn btn-primary">
       <i class="fa-regular fa-envelope fa-fw" />
       contact@gamebrary.com
-    </b-button>
+    </a>
 
     <p class="mt-2">You can also submit
-      <b-link
+      <a
         href="https://goo.gl/forms/r0juBCsZaUtJ03qb2"
-        variant="link"
+        class="link-primary"
         target="_blank"
       >
         feedback anonymously
-      </b-link>
+      </a>
     </p>
 
     <h3 class="mt-4">Issues</h3>
     <p>Found an issue? Submit it please.</p>
 
-    <b-button
+    <a
       id="issueReporting"
       href="https://github.com/romancm/gamebrary/issues"
       target="_blank"
+      class="btn btn-primary"
+      data-bs-toggle="popover"
+      data-bs-trigger="hover focus"
+      data-bs-title="Heads up!"
+      data-bs-content="Contributors get featured in our GitHub repository. If you do not want to be featured, please make sure you mention it when creating issues."
     >
       <i class="fab fa-github fa-fw" /> Open a GitHub issue
-    </b-button>
-
-    <b-popover target="issueReporting" triggers="hover focus">
-      <template #title>Heads up!</template>
-      Contributors get featured in our GitHub repository. If you do <strong>not</strong> want to be featured, please make sure you mention it when creating issues.
-    </b-popover>
+    </a>
 
     <h3 class="mt-4">Legal</h3>
-    <b-link :to="{ name: 'privacy.policy' }">
+    <router-link :to="{ name: 'privacy.policy' }" class="link-primary">
       Privacy Policy
-    </b-link>
+    </router-link>
 
     <br />
 
-    <b-link :to="{ name: 'terms' }">
+    <router-link :to="{ name: 'terms' }" class="link-primary">
       Terms
-    </b-link>
+    </router-link>
 
     <h3 class="mt-4">Contributions</h3>
 
@@ -55,9 +55,9 @@
       <li>Design help, especially for landing page and logo</li>
       <li>Spread the word</li>
       <li>
-        <b-link href="https://www.paypal.me/RomanCervantes/5">
+        <a href="https://www.paypal.me/RomanCervantes/5" class="link-primary">
           Donate
-        </b-link>
+        </a>
       </li>
     </ul>
 
@@ -68,3 +68,28 @@
     </p>
   </div>
 </template>
+
+<script>
+export default {
+  mounted() {
+    this.initPopovers();
+  },
+
+  updated() {
+    this.initPopovers();
+  },
+
+  methods: {
+    initPopovers() {
+      this.$nextTick(() => {
+        const popoverTriggerList = this.$el.querySelectorAll('[data-bs-toggle="popover"]');
+        popoverTriggerList.forEach(popoverTriggerEl => {
+          if (!popoverTriggerEl._popover) {
+            new bootstrap.Popover(popoverTriggerEl);
+          }
+        });
+      });
+    },
+  },
+};
+</script>

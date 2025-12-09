@@ -1,30 +1,53 @@
 <template lang="html">
     <div class="px-3">
       <portal v-if="!this.loading && !isEmpty && user" to="headerActions">
-        <b-dropdown
-          text="Boards"
-          :variant="darkTheme ? 'success' : 'black'"
-        >
-          <b-dropdown-item-button v-b-toggle.create-board-sidebar>
-            <i class="fa-solid fa-plus" />
-            Create board
-          </b-dropdown-item-button>
-        </b-dropdown>
+        <div class="dropdown">
+          <button
+            class="btn dropdown-toggle"
+            :class="darkTheme ? 'btn-success' : 'btn-dark'"
+            type="button"
+            id="boardsDropdown"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Boards
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="boardsDropdown">
+            <li>
+              <button
+                type="button"
+                class="dropdown-item"
+                :class="darkTheme ? 'text-light' : ''"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#create-board-sidebar"
+              >
+                <i class="fa-solid fa-plus" />
+                Create board
+              </button>
+            </li>
+          </ul>
+        </div>
       </portal>
 
-      <b-spinner v-if="loading" class="spinner-centered" />
+      <div v-if="loading" class="spinner-centered d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
 
       <EmptyState
         v-else-if="isEmpty"
         title="Boards"
         message="Utilize boards to neatly organize your video games!"
       >
-        <b-button
-          v-b-toggle.create-board-sidebar
-          variant="primary"
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#create-board-sidebar"
         >
           {{ $t('boards.create') }}
-        </b-button>
+        </button>
       </EmptyState>
 
       <div v-else class="board-grid pb-3">
@@ -106,12 +129,27 @@
         await this.$store.dispatch('DELETE_BOARD', id)
           .catch(() => {
             this.loading = false;
-
-            this.$bvToast.toast('There was an error deleting board', { variant: 'error' });
+            this.showToast('There was an error deleting board', 'danger');
           });
 
         this.loading = false;
-        this.$bvToast.toast('Board removed');
+        this.showToast('Board removed', 'success');
+      },
+
+      showToast(message, variant = 'info') {
+        const toastElement = document.createElement('div');
+        toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
+        toastElement.setAttribute('role', 'alert');
+        toastElement.innerHTML = `
+          <div class="d-flex">
+            <div class="toast-body">${message}</div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+          </div>
+        `;
+        document.body.appendChild(toastElement);
+        const toast = new bootstrap.Toast(toastElement);
+        toast.show();
+        toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
       },
     },
   };

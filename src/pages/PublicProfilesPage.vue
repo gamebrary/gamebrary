@@ -4,8 +4,12 @@
       <h3>Profiles</h3>
     </portal>
 
-    <b-container>
-      <b-spinner v-if="loading" class="spinner-centered" />
+    <div class="container">
+      <div v-if="loading" class="spinner-centered d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
 
       <div class="profiles-grid">
         <ProfileCard
@@ -14,7 +18,7 @@
           :profile="profile"
         />
       </div>
-    </b-container>
+    </div>
   </section>
 </template>
 

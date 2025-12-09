@@ -1,6 +1,6 @@
 <template lang="html">
   <section>
-    <b-container class="py-3">
+    <div class="container py-3">
       <div v-html="formattedReadme" />
       <!-- <vue-markdown
         class="w-100"
@@ -9,39 +9,39 @@
       /> -->
 
       <div v-if="repo" class="mb-4">
-        <b-button
-          size="sm"
+        <a
           href="https://github.com/romancm/gamebrary/subscription"
           target="_blank"
+          class="btn btn-sm btn-outline-primary me-2"
         >
-          {{ $t('gitHub.watch') }} <b-badge variant="light">{{ repo.watchers }}</b-badge>
-        </b-button>
+          {{ $t('gitHub.watch') }} <span class="badge bg-light text-dark">{{ repo.watchers }}</span>
+        </a>
 
-        <b-button
-          size="sm"
+        <a
           href="https://github.com/romancm/gamebrary"
           target="_blank"
+          class="btn btn-sm btn-outline-primary me-2"
         >
-          {{ $t('gitHub.star') }} <b-badge variant="light">{{ repo.stargazers_count }}</b-badge>
-        </b-button>
+          {{ $t('gitHub.star') }} <span class="badge bg-light text-dark">{{ repo.stargazers_count }}</span>
+        </a>
 
-        <b-button
-          size="sm"
+        <a
           href="https://github.com/romancm/gamebrary/fork"
           target="_blank"
+          class="btn btn-sm btn-outline-primary me-2"
         >
-          {{ $t('gitHub.fork') }} <b-badge variant="light">{{ repo.forks }}</b-badge>
-        </b-button>
+          {{ $t('gitHub.fork') }} <span class="badge bg-light text-dark">{{ repo.forks }}</span>
+        </a>
 
-        <b-button
-          size="sm"
+        <a
           href="https://github.com/romancm/gamebrary/issues"
           target="_blank"
+          class="btn btn-sm btn-outline-primary"
         >
-          {{ $t('gitHub.issues') }} <b-badge variant="light">{{ repo.open_issues }}</b-badge>
-        </b-button>
+          {{ $t('gitHub.issues') }} <span class="badge bg-light text-dark">{{ repo.open_issues }}</span>
+        </a>
       </div>
-    </b-container>
+    </div>
   </section>
 </template>
 

@@ -1,12 +1,16 @@
  <template lang="html">
-  <b-sidebar
+  <AppSidebar
     id="mainMenu"
     :visible="menuOpen"
-    v-bind="sidebarLeftProps"
+    :placement="sidebarLeftProps?.placement || 'start'"
+    :bg-variant="sidebarLeftProps?.bgVariant"
+    :text-variant="sidebarLeftProps?.textVariant"
+    :no-header="true"
+    @update:visible="handleVisibilityChange"
     @hidden="hideSidebar"
   >
-    <template #default="{ hide }">
-      <SidebarHeader @hide="hide">
+    <template #header>
+      <SidebarHeader @hide="hideSidebar">
         <router-link :to="{ name: 'home' }">
           <img
             src="/img/gamebrary-logo.png"
@@ -16,105 +20,94 @@
           />
         </router-link>
       </SidebarHeader>
-
-      <SearchBox class="mx-3" />
-
-      <div class="px-3 pt-3">
-        <b-button
-          :variant="routeName === 'boards' ?  activeVariant : variant"
-          block
-          size="lg"
-          class="text-left align-items-center d-flex"
-          :to="{ name: 'boards' }"
-        >
-          <i class="fa-regular fa-rectangle-list" />
-          <span class="ml-2">Boards</span>
-
-          <b-badge v-if="boards.length" class="ml-auto" variant="light">
-            {{ boards.length }}
-          </b-badge>
-        </b-button>
-
-        <b-button
-          :variant="routeName === 'games' ?  activeVariant : variant"
-          :to="{ name: 'games' }"
-          block
-          size="lg"
-          class="text-left align-items-center d-flex"
-        >
-          <i class="fa-regular fa-gamepad fa-fw" />
-          <span class="ml-2">Games</span>
-
-          <b-badge v-if="gameCount" class="ml-auto" variant="light">
-            {{ gameCount }}
-          </b-badge>
-        </b-button>
-
-        <b-button
-          :to="{ name: 'tags' }"
-          :variant="routeName === 'tags' ?  activeVariant : variant"
-          class="text-left align-items-center d-flex"
-          size="lg"
-          block
-        >
-          <i class="fa-light fa-tags fa-fw" />
-          <span class="ml-2">Tags</span>
-
-          <b-badge v-if="tags.length" class="ml-auto" variant="light">
-            {{ tags.length }}
-          </b-badge>
-        </b-button>
-
-        <b-button
-          :to="{ name: 'notes' }"
-          :variant="routeName === 'notes' ?  activeVariant : variant"
-          class="text-left align-items-center d-flex"
-          block
-          size="lg"
-        >
-          <i class="fa-regular fa-notes fa-fw" />
-
-          <span class="ml-2">Notes</span>
-
-          <b-badge v-if="notesCount" class="ml-auto" variant="light">
-            {{ notesCount }}
-          </b-badge>
-        </b-button>
-
-        <b-button
-          :variant="routeName === 'wallpapers' ?  activeVariant : variant"
-          :to="{ name: 'wallpapers' }"
-          class="text-left align-items-center d-flex"
-          block
-          size="lg"
-        >
-        <i class="fa-solid fa-images fa-fw" />
-          <span class="ml-2">Wallpapers</span>
-
-          <b-badge v-if="wallpaperCount" class="ml-auto" variant="light">
-            {{ wallpaperCount }}
-          </b-badge>
-        </b-button>
-
-        <ProfileDockMenu />
-
-        <b-button
-          block
-          class="text-left"
-          :variant="routeName === 'settings' ?  activeVariant : variant"
-          size="lg"
-          @click="openSettingsSidebar"
-        >
-          <i class="fa-regular fa-gear fa-fw" />
-          <span class="ml-2">Settings</span>
-        </b-button>
-      </div>
     </template>
+
+    <SearchBox class="mx-3" />
+
+    <div class="px-3 pt-3">
+      <router-link
+        :to="{ name: 'boards' }"
+        class="btn d-block btn-lg text-start align-items-center d-flex mb-2"
+        :class="routeName === 'boards' ? (darkTheme ? 'btn-success' : 'btn-dark') : (darkTheme ? 'btn-dark' : 'btn-light')"
+      >
+        <i class="fa-regular fa-rectangle-list" />
+        <span class="ms-2">Boards</span>
+
+        <span v-if="boards.length" class="badge bg-light text-dark ms-auto">
+          {{ boards.length }}
+        </span>
+      </router-link>
+
+      <router-link
+        :to="{ name: 'games' }"
+        class="btn d-block btn-lg text-start align-items-center d-flex mb-2"
+        :class="routeName === 'games' ? (darkTheme ? 'btn-success' : 'btn-dark') : (darkTheme ? 'btn-dark' : 'btn-light')"
+      >
+        <i class="fa-regular fa-gamepad fa-fw" />
+        <span class="ms-2">Games</span>
+
+        <span v-if="gameCount" class="badge bg-light text-dark ms-auto">
+          {{ gameCount }}
+        </span>
+      </router-link>
+
+      <router-link
+        :to="{ name: 'tags' }"
+        class="btn d-block btn-lg text-start align-items-center d-flex mb-2"
+        :class="routeName === 'tags' ? (darkTheme ? 'btn-success' : 'btn-dark') : (darkTheme ? 'btn-dark' : 'btn-light')"
+      >
+        <i class="fa-light fa-tags fa-fw" />
+        <span class="ms-2">Tags</span>
+
+        <span v-if="tags.length" class="badge bg-light text-dark ms-auto">
+          {{ tags.length }}
+        </span>
+      </router-link>
+
+      <router-link
+        :to="{ name: 'notes' }"
+        class="btn d-block btn-lg text-start align-items-center d-flex mb-2"
+        :class="routeName === 'notes' ? (darkTheme ? 'btn-success' : 'btn-dark') : (darkTheme ? 'btn-dark' : 'btn-light')"
+      >
+        <i class="fa-regular fa-notes fa-fw" />
+
+        <span class="ms-2">Notes</span>
+
+        <span v-if="notesCount" class="badge bg-light text-dark ms-auto">
+          {{ notesCount }}
+        </span>
+      </router-link>
+
+      <router-link
+        :to="{ name: 'wallpapers' }"
+        class="btn d-block btn-lg text-start align-items-center d-flex mb-2"
+        :class="routeName === 'wallpapers' ? (darkTheme ? 'btn-success' : 'btn-dark') : (darkTheme ? 'btn-dark' : 'btn-light')"
+      >
+        <i class="fa-solid fa-images fa-fw" />
+        <span class="ms-2">Wallpapers</span>
+
+        <span v-if="wallpaperCount" class="badge bg-light text-dark ms-auto">
+          {{ wallpaperCount }}
+        </span>
+      </router-link>
+
+      <ProfileDockMenu />
+
+      <button
+        type="button"
+        class="btn d-block btn-lg text-start w-100 mb-2"
+        :class="routeName === 'settings' ? (darkTheme ? 'btn-success' : 'btn-dark') : (darkTheme ? 'btn-dark' : 'btn-light')"
+        @click="openSettingsSidebar"
+      >
+        <i class="fa-regular fa-gear fa-fw" />
+        <span class="ms-2">Settings</span>
+      </button>
+    </div>
 
     <template #footer>
       <MainSidebarFooter />
     </template>
-  </b-sidebar>
+  </AppSidebar>
 </template>
 
 <script>
@@ -124,9 +117,11 @@ import ProfileDockMenu from '@/components/Dock/ProfileDockMenu';
 import SidebarHeader from '@/components/SidebarHeader';
 import MainSidebarFooter from '@/components/MainSidebarFooter';
 import SearchBox from '@/components/SearchBox';
+import AppSidebar from '@/components/Sidebar';
 
 export default {
   components: {
+    AppSidebar,
     SearchBox,
     ProfileDockMenu,
     SidebarHeader,
@@ -165,6 +160,10 @@ export default {
   },
 
   methods: {
+    handleVisibilityChange(visible) {
+      this.$store.commit('SET_MENU_OPEN', visible);
+    },
+
     hideSidebar() {
       this.$store.commit('SET_MENU_OPEN', false);
     },

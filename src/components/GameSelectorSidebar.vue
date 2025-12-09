@@ -1,38 +1,48 @@
 <template lang="html">
-  <b-sidebar
+  <AppSidebar
+    id="game-selector-sidebar"
     :visible="visible"
-    v-bind="sidebarRightProps"
+    :placement="sidebarRightProps?.placement || 'end'"
+    :bg-variant="sidebarRightProps?.bgVariant"
+    :text-variant="sidebarRightProps?.textVariant"
+    @update:visible="handleVisibilityChange"
     @hidden="closeSidebar"
   >
-    <template #default="{ hide }">
-      <SidebarHeader @hide="hide" :title="title" />
+    <template #header>
+      <SidebarHeader @hide="hideSidebar" :title="title" />
+    </template>
 
-      <div
-        class="px-3"
-        :class="darkTheme ? 'bg-dark' : 'bg-light'"
-        style="position: sticky; top: 0px; z-index: 1"
-      >
-        <b-form-input
-          v-model="searchText"
-          debounce="500"
-          class="mb-2"
-          placeholder="Search games (e.g. Axiom Verge)"
-          type="search"
-          @update="search"
-        />
+    <div
+      class="px-3"
+      :class="darkTheme ? 'bg-dark' : 'bg-light'"
+      style="position: sticky; top: 0px; z-index: 1"
+    >
+      <input
+        v-model="searchText"
+        class="form-control mb-2"
+        placeholder="Search games (e.g. Axiom Verge)"
+        type="search"
+        @input="debounceSearch"
+      />
 
-        <b-form-checkbox
-          v-if="filteredSearchResults.length"
+      <div v-if="filteredSearchResults.length" class="form-check form-switch">
+        <input
+          class="form-check-input"
+          type="checkbox"
           v-model="preventClose"
-          switch
-        >
+          id="preventCloseSwitch"
+        />
+        <label class="form-check-label" :class="darkTheme ? 'text-light' : null" for="preventCloseSwitch">
           Select multiple
-        </b-form-checkbox>
+        </label>
       </div>
+    </div>
 
-      <div v-if="loading" style="height: 80px" class="mt-5">
-        <b-spinner class="spinner-centered" />
+    <div v-if="loading" style="height: 80px" class="mt-5 d-flex justify-content-center align-items-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
       </div>
+    </div>
 
       <div v-else-if="filteredSearchResults.length > 0" class="mx-3">
         <GameCard
@@ -48,14 +58,14 @@
       <div v-else-if="searchText">
         No results
       </div>
-    </template>
-  </b-sidebar>
+  </AppSidebar>
 </template>
 
 <script>
 import { mapGetters, mapState } from 'vuex';
 import GameCard from '@/components/GameCard';
 import SidebarHeader from '@/components/SidebarHeader';
+import AppSidebar from '@/components/Sidebar';
 import { IGDB_QUERIES } from '@/constants';
 
 export default {
@@ -66,10 +76,12 @@ export default {
       preventClose: false,
       searchResults: [],
       localFilter: [],
+      debounceTimer: null,
     }
   },
 
   components: {
+    AppSidebar,
     GameCard,
     SidebarHeader,
   },
@@ -98,6 +110,25 @@ export default {
   },
 
   methods: {
+    handleVisibilityChange(visible) {
+      if (!visible) {
+        this.closeSidebar();
+      }
+    },
+
+    hideSidebar() {
+      this.$store.commit('CLEAR_GAME_SELECTOR_DATA');
+    },
+
+    debounceSearch() {
+      if (this.debounceTimer) {
+        clearTimeout(this.debounceTimer);
+      }
+      this.debounceTimer = setTimeout(() => {
+        this.search();
+      }, 500);
+    },
+
     selectGame(gameId) {
       if (this.preventClose) this.localFilter.push(gameId);
 

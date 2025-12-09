@@ -6,24 +6,24 @@
       style="margin-bottom: 4px;"
       :key="tier.id"
     >
-      <b-avatar
-        :style="`background-color: ${tier.backgroundColor}; border-radius: 4px !important;`"
-        text=" "
-        size="20"
+      <div
+        :style="`background-color: ${tier.backgroundColor}; border-radius: 4px !important; width: 20px; height: 20px;`"
       />
 
-      <b-avatar
+      <img
         v-for="(game, index) in tier.games"
         :key="index"
-        :variant="getGameVariant(game)"
-        v-b-tooltip.hover
+        :ref="el => { if (el) gameRefs[`tier-${tier.id}-game-${index}`] = el }"
+        :class="[
+          currentGameId === game.id ? 'border border-danger' : null,
+          getGameVariant(game) === 'black' ? 'bg-black' : getGameVariant(game) === 'secondary' ? 'bg-secondary' : getGameVariant(game) === 'success' ? 'bg-success' : 'bg-danger'
+        ]"
         :title="game.name"
-        text=" "
-        square
-        :src="showGameThumbnails ? game.src : null"
-        style="margin-left: 4px; border-radius: 4px !important;"
-        :class="currentGameId === game.id ? 'border border-danger' : null"
-        size="20"
+        :src="showGameThumbnails && game.src ? game.src : null"
+        :alt="game.name"
+        style="margin-left: 4px; border-radius: 4px !important; width: 20px; height: 20px; object-fit: cover;"
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
       />
     </div>
   </div>
@@ -40,6 +40,12 @@ export default {
     gameId: Number,
   },
 
+  data() {
+    return {
+      gameRefs: {},
+    };
+  },
+
   computed: {
     ...mapGetters(['darkTheme', 'showGameThumbnails']),
     ...mapState(['routeName', 'game']),
@@ -51,6 +57,14 @@ export default {
     },
   },
 
+  mounted() {
+    this.initTooltips();
+  },
+
+  updated() {
+    this.initTooltips();
+  },
+
   methods: {
     getGameVariant(game) {
       const defaultVariant = this.darkTheme ? 'black' : 'secondary';
@@ -59,6 +73,17 @@ export default {
       if (this.game?.id === this.gameId) return this.darkTheme ? 'success' : 'danger'
 
       return defaultVariant;
+    },
+
+    initTooltips() {
+      this.$nextTick(() => {
+        const tooltipTriggerList = this.$el.querySelectorAll('[data-bs-toggle="tooltip"]');
+        tooltipTriggerList.forEach(tooltipTriggerEl => {
+          if (!tooltipTriggerEl._tooltip) {
+            new bootstrap.Tooltip(tooltipTriggerEl);
+          }
+        });
+      });
     },
   },
 }

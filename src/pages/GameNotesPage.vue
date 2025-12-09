@@ -1,14 +1,18 @@
 <template lang="html">
   <section>
-    <b-container>
-      <b-spinner v-if="loading" class="spinner-centered" />
+    <div class="container">
+      <div v-if="loading" class="spinner-centered d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
 
-      <b-row v-else>
+      <div v-else class="row">
         <portal to="pageTitle">
           <h3>Notes</h3>
         </portal>
 
-        <b-col cols="12" sm="8" offset-sm="2">
+        <div class="col-12 col-sm-8 offset-sm-2">
           <div class="mb-3">
             <GameCard
               :game-id="game.id"
@@ -16,143 +20,154 @@
             />
 
             <router-link
+              v-if="game?.id && game?.slug"
               class="small mt-n2"
               :to="{ name: 'game', params: { id: game.id, slug: game.slug } }"
             >
               {{ game.name }}
             </router-link>
+            <span v-else class="small mt-n2">{{ game?.name }}</span>
           </div>
 
-          <!-- <b-button
-            :to="{ name: 'notes' }"
-            variant="light"
-            class="mr-2"
-          >
-            <i class="fa fa-book fa-fw" aria-hidden="true" />
-            Notes
-          </b-button> -->
-
-          <b-button-toolbar
+          <div
             v-if="editor"
-            key-nav
-            class="mb-3"
+            class="btn-toolbar mb-3"
+            role="toolbar"
             aria-label="Toolbar with button groups"
           >
-            <b-button-group>
-              <b-button
+            <div class="btn-group me-2" role="group">
+              <button
+                type="button"
+                class="btn"
+                :class="editor.isActive('paragraph') ? 'btn-dark' : 'btn-light'"
                 @click="editor.chain().focus().setParagraph().run()"
-                v-b-tooltip.hover
-                title="Regular text"
-                :variant="editor.isActive('paragraph') ? 'dark' : 'light'"
+                :title="'Regular text'"
+                data-bs-toggle="tooltip"
               >
                 <i class="fa-solid fa-font fa-fw" />
-              </b-button>
+              </button>
 
-              <b-button
+              <button
+                type="button"
+                class="btn"
+                :class="editor.isActive('heading', { level: 1 }) ? 'btn-dark' : 'btn-light'"
                 @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
-                v-b-tooltip.hover
-                title="Heading 1"
-                :variant="editor.isActive('heading', { level: 1 }) ? 'dark' : 'light'"
+                :title="'Heading 1'"
+                data-bs-toggle="tooltip"
               >
                 <span class="fa-layers fa-fw">
                   <i class="fa-solid fa-heading fa-fw" />
                   <i class="fa-solid fa-1" />
                 </span>
-              </b-button>
+              </button>
 
-              <b-button
+              <button
+                type="button"
+                class="btn"
+                :class="editor.isActive('heading', { level: 2 }) ? 'btn-dark' : 'btn-light'"
                 @click="editor.chain().focus().toggleHeading({ level: 2 }).run()"
-                v-b-tooltip.hover
-                title="Heading 2"
-                :variant="editor.isActive('heading', { level: 2 }) ? 'dark' : 'light'"
+                :title="'Heading 2'"
+                data-bs-toggle="tooltip"
               >
                 <span class="fa-layers fa-fw">
                   <i class="fa-solid fa-heading fa-fw" />
                   <i class="fa-solid fa-2" />
                 </span>
-              </b-button>
+              </button>
 
-              <b-button
+              <button
+                type="button"
+                class="btn"
+                :class="editor.isActive('heading', { level: 3 }) ? 'btn-dark' : 'btn-light'"
                 @click="editor.chain().focus().toggleHeading({ level: 3 }).run()"
-                v-b-tooltip.hover
-                title="Heading 3"
-                :variant="editor.isActive('heading', { level: 3 }) ? 'dark' : 'light'"
+                :title="'Heading 3'"
+                data-bs-toggle="tooltip"
               >
                 <span class="fa-layers fa-fw">
                   <i class="fa-solid fa-heading fa-fw" />
                   <i class="fa-solid fa-3" />
                 </span>
-              </b-button>
-            </b-button-group>
+              </button>
+            </div>
 
-            <b-button-group class="mx-3">
-              <b-button
+            <div class="btn-group" role="group">
+              <button
+                type="button"
+                class="btn"
+                :class="editor.isActive('bold') ? 'btn-dark' : 'btn-light'"
                 @click="editor.chain().focus().toggleBold().run()"
-                v-b-tooltip.hover
-                title="Bold"
-                :variant="editor.isActive('bold') ? 'dark' : 'light'"
+                :title="'Bold'"
+                data-bs-toggle="tooltip"
               >
                 <i class="fa-solid fa-bold fa-fw" />
-              </b-button>
-              <b-button
+              </button>
+              <button
+                type="button"
+                class="btn"
+                :class="editor.isActive('italic') ? 'btn-dark' : 'btn-light'"
                 @click="editor.chain().focus().toggleItalic().run()"
-                v-b-tooltip.hover
-                title="Italic"
-                :variant="editor.isActive('italic') ? 'dark' : 'light'"
+                :title="'Italic'"
+                data-bs-toggle="tooltip"
               >
                 <i class="fa-solid fa-italic fa-fw" />
-              </b-button>
-              <b-button
+              </button>
+              <button
+                type="button"
+                class="btn"
+                :class="editor.isActive('strike') ? 'btn-dark' : 'btn-light'"
                 @click="editor.chain().focus().toggleStrike().run()"
-                v-b-tooltip.hover
-                title="Strikethrough"
-                :variant="editor.isActive('strike') ? 'dark' : 'light'"
+                :title="'Strikethrough'"
+                data-bs-toggle="tooltip"
               >
                 <i class="fa-solid fa-strikethrough fa-fw" />
-              </b-button>
-            </b-button-group>
-          </b-button-toolbar>
+              </button>
+            </div>
+          </div>
 
           <editor-content :editor="editor" />
 
-          <b-link
-            class="small"
-            v-b-modal.markdown-cheatsheet
+          <a
+            href="#"
+            class="small link-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#markdown-cheatsheet"
+            @click.prevent
           >
             <i class="fab fa-markdown fa-fw" />
             Markdown supported
-          </b-link>
+          </a>
 
           <footer class="mt-2 d-flex">
-            <b-button
-              variant="primary"
+            <button
+              type="button"
+              class="btn btn-primary"
               :disabled="saving"
               @click="saveNote"
             >
-              <b-spinner small v-if="saving" />
+              <span v-if="saving" class="spinner-border spinner-border-sm me-2" role="status"></span>
               <span v-else>{{ $t('global.save') }}</span>
-            </b-button>
+            </button>
 
-            <b-button
-              variant="danger"
-              class="ml-2"
+            <button
+              type="button"
+              class="btn btn-danger ms-2"
               v-if="!saving"
               :disabled="deleting"
               @click="deleteNote"
             >
-              <b-spinner small v-if="deleting" />
+              <span v-if="deleting" class="spinner-border spinner-border-sm me-2" role="status"></span>
               <i v-else class="fas fa-trash" aria-hidden />
-            </b-button>
+            </button>
           </footer>
-        </b-col>
-      </b-row>
-    </b-container>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import { Editor, EditorContent } from '@tiptap/vue-2';
+import { Editor, EditorContent } from '@tiptap/vue-3';
 import StarterKit from '@tiptap/starter-kit';
 import GameCard from '@/components/GameCard';
 
@@ -184,13 +199,31 @@ export default {
 
   mounted() {
     this.loadGame();
+    this.initTooltips();
+  },
+
+  updated() {
+    this.initTooltips();
   },
 
   beforeDestroy() {
-    this.editor.destroy()
+    if (this.editor) {
+      this.editor.destroy();
+    }
   },
 
   methods: {
+    initTooltips() {
+      this.$nextTick(() => {
+        const tooltipTriggerList = this.$el.querySelectorAll('[data-bs-toggle="tooltip"]');
+        tooltipTriggerList.forEach(tooltipTriggerEl => {
+          if (!tooltipTriggerEl._tooltip) {
+            new bootstrap.Tooltip(tooltipTriggerEl);
+          }
+        });
+      });
+    },
+
     async loadGame() {
       const gameCached = this.game?.id == this.gameId;
 
@@ -263,12 +296,28 @@ export default {
       await this.$store.dispatch('SAVE_NOTES_NO_MERGE')
         .catch(() => {
           this.deleting = false;
-          this.$bvToast.toast('There was an error deleting your note', { variant: 'danger' });
+          this.showToast('There was an error deleting your note', 'danger');
         });
 
       this.note = '';
 
       this.$router.push({ name: 'game', params: { id: this.game.id, slug: this.game.slug } });
+    },
+
+    showToast(message, variant = 'info') {
+      const toastElement = document.createElement('div');
+      toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
+      toastElement.setAttribute('role', 'alert');
+      toastElement.innerHTML = `
+        <div class="d-flex">
+          <div class="toast-body">${message}</div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+      `;
+      document.body.appendChild(toastElement);
+      const toast = new bootstrap.Toast(toastElement);
+      toast.show();
+      toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
     },
   },
 };

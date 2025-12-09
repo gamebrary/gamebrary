@@ -2,99 +2,51 @@
   <div class="d-flex mx-2">
     <div
       v-for="(list, index) in board.lists"
-      :class="`ml-2 list`"
+      :class="`ms-2 list`"
       :key="index"
     >
-      <b-card
-        no-body
-        :bg-variant="darkTheme ? 'dark' : 'light'"
-        :text-variant="darkTheme ? 'light' : 'dark'"
+      <div
+        class="card"
+        :class="darkTheme ? 'bg-dark text-light' : 'bg-light text-dark'"
       >
-        <b-card-header class="pt-2 pb-1 px-2">
-          <b-skeleton />
-        </b-card-header>
+        <div class="card-header pt-2 pb-1 px-2">
+          <div class="placeholder-glow">
+            <span class="placeholder col-7"></span>
+          </div>
+        </div>
 
         <div
           v-if="list && list.games.length"
           class="games"
         >
           <div v-for="n in list.games.length" :key="n">
-            <b-card
-              no-body
-              img-top
-              :bg-variant="darkTheme ? 'dark' : 'light'"
-              class="mb-1 p-1"
+            <div
               v-if="getListView(list) === 'grid'"
+              class="card mb-1 p-1"
+              :class="darkTheme ? 'bg-dark text-light' : 'bg-light text-dark'"
             >
-              <b-skeleton-img
-                card-img="top"
-                class="rounded"
-                height="160px"
-              />
+              <div class="placeholder-glow">
+                <div class="placeholder rounded" style="height: 160px; width: 100%;"></div>
+              </div>
 
-              <b-card-body class="p-2">
-                <b-skeleton class="mt-2" />
-              </b-card-body>
-            </b-card>
-
-            <!-- <div
-              v-else-if="getListView(list) === 'covers'"
-              class="covers-grid"
-            >
-              <b-skeleton-img
-                v-for="n in 3"
-                :key="n"
-                class="rounded"
-                height="120px"
-              />
+              <div class="card-body p-2">
+                <div class="placeholder-glow mt-2">
+                  <span class="placeholder col-12"></span>
+                </div>
+              </div>
             </div>
 
-            <b-card
-              v-else-if="getListView(list) === 'single'"
-              no-body
-              img-left
-              :bg-variant="darkTheme ? 'dark' : 'light'"
-            >
-              <b-skeleton-img
-                card-img="left"
-                width="85px"
-                class="rounded m-1"
-                height="112px"
-              />
-
-              <b-card-body class="p-2">
-                <b-skeleton />
-              </b-card-body>
-            </b-card>
-
-            <b-card
-              v-else-if="getListView(list) === 'compact'"
-              no-body
-              img-left
-              :bg-variant="darkTheme ? 'dark' : 'light'"
-            >
-              <b-skeleton-img
-                card-img="left"
-                class="rounded m-1"
-                width="60px"
-                height="80px"
-              />
-
-              <b-card-body class="p-2">
-                <b-skeleton />
-              </b-card-body>
-            </b-card> -->
-
-            <b-card
+            <div
               v-else
-              no-body
-              img-left
-
+              class="card d-flex"
+              :class="darkTheme ? 'bg-dark text-light' : 'bg-light text-dark'"
             >
-              <b-card-body class="p-2">
-                <b-skeleton class="m-0" />
-              </b-card-body>
-            </b-card>
+              <div class="card-body p-2">
+                <div class="placeholder-glow m-0">
+                  <span class="placeholder col-12"></span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -102,9 +54,11 @@
           class="p-2"
           v-else
         >
-          <b-skeleton height="2rem" />
+          <div class="placeholder-glow">
+            <span class="placeholder col-12" style="height: 2rem;"></span>
+          </div>
         </div>
-      </b-card>
+      </div>
     </div>
   </div>
 </template>
@@ -119,6 +73,13 @@ export default {
   },
 
   methods: {
+    getListView(list) {
+      if (list?.vertical) return 'vertical';
+      if (list?.smallCover) return 'covers';
+      if (list?.hideCover) return 'compact';
+      if (list?.hideTitle) return 'single';
+      return 'grid';
+    },
   },
 };
 </script>

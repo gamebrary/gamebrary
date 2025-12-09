@@ -1,19 +1,22 @@
 <template lang="html">
-  <b-form-group label="Language">
-    <b-form-select
+  <div class="mb-3">
+    <label for="language" class="form-label">Language</label>
+    <select
+      id="language"
       v-model="language"
+      class="form-select"
       style="max-width: 200px"
       @change="saveLanguage"
     >
-      <b-form-select-option
+      <option
         v-for="{ name, value } in SUPPORTED_LANGUAGES"
         :key="value"
         :value="value"
       >
         {{ name }}
-      </b-form-select-option>
-    </b-form-select>
-  </b-form-group>
+      </option>
+    </select>
+  </div>
 </template>
 
 <script>
@@ -38,6 +41,22 @@ export default {
   },
 
   methods: {
+    showToast(message, variant = 'info') {
+      const toastElement = document.createElement('div');
+      toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
+      toastElement.setAttribute('role', 'alert');
+      toastElement.innerHTML = `
+        <div class="d-flex">
+          <div class="toast-body">${message}</div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+      `;
+      document.body.appendChild(toastElement);
+      const toast = new bootstrap.Toast(toastElement);
+      toast.show();
+      toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
+    },
+
     async saveLanguage() {
       const { language, settings } = this;
       this.$i18n.locale = language;
@@ -49,7 +68,7 @@ export default {
 
       await this.$store.dispatch('SAVE_SETTINGS', payload)
         .catch(() => {
-          this.$bvToast.toast('There was an error saving your settings', { variant: 'danger' });
+          this.showToast('There was an error saving your settings', 'danger');
           this.saving = false;
         });
     },

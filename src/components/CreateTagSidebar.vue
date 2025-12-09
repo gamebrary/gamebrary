@@ -1,57 +1,58 @@
 <template lang="html">
-  <b-sidebar
+  <Sidebar
     id="create-tag-sidebar"
+    :visible="visible"
+    :placement="'end'"
+    :no-header="true"
     v-bind="sidebarRightProps"
-    @hidden="saving = false"
+    @hidden="handleHidden"
   >
-    <template #default="{ hide }">
-      <SidebarHeader @hide="hide" title="Create tag" />
+    <SidebarHeader @hide="hideSidebar" title="Create tag" />
 
       <form @submit.prevent="submit" class="p-3">
         <div class="d-flex">
-          <b-form-input
+          <input
             id="tagName"
+            type="text"
             v-model.trim="tag.name"
-            class="mr-2"
+            class="form-control me-2"
             maxlength="20"
             :placeholder="$t('tags.form.inputPlaceholder')"
             required
-            trim
           />
 
-          <v-swatches
+          <input
+            type="color"
             v-model="tag.bgColor"
-            v-b-tooltip.hover
+            class="form-control form-control-color me-2"
+            style="width: 40px; height: 40px; cursor: pointer;"
             title="Tag background color"
-            v-bind="swatchesProps"
-            class="mr-2"
-            />
+          />
 
-            <v-swatches
+          <input
+            type="color"
             v-model="tag.textColor"
-            v-b-tooltip.hover
-            v-bind="swatchesProps"
+            class="form-control form-control-color"
+            style="width: 40px; height: 40px; cursor: pointer;"
             title="Tag text color"
           />
         </div>
 
-        <b-button
-          class="mt-3"
-          variant="primary"
-          :disabled="saving"
+        <button
           type="submit"
+          class="btn btn-primary mt-3"
+          :disabled="saving"
         >
-          <b-spinner small v-if="saving" />
+          <span v-if="saving" class="spinner-border spinner-border-sm me-2" role="status"></span>
           <span v-else>Create</span>
-        </b-button>
+        </button>
       </form>
-    </template>
-  </b-sidebar>
+  </Sidebar>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import VSwatches from 'vue-swatches'
+import Sidebar from '@/components/Sidebar';
 import SidebarHeader from '@/components/SidebarHeader';
 
 export default {
@@ -68,16 +69,35 @@ export default {
   },
 
   components: {
-    VSwatches,
+    Sidebar,
     SidebarHeader,
   },
 
   computed: {
     ...mapState(['tags']),
-    ...mapGetters(['sidebarRightProps', 'swatchesProps', 'darkTheme']),
+    ...mapGetters(['sidebarRightProps', 'darkTheme']),
+
+    visible() {
+      // Control visibility via store or prop - adjust based on your needs
+      return this.$store.state.activeTagIndex !== null || false;
+    },
   },
 
   methods: {
+    hideSidebar() {
+      const element = document.getElementById('create-tag-sidebar');
+      if (element) {
+        const bsOffcanvas = bootstrap.Offcanvas.getInstance(element);
+        if (bsOffcanvas) {
+          bsOffcanvas.hide();
+        }
+      }
+    },
+
+    handleHidden() {
+      this.saving = false;
+    },
+
     async submit() {
       this.$store.commit('CREATE_TAG', this.tag);
       this.saving = true;
@@ -86,7 +106,7 @@ export default {
         .catch(() => {});
 
       this.saving = false;
-      this.$root.$emit('bv::toggle::collapse', 'create-tag-sidebar');
+      this.hideSidebar();
     },
   },
 };

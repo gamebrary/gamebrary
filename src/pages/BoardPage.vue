@@ -6,49 +6,55 @@
     <CloneBoardSidebar v-if="user" />
 
     <portal to="headerActions">
-      <b-dropdown
-        v-if="user"
-        variant="black"
-        right
-        no-caret
-      >
-        <template #button-content>
-          {{ board.name }}
-
-          <i class="fa-regular fa-caret-down fa-fw" />
-        </template>
-
-        <b-dropdown-item v-if="canEdit" v-b-toggle.edit-board-sidebar>
-          <i class="fa-solid fa-pen fa-fw" /> Edit board
-        </b-dropdown-item>
-
-        <b-dropdown-item v-b-toggle.clone-board-sidebar>
-          <i class="fa-regular fa-clone fa-fw" /> Clone board
-        </b-dropdown-item>
-
-        <b-dropdown-item
-          v-if="publicUserName"
-          :to="{ name: 'public.profile', params: { userName: publicUserName }}"
+      <div v-if="user" class="dropdown">
+        <button
+          class="btn dropdown-toggle"
+          :class="darkTheme ? 'btn-dark' : 'btn-dark'"
+          type="button"
+          id="boardActionsDropdown"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
         >
-          <b-avatar
-            rounded
-            v-if="avatarImage"
-            :src="avatarImage"
-            size="24"
-            square
-            class="mr-1"
-          />
+          {{ board.name }}
+          <i class="fa-regular fa-caret-down fa-fw" />
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="boardActionsDropdown">
+          <li v-if="canEdit">
+            <a class="dropdown-item" href="#" @click.prevent="$root.$emit('bv::toggle::collapse', 'edit-board-sidebar')">
+              <i class="fa-solid fa-pen fa-fw" /> Edit board
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#" @click.prevent="$root.$emit('bv::toggle::collapse', 'clone-board-sidebar')">
+              <i class="fa-regular fa-clone fa-fw" /> Clone board
+            </a>
+          </li>
+          <li v-if="publicUserName">
+            <router-link
+              class="dropdown-item d-flex align-items-center"
+              :to="{ name: 'public.profile', params: { userName: publicUserName }}"
+            >
+              <img
+                v-if="avatarImage"
+                :src="avatarImage"
+                class="rounded-circle me-1"
+                style="width: 24px; height: 24px; object-fit: cover;"
+                alt=""
+              />
+              {{ publicUserName }}
+            </router-link>
+          </li>
+        </ul>
+      </div>
 
-          {{ publicUserName }}
-        </b-dropdown-item>
-      </b-dropdown>
-
-      <b-button
+      <button
         v-else
-        variant="black"
+        type="button"
+        class="btn"
+        :class="darkTheme ? 'btn-dark' : 'btn-dark'"
       >
         {{ board.name }}
-      </b-button>
+      </button>
     </portal>
 
     <StandardBoard v-if="board.type === $options.BOARD_TYPE_STANDARD" />
@@ -57,13 +63,9 @@
     <KanbanBoard v-else />
   </div>
 
-  <b-alert
-    v-else
-    variant="warning"
-    show
-  >
+  <div v-else class="alert alert-warning" role="alert">
     <span>Private Board</span>
-  </b-alert>
+  </div>
 </template>
 
 <script>
@@ -265,10 +267,26 @@ export default {
       try {
         await this.$store.dispatch('LOAD_IGDB_GAMES', gameList)
       } catch (e) {
-        this.$bvToast.toast('Error loading games', { variant: 'error' });
+        this.showToast('Error loading games', 'danger');
       }
 
       this.loading = false;
+    },
+
+    showToast(message, variant = 'info') {
+      const toastElement = document.createElement('div');
+      toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
+      toastElement.setAttribute('role', 'alert');
+      toastElement.innerHTML = `
+        <div class="d-flex">
+          <div class="toast-body">${message}</div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+      `;
+      document.body.appendChild(toastElement);
+      const toast = new bootstrap.Toast(toastElement);
+      toast.show();
+      toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
     },
 
     loadGamesInChunks(gameList) {

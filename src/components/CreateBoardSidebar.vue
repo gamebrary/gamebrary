@@ -1,39 +1,49 @@
 <template lang="html">
-  <b-sidebar
+  <AppSidebar
     id="create-board-sidebar"
-    v-bind="sidebarRightProps"
-    @hidden="saving = false"
+    :visible="visible"
+    :placement="sidebarRightProps?.placement || 'end'"
+    :bg-variant="sidebarRightProps?.bgVariant"
+    :text-variant="sidebarRightProps?.textVariant"
+    @update:visible="handleVisibilityChange"
+    @hidden="handleHidden"
   >
-    <template #default="{ hide }">
+    <template #header>
       <SidebarHeader
-        @hide="hide"
+        @hide="hideSidebar"
         title="Create board"
       />
+    </template>
 
-      <b-form
+      <form
         class="p-3"
         @submit.prevent="createBoard"
       >
-        <b-form-group label="Board name:" label-for="boardName">
-          <b-form-input
+        <div class="mb-3">
+          <label for="boardName" class="form-label">Board name:</label>
+          <input
             id="boardName"
+            type="text"
             v-model.trim="board.name"
+            class="form-control"
             autofocus
             required
           />
-        </b-form-group>
+        </div>
 
         <p>Board type:</p>
-        <b-button-group class="mb-2">
-          <b-button
+        <div class="btn-group mb-2" role="group">
+          <button
             v-for="{ text, value } in $options.BOARD_TYPES"
             :key="value"
-            :variant="value === board.type ? 'primary' : 'light'"
+            type="button"
+            class="btn"
+            :class="value === board.type ? 'btn-primary' : 'btn-light'"
             @click="board.type = value"
           >
             {{ text }}
-          </b-button>
-        </b-button-group>
+          </button>
+        </div>
 
         <MiniBoard
           class="mb-2"
@@ -41,32 +51,43 @@
           no-link
         />
 
-        <b-form-checkbox
+        <div
           v-if="board.type === $options.BOARD_TYPE_STANDARD"
-          v-model="board.ranked"
-          name="check-button"
-          class="mb-3"
-          switch
+          class="form-check form-switch mb-3"
         >
-          Ranked
-        </b-form-checkbox>
+          <input
+            class="form-check-input"
+            type="checkbox"
+            v-model="board.ranked"
+            id="rankedSwitch"
+          />
+          <label class="form-check-label" for="rankedSwitch">
+            Ranked
+          </label>
+        </div>
 
-        <b-form-checkbox v-model="board.isPublic" switch class="mb-2">
-          Public
-        </b-form-checkbox>
+        <div class="form-check form-switch mb-2">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            v-model="board.isPublic"
+            id="isPublicSwitch"
+          />
+          <label class="form-check-label" for="isPublicSwitch">
+            Public
+          </label>
+        </div>
 
-        <b-button
-          variant="primary"
-          class="mt-3"
-          loading
+        <button
           type="submit"
+          class="btn btn-primary mt-3"
+          :disabled="saving"
         >
-          <b-spinner small v-if="saving" />
-          <template v-else>Create board</template>
-        </b-button>
-      </b-form>
-    </template>
-  </b-sidebar>
+          <span v-if="saving" class="spinner-border spinner-border-sm me-2" role="status"></span>
+          <span v-else>Create board</span>
+        </button>
+      </form>
+  </AppSidebar>
 </template>
 
 <script>
@@ -81,6 +102,7 @@ import {
 } from '@/constants';
 import MiniBoard from '@/components/Board/MiniBoard';
 import SidebarHeader from '@/components/SidebarHeader';
+import AppSidebar from '@/components/Sidebar';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
@@ -90,6 +112,7 @@ export default {
   DEFAULT_BOARD_TIER,
 
   components: {
+    AppSidebar,
     MiniBoard,
     SidebarHeader,
   },
@@ -99,6 +122,7 @@ export default {
       board: {},
       saving: false,
       selectedTemplate: null,
+      visible: false,
     };
   },
 
@@ -107,6 +131,16 @@ export default {
       ...this.sampleBoard,
       type: BOARD_TYPE_KANBAN,
     }
+    // Listen for sidebar toggle events
+    this.$root.$on('bv::toggle::collapse', (id) => {
+      if (id === 'create-board-sidebar') {
+        this.visible = !this.visible;
+      }
+    });
+  },
+
+  beforeUnmount() {
+    this.$root.$off('bv::toggle::collapse');
   },
 
   computed: {
@@ -137,6 +171,19 @@ export default {
   },
 
   methods: {
+    handleVisibilityChange(visible) {
+      this.visible = visible;
+    },
+
+    handleHidden() {
+      this.saving = false;
+      this.visible = false;
+    },
+
+    hideSidebar() {
+      this.visible = false;
+    },
+
     async createBoard() {
       try {
         this.saving = true;

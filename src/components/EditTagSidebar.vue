@@ -1,75 +1,90 @@
 <template lang="html">
-  <b-sidebar
+  <AppSidebar
+    id="edit-tag-sidebar"
     :visible="activeTagIndex !== null"
-    v-bind="sidebarRightProps"
+    :placement="sidebarRightProps?.placement || 'end'"
+    :bg-variant="sidebarRightProps?.bgVariant"
+    :text-variant="sidebarRightProps?.textVariant"
+    @update:visible="handleVisibilityChange"
     @shown="load"
     @hidden="closeSidebar"
   >
-    <template #default="{ hide }">
-      <SidebarHeader @hide="hide" title="Edit tag" />
+    <template #header>
+      <SidebarHeader @hide="hideSidebar" title="Edit tag" />
+    </template>
 
       <form @submit.prevent="saveTag" class="px-3">
         <div class="d-flex">
-          <b-form-input
+          <input
             id="tagName"
+            type="text"
             v-model.trim="tag.name"
-            class="mr-2"
+            class="form-control me-2"
             maxlength="20"
             :placeholder="$t('tags.form.inputPlaceholder')"
             required
-            trim
           />
 
-          <v-swatches
+          <input
+            type="color"
             v-model="tag.bgColor"
-            v-b-tooltip.hover
-            v-bind="swatchesProps"
-            class="mr-2"
+            class="form-control form-control-color me-2"
+            style="width: 40px; height: 40px; cursor: pointer;"
             title="Tag background color"
           />
 
-          <v-swatches
+          <input
+            type="color"
             v-model="tag.textColor"
-            v-b-tooltip.hover
-            v-bind="swatchesProps"
+            class="form-control form-control-color"
+            style="width: 40px; height: 40px; cursor: pointer;"
             title="Tag text color"
           />
         </div>
 
         <div class="my-3">
-          <b-button
-            :variant="darkTheme ? 'secondary' : 'primary'"
-            :disabled="saving"
+          <button
             type="submit"
+            class="btn"
+            :class="darkTheme ? 'btn-secondary' : 'btn-primary'"
+            :disabled="saving"
           >
-            <b-spinner small v-if="saving" />
+            <span v-if="saving" class="spinner-border spinner-border-sm me-2" role="status"></span>
             <span v-else>Save</span>
-          </b-button>
+          </button>
 
-          <b-button
-            variant="danger"
-            class="ml-2"
+          <button
+            type="button"
+            class="btn btn-danger ms-2"
             @click="promptDeleteTag"
           >
             <i class="fas fa-trash-alt fa-fw" aria-hidden />
-          </b-button>
+          </button>
         </div>
 
         <div class="border rounded p-3 mt-auto">
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h3>Games tagged</h3>
 
-            <b-button @click="openGameSelectorSidebar">
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click="openGameSelectorSidebar"
+            >
               <i class="fa-solid fa-plus" />
-            </b-button>
+            </button>
           </div>
 
           <p v-if="isEmpty">
             No games tagged yet.
 
-            <b-link @click="openGameSelectorSidebar">
+            <a
+              href="#"
+              class="link-primary"
+              @click.prevent="openGameSelectorSidebar"
+            >
               Tag game
-            </b-link>
+            </a>
           </p>
 
           <GameCard
@@ -83,14 +98,13 @@
           />
         </div>
       </form>
-    </template>
-  </b-sidebar>
+  </AppSidebar>
 </template>
 
 <script>
-import VSwatches from 'vue-swatches'
 import GameCard from '@/components/GameCard';
 import SidebarHeader from '@/components/SidebarHeader';
+import AppSidebar from '@/components/Sidebar';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
@@ -103,14 +117,14 @@ export default {
   },
 
   components: {
-    VSwatches,
+    AppSidebar,
     GameCard,
     SidebarHeader,
   },
 
   computed: {
     ...mapState(['tags', 'cachedGames', 'activeTagIndex']),
-    ...mapGetters(['sidebarRightProps', 'swatchesProps', 'darkTheme']),
+    ...mapGetters(['sidebarRightProps', 'darkTheme']),
 
     isEmpty() {
       return this.tag?.games?.length === 0;
@@ -124,12 +138,16 @@ export default {
   },
 
   async mounted() {
-    this.$bus.$on('SAVE_TAGS', this.selectGame);
+    if (this.$bus) {
+      this.$bus.$on('SAVE_TAGS', this.selectGame);
+    }
     this.load();
   },
 
   destroyed() {
-    this.$bus.$off('SAVE_TAGS', this.selectGame);
+    if (this.$bus) {
+      this.$bus.$off('SAVE_TAGS', this.selectGame);
+    }
   },
 
   beforeRouteEnter(to, from, next) {
@@ -137,6 +155,16 @@ export default {
   },
 
   methods: {
+    handleVisibilityChange(visible) {
+      if (!visible) {
+        this.closeSidebar();
+      }
+    },
+
+    hideSidebar() {
+      this.$store.commit('SET_ACTIVE_TAG_INDEX', null);
+    },
+
     closeSidebar() {
       this.$store.commit('SET_ACTIVE_TAG_INDEX', null);
     },
@@ -169,15 +197,7 @@ export default {
     },
 
     async promptDeleteTag() {
-      const confirmed = await this.$bvModal.msgBoxConfirm(this.$t('tags.delete.message'), {
-        title: this.$t('tags.delete.title'),
-        okVariant: 'danger',
-        okTitle: this.$t('tags.delete.buttonLabel'),
-        cancelTitle: this.$t('global.cancel'),
-        headerClass: 'pb-0 border-0',
-        footerClass: 'pt-0 border-0',
-      });
-
+      const confirmed = window.confirm(this.$t('tags.delete.message'));
       if (confirmed) this.deleteTag();
     },
 

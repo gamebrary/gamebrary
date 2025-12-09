@@ -1,27 +1,26 @@
 <template>
   <div class="position-relative">
-    <b-button
-      variant="transparent"
-      squared
-      class="ml-3 mt-2 p-0 position-absolute"
+    <button
+      type="button"
+      class="btn ms-3 mt-2 p-0 position-absolute"
+      :class="darkTheme ? 'btn-dark' : 'btn-light'"
+      style="background: transparent; border: none;"
       :disabled="!user"
       @click="$bus.$emit('LIKE_UNLIKE_GAME', gameId)"
     >
       <i :class="[isLiked ? 'fa-solid': 'fa-regular' , 'fa-heart text-danger']" />
-    </b-button>
+    </button>
 
     <GameRatings class="position-absolute d-flex" style="bottom: 1rem; right: 1rem;" />
 
     <GameMediaCarousel />
 
-    <b-img
+    <img
       :src="$options.getImageUrl(game)"
       :alt="gameName"
-      class="cursor-pointer border d-flex mb-3 w-100"
+      class="cursor-pointer border d-flex mb-3 w-100 rounded"
       :class="`border-${darkTheme ? 'dark' : 'light'}`"
-      bordered
-      rounded
-      @click="$bvModal.show('mediaModal')"
+      @click="openMediaModal"
     />
   </div>
 </template>
@@ -58,6 +57,16 @@ export default {
 
     gameName() {
       return this.cachedGame?.name;
+    },
+  },
+
+  methods: {
+    openMediaModal() {
+      const modalElement = document.getElementById('mediaModal');
+      if (modalElement) {
+        const modal = new bootstrap.Modal(modalElement);
+        modal.show();
+      }
     },
   },
 }

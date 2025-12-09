@@ -1,40 +1,65 @@
 <template lang="html">
   <div class="px-3">
     <portal v-if="likedGames.length" to="headerActions">
-      <b-dropdown
-        text="Games"
-        :variant="darkTheme ? 'success' : 'black'"
-      >
-        <b-dropdown-item-button
-          title="Add games"
-          v-bind="buttonProps"
-          @click="addGame"
+      <div class="dropdown">
+        <button
+          class="btn dropdown-toggle"
+          :class="darkTheme ? 'btn-success' : 'btn-dark'"
+          type="button"
+          id="gamesDropdown"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
         >
-          <i class="fa-solid fa-plus" />
-          Add games
-        </b-dropdown-item-button>
-      </b-dropdown>
+          Games
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="gamesDropdown">
+          <li>
+            <button
+              type="button"
+              class="dropdown-item"
+              title="Add games"
+              @click="addGame"
+            >
+              <i class="fa-solid fa-plus" />
+              Add games
+            </button>
+          </li>
+        </ul>
+      </div>
 
-      <b-dropdown
-        text="Sort"
-        :variant="darkTheme ? 'success' : 'black'"
-        class="ml-2"
-      >
-        <b-dropdown-item-button
-          v-for="option in sortOptions"
-          :key="option.value"
-          :active="sortBy === option.value"
-          @click="changeSort(option.value)"
+      <div class="dropdown ms-2">
+        <button
+          class="btn dropdown-toggle"
+          :class="darkTheme ? 'btn-success' : 'btn-dark'"
+          type="button"
+          id="sortDropdown"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
         >
-          <i :class="option.icon" class="mr-2" />
-          {{ option.label }}
-          <i
-            v-if="sortBy === option.value"
-            :class="sortOrder === 'asc' ? 'fa-arrow-up' : 'fa-arrow-down'"
-            class="ml-2"
-          />
-        </b-dropdown-item-button>
-      </b-dropdown>
+          Sort
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="sortDropdown">
+          <li
+            v-for="option in sortOptions"
+            :key="option.value"
+          >
+            <button
+              type="button"
+              class="dropdown-item"
+              :class="{ 'active': sortBy === option.value }"
+              @click="changeSort(option.value)"
+            >
+              <i :class="option.icon" class="me-2" />
+              {{ option.label }}
+              <i
+                v-if="sortBy === option.value"
+                :class="sortOrder === 'asc' ? 'fa-arrow-up' : 'fa-arrow-down'"
+                class="ms-2"
+              />
+            </button>
+          </li>
+        </ul>
+      </div>
     </portal>
 
     <EmptyState
@@ -44,7 +69,11 @@
       <p>Click on <i class="fa-solid fa-heart text-primary" /> and your games will show here.</p>
     </EmptyState>
 
-    <b-spinner v-else-if="loading" class="spinner-centered" />
+    <div v-else-if="loading" class="spinner-centered d-flex justify-content-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
 
     <div v-else-if="likedGames.length" class="small-container pb-5">
       <GameCard
@@ -61,14 +90,16 @@
       title="Welcome to your collection of top picks!"
       message="Here you'll find all the games you’ve marked as your favorites."
     >
-      <b-button
+      <button
+        type="button"
+        class="btn"
+        :class="darkTheme ? 'btn-success' : 'btn-primary'"
+        data-bs-toggle="tooltip"
         title="Add games"
-        v-b-tooltip.hover
-        :variant="darkTheme ? 'success' : 'primary'"
         @click="addGame"
       >
         Add games
-      </b-button>
+      </button>
     </EmptyState>
   </div>
 </template>
@@ -138,7 +169,7 @@ export default {
     },
   },
 
-  mounted() {
+  beforeMount() {
     if (this.user) {
       this.loadGames();
     } else {
@@ -146,6 +177,14 @@ export default {
     }
 
     this.$bus.$on('SELECT_GAME', this.selectGame);
+  },
+
+  mounted() {
+    // Initialize tooltips
+    this.$nextTick(() => {
+      const tooltipTriggerList = [].slice.call(this.$el.querySelectorAll('[data-bs-toggle="tooltip"]'));
+      tooltipTriggerList.map((tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl));
+    });
   },
 
   destroyed() {

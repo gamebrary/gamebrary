@@ -1,21 +1,29 @@
 <template lang="html">
-  <b-sidebar
+  <AppSidebar
     id="clone-board-sidebar"
-    v-bind="sidebarRightProps"
+    :visible="visible"
+    :placement="sidebarRightProps?.placement || 'end'"
+    :bg-variant="sidebarRightProps?.bgVariant"
+    :text-variant="sidebarRightProps?.textVariant"
+    @update:visible="handleVisibilityChange"
     @shown="setBoardName"
   >
-    <template #default="{ hide }">
-      <SidebarHeader @hide="hide" title="Clone board" />
+    <template #header>
+      <SidebarHeader @hide="hideSidebar" title="Clone board" />
+    </template>
 
       <form @submit.prevent="cloneBoard" class="px-3">
-        <b-form-group label="Board name:" label-for="boardName">
-          <b-form-input
+        <div class="mb-3">
+          <label for="boardName" class="form-label">Board name:</label>
+          <input
             id="boardName"
+            type="text"
             v-model.trim="boardName"
+            class="form-control"
             autofocus
             required
           />
-        </b-form-group>
+        </div>
 
         <MiniBoard
           class="mb-2"
@@ -23,22 +31,22 @@
           no-link
         />
 
-        <b-button
-          :variant="darkTheme ? 'secondary' : 'primary'"
-          :disabled="saving"
+        <button
           type="submit"
+          class="btn"
+          :class="darkTheme ? 'btn-secondary' : 'btn-primary'"
+          :disabled="saving"
         >
-          <b-spinner small v-if="saving" />
+          <span v-if="saving" class="spinner-border spinner-border-sm me-2" role="status"></span>
           <span v-else>Clone board</span>
-        </b-button>
+        </button>
       </form>
-
-    </template>
-  </b-sidebar>
+  </AppSidebar>
 </template>
 
 <script>
 import SidebarHeader from '@/components/SidebarHeader';
+import AppSidebar from '@/components/Sidebar';
 import MiniBoard from '@/components/Board/MiniBoard';
 import { mapState, mapGetters } from 'vuex';
 import { BOARD_TYPE_KANBAN } from '@/constants';
@@ -48,10 +56,12 @@ export default {
     return {
       boardName: '',
       saving: false,
+      visible: false,
     }
   },
 
   components: {
+    AppSidebar,
     SidebarHeader,
     MiniBoard,
   },
@@ -90,7 +100,44 @@ export default {
     },
   },
 
+  mounted() {
+    // Listen for sidebar toggle events
+    this.$root.$on('bv::toggle::collapse', (id) => {
+      if (id === 'clone-board-sidebar') {
+        this.visible = !this.visible;
+      }
+    });
+  },
+
+  beforeUnmount() {
+    this.$root.$off('bv::toggle::collapse');
+  },
+
   methods: {
+    handleVisibilityChange(visible) {
+      this.visible = visible;
+    },
+
+    hideSidebar() {
+      this.visible = false;
+    },
+
+    showToast(message, variant = 'info') {
+      const toastElement = document.createElement('div');
+      toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
+      toastElement.setAttribute('role', 'alert');
+      toastElement.innerHTML = `
+        <div class="d-flex">
+          <div class="toast-body">${message}</div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+      `;
+      document.body.appendChild(toastElement);
+      const toast = new bootstrap.Toast(toastElement);
+      toast.show();
+      toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
+    },
+
     setBoardName() {
       this.boardName = this.board.name || '';
     },
@@ -100,7 +147,7 @@ export default {
         this.saving = true;
 
         const { id } = await this.$store.dispatch('CREATE_BOARD', this.payload);
-        this.$bvToast.toast('Board cloned');
+        this.showToast('Board cloned', 'success');
         this.saving = false;
         this.$router.push({ name: 'board', params: { id } });
       } catch (e) {

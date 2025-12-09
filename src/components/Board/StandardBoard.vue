@@ -8,32 +8,35 @@
       class="games"
       v-bind="draggableProps"
       :list="listGames"
+      :item-key="(gameId) => gameId"
       :move="validateMove"
       :disabled="draggingDisabled"
       @end="dragEnd"
       @start="dragStart"
     >
-      <GameCard
-        v-for="(gameId, index) in listGames"
-        :key="index"
-        :list="list"
-        :ref="gameId"
-        :game-id="gameId"
-        :ranked="board.ranked"
-        :rank="index + 1"
-        class="mb-3"
-        @click.native="openGame(gameId, list)"
-      />
-
-      <b-button
-        v-if="isBoardOwner"
-        class="py-3"
-        block
-        :variant="darkTheme ? 'success' : 'primary'"
-        @click="openGameSelectorSidebar"
-      >
-        Add games
-      </b-button>
+      <template #item="{ element: gameId, index }">
+        <GameCard
+          :key="gameId"
+          :list="list"
+          :ref="gameId"
+          :game-id="gameId"
+          :ranked="board.ranked"
+          :rank="index + 1"
+          class="mb-3"
+          @click.native="openGame(gameId, list)"
+        />
+      </template>
+      <template #footer>
+        <button
+          v-if="isBoardOwner"
+          type="button"
+          class="btn w-100 py-3"
+          :class="darkTheme ? 'btn-success' : 'btn-primary'"
+          @click="openGameSelectorSidebar"
+        >
+          Add games
+        </button>
+      </template>
     </draggable>
   </div>
 </template>

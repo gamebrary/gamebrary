@@ -1,31 +1,32 @@
 <template lang="html">
   <div>
-    <b-form-file
+    <input
+      ref="fileInput"
+      type="file"
       class="d-none file-input"
-      v-model="file"
       accept="image/*"
-      :browse-text="$t('wallpapers.form.upload')"
-      :placeholder="$t('wallpapers.form.placeholder')"
-      @input="uploadWallpaper"
+      @change="uploadWallpaper"
     />
 
-    <b-dropdown-item-button
-      title=""
-      v-bind="buttonProps"
+    <button
+      type="button"
+      class="btn"
+      :class="darkTheme ? 'btn-dark' : 'btn-light'"
       @click="triggerFileUpload"
+      :disabled="saving"
     >
       <span v-if="saving">
-        <b-spinner small class="mr-2" />
+        <span class="spinner-border spinner-border-sm me-2" role="status"></span>
         Uploading
       </span>
 
-      <span v-if="!saving">
-        <i class="fa-regular fa-upload mr-2" />
+      <span v-else>
+        <i class="fa-regular fa-upload me-2" />
         Upload
       </span>
 
       <slot />
-    </b-dropdown-item-button>
+    </button>
   </div>
 </template>
 
@@ -37,7 +38,6 @@ export default {
     return {
       maxSpace: '67108864',
       saving: false,
-      file: null,
     }
   },
 
@@ -60,23 +60,44 @@ export default {
 
   methods: {
     triggerFileUpload() {
-      document.querySelector('.file-input input').click();
+      this.$refs.fileInput?.click();
     },
 
-    async uploadWallpaper() {
-      if (!this.file) return false;
+    async uploadWallpaper(event) {
+      const file = event?.target?.files?.[0];
+      if (!file) return false;
 
       this.saving = true;
 
       try {
-        await this.$store.dispatch('UPLOAD_WALLPAPER', this.file);
+        await this.$store.dispatch('UPLOAD_WALLPAPER', file);
+        this.showToast('Wallpaper uploaded successfully', 'success');
       } catch (e) {
-        this.$bvToast.toast('There was an error uploading wallpaper', { variant: 'danger' });
+        this.showToast('There was an error uploading wallpaper', 'danger');
       }
 
-      this.file = null;
+      // Reset file input
+      if (this.$refs.fileInput) {
+        this.$refs.fileInput.value = '';
+      }
       this.saving = false;
       this.$bus.$emit('WALLPAPER_UPLOADED');
+    },
+
+    showToast(message, variant = 'info') {
+      const toastElement = document.createElement('div');
+      toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
+      toastElement.setAttribute('role', 'alert');
+      toastElement.innerHTML = `
+        <div class="d-flex">
+          <div class="toast-body">${message}</div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+      `;
+      document.body.appendChild(toastElement);
+      const toast = new bootstrap.Toast(toastElement);
+      toast.show();
+      toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
     },
   },
 };

@@ -1,26 +1,25 @@
 <template lang="html">
-  <b-form @submit.prevent="search">
-    <b-input-group>
-      <b-form-input
+  <form @submit.prevent="search">
+    <div class="input-group">
+      <input
         v-model="searchText"
         type="search"
-        debounce="500"
+        class="form-control"
         placeholder="Search games"
+        @input="debounceSearch"
       />
 
-      <b-input-group-append>
-        <b-button type="submit">
-          <b-spinner v-if="loading" small />
+      <button type="submit" class="btn btn-outline-secondary">
+        <span v-if="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
 
-          <i
-            v-else
-            class="fas fa-search"
-            aria-hidden
-          />
-        </b-button>
-      </b-input-group-append>
-    </b-input-group>
-  </b-form>
+        <i
+          v-else
+          class="fas fa-search"
+          aria-hidden
+        />
+      </button>
+    </div>
+  </form>
 </template>
 
 <script>
@@ -32,6 +31,7 @@ export default {
   data() {
     return {
       searchText: '',
+      debounceTimer: null,
     };
   },
 
@@ -40,6 +40,14 @@ export default {
   },
 
   methods: {
+    debounceSearch() {
+      if (this.debounceTimer) {
+        clearTimeout(this.debounceTimer);
+      }
+      this.debounceTimer = setTimeout(() => {
+        this.search();
+      }, 500);
+    },
     search() {
       if (this.$route.query?.q === this.searchText || this.searchText === '') return;
 

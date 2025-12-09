@@ -3,12 +3,14 @@
     <h2 v-if="title">{{ title }}</h2>
     <slot />
 
-    <b-button
+    <button
+      type="button"
+      class="btn"
+      :class="darkTheme ? 'btn-dark' : 'btn-light'"
       @click="$emit('hide')"
-      :variant="darkTheme ? 'black' : 'white'"
     >
       <i class="fa-solid fa-xmark" />
-    </b-button>
+    </button>
   </div>
 </template>
 

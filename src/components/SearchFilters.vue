@@ -1,138 +1,157 @@
 <template lang="html">
-  <b-sidebar
+  <AppSidebar
     id="filtersSidebar"
-    v-bind="sidebarRightProps"
+    :visible="visible"
+    :placement="sidebarRightProps?.placement || 'end'"
+    :bg-variant="sidebarRightProps?.bgVariant"
+    :text-variant="sidebarRightProps?.textVariant"
+    @update:visible="handleVisibilityChange"
   >
-    <template #default="{ hide }">
-      <SidebarHeader @hide="hide" title="Filter search results" />
-
-      <div class="p-3">
-        <b-link
-          v-if="filterSelected"
-          size="sm"
-          :variant="darkTheme ? 'black' : 'white'"
-          @click="clearFilters"
-        >
-          Clear filter
-        </b-link>
-
-        <b-button
-          block
-          v-b-toggle.genres-accordion
-          class="mb-3"
-          :variant="filterType === 'genres' ? 'primary' : darkTheme ? 'light' : null"
-        >
-          Genre
-        </b-button>
-
-        <b-collapse id="genres-accordion" visible accordion="search-filters" role="tabpanel">
-          <b-button
-            v-for="{ id, name } in $options.GAME_GENRES"
-            :key="name"
-            size="sm"
-            class="mb-2 mr-2"
-            :variant="filterType === 'genres' && filterValue === id ? 'primary' : darkTheme ? 'black' : 'white'"
-            @click="setFilter('genres', id)"
-            >
-            {{ name }}
-          </b-button>
-        </b-collapse>
-
-
-        <b-button
-          block
-          v-b-toggle.themes-accordion
-          class="mb-3"
-          :variant="filterType === 'themes' ? 'primary' : darkTheme ? 'light' : null"
-        >
-          Theme
-        </b-button>
-
-        <b-collapse id="themes-accordion" accordion="search-filters" role="tabpanel">
-          <b-button
-            v-for="{ id, name } in $options.GAME_THEMES"
-            :key="name"
-            size="sm"
-            class="mb-1 mr-1"
-            :variant="filterType === 'themes' && filterValue === id ? 'primary' : darkTheme ? 'black' : 'white'"
-            @click="setFilter('themes', id)"
-          >
-            {{ name }}
-          </b-button>
-        </b-collapse>
-
-        <b-button
-          block
-          class="mb-3"
-          v-b-toggle.perspectives-accordion
-          :variant="filterType === 'player_perspectives' ? 'primary' : darkTheme ? 'light' : null"
-        >
-          Game perspective
-        </b-button>
-
-        <b-collapse id="perspectives-accordion" accordion="search-filters" role="tabpanel">
-          <b-button
-            v-for="{ id, name } in $options.GAME_PERSPECTIVES"
-            :key="name"
-            size="sm"
-            class="mb-1 mr-1"
-            :variant="filterType === 'player_perspectives' && filterValue === id ? 'primary' : darkTheme ? 'black' : 'white'"
-            @click="setFilter('player_perspectives', id)"
-          >
-            {{ name }}
-          </b-button>
-        </b-collapse>
-
-        <b-button
-          block
-          class="mb-3"
-          v-b-toggle.platforms-accordion
-          :variant="filterType === 'platforms' ? 'primary' : darkTheme ? 'light' : null"
-        >
-          Platform
-        </b-button>
-
-        <b-collapse id="platforms-accordion" accordion="search-filters" role="tabpanel">
-          <b-button
-            v-for="{ id, name } in sortedPlatforms"
-            :key="id"
-            size="sm"
-            block
-            :variant="filterType === 'platforms' && filterValue === id ? 'primary' : darkTheme ? 'black' : 'white'"
-            @click="setFilter('platforms', id)"
-          >
-            {{ name }}
-          </b-button>
-        </b-collapse>
-
-        <b-button
-          block
-          v-b-toggle.gamemodes-accordion
-          class="mb-3"
-          :variant="filterType === 'game_modes' ? 'primary' : darkTheme ? 'light' : null"
-        >
-          Game modes
-        </b-button>
-
-        <b-collapse id="gamemodes-accordion" visible accordion="search-filters" role="tabpanel">
-          <b-button
-            v-for="{ id, name } in $options.GAME_MODES"
-            :key="id"
-            size="sm"
-            class="mb-1 mr-1"
-            :variant="filterType === 'game_modes' && filterValue === id ? 'primary' : darkTheme ? 'black' : 'white'"
-            @click="setFilter('game_modes', id)"
-          >
-            {{ name }}
-          </b-button>
-        </b-collapse>
-      </div>
+    <template #header>
+      <SidebarHeader @hide="hideSidebar" title="Filter search results" />
     </template>
-  </b-sidebar>
+
+    <div class="p-3">
+      <a
+        v-if="filterSelected"
+        href="#"
+        class="link-primary small"
+        @click.prevent="clearFilters"
+      >
+        Clear filter
+      </a>
+
+      <button
+        type="button"
+        class="btn w-100 mb-3"
+        :class="filterType === 'genres' ? 'btn-primary' : darkTheme ? 'btn-light' : 'btn-outline-primary'"
+        data-bs-toggle="collapse"
+        data-bs-target="#genres-accordion"
+        aria-expanded="true"
+        aria-controls="genres-accordion"
+      >
+        Genre
+      </button>
+
+      <div class="collapse show" id="genres-accordion" data-bs-parent="#filtersSidebar">
+        <button
+          v-for="{ id, name } in $options.GAME_GENRES"
+          :key="name"
+          type="button"
+          class="btn btn-sm mb-2 me-2"
+          :class="filterType === 'genres' && filterValue === id ? 'btn-primary' : darkTheme ? 'btn-dark' : 'btn-light'"
+          @click="setFilter('genres', id)"
+        >
+          {{ name }}
+        </button>
+      </div>
+
+      <button
+        type="button"
+        class="btn w-100 mb-3"
+        :class="filterType === 'themes' ? 'btn-primary' : darkTheme ? 'btn-light' : 'btn-outline-primary'"
+        data-bs-toggle="collapse"
+        data-bs-target="#themes-accordion"
+        aria-expanded="false"
+        aria-controls="themes-accordion"
+      >
+        Theme
+      </button>
+
+      <div class="collapse" id="themes-accordion" data-bs-parent="#filtersSidebar">
+        <button
+          v-for="{ id, name } in $options.GAME_THEMES"
+          :key="name"
+          type="button"
+          class="btn btn-sm mb-1 me-1"
+          :class="filterType === 'themes' && filterValue === id ? 'btn-primary' : darkTheme ? 'btn-dark' : 'btn-light'"
+          @click="setFilter('themes', id)"
+        >
+          {{ name }}
+        </button>
+      </div>
+
+      <button
+        type="button"
+        class="btn w-100 mb-3"
+        :class="filterType === 'player_perspectives' ? 'btn-primary' : darkTheme ? 'btn-light' : 'btn-outline-primary'"
+        data-bs-toggle="collapse"
+        data-bs-target="#perspectives-accordion"
+        aria-expanded="false"
+        aria-controls="perspectives-accordion"
+      >
+        Game perspective
+      </button>
+
+      <div class="collapse" id="perspectives-accordion" data-bs-parent="#filtersSidebar">
+        <button
+          v-for="{ id, name } in $options.GAME_PERSPECTIVES"
+          :key="name"
+          type="button"
+          class="btn btn-sm mb-1 me-1"
+          :class="filterType === 'player_perspectives' && filterValue === id ? 'btn-primary' : darkTheme ? 'btn-dark' : 'btn-light'"
+          @click="setFilter('player_perspectives', id)"
+        >
+          {{ name }}
+        </button>
+      </div>
+
+      <button
+        type="button"
+        class="btn w-100 mb-3"
+        :class="filterType === 'platforms' ? 'btn-primary' : darkTheme ? 'btn-light' : 'btn-outline-primary'"
+        data-bs-toggle="collapse"
+        data-bs-target="#platforms-accordion"
+        aria-expanded="false"
+        aria-controls="platforms-accordion"
+      >
+        Platform
+      </button>
+
+      <div class="collapse" id="platforms-accordion" data-bs-parent="#filtersSidebar">
+        <button
+          v-for="{ id, name } in sortedPlatforms"
+          :key="id"
+          type="button"
+          class="btn btn-sm w-100 mb-1"
+          :class="filterType === 'platforms' && filterValue === id ? 'btn-primary' : darkTheme ? 'btn-dark' : 'btn-light'"
+          @click="setFilter('platforms', id)"
+        >
+          {{ name }}
+        </button>
+      </div>
+
+      <button
+        type="button"
+        class="btn w-100 mb-3"
+        :class="filterType === 'game_modes' ? 'btn-primary' : darkTheme ? 'btn-light' : 'btn-outline-primary'"
+        data-bs-toggle="collapse"
+        data-bs-target="#gamemodes-accordion"
+        aria-expanded="true"
+        aria-controls="gamemodes-accordion"
+      >
+        Game modes
+      </button>
+
+      <div class="collapse show" id="gamemodes-accordion" data-bs-parent="#filtersSidebar">
+        <button
+          v-for="{ id, name } in $options.GAME_MODES"
+          :key="id"
+          type="button"
+          class="btn btn-sm mb-1 me-1"
+          :class="filterType === 'game_modes' && filterValue === id ? 'btn-primary' : darkTheme ? 'btn-dark' : 'btn-light'"
+          @click="setFilter('game_modes', id)"
+        >
+          {{ name }}
+        </button>
+      </div>
+    </div>
+  </AppSidebar>
 </template>
 
 <script>
 import SidebarHeader from '@/components/SidebarHeader';
+import AppSidebar from '@/components/Sidebar';
 import { GAME_GENRES, GAME_PERSPECTIVES, GAME_MODES, GAME_THEMES, GAME_LANGUAGES } from '@/constants';
 import { mapState, mapGetters } from 'vuex';
 import orderby from 'lodash.orderby';
@@ -145,7 +164,14 @@ export default {
   GAME_LANGUAGES,
 
   components: {
+    AppSidebar,
     SidebarHeader,
+  },
+
+  data() {
+    return {
+      visible: false,
+    };
   },
 
   computed: {
@@ -169,7 +195,28 @@ export default {
     },
   },
 
+  mounted() {
+    // Listen for sidebar toggle events
+    this.$root.$on('bv::toggle::collapse', (id) => {
+      if (id === 'filtersSidebar') {
+        this.visible = !this.visible;
+      }
+    });
+  },
+
+  beforeUnmount() {
+    this.$root.$off('bv::toggle::collapse');
+  },
+
   methods: {
+    handleVisibilityChange(visible) {
+      this.visible = visible;
+    },
+
+    hideSidebar() {
+      this.visible = false;
+    },
+
     clearFilters() {
       this.$router.push({ name: 'search', query: this.$route.query?.q
           ? { q: this.$route.query?.q }

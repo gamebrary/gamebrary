@@ -1,70 +1,74 @@
 <template lang="html">
   <div class="mx-3 mb-3">
-    <b-button
-      v-b-tooltip.hover.right
-      title="Add tier"
-      :variant="darkTheme ? 'dark' : 'secondary'"
-      v-b-modal.addTier
+    <button
+      type="button"
+      class="btn"
+      :class="darkTheme ? 'btn-dark' : 'btn-secondary'"
+      data-bs-toggle="modal"
+      data-bs-target="#addTier"
+      :title="'Add tier'"
+      data-bs-placement="right"
     >
       <i class="fas fa-plus" aria-hidden />
-    </b-button>
+    </button>
 
-    <b-modal
+    <div
+      class="modal fade"
       id="addTier"
-      hide-footer
-      :header-bg-variant="darkTheme ? 'dark' : 'transparent'"
-      :header-text-variant="darkTheme ? 'white' : 'dark'"
-      :body-bg-variant="darkTheme ? 'dark' : 'transparent'"
-      :body-text-variant="darkTheme ? 'white' : 'dark'"
-      @show="reset"
+      tabindex="-1"
+      aria-labelledby="addTierLabel"
+      aria-hidden="true"
     >
-      <template v-slot:modal-header="{ close }">
-        <modal-header
-          title="Add tier"
-          @close="close"
-        />
-      </template>
+      <div class="modal-dialog">
+        <div class="modal-content" :class="darkTheme ? 'bg-dark text-light' : 'bg-light text-dark'">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addTierLabel">Add tier</h5>
+            <button type="button" class="btn-close" :class="darkTheme ? 'btn-close-white' : ''" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form
+              ref="addListForm"
+              class="d-flex justify-content-between"
+              @submit.stop.prevent="submit"
+            >
+              <input
+                type="color"
+                v-model="list.backgroundColor"
+                class="form-control form-control-color"
+                style="width: 40px; height: 40px; cursor: pointer;"
+                title="Background color"
+              />
 
-      <form
-        ref="addListForm"
-        class="d-flex justify-content-between"
-        @submit.stop.prevent="submit"
-      >
-        <v-swatches
-          v-model="list.backgroundColor"
-          show-fallback
-          v-bind="swatchesProps"
-        />
+              <input
+                type="text"
+                autofocus
+                placeholder="Tier name"
+                class="form-control mx-3"
+                v-model="list.name"
+                required
+              />
 
-        <b-form-input
-          autofocus
-          placeholder="Tier name"
-          class="mx-3"
-          v-model="list.name"
-          required
-        />
-
-        <b-button
-          split
-          variant="primary"
-          type="submit"
-        >
-          <b-spinner v-if="saving" small />
-          <span v-else>Add</span>
-        </b-button>
-      </form>
-    </b-modal>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                :disabled="saving"
+              >
+                <span v-if="saving" class="spinner-border spinner-border-sm me-2" role="status"></span>
+                <span v-else>Add</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import VSwatches from 'vue-swatches'
 
 export default {
-  components: {
-    VSwatches,
-  },
+  components: {},
 
   data() {
     return {
@@ -80,10 +84,29 @@ export default {
 
   computed: {
     ...mapState(['platform', 'board']),
-    ...mapGetters(['darkTheme', 'swatchesProps']),
+    ...mapGetters(['darkTheme']),
+  },
+
+  mounted() {
+    this.initTooltips();
+  },
+
+  updated() {
+    this.initTooltips();
   },
 
   methods: {
+    initTooltips() {
+      this.$nextTick(() => {
+        const tooltipTriggerList = this.$el.querySelectorAll('[data-bs-toggle="tooltip"]');
+        tooltipTriggerList.forEach(tooltipTriggerEl => {
+          if (!tooltipTriggerEl._tooltip) {
+            new bootstrap.Tooltip(tooltipTriggerEl);
+          }
+        });
+      });
+    },
+
     reset() {
       this.list = {
         backgroundColor: '',
@@ -107,13 +130,33 @@ export default {
         this.$store.commit('ADD_LIST', this.list);
 
         await this.$store.dispatch('SAVE_BOARD');
-        this.$bvModal.hide('addTier');
-        this.$bvToast.toast('Tier added');
+        const modalElement = document.getElementById('addTier');
+        if (modalElement) {
+          const modal = bootstrap.Modal.getInstance(modalElement);
+          if (modal) modal.hide();
+        }
+        this.showToast('Tier added', 'success');
       } catch (e) {
-        this.$bvToast.toast('Error adding tier', { variant: 'danger' });
+        this.showToast('Error adding tier', 'danger');
       }
 
       this.saving = false;
+    },
+
+    showToast(message, variant = 'info') {
+      const toastElement = document.createElement('div');
+      toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
+      toastElement.setAttribute('role', 'alert');
+      toastElement.innerHTML = `
+        <div class="d-flex">
+          <div class="toast-body">${message}</div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+      `;
+      document.body.appendChild(toastElement);
+      const toast = new bootstrap.Toast(toastElement);
+      toast.show();
+      toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
     },
   },
 };

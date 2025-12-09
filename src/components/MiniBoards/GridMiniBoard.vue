@@ -1,14 +1,16 @@
 <template>
   <div v-if="isGrid" class="grid">
-    <b-avatar
+    <img
       v-for="(game, index) in firstList.games"
-      v-b-tooltip.hover
       :key="index"
-      :style="`border-radius: 4px !important;`"
-      :variant="darkTheme ? 'black' : 'light'"
+      :ref="el => { if (el) gameRefs[`game-${index}`] = el }"
+      :style="`border-radius: 4px !important; width: 40px; height: 40px; object-fit: cover;`"
+      :class="darkTheme ? 'bg-black' : 'bg-light'"
       :title="game.name"
-      :src="showGameThumbnails ? game.src : null"
-      text=" "
+      :src="showGameThumbnails && game.src ? game.src : null"
+      :alt="game.name"
+      data-bs-toggle="tooltip"
+      data-bs-placement="top"
     />
   </div>
 
@@ -16,12 +18,10 @@
     v-else
     class="board d-flex rounded overflow-hidden justify-content-center"
   >
-    <b-card
-      body-class="p-0"
-      :bg-variant="darkTheme ? 'black' : 'transparent'"
-      :text-variant="darkTheme ? 'light' : 'dark'"
+    <div
+      class="card overflow-hidden align-self-start p-0"
+      :class="darkTheme ? 'bg-black text-light' : 'bg-transparent text-dark'"
       style="width: 80px"
-      class="overflow-hidden align-self-start"
     >
       <template v-if="firstList.games.length">
         <div
@@ -35,17 +35,17 @@
                 : 'border-light bg-white',
             { 'border-bottom': index !== firstList.games.length - 1 },
           ]"
-          class=""
         >
-          <b-avatar
+          <img
+            :ref="el => { if (el) gameRefs[`game-${index}`] = el }"
             :style="`border-radius: 4px !important;`"
-            text=" "
-            :variant="darkTheme ? 'black' : 'light'"
-            class="m-1"
-            v-b-tooltip.hover
+            :class="['m-1', darkTheme ? 'bg-black' : 'bg-light']"
             :title="game.name"
-            :src="showGameThumbnails ? game.src : null"
-            size="20"
+            :src="showGameThumbnails && game.src ? game.src : null"
+            :alt="game.name"
+            style="width: 20px; height: 20px; object-fit: cover;"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
           />
 
           <small v-if="board.ranked">{{ index + 1 }}</small>
@@ -57,7 +57,7 @@
         class="rounded overflow-hidden"
         style="height: 22px; width: 60px;"
       />
-    </b-card>
+    </div>
   </div>
 </template>
 
@@ -70,6 +70,12 @@ export default {
       type: Object,
       required: true,
     },
+  },
+
+  data() {
+    return {
+      gameRefs: {},
+    };
   },
 
   computed: {
@@ -88,6 +94,27 @@ export default {
 
     firstList() {
       return this.board?.lists?.[0] || {};
+    },
+  },
+
+  mounted() {
+    this.initTooltips();
+  },
+
+  updated() {
+    this.initTooltips();
+  },
+
+  methods: {
+    initTooltips() {
+      this.$nextTick(() => {
+        const tooltipTriggerList = this.$el.querySelectorAll('[data-bs-toggle="tooltip"]');
+        tooltipTriggerList.forEach(tooltipTriggerEl => {
+          if (!tooltipTriggerEl._tooltip) {
+            new bootstrap.Tooltip(tooltipTriggerEl);
+          }
+        });
+      });
     },
   },
 };

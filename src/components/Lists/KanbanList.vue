@@ -3,111 +3,127 @@
     :class="['list pr-3', { dragging, 'unique': singleList, 'pr-3': isLastList && isPublicBoard }]"
     :id="listIndex"
   >
-    <b-card
-      no-body
-      :bg-variant="darkTheme ? 'black' : 'light'"
-      :class="[darkTheme ? 'dark' : 'light', transparencyEnabled ? 'semi-transparent' : '']"
-      :text-variant="darkTheme ? 'light' : 'dark'"
+    <div
+      class="card"
+      :class="[darkTheme ? 'bg-black text-light' : 'bg-light text-dark', transparencyEnabled ? 'semi-transparent' : '']"
     >
-      <b-dropdown
-        v-if="isBoardOwner"
-        :title="list.name || 'Untitled list'"
-        class="p-2"
-        no-caret
-        :variant="darkTheme ? 'dark' : 'white'"
-      >
-        <template #button-content>
-          <h4 class="d-flex align-items-center m-0">
-            <i
-              v-if="sortingEnabled"
-              v-b-tooltip.hover
-              class="fa-regular fa-sort fa-fw mr-1"
-              :class="darkTheme ? 'text-success' : 'text-primary'"
-              :title="sortMessage"
-            />
+      <div v-if="isBoardOwner" class="p-2">
+        <div class="dropdown">
+          <button
+            class="btn dropdown-toggle"
+            :class="darkTheme ? 'btn-dark' : 'btn-light'"
+            type="button"
+            :id="`listDropdown-${listIndex}`"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            style="border: none;"
+          >
+            <h4 class="d-flex align-items-center m-0">
+              <i
+                v-if="sortingEnabled"
+                class="fa-regular fa-sort fa-fw me-1"
+                :class="darkTheme ? 'text-success' : 'text-primary'"
+                :title="sortMessage"
+                data-bs-toggle="tooltip"
+              />
 
-            {{ truncatedListName || 'Untitled list' }}
-            <template v-if="list.showGameCount">
-              ({{ gameCount }})
+              {{ truncatedListName || 'Untitled list' }}
+              <template v-if="list.showGameCount">
+                ({{ gameCount }})
+              </template>
+            </h4>
+          </button>
+          <ul class="dropdown-menu" :aria-labelledby="`listDropdown-${listIndex}`">
+            <li>
+              <button
+                type="button"
+                class="dropdown-item"
+                :class="darkTheme ? 'text-light' : ''"
+                @click="editList"
+              >
+                <i class="fa-solid fa-pen fa-fw" />
+                Edit list
+              </button>
+            </li>
+
+            <template v-if="isBoardOwner && (listIndex > 0 || showMoveListRightButton)">
+              <li v-if="listIndex > 0">
+                <button
+                  type="button"
+                  class="dropdown-item"
+                  :class="darkTheme ? 'text-light' : ''"
+                  @click="$bus.$emit('MOVE_LIST_LEFT', listIndex)"
+                >
+                  <i class="fa-regular fa-caret-left fa-fw" />
+                  Move left
+                </button>
+              </li>
+
+              <li v-if="showMoveListRightButton">
+                <button
+                  type="button"
+                  class="dropdown-item"
+                  :class="darkTheme ? 'text-light' : ''"
+                  @click="$bus.$emit('MOVE_LIST_RIGHT', listIndex)"
+                >
+                  <i class="fa-regular fa-caret-right fa-fw" />
+                  Move right
+                </button>
+              </li>
             </template>
-          </h4>
-        </template>
 
-        <b-dropdown-item-button
-          title="Add games"
-          v-bind="buttonProps"
-          @click="editList"
-        >
-          <i class="fa-solid fa-pen fa-fw" />
-          Edit list
-        </b-dropdown-item-button>
+            <li v-if="isBoardOwner">
+              <button
+                type="button"
+                class="dropdown-item"
+                :class="darkTheme ? 'text-light' : ''"
+                @click="openGameSelectorSidebar"
+              >
+                <i class="fa-solid fa-plus fa-fw" />
+                Add games
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
 
-        <span v-if="isBoardOwner && (listIndex > 0 || showMoveListRightButton)">
-          <b-dropdown-item-button
-            v-if="listIndex > 0"
-            v-bind="buttonProps"
-            @click="$bus.$emit('MOVE_LIST_LEFT', listIndex)"
-          >
-            <i class="fa-regular fa-caret-left fa-fw" />
-            Move left
-          </b-dropdown-item-button>
-
-          <b-dropdown-item-button
-            v-if="showMoveListRightButton"
-            v-bind="buttonProps"
-            @click="$bus.$emit('MOVE_LIST_RIGHT', listIndex)"
-          >
-            <i class="fa-regular fa-caret-right fa-fw" />
-            Move right
-          </b-dropdown-item-button>
-        </span>
-
-        <b-dropdown-item-button
-          v-if="isBoardOwner"
-          v-bind="buttonProps"
-          @click="openGameSelectorSidebar"
-        >
-          <i class="fa-solid fa-plus fa-fw" />
-          Add games
-        </b-dropdown-item-button>
-      </b-dropdown>
-
-      <b-button
+      <button
         v-else
-        size="sm"
-        disabled
-        :variant="darkTheme ? 'dark' : 'light'"
-        class="text-left"
+        type="button"
+        class="btn btn-sm disabled text-start"
+        :class="darkTheme ? 'btn-dark' : 'btn-light'"
       >
         <strong>{{ list.name }}</strong>
-      </b-button>
+      </button>
 
       <draggable
         class="games px-2 pt-1"
         v-bind="draggableProps"
         :list="list.games"
         :id="listIndex"
+        :item-key="(gameId) => gameId"
         :move="validateMove"
         :disabled="draggingDisabled"
         @end="dragEnd"
         @start="dragStart"
       >
-        <GameCard
-          v-for="gameId in sortedGames"
-          :ref="`${listIndex}-${gameId}`"
-          :game-id="gameId"
-          :key="gameId"
-          :list-index="listIndex"
-          :list="list"
-          class="mb-2"
-          :vertical="list.vertical"
-          :small="list.smallCover"
-          :hide-cover="list.hideCover"
-          :hide-title="list.hideTitle"
-          @click.native="openGame(gameId, list)"
-        />
+        <template #item="{ element: gameId }">
+          <GameCard
+            :ref="`${listIndex}-${gameId}`"
+            :game-id="gameId"
+            :key="gameId"
+            :list-index="listIndex"
+            :list="list"
+            class="mb-2"
+            :vertical="list.vertical"
+            :small="list.smallCover"
+            :hide-cover="list.hideCover"
+            :hide-title="list.hideTitle"
+            @click.native="openGame(gameId, list)"
+          />
+        </template>
       </draggable>
-    </b-card>
+    </div>
   </div>
 </template>
 
@@ -151,6 +167,11 @@ export default {
     this.localList = JSON.parse(JSON.stringify(this.list));
 
     this.$bus.$on(this.gameSelectorEventName, this.selectGame);
+    this.initTooltips();
+  },
+
+  updated() {
+    this.initTooltips();
   },
 
   destroyed() {
@@ -328,6 +349,17 @@ export default {
         .catch(() => {
           this.$store.commit('SET_SESSION_EXPIRED', true);
         });
+    },
+
+    initTooltips() {
+      this.$nextTick(() => {
+        const tooltipTriggerList = this.$el.querySelectorAll('[data-bs-toggle="tooltip"]');
+        tooltipTriggerList.forEach(tooltipTriggerEl => {
+          if (!tooltipTriggerEl._tooltip) {
+            new bootstrap.Tooltip(tooltipTriggerEl);
+          }
+        });
+      });
     },
   },
 };

@@ -2,98 +2,117 @@
   <div class="d-flex w-100 align-items-start mb-2 pl-3">
     <!-- Mobile controls -->
     <div class="d-flex flex-column d-md-none">
-      <b-avatar
-        variant="primary"
-        :text="tierLetter"
+      <div
+        class="rounded-circle cursor-pointer d-flex align-items-center justify-content-center"
         :title="list.name"
-        rounded
-        v-b-tooltip.hover.right
-        class="cursor-pointer"
-        :style="`background-color: ${list.backgroundColor}`"
-        size="92"
-        @click.native="editList"
-      />
-
-      <b-button-group
-        v-if="user && isBoardOwner"
-        size="sm"
-        class="mt-1"
+        :style="`background-color: ${list.backgroundColor}; width: 92px; height: 92px;`"
+        data-bs-toggle="tooltip"
+        data-bs-placement="right"
+        @click="editList"
       >
-        <b-button
+        <span class="fw-bold">{{ tierLetter }}</span>
+      </div>
+
+      <div
+        v-if="user && isBoardOwner"
+        class="btn-group btn-group-sm mt-1"
+        role="group"
+      >
+        <button
+          type="button"
+          class="btn"
+          :class="tierActionVariant === 'light' ? 'btn-light' : tierActionVariant === 'secondary' ? 'btn-secondary' : 'btn-outline-light'"
           :disabled="listIndex === 0"
-          v-b-tooltip.hover.right="'Move up'"
-          :variant="tierActionVariant"
+          :title="'Move up'"
+          data-bs-toggle="tooltip"
+          data-bs-placement="right"
           @click="$bus.$emit('MOVE_LIST_LEFT', listIndex)"
         >
           <i class="fa-regular fa-caret-up fa-fw" />
-        </b-button>
+        </button>
 
-        <b-button
-          v-b-tooltip.hover.right
+        <button
+          type="button"
+          class="btn"
+          :class="tierActionVariant === 'light' ? 'btn-light' : tierActionVariant === 'secondary' ? 'btn-secondary' : 'btn-outline-light'"
           :title="`Add games to ${list.name}`"
-          :variant="tierActionVariant"
+          data-bs-toggle="tooltip"
+          data-bs-placement="right"
           @click="openGameSelectorSidebar"
         >
           <i class="fa-solid fa-plus fa-fw" />
-        </b-button>
+        </button>
 
-        <b-button
+        <button
+          type="button"
+          class="btn"
+          :class="tierActionVariant === 'light' ? 'btn-light' : tierActionVariant === 'secondary' ? 'btn-secondary' : 'btn-outline-light'"
           :disabled="moveListRightButtonDisabled"
-          v-b-tooltip.hover.right="'Move down'"
-          :variant="tierActionVariant"
+          :title="'Move down'"
+          data-bs-toggle="tooltip"
+          data-bs-placement="right"
           @click="$bus.$emit('MOVE_LIST_RIGHT', listIndex)"
         >
           <i class="fa-regular fa-caret-down fa-fw" />
-        </b-button>
-      </b-button-group>
+        </button>
+      </div>
     </div>
 
     <div class="d-none d-md-flex">
-      <b-avatar
-        variant="primary"
-        :text="tierLetter"
+      <div
+        class="rounded-circle cursor-pointer d-flex align-items-center justify-content-center"
         :title="list.name"
-        rounded
-        v-b-tooltip.hover.right
-        class="cursor-pointer"
-        :style="`background-color: ${list.backgroundColor}`"
-        size="128"
-        @click.native="editList"
-      />
-
-      <b-button-group
-        v-if="user && isBoardOwner"
-        size="sm"
-        vertical
-        class="ml-2"
+        :style="`background-color: ${list.backgroundColor}; width: 128px; height: 128px;`"
+        data-bs-toggle="tooltip"
+        data-bs-placement="right"
+        @click="editList"
       >
-        <b-button
+        <span class="fw-bold fs-4">{{ tierLetter }}</span>
+      </div>
+
+      <div
+        v-if="user && isBoardOwner"
+        class="btn-group-vertical btn-group-sm ms-2"
+        role="group"
+      >
+        <button
+          type="button"
+          class="btn"
+          :class="tierActionVariant === 'light' ? 'btn-light' : tierActionVariant === 'secondary' ? 'btn-secondary' : 'btn-outline-light'"
           :disabled="listIndex === 0"
-          v-b-tooltip.hover.right="'Move up'"
-          :variant="tierActionVariant"
+          :title="'Move up'"
+          data-bs-toggle="tooltip"
+          data-bs-placement="right"
           @click="$bus.$emit('MOVE_LIST_LEFT', listIndex)"
         >
           <i class="fa-regular fa-caret-up fa-fw" />
-        </b-button>
+        </button>
 
-        <b-button
-          v-b-tooltip.hover.right
+        <button
+          type="button"
+          class="btn"
+          :class="tierActionVariant === 'light' ? 'btn-light' : tierActionVariant === 'secondary' ? 'btn-secondary' : 'btn-outline-light'"
           :title="`Add games to ${list.name}`"
-          :variant="tierActionVariant"
+          data-bs-toggle="tooltip"
+          data-bs-placement="right"
           @click="openGameSelectorSidebar"
         >
           <i class="fa-solid fa-plus fa-fw" />
-        </b-button>
+        </button>
 
-        <b-button
+        <button
+          type="button"
+          class="btn"
+          :class="tierActionVariant === 'light' ? 'btn-light' : tierActionVariant === 'secondary' ? 'btn-secondary' : 'btn-outline-light'"
           :disabled="moveListRightButtonDisabled"
-          v-b-tooltip.hover.right="'Move down'"
-          :variant="tierActionVariant"
+          :title="'Move down'"
+          data-bs-toggle="tooltip"
+          data-bs-placement="right"
           @click="$bus.$emit('MOVE_LIST_RIGHT', listIndex)"
         >
           <i class="fa-regular fa-caret-down fa-fw" />
-        </b-button>
-      </b-button-group>
+        </button>
+      </div>
     </div>
 
     <draggable
@@ -101,27 +120,29 @@
       v-bind="draggableProps"
       :list="list.games"
       :id="listIndex"
+      :item-key="(gameId) => gameId"
       :move="validateMove"
       :disabled="draggingDisabled"
       @end="dragEnd"
       @start="dragStart"
     >
-      <GameCard
-        v-for="gameId in list.games"
-        :key="gameId"
-        :game-id="gameId"
-        :ref="`${listIndex}-${gameId}`"
-        hide-title
-        hide-tags
-        hide-notes
-        hide-progress
-        hide-platforms
-        class="mr-2 mb-2"
-        vertical
-        slim
-        fluid
-        small
-      />
+      <template #item="{ element: gameId }">
+        <GameCard
+          :key="gameId"
+          :game-id="gameId"
+          :ref="`${listIndex}-${gameId}`"
+          hide-title
+          hide-tags
+          hide-notes
+          hide-progress
+          hide-platforms
+          class="mr-2 mb-2"
+          vertical
+          slim
+          fluid
+          small
+        />
+      </template>
     </draggable>
   </div>
 </template>
@@ -155,6 +176,11 @@ export default {
 
   mounted() {
     this.$bus.$on(this.gameSelectorEventName, this.selectGame);
+    this.initTooltips();
+  },
+
+  updated() {
+    this.initTooltips();
   },
 
   destroyed() {
@@ -269,6 +295,17 @@ export default {
 
     editList() {
       if (this.user && this.isBoardOwner) this.$store.commit('SET_ACTIVE_BOARD_LIST_INDEX', this.listIndex);
+    },
+
+    initTooltips() {
+      this.$nextTick(() => {
+        const tooltipTriggerList = this.$el.querySelectorAll('[data-bs-toggle="tooltip"]');
+        tooltipTriggerList.forEach(tooltipTriggerEl => {
+          if (!tooltipTriggerEl._tooltip) {
+            new bootstrap.Tooltip(tooltipTriggerEl);
+          }
+        });
+      });
     },
   },
 };

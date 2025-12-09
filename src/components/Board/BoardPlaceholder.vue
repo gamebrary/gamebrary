@@ -1,9 +1,10 @@
 <template lang="html">
   <div class="board-placeholder">
-    <b-spinner
-      v-if="useSpinner"
-      class="spinner-centered mt-5"
-    />
+    <div v-if="useSpinner" class="spinner-centered mt-5 d-flex justify-content-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
 
     <!-- <KanbanBoardPlaceholder v-else /> -->
   </div>

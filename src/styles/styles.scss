@@ -1,5 +1,5 @@
 @import "theme";
 @import 'node_modules/bootstrap/scss/bootstrap';
-@import 'node_modules/bootstrap-vue/src/index.scss';
+// BootstrapVueNext CSS is imported in main.js, no need to import SCSS here
 @import "helpers";
 @import "overrides";

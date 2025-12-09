@@ -1,6 +1,10 @@
 <template lang="html">
     <div>
-      <b-spinner v-if="loading" class="spinner-centered" />
+      <div v-if="loading" class="spinner-centered d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
 
       <div v-else class="board-grid pb-3">
         <MiniBoard
@@ -79,12 +83,27 @@
         await this.$store.dispatch('DELETE_BOARD', id)
           .catch(() => {
             this.loading = false;
-
-            this.$bvToast.toast('There was an error deleting board', { variant: 'error' });
+            this.showToast('There was an error deleting board', 'danger');
           });
 
         this.loading = false;
-        this.$bvToast.toast('Board removed');
+        this.showToast('Board removed', 'success');
+      },
+
+      showToast(message, variant = 'info') {
+        const toastElement = document.createElement('div');
+        toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
+        toastElement.setAttribute('role', 'alert');
+        toastElement.innerHTML = `
+          <div class="d-flex">
+            <div class="toast-body">${message}</div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+          </div>
+        `;
+        document.body.appendChild(toastElement);
+        const toast = new bootstrap.Toast(toastElement);
+        toast.show();
+        toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
       },
     },
   };

@@ -1,37 +1,55 @@
 <template lang="html">
   <div class="px-3">
     <portal v-if="user && !isEmpty" to="headerActions">
-      <b-dropdown
-        text="Notes"
-        :variant="darkTheme ? 'success' : 'black'"
-      >
-        <b-dropdown-item-button
-          title="Add note"
-          v-bind="buttonProps"
-          @click="openGameSelectorSidebar"
+      <div class="dropdown">
+        <button
+          class="btn dropdown-toggle"
+          :class="darkTheme ? 'btn-success' : 'btn-dark'"
+          type="button"
+          id="notesDropdown"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
         >
-          <i class="fa-solid fa-plus" />
-          Add note
-        </b-dropdown-item-button>
-
-        <b-dropdown-item-button
-          title="Add note"
-          v-bind="buttonProps"
-          @click="showSearch = !showSearch"
-        >
-          <i class="fa-solid fa-magnifying-glass" />
-          Search
-        </b-dropdown-item-button>
-      </b-dropdown>
+          Notes
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="notesDropdown">
+          <li>
+            <button
+              type="button"
+              class="dropdown-item"
+              :class="darkTheme ? 'text-light' : ''"
+              @click="openGameSelectorSidebar"
+            >
+              <i class="fa-solid fa-plus" />
+              Add note
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              class="dropdown-item"
+              :class="darkTheme ? 'text-light' : ''"
+              @click="showSearch = !showSearch"
+            >
+              <i class="fa-solid fa-magnifying-glass" />
+              Search
+            </button>
+          </li>
+        </ul>
+      </div>
     </portal>
 
-    <b-spinner v-if="loading" class="spinner-centered" />
+    <div v-if="loading" class="spinner-centered d-flex justify-content-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
 
     <template v-else>
-      <b-form-input
+      <input
         v-if="showSearch"
         type="search"
-        class="mb-3"
+        class="form-control mb-3"
         placeholder="Search notes"
         v-model="searchText"
       />
@@ -43,14 +61,15 @@
         <p>Looks like you haven't added any notes yet.</p>
         <p>Notes are handy for keeping track of cheat codes, passwords, or just about anything you want to remember!</p>
 
-        <b-button
-          title="Add games"
-          v-b-tooltip.hover
-          :variant="darkTheme ? 'success' : 'primary'"
+        <button
+          type="button"
+          class="btn"
+          :class="darkTheme ? 'btn-success' : 'btn-primary'"
           @click="openGameSelectorSidebar"
+          :title="'Add games'"
         >
           Create note
-        </b-button>
+        </button>
       </EmptyState>
 
       <EmptyState
@@ -58,21 +77,23 @@
         illustration="notes"
         message="No results"
       >
-        <b-button
+        <button
+          type="button"
+          class="btn"
+          :class="darkTheme ? 'btn-dark' : 'btn-light'"
           @click="searchText = ''"
-          v-bind="buttonProps"
         >
           Clear search
-        </b-button>
+        </button>
       </EmptyState>
 
       <template v-else>
-        <b-media
+        <div
           v-for="({ note, game }, index) in filteredNotes"
           :key="index"
-          vertical-align="center"
+          class="d-flex align-items-start mb-3"
         >
-          <template #aside>
+          <div class="flex-shrink-0 me-3">
             <GameCard
               :game-id="game.id"
               small
@@ -82,19 +103,20 @@
               hide-title
               hide-platforms
             />
-          </template>
+          </div>
 
-          <h2>{{ game.name }}</h2>
+          <div class="flex-grow-1">
+            <h2>{{ game.name }}</h2>
 
-          <b-alert
-            v-if="note"
-            v-html="note"
-            show
-            class="cursor-pointer mt-3 mb-0"
-            variant="warning"
-            @click.native="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
-          />
-        </b-media>
+            <div
+              v-if="note"
+              v-html="note"
+              class="alert alert-warning cursor-pointer mt-3 mb-0"
+              role="alert"
+              @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })"
+            />
+          </div>
+        </div>
       </template>
     </template>
   </div>
@@ -153,7 +175,7 @@ export default {
     this.loadGames();
   },
 
-  destroyed() {
+  beforeUnmount() {
     this.$bus.$off('SELECT_GAME', this.openNote);
   },
 

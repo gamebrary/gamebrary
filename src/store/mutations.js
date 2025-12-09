@@ -1,5 +1,3 @@
-import Vue from 'vue';
-
 export default {
   SET_BOARDS(state, boards) {
     state.boards = boards;
@@ -50,8 +48,8 @@ export default {
 
     const boardIndex = state.boards.findIndex(({ id }) => board.id === id);
 
-    if (boardIndex) {
-      Vue.set(state.boards, boardIndex, board);
+    if (boardIndex !== -1) {
+      state.boards[boardIndex] = board;
     }
   },
 
@@ -146,19 +144,19 @@ export default {
   },
 
   APPEND_STEAM_GAME_DATA(state, data) {
-    Vue.set(state.game, 'steam', data);
+    state.game.steam = data;
   },
 
   LIKE_GAME(state, gameId) {
-    Vue.set(state.games, gameId, true);
+    state.games[gameId] = true;
   },
 
   UNLIKE_GAME(state, gameId) {
-    Vue.set(state.games, gameId, false);
+    state.games[gameId] = false;
   },
 
   APPEND_GAME_NEWS(state, news) {
-    Vue.set(state.game, 'news', news);
+    state.game.news = news;
   },
 
   SET_ROUTE(state, routeName) {
@@ -166,21 +164,21 @@ export default {
   },
 
   APPEND_WIKIPEDIA_GAME_DATA(state, data) {
-    Vue.set(state.game, 'wikipedia', data);
+    state.game.wikipedia = data;
   },
 
   APPEND_GAME_SPEEDRUNS(state, { data }) {
-    Vue.set(state.game, 'speedruns', data);
+    state.game.speedruns = data;
   },
 
   APPEND_GAME_SPEEDRUN_ID(state, speedrunId) {
     if (state.game !== null) {
-      Vue.set(state.game, 'speedrunId', speedrunId);
+      state.game.speedrunId = speedrunId;
     }
   },
 
   APPEND_GOG_GAME_DATA(state, data) {
-    Vue.set(state.game, 'gog', data);
+    state.game.gog = data;
   },
 
   SET_USER(state, data) {
@@ -198,7 +196,7 @@ export default {
 
   CACHE_GAME_DATA(state, games) {
     games.forEach((game) => {
-      Vue.set(state.cachedGames, game.id, { ...game });
+      state.cachedGames[game.id] = { ...game };
     });
   },
 
@@ -250,7 +248,7 @@ export default {
 
   REMOVE_GAME_PROGRESS({ progresses }, gameId) {
     if (progresses[gameId]) {
-      Vue.delete(progresses, gameId);
+      delete progresses[gameId];
     }
   },
 
@@ -259,7 +257,7 @@ export default {
   },
 
   SET_GAME_NOTE(state, { note, gameId }) {
-    Vue.set(state.notes, gameId, note);
+    state.notes[gameId] = note;
   },
 
   // TODO: refactor dragging in general
@@ -271,7 +269,7 @@ export default {
 
   REMOVE_GAME_NOTE(state, gameId) {
     if (state.notes[gameId]) {
-      Vue.delete(state.notes, gameId);
+      delete state.notes[gameId];
     }
   },
 

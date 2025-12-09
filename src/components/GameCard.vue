@@ -16,27 +16,27 @@
   >
     <div v-if="!hideCover || hideTitle">
       <div class="position-relative">
-        <b-button
+        <button
           v-if="user"
-          class="like-button m-1"
-          :class="{ 'liked': isLiked }"
-          size="sm"
-          variant="transparent"
+          type="button"
+          class="btn btn-sm like-button m-1"
+          :class="{ 'liked': isLiked, 'bg-transparent': true, 'border-0': true }"
           @click.stop.prevent="$bus.$emit('LIKE_UNLIKE_GAME', game.id)"
         >
           <i
             :class="[isLiked ? 'fa-solid': 'fa-regular' , 'fa-heart text-danger']"
             class="fa-fw"
           />
-        </b-button>
+        </button>
 
-        <b-img
-          blank-color="#ccc"
-          rounded
-          :class="vertical && fluid ? '' : 'mw-100'"
-          :width="small ? '96' : null"
+        <img
           :src="$options.getImageUrl(game, $options.IMAGE_SIZE_COVER_SMALL)"
           :alt="game.name"
+          class="rounded"
+          :class="vertical && fluid ? '' : 'mw-100'"
+          :width="small ? '96' : undefined"
+          style="background-color: #ccc;"
+          onerror="this.style.backgroundColor='#ccc';"
         />
 
         <GameRibbon v-if="!hideRibbon" :game="game" />
@@ -44,26 +44,31 @@
     </div>
 
     <aside>
-      <b-progress
+      <div
         v-if="showGameProgress"
-        v-b-tooltip.hover
+        class="progress game-progress"
+        style="height: 8px;"
+        data-bs-toggle="tooltip"
         :title="`${gameProgress}% Completed`"
-        :value="gameProgress"
-        :variant="gameProgress == 100 ? 'success' : 'primary'"
-        class="game-progress"
-        height="8px"
-      />
+      >
+        <div
+          class="progress-bar"
+          :class="gameProgress == 100 ? 'bg-success' : 'bg-primary'"
+          role="progressbar"
+          :style="`width: ${gameProgress}%`"
+          :aria-valuenow="gameProgress"
+          aria-valuemin="0"
+          aria-valuemax="100"
+        ></div>
+      </div>
 
-      <b-badge
+      <span
         v-if="!hideProgress && gameProgress > 0"
-        rounded
-        variant="success"
-        class="mr-1"
-        size="sm"
+        class="badge rounded-pill bg-success me-1"
       >
         <i v-if="gameProgress == 100" class="fas fa-check fa-fw" aria-hidden />
         <small v-else>{{ gameProgress }}%</small>
-      </b-badge>
+      </span>
 
 
       <h4
@@ -75,39 +80,34 @@
           }
         ]"
       >
-        <b-avatar
+        <span
           v-if="ranked"
-          :variant="darkTheme ? 'warning' : 'success'"
-          rounded
-          size="sm"
-          class="d-inline-block"
+          class="badge d-inline-block"
+          :class="darkTheme ? 'bg-warning' : 'bg-success'"
         >
           {{ rank }}
-        </b-avatar>
+        </span>
 
         {{ game.name }}
       </h4>
 
       <template v-if="!hideTags && tagsApplied.length">
-        <b-button
+        <span
           v-for="({ bgColor, textColor, name }) in tagsApplied"
           :key="name"
-          rounded
-          class="mr-2 mb-1 p-0 px-2"
-          size="sm"
-          variant="transparent"
+          class="badge rounded-pill me-2 mb-1 p-0 px-2"
           :style="`background-color: ${bgColor}; color: ${textColor}`"
         >
           <small>{{ name }}</small>
-        </b-button>
+        </span>
       </template>
 
       <template v-if="!hideNotes && gameNotes">
         <i
           class="fas fa-book note-indicator text-warning"
-          v-b-tooltip.hover
-          @click.stop.prevent="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug }})"
+          data-bs-toggle="tooltip"
           title="See game notes"
+          @click.stop.prevent="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug }})"
         />
       </template>
 
@@ -118,12 +118,12 @@
   </div>
 
   <div v-else>
-    <b-img
+    <img
       :alt="String(gameId)"
-      blank-color="#ccc"
-      rounded
-      class="mw-100"
       src="/placeholder.gif"
+      class="rounded mw-100"
+      style="background-color: #ccc;"
+      onerror="this.style.backgroundColor='#ccc';"
     />
   </div>
 </template>
@@ -220,8 +220,13 @@ export default {
     handleClick() {
       if (this.selectable) return this.$emit('click');
 
-      const id = this.gameId || this.game.id;
+      const id = this.gameId || this.game?.id;
       const slug = slugify(this.game?.slug || '', { lower: true });
+
+      if (!id) {
+        console.warn('GameCard: Cannot navigate - game id is missing');
+        return;
+      }
 
       this.$router.push({ name: 'game', params: { id, slug }});
     },

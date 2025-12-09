@@ -1,12 +1,13 @@
 <template>
   <div class="lists d-inline-flex ml-1 rounded overflow-hidden">
-    <b-card
+    <div
       v-for="(list, listIndex) in board.lists"
       :key="listIndex"
-      body-class="p-0 kanban-list"
-      :bg-variant="darkTheme ? 'black' : 'transparent'"
-      :text-variant="darkTheme ? 'light' : 'dark'"
-      class="overflow-hidden align-self-start mr-1"
+      class="card overflow-hidden align-self-start mr-1"
+      :class="[
+        darkTheme ? 'bg-black text-light' : 'bg-transparent text-dark',
+        'p-0 kanban-list'
+      ]"
     >
       <template v-if="list.games.length">
         <div
@@ -25,13 +26,17 @@
             }
           ]"
         >
-          <b-avatar
-            style="border-radius: 4px !important"
-            text=" "
+          <img
+            v-if="currentGameId && game.src && game.id === currentGameId ? game.src : showGameThumbnails && game.src ? game.src : null"
             :src="currentGameId && game.src && game.id === currentGameId ? game.src : showGameThumbnails && game.src ? game.src : null"
-            :variant="darkTheme ? 'black' : 'light'"
-            size="24"
-            @click.native="highlightGame(game.id)"
+            style="border-radius: 4px !important; width: 24px; height: 24px; object-fit: cover;"
+            @click="highlightGame(game.id)"
+            alt=""
+          />
+          <div
+            v-else
+            style="border-radius: 4px !important; width: 24px; height: 24px; background-color: var(--bs-gray-300);"
+            @click="highlightGame(game.id)"
           />
         </div>
       </template>
@@ -41,7 +46,7 @@
         class="rounded overflow-hidden"
         style="height: 28px; width: 60px;"
       />
-    </b-card>
+    </div>
   </div>
 </template>
 

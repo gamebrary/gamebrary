@@ -2,14 +2,16 @@
   <section class="d-flex flex-column">
     <portal to="headerActions">
       <div class="d-flex">
-        <b-button
-          v-b-toggle.filtersSidebar
-          title="Filters"
-          :variant="filterSelected ? 'outline-danger' : darkTheme ? 'outline-light' : 'outline-danger'"
-          class="mr-1 border-0"
+        <button
+          type="button"
+          class="btn me-1 border-0"
+          :class="filterSelected ? 'btn-outline-danger' : darkTheme ? 'btn-outline-light' : 'btn-outline-danger'"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#filtersSidebar"
+          :title="'Filters'"
         >
           <i class="fa-regular fa-filter" />
-        </b-button>
+        </button>
 
         <SearchBox :loading="loading" />
       </div>
@@ -24,18 +26,17 @@
       :key="game.id"
     />
 
-    <b-button
+    <button
       v-if="searchResults.length === pageSize"
-      block
-      class="mb-2"
+      type="button"
+      class="btn w-100 mb-2"
+      :class="darkTheme ? 'btn-dark' : 'btn-light'"
       @click="loadMore"
+      :disabled="loading"
     >
-      <b-spinner v-if="loading" />
-
-      <span v-else>
-        More results
-      </span>
-    </b-button>
+      <span v-if="loading" class="spinner-border spinner-border-sm me-2" role="status"></span>
+      <span v-else>More results</span>
+    </button>
 
     <p
       v-if="!loading && query.length > 0 && !searchResults.length"
@@ -66,11 +67,6 @@ export default {
       loading: false,
       pageSize: 20,
       offset: 0,
-      // pageSizes: [
-      //   { value: 24, text: '24' },
-      //   { value: 48, text: '48' },
-      //   { value: 100, text: '100' },
-      // ],
     };
   },
 
@@ -161,10 +157,6 @@ export default {
       const search = this.query
         ? `search "${this.query}";`
         : '';
-
-      // const filter = !this.query
-      //   ? 'where rating >= 80;'
-      //   : '';
 
       const filter = this.filterBy.length && this.filterValue.length
         ? `where ${this.filterBy} = (${this.filterValue});`

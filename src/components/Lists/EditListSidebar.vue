@@ -1,183 +1,215 @@
 <template>
-  <b-sidebar
+  <AppSidebar
     id="edit-list-modal"
-    v-bind="sidebarRightProps"
     :visible="activeBoardListIndex !== null"
+    :placement="sidebarRightProps?.placement || 'end'"
+    :bg-variant="sidebarRightProps?.bgVariant"
+    :text-variant="sidebarRightProps?.textVariant"
+    @update:visible="handleVisibilityChange"
     @shown="openEditListSidebar"
     @hidden="closeSidebar"
   >
-    <template #default="{ hide }">
-      <SidebarHeader @hide="hide" title="Edit list" />
+    <template #header>
+      <SidebarHeader @hide="hideSidebar" title="Edit list" />
+    </template>
 
-      <form
-        class="px-3"
-        @submit.prevent="saveList"
+    <form
+      class="px-3"
+      @submit.prevent="saveList"
+    >
+      <div
+        v-if="board.type === 'tier'"
+        class="d-flex justify-content-between align-items-start"
       >
-        <div
-          v-if="board.type === 'tier'"
-          class="d-flex justify-content-between align-items-start"
-        >
-          <v-swatches
-            v-model="list.backgroundColor"
-            v-b-tooltip.hover
-            v-bind="swatchesProps"
-            popoverX="right"
-            title="Tag text color"
-          />
+        <input
+          type="color"
+          v-model="list.backgroundColor"
+          class="form-control form-control-color"
+          style="width: 40px; height: 40px; cursor: pointer;"
+          title="Background color"
+        />
 
-          <b-form-input
-            id="name"
-            class="ml-3"
-            v-model.trim="list.name"
+        <input
+          id="name"
+          type="text"
+          class="form-control ms-3"
+          v-model.trim="list.name"
+        />
+      </div>
+
+      <template v-else>
+        <h4>List name</h4>
+
+        <input
+          id="name"
+          type="text"
+          class="form-control"
+          v-model.trim="list.name"
+        />
+
+        <section class="mt-3">
+          <h4>Sort by</h4>
+
+          <select
+            v-model="list.sortBy"
+            class="form-select"
+            :class="{ 'mb-3': list.sortBy }"
+          >
+            <option v-for="option in $options.LIST_SORT_OPTIONS" :key="option.value" :value="option.value">
+              {{ option.text }}
+            </option>
+          </select>
+
+          <small class="text-secondary" v-if="!list.sortBy">
+            <i class="far fa-hand-paper" aria-hidden="true"></i>
+            Drag and drop
+          </small>
+        </section>
+
+        <div class="form-check form-switch mb-2">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            v-model="list.vertical"
+            id="verticalSwitch"
           />
+          <label class="form-check-label" for="verticalSwitch">Vertical layout</label>
         </div>
 
-        <template v-else>
-          <h4>List name</h4>
-
-          <b-form-input
-            id="name"
-            v-model.trim="list.name"
-          />
-
-          <section class="mt-3">
-            <h4>Sort by</h4>
-
-            <b-form-select
-              v-model="list.sortBy"
-              :class="{ 'mb-3': list.sortBy }"
-              :options="$options.LIST_SORT_OPTIONS"
-            />
-
-            <small class="text-secondary" v-if="!list.sortBy" show>
-              <i class="far fa-hand-paper" aria-hidden="true"></i>
-              Drag and drop
-            </small>
-          </section>
-
-          <b-form-checkbox
-            v-model="list.vertical"
-            size="lg"
-            switch
-          >
-            Vertical layout
-          </b-form-checkbox>
-
-          <b-form-checkbox
+        <div class="form-check form-switch mb-2">
+          <input
+            class="form-check-input"
+            type="checkbox"
             v-model="list.smallCover"
-            size="lg"
-            switch
-          >
-            Small covers
-          </b-form-checkbox>
+            id="smallCoverSwitch"
+          />
+          <label class="form-check-label" for="smallCoverSwitch">Small covers</label>
+        </div>
 
-          <b-form-checkbox
+        <div class="form-check form-switch mb-2">
+          <input
+            class="form-check-input"
+            type="checkbox"
             v-model="list.hideCover"
-            size="lg"
-            switch
-          >
-            Hide covers
-          </b-form-checkbox>
+            id="hideCoverSwitch"
+          />
+          <label class="form-check-label" for="hideCoverSwitch">Hide covers</label>
+        </div>
 
-          <b-form-checkbox
+        <div class="form-check form-switch mb-2">
+          <input
+            class="form-check-input"
+            type="checkbox"
             v-model="list.showGameCount"
-            size="lg"
-            switch
-          >
-            Show game count
-          </b-form-checkbox>
+            id="showGameCountSwitch"
+          />
+          <label class="form-check-label" for="showGameCountSwitch">Show game count</label>
+        </div>
 
-          <b-form-checkbox
+        <div class="form-check form-switch mb-2">
+          <input
+            class="form-check-input"
+            type="checkbox"
             v-model="list.hideTitle"
-            size="lg"
-            switch
-          >
-            Hide game title
-          </b-form-checkbox>
+            id="hideTitleSwitch"
+          />
+          <label class="form-check-label" for="hideTitleSwitch">Hide game title</label>
+        </div>
 
-          <b-form-checkbox
+        <div class="form-check form-switch mb-2">
+          <input
+            class="form-check-input"
+            type="checkbox"
             v-model="list.hideTags"
-            size="lg"
-            switch
-          >
-            Hide game tags
-          </b-form-checkbox>
+            id="hideTagsSwitch"
+          />
+          <label class="form-check-label" for="hideTagsSwitch">Hide game tags</label>
+        </div>
 
-          <b-form-checkbox
+        <div class="form-check form-switch mb-2">
+          <input
+            class="form-check-input"
+            type="checkbox"
             v-model="list.hideRibbon"
-            size="lg"
-            switch
-          >
-            Hide game ribbon
-          </b-form-checkbox>
+            id="hideRibbonSwitch"
+          />
+          <label class="form-check-label" for="hideRibbonSwitch">Hide game ribbon</label>
+        </div>
 
-          <b-form-checkbox
+        <div class="form-check form-switch mb-2">
+          <input
+            class="form-check-input"
+            type="checkbox"
             v-model="list.hideNotes"
-            size="lg"
-            switch
-          >
-            Hide game notes
-          </b-form-checkbox>
+            id="hideNotesSwitch"
+          />
+          <label class="form-check-label" for="hideNotesSwitch">Hide game notes</label>
+        </div>
 
-          <b-form-checkbox
+        <div class="form-check form-switch mb-2">
+          <input
+            class="form-check-input"
+            type="checkbox"
             v-model="list.hidePlatforms"
-            size="lg"
-            switch
-          >
-            Hide game platforms
-          </b-form-checkbox>
+            id="hidePlatformsSwitch"
+          />
+          <label class="form-check-label" for="hidePlatformsSwitch">Hide game platforms</label>
+        </div>
 
-          <b-form-checkbox
+        <div class="form-check form-switch mb-2">
+          <input
+            class="form-check-input"
+            type="checkbox"
             v-model="list.hideProgress"
-            size="lg"
-            switch
-          >
-            Hide progress
-          </b-form-checkbox>
+            id="hideProgressSwitch"
+          />
+          <label class="form-check-label" for="hideProgressSwitch">Hide progress</label>
+        </div>
 
-          <b-form-checkbox
+        <div class="form-check form-switch mb-2">
+          <input
+            class="form-check-input"
+            type="checkbox"
             v-model="list.ranked"
-            size="lg"
-            switch
-          >
-            Ranked
-          </b-form-checkbox>
-        </template>
+            id="rankedSwitch"
+          />
+          <label class="form-check-label" for="rankedSwitch">Ranked</label>
+        </div>
+      </template>
 
-        <footer class="py-3 d-flex align-items-center">
-          <b-button
-            variant="dark"
-            :disabled="saving"
-            type="submit"
-          >
-            <b-spinner small v-if="saving" />
-            <span v-else>{{ $t('global.save') }}</span>
-          </b-button>
+      <footer class="py-3 d-flex align-items-center">
+        <button
+          type="submit"
+          class="btn btn-dark"
+          :disabled="saving"
+        >
+          <span v-if="saving" class="spinner-border spinner-border-sm me-2" role="status"></span>
+          <span v-else>{{ $t('global.save') }}</span>
+        </button>
 
-          <b-button
-            variant=""
-            class="ml-auto"
-            @click="confirmDeleteList"
-          >
-            Delete
-          </b-button>
-        </footer>
-      </form>
-    </template>
-  </b-sidebar>
+        <button
+          type="button"
+          class="btn btn-outline-danger ms-auto"
+          @click="confirmDeleteList"
+        >
+          Delete
+        </button>
+      </footer>
+    </form>
+  </AppSidebar>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
 import { LIST_SORT_OPTIONS } from '@/constants';
-import VSwatches from 'vue-swatches'
 import SidebarHeader from '@/components/SidebarHeader';
+import AppSidebar from '@/components/Sidebar';
 
 export default {
   LIST_SORT_OPTIONS,
 
   components: {
-    VSwatches,
+    AppSidebar,
     SidebarHeader,
   },
 
@@ -190,10 +222,33 @@ export default {
 
   computed: {
     ...mapState(['board', 'activeBoardListIndex']),
-    ...mapGetters(['darkTheme', 'sidebarRightProps', 'swatchesProps']),
+    ...mapGetters(['darkTheme', 'sidebarRightProps']),
+  },
+
+  mounted() {
+    // Listen for sidebar toggle events
+    this.$root.$on('bv::toggle::collapse', (id) => {
+      if (id === 'edit-list-modal') {
+        // Toggle handled by visible prop
+      }
+    });
+  },
+
+  beforeUnmount() {
+    this.$root.$off('bv::toggle::collapse');
   },
 
   methods: {
+    handleVisibilityChange(visible) {
+      if (!visible) {
+        this.closeSidebar();
+      }
+    },
+
+    hideSidebar() {
+      this.$store.commit('CLEAR_ACTIVE_BOARD_LIST_INDEX');
+    },
+
     openEditListSidebar() {
       this.saving = false;
       this.list = {
@@ -220,15 +275,7 @@ export default {
     },
 
     async confirmDeleteList() {
-      const confirmed = await this.$bvModal.msgBoxConfirm('Are you sure you want to delete this list?', {
-        title: 'Delete list',
-        okVariant: 'danger',
-        hideHeader: true,
-        size: 'sm',
-        cancelTitle: 'No',
-        okTitle: 'Yes, delete list',
-      });
-
+      const confirmed = window.confirm('Are you sure you want to delete this list?');
       if (confirmed) this.deleteList();
     },
 
@@ -247,12 +294,11 @@ export default {
       await this.$store.dispatch('SAVE_BOARD')
         .catch(() => {
           this.saving = false;
-
-          this.$bvToast.toast('There was an error deleting list', { variant: 'danger' });
+          this.showToast('There was an error deleting list', 'danger');
         });
 
       this.saving = false;
-      this.$bvToast.toast('List deleted');
+      this.showToast('List deleted', 'success');
       this.closeSidebar();
     },
 
@@ -273,12 +319,27 @@ export default {
       await this.$store.dispatch('SAVE_BOARD')
         .catch(() => {
           this.saving = false;
-
-          this.$bvToast.toast('There was an error saving list settings', { variant: 'danger' });
+          this.showToast('There was an error saving list settings', 'danger');
         });
 
       this.saving = false;
       this.closeSidebar();
+    },
+
+    showToast(message, variant = 'info') {
+      const toastElement = document.createElement('div');
+      toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
+      toastElement.setAttribute('role', 'alert');
+      toastElement.innerHTML = `
+        <div class="d-flex">
+          <div class="toast-body">${message}</div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+      `;
+      document.body.appendChild(toastElement);
+      const toast = new bootstrap.Toast(toastElement);
+      toast.show();
+      toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
     },
   },
 }

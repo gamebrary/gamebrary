@@ -13,12 +13,13 @@
 
     <p class="small">
       {{ authDescription }}
-      <b-link @click="newUser = !newUser">{{ authAction }}</b-link>
+      <a href="#" @click.prevent="newUser = !newUser" class="link-primary">{{ authAction }}</a>
     </p>
 
-    <b-alert
-      :show="showExpiredAlert || Boolean(errorCode)"
-      variant="danger"
+    <div
+      class="alert alert-danger"
+      role="alert"
+      :class="{ 'd-none': !showExpiredAlert && !errorCode }"
     >
       <template v-if="showExpiredAlert">
         Session expired
@@ -27,25 +28,25 @@
       <template v-else>
         <div>{{ errorMessage }}</div>
       </template>
-    </b-alert>
+    </div>
 
-    <b-form
+    <form
       @submit.prevent="submit"
       class="bg-dangers"
     >
-      <b-form-input
+      <input
         v-model="email"
         id="email"
         type="email"
-        class="mb-3"
+        class="form-control mb-3"
         required
         autocomplete="email"
         placeholder="Email"
       />
 
-      <b-form-input
+      <input
         v-model="password"
-        class="mb-3"
+        class="form-control mb-3"
         id="password"
         type="password"
         required
@@ -53,29 +54,30 @@
         placeholder="Password"
       />
 
-      <b-button
+      <button
         type="submit"
-        :variant="darkTheme ? 'success' : 'primary'"
+        class="btn w-100"
+        :class="darkTheme ? 'btn-success' : 'btn-primary'"
+        :disabled="loading"
       >
-        <b-spinner v-if="loading" small />
-        <template v-else>
-          {{ newUser ? 'Create account' : 'Login' }}
-        </template>
-      </b-button>
+        <span v-if="loading" class="spinner-border spinner-border-sm me-2" role="status"></span>
+        <span v-else>{{ newUser ? 'Create account' : 'Login' }}</span>
+      </button>
 
       <br />
 
-      <b-button
-        variant="text"
-        class="mt-3 p-0"
+      <button
+        type="button"
+        class="btn mt-3 p-0"
+        style="background: transparent; border: none;"
         @click="loginWithGoogle"
       >
         <img
           :src="`img/google-sign-${newUser ? 'up' : 'in'}-button-light.svg`"
           alt="Sign in with Google"
         />
-      </b-button>
-    </b-form>
+      </button>
+    </form>
   </div>
 </template>
 

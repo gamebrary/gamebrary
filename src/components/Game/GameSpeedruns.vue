@@ -1,18 +1,20 @@
 <template lang="html">
-  <b-card>
-    <h4>Speedruns</h4>
+  <div class="card">
+    <div class="card-body">
+      <h4>Speedruns</h4>
 
-    <pre>{{ speedruns }}</pre>
+      <pre>{{ speedruns }}</pre>
 
-    <div v-for="(speedrun, index) in speedruns" :key="index">
-      <b-embed
-        type="iframe"
-        aspect="16by9"
-        :src="speedrun.videoUrl"
-        allowfullscreen
-      />
+      <div v-for="(speedrun, index) in speedruns" :key="index" class="mb-3">
+        <div class="ratio ratio-16x9">
+          <iframe
+            :src="speedrun.videoUrl"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
     </div>
-  </b-card>
+  </div>
 </template>
 
 <script>
@@ -66,4 +68,3 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss" scoped>
 </style>
-

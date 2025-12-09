@@ -1,22 +1,21 @@
 <template>
-  <b-button
-    block
-    class="text-left"
-    size="lg"
+  <router-link
     :to="userName ? { name: 'public.profile', params: { userName } } : { name: 'create.profile' }"
+    class="btn btn-lg w-100 text-start d-block"
+    :class="darkTheme ? 'btn-dark' : 'btn-light'"
   >
-    <b-avatar
+    <img
       v-if="avatarImage"
       :src="avatarImage"
-      :title="displayUserName"
-      size="32"
-      :to="userName ? { name: 'public.profile', params: { userName } } : null"
+      :alt="displayUserName"
+      class="rounded-circle me-2"
+      style="width: 32px; height: 32px; object-fit: cover;"
     />
 
-    <i v-else class="fa-regular fa-user fa-fw" />
+    <i v-else class="fa-regular fa-user fa-fw me-2" />
 
     {{ userName ? displayUserName : 'Profile' }}
-  </b-button>
+  </router-link>
 </template>
 
 <script>

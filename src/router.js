@@ -1,21 +1,20 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 import routes from '@/routes';
 import store from '@/store';
 
-Vue.use(VueRouter);
-
-const router = new VueRouter({
-  mode: 'history',
+const router = createRouter({
+  history: createWebHistory(),
   routes,
 });
 
 router.beforeEach((to, from, next) => {
   store.commit('SET_ROUTE', to.name);
 
-  if (to?.meta?.title) document.title = to?.name === 'home'
-    ? to.meta.title
-    : `${to.meta.title} - Gamebrary`;
+  if (to?.meta?.title) {
+    document.title = to?.name === 'home'
+      ? to.meta.title
+      : `${to.meta.title} - Gamebrary`;
+  }
 
   next();
 });

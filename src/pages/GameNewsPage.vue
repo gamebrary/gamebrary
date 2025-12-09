@@ -1,74 +1,98 @@
 <template lang="html">
   <section>
-    <b-container>
+    <div class="container">
       <portal to="pageTitle">
         <div class="d-flex align-items-center">
-          <b-button
+          <router-link
+            v-if="game?.id && game?.slug"
             :to="{ name: 'game', params: { id: game.id, slug: game.slug } }"
-            :variant="darkTheme ? 'secondary' : 'light'"
-            class="mr-2"
-            >
-              <i class="fa-solid fa-chevron-left" />
-          </b-button>
+            class="btn me-2"
+            :class="darkTheme ? 'btn-secondary' : 'btn-light'"
+          >
+            <i class="fa-solid fa-chevron-left" />
+          </router-link>
+          <button
+            v-else
+            type="button"
+            class="btn me-2"
+            :class="darkTheme ? 'btn-secondary' : 'btn-light'"
+            @click="$router.back()"
+          >
+            <i class="fa-solid fa-chevron-left" />
+          </button>
 
           <h3>News</h3>
         </div>
       </portal>
 
-      <b-spinner v-if="loading" class="spinner-centered" />
+      <div v-if="loading" class="spinner-centered d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
 
       <div v-else-if="!gameNews" class="text-center">
         No news found
       </div>
 
-      <b-row v-else>
-        <b-col cols="12" sm="4">
-          <router-link :to="{ name: 'game', params: { id: game.id, slug: game.slug }}" class="float-right">
-            <b-img :src="$options.getImageUrl(game)" fluid rounded />
+      <div v-else class="row">
+        <div class="col-12 col-sm-4">
+          <router-link
+            v-if="game?.id && game?.slug"
+            :to="{ name: 'game', params: { id: game.id, slug: game.slug }}"
+            class="float-end"
+          >
+            <img :src="$options.getImageUrl(game)" class="img-fluid rounded" alt="Game cover" />
           </router-link>
-        </b-col>
+          <img
+            v-else
+            :src="$options.getImageUrl(game)"
+            class="img-fluid rounded float-end"
+            alt="Game cover"
+          />
+        </div>
 
-        <b-col cols="12" sm="8">
-          <b-card
+        <div class="col-12 col-sm-8">
+          <div
             v-for="article in gameNews"
-            class="mb-3"
-            :bg-variant="darkTheme ? 'secondary' : 'light'"
-            :text-variant="darkTheme ? 'white' : 'dark'"
+            class="card mb-3"
+            :class="darkTheme ? 'bg-secondary text-white' : 'bg-light text-dark'"
             :key="article.id"
           >
-            <div class="d-flex align-items-start justify-content-between">
-              <aside>
-                <h2 class="mb-0">
-                  {{ article.title }}
-                  <b-badge>{{ article.date }}</b-badge>
-                </h2>
+            <div class="card-body">
+              <div class="d-flex align-items-start justify-content-between">
+                <aside>
+                  <h2 class="mb-0">
+                    {{ article.title }}
+                    <span class="badge">{{ article.date }}</span>
+                  </h2>
 
-                <small v-if="article.author" :class="darkTheme ? 'text-light' : 'text-muted'">
-                  By {{ article.author }}
-                </small>
-              </aside>
+                  <small v-if="article.author" :class="darkTheme ? 'text-light' : 'text-muted'">
+                    By {{ article.author }}
+                  </small>
+                </aside>
 
-              <a
-                v-if="article.source.url"
-                :href="article.source.url"
-                :title="article.source.name"
-                target="blank"
-                class="mb-2 ml-2"
-              >
-                <b-img
-                  class="news-source-logo"
-                  :src="`/logos/news-sources/${article.source.img}`"
-                />
-              </a>
+                <a
+                  v-if="article.source.url"
+                  :href="article.source.url"
+                  :title="article.source.name"
+                  target="blank"
+                  class="mb-2 ms-2"
+                >
+                  <img
+                    class="news-source-logo"
+                    :src="`/logos/news-sources/${article.source.img}`"
+                    :alt="article.source.name"
+                  />
+                </a>
+              </div>
+
+              <div class="game-news" v-html="article.contents" />
             </div>
-
-            <div class="game-news" v-html="article.contents" />
-
-            <!-- <b-badge v-for="tag in article.tags" :key="tag">{{ tag }}</b-badge> -->
-          </b-card>
-        </b-col>
-      </b-row>
-    </b-container>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 

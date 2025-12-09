@@ -1,15 +1,30 @@
 <template lang="html">
   <div class="px-3">
     <portal v-if="!isEmpty && user" to="headerActions">
-      <b-dropdown
-        text="Wallpapers"
-        :variant="darkTheme ? 'success' : 'black'"
-      >
-        <UploadWallpaperButton />
-      </b-dropdown>
+      <div class="dropdown">
+        <button
+          class="btn dropdown-toggle"
+          :class="darkTheme ? 'btn-success' : 'btn-dark'"
+          type="button"
+          id="wallpapersDropdown"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Wallpapers
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="wallpapersDropdown">
+          <li>
+            <UploadWallpaperButton />
+          </li>
+        </ul>
+      </div>
     </portal>
 
-    <b-spinner v-if="loading" class="spinner-centered" />
+    <div v-if="loading" class="spinner-centered d-flex justify-content-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
 
     <EmptyState
       v-else-if="isEmpty"
@@ -17,7 +32,7 @@
       illustration="wallpapers"
     >
       <UploadWallpaperButton v-if="user">
-        <span class="ml-2">Upload wallpaper</span>
+        <span class="ms-2">Upload wallpaper</span>
       </UploadWallpaperButton>
     </EmptyState>
 

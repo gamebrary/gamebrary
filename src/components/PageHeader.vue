@@ -1,8 +1,8 @@
 <template lang="html">
   <nav :class="navClass" class="px-3 d-flex align-items-center position-fixed" style="height: 56px">
-    <b-button
-      variant="link"
-      class="p-0 mx-1"
+    <button
+      type="button"
+      class="btn btn-link p-0 mx-1"
       @click="handleLogoClick"
     >
       <img
@@ -10,19 +10,25 @@
         class="logo"
         alt="Gamebrary"
       />
-    </b-button>
+    </button>
 
     <div class="d-flex justify-content-between w-100 align-items-center">
-      <portal-target name="pageTitle" tag="h1" />
-      <portal-target name="headerActions" multiple />
+      <Teleport to="body">
+        <div id="pageTitle-portal"></div>
+      </Teleport>
+      <Teleport to="body">
+        <div id="headerActions-portal"></div>
+      </Teleport>
+      <h1 ref="pageTitleRef"></h1>
+      <div ref="headerActionsRef"></div>
 
-      <b-button
+      <router-link
         v-if="!user"
-        variant="success"
         :to="{ name: 'auth' }"
+        class="btn btn-success"
       >
         Get started <span class="d-none d-sm-inline"> — it's free!</span>
-      </b-button>
+      </router-link>
     </div>
   </nav>
 </template>

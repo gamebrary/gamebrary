@@ -2,54 +2,66 @@
 <!-- TODO: fix Lists will be merged into a single list. -->
 <!-- TODO: allow to upload and set wallpaper from here -->
 <template lang="html">
-  <b-sidebar
+  <AppSidebar
     id="edit-board-sidebar"
-    v-bind="sidebarRightProps"
+    :visible="visible"
+    :placement="sidebarRightProps?.placement || 'end'"
+    :bg-variant="sidebarRightProps?.bgVariant"
+    :text-variant="sidebarRightProps?.textVariant"
+    @update:visible="handleVisibilityChange"
   >
-    <template #default="{ hide }">
-      <SidebarHeader @hide="hide" title="Edit board" />
+    <template #header>
+      <SidebarHeader @hide="hideSidebar" title="Edit board" />
+    </template>
 
-      <form @submit.stop.prevent="saveBoard" class="p-3">
-        <b-sidebar
-          id="select-board-wallpaper"
-          v-bind="sidebarRightProps"
-        >
-          <template #default="{ hide }">
-            <SidebarHeader @hide="hide" title="Select board background" />
+    <form @submit.stop.prevent="saveBoard" class="p-3">
+      <AppSidebar
+        id="select-board-wallpaper"
+        :visible="wallpaperSidebarVisible"
+        :placement="sidebarRightProps?.placement || 'end'"
+        :bg-variant="sidebarRightProps?.bgVariant"
+        :text-variant="sidebarRightProps?.textVariant"
+        @update:visible="handleWallpaperVisibilityChange"
+      >
+        <template #header>
+          <SidebarHeader @hide="hideWallpaperSidebar" title="Select board background" />
+        </template>
 
-            <div class="p-3">
-              <UploadWallpaperButton class="mb-3" />
-              <WallpapersList selectable :selected="board.backgroundUrl" @select="selectWallpaper" />
-            </div>
-          </template>
-        </b-sidebar>
-        <!-- <b-sidebar id="boardWallpaper" size="xl" scrollable hide-footer
-          :header-bg-variant="darkTheme ? 'dark' : 'transparent'" :header-text-variant="darkTheme ? 'white' : 'dark'"
-          :body-bg-variant="darkTheme ? 'dark' : 'transparent'" :body-text-variant="darkTheme ? 'white' : 'dark'"
-        >
-          <template v-slot:modal-header="{ close }">
-            <modal-header title="Choose wallpaper" @close="close">
-              <UploadWallpaperButton />
-            </modal-header>
-          </template>
-        </b-sidebar> -->
+        <div class="p-3">
+          <UploadWallpaperButton class="mb-3" />
+          <WallpapersList selectable :selected="board.backgroundUrl" @select="selectWallpaper" />
+        </div>
+      </AppSidebar>
 
-        <b-form-group label="Board name" label-for="name">
-          <b-form-input id="name" v-model="board.name" required />
-        </b-form-group>
+        <div class="mb-3">
+          <label for="name" class="form-label">Board name</label>
+          <input
+            id="name"
+            type="text"
+            v-model="board.name"
+            class="form-control"
+            required
+          />
+        </div>
 
         <p>Board type:</p>
 
-        <b-button-group class="mb-3">
-          <b-button v-for="{ text, value } in $options.BOARD_TYPES" :key="value"
-            :variant="value === board.type ? 'black' : 'white'" @click="board.type = value">
+        <div class="btn-group mb-3" role="group">
+          <button
+            v-for="{ text, value } in $options.BOARD_TYPES"
+            :key="value"
+            type="button"
+            class="btn"
+            :class="value === board.type ? 'btn-dark' : 'btn-light'"
+            @click="board.type = value"
+          >
             {{ text }}
-          </b-button>
-        </b-button-group>
+          </button>
+        </div>
 
-        <b-alert v-if="needsFlattening" variant="warning" show>
+        <div v-if="needsFlattening" class="alert alert-warning" role="alert">
           Lists will be merged into a single list.
-        </b-alert>
+        </div>
 
         <MiniBoard
           class="mb-3"
@@ -57,91 +69,117 @@
           no-link
         />
 
-        <b-form-checkbox
+        <div
           v-if="board.type === $options.BOARD_TYPE_STANDARD"
-          v-model="board.ranked"
-          class="mb-3"
-          switch
+          class="form-check form-switch mb-3"
         >
-          Ranked
-        </b-form-checkbox>
+          <input
+            class="form-check-input"
+            type="checkbox"
+            v-model="board.ranked"
+            id="rankedSwitch"
+          />
+          <label class="form-check-label" for="rankedSwitch">
+            Ranked
+          </label>
+        </div>
 
-        <b-form-checkbox
-          v-model="board.darkTheme"
-          class="mb-3"
-          switch
-        >
-          Dark theme
-        </b-form-checkbox>
+        <div class="form-check form-switch mb-3">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            v-model="board.darkTheme"
+            id="darkThemeSwitch"
+          />
+          <label class="form-check-label" for="darkThemeSwitch">
+            Dark theme
+          </label>
+        </div>
 
         <div class="d-flex justify-content-between mb-3">
-          <b-form-checkbox v-model="board.isPublic" switch>
-            Public
-          </b-form-checkbox>
+          <div class="form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              v-model="board.isPublic"
+              id="isPublicSwitch"
+            />
+            <label class="form-check-label" for="isPublicSwitch">
+              Public
+            </label>
+          </div>
 
-          <b-link
+          <a
             v-if="board.isPublic"
-            class="float-right"
+            class="link-primary float-end"
             target="_blank"
             :href="`https://gamebrary.com/b/${board.id}`"
           >
             Open board
-          </b-link>
+          </a>
         </div>
 
         <div class="d-flex align-items-start">
-          <v-swatches
+          <input
+            type="color"
             v-model="board.backgroundColor"
-            v-b-tooltip.hover
-            v-bind="swatchesProps"
-            popoverX="right"
+            class="form-control form-control-color mb-3"
+            style="width: 40px; height: 40px; cursor: pointer;"
             title="Background color"
-            class="mb-3"
           />
 
-          <b-button
+          <button
             v-if="board.backgroundColor"
-            variant="white"
-            class="ml-2"
+            type="button"
+            class="btn btn-light ms-2"
             @click="board.backgroundColor = null"
           >
             <i class="fas fa-close" aria-hidden />
-          </b-button>
+          </button>
 
-          <span class="mt-2 ml-2">Background color</span>
+          <span class="mt-2 ms-2">Background color</span>
         </div>
 
         <div class="d-flex align-items-center mb-3">
-          <b-button v-b-toggle.select-board-wallpaper class="mr-2">
+          <button
+            type="button"
+            class="btn btn-primary me-2"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#select-board-wallpaper"
+          >
             <i class="fa fa-image" aria-hidden="true"></i>
-          </b-button>
+          </button>
 
-          <b-button v-if="board.backgroundUrl" variant="white" class="mr-2" @click="board.backgroundUrl = null">
+          <button
+            v-if="board.backgroundUrl"
+            type="button"
+            class="btn btn-light me-2"
+            @click="board.backgroundUrl = null"
+          >
             <i class="fas fa-close" aria-hidden />
-          </b-button>
+          </button>
 
           Background image
         </div>
 
-        <b-button
-          variant="primary"
-          :disabled="saving"
+        <button
           type="submit"
+          class="btn btn-primary"
+          :disabled="saving"
         >
-          <b-spinner small v-if="saving" />
+          <span v-if="saving" class="spinner-border spinner-border-sm me-2" role="status"></span>
           <span v-else>{{ $t('global.save') }}</span>
-        </b-button>
+        </button>
 
-        <b-button
-          variant="outline-danger"
-          class="float-right"
+        <button
+          type="button"
+          class="btn btn-outline-danger float-end"
           @click="confirmDeleteBoard"
         >
           {{ $t('board.settings.deleteBoard') }}
-        </b-button>
+        </button>
       </form>
-    </template>
-  </b-sidebar>
+  </AppSidebar>
 </template>
 
 <script>
@@ -156,8 +194,8 @@ import {
 import WallpapersList from '@/components/WallpapersList';
 import UploadWallpaperButton from '@/components/UploadWallpaperButton';
 import SidebarHeader from '@/components/SidebarHeader';
+import AppSidebar from '@/components/Sidebar';
 import MiniBoard from '@/components/Board/MiniBoard';
-import VSwatches from 'vue-swatches';
 
 export default {
   BOARD_TYPES,
@@ -166,11 +204,11 @@ export default {
   LIST_SORT_OPTIONS,
 
   components: {
+    AppSidebar,
     WallpapersList,
     UploadWallpaperButton,
     MiniBoard,
     SidebarHeader,
-    VSwatches,
   },
 
   data() {
@@ -179,12 +217,14 @@ export default {
       loading: false,
       saving: false,
       lists: [],
+      visible: false,
+      wallpaperSidebarVisible: false,
     };
   },
 
   computed: {
     ...mapState(['user']),
-    ...mapGetters(['darkTheme', 'sidebarRightProps', 'swatchesProps']),
+    ...mapGetters(['darkTheme', 'sidebarRightProps']),
 
     boardId() {
       return this.$route?.params?.id;
@@ -224,9 +264,36 @@ export default {
 
   mounted() {
     if (this.boardId) this.loadBoard();
+    // Listen for sidebar toggle events
+    this.$root.$on('bv::toggle::collapse', (id) => {
+      if (id === 'edit-board-sidebar') {
+        this.visible = !this.visible;
+      } else if (id === 'select-board-wallpaper') {
+        this.wallpaperSidebarVisible = !this.wallpaperSidebarVisible;
+      }
+    });
+  },
+
+  beforeUnmount() {
+    this.$root.$off('bv::toggle::collapse');
   },
 
   methods: {
+    handleVisibilityChange(visible) {
+      this.visible = visible;
+    },
+
+    handleWallpaperVisibilityChange(visible) {
+      this.wallpaperSidebarVisible = visible;
+    },
+
+    hideSidebar() {
+      this.visible = false;
+    },
+
+    hideWallpaperSidebar() {
+      this.wallpaperSidebarVisible = false;
+    },
     async loadBoard() {
       if (!this.boardId) {
         return;
@@ -262,83 +329,74 @@ export default {
     },
 
     async confirmDeleteBoard() {
-      const confirmed = await this.$bvModal.msgBoxConfirm('Are you sure you want to delete this board?', {
-        title: 'Delete board',
-        okVariant: 'danger',
-        hideHeader: true,
-        size: 'sm',
-        cancelTitle: 'No',
-        okTitle: 'Yes, delete board',
-      })
-
-      if (confirmed) this.deleteBoard();
-    },
-
-    async confirmDeleteList(index) {
-      const confirmed = await this.$bvModal.msgBoxConfirm('Are you sure you want to delete this list?', {
-        title: 'Delete list',
-        okVariant: 'danger',
-        hideHeader: true,
-        size: 'sm',
-        cancelTitle: 'No',
-        okTitle: 'Yes, delete list',
-      });
-
-      if (confirmed) this.deleteList(index);
-    },
-
-    deleteList(index) {
-      this.lists.splice(index, 1);
-      this.saveBoard();
+      const confirmed = window.confirm('Are you sure you want to delete this board?');
+      if (confirmed) {
+        await this.deleteBoard();
+      }
     },
 
     async deleteBoard() {
       try {
-        this.loading = true;
+        this.saving = true;
 
-        await this.$store.dispatch('DELETE_BOARD', this.board.id);
-
-        this.$bvToast.toast('Board deleted');
-        this.$router.replace({ name: 'boards' });
+        await this.$store.dispatch('DELETE_BOARD', this.boardId);
+        this.showToast('Board deleted', 'success');
+        this.$router.push({ name: 'boards' });
       } catch (e) {
-        //
+        this.showToast('There was an error deleting board', 'danger');
+      } finally {
+        this.saving = false;
       }
-
-      this.loading = false;
     },
 
     selectWallpaper(wallpaper) {
       this.board.backgroundUrl = wallpaper;
-      this.$root.$emit('bv::toggle::collapse', 'select-board-wallpaper');
+      this.hideWallpaperSidebar();
     },
 
     async saveBoard() {
       try {
         this.saving = true;
 
-        const lists = this.needsFlattening
-          ? [{ name: '', games: this.mergedGamesList }]
-          : this.lists;
+        if (this.needsFlattening) {
+          const payload = {
+            ...this.board,
+            lastUpdated: Date.now(),
+            lists: [{ name: '', games: this.mergedGamesList }],
+          };
 
-        const payload = {
-          ...this.board,
-          lastUpdated: Date.now(),
-          lists,
+          this.$store.commit('SET_ACTIVE_BOARD', payload);
+        } else {
+          this.$store.commit('SET_ACTIVE_BOARD', {
+            ...this.board,
+            lastUpdated: Date.now(),
+          });
         }
 
-        this.$store.commit('SET_GAME_BOARD', payload);
-
         await this.$store.dispatch('SAVE_BOARD');
-        this.$bus.$emit('LOAD_BOARD_WALLPAPER');
-
-        if (payload.backgroundUrl === null) this.$bus.$emit('CLEAR_WALLPAPER')
-
-        this.$bus.$emit('UPDATE_BACKGROUND_COLOR', this.board?.backgroundColor)
-        this.$root.$emit('bv::toggle::collapse', 'edit-board-sidebar');
-        this.saving = false;
+        this.showToast('Board saved', 'success');
+        this.hideSidebar();
       } catch (e) {
-        //
+        this.showToast('There was an error saving board', 'danger');
+      } finally {
+        this.saving = false;
       }
+    },
+
+    showToast(message, variant = 'info') {
+      const toastElement = document.createElement('div');
+      toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
+      toastElement.setAttribute('role', 'alert');
+      toastElement.innerHTML = `
+        <div class="d-flex">
+          <div class="toast-body">${message}</div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+      `;
+      document.body.appendChild(toastElement);
+      const toast = new bootstrap.Toast(toastElement);
+      toast.show();
+      toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
     },
   },
 };

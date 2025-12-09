@@ -225,7 +225,7 @@ const routes = [
     },
   },
   {
-    path: '*',
+    path: '/:pathMatch(.*)*',
     component: () => import(/* webpackChunkName: "public" */ '@/pages/NotFoundPage'),
     meta: {
       public: true,

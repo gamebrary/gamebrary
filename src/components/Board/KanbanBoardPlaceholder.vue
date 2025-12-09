@@ -2,100 +2,96 @@
   <div class="d-flex mx-1">
     <div
       v-for="(list, index) in board.lists"
-      :class="`mr-3 list ${getListView(list)}`"
+      :class="`me-3 list ${getListView(list)}`"
       :key="index"
     >
-      <b-card
-        no-body
-        class="h-100"
-        :bg-variant="darkTheme ? 'dark' : 'light'"
-        :text-variant="darkTheme ? 'light' : 'dark'"
+      <div
+        class="card h-100"
+        :class="darkTheme ? 'bg-dark text-light' : 'bg-light text-dark'"
       >
-        <b-card-header class="pt-2 pb-1 px-2">
-          <b-skeleton />
-        </b-card-header>
+        <div class="card-header pt-2 pb-1 px-2">
+          <div class="placeholder-glow">
+            <span class="placeholder col-7"></span>
+          </div>
+        </div>
 
         <div
           v-if="list && list.games.length"
           :class="['games', getListView(list)]"
         >
           <div v-for="n in list.games.length" :key="n">
-            <b-card
-              no-body
-              img-top
-              :bg-variant="darkTheme ? 'dark' : 'light'"
-              class="mb-1 p-1"
+            <div
               v-if="getListView(list) === 'grid'"
+              class="card mb-1 p-1"
+              :class="darkTheme ? 'bg-dark text-light' : 'bg-light text-dark'"
             >
-              <b-skeleton-img
-                card-img="top"
-                class="rounded"
-                height="160px"
-              />
+              <div class="placeholder-glow">
+                <div class="placeholder rounded" style="height: 160px; width: 100%;"></div>
+              </div>
 
-              <b-card-body class="p-2">
-                <b-skeleton class="mt-2" />
-              </b-card-body>
-            </b-card>
+              <div class="card-body p-2">
+                <div class="placeholder-glow mt-2">
+                  <span class="placeholder col-12"></span>
+                </div>
+              </div>
+            </div>
 
             <div
               v-else-if="getListView(list) === 'covers'"
               class="covers-grid"
             >
-              <b-skeleton-img
+              <div
                 v-for="n in 3"
                 :key="n"
-                class="rounded"
-                height="120px"
-              />
+                class="placeholder-glow"
+              >
+                <div class="placeholder rounded" style="height: 120px; width: 100%;"></div>
+              </div>
             </div>
 
-            <b-card
+            <div
               v-else-if="getListView(list) === 'single'"
-              no-body
-              img-left
-              :bg-variant="darkTheme ? 'dark' : 'light'"
+              class="card d-flex"
+              :class="darkTheme ? 'bg-dark text-light' : 'bg-light text-dark'"
             >
-              <b-skeleton-img
-                card-img="left"
-                width="85px"
-                class="rounded m-1"
-                height="112px"
-              />
+              <div class="placeholder-glow m-1">
+                <div class="placeholder rounded" style="width: 85px; height: 112px;"></div>
+              </div>
 
-              <b-card-body class="p-2">
-                <b-skeleton />
-              </b-card-body>
-            </b-card>
+              <div class="card-body p-2">
+                <div class="placeholder-glow">
+                  <span class="placeholder col-12"></span>
+                </div>
+              </div>
+            </div>
 
-            <b-card
+            <div
               v-else-if="getListView(list) === 'compact'"
-              no-body
-              img-left
-              :bg-variant="darkTheme ? 'dark' : 'light'"
+              class="card d-flex"
+              :class="darkTheme ? 'bg-dark text-light' : 'bg-light text-dark'"
             >
-              <b-skeleton-img
-                card-img="left"
-                class="rounded m-1"
-                width="60px"
-                height="80px"
-              />
+              <div class="placeholder-glow m-1">
+                <div class="placeholder rounded" style="width: 60px; height: 80px;"></div>
+              </div>
 
-              <b-card-body class="p-2">
-                <b-skeleton />
-              </b-card-body>
-            </b-card>
+              <div class="card-body p-2">
+                <div class="placeholder-glow">
+                  <span class="placeholder col-12"></span>
+                </div>
+              </div>
+            </div>
 
-            <b-card
+            <div
               v-else
-              no-body
-              :bg-variant="darkTheme ? 'dark' : 'light'"
-              img-left
+              class="card d-flex"
+              :class="darkTheme ? 'bg-dark text-light' : 'bg-light text-dark'"
             >
-              <b-card-body class="p-2">
-                <b-skeleton class="m-0" />
-              </b-card-body>
-            </b-card>
+              <div class="card-body p-2">
+                <div class="placeholder-glow m-0">
+                  <span class="placeholder col-12"></span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -103,9 +99,11 @@
           class="p-2"
           v-else
         >
-          <b-skeleton height="2rem" />
+          <div class="placeholder-glow">
+            <span class="placeholder col-12" style="height: 2rem;"></span>
+          </div>
         </div>
-      </b-card>
+      </div>
     </div>
   </div>
 </template>
@@ -117,6 +115,16 @@ export default {
   computed: {
     ...mapState(['board']),
     ...mapGetters(['darkTheme']),
+  },
+
+  methods: {
+    getListView(list) {
+      if (list?.vertical) return 'vertical';
+      if (list?.smallCover) return 'covers';
+      if (list?.hideCover) return 'compact';
+      if (list?.hideTitle) return 'single';
+      return 'grid';
+    },
   },
 };
 </script>

@@ -1,24 +1,50 @@
 <template lang="html">
-  <b-avatar
+  <router-link
     v-if="thumbnail"
-    v-b-tooltip.hover
-    :title="`@${profile.userName}`"
-    :src="avatarImage"
     :to="{ name: 'public.profile', params: { userName: profile.userName } }"
-    size="80"
-    :rounded="!thumbnail"
-  />
+    class="d-inline-block"
+    :title="`@${profile.userName}`"
+    data-bs-toggle="tooltip"
+  >
+    <img
+      v-if="avatarImage"
+      :src="avatarImage"
+      class="rounded-circle"
+      style="width: 80px; height: 80px; object-fit: cover;"
+      :alt="`@${profile.userName}`"
+    />
+    <div
+      v-else
+      class="rounded-circle d-flex align-items-center justify-content-center"
+      style="width: 80px; height: 80px; background-color: var(--bs-gray-300);"
+    >
+      <i class="fa-regular fa-user fa-2x"></i>
+    </div>
+  </router-link>
 
-  <b-card v-else>
+  <div v-else class="card">
     <div class="profile-card">
-      <b-avatar
-        v-b-tooltip.hover
-        :title="`@${profile.userName}`"
-        :src="avatarImage"
+      <router-link
         :to="{ name: 'public.profile', params: { userName: profile.userName } }"
-        size="80"
-        rounded
-      />
+        class="d-inline-block"
+        :title="`@${profile.userName}`"
+        data-bs-toggle="tooltip"
+      >
+        <img
+          v-if="avatarImage"
+          :src="avatarImage"
+          class="rounded-circle"
+          style="width: 80px; height: 80px; object-fit: cover;"
+          :alt="`@${profile.userName}`"
+        />
+        <div
+          v-else
+          class="rounded-circle d-flex align-items-center justify-content-center"
+          style="width: 80px; height: 80px; background-color: var(--bs-gray-300);"
+        >
+          <i class="fa-regular fa-user fa-2x"></i>
+        </div>
+      </router-link>
 
       <aside v-if="!thumbnail" class="d-flex flex-column">
         <router-link :to="{ name: 'public.profile', params: { userName: profile.userName } }">
@@ -27,7 +53,7 @@
         <q v-if="profile.bio">{{ profile.bio }}</q>
       </aside>
     </div>
-  </b-card>
+  </div>
 </template>
 
 <script>
@@ -55,6 +81,24 @@ export default {
       this.avatarImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', thumbnailRef)
         .catch((e) => {});
     }
+    this.initTooltips();
+  },
+
+  updated() {
+    this.initTooltips();
+  },
+
+  methods: {
+    initTooltips() {
+      this.$nextTick(() => {
+        const tooltipTriggerList = this.$el.querySelectorAll('[data-bs-toggle="tooltip"]');
+        tooltipTriggerList.forEach(tooltipTriggerEl => {
+          if (!tooltipTriggerEl._tooltip) {
+            new bootstrap.Tooltip(tooltipTriggerEl);
+          }
+        });
+      });
+    },
   },
 };
 </script>

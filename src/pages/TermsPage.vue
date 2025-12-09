@@ -1,6 +1,6 @@
 <template lang="html">
   <section>
-    <b-container class="py-2">
+    <div class="container py-2">
       <portal to="pageTitle">
         Terms of Service
       </portal>
@@ -35,7 +35,7 @@
       <p>Gamebrary may revise these terms of service for its website at any time without notice. By using this website you are agreeing to be bound by the then current version of these terms of service.</p>
       <h3 class="mt-3">Governing Law</h3>
       <p>These terms and conditions are governed by and construed in accordance with the laws of Arizona and you irrevocably submit to the exclusive jurisdiction of the courts in that State or location.</p>
-    </b-container>
+    </div>
   </section>
 </template>
 

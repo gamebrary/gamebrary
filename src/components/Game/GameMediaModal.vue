@@ -1,76 +1,75 @@
 <template lang="html">
   <section>
-    <b-modal
+    <div
+      class="modal fade"
       id="mediaModal"
-      size="xl"
-      hide-footer
-      scrollable
-      :header-bg-variant="darkTheme ? 'dark' : 'transparent'"
-      :header-text-variant="darkTheme ? 'light' : 'dark'"
-      :body-bg-variant="darkTheme ? 'dark' : 'transparent'"
-      :body-text-variant="darkTheme ? 'light' : 'dark'"
-      @hidden="activeIndex = 0"
+      tabindex="-1"
+      aria-labelledby="mediaModalLabel"
+      aria-hidden="true"
     >
-      <template v-slot:modal-header="{ close }">
-        <modal-header
-          title="Screenshots and videos"
-          :subtitle="subtitle"
-          @close="close"
-        />
-      </template>
-
-      <div class="game-media" :class="{ 'selected': activeIndex !== null }">
-        <div class="thumbnails">
-          <div
-            v-for="({ imageUrl, isVideo }, index) in gameMedia"
-            class="position-relative"
-            :key="index"
-          >
-            <i
-              v-if="isVideo"
-              class="fa-duotone fa-2x fa-solid fa-play position-absolute video-indicator text-light cursor-pointer"
-              @click="viewMedia(index)"
-            />
-
-            <b-img
-              :src="imageUrl"
-              rounded
-              fluid
-              class="mb-3 cursor-pointer border"
-              :class="{ 'border border-danger': activeIndex === index }"
-              @click="viewMedia(index)"
-            />
+      <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content" :class="darkTheme ? 'bg-dark text-light' : 'bg-light text-dark'">
+          <div class="modal-header">
+            <h5 class="modal-title" id="mediaModalLabel">Screenshots and videos</h5>
+            <p class="mb-0 me-2">{{ subtitle }}</p>
+            <button type="button" class="btn-close" :class="darkTheme ? 'btn-close-white' : ''" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-        </div>
+          <div class="modal-body">
+            <div class="game-media" :class="{ 'selected': activeIndex !== null }">
+              <div class="thumbnails">
+                <div
+                  v-for="({ imageUrl, isVideo }, index) in gameMedia"
+                  class="position-relative"
+                  :key="index"
+                >
+                  <i
+                    v-if="isVideo"
+                    class="fa-duotone fa-2x fa-solid fa-play position-absolute video-indicator text-light cursor-pointer"
+                    style="left: calc(50% - 12px); top: calc(50% - 16px);"
+                    @click="viewMedia(index)"
+                  />
 
-        <div v-if="activeIndex !== null" class="text-center w-100 d-none d-lg-inline">
-          <b-embed
-            v-if="isSelectedMediaVideo"
-            type="iframe"
-            aspect="16by9"
-            :src="selectedMedia.videoUrl"
-            class="rounded w-100"
-            allowfullscreen
-          />
+                  <img
+                    :src="imageUrl"
+                    class="rounded img-fluid mb-3 cursor-pointer border"
+                    :class="{ 'border border-danger': activeIndex === index }"
+                    @click="viewMedia(index)"
+                    :alt="`Media ${index + 1}`"
+                  />
+                </div>
+              </div>
 
-          <a v-else :href="selectedMedia.imageUrl">
-            <b-img
-              rounded
-              fluid
-              :src="selectedMedia.imageUrl"
-              class="cursor-pointer w-auto"
-              target="_blank"
-              style="max-height: 75vh;"
-            />
-          </a>
+              <div v-if="activeIndex !== null" class="text-center w-100 d-none d-lg-inline">
+                <div
+                  v-if="isSelectedMediaVideo"
+                  class="ratio ratio-16x9 rounded w-100"
+                >
+                  <iframe
+                    :src="selectedMedia.videoUrl"
+                    class="rounded w-100"
+                    allowfullscreen
+                  ></iframe>
+                </div>
 
-          <div class="text-center">
-            <p>{{ subtitle }}</p>
-            <p>Source: {{ selectedMedia.source }}</p>
+                <a v-else :href="selectedMedia.imageUrl" target="_blank">
+                  <img
+                    class="rounded img-fluid cursor-pointer w-auto"
+                    :src="selectedMedia.imageUrl"
+                    style="max-height: 75vh;"
+                    :alt="subtitle"
+                  />
+                </a>
+
+                <div class="text-center">
+                  <p>{{ subtitle }}</p>
+                  <p>Source: {{ selectedMedia.source }}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </b-modal>
+    </div>
   </section>
 </template>
 
@@ -78,6 +77,7 @@
 import { mapGetters, mapState } from 'vuex';
 
 export default {
+
   data() {
     return {
       activeIndex: 0,
@@ -128,10 +128,23 @@ export default {
     },
   },
 
+  mounted() {
+    const modalElement = document.getElementById('mediaModal');
+    if (modalElement) {
+      modalElement.addEventListener('hidden.bs.modal', () => {
+        this.activeIndex = 0;
+      });
+    }
+  },
+
   methods: {
     viewMedia(index = 0) {
       this.activeIndex = index;
-      this.$bvModal.show('mediaModal');
+      const modalElement = document.getElementById('mediaModal');
+      if (modalElement) {
+        const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+        modal.show();
+      }
     },
 
     getWallpaperUrl(url) {
@@ -149,11 +162,31 @@ export default {
 
         await this.$store.dispatch('SAVE_BOARD');
       } catch (e) {
-        this.$bvToast.toast('There was an error setting wallpaper', { variant: 'danger' });
+        this.showToast('There was an error setting wallpaper', 'danger');
       }
 
       this.saving = false;
-      this.$bvModal.hide('mediaModal');
+      const modalElement = document.getElementById('mediaModal');
+      if (modalElement) {
+        const modal = bootstrap.Modal.getInstance(modalElement);
+        if (modal) modal.hide();
+      }
+    },
+
+    showToast(message, variant = 'info') {
+      const toastElement = document.createElement('div');
+      toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
+      toastElement.setAttribute('role', 'alert');
+      toastElement.innerHTML = `
+        <div class="d-flex">
+          <div class="toast-body">${message}</div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+      `;
+      document.body.appendChild(toastElement);
+      const toast = new bootstrap.Toast(toastElement);
+      toast.show();
+      toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
     },
   },
 };

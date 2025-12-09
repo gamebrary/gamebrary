@@ -1,116 +1,124 @@
 <template lang="html">
-  <b-sidebar
+  <AppSidebar
     id="wallpaper-details-sidebar"
-    v-bind="sidebarRightProps"
     :visible="visible"
+    :placement="sidebarRightProps?.placement || 'end'"
+    :bg-variant="sidebarRightProps?.bgVariant"
+    :text-variant="sidebarRightProps?.textVariant"
+    @update:visible="handleVisibilityChange"
     @hidden="closeSidebar"
   >
-    <template #default="{ hide }">
-      <SidebarHeader @hide="hide" title="Filter search results" />
+    <template #header>
+      <SidebarHeader @hide="hideSidebar" title="Filter search results" />
+    </template>
 
-      <div
-        class="px-3"
-      >
-        <a :href="wallpaperUrl" target="_blank">
-          <b-img
-            v-if="wallpaperUrl"
-            :src="wallpaperUrl"
-            class="mw-100 rounded mb-2"
-          />
+    <div class="px-3">
+      <a :href="wallpaperUrl" target="_blank">
+        <img
+          v-if="wallpaperUrl"
+          :src="wallpaperUrl"
+          class="mw-100 rounded mb-2"
+          alt="Wallpaper"
+        />
+      </a>
+
+      <div class="d-flex align-items-center justify-content-between pb-2">
+        <a :href="wallpaperUrl" target="_blank" class="text-truncate">
+          {{ activeWallpaper.name }}
         </a>
 
-        <div class="d-flex align-items-center justify-content-between pb-2">
-          <a :href="wallpaperUrl" target="_blank" class="text-truncate">
-            {{ activeWallpaper.name }}
-          </a>
-
-          <b-button
-            v-b-modal.deleteConfirm
-            variant="danger"
-            class="ml-2"
-            v-b-tooltip.hover="{ title: 'Delete wallpaper', placement: 'bottom', boundary: 'viewports' }"
-          >
-            <i class="fa fa-trash" aria-hidden="true" />
-          </b-button>
-        </div>
-
-        <b-button
-          v-b-toggle.boards-list
-          title=""
-          v-bind="buttonProps"
-          v-b-tooltip.hover.bottom
+        <button
+          type="button"
+          class="btn btn-danger ms-2"
+          data-bs-toggle="modal"
+          data-bs-target="#deleteConfirm"
+          :title="'Delete wallpaper'"
         >
-          Set as wallpaper
-        </b-button>
+          <i class="fa fa-trash" aria-hidden="true" />
+        </button>
       </div>
 
-      <b-collapse id="boards-list">
-        <div
-          style="position: sticky; top: 0; z-index: 3;"
-          :class="darkTheme ? 'bg-dark' : 'bg-light'"
-          class="pt-3 pb-1"
-        >
-          <b-alert
-            show
-            variant="success"
-          >
-            Select a board to apply wallpaper
-          </b-alert>
-        </div>
-
-        <MiniBoard
-          v-for="board in formattedBoards"
-          :key="board.id"
-          :board="board"
-          no-link
-          @click.native="setAsBoardWallpaper(board)"
-        />
-      </b-collapse>
-
-      <b-modal
-        id="deleteConfirm"
-        :header-bg-variant="darkTheme ? 'dark' : 'transparent'"
-        :header-text-variant="darkTheme ? 'white' : 'dark'"
-        :body-bg-variant="darkTheme ? 'dark' : 'transparent'"
-        :body-text-variant="darkTheme ? 'white' : 'dark'"
-        hide-footer
+      <button
+        type="button"
+        class="btn"
+        :class="darkTheme ? 'btn-dark' : 'btn-light'"
+        data-bs-toggle="collapse"
+        data-bs-target="#boards-list"
+        :aria-expanded="boardsListExpanded"
+        aria-controls="boards-list"
       >
-        <template v-slot:modal-header="{ close }">
-          <modal-header
-            title="Are you sure?"
-            @close="close"
-          />
-        </template>
+        Set as wallpaper
+      </button>
+    </div>
 
-        <p>Wallpaper will be permanently removed</p>
+    <div class="collapse" id="boards-list">
+      <div
+        style="position: sticky; top: 0; z-index: 3;"
+        :class="darkTheme ? 'bg-dark' : 'bg-light'"
+        class="pt-3 pb-1"
+      >
+        <div class="alert alert-success" role="alert">
+          Select a board to apply wallpaper
+        </div>
+      </div>
 
-        <b-alert v-if="boardsWithWallpaper.length" show variant="warning">
-          This wallpaper is being used by {{ boardsWithWallpaper.length }} boards.
-        </b-alert>
+      <MiniBoard
+        v-for="board in formattedBoards"
+        :key="board.id"
+        :board="board"
+        no-link
+        @click="setAsBoardWallpaper(board)"
+      />
+    </div>
 
-        <b-button @click="deleteFile(activeWallpaper)" variant="danger">
-          <b-spinner v-if="deleting" small />
-          <template v-else>Delete</template>
-        </b-button>
-      </b-modal>
-    </template>
-  </b-sidebar>
+    <div
+      class="modal fade"
+      id="deleteConfirm"
+      tabindex="-1"
+      aria-labelledby="deleteConfirmLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content" :class="darkTheme ? 'bg-dark text-light' : 'bg-light text-dark'">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteConfirmLabel">Are you sure?</h5>
+            <button type="button" class="btn-close" :class="darkTheme ? 'btn-close-white' : ''" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Wallpaper will be permanently removed</p>
+
+            <div v-if="boardsWithWallpaper.length" class="alert alert-warning" role="alert">
+              This wallpaper is being used by {{ boardsWithWallpaper.length }} boards.
+            </div>
+
+            <button type="button" class="btn btn-danger" @click="deleteFile(activeWallpaper)">
+              <span v-if="deleting" class="spinner-border spinner-border-sm me-2" role="status"></span>
+              <span v-else>Delete</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </AppSidebar>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
 import MiniBoard from '@/components/Board/MiniBoard';
 import SidebarHeader from '@/components/SidebarHeader';
+import AppSidebar from '@/components/Sidebar';
 
 export default {
   data() {
     return {
       saving: false,
       deleting: false,
+      boardsListExpanded: false,
     };
   },
 
   components: {
+    AppSidebar,
     MiniBoard,
     SidebarHeader,
   },
@@ -136,7 +144,37 @@ export default {
     },
   },
 
+  mounted() {
+    // Initialize collapse
+    const collapseElement = document.getElementById('boards-list');
+    if (collapseElement) {
+      collapseElement.addEventListener('shown.bs.collapse', () => {
+        this.boardsListExpanded = true;
+      });
+      collapseElement.addEventListener('hidden.bs.collapse', () => {
+        this.boardsListExpanded = false;
+      });
+    }
+    // Initialize tooltips
+    this.$nextTick(() => {
+      const tooltipTriggerList = this.$el.querySelectorAll('[data-bs-toggle="tooltip"]');
+      tooltipTriggerList.forEach(tooltipTriggerEl => {
+        new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+    });
+  },
+
   methods: {
+    handleVisibilityChange(visible) {
+      if (!visible) {
+        this.closeSidebar();
+      }
+    },
+
+    hideSidebar() {
+      this.$store.commit('CLEAR_ACTIVE_WALLPAPER');
+    },
+
     closeSidebar() {
       this.$store.commit('CLEAR_ACTIVE_WALLPAPER');
       this.saving = false;
@@ -155,11 +193,31 @@ export default {
 
       await this.$store.dispatch('DELETE_WALLPAPER', file)
         .catch(() => {
-          this.$bvToast.toast('There was an error deleting wallpaper', { variant: 'danger' });
+          this.showToast('There was an error deleting wallpaper', 'danger');
         });
 
-      this.$bvModal.hide('deleteConfirm');
-      this.$root.$emit('bv::toggle::collapse', 'wallpaper-details-sidebar');
+      const modalElement = document.getElementById('deleteConfirm');
+      if (modalElement) {
+        const modal = bootstrap.Modal.getInstance(modalElement);
+        if (modal) modal.hide();
+      }
+      this.hideSidebar();
+    },
+
+    showToast(message, variant = 'info') {
+      const toastElement = document.createElement('div');
+      toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
+      toastElement.setAttribute('role', 'alert');
+      toastElement.innerHTML = `
+        <div class="d-flex">
+          <div class="toast-body">${message}</div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+      `;
+      document.body.appendChild(toastElement);
+      const toast = new bootstrap.Toast(toastElement);
+      toast.show();
+      toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
     },
 
     async setAsBoardWallpaper(board) {

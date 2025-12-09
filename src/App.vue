@@ -1,3 +1,6 @@
+<!-- TODO: migrate to composition API -->
+<!-- TODO: replace vuex with pinia -->
+<!-- TODO: use vite instead of vue-cli -->
 <template>
   <body
     id="app"
@@ -6,7 +9,11 @@
     v-shortkey="KEYBOARD_SHORTCUTS"
     @shortkey="handleShortcutAction"
   >
-    <b-spinner v-if="loading" class="spinner-centered mt-5" />
+    <div v-if="loading" class="spinner-centered mt-5 d-flex justify-content-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
 
     <template v-else>
       <portal-target name="root"/>
@@ -140,6 +147,22 @@ export default {
   },
 
   methods: {
+    showToast(message, variant = 'info') {
+      const toastElement = document.createElement('div');
+      toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
+      toastElement.setAttribute('role', 'alert');
+      toastElement.innerHTML = `
+        <div class="d-flex">
+          <div class="toast-body">${message}</div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+      `;
+      document.body.appendChild(toastElement);
+      const toast = new bootstrap.Toast(toastElement);
+      toast.show();
+      toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
+    },
+
     async likeOrUnlikeGame(gameId) {
       try {
         const isLiked = this.games?.[gameId];
@@ -196,7 +219,7 @@ export default {
           mutation: 'SET_PLATFORMS',
         });
       } catch (e) {
-        this.$bvToast.toast('There was an error loading platforms');
+        this.showToast('There was an error loading platforms', 'danger');
       }
     },
 

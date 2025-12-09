@@ -1,14 +1,11 @@
 <template lang="html">
-  <b-card
-    :bg-variant="darkTheme ? 'dark' : 'light'"
-    :text-variant="darkTheme ? 'light' : 'dark'"
-    body-class="p-0"
-    class="overflow-hidden"
-    content-class="rounded"
+  <div
+    class="card overflow-hidden rounded p-0"
+    :class="darkTheme ? 'bg-dark text-light' : 'bg-light text-dark'"
   >
     <router-link
+      v-if="board?.id && !noLink"
       :to="{ name: 'board', params: { id: board.id } }"
-      :event="noLink ? '' : 'click'"
     >
       <div
         :style="backgroundSyle"
@@ -23,15 +20,14 @@
           {{ board.name }}
         </h4>
 
-        <b-badge
+        <span
           v-if="showPublicIndicator"
-          class="position-absolute m-1"
-          style="right: 0; top: 0;"
-          :variant="darkTheme ? 'warning' : 'danger'"
-          size="sm"
+          class="badge position-absolute m-1"
+          :class="darkTheme ? 'bg-warning' : 'bg-danger'"
+          style="right: 0; top: 0; font-size: 0.75rem;"
         >
           Public
-        </b-badge>
+        </span>
 
         <component
           :is="miniBoardComponent"
@@ -39,7 +35,37 @@
         />
       </div>
     </router-link>
-  </b-card>
+    <div v-else>
+      <div
+        :style="backgroundSyle"
+        class="mini-board overflow-hidden"
+        :class="{ thumbnail }"
+      >
+        <h4
+          v-if="!thumbnail"
+          class="px-2 py-2"
+          :class="{ 'text-white': hasCustomBackground || darkTheme }"
+        >
+          {{ board?.name }}
+        </h4>
+
+        <span
+          v-if="showPublicIndicator"
+          class="badge position-absolute m-1"
+          :class="darkTheme ? 'bg-warning' : 'bg-danger'"
+          style="right: 0; top: 0; font-size: 0.75rem;"
+        >
+          Public
+        </span>
+
+        <component
+          v-if="formattedBoard"
+          :is="miniBoardComponent"
+          :board="formattedBoard"
+        />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>

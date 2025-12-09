@@ -9,52 +9,65 @@
     <p>Paragraph</p>
 
     <div class="mb-5">
-      <b-button
+      <button
         v-for="variant in variants"
         :key="variant"
-        :variant="variant"
-        class="mr-2 mb-2"
+        type="button"
+        class="btn me-2 mb-2"
+        :class="`btn-${variant}`"
         @click="variantSelected = variant"
       >
         {{ variant }}
-      </b-button>
+      </button>
     </div>
 
 
     <div class="mb-5">
-      <b-alert show variant="primary">Primary Alert</b-alert>
-      <b-alert show variant="secondary">Secondary Alert</b-alert>
-      <b-alert show variant="success">Success Alert</b-alert>
-      <b-alert show variant="danger">Danger Alert</b-alert>
-      <b-alert show variant="warning">Warning Alert</b-alert>
-      <b-alert show variant="info">Info Alert</b-alert>
-      <b-alert show variant="light">Light Alert</b-alert>
-      <b-alert show variant="dark">Dark Alert</b-alert>
+      <div class="alert alert-primary" role="alert">Primary Alert</div>
+      <div class="alert alert-secondary" role="alert">Secondary Alert</div>
+      <div class="alert alert-success" role="alert">Success Alert</div>
+      <div class="alert alert-danger" role="alert">Danger Alert</div>
+      <div class="alert alert-warning" role="alert">Warning Alert</div>
+      <div class="alert alert-info" role="alert">Info Alert</div>
+      <div class="alert alert-light" role="alert">Light Alert</div>
+      <div class="alert alert-dark" role="alert">Dark Alert</div>
     </div>
 
-    <b-dropdown text="Dropdown Button">
-      <b-dropdown-item>First Action</b-dropdown-item>
-      <b-dropdown-item>Second Action</b-dropdown-item>
-      <b-dropdown-item>Third Action</b-dropdown-item>
-      <b-dropdown-divider></b-dropdown-divider>
-      <b-dropdown-item active>Active action</b-dropdown-item>
-      <b-dropdown-item disabled>Disabled action</b-dropdown-item>
-    </b-dropdown>
-    
-    <b-button
+    <div class="dropdown">
+      <button
+        class="btn btn-secondary dropdown-toggle"
+        type="button"
+        id="devToolsDropdown"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Dropdown Button
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="devToolsDropdown">
+        <li><a class="dropdown-item" href="#">First Action</a></li>
+        <li><a class="dropdown-item" href="#">Second Action</a></li>
+        <li><a class="dropdown-item" href="#">Third Action</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item active" href="#">Active action</a></li>
+        <li><a class="dropdown-item disabled" href="#">Disabled action</a></li>
+      </ul>
+    </div>
+
+    <button
+      type="button"
+      class="btn btn-danger me-3"
       @click="$store.commit('SET_SESSION_EXPIRED', true)"
-      class="mr-3"
-      variant="danger"
     >
       Expire session
-    </b-button>
+    </button>
 
-    <b-button
+    <button
+      type="button"
+      class="btn btn-warning"
       @click="$store.commit('CLEAR_CACHE_GAME_DATA')"
-      variant="warning"
     >
       Clear game cache
-    </b-button>
+    </button>
   </div>
 </template>
 

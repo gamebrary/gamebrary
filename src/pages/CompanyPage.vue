@@ -1,7 +1,11 @@
 <template lang="html">
   <section>
-    <b-container>
-      <b-spinner v-if="loading" class="spinner-centered" />
+    <div class="container">
+      <div v-if="loading" class="spinner-centered d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
 
       <div v-else-if="company">
         <portal to="pageTitle">
@@ -54,7 +58,7 @@
       <div v-else>
         empty
       </div>
-    </b-container>
+    </div>
   </section>
 </template>
 
