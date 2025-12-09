@@ -93,15 +93,14 @@
 
       <ProfileDockMenu />
 
-      <button
-        type="button"
+      <router-link
+        :to="{ name: 'settings' }"
         class="btn d-block btn-lg text-start w-100 mb-2"
         :class="routeName === 'settings' ? (darkTheme ? 'btn-success' : 'btn-dark') : (darkTheme ? 'btn-dark' : 'btn-light')"
-        @click="openSettingsSidebar"
       >
         <i class="fa-regular fa-gear fa-fw" />
         <span class="ms-2">Settings</span>
-      </button>
+      </router-link>
     </div>
 
     <template #footer>
@@ -164,12 +163,5 @@ const handleVisibilityChange = (visible) => {
 
 const hideSidebar = () => {
   store.commit('SET_MENU_OPEN', false);
-};
-
-const openSettingsSidebar = () => {
-  if ($bus) {
-    $bus.$emit('bv::toggle::collapse', 'settings-sidebar');
-  }
-  hideSidebar();
 };
 </script>

@@ -1,6 +1,6 @@
 <template lang="html">
     <div class="px-3">
-      <portal v-if="!this.loading && !isEmpty && user" to="headerActions">
+      <portal v-if="!loading && !isEmpty && user" to="headerActions">
         <div class="dropdown">
           <button
             class="btn dropdown-toggle"

@@ -33,7 +33,11 @@
               </template>
             </h4>
           </button>
-          <ul class="dropdown-menu" :aria-labelledby="`listDropdown-${listIndex}`">
+          <ul
+            class="dropdown-menu dropdown-menu-end kanban-dropdown"
+            :class="darkTheme ? 'bg-dark' : 'bg-light'"
+            :aria-labelledby="`listDropdown-${listIndex}`"
+          >
             <li>
               <button
                 type="button"
@@ -377,6 +381,21 @@ onBeforeUnmount(() => {
     max-height: calc(100dvh - 162px);
     overflow-y: auto;
     width: 100%;
+  }
+
+  :deep(.kanban-dropdown) {
+    width: 100%;
+    min-width: 100%;
+    opacity: 1 !important;
+    background-color: var(--bs-dark) !important;
+
+    &.bg-light {
+      background-color: var(--bs-light) !important;
+    }
+
+    &.bg-dark {
+      background-color: var(--bs-dark) !important;
+    }
   }
 }
 </style>

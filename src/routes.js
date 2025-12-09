@@ -162,6 +162,14 @@ const routes = [
     },
   },
   {
+    name: 'settings',
+    path: '/settings',
+    component: () => import(/* webpackChunkName: "settings" */ '@/pages/SettingsPage'),
+    meta: {
+      title: 'Settings',
+    },
+  },
+  {
     name: 'about',
     path: '/about',
     component: () => import(/* webpackChunkName: "public" */ '@/pages/AboutPage'),

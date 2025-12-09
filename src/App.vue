@@ -16,6 +16,7 @@
 
     <template v-else>
       <portal-target name="root"/>
+      <GlobalNav v-if="user" />
       <PageHeader v-if="showPageDock" />
       <router-view class="viewport" />
       <KeyboardShortcutsModal />
@@ -23,12 +24,10 @@
 
       <template v-if="user">
         <EditTagSidebar />
-        <SettingsSidebar />
         <CreateBoardSidebar />
         <CreateTagSidebar />
         <GameSelectorSidebar />
         <EditBoardSidebar />
-        <MainSidebar />
         <WallpaperDetailsSidebar />
       </template>
     </template>
@@ -44,10 +43,9 @@ import GameSelectorSidebar from '@/components/GameSelectorSidebar';
 import EditBoardSidebar from '@/components/EditBoardSidebar';
 import KeyboardShortcutsModal from '@/components/KeyboardShortcutsModal';
 import PageHeader from '@/components/PageHeader';
-import MainSidebar from '@/components/MainSidebar';
+import GlobalNav from '@/components/GlobalNav';
 import WallpaperDetailsSidebar from '@/components/WallpaperDetailsSidebar';
 import EditTagSidebar from '@/components/EditTagSidebar';
-import SettingsSidebar from '@/components/SettingsSidebar';
 import CreateBoardSidebar from '@/components/CreateBoardSidebar';
 import CreateTagSidebar from '@/components/CreateTagSidebar';
 import { KEYBOARD_SHORTCUTS, IGDB_QUERIES } from '@/constants';
@@ -248,7 +246,18 @@ onMounted(async () => {
     }
 
     .viewport {
-        width: 100%;
+      width: 100%;
+      margin-left: 0;
+      padding-bottom: 0;
+
+      @media (min-width: 768px) {
+        margin-left: 240px; // Space for left sidebar
+        padding-bottom: 0;
+      }
+
+      @media (max-width: 767px) {
+        padding-bottom: 60px; // Space for bottom nav
+      }
     }
 
     &.board {

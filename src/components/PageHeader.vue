@@ -1,26 +1,17 @@
 <template lang="html">
   <nav :class="navClass" class="px-3 d-flex align-items-center position-fixed" style="height: 56px">
-    <button
-      type="button"
-      class="btn btn-link p-0 mx-1"
-      @click="handleLogoClick"
-    >
-      <img
-        src="/img/gamebrary-logo.png"
-        class="logo"
-        alt="Gamebrary"
-      />
-    </button>
 
-    <div class="d-flex justify-content-between w-100 align-items-center">
-      <Teleport to="body">
-        <div id="pageTitle-portal"></div>
-      </Teleport>
-      <Teleport to="body">
-        <div id="headerActions-portal"></div>
-      </Teleport>
-      <h1 ref="pageTitleRef"></h1>
-      <div ref="headerActionsRef"></div>
+    <Teleport to="body">
+      <div id="pageTitle-portal"></div>
+    </Teleport>
+    <Teleport to="body">
+      <div id="headerActions-portal"></div>
+    </Teleport>
+    <h1 ref="pageTitleRef"></h1>
+    <div ref="headerActionsRef"></div>
+
+    <div class="d-flex align-items-center gap-2">
+      <SearchBox v-if="user" class="d-none d-md-block" />
 
       <router-link
         v-if="!user"
@@ -37,6 +28,7 @@
 import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
+import SearchBox from '@/components/SearchBox';
 
 const route = useRoute();
 const router = useRouter();
@@ -69,21 +61,19 @@ const navClass = computed(() => {
   return [navPos, backgroundClasses];
 });
 
-// Methods
-const handleLogoClick = () => {
-  if (user.value) {
-    store.commit('SET_MENU_OPEN', true);
-    return;
-  }
-
-  router.push({ name: 'home' });
-};
+// Methods - Logo click removed since nav is always visible
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
 nav {
   width: 100%;
-  z-index: 2;
+  z-index: 999;
+  left: 0;
+  right: 0;
+
+  @media (min-width: 768px) {
+    left: 240px; // Account for left sidebar
+  }
 
   &.nav-top {
     top: 0;
@@ -92,15 +82,6 @@ nav {
 
   &.nav-bottom {
     bottom: 0;
-  }
-}
-
-.logo {
-  width: 200px;
-
-  @media(max-width: 480px) {
-    // height: 16px;
-    width: 160px;
   }
 }
 </style>
