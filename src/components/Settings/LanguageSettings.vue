@@ -19,59 +19,57 @@
   </div>
 </template>
 
-<script>
-import { mapState } from 'vuex';
+<script setup>
+import { ref, computed, onMounted } from 'vue';
+import { useStore } from 'vuex';
+import { useI18n } from 'vue-i18n';
 import { SUPPORTED_LANGUAGES } from '@/constants';
 
-export default {
-  data() {
-    return {
-      saving: false,
-      SUPPORTED_LANGUAGES,
-      language: null,
-    };
-  },
+const store = useStore();
+const { locale } = useI18n();
 
-  computed: {
-    ...mapState(['settings']),
-  },
+// Reactive state
+const saving = ref(false);
+const language = ref(null);
 
-  mounted() {
-    this.language = this.settings?.language || 'en';
-  },
+// Store state and getters
+const settings = computed(() => store.state.settings);
 
-  methods: {
-    showToast(message, variant = 'info') {
-      const toastElement = document.createElement('div');
-      toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
-      toastElement.setAttribute('role', 'alert');
-      toastElement.innerHTML = `
-        <div class="d-flex">
-          <div class="toast-body">${message}</div>
-          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-        </div>
-      `;
-      document.body.appendChild(toastElement);
-      const toast = new bootstrap.Toast(toastElement);
-      toast.show();
-      toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
-    },
-
-    async saveLanguage() {
-      const { language, settings } = this;
-      this.$i18n.locale = language;
-
-      const payload = {
-        ...settings,
-        language,
-      };
-
-      await this.$store.dispatch('SAVE_SETTINGS', payload)
-        .catch(() => {
-          this.showToast('There was an error saving your settings', 'danger');
-          this.saving = false;
-        });
-    },
-  },
+// Methods
+const showToast = (message, variant = 'info') => {
+  const toastElement = document.createElement('div');
+  toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
+  toastElement.setAttribute('role', 'alert');
+  toastElement.innerHTML = `
+    <div class="d-flex">
+      <div class="toast-body">${message}</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  `;
+  document.body.appendChild(toastElement);
+  const toast = new bootstrap.Toast(toastElement);
+  toast.show();
+  toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
 };
+
+const saveLanguage = async () => {
+  locale.value = language.value;
+
+  const payload = {
+    ...settings.value,
+    language: language.value,
+  };
+
+  try {
+    await store.dispatch('SAVE_SETTINGS', payload);
+  } catch (e) {
+    showToast('There was an error saving your settings', 'danger');
+    saving.value = false;
+  }
+};
+
+// Lifecycle hooks
+onMounted(() => {
+  language.value = settings.value?.language || 'en';
+});
 </script>

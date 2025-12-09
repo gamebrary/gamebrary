@@ -10,24 +10,18 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 import { BOARD_TYPE_STANDARD, BOARD_TYPE_TIER } from '@/constants';
-// import KanbanBoardPlaceholder from '@/components/Board/KanbanBoardPlaceholder'
-import { mapState } from 'vuex';
 
-export default {
-  components: {
-    // KanbanBoardPlaceholder,
-  },
+const store = useStore();
 
-  computed: {
-    ...mapState(['board']),
+const board = computed(() => store.state.board);
 
-    useSpinner() {
-      return [BOARD_TYPE_STANDARD, BOARD_TYPE_TIER].includes(this.board?.type)
-    },
-  },
-};
+const useSpinner = computed(() => {
+  return [BOARD_TYPE_STANDARD, BOARD_TYPE_TIER].includes(board.value?.type);
+});
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>

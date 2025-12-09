@@ -10,22 +10,21 @@
   </div>
 </template>
 
-<script>
-import { mapGetters } from 'vuex';
+<script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 
-export default {
-  props: {
-    size: {
-      type: String,
-      default: 'full'
-    },
-    title: String,
+const props = defineProps({
+  size: {
+    type: String,
+    default: 'full',
   },
+  title: String,
+});
 
-  computed: {
-    ...mapGetters(['darkTheme']),
-  },
-};
+const store = useStore();
+
+const darkTheme = computed(() => store.getters.darkTheme);
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>

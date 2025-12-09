@@ -47,135 +47,126 @@
   </section>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, watch, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
+import { useStore } from 'vuex';
 import GameCard from '@/components/GameCard';
 import SearchFilters from '@/components/SearchFilters';
 import SearchBox from '@/components/SearchBox';
 import { IGDB_QUERIES } from '@/constants';
-import { mapState, mapGetters } from 'vuex';
 
-export default {
-  components: {
-    GameCard,
-    SearchBox,
-    SearchFilters,
-  },
+const route = useRoute();
+const store = useStore();
 
-  data() {
-    return {
-      searchResults: [],
-      loading: false,
-      pageSize: 20,
-      offset: 0,
-    };
-  },
+// Reactive state
+const searchResults = ref([]);
+const loading = ref(false);
+const pageSize = ref(20);
+const offset = ref(0);
 
-  computed: {
-    ...mapState(['boards']),
-    ...mapGetters(['darkTheme']),
+// Store state and getters
+const boards = computed(() => store.state.boards);
+const darkTheme = computed(() => store.getters.darkTheme);
 
-    filterBy() {
-      return this.$route.query?.filterBy
-        ? [this.$route.query?.filterBy]
-        : [];
-    },
+// Computed properties
+const filterBy = computed(() => {
+  return route.query?.filterBy
+    ? [route.query.filterBy]
+    : [];
+});
 
-    filterValue() {
-      return this.$route.query?.value
-        ? [this.$route.query?.value]
-        : [];
-    },
+const filterValue = computed(() => {
+  return route.query?.value
+    ? [route.query.value]
+    : [];
+});
 
-    query() {
-      return this.$route.query.q
-        ? this.$route.query.q.trim()
-        : '';
-    },
+const query = computed(() => {
+  return route.query.q
+    ? route.query.q.trim()
+    : '';
+});
 
-    boardId() {
-      return this.$route.query?.boardId;
-    },
+const boardId = computed(() => route.query?.boardId);
 
-    boardListIndex() {
-      return this.$route.query?.listIndex;
-    },
+const boardListIndex = computed(() => route.query?.listIndex);
 
-    showEmptyState() {
-      return this.$route?.query?.q === undefined;
-    },
+const showEmptyState = computed(() => route?.query?.q === undefined);
 
-    showPreviousButton() {
-      return this.offset >= this.pageSize;
-    },
+const showPreviousButton = computed(() => offset.value >= pageSize.value);
 
-    filterSelected() {
-      return Boolean(this.$route.query?.filterBy && this.$route.query?.value);
-    },
-  },
+const filterSelected = computed(() => {
+  return Boolean(route.query?.filterBy && route.query?.value);
+});
 
-  watch: {
-    query(value) {
-      this.offset = 0;
-      this.search();
-    },
-
-    pageSize(value) {
-      this.search();
-    },
-
-    filterValue(value) {
-      this.offset = 0;
-      this.search();
-    },
-  },
-
-  async mounted() {
-    if (this.filterBy || this.filterValue || !this.showEmptyState) this.search();
-  },
-
-  methods: {
-    clearResults() {
-      this.searchResults = [];
-      this.offset = 0;
-    },
-
-    loadMore() {
-      this.offset = this.offset + this.pageSize;
-      this.search();
-    },
-
-    prev() {
-      this.offset = this.offset - this.pageSize;
-      this.search();
-    },
-
-    async search() {
-      this.loading = true;
-
-      if (this.searchResults.length > 0 && this.offset === 0) this.clearResults();
-
-      const search = this.query
-        ? `search "${this.query}";`
-        : '';
-
-      const filter = this.filterBy.length && this.filterValue.length
-        ? `where ${this.filterBy} = (${this.filterValue});`
-        : '';
-
-      const searchResults = await this.$store.dispatch('IGDB', {
-        path: 'games',
-        data: `${search} ${IGDB_QUERIES.SEARCH} limit ${this.pageSize}; offset ${this.offset}; ${filter};`,
-      });
-
-      this.searchResults = [
-        ...this.searchResults,
-        ...searchResults,
-      ];
-
-      this.$store.commit("CACHE_GAME_DATA", searchResults);
-
-      this.loading = false;
-    },
-  },
+// Methods
+const clearResults = () => {
+  searchResults.value = [];
+  offset.value = 0;
 };
+
+const loadMore = () => {
+  offset.value = offset.value + pageSize.value;
+  search();
+};
+
+const prev = () => {
+  offset.value = offset.value - pageSize.value;
+  search();
+};
+
+const search = async () => {
+  loading.value = true;
+
+  if (searchResults.value.length > 0 && offset.value === 0) {
+    clearResults();
+  }
+
+  const searchQuery = query.value
+    ? `search "${query.value}";`
+    : '';
+
+  const filter = filterBy.value.length && filterValue.value.length
+    ? `where ${filterBy.value[0]} = (${filterValue.value[0]});`
+    : '';
+
+  try {
+    const results = await store.dispatch('IGDB', {
+      path: 'games',
+      data: `${searchQuery} ${IGDB_QUERIES.SEARCH} limit ${pageSize.value}; offset ${offset.value}; ${filter};`,
+    });
+
+    searchResults.value = [
+      ...searchResults.value,
+      ...results,
+    ];
+
+    store.commit('CACHE_GAME_DATA', results);
+  } finally {
+    loading.value = false;
+  }
+};
+
+// Watchers
+watch(query, () => {
+  offset.value = 0;
+  search();
+});
+
+watch(pageSize, () => {
+  search();
+});
+
+watch(filterValue, () => {
+  offset.value = 0;
+  search();
+});
+
+// Lifecycle hooks
+onMounted(() => {
+  if (filterBy.value.length || filterValue.value.length || !showEmptyState.value) {
+    search();
+  }
+});
 </script>

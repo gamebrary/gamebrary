@@ -24,54 +24,51 @@
   </ul>
 </template>
 
-<script>
+<script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 import sortby from 'lodash.sortby';
 import { THUMBNAIL_PREFIX } from '@/constants';
-import { mapState, mapGetters } from 'vuex';
 
-export default {
-  components: {
-  },
+const props = defineProps({
+  selectable: Boolean,
+  selected: String,
+  saving: Boolean,
+});
 
-  props: {
-    selectable: Boolean,
-    selected: String,
-    saving: Boolean,
-  },
+const emit = defineEmits(['select']);
 
-  computed: {
-    ...mapState(['wallpapers']),
-    ...mapGetters(['darkTheme']),
+const store = useStore();
 
+// Store state and getters
+const wallpapers = computed(() => store.state.wallpapers);
+const darkTheme = computed(() => store.getters.darkTheme);
 
-    sortedWallpapers() {
-      const wallpapers = this.wallpapers?.filter((wallpaper) => !wallpaper?.fullPath?.includes(THUMBNAIL_PREFIX));
+// Computed properties
+const sortedWallpapers = computed(() => {
+  const filteredWallpapers = wallpapers.value?.filter((wallpaper) => !wallpaper?.fullPath?.includes(THUMBNAIL_PREFIX));
+  return sortby(filteredWallpapers, 'updated').reverse();
+});
 
-      return sortby(wallpapers, 'updated').reverse();
-    },
+const isEmpty = computed(() => {
+  return sortedWallpapers.value?.length === 0;
+});
 
-    isEmpty() {
-      return this.sortedWallpapers?.length === 0;
-    },
-  },
+// Methods
+const handleClick = (wallpaper) => {
+  if (props.selectable && wallpaper?.fullPath) {
+    emit('select', wallpaper.fullPath);
+    const modalElement = document.getElementById('boardWallpaper');
+    if (modalElement) {
+      const modal = bootstrap.Modal.getInstance(modalElement);
+      if (modal) modal.hide();
+    }
+  } else {
+    openPreview(wallpaper);
+  }
+};
 
-  methods: {
-    handleClick(wallpaper) {
-      if (this.selectable && wallpaper?.fullPath) {
-        this.$emit('select', wallpaper.fullPath);
-        const modalElement = document.getElementById('boardWallpaper');
-        if (modalElement) {
-          const modal = bootstrap.Modal.getInstance(modalElement);
-          if (modal) modal.hide();
-        }
-      } else {
-        this.openPreview(wallpaper);
-      }
-    },
-
-    openPreview(wallpaper) {
-      this.$store.commit('SET_ACTIVE_WALLPAPER', wallpaper);
-    },
-  },
+const openPreview = (wallpaper) => {
+  store.commit('SET_ACTIVE_WALLPAPER', wallpaper);
 };
 </script>

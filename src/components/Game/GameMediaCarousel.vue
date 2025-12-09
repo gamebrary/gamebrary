@@ -24,40 +24,41 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 import { IMAGE_SIZE_SCREENSHOT_HUGE } from '@/constants';
-import { mapState, mapGetters } from 'vuex';
 import { getImageUrl } from '@/utils';
 
-export default {
-  computed: {
-    ...mapState(['game', 'user']),
-    ...mapGetters(['darkTheme']),
+const store = useStore();
 
-    artworks() {
-      return this.game?.artworks?.map((artwork) => ({
-        url: getImageUrl(artwork, IMAGE_SIZE_SCREENSHOT_HUGE),
-      }));
-    },
+// Store state and getters
+const game = computed(() => store.state.game);
+const user = computed(() => store.state.user);
+const darkTheme = computed(() => store.getters.darkTheme);
 
-    hasArtworks() {
-      return this.game?.artworks?.length > 0;
-    },
+// Computed properties
+const artworks = computed(() => {
+  return game.value?.artworks?.map((artwork) => ({
+    url: getImageUrl(artwork, IMAGE_SIZE_SCREENSHOT_HUGE),
+  }));
+});
 
-    hasWallpaper() {
-      return Boolean(this.game?.steam?.background);
-    },
-  },
+const hasArtworks = computed(() => {
+  return game.value?.artworks?.length > 0;
+});
 
-  methods: {
-    openMediaModal() {
-      const modalElement = document.getElementById('mediaModal');
-      if (modalElement) {
-        const modal = new bootstrap.Modal(modalElement);
-        modal.show();
-      }
-    },
-  },
+const hasWallpaper = computed(() => {
+  return Boolean(game.value?.steam?.background);
+});
+
+// Methods
+const openMediaModal = () => {
+  const modalElement = document.getElementById('mediaModal');
+  if (modalElement) {
+    const modal = new bootstrap.Modal(modalElement);
+    modal.show();
+  }
 };
 </script>
 

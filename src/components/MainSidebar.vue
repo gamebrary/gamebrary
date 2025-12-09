@@ -110,70 +110,66 @@
   </AppSidebar>
 </template>
 
-<script>
-import { mapState, mapGetters } from 'vuex';
+<script setup>
+import { computed, inject } from 'vue';
+import { useRoute } from 'vue-router';
+import { useStore } from 'vuex';
 import { THUMBNAIL_PREFIX } from '@/constants';
 import ProfileDockMenu from '@/components/Dock/ProfileDockMenu';
 import SidebarHeader from '@/components/SidebarHeader';
 import MainSidebarFooter from '@/components/MainSidebarFooter';
 import SearchBox from '@/components/SearchBox';
-import AppSidebar from '@/components/Sidebar';
+import AppSidebar from '@/components/AppSidebar';
 
-export default {
-  components: {
-    AppSidebar,
-    SearchBox,
-    ProfileDockMenu,
-    SidebarHeader,
-    MainSidebarFooter,
-  },
+const route = useRoute();
+const store = useStore();
+const $bus = inject('$bus');
 
-  computed: {
-    ...mapState(['user', 'board', 'boards', 'settings', 'user', 'games', 'notes', 'tags', 'wallpapers', 'menuOpen']),
-    ...mapGetters(['navPosition', 'latestRelease', 'darkTheme', 'transparencyEnabled', 'sidebarLeftProps']),
+// Store state and getters
+const user = computed(() => store.state.user);
+const board = computed(() => store.state.board);
+const boards = computed(() => store.state.boards);
+const settings = computed(() => store.state.settings);
+const games = computed(() => store.state.games);
+const notes = computed(() => store.state.notes);
+const tags = computed(() => store.state.tags);
+const wallpapers = computed(() => store.state.wallpapers);
+const menuOpen = computed(() => store.state.menuOpen);
+const navPosition = computed(() => store.getters.navPosition);
+const latestRelease = computed(() => store.getters.latestRelease);
+const darkTheme = computed(() => store.getters.darkTheme);
+const transparencyEnabled = computed(() => store.getters.transparencyEnabled);
+const sidebarLeftProps = computed(() => store.getters.sidebarLeftProps);
 
-    routeName() {
-      return this.$route?.name;
-    },
+// Computed properties
+const routeName = computed(() => route?.name);
 
-    variant() {
-      return this.darkTheme ? 'dark' : 'light';
-    },
+const variant = computed(() => darkTheme.value ? 'dark' : 'light');
 
-    activeVariant() {
-      return this.darkTheme ? 'success' : 'black';
-    },
+const activeVariant = computed(() => darkTheme.value ? 'success' : 'black');
 
-    gameCount() {
-      return Object.keys(this.games).length;
-    },
+const gameCount = computed(() => Object.keys(games.value).length);
 
-    notesCount() {
-      return Object.keys(this.notes).length;
-    },
+const notesCount = computed(() => Object.keys(notes.value).length);
 
-    wallpaperCount() {
-      const wallpapers = this.wallpapers?.filter((wallpaper) => !wallpaper?.fullPath?.includes(THUMBNAIL_PREFIX));
+const wallpaperCount = computed(() => {
+  const filteredWallpapers = wallpapers.value?.filter((wallpaper) => !wallpaper?.fullPath?.includes(THUMBNAIL_PREFIX));
+  return filteredWallpapers.length;
+});
 
-      return wallpapers.length;
-    },
-  },
+// Methods
+const handleVisibilityChange = (visible) => {
+  store.commit('SET_MENU_OPEN', visible);
+};
 
-  methods: {
-    handleVisibilityChange(visible) {
-      this.$store.commit('SET_MENU_OPEN', visible);
-    },
+const hideSidebar = () => {
+  store.commit('SET_MENU_OPEN', false);
+};
 
-    hideSidebar() {
-      this.$store.commit('SET_MENU_OPEN', false);
-    },
-
-    openSettingsSidebar() {
-      if (this.$bus) {
-        this.$bus.$emit('bv::toggle::collapse', 'settings-sidebar');
-      }
-      this.hideSidebar();
-    },
+const openSettingsSidebar = () => {
+  if ($bus) {
+    $bus.$emit('bv::toggle::collapse', 'settings-sidebar');
   }
+  hideSidebar();
 };
 </script>

@@ -44,120 +44,117 @@
   </AppSidebar>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, onMounted, onBeforeUnmount, inject } from 'vue';
+import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 import SidebarHeader from '@/components/SidebarHeader';
-import AppSidebar from '@/components/Sidebar';
+import AppSidebar from '@/components/AppSidebar';
 import MiniBoard from '@/components/Board/MiniBoard';
-import { mapState, mapGetters } from 'vuex';
 import { BOARD_TYPE_KANBAN } from '@/constants';
 
-export default {
-  data() {
-    return {
-      boardName: '',
-      saving: false,
-      visible: false,
-    }
-  },
+const router = useRouter();
+const store = useStore();
+const $bus = inject('$bus');
 
-  components: {
-    AppSidebar,
-    SidebarHeader,
-    MiniBoard,
-  },
+// Reactive state
+const boardName = ref('');
+const saving = ref(false);
+const visible = ref(false);
 
-  computed: {
-    ...mapState(['board', 'user']),
-    ...mapGetters(['sidebarRightProps', 'darkTheme']),
+// Store state and getters
+const board = computed(() => store.state.board);
+const user = computed(() => store.state.user);
+const sidebarRightProps = computed(() => store.getters.sidebarRightProps);
+const darkTheme = computed(() => store.getters.darkTheme);
 
-    payload() {
-      const dateCreated = Date.now();
+// Computed properties
+const payload = computed(() => {
+  const dateCreated = Date.now();
 
-      const isBoardOwner = this.board.owner === this.user.uid;
+  const isBoardOwner = board.value.owner === user.value.uid;
 
-      const backgroundUrl = isBoardOwner
-        ? this.board.backgroundUrl
-        : null;
+  const backgroundUrl = isBoardOwner
+    ? board.value.backgroundUrl
+    : null;
 
-      return {
-        type: this.board.type || BOARD_TYPE_KANBAN,
-        lists: this.board.lists,
-        ranked: this.board.ranked || false,
-        backgroundUrl: backgroundUrl || null,
-        backgroundColor: this.board?.backgroundColor || null,
-        lastUpdated: this.board.lastUpdated || dateCreated,
-        darkTheme: this.board.darkTheme || false,
-        dateCreated: this.board.dateCreated || dateCreated,
-        originalOwnerId: this.board.owner,
-        isPublic: false,
-        dateCreated,
-        lastUpdated: dateCreated,
-        originalBoardId: this.board.id,
-        originalDateCreated: this.board.dateCreated || dateCreated,
-        owner: this.user.uid,
-        name: this.boardName,
-      }
-    },
-  },
+  return {
+    type: board.value.type || BOARD_TYPE_KANBAN,
+    lists: board.value.lists,
+    ranked: board.value.ranked || false,
+    backgroundUrl: backgroundUrl || null,
+    backgroundColor: board.value?.backgroundColor || null,
+    lastUpdated: board.value.lastUpdated || dateCreated,
+    darkTheme: board.value.darkTheme || false,
+    dateCreated: board.value.dateCreated || dateCreated,
+    originalOwnerId: board.value.owner,
+    isPublic: false,
+    dateCreated,
+    lastUpdated: dateCreated,
+    originalBoardId: board.value.id,
+    originalDateCreated: board.value.dateCreated || dateCreated,
+    owner: user.value.uid,
+    name: boardName.value,
+  };
+});
 
-  mounted() {
-    // Listen for sidebar toggle events
-    if (this.$bus) {
-      this.$bus.$on('bv::toggle::collapse', (id) => {
-        if (id === 'clone-board-sidebar') {
-          this.visible = !this.visible;
-        }
-      });
-    }
-  },
-
-  beforeUnmount() {
-    if (this.$bus) {
-      this.$bus.$off('bv::toggle::collapse');
-    }
-  },
-
-  methods: {
-    handleVisibilityChange(visible) {
-      this.visible = visible;
-    },
-
-    hideSidebar() {
-      this.visible = false;
-    },
-
-    showToast(message, variant = 'info') {
-      const toastElement = document.createElement('div');
-      toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
-      toastElement.setAttribute('role', 'alert');
-      toastElement.innerHTML = `
-        <div class="d-flex">
-          <div class="toast-body">${message}</div>
-          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-        </div>
-      `;
-      document.body.appendChild(toastElement);
-      const toast = new bootstrap.Toast(toastElement);
-      toast.show();
-      toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
-    },
-
-    setBoardName() {
-      this.boardName = this.board.name || '';
-    },
-
-    async cloneBoard() {
-      try {
-        this.saving = true;
-
-        const { id } = await this.$store.dispatch('CREATE_BOARD', this.payload);
-        this.showToast('Board cloned', 'success');
-        this.saving = false;
-        this.$router.push({ name: 'board', params: { id } });
-      } catch (e) {
-        console.log(e);
-      }
-    },
-  },
+// Methods
+const handleVisibilityChange = (newVisible) => {
+  visible.value = newVisible;
 };
+
+const hideSidebar = () => {
+  visible.value = false;
+};
+
+const showToast = (message, variant = 'info') => {
+  const toastElement = document.createElement('div');
+  toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
+  toastElement.setAttribute('role', 'alert');
+  toastElement.innerHTML = `
+    <div class="d-flex">
+      <div class="toast-body">${message}</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  `;
+  document.body.appendChild(toastElement);
+  const toast = new bootstrap.Toast(toastElement);
+  toast.show();
+  toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
+};
+
+const setBoardName = () => {
+  boardName.value = board.value.name || '';
+};
+
+const cloneBoard = async () => {
+  try {
+    saving.value = true;
+
+    const { id } = await store.dispatch('CREATE_BOARD', payload.value);
+    showToast('Board cloned', 'success');
+    saving.value = false;
+    router.push({ name: 'board', params: { id } });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+// Lifecycle hooks
+onMounted(() => {
+  // Listen for sidebar toggle events
+  if ($bus) {
+    $bus.$on('bv::toggle::collapse', (id) => {
+      if (id === 'clone-board-sidebar') {
+        visible.value = !visible.value;
+      }
+    });
+  }
+});
+
+onBeforeUnmount(() => {
+  if ($bus) {
+    $bus.$off('bv::toggle::collapse');
+  }
+});
 </script>

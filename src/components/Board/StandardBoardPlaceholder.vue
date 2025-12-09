@@ -63,24 +63,21 @@
   </div>
 </template>
 
-<script>
-import { mapState, mapGetters } from 'vuex';
+<script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 
-export default {
-  computed: {
-    ...mapState(['board']),
-    ...mapGetters(['darkTheme']),
-  },
+const store = useStore();
 
-  methods: {
-    getListView(list) {
-      if (list?.vertical) return 'vertical';
-      if (list?.smallCover) return 'covers';
-      if (list?.hideCover) return 'compact';
-      if (list?.hideTitle) return 'single';
-      return 'grid';
-    },
-  },
+const board = computed(() => store.state.board);
+const darkTheme = computed(() => store.getters.darkTheme);
+
+const getListView = (list) => {
+  if (list?.vertical) return 'vertical';
+  if (list?.smallCover) return 'covers';
+  if (list?.hideCover) return 'compact';
+  if (list?.hideTitle) return 'single';
+  return 'grid';
 };
 </script>
 

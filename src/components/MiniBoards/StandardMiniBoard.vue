@@ -61,63 +61,63 @@
   </div>
 </template>
 
-<script>
-import { mapGetters, mapState } from 'vuex';
+<script setup>
+import { ref, computed, onMounted, onUpdated, nextTick } from 'vue';
+import { useStore } from 'vuex';
 
-export default {
-  props: {
-    board: {
-      type: Object,
-      required: true,
-    },
+const props = defineProps({
+  board: {
+    type: Object,
+    required: true,
   },
+});
 
-  data() {
-    return {
-      gameRefs: {},
-    };
-  },
+const store = useStore();
 
-  computed: {
-    ...mapGetters(['darkTheme', 'showGameThumbnails']),
-    ...mapState(['routeName', 'game']),
+// Template refs
+const gameRefs = ref({});
 
-    currentGameId() {
-      return this.routeName === 'game'
-        ? this.game?.id
-        : null;
-    },
+// Store state and getters
+const darkTheme = computed(() => store.getters.darkTheme);
+const showGameThumbnails = computed(() => store.getters.showGameThumbnails);
+const routeName = computed(() => store.state.routeName);
+const game = computed(() => store.state.game);
 
-    isGrid() {
-      return this.board?.grid;
-    },
+// Computed properties
+const currentGameId = computed(() => {
+  return routeName.value === 'game'
+    ? game.value?.id
+    : null;
+});
 
-    firstList() {
-      return this.board?.lists?.[0] || {};
-    },
-  },
+const isGrid = computed(() => {
+  return props.board?.grid;
+});
 
-  mounted() {
-    this.initTooltips();
-  },
+const firstList = computed(() => {
+  return props.board?.lists?.[0] || {};
+});
 
-  updated() {
-    this.initTooltips();
-  },
-
-  methods: {
-    initTooltips() {
-      this.$nextTick(() => {
-        const tooltipTriggerList = this.$el.querySelectorAll('[data-bs-toggle="tooltip"]');
-        tooltipTriggerList.forEach(tooltipTriggerEl => {
-          if (!tooltipTriggerEl._tooltip) {
-            new bootstrap.Tooltip(tooltipTriggerEl);
-          }
-        });
-      });
-    },
-  },
+// Methods
+const initTooltips = () => {
+  nextTick(() => {
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      if (!tooltipTriggerEl._tooltip) {
+        new bootstrap.Tooltip(tooltipTriggerEl);
+      }
+    });
+  });
 };
+
+// Lifecycle hooks
+onMounted(() => {
+  initTooltips();
+});
+
+onUpdated(() => {
+  initTooltips();
+});
 </script>
 
 <style scoped>

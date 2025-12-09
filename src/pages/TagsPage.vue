@@ -110,64 +110,58 @@
   </div>
 </template>
 
-<script>
-import { mapState, mapGetters } from 'vuex';
+<script setup>
+import { ref, computed, watch, onMounted } from 'vue';
+import { useStore } from 'vuex';
 import GameCard from '@/components/GameCard';
 import EmptyState from '@/components/EmptyState';
 
-export default {
-  components: {
-    EmptyState,
-    GameCard,
-  },
+const store = useStore();
 
-  data() {
-    return {
-      loading: false,
-    };
-  },
+// Reactive state
+const loading = ref(false);
 
-  computed: {
-    ...mapState(['tags', 'user', 'cachedGames', 'activeTagIndex']),
-    ...mapGetters(['darkTheme', 'buttonProps']),
+// Store state and getters
+const tags = computed(() => store.state.tags);
+const user = computed(() => store.state.user);
+const cachedGames = computed(() => store.state.cachedGames);
+const activeTagIndex = computed(() => store.state.activeTagIndex);
+const darkTheme = computed(() => store.getters.darkTheme);
+const buttonProps = computed(() => store.getters.buttonProps);
 
-    isEmpty() {
-      return this.tags?.length === 0;
-    },
-  },
+// Computed properties
+const isEmpty = computed(() => tags.value?.length === 0);
 
-  watch: {
-    activeTagIndex(activeIndex) {
-      if (activeIndex === null) this.load();
-    },
-  },
-
-  mounted() {
-		if (this.user?.uid) this.load();
-  },
-
-  methods: {
-    openEditTagSidebar(index) {
-      this.$store.commit('SET_ACTIVE_TAG_INDEX', index);
-    },
-
-    async load() {
-      try {
-        this.loading = this.tags.length === 0;
-
-        await this.$store.dispatch('LOAD_TAGS');
-
-        const allGames = Array.from(new Set(this.tags.map(({ games }) => games).flat()));
-        const cachedGames = Object.keys(this.cachedGames);
-        const gamesNotCached = allGames?.filter((game) => !cachedGames.includes(String(game)))?.toString();
-
-        if (gamesNotCached) await this.$store.dispatch('LOAD_IGDB_GAMES', gamesNotCached);
-      } catch (e) {
-        //
-      }
-
-      this.loading = false;
-    },
-  },
+// Methods
+const openEditTagSidebar = (index) => {
+  store.commit('SET_ACTIVE_TAG_INDEX', index);
 };
+
+const load = async () => {
+  try {
+    loading.value = tags.value.length === 0;
+
+    await store.dispatch('LOAD_TAGS');
+
+    const allGames = Array.from(new Set(tags.value.map(({ games }) => games).flat()));
+    const cachedGamesKeys = Object.keys(cachedGames.value);
+    const gamesNotCached = allGames?.filter((game) => !cachedGamesKeys.includes(String(game)))?.toString();
+
+    if (gamesNotCached) await store.dispatch('LOAD_IGDB_GAMES', gamesNotCached);
+  } catch (e) {
+    //
+  }
+
+  loading.value = false;
+};
+
+// Watchers
+watch(activeTagIndex, (activeIndex) => {
+  if (activeIndex === null) load();
+});
+
+// Lifecycle hooks
+onMounted(() => {
+  if (user.value?.uid) load();
+});
 </script>

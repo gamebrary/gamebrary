@@ -50,7 +50,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import { KEYBOARD_SHORTCUTS } from '@/constants';
 import SidebarHeader from '@/components/SidebarHeader';
-import AppSidebar from '@/components/Sidebar';
+import AppSidebar from '@/components/AppSidebar';
 
 const route = useRoute();
 const router = useRouter();

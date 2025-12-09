@@ -30,75 +30,64 @@
   </div>
 </template>
 
-<script>
-import { mapState, mapGetters } from 'vuex';
+<script setup>
+import { ref, computed, inject } from 'vue';
+import { useStore } from 'vuex';
 
-export default {
-  data() {
-    return {
-      maxSpace: '67108864',
-      saving: false,
+const store = useStore();
+const $bus = inject('$bus');
+
+// Template refs
+const fileInput = ref(null);
+
+// Reactive state
+const maxSpace = ref('67108864');
+const saving = ref(false);
+
+// Store state and getters
+const wallpapers = computed(() => store.state.wallpapers);
+const darkTheme = computed(() => store.getters.darkTheme);
+const buttonProps = computed(() => store.getters.buttonProps);
+
+// Methods
+const triggerFileUpload = () => {
+  fileInput.value?.click();
+};
+
+const uploadWallpaper = async (event) => {
+  const file = event?.target?.files?.[0];
+  if (!file) return false;
+
+  saving.value = true;
+
+  try {
+    await store.dispatch('UPLOAD_WALLPAPER', file);
+    showToast('Wallpaper uploaded successfully', 'success');
+  } catch (e) {
+    showToast('There was an error uploading wallpaper', 'danger');
+  } finally {
+    // Reset file input
+    if (fileInput.value) {
+      fileInput.value.value = '';
     }
-  },
+    saving.value = false;
+    $bus.$emit('WALLPAPER_UPLOADED');
+  }
+};
 
-  computed: {
-    ...mapState(['wallpapers']),
-    ...mapGetters(['darkTheme', 'buttonProps']),
-
-    // spaceUsed() {
-    //   return this.wallpapers.reduce((total, { metadata }) => {
-    //     const size = metadata?.size || 0;
-
-    //     return total + size;
-    //   }, 0);
-    // },
-
-    // outOfSpace() {
-    //   return this.spaceUsed >= this.maxSpace;
-    // },
-  },
-
-  methods: {
-    triggerFileUpload() {
-      this.$refs.fileInput?.click();
-    },
-
-    async uploadWallpaper(event) {
-      const file = event?.target?.files?.[0];
-      if (!file) return false;
-
-      this.saving = true;
-
-      try {
-        await this.$store.dispatch('UPLOAD_WALLPAPER', file);
-        this.showToast('Wallpaper uploaded successfully', 'success');
-      } catch (e) {
-        this.showToast('There was an error uploading wallpaper', 'danger');
-      }
-
-      // Reset file input
-      if (this.$refs.fileInput) {
-        this.$refs.fileInput.value = '';
-      }
-      this.saving = false;
-      this.$bus.$emit('WALLPAPER_UPLOADED');
-    },
-
-    showToast(message, variant = 'info') {
-      const toastElement = document.createElement('div');
-      toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
-      toastElement.setAttribute('role', 'alert');
-      toastElement.innerHTML = `
-        <div class="d-flex">
-          <div class="toast-body">${message}</div>
-          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-        </div>
-      `;
-      document.body.appendChild(toastElement);
-      const toast = new bootstrap.Toast(toastElement);
-      toast.show();
-      toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
-    },
-  },
+const showToast = (message, variant = 'info') => {
+  const toastElement = document.createElement('div');
+  toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
+  toastElement.setAttribute('role', 'alert');
+  toastElement.innerHTML = `
+    <div class="d-flex">
+      <div class="toast-body">${message}</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  `;
+  document.body.appendChild(toastElement);
+  const toast = new bootstrap.Toast(toastElement);
+  toast.show();
+  toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
 };
 </script>

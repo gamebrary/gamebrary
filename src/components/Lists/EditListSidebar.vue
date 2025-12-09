@@ -55,7 +55,7 @@
             class="form-select"
             :class="{ 'mb-3': list.sortBy }"
           >
-            <option v-for="option in $options.LIST_SORT_OPTIONS" :key="option.value" :value="option.value">
+            <option v-for="option in LIST_SORT_OPTIONS" :key="option.value" :value="option.value">
               {{ option.text }}
             </option>
           </select>
@@ -184,7 +184,7 @@
           :disabled="saving"
         >
           <span v-if="saving" class="spinner-border spinner-border-sm me-2" role="status"></span>
-          <span v-else>{{ $t('global.save') }}</span>
+          <span v-else>{{ t('global.save') }}</span>
         </button>
 
         <button
@@ -199,154 +199,161 @@
   </AppSidebar>
 </template>
 
-<script>
-import { mapState, mapGetters } from 'vuex';
+<script setup>
+import { ref, computed, watch, onMounted, onBeforeUnmount, inject } from 'vue';
+import { useStore } from 'vuex';
+import { useI18n } from 'vue-i18n';
 import { LIST_SORT_OPTIONS } from '@/constants';
 import SidebarHeader from '@/components/SidebarHeader';
-import AppSidebar from '@/components/Sidebar';
+import AppSidebar from '@/components/AppSidebar';
 
-export default {
-  LIST_SORT_OPTIONS,
+const store = useStore();
+const { t } = useI18n();
+const $bus = inject('$bus');
 
-  components: {
-    AppSidebar,
-    SidebarHeader,
-  },
+// Reactive state
+const list = ref({});
+const saving = ref(false);
 
-  data() {
-    return {
-      list: {},
-      saving: false,
-    }
-  },
+// Store state and getters
+const board = computed(() => store.state.board);
+const activeBoardListIndex = computed(() => store.state.activeBoardListIndex);
+const darkTheme = computed(() => store.getters.darkTheme);
+const sidebarRightProps = computed(() => store.getters.sidebarRightProps);
 
-  computed: {
-    ...mapState(['board', 'activeBoardListIndex']),
-    ...mapGetters(['darkTheme', 'sidebarRightProps']),
-  },
+// Watchers
+watch(activeBoardListIndex, (newIndex) => {
+  if (newIndex === null && list.value) {
+    list.value = {};
+  }
+});
 
-  mounted() {
-    // Listen for sidebar toggle events
-    if (this.$bus) {
-      this.$bus.$on('bv::toggle::collapse', (id) => {
-        if (id === 'edit-list-modal') {
-          // Toggle handled by visible prop
-        }
-      });
-    }
-  },
+// Methods
+const handleVisibilityChange = (visible) => {
+  if (!visible) {
+    closeSidebar();
+  }
+};
 
-  beforeUnmount() {
-    if (this.$bus) {
-      this.$bus.$off('bv::toggle::collapse');
-    }
-  },
+const hideSidebar = () => {
+  store.commit('CLEAR_ACTIVE_BOARD_LIST_INDEX');
+};
 
-  methods: {
-    handleVisibilityChange(visible) {
-      if (!visible) {
-        this.closeSidebar();
+const openEditListSidebar = () => {
+  saving.value = false;
+  const currentList = board.value?.lists?.[activeBoardListIndex.value] || {};
+  list.value = {
+    name: '',
+    games: [],
+    sortBy: null,
+    vertical: false,
+    showGameCount: false,
+    smallCover: false,
+    hideCover: false,
+    hideTitle: false,
+    hideTags: false,
+    hideRibbon: false,
+    hideNotes: false,
+    hidePlatforms: false,
+    hideProgress: false,
+    ranked: false,
+    ...currentList,
+  };
+};
+
+const closeSidebar = () => {
+  store.commit('CLEAR_ACTIVE_BOARD_LIST_INDEX');
+};
+
+const confirmDeleteList = async () => {
+  const confirmed = window.confirm('Are you sure you want to delete this list?');
+  if (confirmed) {
+    await deleteList();
+  }
+};
+
+const deleteList = async () => {
+  if (activeBoardListIndex.value === null) return;
+
+  const boardToUpdate = { ...board.value };
+  boardToUpdate.lists = [...boardToUpdate.lists];
+  boardToUpdate.lists.splice(activeBoardListIndex.value, 1);
+
+  const payload = {
+    ...boardToUpdate,
+    lastUpdated: Date.now(),
+  };
+
+  store.commit('SET_GAME_BOARD', payload);
+
+  try {
+    await store.dispatch('SAVE_BOARD');
+    showToast('List deleted', 'success');
+    closeSidebar();
+  } catch (e) {
+    saving.value = false;
+    showToast('There was an error deleting list', 'danger');
+  }
+};
+
+const saveList = async () => {
+  if (activeBoardListIndex.value === null) return;
+
+  saving.value = true;
+
+  const boardToUpdate = { ...board.value };
+  boardToUpdate.lists = [...boardToUpdate.lists];
+  boardToUpdate.lists[activeBoardListIndex.value] = { ...list.value };
+
+  const payload = {
+    ...boardToUpdate,
+    lastUpdated: Date.now(),
+  };
+
+  store.commit('SET_GAME_BOARD', payload);
+
+  try {
+    await store.dispatch('SAVE_BOARD');
+    closeSidebar();
+  } catch (e) {
+    saving.value = false;
+    showToast('There was an error saving list settings', 'danger');
+  }
+};
+
+const showToast = (message, variant = 'info') => {
+  const toastElement = document.createElement('div');
+  toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
+  toastElement.setAttribute('role', 'alert');
+  toastElement.innerHTML = `
+    <div class="d-flex">
+      <div class="toast-body">${message}</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  `;
+  document.body.appendChild(toastElement);
+  const toast = new bootstrap.Toast(toastElement);
+  toast.show();
+  toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
+};
+
+// Lifecycle hooks
+onMounted(() => {
+  // Listen for sidebar toggle events
+  if ($bus) {
+    $bus.$on('bv::toggle::collapse', (id) => {
+      if (id === 'edit-list-modal') {
+        // Toggle handled by visible prop
       }
-    },
+    });
+  }
+});
 
-    hideSidebar() {
-      this.$store.commit('CLEAR_ACTIVE_BOARD_LIST_INDEX');
-    },
-
-    openEditListSidebar() {
-      this.saving = false;
-      this.list = {
-        name: '',
-        games: [],
-        sortBy: null,
-        vertical: false,
-        showGameCount: false,
-        smallCover: false,
-        hideCover: false,
-        hideTitle: false,
-        hideTags: false,
-        hideRibbon: false,
-        hideNotes: false,
-        hidePlatforms: false,
-        hideProgress: false,
-        ranked: false,
-        ...this.board?.lists?.[this.activeBoardListIndex],
-      };
-    },
-
-    closeSidebar() {
-      this.$store.commit('CLEAR_ACTIVE_BOARD_LIST_INDEX');
-    },
-
-    async confirmDeleteList() {
-      const confirmed = window.confirm('Are you sure you want to delete this list?');
-      if (confirmed) this.deleteList();
-    },
-
-    async deleteList() {
-      const { board } = this;
-
-      board.lists.splice(this.activeBoardListIndex, 1);
-
-      const payload = {
-        ...board,
-        lastUpdated: Date.now(),
-      }
-
-      this.$store.commit('SET_GAME_BOARD', payload);
-
-      await this.$store.dispatch('SAVE_BOARD')
-        .catch(() => {
-          this.saving = false;
-          this.showToast('There was an error deleting list', 'danger');
-        });
-
-      this.saving = false;
-      this.showToast('List deleted', 'success');
-      this.closeSidebar();
-    },
-
-    async saveList() {
-      this.saving = true;
-
-      const { board } = this;
-
-      board.lists[this.activeBoardListIndex] = this.list
-
-      const payload = {
-        ...board,
-        lastUpdated: Date.now(),
-      }
-
-      this.$store.commit('SET_GAME_BOARD', payload);
-
-      await this.$store.dispatch('SAVE_BOARD')
-        .catch(() => {
-          this.saving = false;
-          this.showToast('There was an error saving list settings', 'danger');
-        });
-
-      this.saving = false;
-      this.closeSidebar();
-    },
-
-    showToast(message, variant = 'info') {
-      const toastElement = document.createElement('div');
-      toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
-      toastElement.setAttribute('role', 'alert');
-      toastElement.innerHTML = `
-        <div class="d-flex">
-          <div class="toast-body">${message}</div>
-          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-        </div>
-      `;
-      document.body.appendChild(toastElement);
-      const toast = new bootstrap.Toast(toastElement);
-      toast.show();
-      toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
-    },
-  },
-}
+onBeforeUnmount(() => {
+  if ($bus) {
+    $bus.$off('bv::toggle::collapse');
+  }
+});
 </script>
 
 <style scoped>

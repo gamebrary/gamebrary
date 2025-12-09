@@ -50,32 +50,34 @@
   </div>
 </template>
 
-<script>
-import { mapGetters, mapState } from 'vuex';
+<script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 
-export default {
-  props: {
-    board: {
-      type: Object,
-      required: true,
-    },
+const props = defineProps({
+  board: {
+    type: Object,
+    required: true,
   },
+});
 
-  methods: {
-    highlightGame(gameId) {
-      this.$store.commit('SET_HIGHLIGHTED_GAME', gameId);
-    },
-  },
+const store = useStore();
 
-  computed: {
-    ...mapGetters(['darkTheme', 'showGameThumbnails']),
-    ...mapState(['game', 'routeName']),
+// Store state and getters
+const darkTheme = computed(() => store.getters.darkTheme);
+const showGameThumbnails = computed(() => store.getters.showGameThumbnails);
+const game = computed(() => store.state.game);
+const routeName = computed(() => store.state.routeName);
 
-    currentGameId() {
-      return this.routeName === 'game'
-        ? this.game?.id
-        : null;
-    },
-  },
+// Computed properties
+const currentGameId = computed(() => {
+  return routeName.value === 'game'
+    ? game.value?.id
+    : null;
+});
+
+// Methods
+const highlightGame = (gameId) => {
+  store.commit('SET_HIGHLIGHTED_GAME', gameId);
 };
 </script>

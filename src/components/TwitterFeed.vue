@@ -4,22 +4,23 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    twitterUser: {
-      type: String,
-      required: true,
-    },
-  },
+<script setup>
+import { onMounted } from 'vue';
 
-  mounted() {
-    const plugin = document.createElement('script');
-    plugin.setAttribute('src', 'https://platform.twitter.com/widgets.js');
-    plugin.async = true;
-    document.head.appendChild(plugin);
+defineProps({
+  twitterUser: {
+    type: String,
+    required: true,
   },
-};
+});
+
+// Lifecycle hooks
+onMounted(() => {
+  const plugin = document.createElement('script');
+  plugin.setAttribute('src', 'https://platform.twitter.com/widgets.js');
+  plugin.async = true;
+  document.head.appendChild(plugin);
+});
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>

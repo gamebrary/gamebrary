@@ -18,13 +18,13 @@
         <GameCard
           :key="gameId"
           :list="list"
-          :ref="gameId"
+          :ref="(el) => setGameRef(gameId, el)"
           :game-id="gameId"
           :ranked="board.ranked"
           :rank="index + 1"
           vertical
           hide-platforms
-          @click.native="openGame(gameId, list)"
+          @click="openGame(gameId, list)"
         />
       </template>
       <template #footer>
@@ -52,190 +52,194 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, onMounted, onBeforeUnmount, inject } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 import { HIGHLIGHTED_GAME_TIMEOUT } from '@/constants';
 import draggable from 'vuedraggable';
-import slugify from 'slugify'
-import { mapState, mapGetters } from 'vuex';
+import slugify from 'slugify';
 import GameCard from '@/components/GameCard';
 
-export default {
-  components: {
-    draggable,
-    GameCard,
-  },
+const route = useRoute();
+const router = useRouter();
+const store = useStore();
+const $bus = inject('$bus');
 
-  computed: {
-    ...mapState(['cachedGames', 'dragging', 'progresses', 'board', 'user', 'settings', 'highlightedGame']),
-    ...mapGetters(['isBoardOwner', 'darkTheme', 'draggableProps']),
+// Template refs
+const gameRefs = ref({});
+const draggingId = ref(null);
 
-    list() {
-      const [firstList] = this.board?.lists;
+// Store state and getters
+const cachedGames = computed(() => store.state.cachedGames);
+const dragging = computed(() => store.state.dragging);
+const progresses = computed(() => store.state.progresses);
+const board = computed(() => store.state.board);
+const user = computed(() => store.state.user);
+const settings = computed(() => store.state.settings);
+const highlightedGame = computed(() => store.state.highlightedGame);
+const boards = computed(() => store.state.boards);
+const isBoardOwner = computed(() => store.getters.isBoardOwner);
+const darkTheme = computed(() => store.getters.darkTheme);
+const draggableProps = computed(() => store.getters.draggableProps);
 
-      return firstList || [];
-    },
+// Computed properties
+const list = computed(() => {
+  const [firstList] = board.value?.lists;
+  return firstList || [];
+});
 
-    needsFlattening() {
-      return this.board?.lists?.length > 0;
-    },
+const needsFlattening = computed(() => {
+  return board.value?.lists?.length > 0;
+});
 
-    filter() {
-      return this.listGames || [];
-    },
+const filter = computed(() => {
+  return listGames.value || [];
+});
 
-    draggingDisabled() {
-      return !this.user || !this.isBoardOwner;
-    },
+const draggingDisabled = computed(() => {
+  return !user.value || !isBoardOwner.value;
+});
 
-    listGames() {
-      return this.list?.games;
-    },
+const listGames = computed(() => {
+  return list.value?.games;
+});
 
-    isEmpty() {
-      return this.listGames.length === 0;
-    },
+const isEmpty = computed(() => {
+  return listGames.value.length === 0;
+});
 
-    gameSelectorEventName() {
-      return `SELECT_GAME_LIST_${this.listIndex}`;
-    },
-  },
+const gameSelectorEventName = computed(() => {
+  return `SELECT_GAME_LIST_${route.query.listIndex || 0}`;
+});
 
-  mounted() {
-    if (this.needsFlattening) this.flattenAndSaveBoard();
-    if (this.highlightedGame) this.highlightGame();
-
-    this.$bus.$on(this.gameSelectorEventName, this.selectGame);
-  },
-
-  destroyed() {
-    this.$bus.$off(this.gameSelectorEventName, this.selectGame);
-  },
-
-  methods: {
-    highlightGame() {
-      const lists = Object.values(this.$refs);
-
-      console.log('lists', lists)
-
-      lists.forEach(([list], index) => {
-        console.log('list.$refs', list.$refs);
-
-        const [gameRef] = list.$refs[this.highlightedGame];
-
-        console.log()
-
-        if (gameRef) {
-          console.log('gameRef', gameRef);
-
-          setTimeout(() => {
-            gameRef?.$el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }, index * 1000);
-        }
-      });
-
-      setTimeout(() => {
-        this.$store.commit('SET_HIGHLIGHTED_GAME', null);
-      }, HIGHLIGHTED_GAME_TIMEOUT);
-    },
-
-    async flattenAndSaveBoard() {
-      const mergedGamesList = [...new Set(this.board?.lists?.map(({ games }) => games)?.flat())];
-
-      const payload = {
-        ...this.board,
-        lastUpdated: Date.now(),
-        lists: [{ name: '', games: mergedGamesList }],
-      }
-
-      this.$store.commit('SET_GAME_BOARD', payload);
-
-      await this.$store.dispatch('SAVE_BOARD');
-    },
-
-    openGameSelectorSidebar() {
-      this.$store.commit('SET_GAME_SELECTOR_DATA', {
-        title: `Add games to ${this.board.name}`,
-        filter: this.filter,
-        eventName: this.gameSelectorEventName,
-      })
-    },
-
-    selectGame(gameId) {
-      if (this.list.games.includes(gameId)) {
-        this.removeGame(gameId);
-      } else {
-        this.addGame(gameId);
-      }
-    },
-
-    async addGame(gameId) {
-      const board = JSON.parse(JSON.stringify(this.board));
-
-      board?.lists?.[0]?.games.push(gameId);
-
-      try {
-        await this.$store.dispatch('SAVE_GAME_BOARD', board);
-        await this.$store.dispatch('LOAD_BOARD', board?.id);
-        await this.$store.dispatch('LOAD_IGDB_GAMES', [gameId]);
-      } catch (e) {
-        // this.$bvToast.toast(`There was an error adding "${this.game.name}"`, { title: list.name, variant: 'danger' });
-      }
-    },
-
-    async removeGame(gameId) {
-      const { boardId, listIndex } = this.$route?.query;
-      const boardIndex = this.boards.findIndex(({ id }) => id === boardId);
-      const board = this.boards[boardIndex];
-      const gameIndex = board?.lists?.[listIndex]?.games?.indexOf(gameId);
-
-      board.lists[listIndex].games.splice(gameIndex, 1);
-
-      try {
-        await this.$store.dispatch('SAVE_GAME_BOARD', board);
-        await this.$store.dispatch('LOAD_BOARD', board?.id)
-      } catch (e) {
-        this.$bvToast.toast(`There was an error removing "${this.game.name}"`, { title: list.name, variant: 'danger' });
-      }
-    },
-
-    openGame(id, list) {
-      const slug = slugify(this.cachedGames[id].slug, { lower: true });
-
-      this.$router.push({
-        name: 'game',
-        params: {
-          id,
-          slug,
-          boardId: this.board?.id,
-        },
-      });
-    },
-
-    validateMove({ from, to }) {
-      const sameList = from.id === to.id;
-      const notInList = !this.board?.lists?.[to.id]?.games?.includes(Number(this.draggingId));
-
-      return sameList || notInList && !sameList;
-    },
-
-    dragStart({ item }) {
-      this.$store.commit('SET_DRAGGING_STATUS', true);
-      this.draggingId = item.id;
-    },
-
-    dragEnd() {
-      this.$store.commit('SET_DRAGGING_STATUS', false);
-      this.saveBoard();
-    },
-
-    async saveBoard() {
-      await this.$store.dispatch('SAVE_BOARD')
-        .catch(() => {
-          this.$store.commit('SET_SESSION_EXPIRED', true);
-        });
-    },
+// Methods
+const setGameRef = (gameId, el) => {
+  if (el) {
+    gameRefs.value[gameId] = el;
   }
 };
+
+const highlightGame = () => {
+  const gameRef = gameRefs.value[highlightedGame.value];
+
+  if (gameRef) {
+    gameRef.$el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  setTimeout(() => {
+    store.commit('SET_HIGHLIGHTED_GAME', null);
+  }, HIGHLIGHTED_GAME_TIMEOUT);
+};
+
+const flattenAndSaveBoard = async () => {
+  const mergedGamesList = [...new Set(board.value?.lists?.map(({ games }) => games)?.flat())];
+
+  const payload = {
+    ...board.value,
+    lastUpdated: Date.now(),
+    lists: [{ name: '', games: mergedGamesList }],
+  };
+
+  store.commit('SET_GAME_BOARD', payload);
+
+  await store.dispatch('SAVE_BOARD');
+};
+
+const openGameSelectorSidebar = () => {
+  store.commit('SET_GAME_SELECTOR_DATA', {
+    title: `Add games to ${board.value.name}`,
+    filter: filter.value,
+    eventName: gameSelectorEventName.value,
+  });
+};
+
+const selectGame = (gameId) => {
+  if (list.value.games.includes(gameId)) {
+    removeGame(gameId);
+  } else {
+    addGame(gameId);
+  }
+};
+
+const addGame = async (gameId) => {
+  const boardCopy = JSON.parse(JSON.stringify(board.value));
+
+  boardCopy?.lists?.[0]?.games.push(gameId);
+
+  try {
+    await store.dispatch('SAVE_GAME_BOARD', boardCopy);
+    await store.dispatch('LOAD_BOARD', boardCopy?.id);
+    await store.dispatch('LOAD_IGDB_GAMES', [gameId]);
+  } catch (e) {
+    // Error handling
+  }
+};
+
+const removeGame = async (gameId) => {
+  const { boardId, listIndex } = route.query;
+  const boardIndex = boards.value.findIndex(({ id }) => id === boardId);
+  const boardToUpdate = boards.value[boardIndex];
+  const gameIndex = boardToUpdate?.lists?.[listIndex]?.games?.indexOf(gameId);
+
+  boardToUpdate.lists[listIndex].games.splice(gameIndex, 1);
+
+  try {
+    await store.dispatch('SAVE_GAME_BOARD', boardToUpdate);
+    await store.dispatch('LOAD_BOARD', boardToUpdate?.id);
+  } catch (e) {
+    // Error handling
+  }
+};
+
+const openGame = (id, list) => {
+  const slug = slugify(cachedGames.value[id].slug, { lower: true });
+
+  router.push({
+    name: 'game',
+    params: {
+      id,
+      slug,
+      boardId: board.value?.id,
+    },
+  });
+};
+
+const validateMove = ({ from, to }) => {
+  const sameList = from.id === to.id;
+  const notInList = !board.value?.lists?.[to.id]?.games?.includes(Number(draggingId.value));
+
+  return sameList || (notInList && !sameList);
+};
+
+const dragStart = ({ item }) => {
+  store.commit('SET_DRAGGING_STATUS', true);
+  draggingId.value = item.id;
+};
+
+const dragEnd = () => {
+  store.commit('SET_DRAGGING_STATUS', false);
+  saveBoard();
+};
+
+const saveBoard = async () => {
+  await store.dispatch('SAVE_BOARD')
+    .catch(() => {
+      store.commit('SET_SESSION_EXPIRED', true);
+    });
+};
+
+// Lifecycle hooks
+onMounted(() => {
+  if (needsFlattening.value) flattenAndSaveBoard();
+  if (highlightedGame.value) highlightGame();
+
+  $bus.$on(gameSelectorEventName.value, selectGame);
+});
+
+onBeforeUnmount(() => {
+  $bus.$off(gameSelectorEventName.value, selectGame);
+});
 </script>
 
 <style lang="scss" scoped>

@@ -46,7 +46,7 @@
           data-bs-toggle="offcanvas"
           data-bs-target="#create-board-sidebar"
         >
-          {{ $t('boards.create') }}
+          {{ t('boards.create') }}
         </button>
       </EmptyState>
 
@@ -64,11 +64,13 @@
 import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
+import { useI18n } from 'vue-i18n';
 import MiniBoard from '@/components/Board/MiniBoard';
 import EmptyState from '@/components/EmptyState';
 
 const router = useRouter();
 const store = useStore();
+const { t } = useI18n();
 
 // Reactive state
 const loading = ref(false);

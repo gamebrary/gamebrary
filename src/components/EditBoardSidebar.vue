@@ -48,7 +48,7 @@
 
         <div class="btn-group mb-3" role="group">
           <button
-            v-for="{ text, value } in $options.BOARD_TYPES"
+            v-for="{ text, value } in BOARD_TYPES"
             :key="value"
             type="button"
             class="btn"
@@ -70,7 +70,7 @@
         />
 
         <div
-          v-if="board.type === $options.BOARD_TYPE_STANDARD"
+          v-if="board.type === BOARD_TYPE_STANDARD"
           class="form-check form-switch mb-3"
         >
           <input
@@ -168,7 +168,7 @@
           :disabled="saving"
         >
           <span v-if="saving" class="spinner-border spinner-border-sm me-2" role="status"></span>
-          <span v-else>{{ $t('global.save') }}</span>
+          <span v-else>{{ t('global.save') }}</span>
         </button>
 
         <button
@@ -176,14 +176,17 @@
           class="btn btn-outline-danger float-end"
           @click="confirmDeleteBoard"
         >
-          {{ $t('board.settings.deleteBoard') }}
+          {{ t('board.settings.deleteBoard') }}
         </button>
       </form>
   </AppSidebar>
 </template>
 
-<script>
-import { mapState, mapGetters } from 'vuex';
+<script setup>
+import { ref, computed, watch, onMounted, onBeforeUnmount, inject } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useStore } from 'vuex';
+import { useI18n } from 'vue-i18n';
 import {
   BOARD_TYPES,
   BOARD_TYPE_STANDARD,
@@ -194,214 +197,197 @@ import {
 import WallpapersList from '@/components/WallpapersList';
 import UploadWallpaperButton from '@/components/UploadWallpaperButton';
 import SidebarHeader from '@/components/SidebarHeader';
-import AppSidebar from '@/components/Sidebar';
+import AppSidebar from '@/components/AppSidebar';
 import MiniBoard from '@/components/Board/MiniBoard';
 
-export default {
-  BOARD_TYPES,
-  BOARD_TYPE_STANDARD,
-  BOARD_TYPE_GRID,
-  LIST_SORT_OPTIONS,
+const route = useRoute();
+const router = useRouter();
+const store = useStore();
+const { t } = useI18n();
+const $bus = inject('$bus');
 
-  components: {
-    AppSidebar,
-    WallpapersList,
-    UploadWallpaperButton,
-    MiniBoard,
-    SidebarHeader,
-  },
+// Reactive state
+const board = ref({});
+const loading = ref(false);
+const saving = ref(false);
+const lists = ref([]);
+const visible = ref(false);
+const wallpaperSidebarVisible = ref(false);
 
-  data() {
-    return {
-      board: {},
-      loading: false,
-      saving: false,
-      lists: [],
-      visible: false,
-      wallpaperSidebarVisible: false,
+// Store state and getters
+const user = computed(() => store.state.user);
+const darkTheme = computed(() => store.getters.darkTheme);
+const sidebarRightProps = computed(() => store.getters.sidebarRightProps);
+
+// Computed properties
+const boardId = computed(() => route?.params?.id);
+
+const needsFlattening = computed(() => {
+  const listCount = board.value?.lists?.length || 0;
+  if (!listCount) return false;
+  return [BOARD_TYPE_STANDARD, BOARD_TYPE_GRID].includes(board.value.type);
+});
+
+const mergedGamesList = computed(() => {
+  return [...new Set(board.value?.lists?.map(({ games }) => games)?.flat())];
+});
+
+const previewBoard = computed(() => {
+  return needsFlattening.value
+    ? standardPreviewBoard.value
+    : board.value;
+});
+
+const standardPreviewBoard = computed(() => {
+  return {
+    ...board.value,
+    lists: [{ name: '', games: mergedGamesList.value }],
+  };
+});
+
+// Watchers
+watch(boardId, (id) => {
+  if (id) loadBoard();
+});
+
+// Methods
+const handleVisibilityChange = (newVisible) => {
+  visible.value = newVisible;
+};
+
+const handleWallpaperVisibilityChange = (newVisible) => {
+  wallpaperSidebarVisible.value = newVisible;
+};
+
+const hideSidebar = () => {
+  visible.value = false;
+};
+
+const hideWallpaperSidebar = () => {
+  wallpaperSidebarVisible.value = false;
+};
+
+const loadBoard = async () => {
+  if (!boardId.value) {
+    return;
+  }
+
+  try {
+    loading.value = true;
+
+    await store.dispatch('LOAD_WALLPAPERS');
+    const loadedBoard = await store.dispatch('LOAD_BOARD', boardId.value);
+
+    board.value = {
+      type: BOARD_TYPE_KANBAN,
+      ...loadedBoard,
     };
-  },
 
-  computed: {
-    ...mapState(['user']),
-    ...mapGetters(['darkTheme', 'sidebarRightProps']),
+    lists.value = JSON.parse(JSON.stringify(board.value.lists || []));
+  } catch (e) {
+    console.error('Error loading board:', e);
+  } finally {
+    loading.value = false;
+  }
+};
 
-    boardId() {
-      return this.$route?.params?.id;
-    },
+const setListSorting = (index, value) => {
+  lists.value[index].sortOrder = value;
+};
 
-    needsFlattening() {
-      const listCount = this.board?.lists?.length || 0;
+const setListView = (index, value) => {
+  lists.value[index].view = value;
+};
 
-      if (!listCount) return
+const confirmDeleteBoard = async () => {
+  const confirmed = window.confirm('Are you sure you want to delete this board?');
+  if (confirmed) {
+    await deleteBoard();
+  }
+};
 
-      return [BOARD_TYPE_STANDARD, BOARD_TYPE_GRID].includes(this.board.type);
-    },
+const deleteBoard = async () => {
+  try {
+    saving.value = true;
 
-    mergedGamesList() {
-      return [...new Set(this.board?.lists?.map(({ games }) => games)?.flat())];
-    },
+    await store.dispatch('DELETE_BOARD', boardId.value);
+    showToast('Board deleted', 'success');
+    router.push({ name: 'boards' });
+  } catch (e) {
+    showToast('There was an error deleting board', 'danger');
+  } finally {
+    saving.value = false;
+  }
+};
 
-    previewBoard() {
-      return this.needsFlattening
-        ? this.standardPreviewBoard
-        : this.board;
-    },
+const selectWallpaper = (wallpaper) => {
+  board.value.backgroundUrl = wallpaper;
+  hideWallpaperSidebar();
+};
 
-    standardPreviewBoard() {
-      return {
-        ...this.board,
-        lists: [{ name: '', games: this.mergedGamesList }],
-      }
-    },
-  },
+const saveBoard = async () => {
+  try {
+    saving.value = true;
 
-  watch: {
-    boardId(id) {
-      if (id) this.loadBoard();
-    },
-  },
+    if (needsFlattening.value) {
+      const payload = {
+        ...board.value,
+        lastUpdated: Date.now(),
+        lists: [{ name: '', games: mergedGamesList.value }],
+      };
 
-  mounted() {
-    if (this.boardId) this.loadBoard();
-    // Listen for sidebar toggle events
-    if (this.$bus) {
-      this.$bus.$on('bv::toggle::collapse', (id) => {
-        if (id === 'edit-board-sidebar') {
-          this.visible = !this.visible;
-        } else if (id === 'select-board-wallpaper') {
-          this.wallpaperSidebarVisible = !this.wallpaperSidebarVisible;
-        }
+      store.commit('SET_ACTIVE_BOARD', payload);
+    } else {
+      store.commit('SET_ACTIVE_BOARD', {
+        ...board.value,
+        lastUpdated: Date.now(),
       });
     }
-  },
 
-  beforeUnmount() {
-    if (this.$bus) {
-      this.$bus.$off('bv::toggle::collapse');
-    }
-  },
-
-  methods: {
-    handleVisibilityChange(visible) {
-      this.visible = visible;
-    },
-
-    handleWallpaperVisibilityChange(visible) {
-      this.wallpaperSidebarVisible = visible;
-    },
-
-    hideSidebar() {
-      this.visible = false;
-    },
-
-    hideWallpaperSidebar() {
-      this.wallpaperSidebarVisible = false;
-    },
-    async loadBoard() {
-      if (!this.boardId) {
-        return;
-      }
-
-      try {
-        this.loading = true;
-
-        await this.$store.dispatch('LOAD_WALLPAPERS');
-        const board = await this.$store.dispatch('LOAD_BOARD', this.boardId);
-
-        this.board = {
-          type: BOARD_TYPE_KANBAN,
-          ...board,
-        };
-
-        this.lists = JSON.parse(JSON.stringify(this.board.lists || []));
-      } catch (e) {
-        console.error('Error loading board:', e);
-      } finally {
-        this.loading = false;
-      }
-    },
-
-    setListSorting(index, value) {
-      this.lists[index].sortOrder = value;
-      this.$forceUpdate();
-    },
-
-    setListView(index, value) {
-      this.lists[index].view = value;
-      this.$forceUpdate();
-    },
-
-    async confirmDeleteBoard() {
-      const confirmed = window.confirm('Are you sure you want to delete this board?');
-      if (confirmed) {
-        await this.deleteBoard();
-      }
-    },
-
-    async deleteBoard() {
-      try {
-        this.saving = true;
-
-        await this.$store.dispatch('DELETE_BOARD', this.boardId);
-        this.showToast('Board deleted', 'success');
-        this.$router.push({ name: 'boards' });
-      } catch (e) {
-        this.showToast('There was an error deleting board', 'danger');
-      } finally {
-        this.saving = false;
-      }
-    },
-
-    selectWallpaper(wallpaper) {
-      this.board.backgroundUrl = wallpaper;
-      this.hideWallpaperSidebar();
-    },
-
-    async saveBoard() {
-      try {
-        this.saving = true;
-
-        if (this.needsFlattening) {
-          const payload = {
-            ...this.board,
-            lastUpdated: Date.now(),
-            lists: [{ name: '', games: this.mergedGamesList }],
-          };
-
-          this.$store.commit('SET_ACTIVE_BOARD', payload);
-        } else {
-          this.$store.commit('SET_ACTIVE_BOARD', {
-            ...this.board,
-            lastUpdated: Date.now(),
-          });
-        }
-
-        await this.$store.dispatch('SAVE_BOARD');
-        this.showToast('Board saved', 'success');
-        this.hideSidebar();
-      } catch (e) {
-        this.showToast('There was an error saving board', 'danger');
-      } finally {
-        this.saving = false;
-      }
-    },
-
-    showToast(message, variant = 'info') {
-      const toastElement = document.createElement('div');
-      toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
-      toastElement.setAttribute('role', 'alert');
-      toastElement.innerHTML = `
-        <div class="d-flex">
-          <div class="toast-body">${message}</div>
-          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-        </div>
-      `;
-      document.body.appendChild(toastElement);
-      const toast = new bootstrap.Toast(toastElement);
-      toast.show();
-      toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
-    },
-  },
+    await store.dispatch('SAVE_BOARD');
+    showToast('Board saved', 'success');
+    hideSidebar();
+  } catch (e) {
+    showToast('There was an error saving board', 'danger');
+  } finally {
+    saving.value = false;
+  }
 };
+
+const showToast = (message, variant = 'info') => {
+  const toastElement = document.createElement('div');
+  toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
+  toastElement.setAttribute('role', 'alert');
+  toastElement.innerHTML = `
+    <div class="d-flex">
+      <div class="toast-body">${message}</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  `;
+  document.body.appendChild(toastElement);
+  const toast = new bootstrap.Toast(toastElement);
+  toast.show();
+  toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
+};
+
+// Lifecycle hooks
+onMounted(() => {
+  if (boardId.value) loadBoard();
+  // Listen for sidebar toggle events
+  if ($bus) {
+    $bus.$on('bv::toggle::collapse', (id) => {
+      if (id === 'edit-board-sidebar') {
+        visible.value = !visible.value;
+      } else if (id === 'select-board-wallpaper') {
+        wallpaperSidebarVisible.value = !wallpaperSidebarVisible.value;
+      }
+    });
+  }
+});
+
+onBeforeUnmount(() => {
+  if ($bus) {
+    $bus.$off('bv::toggle::collapse');
+  }
+});
 </script>

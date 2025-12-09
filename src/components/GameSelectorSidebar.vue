@@ -61,117 +61,124 @@
   </AppSidebar>
 </template>
 
-<script>
-import { mapGetters, mapState } from 'vuex';
+<script setup>
+import { ref, computed, onBeforeUnmount, inject } from 'vue';
+import { useStore } from 'vuex';
 import GameCard from '@/components/GameCard';
 import SidebarHeader from '@/components/SidebarHeader';
-import AppSidebar from '@/components/Sidebar';
+import AppSidebar from '@/components/AppSidebar';
 import { IGDB_QUERIES } from '@/constants';
 
-export default {
-  data() {
-    return {
-      searchText: '',
-      loading: false,
-      preventClose: false,
-      searchResults: [],
-      localFilter: [],
-      debounceTimer: null,
-    }
-  },
+const store = useStore();
+const $bus = inject('$bus');
 
-  components: {
-    AppSidebar,
-    GameCard,
-    SidebarHeader,
-  },
+// Reactive state
+const searchText = ref('');
+const loading = ref(false);
+const preventClose = ref(false);
+const searchResults = ref([]);
+const localFilter = ref([]);
+const debounceTimer = ref(null);
 
-  computed: {
-    ...mapState(['board', 'gameSelectorData']),
-    ...mapGetters(['isBoardOwner', 'sidebarRightProps', 'darkTheme']),
+// Store state and getters
+const board = computed(() => store.state.board);
+const gameSelectorData = computed(() => store.state.gameSelectorData);
+const isBoardOwner = computed(() => store.getters.isBoardOwner);
+const sidebarRightProps = computed(() => store.getters.sidebarRightProps);
+const darkTheme = computed(() => store.getters.darkTheme);
 
-    title() {
-      return this.gameSelectorData?.title || 'Select a game';
-    },
+// Computed properties
+const title = computed(() => {
+  return gameSelectorData.value?.title || 'Select a game';
+});
 
-    filter() {
-      const filter = this.gameSelectorData?.filter || [];
+const filter = computed(() => {
+  const filterData = gameSelectorData.value?.filter || [];
+  return [...filterData, ...localFilter.value];
+});
 
-      return [...filter, ...this.localFilter];
-    },
+const visible = computed(() => Boolean(gameSelectorData.value));
 
-    visible() {
-      return Boolean(this.gameSelectorData);
-    },
+const filteredSearchResults = computed(() => {
+  return searchResults.value.filter(({ id }) => !filter.value?.includes(id));
+});
 
-    filteredSearchResults() {
-      return this.searchResults.filter(({ id }) => !this.filter?.includes(id));
-    },
-  },
-
-  methods: {
-    handleVisibilityChange(visible) {
-      if (!visible) {
-        this.closeSidebar();
-      }
-    },
-
-    hideSidebar() {
-      this.$store.commit('CLEAR_GAME_SELECTOR_DATA');
-    },
-
-    debounceSearch() {
-      if (this.debounceTimer) {
-        clearTimeout(this.debounceTimer);
-      }
-      this.debounceTimer = setTimeout(() => {
-        this.search();
-      }, 500);
-    },
-
-    selectGame(gameId) {
-      if (this.preventClose) this.localFilter.push(gameId);
-
-      const eventName = this.gameSelectorData?.eventName || 'SELECT_GAME';
-
-      this.$bus.$emit(eventName, gameId);
-
-      this.$store.commit('SET_HIGHLIGHTED_GAME', gameId);
-
-      if (!this.preventClose) this.$store.commit('CLEAR_GAME_SELECTOR_DATA');
-    },
-
-    async search() {
-      this.loading = true;
-
-      const search = this.searchText
-      ? `search "${this.searchText}";`
-      : '';
-
-      const filter = !this.searchText
-      ? 'where rating >= 80;'
-      : '';
-
-      this.searchResults = await this.$store.dispatch('IGDB', {
-        path: 'games',
-        data: `${search} ${IGDB_QUERIES.SEARCH} limit 50; ${filter}`,
-        mutation: 'CACHE_GAME_DATA',
-      });
-
-      this.loading = false;
-    },
-
-    closeSidebar() {
-      this.searchText = '';
-      this.loading = false;
-      this.preventClose = false;
-      this.searchResults = [];
-      this.localFilter = [];
-
-      this.$store.commit('CLEAR_GAME_SELECTOR_DATA');
-    },
-  },
+// Methods
+const handleVisibilityChange = (newVisible) => {
+  if (!newVisible) {
+    closeSidebar();
+  }
 };
+
+const hideSidebar = () => {
+  store.commit('CLEAR_GAME_SELECTOR_DATA');
+};
+
+const debounceSearch = () => {
+  if (debounceTimer.value) {
+    clearTimeout(debounceTimer.value);
+  }
+  debounceTimer.value = setTimeout(() => {
+    search();
+  }, 500);
+};
+
+const selectGame = (gameId) => {
+  if (preventClose.value) {
+    localFilter.value.push(gameId);
+  }
+
+  const eventName = gameSelectorData.value?.eventName || 'SELECT_GAME';
+
+  if ($bus) {
+    $bus.$emit(eventName, gameId);
+  }
+
+  store.commit('SET_HIGHLIGHTED_GAME', gameId);
+
+  if (!preventClose.value) {
+    store.commit('CLEAR_GAME_SELECTOR_DATA');
+  }
+};
+
+const search = async () => {
+  loading.value = true;
+
+  const searchQuery = searchText.value
+    ? `search "${searchText.value}";`
+    : '';
+
+  const filterQuery = !searchText.value
+    ? 'where rating >= 80;'
+    : '';
+
+  try {
+    searchResults.value = await store.dispatch('IGDB', {
+      path: 'games',
+      data: `${searchQuery} ${IGDB_QUERIES.SEARCH} limit 50; ${filterQuery}`,
+      mutation: 'CACHE_GAME_DATA',
+    });
+  } finally {
+    loading.value = false;
+  }
+};
+
+const closeSidebar = () => {
+  searchText.value = '';
+  loading.value = false;
+  preventClose.value = false;
+  searchResults.value = [];
+  localFilter.value = [];
+
+  store.commit('CLEAR_GAME_SELECTOR_DATA');
+};
+
+// Lifecycle hooks
+onBeforeUnmount(() => {
+  if (debounceTimer.value) {
+    clearTimeout(debounceTimer.value);
+  }
+});
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>

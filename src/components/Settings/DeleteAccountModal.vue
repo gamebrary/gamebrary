@@ -68,35 +68,29 @@
   </div>
 </template>
 
-<script>
-import { mapState, mapGetters } from 'vuex';
+<script setup>
+import { ref, computed } from 'vue';
+import { useStore } from 'vuex';
 
-export default {
-  data() {
-    return {
-      deleting: false,
-    };
-  },
+const store = useStore();
 
-  computed: {
-    ...mapState([
-      'user',
-      'tags',
-      'notes',
-      'progresses',
-      'settings',
-      'boards',
-      'wallpapers',
-    ]),
-    ...mapGetters(['darkTheme']),
-  },
+// Reactive state
+const deleting = ref(false);
 
-  methods: {
-    async deleteAccount() {
-      this.deleting = true;
+// Store state and getters
+const user = computed(() => store.state.user);
+const tags = computed(() => store.state.tags);
+const notes = computed(() => store.state.notes);
+const progresses = computed(() => store.state.progresses);
+const settings = computed(() => store.state.settings);
+const boards = computed(() => store.state.boards);
+const wallpapers = computed(() => store.state.wallpapers);
+const darkTheme = computed(() => store.getters.darkTheme);
 
-      await this.$store.dispatch('DELETE_ACCOUNT');
-    },
-  },
+// Methods
+const deleteAccount = async () => {
+  deleting.value = true;
+
+  await store.dispatch('DELETE_ACCOUNT');
 };
 </script>

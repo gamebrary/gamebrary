@@ -1,5 +1,5 @@
 <template lang="html">
-  <Sidebar
+  <AppSidebar
     id="create-tag-sidebar"
     :visible="visible"
     :placement="'end'"
@@ -17,7 +17,7 @@
             v-model.trim="tag.name"
             class="form-control me-2"
             maxlength="20"
-            :placeholder="$t('tags.form.inputPlaceholder')"
+            :placeholder="t('tags.form.inputPlaceholder')"
             required
           />
 
@@ -47,68 +47,73 @@
           <span v-else>Create</span>
         </button>
       </form>
-  </Sidebar>
+  </AppSidebar>
 </template>
 
-<script>
-import { mapState, mapGetters } from 'vuex';
-import Sidebar from '@/components/Sidebar';
+<script setup>
+import { ref, computed } from 'vue';
+import { useStore } from 'vuex';
+import { useI18n } from 'vue-i18n';
+import AppSidebar from '@/components/AppSidebar';
 import SidebarHeader from '@/components/SidebarHeader';
 
-export default {
-  data() {
-    return {
-      tag: {
-        name: '',
-        textColor: '#DDE6E8',
-        bgColor: '#1FBC9C',
-        games: [],
-      },
-      saving: false,
+const store = useStore();
+const { t } = useI18n();
+
+// Reactive state
+const tag = ref({
+  name: '',
+  textColor: '#DDE6E8',
+  bgColor: '#1FBC9C',
+  games: [],
+});
+const saving = ref(false);
+
+// Store state and getters
+const tags = computed(() => store.state.tags);
+const sidebarRightProps = computed(() => store.getters.sidebarRightProps);
+const darkTheme = computed(() => store.getters.darkTheme);
+
+// Computed properties
+const visible = computed(() => {
+  // Control visibility via store or prop - adjust based on your needs
+  return store.state.activeTagIndex !== null || false;
+});
+
+// Methods
+const hideSidebar = () => {
+  const element = document.getElementById('create-tag-sidebar');
+  if (element) {
+    const bsOffcanvas = bootstrap.Offcanvas.getInstance(element);
+    if (bsOffcanvas) {
+      bsOffcanvas.hide();
     }
-  },
+  }
+};
 
-  components: {
-    Sidebar,
-    SidebarHeader,
-  },
+const handleHidden = () => {
+  saving.value = false;
+};
 
-  computed: {
-    ...mapState(['tags']),
-    ...mapGetters(['sidebarRightProps', 'darkTheme']),
+const submit = async () => {
+  store.commit('CREATE_TAG', tag.value);
+  saving.value = true;
 
-    visible() {
-      // Control visibility via store or prop - adjust based on your needs
-      return this.$store.state.activeTagIndex !== null || false;
-    },
-  },
-
-  methods: {
-    hideSidebar() {
-      const element = document.getElementById('create-tag-sidebar');
-      if (element) {
-        const bsOffcanvas = bootstrap.Offcanvas.getInstance(element);
-        if (bsOffcanvas) {
-          bsOffcanvas.hide();
-        }
-      }
-    },
-
-    handleHidden() {
-      this.saving = false;
-    },
-
-    async submit() {
-      this.$store.commit('CREATE_TAG', this.tag);
-      this.saving = true;
-
-      await this.$store.dispatch('SAVE_TAGS')
-        .catch(() => {});
-
-      this.saving = false;
-      this.hideSidebar();
-    },
-  },
+  try {
+    await store.dispatch('SAVE_TAGS');
+    hideSidebar();
+    // Reset form
+    tag.value = {
+      name: '',
+      textColor: '#DDE6E8',
+      bgColor: '#1FBC9C',
+      games: [],
+    };
+  } catch (e) {
+    // Error handling
+  } finally {
+    saving.value = false;
+  }
 };
 </script>
 

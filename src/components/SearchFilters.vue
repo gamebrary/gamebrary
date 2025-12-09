@@ -35,7 +35,7 @@
 
       <div class="collapse show" id="genres-accordion" data-bs-parent="#filtersSidebar">
         <button
-          v-for="{ id, name } in $options.GAME_GENRES"
+          v-for="{ id, name } in GAME_GENRES"
           :key="name"
           type="button"
           class="btn btn-sm mb-2 me-2"
@@ -60,7 +60,7 @@
 
       <div class="collapse" id="themes-accordion" data-bs-parent="#filtersSidebar">
         <button
-          v-for="{ id, name } in $options.GAME_THEMES"
+          v-for="{ id, name } in GAME_THEMES"
           :key="name"
           type="button"
           class="btn btn-sm mb-1 me-1"
@@ -85,7 +85,7 @@
 
       <div class="collapse" id="perspectives-accordion" data-bs-parent="#filtersSidebar">
         <button
-          v-for="{ id, name } in $options.GAME_PERSPECTIVES"
+          v-for="{ id, name } in GAME_PERSPECTIVES"
           :key="name"
           type="button"
           class="btn btn-sm mb-1 me-1"
@@ -135,7 +135,7 @@
 
       <div class="collapse show" id="gamemodes-accordion" data-bs-parent="#filtersSidebar">
         <button
-          v-for="{ id, name } in $options.GAME_MODES"
+          v-for="{ id, name } in GAME_MODES"
           :key="id"
           type="button"
           class="btn btn-sm mb-1 me-1"
@@ -149,112 +149,101 @@
   </AppSidebar>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, onMounted, onBeforeUnmount, inject } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 import SidebarHeader from '@/components/SidebarHeader';
-import AppSidebar from '@/components/Sidebar';
-import { GAME_GENRES, GAME_PERSPECTIVES, GAME_MODES, GAME_THEMES, GAME_LANGUAGES } from '@/constants';
-import { mapState, mapGetters } from 'vuex';
+import AppSidebar from '@/components/AppSidebar';
+import { GAME_GENRES, GAME_PERSPECTIVES, GAME_MODES, GAME_THEMES } from '@/constants';
 import orderby from 'lodash.orderby';
 
-export default {
-  GAME_GENRES,
-  GAME_PERSPECTIVES,
-  GAME_MODES,
-  GAME_THEMES,
-  GAME_LANGUAGES,
+const route = useRoute();
+const router = useRouter();
+const store = useStore();
+const $bus = inject('$bus');
 
-  components: {
-    AppSidebar,
-    SidebarHeader,
-  },
+// Reactive state
+const visible = ref(false);
 
-  data() {
-    return {
-      visible: false,
-    };
-  },
+// Store state and getters
+const platforms = computed(() => store.state.platforms);
+const darkTheme = computed(() => store.getters.darkTheme);
+const sidebarRightProps = computed(() => store.getters.sidebarRightProps);
 
-  computed: {
-    ...mapState(['platforms']),
-    ...mapGetters(['darkTheme', 'sidebarRightProps']),
+// Computed properties
+const sortedPlatforms = computed(() => {
+  return orderby(platforms.value, [(platform) => platform.name]);
+});
 
-    sortedPlatforms() {
-      return orderby(this.platforms, [platform => platform.name]);
-    },
+const filterType = computed(() => route.query?.filterBy);
 
-    filterType() {
-      return this.$route.query?.filterBy;
-    },
+const filterValue = computed(() => route.query?.value);
 
-    filterValue() {
-      return this.$route.query?.value;
-    },
+const filterSelected = computed(() => Boolean(filterType.value && filterValue.value));
 
-    filterSelected() {
-      return Boolean(this.filterType && this.filterValue);
-    },
-  },
-
-  mounted() {
-    // Listen for sidebar toggle events
-    if (this.$bus) {
-      this.$bus.$on('bv::toggle::collapse', (id) => {
-        if (id === 'filtersSidebar') {
-          this.visible = !this.visible;
-        }
-      });
-    }
-  },
-
-  beforeUnmount() {
-    if (this.$bus) {
-      this.$bus.$off('bv::toggle::collapse');
-    }
-  },
-
-  methods: {
-    handleVisibilityChange(visible) {
-      this.visible = visible;
-    },
-
-    hideSidebar() {
-      this.visible = false;
-    },
-
-    clearFilters() {
-      this.$router.push({ name: 'search', query: this.$route.query?.q
-          ? { q: this.$route.query?.q }
-          : {}
-      });
-    },
-
-    setFilter(type, value) {
-      const query = {
-        ...this.$route.query,
-        filterBy: type,
-        value,
-      }
-
-      this.$router.push({ name: 'search', query });
-    },
-
-    selectGenre(id) {
-      const query = {
-        ...this.$route.query,
-        genres: id,
-      }
-
-      this.$router.push({ name: 'search', query });
-    },
-
-    selectPlatform(id) {
-      const query = {
-        ...this.$route.query,
-        platforms: id,
-      }
-
-      this.$router.push({ name: 'search', query });
-    },
-  },
+// Methods
+const handleVisibilityChange = (newVisible) => {
+  visible.value = newVisible;
 };
+
+const hideSidebar = () => {
+  visible.value = false;
+};
+
+const clearFilters = () => {
+  router.push({
+    name: 'search',
+    query: route.query?.q ? { q: route.query.q } : {},
+  });
+};
+
+const setFilter = (type, value) => {
+  router.push({
+    name: 'search',
+    query: {
+      ...route.query,
+      filterBy: type,
+      value,
+    },
+  });
+};
+
+const selectGenre = (id) => {
+  router.push({
+    name: 'search',
+    query: {
+      ...route.query,
+      genres: id,
+    },
+  });
+};
+
+const selectPlatform = (id) => {
+  router.push({
+    name: 'search',
+    query: {
+      ...route.query,
+      platforms: id,
+    },
+  });
+};
+
+// Lifecycle hooks
+onMounted(() => {
+  // Listen for sidebar toggle events
+  if ($bus) {
+    $bus.$on('bv::toggle::collapse', (id) => {
+      if (id === 'filtersSidebar') {
+        visible.value = !visible.value;
+      }
+    });
+  }
+});
+
+onBeforeUnmount(() => {
+  if ($bus) {
+    $bus.$off('bv::toggle::collapse');
+  }
+});
 </script>

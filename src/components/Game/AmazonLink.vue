@@ -11,25 +11,25 @@
   </a>
 </template>
 
-<script>
+<script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 import { WEBSITE_CATEGORIES } from '@/constants';
-import { mapState, mapGetters } from 'vuex';
 
+const store = useStore();
 
-export default {
-  computed: {
-    ...mapState(['game']),
-    ...mapGetters(['darkTheme']),
+// Store state and getters
+const game = computed(() => store.state.game);
+const darkTheme = computed(() => store.getters.darkTheme);
 
-    amazonLink() {
-      const amazonAsins = this.game?.external_games?.filter(({ category, uid }) => uid && category === WEBSITE_CATEGORIES.AMAZON)
-        .map(({ uid }) => uid)
-        .join('|');
+// Computed properties
+const amazonLink = computed(() => {
+  const amazonAsins = game.value?.external_games?.filter(({ category, uid }) => uid && category === WEBSITE_CATEGORIES.AMAZON)
+    .map(({ uid }) => uid)
+    .join('|');
 
-      return amazonAsins
-        ? `https://www.amazon.com/s?k=${amazonAsins}?tag=gamebrary0e-20`
-        : null;
-    },
-  },
-};
+  return amazonAsins
+    ? `https://www.amazon.com/s?k=${amazonAsins}?tag=gamebrary0e-20`
+    : null;
+});
 </script>

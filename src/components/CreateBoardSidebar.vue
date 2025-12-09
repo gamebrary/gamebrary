@@ -34,7 +34,7 @@
         <p>Board type:</p>
         <div class="btn-group mb-2" role="group">
           <button
-            v-for="{ text, value } in $options.BOARD_TYPES"
+            v-for="{ text, value } in BOARD_TYPES"
             :key="value"
             type="button"
             class="btn"
@@ -52,7 +52,7 @@
         />
 
         <div
-          v-if="board.type === $options.BOARD_TYPE_STANDARD"
+          v-if="board.type === BOARD_TYPE_STANDARD"
           class="form-check form-switch mb-3"
         >
           <input
@@ -90,7 +90,10 @@
   </AppSidebar>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, onMounted, onBeforeUnmount, inject } from 'vue';
+import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 import {
   BOARD_TYPES,
   BOARD_TYPE_KANBAN,
@@ -102,116 +105,102 @@ import {
 } from '@/constants';
 import MiniBoard from '@/components/Board/MiniBoard';
 import SidebarHeader from '@/components/SidebarHeader';
-import AppSidebar from '@/components/Sidebar';
-import { mapState, mapGetters } from 'vuex';
+import AppSidebar from '@/components/AppSidebar';
 
-export default {
-  BOARD_TYPES,
-  BOARD_TYPE_TIER,
-  BOARD_TYPE_STANDARD,
-  DEFAULT_BOARD_TIER,
+const router = useRouter();
+const store = useStore();
+const $bus = inject('$bus');
 
-  components: {
-    AppSidebar,
-    MiniBoard,
-    SidebarHeader,
-  },
+// Reactive state
+const board = ref({});
+const saving = ref(false);
+const selectedTemplate = ref(null);
+const visible = ref(false);
 
-  data() {
-    return {
-      board: {},
-      saving: false,
-      selectedTemplate: null,
-      visible: false,
-    };
-  },
+// Store state and getters
+const user = computed(() => store.state.user);
+const sidebarRightProps = computed(() => store.getters.sidebarRightProps);
 
-  mounted() {
-    this.board = {
-      ...this.sampleBoard,
-      type: BOARD_TYPE_KANBAN,
-    }
-    // Listen for sidebar toggle events
-    if (this.$bus) {
-      this.$bus.$on('bv::toggle::collapse', (id) => {
-        if (id === 'create-board-sidebar') {
-          this.visible = !this.visible;
-        }
-      });
-    }
-  },
+// Computed properties
+const sampleBoard = computed(() => {
+  if (board.value.type === BOARD_TYPE_KANBAN) return DEFAULT_BOARD_KANBAN;
+  if (board.value.type === BOARD_TYPE_TIER) return DEFAULT_BOARD_TIER;
+  if (board.value.type === BOARD_TYPE_STANDARD) return DEFAULT_BOARD_STANDARD;
+  return DEFAULT_BOARD_KANBAN;
+});
 
-  beforeUnmount() {
-    if (this.$bus) {
-      this.$bus.$off('bv::toggle::collapse');
-    }
-  },
+const sampleBoardWithRandomizedGames = computed(() => {
+  const randomizedListWithGames = sampleBoard.value?.lists?.map((list) => ({
+    ...list,
+    games: Array.from({length: Math.floor(Math.random() * 5) + 2 }, () => ''),
+  }));
 
-  computed: {
-		...mapState(['user']),
-		...mapGetters(['sidebarRightProps']),
+  return {
+    ...sampleBoard.value,
+    lists: board.value.type === BOARD_TYPE_TIER
+      ? DEFAULT_BOARD_TIER.lists
+      : randomizedListWithGames,
+  };
+});
 
-    sampleBoard() {
-      if (this.board.type === BOARD_TYPE_KANBAN) return DEFAULT_BOARD_KANBAN;
-      if (this.board.type === BOARD_TYPE_TIER) return DEFAULT_BOARD_TIER;
-      if (this.board.type === BOARD_TYPE_STANDARD) return DEFAULT_BOARD_STANDARD;
-
-      return DEFAULT_BOARD_KANBAN;
-    },
-
-    sampleBoardWithRandomizedGames() {
-      const randomizedListWithGames = this.sampleBoard?.lists?.map((list) => ({
-        ...list,
-        games: list.games = Array.from({length: Math.floor(Math.random() * 5) + 2 }, () => ''),
-      }));
-
-      return {
-        ...this.sampleBoard,
-        lists: this.board.type === BOARD_TYPE_TIER
-          ? DEFAULT_BOARD_TIER.lists
-          : randomizedListWithGames,
-      }
-    }
-  },
-
-  methods: {
-    handleVisibilityChange(visible) {
-      this.visible = visible;
-    },
-
-    handleHidden() {
-      this.saving = false;
-      this.visible = false;
-    },
-
-    hideSidebar() {
-      this.visible = false;
-    },
-
-    async createBoard() {
-      try {
-        this.saving = true;
-
-        const dateCreated = Date.now();
-
-        const payload = {
-          ...this.sampleBoard,
-          ...this.board,
-          dateCreated,
-          lastUpdated: dateCreated,
-          lists: this.sampleBoard.lists.map((list) => ({ ...list, games: [] })),
-          owner: this.user.uid,
-        }
-
-        console.log('payload', payload)
-
-        const { id } = await this.$store.dispatch('CREATE_BOARD', payload);
-
-        this.$router.push({ name: 'board', params: { id } });
-      } catch (e) {
-        //
-      }
-    },
-  },
+// Methods
+const handleVisibilityChange = (newVisible) => {
+  visible.value = newVisible;
 };
+
+const handleHidden = () => {
+  saving.value = false;
+  visible.value = false;
+};
+
+const hideSidebar = () => {
+  visible.value = false;
+};
+
+const createBoard = async () => {
+  try {
+    saving.value = true;
+
+    const dateCreated = Date.now();
+
+    const payload = {
+      ...sampleBoard.value,
+      ...board.value,
+      dateCreated,
+      lastUpdated: dateCreated,
+      lists: sampleBoard.value.lists.map((list) => ({ ...list, games: [] })),
+      owner: user.value.uid,
+    };
+
+    console.log('payload', payload);
+
+    const { id } = await store.dispatch('CREATE_BOARD', payload);
+
+    router.push({ name: 'board', params: { id } });
+  } catch (e) {
+    //
+  }
+};
+
+// Lifecycle hooks
+onMounted(() => {
+  board.value = {
+    ...sampleBoard.value,
+    type: BOARD_TYPE_KANBAN,
+  };
+  // Listen for sidebar toggle events
+  if ($bus) {
+    $bus.$on('bv::toggle::collapse', (id) => {
+      if (id === 'create-board-sidebar') {
+        visible.value = !visible.value;
+      }
+    });
+  }
+});
+
+onBeforeUnmount(() => {
+  if ($bus) {
+    $bus.$off('bv::toggle::collapse');
+  }
+});
 </script>

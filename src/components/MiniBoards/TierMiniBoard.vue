@@ -29,64 +29,65 @@
   </div>
 </template>
 
-<script>
-  import { mapGetters, mapState } from 'vuex';
-export default {
-  props: {
-    board: {
-      type: Object,
-      required: true,
-    },
-    gameId: Number,
+<script setup>
+import { ref, computed, onMounted, onUpdated, nextTick } from 'vue';
+import { useStore } from 'vuex';
+
+const props = defineProps({
+  board: {
+    type: Object,
+    required: true,
   },
+  gameId: Number,
+});
 
-  data() {
-    return {
-      gameRefs: {},
-    };
-  },
+const store = useStore();
 
-  computed: {
-    ...mapGetters(['darkTheme', 'showGameThumbnails']),
-    ...mapState(['routeName', 'game']),
+// Template refs
+const gameRefs = ref({});
 
-    currentGameId() {
-      return this.routeName === 'game'
-        ? this.game?.id
-        : null;
-    },
-  },
+// Store state and getters
+const darkTheme = computed(() => store.getters.darkTheme);
+const showGameThumbnails = computed(() => store.getters.showGameThumbnails);
+const routeName = computed(() => store.state.routeName);
+const game = computed(() => store.state.game);
 
-  mounted() {
-    this.initTooltips();
-  },
+// Computed properties
+const currentGameId = computed(() => {
+  return routeName.value === 'game'
+    ? game.value?.id
+    : null;
+});
 
-  updated() {
-    this.initTooltips();
-  },
+// Methods
+const getGameVariant = (gameItem) => {
+  const defaultVariant = darkTheme.value ? 'black' : 'secondary';
 
-  methods: {
-    getGameVariant(game) {
-      const defaultVariant = this.darkTheme ? 'black' : 'secondary';
+  if (!gameItem?.id) return defaultVariant;
+  if (game.value?.id === props.gameId) return darkTheme.value ? 'success' : 'danger';
 
-      if (!game?.id) return defaultVariant;
-      if (this.game?.id === this.gameId) return this.darkTheme ? 'success' : 'danger'
+  return defaultVariant;
+};
 
-      return defaultVariant;
-    },
+const initTooltips = () => {
+  nextTick(() => {
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      if (!tooltipTriggerEl._tooltip) {
+        new bootstrap.Tooltip(tooltipTriggerEl);
+      }
+    });
+  });
+};
 
-    initTooltips() {
-      this.$nextTick(() => {
-        const tooltipTriggerList = this.$el.querySelectorAll('[data-bs-toggle="tooltip"]');
-        tooltipTriggerList.forEach(tooltipTriggerEl => {
-          if (!tooltipTriggerEl._tooltip) {
-            new bootstrap.Tooltip(tooltipTriggerEl);
-          }
-        });
-      });
-    },
-  },
-}
+// Lifecycle hooks
+onMounted(() => {
+  initTooltips();
+});
+
+onUpdated(() => {
+  initTooltips();
+});
 </script>
 
 <style scoped>

@@ -102,138 +102,137 @@
   </AppSidebar>
 </template>
 
-<script>
-import { mapState, mapGetters } from 'vuex';
+<script setup>
+import { ref, computed, onMounted, nextTick } from 'vue';
+import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 import MiniBoard from '@/components/Board/MiniBoard';
 import SidebarHeader from '@/components/SidebarHeader';
-import AppSidebar from '@/components/Sidebar';
+import AppSidebar from '@/components/AppSidebar';
 
-export default {
-  data() {
-    return {
-      saving: false,
-      deleting: false,
-      boardsListExpanded: false,
-    };
-  },
+const router = useRouter();
+const store = useStore();
 
-  components: {
-    AppSidebar,
-    MiniBoard,
-    SidebarHeader,
-  },
+// Reactive state
+const saving = ref(false);
+const deleting = ref(false);
+const boardsListExpanded = ref(false);
 
-  computed: {
-    ...mapState(['boards', 'wallpapers', 'activeWallpaper']),
-    ...mapGetters(['darkTheme', 'sidebarRightProps', 'buttonProps']),
+// Store state and getters
+const boards = computed(() => store.state.boards);
+const wallpapers = computed(() => store.state.wallpapers);
+const activeWallpaper = computed(() => store.state.activeWallpaper);
+const darkTheme = computed(() => store.getters.darkTheme);
+const sidebarRightProps = computed(() => store.getters.sidebarRightProps);
+const buttonProps = computed(() => store.getters.buttonProps);
 
-    formattedBoards() {
-      return this.boards.map((board) => ({ ...board, backgroundUrl: this.getWallpaperUrl(board.backgroundUrl) }));
-    },
+// Computed properties
+const formattedBoards = computed(() => {
+  return boards.value.map((board) => ({ ...board, backgroundUrl: getWallpaperUrl(board.backgroundUrl) }));
+});
 
-    wallpaperUrl() {
-      return this.activeWallpaper?.url;
-    },
+const wallpaperUrl = computed(() => {
+  return activeWallpaper.value?.url;
+});
 
-    boardsWithWallpaper() {
-      return this.boards.filter(({ backgroundUrl }) => backgroundUrl && backgroundUrl === this.activeWallpaper?.fullPath) || [];
-    },
+const boardsWithWallpaper = computed(() => {
+  return boards.value.filter(({ backgroundUrl }) => backgroundUrl && backgroundUrl === activeWallpaper.value?.fullPath) || [];
+});
 
-    visible() {
-      return Boolean(this.activeWallpaper?.fullPath);
-    },
-  },
+const visible = computed(() => {
+  return Boolean(activeWallpaper.value?.fullPath);
+});
 
-  mounted() {
-    // Initialize collapse
-    const collapseElement = document.getElementById('boards-list');
-    if (collapseElement) {
-      collapseElement.addEventListener('shown.bs.collapse', () => {
-        this.boardsListExpanded = true;
-      });
-      collapseElement.addEventListener('hidden.bs.collapse', () => {
-        this.boardsListExpanded = false;
-      });
-    }
-    // Initialize tooltips
-    this.$nextTick(() => {
-      const tooltipTriggerList = this.$el.querySelectorAll('[data-bs-toggle="tooltip"]');
-      tooltipTriggerList.forEach(tooltipTriggerEl => {
-        new bootstrap.Tooltip(tooltipTriggerEl);
-      });
-    });
-  },
-
-  methods: {
-    handleVisibilityChange(visible) {
-      if (!visible) {
-        this.closeSidebar();
-      }
-    },
-
-    hideSidebar() {
-      this.$store.commit('CLEAR_ACTIVE_WALLPAPER');
-    },
-
-    closeSidebar() {
-      this.$store.commit('CLEAR_ACTIVE_WALLPAPER');
-      this.saving = false;
-      this.deleting = false;
-    },
-
-    getWallpaperUrl(url) {
-      if (!url) return null;
-      if (url?.includes('igdb.com')) return url;
-
-      return this.wallpapers?.find(({ ref }) => ref === url)?.url;
-    },
-
-    async deleteFile(file) {
-      this.deleting = true;
-
-      await this.$store.dispatch('DELETE_WALLPAPER', file)
-        .catch(() => {
-          this.showToast('There was an error deleting wallpaper', 'danger');
-        });
-
-      const modalElement = document.getElementById('deleteConfirm');
-      if (modalElement) {
-        const modal = bootstrap.Modal.getInstance(modalElement);
-        if (modal) modal.hide();
-      }
-      this.hideSidebar();
-    },
-
-    showToast(message, variant = 'info') {
-      const toastElement = document.createElement('div');
-      toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
-      toastElement.setAttribute('role', 'alert');
-      toastElement.innerHTML = `
-        <div class="d-flex">
-          <div class="toast-body">${message}</div>
-          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-        </div>
-      `;
-      document.body.appendChild(toastElement);
-      const toast = new bootstrap.Toast(toastElement);
-      toast.show();
-      toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
-    },
-
-    async setAsBoardWallpaper(board) {
-      try {
-        this.saving = true;
-
-        this.$store.commit('SET_ACTIVE_BOARD', { ...board, backgroundUrl: this.activeWallpaper.fullPath });
-
-        await this.$store.dispatch('SAVE_BOARD');
-        this.$store.commit('CLEAR_ACTIVE_WALLPAPER');
-
-        this.$router.push({ name: 'board', params: { id: board.id } });
-      } catch (e) {
-        this.saving = false;
-      }
-    },
-  },
+// Methods
+const handleVisibilityChange = (isVisible) => {
+  if (!isVisible) {
+    closeSidebar();
+  }
 };
+
+const hideSidebar = () => {
+  store.commit('CLEAR_ACTIVE_WALLPAPER');
+};
+
+const closeSidebar = () => {
+  store.commit('CLEAR_ACTIVE_WALLPAPER');
+  saving.value = false;
+  deleting.value = false;
+};
+
+const getWallpaperUrl = (url) => {
+  if (!url) return null;
+  if (url?.includes('igdb.com')) return url;
+
+  return wallpapers.value?.find(({ ref }) => ref === url)?.url;
+};
+
+const deleteFile = async (file) => {
+  deleting.value = true;
+
+  try {
+    await store.dispatch('DELETE_WALLPAPER', file);
+  } catch (e) {
+    showToast('There was an error deleting wallpaper', 'danger');
+  } finally {
+    const modalElement = document.getElementById('deleteConfirm');
+    if (modalElement) {
+      const modal = bootstrap.Modal.getInstance(modalElement);
+      if (modal) modal.hide();
+    }
+    hideSidebar();
+  }
+};
+
+const showToast = (message, variant = 'info') => {
+  const toastElement = document.createElement('div');
+  toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
+  toastElement.setAttribute('role', 'alert');
+  toastElement.innerHTML = `
+    <div class="d-flex">
+      <div class="toast-body">${message}</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  `;
+  document.body.appendChild(toastElement);
+  const toast = new bootstrap.Toast(toastElement);
+  toast.show();
+  toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
+};
+
+const setAsBoardWallpaper = async (board) => {
+  try {
+    saving.value = true;
+
+    store.commit('SET_ACTIVE_BOARD', { ...board, backgroundUrl: activeWallpaper.value.fullPath });
+
+    await store.dispatch('SAVE_BOARD');
+    store.commit('CLEAR_ACTIVE_WALLPAPER');
+
+    router.push({ name: 'board', params: { id: board.id } });
+  } catch (e) {
+    saving.value = false;
+  }
+};
+
+// Lifecycle hooks
+onMounted(() => {
+  // Initialize collapse
+  const collapseElement = document.getElementById('boards-list');
+  if (collapseElement) {
+    collapseElement.addEventListener('shown.bs.collapse', () => {
+      boardsListExpanded.value = true;
+    });
+    collapseElement.addEventListener('hidden.bs.collapse', () => {
+      boardsListExpanded.value = false;
+    });
+  }
+  // Initialize tooltips
+  nextTick(() => {
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+  });
+});
 </script>

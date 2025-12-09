@@ -51,52 +51,55 @@
   </div>
 </template>
 
-<script>
-import { mapState, mapGetters } from 'vuex';
+<script setup>
+import { computed, onMounted, nextTick } from 'vue';
+import { useStore } from 'vuex';
 
-export default {
+const store = useStore();
 
-  computed: {
-    ...mapState(['settings']),
-    ...mapGetters(['darkTheme', 'showGameThumbnails', 'transparencyEnabled', 'ageRating']),
+// Store state and getters
+const settings = computed(() => store.state.settings);
+const darkTheme = computed(() => store.getters.darkTheme);
+const showGameThumbnails = computed(() => store.getters.showGameThumbnails);
+const transparencyEnabled = computed(() => store.getters.transparencyEnabled);
+const ageRating = computed(() => store.getters.ageRating);
 
-    currentYear() {
-      return new Date().getFullYear();
-    },
-  },
+// Computed properties
+const currentYear = computed(() => {
+  return new Date().getFullYear();
+});
 
-  mounted() {
-    // Initialize tooltips
-    this.$nextTick(() => {
-      const tooltipTriggerList = [].slice.call(this.$el.querySelectorAll('[data-bs-toggle="tooltip"]'));
-      tooltipTriggerList.map((tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl));
+// Methods
+const toggleTheme = async () => {
+  try {
+    await store.dispatch('SAVE_SETTINGS', {
+      ...settings.value,
+      darkTheme: !settings.value?.darkTheme,
     });
-  },
+  } catch (error) {
+    // Show error toast using Bootstrap
+    const toastElement = document.createElement('div');
+    toastElement.className = 'toast align-items-center text-white bg-danger border-0';
+    toastElement.setAttribute('role', 'alert');
+    toastElement.innerHTML = `
+      <div class="d-flex">
+        <div class="toast-body">There was an error saving your settings</div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+      </div>
+    `;
+    document.body.appendChild(toastElement);
+    const toast = new bootstrap.Toast(toastElement);
+    toast.show();
+    toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
+  }
+};
 
-  methods: {
-    async toggleTheme() {
-      try {
-        await this.$store.dispatch('SAVE_SETTINGS', {
-          ...this.settings,
-          darkTheme: !this.settings?.darkTheme,
-        });
-      } catch (error) {
-        // Show error toast using Bootstrap
-        const toastElement = document.createElement('div');
-        toastElement.className = 'toast align-items-center text-white bg-danger border-0';
-        toastElement.setAttribute('role', 'alert');
-        toastElement.innerHTML = `
-          <div class="d-flex">
-            <div class="toast-body">There was an error saving your settings</div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-          </div>
-        `;
-        document.body.appendChild(toastElement);
-        const toast = new bootstrap.Toast(toastElement);
-        toast.show();
-        toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
-      }
-    },
-  },
-}
+// Lifecycle hooks
+onMounted(() => {
+  // Initialize tooltips
+  nextTick(() => {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.forEach((tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl));
+  });
+});
 </script>

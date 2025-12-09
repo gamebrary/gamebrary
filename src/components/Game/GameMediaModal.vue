@@ -73,123 +73,124 @@
   </section>
 </template>
 
-<script>
-import { mapGetters, mapState } from 'vuex';
+<script setup>
+import { ref, computed, onMounted } from 'vue';
+import { useStore } from 'vuex';
 
-export default {
+const store = useStore();
 
-  data() {
-    return {
-      activeIndex: 0,
-      saving: false,
-    };
-  },
+// Reactive state
+const activeIndex = ref(0);
+const saving = ref(false);
 
-  computed: {
-    ...mapState(['user', 'board', 'game', 'wallpapers', 'boards']),
-    ...mapGetters(['darkTheme']),
+// Store state and getters
+const user = computed(() => store.state.user);
+const board = computed(() => store.state.board);
+const game = computed(() => store.state.game);
+const wallpapers = computed(() => store.state.wallpapers);
+const boards = computed(() => store.state.boards);
+const darkTheme = computed(() => store.getters.darkTheme);
 
-    formattedBoards() {
-      return this.boards?.map((board) => ({ ...board, backgroundUrl: this.getWallpaperUrl(board?.backgroundUrl) }));
-    },
+// Computed properties
+const formattedBoards = computed(() => {
+  return boards.value?.map((boardItem) => ({ ...boardItem, backgroundUrl: getWallpaperUrl(boardItem?.backgroundUrl) }));
+});
 
-    isSelectedMediaVideo() {
-      return this.selectedMedia?.isVideo;
-    },
+const isSelectedMediaVideo = computed(() => {
+  return selectedMedia.value?.isVideo;
+});
 
-    gameMedia() {
-      return this.$store.getters.gameMedia();
-    },
+const gameMedia = computed(() => {
+  return store.getters.gameMedia();
+});
 
-    isSelectedMediaCover() {
-      return this.selectedMedia?.isCover;
-    },
+const isSelectedMediaCover = computed(() => {
+  return selectedMedia.value?.isCover;
+});
 
-    selectedMedia() {
-      return this.gameMedia?.[this.activeIndex];
-    },
+const selectedMedia = computed(() => {
+  return gameMedia.value?.[activeIndex.value];
+});
 
-    totalMedia() {
-      return this.gameMedia?.length || 0;
-    },
+const totalMedia = computed(() => {
+  return gameMedia.value?.length || 0;
+});
 
-    showSetAsWallpaperButton() {
-      if (!this.user) return false;
+const showSetAsWallpaperButton = computed(() => {
+  if (!user.value) return false;
 
-      return this.activeIndex >= 0;
-    },
+  return activeIndex.value >= 0;
+});
 
-    subtitle() {
-      if (!this.game?.name) return '';
-      if (this.isSelectedMediaVideo) return `${this.game.name} - Video`;
-      if (this.isSelectedMediaCover) return `${this.game.name} - Game cover`;
+const subtitle = computed(() => {
+  if (!game.value?.name) return '';
+  if (isSelectedMediaVideo.value) return `${game.value.name} - Video`;
+  if (isSelectedMediaCover.value) return `${game.value.name} - Game cover`;
 
-      return `${this.game.name} - Screenshot`;
-    },
-  },
+  return `${game.value.name} - Screenshot`;
+});
 
-  mounted() {
+// Methods
+const viewMedia = (index = 0) => {
+  activeIndex.value = index;
+  const modalElement = document.getElementById('mediaModal');
+  if (modalElement) {
+    const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+    modal.show();
+  }
+};
+
+const getWallpaperUrl = (url) => {
+  if (!url) return null;
+  if (url?.includes('igdb.com')) return url;
+
+  return wallpapers.value?.find(({ ref }) => ref === url)?.url;
+};
+
+const setAsWallpaper = async (boardItem) => {
+  try {
+    saving.value = true;
+
+    store.commit('SET_ACTIVE_BOARD', { ...boardItem, backgroundUrl: selectedMedia.value.imageUrl });
+
+    await store.dispatch('SAVE_BOARD');
+  } catch (e) {
+    showToast('There was an error setting wallpaper', 'danger');
+  } finally {
+    saving.value = false;
     const modalElement = document.getElementById('mediaModal');
     if (modalElement) {
-      modalElement.addEventListener('hidden.bs.modal', () => {
-        this.activeIndex = 0;
-      });
+      const modal = bootstrap.Modal.getInstance(modalElement);
+      if (modal) modal.hide();
     }
-  },
-
-  methods: {
-    viewMedia(index = 0) {
-      this.activeIndex = index;
-      const modalElement = document.getElementById('mediaModal');
-      if (modalElement) {
-        const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
-        modal.show();
-      }
-    },
-
-    getWallpaperUrl(url) {
-      if (!url) return null;
-      if (url?.includes('igdb.com')) return url;
-
-      return this.wallpapers?.find(({ ref }) => ref === url)?.url;
-    },
-
-    async setAsWallpaper(board) {
-      try {
-        this.saving = true;
-
-        this.$store.commit('SET_ACTIVE_BOARD', { ...board, backgroundUrl: this.selectedMedia.imageUrl });
-
-        await this.$store.dispatch('SAVE_BOARD');
-      } catch (e) {
-        this.showToast('There was an error setting wallpaper', 'danger');
-      }
-
-      this.saving = false;
-      const modalElement = document.getElementById('mediaModal');
-      if (modalElement) {
-        const modal = bootstrap.Modal.getInstance(modalElement);
-        if (modal) modal.hide();
-      }
-    },
-
-    showToast(message, variant = 'info') {
-      const toastElement = document.createElement('div');
-      toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
-      toastElement.setAttribute('role', 'alert');
-      toastElement.innerHTML = `
-        <div class="d-flex">
-          <div class="toast-body">${message}</div>
-          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-        </div>
-      `;
-      document.body.appendChild(toastElement);
-      const toast = new bootstrap.Toast(toastElement);
-      toast.show();
-      toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
-    },
-  },
+  }
 };
+
+const showToast = (message, variant = 'info') => {
+  const toastElement = document.createElement('div');
+  toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
+  toastElement.setAttribute('role', 'alert');
+  toastElement.innerHTML = `
+    <div class="d-flex">
+      <div class="toast-body">${message}</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  `;
+  document.body.appendChild(toastElement);
+  const toast = new bootstrap.Toast(toastElement);
+  toast.show();
+  toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
+};
+
+// Lifecycle hooks
+onMounted(() => {
+  const modalElement = document.getElementById('mediaModal');
+  if (modalElement) {
+    modalElement.addEventListener('hidden.bs.modal', () => {
+      activeIndex.value = 0;
+    });
+  }
+});
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>

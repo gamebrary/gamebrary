@@ -13,65 +13,64 @@
   </div>
 </template>
 
-<script>
-import { mapState, mapGetters } from 'vuex';
+<script setup>
+import { computed, onMounted, onUpdated, nextTick } from 'vue';
+import { useStore } from 'vuex';
 import { AGE_RATINGS } from '@/constants';
 
-export default {
-  AGE_RATINGS,
+const store = useStore();
 
-  computed: {
-    ...mapState(['game']),
-    ...mapGetters(['ageRating']),
+// Store state and getters
+const game = computed(() => store.state.game);
+const ageRating = computed(() => store.getters.ageRating);
 
-    gameRatings() {
-      const formattedRatings = this.game?.age_ratings?.map(({ category, rating, content_descriptions }) => {
-        const ageRating = AGE_RATINGS?.find(({ id }) => id === category);
+// Computed properties
+const gameRatings = computed(() => {
+  const formattedRatings = game.value?.age_ratings?.map(({ category, rating, content_descriptions }) => {
+    const ageRatingData = AGE_RATINGS?.find(({ id }) => id === category);
 
-        if (!ageRating) {
-          return {};
-        }
-
-        const { ratings, name } = ageRating;
-        const description = content_descriptions?.map(({ description }) => description)?.join(', ') || null;
-        const ratingData = ratings?.[rating];
-
-        return ratingData
-          ? { rating: ratingData, description, category, name }
-          : {};
-      }) || [];
-
-      return formattedRatings.filter(value => Object.keys(value).length !== 0);
-    },
-
-    ratings() {
-      const preferredRating = this.gameRatings?.find(({ category }) => category === this.ageRating);
-
-      if (preferredRating) return preferredRating;
-
-      return this.gameRatings?.find(({ category }) => category);
+    if (!ageRatingData) {
+      return {};
     }
-  },
 
-  mounted() {
-    this.initTooltips();
-  },
+    const { ratings, name } = ageRatingData;
+    const description = content_descriptions?.map(({ description }) => description)?.join(', ') || null;
+    const ratingData = ratings?.[rating];
 
-  updated() {
-    this.initTooltips();
-  },
+    return ratingData
+      ? { rating: ratingData, description, category, name }
+      : {};
+  }) || [];
 
-  methods: {
-    initTooltips() {
-      this.$nextTick(() => {
-        const tooltipTriggerList = this.$el.querySelectorAll('[data-bs-toggle="tooltip"]');
-        tooltipTriggerList.forEach(tooltipTriggerEl => {
-          if (!tooltipTriggerEl._tooltip) {
-            new bootstrap.Tooltip(tooltipTriggerEl);
-          }
-        });
-      });
-    },
-  },
+  return formattedRatings.filter(value => Object.keys(value).length !== 0);
+});
+
+const ratings = computed(() => {
+  const preferredRating = gameRatings.value?.find(({ category }) => category === ageRating.value);
+
+  if (preferredRating) return preferredRating;
+
+  return gameRatings.value?.find(({ category }) => category);
+});
+
+// Methods
+const initTooltips = () => {
+  nextTick(() => {
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      if (!tooltipTriggerEl._tooltip) {
+        new bootstrap.Tooltip(tooltipTriggerEl);
+      }
+    });
+  });
 };
+
+// Lifecycle hooks
+onMounted(() => {
+  initTooltips();
+});
+
+onUpdated(() => {
+  initTooltips();
+});
 </script>

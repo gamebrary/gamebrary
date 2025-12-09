@@ -18,62 +18,62 @@
   </router-link>
 </template>
 
-<script>
-import { mapState, mapGetters } from 'vuex';
+<script setup>
+import { ref, computed, onMounted } from 'vue';
+import { useStore } from 'vuex';
 import { getImageThumbnail } from '@/utils';
 
-export default {
-  data() {
-    return {
-      avatarImage: null,
-      wallpaperImage: null,
-    };
-  },
+const store = useStore();
 
-  computed: {
-    ...mapState(['board', 'user', 'profile']),
-    ...mapGetters(['darkTheme']),
+// Reactive state
+const avatarImage = ref(null);
+const wallpaperImage = ref(null);
 
-    style() {
-      return this.wallpaperImage
-        ? `background-image: url('${this.wallpaperImage}'); background-size: cover;`
-        : null;
-    },
+// Store state and getters
+const board = computed(() => store.state.board);
+const user = computed(() => store.state.user);
+const profile = computed(() => store.state.profile);
+const darkTheme = computed(() => store.getters.darkTheme);
 
-    userName() {
-      return this.profile?.userName;
-    },
+// Computed properties
+const style = computed(() => {
+  return wallpaperImage.value
+    ? `background-image: url('${wallpaperImage.value}'); background-size: cover;`
+    : null;
+});
 
-    displayUserName() {
-      return this.userName
-        ? `@${this.userName}`
-        : 'Profile';
-    },
-  },
+const userName = computed(() => {
+  return profile.value?.userName;
+});
 
-  mounted() {
-    if (this.user) this.load();
-  },
+const displayUserName = computed(() => {
+  return userName.value
+    ? `@${userName.value}`
+    : 'Profile';
+});
 
-  methods: {
-    async load() {
-      await this.$store.dispatch('LOAD_PROFILE').catch(() => {});
+// Methods
+const load = async () => {
+  await store.dispatch('LOAD_PROFILE').catch(() => {});
 
-      if (this.profile?.avatar) this.loadAvatarImage();
+  if (profile.value?.avatar) loadAvatarImage();
 
-      if (this.profile?.wallpaper) {
-        this.wallpaperImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', this.profile?.wallpaper)
-          .catch((e) => {});
-      }
-    },
-
-    async loadAvatarImage() {
-      const thumbnailRef = getImageThumbnail(this.profile?.avatar);
-
-      this.avatarImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', thumbnailRef);
-    },
+  if (profile.value?.wallpaper) {
+    wallpaperImage.value = await store.dispatch('LOAD_FIREBASE_IMAGE', profile.value?.wallpaper)
+      .catch(() => null);
   }
-}
+};
+
+const loadAvatarImage = async () => {
+  const thumbnailRef = getImageThumbnail(profile.value?.avatar);
+  avatarImage.value = await store.dispatch('LOAD_FIREBASE_IMAGE', thumbnailRef)
+    .catch(() => null);
+};
+
+// Lifecycle hooks
+onMounted(() => {
+  if (user.value) load();
+});
 </script>
 
 <style scoped>

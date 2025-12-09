@@ -16,7 +16,7 @@
     <GameMediaCarousel />
 
     <img
-      :src="$options.getImageUrl(game)"
+      :src="getImageUrl(cachedGame)"
       :alt="gameName"
       class="cursor-pointer border d-flex mb-3 w-100 rounded"
       :class="`border-${darkTheme ? 'dark' : 'light'}`"
@@ -25,49 +25,49 @@
   </div>
 </template>
 
-<script>
-import { mapState, mapGetters } from 'vuex';
+<script setup>
+import { computed, inject } from 'vue';
+import { useRoute } from 'vue-router';
+import { useStore } from 'vuex';
 import GameRatings from '@/components/Game/GameRatings';
 import GameMediaCarousel from '@/components/Game/GameMediaCarousel';
 import { getImageUrl } from '@/utils';
 
-export default {
-  getImageUrl,
+const route = useRoute();
+const store = useStore();
+const $bus = inject('$bus');
 
-  components: {
-    GameRatings,
-    GameMediaCarousel,
-  },
+// Store state and getters
+const game = computed(() => store.state.game);
+const cachedGames = computed(() => store.state.cachedGames);
+const games = computed(() => store.state.games);
+const user = computed(() => store.state.user);
+const darkTheme = computed(() => store.getters.darkTheme);
+const gameNews = computed(() => store.getters.gameNews);
+const gameLinks = computed(() => store.getters.gameLinks);
+const gameGenres = computed(() => store.getters.gameGenres);
 
-  computed: {
-    ...mapState(['game', 'cachedGames', 'games', 'user']),
-    ...mapGetters(['darkTheme', 'gameNews', 'gameLinks', 'gameGenres']),
+// Computed properties
+const gameId = computed(() => route.params.id);
 
-    gameId() {
-      return this.$route.params.id;
-    },
+const isLiked = computed(() => {
+  return games.value?.[gameId.value];
+});
 
-    isLiked() {
-      return this.games?.[this.gameId];
-    },
+const cachedGame = computed(() => {
+  return cachedGames.value?.[Number(route.params.id)] || game.value;
+});
 
-    cachedGame() {
-      return this.cachedGames?.[Number(this.$route.params.id)] || this.game;
-    },
+const gameName = computed(() => {
+  return cachedGame.value?.name;
+});
 
-    gameName() {
-      return this.cachedGame?.name;
-    },
-  },
-
-  methods: {
-    openMediaModal() {
-      const modalElement = document.getElementById('mediaModal');
-      if (modalElement) {
-        const modal = new bootstrap.Modal(modalElement);
-        modal.show();
-      }
-    },
-  },
-}
+// Methods
+const openMediaModal = () => {
+  const modalElement = document.getElementById('mediaModal');
+  if (modalElement) {
+    const modal = new bootstrap.Modal(modalElement);
+    modal.show();
+  }
+};
 </script>

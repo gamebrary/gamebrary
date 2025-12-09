@@ -70,122 +70,117 @@
   </AppSidebar>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, onMounted, onBeforeUnmount, inject } from 'vue';
+import { useStore } from 'vuex';
 import MiniBoard from '@/components/Board/MiniBoard';
 import SidebarHeader from '@/components/SidebarHeader';
-import AppSidebar from '@/components/Sidebar';
-import { mapState, mapGetters } from 'vuex';
+import AppSidebar from '@/components/AppSidebar';
 
-export default {
-  components: {
-    AppSidebar,
-    MiniBoard,
-    SidebarHeader,
-  },
+const store = useStore();
+const $bus = inject('$bus');
 
-  data() {
-    return {
-      selectedBoard: null,
-      visible: false,
-    }
-  },
+// Reactive state
+const selectedBoard = ref(null);
+const visible = ref(false);
 
-  computed: {
-    ...mapState(['boards', 'wallpapers', 'game']),
-    ...mapGetters(['darkTheme', 'sidebarRightProps']),
-  },
+// Store state and getters
+const boards = computed(() => store.state.boards);
+const wallpapers = computed(() => store.state.wallpapers);
+const game = computed(() => store.state.game);
+const darkTheme = computed(() => store.getters.darkTheme);
+const sidebarRightProps = computed(() => store.getters.sidebarRightProps);
 
-  mounted() {
-    // Listen for sidebar toggle events
-    if (this.$bus) {
-      this.$bus.$on('bv::toggle::collapse', (id) => {
-        if (id === 'addRemoveGameSidebar') {
-          this.visible = !this.visible;
-        }
-      });
-    }
-  },
-
-  beforeUnmount() {
-    if (this.$bus) {
-      this.$bus.$off('bv::toggle::collapse');
-    }
-  },
-
-  methods: {
-    handleVisibilityChange(visible) {
-      this.visible = visible;
-    },
-
-    hideSidebar() {
-      this.visible = false;
-    },
-    showToast(message, variant = 'info') {
-      const toastElement = document.createElement('div');
-      toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
-      toastElement.setAttribute('role', 'alert');
-      toastElement.innerHTML = `
-        <div class="d-flex">
-          <div class="toast-body">${message}</div>
-          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-        </div>
-      `;
-      document.body.appendChild(toastElement);
-      const toast = new bootstrap.Toast(toastElement);
-      toast.show();
-      toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
-    },
-
-
-    isGameInList({ list }) {
-      return list.games?.includes(Number(this.game?.id));
-    },
-
-    getWallpaperUrl(url) {
-      if (!url) return '';
-      if (url?.includes('igdb.com')) return url;
-
-      const wallpaper = this.wallpapers.find(({ fullPath }) => fullPath === url);
-
-      return wallpaper?.url ? decodeURI(wallpaper.url) : '';
-    },
-
-    handleClick({ list, listIndex, board }) {
-      if (this.isGameInList({ list, gameId: this.game.id })) {
-        this.removeGame({ listIndex, boardId: board.id, list });
-      } else {
-        this.addGame({ list, listIndex, boardId: board.id });
-      }
-    },
-
-    async addGame({ list, listIndex, boardId }) {
-      const boardIndex = this.boards.findIndex(({ id }) => id === boardId);
-      const board = this.boards[boardIndex];
-
-      board.lists[listIndex].games.push(this.game.id);
-
-      try {
-        await this.$store.dispatch('SAVE_GAME_BOARD', board);
-        this.showToast(`Added "${this.game.name}" to ${list.name || 'list'}`, 'success');
-      } catch (e) {
-        this.showToast(`Error adding "${this.game.name}"`, 'danger');
-      }
-    },
-
-    async removeGame({ listIndex, boardId }) {
-      const boardIndex = this.boards.findIndex(({ id }) => id === boardId);
-      const board = this.boards[boardIndex];
-      const gameIndex = board.lists[listIndex].games.indexOf(this.game?.id);
-
-      board.lists[listIndex].games.splice(gameIndex, 1);
-
-      try {
-        await this.$store.dispatch('SAVE_GAME_BOARD', board);
-        this.showToast(`Removed "${this.game.name}" from list`, 'success');
-      } catch (e) {
-        this.showToast(`Error removing "${this.game.name}"`, 'danger');
-      }
-    },
-  },
+// Methods
+const handleVisibilityChange = (newVisible) => {
+  visible.value = newVisible;
 };
+
+const hideSidebar = () => {
+  visible.value = false;
+};
+
+const showToast = (message, variant = 'info') => {
+  const toastElement = document.createElement('div');
+  toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
+  toastElement.setAttribute('role', 'alert');
+  toastElement.innerHTML = `
+    <div class="d-flex">
+      <div class="toast-body">${message}</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  `;
+  document.body.appendChild(toastElement);
+  const toast = new bootstrap.Toast(toastElement);
+  toast.show();
+  toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
+};
+
+const isGameInList = ({ list }) => {
+  return list.games?.includes(Number(game.value?.id));
+};
+
+const getWallpaperUrl = (url) => {
+  if (!url) return '';
+  if (url?.includes('igdb.com')) return url;
+
+  const wallpaper = wallpapers.value.find(({ fullPath }) => fullPath === url);
+
+  return wallpaper?.url ? decodeURI(wallpaper.url) : '';
+};
+
+const handleClick = ({ list, listIndex, board }) => {
+  if (isGameInList({ list, gameId: game.value.id })) {
+    removeGame({ listIndex, boardId: board.id, list });
+  } else {
+    addGame({ list, listIndex, boardId: board.id });
+  }
+};
+
+const addGame = async ({ list, listIndex, boardId }) => {
+  const boardIndex = boards.value.findIndex(({ id }) => id === boardId);
+  const boardToUpdate = boards.value[boardIndex];
+
+  boardToUpdate.lists[listIndex].games.push(game.value.id);
+
+  try {
+    await store.dispatch('SAVE_GAME_BOARD', boardToUpdate);
+    showToast(`Added "${game.value.name}" to ${list.name || 'list'}`, 'success');
+  } catch (e) {
+    showToast(`Error adding "${game.value.name}"`, 'danger');
+  }
+};
+
+const removeGame = async ({ listIndex, boardId }) => {
+  const boardIndex = boards.value.findIndex(({ id }) => id === boardId);
+  const boardToUpdate = boards.value[boardIndex];
+  const gameIndex = boardToUpdate.lists[listIndex].games.indexOf(game.value?.id);
+
+  boardToUpdate.lists[listIndex].games.splice(gameIndex, 1);
+
+  try {
+    await store.dispatch('SAVE_GAME_BOARD', boardToUpdate);
+    showToast(`Removed "${game.value.name}" from list`, 'success');
+  } catch (e) {
+    showToast(`Error removing "${game.value.name}"`, 'danger');
+  }
+};
+
+// Lifecycle hooks
+onMounted(() => {
+  // Listen for sidebar toggle events
+  if ($bus) {
+    $bus.$on('bv::toggle::collapse', (id) => {
+      if (id === 'addRemoveGameSidebar') {
+        visible.value = !visible.value;
+      }
+    });
+  }
+});
+
+onBeforeUnmount(() => {
+  if ($bus) {
+    $bus.$off('bv::toggle::collapse');
+  }
+});
 </script>

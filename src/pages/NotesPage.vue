@@ -122,89 +122,98 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, onMounted, onBeforeUnmount, inject } from 'vue';
+import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 import EmptyState from '@/components/EmptyState';
 import GameCard from '@/components/GameCard';
-import { mapState, mapGetters } from 'vuex';
 
-export default {
-  components: {
-    EmptyState,
-    GameCard,
-  },
+const router = useRouter();
+const store = useStore();
+const $bus = inject('$bus');
 
-  data() {
-    return {
-      searchText: '',
-      loading: false,
-      showSearch: false,
-    };
-  },
+// Reactive state
+const searchText = ref('');
+const loading = ref(false);
+const showSearch = ref(false);
 
-  computed: {
-    ...mapState(['notes', 'cachedGames', 'user']),
-    ...mapGetters(['darkTheme', 'buttonProps']),
+// Store state and getters
+const notes = computed(() => store.state.notes);
+const cachedGames = computed(() => store.state.cachedGames);
+const user = computed(() => store.state.user);
+const darkTheme = computed(() => store.getters.darkTheme);
+const buttonProps = computed(() => store.getters.buttonProps);
 
-    isEmpty() {
-      return !this.notes || !Object.keys(this.notes)?.length;
-    },
+// Computed properties
+const isEmpty = computed(() => {
+  return !notes.value || !Object.keys(notes.value)?.length;
+});
 
-    filteredNotes() {
-      const notes = Object.entries(this.notes).map(([gameId, note]) => ({
-        note,
-        game: this.cachedGames?.[gameId],
-      }));
+const filteredNotes = computed(() => {
+  const notesList = Object.entries(notes.value).map(([gameId, note]) => ({
+    note,
+    game: cachedGames.value?.[gameId],
+  }));
 
-      const searchText = this.searchText?.toLowerCase();
+  const searchTextLower = searchText.value?.toLowerCase();
 
-      if (searchText) {
-        return notes.filter(({ game, note }) => {
-          const noteIsMatch = note?.toLowerCase()?.includes(searchText);
-          const titleIsMatch = game?.name?.toLowerCase()?.includes(searchText);
+  if (searchTextLower) {
+    return notesList.filter(({ game, note }) => {
+      const noteIsMatch = note?.toLowerCase()?.includes(searchTextLower);
+      const titleIsMatch = game?.name?.toLowerCase()?.includes(searchTextLower);
 
-          return noteIsMatch || titleIsMatch;
-        });
-      }
+      return noteIsMatch || titleIsMatch;
+    });
+  }
 
-      return notes;
-    },
-  },
+  return notesList;
+});
 
-  mounted() {
-    this.$bus.$on('SELECT_GAME', this.openNote);
-    this.loadGames();
-  },
+// Methods
+const loadGames = async () => {
+  const gamesNotCached = Object.entries(notes.value)
+    .map(([gameId]) => gameId)
+    .filter((gameId) => !cachedGames.value[gameId]);
 
-  beforeUnmount() {
-    this.$bus.$off('SELECT_GAME', this.openNote);
-  },
-
-  methods: {
-    async loadGames() {
-      const gamesNotCached = Object.entries(this.notes)
-        .map(([gameId]) => (gameId))
-        .filter((gameId) => !this.cachedGames[gameId]);
-
-      if (gamesNotCached.length > 0) await this.$store.dispatch('LOAD_IGDB_GAMES', gamesNotCached);
-    },
-
-    openGameSelectorSidebar() {
-      this.$store.commit('SET_GAME_SELECTOR_DATA', {
-        title: 'Select game to add a note',
-      });
-    },
-
-    createNote(gameId) {
-      const game = this.cachedGames[gameId];
-
-      this.$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } });
-    },
-
-    openNote(id) {
-      const game = this.cachedGames[id];
-
-      this.$router.push({ name: 'game.notes', params: { id, slug: game.slug }});
-    },
-  },
+  if (gamesNotCached.length > 0) {
+    await store.dispatch('LOAD_IGDB_GAMES', gamesNotCached);
+  }
 };
+
+const openGameSelectorSidebar = () => {
+  store.commit('SET_GAME_SELECTOR_DATA', {
+    title: 'Select game to add a note',
+  });
+};
+
+const createNote = (gameId) => {
+  const game = cachedGames.value[gameId];
+
+  if (game) {
+    router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } });
+  }
+};
+
+const openNote = (id) => {
+  const game = cachedGames.value[id];
+
+  if (game) {
+    router.push({ name: 'game.notes', params: { id, slug: game.slug } });
+  }
+};
+
+// Lifecycle hooks
+onMounted(() => {
+  if ($bus) {
+    $bus.$on('SELECT_GAME', openNote);
+  }
+  loadGames();
+});
+
+onBeforeUnmount(() => {
+  if ($bus) {
+    $bus.$off('SELECT_GAME', openNote);
+  }
+});
 </script>

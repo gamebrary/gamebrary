@@ -21,7 +21,7 @@
             v-model.trim="tag.name"
             class="form-control me-2"
             maxlength="20"
-            :placeholder="$t('tags.form.inputPlaceholder')"
+            :placeholder="t('tags.form.inputPlaceholder')"
             required
           />
 
@@ -101,127 +101,122 @@
   </AppSidebar>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, watch, onMounted, onBeforeUnmount, inject } from 'vue';
+import { useStore } from 'vuex';
+import { useI18n } from 'vue-i18n';
 import GameCard from '@/components/GameCard';
 import SidebarHeader from '@/components/SidebarHeader';
-import AppSidebar from '@/components/Sidebar';
-import { mapState, mapGetters } from 'vuex';
+import AppSidebar from '@/components/AppSidebar';
 
-export default {
-  data() {
-    return {
-      tag: {},
-      saving: false,
-      prevRoute: null,
-    }
-  },
+const store = useStore();
+const { t } = useI18n();
+const $bus = inject('$bus');
 
-  components: {
-    AppSidebar,
-    GameCard,
-    SidebarHeader,
-  },
+// Reactive state
+const tag = ref({});
+const saving = ref(false);
 
-  computed: {
-    ...mapState(['tags', 'cachedGames', 'activeTagIndex']),
-    ...mapGetters(['sidebarRightProps', 'darkTheme']),
+// Store state and getters
+const tags = computed(() => store.state.tags);
+const cachedGames = computed(() => store.state.cachedGames);
+const activeTagIndex = computed(() => store.state.activeTagIndex);
+const sidebarRightProps = computed(() => store.getters.sidebarRightProps);
+const darkTheme = computed(() => store.getters.darkTheme);
 
-    isEmpty() {
-      return this.tag?.games?.length === 0;
-    },
-  },
+// Computed properties
+const isEmpty = computed(() => tag.value?.games?.length === 0);
 
-  watch: {
-    activeTagIndex() {
-      this.load();
-    },
-  },
+// Watchers
+watch(activeTagIndex, () => {
+  load();
+});
 
-  async mounted() {
-    if (this.$bus) {
-      this.$bus.$on('SAVE_TAGS', this.selectGame);
-    }
-    this.load();
-  },
-
-  destroyed() {
-    if (this.$bus) {
-      this.$bus.$off('SAVE_TAGS', this.selectGame);
-    }
-  },
-
-  beforeRouteEnter(to, from, next) {
-      next(vm => vm.prevRoute = from?.path);
-  },
-
-  methods: {
-    handleVisibilityChange(visible) {
-      if (!visible) {
-        this.closeSidebar();
-      }
-    },
-
-    hideSidebar() {
-      this.$store.commit('SET_ACTIVE_TAG_INDEX', null);
-    },
-
-    closeSidebar() {
-      this.$store.commit('SET_ACTIVE_TAG_INDEX', null);
-    },
-
-    async selectGame(gameId) {
-      const { activeTagIndex, tags } = this;
-
-      this.$store.commit('APPLY_TAG_TO_GAME', { tagIndex: activeTagIndex, gameId });
-
-      await this.$store.dispatch('SAVE_TAGS').catch(() => {});
-      await this.$store.dispatch('LOAD_IGDB_GAMES', [gameId]);
-
-      this.tag = JSON.parse(JSON.stringify(tags[activeTagIndex]));
-    },
-
-    openGameSelectorSidebar() {
-      this.$store.commit('SET_GAME_SELECTOR_DATA', {
-        title: 'Tag game',
-        filter: this.tag?.games,
-        eventName: 'SAVE_TAGS',
-      });
-    },
-
-    async load() {
-      const { tags, activeTagIndex } = this;
-
-      if (activeTagIndex === null) return;
-
-      this.tag = JSON.parse(JSON.stringify(tags?.[activeTagIndex]));
-    },
-
-    async promptDeleteTag() {
-      const confirmed = window.confirm(this.$t('tags.delete.message'));
-      if (confirmed) this.deleteTag();
-    },
-
-    async deleteTag() {
-      this.$store.commit('REMOVE_TAG', this.activeTagIndex);
-
-      await this.$store.dispatch('SAVE_TAGS').catch(() => {});
-
-      this.closeSidebar();
-    },
-
-    async saveTag() {
-      this.saving = true;
-      const { tag, activeTagIndex } = this;
-      this.$store.commit('UPDATE_TAG', { tagIndex: activeTagIndex, tag });
-
-      await this.$store.dispatch('SAVE_TAGS')
-        .catch(() => {});
-
-      this.saving = false;
-      this.closeSidebar();
-    },
-  },
+// Methods
+const handleVisibilityChange = (visible) => {
+  if (!visible) {
+    closeSidebar();
+  }
 };
+
+const hideSidebar = () => {
+  store.commit('SET_ACTIVE_TAG_INDEX', null);
+};
+
+const closeSidebar = () => {
+  store.commit('SET_ACTIVE_TAG_INDEX', null);
+};
+
+const selectGame = async (gameId) => {
+  if (activeTagIndex.value === null) return;
+
+  store.commit('APPLY_TAG_TO_GAME', { tagIndex: activeTagIndex.value, gameId });
+
+  await store.dispatch('SAVE_TAGS').catch(() => {});
+  await store.dispatch('LOAD_IGDB_GAMES', [gameId]);
+
+  tag.value = JSON.parse(JSON.stringify(tags.value[activeTagIndex.value]));
+};
+
+const openGameSelectorSidebar = () => {
+  store.commit('SET_GAME_SELECTOR_DATA', {
+    title: 'Tag game',
+    filter: tag.value?.games,
+    eventName: 'SAVE_TAGS',
+  });
+};
+
+const load = async () => {
+  if (activeTagIndex.value === null) return;
+
+  tag.value = JSON.parse(JSON.stringify(tags.value?.[activeTagIndex.value] || {}));
+};
+
+const promptDeleteTag = async () => {
+  const confirmed = window.confirm(t('tags.delete.message'));
+  if (confirmed) {
+    await deleteTag();
+  }
+};
+
+const deleteTag = async () => {
+  if (activeTagIndex.value === null) return;
+
+  store.commit('REMOVE_TAG', activeTagIndex.value);
+
+  await store.dispatch('SAVE_TAGS').catch(() => {});
+
+  closeSidebar();
+};
+
+const saveTag = async () => {
+  if (activeTagIndex.value === null) return;
+
+  saving.value = true;
+  try {
+    store.commit('UPDATE_TAG', { tagIndex: activeTagIndex.value, tag: tag.value });
+    await store.dispatch('SAVE_TAGS');
+    closeSidebar();
+  } catch (e) {
+    // Error handling
+  } finally {
+    saving.value = false;
+  }
+};
+
+// Lifecycle hooks
+onMounted(() => {
+  if ($bus) {
+    $bus.$on('SAVE_TAGS', selectGame);
+  }
+  load();
+});
+
+onBeforeUnmount(() => {
+  if ($bus) {
+    $bus.$off('SAVE_TAGS', selectGame);
+  }
+});
 </script>
 
 <style>

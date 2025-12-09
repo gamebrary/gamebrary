@@ -18,75 +18,70 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { computed, watch } from 'vue';
+import { useStore } from 'vuex';
 import GameCard from '@/components/GameCard';
-import { mapState } from 'vuex';
 
-export default {
-  components: {
-    GameCard,
-  },
+const store = useStore();
 
-  computed: {
-    ...mapState(['game']),
+// Store state and getters
+const game = computed(() => store.state.game);
 
-    allGames() {
-      const allGames = [
-        ...this.parentGame,
-        ...this.gameRemakes,
-        ...this.collectionGames,
-        ...this.gamePorts,
-        ...this.gameRemasters,
-        ...this.gameBundles,
-        ...this.similarGames,
-      ];
+// Computed properties
+const gameRemakes = computed(() => {
+  return game.value?.remakes || [];
+});
 
-      return allGames.filter((obj, index) => (index === allGames.findIndex(o => obj.id === o.id)));
-    },
+const collectionGames = computed(() => {
+  const filteredGames = game.value?.collection?.games?.filter(({ id }) => {
+    const isCurrentGame = id === game.value?.id;
+    return !isCurrentGame;
+  });
 
-    gameRemakes() {
-      return this.game?.remakes || [];
-    },
+  return filteredGames || [];
+});
 
-    collectionGames() {
-      const filteredGames = this.game?.collection?.games?.filter(({ id }) => {
-        const isCurrentGame = id === this.game?.id;
+const gamePorts = computed(() => {
+  return game.value?.ports || [];
+});
 
-        return !isCurrentGame;
-      })
+const gameRemasters = computed(() => {
+  return game.value?.remasters || [];
+});
 
-      return filteredGames || [];
-    },
+const similarGames = computed(() => {
+  return game.value?.similar_games || [];
+});
 
-    gamePorts() {
-      return this.game?.ports || [];
-    },
+const gameBundles = computed(() => {
+  return game.value?.bundles || [];
+});
 
-    gameRemasters() {
-      return this.game?.remasters || [];
-    },
+const parentGame = computed(() => {
+  return game.value?.parent_game
+    ? [game.value?.parent_game]
+    : [];
+});
 
-    similarGames() {
-      return this.game?.similar_games || [];
-    },
+const allGames = computed(() => {
+  const allGamesList = [
+    ...parentGame.value,
+    ...gameRemakes.value,
+    ...collectionGames.value,
+    ...gamePorts.value,
+    ...gameRemasters.value,
+    ...gameBundles.value,
+    ...similarGames.value,
+  ];
 
-    gameBundles() {
-      return this.game?.bundles || [];
-    },
+  return allGamesList.filter((obj, index) => (index === allGamesList.findIndex(o => obj.id === o.id)));
+});
 
-    parentGame() {
-      return this.game?.parent_game
-        ? [this.game?.parent_game]
-        : [];
-    },
-  },
-
-  watch: {
-    allGames(games) {
-      if (games?.length) this.$store.commit('CACHE_GAME_DATA', games);
-    },
-  },
-};
+// Watchers
+watch(allGames, (games) => {
+  if (games?.length) store.commit('CACHE_GAME_DATA', games);
+});
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>

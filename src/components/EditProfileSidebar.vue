@@ -7,7 +7,7 @@
     :text-variant="sidebarRightProps?.textVariant"
     @update:visible="handleVisibilityChange"
     @shown="loadProfile"
-    @hidden="$store.commit('SET_PROFILE_SIDEBAR_OPEN', false)"
+    @hidden="handleHidden"
   >
     <template #header>
       <SidebarHeader @hide="hideSidebar" title="Edit Profile" />
@@ -49,7 +49,7 @@
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileMenuDropdown">
             <li><h6 class="dropdown-header">Profile wallpaper</h6></li>
             <li>
-              <a class="dropdown-item" href="#" @click.prevent="$bus?.$emit('bv::toggle::collapse', 'boardWallpaper')">
+              <a class="dropdown-item" href="#" @click.prevent="toggleWallpaperSidebar">
                 {{ wallpaperImage ? 'Change wallpaper' : 'Set profile wallpaper' }}
               </a>
             </li>
@@ -232,234 +232,267 @@
   </AppSidebar>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, onMounted, onBeforeUnmount, inject } from 'vue';
+import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 import { getImageThumbnail } from '@/utils';
-import { mapState, mapGetters } from 'vuex';
 import WallpapersList from '@/components/WallpapersList';
 import SidebarHeader from '@/components/SidebarHeader';
-import AppSidebar from '@/components/Sidebar';
+import AppSidebar from '@/components/AppSidebar';
 
-export default {
-  components: {
-    AppSidebar,
-    WallpapersList,
-    SidebarHeader,
-  },
+const router = useRouter();
+const store = useStore();
+const $bus = inject('$bus');
 
-  data() {
-    return {
-      saving: false,
-      avatarImage: null,
-      wallpaperImage: null,
-      loading: false,
-      deleting: false,
-      uploading: false,
-      profile: null,
-      wallpaperSidebarVisible: false,
-    };
-  },
+// Template refs
+const fileInput = ref(null);
 
-  mounted() {
-    this.loadProfile();
-    // Listen for sidebar toggle events
-    if (this.$bus) {
-      this.$bus.$on('bv::toggle::collapse', (id) => {
-        if (id === 'profile-sidebar') {
-          this.$store.commit('SET_PROFILE_SIDEBAR_OPEN', !this.editProfileSidebarOpen);
-        } else if (id === 'boardWallpaper') {
-          this.wallpaperSidebarVisible = !this.wallpaperSidebarVisible;
-        }
-      });
-    }
-  },
+// Reactive state
+const saving = ref(false);
+const avatarImage = ref(null);
+const wallpaperImage = ref(null);
+const loading = ref(false);
+const deleting = ref(false);
+const uploading = ref(false);
+const profile = ref(null);
+const wallpaperSidebarVisible = ref(false);
 
-  beforeUnmount() {
-    if (this.$bus) {
-      this.$bus.$off('bv::toggle::collapse');
-    }
-  },
+// Store state and getters
+const user = computed(() => store.state.user);
+const editProfileSidebarOpen = computed(() => store.state.editProfileSidebarOpen);
+const sidebarRightProps = computed(() => store.getters.sidebarRightProps);
+const darkTheme = computed(() => store.getters.darkTheme);
 
-  computed: {
-    ...mapState(['user', 'editProfileSidebarOpen']),
-    ...mapGetters(['sidebarRightProps', 'darkTheme']),
+// Computed properties
+const style = computed(() => {
+  return wallpaperImage.value
+    ? `background-image: url('${wallpaperImage.value}'); background-size: cover;`
+    : null;
+});
 
-    style() {
-      return this.wallpaperImage
-        ? `background-image: url('${this.wallpaperImage}'); background-size: cover;`
-        : null;
-    },
-  },
-
-  methods: {
-    handleVisibilityChange(visible) {
-      this.$store.commit('SET_PROFILE_SIDEBAR_OPEN', visible);
-    },
-
-    handleWallpaperVisibilityChange(visible) {
-      this.wallpaperSidebarVisible = visible;
-    },
-
-    hideSidebar() {
-      this.$store.commit('SET_PROFILE_SIDEBAR_OPEN', false);
-    },
-
-    hideWallpaperSidebar() {
-      this.wallpaperSidebarVisible = false;
-    },
-
-    async selectWallpaper(wallpaper) {
-      this.profile.wallpaper = wallpaper;
-      this.hideWallpaperSidebar();
-      this.wallpaperImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', wallpaper);
-      this.save();
-    },
-
-    autoformatWebsite() {
-      const website = this.profile?.website;
-
-      if (website && !/^https?:\/\//i.test(website)) {
-        this.profile.website = `https://${website}`;
-      }
-    },
-
-    async loadProfile() {
-      this.loading = this.profile === null;
-
-      this.profile = await this.$store.dispatch('LOAD_PROFILE').catch(() => null);
-
-      if (this.profile?.avatar) {
-        this.loadAvatarImage()
-      } else {
-        this.resetAvatar();
-      }
-
-      if (this.profile?.wallpaper) {
-        this.loadWallpaper();
-      } else {
-        this.resetWallpaper();
-      }
-
-      this.loading = false;
-    },
-
-    async loadAvatarImage() {
-      try {
-        const thumbnailRef = getImageThumbnail(this.profile?.avatar);
-
-        this.avatarImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', thumbnailRef);
-      } catch (e) {
-        this.save();
-      }
-    },
-
-    async loadWallpaper() {
-      try {
-        this.wallpaperImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', this.profile?.wallpaper);
-      } catch (e) {
-        this.save();
-      }
-    },
-
-    resetWallpaper() {
-      this.wallpaperImage = null;
-      this.profile.wallpaper = null;
-    },
-
-    resetAvatar() {
-      this.avatarImage = null;
-      this.profile.avatar = null;
-    },
-
-    triggerFileUpload() {
-      this.$refs.fileInput?.click();
-    },
-
-    async uploadProfileAvatar(event) {
-      const file = event?.target?.files?.[0];
-      if (!file) return;
-
-      this.uploading = true;
-
-      try {
-        this.profile.avatar = await this.$store.dispatch('UPLOAD_PROFILE_AVATAR', file);
-
-        this.save();
-
-        this.avatarImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', this.profile.avatar);
-      } catch (e) {
-        this.showToast('There was an error uploading avatar', 'danger');
-      }
-
-      this.uploading = false;
-      if (this.$refs.fileInput) {
-        this.$refs.fileInput.value = '';
-      }
-    },
-
-    async removeWallpaper() {
-      this.resetWallpaper();
-      this.save();
-    },
-
-    async removeAvatar() {
-      this.resetAvatar();
-      this.save();
-    },
-
-    async saveAndClose() {
-      try {
-        this.saving = true;
-
-        await this.$store.dispatch('SAVE_PROFILE', this.profile);
-
-        this.saving = false;
-        this.$store.commit('SET_PROFILE_SIDEBAR_OPEN', false);
-        if (!this.profile.wallpaper) this.$bus.$emit('CLEAR_WALLPAPER');
-        this.$bus.$emit('LOAD_PROFILE');
-      } catch (error) {
-        this.saving = false;
-      }
-    },
-
-    async save() {
-      try {
-        this.saving = true;
-
-        await this.$store.dispatch('SAVE_PROFILE', this.profile);
-
-        this.saving = false;
-        if (!this.profile.wallpaper) this.$bus.$emit('CLEAR_WALLPAPER');
-        this.$bus.$emit('LOAD_PROFILE');
-      } catch (error) {
-        this.saving = false;
-      }
-    },
-
-    async confirmDeleteProfile() {
-      const confirmed = window.confirm('Are you sure?');
-      if (confirmed) {
-        this.deleting = true;
-        await this.$store.dispatch('DELETE_PROFILE');
-        this.$router.replace({ name: 'create.profile' });
-      }
-      this.deleting = false;
-    },
-
-    showToast(message, variant = 'info') {
-      const toastElement = document.createElement('div');
-      toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
-      toastElement.setAttribute('role', 'alert');
-      toastElement.innerHTML = `
-        <div class="d-flex">
-          <div class="toast-body">${message}</div>
-          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-        </div>
-      `;
-      document.body.appendChild(toastElement);
-      const toast = new bootstrap.Toast(toastElement);
-      toast.show();
-      toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
-    },
-  },
+// Methods
+const handleVisibilityChange = (visible) => {
+  store.commit('SET_PROFILE_SIDEBAR_OPEN', visible);
 };
+
+const handleHidden = () => {
+  store.commit('SET_PROFILE_SIDEBAR_OPEN', false);
+};
+
+const handleWallpaperVisibilityChange = (visible) => {
+  wallpaperSidebarVisible.value = visible;
+};
+
+const hideSidebar = () => {
+  store.commit('SET_PROFILE_SIDEBAR_OPEN', false);
+};
+
+const hideWallpaperSidebar = () => {
+  wallpaperSidebarVisible.value = false;
+};
+
+const toggleWallpaperSidebar = () => {
+  if ($bus) {
+    $bus.$emit('bv::toggle::collapse', 'boardWallpaper');
+  }
+};
+
+const selectWallpaper = async (wallpaper) => {
+  if (!profile.value) return;
+
+  profile.value.wallpaper = wallpaper;
+  hideWallpaperSidebar();
+  wallpaperImage.value = await store.dispatch('LOAD_FIREBASE_IMAGE', wallpaper);
+  save();
+};
+
+const autoformatWebsite = () => {
+  if (!profile.value?.website) return;
+
+  const website = profile.value.website;
+  if (website && !/^https?:\/\//i.test(website)) {
+    profile.value.website = `https://${website}`;
+  }
+};
+
+const loadProfile = async () => {
+  loading.value = profile.value === null;
+
+  try {
+    profile.value = await store.dispatch('LOAD_PROFILE');
+
+    if (profile.value?.avatar) {
+      await loadAvatarImage();
+    } else {
+      resetAvatar();
+    }
+
+    if (profile.value?.wallpaper) {
+      await loadWallpaper();
+    } else {
+      resetWallpaper();
+    }
+  } catch (e) {
+    profile.value = null;
+  } finally {
+    loading.value = false;
+  }
+};
+
+const loadAvatarImage = async () => {
+  if (!profile.value?.avatar) return;
+
+  try {
+    const thumbnailRef = getImageThumbnail(profile.value.avatar);
+    avatarImage.value = await store.dispatch('LOAD_FIREBASE_IMAGE', thumbnailRef);
+  } catch (e) {
+    save();
+  }
+};
+
+const loadWallpaper = async () => {
+  if (!profile.value?.wallpaper) return;
+
+  try {
+    wallpaperImage.value = await store.dispatch('LOAD_FIREBASE_IMAGE', profile.value.wallpaper);
+  } catch (e) {
+    save();
+  }
+};
+
+const resetWallpaper = () => {
+  wallpaperImage.value = null;
+  if (profile.value) {
+    profile.value.wallpaper = null;
+  }
+};
+
+const resetAvatar = () => {
+  avatarImage.value = null;
+  if (profile.value) {
+    profile.value.avatar = null;
+  }
+};
+
+const triggerFileUpload = () => {
+  fileInput.value?.click();
+};
+
+const uploadProfileAvatar = async (event) => {
+  const file = event?.target?.files?.[0];
+  if (!file || !profile.value) return;
+
+  uploading.value = true;
+
+  try {
+    profile.value.avatar = await store.dispatch('UPLOAD_PROFILE_AVATAR', file);
+    save();
+    avatarImage.value = await store.dispatch('LOAD_FIREBASE_IMAGE', profile.value.avatar);
+  } catch (e) {
+    showToast('There was an error uploading avatar', 'danger');
+  } finally {
+    uploading.value = false;
+    if (fileInput.value) {
+      fileInput.value.value = '';
+    }
+  }
+};
+
+const removeWallpaper = async () => {
+  resetWallpaper();
+  save();
+};
+
+const removeAvatar = async () => {
+  resetAvatar();
+  save();
+};
+
+const saveAndClose = async () => {
+  try {
+    saving.value = true;
+    await store.dispatch('SAVE_PROFILE', profile.value);
+    store.commit('SET_PROFILE_SIDEBAR_OPEN', false);
+    if (!profile.value?.wallpaper && $bus) {
+      $bus.$emit('CLEAR_WALLPAPER');
+    }
+    if ($bus) {
+      $bus.$emit('LOAD_PROFILE');
+    }
+  } catch (error) {
+    // Error handling
+  } finally {
+    saving.value = false;
+  }
+};
+
+const save = async () => {
+  if (!profile.value) return;
+
+  try {
+    saving.value = true;
+    await store.dispatch('SAVE_PROFILE', profile.value);
+    if (!profile.value.wallpaper && $bus) {
+      $bus.$emit('CLEAR_WALLPAPER');
+    }
+    if ($bus) {
+      $bus.$emit('LOAD_PROFILE');
+    }
+  } catch (error) {
+    // Error handling
+  } finally {
+    saving.value = false;
+  }
+};
+
+const confirmDeleteProfile = async () => {
+  const confirmed = window.confirm('Are you sure?');
+  if (confirmed) {
+    deleting.value = true;
+    try {
+      await store.dispatch('DELETE_PROFILE');
+      router.replace({ name: 'create.profile' });
+    } finally {
+      deleting.value = false;
+    }
+  }
+};
+
+const showToast = (message, variant = 'info') => {
+  const toastElement = document.createElement('div');
+  toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
+  toastElement.setAttribute('role', 'alert');
+  toastElement.innerHTML = `
+    <div class="d-flex">
+      <div class="toast-body">${message}</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  `;
+  document.body.appendChild(toastElement);
+  const toast = new bootstrap.Toast(toastElement);
+  toast.show();
+  toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
+};
+
+// Lifecycle hooks
+onMounted(() => {
+  loadProfile();
+  // Listen for sidebar toggle events
+  if ($bus) {
+    $bus.$on('bv::toggle::collapse', (id) => {
+      if (id === 'profile-sidebar') {
+        store.commit('SET_PROFILE_SIDEBAR_OPEN', !editProfileSidebarOpen.value);
+      } else if (id === 'boardWallpaper') {
+        wallpaperSidebarVisible.value = !wallpaperSidebarVisible.value;
+      }
+    });
+  }
+});
+
+onBeforeUnmount(() => {
+  if ($bus) {
+    $bus.$off('bv::toggle::collapse');
+  }
+});
 </script>

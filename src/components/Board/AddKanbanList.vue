@@ -45,83 +45,82 @@
   </div>
 </template>
 
-<script>
-import { mapState, mapGetters } from 'vuex';
+<script setup>
+import { ref, computed, nextTick } from 'vue';
+import { useStore } from 'vuex';
 
-export default {
-  props: {
-    empty: Boolean,
-  },
+const props = defineProps({
+  empty: Boolean,
+});
 
-  data() {
-    return {
-      listName: '',
-      active: false,
-      saving: false,
+const store = useStore();
+
+// Reactive state
+const listName = ref('');
+const active = ref(false);
+const saving = ref(false);
+const addListForm = ref(null);
+
+// Store state and getters
+const board = computed(() => store.state.board);
+const darkTheme = computed(() => store.getters.darkTheme);
+
+// Methods
+const reset = () => {
+  listName.value = '';
+  active.value = false;
+};
+
+const showForm = () => {
+  active.value = true;
+  scrollToEnd();
+};
+
+const addList = async () => {
+  saving.value = true;
+
+  try {
+    const list = {
+      games: [],
+      name: listName.value,
+      settings: {},
     };
-  },
 
-  computed: {
-    ...mapState(['board']),
-    ...mapGetters(['darkTheme']),
-  },
+    store.commit('ADD_LIST', list);
+    await store.dispatch('SAVE_BOARD');
 
-  methods: {
-    reset() {
-      this.listName = '';
-      this.active = false;
-    },
+    reset();
+    scrollToEnd();
+    showToast('List added', 'success');
+  } catch (error) {
+    showToast('Error adding list', 'danger');
+  } finally {
+    saving.value = false;
+  }
+};
 
-    showForm() {
-      this.active = true;
-      this.scrollToEnd();
-    },
+const scrollToEnd = () => {
+  nextTick(() => {
+    const boardEl = document.querySelector('.viewport');
+    if (boardEl) {
+      boardEl.scrollLeft = boardEl.scrollWidth;
+    }
+  });
+};
 
-    async addList() {
-      this.saving = true;
-
-      try {
-        const list = {
-          games: [],
-          name: this.listName,
-          settings: {},
-        };
-
-        this.$store.commit('ADD_LIST', list);
-        await this.$store.dispatch('SAVE_BOARD');
-
-        this.reset();
-        this.scrollToEnd();
-        this.showToast('List added', 'success');
-      } catch (error) {
-        this.showToast('Error adding list', 'danger');
-      } finally {
-        this.saving = false;
-      }
-    },
-
-    scrollToEnd() {
-      this.$nextTick(() => {
-        const board = document.querySelector('.viewport');
-        board.scrollLeft = board.scrollWidth;
-      });
-    },
-
-    showToast(message, variant = 'info') {
-      const toastElement = document.createElement('div');
-      toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
-      toastElement.setAttribute('role', 'alert');
-      toastElement.innerHTML = `
-        <div class="d-flex">
-          <div class="toast-body">${message}</div>
-          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-        </div>
-      `;
-      document.body.appendChild(toastElement);
-      const toast = new bootstrap.Toast(toastElement);
-      toast.show();
-      toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
-    },
-  },
+const showToast = (message, variant = 'info') => {
+  const toastElement = document.createElement('div');
+  toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
+  toastElement.setAttribute('role', 'alert');
+  toastElement.innerHTML = `
+    <div class="d-flex">
+      <div class="toast-body">${message}</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  `;
+  document.body.appendChild(toastElement);
+  const toast = new bootstrap.Toast(toastElement);
+  toast.show();
+  toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
 };
 </script>

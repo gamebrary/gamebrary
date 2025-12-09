@@ -17,53 +17,49 @@
   </div>
 </template>
 
-<script>
-import { mapState } from 'vuex';
+<script setup>
+import { ref, computed, onMounted } from 'vue';
+import { useStore } from 'vuex';
 
-export default {
-  data() {
-    return {
-      loaded: false,
-    }
-  },
+const store = useStore();
 
-  async mounted() {
-    this.loadSpeedruns();
-  },
+// Reactive state
+const loaded = ref(false);
 
-  computed: {
-    ...mapState(['game']),
+// Store state and getters
+const game = computed(() => store.state.game);
 
-    speedruns() {
-      return this.game?.speedruns
-        ?.map((speedrun) => speedrun?.videos?.links?.[0]?.uri)
-        ?.filter((url) => url?.includes('youtube'))
-        ?.map((youtubeUrl) => {
-          const youtubeId = youtubeUrl?.split('v=')?.[1]
+// Computed properties
+const speedruns = computed(() => {
+  return game.value?.speedruns
+    ?.map((speedrun) => speedrun?.videos?.links?.[0]?.uri)
+    ?.filter((url) => url?.includes('youtube'))
+    ?.map((youtubeUrl) => {
+      const youtubeId = youtubeUrl?.split('v=')?.[1];
 
-          return {
-            imageUrl: `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`,
-            videoUrl: `https://www.youtube.com/embed/${youtubeId}?rel=0&autoplay=1`,
-          }
-        });
-    },
-  },
+      return {
+        imageUrl: `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`,
+        videoUrl: `https://www.youtube.com/embed/${youtubeId}?rel=0&autoplay=1`,
+      };
+    });
+});
 
-  methods: {
-    async loadSpeedruns() {
-      const speedRunGame = await this.$store.dispatch('GET_SPEEDRUN_GAME_ID', this.game.name);
+// Methods
+const loadSpeedruns = async () => {
+  const speedRunGame = await store.dispatch('GET_SPEEDRUN_GAME_ID', game.value.name);
 
-      console.log('speedRunGame', speedRunGame);
+  const gameData = speedRunGame?.data?.[0];
+  const runsLink = gameData.links.find(({ rel }) => rel === 'runs')?.uri;
 
-      const game = speedRunGame?.data?.[0];
-      const runsLink = game.links.find(({ rel }) => rel === 'runs')?.uri;
+  await store.dispatch('LOAD_GAME_SPEEDRUN_RUNS', runsLink);
 
-      await this.$store.dispatch('LOAD_GAME_SPEEDRUN_RUNS', runsLink)
-
-      this.loaded = true;
-    },
-  },
+  loaded.value = true;
 };
+
+// Lifecycle hooks
+onMounted(() => {
+  loadSpeedruns();
+});
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>

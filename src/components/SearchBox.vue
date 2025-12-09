@@ -22,37 +22,48 @@
   </form>
 </template>
 
-<script>
-export default {
-  props: {
-    loading: Boolean,
-  },
+<script setup>
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
-  data() {
-    return {
-      searchText: '',
-      debounceTimer: null,
-    };
-  },
+const props = defineProps({
+  loading: Boolean,
+});
 
-  mounted() {
-    this.searchText = this.$route.query.q || '';
-  },
+const route = useRoute();
+const router = useRouter();
 
-  methods: {
-    debounceSearch() {
-      if (this.debounceTimer) {
-        clearTimeout(this.debounceTimer);
-      }
-      this.debounceTimer = setTimeout(() => {
-        this.search();
-      }, 500);
-    },
-    search() {
-      if (this.$route.query?.q === this.searchText || this.searchText === '') return;
+// Reactive state
+const searchText = ref('');
+const debounceTimer = ref(null);
 
-      this.$router.push({ name: 'search', query: { ...this.$route.query, q: this.searchText } });
-    },
-  },
+// Methods
+const debounceSearch = () => {
+  if (debounceTimer.value) {
+    clearTimeout(debounceTimer.value);
+  }
+  debounceTimer.value = setTimeout(() => {
+    search();
+  }, 500);
 };
+
+const search = () => {
+  if (route.query?.q === searchText.value || searchText.value === '') return;
+
+  router.push({
+    name: 'search',
+    query: { ...route.query, q: searchText.value },
+  });
+};
+
+// Lifecycle hooks
+onMounted(() => {
+  searchText.value = route.query.q || '';
+});
+
+onBeforeUnmount(() => {
+  if (debounceTimer.value) {
+    clearTimeout(debounceTimer.value);
+  }
+});
 </script>

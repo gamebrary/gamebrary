@@ -68,107 +68,100 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, watch, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
+import { useStore } from 'vuex';
 import { BOARD_TYPE_STANDARD, BOARD_TYPE_TIER, BOARD_TYPE_GRID, IMAGE_SIZE_THUMB } from '@/constants';
-import { mapGetters, mapState } from 'vuex';
 import { getImageUrl } from '@/utils';
 import StandardMiniBoard from '@/components/MiniBoards/StandardMiniBoard';
 import GridMiniBoard from '@/components/MiniBoards/GridMiniBoard';
 import KanbanMiniBoard from '@/components/MiniBoards/KanbanMiniBoard';
 import TierMiniBoard from '@/components/MiniBoards/TierMiniBoard';
 
-export default {
-  props: {
-    board: Object,
-    thumbnail: Boolean,
-    noLink: Boolean,
-  },
+const props = defineProps({
+  board: Object,
+  thumbnail: Boolean,
+  noLink: Boolean,
+});
 
-  components: {
-    StandardMiniBoard,
-    GridMiniBoard,
-    KanbanMiniBoard,
-    TierMiniBoard,
-  },
+const route = useRoute();
+const store = useStore();
 
-  data() {
-    return {
-      backgroundUrl: '',
-    };
-  },
+// Reactive state
+const backgroundUrl = ref('');
 
-  watch: {
-    'board.backgroundUrl'(newValue, oldValue) {
-      if (newValue !== oldValue) this.loadWallpaper();
-    },
-  },
+// Store state and getters
+const cachedGames = computed(() => store.state.cachedGames);
+const game = computed(() => store.state.game);
+const darkTheme = computed(() => store.getters.darkTheme);
 
-  computed: {
-    ...mapState(['cachedGames', 'game']),
-    ...mapGetters(['darkTheme']),
+// Computed properties
+const miniBoardComponent = computed(() => {
+  if (props.board?.type === BOARD_TYPE_TIER) return 'TierMiniBoard';
+  if (props.board?.type === BOARD_TYPE_STANDARD) return 'StandardMiniBoard';
+  if (props.board?.type === BOARD_TYPE_GRID) return 'GridMiniBoard';
 
-    miniBoardComponent() {
-      if (this.board?.type === BOARD_TYPE_TIER) return 'TierMiniBoard';
-      if (this.board?.type === BOARD_TYPE_STANDARD) return 'StandardMiniBoard';
-      if (this.board?.type === BOARD_TYPE_GRID) return 'GridMiniBoard';
+  return 'KanbanMiniBoard';
+});
 
-      return 'KanbanMiniBoard';
-    },
+const formattedBoard = computed(() => {
+  const formattedLists = props.board?.lists?.map((list) => ({
+    ...list,
+    games: list?.games?.map((game) => {
+      if (!game) return {};
 
-    formattedBoard() {
-      const formattedLists = this.board?.lists?.map((list) => ({
-        ...list,
-        games: list?.games?.map((game) => {
-          if (!game) return {};
+      const cachedGame = cachedGames.value?.[Number(game)] || {};
 
-          const cachedGame = this.cachedGames?.[Number(game)] || {};
+      return {
+        id: cachedGame.id,
+        name: cachedGame.name,
+        src: getImageUrl(cachedGames.value?.[Number(game)], IMAGE_SIZE_THUMB, true),
+      };
+    }),
+  }));
 
-          return {
-            id: cachedGame.id,
-            name: cachedGame.name,
-            src: getImageUrl(this.cachedGames?.[Number(game)], IMAGE_SIZE_THUMB, true),
-          }
-        }),
-      }));
+  const formattedBoardData = {
+    ...props.board,
+    lists: formattedLists,
+  };
 
-      const formattedBoard = {
-        ...this.board,
-        lists: formattedLists,
-      }
+  return formattedBoardData;
+});
 
-      return formattedBoard;
-    },
+const hasCustomBackground = computed(() => {
+  return props.board?.backgroundColor || props.board?.backgroundUrl;
+});
 
-    hasCustomBackground() {
-      return this.board?.backgroundColor || this.board?.backgroundUrl;
-    },
+const showPublicIndicator = computed(() => {
+  return route.name !== 'home' && props.board?.isPublic;
+});
 
-    showPublicIndicator() {
-      return this.$route.name !== 'home' && this.board?.isPublic;
-    },
+const backgroundSyle = computed(() => {
+  if (backgroundUrl.value) return `background-image: url(${backgroundUrl.value});`;
+  if (props.board?.backgroundColor) return `background-color: ${props.board.backgroundColor};`;
 
-    backgroundSyle() {
-      if (this.backgroundUrl) return `background-image: url(${this.backgroundUrl});`
-      if (this.board?.backgroundColor) return `background-color: ${this.board.backgroundColor};`;
+  return null;
+});
 
-      return null;
-    },
-  },
-
-  mounted() {
-    this.loadWallpaper();
-  },
-
-  methods: {
-    async loadWallpaper() {
-      if (this.board?.backgroundUrl) {
-        this.backgroundUrl = this.board?.backgroundUrl?.includes('igdb')
-          ? this.board?.backgroundUrl
-          : await this.$store.dispatch('LOAD_FIREBASE_IMAGE', this.board?.backgroundUrl);
-      }
-    },
-  },
+// Methods
+const loadWallpaper = async () => {
+  if (props.board?.backgroundUrl) {
+    backgroundUrl.value = props.board?.backgroundUrl?.includes('igdb')
+      ? props.board?.backgroundUrl
+      : await store.dispatch('LOAD_FIREBASE_IMAGE', props.board?.backgroundUrl);
+  }
 };
+
+// Watchers
+watch(() => props.board?.backgroundUrl, (newValue, oldValue) => {
+  if (newValue !== oldValue) loadWallpaper();
+});
+
+// Lifecycle hooks
+onMounted(() => {
+  loadWallpaper();
+});
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>

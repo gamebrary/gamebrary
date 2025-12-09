@@ -64,100 +64,100 @@
   </div>
 </template>
 
-<script>
-import { mapState, mapGetters } from 'vuex';
+<script setup>
+import { ref, computed, onMounted, onUpdated, nextTick } from 'vue';
+import { useStore } from 'vuex';
 
-export default {
-  components: {},
+const store = useStore();
 
-  data() {
-    return {
-      list: {
-        backgroundColor: '',
-        name: '',
-        games: [],
-      },
-      active: false,
-      saving: false,
-    };
-  },
+// Template refs
+const addListForm = ref(null);
 
-  computed: {
-    ...mapState(['platform', 'board']),
-    ...mapGetters(['darkTheme']),
-  },
+// Reactive state
+const list = ref({
+  backgroundColor: '',
+  name: '',
+  games: [],
+});
+const active = ref(false);
+const saving = ref(false);
 
-  mounted() {
-    this.initTooltips();
-  },
+// Store state and getters
+const platform = computed(() => store.state.platform);
+const board = computed(() => store.state.board);
+const darkTheme = computed(() => store.getters.darkTheme);
 
-  updated() {
-    this.initTooltips();
-  },
-
-  methods: {
-    initTooltips() {
-      this.$nextTick(() => {
-        const tooltipTriggerList = this.$el.querySelectorAll('[data-bs-toggle="tooltip"]');
-        tooltipTriggerList.forEach(tooltipTriggerEl => {
-          if (!tooltipTriggerEl._tooltip) {
-            new bootstrap.Tooltip(tooltipTriggerEl);
-          }
-        });
-      });
-    },
-
-    reset() {
-      this.list = {
-        backgroundColor: '',
-        name: '',
-        games: [],
+// Methods
+const initTooltips = () => {
+  nextTick(() => {
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      if (!tooltipTriggerEl._tooltip) {
+        new bootstrap.Tooltip(tooltipTriggerEl);
       }
-    },
-
-    submit(e) {
-      e.preventDefault();
-
-      if (this.$refs.addListForm.checkValidity()) {
-        this.addTier();
-      }
-    },
-
-    async addTier() {
-      try {
-        this.saving = true;
-
-        this.$store.commit('ADD_LIST', this.list);
-
-        await this.$store.dispatch('SAVE_BOARD');
-        const modalElement = document.getElementById('addTier');
-        if (modalElement) {
-          const modal = bootstrap.Modal.getInstance(modalElement);
-          if (modal) modal.hide();
-        }
-        this.showToast('Tier added', 'success');
-      } catch (e) {
-        this.showToast('Error adding tier', 'danger');
-      }
-
-      this.saving = false;
-    },
-
-    showToast(message, variant = 'info') {
-      const toastElement = document.createElement('div');
-      toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
-      toastElement.setAttribute('role', 'alert');
-      toastElement.innerHTML = `
-        <div class="d-flex">
-          <div class="toast-body">${message}</div>
-          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-        </div>
-      `;
-      document.body.appendChild(toastElement);
-      const toast = new bootstrap.Toast(toastElement);
-      toast.show();
-      toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
-    },
-  },
+    });
+  });
 };
+
+const reset = () => {
+  list.value = {
+    backgroundColor: '',
+    name: '',
+    games: [],
+  };
+};
+
+const submit = (e) => {
+  e.preventDefault();
+
+  if (addListForm.value?.checkValidity()) {
+    addTier();
+  }
+};
+
+const addTier = async () => {
+  try {
+    saving.value = true;
+
+    store.commit('ADD_LIST', list.value);
+
+    await store.dispatch('SAVE_BOARD');
+    const modalElement = document.getElementById('addTier');
+    if (modalElement) {
+      const modal = bootstrap.Modal.getInstance(modalElement);
+      if (modal) modal.hide();
+    }
+    showToast('Tier added', 'success');
+    reset();
+  } catch (e) {
+    showToast('Error adding tier', 'danger');
+  } finally {
+    saving.value = false;
+  }
+};
+
+const showToast = (message, variant = 'info') => {
+  const toastElement = document.createElement('div');
+  toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
+  toastElement.setAttribute('role', 'alert');
+  toastElement.innerHTML = `
+    <div class="d-flex">
+      <div class="toast-body">${message}</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  `;
+  document.body.appendChild(toastElement);
+  const toast = new bootstrap.Toast(toastElement);
+  toast.show();
+  toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
+};
+
+// Lifecycle hooks
+onMounted(() => {
+  initTooltips();
+});
+
+onUpdated(() => {
+  initTooltips();
+});
 </script>

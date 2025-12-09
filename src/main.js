@@ -120,7 +120,7 @@ const locale = localStorage?.vuex?.settings?.language || 'en';
 const i18n = createI18n({
   locale,
   messages,
-  legacy: true, // Use Options API mode for compatibility with existing components
+  legacy: false, // Use Composition API mode
 });
 
 app.use(i18n);

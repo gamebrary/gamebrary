@@ -121,178 +121,173 @@
   </AppSidebar>
 </template>
 
-<script>
-import { mapState, mapGetters } from 'vuex';
+<script setup>
+import { ref, computed, onMounted, onBeforeUnmount, inject } from 'vue';
+import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 import DeleteAccountModal from '@/components/Settings/DeleteAccountModal';
 import SidebarHeader from '@/components/SidebarHeader';
-import AppSidebar from '@/components/Sidebar';
+import AppSidebar from '@/components/AppSidebar';
 import { AGE_RATINGS } from '@/constants';
 
-export default {
-  AGE_RATINGS,
+const router = useRouter();
+const store = useStore();
+const $bus = inject('$bus');
 
-  data() {
-    return {
-      navPositionOptions: [
-        { value: 'top', text: 'Top' },
-        { value: 'bottom', text: 'Bottom' },
-      ],
-      visible: false,
-    };
-  },
+// Reactive state
+const navPositionOptions = [
+  { value: 'top', text: 'Top' },
+  { value: 'bottom', text: 'Bottom' },
+];
+const visible = ref(false);
+const saving = ref(false);
 
-  components: {
-    AppSidebar,
-    DeleteAccountModal,
-    SidebarHeader,
-  },
+// Store state and getters
+const settings = computed(() => store.state.settings);
+const darkTheme = computed(() => store.getters.darkTheme);
+const showGameThumbnails = computed(() => store.getters.showGameThumbnails);
+const transparencyEnabled = computed(() => store.getters.transparencyEnabled);
+const ageRating = computed(() => store.getters.ageRating);
+const navPosition = computed(() => store.getters.navPosition);
+const sidebarLeftProps = computed(() => store.getters.sidebarLeftProps);
 
-  computed: {
-    ...mapState(['settings']),
-    ...mapGetters(['darkTheme', 'showGameThumbnails', 'transparencyEnabled', 'ageRating', 'navPosition', 'sidebarLeftProps']),
+// Computed properties
+const ageRatingOptions = computed(() => {
+  return AGE_RATINGS.map((rating) => ({
+    value: rating.id,
+    text: rating.name,
+  }));
+});
 
-    ageRatingOptions() {
-      return AGE_RATINGS.map((rating) => ({
-          value: rating.id,
-          text: rating.name,
-        }));
-    },
-  },
-
-  mounted() {
-    // Listen for sidebar toggle events
-    if (this.$bus) {
-      this.$bus.$on('bv::toggle::collapse', (id) => {
-        if (id === 'settings-sidebar') {
-          this.visible = !this.visible;
-        }
-      });
-    }
-  },
-
-  beforeUnmount() {
-    if (this.$bus) {
-      this.$bus.$off('bv::toggle::collapse');
-    }
-  },
-
-  methods: {
-    handleVisibilityChange(visible) {
-      this.visible = visible;
-    },
-
-    hideSidebar() {
-      this.visible = false;
-    },
-    showToast(message, variant = 'info') {
-      const toastElement = document.createElement('div');
-      toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
-      toastElement.setAttribute('role', 'alert');
-      toastElement.innerHTML = `
-        <div class="d-flex">
-          <div class="toast-body">${message}</div>
-          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-        </div>
-      `;
-      document.body.appendChild(toastElement);
-      const toast = new bootstrap.Toast(toastElement);
-      toast.show();
-      toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
-    },
-
-
-    async setPreferredGameRating(ageRating) {
-      try {
-        await this.$store.dispatch('SAVE_SETTINGS', {
-          ...this.settings,
-          ageRating,
-        });
-      } catch (e) {
-        this.showToast('There was an error saving your settings', 'danger');
-      }
-
-      this.saving = false;
-    },
-
-    async toggleTheme() {
-      const { settings } = this;
-      const darkTheme = settings?.darkTheme || false;
-
-      const payload = {
-        ...settings,
-        darkTheme: !darkTheme,
-      };
-
-      await this.$store.dispatch('SAVE_SETTINGS', payload)
-        .catch(() => {
-          this.showToast('There was an error saving your settings', 'danger');
-          this.saving = false;
-        });
-    },
-
-    async signOut() {
-			await this.$store.dispatch('SIGN_OUT');
-			this.showToast('Logged out', 'success');
-			this.$store.commit('CLEAR_SESSION');
-			this.$router.replace({ name: 'home' });
-		},
-
-    async toggleGameThumbnails() {
-      const { settings } = this;
-      const showGameThumbnails = settings?.showGameThumbnails || false;
-
-      const payload = {
-        ...settings,
-        showGameThumbnails: !showGameThumbnails,
-      };
-
-      await this.$store.dispatch('SAVE_SETTINGS', payload)
-        .catch(() => {
-          this.showToast('There was an error saving your settings', 'danger');
-          this.saving = false;
-        });
-    },
-
-    async setNavPosition(navPosition) {
-      this.$refs.settingsDropdown?.hide();
-
-      try {
-        await this.$store.dispatch('SAVE_SETTINGS', {
-          ...this.settings,
-          navPosition,
-        });
-      } catch (e) {
-        this.showToast('There was an error saving your settings', 'danger');
-      }
-
-      this.saving = false;
-    },
-
-    async toggleTransparency() {
-      const transparencyEnabled = this.settings?.transparencyEnabled || false;
-
-      const payload = {
-        ...this.settings,
-        transparencyEnabled: !transparencyEnabled,
-      };
-
-      await this.$store.dispatch('SAVE_SETTINGS', payload)
-        .catch(() => {
-          this.showToast('There was an error saving your settings', 'danger');
-          this.saving = false;
-        });
-    },
-
-    openDeleteAccountSidebar() {
-      this.hideSidebar();
-      const modalElement = document.getElementById('delete-account-modal');
-      if (modalElement) {
-        const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
-        modal.show();
-      }
-    },
-  },
+// Methods
+const handleVisibilityChange = (newVisible) => {
+  visible.value = newVisible;
 };
+
+const hideSidebar = () => {
+  visible.value = false;
+};
+
+const showToast = (message, variant = 'info') => {
+  const toastElement = document.createElement('div');
+  toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
+  toastElement.setAttribute('role', 'alert');
+  toastElement.innerHTML = `
+    <div class="d-flex">
+      <div class="toast-body">${message}</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  `;
+  document.body.appendChild(toastElement);
+  const toast = new bootstrap.Toast(toastElement);
+  toast.show();
+  toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
+};
+
+const setPreferredGameRating = async (ageRatingValue) => {
+  try {
+    await store.dispatch('SAVE_SETTINGS', {
+      ...settings.value,
+      ageRating: ageRatingValue,
+    });
+  } catch (e) {
+    showToast('There was an error saving your settings', 'danger');
+  }
+
+  saving.value = false;
+};
+
+const toggleTheme = async () => {
+  const currentDarkTheme = settings.value?.darkTheme || false;
+
+  const payload = {
+    ...settings.value,
+    darkTheme: !currentDarkTheme,
+  };
+
+  await store.dispatch('SAVE_SETTINGS', payload)
+    .catch(() => {
+      showToast('There was an error saving your settings', 'danger');
+      saving.value = false;
+    });
+};
+
+const signOut = async () => {
+  await store.dispatch('SIGN_OUT');
+  showToast('Logged out', 'success');
+  store.commit('CLEAR_SESSION');
+  router.replace({ name: 'home' });
+};
+
+const toggleGameThumbnails = async () => {
+  const currentShowGameThumbnails = settings.value?.showGameThumbnails || false;
+
+  const payload = {
+    ...settings.value,
+    showGameThumbnails: !currentShowGameThumbnails,
+  };
+
+  await store.dispatch('SAVE_SETTINGS', payload)
+    .catch(() => {
+      showToast('There was an error saving your settings', 'danger');
+      saving.value = false;
+    });
+};
+
+const setNavPosition = async (navPositionValue) => {
+  try {
+    await store.dispatch('SAVE_SETTINGS', {
+      ...settings.value,
+      navPosition: navPositionValue,
+    });
+  } catch (e) {
+    showToast('There was an error saving your settings', 'danger');
+  }
+
+  saving.value = false;
+};
+
+const toggleTransparency = async () => {
+  const currentTransparencyEnabled = settings.value?.transparencyEnabled || false;
+
+  const payload = {
+    ...settings.value,
+    transparencyEnabled: !currentTransparencyEnabled,
+  };
+
+  await store.dispatch('SAVE_SETTINGS', payload)
+    .catch(() => {
+      showToast('There was an error saving your settings', 'danger');
+      saving.value = false;
+    });
+};
+
+const openDeleteAccountSidebar = () => {
+  hideSidebar();
+  const modalElement = document.getElementById('delete-account-modal');
+  if (modalElement) {
+    const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+    modal.show();
+  }
+};
+
+// Lifecycle hooks
+onMounted(() => {
+  // Listen for sidebar toggle events
+  if ($bus) {
+    $bus.$on('bv::toggle::collapse', (id) => {
+      if (id === 'settings-sidebar') {
+        visible.value = !visible.value;
+      }
+    });
+  }
+});
+
+onBeforeUnmount(() => {
+  if ($bus) {
+    $bus.$off('bv::toggle::collapse');
+  }
+});
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
