@@ -60,97 +60,94 @@
     </div>
   </template>
 
-  <script>
-  import MiniBoard from '@/components/Board/MiniBoard';
-  import EmptyState from '@/components/EmptyState';
-  import { mapState, mapGetters } from 'vuex';
+<script setup>
+import { ref, computed, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
+import MiniBoard from '@/components/Board/MiniBoard';
+import EmptyState from '@/components/EmptyState';
 
-  export default {
-    components: {
-      MiniBoard,
-      EmptyState,
-    },
+const router = useRouter();
+const store = useStore();
 
-    data() {
-      return {
-        loading: false,
-      };
-    },
+// Reactive state
+const loading = ref(false);
 
-    computed: {
-      ...mapState(['user', 'boards', 'wallpapers']),
-      ...mapGetters(['isBoardOwner', 'sortedBoards', 'sortedPublicBoards', 'darkTheme', 'navPosition']),
+// Store state and getters
+const user = computed(() => store.state.user);
+const boards = computed(() => store.state.boards);
+const wallpapers = computed(() => store.state.wallpapers);
+const isBoardOwner = computed(() => store.getters.isBoardOwner);
+const sortedBoards = computed(() => store.getters.sortedBoards);
+const sortedPublicBoards = computed(() => store.getters.sortedPublicBoards);
+const darkTheme = computed(() => store.getters.darkTheme);
+const navPosition = computed(() => store.getters.navPosition);
 
-      recentlyUpdatedPublicBoards() {
-        return this.sortedPublicBoards.filter(({ lastUpdated }) => Boolean(lastUpdated)).slice(0, 20);
-      },
+// Computed properties
+const recentlyUpdatedPublicBoards = computed(() => {
+  return sortedPublicBoards.value.filter(({ lastUpdated }) => Boolean(lastUpdated)).slice(0, 20);
+});
 
-      isEmpty() {
-        return this.boards?.length === 0;
-      },
-    },
+const isEmpty = computed(() => boards.value?.length === 0);
 
-    mounted() {
-      this.loadBoards()
-    },
+// Methods
+const loadBoards = async () => {
+  loading.value = boards.value?.length === 0;
 
-    methods: {
-      async loadBoards() {
-        this.loading = this.boards?.length === 0;
+  await store.dispatch('LOAD_BOARDS')
+    .catch(() => {
+      loading.value = false;
+      store.commit('SET_SESSION_EXPIRED', true);
+    });
 
-        await this.$store.dispatch('LOAD_BOARDS')
-          .catch(() => {
-            this.loading = false;
-            this.$store.commit('SET_SESSION_EXPIRED', true);
-          });
+  loading.value = false;
+};
 
-        this.loading = false;
+const loadPublicBoards = async () => {
+  await store.dispatch('LOAD_PUBLIC_BOARDS')
+    .catch((e) => {
+      loading.value = false;
+      store.commit('SET_SESSION_EXPIRED', true);
+    });
 
-        if(!this.boards?.length) this.$emit('empty');
-      },
+  loading.value = false;
+};
 
-      async loadPublicBoards() {
-        await this.$store.dispatch('LOAD_PUBLIC_BOARDS')
-          .catch((e) => {
-            this.loading = false;
-            this.$store.commit('SET_SESSION_EXPIRED', true);
-          });
+const viewPublicBoard = (id) => {
+  router.push({ name: 'public.board', params: { id } });
+};
 
-        this.loading = false;
-      },
+const deleteBoard = async (id) => {
+  loading.value = true;
 
-      viewPublicBoard(id) {
-        this.$router.push({ name: 'public.board', params: { id } });
-      },
+  await store.dispatch('DELETE_BOARD', id)
+    .catch(() => {
+      loading.value = false;
+      showToast('There was an error deleting board', 'danger');
+    });
 
-      async deleteBoard(id) {
-        this.loading = true;
+  loading.value = false;
+  showToast('Board removed', 'success');
+};
 
-        await this.$store.dispatch('DELETE_BOARD', id)
-          .catch(() => {
-            this.loading = false;
-            this.showToast('There was an error deleting board', 'danger');
-          });
+const showToast = (message, variant = 'info') => {
+  const toastElement = document.createElement('div');
+  toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
+  toastElement.setAttribute('role', 'alert');
+  toastElement.innerHTML = `
+    <div class="d-flex">
+      <div class="toast-body">${message}</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  `;
+  document.body.appendChild(toastElement);
+  const toast = new bootstrap.Toast(toastElement);
+  toast.show();
+  toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
+};
 
-        this.loading = false;
-        this.showToast('Board removed', 'success');
-      },
-
-      showToast(message, variant = 'info') {
-        const toastElement = document.createElement('div');
-        toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
-        toastElement.setAttribute('role', 'alert');
-        toastElement.innerHTML = `
-          <div class="d-flex">
-            <div class="toast-body">${message}</div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-          </div>
-        `;
-        document.body.appendChild(toastElement);
-        const toast = new bootstrap.Toast(toastElement);
-        toast.show();
-        toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
-      },
-    },
-  };
-  </script>
+// Lifecycle hooks
+onMounted(() => {
+  loadBoards();
+});
+</script>

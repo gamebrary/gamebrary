@@ -1,4 +1,3 @@
-<!-- TODO: migrate to composition API -->
 <!-- TODO: replace vuex with pinia -->
 <!-- TODO: use vite instead of vue-cli -->
 <template>
@@ -36,7 +35,10 @@
   </body>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, watch, onMounted, inject } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 import MarkdownCheatsheet from '@/components/MarkdownCheatsheet';
 import GameSelectorSidebar from '@/components/GameSelectorSidebar';
 import EditBoardSidebar from '@/components/EditBoardSidebar';
@@ -44,201 +46,184 @@ import KeyboardShortcutsModal from '@/components/KeyboardShortcutsModal';
 import PageHeader from '@/components/PageHeader';
 import MainSidebar from '@/components/MainSidebar';
 import WallpaperDetailsSidebar from '@/components/WallpaperDetailsSidebar';
-import EditTagSidebar from '@/components/EditTagSidebar'
-import SettingsSidebar from '@/components/SettingsSidebar'
-import CreateBoardSidebar from '@/components/CreateBoardSidebar'
-import CreateTagSidebar from '@/components/CreateTagSidebar'
-import { mapState, mapGetters } from 'vuex';
+import EditTagSidebar from '@/components/EditTagSidebar';
+import SettingsSidebar from '@/components/SettingsSidebar';
+import CreateBoardSidebar from '@/components/CreateBoardSidebar';
+import CreateTagSidebar from '@/components/CreateTagSidebar';
 import { KEYBOARD_SHORTCUTS, IGDB_QUERIES } from '@/constants';
 
-export default {
-  name: 'App',
+const route = useRoute();
+const router = useRouter();
+const store = useStore();
+const $bus = inject('$bus');
 
-  components: {
-    PageHeader,
-    MainSidebar,
-    EditTagSidebar,
-    SettingsSidebar,
-    CreateBoardSidebar,
-    CreateTagSidebar,
-    MarkdownCheatsheet,
-    KeyboardShortcutsModal,
-    WallpaperDetailsSidebar,
-    GameSelectorSidebar,
-    EditBoardSidebar,
-  },
+// Reactive state
+const loading = ref(false);
+const hasScroll = ref(false);
+const debugUserId = ref(null);
+const backgroundImageUrl = ref(null);
+const backgroundColor = ref(null);
 
-  data() {
-    return {
-      loading: false,
-      hasScroll: false,
-      debugUserId: null,
-      backgroundImageUrl: null,
-      backgroundColor: null,
-      KEYBOARD_SHORTCUTS,
-    };
-  },
+// Store state and getters
+const user = computed(() => store.state.user);
+const settings = computed(() => store.state.settings);
+const sessionExpired = computed(() => store.state.sessionExpired);
+const platforms = computed(() => store.state.platforms);
+const games = computed(() => store.state.games);
+const gameSelectorData = computed(() => store.state.gameSelectorData);
+const cachedGames = computed(() => store.state.cachedGames);
+const darkTheme = computed(() => store.getters.darkTheme);
+const navPosition = computed(() => store.getters.navPosition);
 
-  computed: {
-    ...mapState(['user', 'settings', 'sessionExpired', 'platforms', 'games', 'gameSelectorData']),
-    ...mapGetters(['darkTheme', 'navPosition']),
+// Computed properties
+const bodyClasses = computed(() => [
+  route.name,
+  `nav-${navPosition.value}`,
+  {
+    'has-scroll': hasScroll.value,
+    'dark text-light': darkTheme.value,
+    'bg-dark': !backgroundColor.value && darkTheme.value,
+    'bg-light': !backgroundColor.value && !darkTheme.value,
+  }
+]);
 
-    bodyClasses() {
-      return [
-        this.$route.name,
-        `nav-${this.navPosition}`,
-        {
-          'has-scroll': this.hasScroll,
-          'dark text-light': this.darkTheme,
-          'bg-dark': !this.backgroundColor && this.darkTheme,
-          'bg-light': !this.backgroundColor && !this.darkTheme,
-        }
-      ]
-    },
+const showPageDock = computed(() => {
+  if (['auth', 'home'].includes(route.name) && !user.value) return false;
+  return Boolean(user.value) || isPublicRoute.value;
+});
 
-    showPageDock() {
-      if (['auth', 'home'].includes(this.$route.name) && !this.user) return false;
+const style = computed(() => {
+  const backgroundImage = ['game', 'board', 'profile', 'public.profile'].includes(route?.name) && backgroundImageUrl.value
+    ? `background-image: url('${backgroundImageUrl.value}');`
+    : null;
 
-      return Boolean(this.user) || this.isPublicRoute;
-    },
+  const bgColor = backgroundColor.value
+    ? `background-color: ${backgroundColor.value};`
+    : null;
 
-    style() {
-      const backgroundImage = ['game', 'board', 'profile', 'public.profile'].includes(this.$route?.name) && this.backgroundImageUrl
-        ? `background-image: url('${this.backgroundImageUrl}');`
-        : null;
+  return [backgroundImage, bgColor].join('');
+});
 
-      const backgroundColor = this.backgroundColor
-        ? `background-color: ${this.backgroundColor};`
-        : null;
+const isPublicRoute = computed(() => route.meta?.public);
 
-      return [backgroundImage, backgroundColor].join('');
-    },
+const isGamePage = computed(() => route.name === 'game');
 
-    isPublicRoute() {
-      return this.$route.meta?.public;
-    },
+// Watchers
+watch(sessionExpired, (expired) => {
+  if (!expired) return;
+  store.commit('CLEAR_SESSION');
+  router.replace({ name: 'auth' });
+});
 
-    isGamePage() {
-      return this.$route.name === 'game';
-    },
-  },
-
-  watch: {
-    sessionExpired(expired) {
-      if (!expired) return;
-
-      this.$store.commit('CLEAR_SESSION');
-      this.$router.replace({ name: 'auth' });
-    },
-  },
-
-  async mounted() {
-    this.$bus.$on('LIKE_UNLIKE_GAME', this.likeOrUnlikeGame);
-    this.$bus.$on('CLEAR_WALLPAPER', this.clearWallpaperUrl);
-    this.$bus.$on('UPDATE_WALLPAPER', this.updateWallpaperUrl);
-    this.$bus.$on('BOOT', this.boot);
-    this.$bus.$on('UPDATE_BACKGROUND_COLOR', this.updateBackgroundColor);
-
-    this.loading = true;
-
-    await this.$store.dispatch('GET_TWITCH_TOKEN');
-
-    this.init();
-  },
-
-  methods: {
-    showToast(message, variant = 'info') {
-      const toastElement = document.createElement('div');
-      toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
-      toastElement.setAttribute('role', 'alert');
-      toastElement.innerHTML = `
-        <div class="d-flex">
-          <div class="toast-body">${message}</div>
-          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-        </div>
-      `;
-      document.body.appendChild(toastElement);
-      const toast = new bootstrap.Toast(toastElement);
-      toast.show();
-      toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
-    },
-
-    async likeOrUnlikeGame(gameId) {
-      try {
-        const isLiked = this.games?.[gameId];
-        const mutation = isLiked ? 'UNLIKE_GAME' : 'LIKE_GAME';
-
-        this.$store.commit(mutation, gameId);
-
-        await this.$store.dispatch('SAVE_GAMES');
-
-        // Maintain subcollection for Firebase-level sorting
-        if (isLiked) {
-          await this.$store.dispatch('DELETE_USER_GAME', gameId);
-        } else {
-          const gameData = this.cachedGames?.[gameId];
-          await this.$store.dispatch('SAVE_USER_GAME', { gameId, gameData });
-        }
-      } catch (e) {
-        //
-      }
-    },
-
-    clearWallpaperUrl() {
-      this.backgroundImageUrl = null;
-    },
-
-    updateWallpaperUrl(value) {
-      this.backgroundImageUrl = value;
-    },
-
-    updateBackgroundColor(value) {
-      this.backgroundColor = value;
-    },
-
-    handleShortcutAction(data) {
-      this.$bus.$emit('HANDLE_SHORTCUT', data);
-    },
-
-    init() {
-      if (!this.platforms?.length) this.loadPlatforms();
-      if (this.isPublicRoute && !this.user) return this.loading = false;
-
-      if (this.user) {
-        this.boot();
-      } else {
-        if (this.$route.name !== 'auth') this.$router.push({ name: 'auth' });
-      }
-    },
-
-    async loadPlatforms() {
-      try {
-        await this.$store.dispatch('IGDB', {
-          path: 'platforms',
-          data: IGDB_QUERIES.PLATFORMS,
-          mutation: 'SET_PLATFORMS',
-        });
-      } catch (e) {
-        this.showToast('There was an error loading platforms', 'danger');
-      }
-    },
-
-    async boot() {
-      await Promise.allSettled([
-        this.$store.dispatch('LOAD_BOARDS'),
-        this.$store.dispatch('LOAD_PROFILE'),
-        this.$store.dispatch('LOAD_WALLPAPERS'),
-        this.$store.dispatch('LOAD_SETTINGS'),
-        this.$store.dispatch('LOAD_TAGS'),
-        this.$store.dispatch('LOAD_NOTES'),
-        this.$store.dispatch('LOAD_PROGRESSES'),
-        this.$store.dispatch('LOAD_GAMES'),
-      ]);
-
-      this.loading = false;
-    }
-  },
+// Methods
+const showToast = (message, variant = 'info') => {
+  const toastElement = document.createElement('div');
+  toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
+  toastElement.setAttribute('role', 'alert');
+  toastElement.innerHTML = `
+    <div class="d-flex">
+      <div class="toast-body">${message}</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  `;
+  document.body.appendChild(toastElement);
+  const toast = new bootstrap.Toast(toastElement);
+  toast.show();
+  toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
 };
+
+const likeOrUnlikeGame = async (gameId) => {
+  try {
+    const isLiked = games.value?.[gameId];
+    const mutation = isLiked ? 'UNLIKE_GAME' : 'LIKE_GAME';
+
+    store.commit(mutation, gameId);
+
+    await store.dispatch('SAVE_GAMES');
+
+    // Maintain subcollection for Firebase-level sorting
+    if (isLiked) {
+      await store.dispatch('DELETE_USER_GAME', gameId);
+    } else {
+      const gameData = cachedGames.value?.[gameId];
+      await store.dispatch('SAVE_USER_GAME', { gameId, gameData });
+    }
+  } catch (e) {
+    //
+  }
+};
+
+const clearWallpaperUrl = () => {
+  backgroundImageUrl.value = null;
+};
+
+const updateWallpaperUrl = (value) => {
+  backgroundImageUrl.value = value;
+};
+
+const updateBackgroundColor = (value) => {
+  backgroundColor.value = value;
+};
+
+const handleShortcutAction = (data) => {
+  $bus.$emit('HANDLE_SHORTCUT', data);
+};
+
+const init = () => {
+  if (!platforms.value?.length) loadPlatforms();
+  if (isPublicRoute.value && !user.value) {
+    loading.value = false;
+    return;
+  }
+
+  if (user.value) {
+    boot();
+  } else {
+    if (route.name !== 'auth') router.push({ name: 'auth' });
+  }
+};
+
+const loadPlatforms = async () => {
+  try {
+    await store.dispatch('IGDB', {
+      path: 'platforms',
+      data: IGDB_QUERIES.PLATFORMS,
+      mutation: 'SET_PLATFORMS',
+    });
+  } catch (e) {
+    showToast('There was an error loading platforms', 'danger');
+  }
+};
+
+const boot = async () => {
+  await Promise.allSettled([
+    store.dispatch('LOAD_BOARDS'),
+    store.dispatch('LOAD_PROFILE'),
+    store.dispatch('LOAD_WALLPAPERS'),
+    store.dispatch('LOAD_SETTINGS'),
+    store.dispatch('LOAD_TAGS'),
+    store.dispatch('LOAD_NOTES'),
+    store.dispatch('LOAD_PROGRESSES'),
+    store.dispatch('LOAD_GAMES'),
+  ]);
+
+  loading.value = false;
+};
+
+// Lifecycle hooks
+onMounted(async () => {
+  $bus.$on('LIKE_UNLIKE_GAME', likeOrUnlikeGame);
+  $bus.$on('CLEAR_WALLPAPER', clearWallpaperUrl);
+  $bus.$on('UPDATE_WALLPAPER', updateWallpaperUrl);
+  $bus.$on('BOOT', boot);
+  $bus.$on('UPDATE_BACKGROUND_COLOR', updateBackgroundColor);
+
+  loading.value = true;
+
+  await store.dispatch('GET_TWITCH_TOKEN');
+
+  init();
+});
 </script>
 
 <style lang="scss" rel="stylesheet/scss">

@@ -5,14 +5,8 @@
   />
 </template>
 
-<script>
+<script setup>
 import EmptyState from '@/components/EmptyState';
-
-export default {
-  components: {
-    EmptyState,
-  },
-};
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>

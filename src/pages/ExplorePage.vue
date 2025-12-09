@@ -48,19 +48,13 @@
   </section>
 </template>
 
-<script>
-import { mapState } from 'vuex';
+<script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 import GameBoards from '@/components/GameBoards';
 import TwitterFeed from '@/components/TwitterFeed';
 
-export default {
-  components: {
-    GameBoards,
-    // TwitterFeed,
-  },
+const store = useStore();
 
-  computed: {
-    ...mapState(['user']),
-  },
-};
+const user = computed(() => store.state.user);
 </script>

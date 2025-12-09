@@ -6,17 +6,15 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    title: String,
-    message: String,
-    illustration: String,
-    actionText: String,
-    busy: {
-      type: Boolean,
-      default: () => false,
-    },
+<script setup>
+defineProps({
+  title: String,
+  message: String,
+  illustration: String,
+  actionText: String,
+  busy: {
+    type: Boolean,
+    default: () => false,
   },
-};
+});
 </script>

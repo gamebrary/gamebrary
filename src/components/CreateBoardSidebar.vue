@@ -132,15 +132,19 @@ export default {
       type: BOARD_TYPE_KANBAN,
     }
     // Listen for sidebar toggle events
-    this.$root.$on('bv::toggle::collapse', (id) => {
-      if (id === 'create-board-sidebar') {
-        this.visible = !this.visible;
-      }
-    });
+    if (this.$bus) {
+      this.$bus.$on('bv::toggle::collapse', (id) => {
+        if (id === 'create-board-sidebar') {
+          this.visible = !this.visible;
+        }
+      });
+    }
   },
 
   beforeUnmount() {
-    this.$root.$off('bv::toggle::collapse');
+    if (this.$bus) {
+      this.$bus.$off('bv::toggle::collapse');
+    }
   },
 
   computed: {

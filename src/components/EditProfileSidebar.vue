@@ -49,7 +49,7 @@
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileMenuDropdown">
             <li><h6 class="dropdown-header">Profile wallpaper</h6></li>
             <li>
-              <a class="dropdown-item" href="#" @click.prevent="$root.$emit('bv::toggle::collapse', 'boardWallpaper')">
+              <a class="dropdown-item" href="#" @click.prevent="$bus?.$emit('bv::toggle::collapse', 'boardWallpaper')">
                 {{ wallpaperImage ? 'Change wallpaper' : 'Set profile wallpaper' }}
               </a>
             </li>
@@ -262,17 +262,21 @@ export default {
   mounted() {
     this.loadProfile();
     // Listen for sidebar toggle events
-    this.$root.$on('bv::toggle::collapse', (id) => {
-      if (id === 'profile-sidebar') {
-        this.$store.commit('SET_PROFILE_SIDEBAR_OPEN', !this.editProfileSidebarOpen);
-      } else if (id === 'boardWallpaper') {
-        this.wallpaperSidebarVisible = !this.wallpaperSidebarVisible;
-      }
-    });
+    if (this.$bus) {
+      this.$bus.$on('bv::toggle::collapse', (id) => {
+        if (id === 'profile-sidebar') {
+          this.$store.commit('SET_PROFILE_SIDEBAR_OPEN', !this.editProfileSidebarOpen);
+        } else if (id === 'boardWallpaper') {
+          this.wallpaperSidebarVisible = !this.wallpaperSidebarVisible;
+        }
+      });
+    }
   },
 
   beforeUnmount() {
-    this.$root.$off('bv::toggle::collapse');
+    if (this.$bus) {
+      this.$bus.$off('bv::toggle::collapse');
+    }
   },
 
   computed: {

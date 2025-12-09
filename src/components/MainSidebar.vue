@@ -39,12 +39,12 @@
       </router-link>
 
       <router-link
-        :to="{ name: 'games' }"
+        :to="{ name: 'library' }"
         class="btn d-block btn-lg text-start align-items-center d-flex mb-2"
-        :class="routeName === 'games' ? (darkTheme ? 'btn-success' : 'btn-dark') : (darkTheme ? 'btn-dark' : 'btn-light')"
+        :class="routeName === 'library' ? (darkTheme ? 'btn-success' : 'btn-dark') : (darkTheme ? 'btn-dark' : 'btn-light')"
       >
         <i class="fa-regular fa-gamepad fa-fw" />
-        <span class="ms-2">Games</span>
+        <span class="ms-2">Library</span>
 
         <span v-if="gameCount" class="badge bg-light text-dark ms-auto">
           {{ gameCount }}
@@ -169,7 +169,9 @@ export default {
     },
 
     openSettingsSidebar() {
-      this.$root.$emit('bv::toggle::collapse', 'settings-sidebar');
+      if (this.$bus) {
+        this.$bus.$emit('bv::toggle::collapse', 'settings-sidebar');
+      }
       this.hideSidebar();
     },
   }

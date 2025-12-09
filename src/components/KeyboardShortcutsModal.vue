@@ -44,73 +44,72 @@
   </AppSidebar>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, onMounted, onBeforeUnmount, inject, getCurrentInstance } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 import { KEYBOARD_SHORTCUTS } from '@/constants';
-import { mapState, mapGetters } from 'vuex';
 import SidebarHeader from '@/components/SidebarHeader';
 import AppSidebar from '@/components/Sidebar';
 
-export default {
-  components: {
-    AppSidebar,
-    SidebarHeader,
-  },
+const route = useRoute();
+const router = useRouter();
+const store = useStore();
+const $bus = inject('$bus');
+const instance = getCurrentInstance();
 
-  data() {
-    return {
-      KEYBOARD_SHORTCUTS,
-      visible: false,
-    };
-  },
+// Reactive state
+const visible = ref(false);
 
-  computed: {
-    ...mapState(['user']),
-    ...mapGetters(['darkTheme', 'sidebarLeftProps']),
-  },
+// Store state and getters
+const user = computed(() => store.state.user);
+const darkTheme = computed(() => store.getters.darkTheme);
+const sidebarLeftProps = computed(() => store.getters.sidebarLeftProps);
 
-  mounted() {
-    if (this.$bus) {
-      this.$bus.$on('HANDLE_SHORTCUT', this.handleShortcut);
+// Methods
+const handleVisibilityChange = (newVisible) => {
+  visible.value = newVisible;
+};
+
+const hideSidebar = () => {
+  visible.value = false;
+};
+
+const handleShortcut = ({ srcKey }) => {
+  if (!srcKey) return;
+
+  const name = srcKey?.substr(6);
+
+  if (srcKey.includes('MODAL')) {
+    // Handle modal show
+    const modalElement = document.getElementById(name);
+    if (modalElement) {
+      const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+      modal.show();
     }
-    // Listen for sidebar toggle events
-    this.$root.$on('bv::toggle::collapse', (id) => {
+  }
+  if (srcKey.includes('ROUTE') && route.name !== name) router.push({ name });
+};
+
+// Lifecycle hooks
+onMounted(() => {
+  if ($bus) {
+    $bus.$on('HANDLE_SHORTCUT', handleShortcut);
+  }
+  // Listen for sidebar toggle events
+  if ($bus) {
+    $bus.$on('bv::toggle::collapse', (id) => {
       if (id === 'keyboard-shortcuts-sidebar') {
-        this.visible = !this.visible;
+        visible.value = !visible.value;
       }
     });
-  },
+  }
+});
 
-  beforeUnmount() {
-    if (this.$bus) {
-      this.$bus.$off('HANDLE_SHORTCUT');
-    }
-    this.$root.$off('bv::toggle::collapse');
-  },
-
-  methods: {
-    handleVisibilityChange(visible) {
-      this.visible = visible;
-    },
-
-    hideSidebar() {
-      this.visible = false;
-    },
-
-    handleShortcut({ srcKey }) {
-      if (!srcKey) return;
-
-      const name = srcKey?.substr(6);
-
-      if (srcKey.includes('MODAL')) {
-        // Handle modal show - need to check how modals are handled now
-        const modalElement = document.getElementById(name);
-        if (modalElement) {
-          const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
-          modal.show();
-        }
-      }
-      if (srcKey.includes('ROUTE') && this.$route.name !== name) this.$router.push({ name });
-    },
-  },
-};
+onBeforeUnmount(() => {
+  if ($bus) {
+    $bus.$off('HANDLE_SHORTCUT', handleShortcut);
+    $bus.$off('bv::toggle::collapse');
+  }
+});
 </script>

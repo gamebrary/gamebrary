@@ -81,7 +81,10 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, onMounted, inject } from 'vue';
+import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
@@ -91,126 +94,118 @@ import {
   signInWithPopup,
   getRedirectResult,
 } from "firebase/auth";
-
 import { FIREBASE_CONFIG } from '@/constants';
-import { mapState, mapGetters } from 'vuex';
 
 const app = initializeApp(FIREBASE_CONFIG);
+const router = useRouter();
+const store = useStore();
+const $bus = inject('$bus');
 
-export default {
-  data() {
-    return {
-      showExpiredAlert: false,
-      loading: false,
-      email: '',
-      password: '',
-      newUser: true,
-      errorCode: null,
-    };
-  },
+// Reactive state
+const showExpiredAlert = ref(false);
+const loading = ref(false);
+const email = ref('');
+const password = ref('');
+const newUser = ref(true);
+const errorCode = ref(null);
 
-  computed: {
-    ...mapState(['user', 'sessionExpired']),
-    ...mapGetters(['darkTheme']),
+// Store state and getters
+const user = computed(() => store.state.user);
+const sessionExpired = computed(() => store.state.sessionExpired);
+const darkTheme = computed(() => store.getters.darkTheme);
 
-    authDescription() {
-      return this.newUser
-        ? 'Already have an account?'
-        : 'Need an account?';
-    },
+// Computed properties
+const authDescription = computed(() => {
+  return newUser.value
+    ? 'Already have an account?'
+    : 'Need an account?';
+});
 
-    authAction() {
-      return this.newUser
-        ? 'Login'
-        : 'Create account';
-    },
+const authAction = computed(() => {
+  return newUser.value
+    ? 'Login'
+    : 'Create account';
+});
 
-    errorMessage() {
-      if (!this.errorCode) return null;
-      if (this.errorCode === 'auth/email-already-in-use') return 'Email already in use';
-      if (this.errorCode === 'auth/wrong-password') return 'Wrong password';
-      if (this.errorCode === 'auth/user-not-found') return 'User not found';
-      if (this.newUser) return 'Error creating your account';
+const errorMessage = computed(() => {
+  if (!errorCode.value) return null;
+  if (errorCode.value === 'auth/email-already-in-use') return 'Email already in use';
+  if (errorCode.value === 'auth/wrong-password') return 'Wrong password';
+  if (errorCode.value === 'auth/user-not-found') return 'User not found';
+  if (newUser.value) return 'Error creating your account';
+  return 'Error logging in';
+});
 
-      return 'Error logging in';
-    },
-  },
+// Methods
+const submit = () => {
+  loading.value = true;
 
-  mounted() {
-    this.init();
-  },
-
-  methods: {
-    submit() {
-      this.loading = true;
-
-      if (this.newUser) {
-        this.createAccount();
-      } else {
-        this.loginWithEmail();
-      }
-    },
-
-    init() {
-      if (this.sessionExpired) {
-        this.showExpiredAlert = true;
-        this.$store.commit('SET_SESSION_EXPIRED', false);
-      }
-    },
-
-    async createAccount() {
-      const auth = getAuth(app);
-
-      createUserWithEmailAndPassword(auth, this.email, this.password)
-        .then((userCredential) => {
-          this.$store.commit('SET_SESSION_EXPIRED', false);
-          this.$store.commit('SET_USER', userCredential?.user);
-          this.$router.replace({ name: 'boards' });
-        })
-        .catch((error) => {
-          this.handleError(error?.code);
-        });
-    },
-
-    async loginWithEmail() {
-      try {
-        const auth = getAuth(app);
-
-        const data = await signInWithEmailAndPassword(auth, this.email, this.password);
-
-        this.signInSuccess(data.user);
-      } catch (error) {
-        this.handleError(error?.code);
-      }
-    },
-
-    async loginWithGoogle() {
-      const auth = getAuth();
-      const provider = new GoogleAuthProvider();
-
-      try {
-        const { user } = await signInWithPopup(auth, provider);
-
-        this.signInSuccess(user);
-      } catch (error) {
-        this.handleError(error?.code);
-      }
-    },
-
-    handleError(errorCode = 'default') {
-      this.loading = false;
-      this.errorCode = errorCode;
-    },
-
-    signInSuccess(user) {
-      this.loading = true;
-
-      // if (additionalUserInfo?.isNewUser) this.$store.dispatch('SEND_WELCOME_EMAIL', additionalUserInfo);
-      this.$store.commit('SET_SESSION_EXPIRED', false);
-      this.$store.commit('SET_USER', user);
-      this.$router.replace({ name: 'boards' });
-      this.$bus.$emit('BOOT');
-    },
-  },
+  if (newUser.value) {
+    createAccount();
+  } else {
+    loginWithEmail();
+  }
 };
+
+const init = () => {
+  if (sessionExpired.value) {
+    showExpiredAlert.value = true;
+    store.commit('SET_SESSION_EXPIRED', false);
+  }
+};
+
+const createAccount = async () => {
+  const auth = getAuth(app);
+
+  createUserWithEmailAndPassword(auth, email.value, password.value)
+    .then((userCredential) => {
+      store.commit('SET_SESSION_EXPIRED', false);
+      store.commit('SET_USER', userCredential?.user);
+      router.replace({ name: 'boards' });
+    })
+    .catch((error) => {
+      handleError(error?.code);
+    });
+};
+
+const loginWithEmail = async () => {
+  try {
+    const auth = getAuth(app);
+    const data = await signInWithEmailAndPassword(auth, email.value, password.value);
+    signInSuccess(data.user);
+  } catch (error) {
+    handleError(error?.code);
+  }
+};
+
+const loginWithGoogle = async () => {
+  const auth = getAuth();
+  const provider = new GoogleAuthProvider();
+
+  try {
+    const { user } = await signInWithPopup(auth, provider);
+    signInSuccess(user);
+  } catch (error) {
+    handleError(error?.code);
+  }
+};
+
+const handleError = (code = 'default') => {
+  loading.value = false;
+  errorCode.value = code;
+};
+
+const signInSuccess = (user) => {
+  loading.value = true;
+  // if (additionalUserInfo?.isNewUser) store.dispatch('SEND_WELCOME_EMAIL', additionalUserInfo);
+  store.commit('SET_SESSION_EXPIRED', false);
+  store.commit('SET_USER', user);
+  router.replace({ name: 'boards' });
+  $bus.$emit('BOOT');
+};
+
+// Lifecycle hooks
+onMounted(() => {
+  init();
+});
 </script>

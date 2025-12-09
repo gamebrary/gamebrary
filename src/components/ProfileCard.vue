@@ -56,51 +56,52 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted, onUpdated, nextTick } from 'vue';
+import { useStore } from 'vuex';
 import { getImageThumbnail } from '@/utils';
 
-export default {
-  props: {
-    thumbnail: Boolean,
-    profile: {
-      type: Object,
-      required: true,
-    },
+const props = defineProps({
+  thumbnail: Boolean,
+  profile: {
+    type: Object,
+    required: true,
   },
+});
 
-  data() {
-    return {
-      avatarImage: null,
-    }
-  },
+const store = useStore();
 
-  async mounted() {
-    if (this.profile?.avatar) {
-      const thumbnailRef = getImageThumbnail(this.profile?.avatar);
+// Reactive state
+const avatarImage = ref(null);
 
-      this.avatarImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', thumbnailRef)
-        .catch((e) => {});
-    }
-    this.initTooltips();
-  },
-
-  updated() {
-    this.initTooltips();
-  },
-
-  methods: {
-    initTooltips() {
-      this.$nextTick(() => {
-        const tooltipTriggerList = this.$el.querySelectorAll('[data-bs-toggle="tooltip"]');
-        tooltipTriggerList.forEach(tooltipTriggerEl => {
-          if (!tooltipTriggerEl._tooltip) {
-            new bootstrap.Tooltip(tooltipTriggerEl);
-          }
-        });
+// Methods
+const initTooltips = () => {
+  nextTick(() => {
+    const el = document.querySelector('[data-bs-toggle="tooltip"]');
+    if (el) {
+      const tooltipTriggerList = el.parentElement?.querySelectorAll('[data-bs-toggle="tooltip"]') || [];
+      tooltipTriggerList.forEach(tooltipTriggerEl => {
+        if (!tooltipTriggerEl._tooltip) {
+          new bootstrap.Tooltip(tooltipTriggerEl);
+        }
       });
-    },
-  },
+    }
+  });
 };
+
+// Lifecycle hooks
+onMounted(async () => {
+  if (props.profile?.avatar) {
+    const thumbnailRef = getImageThumbnail(props.profile?.avatar);
+    avatarImage.value = await store.dispatch('LOAD_FIREBASE_IMAGE', thumbnailRef)
+      .catch((e) => null);
+  }
+  initTooltips();
+});
+
+onUpdated(() => {
+  initTooltips();
+});
 </script>
 
 

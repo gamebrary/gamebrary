@@ -33,35 +33,50 @@
   </nav>
 </template>
 
-<script>
-import { mapState, mapGetters } from 'vuex';
+<script setup>
+import { computed } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 
-export default {
-  computed: {
-    ...mapState(['user', 'games', 'notes', 'tags', 'wallpapers', 'menuOpen', 'routeName']),
-    ...mapGetters(['navPosition', 'latestRelease', 'darkTheme', 'transparencyEnabled']),
+const route = useRoute();
+const router = useRouter();
+const store = useStore();
 
-    navClass() {
-      const navPosition = `nav-${this.navPosition}`;
-      const isGameRoute = this.$route.name === 'game';
+// Store state and getters
+const user = computed(() => store.state.user);
+const games = computed(() => store.state.games);
+const notes = computed(() => store.state.notes);
+const tags = computed(() => store.state.tags);
+const wallpapers = computed(() => store.state.wallpapers);
+const menuOpen = computed(() => store.state.menuOpen);
+const routeName = computed(() => store.state.routeName);
+const navPosition = computed(() => store.getters.navPosition);
+const latestRelease = computed(() => store.getters.latestRelease);
+const darkTheme = computed(() => store.getters.darkTheme);
+const transparencyEnabled = computed(() => store.getters.transparencyEnabled);
 
-      const defaultClass = !isGameRoute ? '' : this.darkTheme ? 'bg-dark' : 'bg-light'
+// Computed properties
+const navClass = computed(() => {
+  const navPos = `nav-${navPosition.value}`;
+  const isGameRoute = route.name === 'game';
 
-      const backgroundClasses = this.transparencyEnabled
-        ? `semi-transparent ${defaultClass}`
-        : defaultClass
+  const defaultClass = !isGameRoute ? '' : darkTheme.value ? 'bg-dark' : 'bg-light';
 
-      return [navPosition, backgroundClasses]
-    },
-  },
+  const backgroundClasses = transparencyEnabled.value
+    ? `semi-transparent ${defaultClass}`
+    : defaultClass;
 
-  methods: {
-    handleLogoClick() {
-      if (this.user) return this.$store.commit('SET_MENU_OPEN', true);
+  return [navPos, backgroundClasses];
+});
 
-      this.$router.push({ name: 'home' });
-    },
-  },
+// Methods
+const handleLogoClick = () => {
+  if (user.value) {
+    store.commit('SET_MENU_OPEN', true);
+    return;
+  }
+
+  router.push({ name: 'home' });
 };
 </script>
 

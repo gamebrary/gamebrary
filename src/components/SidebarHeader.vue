@@ -14,16 +14,16 @@
   </div>
 </template>
 
-<script>
-import { mapGetters } from 'vuex';
+<script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 
-export default {
-  computed: {
-    ...mapGetters(['darkTheme']),
-  },
+defineProps({
+  title: String,
+});
 
-  props: {
-    title: String,
-  }
-}
+defineEmits(['hide']);
+
+const store = useStore();
+const darkTheme = computed(() => store.getters.darkTheme);
 </script>

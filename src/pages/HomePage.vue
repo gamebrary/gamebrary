@@ -137,36 +137,34 @@
   </div>
 </template>
 
-<script>
-import { mapState, mapGetters } from 'vuex';
+<script setup>
+import { computed, onMounted } from 'vue';
+import { useStore } from 'vuex';
 
-export default {
-  computed: {
-    ...mapState(['user', 'profiles', 'publicBoards']),
-    ...mapGetters(['darkTheme', 'navPosition']),
+const store = useStore();
 
-    filteredProfiles() {
-      return this.profiles.filter(({ avatar }) => avatar).slice(0, 5);
-    },
+const user = computed(() => store.state.user);
+const profiles = computed(() => store.state.profiles);
+const publicBoards = computed(() => store.state.publicBoards);
+const darkTheme = computed(() => store.getters.darkTheme);
+const navPosition = computed(() => store.getters.navPosition);
 
-    currentYear() {
-      return new Date().getFullYear();
-    },
-  },
+const filteredProfiles = computed(() => {
+  return profiles.value.filter(({ avatar }) => avatar).slice(0, 5);
+});
 
-  mounted () {
-    this.loadPublicBoards();
-  },
+const currentYear = computed(() => new Date().getFullYear());
 
-  methods: {
-    async loadPublicBoards() {
-      try {
-        await this.$store.dispatch('LOAD_PROFILES');
-        await this.$store.dispatch('LOAD_PUBLIC_BOARDS');
-      } catch (e) {
-        // this.loading = false;
-      }
-    },
-  },
+const loadPublicBoards = async () => {
+  try {
+    await store.dispatch('LOAD_PROFILES');
+    await store.dispatch('LOAD_PUBLIC_BOARDS');
+  } catch (e) {
+    // loading = false;
+  }
 };
+
+onMounted(() => {
+  loadPublicBoards();
+});
 </script>

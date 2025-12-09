@@ -61,7 +61,13 @@ class EventBus {
   }
   off(event, callback) {
     if (this.events[event]) {
-      this.events[event] = this.events[event].filter(cb => cb !== callback);
+      if (callback) {
+        // Remove specific callback
+        this.events[event] = this.events[event].filter(cb => cb !== callback);
+      } else {
+        // Remove all callbacks for this event (Vue 2 compatibility)
+        delete this.events[event];
+      }
     }
   }
   emit(event, ...args) {
@@ -94,63 +100,6 @@ app.provide('$bus', eventBus);
 app.config.globalProperties.$on = eventBus.$on.bind(eventBus);
 app.config.globalProperties.$off = eventBus.$off.bind(eventBus);
 app.config.globalProperties.$emit = eventBus.$emit.bind(eventBus);
-
-// Make $root.$on, $root.$off, $root.$emit available for Vue 2 compatibility
-// Vue 3 prevents mutating $ properties and internal instance objects are not extensible
-// We use a Proxy but skip it for draggable components to avoid vuedraggable conflicts
-app.mixin({
-  created() {
-    // Skip proxying for draggable component itself to avoid breaking vuedraggable
-    // Check component name - vuedraggable components are typically named 'draggable'
-    const componentName = this.$options.name || this.$options.__name || '';
-    const isDraggableComponent = componentName === 'draggable';
-
-    // Check Vue internal instance structure - draggable components have specific properties
-    const isDraggableByStructure = this.$ &&
-      (this.$.type?.__name === 'draggable' ||
-       this.$.type?.name === 'draggable' ||
-       (this.$.type?.setup && this.$.type.setup.toString().includes('vuedraggable')));
-
-    // Skip proxying for draggable component to avoid breaking vuedraggable's internal component access
-    if (!this._rootProxyCreated && this.$root && !isDraggableComponent && !isDraggableByStructure) {
-      const originalRoot = this.$root;
-
-      // Create the most minimal proxy possible - only intercept $on, $off, $emit
-      const rootProxy = new Proxy(originalRoot, {
-        get(target, prop) {
-          if (prop === '$on' || prop === '$off' || prop === '$emit') {
-            return eventBus[prop].bind(eventBus);
-          }
-          return target[prop];
-        },
-        set(target, prop, value) {
-          if (!prop.toString().startsWith('$')) {
-            target[prop] = value;
-            return true;
-          }
-          return false;
-        },
-        has(target, prop) {
-          if (prop === '$on' || prop === '$off' || prop === '$emit') {
-            return true;
-          }
-          return prop in target;
-        }
-      });
-
-      // Replace $root with proxy
-      Object.defineProperty(this, '$root', {
-        get() {
-          return rootProxy;
-        },
-        configurable: true,
-        enumerable: true,
-      });
-
-      this._rootProxyCreated = true;
-    }
-  }
-});
 
 // Use VueFire for Firebase
 app.use(VueFire, VueFireFirestoreOptionsAPI);

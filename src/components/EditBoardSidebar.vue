@@ -265,17 +265,21 @@ export default {
   mounted() {
     if (this.boardId) this.loadBoard();
     // Listen for sidebar toggle events
-    this.$root.$on('bv::toggle::collapse', (id) => {
-      if (id === 'edit-board-sidebar') {
-        this.visible = !this.visible;
-      } else if (id === 'select-board-wallpaper') {
-        this.wallpaperSidebarVisible = !this.wallpaperSidebarVisible;
-      }
-    });
+    if (this.$bus) {
+      this.$bus.$on('bv::toggle::collapse', (id) => {
+        if (id === 'edit-board-sidebar') {
+          this.visible = !this.visible;
+        } else if (id === 'select-board-wallpaper') {
+          this.wallpaperSidebarVisible = !this.wallpaperSidebarVisible;
+        }
+      });
+    }
   },
 
   beforeUnmount() {
-    this.$root.$off('bv::toggle::collapse');
+    if (this.$bus) {
+      this.$bus.$off('bv::toggle::collapse');
+    }
   },
 
   methods: {

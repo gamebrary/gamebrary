@@ -30,7 +30,7 @@
         </button>
 
         <img
-          :src="$options.getImageUrl(game, $options.IMAGE_SIZE_COVER_SMALL)"
+          :src="getImageUrl(game, IMAGE_SIZE_COVER_SMALL)"
           :alt="game.name"
           class="rounded"
           :class="vertical && fluid ? '' : 'mw-100'"
@@ -75,7 +75,7 @@
         v-if="!hideTitle || hideCover"
         :class="['text-wrap',
           {
-            'text-success' : gameCompleted, 'mb-1': board.type !== $options.BOARD_TYPE_GRID,
+            'text-success' : gameCompleted, 'mb-1': board.type !== BOARD_TYPE_GRID,
             'mt-2': vertical,
           }
         ]"
@@ -128,109 +128,112 @@
   </div>
 </template>
 
-<script>
-import { mapState, mapGetters } from 'vuex';
+<script setup>
+import { computed, inject } from 'vue';
+import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 import { getImageUrl } from '@/utils';
 import { IMAGE_SIZE_COVER_SMALL, PLATFORMS, BOARD_TYPE_GRID } from '@/constants';
 import GameRibbon from '@/components/GameRibbon';
 import slugify from 'slugify';
 
-export default {
-  IMAGE_SIZE_COVER_SMALL,
-  BOARD_TYPE_GRID,
-  getImageUrl,
-
-  props: {
-      gameId: {
-        type: [String, Number],
-        required: true,
-      },
-      vertical: Boolean,
-      small: Boolean,
-      hideCover: Boolean,
-      hideTitle: Boolean,
-      hideTags: Boolean,
-      hideRibbon: Boolean,
-      hideNotes: Boolean,
-      slim: Boolean,
-      hidePlatforms: Boolean,
-      hideProgress: Boolean,
-      selectable: Boolean,
-      ranked: Boolean,
-      rank: Number,
-      fluid: Boolean,
+const props = defineProps({
+  gameId: {
+    type: [String, Number],
+    required: true,
   },
+  vertical: Boolean,
+  small: Boolean,
+  hideCover: Boolean,
+  hideTitle: Boolean,
+  hideTags: Boolean,
+  hideRibbon: Boolean,
+  hideNotes: Boolean,
+  slim: Boolean,
+  hidePlatforms: Boolean,
+  hideProgress: Boolean,
+  selectable: Boolean,
+  ranked: Boolean,
+  rank: Number,
+  fluid: Boolean,
+  listIndex: Number,
+  list: Object,
+});
 
-  components: {
-    GameRibbon,
-  },
+const emit = defineEmits(['click']);
 
-  computed: {
-    ...mapState(['settings', 'cachedGames', 'tags', 'notes', 'progresses', 'board', 'games', 'user', 'highlightedGame']),
-    ...mapGetters(['isRTL', 'darkTheme', 'transparencyEnabled']),
+const router = useRouter();
+const store = useStore();
+const $bus = inject('$bus');
 
-    game() {
-      return this.cachedGames?.[this.gameId];
-    },
+// Store state and getters
+const settings = computed(() => store.state.settings);
+const cachedGames = computed(() => store.state.cachedGames);
+const tags = computed(() => store.state.tags);
+const notes = computed(() => store.state.notes);
+const progresses = computed(() => store.state.progresses);
+const board = computed(() => store.state.board);
+const games = computed(() => store.state.games);
+const user = computed(() => store.state.user);
+const highlightedGame = computed(() => store.state.highlightedGame);
+const isRTL = computed(() => store.getters.isRTL);
+const darkTheme = computed(() => store.getters.darkTheme);
+const transparencyEnabled = computed(() => store.getters.transparencyEnabled);
 
-    gamePlatforms() {
-      return this.game?.platforms?.map((id) => PLATFORMS?.[id]);
-    },
+// Computed properties
+const game = computed(() => cachedGames.value?.[props.gameId]);
 
-    gamePlatformsText() {
-      return this.game?.platforms?.map((id) => PLATFORMS?.[id]?.name)?.join(', ');
-    },
+const gamePlatforms = computed(() => {
+  return game.value?.platforms?.map((id) => PLATFORMS?.[id]);
+});
 
-    gameCompleted() {
-      return Number(this.gameProgress) === 100;
-    },
+const gamePlatformsText = computed(() => {
+  return game.value?.platforms?.map((id) => PLATFORMS?.[id]?.name)?.join(', ');
+});
 
-    showGameProgress() {
-      return !this.hideProgress && this.gameProgress > 0 && !this.gameCompleted;
-    },
+const gameProgress = computed(() => {
+  return props.gameId && progresses.value?.[props.gameId]
+    ? progresses.value[props.gameId]
+    : 0;
+});
 
-    isLiked() {
-      return this.games?.[this.game?.id];
-    },
+const gameCompleted = computed(() => {
+  return Number(gameProgress.value) === 100;
+});
 
-    // showReleaseDates() {
-    //   return this.list?.showReleaseDates;
-    // },
+const showGameProgress = computed(() => {
+  return !props.hideProgress && gameProgress.value > 0 && !gameCompleted.value;
+});
 
-    gameProgress() {
-      const { gameId, progresses } = this;
+const isLiked = computed(() => {
+  return games.value?.[game.value?.id];
+});
 
-      return gameId && progresses?.[gameId]
-        ? progresses[gameId]
-        : 0;
-    },
+const tagsApplied = computed(() => {
+  const tagsList = tags.value?.tags || tags.value;
+  return tagsList?.filter((tag) => tag?.games?.includes(game.value?.id)) || [];
+});
 
-    tagsApplied() {
-      const tags = this.tags?.tags || this.tags;
+const gameNotes = computed(() => {
+  return notes.value?.[props.gameId];
+});
 
-      return tags?.filter((tag) => tag?.games?.includes(this.game?.id)) || [];
-    },
+// Methods
+const handleClick = () => {
+  if (props.selectable) {
+    emit('click');
+    return;
+  }
 
-    gameNotes() {
-      return this.notes?.[this.gameId];
-    },
-  },
+  const id = props.gameId || game.value?.id;
+  const slug = slugify(game.value?.slug || '', { lower: true });
 
-  methods: {
-    handleClick() {
-      if (this.selectable) return this.$emit('click');
+  if (!id) {
+    console.warn('GameCard: Cannot navigate - game id is missing');
+    return;
+  }
 
-      const id = this.gameId || this.game?.id;
-      const slug = slugify(this.game?.slug || '', { lower: true });
-
-      if (!id) {
-        console.warn('GameCard: Cannot navigate - game id is missing');
-        return;
-      }
-
-      this.$router.push({ name: 'game', params: { id, slug }});
-    },
-  },
+  router.push({ name: 'game', params: { id, slug } });
 };
 </script>
 

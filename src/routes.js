@@ -9,11 +9,11 @@ const routes = [
     },
   },
   {
-    name: 'games',
-    path: '/games',
-    component: () => import(/* webpackChunkName: "games" */ '@/pages/GamesPage'),
+    name: 'library',
+    path: '/library',
+    component: () => import(/* webpackChunkName: "library" */ '@/pages/LibraryPage'),
     meta: {
-      title: 'My games',
+      title: 'My library',
       public: true,
     },
   },
@@ -43,8 +43,8 @@ const routes = [
   },
   {
     name: 'upcoming-games',
-    path: '/games/upcoming',
-    component: () => import(/* webpackChunkName: "games" */ '@/pages/UpcomingGames'),
+    path: '/library/upcoming',
+    component: () => import(/* webpackChunkName: "library" */ '@/pages/UpcomingGames'),
     meta: {
       title: 'Upcoming games',
       public: true,

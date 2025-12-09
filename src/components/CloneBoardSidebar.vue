@@ -102,15 +102,19 @@ export default {
 
   mounted() {
     // Listen for sidebar toggle events
-    this.$root.$on('bv::toggle::collapse', (id) => {
-      if (id === 'clone-board-sidebar') {
-        this.visible = !this.visible;
-      }
-    });
+    if (this.$bus) {
+      this.$bus.$on('bv::toggle::collapse', (id) => {
+        if (id === 'clone-board-sidebar') {
+          this.visible = !this.visible;
+        }
+      });
+    }
   },
 
   beforeUnmount() {
-    this.$root.$off('bv::toggle::collapse');
+    if (this.$bus) {
+      this.$bus.$off('bv::toggle::collapse');
+    }
   },
 
   methods: {

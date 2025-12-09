@@ -1,12 +1,12 @@
 <template lang="html">
-  <header :class="['align-items-start', { 'has-action': slots.includes('default') }]">
+  <header :class="['align-items-start', { 'has-action': slotKeys.includes('default') }]">
     <div>
-      <slot name="header" v-if="slots.includes('header')" />
+      <slot name="header" v-if="slotKeys.includes('header')" />
       <h3 class="text-wrap">{{ title }}</h3>
       <small class="d-block text-muted" style="margin-top: -4px;">{{ subtitle }}</small>
     </div>
 
-    <div class="actions" v-if="slots.includes('default')">
+    <div class="actions" v-if="slotKeys.includes('default')">
       <slot />
     </div>
 
@@ -21,23 +21,23 @@
   </header>
 </template>
 
-<script>
-import { mapGetters } from 'vuex';
+<script setup>
+import { computed, useSlots } from 'vue';
+import { useStore } from 'vuex';
 
-export default {
-  props: {
-    title: String,
-    subtitle: String,
-  },
+const props = defineProps({
+  title: String,
+  subtitle: String,
+});
 
-  computed: {
-    ...mapGetters(['darkTheme']),
+defineEmits(['close']);
 
-    slots() {
-      return Object.keys(this.$slots);
-    },
-  },
-};
+const slots = useSlots();
+const store = useStore();
+
+const darkTheme = computed(() => store.getters.darkTheme);
+
+const slotKeys = computed(() => Object.keys(slots));
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>

@@ -227,15 +227,19 @@ export default {
 
   mounted() {
     // Listen for sidebar toggle events
-    this.$root.$on('bv::toggle::collapse', (id) => {
-      if (id === 'edit-list-modal') {
-        // Toggle handled by visible prop
-      }
-    });
+    if (this.$bus) {
+      this.$bus.$on('bv::toggle::collapse', (id) => {
+        if (id === 'edit-list-modal') {
+          // Toggle handled by visible prop
+        }
+      });
+    }
   },
 
   beforeUnmount() {
-    this.$root.$off('bv::toggle::collapse');
+    if (this.$bus) {
+      this.$bus.$off('bv::toggle::collapse');
+    }
   },
 
   methods: {

@@ -45,34 +45,30 @@
   </section>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, onMounted } from 'vue';
+import { useStore } from 'vuex';
 import { marked } from 'marked';
 
-export default {
-  data() {
-    return {
-      readme: null,
-      repo: null,
-    };
-  },
+const store = useStore();
 
-  computed: {
-    formattedReadme() {
-      return this.readme
-        ? marked(this.readme)
-        : null;
-    },
-  },
+// Reactive state
+const readme = ref(null);
+const repo = ref(null);
 
-  mounted() {
-    this.load();
-  },
+// Computed properties
+const formattedReadme = computed(() => {
+  return readme.value ? marked(readme.value) : null;
+});
 
-  methods: {
-    async load() {
-      this.readme = await this.$store.dispatch('LOAD_GITHUB_README');
-      this.repo = await this.$store.dispatch('LOAD_GITHUB_REPOSITORY');
-    },
-  },
+// Methods
+const load = async () => {
+  readme.value = await store.dispatch('LOAD_GITHUB_README');
+  repo.value = await store.dispatch('LOAD_GITHUB_REPOSITORY');
 };
+
+// Lifecycle hooks
+onMounted(() => {
+  load();
+});
 </script>
