@@ -722,15 +722,15 @@ onBeforeUnmount(() => {
   grid-gap: 2rem;
   grid-template-columns: 520px auto 380px;
 
-  @media(max-width: 1440px) {
+  @media (max-width: $bp-xxl) {
     grid-template-columns: 2fr 3fr;
   }
 
-  @media(max-width: 1024px) {
+  @media (max-width: $bp-tablet) {
     grid-template-columns: 1fr 1fr;
   }
 
-  @media(max-width: 768px) {
+  @media (max-width: $bp-md) {
     grid-gap: 0;
     display: flex;
     flex-direction: column;
@@ -742,11 +742,11 @@ onBeforeUnmount(() => {
   grid-gap: 1rem;
   grid-template-columns: 1fr 1fr 1fr;
 
-  @media(max-width: 1440px) {
+  @media (max-width: $bp-xxl) {
     grid-template-columns: 1fr 1fr;
   }
 
-  @media(max-width: 780px) {
+  @media (max-width: $bp-md) {
     grid-template-columns: 1fr;
   }
 }
@@ -757,7 +757,7 @@ onBeforeUnmount(() => {
   grid-gap: 1rem;
   grid-template-columns: 1fr 1fr 1fr;
 
-  @media(max-width: 1024px) {
+  @media (max-width: $bp-tablet) {
     grid-template-columns: 1fr 1fr;
   }
 }

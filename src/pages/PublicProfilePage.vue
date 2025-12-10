@@ -54,9 +54,9 @@
         View other profiles
       </button> -->
 
-      <div class="board-grid mt-5">
+      <BoardGrid class="mt-5">
         <MiniBoard v-for="board in userBoards" :key="board.id" :board="board" />
-      </div>
+      </BoardGrid>
     </div>
 
     <EmptyState v-else title="404 Not Found" message="Page not found!" />
@@ -75,6 +75,7 @@ import { getImageThumbnail } from '@/utils';
 import MiniBoard from '@/components/Board/MiniBoard';
 import EditProfileSidebar from '@/components/EditProfileSidebar';
 import EmptyState from '@/components/EmptyState';
+import BoardGrid from '@/components/BoardGrid';
 
 const route = useRoute();
 const router = useRouter();

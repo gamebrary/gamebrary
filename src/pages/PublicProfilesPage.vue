@@ -48,13 +48,18 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+
 .profiles-grid {
   width: 100%;
   display: grid;
   grid-gap: 1rem;
   grid-template-columns: repeat(3, 1fr);
 
-  @media(max-width: 1280px) {grid-template-columns: repeat(2, 1fr); }
-  @media(max-width: 992px) {grid-template-columns: repeat(1, 1fr); }
+  @media (max-width: $bp-xl) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: $bp-lg) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 </style>

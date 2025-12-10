@@ -12,19 +12,16 @@
         <router-link :to="{ name: 'library' }" class="nav-item" :class="{ active: isActiveRoute('library') }">
           <i class="fa-regular fa-gamepad fa-fw" />
           <span>Library</span>
-          <span v-if="gameCount" class="nav-badge">{{ gameCount }}</span>
         </router-link>
 
         <router-link :to="{ name: 'boards' }" class="nav-item" :class="{ active: isActiveRoute('boards') }">
           <i class="fa-regular fa-rectangle-list fa-fw" />
           <span>Boards</span>
-          <span v-if="boards.length" class="nav-badge">{{ boards.length }}</span>
         </router-link>
 
         <router-link :to="{ name: 'notes' }" class="nav-item" :class="{ active: isActiveRoute('notes') }">
           <i class="fa-regular fa-notes fa-fw" />
           <span>Notes</span>
-          <span v-if="notesCount" class="nav-badge">{{ notesCount }}</span>
         </router-link>
 
         <div class="nav-divider"></div>
@@ -106,8 +103,6 @@ import { computed, inject } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useUserStore } from '@/stores/user';
 import { useBoardsStore } from '@/stores/boards';
-import { useGamesStore } from '@/stores/games';
-import { useNotesStore } from '@/stores/notes';
 import { useAppGetters } from '@/stores/getters';
 import ProfileDockMenu from '@/components/Dock/ProfileDockMenu';
 
@@ -118,20 +113,12 @@ const $bus = inject('$bus');
 // Pinia stores
 const userStore = useUserStore();
 const boardsStore = useBoardsStore();
-const gamesStore = useGamesStore();
-const notesStore = useNotesStore();
 const { darkTheme } = useAppGetters();
 
 // Store state and getters
 const user = computed(() => userStore.user);
 const boards = computed(() => boardsStore.boards);
-const games = computed(() => gamesStore.games);
-const notes = computed(() => notesStore.notes);
 const routeName = computed(() => route?.name);
-
-// Computed properties
-const gameCount = computed(() => Object.keys(games.value).length);
-const notesCount = computed(() => Object.keys(notes.value).length);
 
 const isActiveRoute = (routeNameToCheck) => {
   if (routeNameToCheck === 'library') {

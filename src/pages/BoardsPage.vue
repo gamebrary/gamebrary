@@ -1,64 +1,48 @@
 <template lang="html">
-    <div class="px-3">
-      <portal v-if="!loading && !isEmpty && user" to="headerActions">
-        <div class="dropdown">
-          <button
-            class="btn dropdown-toggle"
-            :class="darkTheme ? 'btn-success' : 'btn-dark'"
-            type="button"
-            id="boardsDropdown"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Boards
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="boardsDropdown">
-            <li>
-              <button
-                type="button"
-                class="dropdown-item"
-                :class="darkTheme ? 'text-light' : ''"
-                data-bs-toggle="offcanvas"
-                data-bs-target="#create-board-sidebar"
-              >
-                <i class="fa-solid fa-plus" />
-                Create board
-              </button>
-            </li>
-          </ul>
-        </div>
-      </portal>
-
-      <div v-if="loading" class="spinner-centered d-flex justify-content-center">
-        <div class="spinner-border" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
-      </div>
-
-      <EmptyState
-        v-else-if="isEmpty"
-        title="Boards"
-        message="Utilize boards to neatly organize your video games!"
-      >
-        <button
-          type="button"
-          class="btn btn-primary"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#create-board-sidebar"
-        >
-          {{ t('boards.create') }}
+  <div class="px-3">
+    <portal v-if="!loading && !isEmpty && user" to="headerActions">
+      <div class="dropdown">
+        <button class="btn dropdown-toggle" :class="darkTheme ? 'btn-success' : 'btn-dark'" type="button"
+          id="boardsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          Boards
         </button>
-      </EmptyState>
+        <ul class="dropdown-menu" aria-labelledby="boardsDropdown">
+          <li>
+            <button type="button" class="dropdown-item" :class="darkTheme ? 'text-light' : ''"
+              data-bs-toggle="offcanvas" data-bs-target="#create-board-sidebar">
+              <i class="fa-solid fa-plus" />
+              Create board
+            </button>
+          </li>
+        </ul>
+      </div>
+    </portal>
 
-      <div v-else class="board-grid pb-3">
-        <MiniBoard
-          v-for="board in sortedBoards"
-          :key="board.id"
-          :board="board"
-        />
+    <div v-if="loading" class="spinner-centered d-flex justify-content-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
       </div>
     </div>
-  </template>
+
+    <EmptyState v-else-if="isEmpty" title="Boards" message="Utilize boards to neatly organize your video games!">
+      <button type="button" class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#create-board-sidebar">
+        {{ t('boards.create') }}
+      </button>
+    </EmptyState>
+
+    <BoardGrid v-else class="pb-3">
+      <MiniBoard v-for="board in sortedBoards" :key="board.id" :board="board" />
+    </BoardGrid>
+
+    <div v-if="!loading && !isEmpty && hasMoreBoards" class="d-flex justify-content-center mt-4 mb-3">
+      <button type="button" class="btn" :class="darkTheme ? 'btn-success' : 'btn-primary'" @click="loadMoreBoards"
+        :disabled="loadingMore">
+        <span v-if="loadingMore" class="spinner-border spinner-border-sm me-2" role="status"></span>
+        Load More
+      </button>
+    </div>
+  </div>
+</template>
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
@@ -70,6 +54,7 @@ import { useAppGetters } from '@/stores/getters';
 import { useI18n } from 'vue-i18n';
 import MiniBoard from '@/components/Board/MiniBoard';
 import EmptyState from '@/components/EmptyState';
+import BoardGrid from '@/components/BoardGrid';
 
 const router = useRouter();
 const userStore = useUserStore();
@@ -80,6 +65,7 @@ const { t } = useI18n();
 
 // Reactive state
 const loading = ref(false);
+const loadingMore = ref(false);
 
 // Store state and getters
 const user = computed(() => userStore.user);
@@ -97,20 +83,43 @@ const recentlyUpdatedPublicBoards = computed(() => {
 });
 
 const isEmpty = computed(() => !boards.value || boards.value.length === 0);
+const hasMoreBoards = computed(() => boardsStore.boardsHasMore);
 
 // Methods
 const loadBoards = async () => {
   loading.value = boards.value?.length === 0;
 
   try {
-    await boardsStore.loadBoards(userStore.user.uid);
+    if (!userStore.user?.uid) {
+      console.error('No user ID available');
+      loading.value = false;
+      return;
+    }
+
+    await boardsStore.loadBoards(userStore.user.uid, { reset: true });
   } catch (e) {
+    // The store should handle index errors with fallback, but log if something else fails
+    if (e?.code !== 'failed-precondition' && !e?.message?.includes('index')) {
+      console.error('Error loading boards:', e);
+    }
     loading.value = false;
     // TODO: Handle session expired in user store
     // userStore.setSessionExpired(true);
   }
 
   loading.value = false;
+};
+
+const loadMoreBoards = async () => {
+  loadingMore.value = true;
+
+  try {
+    await boardsStore.loadBoards(userStore.user.uid, { reset: false });
+  } catch (e) {
+    // Error handling
+  } finally {
+    loadingMore.value = false;
+  }
 };
 
 const loadPublicBoards = async () => {

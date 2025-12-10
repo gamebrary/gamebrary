@@ -381,12 +381,12 @@ onBeforeUnmount(() => {
   cursor: default;
   width: calc(380px + 1rem);
 
-  @media(max-width: 400px) {
+  @media (max-width: $bp-xs) {
     width: calc(100vw - calc(68px + .5rem));
   }
 
   &.unique {
-    @media(max-width: 400px) {
+    @media (max-width: $bp-xs) {
       width: calc(100vw - calc(58px + .5rem));
     }
   }

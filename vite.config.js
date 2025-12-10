@@ -128,5 +128,12 @@ export default defineConfig({
     // Drop console and debugger in production
     drop: process.env.NODE_ENV === 'production' ? ['console', 'debugger'] : [],
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "@/styles/variables";`,
+      },
+    },
+  },
 });
 

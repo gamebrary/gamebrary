@@ -11,7 +11,7 @@
       <portal-target name="root" />
       <GlobalNav v-if="user" />
       <PageHeader v-if="showPageDock" />
-      <router-view class="viewport" />
+      <router-view class="viewport" :class="!isBoardPage && (darkTheme ? 'bg-secondary' : 'bg-light')" />
       <KeyboardShortcutsModal />
       <markdown-cheatsheet />
 
@@ -121,6 +121,8 @@ const style = computed(() => {
 const isPublicRoute = computed(() => route.meta?.public);
 
 const isGamePage = computed(() => route.name === 'game');
+
+const isBoardPage = computed(() => route.name === 'board' || route.name === 'public.board');
 
 // Watchers
 watch(sessionExpired, (expired) => {
@@ -268,12 +270,12 @@ onMounted(async () => {
     margin-left: 0;
     padding-bottom: 0;
 
-    @media (min-width: 768px) {
+    @media (min-width: $bp-md) {
       margin-left: 240px; // Space for left sidebar
       padding-bottom: 0;
     }
 
-    @media (max-width: 767px) {
+    @media (max-width: $bp-md) {
       padding-bottom: 60px; // Space for bottom nav
     }
   }

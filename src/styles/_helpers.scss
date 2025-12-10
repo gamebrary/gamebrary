@@ -8,38 +8,35 @@
 }
 
 .dropdown-menu {
-    max-height: 320px;
-    overflow-y: auto;
+  max-height: 320px;
+  overflow-y: auto;
 }
 
+// Variables are automatically imported via Vite config
 .game-grid {
   display: grid;
   grid-gap: 1rem;
   grid-template-columns: repeat(6, 1fr);
 
-  @media(max-width: 1280px) {grid-template-columns: repeat(5, 1fr); }
-  @media(max-width: 992px) {grid-template-columns: repeat(4, 1fr); }
-  @media(max-width: 768px) {grid-template-columns: repeat(3, 1fr); }
-  @media(max-width: 480px) {grid-template-columns: repeat(2, 1fr); }
-}
-
-.board-grid {
-  width: 100%;
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: repeat(5, 1fr);
-
-  @media(max-width: 1280px) {grid-template-columns: repeat(4, 1fr); }
-  @media(max-width: 992px) {grid-template-columns: repeat(3, 1fr); }
-  @media(max-width: 768px) {grid-template-columns: repeat(2, 1fr); }
-  @media(max-width: 480px) {grid-template-columns: repeat(1, 1fr); }
+  @media (max-width: $bp-xl) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  @media (max-width: $bp-lg) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @media (max-width: $bp-md) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (max-width: $bp-xs) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .small-container {
   width: 500px !important;
   margin: 0 auto !important;
 
-  @media(max-width: 780px) {
+  @media (max-width: $bp-md) {
     width: 100% !important;
     margin: 0 !important;
   }
@@ -48,7 +45,7 @@
 .semi-transparent {
   &.dark,
   &.bg-dark {
-    background: #35363A !important;
+    background: #35363a !important;
     color: var(--light) !important;
   }
 

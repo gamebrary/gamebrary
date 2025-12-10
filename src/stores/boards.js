@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { getFirestore, doc, getDoc, setDoc, addDoc, deleteDoc, collection, query, where, getDocs } from 'firebase/firestore';
+import { getFirestore, doc, getDoc, setDoc, addDoc, deleteDoc, collection, query, where, getDocs, orderBy, limit, startAfter } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import { FIREBASE_CONFIG } from '@/constants';
 import orderby from 'lodash.orderby';
@@ -7,11 +7,19 @@ import orderby from 'lodash.orderby';
 const app = initializeApp(FIREBASE_CONFIG);
 const db = getFirestore(app);
 
+// Default page size for pagination
+const DEFAULT_PAGE_SIZE = 20;
+
 export const useBoardsStore = defineStore('boards', {
   state: () => ({
     boards: [],
     board: {},
     publicBoards: [],
+    // Pagination state
+    boardsLastDoc: null,
+    boardsHasMore: true,
+    publicBoardsLastDoc: null,
+    publicBoardsHasMore: true,
   }),
 
   persist: {
@@ -25,15 +33,108 @@ export const useBoardsStore = defineStore('boards', {
   },
 
   actions: {
-    async loadBoards(userId) {
-      const q = query(collection(db, 'boards'), where('owner', '==', userId));
-      const querySnapshot = await getDocs(q);
-      const boards = querySnapshot.docs.map((doc) => ({
-        lastUpdated: 0,
-        ...doc.data(),
-        id: doc.id,
-      }));
-      this.boards = boards || [];
+    async loadBoards(userId, options = {}) {
+      const {
+        pageSize = DEFAULT_PAGE_SIZE,
+        reset = false,
+        lastDoc = null,
+      } = options;
+
+      // Reset pagination state if requested
+      if (reset) {
+        this.boards = [];
+        this.boardsLastDoc = null;
+        this.boardsHasMore = true;
+      }
+
+      try {
+        // Build query constraints - try with orderBy first
+        const constraints = [
+          where('owner', '==', userId),
+          orderBy('lastUpdated', 'desc'),
+          limit(pageSize)
+        ];
+
+        // Add startAfter if we have a last document
+        if (lastDoc || this.boardsLastDoc) {
+          constraints.push(startAfter(lastDoc || this.boardsLastDoc));
+        }
+
+        // Build query with all constraints
+        const q = query(collection(db, 'boards'), ...constraints);
+
+        const querySnapshot = await getDocs(q);
+        const boards = querySnapshot.docs.map((docSnap) => ({
+          lastUpdated: docSnap.data().lastUpdated || docSnap.data().dateCreated || 0,
+          ...docSnap.data(),
+          id: docSnap.id,
+        }));
+
+        // Update state
+        this.boards = reset ? boards : [...this.boards, ...boards];
+        this.boardsHasMore = querySnapshot.docs.length === pageSize;
+
+        // Store last document for next page
+        if (querySnapshot.docs.length > 0) {
+          this.boardsLastDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
+        } else {
+          this.boardsHasMore = false;
+        }
+
+        return {
+          boards,
+          hasMore: this.boardsHasMore,
+          lastDoc: this.boardsLastDoc,
+        };
+      } catch (error) {
+        // Check if it's an index error
+        const isIndexError = error?.code === 'failed-precondition' ||
+                            error?.message?.includes('index') ||
+                            error?.message?.includes('requires an index');
+
+        // Only log non-index errors, or log index errors at debug level
+        // Index errors are expected until the index is deployed, and fallback works fine
+        if (!isIndexError) {
+          console.warn('Failed to load boards with orderBy, falling back to simple query:', error);
+        }
+        // Index errors are silently handled - the fallback query works correctly
+
+        // For fallback, load all boards and sort client-side (pagination disabled in fallback)
+        try {
+          const q = query(
+            collection(db, 'boards'),
+            where('owner', '==', userId)
+          );
+
+          const querySnapshot = await getDocs(q);
+          let boards = querySnapshot.docs.map((docSnap) => ({
+            lastUpdated: docSnap.data().lastUpdated || docSnap.data().dateCreated || 0,
+            ...docSnap.data(),
+            id: docSnap.id,
+          }));
+
+          // Sort client-side as fallback
+          boards.sort((a, b) => (b.lastUpdated || 0) - (a.lastUpdated || 0));
+
+          // Update state - in fallback mode, show all boards
+          this.boards = boards;
+          this.boardsHasMore = false; // Disable pagination in fallback mode
+          this.boardsLastDoc = null;
+
+          return {
+            boards,
+            hasMore: false,
+            lastDoc: null,
+          };
+        } catch (fallbackError) {
+          console.error('Fallback query also failed:', fallbackError);
+          // Return empty array if even fallback fails
+          this.boards = [];
+          this.boardsHasMore = false;
+          this.boardsLastDoc = null;
+          throw fallbackError;
+        }
+      }
     },
 
     async loadBoard(id, userId) {
@@ -58,10 +159,57 @@ export const useBoardsStore = defineStore('boards', {
       }
     },
 
-    async loadPublicBoards() {
-      const querySnapshot = await getDocs(query(collection(db, 'boards'), where('isPublic', '==', true)));
-      const boards = querySnapshot.docs.map((doc) => doc.data());
-      this.publicBoards = boards;
+    async loadPublicBoards(options = {}) {
+      const {
+        pageSize = DEFAULT_PAGE_SIZE,
+        reset = false,
+        lastDoc = null,
+      } = options;
+
+      // Reset pagination state if requested
+      if (reset) {
+        this.publicBoards = [];
+        this.publicBoardsLastDoc = null;
+        this.publicBoardsHasMore = true;
+      }
+
+      // Build query constraints
+      const constraints = [
+        where('isPublic', '==', true),
+        orderBy('lastUpdated', 'desc'),
+        limit(pageSize)
+      ];
+
+      // Add startAfter if we have a last document
+      if (lastDoc || this.publicBoardsLastDoc) {
+        constraints.push(startAfter(lastDoc || this.publicBoardsLastDoc));
+      }
+
+      // Build query with all constraints
+      const q = query(collection(db, 'boards'), ...constraints);
+
+      const querySnapshot = await getDocs(q);
+      const boards = querySnapshot.docs.map((docSnap) => ({
+        ...docSnap.data(),
+        id: docSnap.id,
+      }));
+
+      // Update state
+      this.publicBoards = reset ? boards : [...this.publicBoards, ...boards];
+      this.publicBoardsHasMore = querySnapshot.docs.length === pageSize;
+
+      // Store last document for next page
+      if (querySnapshot.docs.length > 0) {
+        this.publicBoardsLastDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
+      } else {
+        this.publicBoardsHasMore = false;
+      }
+
+      return {
+        boards,
+        hasMore: this.publicBoardsHasMore,
+        lastDoc: this.publicBoardsLastDoc,
+      };
     },
 
     async loadUserPublicBoards(userId) {

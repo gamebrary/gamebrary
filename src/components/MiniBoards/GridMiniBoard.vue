@@ -124,7 +124,7 @@ onUpdated(() => {
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .grid {
   grid-gap: .5rem;
   display: grid;
@@ -133,7 +133,7 @@ onUpdated(() => {
   margin: 0 auto;
   grid-template-columns: repeat(6, 1fr);
 
-  @media(max-width: 768px) {
+  @media (max-width: $bp-md) {
     justify-content: start;
     grid-template-columns: repeat(3, 1fr);
     width: 152px;

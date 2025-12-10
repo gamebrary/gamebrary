@@ -320,7 +320,7 @@ onBeforeUnmount(() => {
   cursor: pointer;
 }
 
-@media (max-width: 768px) {
+@media (max-width: $bp-md) {
   .notes-list-panel {
     width: 100%;
     min-width: 100%;

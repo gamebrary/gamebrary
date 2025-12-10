@@ -6,13 +6,13 @@
         </div>
       </div>
 
-      <div v-else class="board-grid pb-3">
+      <BoardGrid v-else class="pb-3">
         <MiniBoard
           v-for="board in sortedPublicBoards"
           :key="board.id"
           :board="board"
         />
-      </div>
+      </BoardGrid>
     </div>
   </template>
 
@@ -23,6 +23,7 @@ import { useBoardsStore } from '@/stores/boards';
 import { useUserStore } from '@/stores/user';
 import { useAppGetters } from '@/stores/getters';
 import MiniBoard from '@/components/Board/MiniBoard';
+import BoardGrid from '@/components/BoardGrid';
 
 const router = useRouter();
 const boardsStore = useBoardsStore();

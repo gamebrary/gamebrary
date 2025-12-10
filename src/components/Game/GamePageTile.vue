@@ -32,7 +32,7 @@ const { darkTheme } = useAppGetters();
     height: 50vh;
     overflow: hidden !important;
 
-    @media(max-width: 768px) {
+    @media (max-width: $bp-md) {
       width: auto;
       overflow: auto !important;
     }
@@ -42,7 +42,7 @@ const { darkTheme } = useAppGetters();
     width: 25vw;
     height: 25vh;
 
-    @media(max-width: 768px) {
+    @media (max-width: $bp-md) {
       width: auto;
       overflow: auto !important;
     }

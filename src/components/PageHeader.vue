@@ -84,7 +84,7 @@ nav {
   left: 0;
   right: 0;
 
-  @media (min-width: 768px) {
+  @media (min-width: $bp-md) {
     left: 240px; // Account for left sidebar
   }
 

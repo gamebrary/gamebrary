@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { getFirestore, doc, getDoc, setDoc, collection, query, orderBy, getDocs, deleteDoc } from 'firebase/firestore';
+import { getFirestore, doc, getDoc, setDoc, collection, query, orderBy, getDocs, deleteDoc, limit, startAfter } from 'firebase/firestore';
 import axios from 'axios';
 import { initializeApp } from 'firebase/app';
 import { FIREBASE_CONFIG } from '@/constants';
@@ -8,6 +8,9 @@ const app = initializeApp(FIREBASE_CONFIG);
 const db = getFirestore(app);
 const API_BASE = 'https://us-central1-gamebrary-8c736.cloudfunctions.net';
 
+// Default page size for pagination
+const DEFAULT_PAGE_SIZE = 20;
+
 export const useGamesStore = defineStore('games', {
   state: () => ({
     games: {},
@@ -15,6 +18,9 @@ export const useGamesStore = defineStore('games', {
     gamesSortOrder: { sortBy: 'name', sortOrder: 'asc', gameIds: [] },
     game: {},
     platforms: [],
+    // Pagination state
+    gamesLastDoc: null,
+    gamesHasMore: true,
   }),
 
   persist: {
@@ -31,7 +37,7 @@ export const useGamesStore = defineStore('games', {
       this.games = docSnap.data() || {};
     },
 
-    async loadGamesSorted(userId, twitchToken, { sortBy = 'name', sortOrder = 'asc' }) {
+    async loadGamesSorted(userId, twitchToken, { sortBy = 'name', sortOrder = 'asc', pageSize = DEFAULT_PAGE_SIZE, reset = false, lastDoc = null } = {}) {
       try {
         const userGamesRef = collection(db, 'games', userId, 'userGames');
         const sortFieldMap = {
@@ -42,7 +48,27 @@ export const useGamesStore = defineStore('games', {
         };
 
         const field = sortFieldMap[sortBy] || 'name';
-        const q = query(userGamesRef, orderBy(field, sortOrder));
+
+        // Reset pagination state if requested or if sort changed
+        if (reset || this.gamesSortOrder.sortBy !== sortBy || this.gamesSortOrder.sortOrder !== sortOrder) {
+          this.games = {};
+          this.gamesLastDoc = null;
+          this.gamesHasMore = true;
+        }
+
+        // Build query constraints
+        const constraints = [
+          orderBy(field, sortOrder),
+          limit(pageSize)
+        ];
+
+        // Add startAfter if we have a last document
+        if (lastDoc || this.gamesLastDoc) {
+          constraints.push(startAfter(lastDoc || this.gamesLastDoc));
+        }
+
+        // Build query with all constraints
+        const q = query(userGamesRef, ...constraints);
 
         const querySnapshot = await getDocs(q);
         const games = {};
@@ -66,18 +92,40 @@ export const useGamesStore = defineStore('games', {
                 gameData: this.cachedGames[gameId],
               });
             }
-            return this.loadGamesSorted(userId, twitchToken, { sortBy, sortOrder });
+            return this.loadGamesSorted(userId, twitchToken, { sortBy, sortOrder, pageSize, reset });
           }
         }
 
-        this.games = games;
-        this.gamesSortOrder = { sortBy, sortOrder, gameIds };
-        return gameIds;
+        // Merge games (for pagination, we want to keep existing games)
+        this.games = reset ? games : { ...this.games, ...games };
+        this.gamesHasMore = querySnapshot.docs.length === pageSize;
+
+        // Store last document for next page
+        if (querySnapshot.docs.length > 0) {
+          this.gamesLastDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
+        } else {
+          this.gamesHasMore = false;
+        }
+
+        // Update gameIds list
+        const allGameIds = reset ? gameIds : [...(this.gamesSortOrder.gameIds || []), ...gameIds];
+        this.gamesSortOrder = { sortBy, sortOrder, gameIds: allGameIds };
+
+        return {
+          gameIds,
+          hasMore: this.gamesHasMore,
+          lastDoc: this.gamesLastDoc,
+        };
       } catch (e) {
         console.warn('Failed to load sorted games, falling back to regular load:', e);
         const docSnap = await getDoc(doc(db, 'games', userId));
         this.games = docSnap.data() || {};
-        return [];
+        this.gamesHasMore = false;
+        return {
+          gameIds: [],
+          hasMore: false,
+          lastDoc: null,
+        };
       }
     },
 

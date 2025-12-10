@@ -213,7 +213,7 @@ onMounted(() => {
   &.selected {
     grid-template-columns: 200px 1fr;
 
-    @media(max-width: 992px) {
+    @media (max-width: $bp-lg) {
       grid-template-columns: 1fr;
     }
   }
@@ -223,7 +223,7 @@ onMounted(() => {
   max-height: calc(100vh - 124px);
   overflow-y: auto;
 
-  @media(max-width: 992px) {
+  @media (max-width: $bp-lg) {
     max-height: auto;
     overflow-y: auto;
   }
