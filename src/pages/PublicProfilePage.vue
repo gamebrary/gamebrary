@@ -8,81 +8,43 @@
       </div>
     </div>
 
-    <div
-      v-else-if="profile"
-    >
+    <div v-else-if="profile">
       <portal to="headerActions">
-        <button
-          v-if="isProfileOwner"
-          type="button"
-          class="btn btn-primary"
-          @click="uiStore.setEditProfileSidebarOpen(true)"
-        >
+        <button v-if="isProfileOwner" type="button" class="btn btn-primary"
+          @click="uiStore.setEditProfileSidebarOpen(true)">
           Edit profile
         </button>
       </portal>
 
       <div class="text-center">
-        <img
-          v-if="avatarImage"
-          :src="avatarImage"
-          class="rounded-circle mx-auto mt-5 mb-3"
-          style="width: 200px; height: 200px; object-fit: cover;"
-          :alt="`@${profile.userName}`"
-        />
-        <div
-          v-else
-          class="rounded-circle mx-auto mt-5 mb-3 d-flex align-items-center justify-content-center"
-          style="width: 200px; height: 200px; background-color: var(--bs-gray-300);"
-        >
+        <img v-if="avatarImage" :src="avatarImage" class="rounded-circle mx-auto mt-5 mb-3"
+          style="width: 200px; height: 200px; object-fit: cover;" :alt="profile.userName" />
+        <div v-else class="rounded-circle mx-auto mt-5 mb-3 d-flex align-items-center justify-content-center"
+          style="width: 200px; height: 200px; background-color: var(--bs-gray-300);">
           <i class="fa-regular fa-user fa-4x"></i>
         </div>
 
-        <h3
-          :title="profile.name"
-          data-bs-toggle="tooltip"
-        >
+        <h3 :title="profile.name" data-bs-toggle="tooltip">
           @{{ profile.userName }}
         </h3>
 
-        <q
-          v-if="profile.bio"
-          class="d-block text-subtle mt-2"
-        >
+        <q v-if="profile.bio" class="d-block text-subtle mt-2">
           {{ profile.bio }}
         </q>
 
         <div class="mt-2">
-          <a
-            v-if="profile.website"
-            :href="profile.website"
-            target="_blank"
-            :title="profile.website"
-            class="btn btn-outline-secondary mx-1"
-            data-bs-toggle="tooltip"
-          >
+          <a v-if="profile.website" :href="profile.website" target="_blank" :title="profile.website"
+            class="btn btn-outline-secondary mx-1" data-bs-toggle="tooltip">
             <i class="fa-regular fa-globe-pointer fa-fw" />
           </a>
 
-          <a
-            v-if="profile.twitter"
-            :href="`https://twitter.com/${profile.twitter}`"
-            target="_blank"
-            :title="profile.twitter"
-            class="btn btn-outline-secondary mx-1"
-            data-bs-toggle="tooltip"
-          >
+          <a v-if="profile.twitter" :href="`https://twitter.com/${profile.twitter}`" target="_blank"
+            :title="profile.twitter" class="btn btn-outline-secondary mx-1" data-bs-toggle="tooltip">
             <i class="fa-brands fa-x-twitter fa-fw" />
           </a>
 
-          <a
-            v-if="userLocation"
-            :href="userLocation"
-            :title="profile.location"
-            class="btn btn-outline-secondary mx-1"
-            data-bs-toggle="tooltip"
-            target="_blank"
-          >
+          <a v-if="userLocation" :href="userLocation" :title="profile.location" class="btn btn-outline-secondary mx-1"
+            data-bs-toggle="tooltip" target="_blank">
             <i class="fa-solid fa-location-dot fa-fw" />
           </a>
         </div>
@@ -93,19 +55,11 @@
       </button> -->
 
       <div class="board-grid mt-5">
-        <MiniBoard
-          v-for="board in userBoards"
-          :key="board.id"
-          :board="board"
-        />
+        <MiniBoard v-for="board in userBoards" :key="board.id" :board="board" />
       </div>
     </div>
 
-    <EmptyState
-      v-else
-      title="404 Not Found"
-      message="Page not found!"
-    />
+    <EmptyState v-else title="404 Not Found" message="Page not found!" />
   </div>
 </template>
 

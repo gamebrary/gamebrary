@@ -41,15 +41,6 @@
         </select>
       </div>
 
-      <div class="p-1 mb-1">
-        <span :class="darkTheme ? 'text-light' : null">Menu position</span>
-
-        <select class="form-select" :value="navPosition" @change="setNavPosition($event.target.value)">
-          <option v-for="option in navPositionOptions" :key="option.value" :value="option.value">
-            {{ option.text }}
-          </option>
-        </select>
-      </div>
 
       <DeleteAccountModal />
 
@@ -85,14 +76,10 @@ import { AGE_RATINGS } from '@/constants';
 const router = useRouter();
 const settingsStore = useSettingsStore();
 const userStore = useUserStore();
-const { darkTheme, showGameThumbnails, transparencyEnabled, ageRating, navPosition, sidebarLeftProps } = useAppGetters();
+const { darkTheme, showGameThumbnails, transparencyEnabled, ageRating, sidebarLeftProps } = useAppGetters();
 const $bus = inject('$bus');
 
 // Reactive state
-const navPositionOptions = [
-  { value: 'top', text: 'Top' },
-  { value: 'bottom', text: 'Bottom' },
-];
 const visible = ref(false);
 const saving = ref(false);
 
@@ -182,18 +169,6 @@ const toggleGameThumbnails = async () => {
     });
 };
 
-const setNavPosition = async (navPositionValue) => {
-  try {
-    await store.dispatch('SAVE_SETTINGS', {
-      ...settings.value,
-      navPosition: navPositionValue,
-    });
-  } catch (e) {
-    showToast('There was an error saving your settings', 'danger');
-  }
-
-  saving.value = false;
-};
 
 const toggleTransparency = async () => {
   const currentTransparencyEnabled = settings.value?.transparencyEnabled || false;

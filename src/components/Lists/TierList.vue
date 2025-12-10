@@ -150,6 +150,7 @@
 <script setup>
 import { ref, computed, onMounted, onUpdated, onBeforeUnmount, nextTick, inject } from 'vue';
 import { useRoute } from 'vue-router';
+import { useGamesStore } from '@/stores/games';
 import { useProgressesStore } from '@/stores/progresses';
 import { useBoardsStore } from '@/stores/boards';
 import { useUserStore } from '@/stores/user';
@@ -169,6 +170,7 @@ const props = defineProps({
 });
 
 const route = useRoute();
+const gamesStore = useGamesStore();
 const progressesStore = useProgressesStore();
 const boardsStore = useBoardsStore();
 const userStore = useUserStore();
@@ -221,7 +223,7 @@ const gameSelectorEventName = computed(() => {
 
 // Methods
 const openGameSelectorSidebar = () => {
-  store.commit('SET_GAME_SELECTOR_DATA', {
+  uiStore.setGameSelectorData({
     title: `Add games to ${props.list.name}`,
     filter: props.list.games,
     eventName: gameSelectorEventName.value,
@@ -240,9 +242,14 @@ const addGame = async (gameId) => {
   boardCopy?.lists?.[props.listIndex]?.games.push(gameId);
 
   try {
-    await store.dispatch('SAVE_GAME_BOARD', boardCopy);
-    await store.dispatch('LOAD_BOARD', boardCopy.id);
-    await store.dispatch('LOAD_IGDB_GAMES', [gameId]);
+    await boardsStore.saveGameBoard(boardCopy);
+    await boardsStore.loadBoard(boardCopy.id, user.value?.uid);
+    const { useTwitchStore } = await import('@/stores/twitch');
+    const twitchStore = useTwitchStore();
+    if (!twitchStore.twitchToken) {
+      await twitchStore.getTwitchToken();
+    }
+    await gamesStore.loadIGDBGames(twitchStore.twitchToken, [gameId]);
     // Toast notification can be added here if needed
   } catch (e) {
     // Error handling
@@ -258,8 +265,8 @@ const removeGame = async (gameId) => {
   boardToUpdate.lists[listIndex].games.splice(gameIndex, 1);
 
   try {
-    await store.dispatch('SAVE_GAME_BOARD', boardToUpdate);
-    await store.dispatch('LOAD_BOARD', boardToUpdate.id);
+    await boardsStore.saveGameBoard(boardToUpdate);
+    await boardsStore.loadBoard(boardToUpdate.id, user.value?.uid);
   } catch (e) {
     // Error handling
   }
@@ -284,15 +291,15 @@ const dragEnd = () => {
 
 const saveBoard = async () => {
   try {
-    await store.dispatch('SAVE_BOARD');
+    await boardsStore.saveBoard();
   } catch (e) {
-    store.commit('SET_SESSION_EXPIRED', true);
+    userStore.setSessionExpired(true);
   }
 };
 
 const editList = () => {
   if (user.value && isBoardOwner.value) {
-    store.commit('SET_ACTIVE_BOARD_LIST_INDEX', props.listIndex);
+    uiStore.setActiveBoardListIndex(props.listIndex);
   }
 };
 

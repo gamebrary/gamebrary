@@ -80,7 +80,7 @@ const allGames = computed(() => {
 
 // Watchers
 watch(allGames, (games) => {
-  if (games?.length) store.commit('CACHE_GAME_DATA', games);
+  if (games?.length) gamesStore.cacheGameData(games);
 });
 </script>
 

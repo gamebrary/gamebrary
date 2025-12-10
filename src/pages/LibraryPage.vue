@@ -123,7 +123,7 @@ const progressesStore = useProgressesStore();
 const tagsStore = useTagsStore();
 const uiStore = useUIStore();
 const twitchStore = useTwitchStore();
-const { darkTheme, navPosition, buttonProps } = useAppGetters();
+const { darkTheme, buttonProps } = useAppGetters();
 const $bus = inject('$bus');
 
 // Reactive state

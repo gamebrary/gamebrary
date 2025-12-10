@@ -28,6 +28,9 @@ import { useProgressesStore } from '@/stores/progresses';
 import { useBoardsStore } from '@/stores/boards';
 import { useUserStore } from '@/stores/user';
 import { useUIStore } from '@/stores/ui';
+import { useSettingsStore } from '@/stores/settings';
+import { useAppGetters } from '@/stores/getters';
+import { useTwitchStore } from '@/stores/twitch';
 import { HIGHLIGHTED_GAME_TIMEOUT } from '@/constants';
 import draggable from 'vuedraggable';
 import slugify from 'slugify';
@@ -40,6 +43,9 @@ const progressesStore = useProgressesStore();
 const boardsStore = useBoardsStore();
 const userStore = useUserStore();
 const uiStore = useUIStore();
+const settingsStore = useSettingsStore();
+const { darkTheme, isBoardOwner, draggableProps } = useAppGetters();
+const twitchStore = useTwitchStore();
 const $bus = inject('$bus');
 
 // Template refs
@@ -52,12 +58,9 @@ const dragging = computed(() => uiStore.dragging);
 const progresses = computed(() => progressesStore.progresses);
 const board = computed(() => boardsStore.board);
 const user = computed(() => userStore.user);
-const settings = computed(() => store.state.settings);
-const highlightedGame = computed(() => store.state.highlightedGame);
-const boards = computed(() => store.state.boards);
-const isBoardOwner = computed(() => store.getters.isBoardOwner);
-const darkTheme = computed(() => store.getters.darkTheme);
-const draggableProps = computed(() => store.getters.draggableProps);
+const settings = computed(() => settingsStore.settings);
+const highlightedGame = computed(() => uiStore.highlightedGame);
+const boards = computed(() => boardsStore.boards);
 
 // Computed properties
 const list = computed(() => {
@@ -106,7 +109,7 @@ const highlightGame = () => {
   }
 
   setTimeout(() => {
-    store.commit('SET_HIGHLIGHTED_GAME', null);
+    uiStore.setHighlightedGame(null);
   }, HIGHLIGHTED_GAME_TIMEOUT);
 };
 
@@ -119,13 +122,13 @@ const flattenAndSaveBoard = async () => {
     lists: [{ name: '', games: mergedGamesList }],
   };
 
-  store.commit('SET_GAME_BOARD', payload);
+  boardsStore.setGameBoard(payload);
 
-  await store.dispatch('SAVE_BOARD');
+  await boardsStore.saveBoard();
 };
 
 const openGameSelectorSidebar = () => {
-  store.commit('SET_GAME_SELECTOR_DATA', {
+  uiStore.setGameSelectorData({
     title: `Add games to ${board.value.name}`,
     filter: filter.value,
     eventName: gameSelectorEventName.value,
@@ -146,9 +149,12 @@ const addGame = async (gameId) => {
   boardCopy?.lists?.[0]?.games.push(gameId);
 
   try {
-    await store.dispatch('SAVE_GAME_BOARD', boardCopy);
-    await store.dispatch('LOAD_BOARD', boardCopy?.id);
-    await store.dispatch('LOAD_IGDB_GAMES', [gameId]);
+    await boardsStore.saveGameBoard(boardCopy);
+    await boardsStore.loadBoard(boardCopy?.id, userStore.user.uid);
+    if (!twitchStore.twitchToken) {
+      await twitchStore.getTwitchToken();
+    }
+    await gamesStore.loadIGDBGames(twitchStore.twitchToken, [gameId]);
   } catch (e) {
     // Error handling
   }
@@ -163,8 +169,8 @@ const removeGame = async (gameId) => {
   boardToUpdate.lists[listIndex].games.splice(gameIndex, 1);
 
   try {
-    await store.dispatch('SAVE_GAME_BOARD', boardToUpdate);
-    await store.dispatch('LOAD_BOARD', boardToUpdate?.id);
+    await boardsStore.saveGameBoard(boardToUpdate);
+    await boardsStore.loadBoard(boardToUpdate?.id, userStore.user.uid);
   } catch (e) {
     // Error handling
   }
@@ -201,10 +207,11 @@ const dragEnd = () => {
 };
 
 const saveBoard = async () => {
-  await store.dispatch('SAVE_BOARD')
-    .catch(() => {
-      store.commit('SET_SESSION_EXPIRED', true);
-    });
+  try {
+    await boardsStore.saveBoard();
+  } catch (e) {
+    userStore.setSessionExpired(true);
+  }
 };
 
 // Watchers

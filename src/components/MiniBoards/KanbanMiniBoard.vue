@@ -82,6 +82,6 @@ const currentGameId = computed(() => {
 
 // Methods
 const highlightGame = (gameId) => {
-  store.commit('SET_HIGHLIGHTED_GAME', gameId);
+  uiStore.setHighlightedGame(gameId);
 };
 </script>

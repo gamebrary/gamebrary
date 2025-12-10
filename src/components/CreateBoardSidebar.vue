@@ -48,6 +48,7 @@
 import { ref, computed, onMounted, onBeforeUnmount, inject } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '@/stores/user';
+import { useBoardsStore } from '@/stores/boards';
 import { useAppGetters } from '@/stores/getters';
 import {
   BOARD_TYPES,
@@ -64,6 +65,7 @@ import AppSidebar from '@/components/AppSidebar';
 
 const router = useRouter();
 const userStore = useUserStore();
+const boardsStore = useBoardsStore();
 const { sidebarRightProps } = useAppGetters();
 const $bus = inject('$bus');
 
@@ -129,9 +131,9 @@ const createBoard = async () => {
 
     console.log('payload', payload);
 
-    const { id } = await store.dispatch('CREATE_BOARD', payload);
+    const newBoard = await boardsStore.createBoard(payload);
 
-    router.push({ name: 'board', params: { id } });
+    router.push({ name: 'board', params: { id: newBoard.id } });
   } catch (e) {
     //
   }

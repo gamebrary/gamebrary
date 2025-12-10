@@ -1,4 +1,3 @@
-<!-- TODO: Add transparency setting here -->
 <!-- TODO: fix Lists will be merged into a single list. -->
 <!-- TODO: allow to upload and set wallpaper from here -->
 <template lang="html">
@@ -57,6 +56,16 @@
         </label>
       </div>
 
+      <div class="form-check form-switch mb-3">
+        <input class="form-check-input" type="checkbox" v-model="board.transparencyEnabled" id="transparencySwitch" />
+        <label class="form-check-label" for="transparencySwitch">
+          Transparency
+        </label>
+        <small class="form-text text-muted d-block">
+          Overrides global transparency setting for this board
+        </small>
+      </div>
+
       <div class="d-flex justify-content-between mb-3">
         <div class="form-check form-switch">
           <input class="form-check-input" type="checkbox" v-model="board.isPublic" id="isPublicSwitch" />
@@ -112,6 +121,8 @@
 import { ref, computed, watch, onMounted, onBeforeUnmount, inject } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useUserStore } from '@/stores/user';
+import { useBoardsStore } from '@/stores/boards';
+import { useWallpapersStore } from '@/stores/wallpapers';
 import { useAppGetters } from '@/stores/getters';
 import { useI18n } from 'vue-i18n';
 import {
@@ -130,6 +141,8 @@ import MiniBoard from '@/components/Board/MiniBoard';
 const route = useRoute();
 const router = useRouter();
 const userStore = useUserStore();
+const boardsStore = useBoardsStore();
+const wallpapersStore = useWallpapersStore();
 const { darkTheme, sidebarRightProps } = useAppGetters();
 const { t } = useI18n();
 const $bus = inject('$bus');
@@ -201,8 +214,8 @@ const loadBoard = async () => {
   try {
     loading.value = true;
 
-    await store.dispatch('LOAD_WALLPAPERS');
-    const loadedBoard = await store.dispatch('LOAD_BOARD', boardId.value);
+    await wallpapersStore.loadWallpapers(userStore.user.uid);
+    const loadedBoard = await boardsStore.loadBoard(boardId.value, userStore.user.uid);
 
     board.value = {
       type: BOARD_TYPE_KANBAN,
@@ -236,7 +249,7 @@ const deleteBoard = async () => {
   try {
     saving.value = true;
 
-    await store.dispatch('DELETE_BOARD', boardId.value);
+    await boardsStore.deleteBoard(boardId.value);
     showToast('Board deleted', 'success');
     router.push({ name: 'boards' });
   } catch (e) {
@@ -262,15 +275,15 @@ const saveBoard = async () => {
         lists: [{ name: '', games: mergedGamesList.value }],
       };
 
-      store.commit('SET_ACTIVE_BOARD', payload);
+      boardsStore.setActiveBoard(payload);
     } else {
-      store.commit('SET_ACTIVE_BOARD', {
+      boardsStore.setActiveBoard({
         ...board.value,
         lastUpdated: Date.now(),
       });
     }
 
-    await store.dispatch('SAVE_BOARD');
+    await boardsStore.saveBoard();
     showToast('Board saved', 'success');
     hideSidebar();
   } catch (e) {

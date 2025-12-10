@@ -31,7 +31,10 @@ export function useAppGetters() {
     return settingsStore.darkTheme || boardOverride || false;
   });
 
-  const transparencyEnabled = computed(() => settingsStore.transparencyEnabled || false);
+  const transparencyEnabled = computed(() => {
+    const boardOverride = uiStore.routeName === 'board' && boardsStore.board?.transparencyEnabled !== undefined;
+    return boardOverride ? boardsStore.board.transparencyEnabled : (settingsStore.transparencyEnabled || false);
+  });
   const showGameThumbnails = computed(() => settingsStore.showGameThumbnails || false);
   const navPosition = computed(() => settingsStore.navPosition || 'top');
   const ageRating = computed(() => settingsStore.ageRating || 'all');

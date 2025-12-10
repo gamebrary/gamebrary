@@ -29,9 +29,9 @@
 
         <div class="nav-divider"></div>
 
-        <button type="button" class="nav-item" :class="{ active: isCustomizationRoute }" @click="openCustomization">
+        <button type="button" class="nav-item" :class="{ active: isWallpapersRoute }" @click="openWallpapers">
           <i class="fa-solid fa-palette fa-fw" />
-          <span>Customization</span>
+          <span>Wallpapers</span>
         </button>
 
         <button type="button" class="nav-item" :class="{ active: routeName === 'settings' }" @click="openSettings">
@@ -75,9 +75,9 @@
         </button>
         <ul class="dropdown-menu dropdown-menu-end">
           <li>
-            <button type="button" class="dropdown-item" @click="openCustomization">
+            <button type="button" class="dropdown-item" @click="openWallpapers">
               <i class="fa-solid fa-palette me-2" />
-              Customization
+              Wallpapers
             </button>
           </li>
           <li>
@@ -140,16 +140,16 @@ const isActiveRoute = (routeNameToCheck) => {
   return routeName.value === routeNameToCheck;
 };
 
-const isCustomizationRoute = computed(() => {
+const isWallpapersRoute = computed(() => {
   return ['wallpapers'].includes(routeName.value);
 });
 
 const isMoreMenuActive = computed(() => {
-  return isCustomizationRoute.value || routeName.value === 'settings' || routeName.value === 'about';
+  return isWallpapersRoute.value || routeName.value === 'settings' || routeName.value === 'about';
 });
 
 // Methods
-const openCustomization = () => {
+const openWallpapers = () => {
   // Navigate to wallpapers page
   router.push({ name: 'wallpapers' });
 };

@@ -139,7 +139,7 @@ const tagsStore = useTagsStore();
 const wallpapersStore = useWallpapersStore();
 const uiStore = useUIStore();
 const releasesStore = useReleasesStore();
-const { navPosition, latestRelease, darkTheme, transparencyEnabled, sidebarLeftProps } = useAppGetters();
+const { latestRelease, darkTheme, transparencyEnabled, sidebarLeftProps } = useAppGetters();
 const $bus = inject('$bus');
 
 // Store state and getters

@@ -27,6 +27,7 @@
 <script setup>
 import { computed } from 'vue';
 import { useWallpapersStore } from '@/stores/wallpapers';
+import { useUIStore } from '@/stores/ui';
 import { useAppGetters } from '@/stores/getters';
 import sortby from 'lodash.sortby';
 import { THUMBNAIL_PREFIX } from '@/constants';
@@ -40,6 +41,7 @@ const props = defineProps({
 const emit = defineEmits(['select']);
 
 const wallpapersStore = useWallpapersStore();
+const uiStore = useUIStore();
 const { darkTheme } = useAppGetters();
 
 // Store state and getters
@@ -70,6 +72,6 @@ const handleClick = (wallpaper) => {
 };
 
 const openPreview = (wallpaper) => {
-  store.commit('SET_ACTIVE_WALLPAPER', wallpaper);
+  uiStore.setActiveWallpaper(wallpaper);
 };
 </script>

@@ -37,22 +37,6 @@
                 </label>
               </div>
 
-              <div class="mb-3">
-                <label class="form-label">Menu position</label>
-                <select
-                  class="form-select"
-                  :value="navPosition"
-                  @change="setNavPosition($event.target.value)"
-                >
-                  <option
-                    v-for="option in navPositionOptions"
-                    :key="option.value"
-                    :value="option.value"
-                  >
-                    {{ option.text }}
-                  </option>
-                </select>
-              </div>
             </div>
           </div>
 
@@ -146,20 +130,13 @@ import { useRouter } from 'vue-router';
 import { useSettingsStore } from '@/stores/settings';
 import { useUserStore } from '@/stores/user';
 import { useAppGetters } from '@/stores/getters';
-import { useRouter } from 'vue-router';
 import DeleteAccountModal from '@/components/Settings/DeleteAccountModal';
 import { AGE_RATINGS } from '@/constants';
 
 const router = useRouter();
 const settingsStore = useSettingsStore();
 const userStore = useUserStore();
-const { darkTheme, showGameThumbnails, transparencyEnabled, ageRating, navPosition } = useAppGetters();
-
-// Reactive state
-const navPositionOptions = [
-  { value: 'top', text: 'Top' },
-  { value: 'bottom', text: 'Bottom' },
-];
+const { darkTheme, showGameThumbnails, transparencyEnabled, ageRating } = useAppGetters();
 
 // Store state and getters
 const settings = computed(() => settingsStore.settings);
@@ -191,7 +168,7 @@ const showToast = (message, variant = 'info') => {
 
 const setPreferredGameRating = async (ageRatingValue) => {
   try {
-    await settingsStore.saveSettings({
+    await settingsStore.saveSettings(userStore.user.uid, {
       ...settings.value,
       ageRating: ageRatingValue,
     });
@@ -209,7 +186,7 @@ const toggleTheme = async () => {
     darkTheme: !currentDarkTheme,
   };
 
-  await settingsStore.saveSettings(payload)
+  await settingsStore.saveSettings(userStore.user.uid, payload)
     .then(() => {
       showToast('Settings saved', 'success');
     })
@@ -226,7 +203,7 @@ const toggleGameThumbnails = async () => {
     showGameThumbnails: !currentShowGameThumbnails,
   };
 
-  await settingsStore.saveSettings(payload)
+  await settingsStore.saveSettings(userStore.user.uid, payload)
     .then(() => {
       showToast('Settings saved', 'success');
     })
@@ -235,17 +212,6 @@ const toggleGameThumbnails = async () => {
     });
 };
 
-const setNavPosition = async (navPositionValue) => {
-  try {
-    await store.dispatch('SAVE_SETTINGS', {
-      ...settings.value,
-      navPosition: navPositionValue,
-    });
-    showToast('Settings saved', 'success');
-  } catch (e) {
-    showToast('There was an error saving your settings', 'danger');
-  }
-};
 
 const toggleTransparency = async () => {
   const currentTransparencyEnabled = settings.value?.transparencyEnabled || false;
@@ -255,7 +221,7 @@ const toggleTransparency = async () => {
     transparencyEnabled: !currentTransparencyEnabled,
   };
 
-  await settingsStore.saveSettings(payload)
+  await settingsStore.saveSettings(userStore.user.uid, payload)
     .then(() => {
       showToast('Settings saved', 'success');
     })

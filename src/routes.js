@@ -84,6 +84,16 @@ const routes = [
       title: 'Notes',
       public: true,
     },
+    children: [
+      {
+        name: 'notes.detail',
+        path: ':id',
+        component: () => import(/* webpackChunkName: "notes" */ '@/pages/GameNotesPage'),
+        meta: {
+          title: 'Note',
+        },
+      },
+    ],
   },
   {
     name: 'create.note',

@@ -79,13 +79,13 @@ import { useUserStore } from '@/stores/user';
 import { useBoardsStore } from '@/stores/boards';
 import { useGamesStore } from '@/stores/games';
 import { useWallpapersStore } from '@/stores/wallpapers';
-import { useAppGetters } from '@/stores/getters';
+import { useAppGetters, useGameGetters } from '@/stores/getters';
 
 const userStore = useUserStore();
 const boardsStore = useBoardsStore();
 const gamesStore = useGamesStore();
 const wallpapersStore = useWallpapersStore();
-const { darkTheme, gameMedia } = useAppGetters();
+const { darkTheme } = useAppGetters();
 
 // Reactive state
 const activeIndex = ref(0);
@@ -98,6 +98,10 @@ const game = computed(() => gamesStore.game);
 const wallpapers = computed(() => wallpapersStore.wallpapers);
 const boards = computed(() => boardsStore.boards);
 
+// Game getters
+const gameGetters = computed(() => game.value ? useGameGetters(game.value) : null);
+const gameMedia = computed(() => gameGetters.value?.gameMedia || null);
+
 // Computed properties
 const formattedBoards = computed(() => {
   return boards.value?.map((boardItem) => ({ ...boardItem, backgroundUrl: getWallpaperUrl(boardItem?.backgroundUrl) }));
@@ -108,7 +112,8 @@ const isSelectedMediaVideo = computed(() => {
 });
 
 const gameMediaComputed = computed(() => {
-  return gameMedia();
+  if (!gameMedia.value) return [];
+  return gameMedia.value();
 });
 
 const isSelectedMediaCover = computed(() => {

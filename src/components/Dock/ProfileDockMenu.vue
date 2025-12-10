@@ -16,6 +16,7 @@ import { useBoardsStore } from '@/stores/boards';
 import { useUserStore } from '@/stores/user';
 import { useProfileStore } from '@/stores/profile';
 import { useAppGetters } from '@/stores/getters';
+import { loadFirebaseImage } from '@/utils/firebase';
 import { getImageThumbnail } from '@/utils';
 
 const boardsStore = useBoardsStore();
@@ -45,26 +46,34 @@ const userName = computed(() => {
 
 const displayUserName = computed(() => {
   return userName.value
-    ? `@${userName.value}`
+    ? `${userName.value}`
     : 'Profile';
 });
 
 // Methods
 const load = async () => {
-  await store.dispatch('LOAD_PROFILE').catch(() => { });
+  if (user.value?.uid) {
+    await profileStore.loadProfile(user.value.uid).catch(() => { });
+  }
 
   if (profile.value?.avatar) loadAvatarImage();
 
   if (profile.value?.wallpaper) {
-    wallpaperImage.value = await store.dispatch('LOAD_FIREBASE_IMAGE', profile.value?.wallpaper)
-      .catch(() => null);
+    try {
+      wallpaperImage.value = await loadFirebaseImage(profile.value?.wallpaper);
+    } catch (e) {
+      wallpaperImage.value = null;
+    }
   }
 };
 
 const loadAvatarImage = async () => {
   const thumbnailRef = getImageThumbnail(profile.value?.avatar);
-  avatarImage.value = await store.dispatch('LOAD_FIREBASE_IMAGE', thumbnailRef)
-    .catch(() => null);
+  try {
+    avatarImage.value = await loadFirebaseImage(thumbnailRef);
+  } catch (e) {
+    avatarImage.value = null;
+  }
 };
 
 // Lifecycle hooks

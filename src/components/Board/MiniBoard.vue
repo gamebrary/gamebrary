@@ -1,68 +1,31 @@
 <template lang="html">
-  <div
-    class="card overflow-hidden rounded p-0"
-    :class="darkTheme ? 'bg-dark text-light' : 'bg-light text-dark'"
-  >
-    <router-link
-      v-if="board?.id && !noLink"
-      :to="{ name: 'board', params: { id: board.id } }"
-    >
-      <div
-        :style="backgroundSyle"
-        class="mini-board overflow-hidden"
-        :class="{ thumbnail }"
-      >
-        <h4
-          v-if="!thumbnail"
-          class="px-2 py-2"
-          :class="{ 'text-white': hasCustomBackground || darkTheme }"
-        >
+  <div class="card overflow-hidden rounded p-0" :class="darkTheme ? 'bg-dark text-light' : 'bg-light text-dark'">
+    <router-link v-if="board?.id && !noLink" :to="{ name: 'board', params: { id: board.id } }">
+      <div :style="backgroundSyle" class="mini-board overflow-hidden" :class="{ thumbnail }">
+        <h4 v-if="!thumbnail" class="px-2 py-2" :class="{ 'text-white': hasCustomBackground || darkTheme }">
           {{ board.name }}
         </h4>
 
-        <span
-          v-if="showPublicIndicator"
-          class="badge position-absolute m-1"
-          :class="darkTheme ? 'bg-warning' : 'bg-danger'"
-          style="right: 0; top: 0; font-size: 0.75rem;"
-        >
+        <span v-if="showPublicIndicator" class="badge position-absolute m-1"
+          :class="darkTheme ? 'bg-warning' : 'bg-danger'" style="right: 0; top: 0; font-size: 0.75rem;">
           Public
         </span>
 
-        <component
-          :is="miniBoardComponent"
-          :board="formattedBoard"
-        />
+        <component :is="miniBoardComponent" :board="formattedBoard" />
       </div>
     </router-link>
     <div v-else>
-      <div
-        :style="backgroundSyle"
-        class="mini-board overflow-hidden"
-        :class="{ thumbnail }"
-      >
-        <h4
-          v-if="!thumbnail"
-          class="px-2 py-2"
-          :class="{ 'text-white': hasCustomBackground || darkTheme }"
-        >
+      <div :style="backgroundSyle" class="mini-board overflow-hidden" :class="{ thumbnail }">
+        <h4 v-if="!thumbnail" class="px-2 py-2" :class="{ 'text-white': hasCustomBackground || darkTheme }">
           {{ board?.name }}
         </h4>
 
-        <span
-          v-if="showPublicIndicator"
-          class="badge position-absolute m-1"
-          :class="darkTheme ? 'bg-warning' : 'bg-danger'"
-          style="right: 0; top: 0; font-size: 0.75rem;"
-        >
+        <span v-if="showPublicIndicator" class="badge position-absolute m-1"
+          :class="darkTheme ? 'bg-warning' : 'bg-danger'" style="right: 0; top: 0; font-size: 0.75rem;">
           Public
         </span>
 
-        <component
-          v-if="formattedBoard"
-          :is="miniBoardComponent"
-          :board="formattedBoard"
-        />
+        <component v-if="formattedBoard" :is="miniBoardComponent" :board="formattedBoard" />
       </div>
     </div>
   </div>

@@ -92,7 +92,7 @@ const cachedGames = computed(() => gamesStore.cachedGames);
 // Computed properties
 const bodyClasses = computed(() => [
   route.name,
-  `nav-${navPosition.value}`,
+  'nav-top',
   {
     'has-scroll': hasScroll.value,
     'dark text-light': darkTheme.value,

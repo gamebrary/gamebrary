@@ -27,7 +27,7 @@ import MiniBoard from '@/components/Board/MiniBoard';
 const router = useRouter();
 const boardsStore = useBoardsStore();
 const userStore = useUserStore();
-const { sortedPublicBoards, darkTheme, navPosition, isBoardOwner } = useAppGetters();
+const { sortedPublicBoards, darkTheme, isBoardOwner } = useAppGetters();
 
 const loading = ref(false);
 

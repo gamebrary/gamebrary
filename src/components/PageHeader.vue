@@ -1,5 +1,6 @@
 <template lang="html">
-  <nav :class="navClass" class="px-3 d-flex align-items-center position-fixed" style="height: 56px">
+  <nav :class="[navClass, darkTheme ? 'bg-dark' : 'bg-light']" class="px-3 d-flex align-items-center position-fixed"
+    style="height: 56px;">
 
     <Teleport to="body">
       <div id="pageTitle-portal"></div>
@@ -46,7 +47,7 @@ const wallpapersStore = useWallpapersStore();
 const uiStore = useUIStore();
 const settingsStore = useSettingsStore();
 const releasesStore = useReleasesStore();
-const { darkTheme, navPosition } = useAppGetters();
+const { darkTheme } = useAppGetters();
 
 // Store state and getters
 const user = computed(() => userStore.user);
@@ -61,7 +62,7 @@ const transparencyEnabled = computed(() => settingsStore.transparencyEnabled);
 
 // Computed properties
 const navClass = computed(() => {
-  const navPos = `nav-${navPosition.value}`;
+  const navPos = 'nav-top';
   const isGameRoute = route.name === 'game';
 
   const defaultClass = !isGameRoute ? '' : darkTheme.value ? 'bg-dark' : 'bg-light';

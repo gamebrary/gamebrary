@@ -75,7 +75,7 @@ const router = useRouter();
 const userStore = useUserStore();
 const boardsStore = useBoardsStore();
 const wallpapersStore = useWallpapersStore();
-const { isBoardOwner, sortedBoards, sortedPublicBoards, darkTheme, navPosition } = useAppGetters();
+const { isBoardOwner, sortedPublicBoards, darkTheme } = useAppGetters();
 const { t } = useI18n();
 
 // Reactive state
@@ -87,11 +87,16 @@ const boards = computed(() => boardsStore.boards);
 const wallpapers = computed(() => wallpapersStore.wallpapers);
 
 // Computed properties
+const sortedBoards = computed(() => {
+  if (!boards.value || !Array.isArray(boards.value)) return [];
+  return [...boards.value].sort((a, b) => (b.lastUpdated || 0) - (a.lastUpdated || 0));
+});
+
 const recentlyUpdatedPublicBoards = computed(() => {
   return sortedPublicBoards.value.filter(({ lastUpdated }) => Boolean(lastUpdated)).slice(0, 20);
 });
 
-const isEmpty = computed(() => boards.value?.length === 0);
+const isEmpty = computed(() => !boards.value || boards.value.length === 0);
 
 // Methods
 const loadBoards = async () => {
@@ -127,14 +132,14 @@ const viewPublicBoard = (id) => {
 const deleteBoard = async (id) => {
   loading.value = true;
 
-  await store.dispatch('DELETE_BOARD', id)
-    .catch(() => {
-      loading.value = false;
-      showToast('There was an error deleting board', 'danger');
-    });
-
-  loading.value = false;
-  showToast('Board removed', 'success');
+  try {
+    await boardsStore.deleteBoard(id);
+    showToast('Board removed', 'success');
+  } catch (e) {
+    showToast('There was an error deleting board', 'danger');
+  } finally {
+    loading.value = false;
+  }
 };
 
 const showToast = (message, variant = 'info') => {

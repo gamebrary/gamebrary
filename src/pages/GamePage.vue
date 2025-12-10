@@ -23,7 +23,7 @@
         <ul class="dropdown-menu" aria-labelledby="gameActionsDropdown">
           <li>
             <button type="button" class="dropdown-item"
-              @click="$router.push({ name: 'game.notes', params: { id: gameId, slug: game.slug } })">
+              @click="$router.push({ name: 'game.notes', params: { id: gameId, slug: game?.slug } })">
               Add note
             </button>
           </li>
@@ -68,27 +68,31 @@
           <p v-html="description" />
 
           <p>
-            <router-link v-for="(developer, index) in gameDevelopers" :key="index"
-              :to="{ name: 'company', params: { id: developer.id, slug: developer.slug } }" class="link-primary me-2"
-              data-bs-toggle="tooltip" :title="`Developed by ${developer.name}`">
-              <img v-if="developer.logo" :src="getImageUrl(developer)" width="100" class="mr-3 mb-3"
-                :alt="developer.name">
+            <template v-for="(developer, index) in gameDevelopers" :key="index">
+              <router-link v-if="developer && developer.id"
+                :to="{ name: 'company', params: { id: developer.id, slug: developer.slug } }" class="link-primary me-2"
+                data-bs-toggle="tooltip" :title="`Developed by ${developer.name}`">
+                <img v-if="developer.logo" :src="getImageUrl(developer)" width="100" class="mr-3 mb-3"
+                  :alt="developer.name">
 
-              <p v-else>
-                {{ developer.name }}
-              </p>
-            </router-link>
+                <p v-else>
+                  {{ developer.name }}
+                </p>
+              </router-link>
+            </template>
 
-            <router-link v-for="publisher in gamePublishers" :key="publisher.id"
-              :to="{ name: 'company', params: { id: publisher.id, slug: publisher.slug } }" class="link-primary me-2"
-              data-bs-toggle="tooltip" :title="`Published by ${publisher.name}`">
-              <img v-if="publisher.logo" :src="getImageUrl(publisher)" :alt="`Published by ${publisher.name}`"
-                class="me-3 mb-3" width="100">
+            <template v-for="publisher in gamePublishers" :key="publisher.id">
+              <router-link v-if="publisher && publisher.id"
+                :to="{ name: 'company', params: { id: publisher.id, slug: publisher.slug } }" class="link-primary me-2"
+                data-bs-toggle="tooltip" :title="`Published by ${publisher.name}`">
+                <img v-if="publisher.logo" :src="getImageUrl(publisher)" :alt="`Published by ${publisher.name}`"
+                  class="me-3 mb-3" width="100">
 
-              <p v-else>
-                {{ publisher.name }}
-              </p>
-            </router-link>
+                <p v-else>
+                  {{ publisher.name }}
+                </p>
+              </router-link>
+            </template>
           </p>
 
           <span class="text-muted mb-3 text-capitalize">Source: {{ source }}</span>
@@ -119,41 +123,41 @@
 
           <div class="card my-4" :class="darkTheme ? 'bg-dark text-light' : 'bg-white text-dark'">
             <div class="card-body game-details">
-              <section v-if="gamePlatforms">
+              <section v-if="gamePlatforms && gamePlatforms.length">
                 <h3 class="mb-2">Platforms</h3>
 
                 <router-link v-for="(platform, index) in gamePlatforms" :key="index" class="btn d-block mb-3"
-                  :class="darkTheme ? 'btn-dark' : 'btn-light'"
+                  v-if="platform && platform.id" :class="darkTheme ? 'btn-dark' : 'btn-light'"
                   :to="{ name: 'search', query: { filterBy: 'platforms', value: platform.id } }">
                   {{ platform.name }}
                   <br />
                 </router-link>
               </section>
 
-              <section v-if="gameGenres">
+              <section v-if="gameGenres && gameGenres.length">
                 <h3 class="mb-2">Genres</h3>
 
-                <router-link v-for="(genre, index) in gameGenres"
-                  :to="{ name: 'search', query: { filterBy: 'genres', value: genre.id } }" :key="index"
-                  class="btn d-block mb-3" :class="darkTheme ? 'btn-dark' : 'btn-light'">
+                <router-link v-for="(genre, index) in gameGenres" :key="index" v-if="genre && genre.id"
+                  :to="{ name: 'search', query: { filterBy: 'genres', value: genre.id } }" class="btn d-block mb-3"
+                  :class="darkTheme ? 'btn-dark' : 'btn-light'">
                   {{ genre.name }}
                 </router-link>
               </section>
 
-              <section v-if="gameThemes">
+              <section v-if="gameThemes && gameThemes.length">
                 <h3 class="mb-2">Themes</h3>
 
-                <router-link v-for="(theme, index) in gameThemes"
-                  :to="{ name: 'search', query: { filterBy: 'themes', value: theme.id } }" :key="index"
-                  class="btn d-block mb-3" :class="darkTheme ? 'btn-dark' : 'btn-light'">
+                <router-link v-for="(theme, index) in gameThemes" :key="index" v-if="theme && theme.id"
+                  :to="{ name: 'search', query: { filterBy: 'themes', value: theme.id } }" class="btn d-block mb-3"
+                  :class="darkTheme ? 'btn-dark' : 'btn-light'">
                   {{ theme.name }}
                 </router-link>
               </section>
 
-              <section v-if="gameModes">
+              <section v-if="gameModes && gameModes.length">
                 <h3 class="mb-2">{{ $t('board.gameModal.gameModes') }} </h3>
 
-                <router-link v-for="(gameMode, index) in gameModes" :key="index"
+                <router-link v-for="(gameMode, index) in gameModes" :key="index" v-if="gameMode && gameMode.id"
                   :to="{ name: 'search', query: { filterBy: 'game_modes', value: gameMode.id } }"
                   class="btn d-block mb-3" :class="darkTheme ? 'btn-dark' : 'btn-light'">
                   {{ gameMode.name }}
@@ -169,10 +173,11 @@
                 </div>
               </section>
 
-              <section v-if="playerPerspectives">
+              <section v-if="playerPerspectives && playerPerspectives.length">
                 <h3 class="mb-2">Perspective</h3>
 
                 <router-link v-for="(perspective, index) in playerPerspectives" :key="index"
+                  v-if="perspective && perspective.id"
                   :to="{ name: 'search', query: { filterBy: 'player_perspectives', value: perspective.id } }"
                   class="btn d-block mb-3" :class="darkTheme ? 'btn-dark' : 'btn-light'">
                   {{ perspective.name }}
@@ -208,7 +213,7 @@
           </div>
 
           <div v-if="note" v-html="note" class="alert alert-warning cursor-pointer mt-3" role="alert"
-            @click="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })" />
+            @click="$router.push({ name: 'game.notes', params: { id: game?.id, slug: game?.slug } })" />
         </div>
       </article>
 
@@ -279,13 +284,13 @@
         </ul>
       </section>
 
-      <section v-if="latestNews">
+      <section v-if="latestNews && latestNews.length">
         <h3 class="mb-2">Latest news</h3>
 
         <ul class="list-group">
           <li v-for="article in latestNews" :key="article.id" class="list-group-item list-group-item-action"
             :class="darkTheme ? 'bg-dark text-light' : 'bg-white'"
-            @click="$router.push({ name: 'game.news', params: { id: game.id } })" style="cursor: pointer;">
+            @click="$router.push({ name: 'game.news', params: { id: game?.id } })" style="cursor: pointer;">
             <div class="d-flex w-100 justify-content-between">
               <h4 class="mb-1">{{ article.title }}</h4>
               {{ article.date }}
@@ -369,12 +374,13 @@ const games = computed(() => gamesStore.games);
 const wallpapers = computed(() => wallpapersStore.wallpapers);
 
 // Game getters
-const gameGetters = computed(() => useGameGetters(game.value));
-const gameNews = computed(() => gameGetters.value.gameNews);
-const gameLinks = computed(() => gameGetters.value.gameLinks);
-const gameGenres = computed(() => gameGetters.value.gameGenres);
+const gameGetters = computed(() => game.value ? useGameGetters(game.value) : null);
+const gameNews = computed(() => gameGetters.value?.gameNews || []);
+const gameLinks = computed(() => gameGetters.value?.gameLinks || []);
+const gameGenres = computed(() => gameGetters.value?.gameGenres || []);
 
 // Computed properties
+const gameId = computed(() => route.params?.id);
 const gameCollection = computed(() => game.value?.collection);
 
 const igdbDescription = computed(() => game.value?.summary);
@@ -389,7 +395,10 @@ const wikipediaExtract = computed(() => {
 
 const description = computed(() => igdbDescription.value || steamDescription.value || wikipediaExtract.value);
 const hasShortDescription = computed(() => description.value?.length < GAME_DESC_SM_CHAR_COUNT);
-const latestNews = computed(() => gameNews.value?.slice(0, 10));
+const latestNews = computed(() => {
+  if (!Array.isArray(gameNews.value)) return [];
+  return gameNews.value.slice(0, 10);
+});
 
 const macRequirements = computed(() => {
   return game.value?.steam?.mac_requirements?.minimum?.length > 60

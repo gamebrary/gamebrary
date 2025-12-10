@@ -162,7 +162,6 @@ const props = defineProps({
 
 const route = useRoute();
 const router = useRouter();
-const store = useStore();
 const $bus = inject('$bus');
 
 // Reactive state
@@ -339,10 +338,11 @@ const dragEnd = () => {
 };
 
 const saveBoard = async () => {
-  await store.dispatch('SAVE_BOARD')
-    .catch(() => {
-      store.commit('SET_SESSION_EXPIRED', true);
-    });
+  try {
+    await boardsStore.saveBoard();
+  } catch (e) {
+    userStore.setSessionExpired(true);
+  }
 };
 
 const initTooltips = () => {

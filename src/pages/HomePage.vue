@@ -145,7 +145,7 @@ import { useAppGetters } from '@/stores/getters';
 const userStore = useUserStore();
 const profileStore = useProfileStore();
 const boardsStore = useBoardsStore();
-const { darkTheme, navPosition } = useAppGetters();
+const { darkTheme } = useAppGetters();
 
 const user = computed(() => userStore.user);
 const profiles = computed(() => profileStore.profiles);
