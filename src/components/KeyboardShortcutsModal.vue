@@ -47,24 +47,26 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, inject, getCurrentInstance } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useStore } from 'vuex';
+import { useUserStore } from '@/stores/user';
+import { useAppGetters } from '@/stores/getters';
 import { KEYBOARD_SHORTCUTS } from '@/constants';
 import SidebarHeader from '@/components/SidebarHeader';
 import AppSidebar from '@/components/AppSidebar';
 
 const route = useRoute();
 const router = useRouter();
-const store = useStore();
 const $bus = inject('$bus');
 const instance = getCurrentInstance();
+
+// Pinia stores
+const userStore = useUserStore();
+const { darkTheme, sidebarLeftProps } = useAppGetters();
 
 // Reactive state
 const visible = ref(false);
 
 // Store state and getters
-const user = computed(() => store.state.user);
-const darkTheme = computed(() => store.getters.darkTheme);
-const sidebarLeftProps = computed(() => store.getters.sidebarLeftProps);
+const user = computed(() => userStore.user);
 
 // Methods
 const handleVisibilityChange = (newVisible) => {

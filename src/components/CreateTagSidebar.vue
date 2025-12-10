@@ -52,12 +52,16 @@
 
 <script setup>
 import { ref, computed } from 'vue';
-import { useStore } from 'vuex';
+import { useTagsStore } from '@/stores/tags';
+import { useUIStore } from '@/stores/ui';
+import { useAppGetters } from '@/stores/getters';
 import { useI18n } from 'vue-i18n';
 import AppSidebar from '@/components/AppSidebar';
 import SidebarHeader from '@/components/SidebarHeader';
 
-const store = useStore();
+const tagsStore = useTagsStore();
+const uiStore = useUIStore();
+const { sidebarRightProps, darkTheme } = useAppGetters();
 const { t } = useI18n();
 
 // Reactive state
@@ -70,14 +74,11 @@ const tag = ref({
 const saving = ref(false);
 
 // Store state and getters
-const tags = computed(() => store.state.tags);
-const sidebarRightProps = computed(() => store.getters.sidebarRightProps);
-const darkTheme = computed(() => store.getters.darkTheme);
+const tags = computed(() => tagsStore.tags);
 
 // Computed properties
 const visible = computed(() => {
-  // Control visibility via store or prop - adjust based on your needs
-  return store.state.activeTagIndex !== null || false;
+  return uiStore.activeTagIndex !== null || false;
 });
 
 // Methods
@@ -96,11 +97,13 @@ const handleHidden = () => {
 };
 
 const submit = async () => {
-  store.commit('CREATE_TAG', tag.value);
+  tagsStore.createTag(tag.value);
   saving.value = true;
 
   try {
-    await store.dispatch('SAVE_TAGS');
+    const { useUserStore } = await import('@/stores/user');
+    const userStore = useUserStore();
+    await tagsStore.saveTags(userStore.user.uid);
     hideSidebar();
     // Reset form
     tag.value = {

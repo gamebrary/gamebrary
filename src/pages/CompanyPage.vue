@@ -13,7 +13,7 @@
         </portal>
 
         <img
-          :src="$options.getImageUrl(company)"
+          :src="getImageUrl(company)"
           :alt="company.name"
           width="100"
           class="mb-2"
@@ -62,43 +62,47 @@
   </section>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
+import { useGamesStore } from '@/stores/games';
+import { useTwitchStore } from '@/stores/twitch';
 import { getImageUrl } from '@/utils';
 import { IGDB_QUERIES } from '@/constants';
 import GameCard from '@/components/GameCard';
 
-export default {
-  getImageUrl,
+const route = useRoute();
+const gamesStore = useGamesStore();
+const twitchStore = useTwitchStore();
 
-  components: {
-    GameCard,
-  },
+const loading = ref(false);
+const company = ref(null);
 
-  data() {
-    return {
-      loading: false,
-      company: null,
-    }
-  },
+onMounted(async () => {
+  loading.value = true;
 
-  async mounted() {
-    this.loading = true;
+  if (!twitchStore.twitchToken) {
+    await twitchStore.getTwitchToken();
+  }
 
-    [this.company] = await this.$store.dispatch('IGDB', {
-      path: 'companies',
-      data: `${IGDB_QUERIES.COMPANY} where id = ${this.$route.params.id};`,
-    });
+  const results = await gamesStore.queryIGDB({
+    path: 'companies',
+    data: `${IGDB_QUERIES.COMPANY} where id = ${route.params.id};`,
+  });
 
-    const allGames = [
-      ...this.company?.published || [],
-      ...this.company?.developed || [],
-    ];
+  [company.value] = results;
 
-    if (allGames?.length) this.$store.commit('CACHE_GAME_DATA', allGames);
+  const allGames = [
+    ...company.value?.published || [],
+    ...company.value?.developed || [],
+  ];
 
-    this.loading = false;
-  },
-};
+  if (allGames?.length) {
+    gamesStore.cacheGameData(allGames);
+  }
+
+  loading.value = false;
+});
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>

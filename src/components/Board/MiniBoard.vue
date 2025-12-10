@@ -71,13 +71,20 @@
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import { useStore } from 'vuex';
+import { useGamesStore } from '@/stores/games';
+import { useAppGetters } from '@/stores/getters';
+import { getStorage, ref as firebaseStorageRef, getDownloadURL } from 'firebase/storage';
+import { initializeApp } from 'firebase/app';
+import { FIREBASE_CONFIG } from '@/constants';
 import { BOARD_TYPE_STANDARD, BOARD_TYPE_TIER, BOARD_TYPE_GRID, IMAGE_SIZE_THUMB } from '@/constants';
 import { getImageUrl } from '@/utils';
 import StandardMiniBoard from '@/components/MiniBoards/StandardMiniBoard';
 import GridMiniBoard from '@/components/MiniBoards/GridMiniBoard';
 import KanbanMiniBoard from '@/components/MiniBoards/KanbanMiniBoard';
 import TierMiniBoard from '@/components/MiniBoards/TierMiniBoard';
+
+const app = initializeApp(FIREBASE_CONFIG);
+const storage = getStorage(app);
 
 const props = defineProps({
   board: Object,
@@ -86,15 +93,15 @@ const props = defineProps({
 });
 
 const route = useRoute();
-const store = useStore();
+const gamesStore = useGamesStore();
+const { darkTheme } = useAppGetters();
 
 // Reactive state
 const backgroundUrl = ref('');
 
 // Store state and getters
-const cachedGames = computed(() => store.state.cachedGames);
-const game = computed(() => store.state.game);
-const darkTheme = computed(() => store.getters.darkTheme);
+const cachedGames = computed(() => gamesStore.cachedGames);
+const game = computed(() => gamesStore.game);
 
 // Computed properties
 const miniBoardComponent = computed(() => {
@@ -145,11 +152,15 @@ const backgroundSyle = computed(() => {
 });
 
 // Methods
+const loadFirebaseImage = async (path) => {
+  return await getDownloadURL(firebaseStorageRef(storage, path));
+};
+
 const loadWallpaper = async () => {
   if (props.board?.backgroundUrl) {
     backgroundUrl.value = props.board?.backgroundUrl?.includes('igdb')
       ? props.board?.backgroundUrl
-      : await store.dispatch('LOAD_FIREBASE_IMAGE', props.board?.backgroundUrl);
+      : await loadFirebaseImage(props.board?.backgroundUrl);
   }
 };
 

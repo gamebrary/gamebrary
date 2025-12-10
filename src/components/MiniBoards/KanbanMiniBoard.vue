@@ -52,7 +52,10 @@
 
 <script setup>
 import { computed } from 'vue';
-import { useStore } from 'vuex';
+import { useRoute } from 'vue-router';
+import { useGamesStore } from '@/stores/games';
+import { useUIStore } from '@/stores/ui';
+import { useAppGetters } from '@/stores/getters';
 
 const props = defineProps({
   board: {
@@ -61,13 +64,14 @@ const props = defineProps({
   },
 });
 
-const store = useStore();
+const route = useRoute();
+const gamesStore = useGamesStore();
+const uiStore = useUIStore();
+const { darkTheme, showGameThumbnails } = useAppGetters();
 
 // Store state and getters
-const darkTheme = computed(() => store.getters.darkTheme);
-const showGameThumbnails = computed(() => store.getters.showGameThumbnails);
-const game = computed(() => store.state.game);
-const routeName = computed(() => store.state.routeName);
+const game = computed(() => gamesStore.game);
+const routeName = computed(() => uiStore.routeName);
 
 // Computed properties
 const currentGameId = computed(() => {

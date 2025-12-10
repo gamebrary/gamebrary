@@ -12,7 +12,7 @@
 
 <script setup>
 import { computed } from 'vue';
-import { useStore } from 'vuex';
+import { useAppGetters } from '@/stores/getters';
 
 const props = defineProps({
   size: {
@@ -22,9 +22,7 @@ const props = defineProps({
   title: String,
 });
 
-const store = useStore();
-
-const darkTheme = computed(() => store.getters.darkTheme);
+const { darkTheme } = useAppGetters();
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>

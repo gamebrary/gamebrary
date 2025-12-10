@@ -143,12 +143,17 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
-import { useStore } from 'vuex';
+import { useSettingsStore } from '@/stores/settings';
+import { useUserStore } from '@/stores/user';
+import { useAppGetters } from '@/stores/getters';
+import { useRouter } from 'vue-router';
 import DeleteAccountModal from '@/components/Settings/DeleteAccountModal';
 import { AGE_RATINGS } from '@/constants';
 
 const router = useRouter();
-const store = useStore();
+const settingsStore = useSettingsStore();
+const userStore = useUserStore();
+const { darkTheme, showGameThumbnails, transparencyEnabled, ageRating, navPosition } = useAppGetters();
 
 // Reactive state
 const navPositionOptions = [
@@ -157,12 +162,7 @@ const navPositionOptions = [
 ];
 
 // Store state and getters
-const settings = computed(() => store.state.settings);
-const darkTheme = computed(() => store.getters.darkTheme);
-const showGameThumbnails = computed(() => store.getters.showGameThumbnails);
-const transparencyEnabled = computed(() => store.getters.transparencyEnabled);
-const ageRating = computed(() => store.getters.ageRating);
-const navPosition = computed(() => store.getters.navPosition);
+const settings = computed(() => settingsStore.settings);
 
 // Computed properties
 const ageRatingOptions = computed(() => {
@@ -191,7 +191,7 @@ const showToast = (message, variant = 'info') => {
 
 const setPreferredGameRating = async (ageRatingValue) => {
   try {
-    await store.dispatch('SAVE_SETTINGS', {
+    await settingsStore.saveSettings({
       ...settings.value,
       ageRating: ageRatingValue,
     });
@@ -209,7 +209,7 @@ const toggleTheme = async () => {
     darkTheme: !currentDarkTheme,
   };
 
-  await store.dispatch('SAVE_SETTINGS', payload)
+  await settingsStore.saveSettings(payload)
     .then(() => {
       showToast('Settings saved', 'success');
     })
@@ -226,7 +226,7 @@ const toggleGameThumbnails = async () => {
     showGameThumbnails: !currentShowGameThumbnails,
   };
 
-  await store.dispatch('SAVE_SETTINGS', payload)
+  await settingsStore.saveSettings(payload)
     .then(() => {
       showToast('Settings saved', 'success');
     })
@@ -255,7 +255,7 @@ const toggleTransparency = async () => {
     transparencyEnabled: !currentTransparencyEnabled,
   };
 
-  await store.dispatch('SAVE_SETTINGS', payload)
+  await settingsStore.saveSettings(payload)
     .then(() => {
       showToast('Settings saved', 'success');
     })
@@ -265,9 +265,9 @@ const toggleTransparency = async () => {
 };
 
 const signOut = async () => {
-  await store.dispatch('SIGN_OUT');
+  await userStore.signOut();
   showToast('Logged out', 'success');
-  store.commit('CLEAR_SESSION');
+  userStore.clearSession();
   router.replace({ name: 'home' });
 };
 

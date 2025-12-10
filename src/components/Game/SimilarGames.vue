@@ -20,13 +20,13 @@
 
 <script setup>
 import { computed, watch } from 'vue';
-import { useStore } from 'vuex';
+import { useGamesStore } from '@/stores/games';
 import GameCard from '@/components/GameCard';
 
-const store = useStore();
+const gamesStore = useGamesStore();
 
 // Store state and getters
-const game = computed(() => store.state.game);
+const game = computed(() => gamesStore.game);
 
 // Computed properties
 const gameRemakes = computed(() => {

@@ -50,11 +50,11 @@
 
 <script setup>
 import { computed } from 'vue';
-import { useStore } from 'vuex';
+import { useUserStore } from '@/stores/user';
 import GameBoards from '@/components/GameBoards';
 import TwitterFeed from '@/components/TwitterFeed';
 
-const store = useStore();
+const userStore = useUserStore();
 
-const user = computed(() => store.state.user);
+const user = computed(() => userStore.user);
 </script>

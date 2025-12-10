@@ -165,162 +165,165 @@
   </section>
 </template>
 
-<script>
-import { mapState } from 'vuex';
+<script setup>
+import { ref, computed, onMounted, onUpdated, onBeforeUnmount, nextTick } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useNotesStore } from '@/stores/notes';
+import { useGamesStore } from '@/stores/games';
+import { useUserStore } from '@/stores/user';
+import { useTwitchStore } from '@/stores/twitch';
 import { Editor, EditorContent } from '@tiptap/vue-3';
 import StarterKit from '@tiptap/starter-kit';
 import GameCard from '@/components/GameCard';
-
 import { IGDB_QUERIES } from '@/constants';
 
-export default {
-  components: {
-    EditorContent,
-    GameCard,
-  },
+const route = useRoute();
+const router = useRouter();
+const notesStore = useNotesStore();
+const gamesStore = useGamesStore();
+const userStore = useUserStore();
+const twitchStore = useTwitchStore();
 
-  data() {
-    return {
-      saving: false,
-      note: '',
-      loading: true,
-      deleting: false,
-      editor: null,
-    };
-  },
+const saving = ref(false);
+const note = ref('');
+const loading = ref(true);
+const deleting = ref(false);
+const editor = ref(null);
 
-  computed: {
-    ...mapState(['notes', 'game']),
+const gameId = computed(() => route.params?.id);
+const notes = computed(() => notesStore.notes);
+const game = computed(() => gamesStore.game);
 
-    gameId() {
-      return this.$route?.params?.id;
-    },
-  },
-
-  mounted() {
-    this.loadGame();
-    this.initTooltips();
-  },
-
-  updated() {
-    this.initTooltips();
-  },
-
-  beforeDestroy() {
-    if (this.editor) {
-      this.editor.destroy();
-    }
-  },
-
-  methods: {
-    initTooltips() {
-      this.$nextTick(() => {
-        const tooltipTriggerList = this.$el.querySelectorAll('[data-bs-toggle="tooltip"]');
-        tooltipTriggerList.forEach(tooltipTriggerEl => {
-          if (!tooltipTriggerEl._tooltip) {
-            new bootstrap.Tooltip(tooltipTriggerEl);
-          }
-        });
-      });
-    },
-
-    async loadGame() {
-      const gameCached = this.game?.id == this.gameId;
-
-      if (gameCached) {
-        this.setNote();
-        this.loading = false;
-
-        return;
+const initTooltips = () => {
+  nextTick(() => {
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      if (!tooltipTriggerEl._tooltip) {
+        new bootstrap.Tooltip(tooltipTriggerEl);
       }
-
-      this.$store.commit('CLEAR_GAME');
-      this.loading = true;
-
-      try {
-        await this.$store.dispatch('IGDB', {
-          path: 'games',
-          data: `${IGDB_QUERIES.GAME} where id = ${this.gameId};`,
-          mutation: 'SET_GAME',
-        });
-
-        this.setNote();
-      } catch (e) {}
-
-      this.loading = false;
-    },
-
-    setNote() {
-      this.note = this.notes[this.gameId] || '';
-
-      this.editor = new Editor({
-        content: this.note,
-        extensions: [StarterKit],
-        editorProps: {
-          attributes: {
-            class: 'border rounded p-3',
-          },
-        },
-        onUpdate: () => {
-          this.note = this.editor.getHTML();
-        },
-      })
-
-    },
-
-    async saveNote() {
-      this.saving = true;
-
-      this.$store.commit('SET_GAME_NOTE', { note: this.note, gameId: this.gameId });
-
-      await this.$store.dispatch('SAVE_NOTES').catch(() => {
-        //
-      });
-
-      this.saving = false;
-
-      this.$router.push({
-        name: 'game',
-        params: {
-          id: this.game.id,
-          slug: this.game.slug,
-        },
-      });
-    },
-
-    async deleteNote() {
-      this.deleting = true;
-
-      this.$store.commit('REMOVE_GAME_NOTE', this.game.id);
-
-      await this.$store.dispatch('SAVE_NOTES_NO_MERGE')
-        .catch(() => {
-          this.deleting = false;
-          this.showToast('There was an error deleting your note', 'danger');
-        });
-
-      this.note = '';
-
-      this.$router.push({ name: 'game', params: { id: this.game.id, slug: this.game.slug } });
-    },
-
-    showToast(message, variant = 'info') {
-      const toastElement = document.createElement('div');
-      toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
-      toastElement.setAttribute('role', 'alert');
-      toastElement.innerHTML = `
-        <div class="d-flex">
-          <div class="toast-body">${message}</div>
-          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-        </div>
-      `;
-      document.body.appendChild(toastElement);
-      const toast = new bootstrap.Toast(toastElement);
-      toast.show();
-      toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
-    },
-  },
+    });
+  });
 };
+
+const loadGame = async () => {
+  const gameCached = game.value?.id == gameId.value;
+
+  if (gameCached) {
+    setNote();
+    loading.value = false;
+    return;
+  }
+
+  gamesStore.clearGame();
+  loading.value = true;
+
+  try {
+    if (!twitchStore.twitchToken) {
+      await twitchStore.getTwitchToken();
+    }
+    const results = await gamesStore.queryIGDB({
+      path: 'games',
+      data: `${IGDB_QUERIES.GAME} where id = ${gameId.value};`,
+    });
+    if (results && results.length > 0) {
+      gamesStore.setGame(results[0]);
+    }
+    setNote();
+  } catch (e) {
+    console.error('Error loading game:', e);
+  }
+
+  loading.value = false;
+};
+
+const setNote = () => {
+  note.value = notes.value[gameId.value] || '';
+
+  if (editor.value) {
+    editor.value.destroy();
+  }
+
+  editor.value = new Editor({
+    content: note.value,
+    extensions: [StarterKit],
+    editorProps: {
+      attributes: {
+        class: 'border rounded p-3',
+      },
+    },
+    onUpdate: () => {
+      note.value = editor.value.getHTML();
+    },
+  });
+};
+
+const saveNote = async () => {
+  saving.value = true;
+
+  notesStore.setGameNote({ note: note.value, gameId: gameId.value });
+
+  try {
+    await notesStore.saveNotes(userStore.user.uid);
+  } catch (e) {
+    console.error('Error saving note:', e);
+  }
+
+  saving.value = false;
+
+  router.push({
+    name: 'game',
+    params: {
+      id: game.value.id,
+      slug: game.value.slug,
+    },
+  });
+};
+
+const deleteNote = async () => {
+  deleting.value = true;
+
+  notesStore.removeGameNote(game.value.id);
+
+  try {
+    await notesStore.saveNotesNoMerge(userStore.user.uid);
+    note.value = '';
+    router.push({ name: 'game', params: { id: game.value.id, slug: game.value.slug } });
+  } catch (e) {
+    deleting.value = false;
+    showToast('There was an error deleting your note', 'danger');
+  }
+};
+
+const showToast = (message, variant = 'info') => {
+  const toastElement = document.createElement('div');
+  toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
+  toastElement.setAttribute('role', 'alert');
+  toastElement.innerHTML = `
+    <div class="d-flex">
+      <div class="toast-body">${message}</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  `;
+  document.body.appendChild(toastElement);
+  const toast = new bootstrap.Toast(toastElement);
+  toast.show();
+  toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
+};
+
+onMounted(() => {
+  loadGame();
+  initTooltips();
+});
+
+onUpdated(() => {
+  initTooltips();
+});
+
+onBeforeUnmount(() => {
+  if (editor.value) {
+    editor.value.destroy();
+  }
+});
 </script>
 
 <style>

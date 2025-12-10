@@ -4,45 +4,19 @@
       This board is empty.
     </p>
 
-    <draggable
-      class="game-grid"
-      v-bind="draggableProps"
-      :list="list.games"
-      :item-key="(gameId) => gameId"
-      :disabled="draggingDisabled"
-      :move="validateMove"
-      @end="dragEnd"
-      @start="dragStart"
-    >
+    <draggable class="game-grid" v-bind="draggableProps" :list="list.games" :item-key="(gameId) => gameId"
+      :disabled="draggingDisabled" :move="validateMove" @end="dragEnd" @start="dragStart">
       <template #item="{ element: gameId, index }">
-        <GameCard
-          :key="gameId"
-          :list="list"
-          :ref="(el) => setGameRef(gameId, el)"
-          :game-id="gameId"
-          :ranked="board.ranked"
-          :rank="index + 1"
-          vertical
-          hide-platforms
-          @click="openGame(gameId, list)"
-        />
+        <GameCard :key="gameId" :list="list" :ref="(el) => setGameRef(gameId, el)" :game-id="gameId"
+          :ranked="board.ranked" :rank="index + 1" vertical hide-platforms @click="openGame(gameId, list)" />
       </template>
       <template #footer>
-        <div
-          v-if="isBoardOwner"
-          class="card"
-          :class="darkTheme ? 'bg-dark text-light' : 'bg-light text-dark'"
-          @click="openGameSelectorSidebar"
-          style="cursor: pointer;"
-        >
+        <div v-if="isBoardOwner" class="card" :class="darkTheme ? 'bg-dark text-light' : 'bg-light text-dark'"
+          @click="openGameSelectorSidebar" style="cursor: pointer;">
           <div class="card-body align-content-center text-center">
             Expand your collection!
 
-            <button
-              type="button"
-              class="btn mt-2"
-              :class="darkTheme ? 'btn-success' : 'btn-primary'"
-            >
+            <button type="button" class="btn mt-2" :class="darkTheme ? 'btn-success' : 'btn-primary'">
               Add games
             </button>
           </div>
@@ -55,7 +29,10 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, inject } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useStore } from 'vuex';
+import { useGamesStore } from '@/stores/games';
+import { useProgressesStore } from '@/stores/progresses';
+import { useBoardsStore } from '@/stores/boards';
+import { useUIStore } from '@/stores/ui';
 import { HIGHLIGHTED_GAME_TIMEOUT } from '@/constants';
 import draggable from 'vuedraggable';
 import slugify from 'slugify';
@@ -63,7 +40,10 @@ import GameCard from '@/components/GameCard';
 
 const route = useRoute();
 const router = useRouter();
-const store = useStore();
+const gamesStore = useGamesStore();
+const progressesStore = useProgressesStore();
+const boardsStore = useBoardsStore();
+const uiStore = useUIStore();
 const $bus = inject('$bus');
 
 // Template refs
@@ -71,10 +51,10 @@ const gameRefs = ref({});
 const draggingId = ref(null);
 
 // Store state and getters
-const cachedGames = computed(() => store.state.cachedGames);
-const dragging = computed(() => store.state.dragging);
-const progresses = computed(() => store.state.progresses);
-const board = computed(() => store.state.board);
+const cachedGames = computed(() => gamesStore.cachedGames);
+const dragging = computed(() => uiStore.dragging);
+const progresses = computed(() => progressesStore.progresses);
+const board = computed(() => boardsStore.board);
 const user = computed(() => store.state.user);
 const settings = computed(() => store.state.settings);
 const highlightedGame = computed(() => store.state.highlightedGame);
@@ -213,12 +193,12 @@ const validateMove = ({ from, to }) => {
 };
 
 const dragStart = ({ item }) => {
-  store.commit('SET_DRAGGING_STATUS', true);
+  uiStore.setDraggingGameId(item.id);
   draggingId.value = item.id;
 };
 
 const dragEnd = () => {
-  store.commit('SET_DRAGGING_STATUS', false);
+  uiStore.clearDraggingGameId();
   saveBoard();
 };
 

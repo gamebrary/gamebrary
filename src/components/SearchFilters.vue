@@ -152,7 +152,8 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, inject } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useStore } from 'vuex';
+import { useGamesStore } from '@/stores/games';
+import { useAppGetters } from '@/stores/getters';
 import SidebarHeader from '@/components/SidebarHeader';
 import AppSidebar from '@/components/AppSidebar';
 import { GAME_GENRES, GAME_PERSPECTIVES, GAME_MODES, GAME_THEMES } from '@/constants';
@@ -160,16 +161,15 @@ import orderby from 'lodash.orderby';
 
 const route = useRoute();
 const router = useRouter();
-const store = useStore();
+const gamesStore = useGamesStore();
+const { darkTheme, sidebarRightProps } = useAppGetters();
 const $bus = inject('$bus');
 
 // Reactive state
 const visible = ref(false);
 
 // Store state and getters
-const platforms = computed(() => store.state.platforms);
-const darkTheme = computed(() => store.getters.darkTheme);
-const sidebarRightProps = computed(() => store.getters.sidebarRightProps);
+const platforms = computed(() => gamesStore.platforms);
 
 // Computed properties
 const sortedPlatforms = computed(() => {

@@ -1,10 +1,5 @@
 <template lang="html">
-  <a
-    v-if="amazonLink"
-    class="btn btn-primary"
-    :href="amazonLink"
-    target="_blank"
-  >
+  <a v-if="amazonLink" class="btn btn-primary" :href="amazonLink" target="_blank">
     <i class="fa-brands fa-amazon me-1"></i>
 
     Buy from Amazon
@@ -13,14 +8,15 @@
 
 <script setup>
 import { computed } from 'vue';
-import { useStore } from 'vuex';
+import { useGamesStore } from '@/stores/games';
+import { useAppGetters } from '@/stores/getters';
 import { WEBSITE_CATEGORIES } from '@/constants';
 
-const store = useStore();
+const gamesStore = useGamesStore();
+const { darkTheme } = useAppGetters();
 
 // Store state and getters
-const game = computed(() => store.state.game);
-const darkTheme = computed(() => store.getters.darkTheme);
+const game = computed(() => gamesStore.game);
 
 // Computed properties
 const amazonLink = computed(() => {

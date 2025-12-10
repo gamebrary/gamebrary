@@ -13,7 +13,7 @@ import {
   ScrollSpy,
   Tab,
   Toast,
-  Tooltip
+  Tooltip,
 } from 'bootstrap';
 
 // Construct bootstrap object with all components (matching Bootstrap 5 bundle structure)
@@ -29,7 +29,7 @@ const bootstrap = {
   ScrollSpy,
   Tab,
   Toast,
-  Tooltip
+  Tooltip,
 };
 
 // Make bootstrap available globally for components
@@ -40,12 +40,12 @@ import { VueFire, VueFireFirestoreOptionsAPI } from 'vuefire';
 import { createI18n } from 'vue-i18n';
 import PortalVue, { Portal, PortalTarget } from 'portal-vue';
 import VueShortkey from 'vue-shortkey';
-import ModalHeader from '@/components/ModalHeader';
+import ModalHeader from '@/components/ModalHeader.vue';
 import axios from 'axios';
-import App from '@/App';
+import App from '@/App.vue';
 import './registerServiceWorker';
-import messages from '@/i18n/';
-import store from '@/store/';
+import messages from '@/i18n';
+import pinia from '@/stores';
 import router from '@/router';
 
 // Create event bus (simple emitter pattern)
@@ -116,7 +116,7 @@ app.component('portal-target', PortalTarget);
 app.use(VueShortkey);
 
 // Create i18n instance
-const locale = localStorage?.vuex?.settings?.language || 'en';
+const locale = localStorage?.['pinia-settings']?.settings?.language || 'en';
 const i18n = createI18n({
   locale,
   messages,
@@ -125,8 +125,8 @@ const i18n = createI18n({
 
 app.use(i18n);
 
-// Use Vuex store (Vuex 4 for Vue 3)
-app.use(store);
+// Use Pinia store
+app.use(pinia);
 
 // Use router (must be after store)
 app.use(router);
@@ -151,4 +151,3 @@ app.directive('click-outside', {
 
 // Mount app
 app.mount('#app');
-

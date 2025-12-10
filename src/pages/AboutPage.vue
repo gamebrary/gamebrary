@@ -47,10 +47,8 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import { useStore } from 'vuex';
 import { marked } from 'marked';
-
-const store = useStore();
+import axios from 'axios';
 
 // Reactive state
 const readme = ref(null);
@@ -62,9 +60,19 @@ const formattedReadme = computed(() => {
 });
 
 // Methods
+const loadGitHubReadme = async () => {
+  const { data } = await axios.get('https://raw.githubusercontent.com/romancm/gamebrary/main/README.md');
+  return data;
+};
+
+const loadGitHubRepository = async () => {
+  const { data } = await axios.get('https://api.github.com/repos/romancm/gamebrary');
+  return data;
+};
+
 const load = async () => {
-  readme.value = await store.dispatch('LOAD_GITHUB_README');
-  repo.value = await store.dispatch('LOAD_GITHUB_REPOSITORY');
+  readme.value = await loadGitHubReadme();
+  repo.value = await loadGitHubRepository();
 };
 
 // Lifecycle hooks

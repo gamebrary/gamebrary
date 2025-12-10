@@ -150,7 +150,12 @@
 <script setup>
 import { ref, computed, onMounted, onUpdated, onBeforeUnmount, nextTick, inject } from 'vue';
 import { useRoute } from 'vue-router';
-import { useStore } from 'vuex';
+import { useProgressesStore } from '@/stores/progresses';
+import { useBoardsStore } from '@/stores/boards';
+import { useUserStore } from '@/stores/user';
+import { useSettingsStore } from '@/stores/settings';
+import { useUIStore } from '@/stores/ui';
+import { useAppGetters } from '@/stores/getters';
 import draggable from 'vuedraggable';
 import GameCard from '@/components/GameCard';
 
@@ -164,7 +169,12 @@ const props = defineProps({
 });
 
 const route = useRoute();
-const store = useStore();
+const progressesStore = useProgressesStore();
+const boardsStore = useBoardsStore();
+const userStore = useUserStore();
+const settingsStore = useSettingsStore();
+const uiStore = useUIStore();
+const { isBoardOwner, draggableProps, darkTheme } = useAppGetters();
 const $bus = inject('$bus');
 
 // Reactive state
@@ -172,15 +182,12 @@ const draggingId = ref(null);
 const editing = ref(false);
 
 // Store state and getters
-const dragging = computed(() => store.state.dragging);
-const progresses = computed(() => store.state.progresses);
-const board = computed(() => store.state.board);
-const user = computed(() => store.state.user);
-const settings = computed(() => store.state.settings);
-const boards = computed(() => store.state.boards);
-const isBoardOwner = computed(() => store.getters.isBoardOwner);
-const draggableProps = computed(() => store.getters.draggableProps);
-const darkTheme = computed(() => store.getters.darkTheme);
+const dragging = computed(() => uiStore.dragging);
+const progresses = computed(() => progressesStore.progresses);
+const board = computed(() => boardsStore.board);
+const user = computed(() => userStore.user);
+const settings = computed(() => settingsStore.settings);
+const boards = computed(() => boardsStore.boards);
 
 // Computed properties
 const moveListRightButtonDisabled = computed(() => {
@@ -266,12 +273,12 @@ const validateMove = ({ from, to }) => {
 };
 
 const dragStart = ({ item }) => {
-  store.commit('SET_DRAGGING_STATUS', true);
+  uiStore.setDraggingGameId(item.id);
   draggingId.value = item.id;
 };
 
 const dragEnd = () => {
-  store.commit('SET_DRAGGING_STATUS', false);
+  uiStore.clearDraggingGameId();
   saveBoard();
 };
 

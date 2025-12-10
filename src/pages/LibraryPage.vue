@@ -106,12 +106,24 @@
 
 <script setup>
 import { ref, computed, watch, onBeforeMount, onMounted, onBeforeUnmount, nextTick, inject } from 'vue';
-import { useStore } from 'vuex';
+import { useGamesStore } from '@/stores/games';
+import { useUserStore } from '@/stores/user';
+import { useProgressesStore } from '@/stores/progresses';
+import { useTagsStore } from '@/stores/tags';
+import { useUIStore } from '@/stores/ui';
+import { useTwitchStore } from '@/stores/twitch';
+import { useAppGetters } from '@/stores/getters';
 import EmptyState from '@/components/EmptyState';
 import GameCard from '@/components/GameCard';
 import { HIGHLIGHTED_GAME_TIMEOUT } from '@/constants';
 
-const store = useStore();
+const gamesStore = useGamesStore();
+const userStore = useUserStore();
+const progressesStore = useProgressesStore();
+const tagsStore = useTagsStore();
+const uiStore = useUIStore();
+const twitchStore = useTwitchStore();
+const { darkTheme, navPosition, buttonProps } = useAppGetters();
 const $bus = inject('$bus');
 
 // Reactive state
@@ -122,15 +134,12 @@ const sortOrder = ref('asc');
 const gameRefs = ref({});
 
 // Store state and getters
-const games = computed(() => store.state.games);
-const cachedGames = computed(() => store.state.cachedGames);
-const user = computed(() => store.state.user);
-const progresses = computed(() => store.state.progresses);
-const highlightedGame = computed(() => store.state.highlightedGame);
-const gamesSortOrder = computed(() => store.state.gamesSortOrder);
-const darkTheme = computed(() => store.getters.darkTheme);
-const navPosition = computed(() => store.getters.navPosition);
-const buttonProps = computed(() => store.getters.buttonProps);
+const games = computed(() => gamesStore.games);
+const cachedGames = computed(() => gamesStore.cachedGames);
+const user = computed(() => userStore.user);
+const progresses = computed(() => progressesStore.progresses);
+const highlightedGame = computed(() => uiStore.highlightedGame);
+const gamesSortOrder = computed(() => gamesStore.gamesSortOrder);
 
 // Computed properties
 const likedGames = computed(() => {
@@ -171,7 +180,7 @@ watch(games, () => {
 
 // Methods
 const addGame = () => {
-  store.commit('SET_GAME_SELECTOR_DATA', {
+  uiStore.setGameSelectorData({
     title: 'Add games to your favorites',
     filter: likedGamesIds.value,
   });
@@ -191,7 +200,7 @@ const highlightGame = async (gameId) => {
     gameRef?.$el.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
     setTimeout(() => {
-      store.commit('SET_HIGHLIGHTED_GAME', null);
+      uiStore.setHighlightedGame(null);
     }, HIGHLIGHTED_GAME_TIMEOUT);
   }
 };
@@ -200,8 +209,13 @@ const loadGames = async () => {
   try {
     loading.value = true;
 
+    // Ensure Twitch token is available
+    if (!twitchStore.twitchToken) {
+      await twitchStore.getTwitchToken();
+    }
+
     // Load games with Firebase-level sorting
-    await store.dispatch('LOAD_GAMES_SORTED', {
+    await gamesStore.loadGamesSorted(userStore.user.uid, twitchStore.twitchToken, {
       sortBy: sortBy.value,
       sortOrder: sortOrder.value,
     });
@@ -210,12 +224,12 @@ const loadGames = async () => {
     const gamesNotCached = Object.keys(games.value)?.filter((game) => !cachedGamesKeys.includes(String(game)))?.toString();
 
     if (gamesNotCached) {
-      await store.dispatch('LOAD_IGDB_GAMES', gamesNotCached);
+      await gamesStore.loadIGDBGames(twitchStore.twitchToken, gamesNotCached);
 
       // Save game metadata for newly cached games
       for (const gameId of gamesNotCached.split(',')) {
         if (games.value[gameId]) {
-          await store.dispatch('SAVE_USER_GAME', {
+          await gamesStore.saveUserGame(userStore.user.uid, {
             gameId: gameId.trim(),
             gameData: cachedGames.value[gameId],
           });
@@ -224,7 +238,7 @@ const loadGames = async () => {
     }
   } catch (e) {
     // Fallback to regular loading if sorted loading fails
-    await store.dispatch('LOAD_GAMES');
+    await gamesStore.loadGames(userStore.user.uid);
   } finally {
     loading.value = false;
   }
@@ -288,7 +302,7 @@ const sortGamesList = (gamesList) => {
 };
 
 const getGameTagCount = (gameId) => {
-  const tags = store.state.tags?.tags || store.state.tags || [];
+  const tags = tagsStore.tags || [];
   return tags.filter(tag => tag?.games?.includes(Number(gameId))).length;
 };
 

@@ -40,55 +40,41 @@
   </div>
 </template>
 
-<script>
-import { mapState, mapGetters } from 'vuex';
+<script setup>
+import { ref, computed, onMounted } from 'vue';
+import { useUserStore } from '@/stores/user';
+import { useWallpapersStore } from '@/stores/wallpapers';
+import { useAppGetters } from '@/stores/getters';
 import { THUMBNAIL_PREFIX } from '@/constants';
 import EmptyState from '@/components/EmptyState';
 import UploadWallpaperButton from '@/components/UploadWallpaperButton';
 import WallpapersList from '@/components/WallpapersList';
 
-export default {
-  components: {
-    EmptyState,
-    UploadWallpaperButton,
-    WallpapersList,
-  },
+const userStore = useUserStore();
+const wallpapersStore = useWallpapersStore();
+const { darkTheme } = useAppGetters();
 
-  data() {
-    return {
-      file: null,
-      loading: false,
-      wallpaperUrls: [],
-    };
-  },
+const loading = ref(false);
 
-  computed: {
-    ...mapState(['user', 'board', 'wallpapers']),
-    ...mapGetters(['darkTheme']),
+const user = computed(() => userStore.user);
+const wallpapers = computed(() => wallpapersStore.wallpapers);
 
-    isEmpty() {
-      const wallpapers = this.wallpapers?.filter((wallpaper) => !wallpaper?.fullPath?.includes(THUMBNAIL_PREFIX));
+const isEmpty = computed(() => {
+  const filteredWallpapers = wallpapers.value?.filter((wallpaper) => !wallpaper?.fullPath?.includes(THUMBNAIL_PREFIX));
+  return !filteredWallpapers || filteredWallpapers?.length === 0;
+});
 
-      return !wallpapers || wallpapers?.length === 0;
-    },
-  },
-
-  mounted() {
-    this.loadWallpapers();
-  },
-
-  methods: {
-    async loadWallpapers() {
-      try {
-        this.loading = Boolean(this.isEmpty);
-
-        await this.$store.dispatch('LOAD_WALLPAPERS');
-
-        this.loading = false;
-      } catch (error) {
-        this.loading = false;
-      }
-    },
-  },
+const loadWallpapers = async () => {
+  try {
+    loading.value = Boolean(isEmpty.value);
+    await wallpapersStore.loadWallpapers(userStore.user.uid);
+    loading.value = false;
+  } catch (error) {
+    loading.value = false;
+  }
 };
+
+onMounted(() => {
+  loadWallpapers();
+});
 </script>

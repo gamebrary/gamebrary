@@ -17,20 +17,23 @@
 
 <script setup>
 import { ref, computed, onMounted, watch, nextTick } from 'vue';
-import { useStore } from 'vuex';
+import { useBoardsStore } from '@/stores/boards';
+import { useUIStore } from '@/stores/ui';
+import { useAppGetters } from '@/stores/getters';
 import AddKanbanList from '@/components/Board/AddKanbanList';
 import KanbanList from '@/components/Lists/KanbanList';
 import { HIGHLIGHTED_GAME_TIMEOUT } from '@/constants';
 
-const store = useStore();
+const boardsStore = useBoardsStore();
+const uiStore = useUIStore();
+const { isBoardOwner } = useAppGetters();
 
 // Template refs
 const listRefs = ref({});
 
 // Store state and getters
-const board = computed(() => store.state.board);
-const highlightedGame = computed(() => store.state.highlightedGame);
-const isBoardOwner = computed(() => store.getters.isBoardOwner);
+const board = computed(() => boardsStore.board);
+const highlightedGame = computed(() => uiStore.highlightedGame);
 
 // Computed properties
 const empty = computed(() => {
@@ -60,7 +63,7 @@ const scrollToGame = () => {
   });
 
   setTimeout(() => {
-    store.commit('SET_HIGHLIGHTED_GAME', null);
+    uiStore.setHighlightedGame(null);
   }, HIGHLIGHTED_GAME_TIMEOUT);
 };
 

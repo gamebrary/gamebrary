@@ -42,11 +42,11 @@
             :to="{ name: 'game', params: { id: game.id, slug: game.slug }}"
             class="float-end"
           >
-            <img :src="$options.getImageUrl(game)" class="img-fluid rounded" alt="Game cover" />
+            <img :src="getImageUrl(game)" class="img-fluid rounded" alt="Game cover" />
           </router-link>
           <img
             v-else
-            :src="$options.getImageUrl(game)"
+            :src="getImageUrl(game)"
             class="img-fluid rounded float-end"
             alt="Game cover"
           />
@@ -96,45 +96,35 @@
   </section>
 </template>
 
-<script>
-import { mapGetters, mapState } from 'vuex';
+<script setup>
+import { ref, computed, onMounted } from 'vue';
+import { useGamesStore } from '@/stores/games';
+import { useAppGetters } from '@/stores/getters';
 import { getImageUrl } from '@/utils';
 import { NEWS_SOURCES } from '@/constants';
 
-export default {
-  getImageUrl,
+const gamesStore = useGamesStore();
+const { gameNews, darkTheme } = useAppGetters();
 
-  data() {
-    return {
-      loading: false,
-    };
-  },
+const loading = ref(false);
 
-  computed: {
-    ...mapState(['game']),
-    ...mapGetters(['gameNews', 'darkTheme']),
+const game = computed(() => gamesStore.game);
 
-    steamAppId() {
-      const steamUrl = this.game?.websites?.find(({ category }) => category === 13)?.url;
+const steamAppId = computed(() => {
+  const steamUrl = game.value?.websites?.find(({ category }) => category === 13)?.url;
+  return steamUrl?.split('/')?.[4];
+});
 
-      return steamUrl?.split('/')?.[4];
-    },
-  },
-
-  mounted() {
-    if (this.steamAppId) this.loadNews();
-  },
-
-  methods: {
-    async loadNews() {
-      this.loading = true;
-
-      await this.$store.dispatch('LOAD_STEAM_GAME_NEWS', this.steamAppId);
-
-      this.loading = false;
-    },
-  },
+const loadNews = async () => {
+  if (!steamAppId.value) return;
+  loading.value = true;
+  await gamesStore.loadSteamGameNews(steamAppId.value);
+  loading.value = false;
 };
+
+onMounted(() => {
+  if (steamAppId.value) loadNews();
+});
 </script>
 
 <style lang="scss" rel="stylesheet/scss">

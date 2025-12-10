@@ -53,16 +53,14 @@
 
 <script setup>
 import { computed, onMounted, nextTick } from 'vue';
-import { useStore } from 'vuex';
+import { useSettingsStore } from '@/stores/settings';
+import { useAppGetters } from '@/stores/getters';
 
-const store = useStore();
+const settingsStore = useSettingsStore();
+const { darkTheme, showGameThumbnails, transparencyEnabled, ageRating } = useAppGetters();
 
 // Store state and getters
-const settings = computed(() => store.state.settings);
-const darkTheme = computed(() => store.getters.darkTheme);
-const showGameThumbnails = computed(() => store.getters.showGameThumbnails);
-const transparencyEnabled = computed(() => store.getters.transparencyEnabled);
-const ageRating = computed(() => store.getters.ageRating);
+const settings = computed(() => settingsStore.settings);
 
 // Computed properties
 const currentYear = computed(() => {
@@ -72,7 +70,7 @@ const currentYear = computed(() => {
 // Methods
 const toggleTheme = async () => {
   try {
-    await store.dispatch('SAVE_SETTINGS', {
+    await settingsStore.saveSettings({
       ...settings.value,
       darkTheme: !settings.value?.darkTheme,
     });

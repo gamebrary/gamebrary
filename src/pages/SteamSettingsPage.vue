@@ -20,41 +20,35 @@
   </section>
 </template>
 
-<script>
-import { mapState } from 'vuex';
+<script setup>
+import { ref, computed, onMounted } from 'vue';
+import { useSettingsStore } from '@/stores/settings';
+import { useUserStore } from '@/stores/user';
 
-export default {
-  data() {
-    return {
-      saving: false,
-      steamId: null,
-    };
-  },
+const settingsStore = useSettingsStore();
+const userStore = useUserStore();
 
-  computed: {
-    ...mapState(['settings']),
-  },
+const saving = ref(false);
+const steamId = ref(null);
 
-  mounted() {
-    this.steamId = this.settings?.steamId || null;
-  },
+const settings = computed(() => settingsStore.settings);
 
-  methods: {
-    async save() {
-      const { steamId, settings } = this;
+onMounted(() => {
+  steamId.value = settings.value?.steamId || null;
+});
 
-      const payload = {
-        ...settings,
-        steamId,
-      };
+const save = async () => {
+  const payload = {
+    ...settings.value,
+    steamId: steamId.value,
+  };
 
-      this.saving = true;
-      await this.$store.dispatch('SAVE_SETTINGS', payload)
-        .catch(() => {
-          this.saving = false;
-        });
-      this.saving = false;
-    },
-  },
+  saving.value = true;
+  try {
+    await settingsStore.saveSettings(userStore.user.uid, payload);
+  } catch (e) {
+    saving.value = false;
+  }
+  saving.value = false;
 };
 </script>

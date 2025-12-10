@@ -201,13 +201,17 @@
 
 <script setup>
 import { ref, computed, watch, onMounted, onBeforeUnmount, inject } from 'vue';
-import { useStore } from 'vuex';
+import { useBoardsStore } from '@/stores/boards';
+import { useUIStore } from '@/stores/ui';
+import { useAppGetters } from '@/stores/getters';
 import { useI18n } from 'vue-i18n';
 import { LIST_SORT_OPTIONS } from '@/constants';
 import SidebarHeader from '@/components/SidebarHeader';
 import AppSidebar from '@/components/AppSidebar';
 
-const store = useStore();
+const boardsStore = useBoardsStore();
+const uiStore = useUIStore();
+const { darkTheme, sidebarRightProps } = useAppGetters();
 const { t } = useI18n();
 const $bus = inject('$bus');
 
@@ -216,10 +220,8 @@ const list = ref({});
 const saving = ref(false);
 
 // Store state and getters
-const board = computed(() => store.state.board);
-const activeBoardListIndex = computed(() => store.state.activeBoardListIndex);
-const darkTheme = computed(() => store.getters.darkTheme);
-const sidebarRightProps = computed(() => store.getters.sidebarRightProps);
+const board = computed(() => boardsStore.board);
+const activeBoardListIndex = computed(() => uiStore.activeBoardListIndex);
 
 // Watchers
 watch(activeBoardListIndex, (newIndex) => {
@@ -236,7 +238,7 @@ const handleVisibilityChange = (visible) => {
 };
 
 const hideSidebar = () => {
-  store.commit('CLEAR_ACTIVE_BOARD_LIST_INDEX');
+  uiStore.clearActiveBoardListIndex();
 };
 
 const openEditListSidebar = () => {
@@ -262,7 +264,7 @@ const openEditListSidebar = () => {
 };
 
 const closeSidebar = () => {
-  store.commit('CLEAR_ACTIVE_BOARD_LIST_INDEX');
+  uiStore.clearActiveBoardListIndex();
 };
 
 const confirmDeleteList = async () => {
@@ -284,10 +286,10 @@ const deleteList = async () => {
     lastUpdated: Date.now(),
   };
 
-  store.commit('SET_GAME_BOARD', payload);
+  boardsStore.setGameBoard(payload);
 
   try {
-    await store.dispatch('SAVE_BOARD');
+    await boardsStore.saveBoard();
     showToast('List deleted', 'success');
     closeSidebar();
   } catch (e) {
@@ -310,10 +312,10 @@ const saveList = async () => {
     lastUpdated: Date.now(),
   };
 
-  store.commit('SET_GAME_BOARD', payload);
+  boardsStore.setGameBoard(payload);
 
   try {
-    await store.dispatch('SAVE_BOARD');
+    await boardsStore.saveBoard();
     closeSidebar();
   } catch (e) {
     saving.value = false;

@@ -1,99 +1,54 @@
 <template lang="html">
-  <AppSidebar
-    id="create-board-sidebar"
-    :visible="visible"
-    :placement="sidebarRightProps?.placement || 'end'"
-    :bg-variant="sidebarRightProps?.bgVariant"
-    :text-variant="sidebarRightProps?.textVariant"
-    @update:visible="handleVisibilityChange"
-    @hidden="handleHidden"
-  >
+  <AppSidebar id="create-board-sidebar" :visible="visible" :placement="sidebarRightProps?.placement || 'end'"
+    :bg-variant="sidebarRightProps?.bgVariant" :text-variant="sidebarRightProps?.textVariant"
+    @update:visible="handleVisibilityChange" @hidden="handleHidden">
     <template #header>
-      <SidebarHeader
-        @hide="hideSidebar"
-        title="Create board"
-      />
+      <SidebarHeader @hide="hideSidebar" title="Create board" />
     </template>
 
-      <form
-        class="p-3"
-        @submit.prevent="createBoard"
-      >
-        <div class="mb-3">
-          <label for="boardName" class="form-label">Board name:</label>
-          <input
-            id="boardName"
-            type="text"
-            v-model.trim="board.name"
-            class="form-control"
-            autofocus
-            required
-          />
-        </div>
+    <form class="p-3" @submit.prevent="createBoard">
+      <div class="mb-3">
+        <label for="boardName" class="form-label">Board name:</label>
+        <input id="boardName" type="text" v-model.trim="board.name" class="form-control" autofocus required />
+      </div>
 
-        <p>Board type:</p>
-        <div class="btn-group mb-2" role="group">
-          <button
-            v-for="{ text, value } in BOARD_TYPES"
-            :key="value"
-            type="button"
-            class="btn"
-            :class="value === board.type ? 'btn-primary' : 'btn-light'"
-            @click="board.type = value"
-          >
-            {{ text }}
-          </button>
-        </div>
-
-        <MiniBoard
-          class="mb-2"
-          :board="sampleBoardWithRandomizedGames"
-          no-link
-        />
-
-        <div
-          v-if="board.type === BOARD_TYPE_STANDARD"
-          class="form-check form-switch mb-3"
-        >
-          <input
-            class="form-check-input"
-            type="checkbox"
-            v-model="board.ranked"
-            id="rankedSwitch"
-          />
-          <label class="form-check-label" for="rankedSwitch">
-            Ranked
-          </label>
-        </div>
-
-        <div class="form-check form-switch mb-2">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            v-model="board.isPublic"
-            id="isPublicSwitch"
-          />
-          <label class="form-check-label" for="isPublicSwitch">
-            Public
-          </label>
-        </div>
-
-        <button
-          type="submit"
-          class="btn btn-primary mt-3"
-          :disabled="saving"
-        >
-          <span v-if="saving" class="spinner-border spinner-border-sm me-2" role="status"></span>
-          <span v-else>Create board</span>
+      <p>Board type:</p>
+      <div class="btn-group mb-2" role="group">
+        <button v-for="{ text, value } in BOARD_TYPES" :key="value" type="button" class="btn"
+          :class="value === board.type ? 'btn-primary' : 'btn-light'" @click="board.type = value">
+          {{ text }}
         </button>
-      </form>
+      </div>
+
+      <MiniBoard class="mb-2" :board="sampleBoardWithRandomizedGames" no-link />
+
+      <div v-if="board.type === BOARD_TYPE_STANDARD" class="form-check form-switch mb-3">
+        <input class="form-check-input" type="checkbox" v-model="board.ranked" id="rankedSwitch" />
+        <label class="form-check-label" for="rankedSwitch">
+          Ranked
+        </label>
+      </div>
+
+      <div class="form-check form-switch mb-2">
+        <input class="form-check-input" type="checkbox" v-model="board.isPublic" id="isPublicSwitch" />
+        <label class="form-check-label" for="isPublicSwitch">
+          Public
+        </label>
+      </div>
+
+      <button type="submit" class="btn btn-primary mt-3" :disabled="saving">
+        <span v-if="saving" class="spinner-border spinner-border-sm me-2" role="status"></span>
+        <span v-else>Create board</span>
+      </button>
+    </form>
   </AppSidebar>
 </template>
 
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, inject } from 'vue';
 import { useRouter } from 'vue-router';
-import { useStore } from 'vuex';
+import { useUserStore } from '@/stores/user';
+import { useAppGetters } from '@/stores/getters';
 import {
   BOARD_TYPES,
   BOARD_TYPE_KANBAN,
@@ -108,7 +63,8 @@ import SidebarHeader from '@/components/SidebarHeader';
 import AppSidebar from '@/components/AppSidebar';
 
 const router = useRouter();
-const store = useStore();
+const userStore = useUserStore();
+const { sidebarRightProps } = useAppGetters();
 const $bus = inject('$bus');
 
 // Reactive state
@@ -118,8 +74,7 @@ const selectedTemplate = ref(null);
 const visible = ref(false);
 
 // Store state and getters
-const user = computed(() => store.state.user);
-const sidebarRightProps = computed(() => store.getters.sidebarRightProps);
+const user = computed(() => userStore.user);
 
 // Computed properties
 const sampleBoard = computed(() => {
@@ -132,7 +87,7 @@ const sampleBoard = computed(() => {
 const sampleBoardWithRandomizedGames = computed(() => {
   const randomizedListWithGames = sampleBoard.value?.lists?.map((list) => ({
     ...list,
-    games: Array.from({length: Math.floor(Math.random() * 5) + 2 }, () => ''),
+    games: Array.from({ length: Math.floor(Math.random() * 5) + 2 }, () => ''),
   }));
 
   return {

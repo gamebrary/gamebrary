@@ -26,16 +26,19 @@
 
 <script setup>
 import { computed } from 'vue';
-import { useStore } from 'vuex';
+import { useGamesStore } from '@/stores/games';
+import { useUserStore } from '@/stores/user';
+import { useAppGetters } from '@/stores/getters';
 import { IMAGE_SIZE_SCREENSHOT_HUGE } from '@/constants';
 import { getImageUrl } from '@/utils';
 
-const store = useStore();
+const gamesStore = useGamesStore();
+const userStore = useUserStore();
+const { darkTheme } = useAppGetters();
 
 // Store state and getters
-const game = computed(() => store.state.game);
-const user = computed(() => store.state.user);
-const darkTheme = computed(() => store.getters.darkTheme);
+const game = computed(() => gamesStore.game);
+const user = computed(() => userStore.user);
 
 // Computed properties
 const artworks = computed(() => {

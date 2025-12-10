@@ -13,11 +13,7 @@
     <div class="d-flex align-items-center gap-2">
       <SearchBox v-if="user" class="d-none d-md-block" />
 
-      <router-link
-        v-if="!user"
-        :to="{ name: 'auth' }"
-        class="btn btn-success"
-      >
+      <router-link v-if="!user" :to="{ name: 'auth' }" class="btn btn-success">
         Get started <span class="d-none d-sm-inline"> — it's free!</span>
       </router-link>
     </div>
@@ -27,25 +23,41 @@
 <script setup>
 import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useStore } from 'vuex';
+import { useUserStore } from '@/stores/user';
+import { useGamesStore } from '@/stores/games';
+import { useNotesStore } from '@/stores/notes';
+import { useTagsStore } from '@/stores/tags';
+import { useWallpapersStore } from '@/stores/wallpapers';
+import { useUIStore } from '@/stores/ui';
+import { useSettingsStore } from '@/stores/settings';
+import { useReleasesStore } from '@/stores/releases';
+import { useAppGetters } from '@/stores/getters';
 import SearchBox from '@/components/SearchBox';
 
 const route = useRoute();
 const router = useRouter();
-const store = useStore();
+
+// Pinia stores
+const userStore = useUserStore();
+const gamesStore = useGamesStore();
+const notesStore = useNotesStore();
+const tagsStore = useTagsStore();
+const wallpapersStore = useWallpapersStore();
+const uiStore = useUIStore();
+const settingsStore = useSettingsStore();
+const releasesStore = useReleasesStore();
+const { darkTheme, navPosition } = useAppGetters();
 
 // Store state and getters
-const user = computed(() => store.state.user);
-const games = computed(() => store.state.games);
-const notes = computed(() => store.state.notes);
-const tags = computed(() => store.state.tags);
-const wallpapers = computed(() => store.state.wallpapers);
-const menuOpen = computed(() => store.state.menuOpen);
-const routeName = computed(() => store.state.routeName);
-const navPosition = computed(() => store.getters.navPosition);
-const latestRelease = computed(() => store.getters.latestRelease);
-const darkTheme = computed(() => store.getters.darkTheme);
-const transparencyEnabled = computed(() => store.getters.transparencyEnabled);
+const user = computed(() => userStore.user);
+const games = computed(() => gamesStore.games);
+const notes = computed(() => notesStore.notes);
+const tags = computed(() => tagsStore.tags);
+const wallpapers = computed(() => wallpapersStore.wallpapers);
+const menuOpen = computed(() => uiStore.menuOpen);
+const routeName = computed(() => uiStore.routeName);
+const latestRelease = computed(() => releasesStore.latestRelease);
+const transparencyEnabled = computed(() => settingsStore.transparencyEnabled);
 
 // Computed properties
 const navClass = computed(() => {

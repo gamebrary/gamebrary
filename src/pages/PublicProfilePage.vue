@@ -16,7 +16,7 @@
           v-if="isProfileOwner"
           type="button"
           class="btn btn-primary"
-          @click="$store.commit('SET_PROFILE_SIDEBAR_OPEN', true)"
+          @click="uiStore.setEditProfileSidebarOpen(true)"
         >
           Edit profile
         </button>
@@ -109,133 +109,134 @@
   </div>
 </template>
 
-<script>
-import { mapState } from 'vuex';
+<script setup>
+import { ref, computed, watch, onMounted, onUpdated, onBeforeUnmount, nextTick, inject } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useUserStore } from '@/stores/user';
+import { useUIStore } from '@/stores/ui';
+import { useProfileStore } from '@/stores/profile';
+import { useBoardsStore } from '@/stores/boards';
+import { loadFirebaseImage } from '@/utils/firebase';
+import { getImageThumbnail } from '@/utils';
 import MiniBoard from '@/components/Board/MiniBoard';
 import EditProfileSidebar from '@/components/EditProfileSidebar';
 import EmptyState from '@/components/EmptyState';
-import { getImageThumbnail } from '@/utils';
 
-export default {
-  components: {
-    MiniBoard,
-    EditProfileSidebar,
-    EmptyState,
-  },
+const route = useRoute();
+const router = useRouter();
+const userStore = useUserStore();
+const uiStore = useUIStore();
+const profileStore = useProfileStore();
+const boardsStore = useBoardsStore();
+const $bus = inject('$bus');
 
-  data() {
-    return {
-      error: false,
-      loading: false,
-      userBoards: [],
-      profile: null,
-      avatarImage: null,
-      wallpaperImage: null,
-    };
-  },
+const error = ref(false);
+const loading = ref(false);
+const userBoards = ref([]);
+const profile = ref(null);
+const avatarImage = ref(null);
+const wallpaperImage = ref(null);
 
-  computed: {
-    ...mapState(['user', 'editProfileSidebarOpen']),
+const userName = computed(() => route.params.userName);
+const user = computed(() => userStore.user);
+const editProfileSidebarOpen = computed(() => uiStore.editProfileSidebarOpen);
 
-    userName() {
-      return this.$route.params.userName;
-    },
+const userLocation = computed(() => {
+  if (!profile.value?.location) return null;
+  const location = profile.value?.location?.replace(' ', '+');
+  return `https://www.google.com/maps/search/${location}`;
+});
 
-    userLocation() {
-      if (!this.profile?.location) return null;
+const isProfileOwner = computed(() => {
+  if (!user.value?.uid) return false;
+  return user.value?.uid === profile.value?.uid;
+});
 
-      const location = this.profile?.location?.replace(' ', '+');
-
-      return `https://www.google.com/maps/search/${location}`;
-    },
-
-    isProfileOwner() {
-      if (!this.user?.uid) return false;
-
-      return this.user?.uid === this.profile?.uid;
-    },
-  },
-
-  watch: {
-    userName(value) {
-      if (value) {
-        this.loadProfile();
+const initTooltips = () => {
+  nextTick(() => {
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      if (!tooltipTriggerEl._tooltip) {
+        new bootstrap.Tooltip(tooltipTriggerEl);
       }
-    },
-
-    wallpaperImage(value) {
-      if (value) this.$bus.$emit('UPDATE_WALLPAPER', value);
-    },
-  },
-
-  mounted() {
-    this.$bus.$on('LOAD_PROFILE', this.loadProfile);
-    this.loadProfile();
-    this.initTooltips();
-  },
-
-  updated() {
-    this.initTooltips();
-  },
-
-  beforeUnmount() {
-    this.$bus.$off('LOAD_PROFILE');
-    this.$bus.$emit('CLEAR_WALLPAPER');
-  },
-
-  methods: {
-    initTooltips() {
-      this.$nextTick(() => {
-        const tooltipTriggerList = this.$el.querySelectorAll('[data-bs-toggle="tooltip"]');
-        tooltipTriggerList.forEach(tooltipTriggerEl => {
-          if (!tooltipTriggerEl._tooltip) {
-            new bootstrap.Tooltip(tooltipTriggerEl);
-          }
-        });
-      });
-    },
-
-    viewPublicBoard(id) {
-      this.$router.push({ name: 'public.board', params: { id } });
-    },
-
-    async loadProfile() {
-      this.error = false;
-      this.loading = this.profile === null;
-
-      this.profile = await this.$store.dispatch('LOAD_PUBLIC_PROFILE_BY_USERNAME', this.userName)
-        .catch(() => {
-          this.error = true;
-        });
-
-      if (!this.profile) {
-        this.loading = false;
-        document.title = 'Page not found - Gamebrary';
-
-        return;
-      }
-
-      this.userBoards = await this.$store.dispatch('LOAD_USER_PUBLIC_BOARDS', this.profile.uid)
-        .catch(() => {
-          this.error = true;
-        });
-
-      if (this.profile?.avatar) {
-        const thumbnailRef = getImageThumbnail(this.profile?.avatar);
-
-        this.avatarImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', thumbnailRef)
-          .catch((e) => {});
-      } else {
-        this.avatarImage = null;
-      }
-
-      if (this.profile?.wallpaper) {
-        this.wallpaperImage = await this.$store.dispatch('LOAD_FIREBASE_IMAGE', this.profile?.wallpaper)
-          .catch((e) => {});
-      }
-
-      this.loading = false;
-    },
-  },
+    });
+  });
 };
+
+const viewPublicBoard = (id) => {
+  router.push({ name: 'public.board', params: { id } });
+};
+
+const loadProfile = async () => {
+  error.value = false;
+  loading.value = profile.value === null;
+
+  try {
+    profile.value = await profileStore.loadPublicProfileByUsername(userName.value);
+  } catch (e) {
+    error.value = true;
+  }
+
+  if (!profile.value) {
+    loading.value = false;
+    document.title = 'Page not found - Gamebrary';
+    return;
+  }
+
+  try {
+    userBoards.value = await boardsStore.loadUserPublicBoards(profile.value.uid);
+  } catch (e) {
+    error.value = true;
+  }
+
+  if (profile.value?.avatar) {
+    const thumbnailRef = getImageThumbnail(profile.value?.avatar);
+    try {
+      avatarImage.value = await loadFirebaseImage(thumbnailRef);
+    } catch (e) {
+      console.error('Error loading avatar:', e);
+    }
+  } else {
+    avatarImage.value = null;
+  }
+
+  if (profile.value?.wallpaper) {
+    try {
+      wallpaperImage.value = await loadFirebaseImage(profile.value?.wallpaper);
+    } catch (e) {
+      console.error('Error loading wallpaper:', e);
+    }
+  }
+
+  loading.value = false;
+};
+
+watch(userName, (value) => {
+  if (value) {
+    loadProfile();
+  }
+});
+
+watch(wallpaperImage, (value) => {
+  if (value && $bus) $bus.$emit('UPDATE_WALLPAPER', value);
+});
+
+onMounted(() => {
+  if ($bus) {
+    $bus.$on('LOAD_PROFILE', loadProfile);
+  }
+  loadProfile();
+  initTooltips();
+});
+
+onUpdated(() => {
+  initTooltips();
+});
+
+onBeforeUnmount(() => {
+  if ($bus) {
+    $bus.$off('LOAD_PROFILE');
+    $bus.$emit('CLEAR_WALLPAPER');
+  }
+});
 </script>

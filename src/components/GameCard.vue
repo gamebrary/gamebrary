@@ -1,90 +1,50 @@
 <template lang="html">
-  <div
-    v-if="game"
-    class="game-card position-relative rounded cursor-pointer"
-    :class="[
-      {
-        vertical,
-        small,
-        slim,
-        highlighted: highlightedGame === gameId,
-        'semi-transparent': transparencyEnabled,
-      },
-      darkTheme ? 'dark text-light' : 'light',
-    ]"
-    @click="handleClick"
-  >
+  <div v-if="game" class="game-card position-relative rounded cursor-pointer" :class="[
+    {
+      vertical,
+      small,
+      slim,
+      highlighted: highlightedGame === gameId,
+      'semi-transparent': transparencyEnabled,
+    },
+    darkTheme ? 'dark text-light' : 'light',
+  ]" @click="handleClick">
     <div v-if="!hideCover || hideTitle">
       <div class="position-relative">
-        <button
-          v-if="user"
-          type="button"
-          class="btn btn-sm like-button m-1"
+        <button v-if="user" type="button" class="btn btn-sm like-button m-1"
           :class="{ 'liked': isLiked, 'bg-transparent': true, 'border-0': true }"
-          @click.stop.prevent="$bus.$emit('LIKE_UNLIKE_GAME', game.id)"
-        >
-          <i
-            :class="[isLiked ? 'fa-solid': 'fa-regular' , 'fa-heart text-danger']"
-            class="fa-fw"
-          />
+          @click.stop.prevent="$bus.$emit('LIKE_UNLIKE_GAME', game.id)">
+          <i :class="[isLiked ? 'fa-solid' : 'fa-regular', 'fa-heart text-danger']" class="fa-fw" />
         </button>
 
-        <img
-          :src="getImageUrl(game, IMAGE_SIZE_COVER_SMALL)"
-          :alt="game.name"
-          class="rounded"
-          :class="vertical && fluid ? '' : 'mw-100'"
-          :width="small ? '96' : undefined"
-          style="background-color: #ccc;"
-          onerror="this.style.backgroundColor='#ccc';"
-        />
+        <img :src="getImageUrl(game, IMAGE_SIZE_COVER_SMALL)" :alt="game.name" class="rounded"
+          :class="vertical && fluid ? '' : 'mw-100'" :width="small ? '96' : undefined" style="background-color: #ccc;"
+          onerror="this.style.backgroundColor='#ccc';" />
 
         <GameRibbon v-if="!hideRibbon" :game="game" />
       </div>
     </div>
 
     <aside>
-      <div
-        v-if="showGameProgress"
-        class="progress game-progress"
-        style="height: 8px;"
-        data-bs-toggle="tooltip"
-        :title="`${gameProgress}% Completed`"
-      >
-        <div
-          class="progress-bar"
-          :class="gameProgress == 100 ? 'bg-success' : 'bg-primary'"
-          role="progressbar"
-          :style="`width: ${gameProgress}%`"
-          :aria-valuenow="gameProgress"
-          aria-valuemin="0"
-          aria-valuemax="100"
-        ></div>
+      <div v-if="showGameProgress" class="progress game-progress" style="height: 8px;" data-bs-toggle="tooltip"
+        :title="`${gameProgress}% Completed`">
+        <div class="progress-bar" :class="gameProgress == 100 ? 'bg-success' : 'bg-primary'" role="progressbar"
+          :style="`width: ${gameProgress}%`" :aria-valuenow="gameProgress" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
 
-      <span
-        v-if="!hideProgress && gameProgress > 0"
-        class="badge rounded-pill bg-success me-1"
-      >
+      <span v-if="!hideProgress && gameProgress > 0" class="badge rounded-pill bg-success me-1">
         <i v-if="gameProgress == 100" class="fas fa-check fa-fw" aria-hidden />
         <small v-else>{{ gameProgress }}%</small>
       </span>
 
 
-      <h4
-        v-if="!hideTitle || hideCover"
-        :class="['text-wrap',
-          {
-            'text-success' : gameCompleted, 'mb-1': board.type !== BOARD_TYPE_GRID,
-            'mt-2': vertical,
-          }
-        ]"
-      >
-        <span
-          v-if="ranked"
-          class="badge d-inline-block"
-          :class="darkTheme ? 'bg-warning' : 'bg-success'"
-        >
+      <h4 v-if="!hideTitle || hideCover" :class="['text-wrap',
+        {
+          'text-success': gameCompleted, 'mb-1': board.type !== BOARD_TYPE_GRID,
+          'mt-2': vertical,
+        }
+      ]">
+        <span v-if="ranked" class="badge d-inline-block" :class="darkTheme ? 'bg-warning' : 'bg-success'">
           {{ rank }}
         </span>
 
@@ -92,23 +52,15 @@
       </h4>
 
       <template v-if="!hideTags && tagsApplied.length">
-        <span
-          v-for="({ bgColor, textColor, name }) in tagsApplied"
-          :key="name"
-          class="badge rounded-pill me-2 mb-1 p-0 px-2"
-          :style="`background-color: ${bgColor}; color: ${textColor}`"
-        >
+        <span v-for="({ bgColor, textColor, name }) in tagsApplied" :key="name"
+          class="badge rounded-pill me-2 mb-1 p-0 px-2" :style="`background-color: ${bgColor}; color: ${textColor}`">
           <small>{{ name }}</small>
         </span>
       </template>
 
       <template v-if="!hideNotes && gameNotes">
-        <i
-          class="fas fa-book note-indicator text-warning"
-          data-bs-toggle="tooltip"
-          title="See game notes"
-          @click.stop.prevent="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug }})"
-        />
+        <i class="fas fa-book note-indicator text-warning" data-bs-toggle="tooltip" title="See game notes"
+          @click.stop.prevent="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })" />
       </template>
 
       <div v-if="!hidePlatforms && gamePlatformsText" class="d-flex mb-2">
@@ -118,20 +70,23 @@
   </div>
 
   <div v-else>
-    <img
-      :alt="String(gameId)"
-      src="/placeholder.gif"
-      class="rounded mw-100"
-      style="background-color: #ccc;"
-      onerror="this.style.backgroundColor='#ccc';"
-    />
+    <img :alt="String(gameId)" src="/placeholder.gif" class="rounded mw-100" style="background-color: #ccc;"
+      onerror="this.style.backgroundColor='#ccc';" />
   </div>
 </template>
 
 <script setup>
 import { computed, inject } from 'vue';
 import { useRouter } from 'vue-router';
-import { useStore } from 'vuex';
+import { useSettingsStore } from '@/stores/settings';
+import { useGamesStore } from '@/stores/games';
+import { useTagsStore } from '@/stores/tags';
+import { useNotesStore } from '@/stores/notes';
+import { useProgressesStore } from '@/stores/progresses';
+import { useBoardsStore } from '@/stores/boards';
+import { useUserStore } from '@/stores/user';
+import { useUIStore } from '@/stores/ui';
+import { useAppGetters } from '@/stores/getters';
 import { getImageUrl } from '@/utils';
 import { IMAGE_SIZE_COVER_SMALL, PLATFORMS, BOARD_TYPE_GRID } from '@/constants';
 import GameRibbon from '@/components/GameRibbon';
@@ -163,22 +118,29 @@ const props = defineProps({
 const emit = defineEmits(['click']);
 
 const router = useRouter();
-const store = useStore();
 const $bus = inject('$bus');
 
+// Pinia stores
+const settingsStore = useSettingsStore();
+const gamesStore = useGamesStore();
+const tagsStore = useTagsStore();
+const notesStore = useNotesStore();
+const progressesStore = useProgressesStore();
+const boardsStore = useBoardsStore();
+const userStore = useUserStore();
+const uiStore = useUIStore();
+const { darkTheme, isRTL, transparencyEnabled } = useAppGetters();
+
 // Store state and getters
-const settings = computed(() => store.state.settings);
-const cachedGames = computed(() => store.state.cachedGames);
-const tags = computed(() => store.state.tags);
-const notes = computed(() => store.state.notes);
-const progresses = computed(() => store.state.progresses);
-const board = computed(() => store.state.board);
-const games = computed(() => store.state.games);
-const user = computed(() => store.state.user);
-const highlightedGame = computed(() => store.state.highlightedGame);
-const isRTL = computed(() => store.getters.isRTL);
-const darkTheme = computed(() => store.getters.darkTheme);
-const transparencyEnabled = computed(() => store.getters.transparencyEnabled);
+const settings = computed(() => settingsStore.settings);
+const cachedGames = computed(() => gamesStore.cachedGames);
+const tags = computed(() => tagsStore.tags);
+const notes = computed(() => notesStore.notes);
+const progresses = computed(() => progressesStore.progresses);
+const board = computed(() => boardsStore.activeBoard);
+const games = computed(() => gamesStore.games);
+const user = computed(() => userStore.user);
+const highlightedGame = computed(() => uiStore.highlightedGame);
 
 // Computed properties
 const game = computed(() => cachedGames.value?.[props.gameId]);

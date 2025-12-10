@@ -1,14 +1,7 @@
 <template lang="html">
-  <AppSidebar
-    id="profile-sidebar"
-    :visible="editProfileSidebarOpen"
-    :placement="sidebarRightProps?.placement || 'end'"
-    :bg-variant="sidebarRightProps?.bgVariant"
-    :text-variant="sidebarRightProps?.textVariant"
-    @update:visible="handleVisibilityChange"
-    @shown="loadProfile"
-    @hidden="handleHidden"
-  >
+  <AppSidebar id="profile-sidebar" :visible="editProfileSidebarOpen" :placement="sidebarRightProps?.placement || 'end'"
+    :bg-variant="sidebarRightProps?.bgVariant" :text-variant="sidebarRightProps?.textVariant"
+    @update:visible="handleVisibilityChange" @shown="loadProfile" @hidden="handleHidden">
     <template #header>
       <SidebarHeader @hide="hideSidebar" title="Edit Profile" />
     </template>
@@ -19,35 +12,24 @@
       </div>
     </div>
 
-    <form
-      v-else-if="profile"
-      class="px-3 pb-3"
-      @submit.prevent="saveAndClose"
-    >
+    <form v-else-if="profile" class="px-3 pb-3" @submit.prevent="saveAndClose">
       <div v-if="uploading" class="d-flex justify-content-center mb-3">
         <div class="spinner-border" role="status">
           <span class="visually-hidden">Uploading...</span>
         </div>
       </div>
 
-      <div
-        class="text-center d-flex flex-column p-3 mb-3 rounded position-relative"
-        :class="darkTheme ? 'bg-black' : 'bg-white'"
-        :style="style"
-      >
+      <div class="text-center d-flex flex-column p-3 mb-3 rounded position-relative"
+        :class="darkTheme ? 'bg-black' : 'bg-white'" :style="style">
         <div class="dropdown position-absolute pe-3" style="right: 0">
-          <button
-            class="btn dropdown-toggle"
-            :class="darkTheme ? 'btn-dark' : 'btn-light'"
-            type="button"
-            id="profileMenuDropdown"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
+          <button class="btn dropdown-toggle" :class="darkTheme ? 'btn-dark' : 'btn-light'" type="button"
+            id="profileMenuDropdown" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fa-solid fa-bars" />
           </button>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileMenuDropdown">
-            <li><h6 class="dropdown-header">Profile wallpaper</h6></li>
+            <li>
+              <h6 class="dropdown-header">Profile wallpaper</h6>
+            </li>
             <li>
               <a class="dropdown-item" href="#" @click.prevent="toggleWallpaperSidebar">
                 {{ wallpaperImage ? 'Change wallpaper' : 'Set profile wallpaper' }}
@@ -56,8 +38,12 @@
             <li v-if="wallpaperImage">
               <a class="dropdown-item" href="#" @click.prevent="removeWallpaper">Remove wallpaper</a>
             </li>
-            <li><hr class="dropdown-divider"></li>
-            <li><h6 class="dropdown-header">Profile avatar</h6></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>
+              <h6 class="dropdown-header">Profile avatar</h6>
+            </li>
             <li>
               <a class="dropdown-item" href="#" @click.prevent="triggerFileUpload">
                 {{ profile.avatar ? 'Replace avatar' : 'Upload avatar' }}
@@ -69,161 +55,84 @@
           </ul>
         </div>
 
-        <img
-          v-if="avatarImage"
-          :src="avatarImage"
-          class="mx-auto cursor-pointer mb-2 rounded-circle"
-          style="width: 120px; height: 120px; object-fit: cover; cursor: pointer;"
-          @click="triggerFileUpload"
-          alt="Avatar"
-        />
-        <div
-          v-else
-          class="mx-auto mb-2 rounded-circle d-flex align-items-center justify-content-center"
+        <img v-if="avatarImage" :src="avatarImage" class="mx-auto cursor-pointer mb-2 rounded-circle"
+          style="width: 120px; height: 120px; object-fit: cover; cursor: pointer;" @click="triggerFileUpload"
+          alt="Avatar" />
+        <div v-else class="mx-auto mb-2 rounded-circle d-flex align-items-center justify-content-center"
           style="width: 120px; height: 120px; background-color: var(--bs-gray-300); cursor: pointer;"
-          @click="triggerFileUpload"
-        >
+          @click="triggerFileUpload">
           <i class="fa-regular fa-user fa-3x"></i>
         </div>
 
         <strong>@{{ profile.userName }}</strong>
       </div>
 
-      <input
-        ref="fileInput"
-        type="file"
-        class="d-none file-input"
-        accept="image/*"
-        @change="uploadProfileAvatar"
-      />
+      <input ref="fileInput" type="file" class="d-none file-input" accept="image/*" @change="uploadProfileAvatar" />
 
       <div class="mb-3">
         <label for="name" class="form-label m-0 text-muted">Name</label>
-        <input
-          id="name"
-          type="text"
-          v-model="profile.name"
-          class="form-control mb-3"
-        />
+        <input id="name" type="text" v-model="profile.name" class="form-control mb-3" />
       </div>
 
       <div class="mb-3">
         <label for="bio" class="form-label m-0 text-muted">About you</label>
-        <input
-          id="bio"
-          type="text"
-          v-model="profile.bio"
-          class="form-control mb-3"
-        />
+        <input id="bio" type="text" v-model="profile.bio" class="form-control mb-3" />
       </div>
 
       <div class="mb-3">
         <label for="location" class="form-label m-0 text-muted">Location</label>
-        <input
-          id="location"
-          type="text"
-          v-model="profile.location"
-          class="form-control mb-3"
-        />
+        <input id="location" type="text" v-model="profile.location" class="form-control mb-3" />
       </div>
 
       <div class="mb-3">
         <label for="website" class="form-label m-0 text-muted">Website</label>
-        <input
-          id="website"
-          type="text"
-          v-model="profile.website"
-          class="form-control mb-3"
-          @blur="autoformatWebsite"
-        />
+        <input id="website" type="text" v-model="profile.website" class="form-control mb-3" @blur="autoformatWebsite" />
       </div>
 
       <div class="mb-3">
         <label for="x" class="form-label m-0 text-muted">X</label>
-        <input
-          id="x"
-          type="text"
-          v-model="profile.twitter"
-          class="form-control mb-3"
-        />
+        <input id="x" type="text" v-model="profile.twitter" class="form-control mb-3" />
       </div>
 
       <div class="mb-3">
         <label for="friendCode" class="form-label m-0 text-muted">Nintendo Friend Code</label>
-        <input
-          id="friendCode"
-          type="text"
-          v-model="profile.friendCode"
-          placeholder="SW-8496-9128-4205"
-          class="form-control mb-3"
-        />
+        <input id="friendCode" type="text" v-model="profile.friendCode" placeholder="SW-8496-9128-4205"
+          class="form-control mb-3" />
       </div>
 
       <div class="mb-3">
         <label for="psnId" class="form-label m-0 text-muted">Playstation online ID</label>
-        <input
-          id="psnId"
-          type="text"
-          v-model="profile.psnId"
-          class="form-control mb-3"
-        />
+        <input id="psnId" type="text" v-model="profile.psnId" class="form-control mb-3" />
       </div>
 
       <div class="mb-3">
         <label for="steamFriendCode" class="form-label m-0 text-muted">Steam friend code</label>
-        <input
-          id="steamFriendCode"
-          type="text"
-          v-model="profile.steamFriendCode"
-          class="form-control mb-3"
-        />
+        <input id="steamFriendCode" type="text" v-model="profile.steamFriendCode" class="form-control mb-3" />
       </div>
 
       <div class="mb-3">
         <label for="gamerTag" class="form-label m-0 text-muted">Xbox Gamertag</label>
-        <input
-          id="gamerTag"
-          type="text"
-          v-model="profile.gamerTag"
-          class="form-control mb-3"
-        />
+        <input id="gamerTag" type="text" v-model="profile.gamerTag" class="form-control mb-3" />
       </div>
 
-      <AppSidebar
-        id="boardWallpaper"
-        :visible="wallpaperSidebarVisible"
-        :placement="sidebarRightProps?.placement || 'end'"
-        :bg-variant="sidebarRightProps?.bgVariant"
-        :text-variant="sidebarRightProps?.textVariant"
-        @update:visible="handleWallpaperVisibilityChange"
-      >
+      <AppSidebar id="boardWallpaper" :visible="wallpaperSidebarVisible"
+        :placement="sidebarRightProps?.placement || 'end'" :bg-variant="sidebarRightProps?.bgVariant"
+        :text-variant="sidebarRightProps?.textVariant" @update:visible="handleWallpaperVisibilityChange">
         <template #header>
           <SidebarHeader @hide="hideWallpaperSidebar" title="Set profile wallpaper" />
         </template>
         <div class="p-3">
-          <WallpapersList
-            selectable
-            @select="selectWallpaper"
-          />
+          <WallpapersList selectable @select="selectWallpaper" />
         </div>
       </AppSidebar>
 
       <footer class="my-3">
-        <button
-          type="submit"
-          class="btn btn-primary"
-          :disabled="saving"
-        >
+        <button type="submit" class="btn btn-primary" :disabled="saving">
           <span v-if="saving" class="spinner-border spinner-border-sm me-2" role="status"></span>
           <span v-else>Save</span>
         </button>
 
-        <button
-          type="button"
-          class="btn btn-danger ms-2"
-          :disabled="deleting"
-          @click="confirmDeleteProfile"
-        >
+        <button type="button" class="btn btn-danger ms-2" :disabled="deleting" @click="confirmDeleteProfile">
           <span v-if="deleting" class="spinner-border spinner-border-sm me-2" role="status"></span>
           <span v-else>Delete profile</span>
         </button>
@@ -235,14 +144,21 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, inject } from 'vue';
 import { useRouter } from 'vue-router';
-import { useStore } from 'vuex';
+import { useUserStore } from '@/stores/user';
+import { useProfileStore } from '@/stores/profile';
+import { useUIStore } from '@/stores/ui';
+import { useAppGetters } from '@/stores/getters';
+import { loadFirebaseImage } from '@/utils/firebase';
 import { getImageThumbnail } from '@/utils';
 import WallpapersList from '@/components/WallpapersList';
 import SidebarHeader from '@/components/SidebarHeader';
 import AppSidebar from '@/components/AppSidebar';
 
 const router = useRouter();
-const store = useStore();
+const userStore = useUserStore();
+const profileStore = useProfileStore();
+const uiStore = useUIStore();
+const { sidebarRightProps, darkTheme } = useAppGetters();
 const $bus = inject('$bus');
 
 // Template refs
@@ -259,10 +175,8 @@ const profile = ref(null);
 const wallpaperSidebarVisible = ref(false);
 
 // Store state and getters
-const user = computed(() => store.state.user);
-const editProfileSidebarOpen = computed(() => store.state.editProfileSidebarOpen);
-const sidebarRightProps = computed(() => store.getters.sidebarRightProps);
-const darkTheme = computed(() => store.getters.darkTheme);
+const user = computed(() => userStore.user);
+const editProfileSidebarOpen = computed(() => uiStore.editProfileSidebarOpen);
 
 // Computed properties
 const style = computed(() => {
@@ -273,11 +187,11 @@ const style = computed(() => {
 
 // Methods
 const handleVisibilityChange = (visible) => {
-  store.commit('SET_PROFILE_SIDEBAR_OPEN', visible);
+  uiStore.setEditProfileSidebarOpen(visible);
 };
 
 const handleHidden = () => {
-  store.commit('SET_PROFILE_SIDEBAR_OPEN', false);
+  uiStore.setEditProfileSidebarOpen(false);
 };
 
 const handleWallpaperVisibilityChange = (visible) => {
@@ -285,7 +199,7 @@ const handleWallpaperVisibilityChange = (visible) => {
 };
 
 const hideSidebar = () => {
-  store.commit('SET_PROFILE_SIDEBAR_OPEN', false);
+  uiStore.setEditProfileSidebarOpen(false);
 };
 
 const hideWallpaperSidebar = () => {
@@ -303,7 +217,7 @@ const selectWallpaper = async (wallpaper) => {
 
   profile.value.wallpaper = wallpaper;
   hideWallpaperSidebar();
-  wallpaperImage.value = await store.dispatch('LOAD_FIREBASE_IMAGE', wallpaper);
+  wallpaperImage.value = await loadFirebaseImage(wallpaper);
   save();
 };
 
@@ -320,7 +234,7 @@ const loadProfile = async () => {
   loading.value = profile.value === null;
 
   try {
-    profile.value = await store.dispatch('LOAD_PROFILE');
+    profile.value = await profileStore.loadProfile(userStore.user.uid);
 
     if (profile.value?.avatar) {
       await loadAvatarImage();
@@ -345,7 +259,7 @@ const loadAvatarImage = async () => {
 
   try {
     const thumbnailRef = getImageThumbnail(profile.value.avatar);
-    avatarImage.value = await store.dispatch('LOAD_FIREBASE_IMAGE', thumbnailRef);
+    avatarImage.value = await loadFirebaseImage(thumbnailRef);
   } catch (e) {
     save();
   }
@@ -355,7 +269,7 @@ const loadWallpaper = async () => {
   if (!profile.value?.wallpaper) return;
 
   try {
-    wallpaperImage.value = await store.dispatch('LOAD_FIREBASE_IMAGE', profile.value.wallpaper);
+    wallpaperImage.value = await loadFirebaseImage(profile.value.wallpaper);
   } catch (e) {
     save();
   }
@@ -386,9 +300,9 @@ const uploadProfileAvatar = async (event) => {
   uploading.value = true;
 
   try {
-    profile.value.avatar = await store.dispatch('UPLOAD_PROFILE_AVATAR', file);
+    profile.value.avatar = await profileStore.uploadProfileAvatar(userStore.user.uid, file);
     save();
-    avatarImage.value = await store.dispatch('LOAD_FIREBASE_IMAGE', profile.value.avatar);
+    avatarImage.value = await loadFirebaseImage(profile.value.avatar);
   } catch (e) {
     showToast('There was an error uploading avatar', 'danger');
   } finally {
@@ -412,8 +326,8 @@ const removeAvatar = async () => {
 const saveAndClose = async () => {
   try {
     saving.value = true;
-    await store.dispatch('SAVE_PROFILE', profile.value);
-    store.commit('SET_PROFILE_SIDEBAR_OPEN', false);
+    await profileStore.saveProfile(userStore.user.uid, profile.value);
+    uiStore.setEditProfileSidebarOpen(false);
     if (!profile.value?.wallpaper && $bus) {
       $bus.$emit('CLEAR_WALLPAPER');
     }
@@ -432,7 +346,7 @@ const save = async () => {
 
   try {
     saving.value = true;
-    await store.dispatch('SAVE_PROFILE', profile.value);
+    await profileStore.saveProfile(userStore.user.uid, profile.value);
     if (!profile.value.wallpaper && $bus) {
       $bus.$emit('CLEAR_WALLPAPER');
     }
@@ -451,7 +365,7 @@ const confirmDeleteProfile = async () => {
   if (confirmed) {
     deleting.value = true;
     try {
-      await store.dispatch('DELETE_PROFILE');
+      await profileStore.deleteProfile(userStore.user.uid);
       router.replace({ name: 'create.profile' });
     } finally {
       deleting.value = false;
@@ -482,7 +396,7 @@ onMounted(() => {
   if ($bus) {
     $bus.$on('bv::toggle::collapse', (id) => {
       if (id === 'profile-sidebar') {
-        store.commit('SET_PROFILE_SIDEBAR_OPEN', !editProfileSidebarOpen.value);
+        uiStore.setEditProfileSidebarOpen(!editProfileSidebarOpen.value);
       } else if (id === 'boardWallpaper') {
         wallpaperSidebarVisible.value = !wallpaperSidebarVisible.value;
       }

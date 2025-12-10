@@ -1,13 +1,6 @@
-<!-- TODO: replace vuex with pinia -->
-<!-- TODO: use vite instead of vue-cli -->
 <template>
-  <body
-    id="app"
-    :class="bodyClasses"
-    :style="style"
-    v-shortkey="KEYBOARD_SHORTCUTS"
-    @shortkey="handleShortcutAction"
-  >
+
+  <body id="app" :class="bodyClasses" :style="style" v-shortkey="KEYBOARD_SHORTCUTS" @shortkey="handleShortcutAction">
     <div v-if="loading" class="spinner-centered mt-5 d-flex justify-content-center">
       <div class="spinner-border" role="status">
         <span class="visually-hidden">Loading...</span>
@@ -15,7 +8,7 @@
     </div>
 
     <template v-else>
-      <portal-target name="root"/>
+      <portal-target name="root" />
       <GlobalNav v-if="user" />
       <PageHeader v-if="showPageDock" />
       <router-view class="viewport" />
@@ -37,23 +30,48 @@
 <script setup>
 import { ref, computed, watch, onMounted, inject } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useStore } from 'vuex';
-import MarkdownCheatsheet from '@/components/MarkdownCheatsheet';
-import GameSelectorSidebar from '@/components/GameSelectorSidebar';
-import EditBoardSidebar from '@/components/EditBoardSidebar';
-import KeyboardShortcutsModal from '@/components/KeyboardShortcutsModal';
-import PageHeader from '@/components/PageHeader';
-import GlobalNav from '@/components/GlobalNav';
-import WallpaperDetailsSidebar from '@/components/WallpaperDetailsSidebar';
-import EditTagSidebar from '@/components/EditTagSidebar';
-import CreateBoardSidebar from '@/components/CreateBoardSidebar';
-import CreateTagSidebar from '@/components/CreateTagSidebar';
+import { useUserStore } from '@/stores/user';
+import { useSettingsStore } from '@/stores/settings';
+import { useGamesStore } from '@/stores/games';
+import { useBoardsStore } from '@/stores/boards';
+import { useTagsStore } from '@/stores/tags';
+import { useNotesStore } from '@/stores/notes';
+import { useProgressesStore } from '@/stores/progresses';
+import { useProfileStore } from '@/stores/profile';
+import { useWallpapersStore } from '@/stores/wallpapers';
+import { useUIStore } from '@/stores/ui';
+import { useTwitchStore } from '@/stores/twitch';
+import { useAppGetters } from '@/stores/getters';
+import MarkdownCheatsheet from '@/components/MarkdownCheatsheet.vue';
+import GameSelectorSidebar from '@/components/GameSelectorSidebar.vue';
+import EditBoardSidebar from '@/components/EditBoardSidebar.vue';
+import KeyboardShortcutsModal from '@/components/KeyboardShortcutsModal.vue';
+import PageHeader from '@/components/PageHeader.vue';
+import GlobalNav from '@/components/GlobalNav.vue';
+import WallpaperDetailsSidebar from '@/components/WallpaperDetailsSidebar.vue';
+import EditTagSidebar from '@/components/EditTagSidebar.vue';
+import CreateBoardSidebar from '@/components/CreateBoardSidebar.vue';
+import CreateTagSidebar from '@/components/CreateTagSidebar.vue';
 import { KEYBOARD_SHORTCUTS, IGDB_QUERIES } from '@/constants';
+import axios from 'axios';
 
 const route = useRoute();
 const router = useRouter();
-const store = useStore();
 const $bus = inject('$bus');
+
+// Pinia stores
+const userStore = useUserStore();
+const settingsStore = useSettingsStore();
+const gamesStore = useGamesStore();
+const boardsStore = useBoardsStore();
+const tagsStore = useTagsStore();
+const notesStore = useNotesStore();
+const progressesStore = useProgressesStore();
+const profileStore = useProfileStore();
+const wallpapersStore = useWallpapersStore();
+const uiStore = useUIStore();
+const twitchStore = useTwitchStore();
+const { darkTheme, navPosition } = useAppGetters();
 
 // Reactive state
 const loading = ref(false);
@@ -63,15 +81,13 @@ const backgroundImageUrl = ref(null);
 const backgroundColor = ref(null);
 
 // Store state and getters
-const user = computed(() => store.state.user);
-const settings = computed(() => store.state.settings);
-const sessionExpired = computed(() => store.state.sessionExpired);
-const platforms = computed(() => store.state.platforms);
-const games = computed(() => store.state.games);
-const gameSelectorData = computed(() => store.state.gameSelectorData);
-const cachedGames = computed(() => store.state.cachedGames);
-const darkTheme = computed(() => store.getters.darkTheme);
-const navPosition = computed(() => store.getters.navPosition);
+const user = computed(() => userStore.user);
+const settings = computed(() => settingsStore.settings);
+const sessionExpired = computed(() => userStore.sessionExpired);
+const platforms = computed(() => gamesStore.platforms);
+const games = computed(() => gamesStore.games);
+const gameSelectorData = computed(() => uiStore.gameSelectorData);
+const cachedGames = computed(() => gamesStore.cachedGames);
 
 // Computed properties
 const bodyClasses = computed(() => [
@@ -109,7 +125,7 @@ const isGamePage = computed(() => route.name === 'game');
 // Watchers
 watch(sessionExpired, (expired) => {
   if (!expired) return;
-  store.commit('CLEAR_SESSION');
+  userStore.clearSession();
   router.replace({ name: 'auth' });
 });
 
@@ -133,18 +149,21 @@ const showToast = (message, variant = 'info') => {
 const likeOrUnlikeGame = async (gameId) => {
   try {
     const isLiked = games.value?.[gameId];
-    const mutation = isLiked ? 'UNLIKE_GAME' : 'LIKE_GAME';
 
-    store.commit(mutation, gameId);
+    if (isLiked) {
+      gamesStore.unlikeGame(gameId);
+    } else {
+      gamesStore.likeGame(gameId);
+    }
 
-    await store.dispatch('SAVE_GAMES');
+    await gamesStore.saveGames(userStore.user.uid);
 
     // Maintain subcollection for Firebase-level sorting
     if (isLiked) {
-      await store.dispatch('DELETE_USER_GAME', gameId);
+      await gamesStore.deleteUserGame(userStore.user.uid, gameId);
     } else {
       const gameData = cachedGames.value?.[gameId];
-      await store.dispatch('SAVE_USER_GAME', { gameId, gameData });
+      await gamesStore.saveUserGame(userStore.user.uid, { gameId, gameData });
     }
   } catch (e) {
     //
@@ -183,26 +202,25 @@ const init = () => {
 
 const loadPlatforms = async () => {
   try {
-    await store.dispatch('IGDB', {
-      path: 'platforms',
-      data: IGDB_QUERIES.PLATFORMS,
-      mutation: 'SET_PLATFORMS',
-    });
+    const API_BASE = 'https://us-central1-gamebrary-8c736.cloudfunctions.net';
+    const { data } = await axios.get(`${API_BASE}/igdb?token=${twitchStore.twitchToken.access_token}&path=platforms&data=${IGDB_QUERIES.PLATFORMS}`);
+    gamesStore.setPlatforms(data);
   } catch (e) {
     showToast('There was an error loading platforms', 'danger');
   }
 };
 
 const boot = async () => {
+  const userId = userStore.user.uid;
   await Promise.allSettled([
-    store.dispatch('LOAD_BOARDS'),
-    store.dispatch('LOAD_PROFILE'),
-    store.dispatch('LOAD_WALLPAPERS'),
-    store.dispatch('LOAD_SETTINGS'),
-    store.dispatch('LOAD_TAGS'),
-    store.dispatch('LOAD_NOTES'),
-    store.dispatch('LOAD_PROGRESSES'),
-    store.dispatch('LOAD_GAMES'),
+    boardsStore.loadBoards(userId),
+    profileStore.loadProfile(userId),
+    wallpapersStore.loadWallpapers(userId),
+    settingsStore.loadSettings(userId),
+    tagsStore.loadTags(userId),
+    notesStore.loadNotes(userId),
+    progressesStore.loadProgresses(userId),
+    gamesStore.loadGames(userId),
   ]);
 
   loading.value = false;
@@ -218,52 +236,52 @@ onMounted(async () => {
 
   loading.value = true;
 
-  await store.dispatch('GET_TWITCH_TOKEN');
+  await twitchStore.getTwitchToken();
 
   init();
 });
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
-  @import "~styles/styles";
+@import "@/styles/styles";
 </style>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  #app {
-    display: flex;
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: top;
-    height: calc(100dvh - 10px);
-    overflow-y: auto;
+#app {
+  display: flex;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: top;
+  height: calc(100dvh - 10px);
+  overflow-y: auto;
 
-    &.nav-top {
-      padding-top: 65px;
-
-      .viewport {
-        height: calc(100svh - 80px);
-      }
-    }
+  &.nav-top {
+    padding-top: 65px;
 
     .viewport {
-      width: 100%;
-      margin-left: 0;
-      padding-bottom: 0;
-
-      @media (min-width: 768px) {
-        margin-left: 240px; // Space for left sidebar
-        padding-bottom: 0;
-      }
-
-      @media (max-width: 767px) {
-        padding-bottom: 60px; // Space for bottom nav
-      }
-    }
-
-    &.board {
-      .viewport {
-        height: calc(100svh - 65px);
-      }
+      height: calc(100svh - 80px);
     }
   }
+
+  .viewport {
+    width: 100%;
+    margin-left: 0;
+    padding-bottom: 0;
+
+    @media (min-width: 768px) {
+      margin-left: 240px; // Space for left sidebar
+      padding-bottom: 0;
+    }
+
+    @media (max-width: 767px) {
+      padding-bottom: 60px; // Space for bottom nav
+    }
+  }
+
+  &.board {
+    .viewport {
+      height: calc(100svh - 65px);
+    }
+  }
+}
 </style>

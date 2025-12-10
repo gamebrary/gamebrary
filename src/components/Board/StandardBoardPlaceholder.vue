@@ -65,12 +65,13 @@
 
 <script setup>
 import { computed } from 'vue';
-import { useStore } from 'vuex';
+import { useBoardsStore } from '@/stores/boards';
+import { useAppGetters } from '@/stores/getters';
 
-const store = useStore();
+const boardsStore = useBoardsStore();
+const { darkTheme } = useAppGetters();
 
-const board = computed(() => store.state.board);
-const darkTheme = computed(() => store.getters.darkTheme);
+const board = computed(() => boardsStore.board);
 
 const getListView = (list) => {
   if (list?.vertical) return 'vertical';

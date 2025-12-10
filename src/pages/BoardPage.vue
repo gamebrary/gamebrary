@@ -71,7 +71,16 @@
 <script setup>
 import { ref, computed, watch, onMounted, onBeforeUnmount, inject } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useStore } from 'vuex';
+import { useUserStore } from '@/stores/user';
+import { useBoardsStore } from '@/stores/boards';
+import { useWallpapersStore } from '@/stores/wallpapers';
+import { useProfileStore } from '@/stores/profile';
+import { useGamesStore } from '@/stores/games';
+import { useUIStore } from '@/stores/ui';
+import { useAppGetters } from '@/stores/getters';
+import { getStorage, ref as firebaseStorageRef, getDownloadURL } from 'firebase/storage';
+import { initializeApp } from 'firebase/app';
+import { FIREBASE_CONFIG } from '@/constants';
 import BoardPlaceholder from '@/components/Board/BoardPlaceholder';
 import KanbanBoard from '@/components/Board/KanbanBoard';
 import GridBoard from '@/components/Board/GridBoard';
@@ -88,9 +97,18 @@ import {
   MAX_QUERY_LIMIT
 } from '@/constants';
 
+const app = initializeApp(FIREBASE_CONFIG);
+const storage = getStorage(app);
+
 const route = useRoute();
 const router = useRouter();
-const store = useStore();
+const userStore = useUserStore();
+const boardsStore = useBoardsStore();
+const wallpapersStore = useWallpapersStore();
+const profileStore = useProfileStore();
+const gamesStore = useGamesStore();
+const uiStore = useUIStore();
+const { darkTheme, isBoardOwner } = useAppGetters();
 const $bus = inject('$bus');
 
 // Reactive state
@@ -100,13 +118,11 @@ const backgroundUrl = ref(null);
 const publicProfile = ref({});
 
 // Store state and getters
-const user = computed(() => store.state.user);
-const dragging = computed(() => store.state.dragging);
-const board = computed(() => store.state.board);
-const wallpapers = computed(() => store.state.wallpapers);
-const profile = computed(() => store.state.profile);
-const darkTheme = computed(() => store.getters.darkTheme);
-const isBoardOwner = computed(() => store.getters.isBoardOwner);
+const user = computed(() => userStore.user);
+const dragging = computed(() => uiStore.dragging);
+const board = computed(() => boardsStore.board);
+const wallpapers = computed(() => wallpapersStore.wallpapers);
+const profile = computed(() => profileStore.profile);
 
 // Computed properties
 const isBoardPage = computed(() => route.name === 'board');
@@ -134,25 +150,30 @@ watch(boardId, (newBoardId) => {
 });
 
 // Methods
+const loadFirebaseImage = async (path) => {
+  return await getDownloadURL(firebaseStorageRef(storage, path));
+};
+
 const moveListLeft = (listIndex) => {
   if (!isBoardOwner.value) return;
-  store.commit('MOVE_LIST_LEFT', listIndex);
+  boardsStore.moveListLeft(listIndex);
   saveBoard();
 };
 
 const moveListRight = (listIndex) => {
   if (!isBoardOwner.value) return;
-  store.commit('MOVE_LIST_RIGHT', listIndex);
+  boardsStore.moveListRight(listIndex);
   saveBoard();
 };
 
 const loadBoard = async () => {
   loading.value = !isBoardCached.value;
 
-  await store.dispatch('LOAD_BOARD', boardId.value)
-    .catch(() => {
-      return router.replace({ name: 'home' });
-    });
+  try {
+    await boardsStore.loadBoard(boardId.value, userStore.user?.uid);
+  } catch (e) {
+    return router.replace({ name: 'home' });
+  }
 
   document.title = `${board.value.name} - Gamebrary`;
 
@@ -177,7 +198,7 @@ const loadBoardBackground = async () => {
   }
 
   try {
-    backgroundUrl.value = await store.dispatch('LOAD_FIREBASE_IMAGE', bgUrl);
+    backgroundUrl.value = await loadFirebaseImage(bgUrl);
   } catch (e) {
     if (e?.code === 'storage/object-not-found') removeBoardWallpaper();
   }
@@ -185,27 +206,31 @@ const loadBoardBackground = async () => {
 
 const removeBoardWallpaper = async () => {
   const updatedBoard = { ...board.value, backgroundUrl: null };
-  store.commit('SET_ACTIVE_BOARD', updatedBoard);
-  await store.dispatch('SAVE_BOARD');
+  boardsStore.setActiveBoard(updatedBoard);
+  await boardsStore.saveBoard();
 };
 
 const loadPublicProfile = async () => {
-  publicProfile.value = await store.dispatch('LOAD_PUBLIC_PROFILE_BY_USER_ID', board.value?.owner)
-    .catch(() => ({}));
+  try {
+    publicProfile.value = await profileStore.loadPublicProfileByUserId(board.value?.owner);
+  } catch (e) {
+    publicProfile.value = {};
+  }
 
   if (!publicProfile.value?.avatar) return;
 
   const avatar = getImageThumbnail(publicProfile.value?.avatar);
 
   avatarImage.value = avatar
-    ? await store.dispatch('LOAD_FIREBASE_IMAGE', avatar)
+    ? await loadFirebaseImage(avatar)
     : null;
 };
 
 const saveBoard = async () => {
-  await store.dispatch('SAVE_BOARD')
+  await boardsStore.saveBoard()
     .catch(() => {
-      store.commit('SET_SESSION_EXPIRED', true);
+      // TODO: Handle session expired in user store
+      // userStore.setSessionExpired(true);
     });
 };
 
@@ -228,7 +253,12 @@ const loadBoardGames = () => {
 
 const loadGames = async (gameList) => {
   try {
-    await store.dispatch('LOAD_IGDB_GAMES', gameList);
+    const { useTwitchStore } = await import('@/stores/twitch');
+    const twitchStore = useTwitchStore();
+    if (!twitchStore.twitchToken) {
+      await twitchStore.getTwitchToken();
+    }
+    await gamesStore.loadIGDBGames(twitchStore.twitchToken, gameList);
   } catch (e) {
     showToast('Error loading games', 'danger');
   }
@@ -261,7 +291,7 @@ const loadGamesInChunks = (gameList) => {
 
 // Lifecycle hooks
 onMounted(async () => {
-  if (!isBoardCached.value) store.commit('CLEAR_BOARD');
+  if (!isBoardCached.value) boardsStore.clearBoard();
 
   loadBoard();
   $bus.$on('MOVE_LIST_LEFT', moveListLeft);

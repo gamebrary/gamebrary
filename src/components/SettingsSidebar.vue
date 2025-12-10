@@ -1,137 +1,91 @@
 <template lang="html">
-  <AppSidebar
-    id="settings-sidebar"
-    :visible="visible"
-    :placement="sidebarLeftProps?.placement || 'start'"
-    :bg-variant="sidebarLeftProps?.bgVariant"
-    :text-variant="sidebarLeftProps?.textVariant"
-    :z-index="2001"
-    @update:visible="handleVisibilityChange"
-  >
+  <AppSidebar id="settings-sidebar" :visible="visible" :placement="sidebarLeftProps?.placement || 'start'"
+    :bg-variant="sidebarLeftProps?.bgVariant" :text-variant="sidebarLeftProps?.textVariant" :z-index="2001"
+    @update:visible="handleVisibilityChange">
     <template #header>
       <SidebarHeader @hide="hideSidebar" title="Settings" />
     </template>
 
-      <div class="p-3">
-        <div class="form-check form-switch mb-1">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            :checked="darkTheme"
-            @change="toggleTheme"
-            id="darkThemeSwitch"
-          />
-          <label class="form-check-label" :class="darkTheme ? 'text-light' : null" for="darkThemeSwitch">
-            Dark theme
-          </label>
-        </div>
-
-        <div class="form-check form-switch mb-1">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            :checked="showGameThumbnails"
-            @change="toggleGameThumbnails"
-            id="gameThumbnailsSwitch"
-          />
-          <label class="form-check-label" :class="darkTheme ? 'text-light' : null" for="gameThumbnailsSwitch">
-            Game covers in board preview
-          </label>
-        </div>
-
-        <div class="form-check form-switch mb-1">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            :checked="transparencyEnabled"
-            @change="toggleTransparency"
-            id="transparencySwitch"
-          />
-          <label class="form-check-label" :class="darkTheme ? 'text-light' : null" for="transparencySwitch">
-            Transparency
-          </label>
-        </div>
-
-        <div class="p-1 mb-1">
-          <span :class="darkTheme ? 'text-light' : null">Preferred age rating</span>
-
-          <select
-            class="form-select"
-            :value="ageRating"
-            @change="setPreferredGameRating($event.target.value)"
-          >
-            <option
-              v-for="option in ageRatingOptions"
-              :key="option.value"
-              :value="option.value"
-            >
-              {{ option.text }}
-            </option>
-          </select>
-        </div>
-
-        <div class="p-1 mb-1">
-          <span :class="darkTheme ? 'text-light' : null">Menu position</span>
-
-          <select
-            class="form-select"
-            :value="navPosition"
-            @change="setNavPosition($event.target.value)"
-          >
-            <option
-              v-for="option in navPositionOptions"
-              :key="option.value"
-              :value="option.value"
-            >
-              {{ option.text }}
-            </option>
-          </select>
-        </div>
-
-        <DeleteAccountModal />
-
-        <div class="mt-4 d-inline-flex flex-column">
-          <button
-            type="button"
-            class="btn mb-2"
-            :class="darkTheme ? 'btn-dark' : 'btn-light'"
-            @click="signOut"
-          >
-            <i class="fa-regular fa-right-from-bracket fa-fw" />
-            Sign out
-          </button>
-
-          <a
-            href="https://accounts.google.com/"
-            class="btn btn-info mb-2"
-            target="_blank"
-          >
-            Manage account
-          </a>
-
-          <a
-            href="#"
-            class="mb-2 text-danger px-3 py-2"
-            @click="openDeleteAccountSidebar"
-          >
-            Delete account
-          </a>
-        </div>
+    <div class="p-3">
+      <div class="form-check form-switch mb-1">
+        <input class="form-check-input" type="checkbox" :checked="darkTheme" @change="toggleTheme"
+          id="darkThemeSwitch" />
+        <label class="form-check-label" :class="darkTheme ? 'text-light' : null" for="darkThemeSwitch">
+          Dark theme
+        </label>
       </div>
+
+      <div class="form-check form-switch mb-1">
+        <input class="form-check-input" type="checkbox" :checked="showGameThumbnails" @change="toggleGameThumbnails"
+          id="gameThumbnailsSwitch" />
+        <label class="form-check-label" :class="darkTheme ? 'text-light' : null" for="gameThumbnailsSwitch">
+          Game covers in board preview
+        </label>
+      </div>
+
+      <div class="form-check form-switch mb-1">
+        <input class="form-check-input" type="checkbox" :checked="transparencyEnabled" @change="toggleTransparency"
+          id="transparencySwitch" />
+        <label class="form-check-label" :class="darkTheme ? 'text-light' : null" for="transparencySwitch">
+          Transparency
+        </label>
+      </div>
+
+      <div class="p-1 mb-1">
+        <span :class="darkTheme ? 'text-light' : null">Preferred age rating</span>
+
+        <select class="form-select" :value="ageRating" @change="setPreferredGameRating($event.target.value)">
+          <option v-for="option in ageRatingOptions" :key="option.value" :value="option.value">
+            {{ option.text }}
+          </option>
+        </select>
+      </div>
+
+      <div class="p-1 mb-1">
+        <span :class="darkTheme ? 'text-light' : null">Menu position</span>
+
+        <select class="form-select" :value="navPosition" @change="setNavPosition($event.target.value)">
+          <option v-for="option in navPositionOptions" :key="option.value" :value="option.value">
+            {{ option.text }}
+          </option>
+        </select>
+      </div>
+
+      <DeleteAccountModal />
+
+      <div class="mt-4 d-inline-flex flex-column">
+        <button type="button" class="btn mb-2" :class="darkTheme ? 'btn-dark' : 'btn-light'" @click="signOut">
+          <i class="fa-regular fa-right-from-bracket fa-fw" />
+          Sign out
+        </button>
+
+        <a href="https://accounts.google.com/" class="btn btn-info mb-2" target="_blank">
+          Manage account
+        </a>
+
+        <a href="#" class="mb-2 text-danger px-3 py-2" @click="openDeleteAccountSidebar">
+          Delete account
+        </a>
+      </div>
+    </div>
   </AppSidebar>
 </template>
 
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, inject } from 'vue';
 import { useRouter } from 'vue-router';
-import { useStore } from 'vuex';
+import { useSettingsStore } from '@/stores/settings';
+import { useUserStore } from '@/stores/user';
+import { useAppGetters } from '@/stores/getters';
 import DeleteAccountModal from '@/components/Settings/DeleteAccountModal';
 import SidebarHeader from '@/components/SidebarHeader';
 import AppSidebar from '@/components/AppSidebar';
 import { AGE_RATINGS } from '@/constants';
 
 const router = useRouter();
-const store = useStore();
+const settingsStore = useSettingsStore();
+const userStore = useUserStore();
+const { darkTheme, showGameThumbnails, transparencyEnabled, ageRating, navPosition, sidebarLeftProps } = useAppGetters();
 const $bus = inject('$bus');
 
 // Reactive state
@@ -143,13 +97,7 @@ const visible = ref(false);
 const saving = ref(false);
 
 // Store state and getters
-const settings = computed(() => store.state.settings);
-const darkTheme = computed(() => store.getters.darkTheme);
-const showGameThumbnails = computed(() => store.getters.showGameThumbnails);
-const transparencyEnabled = computed(() => store.getters.transparencyEnabled);
-const ageRating = computed(() => store.getters.ageRating);
-const navPosition = computed(() => store.getters.navPosition);
-const sidebarLeftProps = computed(() => store.getters.sidebarLeftProps);
+const settings = computed(() => settingsStore.settings);
 
 // Computed properties
 const ageRatingOptions = computed(() => {
@@ -186,7 +134,7 @@ const showToast = (message, variant = 'info') => {
 
 const setPreferredGameRating = async (ageRatingValue) => {
   try {
-    await store.dispatch('SAVE_SETTINGS', {
+    await settingsStore.saveSettings({
       ...settings.value,
       ageRating: ageRatingValue,
     });
@@ -205,7 +153,7 @@ const toggleTheme = async () => {
     darkTheme: !currentDarkTheme,
   };
 
-  await store.dispatch('SAVE_SETTINGS', payload)
+  await settingsStore.saveSettings(payload)
     .catch(() => {
       showToast('There was an error saving your settings', 'danger');
       saving.value = false;
@@ -213,9 +161,9 @@ const toggleTheme = async () => {
 };
 
 const signOut = async () => {
-  await store.dispatch('SIGN_OUT');
+  await userStore.signOut();
   showToast('Logged out', 'success');
-  store.commit('CLEAR_SESSION');
+  userStore.clearSession();
   router.replace({ name: 'home' });
 };
 
@@ -227,7 +175,7 @@ const toggleGameThumbnails = async () => {
     showGameThumbnails: !currentShowGameThumbnails,
   };
 
-  await store.dispatch('SAVE_SETTINGS', payload)
+  await settingsStore.saveSettings(payload)
     .catch(() => {
       showToast('There was an error saving your settings', 'danger');
       saving.value = false;
@@ -255,7 +203,7 @@ const toggleTransparency = async () => {
     transparencyEnabled: !currentTransparencyEnabled,
   };
 
-  await store.dispatch('SAVE_SETTINGS', payload)
+  await settingsStore.saveSettings(payload)
     .catch(() => {
       showToast('There was an error saving your settings', 'danger');
       saving.value = false;
@@ -290,5 +238,4 @@ onBeforeUnmount(() => {
 });
 </script>
 
-<style lang="scss" rel="stylesheet/scss" scoped>
-</style>
+<style lang="scss" rel="stylesheet/scss" scoped></style>

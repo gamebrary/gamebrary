@@ -70,27 +70,40 @@
 
 <script setup>
 import { ref, computed } from 'vue';
-import { useStore } from 'vuex';
+import { useUserStore } from '@/stores/user';
+import { useTagsStore } from '@/stores/tags';
+import { useNotesStore } from '@/stores/notes';
+import { useProgressesStore } from '@/stores/progresses';
+import { useSettingsStore } from '@/stores/settings';
+import { useBoardsStore } from '@/stores/boards';
+import { useWallpapersStore } from '@/stores/wallpapers';
+import { useAppGetters } from '@/stores/getters';
 
-const store = useStore();
+const userStore = useUserStore();
+const tagsStore = useTagsStore();
+const notesStore = useNotesStore();
+const progressesStore = useProgressesStore();
+const settingsStore = useSettingsStore();
+const boardsStore = useBoardsStore();
+const wallpapersStore = useWallpapersStore();
+const { darkTheme } = useAppGetters();
 
 // Reactive state
 const deleting = ref(false);
 
 // Store state and getters
-const user = computed(() => store.state.user);
-const tags = computed(() => store.state.tags);
-const notes = computed(() => store.state.notes);
-const progresses = computed(() => store.state.progresses);
-const settings = computed(() => store.state.settings);
-const boards = computed(() => store.state.boards);
-const wallpapers = computed(() => store.state.wallpapers);
-const darkTheme = computed(() => store.getters.darkTheme);
+const user = computed(() => userStore.user);
+const tags = computed(() => tagsStore.tags);
+const notes = computed(() => notesStore.notes);
+const progresses = computed(() => progressesStore.progresses);
+const settings = computed(() => settingsStore.settings);
+const boards = computed(() => boardsStore.boards);
+const wallpapers = computed(() => wallpapersStore.wallpapers);
 
 // Methods
 const deleteAccount = async () => {
   deleting.value = true;
 
-  await store.dispatch('DELETE_ACCOUNT');
+  await userStore.deleteAccount();
 };
 </script>

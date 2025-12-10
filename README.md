@@ -14,7 +14,7 @@
 
 <!-- ![Gamebrary board](https://user-images.githubusercontent.com/645310/57200356-d0e80480-6f3f-11e9-92e2-5c80ec186bda.png) -->
 
-Gamebrary is an open source tool that helps organize video game collections. Written in javascript using [VueJS](https://github.com/vuejs/vue).
+Gamebrary is an open source tool that helps organize video game collections. Built with [Vue 3](https://github.com/vuejs/vue), [Vite](https://vitejs.dev/), [Pinia](https://pinia.vuejs.org/), and [Firebase](https://firebase.google.com/).
 
 <!-- # Table of content
 Take me to [pookie](#pookie)
@@ -63,7 +63,7 @@ $ yarn translate
 ```
 
 ### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+See [Vite Configuration Reference](https://vitejs.dev/config/).
 
 ## Contributors
 

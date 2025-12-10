@@ -26,7 +26,8 @@
 
 <script setup>
 import { computed } from 'vue';
-import { useStore } from 'vuex';
+import { useWallpapersStore } from '@/stores/wallpapers';
+import { useAppGetters } from '@/stores/getters';
 import sortby from 'lodash.sortby';
 import { THUMBNAIL_PREFIX } from '@/constants';
 
@@ -38,11 +39,11 @@ const props = defineProps({
 
 const emit = defineEmits(['select']);
 
-const store = useStore();
+const wallpapersStore = useWallpapersStore();
+const { darkTheme } = useAppGetters();
 
 // Store state and getters
-const wallpapers = computed(() => store.state.wallpapers);
-const darkTheme = computed(() => store.getters.darkTheme);
+const wallpapers = computed(() => wallpapersStore.wallpapers);
 
 // Computed properties
 const sortedWallpapers = computed(() => {

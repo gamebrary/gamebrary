@@ -63,27 +63,28 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { useStore } from 'vuex';
+import { useUserStore } from '@/stores/user';
+import { useBoardsStore } from '@/stores/boards';
+import { useWallpapersStore } from '@/stores/wallpapers';
+import { useAppGetters } from '@/stores/getters';
 import { useI18n } from 'vue-i18n';
 import MiniBoard from '@/components/Board/MiniBoard';
 import EmptyState from '@/components/EmptyState';
 
 const router = useRouter();
-const store = useStore();
+const userStore = useUserStore();
+const boardsStore = useBoardsStore();
+const wallpapersStore = useWallpapersStore();
+const { isBoardOwner, sortedBoards, sortedPublicBoards, darkTheme, navPosition } = useAppGetters();
 const { t } = useI18n();
 
 // Reactive state
 const loading = ref(false);
 
 // Store state and getters
-const user = computed(() => store.state.user);
-const boards = computed(() => store.state.boards);
-const wallpapers = computed(() => store.state.wallpapers);
-const isBoardOwner = computed(() => store.getters.isBoardOwner);
-const sortedBoards = computed(() => store.getters.sortedBoards);
-const sortedPublicBoards = computed(() => store.getters.sortedPublicBoards);
-const darkTheme = computed(() => store.getters.darkTheme);
-const navPosition = computed(() => store.getters.navPosition);
+const user = computed(() => userStore.user);
+const boards = computed(() => boardsStore.boards);
+const wallpapers = computed(() => wallpapersStore.wallpapers);
 
 // Computed properties
 const recentlyUpdatedPublicBoards = computed(() => {
@@ -96,21 +97,25 @@ const isEmpty = computed(() => boards.value?.length === 0);
 const loadBoards = async () => {
   loading.value = boards.value?.length === 0;
 
-  await store.dispatch('LOAD_BOARDS')
-    .catch(() => {
-      loading.value = false;
-      store.commit('SET_SESSION_EXPIRED', true);
-    });
+  try {
+    await boardsStore.loadBoards(userStore.user.uid);
+  } catch (e) {
+    loading.value = false;
+    // TODO: Handle session expired in user store
+    // userStore.setSessionExpired(true);
+  }
 
   loading.value = false;
 };
 
 const loadPublicBoards = async () => {
-  await store.dispatch('LOAD_PUBLIC_BOARDS')
-    .catch((e) => {
-      loading.value = false;
-      store.commit('SET_SESSION_EXPIRED', true);
-    });
+  try {
+    await boardsStore.loadPublicBoards();
+  } catch (e) {
+    loading.value = false;
+    // TODO: Handle session expired in user store
+    // userStore.setSessionExpired(true);
+  }
 
   loading.value = false;
 };

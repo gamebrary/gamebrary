@@ -23,7 +23,8 @@
 
 <script setup>
 import { computed, useSlots } from 'vue';
-import { useStore } from 'vuex';
+import { useSettingsStore } from '@/stores/settings';
+import { useAppGetters } from '@/stores/getters';
 
 const props = defineProps({
   title: String,
@@ -33,9 +34,7 @@ const props = defineProps({
 defineEmits(['close']);
 
 const slots = useSlots();
-const store = useStore();
-
-const darkTheme = computed(() => store.getters.darkTheme);
+const { darkTheme } = useAppGetters();
 
 const slotKeys = computed(() => Object.keys(slots));
 </script>

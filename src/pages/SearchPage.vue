@@ -50,14 +50,20 @@
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import { useStore } from 'vuex';
+import { useBoardsStore } from '@/stores/boards';
+import { useGamesStore } from '@/stores/games';
+import { useTwitchStore } from '@/stores/twitch';
+import { useAppGetters } from '@/stores/getters';
 import GameCard from '@/components/GameCard';
 import SearchFilters from '@/components/SearchFilters';
 import SearchBox from '@/components/SearchBox';
 import { IGDB_QUERIES } from '@/constants';
 
 const route = useRoute();
-const store = useStore();
+const boardsStore = useBoardsStore();
+const gamesStore = useGamesStore();
+const twitchStore = useTwitchStore();
+const { darkTheme } = useAppGetters();
 
 // Reactive state
 const searchResults = ref([]);
@@ -66,8 +72,7 @@ const pageSize = ref(20);
 const offset = ref(0);
 
 // Store state and getters
-const boards = computed(() => store.state.boards);
-const darkTheme = computed(() => store.getters.darkTheme);
+const boards = computed(() => boardsStore.boards);
 
 // Computed properties
 const filterBy = computed(() => {
@@ -132,7 +137,10 @@ const search = async () => {
     : '';
 
   try {
-    const results = await store.dispatch('IGDB', {
+    if (!twitchStore.twitchToken) {
+      await twitchStore.getTwitchToken();
+    }
+    const results = await gamesStore.queryIGDB({
       path: 'games',
       data: `${searchQuery} ${IGDB_QUERIES.SEARCH} limit ${pageSize.value}; offset ${offset.value}; ${filter};`,
     });
@@ -141,8 +149,6 @@ const search = async () => {
       ...searchResults.value,
       ...results,
     ];
-
-    store.commit('CACHE_GAME_DATA', results);
   } finally {
     loading.value = false;
   }

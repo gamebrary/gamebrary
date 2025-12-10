@@ -16,7 +16,7 @@
 
 <script setup>
 import { computed } from 'vue';
-import { useStore } from 'vuex';
+import { useAppGetters } from '@/stores/getters';
 
 defineProps({
   title: String,
@@ -24,6 +24,5 @@ defineProps({
 
 defineEmits(['hide']);
 
-const store = useStore();
-const darkTheme = computed(() => store.getters.darkTheme);
+const { darkTheme } = useAppGetters();
 </script>

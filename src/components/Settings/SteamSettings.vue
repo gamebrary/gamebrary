@@ -16,16 +16,16 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import { useStore } from 'vuex';
+import { useSettingsStore } from '@/stores/settings';
 
-const store = useStore();
+const settingsStore = useSettingsStore();
 
 // Reactive state
 const saving = ref(false);
 const steamId = ref(null);
 
 // Store state and getters
-const settings = computed(() => store.state.settings);
+const settings = computed(() => settingsStore.settings);
 
 // Methods
 const showToast = (message, variant = 'info') => {
@@ -51,7 +51,7 @@ const save = async () => {
   };
 
   try {
-    await store.dispatch('SAVE_SETTINGS', payload);
+    await settingsStore.saveSettings(payload);
   } catch (e) {
     showToast('There was an error saving your settings', 'danger');
     saving.value = false;

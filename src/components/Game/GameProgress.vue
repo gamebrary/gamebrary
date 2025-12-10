@@ -56,9 +56,15 @@
 
 <script setup>
 import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue';
-import { useStore } from 'vuex';
+import { useProgressesStore } from '@/stores/progresses';
+import { useGamesStore } from '@/stores/games';
+import { useUserStore } from '@/stores/user';
+import { useAppGetters } from '@/stores/getters';
 
-const store = useStore();
+const progressesStore = useProgressesStore();
+const gamesStore = useGamesStore();
+const userStore = useUserStore();
+const { darkTheme } = useAppGetters();
 
 // Reactive state
 const progress = ref(0);
@@ -68,10 +74,9 @@ const showProgressBar = ref(false);
 const saveTimeout = ref(null);
 
 // Store state and getters
-const progresses = computed(() => store.state.progresses);
-const game = computed(() => store.state.game);
-const user = computed(() => store.state.user);
-const darkTheme = computed(() => store.getters.darkTheme);
+const progresses = computed(() => progressesStore.progresses);
+const game = computed(() => gamesStore.game);
+const user = computed(() => userStore.user);
 
 // Computed properties
 const progressClass = computed(() => {
@@ -118,9 +123,9 @@ const deleteProgress = async () => {
 
     deleting.value = true;
 
-    store.commit('REMOVE_GAME_PROGRESS', id);
+    progressesStore.removeGameProgress(id);
 
-    await store.dispatch('SAVE_PROGRESSES_NO_MERGE');
+    await progressesStore.saveProgressesNoMerge(userStore.user.uid);
     progress.value = 0;
     showToast('Progress deleted', 'success');
   } catch (e) {
@@ -134,12 +139,12 @@ const saveProgress = async () => {
   try {
     saving.value = true;
 
-    store.commit('SET_GAME_PROGRESS', {
+    progressesStore.setGameProgress({
       progress: progress.value,
       gameId: game.value?.id,
     });
 
-    await store.dispatch('SAVE_PROGRESSES');
+    await progressesStore.saveProgresses(userStore.user.uid);
 
     // Progress saved silently
   } catch (e) {

@@ -1,60 +1,42 @@
 <template lang="html">
-  <AppSidebar
-    id="clone-board-sidebar"
-    :visible="visible"
-    :placement="sidebarRightProps?.placement || 'end'"
-    :bg-variant="sidebarRightProps?.bgVariant"
-    :text-variant="sidebarRightProps?.textVariant"
-    @update:visible="handleVisibilityChange"
-    @shown="setBoardName"
-  >
+  <AppSidebar id="clone-board-sidebar" :visible="visible" :placement="sidebarRightProps?.placement || 'end'"
+    :bg-variant="sidebarRightProps?.bgVariant" :text-variant="sidebarRightProps?.textVariant"
+    @update:visible="handleVisibilityChange" @shown="setBoardName">
     <template #header>
       <SidebarHeader @hide="hideSidebar" title="Clone board" />
     </template>
 
-      <form @submit.prevent="cloneBoard" class="px-3">
-        <div class="mb-3">
-          <label for="boardName" class="form-label">Board name:</label>
-          <input
-            id="boardName"
-            type="text"
-            v-model.trim="boardName"
-            class="form-control"
-            autofocus
-            required
-          />
-        </div>
+    <form @submit.prevent="cloneBoard" class="px-3">
+      <div class="mb-3">
+        <label for="boardName" class="form-label">Board name:</label>
+        <input id="boardName" type="text" v-model.trim="boardName" class="form-control" autofocus required />
+      </div>
 
-        <MiniBoard
-          class="mb-2"
-          :board="board"
-          no-link
-        />
+      <MiniBoard class="mb-2" :board="board" no-link />
 
-        <button
-          type="submit"
-          class="btn"
-          :class="darkTheme ? 'btn-secondary' : 'btn-primary'"
-          :disabled="saving"
-        >
-          <span v-if="saving" class="spinner-border spinner-border-sm me-2" role="status"></span>
-          <span v-else>Clone board</span>
-        </button>
-      </form>
+      <button type="submit" class="btn" :class="darkTheme ? 'btn-secondary' : 'btn-primary'" :disabled="saving">
+        <span v-if="saving" class="spinner-border spinner-border-sm me-2" role="status"></span>
+        <span v-else>Clone board</span>
+      </button>
+    </form>
   </AppSidebar>
 </template>
 
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, inject } from 'vue';
 import { useRouter } from 'vue-router';
-import { useStore } from 'vuex';
+import { useBoardsStore } from '@/stores/boards';
+import { useUserStore } from '@/stores/user';
+import { useAppGetters } from '@/stores/getters';
 import SidebarHeader from '@/components/SidebarHeader';
 import AppSidebar from '@/components/AppSidebar';
 import MiniBoard from '@/components/Board/MiniBoard';
 import { BOARD_TYPE_KANBAN } from '@/constants';
 
 const router = useRouter();
-const store = useStore();
+const boardsStore = useBoardsStore();
+const userStore = useUserStore();
+const { sidebarRightProps, darkTheme } = useAppGetters();
 const $bus = inject('$bus');
 
 // Reactive state
@@ -63,10 +45,8 @@ const saving = ref(false);
 const visible = ref(false);
 
 // Store state and getters
-const board = computed(() => store.state.board);
-const user = computed(() => store.state.user);
-const sidebarRightProps = computed(() => store.getters.sidebarRightProps);
-const darkTheme = computed(() => store.getters.darkTheme);
+const board = computed(() => boardsStore.board);
+const user = computed(() => userStore.user);
 
 // Computed properties
 const payload = computed(() => {
@@ -131,7 +111,8 @@ const cloneBoard = async () => {
   try {
     saving.value = true;
 
-    const { id } = await store.dispatch('CREATE_BOARD', payload.value);
+    const newBoard = await boardsStore.createBoard(payload.value);
+    const { id } = newBoard;
     showToast('Board cloned', 'success');
     saving.value = false;
     router.push({ name: 'board', params: { id } });

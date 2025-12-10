@@ -84,7 +84,8 @@
 <script setup>
 import { ref, computed, onMounted, inject } from 'vue';
 import { useRouter } from 'vue-router';
-import { useStore } from 'vuex';
+import { useUserStore } from '@/stores/user';
+import { useAppGetters } from '@/stores/getters';
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
@@ -98,7 +99,8 @@ import { FIREBASE_CONFIG } from '@/constants';
 
 const app = initializeApp(FIREBASE_CONFIG);
 const router = useRouter();
-const store = useStore();
+const userStore = useUserStore();
+const { darkTheme } = useAppGetters();
 const $bus = inject('$bus');
 
 // Reactive state
@@ -110,9 +112,8 @@ const newUser = ref(true);
 const errorCode = ref(null);
 
 // Store state and getters
-const user = computed(() => store.state.user);
-const sessionExpired = computed(() => store.state.sessionExpired);
-const darkTheme = computed(() => store.getters.darkTheme);
+const user = computed(() => userStore.user);
+const sessionExpired = computed(() => userStore.sessionExpired);
 
 // Computed properties
 const authDescription = computed(() => {
@@ -150,7 +151,7 @@ const submit = () => {
 const init = () => {
   if (sessionExpired.value) {
     showExpiredAlert.value = true;
-    store.commit('SET_SESSION_EXPIRED', false);
+    userStore.setSessionExpired(false);
   }
 };
 
@@ -159,8 +160,8 @@ const createAccount = async () => {
 
   createUserWithEmailAndPassword(auth, email.value, password.value)
     .then((userCredential) => {
-      store.commit('SET_SESSION_EXPIRED', false);
-      store.commit('SET_USER', userCredential?.user);
+      userStore.setSessionExpired(false);
+      userStore.setUser(userCredential?.user);
       router.replace({ name: 'boards' });
     })
     .catch((error) => {
@@ -198,8 +199,8 @@ const handleError = (code = 'default') => {
 const signInSuccess = (user) => {
   loading.value = true;
   // if (additionalUserInfo?.isNewUser) store.dispatch('SEND_WELCOME_EMAIL', additionalUserInfo);
-  store.commit('SET_SESSION_EXPIRED', false);
-  store.commit('SET_USER', user);
+  userStore.setSessionExpired(false);
+  userStore.setUser(user);
   router.replace({ name: 'boards' });
   $bus.$emit('BOOT');
 };

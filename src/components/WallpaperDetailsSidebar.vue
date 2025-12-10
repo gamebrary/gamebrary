@@ -105,13 +105,19 @@
 <script setup>
 import { ref, computed, onMounted, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
-import { useStore } from 'vuex';
+import { useBoardsStore } from '@/stores/boards';
+import { useWallpapersStore } from '@/stores/wallpapers';
+import { useUIStore } from '@/stores/ui';
+import { useAppGetters } from '@/stores/getters';
 import MiniBoard from '@/components/Board/MiniBoard';
 import SidebarHeader from '@/components/SidebarHeader';
 import AppSidebar from '@/components/AppSidebar';
 
 const router = useRouter();
-const store = useStore();
+const boardsStore = useBoardsStore();
+const wallpapersStore = useWallpapersStore();
+const uiStore = useUIStore();
+const { darkTheme, sidebarRightProps, buttonProps } = useAppGetters();
 
 // Reactive state
 const saving = ref(false);
@@ -119,12 +125,9 @@ const deleting = ref(false);
 const boardsListExpanded = ref(false);
 
 // Store state and getters
-const boards = computed(() => store.state.boards);
-const wallpapers = computed(() => store.state.wallpapers);
-const activeWallpaper = computed(() => store.state.activeWallpaper);
-const darkTheme = computed(() => store.getters.darkTheme);
-const sidebarRightProps = computed(() => store.getters.sidebarRightProps);
-const buttonProps = computed(() => store.getters.buttonProps);
+const boards = computed(() => boardsStore.boards);
+const wallpapers = computed(() => wallpapersStore.wallpapers);
+const activeWallpaper = computed(() => uiStore.activeWallpaper);
 
 // Computed properties
 const formattedBoards = computed(() => {
@@ -151,11 +154,11 @@ const handleVisibilityChange = (isVisible) => {
 };
 
 const hideSidebar = () => {
-  store.commit('CLEAR_ACTIVE_WALLPAPER');
+  uiStore.clearActiveWallpaper();
 };
 
 const closeSidebar = () => {
-  store.commit('CLEAR_ACTIVE_WALLPAPER');
+  uiStore.clearActiveWallpaper();
   saving.value = false;
   deleting.value = false;
 };
@@ -171,7 +174,9 @@ const deleteFile = async (file) => {
   deleting.value = true;
 
   try {
-    await store.dispatch('DELETE_WALLPAPER', file);
+    const { useUserStore } = await import('@/stores/user');
+    const userStore = useUserStore();
+    await wallpapersStore.deleteWallpaper(file);
   } catch (e) {
     showToast('There was an error deleting wallpaper', 'danger');
   } finally {
@@ -204,10 +209,10 @@ const setAsBoardWallpaper = async (board) => {
   try {
     saving.value = true;
 
-    store.commit('SET_ACTIVE_BOARD', { ...board, backgroundUrl: activeWallpaper.value.fullPath });
+    boardsStore.setActiveBoard({ ...board, backgroundUrl: activeWallpaper.value.fullPath });
 
-    await store.dispatch('SAVE_BOARD');
-    store.commit('CLEAR_ACTIVE_WALLPAPER');
+    await boardsStore.saveBoard();
+    uiStore.clearActiveWallpaper();
 
     router.push({ name: 'board', params: { id: board.id } });
   } catch (e) {

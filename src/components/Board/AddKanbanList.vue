@@ -47,13 +47,15 @@
 
 <script setup>
 import { ref, computed, nextTick } from 'vue';
-import { useStore } from 'vuex';
+import { useBoardsStore } from '@/stores/boards';
+import { useAppGetters } from '@/stores/getters';
 
 const props = defineProps({
   empty: Boolean,
 });
 
-const store = useStore();
+const boardsStore = useBoardsStore();
+const { darkTheme } = useAppGetters();
 
 // Reactive state
 const listName = ref('');
@@ -62,8 +64,7 @@ const saving = ref(false);
 const addListForm = ref(null);
 
 // Store state and getters
-const board = computed(() => store.state.board);
-const darkTheme = computed(() => store.getters.darkTheme);
+const board = computed(() => boardsStore.board);
 
 // Methods
 const reset = () => {
@@ -86,8 +87,8 @@ const addList = async () => {
       settings: {},
     };
 
-    store.commit('ADD_LIST', list);
-    await store.dispatch('SAVE_BOARD');
+    boardsStore.addList(list);
+    await boardsStore.saveBoard();
 
     reset();
     scrollToEnd();

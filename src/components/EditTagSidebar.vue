@@ -103,13 +103,19 @@
 
 <script setup>
 import { ref, computed, watch, onMounted, onBeforeUnmount, inject } from 'vue';
-import { useStore } from 'vuex';
+import { useTagsStore } from '@/stores/tags';
+import { useGamesStore } from '@/stores/games';
+import { useUIStore } from '@/stores/ui';
+import { useAppGetters } from '@/stores/getters';
 import { useI18n } from 'vue-i18n';
 import GameCard from '@/components/GameCard';
 import SidebarHeader from '@/components/SidebarHeader';
 import AppSidebar from '@/components/AppSidebar';
 
-const store = useStore();
+const tagsStore = useTagsStore();
+const gamesStore = useGamesStore();
+const uiStore = useUIStore();
+const { sidebarRightProps, darkTheme } = useAppGetters();
 const { t } = useI18n();
 const $bus = inject('$bus');
 
@@ -118,11 +124,9 @@ const tag = ref({});
 const saving = ref(false);
 
 // Store state and getters
-const tags = computed(() => store.state.tags);
-const cachedGames = computed(() => store.state.cachedGames);
-const activeTagIndex = computed(() => store.state.activeTagIndex);
-const sidebarRightProps = computed(() => store.getters.sidebarRightProps);
-const darkTheme = computed(() => store.getters.darkTheme);
+const tags = computed(() => tagsStore.tags);
+const cachedGames = computed(() => gamesStore.cachedGames);
+const activeTagIndex = computed(() => uiStore.activeTagIndex);
 
 // Computed properties
 const isEmpty = computed(() => tag.value?.games?.length === 0);
@@ -140,26 +144,34 @@ const handleVisibilityChange = (visible) => {
 };
 
 const hideSidebar = () => {
-  store.commit('SET_ACTIVE_TAG_INDEX', null);
+  uiStore.setActiveTagIndex(null);
 };
 
 const closeSidebar = () => {
-  store.commit('SET_ACTIVE_TAG_INDEX', null);
+  uiStore.setActiveTagIndex(null);
 };
 
 const selectGame = async (gameId) => {
   if (activeTagIndex.value === null) return;
 
-  store.commit('APPLY_TAG_TO_GAME', { tagIndex: activeTagIndex.value, gameId });
+  tagsStore.applyTagToGame(activeTagIndex.value, gameId);
 
-  await store.dispatch('SAVE_TAGS').catch(() => {});
-  await store.dispatch('LOAD_IGDB_GAMES', [gameId]);
+  const { useUserStore } = await import('@/stores/user');
+  const userStore = useUserStore();
+  await tagsStore.saveTags(userStore.user.uid).catch(() => {});
+
+  const { useTwitchStore } = await import('@/stores/twitch');
+  const twitchStore = useTwitchStore();
+  if (!twitchStore.twitchToken) {
+    await twitchStore.getTwitchToken();
+  }
+  await gamesStore.loadIGDBGames(twitchStore.twitchToken, [gameId]);
 
   tag.value = JSON.parse(JSON.stringify(tags.value[activeTagIndex.value]));
 };
 
 const openGameSelectorSidebar = () => {
-  store.commit('SET_GAME_SELECTOR_DATA', {
+  uiStore.setGameSelectorData({
     title: 'Tag game',
     filter: tag.value?.games,
     eventName: 'SAVE_TAGS',
@@ -182,10 +194,10 @@ const promptDeleteTag = async () => {
 const deleteTag = async () => {
   if (activeTagIndex.value === null) return;
 
-  store.commit('REMOVE_TAG', activeTagIndex.value);
-
-  await store.dispatch('SAVE_TAGS').catch(() => {});
-
+  tagsStore.removeTag(activeTagIndex.value);
+  const { useUserStore } = await import('@/stores/user');
+  const userStore = useUserStore();
+  await tagsStore.saveTags(userStore.user.uid).catch(() => {});
   closeSidebar();
 };
 
@@ -194,8 +206,10 @@ const saveTag = async () => {
 
   saving.value = true;
   try {
-    store.commit('UPDATE_TAG', { tagIndex: activeTagIndex.value, tag: tag.value });
-    await store.dispatch('SAVE_TAGS');
+    tagsStore.updateTag(activeTagIndex.value, tag.value);
+    const { useUserStore } = await import('@/stores/user');
+    const userStore = useUserStore();
+    await tagsStore.saveTags(userStore.user.uid);
     closeSidebar();
   } catch (e) {
     // Error handling

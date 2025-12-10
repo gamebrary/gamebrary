@@ -28,24 +28,24 @@
 <script setup>
 import { computed, inject } from 'vue';
 import { useRoute } from 'vue-router';
-import { useStore } from 'vuex';
+import { useGamesStore } from '@/stores/games';
+import { useUserStore } from '@/stores/user';
+import { useAppGetters } from '@/stores/getters';
 import GameRatings from '@/components/Game/GameRatings';
 import GameMediaCarousel from '@/components/Game/GameMediaCarousel';
 import { getImageUrl } from '@/utils';
 
 const route = useRoute();
-const store = useStore();
+const gamesStore = useGamesStore();
+const userStore = useUserStore();
+const { darkTheme, gameNews, gameLinks, gameGenres } = useAppGetters();
 const $bus = inject('$bus');
 
 // Store state and getters
-const game = computed(() => store.state.game);
-const cachedGames = computed(() => store.state.cachedGames);
-const games = computed(() => store.state.games);
-const user = computed(() => store.state.user);
-const darkTheme = computed(() => store.getters.darkTheme);
-const gameNews = computed(() => store.getters.gameNews);
-const gameLinks = computed(() => store.getters.gameLinks);
-const gameGenres = computed(() => store.getters.gameGenres);
+const game = computed(() => gamesStore.game);
+const cachedGames = computed(() => gamesStore.cachedGames);
+const games = computed(() => gamesStore.games);
+const user = computed(() => userStore.user);
 
 // Computed properties
 const gameId = computed(() => route.params.id);

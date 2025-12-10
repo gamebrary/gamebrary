@@ -1,16 +1,8 @@
 <template>
-  <router-link
-    :to="userName ? { name: 'public.profile', params: { userName } } : { name: 'create.profile' }"
-    class="btn btn-lg w-100 text-start d-block"
-    :class="darkTheme ? 'btn-dark' : 'btn-light'"
-  >
-    <img
-      v-if="avatarImage"
-      :src="avatarImage"
-      :alt="displayUserName"
-      class="rounded-circle me-2"
-      style="width: 32px; height: 32px; object-fit: cover;"
-    />
+  <router-link :to="userName ? { name: 'public.profile', params: { userName } } : { name: 'create.profile' }"
+    class="btn btn-lg w-100 text-start d-block" :class="darkTheme ? 'btn-dark' : 'btn-light'">
+    <img v-if="avatarImage" :src="avatarImage" :alt="displayUserName" class="rounded-circle me-2"
+      style="width: 32px; height: 32px; object-fit: cover;" />
 
     <i v-else class="fa-regular fa-user fa-fw me-2" />
 
@@ -20,20 +12,25 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import { useStore } from 'vuex';
+import { useBoardsStore } from '@/stores/boards';
+import { useUserStore } from '@/stores/user';
+import { useProfileStore } from '@/stores/profile';
+import { useAppGetters } from '@/stores/getters';
 import { getImageThumbnail } from '@/utils';
 
-const store = useStore();
+const boardsStore = useBoardsStore();
+const userStore = useUserStore();
+const profileStore = useProfileStore();
+const { darkTheme } = useAppGetters();
 
 // Reactive state
 const avatarImage = ref(null);
 const wallpaperImage = ref(null);
 
 // Store state and getters
-const board = computed(() => store.state.board);
-const user = computed(() => store.state.user);
-const profile = computed(() => store.state.profile);
-const darkTheme = computed(() => store.getters.darkTheme);
+const board = computed(() => boardsStore.board);
+const user = computed(() => userStore.user);
+const profile = computed(() => profileStore.profile);
 
 // Computed properties
 const style = computed(() => {
@@ -54,7 +51,7 @@ const displayUserName = computed(() => {
 
 // Methods
 const load = async () => {
-  await store.dispatch('LOAD_PROFILE').catch(() => {});
+  await store.dispatch('LOAD_PROFILE').catch(() => { });
 
   if (profile.value?.avatar) loadAvatarImage();
 

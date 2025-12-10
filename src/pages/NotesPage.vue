@@ -125,12 +125,22 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, inject } from 'vue';
 import { useRouter } from 'vue-router';
-import { useStore } from 'vuex';
+import { useNotesStore } from '@/stores/notes';
+import { useGamesStore } from '@/stores/games';
+import { useUserStore } from '@/stores/user';
+import { useUIStore } from '@/stores/ui';
+import { useTwitchStore } from '@/stores/twitch';
+import { useAppGetters } from '@/stores/getters';
 import EmptyState from '@/components/EmptyState';
 import GameCard from '@/components/GameCard';
 
 const router = useRouter();
-const store = useStore();
+const notesStore = useNotesStore();
+const gamesStore = useGamesStore();
+const userStore = useUserStore();
+const uiStore = useUIStore();
+const twitchStore = useTwitchStore();
+const { darkTheme, buttonProps } = useAppGetters();
 const $bus = inject('$bus');
 
 // Reactive state
@@ -139,11 +149,9 @@ const loading = ref(false);
 const showSearch = ref(false);
 
 // Store state and getters
-const notes = computed(() => store.state.notes);
-const cachedGames = computed(() => store.state.cachedGames);
-const user = computed(() => store.state.user);
-const darkTheme = computed(() => store.getters.darkTheme);
-const buttonProps = computed(() => store.getters.buttonProps);
+const notes = computed(() => notesStore.notes);
+const cachedGames = computed(() => gamesStore.cachedGames);
+const user = computed(() => userStore.user);
 
 // Computed properties
 const isEmpty = computed(() => {
@@ -177,12 +185,15 @@ const loadGames = async () => {
     .filter((gameId) => !cachedGames.value[gameId]);
 
   if (gamesNotCached.length > 0) {
-    await store.dispatch('LOAD_IGDB_GAMES', gamesNotCached);
+    if (!twitchStore.twitchToken) {
+      await twitchStore.getTwitchToken();
+    }
+    await gamesStore.loadIGDBGames(twitchStore.twitchToken, gamesNotCached);
   }
 };
 
 const openGameSelectorSidebar = () => {
-  store.commit('SET_GAME_SELECTOR_DATA', {
+  uiStore.setGameSelectorData({
     title: 'Select game to add a note',
   });
 };

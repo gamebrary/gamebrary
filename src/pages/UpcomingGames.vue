@@ -9,38 +9,36 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useGamesStore } from '@/stores/games';
+import { useTwitchStore } from '@/stores/twitch';
 import GameCard from '@/components/GameCard';
 
-export default {
-  components: {
-    GameCard,
-  },
+const gamesStore = useGamesStore();
+const twitchStore = useTwitchStore();
 
-  mounted() {
-    this.load();
-  },
+const upcomingGames = ref([]);
 
-  data() {
-    return {
-      upcomingGames: [],
-    }
-  },
+const load = async () => {
+  if (!twitchStore.twitchToken) {
+    await twitchStore.getTwitchToken();
+  }
+  const data = await gamesStore.queryIGDB({
+    path: 'release_dates',
+    data: `fields *, game.category, game.name, game.cover.*; where game.category = 0; sort date desc; limit: 100;`,
+  });
 
-  methods: {
-    async load() {
-      const data = await this.$store.dispatch('IGDB', {
-        path: 'release_dates',
+  upcomingGames.value = data.map(({ game }) => game);
 
-        data: `fields *, game.category, game.name, game.cover.*; where game.category = 0; sort date desc; limit: 100;`,
-      });
-
-      this.upcomingGames = data.map(({ game }) => game);
-
-      if (this.upcomingGames?.length) this.$store.commit('CACHE_GAME_DATA', this.upcomingGames);
-    },
-  },
+  if (upcomingGames.value?.length) {
+    gamesStore.cacheGameData(upcomingGames.value);
+  }
 };
+
+onMounted(() => {
+  load();
+});
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>

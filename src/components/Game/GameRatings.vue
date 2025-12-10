@@ -15,14 +15,15 @@
 
 <script setup>
 import { computed, onMounted, onUpdated, nextTick } from 'vue';
-import { useStore } from 'vuex';
+import { useGamesStore } from '@/stores/games';
+import { useAppGetters } from '@/stores/getters';
 import { AGE_RATINGS } from '@/constants';
 
-const store = useStore();
+const gamesStore = useGamesStore();
+const { ageRating } = useAppGetters();
 
 // Store state and getters
-const game = computed(() => store.state.game);
-const ageRating = computed(() => store.getters.ageRating);
+const game = computed(() => gamesStore.game);
 
 // Computed properties
 const gameRatings = computed(() => {

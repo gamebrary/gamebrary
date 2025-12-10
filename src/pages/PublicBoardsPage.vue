@@ -16,95 +16,55 @@
     </div>
   </template>
 
-  <script>
-  import MiniBoard from '@/components/Board/MiniBoard';
-  import { mapState, mapGetters } from 'vuex';
+<script setup>
+import { ref, computed, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { useBoardsStore } from '@/stores/boards';
+import { useUserStore } from '@/stores/user';
+import { useAppGetters } from '@/stores/getters';
+import MiniBoard from '@/components/Board/MiniBoard';
 
-  export default {
-    components: {
-      MiniBoard,
-    },
+const router = useRouter();
+const boardsStore = useBoardsStore();
+const userStore = useUserStore();
+const { sortedPublicBoards, darkTheme, navPosition, isBoardOwner } = useAppGetters();
 
-    data() {
-      return {
-        loading: false,
-      };
-    },
+const loading = ref(false);
 
-    computed: {
-      ...mapState(['user', 'wallpapers']),
-      ...mapGetters(['isBoardOwner', 'sortedPublicBoards', 'darkTheme', 'navPosition']),
+const user = computed(() => userStore.user);
 
-      isEmpty() {
-        return !this.loading && this.sortedPublicBoards?.length === 0;
-      },
-    },
+const isEmpty = computed(() => {
+  return !loading.value && sortedPublicBoards.value?.length === 0;
+});
 
-    mounted() {
-      this.load();
-    },
+const loadPublicBoards = async () => {
+  try {
+    loading.value = true;
+    await boardsStore.loadPublicBoards();
+  } catch (e) {
+    loading.value = false;
+    userStore.setSessionExpired(true);
+  }
+  loading.value = false;
+};
 
-    methods: {
-      load() {
-        this.loading = this.gameBoards?.length === 0;
+const showToast = (message, variant = 'info') => {
+  const toastElement = document.createElement('div');
+  toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
+  toastElement.setAttribute('role', 'alert');
+  toastElement.innerHTML = `
+    <div class="d-flex">
+      <div class="toast-body">${message}</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  `;
+  document.body.appendChild(toastElement);
+  const toast = new bootstrap.Toast(toastElement);
+  toast.show();
+  toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
+};
 
-        this.loadPublicBoards();
-      },
-
-      async loadBoards() {
-        await this.$store.dispatch('LOAD_BOARDS')
-          .catch(() => {
-            this.loading = false;
-            this.$store.commit('SET_SESSION_EXPIRED', true);
-          });
-
-        this.loading = false;
-
-        if(!this.boards?.length) this.$emit('empty');
-      },
-
-      async loadPublicBoards() {
-        await this.$store.dispatch('LOAD_PUBLIC_BOARDS')
-          .catch((e) => {
-            this.loading = false;
-            this.$store.commit('SET_SESSION_EXPIRED', true);
-          });
-
-        this.loading = false;
-      },
-
-      viewPublicBoard(id) {
-        this.$router.push({ name: 'public.board', params: { id } });
-      },
-
-      async deleteBoard(id) {
-        this.loading = true;
-
-        await this.$store.dispatch('DELETE_BOARD', id)
-          .catch(() => {
-            this.loading = false;
-            this.showToast('There was an error deleting board', 'danger');
-          });
-
-        this.loading = false;
-        this.showToast('Board removed', 'success');
-      },
-
-      showToast(message, variant = 'info') {
-        const toastElement = document.createElement('div');
-        toastElement.className = `toast align-items-center text-white bg-${variant === 'danger' ? 'danger' : variant === 'success' ? 'success' : 'info'} border-0`;
-        toastElement.setAttribute('role', 'alert');
-        toastElement.innerHTML = `
-          <div class="d-flex">
-            <div class="toast-body">${message}</div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-          </div>
-        `;
-        document.body.appendChild(toastElement);
-        const toast = new bootstrap.Toast(toastElement);
-        toast.show();
-        toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
-      },
-    },
-  };
-  </script>
+onMounted(() => {
+  loadPublicBoards();
+});
+</script>

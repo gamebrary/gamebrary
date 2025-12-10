@@ -56,7 +56,7 @@
     <button
       type="button"
       class="btn btn-danger me-3"
-      @click="$store.commit('SET_SESSION_EXPIRED', true)"
+      @click="expireSession"
     >
       Expire session
     </button>
@@ -64,32 +64,41 @@
     <button
       type="button"
       class="btn btn-warning"
-      @click="$store.commit('CLEAR_CACHE_GAME_DATA')"
+      @click="clearGameCache"
     >
       Clear game cache
     </button>
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      variantSelected: 'white',
-      variants: [
-        'black',
-        'danger',
-        'dark',
-        'info',
-        'light',
-        'muted',
-        'primary',
-        'secondary',
-        'success',
-        'warning',
-        'white',
-      ],
-    };
-  },
+<script setup>
+import { ref } from 'vue';
+import { useUserStore } from '@/stores/user';
+import { useGamesStore } from '@/stores/games';
+
+const userStore = useUserStore();
+const gamesStore = useGamesStore();
+
+const variantSelected = ref('white');
+const variants = ref([
+  'black',
+  'danger',
+  'dark',
+  'info',
+  'light',
+  'muted',
+  'primary',
+  'secondary',
+  'success',
+  'warning',
+  'white',
+]);
+
+const expireSession = () => {
+  userStore.setSessionExpired(true);
+};
+
+const clearGameCache = () => {
+  gamesStore.clearCacheGameData();
 };
 </script>

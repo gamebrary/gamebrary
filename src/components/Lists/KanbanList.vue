@@ -134,7 +134,13 @@
 <script setup>
 import { ref, computed, onMounted, onUpdated, onBeforeUnmount, nextTick, inject } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useStore } from 'vuex';
+import { useGamesStore } from '@/stores/games';
+import { useProgressesStore } from '@/stores/progresses';
+import { useBoardsStore } from '@/stores/boards';
+import { useUserStore } from '@/stores/user';
+import { useSettingsStore } from '@/stores/settings';
+import { useUIStore } from '@/stores/ui';
+import { useAppGetters } from '@/stores/getters';
 import draggable from 'vuedraggable';
 import GameCard from '@/components/GameCard';
 import slugify from 'slugify';
@@ -165,18 +171,22 @@ const editing = ref(false);
 const localList = ref({});
 const gameRefs = ref({});
 
+// Pinia stores
+const gamesStore = useGamesStore();
+const progressesStore = useProgressesStore();
+const boardsStore = useBoardsStore();
+const userStore = useUserStore();
+const settingsStore = useSettingsStore();
+const uiStore = useUIStore();
+const { isBoardOwner, darkTheme, transparencyEnabled, draggableProps, buttonProps } = useAppGetters();
+
 // Store state and getters
-const cachedGames = computed(() => store.state.cachedGames);
-const dragging = computed(() => store.state.dragging);
-const progresses = computed(() => store.state.progresses);
-const board = computed(() => store.state.board);
-const user = computed(() => store.state.user);
-const settings = computed(() => store.state.settings);
-const isBoardOwner = computed(() => store.getters.isBoardOwner);
-const darkTheme = computed(() => store.getters.darkTheme);
-const transparencyEnabled = computed(() => store.getters.transparencyEnabled);
-const draggableProps = computed(() => store.getters.draggableProps);
-const buttonProps = computed(() => store.getters.buttonProps);
+const cachedGames = computed(() => gamesStore.cachedGames);
+const dragging = computed(() => uiStore.dragging);
+const progresses = computed(() => progressesStore.progresses);
+const board = computed(() => boardsStore.board);
+const user = computed(() => userStore.user);
+const settings = computed(() => settingsStore.settings);
 
 // Computed properties
 const sortMessage = computed(() => {
@@ -230,11 +240,11 @@ const truncatedListName = computed(() => {
 
 // Methods
 const editList = () => {
-  store.commit('SET_ACTIVE_BOARD_LIST_INDEX', props.listIndex);
+  uiStore.setActiveBoardListIndex(props.listIndex);
 };
 
 const openGameSelectorSidebar = () => {
-  store.commit('SET_GAME_SELECTOR_DATA', {
+  uiStore.setGameSelectorData({
     title: `Add games to ${props.list.name}`,
     filter: props.list.games,
     eventName: gameSelectorEventName.value,
@@ -248,13 +258,18 @@ const selectGame = (gameId) => {
 };
 
 const addGame = async (gameId) => {
-  await store.dispatch('LOAD_IGDB_GAMES', [gameId]);
+  const { useTwitchStore } = await import('@/stores/twitch');
+  const twitchStore = useTwitchStore();
+  if (!twitchStore.twitchToken) {
+    await twitchStore.getTwitchToken();
+  }
+  await gamesStore.loadIGDBGames(twitchStore.twitchToken, [gameId]);
   const boardCopy = JSON.parse(JSON.stringify(board.value));
 
   boardCopy?.lists?.[props.listIndex]?.games.push(gameId);
 
   try {
-    await store.dispatch('SAVE_GAME_BOARD', boardCopy);
+    await boardsStore.saveGameBoard(boardCopy);
   } catch (e) {
     // Error handling
   }
@@ -263,7 +278,7 @@ const addGame = async (gameId) => {
 };
 
 const highlightGame = (gameId) => {
-  store.commit('SET_HIGHLIGHTED_GAME', gameId);
+  uiStore.setHighlightedGame(gameId);
 
   const gameRef = gameRefs.value[`${props.listIndex}-${gameId}`]?.[0];
 
@@ -271,14 +286,14 @@ const highlightGame = (gameId) => {
     gameRef?.$el.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
     setTimeout(() => {
-      store.commit('SET_HIGHLIGHTED_GAME', null);
+      uiStore.setHighlightedGame(null);
     }, HIGHLIGHTED_GAME_TIMEOUT);
   }
 };
 
 const removeGame = async () => {
   const { boardId, listIndex } = route?.query;
-  const boards = store.state.boards || [];
+  const boards = boardsStore.boards || [];
   const boardIndex = boards.findIndex(({ id }) => id === boardId);
   const boardToUpdate = boards[boardIndex];
   const gameId = route.params?.id;
@@ -287,8 +302,8 @@ const removeGame = async () => {
   boardToUpdate.lists[listIndex].games.splice(gameIndex, 1);
 
   try {
-    await store.dispatch('SAVE_GAME_BOARD', boardToUpdate);
-    await store.dispatch('LOAD_BOARD', boardToUpdate.id);
+    await boardsStore.saveGameBoard(boardToUpdate);
+    await boardsStore.loadBoard(boardToUpdate.id, userStore.user.uid);
   } catch (e) {
     // Error handling
   }
@@ -314,12 +329,12 @@ const validateMove = ({ from, to }) => {
 };
 
 const dragStart = ({ item }) => {
-  store.commit('SET_DRAGGING_STATUS', true);
+  uiStore.setDraggingGameId(item.id);
   draggingId.value = item.id;
 };
 
 const dragEnd = () => {
-  store.commit('SET_DRAGGING_STATUS', false);
+  uiStore.clearDraggingGameId();
   saveBoard();
 };
 

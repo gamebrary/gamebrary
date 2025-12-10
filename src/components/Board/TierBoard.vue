@@ -19,21 +19,23 @@
 
 <script setup>
 import { ref, computed, onMounted, watch, nextTick } from 'vue';
-import { useStore } from 'vuex';
+import { useBoardsStore } from '@/stores/boards';
+import { useUIStore } from '@/stores/ui';
+import { useAppGetters } from '@/stores/getters';
 import AddTier from '@/components/Board/AddTier';
 import TierList from '@/components/Lists/TierList';
 import { HIGHLIGHTED_GAME_TIMEOUT } from '@/constants';
 
-const store = useStore();
+const boardsStore = useBoardsStore();
+const uiStore = useUIStore();
+const { isBoardOwner, darkTheme } = useAppGetters();
 
 // Template refs
 const tierRefs = ref({});
 
 // Store state and getters
-const board = computed(() => store.state.board);
-const highlightedGame = computed(() => store.state.highlightedGame);
-const isBoardOwner = computed(() => store.getters.isBoardOwner);
-const darkTheme = computed(() => store.getters.darkTheme);
+const board = computed(() => boardsStore.board);
+const highlightedGame = computed(() => uiStore.highlightedGame);
 
 // Computed properties
 const allGames = computed(() => {
@@ -67,7 +69,7 @@ const highlightGame = () => {
   });
 
   setTimeout(() => {
-    store.commit('SET_HIGHLIGHTED_GAME', null);
+    uiStore.setHighlightedGame(null);
   }, HIGHLIGHTED_GAME_TIMEOUT);
 };
 
@@ -77,8 +79,8 @@ const selectGame = async (gameId) => {
   boardCopy.games.push(gameId);
 
   try {
-    await store.dispatch('SAVE_GAME_BOARD', boardCopy);
-    await store.dispatch('LOAD_BOARD', boardCopy?.id);
+    await boardsStore.saveGameBoard(boardCopy);
+    await boardsStore.loadBoard(boardCopy?.id, userStore.user.uid);
   } catch (e) {
     // Error handling
   }

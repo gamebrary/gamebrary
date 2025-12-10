@@ -15,8 +15,8 @@
         v-model.trim="userName"
         type="text"
         class="form-control"
-        :minlength="$options.MIN_PROFILE_LENGTH"
-        :maxlength="$options.MAX_PROFILE_LENGTH"
+        :minlength="MIN_PROFILE_LENGTH"
+        :maxlength="MAX_PROFILE_LENGTH"
         required
         :class="{ 'is-invalid': available === false, 'is-valid': available === true }"
         @input="formatUserName"
@@ -57,63 +57,46 @@
   </form>
 </template>
 
-<script>
-import { mapState } from 'vuex';
+<script setup>
+import { ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
+import { useProfileStore } from '@/stores/profile';
+import { useUserStore } from '@/stores/user';
 import { MIN_PROFILE_LENGTH, MAX_PROFILE_LENGTH, DEFAULT_PROFILE } from '@/constants';
 
-export default {
-  MIN_PROFILE_LENGTH,
-  MAX_PROFILE_LENGTH,
+const router = useRouter();
+const profileStore = useProfileStore();
+const userStore = useUserStore();
 
-  data() {
-    return {
-      userName: '',
-      checkingAvailability: false,
-      available: undefined,
-      saving: false,
-    };
-  },
+const userName = ref('');
+const checkingAvailability = ref(false);
+const available = ref(undefined);
+const saving = ref(false);
 
-  computed: {
-    ...mapState(['profile']),
-  },
+const profile = computed(() => profileStore.profile);
 
-  async mounted() {
-    // if (this.profile?.userName) this.$router.replace({ name: 'public.profile', params: { userName: this.profile?.userName } });
-  },
+const createProfile = async () => {
+  saving.value = true;
 
-  methods: {
-    async createProfile() {
-      this.saving = true;
+  const payload = {
+    ...DEFAULT_PROFILE,
+    userName: userName.value,
+  };
 
-      const { userName } = this;
+  await profileStore.saveProfile(userStore.user.uid, payload);
+  saving.value = false;
+  router.push({ name: 'public.profile', params: { userName: profile.value?.userName } });
+};
 
-      const payload = {
-        ...DEFAULT_PROFILE,
-        userName,
-      }
+const checkUserNameAvailability = async () => {
+  checkingAvailability.value = true;
+  available.value = await profileStore.checkProfileUsernameAvailability(userName.value);
+  checkingAvailability.value = false;
+};
 
-      await this.$store.dispatch('SAVE_PROFILE', payload);
-
-      this.saving = false;
-
-      this.$router.push({ name: 'public.profile', params: { userName : this.profile?.userName }});
-    },
-
-    async checkUserNameAvailability() {
-      this.checkingAvailability = true;
-
-      this.available = await this.$store.dispatch('CHECK_PROFILE_USERNAME_AVAILABILITY', this.userName);
-
-      this.checkingAvailability = false;
-    },
-
-    formatUserName() {
-      this.userName = this.userName.replace(/\W/g, '');
-
-      if (this.available) this.available = false;
-    },
-  }
+const formatUserName = () => {
+  userName.value = userName.value.replace(/\W/g, '');
+  if (available.value) available.value = false;
 };
 </script>
 

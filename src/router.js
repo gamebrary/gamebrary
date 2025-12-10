@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import routes from '@/routes';
-import store from '@/store';
+import { useUIStore } from '@/stores/ui';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -8,7 +8,8 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  store.commit('SET_ROUTE', to.name);
+  const uiStore = useUIStore();
+  uiStore.setRouteName(to.name);
 
   if (to?.meta?.title) {
     document.title = to?.name === 'home'

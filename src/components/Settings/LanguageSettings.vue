@@ -21,11 +21,13 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import { useStore } from 'vuex';
+import { useSettingsStore } from '@/stores/settings';
+import { useUserStore } from '@/stores/user';
 import { useI18n } from 'vue-i18n';
 import { SUPPORTED_LANGUAGES } from '@/constants';
 
-const store = useStore();
+const settingsStore = useSettingsStore();
+const userStore = useUserStore();
 const { locale } = useI18n();
 
 // Reactive state
@@ -33,7 +35,7 @@ const saving = ref(false);
 const language = ref(null);
 
 // Store state and getters
-const settings = computed(() => store.state.settings);
+const settings = computed(() => settingsStore.settings);
 
 // Methods
 const showToast = (message, variant = 'info') => {
@@ -61,7 +63,7 @@ const saveLanguage = async () => {
   };
 
   try {
-    await store.dispatch('SAVE_SETTINGS', payload);
+    await settingsStore.saveSettings(userStore.user.uid, payload);
   } catch (e) {
     showToast('There was an error saving your settings', 'danger');
     saving.value = false;

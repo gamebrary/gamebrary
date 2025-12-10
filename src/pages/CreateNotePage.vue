@@ -123,82 +123,70 @@
   </div>
 </template>
 
-<script>
-import { mapState } from 'vuex';
+<script setup>
+import { ref, computed, onMounted, onUpdated, nextTick } from 'vue';
+import { useUserStore } from '@/stores/user';
+import { useNotesStore } from '@/stores/notes';
 import { Editor, EditorContent } from '@tiptap/vue-3';
 import StarterKit from '@tiptap/starter-kit';
 
-export default {
-  components: {
-    EditorContent,
-  },
+const userStore = useUserStore();
+const notesStore = useNotesStore();
 
-  data() {
-    return {
-      note: {
-          title: '',
-          body: '',
-          pinned: false,
-          backgroundColor: null,
-          games: [],
-          public: false,
-      },
-      saving: false,
-      editor: null,
-    };
-  },
+const note = ref({
+  title: '',
+  body: '',
+  pinned: false,
+  backgroundColor: null,
+  games: [],
+  public: false,
+});
+const saving = ref(false);
+const editor = ref(null);
 
-  computed: {
-      ...mapState(['user']),
-  },
+const user = computed(() => userStore.user);
 
-  mounted() {
-    this.editor = new Editor({
-      content: this.note.body,
-      extensions: [StarterKit],
-      editorProps: {
-        attributes: {
-          class: 'border rounded p-3',
-        },
-      },
-      onUpdate: () => {
-        this.note.body = this.editor.getHTML();
-      },
-    });
-    this.initTooltips();
-  },
-
-  updated() {
-    this.initTooltips();
-  },
-
-  methods: {
-    initTooltips() {
-      this.$nextTick(() => {
-        const tooltipTriggerList = this.$el.querySelectorAll('[data-bs-toggle="tooltip"]');
-        tooltipTriggerList.forEach(tooltipTriggerEl => {
-          if (!tooltipTriggerEl._tooltip) {
-            new bootstrap.Tooltip(tooltipTriggerEl);
-          }
-        });
-      });
-    },
-
-    createNote() {
-      const dateCreated = Date.now();
-
-      const payload = {
-        ...this.note,
-        dateCreated,
-        lastUpdated: dateCreated,
-        owner: this.user?.uid,
+const initTooltips = () => {
+  nextTick(() => {
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      if (!tooltipTriggerEl._tooltip) {
+        new bootstrap.Tooltip(tooltipTriggerEl);
       }
-
-      this.$store.dispatch('CREATE_NOTE_V2', payload)
-      // const game = this.cachedGames[gameId];
-
-      // this.$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } });
-    },
-  },
+    });
+  });
 };
+
+const createNote = async () => {
+  const dateCreated = Date.now();
+
+  const payload = {
+    ...note.value,
+    dateCreated,
+    lastUpdated: dateCreated,
+    owner: user.value?.uid,
+  };
+
+  await notesStore.createNoteV2(payload);
+};
+
+onMounted(() => {
+  editor.value = new Editor({
+    content: note.value.body,
+    extensions: [StarterKit],
+    editorProps: {
+      attributes: {
+        class: 'border rounded p-3',
+      },
+    },
+    onUpdate: () => {
+      note.value.body = editor.value.getHTML();
+    },
+  });
+  initTooltips();
+});
+
+onUpdated(() => {
+  initTooltips();
+});
 </script>

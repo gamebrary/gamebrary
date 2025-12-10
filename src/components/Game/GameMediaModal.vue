@@ -18,7 +18,7 @@
             <div class="game-media" :class="{ 'selected': activeIndex !== null }">
               <div class="thumbnails">
                 <div
-                  v-for="({ imageUrl, isVideo }, index) in gameMedia"
+                  v-for="({ imageUrl, isVideo }, index) in gameMediaComputed"
                   class="position-relative"
                   :key="index"
                 >
@@ -75,21 +75,28 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import { useStore } from 'vuex';
+import { useUserStore } from '@/stores/user';
+import { useBoardsStore } from '@/stores/boards';
+import { useGamesStore } from '@/stores/games';
+import { useWallpapersStore } from '@/stores/wallpapers';
+import { useAppGetters } from '@/stores/getters';
 
-const store = useStore();
+const userStore = useUserStore();
+const boardsStore = useBoardsStore();
+const gamesStore = useGamesStore();
+const wallpapersStore = useWallpapersStore();
+const { darkTheme, gameMedia } = useAppGetters();
 
 // Reactive state
 const activeIndex = ref(0);
 const saving = ref(false);
 
 // Store state and getters
-const user = computed(() => store.state.user);
-const board = computed(() => store.state.board);
-const game = computed(() => store.state.game);
-const wallpapers = computed(() => store.state.wallpapers);
-const boards = computed(() => store.state.boards);
-const darkTheme = computed(() => store.getters.darkTheme);
+const user = computed(() => userStore.user);
+const board = computed(() => boardsStore.board);
+const game = computed(() => gamesStore.game);
+const wallpapers = computed(() => wallpapersStore.wallpapers);
+const boards = computed(() => boardsStore.boards);
 
 // Computed properties
 const formattedBoards = computed(() => {
@@ -100,8 +107,8 @@ const isSelectedMediaVideo = computed(() => {
   return selectedMedia.value?.isVideo;
 });
 
-const gameMedia = computed(() => {
-  return store.getters.gameMedia();
+const gameMediaComputed = computed(() => {
+  return gameMedia();
 });
 
 const isSelectedMediaCover = computed(() => {
@@ -109,11 +116,11 @@ const isSelectedMediaCover = computed(() => {
 });
 
 const selectedMedia = computed(() => {
-  return gameMedia.value?.[activeIndex.value];
+  return gameMediaComputed.value?.[activeIndex.value];
 });
 
 const totalMedia = computed(() => {
-  return gameMedia.value?.length || 0;
+  return gameMediaComputed.value?.length || 0;
 });
 
 const showSetAsWallpaperButton = computed(() => {
@@ -151,9 +158,9 @@ const setAsWallpaper = async (boardItem) => {
   try {
     saving.value = true;
 
-    store.commit('SET_ACTIVE_BOARD', { ...boardItem, backgroundUrl: selectedMedia.value.imageUrl });
+    boardsStore.setActiveBoard({ ...boardItem, backgroundUrl: selectedMedia.value.imageUrl });
 
-    await store.dispatch('SAVE_BOARD');
+    await boardsStore.saveBoard();
   } catch (e) {
     showToast('There was an error setting wallpaper', 'danger');
   } finally {

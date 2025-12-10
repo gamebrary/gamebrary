@@ -12,12 +12,12 @@
 
 <script setup>
 import { computed } from 'vue';
-import { useStore } from 'vuex';
+import { useBoardsStore } from '@/stores/boards';
 import { BOARD_TYPE_STANDARD, BOARD_TYPE_TIER } from '@/constants';
 
-const store = useStore();
+const boardsStore = useBoardsStore();
 
-const board = computed(() => store.state.board);
+const board = computed(() => boardsStore.board);
 
 const useSpinner = computed(() => {
   return [BOARD_TYPE_STANDARD, BOARD_TYPE_TIER].includes(board.value?.type);

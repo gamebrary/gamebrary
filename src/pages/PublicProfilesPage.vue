@@ -22,41 +22,29 @@
   </section>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useProfileStore } from '@/stores/profile';
 import ProfileCard from '@/components/ProfileCard';
-import { mapState } from 'vuex';
 
-export default {
-  components: {
-    ProfileCard,
-  },
+const profileStore = useProfileStore();
+const loading = ref(false);
 
-  data() {
-    return {
-      loading: false,
-    }
-  },
+const profiles = computed(() => profileStore.profiles);
 
-  computed: {
-    ...mapState(['profiles']),
-  },
-
-  mounted() {
-    this.loadProfiles();
-  },
-
-  methods: {
-    async loadProfiles() {
-      try {
-        this.loading = true;
-        await this.$store.dispatch('LOAD_PROFILES');
-      } catch (e) {
-      }
-
-      this.loading = false;
-    },
-  },
+const loadProfiles = async () => {
+  try {
+    loading.value = true;
+    await profileStore.loadProfiles();
+  } catch (e) {
+    // Error handling
+  }
+  loading.value = false;
 };
+
+onMounted(() => {
+  loadProfiles();
+});
 </script>
 
 <style lang="scss" scoped>

@@ -32,9 +32,11 @@
 
 <script setup>
 import { ref, computed, inject } from 'vue';
-import { useStore } from 'vuex';
+import { useWallpapersStore } from '@/stores/wallpapers';
+import { useAppGetters } from '@/stores/getters';
 
-const store = useStore();
+const wallpapersStore = useWallpapersStore();
+const { darkTheme, buttonProps } = useAppGetters();
 const $bus = inject('$bus');
 
 // Template refs
@@ -45,9 +47,7 @@ const maxSpace = ref('67108864');
 const saving = ref(false);
 
 // Store state and getters
-const wallpapers = computed(() => store.state.wallpapers);
-const darkTheme = computed(() => store.getters.darkTheme);
-const buttonProps = computed(() => store.getters.buttonProps);
+const wallpapers = computed(() => wallpapersStore.wallpapers);
 
 // Methods
 const triggerFileUpload = () => {
@@ -61,7 +61,9 @@ const uploadWallpaper = async (event) => {
   saving.value = true;
 
   try {
-    await store.dispatch('UPLOAD_WALLPAPER', file);
+    const { useUserStore } = await import('@/stores/user');
+    const userStore = useUserStore();
+    await wallpapersStore.uploadWallpaper(userStore.user.uid, file);
     showToast('Wallpaper uploaded successfully', 'success');
   } catch (e) {
     showToast('There was an error uploading wallpaper', 'danger');

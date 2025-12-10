@@ -19,15 +19,15 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import { useStore } from 'vuex';
+import { useGamesStore } from '@/stores/games';
 
-const store = useStore();
+const gamesStore = useGamesStore();
 
 // Reactive state
 const loaded = ref(false);
 
 // Store state and getters
-const game = computed(() => store.state.game);
+const game = computed(() => gamesStore.game);
 
 // Computed properties
 const speedruns = computed(() => {
@@ -46,14 +46,12 @@ const speedruns = computed(() => {
 
 // Methods
 const loadSpeedruns = async () => {
-  const speedRunGame = await store.dispatch('GET_SPEEDRUN_GAME_ID', game.value.name);
-
-  const gameData = speedRunGame?.data?.[0];
-  const runsLink = gameData.links.find(({ rel }) => rel === 'runs')?.uri;
-
-  await store.dispatch('LOAD_GAME_SPEEDRUN_RUNS', runsLink);
-
-  loaded.value = true;
+  try {
+    await gamesStore.getSpeedrunGameId(game.value.name);
+    loaded.value = true;
+  } catch (error) {
+    console.error('Error loading speedruns:', error);
+  }
 };
 
 // Lifecycle hooks

@@ -1,16 +1,25 @@
-/* eslint-disable global-require */
+import en from './en.json';
+// import ar from './ar.json';
+// import de from './de.json';
+// import es from './es.json';
+// import fr from './fr.json';
+// import it from './it.json';
+// import ja from './ja.json';
+// import pt from './pt.json';
+// import ru from './ru.json';
+// import zhCN from './zh-CN.json';
 
 const messages = {
-  en: require('./en.json'),
-  // ar: require('./ar.json'),
-  // de: require('./de.json'),
-  // es: require('./es.json'),
-  // fr: require('./fr.json'),
-  // it: require('./it.json'),
-  // ja: require('./ja.json'),
-  // pt: require('./pt.json'),
-  // ru: require('./ru.json'),
-  // 'zh-CN': require('./zh-CN.json'),
+  en,
+  // ar,
+  // de,
+  // es,
+  // fr,
+  // it,
+  // ja,
+  // pt,
+  // ru,
+  // 'zh-CN': zhCN,
 };
 
 export default messages;

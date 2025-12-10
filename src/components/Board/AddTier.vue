@@ -66,9 +66,11 @@
 
 <script setup>
 import { ref, computed, onMounted, onUpdated, nextTick } from 'vue';
-import { useStore } from 'vuex';
+import { useBoardsStore } from '@/stores/boards';
+import { useAppGetters } from '@/stores/getters';
 
-const store = useStore();
+const boardsStore = useBoardsStore();
+const { darkTheme } = useAppGetters();
 
 // Template refs
 const addListForm = ref(null);
@@ -83,9 +85,7 @@ const active = ref(false);
 const saving = ref(false);
 
 // Store state and getters
-const platform = computed(() => store.state.platform);
-const board = computed(() => store.state.board);
-const darkTheme = computed(() => store.getters.darkTheme);
+const board = computed(() => boardsStore.board);
 
 // Methods
 const initTooltips = () => {
@@ -119,9 +119,9 @@ const addTier = async () => {
   try {
     saving.value = true;
 
-    store.commit('ADD_LIST', list.value);
+    boardsStore.addList(list.value);
 
-    await store.dispatch('SAVE_BOARD');
+    await boardsStore.saveBoard();
     const modalElement = document.getElementById('addTier');
     if (modalElement) {
       const modal = bootstrap.Modal.getInstance(modalElement);

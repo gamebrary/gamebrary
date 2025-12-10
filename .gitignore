@@ -1,23 +1,15 @@
 .DS_Store
 node_modules/
-/dist/
-
-/tests/e2e/videos/
-/tests/e2e/screenshots/
-
-# local env files
-.env.local
-.env.*.local
+dist/
+dist-ssr/
+*.local
 
 # Log files
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-
-.runtimeconfig.json
-/functions/.runtimeconfig.json
-/test/unit/coverage/
+lerna-debug.log*
 
 # Editor directories and files
 .idea
@@ -27,5 +19,21 @@ pnpm-debug.log*
 *.ntvs*
 *.njsproj
 *.sln
-*.log
 *.sw?
+
+# Vite
+.vite/
+*.local
+
+# Testing
+coverage/
+.nyc_output/
+/tests/e2e/videos/
+/tests/e2e/screenshots/
+
+# Environment
+.env
+.env.local
+.env.*.local
+.runtimeconfig.json
+/functions/.runtimeconfig.json

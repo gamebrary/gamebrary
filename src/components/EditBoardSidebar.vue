@@ -2,27 +2,17 @@
 <!-- TODO: fix Lists will be merged into a single list. -->
 <!-- TODO: allow to upload and set wallpaper from here -->
 <template lang="html">
-  <AppSidebar
-    id="edit-board-sidebar"
-    :visible="visible"
-    :placement="sidebarRightProps?.placement || 'end'"
-    :bg-variant="sidebarRightProps?.bgVariant"
-    :text-variant="sidebarRightProps?.textVariant"
-    @update:visible="handleVisibilityChange"
-  >
+  <AppSidebar id="edit-board-sidebar" :visible="visible" :placement="sidebarRightProps?.placement || 'end'"
+    :bg-variant="sidebarRightProps?.bgVariant" :text-variant="sidebarRightProps?.textVariant"
+    @update:visible="handleVisibilityChange">
     <template #header>
       <SidebarHeader @hide="hideSidebar" title="Edit board" />
     </template>
 
     <form @submit.stop.prevent="saveBoard" class="p-3">
-      <AppSidebar
-        id="select-board-wallpaper"
-        :visible="wallpaperSidebarVisible"
-        :placement="sidebarRightProps?.placement || 'end'"
-        :bg-variant="sidebarRightProps?.bgVariant"
-        :text-variant="sidebarRightProps?.textVariant"
-        @update:visible="handleWallpaperVisibilityChange"
-      >
+      <AppSidebar id="select-board-wallpaper" :visible="wallpaperSidebarVisible"
+        :placement="sidebarRightProps?.placement || 'end'" :bg-variant="sidebarRightProps?.bgVariant"
+        :text-variant="sidebarRightProps?.textVariant" @update:visible="handleWallpaperVisibilityChange">
         <template #header>
           <SidebarHeader @hide="hideWallpaperSidebar" title="Select board background" />
         </template>
@@ -33,159 +23,96 @@
         </div>
       </AppSidebar>
 
-        <div class="mb-3">
-          <label for="name" class="form-label">Board name</label>
-          <input
-            id="name"
-            type="text"
-            v-model="board.name"
-            class="form-control"
-            required
-          />
-        </div>
+      <div class="mb-3">
+        <label for="name" class="form-label">Board name</label>
+        <input id="name" type="text" v-model="board.name" class="form-control" required />
+      </div>
 
-        <p>Board type:</p>
+      <p>Board type:</p>
 
-        <div class="btn-group mb-3" role="group">
-          <button
-            v-for="{ text, value } in BOARD_TYPES"
-            :key="value"
-            type="button"
-            class="btn"
-            :class="value === board.type ? 'btn-dark' : 'btn-light'"
-            @click="board.type = value"
-          >
-            {{ text }}
-          </button>
-        </div>
+      <div class="btn-group mb-3" role="group">
+        <button v-for="{ text, value } in BOARD_TYPES" :key="value" type="button" class="btn"
+          :class="value === board.type ? 'btn-dark' : 'btn-light'" @click="board.type = value">
+          {{ text }}
+        </button>
+      </div>
 
-        <div v-if="needsFlattening" class="alert alert-warning" role="alert">
-          Lists will be merged into a single list.
-        </div>
+      <div v-if="needsFlattening" class="alert alert-warning" role="alert">
+        Lists will be merged into a single list.
+      </div>
 
-        <MiniBoard
-          class="mb-3"
-          :board="previewBoard"
-          no-link
-        />
+      <MiniBoard class="mb-3" :board="previewBoard" no-link />
 
-        <div
-          v-if="board.type === BOARD_TYPE_STANDARD"
-          class="form-check form-switch mb-3"
-        >
-          <input
-            class="form-check-input"
-            type="checkbox"
-            v-model="board.ranked"
-            id="rankedSwitch"
-          />
-          <label class="form-check-label" for="rankedSwitch">
-            Ranked
+      <div v-if="board.type === BOARD_TYPE_STANDARD" class="form-check form-switch mb-3">
+        <input class="form-check-input" type="checkbox" v-model="board.ranked" id="rankedSwitch" />
+        <label class="form-check-label" for="rankedSwitch">
+          Ranked
+        </label>
+      </div>
+
+      <div class="form-check form-switch mb-3">
+        <input class="form-check-input" type="checkbox" v-model="board.darkTheme" id="darkThemeSwitch" />
+        <label class="form-check-label" for="darkThemeSwitch">
+          Dark theme
+        </label>
+      </div>
+
+      <div class="d-flex justify-content-between mb-3">
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" v-model="board.isPublic" id="isPublicSwitch" />
+          <label class="form-check-label" for="isPublicSwitch">
+            Public
           </label>
         </div>
 
-        <div class="form-check form-switch mb-3">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            v-model="board.darkTheme"
-            id="darkThemeSwitch"
-          />
-          <label class="form-check-label" for="darkThemeSwitch">
-            Dark theme
-          </label>
-        </div>
+        <a v-if="board.isPublic" class="link-primary float-end" target="_blank"
+          :href="`https://gamebrary.com/b/${board.id}`">
+          Open board
+        </a>
+      </div>
 
-        <div class="d-flex justify-content-between mb-3">
-          <div class="form-check form-switch">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              v-model="board.isPublic"
-              id="isPublicSwitch"
-            />
-            <label class="form-check-label" for="isPublicSwitch">
-              Public
-            </label>
-          </div>
+      <div class="d-flex align-items-start">
+        <input type="color" v-model="board.backgroundColor" class="form-control form-control-color mb-3"
+          style="width: 40px; height: 40px; cursor: pointer;" title="Background color" />
 
-          <a
-            v-if="board.isPublic"
-            class="link-primary float-end"
-            target="_blank"
-            :href="`https://gamebrary.com/b/${board.id}`"
-          >
-            Open board
-          </a>
-        </div>
-
-        <div class="d-flex align-items-start">
-          <input
-            type="color"
-            v-model="board.backgroundColor"
-            class="form-control form-control-color mb-3"
-            style="width: 40px; height: 40px; cursor: pointer;"
-            title="Background color"
-          />
-
-          <button
-            v-if="board.backgroundColor"
-            type="button"
-            class="btn btn-light ms-2"
-            @click="board.backgroundColor = null"
-          >
-            <i class="fas fa-close" aria-hidden />
-          </button>
-
-          <span class="mt-2 ms-2">Background color</span>
-        </div>
-
-        <div class="d-flex align-items-center mb-3">
-          <button
-            type="button"
-            class="btn btn-primary me-2"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#select-board-wallpaper"
-          >
-            <i class="fa fa-image" aria-hidden="true"></i>
-          </button>
-
-          <button
-            v-if="board.backgroundUrl"
-            type="button"
-            class="btn btn-light me-2"
-            @click="board.backgroundUrl = null"
-          >
-            <i class="fas fa-close" aria-hidden />
-          </button>
-
-          Background image
-        </div>
-
-        <button
-          type="submit"
-          class="btn btn-primary"
-          :disabled="saving"
-        >
-          <span v-if="saving" class="spinner-border spinner-border-sm me-2" role="status"></span>
-          <span v-else>{{ t('global.save') }}</span>
+        <button v-if="board.backgroundColor" type="button" class="btn btn-light ms-2"
+          @click="board.backgroundColor = null">
+          <i class="fas fa-close" aria-hidden />
         </button>
 
-        <button
-          type="button"
-          class="btn btn-outline-danger float-end"
-          @click="confirmDeleteBoard"
-        >
-          {{ t('board.settings.deleteBoard') }}
+        <span class="mt-2 ms-2">Background color</span>
+      </div>
+
+      <div class="d-flex align-items-center mb-3">
+        <button type="button" class="btn btn-primary me-2" data-bs-toggle="offcanvas"
+          data-bs-target="#select-board-wallpaper">
+          <i class="fa fa-image" aria-hidden="true"></i>
         </button>
-      </form>
+
+        <button v-if="board.backgroundUrl" type="button" class="btn btn-light me-2" @click="board.backgroundUrl = null">
+          <i class="fas fa-close" aria-hidden />
+        </button>
+
+        Background image
+      </div>
+
+      <button type="submit" class="btn btn-primary" :disabled="saving">
+        <span v-if="saving" class="spinner-border spinner-border-sm me-2" role="status"></span>
+        <span v-else>{{ t('global.save') }}</span>
+      </button>
+
+      <button type="button" class="btn btn-outline-danger float-end" @click="confirmDeleteBoard">
+        {{ t('board.settings.deleteBoard') }}
+      </button>
+    </form>
   </AppSidebar>
 </template>
 
 <script setup>
 import { ref, computed, watch, onMounted, onBeforeUnmount, inject } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useStore } from 'vuex';
+import { useUserStore } from '@/stores/user';
+import { useAppGetters } from '@/stores/getters';
 import { useI18n } from 'vue-i18n';
 import {
   BOARD_TYPES,
@@ -202,7 +129,8 @@ import MiniBoard from '@/components/Board/MiniBoard';
 
 const route = useRoute();
 const router = useRouter();
-const store = useStore();
+const userStore = useUserStore();
+const { darkTheme, sidebarRightProps } = useAppGetters();
 const { t } = useI18n();
 const $bus = inject('$bus');
 
@@ -215,9 +143,7 @@ const visible = ref(false);
 const wallpaperSidebarVisible = ref(false);
 
 // Store state and getters
-const user = computed(() => store.state.user);
-const darkTheme = computed(() => store.getters.darkTheme);
-const sidebarRightProps = computed(() => store.getters.sidebarRightProps);
+const user = computed(() => userStore.user);
 
 // Computed properties
 const boardId = computed(() => route?.params?.id);

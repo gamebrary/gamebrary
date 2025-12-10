@@ -112,7 +112,16 @@
 <script setup>
 import { computed, inject } from 'vue';
 import { useRoute } from 'vue-router';
-import { useStore } from 'vuex';
+import { useUserStore } from '@/stores/user';
+import { useBoardsStore } from '@/stores/boards';
+import { useSettingsStore } from '@/stores/settings';
+import { useGamesStore } from '@/stores/games';
+import { useNotesStore } from '@/stores/notes';
+import { useTagsStore } from '@/stores/tags';
+import { useWallpapersStore } from '@/stores/wallpapers';
+import { useUIStore } from '@/stores/ui';
+import { useReleasesStore } from '@/stores/releases';
+import { useAppGetters } from '@/stores/getters';
 import { THUMBNAIL_PREFIX } from '@/constants';
 import ProfileDockMenu from '@/components/Dock/ProfileDockMenu';
 import SidebarHeader from '@/components/SidebarHeader';
@@ -121,24 +130,28 @@ import SearchBox from '@/components/SearchBox';
 import AppSidebar from '@/components/AppSidebar';
 
 const route = useRoute();
-const store = useStore();
+const userStore = useUserStore();
+const boardsStore = useBoardsStore();
+const settingsStore = useSettingsStore();
+const gamesStore = useGamesStore();
+const notesStore = useNotesStore();
+const tagsStore = useTagsStore();
+const wallpapersStore = useWallpapersStore();
+const uiStore = useUIStore();
+const releasesStore = useReleasesStore();
+const { navPosition, latestRelease, darkTheme, transparencyEnabled, sidebarLeftProps } = useAppGetters();
 const $bus = inject('$bus');
 
 // Store state and getters
-const user = computed(() => store.state.user);
-const board = computed(() => store.state.board);
-const boards = computed(() => store.state.boards);
-const settings = computed(() => store.state.settings);
-const games = computed(() => store.state.games);
-const notes = computed(() => store.state.notes);
-const tags = computed(() => store.state.tags);
-const wallpapers = computed(() => store.state.wallpapers);
-const menuOpen = computed(() => store.state.menuOpen);
-const navPosition = computed(() => store.getters.navPosition);
-const latestRelease = computed(() => store.getters.latestRelease);
-const darkTheme = computed(() => store.getters.darkTheme);
-const transparencyEnabled = computed(() => store.getters.transparencyEnabled);
-const sidebarLeftProps = computed(() => store.getters.sidebarLeftProps);
+const user = computed(() => userStore.user);
+const board = computed(() => boardsStore.board);
+const boards = computed(() => boardsStore.boards);
+const settings = computed(() => settingsStore.settings);
+const games = computed(() => gamesStore.games);
+const notes = computed(() => notesStore.notes);
+const tags = computed(() => tagsStore.tags);
+const wallpapers = computed(() => wallpapersStore.wallpapers);
+const menuOpen = computed(() => uiStore.menuOpen);
 
 // Computed properties
 const routeName = computed(() => route?.name);
@@ -158,10 +171,10 @@ const wallpaperCount = computed(() => {
 
 // Methods
 const handleVisibilityChange = (visible) => {
-  store.commit('SET_MENU_OPEN', visible);
+  uiStore.setMenuOpen(visible);
 };
 
 const hideSidebar = () => {
-  store.commit('SET_MENU_OPEN', false);
+  uiStore.setMenuOpen(false);
 };
 </script>

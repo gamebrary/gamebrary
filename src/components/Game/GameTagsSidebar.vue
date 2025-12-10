@@ -77,21 +77,27 @@
 
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, inject } from 'vue';
-import { useStore } from 'vuex';
+import { useTagsStore } from '@/stores/tags';
+import { useGamesStore } from '@/stores/games';
+import { useUserStore } from '@/stores/user';
+import { useUIStore } from '@/stores/ui';
+import { useAppGetters } from '@/stores/getters';
 import SidebarHeader from '@/components/SidebarHeader';
 import AppSidebar from '@/components/AppSidebar';
 
-const store = useStore();
+const tagsStore = useTagsStore();
+const gamesStore = useGamesStore();
+const userStore = useUserStore();
+const uiStore = useUIStore();
+const { sidebarRightProps, darkTheme } = useAppGetters();
 const $bus = inject('$bus');
 
 // Reactive state
 const visible = ref(false);
 
 // Store state and getters
-const tags = computed(() => store.state.tags);
-const game = computed(() => store.state.game);
-const sidebarRightProps = computed(() => store.getters.sidebarRightProps);
-const darkTheme = computed(() => store.getters.darkTheme);
+const tags = computed(() => tagsStore.tags);
+const game = computed(() => gamesStore.game);
 
 // Computed properties
 const isEmpty = computed(() => tags.value.length === 0 || !game.value);
@@ -119,13 +125,17 @@ const selectTag = async (tagIndex, games) => {
 
   const gameId = Number(game.value?.id);
 
-  store.commit(mutation, { tagIndex, gameId });
+  if (mutation === 'APPLY_TAG_TO_GAME') {
+    tagsStore.applyTagToGame(tagIndex, gameId);
+  } else {
+    tagsStore.removeGameFromTag(tagIndex, gameId);
+  }
 
-  await store.dispatch('SAVE_TAGS').catch(() => {});
+  await tagsStore.saveTags(userStore.user.uid).catch(() => {});
 };
 
 const openEditTagSidebar = (index) => {
-  store.commit('SET_ACTIVE_TAG_INDEX', index);
+  uiStore.setActiveTagIndex(index);
 };
 
 // Lifecycle hooks
