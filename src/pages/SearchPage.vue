@@ -1,12 +1,36 @@
 <template lang="html">
   <section class="d-flex flex-column">
     <portal to="headerActions">
-      <div class="d-flex">
+      <div class="d-flex align-items-center gap-2">
         <button type="button" class="btn me-1 border-0"
           :class="filterSelected ? 'btn-outline-danger' : darkTheme ? 'btn-outline-light' : 'btn-outline-danger'"
           data-bs-toggle="offcanvas" data-bs-target="#filtersSidebar" :title="'Filters'">
           <i class="fa-regular fa-filter" />
         </button>
+
+        <nav v-if="searchResults.length > 0" aria-label="Search results pagination">
+          <ul class="pagination pagination-sm mb-0">
+            <li class="page-item" :class="{ disabled: loading || currentPage === 1 }">
+              <button class="page-link" :class="darkTheme ? 'bg-dark text-light border-secondary' : ''"
+                @click="goToPreviousPage" :disabled="loading || currentPage === 1"
+                :tabindex="(loading || currentPage === 1) ? -1 : 0" aria-label="Previous">
+                Previous
+              </button>
+            </li>
+            <li class="page-item active">
+              <span class="page-link" :class="darkTheme ? 'bg-primary border-primary' : ''">
+                {{ currentPage }}
+              </span>
+            </li>
+            <li class="page-item" :class="{ disabled: loading || !hasMore }">
+              <button class="page-link" :class="darkTheme ? 'bg-dark text-light border-secondary' : ''"
+                @click="goToNextPage" :disabled="loading || !hasMore" :tabindex="(loading || !hasMore) ? -1 : 0"
+                aria-label="Next">
+                Next
+              </button>
+            </li>
+          </ul>
+        </nav>
       </div>
     </portal>
 
@@ -17,12 +41,6 @@
     </div>
 
     <GameCard v-for="game in searchResults" class="mb-3 mx-3" :game-id="game.id" :key="game.id" />
-
-    <button v-if="searchResults.length === pageSize" type="button" class="btn w-100 mb-2"
-      :class="darkTheme ? 'btn-dark' : 'btn-light'" @click="loadMore" :disabled="loading">
-      <span v-if="loading" class="spinner-border spinner-border-sm me-2" role="status"></span>
-      <span v-else>More results</span>
-    </button>
 
     <p v-if="!loading && query.length > 0 && !searchResults.length"
       :class="['text-center mt-5', { 'text-info': darkTheme }]">
@@ -52,8 +70,9 @@ const { darkTheme } = useAppGetters();
 // Reactive state
 const searchResults = ref([]);
 const loading = ref(false);
-const pageSize = ref(20);
+const pageSize = ref(10);
 const offset = ref(0);
+const hasMore = ref(false);
 
 // Store state and getters
 const boards = computed(() => boardsStore.boards);
@@ -83,7 +102,9 @@ const boardListIndex = computed(() => route.query?.listIndex);
 
 const showEmptyState = computed(() => route?.query?.q === undefined);
 
-const showPreviousButton = computed(() => offset.value >= pageSize.value);
+const currentPage = computed(() => {
+  return Math.floor(offset.value / pageSize.value) + 1;
+});
 
 const filterSelected = computed(() => {
   return Boolean(route.query?.filterBy && route.query?.value);
@@ -93,24 +114,23 @@ const filterSelected = computed(() => {
 const clearResults = () => {
   searchResults.value = [];
   offset.value = 0;
+  hasMore.value = false;
 };
 
-const loadMore = () => {
+const goToNextPage = () => {
+  if (!hasMore.value || loading.value) return;
   offset.value = offset.value + pageSize.value;
   search();
 };
 
-const prev = () => {
-  offset.value = offset.value - pageSize.value;
+const goToPreviousPage = () => {
+  if (currentPage.value === 1 || loading.value) return;
+  offset.value = Math.max(0, offset.value - pageSize.value);
   search();
 };
 
 const search = async () => {
   loading.value = true;
-
-  if (searchResults.value.length > 0 && offset.value === 0) {
-    clearResults();
-  }
 
   const searchQuery = query.value
     ? `search "${query.value}";`
@@ -126,13 +146,17 @@ const search = async () => {
     }
     const results = await gamesStore.queryIGDB({
       path: 'games',
-      data: `${searchQuery} ${IGDB_QUERIES.SEARCH} limit ${pageSize.value}; offset ${offset.value}; ${filter};`,
+      data: `${searchQuery} ${IGDB_QUERIES.SEARCH} limit ${pageSize.value + 1}; offset ${offset.value}; ${filter};`,
     });
 
-    searchResults.value = [
-      ...searchResults.value,
-      ...results,
-    ];
+    // Check if there are more results
+    if (results.length > pageSize.value) {
+      hasMore.value = true;
+      searchResults.value = results.slice(0, pageSize.value);
+    } else {
+      hasMore.value = false;
+      searchResults.value = results;
+    }
   } finally {
     loading.value = false;
   }
