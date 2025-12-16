@@ -59,9 +59,8 @@
     </div>
   </div>
 
-  <div v-else>
-    empty
-  </div>
+  <EmptyState v-else title="Company not found"
+    message="The company you're looking for doesn't exist or couldn't be loaded." />
 </template>
 
 <script setup>
@@ -73,6 +72,7 @@ import { useAppGetters } from '@/stores/getters';
 import { getImageUrl } from '@/utils';
 import { IGDB_QUERIES } from '@/constants';
 import GameCard from '@/components/GameCard';
+import EmptyState from '@/components/EmptyState';
 
 const route = useRoute();
 const gamesStore = useGamesStore();

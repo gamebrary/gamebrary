@@ -207,7 +207,7 @@ const hideWallpaperSidebar = () => {
 };
 
 const loadBoard = async () => {
-  if (!boardId.value) {
+  if (!boardId.value || !userStore.user?.uid) {
     return;
   }
 
@@ -224,7 +224,10 @@ const loadBoard = async () => {
 
     lists.value = JSON.parse(JSON.stringify(board.value.lists || []));
   } catch (e) {
-    console.error('Error loading board:', e);
+    // Only log error if it's not a "not found" error (which is expected in some cases)
+    if (e.message !== 'Board not found') {
+      console.error('Error loading board:', e);
+    }
   } finally {
     loading.value = false;
   }

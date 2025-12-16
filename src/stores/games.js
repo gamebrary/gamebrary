@@ -21,6 +21,9 @@ export const useGamesStore = defineStore('games', {
     // Pagination state
     gamesLastDoc: null,
     gamesHasMore: true,
+    currentPage: 1,
+    pageCursors: {}, // Store cursors for each page: { pageNumber: lastDoc }
+    totalGamesLoaded: 0,
   }),
 
   persist: {
@@ -54,6 +57,9 @@ export const useGamesStore = defineStore('games', {
           this.games = {};
           this.gamesLastDoc = null;
           this.gamesHasMore = true;
+          this.currentPage = 1;
+          this.pageCursors = {};
+          this.totalGamesLoaded = 0;
         }
 
         // Build query constraints
@@ -62,9 +68,10 @@ export const useGamesStore = defineStore('games', {
           limit(pageSize)
         ];
 
-        // Add startAfter if we have a last document
-        if (lastDoc || this.gamesLastDoc) {
-          constraints.push(startAfter(lastDoc || this.gamesLastDoc));
+        // Add startAfter if we have a last document (for pagination)
+        const cursorDoc = lastDoc || this.gamesLastDoc;
+        if (cursorDoc) {
+          constraints.push(startAfter(cursorDoc));
         }
 
         // Build query with all constraints
@@ -96,13 +103,25 @@ export const useGamesStore = defineStore('games', {
           }
         }
 
-        // Merge games (for pagination, we want to keep existing games)
-        this.games = reset ? games : { ...this.games, ...games };
+        // For pagination, replace games if reset, otherwise merge
+        if (reset) {
+          this.games = games;
+          this.totalGamesLoaded = gameIds.length;
+        } else {
+          this.games = { ...this.games, ...games };
+          this.totalGamesLoaded += gameIds.length;
+        }
+
         this.gamesHasMore = querySnapshot.docs.length === pageSize;
 
-        // Store last document for next page
+        // Store last document for next page and current page cursor
         if (querySnapshot.docs.length > 0) {
-          this.gamesLastDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
+          const lastDocSnap = querySnapshot.docs[querySnapshot.docs.length - 1];
+          this.gamesLastDoc = lastDocSnap;
+          // Store cursor for current page
+          if (!reset) {
+            this.pageCursors[this.currentPage] = lastDocSnap;
+          }
         } else {
           this.gamesHasMore = false;
         }
@@ -115,6 +134,8 @@ export const useGamesStore = defineStore('games', {
           gameIds,
           hasMore: this.gamesHasMore,
           lastDoc: this.gamesLastDoc,
+          currentPage: this.currentPage,
+          totalGamesLoaded: this.totalGamesLoaded,
         };
       } catch (e) {
         console.warn('Failed to load sorted games, falling back to regular load:', e);
@@ -173,6 +194,18 @@ export const useGamesStore = defineStore('games', {
 
     setGamesSortOrder(sortOrder) {
       this.gamesSortOrder = sortOrder;
+    },
+
+    setCurrentPage(page) {
+      this.currentPage = page;
+    },
+
+    getPageCursor(page) {
+      return this.pageCursors[page] || null;
+    },
+
+    setPageCursor(page, cursor) {
+      this.pageCursors[page] = cursor;
     },
 
     cacheGameData(games) {

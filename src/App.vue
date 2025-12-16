@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted, inject } from 'vue';
+import { ref, computed, watch, onMounted, onBeforeUnmount, inject } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useUserStore } from '@/stores/user';
 import { useSettingsStore } from '@/stores/settings';
@@ -228,6 +228,27 @@ const boot = async () => {
   loading.value = false;
 };
 
+// Global click handler to hide tooltips when clicking outside
+const handleDocumentClick = (event) => {
+  // Get all tooltip instances
+  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+  tooltipTriggerList.forEach((tooltipTriggerEl) => {
+    const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+    if (tooltipInstance) {
+      // Check if tooltip is currently shown (check for tooltip element in DOM)
+      const tooltipId = tooltipTriggerEl.getAttribute('aria-describedby');
+      const tooltipElement = tooltipId ? document.getElementById(tooltipId) : null;
+
+      if (tooltipElement) {
+        // Tooltip is shown, check if click is outside
+        if (!tooltipTriggerEl.contains(event.target) && !tooltipElement.contains(event.target)) {
+          tooltipInstance.hide();
+        }
+      }
+    }
+  });
+};
+
 // Lifecycle hooks
 onMounted(async () => {
   $bus.$on('LIKE_UNLIKE_GAME', likeOrUnlikeGame);
@@ -236,11 +257,19 @@ onMounted(async () => {
   $bus.$on('BOOT', boot);
   $bus.$on('UPDATE_BACKGROUND_COLOR', updateBackgroundColor);
 
+  // Add global click handler to hide tooltips
+  document.addEventListener('click', handleDocumentClick);
+
   loading.value = true;
 
   await twitchStore.getTwitchToken();
 
   init();
+});
+
+onBeforeUnmount(() => {
+  // Remove global click handler
+  document.removeEventListener('click', handleDocumentClick);
 });
 </script>
 
@@ -260,6 +289,10 @@ onMounted(async () => {
   &.nav-top {
     padding-top: 65px;
 
+    @media (max-width: calc($bp-md - 1px)) {
+      padding-top: 0; // Remove top padding on mobile when header is at bottom
+    }
+
     .viewport {
       height: calc(100svh - 80px);
     }
@@ -275,8 +308,8 @@ onMounted(async () => {
       padding-bottom: 0;
     }
 
-    @media (max-width: $bp-md) {
-      padding-bottom: 60px; // Space for bottom nav
+    @media (max-width: calc($bp-md - 1px)) {
+      padding-bottom: 116px; // Space for GlobalNav mobile (60px) + PageHeader (56px)
     }
   }
 

@@ -2,18 +2,15 @@
   <nav :class="[navClass, darkTheme ? 'bg-dark' : 'bg-light']" class="px-3 d-flex align-items-center position-fixed"
     style="height: 56px;">
 
-    <Teleport to="body">
-      <div id="pageTitle-portal"></div>
-    </Teleport>
-    <Teleport to="body">
-      <div id="headerActions-portal"></div>
-    </Teleport>
-    <h1 ref="pageTitleRef"></h1>
-    <div ref="headerActionsRef"></div>
+    <h1>
+      <portal-target name="pageTitle" />
+    </h1>
+
+    <div>
+      <portal-target name="headerActions" />
+    </div>
 
     <div class="d-flex align-items-center gap-2">
-      <SearchBox v-if="user" class="d-none d-md-block" />
-
       <router-link v-if="!user" :to="{ name: 'auth' }" class="btn btn-success">
         Get started <span class="d-none d-sm-inline"> — it's free!</span>
       </router-link>
@@ -33,7 +30,6 @@ import { useUIStore } from '@/stores/ui';
 import { useSettingsStore } from '@/stores/settings';
 import { useReleasesStore } from '@/stores/releases';
 import { useAppGetters } from '@/stores/getters';
-import SearchBox from '@/components/SearchBox';
 
 const route = useRoute();
 const router = useRouter();
@@ -62,7 +58,7 @@ const transparencyEnabled = computed(() => settingsStore.transparencyEnabled);
 
 // Computed properties
 const navClass = computed(() => {
-  const navPos = 'nav-top';
+  const navPos = 'nav-top nav-bottom-mobile';
   const isGameRoute = route.name === 'game';
 
   const defaultClass = !isGameRoute ? '' : darkTheme.value ? 'bg-dark' : 'bg-light';
@@ -91,6 +87,18 @@ nav {
   &.nav-top {
     top: 0;
     position: fixed;
+
+    @media (max-width: calc($bp-md - 1px)) {
+      top: auto;
+    }
+  }
+
+  &.nav-bottom-mobile {
+    @media (max-width: calc($bp-md - 1px)) {
+      bottom: 60px; // Position above GlobalNav mobile nav (60px height)
+      top: auto;
+      z-index: 1001; // Ensure it's above GlobalNav (z-index 1000)
+    }
   }
 
   &.nav-bottom {

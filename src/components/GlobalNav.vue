@@ -6,6 +6,7 @@
         <router-link :to="{ name: 'home' }">
           <img src="/img/gamebrary-logo.png" alt="Gamebrary" width="200" class="pb-1" />
         </router-link>
+        <SearchBox v-if="user" class="mt-3" />
       </div>
 
       <div class="nav-content flex-grow-1">
@@ -49,6 +50,10 @@
 
     <!-- Mobile: Bottom Nav -->
     <nav class="global-nav-mobile d-flex d-md-none" :class="darkTheme ? 'bg-dark' : 'bg-light'">
+      <router-link :to="{ name: 'home' }" class="nav-item-mobile nav-logo-mobile">
+        <img src="/icon512_rounded.png" alt="Gamebrary" class="nav-logo-img" />
+      </router-link>
+
       <router-link :to="{ name: 'library' }" class="nav-item-mobile" :class="{ active: isActiveRoute('library') }">
         <i class="fa-regular fa-gamepad" />
         <span>Library</span>
@@ -62,6 +67,11 @@
       <router-link :to="{ name: 'notes' }" class="nav-item-mobile" :class="{ active: isActiveRoute('notes') }">
         <i class="fa-regular fa-notes" />
         <span>Notes</span>
+      </router-link>
+
+      <router-link :to="{ name: 'search' }" class="nav-item-mobile" :class="{ active: isActiveRoute('search') }">
+        <i class="fa-solid fa-magnifying-glass" />
+        <span>Search</span>
       </router-link>
 
       <div class="nav-item-mobile dropdown">
@@ -105,6 +115,7 @@ import { useUserStore } from '@/stores/user';
 import { useBoardsStore } from '@/stores/boards';
 import { useAppGetters } from '@/stores/getters';
 import ProfileDockMenu from '@/components/Dock/ProfileDockMenu';
+import SearchBox from '@/components/SearchBox';
 
 const route = useRoute();
 const router = useRouter();
@@ -236,7 +247,7 @@ const openSettings = () => {
 
 .global-nav-mobile {
   position: fixed;
-  bottom: 0;
+  bottom: 0; // Position at the very bottom
   left: 0;
   right: 0;
   height: 60px;
@@ -276,6 +287,17 @@ const openSettings = () => {
 
     &.active {
       font-weight: 600;
+    }
+
+    &.nav-logo-mobile {
+      flex: 0 0 auto;
+      padding: 0.25rem;
+
+      .nav-logo-img {
+        width: 32px;
+        height: 32px;
+        object-fit: contain;
+      }
     }
   }
 

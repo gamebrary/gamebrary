@@ -20,14 +20,96 @@ const routes = [
   {
     name: 'game',
     path: '/g/:id/:slug',
-    component: () => import(/* webpackChunkName: "game" */ '@/pages/GamePage'),
+    component: () => import(/* webpackChunkName: "game" */ '@/pages/game/GameLayout'),
     meta: {
       public: true,
     },
+    children: [
+      {
+        name: 'game.overview',
+        path: '',
+        component: () => import(/* webpackChunkName: "game" */ '@/pages/game/GameOverview'),
+        meta: {
+          public: true,
+        },
+      },
+      {
+        name: 'game.screenshots',
+        path: 'screenshots',
+        component: () => import(/* webpackChunkName: "game" */ '@/pages/game/GameScreenshots'),
+        meta: {
+          public: true,
+        },
+      },
+      {
+        name: 'game.similar',
+        path: 'similar',
+        component: () => import(/* webpackChunkName: "game" */ '@/pages/game/GameSimilar'),
+        meta: {
+          public: true,
+        },
+      },
+      {
+        name: 'game.speedruns',
+        path: 'speedruns',
+        component: () => import(/* webpackChunkName: "game" */ '@/pages/game/GameSpeedruns'),
+        meta: {
+          public: true,
+        },
+      },
+      {
+        name: 'game.notes.tab',
+        path: 'notes',
+        component: () => import(/* webpackChunkName: "game" */ '@/pages/game/GameNotes'),
+        meta: {
+          public: true,
+        },
+      },
+      {
+        name: 'game.boards',
+        path: 'boards',
+        component: () => import(/* webpackChunkName: "game" */ '@/pages/game/GameBoards'),
+        meta: {
+          public: true,
+        },
+      },
+      {
+        name: 'game.stats',
+        path: 'stats',
+        component: () => import(/* webpackChunkName: "game" */ '@/pages/game/GameStats'),
+        meta: {
+          public: true,
+        },
+      },
+      {
+        name: 'game.requirements',
+        path: 'requirements',
+        component: () => import(/* webpackChunkName: "game" */ '@/pages/game/GameRequirements'),
+        meta: {
+          public: true,
+        },
+      },
+      {
+        name: 'game.achievements',
+        path: 'achievements',
+        component: () => import(/* webpackChunkName: "game" */ '@/pages/game/GameAchievements'),
+        meta: {
+          public: true,
+        },
+      },
+      {
+        name: 'game.news',
+        path: 'news',
+        component: () => import(/* webpackChunkName: "game" */ '@/pages/game/GameNews'),
+        meta: {
+          public: true,
+        },
+      },
+    ],
   },
   {
-    name: 'game.news',
-    path: '/g/:id/:slug/news',
+    name: 'game.news.full',
+    path: '/g/:id/:slug/news/full',
     component: () => import(/* webpackChunkName: "game" */ '@/pages/GameNewsPage'),
     meta: {
       public: true,

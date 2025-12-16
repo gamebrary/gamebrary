@@ -124,13 +124,9 @@
           :ref="(el) => { if (el) gameRefs[`id-${game.id}`] = [el] }" class="mb-3" />
       </div>
 
-      <div v-if="hasMoreGames && !searchText" class="d-flex justify-content-center mt-4 mb-3">
-        <button type="button" class="btn" :class="darkTheme ? 'btn-success' : 'btn-primary'" @click="loadMoreGames"
-          :disabled="loadingMore">
-          <span v-if="loadingMore" class="spinner-border spinner-border-sm me-2" role="status"></span>
-          Load More
-        </button>
-      </div>
+      <PaginationControls v-if="!searchText && (currentPage > 1 || hasMoreGames)" :current-page="currentPage"
+        :total-pages="totalPages" :has-more="hasMoreGames" :loading="loading || loadingMore" @page-change="goToPage"
+        class="mt-4 mb-3" />
     </div>
 
     <EmptyState v-else-if="!loading && (!likedGames || likedGames.length === 0)"
@@ -163,6 +159,7 @@ import { useAppGetters } from '@/stores/getters';
 import EmptyState from '@/components/EmptyState';
 import GameCard from '@/components/GameCard';
 import LibraryFilters from '@/components/LibraryFilters';
+import PaginationControls from '@/components/PaginationControls';
 import { HIGHLIGHTED_GAME_TIMEOUT, GAME_GENRES, PLATFORMS } from '@/constants';
 
 const gamesStore = useGamesStore();
@@ -352,7 +349,18 @@ const sortOptions = computed(() => [
   { value: 'releaseDate', label: 'Release Date', icon: 'fa-solid fa-calendar-days' },
 ]);
 
+const PAGE_SIZE = 20; // Page size for pagination
+
 const hasMoreGames = computed(() => gamesStore.gamesHasMore);
+const currentPage = computed(() => gamesStore.currentPage || 1);
+const totalGamesLoaded = computed(() => gamesStore.totalGamesLoaded || 0);
+const totalPages = computed(() => {
+  if (!hasMoreGames.value && totalGamesLoaded.value > 0) {
+    return Math.ceil(totalGamesLoaded.value / PAGE_SIZE);
+  }
+  // If there are more games, estimate pages based on loaded games
+  return Math.max(currentPage.value, Math.ceil(totalGamesLoaded.value / PAGE_SIZE));
+});
 
 const hasActiveFilters = computed(() => {
   return Object.entries(filters.value).some(([key, value]) => {
@@ -426,11 +434,16 @@ const loadGames = async (reset = true) => {
 
     // Then try loading games with Firebase-level sorting for better performance
     try {
-      await gamesStore.loadGamesSorted(userStore.user.uid, twitchStore.twitchToken, {
+      const result = await gamesStore.loadGamesSorted(userStore.user.uid, twitchStore.twitchToken, {
         sortBy: sortBy.value,
         sortOrder: sortOrder.value,
         reset,
       });
+
+      // Update current page if reset
+      if (reset) {
+        gamesStore.setCurrentPage(1);
+      }
     } catch (e) {
       console.warn('loadGamesSorted failed, using games from main collection:', e);
       // Continue with games from main collection
@@ -481,8 +494,60 @@ const loadGames = async (reset = true) => {
   }
 };
 
-const loadMoreGames = async () => {
-  await loadGames(false);
+const goToPage = async (page) => {
+  if (page === currentPage.value || loading.value) return;
+
+  loading.value = true;
+
+  try {
+    if (page < currentPage.value) {
+      // Going to a previous page - reload from start and navigate forward
+      // This is a limitation of Firestore cursor pagination
+      gamesStore.setCurrentPage(1);
+      gamesStore.pageCursors = {};
+      await loadGames(true);
+
+      // Navigate forward to target page
+      for (let p = 2; p <= page && hasMoreGames.value; p++) {
+        await loadGames(false);
+        gamesStore.setCurrentPage(p);
+      }
+    } else {
+      // Going forward - load next pages until we reach target
+      while (currentPage.value < page && hasMoreGames.value) {
+        await loadGames(false);
+        gamesStore.setCurrentPage(gamesStore.currentPage + 1);
+      }
+    }
+
+    gamesStore.setCurrentPage(page);
+  } catch (e) {
+    console.error('Error navigating to page:', e);
+  } finally {
+    loading.value = false;
+  }
+};
+
+const loadGamesForPage = async (page, cursor) => {
+  loading.value = true;
+  try {
+    if (!twitchStore.twitchToken) {
+      await twitchStore.getTwitchToken();
+    }
+
+    await gamesStore.loadGamesSorted(userStore.user.uid, twitchStore.twitchToken, {
+      sortBy: sortBy.value,
+      sortOrder: sortOrder.value,
+      reset: false,
+      lastDoc: cursor,
+    });
+
+    gamesStore.setCurrentPage(page);
+  } catch (e) {
+    console.error('Error loading page:', e);
+  } finally {
+    loading.value = false;
+  }
 };
 
 const changeSort = async (newSortBy) => {

@@ -2,46 +2,30 @@
   <section class="d-flex flex-column">
     <portal to="headerActions">
       <div class="d-flex">
-        <button
-          type="button"
-          class="btn me-1 border-0"
+        <button type="button" class="btn me-1 border-0"
           :class="filterSelected ? 'btn-outline-danger' : darkTheme ? 'btn-outline-light' : 'btn-outline-danger'"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#filtersSidebar"
-          :title="'Filters'"
-        >
+          data-bs-toggle="offcanvas" data-bs-target="#filtersSidebar" :title="'Filters'">
           <i class="fa-regular fa-filter" />
         </button>
-
-        <SearchBox :loading="loading" />
       </div>
     </portal>
 
     <SearchFilters />
 
-    <GameCard
-      v-for="game in searchResults"
-      class="mb-3 mx-3"
-      :game-id="game.id"
-      :key="game.id"
-    />
+    <div class="d-md-none px-3 mb-3">
+      <SearchBox :loading="loading" />
+    </div>
 
-    <button
-      v-if="searchResults.length === pageSize"
-      type="button"
-      class="btn w-100 mb-2"
-      :class="darkTheme ? 'btn-dark' : 'btn-light'"
-      @click="loadMore"
-      :disabled="loading"
-    >
+    <GameCard v-for="game in searchResults" class="mb-3 mx-3" :game-id="game.id" :key="game.id" />
+
+    <button v-if="searchResults.length === pageSize" type="button" class="btn w-100 mb-2"
+      :class="darkTheme ? 'btn-dark' : 'btn-light'" @click="loadMore" :disabled="loading">
       <span v-if="loading" class="spinner-border spinner-border-sm me-2" role="status"></span>
       <span v-else>More results</span>
     </button>
 
-    <p
-      v-if="!loading && query.length > 0 && !searchResults.length"
-      :class="['text-center mt-5', { 'text-info' : darkTheme }]"
-    >
+    <p v-if="!loading && query.length > 0 && !searchResults.length"
+      :class="['text-center mt-5', { 'text-info': darkTheme }]">
       No results found
     </p>
   </section>

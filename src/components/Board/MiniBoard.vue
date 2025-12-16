@@ -39,7 +39,7 @@ import { useAppGetters } from '@/stores/getters';
 import { getStorage, ref as firebaseStorageRef, getDownloadURL } from 'firebase/storage';
 import { initializeApp } from 'firebase/app';
 import { FIREBASE_CONFIG } from '@/constants';
-import { BOARD_TYPE_STANDARD, BOARD_TYPE_TIER, BOARD_TYPE_GRID, IMAGE_SIZE_THUMB } from '@/constants';
+import { BOARD_TYPE_STANDARD, BOARD_TYPE_TIER, BOARD_TYPE_GRID, BOARD_TYPE_KANBAN, IMAGE_SIZE_THUMB } from '@/constants';
 import { getImageUrl } from '@/utils';
 import StandardMiniBoard from '@/components/MiniBoards/StandardMiniBoard';
 import GridMiniBoard from '@/components/MiniBoards/GridMiniBoard';
@@ -66,29 +66,44 @@ const backgroundUrl = ref('');
 const cachedGames = computed(() => gamesStore.cachedGames);
 const game = computed(() => gamesStore.game);
 
+// Component mapping
+const miniBoardComponents = {
+  [BOARD_TYPE_TIER]: TierMiniBoard,
+  [BOARD_TYPE_STANDARD]: StandardMiniBoard,
+  [BOARD_TYPE_GRID]: GridMiniBoard,
+  [BOARD_TYPE_KANBAN]: KanbanMiniBoard,
+};
+
 // Computed properties
 const miniBoardComponent = computed(() => {
-  if (props.board?.type === BOARD_TYPE_TIER) return 'TierMiniBoard';
-  if (props.board?.type === BOARD_TYPE_STANDARD) return 'StandardMiniBoard';
-  if (props.board?.type === BOARD_TYPE_GRID) return 'GridMiniBoard';
-
-  return 'KanbanMiniBoard';
+  const boardType = props.board?.type || BOARD_TYPE_KANBAN;
+  return miniBoardComponents[boardType] || KanbanMiniBoard;
 });
 
 const formattedBoard = computed(() => {
+  if (!props.board) return null;
+
   const formattedLists = props.board?.lists?.map((list) => ({
     ...list,
-    games: list?.games?.map((game) => {
-      if (!game) return {};
+    games: list?.games
+      ?.map((game) => {
+        if (!game) return null;
 
-      const cachedGame = cachedGames.value?.[Number(game)] || {};
+        const gameId = Number(game);
+        const cachedGame = cachedGames.value?.[gameId] || cachedGames.value?.[String(gameId)] || {};
 
-      return {
-        id: cachedGame.id,
-        name: cachedGame.name,
-        src: getImageUrl(cachedGames.value?.[Number(game)], IMAGE_SIZE_THUMB, true),
-      };
-    }),
+        // Only return game object if it has an id (meaning it was found in cache)
+        if (!cachedGame.id) {
+          return null;
+        }
+
+        return {
+          id: cachedGame.id,
+          name: cachedGame.name,
+          src: getImageUrl(cachedGame, IMAGE_SIZE_THUMB, true),
+        };
+      })
+      .filter(Boolean) || [], // Filter out null/undefined entries
   }));
 
   const formattedBoardData = {
