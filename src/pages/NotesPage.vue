@@ -1,6 +1,5 @@
 <template lang="html">
   <div class="notes-layout d-flex h-100">
-    <!-- Left Panel: Games List -->
     <div class="notes-list-panel" :class="darkTheme ? 'bg-dark' : 'bg-light'">
       <div class="p-3 border-bottom" :class="darkTheme ? 'border-secondary' : 'border-light'">
         <portal v-if="user && !isEmpty" to="headerActions">
@@ -85,7 +84,6 @@
       </div>
     </div>
 
-    <!-- Right Panel: Note Detail -->
     <div class="notes-detail-panel flex-grow-1">
       <router-view v-slot="{ Component }">
         <component :is="Component" v-if="Component" />

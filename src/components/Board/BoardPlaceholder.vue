@@ -5,8 +5,6 @@
         <span class="visually-hidden">Loading...</span>
       </div>
     </div>
-
-    <!-- <KanbanBoardPlaceholder v-else /> -->
   </div>
 </template>
 
@@ -25,9 +23,9 @@ const useSpinner = computed(() => {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  .board-placeholder {
-    user-select: none;
-    display: flex;
-    align-items: flex-start;
-  }
+.board-placeholder {
+  user-select: none;
+  display: flex;
+  align-items: flex-start;
+}
 </style>

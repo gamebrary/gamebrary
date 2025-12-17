@@ -56,18 +56,6 @@
           </div>
         </li>
       </ul>
-
-      <!-- <b-button
-        v-for="({ textColor, bgColor, name, games }, index) in tags"
-        @click="$router.push({ name: 'tag.edit', params: { id: index } })"
-        rounded
-        block
-        variant="transparent"
-        :style="`background-color: ${bgColor}; color: ${textColor}`"
-        :key="name"
-      >
-        {{ name }} {{ games.length ? `(${games.length})` : '' }}
-      </b-button> -->
     </div>
   </div>
 </template>

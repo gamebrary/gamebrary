@@ -1,103 +1,56 @@
 <template lang="html">
-  <AppSidebar
-    id="edit-tag-sidebar"
-    :visible="activeTagIndex !== null"
-    :placement="sidebarRightProps?.placement || 'end'"
-    :bg-variant="sidebarRightProps?.bgVariant"
-    :text-variant="sidebarRightProps?.textVariant"
-    @update:visible="handleVisibilityChange"
-    @shown="load"
-    @hidden="closeSidebar"
-  >
+  <AppSidebar id="edit-tag-sidebar" :visible="activeTagIndex !== null"
+    :placement="sidebarRightProps?.placement || 'end'" :bg-variant="sidebarRightProps?.bgVariant"
+    :text-variant="sidebarRightProps?.textVariant" @update:visible="handleVisibilityChange" @shown="load"
+    @hidden="closeSidebar">
     <template #header>
       <SidebarHeader @hide="hideSidebar" title="Edit tag" />
     </template>
 
-      <form @submit.prevent="saveTag" class="px-3">
-        <div class="d-flex">
-          <input
-            id="tagName"
-            type="text"
-            v-model.trim="tag.name"
-            class="form-control me-2"
-            maxlength="20"
-            :placeholder="t('tags.form.inputPlaceholder')"
-            required
-          />
+    <form @submit.prevent="saveTag" class="px-3">
+      <div class="d-flex">
+        <input id="tagName" type="text" v-model.trim="tag.name" class="form-control me-2" maxlength="20"
+          :placeholder="t('tags.form.inputPlaceholder')" required />
 
-          <input
-            type="color"
-            v-model="tag.bgColor"
-            class="form-control form-control-color me-2"
-            style="width: 40px; height: 40px; cursor: pointer;"
-            title="Tag background color"
-          />
+        <input type="color" v-model="tag.bgColor" class="form-control form-control-color me-2"
+          style="width: 40px; height: 40px; cursor: pointer;" title="Tag background color" />
 
-          <input
-            type="color"
-            v-model="tag.textColor"
-            class="form-control form-control-color"
-            style="width: 40px; height: 40px; cursor: pointer;"
-            title="Tag text color"
-          />
-        </div>
+        <input type="color" v-model="tag.textColor" class="form-control form-control-color"
+          style="width: 40px; height: 40px; cursor: pointer;" title="Tag text color" />
+      </div>
 
-        <div class="my-3">
-          <button
-            type="submit"
-            class="btn"
-            :class="darkTheme ? 'btn-secondary' : 'btn-primary'"
-            :disabled="saving"
-          >
-            <span v-if="saving" class="spinner-border spinner-border-sm me-2" role="status"></span>
-            <span v-else>Save</span>
-          </button>
+      <div class="my-3">
+        <button type="submit" class="btn" :class="darkTheme ? 'btn-secondary' : 'btn-primary'" :disabled="saving">
+          <span v-if="saving" class="spinner-border spinner-border-sm me-2" role="status"></span>
+          <span v-else>Save</span>
+        </button>
 
-          <button
-            type="button"
-            class="btn btn-danger ms-2"
-            @click="promptDeleteTag"
-          >
-            <i class="fas fa-trash-alt fa-fw" aria-hidden />
+        <button type="button" class="btn btn-danger ms-2" @click="promptDeleteTag">
+          <PhTrash :size="16" weight="regular" />
+        </button>
+      </div>
+
+      <div class="border rounded p-3 mt-auto">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h3>Games tagged</h3>
+
+          <button type="button" class="btn btn-primary" @click="openGameSelectorSidebar">
+            <PhPlus :size="16" weight="fill" />
           </button>
         </div>
 
-        <div class="border rounded p-3 mt-auto">
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <h3>Games tagged</h3>
+        <p v-if="isEmpty">
+          No games tagged yet.
 
-            <button
-              type="button"
-              class="btn btn-primary"
-              @click="openGameSelectorSidebar"
-            >
-              <i class="fa-solid fa-plus" />
-            </button>
-          </div>
+          <a href="#" class="link-primary" @click.prevent="openGameSelectorSidebar">
+            Tag game
+          </a>
+        </p>
 
-          <p v-if="isEmpty">
-            No games tagged yet.
-
-            <a
-              href="#"
-              class="link-primary"
-              @click.prevent="openGameSelectorSidebar"
-            >
-              Tag game
-            </a>
-          </p>
-
-          <GameCard
-            v-for="gameId in tag.games"
-            small
-            class="mt-3"
-            hide-platforms
-            hide-progress
-            :key="gameId"
-            :game-id="gameId"
-          />
-        </div>
-      </form>
+        <GameCard v-for="gameId in tag.games" small class="mt-3" hide-platforms hide-progress :key="gameId"
+          :game-id="gameId" />
+      </div>
+    </form>
   </AppSidebar>
 </template>
 
@@ -111,6 +64,7 @@ import { useI18n } from 'vue-i18n';
 import GameCard from '@/components/GameCard';
 import SidebarHeader from '@/components/SidebarHeader';
 import AppSidebar from '@/components/AppSidebar';
+import { PhTrash, PhPlus } from '@phosphor-icons/vue';
 
 const tagsStore = useTagsStore();
 const gamesStore = useGamesStore();
@@ -158,7 +112,7 @@ const selectGame = async (gameId) => {
 
   const { useUserStore } = await import('@/stores/user');
   const userStore = useUserStore();
-  await tagsStore.saveTags(userStore.user.uid).catch(() => {});
+  await tagsStore.saveTags(userStore.user.uid).catch(() => { });
 
   const { useTwitchStore } = await import('@/stores/twitch');
   const twitchStore = useTwitchStore();
@@ -197,7 +151,7 @@ const deleteTag = async () => {
   tagsStore.removeTag(activeTagIndex.value);
   const { useUserStore } = await import('@/stores/user');
   const userStore = useUserStore();
-  await tagsStore.saveTags(userStore.user.uid).catch(() => {});
+  await tagsStore.saveTags(userStore.user.uid).catch(() => { });
   closeSidebar();
 };
 

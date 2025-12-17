@@ -1,6 +1,5 @@
 <template>
   <div class="tab-pane fade show active">
-    <!-- Game Details Grid -->
     <section class="mb-4">
       <div class="game-details-grid">
         <div v-if="user && gameProgress > 0">
@@ -27,25 +26,14 @@
       </div>
     </section>
 
-    <!-- Similar Games Section -->
     <section v-if="allSimilarGames.length" class="mb-4">
       <h3 class="mb-3">Similar</h3>
       <div class="scroll-container pb-3">
-        <GameCard
-          v-for="game in allSimilarGames.slice(0, 10)"
-          :key="game && game.id"
-          :game-id="game.id"
-          hide-platforms
-          vertical
-          hide-tags
-          hide-title
-          hide-progress
-          class="scroll-item mr-3"
-        />
+        <GameCard v-for="game in allSimilarGames.slice(0, 10)" :key="game && game.id" :game-id="game.id" hide-platforms
+          vertical hide-tags hide-title hide-progress class="scroll-item mr-3" />
       </div>
     </section>
 
-    <!-- Speedruns Section -->
     <section v-if="speedruns && speedruns.length" class="mb-4">
       <div class="d-flex align-items-center mb-2">
         <i class="fa-solid fa-stopwatch me-2"></i>
@@ -63,10 +51,8 @@
             <div class="d-flex gap-2 flex-wrap">
               <button class="btn btn-primary btn-sm">View personal best</button>
               <button class="btn btn-primary btn-sm">Track your PB</button>
-              <router-link
-                :to="{ name: 'game.speedruns', params: { id: gameId, slug: route.params?.slug } }"
-                class="btn btn-link btn-sm"
-              >
+              <router-link :to="{ name: 'game.speedruns', params: { id: gameId, slug: route.params?.slug } }"
+                class="btn btn-link btn-sm">
                 View leaderboards
               </router-link>
             </div>
@@ -75,7 +61,6 @@
       </div>
     </section>
 
-    <!-- Notes Section -->
     <section v-if="user" class="mb-4">
       <div class="d-flex align-items-center mb-2">
         <i class="fa-regular fa-note-sticky me-2"></i>
@@ -84,11 +69,7 @@
       <div class="card" :class="darkTheme ? 'bg-dark text-light' : 'bg-light text-dark'">
         <div class="card-body">
           <div v-if="note" class="notes-list">
-            <div
-              v-for="(noteItem, index) in notesList"
-              :key="index"
-              class="note-item mb-3 pb-3 border-bottom"
-            >
+            <div v-for="(noteItem, index) in notesList" :key="index" class="note-item mb-3 pb-3 border-bottom">
               <div class="note-content" v-html="noteItem.content"></div>
               <div class="note-date text-muted small mt-2">
                 {{ formatDate(noteItem.date) }}
@@ -99,19 +80,13 @@
             <p>No notes yet. Add your first note!</p>
           </div>
           <div class="mt-3">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Add note"
-              v-model="newNoteText"
-              @keyup.enter="addNote"
-            />
+            <input type="text" class="form-control" placeholder="Add note" v-model="newNoteText"
+              @keyup.enter="addNote" />
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Game Details Section -->
     <div class="card my-4" :class="darkTheme ? 'bg-dark text-light' : 'bg-white text-dark'">
       <div class="card-body game-details">
         <section v-if="gamePlatforms && gamePlatforms.length">
@@ -144,8 +119,8 @@
         <section v-if="gameModes && gameModes.length">
           <h3 class="mb-2">{{ $t('board.gameModal.gameModes') }} </h3>
           <router-link v-for="(gameMode, index) in gameModes" :key="index" v-if="gameMode && gameMode.id"
-            :to="{ name: 'search', query: { filterBy: 'game_modes', value: gameMode.id } }"
-            class="btn d-block mb-3" :class="darkTheme ? 'btn-dark' : 'btn-light'">
+            :to="{ name: 'search', query: { filterBy: 'game_modes', value: gameMode.id } }" class="btn d-block mb-3"
+            :class="darkTheme ? 'btn-dark' : 'btn-light'">
             {{ gameMode.name }}
           </router-link>
         </section>
@@ -172,8 +147,8 @@
 
     <div v-if="gameLinks.length">
       <h3 class="my-3">External links</h3>
-      <a v-for="({ url, id, svg, title }, index) in gameLinks" :href="url" :key="index"
-        class="btn btn-light me-2 mb-2" target="_blank">
+      <a v-for="({ url, id, svg, title }, index) in gameLinks" :href="url" :key="index" class="btn btn-light me-2 mb-2"
+        target="_blank">
         <img v-if="svg" :src="`/logos/companies/${id}.svg`" width="20" class="me-1" />
         <span class="text-capitalize">{{ title || id }}</span>
       </a>
@@ -372,7 +347,7 @@ onMounted(() => {
     gap: 0.75rem;
   }
 
-  > div {
+  >div {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;

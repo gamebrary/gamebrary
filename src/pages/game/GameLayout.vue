@@ -41,21 +41,12 @@
 
     <GameMediaModal />
 
-    <!-- Main Layout: Cover on Left, Content on Right -->
     <div class="game-page-layout">
-      <!-- Left Section: Cover Art -->
       <aside class="game-cover-section">
-        <img
-          :src="getImageUrl(cachedGame)"
-          :alt="gameName"
-          class="game-cover-img"
-          @click="openMediaModal"
-        />
+        <img :src="getImageUrl(cachedGame)" :alt="gameName" class="game-cover-img" @click="openMediaModal" />
       </aside>
 
-      <!-- Right Section: Game Info and Tabs -->
       <main class="game-content-section">
-        <!-- Game Title and Developer/Publisher -->
         <div class="game-header-info mb-3">
           <div class="d-flex align-items-center mb-2">
             <h1 class="mb-0 me-2" :class="{ 'text-danger': isLiked }">
@@ -66,163 +57,108 @@
             </span>
           </div>
 
-          <!-- Developer/Publisher -->
           <div class="mb-3">
             <template v-for="(developer, index) in gameDevelopers" :key="index">
               <router-link v-if="developer && developer.id"
-                :to="{ name: 'company', params: { id: developer.id, slug: developer.slug } }"
-                class="link-primary me-2">
+                :to="{ name: 'company', params: { id: developer.id, slug: developer.slug } }" class="link-primary me-2">
                 {{ developer.name }}
               </router-link>
             </template>
             <template v-for="publisher in gamePublishers" :key="publisher.id">
               <router-link v-if="publisher && publisher.id"
-                :to="{ name: 'company', params: { id: publisher.id, slug: publisher.slug } }"
-                class="link-primary me-2">
+                :to="{ name: 'company', params: { id: publisher.id, slug: publisher.slug } }" class="link-primary me-2">
                 {{ publisher.name }}
               </router-link>
             </template>
           </div>
 
-          <!-- Progress Status Buttons -->
           <div v-if="user" class="mb-3">
             <div class="btn-group" role="group">
-              <button
-                type="button"
-                class="btn btn-sm"
+              <button type="button" class="btn btn-sm"
                 :class="progressStatus === 'not-started' ? 'btn-primary' : (darkTheme ? 'btn-outline-light' : 'btn-outline-secondary')"
-                @click="setProgressStatus('not-started')"
-              >
+                @click="setProgressStatus('not-started')">
                 Not Started
               </button>
-              <button
-                type="button"
-                class="btn btn-sm"
+              <button type="button" class="btn btn-sm"
                 :class="progressStatus === 'in-progress' ? 'btn-primary' : (darkTheme ? 'btn-outline-light' : 'btn-outline-secondary')"
-                @click="setProgressStatus('in-progress')"
-              >
+                @click="setProgressStatus('in-progress')">
                 In Progress
               </button>
-              <button
-                type="button"
-                class="btn btn-sm"
+              <button type="button" class="btn btn-sm"
                 :class="progressStatus === 'completed' ? 'btn-primary' : (darkTheme ? 'btn-outline-light' : 'btn-outline-secondary')"
-                @click="setProgressStatus('completed')"
-              >
+                @click="setProgressStatus('completed')">
                 Completed
               </button>
             </div>
           </div>
         </div>
 
-        <!-- Tabs Navigation -->
         <div class="game-tabs-wrapper mb-3">
-      <ul class="nav nav-tabs" role="tablist">
-        <li class="nav-item" role="presentation">
-          <router-link
-            :to="{ name: 'game.overview', params: { id: gameId, slug: gameSlug } }"
-            class="nav-link"
-            :class="{ active: $route.name === 'game.overview' || $route.name === 'game' }"
-            role="tab"
-          >
-            Overview
-          </router-link>
-        </li>
-        <li class="nav-item" role="presentation">
-          <router-link
-            :to="{ name: 'game.screenshots', params: { id: gameId, slug: gameSlug } }"
-            class="nav-link"
-            :class="{ active: $route.name === 'game.screenshots' }"
-            role="tab"
-          >
-            Screenshots
-          </router-link>
-        </li>
-        <li class="nav-item" role="presentation">
-          <router-link
-            :to="{ name: 'game.similar', params: { id: gameId, slug: gameSlug } }"
-            class="nav-link"
-            :class="{ active: $route.name === 'game.similar' }"
-            role="tab"
-          >
-            Similar
-          </router-link>
-        </li>
-        <li class="nav-item" role="presentation">
-          <router-link
-            :to="{ name: 'game.speedruns', params: { id: gameId, slug: gameSlug } }"
-            class="nav-link"
-            :class="{ active: $route.name === 'game.speedruns' }"
-            role="tab"
-          >
-            Speedruns
-          </router-link>
-        </li>
-        <li class="nav-item" role="presentation">
-          <router-link
-            :to="{ name: 'game.notes.tab', params: { id: gameId, slug: gameSlug } }"
-            class="nav-link"
-            :class="{ active: $route.name === 'game.notes.tab' }"
-            role="tab"
-          >
-            Notes
-          </router-link>
-        </li>
-        <li class="nav-item" role="presentation">
-          <router-link
-            :to="{ name: 'game.boards', params: { id: gameId, slug: gameSlug } }"
-            class="nav-link"
-            :class="{ active: $route.name === 'game.boards' }"
-            role="tab"
-          >
-            Boards
-          </router-link>
-        </li>
-        <li class="nav-item" role="presentation">
-          <router-link
-            :to="{ name: 'game.stats', params: { id: gameId, slug: gameSlug } }"
-            class="nav-link"
-            :class="{ active: $route.name === 'game.stats' }"
-            role="tab"
-          >
-            Stats
-          </router-link>
-        </li>
-        <li v-if="hasRequirements" class="nav-item" role="presentation">
-          <router-link
-            :to="{ name: 'game.requirements', params: { id: gameId, slug: gameSlug } }"
-            class="nav-link"
-            :class="{ active: $route.name === 'game.requirements' }"
-            role="tab"
-          >
-            Requirements
-          </router-link>
-        </li>
-        <li v-if="highlightedAchievements" class="nav-item" role="presentation">
-          <router-link
-            :to="{ name: 'game.achievements', params: { id: gameId, slug: gameSlug } }"
-            class="nav-link"
-            :class="{ active: $route.name === 'game.achievements' }"
-            role="tab"
-          >
-            Achievements
-          </router-link>
-        </li>
-        <li v-if="latestNews && latestNews.length" class="nav-item" role="presentation">
-          <router-link
-            :to="{ name: 'game.news', params: { id: gameId, slug: gameSlug } }"
-            class="nav-link"
-            :class="{ active: $route.name === 'game.news' }"
-            role="tab"
-          >
-            News
-          </router-link>
-        </li>
-      </ul>
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <router-link :to="{ name: 'game.overview', params: { id: gameId, slug: gameSlug } }" class="nav-link"
+                :class="{ active: $route.name === 'game.overview' || $route.name === 'game' }" role="tab">
+                Overview
+              </router-link>
+            </li>
+            <li class="nav-item" role="presentation">
+              <router-link :to="{ name: 'game.screenshots', params: { id: gameId, slug: gameSlug } }" class="nav-link"
+                :class="{ active: $route.name === 'game.screenshots' }" role="tab">
+                Screenshots
+              </router-link>
+            </li>
+            <li class="nav-item" role="presentation">
+              <router-link :to="{ name: 'game.similar', params: { id: gameId, slug: gameSlug } }" class="nav-link"
+                :class="{ active: $route.name === 'game.similar' }" role="tab">
+                Similar
+              </router-link>
+            </li>
+            <li class="nav-item" role="presentation">
+              <router-link :to="{ name: 'game.speedruns', params: { id: gameId, slug: gameSlug } }" class="nav-link"
+                :class="{ active: $route.name === 'game.speedruns' }" role="tab">
+                Speedruns
+              </router-link>
+            </li>
+            <li class="nav-item" role="presentation">
+              <router-link :to="{ name: 'game.notes.tab', params: { id: gameId, slug: gameSlug } }" class="nav-link"
+                :class="{ active: $route.name === 'game.notes.tab' }" role="tab">
+                Notes
+              </router-link>
+            </li>
+            <li class="nav-item" role="presentation">
+              <router-link :to="{ name: 'game.boards', params: { id: gameId, slug: gameSlug } }" class="nav-link"
+                :class="{ active: $route.name === 'game.boards' }" role="tab">
+                Boards
+              </router-link>
+            </li>
+            <li class="nav-item" role="presentation">
+              <router-link :to="{ name: 'game.stats', params: { id: gameId, slug: gameSlug } }" class="nav-link"
+                :class="{ active: $route.name === 'game.stats' }" role="tab">
+                Stats
+              </router-link>
+            </li>
+            <li v-if="hasRequirements" class="nav-item" role="presentation">
+              <router-link :to="{ name: 'game.requirements', params: { id: gameId, slug: gameSlug } }" class="nav-link"
+                :class="{ active: $route.name === 'game.requirements' }" role="tab">
+                Requirements
+              </router-link>
+            </li>
+            <li v-if="highlightedAchievements" class="nav-item" role="presentation">
+              <router-link :to="{ name: 'game.achievements', params: { id: gameId, slug: gameSlug } }" class="nav-link"
+                :class="{ active: $route.name === 'game.achievements' }" role="tab">
+                Achievements
+              </router-link>
+            </li>
+            <li v-if="latestNews && latestNews.length" class="nav-item" role="presentation">
+              <router-link :to="{ name: 'game.news', params: { id: gameId, slug: gameSlug } }" class="nav-link"
+                :class="{ active: $route.name === 'game.news' }" role="tab">
+                News
+              </router-link>
+            </li>
+          </ul>
 
         </div>
 
-        <!-- Tab Content -->
         <div class="tab-content">
           <router-view />
         </div>

@@ -1,4 +1,3 @@
-<!-- TODO: Add a dashboard -->
 <template lang="html">
   <div class="text-center">
     <div class="container">
@@ -104,16 +103,6 @@
           </div>
         </div>
       </div>
-
-      <!-- <div class="d-flex w-75 mx-auto justify-content-center">
-      <ProfileCard
-        v-for="(profile, index) in filteredProfiles"
-        :key="profile.userName"
-        :profile="profile"
-        thumbnail
-        :class="index ? 'ml-n4' : ''"
-      />
-    </div> -->
 
       <div class="container">
         <h3 class="mt-5">Powered by</h3>

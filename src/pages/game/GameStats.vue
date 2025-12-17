@@ -2,7 +2,6 @@
   <div class="tab-pane fade show active">
     <div class="game-stats">
       <div class="row g-4">
-        <!-- Rating -->
         <div v-if="game?.rating" class="col-12 col-md-6">
           <div class="card" :class="darkTheme ? 'bg-dark text-light' : 'bg-light text-dark'">
             <div class="card-body">
@@ -13,7 +12,6 @@
           </div>
         </div>
 
-        <!-- Rating Count -->
         <div v-if="game?.rating_count" class="col-12 col-md-6">
           <div class="card" :class="darkTheme ? 'bg-dark text-light' : 'bg-light text-dark'">
             <div class="card-body">
@@ -24,7 +22,6 @@
           </div>
         </div>
 
-        <!-- Popularity -->
         <div v-if="game?.popularity" class="col-12 col-md-6">
           <div class="card" :class="darkTheme ? 'bg-dark text-light' : 'bg-light text-dark'">
             <div class="card-body">
@@ -34,7 +31,6 @@
           </div>
         </div>
 
-        <!-- Total Rating -->
         <div v-if="game?.total_rating" class="col-12 col-md-6">
           <div class="card" :class="darkTheme ? 'bg-dark text-light' : 'bg-light text-dark'">
             <div class="card-body">
@@ -45,7 +41,6 @@
           </div>
         </div>
 
-        <!-- Game Details -->
         <div class="col-12">
           <div class="card" :class="darkTheme ? 'bg-dark text-light' : 'bg-light text-dark'">
             <div class="card-body">
@@ -54,11 +49,7 @@
                 <div v-if="game?.game_modes?.length" class="col-12 col-md-6">
                   <strong>Game Modes:</strong>
                   <div class="mt-1">
-                    <span
-                      v-for="mode in game.game_modes"
-                      :key="mode.id"
-                      class="badge bg-secondary me-1"
-                    >
+                    <span v-for="mode in game.game_modes" :key="mode.id" class="badge bg-secondary me-1">
                       {{ mode.name }}
                     </span>
                   </div>
@@ -66,11 +57,7 @@
                 <div v-if="game?.themes?.length" class="col-12 col-md-6">
                   <strong>Themes:</strong>
                   <div class="mt-1">
-                    <span
-                      v-for="theme in game.themes"
-                      :key="theme.id"
-                      class="badge bg-info me-1"
-                    >
+                    <span v-for="theme in game.themes" :key="theme.id" class="badge bg-info me-1">
                       {{ theme.name }}
                     </span>
                   </div>
@@ -78,11 +65,7 @@
                 <div v-if="game?.game_engines?.length" class="col-12 col-md-6">
                   <strong>Engines:</strong>
                   <div class="mt-1">
-                    <span
-                      v-for="engine in game.game_engines"
-                      :key="engine.id"
-                      class="badge bg-success me-1"
-                    >
+                    <span v-for="engine in game.game_engines" :key="engine.id" class="badge bg-success me-1">
                       {{ engine.name }}
                     </span>
                   </div>
@@ -90,11 +73,7 @@
                 <div v-if="game?.age_ratings?.length" class="col-12 col-md-6">
                   <strong>Age Ratings:</strong>
                   <div class="mt-1">
-                    <span
-                      v-for="rating in game.age_ratings"
-                      :key="rating.id"
-                      class="badge bg-warning me-1"
-                    >
+                    <span v-for="rating in game.age_ratings" :key="rating.id" class="badge bg-warning me-1">
                       {{ rating.rating }}
                     </span>
                   </div>
@@ -126,4 +105,3 @@ const game = computed(() => gamesStore.game);
   }
 }
 </style>
-

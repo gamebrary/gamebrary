@@ -1,20 +1,12 @@
 <template lang="html">
   <div class="px-3">
     <portal v-if="!loading && !isEmpty && user" to="headerActions">
-      <div class="dropdown">
-        <button class="btn dropdown-toggle" :class="darkTheme ? 'btn-success' : 'btn-dark'" type="button"
-          id="boardsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-          Boards
+      <div class="d-flex justify-content-end">
+        <button type="button" class="btn" :class="darkTheme ? 'btn-success' : 'btn-primary'" data-bs-toggle="offcanvas"
+          data-bs-target="#create-board-sidebar">
+          <PhPlus :size="16" weight="fill" class="me-1" />
+          Create board
         </button>
-        <ul class="dropdown-menu" aria-labelledby="boardsDropdown">
-          <li>
-            <button type="button" class="dropdown-item" :class="darkTheme ? 'text-light' : ''"
-              data-bs-toggle="offcanvas" data-bs-target="#create-board-sidebar">
-              <PhPlus :size="16" weight="fill" />
-              Create board
-            </button>
-          </li>
-        </ul>
       </div>
     </portal>
 

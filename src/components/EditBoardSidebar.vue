@@ -1,5 +1,3 @@
-<!-- TODO: fix Lists will be merged into a single list. -->
-<!-- TODO: allow to upload and set wallpaper from here -->
 <template lang="html">
   <AppSidebar id="edit-board-sidebar" :visible="visible" :placement="sidebarRightProps?.placement || 'end'"
     :bg-variant="sidebarRightProps?.bgVariant" :text-variant="sidebarRightProps?.textVariant"

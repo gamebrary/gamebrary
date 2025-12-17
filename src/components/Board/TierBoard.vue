@@ -1,17 +1,7 @@
 <template lang="html">
-  <div class="d-flex flex-column align-items-start rounded w-100">
-    <!-- <h3 :class="{ 'text-white': hasBackground || darkTheme }">
-      {{ board.name }}
-    </h3> -->
-
-    <TierList
-      v-for="(list, listIndex) in board.lists"
-      :list="list"
-      :ref="(el) => setTierRef(listIndex, el)"
-      :allGames="allGames"
-      :listIndex="listIndex"
-      :key="listIndex"
-    />
+  <div class="d-flex flex-column align-items-start rounded w-100 p-3">
+    <TierList v-for="(list, listIndex) in board.lists" :list="list" :ref="(el) => setTierRef(listIndex, el)"
+      :allGames="allGames" :listIndex="listIndex" :key="listIndex" />
 
     <AddTier v-if="isBoardOwner" />
   </div>

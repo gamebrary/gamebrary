@@ -50,10 +50,6 @@
         </div>
       </div>
 
-      <!-- <button :to="{ name: 'profiles' }">
-        View other profiles
-      </button> -->
-
       <BoardGrid class="mt-5">
         <MiniBoard v-for="board in userBoards" :key="board.id" :board="board" />
       </BoardGrid>

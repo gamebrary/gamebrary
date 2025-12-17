@@ -5,14 +5,6 @@
     </portal>
 
     <div class="container">
-      <!-- Organize your game library your way!
-
-      Choose between 3 types of boards.
-
-      Kanban
-      - Standard, organize your games by creating
-      - Robust, fully customizable organization.
-      - Tier, Rank -->
       <div class="alert alert-success" role="alert" v-if="!user">
         <h4 class="alert-heading">Welcome!</h4>
 
@@ -20,14 +12,14 @@
           Use Gamebrary to organize your video game collection.
         </p>
 
-        <small class="text-info"><ins>Free</ins> and <a href="https://github.com/romancm/gamebrary/" target="_blank">Open Source</a></small>
+        <small class="text-info"><ins>Free</ins> and <a href="https://github.com/romancm/gamebrary/"
+            target="_blank">Open Source</a></small>
       </div>
 
       <div class="mt-auto bg-light py-5">
         <h2 class="text-center text-primary mb-2">Game data from the most reliable sources</h2>
 
         <div class="d-flex align-items-start justify-content-center overflow-auto">
-          <!-- YouTube -->
           <img src="/logos/data-sources/wikipedia.svg" alt="wikipedia" width="80" class="mx-3">
           <img src="/logos/data-sources/igdb.svg" alt="igdb" width="100" class="mx-3">
           <img src="/logos/data-sources/fandom.svg" alt="fandom" width="100" class="mx-3 mt-2">
@@ -40,10 +32,6 @@
       </div>
 
       <game-boards />
-
-      <!-- <div class="game-deals">
-        <twitter-feed twitter-user="wario64" />
-      </div> -->
     </div>
   </section>
 </template>

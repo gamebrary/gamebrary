@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- Desktop: Left Sidebar -->
     <nav class="global-nav-desktop d-none d-md-flex flex-column" :class="darkTheme ? 'bg-dark' : 'bg-light'">
       <div class="nav-header">
         <router-link :to="{ name: 'home' }">
@@ -48,7 +47,6 @@
       </div>
     </nav>
 
-    <!-- Mobile: Bottom Nav -->
     <nav class="global-nav-mobile d-flex d-md-none" :class="darkTheme ? 'bg-dark' : 'bg-light'">
       <router-link :to="{ name: 'home' }" class="nav-item-mobile nav-logo-mobile">
         <img src="/icon512_rounded.png" alt="Gamebrary" class="nav-logo-img" />

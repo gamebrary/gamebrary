@@ -13,11 +13,6 @@
 
       <div v-else>
         <div v-if="formattedReadme" v-html="formattedReadme" />
-        <!-- <vue-markdown
-          class="w-100"
-          v-if="readme"
-          :source="readme"
-        /> -->
 
         <div v-if="repo" class="mb-4">
           <a href="https://github.com/romancm/gamebrary/subscription" target="_blank"

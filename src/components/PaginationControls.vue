@@ -1,48 +1,31 @@
 <template>
   <nav v-if="totalPages > 0" aria-label="Page navigation">
     <ul class="pagination justify-content-center mb-0">
-      <!-- Previous Button -->
       <li class="page-item" :class="{ disabled: currentPage === 1 || loading }">
-        <button
-          class="page-link"
-          :class="darkTheme ? 'bg-dark text-light border-secondary' : ''"
-          @click="$emit('page-change', currentPage - 1)"
-          :disabled="currentPage === 1 || loading"
-          aria-label="Previous"
-        >
+        <button class="page-link" :class="darkTheme ? 'bg-dark text-light border-secondary' : ''"
+          @click="$emit('page-change', currentPage - 1)" :disabled="currentPage === 1 || loading" aria-label="Previous">
           <span aria-hidden="true">&laquo;</span>
         </button>
       </li>
 
-      <!-- Page Numbers -->
       <template v-for="page in visiblePages" :key="page">
         <li v-if="page === '...'" class="page-item disabled">
           <span class="page-link" :class="darkTheme ? 'bg-dark text-light border-secondary' : ''">...</span>
         </li>
         <li v-else class="page-item" :class="{ active: page === currentPage, disabled: loading }">
-          <button
-            class="page-link"
-            :class="[
-              darkTheme ? 'bg-dark text-light border-secondary' : '',
-              page === currentPage ? (darkTheme ? 'bg-primary' : 'bg-primary text-white') : ''
-            ]"
-            @click="$emit('page-change', page)"
-            :disabled="loading"
-          >
+          <button class="page-link" :class="[
+            darkTheme ? 'bg-dark text-light border-secondary' : '',
+            page === currentPage ? (darkTheme ? 'bg-primary' : 'bg-primary text-white') : ''
+          ]" @click="$emit('page-change', page)" :disabled="loading">
             {{ page }}
           </button>
         </li>
       </template>
 
-      <!-- Next Button -->
       <li class="page-item" :class="{ disabled: !hasMore && currentPage === totalPages || loading }">
-        <button
-          class="page-link"
-          :class="darkTheme ? 'bg-dark text-light border-secondary' : ''"
-          @click="$emit('page-change', currentPage + 1)"
-          :disabled="(!hasMore && currentPage === totalPages) || loading"
-          aria-label="Next"
-        >
+        <button class="page-link" :class="darkTheme ? 'bg-dark text-light border-secondary' : ''"
+          @click="$emit('page-change', currentPage + 1)" :disabled="(!hasMore && currentPage === totalPages) || loading"
+          aria-label="Next">
           <span aria-hidden="true">&raquo;</span>
         </button>
       </li>
@@ -132,4 +115,3 @@ const visiblePages = computed(() => {
   }
 }
 </style>
-
