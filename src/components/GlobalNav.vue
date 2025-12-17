@@ -11,34 +11,34 @@
 
       <div class="nav-content flex-grow-1">
         <router-link :to="{ name: 'library' }" class="nav-item" :class="{ active: isActiveRoute('library') }">
-          <i class="fa-regular fa-gamepad fa-fw" />
+          <PhGameController :size="20" weight="regular" />
           <span>Library</span>
         </router-link>
 
         <router-link :to="{ name: 'boards' }" class="nav-item" :class="{ active: isActiveRoute('boards') }">
-          <i class="fa-regular fa-rectangle-list fa-fw" />
+          <PhListBullets :size="20" weight="regular" />
           <span>Boards</span>
         </router-link>
 
         <router-link :to="{ name: 'notes' }" class="nav-item" :class="{ active: isActiveRoute('notes') }">
-          <i class="fa-regular fa-notes fa-fw" />
+          <PhNote :size="20" weight="regular" />
           <span>Notes</span>
         </router-link>
 
         <div class="nav-divider"></div>
 
         <button type="button" class="nav-item" :class="{ active: isWallpapersRoute }" @click="openWallpapers">
-          <i class="fa-solid fa-palette fa-fw" />
+          <PhPaintBrush :size="20" weight="fill" />
           <span>Wallpapers</span>
         </button>
 
         <button type="button" class="nav-item" :class="{ active: routeName === 'settings' }" @click="openSettings">
-          <i class="fa-regular fa-gear fa-fw" />
+          <PhGear :size="20" weight="regular" />
           <span>Settings</span>
         </button>
 
         <router-link :to="{ name: 'about' }" class="nav-item" :class="{ active: routeName === 'about' }">
-          <i class="fa-regular fa-circle-info fa-fw" />
+          <PhInfo :size="20" weight="regular" />
           <span>About</span>
         </router-link>
       </div>
@@ -55,41 +55,41 @@
       </router-link>
 
       <router-link :to="{ name: 'library' }" class="nav-item-mobile" :class="{ active: isActiveRoute('library') }">
-        <i class="fa-regular fa-gamepad" />
+        <PhGameController :size="20" weight="regular" />
         <span>Library</span>
       </router-link>
 
       <router-link :to="{ name: 'boards' }" class="nav-item-mobile" :class="{ active: isActiveRoute('boards') }">
-        <i class="fa-regular fa-rectangle-list" />
+        <PhListBullets :size="20" weight="regular" />
         <span>Boards</span>
       </router-link>
 
       <router-link :to="{ name: 'notes' }" class="nav-item-mobile" :class="{ active: isActiveRoute('notes') }">
-        <i class="fa-regular fa-notes" />
+        <PhNote :size="20" weight="regular" />
         <span>Notes</span>
       </router-link>
 
       <router-link :to="{ name: 'search' }" class="nav-item-mobile" :class="{ active: isActiveRoute('search') }">
-        <i class="fa-solid fa-magnifying-glass" />
+        <PhMagnifyingGlass :size="20" weight="fill" />
         <span>Search</span>
       </router-link>
 
       <div class="nav-item-mobile dropdown">
         <button type="button" class="nav-item-mobile" :class="{ active: isMoreMenuActive }" data-bs-toggle="dropdown"
           aria-expanded="false">
-          <i class="fa-solid fa-ellipsis" />
+          <PhDotsThree :size="20" weight="fill" />
           <span>More</span>
         </button>
         <ul class="dropdown-menu dropdown-menu-end">
           <li>
             <button type="button" class="dropdown-item" @click="openWallpapers">
-              <i class="fa-solid fa-palette me-2" />
+              <PhPaintBrush :size="16" weight="fill" class="me-2" />
               Wallpapers
             </button>
           </li>
           <li>
             <button type="button" class="dropdown-item" @click="openSettings">
-              <i class="fa-regular fa-gear me-2" />
+              <PhGear :size="16" weight="regular" class="me-2" />
               Settings
             </button>
           </li>
@@ -98,7 +98,7 @@
           </li>
           <li>
             <router-link :to="{ name: 'about' }" class="dropdown-item">
-              <i class="fa-regular fa-circle-info me-2" />
+              <PhInfo :size="16" weight="regular" class="me-2" />
               About
             </router-link>
           </li>
@@ -116,6 +116,16 @@ import { useBoardsStore } from '@/stores/boards';
 import { useAppGetters } from '@/stores/getters';
 import ProfileDockMenu from '@/components/Dock/ProfileDockMenu';
 import SearchBox from '@/components/SearchBox';
+import {
+  PhGameController,
+  PhListBullets,
+  PhNote,
+  PhPaintBrush,
+  PhGear,
+  PhInfo,
+  PhMagnifyingGlass,
+  PhDotsThree,
+} from '@phosphor-icons/vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -275,9 +285,6 @@ const openSettings = () => {
     cursor: pointer;
     font-size: 0.75rem;
 
-    i {
-      font-size: 1.25rem;
-    }
 
     &:hover,
     &.active {

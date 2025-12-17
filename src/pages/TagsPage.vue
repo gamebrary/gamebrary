@@ -10,7 +10,7 @@
           <li>
             <button type="button" class="dropdown-item" :class="darkTheme ? 'text-light' : ''"
               data-bs-toggle="offcanvas" data-bs-target="#create-tag-sidebar">
-              <i class="fa-solid fa-plus" />
+              <PhPlus :size="16" weight="fill" />
               Add tag
             </button>
           </li>
@@ -82,6 +82,7 @@ import { useTwitchStore } from '@/stores/twitch';
 import { useAppGetters } from '@/stores/getters';
 import GameCard from '@/components/GameCard';
 import EmptyState from '@/components/EmptyState';
+import { PhPlus } from '@phosphor-icons/vue';
 
 const tagsStore = useTagsStore();
 const userStore = useUserStore();

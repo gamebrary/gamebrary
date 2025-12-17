@@ -1,22 +1,13 @@
 <template lang="html">
   <form @submit.prevent="search">
     <div class="input-group">
-      <input
-        v-model="searchText"
-        type="search"
-        class="form-control"
-        placeholder="Search games"
-        @input="debounceSearch"
-      />
+      <input v-model="searchText" type="search" class="form-control" placeholder="Search games"
+        @input="debounceSearch" />
 
       <button type="submit" class="btn btn-outline-secondary">
         <span v-if="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
 
-        <i
-          v-else
-          class="fas fa-search"
-          aria-hidden
-        />
+        <PhMagnifyingGlass v-else :size="16" weight="fill" aria-hidden />
       </button>
     </div>
   </form>
@@ -25,6 +16,7 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { PhMagnifyingGlass } from '@phosphor-icons/vue';
 
 const props = defineProps({
   loading: Boolean,

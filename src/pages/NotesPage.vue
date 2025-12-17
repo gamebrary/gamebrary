@@ -5,36 +5,22 @@
       <div class="p-3 border-bottom" :class="darkTheme ? 'border-secondary' : 'border-light'">
         <portal v-if="user && !isEmpty" to="headerActions">
           <div class="dropdown">
-            <button
-              class="btn dropdown-toggle"
-              :class="darkTheme ? 'btn-success' : 'btn-dark'"
-              type="button"
-              id="notesDropdown"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
+            <button class="btn dropdown-toggle" :class="darkTheme ? 'btn-success' : 'btn-dark'" type="button"
+              id="notesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
               Notes
             </button>
             <ul class="dropdown-menu" aria-labelledby="notesDropdown">
               <li>
-                <button
-                  type="button"
-                  class="dropdown-item"
-                  :class="darkTheme ? 'text-light' : ''"
-                  @click="openGameSelectorSidebar"
-                >
-                  <i class="fa-solid fa-plus" />
+                <button type="button" class="dropdown-item" :class="darkTheme ? 'text-light' : ''"
+                  @click="openGameSelectorSidebar">
+                  <PhPlus :size="16" weight="fill" />
                   Add note
                 </button>
               </li>
               <li>
-                <button
-                  type="button"
-                  class="dropdown-item"
-                  :class="darkTheme ? 'text-light' : ''"
-                  @click="showSearch = !showSearch"
-                >
-                  <i class="fa-solid fa-magnifying-glass" />
+                <button type="button" class="dropdown-item" :class="darkTheme ? 'text-light' : ''"
+                  @click="showSearch = !showSearch">
+                  <PhMagnifyingGlass :size="16" weight="fill" />
                   Search
                 </button>
               </li>
@@ -42,13 +28,8 @@
           </div>
         </portal>
 
-        <input
-          v-if="showSearch"
-          type="search"
-          class="form-control mb-3"
-          placeholder="Search notes"
-          v-model="searchText"
-        />
+        <input v-if="showSearch" type="search" class="form-control mb-3" placeholder="Search notes"
+          v-model="searchText" />
       </div>
 
       <div v-if="loading" class="spinner-centered d-flex justify-content-center p-5">
@@ -58,74 +39,44 @@
       </div>
 
       <div v-else class="notes-list-container">
-        <EmptyState
-          v-if="isEmpty"
-          illustration="notes"
-          class="p-5"
-        >
+        <EmptyState v-if="isEmpty" illustration="notes" class="p-5">
           <p>Looks like you haven't added any notes yet.</p>
-          <p>Notes are handy for keeping track of cheat codes, passwords, or just about anything you want to remember!</p>
+          <p>Notes are handy for keeping track of cheat codes, passwords, or just about anything you want to remember!
+          </p>
 
-          <button
-            type="button"
-            class="btn"
-            :class="darkTheme ? 'btn-success' : 'btn-primary'"
-            @click="openGameSelectorSidebar"
-            :title="'Add games'"
-          >
+          <button type="button" class="btn" :class="darkTheme ? 'btn-success' : 'btn-primary'"
+            @click="openGameSelectorSidebar" :title="'Add games'">
             Create note
           </button>
         </EmptyState>
 
-        <EmptyState
-          v-else-if="searchText.length && !filteredNotes.length"
-          illustration="notes"
-          message="No results"
-          class="p-5"
-        >
-          <button
-            type="button"
-            class="btn"
-            :class="darkTheme ? 'btn-dark' : 'btn-light'"
-            @click="searchText = ''"
-          >
+        <EmptyState v-else-if="searchText.length && !filteredNotes.length" illustration="notes" message="No results"
+          class="p-5">
+          <button type="button" class="btn" :class="darkTheme ? 'btn-dark' : 'btn-light'" @click="searchText = ''">
             Clear search
           </button>
         </EmptyState>
 
         <div v-else class="notes-list">
-          <div
-            v-for="({ note, game }, index) in filteredNotes"
-            :key="index"
-            class="notes-list-item p-3 cursor-pointer"
+          <div v-for="({ note, game }, index) in filteredNotes" :key="index" class="notes-list-item p-3 cursor-pointer"
             :class="[
               darkTheme ? 'bg-dark' : 'bg-light',
               { 'selected': selectedGameId === game?.id },
               { 'border-bottom': index !== filteredNotes.length - 1 }
-            ]"
-            @click="selectGame(game)"
-          >
+            ]" @click="selectGame(game)">
             <div v-if="game && game.id" class="d-flex align-items-start">
               <div class="flex-shrink-0 me-3">
-                <img
-                  :src="getGameImageUrl(game)"
-                  :alt="game.name"
-                  class="rounded"
+                <img :src="getGameImageUrl(game)" :alt="game.name" class="rounded"
                   style="width: 60px; height: 84px; object-fit: cover; background-color: #ccc;"
-                  onerror="this.style.backgroundColor='#ccc';"
-                />
+                  onerror="this.style.backgroundColor='#ccc';" />
               </div>
 
               <div class="flex-grow-1 min-w-0">
                 <h5 class="mb-1 text-truncate" :class="darkTheme ? 'text-light' : 'text-dark'">
                   {{ game.name }}
                 </h5>
-                <div
-                  v-if="note"
-                  v-html="getNotePreview(note)"
-                  class="text-muted small"
-                  style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;"
-                />
+                <div v-if="note" v-html="getNotePreview(note)" class="text-muted small"
+                  style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;" />
                 <span v-else class="text-muted small">No note yet</span>
               </div>
             </div>
@@ -164,6 +115,7 @@ import { getImageUrl } from '@/utils';
 import { IMAGE_SIZE_COVER_SMALL } from '@/constants';
 import EmptyState from '@/components/EmptyState';
 import GameSelectorSidebar from '@/components/GameSelectorSidebar';
+import { PhPlus, PhMagnifyingGlass } from '@phosphor-icons/vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -305,7 +257,8 @@ onBeforeUnmount(() => {
     background-color: var(--bs-primary) !important;
     color: white;
 
-    h5, .text-muted {
+    h5,
+    .text-muted {
       color: white !important;
     }
   }

@@ -10,7 +10,7 @@
           <li>
             <button type="button" class="dropdown-item" :class="darkTheme ? 'text-light' : ''"
               data-bs-toggle="offcanvas" data-bs-target="#create-board-sidebar">
-              <i class="fa-solid fa-plus" />
+              <PhPlus :size="16" weight="fill" />
               Create board
             </button>
           </li>
@@ -55,6 +55,7 @@ import { useI18n } from 'vue-i18n';
 import MiniBoard from '@/components/Board/MiniBoard';
 import EmptyState from '@/components/EmptyState';
 import BoardGrid from '@/components/BoardGrid';
+import { PhPlus } from '@phosphor-icons/vue';
 
 const router = useRouter();
 const userStore = useUserStore();

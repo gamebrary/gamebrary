@@ -10,13 +10,8 @@
       <slot />
     </div>
 
-    <button
-      type="button"
-      class="btn"
-      :class="darkTheme ? 'btn-dark' : 'btn-light'"
-      @click="$emit('close')"
-    >
-      <i class="fas fa-close" aria-hidden />
+    <button type="button" class="btn" :class="darkTheme ? 'btn-dark' : 'btn-light'" @click="$emit('close')">
+      <PhX :size="16" weight="fill" aria-hidden />
     </button>
   </header>
 </template>
@@ -25,6 +20,7 @@
 import { computed, useSlots } from 'vue';
 import { useSettingsStore } from '@/stores/settings';
 import { useAppGetters } from '@/stores/getters';
+import { PhX } from '@phosphor-icons/vue';
 
 const props = defineProps({
   title: String,

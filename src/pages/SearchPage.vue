@@ -5,7 +5,7 @@
         <button type="button" class="btn me-1 border-0"
           :class="filterSelected ? 'btn-outline-danger' : darkTheme ? 'btn-outline-light' : 'btn-outline-danger'"
           data-bs-toggle="offcanvas" data-bs-target="#filtersSidebar" :title="'Filters'">
-          <i class="fa-regular fa-filter" />
+          <PhFunnel :size="16" :weight="filterSelected ? 'fill' : 'regular'" />
         </button>
 
         <nav v-if="searchResults.length > 0" aria-label="Search results pagination">
@@ -60,6 +60,7 @@ import GameCard from '@/components/GameCard';
 import SearchFilters from '@/components/SearchFilters';
 import SearchBox from '@/components/SearchBox';
 import { IGDB_QUERIES } from '@/constants';
+import { PhFunnel } from '@phosphor-icons/vue';
 
 const route = useRoute();
 const boardsStore = useBoardsStore();

@@ -9,7 +9,7 @@
                 @input="debounceSearch" />
               <button type="submit" class="btn btn-outline-secondary">
                 <span v-if="searchLoading" class="spinner-border spinner-border-sm" role="status"></span>
-                <i v-else class="fas fa-search" aria-hidden />
+                <PhMagnifyingGlass v-else :size="16" weight="fill" aria-hidden />
               </button>
             </div>
           </form>
@@ -18,24 +18,24 @@
         <button type="button" class="btn"
           :class="hasActiveFilters ? 'btn-primary' : darkTheme ? 'btn-outline-light' : 'btn-outline-dark'"
           data-bs-toggle="offcanvas" data-bs-target="#libraryFiltersSidebar" :title="'Filters'">
-          <i class="fa-regular fa-filter" />
+          <PhFunnel :size="16" weight="regular" />
           <span v-if="activeFilterCount > 0" class="badge bg-light text-dark ms-1">{{ activeFilterCount }}</span>
         </button>
 
         <div class="dropdown">
           <button class="btn dropdown-toggle" :class="darkTheme ? 'btn-outline-light' : 'btn-outline-dark'"
             type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fa-solid fa-arrow-down-a-z me-1" />
+            <PhSortAscending :size="16" weight="fill" class="me-1" />
             Sort
           </button>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="sortDropdown">
             <li v-for="option in sortOptions" :key="option.value">
               <button type="button" class="dropdown-item" :class="{ 'active': sortBy === option.value }"
                 @click="changeSort(option.value)">
-                <i :class="option.icon" class="me-2" />
+                <component :is="iconComponents[option.icon]" :size="16" weight="fill" class="me-2" />
                 {{ option.label }}
-                <i v-if="sortBy === option.value" :class="sortOrder === 'asc' ? 'fa-arrow-up' : 'fa-arrow-down'"
-                  class="ms-2" />
+                <component v-if="sortBy === option.value" :is="sortOrder === 'asc' ? PhCaretUp : PhCaretDown" :size="16"
+                  weight="fill" class="ms-2" />
               </button>
             </li>
           </ul>
@@ -45,12 +45,12 @@
           <button type="button" class="btn"
             :class="view === 'grid' ? (darkTheme ? 'btn-primary' : 'btn-dark') : (darkTheme ? 'btn-outline-light' : 'btn-outline-dark')"
             @click="view = 'grid'" title="Grid View">
-            <i class="fa-solid fa-grid-3x3" />
+            <PhGridFour :size="16" weight="fill" />
           </button>
           <button type="button" class="btn"
             :class="view === 'list' ? (darkTheme ? 'btn-primary' : 'btn-dark') : (darkTheme ? 'btn-outline-light' : 'btn-outline-dark')"
             @click="view = 'list'" title="List View">
-            <i class="fa-solid fa-list" />
+            <PhList :size="16" weight="fill" />
           </button>
         </div>
       </div>
@@ -161,6 +161,21 @@ import GameCard from '@/components/GameCard';
 import LibraryFilters from '@/components/LibraryFilters';
 import PaginationControls from '@/components/PaginationControls';
 import { HIGHLIGHTED_GAME_TIMEOUT, GAME_GENRES, PLATFORMS } from '@/constants';
+import {
+  PhMagnifyingGlass,
+  PhFunnel,
+  PhSortAscending,
+  PhGridFour,
+  PhList,
+  PhTextT,
+  PhPercent,
+  PhTag,
+  PhCalendar,
+  PhStar,
+  PhCalendarBlank,
+  PhCaretUp,
+  PhCaretDown,
+} from '@phosphor-icons/vue';
 
 const gamesStore = useGamesStore();
 const userStore = useUserStore();
@@ -170,6 +185,15 @@ const uiStore = useUIStore();
 const twitchStore = useTwitchStore();
 const { darkTheme } = useAppGetters();
 const $bus = inject('$bus');
+
+const iconComponents = {
+  PhTextT,
+  PhPercent,
+  PhTag,
+  PhCalendar,
+  PhStar,
+  PhCalendarBlank,
+};
 
 // Reactive state
 const loading = ref(true);
@@ -341,12 +365,12 @@ const likedGamesIds = computed(() => {
 });
 
 const sortOptions = computed(() => [
-  { value: 'name', label: 'Name', icon: 'fa-solid fa-font' },
-  { value: 'progress', label: 'Progress', icon: 'fa-solid fa-percent' },
-  { value: 'tags', label: 'Tags', icon: 'fa-solid fa-tags' },
-  { value: 'dateAdded', label: 'Date Added', icon: 'fa-solid fa-calendar' },
-  { value: 'rating', label: 'Rating', icon: 'fa-solid fa-star' },
-  { value: 'releaseDate', label: 'Release Date', icon: 'fa-solid fa-calendar-days' },
+  { value: 'name', label: 'Name', icon: 'PhTextT' },
+  { value: 'progress', label: 'Progress', icon: 'PhPercent' },
+  { value: 'tags', label: 'Tags', icon: 'PhTag' },
+  { value: 'dateAdded', label: 'Date Added', icon: 'PhCalendar' },
+  { value: 'rating', label: 'Rating', icon: 'PhStar' },
+  { value: 'releaseDate', label: 'Release Date', icon: 'PhCalendarBlank' },
 ]);
 
 const PAGE_SIZE = 20; // Page size for pagination

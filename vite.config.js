@@ -25,17 +25,6 @@ export default defineConfig({
               },
             },
           },
-          {
-            urlPattern: /^https:\/\/site-assets\.fontawesome\.com\/.*/i,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'fontawesome-cache',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
-              },
-            },
-          },
         ],
       },
       manifest: {
@@ -82,9 +71,13 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        manualChunks: (id) => {
+        manualChunks: id => {
           // Vue ecosystem
-          if (id.includes('node_modules/vue') || id.includes('node_modules/vue-router') || id.includes('node_modules/pinia')) {
+          if (
+            id.includes('node_modules/vue') ||
+            id.includes('node_modules/vue-router') ||
+            id.includes('node_modules/pinia')
+          ) {
             return 'vue-vendor';
           }
           // Firebase
@@ -136,4 +129,3 @@ export default defineConfig({
     },
   },
 });
-

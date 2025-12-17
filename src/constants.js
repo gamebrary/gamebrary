@@ -52,7 +52,7 @@ export const DEFAULT_BOARD_BASE = {
   darkTheme: false,
   backgroundColor: null,
   backgroundUrl: null,
-}
+};
 
 export const DEFAULT_PROFILE = {
   name: '',
@@ -66,14 +66,14 @@ export const DEFAULT_PROFILE = {
   friendCode: '',
   avatar: null,
   wallpaper: null,
-}
+};
 
 export const DEFAULT_BOARD_TIER = {
   ...DEFAULT_BOARD_BASE,
   type: BOARD_TYPE_TIER,
   lists: [
     { name: 'Superb', games: [], backgroundColor: '#C0382B' },
-    { name: 'A Tier', games: [], backgroundColor: '#E84B3C'},
+    { name: 'A Tier', games: [], backgroundColor: '#E84B3C' },
     { name: 'B Tier', games: [], backgroundColor: '#F39C19' },
     { name: 'C Tier', games: [], backgroundColor: '#F2C511' },
     { name: 'D Tier', games: [], backgroundColor: '#27AF60' },
@@ -86,7 +86,7 @@ export const DEFAULT_BOARD_STANDARD = {
   lists: [
     {
       games: [],
-    }
+    },
   ],
 };
 
@@ -120,7 +120,7 @@ export const DEFAULT_BOARD_KANBAN = {
       showNotes: false,
       showCount: false,
       view: null,
-    }
+    },
   ],
 };
 
@@ -140,7 +140,7 @@ export const FIREBASE_CONFIG = {
 };
 
 export const LINKS_CATEGORIES = {
-  1: { id: 'official', icon: 'fas fa-link', title: 'Official website' },
+  1: { id: 'official', icon: 'PhLink', title: 'Official website' },
   2: { id: 'fandom', svg: true },
   3: { id: 'wikipedia', svg: true },
   4: { id: 'facebook', svg: true },
@@ -163,17 +163,29 @@ export const NEWS_SOURCES = {
   eurogamer: { img: 'eurogamer.png', url: 'https://www.eurogamer.net/', name: 'Eurogamer' },
   vg247: { img: 'vg247.svg', url: 'https://www.vg247.com/', name: 'VG247' },
   rps: { img: 'rps.svg', url: 'https://www.rockpapershotgun.com/', name: 'Rock Paper Shotgun' },
-  rockpapershotgun: { img: 'rps.svg', url: 'https://www.rockpapershotgun.com/', name: 'Rock Paper Shotgun' },
+  rockpapershotgun: {
+    img: 'rps.svg',
+    url: 'https://www.rockpapershotgun.com/',
+    name: 'Rock Paper Shotgun',
+  },
   pcgamer: { img: 'pcgamer.png', url: 'https://www.pcgamer.com/', name: 'PC Gamer' },
   pressakeycom: { img: 'pressakey.png', url: 'https://pressakey.com/', name: 'Pressakey.com' },
   pcgamesn: { img: 'pcgamesn.svg', url: 'https://www.pcgamesn.com/', name: 'PCGamesN' },
-  steamcommunityannouncements: { img: 'steam.png', url: 'https://steamcommunity.com/', name: 'Steam' },
+  steamcommunityannouncements: {
+    img: 'steam.png',
+    url: 'https://steamcommunity.com/',
+    name: 'Steam',
+  },
   shacknews: { img: 'shacknews.png', url: 'https://www.shacknews.com/', name: 'Shacknews' },
   steamdb: { img: 'steamdb.svg', url: 'https://steamdb.info/', name: 'Steam' },
   gamemagru: { img: 'gamemagru.png', url: 'https://gamemag.ru/', name: 'GameMAG' },
   steamrelease: { img: 'steam.png', url: 'https://store.steampowered.com/', name: 'Steam' },
   steamannounce: { img: 'steam.png', url: 'https://store.steampowered.com/', name: 'Steam' },
-  gamingonlinux: { img: 'gamingonlinux.svg', url: 'https://www.gamingonlinux.com/', name: 'GamingOnLinux' },
+  gamingonlinux: {
+    img: 'gamingonlinux.svg',
+    url: 'https://www.gamingonlinux.com/',
+    name: 'GamingOnLinux',
+  },
 };
 
 export const KEYBOARD_SHORTCUTS = {
@@ -305,29 +317,34 @@ export const WEBSITE_CATEGORIES = {
 };
 
 export const GAME_GENRES = [
-  { id: 2, name: 'Point-and-click', slug: 'point-and-click', icon: 'fa-solid fa-computer-mouse' },
-  { id: 4, name: 'Fighting', slug: 'fighting', icon: 'fa-solid fa-hand-fist' },
-  { id: 5, name: 'Shooter', slug: 'shooter', icon: 'fa-solid fa-person-rifle' },
-  { id: 7, name: 'Music', slug: 'music', icon: 'fa-solid fa-music' },
-  { id: 8, name: 'Platform', slug: 'platform', icon: 'fa-solid fa-person-running' },
-  { id: 9, name: 'Puzzle', slug: 'puzzle', icon: 'fa-solid fa-puzzle-piece' },
-  { id: 10, name: 'Racing', slug: 'racing', icon: 'fa-solid fa-flag-checkered' },
-  { id: 11, name: 'Real Time Strategy (RTS)', slug: 'real-time-strategy-rts', icon: 'fas-solid fa-ambulance' },
-  { id: 12, name: 'Role-playing (RPG)', slug: 'role-playing-rpg', icon: 'fa-solid fa-shield' },
-  { id: 13, name: 'Simulator', slug: 'simulator', icon: 'fa-solid fa-cube' },
-  { id: 14, name: 'Sport', slug: 'sport', icon: 'fa-solid fa-futbol' },
-  { id: 15, name: 'Strategy', slug: 'strategy', icon: 'fa-solid fa-chess' },
-  { id: 16, name: 'Turn-based strategy (TBS)', slug: 'turn-based-strategy-tbs', icon: 'fa-solid fa-arrows-turn-to-dots' },
-  { id: 24, name: 'Tactical', slug: 'tactical', icon: 'fa-solid fa-user-ninja' },
-  { id: 25, name: 'Beat \'em up', slug: 'hack-and-slash-beat-em-up' },
-  { id: 26, name: 'Quiz/Trivia', slug: 'quiz-trivia', icon: 'fa-solid fa-person-circle-question' },
-  { id: 30, name: 'Pinball', slug: 'pinball', icon: 'fa-solid fa-table-tennis-paddle-ball' },
-  { id: 31, slug: 'adventure', icon: 'fa-solid fa-mountain-sun' },
-  { id: 32, name: 'Indie', slug: 'indie', icon: 'fa-solid fa-gamepad' },
-  { id: 33, name: 'Arcade', slug: 'arcade', icon: 'fa-solid fa-asterisk' },
-  { id: 34, name: 'Visual Novel', slug: 'visual-novel', icon: 'fa-solid fa-comments' },
-  { id: 35, name: 'Card & Board Game', slug: 'card-and-board-game', icon: 'fa-solid fa-chess-board' },
-  { id: 36, name: 'MOBA', slug: 'moba', icon: 'fa-solid fa-network-wired' },
+  { id: 2, name: 'Point-and-click', slug: 'point-and-click', icon: 'PhMouse' },
+  { id: 4, name: 'Fighting', slug: 'fighting', icon: 'PhHandFist' },
+  { id: 5, name: 'Shooter', slug: 'shooter', icon: 'PhGun' },
+  { id: 7, name: 'Music', slug: 'music', icon: 'PhMusicNote' },
+  { id: 8, name: 'Platform', slug: 'platform', icon: 'PhPersonRunning' },
+  { id: 9, name: 'Puzzle', slug: 'puzzle', icon: 'PhPuzzlePiece' },
+  { id: 10, name: 'Racing', slug: 'racing', icon: 'PhFlag' },
+  { id: 11, name: 'Real Time Strategy (RTS)', slug: 'real-time-strategy-rts', icon: 'PhStrategy' },
+  { id: 12, name: 'Role-playing (RPG)', slug: 'role-playing-rpg', icon: 'PhShield' },
+  { id: 13, name: 'Simulator', slug: 'simulator', icon: 'PhCube' },
+  { id: 14, name: 'Sport', slug: 'sport', icon: 'PhSoccerBall' },
+  { id: 15, name: 'Strategy', slug: 'strategy', icon: 'PhChess' },
+  {
+    id: 16,
+    name: 'Turn-based strategy (TBS)',
+    slug: 'turn-based-strategy-tbs',
+    icon: 'PhArrowsClockwise',
+  },
+  { id: 24, name: 'Tactical', slug: 'tactical', icon: 'PhNinja' },
+  { id: 25, name: "Beat 'em up", slug: 'hack-and-slash-beat-em-up' },
+  { id: 26, name: 'Quiz/Trivia', slug: 'quiz-trivia', icon: 'PhQuestion' },
+  { id: 30, name: 'Pinball', slug: 'pinball', icon: 'PhTableTennis' },
+  { id: 31, slug: 'adventure', icon: 'PhMountains' },
+  { id: 32, name: 'Indie', slug: 'indie', icon: 'PhGameController' },
+  { id: 33, name: 'Arcade', slug: 'arcade', icon: 'PhAsterisk' },
+  { id: 34, name: 'Visual Novel', slug: 'visual-novel', icon: 'PhChatCircle' },
+  { id: 35, name: 'Card & Board Game', slug: 'card-and-board-game', icon: 'PhChessBoard' },
+  { id: 36, name: 'MOBA', slug: 'moba', icon: 'PhNetwork' },
 ];
 
 export const PLATFORMS = {
@@ -491,59 +508,63 @@ export const PLATFORMS = {
 };
 
 export const GAME_THEMES = [
-    { id: 1, name: 'Action', slug: 'action' },
-    { id: 17, name: 'Fantasy', slug: 'fantasy' },
-    { id: 18, name: 'Science fiction', slug: 'science-fiction' },
-    { id: 19, name: 'Horror', slug: 'horror' },
-    { id: 20, name: 'Thriller', slug: 'thriller' },
-    { id: 21, name: 'Survival', slug: 'survival' },
-    { id: 22, name: 'Historical', slug: 'historical' },
-    { id: 23, name: 'Stealth', slug: 'stealth' },
-    { id: 27, name: 'Comedy', slug: 'comedy' },
-    { id: 28, name: 'Business', slug: 'business' },
-    { id: 31, name: 'Drama', slug: 'drama' },
-    { id: 32, name: 'Non-fiction', slug: 'non-fiction' },
-    { id: 33, name: 'Sandbox', slug: 'sandbox' },
-    { id: 34, name: 'Educational', slug: 'educational' },
-    { id: 35, name: 'Kids', slug: 'kids' },
-    { id: 38, name: 'Open world', slug: 'open-world' },
-    { id: 39, name: 'Warfare', slug: 'warfare' },
-    { id: 40, name: 'Party', slug: 'party' },
-    { id: 41, name: '4X (explore, expand, exploit, and exterminate)', slug: '4x-explore-expand-exploit-and-exterminate' },
-    { id: 42, name: 'Erotic', slug: 'erotic' },
-    { id: 43, name: 'Mystery', slug: 'mystery' },
-    { id: 44, name: 'Romance', slug: 'romance' },
+  { id: 1, name: 'Action', slug: 'action' },
+  { id: 17, name: 'Fantasy', slug: 'fantasy' },
+  { id: 18, name: 'Science fiction', slug: 'science-fiction' },
+  { id: 19, name: 'Horror', slug: 'horror' },
+  { id: 20, name: 'Thriller', slug: 'thriller' },
+  { id: 21, name: 'Survival', slug: 'survival' },
+  { id: 22, name: 'Historical', slug: 'historical' },
+  { id: 23, name: 'Stealth', slug: 'stealth' },
+  { id: 27, name: 'Comedy', slug: 'comedy' },
+  { id: 28, name: 'Business', slug: 'business' },
+  { id: 31, name: 'Drama', slug: 'drama' },
+  { id: 32, name: 'Non-fiction', slug: 'non-fiction' },
+  { id: 33, name: 'Sandbox', slug: 'sandbox' },
+  { id: 34, name: 'Educational', slug: 'educational' },
+  { id: 35, name: 'Kids', slug: 'kids' },
+  { id: 38, name: 'Open world', slug: 'open-world' },
+  { id: 39, name: 'Warfare', slug: 'warfare' },
+  { id: 40, name: 'Party', slug: 'party' },
+  {
+    id: 41,
+    name: '4X (explore, expand, exploit, and exterminate)',
+    slug: '4x-explore-expand-exploit-and-exterminate',
+  },
+  { id: 42, name: 'Erotic', slug: 'erotic' },
+  { id: 43, name: 'Mystery', slug: 'mystery' },
+  { id: 44, name: 'Romance', slug: 'romance' },
 ];
 
 export const GAME_LANGUAGES = [
-    { id: 1, name: 'Arabic', nativeName: 'العربية' },
-    { id: 2, name: 'Chinese (Simplified)', nativeName: '简体中文' },
-    { id: 3, name: 'Chinese (Traditional)', nativeName: '繁體中文' },
-    { id: 4, name: 'Czech', nativeName: 'čeština' },
-    { id: 5, name: 'Danish', nativeName: 'Dansk' },
-    { id: 6, name: 'Dutch', nativeName: 'Nederlands' },
-    { id: 7, name: 'English', nativeName: 'English (US)' },
-    { id: 8, name: 'English (UK)', nativeName: 'English (UK)' },
-    { id: 9, name: 'Spanish (Spain)', nativeName: 'Español (España)' },
-    { id: 10, name: 'Spanish (Mexico)', nativeName: 'Español (Mexico)' },
-    { id: 12, name: 'French', nativeName: 'Français' },
-    { id: 14, name: 'Hungarian', nativeName: 'Magyar' },
-    { id: 11, name: 'Finnish', nativeName: 'Suomi' },
-    { id: 15, name: 'Italian', nativeName: 'Italiano' },
-    { id: 13, name: 'Hebrew', nativeName: 'עברית' },
-    { id: 16, name: 'Japanese', nativeName: '日本語' },
-    { id: 17, name: 'Korean', nativeName: '한국어' },
-    { id: 18, name: 'Norwegian', nativeName: 'Norsk' },
-    { id: 20, name: 'Portuguese (Portugal)', nativeName: 'Português (Portugal)' },
-    { id: 21, name: 'Portuguese (Brazil)', nativeName: 'Português (Brasil)' },
-    { id: 19, name: 'Polish', nativeName: 'Polski' },
-    { id: 22, name: 'Russian', nativeName: 'Русский' },
-    { id: 24, name: 'Turkish', nativeName: 'Türkçe' },
-    { id: 25, name: 'Thai', nativeName: 'ไทย' },
-    { id: 26, name: 'Vietnamese', nativeName: 'Tiếng Việt' },
-    { id: 23, name: 'Swedish', nativeName: 'Svenska' },
-    { id: 28, name: 'Ukrainian', nativeName: 'українська' },
-    { id: 27, name: 'German', nativeName: 'Deutsch' }
+  { id: 1, name: 'Arabic', nativeName: 'العربية' },
+  { id: 2, name: 'Chinese (Simplified)', nativeName: '简体中文' },
+  { id: 3, name: 'Chinese (Traditional)', nativeName: '繁體中文' },
+  { id: 4, name: 'Czech', nativeName: 'čeština' },
+  { id: 5, name: 'Danish', nativeName: 'Dansk' },
+  { id: 6, name: 'Dutch', nativeName: 'Nederlands' },
+  { id: 7, name: 'English', nativeName: 'English (US)' },
+  { id: 8, name: 'English (UK)', nativeName: 'English (UK)' },
+  { id: 9, name: 'Spanish (Spain)', nativeName: 'Español (España)' },
+  { id: 10, name: 'Spanish (Mexico)', nativeName: 'Español (Mexico)' },
+  { id: 12, name: 'French', nativeName: 'Français' },
+  { id: 14, name: 'Hungarian', nativeName: 'Magyar' },
+  { id: 11, name: 'Finnish', nativeName: 'Suomi' },
+  { id: 15, name: 'Italian', nativeName: 'Italiano' },
+  { id: 13, name: 'Hebrew', nativeName: 'עברית' },
+  { id: 16, name: 'Japanese', nativeName: '日本語' },
+  { id: 17, name: 'Korean', nativeName: '한국어' },
+  { id: 18, name: 'Norwegian', nativeName: 'Norsk' },
+  { id: 20, name: 'Portuguese (Portugal)', nativeName: 'Português (Portugal)' },
+  { id: 21, name: 'Portuguese (Brazil)', nativeName: 'Português (Brasil)' },
+  { id: 19, name: 'Polish', nativeName: 'Polski' },
+  { id: 22, name: 'Russian', nativeName: 'Русский' },
+  { id: 24, name: 'Turkish', nativeName: 'Türkçe' },
+  { id: 25, name: 'Thai', nativeName: 'ไทย' },
+  { id: 26, name: 'Vietnamese', nativeName: 'Tiếng Việt' },
+  { id: 23, name: 'Swedish', nativeName: 'Svenska' },
+  { id: 28, name: 'Ukrainian', nativeName: 'українська' },
+  { id: 27, name: 'German', nativeName: 'Deutsch' },
 ];
 
 export const GAME_PERSPECTIVES = [
@@ -553,7 +574,7 @@ export const GAME_PERSPECTIVES = [
   { id: 5, name: 'Text', slug: 'text' },
   { id: 4, name: 'Side view', slug: 'side-view' },
   { id: 7, name: 'Virtual Reality', slug: 'virtual-reality' },
-  { id: 6, name: 'Auditory', slug: 'auditory' }
+  { id: 6, name: 'Auditory', slug: 'auditory' },
 ];
 
 export const GAME_MODES = [
@@ -562,7 +583,7 @@ export const GAME_MODES = [
   { id: 3, name: 'Co-operative', slug: 'co-operative' },
   { id: 4, name: 'Split screen', slug: 'split-screen' },
   { id: 5, name: 'Massively Multiplayer Online (MMO)', slug: 'massively-multiplayer-online-mmo' },
-  { id: 6, name: 'Battle Royale', slug: 'battle-royale' }
+  { id: 6, name: 'Battle Royale', slug: 'battle-royale' },
 ];
 
 export const GAME_CATEGORIES = {
@@ -633,6 +654,7 @@ export const IGDB_QUERIES = {
     websites.url,
     themes.*;`,
   PLATFORMS: 'fields category,generation,name,alternative_name,slug,platform_logo.*; limit 300;',
-  COMPANY: 'fields id,description,developed.name,developed.slug,developed.cover.*,logo.*,name,published.name,published.slug,published.cover.*,websites.*,slug;',
+  COMPANY:
+    'fields id,description,developed.name,developed.slug,developed.cover.*,logo.*,name,published.name,published.slug,published.cover.*,websites.*,slug;',
   SEARCH: 'fields name,platforms,slug,rating,cover.image_id,category;',
-}
+};

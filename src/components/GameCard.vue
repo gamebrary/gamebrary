@@ -14,7 +14,7 @@
         <button v-if="user" type="button" class="btn btn-sm like-button m-1"
           :class="{ 'liked': isLiked, 'bg-transparent': true, 'border-0': true }"
           @click.stop.prevent="$bus.$emit('LIKE_UNLIKE_GAME', game.id)">
-          <i :class="[isLiked ? 'fa-solid' : 'fa-regular', 'fa-heart text-danger']" class="fa-fw" />
+          <PhHeart :size="16" :weight="isLiked ? 'fill' : 'regular'" class="text-danger" />
         </button>
 
         <img :src="getImageUrl(game, IMAGE_SIZE_COVER_SMALL)" :alt="game.name" class="rounded"
@@ -33,7 +33,7 @@
       </div>
 
       <span v-if="!hideProgress && gameProgress > 0" class="badge rounded-pill bg-success me-1">
-        <i v-if="gameProgress == 100" class="fas fa-check fa-fw" aria-hidden />
+        <PhCheck v-if="gameProgress == 100" :size="12" weight="fill" aria-hidden />
         <small v-else>{{ gameProgress }}%</small>
       </span>
 
@@ -59,7 +59,8 @@
       </template>
 
       <template v-if="!hideNotes && gameNotes">
-        <i class="fas fa-book note-indicator text-warning" data-bs-toggle="tooltip" title="See game notes"
+        <PhBook class="note-indicator text-warning" :size="16" weight="fill" data-bs-toggle="tooltip"
+          title="See game notes"
           @click.stop.prevent="$router.push({ name: 'game.notes', params: { id: game.id, slug: game.slug } })" />
       </template>
 
@@ -91,6 +92,7 @@ import { getImageUrl } from '@/utils';
 import { IMAGE_SIZE_COVER_SMALL, PLATFORMS, BOARD_TYPE_GRID } from '@/constants';
 import GameRibbon from '@/components/GameRibbon';
 import slugify from 'slugify';
+import { PhHeart, PhCheck, PhBook } from '@phosphor-icons/vue';
 
 const props = defineProps({
   gameId: {
