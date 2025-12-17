@@ -20,7 +20,8 @@ const routes = [
   {
     name: "game",
     path: "/g/:id/:slug",
-    component: () => import(/* webpackChunkName: "game" */ "@/pages/game/GameLayout"),
+    component: () => import(/* webpackChunkName: "game" */ "@/pages/game/GamePage"),
+    redirect: { name: "game.overview" },
     meta: {
       public: true,
     },

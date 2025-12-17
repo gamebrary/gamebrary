@@ -1,17 +1,9 @@
 <template lang="html">
-  <div class="kanban-board pl-3">
-    <KanbanList
-      v-for="(list, listIndex) in board.lists"
-      :ref="(el) => setListRef(listIndex, el)"
-      :list="list"
-      :listIndex="listIndex"
-      :key="listIndex"
-    />
+  <div class="kanban-board p-3">
+    <KanbanList v-for="(list, listIndex) in board.lists" :ref="(el) => setListRef(listIndex, el)" :list="list"
+      :listIndex="listIndex" :key="listIndex" />
 
-    <AddKanbanList
-      v-if="isBoardOwner"
-      :empty="empty"
-    />
+    <AddKanbanList v-if="isBoardOwner" :empty="empty" />
   </div>
 </template>
 

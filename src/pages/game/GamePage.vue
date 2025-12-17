@@ -1,5 +1,11 @@
 <template lang="html">
-  <div v-if="!loading && !game" class="pt-5">
+  <div v-if="loading" class="spinner-centered d-flex justify-content-center py-5">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div v-else-if="!game" class="pt-5">
     <div class="d-flex justify-content-center align-items-center">
       <h1 class="mr-3 pr-3 align-top border-right border-danger inline-block align-content-center text-danger">404</h1>
       <div class="inline-block align-middle">

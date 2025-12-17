@@ -40,12 +40,19 @@
       <SearchBox :loading="loading" />
     </div>
 
-    <GameCard v-for="game in searchResults" class="mb-3 mx-3" :game-id="game.id" :key="game.id" />
+    <div v-if="loading" class="spinner-centered d-flex justify-content-center py-5">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
 
-    <p v-if="!loading && query.length > 0 && !searchResults.length"
-      :class="['text-center mt-5', { 'text-info': darkTheme }]">
-      No results found
-    </p>
+    <template v-else>
+      <GameCard v-for="game in searchResults" class="mb-3 mx-3" :game-id="game.id" :key="game.id" />
+
+      <p v-if="query.length > 0 && !searchResults.length" :class="['text-center mt-5', { 'text-info': darkTheme }]">
+        No results found
+      </p>
+    </template>
   </section>
 </template>
 
